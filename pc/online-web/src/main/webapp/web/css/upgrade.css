@@ -1,0 +1,244 @@
+@charset "UTF-8";
+@keyframes arrowAnimotion {
+    0% {
+        transform: translateY(0px);
+    }
+    25% {
+        transform: translateY(50px);
+    }
+    30% {
+        transform: translateY(40px);
+    }
+    55% {
+        transform: translateY(50px);
+    }
+    60% {
+        transform: translateY(40px);
+    }
+    85% {
+        transform: translateY(50px);
+    }
+    90% {
+        transform: translateY(40px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@-moz-keyframes arrowAnimotion {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(50px);
+    }
+}
+
+@-webkit-keyframes arrowAnimotion {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(30px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@-o-keyframes arrowAnimotion {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(50px);
+    }
+}
+
+@-ms-keyframes arrowAnimotion {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(50px);
+    }
+}
+
+/*titleChange动画*/
+@keyframes titleChange {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.5, 0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes titleChange {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.5, 0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes titleChange {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.5, 0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+@-o-keyframes titleChange {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.5, 0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes titleChange {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(0.5, 0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+/*wordsChange动画*/
+@keyframes wordsChange {
+    0% {
+        transform: translateY(3400px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@-moz-keyframes wordsChange {
+    0% {
+        -moz-transform: translateY(3400px);
+    }
+    100% {
+        -moz-transform: translateY(0px);
+    }
+}
+
+@-webkit-keyframes wordsChange {
+    0% {
+        -webkit-transform: translateY(3400px);
+    }
+    100% {
+        -webkit-transform: translateY(0px);
+    }
+}
+
+@-o-keyframes wordsChange {
+    0% {
+        -o-transform: translateY(3400px);
+    }
+    100% {
+        -o-transform: translateY(0px);
+    }
+}
+
+@-ms-keyframes wordsChange {
+    0% {
+        -ms-transform: translateY(3400px);
+    }
+    100% {
+        -ms-transform: translateY(0px);
+    }
+}
+
+body {
+    background-color: #F7F7F7;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.upgradeBody {
+    height: 100%;
+    width: 100%;
+}
+
+.upgradeBody_index {
+    height: 300px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    margin-top: -192px;
+}
+
+.upgradeBody_index .greendUp {
+    font-size: 22px;
+    color: #2CB82C;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.upgradeBody_index .greendDown {
+    font-size: 14px;
+    line-height: 22px;
+    width: 340px;
+    color: #555;
+    margin: 0 auto;
+}
+
+.upgradeBody .upgradeBody_bottom {
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+    margin: 0px;
+    font-size: 12px;
+    color: #333333;
+    margin-bottom: 30px;
+}
+
+.upgradeBody .upgradeBody_bottom p {
+    margin: 0px;
+    line-height: 12px;
+}
+

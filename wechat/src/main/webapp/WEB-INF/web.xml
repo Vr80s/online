@@ -1,0 +1,88 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Web Application</display-name>
+
+
+	<context-param>
+		<param-name>logbackConfigLocation</param-name>
+		<param-value>/WEB-INF/conf/logback.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.xczh.consumer.market.listener.LogbackConfigListener</listener-class>
+	</listener>
+
+	 <listener>
+  	      <listener-class>com.xczh.consumer.market.listener.MyServletContextListener</listener-class>
+     </listener>
+
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<!-- 此filter处理权限相关的东西 -->
+<!--	<filter>
+		<filter-name>authFilter</filter-name>
+		<filter-class>com.xczh.distributed.common.filter.AuthFilter</filter-class>
+		<init-param>
+			<param-name>authClass</param-name>
+			<param-value>com.xczh.consumer.market.utils.MarketAuthFinder</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>authFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+
+	<!-- 我的拦截器 -->
+	<filter>
+		<filter-name>TokenFilter</filter-name>
+		<filter-class>com.xczh.consumer.market.filter.TokenFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>TokenFilter</filter-name>
+		<url-pattern>/bxg/*</url-pattern>
+	</filter-mapping>
+
+
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/conf/spring-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>10080</session-timeout>
+	</session-config>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

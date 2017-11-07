@@ -1,0 +1,273 @@
+@themeColor: #2cb82c;
+@mFSize: 0.85rem;
+@nFSize: 1rem;
+@lFSize: 1.2rem;
+
+.box(@box-size) {
+  -webkit-box-sizing: @box-size;
+  -moz-box-sizing: @box-size;
+  box-sizing: @box-size;
+}
+
+.opacity(@opacity) {
+  opacity: @opacity;
+  // IE8 filter
+  @opacity-ie: (@opacity * 100);
+  filter: ~"alpha(opacity=@{opacity-ie})";
+}
+
+.boder_radius(@radius) {
+  -moz-border-radius: @radius; /* Firefox */
+  -webkit-border-radius: @radius; /* Safari 和 Chrome */
+  border-radius: @radius; /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+
+.scale(@x, @y) {
+  transition: scale(@x, @y);
+  -webkit-transform: scale(@x, @y);
+  -o-transform: scale(@x, @y);
+  -moz-transform: scale(@x, @y);
+}
+
+.transitionModel(@model, @second) {
+  transition: @model  @second;
+  -webkit-transform: @model  @second;
+  -moz-transform: @model  @second;
+  -o-transform: @model  @second;
+}
+
+.allowUserSelect(@val) {
+  -webkit-user-select: @val;
+  -moz-user-select: @val;
+  -ms-user-select: @val;
+  user-select: @val;
+}
+
+.backVisible(@val) {
+  backface-visibility: @val;
+  -webkit-backface-visibility: @val; /* Chrome 和 Safari */
+  -moz-backface-visibility: @val; /* Firefox */
+  -ms-backface-visibility: @val;
+}
+
+.moveXY(@x, @y) {
+  -webkit-transform: translate(@x, @y);
+  transform: translate(@x, @y);
+  -moz-transform: translate(@x, @y);
+  -o-transform: translate(@x, @y);
+}
+
+.rotate3dY(@deg) {
+  transform: rotateY(@deg);
+  -webkit-transform: rotateY(@deg); /* Safari and Chrome */
+  -moz-transform: rotateY(@deg);
+  -o-transform: rotateY(@deg);
+}
+
+.animation(@animation-name,@animation-duration,@animation-timing-function,
+
+@animation-delay,@animation-iteration-count,@animation-direction) {
+
+  animation: @arguments;
+
+  /* Firefox: */
+
+  -moz-animation: @arguments;
+
+  /* Safari 和 Chrome: */
+
+  -webkit-animation: @arguments;
+
+  /* Opera: */
+
+  -o-animation: @arguments;
+
+}
+
+@keyframes arrowAnimotion {
+  0% {
+    transform: translateY(0px)
+  }
+  25% {
+    transform: translateY(50px)
+  }
+  30% {
+    transform: translateY(40px)
+  }
+  55% {
+    transform: translateY(50px)
+  }
+  60% {
+    transform: translateY(40px)
+  }
+  85% {
+    transform: translateY(50px)
+  }
+  90% {
+    transform: translateY(40px)
+  }
+  100% {
+    transform: translateY(0px)
+  }
+}
+
+@-moz-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px)
+  }
+  to {
+    transform: translateY(50px)
+  }
+}
+
+@-webkit-keyframes arrowAnimotion {
+  0% {
+    transform: translateY(0px)
+  }
+  50% {
+    transform: translateY(30px)
+  }
+  100% {
+    transform: translateY(0px)
+  }
+}
+
+@-o-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px)
+  }
+  to {
+    transform: translateY(50px)
+  }
+}
+
+@-ms-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px)
+  }
+  to {
+    transform: translateY(50px)
+  }
+}
+
+/*titleChange动画*/
+@keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@-o-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+/*wordsChange动画*/
+@keyframes wordsChange {
+  0% {
+    transform: translateY(3400px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@-moz-keyframes wordsChange {
+  0% {
+    -moz-transform: translateY(3400px);
+  }
+  100% {
+    -moz-transform: translateY(0px);
+  }
+}
+
+@-webkit-keyframes wordsChange {
+  0% {
+    -webkit-transform: translateY(3400px);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+  }
+}
+
+@-o-keyframes wordsChange {
+  0% {
+    -o-transform: translateY(3400px);
+  }
+  100% {
+    -o-transform: translateY(0px);
+  }
+}
+
+@-ms-keyframes wordsChange {
+  0% {
+    -ms-transform: translateY(3400px);
+  }
+  100% {
+    -ms-transform: translateY(0px);
+  }
+}

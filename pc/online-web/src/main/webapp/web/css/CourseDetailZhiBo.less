@@ -1,0 +1,1584 @@
+html,
+body {
+    width: 100%;
+    background: #F7F7F7;
+    position: relative;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+p,
+ul,
+ol {
+    margin: 0;
+}
+.kecheng {
+    display: block!important;
+}
+.personBack {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    overflow: hidden;
+    .personMess {
+        width: 596px;
+        padding-bottom: 30px;
+        position: absolute;
+        left: 50%;
+        top: 35%;
+        margin-top: -390px;
+        margin-left: -260px; //      transform: translate(-50%,-50%);
+        //      -webkit-transform: translate(-50%,-50%);
+        //      -moz-transform: translate(-50%,-50%);
+        //      -ms-transform: translate(-50%,-50%);
+        //      -o-transform: translate(-50%,-50%);
+        background: #fff;
+        .kecheng {
+            .warn {
+                a {
+                    display: inline;
+                    color: #2CB82C;
+                    margin: 0 5px;
+                    border-bottom: 1px solid #fff;
+                    &:hover {
+                        border-bottom: 1px solid #2CB82C;
+                    }
+                }
+            }
+        }
+        .title {
+            padding: 0 20px;
+            line-height: 52px;
+            background: #FAFAFA;
+            color: #333;
+            font-size: 18px;
+        }
+        .red {
+            line-height: 23px;
+            font-style: normal;
+            vertical-align: middle;
+        }
+        #rq_province {
+            margin-left: 3px;
+            width: 118px;
+            background-position: 98px 15px;
+        }
+        #rq_city {
+            width: 118px;
+            background-position: 98px 15px;
+        }
+        #rq_college {
+            width: 118px;
+            background-position: 98px 15px;
+        }
+        #rqsxl {
+            margin-left: 3px;
+            width: 118px;
+        }
+        #rqcxl {
+            width: 118px;
+            left: 141px;
+        }
+        #rqdxxl {
+            width: 118px;
+            left: 280px;
+        }
+        .a000 {
+            padding-top: 10px;
+        }
+    }
+}
+.emptyHit,
+.emptyHit1 {
+    display: none;
+    width: 150px;
+    float: left;
+    margin-left: 2px;
+    font-size: 12px;
+    color: #FF4012;
+    margin-top: 2px;
+    i {
+        font-size: 12px;
+        color: #FF4012;
+        display: inline-block;
+        margin-right: 5px;
+    }
+}
+.pages {
+    margin-bottom: 0;
+}
+.pinglunPage {
+    margin: 0 auto;
+    background-color: #fafafa;
+    text-align: center;
+    .shangyiye,
+    .zhongjianye,
+    .xiayiye {
+        display: inline-block;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+    .shangyiye {
+        margin-right: 17px;
+    }
+    .shangyiye,
+    .xiayiye {
+        font-size: 12px;
+        color: #999;
+    }
+    .zhongjianye {
+        a {
+            font-size: 14px;
+            font-family: Arial;
+            color: #999;
+            margin-right: 17px;
+        }
+        span {
+            font-size: 14px;
+            font-family: Arial;
+            color: #999;
+            margin: 0 20px !important;
+        }
+    }
+    .current {
+        color: #2cb82c !important;
+    }
+}
+.opened {
+    height: auto !important;
+}
+.toggle .opens {
+    color: #2CB82C !important;
+    font-size: 13px;
+    text-decoration: none;
+}
+.toggle:hover {
+    text-decoration: underline !important;
+}
+.toggle .closes,
+.opened .toggle .opens {
+    display: none;
+    color: #2CB82C !important;
+    font-size: 13px;
+    text-decoration: none;
+}
+.toggle .opened,
+.opened .toggle .closes {
+    display: inline;
+    color: #2CB82C;
+    font-size: 13px;
+    text-decoration: none;
+}
+.content {
+    width: 1200px;
+    margin: 0 auto;
+    .bread {
+        display: block;
+        font-size: 12px;
+        margin: 15px 0;
+        color: #999;
+        i {
+            font-style: normal;
+        }
+        a {
+            color: #999;
+            &:hover {
+                color: #2CB82C;
+            }
+        }
+    }
+    .course-mess {
+        padding: 30px 30px 10px;
+        background: #fff;
+        .mess-left {
+            max-width: 706px;
+            float: left;
+            .mess-title {
+                font-size: 18px;
+                color: #333;
+            }
+            .mess-con {
+                font-size: 14px;
+                color: #666;
+                line-height: 22px;
+                margin-top: 8px;
+                word-break: break-all;
+                word-wrap: break-word;
+            }
+        }
+        .mess-right {
+            float: left;
+            margin-left: 60px;
+            color: #666;
+            font-size: 14px;
+            .right1 {
+                float: right;
+                text-align: center;
+                p {
+                    //        span {
+                    //          color: #2CB82C;
+                    //        }
+                }
+            }
+            .right2 {
+                float: right;
+                text-align: center;
+                margin-right: 50px;
+                p {
+                    //        span {
+                    //          color: #2CB82C;
+                    //        }
+                }
+            }
+        }
+    }
+    .course-range {
+        background: #fff;
+        padding: 30px 0;
+        .l1 {
+            width: 82px;
+            height: 82px;
+            background: url("../images/zhiboCourse/icon01.png") #fff no-repeat center center;
+            border-radius: 41px;
+            box-shadow: 0 0 20px 8px #e6eff8;
+            float: left;
+            margin-left: 186px;
+        }
+        .l2 {
+            width: 580px;
+            height: 8px;
+            border-radius: 4px;
+            background: #eee;
+            float: left;
+            margin-left: 30px;
+            margin-top: 37px;
+            .blue {
+                position: relative;
+                display: block;
+                height: 8px;
+                border-radius: 4px;
+                background: #5faaf7;
+                //              width: 300px;
+                .range {
+                    position: absolute;
+                    right: -18px;
+                    top: -18px;
+                    z-index: 9;
+                }
+                .sanjiao {
+                    position: absolute;
+                    top: -17px;
+                    right: -1px;
+                }
+                .xuanfu {
+                    position: absolute;
+                    top: -40px;
+                    right: -16px;
+                    color: #fff;
+                    font-size: 12px;
+                    text-align: center;
+                    padding: 3px;
+                    z-index: 15;
+                    background: #555d67;
+                    min-width: 40px;
+                }
+            }
+            .tip {
+                text-align: center;
+                color: #333;
+                font-size: 14px;
+                margin-top: 20px;
+            }
+        }
+        .l3 {
+            float: left;
+            margin-left: 30px;
+            width: 106px;
+            height: 44px;
+            color: #fff;
+            text-align: center;
+            line-height: 44px;
+            background: #5FAAF7;
+            font-size: 14px;
+            border-radius: 2px;
+            margin-top: 19px;
+            display: block;
+            &:hover {
+                background: #5295da;
+            }
+        }
+        .stop {
+            background: #ccc!important;
+            cursor: default!important;
+        }
+    }
+    .course-nav {
+        margin-top: 20px;
+        height: 60px;
+        line-height: 60px;
+        background: #fff;
+        display: block;
+        padding: 0 30px;
+        clear: both;
+        box-shadow: 0 1px 6px 1px #ececec;
+        border-bottom: 1px solid #E4E4E4;
+        ul {
+            height: 59px;
+        }
+        li {
+            height: 100%;
+            float: left;
+            a {
+                color: #333;
+                padding: 0 15px;
+                height: 60px;
+                margin-right: 20px;
+            }
+        }
+        .jihua {
+            display: none;
+        }
+        .active {
+            a {
+                color: #2CB82C;
+                border-bottom: 1px solid #2CB82C;
+            }
+        }
+    }
+    .course-main {
+        width: 100%;
+        margin: 0 auto;
+        background: #fff;
+        .main {
+            background: url("../images/zhiboCourse/course-bg.png") repeat-y left top;
+            width: 100%;
+            position: relative;
+            display: block;
+            .main-left {
+                left: 0;
+                position: absolute;
+                height: 100%;
+                width: 281px;
+                float: left;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                max-height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                .allvideo {
+                    li {
+                        padding-left: 30px;
+                        height: 36px;
+                        line-height: 36px;
+                        cursor: pointer;
+                        a {
+                            color: #333;
+                            max-width: 222px;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            float: left;
+                            font-size: 14px;
+                        }
+                        span {
+                            display: block;
+                            float: left;
+                            margin-left: 10px;
+                        }
+                    }
+                    .active {
+                        background: #2CB82C;
+                        color: #fff;
+                        a {
+                            color: #fff;
+                        }
+                    }
+                }
+                .allinfo {
+                    .hide {
+                        display: none!important;
+                    }
+                    .unact {
+                        &>span {
+                            top: 13px!important;
+                            transform: rotateZ(0deg)!important;
+                            -webkit-transform: rotateZ(0deg)!important;
+                            -ms-transform: rotateZ(0deg)!important;
+                            -moz-transform: rotateZ(0deg)!important;
+                        }
+                    }
+                    .act {
+                        display: block;
+                        &>span {
+                            top: 18px!important;
+                            -webkit-transform: rotateZ(45deg)!important;
+                            -ms-transform: rotateZ(45deg)!important;
+                            -moz-transform: rotateZ(45deg)!important;
+                            transform: rotateZ(45deg)!important;
+                        }
+                    }
+                    .info1-name {
+                        padding-left: 40px;
+                        height: 36px;
+                        line-height: 36px;
+                        cursor: pointer;
+                        position: relative;
+                        clear: both;
+                        max-width: 280px;
+                        white-space: nowrap;
+                        padding-right: 25px;
+                        text-overflow: ellipsis;
+                        font-size: 14px;
+                        overflow: hidden;
+                        span {
+                            left: 25px;
+                            top: 13px;
+                            width: 0;
+                            height: 0;
+                            border: 5px solid transparent;
+                            border-left-color: #999;
+                            position: absolute;
+                        }
+                    }
+                    .info1 {
+                        line-height: 36px;
+                        cursor: pointer;
+                        position: relative;
+                        span {
+                            width: 0;
+                            height: 0;
+                            border: 5px solid transparent;
+                            border-left-color: #999;
+                            position: absolute;
+                            left: 40px;
+                            top: 13px;
+                        }
+                        .info2-name {
+                            padding-left: 55px;
+                            padding-right: 25px;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            font-size: 12px;
+                            position: relative;
+                        }
+                        .info3-name {
+                            padding-left: 70px;
+                            padding-right: 25px;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            position: relative;
+                            font-size: 12px;
+                            span {
+                                left: 60px;
+                            }
+                        }
+                        .info2 {
+                            padding-left: 70px;
+                            display: block;
+                            height: 36px;
+                            line-height: 36px;
+                            cursor: pointer;
+                            padding-right: 25px;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            font-size: 12px;
+                            position: relative;
+                            &:hover {
+                                background: #2CB82C;
+                                color: #fff;
+                            }
+                        }
+                        .active {
+                            background: #2CB82C;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+            .main-right {
+                float: right;
+                padding: 30px 40px 50px;
+                width: 920px;
+                min-height: 500px;
+                .con-wait {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    padding: 0 20px;
+                    margin-left: -48px;
+                    margin-top: -22px;
+                    .loadingWord {
+                        display: block;
+                        margin: 0 auto;
+                        font-size: 12px;
+                        color: #333;
+                        width: 37px;
+                        margin-top: 5px;
+                    }
+                }
+                .page-no-result {
+                    display: none;
+                    margin-top: 100px !important;
+                }
+                .main-video {
+                    display: block;
+                    .right-nav {
+                        text-align: right;
+                        color: #333;
+                        font-size: 14px;
+                        div {
+                            float: left;
+                            margin-right: 26px;
+                        }
+                        span {
+                            float: right;
+                            margin-right: 26px;
+                        }
+                        .iconfont {
+                            font-size: 14px;
+                            margin-right: 5px;
+                            color: #ccc;
+                        }
+                        .nav0 {
+                            //                          background: url("../images/zhiboCourse/icon04.png") left center no-repeat;
+                            //                          padding-left: 25px;
+                            margin-right: 0;
+                            .iconfont {
+                                color: #ccc;
+                            }
+                        }
+                        .nav1 {
+                            //                          background: url("../images/zhiboCourse/icon04.png") left center no-repeat;
+                            //                          padding-left: 25px;
+                            .iconfont {
+                                color: #ccc;
+                            }
+                        }
+                        .nav2 {
+                            //                          background: url("../images/zhiboCourse/icon03.png") left center no-repeat;
+                            //                          padding-left: 25px;
+                            .iconfont {
+                                color: #FF4012;
+                            }
+                            .iconfont {
+                                color: #FF4012;
+                            }
+                        }
+                        .nav3 {
+                            //                          background: url("../images/zhiboCourse/icon02.png") left center no-repeat;
+                            //                          padding-left: 25px;
+                            .iconfont {
+                                color: #2CB82C;
+                            }
+                            .iconfont {
+                                color: #2CB82C;
+                            }
+                        }
+                    }
+                    .right-con {
+                        clear: both;
+                        overflow: hidden;
+                        position: relative;
+                        min-height: 400px;
+                        .con1 {
+                            overflow: hidden;
+                            margin-top: 20px;
+                            clear: both;
+                            border: 1px solid #eee;
+                            .kai {
+                                background: #fafafa;
+                                line-height: 26px;
+                                font-size: 12px;
+                                color: #333;
+                                a {
+                                    float: right;
+                                    margin-right: 20px;
+                                    color: #333;
+                                    background: url("../images/zhiboCourse/detail_down.png") #fafafa no-repeat right center;
+                                    padding-right: 15px;
+                                }
+                            }
+                            .guan {
+                                background: #fafafa;
+                                line-height: 26px;
+                                font-size: 12px;
+                                color: #333;
+                                a {
+                                    float: right;
+                                    margin-right: 20px;
+                                    color: #333;
+                                    background: url("../images/zhiboCourse/detail_up.png") #fafafa no-repeat right center;
+                                    padding-right: 15px;
+                                }
+                            }
+                        }
+                        .con-title {
+                            line-height: 46px;
+                            background: #FAFAFA;
+                            padding: 0 20px;
+                        }
+                        .kechengAll {
+                            display: block;
+                            overflow: hidden;
+                            width: 110%;
+                            max-height: 225px;
+                            transition: all 1s ease-in-out;
+                            -webkit-transition: all 1s ease-in-out;
+                            -moz-transition: all 1s ease-in-out;
+                            -o-transition: all 1s ease-in-out;
+                            -ms-transition: all 1s ease-in-out;
+                            .kecheng,
+                            .guanqia {
+                                margin-bottom: -1px;
+                                overflow: hidden;
+                                float: left;
+                                border-bottom: 1px solid #eee;
+                                border-right: 1px solid #eee;
+                                height: 46px;
+                                width: 420px;
+                                line-height: 46px; //                              background: url("../images/zhiboCourse/icon04.png") no-repeat 380px center;
+                                padding-left: 20px;
+                                .iconfont {
+                                    font-size: 14px;
+                                    color: #ccc;
+                                }
+                                span {
+                                    //                                  background: url("../images/zhiboCourse/play_normal.png") no-repeat left center;
+                                    color: #333;
+                                    font-size: 14px;
+                                    width: 340px;
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    display: block;
+                                    float: left;
+                                    i {
+                                        margin-right: 10px;
+                                    }
+                                }
+                                .tb,
+                                .lock {
+                                    float: right;
+                                    margin-right: 10px;
+                                }
+                                em {
+                                    font-style: normal;
+                                }
+                                .tongguo {
+                                    display: block;
+                                    -moz-transform: rotateX(-30deg);
+                                    -webkit-transform: rotateX(-30deg);
+                                    -ms-transform: rotateX(-30deg);
+                                    transform: rotate(-30deg);
+                                    img {
+                                        width: 40px;
+                                        height: 18px;
+                                    }
+                                }
+                            }
+                            .kecheng {
+                                &:hover {
+                                    span {
+                                        color: #2CB82C;
+                                        .iconfont {
+                                            color: #2CB82C;
+                                        }
+                                        //                                      background: url("../images/zhiboCourse/play_hover.png") no-repeat left center;
+                                    }
+                                    background-color: #fafafa;
+                                }
+                            }
+                            .guanqia {
+                                background: rgb(240,246,249);
+                                color: #5faaf7;
+                                span {
+                                    color: #5faaf7;
+                                }
+                                .iconfont {
+                                    color: #5faaf7;
+                                }
+                            }
+                            .studying {
+                                .tb {
+                                    color: #FF4012;
+                                }
+                                //                              background: url("../images/zhiboCourse/icon03.png") no-repeat 380px center;
+                            }
+                            .studyed {
+                                .tb {
+                                    color: #2CB82C;
+                                }
+                                //                              background: url("../images/zhiboCourse/icon02.png") no-repeat 380px center;
+                            }
+                        }
+                    }
+                }
+                .main-ppt {
+                    display: none;
+                    .right-ppt {
+                        color: #333;
+                        font-size: 14px;
+                        span {
+                            margin-left: 15px;
+                            cursor: pointer;
+                        }
+                        span:first-child {
+                            margin-right: 15px;
+                            margin-left: 0;
+                        }
+                        i {
+                            font-style: normal;
+                            color: #EEEEEE;
+                        }
+                        .act {
+                            color: #2CB82C;
+                        }
+                    }
+                    .right-con {
+                        display: block;
+                        min-height: 300px;
+                        position: relative;
+                        margin-top: 30px;
+                    }
+                }
+                .main-note {
+                    display: none;
+                    .right-note {
+                        color: #333;
+                        font-size: 14px;
+                        span {
+                            margin-left: 15px;
+                            margin-right: 15px;
+                            cursor: pointer;
+                        }
+                        span:first-child {
+                            margin-right: 15px;
+                            margin-left: 0;
+                        }
+                        i {
+                            font-style: normal;
+                            color: #EEEEEE;
+                        }
+                        .act {
+                            color: #2CB82C;
+                        }
+                    }
+                    .right-con {
+                        display: block;
+                        min-height: 300px;
+                        position: relative;
+                        .right-noteInfo {
+                            padding: 17px 0;
+                            border-bottom: 1px solid #eee;
+                            .right-noteImg {
+                                float: left;
+                                img {
+                                    width: 50px;
+                                    height: 50px;
+                                    -webkit-border-radius: 50%;
+                                    -moz-border-radius: 50%;
+                                    border-radius: 50%;
+                                }
+                                .note-username {
+                                    width: 47px;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    font-size: 12px;
+                                    color: #666;
+                                    display: inline-block;
+                                    margin-top: 5px;
+                                    text-align: center;
+                                }
+                            }
+                            .right-noteContent {
+                                float: right;
+                                width: 760px;
+                                position: relative;
+                                .note-title {
+                                    font-size: 14px;
+                                    color: #333;
+                                }
+                                .note-content {
+                                    line-height: 22px;
+                                    font-size: 12px;
+                                    color: #666;
+                                    word-break: break-all;
+                                    word-wrap: break-word;
+                                }
+                                .right-note-others {
+                                    margin-top: 5px;
+                                    >span {
+                                        display: inline-block;
+                                        margin-right: 30px;
+                                        font-size: 12px;
+                                        color: #999;
+                                        i {
+                                            font-size: 12px;
+                                            color: #ccc;
+                                            display: inline-block;
+                                            margin-right: 5px;
+                                            vertical-align: middle;
+                                        }
+                                        i.select {
+                                            color: #2cb82c;
+                                        }
+                                    }
+                                    .noteHitZan,
+                                    .rightPinglun,
+                                    .rightShoucang,
+                                    .rightShanchu {
+                                        cursor: pointer;
+                                    }
+                                    .noteHitZan {
+                                        i {
+                                            margin-top: -5px;
+                                        }
+                                    }
+                                    .praise_Count.select {
+                                        color: #2cb82c;
+                                    }
+                                    .rightShoucang {
+                                        i {
+                                            margin-top: -2px;
+                                        }
+                                    }
+                                    .rightPinglun {
+                                        i {
+                                            margin-top: 1px;
+                                        }
+                                    }
+                                    .noteHitZan.select {
+                                        color: #2cb82c;
+                                    }
+                                    .shoucang.select {
+                                        color: #2cb82c;
+                                    }
+                                    .noteHitZan i.select {
+                                        color: #2cb82c;
+                                    }
+                                }
+                                .pinglunBox {
+                                    width: 775px;
+                                    margin-top: 8px;
+                                    background-color: #fafafa;
+                                    padding: 0 20px 20px;
+                                    border: 1px solid #eee;
+                                    display: none;
+                                    position: relative;
+                                    .pinglunSanjiao {
+                                        position: absolute;
+                                        top: -5px;
+                                        left: 150px;
+                                    }
+                                    .comment-top {
+                                        .reply {
+                                            display: none;
+                                            position: relative;
+                                            margin-bottom: 15px;
+                                            .sanjiaoInput {
+                                                position: absolute;
+                                                top: -5px;
+                                                left: 132px;
+                                            }
+                                            .replyTipNohidden {
+                                                display: inline-block;
+                                                position: absolute;
+                                                top: 9px;
+                                                left: 12px;
+                                                color: #999;
+                                            }
+                                            input {
+                                                outline: none;
+                                                width: 100%;
+                                                height: 36px;
+                                                border: 1px solid #eee;
+                                                padding: 0 10px;
+                                                font-size: 12px;
+                                                color: #999;
+                                            }
+                                            input:focus {
+                                                border: 1px solid #2cb82c;
+                                            }
+                                            /*  .sanjiaoInput {
+                                                    position: absolute;
+                                                    top: -5px;
+                                                    left: 176px;
+                                                  }*/
+                                            span {
+                                                display: inline-block;
+                                                font-size: 13px;
+                                                color: #999;
+                                                text-align: center;
+                                                float: right;
+                                                height: 26px;
+                                                width: 50px;
+                                                line-height: 26px;
+                                                margin: 0;
+                                            }
+                                            .reply-cancle {
+                                                margin-right: -30px !important;
+                                                font-size: 13px !important;
+                                                cursor: pointer;
+                                                margin-top: 10px;
+                                            }
+                                            .reply-ok {
+                                                background-color: #2cb82c;
+                                                color: #fff !important;
+                                                font-size: 13px !important;
+                                                -webkit-border-radius: 2px;
+                                                -moz-border-radius: 2px;
+                                                border-radius: 2px;
+                                                margin-right: 0 !important;
+                                                margin-left: 35px;
+                                                margin-top: 10px !important;
+                                                cursor: pointer;
+                                                &:hover {
+                                                    background: #28A528;
+                                                }
+                                            }
+                                        }
+                                        .wrapComment {
+                                            padding: 16px 0;
+                                            font-size: 12px;
+                                            padding-bottom: 0;
+                                            border-bottom: 1px solid #eee;
+                                            .a1 {
+                                                margin-right: 8px !important;
+                                            }
+                                            .user-nickname,
+                                            .user-content {
+                                                margin-right: 4px !important;
+                                                word-break: break-all;
+                                                word-wrap: break-word;
+                                            }
+                                            .user-content {
+                                                color: #666 !important;
+                                            }
+                                            .user-nickname {
+                                                color: #84d784 !important;
+                                            }
+                                            img {
+                                                margin-top: -2px !important;
+                                            }
+                                        }
+                                        .user-content-line {
+                                            margin-top: 7px;
+                                            margin-bottom: 10px;
+                                            span {
+                                                font-size: 12px;
+                                                color: #999;
+                                            }
+                                            .comment-time,
+                                            .reply-btn {
+                                                display: inline-block;
+                                                margin-right: 40px;
+                                            }
+                                            .reply-delete {
+                                                cursor: pointer;
+                                            }
+                                            i {
+                                                font-size: 12px;
+                                                color: #ccc;
+                                                display: inline-block;
+                                                margin-right: 5px;
+                                            }
+                                            .reply-btn:hover {
+                                                cursor: pointer;
+                                                color: #2cb82c;
+                                            }
+                                            .reply-btn:hover i {
+                                                color: #2cb82c;
+                                            }
+                                        }
+                                    }
+                                    .comment-bottom {
+                                        input {
+                                            outline: none;
+                                            width: 736px;
+                                            border: 1px solid #eee;
+                                            height: 36px;
+                                            padding: 10px;
+                                            font-size: 12px;
+                                            margin-top: 15px;
+                                        }
+                                        .comment-btn {
+                                            width: 50px;
+                                            height: 26px;
+                                            background-color: #2cb82c;
+                                            color: #fff;
+                                            text-align: center;
+                                            float: right;
+                                            margin-top: 10px;
+                                            line-height: 26px;
+                                            font-size: 13px;
+                                            cursor: pointer;
+                                            border-radius: 2px;
+                                            &:hover {
+                                                background: #28A528;
+                                            }
+                                        }
+                                        input:focus {
+                                            border: 1px solid #2cb82c;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                .main-ask {
+                    display: none;
+                    .right-ask {
+                        color: #333;
+                        font-size: 14px;
+                        span {
+                            margin-left: 15px;
+                            margin-right: 15px;
+                            cursor: pointer;
+                        }
+                        span:first-child {
+                            margin-right: 15px;
+                            margin-left: 0;
+                        }
+                        i {
+                            font-style: normal;
+                            color: #EEEEEE;
+                        }
+                        .act {
+                            color: #2CB82C;
+                        }
+                    }
+                    .right-con {
+                        display: block;
+                        min-height: 300px;
+                        position: relative;
+                        .right-askInfo {
+                            padding: 17px 0;
+                            border-bottom: 1px solid #eee;
+                            .right-askImg {
+                                float: left;
+                                img {
+                                    width: 50px;
+                                    height: 50px;
+                                    -webkit-border-radius: 50%;
+                                    -moz-border-radius: 50%;
+                                    border-radius: 50%;
+                                }
+                                .ask-username {
+                                    width: 47px;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    font-size: 12px;
+                                    color: #666;
+                                    display: inline-block;
+                                    margin-top: 5px;
+                                    text-align: center;
+                                }
+                            }
+                            .right-askContent {
+                                float: right;
+                                width: 760px;
+                                a:hover {
+                                    color: #2cb82c;
+                                }
+                                .ask-title {
+                                    font-size: 14px;
+                                    color: #333;
+                                    cursor: pointer;
+                                }
+                                .ask-content {
+                                    line-height: 22px;
+                                    font-size: 12px;
+                                    color: #666;
+                                    margin: 6px 0;
+                                    word-break: break-all;
+                                    word-wrap: break-word;
+                                }
+                                .right-ask-others {
+                                    .right-ask-tags {
+                                        float: left;
+                                        span {
+                                            background-color: #f5f5f5;
+                                            padding: 4px 7px;
+                                            display: inline-block;
+                                            margin-right: 10px;
+                                            font-size: 12px;
+                                            color: #999;
+                                        }
+                                    }
+                                    .right-ask-otherInfo {
+                                        float: right;
+                                    }
+                                    em {
+                                        font-style: normal;
+                                        color: #f0f0f0;
+                                        display: inline-block;
+                                        margin: 0 8px;
+                                        -webkit-transform: scale(0.7);
+                                        -moz-transform: scale(0.7);
+                                        -ms-transform: scale(0.7);
+                                        -o-transform: scale(0.7);
+                                        transform: scale(0.7);
+                                    }
+                                    span {
+                                        display: inline-block;
+                                        font-size: 12px;
+                                        color: #999;
+                                        i {
+                                            font-size: 12px;
+                                            color: #ccc;
+                                            display: inline-block;
+                                            margin-right: 5px;
+                                        }
+                                        i.select {
+                                            color: #2cb82c;
+                                        }
+                                    }
+                                    .askShanchu {
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .main1 {
+            display: none;
+            width: 100%;
+            padding: 30px 30px 60px;
+            min-height: 600px;
+            .calder {
+                display: none;
+                width: 380px;
+                padding: 35px;
+                box-shadow: 0 0 12px rgba(0,0,0,0.2);
+                overflow: hidden;
+                float: left;
+                .tool {
+                    width: 100%;
+                    clear: both;
+                    position: relative;
+                    .iconfont {
+                        font-size: 14px;
+                        color: #888;
+                    }
+                    .calder-up {
+                        position: absolute;
+                        left: 0;
+                        cursor: pointer;
+                    }
+                    .calder-data {
+                        margin: 0 auto;
+                        text-align: center;
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #444;
+                    }
+                    .calder-down {
+                        cursor: pointer;
+                        position: absolute;
+                        right: 0;
+                        top: 0;
+                        transform: rotate(180deg);
+                        -webkit-transform: rotate(180deg);
+                        -moz-transform: rotate(180deg);
+                        -ms-transform: rotate(180deg);
+                        -o-transform: rotate(180deg);
+                    }
+                    .forbidden {
+                        color: #ddd;
+                        cursor: default;
+                        i {
+                            color: #ddd;
+                        }
+                    }
+                }
+                .data-show {
+                    width: 100%;
+                    margin-top: 30px;
+                    ol {
+                        margin-bottom: 20px;
+                        li {
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            text-align: center;
+                            line-height: 32px;
+                            float: left;
+                            display: block;
+                            font-size: 14px;
+                            color: #333;
+                            font-weight: 600;
+                            margin-right: 16px;
+                        }
+                        .weekAct {}
+                    }
+                    ul {
+                        li {
+                            cursor: pointer;
+                            float: left;
+                            display: block;
+                            font-size: 14px;
+                            color: #333;
+                            margin-right: 16px;
+                            width: 32px;
+                            height: 32px;
+                            border-radius: 50%;
+                            text-align: center;
+                            line-height: 32px;
+                            margin-bottom: 10px;
+                            span {
+                                display: none;
+                            }
+                            i {
+                                display: none;
+                            }
+                        }
+                        .kong {
+                            cursor: pointer;
+                        }
+                        .ban {
+                            color: #aaa;
+                            cursor: default;
+                        }
+                        .xiu {
+                            position: relative;
+                            i {
+                                display: block;
+                                top: -6px;
+                                right: -4px;
+                                position: absolute;
+                                background: #2CB82C;
+                                color: #fff;
+                                width: 16px;
+                                height: 16px;
+                                border-radius: 8px;
+                                text-align: center;
+                                line-height: 16px;
+                                font-size: 12px;
+                                font-style: normal;
+                            }
+                        }
+                        .today {
+                            color: #2CB82C;
+                            position: relative;
+                            span {
+                                display: block;
+                                width: 12px;
+                                left: 10px;
+                                height: 3px;
+                                background: #2CB82C;
+                                position: absolute;
+                                bottom: 4px;
+                            }
+                        }
+                        .pick {
+                            color: #fff;
+                            background: #2CB82C;
+                            i {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            .myplan {
+                display: block;
+                float: right;
+                width: 722px;
+                border: 1px solid #eeeeee;
+                border-bottom: 0;
+                /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+                 ::-webkit-scrollbar {
+                    cursor: pointer;
+                    width: 8px;
+                    height: 16px;
+                }
+                /*定义滚动条轨道 内阴影+圆角*/
+                 ::-webkit-scrollbar-track {
+                    background-color: #fff;
+                }
+                /*定义滑块 内阴影+圆角*/
+                 ::-webkit-scrollbar-thumb {
+                    cursor: pointer;
+                    border-radius: 10px;
+                    background-color: #ccc;
+                }
+                ol {
+                    background: #FAFAFA;
+                    line-height: 50px;
+                    font-size: 16px;
+                    color: #333;
+                    span {
+                        display: block;
+                        float: left;
+                    }
+                }
+                li {
+                    width: 100%;
+                    display: block;
+                    float: left;
+                    color: #333;
+                    font-size: 14px;
+                    padding: 0 30px;
+                    position: relative;
+                    * {
+                        display: inline-block;
+                        vertical-align: middle; //                      height: 100%;line-height: 100%;
+                    }
+                    a {
+                        color: #2CB82C;
+                        margin-top: 10px;
+                        span {
+                            margin-left: 10px;
+                        }
+                        em {
+                            font-style: normal;
+                            margin-left: 10px;
+                        }
+                    }
+                }
+                ul {
+                    max-height: 700px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    width: 100%;
+                    position: relative;
+                    li {
+                        position: relative;
+                        padding: 20px 30px;
+                        border-bottom: 1px solid #f4f4f4;
+                        display: table;
+                        vertical-align: middle;
+                        &:hover {
+                            //                          box-shadow: 0 0 10px rgba(0,0,0,0.15);
+                            background: #F5F8FB;
+                        }
+                    }
+                    .active {
+                        background: #e8f6e8;
+                        color: #2CB82C;
+                    }
+                }
+                .td1 {
+                    width: 20%;
+                }
+                .td2 {
+                    width: 20%;
+                }
+                .td3 {
+                    width: 60%;
+                    span {
+                        line-height: 22px;
+                    }
+                    a {
+                        &:hover {
+                            border-bottom: 1px solid #2CB82C;
+                        }
+                    }
+                }
+            }
+        }
+        .main2 {
+            display: none;
+            width: 100%;
+            padding: 00px 30px 60px;
+            min-height: 600px;
+            .work-title {
+                color: #333;
+                font-size: 14px;
+                margin-top: 20px;
+                span {
+                    margin-left: 15px;
+                    cursor: pointer;
+                    
+                }
+                span:first-child {
+                    margin-right: 15px;
+                    margin-left: 0;
+                }
+                i {
+                    
+                    font-style: normal;
+                    color: #EEEEEE;
+                }
+                .act {
+                    color: #2CB82C;
+                }
+                .allT{
+                    float: right;
+                    color: #bbb;
+                    font-size: 14px;
+                    position: relative;
+                    line-height: 34px;
+                    margin-top: -6px;
+                    display: none;
+                    input{
+                        border: 1px solid #F0F0F0;
+                        height: 34px;
+                        line-height: 34px;
+                        width: 130px;
+                        padding: 0 30px 0 10px;
+                    }
+                    p{
+                        float: left;
+                        
+                    }
+                    span{
+                        float: left;
+                        margin: 0 10px;
+                    }
+                    .stAb{
+                        position: absolute;
+                        width: 16px;height: 16px;
+                        right: 10px;top: 9px;
+                    }
+                    .enAb{
+                        position: absolute;
+                        width: 16px;height: 16px;
+                        right: 10px;top: 9px;
+                    }
+                }
+            }
+            .work-con{
+                display: block;
+                width: 100%;
+                margin-top: 20px;
+                
+                ol{
+                    display: block;
+                    width: 100%;
+                    height: 52px;
+                    line-height: 52px;
+                    background: #FAFAFA;
+                    padding: 0 30px;
+                    li{
+                        float: left;
+                        font-size: 16px;
+                        color: #333;
+                        text-align: left;
+                    }
+                }
+                ul{
+                    li{
+                        padding: 0 30px;
+                        display: block;
+                        width: 100%;
+                        line-height: 54px;
+                        border-bottom: 1px solid rgb(239,239,239);
+                        font-size:14px;
+                        color:#666;  
+                         &:hover{
+                            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+                        }
+                        div{
+                            float: left;
+                            height: 54px;
+                        }
+                    }
+                }
+                .cuWork{
+                    display: block;
+                    .t1{
+                        width: 263px;margin-right:66px ;
+                    }
+                    .t2{
+                        width: 160px;margin-right:50px ;
+                    }
+                    .t3{
+                        width: 160px;margin-right:50px ;
+                    }
+                    .t4{
+                        width: 175px;margin-right:30px ;
+                    }
+                    .t5{
+                        width: 80px;
+                    }
+                    .name{
+                        display: block;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
+                    .jindu{
+                        position: relative;
+                        width: 110px;
+                        height: 7px;
+                        border-radius: 4px ;
+                        display: block;
+                        float: left;
+                        background: #F1F1F1;
+                        margin-top: 23px;
+                        em{
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            height: 100%;
+                            width: 100px;
+                            display: block;
+                            background: url(../images/icons/jindubg.png) repeat-x left top;
+                            border-radius: 4px;
+                        }
+                    }
+                    .jindu2{
+                        float: left;margin-left: 10px;
+                    }
+                    .tool{
+                    }
+                    .ready{
+                        cursor:pointer; 
+                        &:hover{
+                            color: #2CB82C;
+                            border-bottom: 1px solid #2CB82C;
+                        }
+                    }
+                }
+                .hiWork{
+                    display: none;
+                    .t1{
+                        width: 263px;margin-right:66px ;
+                    }
+                    .t2{
+                        width: 160px;margin-right:50px ;
+                    }
+                    .t3{
+                        width: 160px;margin-right:40px ;
+                    }
+                    .t4{
+                        width: 60px;margin-right:80px ;
+                        text-align: center;
+                    }
+                    .t5{
+                        width: 100px;margin-right:20px ;
+                    }
+                    .name{
+                        display: block;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
+                    .tool{
+                        cursor:pointer; 
+                        &:hover{
+                            color: #2CB82C;
+                            border-bottom: 1px solid #2CB82C;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

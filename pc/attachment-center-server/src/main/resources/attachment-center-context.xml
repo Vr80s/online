@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<context:property-placeholder location="classpath:config.properties" />
+	
+	<context:component-scan base-package="com.xczhihui.attachment.center.server.service"/>
+	<bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao" />
+
+<!-- dubbo
+	<dubbo:application name="${dubbo.app.name}" />
+	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}" />
+	<dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}" />
+	<dubbo:service interface="com.xczhihui.bxg.common.support.service.AttachmentCenterService"
+		ref="attachmentDubboService" timeout="${dubbo.consumer.timeout}" />
+ -->
+ 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="breakAfterAcquireFailure" value="false" />
+		<property name="minPoolSize" value="10" />
+		<property name="maxPoolSize" value="100" />
+		<property name="maxIdleTime" value="1800" />
+		<property name="initialPoolSize" value="10" />
+		<property name="acquireIncrement" value="3" />
+		<property name="maxStatements" value="1000" />
+		<property name="idleConnectionTestPeriod" value="60" />
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="testConnectionOnCheckout" value="false" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xczhihui.attachment.center.server.bean.Attachment1</value>
+				<value>com.xczhihui.bxg.common.support.domain.Attachment</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+				<!-- 
+				 <prop key="hibernate.hbm2ddl.auto">update</prop>
+				 -->
+			</props>
+		</property>
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txManager"
+		proxy-target-class="true" />
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="send*" propagation="REQUIRED" />
+			<tx:method name="upload*" propagation="REQUIRED" />
+			<tx:method name="regist*" propagation="REQUIRED" />
+			
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="change*" propagation="REQUIRED" />
+			
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="reset*" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="execution(* com.xczhihui.attachment.center..service..*.*(..))" />
+	</aop:config>
+	
+</beans>

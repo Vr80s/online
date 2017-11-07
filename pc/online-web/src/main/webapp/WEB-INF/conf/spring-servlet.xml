@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+		xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
+		xmlns:task="http://www.springframework.org/schema/task"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		http://www.directwebremoting.org/schema/spring-dwr
+       http://www.directwebremoting.org/schema/spring-dwr-3.0.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	
+	<context:property-placeholder location="classpath:config.properties" />
+	<context:component-scan base-package="com.xczhihui.bxg.online.*.controller" />
+	<context:component-scan base-package="com.xczhihui.bxg.online.web.base.common"/>
+	<!-- 定时器-->
+	<task:annotation-driven/>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1073741824" /><!--1024M -->
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+	<mvc:annotation-driven>  
+	    <mvc:message-converters>  
+	        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
+	            <property name="supportedMediaTypes">  
+	                <list>  
+	                    <value>text/json;charset=UTF-8</value>  
+	                </list>  
+	            </property>
+	            <property name="objectMapper">
+	                <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+	                    <property name="dateFormat">
+	                        <bean class="java.text.SimpleDateFormat">
+	                            <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+	                        </bean>
+	                    </property>
+	                </bean>
+	            </property> 
+	        </bean>  
+	    </mvc:message-converters>  
+	</mvc:annotation-driven>
+
+	<bean id="handlerExceptionResolver"
+		class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Throwable">common/500</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<mvc:resources mapping="/online/live/image/**" location="file:/online/live/image/"  />
+	<mvc:default-servlet-handler />
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.utils.OnlineInterceptor" />
+		</mvc:interceptor>
+
+		<!--发送系统消息拦截器-->
+		<mvc:interceptor>
+			<mvc:mapping path="/ask/answer/addAnswer" />
+			<mvc:mapping path="/ask/answer/acceptAnswer" />
+			<mvc:mapping path="/ask/comment/addComment" />
+			<mvc:mapping path="/bxs/article/saveAppraise" />
+			<mvc:mapping path="/ask/answer/acceptAnswer" />
+			<mvc:mapping path="/online/questionlist/deleteQuestionById" />
+			<mvc:mapping path="/ask/answer/deleteAnswerById" />
+			<bean id="messageInterceptor" class="com.xczhihui.bxg.online.web.interceptor.MessageInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	
+	<bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController" />
+	
+</beans>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	        http://www.springframework.org/schema/context
+	        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+	        http://www.springframework.org/schema/aop
+	        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	         http://www.springframework.org/schema/task
+	        http://www.springframework.org/schema/task/spring-task-4.0.xsd
+	        http://www.springframework.org/schema/tx
+	        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+
+	        http://code.alibabatech.com/schema/dubbo
+    		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<context:property-placeholder location="classpath:config.properties" />
+	<context:component-scan base-package="com.xczh.consumer" />
+
+	<aop:aspectj-autoproxy />
+
+	<!-- 配置MultipartResolver 用于文件上传 使用spring的CommosMultipartResolver -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="10485760000" />
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		  destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<!-- c3p0连接池配置： -->
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+		<property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}" />
+		<property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}" />
+		<property name="automaticTestTable" value="${c3p0.automaticTestTable}" />
+		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
+		<property name="checkoutTimeout" value="${c3p0.checkoutTimeout}" />
+	</bean>
+
+	<!-- 定时器-->
+<!--	<task:annotation-driven/>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="1073741824" />&lt;!&ndash;1024M &ndash;&gt;
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>-->
+
+	<mvc:annotation-driven>
+		<!-- 处理responseBody 里面日期类型 -->
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+		<!--	   <mvc:message-converters>
+                    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                        <property name="supportedMediaTypes">
+                            <list>
+                                <value>text/json;charset=UTF-8</value>
+                            </list>
+                        </property>
+                        <property name="objectMapper">
+                            <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                                <property name="dateFormat">
+                                    <bean class="java.text.SimpleDateFormat">
+                                        <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                                    </bean>
+                                </property>
+                            </bean>
+                        </property>
+                    </bean>
+                </mvc:message-converters>-->
+	</mvc:annotation-driven>
+<!--
+	<bean id="handlerExceptionResolver"
+		class="com.xczhihui.bxg.common.web.exception.DubboMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Throwable">common/500</prop>
+			</props>
+		</property>
+	</bean>-->
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<mvc:default-servlet-handler />
+	
+	<!--
+	<bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController" />-->
+
+	<dubbo:application name="wechat2"/>
+	<dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
+	<dubbo:reference id="userCenterAPI"  interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="5000" />
+	<dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="5000" />
+	<dubbo:reference id="giftServiceImpl" interface="com.xczhihui.bxg.online.api.service.GiftService" timeout="5000" />
+	<dubbo:reference id="enchashmentService" interface="com.xczhihui.bxg.online.api.service.EnchashmentService" timeout="5000" />
+	<dubbo:reference id="cityService" interface="com.xczhihui.bxg.online.api.service.CityService" timeout="5000" />
+	<dubbo:reference id="liveExamineInfoService" interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" timeout="5000" />
+
+</beans>

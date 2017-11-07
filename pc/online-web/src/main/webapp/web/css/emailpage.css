@@ -1,0 +1,269 @@
+@charset "UTF-8";
+@keyframes arrowAnimotion {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(50px);
+  }
+  30% {
+    transform: translateY(40px);
+  }
+  55% {
+    transform: translateY(50px);
+  }
+  60% {
+    transform: translateY(40px);
+  }
+  85% {
+    transform: translateY(50px);
+  }
+  90% {
+    transform: translateY(40px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@-moz-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
+@-webkit-keyframes arrowAnimotion {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@-o-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
+@-ms-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
+/*titleChange动画*/
+@keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-moz-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-o-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-ms-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+/*wordsChange动画*/
+@keyframes wordsChange {
+  0% {
+    transform: translateY(3400px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@-moz-keyframes wordsChange {
+  0% {
+    -moz-transform: translateY(3400px);
+  }
+  100% {
+    -moz-transform: translateY(0px);
+  }
+}
+@-webkit-keyframes wordsChange {
+  0% {
+    -webkit-transform: translateY(3400px);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+  }
+}
+@-o-keyframes wordsChange {
+  0% {
+    -o-transform: translateY(3400px);
+  }
+  100% {
+    -o-transform: translateY(0px);
+  }
+}
+@-ms-keyframes wordsChange {
+  0% {
+    -ms-transform: translateY(3400px);
+  }
+  100% {
+    -ms-transform: translateY(0px);
+  }
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Microsoft YaHei";
+  font-size: 18px;
+}
+.page-email {
+  width: 602px;
+  height: 463px;
+  border: 1px solid #eeeeee;
+  margin: 0px auto;
+  -moz-border-radius: 3px;
+  /* Firefox */
+  -webkit-border-radius: 3px;
+  /* Safari 和 Chrome */
+  border-radius: 3px;
+  /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+  padding: 0 25px;
+  position: relative;
+}
+.page-email .header {
+  border-bottom: 1px solid #eee;
+  margin-top: 5px;
+}
+.page-email .header p {
+  color: #2cb82c;
+  width: 100%;
+  text-align: center;
+  margin: 0px;
+}
+.page-email .header .p1 {
+  font-size: 28px;
+}
+.page-email .header .p2 {
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.page-email .article .text {
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  padding: 30px 0px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  margin-top: 8px;
+}
+.page-email .article .link {
+  line-height: 25px;
+  font-size: 14px;
+  margin: 0;
+}
+.page-email .article .link .tip {
+  padding-bottom: 10px;
+  display: block;
+  color: #666;
+  font-size: 14px;
+}
+.page-email .article .link a {
+  text-decoration: none;
+  font-size: 12px;
+  color: #55b9e6;
+}
+.page-email .article .footer {
+  font-size: 12px;
+  color: #999;
+  margin-top: 10px;
+}
+.page-email .article .addr {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  margin-left: -123px;
+}
+.page-email .indexHref {
+  line-height: 25px;
+  font-size: 14px;
+  padding-bottom: 10px;
+  margin: 0;
+}
+.page-email .indexHref a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #000;
+}
+.page-email .indexHref a:hover {
+  text-decoration: underline;
+}
+.page-email .tiaozhuang,
+.page-email .time {
+  color: #2cb82c;
+}

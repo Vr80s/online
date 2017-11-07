@@ -1,0 +1,255 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: "Microsoft YaHei";
+}
+.text-danger{
+    color: #E81111;
+}
+.usercenter .ulnav{
+    list-style: none;
+    width:80%;
+    border-bottom:1px solid #ccc;
+    position: relative;
+
+}
+
+.usercenter .btncommon{
+    width: 68px;
+    height:35px;
+    border: 1px solid #1d75b3;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+    background-color: #1d75b3;
+    color: #fff;
+}
+
+.usercenter .btngray{
+
+    border: 1px solid #ccc;
+    background-color: #ccc;
+    color:#000;
+}
+.usercenter .ulnav .linav{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: inline-block;
+    padding:15px;
+    background-color: #fff;
+    cursor: pointer;
+    color: #3271b9;
+
+}
+
+.usercenter .ulnav .linav:hover{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #cccccc;
+    color: #37557c;
+}
+
+.usercenter .ulnav .liactive{
+    border:1px solid #ccc;
+    border-bottom:0;
+    position: relative;
+    bottom:-1px;
+}
+
+/*容器div开始*/
+
+.usercenter .divcontainer {
+    /*border:1px solid tan;*/
+    width: 100%;
+    height: 500px;
+    position: relative;
+}
+
+.usercenter .divcontainer .divtab {
+    border: 1px solid transparent;
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: absolute;
+}
+
+.usercenter .divcontainer .divactive{
+    display: block;
+}
+
+/*tab选项卡结束*/
+
+/*表单结构开始*/
+.usercenter .tabinfo{
+    border:none;
+    border-collapse: collapse;
+    width:74%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.usercenter .tabinfo .tdleft{
+    text-align: right;
+    padding:10px;
+    width: 20%;
+}
+
+.usercenter .tabinfo .tdright{
+    text-align: left;
+    padding:  10px;
+}
+.usercenter .tabinfo .tdright  input{
+    width: 55%;
+    line-height:25px;
+    font-size: 13px;
+}
+.butBox{
+    text-align: left !important;
+    padding: 20px 225px !important;
+}
+.usercenter .tabinfo td{
+    /*border-bottom:1px dashed #ccc;*/
+    font-size: 14px;
+}
+.usercenter .tabinfo td label{
+    line-height: 30px;
+    display: block;
+}
+
+.usercenter .tabinfo td button{
+    border-radius: 5px;
+    padding:9px;
+    width:14%;
+    margin-left: 2%;
+    border:1px solid #ccc;
+}
+
+
+/*表单格式结束*/
+
+/*头像裁剪区域样式开始*/
+
+.divavatar{
+    /*border:1px solid #ccc;*/
+    margin-top:3%;
+    width:80%;
+    position: relative;
+}
+
+.divavatar .btnfile{
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius: 2px;
+    width:100px;
+    background-color: #ececec;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+.divavatar .imageBox
+{
+    margin-top:2%;
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border:1px solid #aaa;
+    background: #fff;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor:move;
+    display: inline-block;
+    /*background-image:url("../images/defaultavatar.png");*/
+}
+
+.divavatar .imageBox .thumbBox
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    margin-top: -100px;
+    margin-left: -100px;
+    box-sizing: border-box;
+    border: 1px solid rgb(102, 102, 102);
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+    background: none repeat scroll 0% 0% transparent;
+}
+
+.divavatar .imageBox .spinner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    line-height: 400px;
+    background: rgba(0,0,0,0.7);
+}
+.divavatar .cropped{
+    display: inline-block;
+    /*border:1px solid red;*/
+    text-align: center;
+    margin-left: 10%;
+}
+.divavatar .cropped p{
+    margin:2% auto;
+}
+
+.divavatar .cropped .avatarlarge img{
+    border-radius: 50%;
+    width:180px;
+    height:180px;
+
+}
+
+.divavatar .cropped .avatarsmall img{
+    border-radius: 50%;
+    width:45px;
+    height:45px;
+
+}
+
+.divavatar .csmall{
+    position: absolute;
+    top:45%;
+}
+
+.usercenter .divsave{
+    margin: 3%;
+}
+
+.usercenter .divsave div{
+    border-radius: 5px;
+    padding:6px;
+    width:8%;
+    margin-left: 2%;
+    border:1px solid #ccc;
+    display: inline-block;
+    text-align: center;
+}
+
+
+.divavatar .action{
+    width: 300px;
+    text-align: center;
+}
+.divavatar .action input:first-child{
+    margin-right: 20px;
+}
+.divavatar .action input{
+    width:60px;
+    padding:6px;
+}
+
+.divavatar .divtip{
+    position: absolute;
+    left: 400px;
+    top: 15%;
+}
+.saveBtn{
+    margin: 0 80px 0 270px;
+}
+/*头像裁剪区域样式结束*/

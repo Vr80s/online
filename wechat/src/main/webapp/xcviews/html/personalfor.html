@@ -1,0 +1,192 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>报名详细信息</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!-- <script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script> -->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script src="../js/js.js"></script>
+
+<link rel="stylesheet" href="../css/css.css">
+
+	<script>
+		//任一一项没有填写 就展示当前页,否则直接跳转到报名成功
+
+        requestService("/bxg/apply/get", {userId : getQueryString("userId")}, function(data) {
+            if (data.success) {
+                var result = data.resultObject;
+
+				//必填
+                var wechatNo=result.wechatNo;
+                var idCardNo=result.idCardNo;
+
+                //非必填
+                var qq=result.qq;
+                var email=result.email;
+                var sex=result.sex;
+                var occupation=result.occupation;
+                var isFirst=result.isFirst;
+                var referee=result.referee;
+
+                if(wechatNo==null||wechatNo==''||idCardNo==null||idCardNo==''||qq==null||qq==''||email==null||email==''||sex==null||sex==''||occupation==null||occupation==''||isFirst==null||isFirst==''||referee==null||referee==''){
+						$("#wechatNo").val(wechatNo);
+						$("#idCardNo").val(idCardNo);
+						$("#qq").val(qq);
+						$("#email").val(email);
+						$("#occupation").val(occupation);
+						$("#referee").val(referee);
+
+						if(sex!=null&&sex!=''){
+                            $("input[name=sex][value=" + sex + "]").attr("checked", true); //设置当前性别选中项
+						}
+
+                    	if(isFirst!=null&&isFirst!=''){
+                    	$("input[name=sex][value=" + isFirst + "]").attr("checked", true);
+                   		 }
+
+				}else{
+                    location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
+				}
+
+            }else{
+                alert("提交订单错误！请稍后再试！");
+            }
+
+        });
+
+
+        function sub(){
+			//必填
+            var wechatNo=$("#wechatNo").val();
+
+            if(wechatNo==null||wechatNo==''){
+				alert("微信号为必填项!");
+                return false;
+			}
+            var idCardNo=$("#idCardNo").val();
+            if(idCardNo==null||idCardNo==''){
+                alert("身份证号为必填项!");
+                return false;
+            }
+            //非必填
+            var qq=$("#qq").val();
+            var email=$("#email").val();
+            var occupation=$("#occupation").val();
+            var referee=$("#referee").val();
+
+
+
+            var sex=$('input:radio[name="sex"]:checked').val();
+            if(sex==null){
+                alert("请选择性别!");
+                return false;
+            }
+
+            var isFirst=$('input:radio[name="isFirst"]:checked').val();
+            if(isFirst==null){
+                alert("请选择是否首次参加!");
+                return false;
+            }
+
+            requestService("/bxg/apply/updateDetailsInfo", {wechatNo : wechatNo,idCardNo:idCardNo,qq:qq,email:email,occupation:occupation,referee:referee,sex:sex,isFirst:isFirst,userId : getQueryString("userId")}, function(data) {
+
+                if (data.success) {
+                   // var result = data.resultObject;
+                    location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
+                }else{
+                    alert("提交失败!请联系管理员");
+				}
+
+
+            });
+		}
+
+	</script>
+
+</head>
+
+<body style="background:#ddd;">
+	<div class="personal_top_bg"></div>
+	<!-- 报名详细信息头部开始 -->
+	<div class="personal">
+		<div class="personal_img"><img src="../images/left.png" alt="" /></div>
+		<div class="personal_title">报名详细信息</div>
+	</div>
+	<!-- 报名详细信息头部结束 -->
+	<!-- 报名详细信息cen开始 -->
+	<div class="personal_main">
+		<div class="personal_main_one" style="padding-top: 1.15rem;">
+			<div class="personal_main_size">微信号</div>
+			<div class="personal_main_put"><input id="wechatNo" type="text" placeholder="(必填) 请输入您的微信号" /></div>
+		</div>
+		<div class="personal_main_one">
+			<div class="personal_main_size">身份证号</div>
+			<div class="personal_main_put"><input id="idCardNo" type="text" placeholder="(必填) 请输入本人身份证号" /></div>
+		</div>
+		<div class="personal_main_one">
+			<div class="personal_main_size"> QQ号</div>
+			<div class="personal_main_put"><input id="qq"  type="text" placeholder="您的QQ号" /></div>
+		</div>
+		<div class="personal_main_one">
+			<div class="personal_main_size">邮箱</div>
+			<div class="personal_main_put"><input id="email"  type="text" placeholder="联系邮箱" /></div>
+		</div>
+		<div class="personal_main_two">
+			<div class="personal_main_size">性别</div>
+			<div class="personal_main_radio">
+				<div class="personal_main_radio_one">
+					<div class="personal_main_radio_one_boy"><input type="radio" name="sex" value="1" checked></div>
+					<div class="personal_main_radio_one_size">男</div>
+				</div>
+				<div class="personal_main_radio_two">
+					<div class="personal_main_radio_one_nike"><input type="radio" name="sex" value="0"></div>
+					<div class="personal_main_radio_two_size">女</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="personal_main_one">
+			<div class="personal_main_size">职业</div>
+			<div class="personal_main_put"><input id="occupation"  type="text" placeholder="请输入您的职业" /></div>
+		</div>
+		<div class="personal_main_two">
+			<div class="personal_main_size">是否首次参加</div>
+			<div class="personal_main_radio">
+				<div class="personal_main_radio_one">
+					<div class="personal_main_radio_one_boy"><input type="radio" name="isFirst" value="1" checked></div>
+					<div class="personal_main_radio_one_size">是</div>
+				</div>
+				<div class="personal_main_radio_two">
+					<div class="personal_main_radio_one_nike"><input type="radio" name="isFirst" value="0"></div>
+					<div class="personal_main_radio_two_size">否</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="personal_main_one">
+			<div class="personal_main_size">课程介绍人</div>
+			<div class="personal_main_put"><input id="referee"  type="text" placeholder="如果有请填写" /></div>
+		</div>
+		<div class="personal_main_btn" onclick="sub()">提交</div>
+	</div>
+	<!-- 报名详细信息cen结束 -->
+
+</body>
+
+</html>

@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
+}
+.change-green {
+  background-color: green;
+}
+.show {
+  display: block;
+  z-index: 999;
+}
+a:hover {
+  text-decoration: none !important;
+}
+.main-content {
+  width: 1200px;
+  margin: 0 auto;
+}
+.header {
+  height: 62px;
+  background-color: skyblue;
+  margin-bottom: 24px;
+}
+#main {
+  height: 783px;
+}
+#main .main-content {
+  height: 665px;
+}
+#main .main-content #main-left {
+  height: 100%;
+  width: 200px;
+  border: 1px solid #eee;
+  float: left;
+}
+#main .main-content #main-left .my-phpto {
+  padding-top: 20px;
+  background-color: #fff;
+}
+#main .main-content #main-left .my-phpto .left-photo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+#main .main-content #main-left li {
+  height: 46px;
+  text-align: center;
+  line-height: 46px;
+  border-bottom: 1px solid #fff;
+  background-color: #e4e4e4;
+}
+#main .main-content #main-left li a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  color: #000;
+}
+#main .main-content #main-left .my-phpto {
+  height: 195px;
+}
+#main .main-content #main-right {
+  padding: 25px 0px;
+  height: 100%;
+  width: 920px;
+}
+#main .main-content #main-right .main-right-top {
+  position: relative;
+  height: 30px;
+  border-bottom: 1px solid #eee;
+}
+#main .main-content #main-right .main-right-top span {
+  display: inline-block;
+  padding-right: 15px;
+  position: absolute;
+  bottom: 0;
+  color: green;
+  font-size: 16px;
+  border-bottom: 1px solid green;
+}
+#main .main-content #main-right .save-cash {
+  height: 127px;
+  position: relative;
+  line-height: 127px;
+}
+#main .main-content #main-right .save-cash div {
+  height: 44px;
+  line-height: 44px;
+  position: absolute;
+  top: 30px;
+}
+#main .main-content #main-right .save-cash div button {
+  width: 110px;
+  height: 44px;
+  display: inline-block;
+  background-color: #2cb82c;
+  border: 0;
+  font-weight: 700;
+  color: #fff;
+}
+#main .main-content #main-right .modal-content {
+  width: 480px;
+  height: 400px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -240px;
+  z-index: 2;
+  padding: 0px 50px 33px;
+  border-radius: 0px;
+}
+#main .main-content #main-right .modal-content .btn-primary {
+  width: 100%;
+  height: 42px;
+  background-color: #2cb82c !important;
+  border:none;
+}
+#main .main-content #main-right #cash-model {
+  display: none;
+  z-index: 999;
+}
+
+#main .main-content #main-right #cash-model .red::-webkit-input-placeholder{
+	color:red;
+}
+#main .main-content #main-right #cash-model .red:-moz-placeholder{
+	color:red;
+}
+#main .main-content #main-right #cash-model .red:-ms-input-placeholder{
+	color:red;
+}
+
+#main .main-content #main-right #cash-model div {
+  position: relative;
+  height: 36px;
+  margin-bottom: 10px;
+  line-height: 36px;
+}
+#main .main-content #main-right #cash-model div a {
+	color:#2cb82c ;
+	font-size:12px;
+}
+#main .main-content #main-right #cash-model div input {
+  display: inline-block;
+  height: 36px;
+  width: 290px;
+  float: right;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  text-indent: 1em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size:12px;
+}
+#main .main-content #main-right #cash-success {
+  text-align: center;
+  display: none;
+  z-index: 999;
+}
+#main .main-content #main-right .tab-pane li {
+     height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+    padding-right: 23px;
+    display: flex;
+    border-bottom: 1px solid #e4e4e4;
+}
+#main .main-content #main-right .tab-pane li span {
+  text-align: center;
+}
+#main .main-content #main-right .tab-pane li span:first-child {
+  flex: 3;
+  margin-left: 0;
+}
+#main .main-content #main-right .tab-pane li span:nth-child(2) {
+  flex: 3;
+}
+#main .main-content #main-right .tab-pane li span:nth-child(3) {
+  flex: 1;
+}
+#main .main-content #main-right .tab-pane li span:nth-child(4) {
+  flex: 2;
+}
+#main .main-content #main-right .tab-pane li span:nth-child(5) {
+  flex: 2;
+}
+#main .main-content #main-right .tab-pane li span:nth-child(6) {
+  flex: 1;
+}
+#main .main-content #main-right .tab-pane li:first-child {
+  height: 40px;
+  background-color: #f2f2f2;
+  line-height: 40px;
+}
+#main .main-content #main-right .device-page {
+  text-align: center;
+}
+.footer {
+  height: 235px;
+  background-color: skyblue;
+}
+#mask {
+  position: absolute;
+  top: 0px;
+  filter: alpha(opacity=60);
+  background-color: black;
+  z-index: 2;
+  left: 0px;
+  opacity: 0.5;
+  -moz-opacity: 0.5;
+}
+.nav-tabs > li > a{
+	color:#666;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
+	    background-color: #2cb82c;
+	    color:#fff;
+	    border:none;
+	    border-radius: 22px;
+}
+.nav li a {
+	    height: 36px;
+    line-height: 17px;
+}
+.nav {
+	    margin-bottom: 10px;
+	    border:none;
+}
+.tab-content span{
+ white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;
+ font-size:14px;
+}
+
+.btn-primary {
+	    background-image: none;
+}
+.pagination li a {
+	margin-right:5px;
+}
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
+	    background-color: #2cb82c;
+	    
+}
+.pagination > li > a, .pagination > li > span{
+	color:green;
+}

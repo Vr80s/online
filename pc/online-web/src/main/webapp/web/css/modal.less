@@ -1,0 +1,236 @@
+@import "base";
+
+@charset "UTF-8";
+.hide {
+  display: none;
+}
+
+#modalBackground {
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  opacity: 0.3;
+  position: fixed;
+  top: 0px;
+  z-index: 998;
+}
+
+.modalFather {
+  position: fixed;
+  z-index: 999;
+  background-color: #ffffff;
+  padding: 20px;
+  .modalHeader {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    span {
+      font-size: 18px;
+      color: #333;
+      float: left;
+    }
+    .payment-modal-close {
+      float: right;
+      cursor: pointer;
+      font-size:14px;
+      color:#ccc;
+    }
+  }
+  .modalFooter {
+    margin-top: 19px;
+    overflow: hidden;
+  }
+}
+
+/*----------投诉弹窗样式--------*/
+#tousu, #tousu1 {
+  width: 340px;
+  height: 320px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  .modalBody {
+    overflow: inherit;
+    p {
+      span {
+        color: red;
+      }
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .comment-content {
+      outline: none;
+      border: 1px solid #e4e4e4;
+      width: 244px;
+      height: 22px;
+      margin-left: 10px;
+      font-size: 12px;
+      color: #666;
+      font-weight: normal;
+    }
+    input:focus {
+      border: 1px solid #2CB82C;
+    }
+    label {
+      /*width: 100%;*/
+      margin-bottom: 0px;
+      height: 30px;
+      position: relative;
+      cursor: pointer;
+      .cy-myprofile-myfom-dv-radio {
+        display: none;
+      }
+      .radio-cover {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-radius: 8px;
+        border: 1px solid #e4e4e4;
+        vertical-align: middle;
+        display: block;
+        top: 8px;
+      }
+      .active {
+        width: 14px;
+        height: 14px;
+        border: 5px solid #2CB82C;
+      }
+      span {
+        display: inline-block;
+        margin-left: 22px;
+        font-weight: normal;
+        margin-top: 7px;
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
+  .modalFooter {
+    a {
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+      margin-top: 1px;
+      padding: 5px 10px;
+      color: #fff;
+      background-color: #2cb82c;
+      font-size: 14px;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 22px;
+      float: right;
+      cursor: pointer;
+    }
+    a:hover {
+      text-decoration: none !important;
+      background-color:#28a528;
+    }
+  }
+}
+
+.errorInfo {
+  font-size: 12px;
+  color: #ff4012;
+  display: none;
+  span {
+    margin-left: 5px;
+  }
+}
+
+/*----------取消收藏弹窗样式--------*/
+#quxiaoshoucang {
+  padding: 10px 0px 0px 0px !important;
+  width: 260px;
+  height: 148px;
+  .modalHeader {
+    padding: 0px 10px;
+    i{
+        &:hover{
+            color: #2cb82c;
+        }
+    }
+    span {
+      font-weight: bold;
+    }
+
+  }
+  .modalBody {
+    text-align: center;
+    div {
+      display:inline-block;
+      text-align: center;
+    }
+    p {
+      color: #666;
+      display:inline-block;
+      font-size: 14px;
+      margin: 10px 0px;
+      margin-bottom: 15px;
+      vertical-align: middle;
+    }
+    i{
+      font-size:20px;
+      color:#ff4012;
+      margin-right:10px;
+    }
+  }
+  .modalFooter {
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    background-color: #fff;
+    overflow: hidden;
+    div {
+      text-align: center;
+      width: 50%;
+      float: left;
+      margin-top:-10px;
+      a {
+        font-size: 16px;
+        padding: 5px 10px;
+        border-radius: 2px;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: none !important;
+      }
+      .yesBtn {
+        width: 68px;
+        height: 34px;
+        line-height: 23px;
+        background-color: #2cb82c;
+        color: #ffffff;
+        font-size: 14px;
+        border: 1px solid #eee;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        &:hover{
+            background: #28a528;
+        }
+      }
+      .notBtn {
+        width: 68px;
+        height: 34px;
+        line-height: 23px;
+        background-color: #f8f8f8;
+        color: #666;
+        font-size: 14px;
+        border: 1px solid #eee;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        &:hover{
+            border:1px solid #28a528;
+            color: #2cb82c;
+        }
+      }
+    }
+
+  }
+}
+
+

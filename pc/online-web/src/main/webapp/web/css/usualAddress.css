@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+a {
+  text-decoration: none;
+}
+body {
+  padding: 20px 30px 0px 20px ;
+}
+
+html .my-data-1 .usAddress div, body .my-data-1 .usAddress div{
+	    margin-bottom: 0px;
+}
+.html .my-data-1 .usAddress div, body .my-data-1 .usAddress div input::-webkit-input-placeholder{
+	color:red;
+}
+.html .my-data-1 .usAddress div, body .my-data-1 .usAddress div input:-moz-placeholder {
+	color:red;
+}
+.html .my-data-1 .usAddress div, body .my-data-1 .usAddress div input:-ms-input-placeholder{
+	color:red;
+}
+.clearfix:after {
+  /*最简方式*/
+  content: '';
+  display: block;
+  clear: both;
+}
+.clearfix {
+  /*兼容 IE*/
+  zoom: 1;
+}
+.show {
+  display: block !important;
+}
+.hide {
+  display: none !important;
+}
+.address-title button {
+  padding: 5px 15px;
+  float: left;
+  border: 1px solid #2cb82c;
+  background-color:rgb(236,247,231);
+  outline: none ;
+  cursor: pointer;
+  
+}
+.address-title p {
+  display: inline-block;
+  float: left;
+  padding-left: 20px;
+  font-size: 13px;
+  color: #666;
+  height: 27px;
+  line-height: 27px;
+}
+.address-title p span {
+  color: #2cb82c;
+}
+.address-list {
+  font-size: 14px;
+  padding-top: 20px;
+}
+
+.address-main{
+	margin-bottom:20px !important;
+}
+
+.address-list .address-main {
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  border: 2px solid #eee;
+  position: relative;
+  border-left:2px solid #2cb82c;
+}
+
+.address-list .address-main .address-main-close {
+  position: absolute;
+  color: #ccc;
+  top: 15px;
+  right: 15px;
+  font-size: 20px;
+}
+.address-list .address-main .address-main-close:hover {
+  cursor: pointer;
+}
+.address-list .address-main > div {
+  padding-top: 10px;
+}
+.address-list .address-main > div p:first-child {
+  float: left;
+}
+.address-list .address-main > div p:nth-child(2) {
+  margin-left: 50%;
+}
+.address-list .address-main > div:last-child {
+  padding-top: 30px;
+}
+.address-list .address-main > div:last-child > a {
+  float: right;
+  margin-right: 10px;
+  font-size: 12px;
+}
+.add-address {
+  margin-top: 20px;
+  width: 700px;
+  border: 2px solid #ccc;
+  padding-bottom: 30px;
+  background-color:rgb(239,239,239);
+}
+.add-address > div:nth-child(n+2) {
+  width: 700px;
+  padding: 10px 20px 5px;
+}
+.add-address input {
+  width: 200px;
+  height: 28px;
+  border:1px solid #ccc;
+  text-indent: 1em;
+
+}
+.add-address .add-address-title {
+  width: 696px;
+  height: 30px;
+  line-height: 24px;
+  padding: 2px 10px;
+  border-bottom: 1px solid #ccc;
+  background-color:white;
+}
+.add-address .add-address-title h5 {
+  display: inline-block;
+  margin-top:0px;
+}
+.add-address .add-address-title span {
+  text-align: center;
+  border: 1px solid #ccc;
+  float: right;
+  color: #ccc;
+  display: inline-block;
+  width: 15px;
+  height: 20px;
+  line-height: 20px;
+}
+.add-address .add-address-title span:hover {
+  cursor: pointer;
+}
+.add-address .address-info2 select {
+  width: 200px;
+  height: 28px;
+}
+.add-address .address-info3 input {
+  height: 28px;
+  width: 550px;
+
+}
+.add-address .address-info4 .address-info4-left {
+  float: left;
+}
+.add-address .address-info4 .address-info4-right {
+  float: left;
+  padding-left: 20px;
+}
+.add-address button {
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 100px;
+  height: 40px;
+  color:#2cb82c;
+  border:1px solid #ccc;
+  outline:none;
+  background-color:white;
+}
+.add-address button:hover{
+	background-color:#2cb82c;
+	color:white;
+}
+

@@ -1,0 +1,658 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+p,
+div,
+a,
+span,
+em,
+ul,
+li,
+ol,
+marquee {
+  margin: 0;
+  padding: 0;
+}
+/* 杈撳叆鎻愮ず */
+.input-tips {
+  position: absolute;
+  left: 10px;
+  bottom: 122px;
+  min-width: 205px;
+  height: 32px;
+  padding: 0 10px;
+  display: none;
+  border: 1px solid #DDD;
+  border-radius: 5px;
+  background-color: #FFF;
+  z-index: 99;
+}
+.input-tips i {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+  width: 25px;
+  height: 25px;
+  background: url(/web/images/live/icons.png) #ffffff no-repeat -1060px -5px;
+}
+.input-tips p {
+  padding-left: 30px;
+  line-height: 32px;
+}
+.input-tips .input-tips-cur {
+  position: absolute;
+  left: 15px;
+  bottom: -15px;
+  border: 8px solid transparent;
+  border-top-color: #FFF;
+}
+#livePlayer {
+  background: #000;
+  width: 100%;
+  height: 100%;
+}
+.livePlayer {
+  display: block;
+  float: left;
+  height: 800px;
+  padding-right: 310px;
+  width: 100% ;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  padding-top: 64px;
+}
+.livePlayer .kick {
+  width: 330px;
+  height: 70px;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  line-height: 70px;
+  position: absolute;
+  left: 50%;
+  margin-left: -280px;
+  top: 50%;
+  margin-top: -100px;
+  display: none;
+}
+.livePlayer .ms {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 90;
+  background: #000;
+  padding-right: 310px;
+}
+.livePlayer .dialog {
+  display: none;
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  height: 206px;
+  margin-left: -335px;
+  margin-top: -103px;
+  background: #333;
+  padding: 20px;
+}
+.livePlayer .dialog .title {
+  color: #fff;
+}
+.livePlayer .dialog .title i {
+  margin-right: 10px;
+}
+.livePlayer .dialog .cont p {
+  text-align: center;
+  color: #fff;
+}
+.livePlayer .dialog .cont .c1 {
+  margin-top: 30px;
+}
+.livePlayer .dialog .cont .qq {
+  margin-top: 20px;
+}
+.livePlayer .liveMess {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 64px;
+  width: 100%;
+  z-index: 99;
+  background: #1f1f1f;
+  line-height: 64px;
+  padding-right: 310px;
+}
+.livePlayer .liveMess .lb {
+  display: none;
+}
+.livePlayer .liveMess .liveName {
+  display: block;
+  float: left;
+  margin-left: 30px;
+  font-size: 18px;
+  color: #fff;
+  
+}
+.livePlayer .liveMess .liveName a {
+	color:#fff;
+	font-size:14px;
+}
+.livePlayer .liveMess .liveTime {
+  background: url(/web/images/live/icon-1.png) left center no-repeat;
+  float: right;
+  margin-right: 0;
+  color: #2CB82C;
+  font-size: 14px;
+  padding-left: 32px;
+}
+.livePlayer .liveMess .liveMember {
+  float: right;
+  margin-right: 100px;
+  font-size: 14px;
+  color: #fff;
+}
+.right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  z-index: 99;
+}
+.right-live {
+  width: 310px;
+  background: #FAFAFA;
+  height: 100%;
+  position: relative;
+  padding-top: 142px;
+}
+.right-live .right-mulu {
+  display: block;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 2px 0px 0 2px;
+  position: absolute;
+  right: 310px;
+  top: 17px;
+  cursor: pointer;
+  background: url(/web/images/live/shou.png) #fafafa center center no-repeat;
+  z-index: 100;
+}
+.right-live .right-mulu.act {
+  background: url(/web/images/live/zhan.png) #fafafa center center no-repeat;
+}
+.right-live .right-header {
+  padding-top: 30px;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  background: #fafafa;
+}
+.right-live .right-header .headImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  overflow: hidden;
+  float: left;
+  margin-left: 20px;
+}
+.right-live .right-header .headImg img {
+  width: 100%;
+  height: 100%;
+}
+.right-live .right-header .headMess {
+  float: left;
+  margin-left: 20px;
+}
+.right-live .right-header .headMess .name {
+  margin-top: 5px;
+  color: #333;
+  font-size: 14px;
+}
+.right-live .right-header .headMess .num {
+  display: inline-block;
+    color: #333;
+    font-size: 12px;
+    padding-left: 20px;
+    margin-top: 8px;
+    background: url(/web/images/live/chongzhi.jpg) left center no-repeat;
+    height: 23px;
+    line-height: 23px;
+    margin-right:15px;
+    padding-left:28px;
+}
+.right-live .right-header .headMess .dashang{
+	 background: url(/web/images/live/dashang.jpg) left center no-repeat;
+}
+.right-live .right-header .head-tab {
+  clear: both;
+  width: 100%;
+  border-bottom: 1px solid #E4E4E4;
+  height: 61px;
+  line-height: 61px;
+}
+.right-live .right-header .head-tab .tab {
+  width: 50%;
+  text-align: center;
+  float: left;
+  height: 61px;
+}
+.right-live .right-header .head-tab .tab a {
+  cursor: pointer;
+  padding: 19px 15px;
+  font-size: 14px;
+  color: #333;
+}
+.right-live .right-header .head-tab .active a {
+  color: #2CB82C;
+  border-bottom: 1px solid #2cb82c;
+}
+.right-live .right-con {
+  height: 100%;
+  background: #FAFAFA;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.right-live .right-con .mess {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.right-live .right-con .mess .box {
+  height: 100%;
+  padding-bottom: 200px;
+  width:326px;
+  overflow-y: scroll;
+}
+.right-live .right-con .mess #chat-list {
+  padding: 20px 20px;
+  padding-right:0px;
+overflow-y: auto;
+  height: 100%;
+  padding-bottom: 50px;
+}
+.right-live .right-con .mess #chat-list .rflower {
+  cursor: default;
+  line-height: 22px;
+ 
+}
+.right-live .right-con .mess #chat-list .rflower span {
+  color: #88b588;
+  display: block;
+  max-width: 70px;
+  overflow: hidden;
+  float: left;
+  text-overflow: ellipsis;
+  cursor: default;
+  white-space: nowrap;
+}
+.right-live .right-con .mess #chat-list .rflower i {
+  display: block;
+  float: left;
+  font-style: normal;
+  margin: 0 5px;
+}
+.right-live .right-con .mess #chat-list .rflower .fflower {
+  background: url(/web/images/live/flower.png) no-repeat right center;
+  padding-right: 23px;
+}
+.right-live .right-con .mess #chat-list .rflower .time {
+  color: #333;
+  margin-left: 5px;
+}
+.right-live .right-con .mess li {
+  margin:10px;
+  list-style: none;
+  font-size: 13px;
+  margin-top: 5px;
+  background-color: rgb(229,248,231);
+}
+.right-live .right-con .mess li .peo-infos {
+  display: block;
+}
+.right-live .right-con .mess li .peo-infos .p-n-names {
+  color: #88b588;
+  max-width: 190px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  float: left;
+}
+.right-live .right-con .mess li .peo-infos .p-n-names .name-tip {
+  cursor: pointer;
+  display: block;
+  float: left;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.right-live .right-con .mess li .peo-infos .p-n-names .tips1 {
+  max-width: 190px;
+}
+.right-live .right-con .mess li .peo-infos .p-n-names em {
+  color: #333;
+  display: inline;
+  font-style: normal;
+  margin: 0 5px;
+  float: left;
+}
+.right-live .right-con .mess li .peo-infos .peo-times {
+  float: left;
+  margin-left: 10px;
+}
+.right-live .right-con .mess li .peo-chat {
+  clear: both;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 20px;
+  font-size: 13px;
+  margin-top: 10px;
+}
+.right-live .right-con .mess li .peo-chat p {
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+.right-live .right-con .mess li .peo-chat img {
+  width: 20px;
+}
+.right-live .right-con .mess li .peo-chat a {
+  color: #5faaf7;
+}
+.right-live .right-con .member {
+  display: none;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 20px;
+  padding-bottom: 20px;
+  height: 100%;
+}
+.right-live .right-con .member li {
+  list-style: none;
+  font-size: 14px;
+  margin-top: 20px;
+  padding-left: 34px;
+  color: #333;
+  height: 25px;
+  line-height: 25px;
+}
+.right-live .right-con .member li i {
+  margin-left: 10px;
+  display: inline-block;
+  width: 16px;
+  height: 14px;
+  background: url(/web/images/live/no-chat.png) left center no-repeat;
+}
+.right-live .right-con .member .teacher {
+  background: url(/web/images/live/teacher.png) left center no-repeat;
+}
+.right-live .right-con .member .student {
+  background: url(/web/images/live/student.png) left center no-repeat;
+}
+.right-live .chat {
+  bottom: -8px;
+  width: 100%;
+  height: 200px;
+  z-index: 10;
+  left: 0;
+  background: #FAFAFA;
+      position: absolute;
+}
+.right-live .chat .right-list {
+  height: 30px;
+  background: #eef3f8;
+  line-height: 30px;
+  border-top: 1px solid #E4E4E4;
+}
+.right-live .chat .right-list a {
+	    position: absolute;
+  margin-left: 36px;
+  display: block;
+  float: left;
+  width: 20px;
+  height: 30px;
+  cursor: pointer;
+}
+.right-live .chat .right-list p {
+	padding-left: 5px;
+  float: right;
+  color: #666;
+  font-size: 13px;
+  margin-right: 20px;
+}
+.right-live .chat .right-list .emoj {
+  background: url(/web/images/live/emoj.png) center center no-repeat;
+}
+.right-live .chat .right-list .img {
+  background: url(/web/images/live/image.png) center center no-repeat;
+}
+.right-live .chat .right-list .flower {
+  background: url(/web/images/live/flower-normal.png) center center no-repeat;
+  position: relative;
+}
+.right-live .chat .right-list .flower .send_wait {
+  display: none;
+  position: absolute;
+  top: -32px;
+  padding: 2px 10px;
+  line-height: 24px;
+  text-align: center;
+  border: 1px solid #c1c8db;
+  border-radius: 5px;
+  background: #fff;
+  left: 50%;
+  margin-left: -80px;
+  font-size: 14px;
+  color: #666;
+  z-index: 9;
+}
+.right-live .chat .right-list .flower .send_wait p {
+  white-space: nowrap;
+}
+.right-live .chat .right-list .flower .send_wait:after {
+  content: "";
+  z-index: 9;
+  position: absolute;
+  bottom: -10px;
+  left: 72px;
+  width: 0;
+  height: 0;
+  border: 5px solid transparent;
+  border-top-color: #fff;
+}
+.right-live .chat .right-list .onlyteach {
+  background: url(/web/images/live/onlyteacher.png) center center no-repeat;
+}
+.right-live .chat .right-list .onlyteach.active {
+  background: url(/web/images/live/quxiao.png) center center no-repeat;
+}
+.right-live .chat .right-text {
+  position: relative;
+}
+.right-live .chat .right-text .fugai {
+  position: absolute;
+  width: 100%;
+  height: 83px;
+  background: #fff;
+  z-index: 9;
+  text-align: center;
+  line-height: 83px;
+  font-size: 14px;
+}
+.right-live .chat .right-text .fugai span {
+  color: #2CB82C;
+  cursor: pointer;
+}
+.right-live .chat .right-text .text {
+  resize: none;
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+  height: 128px;
+  background: #fff;
+  padding: 10px 20px;
+  border: none;
+  color: #333;
+  font-size: 13px;
+  line-height: 20px;
+  overflow-y: auto;
+  outline: none;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.right-live .chat .right-text .tip {
+  height: 32px;
+  line-height: 32px;
+}
+.right-live .chat .right-text .tip .enter {
+  font-size: 12px;
+  color: #999;
+  margin-left: 20px;
+}
+.right-live .chat .right-text .tip .sub {
+  border-radius: 2px;
+  color: #fff;
+  background: #2cb82c;
+  text-align: center;
+  border: none;
+  display: block;
+  float: right;
+  width: 44px;
+  height: 22px;
+  line-height: 22px;
+  margin-top: 6px;
+  font-size: 12px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+/*emoje琛ㄦ儏*/
+#embox {
+  position: absolute;
+  bottom: 70px;
+  width: 100%;
+  background: #FFF;
+  border-top: 1px solid #dcdcdc;
+}
+#embox table {
+  width: 100%;
+  margin: 5px 0;
+}
+#embox table td {
+  text-align: center;
+}
+#embox table td img {
+  border: 1px solid #FFF;
+  width: 20px;
+}
+#embox table td img:hover {
+  border: 1px solid #33aff6;
+}
+@media screen and (max-width: 800px) and (min-width: 320px) {
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+  .livePlayer {
+    padding-right: 0;
+  }
+  .livePlayer .liveMess {
+    background: rgba(0, 0, 0, 0.5);
+    height: 32px;
+    line-height: 32px;
+    font-size: 12px;
+    padding-right: 0;
+  }
+  .livePlayer .liveMess .liveName {
+    display: none;
+  }
+  .livePlayer .liveMess .liveTime {
+    display: none;
+  }
+  .livePlayer .liveMess .liveMember {
+    display: none;
+  }
+  .livePlayer .liveMess .lb {
+    display: block;
+    color: #fff;
+  }
+  .right {
+    display: none!important;
+  }
+}
+
+
+/* 头部朋友圈 */
+.share{
+	float:right;
+	margin-right:5%;
+	margin-top: 14px;
+}
+.share ul li{
+	float:left;
+	list-style:none;
+	color:#fff;
+	font-size:14px;
+	width:40px;
+	height:40px;
+
+	line-height: 36px;
+    text-align: center;
+    border-radius: 20px 20px 0px 0px;
+    position: relative;
+}
+
+.share_li1_img{
+	position: absolute;
+	top:40px;
+	left:0px;
+	display:none;
+}
+.share_li2_img{
+	position: absolute;
+	top:40px;
+	left:0px;
+	display:none;
+}
+.share_li1:hover{
+	background:#fff;
+}
+.share_li2:hover{
+	background:#fff;
+}
+.share_li1:hover{
+	background:#fff;
+}
+.share_li1:hover .share_li1_img{
+	display:block;
+}
+.share_li2:hover .share_li2_img{
+	display:block;
+}
+
+
+
+#flyGift{
+	background-color:red;
+}
+

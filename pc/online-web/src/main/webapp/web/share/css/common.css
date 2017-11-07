@@ -1,0 +1,63 @@
+/* Reset system css */
+
+blockquote,body,dd,dir,dl,fieldset,form,h1,h2,h3,h4,h5,h6,hr,input,menu,ol,p,pre,ul,xmp {margin:0}
+button,caption,dir,fieldset,input,legend,menu,ol,td,textarea,th,ul {padding:0}
+html{text-size-adjust:none}ul,ol,menu{list-style:none}img{border:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}a{margin:0;padding:0;border:0;vertical-align:baseline;}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:700}del{text-decoration:line-through}sup,sub{line-height:0}abbr[title],dfn[title]{border-bottom:1px dotted #000;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
+input,select,label,button,textarea{vertical-align:middle;border:none;background:none;font-size:12px;font-family:'\5FAE\8F6F\96C5\9ED1';}
+address,caption,cite,code,dfn,em,i,th,var{font-style:normal; font-weight:normal;}
+input:focus{outline:none}
+
+/* Reset end */
+
+/* All Css */
+
+html {color: #333; font-size: 12px;font-family:'\5FAE\8F6F\96C5\9ED1';}
+body {font-size: 12px; background:#fff;} 
+h1,h2,h3,h4,h5,h6{font-weight:normal;font-family:'\5FAE\8F6F\96C5\9ED1';}
+h1{font-size: 24px;}h2{font-size: 22px;}h3{font-size: 20px;}h4{font-size: 18px;}h5{font-size: 16px;}h6{font-size: 14px;}
+a{color:#333;}
+a:link,a:visited {text-decoration:none; cursor:pointer; outline:none; blr:expression(this.onFocus=this.blur());}
+a:hover,a:active {text-decoration:none;-webkit-transition:color .1s linear , background-color .1s linear;-moz-transition:color .1s linear , background-color .1s linear;-o-transition:color .1s linear , background-color .1s linear;-ms-transition:color .1s linear , background-color .1s linear;transition:color .1s linear , background-color .1s linear; cursor:pointer;}
+.clearfix:after { 
+    content:"\200B"; 
+    display:block; 
+    height:0; 
+    clear:both; 
+} 
+.clearfix {*zoom:1;}/*IE/7/6*/ 
+.clear{clear:both;}
+.fl{float:left !important;}
+.fr{float:right !important;}
+
+/* Text layout */
+.f12{font-size:12px;}
+.f14{font-size:14px;}
+.f16{font-size:16px;}
+.f18{font-size:18px;}
+.f20{font-size:20px;}
+.f24{font-size:24px;}
+.f26{font-size:26px;}
+.f28{font-size:28px;}
+.f32{font-size:32px;}
+.f30{font-size:30px;}
+.f36{font-size:36px;}
+.fb{font-weight:bold;}
+.fn{font-weight:normal;}
+.ti2{text-indent:2em;}
+
+/* 遮罩 */
+.mask{opacity: 0.3;filter: alpha(opacity=30);background-color: black;width: 100%;height: 100%;position: fixed;top: 0;left: 0; z-index:101}
+
+
+/* 低版本提示 */
+.ie6{ height:60px; line-height:30px; border:1px solid #CCC; background-color: #FFC}
+.ie6 ul{ width:1000px; margin:0 auto; font-family:"微软雅黑"}
+.ie6 ul li{ height:30px; line-height:30px;}
+.ie6 ul li.l1{ line-height:30px;color:#F00; font-size:14px}
+.ie6 ul li.l2{ line-height:30px;color: #008000; font-size:14px}
+.ie6 ul li.l2 a{ font-size:12px; color:#551A8B}
+
+
+
+
+

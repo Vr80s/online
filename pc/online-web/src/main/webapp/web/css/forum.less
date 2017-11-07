@@ -1,0 +1,636 @@
+html,body{
+  margin:0;
+  padding:0;
+  font-family:'Microsoft YaHei';
+  background-color:#f7f7f7;
+  overflow-x:hidden ;
+}
+div,span,ul,li{
+  margin:0;
+  padding:0;
+}
+img{
+  display:inline-block;
+  outline: none;
+}
+.clearfix:after{
+  content:"";
+  height:0;
+  display:block;
+  visibility:hidden;
+  clear:both;
+}
+#forum{
+  width:1200px;
+  margin:0 auto;
+  .forum-banner{
+    margin-top:20px;
+    .banner{
+      float:left;
+      width:890px;
+      height:366px;
+      position:relative;
+      .slider{
+        width:100%;
+        height:100%;
+        li{
+          width:100%;
+          height:100%;
+          position:absolute;
+          a{
+            width:100%;
+            height:100%;
+            display:inline-block;
+            &:hover .image-overlay{
+              opacity:0;
+              filter:alpha(opacity=0);
+            }
+          }
+          .banner-info{
+            position:absolute;
+            bottom:60px;
+            left:30px;
+            z-index:1;
+            .banner-type{
+              display:block;
+              font-size:14px;
+              color:#fff;
+              opacity:0.7;
+              filter:alpha(opacity=70);
+            }
+            .banner-title{
+              display:block;
+              font-size:20px;
+              color:#fff;
+              margin-top:5px;
+            }
+          }
+          .image-overlay {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+            filter: alpha(opacity=30);
+            background: #000\9;
+            opacity:.3;
+            background-image: -webkit-linear-gradient(top, rgba(225, 225, 225, 0) 50%, rgba(0, 0, 0, 0.5) 100%);
+            background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
+            background-image: linear, top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%;
+          }
+        }
+      }
+      #left,#right{
+        display:none;
+        width:48px;
+        height:80px;
+        background-color:rgba(0,0,0,0.15);
+        position:absolute;
+        top:50%;
+        z-index: 5;
+        -webkit-transform: translate(0%, -50%);
+        -moz-transform: translate(0%, -50%);
+        -ms-transform: translate(0%, -50%);
+        -o-transform: translate(0%, -50%);
+        transform: translate(0%, -50%);
+        em{
+          width:20px;
+          height:37px;
+          display:inline-block;
+          background-size:20px 37px;
+          background-repeat: no-repeat;
+          position:absolute;
+          top:50%;
+          left:50%;
+          -webkit-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -ms-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+        }
+        cursor:pointer;
+      }
+      #left{
+        left:0;
+        em{
+          background-image:url("/web/images/130/banner_left_normal.png");
+        }
+        &:hover em{
+          background-image:url("/web/images/130/banner_left_hover.png");
+          background-size:20px 37px;
+          background-repeat: no-repeat;
+        }
+      }
+      #right{
+        right:0;
+        em{
+          background-image:url("/web/images/130/banner_right_normal.png");
+         }
+        &:hover em{
+          background-image:url("/web/images/130/banner_right_hover.png");
+          background-size:20px 37px;
+          background-repeat: no-repeat;
+        }
+      }
+      &:hover #left,&:hover #right{
+        display:block;
+      }
+      .selector{
+        position:absolute;
+        bottom:20px;
+        left:50%;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%);
+        z-index:5;
+        span{
+          display:inline-block;
+          width:12px;
+          height:12px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          border:1px solid #fff;
+          margin-right:8px;
+          cursor:pointer;
+        }
+        .cur{
+          background-color:#2cb82c;
+          border:none;
+        }
+      }
+    }
+    .hot-article{
+      float:right;
+      width:290px;
+      height:366px;
+      background-color:#fff;
+      .hot-article-title{
+        display:inline-block;
+        width:100%;
+        padding:17px 20px;
+        font-size:16px;
+        color:#333;
+        border-bottom:1px solid #eee;
+      }
+      .hot-article-list{
+        padding:0 20px;
+        word-break: break-all;
+        word-wrap: break-word;
+        li{
+          margin-top:18px;
+          cursor:pointer;
+          span{
+            display:inline-block;
+            width:220px;
+            vertical-align: middle;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            margin-top:-2px;
+          }
+          a,span{
+            color:#333;
+            font-size:14px;
+          }
+          em{
+            display:inline-block;
+            width:20px;
+            height:20px;
+            line-height: 20px;
+            text-align:center;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            border:1px solid #ccc;
+            font-size:14px;
+            color:#999;
+            font-style:normal;
+            margin-right:10px;
+          }
+          .select{
+            border:none;
+            background-color:#2cb82c;
+            color:#fff;
+          }
+        }
+        span:hover{
+          color:#2cb82c;
+        }
+
+      }
+    }
+  }
+  .forum-content{
+    margin-top:20px;
+    .forum-content-left{
+      width:890px;
+      float:left;
+      padding-bottom:60px;
+      background-color:#fff;
+      .forum-content-tag{
+        padding:22px 30px 17px 0;
+        border-bottom:1px solid #eee;
+        background-color:#fff;
+        width: 830px;
+        margin-left:30px;
+        li{
+          float:left;
+          margin-right:50px;
+          font-size:16px;
+          color:#333;
+          cursor:pointer;
+          em.select,em.select1{
+            display:inline-block;
+            width:6px;
+            height:6px;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background-color:#2cb82c;
+            margin-right:10px;
+            margin-top: -1px;
+            vertical-align: middle;
+          }
+          em.select1{
+            background-color:#fff;
+          }
+        }
+       li:hover{
+          color:#2cb82c;
+        }
+       li.select{
+          color:#2cb82c;
+        }
+        &.articleFloat{
+          position:fixed;
+          top:0;
+        }
+      }
+      .forum-content-info{
+        padding:0 30px;
+        min-height:443px;
+        .page-no-result{
+          padding-top:140px;
+          width: 250px;
+          min-height: 300px;
+          text-align: center;
+          margin: 0px auto;
+          .no-title {
+            font-size: 13px;
+            color: #999;
+            text-align: center;
+            margin-top: 15px;
+          }
+        }
+        .forum-info{
+          padding:20px 0;
+          border-bottom:1px solid #eee;
+          .forum-info-left{
+            float:left;
+            width:260px;
+            height:160px;
+          }
+          .forum-info-right{
+            float:right;
+            width:550px;
+            height:160px;
+            .forum-info-title{
+              a{
+                font-size:18px;
+                color:#333;
+                font-weight:bold;
+                &:hover{
+                  color:#2cb82c;
+                }
+              }
+            }
+            .forum-info-content{
+              margin:11px 0;
+              font-size:14px;
+              color:#666;
+              line-height:24px;
+              height:99px;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              word-wrap: break-word;
+              word-break: break-all;
+            }
+            .forum-info-tags{
+              font-size:12px;
+              color:#999;
+              span{
+                margin:0 25px;
+              }
+              a{
+                color:#999;
+                cursor:pointer;
+              }
+              i{
+                display:inline-block;
+                margin-right:5px;
+                font-size:12px;
+                color:#ccc;
+              }
+              em{
+                width:2px;
+                height:2px;
+                display:inline-block;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                background-color:#999;
+                vertical-align: middle;
+                margin:0 5px;
+              }
+            }
+          }
+        }
+      }
+      .pages{
+        margin:30px 0 0px;
+        display:none;
+      }
+    }
+    .forum-content-right{
+      width:290px;
+      float:right;
+      .forum-hot-tag{
+        background-color:#fff;
+        .forum-hot-tag-title{
+          display:inline-block;
+          width:100%;
+          padding:17px 20px;
+          font-size:16px;
+          color:#333;
+          border-bottom:1px solid #eee;
+        }
+        .forum-hot-tagGround{
+          padding:20px;
+          li{
+            border:1px solid #ccc;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+            margin-right:10px;
+            margin-bottom:10px;
+            display:inline-block;
+            a{
+              display:inline-block;
+              padding:3px 15px;
+              font-size:14px;
+              color:#999;
+            }
+          }
+          li:hover{
+            color:#fff;
+            background-color:#2cb82c;
+            border:1px solid #2cb82c;
+          }
+          li:hover a{
+            color:#fff;
+          }
+        }
+      }
+      .forum-hot-course{
+        margin-top:20px;
+        background-color:#fff;
+        display:inline-block;
+        width:100%;
+        .forum-hot-course-title{
+          border-bottom:1px solid #eee;
+          padding:17px 20px;
+          font-size:16px;
+          color:#333;
+          .forum-hot-course-banner{
+            float:right;
+            .curCount,span{
+              display:inline-block;
+              font-size:12px;
+              color:#999;
+            }
+            .allLunbo{
+              margin-right:5px;
+            }
+            .prev{
+              background:url("/web/images/125/left.png")no-repeat center center;
+              background-position-x: 4px;
+            }
+            .next{
+              background:url("/web/images/125/right.png")no-repeat center center;
+              background-position-x:5px;
+            }
+            .prev,.next{
+              background-color:#ccc;
+              display:inline-block;
+              width:14px;
+              height:14px;
+              -webkit-border-radius: 50%;
+              -moz-border-radius: 50%;
+              border-radius: 50%;
+              vertical-align: middle;
+              margin-top: -1px;
+              cursor:pointer;
+              &:hover{
+                background-color:#2cb82c;
+              }
+            }
+          }
+        }
+        .hot-course {
+          height: 276px;
+          padding: 17px 20px 0;
+          .slide-box {
+            height: 255px;
+            width: 255px;
+            overflow: hidden;
+          }
+          .boxContent {
+            padding: 0;
+            position: relative;
+            left: 0;
+            overflow: hidden;
+            height: 235px;
+            position: relative;
+            li {
+              float: left;
+              width: 100%;
+              position: absolute;
+              background: #fff;
+              top: 3px;
+              left: 100%;
+              &:hover {
+                -webkit-box-shadow: 1px 1px 4px 1px #ddd;
+                -moz-box-shadow: 1px 1px 4px 1px #ddd;
+                box-shadow: 1px 1px 4px 1px #ddd;
+              }
+            }
+            .diyiye {
+              left: 0;
+              a {
+                text-decoration: none;
+              }
+            }
+          }
+          .course {
+            a {
+              float: left;
+              margin-right: 20px;
+              width: 100%;
+            }
+            .classCategory {
+              width: 38px;
+              height: 22px;
+              text-align: center;
+              line-height: 22px;
+              color: white;
+              background: url("../images/index/label.png") no-repeat left top;
+              position: absolute;
+              right: 18px;
+              font-size: 12px;
+              top: -2px;
+            }
+            .img {
+              text-align: center;
+              line-height: 152px;
+              width: 250px;
+              height: 152px;
+              background-color: #f0f0f0;
+              background-position: center;
+              background-repeat: no-repeat;
+              img {
+                width: 100%;
+                height: 100%;
+              }
+            }
+            .aimg {
+              text-align: center;
+              line-height: 152px;
+              width: 250px;
+              height: 152px;
+              background-color: #f0f0f0;
+              background-position: center;
+              background-repeat: no-repeat;
+              overflow: hidden;
+              img {
+                margin-top: -7px;
+                margin-left: -25px;
+              }
+            }
+            .detail {
+              padding: 0 10px;
+              border: 1px solid #e4e4e4;
+              border-top: none;
+              box-sizing: content-box;
+              overflow: hidden;
+              a {
+                text-decoration: none;
+              }
+              .info {
+                padding-top: 2px;
+              }
+              em {
+                font-size: 12px;
+                color: #2cb82c;
+                font-style: normal;
+                display: inline-block;
+              }
+              .timeAndTeac {
+                display: block;
+                margin: 4px 0;
+                span {
+                  font-size: 12px;
+                  color: #999;
+                }
+                i {
+                  font-style: normal;
+                  height: 12px;
+                  color: #ccc;
+                  display: inline-block;
+                  margin: 0 10px;
+                }
+              }
+              .info {
+                span i {
+                  font-style: normal;
+                  font-size: 16px;
+                  color: #ff4012;
+                }
+                .price {
+                  display: inline-block;
+                  margin: 0 6px 0 0;
+                  font-size: 16px;
+                  color: #ff4012;
+                }
+                .price1 {
+                  font-style: normal;
+                  font-size: 13px;
+                  color: #999;
+                }
+                .pricefree {
+                  display: inline-block;
+                  margin: 0 6px 0 0;
+                  font-size: 14px;
+                  color: #2cb82c;
+                }
+                del {
+                  color: #999;
+                  font-size:12px;
+                }
+                .stuCount {
+                  font-size: 12px;
+                  color: #666;
+                  vertical-align: super;
+                  margin-top: 3px;
+                  img{
+                    margin-right:4px;
+                  }
+                  .studentCou{
+                    display:inline-block;
+                    vertical-align: middle;
+                    margin-top:1px;
+                  }
+                }
+              }
+              p {
+                color: #333;
+              }
+              .title {
+                max-width: 211px;
+                display: inline-block;
+                margin-bottom: 0;
+                overflow: hidden;
+                font-weight: 500;
+                font-size: 14px;
+                color: #333;
+                margin-top: 11px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+              }
+              .title:hover {
+                color: #2cb82c;
+              }
+              span {
+                color: #999;
+              }
+              .info > span:nth-child(1) {
+                float: left;
+              }
+              .info > span:nth-child(2) {
+                float: right;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

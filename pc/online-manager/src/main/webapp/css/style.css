@@ -1,0 +1,392 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: 'microsoft yahei', Verdana, Arial, Helvetica, sans-serif;
+}
+a{
+    list-style: none;
+    text-decoration: none;
+    color: #001217;
+    outline: none;
+}
+.huise{
+    background: #a3b3c9;
+}
+.nav-header.collapsed > span.glyphicon-chevron-toggle:before {
+    content: "\e114";
+}
+
+.nav-header > span.glyphicon-chevron-toggle:before {
+    content: "\e113";
+}
+.navleft{
+    /* background: #001217;*/
+    padding: 4px;
+    margin-bottom: 5px;
+
+
+}
+.navleft>ul> li{
+padding: 6px;
+}
+.navleft li{
+
+}
+.navleft li a{
+      color:#4b676f;
+      font-size: 14px;
+  }
+.navleft li a:hover{
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+}
+.navleft li a:focus{
+    color: #fff;
+    outline: none;
+    text-decoration: none;
+}
+.secondmenu li a:hover{
+    background: none;
+
+}
+
+.textcolor{
+    color: #84a2ad;
+    font-size: 14px;
+}
+.paddingleft0px{
+    padding-left: 0px;
+}
+.paddingright0px{
+    padding-right: 4px;
+
+}
+.padding0px{
+    padding-right: 4px;
+
+}
+/*.paddingright0px span{
+    float: right;
+}*/
+.finger{
+    cursor: pointer;
+}
+.boxmain{
+    position: relative;
+    width: 100%;
+    min-height:786px;
+
+}
+.mainleft{
+    width: 13.3%;
+    background: #0c1719;
+    float: left;
+    color: #fff;
+}
+.navmenu li{
+    line-height: 36px;
+
+}
+.navmenu li a:hover{
+    color: #fff;
+
+}
+.boxmainheader img{
+    width: 100%;
+  
+    margin:10px 0 0 3px;
+}
+.mainright{
+    width: 86.7%;
+    height: 100%;
+    float: right;
+    border: 1px aliceblue solid;
+}
+.mainrightdown{
+    width: 95%;
+    height: auto;
+    margin: 2%;
+}
+.mainrightheader{
+    width: 100%;
+    height: 60px;background: #ebeff2;
+}
+.borderred{
+    border-left: 2px solid red ;
+    background: #001217;
+}
+.nav-user-photo{
+    width: 50px;
+    height: auto;
+    border-radius: 25px;
+
+}
+.padding15px{
+    padding: 20px 0;
+}
+.padding10px{
+    padding: 6px;
+}
+.mainleftnav{
+	margin-top:10px;
+	padding-top: 10px;
+    width: 13%;
+	min-height: 500px;
+    border: 1px #c0c0c0 solid;
+    float: left;
+}
+.mainrighttab{
+    width: 87%;
+    float: right;
+    border: 1px #c0c0c0 solid;
+    /*padding: 10px;*/
+
+}
+.table thead>tr>th, .table tbody>tr>th, .table tfoot>tr>th, .table thead>tr>td, .table tbody>tr>td, .table tfoot>tr>td {
+    border-top: none;
+    text-align: center;
+}
+.feny{
+
+    margin-left: 22%;
+}
+span.glyphicon.glyphicon-triangle-bottom {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{
+    background:transparent;
+    background: #f9f9f9;
+}
+.table>tbody>tr:hover{
+    background: #f1f1f1;
+}
+.inputk input{
+    width: 40px;
+}
+.peizhi{
+    position: relative;
+}
+.peizhi span {
+    width: 20px ;
+    height: 21px;
+    display: block;
+    right: 20%;
+    top: 30%;
+    cursor: pointer;
+    z-index: 7;
+    position: absolute;
+    float: right;
+    padding-left: 3px;
+
+}
+.bordernone{
+    border-left: none;
+    border-right:  none;
+    border-top:  none;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom: none;
+    background: none;
+}
+.bordershow{
+    border-left: 1px #c0c0c0 solid;
+    border-right: 1px #c0c0c0 solid;
+    border-top: 1px #c0c0c0 solid;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom: none;
+    background: #fff;
+}
+.caret {
+    display: block;
+    margin: 5px;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid #a3b3c9;
+    border-right: 4px solid transparent;
+    border-bottom: 0 dotted;
+    border-left: 4px solid transparent;
+    content: "";
+}
+
+.bianji{
+    position: absolute;
+    z-index: 4;
+    right: 20%;
+    border: 1px #c0c0c0 solid;
+    width:46.48%;
+    background: #fff;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    display: none;
+}
+.bianji li{
+    line-height: 30px;
+}
+.bianji li:hover{
+    background: #f1f1f1;
+}
+.bjcolor{
+    color:#888888;
+}
+/*题库的操作按钮*/
+.pz small{
+    position: relative;
+}
+#caret{
+    left: 71%;
+}
+#bj{
+    right:7.5%;
+  width: 70%;
+}
+/*删除弹框*/
+.delebox{
+    width:34% ;
+    height: auto;
+    padding-bottom: 15px;
+    border-radius:4px;
+    background: #fff;
+    border: 1px solid #c0c0c0;
+    position: fixed;
+    z-index: 101;
+    top: 25%;
+    left: 35%;
+    -webkit-box-shadow:0 0 10px #006464;
+    -moz-box-shadow:0 0 10px #004a4a;
+    box-shadow:0 0 20px #003737;
+    display: none;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=135, Strength=5);/*for ie6,7,8*/
+}
+.deleheader{
+    width: 100%;
+    height: 40px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background: #080808;
+    color: #fff;
+}
+.qued{
+    text-indent: 1em;
+}
+/*end*/
+
+/*添加*/
+.addbox {
+     width: 550px;
+    height: auto;
+}
+/*遮罩*/
+.zhezhao{
+    background: #000;
+    filter: 0; /* IE的透明度 */
+    opacity: 0;  /* 透明度 */
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 100; /* 此处的图层要大于页面 */
+
+}
+
+/*资源配置*/
+.tabresourse{
+    width: 100%;
+}
+
+
+
+/*tab切换*/
+.tab-pills > li > a {
+    padding: 8px 24px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.tab-pills > li > a:focus, .tab-pills > li > a:hover {
+    background: none;
+    border-bottom: 2px solid #00b98b;
+    border-radius: 0 !important;
+}
+
+.tab-pills > li.active > a, .tab-pills > li.active > a:focus, .tab-pills > li.active > a:hover {
+    border-bottom: 2px solid #00b98b;
+    color: #000000;
+    border-radius: 0 !important;
+    background: none;
+}
+
+/*作业轨迹*/
+.arrows {
+    right: 100%;
+    border: solid transparent;
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: #F2F6F9;
+    border-width: 10px;
+    top: 6px;
+}
+
+.boxborderradius {
+    position: relative;
+    border-radius: 3px !important;
+    border-left: 0px !important;
+}
+
+.lines{
+    width: 100%;
+    border-bottom: 1px solid #c0c0c0;
+    margin-bottom: 15px
+}
+.secheck{
+    width: 28%;
+    height: 2em;
+    border-radius: 3px;
+    text-align: center;
+
+}
+.secheck1{
+    width: 22%;
+    height: 2em;
+    border-radius: 3px;
+}
+.secheck2{
+    width: 62%;
+    height: 2em;
+    border-radius: 3px;
+}
+
+/*新增试题*/
+
+.tisix label{
+    text-align: right;
+}
+/* .tisix span{
+    font-size: 16px;
+    width: 36%;
+} */
+.marginbottom10px{
+    margin-bottom: 10px
+}
+
+.ui-dialog .ui-button{
+	border:none;outline:none
+}

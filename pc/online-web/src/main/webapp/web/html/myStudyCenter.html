@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns=http://www.w3.org/1999/xhtml xmlns:bd=http://www.baidu.com/2010/xbdml>
+
+<head>
+	<!--[if IE 9]>
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+	<![endif]-->
+	<meta http-equiv="X-UA-Compatible" content="IEedge" />
+	<meta charset="UTF-8">
+	<title>学习中心 - 线上中医教育</title>
+	<link rel="shortcut icon" href="../../favicon.ico" />
+	<meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医" />
+	<meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。" />
+	<meta name="renderer" content="webkit">
+	<link rel="stylesheet" href="/web/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/web/css/componet.css">
+	<link rel="stylesheet" href="/web/css/header.css">
+	<link rel="stylesheet" href="/web/css/modal.css">
+	<link href="/web/css/mylogin.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="/web/css/myprofile.css">
+	<link rel="stylesheet" href="/web/css/personcenter.css">
+	<link rel="stylesheet" href="/web/css/myStudentCenter.css">
+	<link rel="stylesheet" href="/web/css/footer.css">
+	<link rel="stylesheet" type="text/css" href="/web/font/iconfont.css">
+	<script src="/web/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/web/js/ZeroClipboard/ZeroClipboard.min.js" ></script>
+	<script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
+	<script src="/web/js/data_pick.js"></script>
+	<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/helpers.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/jquery.pagination.js"></script>
+	<script src="/web/js/myanswer.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/modal.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/web_yx/js/config.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/myStudentCenter.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+
+<body>
+<div class="tips1">
+	<div class="tips">
+		<div class="title1">
+			<i class="iconfont icon-guanbi close"></i>
+		</div>
+		<div class="content">
+			<p>确定取消此订单记录?</p>
+		</div>
+		<div class="tool">
+			<span class="ok">确定</span>
+			<span class="qx">取消</span>
+		</div>
+	</div>
+</div>
+<div class="tips2">
+	<div class="tips">
+		<div class="title1">
+			<i class="iconfont icon-guanbi close"></i>
+		</div>
+		<div class="content">
+			<p>确定删除此订单记录?</p>
+		</div>
+		<div class="tool">
+			<span class="ok">确定</span>
+			<span class="qx">取消</span>
+		</div>
+	</div>
+</div>
+<div class="content">
+	<div class="account clearfix">
+		<div class="headimg">
+			<img src="/web/images/defaultHeadImg.jpg" />
+		</div>
+		<div class="mess">
+			<span class="name"></span>
+			<p class="msg"></p>
+		</div>
+	</div>
+
+	<div class="con-main clearfix">
+		<div class="main-left">
+			<ul>
+				<li class="course active"><span></span>
+					<i class="iconfont icon-zaixiankecheng"></i>
+					<a href="javascript:;">点播课程</a>
+				</li>
+				<li class="course-live"><span></span>
+					<i class="iconfont icon-zaixiankecheng"></i>
+					<a href="javascript:;">直播课程</a>
+				</li>
+				<li class="course-xianxia"><span></span>
+					<i class="iconfont icon-zaixiankecheng"></i>
+					<a href="javascript:;">线下课程</a>
+				</li>
+				<li class="answer"><span></span>
+					<i class="iconfont icon-wodewenda"></i>
+					<a href="javascript:;">我的问答</a>
+				</li>
+				<li class="buy"><span></span>
+					<i class="iconfont icon-wodedingdan"></i>
+					<a href="javascript:;">我的订单</a>
+				</li>
+				<li class="college"><span></span>
+					<i class="iconfont icon-yuanxiaobanji"></i>
+					<a href="javascript:;">院校班级</a>
+				</li>
+				<!-- <li class="share"><span></span>
+					<i class="iconfont icon-fenxiang"></i>
+					<a href="javascript:;">我的分享</a>
+				</li> -->
+				<li class="duihuan"><span></span>
+					<img src="/web/images/duihuan/duihuan1.png" style="width: 16.2px;height: 17px;margin-left: 30px;" class="duihuan1"/>
+					<img src="/web/images/duihuan/duihuan2.png" style="width: 16.2px;height: 17px;margin-left: 30px;" class="duihuan2"/>
+					<a href="javascript:;" style="margin-left: 10px;">我的兑换码</a>
+				</li>
+			</ul>
+		</div>
+		<div class="main-right">
+			<div class="rTips">系统繁忙，请稍候再试!</div>
+			<div class="mycourse">
+				<div class="right-title clearfix">
+					<span class="act" data-id="0" kg="true">付费</span>
+					<span data-id="1" kg="true">免费</span>
+				</div>
+				<div class="right-course clearfix">
+					<div class="loadrr">
+						<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+						<p class="loadingWord">加载中</p>
+					</div>
+					<div class="course0">
+
+					</div>
+					<div class="course1" style="display: none;">
+
+					</div>
+				</div>
+			</div>
+			<div class="mycourse-live">
+				<div class="right-title clearfix">
+					<span class="act" data-id="0" kg="true">付费</span>
+					<span data-id="1" kg="true">免费</span>
+				</div>
+				<div class="right-course clearfix">
+					<div class="loadrr">
+						<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+						<p class="loadingWord">加载中</p>
+					</div>
+					<div class="course0-live">
+
+					</div>
+					<div class="course1-live" style="display: none;">
+
+					</div>
+				</div>
+			</div>
+			<div class="mycourse-xianxia">
+				<div class="right-title clearfix">
+					<span class="act" data-id="0" kg="true">付费</span>
+					<span data-id="1" kg="true">免费</span>
+				</div>
+				<div class="right-course clearfix">
+					<div class="loadrr">
+						<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt="" />
+						<p class="loadingWord">加载中</p>
+					</div>
+					<div class="course0-xianxia">
+
+					</div>
+					<div class="course1-xianxia" style="display: none;">
+
+					</div>
+				</div>
+			</div>
+			<div class="myanswerBox  clearfix">
+
+			</div>
+			<div class="mybuy  clearfix">
+				<div class="right-title clearfix">
+					<div class="act allorder">
+						<span data-timeQuantum="0" title="全部订单">全部订单</span><em></em>
+						<p class="all-change">
+							<a data-timeQuantum="0" style="display: none;" title="全部订单">全部订单</a>
+							<a data-timeQuantum="1" title="近三个月内订单">近三个月内订单</a>
+							<a data-timeQuantum="2" title="今年内订单">今年内订单</a>
+							<a data-timeQuantum="3" title="2017年以前订单">2017年以前订单</a>
+						</p>
+					</div>
+					<div data-orderStatus="0">待支付</div>
+					<div data-orderStatus="1">已完成</div>
+					<div data-orderStatus="2">已失效</div>
+				</div>
+				<div class="right-course clearfix">
+					<div class="ordername">
+						<span class="or1">课程名称</span>
+						<span class="or2">订单金额</span>
+						<span class="or4">实付金额</span>
+						<span class="or5">交易状态</span>
+						<span class="or6">操作</span>
+					</div>
+					<div class="ordertable">
+						<!--<div class="ord">
+                            <p class="ord-01 clearfix">
+                                <span class="time">2016-10-19</span>
+                                <span class="numb">订单号：201610191245678215itcastcn-bxg</span>
+                            </p>
+                            <div class="ord-02 clearfix">
+                                <div class="or1 clearfix">
+                                    <span class="img"><img src="/web/images/4.png"/></span>
+                                    <table border="0" cellspacing="" cellpadding="" class="name">
+                                        <tr><td><span >【微信小程序微信小程序微信小程序微信】</span></td></tr>
+                                    </table>
+                                </div>
+                                <div class="or2">￥49900.00</div>
+                                <div class="or3">￥49900.00</div>
+                                <div class="or4">￥49900.00</div>
+                                <div class="or5">￥49900.00</div>
+                                <div class="or6"><a href="javascript:;">重新购买</a></div>
+                                <div class="or7">课程永久有效</div>
+                            </div>
+                        </div>													-->
+
+					</div>
+				</div>
+			</div>
+			<!---------------院校班级---------------->
+			<div class="mycollege  clearfix">
+				<div id="content">
+					<iframe id="fra" src="" width="100%" frameborder="0"></iframe>
+				</div>
+			</div>
+			<!---------------我的分享------------------->
+			<div class="myshare  clearfix">
+				<div class="share_link">
+					<p class="tit">分享链接
+						<!--<span style="font-size: 13px;color:#333;">（当天的佣金将于第二天凌晨03:00后产生）</span>-->
+					</p>
+					<div class="cont">
+						<div class="cont1">
+							<span>hi，1元成为分享大使，为自己代言，秒变高富帅，迎娶白富美，走上人生巅峰。</span>
+							<span class="t2">我要做大使</span>
+						</div>
+						<div class="cont2">
+							<p class="link" style="width: auto;"><span id="fe_text" style="font-size: 12px;display: block;"></span></p>
+							<p class="copy" id="copy" data-clipboard-target="fe_text" style="margin-left: 25px;">
+								复制
+							</p>
+
+							<div class="yongjin clearfix" style="position: absolute;top: 109px;">
+								<i class="iconfont icon-qianbao"></i>
+								<p class="yj">我的学费补贴：<span></span> 元 </p>
+								<span style="font-size: 13px;color:#333;display: block;margin-top: 2px;">（当天的补贴将于第二天凌晨03:00后计算更新）</span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="right-title clearfix" style="margin-top: 50px;">
+					<span class="act" data-id="0">我的合伙人</span>
+					<span data-id="1">学费补贴</span>
+				</div>
+
+				<div class="right-share">
+					<div class="share0">
+						<div class="tongji">
+							<!--<p>我的团队：<span>158</span> 人</p>
+                            <p>一级：<span>158</span> 人</p>
+                            <p>二级：<span>158</span> 人</p>
+                            <p>三级：<span>158</span> 人</p>-->
+						</div>
+						<div class="filter clearfix">
+							<div class="filter_01">
+										<span class="name_01">
+											<i data-id="0">
+												合伙人用户名
+											</i>
+											<div class="xiala">
+												<em  data-id="0">
+													合伙人用户名
+												</em>
+												<em data-id="1">合伙人帐号</em>
+											</div>
+										</span>
+
+							</div>
+							<div class="filter_03">
+								<div class="input">
+									<input type="text" placeholder="请输入关键词" />
+								</div>
+							</div>
+
+							<div class="filter_04">
+								<input type="text" readonly="readonly" class="time" onfocus="MyCalendar.SetDate(this)" />
+								<img src="/web/images/rili.png" class="rili"/>
+								<span>-</span>
+								<input type="text" readonly="readonly" class="time1" onfocus="MyCalendar.SetDate(this)" />
+								<img src="/web/images/rili.png" class="rili1"/>
+							</div>
+
+							<div class="sub">
+								查询
+							</div>
+						</div>
+						<div class="list">
+							<div class="listTh clearfix">
+										<span class="l1">
+											一级合伙人用户名
+										</span>
+										<span class="l2">
+											一级合伙人帐号
+										</span>
+										<span class="l3">
+											注册时间
+										</span>
+										<span class="l4">
+											已报名课程
+										</span>
+							</div>
+							<ul class="listTb">
+								<!--<li class="clearfix">
+                                    <span class="l1">
+                                        16112812C19ZME6q6
+                                    </span>
+                                    <span class="l2">
+                                            云计算之大数据在线实战班
+                                    </span>
+                                    <span class="l3">
+                                        18255150019
+                                    </span>
+                                    <span class="l4">
+                                        458.23
+                                    </span>
+                                </li>-->
+							</ul>
+						</div>
+					</div>
+					<div class="share1">
+						<div class="tongji">
+							<p>我的学费补贴：<span>158</span> 元</p>
+							<p>一级补贴：<span>158</span> 元</p>
+							<p>二级补贴：<span>158</span> 元</p>
+							<p>三级补贴：<span>158</span> 元</p>
+						</div>
+						<div class="filter clearfix">
+							<div class="filter_01">
+										<span class="name_01">
+											<i data-id="0">
+												课程名称
+											</i>
+											<div class="xiala">
+												<em data-id="0">
+													课程名称
+												</em>
+												<em data-id="1">购买者（帐号）</em>
+											</div>
+										</span>
+
+							</div>
+							<div class="filter_03">
+								<div class="input">
+									<input type="text" placeholder="请输入关键词" />
+								</div>
+							</div>
+							<!-- <div class="filter_02">
+										<span class="name_01">
+											<i data-state="">
+												选择补贴级别
+											</i>
+											<div class="xiala">
+												<em data-state="">选择补贴级别</em>
+												<em data-state="0">一级</em>
+												<em data-state="1">二级</em>
+												<em data-state="2">三级</em>
+											</div>
+										</span>
+							</div> -->
+
+							<div class="filter_04">
+								<input type="text" readonly="readonly" class="time" onfocus="MyCalendar.SetDate(this)" />
+								<img src="/web/images/rili.png" class="rili"/>
+								<span>-</span>
+								<input type="text" readonly="readonly" class="time1" onfocus="MyCalendar.SetDate(this)" />
+								<img src="/web/images/rili.png" class="rili1"/>
+							</div>
+
+							<div class="sub">
+								查询
+							</div>
+						</div>
+						<div class="list">
+							<div class="listTh clearfix">
+										<span class="list1">
+											订单号
+										</span>
+										<span class="list2">
+											课程名称
+										</span>
+										<span class="list3">
+											购买者（帐号）
+										</span>
+										<span class="list4">
+											实际支付（元）
+										</span>
+										<span class="list5">
+											支付时间
+										</span>
+										<span class="list6">
+											学费补贴
+										</span>
+							</div>
+							<ul class="listTb">
+								<!--<li class="clearfix">
+                                    <span class="list1">
+                                    16112812C19ZME6q6
+                                </span>
+                                    <span class="list2">
+                                    云计算之大数据在线实战班
+                                </span>
+                                    <span class="list3">
+                                    18255150019
+                                </span>
+                                    <span class="list4">
+                                    458.23
+                                </span>
+                                    <span class="list5">
+                                    2016-11-12
+                                </span>
+                                    <span class="list6">
+                                    <i>0.12</i>（一级）
+                                </span>
+                                </li>-->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!----------------------我的兑换码--------------------->
+			<div class="myredeem">
+				
+				<div class="redeemOk" style="display: none;">
+					<p>兑换成功</p>
+				</div>
+				<div class="redeemInput">
+					<input type="text" name="redeemNumber" id="redeemNumber" placeholder="请输入兑换码"/>
+					<div class="redeemBtn">
+						兑换
+					</div>
+					<span id="redeemErrey">
+						
+					</span>
+				</div>
+				<div class="redeemList">
+					<div class="redeemListTitle">
+						<ul>
+							<li class="yt" data-redeem="0">可使用</li>
+							<li data-redeem="1">已使用</li>
+							<li data-redeem="2">已过期</li>
+						</ul>
+					</div>
+					<div class="redeemListBody">
+						
+					</div>
+					<div class="redeembottom">
+						<p class="redeembottomTitle">*课程兑换如何使用？</p>
+						<p class="redeembottomtishi">兑换成功后，在订单确认页面，您可以选择是否使用已兑换且未失效的课程兑换码免费购买相应课程</p>
+						<p class="redeembottomlist">通过以下流程进入订单确认页:</p>
+						<p class="redeembottomlist">1、课程详情页-立即报名-订单确认页</p>
+						<p>2、购物车-去结算-订单确认页</p>
+					</div>
+				</div>
+			</div>
+			<div class="pages" style="display: none;">
+				<div id="Pagination"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+					<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+					<a href="javascript:;" class="page-btn">确定</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="/web/js/footer.js"></script>
+
+</html>

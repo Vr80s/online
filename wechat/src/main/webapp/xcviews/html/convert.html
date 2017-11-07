@@ -1,0 +1,55 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>兑换比例</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+
+</head>
+<body style="background:#efefef;">
+	<div class="attention_top" style="border: none;">
+		<div class="attention_left" id="grabble_img"><div class="return"  onclick="history.go(-1)" ></div></div>
+		
+		<div class="dl" style="padding-top1: 0.2rem;">兑换比例</div>
+	</div>
+	<div class="both"></div>
+	<!-- 中间内容开始 -->
+	<div class="convert">
+		<div class="convert_main">
+			<div class="convert_size_top">目前，熊猫币兑换人民币的比例为10 : 1</div>
+			<div class="convert_bg"></div>
+			<div class="convert_border">
+				<div class="convert_border01">1</div>
+				<div class="convert_border02">10</div>
+			</div>
+			<div class="convert_border">
+				<div class="convert_border01">10</div>
+				<div class="convert_border02">100</div>
+			</div>
+			<div class="convert_border">
+				<div class="convert_border01">50</div>
+				<div class="convert_border02">500</div>
+			</div>
+			<div class="convert_border">
+				<div class="convert_border01">100</div>
+				<div class="convert_border02">1000</div>
+			</div>
+		</div>
+	</div>
+<!--中间内容结束 -->
+</body>
+</html>

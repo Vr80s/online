@@ -1,0 +1,556 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>线下培训班</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+
+
+<script>
+	$(document).ready(function(){
+		$(".training_teacher_bto_right").click(function(){
+			$(".submit_tarining").show();
+  		});
+  		/*$(".submit_btn").click(function(){
+			$(".submit_tarining").hide();
+  		});*/
+  		$(".submit_tarining_bg").click(function(){
+			$(".submit_tarining").hide();
+  		});
+  		
+  		
+  		/*点击讲师介绍*/
+  		$(".training_teacher_title0").click(function(){
+  			$(".training_teacher0").show();
+  			$(".training_teacher1").hide();
+  			$(".training_teacher_title0").css("border-bottom","1px solid #00bc12");
+  			$(".training_teacher_title01").css("border-bottom","0");
+  		});
+  		
+  		/*点击课程介绍*/
+  		$(".training_teacher_title01").click(function(){
+  			$(".training_teacher0").hide();
+  			$(".training_teacher1").show();
+  			$(".training_teacher_title01").css("border-bottom","1px solid #00bc12");
+  			$(".training_teacher_title0").css("border-bottom","0");
+  		});
+  		$(".training_teacher_title0").click();
+  		
+  		
+  		/*点击客服*/
+  		$(".call_img").click(function(){
+  			$(".call_border").show();
+  		});
+  		
+  		
+  		/*点击客服 是*/
+  		$(".yes").click(function(){
+  			$(".call_border").hide();
+  		});
+  		/*点击客服 否*/
+  		$(".yes_no").click(function(){
+  			$(".call_border").hide();
+  		});
+	});
+	
+</script>
+
+<style>
+	.time_span{
+		font-size: 0.7rem;
+	    color: #fff;
+	    margin-left: 0.4rem;
+	    position: absolute;
+	    bottom: 0.5rem;
+	    z-index: 99999;
+	    left: 0;
+	}
+	.training_message_maip3{
+		margin-top: 0.37rem;
+		position: absolute;
+	    bottom: 0;
+	    width: 100%;
+	    height: 1.9rem;
+	    line-height: 1.9rem;
+	    color: #fff;
+	    text-align: left;
+	    text-indent: 3.5rem;
+	    background: url(/xcviews/images/bg.png);
+	}
+	.training_message_maip2_area{
+		width: 4.2rem;
+	    float: right;
+	    font-size: 0.5rem;
+	    color: #999;
+	    font-family: "微软雅黑";
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    height: 0.8rem;
+	    line-height: 0.8rem;
+	    margin-top: 0.1rem;
+	}
+	.training_ban{
+		position: relative;
+		height: 9.75rem;
+		margin-bottom: 0;
+	}
+	.training_message_maip1{
+		position: absolute;
+    	top: 0.6rem;
+    	color: #fff;
+	    background: #00bc12;
+	    border-radius: 0 10px 10px 0;
+	    padding-right: 8px;
+	    padding-left: 8px;
+	}
+	.training_message_cen{
+		border-top: 0;
+		border-bottom: 0;
+	}
+	.training_message{
+		height: 3rem;
+	}
+	.training_message_title{
+		padding-top: 0.53rem;
+    	margin-bottom: 0.1rem;
+	}
+	.training_message_maip2_area{
+		width: 14.4rem;
+	}
+	.training_message{
+		margin-bottom: 0.4rem;
+	}
+	
+	
+	/*选项卡*/
+	.training_tab{
+		width: 100%;
+	    height: height: 1.85rem;
+	    height: 1.85rem;
+	    line-height: 1.85rem;
+	    background: #fff;
+	    border-bottom: 1px solid #e6e6e6;
+	}
+	.training_tab ul li{
+		float: left;
+		width: 50%;
+		text-align: center;
+		margin: 0;
+		padding: 0;
+	}
+	.training_teacher_title{
+		margin: 0;
+		padding: 0;
+		width: 2.5rem;
+    	margin: 0 auto;
+	}
+	.training_teacher{
+		margin-bottom: 0;
+	}
+	.call_img{
+		width: 2.025rem;
+	    height: 1.625rem;
+	    float: left;
+	    margin-top: 0.25rem;
+	}
+	.call_img img{
+		width: 2.025rem;
+	    height: 1.625rem;
+	}
+	
+	.call_border{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 999999991;
+		display: none;
+	}
+	.call_border_bg{
+		width: 100%;
+		height: 100%;
+		background: #000;
+		opacity: 0.5;
+	}
+	.call_border_color{
+		width: 90%;
+		height: 5rem;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin-left: -7.2rem;
+	    margin-top: -4rem;
+	    background: #fff;
+	    border-radius: 8px;
+	}
+	.call_border_size{
+		font-size: 0.7rem;;
+		color: #333;
+		text-align: center;
+		width: 100%;
+		margin-top: 1.3rem;
+	}
+	.Yes{
+		font-size: 0.7rem;
+		color: #333;
+		margin-top: 1.3rem;
+		margin-top: 1.2rem;
+	}
+	.yes{
+		float: left;
+		margin-left: 4rem;
+	}
+	.yes_no{
+		margin-left: 10rem;
+	}
+</style>
+</head>
+
+<body style="background:#efefef;">
+	<!-- 立即报名弹框开始 -->
+	<div class="submit_tarining" style="display: none" id="baseInfoDiv">
+		<div class="submit_tarining_bg"></div>
+		<div class="submit_tarining_main">
+			<div class="submit_tarining_main_top">
+				报名基本信息
+			</div>
+			<div class="submit_information">
+				<div class="submit_information_name">姓名</div>
+				<div class="submit_information_put"><input type="text" id="realName" placeholder="请输入姓名" /></div>
+			</div>
+			<div class="submit_information">
+				<div class="submit_information_name">手机号</div>
+				<div class="submit_information_put"><input type="tel" id="phone" placeholder="请输入手机号" /></div>
+			</div>
+			<div class="submit_btn" onclick="return apply()">提交</div>
+		</div>
+	</div>
+	<!-- 立即报名弹框结束 -->
+	
+	
+	<!-- 线下培训班主页开始 -->
+	<div class="attention">
+		<div class="attention_top">
+			<div class="return"  onclick="history.go(-1)"></div>
+			<div class="dl">线下培训班</div>
+		</div>
+		<div class="both"></div>
+		<div class="training">
+			<div class="training_ban"><img id="headImg" src="" alt="" /><div class="training_message_maip1">授课人：<span class="lname"></span></div><span class="time_span">开课时间:</span><div class="training_message_maip3" id="date"></div></div>
+			<div class="training_message">
+				<div class="training_message_cen">
+					<div class="training_message_title" id="gradeName"></div>
+					<div class="training_message_maip">
+						
+						<div class="training_message_maip2">
+							<div class="training_message_maip2_img"><img src="../images/maip.png" alt=""></div>
+							<div class="training_message_maip2_area" id="address"></div>
+						</div>
+						
+
+						<div class="both"></div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			<div class="training_cen">
+				<div class="training_tab">
+					<ul>
+						<li class=""><div class="training_teacher_title training_teacher_title0">名师介绍</div></li>
+						<li class=""><div class="training_teacher_title training_teacher_title01" style="margin-bottom: 0.65rem;">课程介绍</div></li>
+						<div class="both"></div>
+					</ul>
+				</div>
+				<ul>
+					<li>
+						<!-- 名师介绍 -->
+						<div class="training_teacher training_teacher0">
+							
+							<div class="training_teacher_cen">
+								<div class="training_teacher_cen">
+									<div class="training_teacher_cen_img">
+										<img src="../images/touxiang01.png" id="touxiang" alt="" />
+									</div>
+									<div class="training_teacher_cen_name"  class="lname"></div>
+								</div>
+			
+								<div class="hovertreeContent" id="udescription"></div>
+			
+							</div>
+						</div>
+					</li>
+						
+					<li>
+						<!-- 课程介绍 -->
+						<div class="training_teacher training_teacher1">
+							
+							<div class="training_teacher_cen" style="margin-bottom: 0.2rem;">
+								<div class="training_teacher_course" id="details"></div>
+							</div>
+						</div>
+					</li>
+						
+				</ul>
+			</div>
+			
+			
+			
+			
+		</div>
+		<div class="footer_buyDiv" style="height: 2.1rem;"></div>
+		<!-- 底部开始 -->
+		<div class="training_teacher_bto"  id="buyDiv" style="display: none">
+			<div class="training_teacher_bto_left">
+				<p class="p1">￥<span id="buyPirce"></span></p>
+				<p class="p2"><span id="lcount"></span>人已购买</p>
+			</div>
+			<div class="call_img">
+				<img src="/xcviews/images/kefu.png" alt="" />
+			</div>
+			<span id="bmspan">
+			<div class="training_teacher_bto_right" onclick="showBaseInfoDiv()" id="bmbtn">立即报名</div>
+				</span>
+		</div>
+		<!-- 底部结束 -->
+
+		
+	</div>
+	<!-- 线下培训班结束 -->
+	
+	
+	<!--点击客服出现弹出框-->
+	<div class="call_border">
+		<div class="call_border_bg"></div>
+		<div class="call_border_color">
+			<div class="call_border_size">是否拨打15936216273号码?</div>
+			
+			<div class="Yes">
+				<a href="tel:15936216273" class="yes">是</a>
+				<p class="yes_no">否</p>
+				<div class="both"></div>
+			</div>
+			
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script>
+	$(".hewenqiToggle").on("click", function () {
+	if ($(".hewenqiToggle").css('position') == "absolute") {
+	$(".hovertreeContent").height("auto");
+	$(".hewenqiToggle").css({ "position": "relative" });
+	$(".hewenqiToggle").find("span").removeClass('triangle-down-hovertree').addClass('triangle-up-hovertree');
+	}
+	else
+	{
+	$(".hovertreeContent").height("180");
+	$(".hewenqiToggle").css({ "position": "absolute" });
+	$(".hewenqiToggle").find("span").removeClass('triangle-up-hovertree').addClass('triangle-down-hovertree');
+	}
+	})
+</script>
+<script>
+    function formatDateTime(inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        return y + '.' + m + '.' + d;
+    };
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    
+    requestService("/bxg/bunch/offLineClassItem",{id : getQueryString("id"),userId:localStorage.userId}, function(data) {
+    	result = data.resultObject;
+        /**
+         * 这里判断是否需要密码确认和是否付费
+         */
+        $("#lcount").html(result.learndCount);
+        /**
+         * 判断是直播呢，还是回放呢
+         *  0 直播已结束 1 直播还未开始 2 正在直播
+         */
+        //判断是否可预约
+        if(result.watchState == 0){
+            $("#buyDiv").show();
+            $("#buyPirce").html(result.currentPrice);
+            $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名</div>");
+
+        }else if(result.watchState == 1){  //goto 付费页面
+            $("#buyDiv").show();
+            $("#buyPirce").html(result.currentPrice);
+
+            //如果已结束就禁止报名
+            /* 点击线下课程出现的弹框，测试提出bug，就给隐藏掉了。*/
+
+            requestService("/bxg/common/getSystemTime",{course_id : 1}, function(data) {
+            	var serverTime=data;
+                var endTime = Date.parse(new Date(result.endTime));
+                if(endTime<serverTime){
+                    $(".training_teacher_bto").hide();
+                    $(".footer_buyDiv").hide();
+                }else{
+                    $(".training_teacher_bto").show();
+                    $(".footer_buyDiv").show();
+                }
+		    },false)
+        }
+        /**
+         * 为详情页面添加数据
+         */
+        $("#headImg").attr("src",result.smallImgPath);
+        $("#touxiang").attr("src",result.headImg);
+         $("#gradeName").text(result.gradeName);
+        $(".lname").html(result.name);
+        $("#address").html(result.address);
+		$("#udescription").html(result.udescription);
+        //
+        $("#details").text(result.description);
+        $("#date").html(formatDateTime(result.startTime)+"-"+formatDateTime(result.endTime).substr(5));
+          
+          /* 测试 */
+          /*$.ajax({
+			  url: "/bxg/common/getSystemTime",
+			  type: "post",
+			  data: {course_id : 1},
+			  async: false,
+			  success: function(data){
+				  sendTime=data;
+				   alert(data); 
+				  
+				
+				function formatDate(now) { 
+					var year=now.getYear()-100; 
+					var month=now.getMonth()+1; 
+					var date=now.getDate(); 
+					var hour=now.getHours(); 
+					var minute=now.getMinutes(); 
+					var second=now.getSeconds(); 
+					return "20"+year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second; 
+					} 
+				  
+				if(result.endTime<sendTime){
+		          	$(".training_teacher_bto").show();
+		          	$(".footer_buyDiv").show();
+		         }else{
+		          	$(".training_teacher_bto").hide();
+		          	$(".footer_buyDiv").hide();
+		          } 
+			  }
+		 })*/
+	},false)
+    
+    
+    /* var sendTime;
+    function createGift(gift){
+    	$.ajax({
+      	  url: "/bxg/common/getSystemTime",
+      	  type: "post",
+      	  data: {course_id : course_id},
+      	  async: false,
+      	  success: function(data){
+      		  sendTime=data;
+      	  }
+        })
+        alert(sendTime);
+		  
+		  
+		  
+      if(result.endTime<sendTime){
+      	
+      	
+      	$(".training_teacher_bto").hide();
+      	$(".footer_buyDiv").hide();
+      }else{
+      	$(".training_teacher_bto").show();
+      	$(".footer_buyDiv").show();
+      }
+    } */
+
+    function showBaseInfoDiv(){
+    	requestService("/bxg/apply/get",{id:1}, function(data) {
+    		if(data.success){
+                var result = data.resultObject;
+                $("#phone").val(result.mobile);
+                $("#realName").val(result.realName);
+            }
+		},false)
+    	
+        $("#baseInfoDiv").show();
+	}
+
+    function apply(){
+
+        if($("#phone").val()==''){
+            alert("手机号不能为空!");
+            return false;
+		}
+		if($("#realName").val()==''){
+            alert("姓名不能为空!");
+            return false;
+		}
+
+
+		requestService("/bxg/apply/updateBaseInfo",{phone:$("#phone").val(),realName:$("#realName").val()}, function(data) {
+			 if(data.success){
+                 goPay();
+			 }
+ 		},false)
+
+	}
+
+    function  goPay() {
+
+        var btype=   localStorage.getItem("access")
+        var orderFrom;
+        if(btype=='wx'){
+            orderFrom=3;
+        }else if(btype=='brower'){
+            orderFrom=4;
+        }
+        requestService("/bxg/order/save", {courseId : getQueryString("id"),orderFrom:orderFrom}, function(data) {
+            if (data.success) {
+                var result = data.resultObject;
+                location.href = "/xcviews/html/payxianxia.html?id="+getQueryString("id")+"&orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
+            }else{
+                alert("提交订单错误！请稍后再试！");
+            }
+
+        });
+    }
+
+</script>
+</html>

@@ -1,0 +1,724 @@
+<%@page pageEncoding="UTF-8"%>
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title></title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/xcviews/css/css.css">
+<!-- <link rel="stylesheet" href="/xcviews/css/yangxuan.css"> -->
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="/xcviews/js/common/js.js"></script>
+<script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
+
+<!-- 图片引入放大缩小 -->
+<script type="text/javascript" src="/xcviews/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/xcviews/js/underscore.js"></script>
+<script type="text/javascript" src="/xcviews/js/pinchzoom.js"></script>
+
+
+
+<!-- 双击图片变大缩小 -->
+<script type="text/javascript">
+
+$(function(){
+   
+    /* $('body').on('toggle','#myImage',function(){
+    	  alert(1465);
+    	  
+    	  $(this).css("width","120%");
+    }) */
+    
+    
+     /* $('body').on('click','#myImage',function(){
+    	alert(1465);
+  	  
+  	       $(this).css("width","120%");
+  	    function(){
+           $(this).css("width","100%");
+        );
+ 	 });  */
+    
+    
+ 	/* $('body').on('click','#myImage',function(){
+		 $(this).css("width","120%");
+		},function(){
+		 $(this).css("width","100%");
+	}); */
+    /* $("#myImage").click(function(){
+    	alert(1465);
+    	$(this).css("width","120%");
+        function(){
+        $(this).css("width","100%");
+      ); c*/
+//     $("#vhall-h5-player").click();
+
+
+  	$(".video_img").click(function(){
+  		$("#vhall-h5-player").play();
+  	});
+     
+     
+     
+     
+      
+    $("#div").trigger('play');
+   
+});
+
+
+</script>
+	
+<link rel=stylesheet href="/xcviews/css/jquery.mCustomScrollbar.min.css">
+<link rel="stylesheet" href="/xcviews/css/details.css">
+<link rel="stylesheet" href="/xcviews/css/style.css">
+<style>
+
+	#myImage{
+		width: 100%;
+	}
+	.coze_bottom input{
+		width: 8.8rem;
+		border: none;
+		margin-top: 0;
+	}
+	.overfloaw_auto{
+		width: 100%;
+		height: 1.8rem;
+		overflow: auto;
+	}
+	.overfloaw_auto_cen{
+		width: 21rem;
+    	height: 1.8rem;
+	}
+	.div_input{
+		width: 10.5rem;
+	    height: 1.45rem;
+	    line-height: 1.45rem;
+	    border: 1px solid #ccc;
+	    outline: none;
+	    font-size: 0.7rem;
+	    text-indent: 0.3rem;
+	    color: #999;
+	    border-radius: 9px;
+	    margin-top: 0.35rem;
+	    background: #fff;
+	}
+	.leaderboard_center img {
+	    width: 1.65rem;
+	    height: 1.65rem;
+	    float: left;
+	    margin-right: 0.4rem;
+	    border: 4px solid #ededed;
+	    border-radius: 60px;
+	    margin-top: 0.3rem;
+	}
+	.leaderboard_center{
+		margin-top: 0.2rem;
+	}
+	.details_portrait{
+		width: 1.65rem;
+    	height: 1.65rem;
+	}
+	.buy_center{
+		top: 4rem;
+		margin-top:0;
+		height: 5rem;
+	}
+	.look_main p{
+		margin-top:0;
+	}
+	
+	
+	.wendang_none{
+		display: none;
+	}
+	.wendang_none img{
+		 width: 100%; 
+	}
+	.buy_bottom_bg{
+		position: fixed;
+	}
+	div.pinch-zoom,
+        div.pinch-zoom img{
+            width: 100%;
+            -webkit-user-drag: none;
+        }
+        
+        
+    .pinch-zoom-container{
+    	height: 530px !important;
+    	min-height: 1rem !important;
+    }
+    
+    
+    .details_bottom{
+    	/*top: 10.8rem;*/
+    }
+    .details_size{
+    	/*right: auto;
+    	left: 0;*/
+	    /*border-radius: 0px 6px 6px 0px;*/
+	    margin-left: 0;
+    }
+    .video_img{
+    	height: 3rem;
+	    width: 3rem;
+	    position: absolute;
+	    margin: 0 auto;
+	    top: 50%;
+	    left: 50%;
+	    margin-top: -2.3rem;
+	    margin-left: -1.3rem;
+	    pointer-events: none;
+    }
+    .video_img img{
+    	width: 100%;
+    	text-align: center;
+    }
+    .send_gifts_p{
+    	margin-left: 0.4rem;
+    }
+    .balance_size{
+    	float: right;
+    	text-align: right;
+    	margin-right: 0.4rem;
+    }
+    .balance_size{
+    	/*width: 2.5rem;*/
+    	min-width: 1.5rem;
+    }
+    .balance_size img{
+    	width: 0.775rem;
+	    height: 0.775rem;
+	   
+	    margin-left: 0rem;
+	    vertical-align: middle;
+    }
+    #xmbShowSpan{
+    	    display: inline-block;
+    margin-left: 0.3rem;
+    color: #666;
+    margin-right: 0.3rem;
+    }
+    .balance_size_span01{
+    	display: inline-block;
+    	margin-top: -0.9rem;
+    	color: #666 !important;
+    }
+    .balance{
+    	padding: 0.4rem 0;
+    }
+    .import_hide{
+    	z-index: 99999999999999;
+    }
+</style>
+
+<script>
+	window.onload = function(){
+		
+		/*打赏没有关闭按钮,点击其他区域隐藏打赏*/
+		$("#video").click(function(){
+			$(".give_bottom").hide();
+		});
+		$(".coze").click(function(){
+			$(".give_bottom").hide();
+		});
+		$(".grabble").click(function(){
+			$(".give_bottom").hide();
+		});
+		$(".details_footer").click(function(){
+			$(".give_bottom").hide();
+		});
+		$(".leaderboard").click(function(){
+			$(".give_bottom").hide();
+		});
+		$(".details1").click(function(){
+			$(".give_bottom").hide();
+		});
+		
+		  /*礼物模块其他区域隐藏*/
+		$("#video").click(function(){
+			$(".send_gifts").hide();
+		});
+		$(".coze").click(function(){
+			$(".send_gifts").hide();
+		});
+		$(".grabble").click(function(){
+			$(".send_gifts").hide();
+		});
+		$(".details_footer").click(function(){
+			$(".send_gifts").hide();
+		});
+		$(".leaderboard").click(function(){
+			$(".send_gifts").hide();
+		});
+		$(".details1").click(function(){
+			$(".send_gifts").hide();
+		});
+		
+		/*点击隐藏打赏 10  50 */
+		$(".send_gifts_div0").click(function(){
+			$(".import_hide").hide();
+		});
+		$(".send_gifts_ul").click(function(){
+			$(".import_hide").hide();
+		});
+		$(".coze").click(function(){
+			$(".import_hide").hide();
+		});
+		$(".details_footer").click(function(){
+			$(".import_hide").hide();
+		});
+		$("#video").click(function(){
+			$(".import_hide").hide();
+		});
+		$(".grabble").click(function(){
+			$(".import_hide").hide();
+		});
+		
+		/*$(".coze").click(function(){
+			$(".import_hide").hide();
+		});*/
+		/*$("#video").click(function(){
+			$(".import_hide").hide();
+		});
+*/
+		
+		
+		
+		$(".gift_ul_li li:first-child").click();
+		$(".gift_ul_li li:first-child").click();
+		
+		
+		$(".give_lable1:eq(1)").click();
+		
+		
+		
+	};
+</script>
+</head>
+<body style="background: #efefef;">
+		<!--礼物出现的区域  -->
+		<!-- <div class=""  id="text" onkeypress="if(event.keyCode==13) {btn.click();return false;}"></div> -->
+	<!-- <div id="opacity"></div> -->
+
+	<!-- 如果视频id出现错误，弹框 -->
+	<div class="history_bg" style="display:none;">
+		<div class="history_bg_color"></div>
+		<div class="history_bg_cen"  style="top:0%;height: 5rem;">
+			<div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>
+			<div class="history_bg_bto">
+				<div class="history_bg_bto1" style="float:right;" onclick="javascript:history.back(-1);">确定</div>
+				<!-- <div class="history_bg_bto2">取消</div> -->
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 头部开始 -->
+	<header style="padding-top: 0rem;">
+		<div class="grabble">
+			<div class="grabble_top">
+				<div class="grabble_left" onclick="isLoginJump()">
+					<div class="grabble_img"></div>
+				</div>
+
+				<span class="history_span"
+					style="width: 74%; color: #666; font-size: 1rem;padding-top: 0.1rem;position: absolute;left: 2.1rem;"></span>
+				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;">分享</div>
+			</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height: 1.8rem;"></div>
+		
+	<!-- 头部结束 -->
+	<!-- 中间内容开始 -->
+	<div class="details_cen1"
+		style="position: fixed; width: 100%; background: #fff; padding-bottom: 0.2rem; border-bottom: 1px solid #d2d2d2; z-index: 9999;">
+		<!-- <div class="video" id="video" style="width: 100%;height:200px;"></div> -->
+		<!-- <div class="doc" id="doc" style="display: none"></div> -->
+		<div class="video" id="video" style="width: 100%; height: 8.95rem; background: url(/xcviews/images/play_back.png1) no-repeat; background-size: cover;">
+			
+		</div>
+		<!--<div class="video_img"><img src="/xcviews/images/play_back.png" /></div>-->
+		<!--暂时先隐藏掉，11/1-->
+		<div class="details_bottom">
+			<div class="details_size" style="background: url(/xcviews/images/size_bg.png);background-size: 100% 100%;min-width:5.8rem;">
+				<img src="/xcviews/images/yanjing01.png" style="width: 0.58rem;margin-top: 0.2rem;" />	<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/xcviews/images/yanjing02.png" style="width: 0.58rem;margin-top: 0.1rem;" /> <span  id="liveGiftCount"></span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/xcviews/images/dashang.png" style="width: 0.64rem;margin-top: 0.1rem;" /> <span id="moneySum"></span>
+			</div>
+		</div>
+		
+		
+		<!--礼物，观看人数，打赏-->
+		<!--<div class="details_bottom">
+			<div class="details_size" style="background: url(/xcviews/images/size_bg.png);background-size: 100% 100%;min-width:5.8rem;">
+
+				观看人数：
+				<span></span>&nbsp;&nbsp;
+				礼物：
+				<span  id="liveGiftCount"></span>&nbsp;&nbsp;
+				打赏：
+				<span id="moneySum"></span>
+			</div>
+		</div>-->
+		
+		
+		<!-- <div class="details">
+			
+		</div> -->
+		<div class="details_footer">
+			<div class="details_footer_width" style="padding-bottom: 0rem;">
+				<ul>
+					<li><span class="li1">聊天</span></li>
+					<li><span class="li2">主播</span></li>
+					<li><span class="li3">排行榜</span></li>
+					<li><span class="li4">文档</span></li> 
+				</ul>
+			</div>
+		</div>
+	</div>
+	<input id="actualPayHide" type="hidden"/><input id="sid" type="hidden"/>
+	<div class="details_chat" style="top: 12.47rem;display: none;">
+		<div class="details_chat_center">
+			<img src="/xcviews/images/touxiang.png" alt="" class="details_chat1" />
+			<div class="details_chat_attention" id="zhibopinglun">
+				<p class="p1"></p>
+				<p class="p2">
+					播&nbsp;&nbsp;&nbsp;主：<span></span>
+				</p>
+				<!-- <p class="p3">房间号：<span>232200</span></p> -->
+			</div>
+			<div class="details_chat2"
+				style="width: 0; padding: 0; background: none;display: none;">
+				<img src="/xcviews/images/guanzhu_03.png" alt=""
+					style="margin-top: 0.28rem; margin-left: 0.19rem;" />
+				<!-- <p id="guanzhu1" class="guanzhu1"
+					style="width: 2.4rem; background: rgb(140, 196, 39); border-radius: 6px; height: 1.05rem; line-height: 1.2rem;">关注</p>
+				<p id="guanzhu2" class="guanzhu2"
+					style="width: 3rem; background: #666; width: 3rem; height: 1.05rem; line-height: 1.2rem; border-radius: 6px;">已关注</p> -->
+				
+				
+				<input id="teacherId" style="display: none;">
+			</div>
+			<div class="close">
+				<img src="/xcviews/images/x.png" alt="" />
+			</div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<div class="footer_k" style="height: 10.6rem;"></div>
+	<!-- 详情聊天开始 -->
+	<div class="coze" style="/* margin-top: 1rem; */height: 11rem">
+		<div style="height: 0rem;"></div>
+		<div class="chatmsg-box" style="height: 11rem;/* padding-bottom: 0rem; */ margin-top: 0.25rem;">
+			<div class="coze_center" id="chatmsg" style="overflow: auto;">
+				<!-- <div class="footer_k" style="height: 3.6rem;"></div> -->
+			</div>
+		</div>
+	</div>
+	<!-- <div style="height:2.125rem;width:100%;background: red;"></div> -->
+	<div class="coze_bottom" style="padding: 0.3rem 0;">
+		<div class="coze_bottom_input" style="margin-right: 0;margin-left: 1.8rem;">
+			<div class="poson">
+			<div class="send_img" id="sendChat"><!-- <img src="/xcviews/images/send.jpg"> --></div>
+			<!-- <input type="text" placeholder="聊聊您的想法吧" /> -->
+			<!-- <textarea ></textarea> -->
+			
+			<div class="div_input">
+				<input class="textarea02" id=mywords
+				onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' />
+			</div>
+			
+			</div>
+
+
+             <!-- 礼物 -->     
+			<a href="javascript: ;" class="give_a1" style="float: right;"><img
+				src="/xcviews/images/gaft.png" alt="" class="give_a1_img" style="margin-left: 0.4rem;width: 1.2rem;margin-top: 0.45rem;display: block !important;" /></a>
+				
+			<!-- 打赏 -->
+			<span class="face give_a1_span02"><img src="/xcviews/images/give.png" style="margin-top: -0.2rem;" /></span>
+				
+				
+				<!-- 表情 -->
+			<div class="give_a01" style="margin-top: -1.47rem;margin-right: 0;display: block;position: absolute;display: block !important; margin-left: -1.3rem;">
+				<a id="face" href="javascript:;" class="face give_a1_span" style="margin-left: -0.2rem;display: inline-block;margin-top: 0.3rem;"><div class="face_img01" ></div><!-- <img src="/xcviews/images/face.png" style="margin-top: -0.1rem;width:1.1rem;" class="face_img01" /> --></a>
+			</div>
+			<!--打赏暂时关闭-->
+			<!--<a href="javascript: ;"  class="give_a2"><img src="/xcviews/images/give.png" alt="" /></a>-->
+		</div>
+	</div>
+	<!-- 详情聊天结束 -->
+
+	<!-- 直播打赏开始 暂时关闭 -->
+		<div class="give_bottom" style="display: blopck;background: #fff;">
+		<div class="give_close01"><p>打赏</p><span style="display: none;">X</span></div>
+		<div class="both"></div>
+		<span id="cdPrices"> </span>
+		<!-- <div class="overfloaw_auto">
+			<div class="overfloaw_auto_cen">
+				<span id="cdPrices"> </span>
+			</div>
+			 
+		</div> -->
+		
+		
+		<input id="userId" type="hidden" />
+		<div class="both"></div>
+		<div class="give_footer">
+			<input type="text" placeholder="输入其他金额" onclick="clearCheck()" id="actualPay"
+				class="give_footer_put" /> <a href="javascript: ;" style="position: initial" onclick="ds()" class="pay_a">立即支付</a>
+		</div>
+
+	</div>
+	<!-- 直播打赏结束 -->
+
+
+	<!-- 直播分享页开始 -->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_footer">
+			<ul>
+				<li style="margin-left: 2.8rem;" class="weixin_li"><a
+					href="javascript: ;"><img src="/xcviews/images/share01.png"
+						alt="" />
+					<p>微信</p></a></li>
+		  	<li id="weiboShare">
+		 	   <a href="javascript:;" target="_blank">
+		 	   <img src="/xcviews/images/share03.png" alt="" data-bd-imgshare-binded="1"><p>新浪微博</p></a>
+		 	 </li>
+			<li id="qqShare">
+			   <a href="javascript:;" target="_blank">
+			   <img src="/xcviews/images/share04.png" alt="" data-bd-imgshare-binded="1"><p>qq好友</p></a>
+			</li>
+			
+			</ul>
+			<div class="both"></div>
+			<div class="share_footer_call">取消</div>
+		</div>
+	</div>
+	<!-- <script src="/xcviews/js/zepto.min.js"></script> -->
+	<script src="/xcviews/js/main.js"></script>
+	<!-- 直播分享页结束 -->
+	<!-- 点击微信-->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img">
+			<img src="/xcviews/images/fenxiang1.png" />
+		</div>
+	</div>
+
+	<!-- 直播送礼物开始 -->
+
+	<div class="send_gifts">
+		<div class="send_gifts_div0">
+			<p class="send_gifts_p">发送礼物</p>
+			
+			<!--礼物关闭按钮ui变更暂时去掉-->
+			<!--<p class="send_gifts_p1">关闭</p>-->
+			<div class="balance_size" onClick="window.location='/xcviews/html/echarge.html'">
+				<img src="/xcviews/images/top_up.png" alt="" /><span id="xmbShowSpan">加载中...</span><img src="/xcviews/images/top_up_right.png" alt="" style="margin-top: 0.1rem;float: right;width: 0.6rem;height: 0.6rem;" />
+			</div>
+			
+		</div>
+		<div class="both"></div>
+
+		<div class="send_gifts_ul">
+			<ul class="gift_ul_li">
+			</ul>
+		</div>
+
+		<div class="both"></div>
+		<div class="balance">
+			<!--<div class="balance_size">
+				熊猫币：<span id="xmbShowSpan">加载中...</span>
+			</div>-->
+			<!--<div calss="" style="font-size: 0.6rem;float: left;margin-top: 0.4rem;margin-right: 0.2rem;color: #ff2020;">去充值</div>-->
+			<div class="count" style="display: block !important;">
+				<div class="count_cen" style="width:5rem;margin-left: 0.4rem;">
+					<div class="count_cen_size">礼物数量：</div>
+					<div id="import">
+						 <!-- <div class="import" contenteditable="false"></div> -->
+						
+						<div class="import_div"><input text="tel" id="giftCount" class="import" value="1" ></div>
+						<div class="import_hide">
+							<!-- <div class="import4">其他数量</div> -->
+							<div class="import1">100</div>
+							<div class="import2">50</div>
+							<div class="import3">10</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="balance_send">发送</div>
+		</div>
+	</div>
+	<!-- 直播送礼物结束 -->
+
+
+	<!-- 详情主播开始 -->
+	<div class="details1">
+		<!-- <div style="height:7.8rem;"></div> -->
+		<div class="details_anchor" style="margin-top:0.3rem;height: 2.6rem;top: 0.1rem;">
+			<div class="details_anchor_center" style="">
+				<img src="/xcviews/images/touxiang.png" id="headImg" alt="" onclick="userIndex()"
+					class="details_portrait" style="margin-top: 0.2rem;" />
+				<div class="details_anchor_attention" id="zhiboxiangqing"
+					style="width: 8rem;">
+					<p class="p1"></p>
+					<p class="p2">
+						播&nbsp;&nbsp;&nbsp;主：<span></span>
+					</p>
+					<!-- <p class="p3">
+						房间号：<span></span>
+					</p> -->
+				</div>
+				<div class="details_attention"
+					style="width: 0; padding: 0; background: none; margin-right: 3rem; float: left;margin-left: 1.8rem;">
+					<!-- <img src="/xcviews/images/guanzhu_03.png" alt=""
+						style="margin-top: -0.65rem;margin-left: 0.19rem;margin-right: 0.4rem;" /> -->
+					<p id="guanzhu2" class="guanzhu1"
+						style="width: 3.025rem;height: 1.2rem;background: url(/xcviews/images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -1rem;"></p>
+					<p class="guanzhu2"
+						style="background: url(/xcviews/images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -1rem;"></p>
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="details_anchor_title">&nbsp;&nbsp;直播内容</div>
+
+
+		<div class="anchor_center01" style="margin-top: 0;">
+			
+			<div class="anchor_center">
+				<!-- <div class="anchor_center_div1">
+					1、<span>理论课与课堂示范</span>
+				</div>
+				<div class="anchor_center_div1">
+					2、<span>天应奇针疗法的理论基础</span>
+				</div> -->
+			</div>
+		</div>
+		<!-- <div style="height:2.5rem;"></div> -->
+	</div>
+	<div class="both"></div>
+	<!-- 详情主播结束 -->
+
+	<!-- 排行榜开始 -->
+	<div class="leaderboard" id="phbList" style="margin-top: 0.3rem;">
+	</div>
+	<!-- 排行榜结束 -->
+	<!-- 文档开始 -->
+	
+	<div class="document" style="margin-top: 0.47rem;">
+		<div class="document_ceneter" id="doc">
+			
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	
+	
+	
+	<!-- 测试图片放大缩小开始 -->
+			<!-- <div class="pinch-zoom-container" style="overflow: hidden; position: relative; height: 750px;">
+	        	<div class="pinch-zoom" style="transform-origin: 0% 0% 0px; position: absolute; transform: scale(1, 1) translate(-7.83817e-14px, -2.44249e-14px);">
+	            	<img src="/xcviews/images/frog.jpg">
+	    		</div>
+	    	</div> -->
+
+			<script type="text/javascript">
+		        $(function () {
+		            $('.document_ceneter').each(function () {
+		                new RTP.PinchZoom($(this), {});
+		            });
+		        })
+		    </script>
+		<!-- 测试图片放大缩小结束 -->
+	
+	
+	
+	<!-- 文档结束 -->
+
+	<!-- 底部购买开始 -->
+	<div class="buy_bottom_bg" id="buyDiv" style="display: none">
+		<div class="buy_bg" id="bug_bg"></div>
+		<footer style="padding: 0.8rem 0;">
+			<div class="base buy_bottom">
+				<ul>
+					<li class="buy_left"><p class="buy_bottom_p1">
+							￥<span id="buyPirce"></span>
+						</p>
+						<p class="buy_bottom_p2">该视频为收费视频</p></li>
+					<li class="buy_right" id="buy_right"><a href="javascript: ;"
+						onclick="goPay()">购买</a></li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+	<!-- 底部购买结束 -->
+
+	<!-- 密码开始 -->
+	<div class="buy_bottom_bg" id="passwordDiv" style="display: none;">
+		<div class="buy_bg"></div>
+		<div class="buy_center buy1_center">
+			<div class="look_main">
+				<p>该视频需要密码播放！</p>
+				<div class="look_put">
+					<input type="password" placeholder="请在此处输入密码" id="password" />
+					<button onclick="enterPassword()" style="height: 1.32rem;">观看</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 观看登录结束 -->
+	
+	<!-- 测试图片放大 -->
+	<!-- <div class="wendang_none" style="width: 100%;position: fixed;
+    top: 2rem;
+    z-index: 9999999;display: block;">
+		<div style="width:100%;background:#000;"></div>
+	
+		<img src="/xcviews/images/1507805967(1).jpg" id="myImage" />
+	</div> -->
+	
+</body>
+<!-- <script>development="dev"</script> -->
+<script src="/xcviews/weihoujs/jquery.min.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script src="/xcviews/weihoujs/vhallSDK.js"></script>
+<script src="/xcviews/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/xcviews/weihoujs/underscore-min.js"></script>
+<script type="text/javascript" src="/xcviews/newjs/weihoudetails.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+
+
+<script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
+<script type="text/javascript" src="/xcviews/js/strophe.js"></script>
+<script type="text/javascript" src="/xcviews/js/im/giftSend.js"></script>
+<script type="text/javascript" src="/xcviews/js/details_change.js"></script>
+<script type="text/javascript" src="/xcviews/js/details.js"></script>
+
+
+ 
+  <script type="text/javascript">
+ $(document).ready(function(){
+	
+	/* $("#doc img").click(function(){
+  		alert(456);
+	}); */
+}); 
+</script> 
+</html>

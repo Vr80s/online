@@ -1,0 +1,182 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Microsoft YaHei';
+  background-color: #f7f7f7;
+  overflow-x: hidden ;
+  height: 100%;
+}
+div,
+span {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: inline-block;
+  outline: none;
+}
+.clearfix:after {
+  content: "";
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.zhezao {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  z-index: 99;
+  left: 0;
+  top: 0;
+  display: none;
+}
+.tank {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 274px;
+  text-align: center;
+  height: 48px;
+  margin-top: -24px;
+  margin-left: -137px;
+  padding: 20px;
+  background: #fff;
+  z-index: 100;
+  line-height: 48px;
+}
+.tank span {
+  color: #2CB82C;
+}
+#weixinLogo {
+  width: 100%;
+  height: 88px;
+  background-color: #fff;
+  border: 1px solid #ebebeb;
+}
+#weixinLogo .weinxinHeader {
+  width: 1200px;
+  margin: 0 auto;
+  line-height: 73px;
+  padding-left: 45px;
+}
+#weixinLogo .weinxinHeader img {
+  vertical-align: middle;
+}
+#weixinLogo .weinxinHeader span {
+  font-size: 28px;
+  color: #333;
+}
+#weixinPayPage {
+  width: 1200px;
+  margin: 20px auto 0;
+  height: 560px;
+}
+#weixinPayPage .weixinOrderInfo {
+  width: 100%;
+  background-color: #fff;
+  padding: 25px;
+}
+#weixinPayPage .weixinOrderInfo .orderInfo {
+  float: left;
+}
+#weixinPayPage .weixinOrderInfo .orderInfo span {
+  font-size: 14px;
+  color: #666;
+}
+#weixinPayPage .weixinOrderInfo .orderInfo .courseInfoBox {
+  margin-top: 10px;
+}
+#weixinPayPage .weixinOrderInfo .price {
+  float: right;
+  margin-top: 10px;
+}
+#weixinPayPage .weixinOrderInfo .price span {
+  font-size: 16px;
+  color: #666;
+}
+#weixinPayPage .weixinOrderInfo .price .coursePrice {
+  font-size: 22px;
+  color: #ff4012;
+}
+#weixinPayPage .weixinOrderInfo .price i {
+  font-style: normal;
+  color: #ff4012;
+  font-size: 22px;
+}
+#weixinPayPage .saoma {
+  margin-top: 20px;
+  background-color: #fff;
+  width: 100%;
+  padding: 25px;
+}
+#weixinPayPage .saoma .erweima {
+  width: 184px;
+  padding: 14px;
+  border: 1px solid #e4e4e4;
+  text-align: center;
+  margin: 65px auto 0;
+}
+#weixinPayPage .saoma .erweima img {
+  width: 186px;
+  height: 184px;
+  display: block;
+  margin: 0 auto;
+}
+#weixinPayPage .saoma .erweima p {
+  font-size: 18px;
+  color: #333;
+  margin-top: 8px;
+  text-align: center;
+  margin-bottom: 0;
+}
+#weixinPayPage .saoma .saomaHint {
+  width: 213px;
+  height: 70px;
+  margin: 20px auto 130px;
+}
+.orderName {
+  clear: both;
+  width: 100%;
+  font-size: 14px;
+  color: #666;
+  padding-top: 20px;
+}
+.orderName .tt {
+  float: left;
+  width: 70px;
+  margin: 0;
+}
+.orderName .order-courseName {
+  float: left;
+  max-width: 1050px;
+  overflow: hidden;
+  word-break: break-all;
+  word-wrap: break-word;
+  margin: 0;
+  height: auto;
+}
+.orderName .order-courseName span {
+  margin-right: 30px;
+  font-size: 14px;
+  color: #999;
+  display: block;
+  float: left;
+  margin-bottom: 10px;
+}
+.orderName .spread {
+  cursor: pointer;
+  float: right;
+  width: 19px;
+  height: 19px;
+  display: none;
+  background: url("../images/order/orderC1.png") center center no-repeat;
+}
+.orderName .active {
+  background: url("../images/order/orderC2.png") center center no-repeat;
+}

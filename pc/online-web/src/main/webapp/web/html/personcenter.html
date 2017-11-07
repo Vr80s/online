@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" > 
+    <meta charset="UTF-8">
+    <title>熊猫中医云课堂 - 线上中医教育</title>
+    <link rel="shortcut icon" href="../../favicon.ico"/>
+    <meta name="keywords"
+          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+    <meta name="description"
+          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+</head>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/mylogin.css"/>
+<link rel="stylesheet" href="../css/myprofile.css?v=1.0"/>
+<link rel="stylesheet" href="../css/componet.css"/>
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/ansAndQus.css"/>
+<link rel="stylesheet" href="../css/idea.css"/>
+<link rel="stylesheet" href="../css/mynews.css"/>
+<link rel="stylesheet" href="../css/footer.css">
+<link rel="stylesheet" href="../css/style.css"/>
+<link rel="stylesheet" href="../font/iconfont.css">
+<link rel="stylesheet" href="../css/modal.css"/>
+<link rel="stylesheet" href="../css/personcenter.css"/>
+<link rel="stylesheet" href="../css/mymoney.css?v=1.0"/>
+<link rel="stylesheet" href="../layer-v2.1/layer/skin/layer.css"/>
+<link rel="stylesheet" href="../layer-v2.1/layer/skin/layer.ext.css"/>
+<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css" />
+<link rel="stylesheet" type="text/css" href="/web/css/usualAddress.css?v=1.0"/>
+<link rel="stylesheet" type="text/css" href="/web/css/rmbTopanda.css" />
+<script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script> 
+
+<script type="text/javascript" src="../js/cropbox.js"></script>
+<script src="../js/jquery.pagination.js" type="text/javascript" charset="UTF-8"></script>
+
+<script type="text/javascript" src="../layer-v2.1/layer/layer.js"></script>
+<script type="text/javascript" src="../js/artTemplate.js"></script>
+<script type="text/javascript" src="../js/jquery.dotdotdot.js"></script>
+<script src="../js/bootstrap.js" type="text/javascript" charset="utf-8"></script> 
+<script src="../js/bootstrap-paginator.min.js" type="text/javascript" charset="UTF-8"></script>
+<script src="../js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/helpers.js"></script>
+<script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/modal.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.nicescroll.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<style>
+    .all.opened {
+        height: auto !important;
+    }
+
+    .all .toggle .rrclose,
+    .all.opened .toggle .open {
+        display: none;
+    }
+
+    .all .toggle .opened,
+    .all.opened .toggle .rrclose {
+        display: inline;
+    }
+
+    .open, .rrclose {
+        color: #2cb82c;
+    }
+    #delTip {
+    width: 400px;
+    position: absolute;
+    z-index: 10000;
+    display: block;
+    overflow: hidden;
+    top: 40%;
+    left: 50%;
+    border: 4px solid rgba(0,0,0,.1);
+    background-color: #fff;
+    margin-top: -70px;
+    margin-left: -200px;
+    }
+    #delTip .clearfix{
+    	background-color: #f3f3f3;
+    }
+  
+    #delTip .delTipTop span{
+    	float: left;
+    }
+     #delTip .delTipTop a{
+     	float: right;
+     }
+      #delTip .delTipTop{
+      	padding: 0 10px;
+      }
+     
+      #delTip .delTipMid{
+      	position: relative;
+      	width: 300px;
+    	margin: 0 auto;
+    	padding: 20px 0px;
+      }
+      #delTip .delTipMid .delTipPic{
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 48px;
+    height: 48px;
+    background: url(/web/images/icon48.png) no-repeat;
+    background-position: -94px 0;
+      }
+      #delTip .delTipMid .yesOrNo button{
+      	width: 80px;
+      }
+       #delTip .delTipMid .areYouSure{
+       	font-size: 20px;
+    	color: orange;
+       }
+          
+       #delTip .delTipMid .yesOrNo button:first-child{
+       	margin-right: 20px;
+       }
+      #delTip .delTipMid  .areYouSure{
+      	margin-left: 58px;
+      }
+      #delTip .yesOrNo{
+      	margin-top: 20px;
+      	text-align: center;
+      }
+      #closeAddredddel{
+      	color: #666;
+      	text-decoration: none;
+      }
+</style>
+<body>
+
+<div class='mask' style='display: none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.3;z-index:1000;filter:alpha(opacity=30);'></div>
+<div class='mask2' style='padding:0 20px;top:50%;left:46%;display: none;position:fixed;text-align: center;color:white;line-height: 60px;height:60px;background:#000;opacity:0.5;z-index:1000;filter:alpha(opacity=30);'></div>
+	
+			<!--地址删除提示页面-->
+	<div id="delTip" class="hide">
+		<div class="delTipTop"><span>删除</span><a href="javascript:;" id="closeAddredddel">X</a></div>
+		<div class="clearfix"></div>
+		<div class="delTipMid">
+			<span class="delTipPic"></span>
+			<span class="areYouSure">您确定要删除该地址吗？</span>
+			<div class="yesOrNo">
+				<button class="delAddress">确定</button>
+				<button class="cancelDelAddress">取消</button>
+			</div>
+			
+		</div>
+	</div>
+		
+		
+	<!--充值部分 -->
+	<div id='main1'>
+
+	<div class='topbanner'>
+	<span>账号充值</span><i class="close" style="opacity: 1">X</i>
+	</div>
+	<div id='pay'>
+	<!-- 充值成功页面 -->
+	<div class='pay-success' style="none">
+	<div class="pay-success-top">
+		<img src="/web/images/video2/weixin.png" alt=""><span>充值成功</span>
+	</div>
+		<div class="pay-success-bottom">
+		<p>充值账号:<span>hanpingwei</span></p>
+		<p>您可获得:<span>10熊猫币</span></p>
+		<p>充值时间:<span>2017-09-16 &nbsp;14:00:17</span></p>
+	</div>
+	<button id='pay-continue'>继续充值</button>
+	</div>
+	
+
+	<div class='czym'>
+		<!-- 第一个 -->
+		<div class='item_title title_one'>
+			<p>剩余熊猫币</p>
+			<div class='item_content content_one'>
+				<i class="balanceTotal"></i>
+				<!-- <span>个</span> -->
+			</div>
+		</div>
+	<!-- 第二个 -->
+		<div class='item_title title_two'>
+			<p>充值帐号</p>
+			<div class='item_content content_two'>
+				<!-- <em>自己</em> -->
+				<span id="account"></span>
+			</div>
+		</div>
+	<!-- 第三个 -->
+		<div class='item_title title_two'>
+			<p>充值数量</p>
+			<div class='item_content content_two'>
+				<ul>
+					<li data-value='100' class='orange dian'>100个
+						<i class="ico i-selector show"></i>
+					</li>
+					<li data-value='500' class="dian">500个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='1000' class="dian">1000个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='5000' class="dian">5000个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='10000' class="dian">10000个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='50000' class="dian">50000个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='100000' class="dian">100000个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='500000' class="dian">500000个
+						<i class="ico i-selector"></i>
+					</li>
+					<li data-value='0' class='other dian' style="width: 103px">
+					<input class="editPayNum" style='width: 80px;' id="editPayNum" onkeyup="showNum()" >
+					<!-- <span class="baseNum">,000个</span> -->
+						<!-- <div>
+							<input type="text" placeholder="其他数量" style="outline: none;">
+						</div> -->
+						<label class="inTips" for="editPayNum">其它数量</label>
+						<i class="ico i-selector"></i>
+					</li>
+					<div style="height: 36px;display:none;float: left;line-height: 36px;" id='wain'>最低限额10元，最高20万</div>
+					<!-- <li class='tip' style="width: 100px;border: none;">
+						<p class="inputTips" style="visibility: hidden;">1~20w元</p>
+						<p>1元=10个熊猫币</p>
+					</li> -->
+				</ul>
+			</div>
+		</div>
+		<!-- 第四个 -->
+		<!-- <div class='item_title title_three'>
+			<p>支付方式</p>
+			<div class='item_content content_three'>
+				<ul>
+					<li data-value="Zfb" class='Zfb orange'>
+						<i></i>
+						<i >支付宝</i>
+						<i class="ico i-selector show"></i>
+					</li>
+					<li data-value="Wx" class='Wx'>
+						<i></i>
+						<i>微信</i>
+						<i class="ico i-selector"></i>
+					</li>
+				</ul>
+			</div> -->
+		</div>
+		<!-- 第五个 -->
+		<div class='item_title title_one'>
+			<p>应付金额</p>
+			<div class='item_content content_one'>
+				<em class='number'>10</em>
+				<span>元</span>
+			</div>
+		</div>
+	<!-- 支付 -->
+	<div class='item_title' style="text-align: center;">
+		<a href="javascript:;" class='goPay'>前往支付</a>
+	</div>
+	<!-- 二维码 -->
+	<div class='erweima' style="width: 125px;height: 125px;position: absolute;border: 1px solid #e1e1e1;left: 37%;bottom: 10%;display: none;z-index:999">
+		<img src="" alt="" style="width: 100%;height: 100%" id="chongzhi_qrcode">
+	</div>
+	</div>
+	
+
+	</div>
+
+</div>	
+
+
+
+
+
+
+
+<div id="ps0">
+    <ul class="my-personcenter-nav">
+        <li class="my-personcenter-nav-1">
+            <a href="javascript:void (0)" class="hehe">个人中心</a>
+        </li>
+        <li class="glyphiconRight"><span aria-hidden="true"> > </span></li>
+        <li class="my-personcenter-nav-2">
+            <a href="javascript:void (0)" class="bbbb"></a>
+        </li>
+    </ul>
+    <div class="personcenterPage clearfix">
+        <div class="left-nav">
+            <div class="intro">
+            </div>
+            <ul>
+                <li data-pages="show" class="selected">
+                    <i class="iconfont icon-ziyuan myNews"></i>
+                    <a class="mynews" href="javascript:;">我的消息</a>
+                </li>
+                <li data-pages="none">
+                    <i class="iconfont icon-xueyuan"></i>
+                    <a class="mydata" href="javascript:;">我的资料</a>
+                </li>
+                <li data-pages="none">
+                    <i class="iconfont icon-yijianfankui"></i>
+                    <a class="idea" href="javascript:;">意见反馈</a>
+                </li>
+                <li data-pages="none">
+                    <i class="iconfont icon-qianbao" style='width: 20px;'></i>
+                    <a class="mymoney " href="javascript:;">我的资产</a>
+                </li>
+            </ul>
+        </div>
+        <div class="view-content">
+            <div class="view-content-content"></div>
+            <div class="view-content-notbodys"></div>
+            <div class="pages" style="display: none;">
+                <div id="Pagination" style="float:right !important"></div>
+                <div class="searchPage">
+                    <span class="page-sum">共<strong class="allPage">0</strong>页</span>
+                    <span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+                    <a href="javascript:;" class="page-btn">确定</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-----------我来回答---------->
+<div class="modal fade" id="answerForm">
+    <div class="modal-dialog modal-alert" role="document">
+        <div class="modal-answerForm">
+            <form method="POST" id="Myform3" onsubmit="return saveReport(event)" enctype="multipart/form-data">
+                <input type="hidden" name="projectName" value="online"/>
+                <input type="hidden" name="fileType" value="1"/>
+
+                <div class="myanswer-top">
+                    <div class="cymyanswerclose close" data-dismiss="modal" aria-label="Close">×</div>
+                    <div class="cymyanswerlogo">我来回答</div>
+                </div>
+                <div class="myanswer-bottom">
+                    <div class="myanswer-lo1">答案内容</div>
+                    <textarea class="txt answerFormtxt" maxlength="1000" placeholder="1000字以内"></textarea>
+
+                    <div class="interlocution-bottom">
+                        添加图片
+                        <input id="file2" type="file" name="attachment" style="cursor: pointer;"/>
+
+                        <div class="file2_t" style="cursor: pointer;"></div>
+                    </div>
+                    <div class="interlocution-bottom-1">
+                    </div>
+                    <div class="myanswer_bottom_dv_2"><span class="myanswer-btn myanswerFormbtn">提交</span></div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="rrrrTips">图片仅限于BMP,PNG,JPEG,JPG格式</div>
+<div class="rrrrrTips">请选择图片</div>
+<!--------------上传头像------------------>
+<!--<div class="modal fade" id="upload">
+    <div class="modal-dialog modal-alert" role="document">
+        <div class="upload_pictures">
+            <form method="POST" id="Myform2" onsubmit="return saveReport(event)" enctype="multipart/form-data">
+                <input type="hidden" name="projectName" value="online" />
+                <input type="hidden" name="fileType" value="1" />
+                <div class="upload_pictures-top">
+                    <div class="upload_pictures-top_close" data-dismiss="modal" aria-label="Close">×</div>
+                    <div class="upload_pictures-top_logo">本地上传</div>
+                </div>
+                <div class="upload_pictures_bottom">
+                    <div class="upload_pictures_bottom_upload" title="上传头像">
+                        <input id="file4"  type="file" name="attachment" style="cursor: pointer;" />
+                    </div>
+                    <div class="upload_pictures_bottom_dv">
+                        <button class="upload_pictures_bottom_btn">确定上传</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>-->
+<div class="mask"></div>
+<div id="headImg" class="clearfix">
+    <div class="container clearfix">
+        <div class="img-title"><p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+        <div class="img-box1">
+            <a href="javascript:void(0)" class="upload-img">
+                <p onclick="fileClick()"><span>+</span>选择图片</p>
+            </a>
+
+            <p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+        </div>
+        <div class="imageBox">
+            <div class="thumbBox"></div>
+            <div class="spinner" style="display: none"></div>
+        </div>
+        <div class="action clearfix">
+            <div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+            <div class="new-contentarea tc">
+                <div class="bbox clearfix">
+                	<span>滚动鼠标可调整头像大小</span>
+                    <a href="javascript:void(0)" class="upload-img reclick">
+                        <p onclick="fileClick()">重新上传</p>
+                    </a>
+                </div>
+                <input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg"/>
+            </div>
+            <span class="btn-upload bbtn">确定</span>
+            <a href="javascript:;" class="btn-quit bbtn">取消</a>
+        </div>
+        <div class="cropped">
+            <div class="cropTitle">预览</div>
+            <div class="cropped-con"></div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="namePic">
+    <div class="pic" style="background-image: url({{#pictures(img)}})" data-img='{{#pictures(img)}}'></div>
+    <div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
+    	<i class="iconfont icon-xiangji"></i>
+    </div>
+    <div class="name" title="{{name}}">{{name}}</div>
+    <div class="msg0" title="{{info}}" data-maxlengts="11">{{info}}</div>
+</script>
+
+
+<!-- //消费记录模板 -->
+ <script type="text/template" id="list1">
+<li><span>订单号</span><span>用途</span><span>金额</span><span>时间</span><span>支付方式</span></li>
+{{each item as item i}}
+<li><span>{{item.orderNO}}</span><span class='yongTu' data-toggle="tooltip" title="{{item.remark}}">{{item.remark}}</span><span>{{item.price}}</span><span>{{item.time}}</span><span>{{item.payType}}</span></li>
+{{/each}}
+</script> 
+
+
+<!-- 熊猫币消费记录-->
+ <script type="text/template" id="list6">
+<li><span style="flex: 3;">订单号</span><span style="flex: 3;">用途</span><span style="flex: 2;">数量</span><span style="flex: 2;">熊猫币</span><span style="flex: 3;">时间</span></li>
+{{each item as item i}}
+<li><span style="flex: 3;">{{item.orderNO}}</span><span class='yongTu' data-toggle="tooltip" title="{{item.remark}}" style="flex: 3;">{{item.remark}}</span><span style="flex: 2;">{{item.count}}</span><span style="flex: 2;">{{item.total}}</span><span style="flex: 3;">{{item.time}}</span></li>
+{{/each}}
+</script> 
+
+<!-- //充值记录模板 -->
+ <script type="text/template" id="list2">
+<li><span style="flex: 3">订单号</span><span  style="flex: 2">充值数量</span><span  style="flex: 2">充值金额</span><span style="flex: 3">时间</span><span style="flex: 2">充值方式</span></li>
+{{each item as item i}}
+<li><span style="flex: 3">{{item.orderNo}}</span><span  style="flex: 2">{{item.value}}</span><span  style="flex: 2">{{item.total}}</span><span style="flex: 3">{{item.createTime}}</span><span style="flex: 2">{{item.paytype}}</span></li>
+{{/each}}
+</script> 
+
+<!-- //提现记录模板 -->
+ <script type="text/template" id="list3">
+<li><span  style="flex: 3">订单号</span><span  style="flex: 2">金额</span><span style="flex: 3">时间</span><span  style="flex: 1">提现方式</span><span  style="flex: 2">支付结果</span></li>
+{{each item as item i}}
+<li><span  style="flex: 3">{{item.id}}</span><span style="flex: 2">{{item.enchashmentSum}}</span><span  style="flex: 3">{{item.time}}</span><span  style="flex: 1">{{item.enchashmentAccountType}}</span><span  style="flex: 2">{{item.enchashmentStatus}}</span></li>
+{{/each}}
+</script> 
+
+
+<!-- //收到礼物模板 -->
+ <script type="text/template" id="list4">
+<li><span>订单号</span><span>礼物</span><span>礼物数量</span><span>熊猫币</span><span style="flex: 3;">时间</span><span>赠送人</span></li>
+{{each item as item i}}
+<li><span>{{item.orderNo}}</span><span>{{item.giftName}}</span><span>{{item.count}}</span><span>{{item.gain}}</span><span style="flex: 3;">{{item.createTime}}</span><span>{{item.name}}</span></li>
+{{/each}}
+</script> 
+
+
+<!-- //打赏记录模板 -->
+ <script type="text/template" id="list5">
+<li><span>订单号</span><span>打赏金额</span><span>熊猫币</span><span>时间</span><span>赠送人</span></li>
+{{each item as item i}}
+<li><span>{{item.orderNo}}</span><span>{{item.price}}</span><span>{{item.gain}}</span><span>{{item.createTime}}</span><span>{{item.name}}</span></li>
+{{/each}}
+</script> 
+
+
+
+<!-- 个人信息省份模板 -->
+ <script type="text/template" id="pro1">
+<option value="volvo">--选择省--</option> 
+{{each item as item i}}
+<option value="{{item.pid}}" name="{{item.pname}}">{{item.pname}}</option> 
+{{/each}}
+</script> 
+
+<!-- 个人信息市份模板 -->
+ <script type="text/template" id="cit1">
+<option value="volvo">--选择市--</option> 
+{{each item as item i}}
+<option value="{{i}}"  name="{{item.cname}}">{{item.cname}}</option> 
+{{/each}}
+</script> 
+
+
+
+<!-- 省份模板 -->
+ <script type="text/template" id="pro">
+<option value="volvo">--选择省--</option> 
+{{each item as item i}}
+<option value="{{item.pid}}" name="{{item.pname}}">{{item.pname}}</option> 
+{{/each}}
+</script> 
+
+<!-- 市份模板 -->
+ <script type="text/template" id="cit">
+<option value="volvo">--选择市--</option> 
+{{each item as item i}}
+<option value="{{i}}"  name="{{item.cname}}">{{item.cname}}</option> 
+{{/each}}
+</script> 
+
+<!-- 区县份模板 -->
+ <script type="text/template" id="dis">
+<option value="volvo">--选择区/县--</option> 
+{{each item as item i}}
+<option value="{{item.did}}" name="{{item.dname}}">{{item.dname}}</option> 
+{{/each}}
+</script> 
+
+
+<!-- 身份信息模板 -->
+ <script type="text/template" id="SFinfor">
+<option value="volvo">请输入身份信息</option> 
+{{each item as item i}}
+<option value="{{item.id}}" data_key="{{item.key}}">{{item.value}}</option> 
+{{/each}}
+</script> 
+
+
+
+<!-- 常用地址模板 -->
+<script type="text/template" id="addressTem">
+{{each item as item i}}
+<div class="address-main" data-id="{{item.id}}">
+<span class="address-main-close" data-id="{{item.id}}">X</span>
+<div class="address-maim-top clearfix"><p style="font-size: 18px;">{{item.consignee}}&nbsp;&nbsp;</p></div>
+<div class="clearfix"><p>收货人: <span class="consignee">{{item.consignee}}</span></p><p>手机: <span class="phone">{{item.phone}}</span></p></div>
+<div class="clearfix"><p>所在地址: <span class="notdetaileAaddress"><span class="sheng">{{item.provinces}}</span><span class="shi">{{item.city}}</span><span class="xiang">{{item.county}}</span></span></p><p>地址: <span class="detailedAddress">{{item.detailedAddress}}</span></p></div>
+<div class="clearfix"><p>邮编: <span class="postalCode">{{item.postalCode}}</span></p></div>
+{{if item.isAcquiescence == 1 }}
+<div class="clearfix"><a href="javascript:;" class="editor" >编辑</a><a href="javascript:;" class="setAsaddress" style="color: white;padding: 0 10px;background-color: #2cb82c;">默认地址</a></div>
+{{else if item.isAcquiescence == 0 }}
+<div class="clearfix"><a href="javascript:;" class="editor" >编辑</a><a href="javascript:;" class="setAsaddress">设为默认</a></div>
+{{/if}}
+</div>
+{{/each}}
+</script> 
+
+
+
+
+
+<script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/header.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/personcenter.js?v=1.0.3"></script>
+<script type="text/javascript" src="../js/mydata.js?v=1.0"></script>
+<script src="../js/myanswer.js"></script>
+<script type="text/javascript" src="../js/footer.js"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script src='../js/PersonAsset.js?v=1.0.2'></script>
+<script src="/web/js/chongZhi.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/usualAddress.js?v=1.0.4" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function () {
+        $('input').placeholder();
+        $('textarea').placeholder();
+        if(window.localStorage.getItem('findStyle')=='profile'){
+        	$('.profile').click()
+        }
+    });
+</script>
+</body>
+
+</html>

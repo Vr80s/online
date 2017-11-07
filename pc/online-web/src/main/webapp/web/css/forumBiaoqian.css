@@ -1,0 +1,444 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Microsoft YaHei';
+  background-color: #f7f7f7;
+  overflow-x: hidden ;
+}
+div,
+span,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: inline-block;
+  outline: none;
+}
+.clearfix:after {
+  content: "";
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#forum {
+  width: 1200px;
+  margin: 0 auto;
+}
+#forum .forum-nav {
+  margin-top: 13px;
+}
+#forum .forum-nav .forum-nav-origin {
+  font-size: 16px;
+  color: #2cb82c;
+  display: inline-block;
+  margin-right: 5px;
+}
+#forum .forum-nav span {
+  font-size: 12px;
+  color: #999;
+}
+#forum .forum-content {
+  margin-top: 16px;
+}
+#forum .forum-content .forum-content-left {
+  width: 890px;
+  float: left;
+  background-color: #fff;
+}
+#forum .forum-content .forum-content-left .forum-content-info {
+  padding: 0 30px 60px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-left {
+  float: left;
+  width: 260px;
+  height: 160px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right {
+  float: right;
+  width: 550px;
+  height: 160px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-title a {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-content {
+  margin: 11px 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 24px;
+  height: 99px;
+  overflow: hidden;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags {
+  font-size: 12px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags span {
+  margin: 0 25px;
+  color: #999;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags a {
+  color: #999;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags i {
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #ccc;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags em {
+  width: 2px;
+  height: 2px;
+  display: inline-block;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #999;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+#forum .forum-content .forum-content-left .pages {
+  margin: 30px 0 60px;
+  display: none;
+}
+#forum .forum-content .forum-content-right {
+  width: 290px;
+  float: right;
+}
+#forum .forum-content .forum-content-right .hot-article {
+  width: 290px;
+  height: 366px;
+  background-color: #fff;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-title {
+  display: inline-block;
+  width: 100%;
+  padding: 17px 20px;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-list {
+  padding: 0 20px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-list li {
+  margin-top: 18px;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-list li span {
+  display: inline-block;
+  width: 220px;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: -2px;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-list li a {
+  font-size: 14px;
+  color: #333;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-list li em {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  color: #999;
+  font-style: normal;
+  margin-right: 10px;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-list li .select {
+  border: none;
+  background-color: #2cb82c;
+  color: #fff;
+}
+#forum .forum-content .forum-content-right .hot-article .hot-article-list span:hover {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag {
+  background-color: #fff;
+  margin-top: 20px;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tag-title {
+  display: inline-block;
+  width: 100%;
+  padding: 17px 20px;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround {
+  padding: 20px;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround li {
+  border: 1px solid #ccc;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround li a {
+  display: inline-block;
+  padding: 3px 15px;
+  font-size: 14px;
+  color: #999;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround li:hover {
+  color: #fff;
+  background-color: #2cb82c;
+  border: 1px solid #2cb82c;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround li:hover a {
+  color: #fff;
+}
+#forum .forum-content .forum-content-right .forum-hot-course {
+  margin-top: 20px;
+  background-color: #fff;
+  display: inline-block;
+  width: 100%;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title {
+  border-bottom: 1px solid #eee;
+  padding: 17px 20px;
+  font-size: 16px;
+  color: #333;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner {
+  float: right;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .curCount,
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner span {
+  display: inline-block;
+  font-size: 12px;
+  color: #999;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .allLunbo {
+  margin-right: 5px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .prev {
+  background: url("/web/images/125/left.png") no-repeat center center;
+  background-position-x: 4px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .next {
+  background: url("/web/images/125/right.png") no-repeat center center;
+  background-position-x: 5px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .prev,
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .next {
+  background-color: #ccc;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-top: -1px;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .prev:hover,
+#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .next:hover {
+  background-color: #2cb82c;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course {
+  height: 276px;
+  padding: 17px 20px 0;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .slide-box {
+  height: 255px;
+  width: 255px;
+  overflow: hidden;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent {
+  padding: 0;
+  left: 0;
+  overflow: hidden;
+  height: 235px;
+  position: relative;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent li {
+  float: left;
+  width: 100%;
+  position: absolute;
+  background: #fff;
+  top: 3px;
+  left: 100%;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent li:hover {
+  -webkit-box-shadow: 1px 1px 4px 1px #ddd;
+  -moz-box-shadow: 1px 1px 4px 1px #ddd;
+  box-shadow: 1px 1px 4px 1px #ddd;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent .diyiye {
+  left: 0;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent .diyiye a {
+  text-decoration: none;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course a {
+  float: left;
+  margin-right: 20px;
+  width: 100%;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .classCategory {
+  width: 38px;
+  height: 22px;
+  text-align: center;
+  line-height: 22px;
+  color: white;
+  background: url("../images/index/label.png") no-repeat left top;
+  position: absolute;
+  right: 18px;
+  font-size: 12px;
+  top: -2px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .img {
+  text-align: center;
+  line-height: 152px;
+  width: 250px;
+  height: 152px;
+  background-color: #f0f0f0;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .img img {
+  width: 100%;
+  height: 100%;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .aimg {
+  text-align: center;
+  line-height: 152px;
+  width: 250px;
+  height: 152px;
+  background-color: #f0f0f0;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .aimg img {
+  margin-top: -7px;
+  margin-left: -25px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail {
+  padding: 0 10px;
+  border: 1px solid #e4e4e4;
+  border-top: none;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail a {
+  text-decoration: none;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info {
+  padding-top: 2px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail em {
+  font-size: 12px;
+  color: #2cb82c;
+  font-style: normal;
+  display: inline-block;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .timeAndTeac {
+  display: block;
+  margin: 4px 0;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .timeAndTeac span {
+  font-size: 12px;
+  color: #999;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .timeAndTeac i {
+  font-style: normal;
+  height: 12px;
+  color: #ccc;
+  display: inline-block;
+  margin: 0 10px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info span i {
+  font-style: normal;
+  font-size: 16px;
+  color: #ff4012;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .price {
+  display: inline-block;
+  margin: 0 6px 0 0;
+  font-size: 16px;
+  color: #ff4012;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .price1 {
+  font-style: normal;
+  font-size: 13px;
+  color: #999;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .pricefree {
+  display: inline-block;
+  margin: 0 6px 0 0;
+  font-size: 14px;
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info del {
+  color: #999;
+  font-size: 12px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .stuCount {
+  font-size: 12px;
+  color: #666;
+  vertical-align: super;
+  margin-top: 3px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .stuCount img {
+  margin-right: 4px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .stuCount .studentCou {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 1px;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail p {
+  color: #333;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .title {
+  max-width: 211px;
+  display: inline-block;
+  margin-bottom: 0;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+  margin-top: 11px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .title:hover {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail span {
+  color: #999;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info > span:nth-child(1) {
+  float: left;
+}
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info > span:nth-child(2) {
+  float: right;
+}

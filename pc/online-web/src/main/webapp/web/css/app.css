@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+.header {
+  height: 50px;
+  background-color: skyblue;
+}
+.footer {
+  height: 250px;
+  background-color: skyblue;
+}
+.main {
+  height: 685px;
+  width: 100%;
+  position: relative;
+  background-color: #f6f6f6;
+}
+.main .main-left-photo {
+  position: absolute;
+  left: 205px;
+  top: 40px;
+}
+.main .main-right {
+  position: absolute;
+  left: 918px;
+  top: 195px;
+}
+.main .main-right .main-right-top {
+  margin-bottom: 36px;
+}
+.main .main-right .main-right-bottom {
+  position: relative;
+}
+.main .main-right .main-right-bottom a{
+	width: 152px;
+}
+.main .main-right a {
+  height: 35px;
+  display: inline-block;
+  position: absolute;
+  border-radius: 17px;
+  line-height: 35px;
+  padding: 0 16px;
+  text-align: center;
+  color: #000;
+  font-weight: 700;
+}
+.main .main-right a img {
+  vertical-align: middle;
+}
+.main .main-right .android-down {
+  right: 0;
+  bottom: 54px;
+  background-color: #ccc;
+}
+.main .main-right .ios-down {
+  width: 152px;
+  bottom: 0;
+  right: 0;
+  background-color: #ccc;
+}
+.contain {
+  width: 1200px;
+  margin: 0 auto;
+}
+.changColor{
+	 background-color:#2cb82c !important;
+}
+

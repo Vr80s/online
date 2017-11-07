@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns=http://www.w3.org/1999/xhtml xmlns:bd=http://www.baidu.com/2010/xbdml>
+<head>
+    <!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IEedge"/>
+    <meta charset="UTF-8">
+    <title>问答 - 熊猫中医云课堂</title>
+    <link rel="shortcut icon" href="../../favicon.ico"/>
+    <meta name="keywords"
+          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+    <meta name="description"
+          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+          <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+<link rel="stylesheet" href="../css/myprofile.css"/>
+<link rel="stylesheet" href="../css/mylogin.css"/>
+<link rel="stylesheet" href="../css/componet.css"/>
+<link rel="stylesheet" href="../css/header.css">
+<link rel="stylesheet" href="../css/ansAndQus.css">
+<link rel="stylesheet" href="../font/iconfont.css">
+<link rel="stylesheet" href="../css/footer.css">
+
+<script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.pagination.js"></script>
+<script type="text/javascript" src="../js/bootstrap.js"></script>
+<script type="text/javascript" src="../js/artTemplate.js"></script>
+<script type="text/javascript" src="../js/jquery.form.min.js"></script>
+<script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/helpers.js"></script>
+<script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/jquery.dotdotdot.js"></script>
+<script type="text/javascript" src="../js/ansAndQus.js"></script>
+
+<body>
+<div class="page-ans-qus">
+    <ul class="my-ans-nav">
+        <!--<li class="my-ans-nav-1">
+            <a href="/index.html">首页</a>
+        </li>
+        <li class="glyphiconRight"><span> > </span></li>
+        <li class="my-ans-nav-2"><span style="font-size: 12px;color:#999;">问答</span></li>-->
+    </ul>
+    <div class="content-list-qus">
+        <div class="control-bar">
+            <div class="select-type">
+                <span class="menu-title" title="全部分类"></span>
+                <span class="menu-title1"></span>
+            </div>
+            <div class="search-ansAndQus">
+                <i class="iconfont icon-fangdajing"></i>
+                <input type="text" placeholder="输入关键字"/>
+                <!-- <span class="hide">iOS</span>
+                <span class="hide">java</span>
+                <span class="hide">html</span> -->
+            </div>
+        </div>
+        <div class="content">
+            <div class='ansAndQus-left'>
+                <div class='ansAndQus-Title'>
+                    <span data-status="-1">全部</span>
+                    <span data-status="1">未解决</span>
+                    <span data-status="2">已解决</span>
+
+                    <div class="title-zhanwei"></div>
+                </div>
+            </div>
+            <div class="ansAndQus-left-list">
+                <img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt=""/>
+                <p class="loadingWord">加载中</p>
+            </div>
+            <div class="pages">
+                <div id="Pagination"></div>
+                <div class="searchPage">
+                    <span class="page-sum">共<strong class="allPage">0</strong>页</span>
+                    <span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+                    <a href="javascript:;" class="page-btn">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contentRigh">
+        <div class='ansAndQusRight-top'>
+            <div class='ansAndQusRight-top-back'>
+                <p><img src='../images/ansandqus/ask.png'/></p>
+
+                <p>你在学习中遇到了什么问题呢？</p>
+                <a href='javascript:;' class='goQuiz'>我要提问</a>
+            </div>
+        </div>
+        <div class='ansAndQusRight-bottom'>
+            <p class='ansAndQusRight-top-title'>热门问答</p>
+            <div class='ansAndQusRight-hot'>
+
+
+                <div class='ansAndQusRight-top-title-noDate'>
+                    <img src='../images/ansandqus/my_nodata.png'/>
+
+                    <p>暂无数据</p>
+                </div>
+            </div>
+        </div>
+        <div class='ansAndQusRight-bottom2'>
+            <div class='weekly'>
+                <p class='weekly-title'>周回答排行榜</p>
+                <div class='weeklyChart'>
+                    <div class='weeklyChartNoDate'>
+                        <img src='../images/ansandqus/my_nodata.png'/>
+                        <p>暂无数据</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-----------------------下拉模板---------------------->
+<script type="text/html" id="select-con">
+    <ul class="select-type-ul">
+        {{each menu}}
+        <li data-id="{{$value.menu.id}}" data-type="0">
+            <span class="flag" data-id="{{$value.menu.id}}" data-type="0" title="{{$value.menu.name}}">{{$value.menu.name}}</span>
+
+            <div class="select-type-ul-dv">
+                <div class="select-type-ul-dv-d">
+                    {{$value.menu.name}}
+                </div>
+                <div class="select-type-ul-dv-p">
+                    {{each $value.tag}}
+                    <a class="menuItem" data-id="{{$value.id}}" data-type="1"
+                       title="{{$value.name}}">{{$value.name}}</a>
+                    {{/each}}
+                </div>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+
+
+<script src="../js/header.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/footer.js"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('input').placeholder();
+    });
+</script>
+</body>
+
+</html>

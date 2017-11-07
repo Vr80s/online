@@ -1,0 +1,285 @@
+html,
+body {
+    background-color: #f8f8f8;
+    -ms-overflow-style: scrollbar;
+}
+
+html .hr,
+body .hr {
+    background-color: #fff;
+}
+
+#storyMain {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#storyMain .box {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#storyMain #breadNav {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#storyMain #studentDetail {
+    overflow: hidden;
+    width: 878px;
+    float: left;
+    min-height: 700px;
+    background-color: #fff;
+    padding: 30px 30px 30px 30px;
+}
+
+#storyMain #studentDetail .detailTop .title {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+#storyMain #studentDetail .detailTop .name,
+#storyMain #studentDetail .detailTop .createTime {
+    display: inline-block;
+    font-size: 14px;
+    color: #999;
+    margin: 3px 0 21px 0;
+}
+
+#storyMain #studentDetail .detailTop .name {
+    margin-right: 15px;
+}
+
+#storyMain #studentDetail .detailTop .secName,
+#storyMain #studentDetail .detailTop .sCourse,
+#storyMain #studentDetail .detailTop .company,
+#storyMain #studentDetail .detailTop .salary {
+    display: inline-block;
+    font-size: 16px;
+    color: #333;
+    margin-right: 60px;
+    font-weight: bold;
+}
+
+/*------------右侧优秀学员--------*/
+#storyMain #student-right {
+    width: 298px;
+    float: right;
+    background: #fff;
+}
+
+#student-right .title {
+    display: block;
+    padding: 20px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+#student-right .title span {
+    display: block;
+    float: left;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#student-right .title .shu {
+    width: 3px;
+    background-color: #2CB82C;
+    display: block;
+    height: 18px;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+#student-right .student {
+    width: 100%;
+}
+
+#student-right .student .d1 {
+    margin: 0 20px 0 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid #EFF4EF;
+}
+
+#student-right .student .d1 .d1-img {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+#student-right .student .d1 .d1-img img {
+    width: 50px;
+    height: 50px;
+}
+
+.d1-mess {
+    float: left;
+    margin-left: 10px;
+    width: 185px;
+}
+
+.d1-mess p {
+    display: block;
+}
+
+.d1-mess .d1-name {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+}
+
+.d1-mess .d1-job {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+#student-right .student .d2 {
+    padding: 20px;
+    background: #eff4ef;
+    position: relative;
+    min-height: 126px;
+    display: none;
+    margin-top: -1px;
+}
+
+.d2 .d2-posi {
+    position: relative;
+    width: 60px;
+    text-align: center;
+    float: left;
+    min-height: 86px;
+    height: 100%;
+}
+
+.d2 .d2-posi-ab {
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    margin-top: -43px;
+    min-height: 86px;
+}
+
+.d2 .d2-posi-ab p {
+    display: block;
+    margin-top: 5px;
+}
+
+#student-right .student .d2 .d2-img {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+#student-right .student .d2 .d2-img img {
+    width: 60px;
+    height: 60px;
+}
+
+.d2-right {
+    margin-left: 10px;
+    float: left;
+    width: 185px;
+}
+
+.d2-right .d2-job {
+    font-size: 12px;
+    color: #333;
+}
+
+.d2-right .d2-descr {
+    margin-top: 5px;
+    line-height: 20px;
+}
+
+.d2-right .d2-descr em {
+    height: 5px;
+    overflow: hidden;
+    display: inline;
+    font-size: 26px;
+    font-family: Arial;
+    color: #2cb82c;
+    vertical-align: middle;
+}
+
+.d2-right .d2-descr span {
+    font-size: 12px;
+    color: #666;
+    line-height: 20px;
+    word-break: break-all;
+    word-break: break-word;
+}
+
+#storyMain #studentDetail .detailBottom {
+    margin-top: 13px;
+    height: 100%;
+    word-break: break-all;
+    word-break: break-word;
+}
+
+#storyMain #studentDetail .detailBottom a {
+    text-indent: 0 !important;
+}
+
+#storyMain #studentDetail .detailBottom img {
+    max-width: 818px;
+}
+
+.my-personcenter-nav {
+    width: 1200px;
+    height: 20px;
+}
+
+.my-personcenter-nav li {
+    display: inline-block;
+    list-style: none;
+    font-size: 12px;
+    color: #999;
+}
+
+.my-personcenter-nav .my-personcenter-nav-1 {
+    /*background: url("../images/ansandqus/indexmgx.png") no-repeat;
+          width: 48px;
+          background-position: 0 4px;
+          text-align: right;*/
+}
+
+.my-personcenter-nav .my-personcenter-nav-1 a {
+    color: #999;
+    cursor: text !important;
+}
+
+.my-personcenter-nav .my-personcenter-nav-1 a:hover {
+    color: #999;
+    cursor: text;
+    text-decoration: underline;
+}
+
+.my-personcenter-nav .my-personcenter-nav-1 .ind {
+    cursor: pointer;
+}
+
+.my-personcenter-nav .my-personcenter-nav-1 .ind:hover {
+    color: #2cb82c;
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+
+.my-personcenter-nav .my-personcenter-nav-2 a {
+    text-decoration: underline;
+}
+
+.my-personcenter-nav .my-personcenter-nav-2 a:hover {
+    text-decoration: none;
+}

@@ -1,0 +1,259 @@
+html,
+body {
+  font-family: 'Microsoft YaHei';
+  font-size: 12px;
+  background-color: #f7f7f7;
+}
+body,
+html,
+p,
+ul,
+li,
+a,
+img,
+ol,
+li {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+img {
+  display: inline-block;
+}
+.clearfix:after {
+  content: "";
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+}
+#examBox {
+  width: 1200px;
+  margin: 20px auto 0;
+}
+#examBox .examBasicInfo.failed {
+  background: url("../images/failed.png") center center no-repeat;
+  background-size: 100%,100%;
+}
+#examBox .examBasicInfo.success {
+  background: url("../images/success.png") center center no-repeat;
+  background-size: 100% 100%;
+}
+#examBox .examBasicInfo {
+  border-bottom: 1px solid #e4e4e4;
+  background-color: #fff;
+}
+#examBox .examBasicInfo .examBasicInfoTop {
+  padding: 27px 30px 24px;
+}
+#examBox .examBasicInfo .examBasicInfoTop .assign {
+  font-size: 20px;
+  color: #333;
+  margin-top: -6px;
+  display: inline-block;
+  margin-right: 30px;
+}
+#examBox .examBasicInfo .examBasicInfoTop .tiFenshu,
+#examBox .examBasicInfo .examBasicInfoTop .tgfs,
+#examBox .examBasicInfo .examBasicInfoTop .tijiaoTime {
+  font-size: 14px;
+  color: #666;
+  display: inline-block;
+  margin-top: 11px;
+}
+#examBox .examBasicInfo .examBasicInfoTop .paiMing {
+  font-size: 14px;
+  color: #666;
+  display: inline-block;
+  margin-top: 11px;
+}
+#examBox .examBasicInfo .examBasicInfoTop .paiMing .tongGuanConut {
+  color: #ff4012;
+  font-size: 16px;
+  margin: 0 3px;
+}
+#examBox .examBasicInfo .examBasicInfoTop .tiFenshu {
+  color: #ff4012;
+}
+#examBox .examBasicInfo .examBasicInfoTop .tiFenshu,
+#examBox .examBasicInfo .examBasicInfoTop .tgfs {
+  margin-right: 35px;
+}
+#examBox .timuTypeBox {
+  padding: 0px 30px;
+  width: 1200px;
+  background-color: #fff;
+  height: 59px;
+  line-height: 59px;
+}
+#examBox .timuTypeBox li {
+  width: 65px;
+  float: left;
+  text-align: center;
+  margin-right: 30px;
+  font-size: 16px;
+  color: #333;
+  padding: 0 5px;
+  cursor: pointer;
+}
+#examBox .timuTypeBox .select {
+  color: #2cb82c;
+  border-bottom: 2px solid #2cb82c;
+}
+#examBox .timuTypeBox.examFloat {
+  z-index: 1005;
+  bottom: auto;
+  position: fixed;
+  left: 50%;
+  margin-left: -600px;
+  top: 0px;
+  -webkit-box-shadow: 0px 0px 6px 3px #ccc;
+  -moz-box-shadow: 0px 0px 6px 3px #ccc;
+  box-shadow: 0px 0px 6px 3px #ccc;
+}
+#examBox .examContent {
+  margin-top: 20px;
+}
+#examBox .examContent .timuAndAnswer {
+  float: left;
+  width: 896px;
+  background-color: #fff;
+  padding: 0 30px 60px;
+}
+#examBox .examContent .timuAndAnswer .timu {
+  font-size: 14px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+#examBox .examContent .timuAndAnswer .timu > li {
+  border-bottom: 1px solid #e4e4e4;
+  padding: 25px 0;
+}
+#examBox .examContent .timuAndAnswer .timu > li p {
+  font-size: 14px;
+}
+#examBox .examContent .timuAndAnswer .timu > li p:first-child {
+  display: inline;
+}
+#examBox .examContent .timuAndAnswer .timu > li .ExamAnswer {
+  margin-top: 6px;
+}
+#examBox .examContent .timuAndAnswer .timu > li .ExamAnswer li {
+  color: #666;
+  width: 100%;
+  line-height: 42px;
+  font-size: 14px;
+}
+#examBox .examContent .timuAndAnswer .timu > li .ExamAnswer li i {
+  padding-left: 10px;
+  vertical-align: middle;
+}
+#examBox .examContent .timuAndAnswer .timu > li .ExamAnswer li img {
+  max-width: 836px;
+}
+#examBox .examContent .timuAndAnswer .timu > li .ExamAnswer li:hover {
+  background-color: #f5f8fb;
+  color: #2cb82c;
+}
+#examBox .examContent .timuAndAnswer .timu > li .cankaoAnswer,
+#examBox .examContent .timuAndAnswer .timu > li .answerShouMing {
+  color: #2cb82c;
+  font-size: 14px;
+  display: inline-block;
+}
+#examBox .examContent .timuAndAnswer .timu > li .cankaoAnswer {
+  margin-top: 20px;
+}
+#examBox .examContent .timuAndAnswer .timu > li .answerShouMing {
+  margin-top: 9px;
+}
+#examBox .examContent .timuAndAnswer .timu .timu > li:first-child {
+  padding-top: 30px;
+}
+#examBox .examContent .answerCard {
+  float: right;
+  width: 284px;
+  background-color: #fff;
+}
+#examBox .examContent .answerCard div {
+  border-bottom: 1px solid #eee;
+}
+#examBox .examContent .answerCard div .answerStatus {
+  padding: 20px;
+}
+#examBox .examContent .answerCard div .answerStatus li {
+  float: left;
+  margin-right: 30px;
+  height: 18px;
+}
+#examBox .examContent .answerCard div .answerStatus li em {
+  width: 16px;
+  height: 16px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 8px;
+}
+#examBox .examContent .answerCard div .answerStatus li span {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -8px;
+}
+#examBox .examContent .answerCard .thirdLeiAnswer {
+  padding-bottom: 25px;
+}
+#examBox .examContent .answerCard .thirdLeiAnswer .radioAnswer {
+  padding: 16px 20px 6px;
+}
+#examBox .examContent .answerCard .thirdLeiAnswer .radioAnswer span {
+  font-size: 16px;
+  color: #333;
+}
+#examBox .examContent .answerCard .thirdLeiAnswer .radioAnswer ol {
+  width: 110%;
+  overflow: hidden;
+}
+#examBox .examContent .answerCard .thirdLeiAnswer .radioAnswer ol li {
+  float: left;
+  width: 28px;
+  height: 28px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin: 11px 15px 0 0;
+  color: #fff;
+  text-align: center;
+  line-height: 28px;
+  background-color: #ddd;
+  cursor: pointer;
+}
+#examBox .examContent .answerCard.answerCardFloat {
+  position: fixed;
+  left: 0;
+  top: 79px;
+}
+#examBox .corrent {
+  background-color: #aedeae!important;
+}
+#examBox .error {
+  background-color: #e7b5a8!important;
+}
+#examBox .noAnswer {
+  background-color: #ddd!important;
+}
+#examBox .correntAns {
+  color: #2cb82c!important;
+}
+#examBox .errorAns {
+  color: #ff4012!important;
+}

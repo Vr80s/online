@@ -1,0 +1,95 @@
+@import "base";
+
+@charset "UTF-8";
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Microsoft YaHei";
+  font-size: 18px;
+}
+
+.page-email {
+  width: 602px;
+  height: 463px;
+  border: 1px solid #eeeeee;
+  margin: 0px auto;
+  .boder_radius(3px);
+  padding: 0 25px;
+  position: relative;
+  .header {
+    border-bottom: 1px solid #eee;
+    margin-top: 5px;
+    p {
+      color: @themeColor;
+      width: 100%;
+      text-align: center;
+      margin: 0px;
+    }
+    .p1 {
+      font-size: 28px;
+    }
+    .p2 {
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+  }
+  .article {
+    .text {
+      width: 100%;
+      text-align: left;
+      font-size: 14px;
+      padding: 30px 0px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      margin-top: 8px
+    }
+    .link {
+      line-height: 25px;
+      font-size: 14px;
+      margin: 0;
+      .tip {
+        padding-bottom: 10px;
+        display: block;
+        color: #666;
+        font-size: 14px
+      }
+      a {
+        text-decoration: none;
+        font-size: 12px;
+        color: #55b9e6;
+      }
+    }
+    .footer {
+      font-size: 12px;
+      color: #999;
+      margin-top: 10px;
+    }
+    .addr {
+      font-size: 12px;
+      color: #999;
+      text-align: center;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      margin-left: -123px;
+    }
+  }
+  .indexHref {
+    line-height: 25px;
+    font-size: 14px;
+    padding-bottom: 10px;
+    margin: 0;
+    a {
+      font-size: 16px;
+      text-decoration: none;
+      color: #000;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+  .tiaozhuang, .time {
+    color: #2cb82c;
+  }
+}

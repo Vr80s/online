@@ -1,0 +1,432 @@
+@import "base";
+
+@charset "UTF-8";
+body {
+  margin: 0;
+  padding: 0 !important;
+}
+
+.hides {
+  display: none;
+}
+
+.mask {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9998;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  filter: alpha(opacity=40);
+  /*ie*/
+  -moz-opacity: 0.4;
+  -o-opacity: 0.4;
+  -webkit-opacity: 0.4;
+  opacity: 0.4;
+}
+
+.qxColl {
+  display: none;
+  border-radius: 2px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.18);
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  width: 204px;
+  height: 200px;
+  border-top: 2px solid #2cb82c;
+  z-index: 9999;
+  margin-left: -102px;
+  background: white;
+  .qxCloser {
+    display: block;
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: #333333;
+    width: 194px;
+    height: 13px;
+    background: url("../images/qxCloser.png") right top no-repeat;
+  }
+  .qxImg {
+    width: 100%;
+    height: 36px;
+    margin-top: 20px;
+    background: url("../images/qxsc.png") center top no-repeat;
+  }
+  .qxIntro {
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
+    margin-top: 20px;
+  }
+  .qxBtn {
+    height: 54px;
+    width: 100%;
+    background: rgb(248, 248, 248);
+    margin-top: 25px;
+    span {
+      width: 68px;
+      height: 34px;
+      display: block;
+      margin-left: 20px;
+      float: left;
+      text-align: center;
+      font-size: 14px;
+      line-height: 34px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .qxSure {
+      background: #2cb82c;
+      color: white;
+    }
+    .qxQuit {
+      border: 1px solid #EEEEEE;
+      color: #666666;
+    }
+  }
+}
+
+.page-qus-details {
+  width: 1200px;
+  margin: 0 auto;
+  #con-box {
+    min-height: 662px;
+  }
+  .my-glyphicon-tousu {
+    background-image: url("../images/ansandqus/tousu1.png");
+    margin-right: 3px;
+    background-position: 0 1px;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+  }
+  .my-glyphicon-huida {
+    background-image: url("../images/ansandqus/huida1.png");
+    width: 15px;
+    height: 15px;
+    top: 4px;
+    background-repeat: no-repeat;
+    left: -3px;
+  }
+  .my-glyphicon-home {
+    background-image: url("../images/ansandqus/indexmgx.png");
+    width: 16px;
+    height: 15px;
+  }
+  .my-glyphicon-bc {
+    background-image: url("../images/ansandqus/wentibuchong.png");
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    margin-right: 3px;
+  }
+  .my-glyphicon-sc {
+    width: 15px;
+    height: 15px;
+    top: 3px;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+  }
+  .my-glyphicon-ll {
+    background-image: url("../images/ansandqus/liulan.png");
+    width: 15px;
+    height: 15px;
+    top: 4px;
+    background-repeat: no-repeat;
+    left: -3px;
+  }
+  .my-glyphicon-hd {
+    background-image: url("../images/ansandqus/xiaoxi.png");
+    width: 15px;
+    height: 15px;
+    top: 4px;
+    background-repeat: no-repeat;
+    left: -3px;
+  }
+  .my-glyphicon-zj {
+    background-image: url("../images/ansandqus/cainadaan.png");
+    margin-right: 3px;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+    background-position: 0 0;
+    &.selected {
+      background-image: url("../images/queren.gif");
+      background-position: -2px -2px !important;
+    }
+  ;
+  }
+  .my-glyphicon-zt {
+    background-image: url("../images/ansandqus/zan.png");
+    margin-right: 3px;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+  }
+  .my-glyphicon-fd {
+    background-image: url("../images/ansandqus/cai.png");
+    margin-right: 3px;
+    background-position: 0 1px;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+  }
+  .my-glyphicon-zt1 {
+    background: url("../images/ansandqus/good_hover.png") no-repeat;
+    margin-right: 3px;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+  }
+  .my-glyphicon-fd1 {
+    background: url("../images/ansandqus/bad_hover.png") no-repeat;
+    margin-right: 3px;
+    background-position: 0 1px;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+  }
+  .my-glyphicon-ts {
+    background-image: url("../images/ansandqus/jubao.png");
+    margin-right: 3px;
+    background-position: 0 1px;
+    width: 15px;
+    height: 15px;
+    top: 2px;
+  }
+  .gap {
+    margin-right: 15px;
+    color: #999;
+  }
+  .nav-bread {
+    padding: 20px 0;
+    color: #999;
+    a {
+      cursor: pointer;
+      color: #999;
+      font-size: 12px;
+    }
+  }
+  .content-article {
+    border: 1px solid #e5e5e5;
+    padding-top: 20px;
+    .container {
+      padding-right: 6px;
+      padding-left: 6px;
+    }
+    .control-bar {
+      position: relative;
+      height: 70px;
+      .pic {
+        width: 70px;
+        height: 70px;
+        .boder_radius(100px);
+      }
+      .info {
+        vertical-align: top;
+        padding: 11px 0 11px 15px;
+        .name {
+          font-size: 12px;
+          font-weight: bold;
+          color: #333;
+        }
+        .article-info {
+          font-size: 12px;
+          margin-top: 6px;
+          color: #666;
+          .date {
+            color: #999;
+          }
+          .gap-2 {
+            color: #999;
+          }
+          span {
+            font-size: 12px;
+            display: inline-block;
+          }
+        }
+      }
+      .link-bar {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: #000;
+        .pointer {
+          cursor: pointer;
+          .my-glyphicon-xg {
+            width: 19px;
+            height: 20px;
+            margin-right: 10px;
+            background: url("../images/ansandqus/wentibuchong.png") no-repeat;
+            position: relative;
+            top: 5px;
+          }
+        }
+      ;
+        .btn-item {
+          color: #666;
+          font-size: 12px;
+          margin-right: 15px;
+        }
+      }
+    }
+    .my-article {
+      height: auto;
+      position: relative;
+      .title {
+        font-size: 16px;
+        color: #333;
+        white-space: normal;
+        word-break: break-all;
+        margin-top: 20px;
+      }
+      .txt {
+        width: 100%;
+        line-height: 24px;
+        color: #666;
+        font-size: 12px;
+        word-wrap: break-word;
+        white-space: normal;
+        word-break: break-all;
+        margin: 10px 0;
+      }
+      .content-img {
+        margin-bottom: 20px;
+        img {
+          width: 170px;
+          height: 170px;
+          margin-right: 10px;
+        }
+      }
+      .assistTitle {
+        margin-bottom: 15px;
+        overflow: hidden;
+        .forumAssistTitle {
+          font-size: 18px;
+          float: left;
+        }
+        .forumAssistTime {
+          color: #999;
+          font-size: 12px;
+          float: left;
+          margin-top: 7px;
+          margin-left: 10px;
+        }
+      }
+      .assistTxt {
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: #666;
+        word-wrap: break-word;
+        white-space: normal;
+        word-break: break-all;
+      }
+      .assist-img {
+        margin-bottom: 35px;
+        img {
+          width: 170px;
+          height: 170px;
+          margin-right: 10px;
+        }
+      }
+    }
+    .answer-item {
+      background-color: #F7F7F7;
+      padding: 20px;
+      position: relative;
+      hr {
+        background-color: #DFDFDF;
+        height: 1px;
+        margin-top: 20px;
+        margin-bottom: 0;
+      }
+      &:first-child {
+        &:before {
+          background-image: url("../images/tiger_right.png");
+          width: 19px;
+          height: 9px;
+          position: absolute;
+          top: -9px;
+          content: "";
+          display: block;
+          left: 80px;
+        }
+      }
+      &:last-child {
+        border-bottom: 0;
+      }
+      .pic {
+        background-image: url("../images/4.png");
+        width: 50px;
+        height: 50px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        .boder_radius(100px);
+      }
+    ;
+      .content {
+        vertical-align: top;
+        margin-left: 20px;
+        .title {
+          /*
+                              font-size: @mFSize;
+                              font-weight: 600;*/
+          .gab {
+            margin-left: 15px;
+            background-color: #ff4012;
+            font-size: 12px;
+            color: #ffffff;
+            width: 36px;
+            height: 20px;
+            display: inline-block;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 2px;
+          }
+        }
+        .txt {
+          line-height: 24px;
+          width: 1050px;
+          margin: 5px 0;
+          color: #666;
+          font-size: 12px;
+          font-weight: normal;
+          white-space: normal;
+          word-break: break-all;
+        }
+      }
+      .contro-img {
+        margin-top: 15px;
+        width: 70px;
+        float: left;
+        margin-right: 20px;
+        img {
+          margin-right: 5px;
+          width: 77px;
+          height: 50px;
+        }
+      }
+      .control-bottom {
+        clear: both;
+        color: #999;
+        font-size: 12px;
+        padding-top: 15px;
+        .hour {
+          color: #999;
+          font-size: 12px;
+          font-weight: 500;
+          margin-right: 30px;
+        }
+        .gap {
+          cursor: pointer;
+        }
+      }
+    ;
+    }
+  }
+}

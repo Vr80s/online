@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>熊猫中医云课堂 - 线上中医教育</title>
+    <link rel="shortcut icon" href="../../favicon.ico"/>
+    <meta name="keywords"
+          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+    <meta name="description"
+          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    <style>
+        html,body{
+            padding:0;
+            margin:0;
+            font-family: "微软雅黑";
+            background-color:#f7f7f7;
+        }
+        p{
+            padding:0;
+            margin:0;
+        }
+        img{
+            display:inline-block;
+            outline: none;
+            border:none;
+        }
+        .clearfix:after{
+            content:"";
+            height:0;
+            overflow:hidden;
+            display:block;
+            clear:both;
+        }
+        #email-main{
+            width:1200px;
+            height:484px;
+            position:absolute;
+            left:50%;
+            top:45%;
+            margin-top:-242px;
+            margin-left:-600px;
+            background-color:#fff;
+            overflow:hidden;
+        }
+        #email-main .bxg-logo{
+            display:block;
+            width:152px;
+            height:51px;
+            margin:70px auto 0;
+        }
+        #email-main .email-register-info{
+            width:848px;
+            margin:70px auto 0;
+        }
+        #email-main .email-register-info .eImg{
+            float:left;
+        }
+        #email-main .email-register-info .email-hintword{
+            float:right;
+        }
+        #email-main .email-register-info .email-hintword .e1{
+            color:#333;
+            font-size:20px;
+        }
+        #email-main .email-register-info .email-hintword .e2{
+            font-size:16px;
+            color:#666;
+            margin-top:15px;
+        }
+        #email-main .email-register-info .email-hintword .e2 span{
+            display:inline-block;
+            margin:0 5px;
+            color:#2cb82c;
+        }
+        #email-main .email-register-info .email-hintword  .goEmail{
+            width:120px;
+            height:44px;
+            line-height:44px;
+            text-align:center;
+            background-color:#2cb82c;
+            color:#fff;
+            font-size:16px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            cursor:pointer;
+            margin-top:32px;
+        }
+        #email-main .email-register-info .email-hintword  .goEmail:hover{
+            background: #28A528;
+        }
+    </style>
+</head>
+<body>
+<div id="email-main">
+    <a class="bxg-logo" href="/index.html">
+        <img src="/web/images/pandaLogo.jpg" alt="" style="width: 150px;" />
+    </a>
+    <div class="email-register-info clearfix">
+        <img class="eImg" src="/web/images/loginRegister/email.png" alt=""/>
+        <div class="email-hintword">
+            <p class="e1">验证链接已经发送至您的邮箱，点击链接后即可注册成功。</p>
+            <p class="e2">系统已经向您的邮箱<span class="emailAccount"></span>发送了一封验证邮件，请登录邮箱完成激活验证。</p>
+            <div class="goEmail">去邮箱</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="/web/js/jquery-1.12.1.js" charset="utf-8"></script>
+<script>
+    var uurl = localStorage.getItem("emailName");
+    $(".emailAccount").text(uurl);
+    //跳转到指定的邮箱登录页面
+    $(".goEmail").click(function () {
+        uurl = gotoEmail(uurl);
+        if (uurl != "") {
+            window.open("http://" + uurl);
+        } else {
+            alert("抱歉!未找到对应的邮箱登录地址，请自己登录邮箱查看邮件！");
+        }
+    });
+    //功能：根据用户输入的Email跳转到相应的电子邮箱首页
+    function gotoEmail($mail) {
+        $t = $mail.split('@')[1];
+        $t = $t.toLowerCase();
+        if ($t == '163.com') {
+            return 'mail.163.com';
+        } else if ($t == 'vip.163.com') {
+            return 'vip.163.com';
+        } else if ($t == '126.com') {
+            return 'mail.126.com';
+        } else if ($t == 'qq.com' || $t == 'vip.qq.com' || $t == 'foxmail.com') {
+            return 'mail.qq.com';
+        } else if ($t == 'gmail.com') {
+            return 'mail.google.com';
+        } else if ($t == 'sohu.com') {
+            return 'mail.sohu.com';
+        } else if ($t == 'tom.com') {
+            return 'mail.tom.com';
+        } else if ($t == 'vip.sina.com') {
+            return 'vip.sina.com';
+        } else if ($t == 'sina.com.cn' || $t == 'sina.com') {
+            return 'mail.sina.com.cn';
+        } else if ($t == 'tom.com') {
+            return 'mail.tom.com';
+        } else if ($t == 'yahoo.com.cn' || $t == 'yahoo.cn') {
+            return 'mail.cn.yahoo.com';
+        } else if ($t == 'tom.com') {
+            return 'mail.tom.com';
+        } else if ($t == 'yeah.net') {
+            return 'www.yeah.net';
+        } else if ($t == '21cn.com') {
+            return 'mail.21cn.com';
+        } else if ($t == 'hotmail.com') {
+            return 'www.hotmail.com';
+        } else if ($t == 'sogou.com') {
+            return 'mail.sogou.com';
+        } else if ($t == '188.com') {
+            return 'www.188.com';
+        } else if ($t == '139.com') {
+            return 'mail.10086.cn';
+        } else if ($t == '189.cn') {
+            return 'webmail15.189.cn/webmail';
+        } else if ($t == 'wo.com.cn') {
+            return 'mail.wo.com.cn/smsmail';
+        } else if ($t == 'itcast.cn') {
+            return 'mm.263.com';
+        } else if ($t == 'ixincheng.com') {
+            return 'mail.ixincheng.com';
+        } else {
+            return '';
+        }
+    };
+</script>

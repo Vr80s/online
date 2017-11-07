@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns=http://www.w3.org/1999/xhtml xmlns:bd=http://www.baidu.com/2010/xbdml>
+
+	<head>
+		<!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+		<meta http-equiv="X-UA-Compatible" content="IEedge" />
+		<meta charset="UTF-8">
+		<title>问答详情 - 线上中医教育</title>
+		<link rel="shortcut icon" href="../../favicon.ico" />
+		<meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医" />
+		<meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。" />
+	</head>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="../css/mylogin.css" />
+	<link rel="stylesheet" href="../css/componet.css" />
+	<link rel="stylesheet" href="../css/header.css">
+
+	<link rel="stylesheet" href="../css/footer.css">
+	<link rel="stylesheet" href="../css/qusAndAnsDetailsGuanLi.css" />
+	<link rel="stylesheet" href="../css/modal.css" />
+	<link rel="stylesheet" type="text/css" href="../simditor-1.0.5/styles/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="../simditor-1.0.5/simditor.css" />
+
+	<script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/jquery.pagination.js" type="text/javascript" charset="UTF-8"></script>
+	<script type="text/javascript" src="../layer-v2.1/layer/layer.js"></script>
+	<script type="text/javascript" src="../js/artTemplate.js"></script>
+	<script src="../js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+
+	<script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/helpers.js"></script>
+	<script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/modal.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../simditor-1.0.5/scripts/js/module.js"></script>
+	<script type="text/javascript" src="../simditor-1.0.5/scripts/js/simditor.js"></script>
+	<script type="text/javascript" src="../simditor-1.0.5/scripts/js/uploader.js"></script>
+	<script type="text/javascript" src="../js/jquery.SuperSlide.2.1.1.js"></script>
+	<!--<script type="text/javascript" src="../js/page.js" ></script>-->
+	<script type="text/javascript" src="../js/jquery.dotdotdot.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+	<body>
+		<div class="zhezhao">			
+		</div>
+		<div class="reDelete">
+			<div class="reRela">
+				<div class="reClose clearfix"><img src="../images/alter-close.png"/></div>
+				<div class="reAlter"><img src="../images/ansandqus/tousudelect.png"><p>当前内容已被删除</p></div>
+				<div class="reFooter">
+					<span>确定</span>
+				</div>
+			</div>			
+		</div>
+		<div class="hr">
+			<header>
+				<div class="header_body">
+					<div class="header_left" style="cursor: default;">
+						<a href="javascript:;" style="cursor: default;"><img src="../images/logo.png" alt="" /></a>
+						<div class="path">
+							<a href="javascript:;" style="cursor: default;">云课堂</a>
+							<a href="javascript:;" class="select" style="cursor: default;">问答</a>
+						</div>
+					</div>
+				</div>
+			</header>
+			<div class="guanliBody">
+				<div class="glgop"></div>
+				<div class="gl-text">
+					<p>提示 : 你当前是以管理员身份登录，可以删除任何内容~</p>
+				</div>
+			</div>
+		</div>
+
+		<div id="main">
+
+			<div class="nav-bread-top">
+				<!--<span class="glyphicon my-glyphicon-home" aria-hidden="true"></span>-->
+				<!--<a href="javascript:;" style="cursor:text;">首页</a>
+				<span class="glyphiconRight"><span> > </span></span>-->
+				<a href="javascript:;" style="cursor: text;">问答</a>
+				<span class="glyphiconRight"><span> > </span></span>
+				<span class="curr"></span>
+			</div>
+			<div class="quesDetail-bottom clearfix">
+				<div class="quesDetail-left">
+					<!--我的回答-->
+					<div class="quesDetail-left-first">
+
+						<!--<div class="good-answer-comment" style="display: block;">
+
+                    <div class="comment-top">
+                        <div data-commentid="1" class="commentId"><span class="user-nickname">{{$val.create_person}}：</span><span class="user-content">{{$val.content}}</span>
+                            <p><span class="comment-time">{{$val.create_time}}</span><span class="dianzan">赞({{$val.praise_sum})</span><span class="reply-btn">回复</span><span class="reply-delete">删除</span></p>
+                        </div>
+                    </div>
+                    <div class="reply"><input type="text" placeholder="回复 13811599288：">
+                        <div data-commentid="1" class="commentId"><span class="user-nickname">$val.create_person}}：</span>
+                            <span class="reply-btn">回复</span><span class="reply-delete">删除</span>
+                        </div>
+                    </div>
+
+                    <div class="footer">
+                        <div class="pages" style="">
+                            <div class="Pagination"></div>
+                            <div class="searchPage"><span class="page-sum">共<strong class="allPage">15</strong>页</span><span class="page-go">跳转<input type="text">页</span><a href="javascript:;" class="page-btn">GO</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="comment-bottom clearfix"><input class="writeComment" type="text" placeholder="写下你的评论...">
+                        <div class="comment-btn">评论</div>
+                    </div>
+                </div>-->
+
+					</div>
+					<!--精彩回答-->
+					<div class="quesDetail-left-second clearfix" style="display:none">
+						<div class="good-Answer">
+							<img src="../images/ansandqus/icon_askdetial.png" alt="" />
+							<span class="good">精彩回答</span>
+							<span class="nice_good_count"></span>
+						</div>
+						<div class="goodAnswercontent">
+
+						</div>
+
+					</div>
+					<!--评论-->
+					<div class="good-answer-comment">
+
+					</div>
+
+					<!--最新回答-->
+					<div class="quesDetail-left-third clearfix" style="display: none;">
+						<div class="latest-answer">
+							<img src="../images/ansandqus/icon_askdetial02.png" alt="" />
+							<span class="good">最新回答</span>
+							<span class="last_good_count"></span>
+						</div>
+						<div class="latest-answer-middle">
+							<img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt=""/>
+							<p class="loadingWord">加载中</p>
+						</div>
+
+					</div>
+					<div class="pages" style="display: none">
+						<div id="Pagination"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
+					</div>
+				</div>
+				<div class="quesDtail-right">
+					<div class="simliar">
+
+					</div>
+				</div>
+				<!--相关课程-->
+				<div class="quesDtail-right1">
+					<div class="relative-course">
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!----footer-------------->
+		<div class="footerDT">
+			<footer>
+				<div class="content">
+					<div class="content-item footer-bodys">
+						<div class="content-item content-footer-link about-us">
+							<ul class="gate">
+								<li data-id="first" data-url="../html/aboutUs.html">关于我们</li>
+								<li data-id="two" data-url="../html/aboutUs.html">人才招聘</li>
+								<li data-id="three" data-url="../html/aboutUs.html">联系我们</li>
+								<li data-id="four" data-url="../html/aboutUs.html" class="noline">常见问题</li>
+							</ul>
+						</div>
+						<div class="trademark">琼ICP备17002789号 Copyright @ 2017 熊猫中医 All Rights Reserved<span style="margin-right:5px;"></span></div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript" src="../js/qusAndAnsDetailGuanLi.js"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('input').placeholder();
+	});
+</script>

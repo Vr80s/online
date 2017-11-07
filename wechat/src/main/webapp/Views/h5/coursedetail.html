@@ -1,0 +1,342 @@
+<%@page pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<title id="title">课程详情</title>
+		<link rel="stylesheet" href="/Views/h5/css/mui.min.css">
+		<link rel="stylesheet" href="/Views/h5/css/common.css">
+		<link rel="stylesheet" href="/Views/h5/css/coursedetail.css">
+		<style type="text/css">
+			.contentimg img {
+				width: 100%;
+			}
+			
+			.detailimg img {
+				height: 150px;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item {
+				height: 150px;
+			}
+			
+			.desc p {
+				text-align: left;
+			}
+			
+			.desc del {
+				margin: 0px 10px 0px 5px;
+			}
+			
+			.mui-btn-success {
+				background: #21d282;
+			}
+			
+			#segmentedControl a.mui-active {
+				border-bottom: 1px solid #21d282;
+				color: #21d282;
+			}
+			
+			.mui-bar-tab .mui-tab-item.mui-active {
+				color: #fff!important;
+				background-color: #21d282;
+			}
+			
+			#teacher {
+				padding: 10px 0px 0px 10px;
+				background: #F2F2F2;
+			}
+			
+			#teacher dl {
+				height: 85px;
+				text-align: center;
+			}
+			
+			#teacher dl dt {
+				display: inline-block;
+			}
+			
+			#teacher dl dd {
+				display: inline-block;
+				margin-left: 0px;
+			}
+			
+			.mui-control-content {
+				background-color: white;
+			}
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			#kecheng {
+				padding: 5px 10px;
+			}
+			
+			#dagang {
+				padding: 5px 10px;
+			}
+			.qxbtn span {
+				display: inline-block;
+				width: 80px;
+				line-height: 30px;
+				cursor: pointer;
+				margin-right: 5px;
+				background: #00D580;
+				color: #fff;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="/Views/h5/css/feedback.css" />
+		<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+	</head>
+
+	<body>
+		<!--
+        	作者：offline
+        	时间：2017-01-11
+        	描述：轮播图效果
+       -->
+		<div id="slider" class="mui-slider">
+			<a href="#">
+				<img src="/Views/h5/img/moren.png" id="bannercourse" style="height:170px;width: 100% ">
+			</a>
+
+		</div>
+
+		<!--轮播图结束-->
+		<ul class="mui-table-view mui-grid-view assortment" id="assortment">
+			<!--<li class="mui-table-view-cell mui-media mui-col-xs-8 desc">
+				<p class="shengl fontcolor_blak">wedsdjasdaksdjakd几点睡的就撒到那时的</p>
+				<p><span class="fontcolor_red">￥6500</span><del>￥8000</del><span>主讲：李老师</span></p>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-4">
+				<button type="button" class="mui-btn-success fontsize12" style="width: 100%;">分享赚钱</button>
+
+			</li>  -->
+		</ul>
+
+		<!--
+        	作者：offline
+        	时间：2017-01-12
+        	描述：
+        -->
+		<div id="slider" class="mui-slider" style="background: white;margin-top: 10px;">
+			<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-positive">
+				<a class="mui-control-item" href="#item1mobile" style="line-height: 48px;font-size: 17px;">课程介绍</a>
+				<a class="mui-control-item" href="#item2mobile" style="line-height: 48px;font-size: 17px;">课程大纲</a>
+			</div>
+			<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+			<div class="mui-slider-group">
+			    <!-- 课程简介  -->
+				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div id="scroll1" class="mui-scroll-wrapper">
+						<div class="mui-scroll" id="kecheng">
+
+						</div>
+					</div>
+				</div>
+				<!-- 课程大纲  -->
+				<div id="item2mobile" class="mui-slider-item mui-control-content">
+					<div id="scroll2" class="mui-scroll-wrapper">
+						<div class="mui-scroll" id="dagang">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<nav class="mui-bar mui-bar-tab baoname" id="footertab" style="background: #fff!important;color: #21d282;">
+			<!--<a class="mui-tab-item" href="/bxg/page/lession_course" style="color: #21d282;">
+				<span class="mui-tab-label">去试学</span>
+			</a>
+			<a class="mui-tab-item mui-active" href="/bxg/page/order_confirm" style="color: #21d282;">
+				<span class="mui-tab-label">立即报名</span>
+			</a>-->
+		</nav>
+		<div class="mui-popup-backdrop mui-active" style="display: none;" id="cover_div">
+			<div><img src="/Views/h5/img/zhiy.png" / style="width: 194px;margin-left: 40%;margin-top: 15%;"></div>
+			<div id="click_div"><img src="/Views/h5/img/know.png" / style="width: 123px;    margin-top: 70%; margin-left: 28%;"></div>
+		</div>
+		<div class="mui-popup-backdrop mui-active" style="display: none;" id="coverdiv">
+				<div id="" style="position: fixed;z-index: 10000;width: 70%;height:150px ;background: #FFFFFF;top: 38%;left: 15%;">
+					<div id="">
+						<img src="/Views/h5/img/problem.png" alt="" style="height: 40px;margin-left: 45%; margin-top: -19px;" />
+						<p style="text-align: center;line-height: 60px;font-size: 16px;color: #333;">您还不是合伙人，前去了解一下？</p>
+						<p class="qxbtn" style="text-align: center;"><span id="sure" class="sure">去了解</span></p>
+					</div>
+
+				</div>
+			</div>
+	</body>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<script type="text/javascript">
+		var name = localStorage.name;
+		
+		(function($, doc) {
+			$('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			
+			//从jsp页面获取到的课程id和课程名字
+			var id = param_course_id;
+			var courseName = param_course_name;
+			document.title =courseName;
+
+			localStorage.courseId = id;
+			localStorage.coursename = courseName;
+			
+			var openid = localStorage.openid;
+			
+			//如果是微信端登录的话，需要判断openid呢
+			if(openid!=undefined && openid!="" && openid!= null){
+				if(!stringnull(openid)){
+					window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx42fe48fd3935151e&redirect_uri=http://wx.ixincheng.com/bxg/wxpay/h5GetOpenidRedirect?courseId="+id+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
+				}
+			}
+			courseId = localStorage.courseId;
+			var sharecode = localStorage.sharecode;
+			var useid = localStorage.useid;
+			
+			requestService("/bxg/course/detail", {
+				course_id: id,
+				user_id: useid
+			}, function(data) {
+				if(data.success) {
+					var assortment = document.getElementById("assortment");
+					var bannercourse = document.getElementById("bannercourse");
+					var footertab = document.getElementById("footertab");
+					
+					var resultcourse = data.resultObject;
+					//document.getElementById("title").innerHTML = resultcourse.course_name;
+					document.title ="来熊猫中医学习 "+ courseName;
+					bannercourse.src = stringnull(resultcourse.smallimg_path) ? resultcourse.smallimg_path : "/Views/h5/img/kongbai.png";
+					
+					assortment.innerHTML = '<li class="mui-table-view-cell mui-media mui-col-xs-8 desc">' +
+						'	<p class="shengl fontcolor_blak">' + resultcourse.course_name + '</p>' +
+						'	<p><span class="fontcolor_red">￥' + resultcourse.current_price + '</span><del>￥' + resultcourse.original_cost + '</del><span class="fontsize12">主讲：' + resultcourse.teacher_name + '</span></p>' +
+						'</li>' +
+						'<li class="mui-table-view-cell mui-media mui-col-xs-4">' +
+						//'	<button type="button" class="mui-btn-success fontsize12 sharemoney" style="width: 100%;">分享赚钱</button>' +
+
+						'</li>';
+					//alert(resultcourse.is_buy);
+					//
+					if(resultcourse.is_buy) {
+						footertab.innerHTML = '<a class="mui-tab-item mui-active" href="/bxg/page/look_course" style="color: #21d282;">' +
+							'<span class="mui-tab-label">开始学习</span>' +
+							'</a>';
+
+					} else {
+						//试听和立即报名
+						footertab.innerHTML = '<a class="mui-tab-item" href="/bxg/page/lession_course" style="color: #21d282;opacity: .9;">' +
+							'<span class="mui-tab-label">去试学</span>' +
+							'</a>' +
+							'<a class="mui-tab-item mui-active" href="/bxg/page/order_confirm" style="color: #21d282;opacity: .9;">' +
+							'<span class="mui-tab-label">立即报名</span>' +
+							'</a>';
+					}
+				}
+			})
+			//得到课程介绍和课程大纲的内容
+			courseitem(id);
+			/* document.getElementById("ksxx").addEventListener('tap', function() {
+				alert(JSON.stringify(resultcourse));
+			}) */
+			document.getElementById("click_div").addEventListener('tap', function() {
+				document.getElementById("cover_div").style.display = "none";
+			})
+			//点击试听或者立即报名   ---》多需要判断用户是否已经登录
+			mui(".baoname").on('tap', 'a', function() {
+				var _this = this;
+				
+				var access  = localStorage.access;
+				//alert("browerUserId"+browerUserId);
+				
+					requestService("/bxg/user/isSessionTimeout", {}, function(data) {
+						  if(data.success){
+						  	  if(data.resultObject){
+						  	  	if(stringnull(name)){
+										location.href = _this.href + '/' + courseId;
+							    }else{
+										location.href = "/bxg/page/login/0";
+								}
+						  	  }else{
+						  	  	localStorage.removeItem("name");
+								localStorage.removeItem("useid");
+								localStorage.removeItem("username");
+								localStorage.removeItem("sharecode");
+								localStorage.removeItem("smallHeadPhoto");
+								localStorage.removeItem("ticket");/**/
+								location.href = "/bxg/page/login/0";
+						  	  }
+						  }
+			       })
+			})
+			mui(".assortment").on('tap', '.sharemoney', function() {
+				if(stringnull(name)) {
+					if(stringnull(sharecode)) {
+						document.getElementById("cover_div").style.display = "block";
+					} else {
+					document.getElementById("coverdiv").style.display = "block";
+					document.getElementById("sure").addEventListener("tap",function(){
+						document.getElementById("coverdiv").style.display = "none";
+						location.href = "/bxg/page/share/";
+					})
+						
+					}
+				} else {
+					location.href = "/bxg/page/login/0";
+				}
+			})
+		}(mui, document));
+
+		function courseitem(id) {
+			requestService("/bxg/course/detailtabs", {
+				course_id: id
+			}, function(data) {
+				if(data.success) {
+					var kecheng = document.getElementById("kecheng");
+					var dagang = document.getElementById("dagang");
+					var resultc = data.resultObject;
+					if(resultc != null) {
+						kecheng.innerHTML = '<div style="padding: 3px 10px">' +
+							'	<p class="fontcolor_blak"><b>课程概览</b></p>' +
+							'	<p class="fontcolor_blak" style="word-wrap:break-word; word-break:normal;">' + resultc.summary + '</p>' +
+							'	 </div>' +
+							'	 <p class="fontcolor_blak"><b>授课老师</b></p>' +
+							'	 <div id="" style="padding: 0px 12px">	' +
+							'		<div id="teacher">' +
+							'		<dl>' +
+							'				<dt><img src="' + resultc.teacher_head_img + '"/  style="width:70px;height: 70px;border-radius: 50%;vertical-align: bottom;"></dt>' +
+							'			<dd>' +
+							'				<p class="fontcolor_blak"><b>' + resultc.teacher_name + '</b></p>' +
+							'				<p>熊猫中医</p>' +
+							'			</dd>' +
+							'		</dl>' +
+							'		<p style="padding-bottom: 10px;">' + resultc.teacher_decs + '</p>' +
+							'	</div>' +
+							'	 </div>';
+
+						dagang.innerHTML = resultc.course_outline;
+					} else {
+						kecheng.innerHTML = "暂无课程介绍";
+						dagang.innerHTML = "暂无课程大纲";
+					}
+
+				}
+			})
+
+		}
+
+		var height = document.body.clientHeight;
+		var contentheight = height - 315;
+		document.getElementById("item1mobile").setAttribute("style", "height:" + contentheight + "px;");
+		document.getElementById("item2mobile").setAttribute("style", "height:" + contentheight + "px;");
+	</script>
+
+</html>

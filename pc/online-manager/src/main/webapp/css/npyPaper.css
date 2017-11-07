@@ -1,0 +1,291 @@
+.ultabs li:hover {
+  border-bottom: 2px solid #2c6aa0;
+}
+.ultabs .liactive{
+  border-bottom: 2px solid #2c6aa0;
+}
+.ulaccrodion .ptitle:hover,.ulaccrodion img:hover{
+  cursor: pointer;
+}
+.big-title {
+    font-size: 30px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei";
+}
+.down_l{
+  color:#2c6aa0;
+  text-decoration: underline!important;
+  padding-left: 15px;
+}
+.title-arrow {
+  padding-right:6px;
+}
+.checkexam .tabsinfo thead {
+  font-weight: bold;
+}
+.checkexam .tabsinfo td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+.divpaper .divtab .imgtf {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+}
+.divpaper .divtab .ptitle {
+  padding: 1%;
+  position: relative;
+  background-color: #f1f1f1;
+}
+.divpaper .divtab .ptitle  span  i{
+  font-style: normal;
+  display: inline-block;
+  white-space:nowrap;
+  vertical-align: top;
+}
+.divpaper .divtab .ptitle .sptitle:hover {
+  color: #2e43ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.divpaper .divtab .divaccordion {
+  display: none;
+}
+.divpaper .divtab .divaccordion .divtk {
+  padding:.5% 2%;
+  word-break: break-all;
+}
+
+.divtk .pque img,.divtk .ptrueans img,.divchose img{
+  height:50px;
+  width: 50px;
+}
+.divchose img{
+  margin-left: 18px;
+  margin-top: 10px;
+}
+.divtk .pque img{
+  vertical-align: top!important;
+}
+
+.divpaper .divtab .divaccordion .divtk p {
+  margin:0;
+  margin-top: 6px;
+  /*margin-left: -6px;*/
+}
+.divpaper .divtab .divaccordion .divtk .pque {
+  font-weight: bold;
+  margin-bottom: 1%;
+}
+
+.divpaper .divtab .divaccordion .divchosescore {
+  width: 135px;
+  background-color: #ececec;
+  position: absolute;
+  padding: 3px;
+  border: 1px solid #ccc;
+}
+.divpaper .divtab .divaccordion .divchosescore .cscore {
+  width:42px;
+  text-align: center;
+  padding: 3px;
+  display: inline-block;
+  cursor: pointer;
+}
+.divpaper .divtab .divaccordion .divchosescore .cscore:hover {
+  background-color: #d15b47;
+  color: #fff;
+  border-radius: 3px;
+}
+/*----以下是新加的内容------*/
+
+.def-f-l,.f-l {
+  float: left;
+}
+.padding-right-10 {
+  padding-right: 10px;
+}
+.padding-right-30 {
+  padding-right: 30px;
+}
+.sptitle-right {
+  position: absolute;
+  right:2%;
+}
+.spt-line {
+  margin-top: 10px;
+}
+.spt-line .stuA{
+  margin-bottom: 0;
+}
+.iconcss {
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  left: 30px;
+  width: 18px;
+  height: 18px;
+  background: url("../images/pyicon.png") no-repeat;
+} 
+.iconcorrect {
+   background-position: 0 0;
+}
+.iconerror {
+  background-position: 0 -18px;
+}
+.mar-rigt-30 {
+  margin-right: 30px;
+}
+.py-bottom {
+  padding-left: 25px;
+  padding-right: 0;
+}
+/*--------试卷评价 start-------*/
+.textarea-outer {
+  margin-bottom: 10px;
+}
+.textarea-outer .py-textarea {
+  width: 100%;
+  height: 152px;
+  margin-top: 13px;
+  background-color: #f1f1f1;
+}
+.textarea-outer .evaluate-outer .evaluate-h4 {
+  background-color: #2c6aa0;
+  color: #fff;
+  font-weight: normal;
+  font-size: 17px;
+  padding: 12px;
+  margin: 0;
+}
+.textarea-outer .evaluate-link{
+  position: relative;
+  display: block;
+}
+.textarea-outer .evaluate-line {
+  background-color: #d3d8dc;
+  text-align: center;
+  border-left: 1px solid #c1cad1;
+  border-right: 1px solid #c1cad1;
+  position: absolute;
+  width: 100%;
+}
+.textarea-outer .evaluate-line i{
+  color: #5188b9;
+}
+.textarea-outer .evaluate-list {
+  display: none;
+  position: absolute;
+  width: 100%;
+  margin:0;
+  background-color: #fff;
+  border-left:1px solid #d5d5d5;
+  border-right:1px solid #d5d5d5;
+}
+.textarea-outer .evaluate-list li{
+  border-bottom:1px solid #d5d5d5;
+  padding:5px;
+}
+.textarea-outer .evaluate-list li:hover{
+  background-color: #e5e5e5;
+}
+.opcity-0{
+  opacity: 0;
+}
+.opcity-1{
+  opacity: 1;
+}
+/*--------试卷评价 end-------*/
+.py-button-outer {
+  text-align:center;
+  margin-top: 20px;
+}
+.small-input {
+  width: 50px;
+  height: 28px;
+  position: relative;
+  top: -2px;
+  margin-left:10px;
+}
+.star-dome{
+  display: inline-block;
+  width: 240px;
+}
+.star-dome img{
+    margin-left: 3px;
+   margin-right: 3px;
+}
+.or-style {
+  padding-left: 20px;
+  padding-right: 15px;
+  font-size: 14px;
+}
+.container-all {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+}
+/* 试卷预览start*/
+.f-r {
+  float: right;
+}
+.topic {
+  line-height: 25px;
+}
+.topic dt{
+  font-weight: bold;
+  font-family: "NSimSun";
+  font-size: 15px;
+}
+.topic .topic-word-break{
+  word-break: break-all;
+}
+.topic img {
+  height: 50px;
+  vertical-align: top;
+}
+.topic-hr{
+  display: block;
+  border-bottom: 1px solid #e5e5e5;
+}
+.topic-type .topic-hr:last-child{
+  display: none;
+}
+.down {
+  margin-left: 10px;
+}
+.bold-font {
+  font-weight: bold;
+  font-size: 15px;
+}
+.type-title {
+  /*font-size: 12px;*/
+}
+.nsimsun,.type-title {
+  font-weight: normal;
+  font-family: "NSimSun";
+}
+/* 试卷预览start*/
+.cursorDefault:hover{
+  cursor: default;
+}
+.cursorDefault {
+  margin-top: 0!important;
+}
+.type-background {
+  background-color: #f1f1f1;
+  padding: 12px;
+  font-size: 12px;
+}
+.topic img{
+  cursor:pointer;
+}
+.m_t13 .ke-container {
+  margin-top: 13px!important;
+}
+/*批阅评语*/
+.question_comment_div > .questionComment{
+   display: block;
+}

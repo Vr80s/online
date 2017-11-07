@@ -1,0 +1,141 @@
+div,
+ul,
+li,
+a {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none!important;
+}
+#exhibition,
+#exhibitionDetail {
+  width: 1200px;
+  background-color: #fff;
+  margin: 20px auto;
+  font-size: 14px;
+  color: #333;
+  padding-bottom: 35px;
+}
+#exhibition .recommendAnimation .rTitle,
+#exhibitionDetail .recommendAnimation .rTitle,
+#exhibition .hotAnimation .rTitle,
+#exhibitionDetail .hotAnimation .rTitle,
+#exhibition .videoShow .rTitle,
+#exhibitionDetail .videoShow .rTitle {
+  font-size: 20px;
+  text-align: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+#exhibition .recommendAnimation ul,
+#exhibitionDetail .recommendAnimation ul,
+#exhibition .hotAnimation ul,
+#exhibitionDetail .hotAnimation ul,
+#exhibition .videoShow ul,
+#exhibitionDetail .videoShow ul {
+  padding: 0 20px;
+}
+#exhibition .recommendAnimation ul li,
+#exhibitionDetail .recommendAnimation ul li,
+#exhibition .hotAnimation ul li,
+#exhibitionDetail .hotAnimation ul li,
+#exhibition .videoShow ul li,
+#exhibitionDetail .videoShow ul li {
+  float: left;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+#exhibition .recommendAnimation ul li a,
+#exhibitionDetail .recommendAnimation ul li a,
+#exhibition .hotAnimation ul li a,
+#exhibitionDetail .hotAnimation ul li a,
+#exhibition .videoShow ul li a,
+#exhibitionDetail .videoShow ul li a {
+  text-decoration: none;
+  color: #333;
+}
+#exhibition .recommendAnimation ul li a img,
+#exhibitionDetail .recommendAnimation ul li a img,
+#exhibition .hotAnimation ul li a img,
+#exhibitionDetail .hotAnimation ul li a img,
+#exhibition .videoShow ul li a img,
+#exhibitionDetail .videoShow ul li a img {
+  width: 260px;
+  height: 320px;
+}
+#exhibition .recommendAnimation ul li a .animationBox,
+#exhibitionDetail .recommendAnimation ul li a .animationBox,
+#exhibition .hotAnimation ul li a .animationBox,
+#exhibitionDetail .hotAnimation ul li a .animationBox,
+#exhibition .videoShow ul li a .animationBox,
+#exhibitionDetail .videoShow ul li a .animationBox {
+  margin-top: 12px;
+}
+#exhibition .recommendAnimation ul li a .animationBox span,
+#exhibitionDetail .recommendAnimation ul li a .animationBox span,
+#exhibition .hotAnimation ul li a .animationBox span,
+#exhibitionDetail .hotAnimation ul li a .animationBox span,
+#exhibition .videoShow ul li a .animationBox span,
+#exhibitionDetail .videoShow ul li a .animationBox span {
+  display: inline-block;
+}
+#exhibition .recommendAnimation ul li a .animationBox .animationName,
+#exhibitionDetail .recommendAnimation ul li a .animationBox .animationName,
+#exhibition .hotAnimation ul li a .animationBox .animationName,
+#exhibitionDetail .hotAnimation ul li a .animationBox .animationName,
+#exhibition .videoShow ul li a .animationBox .animationName,
+#exhibitionDetail .videoShow ul li a .animationBox .animationName {
+  font-size: 16px;
+  margin-right: 20px;
+}
+#exhibition .recommendAnimation ul li a .animationBox .publishTime,
+#exhibitionDetail .recommendAnimation ul li a .animationBox .publishTime,
+#exhibition .hotAnimation ul li a .animationBox .publishTime,
+#exhibitionDetail .hotAnimation ul li a .animationBox .publishTime,
+#exhibition .videoShow ul li a .animationBox .publishTime,
+#exhibitionDetail .videoShow ul li a .animationBox .publishTime {
+  font-size: 14px;
+  color: #666!important;
+}
+#exhibition .recommendAnimation ul li:nth-child(4n),
+#exhibitionDetail .recommendAnimation ul li:nth-child(4n),
+#exhibition .hotAnimation ul li:nth-child(4n),
+#exhibitionDetail .hotAnimation ul li:nth-child(4n),
+#exhibition .videoShow ul li:nth-child(4n),
+#exhibitionDetail .videoShow ul li:nth-child(4n) {
+  margin-right: 0;
+}
+#exhibition .recommendAnimation .video,
+#exhibitionDetail .recommendAnimation .video,
+#exhibition .hotAnimation .video,
+#exhibitionDetail .hotAnimation .video,
+#exhibition .videoShow .video,
+#exhibitionDetail .videoShow .video {
+  width: 1080px;
+  height: 600px;
+  background-color: #000;
+  padding: 40px;
+  margin: 20px auto;
+}
+#exhibition .recommendAnimation .video embed,
+#exhibitionDetail .recommendAnimation .video embed,
+#exhibition .hotAnimation .video embed,
+#exhibitionDetail .hotAnimation .video embed,
+#exhibition .videoShow .video embed,
+#exhibitionDetail .videoShow .video embed {
+  width: 100%;
+  height: 100%;
+}
+#exhibition .hotAnimation,
+#exhibitionDetail .hotAnimation {
+  margin-top: 26px;
+}
+#exhibition .videoShow,
+#exhibitionDetail .videoShow {
+  margin-bottom: 40px;
+}

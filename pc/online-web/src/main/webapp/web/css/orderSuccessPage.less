@@ -1,0 +1,579 @@
+html,
+body {
+    font-family: 'Microsoft YaHei';
+    font-size: 12px;
+    background-color: #f7f7f7;
+    overflow-x: hidden;
+}
+body,
+html,
+p,
+ul,
+li,
+a,
+img {
+    margin: 0;
+    padding: 0;
+}
+ul,
+li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+img {
+    display: inline-block;
+}
+.orderHint {
+    margin-bottom: 7px;
+    img {
+        margin-right: 5px;
+        margin-top: -3px;
+    }
+    .payHint {
+        font-size: 14px;
+        display: inline-block;
+        color: #ff4012;
+    }
+}
+.kuhao {
+    font-size: 12px;
+    color: #2cb82c;
+}
+.rTips {
+    width: 200px;
+    height: 62px;
+    position: fixed;
+    z-index: 999999;
+    top: 33%;
+    left: 49%;
+    margin-left: -100px;
+    margin-top: -31px;
+    line-height: 62px;
+    background: #000;
+    filter:alpha(opacity=50);
+    /*ie*/
+    -moz-opacity: 0.5;
+    -o-opacity: 0.5;
+    -webkit-opacity: 0.5;
+    opacity: 0.5;
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 2px;
+    display: none;
+}
+//付款提醒
+.protocol-tip {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: none;
+    .tip-content {
+        width: 434px;
+        height: 225px;
+        position: absolute;
+        left: 50%;
+        margin-left: -217px;
+        margin-top: 15%;
+        .tip-top {
+            background-color: #fafafa;
+            height: 52px;
+            padding: 20px;
+            span {
+                font-size: 18px;
+                color: #333;
+                display: inline-block;
+                margin-top: -5px;
+            }
+            .tip-close {
+                float: right;
+                cursor: pointer;
+            }
+        }
+        .tip-bottom {
+            padding: 20px;
+            background-color: #fff;
+            span {
+                font-size: 16px;
+                color: #333;
+                display: inline-block;
+                margin-top: 26px;
+            }
+            .kuhao1 {
+                color: #2cb82c;
+            }
+            .boxuegu-protocol2 {
+                font-size: 16px;
+                color: #2cb82c;
+                cursor: pointer;
+            }
+            .boxuegu-protocol2:hover {
+                text-decoration: underline;
+            }
+            .tip-btn {
+                float: right;
+                margin-top: 48px;
+                color: #fff;
+                background-color: #2cb82c;
+                font-size: 16px;
+                line-height: 43px;
+                height: 43px;
+                width: 95px;
+                text-align: center;
+                -webkit-border-radius: 2px;
+                -moz-border-radius: 2px;
+                border-radius: 2px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+//付款协议
+.protocol-shadow {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    display: none;
+    .pay-protocol-text {
+        width: 580px;
+        background-color: #fff;
+        position: absolute;
+        left: 50%;
+        margin-left: -290px;
+        margin-top: 80px;
+        .pay-protocol-top {
+            font-size: 18px;
+            color: #333;
+            padding: 12px 20px;
+            height: 52px;
+            background-color: #fafafa;
+            p {
+                float: left;
+            }
+            img {
+                float: right;
+                margin-top: 7px;
+                cursor: pointer;
+            }
+        }
+        .pay-protocol-content {
+            padding: 0 30px 30px;
+            height: 568px;
+            overflow: auto;
+            word-break: break-all;
+            p {
+                font-size: 14px;
+                color: #333;
+                line-height: 22px;
+                margin-top: 12px;
+                text-indent: 2px;
+            }
+            p:first-child {
+                margin-top: 27px;
+            }
+            .indent {
+                font-weight: bold;
+            }
+            span {
+                display: block;
+            }
+            .youxiang {
+                color: #2cb82c;
+                display: inline-block;
+            }
+            em {
+                font-style: normal;
+            }
+            h2 {
+                font-size: 14px;
+                font-weight: bold;
+                color: #333;
+                margin: 15px 0;
+            }
+        }
+    }
+}
+//支付结果页面1
+.pay-result1 {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    display: none;
+    .rTips {
+        width: 200px;
+        height: 62px;
+        position: fixed;
+        z-index: 9999;
+        top: 47%;
+        left: 49%;
+        margin-left: -100px;
+        margin-top: -31px;
+        line-height: 62px;
+        background: #000;
+        filter:alpha(opacity=50);
+        /*ie*/
+        -moz-opacity: 0.5;
+        -o-opacity: 0.5;
+        -webkit-opacity: 0.5;
+        opacity: 0.5;
+        color: white;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 2px;
+        display: none;
+    }
+    .pay-result-content {
+        position: absolute;
+        width: 420px;
+        left: 50%;
+        top: 20%;
+        margin-left: -210px;
+        padding: 20px 20px 57px;
+        background-color: #fff;
+        .pay-result1-close {
+            float: right;
+            cursor: pointer;
+        }
+        .pay-result-text {
+            width: 305px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            line-height: 26px;
+            margin: 39px auto 0;
+        }
+        .pay-success-btn {
+            width: 119px;
+            height: 44px;
+            background-color: #2cb82c;
+            line-height: 44px;
+            text-align: center;
+            color: #fff;
+            font-size: 16px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            cursor: pointer;
+            margin: 25px auto 12px;
+        }
+        .pay-result-hint {
+            text-align: center;
+            span,
+            a {
+                display: inline-block;
+                font-size: 14px;
+                color: #333;
+            }
+            .kefu {
+                margin: 0 3px;
+                color: #2cb82c;
+            }
+        }
+    }
+}
+//支付结果页面2
+.pay-result2,
+.userShip {
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    display: none;
+    .pay-result2-content {
+        position: absolute;
+        width: 354px;
+        left: 50%;
+        top: 20%;
+        margin-left: -210px;
+        padding: 20px 20px 61px;
+        background-color: #fff;
+        .pay-result2-close {
+            float: right;
+            cursor: pointer;
+        }
+        .pay-result2-hint {
+            text-align: center;
+            margin-top: 43px;
+            span {
+                font-size: 16px;
+                color: #333;
+            }
+            img {
+                margin-right: 5px;
+            }
+        }
+        .pay-result2-btn,
+        .userShip-btn,
+        .userShip-cancleBtn {
+            width: 94px;
+            height: 42px;
+            background-color: #2cb82c;
+            color: #fff;
+            line-height: 42px;
+            text-align: center;
+            margin: 14px auto 0;
+            font-size: 16px;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .userShip-btn,
+        .userShip-cancleBtn {
+            display: inline-block;
+        }
+        .userShip-btn {
+            margin-right: 20px;
+            margin-left: 55px;
+        }
+    }
+}
+#order-sucess-page {
+    width: 1200px;
+    margin: 17px auto 0;
+    .orderName {
+            clear: both;
+            margin-left: 84px;
+            font-size: 14px;
+            color: #666;
+            .tt {
+                float: left;
+                width: 70px;
+            }
+            .order-courseName {
+                float: left;
+                max-width: 900px;
+                overflow: hidden;
+                word-break: break-all;
+                word-wrap: break-word;
+                height: auto;
+                span{
+                    margin-right: 30px;
+                    font-size: 14px;
+                    color: #999;
+                    display: block;
+                    float: left;
+                    margin-bottom: 10px;
+                }
+            }
+            .spread {
+                display: none;
+                cursor: pointer;
+                float: right;
+                width: 19px;
+                height: 19px;
+                background: url("../images/order/orderC1.png") center center no-repeat;
+            }
+            .active{
+                background: url("../images/order/orderC2.png") center center no-repeat;
+            }
+        };
+    .order-info {
+        background-color: #fff;
+        padding: 27px 30px;
+        .order-success-icon {
+            float: left;
+            margin-right: 30px;
+        }
+        .order-success-info {
+            float: left;
+            .orderNumberBox {}
+            .order-hint {
+                font-size: 22px;
+                color: #333;
+                display: block;
+                margin-bottom: 13px;
+            }
+            p {
+                font-size: 14px;
+                color: #666;
+                display: inline-block;
+            }
+        };
+        
+        .order-success-prices {
+            float: right;
+            margin-top: 16px;
+            i {
+                font-style: normal;
+                font-size: 22px;
+                color: #ff4012;
+            }
+            .prices-hint {
+                font-size: 16px;
+                color: #666;
+            }
+            .pay-prices {
+                color: #ff4012;
+                font-size: 22px;
+            }
+        }
+    }
+    .order-ways {
+        background-color: #fff;
+        margin-top: 20px;
+        padding-bottom: 40px;
+        .order-ways-hint {
+            font-size: 16px;
+            color: #333;
+            padding: 29px 0 18px 30px;
+        }
+        .pay-ways {
+            background-color: #fafafa;
+            height: 114px;
+            padding: 0 30px;
+            .order-ways-hint {
+                font-size: 16px;
+                color: #333;
+            }
+            span {
+                position: relative;
+                display: inline-block;
+                vertical-align: middle;
+                text-align: center;
+                border: 1px solid #eee;
+                margin: 30px 30px 0 0;
+                cursor: pointer;
+                .selectImg,
+                .selectImg1 {
+                    display: none;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                }
+            }
+            span.select {
+                border: 1px solid #2cb82c;
+            }
+            span.select .selectImg {
+                display: block;
+            }
+            span.select .selectImg1 {
+                display: none;
+            }
+            .unionPay {
+                position: relative;
+                z-index: 172;
+                &:hover {
+                    border: 1px solid #2cb82c;
+                }
+                .unionPayAccount {
+                    position: absolute;
+                    left: -1px;
+                    top: 50px;
+                    background-color: #fff;
+                    width: 720px;
+                    padding: 25px 0 5px 25px;
+                    border: 1px solid #2cb82c;
+                    display: none;
+                    z-index: -1;
+                    li {
+                        float: left;
+                        margin-right: 20px;
+                        margin-bottom: 20px;
+                        border: 1px solid #eee;
+                        position: relative;
+                        width: 118px;
+                        height: 52px;
+                        img:first-child {
+                            width: 116px;
+                            height: 50px;
+                        }
+                        .selectImg,
+                        .selectImg1 {
+                            display: none;
+                            position: absolute;
+                            bottom: 0;
+                            right: 0;
+                        }
+                    }
+                    .more {
+                        em {
+                            font-style: normal;
+                            font-size: 16px;
+                            color: #333;
+                            text-align: center;
+                            line-height: 50px;
+                        }
+                    }
+                    li.select {
+                        border: 1px solid #2cb82c;
+                        .selectImg,
+                        .selectImg1 {
+                            display: block;
+                        }
+                    }
+                    .selectImg,
+                    .selectImg1 {
+                        display: none;
+                    }
+                }
+            }
+        }
+        .order-pay-btn {
+            margin: 40px 0 0 30px;
+            width: 108px;
+            height: 42px;
+            background-color: #2cb82c;
+            color: #fff;
+            font-size: 16px;
+            line-height: 42px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .pay-protocol {
+            margin-top: 15px;
+            margin-left: 30px;
+            a:hover {
+                text-decoration: underline;
+            }
+            em {
+                display: inline-block;
+                width: 14px;
+                height: 14px;
+                cursor: pointer;
+                background: url("/web/images/130/select14_normal.png")no-repeat center center;
+            }
+            em.select {
+                background: url("/web/images/130/select14_click.png")no-repeat center center;
+            }
+            span {
+                display: inline-block;
+                vertical-align: middle;
+                margin-top: -6px;
+                cursor: pointer;
+            }
+            .pay-protocolBox {
+                display: inline-block;
+                vertical-align: middle;
+                margin-top: -4px;
+                .pay-protocol-hint {
+                    font-size: 12px;
+                    color: #333;
+                    margin: -6px 0 0 5px;
+                }
+                .boxuegu-protocol {
+                    color: #2cb82c;
+                    cursor: pointer;
+                    margin-top: -9px;
+                    vertical-align: text-bottom;
+                }
+            }
+        }
+    }
+}

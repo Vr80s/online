@@ -1,0 +1,674 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  overflow-x: hidden;
+  background: #F8F8F8;
+  height: 100%;
+  width: 100%;
+}
+p,
+a,
+img,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+.rrTips {
+  width: 212px;
+  height: 60px;
+  position: fixed;
+  z-index: 9999;
+  top: 45%;
+  left: 50%;
+  margin-left: -106px;
+  margin-top: -31px;
+  line-height: 60px;
+  background: #000;
+  filter: alpha(opacity=50);
+  /*ie*/
+  -moz-opacity: 0.4;
+  -o-opacity: 0.4;
+  -webkit-opacity: 0.4;
+  opacity: 0.4;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 2px;
+  display: none;
+}
+.identity {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 98;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.identity .identityMess {
+  display: block;
+  position: fixed;
+  width: 600px;
+  z-index: 99;
+  margin-left: -300px;
+  top: 30%;
+  left: 50%;
+  background: #fff;
+}
+.identity .identityMess .title {
+  display: block;
+  padding: 0 20px;
+  background: #fafafa;
+  height: 52px;
+  width: 100%;
+  line-height: 52px;
+}
+.identity .identityMess .title span {
+  float: left;
+  font-weight: bold;
+}
+.identity .identityMess .title .close {
+  font-size: 12px;
+  float: right;
+  cursor: pointer;
+  margin-top: 20px;
+}
+.identity .identityMess .idenContent {
+  padding: 10px 20px 40px;
+}
+.identity .identityMess .idenContent .tip {
+  font-size: 14px;
+  color: #999;
+}
+.identity .identityMess .idenContent .name {
+  margin-top: 30px;
+}
+.identity .identityMess .idenContent .shenfen {
+  margin-top: 20px;
+}
+.identity .identityMess .idenContent .fL {
+  text-align: right;
+  float: left;
+  line-height: 36px;
+  font-size: 14px;
+  color: #666;
+}
+.identity .identityMess .idenContent .fL i {
+  color: red;
+  font-style: normal;
+  display: inline-block;
+}
+.identity .identityMess .idenContent .fL span {
+  margin-left: 4px;
+  display: inline-block;
+}
+.identity .identityMess .idenContent .fR {
+  float: left;
+  margin-left: 20px;
+}
+.identity .identityMess .idenContent .fR input {
+  font-size: 14px;
+  padding-left: 20px;
+  height: 36px;
+  width: 260px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+.identity .identityMess .idenContent .fR .warning {
+  display: none;
+  font-size: 14px;
+  color: #FF4012;
+  line-height: 30px;
+  padding-left: 20px;
+  background: url("../images/icons/tanhao.png") no-repeat left center;
+  margin-left: 10px;
+}
+.identity .identityMess .startIden {
+  display: block;
+  clear: both;
+  margin: 30px auto 0;
+  border-radius: 2px;
+  text-align: center;
+  line-height: 40px;
+  width: 90px;
+  color: #fff;
+  background: #2CB82C;
+  font-size: 14px;
+  cursor: pointer;
+}
+.identity .identityMess .startIden:hover {
+  background: #28A528;
+}
+.main {
+  width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 20px 25px 0px;
+}
+.main .main-title {
+  color: #333;
+  font-size: 18px;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.main .main-table {
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+  font-size: 14px;
+}
+.main .main-table .tr {
+  padding: 0 30px;
+  width: 100%;
+  height: 40px;
+  background: #F5F5F5;
+  color: #333;
+  font-size: 16px;
+  line-height: 40px;
+}
+.main .main-table .tr span {
+  display: block;
+  float: left;
+  text-align: center;
+}
+.main .main-table .td1 {
+  width: 285px;
+  height: 100%;
+}
+.main .main-table .td1 span {
+  display: block;
+}
+.main .main-table .td1 table {
+  height: 70px;
+}
+.main .main-table .td1 .img {
+  width: 125px;
+  height: 70px;
+  display: block;
+  float: left;
+}
+.main .main-table .td1 .img img {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+.main .main-table .td1 .name {
+  width: 140px;
+  color: #333;
+  font-size: 14px;
+  line-height: 20px;
+  margin-left: 20px;
+  text-align: center;
+  float: left;
+  vertical-align: middle;
+  display: table-cell;
+}
+.main .main-table .td2 {
+  height: 100%;
+  width: 200px;
+}
+.main .main-table .td3 {
+  height: 100%;
+  width: 200px;
+}
+.main .main-table .td4 {
+  height: 100%;
+  width: 200px;
+}
+.main .main-table .td5 {
+  height: 100%;
+  width: 200px;
+}
+#professionalOrd {
+  width: 1200px;
+  margin: 0 auto;
+}
+#professionalOrd .xiaoji {
+  text-align: right;
+  padding: 15px 0;
+  clear: both;
+  font-size: 14px;
+  background: #fff;
+}
+#professionalOrd .xiaoji i {
+  font-style: normal;
+  color: #FF4012;
+  font-size: 20px;
+}
+.orderTab,
+.orderTabTwo {
+  width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  overflow: hidden;
+  padding: 00px 25px 0px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.orderTab .instead,
+.orderTabTwo .instead {
+  height: 40px;
+  width: 100%;
+}
+.orderTab .tabTitle,
+.orderTabTwo .tabTitle {
+  display: block;
+  line-height: 40px;
+}
+.orderTab .tabTitle a,
+.orderTabTwo .tabTitle a {
+  color: #2CB82C;
+  padding: 0 5px;
+}
+.orderTab .tabTitle a:hover,
+.orderTabTwo .tabTitle a:hover {
+  text-decoration: underline;
+}
+.orderTab .odbox,
+.orderTabTwo .odbox {
+  margin-bottom: 25px;
+}
+.orderTab .tab,
+.orderTabTwo .tab {
+  padding: 0 30px;
+  width: 100%;
+  clear: both;
+  padding-top: 25px;
+}
+.orderTab .tab div,
+.orderTabTwo .tab div {
+  float: left;
+  height: 100%;
+}
+.orderTab .tab .td4,
+.orderTabTwo .tab .td4 {
+  text-align: left;
+  display: table-cell;
+  vertical-align: middle;
+}
+.orderTab .tab .td4 table,
+.orderTabTwo .tab .td4 table {
+  width: 100%;
+  height: 70px;
+}
+.orderTab .tab .red,
+.orderTabTwo .tab .red {
+  color: #ff4012;
+  font-style: normal;
+  margin-left: 20px;
+}
+.orderTab .tab .td1,
+.orderTabTwo .tab .td1,
+.orderTab .tab .td2,
+.orderTabTwo .tab .td2,
+.orderTab .tab .td3,
+.orderTabTwo .tab .td3,
+.orderTab .tab .td5,
+.orderTabTwo .tab .td5 {
+  text-align: center;
+  line-height: 70px!important;
+}
+.orderTab .tab .td1,
+.orderTabTwo .tab .td1 {
+  width: 285px;
+  height: 100%;
+}
+.orderTab .tab .td1 span,
+.orderTabTwo .tab .td1 span {
+  display: block;
+}
+.orderTab .tab .td1 table,
+.orderTabTwo .tab .td1 table {
+  height: 70px;
+}
+.orderTab .tab .td1 .img,
+.orderTabTwo .tab .td1 .img {
+  width: 125px;
+  height: 70px;
+  display: block;
+  float: left;
+}
+.orderTab .tab .td1 .img img,
+.orderTabTwo .tab .td1 .img img {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+.orderTab .tab .td1 .name,
+.orderTabTwo .tab .td1 .name {
+  width: 140px;
+  color: #333;
+  font-size: 14px;
+  line-height: 20px;
+  margin-left: 20px;
+  text-align: center;
+  float: left;
+  vertical-align: middle;
+  display: table-cell;
+}
+.orderTab .tab .td2,
+.orderTabTwo .tab .td2 {
+  height: 100%;
+  width: 200px;
+}
+.orderTab .tab .td3,
+.orderTabTwo .tab .td3 {
+  height: 100%;
+  width: 200px;
+}
+.orderTab .tab .td4,
+.orderTabTwo .tab .td4 {
+  height: 100%;
+  width: 200px;
+}
+.orderTab .tab .td5,
+.orderTabTwo .tab .td5 {
+  color: #FF4012;
+  height: 100%;
+  width: 200px;
+  font-size: 18px;
+}
+.orderTab .xiaoJiwei,
+.orderTabTwo .xiaoJiwei {
+  text-align: right;
+  margin: 15px 0;
+  clear: both;
+  font-size: 14px;
+}
+.orderTab .xiaoJiwei .a2,
+.orderTabTwo .xiaoJiwei .a2,
+.orderTab .xiaoJiwei .a3,
+.orderTabTwo .xiaoJiwei .a3 {
+  font-size: 12px;
+  color: #999;
+}
+.orderTab .xiaoJiwei i,
+.orderTabTwo .xiaoJiwei i {
+  font-style: normal;
+  color: #FF4012;
+  font-size: 20px;
+}
+.orderTab .xiaoJiwei .a2,
+.orderTabTwo .xiaoJiwei .a2 {
+  margin-right: 10px;
+}
+.orderTab .xiaoJiwei .a3,
+.orderTabTwo .xiaoJiwei .a3 {
+  margin-right: 20px;
+}
+.orderTab .xiaoJiwei em,
+.orderTabTwo .xiaoJiwei em {
+  font-style: normal;
+}
+.sub {
+  width: 1200px;
+  margin: 0 auto;
+  background: #e6e6e6;
+  overflow: hidden;
+  margin-top: 20px;
+  display: block;
+  margin-top: 25px;
+  line-height: 50px;
+}
+.sub .getRedeem {
+  color: #2cb82c;
+  margin-left: 25px;
+  font-size: 14px;
+}
+.sub .save {
+  display: block;
+  float: right;
+  height: 50px;
+  text-align: center;
+  width: 150px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 2px;
+  background: #FF4012;
+}
+.sub .cardNum {
+  cursor: pointer;
+  color: #2CB82C;
+  float: right;
+  height: 35px;
+  font-size: 14px;
+  margin-right: 40px;
+}
+.sub .cardNum:hover {
+  border-bottom: 1px solid #2CB82C;
+}
+.sub .return {
+  display: block;
+  cursor: pointer;
+  float: right;
+  font-size: 12px;
+  color: #999;
+  text-decoration: underline;
+  margin-right: 40px;
+}
+.sub p {
+  display: block;
+  float: right;
+  margin-right: 20px;
+}
+.sub p span {
+  color: #ff1012;
+  font-size: 18px;
+}
+.couOrder {
+  clear: both;
+  display: block;
+  width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  margin-top: 20px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+.couOrder .tabTitle {
+  display: block;
+  line-height: 40px;
+  border-bottom: 1px solid #EEEEEE;
+}
+.couOrder .tabTitle a {
+  color: #2CB82C;
+  padding: 0 5px;
+}
+.couOrder .tabTitle a:hover {
+  text-decoration: underline;
+}
+.couOrder .lunbo {
+  width: 100%;
+  background: #fff;
+  padding: 30px 0;
+  position: relative;
+}
+.couOrder .lunbo .lbLeft {
+  position: absolute;
+  left: 0;
+  background: url(../images/order/lbLeft.png) no-repeat center center;
+  width: 10px;
+  height: 20px;
+  display: block;
+  top: 50%;
+  margin-top: -10px;
+  cursor: pointer;
+}
+.couOrder .lunbo .lbRight {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  background: url(../images/order/lbRight.png) no-repeat center center;
+  width: 10px;
+  height: 20px;
+  display: block;
+  top: 50%;
+  margin-top: -10px;
+}
+.couOrder .lunbo .lbmid {
+  width: 1063px;
+  margin: 0 auto;
+  height: 100%;
+  overflow: hidden;
+}
+.couOrder .lunbo .lbmid li {
+  float: left;
+}
+.couOrder .lunbo .lbmid .lbcourse {
+  width: 253px;
+  margin-right: 17px;
+  position: relative;
+  cursor: pointer;
+}
+.couOrder .lunbo .lbmid .lbcourse .check {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 18px;
+  height: 18px;
+  background: url(../images/order/lbuncheck.png) no-repeat center center;
+  display: block;
+  cursor: pointer;
+}
+.couOrder .lunbo .lbmid .lbcourse .act {
+  background: url(../images/order/lbcheck.png) no-repeat center center;
+}
+.couOrder .lunbo .lbmid .lbcourse .bathImg {
+  width: 253px;
+  height: 144px;
+}
+.couOrder .lunbo .lbmid .lbcourse .bathImg img {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.couOrder .lunbo .lbmid .lbcourse .bathCon {
+  clear: both;
+  width: 100%;
+  padding: 15px 10px;
+  background: #f9f9f9;
+}
+.couOrder .lunbo .lbmid .lbcourse .bathCon span {
+  float: left;
+  color: #333;
+  font-size: 14px;
+  display: block;
+  max-width: 155px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.couOrder .lunbo .lbmid .lbcourse .bathCon em {
+  color: #ff4012;
+  float: right;
+  font-style: normal;
+}
+.couDan {
+  display: block;
+  width: 1200px;
+  margin: 0 auto;
+  height: 50px;
+  background: #e6e6e6;
+  line-height: 50px;
+}
+.couDan .yijian {
+  display: block;
+  float: right;
+  background: #2CB82C;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  width: 190px;
+}
+.couDan .yijian:hover {
+  background: #28A528;
+}
+.couDan .reCar {
+  color: #2CB82C;
+  float: right;
+  margin-right: 20px;
+  cursor: pointer;
+  display: none;
+}
+.hasAddcar {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 90;
+  top: 0;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.hasAddcar .shareDaShiBox {
+  background-color: #fff;
+  width: 360px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.hasAddcar .shareDaShiBox .shareTop {
+  height: 52px;
+  line-height: 52px;
+  background-color: #fafafa;
+  padding: 0 20px;
+}
+.hasAddcar .shareDaShiBox .shareTop span {
+  font-size: 18px;
+}
+.hasAddcar .shareDaShiBox .shareTop i {
+  font-size: 14px;
+  color: #333;
+  float: right;
+  cursor: pointer;
+}
+.hasAddcar .shareDaShiBox .shareBottom {
+  padding: 0 20px;
+}
+.hasAddcar .shareDaShiBox .shareBottom span {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+  display: inline-block;
+  margin: 36px auto;
+  display: block;
+}
+.hasAddcar .shareDaShiBox .shareBottom .shareBtn {
+  width: 84px;
+  height: 38px;
+  background-color: #2cb82c;
+  color: #fff;
+  line-height: 38px;
+  text-align: center;
+  margin: 0 auto 40px;
+  cursor: pointer;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.hasAddcar .shareDaShiBox .shareBottom .goCar {
+  width: 94px;
+  height: 42px;
+  background-color: #2cb82c;
+  color: #fff;
+  line-height: 42px;
+  text-align: center;
+  margin: 0 auto 40px;
+  cursor: pointer;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}

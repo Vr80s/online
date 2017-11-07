@@ -1,0 +1,254 @@
+<%@page pageEncoding="UTF-8"%> 
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>登录-熊猫中医</title>
+		<link href="/Views/h5/css/mui.min.css" rel="stylesheet" />
+
+		<style>
+			.area {
+				margin: 20px auto 0px auto;
+			}
+			
+			.mui-input-group {
+				margin-top: 10px;
+			}
+			
+			.mui-input-group:first-child {
+				margin-top: 20px;
+			}
+			
+			.mui-input-group label {
+				width: 15%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				width: 85%;
+			}
+			
+			.mui-input-row img {
+				width: 12px;
+				height: 20px;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-content-padded {
+				padding: 0px 30px;
+				margin-top: 50px;
+				font-size: 18px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			.spliter {
+				color: #bbb;
+				padding: 0px 8px;
+			}
+			
+			.oauth-area {
+				position: absolute;
+				bottom: 20px;
+				left: 0px;
+				text-align: center;
+				width: 100%;
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.oauth-area .oauth-btn {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				background-size: 30px 30px;
+				background-position: center center;
+				background-repeat: no-repeat;
+				margin: 0px 20px;
+				/*-webkit-filter: grayscale(100%); */
+				border: solid 1px #ddd;
+				border-radius: 25px;
+			}
+			
+			.oauth-area .oauth-btn:active {
+				border: solid 1px #aaa;
+			}
+			
+			.oauth-area .oauth-btn.disabled {
+				background-color: #ddd;
+			}
+
+			.mui-btn {
+				height: 40px;
+				padding: 0px 20px;
+				background: #01D37F;
+				font-size: 18px;
+			}
+			
+			.mui-btn:hover {
+				background: #CDCDCD;
+				border: none;
+			}
+			
+			.link-area {
+				display: block;
+				margin-top: 75%;	
+				text-align: center;
+				width: 100%;
+			}
+			
+			.link-area a {
+				color: #333333;
+				display: inline-block;
+				margin: 0 auto!important;
+				font-size: 14px;
+			}
+			
+			.link-area span {
+				color: #01D37F;
+
+			}
+			
+			.mui-input-row .mui-input-clear~.mui-icon-clear,
+			.mui-input-row .mui-input-password~.mui-icon-eye,
+			.mui-input-row .mui-input-speech~.mui-icon-speech {
+				right: 17.5px;
+			}
+			
+			.mui-input-row .mui-input-clear~.mui-icon-clear.mui-active,
+			.mui-input-row .mui-input-password~.mui-icon-eye.mui-active,
+			.mui-input-row .mui-input-speech~.mui-icon-speech.mui-active {
+				color: #DFDFDF;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row" style="height:45px;">
+					<label><img src="/Views/h5/img/2x.png"/></label>
+					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号/邮箱">
+				</div>
+			</form>
+			<form id='login-form' class="mui-input-group">
+				<div class="mui-input-row"  style="height:45px;">
+					<label><img src="/Views/h5/img/password2x.png"/></label>
+					<input id="password" type="password" class="mui-input-password" placeholder="请输入密码">
+				</div>
+			</form>
+
+			<div class="mui-content-padded">
+				<div id="tishi" style="text-align: center;color: red;margin-bottom: 10px;"></div>
+				<button id='login' class="mui-btn mui-btn-block mui-btn-success">登录</button>
+			</div>
+			<div class="link-area">
+				<a id='reg' href="/bxg/page/reg">还没有账号啊，赶紧<span>注册</span>一个！</a>
+			</div>
+		</div>
+		<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+
+		<!--记得加-->
+		<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+
+		<script type="text/javascript">
+			//获取用户信息
+			//传值
+			//掉接口
+			//成功返回
+			var page = param_page;
+			var openid = localStorage.openid;
+			var access = localStorage.access;
+			var tishi = document.getElementById("tishi");
+			document.getElementById("login").addEventListener("tap",	function () {
+				var number = document.getElementById("account").value;
+				var password = document.getElementById("password").value;
+				if(number == "") {
+					tishi.innerHTML = "用户名不能为空";
+					return false;
+				}
+				if(!(/^1[34578]\d{9}$/.test(number))) {
+					tishi.innerHTML = "请输入正确格式的账号";
+					return false;
+				}
+				if(password == "") {
+					tishi.innerHTML = "密码不能为空";
+					return false;
+				}
+				var _length = password.length;
+				if(!(_length>5 && _length<19)) {
+					tishi.innerHTML = "请输入6~18位的密码";
+					return false;
+				}
+				var urlparm = {
+					username: number,
+					password: password,
+					openId: openid
+				};
+				//alert(number+"------------"+password);
+				//alert(openid);
+				//是浏览
+				var controllerAddress = "/bxg/user/login";
+				if(access == "brower"){
+					 controllerAddress = "/bxg/bs/login";
+				}
+				requestService(controllerAddress, urlparm, function(data) {
+					if(data.success) {
+						var configresult = data.resultObject;
+						//mui.toast(configresult);
+						//返回的信息 下一个页面
+						tishi.innerHTML = "";
+						localStorage.name = configresult.loginName;
+						localStorage.useid = configresult.id;
+						localStorage.username = configresult.name;
+						localStorage.sharecode = localStorage.shareCode;
+						localStorage.smallHeadPhoto = localStorage.smallHeadPhoto;
+						localStorage.ticket = localStorage.ticket;
+						//						alert(configresult.name);
+						var courseid = localStorage.courseId;
+						//	console.log(page);
+						var coursename = localStorage.coursename;
+						var sharecode = localStorage.sharecode;
+						var shareNo ;
+						if(stringnull(sharecode)){
+							shareNo = sharecode;
+						}else{
+							shareNo ='';
+						}
+						//这个主要用户判断此用户在访问哪个页面后，然后又没有登录，重新登录后，停留在哪个页面。
+						if(page == "0") {
+							location.href = "/bxg/page/courseDetail/" + courseid+"/"+coursename+"/"+shareNo;
+						}
+						if(page == "1") {
+							location.href = "/bxg/page/personal";
+						}
+						if(page == "3") {
+							location.href = "/bxg/page/share/";
+						}
+						if(page == null) {
+							location.href = "/bxg/page/index/"+openid+"/null";
+						}
+
+					} else {
+						var configresult = data.errorMessage;
+						/* tishi.innerHTML = configresult; */
+						tishi.innerHTML = "账号或密码错误";
+					}
+				});
+			}
+		)
+		</script>
+
+	</body>
+
+</html>

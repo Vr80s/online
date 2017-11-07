@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns=http://www.w3.org/1999/xhtml xmlns:bd=http://www.baidu.com/2010/xbdml>
+
+	<head>
+		<!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+		<meta http-equiv="X-UA-Compatible" content="IEedge" />
+		<meta charset="UTF-8">
+		<title>熊猫中医云课堂 - 微信支付</title>
+		<link rel="shortcut icon" href="../../favicon.ico" />
+		<meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医" />
+		<meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。" />
+		<meta name="renderer" content="webkit">
+		<link rel="stylesheet" href="/web/css/weixinPayPage.css">
+		<link rel="stylesheet" href="/web/css/footer.css">
+		<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="/web/js/artTemplate.js"></script>
+		<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+	</head>
+
+	<body>
+		<!--头部-->
+		<div id="weixinLogo">
+			<div class="weinxinHeader">
+				<img src="/web/images/130/winxinLogo.png" alt="" />
+				<span>微信支付</span>
+			</div>
+		</div>
+		<div id="weixinPayPage">
+			<div class="weixinOrderInfo clearfix">
+				<div class="orderInfo">
+					<div class="orderNumberBox">
+						<span>订单编号：</span><span class="orderNumber"></span>
+					</div>
+				</div>
+				<div class="price">
+					<span>应付金额：</span><i>￥</i><span class="coursePrice"></span>
+				</div>
+				<div class="orderName clearfix">
+						<p class="tt">订单详情：</p>
+						<p class="order-courseName">
+							
+						</p>
+						<div class="spread">
+	
+						</div>
+					</div>
+			</div>
+			<div class="saoma">
+				<div class="erweima">
+					<img src="/web/images/130/weixinpayerweima.png" alt="" />
+				</div>
+				<div class="saomaHint">
+					<img src="/web/images/130/weixinhint.png" alt="" />
+				</div>
+			</div>
+		</div>
+		<div class="zhezao">
+		</div>
+		<div class="tank">
+			支付完成，将在 <span>5s</span> 后跳转
+		</div>
+		<script src="/web/js/footer.js" type="text/javascript"></script>
+		<script>
+				if(recharge!="recharge"){
+					$(".orderInfo").hide();
+				}
+	//点击收缩课程名称
+    if($(".order-courseName").height()>30){
+    	$(".spread").show()
+    }else{
+    	$(".spread").hide()
+    };
+    $(".spread").off("click").on("click",function(){
+    	if($(this).hasClass("active")){
+    		$(this).removeClass("active");
+    		$(".orderName .order-courseName").height("30px");
+    	}else{
+    		$(this).addClass("active");
+    		$(".orderName .order-courseName").height("auto");
+    	}
+  	});
+			$(document).ready(function(){
+				 c = setInterval(lunxu,3000);//每3秒执行一次checkIsExist方法
+			});
+
+			function lunxu() {
+				if(recharge!="recharge"){
+					RequestService("/web/checkOrder", "GET", {
+						orderNo: $(".orderNumber").html()
+					}, function(data) {
+						if(data.resultObject == "yes") {
+							window.clearInterval(c);
+							$(".zhezao").show();$(".tank").show();
+							var m = 5;
+							window.setInterval(function() {
+								m--;
+								if(m == 0) {
+									if(preurl){
+										window.location.href = "http://"+window.location.hostname+preurl;
+									} else {
+										window.location.href = "/web/html/myStudyCenter.html";
+									}
+								};
+								$(".tank span").html(m + "s");
+							}, 1000);
+						} else {}
+					}, false);
+				}else{
+					RequestService("/userCoin/checkRechargeOrder", "GET", {
+						orderNo: $(".orderNumber").html()
+					}, function(data) {
+						if(data.resultObject == true) {
+							window.clearInterval(c);
+							$(".zhezao").show();$(".tank").show();
+							var m = 5;
+							window.setInterval(function() {
+								m--;
+								if(m == 0) {
+									//点击跳转充值记录
+//									location.href="/web/html/personcenter.html"
+									localStorage.setItem("personcenter","mymoney ");
+									localStorage.setItem("findStyle","profile ");
+                                    location.href="/web/html/personcenter.html"
+								};
+								$(".tank span").html(m + "s");
+							}, 1000);
+						} else {}
+					}, false);
+				}
+			};
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="shortcut icon" href="../../favicon.ico" />
+		<meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医" />
+		<meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。" />
+		<meta name="renderer" content="webkit">
+
+		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="../css/mylogin.css" />
+		<link rel="stylesheet" href="../css/myprofile.css" />
+		<link rel="stylesheet" href="../css/componet.css" />
+		<link rel="stylesheet" href="../font/iconfont.css">
+		<link rel="stylesheet" href="../css/footer.css">
+		<link rel="stylesheet" type="text/css" href="../css/freeAudition.css" />
+
+		<script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/artTemplate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/jquery.dotdotdot.js"></script>
+		<script type="text/javascript" src="../js/bootstrap.js"></script>
+		<script type="text/javascript" src="../layer-v2.1/layer/layer.js"></script>
+		<script type="text/javascript" src="../js/jquery.form.min.js"></script>
+		<script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
+
+	</head>
+
+	<body>
+
+		<div class="header">
+			<div class="headerBody">
+				<span class="name">熊猫中医(海口)健康科技有限公司</span>
+				<p class="gg">购买课程后，可获取更多优质内容，结交更多中医牛人。
+					<a class="goMoney" style="cursor: pointer;">立即购买</a><i class="iconfont icon-guanbi"></i></p>
+				<div class="mess clearfix">
+					<p class="kc"></p>
+					<span class="js">主讲人：<i></i></span>
+				</div>
+			</div>
+		</div>
+		<div class="videoBody">
+			<div class="videoBody-top">
+				<div class="videoBody-video">
+					<div class="shadowJiaZai"></div>
+					<img class="loadImg" src="/web/images/video/videoLoad.gif" alt="" />
+				</div>
+				<div class="videoBody-menuList">
+					<div class="videoBody-menuButton">
+						<img src="../../web/images/video/icon08.png" />
+						<span>目录</span>
+					</div>
+					<div class="videoBody-list ">
+
+					</div>
+				</div>
+			</div>
+			<div class="videoBody-bottom">
+
+				<div class="videoBody-bottom-left">
+					<div class="videoBody-bottom-left-title">
+						<span>评价</span>
+					</div>
+					<div class="videoBody-bottom-left-list">
+
+					</div>
+					<div class="pages" style="display: none">
+						<div id="Pagination"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
+					</div>
+				</div>
+				<div class="videoBody-bottom-right">
+					<p class="videoBody-bottom-right-title">已购买课程的小伙伴</p>
+				</div>
+			</div>
+		</div>
+		<div class="nopurchase videomodal1 hide">
+			<p class="nopurchase-close"><img src="../../web/images/video/detail_close.png"></p>
+			<img class="ku" src="../../web/images/video/free_video_icon50.png" alt="">
+			<p class="nopurchase-title">亲爱的小伙伴，试学课程已经结束啦</p>
+			<p class="nopurchase-body">购买课程后，可获取更多优质内容，结交更多中医牛人。</p>
+			<span class="goMoney">立即购买</span>
+		</div>
+		<div class="nopurchase videomodal2 hide">
+			<p class="nopurchase-close"><img src="../../web/images/video/detail_close.png"></p>
+			<img class="ku" src="../../web/images/video/finish54.png" alt="">
+			<p class="nopurchase-title">恭喜你顺利完成该课时的学习，继续加油吧~</p>
+			<span class="nextSchool">学习下一课时</span>
+		</div>
+		<div class="backgrounds1 hide"></div>
+		<div class="backgrounds2 hide"></div>
+	</body>
+	<script src="../js/freeAudition.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/placeHolder.js"></script>
+	<script src="../js/footer.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('input').placeholder();
+			$("body").append('<div class="modal" id="login" data-backdrop="static">' +
+				'<div class="modal-dialog login-module" role="document">' +
+				'<div class="cymylogin" style="height: 410px!important;">' +
+				'<div class="cymylogin-top clearfix">' +
+				'<div class="cymyloginclose" data-dismiss="modal" aria-label="Close" data-backdrop="static"></div>' +
+				'<div class="cymyloginlogo">欢迎登录&nbsp;&nbsp;熊猫中医云课堂</div>' +
+				'<div class="cymyloginhint cymlogin">' +
+				'</div></div>' + '<div class="cymylogin-bottom form-login">' +
+				'<input type="text" class="cyinput1 form-control" autocomplete="off" maxlength="30" placeholder="请输入手机号或邮箱"/>' +
+				'<div class="cymyloginclose1"></div>' +
+				'<input type="password" class="cyinput2 form-control" maxlength="18" placeholder="请输入6-18位密码"/>' +
+				'<div class="cymyloginclose2"></div>' +
+				'<button class="cymyloginbutton">登<em></em>录</button>' +
+				'<div class="cymyloginpassword">' +
+				'<a class="atOnceRegister" href="/web/html/login.html?ways=register">立即注册</a>' +
+				'<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码?</a>' +
+				'</div>' +
+				'</div></div></div></div>');
+			//登陆
+			var flag = false;
+
+			function errorMessage(info) {
+				flag = false;
+				var errorReg = /[a-zA-z]+/g;
+				if(errorReg.test(info)) {
+					layer.alert("系统繁忙，请稍候再试!", {
+						icon: 2
+					});
+					return flag = true;
+				}
+			}
+			/*按回车键进行登录*/
+			$(".cymylogin .cyinput2,.cymylogin .cyinput1").bind("keyup", function(evt) {
+				if(evt.keyCode == "13") {
+					$(".cymylogin .cymyloginbutton").trigger("click");
+				}
+			});
+			var cymyLogin = document.getElementsByClassName("cymlogin")[0];
+			initLogin();
+			/*按回车键进行登录*/
+			$(".cymylogin .cyinput2,.cymylogin .cyinput1").bind("keyup", function(evt) {
+				if(evt.keyCode == "13") {
+					$(".cymylogin .cymyloginbutton").trigger("click");
+				}
+			});
+			$(".form-login .cymyloginclose1").on("click", function() {
+				$(".cymyloginclose1").css("display", "none");
+				$(".cyinput1").css({
+					"border": "1px solid #2cb82c"
+				});
+				$(".cyinput1").val("");
+			})
+			$(".form-login .cymyloginclose2").on("click", function() {
+				$(".cymyloginclose2").css("display", "none");
+				$(".cyinput2").css({
+					"border": "1px solid #2cb82c"
+				});
+				$(".cyinput2").val("");
+			})
+			$(".cyinput1").on("input", function() {
+				var val = $(this).val();
+				if(val == "") {
+					$(".cymyloginclose1").css("display", "none");
+				} else {
+					$(".cymyloginclose1").css("display", "block");
+				}
+				return false;
+			});
+			$(".cyinput2").on("input", function() {
+				var logPass = $(this).val();
+				if(logPass == "") {
+					$(".cymyloginclose2").css("display", "none");
+				} else {
+					$(".cymyloginclose2").css("display", "block");
+				}
+				return false;
+			});
+
+			function initLogin() {
+				//清空登录
+				var cymyLogin = document.getElementsByClassName("cymlogin")[0];
+				$("#login").on('shown.bs.modal', function(e) {
+					$(".cymylogin-bottom input").removeAttr("style");
+					cymyLogin.style.display = "none";
+				});
+				RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
+					if(data.success === true) {
+						var path;
+						localStorage.username = data.loginName;
+						//头像预览
+						if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+							path = data.resultObject.smallHeadPhoto;
+						} else {
+							path = bath + data.resultObject.smallHeadPhoto
+						}
+						$(".userPic").css({
+							background: "url(" + path + ") no-repeat",
+							backgroundSize: "100% 100%"
+						});
+						$('#login').css("display", "none");
+						$(".loginGroup .logout").css("display", "none");
+						$(".loginGroup .login").css("display", "block");
+						$(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
+					} else {
+						$('#login').css("display", "none");
+						$('#login').modal('show');
+						$(".loginGroup .logout").css("display", "block");
+						$(".loginGroup .login").css("display", "none");
+						
+					}
+				});
+				var isCliclLogin = false;
+
+				$(".form-login .cyinput1").on("blur", function() {
+					var cymyLogin = document.getElementsByClassName("cymlogin")[0];
+					var regPhone = /^1[3-578]\d{9}$/;
+					var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
+					if($(".form-login .cyinput1").val().trim().length === 0) {
+						$(".cyinput1").css("border", "1px solid #ff4012");
+						cymyLogin.innerText = "请输入手机号或邮箱";
+						cymyLogin.style.top = "154px";
+						cymyLogin.style.display = "block";
+					} else if($(".form-login .cyinput1").val().trim().indexOf("@") == "-1" && !(regPhone.test($(".form-login .cyinput1").val().trim()))) {
+						$(".cyinput1").css("border", "1px solid #ff4012");
+						cymyLogin.innerText = "手机号格式不正确!";
+						cymyLogin.style.top = "154px";
+						cymyLogin.style.display = "block";
+					} else if($(".form-login .cyinput1").val().trim().indexOf("@") != "-1" && !(regEmail.test($(".form-login .cyinput1").val().trim()))) {
+						$(".cyinput1").css("border", "1px solid #ff4012");
+						cymyLogin.innerText = "邮箱格式不正确!";
+						cymyLogin.style.top = "154px";
+						cymyLogin.style.display = "block";
+					} else {
+						$(".cyinput1").css("border", "");
+					}
+				});
+				$(".form-login .cyinput1").on("focus", function() {
+					if(cymyLogin.innerText == "请输入手机号或邮箱" || cymyLogin.innerText == "手机号格式不正确!" || cymyLogin.innerText == "邮箱格式不正确!" || cymyLogin.innerText == "用户名或密码不正确!") {
+						cymyLogin.style.display = "none";
+					}
+					$(".cyinput1").css("border", "1px solid #2cb82c");
+				});
+				$(".form-login .cyinput2").focus(function() {
+					if(cymyLogin.innerText == "请输入6-18位密码") {
+						cymyLogin.style.display = "none";
+					}
+					$(".cyinput2").css("border", "1px solid #2cb82c");
+				});
+				$(".form-login .cyinput2").blur(function() {
+					var cymyLogin = document.getElementsByClassName("cymlogin")[0];
+					var cyinput2Length = $(".form-login .cyinput2").val().trim().length;
+					if(cyinput2Length == 0) {
+						$(".cyinput2").css("border", "1px solid #ff4012");
+						$(".cymlogin").css("top", "221px");
+						cymyLogin.innerText = "请输入6-18位密码";
+						cymyLogin.style.display = "block";
+					} else if(cyinput2Length < 6 && cyinput2Length > 18) {
+						$(".cyinput2").css("border", "1px solid #ff4012");
+						$(".cymlogin").css("top", "221px");
+						cymyLogin.innerText = "请输入6-18位密码";
+						cymyLogin.style.display = "block";
+					} else {
+						$(".cyinput2").css("border", "")
+					}
+				});
+				$(".form-login .cymyloginbutton").off().on("click", function(evt) { //登录验证
+					var regPhone = /^1[3-578]\d{9}$/;
+					var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
+					var passwordReg = /^(?!\s+)[\w\W]{6,18}$/; //密码格式验证
+					$(".cyinput1").css("border", "");
+					$(".cyinput2").css("border", "");
+					var data = {
+						username: $(".form-login .cyinput1").val().trim(),
+						password: $(".form-login .cyinput2").val()
+					};
+					if(data.username.length === 0) {
+						$(".cyinput1").css("border", "1px solid #ff4012");
+						cymyLogin.innerText = "请输入手机号或邮箱";
+						cymyLogin.style.top = "154px";
+						cymyLogin.style.display = "block";
+						return;
+					} else if(data.username.indexOf("@") == "-1" && !(regPhone.test(data.username))) {
+						$(".cyinput1").css("border", "1px solid #ff4012");
+						cymyLogin.innerText = "手机号格式不正确!";
+						cymyLogin.style.top = "154px";
+						cymyLogin.style.display = "block";
+						return;
+					} else if(data.username.indexOf("@") != "-1" && !(regEmail.test(data.username))) {
+						$(".cyinput1").css("border", "1px solid #ff4012");
+						cymyLogin.innerText = "邮箱格式不正确!";
+						cymyLogin.style.top = "154px";
+						cymyLogin.style.display = "block";
+						return;
+					} else if(data.password.length === 0) {
+						$(".cyinput2").css("border", "1px solid #ff4012").val("");
+						$(".cymlogin").css("top", "221px");
+						cymyLogin.innerText = "请输入6-18位密码";
+						cymyLogin.style.display = "block";
+						return;
+					}
+					isCliclLogin = true;
+					login(data);
+				});
+
+				function login(data, autoLogin) {
+					RequestService("/online/user/login", "POST", data, function(result) { //登陆/index.html   /online/user/login
+						if(result.success === true || result.success == undefined) {
+							window.localStorage.userName = data.username;
+							window.location.reload();
+						} else { //登陆错误提示
+							$(".loginGroup .logout").css("display", "block");
+							errorMessage(result.errorMessage);
+							if(!flag) {
+								if(result.errorMessage == "用户名密码错误！") {
+									cymyLogin.innerText = "用户名或密码不正确!";
+									$(".cymlogin").css("top", " 154px");
+									cymyLogin.style.display = "block";
+								} else {
+									cymyLogin.innerText = result.errorMessage;
+									$(".cymlogin").css("top", " 154px");
+									cymyLogin.style.display = "block";
+								}
+							}
+
+						}
+					});
+				}
+				$(".dropdown-menu li a").click(function(evt) {
+					$(".top-item").removeClass("selected");
+					var btn = $(evt.target);
+					var id = "personcenter";
+					var personcenterSt = window.localStorage.personcenter;
+					window.localStorage.personcenter = $(evt.target).attr("data-id");
+					if(window.location.pathname == "/web/html/personcenter.html") {
+						if($(this).attr("data")) {
+							RequestService("/online/user/logout", "GET", {}, function(data) {
+								location.href = "/index.html";
+								$(".loginGroup .logout").css("display", "block");
+								$(".loginGroup .login").css("display", "none");
+							});
+						} else {
+							$(".left-nav ." + window.localStorage.personcenter).click();
+						}
+					} else {
+						if($(this).attr("data")) {
+							RequestService("/online/user/logout", "GET", {}, function(data) {
+								location.href = "/index.html";
+								$(".loginGroup .logout").css("display", "block");
+								$(".loginGroup .login").css("display", "none");
+							});
+						} else {
+							var pathS = window.location.href;
+							location.href = "/web/html/personcenter.html";
+							RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
+								if(data.success) {
+									if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+										path = data.resultObject.smallHeadPhoto;
+									} else {
+										path = bath + data.resultObject.smallHeadPhoto
+									}
+									//头像预览
+									$(".userPic").css({
+										background: "url(" + path + ") no-repeat",
+										backgroundSize: "100% 100%"
+									});
+									$('#login').modal('hide');
+									$("html").css({
+										"overflow-x": "hidden",
+										"overflow-y": "auto"
+									});
+									$(".loginGroup .logout").hide();
+									$(".loginGroup .login").show();
+									$(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
+									localStorage.username = data.resultObject.loginName;
+									localStorage.userid = data.resultObject.id;
+									if($(btn.parent().hasClass('selected'))) {
+
+									} else {
+										hideHtml();
+									}
+								} else {
+									var pathS = window.location.href;
+									location.href = "/index.html";
+									localStorage.username = null;
+									localStorage.password = null;
+									$(".login").css("display", "none");
+									$(".logout").css("display", "block");
+									//                          }
+								}
+							});
+						}
+					}
+
+				});
+			}
+		});
+		function get_cc_verification_code(video_id) {
+				var verificationcode;
+				$.ajax({
+					url: '/online/vedio/getCcVerificationCode?video_id=' + video_id,
+					type: 'POST',
+					async: false,
+					success: function(data) {
+						if(data.success) {
+							verificationcode = data.resultObject.verificationcode;
+						} else {
+							alert(data.errorMessage);
+							if(data.errorMessage == "请登陆！") {
+								$('#login').modal('show');
+							}
+						}
+					}
+				});
+				return verificationcode;
+			}
+
+			$.getUrlParam = function(name) {
+					var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+					var r = window.location.search.substr(1).match(reg);
+					if(r != null) return unescape(r[2]);
+					return null;
+				}
+				//验证不通过的回调
+			function onlinePlayCallbak(video_id) {
+				//弹出我们自己的提示框
+				$(".videomodal1").removeClass("hide");
+				$(".backgrounds1").removeClass("hide");
+			}
+
+			function on_spark_player_stop(video_id) {
+				if($.getUrlParam("videoId") != null && $.getUrlParam("videoId") != undefined && $.getUrlParam("videoId") != "") {
+					var video_id = $.getUrlParam("videoId");
+				} else {
+					var video_id = $(".freeTable-list div:first").attr("data-videoId");
+				}
+				$(".freeTable-list div").each(function() {
+					if($(this).find(".playing").hasClass("hide") == false) {
+						if($(this).next().children().hasClass("freeTable")) {
+							$(".videomodal2").removeClass("hide");
+							$(".backgrounds2").removeClass("hide");
+						} else if($(this).parent().next().next().find("div").children().hasClass("freeTable")) {
+							$(".videomodal2").removeClass("hide");
+							$(".backgrounds2").removeClass("hide");
+						} else {
+							$(".videomodal1").removeClass("hide");
+							$(".backgrounds1").removeClass("hide");
+						}
+					}
+				})
+			}
+			//去掉Loding
+			function on_spark_player_ready() {
+				$(".loadImg").css("display", "none");
+				$(".shadowJiaZai").css("display", "none");
+			}
+	</script>
+
+</html>

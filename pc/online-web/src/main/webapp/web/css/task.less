@@ -1,0 +1,683 @@
+html, body {
+  font-family: 'Microsoft YaHei';
+  font-size: 12px;
+  background-color: #f7f7f7;
+}
+
+body, html, p, ul, li, a, img, ol, li {
+  margin: 0;
+  padding: 0;
+}
+
+ul, li, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+textarea{
+  margin-top:10px;
+  outline:none;
+  border:none;
+}
+.simditor-body{
+  min-height:277px!important;
+  height:277px;
+}
+
+.examRichText{
+  margin-top:10px;
+}
+a {
+  text-decoration: none;
+}
+
+img {
+  display: inline-block;
+}
+
+.clearfix:after {
+  content: "";
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+}
+.rTips {
+  min-width: 200px;
+  padding:0 10px;
+  height: 62px;
+  position: fixed;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  line-height: 62px;
+  background: #000;
+  filter: alpha(opacity=50);
+  /*ie*/
+  -moz-opacity: 0.5;
+  -o-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 2px;
+  display: none;
+}
+.examtimeOutBox {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1007;
+  background-color: rgba(0, 0, 0, .5);
+  display: none;
+  .examtimeOut {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -84px;
+    margin-left: -150px;
+    width: 300px;
+    height: 168px;
+    background-color: #fff;
+    .tijiaoContent {
+      background-color: #fff;
+      text-align: center;
+      span {
+        color: #333;
+        font-size: 16px;
+        line-height: 32px;
+        i{
+          display:inline-block;
+          color:#ff4012;
+          margin-right:5px;
+        }
+      }
+      span:first-child {
+        display: inline-block;
+        margin-top: 48px;
+      }
+      .timedaojishi {
+        color: #ff4012;
+        display: inline-block;
+        margin: 0 3px;
+      }
+    }
+  }
+}
+
+.noCompleteHint, .yidawan {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1007;
+  background-color: rgba(0, 0, 0, .5);
+  display: none;
+  .noCompleteInnerBox {
+    padding:0 37px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 354px;
+    height: 213px;
+    margin-top: -84px;
+    margin-left: -145px;
+    background-color: #fff;
+    .noCompleteContent {
+      p {
+        text-align: center;
+        font-size: 16px;
+        color: #333;
+        margin-top: 47px;
+        line-height:26px;
+      }
+      .continueAnswer, .tijiao, .confirm, .checked {
+        display: inline-block;
+        width: 99px;
+        height: 42px;
+        font-size: 16px;
+        line-height: 42px;
+        text-align: center;
+        margin-top: 25px;
+        cursor: pointer;
+      }
+      .continueAnswer, .confirm {
+        background-color: #2cb82c;
+        color: #fff;
+        margin-right: 20px;
+        margin-left: 34px;
+      }
+      .tijiao, .checked {
+        background-color: #f0f0f0;
+        color: #999;
+      }
+    }
+  }
+}
+
+#examBox {
+  width: 1200px;
+  margin: 20px auto 0;
+  .examBasicInfo {
+    padding: 24px 30px 26px;
+    border-bottom: 1px solid #e4e4e4;
+    background-color: #fff;
+    .examBasicInfoTop {
+      .examName {
+        width:810px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        font-size: 22px;
+        color: #333;
+      }
+      .tongguanfenshu, .tiCount, .tijiaoTime {
+        font-size: 14px;
+        color: #666;
+        display: inline-block;
+        margin-top: 11px;
+        margin-right: 40px;
+      }
+      .tiCount {
+        margin-right: 35px;
+      }
+    }
+    .timuTypeAndSocre {
+      margin-top: 28px;
+      .score {
+        float: left;
+        margin-left: 20px;
+        vertical-align: middle;
+        margin-top: 34px;
+        position: relative;
+        .defen {
+          width: 148px;
+          height: 148px;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          margin-left: -74px;
+          margin-top: -87px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          background-color: #fafafa;
+          color: #ff4012;
+          font-size: 46px;
+          line-height: 148px;
+          text-align: center;
+          span {
+            font-size: 18px;
+            color: #ff4012;
+          }
+        }
+        .totalFen {
+          width: 160px;
+          text-align: center;
+          font-size: 16px;
+        }
+      }
+      .timuType {
+        float: right;
+        .timuTotal {
+          border: 1px solid #f0f0f0;
+          background-color: #fafafa;
+          ul {
+            border-right: 1px solid #f0f0f0;
+            float: left;
+            li {
+              width: 110px;
+              height: 50px;
+              font-size: 14px;
+              line-height: 50px;
+              text-align: center;
+              border-bottom: 1px solid #f0f0f0;
+            }
+            li:last-child {
+              border-bottom: none;
+            }
+          }
+          ul:last-child {
+            border-right: none;
+          }
+          .correntAnswer {
+            color: #2cb82c;
+          }
+          .errorAnser {
+            color: #ff4012;
+          }
+          .totalDeFen {
+            color: #e7b5a8;
+          }
+          .answerFenlei {
+            width: 110px;
+          }
+        }
+      }
+    }
+  }
+  .timuTypeBox {
+    padding: 0px 30px;
+    width: 1200px;
+    background-color: #fff;
+    height: 59px;
+    line-height: 59px;
+    position: static;
+    li {
+      width: 65px;
+      float: left;
+      text-align: center;
+      margin-right: 30px;
+      font-size: 16px;
+      color: #333;
+      padding: 0 5px;
+      cursor: pointer;
+    }
+    li:hover {
+      color: #2cb82c;
+      border-bottom: 2px solid #2cb82c;
+    }
+    .select {
+      color: #2cb82c;
+      border-bottom: 2px solid #2cb82c;
+    }
+  }
+  .timuTypeBox.examFloat {
+    z-index: 1005;
+    bottom: auto;
+    position: fixed;
+    left: 50%;
+    margin-left: -600px;
+    top: 0px;
+    -webkit-box-shadow: 0px 0px 6px 3px #ccc;
+    -moz-box-shadow: 0px 0px 6px 3px #ccc;
+    box-shadow: 0px 0px 6px 3px #ccc;
+  }
+  .examContent {
+    margin-top: 20px;
+    .timuAndAnswer {
+      float: left;
+      width: 896px;
+      background-color: #fff;
+      padding: 0 30px 60px;
+      .lastNoXian{
+        li:last-child{
+          border-bottom:none;
+        }
+      }
+      .timu {
+        font-size: 14px;
+        word-break: break-all;
+        word-wrap: break-word;
+        > li {
+          border-bottom: 1px solid #e4e4e4;
+          padding: 25px 0;
+          img {
+            margin-top:15px;
+            max-width: 836px;
+          }
+          p {
+            font-size: 14px;
+          }
+          p:first-child {
+            display: inline;
+          }
+          .ExamAnswer {
+            margin-top: 6px;
+            li {
+              width: 100%;
+              line-height: 42px;
+              color: #666;
+              font-size: 14px;
+              img {
+                max-width: 836px;
+              }
+            }
+            li:hover {
+              background-color: #f5f8fb;
+              color: #2cb82c;
+              line-height: 42px;
+              cursor: pointer;
+            }
+            .danxuanTi, .duoxuanTi, .panduanTi {
+              div {
+                display: inline-block;
+                vertical-align: middle;
+                margin-top: 1px;
+                position: relative;
+                em {
+                  margin: 0 10px;
+                  display: inline-block;
+                  width: 14px;
+                  height: 14px;
+                  -webkit-border-radius: 50%;
+                  -moz-border-radius: 50%;
+                  border-radius: 50%;
+                  border: 1px solid #eee;
+                  background-color: #fff;
+                  i {
+                    position: absolute;
+                    color: #fff;
+                    font-size: 14px;
+                    top: -1px;
+                    left: 8px;
+                    -webkit-transform: scale(0.4);
+                    -moz-transform: scale(0.4);
+                    -ms-transform: scale(0.4);
+                    -o-transform: scale(0.4);
+                    transform: scale(0.4);
+                  }
+                }
+              }
+            }
+            .danxuanTi.select, .panduanTi.select {
+              color: #2cb82c;
+              div {
+                display: inline-block;
+                position: relative;
+                width: 14px;
+                height: 14px;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                border: 1px solid #2cb82c;
+                margin: 15px 10px;
+                em {
+                  position: absolute;
+                  display: inline-block;
+                  width: 8px;
+                  height: 8px;
+                  margin: 0;
+                  top: 50%;
+                  left: 50%;
+                  background-color: #2cb82c;
+                  -webkit-border-radius: 50%;
+                  -moz-border-radius: 50%;
+                  border-radius: 50%;
+                  -webkit-transform: translate(-50%, -50%);
+                  -moz-transform: translate(-50%, -50%);
+                  -ms-transform: translate(-50%, -50%);
+                  -o-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%);
+                }
+              }
+            }
+            .duoxuanTi {
+              div {
+                display: inline-block;
+                em {
+                  -webkit-border-radius: 2px;
+                  -moz-border-radius: 2px;
+                  border-radius: 2px;
+                }
+              }
+            }
+            .duoxuanTi.select {
+              color: #2cb82c;
+              div {
+                display: inline-block;
+                em {
+                  -webkit-border-radius: 2px;
+                  -moz-border-radius: 2px;
+                  border-radius: 2px;
+                  background-color: #2cb82c;
+                  border: none;
+                }
+              }
+            }
+          }
+          .tiankongTiInput {
+            outline: none;
+            min-width: 74px;
+            display:inline-block;
+            border: none;
+            border-bottom: 1px solid #f0f0f0;
+            margin:0 5px;
+          }
+          .cankaoAnswer, .answerShouMing {
+            color: #2cb82c;
+            font-size: 14px;
+            display: inline-block;
+          }
+          .cankaoAnswer {
+            margin-top: 20px;
+          }
+          .answerShouMing {
+            margin-top: 9px;
+          }
+          .download{
+            margin-top:18px;
+            font-size:14px;
+            a{
+              color:#2cb82c;
+              word-break: break-all;
+              word-wrap: break-word;
+              display: inline;
+              &:hover{
+                text-decoration:underline;
+              }
+            }
+          }
+          .upload{
+            margin-top:10px;
+            font-size:14px;
+            p,div,input{
+              display:inline-block;
+            }
+            .upBtn{
+              display:inline-block;
+              width:76px;
+              height:26px;
+              overflow:hidden;
+              margin-right:10px;
+              vertical-align: middle;
+              cursor:pointer;
+              .chooseFile{
+                display:inline-block;
+                width:76px;
+                height:26px;
+                line-height:26px;
+                text-align:center;
+                border:1px solid #2cb82c;
+                color:#2cb82c;
+                font-size:14px;
+                -webkit-border-radius: 2px;
+                -moz-border-radius: 2px;
+                border-radius: 2px;
+              }
+              input{
+                font-size:100px;
+                cursor:pointer;
+                position:relative;
+                width:76px;
+                left:2px;
+                top:-24px;
+                opacity:0;
+                overflow:hidden;
+                filter:alpha(opacity=0);
+              }
+            }
+            .attachmentName{
+              color:#2cb82c;
+              display:inline-block;
+              margin:0 3px;
+              font-size:14px;
+              vertical-align: middle;
+              &:hover{
+                text-decoration:underline;
+              }
+            }
+            span{
+              display:inline-block;
+              font-size:12px;
+              color:#999;
+              em{
+                display:inline-block;
+                vertical-align: middle;
+                color:#ff4012;
+                margin-right:5px;
+              }
+            }
+          }
+        }
+        .timu > li:first-child {
+          padding-top: 30px;
+        }
+        .examRichText {
+          margin-top: 12px;
+          .simditor{
+            height:320px;
+          }
+        }
+      }
+      .comments{
+        .title{
+          display:inline-block;
+          font-size:16px;
+          color:#2cb82c;
+          i{
+            display:inline-block;
+            margin-right:8px;
+          }
+          span{
+            font-size:14px;
+          }
+        }
+      }
+    }
+    .answerCard {
+      float: right;
+      width: 284px;
+      position: static;
+      > div {
+        border-bottom: 1px solid #eee;
+        background-color: #fff;
+        .answerStatus {
+          padding: 20px;
+          li{
+            float:left;
+            margin-right:30px;
+            height:18px;
+            em{
+              width:16px;
+              height:16px;
+              -webkit-border-radius: 2px;
+              -moz-border-radius: 2px;
+              border-radius: 2px;
+              display:inline-block;
+              margin-right:8px;
+            }
+            span{
+              display: inline-block;
+              vertical-align: middle;
+              margin-top: -8px;
+            }
+          }
+          .examTime {
+            float: left;
+            i, span {
+              color: #2cb82c;
+              font-size: 16px;
+              font-family:"Microsoft Yahei";
+            }
+            .lishiTibiao {
+              display: inline-block;
+              margin-right: 3px;
+            }
+          }
+          .jiliYu {
+            float: right;
+            font-size: 12px;
+            margin-top: 2px;
+          }
+        }
+      }
+      .thirdLeiAnswer {
+        max-height:650px;
+        overflow-y:auto;
+        overflow-x:hidden;
+        padding-bottom: 25px;
+        background-color: #fff;
+        .radioAnswer {
+          padding: 16px 20px 6px;
+          span {
+            font-size: 16px;
+            color: #333;
+          }
+          ol {
+            width: 110%;
+            overflow: hidden;
+            li {
+              float: left;
+              width: 28px;
+              height: 28px;
+              -webkit-border-radius: 2px;
+              -moz-border-radius: 2px;
+              border-radius: 2px;
+              margin: 11px 15px 0 0;
+              color: #000;
+              text-align: center;
+              line-height: 28px;
+              cursor: pointer;
+              &:nth-child(6n){
+                margin-right:0px;
+              }
+            }
+            .select {
+              background-color: #2cb82c;
+              color: #fff;
+            }
+          }
+        }
+      }
+       @media all and (max-height:768px){
+         .thirdLeiAnswer{
+           max-height:180px;
+         }
+       }
+      .tijiaoAnswer {
+        width: 284px;
+        height: 50px;
+        font-size: 16px;
+        line-height: 50px;
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+        background-color: #2cb82c;
+        margin-top: 10px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+      }
+    }
+    .answerCard.answerCardFloat {
+      position: fixed;
+      left: 0;
+      top: 79px;
+    }
+  }
+  .corrent {
+    background-color: #addfad !important;
+    color:#fff!important;
+  }
+  .error {
+    background-color: #ff4012 !important;
+    color:#fff!important;
+  }
+  .noAnswer {
+    background-color: #ddd !important;
+  }
+  .correntAns {
+    color: #2cb82c !important;
+  }
+  .errorAns {
+    color: #ff4012 !important;
+  }
+}

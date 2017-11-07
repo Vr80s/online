@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<context:property-placeholder location="classpath:config.properties" />
+	<context:component-scan
+		base-package="com.xczhihui.bxg.user.center.service,com.xczhihui.bxg.user.center.dao" />
+
+	<!-- dubbo -->
+	<dubbo:application name="${dubbo.app.name}" />
+	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}" />
+	<dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}" />
+	<dubbo:service interface="com.xczhihui.bxg.user.center.service.UserCenterAPI"
+		ref="userCenterAPI" timeout="${dubbo.consumer.timeout}" />
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<property name="minPoolSize" value="${c3p0.minPoolSize}" />
+		<property name="maxPoolSize" value="${c3p0.maxPoolSize}" />
+		<property name="initialPoolSize" value="${c3p0.initialPoolSize}" />
+		<property name="maxIdleTime" value="${c3p0.maxIdleTime}" />
+		<property name="acquireIncrement" value="${c3p0.acquireIncrement}" />
+		<property name="acquireRetryAttempts" value="${c3p0.acquireRetryAttempts}" />
+		<property name="acquireRetryDelay" value="${c3p0.acquireRetryDelay}" />
+		<property name="testConnectionOnCheckin" value="${c3p0.testConnectionOnCheckin}" />
+		<property name="automaticTestTable" value="${c3p0.automaticTestTable}" />
+		<property name="idleConnectionTestPeriod" value="${c3p0.idleConnectionTestPeriod}" />
+		<property name="checkoutTimeout" value="${c3p0.checkoutTimeout}" />
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="regist*" propagation="REQUIRED" />
+			<tx:method name="login*" propagation="REQUIRED" />
+			<tx:method name="process*" propagation="REQUIRED" />
+			<tx:method name="batchProcess" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="execution(* com.xczhihui.bxg.user.center.service..*.*(..))" />
+	</aop:config>
+
+	<bean class="com.xczhihui.bxg.user.center.service.impl.RedisCacheServiceImpl">
+		<constructor-arg name="host" value="${redis.host}" />
+		<constructor-arg name="port" value="${redis.port}" />
+		<constructor-arg name="maxIdle" value="${reids.maxIdle}" />
+		<constructor-arg name="maxTotal" value="${reids.maxTotal}" />
+		<constructor-arg name="timeout" value="${reids.timeout}" />
+		<!-- <constructor-arg name="password" value="${redis.password}" /> -->
+	</bean>
+
+</beans>

@@ -1,0 +1,184 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>视频</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="/xcviews/css/mui.min.css">
+<link rel="stylesheet" href="../css/css.css">
+
+
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+</script>
+
+	<style>
+		.mui-block{
+			top:3.5rem;
+		}
+		.mui-pull-bottom-pocket.mui-block.mui-visibility {
+   			 top: 0.2rem;
+		}
+		.video_list_ul .wm-block{
+			height: 3.625rem;
+			margin-top:0rem;
+		}
+		.wm-block:last-child{
+			margin-bottom: 0.3rem;
+		}
+		div#content {
+ 		   width: 7.675rem;
+   		   margin: 0 auto;
+		}
+	/* 	.mui-scroll{
+			height: 100%;
+		}
+		.video_list_size1_two{
+			width: 3rem;
+		} */
+		.video_list_size1{
+			width: 3rem;
+		}
+		.frequency_div{
+			width: 100%;
+		    height: 1.8rem;
+		    line-height: 1.8rem;
+		    background: #fff;
+		    border-top: 0.001rem solid #ddd;
+		    color: #91b18a;
+		    /* position: relative; */
+		    position: fixed;
+		    top: 1.83rem;
+		    z-index: 999;
+		    overflow: auto;
+		    white-space: nowrap;
+		}
+		
+		.page{
+			float: left;
+			margin-top:0;
+		}
+		
+		
+		//增加底部值距离
+		.mui-scroll{
+		    padding-bottom: 2rem !important;
+		}
+	</style>
+</head>
+<body style="background: #efefef;">
+	<!-- 视频开始 -->
+	<!-- <div class="frequency" id="frequency">视频</div> -->
+    <header>
+		<div class="home">
+			<div class="home_top">
+				<div class="home_img" id="home_img" style="width:0.875rem;height: 0.875rem;"></div>
+				<span>直播</span>
+				<div class="home_img_right" id="home_img_right"></div>
+			</div>
+		</div>
+	</header>
+	<div class="both"></div>
+	<div class="frequency_div" id="frequency_div">
+	</div>
+	
+	<!-- <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+	  <div class="mui-scroll swipe" id="slider">	
+	  	<ul class="box01_list">
+			<li class="li_list">  	
+			<div class="video_list">
+				<div class="video_list_ul" id="video_list_ul">
+				</div>
+			</div>
+			</li>
+		</ul>
+		</div>
+    </div>	 --> 
+     <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+	  <div class="mui-scroll" style="padding-bottom: 2rem;">	
+		<div class="video_list">
+			<div class="video_list_ul" id="video_list_ul">
+			</div>
+		</div>
+		</div>
+    </div>
+	
+	<div class="" style="clear: both;"></div>
+	<!--底部空标签（加空标签显示下'面没有更多数据'这句话）-->
+	<div class="" style="width: 100%;height: 41px;background: red;"></div>
+	<!-- 底部结束 -->
+	<div class="footer_k"></div>
+	<footer>
+		<div class="base">
+			<ul>
+				<li><a href="/bxg/page/index/null/null" class="base_a1" style="width: 1.175rem;height: 1.675rem;"></a></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2" style="width: 1.175rem;height: 1.675rem;"></a></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3" style="width: 1.175rem;height: 1.675rem;"></a></li>
+				<li><a href="/xcviews/html/my.html" class="base_a4" style="width: 1.175rem;height: 1.675rem;"></a></li>
+			</ul>
+		</div>
+	</footer>
+	<!-- 底部结束 -->
+	<!-- 视频结束 -->
+	<!-- 刷新 -->
+	
+	
+	<!-- 引入滑动 -->
+<!--  	<script type="text/javascript" src="/xcviews/js/zepto_min.js"></script>
+	<script type="text/javascript" src="/xcviews/js/touchslider.js"></script> -->
+	
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>	
+<script type="text/javascript" src="/xcviews/js/frequency.js"></script>
+<script type="text/javascript">
+/* 	var page='pagenavi';
+	var mslide='slider';
+	var mtitle='emtitle';
+	arrdiv = 'arrdiv';
+
+	var as=document.getElementById(page).getElementsByTagName('a');
+
+	var tt=new TouchSlider({id:mslide,'auto':'-1',fx:'ease-out',direction:'left',speed:600,timeout:5000,'before':function(index){
+		var as=document.getElementById(this.page).getElementsByTagName('a');
+		as[this.p].className='';
+		as[index].className='active';
+		this.p=index;
+		var txt=as[index].innerText;
+		$("#"+this.page).parent().find('.emtitle').text(txt);
+		var txturl=as[index].getAttribute('href');		
+		var turl=txturl.split('#');
+		$("#"+this.page).parent().find('.go_btn').attr('href',turl[1]);
+	}});
+
+	tt.page = page;
+	tt.p = 0;
+	//console.dir(tt); console.dir(tt.__proto__);
+	for(var i=0;i<as.length;i++){
+		(function(){
+			var j=i;
+			as[j].tt = tt;
+			as[j].onclick=function(){
+				this.tt.slide(j);
+				return false;
+			}
+		})();
+	} */
+</script>
+
+
+</body>
+</html>

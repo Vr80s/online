@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IEedge"/>
+    <meta charset="UTF-8">
+    <title>熊猫中医云课堂 - 线上中医教育</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <meta name="keywords"
+          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+    <meta name="description"
+          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../css/mylogin.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/task.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../simditor-1.0.5/styles/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="../simditor-1.0.5/simditor.css"/>
+
+    <script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/artTemplate.js"></script>
+    <script src="../js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/header.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/helpers.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/html5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/jquery.form.min.js"></script>
+    <script src="/web/js/task.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../simditor-1.0.5/scripts/js/module.js"></script>
+    <script type="text/javascript" src="../simditor-1.0.5/scripts/js/simditor.js"></script>
+    <script type="text/javascript" src="../simditor-1.0.5/scripts/js/uploader.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+<body>
+<div class="examtimeOutBox">
+    <div class="examtimeOut">
+        <div class="tijiaoContent">
+            <span><i class="iconfont icon-weijiaojuan"></i>你的作业卷时间已到，</span></br>
+            <span>系统将在</span><span class="timedaojishi">3秒</span><span>内自动保存提交</span>
+        </div>
+    </div>
+</div>
+<div class="noCompleteHint">
+    <div class="noCompleteInnerBox">
+        <div class="noCompleteContent">
+            <p>还有<span class="count"></span></br>题目没有答完，是否确定交卷？</p>
+            <div class="continueAnswer">继续答题</div>
+            <div class="tijiao">坚持交卷</div>
+        </div>
+    </div>
+</div>
+<div class="yidawan" id="dawan">
+    <div class="noCompleteInnerBox">
+        <div class="noCompleteContent">
+            <p>是否确定交卷？</p>
+            <div class="confirm">确定交卷</div>
+            <div class="checked">继续答题</div>
+        </div>
+    </div>
+</div>
+<div class="rTips"></div>
+<div id="examBox">
+    <div class="examBasicInfo">
+        <div class="examBasicInfoTop">
+
+        </div>
+    </div>
+    <div style="clear: both;height: 59px;">
+        <ul class="timuTypeBox clearfix">
+
+        </ul>
+    </div>
+    <div class="examContent clearfix">
+        <div class="timuAndAnswer">
+            <ul class="timu" id="timu1">
+
+            </ul>
+        </div>
+        <div class="answerCard">
+            <div>
+                <div class="answerStatus clearfix">
+                    <div class="examTime">
+                        <i class="iconfont icon-ordinaryshijian lishiTibiao"> 距离提交时间还有</i><span></span>
+                    </div>
+                </div>
+            </div>
+            <ul class="thirdLeiAnswer">
+
+            </ul>
+            <div class="tijiaoAnswer">提交作业</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="/web/js/placeHolder.js"></script>
+<script src="../js/footer.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        $('input').placeholder();
+    });
+
+</script>

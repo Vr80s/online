@@ -1,0 +1,268 @@
+html,
+body {
+  font-family: 'Microsoft YaHei';
+  font-size: 12px;
+  background-color: #f8f8f8;
+}
+body,
+html,
+p,
+ul,
+li,
+a,
+img {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+img {
+  display: inline-block;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700!important;
+}
+#courseIntroductionPage {
+  width: 1200px;
+  margin: 0 auto;
+}
+#courseIntroductionPage .courseIntroductionPage-nav {
+  margin: 18px 0;
+  /*   a:hover {
+         color: #2cb82c;
+       }*/
+}
+#courseIntroductionPage .courseIntroductionPage-nav a {
+  font-size: 12px;
+  color: #999;
+  text-decoration: none;
+  cursor: default;
+}
+#courseIntroductionPage .courseIntroductionPage-nav span {
+  font-size: 12px;
+  color: #999;
+  margin-left: 5px;
+}
+#courseIntroductionPage footer .content .content-footer-link ul {
+  width: 292px;
+  overflow: hidden;
+  margin: 0 auto;
+  text-align: center;
+  padding-left: 0;
+}
+#courseIntroductionPage footer .content .content-footer-link ul li {
+  float: left;
+  font-size: 12px;
+  /* margin: 12px 0 0; */
+  /* line-height: 14px; */
+  color: white;
+  list-style-type: none;
+}
+#courseIntroductionPage footer .footer-bodys li {
+  border-right: 1px solid #fff;
+  color: white;
+  font-size: 12px;
+  padding: 0 12px;
+  cursor: default;
+}
+#courseIntroductionPage footer .footer-bodys .gate li:hover {
+  color: #fff !important;
+}
+#courseIntroductionPage .page-no-result {
+  width: 218px;
+  min-height: 300px;
+  padding-top: 66px;
+  text-align: center;
+  margin: 50px auto 0px;
+}
+#courseIntroductionPage .page-no-result .img {
+  display: block;
+  margin: 0 auto;
+}
+#courseIntroductionPage .page-no-result .no-title {
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  margin-top: 15px;
+}
+#courseIntroductionPage .page-no-result .tip {
+  font-size: 0.8rem;
+  text-align: center;
+  padding-top: 10px;
+}
+#courseIntroductionPage .page-no-result1 {
+  width: 250px;
+  min-height: 300px;
+  padding-top: 66px;
+  text-align: center;
+  margin: 130px auto 0;
+}
+#courseIntroductionPage .page-no-result1 .img {
+  display: block;
+  margin: 0 auto;
+}
+#courseIntroductionPage .page-no-result1 .no-title {
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  margin-top: 15px;
+}
+#courseIntroductionPage .page-no-result1 .tip {
+  font-size: 0.8rem;
+  text-align: center;
+  padding-top: 10px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav {
+  float: left;
+  width: 220px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items {
+  background-color: #fff;
+  padding: 40px 0 20px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li {
+  width: 100%;
+  margin-bottom: 38px;
+  cursor: pointer;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li span {
+  font-size: 16px;
+  max-width: 145px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li.select {
+  border-left: 2px solid #2cb82c;
+  color: #2cb82c;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items em {
+  display: inline-block;
+  width: 16px;
+  height: 18px;
+  margin: -3px 10px 0 30px;
+  vertical-align: middle;
+  background: url("/web/images/130/kc_detail.png") no-repeat;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(1) em {
+  background-position: 0 0;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(1) em.select0 {
+  background-position: -36px 0;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(2) em {
+  background-position: 0px -38px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(2) em.select1 {
+  background-position: -36px -38px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(3) em {
+  background-position: 0px -76px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(3) em.select2 {
+  background-position: -36px -76px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(4) em {
+  background-position: 0px -114px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(4) em.select3 {
+  background-position: -36px -114px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(5) em {
+  background-position: 0px -152px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(5) em.select4 {
+  background-position: -36px -152px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(6) em {
+  background-position: 0px -190px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(6) em.select5 {
+  background-position: -36px -190px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(7) em {
+  background-position: 0px -228px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(7) em.select6 {
+  background-position: -36px -228px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(8) em {
+  background-position: 0px -266px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(8) em.select7 {
+  background-position: -36px -266px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(9) em {
+  background-position: 0px -304px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-items li:nth-child(9) em.select8 {
+  background-position: -36px -304px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-btn {
+  width: 220px;
+  background-color: #2cb82c;
+  height: 48px;
+  color: #fff;
+  font-size: 16px;
+  margin-top: 30px;
+  text-align: center;
+  line-height: 48px;
+  cursor: default;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-leftNav .courseIntroductionPage-btn img {
+  margin-left: 15px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-rightContent {
+  float: right;
+  width: 950px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-rightContent .courseIntroductionPage-introduce {
+  background-color: #fff;
+  padding: 30px;
+  padding-bottom: 60px;
+  word-break: break-all;
+  overflow: hidden;
+  min-height: 600px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-rightContent .courseIntroductionPage-introduce img {
+  max-width: 888px;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-rightContent .courseIntroductionPage-introduce-btn {
+  max-width: 340px;
+  height: 42px;
+  line-height: 42px;
+  text-align: center;
+  display: none;
+  background-color: #2cb82c;
+  color: #fff;
+  font-size: 16px;
+  margin: 47px auto 40px;
+  cursor: pointer;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-rightContent .courseIntroductionPage-introduce-try {
+  width: 220px;
+  background-color: #2cb82c;
+  height: 42px;
+  color: #fff;
+  font-size: 16px;
+  margin: 47px auto 80px;
+  text-align: center;
+  line-height: 42px;
+  display: none;
+  cursor: pointer;
+}
+#courseIntroductionPage .courseIntroductionPage-content .courseIntroductionPage-rightContent .courseIntroductionPage-introduce-try img {
+  margin-left: 15px;
+}

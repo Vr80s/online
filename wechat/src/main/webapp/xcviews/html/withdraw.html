@@ -1,0 +1,221 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>提现申请</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+	<script type="text/javascript" src="../js/common/jquery-1.8.3.min.js"></script>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#phone").click(function(){
+        	$("#tishi").html("");
+		});
+		
+		/*点击支付宝*/
+		$("#wechatAcount").click(function(){
+        	$("#alipay0").html("");
+		});
+		
+		
+		 $("#tqje").focus(function(){
+		 	
+		 	$(".hide_span").hide();
+		 });
+		 
+		 $("#tqje").blur(function(){
+		 	
+		 	if(!($('#tqje').val()=='')){
+               	$(".hide_span").hide();
+            }else{
+            	$(".hide_span").show();
+            }
+		 });
+	});
+</script>
+
+<style type="text/css">
+	.withdraw_finds_size{
+		position: relative;
+	}
+	.hide_span{
+		display: inline;
+	    position: absolute;
+	    top: -1.4rem;
+	    left: 0.6rem;
+	    pointer-events: none;
+	}
+</style>
+</head>
+<body style="background:#efefef;">
+	<div class="attention_top" style="border: none;">
+		<div class="attention_left" id="grabble_img"><div class="return"  onclick="history.go(-1)"></div></div>
+		
+		<div class="dl" style="padding-top1: 0.2rem;">提现申请</div>
+	</div>
+	<div class="both"></div>
+	<!-- 中间内容开始 -->
+	<div class="withdraw_finds">
+		<div class="withdraw_finds_name">
+			<div class="withdraw_finds_name_div" style="letter-spacing: 1.63rem;">姓名</div>
+			<div class="withdraw_finds_name_put"> <input id="name" type="text" style="margin-left: -29px;" onkeyup="value=value.replace(/[\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[\d]/g,''))" maxlength=18 /> </div>
+		</div>
+		<div class="withdraw_finds_name">
+			<div class="withdraw_finds_name_div" style="letter-spacing: 0.56rem;">手机号</div>
+			<div class="withdraw_finds_name_put"><input id="phone" type="tel" style="margin-left: -8px;" onkeyup="if(isNaN(value))execCommand('undo')" maxlength=11 minlength=11 /></div>
+			<div id="tishi" style="text-align: center;color: red;font-size: 12px;position: absolute;left: 5rem;"></div>
+		</div>
+		<div class="withdraw_finds_name">
+			<div class="withdraw_finds_name_div" id="alipay">支付宝账号</div>
+			<div class="withdraw_finds_name_put"><input id="wechatAcount" type="text" maxlength=108 /></div>
+			<div id="alipay0" style="text-align: center;color: red;font-size: 12px;position: absolute;left: 5rem;"></div>
+		</div>
+		<div class="withdraw_finds_name">
+			<div class="withdraw_finds_name_div" style="letter-spacing: 0.16rem;">提取金额</div>
+			<div class="withdraw_finds_name_put"><input id="tqje" type="text" value="" /></div>
+		</div>
+		
+		<div class="withdraw_finds_size">
+			<span class="hide_span">可提现金额<span id="ktban"></span>元</span>
+			<span onclick="allTx()">全部提现</span>
+		</div>
+		<div class="both"></div>
+		
+		<div class="withdraw_finds_btn" onclick="sub()">提 现</div>
+	</div>
+<!--中间内容结束 -->
+</body>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script>
+
+    /**
+	 * 初始化显示可提现金额
+     */
+	function init(){
+		requestService("/bxg/enchash/getEnchashmentRmbBalance", {orderId:1}, function(data) {
+			 if (data.success) {
+                 var result = data.resultObject;
+					$("#ktban").html(result);
+             }
+		},false)
+	}
+
+	init();
+
+	/*alipay*/
+	var tishi = document.getElementById("tishi");
+	/*var number = document.getElementById("phone").value;*/
+	
+	var alipay0 = document.getElementById("alipay0");
+	/*var numbe = document.getElementById("wechatAcount").value;*/
+	
+	
+	function allTx(){
+$("#tqje").val($("#ktban").html());
+	}
+	function sub(){
+        var name=$("#name").val();
+        var phone=$("#phone").val();
+        var wechatAcount=$("#wechatAcount").val();
+        var tqje=$("#tqje").val();
+        /*var regTel = /^0?1[3|4|5|8][0-9]\d{8}$/;
+		regTel.test($("#Tel")[0].value);*/
+
+        if(name==''){
+            alert("姓名不能为空!");
+            return;
+		}
+        if(phone==''){
+            alert("手机号不能为空!");
+            return;
+        }
+        if(!(/^1[34578]\d{9}$/.test(phone))) {
+			tishi.innerHTML = "请输入正确格式的手机号";
+			return false;
+			
+		}
+		
+        if(wechatAcount==''){
+            alert("支付宝号不能为空!");
+            return;
+        }
+        /*if(!(/^1[34578]\d{9}$/.test(email))){
+            alipay0.innerHTML = ("支付宝号不能为空0000!");
+            return false;
+        }*/
+      
+       
+       
+		var email = document.getElementById("wechatAcount").value;
+		
+		var email = document.getElementById("wechatAcount").value;
+		
+		if (email != "") {
+	
+	    	var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+	
+	        var a =  /^1[34578]\d{9}$/.test(email)
+	
+	     	var b= reg.test(email);
+	
+	        if (a || b) {
+	        	
+	        } else{
+	        	alipay0.innerHTML = ("请输入正确的支付宝账号");
+	
+	            document.getElementById("wechatAcount").focus();
+	
+	            return false;
+	        }
+	       	/*if (!isok) {
+	
+	            alipay0.innerHTML = ("请输入正确的支付宝号");
+	
+	            document.getElementById("wechatAcount").focus();
+	
+	            return false;
+	
+	        }else if(!(/^1[34578]\d{9}$/.test(email))){
+	            alipay0.innerHTML = ("支付宝号不能为空0000!");
+	            return false;
+	        }*/
+	
+	    };
+
+        
+        
+        if(tqje==''){
+            alert("提现金额不能为空!");
+            return;
+        }
+
+        if(tqje>$("#ktban").html()){
+            alert("超出可提现金额!");
+            return;
+		}
+		
+
+        requestService("/bxg/enchash/add",{enchashmentSum:tqje,clientType:2,enchashmentAccountType:0,enchashmentAccount:wechatAcount,realName:name,phone:phone}, function(data) {
+        	 if (data.success) {
+					location.href="success.html";
+             }else{
+					location.href="noth.html";
+			 }
+        },false)
+	}
+
+
+</script>
+</html>

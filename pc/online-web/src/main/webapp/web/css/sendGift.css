@@ -1,0 +1,87 @@
+/* 送礼物底部样式 */
+.giftContent{
+ background-color: red;
+ text-align:center;
+}
+.giftContent ul li {
+	width:25%;
+	float:left;
+	cursor:pointer;
+}
+ .giftContent ul li img{
+	width:54px;
+	height:54px;
+
+}
+.gif-num-small{
+	width:75px;
+	position:absolute;
+	bottom:0;
+	right:80px;
+}
+.gif-num-small .send-gif-num{
+	    width: 80px;
+    position: absolute;
+    bottom: 32px;
+    z-index:1050;
+}
+.right-live .right-con .gif-num-small .send-gif-num li {
+	    margin: 0;
+    height: 21px;
+    text-align: center;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    line-height: 21px;
+    color: green;
+    cursor: pointer;
+}
+.gif-num-small img{
+	width:23px;
+	height:23px;
+	opacity:0
+}
+#chat-list .sender-gif {
+	float:left;
+}
+#chat-list .sender-gif p {
+	margin-bottom:10px;
+}
+#chat-list li img{
+	width:54px;
+	height:54px;
+}
+.imgNum{
+	float:right;
+}
+.gif-num:hover{
+	    cursor: pointer;
+}
+#chat-list li{
+	  
+}
+
+.clearfix:after{
+
+　　　　　　centent:"";//设置内容为空
+
+　　　　　　height:0;//高度为0
+
+　　　　　　line-height:0;//行高为0
+
+　　　　　　display:block;//将文本转为块级元素
+
+　　　　　　visibility:hidden;//将元素隐藏
+
+　　　　　　clear:both//清除浮动
+
+　　　　　}
+
+　　　　.clearfix{
+
+　　　　　　zoom:1;为了兼容IE
+
+　　　　}
+
+
+
+

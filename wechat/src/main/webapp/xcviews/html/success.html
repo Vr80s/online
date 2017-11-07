@@ -1,0 +1,38 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>提现成功</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+
+</head>
+<body style="background:#efefef;">
+	<div class="attention_top" style="border: none;">
+		<div class="attention_left" id="grabble_img"><div class="return" onclick="history.go(-1)" ></div></div>
+		
+		<div class="dl" style="padding-top1: 0.2rem;">提现成功</div>
+	</div>
+	<div class="both"></div>
+	<!-- 中间内容开始 -->
+	<div class="success">
+		<div class="success_bg"></div>
+		<div class="success_cen">提现申请成功，我们将1-7个工作日内与您取得联系，请保持通信畅通</div>
+		<div class="withdraw_finds_btn" style="margin-top: 1rem;" onclick="location.href='withdraw.html'">继 续</div>
+	</div>
+	<!--中间内容结束 -->
+</body>
+</html>

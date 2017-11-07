@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IEedge"/>
+    <meta charset="UTF-8">
+    <title>熊猫中医云课堂 - 线上中医教育</title>
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <meta name="keywords"
+          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+    <meta name="description"
+          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+    <meta name="renderer" content="webkit">
+    <meta name="baidu-site-verification" content="UHaAQAeAQF"/>
+    <link rel="stylesheet" href="web/css/bootstrap.min.css">
+    <link rel="stylesheet" href="web/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="web/css/mylogin.css"/>
+    <link rel="stylesheet" href="web/css/componet.css"/>
+    <link rel="stylesheet" href="web/css/index.css"/>
+    <link rel="stylesheet" href="web/css/header.css"/>
+    <link rel="stylesheet" href="web/css/footer.css"/>
+    <link rel="stylesheet" href="web/font/iconfont.css"/>
+    <link rel="stylesheet" href="web/css/zykt_menu_style.css"/>
+
+    <script src="web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script type="text/javascript" src="web/js/jquery-1.7.2.min.js"></script> -->
+    <script type="text/javascript" src="web/js/artTemplate.js"></script>
+    <script type="text/javascript" src="web/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script src="web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="web/layer-v2.1/layer/layer.js"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="web/js/helpers.js"></script>
+    <script src="web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+    <script src="web/js/header.js" type="text/javascript" charset="utf-8"></script>
+	<script src="web/js/lazyload/jquery.lazyload.js?v=1.9.1"></script>
+
+	<script type="text/javascript" charset="utf-8">
+	function lazyCkeck(){
+		$("img.lazy").lazyload({
+		  //placeholder : "web/images/load26.gif",
+	  	  effect: "fadeIn",
+	  	  skip_invisible : false,
+	  	  threshold : 180, //预加载，在图片距离屏幕180px时提前载入
+	  	  });
+	}
+	</script>
+    <script src="web/js/zykt.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="web/js/zykt_menu.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 综合排序js -->
+    <!-- <script src="web/js/jquery.tabs.js"></script> -->
+    <!-- <script src="web/js/jquery.lazyload.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+            $("img[original]").lazyload({ placeholder:"images/color3.gif" });
+
+            $('.demo1').Tabs();
+            $('.demo2').Tabs({
+                event:'click'
+            });
+            $('.demo3').Tabs({
+                timeout:300
+            });
+            $('.demo4').Tabs({
+                auto:3000
+            });
+            $('.demo5').Tabs({
+                event:'click',
+                callback:lazyloadForPart
+            });
+            //部分区域图片延迟加载
+            function lazyloadForPart(container) {
+                container.find('img').each(function () {
+                    var original = $(this).attr("original");
+                    if (original) {
+                        $(this).attr('src', original).removeAttr('original');
+                    }
+                });
+            }
+        });
+    </script>
+    <!-- 综合排序css -->
+    <style type="text/css">
+        *{margin:0;padding:0;list-style-type:none;}
+        a,img{border:0;}
+        /*body{background:#e3e3e3;height:100%;font:normal normal 12px/24px "Microsoft yahei", Arial;padding-bottom:30px;}*/
+        a{color:#333;text-decoration:none;}
+        a:hover{color:#093;text-decoration:none;}
+        #title{width:300px;margin:3% auto 0;}
+        #title h2{font-size:18px;}
+        #wrapper{background-color:#fff;border-top:1px solid #eee;border-bottom:1px solid #eee}
+        /*#wrapper{width:980px;margin:0 auto;background:#f8f8f8;border:1px solid #a3a3a3;padding:20px 20px 50px;border-radius:5px;-moz-border-radius:5px;}*/
+        #wrapper h3{color:#333;font-size:14px;text-align:center;margin:20px 0;}
+        /* box */
+        .box{width:1200px;margin:0 auto}
+        .tab_menu li{width:120px;float:left;height:30px;line-height:30px;color:#333;text-align:center;cursor:pointer;}
+        .tab_menu li.current{color:#2cb82c;}
+        .tab_menu li a{color:#fff;text-decoration:none;}
+        .tab_menu li.current a{color:#333;}
+        .tab_box{padding:20px;}
+        .tab_box li{height:24px;line-height:24px;overflow:hidden1;}
+        .tab_box li span{margin:0 5px 0 0;font-size:12px;font-weight:400;color:#ddd;}
+        .tab_box .hide{display:none;}
+        /*#sclect{outline: none;border: none;background: none;color: #333;}*/
+        /*#sclect option{color: red;}*/
+        #tab_menu_price{position: relative;background1: url(price.png) bottom right no-repeat;}
+        #tab_menu_price img{margin-left: 10px;margin-bottom: 3px;}
+        .current_ul{display: none;position: absolute;top: 0px;left: -8px;z-index: 3;width: 123px;height: 60px;background: #fff;border: 1px solid #ccc;border-top: none;border-bottom:1px solid #ccc}
+        .current_ul li{padding-left: 8px;background: #fff;border-bottom:1px solid #ccc}
+        .current_ul li:hover{padding-left: 8px;padding-right: 8px;color: #2cb82c;}
+    </style>
+
+
+    <!--百度统计-->
+    <script>
+    var browser={
+            versions:function(){   
+                   var u = navigator.userAgent, app = navigator.appVersion;   
+                   return {//移动终端浏览器版本信息   
+                        trident: u.indexOf('Trident') > -1, //IE内核  
+                        presto: u.indexOf('Presto') > -1, //opera内核  
+                        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核  
+                        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核  
+                        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端  
+                        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端  
+                        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器  
+                        iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器  
+                        iPad: u.indexOf('iPad') > -1, //是否iPad    
+                        webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部  
+                        weixin: u.indexOf('MicroMessenger') > -1, //是否微信   
+                        qq: u.match(/\sQQ/i) == " qq" //是否QQ  
+                    };  
+                 }(),  
+                 language:(navigator.browserLanguage || navigator.language).toLowerCase()  
+        }   
+          
+          if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
+            browser.versions.iPhone || browser.versions.iPad){
+              if(document.location.host=='www.ixincheng.com'){
+                  wxurl = "http://wx.ixincheng.com";
+              }else{
+                  wxurl = "http://test-wx.ixincheng.com";
+              }
+              window.location = wxurl+"/bxg/page/index/null/null";
+          }
+    </script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?9905b58e5fa2d9e2dd20bd22ee8ffe8c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<ul class="select">
+    <!--<li class="select-list">
+        <dl id="select1">
+            <dt>课程分类：</dt>
+            <dd class="select-all selected"><a href="#">全部</a></dd>
+            <dd sid="menuType=1"><a href="#">中医学习</a></dd>
+            <dd sid="menuType=2"><a href="#" >身心修养</a></dd>
+            <dd sid="menuType=3"><a href="#">经方要略</a></dd>
+        </dl>
+    </li>-->
+    <li class="select-list">
+        <dl id="select2">
+            <dt>课程类别：</dt>
+
+            <span id="couseTypeIds">
+             <dd class="select-all selected"><a href="#">全部</a></dd>
+          <!-- &lt;!&ndash;<dd sid="couseTypeId=1"><a href="#">小白零基础</a></dd>
+            <dd sid="couseTypeId=2"><a href="#">小咖进阶</a></dd>
+            <dd sid="couseTypeId=2"><a href="#">高级突破</a></dd>
+            <dd sid="couseTypeId=3"><a href="#">上手有效</a></dd>
+            <dd sid="couseTypeId=5"><a href="#">健康美丽</a></dd>&ndash;&gt;-->
+            </span>
+        </dl>
+    </li>
+    <li class="select-list">
+        <dl id="select3">
+            <dt>授课类型：</dt>
+            <dd class="select-all selected"><a href="#">全部</a></dd>
+            <dd sid="multimediaType=1"><a href="#">视频</a></dd>
+            <dd sid="multimediaType=2"><a href="#">音频</a></dd>
+        </dl>
+    </li>
+    <li class="select-list">
+        <dl id="select4">
+            <dt>课程价位：</dt>
+            <dd class="select-all selected"><a href="#">全部</a></dd>
+            <dd sid="isFree=1"><a href="#">免费</a></dd>
+            <dd sid="isFree=0"><a href="#">收费</a></dd>
+        </dl>
+    </li>
+    <li class="select-result">
+        <dl>
+            <dt>已选条件：</dt>
+            <dd class="select-no">暂时没有选择过滤条件</dd>
+        </dl>
+    </li>
+</ul>
+<div id="wrapper">
+    <div class="box demo2">
+        <ul class="tab_menu">
+            <li class="t current tab_menu_li1">综合排序</li>
+            <li class="t tab_menu_li2">最新</li>
+            <li class="t tab_menu_li3">人气</li>
+            <li class="t tab_menu_price" id="tab_menu_price" style="widt1h:125px;"><span id="price">价格</span><img src="web/images/price.png" alt="">
+                <!-- <select name="" id="sclect">
+                    <option value=""></option>
+                    <option value="">价格从高到低</option>
+                    <option value=""></option>
+                    <option value=""></option>
+                </select> -->
+                <ul class="current_ul">
+                    <li class="current_ul_li1">价格从低到高</li>
+                    <li class="current_ul_li2">价格从高到低</li>
+                </ul>
+            </li>
+            <div style="clear:both;"></div>
+        </ul>
+        <div style="clear:both;"></div>
+
+    </div>
+</div>
+
+<div class="index_body">
+    <!--课程列表-->
+    <div id="bgColor">
+        <!--公开课直播-->
+        <div id="main" class="clearfix">
+            <!-- <h1>中医学习</h1> -->
+            <!-- <ul id="tabFirst_zyxx" class="tabFirst">
+
+            </ul> -->
+            <!-- <div class="hr"></div> -->
+            <!-- <ul id="tabSecond_zyxx" class="clearfix tabSecond">
+
+            </ul> -->
+            <div id="log_zyxx" style="width: 100%; margin-top: 0.7%">
+                <div id="content_zyxx" class="content clearfix" style="width: 110%;">
+
+                    <img class="loadingImg" src="/web/images/ansandqus/loading.gif" alt=""/>
+                    <p class="loadingWord">加载中</p>
+                </div>
+                
+		<!--加载更多图标注释掉了 -->
+		 <div id="emptyTitle">
+                    <img src="web/images/index2.png" alt=""/>
+                    <span>更多精彩课程正在上新中，敬请期待...</span>
+                </div>
+		
+               
+                <div class="pages" style="display: none;">
+				<div id="Pagination"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+					<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+					<a href="javascript:;" class="page-btn">确定</a>
+				</div>
+			</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--友情链接下的分隔线-->
+<!--<hr class="bottom clearfix" >-->
+<script>
+/* var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?01ed5fe2c24d7e5af589c85aee1abdd0";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})(); */
+/* $(".consult-block").click(function () {
+    window.open('http://p.qiao.baidu.com/cps/chat?siteId=9887625&userId=22296431');
+}); */
+</script>
+
+</body>
+
+</html>
+<script src="web/js/jquery.pagination.js"></script>
+<script type="text/javascript" src="web/js/footer.js"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('input').placeholder();
+    });
+</script>

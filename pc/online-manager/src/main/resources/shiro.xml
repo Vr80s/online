@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro配置</description>
+
+	<bean id="authFinder" class="com.xczhihui.bxg.online.manager.user.service.impl.OnlineAuthFinder"/>
+
+	<bean id="shiroRealmAuthService"
+		class="com.xczhihui.bxg.common.web.auth.service.ShiroRealmAuthService">
+		<property name="authFinder" ref="authFinder" />
+	</bean>
+	
+	<bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml" />
+	</bean>
+	
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="shiroRealmAuthService" />
+		<property name="cacheManager" ref="shiroEhcacheManager" />
+	</bean>
+
+	<bean id="bxgAuthcFilter" class="com.xczhihui.bxg.common.web.filter.BxgAuthcFilter" />
+	<bean id="bxgLogoutFilter" class="com.xczhihui.bxg.common.web.filter.BxgLogoutFilter" />
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login.jsp" />
+		<property name="successUrl" value="/home" />
+		<property name="unauthorizedUrl" value="login.jsp" />
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="bxgAuthcFilter" />
+				<entry key="logout" value-ref="bxgLogoutFilter" />
+			</map>
+		</property>
+		<property name="filterChainDefinitions">
+            <value>
+                /bootstrap/** = anon  
+                /css/** = anon
+                /error/** = anon
+                /images/** = anon
+                /js/** = anon
+                /ueditor/** = anon
+                /uploadify/** = anon  
+                /favicon.ico = anon
+                /attachmentCenter/** = anon
+                /cloudclass/videores/uploadSuccessCallback = anon
+                /logined = anon
+                /logout = logout
+                /test = anon
+                /publiccloudclass/course/changeCallback* = anon
+                /** = authc
+            </value>
+        </property>
+	</bean>
+</beans>

@@ -1,0 +1,893 @@
+@import "base.less";
+@charset "utf-8";
+html,
+body {
+    font-family: "Microsoft Yahei";
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /*height: 100%;*/
+    .cymyprofile {
+        margin-bottom: 12px;
+    }
+    .rrTips {
+        width: 212px;
+        height: 60px;
+        position: fixed;
+        z-index: 9999;
+        top: 45%;
+        left: 50%;
+        margin-left: -106px;
+        margin-top: -31px;
+        line-height: 60px;
+        background: #000;
+        filter:alpha(opacity=50);
+        /*ie*/
+        -moz-opacity: 0.4;
+        -o-opacity: 0.4;
+        -webkit-opacity: 0.4;
+        opacity: 0.4;
+        color: white;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 2px;
+        display: none;
+    }
+    .rrrTips {
+        width: 120px;
+        height: 50px;
+        position: fixed;
+        z-index: 9999;
+        top: 45%;
+        left: 50%;
+        margin-left: -60px;
+        margin-top: -31px;
+        line-height: 50px;
+        background: #000;
+        filter:alpha(opacity=50);
+        /*ie*/
+        -moz-opacity: 0.4;
+        -o-opacity: 0.4;
+        -webkit-opacity: 0.4;
+        opacity: 0.4;
+        color: white;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 2px;
+        display: none;
+    }
+    .my-data-1 {
+        min-height: 530px;
+        font-size: 14px;
+        .cy-myprofile-myfom-dv-1 {
+            margin-top: 18px;
+        }
+        div {
+            //width: 910px;
+            height: auto;
+            margin-bottom: 20px;
+            input[type=password] {
+                margin-right: 15px;
+            }
+            .mypassword-g {
+                margin-left: 15px;
+                color: #2CB82C;
+                font-size: 14px;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+            .buer {
+                line-height: 30px;
+                width: 76px;
+                text-align: right;
+                margin-right: 20px;
+                display: inline-block;
+                margin-bottom: 0;
+                font-size: 14px;
+                color: #666;
+            }
+            * {
+                outline: none;
+            }
+            .username {
+                background-color: #fafafa;
+                color: #666 !important;
+            }
+            .ipt {
+                height: 38px;
+                width: 258px;
+                text-indent: 10px;
+                border: 1px solid #eee;
+                display: inline-block;
+                color: #333;
+                font-size: 14px;
+                /* -webkit-user-select: none;*/
+            }
+            .ipt1 {
+                width: 125px;
+                font-weight: normal;
+            }
+            .cy-myprofile-myfom-dv-span {
+                float: left;
+                margin-right: 20px;
+                margin-top: 5px;
+            }
+            textarea {
+                font-size: 14px;
+                display: inline-block;
+                width: 390px;
+                height: 38px;
+                line-height: 33px;
+                resize: none;
+                text-indent: 5px;
+                color: #333;
+                border: 1px solid #eee;
+            }
+            .mycytextarea:focus {
+                border: 1px solid #2cb82c;
+            }
+            .btn1,
+            .btn2 {
+                font-size: 14px;
+                color: #ffffff;
+                outline: none;
+                border: none;
+                border-radius: 2px;
+            }
+            .btn1 {
+                width: 68px;
+                height: 34px;
+                background-color: #2cb82c;
+                &:hover {
+                    background: #28a528;
+                }
+            }
+            .btn2 {
+                color: #333;
+                width: 58px;
+                height: 28px; //              background-color: #f1662a;
+                border: 1px solid #d5d5d5;
+                margin-left: 15px;
+                margin-top: 4px;
+                background: white;
+                &:hover {
+                    border: 1px solid #28a528;
+                    color: #28a528;
+                }
+            }
+            .mycompany {
+                width: 218px;
+            }
+            .cy-myprofile-myfom-dv-radio {
+                margin-left: 38px;
+                text-indent: 10px;
+                display: none;
+            }
+            .myradio0,
+            #myradio1 {
+                margin-left: 13px;
+            }
+            select {
+                height: 30px;
+                option {
+                    height: 20px;
+                    color: #333;
+                    font-size: 12px;
+                }
+            }
+            .cy-myprofile-myfom-dv-select {
+                width: 77px;
+            }
+            .cy-myprofile-myfom-dv-select-1 {
+                width: 108px;
+            }
+            .cy-myprofile-myfom-dv-select-5 {
+                width: 138px;
+                height: 38px;
+                display: inline-block;
+                line-height: 38px;
+                position: relative;
+                border: 1px solid #eee;
+                .select-xiala {
+                    width: 100%;
+                    line-height: 37px;
+                    background-position: 118px 15px;
+                    position: relative;
+                    font-size: 14px;
+                    color: #666666;
+                }
+                .xiala {
+                    width: 138px;
+                    display: none;
+                    margin-top: 8px;
+                }
+            }
+            .q-1 {
+                margin-top: 8px;
+            }
+            .cy-myprofile-myfom-dv-select-4 {
+                width: 138px;
+                height: 38px;
+                line-height: 38px;
+                display: inline-block;
+                position: relative;
+                border: 1px solid #eee;
+                .select-xiala {
+                    width: 100%;
+                    background-image: url("../images/personcenter/select-dn.png");
+                    background-position: 118px 15px;
+                    position: relative;
+                    font-size: 14px;
+                    color: #666666;
+                    line-height: 37px;
+                }
+                .xiala {
+                    width: 138px;
+                }
+            }
+        }
+        .select-xiala {
+            line-height: 37px;
+            padding-left: 10px;
+            display: block;
+            width: 138px;
+            height: 38px;
+            background: no-repeat;
+            background-image: url("../images/personcenter/select-dn.png");
+            background-position: 118px 15px;
+            font-size: 14px;
+            position: relative;
+            color: #666666;
+        }
+        .xiala {
+            z-index: 2;
+            background: #FFFFFF;
+            position: absolute;
+            left: 0;
+            top: 28px;
+            max-height: 120px;
+            overflow: auto;
+            border: 1px solid #eee;
+            display: none;
+            span {
+                max-width: 138px;
+                padding-left: 10px;
+                cursor: pointer;
+                display: block;
+                background: white;
+                height: 30px;
+                line-height: 30px;
+                color: #333;
+                font-size: 14px;
+                &:hover {
+                    color: white;
+                    background: #2cb82c;
+                }
+            }
+        }
+        .yearxl {
+            left: 0;
+        }
+        .monthxl {
+            left: 158px;
+        }
+        .dayxl {
+            left: 316px;
+        }
+        .address {
+            .address-right {
+                position: absolute;
+                height: 30px;
+                width: 600px;
+                display: inline-block;
+                left: 377px;
+                div {
+                    display: inline;
+                    margin-top: 6px;
+                }
+            }
+            .yearxl {
+                left: 0;
+                top: 28px;
+            }
+            .monthxl {
+                left: 147px;
+                top: 31px;
+            }
+            .dayxl {
+                left: 296px;
+                top: 31px;
+            }
+            .select-xiala {
+                float: left;
+                width: 138px;
+                height: 38px;
+                line-height: 38px;
+                font-size: 14px;
+                color: #666;
+                border: 1px solid #eee;
+                margin-right: 10px;
+                background-image: url("../images/personcenter/select-dn.png");
+                position: relative;
+                background-position: 118px 15px;
+                padding-right: 20px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                span {
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    display: block;
+                    width: 80px;
+                }
+            }
+            .xiala {
+                width: 138px;
+                z-index: 2;
+                background: #FFFFFF;
+                position: absolute;
+                max-height: 130px;
+                border: 1px solid #eee;
+                overflow-x: hidden;
+                overflow-y: auto;
+                display: none;
+                span {
+                    max-width: 138px;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    cursor: pointer;
+                    display: block;
+                    height: 30px;
+                    line-height: 30px;
+                    color: #333;
+                    font-size: 14px;
+                    &:hover {
+                        color: white;
+                        background: #2cb82c;
+                    }
+                }
+            }
+        }
+        #birthday_container {
+            height: 30px;
+            position: relative;
+            .birth-right {
+                position: absolute;
+                height: 30px;
+                width: 600px;
+                display: inline-block;
+                div {
+                    display: inline;
+                }
+            }
+            .select-xiala {
+                float: left;
+                width: 138px;
+                height: 38px;
+                font-size: 14px;
+                color: #666;
+                border: 1px solid #eee;
+                margin-right: 20px;
+                background-image: url("../images/personcenter/select-dn.png");
+                background-position: 118px 15px;
+                position: relative;
+            }
+            .xiala {
+                width: 138px;
+                z-index: 2;
+                background: #FFFFFF;
+                position: absolute;
+                top: 37px;
+                height: 100px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                border: 1px solid #eee;
+                display: none;
+                span {
+                    max-width: 138px;
+                    padding-left: 10px;
+                    cursor: pointer;
+                    display: block;
+                    height: 30px;
+                    line-height: 30px;
+                    color: #333;
+                    font-size: 14px;
+                    &:hover {
+                        color: white;
+                        background: #2cb82c;
+                    }
+                }
+            }
+        }
+        .cy-myprofile-myfom-dv-radio-zu2 {
+            margin-top: -8px;
+            margin-bottom: 3px;
+            height: 30px;
+            position: relative;
+            label {
+                cursor: pointer;
+            }
+            .radio-cover {
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border-radius: 8px;
+                border: 1px solid #e5e5e5;
+                vertical-align: middle;
+                display: block;
+                top: 8px;
+            }
+            .active {
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                -webkit-transform: translate(34%, 40%);
+                -moz-transform: translate(34%, 40%);
+                -ms-transform: translate(34%, 40%);
+                -o-transform: translate(34%, 40%);
+                transform: translate(34%, 40%);
+                background-color: #2cb82c;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+            span {
+                display: inline-block;
+                margin-left: 20px;
+                font-weight: normal;
+                /*margin-top: 10px;*/
+                margin-right: 10px;
+            }
+        }
+        .cy-myprofile-myfom-dv-radio-zu {
+            /* margin-top: 10px;*/
+            margin-bottom: 10px;
+            position: relative;
+            label {
+                cursor: pointer;
+            }
+            label {}
+            .radio-cover {
+                position: absolute;
+                width: 12px;
+                height: 12px;
+                border-radius: 8px;
+                border: 1px solid #e5e5e5;
+                vertical-align: middle;
+                display: block;
+                top: 8px;
+            }
+            .active {
+                position: absolute;
+                width: 6px;
+                height: 6px;
+                -webkit-transform: translate(34%, 40%);
+                -moz-transform: translate(34%, 40%);
+                -ms-transform: translate(34%, 40%);
+                -o-transform: translate(34%, 40%);
+                transform: translate(34%, 40%);
+                background-color: #2cb82c;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+            span {
+                font-weight: normal;
+                display: block;
+                /*margin-top: 10px;*/
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+        .menpaihao {
+            height: 74px;
+            overflow: hidden;
+            width: 377px;
+            line-height: 27px;
+            margin-top: -2px;
+            padding: 10px;
+        }
+    }
+    .view-stack {
+        display: none;
+        .buttonbar {
+            /* padding: 0 0 15px;*/
+            height: 33px;
+            .btn3 {
+                padding: 15px 0;
+                display: inline-block;
+                font-size: 14px;
+                cursor: pointer;
+            }
+        }
+        &.full-content {
+            padding: 0;
+        }
+        .search-item {
+            .pic-content {
+                width: 70px;
+                display: inline-block;
+                vertical-align: top;
+                .pic {
+                    width: 50px;
+                    height: 50px;
+                }
+                .name {
+                    color: #888888;
+                    text-align: center;
+                    line-height: 22px;
+                    font-size: 12px;
+                    margin-top: 5px;
+                    padding: 0;
+                }
+            };
+            .content {
+                width: 850px;
+            }
+        }
+        &.view-stack-idea {
+            .control-label {
+                font-size: 0.85rem;
+                font-weight: 500;
+            }
+            .icon-inser-pic {
+                background-image: url("../images/personcenter/innerimg.gif");
+                width: 17px;
+                height: 17px;
+                display: inline-block;
+                position: relative;
+                top: 4px;
+                margin-left: 3px;
+            }
+            .submit-msg {
+                padding: 6px 43px;
+            }
+        }
+        &.view-stack-idea-suc {
+            .block-center {
+                margin: 0 auto;
+                text-align: center;
+                font-size: 1rem;
+                color: #cccccc;
+                &.pic {
+                    background-image: url("../images/personcenter/commits.gif");
+                    width: 72px;
+                    height: 48px;
+                    margin-top: 100px;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                }
+            }
+            .btn-returnindex {
+                display: block;
+                margin: 0 auto;
+                width: 120px;
+                margin-top: 50px;
+                color: #ffffff;
+            }
+        }
+    }
+}
+.kc {
+    display: none;
+}
+.geren,
+.kecheng {
+    display: block;
+    width: 100%;
+    height: 100%;
+    .warn {
+        font-size: 12px;
+        color: #999;
+        line-height: 24px;
+        margin-top: 15px;
+    }
+    .red {
+        color: red;
+        margin-top: 3px;
+        margin-right: 5px;
+        font-style: normal;
+    }
+    .cardMark {
+        display: none;
+        font-size: 14px;
+        color: #2CB82C;
+        padding-left: 10px;
+        img {
+            padding-right: 6px;
+        }
+    }
+}
+.zhanghu {
+    display:none;
+    .yanzheng {
+        display: block;
+        margin-top: 18px;
+        .title {
+            display: block;
+            padding: 0 20px;
+            background: rgb(250,250,250);
+            height: 52px;
+            width: 100%;
+            line-height: 52px;
+            span {
+                float: left;
+                font-weight: bold;
+            }
+            .close {
+                font-size: 12px;
+                float: right;
+                cursor: pointer;
+                margin-top: 20px;
+            }
+        }
+        .idenContent {
+            .tip {
+                font-size: 14px;
+                color: #999;
+            }
+            .name {
+                margin-top: 30px;
+            }
+            .shenfen {
+                margin-top: 20px;
+            }
+            .fL {
+                text-align: right;
+                float: left;
+                line-height: 36px;
+                font-size: 14px;
+                color: #666;
+                i {
+                    color: red;
+                    font-style: normal;
+                    display: inline-block;
+                }
+                span {
+                    margin-left: 4px;
+                    display: inline-block;
+                }
+            }
+            .fR {
+                float: left;
+                margin-left: 20px;
+                input {
+                    font-size: 14px;
+                    padding-left: 20px;
+                    height: 36px;
+                    width: 260px;
+                    border: 1px solid #ddd;
+                    outline: none;
+                }
+                .warning {
+                    display: none;
+                    font-size: 14px;
+                    color: #FF4012;
+                    line-height: 30px; //                  padding-left: 20px;
+                    background: url("../images/icons/tanhao.png") no-repeat left center;
+                    margin-left: 10px;
+                }
+            }
+        }
+        .startIden {
+            display: block;
+            clear: both;
+            margin-left: 100px;
+            border-radius: 2px;
+            text-align: center;
+            line-height: 40px;
+            width: 90px;
+            color: #fff;
+            background: #2CB82C;
+            font-size: 14px;
+            cursor: pointer;
+            &:hover {
+                background: #28A528;
+            }
+        }
+    }
+    .yiyanzheng{
+        margin-top: 30px;
+        padding: 0 14px;
+        display: none;
+        .symbol{
+            background: url(../images/personcenter/yzlxy.png) no-repeat left center;
+            font-size: 20px;
+            color: #2CB82C;
+            padding-left: 37px;
+        }
+        .findMess{
+            margin-left: 37px;
+            p{
+                line-height: 30px;
+                font-size: 14px;
+            }
+        }
+        .tt{
+            margin-top: 110px;
+            font-size: 14px;
+            color: #ccc;
+            text-align: center;
+        }
+    }
+}
+.geren {
+    display: block;
+}
+.kecheng {
+    display: none;
+    .rq-college {
+        width: 138px;
+        height: 34px;
+        display: inline-block;
+        position: relative;
+    }
+    .bue {
+        overflow: hidden;
+        line-height: 30px;
+        width: 76px;
+        text-align: right;
+        margin-right: 20px;
+        display: inline-block;
+        margin-bottom: 0;
+        font-size: 14px;
+        color: #666;
+    }
+    .cy-myprofile-myfom-dv-radio-zu {
+        /* margin-top: 10px;*/
+        margin-bottom: 10px;
+        position: relative;
+        .radio-cover {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+            vertical-align: middle;
+            display: block;
+            top: 8px;
+        }
+        .active {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            -webkit-transform: translate(34%, 40%);
+            -moz-transform: translate(34%, 40%);
+            -ms-transform: translate(34%, 40%);
+            -o-transform: translate(34%, 40%);
+            transform: translate(34%, 40%);
+            background-color: #2cb82c;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+        }
+        span {
+            font-weight: normal;
+            display: block;
+            /*margin-top: 10px;*/
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
+    .address-right {
+        position: absolute;
+        height: 30px;
+        width: 600px;
+        display: inline-block;
+        div {
+            display: inline;
+            margin-top: 9px;
+        }
+    }
+    .yearxl {
+        left: 0;
+        top: 28px;
+    }
+    .monthxl {
+        left: 158px;
+        top: 28px;
+    }
+    .dayxl {
+        left: 315px;
+        top: 28px;
+    }
+    p {
+        margin: 0;
+    }
+    .select-xiala {
+        float: left;
+        width: 138px;
+        height: 38px;
+        font-size: 14px;
+        color: #666;
+        border: 1px solid #eee;
+        margin-right: 20px;
+        background-image: url("../images/personcenter/select-dn.png");
+        position: relative;
+        background-position: 118px 15px;
+        padding-right: 20px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        span {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: block;
+        }
+    }
+    .xiala {
+        width: 138px;
+        z-index: 2;
+        background: #FFFFFF;
+        position: absolute;
+        max-height: 130px;
+        overflow: auto;
+        border: 1px solid #eee;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: none;
+        span {
+            max-width: 138px;
+            padding-left: 10px;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            cursor: pointer;
+            display: block;
+            height: 30px;
+            line-height: 30px;
+            color: #333;
+            font-size: 14px;
+            &:hover {
+                color: white;
+                background: #2cb82c;
+            }
+        }
+    }
+}
+.select-xiala {
+    img {
+        position: absolute;
+        right: 6px;
+        top: 5px;
+    }
+}
+.warning {
+    display: none;
+    font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url("../images/icons/tanhao.png") no-repeat left center;
+    margin-left: 10px;
+}
+#personMess .ideaSure {
+    margin-left: 60px;
+}
+.my-data-1 .q-1 {
+    left: -1px !important;
+}
+.my-data-1 {
+    #rq_college {
+        width: 160px;
+        background-position: 140px 15px;
+    }
+    #rqdxxl {
+        width: 160px;
+        max-height: 170px;
+        span {
+            max-width: 160px;
+        }
+    }
+}

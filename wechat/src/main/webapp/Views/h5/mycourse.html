@@ -1,0 +1,176 @@
+<%@page pageEncoding="UTF-8"%> 
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>云课堂-熊猫中医</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="/Views/h5/css/mui.min.css">
+		<link rel="stylesheet" href="/Views/h5/css/common.css">
+		<link rel="stylesheet" href="/Views/h5/css/wait-money.css">
+		<style>
+			#course-list p{
+				margin-bottom: 2px;
+			}
+			.list{
+				padding: 0px 15px;
+			}
+			.mui-scroll-wrapper{
+				top: 10px;
+			}
+			.mui-table-view-cell:after{
+				height: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="mui-table-view">
+				<!-- <div class="" style="height: 30px; margin-top: -15px;background: #00D480;line-height: 8px;font-size: 12px;
+					text-align: center;vertical-align: middle;color:#FFFFFF;position: relative;overflow: hidden;padding: 11px 15px;">
+					已购买的课程请前往熊猫中医在线电脑端学习
+				</div> -->
+			</div>
+
+				<div class="nav-content" id="wm-content">
+					
+				<div class="mui-slider-group">
+				<div id="pullrefresh" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="wm-block" id="coursereson" style="padding: 15px 0px">
+							
+
+						</div>
+					</div>
+				</div>
+			</div>
+	            
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<script type="text/javascript">
+	  var useid = localStorage.useid ;
+		(function($, doc) {
+		//	var orderNo = getUrlParam("orderNo");
+		mui.init();
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+		  var parms = {
+		  	 user_id: useid,
+		  	 start_num:0,
+		  	 end_num:10
+		  }
+			courseList(parms,1)
+
+		}(mui, document));
+		function courseList(parms,obj){
+			var coursereson = document.getElementById("coursereson");
+			requestService("/bxg/course/user/mycourse ",parms, function(data) {
+				if(data.success) {
+					var dataresult = data.resultObject;
+					var resultlength = dataresult.length;
+					if(resultlength>0){
+						for(var i=0;i<resultlength;i++){
+						var odiv = document.createElement("div");
+						odiv.setAttribute("courseId",dataresult[i].course_id);
+						odiv.className="img-des clear-after list mui-table-view-cell lookv";
+						odiv.innerHTML ='<img src="'+dataresult[i].smallimg_path+'" alt="" class="wm-img f-l">'+
+	                    '<div class="clear-after id-right" id="course-list">'+
+	                     '   <p class="img-p">'+dataresult[i].course_name+'</p>'+
+	                      '  <p class="img-p fontsize12 fontcolor_gray_qian">'+dataresult[i].teacher_name+'</p>'+
+	                     '   <p class="img-p fontsize12 fontcolor_gray_qian">有效期至：'+dataresult[i].course_expiry_date+'</p>'+
+	                   ' </div>'+
+	               
+	                 ' <hr class="set-line">';
+	                 coursereson.appendChild(odiv);
+	                 mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+					}
+					}else{
+						var odiv = document.createElement("div")
+						odiv.className="img-des clear-after list";
+						var cells = document.body.querySelectorAll('.mui-table-view-cell');
+						var num = cells.length;
+						//alert(num);
+						if(obj == "1"){
+							if(num == "0") {
+								odiv.innerHTML = "暂无课程";
+								coursereson.appendChild(odiv);
+							} else {
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						    }
+					   }else {
+							if(num == "0") {
+								//odiv.innerHTML = "暂无课程";
+								//coursereson.appendChild(odiv);
+							} else {
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+							}
+
+						}
+					}
+					
+					mui("#pullrefresh").on("tap",".lookv",function(){
+						/* sessionStorage.setItem("courseId",this.getAttribute("courseId")); */
+						window.location.href = "/bxg/page/look_course/"+this.getAttribute("courseId");
+					});
+				}
+
+			})
+
+		}
+		
+			function pulldownRefresh() {
+				setTimeout(function() {
+					var cells = document.body.querySelectorAll('.list');
+					var num = cells.length;
+					console.log(cells.length);
+					
+					var pramgoods = {
+						user_id: useid,
+					  	 start_num:num,
+					  	 end_num:1
+					}
+					courseList(pramgoods)
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed
+				}, 1500);
+			}
+			var count = 0;
+			/**
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				setTimeout(function() {
+				var cells = document.body.querySelectorAll('.list');
+					var num = cells.length;
+					console.log(cells.length);
+					
+					var pramgoods = {
+						user_id: useid,
+					  	 start_num:num,
+					  	 end_num:1
+					}
+					courseList(pramgoods)
+
+				}, 1500);
+			}
+			
+	</script>
+
+</html>

@@ -1,0 +1,344 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>我的订单</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+	<link rel="stylesheet" href="/xcviews/css/mui.min.css">
+<link rel="stylesheet" href="../css/css.css">
+<link rel="stylesheet" href="/xcviews/js/js/style.css">
+
+
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<!-- 选项卡 -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#indent_p0").click(function(){
+	  		$(this).addClass('indent_p2');
+ 	  		$("#indent_p2").removeClass('indent_p2');
+	  		$("#indent_p1").removeClass('indent_p2');
+	  		$("#indent_p3").removeClass('indent_p2'); 
+	  		initOrderList("-1",true);
+  		});
+	  	$("#indent_p1").click(function(){
+	  		$(this).addClass('indent_p2');
+	  		$("#indent_p2").removeClass('indent_p2');
+	  		$("#indent_p0").removeClass('indent_p2');
+	  		$("#indent_p3").removeClass('indent_p2');
+	  		initOrderList("0",true);
+  		});
+  		$("#indent_p2").click(function(){
+	  		$(this).addClass('indent_p2');
+	  		$("#indent_p0").removeClass('indent_p2');
+	  		$("#indent_p1").removeClass('indent_p2');
+	  		$("#indent_p3").removeClass('indent_p2');
+	  		initOrderList("1",true);
+  		});
+  		$("#indent_p3").click(function(){
+  			$(this).addClass('indent_p2');
+	  		$("#indent_p0").removeClass('indent_p2');
+	  		$("#indent_p1").removeClass('indent_p2');
+	  		$("#indent_p2").removeClass('indent_p2');
+
+	  		initOrderList("2",true);
+  		});
+  		$("#indent_p0").click  		/* 弹框啦 */
+  		
+  		$(".history_img_right").click(function(){
+  			$(".history_bg").show();
+  		});
+  		$(".history_bg_bto1").click(function(){
+  			$(".history_bg").hide();
+  		});
+  		$(".history_bg_bto2").click(function(){
+  			$(".history_bg").hide();
+  		});
+  		$("#indent_p0").click();
+  		
+	});
+	
+	
+	
+</script>
+<style>
+	.indent_main_cen_a{
+		padding: 0;
+		margin-top: 0;	
+	}
+	.indent_main_top_left{
+		float: left;
+		width: 61%;
+	}
+	.indent_main_bot{
+		height: 1.65rem;
+		line-height: 1.65rem;
+}
+	.indent_main_bot_a{
+		font-size: 0.55rem;
+	    color: #fff;
+	    background: #00bc12;
+	    border-radius: 6px;
+	    margin-right: 0.4rem;
+	    text-align: right;
+	    display: inline-block;
+	    text-align: center;
+	    float: right;
+	    line-height: 1.2rem;
+	    margin-top: 0.32rem;
+	    width: 3.4rem;
+	    height: 1.05rem;
+	    font-family: "微软雅黑";
+	}
+	.indent_main_cen_a{
+		font-size: 0.55rem;
+	    color: #fff;
+	    background: #00bc12;
+	    border-radius: 6px;
+	    margin-right: 0.4rem;
+	    text-align: right;
+	    display: inline-block;
+	    text-align: center;
+	    float: right;
+	    line-height: 1.05rem;
+	    margin-top: 0.32rem;
+	    width: 3.4rem;
+	    height: 1.05rem;
+	    font-family: "微软雅黑";
+	}
+	.indent_main_left_p1{
+		font-family: "微软雅黑";
+		margin-top: 0.1rem;
+		margin-bottom: 0.1rem;
+	}
+	.indent_main_left_p2{
+		font-family: "微软雅黑";
+		float: left;
+	}
+	.indent_main_left_p3{
+		font-family: "微软雅黑";
+		float: right;
+		font-size: 0.6rem;
+    	color: #666;
+	}
+	.indent_main_left_p3 span{
+		color: #00bc12;
+	}
+	.indent_main_one{
+		height: 0.8rem;
+    	margin-bottom: 0.1rem;
+	}
+	.indent_main_two{
+		font-family: "微软雅黑";
+		font-size: 0.6rem;
+    	color: #666;
+	}
+	.indent_main_left_p02{
+		float: left;
+		color: #00bc12;
+	}
+	.indent_main_left_p03{
+		float: right;
+	}
+	.indent_p1{
+		color: #666;
+	}
+	.indent_p2{
+		color: #00bc12;
+		border-bottom: 1px solid #00bc12;
+		height: 1.5rem;
+	}
+	.frequency_div ul li{
+		margin-left: 1.55rem;
+	}
+	
+	  /* mui-scroll可能影响刷新效果 */
+ 	/* .mui-scroll{
+		height: 100%;
+	}  */
+	.indent_main{
+		height: 100%;
+	}
+	#content{
+		width: 4.675rem;
+		margin: 0 auto;
+	}
+ 	.order_falg{
+		font-size: 0.55rem;
+	    color: #fff;
+	    background: #00bc12;
+	    border-radius: 6px;
+	    margin-right: 0.4rem;
+	    text-align: right;
+	    display: inline-block;
+	    text-align: center;
+	    float: right;
+	    line-height: 1.2rem;
+	    margin-top: 0.32rem;
+	    width: 2.4rem;
+	    height: 1.05rem;
+	    font-family: "微软雅黑";
+    } 
+    .frequency_div ul{
+    	width: 100%;
+    	border: 0;
+    }
+    
+    
+    /*测试滑动*/
+   .swipe{
+   	max-height: 21.5rem !important;
+    overflow: auto !important;
+    background: aliceblue;
+   }
+   .li_list{
+   	font-size: 14px;
+   }
+</style>
+</head>
+
+<body style="background:#efefef;">
+
+
+	<div class="history_bg" style="display:none;">
+		<div class="history_bg_color"></div>
+		<div class="history_bg_cen">
+			<div class="history_bg_cen_size">确定要清空观看记录吗？</div>
+			<div class="history_bg_bto">
+				<div class="history_bg_bto1" onclick="deleteOrcancel(this)">确定</div>
+				<div class="history_bg_bto2">取消</div>
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+		
+
+	<!-- 我的订单开始 -->
+	<div class="attention">
+		<div class="attention_top">
+			<div class="return" style="margin-top: 0.43rem;" onclick="history.go(-1)"></div>
+			<div class="dl">我的订单</div>
+		</div>
+		<div class="both"></div>
+		<div class="indent" style="margin-top: 1.92rem;">
+			<div class="frequency_div" id="frequency_div">
+				<ul>
+					<li>
+						<p class="indent_p1" name="-1"  id="indent_p0">全部</p>
+					</li>
+					<li>
+						<p class="indent_p1" name="0" id="indent_p1">未支付</p>
+					</li>
+					<li>
+						<p class="indent_p1" name="1" id="indent_p2">已支付</p>
+					</li>
+					<li>
+						<p class="indent_p1" name="2" id="indent_p3">已失效</p>
+					</li>
+				</ul>
+			</div>
+			<!-- <div class="non_payment01"> -->
+				<div id="refreshContainer" style="margin-top:2rem;z-index:-1" class="mui-content mui-scroll-wrapper">
+				  	<div class="mui-scroll"  style="margin-top:2rem;padding-bottom: 2rem;;">	
+						<div  id="indent_main" >
+						</div>
+						<div class="annotation">注：订单支付有效期为24小时，24小时候自动取消！</div>
+					 </div>
+				</div>		
+		</div>
+	</div>
+	<!-- 我的订单结束 -->
+	
+	
+	<!--测试滑动-->
+	<!--<div id="main">
+		
+		
+		<div class="box-163css">
+			<ul id="pagenavi" class="page">
+		        <li><a href="javascript: ;" class="active">测试1</a></li>
+		      	<li><a href="javascript: ;">测试2</a></li>
+		        <li><a href="javascript: ;">测试3</a></li>
+		        <li><a href="javascript: ;">测试4</a></li>
+		    </ul>
+		    <div id="slider" class="swipe">
+		      	<ul class="box01_list">
+			        <li class="li_list">
+						<div class="">测试内容测111111容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测
+							试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</div>
+					</li>
+			        <li class="li_list">
+						<div class="">测试内容测试内222222测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</div>
+					</li>
+					<li class="li_list">
+						<div class="">测试3333333试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</div>
+					</li>
+					<li class="li_list">
+						<div class="">测试内容测444444容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容</div>
+					</li>
+		      	</ul>
+			  
+		    </div>
+		</div>
+	</div>-->
+	
+	
+</body>
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcviews/js/indents.js"></script>
+
+
+
+<!--测试左右滑动-->
+<script type="text/javascript" src="/xcviews/js/js/touchslider.js"></script>
+<script type="text/javascript" src="/xcviews/js/js/zepto_min.js"></script>
+
+<script type="text/javascript">
+	var page='pagenavi';
+	var mslide='slider';
+	var mtitle='emtitle';
+	arrdiv = 'arrdiv';
+
+	var as=document.getElementById(page).getElementsByTagName('a');
+
+	var tt=new TouchSlider({id:mslide,'auto':'-1',fx:'ease-out',direction:'left',speed:600,timeout:5000,'before':function(index){
+		var as=document.getElementById(this.page).getElementsByTagName('a');
+		as[this.p].className='';
+		as[index].className='active';
+		this.p=index;
+		var txt=as[index].innerText;
+		$("#"+this.page).parent().find('.emtitle').text(txt);
+		var txturl=as[index].getAttribute('href');		
+		var turl=txturl.split('#');
+		$("#"+this.page).parent().find('.go_btn').attr('href',turl[1]);
+	}});
+
+	tt.page = page;
+	tt.p = 0;
+	//console.dir(tt); console.dir(tt.__proto__);
+	for(var i=0;i<as.length;i++){
+		(function(){
+			var j=i;
+			as[j].tt = tt;
+			as[j].onclick=function(){
+				this.tt.slide(j);
+				return false;
+			}
+		})();
+	}
+</script>
+</html>

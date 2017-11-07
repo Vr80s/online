@@ -1,0 +1,63 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>找回密码</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+
+<script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
+
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/common/js.js"></script>
+<link rel="stylesheet" href="/xcviews/css/css.css">
+
+</head>
+<body>
+	<div class="find">
+		<div class="last_top find_top">
+			<div class="return" id="return" style="margin-top: 0.1rem;"></div>
+			<div class="dl" style="line-height:1.2rem;">找回密码</div>
+		</div>
+		<div class="last_input" style="margin-top:1.95rem;">
+			<div class="phone phone_bottom1">
+				请输入手机号&nbsp;&nbsp;<input type="tel" value=""  placeholder="请输入手机号码"  name="number" id="number" style="width:70%;" />
+			</div>
+			<div class="phone phone_bottom2">
+				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="输入验证码" name="yanzhengma" id='yanzhengma' style="width:49%;" />
+				<a href="javascript: ;" class="phone_password gain" id="btn" /><span class="phone_span" style="bottom:-1.2rem;">获取验证码</span></a>
+			</div>
+			<div class="phone phone_bottom1">
+				设置6位以上密码&nbsp;&nbsp;<input  value="" placeholder="6-18位密码"  id='userpassword' type="password" style="width:61%;" />
+			</div>
+			<div class="tishi" id="reminderror" style="text-align: center;color: red;margin-top: 20px;font-size: 14px;"></div>
+			<button class="last_bu1" id="reg">提 交</button>
+			<button class="last_bu2"><a href="/bxg/page/login/1" name="return">返回登录</a></button>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcviews/js/find.js"></script>
+
+<script type="text/javascript">
+	/* $(document).ready(function(){
+		$('#btn').click(function(){
+			$('#yanzhengma').focus();
+		});
+	}); */
+</script>
+</html>
+
+

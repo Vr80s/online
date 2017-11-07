@@ -1,0 +1,238 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>线下培训班</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+</head>
+<style>
+	.train_list_bto1_img{
+		margin-top: 0.18rem;
+	}
+	.train_list_left_img{
+		padding-top: 0;
+    	width: 6.25rem;
+    	height: 3.75rem;
+	}
+	.train_list_left_img img{
+		width: 6.25rem;
+	    height: 3.75rem;
+	    border-radius: 6px;
+	}
+	.train_list_bto1_size{
+		width: 8.7rem;
+		margin-top: 0.25rem;
+	}
+	.train_list_left{
+		width: 6.25rem;
+	    height: 3.75rem;
+		float: left;
+    	border-radius: 0 0 6px 6px;
+	}
+	.train{
+		padding-top: 0.6rem;
+    	background: #fff;
+	}
+	.div_bg{
+		position: absolute;
+	    bottom: 0px;
+	    background: url(/xcviews/images/bg.png);
+	    width: 100%;
+	    text-align: center;
+	    border-radius: 0 0 6px 6px;
+	    height: 0.95rem;
+    	line-height: 0.95rem;
+	}
+	.train_list_bto03{
+		margin: 0 auto;
+	    text-align: center;
+	    width: 100%;
+	    color: #fff;
+	}
+	.train_list_left0{
+		width: 8.35rem;
+	    height: 3.75rem;
+	    float: right;
+	    margin-right: 0.35rem;
+	}
+	.train_list_bto1{
+		margin-top: 0.1rem;
+	}
+	.train_lecturer1{
+		float: left;
+    	margin-top: 0.2rem;
+    	width: 3.5rem;
+	}
+	.train_list_bto1_area{
+		max-width: 4rem;
+		color: #999;
+	}
+	
+	.train_list_bto01{
+		float: left;
+	    width: 4rem;
+	    font-size: 0.5rem;
+	    margin-top: 0.35rem;
+	    color: #00bc12;
+	}
+	.train_list_bto02{
+	    float: right;
+	    width: 3.8rem;
+	    text-align: right;
+	    margin-top: 0.35rem;
+	}
+	.train_list_one{
+		width: 97.3%;
+		margin-left: 0.4rem;
+		height: 4.4rem;
+    	border-bottom: 1px solid #dddce0;
+    	margin-bottom: 0.6rem;
+	}
+	.train_list{
+		height: 5.1rem;
+	}
+</style>
+<body style="background:#efefef;">
+
+	<!-- 线下培训班开始 -->
+	<div class="attention">
+		<div class="attention_top">
+			<div class="return"   onclick="history.go(-1)"></div>
+			<div class="dl" style="padding-top:0.1rem;">线下培训班</div>
+		</div>
+		<div class="both"></div>
+		<div class="train" id="contentList">
+
+
+			<div class="train_list">
+				<div class="train_list_one">
+					<div class="train_list_left">
+					<div class="train_list_left_img"><img src="../images/list_img.png" alt="" />
+						
+					</div>
+					<div class="train_lecturer">00讲师</div>
+				</div>
+				<div class="train_list_right">
+					<div class="train_list_right_img">
+						<img src="../images/120.jpg" alt="">
+					</div>
+					<div class="train_lecturer1">000朱小宝 老师</div>
+				</div>
+				<div class="both"></div>
+				<div class="train_list_bto1">
+					<div class="train_list_bto1_size">0000中医外治第六期&nbsp;中医外治包测试</div>
+					<div class="train_list_bto1_maip">
+						<div class="train_list_bto1_img"><img src="../images/maip.png" alt=""></div>
+						<div class="train_list_bto1_area">0000广asdfas州0000</div>
+					</div>
+				</div>
+				<div class="both" style="clear:both"></div>
+				<div class="train_list_bto2">
+					<div class="train_list_bto01">000￥1998.00/人</div>
+					<div class="train_list_bto02">00036人已购买</div>
+					<div class="train_list_bto03">002017.09.26-09.27000</div>
+				</div>
+
+				</div>
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 线下培训班结束 -->
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script>
+/*    function formatDateTime(inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        return y + '-' + m + '-' + d/!*+' '+h+':'+minute+':'+second*!/;
+    };
+    function formatDateTime2(inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        return  m + '-' + d/!*+' '+h+':'+minute+':'+second*!/;
+    };*/
+
+   function opitem(id){
+        location.href='training.html?id='+id;
+   }
+    
+    requestService( "/bxg/bunch/offLineClassList", {pageNumber:1,pageSize:500}, function(data) {
+    	if (data.success) {
+            var result = data.resultObject;
+            var html="";
+            for(var i=0;i<result.length;i++){
+
+                html+="<div class='train_list' onclick=opitem("+result[i].id+")>\n" +
+                    "<div class='train_list_one'>\n" +
+                    "<div class='train_list_left'>\n" +
+                    "<div class='train_list_left_img'><img src='"+result[i].smallImgPath+"' alt='' />\n" +
+                    "\n" +
+                    "<div class='div_bg'>\n" +
+                    "<div class='train_list_bto03'>"+result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].substr(5,10).replace(/-/g, ".")+"</div>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                   "<div class='train_list_left0'>\n" +
+                    "<div class='train_list_bto1_size'>"+result[i].gradeName+"</div>\n" +
+                    "<div class='both'></div>\n" +
+                    "<div class='train_list_bto1'>\n" +
+                    
+                    "<div class='train_lecturer1'>"+result[i].name+"</div>\n" +
+                    "<div class='train_list_bto1_maip'>\n" +
+                    "<div class='train_list_bto1_img'><img src='../images/maip.png' alt=''></div>\n" +
+                    
+					//只显示市
+                    "<div class='train_list_bto1_area'>"+result[i].address+"</div>\n" +
+                    "</div>\n" +
+					"<div class='both'></div>\n" +
+                    "<div class='train_list_bto01'>"+result[i].currentPrice+"元/人</div>\n" +
+                    "<div class='train_list_bto02'>"+result[i].learndCount+"人已购买</div>\n" +
+                    "</div>\n" +
+                    "</div>\n" +
+                    "<div class='both'></div>\n" +
+                    "<div class='both'></div>\n" +
+                    "</div>\n" +
+                    "</div>";
+			}
+			$("#contentList").html(html);
+        }
+	},false) 
+</script>
+</html>

@@ -1,0 +1,261 @@
+<%@page pageEncoding="UTF-8"%> 
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>个人中心-熊猫中医</title>
+		<link href="/Views/h5/css/mui.min.css" rel="stylesheet" />
+		<link href="/Views/h5/css/style.css" rel="stylesheet" />
+			<link rel="stylesheet" href="/Views/h5/css/mui.min.css">
+		<link rel="stylesheet" href="/Views/h5/css/common.css">
+		<link rel="stylesheet" type="text/css" href="/Views/h5/css/own.css" />
+		<link rel="stylesheet" type="text/css" href="/Views/h5/css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="/Views/h5/font/iconfont.css" />
+		<style>
+			.header{
+				width: 100%;
+				height: 110px;
+				margin-top: -17px;
+				background: #3a4551;
+			}
+			dl{
+				position: relative;
+			}
+			dt{
+				width: 82px;
+				height: 82px;
+				background: #60686a;				
+				border-radius: 50%;				
+				display: block;
+				line-height: 78px;
+				position: absolute;
+				top: 16px;
+				left: 21px;				
+			}
+			dt img{				
+				width: 78px;
+				height: 78px;
+				margin-left: 2px;
+				margin-top: 2px;
+			}
+			dd a{
+				position: absolute;
+				top: 50px;
+				left: 120px;
+				font-size: 18px;
+				color: white;
+			}
+			.mui-table-view{
+				margin-top: 10px;				
+				height: 45px;				
+				line-height: 30px;
+			}
+			.mui-navigate-right img{
+				width:17px;
+				height: 13px;
+				margin-right: 10px;
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				font-size: 16px;
+			}
+			.mui-navigate-right:after, .mui-push-left:after, .mui-push-right:after{
+				font-size: 20px;
+			}
+			.mui-navigate-right:after, .mui-push-right:after{
+				right: 17.5px;
+			}
+			.name{
+				font-size: 16px;
+				color: #F0F0F0;
+				margin-top: -15px;
+			}
+			.tel{
+				font-size: 14px;
+				color: #F0F0F0;
+			}
+			dd p{
+				line-height: 20px;
+			}
+			.mui-content-padded{			
+				margin-top: 50px;
+				height:40px;
+				padding: 0 20px;
+			}
+			.mui-btn{
+				height: 40px;
+				line-height: 40px;
+			}
+			.mui-btn-block{
+				padding: 2px 0;
+			}
+			.dian{
+					display: block;
+				/*display: none;*/
+			}
+			.name_tel{
+				/*display: block;*/
+				display: none;
+			}
+			.presonback{
+				/*display: block;*/
+				display: none;
+			}
+			.mui-bar-tab .mui-tab-item.mui-active{
+				color: #00D580;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="topheader">
+			<div class="header">
+			<dl>
+				<dt>
+					<img src="/Views/h5/img/header.png" id="facephoto"/>
+				</dt>
+				<dd id="gologin" class="dian"><a>点击登录</a></dd>
+				<dd id="photo" class="name_tel"><a href="#">
+					<p id="name" class="name">林华</p>
+					<p id="loginname" class="tel">13011837622</p>
+				</a></dd>
+			</dl>
+		</div>
+		<ul class="mui-table-view mui-table-view-chevron" id="mycourse">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right"><img src="/Views/h5/img/myclass@2x.png" alt="" />我的课程</a>
+				</li>
+		</ul>
+		<ul class="mui-table-view mui-table-view-chevron"id="myorder"> 
+				<li class="mui-table-view-cell">
+					<a  class="mui-navigate-right"><img src="/Views/h5/img/ding@2x.png" alt="" />我的订单</a>
+				</li>
+		</ul>
+		<!-- <ul class="mui-table-view mui-table-view-chevron" id="myshare">
+				<li class="mui-table-view-cell">
+					<a  class="mui-navigate-right"><img src="/Views/h5/img/fen2x.png" alt="" />我的分享</a>
+				</li>
+		</ul> -->
+		<div class="mui-content-padded presonback" id='login' >
+				<button id='' class="mui-btn mui-btn-block mui-btn-success">退出</button>
+				
+		</div>
+		
+		</div>
+		<nav class="mui-bar mui-bar-tab navtab">
+			<a class="mui-tab-item " href="/bxg/page/index/null/null">
+				<span class="mui-icon iconfont icon-shu"></span>
+				<span class="mui-tab-label tabspan_padding">云课堂</span>
+			</a>
+			<!-- <a class="mui-tab-item" href="/bxg/page/share/">
+				<span class="mui-icon iconfont icon-hehuoren"></span>
+				<span class="mui-tab-label tabspan_padding">合伙人</span>
+			</a> -->
+			<a class="mui-tab-item mui-active" href="javascript:;">
+				<span class="mui-icon iconfont icon-wode"></span>
+				<span class="mui-tab-label tabspan_padding">个人中心</span>
+			</a>
+		</nav>
+		<script src="/Views/h5/js/mui.min.js"></script>
+		<script src="/Views/h5/js/app.js"></script>
+		<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+		<script>
+				requestService("/bxg/user/isSessionTimeout", {}, function(data) {
+					if(data.success){
+						//alert(data.resultObject);
+						if(!data.resultObject){
+							localStorage.removeItem("name");
+							localStorage.removeItem("useid");
+							localStorage.removeItem("username");
+							localStorage.removeItem("sharecode");
+							localStorage.removeItem("smallHeadPhoto");
+							localStorage.removeItem("ticket");
+						}else{
+							/* alert("www"+JSON.stringify(data.resultObject)); */
+							localStorage.name = data.resultObject.loginName;
+							localStorage.useid = data.resultObject.id;
+							localStorage.username = data.resultObject.name;
+							localStorage.sharecode = localStorage.shareCode;
+							localStorage.smallHeadPhoto = data.resultObject.smallHeadPhoto;
+							localStorage.ticket = data.resultObject.ticket;
+							/* alert(localStorage.name);
+							alert(localStorage.useid);
+							alert(localStorage.username);
+							alert(localStorage.sharecode);
+							alert(localStorage.smallHeadPhoto);
+							alert(localStorage.ticket); */
+						}
+						isSessionTimeout();
+						}
+					});
+				
+			var presonback = document.getElementById("login");
+			function isSessionTimeout(){
+				var username = localStorage.username;
+				var ticket = localStorage.ticket;
+				var photo = document.getElementById("photo");
+				var gologin = document.getElementById("gologin");
+				var loginname = document.getElementById("loginname");
+				var name = document.getElementById("name");
+				var facephoto = document.getElementById("facephoto");
+				if(username !=null){
+					var mycourse = document.getElementById("mycourse");
+					var myorder = document.getElementById("myorder");
+					var myshare = document.getElementById("myshare");
+					gologin.setAttribute("style","display: none;");	
+					photo.setAttribute("style","display: block;");
+					presonback.setAttribute("style","display: block;");
+					name.innerHTML = username;
+					loginname.innerHTML = localStorage.name;
+					var photoface = localStorage.smallHeadPhoto == "undefined"?"/Views/h5/img/header.png":localStorage.smallHeadPhoto;
+					facephoto.src = photoface;
+					mycourse.addEventListener("tap",function(){
+						window.location.href = "/bxg/page/my_course";
+					});
+					myorder.addEventListener("tap",function(){
+						window.location.href = "/bxg/page/wait_money";
+					});
+					console.log(localStorage.sharecode);
+					if(localStorage.sharecode=="undefined"){
+						myshare.addEventListener("tap",function(){
+						window.location.href = "/bxg/page/share/";
+					});
+					}else{
+						myshare.addEventListener("tap",function(){
+						   window.location.href = "/bxg/page/my_share";
+					   });
+					}
+				}else{
+					document.getElementById("topheader").addEventListener("tap",function(){
+						window.location.href = "/bxg/page/login/1";
+					})
+				}
+			}
+			
+			(function($){
+				/* var presonback = document.getElementById("login"); */
+				var ticket = localStorage.ticket;
+				presonback.addEventListener("tap",function(){
+					var openid = localStorage.openid;
+					requestService("/bxg/user/logout", {ticket:ticket}, function(data) {
+						if(data.success) {
+							/* alert(JSON.stringify(data)); */
+							localStorage.removeItem("name");
+							localStorage.removeItem("useid");
+							localStorage.removeItem("username");
+							localStorage.removeItem("sharecode");
+							localStorage.removeItem("smallHeadPhoto");
+							localStorage.removeItem("ticket");/**/
+						 	//location.href = "index.html?pageindex=0";
+						 	location.href = "/bxg/page/index/"+openid+"/null";
+						}
+						
+					})
+				})
+			})()
+			
+		</script>
+	</body>
+
+</html>

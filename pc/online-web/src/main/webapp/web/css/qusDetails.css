@@ -1,0 +1,603 @@
+@charset "UTF-8";
+@keyframes arrowAnimotion {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(50px);
+  }
+  30% {
+    transform: translateY(40px);
+  }
+  55% {
+    transform: translateY(50px);
+  }
+  60% {
+    transform: translateY(40px);
+  }
+  85% {
+    transform: translateY(50px);
+  }
+  90% {
+    transform: translateY(40px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@-moz-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
+@-webkit-keyframes arrowAnimotion {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@-o-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
+@-ms-keyframes arrowAnimotion {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(50px);
+  }
+}
+/*titleChange动画*/
+@keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-moz-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-o-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@-ms-keyframes titleChange {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5, 0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+/*wordsChange动画*/
+@keyframes wordsChange {
+  0% {
+    transform: translateY(3400px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@-moz-keyframes wordsChange {
+  0% {
+    -moz-transform: translateY(3400px);
+  }
+  100% {
+    -moz-transform: translateY(0px);
+  }
+}
+@-webkit-keyframes wordsChange {
+  0% {
+    -webkit-transform: translateY(3400px);
+  }
+  100% {
+    -webkit-transform: translateY(0px);
+  }
+}
+@-o-keyframes wordsChange {
+  0% {
+    -o-transform: translateY(3400px);
+  }
+  100% {
+    -o-transform: translateY(0px);
+  }
+}
+@-ms-keyframes wordsChange {
+  0% {
+    -ms-transform: translateY(3400px);
+  }
+  100% {
+    -ms-transform: translateY(0px);
+  }
+}
+body {
+  margin: 0;
+  padding: 0 !important;
+}
+.hides {
+  display: none;
+}
+.mask {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9998;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  filter: alpha(opacity=40);
+  /*ie*/
+  -moz-opacity: 0.4;
+  -o-opacity: 0.4;
+  -webkit-opacity: 0.4;
+  opacity: 0.4;
+}
+.qxColl {
+  display: none;
+  border-radius: 2px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.18);
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  width: 204px;
+  height: 200px;
+  border-top: 2px solid #2cb82c;
+  z-index: 9999;
+  margin-left: -102px;
+  background: white;
+}
+.qxColl .qxCloser {
+  display: block;
+  text-align: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: #333333;
+  width: 194px;
+  height: 13px;
+  background: url("../images/qxCloser.png") right top no-repeat;
+}
+.qxColl .qxImg {
+  width: 100%;
+  height: 36px;
+  margin-top: 20px;
+  background: url("../images/qxsc.png") center top no-repeat;
+}
+.qxColl .qxIntro {
+  text-align: center;
+  font-size: 14px;
+  color: #666666;
+  margin-top: 20px;
+}
+.qxColl .qxBtn {
+  height: 54px;
+  width: 100%;
+  background: #f8f8f8;
+  margin-top: 25px;
+}
+.qxColl .qxBtn span {
+  width: 68px;
+  height: 34px;
+  display: block;
+  margin-left: 20px;
+  float: left;
+  text-align: center;
+  font-size: 14px;
+  line-height: 34px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.qxColl .qxBtn .qxSure {
+  background: #2cb82c;
+  color: white;
+}
+.qxColl .qxBtn .qxQuit {
+  border: 1px solid #EEEEEE;
+  color: #666666;
+}
+.page-qus-details {
+  width: 1200px;
+  margin: 0 auto;
+}
+.page-qus-details #con-box {
+  min-height: 662px;
+}
+.page-qus-details .my-glyphicon-tousu {
+  background-image: url("../images/ansandqus/tousu1.png");
+  margin-right: 3px;
+  background-position: 0 1px;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+}
+.page-qus-details .my-glyphicon-huida {
+  background-image: url("../images/ansandqus/huida1.png");
+  width: 15px;
+  height: 15px;
+  top: 4px;
+  background-repeat: no-repeat;
+  left: -3px;
+}
+.page-qus-details .my-glyphicon-home {
+  background-image: url("../images/ansandqus/indexmgx.png");
+  width: 16px;
+  height: 15px;
+}
+.page-qus-details .my-glyphicon-bc {
+  background-image: url("../images/ansandqus/wentibuchong.png");
+  width: 20px;
+  height: 20px;
+  top: 4px;
+  margin-right: 3px;
+}
+.page-qus-details .my-glyphicon-sc {
+  width: 15px;
+  height: 15px;
+  top: 3px;
+  background-repeat: no-repeat;
+  margin-right: 3px;
+}
+.page-qus-details .my-glyphicon-ll {
+  background-image: url("../images/ansandqus/liulan.png");
+  width: 15px;
+  height: 15px;
+  top: 4px;
+  background-repeat: no-repeat;
+  left: -3px;
+}
+.page-qus-details .my-glyphicon-hd {
+  background-image: url("../images/ansandqus/xiaoxi.png");
+  width: 15px;
+  height: 15px;
+  top: 4px;
+  background-repeat: no-repeat;
+  left: -3px;
+}
+.page-qus-details .my-glyphicon-zj {
+  background-image: url("../images/ansandqus/cainadaan.png");
+  margin-right: 3px;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+  background-position: 0 0;
+}
+.page-qus-details .my-glyphicon-zj.selected {
+  background-image: url("../images/queren.gif");
+  background-position: -2px -2px !important;
+}
+.page-qus-details .my-glyphicon-zt {
+  background-image: url("../images/ansandqus/zan.png");
+  margin-right: 3px;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+}
+.page-qus-details .my-glyphicon-fd {
+  background-image: url("../images/ansandqus/cai.png");
+  margin-right: 3px;
+  background-position: 0 1px;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+}
+.page-qus-details .my-glyphicon-zt1 {
+  background: url("../images/ansandqus/good_hover.png") no-repeat;
+  margin-right: 3px;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+}
+.page-qus-details .my-glyphicon-fd1 {
+  background: url("../images/ansandqus/bad_hover.png") no-repeat;
+  margin-right: 3px;
+  background-position: 0 1px;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+}
+.page-qus-details .my-glyphicon-ts {
+  background-image: url("../images/ansandqus/jubao.png");
+  margin-right: 3px;
+  background-position: 0 1px;
+  width: 15px;
+  height: 15px;
+  top: 2px;
+}
+.page-qus-details .gap {
+  margin-right: 15px;
+  color: #999;
+}
+.page-qus-details .nav-bread {
+  padding: 20px 0;
+  color: #999;
+}
+.page-qus-details .nav-bread a {
+  cursor: pointer;
+  color: #999;
+  font-size: 12px;
+}
+.page-qus-details .content-article {
+  border: 1px solid #e5e5e5;
+  padding-top: 20px;
+}
+.page-qus-details .content-article .container {
+  padding-right: 6px;
+  padding-left: 6px;
+}
+.page-qus-details .content-article .control-bar {
+  position: relative;
+  height: 70px;
+}
+.page-qus-details .content-article .control-bar .pic {
+  width: 70px;
+  height: 70px;
+  -moz-border-radius: 100px;
+  /* Firefox */
+  -webkit-border-radius: 100px;
+  /* Safari 和 Chrome */
+  border-radius: 100px;
+  /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.page-qus-details .content-article .control-bar .info {
+  vertical-align: top;
+  padding: 11px 0 11px 15px;
+}
+.page-qus-details .content-article .control-bar .info .name {
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+}
+.page-qus-details .content-article .control-bar .info .article-info {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #666;
+}
+.page-qus-details .content-article .control-bar .info .article-info .date {
+  color: #999;
+}
+.page-qus-details .content-article .control-bar .info .article-info .gap-2 {
+  color: #999;
+}
+.page-qus-details .content-article .control-bar .info .article-info span {
+  font-size: 12px;
+  display: inline-block;
+}
+.page-qus-details .content-article .control-bar .link-bar {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #000;
+}
+.page-qus-details .content-article .control-bar .link-bar .pointer {
+  cursor: pointer;
+}
+.page-qus-details .content-article .control-bar .link-bar .pointer .my-glyphicon-xg {
+  width: 19px;
+  height: 20px;
+  margin-right: 10px;
+  background: url("../images/ansandqus/wentibuchong.png") no-repeat;
+  position: relative;
+  top: 5px;
+}
+.page-qus-details .content-article .control-bar .link-bar .btn-item {
+  color: #666;
+  font-size: 12px;
+  margin-right: 15px;
+}
+.page-qus-details .content-article .my-article {
+  height: auto;
+  position: relative;
+}
+.page-qus-details .content-article .my-article .title {
+  font-size: 16px;
+  color: #333;
+  white-space: normal;
+  word-break: break-all;
+  margin-top: 20px;
+}
+.page-qus-details .content-article .my-article .txt {
+  width: 100%;
+  line-height: 24px;
+  color: #666;
+  font-size: 12px;
+  word-wrap: break-word;
+  white-space: normal;
+  word-break: break-all;
+  margin: 10px 0;
+}
+.page-qus-details .content-article .my-article .content-img {
+  margin-bottom: 20px;
+}
+.page-qus-details .content-article .my-article .content-img img {
+  width: 170px;
+  height: 170px;
+  margin-right: 10px;
+}
+.page-qus-details .content-article .my-article .assistTitle {
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+.page-qus-details .content-article .my-article .assistTitle .forumAssistTitle {
+  font-size: 18px;
+  float: left;
+}
+.page-qus-details .content-article .my-article .assistTitle .forumAssistTime {
+  color: #999;
+  font-size: 12px;
+  float: left;
+  margin-top: 7px;
+  margin-left: 10px;
+}
+.page-qus-details .content-article .my-article .assistTxt {
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: #666;
+  word-wrap: break-word;
+  white-space: normal;
+  word-break: break-all;
+}
+.page-qus-details .content-article .my-article .assist-img {
+  margin-bottom: 35px;
+}
+.page-qus-details .content-article .my-article .assist-img img {
+  width: 170px;
+  height: 170px;
+  margin-right: 10px;
+}
+.page-qus-details .content-article .answer-item {
+  background-color: #F7F7F7;
+  padding: 20px;
+  position: relative;
+}
+.page-qus-details .content-article .answer-item hr {
+  background-color: #DFDFDF;
+  height: 1px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+.page-qus-details .content-article .answer-item:first-child:before {
+  background-image: url("../images/tiger_right.png");
+  width: 19px;
+  height: 9px;
+  position: absolute;
+  top: -9px;
+  content: "";
+  display: block;
+  left: 80px;
+}
+.page-qus-details .content-article .answer-item:last-child {
+  border-bottom: 0;
+}
+.page-qus-details .content-article .answer-item .pic {
+  background-image: url("../images/4.png");
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  -moz-border-radius: 100px;
+  /* Firefox */
+  -webkit-border-radius: 100px;
+  /* Safari 和 Chrome */
+  border-radius: 100px;
+  /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+}
+.page-qus-details .content-article .answer-item .content {
+  vertical-align: top;
+  margin-left: 20px;
+}
+.page-qus-details .content-article .answer-item .content .title {
+  /*
+                              font-size: @mFSize;
+                              font-weight: 600;*/
+}
+.page-qus-details .content-article .answer-item .content .title .gab {
+  margin-left: 15px;
+  background-color: #ff4012;
+  font-size: 12px;
+  color: #ffffff;
+  width: 36px;
+  height: 20px;
+  display: inline-block;
+  text-align: center;
+  line-height: 20px;
+  border-radius: 2px;
+}
+.page-qus-details .content-article .answer-item .content .txt {
+  line-height: 24px;
+  width: 1050px;
+  margin: 5px 0;
+  color: #666;
+  font-size: 12px;
+  font-weight: normal;
+  white-space: normal;
+  word-break: break-all;
+}
+.page-qus-details .content-article .answer-item .contro-img {
+  margin-top: 15px;
+  width: 70px;
+  float: left;
+  margin-right: 20px;
+}
+.page-qus-details .content-article .answer-item .contro-img img {
+  margin-right: 5px;
+  width: 77px;
+  height: 50px;
+}
+.page-qus-details .content-article .answer-item .control-bottom {
+  clear: both;
+  color: #999;
+  font-size: 12px;
+  padding-top: 15px;
+}
+.page-qus-details .content-article .answer-item .control-bottom .hour {
+  color: #999;
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 30px;
+}
+.page-qus-details .content-article .answer-item .control-bottom .gap {
+  cursor: pointer;
+}

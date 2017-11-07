@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns=http://www.w3.org/1999/xhtml xmlns:bd=http://www.baidu.com/2010/xbdml>
+
+<head>
+    <!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IEedge" />
+    <meta charset="UTF-8">
+    <title>熊猫中医博学社 - 线上中医教育</title>
+    <link rel="shortcut icon" href="../../favicon.ico" />
+    <meta name="keywords" content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医" />
+    <meta name="description" content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。" />
+    <meta name="renderer" content="webkit">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="/web/font/iconfont.css"/>
+    <link rel="stylesheet" href="../css/forumDetail.css">
+    <link rel="stylesheet" href="../css/footer.css">
+
+    <script src="../js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/ajax.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/artTemplate.js"></script>
+    <script type="text/javascript" src="../js/jquery.dotdotdot.js"></script>
+    <script src="../js/jquery.pagination.js"></script>
+    <script src="../js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/helpers.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?30ed673100bd4991fb9d20db9e374fb1";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+
+<body>
+<div class="hr">
+    <header>
+        <div class="header_body">
+            <div class="header_left" style="cursor: default;">
+                <a href="javascript:;" style="cursor: default;"><img src="../images/logo.png" alt="" /></a>
+                <div class="path">
+                    <a href="javascript:;" style="cursor: default;">云课堂</a>
+                    <a href="javascript:;" class="select" style="cursor: default;">问答</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="guanliBody">
+        <div class="glgop"></div>
+        <div class="gl-text">
+            <p>提示 : 你当前是以管理员身份登录</p>
+        </div>
+    </div>
+</div>
+
+<div id="forum" class="clearfix">
+    <div class="forum-nav">
+        <a href="javascript:;" style="cursor:default;">博学社</a><span> > </span><a href="javascript:;"  class="myClassName" style="cursor:default;margin-left:0px"></a><span> > </span><span style="margin-left:0px">文章详情</span>
+    </div>
+    <div class="forum-content clearfix">
+        <div class="forum-content-left">
+            <div class="forum-detailInfo">
+
+            </div>
+            <div class="forum-community clearfix">
+                <div class="forum-community-title">参与讨论</div>
+                <div class="forum-community-loginHit">
+                    请<span class="forum-community-lgoin" style="cursor:default">登录</span>后参与讨论
+                </div>
+                <textarea name="" id="" class="forum-community-textarea" placeholder="说点儿什么吧……" cols="30" rows="10"></textarea>
+                <div class="emptyHit"><i class="iconfont icon-tanhao"></i>请输入内容</div>
+                <div class="community-submit" style="cursor: default">提交</div>
+            </div>
+            <div class="all-comment">
+                <div class="all-comment-title">
+                    <span>全部评论</span>
+                    <span class="community-count"></span>
+                </div>
+                <div class="forum-communitybox">
+
+                </div>
+            </div>
+
+            <div class="pages">
+                <div id="Pagination"></div>
+            </div>
+        </div>
+        <div class="forum-content-right">
+            <div class="hot-article">
+                <span class="hot-article-title">相关推荐</span>
+                <ul class="hot-article-list">
+
+                </ul>
+            </div>
+            <div class="forum-hot-tag">
+                <div class="forum-hot-tag-title">热门标签</div>
+                <ul class="forum-hot-tagGround">
+
+                </ul>
+            </div>
+            <div class="forum-hot-course">
+                <div class="forum-hot-course-title">
+                    <span>热门课程</span>
+                    <div class="forum-hot-course-banner">
+                        <span class="curCount currentLunbo">1</span><span class="curCount">/</span><span class="curCount allLunbo"></span>
+                        <span class="prev" id="prev"></span>
+                        <span class="next" id="next"></span>
+                    </div>
+                </div>
+                <div class="hot-course">
+                    <div id="box" class="slideBox clearfix">
+                        <ul class="course boxContent clearfix">
+                            <li>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!----footer-------------->
+<div class="footerDT">
+    <footer>
+        <div class="content">
+            <div class="content-item footer-bodys">
+                <div class="content-item content-footer-link about-us">
+                    <ul class="gate">
+                        <li data-id="first" data-url="../html/aboutUs.html">关于我们<span>|</span></li>
+                        <li data-id="two" data-url="../html/aboutUs.html">人才招聘<span>|</span></li>
+                        <li data-id="three" data-url="../html/aboutUs.html">联系我们<span>|</span></li>
+                        <li data-id="four" data-url="../html/aboutUs.html" class="noline">常见问题</li>
+                    </ul>
+                </div>
+                <div class="trademark">琼ICP备17002789号  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserveds Reserved<span style="margin-right:5px;"></span></div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script src="../js/forumDetailPreview.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('input').placeholder();
+    });
+</script>
+</body>
+
+</html>

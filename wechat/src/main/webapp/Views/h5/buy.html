@@ -1,0 +1,376 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<title>视频详情</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="css/buy_item.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="js/js.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".li1").click(function(){
+	  		$(this).addClass('details');
+	  		$(".li2").removeClass('details');
+	  		$(".li3").removeClass('details');
+	  		$(".li4").removeClass('details');
+    		$(".coze").show();
+    		$(".details1").hide();
+    		$(".document").hide();
+    		$(".leaderboard").hide();
+  		});
+		$(".li2").click(function(){
+	  		$(this).addClass('details');
+	  		$(".li1").removeClass('details');
+	  		$(".li3").removeClass('details');
+	  		$(".li4").removeClass('details');
+    		$(".details1").show();
+    		$(".coze").hide();
+    		$(".document").hide();
+    		$(".leaderboard").hide();
+    		$(".details_chat").hide();
+  		});
+	  	$(".li3").click(function(){
+	  		$(this).addClass('details');
+	  		$(".li1").removeClass('details');
+	  		$(".li2").removeClass('details');
+	  		$(".li4").removeClass('details');
+    		$(".leaderboard").show();
+    		$(".coze").hide();
+    		$(".details1").hide();
+    		$(".document").hide();
+    		$(".details_chat").hide();
+  		});
+  		$(".li4").click(function(){
+	  		$(this).addClass('details');
+	  		$(".li1").removeClass('details');
+	  		$(".li2").removeClass('details');
+	  		$(".li3").removeClass('details');
+    		$(".document").show();
+    		$(".coze").hide();
+    		$(".details1").hide();
+    		$(".leaderboard").hide();
+    		$(".details_chat").hide();
+  		});
+  		$(".li1").click();
+
+
+  		$(".close").click(function(){
+    		$(".details_chat").hide();
+  		});
+	});
+</script>
+	<!--记得加-->
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<link rel="stylesheet" href="css/buy_item.css">
+
+	<script>
+
+		//获取课程信息
+        requestService("/bxg/live/liveDetails", {course_id:"336"}, function(data) {
+            if(data.success) {
+                var obj = data.resultObject;
+                isfours
+                obj.gradeName
+                headImg
+                roomNumber
+                //watchState：观看状态  0 免费观看  1 需要收费  2 需要密码
+                console.log(configresult);
+        	}
+
+		});
+
+
+
+
+	</script>
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="grabble">
+			<div class="grabble_top">
+				<div class="grabble_img"></div>
+				<span class="history_span" style="color:#666;font-size:1.2rem;">视频详情</span>
+				<div class="history_img_right" style="width:1.6rem;color:#91b18a;">分享</div>
+			</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height:1.8rem;"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="" style="position: fixed;width:100%;background:#fff;padding-bottom: 0.1rem;border-bottom: 0.001rem solid #d2d2d2;z-index:9999;">
+		<div class="details">
+			<video width="100%" controls="controls" controls="controls">
+			  	<source src="img/movie.ogg" type="video/ogg">
+			  	<source src="img/movie.mp4" type="video/mp4">
+			</video>
+			<div class="details_bottom">
+				<div class="details_size">
+					观看人数：<span>22222</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					礼物：<span>22222</span>
+				</div>
+			</div>
+		</div>
+		<div class="details_footer">
+			<div class="details_footer_width">
+				<ul>
+					<li><span class="li1">聊天</span></li>
+					<li><span class="li2">主播</span></li>
+					<li><span class="li3">排行榜</span></li>
+					<li><span class="li4">文档</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="details_chat">
+		<div class="details_chat_center">
+			<img src="" id="headImg" alt="" class="details_chat1" />
+			<div class="details_chat_attention">
+				<p class="p1" id="gradeName">针灸与艾</p>
+				<p class="p2">播&nbsp;&nbsp;&nbsp;主：<span id="name">朱小宝</span></p>
+				<!-- <p class="p3">房间号：<span>232200</span></p> -->
+			</div>
+			<div class="details_chat2">
+				<img src="img/guanzhu_03.png" alt="" />
+				<p>关注</p>
+			</div>
+			<div class="close"><img src="img/x.png" alt="" /></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<div class="footer_k" style="height:13.6rem;"></div>
+    
+    <!-- 详情聊天开始 -->
+	<div class="coze">
+		<div class="coze_center">
+			<div class="coze_cen">
+				<img src="img/touxiang1.jpg" alt="" class="coze_cen_left_img" />
+				<div class="coze_cen_bg"><img src="img/sanjiao.png" alt="" />我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家</div>
+				<div class="both"></div>
+			</div>
+			<div class="coze_cen">
+				<img src="img/touxiang1.jpg" alt="" class="coze_cen_left_img" />
+				<div class="coze_cen_bg"><img src="img/sanjiao.png" alt="" />我爱我家我爱</div>
+				<div class="both"></div>
+			</div>
+			<div class="coze_cen">
+				<img src="img/touxiang1.jpg" alt="" class="coze_cen_left_img" />
+				<div class="coze_cen_bg"><img src="img/sanjiao.png" alt="" />我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家</div>
+				<div class="both"></div>
+			</div>
+			<div class="coze_cen">
+				<img src="img/touxiang1.jpg" alt="" class="coze_cen_left_img" />
+				<div class="coze_cen_bg"><img src="img/sanjiao.png" alt="" />我爱我家我爱我家我爱我家我爱我家我爱我家我爱我家</div>
+				<div class="both"></div>
+			</div>
+			<div class="coze_cen">
+				<img src="img/touxiang1.jpg" alt="" class="coze_cen_left_img" />
+				<div class="coze_cen_bg"><img src="img/sanjiao.png" alt="" />我爱我家我爱我家我爱我家我爱我</div>
+				<div class="both"></div>
+			</div>
+			<div class="coze_cen_ri">
+				<img src="img/touxiang1.jpg" alt="" class="coze_cen_ri_img" />
+				<div class="coze_cen_bg_ri"><img src="img/sanjiao2.png" alt="" />我爱我家我爱我家我爱我家我爱我</div>
+				<div class="both"></div>
+			</div>
+			<div class="footer_k" style="height:3.6rem;"></div>
+		</div>
+		<div class="coze_bottom">
+			<div class="coze_bottom_input">
+				<input type="text" placeholder="聊聊您的想法吧" />
+			</div>
+			
+			<img src="img/liwu.png" alt="" />
+		</div>
+	</div>
+    <!-- 详情聊天结束 -->
+
+	<!-- 详情主播开始 -->
+	<div class="details1">
+		<div class="details_anchor">
+			<div class="details_anchor_center">
+				<img src="img/touxiang.png" alt="" class="details_portrait" />
+				<div class="details_anchor_attention">
+					<p class="p1">针灸与艾灸的恩怨情仇针灸与艾灸的恩怨情仇</p>
+					<p class="p2">播&nbsp;&nbsp;&nbsp;主：<span>朱小宝</span></p>
+					<p class="p3">房间号：<span>232200</span></p>
+				</div>
+				<div class="details_attention">
+					<img src="img/guanzhu_03.png" alt="" />
+					<p>关注</p>
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="details_anchor_title">&nbsp;&nbsp;直播内容</div>
+		<div class="anchor_center">
+			<div class="anchor_center_div1">
+				1、<span>理论课与课堂示范</span>
+			</div>
+			<div class="anchor_center_div1">
+				2、<span>天应奇针疗法的理论基础</span>
+			</div>
+			<div class="anchor_center_div1">
+				3、<span>皮肤与疼痛的关系组合针治疗疼痛的原理</span>
+			</div>
+			<div class="anchor_center_div1">
+				4、<span>疼痛与运动筋膜链的关系中医气、经络和疼痛的关系肌肉应力点与触发点的关系</span>
+			</div>
+			<div class="anchor_center_div1">
+				5、<span>疗法应用与临床施教怎样查找应力点</span>
+			</div>
+			<div class="anchor_center_div1">
+				6、<span>人体异常形态与疼痛的关系组合针的使用方法和注意事项火针的适应症与使用方法</span>
+			</div>
+			<div class="anchor_center_div1">
+				7、<span>临床操作培训怎样在动态与静态中查找应力点、阻力点</span>
+			</div>
+			<div class="anchor_center_div1">
+				8、<span>天应奇针疗法的手法治疗诊断与施针治疗技巧</span>
+			</div>
+		</div>
+	</div>
+	<div class="both"></div>
+	<!-- 详情主播结束 -->
+
+	<!-- 排行榜开始 -->
+	<div class="leaderboard">
+		<div class="leaderboard_list">
+			<div class="leaderboard_left">
+				<img src="img/01_03.png" alt="" style="width:2rem;" /><br />
+				<span>状元</span>
+			</div>
+			<div class="leaderboard_center">
+				<img src="img/touxiang.png" alt="" style="width:2rem;" />
+				<div class="leaderboard_center_size">
+					<p class="p1">韩小伟</p>
+					<p class="p2">贡献&nbsp;&nbsp;<span>1426</span></p>
+				</div>
+			</div>
+			<img src="img/shang_06.png" alt="" class="leaderboard_list_right" />
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+		<div class="leaderboard_list">
+			<div class="leaderboard_left">
+				<img src="img/01_03.png" alt="" style="width:2rem;" /><br />
+				<span>状元</span>
+			</div>
+			<div class="leaderboard_center">
+				<img src="img/touxiang.png" alt="" style="width:2rem;" />
+				<div class="leaderboard_center_size">
+					<p class="p1">韩小伟</p>
+					<p class="p2">贡献&nbsp;&nbsp;<span>1426</span></p>
+				</div>
+			</div>
+			<img src="img/shang_06.png" alt="" class="leaderboard_list_right" />
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+		<div class="leaderboard_list">
+			<div class="leaderboard_left">
+				<img src="img/01_03.png" alt="" style="width:2rem;" /><br />
+				<span>状元</span>
+			</div>
+			<div class="leaderboard_center">
+				<img src="img/touxiang.png" alt="" style="width:2rem;" />
+				<div class="leaderboard_center_size">
+					<p class="p1">韩小伟</p>
+					<p class="p2">贡献&nbsp;&nbsp;<span>1426</span></p>
+				</div>
+			</div>
+			<img src="img/xai_03.png" alt="" class="leaderboard_list_right" />
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+		<div class="leaderboard_list">
+			<div class="leaderboard_left">
+				<img src="img/01_03.png" alt="" style="width:2rem;" /><br />
+				<span>状元</span>
+			</div>
+			<div class="leaderboard_center">
+				<img src="img/touxiang.png" alt="" style="width:2rem;" />
+				<div class="leaderboard_center_size">
+					<p class="p1">韩小伟</p>
+					<p class="p2">贡献&nbsp;&nbsp;<span>1426</span></p>
+				</div>
+			</div>
+			<img src="img/shang_06.png" alt="" class="leaderboard_list_right" />
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+		<div class="leaderboard_list">
+			<div class="leaderboard_left">
+				<img src="img/01_03.png" alt="" style="width:2rem;" /><br />
+				<span>状元</span>
+			</div>
+			<div class="leaderboard_center">
+				<img src="img/touxiang.png" alt="" style="width:2rem;" />
+				<div class="leaderboard_center_size">
+					<p class="p1">韩小伟</p>
+					<p class="p2">贡献&nbsp;&nbsp;<span>1426</span></p>
+				</div>
+			</div>
+			<img src="img/shang_06.png" alt="" class="leaderboard_list_right" />
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<!-- 排行榜结束 -->
+	<!-- 文档开始 -->
+	<div class="document">
+		<div class="document_ceneter">
+			<a href="javascript: ;">
+				<div class="document_ceneter_ppt">
+					<img src="img/ppt_03.png" alt="" />
+					<div class="ppt_bottom">课程目录名字不能太长.ppt</div>
+				</div>
+			</a>
+			<a href="javascript: ;">
+				<div class="document_ceneter_ppt">
+					<img src="img/word.png" alt="" />
+					<div class="ppt_bottom">课程目录名字不能太长.ppt</div>
+				</div>
+			</a>
+			<a href="javascript: ;">
+				<div class="document_ceneter_ppt">
+					<img src="img/excel.png" alt="" />
+					<div class="ppt_bottom">课程目录名字不能太长.ppt</div>
+				</div>
+			</a>
+			
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<!-- 文档结束 -->
+
+	<!-- 底部购买开始 -->
+	<div class="buy_bottom_bg">
+		<div class="buy_bg"></div>
+		<footer style="padding:0.8rem 0;">
+			<div class="base buy_bottom">
+				<ul>
+					<li class="buy_left"><p class="buy_bottom_p1">￥<span>168.00</span></p><p class="buy_bottom_p2">该视频为收费视频</p></li>
+					<li class="buy_right" id="buy_right"><a href="javascript: ;">购买</a></li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+	<!-- 底部购买结束 -->
+</body>
+</html>
