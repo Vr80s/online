@@ -1,2 +1,16 @@
+.idea/
+*.iml
+*.class
 pc/online-web/target/
 pc/online-manager/target/
+pc/user-center-provider/target/
+pc/online-api/target/
+pc/bxg-common-util/target/
+pc/user-center-common/target/
+pc/bxg-common-support/target/
+pc/user-center-api/target/
+pc/online-common/target/
+pc/attachment-center-server/.settings/
+pc/bxg-common-web/.settings/
+pc/bxg-common-util/.settings/
+>>>>>>> master

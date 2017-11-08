@@ -69,5 +69,10 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 		</dependency>
-	</dependencies>
+      <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>alipay</artifactId>
+          <version>RELEASE</version>
+      </dependency>
+  </dependencies>
 </project>
