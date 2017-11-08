@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>搜索</title>
+<!--<title>搜索</title>-->
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport"
@@ -44,6 +44,8 @@
 	#result_input{
 		vertical-align: middle;
 		margin-top: -0.2rem;
+		margin-left: 0.4rem;
+    	width: 13rem;
 	}
 	.history_img_right{
 		margin-top:0;
@@ -61,19 +63,42 @@
 		background: url(/xcviews/images/null06.png) no-repeat;;
 		background-size:100% 100%;
 	}
-	.grabble_left{
-		width: 1.4rem;
-	    height: 1.8rem;
-	    float: left;
-	}
 	.grabble_top input{
 		margin-left: 0;
 	}
 	.grabble_left{
 		float: right;
-	    width: 1.5rem;
+	    width: 1.85rem;
+	    height: 1.8rem;
 	    font-size: 0.65rem;
+	    color: #00bc12;
+    	font-size: 0.8rem;
 	}
+	
+	.sousuo{
+		width: 6.4rem;
+		height: 0.5rem;
+		font-size: 0.7rem;
+		color: #999;
+		position: absolute;
+	    top: 0;
+	    left: 5.5rem;
+	    pointer-events:none
+	}
+	.sousuo_bg{
+		width: 0.475rem;
+	    height: 0.475rem;
+	    background: url(/xcviews/images/sousuo0.png) no-repeat;
+	    background-size: 100% 100%;
+	    position: absolute;
+	    top: 0.6rem;
+	    left: -0.6rem;
+	}
+	#result_input{
+		border: 0;
+		background: #f5f5f5;
+	}
+	
 </style>
 <script type="text/javascript">
 	 document.onkeydown=function(event){
@@ -92,9 +117,27 @@
 			$("body").trigger("click");	
 		});
               
-        }
-        
+        } 
     }; 
+   
+</script>
+<script type="text/javascript">
+	
+	/*搜索input框*/
+	window.onload = function(){
+		$("#result_input").blur(function(){
+			if($("#result_input").val() != ""){
+				
+				$(".sousuo").css("display","none");
+			}else{
+				$(".sousuo").css("display","block");
+			};
+		});
+		
+		$("#result_input").click(function(){
+			$(".sousuo").css("display","none");
+		});
+	};
 </script>
 </head>
 <body style="background: #efefef;">
@@ -106,7 +149,12 @@
 				<!--搜索页返回上一步新版隐藏掉，改為取消-->
 				<div class="grabble_left" id="grabble_img"><!--<div class="grabble_img"></div>这是返回上一步的北京图片-->取消</div>
 				
-				<input type="text" placeholder="输入主播/课程" id="result_input" />
+				<input type="text" placeholder="" id="result_input" />
+				
+				<div class="sousuo">
+					<div class="sousuo_bg"></div>
+					<div class="">输入主播/课程</div>
+				</div>
 				<!-- <span class="history_span"><span class="history_span_one" style="margin-left: 2.4rem;">直播</span><span class="history_span_two">视频</span><span class="history_span_three" style="color:#91b18a1111;">音频</span></span> -->
 				<div class="history_img_right" onclick="queryResult()" style="margin-right:0.4rem;display: none;">
 					<button style="margin-top:0.2rem;">搜 索</button>

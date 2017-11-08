@@ -359,47 +359,39 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 
 		String [] array1 = courseIds.split(",");
 		boolean falg = false;
-/*		if(array1.length == 1){
-			for (Map<String, Object> map : listUser) {
-				if(map.get("courseId").toString().equals(courseIds)){
-					falg = true;
-					break;
-				}
+		/**
+		 * 把订单号相同课程id的放到一块。方便比较
+		 */
+		for (Map<String, Object> map : listUser) {
+		    for (Map<String, Object> map1 : listUser) {
+		    	if(null!=map.get("orderNo")&& null!=map1.get("orderNo") &&
+		    			map.get("orderNo").toString().equals(map1.get("orderNo"))){
+		    		if(!map.get("courseId").toString().equals(map1.get("courseId"))){
+						String courseIdss = map.get("courseId").toString();
+						courseIdss+=(","+map1.get("courseId").toString());
+						map.put("join", courseIdss);
+					}
+		    	}
 			}
-		}else{*/
-			/**
-			 * 把订单号相同课程id的放到一块。方便比较
-			 */
-			for (Map<String, Object> map : listUser) {
-			    for (Map<String, Object> map1 : listUser) {
-			    	if(null!=map.get("orderNo")&& null!=map1.get("orderNo") &&
-			    			map.get("orderNo").toString().equals(map1.get("orderNo"))){
-			    		if(!map.get("courseId").toString().equals(map1.get("courseId"))){
-							String courseIdss = map.get("courseId").toString();
-							courseIdss+=(","+map1.get("courseId").toString());
-							map.put("join", courseIdss);
-						}
-			    	}
-				}
-			}
-			/**
-			 * 存放到一块的课程id。与前台传递过来的进行比较，两个数组相等，那么就说明已经存在啦
-			 */
-			for (Map<String, Object> map : listUser) {
-			     if(map.get("join")!=null){
-			    		 String str = map.get("join").toString();
-			    		 String [] array2 = str.split(",");
-			             Arrays.sort(array1);
-			             Arrays.sort(array2);
-			             if (Arrays.equals(array1, array2)) {
-			            	 System.out.println("两个数组中的元素值相同");
-			            	 falg = true;
-			                 break;
-			             } else {
-			                 System.out.println("两个数组中的元素值不相同");
-			             }
-			     }
-			}
+		}
+		/**
+		 * 存放到一块的课程id。与前台传递过来的进行比较，两个数组相等，那么就说明已经存在啦
+		 */
+		for (Map<String, Object> map : listUser) {
+		     if(map.get("join")!=null){
+		    		 String str = map.get("join").toString();
+		    		 String [] array2 = str.split(",");
+		             Arrays.sort(array1);
+		             Arrays.sort(array2);
+		             if (Arrays.equals(array1, array2)) {
+		            	 System.out.println("两个数组中的元素值相同");
+		            	 falg = true;
+		                 break;
+		             } else {
+		                 System.out.println("两个数组中的元素值不相同");
+		             }
+		     }
+		}
 		//}
 		if(falg){
 			ro.setSuccess(true);

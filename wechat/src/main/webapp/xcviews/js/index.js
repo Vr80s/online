@@ -48,7 +48,6 @@ function requestLiveList(downOrOn) {
 					var liveList = data.resultObject;
 					// 先添加直播的
 					// 先全部添加下吧
-					
 					//a 标签 锚点 
 					//var  a_name = "maodian"+live.id;
 					
@@ -216,17 +215,16 @@ mui.init({
 		}
 	}
 });
-mui('.mui-scroll-wrapper').scroll({
+/*mui('.mui-scroll-wrapper').scroll({
 	 deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 	 indicators: false //是否显示滚动条
 });
-
+*/
 /**
  * 下拉刷新
  */
 function pulldownRefresh() {
 	setTimeout(function() {
-		
 		requestLiveList(true);
 		mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
 	}, 500);
