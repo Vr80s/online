@@ -16,14 +16,14 @@ public class OnlineConfig {
 		}
     }
 	
-	//OFFICE365用户ID
-	public static final String OFFICE365_USER_ID = getValue("OFFICE365_USER_ID");
-	//OFFICE365获取文件的地址
-	public static final String OFFICE365_URL = getValue("OFFICE365_URL");
-	//OFFICE365向量
-	public static final String OFFICE365_XL = getValue("OFFICE365_XL");
-	//OFFICE365密钥
-	public static final String OFFICE365_KEY = getValue("OFFICE365_KEY");
+//	//OFFICE365用户ID
+//	public static final String OFFICE365_USER_ID = getValue("OFFICE365_USER_ID");
+//	//OFFICE365获取文件的地址
+//	public static final String OFFICE365_URL = getValue("OFFICE365_URL");
+//	//OFFICE365向量
+//	public static final String OFFICE365_XL = getValue("OFFICE365_XL");
+//	//OFFICE365密钥
+//	public static final String OFFICE365_KEY = getValue("OFFICE365_KEY");
 	//CC视频USERID
 	public static final String CC_USER_ID = getValue("CC_USER_ID");
 	//CC直播USERID
