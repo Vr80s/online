@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
+import com.xczhihui.bxg.online.common.utils.cc.config.Config;
+import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -967,4 +971,200 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		return course;
 	}
 
+
+	@Override
+	public void updateCategoryInfo(String courseId) throws Exception {
+		List<CategoryBean> cs = CCUtils.getAllCategories();
+		createCourseCategories(courseId,cs);
+		Thread.sleep(1000);
+		cs = CCUtils.getAllCategories();
+		createChapterCategories(courseId,cs);
+	}
+
+	@Override
+	public String updateCourseVideoInfo(String id) {
+
+		Map<String, String> vs = new HashMap<String, String>();
+		Map<String, String> cs = new HashMap<String, String>();
+
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		Course c = dao.get(Integer.valueOf(id), Course.class);
+
+		String msg = "";
+
+		String sql = "select sp.id,sp.`name` from oe_course ke,oe_chapter zhang,oe_chapter jie,oe_chapter zsd,oe_video sp "+
+				" where sp.chapter_id=zsd.id and zsd.parent_id=jie.id and jie.parent_id=zhang.id and zhang.parent_id=ke.id "+
+				" and ke.id=:id and zhang.is_delete=0 and jie.is_delete=0 and zsd.is_delete=0 and sp.is_delete=0 and sp.video_id is null ";
+		paramMap.put("id", id);
+
+		List<Map<String, Object>> vsmp = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+		if (vsmp.size() <= 0) {
+			return "ok";
+		}
+
+		for (Map<String, Object> map : vsmp) {
+			vs.put(String.valueOf(map.get("id")),String.valueOf(map.get("name")));
+		}
+
+
+		List<String> categories = new ArrayList<String>();
+		List<CategoryBean> allCategories = CCUtils.getAllCategories();
+		for (CategoryBean categoryBean : allCategories) {
+			if (categoryBean.getName().equals(c.getGradeName())) {
+				List<CategoryBean> subs = categoryBean.getSubs();
+				for (CategoryBean sub : subs) {
+					categories.add(sub.getId());
+				}
+				break;
+			}
+		}
+//		categories.clear();
+//		categories.add("5C3F061265D9303B");
+		for (String categoryid : categories) {
+			for(int i=1; i<999999; i++){
+				Map<String, String> paramsMap = new HashMap<String, String>();
+				paramsMap.put("categoryid", categoryid);
+				paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+				paramsMap.put("num_per_page", "100");
+				paramsMap.put("page", i+"");
+				paramsMap.put("format", "json");
+				long time = System.currentTimeMillis();
+				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+				String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos+"?" + requestURL);
+
+				if (responsestr.contains("\"error\":")) {
+					throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
+				}
+
+				Gson g = new GsonBuilder().create();
+				Map<String, Object> mp = g.fromJson(responsestr, Map.class);
+				Map<String, Object> root = (Map<String, Object>)mp.get("videos");
+				ArrayList<Object> videos = (ArrayList<Object>)root.get("video");
+
+				if (videos == null || videos.size() <= 0) {
+					break;
+				}
+
+				for (Object object : videos) {
+					Map<String, Object> video = (Map<String, Object>)object;
+
+					String duration = video.get("duration").toString();
+					double d = Double.valueOf(duration);
+					String m = String.valueOf((int)d / 60);
+					String s = String.valueOf((int)d % 60);
+					m = m.length()==1 ? "0"+m : m;
+					s = s.length()==1 ? "0"+s : s;
+					String ms = m+":"+s;
+
+					String vid = video.get("id").toString();
+					String title = video.get("title").toString();
+
+					if (cs.containsKey(title)) {
+						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
+						if (d > oldduration) {
+							cs.put(title, vid+"_#_"+ms+"_#_"+duration);
+						}
+					} else {
+						cs.put(title, vid+"_#_"+ms+"_#_"+duration);
+					}
+				}
+
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {}
+			}
+		}
+
+		for(Map.Entry<String, String> video : vs.entrySet()){
+			String vinfo = cs.get(video.getValue());
+			if (vinfo != null) {
+				String vid = vinfo.split("_#_")[0];
+				String ms = vinfo.split("_#_")[1];
+				sql = "update oe_video set video_id='"+vid+"',video_time='"+ms+"' where id='"+video.getKey()+"' ";
+				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+			} else{
+				msg += (video.getValue()+"<br>");
+			}
+		}
+
+		if (msg.length() > 0) {
+			return "同步成功，但以下视频还未上传：<br>"+msg+"请使用客户端上传后再次同步";
+		}
+		return "ok";
+	}
+
+	public void createCourseCategories(String courseId,List<CategoryBean> cs) throws Exception{
+		String name = null;
+		List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.queryForList("select o.grade_name from oe_course o where o.is_delete=0 and (o.type is null or o.type=0) and id="+courseId);
+		if (lst != null && lst.size() > 0) {
+			name = lst.get(0).get("grade_name").toString();
+		}
+
+		boolean b = false;
+		for (CategoryBean bean : cs) {
+			if (name.equals(bean.getName())) {
+				b = true;
+				break;
+			}
+		}
+		if (!b) {
+			Map<String, String> paramsMap = new HashMap<String, String>();
+			paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+			paramsMap.put("name", name);
+			paramsMap.put("format", "json");
+			long time = System.currentTimeMillis();
+			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/category/create?" + requestURL);
+			if (responsestr.contains("error")) {
+				throw new RuntimeException("创建一级CC分类失败！");
+			}
+			Gson g = new GsonBuilder().create();
+			Map<String, Object> mp = g.fromJson(responsestr, Map.class);
+			Map<String, Object> category = (Map<String, Object>)mp.get("category");
+			System.out.println("创建一级CC分类："+category.get("name"));
+		}
+	}
+
+	public void createChapterCategories(String courseId,List<CategoryBean> cs) throws Exception{
+
+		List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.queryForList("select o.grade_name,z.`name` from oe_course o,oe_chapter z "
+						+ "where z.parent_id=o.id and z.`level`=2 and o.is_delete=0 and z.is_delete=0 and (o.type is null or o.type=0) and o.id="+courseId);
+
+		for (Map<String, Object> map : lst) {
+			String grade_name = map.get("grade_name").toString();
+			String name = map.get("name").toString();
+
+			for (CategoryBean bean : cs) {
+				if (grade_name.equals(bean.getName())) {
+					boolean b = false;
+					for (CategoryBean sub : bean.getSubs()) {
+						if (sub.getName().equals(name)) {
+							b = true;
+							break;
+						}
+					}
+					if (!b) {
+						Map<String, String> paramsMap = new HashMap<String, String>();
+						paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+						paramsMap.put("name", name);
+						paramsMap.put("super_categoryid", bean.getId());
+						paramsMap.put("format", "json");
+						long time = System.currentTimeMillis();
+						String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+						String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/category/create?" + requestURL);
+						if (responsestr.contains("error")) {
+							throw new RuntimeException("创建二级CC分类失败！");
+						}
+						Gson g = new GsonBuilder().create();
+						Map<String, Object> mp = g.fromJson(responsestr, Map.class);
+						Map<String, Object> category = (Map<String, Object>)mp.get("category");
+						System.out.println("创建二级CC分类："+bean.getName()+"-----"+category.get("name"));
+						Thread.sleep(500);
+					}
+				}
+			}
+		}
+	}
 }

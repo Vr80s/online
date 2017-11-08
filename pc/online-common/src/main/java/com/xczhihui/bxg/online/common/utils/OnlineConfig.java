@@ -24,16 +24,16 @@ public class OnlineConfig {
 //	public static final String OFFICE365_XL = getValue("OFFICE365_XL");
 //	//OFFICE365密钥
 //	public static final String OFFICE365_KEY = getValue("OFFICE365_KEY");
-//	//CC视频USERID
-//	public static final String CC_USER_ID = getValue("CC_USER_ID");
-//	//CC直播USERID
-//	public static final String CC_LIVE_USER_ID = getValue("CC_LIVE_USER_ID");
-//	//CC视频API KEY
-//	public static final String CC_API_KEY = getValue("CC_API_KEY");
-//	//CC直播API KEY
-//	public static final String CC_LIVE_API_KEY = getValue("CC_LIVE_API_KEY");
-//	//CC播放器ID
-//	public static final String CC_PLAYER_ID = getValue("CC_PLAYER_ID");
+	//CC视频USERID
+	public static final String CC_USER_ID = getValue("CC_USER_ID");
+	//CC直播USERID
+	public static final String CC_LIVE_USER_ID = getValue("CC_LIVE_USER_ID");
+	//CC视频API KEY
+	public static final String CC_API_KEY = getValue("CC_API_KEY");
+	//CC直播API KEY
+	public static final String CC_LIVE_API_KEY = getValue("CC_LIVE_API_KEY");
+	//CC播放器ID
+	public static final String CC_PLAYER_ID = getValue("CC_PLAYER_ID");
 	//微信开发平台应用id
     public static final String APP_ID = getValue("WX_APP_ID");
     //商户id
