@@ -1366,7 +1366,7 @@ footer{
 .coze_cen_bg img:first-child{
 	position: absolute;
     top: 0.3rem;
-    left: -0.25rem;
+    left: -0.22rem;
     z-index: 1;
     width: 0.225rem;
     height: 0.4rem;
@@ -1387,7 +1387,7 @@ footer{
 	position: relative;
 	max-width: 10rem;
 	background: #d1e3cd;
-	border: 0.01rem solid #ccc;
+	/*border: 0.01rem solid #ccc;*/
 	float: right;
 	padding: 0.15rem;
 	font-size: 0.6rem;
@@ -1400,7 +1400,7 @@ footer{
 }
 .coze_cen_bg_ri img:first-child{
 	position: absolute;
-    top: 0.5rem;
+    top: 0.3rem;
     right: -0.25rem;
     z-index: 1;
     width: 0.225rem;
