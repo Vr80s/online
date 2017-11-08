@@ -376,7 +376,7 @@
 	</div>
 	<div class="wrap-img02"></div>
 	<p>恭喜你，预约成功</p>
-	<p>直播将在2017.09.10&nbsp;14:00开始</p>
+    <p id="yyStart"></p>
 </div>
 	
 </body>
@@ -435,6 +435,7 @@
 							    }))
 							    subscribeInit();
 							});
+//                            $("#yyStart").html($("#startTime").val())
 				            rTips(data.resultObject);
 			            }else{
 							$(".popover_order").css('display','none');

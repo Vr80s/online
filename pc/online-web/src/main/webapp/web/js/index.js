@@ -417,7 +417,8 @@ function subscribeInit(){
             }else{
 		        $(".phone").css("border", "1px solid #2cb82c");
 		        $(".phone").val("");
-		        $("#subscribeId").val($(that).attr("subscribeId"));
+                $("#subscribeId").val($(that).attr("subscribeId"));
+                $("#yyStart").html("直播将在 "+$(that).attr("startTime")+" 开始");
 				$(".popover_order").css('display','block');
 				$(".shouy_dl").css('display','block');
 	            $("#tips").hide();
