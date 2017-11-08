@@ -341,8 +341,18 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
      * 通过审核
      */
 	@Override
-	public void updateApply(String id) {
+	public String updateApply(String id) {
 		LiveExamineInfo  lei= dao.findOneEntitiyByProperty(LiveExamineInfo.class, "id", id);
+		
+		/**
+		 * 判断这个用户是否拥有讲师权限啦
+		 */
+		OnlineUser ou = onlineUserService.getOnlineUserByUserId(lei.getUserId());
+		//is_lecturer   是否是讲师：0,用户，1既是用户也是讲师
+		if(ou.getIsLecturer() !=1){
+			return "申请人不具备讲师权限";
+		}
+		
 		lei.setExamineStatus("1"); //通过啦
 		User user = (User) UserHolder.getRequireCurrentUser(); 
 		lei.setAuditPerson(user.getId()); //审核人id
@@ -352,6 +362,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	     * 同步审核信息到课程列表中
 	     */
 		synchronizingCourse(lei);
+		return "修改成功";
 	}
 	@Override
 	public LiveExamineInfo findExamineById(String id) {
