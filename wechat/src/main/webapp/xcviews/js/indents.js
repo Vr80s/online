@@ -204,10 +204,10 @@ mui("#refreshContainer").on('tap', '.common_click', function (event) {
 	    }else if(btype=='brower'){
 	        orderFrom=4;
 	    }
-	    requestService("/bxg/order/save", {courseId : course_id,orderFrom:orderFrom}, function(data) {
+	    requestService("/bxg/order/saveRegenerate", {orderId : orderId,orderFrom:orderFrom}, function(data) {
 	        if (data.success) {
 	            var result = data.resultObject;
-	            location.href = "/xcviews/html/pay.html?courseId="+course_id+"&orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
+	            location.href = "/xcviews/html/pay.html?orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
 	        }else{
 	            alert("提交订单错误！请稍后再试！");
 	        }
@@ -231,8 +231,6 @@ function deleteOrcancel(){
 		type =0;
 		strSuccess="删除成功";
 		strError ="删除失败";
-	}else if(title == "toBuy"){
-		
 	}
 	requestService("/bxg/order/update", {
 		orderNo : orderNo,

@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>我的订单</title>
+<!--<title>我的订单</title>-->
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -19,7 +19,7 @@
 <script src="../js/js.js"></script>
 	<link rel="stylesheet" href="/xcviews/css/mui.min.css">
 <link rel="stylesheet" href="../css/css.css">
-<link rel="stylesheet" href="/xcviews/js/js/style.css">
+<!-- <link rel="stylesheet" href="/xcviews/js/js/style.css"> -->
 
 
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
@@ -196,6 +196,23 @@
     	border: 0;
     }
     
+    .history_bg_cen_size{
+    	text-align: center;
+    	font-size: 0.7rem;
+    	margin-top: 0.5rem;
+
+    }
+    .history_bg_bto01{
+    	margin: 0 auto;
+    	margin-top: 1rem;
+    	width: 57%;
+    }
+   .history_bg_bto01 div {
+	    font-size: 0.6rem;
+	    /*color: #5ebdad;
+	    font-family: "微软雅黑";*/
+	}
+    
     
     /*测试滑动*/
    .swipe{
@@ -216,9 +233,10 @@
 		<div class="history_bg_color"></div>
 		<div class="history_bg_cen">
 			<div class="history_bg_cen_size">确定要清空观看记录吗？</div>
-			<div class="history_bg_bto">
-				<div class="history_bg_bto1" onclick="deleteOrcancel(this)">确定</div>
-				<div class="history_bg_bto2">取消</div>
+			<div class="history_bg_bto01">
+				<div class="history_bg_bto1">取消</div>
+				<div class="history_bg_bto2" onclick="deleteOrcancel(this)" style="color: #00bc12;">确定</div>
+				
 				<div class="both"></div>
 			</div>
 		</div>
@@ -304,7 +322,7 @@
 
 
 <!--测试左右滑动-->
-<script type="text/javascript" src="/xcviews/js/js/touchslider.js"></script>
+<!-- <script type="text/javascript" src="/xcviews/js/js/touchslider.js"></script>
 <script type="text/javascript" src="/xcviews/js/js/zepto_min.js"></script>
 
 <script type="text/javascript">
@@ -340,5 +358,5 @@
 			}
 		})();
 	}
-</script>
+</script> -->
 </html>

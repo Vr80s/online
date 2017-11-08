@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="utf-8">
-<title></title>
+<!--<title></title>-->
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -221,6 +221,17 @@ $(function(){
     .import_hide{
     	z-index: 99999999999999;
     }
+    .fx_bg{
+    	width: 0.65rem;
+		height: 0.65rem;
+		background: url(/xcviews/images/fx.png)no-repeat;
+		background-size: 100% 100%;
+		float: right;
+    	margin-right: 0.3rem;
+    }
+    .history_img_right{
+    	margin-top: 0.65rem;
+    }
 </style>
 
 <script>
@@ -335,7 +346,7 @@ $(function(){
 
 				<span class="history_span"
 					style="width: 74%; color: #666; font-size: 1rem;padding-top: 0.1rem;position: absolute;left: 2.1rem;"></span>
-				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;">分享</div>
+				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>

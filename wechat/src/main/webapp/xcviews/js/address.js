@@ -60,7 +60,7 @@
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
 		if(!stringnull(consignee) && (consigneeLength<3 || consigneeLength >20) ){  
-			$("#errorMsg").html("<p>收货人不能为空</p><p>收货人长度3-20</p>");
+			$("#errorMsg").html("<p>收货人不能为空</p><p>收货人长度0-20</p>");
 			$("#errorMsg").show();
 			return false;
 		}
@@ -183,7 +183,7 @@
 										"<div class='site_bg001'></div>"+
 										"<span>编辑</span>"+
 									"</div>"+
-									"<div class='site_bto_right02 delete_go'  name='' title='"+result.id+"'>"+
+									"<div class='site_bto_right02'  name='' title='"+result.id+"'>"+
 										"<div class='site_bg002'></div>"+
 										"<span >删除</span>"+
 									"</div>"+
@@ -256,7 +256,7 @@
 				requestService("/bxg/city/deleteAddressById", 
 						{id:id}, function(data) {
 					if (data.success) {
-						 alert("删除数据成功！");
+						 /*alert("删除数据成功！");*/
 						 addressList();
 					} else {
 					    alert("获取数据有误！");
