@@ -10,3 +10,6 @@ pc/user-center-common/target/
 pc/bxg-common-support/target/
 pc/user-center-api/target/
 pc/online-common/target/
+pc/attachment-center-server/.settings/
+pc/bxg-common-web/.settings/
+pc/bxg-common-util/.settings/
