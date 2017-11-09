@@ -25,8 +25,13 @@ public class PublicCourseDao extends HibernateDao<Course>{
 		 * oe_course_mobile 从这个里面判断是否存在课程详情啊
 		 */
 		StringBuilder sql =new StringBuilder("select c.*,c.grade_name as courseName ,ou.name as lecturerName ,m.name as menuName,c.`course_pwd` coursePwd "
-				+ ",c.live_source as liveSource from oe_course c,oe_menu m,oe_user ou "
-				+ "where c.menu_id=m.id and c.user_lecturer_id = ou.id and c.is_delete=0 and c.type=1 ");
+				+ ",c.live_source as liveSource \n" +
+				" from oe_course c  LEFT JOIN\n" +
+				"  oe_menu m ON c.menu_id = m.id \n" +
+				"  LEFT JOIN \n" +
+				"  oe_user ou ON c.user_lecturer_id = ou.id  "
+				+ "where c.is_delete = 0 \n" +
+				"  AND c.type = 1  ");
 	 	
 	 	if(courseVo.getCourseName() != null){
 	 		paramMap.put("courseName", "%"+courseVo.getCourseName()+"%");
