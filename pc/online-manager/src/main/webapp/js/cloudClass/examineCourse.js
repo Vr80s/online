@@ -454,11 +454,13 @@ function toPass(obj){
 		var url = "cloudClass/examine/passApply";
 		ajaxRequest(url,{'id':aData.id},function(data){
 			unmask();
-			if(!data.success){
+			//if(data.success){
 				alertInfo(data.errorMessage);
-			}else{
 				freshTable(_courseTable);
-			}
+			//}else{
+			//	alertInfo(data.errorMessage);
+				//freshTable(_courseTable);
+			//}
 		});
 	},null,"确认此课程审核通过?");
 }

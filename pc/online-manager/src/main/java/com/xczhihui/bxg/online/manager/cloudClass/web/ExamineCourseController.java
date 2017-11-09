@@ -144,13 +144,13 @@ public class ExamineCourseController {
 	public ResponseObject passApply(String id){
 		ResponseObject responseObj = new ResponseObject();
 		 try{
-		    examineCourseService.updateApply(id);
+		    String str = examineCourseService.updateApply(id);
             responseObj.setSuccess(true);
-            responseObj.setErrorMessage("修改成功");
+            responseObj.setErrorMessage(str);
 	       }catch(Exception e){
 	    	    e.printStackTrace(); 
 	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
+	            responseObj.setErrorMessage("数据异常");
 	       }
 	    return responseObj;
 	}

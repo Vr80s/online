@@ -33,7 +33,7 @@ public interface ExamineCourseService {
 	void synchronizingCourse(LiveExamineInfo le);
 
 
-	public void updateApply(String id);
+	public String updateApply(String id);
 
 
 	public LiveExamineInfo findExamineById(String id);
