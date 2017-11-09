@@ -69,27 +69,22 @@ function initOrderList(status,downOrOn){
                 		var type  =  course.type; // type :1 直播  2视频 3 音频
                 		var liveStatus = course.liveStatus;
                 		var liveTypeOrState ="直播";  //直播状态 1.直播中，2预告，3直播结束
+                		var liveTypeImg = '';
 						var onlineCourse=course.onlineCourse;
                 		//判断课程的状态啦  
                 		if(type == 1){
                 			if(liveStatus==1){
                 				liveTypeOrState ="直播中";
-                											/*$(".img_bg1").show();
-                											$(".img_bg0").hide();
-                											$(".img_bg").hide();*/
+                				liveTypeImg ="/xcviews/images/zhibo001.png";
+                											
                 			}else if(liveStatus==2){
                 				liveTypeOrState ="预告";
+                				liveTypeImg ="/xcviews/images/yugao001.png"	
                 				
-                											$(".img_bg1").css("display","none");
-                											/*$(".img_bg0").show();
-                											$(".img_bg").hide();
-                											$(".img_bg1").hide();*/
-                											$(".img_bg").attr("src","/xcviews/images/zhibo001.png");
-                			}else if(liveStatus==3){
+                											
                 				liveTypeOrState ="回放";
-                											$(".img_bg1").show();
-                											/*$(".img_bg0").hide();
-                											$(".img_bg").hide();*/
+                				liveTypeImg ="/xcviews/images/huifang001.png"
+                											
                 			}
                 		}else if(type == 2){
                 			liveTypeOrState ="视频";
@@ -104,9 +99,7 @@ function initOrderList(status,downOrOn){
             					"<img  src='/xcviews/images/meng.png' alt='' class='img_show' />"+
             					"<img  src='"+course.smallImgPath+"' alt='' class='img_show1' />"+
             					"<p class='indent_main_left_p1'>" + course.courseName + "</p>"+
-            					"<img src='/xcviews/images/huifang001.png' class='img_bg' />"+
-            					"<img src='/xcviews/images/yugao001.png' class='img_bg0' />"+
-            					"<img src='/xcviews/images/zhibo001.png' class='img_bg1' />"+
+            					"<img src="+liveTypeImg+" class='img_bg' />"+
             					"<p class='indent_main_left_p02'>"+liveTypeOrState+"</p>";
 
                 					if(onlineCourse==1){ //线下课程
