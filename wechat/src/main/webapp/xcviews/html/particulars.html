@@ -404,6 +404,9 @@ $(document).ready(function(){
 	    bottom: 0;
 	    opacity: 0;
 	}
+	.history_bg_bto{
+		margin-top: 0.6rem;
+	}
 </style>
 
 </head>
@@ -414,8 +417,8 @@ $(document).ready(function(){
     <!-- 如果视频id出现错误，弹框 -->
 	<div class="history_bg" style="display:none;">
 		<div class="history_bg_color"></div>
-		<div class="history_bg_cen"  style="top:0%;height: 5rem;">
-			<div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>
+		<div class="history_bg_cen"  style="top:0%;height: 3.5rem;">
+			<div class="history_bg_cen_size">视频走丢了，请试试其他视频。<!--此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span>--></div>
 			<div class="history_bg_bto">
 				<div class="history_bg_bto1" style="float:right;" onclick="javascript:history.back(-1);">确定</div>
 				<!-- <div class="history_bg_bto2">取消</div> -->
