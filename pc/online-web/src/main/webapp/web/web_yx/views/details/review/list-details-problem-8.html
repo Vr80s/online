@@ -1,0 +1,42 @@
+{{if resourceDB.success}}
+{{if resourceDB.resultObject.items != ''}}
+{{each resourceDB.resultObject.items as item}}
+<ul>
+	<li>
+		<div class="problem-box">
+			<div class="p-left">
+				<h3>标题：</h3>
+			</div>
+			<div class="p-right">
+				<p>{{item.title}}</p>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="problem-box">
+			<div class="p-left">
+				<h3>问题描述：</h3>
+			</div>
+			<div class="p-right">
+				<p>{{#item.description}}</p>
+			</div>
+		</div>
+	</li>
+	<li>
+		<div class="problem-box">
+			<div class="p-left">
+				<h3>答案解析：</h3>
+			</div>
+			<div class="p-right">
+				<p>{{#item.analysis}}</p>
+			</div>
+		</div>
+	</li>
+</ul>
+{{/each}}
+{{else}}
+<div class="nodeta">
+	<span>没有可观看的问答资源</span>
+</div>
+{{/if}}
+{{/if}}
