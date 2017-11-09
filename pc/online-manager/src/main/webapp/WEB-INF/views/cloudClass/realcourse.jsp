@@ -751,6 +751,33 @@
             </div>
 		</div>
 	    <div class="space-4"></div>
+	    
+	    
+	    <div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
+			 <div class="col-sm-3">
+               <select id="province" name="province" onchange="doProvAndCityRelation();" 
+                        class="clearfix col-xs-10 col-sm-12 {required:true}" >
+  　　　　　　　　			<option id="choosePro"value="-1">请选择您所在省份</option>
+  　　　　　　	   </select>
+  			   <input  type="hidden" name="realProvince" id="realProvince"/>	
+             </div>
+              <div class="col-sm-3">
+               <select id="citys" name="city" onchange="onchangeCityAdd();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='chooseCity' value='-1'>请选择您所在城市</option>
+ 　　　　		　　</select>
+ 			  <input  type="hidden" name="realCitys" id="realCitys"/>	
+ 			  </div>
+		</div>
+	    
+	    <div class="space-4"></div>
+		<div class="form-group" id="add-currentPrice"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>授课详细地址: </label>
+			 <div class="col-sm-6">
+			 	<input type="text" name="address" value="" id="address"  class="col-xs-10 col-sm-12 {required:true}">
+             </div>
+		</div>
+	    
 		<%--<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>授课方式: </label>
             <div class="col-sm-6">
@@ -838,13 +865,6 @@
              </div>
 		</div>
 		<div class="space-4"></div>
-		<div class="form-group" id="add-currentPrice"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>授课地址: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="address" value="" id="address"  class="col-xs-10 col-sm-12 {required:true}">
-             </div>
-		</div>
-		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>
 			 <div class="col-sm-6">
@@ -882,6 +902,7 @@
            	 	<p id=show_menuNameSecond class="paddingtop7px padding7"></p>
             </div>
 		</div>
+		
 		
 		<%--<div class="form-group">
 			<label class="col-sm-4 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font><b>授课方式: </b></label>
@@ -1034,6 +1055,14 @@
 			 	<p id=show_currentPrice class="paddingtop7px padding7"></p>
              </div>
 		</div>
+		
+		<div class="form-group">
+			 <label class="col-sm-4 control-label no-padding-right" for="address"><font color="red">*</font><b>授课地址:</b> </label>
+			 <div class="col-sm-6">
+			 	<p id="show_address" class="paddingtop7px padding7"></p>
+             </div>
+		</div>
+		
 		<div class="form-group">
 			 <label class="col-sm-4 control-label no-padding-right" for="courseDescribe"><font color="red">*</font><b>课程简介:</b> </label>
 			 <div class="col-sm-6">
@@ -1062,24 +1091,6 @@
 			 	<input type="text" name="classTemplate"  id="edid_classTemplate" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">
              </div>
 		</div>
-       <%-- <div class="form-group"  style="margin-top: 18px;" id="edid_classRatedNum">
-            <label class="col-sm-3 control-label no-padding-right" for="gradeStudentSum"><font color="red">*</font>班级额定人数: </label>
-            <div class="col-sm-6" >
-                <input type="text" id="edid_gradeStudentSum" name="classRatedNum" maxlength="10" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,range:[0,9999999]}">
-            </div>
-        </div>
-		<div class="form-group"  style="margin-top: 18px;"  id="edid_classQQ">
-			<label class="col-sm-3 control-label no-padding-right" for="edid_gradeQQ"><font color="red">*</font>班级QQ群: </label>
-			<div class="col-sm-6" >
-				<input type="text" id="edid_gradeQQ" name="gradeQQ" maxlength="15" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,minlength:5}">
-			</div>
-		</div>
-		<div class="form-group"  style="margin-top: 18px;" id="edid_classDefaultStudent">
-			<label class="col-sm-3 control-label no-padding-right" for="edid_defaultStudentCount"><font color="red">*</font>默认报名人数: </label>
-			<div class="col-sm-6" >
-				<input type="text" id="edid_defaultStudentCount" name="defaultStudentCount" maxlength="10" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,range:[0,9999999]}">
-			</div>
-		</div>--%>
 		<div class="form-group" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>所属学科: </label>
 			 <div class="col-sm-6">
@@ -1102,6 +1113,34 @@
                     </c:forEach> 
                </select>
             </div>
+		</div>
+		
+		
+	    <div class="space-4"></div>
+	    
+	    
+	    <div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
+			 <div class="col-sm-3">
+               <select id="edit_province" name="province" onchange="doProvAndCityRelationEdit();" 
+                        class="clearfix col-xs-10 col-sm-12 {required:true}" >
+  　　　　　　　　			<option id="edit_choosePro"value="-1">请选择您所在省份</option>
+  　　　　　　	   </select>
+  				<input type="hidden" name = "realProvince"  id="edit_realProvince"/>
+  			 </div>
+  			 <div class="col-sm-3">	
+                <select id="edit_citys" name="city" onchange="onchangeCityEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>
+ 　　　　		　　 </select>
+ 				<input type="hidden" name = "realCitys"  id="edit_realCitys"/>
+             </div>
+		</div>
+		
+		<div class="form-group" id="add-currentPrice"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>授课详细地址: </label>
+			 <div class="col-sm-6">
+			 	<input type="text" name="address" value="" id="edit_address"  class="col-xs-10 col-sm-12 {required:true}">
+             </div>
 		</div>
 		
 		<div class="space-4"></div>
@@ -1152,12 +1191,7 @@
 			 	<input type="text" name="currentPrice"  id="edid_currentPrice" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.01,99999.99]}">
              </div>
 		</div>
-		<div class="form-group" id="add-currentPrice"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>授课地址: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="address" value="" id="edit_address"  class="col-xs-10 col-sm-12 {required:true}">
-             </div>
-		</div>
+		
 		
 		<div class="form-group" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>
@@ -1270,4 +1304,5 @@
 		</div>
 	</form>
 </div>
+<script type="text/javascript" src="${base}/js/cloudClass/provinces.js?v=112312312311"></script>
 <script type="text/javascript" src="${base}/js/cloudClass/realcourse.js?v=112312312311"></script>

@@ -94,7 +94,7 @@ public class OnlineUserController {
 		}
 		Token t = null;
 		try {
-			t = userCenterAPI.login(username, password, TokenExpires.TenDay);
+			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		} catch (RuntimeException e) {
 			return ResponseObject.newErrorResponseObject("用户名密码错误");
 		}
@@ -876,7 +876,7 @@ public class OnlineUserController {
 			//onlineUserMapper.updateUserUnionidByid(ou1);
 			onlineUserService.updateUserUnionidByid(ou1);
 			
-			Token t = userCenterAPI.login(username,iu.getPassword(), TokenExpires.TenDay);
+			Token t = userCenterAPI.loginMobile(username,iu.getPassword(), TokenExpires.TenDay);
 			ou1.setTicket(t.getTicket());
 			//把用户中心的数据给他  --这些数据是IM的
 			ou1.setUserCenterId(iu.getId());

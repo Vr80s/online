@@ -28,6 +28,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
+import com.xczh.consumer.market.utils.cc.APIServiceFunction;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.entity.FocusVo;
@@ -538,9 +539,6 @@ public class CommonController {
 		}
 	}
 	
-	
-	
-	
 	/**
 	 * Description：根据课程id得到判断此课程是：直播呢，还是点播呢，还是预约呢？
 	 * @param req
@@ -591,11 +589,6 @@ public class CommonController {
 	    Long l =	System.currentTimeMillis();
 	    return l.toString();
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(System.currentTimeMillis());
-	}
-	
 	
 	public String getSign(Map<String,String> signkv){
 		Set<String> keySet = signkv.keySet();
@@ -659,6 +652,40 @@ public class CommonController {
 	    }  
 	    return md5str.toString().toUpperCase();  
     }  
+    
+    @RequestMapping("ccvideo")
+	@ResponseBody
+	public ResponseObject ccvideo(HttpServletRequest req,
+			HttpServletResponse res)throws Exception{
+    	
+    	
+    	return null;
+	}
+    public static void main(String[] args) {
+		
+    	APIServiceFunction api = new APIServiceFunction();
+    	
+    	Map<String, String> paramsMap = new HashMap<String, String>();
+		paramsMap.put("userid", "B5E673E55C702C42");
+		paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC5901307461");
+		paramsMap.put("format", "json");
+		long time = System.currentTimeMillis();
+		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+		/**
+		 * 获取video信息
+		 */
+		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video?" + requestURL);
+		
+		
+		
+		
+		
+		System.out.println(responsestr);
+		if (responsestr.contains("\"error\":")) {
+			throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
+		}
+    	
+	}
     
  
 }

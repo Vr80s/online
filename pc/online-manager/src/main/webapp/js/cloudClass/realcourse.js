@@ -259,6 +259,8 @@ $(function(){
 	});
 	/** 表单验证END */
 
+	//TODO
+	
 	//新增根据一级菜单获取相应的二级菜单 暂时用不上，现在没有级联菜单
 	$('#menuName').change(function(){
 		var firstMenuNumber=$(this).children('option:selected').val();//这就是selected的值
@@ -495,6 +497,13 @@ $(".add_P").click(function(){
 				layer.msg("请输入课程简介！");
 				return;
 			}
+//			//省
+//			var province =$("#province").find("option:selected").text();
+//			//$("#province").text();
+//			//市
+//			var citys =$("#citys").find("option:selected").text();
+			
+			
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/realClass/course/addCourse");
 	            $("#addCourse-form").ajaxSubmit(function(data){
@@ -895,6 +904,8 @@ function previewDialog(obj,status){
     	
     	$("#show_originalCost").text(result[0].originalCost); //原价格
     	$("#show_currentPrice").text(result[0].currentPrice); //现价格
+    	
+    	$("#show_address").text(result[0].address); //现价格
     	$("#show_courseDescribe").text(result[0].description); //课程简介
     	$("#show_cloudClassroom").text(result[0].cloudClassroom); //云课堂连接
     	
@@ -999,6 +1010,56 @@ function toEdit(obj,status){
     			$("#edid_multimediaType").val($("#edid_multimediaType option").eq(i).val());
     		}
     	}
+    	
+/*    	<select id="edit_province" name="edit_province" onchange="doProvAndCityRelation();" 
+            class="clearfix col-xs-10 col-sm-12 {required:true}" >
+			<option id="edit_choosePro"value="-1">请选择您所在省份</option>
+   </select>
+    <select id="edit_citys" name="edit_city" class="clearfix col-xs-10 col-sm-12 {required:true}">
+			<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>
+	　　</select>*/
+    	
+    	
+    	//省市区
+    	var address = result[0].address;
+    	var p_c_a = address.split("-");
+    	
+    	if(p_c_a.length==3){
+    		//省
+//    		for(i=0;i<$("#edit_province option").length;i++){
+//        		if($("#edit_province option").eq(i).text()==p_c_a[0]){
+//        			$("#edit_province option").eq(i).attr("selected",true); 
+//        			//$("#edit_province").text(p_c_a[0]);
+//        			break;
+//        		}
+//        	}
+    		
+    		$("#edit_citys").empty();
+    		
+    		var street = p_c_a[0];
+    		$('#edit_province option:contains(' + street + ')').each(function(){
+    		  if ($(this).text() == street) {
+    		     $(this).attr('selected', true);
+    		  }
+    		});
+    		//市
+//    		for(i=0;i<$("#edit_citys option").length;i++){
+//        		if($("#edit_citys option").eq(i).text()==p_c_a[1]){
+//        			$("#edit_citys option").eq(i).attr("select","selected"); 
+//        			//$("#edid_multimediaType").val($("#edid_multimediaType option").eq(i).val());
+//        		}
+//        	}
+    		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
+    		$("#edit_citys").append(city);
+    		//授课地点
+    		$("#edit_address").val(p_c_a[2]);
+    		
+    		
+    		$("#edit_realProvince").val(p_c_a[0]);
+    		$("#edit_realCitys").val(p_c_a[1]);
+    	}
+    	
+    	
     	$("#edid_courseName").val(result[0].courseName); //课程名称
     	$("#edid_classTemplate").val(result[0].classTemplate); //班级名称模板
     	$("#edid_courseLength").val(result[0].courseLength); //课程时长
@@ -1043,7 +1104,7 @@ function toEdit(obj,status){
 //        debugger;
         $("#edit_startTime").val(result[0].startTime);//开始时间
         $("#edit_endTime").val(result[0].endTime);//结束时间
-        $("#edit_address").val(result[0].address);//授课地点
+      
     	
     	var edit_title="修改课程";
     	if(status ==1){
