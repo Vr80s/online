@@ -1,0 +1,12 @@
+{{if resourceDB.success}}
+	{{if resourceDB.resultObject.items != ''}}
+	<!--<embed src="../assets/videoplayer/ckplayer.swf"-->
+	       <!--flashVars="f=  resourceDB.resultObject.items[0].url  &p=0" quality="high" width="100%"-->
+	       <!--height="100%" align="middle" allowScriptAccess="always" allowFullscreen="false"-->
+	       <!--type="application/x-shockwave-flash" id="ckplayer_a1" name="ckplayer_a1"></embed>-->
+
+		<div id="a1" style="width: 100%;height: 100%;"></div>
+
+		<div id="nowTime">当前播放的时间点是(此值精确到小数点后三位，即毫秒)：0</div>
+	{{/if}}
+{{/if}}

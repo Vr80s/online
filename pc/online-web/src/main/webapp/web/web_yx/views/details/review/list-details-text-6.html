@@ -1,0 +1,12 @@
+
+	{{if resourceDB.success}}
+	{{if resourceDB.resultObject.items != ''}}
+	{{each resourceDB.resultObject.items as itemPic}}
+	<iframe id="viewFrame" src="{{resourceDB.resultObject.items[0].url}}" style="border:0;width:100%;height:100%;"></iframe>
+	{{/each}}
+	{{else}}
+	<div class="nodeta">
+		<span>没有可观看的文本资源</span>
+	</div>
+	{{/if}}
+	{{/if}}

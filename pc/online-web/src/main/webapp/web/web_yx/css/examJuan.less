@@ -1,0 +1,499 @@
+html, body {
+  font-family: 'Microsoft YaHei';
+  font-size: 12px;
+  background-color: #f7f7f7;
+} 
+
+body, html, p, ul, li, a, img,ol,li {
+  margin: 0;
+  padding: 0;
+}
+
+ul, li,ol {
+  list-style: none;
+  margin:0;
+  padding:0;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: inline-block;
+}
+.clearfix:after{
+  content:"";
+  height:0;
+  visibility:hidden;
+  display:block;
+  clear:both;
+}
+.examtimeOutBox{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:100%;
+  z-index: 1007;
+  background-color:rgba(0,0,0,.5);
+  display:none;
+  .examtimeOut{
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-top:-84px;
+    margin-left:-150px;
+    width:300px;
+    height:168px;
+    background-color:#fff;
+    .tijiaoContent{
+      background-color:#fff;
+      text-align:center;
+      span{
+        color:#333;
+        font-size:16px;
+        line-height:32px;
+      }
+      span:first-child{
+        display:inline-block;
+        margin-top:48px;
+      }
+      .timedaojishi{
+        color:#ff4012;
+        display:inline-block;
+        margin:0 5px;
+      }
+    }
+  }
+}
+.noCompleteHint,.yidawan{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:100%;
+  z-index: 1007;
+  background-color:rgba(0,0,0,.5);
+  display:none;
+  .noCompleteInnerBox{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:290px;
+    height:168px;
+    margin-top:-84px;
+    margin-left:-145px;
+    background-color:#fff;
+    .noCompleteContent{
+      p{
+        text-align:center;
+        font-size:16px;
+        color:#333;
+        margin-top:47px;
+      }
+      .continueAnswer,.tijiao,.confirm,.checked{
+        display:inline-block;
+        width:82px;
+        height:36px;
+        font-size:14px;
+        line-height:36px;
+        text-align:center;
+        margin-top:33px;
+        cursor:pointer;
+      }
+      .continueAnswer,.confirm{
+        background-color:#2cb82c;
+        color:#fff;
+        margin-right:20px;
+        margin-left:52px;
+      }
+      .tijiao,.checked{
+        background-color:#f0f0f0;
+        color:#999;
+      }
+    }
+  }
+}
+#examBox{
+  width:1200px;
+  margin:20px auto 0;
+  .examBasicInfo{
+    padding: 24px 30px 26px;
+    border-bottom:1px solid #e4e4e4;
+    background-color:#fff;
+    .examBasicInfoTop{
+      .examName{
+        font-size:22px;
+        color:#333;
+      }
+      .tiCount,.tijiaoTime{
+        font-size:16px;
+        color:#999;
+        display:inline-block;
+        margin-top:11px;
+      }
+      .tiCount{
+        margin-right:35px;
+      }
+    }
+    .timuTypeAndSocre{
+      margin-top:8px;
+      .score{
+        float:left;
+        margin-left:20px;
+        vertical-align: middle;
+        margin-top:45px;
+        .defen{
+          width:148px;
+          height:148px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          border-radius: 50%;
+          background-color:#fafafa;
+          color:#ff4012;
+          font-size:46px;
+          line-height: 148px;
+          text-align:center;
+          span{
+            font-size:18px;
+            color:#ff4012;
+          }
+        }
+        .totalFen{
+          width:148px;
+          text-align:center;
+          font-size:14px;
+          margin-top:25px;
+        }
+      }
+      .timuType{
+        float:right;
+        .zuguanTi{
+          text-align:right;
+          margin-bottom:5px;
+          span{
+            font-size:14px;
+            color:#999;
+          }
+          .redStar{
+            color:#ff4012;
+            display:inline-block;
+            margin-right:5px;
+          }
+        }
+        .timuTotal{
+          border:1px solid #f0f0f0;
+          background-color:#fafafa;
+          ul{
+            border-right:1px solid #f0f0f0;
+            float:left;
+            li{
+              width:148px;
+              height:46px;
+              font-size:14px;
+              line-height:46px;
+              text-align:center;
+              border-bottom:1px solid #f0f0f0;
+            }
+            li:last-child{
+              border-bottom:none;
+            }
+          }
+          ul:last-child{
+            border-right:none;
+          }
+          .correntAnswer{
+            color:#2cb82c;
+          }
+          .errorAnser{
+            color:#ff4012;
+          }
+          .totalDeFen{
+            color:#e7b5a8;
+          }
+        }
+      }
+    }
+  }
+  .timuTypeBox{
+    padding:0px 30px;
+    width:1200px;
+    background-color:#fff;
+    height:59px;
+    line-height:59px;
+    position:static;
+    li{
+      width:65px;
+      float:left;
+      text-align:center;
+      margin-right:30px;
+      font-size:16px;
+      color:#333;
+      padding:0 5px;
+      cursor:pointer;
+    }
+    li:hover{
+      color:#2cb82c;
+      border-bottom:2px solid #2cb82c;
+    }
+    .select{
+      color:#2cb82c;
+      border-bottom:2px solid #2cb82c;
+    }
+  }
+  .timuTypeBox.examFloat{
+    z-index: 1005;
+    bottom: auto;
+    position: fixed;
+    left:50%;
+    margin-left:-600px;
+    top: 0px;
+    -webkit-box-shadow: 0px 0px 6px 3px #ccc;
+    -moz-box-shadow:0px 0px 6px 3px #ccc;
+    box-shadow:0px 0px 6px 3px #ccc;
+  }
+  .examContent{
+    margin-top:20px;
+    .timuAndAnswer{
+      float:left;
+      width:896px;
+      background-color:#fff;
+      padding:0 30px 60px;
+      .timu{
+        font-size:14px;
+        >li{
+          border-bottom:1px solid #e4e4e4;
+          padding:25px 0;
+          img{
+            width:200px;
+          }
+          p{
+            font-size:14px;
+            word-wrap: break-word;
+            word-break: break-all;
+            img{
+                width:200px;
+            }
+          }
+          p:first-child{
+            display:inline-block;
+          }
+          .ExamAnswer{
+            margin-top:6px;
+            li{
+              width:100%;
+              line-height: 42px;
+              color:#666;
+              font-size:14px;
+              img{
+                width:200px;
+              }
+              span,p {
+                word-wrap: break-word;
+                word-break: break-all;
+              }
+            }
+            li:hover{
+              background-color:#f5f8fb;
+              color:#2cb82c;
+              cursor: pointer;
+            }
+            .danxuanTi,.duoxuanTi,.panduanTi{
+              div {
+                display:inline-block;
+                vertical-align: middle;
+                margin-top:1px;
+                em {
+                  margin:0 10px;
+                  display:inline-block;
+                  width:14px;
+                  height:14px;
+                  -webkit-border-radius: 50%;
+                  -moz-border-radius: 50%;
+                  border-radius: 50%;
+                  border:1px solid #eee;
+                  position:relative;
+                  background-color:#fff;
+                  i{
+                    position:absolute;
+                    color:#fff;
+                    font-size:14px;
+                    top:-13px;
+                    left:-2px;
+                    -webkit-transform: scale(0.4);
+                    -moz-transform: scale(0.4);
+                    -ms-transform: scale(0.4);
+                    -o-transform: scale(0.4);
+                    transform: scale(0.4);
+                  }
+                }
+              }
+            }
+            .danxuanTi.select,.panduanTi.select{
+              color:#2cb82c;
+              div {
+                display:inline-block;
+                position:relative;
+                width:14px;
+                height:14px;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+                border:1px solid #2cb82c;
+                margin:0 10px;
+                em {
+                  position:absolute;
+                  display:inline-block;
+                  width:8px;
+                  height:8px;
+                  margin:0;
+                  top:50%;
+                  left:50%;
+                  background-color:#2cb82c;
+                  -webkit-border-radius: 50%;
+                  -moz-border-radius: 50%;
+                  border-radius: 50%;
+                  -webkit-transform: translate(-50%, -50%);
+                  -moz-transform: translate(-50%, -50%);
+                  -ms-transform: translate(-50%, -50%);
+                  -o-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%);
+                }
+              }
+            }
+            .duoxuanTi{
+             div{
+               display:inline-block;
+               em{
+                 -webkit-border-radius: 2px;
+                 -moz-border-radius: 2px;
+                 border-radius: 2px;
+               }
+             }
+            }
+            .duoxuanTi.select{
+              color:#2cb82c;
+              div{
+                display:inline-block;
+                em{
+                  -webkit-border-radius: 2px;
+                  -moz-border-radius: 2px;
+                  border-radius: 2px;
+                  background-color:#2cb82c;
+                  border:none;
+                }
+              }
+            }
+          }
+          .cankaoAnswer,.answerShouMing{
+            color:#2cb82c;
+            font-size:14px;
+            display:inline-block;
+          }
+          .cankaoAnswer{
+            margin-top:20px;
+          }
+          .answerShouMing{
+            margin-top:9px;
+          }
+        }
+        .timu>li:first-child{
+          padding-top:30px;
+        }
+        .examRichText{
+          margin-top:12px;
+        }
+      }
+    }
+    .answerCard{
+      float:right;
+      width:284px;
+      position:static;
+      >div {
+        border-bottom:1px solid #eee;
+        background-color:#fff;
+        .answerStatus{
+          padding:20px;
+          .examTime{
+            float:left;
+            i,span{
+              color:#2cb82c;
+              font-size:16px;
+            }
+            .lishiTibiao{
+              display:inline-block;
+              margin-right:8px;
+            }
+          }
+          .jiliYu{
+            float:right;
+            font-size:12px;
+            margin-top:3px;
+          }
+        }
+      }
+      .thirdLeiAnswer{
+        background-color:#fff;
+        .radioAnswer{
+          padding:0px 20px 8px;
+          span{
+            font-size:16px;
+            color:#333;
+          }
+          ol{
+            width:110%;
+            overflow:hidden;
+            li{
+              float:left;
+              width: 28px;
+              height:28px;
+              -webkit-border-radius: 2px;
+              -moz-border-radius: 2px;
+              border-radius: 2px;
+              margin:3px 3px 0 0;
+              color:#000;
+              text-align:center;
+              line-height:28px;
+              cursor:pointer;
+            }
+            .select{
+              background-color:#2cb82c;
+              color:#fff;
+            }
+          }
+        }
+      }
+      .tijiaoAnswer{
+        width:284px;
+        height:50px;
+        font-size:16px;
+        line-height: 50px;
+        text-align:center;
+        color:#fff;
+        cursor:pointer;
+        background-color:#2cb82c;
+        margin-top:10px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+      }
+    }
+    .answerCard.answerCardFloat{
+      position:fixed;
+      left:0;
+      top:79px;
+    }
+  }
+}
+
+.editor {
+    width: 100%;
+    height: 200px;
+    resize: none;
+    border:1px solid #f0f0f0;
+}
+.tiankongtiInput {
+    outline:none;
+    min-width:74px;
+    border:none;
+    border-bottom:1px solid #f0f0f0;
+}

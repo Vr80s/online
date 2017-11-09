@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta content="always" name="referrer">
+	<title></title>
+	<style type="text/css">
+		html,body {
+			height: 100%;
+			width: 100%;
+			padding:0px;
+			margin:0px;
+		}
+		#a1 {
+			height: 100%;
+			width: 100%;
+			padding:0px;
+			margin: 0px;
+		}
+		#nowTime {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+
+<div id="a1"></div>
+<div id="nowTime">0</div>
+<script type="text/javascript" src="../js/libs/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../js/libs/ckplayer6.8/ckplayer/ckplayer.js"></script>
+<script type="text/javascript">
+
+	// 获取video的值，以播放当前的视频
+	function getQueryString(name) {
+		var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null) {
+			return decodeURI(r[2]);
+		}
+		return null;
+	}
+
+	// 调用：
+//	alert(getQueryString("video"));
+//	alert(getQueryString("time"));
+
+	// 获取父级的url # 号后面的地址
+	var SunUrl = parent.location.hash;
+//	alert(SunUrl.split('/')[1])
+	// 判断是复习 还是 预习
+	//复习
+	if ( SunUrl.split('/')[1] == 'review' ) {
+
+	}
+
+	// 预习
+	if ( SunUrl.split('/')[1] == 'preview' ) {
+
+	}
+
+
+	function loadedHandler(){
+		if(CKobject.getObjectById('ckplayer_a1').getType()){
+			// 增加当前播放时间监听
+			CKobject.getObjectById('ckplayer_a1').addListener('time',timeHandler);
+
+			//增加播放监听
+			addPlayListener();
+		}
+		else{
+			// 增加当前播放时间监听
+			CKobject.getObjectById('ckplayer_a1').addListener('time','timeHandler');
+
+			//增加播放监听
+			addPlayListener();
+		}
+	}
+
+	//自动跳转到上次播放位置 （继播）
+	/**
+	 * 原理：主要运用监听技术和Cookie来记录上次播放的位置，当播放器加载时，如果监听到当前状态为播放的话，那就会自动跳转到上次Cookie的记录，然后去除播放监听，同时增加对时间的监听状态，用js写入Cookie记录播放时间。需要注意的是，本示例只是一个简单演示。如果您是多个页面多个视频进行记录，写入cookie时请注意同时写入视频（页面）的id用以区分每个视频（页）所要跳转的时间。
+	 * @param t
+	 */
+	function timeHandler(t) {
+		if (t > -1) {
+			SetCookie("Time", t);
+		}
+	}
+	function addPlayListener() {//增加播放监听
+		if (CKobject.getObjectById('ckplayer_a1').getType()) {//说明使用html5播放器
+			CKobject.getObjectById('ckplayer_a1').addListener('play', playHandler);
+		}
+		else {
+			CKobject.getObjectById('ckplayer_a1').addListener('play', 'playHandler');
+		}
+	}
+	function playHandler() {
+		//alert('因为注册了监听播放，所以弹出此内容，删除监听将不再弹出');
+		removePlayListener();
+//		CKobject.getObjectById('ckplayer_a1').videoSeek(getCookie("Time"));
+		CKobject.getObjectById('ckplayer_a1').videoSeek(getQueryString("Time"));
+		addTimeListener();
+	}
+	function removePlayListener() {//删除播放监听事件
+		if (CKobject.getObjectById('ckplayer_a1').getType()) {//说明使用html5播放器
+			CKobject.getObjectById('ckplayer_a1').removeListener('play', playHandler);
+		}
+		else {
+			CKobject.getObjectById('ckplayer_a1').removeListener('play', 'playHandler');
+		}
+	}
+	function addTimeListener() {//增加时间监听
+		if (CKobject.getObjectById('ckplayer_a1').getType()) {//说明使用html5播放器
+			CKobject.getObjectById('ckplayer_a1').addListener('time', timeHandler);
+		}
+		else {
+			CKobject.getObjectById('ckplayer_a1').addListener('time', 'timeHandler');
+		}
+	}
+	//写cookies函数
+	function SetCookie(name, value)//两个参数，一个是cookie的名子，一个是值
+	{
+		var Days = 30; //此 cookie 将被保存 30 天
+		var exp = new Date(); //new Date("December 31, 9998");
+		exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+		document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+	}
+	function getCookie(name)//取cookies函数
+	{
+		var arr = document.cookie.match(new RegExp("(^| )" + name + "=([^;]*)(;|$)"));
+		if (arr != null) return unescape(arr[2]); return null;
+	}
+
+
+
+
+	// 获取当前播放时间
+	function timeHandler(t){
+		if(t>-1){
+			CKobject._K_('nowTime').innerHTML= t ;
+		}
+	}
+	var flashvars={
+		f: getQueryString("video"),
+		c: 1,   // c=1 调用ckplayer.xml来做配置
+		p: 0,   //设置视频是否自动播放，0=默认暂停 1=默认播放  2=默认不加载视频
+		b: 0,
+		loaded:'loadedHandler'
+	};
+	CKobject.embed('../js/libs/ckplayer6.8/ckplayer/ckplayer.swf','a1','ckplayer_a1','100%','100%',false,flashvars);
+</script>
+
+
+</body>
+</html>

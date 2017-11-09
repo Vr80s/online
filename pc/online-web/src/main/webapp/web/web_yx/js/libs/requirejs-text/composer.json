@@ -1,0 +1,18 @@
+{
+    "name": "ni-jmatthiesen/requirejs-text",
+    "description": "RequireJS text plugin",
+    "type": "component",
+    "homepage": "http://requirejs.org/",
+    "require": {
+        "robloach/component-installer": "*",
+        "ni-jmatthiesen/requirejs": "*"
+    },
+    "extra": {
+        "component": {
+            "name": "requirejs-text",
+            "files": [
+                "text.js"
+            ]
+        }
+    }
+}
