@@ -331,7 +331,8 @@ public class VideoDao extends SimpleHibernateDao {
 
         //写用户视频表
         sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-                + " select replace(uuid(),'-',''),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
+//                + " select replace(uuid(),'-',''),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
+                + " select uuid(),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
                 + "from oe_video where course_id=:courseId and is_delete=0 and status=1 ";
         orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
     }

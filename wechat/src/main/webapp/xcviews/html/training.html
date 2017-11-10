@@ -222,6 +222,44 @@
 		margin-left: 10rem;
 	}
 </style>
+<script type="text/javascript">
+	/*window.onload = function(){
+		$(".submit_btn").click(function(){
+			var phone =$("#phone").val();
+			
+			var errorMsg = document.getElementById("errorMsg");
+			
+			if (!stringnull(phone)) {
+				$("#errorMsg").text("手机号不能为空11");
+				$("#errorMsg").show();
+				return false;
+			}
+			if (!(/^1[34578]\d{9}$/.test(phone))) {
+				$("#errorMsg").text("手机号格式不正确");
+				$("#errorMsg").show();
+				return false;
+			}
+			if(!(/^1[3|4|5|7|8]\d{9}$/.test(phone))){
+				$("#errorMsg").text("111111");
+				$("#errorMsg").show();
+				return false;
+			}
+		});
+	}*/
+	
+	
+</script>
+
+
+	<script type="text/javascript">
+/*	function checkPhone(){
+		var phone = doucument.getElementById('new_mobile').value;
+		if(!(/^1[3|4|5|7|8]\d{9}$/.test(phone))){
+			alert("手机号码有误，请重填");
+			return false;
+		}
+	}*/
+</script>
 </head>
 
 <body style="background:#efefef;">
@@ -238,7 +276,7 @@
 			</div>
 			<div class="submit_information">
 				<div class="submit_information_name">手机号</div>
-				<div class="submit_information_put"><input type="tel" id="phone" placeholder="请输入手机号" /></div>
+				<div class="submit_information_put"><input type="tel" id="phone" placeholder="请输入手机号" maxlength="11" value ="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" /></div>
 			</div>
 			<div class="submit_btn" onclick="return apply()">提交</div>
 		</div>

@@ -70,7 +70,6 @@ public class OnlineInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 
-		System.out.println(request.getRequestURL());
 		BxgUser u = UserLoginUtil.getLoginUser(request);
 		Token t = UCCookieUtil.readTokenCookie(request);
 		

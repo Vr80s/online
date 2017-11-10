@@ -1,0 +1,1759 @@
+html,
+body {
+  font-family: 'Microsoft YaHei';
+  font-size: 12px;
+  background-color: #fff!important;
+  overflow-x: hidden;
+}
+body,
+html,
+p,
+ul,
+li,
+a,
+img {
+  margin: 0;
+  padding: 0;
+}
+ul,
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+img {
+  display: inline-block;
+}
+.clearfix:after {
+  content: "";
+  width: 100%;
+  height: 0;
+  clear: both;
+}
+.rTips {
+  padding: 0 30px;
+  height: 60px;
+  position: fixed;
+  z-index: 9999;
+  top: 45%;
+  left: 56%;
+  margin-left: -76px;
+  margin-top: -31px;
+  line-height: 60px;
+  background: #000;
+  filter: alpha(opacity=50);
+  /*ie*/
+  -moz-opacity: 0.4;
+  -o-opacity: 0.4;
+  -webkit-opacity: 0.4;
+  opacity: 0.4;
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 2px;
+  display: none;
+}
+.mycollege {
+  width: 980px;
+  height: 100%;
+  display: block;
+  background: #fff;
+  padding-bottom: 50px;
+}
+.mycollege .right-title span {
+  padding: 0 10px;
+  font-size: 16px;
+  color: #333;
+  line-height: 56px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.mycollege .right-title .icon-e {
+  width: 5px;
+  height: 5px;
+  border-radius: 6px;
+  background: red;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  margin-top: 20px;
+}
+.mycollege .right-title .act {
+  border-bottom: 1px solid #2CB82C;
+  color: #2CB82C;
+}
+.mycollege .college1 {
+  width: 100%;
+  clear: both;
+  display: block;
+}
+.mycollege .college1 .right-college {
+  width: 100%;
+  clear: both;
+  margin: 10px auto 0;
+}
+.mycollege .college1 .right-college .banji {
+  width: 100%;
+  height: 42px;
+  line-height: 42px;
+  margin-top: 10px;
+  background: #FAFAFA;
+  padding-left: 20px;
+}
+.mycollege .college1 .right-college .banji .banjiName {
+  color: #333;
+  font-size: 14px;
+}
+.mycollege .college1 .right-college .banji .renshu,
+.mycollege .college1 .right-college .banji .renshu1 {
+  color: #999;
+  font-size: 12px;
+}
+.mycollege .college1 .right-college .banji .renshu {
+  margin-left: 10px;
+}
+.mycollege .college1 .right-college .teacher .tit {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 {
+  display: block;
+  float: left;
+  width: 258px;
+  height: 80px;
+  border: 1px solid #e6ecf7;
+  background: #fcfdff;
+  border-radius: 2px;
+  position: relative;
+  padding: 0 15px;
+  margin-top: 15px;
+  margin-right: 30px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .teach_img {
+  float: left;
+  margin-top: 12px;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: 28px;
+  position: relative;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .teach_img img {
+  width: 100%;
+  height: 100%;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .dian {
+  width: 12px;
+  height: 12px;
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  position: absolute;
+  text-align: center;
+  line-height: 12px;
+  z-index: 10;
+  left: 57px;
+  top: 53px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .dian .green {
+  margin: 2px auto 0;
+  width: 8px;
+  height: 8px;
+  display: block;
+  background: #2CB82C;
+  border-radius: 5px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .teach_mess {
+  float: left;
+  margin-left: 12px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .teach_mess .name {
+  font-size: 14px;
+  color: #333;
+  margin-top: 16px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .teach_mess .xueke {
+  font-size: 12px;
+  color: #999;
+  margin-top: 10px;
+  max-width: 155px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01:hover .more {
+  display: block;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .more {
+  position: absolute;
+  z-index: 11;
+  padding: 9px 15px 14px;
+  background: #fff;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+  top: -16px;
+  left: 120px;
+  display: none;
+  width: 200px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .more:after {
+  content: "";
+  border: 8px solid transparent;
+  border-right-color: #fff;
+  position: absolute;
+  left: -16px;
+  top: 32px;
+  width: 0;
+  height: 0;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .more .mm {
+  display: block;
+  width: 36px;
+  height: 100%;
+  white-space: nowrap;
+  float: left;
+  line-height: 24px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .more div {
+  display: block;
+  float: left;
+  height: 100%;
+  width: 134px;
+  line-height: 24px;
+}
+.mycollege .college1 .right-college .teacher .teach .teach_01 .more div span {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college1 .right-college .student .tit {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #333;
+}
+.mycollege .college1 .right-college .student .tab {
+  display: block;
+  clear: both;
+  margin-top: 15px;
+}
+.mycollege .college1 .right-college .student .tab li {
+  float: left;
+  width: 47px;
+  height: 22px;
+  text-align: center;
+  line-height: 22px;
+  display: block;
+  border-radius: 11px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.mycollege .college1 .right-college .student .tab .active {
+  background: #2CB82C;
+  color: #fff;
+}
+.mycollege .college1 .right-college .student .stud {
+  width: 100%;
+}
+.mycollege .college1 .right-college .student .stud .stud-child {
+  padding-bottom: 70px;
+  width: 110%;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 {
+  width: 170px;
+  height: 62px;
+  margin-right: 15px;
+  border: 1px solid #e6ecf7;
+  background: #fcfdff;
+  border-radius: 2px;
+  position: relative;
+  padding: 0 15px;
+  margin-top: 15px;
+  float: left;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .stud_img {
+  float: left;
+  margin-top: 9px;
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
+  border-radius: 22px;
+  position: relative;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .stud_img img {
+  width: 100%;
+  height: 100%;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .dian {
+  width: 10px;
+  height: 10px;
+  display: block;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+  position: absolute;
+  text-align: center;
+  line-height: 12px;
+  z-index: 10;
+  left: 51px;
+  top: 40px;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .dian .blue {
+  margin: 2px auto 0;
+  width: 6px;
+  height: 6px;
+  display: block;
+  background: #5faaf7;
+  border-radius: 5px;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .stud_mess {
+  float: left;
+  margin-left: 10px;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .stud_mess .name {
+  font-size: 14px;
+  color: #333;
+  margin-top: 9px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 80px;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .stud_mess .xueke {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .more {
+  position: absolute;
+  z-index: 11;
+  padding: 0 15px 20px;
+  background: #fff;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2);
+  top: -42px;
+  left: 120px;
+  display: none;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .more .sanjiao {
+  content: "";
+  border: 10px solid transparent;
+  position: absolute;
+  top: 69px;
+  width: 0;
+  height: 0;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01 .more p {
+  margin-top: 15px;
+  white-space: nowrap;
+}
+.mycollege .college1 .right-college .student .stud .stud-child .child_01:hover .more {
+  display: block;
+}
+.mycollege .college2 {
+  width: 100%;
+  display: none;
+}
+.mycollege .college2 .tab2 {
+  display: block;
+  clear: both;
+  padding: 20px 0;
+}
+.mycollege .college2 .tab2 span {
+  font-size: 14px;
+  color: #333;
+  float: left;
+  cursor: pointer;
+}
+.mycollege .college2 .tab2 .tab2_01 {
+  padding-right: 12px;
+  border-right: 1px solid #eeeeee;
+  display: block;
+}
+.mycollege .college2 .tab2 .tab2_01 .icon-e {
+  width: 5px;
+  height: 5px;
+  border-radius: 6px;
+  background: red;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+}
+.mycollege .college2 .tab2 .tab2_02 {
+  padding-left: 12px;
+}
+.mycollege .college2 .tab2 .tab2_02 .icon-e {
+  width: 5px;
+  height: 5px;
+  border-radius: 6px;
+  background: red;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+}
+.mycollege .college2 .tab2 .act {
+  color: #2CB82C;
+}
+.mycollege .college2 .table {
+  display: block;
+}
+.mycollege .college2 .table ol {
+  padding: 0;
+  margin: 0;
+}
+.mycollege .college2 .table li {
+  height: 46px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+.mycollege .college2 .table li:hover {
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.1);
+}
+.mycollege .college2 .table li span {
+  line-height: 46px;
+  text-align: left;
+  display: block;
+  float: left;
+  margin-right: 32px;
+  height: 46px;
+}
+.mycollege .college2 .table li .name {
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college2 .table li .course {
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college2 .table li .starttime {
+  width: 140px;
+}
+.mycollege .college2 .table li .endtime {
+  width: 138px;
+}
+.mycollege .college2 .table li .timelength {
+  width: 34px;
+}
+.mycollege .college2 .table li .tool {
+  width: 58px;
+  margin: 0;
+  height: 46px;
+  overflow: hidden;
+}
+.mycollege .college2 .table li .tool em {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college2 .table li .tool em:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college2 .table .nav {
+  background: #fafafa;
+  font-size: 16px;
+  color: #333;
+  border: none;
+}
+.mycollege .college2 .table .nav:hover {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.mycollege .college2 .history {
+  display: none;
+}
+.mycollege .college2 .history .filter {
+  height: 36px;
+  clear: both;
+  margin-bottom: 20px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #999;
+}
+.mycollege .college2 .history .filter .xiala {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 118px;
+  max-height: 175px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #F0F0F0;
+  border-top: none;
+  display: none;
+}
+.mycollege .college2 .history .filter .xiala em {
+  font-style: normal;
+  display: block;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mycollege .college2 .history .filter .xiala em:hover {
+  color: #fff;
+  background: #2CB82C;
+}
+.mycollege .college2 .history .filter .filter_01 {
+  float: left;
+  position: relative;
+}
+.mycollege .college2 .history .filter .filter_01 span {
+  float: left;
+}
+.mycollege .college2 .history .filter .filter_01 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  position: relative;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college2 .history .filter .filter_01 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college2 .history .filter .filter_01 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college2 .history .filter .filter_01 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college2 .history .filter .filter_02 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college2 .history .filter .filter_02 span {
+  float: left;
+}
+.mycollege .college2 .history .filter .filter_02 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  position: relative;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college2 .history .filter .filter_02 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college2 .history .filter .filter_02 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college2 .history .filter .filter_02 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college2 .history .filter .filter_03 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college2 .history .filter .filter_03 .input {
+  width: 148px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  position: relative;
+}
+.mycollege .college2 .history .filter .filter_03 .input input {
+  outline: none;
+  padding-left: 27px;
+  border: none;
+  height: 32px;
+  width: 145px;
+}
+.mycollege .college2 .history .filter .filter_03 .iconfont {
+  color: #ddd;
+  position: absolute;
+  left: 5px;
+  width: 16px;
+  cursor: pointer;
+}
+.mycollege .college2 .history .filter .filter_04 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college2 .history .filter .filter_04 input {
+  outline: none;
+  width: 131px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  line-height: 36px;
+  text-indent: 10px;
+}
+.mycollege .college2 .history ol {
+  padding: 0;
+  margin: 0;
+}
+.mycollege .college2 .history li {
+  height: 46px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+.mycollege .college2 .history li:hover {
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.1);
+}
+.mycollege .college2 .history li span {
+  line-height: 46px;
+  text-align: left;
+  display: block;
+  float: left;
+  margin-right: 30px;
+  height: 46px;
+}
+.mycollege .college2 .history li .name {
+  width: 141px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college2 .history li .course {
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college2 .history li .starttime {
+  width: 120px;
+}
+.mycollege .college2 .history li .endtime {
+  width: 120px;
+}
+.mycollege .college2 .history li .state {
+  width: 45px;
+}
+.mycollege .college2 .history li .score {
+  width: 49px;
+}
+.mycollege .college2 .history li .tool {
+  width: 58px;
+  margin: 0;
+  height: 46px;
+  overflow: hidden;
+}
+.mycollege .college2 .history li .tool em {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college2 .history li .tool em:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college2 .history .nav {
+  background: #fafafa;
+  font-size: 16px;
+  color: #333;
+  border: none;
+}
+.mycollege .college2 .history .nav:hover {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.mycollege .college3 {
+  width: 100%;
+  display: none;
+}
+.mycollege .college3 .tab3 {
+  display: block;
+  clear: both;
+  padding: 20px 0;
+}
+.mycollege .college3 .tab3 span {
+  font-size: 14px;
+  color: #333;
+  float: left;
+  cursor: pointer;
+}
+.mycollege .college3 .tab3 .tab3_01 {
+  padding-right: 12px;
+  border-right: 1px solid #eeeeee;
+  display: block;
+}
+.mycollege .college3 .tab3 .tab3_01 .icon-e {
+  width: 5px;
+  height: 5px;
+  border-radius: 6px;
+  background: red;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+}
+.mycollege .college3 .tab3 .tab3_02 {
+  padding-left: 12px;
+}
+.mycollege .college3 .tab3 .tab3_02 .icon-e {
+  width: 5px;
+  height: 5px;
+  border-radius: 6px;
+  background: red;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+}
+.mycollege .college3 .tab3 .act {
+  color: #2CB82C;
+}
+.mycollege .college3 .table {
+  display: block;
+}
+.mycollege .college3 .table ol {
+  padding: 0;
+  margin: 0;
+}
+.mycollege .college3 .table li {
+  height: 46px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+.mycollege .college3 .table li:hover {
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.1);
+}
+.mycollege .college3 .table li span {
+  line-height: 46px;
+  text-align: left;
+  display: block;
+  float: left;
+  margin-right: 32px;
+}
+.mycollege .college3 .table li .name {
+  width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college3 .table li .course {
+  width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college3 .table li .starttime {
+  width: 150px;
+}
+.mycollege .college3 .table li .endtime {
+  width: 150px;
+}
+.mycollege .college3 .table li .timelength {
+  width: 34px;
+}
+.mycollege .college3 .table li .tool {
+  width: 58px;
+  margin: 0;
+  height: 46px;
+  overflow: hidden;
+}
+.mycollege .college3 .table li .tool em {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college3 .table li .tool em:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college3 .table .nav {
+  background: #fafafa;
+  font-size: 16px;
+  color: #333;
+  border: none;
+}
+.mycollege .college3 .table .nav:hover {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.mycollege .college3 .history {
+  display: none;
+}
+.mycollege .college3 .history .filter {
+  height: 36px;
+  clear: both;
+  margin-bottom: 20px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #999;
+}
+.mycollege .college3 .history .filter .xiala {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 118px;
+  max-height: 175px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #F0F0F0;
+  border-top: none;
+  display: none;
+}
+.mycollege .college3 .history .filter .xiala em {
+  font-style: normal;
+  display: block;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.mycollege .college3 .history .filter .xiala em:hover {
+  color: #fff;
+  background: #2CB82C;
+}
+.mycollege .college3 .history .filter .filter_01 {
+  float: left;
+  position: relative;
+}
+.mycollege .college3 .history .filter .filter_01 span {
+  float: left;
+}
+.mycollege .college3 .history .filter .filter_01 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college3 .history .filter .filter_01 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college3 .history .filter .filter_01 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college3 .history .filter .filter_01 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college3 .history .filter .filter_02 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college3 .history .filter .filter_02 span {
+  float: left;
+}
+.mycollege .college3 .history .filter .filter_02 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college3 .history .filter .filter_02 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college3 .history .filter .filter_02 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college3 .history .filter .filter_02 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college3 .history .filter .filter_03 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college3 .history .filter .filter_03 .input {
+  width: 148px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  position: relative;
+}
+.mycollege .college3 .history .filter .filter_03 .input input {
+  outline: none;
+  padding-left: 27px;
+  border: none;
+  height: 32px;
+  width: 145px;
+}
+.mycollege .college3 .history .filter .filter_03 .iconfont {
+  color: #ddd;
+  left: 5px;
+  width: 16px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+}
+.mycollege .college3 .history .filter .filter_04 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college3 .history .filter .filter_04 input {
+  outline: none;
+  width: 131px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  line-height: 36px;
+  text-indent: 10px;
+}
+.mycollege .college3 .history ol {
+  padding: 0;
+  margin: 0;
+}
+.mycollege .college3 .history li {
+  height: 46px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+.mycollege .college3 .history li:hover {
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.1);
+}
+.mycollege .college3 .history li span {
+  line-height: 46px;
+  text-align: left;
+  display: block;
+  float: left;
+  margin-right: 18px;
+  height: 46px;
+}
+.mycollege .college3 .history li .name {
+  width: 155px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college3 .history li .course {
+  width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college3 .history li .starttime {
+  width: 150px;
+}
+.mycollege .college3 .history li .endtime {
+  width: 150px;
+}
+.mycollege .college3 .history li .timelength {
+  width: 34px;
+}
+.mycollege .college3 .history li .state {
+  width: 45px;
+}
+.mycollege .college3 .history li .score {
+  width: 49px;
+}
+.mycollege .college3 .history li .tool {
+  width: 58px;
+  margin: 0;
+  height: 46px;
+  overflow: hidden;
+}
+.mycollege .college3 .history li .tool em {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college3 .history li .tool em:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college3 .history .nav {
+  background: #fafafa;
+  font-size: 16px;
+  color: #333;
+  border: none;
+}
+.mycollege .college3 .history .nav:hover {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.mycollege .college4 {
+  width: 100%;
+  display: none;
+}
+.mycollege .college4 .table {
+  display: block;
+}
+.mycollege .college4 .table ol {
+  padding: 0;
+  margin: 0;
+}
+.mycollege .college4 .table li {
+  height: 46px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+.mycollege .college4 .table li:hover {
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.1);
+}
+.mycollege .college4 .table li span {
+  line-height: 46px;
+  text-align: left;
+  display: block;
+  float: left;
+  margin-right: 70px;
+  height: 46px;
+}
+.mycollege .college4 .table li .name {
+  width: 33%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college4 .table li .course {
+  width: 35%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college4 .table li .starttime {
+  width: 150px;
+}
+.mycollege .college4 .table li .endtime {
+  width: 35%;
+}
+.mycollege .college4 .table li .endtime .endtime_span0 {
+  height: 15px;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  position: relative;
+  background-color: #f0f0f0;
+  line-height: 15px;
+  z-index: 1;
+}
+.mycollege .college4 .table li .endtime .endtime_span0 .endtime_span1 {
+  margin-top: 0;
+  position: absolute;
+  text-align: center;
+  height: 15px;
+  width: 100%;
+  line-height: 15px;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+.mycollege .college4 .table li .endtime .endtime_span0 .endtime_span2 {
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2cb82c;
+  width: 100%;
+  height: 15px;
+  z-index: 2;
+}
+.mycollege .college4 .table li .timelength {
+  width: 58px;
+}
+.mycollege .college4 .table li .timelength em,
+.mycollege .college4 .table li .timelength a {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college4 .table li .timelength em:hover,
+.mycollege .college4 .table li .timelength a:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college4 .table li .state {
+  width: 45px;
+}
+.mycollege .college4 .table li .score {
+  width: 49px;
+}
+.mycollege .college4 .table li .tool {
+  width: 58px;
+  margin: 0;
+  height: 46px;
+  overflow: hidden;
+}
+.mycollege .college4 .table li .tool em {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college4 .table li .tool em:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college4 .table .nav {
+  background: #fafafa;
+  font-size: 16px;
+  color: #333;
+  border: none;
+}
+.mycollege .college4 .table .nav:hover {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.mycollege .college5 {
+  width: 100%;
+  display: none;
+}
+.mycollege .college5 .tab5 {
+  display: block;
+  clear: both;
+  padding: 20px 0;
+}
+.mycollege .college5 .tab5 span {
+  font-size: 14px;
+  color: #333;
+  float: left;
+  cursor: pointer;
+}
+.mycollege .college5 .tab5 .tab5_01 {
+  padding-right: 12px;
+  border-right: 1px solid #eeeeee;
+  display: block;
+}
+.mycollege .college5 .tab5 .tab5_01 .icon-e {
+  width: 5px;
+  height: 5px;
+  border-radius: 6px;
+  background: red;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+}
+.mycollege .college5 .tab5 .tab5_02 {
+  padding-left: 12px;
+}
+.mycollege .college5 .tab5 .tab5_02 .icon-e {
+  width: 5px;
+  height: 5px;
+  border-radius: 6px;
+  background: red;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+}
+.mycollege .college5 .tab5 .act {
+  color: #2CB82C;
+}
+.mycollege .college5 .table {
+  display: block;
+}
+.mycollege .college5 .table .filter {
+  height: 36px;
+  clear: both;
+  margin-bottom: 20px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #999;
+}
+.mycollege .college5 .table .filter .xiala {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 118px;
+  max-height: 175px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #F0F0F0;
+  border-top: none;
+  display: none;
+}
+.mycollege .college5 .table .filter .xiala em {
+  font-style: normal;
+  display: block;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.mycollege .college5 .table .filter .xiala em:hover {
+  color: #fff;
+  background: #2CB82C;
+}
+.mycollege .college5 .table .filter .filter_01 {
+  float: left;
+  position: relative;
+}
+.mycollege .college5 .table .filter .filter_01 span {
+  float: left;
+}
+.mycollege .college5 .table .filter .filter_01 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college5 .table .filter .filter_01 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college5 .table .filter .filter_01 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college5 .table .filter .filter_01 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .table .filter .filter_02 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college5 .table .filter .filter_02 span {
+  float: left;
+}
+.mycollege .college5 .table .filter .filter_02 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college5 .table .filter .filter_02 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college5 .table .filter .filter_02 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college5 .table .filter .filter_02 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .table .filter .filter_03 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college5 .table .filter .filter_03 .input {
+  width: 148px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  position: relative;
+}
+.mycollege .college5 .table .filter .filter_03 .input input {
+  outline: none;
+  padding-left: 27px;
+  border: none;
+  height: 32px;
+  width: 145px;
+}
+.mycollege .college5 .table .filter .filter_03 .iconfont {
+  color: #ddd;
+  left: 5px;
+  width: 16px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+}
+.mycollege .college5 .table .filter .filter_04 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college5 .table .filter .filter_04 input {
+  outline: none;
+  width: 131px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  line-height: 36px;
+  text-indent: 10px;
+}
+.mycollege .college5 .table ol {
+  padding: 0;
+  margin: 0;
+}
+.mycollege .college5 .table li {
+  height: 46px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+.mycollege .college5 .table li:hover {
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.1);
+}
+.mycollege .college5 .table li span {
+  line-height: 46px;
+  text-align: left;
+  display: block;
+  float: left;
+  margin-right: 45px;
+  height: 46px;
+}
+.mycollege .college5 .table li .name {
+  width: 155px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .table li .course {
+  width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .table li .starttime {
+  width: 150px;
+}
+.mycollege .college5 .table li .endtime {
+  width: 150px;
+}
+.mycollege .college5 .table li .endtime .endtime_span0 {
+  height: 15px;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  position: relative;
+  background-color: #f0f0f0;
+  line-height: 15px;
+  z-index: 1;
+}
+.mycollege .college5 .table li .endtime .endtime_span0 .endtime_span1 {
+  margin-top: 0;
+  position: absolute;
+  text-align: center;
+  height: 15px;
+  width: 100%;
+  line-height: 15px;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+.mycollege .college5 .table li .endtime .endtime_span0 .endtime_span2 {
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2cb82c;
+  width: 100%;
+  height: 15px;
+  z-index: 2;
+}
+.mycollege .college5 .table li .timelength {
+  width: 58px;
+}
+.mycollege .college5 .table li .timelength em,
+.mycollege .college5 .table li .timelength a {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college5 .table li .timelength em:hover,
+.mycollege .college5 .table li .timelength a:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college5 .table li .state {
+  width: 45px;
+}
+.mycollege .college5 .table li .score {
+  width: 49px;
+}
+.mycollege .college5 .table li .tool {
+  width: 58px;
+  margin: 0;
+  height: 46px;
+  overflow: hidden;
+}
+.mycollege .college5 .table li .tool em {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college5 .table li .tool em:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college5 .table .nav {
+  background: #fafafa;
+  font-size: 16px;
+  color: #333;
+  border: none;
+}
+.mycollege .college5 .table .nav:hover {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+.mycollege .college5 .history {
+  display: none;
+}
+.mycollege .college5 .history .filter {
+  height: 36px;
+  clear: both;
+  margin-bottom: 20px;
+  line-height: 36px;
+  font-size: 14px;
+  color: #999;
+}
+.mycollege .college5 .history .filter .xiala {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 118px;
+  max-height: 175px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #F0F0F0;
+  border-top: none;
+  display: none;
+}
+.mycollege .college5 .history .filter .xiala em {
+  font-style: normal;
+  display: block;
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+  padding: 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.mycollege .college5 .history .filter .xiala em:hover {
+  color: #fff;
+  background: #2CB82C;
+}
+.mycollege .college5 .history .filter .filter_01 {
+  float: left;
+  position: relative;
+}
+.mycollege .college5 .history .filter .filter_01 span {
+  float: left;
+}
+.mycollege .college5 .history .filter .filter_01 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college5 .history .filter .filter_01 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college5 .history .filter .filter_01 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college5 .history .filter .filter_01 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .history .filter .filter_02 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college5 .history .filter .filter_02 span {
+  float: left;
+}
+.mycollege .college5 .history .filter .filter_02 .name_01 {
+  width: 118px;
+  height: 36px;
+  margin-left: 10px;
+  padding-left: 10px;
+  display: block;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #333;
+  background: url("../images/select-myinfo-down.png") no-repeat 100px center;
+}
+.mycollege .college5 .history .filter .filter_02 .name_01:hover {
+  background: url("../images/select-myinfo-up.png") no-repeat 100px center;
+}
+.mycollege .college5 .history .filter .filter_02 .name_01:hover .xiala {
+  display: block;
+}
+.mycollege .college5 .history .filter .filter_02 .name_01 i {
+  font-style: normal;
+  display: block;
+  width: 90px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .history .filter .filter_03 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college5 .history .filter .filter_03 .input {
+  width: 148px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  position: relative;
+}
+.mycollege .college5 .history .filter .filter_03 .input input {
+  outline: none;
+  padding-left: 27px;
+  border: none;
+  height: 32px;
+  width: 145px;
+}
+.mycollege .college5 .history .filter .filter_03 .iconfont {
+  color: #ddd;
+  left: 5px;
+  width: 16px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+}
+.mycollege .college5 .history .filter .filter_04 {
+  float: left;
+  margin-left: 20px;
+  position: relative;
+}
+.mycollege .college5 .history .filter .filter_04 input {
+  outline: none;
+  width: 131px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  line-height: 36px;
+  text-indent: 10px;
+}
+.mycollege .college5 .history ol {
+  padding: 0;
+  margin: 0;
+}
+.mycollege .college5 .history li {
+  height: 46px;
+  padding: 0 20px;
+  font-size: 14px;
+  color: #666;
+  border-bottom: 1px solid #f0f0f0;
+}
+.mycollege .college5 .history li:hover {
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.1);
+}
+.mycollege .college5 .history li span {
+  line-height: 46px;
+  text-align: left;
+  display: block;
+  float: left;
+  margin-right: 18px;
+  height: 46px;
+}
+.mycollege .college5 .history li .name {
+  width: 155px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .history li .course {
+  width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mycollege .college5 .history li .starttime {
+  width: 150px;
+}
+.mycollege .college5 .history li .endtime {
+  width: 150px;
+}
+.mycollege .college5 .history li .endtime .endtime_span0 {
+  height: 15px;
+  width: 100%;
+  text-align: center;
+  margin-top: 15px;
+  position: relative;
+  background-color: #f0f0f0;
+  line-height: 15px;
+  z-index: 1;
+}
+.mycollege .college5 .history li .endtime .endtime_span0 .endtime_span1 {
+  margin-top: 0;
+  position: absolute;
+  text-align: center;
+  height: 15px;
+  width: 100%;
+  line-height: 15px;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+.mycollege .college5 .history li .endtime .endtime_span0 .endtime_span2 {
+  margin-top: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2cb82c;
+  width: 100%;
+  height: 15px;
+  z-index: 2;
+}
+.mycollege .college5 .history li .timelength {
+  width: 58px;
+}
+.mycollege .college5 .history li .timelength em,
+.mycollege .college5 .history li .timelength a {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college5 .history li .timelength em:hover,
+.mycollege .college5 .history li .timelength a:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college5 .history li .state {
+  width: 45px;
+}
+.mycollege .college5 .history li .score {
+  width: 49px;
+}
+.mycollege .college5 .history li .tool {
+  width: 58px;
+  margin: 0;
+  height: 46px;
+  overflow: hidden;
+}
+.mycollege .college5 .history li .tool em {
+  line-height: 18px;
+  font-style: normal;
+  font-size: 14px;
+  color: #666;
+  display: block;
+  margin-top: 14px;
+}
+.mycollege .college5 .history li .tool em:hover {
+  color: #2CB82C;
+  border-bottom: 1px solid #2CB82C;
+  cursor: pointer;
+}
+.mycollege .college5 .history .nav {
+  background: #fafafa;
+  font-size: 16px;
+  color: #333;
+  border: none;
+}
+.mycollege .college5 .history .nav:hover {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}

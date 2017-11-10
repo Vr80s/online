@@ -385,7 +385,7 @@ function(e, t, n) {
     }
     function r() {
         var e = "";
-        e = "1" == a.get().isBoard ? s.board_url: s.curr_file && "0" != s.curr_file ? s.doc_url + "/" + s.curr_file + "/" + s.curr_page + ".jpg": "//cnstatic01.e.vhall.com/static/img/mobile/doc_noloading.png",
+        e = "1" == a.get().isBoard ? s.board_url: s.curr_file && "0" != s.curr_file ? s.doc_url + "/" + s.curr_file + "/" + s.curr_page + ".jpg": "",
         i(e)
     }
     var o = n(9),
@@ -403,7 +403,7 @@ function(e, t, n) {
             s = $.extend({},
             s, e),
             $(s.docContent).
-            html('<img style="width:100%"  src="//cnstatic01.e.vhall.com/static/img/mobile/doc_noloading.png" onerror="this.src = \'//cnstatic01.e.vhall.com/static/img/mobile/doc_error.png\'"/>'),
+            html('<img style="width:100%"  id="doc_img" src="" onerror="this.src = " />'),
             		
             		
             		/*<img style="width:100%" 
@@ -772,7 +772,7 @@ function(e, t, n) {
         var t = $("<video id='vhall-h5-player'></video>");
         t.attr("webkit-playsinline", ""),
         t.attr("playsinline", ""),
-        /* t.attr("controls", ""),*/
+        t.attr("controls", ""),
         t.css({
             width: "100%",
             height: "100%"

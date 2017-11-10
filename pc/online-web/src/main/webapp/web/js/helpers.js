@@ -609,7 +609,7 @@
     		if(isSubscribe==1){
     			a+='<a href="javascript:;" class="reser-btn"><img src="/web/images/yugao/yuyue.png" alt="" />已预约</a>\n'
     		}else{
-    			a+='<a href="javascript:;" class="reser-btn dianwo" subscribeId="'+id+'"><img src="/web/images/yugao/yuyue.png" alt="" />预约</a>\n' ;
+    			a+='<a href="javascript:;" class="reser-btn dianwo" subscribeId="'+id+'" startTime="'+showFormatDateString+'"><img src="/web/images/yugao/yuyue.png" alt="" />预约</a>\n' ;
     		}
     	}
     	return a+ '<span class="cover poi" onclick="jump(\''+url+'\')">\n' +
