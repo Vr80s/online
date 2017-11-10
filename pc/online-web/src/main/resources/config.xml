@@ -134,4 +134,5 @@
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.EnchashmentService" ref="enchashmentServiceImpl" timeout="${dubbo.consumer.timeout}" />
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.CityService" ref="cityServiceImpl" timeout="${dubbo.consumer.timeout}" />
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" ref="liveExamineInfoServiceImpl" timeout="${dubbo.consumer.timeout}" />
+	<dubbo:service interface="com.xczhihui.bxg.online.api.service.CriticizeService" ref="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}" />
 </beans>

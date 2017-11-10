@@ -124,6 +124,8 @@
 
 	<dubbo:application name="wechat2"/>
 	<dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
+	<!-- 杨宣新增评论接口 -->
+	<dubbo:reference id="criticizeService"  interface="com.xczhihui.bxg.online.api.service.CriticizeService" timeout="5000" />
 	<dubbo:reference id="userCenterAPI"  interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="5000" />
 	<dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="5000" />
 	<dubbo:reference id="giftServiceImpl" interface="com.xczhihui.bxg.online.api.service.GiftService" timeout="5000" />

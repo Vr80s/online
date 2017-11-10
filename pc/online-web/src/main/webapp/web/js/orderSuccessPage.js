@@ -157,13 +157,13 @@ $(function() {
 		}, false);
 		$(".userShip").css("display", "none");
 		$(".pay-result1").css("display", "block");
-		window.open("/web/weixin_pay_unifiedorder/" + getQueryString("orderId")==null?orderId:getQueryString("orderId"));
+		window.open("/web/weixin_pay_unifiedorder/" + (getQueryString("orderId")==null?orderId:getQueryString("orderId")));
 	});
 	//取消按钮
 	$(".userShip-cancleBtn").click(function() {
 		$(".userShip").css("display", "none");
 		$(".pay-result1").css("display", "block");
-		window.open("/web/weixin_pay_unifiedorder/" + getQueryString("orderId")==null?orderId:getQueryString("orderId"));
+		window.open("/web/weixin_pay_unifiedorder/" + (getQueryString("orderId")==null?orderId:getQueryString("orderId")));
 	});
 	//支付结果页面1
 	$(".pay-success-btn").click(function() {
