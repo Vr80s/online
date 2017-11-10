@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.cloudClass.web;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
@@ -53,6 +55,7 @@ public class RealCourseController extends AbstractController{
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/cloudClass/";
 	@Autowired
 	private CourseService courseService;
+	
 	@Autowired
 	private AttachmentCenterService att;
 	@Value("${online.web.url:http://www.ixincheng.com}")
@@ -75,6 +78,7 @@ public class RealCourseController extends AbstractController{
 		List<TeachMethod> teachMethodVos= courseService.getTeachMethod();
 		request.setAttribute("teachMethodVo", teachMethodVos);
 		
+		//得到所有的讲师
 		List<LecturerVo> lecturers = courseService.getLecturers();
 		request.setAttribute("lecturerVo", lecturers);
 		
@@ -231,6 +235,16 @@ public class RealCourseController extends AbstractController{
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
 		courseVo.setOnlineCourse(1);
+		
+		/**
+		 * 因为线下课程存在地区的，所以呢，需要搞下啦
+		 * 这里需要搞下地址的转换
+		 */
+		String province  = courseVo.getRealProvince();
+		String city = courseVo.getRealCitys();
+		String address = province+"-"+city+"-"+courseVo.getAddress();
+		courseVo.setAddress(address);
+		
 		try{
 			courseService.addCourse(courseVo);
             responseObj.setSuccess(true);
@@ -288,6 +302,16 @@ public class RealCourseController extends AbstractController{
 			courseVo.setCurrentPrice(0.0);
 		}
 
+		/**
+		 * 因为线下课程存在地区的，所以呢，需要搞下啦
+		 * 这里需要搞下地址的转换
+		 */
+		String province  = courseVo.getRealProvince();
+		String city = courseVo.getRealCitys();
+		String address = province+"-"+city+"-"+courseVo.getAddress();
+		courseVo.setAddress(address);
+		
+		
 		 try{
 			 	CourseVo old = courseService.getCourseById(courseVo.getId());
 			 	String oldName = old.getCourseName();

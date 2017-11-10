@@ -197,6 +197,35 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 	}
 	
 	@Override
+	public Token loginMobile(String loginName, String password, TokenExpires tokenExpires) {
+		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
+			ItcastUser user = this.getUser(loginName);
+			if (user == null) {
+				throw new RuntimeException("手机号暂未注册");
+			}
+			if (user.getStatus() == UserStatus.DISABLE.getValue()) {
+				throw new RuntimeException("账号被禁用");
+			}
+			String salt = user.getSalt();
+			if (salt == null) {
+				salt = "";
+			}
+			String expect = CodeUtil.encodePassword(password, salt);
+			String actual = user.getPassword();
+			if (!expect.equals(actual)) {
+				logger.info("actual:{}", actual);
+				logger.info("expect:{}", expect);
+				throw new RuntimeException("用户名或密码错误");
+			}
+			this.updateLastLoginDate(user);
+			Token token = this.tokenManager.createTokenMobile(user, tokenExpires.getExpires());
+			return token;
+		}
+		return null;
+	}
+	
+	
+	@Override
 	public Token login(String loginName, String password, TokenExpires tokenExpires) {
 		if (StringUtils.hasText(loginName) && StringUtils.hasText(password)) {
 			ItcastUser user = this.getUser(loginName);
@@ -341,7 +370,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			throw new RuntimeException("用户名或密码错误");
 		}
 		this.updateLastLoginDate(user);
-		return this.tokenManager.createToken(user, tokenExpires.getExpires());
+		return this.tokenManager.createTokenMobile(user, tokenExpires.getExpires());
 	}
 
 	@Override

@@ -187,4 +187,7 @@ public interface UserCenterAPI {
 	public boolean checkPassword(String loginName, String password);
 
 	public void updateLoginLimit(String name, int clientType, String loginName);
+
+
+	public Token loginMobile(String loginName, String password, TokenExpires tokenExpires);
 }

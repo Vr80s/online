@@ -75,7 +75,7 @@ public class GiftController {
 		}
 		System.out.println("====================="+user.getId());
 				GiftStatement giftStatement=new GiftStatement();
-		giftStatement.setCreateTime(new Date());
+				giftStatement.setCreateTime(new Date());
 	        	giftStatement.setGiver(user.getId());
 				giftStatement.setGiftId(req.getParameter("giftId"));
 				giftStatement.setLiveId(req.getParameter("liveId"));
@@ -126,7 +126,7 @@ public class GiftController {
 				}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
-
+	
 	/**
 	 * 礼物列表
 	 * @param req

@@ -151,21 +151,22 @@ public class VideoDao extends SimpleHibernateDao {
      * @param videoId 视频ID
      * @return
      */
-    public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
+    public <T> Page<T> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize,Class clazz) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 15 : pageSize;
         StringBuffer sql = new StringBuffer();
         Map<String,Object> paramMap = new HashMap<>();
         sql.append(" select oc.id,oc.content,oc.video_id videoId,oc.star_level starLevel,oc.praise_sum praiseSum,oc.create_time createTime,");
-        sql.append(" (select name from oe_user where id=oc.user_id) as userName,");
-        sql.append(" IFNULL((FIND_IN_SET(:userName,oc.praise_login_names)>0),0) isPraise,");
+        sql.append(" (select name from oe_user where id=oc.user_id) as userName,oc.user_id as userId,");
+        sql.append(" IFNULL((FIND_IN_SET(:userName,oc.praise_login_names)>0),0) isPraise,"); //isPraise 判断是否点赞呢
         sql.append(" (select small_head_photo from oe_user where id=oc.user_id) as smallPhoto,");
         sql.append(" oc.praise_login_names as praiseLoginNames,oc.response, oc.response_time response_time");
         sql.append(" from oe_criticize oc where oc.STATUS=1 and oc.is_delete=0 and oc.video_id =:videoId");
         sql.append(" ORDER BY oc.create_time DESC");
         paramMap.put("userName", name);
         paramMap.put("videoId", videoId);
-        return this.findPageBySQL(sql.toString(), paramMap, CriticizeVo.class, pageNumber, pageSize);
+        
+        return (Page<T>)this.findPageBySQL(sql.toString(), paramMap, clazz, pageNumber, pageSize);
     }
 
     /**

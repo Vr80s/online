@@ -125,7 +125,7 @@ public class BunchPlanController {
 		if(courseLecturVo == null){
 			return ResponseObject.newSuccessResponseObject("获取课程异常");
 		}
-		courseLecturVo.setImRoomId(courseLecturVo.getId()+postfix);
+		//courseLecturVo.setImRoomId(courseLecturVo.getId()+postfix);
 		/**
 	     * 是否关注
 	     */
@@ -133,22 +133,22 @@ public class BunchPlanController {
 		/*
 		 * 我的粉丝总数
 		 */
-		Integer countFans =	focusService.findMyFansCount(courseLecturVo.getUserId());
+		//Integer countFans =	focusService.findMyFansCount(courseLecturVo.getUserId());
 		courseLecturVo.setIsfocus(isFours);
-		courseLecturVo.setCountFans(countFans);
+		//courseLecturVo.setCountFans(countFans);
 		/*
 		 * 我的礼物总数   ---》》现在先不搞，后边搞
 		 */
-		courseLecturVo.setCountGift(giftService.findByUserId(courseLecturVo.getUserId()));
+		//courseLecturVo.setCountGift(giftService.findByUserId(courseLecturVo.getUserId()));
 		/**
 		 * 课程没有送礼的，不用广播啦
 		 */
-		if(courseLecturVo.getWatchState()==0){
-			/**
-			 * 记录人次
-			 */
-			onlineWebService.saveEntryVideo(Integer.parseInt(courseid),user);
-		}
+//		if(courseLecturVo.getWatchState()==0){
+//			/**
+//			 * 记录人次
+//			 */
+//			onlineWebService.saveEntryVideo(Integer.parseInt(courseid),user);
+//		}
 		
 		
 //		if(courseLecturVo.getWatchState()==2){  //是否已经认证了密码了
@@ -223,6 +223,14 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(number, pageSize);
+		/**
+		 * 循环把城市展示出来
+		 */
+		for (CourseLecturVo courseLecturVo : list) {
+			String city = courseLecturVo.getAddress();
+			String [] citys = city.split("-");
+			courseLecturVo.setCity(citys[1]);
+		}
 		System.out.println("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}

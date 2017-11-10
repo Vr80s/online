@@ -67,6 +67,7 @@ public interface OnlineUserService {
 	 */
 	void updateUserLecturer(String loginName, int status, String description);
 
-	public OnlineUser getOnlineUserByUserId(String loginName);
+	public OnlineUser getOnlineUserByUserId(String userId);
 
+	
 }

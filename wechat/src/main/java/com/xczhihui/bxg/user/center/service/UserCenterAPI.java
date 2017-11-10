@@ -169,4 +169,8 @@ public interface UserCenterAPI {
 
 
 	public boolean checkPassword(String loginName,String password);
+
+
+	public Token loginMobile(String username, String password,
+			TokenExpires tenday);
 }

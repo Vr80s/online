@@ -28,6 +28,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
+import com.xczh.consumer.market.utils.cc.APIServiceFunction;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.entity.FocusVo;
@@ -62,6 +63,9 @@ public class CommonController {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
+	
+	@Value("${webdomain}")
+	private String webdomain;
 	
 	
 	
@@ -538,9 +542,6 @@ public class CommonController {
 		}
 	}
 	
-	
-	
-	
 	/**
 	 * Description：根据课程id得到判断此课程是：直播呢，还是点播呢，还是预约呢？
 	 * @param req
@@ -575,7 +576,7 @@ public class CommonController {
 	public ResponseObject getDomain(HttpServletRequest req,
 			HttpServletResponse res)throws Exception{
 		try {
-			return ResponseObject.newSuccessResponseObject(WxPayConst.returnOpenidUri);
+			return ResponseObject.newSuccessResponseObject(webdomain);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("请求有误");
@@ -591,11 +592,6 @@ public class CommonController {
 	    Long l =	System.currentTimeMillis();
 	    return l.toString();
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(System.currentTimeMillis());
-	}
-	
 	
 	public String getSign(Map<String,String> signkv){
 		Set<String> keySet = signkv.keySet();
@@ -659,6 +655,4 @@ public class CommonController {
 	    }  
 	    return md5str.toString().toUpperCase();  
     }  
-    
- 
 }
