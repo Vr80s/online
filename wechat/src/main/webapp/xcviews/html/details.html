@@ -232,6 +232,27 @@ $(function(){
     .history_img_right{
     	margin-top: 0.65rem;
     }
+    .fd_img{
+    	width: 4.5rem;
+	    height: 5rem;
+	    margin: 0 auto;
+	    position: relative;
+    }
+    .fd_img img{
+    	width: 4.5rem;
+		height: 4.525rem;
+    	position: absolute;
+    	bottom: 0;
+    }
+    .fd_img p{
+    	width: 8rem;
+	    text-align: center;
+	    font-size: 0.7rem;
+	    color: #999;
+	    margin-left: -1.7rem;
+	    position: absolute;
+	    bottom: -4.5rem;
+    }
 </style>
 
 <script>
@@ -314,6 +335,13 @@ $(function(){
 		$(".give_lable1:eq(1)").click();
 		
 		
+		if($("#doc img").attr("src").length==0){
+			$(".pinch-zoom-container").css("display","none");
+		}else{
+			$(".pinch-zoom-container").css("display","block");
+			$(".fd_img").css("display","none");
+		}
+		
 		
 	};
 </script>
@@ -322,6 +350,7 @@ $(function(){
 		<!--礼物出现的区域  -->
 		<!-- <div class=""  id="text" onkeypress="if(event.keyCode==13) {btn.click();return false;}"></div> -->
 	<!-- <div id="opacity"></div> -->
+	
 
 	<!-- 如果视频id出现错误，弹框 -->
 	<div class="history_bg" style="display:none;">
@@ -633,6 +662,12 @@ $(function(){
 	<!-- 文档开始 -->
 	
 	<div class="document" style="margin-top: 0.47rem;">
+		<div class="fd_img">
+			<img src="/xcviews/images/null13.png" alt="" />
+			<p>主播还没有上传文档</p>
+		</div>
+
+		
 		<div class="document_ceneter" id="doc">
 			
 			<div class="both"></div>

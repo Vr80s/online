@@ -35,34 +35,34 @@ public class MobileCourseDao extends HibernateDao<Course>{
 				 + "left join oe_grade og on og.course_id = oc.id where oc.is_delete = 0  and oc.type is null AND oc.`online_course`=0");
 		 if (courseVo.getCourseName() != null) {
 			 paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
-			 sql.append("and oc.grade_name like :courseName ");
+			 sql.append(" and oc.grade_name like :courseName ");
 		 }
 		 if (courseVo.getMenuId() != null) {
 			 paramMap.put("menuId", courseVo.getMenuId());
-			 sql.append("and oc.menu_id = :menuId ");
+			 sql.append(" and oc.menu_id = :menuId ");
 		 }
 		 if (courseVo.getCourseTypeId() != null) {
 			 paramMap.put("courseTypeId", courseVo.getCourseTypeId());
-			 sql.append("and oc.course_type_id = :courseTypeId ");
+			 sql.append(" and oc.course_type_id = :courseTypeId ");
 		 }
 		 if (courseVo.getCourseType() != null) {
 			 paramMap.put("courseType", courseVo.getCourseType());
-			 sql.append("and oc.courseType = :courseType ");
+			 sql.append(" and oc.courseType = :courseType ");
 		 }
 //		 paramMap.put("serviceType",1); // 20170724 于瑞鑫
 //		 sql.append("and oc.course_type = :serviceType ");
 		 if (courseVo.getIsRecommend() != null) {
 			 paramMap.put("isRecommend", courseVo.getIsRecommend());
-			 sql.append("and oc.is_recommend = :isRecommend ");
+			 sql.append(" and oc.is_recommend = :isRecommend ");
 		 }
 		 if (courseVo.getStatus() != null) {
 			 paramMap.put("status", courseVo.getStatus());
-			 sql.append("and oc.status = :status ");
+			 sql.append(" and oc.status = :status ");
 		 }
 
 		 if (courseVo.getId() > 0) {
 			 paramMap.put("courseId", courseVo.getId());
-			 sql.append("and oc.id <> :courseId ");
+			 sql.append(" and oc.id <> :courseId ");
 		 }
 
 

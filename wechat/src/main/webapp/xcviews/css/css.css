@@ -1664,7 +1664,7 @@ footer{
     font-size: 0.55rem;
     text-align: justify;
     font-family: "微软雅黑";
-    text-indent: 1rem;
+    /*text-indent: 1rem;*/
 }
 .anchor_center_div1{
 	width: 85%;
@@ -4279,14 +4279,14 @@ footer{
 }
 .indent_main_cen_left{
 	width: 98%;
-	float: left;
+	/*float: left;*/
 }
 .indent_main_cen_left img{
-	width: 3.9rem;
-    height: 2.8rem;
+	/*width: 3.9rem;
+    height: 2.8rem;*/
     float: left;
     margin-right: 0.375rem;
-    margin-left: 0.4rem;
+    /*margin-left: 0.4rem;*/
 }
 .indent_main_left_p1{
 	font-size: 0.7rem;
@@ -5946,7 +5946,7 @@ footer{
 	font-size: 0.8rem;
 	margin-top: 0.4rem;
 	margin-left: 0.4rem;
-	font-family: "微软雅黑";
+    text-align: center;
 }
 .history_bg_bto div{
 	font-size: 0.6rem;

@@ -69,31 +69,43 @@ function initOrderList(status,downOrOn){
                 		var type  =  course.type; // type :1 直播  2视频 3 音频
                 		var liveStatus = course.liveStatus;
                 		var liveTypeOrState ="直播";  //直播状态 1.直播中，2预告，3直播结束
+                		var liveTypeImg = '';
 						var onlineCourse=course.onlineCourse;
                 		//判断课程的状态啦  
                 		if(type == 1){
                 			if(liveStatus==1){
                 				liveTypeOrState ="直播中";
+                				liveTypeImg ="/xcviews/images/zhibo001.png";
+                											
                 			}else if(liveStatus==2){
                 				liveTypeOrState ="预告";
-                			}else if(liveStatus==3){
+                				liveTypeImg ="/xcviews/images/yugao001.png"	
+                				
+                											
                 				liveTypeOrState ="回放";
+                				liveTypeImg ="/xcviews/images/huifang001.png"
+                											
                 			}
                 		}else if(type == 2){
                 			liveTypeOrState ="视频";
+                												/*$(".img_bg").attr("src","/xcviews/images/huifang001.png");*/
+                												/*$(".img_bg").show();*/
                 		}else if(type == 3){
                 			liveTypeOrState ="音频";
                 		}
                 		//立即观看、去预约呢，还是直播呢，还是点播呢
                 		html+="<div class='indent_main_cen' title="+type+" onlineCourse="+onlineCourse+"  courseId = "+course.id+" alt="+liveStatus+">"+
             				"<div class='indent_main_cen_left'>"+
-            					"<img  src='"+course.smallImgPath+"' alt='' />"+
-            					"<p class='indent_main_left_p1'>" + course.courseName + "</p>";
+            					"<img  src='/xcviews/images/meng.png' alt='' class='img_show' />"+
+            					"<img  src='"+course.smallImgPath+"' alt='' class='img_show1' />"+
+            					"<p class='indent_main_left_p1'>" + course.courseName + "</p>"+
+            					"<img src="+liveTypeImg+" class='img_bg' />"+
+            					"<p class='indent_main_left_p02'>"+liveTypeOrState+"</p>";
 
                 					if(onlineCourse==1){ //线下课程
                                         course.endTime=formatDateTime(course.endTime);
                                         course.startTime=formatDateTime(course.startTime);
-										html+="<div class='indent_main_one'><p class='indent_main_left_p2 hide_learning'><span class='indent_main_span01'>地点：</span><span class='indent_main_span02'>"+course.address+"</span></p><p class='indent_main_left_p3'><span>"+course.startTime+"</span>-<span>"+course.endTime+"</span></p><div class='both'></div></div>";
+										html+="<div class='indent_main_one'><p class='indent_main_left_p2 hide_learning'><span class='indent_main_span01'>地点：</span><span class='indent_main_span02'>"+course.address+"</span></p><p class='indent_main_left_p3 indent_main_left_p3_span'><span>"+course.startTime+"</span>-<span>"+course.endTime+"</span></p><div class='both'></div></div>";
 									}else{
                 						if(course.currentPrice<=0){
                                             course.currentPrice="免费";
@@ -103,8 +115,8 @@ function initOrderList(status,downOrOn){
 										}else{
                                             course.endTime=formatDateTime(course.endTime);
 										}
-            							html+="<div class='indent_main_one'><p class='indent_main_left_p2'>老师：<span>" + course.teacherName + "</span></p><p class='indent_main_left_p3'>价格:<span>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
-            							"<div class='indent_main_two'><p class='indent_main_left_p02'>"+liveTypeOrState+"</p><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";
+            							html+="<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "老师</span></p><p class='indent_main_left_p3'><span>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
+            							"<div class='indent_main_two'><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";
                                     }
 
                 					html+="</div>"+
