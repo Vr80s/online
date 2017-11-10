@@ -87,6 +87,9 @@ public class OrderController {
                }else{
                    mav.setViewName("PayOrder");
                    mav.addObject("orderNo", result.get("order_no").toString());
+
+                   String orderNo12=result.get("order_no").toString();
+                   mav.addObject("orderId", orderService.findOrderByOrderNo(orderNo12).getId());
                    mav.addObject("actualPay", String.format("%.2f", Double.valueOf(result.get("actualPay").toString())));
                    mav.addObject("courseName", result.get("courseName").toString());
                }

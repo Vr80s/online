@@ -108,8 +108,9 @@ public class AlipayController {
      * @throws AlipayApiException
      */
     @RequestMapping(value = "/alipay/unifiedorder/{orderNo}", method = RequestMethod.GET)
-    public void pay(HttpServletRequest request, HttpServletResponse response, @PathVariable String orderNo) throws XcApiException {
+    public void pay(HttpServletRequest request, HttpServletResponse response, @PathVariable String orderNo,String orderId) throws XcApiException {
 
+        orderNo=orderService.findOrderByOrderId(orderId).getOrder_no();
         //会返回一个支付宝的html表单提交代码
         response.setContentType("text/html");
 

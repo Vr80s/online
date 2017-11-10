@@ -241,7 +241,7 @@ public class OrderDao extends SimpleHibernateDao {
         StringBuffer sql = new StringBuffer();
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("orderNo", orderNo);
-        sql.append("select o.actual_pay,GROUP_CONCAT(c.grade_name) as course_name,o.order_no,GROUP_CONCAT(c.id) as course_id,o.user_id from oe_order o,oe_order_detail od,oe_course c  ");
+        sql.append("select o.id, o.actual_pay,GROUP_CONCAT(c.grade_name) as course_name,o.order_no,GROUP_CONCAT(c.id) as course_id,o.user_id from oe_order o,oe_order_detail od,oe_course c  ");
         sql.append(" where o.id=od.order_id and od.course_id=c.id and o.order_status=0 and o.order_no=:orderNo GROUP BY o.id");
         List<OrderVo> listOrder = this.findEntitiesByJdbc(OrderVo.class, sql.toString(), paramMap);
         return listOrder.size()>0 ? listOrder.get(0) : null;
