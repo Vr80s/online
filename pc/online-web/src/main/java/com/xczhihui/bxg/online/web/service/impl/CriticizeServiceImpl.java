@@ -28,7 +28,6 @@ public class CriticizeServiceImpl implements CriticizeService {
 	@Override
 	public void saveCriticize(Criticize criticize) throws IllegalAccessException, InvocationTargetException {
 		// TODO Auto-generated method stub
-		
 		CriticizeVo cv = new CriticizeVo();
 		BeanUtils.copyProperties(cv,criticize);
 		videoDao.saveCriticize(cv);
@@ -37,8 +36,7 @@ public class CriticizeServiceImpl implements CriticizeService {
 	@Override
 	public Page<Criticize> getVideoCriticize(String videoId, String name,
 			Integer pageNumber, Integer pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize,Criticize.class);
 	}
 
 	/*@Override

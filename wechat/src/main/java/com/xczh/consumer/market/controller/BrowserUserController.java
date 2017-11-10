@@ -354,9 +354,6 @@ public class BrowserUserController {
 		try {
 			//存储在redis中了，有效期为10天。
 			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
-			
-			
-			
 			System.out.println("中国你好啊");
 		} catch (Exception e) {
 			e.printStackTrace();

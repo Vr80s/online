@@ -22,13 +22,18 @@ public interface CriticizeService {
      */
 	public void saveCriticize(Criticize criticizeVo) throws IllegalAccessException, InvocationTargetException;
 	
-	 /**
-     * 得到此视频下的所有评论
-     * Description：
-     * @param criticizeVo
-     * @return void
-     * @author name：yangxuan <br>email: 15936216273@163.com
-     */
+	/**
+	 *  
+	 * Description：得到此视频下的所有评论
+	 * @param videoId 视频id
+	 * @param name    当前用户登录名，用于判断是否点赞用的
+	 * @param pageNumber 
+	 * @param pageSize   
+	 * @return
+	 * @return Page<Criticize>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	public Page<Criticize> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize);
 	
 }

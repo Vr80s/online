@@ -200,7 +200,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
 
     @Override
     public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
-        return (Page<CriticizeVo>) videoDao.getVideoCriticize(videoId,name, pageNumber, pageSize,CriticizeVo.class);
+        return videoDao.getVideoCriticize(videoId,name, pageNumber, pageSize,CriticizeVo.class);
     }
 
     @Override

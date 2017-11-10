@@ -64,6 +64,9 @@ public class CommonController {
 	private String returnOpenidUri;
 	
 	
+	@Value("${webdomain}")
+	private String webdomain;
+	
 	
 	
 	
@@ -573,7 +576,7 @@ public class CommonController {
 	public ResponseObject getDomain(HttpServletRequest req,
 			HttpServletResponse res)throws Exception{
 		try {
-			return ResponseObject.newSuccessResponseObject(WxPayConst.returnOpenidUri);
+			return ResponseObject.newSuccessResponseObject(webdomain);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("请求有误");
@@ -652,40 +655,4 @@ public class CommonController {
 	    }  
 	    return md5str.toString().toUpperCase();  
     }  
-    
-    @RequestMapping("ccvideo")
-	@ResponseBody
-	public ResponseObject ccvideo(HttpServletRequest req,
-			HttpServletResponse res)throws Exception{
-    	
-    	
-    	return null;
-	}
-    public static void main(String[] args) {
-		
-    	APIServiceFunction api = new APIServiceFunction();
-    	
-    	Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("userid", "B5E673E55C702C42");
-		paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC5901307461");
-		paramsMap.put("format", "json");
-		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-		/**
-		 * 获取video信息
-		 */
-		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video?" + requestURL);
-		
-		
-		
-		
-		
-		System.out.println(responsestr);
-		if (responsestr.contains("\"error\":")) {
-			throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
-		}
-    	
-	}
-    
- 
 }
