@@ -198,7 +198,7 @@
             var result = data.resultObject;
             var html="";
             for(var i=0;i<result.length;i++){
-
+            	
                 html+="<div class='train_list' onclick=opitem("+result[i].id+")>\n" +
                     "<div class='train_list_one'>\n" +
                     "<div class='train_list_left'>\n" +
@@ -219,7 +219,7 @@
                     "<div class='train_list_bto1_img'><img src='../images/maip.png' alt=''></div>\n" +
                     
 					//只显示市
-                    "<div class='train_list_bto1_area'>"+result[i].address+"</div>\n" +
+                    "<div class='train_list_bto1_area'>"+result[i].city+"</div>\n" +
                     "</div>\n" +
 					"<div class='both'></div>\n" +
                     "<div class='train_list_bto01'>"+result[i].currentPrice+"元/人</div>\n" +

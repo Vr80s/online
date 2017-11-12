@@ -311,6 +311,11 @@ public class CourseVo extends OnlineBaseVo{
     
     private int liveSource;
     
+    private String realProvince;
+    
+    private String realCitys;
+    
+    
     public String getAddress() {
 		return address;
 	}
@@ -908,6 +913,24 @@ public class CourseVo extends OnlineBaseVo{
 	public void setLiveSource(int liveSource) {
 		this.liveSource = liveSource;
 	}
+
+
+	public String getRealProvince() {
+		return realProvince;
+	}
+
+	public void setRealProvince(String realProvince) {
+		this.realProvince = realProvince;
+	}
+
+	public String getRealCitys() {
+		return realCitys;
+	}
+
+	public void setRealCitys(String realCitys) {
+		this.realCitys = realCitys;
+	}
+
 	
 }
 

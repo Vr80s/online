@@ -95,6 +95,8 @@ public class BrowserUserController {
 		cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 		cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());*/
 		//  "token不能为空", 1001     "已过期", 1002   "有效",1000     "某某型号登录",1003
+		
+		
 		if(null == token){
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
@@ -351,8 +353,10 @@ public class BrowserUserController {
 		Token t = null;
 		try {
 			//存储在redis中了，有效期为10天。
-			t = userCenterAPI.login(username, password, TokenExpires.TenDay);
+			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+			System.out.println("中国你好啊");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("用户名密码有误");
 		}
 		if (t != null) {
@@ -413,10 +417,6 @@ public class BrowserUserController {
                         Token token, OnlineUser user, String ticket){
 		
 		
-//		UCCookieUtil.writeTokenCookie(res, token);
-//		HttpSession session = req.getSession();
-//		session.setAttribute("_user_", user);
-//		session.setMaxInactiveInterval(86400);
 		/**
 		 * 存在两个票，两个票都可以得到用户信息。
 		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
@@ -652,7 +652,7 @@ public class BrowserUserController {
 		 */
 		userCoinService.saveUserCoin(common.getId());
 		
-		Token t = userCenterAPI.login(common.getLoginName(), common.getPassword(), TokenExpires.TenDay);
+		Token t = userCenterAPI.loginMobile(common.getLoginName(), common.getPassword(), TokenExpires.TenDay);
 		common.setTicket(t.getTicket());
 		onlogin(req,res,t,common,t.getTicket());
 		return ResponseObject.newSuccessResponseObject(common);

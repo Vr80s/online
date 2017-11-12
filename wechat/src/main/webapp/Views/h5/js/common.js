@@ -24,11 +24,11 @@ function show(str){
  * @returns
  */
 function getServerHost(){
-	var server_domain = localStorage.server_domain;
+	var server_domain = sessionStorage.server_domain;
 	if(!stringnull(server_domain)){
 		requestService("/bxg/common/getDomain", null, function(data) {
 			if (data.success) {
-				localStorage.setItem("server_domain",data.resultObject);
+				sessionStorage.setItem("server_domain",data.resultObject);
 				server_domain =data.resultObject;
 			}
 		},false)

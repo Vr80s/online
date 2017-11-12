@@ -160,8 +160,11 @@ public class VhallUtil {
 		String json = HttpUtil.sendPostRequest(WEBINAR_CREATE, parameters);
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
-		if(m.get("code").equals("200")){
-			return m.get("data");
+		
+		JSONObject js = JSONObject.parseObject(json);
+		if(js.get("code").equals("200")){
+			System.out.println(js.toJSONString());
+		    return js.get("data").toString();
 		}
 		return null;
 	}

@@ -140,6 +140,8 @@ public class CourseLecturVo implements Serializable {
 	private String address;
 
 	private String udescription;//讲师简介
+	
+	private String city;//线下课程所在城市
 
 	public String getUdescription() {
 		return udescription;
@@ -355,5 +357,13 @@ public class CourseLecturVo implements Serializable {
 
 	public void setRewardCount(String rewardCount) {
 		this.rewardCount = rewardCount;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 }

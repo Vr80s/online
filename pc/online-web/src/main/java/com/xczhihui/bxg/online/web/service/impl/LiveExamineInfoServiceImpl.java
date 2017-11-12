@@ -79,7 +79,15 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
     @Override
     public List<LiveExamineInfoVo> liseByExamineStatus(String userId, String examineStatus, int pageNumber, int pageSize) {
 
-            StringBuilder sb=new StringBuilder("SELECT c.id courseId, c.live_status liveStatus,lei.create_time createTime,om.name type,lei.examine_status examineStatus, lei.id, lei.logo, lei.title, lei.see_mode seeMode, lei.price, lei.start_time startTime,lei.end_time endTime, c.direct_id directId, IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id ), 0 ) + IFNULL(default_student_count, 0) learndCount FROM live_examine_info lei  left JOIN  oe_course c ON (lei.id = c.examine_id) inner join oe_menu om on (om.id=lei.type) WHERE lei.user_id = :userId   ");
+            StringBuilder sb=new StringBuilder("SELECT c.id courseId,"
+            		+ " c.live_status liveStatus,lei.create_time createTime,om.name type,"
+            		+ "lei.examine_status examineStatus, lei.id, lei.logo, lei.title, "
+            		+ "lei.see_mode seeMode, lei.price, lei.start_time startTime,"
+            		+ "lei.end_time endTime, "
+            		+ "c.direct_id directId, IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id ), 0 ) + IFNULL(default_student_count, 0) learndCount "
+            		+ "FROM live_examine_info lei  "
+            		+ "left JOIN  oe_course c ON (lei.id = c.examine_id) "
+            		+ "inner join oe_menu om on (om.id=lei.type) WHERE lei.user_id = :userId   ");
             if("0".equals(examineStatus)){ //待直播
                 sb.append(" and lei.examine_status = 1  AND c.live_status != 3  ");
             }else if("2".equals(examineStatus)){ //直播完成
@@ -104,11 +112,24 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
     @Override
     public LiveExamineInfoVo get(String examineId) {
 
-        String sql="SELECT lei.content, lei.create_time createTime, om.name type,lei.examine_status examineStatus, lei.id, lei.logo, lei.title, lei.see_mode seeMode, lei.price, lei.start_time startTime,lei.end_time endTime, c.direct_id directId, IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id ), 0 ) + IFNULL(default_student_count, 0) learndCount, la.against_reason againstReason FROM live_examine_info lei  left JOIN  oe_course c ON (lei.id = c.examine_id) LEFT JOIN live_appeal la ON (la.examine_id = lei.id) left join oe_menu om on (om.id=lei.type) WHERE lei.id=:examineId   ";
-
-        Map<String,Object> param=new HashMap<>();
-        param.put("examineId",examineId);
-        LiveExamineInfoVo liveExamineInfoVo =  simpleHibernateDao.getNamedParameterJdbcTemplate().queryForObject(sql,param,new BeanPropertyRowMapper<LiveExamineInfoVo>(LiveExamineInfoVo.class));
+//    	 /**
+//    	  * 查询下是审核
+//    	  */
+//    	 String sql = "select cid,name,code from ht_location where level = 2 and code = :code ";
+//		 Map<String,Object> paramMap = new HashMap<String,Object>();
+//		 paramMap.put("code",code);
+//		 return dao.getNamedParameterJdbcTemplate().queryForMap(sql,paramMap);
+    	
+        String sql1="SELECT lei.content, lei.create_time createTime,"
+        		+ " om.name type,lei.examine_status examineStatus, "
+        		+ " lei.id, lei.logo, lei.title, lei.see_mode seeMode,"
+        		+ " lei.price, lei.start_time startTime,lei.end_time endTime  FROM "
+        		+ " live_examine_info lei  left JOIN "
+        		+ "  oe_menu om on (om.id=lei.type) WHERE lei.id=:examineId   ";
+        
+        Map<String,Object> param1=new HashMap<>();
+        param1.put("examineId",examineId);
+        LiveExamineInfoVo liveExamineInfoVo =  simpleHibernateDao.getNamedParameterJdbcTemplate().queryForObject(sql1,param1,new BeanPropertyRowMapper<LiveExamineInfoVo>(LiveExamineInfoVo.class));
         return liveExamineInfoVo;
     }
 
@@ -185,8 +206,7 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             param.put("content",content);
             param.put("examineId",examineId);
             simpleHibernateDao.getNamedParameterJdbcTemplate().update(sql,param);
-
-            String sql2="update live_examine_info set examine_status=2 where id=:examineId ";
+            String sql2="update live_examine_info set examine_status=0 where id=:examineId ";
             Map<String,Object> param2=new HashMap<>();
             param2.put("examineId",examineId);
             simpleHibernateDao.getNamedParameterJdbcTemplate().update(sql2,param2);

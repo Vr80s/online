@@ -101,4 +101,34 @@ class TokenManager {
 	Token getTicket(String ticket) {
 		return this.cacheService.get(ticket);
 	}
+	
+	
+	/**
+	 * 根据用户信息创建Token。
+	 * @param user
+	 * @param expires
+	 *            过期时间 单位秒
+	 * @return
+	 */
+	Token createTokenMobile(ItcastUser user, int expires) {
+		if (user == null) {
+			return null;
+		}
+		Token token = new Token();
+		// 票的生成策略用UUID
+		String ticket = CodeUtil.getRandomUUID();
+		token.setTicket(ticket);
+		token.setLoginName(user.getLoginName());
+		token.setUserId(user.getId());
+		token.setOrigin(user.getOrigin());
+		long time = System.currentTimeMillis() + expires * 1000;
+		token.setExpires(time);
+		token.setMobile(user.getMobile());
+		token.setType(user.getType());
+		token.setEmail(user.getEmail());
+		/*String userRedisKey="tuk_"+user.getId();
+		this.cacheService.set(userRedisKey, token, expires);*/
+		return token;
+	}
+	
 }
