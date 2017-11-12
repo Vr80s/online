@@ -83,6 +83,7 @@ public class OrderController {
                        mav.addObject("orderNo", mapValues.get("orderNo"));
                        mav.addObject("actualPay", String.format("%.2f", Double.valueOf(mapValues.get("actualPay").toString())));
                        mav.addObject("courseName", mapValues.get("courseName"));
+                       mav.addObject("orderId", orderService.findOrderByOrderNo(mapValues.get("orderNo").toString()).getId());
                    }
                }else{
                    mav.setViewName("PayOrder");
@@ -142,7 +143,6 @@ public class OrderController {
     /**
      * 检查订单是否已支付
      * @param orderNo
-     * @param flag
      * @return
      */
     @RequestMapping(value = "/checkOrder")
@@ -218,8 +218,6 @@ public class OrderController {
     
     /** 
      * Description：查询用户消费记录
-     * @param ids
-     * @param orderNo
      * @param request
      * @return
      * @return ResponseObject
