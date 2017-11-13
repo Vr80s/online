@@ -3,6 +3,7 @@ package com.xczh.consumer.market.dao;
 import com.xczh.consumer.market.bean.GiftStatement;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.vo.RankingUserVo;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
@@ -40,6 +41,20 @@ public class GiftStatementMapper extends BasicSimpleDao {
 
         String sql="select ou.id userId,ou.`name`,ou.small_head_photo smallHeadPhoto,ogs.create_time,SUM(ogs.count) giftCount from oe_gift_statement ogs INNER JOIN oe_user ou on(ogs.giver=ou.id)  where ogs.live_id=? "+con+" GROUP BY giver ORDER BY  SUM(ogs.count) desc ";
         List<RankingUserVo> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,RankingUserVo.class, liveId);
+        return lists;
+
+    }
+
+    /**
+     * 榜单列表(主页)
+     * @return
+     */
+    public List<RankingUserVo> userRankingList(String userId) throws SQLException {
+
+        //select ou.name, ors.giver,SUM(ors.price)*10 'xmbcount' from oe_reward_statement ors  INNER JOIN oe_user ou on(ou.id=ors.giver)  where ors.receiver='23908ae85dad4541ba7ecf53fc52aab2'   GROUP BY ors.giver order by  SUM(ors.price)*10  desc
+        String sql="select ou.name ,ou.small_head_photo smallHeadPhoto, gs.giver ,sum(gs.count)*og.price 'giftCount' from oe_gift_statement gs INNER JOIN oe_gift og on(gs.gift_id=og.id) INNER JOIN oe_user ou on(ou.id=gs.giver)  where og.is_free=0 and gs.receiver=? GROUP BY gs.giver order by sum(gs.count)*og.price desc LIMIT 10  ";
+        List<RankingUserVo> lists = this.query(JdbcUtil.getCurrentConnection(),sql,new BeanListHandler<RankingUserVo>(RankingUserVo.class), userId);
+
         return lists;
 
     }

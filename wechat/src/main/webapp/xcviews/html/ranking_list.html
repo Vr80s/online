@@ -111,56 +111,7 @@
       <div style="width: 100%;height: 100%;background: #fff;">
 	      <div class="ranking_body">
 	      	
-	      	<div class="ranking_cen01">
-	      		<div class="ranking_left">
-	      			<div class="ranking_left_img"><img src="../images/scholar0.png" /></div>
-	      			<div class="ranking_left_size">状元</div>
-	      		</div>
-	      		<div class="ranking_cen_img"><img src="../images/120.jpg" /></div>
-	      		<div class="ranking_right">
-	      			<div class="ranking_right_top">测试测试测试测试</div>
-	      			<div class="ranking_right_bot">贡献&nbsp;&nbsp;360</div>
-	      		</div>
-	      		<div class="both"></div>
-	      	</div>
-	      	
-	      	<div class="ranking_cen01">
-	      		<div class="ranking_left">
-	      			<div class="ranking_left_img"><img src="../images/prize01.png" /></div>
-	      			<div class="ranking_left_size">榜眼</div>
-	      		</div>
-	      		<div class="ranking_cen_img"><img src="../images/120.jpg" /></div>
-	      		<div class="ranking_right">
-	      			<div class="ranking_right_top">测试测试测试测试</div>
-	      			<div class="ranking_right_bot">贡献&nbsp;&nbsp;360</div>
-	      		</div>
-	      		<div class="both"></div>
-	      	</div>
-	      	
-	      	<div class="ranking_cen01">
-	      		<div class="ranking_left">
-	      			<div class="ranking_left_img"><img src="../images/tertius01.png" /></div>
-	      			<div class="ranking_left_size">探花</div>
-	      		</div>
-	      		<div class="ranking_cen_img"><img src="../images/120.jpg" /></div>
-	      		<div class="ranking_right">
-	      			<div class="ranking_right_top">测试测试测试测试</div>
-	      			<div class="ranking_right_bot">贡献&nbsp;&nbsp;360</div>
-	      		</div>
-	      		<div class="both"></div>
-	      	</div>
-	      	
-	      	<div class="ranking_cen01">
-	      		<div class="ranking_left" style="font-size: 0.55rem;height: 3rem;line-height: 3rem;">
-	      				第四名
-	      		</div>
-	      		<div class="ranking_cen_img"><img src="../images/120.jpg" /></div>
-	      		<div class="ranking_right">
-	      			<div class="ranking_right_top">测试测试测试测试</div>
-	      			<div class="ranking_right_bot">贡献&nbsp;&nbsp;360</div>
-	      		</div>
-	      		<div class="both"></div>
-	      	</div>
+
 	      	
 	      </div>
       </div>
@@ -223,6 +174,64 @@
 	        
 	        location.href ='persons.html';
 	    });
+
+
+                requestService("/bxg/gift/userRankingList",{userId:'23908ae85dad4541ba7ecf53fc52aab2'},function(data) {
+                    if (data.success) {
+                        var list=data.resultObject;
+                        var html="";
+                        for (var i=0;i<list.length;i++){
+
+                            var pName="";
+                            if(i==0){
+                                pName="状元";
+                            }else if(i==1){
+                                pName="榜眼";
+                            }else if(i==2){
+                                pName="探花";
+                            }else{
+                                pName="第"+(i+1)+"名";
+                            }
+
+                            var pLogo="";
+                            if(i==0){
+                                pLogo="/xcviews/images/01_03.png";
+                            }else if(i==1){
+                                pLogo="/xcviews/images/02_03.png";
+                            }else if(i==2){
+                                pLogo="/xcviews/images/03_03.png";
+                            }
+
+                            html+="<div class='leaderboard_list'>\n";
+
+                            if(i==0 || i==1 || i==2){
+                                html+="<div class='leaderboard_left'>\n";
+                                html+="<img src='"+pLogo+"' alt='' style='width: 1.6rem;height:0.9rem' /><br />";
+                                html+="<span>"+pName+"</span>";
+                            }else{
+                                html+="<div class='leaderboard_left' style='line-height: 1.8rem;'>\n";
+                                html+="<span>"+pName+"</span>";
+                            }
+                            html+="</div>\n" +
+                                "<div class='leaderboard_center'>\n" +
+                                "<img src='"+list[i].smallHeadPhoto+"' alt='' />\n" +
+                                "<div class='leaderboard_center_size'>\n" +
+                                "<p class='p1'>"+list[i].name+"</p>\n" +
+                                "<p class='p2'>\n" +
+                                "贡献&nbsp;&nbsp;<span>"+list[i].giftCount+"</span>\n" +
+                                "</p>\n" +
+                                "</div>\n" +
+                                "</div>\n" +
+                                "<img src='' alt=''\n" +
+                                "class='leaderboard_list_right' />\n" +
+                                "<div class='both'></div>\n" +
+                                "</div>";
+
+                        }
+                        /*html+="<div style="height:5rem;"></div>";*/
+                        $(".ranking_body").html(html);
+                    }
+                },false);
 	
 </script>
 </html>

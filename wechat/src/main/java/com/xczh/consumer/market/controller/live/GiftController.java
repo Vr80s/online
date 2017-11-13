@@ -157,7 +157,7 @@ public class GiftController {
 
 
 	/**
-	 * 礼物榜单
+	 * 礼物榜单（直播间）
 	 * @param req
 	 * @param res
 	 * @param params
@@ -177,6 +177,22 @@ public class GiftController {
 			pageSize = Integer.valueOf(req.getParameter("pageSize"));
 		}
 		return ResponseObject.newSuccessResponseObject(giftService.rankingList(req.getParameter("liveId"),Integer.valueOf(req.getParameter("type")),pageNumber,pageSize));
+	}
+
+	/**
+	 * 礼物榜单（个人主页）
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @return
+	 * @throws SQLException
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/userRankingList")
+	public ResponseObject userRankingList(HttpServletRequest req,
+									  HttpServletResponse res,String userId) throws SQLException {
+
+		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
 	}
 
 

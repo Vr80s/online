@@ -118,6 +118,16 @@ public class GiftServiceImpl implements GiftService {
         }
     }
 
+    @Override
+    public List<RankingUserVo> userRankingList(String userId) {
+        try {
+            return giftStatementMapper.userRankingList(userId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private boolean checkRemainder(GiftStatement giftStatement) {
         // TODO Auto-generated method stub  此处为用户余额是否足以支付赠送礼物所需费用
 
