@@ -111,11 +111,11 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 				pwdAndBuy = 1;
 			}else if(result.watchState == 2){ //需要密码
 				/*$(".buy_bottom_p1").html("<span>需要密码</span>");*/
-				$(".buy_bottom_p1").html("<span style='font-size:16px;'>密码预约</span>")
+				$(".buy_bottom_p1").html("<span style='font-size:0.7rem;margin-top: -0.3rem;display: -webkit-box;'>密码预约</span>")
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 				pwdAndBuy = 2;
 			}else{
-				$(".buy_bottom_p1").html("<span style='font-size:16px;'>免费视频</span>")
+				$(".buy_bottom_p1").html("<span style='font-size:0.7rem;'>免费视频</span>")
 				$(".buy_bottom_p2").html(result.learndCount+"人预约");
 				$(".buy_bottom_p2").hide();
 				pwdAndBuy = 0;
@@ -259,7 +259,9 @@ function goPay() {
 			
 			$(".buy_bg01").show();
 			$(".buy_center").show();
-			$(".order_center").hide();
+			
+			/*隐藏上部分区域预告时间*/
+			/*$(".order_center").hide();*/
 			
 		}else if(pwdAndBuy == 1){
 			requestService("/bxg/order/save", {
@@ -279,12 +281,18 @@ function goPay() {
 			//显示预约
 			$(".buy_bg01").show();
 			$(".buy_center").show();
+			//显示预约
+			$("#buy_bg001").css("display","block");
+            $("#buy_center01").css("display","block");
+            $(".order_center").show();
+            
+            
 		}
 	}else if(isSubscribe == 1){//已经预约，还需要在判断是否确认密码
 		if(pwdAndBuy == 2){
 			$("#passwordDiv").show();
 		}else if(pwdAndBuy == 0){
-			alert("开始直播时,您可以直接观看");
+			alert("您已预约成功");
 			return;
 		}
 	}else{

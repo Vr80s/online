@@ -72,13 +72,26 @@ function userIndexCourseList(type,falg){
 						watchStr ="加密";
 					}
 					html +="<div class='public1_list'>"+
+						"<div class='public1_list_bg'>"+
+						"</div>"+
 						"<div class='public1_list_img' onclick='userIndex("+JSON.stringify(obj)+")'>"+
 							"<img src='../images/line_03.jpg' alt=''>"+
 						"</div>"+
 						"<div class='public1_title'>"+obj.gradeName+"</div>"+
 						"<div class='public1_cen'>"+
-							"<div class='public1_cen_left'>主讲:"+obj.name+"&nbsp;"+obj.courseLength+"小时</div>"+
+							/*"<div class='public1_cen_left'>主讲:"+obj.name+"&nbsp;"+obj.courseLength+"小时</div>"+*/
 							"<div class='public1_cen_right'>"+watchStr+"</div>"+
+						"</div>"+
+						"<div class='public1_list_bottom'>"+  //这是观看人数
+							"<img src='../images/yjing.png' alt=''>"+
+							"50"+
+						"</div>"+
+						"<div class='public1_list_bottom0'>"+   //这是播放时间
+							"00:30:00"+
+						"</div>"+
+						"<div class='public1_list_bottom01'>"+   //这是头部播放类型
+							"<div class='play_types'><img src='../images/zhibo001.png' /></div>"+
+							"<div class='play_types_size'>直播中直播预告回放</div>"+
 						"</div>"+
 					   "</div>";
 				}
@@ -158,9 +171,11 @@ function userIndexStatisticsInfo(){
 		  * 是否关注
 		  */
 		 if(bigObj.isFours == 0){
-			 $("#is_fours").text("关注");
+			 $("#is_fours").css("background","url(/xcviews/images/attention.png) no-repeat");
+			 $("#is_fours").css("background-size","100% 100%");
 		 }else if(bigObj.isFours == 1){
-			 $("#is_fours").text("已关注");
+			 $("#is_fours").css("background","url(/xcviews/images/attention_bg.png) no-repeat");
+			 $("#is_fours").css("background-size","100% 100%");
 		 }
 		 isFours = bigObj.isFours;
 		 /**

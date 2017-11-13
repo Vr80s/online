@@ -81,15 +81,12 @@ function initOrderList(status,downOrOn){
                 				liveTypeOrState ="预告";
                 				liveTypeImg ="/xcviews/images/yugao001.png"	
                 				
-                											
                 				liveTypeOrState ="回放";
                 				liveTypeImg ="/xcviews/images/huifang001.png"
-                											
                 			}
+                			
                 		}else if(type == 2){
                 			liveTypeOrState ="视频";
-                												/*$(".img_bg").attr("src","/xcviews/images/huifang001.png");*/
-                												/*$(".img_bg").show();*/
                 		}else if(type == 3){
                 			liveTypeOrState ="音频";
                 		}
@@ -98,29 +95,33 @@ function initOrderList(status,downOrOn){
             				"<div class='indent_main_cen_left'>"+
             					"<img  src='/xcviews/images/meng.png' alt='' class='img_show' />"+
             					"<img  src='"+course.smallImgPath+"' alt='' class='img_show1' />"+
-            					"<p class='indent_main_left_p1'>" + course.courseName + "</p>"+
-            					"<img src="+liveTypeImg+" class='img_bg' />"+
-            					"<p class='indent_main_left_p02'>"+liveTypeOrState+"</p>";
+            					"<p class='indent_main_left_p1'>" + course.courseName + "</p>";
+            		
+                		if(type==1){
+                			html+= "<img src="+liveTypeImg+" class='img_bg' />"+
+        					"<p class='indent_main_left_p02'>"+liveTypeOrState+"</p>";
+                		}
 
-                					if(onlineCourse==1){ //线下课程
-                                        course.endTime=formatDateTime(course.endTime);
-                                        course.startTime=formatDateTime(course.startTime);
-										html+="<div class='indent_main_one'><p class='indent_main_left_p2 hide_learning'><span class='indent_main_span01'>地点：</span><span class='indent_main_span02'>"+course.address+"</span></p><p class='indent_main_left_p3 indent_main_left_p3_span'><span>"+course.startTime+"</span>-<span>"+course.endTime+"</span></p><div class='both'></div></div>";
-									}else{
-                						if(course.currentPrice<=0){
-                                            course.currentPrice="免费";
-										}
-										if(course.endTime==null){
-                                            course.endTime="不限";
-										}else{
-                                            course.endTime=formatDateTime(course.endTime);
-										}
-            							html+="<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "老师</span></p><p class='indent_main_left_p3'><span>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
-            							"<div class='indent_main_two'><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";
-                                    }
+    					if(onlineCourse==1){ //线下课程
+                            course.endTime=formatDateTime(course.endTime);
+                            course.startTime=formatDateTime(course.startTime);
+							html+="<div class='indent_main_one'><div class='train_list_bto1' style=' height:1rem;'><div class='train_lecturer1' style=' float:left;margin-top:0;'>社会你涛哥</div><div class='train_list_bto1_maip' style='max-width: 3rem;'><div class='train_list_bto1_img' style='margin-right: 0;'><img src='../images/maip.png' alt=''></div><div class='train_list_bto1_area' style='max-width: 2rem;'>"+course.address+"</div></div><div class='train_list_bto01' style=' margin-top:0.6rem;'>￥2000</div></div><div class='offline_bg'><div class='offline_date'>2017.11.16-2017.11.16</div></div><div class='both'></div></div>";
+						}else{
+    						if(course.currentPrice<=0){
+                                course.currentPrice="免费";
+							}
+							if(course.endTime==null){
+                                course.endTime="不限";
+							}else{
+                                course.endTime=formatDateTime(course.endTime);
+							}
+							
+							html+="<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "老师</span></p>" +
+									"<p style='position: absolute;right: 0.4rem;font-size: 0.6rem;font-family:'微软雅黑';'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
+							"<div class='indent_main_two'><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";
+                        }
 
-                					html+="</div>"+
-            			"</div>";
+                		html+="</div>"+"</div>";
                 	var orderStatus=order.orderStatus;
                 	html+="<div class='both'></div>"+
                 	

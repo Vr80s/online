@@ -1894,12 +1894,12 @@ footer{
 	margin-left: 0.4rem;
 }
 .buy_bottom ul li p{
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .buy_bottom_p1{
-	font-size: 1.3rem;
+	font-size: 0.8rem;
 	color: #ff0000;
-	margin-top: -0.5rem;
+	/*margin-top: -0.5rem;*/
 }
 .buy_bottom_p2{
 	font-size: 0.5rem;
@@ -1916,10 +1916,10 @@ footer{
 	width: 5rem;
     /*line-height: 3.07rem;
     height: 3.07rem;*/
-   line-height: 3.25rem;
-    height: 3.25rem;
+   	line-height: 2.1rem;
+    height: 2.1rem;
     background: #00bc12;
-    margin-top: -0.8rem;
+    margin-top: -0.2rem;
     display: inline-block;
     text-align: center;
     color: #f9f8ee;
@@ -2353,7 +2353,7 @@ footer{
     height: 1.5rem;
     outline: none;
     text-indent: 0.4rem;
-    border-radius: 10px;
+    border-radius: 60px;
     border: 1px solid #e5e5e5;
     font-size: 0.8rem;
     color: #999;
@@ -5982,8 +5982,8 @@ footer{
     left: 0rem;
 }
 .getback{
-	width: 1.7rem;
-    height: 1.7rem;
+	width: 0.55rem;
+	height: 0.875rem;
     display: inline-block;
     float: left;
     background: url(../images/yonghu.png) no-repeat;
@@ -5993,20 +5993,23 @@ footer{
 }
 .personage_top{
 	width: 100%;
-	height: 7.5rem;
-	background: url(../images/geren.jpg) center top no-repeat;
-	background-size: 100% 4.7rem;
-	padding-top: 2.8rem;
+    /*height: 8.775rem;*/
+    height: 7.5rem;
+    background: url(../images/geren.jpg) center top no-repeat;
+    background-size: 100% 8.775rem;
+    padding-top: 0.8rem;
+    height: 8.001rem;
 }
 .personage_top_left{
 	width: 3.25rem;
     height: 3.25rem;
-    float: left;
-    margin-left: 0.4rem;
+    /*float: left;
+    margin-left: 0.4rem;*/
     background: #fff;
     border-radius: 60px;
     text-align: center;
-    border: 0.25rem solid #fff;
+    /*border: 0.25rem solid #fff;*/
+   margin: 0 auto;
 }
 .personage_top_left img{
 	width: 3.25rem;
@@ -6015,18 +6018,21 @@ footer{
 	
 }
 .personage_top_cen{
-	margin-top: 2.2rem;
-    margin-left: 4.4rem;
+	margin-top: 0.2rem;
+    /*margin-left: 4.4rem;*/
 }
-
+.personage_top_cen01{
+	width: 100%;
+	text-align: center;
+}
 .personage_top_cen01 span{
-	font-size: 0.9rem;
-	color: #333;
-	font-family: "微软雅黑";
-	float: left;
+	font-size: 0.7rem;
+	color: #fff;
+	/*font-family: "微软雅黑";*/
+	/*float: left;*/
 }
 .personage_top_right{
-	float: right;
+	/*float: right;*/
 }
 .personage_top_cen_img1{
 	float: left;
@@ -6040,25 +6046,24 @@ footer{
     margin-top: 0.35rem;
 }
 .personage_top_right{
-	float: right;
-	width: 3rem;
-	height: 1.2rem; 
-	background: #00bc12;
-	border-radius: 8px;
-	line-height: 1.2rem;
-	text-align: center;
-	font-size: 0.6rem;
-	color: #fff;
-	border: 0.15rem solid #fff;
-	margin-top: -1rem;
-	font-family: "微软雅黑";
-	margin-right: 0.4rem;
+	margin: 0 auto;
+    width: 3.45rem;
+	height: 1.125rem;
+    background: #00bc12;
+    border-radius: 8px;
+    line-height: 1.2rem;
+    text-align: center;
+    font-size: 0.6rem;
+    color: #fff;
+    background: url(/xcviews/images/attention.png) no-repeat;
+    background-size: 100% 100%;
+    margin-top: 0.5rem;
 }
 .personage_pay{
-	width: 11.6rem;
+	width: 100%;
 	margin: 0 auto;
 	margin-bottom: 0.25rem;
-	margin-top: 1.5rem;
+	margin-top: 0.899rem;
 }
 .personage_pay .p1{
 	font-size: 0.7rem;
@@ -6172,17 +6177,19 @@ footer{
     font-family: "微软雅黑";
 }
 .personage_bto_li{
-	color: #00bc12;
+	color: #333;
+	
+	
 }
 .personage_bto_li1{
-	color: #333;
-	border-bottom: 1px solid #333;
+	color: #00bc12;
+	border-bottom: 1px solid #00bc12;
 }
 .personage_bto_cen{
-	width: 95%;
+	width: 100%;
 	height: 100%;
 	float: right;
-	margin-top: 0.2rem;
+	/*margin-top: 0.2rem;*/
 	/*display: none;*/
 }
 .personage_bto_cen1{
@@ -6196,15 +6203,15 @@ footer{
 }
 .personage_bto_cen_one{
 	width: 100%;
-	height: 2rem;
-	line-height: 2rem;
+	height: 1rem;
+	line-height: 1rem;
 	/*background: red;*/
-	border-top: 1px solid #d3d3d3;
-	border-bottom: 1px solid #d3d3d3;
+	/*border-top: 1px solid #d3d3d3;
+	border-bottom: 1px solid #d3d3d3;*/
 }
 .personage_bto_cen_one_left{
 	float: left;
-	width: 3rem;
+	/*width: 3rem;*/
 
 }
 .personage_bto_cen_one_img{
@@ -6218,23 +6225,23 @@ footer{
 	margin-top: 0.3rem;
 }
 .personage_bto_cen_one_size{
-	font-size: 0.6rem;
-	font-family: "微软雅黑";
+	font-size: 0.575rem;
 	color: #000;
+	text-indent: 0.32rem;s
 }
 .personage_bto_cen_one_put{
-	float: right;
-	width: 9rem;
+	float: left;
+	width: 12.7rem;
+	margin-top: -0.1rem;
 }
 .personage_bto_cen_one_put input{
 	width: 100%;
-    height: 1.9rem;
+    height: 1rem;
     border: 0;
     outline: none;
-    font-size: 0.6rem;
-    text-align: right;
+    font-size: 0.575rem;
+    text-align: left;
     background: none;
-    font-family: "微软雅黑";
 }
 
 

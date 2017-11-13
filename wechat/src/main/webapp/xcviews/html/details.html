@@ -90,6 +90,7 @@ $(function(){
 		width: 8.8rem;
 		border: none;
 		margin-top: 0;
+		border-radius: 50px;
 	}
 	.overfloaw_auto{
 		width: 100%;
@@ -109,7 +110,7 @@ $(function(){
 	    font-size: 0.7rem;
 	    text-indent: 0.3rem;
 	    color: #999;
-	    border-radius: 9px;
+	    border-radius: 50px;
 	    margin-top: 0.35rem;
 	    background: #fff;
 	}
@@ -237,6 +238,7 @@ $(function(){
 	    height: 5rem;
 	    margin: 0 auto;
 	    position: relative;
+	    margin-top: 3rem;
     }
     .fd_img img{
     	width: 4.5rem;
@@ -252,6 +254,9 @@ $(function(){
 	    margin-left: -1.7rem;
 	    position: absolute;
 	    bottom: -4.5rem;
+    }
+    #sendChat{
+    	background: none !important;
     }
 </style>
 
@@ -470,13 +475,13 @@ $(function(){
 	<div class="coze_bottom" style="padding: 0.3rem 0;">
 		<div class="coze_bottom_input" style="margin-right: 0;margin-left: 1.8rem;">
 			<div class="poson">
-			<div class="send_img" id="sendChat"><!-- <img src="/xcviews/images/send.jpg"> --></div>
+			<div class="send_img" id="sendChat"><img src="/xcviews/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" /> </div>
 			<!-- <input type="text" placeholder="聊聊您的想法吧" /> -->
 			<!-- <textarea ></textarea> -->
 			
 			<div class="div_input">
-				<input class="textarea02" id=mywords
-				onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' />
+				<input class="textarea02" id="mywords" placeholder="聊聊您的想法吧"
+				onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)'  />
 			</div>
 			
 			</div>
@@ -484,10 +489,10 @@ $(function(){
 
              <!-- 礼物 -->     
 			<a href="javascript: ;" class="give_a1" style="float: right;"><img
-				src="/xcviews/images/gaft.png" alt="" class="give_a1_img" style="margin-left: 0.4rem;width: 1.2rem;margin-top: 0.45rem;display: block !important;" /></a>
+				src="/xcviews/images/gaft.png" alt="" class="give_a1_img" style="margin-left: -2.8rem;width: 1.2rem;margin-top: 0.45rem;display: block !important;" /></a>
 				
 			<!-- 打赏 -->
-			<span class="face give_a1_span02"><img src="/xcviews/images/give.png" style="margin-top: -0.2rem;" /></span>
+			<span class="face give_a1_span02"><img src="/xcviews/images/give.png" style="margin-top: -0.2rem;margin-left: 1.65rem;" /></span>
 				
 				
 				<!-- 表情 -->
@@ -700,7 +705,7 @@ $(function(){
 	<!-- 底部购买开始 -->
 	<div class="buy_bottom_bg" id="buyDiv" style="display: none">
 		<div class="buy_bg" id="bug_bg"></div>
-		<footer style="padding: 0.8rem 0;">
+		<footer>
 			<div class="base buy_bottom">
 				<ul>
 					<li class="buy_left"><p class="buy_bottom_p1">
