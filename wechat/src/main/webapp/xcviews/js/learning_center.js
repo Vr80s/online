@@ -76,15 +76,13 @@ function initOrderList(status,downOrOn){
                 			if(liveStatus==1){
                 				liveTypeOrState ="直播中";
                 				liveTypeImg ="/xcviews/images/zhibo001.png";
-                											
                 			}else if(liveStatus==2){
                 				liveTypeOrState ="预告";
                 				liveTypeImg ="/xcviews/images/yugao001.png"	
-                				
+                			}else{
                 				liveTypeOrState ="回放";
                 				liveTypeImg ="/xcviews/images/huifang001.png"
                 			}
-                			
                 		}else if(type == 2){
                 			liveTypeOrState ="视频";
                 		}else if(type == 3){
