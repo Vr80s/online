@@ -148,18 +148,19 @@
 		color:white !important;
 		}
 
-		.chongZhi {
+		.giftip {
 			display: inline-block;
 			width: 40px;
     		height: 30px;
     		
 		}
-		.chongZhi i{
+		.giftip i{
 		display: inline-block;
 			width: 23px;
     		height: 23px;
     		background:  url(/web/images/live/chongzhi.jpg) 0 0 no-repeat;
     		margin-top: 5px;
+    		
 		}
 		
 		.orange{

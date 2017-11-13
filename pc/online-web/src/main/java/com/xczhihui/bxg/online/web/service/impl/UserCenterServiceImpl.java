@@ -62,6 +62,7 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 //			u.setDistrict(user.getDistrict());
 		    u.setLoginName(user.getLoginName());
 			u.setTarget(user.getTarget());
+			u.setSex(user.getSex());
 //		    u.setFullAddress(user.getFullAddress());
 			u.setOccupationOther(user.getOccupationOther());
 			if (user.getOccupation() != null && user.getOccupation() > 0)
