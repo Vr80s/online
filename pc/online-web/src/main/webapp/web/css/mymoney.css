@@ -124,7 +124,7 @@ a:hover {
   z-index: 999;
 }
 
-#main .main-content #main-right #cash-model .red::-webkit-input-placeholder{
+/*#main .main-content #main-right #cash-model .red::-webkit-input-placeholder{
 	color:red;
 }
 #main .main-content #main-right #cash-model .red:-moz-placeholder{
@@ -132,17 +132,26 @@ a:hover {
 }
 #main .main-content #main-right #cash-model .red:-ms-input-placeholder{
 	color:red;
+}*/
+#main .main-content #main-right #cash-model .red{
+	border: 1px solid #f40;
 }
 
 #main .main-content #main-right #cash-model div {
   position: relative;
   height: 36px;
-  margin-bottom: 10px;
+  margin-top: 5px;
   line-height: 36px;
 }
 #main .main-content #main-right #cash-model div a {
 	color:#2cb82c ;
 	font-size:12px;
+}
+#main .main-content #main-right #cash-model .cashwarn{
+	display: block;
+	font-size:12px;
+	padding-left: 100px;
+	color: red;
 }
 #main .main-content #main-right #cash-model div input {
   display: inline-block;
@@ -154,7 +163,6 @@ a:hover {
   top: 0px;
   text-indent: 1em;
   border: 1px solid #ccc;
-  border-radius: 10px;
   font-size:12px;
 }
 #main .main-content #main-right #cash-success {

@@ -890,11 +890,15 @@ $(function() {
         '</div>'+
         //<!--内部结构-->
        ' <form action="">'+
-            '<div><label>姓&nbsp;&nbsp;&nbsp;名:<input placeholder="请输入姓名" type="text" class="userName" ></label></div>'+
-            '<div><label>手机号:<input type="text" class="telNumber" ></label></div>'+
+            '<div><label>姓&nbsp;&nbsp;&nbsp;名:<input placeholder="请输入姓名" type="text" class="userName cashipt" ></label></div>'+
+            '<span class="userName-warn cashwarn"></span>'+
+            '<div><label>手机号:<input type="text" class="telNumber cashipt" ></label></div>'+
+            '<span class="telNumber-warn cashwarn"></span>'+
             '<div>支付方式<span style="border: 2px solid #2cb82c !important;margin-left: 25px;padding: 5px 10px;border-radius: 10px;">支付宝</span></div>'+
-            '<div><label>支付宝账号<input type="text" class="eaccount" placeholder="请输入支付宝账号"></label></div>'+
-            '<div><label>提现金额:<input type="text" placeholder="" class="totalMoney"></label></div>'+
+            '<div><label>支付宝账号<input type="text" class="eaccount cashipt" placeholder="请输入支付宝账号"></label></div>'+
+            '<span class="eaccount-warn cashwarn"></span>'+
+            '<div><label>提现金额:<input type="text" placeholder="" class="totalMoney cashipt"></label></div>'+
+            '<span class="totalMoney-warn cashwarn"></span>'+
         '</form>'+
         //<!--模态框底部-->
         '<div class="modal-footer">'+

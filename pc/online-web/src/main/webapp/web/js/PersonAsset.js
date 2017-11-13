@@ -85,6 +85,7 @@
 		
 		//提现效果
 		$('#toCash').click(function () {
+			$('.cashwarn').text('');
 		    showMask()
 		    $('#cash-model').fadeIn()
 		    $('#cash-model input').removeClass('red')
@@ -106,6 +107,9 @@
 
 		//确定提交
 		$('#sure-put').click(function(){
+			//初始化验证的表单
+			$('.cashipt').removeClass('red');
+			$('.cashwarn').text('');
 			var name = $('.userName').val();
 			var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;
 			var phone = $('.telNumber').val();
@@ -118,53 +122,53 @@
 			//姓名验证
 			if($.trim(name) == ""){
 				$(".userName").addClass('red')
-				$(".userName").attr('placeholder','姓名不能为空')
+				$(".userName-warn").text('姓名不能为空');
 				return false;
 			}
 			
 			if(!name_pass.test(name)){
-				$(".userName").val('')
+//				$(".userName").val('')
 				$(".userName").addClass('red')
-				$(".userName").attr('placeholder','姓名格式不正确')
+				$(".userName-warn").text('姓名格式不正确')
 				return false;
 			}
 			
 			//手机验证
 			if($.trim(phone) == ""){
 				$(".telNumber").addClass('red')
-				$(".telNumber").attr('placeholder','手机号不能为空')
+				$(".telNumber-warn").text('手机号不能为空')
 				return false;
 			}
 			if(!(phone_pass.test(phone))){
-				$('.telNumber').val('')
+//				$('.telNumber').val('')
 				$(".telNumber").addClass('red')
-				$(".telNumber").attr('placeholder','手机号格式不正确')
+				$(".telNumber-warn").text('手机号格式不正确')
 				return false;
 			}
 			
 			//支付宝账号验证
 			if($.trim(zfb_pay) == ""){
 				$(".eaccount").addClass('red')
-				$(".eaccount").attr('placeholder','支付宝账号不能为空')
+				$(".eaccount-warn").text('支付宝账号不能为空')
 				return false;
 			}
 //			
 			if(!phone_pass.test(zfb_pay) && !Zfb_pass1.test(zfb_pay)){
-				$('.eaccount').val('')
+//				$('.eaccount').val('')
 				$(".eaccount").addClass('red')
-				$(".eaccount").attr('placeholder','支付宝账号格式不正确')
+				$(".eaccount-warn").text('支付宝账号格式不正确')
 				return false;
 			}
 			//金额判断
 			if($.trim(totalMoney) == ""){
 				$(".totalMoney").addClass('red')
-				$(".totalMoney").attr('placeholder','提现金额不能为空')
+				$(".totalMoney-warn").text('提现金额不能为空')
 				return false;
 			}
 			if(!toCashPass.test(totalMoney)){
-				$('.totalMoney').val('')
+//				$('.totalMoney').val('')
 				$(".totalMoney").addClass('red')
-				$(".totalMoney").attr('placeholder','提现金额格式不正确')
+				$(".totalMoney-warn").text('提现金额格式不正确')
 				return false;
 			}
 			
