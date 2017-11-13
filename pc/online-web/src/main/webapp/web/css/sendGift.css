@@ -14,10 +14,10 @@
 
 }
 .gif-num-small{
-	width:75px;
+	/*width:75px;*/
 	position:absolute;
 	bottom:0;
-	right:80px;
+	right:100px;
 }
 .gif-num-small .send-gif-num{
 	    width: 80px;

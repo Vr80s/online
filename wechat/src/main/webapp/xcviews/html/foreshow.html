@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>直播预告</title>
+<!--<title>直播预告</title>-->
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport"
@@ -138,6 +138,20 @@
             $(".guanzhu1").show();
         }); 
 		  
+		  
+		  /* 点击黑色,预约隐藏yuyue*/
+        /*$(".buy_bg").click(function() {
+            $("#mobile_subscribe").hide();
+            $(".order_center").show();
+        });*/
+       
+       	 /*$(".yuyue").click(function() {
+            $("#buy_bg001").css("display","block");
+            $("#buy_center01").css("display","block");
+            
+        });*/
+        
+        
 	});
 </script>
 <style>
@@ -186,6 +200,26 @@
 	.look_put button{
 		height: 1.45rem;
 		line-height: 1.45rem;
+	}
+	.buy_bottom_p2{
+		font-size: 0.7rem;
+	}
+	#mobile_subscribe{
+		/*height: 100%;*/
+		top: 0;
+	}
+	.buy_bg01{
+		height: 100%;
+	}
+	.order_put input{
+		border: 1px solid #d2d2d2;
+		margin-top: 1.5rem;
+	}
+	.buy_center01{
+	    position: absolute;
+	    top: 50%;
+	    background: #fff;
+	    margin-top: 5.5rem;
 	}
 </style>
 </head>
@@ -264,11 +298,11 @@
 					    <p class="buy_bottom_p1" style="margin-top: 0.3rem;">
 								<!-- ￥<span>168.00</span> -->
 						</p>
-						<p class="buy_bottom_p2"></p></li>
+						<p class="buy_bottom_p2" style="margin-top: 0.5rem;"></p></li>
 					<li class="buy_right" id="buy_right">
 					   <!-- 已经预约 -->
 					   <!-- <a href="javascript: ;">立即购买</a> -->
-					   <a href="javascript: ;" onclick="goPay()" style="height: 2.45rem;line-height: 2.45rem;margin-top: -0.4rem;">立即预约</a>
+					   <a href="javascript: ;" onclick="goPay()" class="yuyue" style="height: 2.45rem;line-height: 2.45rem;margin-top: -0.4rem;">立即预约</a>
 					</li>
 				</ul>
 			</div>
@@ -292,11 +326,11 @@
 
 	
 	<div class="buy_bottom_bg" id="mobile_subscribe">
-		<!-- <div class="buy_bg buy_bg01"></div>   -->
-		<div class="buy_center">
+		<div class="buy_bg buy_bg01" id="buy_bg001"></div>  
+		<div class="buy_center buy_center01" id="buy_center01">
 			<div class="look_main order_main">
 				<div class="order_put">
-					<div class="order_close">X</div>
+					<!--<div class="order_close">X</div>-->
 					<input type="tel" placeholder="请输入您的手机号" id="mobile" maxlength="11" />
 				</div>
 				<a href="javascript: ;" style="margin-top:1rem;"  onclick="subscribe()" class="order02">预约</a>

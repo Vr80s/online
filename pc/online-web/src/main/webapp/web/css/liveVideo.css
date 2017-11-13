@@ -422,21 +422,31 @@ overflow-y: auto;
   border-top: 1px solid #E4E4E4;
 }
 .right-live .chat .right-list a {
-	    position: absolute;
-  margin-left: 36px;
+	position: absolute;
+  margin-left: 66px;
   display: block;
   float: left;
-  width: 20px;
+  width: 23px;
   height: 30px;
   cursor: pointer;
 }
-.right-live .chat .right-list p {
+
+
+.right-live .chat .right-list >p {
 	padding-left: 5px;
   float: right;
   color: #666;
   font-size: 13px;
   margin-right: 20px;
 }
+.right-live .chat .right-list #restMoney{
+	float: right;
+	font-size: 12px;
+  color: #999;
+  margin-right: 20px;
+}
+
+
 .right-live .chat .right-list .emoj {
   background: url(/web/images/live/emoj.png) center center no-repeat;
 }
@@ -521,11 +531,17 @@ overflow-y: auto;
   height: 32px;
   line-height: 32px;
 }
-.right-live .chat .right-text .tip .enter {
+
+.right-live .chat .right-text .tip .chongZhi{
+	font-size: 12px;
+	color: orange;
+	padding-left: 20px;
+}
+/*.right-live .chat .right-text .tip .enter {
   font-size: 12px;
   color: #999;
   margin-left: 20px;
-}
+}*/
 .right-live .chat .right-text .tip .sub {
   border-radius: 2px;
   color: #fff;

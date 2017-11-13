@@ -210,7 +210,7 @@ if(result.lineState != 0){  //直播走里面
 	  
 	  $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
 	  $(".face_img01").css('background-size','100% 100%');
-	  $(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');
+	  /*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
 	  $(".send_img").css('background-size','100% 100%');
 	  /*$(".give_a1_span02").show();*/
 	  /*$("#mywords").css("width","11.9rem");*/
@@ -375,7 +375,7 @@ $(".give_a1").show();
 $(".give_a1_img").show();
 
 
-$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');
+/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
 $(".send_img").css('background-size','100% 100%');
 
 $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');

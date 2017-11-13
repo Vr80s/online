@@ -103,7 +103,7 @@ var result="";
             	$(".give_a1_span02").hide();
             	$(".poson").css('right','-1.4rem');
             	
-            	$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');
+            	/*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
                 $(".send_img").css('background-size','100% 100%');
                
                 /*点击input  发送往右跑动了，给0.4rem没起作用*/
@@ -145,7 +145,7 @@ var result="";
             	$("#sendChat").click(function() {
         		    $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
                     $(".face_img01").css('background-size','100% 100%');
-            		$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');
+            		/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
                     $(".send_img").css('background-size','100% 100%');
                     $(".give_a1").hide();
                     $(".give_a1").css("display","none");
@@ -184,12 +184,12 @@ var result="";
             
             //点击直播回放时的input mywords
            	$("#mywords").click(function() {
-           			$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');
+           			/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
                     $("#sendChat").css("background-size","100% 100%");
             });
             //点击直播回放时的发送按钮  
             $("#sendChat").click(function() {
-           			$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');
+           			/*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
                     $(".send_img").css("background-size","100% 100%");
             });
           

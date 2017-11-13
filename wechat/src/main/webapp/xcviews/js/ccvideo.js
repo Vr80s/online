@@ -1,4 +1,26 @@
 
+
+
+
+$(function(){
+	var say = '说点什么...';
+	
+	if ($("#mywords").html() === "") {
+		$("#mywords").html(say);
+	}
+	$("#mywords").click(function(){
+        if($("#mywords").html() == say){
+           $("#mywords").html("");
+        }
+    });
+    $("#page_emotion  dd").click(function(){
+    	var aa = $("#form_article").html();
+        $("#mywords").html($("#mywords").html().replace(say, '') );
+        //$("mywords").val(aa);
+    });
+});
+
+
 /**
  * 点击初始化视频的方法：
  * @param videoId
@@ -32,9 +54,7 @@ function chZJ(videoId){
 			//$("#error_code").text(t.code);
     		$(".history_bg").show();
 		}
-	})
-	
-	
+	},false);
 }
 
 /**
@@ -144,13 +164,11 @@ $(".chatmsg-box").mCustomScrollbar({
 
  $("#sendChat").click(function() {
       //var userInfo  = VHALL_SDK.getUserinfo();
-      var text = $("#mywords").val();
+      var text = $("#mywords").html();
       var msg = null;
-
 //      msg = VHALL_SDK.sendChat({
 //	      text: text
 //	  });
-      
       /*
        * 保存评论
        */
@@ -162,14 +180,21 @@ $(".chatmsg-box").mCustomScrollbar({
 //          chapterId:chapterId,
 //          videoId:videoId
 //      }
+      /*
+       * <img src="http://attachment-center.ixincheng.com:38080/
+       *          data/picture/online/expression/images/arclist/9.gif" />
+       */
+      if(text.length>3000){
+    	  alert("评论长度太长了");
+    	  return;
+      }
       var dataParams = {
-              content:text,	
-              chapterId:"2c9aec345eb431d8015eb6a297790055",
-              videoId:"2c9aec355eb943f5015ecb4221f30005"
+          content:text,	
+          chapterId:"2c9aec345eb431d8015eb6a297790055",
+          videoId:"2c9aec355eb943f5015ecb4221f30005"
       }
       requestService("/bxg/criticize/saveCriticize", 
   			dataParams, function(data) {
-    	  
     	  if(data.success){
     		  var str = "<div class='coze_cen_ri'> "+
 	 			 "<img src="+smallHeadPhoto+" alt='' "+
@@ -186,9 +211,4 @@ $(".chatmsg-box").mCustomScrollbar({
     		  alert(data.errorMessage);
     	  }
       })
-	    
-
-	  
- 
- 
  });

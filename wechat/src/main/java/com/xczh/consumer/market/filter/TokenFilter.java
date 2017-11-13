@@ -165,7 +165,7 @@ public class TokenFilter implements Filter {
 			String httpUrl = WxPayConst.returnOpenidUri+"/bxg/bs/checkToken?token="+token;
 			//String httpUrl = "?token="+token;
 			String str = HttpUtil.sendPostRequest(httpUrl,null);
-			System.out.println("is validate token effective. ehr back data:"+str);		
+			//System.out.println("is validate token effective. ehr back data:"+str);		
 			if(null!=str) obj = JSONObject.parseObject(str);
 		}catch(Exception e){
 			e.printStackTrace();
