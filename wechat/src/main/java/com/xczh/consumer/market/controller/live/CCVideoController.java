@@ -56,7 +56,7 @@ public class CCVideoController {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", videoId);
-		paramsMap.put("autoplay", "true");
+		paramsMap.put("auto_play", "true");
 		paramsMap.put("player_width", playerwidth);
 		paramsMap.put("player_height", playerheight);
 		paramsMap.put("format", "json");
