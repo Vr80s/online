@@ -17,10 +17,10 @@
 		<link href="/web/css/header.css" rel="stylesheet" />
 		<link rel="stylesheet" href="/web/css/componet.css" />
 		<link rel="stylesheet" href="/web/font/iconfont.css">
-		<link rel="stylesheet" href="/web/css/sendGift.css">
-		<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css" />
+		<link rel="stylesheet" href="/web/css/sendGift.css?v=1.0">
+		<link rel="stylesheet" type="text/css" href="/web/css/liveVideo.css?v=1.0" />
 		<link rel="stylesheet" type="text/css" href="/web/css/dashang.css" />
-		<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css" />
+		<link rel="stylesheet" type="text/css" href="/web/css/chongZhi.css?v=1.0" />
 		<script src="/web/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/artTemplate.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="/web/js/bootstrap.js"></script>
@@ -170,7 +170,7 @@
     						</span>
 								</a>
 								<!-- 充值-->
-								<a href="javascript:;" class='chongZhi' style='margin-left:67px'>
+								<a href="javascript:;" class='giftip' style='margin-left:36px;background-color: #fff;'>
 								<i></i>
 								<!--<p style="display:inline-block">充值</p>  -->
 								</a>
@@ -183,6 +183,11 @@
 									<form style="position: absolute;z-index: -100;" method="post" action="/online/live/uploadMsgImg" id="xzform">
 										<input type="file" id="imgLoad" name="image">
 									</form>
+									
+									<div id="restMoney">
+										<span class="enter">账户余额 ：</span><span class="enter balance balanceTotal"  style='margin:0'>0</span>
+									</div>
+									
 								</div>
 								<div class="right-text">
 								<!-- 里面的遮罩层 -->
@@ -203,7 +208,8 @@
 										</div>	
 									</div>
 									<div class="tip">
-										<span class="enter">账户余额 ：</span><span class="enter balance balanceTotal"  style='margin:0'>0</span>
+										<!--<span class="enter">账户余额 ：</span><span class="enter balance balanceTotal"  style='margin:0'>0</span>-->
+										<a href="javascript:;" class="chongZhi">充值</a>
 										<div class='gif-num-small'>
 										<ul class='send-gif-num' style='display:none'>
 										<!-- 其他数量暂时取消 -->
@@ -449,7 +455,7 @@
 	</script>
 </html>
 <script src="/web/js/placeHolder.js"></script>
-<script src="/web/js/chongZhi.js" type="text/javascript" charset="utf-8"></script>
+<script src="/web/js/chongZhi.js?v=1.0" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
 
 
