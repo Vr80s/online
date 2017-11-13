@@ -524,6 +524,8 @@ public class UserController extends OnlineBaseController {
 //				"district");
 		String target = ServletRequestUtils.getStringParameter(request,
 				"target");
+		String sex = ServletRequestUtils.getStringParameter(request,
+				"sex");
 //		String fullAddress = ServletRequestUtils.getStringParameter(request,
 //				"fullAddress");
 		UserDataVo vo = new UserDataVo();
@@ -547,6 +549,7 @@ public class UserController extends OnlineBaseController {
 //		if(occupation != null && occupation == 24) {
 			vo.setOccupationOther(occupationOther);
 //		}
+		vo.setSex(Integer.valueOf(sex));
 		boolean a = userCenterService.updateUser(vo);
 		if(a){
 			user.setName(nickName);
