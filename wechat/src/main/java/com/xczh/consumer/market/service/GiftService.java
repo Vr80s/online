@@ -38,4 +38,10 @@ public interface GiftService {
      * @return
      */
     List<RankingUserVo>  rankingList(String liveId, int type, int pageNumber, int pageSize) ;
+
+    /**
+     * 榜单列表（个人中心）
+     * @return
+     */
+    List<RankingUserVo>  userRankingList(String userId) ;
 }
