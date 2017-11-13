@@ -944,9 +944,14 @@ $(function() {
 			pageNumber: pageNumber,
 			pageSize: pageSize
 		}, function(data) {
-			$(".videoBody-bottom-left-list").html(template.compile(evaluateList)({
+			var  AA= template.compile(evaluateList)({
 				items: data.resultObject.items
-			}));
+			})
+			AA  = AA.replace(/&#60;/g,"<");
+			AA  = AA.replace(/&#34;/g,"\"");
+			AA  = AA.replace(/&#62;/g,">");
+			console.info(AA);
+			$(".videoBody-bottom-left-list").html(AA);
 			if(data.resultObject.totalPageCount > 1) { //分页判断
 				/* $(".not-data").remove();*/
 				$(".videoBody-bottom-left .pages").css("display", "block");

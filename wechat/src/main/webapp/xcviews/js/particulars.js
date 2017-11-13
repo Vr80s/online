@@ -41,32 +41,40 @@ var watchState="";
         //视频id
         videoId = result.directId;
         watchState = result.watchState;
+        
+        //假装免费
+        watchState = 0;
+        result.watchState =0;
+        
         /*
          * 如果videoId不存在的时候，需要显示视频正在来的路上
          */
         if(!stringnull(videoId)){
-        	
         	$(".no_video").show();
         	$(".li1").click(function(){
         		$(".opc").show();
         	});
         	var b_smallImgPath ="url("+result.smallImgPath+") no-repeat";
          	$(".details").css("background",b_smallImgPath);
-        	
         	/*
              * 默认给个3，让其不加载视频
              */
         	watchState = 3;
         }else{
         	/**
+        	 * 初始化CC视频
+        	 */
+        	chZJ(videoId);
+        	
+        	/**
         	 * 存在视频id，隐藏视频正在赶来的路上
         	 */
         	$(".no_video").hide();
+        	
         	$(".li1").click(function(){
         		$(".opc").hide();
         	});
         	if(result.watchState == 1){  //goto 付费页面
-             	//background: url(http://test-www.ixincheng.com/web/images/defaultHead/16.png) no-repeat;
              	var b_smallImgPath ="url("+result.smallImgPath+") no-repeat";
              	$("#bug_bg").css("background",b_smallImgPath);
                 $("#buyDiv").show();
@@ -99,21 +107,13 @@ var watchState="";
         roomNumber=result.roomNumber;  
         courseHead = result.smallImgPath;
         
-        /*
-         * 礼物数和学习人数
-         */
-        $(".details_size span:eq(0)").html(result.giftCount);
-        $(".details_size span:eq(1)").html(result.learndCount);
-        
         /**
          * 关注
          */
         if(result.isfocus == 1){
             $(".guanzhu2").show();
-            //grabble.png  /xcviews/images/guanzhu_03.png
             $("#guanzhuimg").attr("src","/xcviews/images/guanzhu_03.png");
         }else if(result.isfocus == 0){
-            //grabble.png  /xcviews/images/grabble.png
             $(".guanzhu1").show();
             $("#guanzhuimg").attr("src","/xcviews/images/guanzhu_03.png");
         }
@@ -121,15 +121,21 @@ var watchState="";
         /**
          * 为详情页面添加数据
          */
-        $("#headImg").attr("src",result.headImg);
-        var children = $("#zhiboxiangqing [class='p1']").text(result.gradeName);
-        var children = $("#zhiboxiangqing [class='p2'] span").text(result.name);
-        var children = $("#zhiboxiangqing [class='p3'] span").text(result.roomNumber);
+        $("#headImg").attr("src",result.headImg); //主播头像
         var children = $("#zhibopinglun [class='p1']").text(result.gradeName);
         var children = $("#zhibopinglun [class='p2']").text(result.name);
         
+        //课程详情
         $(".anchor_center").html(result.description);
     
+//      /*
+//      * 礼物数和学习人数
+//      */
+//     $(".details_size span:eq(0)").html(result.giftCount);
+//     $(".details_size span:eq(1)").html(result.learndCount);    
+//      var children = $("#zhiboxiangqing [class='p1']").text(result.gradeName);
+//      var children = $("#zhiboxiangqing [class='p2'] span").text(result.name);
+//		var children = $("#zhiboxiangqing [class='p3'] span").text(result.roomNumber); 
 	},false)	
 
 
@@ -282,34 +288,6 @@ function initZJ(){
     
 }
 
-function chZJ(videoId){
-    var map;
-    
-    requestService("/bxg/common/getWeihouSign",{video:videoId}, function(data) {
-    	 map  = data.resultObject;
-	},false)
-    
-
-    $("#video").html("");
-    
-    var weihouSignInfo ={
-    		facedom: "#face",
-            textdom: "#mywords",
-            app_key: map.app_key,// 第三方app_key
-            signedat: map.signedat,// 签名时间戳
-            sign: map.sign,// 签名
-            email: map.email,
-            roomid: map.roomid,// 活动id
-            account: map.account,// 第三方用户id
-            username: map.username,// 用户昵称
-            docContent: "#doc"
-    }
-    if(watchState == 0){
-    	weihouSignInfo.videoContent="#video";
-    }
-    //weihouSignInfo.videoContent="#video";
-    VHALL_SDK.init(weihouSignInfo);
-}
 
 //微博分享 
 document.getElementById('weiboShare').onclick = function(e){
