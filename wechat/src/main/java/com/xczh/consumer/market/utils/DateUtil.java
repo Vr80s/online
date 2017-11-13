@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * 
@@ -33,6 +34,11 @@ public class DateUtil {
 	 */
 	public final static String FORMAT_CHINA_DAY_TIME = "yyyy年MM月dd日 HH时mm分ss秒";
 
+	/**
+	 * day的format形式，格式为为：05:15:31
+	 */
+	public final static String FORMAT_TIME = "HH:mm:ss";
+	
 	/**
 	 * 格式化日期，格式为：yyyy-MM-dd HH:mm:ss
 	 * 
@@ -133,4 +139,53 @@ public class DateUtil {
 		int num = (year - 1900) % 12;
 		return str.substring(num, num + 1);
 	}
+	
+	 /** 
+	  * 将长整型数字转换为日期格式的字符串 
+	  *  
+	  * @param time 
+	  * @param format 
+	  * @return 
+	  */  
+	 public static String convert2String(long time, String format) {  
+		  if (time > 0l) {  
+		   if (BXGStringUtil.isNotBlank(format)){
+			   SimpleDateFormat sf = new SimpleDateFormat(format);  
+			   String hms = sf.format(time);
+			   return hms;
+		   }  
+		  }  
+		  return "";  
+	 }  
+	 
+	  public static String converLongTimeToStr(long time) {
+		  
+		  
+          int ss = 1000;
+          int mi = ss * 60;
+          int hh = mi * 60;
+   
+          long hour = (time) / hh;
+          long minute = (time - hour * hh) / mi;
+          long second = (time - hour * hh - minute * mi) / ss;
+   
+          String strHour = hour < 10 ? "0" + hour : "" + hour;
+          String strMinute = minute < 10 ? "0" + minute : "" + minute;
+          String strSecond = second < 10 ? "0" + second : "" + second;
+          if (hour > 0) {
+              return strHour + ":" + strMinute + ":" + strSecond;
+          } else {
+              return "00:"+strMinute + ":" + strSecond;
+          }
+      }
+	 
+	 public static void main(String[] args) {
+	   TimeZone.getDefault().getRawOffset();	 
+	   System.out.println(convert2String(300*1000,"HH:mm:ss"));
+	   Double bb = (double) (60*60*1000);
+	   Double aa = 2.1;
+	   Long cc = (long) (aa * bb);
+	   System.out.println(converLongTimeToStr((cc)));
+	   
+	 }
 }

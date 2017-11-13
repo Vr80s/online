@@ -53,6 +53,19 @@ public class TokenFilter implements Filter {
 	 * 其余的不拦截的作用
 	 */
 	private String str4 = "/bxg/common/h5ShareAfter,/bxg/version/checkUpdate,/bxg/live/addLive,/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo";
+	/*
+	 * 首页不拦截
+	 */
+	
+	/*	
+	    /bxg/binner/list
+		/bxg/bunch/offLineClass
+		/bxg/bunch/list
+		/bxg/live/list
+	    /bxg/bunch/list
+	*/
+	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,"
+			+ "/bxg/bunch/categorylist,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery";
 	
 	
 	public static void main(String[] args) {
@@ -65,8 +78,7 @@ public class TokenFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
 		//excludedPages = filterConfig.getInitParameter("excludedPages"); 
-		
-		String all = str + "," +str1+","+str2+","+str3+","+str4;
+		String all = str + "," +str1+","+str2+","+str3+","+str4+","+str5;
 		if (StringUtils.isNotEmpty(all)) {   
 		    excludedPageArray = all.split(",");     
 		}     
