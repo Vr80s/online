@@ -1,4 +1,4 @@
-.idea/
+﻿.idea/
 *.iml
 *.class
 pc/online-web/target/
@@ -14,3 +14,4 @@ pc/attachment-center-server/.settings/
 pc/bxg-common-web/.settings/
 pc/bxg-common-util/.settings/
 *.project
+*.zip
