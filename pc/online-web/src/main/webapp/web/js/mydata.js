@@ -1850,26 +1850,26 @@ function geren() {
 		value = $.trim(value); // 用jQuery的trim方法删除前后空格
 		//昵称不能为空
 		if(value == "") {
-			$(".nick-warn").text("用户名不能为空").css("display", "inline-block");
+			$(".nick-warn-name").text("用户名不能为空").css("display", "inline-block");
 			return false;
 		}
 		//昵称不能能有空格
 		var pattern = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;
 		var numberReg = /^\d{4,20}$/; //纯数字验证
 		if(!pattern.test(value)) {
-			$(".nick-warn").text('格式错误,仅支持汉字、字母、数字、"-"、"_"的组合').css("display", "inline-block");
+			$(".nick-warn-name").text('格式错误,仅支持汉字、字母、数字、"-"、"_"的组合').css("display", "inline-block");
 			return false;
 		} else if(numberReg.test(value)) {
-			$(".nick-warn").text('用户名不能是纯数字，请重新输入！').css("display", "inline-block");
+			$(".nick-warn-name").text('用户名不能是纯数字，请重新输入！').css("display", "inline-block");
 			return false;
 		} else if(nickName() < 4 || nickName() > 20) {
-			$(".nick-warn").text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符").css("display", "inline-block");
+			$(".nick-warn-name").text("支持中文、字母、数字、'-'、'_'的组合，4-20个字符").css("display", "inline-block");
 			return false;
 		} else if(data.resultObject == true) {
-			$(".nick-warn").text("用户名已存在").css("display", "inline-block");
+			$(".nick-warn-name").text("用户名已存在").css("display", "inline-block");
 			return false;
 		} else {
-			$(".nick-warn").css("display", "none");
+			$(".nick-warn-name").css("display", "none");
 		}
 		var value1 = $(".mycytextarea").val(); // 获取值
 		value1 = $.trim(value1); // 用jQuery的trim方法删除前后空格
@@ -1891,6 +1891,13 @@ function geren() {
 			sex = 1;
 		}else{
 			sex = 0;
+		}
+		
+		//身份验证
+		if($('.shenFen').val() == 'volvo'){
+			$(".nick-warn-shenfen").text("请选择身份信息").css("display", "inline-block");
+			return false;
+			
 		}
 	
 
