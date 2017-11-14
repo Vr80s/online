@@ -61,7 +61,7 @@ public class GiftController {
 	public GiftController(){
 		//Redisson连接配置文件
 		Config config = new Config();
-		config.useSingleServer().setAddress("127.0.0.1:6379");
+		config.useSingleServer().setAddress("redis-server:6379");
 		redisson = Redisson.create(config);
 	}
 
@@ -139,11 +139,11 @@ public class GiftController {
 //			map=remoteGiftService.addGiftStatement(giftStatement);
 //				}
 
-		RLock redissonLock = redisson.getLock(giftStatement.getReceiver()); // 1.获得锁对象实例
+		RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId()); // 1.获得锁对象实例
 		boolean resl = false;
 		try {
 			resl = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);//等待十秒。有效期五秒
-			System.out.println(giftStatement.getReceiver()+":"+resl);
+//			System.out.println(giftStatement.getLiveId()+":"+resl);
 			map=remoteGiftService.addGiftStatement(giftStatement);
 		}catch (Exception e){
 			e.printStackTrace();
