@@ -50,7 +50,7 @@ public interface VideoService {
     /**
      * 点赞、取消点赞
      */
-    public Map<String, Object> updatePraise(Boolean isPraise,String id,OnlineUser user) ;
+    public Map<String, Object> updatePraise(Boolean isPraise,String id,String loginName) ;
     /**
      * 修改学员视频学习状态
      */

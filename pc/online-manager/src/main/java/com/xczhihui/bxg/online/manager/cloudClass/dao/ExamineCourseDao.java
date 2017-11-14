@@ -179,7 +179,7 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 			 	if(liveExamineInfoVo.getLecturerName() != null){
 			 		paramMap.put("title", "%"+liveExamineInfoVo.getLecturerName()+"%" );
 			 		paramMap.put("gradeName", "%" +liveExamineInfoVo.getLecturerName()+"%");
-			 		sql.append(" and (ou.name like :title or le.gradeName like :gradeName)");
+			 		sql.append(" and (ou.name like :title or le.title like :gradeName)");
 			 	}
 			 	//sql.append(" order by c.status desc, c.sort desc");
 			 	System.out.println("sql.toString():"+sql.toString());

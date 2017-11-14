@@ -413,7 +413,7 @@
 			     <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 					 <label class="col-sm-3 control-label no-padding-right" for="coursePwd">密码: </label>
 					 <div class="col-sm-6">
-					 	<input type="text" name="password" disabled="disabled"  readonly="readonly"  id="coursePwd_edid"  maxlength="10"  class="col-xs-10 col-sm-12">
+					 	<input type="text" name="password" disabled="disabled"  readonly="readonly"  id="coursePwd_edit"  maxlength="10"  class="col-xs-10 col-sm-12">
 		             </div>
 				</div>
 				<div class="form-group" id="edit-currentPrice" style="margin-top: 18px;">
