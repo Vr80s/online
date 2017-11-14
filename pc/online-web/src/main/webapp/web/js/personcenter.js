@@ -390,7 +390,7 @@ $(function() {
 		'<div class="cy-myprofile-myfom-dv-1">' +
 		'<div class="buer"><span class="red">*</span>用户名:</div>' +
 		'<input type="text" maxlength="20" class="firsname ipt"/>' +
-		'<span class="nick-warn warning">昵称不能为空</span>' +
+		'<span class="nick-warn-name warning">用户名不能为空</span>' +
 		'</div>' +
 		
 		'<div>' +
@@ -412,7 +412,7 @@ $(function() {
 //	        '<option value="opel">中医爱好者</option> ' +
 //	        '<option value="audi">中医爱好者</option> ' +
 	        '</select> ' +
-		'<span class="nick-warn warning">身份信息不能为空</span>' +
+		'<span class="nick-warn-shenfen warning" style="margin-left:0px">身份信息不能为空</span>' +
 		'</div>' +
 		
 		'<div class="cy-myprofile-myfom-dv-1">' +
