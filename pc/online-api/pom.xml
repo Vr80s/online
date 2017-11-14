@@ -22,5 +22,11 @@
 			<groupId>com.xczhihui</groupId>
 			<artifactId>bxg-common-util</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>3.3.2</version>
+		</dependency>
 	</dependencies>
 </project>
