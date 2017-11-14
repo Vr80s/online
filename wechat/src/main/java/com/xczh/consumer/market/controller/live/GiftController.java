@@ -223,22 +223,4 @@ public class GiftController {
 		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
 	}
 
-
-	/**
-	 * 礼物榜单（个人主页）
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws SQLException
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/userRankingList")
-	public ResponseObject userRankingList(HttpServletRequest req,
-										  HttpServletResponse res,String userId) throws SQLException {
-
-		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
-	}
-
-
 }
