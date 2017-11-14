@@ -351,15 +351,14 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	    	
 	    	common.append(" select oc.id as id,oc.grade_name as gradeName,ocm.img_url as smallImgPath,");
 	 	    common.append(" oc.start_time as startTime,oc.end_time as endTime, ");
-	 	    common.append(" oc.learnd_count as learndCount,oc.course_length as courseLength, ");
+	 	    common.append(" oc.learnd_count as learndCount,");
+	 	    common.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");
 	 	    common.append(" oc.original_cost as originalCost,oc.current_price as currentPrice, ");
 	 	    common.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");  // 观看状态  
 	 	    common.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, "); //类型 
 	 	    common.append(" ou.small_head_photo as headImg,ou.name as name, ");
 	 	    common.append(" oc.live_status as  lineState ");
 	    }
-	    
-	    
 	    /**
 		 * 得到直播
 		 */

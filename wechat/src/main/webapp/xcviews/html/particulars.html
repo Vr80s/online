@@ -198,14 +198,14 @@ $(document).ready(function(){
          
      });  
      $("#face").click(function() {
-    	 
     	$(".page_emotion").show(); 
     	 
         $(".facebox-mobile").css("left","0px");
-        var a = $(".facebox-mobile").css("display");
-     	if(a=="block"){
+        //var a = $(".facebox-mobile").css("display");
+        var a = $(".face_img01").css("background");
+     	if(a.indexOf("jianpan.png")!=-1){
              setTimeout(function(){
-             	$(".facebox-mobile").hide();
+             	$(".page_emotion").hide();
              	$(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
                 $(".face_img01").css('background-size','100% 100%'); 
              },50);
@@ -222,32 +222,30 @@ $(document).ready(function(){
      	}
          
      }); 
-     $("#sendChat").click(function() {
-          $(".coze_bottom").css("bottom","0rem"); 
-          $("#sendChat").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');
-          $("#sendChat").css('background-size','100% 100%'); 
-     });
-     
+
      
      /*点击表情*/
      $("#face").click(function() {
          $(".page_emotion").css("opacity","1");
-         $("#page_emotion").class("rift");
+         $("#page_emotion").addClass("rift");
          $("#page_emotion").removeClass("rift");
      });
+     
      /*点击输入框  */
     $("#mywords").click(function() {
          $(".page_emotion").css("opacity","0");
           $("#sendChat").css("background","url(/xcviews/images/jiantou02.jpg) no-repeat");
           $("#sendChat").css("background-size","100% 100%");
+          $("#page_emotion").removeClass("rift");
           $("#page_emotion").addClass("rift");
          
      });
      /*点击发送*/
      $("#sendChat").click(function() {
-         $(".page_emotion").css("opacity","0");
+          $(".page_emotion").css("opacity","0");
           $("#sendChat").css("background","url(/xcviews/images/jiantou02.jpg) no-repeat");
           $("#sendChat").css("background-size","100% 100%");
+          $("#page_emotion").removeClass("rift");
           $("#page_emotion").addClass("rift");
      });
      
@@ -261,9 +259,8 @@ $(document).ready(function(){
          
          $(".face_img01").css("background","url(../images/face.png) no-repeat");
          $(".face_img01").css("background-size","100% 100%");
- 
-         
     });
+     
     
     /*点击header*/
    /*$("header").click(function() {
@@ -273,9 +270,6 @@ $(document).ready(function(){
          $("#page_emotion").addClass("rift");
          $(".coze_bottom").css("bottom","0");
     });*/
-    
-     
-     
 });
 </script>
 <style>
@@ -395,8 +389,9 @@ $(document).ready(function(){
 			</div>
 		</div>-->
 			<!--评论内容-->
-			<div class="discuss_main" style="display: none1;">
-				<div class="discuss_main_one">
+			<div class="discuss_main" style="height:11rem;" style="display: none1;">
+				<div  id="new_chatmsg" style="overflow: auto;">
+ 				  <!-- <div class="discuss_main_one">
 					<div class="discuss">
 						<img src="http://attachment-center.ixincheng.com:38080/data/picture/other/2017/11/07/18/89d5723b7d404769843e1763a5102cd6.jpg" alt="" class="discuss_img" />
 						<p>橘子柠檬可乐</p>
@@ -404,6 +399,7 @@ $(document).ready(function(){
 					<div class="discuss_size">
 						我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论我是评论。
 					</div>
+					
 					<div class="discuss_size_reply">熊猫中医回复：我是大灰狼大灰狼</div>
 					
 					<div class="discuss_time">
@@ -460,46 +456,18 @@ $(document).ready(function(){
 						</div>
 					</div>
 					<div class="both"></div>
-				</div>
-				
+				</div>	 -->
+			
+			    </div>
 			</div>
 	</div>	
 	
-	<!--点击赞-->
-	<script>
-		/* @author:Romey
-		 * 动态点赞
-		 * 此效果包含css3，部分浏览器不兼容（如：IE10以下的版本）
-		*/
-		$(function(){
-			$(".praise0").click(function(){
-				var praise_img = $("#praise-img");
-				var text_box = $("#add-num");
-				var praise_txt = $("#praise-txt");
-				var num=parseInt(praise_txt.text());
-				if(praise_img.attr("src") == ("../images/yizan.png")){
-					$(this).html("<img src='../images/zan01.png' id='praise-img' class='animation' />");
-					praise_txt.removeClass("hover");
-					text_box.show().html("<em class='add-animation'>-1</em>");
-					$(".add-animation").removeClass("hover");
-					num -=1;
-					praise_txt.text(num)
-				}else{
-					$(this).html("<img src='../images/yizan.png' id='praise-img' class='animation' />");
-					praise_txt.addClass("hover");
-					text_box.show().html("<em class='add-animation'>+1</em>");
-					$(".add-animation").addClass("hover");
-					num +=1;
-					praise_txt.text(num)
-				}
-			});
-		})
 	</script>
 	
 	
 	
 	<!-- <article id="form_article" contenteditable="true" onkeydown="myInput.listen(this, event);"></article> -->
-			<div class="page_emotion box_swipe" id="page_emotion">
+			<div class="page_emotion box_swipe rift" id="page_emotion" >
 				<dl id="list_emotion" class="list_emotion pt_10"></dl><!-- 表情框 -->
 				<dt><ol id="nav_emotion" class="nav_emotion"></ol></dt><!-- 分页提示点 -->
 			</div>
