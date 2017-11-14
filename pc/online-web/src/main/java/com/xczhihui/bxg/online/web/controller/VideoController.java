@@ -121,7 +121,7 @@ public class VideoController {
         //获取当前登陆用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(user!=null) {
-            Map<String, Object> returnMap = videoService.updatePraise(isPraise, criticizeId, user);
+            Map<String, Object> returnMap = videoService.updatePraise(isPraise, criticizeId, user.getLoginName());
             return ResponseObject.newSuccessResponseObject(returnMap);
         }else{
             return ResponseObject.newErrorResponseObject("用户未登录！");

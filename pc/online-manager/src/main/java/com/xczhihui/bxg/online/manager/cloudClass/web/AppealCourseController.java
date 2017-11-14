@@ -98,7 +98,7 @@ public class AppealCourseController {
 		}*/
 		Group name = groups.findByName("name");
 		if (name != null) {
-			liveExamineInfoVo.setLecturerName((status.getPropertyValue1().toString()));
+			liveExamineInfoVo.setLecturerName((name.getPropertyValue1().toString()));
 		}
 		Page<LiveExamineInfoVo> page = examineCourseService.findAppealListPage(liveExamineInfoVo,currentPage, pageSize);
 		int total = page.getTotalCount();

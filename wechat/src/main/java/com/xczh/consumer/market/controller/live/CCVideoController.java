@@ -68,6 +68,26 @@ public class CCVideoController {
 			return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
 		}
 		return ResponseObject.newSuccessResponseObject(responsestr);
+		
+
+		/*<script src="https://p.bokecc.com/player?vid=9FFDF6EC272558969C33DC5901307461"
+		+ "&siteid=B5E673E55C702C42&autoStart=false"
+		+ "&width=600&height=490&playerid=E92940E0788E2DAE"
+		+ "&playertype=1" type="text/javascript"></script>*/
+		
+	/*	
+		<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+		codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" 
+		width="600" height="490" id="cc_F5846BF4230F06F59C33DC5901307461">
+			<param name="movie" 
+			value="https://p.bokecc.com/flash/single/B5E673E55C702C42_F5846BF4230F06F59C33DC5901307461_false_E92940E0788E2DAE_1/player.swf" />
+			<param name="allowFullScreen" value="true" />
+			<param name="allowScriptAccess" value="always" />
+			<param value="transparent" name="wmode" />
+			<embed src="https://p.bokecc.com/flash/single/B5E673E55C702C42_F5846BF4230F06F59C33DC5901307461_false_E92940E0788E2DAE_1/player.swf" width="600" height="490" name="cc_F5846BF4230F06F59C33DC5901307461" allowFullScreen="true" wmode="transparent" allowScriptAccess="always" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash"/>
+		</object>*/
+		
+		
 	}
 
 	 public static void main(String[] args) {

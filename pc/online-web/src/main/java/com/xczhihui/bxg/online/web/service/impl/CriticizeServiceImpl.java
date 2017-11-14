@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.Criticize;
 import com.xczhihui.bxg.online.web.dao.VideoDao;
+import com.xczhihui.bxg.online.web.service.VideoService;
 import com.xczhihui.bxg.online.web.vo.CriticizeVo;
 
 /**
@@ -24,6 +26,8 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 	@Autowired
 	private VideoDao videoDao;
+	@Autowired
+	private VideoService videoService;
 	
 	@Override
 	public void saveCriticize(Criticize criticize) throws IllegalAccessException, InvocationTargetException {
@@ -31,6 +35,7 @@ public class CriticizeServiceImpl implements CriticizeService {
 		CriticizeVo cv = new CriticizeVo();
 		BeanUtils.copyProperties(cv,criticize);
 		videoDao.saveCriticize(cv);
+		
 	}
 
 	@Override
@@ -39,12 +44,10 @@ public class CriticizeServiceImpl implements CriticizeService {
 		return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize,Criticize.class);
 	}
 
-	/*@Override
-	public Page<Criticize> getVideoCriticize(String videoId, String name,
-			Integer pageNumber, Integer pageSize) {
+	@Override
+	public Map<String, Object> updatePraise(Boolean isPraise,
+			String criticizeId, String loginName) {
 		// TODO Auto-generated method stub
-		
-		return videoDao.getVideoCriticize(videoId,name, pageNumber, pageSize);
-	}*/
-
+		return videoService.updatePraise(isPraise, criticizeId, loginName);
+	}
 }
