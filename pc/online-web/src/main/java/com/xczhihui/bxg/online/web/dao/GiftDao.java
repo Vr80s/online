@@ -136,7 +136,7 @@ public class GiftDao extends SimpleHibernateDao {
 				"      ON oc.`user_lecturer_id` = ou.`id` \n" +
 				"    JOIN `apply_r_grade_course` argc \n" +
 				"      ON oc.id = argc.`course_id` \n" +
-				"    LEFT JOIN `oe_order_detail` ood \n" +
+				"    LEFT JOIN (SELECT aa.* FROM `oe_order_detail` aa JOIN `oe_order` bb ON aa.`order_id`=bb.`id` AND bb.`order_status`=1 ) ood \n" +
 				"      ON oc.id = ood.`course_id` \n" +
 				"  WHERE oc.`is_delete` = 0 \n" +
 				"    AND oc.`type` = 1 \n" +
