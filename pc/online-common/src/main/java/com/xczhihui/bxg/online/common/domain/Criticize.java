@@ -11,7 +11,6 @@ import com.xczhihui.bxg.common.support.domain.BasicEntity;
 @Entity
 @Table(name = "oe_criticize")
 public class Criticize extends BasicEntity  {
-
     /**
 	 * 
 	 */

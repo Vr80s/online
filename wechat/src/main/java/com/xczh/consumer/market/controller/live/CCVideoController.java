@@ -4,6 +4,7 @@ package com.xczh.consumer.market.controller.live;
 //import java.util.LinkedList;
 //import java.util.List;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,9 +57,13 @@ public class CCVideoController {
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
 		paramsMap.put("videoid", videoId);
-		paramsMap.put("autoplay", "true");
+		paramsMap.put("auto_play", "true");
 		paramsMap.put("player_width", playerwidth);
-		paramsMap.put("player_height", playerheight);
+		
+		//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
+		BigDecimal decimal = new BigDecimal(playerheight);
+		BigDecimal setScale = decimal.setScale(0,BigDecimal.ROUND_HALF_DOWN);
+		paramsMap.put("player_height",setScale+"");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
@@ -109,17 +114,26 @@ public class CCVideoController {
 //			if (responsestr.contains("\"error\":")) {
 //				throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
 //			}
-			Map<String, String> paramsMap = new HashMap<String, String>();
-			paramsMap.put("userid", "B5E673E55C702C42");
-			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC59013074611");
-			paramsMap.put("autoplay", "true");
-			paramsMap.put("playerwidth", "100");
-			paramsMap.put("playerheight", "120");
-			paramsMap.put("format", "json");
-			long time = System.currentTimeMillis();
-			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-			System.out.println(requestURL);
-			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-			System.out.println(responsestr);
+//			Map<String, String> paramsMap = new HashMap<String, String>();
+//			paramsMap.put("userid", "B5E673E55C702C42");
+//			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC59013074611");
+//			paramsMap.put("autoplay", "true");
+//			paramsMap.put("playerwidth", "100");
+//			paramsMap.put("playerheight", "120");
+//			paramsMap.put("format", "json");
+//			long time = System.currentTimeMillis();
+//			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
+//			System.out.println(requestURL);
+//			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
+//			System.out.println(responsestr);
+		 
+		    BigDecimal decimal = new BigDecimal("1.52345");
+	        System.out.println(decimal);
+	        BigDecimal setScale = decimal.setScale(0,BigDecimal.ROUND_HALF_DOWN);
+	        System.out.println(setScale);
+	        
+	        BigDecimal setScale1 = decimal.setScale(0,BigDecimal.ROUND_HALF_UP);
+	        System.out.println(setScale1.toString());
+		 
 	 }
 }

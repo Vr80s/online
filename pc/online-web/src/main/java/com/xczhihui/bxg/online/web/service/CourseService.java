@@ -1,20 +1,19 @@
 package com.xczhihui.bxg.online.web.service;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.api.vo.*;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
 import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.CriticizeVo;
-
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  *   CourseService1:课程业务层接口类
@@ -24,8 +23,6 @@ public interface CourseService {
 
 
     public List<ScoreType> findAllScoreType();
-
-
 
 
     public Page<CourseLecturVo>  courseList(Integer menuType, Integer menuId, String couseTypeId,String multimediaType,String isFree,String orderType,String orderBy, Integer pageNumber, Integer pageSize);

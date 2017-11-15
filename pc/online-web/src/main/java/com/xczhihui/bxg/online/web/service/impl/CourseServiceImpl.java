@@ -6,29 +6,27 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.aliyuncs.exceptions.ClientException;
-import com.xczhihui.bxg.common.util.SmsUtil;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.bxg.online.web.dao.ScoreTypeDao;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.aliyuncs.exceptions.ClientException;
+import com.xczhihui.bxg.common.util.SmsUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.CourseSubscribeDao;
+import com.xczhihui.bxg.online.web.dao.ScoreTypeDao;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.LecturerService;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
 import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.CriticizeVo;
 import com.xczhihui.bxg.online.web.vo.LecturVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
