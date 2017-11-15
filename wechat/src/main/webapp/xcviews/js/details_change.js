@@ -73,7 +73,14 @@ $(".coze_bottom").show();
 $(".details1").hide();
 $(".document").hide();
 $(".leaderboard").hide();
-setTimeout(function(){
+
+
+$(this).parent().addClass('details01');
+$(".li2").parent().removeClass('details01');
+$(".li3").parent().removeClass('details01');
+$(".li4").parent().removeClass('details01');
+
+	setTimeout(function(){
 	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
     },50);
 });
@@ -82,6 +89,10 @@ $(this).addClass('details');
 $(".li1").removeClass('details');
 $(".li3").removeClass('details');
 $(".li4").removeClass('details');
+$(this).parent().addClass('details01');
+$(".li1").parent().removeClass('details01');
+$(".li3").parent().removeClass('details01');
+$(".li4").parent().removeClass('details01');
 $(".details1").show();
 $(".coze").hide();
 $(".document").hide();
@@ -98,6 +109,10 @@ $(this).addClass('details');
 $(".li1").removeClass('details');
 $(".li2").removeClass('details');
 $(".li4").removeClass('details');
+$(this).parent().addClass('details01');
+$(".li2").parent().removeClass('details01');
+$(".li1").parent().removeClass('details01');
+$(".li4").parent().removeClass('details01');
 $(".leaderboard").show();
 $(".coze").hide();
 $(".details1").hide();
@@ -114,9 +129,10 @@ $(".face_img01").css("background-size","100% 100%");
 });
 $(".li4").click(function() {
 $(this).addClass('details');
-$(".li1").removeClass('details');
-$(".li2").removeClass('details');
-$(".li3").removeClass('details');
+$(this).parent().addClass('details01');
+$(".li2").parent().removeClass('details01');
+$(".li3").parent().removeClass('details01');
+$(".li1").parent().removeClass('details01');
 $(".document").show();
 $(".coze").hide();
 $(".details1").hide();
