@@ -1,11 +1,13 @@
-package com.xczhihui.bxg.online.web.vo;
+package com.xczhihui.bxg.online.api.vo;
 
 /**
  * 职业
  * @author duanqh
  *
  */
-public class JobVo {
+public class JobVo  implements java.io.Serializable{
+
+	
 	/** id */
 	private String id;
 	
