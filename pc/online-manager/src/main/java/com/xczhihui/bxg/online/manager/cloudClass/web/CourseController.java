@@ -728,7 +728,7 @@ public class CourseController extends AbstractController{
 //	@RequestMapping(value = "initSend")
 //	@ResponseBody
 //	public String initSend(HttpServletRequest request) {
-//		courseService.initOpenCourseToSend();
+	// courseService.initOpenCourseToSend();
 //		return "ok";
 //	}
 }

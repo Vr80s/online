@@ -60,6 +60,7 @@ public class CCVideoController {
 		paramsMap.put("auto_play", "true");
 		paramsMap.put("player_width", playerwidth);
 		
+		//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
 		BigDecimal decimal = new BigDecimal(playerheight);
 		BigDecimal setScale = decimal.setScale(0,BigDecimal.ROUND_HALF_DOWN);
 		paramsMap.put("player_height",setScale+"");
