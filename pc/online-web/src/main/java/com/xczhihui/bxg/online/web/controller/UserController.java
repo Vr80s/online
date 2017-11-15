@@ -78,11 +78,11 @@ public class UserController extends OnlineBaseController {
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
-		String info = "测试pc";
+//		String info = "测试pc";
 		/**
 		 * 1.获得客户机信息
 		 */
-		String requestUrl = request.getRequestURL().toString();//得到请求的URL地址
+		/*String requestUrl = request.getRequestURL().toString();//得到请求的URL地址
 		String requestUri = request.getRequestURI();//得到请求的资源
 		String queryString = request.getQueryString();//得到请求的URL地址中附带的参数
 		String remoteAddr = request.getRemoteAddr();//得到来访者的IP地址
@@ -96,7 +96,6 @@ public class UserController extends OnlineBaseController {
 		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
 		//通过设置响应头控制浏览器以UTF-8的编码显示数据，如果不加这句话，那么浏览器显示的将是乱码
 		response.setHeader("content-type", "text/html;charset=UTF-8");
-//		PrintWriter out = response.getWriter();
 		System.out.println("获取到的客户机信息如下：");
 		System.out.println("<hr/>");
 		System.out.println("请求的URL地址："+requestUrl);
@@ -119,7 +118,7 @@ public class UserController extends OnlineBaseController {
 		System.out.println("<br/>");
 		System.out.println("localAddr："+localAddr);
 		System.out.println("<br/>");
-		System.out.println("localName："+localName);
+		System.out.println("localName："+localName);*/
 
 
 

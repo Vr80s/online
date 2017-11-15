@@ -239,15 +239,10 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("info").equals(original.getName())) {
 			sb.append(" info ='" + map.get("info") + "',");
 		}
-		
 		if (StringUtils.hasText(map.get("nickname"))
 				&& !map.get("nickname").equals(original.getName())) {
 			sb.append(" name ='" + map.get("nickname") + "',");
 		}
-		// if(StringUtils.hasText(now.getDistrict()) &&
-		// !now.getDistrict().equals(original.getDistrict())){
-		// sb.append(" region_id = '"+now.getDistrict()+"',");
-		// }
 		if (StringUtils.hasText(map.get("provinceId"))
 				&& !map.get("provinceId").equals(original.getProvince())) {
 			sb.append(" region_area_id = '" + map.get("provinceId") + "',");
@@ -256,7 +251,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("cityId").equals(original.getCity())) {
 			sb.append(" region_city_id = '" + map.get("cityId") + "',");
 		}
-
 		if (StringUtils.hasText(map.get("provinceName"))
 				&& !map.get("provinceName").equals(original.getProvince())) {
 			sb.append(" province_name = '" + map.get("provinceName") + "',");
@@ -265,13 +259,10 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("cityName").equals(original.getCity())) {
 			sb.append(" city_name = '" + map.get("cityName") + "',");
 		}
-
 		if (StringUtils.hasText(map.get("email"))
 				&& !map.get("email").equals(original.getEmail())) {
-
 			sb.append(" email = '" + map.get("email") + "',");
 		}
-
 		if (StringUtils.hasText(map.get("sex"))
 				&& UserSex.isValid(Integer.parseInt(map.get("sex")))
 				&& Integer.parseInt(map.get("sex")) != original.getSex()) {
@@ -282,6 +273,20 @@ public class OnlineUserMapper extends BasicSimpleDao {
 						original.getSmallHeadPhoto())) {
 			sb.append(" small_head_photo ='" + map.get("smallHeadPhoto") + "',");
 		}
+		
+		
+		if (StringUtils.hasText(map.get("occupation"))  //用户职业
+				&& Integer.parseInt(map.get("occupation")) != original.getOccupation()) {
+			
+			sb.append(" occupation =" + Integer.parseInt(map.get("occupation")) + ",");
+		}
+		if (StringUtils.hasText(map.get("occupationOther")) //身份信息
+				&& !map.get("occupationOther").equals(original.getOccupationOther())) {
+			
+			sb.append(" occupation_other ='" + map.get("occupationOther") + "',");
+		}
+		
+		
 		String sql = sb.toString();
 		if (sql.indexOf(",") != -1) {
 			sql = sql.substring(0, sb.length() - 1);
@@ -301,8 +306,8 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	public Map<String, Object> findUserRoomNumberById(String userId)
 			throws SQLException {
 		StringBuffer sql = new StringBuffer();  
-		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,");
-		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info ");
+		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,occupation,occupation_other as occupationOther,");
+		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,individuality_signature as info ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { userId };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -452,17 +457,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		List<CourseLecturVo> clist = this.query(
 				JdbcUtil.getCurrentConnection(), str, new BeanListHandler<>(
 						CourseLecturVo.class));
-
-/*		sql.append("select c.id as id,c.grade_name as gradeName,c.smallimg_path as smallImgPath,");
-		sql.append("c.start_time as startTime,c.end_time as endTime,");
-		sql.append("c.learnd_count as learndCount,c.course_length as courseLength,");
-		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
-		sql.append(" c.type as type, ");//判断是点播还是直播  type is null 是点播   公开课是直播
-		sql.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");//判断是否要输入密码
-		sql.append(" ou.small_head_photo as headImg,ou.name as name ");
-		sql.append(" from oe_course c,oe_user ou ");
-		sql.append(" where  c.user_lecturer_id = ou.id  and c.user_lecturer_id = ? and c.is_delete=0 and c.status = 1 and c.type=1  ");*/
-		
 		for (CourseLecturVo c : clist) {
 			StringBuilder sql = new StringBuilder();
 			sql.append(" insert into live_examine_info(id,title,content,type,see_mode,start_time,when_long, ");

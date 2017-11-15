@@ -248,7 +248,47 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 		});
 	})   
 
+function subscribe() {
 
+	var regPhone = /^1[3-578]\d{9}$/;
+	var flag = true;
+	if ($("#mobile").val().trim().length === 0) {
+		alert("请输入手机号！");
+		flag = false;
+	} else if (!(regPhone.test($("#mobile").val().trim()))) {
+		alert("手机号格式错误！");
+		flag = false;
+	}
+	if (!flag) {
+		return false;
+	}
+	requestService("/bxg/common/subscribe", {
+		course_id : course_id,
+		mobile : $("#mobile").val()
+	}, function(data) {
+		if (data.success) {
+			//已经预约
+			isSubscribe =1;
+			
+			var result = data.resultObject;
+			$("#mobile_subscribe").hide();
+			$(".buy_center1").show();
+			
+			$("#buy_right a").html("已预约");
+			$(".order_center").show();
+			
+			if(pwdAndBuy == 2){
+				$("#passwordDiv").show();
+			}else if(pwdAndBuy == 0){
+				alert("开始直播时,您可以直接观看");
+				return;
+			}
+		} else {
+			$("#mobile_subscribe").hide()
+			alert("预约失败！" + data.msg);
+		}
+	});
+}
 
 /**
  * 点击立即预约
@@ -257,8 +297,16 @@ function goPay() {
 	if(isSubscribe == 0){
 		if(pwdAndBuy ==0){
 			
-			$(".buy_bg01").show();
-			$(".buy_center").show();
+			/**
+			 * 显示预约，并且输入手机号进行预约啦
+			 */
+/*			$(".buy_bg01").show();
+			$(".buy_center").show();*/
+			
+			/*
+			 * 变成已预约，并且给自己短信啦
+			 */
+			$("#buy_right a").html("已预约");
 			
 			/*隐藏上部分区域预告时间*/
 			/*$(".order_center").hide();*/
@@ -299,50 +347,6 @@ function goPay() {
 		alert("状态异常");
 	}
 }
-
-
-function subscribe() {
-
-	var regPhone = /^1[3-578]\d{9}$/;
-	var flag = true;
-	if ($("#mobile").val().trim().length === 0) {
-		alert("请输入手机号！");
-		flag = false;
-	} else if (!(regPhone.test($("#mobile").val().trim()))) {
-		alert("手机号格式错误！");
-		flag = false;
-	}
-	if (!flag) {
-		return false;
-	}
-	requestService("/bxg/common/subscribe", {
-		course_id : course_id,
-		mobile : $("#mobile").val()
-	}, function(data) {
-		if (data.success) {
-			//已经预约
-			isSubscribe =1;
-			
-			var result = data.resultObject;
-			$("#mobile_subscribe").hide()
-			$(".buy_center1").show();
-			
-			$("#buy_right a").html("已预约");
-			$(".order_center").show();
-			
-			if(pwdAndBuy == 2){
-				$("#passwordDiv").show();
-			}else if(pwdAndBuy == 0){
-				alert("开始直播时,您可以直接观看");
-				return;
-			}
-		} else {
-			$("#mobile_subscribe").hide()
-			alert("预约失败！" + data.msg);
-		}
-	});
-}
-
 
 
 /*

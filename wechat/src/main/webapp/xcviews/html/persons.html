@@ -24,6 +24,9 @@
 <script src="/xcviews/js/common/js.js"></script>
 <link rel="stylesheet" href="/xcviews/css/css.css">
 <link rel="stylesheet" href="/xcviews/css/tailor.css">
+<link href="/xcviews/css/mui.picker.css" rel="stylesheet" />
+<link href="/xcviews/css/mui.poppicker.css" rel="stylesheet" />
+
 
 <script type="text/javascript"
 	src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
@@ -147,11 +150,10 @@ pre:after {
 <script type="text/javascript">
 	$(document).ready(function(){
         
+		var jobList =[];
 		requestService("/bxg/bs/getUserInfoById",{userId:localStorage.getItem("userId")},
 				function(data) {
-			
 				if (data.success) {
-				
 					commonLocalStorageSetItem(data);
 					
 				    $("#headImg").attr("src",localStorage.getItem("smallHeadPhoto"));
@@ -184,11 +186,60 @@ pre:after {
 			        if(stringnull(localStorage.getItem("info"))){
 			       	      $("#person_sign").text(localStorage.getItem("info"));
 			        }
-				
+			        
+			        //搞下身份信息
+			    	requestService("/bxg/oa/jobVo",{group:"occupation"}, function(data) {
+						if (data.success) {
+							//jobList = data.resultObject;
+							
+							var occupation  = localStorage.getItem("occupation");
+							
+							for (var int = 0; int <  data.resultObject.length; int++) {
+								var job ={};
+								var array_element =  data.resultObject[int];
+								job.text = array_element.value;
+								job.value=array_element.id;
+								if(job.value == occupation){
+									$("#sfxx").text(job.text);
+								}
+								jobList.push(job);
+							}
+							//{"id":"19","key":"0","value":"中医爱好者"}
+						}
+					},false);
+			        
+			        
+			    	if(stringnull(localStorage.getItem("occupationOther"))){
+			       	      $("#zyxx").text(localStorage.getItem("occupationOther"));
+			        }
+			        
 			} else {
 				alert("网络异常");
 			}
-		});
+		},false);
+		
+		
+		//身份信息
+		var userPicker = new mui.PopPicker();
+
+		//userPicker.setData(jobList);
+		 userPicker.setData(jobList); 
+		var showUserPickerButton = document.getElementById('showUserPicker');
+		var userResult = document.getElementById('sfxx');
+		showUserPickerButton.addEventListener('tap', function(event) {
+			userPicker.show(function(items) {
+				//sfxx
+				userResult.innerText = items[0].text;
+				userResult.className = items[0].value;
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+				checkUser1("occupation");
+			});
+		}, false);
+		
+		
+		
+		
 		
 		//用户名长度
 		function nickName() {
@@ -539,18 +590,13 @@ pre:after {
 			<form method="post" enctype="multipart/form-data" id="form1">
 				<!-- 头像。别删亲 -->
 			   	<!--   <input id="file" type="file" name="file" onchange="checkUser()" style="width:14.5rem;height:2rem;position: absolute;right:0.38rem;top:0.4rem;opacity: 0;" />
-				 
 			 <div class="person_img" style="margin-top: 0.2rem;">
 					<img src="../images/touxiang.png" id="headImg" alt="">
 				 </div> -->
-				
 				 <!-- 图像区域 -->
 			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="width:2rem;height:2rem;" onchange="checkUser()">
 				    <img  src="" width="100%" id="headImg" />
 				</a>
-				 
-				
-					 
 			</form>
 		</div>
 		<div class="person_cen">
@@ -562,15 +608,8 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'">
-				<p class="person_p1">个性签名</p>
-				<div class="person_cen_right">
-					<p id="person_sign"></p>  
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
-				</div>
-				<div class="both"></div>
-			</div>
-			<div class="person_cen_top person_two" onclick="location.href ='change_sex.html'">
+		    
+		    <div class="person_cen_top person_two" onclick="location.href ='change_sex.html'">
 				<p class="person_p1">性别</p>
 				<div class="person_cen_right">
 					<p id="person_two"></p>   
@@ -579,25 +618,6 @@ pre:after {
 				<div class="both"></div>
 			</div>
 			
-			<div class="person_cen_top person_three" onclick="szd_picker2()">
-				<p class="person_p1">所在地</p>
-				<div class="person_cen_right" style="margin-top:0.05rem;">
-					<p id="szd_cityP">请选择</p>   
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
-				</div>
-				<div class="both"></div>
-			</div>
-			
-		</div>
-		<div class="person_cen">
-			<div class="person_cen_top person_four" onclick="location.href ='change_password.html'">
-				<p class="person_p1">密码</p>
-				<div class="person_cen_right">
-					<p>修改密码</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
-				</div>
-				<div class="both"></div>
-			</div>
 			<div class="person_cen_top person_five" onclick="location.href ='mailbox.html'">
 				<p class="person_p1">邮箱</p>
 				<div class="person_cen_right">
@@ -606,6 +626,57 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
+			
+		   <div class="person_cen_top person_three" onclick="szd_picker2()">
+				<p class="person_p1">所在地</p>
+				<div class="person_cen_right" style="margin-top:0.05rem;">
+					<p id="szd_cityP">请选择</p>   
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div>
+			
+			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'">
+				<p class="person_p1">个性签名</p>
+				<div class="person_cen_right">
+					<p id="person_sign"></p>  
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div>
+		</div>
+		
+		
+		<div class="person_cen">
+			<div class="person_cen_top" id="showUserPicker">
+				<p class="person_p1">身份信息</p>
+				<div class="person_cen_right">
+					<p id="sfxx">中医爱好者</p>
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div>
+			<div class="person_cen_top" onclick="location.href ='occupation_info.html'">
+				<p class="person_p1">职业信息</p>
+				<div class="person_cen_right">
+					<p id="zyxx">学生</p>
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div>
+		</div>
+		
+		<div class="person_cen">
+		<!-- 	
+		   <div class="person_cen_top person_four" onclick="location.href ='change_password.html'">
+				<p class="person_p1">密码</p>
+				<div class="person_cen_right">
+					<p>修改密码</p>
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div>
+			
 			<div class="person_cen_top person_six" onclick="location.href ='phone_number.html'">
 				<p class="person_p1">手机号</p>
 				<div class="person_cen_right">
@@ -613,9 +684,19 @@ pre:after {
 					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
-			</div>
+			</div> 
 			
-			<div class="person_cen_top person_seven" onclick="location.href ='address.html'">
+			<div class="person_cen_top person_five" onclick="location.href ='mailbox.html'">
+				<p class="person_p1">邮箱</p>
+				<div class="person_cen_right">
+					<p id="person_five">立即绑定</p>
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+			</div>
+			-->
+			
+			<div class="person_cen_top person_seven" style="border-bottom:0px" onclick="location.href ='address.html'">
 				<p class="person_p1">地址管理</p>
 				<div class="person_cen_right">
 					<!-- <p id="person_five">添加地址</p> -->
@@ -624,7 +705,7 @@ pre:after {
 				<div class="both"></div>
 			</div>
 		</div>
-		<div class="quit" id="quit">退出登录</div>
+		<!-- <div class="quit" id="quit">退出登录</div> -->
 	</div>
 	<!-- 资料设置结束 -->
 	
@@ -642,6 +723,9 @@ pre:after {
 
 <script src="../js/city.js"></script>
 <script src="../js/picker.min.js"></script>
+<script src="../js/mui.picker.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+
 <script>
 
 /* <p id="szd_cityP" onclick="szd_picker2()">请选择</p>    */

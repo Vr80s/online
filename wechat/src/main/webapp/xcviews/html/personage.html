@@ -22,65 +22,6 @@
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript">
-window.onload=function(){
-	  var aBtn=$('.personage_bto_ul ul li');
-      for(i=0;i<aBtn.length;i++){
-        $(aBtn[i]).click(function(){
-          for(i=0;i<aBtn.length;i++){
-            $(aBtn[i]).removeClass('personage_bto_li1');
-            $(aBtn[i]).addClass('personage_bto_li');
-          }
-          $(this).removeClass();
-          $(this).addClass('personage_bto_li1');
-          var type = $(this).attr("title");
-          //点击请求列表	
-          if(type!=0){
-        	  
-        	  userIndexCourseList(type,false);
-          }
-        })
-      }
-
-      $(".personage_bto_li01").click(function() {
-        	/* $(".personage_bto_cen").show();
-        	$(".personage_bto_cen1").hide();
-        	$(".personage_bto_cen2").hide();
-        	$(".personage_bto_cen3").hide(); */
-          $(".personage_bto_cen").show();
-    	  $(".personage_bto_cen1").hide();
-      });
-      $(".personage_bto_li02").click(function() {
-    	    $(".personage_bto_cen").hide()
-        	$(".personage_bto_cen1").show();
-        	/* $(".personage_bto_cen").hide();
-        	$(".personage_bto_cen2").hide();
-        	$(".personage_bto_cen3").hide(); */
-      });
-      $(".personage_bto_li03").click(function() {
-    	  $(".personage_bto_cen").hide()
-    	  $(".personage_bto_cen1").show();
-        	/* $(".personage_bto_cen2").show();
-        	$(".personage_bto_cen").hide();
-        	$(".personage_bto_cen1").hide();
-        	$(".personage_bto_cen3").hide(); */
-      });
-      $(".personage_bto_li04").click(function() {
-    	  $(".personage_bto_cen").hide()
-    	  $(".personage_bto_cen1").show();
-        	/* $(".personage_bto_cen3").show();
-        	$(".personage_bto_cen1").hide();
-        	$(".personage_bto_cen2").hide();
-        	$(".personage_bto_cen").hide(); */
-      });
-
-	  $(aBtn[0]).click();
-
-}
-</script>
-
-
-
 <style>
 .personage_bto_cen_one_put {
     /*margin-right: 0.5rem;*/
@@ -153,6 +94,7 @@ window.onload=function(){
 }
 .contribution_img_two img{
 	width: 1.25rem;
+	height: 1.25rem;
 	border-radius: 60px;
 	border: 1px solid #e5b907;
 }
@@ -256,7 +198,7 @@ window.onload=function(){
 	<!-- 个人主页开始 -->
 	<div class="personage">
 		<!-- 返回开始 -->
-		<div class="personage_return" onclick="history.go(-1)">
+		<div class="personage_return">
 			<div class="getback"></div>
 		</div>
 		<!-- 返回结束 -->
@@ -267,24 +209,21 @@ window.onload=function(){
 			</div>
 			<div class="personage_top_cen">
 				<div class="personage_top_cen01">
-					<span id="teacherName">
-						<div class="personage_top_cen_img">
-							<div class="personage_top_cen_img1"><img src="../images/gif.gif" alt="" /></div>
-							<div class="personage_top_cen_in" >正在直播</div>
-						</div>
-					</span>
-					
+					<div id="teacherName"></div>
+					<div class="personage_top_cen_img">
+						<div class="personage_top_cen_img1"><img src="../images/gif.gif" alt="" /></div>
+						<div class="personage_top_cen_in" >正在直播</div>
+				    </div>
 					<!--添加粉丝和关注-->
 					<div class="div_attention">
-						<div class="pay_attention">关注:38</div> <span style="width: 0.3rem;font-size: 0.6rem;float: left;">&nbsp;|</span> 
+						<div class="pay_attention">关注:<span id="focusCount"></span></div> <span style="width: 0.3rem;font-size: 0.6rem;float: left;">&nbsp;|</span> 
 						<div class="bean_vermicelli">粉丝数:<span id="fansCount" style="width: 0.3rem;font-size: 0.6rem;"></span></div>
 					</div>
 					<div class="both"></div>
-					
 				</div>
 			</div>
 			<div class="personage_top_right" id="is_fours">
-				关注
+				<!-- 关注 -->
 			</div>
 			<div class="both"></div>
 			
@@ -371,18 +310,18 @@ window.onload=function(){
 			<!-- 资料 -->
 			<div class="personage_bto_cen">
 				<!--灰色条-->
-				<div class="" style="width: 100%;height: 0.475rem;background: #f0f0f0;"></div>
+				<div class="grey_scroll" style="width: 100%;height: 0.475rem;background: #f0f0f0;"></div>
 				<div class="information">基本信息</div>
 				<div class="personage_bto_cen_one" style="border-top:0;">
 					<div class="personage_bto_cen_one_left">
-						<div class="personage_bto_cen_one_size">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</div>
+						<div class="personage_bto_cen_one_size">性&nbsp;&nbsp;别：</div>
 					</div>
 					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_sex" /></div>
 				</div>
 				<div class="both"></div>
 				<div class="personage_bto_cen_one">
 					<div class="personage_bto_cen_one_left">
-						<div class="personage_bto_cen_one_size">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：</div>
+						<div class="personage_bto_cen_one_size">地&nbsp;&nbsp;址：</div>
 					</div>
 					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_address"/></div>
 				</div>

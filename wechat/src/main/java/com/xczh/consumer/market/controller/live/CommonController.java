@@ -106,7 +106,7 @@ public class CommonController {
 			/**
 			 * 关注讲师的粉丝  显示六个
 			 */
-			List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
+			//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
 			/**
 			 * 是否已经关注了这个主播：0 未关注  1已关注
 			 */
@@ -118,25 +118,32 @@ public class CommonController {
 			Integer fansCount  = focusService.findMyFansCount(lecturerId);
 			
 			/**
+			 * 关注总数 
+			 */
+			Integer focusCount  = focusService.findMyFocusCount(lecturerId);
+			
+			/**
 			 * 得到讲师下面的所有课程数  ---》如果是数的话客户会比较蒙
 			 */
-			Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
+			//Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
 			/**
 			 * 得到这个讲师的所有   礼物数
 			 */
-			Integer giftAll = giftService.findByUserId(lecturerId);
+			//Integer giftAll = giftService.findByUserId(lecturerId);
             /**
              * 得到判断这个主播有没有正在直播的课程啦	
              */
 			Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
 			
 			mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
-			mapAll.put("giftAll", giftAll);           // 礼物数 
-			mapAll.put("courseAll", courseAll);       // 课程数 
+			//mapAll.put("giftAll", giftAll);           // 礼物数 
+			//mapAll.put("courseAll", courseAll);       // 课程数 
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 			mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-			mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
+			//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
 			mapAll.put("fansCount", fansCount);       //粉丝总数
+			mapAll.put("focusCount", focusCount);   	  // 关注总数
+			
 			
 			return ResponseObject.newSuccessResponseObject(mapAll);
 		} catch (Exception e) {
@@ -171,11 +178,10 @@ public class CommonController {
 		//后期音频增加上的话，还需要增加音频了
 		int pageNumber =Integer.parseInt(pageNumberS);
 		int pageSize = Integer.parseInt(pageSizeS);
-
 		try {
-			/**
-			 */
 			List<CourseLecturVo> list = onlineCourseService.liveAndBunchAndAudio(lecturerId,pageNumber,pageSize,type!=null ? Integer.parseInt(type):1);
+			
+			
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (Exception e) {
 			e.printStackTrace();

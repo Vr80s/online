@@ -6,6 +6,8 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.vo.CourseLecturVo;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +64,14 @@ public class LearningCenterController {
             return ResponseObject.newErrorResponseObject("参数异常");
         }
         List<OnlineCourse> lists = onlineOrderService.listLearningCenter(type, userId, pageNumber,pageSize);
-
+		for (OnlineCourse onlineCourse : lists) {
+			String city = onlineCourse.getAddress();
+			if(city!=null){
+				String [] citys = city.split("-");
+				onlineCourse.setCity(citys[1]);
+			}
+		}
+		System.out.println("list.size():"+lists.size());
         return ResponseObject.newSuccessResponseObject(lists);
     }
 

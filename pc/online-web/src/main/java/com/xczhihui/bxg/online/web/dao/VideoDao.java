@@ -1,15 +1,13 @@
 package com.xczhihui.bxg.online.web.dao;
 
-import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.web.service.ApplyService;
-import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
-import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
-import com.xczhihui.bxg.online.web.vo.CriticizeVo;
-import com.xczhihui.bxg.online.web.vo.UserVideoVo;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +16,15 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.service.ApplyService;
+import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
+import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
+import com.xczhihui.bxg.online.web.vo.UserVideoVo;
 
 /**
  * 视频相关功能数据访问层
@@ -151,7 +152,7 @@ public class VideoDao extends SimpleHibernateDao {
      * @param videoId 视频ID
      * @return
      */
-    public <T> Page<T> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize,Class clazz) {
+    public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 15 : pageSize;
         StringBuffer sql = new StringBuffer();
@@ -166,7 +167,7 @@ public class VideoDao extends SimpleHibernateDao {
         paramMap.put("userName", name);
         paramMap.put("videoId", videoId);
         
-        return (Page<T>)this.findPageBySQL(sql.toString(), paramMap, clazz, pageNumber, pageSize);
+        return this.findPageBySQL(sql.toString(), paramMap,CriticizeVo.class,pageNumber, pageSize);
     }
 
     /**

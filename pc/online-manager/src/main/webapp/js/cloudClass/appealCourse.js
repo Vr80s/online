@@ -591,7 +591,7 @@ function toEdit(obj){
 	$("#smallImgPath_edit").val(row.logo); //图片字段赋值
 	$("#teacherImgPath_edit").val(row.teacherImgPath); //图片字段赋值
 	
-	$("#coursePwd_edid").val(row.coursePwd); //密码
+	$("#coursePwd_edit").val(row.password); //密码
 	
 	//$("#edid_originalCost").val(row.originalCost); //原价
 	$("#edid_currentPrice").val(row.price); //现价

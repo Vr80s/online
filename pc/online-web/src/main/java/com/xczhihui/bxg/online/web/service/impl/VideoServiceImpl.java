@@ -1,6 +1,18 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
@@ -9,18 +21,6 @@ import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.service.VideoService;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.CriticizeVo;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Author Fudong.Sun【】
@@ -200,7 +200,8 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
 
     @Override
     public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
-        return videoDao.getVideoCriticize(videoId,name, pageNumber, pageSize,CriticizeVo.class);
+        
+    	return videoDao.getVideoCriticize(videoId,name, pageNumber, pageSize);
     }
 
     @Override
@@ -217,7 +218,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     }
 
     @Override
-    public Map<String, Object> updatePraise(Boolean isPraise,String id,OnlineUser user) {
+    public Map<String, Object> updatePraise(Boolean isPraise,String id,String  loginName) {
         /** 根据id查出当前评论 */
         CriticizeVo criticizeVo = videoDao.findCriticizeById(id);
         boolean praise = false;
@@ -228,20 +229,20 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
             String praiseLoginNames = criticizeVo.getPraiseLoginNames();
             sum = criticizeVo.getPraiseSum();
             if (isPraise) {
-                if (!StringUtils.hasText(praiseLoginNames) || !praiseLoginNames.contains(user.getLoginName())) {
+                if (!StringUtils.hasText(praiseLoginNames) || !praiseLoginNames.contains(loginName)) {
                     criticizeVo.setPraiseSum(++ sum);
                     praise = true;
                     if(!StringUtils.hasText(praiseLoginNames)) {
-                        criticizeVo.setPraiseLoginNames(user.getLoginName());
+                        criticizeVo.setPraiseLoginNames(loginName);
                     }else{
-                        criticizeVo.setPraiseLoginNames(praiseLoginNames + "," + user.getLoginName());
+                        criticizeVo.setPraiseLoginNames(praiseLoginNames + "," + loginName);
                     }
                     videoDao.praise(criticizeVo);
                 }
             } else {
-                if (criticizeVo.getPraiseLoginNames().contains(user.getLoginName())) {
+                if (criticizeVo.getPraiseLoginNames().contains(loginName)) {
                     criticizeVo.setPraiseSum(-- sum);
-                    praiseLoginNames = praiseLoginNames.replace(","+user.getLoginName(), "").replace(user.getLoginName(), "");
+                    praiseLoginNames = praiseLoginNames.replace(","+loginName, "").replace(loginName, "");
                     criticizeVo.setPraiseLoginNames(praiseLoginNames);
                     videoDao.praise(criticizeVo);
                 }
@@ -294,4 +295,10 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
         }
         return "购买";
     }
+
+    public static void main(String[] args) {
+    	int sum =1;
+    	++sum;
+    	System.out.println(sum);
+	}
 }

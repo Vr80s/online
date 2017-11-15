@@ -4,7 +4,6 @@ import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.online.api.vo.*;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CityVo;
-import com.xczhihui.bxg.online.web.vo.JobVo;
 import com.xczhihui.bxg.online.web.vo.JobYearVo;
 import com.xczhihui.bxg.online.web.vo.ProvinceVo;
 import com.xczhihui.bxg.online.web.vo.RegionVo;

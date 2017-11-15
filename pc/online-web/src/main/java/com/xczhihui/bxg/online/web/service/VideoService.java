@@ -6,8 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.vo.CriticizeVo;
 
 /**
  * 视频相关功能业务层
@@ -50,7 +50,7 @@ public interface VideoService {
     /**
      * 点赞、取消点赞
      */
-    public Map<String, Object> updatePraise(Boolean isPraise,String id,OnlineUser user) ;
+    public Map<String, Object> updatePraise(Boolean isPraise,String id,String loginName) ;
     /**
      * 修改学员视频学习状态
      */

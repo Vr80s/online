@@ -1,9 +1,10 @@
 package com.xczhihui.bxg.online.api.service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.vo.Criticize;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 
 /**
  * 评论接口：
@@ -20,7 +21,7 @@ public interface CriticizeService {
      * @return void
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
-	public void saveCriticize(Criticize criticizeVo) throws IllegalAccessException, InvocationTargetException;
+	public void saveCriticize(CriticizeVo criticizeVo) throws IllegalAccessException, InvocationTargetException;
 	
 	/**
 	 *  
@@ -34,6 +35,16 @@ public interface CriticizeService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	public Page<Criticize> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize);
+	public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize);
+	/**
+	 * Description：点赞和取消点赞
+	 * @param isPraise
+	 * @param criticizeId
+	 * @param user
+	 * @return
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public Map<String, Object> updatePraise(Boolean isPraise,String criticizeId, String loginName);
 	
 }

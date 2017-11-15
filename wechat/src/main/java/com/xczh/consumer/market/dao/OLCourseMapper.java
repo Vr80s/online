@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -86,8 +87,11 @@ public class OLCourseMapper extends BasicSimpleDao {
                                                      Integer multimedia_type) throws SQLException{
 		if("0".equals(menu_id)){
 			StringBuffer all = new StringBuffer("");
-			all.append(" select oc.id,oc.grade_name as gradeName,oc.course_length as courseLength,oc.original_cost as originalCost,oc.current_price as currentPrice,"
+			all.append(" select oc.id,oc.grade_name as gradeName,oc.original_cost as originalCost,oc.current_price as currentPrice,"
 					+ "ocm.img_url as smallImgPath,ou.small_head_photo as headImg,ou.name as name,");
+			
+			all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+			
 			all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");
 			all.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");//判断是否要输入密码
@@ -105,8 +109,11 @@ public class OLCourseMapper extends BasicSimpleDao {
 			//return super.query(JdbcUtil.getCurrentConnection(), all.toString(), new BeanListHandler<>(CourseLecturVo.class),params);
 		}else{
 			StringBuffer sql = new StringBuffer("");
-			sql.append(" select oc.id,oc.grade_name as gradeName,oc.course_length as courseLength,oc.original_cost as originalCost,oc.current_price as currentPrice,"
+			sql.append(" select oc.id,oc.grade_name as gradeName,oc.original_cost as originalCost,oc.current_price as currentPrice,"
 					+ "ocm.img_url as smallImgPath,ou.small_head_photo as headImg,ou.name as name, ");
+			
+			sql.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+			
 			sql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");
 			sql.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");//判断是否要输入密码
@@ -135,11 +142,13 @@ public class OLCourseMapper extends BasicSimpleDao {
                                                       String queryParam) throws SQLException{
 		
 		StringBuffer all = new StringBuffer("");
-		all.append(" select oc.id,oc.grade_name as gradeName,oc.course_length as courseLength,oc.original_cost as originalCost,oc.current_price as currentPrice,"
+		all.append(" select oc.id,oc.grade_name as gradeName,oc.original_cost as originalCost,oc.current_price as currentPrice,"
 				+ "ocm.img_url as smallImgPath,"
 				+ "ou.small_head_photo as headImg,ou.name as name,");
 		all.append(" if(oc.is_free = 0,1,if(oc.course_pwd is null,0,2)) as watchState, ");//观看状态
 		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");//观看状态
+		
+		all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
 		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");
@@ -171,12 +180,15 @@ public class OLCourseMapper extends BasicSimpleDao {
 	 */
 	public CourseLecturVo bunchDetailsByCourseId(int course_id) throws SQLException {
 		StringBuffer all = new StringBuffer("");
-		all.append(" select oc.id,oc.grade_name as gradeName,oc.course_length as courseLength,oc.direct_id as directId,"
+		all.append(" select oc.id,oc.grade_name as gradeName,"
 				+ "ocm.img_url as smallImgPath,ocm.description as description,multimedia_type as multimediaType,"
 				+ "ou.small_head_photo as headImg,ou.name as name,ou.id as userId,ou.room_number as roomNumber,"
 				+ "oc.original_cost as originalCost,oc.current_price as currentPrice,");
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");
+		
+		all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+		
 		all.append("if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,");//判断是否要输入密码
 		all.append(" oc.description as courseDescription  ");//判断是否要输入密码
 		
@@ -541,9 +553,10 @@ public class OLCourseMapper extends BasicSimpleDao {
 	 * @return String
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public String getVideoFirst(int course_id) throws SQLException {
+	public Map<String,String> getVideoFirst(int course_id) throws SQLException {
 		// TODO Auto-generated method stub
 		String videoId = null;
+		Map<String,String> map = new HashMap<String, String>();
 		/**
 		 * 查找所有课程下的所有知识点
 		 */
@@ -561,13 +574,15 @@ public class OLCourseMapper extends BasicSimpleDao {
 			List<VideoVo> videos = super.query(JdbcUtil.getCurrentConnection(),sq, new BeanListHandler<>(VideoVo.class),course_id,chapter_id);
 			for (VideoVo video : videos) {
 				videoId =video.getVideo_id();
+				map.put("chapterId",chapter_id);
+				map.put("videoId",videoId);
 				break;
 			}
 			if(videoId!=null){
 				break;
 			}
 		}
-		return videoId;
+		return map;
 	}
 	public List<CourseLecturVo> offLineClass(int number, int pageSize,
 			String queryParam) throws SQLException {

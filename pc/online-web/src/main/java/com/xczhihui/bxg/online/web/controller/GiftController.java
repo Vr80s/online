@@ -5,12 +5,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,9 +44,16 @@ public class GiftController {
 
 	@Autowired
 	private GiftService giftService;
-	@Autowired
-	private Broadcast broadcast;
+//	@Autowired
+//	private Broadcast broadcast;
+	private RedissonClient redisson;
 
+	public GiftController(){
+		//Redisson连接配置文件
+		Config config = new Config();
+		config.useSingleServer().setAddress("127.0.0.1:6379");
+		redisson = Redisson.create(config);
+	}
 	/** 
 	 * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
 	 * @return
@@ -72,19 +84,27 @@ public class GiftController {
 	 * @throws IllegalAccessException 
 	 **/
 	@RequestMapping(value = "/sendGift")
-	public ResponseObject sendGift(GiftStatement giftStatement,HttpSession s) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
+	public ResponseObject sendGift(GiftStatement giftStatement,HttpSession s) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
 		Map<String,Object> map = new HashMap<String,Object>();
 		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
         if(u!=null) {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(1);
         	giftStatement.setPayType(3);
-//        	map = giftService.sendGiftStatement(giftStatement);
-			synchronized (giftStatement.getReceiver().intern()){
-				System.out.println(giftStatement.getReceiver().intern());
+//			System.out.println(giftStatement.getLiveId());
+			RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId()); // 1.获得锁对象实例
+			boolean res = false;
+			try {
+				res = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);//等待十秒。有效期五秒
 				map = giftService.addGiftStatement(giftStatement);
+			}catch (Exception e){
+				e.printStackTrace();
+			}finally {
+				if(res){
+					redissonLock.unlock();
+				}
 			}
-        }
+		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 	

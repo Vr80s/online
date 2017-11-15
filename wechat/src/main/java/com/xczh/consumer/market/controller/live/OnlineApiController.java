@@ -15,6 +15,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
+import com.xczhihui.bxg.online.api.service.CommonApiService;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
@@ -44,9 +45,11 @@ public class OnlineApiController {
 	private GiftService giftService;  //礼物service
 	@Autowired
 	private AppBrowserService appBrowserService;
-	
 	@Autowired
 	private EnchashmentService enchashmentService;
+
+	@Autowired
+	private CommonApiService commonApiService;
 	
 	/**
 	 * Description：得到用户充值列表
@@ -138,6 +141,22 @@ public class OnlineApiController {
 				, pageNumber, pageSize);
 		System.out.println("page.getPageSize()");
 		return ResponseObject.newSuccessResponseObject(page);
+    }
+	
+	/**
+	 * Description：身份信息
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="jobVo")
+	@ResponseBody
+	public ResponseObject JobVo(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String group = req.getParameter("group");
+		return ResponseObject.newSuccessResponseObject(commonApiService.getJob(group));
     }
 	
 }

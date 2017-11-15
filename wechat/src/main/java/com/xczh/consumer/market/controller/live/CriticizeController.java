@@ -16,7 +16,7 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
-import com.xczhihui.bxg.online.api.vo.Criticize;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 
 @Controller
 @RequestMapping("/bxg/criticize")
@@ -34,21 +34,21 @@ public class CriticizeController {
 	@RequestMapping("saveCriticize")
 	@ResponseBody
 	public ResponseObject saveCriticize(HttpServletRequest req,
-			HttpServletResponse res,Criticize criticize)
+			HttpServletResponse res,CriticizeVo criticize)
 			throws Exception {
 		OnlineUser  ou = appBrowserService.getOnlineUserByReq(req);
 		criticize.setCreateTime(new Date());
 		criticize.setUserId(ou.getId());
 		
-		if(criticize.getContent().length()>200){
-			return ResponseObject.newErrorResponseObject("抱歉评论内容不能大于200字");
+		if(criticize.getContent().length()>5000){
+			return ResponseObject.newErrorResponseObject("抱歉评论内容过长");
 		}else{
 			criticizeService.saveCriticize(criticize);
 			return ResponseObject.newSuccessResponseObject("评论添加成功");
 		}
 	}
 	/**
-	 * 得到此视频下的说有评论
+	 * 得到此视频下的所有评论
 	 */
 	@RequestMapping("getVideoCriticize")
 	@ResponseBody
@@ -61,7 +61,27 @@ public class CriticizeController {
 		String videoId = req.getParameter("videoId");
 		String name = req.getParameter("name");
 		
-		Page<Criticize> pageList  = criticizeService.getVideoCriticize(videoId, name, pageNumber, pageSize);
+		Page<CriticizeVo> pageList  = criticizeService.getVideoCriticize(videoId, name, pageNumber, pageSize);
 		return ResponseObject.newSuccessResponseObject(pageList);
 	}
+    /**
+     * 点赞、取消点赞
+     * @param request
+     * @param isPraise
+     * @param criticizeId
+     * @return
+     */
+    @RequestMapping("updatePraise")
+	@ResponseBody
+    public ResponseObject updatePraise(HttpServletRequest request,Boolean isPraise, String criticizeId) {
+        //获取当前登陆用户信息
+        OnlineUser user = (OnlineUser) appBrowserService.getOnlineUserByReq(request);
+        if(user!=null) {
+            Map<String, Object> returnMap = criticizeService.updatePraise(isPraise, criticizeId, user.getLoginName());
+            return ResponseObject.newSuccessResponseObject(returnMap);
+        }else{
+            return ResponseObject.newErrorResponseObject("用户未登录！");
+        }
+    }
+	
 }
