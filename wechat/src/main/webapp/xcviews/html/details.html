@@ -90,6 +90,7 @@ $(function(){
 		width: 8.8rem;
 		border: none;
 		margin-top: 0;
+		border-radius: 50px;
 	}
 	.overfloaw_auto{
 		width: 100%;
@@ -109,7 +110,7 @@ $(function(){
 	    font-size: 0.7rem;
 	    text-indent: 0.3rem;
 	    color: #999;
-	    border-radius: 9px;
+	    border-radius: 50px;
 	    margin-top: 0.35rem;
 	    background: #fff;
 	}
@@ -230,13 +231,14 @@ $(function(){
     	margin-right: 0.3rem;
     }
     .history_img_right{
-    	margin-top: 0.65rem;
+    	margin-top: 0.55rem;
     }
     .fd_img{
     	width: 4.5rem;
 	    height: 5rem;
 	    margin: 0 auto;
 	    position: relative;
+	    margin-top: 3rem;
     }
     .fd_img img{
     	width: 4.5rem;
@@ -251,7 +253,23 @@ $(function(){
 	    color: #999;
 	    margin-left: -1.7rem;
 	    position: absolute;
-	    bottom: -4.5rem;
+	    bottom: -1.5rem;
+    }
+    #sendChat{
+    	background: none !important;
+    }
+    .facebox-mobile{
+    	top: 81px !important;
+    }
+    .send_gifts .send_gifts_p{
+    	font-size: 0.5rem;
+    }
+    .details01{
+    	border-bottom: 1px solid #00bc12;
+    	color: #00bc12;
+    }
+    .give_footer a{
+    	color: #fff !important;
     }
 </style>
 
@@ -374,7 +392,7 @@ $(function(){
 				</div>
 
 				<span class="history_span"
-					style="width: 74%; color: #666; font-size: 1rem;padding-top: 0.1rem;position: absolute;left: 2.1rem;"></span>
+					style="width: 74%; color: #666; font-size: 0.85rem;position: absolute;left: 2.1rem;"></span>
 				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
@@ -384,7 +402,7 @@ $(function(){
 	<!-- 头部结束 -->
 	<!-- 中间内容开始 -->
 	<div class="details_cen1"
-		style="position: fixed; width: 100%; background: #fff; padding-bottom: 0.2rem; border-bottom: 1px solid #d2d2d2; z-index: 9999;">
+		style="position: fixed; width: 100%; background: #fff; border-bottom: 1px solid #d2d2d2; z-index: 9999;">
 		<!-- <div class="video" id="video" style="width: 100%;height:200px;"></div> -->
 		<!-- <div class="doc" id="doc" style="display: none"></div> -->
 		<div class="video" id="video" style="width: 100%; height: 8.95rem; background: url(/xcviews/images/play_back.png1) no-repeat; background-size: cover;">
@@ -470,29 +488,33 @@ $(function(){
 	<div class="coze_bottom" style="padding: 0.3rem 0;">
 		<div class="coze_bottom_input" style="margin-right: 0;margin-left: 1.8rem;">
 			<div class="poson">
-			<div class="send_img" id="sendChat"><!-- <img src="/xcviews/images/send.jpg"> --></div>
+			<div class="send_img" id="sendChat"><img src="/xcviews/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" /> </div>
 			<!-- <input type="text" placeholder="聊聊您的想法吧" /> -->
 			<!-- <textarea ></textarea> -->
 			
 			<div class="div_input">
-				<input class="textarea02" id=mywords
-				onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' />
+				<input class="textarea02" id="mywords" placeholder="聊聊您的想法吧"
+				onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)'  />
 			</div>
 			
 			</div>
+			
+			
+			
+			<!-- 打赏 -->
+			<span class="face give_a1_span02" style="position: absolute;right: -3.2rem;width: 1.2rem;height: 1.2rem;display: block;"><img src="/xcviews/images/give.png" style="margin-top: -0.2rem;" /></span>
+				
 
 
              <!-- 礼物 -->     
-			<a href="javascript: ;" class="give_a1" style="float: right;"><img
-				src="/xcviews/images/gaft.png" alt="" class="give_a1_img" style="margin-left: 0.4rem;width: 1.2rem;margin-top: 0.45rem;display: block !important;" /></a>
+			<a href="javascript: ;" class="give_a1" style="float: right;position: absolute;right: -3.5rem;"><img
+				src="/xcviews/images/gaft.png" alt="" class="give_a1_img" style="margin-left: -2.8rem;width: 1.2rem;margin-top: 0.45rem;display: block !important;" /></a>
 				
-			<!-- 打赏 -->
-			<span class="face give_a1_span02"><img src="/xcviews/images/give.png" style="margin-top: -0.2rem;" /></span>
-				
+			
 				
 				<!-- 表情 -->
 			<div class="give_a01" style="margin-top: -1.47rem;margin-right: 0;display: block;position: absolute;display: block !important; margin-left: -1.3rem;">
-				<a id="face" href="javascript:;" class="face give_a1_span" style="margin-left: -0.2rem;display: inline-block;margin-top: 0.3rem;"><div class="face_img01" ></div><!-- <img src="/xcviews/images/face.png" style="margin-top: -0.1rem;width:1.1rem;" class="face_img01" /> --></a>
+				<a id="face" href="javascript:;" class="face give_a1_span" style="margin-left: -0.2rem;display: inline-block;margin-top: 0.3rem;position: absolute;left: -0.18rem;top: 1.5rem;padding: 0.2rem;"><div class="face_img01" ></div><!-- <img src="/xcviews/images/face.png" style="margin-top: -0.1rem;width:1.1rem;" class="face_img01" /> --></a>
 			</div>
 			<!--打赏暂时关闭-->
 			<!--<a href="javascript: ;"  class="give_a2"><img src="/xcviews/images/give.png" alt="" /></a>-->
@@ -562,12 +584,12 @@ $(function(){
 
 	<div class="send_gifts">
 		<div class="send_gifts_div0">
-			<p class="send_gifts_p">发送礼物</p>
+			<p class="send_gifts_p">送礼物</p>
 			
 			<!--礼物关闭按钮ui变更暂时去掉-->
 			<!--<p class="send_gifts_p1">关闭</p>-->
 			<div class="balance_size" onClick="window.location='/xcviews/html/echarge.html'">
-				<img src="/xcviews/images/top_up.png" alt="" /><span id="xmbShowSpan">加载中...</span><img src="/xcviews/images/top_up_right.png" alt="" style="margin-top: 0.1rem;float: right;width: 0.6rem;height: 0.6rem;" />
+				<img src="/xcviews/images/top_up.png" alt="" /><span id="xmbShowSpan">加载中...</span><span style="color: #f8c600;font-size: 0.5rem;">充值</span><img src="/xcviews/images/top_up_right.png" alt="" style="margin-top: 0.2rem;float: right;width: 0.6rem;height: 0.6rem;margin-left: 0.1rem;" />
 			</div>
 			
 		</div>
@@ -700,7 +722,7 @@ $(function(){
 	<!-- 底部购买开始 -->
 	<div class="buy_bottom_bg" id="buyDiv" style="display: none">
 		<div class="buy_bg" id="bug_bg"></div>
-		<footer style="padding: 0.8rem 0;">
+		<footer>
 			<div class="base buy_bottom">
 				<ul>
 					<li class="buy_left"><p class="buy_bottom_p1">

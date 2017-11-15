@@ -168,7 +168,7 @@
 					if(result.isAcquiescence == 1 || results.length==1){//是默认地址
 						isAcquiesStr+="<div class='sit_bg site_bg01'></div><span class=''>默认地址</span>";
 					}else{
-						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class=''>设为默认</span>";
+						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='' style='color: #666;'>设为默认地址</span>";
 					}
 					str += "<div class='site'>"+
 					"<div class='site_div'>"+

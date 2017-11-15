@@ -261,13 +261,13 @@ function requestbunchList(downOrOn, menuId) {
 							listHtml += "<div class='video_list_size_title'>"
 									+ object.gradeName + "</div>";
 							listHtml += "<div class='video_list_size_left video_list_size1'>"
-									+ "<img src='../images/microphone.png' alt='' /><span style='width: 3rem;'>"+object.name+"</span></div>";
+									+ "<img src='../images/microphone.png' alt='' /><span style='width: 2.5rem;'>"+object.name+"</span></div>";
 
-							listHtml += "<div class='video_list_size_center video_list_size1 video_list_size1_two'>"
+							listHtml += "<div class='video_list_size_center video_list_size1 video_list_size1_two' style='width: 2.5rem;'>"
 									+ "<img src='../images/eye.png' alt='' /><span>"
 									+ object.learndCount + "</span></div>";
 
-							listHtml += "<div class='video_list_size_right video_list_size1'>"
+							listHtml += "<div class='video_list_size_right video_list_size1' style='width: 3rem;margin-right: 0;'>"
 									+ "<img src='../images/time.png' alt='' /><span>"
 									+ object.courseLength + "小时" + "</span></div>";
 
