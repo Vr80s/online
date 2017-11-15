@@ -9,10 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
-import com.xczhihui.bxg.online.api.vo.Criticize;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.web.dao.VideoDao;
 import com.xczhihui.bxg.online.web.service.VideoService;
-import com.xczhihui.bxg.online.web.vo.CriticizeVo;
 
 /**
  * 评论接口实现类
@@ -30,7 +29,7 @@ public class CriticizeServiceImpl implements CriticizeService {
 	private VideoService videoService;
 	
 	@Override
-	public void saveCriticize(Criticize criticize) throws IllegalAccessException, InvocationTargetException {
+	public void saveCriticize(CriticizeVo criticize) throws IllegalAccessException, InvocationTargetException {
 		// TODO Auto-generated method stub
 		CriticizeVo cv = new CriticizeVo();
 		BeanUtils.copyProperties(cv,criticize);
@@ -39,9 +38,9 @@ public class CriticizeServiceImpl implements CriticizeService {
 	}
 
 	@Override
-	public Page<Criticize> getVideoCriticize(String videoId, String name,
+	public Page<CriticizeVo> getVideoCriticize(String videoId, String name,
 			Integer pageNumber, Integer pageSize) {
-		return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize,Criticize.class);
+		return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize);
 	}
 
 	@Override

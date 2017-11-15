@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -179,7 +180,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 	 */
 	public CourseLecturVo bunchDetailsByCourseId(int course_id) throws SQLException {
 		StringBuffer all = new StringBuffer("");
-		all.append(" select oc.id,oc.grade_name as gradeName,oc.direct_id as directId,"
+		all.append(" select oc.id,oc.grade_name as gradeName,"
 				+ "ocm.img_url as smallImgPath,ocm.description as description,multimedia_type as multimediaType,"
 				+ "ou.small_head_photo as headImg,ou.name as name,ou.id as userId,ou.room_number as roomNumber,"
 				+ "oc.original_cost as originalCost,oc.current_price as currentPrice,");
@@ -552,9 +553,10 @@ public class OLCourseMapper extends BasicSimpleDao {
 	 * @return String
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public String getVideoFirst(int course_id) throws SQLException {
+	public Map<String,String> getVideoFirst(int course_id) throws SQLException {
 		// TODO Auto-generated method stub
 		String videoId = null;
+		Map<String,String> map = new HashMap<String, String>();
 		/**
 		 * 查找所有课程下的所有知识点
 		 */
@@ -572,13 +574,15 @@ public class OLCourseMapper extends BasicSimpleDao {
 			List<VideoVo> videos = super.query(JdbcUtil.getCurrentConnection(),sq, new BeanListHandler<>(VideoVo.class),course_id,chapter_id);
 			for (VideoVo video : videos) {
 				videoId =video.getVideo_id();
+				map.put("chapterId",chapter_id);
+				map.put("videoId",videoId);
 				break;
 			}
 			if(videoId!=null){
 				break;
 			}
 		}
-		return videoId;
+		return map;
 	}
 	public List<CourseLecturVo> offLineClass(int number, int pageSize,
 			String queryParam) throws SQLException {

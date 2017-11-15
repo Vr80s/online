@@ -555,6 +555,9 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("info",configresult.info);
 	localStorage.setItem("username",configresult.name);
 	localStorage.setItem("ticket",configresult.ticket);
+	
+	localStorage.setItem("occupation",configresult.occupation);
+	localStorage.setItem("occupationOther",configresult.occupationOther);
 }
 
 /** * 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)

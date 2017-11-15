@@ -16,7 +16,7 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
-import com.xczhihui.bxg.online.api.vo.Criticize;
+import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 
 @Controller
 @RequestMapping("/bxg/criticize")
@@ -34,7 +34,7 @@ public class CriticizeController {
 	@RequestMapping("saveCriticize")
 	@ResponseBody
 	public ResponseObject saveCriticize(HttpServletRequest req,
-			HttpServletResponse res,Criticize criticize)
+			HttpServletResponse res,CriticizeVo criticize)
 			throws Exception {
 		OnlineUser  ou = appBrowserService.getOnlineUserByReq(req);
 		criticize.setCreateTime(new Date());
@@ -61,7 +61,7 @@ public class CriticizeController {
 		String videoId = req.getParameter("videoId");
 		String name = req.getParameter("name");
 		
-		Page<Criticize> pageList  = criticizeService.getVideoCriticize(videoId, name, pageNumber, pageSize);
+		Page<CriticizeVo> pageList  = criticizeService.getVideoCriticize(videoId, name, pageNumber, pageSize);
 		return ResponseObject.newSuccessResponseObject(pageList);
 	}
     /**

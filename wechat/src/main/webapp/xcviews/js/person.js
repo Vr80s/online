@@ -21,34 +21,6 @@ function time(o) {
         }, 1000)
     }
 }
-document.getElementById("quit").addEventListener("tap", function() {
-	
-	console.log("退出成功");
-	/*
-	 * 并且把里面的缓存。清理掉吧。
-	 */
-	localStorage.removeItem("token");
-    localStorage.removeItem("userId")
-	localStorage.removeItem("name");
-    localStorage.removeItem("smallHeadPhoto");
-    localStorage.removeItem("sex");
-    localStorage.removeItem("provinceName");
-    localStorage.removeItem("cityName");
-    localStorage.removeItem("province");
-    localStorage.removeItem("city");
-    localStorage.removeItem("email");
-    localStorage.removeItem("info");
-    localStorage.removeItem("username");
-    localStorage.removeItem("ticket");
-	
-	requestService("/bxg/user/logout", null, function(data) {
-		if (data.success) {
-			location.href = "/bxg/page/login/1";
-		}
-	});
-    
-})
-
 
 /**
  * 	更换手机号开始
@@ -254,11 +226,13 @@ function ajaxFileUpload(fileId,url,data,callback){
  */
 function checkUser1(saveFalg){
 
-	  var nickname = "";
-	  var sex  = "";
-	  var email = "";
+	  var nickname = "";   //昵称
+	  var sex  = "";       //性别
+	  var email = "";      // 
 	  var provinceCityName = "";
 	  var info = "";
+	  var occupation = "";
+	  var  occupationOther = "";
 	  if(saveFalg == "nickname"){
 		  nickname =  $("#form input[name='nickname']").val();
 	  }else if(saveFalg == "sex"){
@@ -269,14 +243,22 @@ function checkUser1(saveFalg){
 		  provinceCityName  =  $("#szd_cityP").html();
 	  }else  if(saveFalg == "info"){
 		  info = $("#info").val().trim();
+	  }else if(saveFalg == "occupation"){
+		  occupation = $("#sfxx").attr("class");
+	  }else if(saveFalg == "occupationOther"){
+		  occupationOther =  $("#form input[name='occupationOther']").val();
 	  }
+//	  map.put("occupation", occupation);
+//      map.put("occupationOther", occupationOther);
 	  
 	requestService("/bxg/user/userCenterFormSub1", {
 		  nickname: stringnull(nickname) ? nickname : "",
 		  sex:stringnull(sex) ? sex : "",
 		  email:stringnull(email) ? email : "",
 		  provinceCityName:stringnull(provinceCityName) ? provinceCityName : "",
-		  info:stringnull(info) ? info : ""
+		  info:stringnull(info) ? info : "",
+	      occupation:stringnull(occupation) ? occupation : "",
+	      occupationOther:stringnull(occupationOther) ? occupationOther : ""
 	}, function(data) {
 		if (data.success) {
 			
@@ -308,6 +290,12 @@ function checkUser1(saveFalg){
 			if(stringnull(result.info)){
 				localStorage.setItem("info",result.info);
 				$("#person_sign").html(result.info);
+			}
+			if(stringnull(result.occupation)){
+				localStorage.setItem("occupation",result.occupation);
+			}
+			if(stringnull(result.occupationOther)){
+				localStorage.setItem("occupationOther",result.occupationOther);
 			}
 		} else {
 			alert("密码错误！");

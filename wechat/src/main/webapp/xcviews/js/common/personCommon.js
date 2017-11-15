@@ -33,7 +33,6 @@ $("input").focus(function(){
 
 /*点击返回按钮*/
 $(".return").click(function(){
-    
     location.href ='persons.html';
 });
 
@@ -95,29 +94,39 @@ function  sendCode(obj){
  */
 function checkUser1(saveFalg){
 
-	  var nickname = "";
-	  var sex  = "";
-	  var email = "";
+	  var nickname = "";   //昵称
+	  var sex  = "";       //性别
+	  var email = "";      // 
 	  var provinceCityName = "";
 	  var info = "";
+	  var occupation = "";
+	  var  occupationOther = "";
 	  if(saveFalg == "nickname"){
-		  nickname =  $("input[name='nickname']").val();
+		  nickname =  $("#form input[name='nickname']").val();
 	  }else if(saveFalg == "sex"){
-		  sex =  $("input[name='sex']:checked").val();
+		  sex =  $("#form input[name='sex']:checked").val();
 	  }else  if(saveFalg == "email"){
-		  email = $("input[name='email']").val();
+		  email = $("#form input[name='email']").val();
 	  }else  if(saveFalg == "provinceCityName"){
 		  provinceCityName  =  $("#szd_cityP").html();
 	  }else  if(saveFalg == "info"){
 		  info = $("#info").val().trim();
+	  }else if(saveFalg == "occupation"){
+		  occupation = $("#sfxx").attr("class");
+	  }else if(saveFalg == "occupationOther"){
+		  occupationOther =  $("#form input[name='occupationOther']").val();
 	  }
+//	  map.put("occupation", occupation);
+//    map.put("occupationOther", occupationOther);
 	  
 	requestService("/bxg/user/userCenterFormSub1", {
 		  nickname: stringnull(nickname) ? nickname : "",
 		  sex:stringnull(sex) ? sex : "",
 		  email:stringnull(email) ? email : "",
 		  provinceCityName:stringnull(provinceCityName) ? provinceCityName : "",
-		  info:stringnull(info) ? info : ""
+		  info:stringnull(info) ? info : "",
+	      occupation:stringnull(occupation) ? occupation : "",
+	      occupationOther:stringnull(occupationOther) ? occupationOther : ""
 	}, function(data) {
 		if (data.success) {
 			
@@ -149,6 +158,12 @@ function checkUser1(saveFalg){
 			if(stringnull(result.info)){
 				localStorage.setItem("info",result.info);
 				$("#person_sign").html(result.info);
+			}
+			if(stringnull(result.occupation)){
+				localStorage.setItem("occupation",result.occupation);
+			}
+			if(stringnull(result.occupationOther)){
+				localStorage.setItem("occupationOther",result.occupationOther);
 			}
 		} else {
 			alert("密码错误！");

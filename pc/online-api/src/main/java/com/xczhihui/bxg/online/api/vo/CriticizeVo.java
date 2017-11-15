@@ -7,7 +7,7 @@ import java.util.Date;
  * @Author Fudong.Sun【】
  * @Date 2016/11/2 19:52
  */
-public class Criticize implements Serializable {
+public class CriticizeVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

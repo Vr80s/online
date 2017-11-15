@@ -91,11 +91,11 @@ public class GiftController {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(1);
         	giftStatement.setPayType(3);
-			RLock redissonLock = redisson.getLock(giftStatement.getReceiver()); // 1.获得锁对象实例
+//			System.out.println(giftStatement.getLiveId());
+			RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId()); // 1.获得锁对象实例
 			boolean res = false;
 			try {
 				res = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);//等待十秒。有效期五秒
-//				System.out.println(giftStatement.getReceiver().intern());
 				map = giftService.addGiftStatement(giftStatement);
 			}catch (Exception e){
 				e.printStackTrace();

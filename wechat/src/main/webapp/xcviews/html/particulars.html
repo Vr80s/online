@@ -26,6 +26,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".li1").click(function(){
+		//滑动条滚动到最后啦
+		setTimeout(function(){
+			$(".discuss_main").mCustomScrollbar("scrollTo","bottom","0");
+        },50);
+		
   		$(this).addClass('details');
   		$(".li2").removeClass('details');
   		$(".li3").removeClass('details');
@@ -42,6 +47,7 @@ $(document).ready(function(){
 		
 	});
 	$(".li2").click(function(){
+		
   		$(this).addClass('details');
   		$(".li1").removeClass('details');
   		$(".li3").removeClass('details');
@@ -91,7 +97,7 @@ $(document).ready(function(){
 		$(".details_chat").hide();
 		$(".coze_bottom").hide();
 	});
-		$(".li1").click();
+		$(".li2").click();
 
 
 		$(".close").click(function(){
@@ -242,6 +248,8 @@ $(document).ready(function(){
      });
      /*点击发送*/
      $("#sendChat").click(function() {
+          $(".coze_bottom").css("bottom","0rem");
+      	  $(".page_emotion").hide();
           $(".page_emotion").css("opacity","0");
           $("#sendChat").css("background","url(/xcviews/images/jiantou02.jpg) no-repeat");
           $("#sendChat").css("background-size","100% 100%");
@@ -341,7 +349,6 @@ $(document).ready(function(){
 				<div class="grabble_left" onclick="isLoginJump()">
 					<div class="grabble_img"></div>
 				</div>
-				
 				<span class="history_span" style="color:#666;width:77%;">视频详情</span>
 				<div class="history_img_right" id="share" style="width:1.6rem;color:#00bc12;">分享</div>
 			</div>
