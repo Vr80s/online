@@ -40,6 +40,34 @@
 	<div class="both"></div>
 	<!-- 中间内容开始 -->
 	<div class="system">
+		<!-- <div class="system_div" onclick="location.href ='offer.html'">
+			<div class="system_div_left" >举报/建议</div>
+			<div class="system_div_right"><img src="../images/right_jian.png" alt="" /></div>
+		</div>
+		<div class="system_div" style="border: none;" onclick="location.href ='regards.html'">
+			<div class="system_div_left">关于熊猫中医</div>
+			<div class="system_div_right"><img src="../images/right_jian.png" alt="" /></div>
+		</div> -->
+	    <div class="person_cen_top person_four" onclick="location.href ='change_password.html'">
+				<p class="person_p1">密码</p>
+				<div class="person_cen_right">
+					<p>修改密码</p>
+					<div class="system_div_right"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
+		</div>
+			
+		<div class="person_cen_top person_six" onclick="location.href ='phone_number.html'">
+			<p class="person_p1">手机号</p>
+			<div class="person_cen_right">
+				<p id="person_five">更换手机号</p>
+				<div class="system_div_right"><img src="/xcviews/images/right_jian.png"></div>
+			</div>
+			<div class="both"></div>
+		</div> 
+	</div>
+	
+	<div class="system" style="margin-top:0.3rem">
 		<div class="system_div" onclick="location.href ='offer.html'">
 			<div class="system_div_left" >举报/建议</div>
 			<div class="system_div_right"><img src="../images/right_jian.png" alt="" /></div>
@@ -49,7 +77,47 @@
 			<div class="system_div_right"><img src="../images/right_jian.png" alt="" /></div>
 		</div>
 	</div>
+	
+	<div class="quit" id="quit">退出登录</div>
 	<!-- 中间内容结束 -->
-<script type="text/javascript" src="/xcviews/js/account/deposit.js"></script>	
+	
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script>
+/**
+ * 	更换手机号开始
+ */
+var currentName = localStorage.name;
+//获取下当前的手机号吗
+$("#person_five").text(currentName);
+
+$("#quit").click(function(){
+	console.log("退出成功");
+	/*
+	 * 并且把里面的缓存。清理掉吧。
+	 */
+	localStorage.removeItem("token");
+    localStorage.removeItem("userId")
+	localStorage.removeItem("name");
+    localStorage.removeItem("smallHeadPhoto");
+    localStorage.removeItem("sex");
+    localStorage.removeItem("provinceName");
+    localStorage.removeItem("cityName");
+    localStorage.removeItem("province");
+    localStorage.removeItem("city");
+    localStorage.removeItem("email");
+    localStorage.removeItem("info");
+    localStorage.removeItem("username");
+    localStorage.removeItem("ticket");
+	
+	requestService("/bxg/user/logout", null, function(data) {
+		if (data.success) {
+			location.href = "/bxg/page/login/1";
+		}
+	});
+    
+})
+
+</script>
 </body>
 </html>

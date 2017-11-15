@@ -180,6 +180,8 @@ function chZJ(videoId,chapterId){
 //	屏幕分辨率的宽：window.screen.width 
 	var playerwidth = window.screen.width;
 	var playerheight = 8.95*21.8;
+//	var playerwidth = 300;
+//	var playerheight = 300;
 	console.log(playerwidth);
 	var dataParams = {
 		playerwidth:playerwidth,	
@@ -193,7 +195,35 @@ function chZJ(videoId,chapterId){
 			var playCodeObj = JSON.parse(playCodeStr);
 			console.log(playCodeObj.video.playcode);
 			$("#ccvideo").html(playCodeObj.video.playcode);
-			
+			/**
+			 * 为这个cc视频设置伟大的响应式样式
+			 */
+			//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
+			/*var videoLable = "#cc_"+videoId;
+			//var t = $("#cc_E314E6FD81D47BD69C33DC5901307461"); 
+			var t = $(videoLable);
+	        t.attr("webkit-playsinline", ""),
+	        t.attr("playsinline", "");
+	        t.attr("x5-playsinline", "");*/
+	        
+	        //playsinline="true"
+	        /*<video id="vhall-h5-player" 
+	        	webkit-playsinline="" playsinline="" 
+	        		controls="controls" 
+	        			src="http://alhlslivepc01.e.vhall.com/vhall/811787281/livestream.m3u8" 
+	        				x5-playsinline="" 
+	       poster="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/15/09/9695715203124159abfe4ac8683e2746.jpg" style="width: 100%;" +
+	       		" height: 100%;"></video>*/
+	        
+	        /*<video id="cc_A9067DA7F5AA34C39C33DC5901307461"
+	        	x-webkit-airplay="allow" 
+	        		webkit-playsinline="" 
+	        			playsinline="true" 
+	        				width="349" height="195"
+	        					src="http://cm14-ccm1-2.play.bokecc.com/flvs/ca/Qx8Bx/ueia2oekGL-10.mp4?t=1510724919&amp;key=EB009C172FDAD5D3915A99D210095991">您的浏览器不支持html5 video</video>*/
+	        
+	        
+	        
 		 	/**
 	    	 * 初始化评论区
 	    	 */
@@ -316,6 +346,9 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
 $("#sendChat").click(function() {
     //var userInfo  = VHALL_SDK.getUserinfo();
     var text = $("#mywords").html();
+    if(!stringnull(text) || text == "聊聊您的想法吧"){
+    	return;
+    }
     $("#mywords").html("")
     var msg = null;
     /*

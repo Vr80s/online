@@ -96,7 +96,7 @@ requestService("/bxg/common/h5ShareAfter",{
 		$(".buy_bottom_p2").html(result.learndCount+"人学习");
 	
 		
-		alert(sessionStorage.getItem("share"));
+		//alert(sessionStorage.getItem("share"));
 		
 		if(result.lineState != 1){  //直播已结束和正在直播
 			$(".details_bottom").show();
@@ -119,7 +119,6 @@ requestService("/bxg/common/h5ShareAfter",{
 			/*
 			 * 判断课程类别。
 			 */
-			
 			var y = result.startTime.substring(0,4);
 			var m = result.startTime.substring(5,7);
 			var d = result.startTime.substring(8,10);

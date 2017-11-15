@@ -211,7 +211,6 @@ public class WeihouInterfacesListUtil {
 			System.out.println(json+":"+userId);
 			return vhallId;
 		}
-		
 		/*JSONObject js = JSONObject.parseObject(json);
 		System.out.println(js.toJSONString());
 		if(js.get("msg").equals("success")){
