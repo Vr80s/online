@@ -13,20 +13,23 @@
 }
 
 .give_footer a {
-	font-size: 0.8rem;
 	background: #00bc12;
-	/* padding: 0.15rem 0.5rem; */
 	border-radius: 60px;
 	color: #fff;
 	margin-right: 0.3rem;
 	position: absolute;
 	top: 0.32rem;
 	right: 1.5rem;
-	height: 1.2rem;
 	display: inline-block;
-	width: 4rem;
 	text-align: center;
 	line-height: 1.3rem;
+	width: 3.2rem;
+    height: 1.1rem;
+    font-size: 0.6rem;
+    line-height: 1.1rem;
+    font-size: 0.6rem;
+    float: right;
+    margin-right: 0.5rem;
 }
 
 .mCSB_inside>.mCSB_container {
@@ -173,7 +176,7 @@
 }
 
 .give_footer_put {
-	width: 9.6rem;
+	width: 10.4rem;
 }
 
 .pay_a {

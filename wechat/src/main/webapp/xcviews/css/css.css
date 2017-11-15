@@ -562,7 +562,7 @@ footer{
     margin-left: 0.4rem;
 }
 .history_span{
-	font-size: 1rem;
+	font-size: 0.95rem;
     display: table-cell;
     width: 80%;
     float: left;
@@ -903,7 +903,7 @@ footer{
 	height: 100%;
 }
 .public1_title{
-	font-size: 0.7rem;
+	font-size: 0.6rem;
 	color: #333;
 	overflow: hidden;
     text-overflow: ellipsis;
@@ -2198,7 +2198,7 @@ footer{
 }
 .give_bottom{
 	width: 100%;
-	height: 6.5rem;
+	height: 6rem;
 	background: #f7f7f7;
 	position: fixed;
 	bottom: 0;
@@ -2206,9 +2206,9 @@ footer{
 	display: none;
 }
 .give_bottom p:first-child{
-	font-size: 0.7rem;
-	color: #000;
-	margin-top: 0.2rem;
+	font-size: 0.6rem;
+	color: #999;
+	margin-top: 0.4rem;
 	margin-left: 0.2rem;
 	margin-bottom: 0.5rem;
 }
@@ -2223,31 +2223,32 @@ footer{
     background: red;
     background: url(../images/givebg1.png) no-repeat;
     background-size: 100% 100%;
+    margin-top: 0.2rem;
 }
 .give_lable1{
 	position: relative;
-	margin-left: 0.55rem;
-	width: 4.5rem;
-	height: 1.66rem;
+	margin-left: 1.55rem;
+	width: 3.2rem;
+	height: 1.2rem;
 	border-radius: 60px;
 	border: 1px solid #666;
 	float: left;
 	color: #666;
 }
 .lable1_put input{
-	width: 3.4rem;
-    height: 1.4rem;
+	width: 3.2rem;
+	height: 1.2rem;
     margin-left: 0.4rem;
     opacity: 0;
 }
 .give_money1{
 	position: absolute;
-    top: 0.3rem;
-    left: 1.35rem;
+    top: 0.2rem;
+    left: 1rem;
     z-index: -1;
     color: #666;
-    font-size: 0.8rem;
-    font-family: "微软雅黑";
+    font-size: 0.6rem;
+    /*font-family: "微软雅黑";*/
 }
 .give_lable2{
 	position: relative;
@@ -2360,7 +2361,7 @@ footer{
     font-family: "微软雅黑";
     margin-left: 0.4rem;
     margin-right: 0.2rem;
-    background: #f2f2f2;
+    background: #fff;
     font-size: 0.7rem;
 }
 
@@ -2389,9 +2390,9 @@ footer{
 .send_gifts{
 	width: 100%;
     height: 6.2rem;
-    background: #f7f7f7;
+    background: #fff;
     position: fixed;
-    bottom: 2.2rem;
+    bottom: 2rem;
     z-index: 99990;
     display: none;
 }
@@ -3144,7 +3145,7 @@ footer{
     margin-right: 0.2rem;
 }
 .pet_name_put{
-	width: 90%;
+	width: 95%;
 	height: 1.5rem;
 	margin: 0 auto;
 	margin-top: 1rem;
@@ -3338,7 +3339,7 @@ footer{
     margin-right: 0.4rem;
 }
 .mailbox_put{
-	width: 90%;
+	width: 95%;
 	height: 1.5rem;
 	margin: 0 auto;
 	margin-top: 1rem;

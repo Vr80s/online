@@ -197,11 +197,22 @@ $(".send_img").css('right','0.4rem');
 });
 // 打开打赏
 $(".give_a1_span02").click(function(){
-$(".give_bottom").show();
+	$(".give_bottom").show();
 
-//发送按钮
-$(".send_img").css('right','0.4rem');
+//发送按钮  coze_cen
+	$(".send_img").css('right','0.4rem');
+	$(".coze_bottom").css("bottom","0");
+  	$(".face_img01").css("background","url(/xcviews/images/face.png)");
+  	$(".face_img01").css("background-size","100% 100%");
 });
+
+
+$(".coze").click(function(){
+  	$(".face_img01").css("background","url(/xcviews/images/face.png)");
+  	$(".face_img01").css("background-size","100% 100%");
+});
+
+
 
 
 if(result.lineState != 0){  //直播走里面
@@ -277,7 +288,10 @@ $(".send_gifts").hide();
 
 /* 点击礼物 */
 $(".give_a1").click(function() {
- $(".send_gifts").show();        	
+ $(".send_gifts").show(); 
+ $(".coze_bottom").css("bottom","0");
+  $(".face_img01").css("background","url(/xcviews/images/face.png)");
+  $(".face_img01").css("background-size","100% 100%");
 }); 
    
         

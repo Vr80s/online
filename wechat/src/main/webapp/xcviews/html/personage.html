@@ -49,6 +49,7 @@
 	font-size: 0.6rem;
 	float: left;
 	margin-right: 0.1rem;
+	margin-top: -0.08rem;
 }
 .bean_vermicelli{
 	width: 48%;
@@ -99,12 +100,12 @@
 	border: 1px solid #e5b907;
 }
 .contribution_right{
-	width: 50%;
+	min-width: 1rem;
     float: right;
 }
-.contribution_right_one:first-child{
+/*.contribution_right_one:first-child{
 	margin-left: 2.25rem;
-}
+}*/
 .contribution_right_one{
 	width: 1.25rem;
     text-align: center;
@@ -172,12 +173,12 @@
 }
 .play_types{
 	float: left;
-	margin-top: -0.1rem;
+	margin-top: -0.25rem;
     margin-left: 0.4rem;
     margin-right: 0.3rem;
 }
 .play_types_size{
-	font-size: 0.6rem;
+	font-size: 0.55rem;
     color: #fff;
     margin-top: 0.25rem;
 } 
@@ -187,6 +188,15 @@
 .public1_cen_right{
 	float: left;
     color: #ff6767;
+}
+#teacherName{
+	font-size: 0.7rem;
+    color: #fff;
+    width: 3rem;
+    margin: 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 </style>
 </head>
@@ -210,7 +220,7 @@
 			<div class="personage_top_cen">
 				<div class="personage_top_cen01">
 					<div id="teacherName"></div>
-					<div class="personage_top_cen_img">
+					<div class="personage_top_cen_img" style="position: absolute;right: 3rem;top: 4rem;">
 						<div class="personage_top_cen_img1"><img src="../images/gif.gif" alt="" /></div>
 						<div class="personage_top_cen_in" >正在直播</div>
 				    </div>
