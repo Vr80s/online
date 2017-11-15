@@ -247,6 +247,8 @@ $(document).ready(function(){
           $("#sendChat").css("background-size","100% 100%");
           $("#page_emotion").removeClass("rift");
           $("#page_emotion").addClass("rift");
+          
+          $(".coze_bottom").css("bottom","0");
      });
      
      /*点击评论区*/
@@ -483,7 +485,7 @@ $(document).ready(function(){
 			      style="width:11rem;border-radius: 6px;float: left;" class="textarea01" ></article>
 				</div>  -->
 				<div id="sr_input">
-					<div id="mywords"  contenteditable="true" onkeydown="myInput.listen(this, event);"></div>
+					<div id="mywords" contenteditable="true" onkeydown="myInput.listen(this, event);" ></div>
 				</div>
 				
 			</div>
@@ -646,40 +648,7 @@ $(document).ready(function(){
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/JavaScript">
 
-	var token = localStorage.getItem("token");
-	if(!stringnull(token)){
-	  location.href = "/xcviews/html/share.html?course_id=" + getQueryString("courseId");
-	}
-		
-	//初始化微信 jssdk
-	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
-	var urlparm = {
-		url: window.location.href
-	}
-	var signObj = "";
-	requestService(ccontrollerAddress, urlparm, function(data) {
-		if (data.success) {
-			signObj = data.resultObject;
-		    console.log(JSON.stringify(signObj));
-		}	
-	},false)	
-	wx.config({
-	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-	    appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
-	    timestamp: signObj.timestamp, // 必填，生成签名的时间戳
-	    nonceStr:signObj.noncestr, // 必填，生成签名的随机串
-	    signature: signObj.sign,// 必填，签名，见附录1
-	    jsApiList: [
-			'checkJsApi',
-			'onMenuShareTimeline',
-			'onMenuShareAppMessage',
-			'onMenuShareQQ',
-			'onMenuShareWeibo',
-			'onMenuShareQZone',
-			'hideMenuItems',
-			'showMenuItems'         
-	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-	});
+	
 </script>
 
 <script src="/xcviews/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>

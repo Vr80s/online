@@ -152,8 +152,11 @@ getVideoCriticize(1);
 /**
  * 点赞和取消赞
  */
+
 $(".praise0").click(function(){
 	var praise_img = $(this).find("img");
+	
+	/*alert(123);*/
 	
 	var criticizeId =  $(this).attr("title");
 	
@@ -285,4 +288,41 @@ $(".discuss_main").mCustomScrollbar({
     		  alert(data.errorMessage);
     	  }
       })
+      
+      var token = localStorage.getItem("token");
+	if(!stringnull(token)){
+	  location.href = "/xcviews/html/share.html?course_id=" + getQueryString("courseId");
+	}
+		
+	//初始化微信 jssdk
+	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var urlparm = {
+		url: window.location.href
+	}
+	var signObj = "";
+	requestService(ccontrollerAddress, urlparm, function(data) {
+		if (data.success) {
+			signObj = data.resultObject;
+		    console.log(JSON.stringify(signObj));
+		}	
+	},false)	
+	wx.config({
+	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
+	    timestamp: signObj.timestamp, // 必填，生成签名的时间戳
+	    nonceStr:signObj.noncestr, // 必填，生成签名的随机串
+	    signature: signObj.sign,// 必填，签名，见附录1
+	    jsApiList: [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'hideMenuItems',
+			'showMenuItems'         
+	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	});
+      
+      
  });
