@@ -366,7 +366,8 @@ $("#sendChat").click(function() {
     var dataParams = {
         content:text,	
         chapterId:chapterId,
-        videoId:vid
+        videoId:vid,
+        courseId:course_id
     }
     if(text.length>3000){
   	  alert("评论长度太长了");

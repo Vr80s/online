@@ -1,6 +1,5 @@
 package com.xczh.consumer.market.controller.live;
 
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
