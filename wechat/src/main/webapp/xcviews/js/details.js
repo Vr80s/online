@@ -158,8 +158,8 @@ var result="";
             }else{
             	
             	//正在直播
-            	$("title").text("正在直播");
-            	$(".history_span").text("正在直播");
+            	$("title").text("直播中");
+            	$(".history_span").text("直播中");
             	
             	
                 $("#mywords").click(function() {

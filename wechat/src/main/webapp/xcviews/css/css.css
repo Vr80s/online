@@ -1098,12 +1098,10 @@ footer{
 }
 .zhibo_list_title1 a{
 	font-size: 0.7rem;
-	font-family: "微软雅黑";
 	color: #000;
 }
 .zhibo_list_size1{
-	font-size: 0.74rem;
-	font-family: "微软雅黑";
+	font-size: 0.6rem;
 	color: #999;
 }
 .zhibo_list_size1 img{
@@ -1702,7 +1700,7 @@ footer{
     margin-top: 0.1rem;
     font-size: 0.55rem;
     margin-left: 0.28rem;
-    color: #00bc12;
+    color: #666;
 }
 .leaderboard_center{
 	width: 11rem;
@@ -1718,16 +1716,14 @@ footer{
     border-radius: 60px;
 }
 .leaderboard_center_size .p1{
-	font-size: 0.7rem;
-	color: #000;
-	font-family: "微软雅黑";
+	font-size: 0.675rem;;
+	color: #333;
 	margin-top: 0.25rem;
 	margin-bottom: 0.25rem;
 }
 .leaderboard_center_size .p2{
 	font-size: 0.55rem;
-	color: #00bc12;
-	font-family: "微软雅黑";
+	color: #e5b907;
 }
 .leaderboard_list_right{
 	float: right;
@@ -1942,7 +1938,7 @@ footer{
     /* display: none; */
     position: fixed;
     z-index: 9999;
-    top: 3rem;
+    top: 3.5rem;
 }
 
 .buy_bg{
