@@ -476,6 +476,10 @@ public class OnlineUserController {
           String provinceName= request.getParameter("provinceName");
           String cityId= request.getParameter("cityId");
           String provinceId= request.getParameter("provinceId");
+          
+          String occupation= request.getParameter("occupation"); 
+          String occupationOther= request.getParameter("occupationOther"); 
+          
           map.put("sex", sex);
           map.put("nickname", nickname);
           map.put("email", email);
@@ -483,6 +487,10 @@ public class OnlineUserController {
           map.put("provinceName", provinceName);
           map.put("cityId", cityId);
           map.put("provinceId", provinceId);
+          
+          //新增 身份信息、职业信息
+          map.put("occupation", occupation);
+          map.put("occupationOther", occupationOther);
           
           OnlineUser user = new OnlineUser();
           String token = request.getParameter("token");

@@ -58,20 +58,6 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 		//teacherId =data.
 		$("#teacherId").val(result.userId);
 		
-		//(new Date()).pattern("yyyy-MM-dd  HH:mm:ss")
-		//var date = convertDateFromString(result.startTime);
-		
-	/*	var date = new Date(Date.parse(result.startTime));// convertDateFromString(result.startTime);
-		
-		var y = date.getFullYear();  
-        var m = date.getMonth() + 1;  
-        var d = date.getDate();  
-        d = d < 10 ? ('0' + d) : d;  
-        var h = date.getHours();  
-        h = h < 10 ? ('0' + h) : h;  
-        var minute = date.getMinutes();  
-        minute = minute < 10 ? ('0' + minute) : minute;  */
-		
 		var y = result.startTime.substring(0,4);
 		var m = result.startTime.substring(5,7);
 		var d = result.startTime.substring(8,10);
@@ -248,9 +234,11 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 		});
 	})   
 
+/**
+ * 已预约
+ */	
 function subscribe() {
-
-	var regPhone = /^1[3-578]\d{9}$/;
+/*	var regPhone = /^1[3-578]\d{9}$/;
 	var flag = true;
 	if ($("#mobile").val().trim().length === 0) {
 		alert("请输入手机号！");
@@ -261,7 +249,7 @@ function subscribe() {
 	}
 	if (!flag) {
 		return false;
-	}
+	}*/
 	requestService("/bxg/common/subscribe", {
 		course_id : course_id,
 		mobile : $("#mobile").val()
@@ -270,7 +258,7 @@ function subscribe() {
 			//已经预约
 			isSubscribe =1;
 			
-			var result = data.resultObject;
+		/*	var result = data.resultObject;
 			$("#mobile_subscribe").hide();
 			$(".buy_center1").show();
 			
@@ -282,7 +270,7 @@ function subscribe() {
 			}else if(pwdAndBuy == 0){
 				alert("开始直播时,您可以直接观看");
 				return;
-			}
+			}*/
 		} else {
 			$("#mobile_subscribe").hide()
 			alert("预约失败！" + data.msg);
@@ -296,20 +284,23 @@ function subscribe() {
 function goPay() {
 	if(isSubscribe == 0){
 		if(pwdAndBuy ==0){
-			
 			/**
 			 * 显示预约，并且输入手机号进行预约啦
 			 */
 /*			$(".buy_bg01").show();
 			$(".buy_center").show();*/
-			
-			/*
-			 * 变成已预约，并且给自己短信啦
-			 */
-			$("#buy_right a").html("已预约");
-			
 			/*隐藏上部分区域预告时间*/
 			/*$(".order_center").hide();*/
+			
+			alert("预约成功");
+			/*
+			 * 变成已预约
+			 */
+			$("#buy_right a").html("已预约");
+			/*
+			 * 发送短息啦
+			 */
+			subscribe();
 			
 		}else if(pwdAndBuy == 1){
 			requestService("/bxg/order/save", {
@@ -327,44 +318,54 @@ function goPay() {
 		}else if(pwdAndBuy == 2){
 			//$("#mobile_subscribe").show();
 			//显示预约
-			$(".buy_bg01").show();
+			/*$(".buy_bg01").show();
 			$(".buy_center").show();
 			//显示预约
 			$("#buy_bg001").css("display","block");
             $("#buy_center01").css("display","block");
-            $(".order_center").show();
+            $(".order_center").show();*/
             
-            
+			$("#passwordDiv").show();
 		}
 	}else if(isSubscribe == 1){//已经预约，还需要在判断是否确认密码
-		if(pwdAndBuy == 2){
+		
+		alert("您已预约成功"); 
+		/*if(pwdAndBuy == 2){
 			$("#passwordDiv").show();
 		}else if(pwdAndBuy == 0){
 			alert("您已预约成功");
 			return;
-		}
+		}*/
 	}else{
 		alert("状态异常");
 	}
 }
-
-
 /*
  * 显示密码的弹框
  */
 function viewPwd(){
 	$("#passwordDiv").show();
 }
-
+/**
+ * 输入完密码后搞的
+ */
 function enterPassword() {
 	requestService("/bxg/common/coursePwdConfirm", {
 		course_id : course_id,
 		course_pwd : $("#password").val()
 	}, function(data) {
 		if (data.success) {
+			/*
+			 * 发送短息啦
+			 */
+			subscribe();
+			
 			$("#passwordDiv").hide();
 			pwdAndBuy = 0;
+			$("#buy_right a").html("已预约");
             alert("开始直播时,您可以直接观看");
+            
+            
 		} else {
 			alert("密码错误！");
 		}

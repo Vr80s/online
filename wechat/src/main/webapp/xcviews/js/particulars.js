@@ -36,6 +36,7 @@ h5PcConversions(true,course_id);
 var videoId = "";var teacherId;var teacherName;var courseHead ="";
 var roomNumber="";var multimedia_type ="";var result = "";
 var chapterId ="";var watchState="";
+var vId ="";
 /*
  * 加载评论列表
  */
@@ -48,7 +49,7 @@ var pageNumber = 1;
 var name = localStorage.name;
 var userId =  localStorage.userId;
 var smallHeadPhoto =  localStorage.smallHeadPhoto;
-function  getVideoCriticize(pageNumber,videoId){
+function  getVideoCriticize(pageNumber,vId){
 	//视频id :2c9aec355eb943f5015ecb4221f30005
 	//用户名：15936216273
 	//分页参数：pageSize
@@ -62,7 +63,7 @@ function  getVideoCriticize(pageNumber,videoId){
 	//测试
 	var dataParams ={
 		pageNumber:pageNumber,
-		videoId:videoId,	
+		videoId:vId,	
 		name:name,
 		pageSize:10
 	}
@@ -163,7 +164,7 @@ function  getVideoCriticize(pageNumber,videoId){
  * 点击初始化视频的方法：
  * @param videoId
  */
-function chZJ(videoId,chapterId){
+function chZJ(videoId,chapterId,vid){
 	/**
 	 * 清空评论区的列表
 	 */
@@ -173,6 +174,7 @@ function chZJ(videoId,chapterId){
 	chapterId = chapterId;*/
 	sessionStorage.setItem("videoId",videoId);
 	sessionStorage.setItem("chapterId",chapterId);
+	sessionStorage.setItem("vid",vid);
 	/**
 	 * 请求代码啦
 	 */
@@ -227,7 +229,7 @@ function chZJ(videoId,chapterId){
 		 	/**
 	    	 * 初始化评论区
 	    	 */
-	    	getVideoCriticize(1,videoId);
+	    	getVideoCriticize(1,vid);
 			
 		}else{
     		$(".history_bg").show();
@@ -241,6 +243,8 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
     videoId = result.directId;
     //章节id
     chapterId = result.chapterId;
+    //视频的主键id
+    vId = result.vId;
     
     watchState = result.watchState;
     //假装免费
@@ -265,7 +269,7 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
     	/**
     	 * 初始化CC视频
     	 */
-    	chZJ(videoId,chapterId);
+    	chZJ(videoId,chapterId,vId);
     	/**
     	 * 存在视频id，隐藏视频正在赶来的路上
     	 */
@@ -356,13 +360,13 @@ $("#sendChat").click(function() {
      */
 //    保存评论需要的字段：
 //    评论内容，创建时间、用户id、章节id、视频id
-    var chapterId = sessionStorage.getItem("chapterId",chapterId);
-    var videoId = sessionStorage.getItem("videoId",videoId);
+    var chapterId = sessionStorage.getItem("chapterId");
+    var vid = sessionStorage.getItem("vid");
     
     var dataParams = {
         content:text,	
         chapterId:chapterId,
-        videoId:videoId
+        videoId:vid
     }
     if(text.length>3000){
   	  alert("评论长度太长了");
@@ -378,7 +382,9 @@ $("#sendChat").click(function() {
 			dataParams, function(data) {
   	  if(data.success){
 			  $("#mywords").val('');
-			  getVideoCriticize(1,videoId);
+			  
+			  getVideoCriticize(1,vid);
+			  
 	 	      $(".discuss_main").mCustomScrollbar("scrollTo","bottom","0");
   	  }else{
   		  alert(data.errorMessage);
@@ -505,7 +511,7 @@ function initZJ(){
 
 	                    for(var f=0;f<si.length;f++){
 		                    html+="<!--4 start-->\n" +
-		                    "<li class='chapter_main_cen_ul_li'  onclick=chZJ('"+si[f].videoId+"','"+si[f].chapterId+"')>\n" +
+		                    "<li class='chapter_main_cen_ul_li'  onclick=chZJ('"+si[f].videoId+"','"+si[f].chapterId+"','"+si[f].vid+"')>\n" +
 		                    "<div class='chapter_cen_ul_bg'></div>\n" +
 		                    "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+si[f].videoName+"\n" +
 		                    /*"<span class='chapter_ul_span'>16:24</span>\n" +*/

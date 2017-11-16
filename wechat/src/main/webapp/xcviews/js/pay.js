@@ -126,18 +126,32 @@ function  goPay() {
         jmpPayPage("/bxg/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse));
     }
 }
+/**
+ * 回调页面啦
+ * @param allCourse
+ * @returns {String}
+ */
 function getgetRedirectUrl(allCourse){
-var redirectUrl="";
-if(allCourse.length>1){
-    redirectUrl=getServerHost()+"/xcviews/html/indent.html";
-    return redirectUrl;
-}else{
-    var c=allCourse[0];
-    if(c.type==1){
-        redirectUrl=getServerHost()+"/bxg/xcpage/courseDetails?courseId="+c.id;
-    }else{
-        redirectUrl=getServerHost()+"/xcviews/html/particulars.html?courseId="+c.id;
-    }
-    return redirectUrl;
-}
+	
+	//alert(window.location.host);
+	var domain = window.location.host;
+	
+	var redirectUrl="";
+	if(allCourse.length>1){  //如果此订单中有多个订单，返回到我的订单页面
+	    redirectUrl=domain+"/xcviews/html/indent.html";
+	    return redirectUrl;
+	}else{
+	    var c=allCourse[0];  //判断此课程是预约呢、直播、点播的课程
+	    if(c.lineState != 2){ //直播状态1.直播中，2预告，3直播结束
+	    	if(c.type==1){     
+	 	    	//bxg/xcpage/courseDetails?courseId=724
+	 	        redirectUrl=domain+"/bxg/xcpage/courseDetails?courseId="+c.id;
+	 	    }else{
+	 	        redirectUrl=domain+"/xcviews/html/particulars.html?courseId="+c.id;
+	 	    }
+	    }else{
+	    	redirectUrl=domain+"/xcviews/html/foreshow.html?course_id="+c.id;
+	    }
+	    return redirectUrl;
+	}
 }

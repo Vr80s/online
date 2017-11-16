@@ -93,6 +93,10 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
     	List<OrderVo> orders = orderDao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
     	if (orders.size() > 0) {
     		
+    		/*
+    		 * 查询这个订单下的课程，如果
+    		 */
+    		
     		//更新订单表
 			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+transaction_id+"' where order_no='"+orderNo+"' ";
 			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
