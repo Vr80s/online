@@ -130,16 +130,17 @@ public class BunchPlanController {
 	     * 是否关注
 	     */
 		Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
+		courseLecturVo.setIsfocus(isFours);
+		
 		/*
 		 * 我的粉丝总数
 		 */
-		//Integer countFans =	focusService.findMyFansCount(courseLecturVo.getUserId());
-		courseLecturVo.setIsfocus(isFours);
-		//courseLecturVo.setCountFans(countFans);
+		Integer countFans =	focusService.findMyFansCount(courseLecturVo.getUserId());
+		courseLecturVo.setCountFans(countFans);
 		/*
-		 * 我的礼物总数   ---》》现在先不搞，后边搞
+		 * 我的礼物总数 
 		 */
-		//courseLecturVo.setCountGift(giftService.findByUserId(courseLecturVo.getUserId()));
+		courseLecturVo.setCountGift(giftService.findByUserId(courseLecturVo.getUserId()));
 		/**
 		 * 课程没有送礼的，不用广播啦
 		 */
