@@ -199,6 +199,8 @@ public class CourseVo{
     private Integer onlineCourse;
     
     
+    private Integer liveStatus; //直播状态1.直播中，2预告，3直播结束
+    
 	public String getCoursePwd() {
 		return coursePwd;
 	}
@@ -555,6 +557,14 @@ public class CourseVo{
 
 	public Date getEndTime() {
 		return endTime;
+	}
+
+	public Integer getLiveStatus() {
+		return liveStatus;
+	}
+
+	public void setLiveStatus(Integer liveStatus) {
+		this.liveStatus = liveStatus;
 	}
 
 	public static String getWeekOfDate(Date dt) {

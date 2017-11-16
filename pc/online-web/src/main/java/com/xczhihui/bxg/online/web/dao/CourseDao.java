@@ -679,6 +679,23 @@ public class CourseDao extends SimpleHibernateDao {
 		return user;
 	}
 	
+    /**
+     * 根据课程id查找此课程的状态
+     * @param courseId  课程id号
+     * @return 返回对应的课程对象
+     */
+     public  CourseVo   findCourseLiveStatus(Integer  courseId){
+         StringBuffer sql = new StringBuffer();
+         List<CourseVo> courseVos=null;
+         Map<String,Object> paramMap = new HashMap<String, Object>();
+         paramMap.put("courseId",courseId);
+         sql.append( "  select c.live_status  as liveStatus");
+         sql.append( " from oe_course c  where c.id=:courseId");
+         courseVos= this.findEntitiesByJdbc(CourseVo.class, sql.toString(), paramMap);
+         return  courseVos.size()>0 ? courseVos.get(0) : null;
+     }
+	
+	
 	public static void main(String[] args) {
 		System.out.println("\u6d3b\u52a8ID\u4e0d\u80fd\u4e3a\u7a7a");
 	}
