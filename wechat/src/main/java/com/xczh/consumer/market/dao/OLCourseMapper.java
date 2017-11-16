@@ -556,6 +556,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 	public Map<String,String> getVideoFirst(int course_id) throws SQLException {
 		// TODO Auto-generated method stub
 		String videoId = null;
+		String vId = null;
 		Map<String,String> map = new HashMap<String, String>();
 		/**
 		 * 查找所有课程下的所有知识点
@@ -569,13 +570,15 @@ public class OLCourseMapper extends BasicSimpleDao {
 		 */
 		for (ChapterVo chapter : chapters) {
 			String chapter_id = chapter.getChapter_id();
-			sq = "select v.video_id as video_id from oe_video v "
+			sq = "select v.video_id as video_id,v.id as v_id from oe_video v "
 					+ " where v.is_delete=0 and v.status=1 and v.course_id=? and v.chapter_id =? order by sort";
 			List<VideoVo> videos = super.query(JdbcUtil.getCurrentConnection(),sq, new BeanListHandler<>(VideoVo.class),course_id,chapter_id);
 			for (VideoVo video : videos) {
 				videoId =video.getVideo_id();
+				vId =video.getV_id();
 				map.put("chapterId",chapter_id);
 				map.put("videoId",videoId);
+				map.put("vId",vId);
 				break;
 			}
 			if(videoId!=null){
