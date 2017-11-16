@@ -221,7 +221,7 @@ function userIndexStatisticsInfo(){
 		 if(stringnull(mapLiveState.status) && mapLiveState.status == 1){
 			 $(".personage_top_cen_in").attr("id",mapLiveState.id);
 		 }else{
-			 $(".personage_top_cen_img").hide(); 
+			 //$(".personage_top_cen_img").hide(); 
 		 }
 		 /**
 		  * 是否关注
@@ -357,7 +357,7 @@ $("#is_fours").click(function(){
 /**
  *  点击正在直播按钮 直接去详情页面
  */
-$(".personage_top_cen_in").click(function(){
+$(".personage_top_cen_img").click(function(){
 	var courseid = $(".personage_top_cen_in").attr("id");
 	if(stringnull(courseid)){
 		location.href = "/bxg/xcpage/courseDetails?courseId="+courseid;
