@@ -130,9 +130,11 @@ $(".face_img01").css("background-size","100% 100%");
 $(".li4").click(function() {
 $(this).addClass('details');
 $(this).parent().addClass('details01');
+$(".li1").css('color','#000');
+$(".li1").parent().removeClass('details01');
 $(".li2").parent().removeClass('details01');
 $(".li3").parent().removeClass('details01');
-$(".li1").parent().removeClass('details01');
+
 $(".document").show();
 $(".coze").hide();
 $(".details1").hide();
