@@ -532,12 +532,18 @@ function secondAjax(i, a, param) {
                 $("#log"+param.typeName+" .pages .searchPage .allPage").text(data.resultObject.totalPageCount);
                 if (data.resultObject.currentPage == 1) {
                     $("#Pagination").pagination(data.resultObject.totalPageCount, {
-                        callback: function (page) {//翻页功能
+                        callback: function (page) { //翻页功能
+                        	console.log(page);
                             var pageParam = {
                                 pageNumber: (page + 1),
-                                pageSize: "8"
+                                pageSize: 4,
+//      						pageNumber: 3,
+        						type : 4,
+        						typeName : "_xxpxb"
                             };
-                            secondAjax(i, a, pageParam);
+                            console.log(data);
+                            console.log(pageParam.pageNumber);
+                            secondAjax(i, 4, pageParam);
                         }
                     });
                 }

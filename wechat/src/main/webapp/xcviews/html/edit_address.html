@@ -56,7 +56,19 @@
 <link href="../css/picker.css" rel="stylesheet" />
 <script type="text/javascript" 	src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
 <style type="text/css">
-	
+	.edit{
+		width: 100%;
+		height: 9.8rem;
+		background: #fff;
+		margin-top: 0.4rem;
+		padding-bottom: 1rem;
+	}
+	.edit_one_put{
+		color: #989898;
+	}
+	::-webkit-input-placeholder{ 
+		color:#999; 
+	} 
 </style>
 
 </head>
@@ -72,34 +84,35 @@
         <div class="both"></div>
       </div>
       <div class="edit">
-        <div class="edit_one01" style="margin-top: 0.5rem;">
+        <div class="edit_one01">
           <div class="edit_one">
             <div class="edit_one_size">收货人</div>
-            <div class="edit_one_put"><input type="type" id="consignee" style="text-align: right;font-size:0.65rem;"/></div>
+            <div class="edit_one_put"><input type="type" id="consignee" placeholder="请输入收货人姓名" style="text-align: right;font-size:0.65rem;"/></div>
           </div>
         </div>
         <div class="edit_one01">
           <div class="edit_one">
             <div class="edit_one_size">手机号码</div>
-            <div class="edit_one_put"><input type="tel" id="phone"  style="text-align: right;font-size:0.65rem;" maxlength="11" /></div>
+            <div class="edit_one_put"><input type="tel" id="phone" placeholder="请输入手机号码" style="text-align: right;font-size:0.65rem;" maxlength="11" /></div>
           </div>
         </div>
         <div class="edit_one01">
           <div class="edit_one">
             <div class="edit_one_size">所在地区</div>
-            <div class="edit_one_put"><p id="cityP" onclick="picker2()" style="text-align: right;font-size:0.65rem;">请选择</p></div>
+            <div class="edit_one_put" style="margin-right: 1rem;"><p id="cityP" onclick="picker2()" style="text-align: right;font-size:0.65rem;">请选择</p></div>
+            <div class="my_right_img" style="float: right;margin-top: -2.18rem;margin-right: 0;"><img src="/xcviews/images/right_jian.png"></div>
           </div>
         </div>
-        <div class="edit_one01">
+        <div class="edit_one01" style="height: 2.5rem;border: 0;">
           <div class="edit_one">
-            <div class="edit_one_size">详细地址</div>
-            <div class="edit_one_put"><input type="text" id="detailed_address" style="text-align: right;font-size:0.65rem;"/></div>
+            <!--<div class="edit_one_size" style="color: #999;">请输入详细地址</div>-->
+            <div class="edit_one_put"><textarea type="text" placeholder="请输入详细地址" id="detailed_address" style="text-align: left;font-size:0.65rem;width: 100%;float: right;height: 3.8rem;border: 0;outline: none;resize: none;margin-top: 0.5rem;font-size: 0.65rem;color: #999;background: #fff;"></textarea></div>
           </div>
         </div>
-        
+        <div class="both"></div>
         <input type="text" id="address_id" style="display:none" />
-        
         <div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
+        <div class="both"></div>
       </div>
     </div>
     <!-- 编辑地址结束 -->

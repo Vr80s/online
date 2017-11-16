@@ -110,7 +110,7 @@ public class VedioController {
 			paramsMap.put("auto_play", autoPlay);
 		}
 		
-		return ResponseObject.newSuccessResponseObject(service.getVideoInfo(paramsMap,req));
+		return ResponseObject.newSuccessResponseObject(service.getCCVideoInfo(paramsMap));
 	}
 
 //	/**

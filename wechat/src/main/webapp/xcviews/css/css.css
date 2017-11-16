@@ -3,7 +3,7 @@
 	padding: 0px;
 }
 body{
-	font-family: 汉仪全唐诗简,华文细黑,DroidSans,宋体,黑体;
+	/*font-family: 汉仪全唐诗简,华文细黑,DroidSans,宋体,黑体;*/
 }
 
 /* @font-face {
@@ -64,10 +64,10 @@ img{
 .dl{
 	width: 83%;
     margin: 0 auto;
-    font-size: 1rem;
+    font-size: 0.851rem;
     text-align: center;
     color: #333;
-    
+    /*font-family: "汉仪全唐诗简";*/
 }
 .last_input{
 	width: 85%;
@@ -165,14 +165,14 @@ img{
 /*登录结束*/
 /*注册开始*/
 .return{
-	width: 0.5rem;
-    height: 0.9rem;
+	width: 0.51rem;
+    height: 0.851rem;
     display: inline-block;
     float: left;
     background: url(../images/return.png) no-repeat;
     background-size: 100% 100%;
     margin-left: 0.4rem;
-    margin-top: 0.4rem;
+    margin-top: 0.5rem;
 }
 .gain{
 	margin-top: -0.2rem;
@@ -294,8 +294,8 @@ header{
     color: #333;
     height: 1.9rem;
     line-height: 1.9rem;
-    padding-top: 0.1rem;
-    font-size: 1rem;
+    /*padding-top: 0.1rem;*/
+    font-size: 0.95rem;
 }
 .home_img_right{
 	width: 0.875rem;
@@ -373,22 +373,22 @@ header{
 	width: 100%;
 	overflow: hidden;
 	height: 0.94rem;
-	font-size: 0.6rem;
-	font-family: "微软雅黑";
+	font-size: 0.7rem;
+	/*font-family: "微软雅黑";*/
 	color: #000;
 	margin-top: 0.5rem;
 }
 .list1_title_bottom{
 	width: 100%;
 	height: 0.94rem;
-	font-size: 0.45rem;
+	font-size: 0.55rem;
 	overflow: hidden;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	color: #999;
 }
 .list1_right{
 	float: right;
-	padding-top: 0.35rem;
+	padding-top: 0.15rem;
 }
 .wm-block {
 	width: 100%;
@@ -402,9 +402,9 @@ header{
     height: 0.375rem;
 }
 .list1_right span{
-	font-size: 0.45rem;
+	font-size: 0.55rem;
 	color: #00bc12;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	margin-right: 0.45rem;
 }
 /*列表1结束*/
@@ -562,7 +562,7 @@ footer{
     margin-left: 0.4rem;
 }
 .history_span{
-	font-size: 1rem;
+	font-size: 0.95rem;
     display: table-cell;
     width: 80%;
     float: left;
@@ -754,12 +754,12 @@ footer{
 }
 .index_list_div ul li{
 	float: left;
-    font-size: 0.4425rem;
+    font-size: 0.6rem;
     color: #424a53;
     margin-left: 1.5rem;
     margin-right: 1.5rem;
     margin-top: 0.4rem;
-    font-family: "微軟雅黑";
+    /*font-family: "微軟雅黑";*/
     width: 1.2rem;
 }
 .index_list_div_li1{
@@ -808,8 +808,8 @@ footer{
 }
 .offline_top_left{
 	width: 50%;
-	font-size: 0.6rem;
-	font-family: "微软雅黑";
+	font-size: 0.7rem;
+	/*font-family: "微软雅黑";*/
 	color: #333;
 	float: left;
 }
@@ -848,8 +848,8 @@ footer{
 }
 .line_top_left{
 	width: 50%;
-	font-size: 0.6rem;
-	font-family: "微软雅黑";
+	font-size: 0.7rem;
+	/*font-family: "微软雅黑";*/
 	color: #333;
 	float: left;
 }
@@ -861,14 +861,14 @@ footer{
 	margin-right: 0.25rem;
 }
 .line_top_right{
-	width: 44%;
+	width: 6.8rem;
 	float: right;
 	margin-top: 0.2rem;
 }
 .line_top_right div{
 	float: left;
-    font-size: 0.6rem;
-    font-family: "微软雅黑";
+    font-size: 0.7rem;
+    /*font-family: "微软雅黑";*/
     padding-right: 0.5rem;
     border-right: 1px solid #ccc;
     margin-right: 0.5rem;
@@ -890,7 +890,7 @@ footer{
 	width: 7.45rem;
 	height: 6.15rem;
 	float: left;
-	margin-bottom: 0.45rem;
+	margin-bottom: 0.85rem;
 	margin-left: 0.365rem;
 }
 .public1_list_img{
@@ -913,7 +913,7 @@ footer{
 }
 
 .public1_cen_left{
-	font-size: 0.35rem;
+	font-size: 0.55rem;
 	color: #999;
 	float: left;
 	overflow: hidden;
@@ -924,7 +924,7 @@ footer{
 .public1_cen_right{
 	float: right;
 	color: #00bc12;
-	font-size: 0.4rem;
+	font-size: 0.55rem;
 }
 .more_btm{
 	color: #00bc12;
@@ -1200,8 +1200,8 @@ footer{
 }
 .details_footer{
 	width: 100%;
-    height: 1.175rem;
-    line-height: 1.175rem;
+    height: 1.675rem;
+    line-height: 1.675rem;
 }
 .details_footer_width{
 	width: 100%;
@@ -1215,7 +1215,7 @@ footer{
     font-size: 0.7rem;
     margin-left: 2.85rem;
     color: #000;
-    margin-top: 0.3rem;
+    margin-top: 0rem !important;
 }
 #particulars ul li{
 	margin-left: 1.5rem;
@@ -2198,7 +2198,7 @@ footer{
 }
 .give_bottom{
 	width: 100%;
-	height: 6.5rem;
+	height: 6rem;
 	background: #f7f7f7;
 	position: fixed;
 	bottom: 0;
@@ -2206,9 +2206,9 @@ footer{
 	display: none;
 }
 .give_bottom p:first-child{
-	font-size: 0.7rem;
-	color: #000;
-	margin-top: 0.2rem;
+	font-size: 0.6rem;
+	color: #999;
+	margin-top: 0.4rem;
 	margin-left: 0.2rem;
 	margin-bottom: 0.5rem;
 }
@@ -2223,31 +2223,32 @@ footer{
     background: red;
     background: url(../images/givebg1.png) no-repeat;
     background-size: 100% 100%;
+    margin-top: 0.2rem;
 }
 .give_lable1{
 	position: relative;
-	margin-left: 0.55rem;
-	width: 4.5rem;
-	height: 1.66rem;
+	margin-left: 1.55rem;
+	width: 3.2rem;
+	height: 1.2rem;
 	border-radius: 60px;
 	border: 1px solid #666;
 	float: left;
 	color: #666;
 }
 .lable1_put input{
-	width: 3.4rem;
-    height: 1.4rem;
+	width: 3.2rem;
+	height: 1.2rem;
     margin-left: 0.4rem;
     opacity: 0;
 }
 .give_money1{
 	position: absolute;
-    top: 0.3rem;
-    left: 1.35rem;
+    top: 0.2rem;
+    left: 1rem;
     z-index: -1;
     color: #666;
-    font-size: 0.8rem;
-    font-family: "微软雅黑";
+    font-size: 0.6rem;
+    /*font-family: "微软雅黑";*/
 }
 .give_lable2{
 	position: relative;
@@ -2360,7 +2361,7 @@ footer{
     font-family: "微软雅黑";
     margin-left: 0.4rem;
     margin-right: 0.2rem;
-    background: #f2f2f2;
+    background: #fff;
     font-size: 0.7rem;
 }
 
@@ -2389,9 +2390,9 @@ footer{
 .send_gifts{
 	width: 100%;
     height: 6.2rem;
-    background: #f7f7f7;
+    background: #fff;
     position: fixed;
-    bottom: 2.2rem;
+    bottom: 2rem;
     z-index: 99990;
     display: none;
 }
@@ -2869,7 +2870,7 @@ footer{
     z-index: 99999999;
     height: 1.875rem;
     line-height: 1.875rem;
-    border-bottom: 1px solid #d2d2d2;
+    border-bottom: 1px solid #e6e6e6;
 }
 .attention_center{
 	width: 100%;
@@ -3057,7 +3058,7 @@ footer{
 }
 .person p{
 	float: left;
-	font-size: 0.75rem;
+	font-size: 0.7rem;
 	color: #666;
 	margin-left: 0.4rem;
 }
@@ -3090,13 +3091,12 @@ footer{
 .person_p1{
 	float: left;
 	color: #666;
-	font-size: 0.75rem;
+	font-size: 0.7rem;
 }
 .person_cen_right{
 	float: right;
 }
 .person_cen_right p{
-	font-family: "微软雅黑";
 	font-size: 0.7rem;
 	color: #666;
 	float: left;
@@ -3140,12 +3140,12 @@ footer{
     display: inline-block;
     float: right;
     margin-right: 0.02rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-top: 0rem;
     margin-right: 0.2rem;
 }
 .pet_name_put{
-	width: 90%;
+	width: 95%;
 	height: 1.5rem;
 	margin: 0 auto;
 	margin-top: 1rem;
@@ -3339,7 +3339,7 @@ footer{
     margin-right: 0.4rem;
 }
 .mailbox_put{
-	width: 90%;
+	width: 95%;
 	height: 1.5rem;
 	margin: 0 auto;
 	margin-top: 1rem;
@@ -3544,27 +3544,31 @@ footer{
 }
 .site{
 	width: 100%;
-	height: 5.5rem;
+	min-height: 4.2rem;
 	background: #fff;
 	
 }
 .site_div{
 	width: 100%;
-	height: 5.5rem;
+	min-height: 4.2rem;
 	margin-top: 0.5rem;
 	background: #fff;
-	border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+	padding-bottom: 0.4rem;
+	/*border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;*/
 }
 .site_div_cen{
 	width: 95%;
-	height: 5.5rem;
+	min-height: 4.2rem;
 	margin: 0 auto;
+	padding-top: 0.1rem;
+	padding-bottom: 0.2rem;
 }
 .site_div_cen_top{
-	color: #000;
+	color: #333;
+	/*font-size: 0.8rem;*/
 	font-size: 0.75rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	height: 1rem;
     line-height: 1rem;
     padding-top: 0.4rem;
@@ -3581,7 +3585,7 @@ footer{
     white-space: nowrap;
 }
 .site_cen2{
-	width: 5rem;
+	width: 10rem;
     height: 1rem;
     display: inline-block;
     line-height: 1rem;
@@ -3592,30 +3596,31 @@ footer{
 }
 .site_div_text{
 	width: 100%;
-	height: 1rem;
+	min-height: 1rem;
 	line-height: 1rem;
 	color: #666;
+	/*font-size: 0.6rem;*/
 	font-size: 0.6rem;
-	overflow: hidden;
+	/*overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: nowrap;*/
 }
 .site_bto{
 	width: 100%;
 	height: 1.5rem;
 }
 .site_bg1{
-	width: 0.75rem;
-	height: 0.75rem;
+	width: 0.638rem;
+	height: 0.638rem;
 	background: url(/xcviews/images/site01.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
-	margin-top: 0.4rem;
+	margin-top: 0.8rem;
     margin-right: 0.3rem;
 }
 .site_bg01{
-	width: 0.75rem;
-	height: 0.75rem;
+	width: 0.638rem;
+	height: 0.638rem;
 	background: url(/xcviews/images/site02.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
@@ -3627,13 +3632,14 @@ footer{
 	float:left;
 }
 .site_bto_right{
-	width:50%;
+	width:5.6rem;
 	float:right;
 }
 
 .site_bto_left span{
+	/*font-size: 0.6rem;*/
 	font-size: 0.6rem;
-	color: #666;
+	color: #00bc12;
 }
 .site_bto_right01{
 	float: left;
@@ -3644,21 +3650,21 @@ footer{
     float: right;
 }
 .site_bg001{
-	width: 0.65rem;  
-	height: 0.725rem;
 	background: url(/xcviews/images/bianji.png) no-repeat;
-	background-size: 100% 100%;
-	float: left;
-	margin-top: 0.4rem;
+    background-size: 100% 100%;
+    float: left;
+    margin-top: 0.33rem;
     margin-right: 0.3rem;
+    width: 0.5rem;
+    height: 0.625rem;
 }
 .site_bg002{
-	width: 0.65rem;  
-	height: 0.725rem;
+	width: 0.55rem;
+    height: 0.65rem;
 	background: url(/xcviews/images/shanchu.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
-	margin-top: 0.4rem;
+	margin-top: 0.33rem;
     margin-right: 0.3rem;
 }
 .site_newly{
@@ -3674,15 +3680,15 @@ footer{
 	text-align: center;
     margin: 0 auto;
     font-size: 0.7rem;
-    color: #666;
+    color: #333;
 }
 .site_newly_img{
 	float: left;
 }
 .site_newly_img img{
-	width: 0.825rem;  
-	height: 1.125rem;
-	margin-top: 0.6rem;
+	width: 0.65rem;
+    height: 0.65rem;
+	margin-top: 0.95rem;
 }
 
 /* 管理地址结束 */
@@ -3692,17 +3698,18 @@ footer{
 	display: none;
 }
 .edit_one01{
-	width:100%;
-	height: 2.125rem;
-	background: #fff;
-	margin-bottom: 0.15rem;
+	width: 97%;
+    height: 2.125rem;
+    background: #fff;
+    border-bottom: 1px solid #e6e6e6;
+    float: right;
 }
 .edit_one{
-	width: 95%;
-	height: 2.125rem;
-	line-height: 2.125rem;
-	margin: 0 auto;
-	font-family: "微软雅黑";
+	width: 97%;
+    height: 2.125rem;
+    line-height: 2.125rem;
+    margin: 0 auto;
+    float: left;
 }
 .edit_one_size{
 	color: #333;
@@ -3716,8 +3723,8 @@ footer{
     outline: none;
     float: right;
     width: 80%;
-    font-family: "微软雅黑";
     text-align: right;
+    color: #999;
 }
 /* 编辑地址结束 */
 /* 设置头像开始 */
@@ -3897,11 +3904,10 @@ footer{
 	width: 100%;
 	height: 4rem;
 	background: #fff;
-	border-bottom: 0.002rem solid #d2d2d2;
 	margin-bottom: 0.4rem;
 }
 .my_three ul{
-	padding-top: 1rem;
+	padding-top: 0.8rem;
 }
 .my_three ul li{
 	width: 5rem;
@@ -3924,8 +3930,8 @@ footer{
 	font-size: 0.7rem;
 }
 .my_three_leftp2{
-	font-size: 0.6rem;
-	color: #666;
+	font-size: 0.65rem;
+	color: #999;
 }
 
 
@@ -3942,8 +3948,8 @@ footer{
 	font-size: 0.7rem;
 }
 .my_three_cen2{
-	font-size: 0.6rem;
-	color: #666;
+	font-size: 0.65rem;
+	color: #999;
 }
 
 
@@ -3961,8 +3967,8 @@ footer{
 	font-size: 0.7rem;
 }
 .my_three_right2{
-	font-size: 0.6rem;
-	color: #666;
+	font-size: 0.65rem;
+	color: #999;
 }
 
 .my_details{
@@ -3970,7 +3976,11 @@ footer{
 	height: 7rem;
 	margin: 0 auto;
 	background: #fff;
-	border-top: 1px solid #d2d2d2;
+}
+.my_details a{
+	width: 97%;
+    display: inline-block;
+    float: right;
 }
 .my_details1{
 	width: 100%;
@@ -3981,7 +3991,7 @@ footer{
 .my_details1_img{
 	width: 60%;
 	float: left;
-	margin-left: 0.5rem;
+	margin-left: 0.35rem;
 }
 .my_details1_img img{
 	width: 1.5rem;
@@ -3991,8 +4001,8 @@ footer{
 	font-size: 0.7rem;
 	color: #666;
 	display: block;
-    margin-left: 2rem;
-    margin-top: 0.4rem;
+    margin-left: 1.4rem;
+    margin-top: 0.3rem;
 }
 .my_details1_img_ri{
 	width: 0.65rem;
@@ -4139,27 +4149,27 @@ footer{
 }
 .my_head_border{
 	width: 100%;
-	border-bottom: 1px solid #dedede;
+	border-bottom: 1px solid #e6e6e6;
 }
 .my_head_left{
 	width: 76%;
     float: left;
     height: 3.5rem;
     line-height: 3.5rem;
-    font-size: 0.75rem;
-    color: #666;
+    font-size: 0.8rem;
+    color: #333;
     margin-top: 0.45rem;
     
 }
 .my_head_img{
 	width: 3.5rem;
-	height: 3.5rem;
-	border-radius: 60px;
-    overflow: hidden;    
+    height: 2.5rem;
+    border-radius: 60px;
+    overflow: hidden;
     text-align: center;
     float: left;
     line-height: 3.5rem;
-    margin-right: 0.6rem;
+    margin-top: 0.5rem;
 }
 .my_head_right{
 	float: right;
@@ -4176,7 +4186,6 @@ footer{
 	float: right;
     width: 3rem;
     text-align: right;
-    margin-top: 0.3rem;
     margin-right: 0.4rem;
 }
 .my_right_img img{
@@ -4403,7 +4412,7 @@ footer{
 }
 .frequency_div ul li{
 	float: left;
-	font-size: 0.75rem;
+	font-size: 0.7rem;
 	margin-left: 0.42rem;
 }
 .frequency_div ul li img {
@@ -4482,7 +4491,7 @@ footer{
 	float: right;
 }
 .video_list_size_title{
-	font-size: 0.75rem;
+	font-size: 0.7rem;
 	color: #000;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -4492,10 +4501,10 @@ footer{
 }
 .video_list_size1{
 	width: 3.5rem;
-	height: 1rem;
+	height: 0.95rem;
 	line-height: 0.85rem;
 	font-size: 0.55rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	float: left;
 	overflow: hidden;
     text-overflow: ellipsis;
