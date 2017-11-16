@@ -4,7 +4,6 @@
 	})
 })(mui);
 
-
 function show(str){
 /*	var str ="";
 	document.getElementById("nihao").innerHTML=str;
@@ -20,7 +19,7 @@ function show(str){
 
 
 /**
- * 得到host文件
+ * 得到  online-web 的测试或者生成域名 
  * @returns
  */
 function getServerHost(){
@@ -87,7 +86,7 @@ function h5PcConversions(falg,courserId){
 	}
 	if(!(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
 			browser.versions.iPhone || browser.versions.iPad)){    
-		if(falg){//ture
+		if(falg ){//ture
 			window.location = getServerHost()+"/course/courses?courseId="+courserId
 		}else{
 			window.location = getServerHost();

@@ -135,12 +135,13 @@ public class CommonController {
              */
 			Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
 			
-			mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
 			//mapAll.put("giftAll", giftAll);           // 礼物数 
 			//mapAll.put("courseAll", courseAll);       // 课程数 
+			//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
+			
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 			mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-			//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
+			mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
 			mapAll.put("fansCount", fansCount);       //粉丝总数
 			mapAll.put("focusCount", focusCount);   	  // 关注总数
 			
@@ -349,9 +350,9 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject subscribe(HttpServletRequest req,
 			HttpServletResponse res, Map<String,String> params)throws Exception {
-		String mobile =req.getParameter("mobile");
+		/*String mobile =req.getParameter("mobile");*/
 		String course_id =req.getParameter("course_id");
-	    if(mobile==null && course_id==null){
+	    if(course_id==null){
 	    	return ResponseObject.newErrorResponseObject("缺少参数");
 	    }
 		//获取用户信息
@@ -366,8 +367,9 @@ public class CommonController {
 		CourseLecturVo courseVo =onlineCourseService.get(Integer.parseInt(course_id));
 		SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日 HH时mm分");
 		String start = sdf.format(courseVo.getStartTime());
-		SmsUtil.sendSmsSubscribe(mobile, courseVo.getGradeName(), start, null, true);
-		return onlineCourseService.addSubscribeInfo(user,mobile,Integer.parseInt(course_id));
+		//发送短信
+		SmsUtil.sendSmsSubscribe(user.getLoginName(), courseVo.getGradeName(), start, null, true);
+		return onlineCourseService.addSubscribeInfo(user,user.getLoginName(),Integer.parseInt(course_id));
 	}
 	
 	/**
