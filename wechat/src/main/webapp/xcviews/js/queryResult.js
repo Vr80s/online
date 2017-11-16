@@ -93,7 +93,7 @@ function queryResult(){
 			 for (var int = 0; int < zhiboList.length; int++) {
 				var zhibo = zhiboList[int];
 				zhiboHtml +="<div class='zhibo_list1' onclick='courseDetails("+zhibo.id+","+zhibo.lineState+")' >";
-				zhiboHtml +="<img  src='"+zhibo.smallImgPath+"' alt='' />";
+				zhiboHtml +="<img  src='"+zhibo.smallImgPath+"' alt='' class='zhibo_list1_img' />";
 				zhiboHtml +="<div class='zhibo_right1'><div class='zhibo_list_title1'>" +
 						"<a href='javascript: ;'>"+zhibo.gradeName+"</a></div>";
 				zhiboHtml +="<div class='zhibo_list_size1'>" +
@@ -105,7 +105,7 @@ function queryResult(){
 			 for (var int = 0; int < bunchList.length; int++) {
 				var bunch = bunchList[int];
 				bunchHtml +="<div class='zhibo_list1' onclick='courseDetails("+bunch.id+","+null+")' >";
-				bunchHtml +="<img  src='"+bunch.smallImgPath+"' alt='' />";
+				bunchHtml +="<img  src='"+bunch.smallImgPath+"' alt='' class='zhibo_list1_img' />";
 				bunchHtml +="<div class='zhibo_right1'><div class='zhibo_list_title1'>" +
 						"<a href='javascript: ;'>"+bunch.gradeName+"</a></div>";
 				bunchHtml +="<div class='zhibo_list_size1'>" +

@@ -615,7 +615,7 @@ footer{
 }
 /*直播开始*/
 .zhibo{
-	width: 95%;
+	width: 97%;
 	margin: 0 auto;
 }
 .zhibo_list{
@@ -642,7 +642,6 @@ footer{
 }
 .zhibo_list_title a{
 	font-size: 0.7rem;
-	font-family: "微软雅黑";
 	color: #000;
 }
 .zhibo_list_size{
@@ -1026,8 +1025,7 @@ footer{
 }
 .hot_zhibo_ul li a{
 	font-size: 0.7rem;
-	font-family: "微软雅黑";
-	color: #000;
+	color: #333;
 	width: 3.2rem;
 	display: inline-block;
 	overflow: hidden;
@@ -1058,7 +1056,7 @@ footer{
 	width: 100%;
 	background: #fff;
 	padding-top: 0.3rem;
-	padding-bottom: 0.3rem;
+	padding-bottom: 0rem;
 	margin-bottom: 0.4rem;
 }
 .hot_zhibo p{
@@ -1098,11 +1096,11 @@ footer{
 }
 .zhibo_list_title1 a{
 	font-size: 0.7rem;
-	color: #000;
+	color: #333;
 }
 .zhibo_list_size1{
 	font-size: 0.6rem;
-	color: #999;
+	color: #666;
 }
 .zhibo_list_size1 img{
 	width: 1.2rem;
