@@ -112,6 +112,14 @@ function userIndexCourseList(type,falg){
 						html +="</div>";
 				}
 			    $("#personage_bto_cen1").append(html);
+			    
+			    if(type!=1){//视频
+			    	$(".public1_list_bg").css("background","url(../images/tv.png) no-repeat");
+			    	$(".public1_list_bg").css("background-size","100% 100%");
+			    	$(".public1_list_bg").css("height","1.775rem");
+			    	$(".public1_list_bg").css("bottom","1.58rem");
+			    }
+			    
 			}else{
 				//暂无数据
 			}
