@@ -55,7 +55,7 @@ function initOrderList(status,downOrOn){
         			"<div class='indent_main_top'>"+
         				"<div style='width: 97%;height: 1.65rem;float:right;border-bottom: 1px solid #dfdfe2;'>"+
 	        				"<div class='indent_main_top_left'>订单编号：<span>" + order.orderNo + "</span></div>"+
-	        				"<div class='learning_right' style='color: #00bc12;'>待支付</div>"+  //3种状态: 待支付,已完成,已失效
+	        				"<div class='learning_right' style='color: #ff6767;'>待支付</div>"+  //3种状态: 待支付,已完成,已失效
         				"</div>"+	/*"<div class='learning_right'><!-- 下单时间： --><span>" + order.createTime.substring(0,16) + "</span></div>"+*/
         			"</div>";
                 	//课程部分
@@ -101,7 +101,7 @@ function initOrderList(status,downOrOn){
 	        				}else if(orderStatus == 1){
 	        					/*html+="<a href='javascript: ;' class='indent_main_bot_a common_click watch'>立即观看</a>";*/
 	        				}else if(orderStatus == 2){
-	        					html+="<a href='javascript: ;' class='indent_main_bot_a common_click toBuy' style='color:#ff6767;'>去支付</a>" +
+	        					html+="<a href='javascript: ;' class='indent_main_bot_a common_click toBuy' style='color:#00bc12;'>去支付</a>" +
 	        							"<a href='javascript: ;' class='indent_main_bot_a common_click deleteOrder' style='color:#666;border: 1px solid #ccc'>取消订单</a>";
 	        				}
         				"</div>"+
