@@ -110,13 +110,13 @@ function initOrderList(status,downOrOn){
         				"<div style='width: 97%;height: 1.65rem;float:right;border-top: 1px solid #dfdfe2;'>"+
 							"<p class='indent_main_left_p03' style='font-size: 0.6rem;color: #666;float: left;'>课程有效期：不限</p>";
 	        				if(orderStatus == 0){
-	        					html+="<a href='javascript: ;'   class='indent_main_bot_a common_click gotoPay' >立即购买</a>" +
-	        							"<a class='order_falg common_click cancelOrder'>取消</a>";
+	        					html+="<a href='javascript: ;'   class='indent_main_bot_a common_click gotoPay' >去支付</a>" +
+	        							"<a class='order_falg common_click cancelOrder'>取消订单</a>";
 	        				}else if(orderStatus == 1){
-	        					/*html+="<a href='javascript: ;' class='indent_main_bot_a common_click watch'>立即观看</a>";*/
+	        					html+="<a href='javascript: ;' class='indent_main_bot_a common_click deleteOrder' style='color:#666;border: 1px solid #ccc'>删除订单</a>";
 	        				}else if(orderStatus == 2){
-	        					html+="<a href='javascript: ;' class='indent_main_bot_a common_click toBuy' style='color:#00bc12;'>去支付</a>" +
-	        							"<a href='javascript: ;' class='indent_main_bot_a common_click deleteOrder' style='color:#666;border: 1px solid #ccc'>取消订单</a>";
+	        					html+="<a href='javascript: ;' class='indent_main_bot_a common_click toBuy' style='color:#00bc12;'>重新购买</a>" +
+	        							"<a href='javascript: ;' class='indent_main_bot_a common_click deleteOrder' style='color:#666;border: 1px solid #ccc'>删除订单</a>";
 	        				}
         				"</div>"+
         			"</div>";

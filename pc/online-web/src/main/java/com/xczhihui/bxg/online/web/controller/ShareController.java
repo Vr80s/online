@@ -27,7 +27,7 @@ public class ShareController {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${online.web.url}")
 	private String weburl;
 
 	/**

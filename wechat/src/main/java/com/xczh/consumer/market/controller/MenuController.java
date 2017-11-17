@@ -38,7 +38,7 @@ public class MenuController {
         	MenuVo mv = new MenuVo();
         	mv.setId(0);
         	mv.setName("全部");
-        	list.add(mv);
+        	//list.add(mv);
         	list.addAll(menuService.list());
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (SQLException e) {

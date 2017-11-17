@@ -26,7 +26,7 @@ public class MyTask extends SimpleHibernateDao{
     @Autowired
     private MessageService messageService;
     
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${online.web.url}")
 	private String weburl;
     /**
      * 每半个小时执行一次

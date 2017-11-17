@@ -44,7 +44,7 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
     @Autowired
     private ApplyGradeCourseDao applyGradeCourseDao;
     
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${online.web.url}")
 	private String weburl;
     
     /**
