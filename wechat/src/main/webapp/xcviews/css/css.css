@@ -569,6 +569,7 @@ footer{
     float: left;
     text-align: center;
     color: #00bc12;
+    font-family: "汉仪全唐诗简";
 }
 .history_span span{
 	margin-right: 1.8rem;
@@ -2238,8 +2239,8 @@ footer{
 }
 .give_money1{
 	position: absolute;
-    top: 0.2rem;
-    left: 1rem;
+    top: 0.15rem;
+    left: 0.9rem;
     z-index: -1;
     color: #666;
     font-size: 0.6rem;
