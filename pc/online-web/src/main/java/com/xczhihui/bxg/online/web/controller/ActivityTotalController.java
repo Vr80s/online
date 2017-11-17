@@ -22,7 +22,7 @@ import com.xczhihui.user.center.web.utils.CookieUtil;
 @RestController
 @RequestMapping(value = "/act/total")
 public class ActivityTotalController {
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${online.web.url}")
 	private String weburl;
 	
 	@Autowired
