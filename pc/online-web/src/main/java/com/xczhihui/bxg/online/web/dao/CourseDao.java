@@ -210,7 +210,7 @@ public class CourseDao extends SimpleHibernateDao {
         paramMap.put("menuId", menuId);
         paramMap.put("couseTypeId", couseTypeId);
         StringBuffer  sqlSb=new StringBuffer();
-        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.original_cost,cou.multimedia_type multimediaType,cou.current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,");
+        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.is_recommend as isRecommend,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.original_cost,cou.multimedia_type multimediaType,cou.current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,");
 //        sqlSb.append(" if(cou.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=cou.id),");
 //        sqlSb.append(" (select sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=cou.id  and is_delete=0 and status=1)) learnd_count,");
         sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0)+IFNULL(default_student_count, 0) learnd_count, ");
