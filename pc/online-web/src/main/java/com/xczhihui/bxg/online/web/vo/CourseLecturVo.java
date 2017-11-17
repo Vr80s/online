@@ -96,7 +96,9 @@ public class CourseLecturVo extends OnlineBaseVo {
     private String  coursePwd;
 
     private String  multimediaType;
-    
+
+    private String  isRecommend;
+
     @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     private Date startTime;
 
@@ -289,6 +291,13 @@ public class CourseLecturVo extends OnlineBaseVo {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-    
-    
+
+
+    public String getIsRecommend() {
+        return isRecommend;
+    }
+
+    public void setIsRecommend(String isRecommend) {
+        this.isRecommend = isRecommend;
+    }
 }
