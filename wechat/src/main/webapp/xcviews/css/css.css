@@ -6043,6 +6043,7 @@ footer{
 	float: left;
     margin-left: 0.5rem;
     margin-right: 0.2rem;
+    margin-top: 0.1rem;
 }
 .personage_top_cen_in {
     font-size: 0.45rem;
@@ -6179,7 +6180,7 @@ footer{
 	margin-left: 1.2rem;
     margin-right: 1.2rem;
     padding-bottom: 0.2rem;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
 }
 .personage_bto_li{
 	color: #333;
