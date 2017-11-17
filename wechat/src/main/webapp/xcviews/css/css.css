@@ -64,10 +64,11 @@ img{
 .dl{
 	width: 83%;
     margin: 0 auto;
-    font-size: 0.851rem;
+    /*font-size: 0.851rem;*/
+    font-size: 1rem;
     text-align: center;
     color: #333;
-    /*font-family: "汉仪全唐诗简";*/
+    font-family: "汉仪全唐诗简";
 }
 .last_input{
 	width: 85%;
@@ -860,7 +861,7 @@ footer{
 	margin-right: 0.25rem;
 }
 .line_top_right{
-	width: 6.8rem;
+	width: 7.3rem;
 	float: right;
 	margin-top: 0.2rem;
 }
@@ -870,7 +871,7 @@ footer{
     /*font-family: "微软雅黑";*/
     padding-right: 0.5rem;
     border-right: 1px solid #ccc;
-    margin-right: 0.5rem;
+    margin-left: 0.5rem;
     height: 0.5rem;
     line-height: 0.5rem;
 }
