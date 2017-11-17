@@ -1,8 +1,10 @@
 package com.xczhihui.user.center.web.utils;
 
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +23,35 @@ public class UCCookieUtil {
 
 	static Logger logger = LoggerFactory.getLogger(UCCookieUtil.class);
 
-	private final static String DEFAULT_DOMAIN = "ixincheng.com";
+	private  static String DEFAULT_DOMAIN ;
+
+
+
+	static{
+		InputStream in = null;
+		try{
+			Properties properties = new Properties();
+			in =UCCookieUtil.class.getClassLoader().getResourceAsStream("config.properties");
+			properties.load(in);
+
+			//微信公众号和h5
+			DEFAULT_DOMAIN = properties.getProperty("domain");
+
+			System.out.println("读取配置信息成功！");
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("读取配置信息失败！");
+		}finally{
+			if(in != null){
+				try{
+					in.close();
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 
 	/**
 	 * 用户中心token cookie名

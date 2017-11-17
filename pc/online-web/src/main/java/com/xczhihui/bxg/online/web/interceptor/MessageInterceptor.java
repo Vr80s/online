@@ -38,7 +38,7 @@ public class MessageInterceptor extends SimpleHibernateDao implements HandlerInt
     @Autowired
     private ASKQuestionListDao questionListDao;
 
-    @Value("${online.web.url:http://www.ixincheng.com}")
+    @Value("${online.web.url}")
     private String weburl;
     /**
      * 在Controller方法前进行拦截
