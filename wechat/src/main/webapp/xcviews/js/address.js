@@ -168,7 +168,7 @@
 					if(result.isAcquiescence == 1 || results.length==1){//是默认地址
 						isAcquiesStr+="<div class='sit_bg site_bg01'></div><span class=''>默认地址</span>";
 					}else{
-						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='' style='color: #666;'>设为默认地址</span>";
+						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='moren_span'>设为默认地址</span>";
 					}
 					str += "<div class='site'>"+
 					"<div class='site_div'>"+
@@ -205,12 +205,27 @@
 		 if(aBtn6.length > 1){
 			 for(i=0;i<aBtn6.length;i++){
 		          $(aBtn6[i]).click(function(){
+		        	  
 		          	for(i=0;i<aBtn6.length;i++){ 
-		          		$(aBtn6[i]).find('.sit_bg').addClass('site_bg1');
-		                $(aBtn6[i]).find('.sit_bg').removeClass('site_bg01');
+		          		/*$(aBtn6[i]).find('.sit_bg').addClass('site_bg1');
+		                $(aBtn6[i]).find('.sit_bg').removeClass('site_bg01');*/
+		                var obj = $(aBtn6[i]).find('.sit_bg');
+		                var objClassName = obj.attr("class");
+		                if(objClassName.indexOf("site_bg01")!=-1){
+		                	obj.removeClass('site_bg01');
+		                	obj.addClass('site_bg1');
+		                	var span =  obj.next();
+		                	span.addClass("moren_span");
+		                	span.text("设置为默认地址");
+		                	break;
+		                }
 		            }
-		            $(this).find('.sit_bg').addClass('site_bg01');
-		            $(this).find('.sit_bg').removeClass('site_bg1');
+		          	var this_Obj = $(this).find('.sit_bg');
+		          	this_Obj.addClass('site_bg01');
+		          	this_Obj.removeClass('site_bg1');
+		          	var this_span = this_Obj.next();
+		          	this_span.text("默认地址");
+		          	this_span.removeClass("moren_span");
 		            //然后点击的时候呢，需要判断
 		            var newId = $(this)[0].id;
 		        	/**
@@ -219,6 +234,9 @@
 		        	requestService("/bxg/city/updateIsAcquies", 
 		        			{newId:newId}, function(data) {
 		        		if (data.success) {
+		        			
+		        			addressList();
+		        			
 		        			console.log("设置默认成功");
 		        		} else {
 		        			console.log("设置默认失败");
@@ -247,26 +265,47 @@
 			/**
 			 * 删除这个地址啦
 			 */
-			$(".delete_go").click(function(){
+			$(".site_bto_right02").click(function(){
 				var id = $(this)[0].title;
-				//查询下 -- 填充到form表单中
-				/**
-				 * 根据id查询地址
-				 */
-				requestService("/bxg/city/deleteAddressById", 
-						{id:id}, function(data) {
-					if (data.success) {
-						 /*alert("删除数据成功！");*/
-						 addressList();
-					} else {
-					    alert("获取数据有误！");
-						return false;
-					}
-				});
+				$("#address_bg_bto1").attr("title",id);
+				$(".history_bg").show();
 			});
-		 
-		
 	}
+	/**
+	 * 请求地址列表
+ 	 */
+	addressList();
+/**
+ * 隐藏确定删除的弹框
+ */	
+$(".history_bg_bto1").click(function(){
+	$(".history_bg").hide();
+});
+$(".history_bg_bto2").click(function(){
+	$(".history_bg").hide();
+});
+function deleteAddress(obj){
+	var addressId =  $(obj).attr("title");
+	if(stringnull(addressId)){
+		//查询下 -- 填充到form表单中
+		/**
+		 * 根据id查询地址
+		 */
+		requestService("/bxg/city/deleteAddressById", 
+				{id:addressId}, function(data) {
+			if (data.success) {
+				 $(obj).attr("title","");
+				 
+				 alert("删除数据成功！");
+				 addressList();
+			} else {
+			    alert("获取数据有误！");
+				return false;
+			}
+		});
+	}
+}
+	
 /**
  * 
  * @param str
