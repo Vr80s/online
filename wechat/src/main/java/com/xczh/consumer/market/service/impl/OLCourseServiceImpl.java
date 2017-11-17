@@ -231,6 +231,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			 Map<String,String> map = wxcpCourseDao.getVideoFirst(course_id);
 			 courseLecturVo.setChapterId(map.get("chapterId"));
 			 courseLecturVo.setDirectId(map.get("videoId"));
+			 courseLecturVo.setvId(map.get("vId"));
 		}
 		return courseLecturVo;
 	}

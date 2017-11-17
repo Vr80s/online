@@ -112,6 +112,14 @@ function userIndexCourseList(type,falg){
 						html +="</div>";
 				}
 			    $("#personage_bto_cen1").append(html);
+			    
+			    if(type!=1){//视频
+			    	$(".public1_list_bg").css("background","url(../images/tv.png) no-repeat");
+			    	$(".public1_list_bg").css("background-size","100% 100%");
+			    	$(".public1_list_bg").css("height","1.775rem");
+			    	$(".public1_list_bg").css("bottom","1.58rem");
+			    }
+			    
 			}else{
 				//暂无数据
 			}
@@ -221,7 +229,7 @@ function userIndexStatisticsInfo(){
 		 if(stringnull(mapLiveState.status) && mapLiveState.status == 1){
 			 $(".personage_top_cen_in").attr("id",mapLiveState.id);
 		 }else{
-			 $(".personage_top_cen_img").hide(); 
+			 //$(".personage_top_cen_img").hide(); 
 		 }
 		 /**
 		  * 是否关注
@@ -357,7 +365,7 @@ $("#is_fours").click(function(){
 /**
  *  点击正在直播按钮 直接去详情页面
  */
-$(".personage_top_cen_in").click(function(){
+$(".personage_top_cen_img").click(function(){
 	var courseid = $(".personage_top_cen_in").attr("id");
 	if(stringnull(courseid)){
 		location.href = "/bxg/xcpage/courseDetails?courseId="+courseid;

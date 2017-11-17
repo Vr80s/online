@@ -612,7 +612,7 @@ body .loginGroup .logout .btn-link {
 }
 html .loginGroup .logout .btn-link.btn-login,
 body .loginGroup .logout .btn-link.btn-login {
-  color: #ccc;
+  color: #000;
   padding: 0 5px;
   font-size: 12px;
   display: inline-block;
@@ -621,7 +621,7 @@ html .loginGroup .logout .btn-link.btn-register,
 body .loginGroup .logout .btn-link.btn-register {
   margin-left: 5px;
   font-size: 12px;
-  color: #ccc;
+  color: #000;
   display: inline-block;
 }
 html .loginGroup .logout .btn-link.btn-login:hover,

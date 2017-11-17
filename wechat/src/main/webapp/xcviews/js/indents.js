@@ -20,7 +20,11 @@ function dateStr(bbb) {
  */
 var pageNumber = 1;
 var pageSize = 10;
-
+/**
+ * 
+ * @param status	 0:未支付 1:已支付 2:已关闭 
+ * @param downOrOn
+ */
 function initOrderList(status,downOrOn){
 	
 	if(downOrOn){
@@ -50,11 +54,23 @@ function initOrderList(status,downOrOn){
 					odiv.id = 'div' + i;
 				    var html="";
 				    var order = result[i]; 
+				    
+				    var orderStatus = order.orderStatus;
+				    var statusStr ="";
+	        		if(orderStatus == 0){  //3种状态: 待支付,已完成,已失效
+	        			statusStr ="待支付";
+	        		}else if(orderStatus == 1){
+	        			statusStr ="已完成";
+	        		}else if(orderStatus == 2){
+	        			statusStr ="已失效";
+	        		}
                 	//顶部
                 	html+="<div class='indent_main'>"+
         			"<div class='indent_main_top'>"+
-        				"<div class='indent_main_top_left'>订单编号：<span>" + order.orderNo + "</span></div>"+
-        				"<div class='learning_right'><!-- 下单时间： --><span>" + order.createTime.substring(0,16) + "</span></div>"+
+        				"<div style='width: 97%;height: 1.65rem;float:right;border-bottom: 1px solid #dfdfe2;'>"+
+	        				"<div class='indent_main_top_left'>订单编号：<span>" + order.orderNo + "</span></div>"+
+	        				"<div class='learning_right' style='color: #ff6767;'>"+statusStr+"</div>"+  
+        				"</div>"+	/*"<div class='learning_right'><!-- 下单时间： --><span>" + order.createTime.substring(0,16) + "</span></div>"+*/
         			"</div>";
                 	//课程部分
                 	 //循环订单中的所有课程啦
@@ -83,29 +99,31 @@ function initOrderList(status,downOrOn){
             				"<div class='indent_main_cen_left'>"+
             					"<img  src='"+course.smallImgPath+"' alt='' />"+
             					"<p class='indent_main_left_p1'>" + course.gradeName + "</p>"+
-            					"<div class='indent_main_one'><p class='indent_main_left_p2'>老师：<span>" + course.teacherName + "</span></p><p class='indent_main_left_p3'>价格:<span>"+course.actualPay+"</span></p><div class='both'></div></div>"+
-            					"<div class='indent_main_two'><p class='indent_main_left_p02'>"+liveTypeOrState+"</p><p class='indent_main_left_p03'>课程有效期：不限</p></div>"+
+            					"<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "</span></p><div class='both'></div></div>"+
+            					"<div class='indent_main_two'><p class='indent_main_left_p3' style='float: left;color: #ff6767;margin-top: 0.1rem;'>￥<span>"+course.actualPay+"</span></p><p class='indent_main_left_p02' style='float: right;'>"+liveTypeOrState+"</p></div>"+
             				"</div>"+
             			"</div>";
                 	 }
                 	var orderStatus=order.orderStatus;
                 	html+="<div class='both'></div>"+
         			"<div class='indent_main_bot' title="+order.id+" id="+order.orderNo+">"+
-        				"<div class='indent_main_bot_left'>订单价格：<span>￥<span>"+result[i].actualPay+"</span></span></div>";
-        				if(orderStatus == 0){
-        					html+="<a href='javascript: ;'   class='indent_main_bot_a common_click gotoPay' >立即购买</a>" +
-        							"<a class='order_falg common_click cancelOrder'>取消</a>";
-        				}else if(orderStatus == 1){
-        					/*html+="<a href='javascript: ;' class='indent_main_bot_a common_click watch'>立即观看</a>";*/
-        				}else if(orderStatus == 2){
-        					html+="<a href='javascript: ;' class='indent_main_bot_a common_click deleteOrder'>删除订单</a>" +
-        							"<a href='javascript: ;' class='indent_main_bot_a common_click toBuy'>重新购买</a>";
-        				}
+        				"<div style='width: 97%;height: 1.65rem;float:right;border-top: 1px solid #dfdfe2;'>"+
+							"<p class='indent_main_left_p03' style='font-size: 0.6rem;color: #666;float: left;'>课程有效期：不限</p>";
+	        				if(orderStatus == 0){
+	        					html+="<a href='javascript: ;'   class='indent_main_bot_a common_click gotoPay' >立即购买</a>" +
+	        							"<a class='order_falg common_click cancelOrder'>取消</a>";
+	        				}else if(orderStatus == 1){
+	        					/*html+="<a href='javascript: ;' class='indent_main_bot_a common_click watch'>立即观看</a>";*/
+	        				}else if(orderStatus == 2){
+	        					html+="<a href='javascript: ;' class='indent_main_bot_a common_click toBuy' style='color:#00bc12;'>去支付</a>" +
+	        							"<a href='javascript: ;' class='indent_main_bot_a common_click deleteOrder' style='color:#666;border: 1px solid #ccc'>取消订单</a>";
+	        				}
+        				"</div>"+
         			"</div>";
         			//已失效标识
         			if(orderStatus == 2){
         				html+="<img src='../images/lose.png' alt='' " +
-        						"style='position: absolute;right: 0;top: 50%;width: 2.875rem;height: 2.875rem;margin-top: -1.4675rem;margin-right: 0.4rem;' />";
+        						"style='display: none;position: absolute;right: 0;top: 50%;width: 2.875rem;height: 2.875rem;margin-top: -1.4675rem;margin-right: 0.4rem;' />";
         			}
         	        "</div>";
         	       odiv.innerHTML = html;

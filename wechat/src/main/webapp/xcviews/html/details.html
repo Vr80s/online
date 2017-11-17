@@ -266,10 +266,28 @@ $(function(){
     }
     .details01{
     	border-bottom: 1px solid #00bc12;
-    	color: #00bc12;
+    	color: #00bc12 !important;
     }
     .give_footer a{
     	color: #fff !important;
+    }
+    .give_footer{
+    	border-top: 1px solid #e0e0e0;
+    }
+    .balance_send{
+    	width: 2.75rem;
+	    height: 1.1rem;
+	    line-height: 1.1rem;
+	    font-size: 0.5rem;
+	    margin-top: 0.05rem;
+    }
+    .fd_img_bg{
+	    width: 4.5rem;
+	    height: 4.525rem;
+	    position: absolute;
+	    bottom: 0;
+	    background: url(/xcviews/images/null13.png) no-repeat;
+	    background-size: 100% 100%;
     }
 </style>
 
@@ -358,9 +376,7 @@ $(function(){
 		}else{
 			$(".pinch-zoom-container").css("display","block");
 			$(".fd_img").css("display","none");
-		}
-		
-		
+		}	
 	};
 </script>
 </head>
@@ -392,7 +408,7 @@ $(function(){
 				</div>
 
 				<span class="history_span"
-					style="width: 74%; color: #666; font-size: 0.85rem;position: absolute;left: 2.1rem;"></span>
+					style="width: 74%; color: #666; font-size: 1rem;position: absolute;left: 2.1rem;"></span>
 				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
@@ -682,14 +698,12 @@ $(function(){
 	</div>
 	<!-- 排行榜结束 -->
 	<!-- 文档开始 -->
-	
 	<div class="document" style="margin-top: 0.47rem;">
 		<div class="fd_img">
-			<img src="/xcviews/images/null13.png" alt="" />
+			<div class="fd_img_bg"></div>
+			<!--<img src="/xcviews/images/null13.png" alt="" />-->
 			<p>主播还没有上传文档</p>
 		</div>
-
-		
 		<div class="document_ceneter" id="doc">
 			
 			<div class="both"></div>

@@ -305,12 +305,12 @@
 				</div>
 			</div>
 
-			<div class="form-group" style="margin-top: 18px;">
+			<%--<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addVideoSize">视频大小: </label>
 				<div class="col-sm-6">
 					<input type="text" placeholder="选择视频文件后自动生成" name="videoSize" id="addVideoSize" class="col-xs-10 col-sm-12 {maxlength:20}" readonly="readonly"  readonly="readonly">
 				</div>
-			</div>
+			</div>--%>
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addVideoSize">是否设为试看: </label>
 				<div class="col-sm-6">
@@ -365,12 +365,12 @@
 				</div>
 			</div>
 
-			<div class="form-group" style="margin-top: 18px;">
+			<%--<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" >视频大小: </label>
 				<div class="col-sm-6">
 					<input type="text" name="videoSize" id="editVideoSize" class="col-xs-10 col-sm-12" readonly="readonly">
 				</div>
-			</div>
+			</div>--%>
 
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" >是否设为试看: </label>

@@ -52,6 +52,11 @@ public class CourseLecturVo implements Serializable {
     public String  chapterId;
     
     /**
+     * 视频 的 主键id 
+     */
+    public String  vId;
+    
+    /**
      * 直播开始时间
      */
     public Date startTime;
@@ -377,5 +382,12 @@ public class CourseLecturVo implements Serializable {
 	public void setChapterId(String chapterId) {
 		this.chapterId = chapterId;
 	}
-	
+
+	public String getvId() {
+		return vId;
+	}
+
+	public void setvId(String vId) {
+		this.vId = vId;
+	}
 }

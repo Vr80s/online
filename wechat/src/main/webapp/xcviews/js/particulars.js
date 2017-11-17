@@ -36,6 +36,7 @@ h5PcConversions(true,course_id);
 var videoId = "";var teacherId;var teacherName;var courseHead ="";
 var roomNumber="";var multimedia_type ="";var result = "";
 var chapterId ="";var watchState="";
+var vId ="";
 /*
  * 加载评论列表
  */
@@ -48,7 +49,7 @@ var pageNumber = 1;
 var name = localStorage.name;
 var userId =  localStorage.userId;
 var smallHeadPhoto =  localStorage.smallHeadPhoto;
-function  getVideoCriticize(pageNumber,videoId){
+function  getVideoCriticize(pageNumber,vId){
 	//视频id :2c9aec355eb943f5015ecb4221f30005
 	//用户名：15936216273
 	//分页参数：pageSize
@@ -62,7 +63,7 @@ function  getVideoCriticize(pageNumber,videoId){
 	//测试
 	var dataParams ={
 		pageNumber:pageNumber,
-		videoId:videoId,	
+		videoId:vId,	
 		name:name,
 		pageSize:10
 	}
@@ -163,7 +164,7 @@ function  getVideoCriticize(pageNumber,videoId){
  * 点击初始化视频的方法：
  * @param videoId
  */
-function chZJ(videoId,chapterId){
+function chZJ(videoId,chapterId,vid){
 	/**
 	 * 清空评论区的列表
 	 */
@@ -173,6 +174,7 @@ function chZJ(videoId,chapterId){
 	chapterId = chapterId;*/
 	sessionStorage.setItem("videoId",videoId);
 	sessionStorage.setItem("chapterId",chapterId);
+	sessionStorage.setItem("vid",vid);
 	/**
 	 * 请求代码啦
 	 */
@@ -195,45 +197,21 @@ function chZJ(videoId,chapterId){
 			var playCodeObj = JSON.parse(playCodeStr);
 			console.log(playCodeObj.video.playcode);
 			$("#ccvideo").html(playCodeObj.video.playcode);
-			/**
-			 * 为这个cc视频设置伟大的响应式样式
-			 */
-			//cc_A9067DA7F5AA34C39C33DC5901307461    A9067DA7F5AA34C39C33DC5901307461
-			/*var videoLable = "#cc_"+videoId;
-			//var t = $("#cc_E314E6FD81D47BD69C33DC5901307461"); 
-			var t = $(videoLable);
-	        t.attr("webkit-playsinline", ""),
-	        t.attr("playsinline", "");
-	        t.attr("x5-playsinline", "");*/
-	        
-	        //playsinline="true"
-	        /*<video id="vhall-h5-player" 
-	        	webkit-playsinline="" playsinline="" 
-	        		controls="controls" 
-	        			src="http://alhlslivepc01.e.vhall.com/vhall/811787281/livestream.m3u8" 
-	        				x5-playsinline="" 
-	       poster="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/15/09/9695715203124159abfe4ac8683e2746.jpg" style="width: 100%;" +
-	       		" height: 100%;"></video>*/
-	        
-	        /*<video id="cc_A9067DA7F5AA34C39C33DC5901307461"
-	        	x-webkit-airplay="allow" 
-	        		webkit-playsinline="" 
-	        			playsinline="true" 
-	        				width="349" height="195"
-	        					src="http://cm14-ccm1-2.play.bokecc.com/flvs/ca/Qx8Bx/ueia2oekGL-10.mp4?t=1510724919&amp;key=EB009C172FDAD5D3915A99D210095991">您的浏览器不支持html5 video</video>*/
-	        
-	        
 	        
 		 	/**
 	    	 * 初始化评论区
 	    	 */
-	    	getVideoCriticize(1,videoId);
+	    	getVideoCriticize(1,vid);
 			
 		}else{
     		$(".history_bg").show();
 		}
 	},false);
 }
+
+/**
+ * 请求这个课程的详情
+ */
 requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
 
     result = data.resultObject;
@@ -241,6 +219,8 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
     videoId = result.directId;
     //章节id
     chapterId = result.chapterId;
+    //视频的主键id
+    vId = result.vId;
     
     watchState = result.watchState;
     //假装免费
@@ -265,7 +245,7 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
     	/**
     	 * 初始化CC视频
     	 */
-    	chZJ(videoId,chapterId);
+    	chZJ(videoId,chapterId,vId);
     	/**
     	 * 存在视频id，隐藏视频正在赶来的路上
     	 */
@@ -328,11 +308,11 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
     //课程详情
     $(".anchor_center").html(result.description);
 
-//      /*
-//      * 礼物数和学习人数
-//      */
-//     $(".details_size span:eq(0)").html(result.giftCount);
-//     $(".details_size span:eq(1)").html(result.learndCount);    
+     /*
+      * 粉丝数和礼物数
+      */
+     $(".yx_details_size span:eq(0)").html(result.countFans);
+     $(".yx_details_size span:eq(1)").html(result.countGift);
 //      var children = $("#zhiboxiangqing [class='p1']").text(result.gradeName);
 //      var children = $("#zhiboxiangqing [class='p2'] span").text(result.name);
 //		var children = $("#zhiboxiangqing [class='p3'] span").text(result.roomNumber); 
@@ -356,13 +336,14 @@ $("#sendChat").click(function() {
      */
 //    保存评论需要的字段：
 //    评论内容，创建时间、用户id、章节id、视频id
-    var chapterId = sessionStorage.getItem("chapterId",chapterId);
-    var videoId = sessionStorage.getItem("videoId",videoId);
+    var chapterId = sessionStorage.getItem("chapterId");
+    var vid = sessionStorage.getItem("vid");
     
     var dataParams = {
         content:text,	
         chapterId:chapterId,
-        videoId:videoId
+        videoId:vid,
+        courseId:course_id
     }
     if(text.length>3000){
   	  alert("评论长度太长了");
@@ -378,7 +359,9 @@ $("#sendChat").click(function() {
 			dataParams, function(data) {
   	  if(data.success){
 			  $("#mywords").val('');
-			  getVideoCriticize(1,videoId);
+			  
+			  getVideoCriticize(1,vid);
+			  
 	 	      $(".discuss_main").mCustomScrollbar("scrollTo","bottom","0");
   	  }else{
   		  alert(data.errorMessage);
@@ -505,7 +488,7 @@ function initZJ(){
 
 	                    for(var f=0;f<si.length;f++){
 		                    html+="<!--4 start-->\n" +
-		                    "<li class='chapter_main_cen_ul_li'  onclick=chZJ('"+si[f].videoId+"','"+si[f].chapterId+"')>\n" +
+		                    "<li class='chapter_main_cen_ul_li'  onclick=chZJ('"+si[f].videoId+"','"+si[f].chapterId+"','"+si[f].vid+"')>\n" +
 		                    "<div class='chapter_cen_ul_bg'></div>\n" +
 		                    "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+si[f].videoName+"\n" +
 		                    /*"<span class='chapter_ul_span'>16:24</span>\n" +*/

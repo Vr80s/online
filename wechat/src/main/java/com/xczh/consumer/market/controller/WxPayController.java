@@ -376,7 +376,9 @@ public class WxPayController {
 					System.out.println("WxPayController->wxNotify->bad");
 				}
 				if(attach.split("&")[0].equals("order")){
+					
 					boolean onlinePaySuccess = httpOnline(out_trade_no, transaction_id);//普通订单
+				
 				}
 
 				res.getWriter().write(tell_ok);
@@ -655,6 +657,7 @@ public class WxPayController {
 			res.sendRedirect(returnOpenidUri+"/bxg/page/index/"+wxw.getOpenid()+"/"+code);
 			
 		}else if(wxw.getClient_id()!=null  &&  wxw.getClient_id().equals(ou.getId())){
+			
 			/* 微信中包含用户id，但是用户信息中不包含微信信息
 			 * 这里可以做下容错处理
 			 */
@@ -666,8 +669,9 @@ public class WxPayController {
 			ou.setTicket(t.getTicket());
 			onlogin(req,res,t,ou,t.getTicket());
 			res.sendRedirect(returnOpenidUri+"/bxg/page/index/"+wxw.getOpenid()+"/"+code);
-		}else{
-			res.sendRedirect(returnOpenidUri+"/bxg/page/login/1?error=error");
+			
+		}else{	//如果我这个微信绑定了其他的手机号，但是这个用户用其他手机号登录来了，其实也可以的啦。
+			res.sendRedirect(returnOpenidUri+"/bxg/page/index/"+wxw.getOpenid()+"/"+code);
 		}
 	}
 	

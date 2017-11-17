@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -33,6 +34,7 @@ public class CriticizeServiceImpl implements CriticizeService {
 		// TODO Auto-generated method stub
 		CriticizeVo cv = new CriticizeVo();
 		BeanUtils.copyProperties(cv,criticize);
+		cv.setCreateTime(new Date());
 		videoDao.saveCriticize(cv);
 		
 	}
