@@ -130,9 +130,13 @@ $(".face_img01").css("background-size","100% 100%");
 $(".li4").click(function() {
 $(this).addClass('details');
 $(this).parent().addClass('details01');
+
+$(".li1").parent().removeClass('details01');
 $(".li2").parent().removeClass('details01');
 $(".li3").parent().removeClass('details01');
-$(".li1").parent().removeClass('details01');
+$(".li2").removeClass('details');
+$(".li3").removeClass('details');
+$(".li1").removeClass('details');
 $(".document").show();
 $(".coze").hide();
 $(".details1").hide();
@@ -197,11 +201,22 @@ $(".send_img").css('right','0.4rem');
 });
 // 打开打赏
 $(".give_a1_span02").click(function(){
-$(".give_bottom").show();
+	$(".give_bottom").show();
 
-//发送按钮
-$(".send_img").css('right','0.4rem');
+//发送按钮  coze_cen
+	$(".send_img").css('right','0.4rem');
+	$(".coze_bottom").css("bottom","0");
+  	$(".face_img01").css("background","url(/xcviews/images/face.png)");
+  	$(".face_img01").css("background-size","100% 100%");
 });
+
+
+$(".coze").click(function(){
+  	$(".face_img01").css("background","url(/xcviews/images/face.png)");
+  	$(".face_img01").css("background-size","100% 100%");
+});
+
+
 
 
 if(result.lineState != 0){  //直播走里面
@@ -226,7 +241,7 @@ if(result.lineState != 0){  //直播走里面
 	  
 	  $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
 	  $(".face_img01").css('background-size','100% 100%');
-	  $(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');
+	  /*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
 	  $(".send_img").css('background-size','100% 100%');
 	  /*$(".give_a1_span02").show();*/
 	  /*$("#mywords").css("width","11.9rem");*/
@@ -277,7 +292,10 @@ $(".send_gifts").hide();
 
 /* 点击礼物 */
 $(".give_a1").click(function() {
- $(".send_gifts").show();        	
+ $(".send_gifts").show(); 
+ $(".coze_bottom").css("bottom","0");
+  $(".face_img01").css("background","url(/xcviews/images/face.png)");
+  $(".face_img01").css("background-size","100% 100%");
 }); 
    
         
@@ -391,7 +409,7 @@ $(".give_a1").show();
 $(".give_a1_img").show();
 
 
-$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');
+/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
 $(".send_img").css('background-size','100% 100%');
 
 $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
