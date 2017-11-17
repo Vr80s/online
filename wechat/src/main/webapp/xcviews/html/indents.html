@@ -83,13 +83,13 @@
 		width: 61%;
 	}
 	.indent_main_bot{
-		height: 1.65rem;
-		line-height: 1.65rem;
+		height: 1.75rem;
+    	line-height: 1.75rem;
 }
 	.indent_main_bot_a{
 		font-size: 0.55rem;
-	    color: #fff;
-	    background: #00bc12;
+	    color: #00bc12;
+	    border: 1px solid #00bc12;
 	    border-radius: 6px;
 	    margin-right: 0.4rem;
 	    text-align: right;
@@ -100,7 +100,9 @@
 	    margin-top: 0.32rem;
 	    width: 3.4rem;
 	    height: 1.05rem;
-	    font-family: "微软雅黑";
+	    background: none;
+	    line-height: 1.05rem;
+	    border-radius: 60px;
 	}
 	.indent_main_cen_a{
 		font-size: 0.55rem;
@@ -116,38 +118,33 @@
 	    margin-top: 0.32rem;
 	    width: 3.4rem;
 	    height: 1.05rem;
-	    font-family: "微软雅黑";
 	}
 	.indent_main_left_p1{
-		font-family: "微软雅黑";
 		margin-top: 0.1rem;
 		margin-bottom: 0.1rem;
 	}
 	.indent_main_left_p2{
-		font-family: "微软雅黑";
 		float: left;
 	}
 	.indent_main_left_p3{
-		font-family: "微软雅黑";
 		float: right;
 		font-size: 0.6rem;
     	color: #666;
 	}
 	.indent_main_left_p3 span{
-		color: #00bc12;
+		color: #ff6767;
 	}
 	.indent_main_one{
 		height: 0.8rem;
     	margin-bottom: 0.1rem;
 	}
 	.indent_main_two{
-		font-family: "微软雅黑";
 		font-size: 0.6rem;
     	color: #666;
 	}
 	.indent_main_left_p02{
 		float: left;
-		color: #00bc12;
+		color: #999;
 	}
 	.indent_main_left_p03{
 		float: right;
@@ -158,7 +155,7 @@
 	.indent_p2{
 		color: #00bc12;
 		border-bottom: 1px solid #00bc12;
-		height: 1.5rem;
+		height: 1.75rem;
 	}
 	.frequency_div ul li{
 		margin-left: 1.55rem;
@@ -177,19 +174,18 @@
 	}
  	.order_falg{
 		font-size: 0.55rem;
-	    color: #fff;
-	    background: #00bc12;
-	    border-radius: 6px;
 	    margin-right: 0.4rem;
-	    text-align: right;
 	    display: inline-block;
 	    text-align: center;
 	    float: right;
-	    line-height: 1.2rem;
 	    margin-top: 0.32rem;
-	    width: 2.4rem;
+	    width: 3.4rem;
 	    height: 1.05rem;
-	    font-family: "微软雅黑";
+	    background: none;
+	    line-height: 1.05rem;
+	    border-radius: 60px;
+	    border: 1px solid #ccc;
+	    color: #666 !important;
     } 
     .frequency_div ul{
     	width: 100%;
@@ -215,14 +211,43 @@
     
     
     /*测试滑动*/
-   .swipe{
+   /*.swipe{
    	max-height: 21.5rem !important;
     overflow: auto !important;
     background: aliceblue;
    }
    .li_list{
    	font-size: 14px;
-   }
+   }*/
+  
+  
+  /*新ui*/
+ .indent_main_cen_left{
+ 	width: 95%;
+    height: 3rem;
+    float: left;
+    border-radius: 6px;
+    margin: 0 auto;
+    margin-left: 0.4rem;
+    
+ }
+  .indent_main_cen_left img{
+ 	width: 4.825rem;
+    height: 3rem;
+    border-radius: 6px;
+ }
+ .indent_main_left_p1{
+ 	color: #333;
+ 	margin-top: 0.2rem;
+ }
+ .indent_main_top_left{
+ 	margin-left: 0;
+ }
+ .indent_main{
+ 	background: #fff;
+ }
+   
+   
 </style>
 </head>
 
@@ -268,7 +293,7 @@
 				</ul>
 			</div>
 			<!-- <div class="non_payment01"> -->
-				<div id="refreshContainer" style="margin-top:2rem;z-index:-1" class="mui-content mui-scroll-wrapper">
+				<div id="refreshContainer" style="margin-top:1.8rem;z-index:-1" class="mui-content mui-scroll-wrapper">
 				  	<div class="mui-scroll"  style="margin-top:2rem;padding-bottom: 2rem;;">	
 						<div  id="indent_main" >
 						</div>
