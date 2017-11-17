@@ -26,7 +26,7 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 @RequestMapping(value = "/short")
 public class ShortUrlController {
 	
-	@Value("${online.web.url:http://www.ixincheng.com}")
+	@Value("${online.web.url}")
 	private String weburl;
 	
     /**

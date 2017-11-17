@@ -32,7 +32,7 @@ $(function(){
 	
 	if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
 			browser.versions.iPhone || browser.versions.iPad){
-		if(url=='www.ixincheng.com'){
+		if(url=='www.ipandatcm.com'){
             window.location = "http://wx.ixincheng.com/bxg/common/pcShareLink?courseId="+courserId;
 		}else{
             window.location = "http://test-wx.ixincheng.com/bxg/common/pcShareLink?courseId="+courserId;
