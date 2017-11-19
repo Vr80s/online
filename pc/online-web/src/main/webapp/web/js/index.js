@@ -106,6 +106,9 @@ template.helper('href', function (num) {
 var strcourse =
     '{{each item}}' +
     '<div class="course clearfix">' +
+    '{{if $value.isRecommend == true}}' +
+    '<img style="position:absolute;width: 25%;" src="/web/images/recommend.png" ></img>'+
+    '{{/if}}' +
     '{{#indexHref($value.description_show,$value.free,$value.id,$value.courseType,$value.type,$value.direct_id,null,$value.coursePwd)}}'+
     '{{#hasImg($value.smallImgPath)}}' +
     '{{#online($value.multimediaType)}}' +
