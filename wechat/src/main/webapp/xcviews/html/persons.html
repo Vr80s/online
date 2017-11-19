@@ -511,67 +511,12 @@ pre:after {
 	    height: 2rem;
 	    float: right;
 	    margin-right: 0.4rem;
-	    margin-top: 0.62rem;
+	    margin-top: 0.2rem;
 	    padding-top: 0;
 	}
 	#logoBox img{
 		width: 100%;
 		height: 100%;
-		border: 0;
-		border: none;
-	}
-	.person_cen_parent{
-		width: 100%;
-	    height: 100%;
-	    background: #fff;
-	}
-	.person_cen_top{
-		width: 100%;
-		height: 2.3rem;
-	    padding: 0;
-	    line-height: 2.3rem;
-	    margin-bottom: 0;
-	}
-	.person_cen{
-		width: 97%;
-		float: right;
-	}
-	.my_right_img{
-		margin-right: 0.6rem;
-	}
-	.person_cen{
-		margin-top: 0rem;
-		padding-bottom: 0;
-	}
-	.person p{
-		margin-left: 0;
-	}
-	.person_p1{
-		color: #333;
-	}
-	.person_cen_right p{
-		color: #989898;
-	}
-	.mui-poppicker{
-		box-shadow: none;
-	}
-	.mui-poppicker-btn-cancel{
-	    font-size: 15px !important;
-	    height: 45px;
-	    padding: 0 10px !important;
-	    border: none;
-	    outline: none;
-	    color: #00bc12;
-	    background: #f0f1f2;
-	}
-	.mui-btn-blue{
-		font-size: 15px !important;
-	    height: 45px;
-	    padding: 0 10px !important;
-	    border: none;
-	    outline: none;
-	    color: #00bc12;
-	    background: #f0f1f2;
 	}
 </style>
 </head>
@@ -591,7 +536,9 @@ pre:after {
 	</div>
 	<!-- 点击头像出现框结束 -->
 	
-
+	
+	
+	
 	<div style="position: relative;">
 	
 		<!--头部-->
@@ -638,28 +585,20 @@ pre:after {
 			<div class="dl" style="padding-top1: 0.2rem;">资料设置</div>
 		</div>
 		<div class="both"></div>
-		<div class="person_cen_parent" style="margin-top: 2.275rem;">
-			<div class="person" style="position: relative;height: 3.25rem;line-height: 3.25rem;padding: 0;width: 97%;float: right;border-bottom: 1px solid #eee;margin: 0;">
-				<p>头像</p>
-				<form method="post" enctype="multipart/form-data" id="form1">
-					<!-- 头像。别删亲 -->
-				   	<!--   <input id="file" type="file" name="file" onchange="checkUser()" style="width:14.5rem;height:2rem;position: absolute;right:0.38rem;top:0.4rem;opacity: 0;" />
-				 <div class="person_img" style="margin-top: 0.2rem;">
-						<img src="../images/touxiang.png" id="headImg" alt="">
-					 </div> -->
-					 <!-- 图像区域 -->
-				 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="width:2rem;height:2rem;margin-right: 1rem;" onchange="checkUser()">
-					    <img  src="" width="100%" id="headImg" />
-					</a>
-					
-					<div class="person_cen_right">
-						<div class="my_right_img" style="margin-right: -2.45rem;margin-top: 0;"><img src="/xcviews/images/right_jian.png"></div>
-					</div>
-					
-				</form>
-			</div>
+		<div class="person" style="position: relative;height:2.5rem;line-height:1.9rem;padding-bottom: 0;padding-top: 0;">
+			<p style="margin-top: 0.4rem;">头像</p>
+			<form method="post" enctype="multipart/form-data" id="form1">
+				<!-- 头像。别删亲 -->
+			   	<!--   <input id="file" type="file" name="file" onchange="checkUser()" style="width:14.5rem;height:2rem;position: absolute;right:0.38rem;top:0.4rem;opacity: 0;" />
+			 <div class="person_img" style="margin-top: 0.2rem;">
+					<img src="../images/touxiang.png" id="headImg" alt="">
+				 </div> -->
+				 <!-- 图像区域 -->
+			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="width:2rem;height:2rem;" onchange="checkUser()">
+				    <img  src="" width="100%" id="headImg" />
+				</a>
+			</form>
 		</div>
-		<div class="person_cen_parent">
 		<div class="person_cen">
 			<div class="person_cen_top person_one" onclick="location.href ='nickname.html'">
 				<p class="person_p1">昵称</p>
@@ -669,7 +608,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-		    <div class="both"></div>
+		    
 		    <div class="person_cen_top person_two" onclick="location.href ='change_sex.html'">
 				<p class="person_p1">性别</p>
 				<div class="person_cen_right">
@@ -678,7 +617,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
+			
 			<div class="person_cen_top person_five" onclick="location.href ='mailbox.html'">
 				<p class="person_p1">邮箱</p>
 				<div class="person_cen_right">
@@ -687,7 +626,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
+			
 		   <div class="person_cen_top person_three" onclick="szd_picker2()">
 				<p class="person_p1">所在地</p>
 				<div class="person_cen_right" style="margin-top:0.05rem;">
@@ -696,8 +635,8 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
-			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'" style="border: 0;">
+			
+			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'">
 				<p class="person_p1">个性签名</p>
 				<div class="person_cen_right">
 					<p id="person_sign"></p>  
@@ -705,13 +644,9 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
-		</div>
-		<div class="both"></div>
 		</div>
 		
-		<div class="both"></div>
-		<div class="person_cen_parent" style="margin-top: 0.4rem;">
+		
 		<div class="person_cen">
 			<div class="person_cen_top" id="showUserPicker">
 				<p class="person_p1">身份信息</p>
@@ -721,8 +656,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
-			<div class="person_cen_top" onclick="location.href ='occupation_info.html'" style="border: 0;">
+			<div class="person_cen_top" onclick="location.href ='occupation_info.html'">
 				<p class="person_p1">职业信息</p>
 				<div class="person_cen_right">
 					<p id="zyxx">学生</p>
@@ -731,10 +665,7 @@ pre:after {
 				<div class="both"></div>
 			</div>
 		</div>
-		<div class="both"></div>
-		</div>
 		
-		<div class="person_cen_parent" style="margin-top: 0.4rem;">
 		<div class="person_cen">
 		<!-- 	
 		   <div class="person_cen_top person_four" onclick="location.href ='change_password.html'">
@@ -773,8 +704,6 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-		</div>
-		<div class="both"></div>
 		</div>
 		<!-- <div class="quit" id="quit">退出登录</div> -->
 	</div>

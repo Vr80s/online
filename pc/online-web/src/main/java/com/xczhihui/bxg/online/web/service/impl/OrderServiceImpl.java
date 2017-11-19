@@ -95,6 +95,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
     	if (orders.size() > 0) {
     		
     		/*
+<<<<<<< HEAD
     		 * 查询这个订单下的课程:
     		 *   如果这个课程是单个的课程，并且这个课程是预约的情况下，要发个短信了。
     		 *   
@@ -111,6 +112,11 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 //    				
 //    			}
 //    		}
+=======
+    		 * 查询这个订单下的课程，如果
+    		 */
+    		
+>>>>>>> bae5c74e100a6e4ededc6185bd665ca9eea67cea
     		//更新订单表
 			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+transaction_id+"' where order_no='"+orderNo+"' ";
 			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
