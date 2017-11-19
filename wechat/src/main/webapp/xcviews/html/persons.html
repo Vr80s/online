@@ -518,6 +518,30 @@ pre:after {
 		width: 100%;
 		height: 100%;
 	}
+	.person_cen{
+		padding: 0;
+		border: 0;
+	}
+	.person{
+		position: relative;
+	    line-height: 3.75rem;
+	    padding: 0;
+	    height: 3.75rem;
+	    margin: 0;
+	}
+	.person0{
+		width: 97%;
+	    line-height: 3.75rem;
+	    height: 3.75rem;
+	    border-bottom: 1px solid #e5e5e5;
+	    float: right;
+	}
+	#logoBox{
+		width: 2.25rem;
+	    height: 2.25rem;
+	    margin-top: 0.75rem;
+	    margin-right: 1rem;
+	}
 </style>
 </head>
 
@@ -585,8 +609,9 @@ pre:after {
 			<div class="dl" style="padding-top1: 0.2rem;">资料设置</div>
 		</div>
 		<div class="both"></div>
-		<div class="person" style="position: relative;height:2.5rem;line-height:1.9rem;padding-bottom: 0;padding-top: 0;">
-			<p style="margin-top: 0.4rem;">头像</p>
+		<div class="person" style="">
+			<div class="person0">
+			<p>头像</p>
 			<form method="post" enctype="multipart/form-data" id="form1">
 				<!-- 头像。别删亲 -->
 			   	<!--   <input id="file" type="file" name="file" onchange="checkUser()" style="width:14.5rem;height:2rem;position: absolute;right:0.38rem;top:0.4rem;opacity: 0;" />
@@ -594,12 +619,17 @@ pre:after {
 					<img src="../images/touxiang.png" id="headImg" alt="">
 				 </div> -->
 				 <!-- 图像区域 -->
-			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="width:2rem;height:2rem;" onchange="checkUser()">
+			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" onchange="checkUser()">
 				    <img  src="" width="100%" id="headImg" />
 				</a>
+				
+				<div class="my_right_img" style="position: absolute;right: -0.25rem;"><img src="/xcviews/images/right_jian.png"></div>
 			</form>
+			</div>
+			<div class="both"></div>
 		</div>
 		<div class="person_cen">
+			<div class="person_cen0">
 			<div class="person_cen_top person_one" onclick="location.href ='nickname.html'">
 				<p class="person_p1">昵称</p>
 				<div class="person_cen_right">
@@ -636,7 +666,7 @@ pre:after {
 				<div class="both"></div>
 			</div>
 			
-			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'">
+			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'" style="margin-bottom: 0;border: 0;">
 				<p class="person_p1">个性签名</p>
 				<div class="person_cen_right">
 					<p id="person_sign"></p>  
@@ -644,10 +674,14 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
+			</div>
+			<div class="both"></div>
 		</div>
+		<div class="both"></div>
 		
 		
-		<div class="person_cen">
+		<div class="person_cen" style="margin-top: 0.4rem;margin-bottom: 0.4rem;">
+			<div class="person_cen0">
 			<div class="person_cen_top" id="showUserPicker">
 				<p class="person_p1">身份信息</p>
 				<div class="person_cen_right">
@@ -656,7 +690,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="person_cen_top" onclick="location.href ='occupation_info.html'">
+			<div class="person_cen_top" onclick="location.href ='occupation_info.html'" style="border: 0;">
 				<p class="person_p1">职业信息</p>
 				<div class="person_cen_right">
 					<p id="zyxx">学生</p>
@@ -664,9 +698,12 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
+			</div>
+			<div class="both"></div>
 		</div>
 		
 		<div class="person_cen">
+			<div class="person_cen0">
 		<!-- 	
 		   <div class="person_cen_top person_four" onclick="location.href ='change_password.html'">
 				<p class="person_p1">密码</p>
@@ -696,7 +733,7 @@ pre:after {
 			</div>
 			-->
 			
-			<div class="person_cen_top person_seven" style="border-bottom:0px" onclick="location.href ='address.html'">
+			<div class="person_cen_top person_seven" style="border-bottom:0px;margin-bottom: 0;" onclick="location.href ='address.html'">
 				<p class="person_p1">地址管理</p>
 				<div class="person_cen_right">
 					<!-- <p id="person_five">添加地址</p> -->
@@ -704,6 +741,8 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
+			</div>
+			<div class="both"></div>
 		</div>
 		<!-- <div class="quit" id="quit">退出登录</div> -->
 	</div>

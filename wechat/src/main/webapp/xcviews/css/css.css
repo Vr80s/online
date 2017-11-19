@@ -1863,14 +1863,20 @@ footer{
 .buy_clause{
 	width: 100%;
     background: #fff;
-    padding: 0.5rem 0;
-    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
+    height: 1.75rem;
+    line-height: 1.75rem;
 }
 .buy_clause span{
 	width: 0.9rem;
     height: 0.9rem;
     display: inline-grid;
     margin-top: 0.4rem;
+    float: left;
+    margin-left: 0.6rem;
+    margin-right: 0.4rem;
+
 }
 .label03{
 	width: 2rem;
@@ -3060,7 +3066,7 @@ footer{
 	float: left;
 	font-size: 0.7rem;
 	color: #666;
-	margin-left: 0.4rem;
+	/*margin-left: 0.4rem;*/
 }
 .person_img{
 	width: 2rem;
@@ -3078,15 +3084,18 @@ footer{
 .person_cen{
 	width: 100%;
     background: #fff;
-    margin-top: 0.4rem;
     padding-bottom: 0.1rem;
 }
+.person_cen0{
+	width: 97%;
+    float: right;
+}
 .person_cen_top{
-	width: 95%;
+	width: 100%;
     margin: 0 auto;
     padding: 0.4rem 0;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 0.4rem;
+    border-bottom: 1px solid #e5e5e5;
+    /*margin-bottom: 0.4rem;*/
 }
 .person_p1{
 	float: left;
@@ -4186,7 +4195,7 @@ footer{
 	float: right;
     width: 3rem;
     text-align: right;
-    margin-right: 0.4rem;
+    margin-right: 0.6rem;
 }
 .my_right_img img{
 	width: 0.325rem;	
@@ -4811,7 +4820,7 @@ footer{
 	line-height: 2.125rem;
 	background: #fff;
 	margin-bottom: 0.025rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .deposit_expense_left{
 	float: left;
@@ -5163,14 +5172,15 @@ footer{
 }
 .system_div{
 	width: 100%;
-	height: 2.3rem;
-	line-height: 2.3rem;
-	border-bottom: 1px solid #e8e8e8;
-
+    height: 2.3rem;
+    line-height: 2.3rem;
+    border-bottom: 1px solid #e5e5e5;
+    width: 97%;
+    float: right;
 }
 .system_div_left{
 	float: left;
-	margin-left: 0.4rem;
+	/*margin-left: 0.4rem;*/
 }
 .system_div_right{
 	float: right;
