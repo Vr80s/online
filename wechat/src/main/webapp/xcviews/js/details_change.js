@@ -28,6 +28,13 @@ $(".import_hide").hide();
 $(".import").blur();
 });
 
+/*点击1*/
+$(".import5").click(function() {
+$(".import").val(1);
+$(".import_hide").hide();
+$(".import").blur();
+});
+
 
 /* 点击礼物数量后面input框 */
 $(".import_div").click(function() {
@@ -224,7 +231,7 @@ if(result.lineState != 0){  //直播走里面
     // 点击发送
     
   $("#sendChat").click(function(){
-	$(".poson").css("right","0rem");
+//	$(".poson").css("right","0rem");
 	
 	$(".coze_bottom").css('bottom','0rem');
 	/*$("#mywords").css('width','11.9rem');*/
@@ -245,7 +252,7 @@ if(result.lineState != 0){  //直播走里面
 	  $(".send_img").css('background-size','100% 100%');
 	  /*$(".give_a1_span02").show();*/
 	  /*$("#mywords").css("width","11.9rem");*/
-	  $(".send_img").css('right','0.4rem');
+//	  $(".send_img").css('right','0.4rem');
 	  });
 }
 
@@ -261,7 +268,7 @@ $(".share").hide();
 
 
 $("#opacity").click(function() {
-$(".give_a1").show();
+//$(".give_a1").show();
 /*$(".give_a1_img").show();*/
 /*$(".give_a01").hide();*/
 /* $(".give_a1_span").hide(); */
@@ -354,7 +361,7 @@ $("#video video").click(function() {
 	$(".coze_bottom").css("bottom","0");
 	
 	//让input靠左
-	$(".poson").css("right","0");
+//	$(".poson").css("right","0");
 	
 	//显示打赏
 	/*$(".give_a1_span02").show();*/
@@ -376,7 +383,7 @@ $(".chatmsg-box").click(function() {
 	$(".coze_bottom").css("bottom","0");
 	
 	//让input靠左
-	$(".poson").css("right","0");
+//	$(".poson").css("right","0");
 	
 	//显示打赏
 	/*$(".give_a1_span02").show();*/
@@ -396,7 +403,7 @@ $(".coze_bottom").css("bottom","0rem");
 /* 关闭打赏 */
  $(".give_close01").click(function() {
 $(".give_bottom").hide();
-$(".send_img").css("right","0.4rem");
+//$(".send_img").css("right","0.4rem");
 }); 
         
 
@@ -406,7 +413,7 @@ $("#mywords").click(function() {
 $(".coze_bottom").css("bottom","0rem");
 $(".give_a1_span").show();
 $(".give_a1").show();
-$(".give_a1_img").show();
+//$(".give_a1_img").show();
 
 
 /*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
