@@ -75,9 +75,15 @@ public class EmailService {
 	public static void main(String[] args) throws AddressException, MessagingException {
 		String subject = "11111131111111";
 		String content = "11111131111111";
+		
+/*		email.auth=true
+		email.host=smtp.ixincheng.com
+		email.user=system@ixincheng.com
+		email.password=Ixincheng1234*/
+		
 		String username = "system@ixincheng.com";
-		password = "********";
-		String tousername = "yuruixin_china@163.com";
+		password = "Ixincheng1234";
+		String tousername = "yangxuan@ixincheng.com";
 		String smtp = "smtp.ixincheng.com";
 		sendMailBySSL(smtp, username, password, tousername, subject, content);
 	}

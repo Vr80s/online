@@ -855,6 +855,8 @@ public class AlipayController {
 
                         alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
                         boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no); //普通订单
+
+                        
                         if(onlinePaySuccess){
                             response.getWriter().println("success");	//请不要修改或删除
                         }

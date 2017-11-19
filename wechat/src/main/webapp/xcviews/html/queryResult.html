@@ -72,7 +72,7 @@
 	    height: 1.8rem;
 	    font-size: 0.65rem;
 	    color: #00bc12;
-    	font-size: 0.8rem;
+    	font-size: 0.7rem;
 	}
 	
 	.sousuo{
@@ -99,6 +99,27 @@
 		background: #f5f5f5;
 	}
 	
+	.zhibo_list1_img{
+		width: 4.15rem !important;
+	    height: 2.55rem !important;
+	    border-radius: 8px;
+	}
+	.zhibo_list_title1{
+		height: 1rem;
+    	line-height: 1rem;
+	}
+	.zhibo_list1{
+		width: 100%;
+		padding: 0;
+    	border-bottom: 1px solid #e5e5e5;
+	}
+	.zhibo .zhibo_list1:last-child{
+		border-bottom: 0;
+		margin-bottom: 0;
+	}
+	.zhibo_list_title1{
+		width: 10.8rem;
+	}
 </style>
 <script type="text/javascript">
 	 document.onkeydown=function(event){
@@ -194,8 +215,9 @@
 	<!-- 热门直播开始 -->
 	<div class="hot_zhibo">
 		<p>热门直播</p>
-		<div class="zhibo" id="zhibo_result">
+		<div class="zhibo" id="zhibo_result" style="float: right;">
 		</div>
+		<div class="both"></div>
 	</div>
 	
 	<!-- 热门直播结束 -->
@@ -204,8 +226,9 @@
 	
 	<div class="hot_zhibo">
 		<p>热门课程</p>
-		<div class="zhibo" id="kecheng_result">
+		<div class="zhibo" id="kecheng_result" style="float: right;">
 		</div>
+		<div class="both"></div>
 	</div>
 	</div>
 	<!-- 热门课程结束 -->

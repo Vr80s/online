@@ -1,6 +1,5 @@
 package com.xczh.consumer.market.controller.live;
 
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +36,7 @@ public class CriticizeController {
 			HttpServletResponse res,CriticizeVo criticize)
 			throws Exception {
 		OnlineUser  ou = appBrowserService.getOnlineUserByReq(req);
-		criticize.setCreateTime(new Date());
+		//criticize.setCreateTime(new Date());
 		criticize.setUserId(ou.getId());
 		
 		if(criticize.getContent().length()>5000){

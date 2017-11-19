@@ -97,7 +97,7 @@ function initOrderList(status,downOrOn){
             		
                 		if(type==1){
                 			html+= "<img src="+liveTypeImg+" class='img_bg' />"+
-        					"<p class='indent_main_left_p02'>"+liveTypeOrState+"</p>";
+        					"<p class='indent_main_left_p02' style='margin-top: -0.1rem;'>"+liveTypeOrState+"</p>";
                 		}
 
     					if(onlineCourse==1){ //线下课程

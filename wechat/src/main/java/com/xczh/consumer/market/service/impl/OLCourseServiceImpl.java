@@ -228,8 +228,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		//少了一个视频id
 		//查课下所有知识点
 		if(courseLecturVo!=null){
-			 String videoId = wxcpCourseDao.getVideoFirst(course_id);
-			 courseLecturVo.setDirectId(videoId);
+			 Map<String,String> map = wxcpCourseDao.getVideoFirst(course_id);
+			 courseLecturVo.setChapterId(map.get("chapterId"));
+			 courseLecturVo.setDirectId(map.get("videoId"));
+			 courseLecturVo.setvId(map.get("vId"));
 		}
 		return courseLecturVo;
 	}

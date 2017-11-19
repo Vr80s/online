@@ -271,6 +271,24 @@ $(function(){
     .give_footer a{
     	color: #fff !important;
     }
+    .give_footer{
+    	border-top: 1px solid #e0e0e0;
+    }
+    .balance_send{
+    	width: 2.75rem;
+	    height: 1.1rem;
+	    line-height: 1.1rem;
+	    font-size: 0.5rem;
+	    margin-top: 0.05rem;
+    }
+    .fd_img_bg{
+	    width: 4.5rem;
+	    height: 4.525rem;
+	    position: absolute;
+	    bottom: 0;
+	    background: url(/xcviews/images/null13.png) no-repeat;
+	    background-size: 100% 100%;
+    }
 </style>
 
 <script>
@@ -350,7 +368,7 @@ $(function(){
 		$(".gift_ul_li li:first-child").click();
 		
 		
-		$(".give_lable1:eq(1)").click();
+		$(".give_lable1:eq(2)").click();
 		
 		
 		if($("#doc img").attr("src").length==0){
@@ -358,9 +376,7 @@ $(function(){
 		}else{
 			$(".pinch-zoom-container").css("display","block");
 			$(".fd_img").css("display","none");
-		}
-		
-		
+		}	
 	};
 </script>
 </head>
@@ -682,14 +698,12 @@ $(function(){
 	</div>
 	<!-- 排行榜结束 -->
 	<!-- 文档开始 -->
-	
 	<div class="document" style="margin-top: 0.47rem;">
 		<div class="fd_img">
-			<img src="/xcviews/images/null13.png" alt="" />
+			<div class="fd_img_bg"></div>
+			<!--<img src="/xcviews/images/null13.png" alt="" />-->
 			<p>主播还没有上传文档</p>
 		</div>
-
-		
 		<div class="document_ceneter" id="doc">
 			
 			<div class="both"></div>

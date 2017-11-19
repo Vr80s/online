@@ -341,6 +341,8 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		sql.append(" select course.id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
 		sql.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");
 		sql.append(" if(course.type is not null,1,if(course.multimedia_type=1,2,3)) as type, ");
+		sql.append(" course.live_status as  lineState, ");
+		
 		sql.append(" course.start_time as startTime,course.end_time as endTime,ou.name as teacherName,ou.id as userId, ");
 		sql.append(" course.smallimg_path as smallimgPath from oe_order_detail as de, ");
 		sql.append(" oe_course as course,oe_user as ou  where "
@@ -348,8 +350,9 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		Object params[] = {id};
 		List<OnlineCourse> list = this.query(JdbcUtil.getCurrentConnection(),
 				sql.toString(),new BeanListHandler<>(OnlineCourse.class),params);
+		
 		for (OnlineCourse onlineCourse : list) {
-			if(onlineCourse.getType() == 1){ //表示直播
+			/*if(onlineCourse.getType() == 1){ //表示直播
 				Date start = onlineCourse.getStartTime();
 				Date end = onlineCourse.getEndTime();
 				Date now = new Date();
@@ -364,7 +367,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 						onlineCourse.setLineState(2);
 					}
 				}
-			}
+			}*/
 		}
 		
 		

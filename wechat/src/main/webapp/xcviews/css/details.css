@@ -13,20 +13,23 @@
 }
 
 .give_footer a {
-	font-size: 0.8rem;
 	background: #00bc12;
-	/* padding: 0.15rem 0.5rem; */
 	border-radius: 60px;
 	color: #fff;
 	margin-right: 0.3rem;
 	position: absolute;
 	top: 0.32rem;
 	right: 1.5rem;
-	height: 1.2rem;
 	display: inline-block;
-	width: 4rem;
 	text-align: center;
 	line-height: 1.3rem;
+	width: 3.2rem;
+    height: 1.1rem;
+    font-size: 0.6rem;
+    line-height: 1.1rem;
+    font-size: 0.6rem;
+    float: right;
+    margin-right: 0.5rem;
 }
 
 .mCSB_inside>.mCSB_container {
@@ -149,7 +152,7 @@
 	/* border-radius: 6px 6px 3px 0px; */
 	width: 1.375rem;
 	height: 1.15rem;
-	background: url(/xcviews/images/jiantou02.jpg) no-repeat;
+	/*background: url(/xcviews/images/jiantou02.jpg) no-repeat;*/
 	background-size: 100% 100%;
 	right: 0.4rem;
 }
@@ -173,7 +176,7 @@
 }
 
 .give_footer_put {
-	width: 9.6rem;
+	width: 10.4rem;
 }
 
 .pay_a {
@@ -346,16 +349,15 @@ i {
 
 .details_size {
 	position: absolute;
-	bottom: 0rem;
-	min-width: 7.6rem;
-	font-size: 0.64rem;
-	color: #fff;
-	font-family: "微软雅黑";
-	text-indent: 0.4rem;
-	right: 0rem;
-	border-radius: 6px 0px 0px 6px;
-	margin-left: 0.4rem;
-	padding-right: 0.3rem;
+    bottom: -0.5rem;
+    min-width: 7.6rem;
+    font-size: 0.64rem;
+    color: #fff;
+    text-indent: 0.4rem;
+    right: 0.4rem;
+    border-radius: 6px 6px 6px 6px;
+    margin-left: 0.4rem;
+    padding-right: 0.3rem;
 }
 
 .details_footer_width ul li {

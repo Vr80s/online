@@ -47,6 +47,16 @@ public class CourseLecturVo implements Serializable {
     public String  directId;
     
     /**
+     * 章节id 
+     */
+    public String  chapterId;
+    
+    /**
+     * 视频 的 主键id 
+     */
+    public String  vId;
+    
+    /**
      * 直播开始时间
      */
     public Date startTime;
@@ -91,8 +101,6 @@ public class CourseLecturVo implements Serializable {
     //打赏数量
     private String rewardCount;
 
-
-    
     /**
      * 是否需要密码认证
      */
@@ -365,5 +373,21 @@ public class CourseLecturVo implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getChapterId() {
+		return chapterId;
+	}
+
+	public void setChapterId(String chapterId) {
+		this.chapterId = chapterId;
+	}
+
+	public String getvId() {
+		return vId;
+	}
+
+	public void setvId(String vId) {
+		this.vId = vId;
 	}
 }

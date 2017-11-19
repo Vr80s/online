@@ -138,8 +138,8 @@ window.onload=function(){
         '{{/each}}'
     var haoping = '<div class="good-reputation">' +
 		'<div class="good-reputation-count">' +
-		'<span>好评</span><span class="goodPing"></span>' +
-		'<span class="totalPeople">(<span class="totalCount"></span>条评论，<span class="haopingCount"></span>条好评)</span>' +
+
+		'<span class="totalPeople">(<span class="totalCount"></span>条评论)</span>' +
 		' </div> </div>';
 
 	var stuEvalutation = '<div class="studentEvaluate">' +
@@ -150,9 +150,7 @@ window.onload=function(){
 		'<span class="repuName" title="{{$value.userName}}">{{$value.userName}}</span>' +
 		'</div>' +
 		'<div class="good-detail-info">' +
-		'<div class="starts">' +
-		'{{#stuEvluatStars($value.starLevel)}}' +
-		'</div>' +
+
 		'<div class="reputationContent">{{$value.content}}</div>' +
 		'<div class="repuationRelatInfo clearfix">' +
 		'<div class="repuTime">时间：{{dataSub($value.createTime)}}</div>' +
