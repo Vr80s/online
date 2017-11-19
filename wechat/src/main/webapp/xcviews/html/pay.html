@@ -60,6 +60,33 @@
 	#deal_p{
 		margin-top: 52px;
 	}
+	
+	.buy_pay{
+		margin-bottom: 0.4rem;
+		margin-left: 0;
+	    width: 96%;
+	    font-size: 0.6remcolor: #333;
+	    font-size: 0.6rem;
+	    color: #333;
+	    line-height: 1.4rem;
+	}
+	.hot_zhibo{
+		padding-bottom: 0.2rem;
+	}
+	.buy_bottom ul li p{
+		margin-top: -0.15rem;
+	}
+	.zhibo{
+		
+	}
+	.buy_clause{
+		padding: 0;
+		height: 1.75rem;
+		line-height: 1.75rem;
+	}
+	/*.buy_clause span{
+		margin-top: 0;
+	}*/
 </style>
 </head>
 <body style="background:#efefef;">
@@ -94,25 +121,27 @@
 	<!-- 支付方式开始 -->
 	<div class="hot_zhibo buy">
 		<p style="color:#999;margin-bottom:0.7rem;">支付方式</p>
-		<div class="zhibo">
-			<div class="buy_pay buy_pay01">
-				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" />
+		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
+			<div class="buy_pay buy_pay02" id="zfbDiv" style="margin-left: 0;width: 96%;">支付宝
+				<img src="../images/pay01.png" alt="" class="buy_pay_img" style="width: 1.55rem;height: 1.275rem;" />
+				<span><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></span>
+			</div>
+		</div>
+		<div class="both"></div>
+		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
+			<div class="buy_pay buy_pay01" style="margin-left: 0;width: 96%;font-size: 0.6remcolor: #333;">
+				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" style="width: 1.425rem;height: 1.275rem;" />微信支付
 				<span>
 					<label class="label02"><input name="fruit" type="radio" value="1" class="buy_put" /></label>
 				</span>
 			</div>
 		</div>
-		<div class="zhibo">
-			<div class="buy_pay buy_pay02" id="zfbDiv">
-				<img src="../images/pay01.png" alt="" class="buy_pay_img" />
-				<span><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></span>
-			</div>
-		</div>
+		
 	</div>
 	<!-- 支付方式结束 -->
 
 	<!-- 同意条款开始 -->
-	<div class="buy_clause">
+	<div class="buy_clause"style="border-bottom: 1px solid #e5e5e5;border-top: 1px solid #e5e5e5;">
 		<span>
 			<label class="label1"><input name="xi" type="radio" value="cc" class="buy_put" checked="checked" /></label>
 		</span>
