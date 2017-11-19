@@ -218,17 +218,8 @@ public class GiftController {
 	@ResponseBody
 	@RequestMapping(value = "/userRankingList")
 	public ResponseObject userRankingList(HttpServletRequest req,
-<<<<<<< HEAD
 										  HttpServletResponse res,String userId) throws SQLException {
 
 		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
 	}
-
-=======
-									  HttpServletResponse res,String userId) throws SQLException {
-
-		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
-	}
->>>>>>> bae5c74e100a6e4ededc6185bd665ca9eea67cea
-
 }
