@@ -10,9 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.common.utils.cc.config.Config;
-import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -612,23 +609,23 @@ public class CourseController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "updateCourseVideoInfo", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseObject updateCourseVideoInfo(String id) {
-		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideoInfo(id));
-	}
+//	@RequestMapping(value = "updateCourseVideoInfo", method = RequestMethod.POST)
+//	@ResponseBody
+//	public ResponseObject updateCourseVideoInfo(String id) {
+//		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideoInfo(id));
+//	}
 	
 	/**
 	 * 同步CC视频分类
 	 * @return
 	 * @throws Exception 
 	 */
-	@RequestMapping(value = "updateCategoryInfo", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseObject updateCategoryInfo(String courseId) throws Exception {
-		courseService.updateCategoryInfo(courseId);
-		return ResponseObject.newSuccessResponseObject("操作成功！");
-	}
+//	@RequestMapping(value = "updateCategoryInfo", method = RequestMethod.POST)
+//	@ResponseBody
+//	public ResponseObject updateCategoryInfo(String courseId) throws Exception {
+//		courseService.updateCategoryInfo(courseId);
+//		return ResponseObject.newSuccessResponseObject("操作成功！");
+//	}
 	
 	 /**
      * 老师列表
@@ -686,45 +683,6 @@ public class CourseController extends AbstractController{
         return ResponseObject.newSuccessResponseObject(null);
     }
 
-
-	/**
-	 * 获得课程分类
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "getVideoCategory", method = RequestMethod.GET)
-	@ResponseBody
-	public String getVideoCategory() throws Exception{
-		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("format", "json");
-		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
-		long time = System.currentTimeMillis();
-		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
-		String responseStr = APIServiceFunction.HttpRetrieve(Config.api_category + "?" + requestURL);
-		return responseStr;
-	}
-	/**
-	 * 获得上传地址
-	 * @param req
-	 * @param title
-	 * @param description
-	 * @param tag
-	 * @param categoryid
-	 * @return
-	 */
-	@RequestMapping(value = "getUploadUrl", method = RequestMethod.GET)
-	@ResponseBody
-	public String getUploadUrl(HttpServletRequest req, String title, String description, String tag,
-							   String categoryid) {
-		Map<String,String> paramsMap = new HashMap<String,String>();
-		paramsMap.put("userid", OnlineConfig.CC_USER_ID);
-		paramsMap.put("title", title);
-		paramsMap.put("description", description);
-		paramsMap.put("tag", tag);
-		paramsMap.put("categoryid", categoryid);
-		long time = System.currentTimeMillis();
-		return  Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
-	}
 //	@RequestMapping(value = "initSend")
 //	@ResponseBody
 //	public String initSend(HttpServletRequest request) {
