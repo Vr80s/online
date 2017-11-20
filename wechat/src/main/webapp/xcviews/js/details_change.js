@@ -201,7 +201,7 @@ $(".give_bottom").hide();
 $(".send_img").css('right','3.2rem');
 }else{
 	//发送按钮
-$(".send_img").css('right','0.4rem');
+//$(".send_img").css('right','0.4rem');
     }
    
 	/* $("#sendChat").css('right','2.4rem'); */
