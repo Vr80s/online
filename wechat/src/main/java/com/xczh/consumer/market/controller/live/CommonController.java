@@ -134,7 +134,7 @@ public class CommonController {
              * 得到判断这个主播有没有正在直播的课程啦	
              */
 			Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
-			
+
 			//mapAll.put("giftAll", giftAll);           // 礼物数 
 			//mapAll.put("courseAll", courseAll);       // 课程数 
 			//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数

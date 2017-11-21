@@ -222,6 +222,4 @@ public class GiftController {
 
 		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
 	}
-
-
 }

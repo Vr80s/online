@@ -305,7 +305,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 */
 	public Map<String, Object> findUserRoomNumberById(String userId)
 			throws SQLException {
-		StringBuffer sql = new StringBuffer();  
+		StringBuffer sql = new StringBuffer();
 		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,occupation,occupation_other as occupationOther,");
 		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,individuality_signature as info ");
 		sql.append(" from oe_user where id = ?  ");

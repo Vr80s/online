@@ -97,7 +97,7 @@ $(function(){
 			'<p title="{{e.userName}}">{{e.userName}}</p>' +
 		'</div>' +
 		'<div class="videoBody-bottom-listRelease-right">' +
-
+			'<p class="releaseStar">{{#stars(e.starLevel)}}</p>' +
 			'<p class="releaseText" style="word-wrap: break-word;">{{e.content}}</p>' +
 			'<div class="releaseGood clearfix" data-criticizeId="{{e.id}}" data-isPraise="{{e.isPraise}}">' +
 			'<span class="releaseTime">{{removeSecond(e.createTime)}}</span>' +

@@ -836,7 +836,7 @@ function search(){
 	 var startTime=$("#s_startTime").val(); //开始时间
      var stopTime=$("#s_stopTime").val(); //结束时间
      var status=$("#search_status").val();
-     var title=$("#search_type").val();
+     var type=$("#search_type").val();
      var name=$("#search_courseName").val();
      
      
@@ -853,30 +853,15 @@ function search(){
     	 searchJson.push('{"tempMatchType":"8","propertyName":"status","propertyValue1":"' + status + '","tempType":"String"}');
      }
      
-     if(title!=null&&title!=""){
-         searchJson.push('{"tempMatchType":"9","propertyName":"title","propertyValue1":"' + title + '","tempType":"String"}');
+     if(type!=null&&type!=""){
+         searchJson.push('{"tempMatchType":"9","propertyName":"type","propertyValue1":"' + type + '","tempType":"String"}');
      }
      
      if(name!=null&&name!=""){
          searchJson.push('{"tempMatchType":"10","propertyName":"name","propertyValue1":"' + name + '","tempType":"String"}');
      }
-     
      searchButton(_courseTable,searchJson);
      searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-	
-	
-	
 };
 /**
  * 公开课管理显示

@@ -188,42 +188,6 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 		
 		return returnmap;
 	}
-
-	@Override
-	public Map<String, Object> getCCVideoInfo(Map<String, String> paramsMap) {
-		Map<String,Object> returnmap = new HashMap<String,Object>();
-
-		String src = "https://p.bokecc.com/flash/single/"+OnlineConfig.CC_USER_ID+"_"+paramsMap.get("videoid")+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1/player.swf";
-		String id = UUID.randomUUID().toString().replace("-", "");
-		String playCode = "";
-		playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-		playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-		playCode+="		width=\"100%\" ";
-		playCode+="		height=\"100%\" ";
-		playCode+="		id=\""+id+"\">";
-		playCode+="		<param name=\"movie\" value=\""+src+"\" />";
-		playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
-		playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
-		playCode+="		<param value=\"transparent\" name=\"wmode\" />";
-		playCode+="		<embed src=\""+src+"\" ";
-		playCode+="			width=\"100%\" height=\"100%\" name=\""+id+"\" allowFullScreen=\"true\" ";
-		playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-		playCode+="			type=\"application/x-shockwave-flash\"/> ";
-		playCode+="	</object>";
-
-		returnmap.put("playCode", playCode);
-
-		String title = "暂无";
-		List<Map<String, Object>> vs = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.queryForList("select `name` from oe_video where video_id='"+paramsMap.get("videoid")+"' ");
-		if (vs != null && vs.size() > 0) {
-			title = String.valueOf(vs.get(0).get("name"));
-		}
-
-		returnmap.put("title", title);
-
-		return returnmap;
-	}
 /*	
 	@Override
 	public Map<String,Object> getVideoInfo(Map<String, String> paramsMap) {

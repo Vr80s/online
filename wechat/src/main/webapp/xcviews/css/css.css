@@ -64,11 +64,11 @@ img{
 .dl{
 	width: 83%;
     margin: 0 auto;
-    /*font-size: 0.851rem;*/
-    font-size: 1rem;
+    font-size: 0.851rem;
+    /*font-size: 1rem;*/
     text-align: center;
     color: #333;
-    font-family: "汉仪全唐诗简";
+    /*font-family: "汉仪全唐诗简";*/
 }
 .last_input{
 	width: 85%;
@@ -77,11 +77,11 @@ img{
 	margin-top: 7.25rem;
 	font-size: 0.74rem;
 	color:#999;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .phone{
 	width: 100%;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.3rem;
     font-size: 0.55rem;
@@ -1063,9 +1063,11 @@ footer{
 }
 .hot_zhibo p{
 	font-size: 0.6rem;
-	color: #666;
-	margin-left: 0.4rem;
 	margin-bottom: 0.4rem;
+	color:#999;
+	border-bottom: 1px solid #e5e5e5;
+	padding-bottom: 0.4rem;
+	text-indent: 0.4rem;
 }
 
 /* 热门主播 */
@@ -1801,7 +1803,7 @@ footer{
 }
 .buy_pay sapn{
 	float: right;
-	margin-right:0.3rem;
+	margin-right:-0.2rem;
 }
 .buy_pay_img{
 	width: 4rem;
@@ -1816,7 +1818,7 @@ footer{
 }
 .buy_pay span{
 	float: right;
-    margin-right: 0.3rem;
+    margin-right: -0.2rem;
 }
 .buy_pay_size p{
 	font-size: 0.7rem;
@@ -1830,22 +1832,26 @@ footer{
 	float: right;
 	margin-top: 0.4rem;
 }
-
+.buy_pay span{
+	width: 0.9rem;
+	height: 0.9rem;
+    display: inline-grid;
+}
 .label01{
-	width: 2rem;
-    height: 2rem;
+	width: 0.9rem;
+    height: 0.9rem;
     background: url(../images/lable1.png);
     background-size: 100% 100%;
 }
 .label02{
-	width: 2rem;
-    height: 2rem;
+	width: 0.9rem;
+    height: 0.9rem;
     background: url(../images/lable1.png);
     background-size: 100% 100%;
 }
 .label1{
-	width: 2rem;
-    height: 2rem;
+	width: 0.9rem;
+	height: 0.9rem;
     background: url(../images/lable.png);
     background-size: 100% 100%;
 }
@@ -1859,14 +1865,20 @@ footer{
 .buy_clause{
 	width: 100%;
     background: #fff;
-    padding: 0.5rem 0;
-    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
+    height: 1.75rem;
+    line-height: 1.75rem;
 }
 .buy_clause span{
-	margin-left: 0.7rem;
+	width: 0.9rem;
+    height: 0.9rem;
+    display: inline-grid;
+    margin-top: 0.4rem;
     float: left;
-    margin-top: -0.2rem;
+    margin-left: 0.6rem;
     margin-right: 0.4rem;
+
 }
 .label03{
 	width: 2rem;
@@ -1875,12 +1887,11 @@ footer{
     background-size: 100% 100%;
 }
 .buy_clause_a{
-	font-size: 0.7rem;
-	font-family: "微软雅黑";
+	font-size: 0.6rem;
+	color: #999;
 }
 .buy_clause_a a{
-	color: #25abee;
-	font-family: "微软雅黑";
+	color: #00a7ff;
 }
 /*同意条款结束*/
 .foote_buy{
@@ -1919,6 +1930,7 @@ footer{
     display: inline-block;
     text-align: center;
     color: #f9f8ee;
+    font-size: 0.7rem;
 }
 /*购买课程结束*/
 
@@ -2150,7 +2162,7 @@ footer{
 	display:none;
 	color:#00bc12;
 	float: right;
-    margin-top: 0.2rem;
+    margin-top: -1.51rem;
 }
 .give_a1_span{
 	font-size:0.7rem;
@@ -2532,10 +2544,10 @@ footer{
 
 .import_hide{
 	width: 4rem;
-    height: 4.05rem;
+    height: 5.37rem;
     border: 1px solid #d2d2d2;
     position: absolute;
-    top: -4.6rem;
+    top: -5.8rem;
     left: -1.2rem;
     background: #fff;
     border-bottom: 0;
@@ -3056,7 +3068,7 @@ footer{
 	float: left;
 	font-size: 0.7rem;
 	color: #666;
-	margin-left: 0.4rem;
+	/*margin-left: 0.4rem;*/
 }
 .person_img{
 	width: 2rem;
@@ -3074,15 +3086,18 @@ footer{
 .person_cen{
 	width: 100%;
     background: #fff;
-    margin-top: 0.4rem;
     padding-bottom: 0.1rem;
 }
+.person_cen0{
+	width: 97%;
+    float: right;
+}
 .person_cen_top{
-	width: 95%;
+	width: 100%;
     margin: 0 auto;
     padding: 0.4rem 0;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 0.4rem;
+    border-bottom: 1px solid #e5e5e5;
+    /*margin-bottom: 0.4rem;*/
 }
 .person_p1{
 	float: left;
@@ -4182,7 +4197,7 @@ footer{
 	float: right;
     width: 3rem;
     text-align: right;
-    margin-right: 0.4rem;
+    margin-right: 0.6rem;
 }
 .my_right_img img{
 	width: 0.325rem;	
@@ -4342,8 +4357,11 @@ footer{
     border-radius: 6px;
     margin-right: 0.4rem;
     text-align: right;
-    width: 3rem;
-    height: 1.5rem;
+    
+    /*处理安卓好ios兼容添加padding*/
+    padding: 0.02rem 0.5rem;
+    /*width: 3rem;
+    height: 1.5rem;*/
     display: inline-block;
     text-align: center;
     float: right;
@@ -4804,7 +4822,7 @@ footer{
 	line-height: 2.125rem;
 	background: #fff;
 	margin-bottom: 0.025rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .deposit_expense_left{
 	float: left;
@@ -5156,14 +5174,15 @@ footer{
 }
 .system_div{
 	width: 100%;
-	height: 2.3rem;
-	line-height: 2.3rem;
-	border-bottom: 1px solid #e8e8e8;
-
+    height: 2.3rem;
+    line-height: 2.3rem;
+    border-bottom: 1px solid #e5e5e5;
+    width: 97%;
+    float: right;
 }
 .system_div_left{
 	float: left;
-	margin-left: 0.4rem;
+	/*margin-left: 0.4rem;*/
 }
 .system_div_right{
 	float: right;
@@ -5578,7 +5597,7 @@ footer{
 	top: 0;
 	width: 100%;
 	height: 6.725rem;
-	background: url(../images/toptub.jpg) no-repeat;
+	/*background: url(../images/toptub.jpg) no-repeat;*/
 	background-size: 100% 100%;
 	z-index: -1;
 }
@@ -5592,7 +5611,7 @@ footer{
 	width: 1.5rem;
     height: 1.85rem;
 	position: absolute;
-	top: 0.15rem;
+	top: 0rem;
 	left: 0.4rem;
 }
 .personal_img img{
@@ -5603,67 +5622,81 @@ footer{
 	width: 100%;
 	text-align: center;
 	font-size: 0.85rem;
-	color: #fff;
+	color: #333;
+	background: #fff;
 }
 /*报名详细信息结束*/
 /*报名详细信息cen开始*/
 .personal_main{
-	width: 15rem;
-	height: 21.9rem;
+	width: 100%;
+	/*height: 21.9rem;*/
 	background: #fff;
-	border-radius: 6px;
-	background: #fff;
+	/*border-radius: 6px;*/
+	/*background: red;*/
 	margin: 0 auto;
 	position: relative;
+	margin-top: 0.4rem;
+}
+.personal_main_cen{
+	width: 97%;
+    height: 100%;
+    /*background: blanchedalmond;*/
+    float: right;
 }
 .personal_main_one{
 	width: 100%;
-	height: 1.35rem;
-	line-height: 1.35rem;
-	margin-bottom: 0.75rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    /*background: red;*/
+    border-bottom: 1px solid #e5e5e5;
 }
 .personal_main_size{
 	width: 3.5rem;
-	font-size: 0.55rem;
-	color: #333;
-	font-family: "微软雅黑"; 
-	float: left;
-	text-align: right;
-	margin-right: 0.5rem;
+    font-size: 0.6rem;
+    color: #333;
+   	float: left;
+    text-align: left;
+    margin-right: 0.5rem;
 }
 .personal_main_put input{
-	width: 8.9rem;
-	height: 1.35rem;
-	font-size: 0.55rem;
-	color: #999;
-	border-radius: 6px;
-	border: 1px solid #ccc;
-	outline: none;
-	text-indent: 0.4rem;
-	font-family: "微软雅黑"; 
+	width: 10.9rem;
+    height: 1.8rem;
+    font-size: 0.6rem;
+    color: #999;outline: none;
+    text-indent: 0.4rem;
+    text-align: right;
+    float: right;
+    margin-right: 0.4rem;
+	border: none;
+    border: 0;
 }
 .personal_main_two{
 	width: 100%;
-	height: 1.35rem;
-	line-height: 1.35rem;
-	margin-bottom: 0.75rem;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	/*margin-bottom: 0.75rem;*/
+	border-bottom: 1px solid #e5e5e5;
 }
 .personal_main_radio{
 	width: 100%;
-	height: 1.35rem;
+	border-bottom: 1px solid #e5e5e5;
 }
 .personal_main_radio_one{
 	float: left;
 	width: 1.5rem;
-	height: 0.85rem;
-	line-height: 1.5rem;
-	margin-right: 0.6rem;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	margin-right: 0.4rem;
+	float: right;
+	
 }
 .personal_main_radio_two{
 	float: left;
 	width: 1.5rem;
-	height: 0.85rem;
-	line-height: 1.5rem;
+	height: 1.8rem;
+	line-height: 1.8rem;
+	float: right;
+	margin-right: 0.5rem;
 }
 .personal_main_radio_one_size{
 	font-size: 0.55rem;
@@ -5701,10 +5734,29 @@ footer{
 	color: #fff;
 	text-align: center;
 	background: #00bc12;
-	position: absolute;
-	bottom: 0;
+	/*position: absolute;*/
+	margin-top: 1.6rem;
 	border-radius: 0px 0px 6px 6px;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
+}
+.personal_main0{
+	width: 100%;
+    background: #fff;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 0.4rem;
+}
+.personal_main0_cen{
+	width: 97%;
+    height: 100%;
+    float: right;
+}
+.personal_main0_btn{
+	font-size: 0.55rem;
+	color: #ff6767;
+	width: 100%;
+	text-align: center;
+	margin-top: 0.6rem;
 }
 /*报名详细信息cen结束*/
 /*报名成功头部开始*/

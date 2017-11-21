@@ -99,10 +99,13 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 	 		paramMap.put("status", liveExamineInfoVo.getExamineStatus());
 	 		sql.append(" and le.examine_status = :status ");
 	 	}
-	 	/*if(liveExamineInfoVo.getType() != null){
-	 		paramMap.put("type", liveExamineInfoVo.getMenuId());
-	 		sql.append(" and le.type = :type ");
-	 	}*/
+	 	
+	 	
+	 	if(liveExamineInfoVo.getType() != null){
+	 		paramMap.put("type", liveExamineInfoVo.getType());
+	 		sql.append(" and le.see_mode = :type ");
+	 	}
+	 	
 	 	if(liveExamineInfoVo.getLecturerName() != null){
 	 		paramMap.put("title", "%"+liveExamineInfoVo.getLecturerName()+"%" );
 	 		paramMap.put("gradeName", "%" +liveExamineInfoVo.getLecturerName()+"%");

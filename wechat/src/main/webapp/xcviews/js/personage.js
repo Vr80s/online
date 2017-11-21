@@ -258,7 +258,7 @@ function userIndexStatisticsInfo(){
 		 if(stringnull(mapLiveState.status) && mapLiveState.status == 1){
 			 $(".personage_top_cen_in").attr("id",mapLiveState.id);
 		 }else{
-			 //$(".personage_top_cen_img").hide(); 
+			 $(".personage_top_cen_img").hide(); 
 		 }
 		 /**
 		  * 是否关注

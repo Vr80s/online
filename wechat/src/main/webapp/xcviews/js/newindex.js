@@ -176,7 +176,7 @@ function onlineCourse(type){
 							}else if(course.lineState == 1){
 								samll +="<div class='public1_img_bg'><div class='public1_img_bg_color'></div><span>直播预告"+course.startTime.substring(0,10)+"</span></div>";
 							}else if(course.lineState == 2){
-								samll +="<div class='public1_img'><img src='/xcviews/images/tv.png' alt=''><span>直播中</span></div>";
+								samll +="<div class='public1_img'><img src='/xcviews/images/tv0.png' alt=''><span>直播中</span></div>";
 							}
 					    	str+=samll;
 					    }

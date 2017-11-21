@@ -80,6 +80,11 @@ public class ExamineCourseController {
 		Groups groups = Tools.filterGroup(params);
 
 		
+/*		[{"tempMatchType":undefined,"propertyName":undefined,"propertyValue1":"s_startTime","tempType":undefined},
+		 {"tempMatchType":undefined,"propertyName":undefined,"propertyValue1":"s_stopTime","tempType":undefined},
+		 {"tempMatchType":undefined,"propertyName":search_type,"propertyValue1":"0","tempType":undefined},
+		 {"tempMatchType":"9","propertyName":"title","propertyValue1":"0","tempType":"String"}]*/
+		
 		LiveExamineInfoVo liveExamineInfoVo = new LiveExamineInfoVo();
 		Group startTime = groups.findByName("startTime");
 		if (startTime != null) {
@@ -93,10 +98,11 @@ public class ExamineCourseController {
 		if (status != null) {
 			liveExamineInfoVo.setExamineStatus(status.getPropertyValue1().toString());
 		}
-/*		Group title = groups.findByName("title");
-		if (title != null) {
-			liveExamineInfoVo.setType((title.getPropertyValue1().toString()));
-		}*/
+		
+		Group type = groups.findByName("type");
+		if (type != null) {
+			liveExamineInfoVo.setType((type.getPropertyValue1().toString()));
+		}
 		Group name = groups.findByName("name");
 		if (name != null) {
 			liveExamineInfoVo.setLecturerName((name.getPropertyValue1().toString()));

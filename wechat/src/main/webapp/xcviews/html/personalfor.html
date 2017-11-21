@@ -118,73 +118,113 @@
 		}
 
 	</script>
-
+	<style type="text/css">
+		.personal_main_radio{
+			    width: 100%;
+		    height: 1.8rem;
+		    line-height: 1.8rem;
+		}
+	</style>
 </head>
 
-<body style="background:#ddd;">
+<body style="background:#f0f0f0;">
 	<div class="personal_top_bg"></div>
 	<!-- 报名详细信息头部开始 -->
 	<div class="personal">
-		<div class="personal_img"><img src="../images/left.png" alt="" /></div>
+		<div class="personal_img"><img src="../images/return.png" alt="" /></div>
 		<div class="personal_title">报名详细信息</div>
 	</div>
 	<!-- 报名详细信息头部结束 -->
 	<!-- 报名详细信息cen开始 -->
 	<div class="personal_main">
-		<div class="personal_main_one" style="padding-top: 1.15rem;">
-			<div class="personal_main_size">微信号</div>
-			<div class="personal_main_put"><input id="wechatNo" type="text" placeholder="(必填) 请输入您的微信号" /></div>
-		</div>
-		<div class="personal_main_one">
-			<div class="personal_main_size">身份证号</div>
-			<div class="personal_main_put"><input id="idCardNo" type="text" placeholder="(必填) 请输入本人身份证号" /></div>
-		</div>
-		<div class="personal_main_one">
-			<div class="personal_main_size"> QQ号</div>
-			<div class="personal_main_put"><input id="qq"  type="text" placeholder="您的QQ号" /></div>
-		</div>
-		<div class="personal_main_one">
-			<div class="personal_main_size">邮箱</div>
-			<div class="personal_main_put"><input id="email"  type="text" placeholder="联系邮箱" /></div>
-		</div>
-		<div class="personal_main_two">
-			<div class="personal_main_size">性别</div>
-			<div class="personal_main_radio">
-				<div class="personal_main_radio_one">
-					<div class="personal_main_radio_one_boy"><input type="radio" name="sex" value="1" checked></div>
-					<div class="personal_main_radio_one_size">男</div>
-				</div>
-				<div class="personal_main_radio_two">
-					<div class="personal_main_radio_one_nike"><input type="radio" name="sex" value="0"></div>
-					<div class="personal_main_radio_two_size">女</div>
-				</div>
-				
+		<div class="personal_main_cen">
+			<div class="personal_main_one">
+				<div class="personal_main_size">微信号</div>
+				<div class="personal_main_put"><input id="wechatNo" type="text" placeholder="(必填) 请输入您的微信号" /></div>
 			</div>
-		</div>
-		<div class="personal_main_one">
-			<div class="personal_main_size">职业</div>
-			<div class="personal_main_put"><input id="occupation"  type="text" placeholder="请输入您的职业" /></div>
-		</div>
-		<div class="personal_main_two">
-			<div class="personal_main_size">是否首次参加</div>
-			<div class="personal_main_radio">
-				<div class="personal_main_radio_one">
-					<div class="personal_main_radio_one_boy"><input type="radio" name="isFirst" value="1" checked></div>
-					<div class="personal_main_radio_one_size">是</div>
-				</div>
-				<div class="personal_main_radio_two">
-					<div class="personal_main_radio_one_nike"><input type="radio" name="isFirst" value="0"></div>
-					<div class="personal_main_radio_two_size">否</div>
-				</div>
-				
+			<div class="both"></div>
+			<div class="personal_main_one">
+				<div class="personal_main_size">身份证号</div>
+				<div class="personal_main_put"><input id="idCardNo" type="text" placeholder="(必填) 请输入本人身份证号" /></div>
 			</div>
+			<div class="both"></div>
+			
+			<!--<div class="personal_main_one">
+				<div class="personal_main_size"> QQ号</div>
+				<div class="personal_main_put"><input id="qq"  type="text" placeholder="您的QQ号" /></div>
+			</div>  //新版ui没有添加QQ号
+			<div class="both"></div>-->
+			
+			<div class="personal_main_one">
+				<div class="personal_main_size">邮箱</div>
+				<div class="personal_main_put"><input id="email"  type="text" placeholder="联系邮箱" /></div>
+			</div>
+			<div class="both"></div>
+			
+			<div class="personal_main_two">
+				<div class="personal_main_size">性别</div>
+				<div class="personal_main_radio">
+					<div class="personal_main_radio_one">
+						<div class="personal_main_radio_one_boy"><input type="radio" name="sex" value="1" checked></div>
+						<div class="personal_main_radio_one_size">男</div>
+					</div>
+					<div class="personal_main_radio_two">
+						<div class="personal_main_radio_one_nike"><input type="radio" name="sex" value="0"></div>
+						<div class="personal_main_radio_two_size">女</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="both"></div>
+			
+			<div class="personal_main_one">
+				<div class="personal_main_size">职业</div>
+				<div class="personal_main_put"><input id="occupation"  type="text" placeholder="请输入您的职业" /></div>
+			</div>
+			<div class="both"></div>
+			<div class="personal_main_one">
+				<div class="personal_main_size">邮寄地址</div>
+				<div class="personal_main_put"><input id="occupation"  type="text" placeholder="请输入您的职业" /></div>
+			</div>
+			<div class="both"></div>
+			
+			<textarea type="text" placeholder="请输入详细地址" id="detailed_address" style="text-align: left;font-size:0.65rem;width: 100%;float: right;height: 3rem;border: 0;outline: none;resize: none;margin-top: 0.5rem;font-size: 0.65rem;color: #999;background: #fff;"></textarea>
+			<div class="both"></div>
+			
+			
+			
 		</div>
-		<div class="personal_main_one">
-			<div class="personal_main_size">课程介绍人</div>
-			<div class="personal_main_put"><input id="referee"  type="text" placeholder="如果有请填写" /></div>
-		</div>
-		<div class="personal_main_btn" onclick="sub()">提交</div>
+		<div class="both"></div>
 	</div>
+	<div class="both"></div>
+	<div class="personal_main0">
+		<div class="personal_main0_cen">
+			<div class="personal_main_two">
+				<div class="personal_main_size" style="width: 3.8rem;">是否首次参加</div>
+				<div class="personal_main_radio">
+					<div class="personal_main_radio_one">
+						<div class="personal_main_radio_one_boy"><input type="radio" name="isFirst" value="1" checked></div>
+						<div class="personal_main_radio_one_size">是</div>
+					</div>
+					<div class="personal_main_radio_two">
+						<div class="personal_main_radio_one_nike"><input type="radio" name="isFirst" value="0"></div>
+						<div class="personal_main_radio_two_size">否</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="both"></div>
+			
+			<div class="personal_main_one">
+				<div class="personal_main_size">课程介绍人</div>
+				<div class="personal_main_put"><input id="referee"  type="text" placeholder="如果有请填写" /></div>
+			</div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<div class="both"></div>
+	<div class="personal_main_btn" onclick="sub()">提交</div>
+	<div class="personal_main0_btn">请正确填写相关信息，以便我们与您取得联系。</div>
 	<!-- 报名详细信息cen结束 -->
 
 </body>

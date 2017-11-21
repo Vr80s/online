@@ -51,6 +51,14 @@
 		    height: 2.08rem;
 		    margin-top: -0.22rem;
 		}
+		.buy_pay{
+			margin-bottom: 0.4rem;
+			margin-left: 0;
+		    width: 96%;
+		    font-size: 0.6rem;
+		    color: #333;
+		    line-height: 1.4rem;
+		}
 	</style>
 
 </head>
@@ -86,20 +94,22 @@
 	<!-- 支付方式开始 -->
 	<div class="hot_zhibo buy">
 		<p style="color:#999;margin-bottom:0.7rem;">支付方式</p>
-		<div class="zhibo">
-			<div class="buy_pay">
-				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" />
+		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
+			<div class="buy_pay buy_pay02" id="zfbDiv" style="margin-left: 0;width: 96%;">支付宝
+				<img src="../images/pay01.png" alt="" class="buy_pay_img" style="width: 1.55rem;height: 1.275rem;">
+				<span><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put"></label></span>
+			</div>
+		</div>
+		<div class="both"></div>
+		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
+			<div class="buy_pay buy_pay01" style="margin-left: 0;width: 96%;font-size: 0.6remcolor: #333;">
+				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" style="width: 1.425rem;height: 1.275rem;">微信支付
 				<span>
-					<label class="label02"><input name="fruit" type="radio" value="1" class="buy_put" /></label>
+					<label class="label02 label1"><input name="fruit" type="radio" value="1" class="buy_put"></label>
 				</span>
 			</div>
 		</div>
-		<div class="zhibo">
-			<div class="buy_pay" id="zfbDiv">
-				<img src="../images/pay01.png" alt="" class="buy_pay_img" />
-				<sapn><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></sapn>
-			</div>
-		</div>
+		
 	</div>
 	<!-- 支付方式结束 -->
 

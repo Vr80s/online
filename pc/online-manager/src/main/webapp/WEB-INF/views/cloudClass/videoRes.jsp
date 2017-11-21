@@ -66,7 +66,7 @@
 <link href="${base}/js/layer/skin/layer.css" type="text/css" />
 <script type="text/javascript">
 	//视频上传
-	swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '80', '25', '8');
+	/* swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '80', '25', '8');
 	swfobj.addVariable("progress_interval" , 1);	//	上传进度通知间隔时长（单位：s）
 	var ccCallbackUrl = '${ccCallbackUrl}';
 	if(ccCallbackUrl && ccCallbackUrl != 'xxx'){
@@ -75,7 +75,7 @@
 	swfobj.addParam('allowFullscreen','true');
 	swfobj.addParam('allowScriptAccess','always');
 	swfobj.addParam('wmode','transparent');
-	swfobj.write('swfDiv');
+	swfobj.write('swfDiv'); */
 </script>
 <div class="page-header">
 		<div class="row">
@@ -115,12 +115,12 @@
 		<div style="width: 81%; float: right">
 
 			<p  class="col-xs-7" style="padding: 0;">
-				<button class="btn btn-sm btn-success async_video_button" title="同步CC视频">
+				<!-- <button class="btn btn-sm btn-success async_video_button" title="同步CC视频">
 					<i class="glyphicon glyphicon-plus"></i> 同步CC视频
 				</button>
 				<button class="btn btn-sm btn-success async_category_button" title="同步CC分类">
 					<i class="glyphicon glyphicon-plus"></i> 同步CC分类
-				</button>
+				</button> -->
 				<button style="display: none;" class="btn btn-sm btn-success add_bx add_video_button" title="新增视频">
 						<i class="glyphicon glyphicon-plus"></i> 新增视频
 				</button>
@@ -264,8 +264,9 @@
 		<form class="form-horizontal" id="addVideo-form"  method="post" action="">
 			<input type="hidden" value="${courseId}" name="courseId" id="addcourseName" />
 			<input type="hidden"  name="chapterId" id="addchapterId" />
-			<input type="hidden" name="videoId" id="addvideoId">
-			<div class="form-group fla_btn">
+			<!-- <input type="hidden" name="videoId" id="addvideoId"> -->
+			<!-- 视频更换为微吼，注释掉cc视频相关  20170720---yuruixin-->
+			<!-- <div class="form-group fla_btn">
 				<label class="col-sm-3 control-label no-padding-right"  for="addVideoSize">视频文件:</label>
 				<div class="col-sm-6">
 					<table>
@@ -280,16 +281,16 @@
 						</tr>
 					</table>
 				</div>
-			</div>
-
+			</div> -->
+			
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addname"><font color="red">*</font>视频名称: </label>
 				<div class="col-sm-6">
 					<input type="text" name="name"  id="addname" class="col-xs-10 col-sm-12 {required:true,minlength:0,maxlength:100}">
 				</div>
 			</div>
-
-			<!--
+			
+			<!-- 
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addVideoTime">时长: </label>
 				<div class="col-sm-6">
@@ -297,27 +298,32 @@
 				</div>
 			</div>
 			 -->
-
+			 <div class="form-group" style="margin-top: 18px;">
+				<label class="col-sm-3 control-label no-padding-right" for="editvideoId"><font color="red">*</font>视频ID: </label>
+				<div class="col-sm-6">
+					<input type="text" name="videoId"  class="col-xs-10 col-sm-12">
+				</div>
+			</div>
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addvideoVersion"><font color="red">*</font>版本: </label>
 				<div class="col-sm-6">
 					<input type="text" placeholder="输入格式：V1.0" value="V1.0" name="videoVersion" id="addvideoVersion" class="col-xs-10 col-sm-12 {required:true,minlength:1,maxlength:20}">
 				</div>
 			</div>
-
-			<%--<div class="form-group" style="margin-top: 18px;">
+			
+			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addVideoSize">视频大小: </label>
 				<div class="col-sm-6">
-					<input type="text" placeholder="选择视频文件后自动生成" name="videoSize" id="addVideoSize" class="col-xs-10 col-sm-12 {maxlength:20}" readonly="readonly"  readonly="readonly">
+					<input type="text" placeholder="" name="videoSize" id="addVideoSize" class="col-xs-10 col-sm-12 {maxlength:20}">
 				</div>
-			</div>--%>
+			</div>
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addVideoSize">是否设为试看: </label>
 				<div class="col-sm-6">
 					<input type="checkbox" style="margin-top: 10px;cursor: pointer;"  name="isTryLearn" id="addisTryLearn" ><p style="margin-top: -15px;margin-left:18px;"><label for="addisTryLearn" style="cursor: pointer;">是</label> </p>
 				</div>
 			</div>
-			<div class="form-group" style="margin-top: 18px;">
+			<!-- <div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="addVideoSize">CC视频分类: </label>
 				<div class="col-sm-6">
 					<select name="category" id="category"></select>
@@ -329,14 +335,14 @@
 				<div class="col-sm-6">
 					<input style="border: none;width:360px;" type="text" id="uploadProgress" class="col-xs-10 col-sm-12">
 				</div>
-			</div>
+			</div> -->
 		</form>
 	</div>
-
+	
 	<div id="dialogEditVideoDiv"></div>
 	<div id="editVideoDialog" class="hide">
 		<form class="form-horizontal" id="editVideo-form"  method="post" action="">
-
+			
 			<input type="hidden"  name="id" id="editId" />
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="editname"><font color="red">*</font>注意: </label>
@@ -344,18 +350,18 @@
 					<input style="border: none;color: red;" type="text" class="col-xs-10 col-sm-12" value="新视频上传30分钟后才可以修改！">
 				</div>
 			</div>
-
+			
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="editname"><font color="red">*</font>视频名称: </label>
 				<div class="col-sm-6">
 					<input type="text" name="name"  id="editname" class="col-xs-10 col-sm-12 {required:true,minlength:0,maxlength:50}">
 				</div>
 			</div>
-
+			
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" for="editvideoId"><font color="red">*</font>视频ID: </label>
 				<div class="col-sm-6">
-					<input type="text" name="videoId" id="editvideoId" class="col-xs-10 col-sm-12" readonly="readonly">
+					<input type="text" name="videoId" id="editvideoId" class="col-xs-10 col-sm-12">
 				</div>
 			</div>
 			<div class="form-group" style="margin-top: 18px;">
@@ -364,20 +370,20 @@
 					<input type="text" placeholder="输入格式：V1.0" name="videoVersion" id="editvideoVersion" class="col-xs-10 col-sm-12 {required:true,minlength:1,maxlength:20}">
 				</div>
 			</div>
-
-			<%--<div class="form-group" style="margin-top: 18px;">
+			
+			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" >视频大小: </label>
 				<div class="col-sm-6">
-					<input type="text" name="videoSize" id="editVideoSize" class="col-xs-10 col-sm-12" readonly="readonly">
+					<input type="text" name="videoSize" id="editVideoSize" class="col-xs-10 col-sm-12" >
 				</div>
-			</div>--%>
-
+			</div>
+			
 			<div class="form-group" style="margin-top: 18px;">
 				<label class="col-sm-3 control-label no-padding-right" >是否设为试看: </label>
 				<div class="col-sm-6">
 					<input type="checkbox" style="margin-top: 10px;cursor: pointer;"  name="isTryLearn" id="editisTryLearn" ><p style="margin-top: -15px;margin-left:18px;"><label for="editisTryLearn" style="cursor: pointer;">是</label> </p>
 				</div>
-
+				
 			</div>
 		</form>
 	</div>
