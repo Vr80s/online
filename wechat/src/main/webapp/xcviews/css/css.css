@@ -296,7 +296,7 @@ header{
     height: 1.9rem;
     line-height: 1.9rem;
     /*padding-top: 0.1rem;*/
-    font-size: 0.95rem;
+    font-size: 0.851rem;
 }
 .home_img_right{
 	width: 0.875rem;
@@ -3177,12 +3177,13 @@ footer{
     margin-right: 0.2rem;
 }
 .pet_name_put{
-	width: 95%;
+	width: 98%;
 	height: 1.5rem;
 	margin: 0 auto;
 	margin-top: 1rem;
-	border-bottom: 1px solid #d2d2d2;
+	border-bottom: 1px solid #e5e5e5;
     padding-bottom: 0.2rem;
+    float: right;
 }
 .pet_name_put input{
 	width: 100%;
@@ -3193,7 +3194,7 @@ footer{
 	color: #000;
 }
 .pet_name_bot{
-	width: 90%;
+	width: 95%;
 	margin: 0 auto;
 	margin-top: 0.5rem;
 	font-size: 0.6rem;
@@ -3371,12 +3372,13 @@ footer{
     margin-right: 0.4rem;
 }
 .mailbox_put{
-	width: 95%;
+	width: 98%;
 	height: 1.5rem;
 	margin: 0 auto;
 	margin-top: 1rem;
 	border-bottom: 1px solid #d2d2d2;
     padding-bottom: 0.2rem;
+    float: right;
 }
 .mailbox_put input{
 	width: 100%;
@@ -3453,7 +3455,7 @@ footer{
 	line-height: 2.05rem;
 	background: #fff;
 	margin-top: 0.4rem;
-	font-size: 0.75rem;
+	font-size: 0.7rem;
 	color: #666;
 	text-indent: 0.4rem;
 	margin-bottom: 0.2rem;
@@ -3469,7 +3471,7 @@ footer{
 	font-size: 0.55rem;
 	color: #999;
 	width: 62%;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 /*修改密码结束*/
 /* 更换手机号开始 */
@@ -4979,10 +4981,11 @@ footer{
 	font-size: 0.45rem;
 	padding-top: 1.1rem;
     margin-bottom: 0.3rem;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
 }
 .convert_bg{
-	width: 14.1rem;
+	width: 100%;
+	/*width: 14.1rem;*/
 	/* width: 14.35rem; */
 	height: 1.5rem;
 	background: url(/xcviews/images/ban.png) no-repeat;
@@ -5001,7 +5004,7 @@ footer{
 	line-height: 1.5rem;
     text-align: center;
     font-size: 0.6rem;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
 }
 .convert_border02{
 	width: 49%;
@@ -5286,7 +5289,7 @@ footer{
 	border-radius: 6px;
 	resize:none;
 	text-indent: 1rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	font-size: 0.6rem;
 	color: #666;
     letter-spacing: 0.1rem;
@@ -5297,7 +5300,7 @@ footer{
 	width: 100%;
 	height: 100%;
 	background: #fff;
-	margin-top: 2rem;
+	margin-top: 2.25rem;
 }
 .regards_logro{
 	width: 4.9rem;
@@ -5313,7 +5316,7 @@ footer{
 	width: 100%;
 	font-size: 0.6rem;
 	color: #000;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	text-align: center;
 	margin-bottom: 2.75rem;
 }
@@ -5322,7 +5325,7 @@ footer{
 	height: 2.25rem;
 	line-height: 2.25rem;
 	font-size: 0.7rem;
-	border-top: 1px solid #dbdbdb;
+	border-top: 1px solid #e5e5e5;
 }
 .regards_authority{
 	float: left;
@@ -5331,7 +5334,7 @@ footer{
 .regards_official{
 	float: right;
 	margin-right: 0.4rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .regards_bot{
 	width: 100%;
