@@ -191,11 +191,13 @@
 			                    
 			                   <td>
 			                       <div class="profile-info-value searchTr">
-			                            <select name="search_status" id="search_type" value="" class="propertyValue1" >
+			                            <select name="search_type" id="search_type" value="" class="propertyValue1" >
 						               		    <option value="">观看方式</option>
-						                        <option value="0">收费</option>
-						                        <option value="1">密码</option>
-						                        <option value="2">免费</option>
+						                        <option value="0">免费</option>
+						                        <option value="1">收费</option>
+						                        <option value="2">密码</option>
+						                        
+						                        <!-- 观看方式 0公开 1 收费 2 密码 -->
 						               </select>
 			                            <input type="hidden" value="search_type" class="propertyName"/>
 			                        </div>

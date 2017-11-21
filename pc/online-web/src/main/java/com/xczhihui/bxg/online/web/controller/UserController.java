@@ -29,6 +29,7 @@ import com.xczhihui.user.center.web.utils.CookieUtil;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -76,6 +77,9 @@ public class UserController extends OnlineBaseController {
 
 	@Autowired
 	private UserCenterAPI api;
+
+	@Value("${domain}")
+	private String domain;
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
@@ -243,7 +247,7 @@ public class UserController extends OnlineBaseController {
 				req.getSession().setAttribute("_token_", token);
 				req.getSession().setAttribute("_user_", user);
 				UCCookieUtil.writeTokenCookie(res, token);
-				CookieUtil.setCookie(res, "first_login", "1", "ixincheng.com", "/", 10);;
+			CookieUtil.setCookie(res, "first_login", "1", domain, "/", 10);;
 				//活动统计
 				String cok = CookieUtil.getCookieValue(req, "act_code_from");
 				if (cok != null && !"".equals(cok)) {

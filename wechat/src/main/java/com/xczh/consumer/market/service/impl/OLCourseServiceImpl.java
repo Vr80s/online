@@ -285,8 +285,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		System.out.println(sql.toString());
 
 
-
-
 		CourseLecturVo courseLecturVo = wxcpCourseDao.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 		/**
 		 * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播

@@ -27,9 +27,9 @@ $(function(){
 	           /* { "title": "序号", "class":"center","width":"5%","sortable":false,"data": 'options' },*/
 	            { "title": "视频名称", "class":"center","width":"8%","sortable":false,"data": 'name' },
 	            { "title": "视频ID", "class":"center","width":"8%","sortable":false,"data": 'videoId' },
-	            { "title": "视频时长", "class":"center","width":"6%","sortable":false,"data": 'videoTime' },
+	            //{ "title": "视频时长", "class":"center","sortable":false,"data": 'videoTime' },
 	            { "title": "版本", "class":"center","width":"5%","sortable":false,"data":'videoVersion'},
-		        // { "title": "视频大小", "class":"center","width":"6%","sortable":false,"data": 'videoSize' },
+		        { "title": "视频大小", "class":"center","width":"6%","sortable":false,"data": 'videoSize' },
 		        { "title": "状态", "class":"center","width":"5%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 					return row.status=="1"?"已启用":"已禁用";
 					}

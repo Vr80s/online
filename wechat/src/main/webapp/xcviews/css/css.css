@@ -1063,9 +1063,11 @@ footer{
 }
 .hot_zhibo p{
 	font-size: 0.6rem;
-	color: #666;
-	margin-left: 0.4rem;
 	margin-bottom: 0.4rem;
+	color:#999;
+	border-bottom: 1px solid #e5e5e5;
+	padding-bottom: 0.4rem;
+	text-indent: 0.4rem;
 }
 
 /* 热门主播 */
@@ -1801,7 +1803,7 @@ footer{
 }
 .buy_pay sapn{
 	float: right;
-	margin-right:0.3rem;
+	margin-right:-0.2rem;
 }
 .buy_pay_img{
 	width: 4rem;
@@ -1816,7 +1818,7 @@ footer{
 }
 .buy_pay span{
 	float: right;
-    margin-right: 0.3rem;
+    margin-right: -0.2rem;
 }
 .buy_pay_size p{
 	font-size: 0.7rem;
@@ -1928,7 +1930,7 @@ footer{
     display: inline-block;
     text-align: center;
     color: #f9f8ee;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
 }
 /*购买课程结束*/
 
@@ -2160,7 +2162,7 @@ footer{
 	display:none;
 	color:#00bc12;
 	float: right;
-    margin-top: 0.2rem;
+    margin-top: -1.51rem;
 }
 .give_a1_span{
 	font-size:0.7rem;
@@ -2542,10 +2544,10 @@ footer{
 
 .import_hide{
 	width: 4rem;
-    height: 4.05rem;
+    height: 5.37rem;
     border: 1px solid #d2d2d2;
     position: absolute;
-    top: -4.6rem;
+    top: -5.8rem;
     left: -1.2rem;
     background: #fff;
     border-bottom: 0;

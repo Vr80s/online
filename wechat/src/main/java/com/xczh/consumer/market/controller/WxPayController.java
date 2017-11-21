@@ -552,7 +552,7 @@ public class WxPayController {
 			res.getWriter().write(e.getMessage());
 		}
 	}
-
+	
 	/**
 	 * 
 	 * 1、需要在写一个来判断这个微信信息是否包含了手机号。
