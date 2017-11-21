@@ -1,5 +1,7 @@
 package com.xczh.consumer.market.service;
 
+import java.sql.SQLException;
+
 import com.xczh.consumer.market.vo.VersionInfoVo;
 
 /**
@@ -10,6 +12,9 @@ public interface VersionService {
 
 
     VersionInfoVo getNewVersion();
+
+	void insertTipOff(String content, String courseId, String label,
+			String teacherId, String userId, String imgStrs) throws SQLException;
 
 
 

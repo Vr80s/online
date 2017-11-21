@@ -245,6 +245,10 @@
 </style>    
 </head>
 <body style="background:#efefef;">
+
+<form action="/bxg/version/addTipOff" method="post" onsubmit = "return checkUser();" id="formid"
+		enctype="multipart/form-data"  style="margin-top:0.36rem;"">
+		
 	<div class="attention_top" style="border: none;">
 		<div class="attention_left" id="grabble_img" onclick="history.go(-1)"><div class="return"></div></div>
 		
@@ -258,7 +262,7 @@
 		<div class="complaint_details">
 			<div class="complaint_details_cen">
 				<div class="complaint_details_div">我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>
-				<div class="complaint_details_img"><img src="../images/list_img.png"/></div>
+				<div class="complaint_details_img"><img id="complaint_details_img_img" src="../images/list_img.png"/></div>
 			</div>
 		</div>
 	</div>
@@ -267,7 +271,7 @@
 		<div class="description_title">投诉描述</div>
 		
 		<div class="description_textarea">
-			<textarea name="" rows="" cols=""></textarea>
+			<textarea name="" rows="" id="contentId" cols=""></textarea>
 			<div class="description_size">最多可写200字</div>
 		</div>
 		<div class="both"></div>
@@ -298,7 +302,10 @@
 		<div class="both"></div>
 	</div>
 	
-	<div class="btn">提交</div>
+	<div class="btn" onclick = "checkUser();">提交</div>
+</form>	
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
 </body>
  <script type="text/javascript">
         //px转换为rem
@@ -316,8 +323,8 @@
 //              };
 
             if (!doc.addEventListener) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false);
+           /*  win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false); */
         })(document, window);
 
         function imgChange(obj1, obj2) {
@@ -332,6 +339,7 @@
             var imgArr = [];
             //遍历获取到得图片文件
             for (var i = 0; i < fileList.length; i++) {
+            	//alert(fileList.length)
                 var imgUrl = window.URL.createObjectURL(file.files[i]);
                 imgArr.push(imgUrl);
                 var img = document.createElement("img");
@@ -340,6 +348,21 @@
                 imgAdd.setAttribute("class", "z_addImg");
                 imgAdd.appendChild(img);
                 imgContainer.appendChild(imgAdd);
+                
+                /* var input = document.createElement("input");
+                input = file;
+                //<input type="file" name="files" id="file" value="" accept="image/*" multiple onchange="imgChange('z_photo','z_file');" />
+                input.setAttribute("type", "file");
+                input.setAttribute("name", "files");
+                input.removeAttribute("onchange");
+                input.removeAttribute("id"); */
+                //input.setAttribute("style","display:none");
+                var a = $("#file").clone();
+                a.attr("id","");
+                a.attr("onchange","");
+                a.css("display","none");
+                a.attr("name", "files");
+                $(imgAdd).append(a);
             };
             imgRemove();
         };
@@ -360,11 +383,54 @@
                     sure.onclick = function() {
                         mask.style.display = "none";
                         t.style.display = "none";
+                        
+                        $(t).find("input").remove(); 
                     };
 
                 }
             };
         };
-
+        
+        var label = getQueryString("label");
+        var courseId = sessionStorage.getItem("tipOffCourseId");
+        
+        if(stringnull(courseId)){
+        	requestService("/bxg/common/shareJump",{courseId : courseId}, function(data) {
+    			if (data.success) {
+    				 var result = data.resultObject;
+    				 // gradeName,smallimg_path as smallImgPath   
+    				 $(".complaint_details_div").html(result.gradeName);
+    				 $("#complaint_details_img_img").html(result.smallImgPath);
+    			}
+            },false)
+        }
+        
+        
+       //表单验证
+       function checkUser(){
+    	   if(!stringnull(courseId)){
+    		   alert("课程有误,请稍后重试!");
+    		   return;
+    	   }
+    	   if(!stringnull(label)){
+    		   alert("举报标签有误!");
+    		   return;
+           } 
+    	   var content = $("#contentId").val();
+    	   if(content.trim().length>200){
+    		   alert("举报内容不能大于于200字");
+    		   return;
+    	   }
+    	   var imgLength = $("input[name=files]").length;
+    	   if(imgLength>4 ){
+    		   alert("上传的图片不能大于4张");
+    		   return;
+    	   }
+    	   if(imgLength==0 ){
+    		   alert("至少上传一张图片");
+    		   return;
+    	   }
+    	   document.getElementById("formid").submit();
+       } 
     </script>
 </html>

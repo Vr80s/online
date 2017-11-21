@@ -7,10 +7,12 @@ import com.xczh.consumer.market.dao.BasicSimpleDao;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.vo.VersionInfoVo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,4 +39,16 @@ public class VersionServiceImpl implements VersionService {
         }
         return null;
     }
+
+
+	@Override
+	public void insertTipOff(String content, String courseId, String label,
+			String teacherId, String userId, String imgStrs) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "insert into oe_tip_off (content,course_id,label,user_id,img_evidence,teacher_id,insert_time) "
+				+ " values (?,?,?,?,?,?,?) ";
+		Object params[] = { content, courseId, label,
+				userId, imgStrs,teacherId,new Date()};
+		basicSimpleDao.update(JdbcUtil.getCurrentConnection(), sql, params);
+	}
 }
