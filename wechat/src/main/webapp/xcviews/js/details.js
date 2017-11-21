@@ -447,7 +447,7 @@ function refreshGiftRanking(){
 	                    	html+="<span>"+pName+"</span>";
 	                    } 
 	               html+="</div>\n" +
-	                    "<div class='leaderboard_center'>\n" +
+	                    "<div class='leaderboard_center' title="+list[i].userId+" >\n" +
 	                    "<img src='"+list[i].smallHeadPhoto+"' alt='' />\n" +
 	                    "<div class='leaderboard_center_size'>\n" +
 	                    "<p class='p1'>"+list[i].name+"</p>\n" +
@@ -464,6 +464,14 @@ function refreshGiftRanking(){
 	            }
 	            /*html+="<div style="height:5rem;"></div>";*/
 	            $("#phbList").html(html);
+	            
+	            /**
+	             * 点击查看
+	             */
+	            $(".leaderboard_center").click(function(){
+	            	var teacherId = $(this).attr("title");
+	            	location.href = "/xcviews/html/personage.html?lecturerId="+teacherId;
+	            })
 	    }
 	},false);
 	
