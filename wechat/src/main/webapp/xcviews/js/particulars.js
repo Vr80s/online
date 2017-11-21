@@ -231,6 +231,7 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
      * 如果videoId不存在的时候，需要显示视频正在来的路上
      */
     if(!stringnull(videoId)){
+    	$("#no_video").text("视频正在赶来的路上");
     	$(".no_video").show();
     	$(".li1").click(function(){
     		$(".opc").show();
