@@ -46,6 +46,7 @@
             //如果已结束就禁止报名
             /* 点击线下课程出现的弹框，测试提出bug，就给隐藏掉了。*/
 
+			//获取电脑屏幕时间
               requestService("/bxg/common/getSystemTime",{course_id : 1},
                     function(data) {
                   var serverTime=data;

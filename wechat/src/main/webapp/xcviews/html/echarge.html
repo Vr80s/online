@@ -145,7 +145,7 @@
 	<!-- 中间内容开始 -->
 	<div class="echarge">
 		<div class="echarge_top">
-			<div class="echarge_img"><img src="../images/touxiang.png" /></div>
+			<div class="echarge_img"><img src="../images/touxiang.png" id="smallHeadPhoto" /></div>
 			<div class="echarge_size">
 				<div class="echarge_left">账户：<span id="name"></span></div>
 				<div class="both"></div>
@@ -205,7 +205,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="hot_zhibo buy">
+	<!--<div class="hot_zhibo buy">
 		<p style="color:#999;">选择支付方式</p>
 		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
 			<div class="buy_pay buy_pay02" id="zfbDiv" style="margin-left: 0;width: 96%;">支付宝
@@ -223,7 +223,7 @@
 			</div>
 		</div>
 		
-	</div>
+	</div>-->
 	<!--中间内容结束 -->
 	
 	<!-- 底部开始 -->
@@ -319,7 +319,7 @@ var payType=1;
                             location.href = "wechat_alipay_chongzhi.html?actualPay="+$("#payprice").html();
                             return;
                         }
-                        jmpPayPage("/bxg/alipay/rechargePay",payType,"actualPay="+$("#payprice").html());
+                        jmpPayPage("/bxg/alipay/rechargePay",payType,"actualPay="+$("#payprice").html(),null);
 
 
         }else{
@@ -347,5 +347,20 @@ var payType=1;
             $("#xmbCount").html(result);
         }
 	},false)
+	
+	
+	
+	function init(){
+    //添加头像
+    requestService("/bxg/focus/myHome",  {userId : localStorage.userId}, function(data) {
+        var result = data.resultObject;
+        $("#countFans").html(result.countFans);
+        $("#countFocus").html(result.countFocus);
+        $("#xmbCount").html(result.xmbCount);
+        //这一期暂时不显示房间号
+        $("#name").html(result.user.name);
+        $("#smallHeadPhoto").attr("src",result.user.smallHeadPhoto);
+    },false);
+}
 </script>
 </html>
