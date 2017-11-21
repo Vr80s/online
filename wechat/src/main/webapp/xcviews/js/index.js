@@ -121,7 +121,7 @@ function requestLiveList(downOrOn) {
 
 								liveHtml0 += "<div class='home_list1'>";
 								
-								liveHtml0 += "<div class='broadcast1'><img  src='/xcviews/images/tv.png' alt='' /><span>直播中</span></div>";
+								liveHtml0 += "<div class='broadcast1'><img  src='/xcviews/images/tv0.png' alt='' /><span>直播中</span></div>";
 								liveHtml0 += "<img class='course_img' name="+live.id+" ' id="+live.lineState+" src='"
 										+ live.smallImgPath
 										+ "'  onclick='courseDetails(" + JSON.stringify(live)

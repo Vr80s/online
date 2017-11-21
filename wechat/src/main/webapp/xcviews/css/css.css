@@ -3067,7 +3067,7 @@ footer{
 	margin-right: 0.4rem;
 }
 #clist li:last-child{
-	border: 0;
+	/*border: 0;*/
 }
 
 /*消费记录结束*/
@@ -3367,7 +3367,7 @@ footer{
     display: inline-block;
     float: right;
     margin-right: 0.02rem;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-right: 0.4rem;
 }
 .mailbox_put{
