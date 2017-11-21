@@ -78,7 +78,9 @@
         $("#udescription").html(result.udescription);
         //
         $("#details").text(result.description);
-        $("#date").html(formatDateTime(result.startTime)+"-"+formatDateTime(result.endTime).substr(5));
+        //$("#date").html(formatDateTime(result.startTime)+"-"+formatDateTime(result.endTime).substr(5));
+        $("#date").html( result.startTime.split(" ")[0].replace(/-/g, ".")+"-"+result.endTime.split(" ")[0].substr(5,10).replace(/-/g, "."));
+       
      },false);
    
 
