@@ -464,13 +464,13 @@ function firstAjax(type,typeName) {
                 $odiv.append('<li data-number="' + item.menuId + '"  data-type="' + item.courseTypeId + '">' + item.name + '</li>');
             }
         });
-        var param = {
-    		pageSize: 8,
-            pageNumber: 1,
-            type : type,
-            typeName : typeName
-        };
-        secondAjax(0, 0, param);
+//      var param = {
+//  		pageSize: 8,
+//          pageNumber: 1,
+//          type : type,
+//          typeName : typeName
+//      };
+//      secondAjax(0, 0, param);
         //给一级导航绑定单击事件
         $container.find("li").on('click', function (e) {
 //      	$("html,body").scrollTop($("#main").offset().top);
@@ -492,6 +492,11 @@ function firstAjax(type,typeName) {
                 typeName : typeName
             }
             secondAjax($(this).attr("data-number"), $(this).attr("data-type"), param);
+            
+            console.log($(this).attr("data-number"))
+            menuId = $(this).attr("data-number");
+            getData(menuId,1);
+//          fenye()
             //			} else {
             //			}
         })
@@ -533,7 +538,7 @@ function secondAjax(i, a, param) {
                 $(".not-data").remove();
                 $("#log"+param.typeName+" .pages").css({"display": "block", "text-align": "right"});
                 $("#log"+param.typeName+" .pages .searchPage .allPage").text(data.resultObject.totalPageCount);
-                if (data.resultObject.currentPage == 1) {
+                if (data.resultObject.currentPage == 1&&data.resultObject.pageSize==4) {
                     $("#Pagination").pagination(data.resultObject.totalPageCount, {
                         callback: function (page) { //翻页功能
                         	console.log(page);
@@ -572,6 +577,7 @@ function secondAjax(i, a, param) {
                     typeName : typeName
                 }
                 secondAjax($target.attr("data-number"), $target.attr("data-type"), param);
+				
             } else {
                 return false;
             }
@@ -617,3 +623,116 @@ function addSelectedMenu(){
 	$(".home").addClass("select");
 }
 
+//中医学习部分的数据请求
+// RequestService("/course/getPageCourseByMenuId", "GET", {
+// 	menuId: 0,
+//  couseTypeId: 0,
+//  pageNumber: 1,
+//  pageSize: 8,
+//  type: 1
+// },function(data){
+// 	console.log(data);
+// 	
+// })
+
+
+window.pageNum = 1;
+window.menuId = 0;
+getData(menuId,pageNum)
+function fenye(currentPage,numberOfPages,totalPages){
+			if(numberOfPages>5){
+				numberOfPages = 5;
+			}
+			//分页结构结合数据渲染部分
+			$('.zhongyi .pagination').bootstrapPaginator({
+	            /*通过参数配置功能*/
+	            /*Bootstrap 是2.X 使用div元素，3.X使用ul元素*/
+	            bootstrapMajorVersion:3,
+	            /*显示小的分页按钮*/
+	            size:'small',
+	            /*当前页码*/
+	            currentPage:currentPage,
+	            /*显示多少个按钮*/
+	            numberOfPages:numberOfPages,
+	            /*一共有多少页*/
+	            totalPages:totalPages,
+	            /*绑定点击事件*/
+	            onPageClicked:function (event, originalEvent, type,page) {
+	                console.log(page)    
+	                /*page  当前点击的页面*/
+	                window.pageNumber = page;
+	                //点击分页部分控制数据请求
+	                getData(menuId,pageNumber)
+	            }
+	        });
+		}
+//
+function getData(menuId,pageNumber){
+			//请求消费记录数据
+			RequestService("/course/getPageCourseByMenuId?menuId="+menuId+"&couseTypeId=0&pageNumber="+pageNumber+"&pageSize=8&type=1", "get", null, function(data) {
+				console.log(data)
+				if(data.resultObject.totalPageCount==0){
+					$('.zhongyi .pagination').css({'display':'none'});
+				}else{
+					$('.zhongyi .pagination').css({'display':'block'});
+					//渲染到页面中
+//					 $("#xfjl").html(template("list1",{item:data.resultObject.items}));
+					 str = strcourse;
+					  $("#content_zyxx").html(template.compile(str)({
+                		item: data.resultObject.items
+            			}));
+					//每次请求完数据就去渲染分页部分
+					fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
+					
+				}
+			})
+		}
+
+window.pageNum2 = 1;
+getData2(pageNum2)
+function fenye2(currentPage,numberOfPages,totalPages){
+			if(numberOfPages>5){
+				numberOfPages = 5;
+			}
+			//分页结构结合数据渲染部分
+			$('.peixun .pagination').bootstrapPaginator({
+	            /*通过参数配置功能*/
+	            /*Bootstrap 是2.X 使用div元素，3.X使用ul元素*/
+	            bootstrapMajorVersion:3,
+	            /*显示小的分页按钮*/
+	            size:'small',
+	            /*当前页码*/
+	            currentPage:currentPage,
+	            /*显示多少个按钮*/
+	            numberOfPages:numberOfPages,
+	            /*一共有多少页*/
+	            totalPages:totalPages,
+	            /*绑定点击事件*/
+	            onPageClicked:function (event, originalEvent, type,page) {
+	                console.log(page)    
+	                /*page  当前点击的页面*/
+	                window.pageNumber2 = page;
+	                //点击分页部分控制数据请求
+	                getData2(pageNumber2)
+	            }
+	        });
+		}
+function getData2(pageNumber){
+			//请求消费记录数据
+			RequestService("/course/getPageCourseByMenuId?menuId=0&couseTypeId=4&pageNumber="+pageNumber+"&pageSize=4&type=4", "get", null, function(data) {
+				console.log(data)
+				if(data.resultObject.totalPageCount==0){
+					$('.peixun .pagination').css({'display':'none'});
+				}else{
+					//渲染到页面中
+//					 $("#xfjl").html(template("list1",{item:data.resultObject.items}));
+					 str = strcourse_xxpxb;
+					  $("#content_xxpxb").html(template.compile(str)({
+                		item: data.resultObject.items
+            			}));
+					//每次请求完数据就去渲染分页部分
+					fenye2(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
+					
+				}
+			})
+		}
