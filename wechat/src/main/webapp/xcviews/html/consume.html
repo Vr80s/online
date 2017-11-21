@@ -50,9 +50,6 @@
 			font-size: 0.7rem;
 		}
 		.consume_right01{
-			
-		}
-		.consume_right01{
 			float: right;
 		    margin-right: 0.4rem;
 		    font-size: 0.7rem;
@@ -76,7 +73,7 @@
 		<div class="attention_center">
 		<div class="non_payment_null1"></div>
 			<ul id="clist">
-				
+				<div class="both"></div>
 			</ul>
 		</div>
 	</div>
@@ -95,11 +92,13 @@
             var result = data.resultObject;
             var html="";
             for(var i=0;i<result.length;i++){
-                html+="<li onclick=goItem('"+returnstring(result[i].outTradeNo)+"')><div class='consume_li'>"+
+                html+="<li onclick=goItem('"+returnstring(result[i].outTradeNo)+"')><div class='consume_li0'><div class='consume_li'>"+
                 "<p class='consume_p1'>"+returnstring(result[i].subject)+"</p>"+
                 "<p class='consume_p2'>"+returnstring(result[i].gmtCreate)+"</p>"+
-                "</div><div class='consume_right xc_myaccount' style='margin-top: 0.6rem;'>-"+returnstring(result[i].totalAmount)+"</div>"+
-                "<div class='consume_right01'>现金</div><div class='both'></div></li>";
+                "</div><div class='consume_right xc_myaccount'>-"+returnstring(result[i].totalAmount)+"元</div></div>"+
+                "<div class='both'></div>"+
+                "</li>"+
+                "<div class='both'></div>";
 			}
             if(html!=''){    
             	$('.non_payment_null1').remove();

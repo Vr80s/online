@@ -55,16 +55,16 @@
 		.detail{
 			margin-top: 2.2rem;
 		}
-		.detail_top p{
+		/*.detail_top p{
 			font-size: 0.7rem;
 		}
 		.detail_cen p{
 			font-size: 0.7rem;
-		}
+		}*/
 	
 		.attention_right{
-			font-size: 0.7rem;
-    		margin-top: 0.8rem;
+			/*font-size: 0.7rem;*/
+    		/*margin-top: 0.8rem;*/
 		}
 	</style>
 </head>
@@ -132,9 +132,9 @@ function giftList(downOrOn){
  					"<p class='attention_p1'>"+returnstring(obj.giftName)+"<span></span></p>"+
  						"<p class='attention_p2'>"+returnstring(obj.createTime)+"&nbsp;&nbsp;</p>"+
  					"</div>"+
- 					"<div class='attention_right'>"+returnstring(obj.count)+"</div>"+
+ 					"<div class='attention_right'>+"+returnstring(obj.count)+"熊猫币</div>"+
  					"<div class='both'></div>"+
- 					"<div class='attention_right' style='margin-top:-1.3rem;'>"+returnstring(obj.name)+"</div>"+
+// 	ui新图隐藏名字				"<div class='attention_right' style='margin-top:-1.3rem;'>"+returnstring(obj.name)+"</div>"+
  					"<div class='both'></div>"+
  				"</li>";
             	odiv.innerHTML = liveHtml0;

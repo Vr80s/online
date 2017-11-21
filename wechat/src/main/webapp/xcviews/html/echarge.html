@@ -30,7 +30,7 @@
                 for(i=0;i<aBtn.length;i++){
                     $(aBtn[i]).removeClass('echarge_click_one_bg');
                     $(aBtn[i]).addClass('echarge_click_one');
-                    $(aBtn[i]).find('.echarge_click_one_size1').css('color','#00bc12');
+                    $(aBtn[i]).find('.echarge_click_one_size1').css('color','#333');
                     $(aBtn[i]).find('.echarge_click_one_size2').css('color','#999');
                 }
                 $(this).removeClass('echarge_click_one');
@@ -43,7 +43,7 @@
                 $(".echarge_click_two_show").hide();
             })
         }
-        $(aBtn[0]).click();
+        $(aBtn[1]).click();
 
 
 
@@ -55,12 +55,29 @@
 
             $('.echarge_click').find(".echarge_div").removeClass('echarge_click_one_bg');
             $('.echarge_click').find(".echarge_div").addClass('echarge_click_one');
-            $('.echarge_click_one_size1').css('color','#999');
+            $('.echarge_click_one_size1').css('color','#333');
             $('.echarge_click_one_size1').css('margin-top','0.3rem');
             $('.echarge_click_one_size2').css('margin-top','0.3rem');
             $('.echarge_click_one_size2').css('color','#999');
 
         });
+        
+        
+        /*打赏支付*/
+        $(".buy_pay02").click(function(){
+	  		$(".label01").addClass('label1');
+	  		$(".label02").removeClass('label1');
+  		});
+  		$(".buy_pay01").click(function(){
+	  		$(".label02").addClass('label1');
+	  		$(".label01").removeClass('label1');
+  		});
+  		$(".buy_pay01").click();
+  		
+  		$(".label03").click(function(){
+	  		$(this).addClass('label1');
+	  		$(this).removeClass('label03');
+  		});
 
     };
 </script>
@@ -70,17 +87,51 @@
 	    height: 1.875rem;
 	    width: 1.5rem;
 	}
-	.echarge_right{
-		width: 7rem;
-	    overflow: hidden;
-	    text-overflow: ellipsis;
-	    white-space: nowrap;
-	    text-align: right;
+	.echarge_left{
+		margin-top: 0.25rem;
+    	margin-bottom: 0.5rem;
+	}
+		.deal_show {
+	    position: absolute;
+	    top: 0;
+	    z-index: 9999999;
+	    background: #fff;
+	}
+	#deal_p{
+		margin-top: 52px;
+	}
+	.buy_pay{
+		margin-bottom: 0.4rem;
+		margin-left: 0;
+	    width: 96%;
+	    font-size: 0.6rem;
+	    color: #333;
+	    line-height: 1.4rem;
+	}
+	.hot_zhibo{
+		padding-bottom: 0.2rem;
+	}
+	.buy_bottom ul li p{
+		margin-top: -0.15rem;
+	}
+	.buy_clause{
+		padding: 0;
+		height: 1.75rem;
+		line-height: 1.75rem;
+	}
+	.label1 {
+	    width: 0.9rem;
+	    height: 0.9rem;
+	    background: url(../images/lable01.png);
+	    background-size: 100% 100%;
+	}
+	.buy {
+	    margin-top: 0.4rem;
 	}
 </style>
 </head>
 <body style="background:#efefef;">
-	<div class="attention_top" style="border: none;">
+	<div class="attention_top">
 		<div class="attention_left" id="grabble_img" onclick="history.go(-1)"><div class="return"></div></div>
 		
 		<div class="dl" style="padding-top1: 0.2rem;">充值</div>
@@ -91,44 +142,47 @@
 	<!-- 中间内容开始 -->
 	<div class="echarge">
 		<div class="echarge_top">
+			<div class="echarge_img"><img src="../images/touxiang.png" /></div>
 			<div class="echarge_size">
-				<div class="echarge_left">充值账号：&nbsp;<span id="name"></span></div>
-				<div class="echarge_right">余额&nbsp;&nbsp;<span id="xmbCount"></span></div>
+				<div class="echarge_left">账户：<span id="name"></span></div>
+				<div class="both"></div>
+				<div class="echarge_right">余额：<span id="xmbCount" style="color: #333;"></span>熊猫币</div>
 			</div>
 			<div class="both"></div>
-			<div class="echarge_size">
+			<!--新ui隐藏-->
+			<!--<div class="echarge_size">
 				<div class="echarge_left">支付方式：&nbsp;微信</div>
 			</div>
-			<div class="both"></div>
-			<div class="echarge_size">
+			<div class="both"></div>-->
+			<!--<div class="echarge_size">
 				<div class="echarge_left">充值数量：&nbsp;10熊猫币=1元</div>
-			</div>
+			</div>-->
 		</div>
 	</div>
 	<div class="echarge_radio">
 		<div class="echarge_click">
 			<div class="echarge_click_one echarge_div" onclick="ch(10)">
 				<p class="echarge_click_one_size1">100熊猫币</p>
-				<p class="echarge_click_one_size2">¥10元</p>
+				<p class="echarge_click_one_size2">10元</p>
 			</div>
 			<div class="echarge_click_one echarge_div" onclick="ch(50)">
 				<p class="echarge_click_one_size1">500熊猫币</p>
-				<p class="echarge_click_one_size2">¥50元</p>
+				<p class="echarge_click_one_size2">50元</p>
 			</div>
 			<div class="echarge_click_one echarge_div" onclick="ch(100)">
 				<p class="echarge_click_one_size1">1000熊猫币</p>
-				<p class="echarge_click_one_size2">¥100元</p>
+				<p class="echarge_click_one_size2">100元</p>
 			</div>
 			
 			<div class="echarge_click_one echarge_div" onclick="ch(500)">
 				<p class="echarge_click_one_size1">5000熊猫币</p>
-				<p class="echarge_click_one_size2">¥500元</p>
+				<p class="echarge_click_one_size2">500元</p>
 			</div>
 			<div class="echarge_click_one echarge_div" onclick="ch(1000)">
 				<p class="echarge_click_one_size1">10000熊猫币</p>
-				<p class="echarge_click_one_size2">¥1000元</p>
+				<p class="echarge_click_one_size2">1000元</p>
 			</div>
-			<div class="echarge_click_one echarge_div" onclick="ch(5000)">
+			<!--<div class="echarge_click_one echarge_div" onclick="ch(5000)">
 				<p class="echarge_click_one_size1">50000熊猫币</p>
 				<p class="echarge_click_one_size2">¥5000元</p>
 			</div>
@@ -139,7 +193,7 @@
 			<div class="echarge_click_one echarge_div" onclick="ch(50000)">
 				<p class="echarge_click_one_size1">500000熊猫币</p>
 				<p class="echarge_click_one_size2">¥50000元</p>
-			</div>
+			</div>-->
 			<div class="echarge_click_two" onclick="ch(0)">
 				<p class="echarge_click_one_size3">其他数量</p>
 				<div class="echarge_click_two_show">
@@ -148,6 +202,24 @@
 			</div>
 		</div>
 	</div>
+	<div class="hot_zhibo buy">
+		<p style="color:#999;">选择支付方式</p>
+		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
+			<div class="buy_pay buy_pay02" id="zfbDiv" style="margin-left: 0;width: 96%;">支付宝
+				<img src="../images/pay01.png" alt="" class="buy_pay_img" style="width: 1.55rem;height: 1.275rem;">
+				<span><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put"></label></span>
+			</div>
+		</div>
+		<div class="both"></div>
+		<div class="zhibo" style="width: 97%;border-bottom: 0;margin-right: 0;margin-bottom: 0rem;">
+			<div class="buy_pay buy_pay01" style="margin-left: 0;width: 96%;margin-bottom: 0.2rem;">
+				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" style="width: 1.425rem;height: 1.275rem;">微信支付
+				<span>
+					<label class="label02 label1"><input name="fruit" type="radio" value="1" class="buy_put"></label>
+				</span>
+			</div>
+		</div>
+		
 	</div>
 	<!--中间内容结束 -->
 	
@@ -244,7 +316,7 @@ var payType=1;
                             location.href = "wechat_alipay_chongzhi.html?actualPay="+$("#payprice").html();
                             return;
                         }
-                        jmpPayPage("/bxg/alipay/rechargePay",payType,"actualPay="+$("#payprice").html(),null);
+                        jmpPayPage("/bxg/alipay/rechargePay",payType,"actualPay="+$("#payprice").html());
 
 
         }else{
