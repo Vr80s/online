@@ -54,7 +54,7 @@
 		.detail{
 			margin-top: 2.2rem;
 		}
-		.detail_top p{
+		/*.detail_top p{
 			font-size: 0.7rem;
 		}
 		.detail_cen p{
@@ -63,7 +63,7 @@
 	    .attention_right{
 			font-size: 0.7rem;
     		margin-top: 0.8rem;
-		}
+		}*/
 	</style>
 </head>
 
@@ -83,7 +83,7 @@
 		</div>
 		
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-			  <div class="mui-scroll"  style="margin-top:2rem;">
+			  <div class="mui-scroll"  style="margin-top:1.75rem;">
 			     <div class="attention_center" style="margin-top:0.5rem;">
 					<ul>
 					 <div id="attention_center">
@@ -138,9 +138,9 @@
      					"<p class='attention_p1'>打赏<span></span></p>"+
      						"<p class='attention_p2'>"+returnstring(obj.createTime)+"&nbsp;&nbsp;</p>"+
      					"</div>"+
-     					"<div class='attention_right'>"+returnstring(obj.price)+"</div>"+
+						"<div class='attention_right'>+"+returnstring(obj.price)+"元</div>"+
      					"<div class='both'></div>"+
-     					"<div class='attention_right' style='margin-top:-1.3rem;'>"+returnstring(obj.name)+"</div>"+
+ //   新ui隐藏	    					"<div class='attention_right' style='margin-top:-1.3rem;'>"+returnstring(obj.name)+"</div>"+
      					"<div class='both'></div>"+
      				"</li>";
                 	odiv.innerHTML = liveHtml0;

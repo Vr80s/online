@@ -22,15 +22,28 @@
 <script type="text/javascript" src="../js/common/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
 		$(document).ready(function(){
-			$(".label01").click(function(){
-		  		$(this).addClass('label1');
-		  		$(".label02").removeClass('label1');
-	  		});
-	  		$(".label02").click(function(){
-		  		$(this).addClass('label1');
-		  		$(".label01").removeClass('label1');
-	  		});
-	  		$(".label02").click();
+		
+			//最初点击选择支付
+			//$(".label01").click(function(){
+		  		//$(".label01").addClass('label1');
+		  		//$(".label02").removeClass('label1');
+	  		//});
+	  		//$(".label02").click(function(){
+		  		//$(".label02").addClass('label1');
+		  		//$(".label01").removeClass('label1');
+	  		//});
+	  		//$(".label02").click();
+	  		$(".zhibo0").click(function(){
+                $(".label01").addClass('label1');
+                $(".label02").removeClass('label1');
+            });
+            $(".zhibo1").click(function(){
+                $(".label02").addClass('label1');
+                $(".label01").removeClass('label1');
+            });
+            $(".zhibo1").click();
+	  		
+	  		
 	  		
 	  		$(".label03").click(function(){
 		  		$(this).addClass('label1');
@@ -58,10 +71,11 @@
 		    color: #333;
 		    line-height: 1.4rem;
 		}
-		.buy_pay sapn {
+		.buy_pay span {
 		    width: 0.9rem;
 		    height: 0.9rem;
 		    display: inline-grid;
+		    margin-top: 0.25rem;
 		}
 	</style>
 
@@ -85,14 +99,14 @@
 	<!-- 支付方式开始 -->
 	<div class="hot_zhibo buy">
 		<p style="color:#999;border-bottom: 1px solid #e5e5e5;padding-bottom: 0.4rem;text-indent: 0.4rem;">选择支付方式</p>
-		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
+		<div class="zhibo zhibo0" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
 			<div class="buy_pay" id="zfbDiv">支付宝
 				<img src="../images/pay01.png" alt="" class="buy_pay_img" style="width: 1.55rem;height: 1.275rem;" />
-				<sapn><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></sapn>
+				<span><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></span>
 			</div>
 		</div>
 		
-		<div class="zhibo" style="width: 97%;border-bottom: 0;margin-right: 0;margin-bottom: 0.2rem;">
+		<div class="zhibo zhibo1" style="width: 97%;border-bottom: 0;margin-right: 0;margin-bottom: 0.2rem;">
 			<div class="buy_pay" style="margin-bottom: 0.2rem;">微信支付
 				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" style="width: 1.425rem;height: 1.275rem;" />
 				<span>

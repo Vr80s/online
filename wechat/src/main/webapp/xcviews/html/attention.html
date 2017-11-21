@@ -73,6 +73,7 @@
 		  <div class="mui-scroll">
 			<div class="attention_center" style="margin-top:0.25rem;">
 				<ul id="clist">
+					<div class="both"></div>
 				</ul>
 			</div>
 	  	 </div>
@@ -149,8 +150,8 @@
                     }else if(isFocus==2){
                         focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"'>互相关注</span>";
                     }
-                    html+="<li class='userIndex' title='"+result[i].lecturerId+"'  ><div class='attention_li'><img src='"+result[i].lecturerHeadImg+"'  />"+
-                    "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li>"
+                    html+="<li class='userIndex' title='"+result[i].lecturerId+"'  ><div class='attention_li'><img src='"+result[i].lecturerHeadImg+"'/>"+
+                    "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li></div><div class='both'>"
 
                     odiv.innerHTML = html;
 					content.appendChild(odiv);

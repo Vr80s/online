@@ -37,7 +37,7 @@
 		background-size:100% 100%;
 	}
 	.attention_right{
-		font-size: 1rem;
+		font-size: 0.7rem;
 		width: 7rem;
 	    text-align: right;
 	    overflow: hidden;
@@ -59,13 +59,13 @@
 	<div class="attention">
 		<div class="attention_top">
 			<div class="return" onclick="history.go(-1)"></div>
-			<div class="dl" style="padding-top:0.2rem;">充值记录</div>
+			<div class="dl">充值记录</div>
 		</div>
 		<div class="both"></div>
 		<div class="non_payment_null1"></div>
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			  <div class="mui-scroll"  style="margin-top:2rem;">
-			  <div class="attention_center" style="margin-top:0.5rem;">
+			  <div class="attention_center" style="margin-top:0.4rem;">
 				<ul>
 				   <div id="attention_center">
 					</div>
@@ -108,8 +108,8 @@ function rechargeList(downOrOn){
  					"<p class='attention_p1'>余额充值</p>"+
  						"<p class='attention_p2'>"+returnstring(obj.createTime)+"&nbsp;&nbsp;</p>"+
  					"</div>"+
- 					"<div class='attention_right' style='margin-top: 0.6rem;'>+"+returnstring(obj.total)+"</div>"+
- 					"<div class='attention_right01'>现金</div>"+
+ 					"<div class='attention_right'>+"+returnstring(obj.total)+" 熊猫币</div>"+
+ 					/*"<div class='attention_right01'>现金</div>"+*/
  					"<div class='both'></div>"+
  					"<div class='attention_right' style='margin-top:-1.3rem;'></div>"+
  					"<div class='both'></div>"+

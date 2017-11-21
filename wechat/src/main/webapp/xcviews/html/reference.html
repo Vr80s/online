@@ -66,7 +66,7 @@
 
 .attention_right {
 	font-size: 0.7rem;
-	margin-top: 0.8rem;
+	/*margin-top: 0.8rem;*/
 }
 .attention_right01{
     float: right;
@@ -89,7 +89,7 @@
 		
 		<div class="non_payment_null1"></div>
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-			<div class="mui-scroll" style="margin-top: 2rem;">
+			<div class="mui-scroll" style="margin-top: 1.75rem;">
 				<div class="attention_center" style="margin-top:0.5rem;">
 					<ul>
 						<div id="attention_center"></div>
@@ -159,9 +159,9 @@
 											+ obj.time
 											+ "&nbsp;&nbsp;</p>"
 											+ "</div>"
-											+ "<div class='attention_right'>"
-											+ obj.enchashmentSum
-											+ "</div>"
+											+ "<div class='attention_right'>"+obj.enchashmentSum+"元</div>"
+//											+ obj.enchashmentSum
+//											+ "</div>"
 											+ "<div class='attention_right01'>"+enchashmentAccountTypeStr+"</div>"
 											+ "<div class='both'></div>"
 											+ "<div class='attention_right' style='margin-top:-1.3rem;'></div>"
