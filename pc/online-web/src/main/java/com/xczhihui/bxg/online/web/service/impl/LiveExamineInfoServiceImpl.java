@@ -33,6 +33,9 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
     
 	@Value("${rate}")
 	private Integer rate;
+	
+	@Value("${gift.im.room.postfix}")
+	private String postfix;
 
     @Override
     public String add(LiveExamineInfo liveExamineInfo){
@@ -98,7 +101,15 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             sb.append(" ORDER BY lei.start_time");
             Map<String,Object> param=new HashMap<>();
             param.put("userId",userId);
-            return simpleHibernateDao.findPageBySQL(sb.toString(),param,LiveExamineInfoVo.class,pageNumber,pageSize).getItems();
+            
+            
+            //courseLecturVo.setImRoomId(courseLecturVo.getId()+postfix);
+            List<LiveExamineInfoVo>  list= simpleHibernateDao.findPageBySQL(sb.toString(),param,LiveExamineInfoVo.class,pageNumber,pageSize).getItems();
+            for (LiveExamineInfoVo liveExamineInfoVo : list) {
+            	System.out.println(liveExamineInfoVo.getCourseId()+postfix);
+            	liveExamineInfoVo.setImRoomId(liveExamineInfoVo.getCourseId()+postfix);
+			}
+            return  list;
     }
 
     @Override
