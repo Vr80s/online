@@ -69,11 +69,75 @@
 	::-webkit-input-placeholder{ 
 		color:#999; 
 	} 
+	
+	
+	/*修改成功*/
+	.person_prosperity{
+		width: 100%;
+		height: 100%;
+		position: relative;
+		display: none;
+	}
+	.prosperity_bg{
+		position: fixed;
+	    width: 100%;
+	    height: 100%;
+	    background: #000;
+	    opacity: 0.5;
+	    z-index: 999999991;
+	    top: 0;
+	    left: 0;
+	}
+	.prosperity_cen{
+		width: 11.55rem;
+	    height: 6.35rem;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    margin-top: 8.5rem;
+	    margin-left: -37%;
+	    background: #f4f4f4;
+	    z-index: 999999999;
+	    border-radius: 6px;
+	}
+	.prosperity_cen_top{
+		text-align: center;
+	    font-size: 0.7rem;
+	    margin-top: 1.9rem;
+	    margin-left: 0.4rem;
+	}
+	.prosperity_cen_size{
+		margin: 0 auto;
+	    margin-top: 1.6rem;
+	    width: 100%;
+	    border-top: 1px solid #d2d2da;
+	    line-height: 1.8rem;
+	}
+	.prosperity_cen_yes{
+		float: left;
+	    width: 100%;
+	    text-align: center;
+	    color: #00bc12 !important;
+	    font-size: 0.65rem !important;
+	}
 </style>
 
 </head>
 
 <body class="person_body">
+	<div class="person_prosperity">
+		<div class="prosperity_bg"></div>
+		<div class="prosperity_cen">
+			<div class="prosperity_cen_top">修改成功</div>
+			
+			<div class="prosperity_cen_size">
+				<div class="prosperity_cen_yes" onclick="location.href ='address.html';" style="color: #00bc12 !important;border: 0;">确定</div>
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+	
+	
    <!-- 编辑地址开始 -->
     <div class="site_edit" style="display: block;">
       <div class="sex_pet_name_top">

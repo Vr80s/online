@@ -196,14 +196,16 @@
     
     .history_bg_cen_size{
     	text-align: center;
-    	font-size: 0.7rem;
-    	margin-top: 0.5rem;
+    	font-size: 0.65rem;
+    	margin-top: 1.85rem;
 
     }
     .history_bg_bto01{
     	margin: 0 auto;
-    	margin-top: 1rem;
-    	width: 57%;
+	    margin-top: 1.6rem; 
+	    width: 100%;
+	    border-top: 1px solid #d2d2da;
+	    line-height: 1.8rem;
     }
    .history_bg_bto01 div {
 	    font-size: 0.6rem;
@@ -248,7 +250,9 @@
  .indent_main{
  	background: #fff;
  }
-   
+.history_bg_cen {
+    margin-top: 6.5rem;
+}
    
 </style>
 </head>
@@ -261,8 +265,8 @@
 		<div class="history_bg_cen">
 			<div class="history_bg_cen_size">确定要清空观看记录吗？</div>
 			<div class="history_bg_bto01">
-				<div class="history_bg_bto1">取消</div>
-				<div class="history_bg_bto2" onclick="deleteOrcancel(this)" style="color: #00bc12;">确定</div>
+				<div class="history_bg_bto1" style="border-right: 1px solid #d2d2da;color: #666 !important;">取消</div>
+				<div class="history_bg_bto2" onclick="deleteOrcancel(this)" style="color: #00bc12 !important;border: 0;">确定</div>
 				
 				<div class="both"></div>
 			</div>

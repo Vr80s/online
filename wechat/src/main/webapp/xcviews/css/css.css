@@ -266,7 +266,7 @@ header{
     background: #fff;
     z-index: 9999999;
     line-height: 1.875rem;
-    border-bottom: 1px solid #d6d6d6;
+    border-bottom: 1px solid #e5e5e5;
 }
 .home{
 	width: 100%;
@@ -563,13 +563,13 @@ footer{
     margin-left: 0.4rem;
 }
 .history_span{
-	font-size: 0.95rem;
+	font-size: 0.851rem;
     display: table-cell;
     width: 80%;
     float: left;
     text-align: center;
-    color: #00bc12;
-    font-family: "汉仪全唐诗简";
+    color: #666;
+    /*font-family: "汉仪全唐诗简";*/
 }
 .history_span span{
 	margin-right: 1.8rem;
@@ -591,8 +591,8 @@ footer{
 	margin-right: 2rem;
 }
 .history_span_addclass{
-	border-bottom: 0.05rem solid #666;
-	color: #666;
+	border-bottom: 0.05rem solid #00BC12;
+	color: #00BC12;
 }
 .history_span2{
 	font-size: 0.7rem;
@@ -1449,7 +1449,7 @@ footer{
     background-size: 100% 100%;
     margin-bottom:0.5rem;
 	animation: move  .5s linear forwards; 
-   
+   	z-index: 9;
 }
 /* @keyframes move{
 	form{
@@ -1785,7 +1785,7 @@ footer{
 
 /*购买课程开始*/
 .buy{
-	margin-top: 0.8rem;
+	margin-top: 0.45rem;
 }
 .buy_size{
 	color: #ff0000;
@@ -1837,25 +1837,28 @@ footer{
 .label01{
 	width: 0.9rem;
     height: 0.9rem;
-    background: url(../images/lable1.png);
+    background: url(../images/lable1.png) no-repeat;
     background-size: 100% 100%;
+    display: block;
 }
 .label02{
 	width: 0.9rem;
     height: 0.9rem;
-    background: url(../images/lable1.png);
+    background: url(../images/lable1.png) no-repeat;
     background-size: 100% 100%;
 }
 .label1{
 	width: 0.9rem;
 	height: 0.9rem;
-    background: url(../images/lable.png);
+    background: url(../images/lable.png) no-repeat;
     background-size: 100% 100%;
+    display: block;
 }
 .buy_put{
-	width: 1.2rem;
-	height: 0.8rem;
-	opacity: 0;
+	width: 15rem;
+    height: 1.5rem;
+    opacity: 0;
+    margin-left: -14rem;
 }
 
 /*同意条款开始*/
@@ -2606,9 +2609,9 @@ footer{
 }
 .share_footer_call{
 	width: 100%;
-	border-top: 0.002rem solid #dcdcdc;
+	border-top: 1px solid #e5e5e5;
 	text-align: center;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	color: #00bc12;
 	padding-top: 0.7rem;
 }
@@ -3687,7 +3690,7 @@ footer{
 	background: url(/xcviews/images/bianji.png) no-repeat;
     background-size: 100% 100%;
     float: left;
-    margin-top: 0.33rem;
+    margin-top: 0.25rem;
     margin-right: 0.3rem;
     width: 0.5rem;
     height: 0.625rem;
@@ -3698,7 +3701,7 @@ footer{
 	background: url(/xcviews/images/shanchu.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
-	margin-top: 0.33rem;
+	margin-top: 0.25rem;
     margin-right: 0.3rem;
 }
 .site_newly{
@@ -4025,7 +4028,7 @@ footer{
 .my_details1_img{
 	width: 60%;
 	float: left;
-	margin-left: 0.35rem;
+	/*margin-left: 0.35rem;*/
 }
 .my_details1_img img{
 	width: 1.5rem;
@@ -6059,46 +6062,64 @@ footer{
     height: 100%;
     background: #000;
     opacity: 0.5;
-    z-index: 99999999;
+    z-index: 999999991;
     top: 0;
     left: 0;
 }
 .history_bg_cen{
+	width: 11.55rem;
+    height: 6.35rem;
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 80%;
-    height: 4rem;
     margin-top: 8.5rem;
-    margin-left: -40%;
-    background: #fff;
+    margin-left: -37%;
+    background: #f4f4f4;
     z-index: 999999999;
     border-radius: 6px;
 }
 .history_bg_cen_size{
-	font-size: 0.8rem;
-	margin-top: 0.4rem;
-	margin-left: 0.4rem;
+	font-size: 0.65rem;
+    margin-top: 1.85rem;
+    margin-left: 0.4rem;
     text-align: center;
+    color: #333;
 }
 .history_bg_bto div{
 	font-size: 0.6rem;
 	color: #5ebdad;	
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .history_bg_bto{
-	width: 32%;
-    float: right;
-    margin-right: 1rem;
-    margin-top: 1rem;
+	width: 100%;
+    /*float: right;*/
+    /*margin-right: 1rem;*/
+    margin-top: 1.7rem;
 }
 .history_bg_bto1{
 	float: left;
-	width：50%;
+	width: 5.75rem;
+    /*height: 1.825rem;
+    line-height: 1.825rem;*/
+    text-align: center;
+    color: #00bc12 !important;
+    font-size: 0.65rem !important;
 }
 .history_bg_bto2{
-	float: right;
-	width：50%;
+	float: left;
+	width: 5.75rem;
+    border-right: 1px solid #d2d2da;
+    /*height: 1.825rem;
+    line-height: 1.825rem;*/
+    text-align: center;
+    color: #666 !important;
+    font-size: 0.65rem !important;
+}
+.boxbtn{
+	/*height: 1.825rem;*/
+    border-top: 1px solid #d2d2da;
+    line-height: 1.8rem;
+    font-size: 0.65rem !important;
 }
 /* 观看历史直播开始 */
 
