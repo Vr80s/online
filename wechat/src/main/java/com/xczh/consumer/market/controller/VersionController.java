@@ -5,6 +5,7 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.VersionService;
+import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
@@ -13,6 +14,7 @@ import com.xczhihui.bxg.online.api.po.LiveExamineInfo;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,6 +52,9 @@ public class VersionController {
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
+	
+	@Value("${returnOpenidUri}")
+	private String returnOpenidUri;
 
     @RequestMapping("checkUpdate")
     @ResponseBody
@@ -83,16 +88,17 @@ public class VersionController {
 
 
     @RequestMapping("addTipOff")
-	@ResponseBody
-	public ResponseObject addTipOff(HttpServletRequest req,
+	public void addTipOff(HttpServletRequest req,
 								  HttpServletResponse res, LiveExamineInfo liveExamineInfo,
-								  @RequestParam MultipartFile [] files){
+								  @RequestParam MultipartFile [] files) throws IOException{
     	
+    /*	ConfigUtil cfg = new ConfigUtil(req.getSession());
+		String returnCodeUri = cfg.getConfig("returnCodeUri");*/
     	List<String> list;
+    	String courseId = req.getParameter("courseId");
+    	String label = req.getParameter("label");
 		try {
 			String content = req.getParameter("content");
-	    	String courseId = req.getParameter("courseId");
-	    	String label = req.getParameter("label");
 	    	CourseLecturVo cv =  null;
 	    	/*if(courseId!=null){
 	    	   cv = onlineCourseService.get(Integer.parseInt(courseId));
@@ -115,11 +121,13 @@ public class VersionController {
 	    	String userId =appBrowserService.getOnlineUserByReq(req).getId();
 	    	
 	    	versionService.insertTipOff(content,courseId,label,teacherId,userId,imgStrs);
-			return ResponseObject.newSuccessResponseObject("举报成功");
+			//return ResponseObject.newSuccessResponseObject("举报成功");
+	    	res.sendRedirect(returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=1");
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("举报失败");
+			//return ResponseObject.newErrorResponseObject("举报失败");
+			res.sendRedirect(returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=2");
 		}
     	
 	}

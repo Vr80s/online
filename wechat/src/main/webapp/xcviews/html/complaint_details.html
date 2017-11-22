@@ -261,7 +261,7 @@
 		<div class="both"></div>
 		<div class="complaint_details">
 			<div class="complaint_details_cen">
-				<div class="complaint_details_div">我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>
+				<div class="complaint_details_div"></div>
 				<div class="complaint_details_img"><img id="complaint_details_img_img" src="../images/list_img.png"/></div>
 			</div>
 		</div>
@@ -270,8 +270,14 @@
 	<div class="description">
 		<div class="description_title">投诉描述</div>
 		
+			<!-- 		String content = req.getParameter("content");
+	    	String courseId = req.getParameter("courseId");
+	    	String label = req.getParameter("label"); -->
+		
 		<div class="description_textarea">
-			<textarea name="" rows="" id="contentId" cols=""></textarea>
+			<textarea  rows="" id="contentId" name="content" cols=""></textarea>
+			<input name="courseId"  id="courseId" type="hidden"/>
+			<input name="label"  id="label" type="hidden"/>
 			<div class="description_size">最多可写200字</div>
 		</div>
 		<div class="both"></div>
@@ -282,7 +288,6 @@
 	        <div class="z_photo" style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
 	            <div class="z_file">
 	                <input type="file" name="file" id="file" value="" accept="image/*" multiple onchange="imgChange('z_photo','z_file');" />
-	
 	            </div>
 	
 	        </div>
@@ -390,10 +395,14 @@
                 }
             };
         };
-        
+        var falg = getQueryString("falg");
+        if(stringnull(falg) && falg==2){
+        	alert("举报失败");
+        }else if(stringnull(falg) && falg==1){
+        	alert("举报成功");
+        }
         var label = getQueryString("label");
         var courseId = sessionStorage.getItem("tipOffCourseId");
-        
         if(stringnull(courseId)){
         	requestService("/bxg/common/shareJump",{courseId : courseId}, function(data) {
     			if (data.success) {
@@ -403,9 +412,13 @@
     				 $("#complaint_details_img_img").html(result.smallImgPath);
     			}
             },false)
+        }else{
+        	alert("课程信息有误");
         }
-        
-        
+       /*     	   <input name="courseId"  id="courseId" type="hidden"/>
+        			<input name="label"  id="label" type="hidden"/> */
+        $("#courseId").val(courseId);
+        $("#label").val(label);
        //表单验证
        function checkUser(){
     	   if(!stringnull(courseId)){
@@ -419,6 +432,10 @@
     	   var content = $("#contentId").val();
     	   if(content.trim().length>200){
     		   alert("举报内容不能大于于200字");
+    		   return;
+    	   }
+    	   if(content.trim().length<=0){
+    		   alert("举报内容不能为空");
     		   return;
     	   }
     	   var imgLength = $("input[name=files]").length;
