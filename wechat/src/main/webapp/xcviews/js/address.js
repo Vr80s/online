@@ -114,7 +114,9 @@
 			phone:phone
 		}
 		
-		var addressId  = $("#address_id").val();
+		
+		/*修改前*/
+		/*var addressId  = $("#address_id").val();
 		var alertStr = "新增成功";
 		
 		var url_address = "/bxg/city/saveAddress";
@@ -123,17 +125,13 @@
 			url_address = "/bxg/city/updateAddress";
 			alertStr = "修改成功";
 		}
-		/**
-		 * 保存地址
-		 */
+		
 		requestService(url_address, 
 				urlparm, function(data) {
 			if (data.success) {
 				
 				alert(alertStr);
-				/**
-				 * 添加后返回到list页面：
-				 */
+				
 				 location.href ='address.html';
 			} else {
 				$("#errorMsg").html(data.errorMessage);
@@ -141,7 +139,48 @@
 				return false;
 			}
 		});
+	})*/
+	
+	var addressId  = $("#address_id").val();
+		$(".person_prosperity").show();
+		$(".prosperity_cen_top").text("新增成功");
+		
+		var url_address = "/bxg/city/saveAddress";
+		if(stringnull(addressId)){
+			urlparm.id = addressId;
+			url_address = "/bxg/city/updateAddress";
+			$(".person_prosperity").show();
+			$(".prosperity_cen_top").text("修改成功");
+		}
+		/**
+		 * 保存地址
+		 */
+		requestService(url_address, 
+				urlparm, function(data) {
+			if (data.success) {
+//				$(".person_prosperity").show();
+//				$(".prosperity_cen_top").text("新增成111功");
+				/*alert(alertStr);*/
+				
+				/**
+				 * 添加后返回到list页面：
+				 */
+/*				 location.href ='address.html';*/
+			} else {
+				$("#errorMsg").html(data.errorMessage);
+				$("#errorMsg").show();
+//				$(".prosperity_cen_top").text("新增成功");
+
+
+				/*$(".person_prosperity").show();
+				$(".prosperity_cen_top").text("新增成11111功");*/
+				return false;
+			}
+		});
 	})
+	
+	
+	
 	
 	
 	/* 地址管理结束 */

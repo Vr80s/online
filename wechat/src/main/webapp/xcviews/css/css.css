@@ -3690,7 +3690,7 @@ footer{
 	background: url(/xcviews/images/bianji.png) no-repeat;
     background-size: 100% 100%;
     float: left;
-    margin-top: 0.33rem;
+    margin-top: 0.25rem;
     margin-right: 0.3rem;
     width: 0.5rem;
     height: 0.625rem;
@@ -3701,7 +3701,7 @@ footer{
 	background: url(/xcviews/images/shanchu.png) no-repeat;
 	background-size: 100% 100%;
 	float: left;
-	margin-top: 0.33rem;
+	margin-top: 0.25rem;
     margin-right: 0.3rem;
 }
 .site_newly{
