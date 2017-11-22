@@ -64,9 +64,6 @@
                 $(".details1").hide();
                 $(".document").hide();
                 $(".chapter").hide();
-
-                /* $(".opc").show(); */
-
             });
             $(".li2").click(function(){
                 $(this).addClass('details');
@@ -249,20 +246,6 @@
                 }
 
             });
-            /* $("#face").click(function(){
-
-            }); */
-
-
-            /*  $("#face").toggle(function(){
-                 $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
-                 $(".face_img01").css('background-size','100% 100%');
-                        function(){
-                  $(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
-                  $(".face_img01").css('background-size','100% 100%');
-             ); */
-
-
 
             $("#sendChat").click(function() {
                 $(".coze_bottom").css("bottom","0rem");
@@ -410,6 +393,22 @@
 		.ccH5playerBox{
 			height: 8.95rem !important;
 		}
+		.fx_bg {
+		    width: 0.65rem;
+		    height: 0.65rem;
+		    background: url(/xcviews/images/fx.png)no-repeat;
+		    background-size: 100% 100%;
+		    float: right;
+		    margin-right: 0.3rem;
+		}
+		.right_img{
+			width: 1.5rem;
+		    height: 1.2rem;
+		    float: right;
+		    margin-top: 0.2rem;
+		    padding-top: 0.3rem;
+		    padding-right: 0.2rem;
+		}
 	</style>
 
 </head>
@@ -438,7 +437,13 @@
 				<div class="grabble_img"></div>
 			</div>
 			<span class="history_span" style="color:#666;width:77%;">视频详情</span>
-			<div class="history_img_right" id="share" style="width:1.6rem;color:#00bc12;">分享</div>
+			
+			<!--<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>-->
+			<div class="right_img">
+				<div  class="fx_bg history_img_right" id="share"></div>
+			</div>
+			
+			<!--<div class="history_img_right"  style="width:1.6rem;color:#00bc12;">分享</div>-->
 		</div>
 	</div>
 </header>

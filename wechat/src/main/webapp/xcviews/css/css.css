@@ -266,7 +266,7 @@ header{
     background: #fff;
     z-index: 9999999;
     line-height: 1.875rem;
-    border-bottom: 1px solid #d6d6d6;
+    border-bottom: 1px solid #e5e5e5;
 }
 .home{
 	width: 100%;
@@ -563,13 +563,13 @@ footer{
     margin-left: 0.4rem;
 }
 .history_span{
-	font-size: 0.95rem;
+	font-size: 0.851rem;
     display: table-cell;
     width: 80%;
     float: left;
     text-align: center;
-    color: #00bc12;
-    font-family: "汉仪全唐诗简";
+    color: #666;
+    /*font-family: "汉仪全唐诗简";*/
 }
 .history_span span{
 	margin-right: 1.8rem;
@@ -591,8 +591,8 @@ footer{
 	margin-right: 2rem;
 }
 .history_span_addclass{
-	border-bottom: 0.05rem solid #666;
-	color: #666;
+	border-bottom: 0.05rem solid #00BC12;
+	color: #00BC12;
 }
 .history_span2{
 	font-size: 0.7rem;
@@ -1785,7 +1785,7 @@ footer{
 
 /*购买课程开始*/
 .buy{
-	margin-top: 0.8rem;
+	margin-top: 0.45rem;
 }
 .buy_size{
 	color: #ff0000;
@@ -2609,9 +2609,9 @@ footer{
 }
 .share_footer_call{
 	width: 100%;
-	border-top: 0.002rem solid #dcdcdc;
+	border-top: 1px solid #e5e5e5;
 	text-align: center;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	color: #00bc12;
 	padding-top: 0.7rem;
 }
@@ -6067,41 +6067,56 @@ footer{
     left: 0;
 }
 .history_bg_cen{
+	width: 11.55rem;
+    height: 6.35rem;
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 80%;
-    height: 4rem;
     margin-top: 8.5rem;
-    margin-left: -40%;
-    background: #fff;
+    margin-left: -37%;
+    background: #f4f4f4;
     z-index: 999999999;
     border-radius: 6px;
 }
 .history_bg_cen_size{
-	font-size: 0.8rem;
-	margin-top: 0.4rem;
-	margin-left: 0.4rem;
+	font-size: 0.6rem;
+    margin-top: 1.95rem;
+    margin-left: 0.4rem;
     text-align: center;
 }
 .history_bg_bto div{
 	font-size: 0.6rem;
 	color: #5ebdad;	
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .history_bg_bto{
-	width: 32%;
-    float: right;
-    margin-right: 1rem;
-    margin-top: 1rem;
+	width: 100%;
+    /*float: right;*/
+    /*margin-right: 1rem;*/
+    margin-top: 1.7rem;
 }
 .history_bg_bto1{
 	float: left;
-	width：50%;
+	width: 5.75rem;
+    /*height: 1.825rem;
+    line-height: 1.825rem;*/
+    text-align: center;
+    color: #00bc12 !important;
 }
 .history_bg_bto2{
-	float: right;
-	width：50%;
+	float: left;
+	width: 5.75rem;
+    border-right: 1px solid #d2d2da;
+    /*height: 1.825rem;
+    line-height: 1.825rem;*/
+    text-align: center;
+    color: #666 !important;
+}
+.boxbtn{
+	/*height: 1.825rem;*/
+    border-top: 1px solid #d2d2da;
+    line-height: 1.8rem;
+    font-size: 0.65rem !important;
 }
 /* 观看历史直播开始 */
 
