@@ -29,9 +29,9 @@
 		.wm-block{
             width: 100% !important;
             height: 2.8rem !important;
-            top: 1.8rem;
+            top: 0rem;
             margin-top: 0rem;
-            border-bottom: 1px solid #d2d2d2;
+            /*border-bottom: 1px solid #d2d2d2;*/
 		}
         .attention_right span{
             font-size: 0.7rem;
@@ -64,15 +64,16 @@
 	<!-- 我的关注开始 -->
 	<div class="attention">
 		<div class="attention_top">
-			<div class="return"  onclick="history.go(-1)" style="margin-top:0.36rem;"></div>
+			<div class="return"  onclick="history.go(-1)" style="margin-top:0.5rem;"></div>
 			<div class="dl" style="padding-bottom:0.2rem;">我的关注</div>
 		</div>
 		<div class="both"></div>
 
 	 <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 		  <div class="mui-scroll">
-			<div class="attention_center" style="margin-top:0.25rem;">
+			<div class="attention_center" style="margin-top:2.25rem;">
 				<ul id="clist">
+					<div class="both"></div>
 				</ul>
 			</div>
 	  	 </div>
@@ -149,8 +150,8 @@
                     }else if(isFocus==2){
                         focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"'>互相关注</span>";
                     }
-                    html+="<li class='userIndex' title='"+result[i].lecturerId+"'  ><div class='attention_li'><img src='"+result[i].lecturerHeadImg+"'  />"+
-                    "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li>"
+                    html+="<li class='userIndex' title='"+result[i].lecturerId+"'  ><div class='attention_li'><img src='"+result[i].lecturerHeadImg+"'/>"+
+                    "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li></div><div class='both'>"
 
                     odiv.innerHTML = html;
 					content.appendChild(odiv);

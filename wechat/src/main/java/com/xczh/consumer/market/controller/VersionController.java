@@ -1,17 +1,33 @@
 package com.xczh.consumer.market.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OLAttachmentCenterService;
+import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
+import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.VersionInfoVo;
+import com.xczhihui.bxg.online.api.po.LiveExamineInfo;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.io.File;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +41,15 @@ public class VersionController {
 
     @Autowired
     private VersionService versionService;
+    
+    @Autowired
+	private OLAttachmentCenterService service;
+    
+	@Autowired
+	private OnlineCourseService onlineCourseService;
+	
+	@Autowired
+	private AppBrowserService appBrowserService;
 
     @RequestMapping("checkUpdate")
     @ResponseBody
@@ -57,7 +82,80 @@ public class VersionController {
 
 
 
-
+    @RequestMapping("addTipOff")
+	@ResponseBody
+	public ResponseObject addTipOff(HttpServletRequest req,
+								  HttpServletResponse res, LiveExamineInfo liveExamineInfo,
+								  @RequestParam MultipartFile [] files){
+    	
+    	List<String> list;
+		try {
+			String content = req.getParameter("content");
+	    	String courseId = req.getParameter("courseId");
+	    	String label = req.getParameter("label");
+	    	CourseLecturVo cv =  null;
+	    	/*if(courseId!=null){
+	    	   cv = onlineCourseService.get(Integer.parseInt(courseId));
+	    	}
+	    	if(cv==null){
+	    		return ResponseObject.newErrorResponseObject("课程信息有误");
+	    	}*/
+			list = uploadFileList(files,req);
+			String imgStrs = "";
+	    	int i = 0;
+	    	for (String string : list) {
+	    		if(i==list.size()){
+	    			imgStrs+=string;
+	    		}else{
+	    			imgStrs+=string+",";
+	    		}
+	    		i++;
+			}
+	    	String teacherId =1+"";
+	    	String userId =appBrowserService.getOnlineUserByReq(req).getId();
+	    	
+	    	versionService.insertTipOff(content,courseId,label,teacherId,userId,imgStrs);
+			return ResponseObject.newSuccessResponseObject("举报成功");
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("举报失败");
+		}
+    	
+	}
+    
+    /**
+     * @param multipartFiles
+     * @param request
+     * @return
+     * @throws IllegalStateException
+     * @throws IOException
+     */
+    public  List<String> uploadFileList(MultipartFile multipartFiles[], HttpServletRequest request) 
+    		throws IllegalStateException, IOException{
+    	
+    	String projectName="other";
+		String fileType="1"; //图片类型了
+        List<String> newFilePaths=new ArrayList<>();
+        try {
+            for(MultipartFile file:multipartFiles){
+            	/**
+            	 * 上传到文件服务器，并且返回一个路径
+            	 */
+            	String headImgPath = service.upload(null,projectName, file.getOriginalFilename(),file.getContentType(),
+        				             file.getBytes(),fileType,null);
+            	JSONObject json = JSONObject.parseObject(headImgPath);
+            	
+        		System.out.println("文件路径——path:"+headImgPath);
+            	
+        		headImgPath  = json.get("url").toString();
+            	newFilePaths.add(headImgPath);
+            }
+        }catch (IOException e){
+            e.getMessage();
+        }
+        return newFilePaths;
+    }
 
 
 }

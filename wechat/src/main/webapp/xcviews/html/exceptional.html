@@ -25,13 +25,16 @@
 	<style>
 		.detail{
 			margin-top: 2.2rem;
+			width: 100%;
+		    min-height: 8.5rem;
+		    padding: 0;
 		}
-		.detail_top p{
+		/*.detail_top p{
 			font-size: 0.7rem;
 		}
 		.detail_cen p{
 			font-size: 0.7rem;
-		}
+		}*/
 	</style>
 </head>
     
@@ -46,20 +49,17 @@
 		<div class="both"></div>
 		<div class="detail">
 			<div class="detail_top">
-				<p class="detail_cen_p1">入账金额(人民币)</p>
+				<p class="detail_cen_p1">入账金额</p>
+				<p class="detail_cen_p2" style="margin-right: 0.4rem;font-size: 1rem;">元</p>
 				<p class="detail_cen_p2" id="totalAmount"></p>
 				<div class="both"></div>
 			</div>
 			<div class="detail_cen">
 				<p class="detail_cen_p1">类型</p>
-				<p class="detail_cen_p2">消费</p>
+				<p class="detail_cen_p2">收入</p>
 				<div class="both"></div>
 			</div>
-			<div class="detail_cen">
-				<p class="detail_cen_p1">赠送用户</p>
-				<p class="detail_cen_p2" id="userName"></p>
-				<div class="both"></div>
-			</div>
+			
 			<div class="detail_cen">
 				<p class="detail_cen_p1">时间</p>
 				<p class="detail_cen_p2" id="gmtCreate"></p>
@@ -68,6 +68,13 @@
 			<div class="detail_cen">
 				<p class="detail_cen_p1">交易单号</p>
 				<p class="detail_cen_p2" id="outTradeNo"></p>
+			</div>
+			<div class="both"></div>
+			<div class="detail_cen">
+				<p class="detail_cen_p1">备注</p>
+				<p class="detail_cen_p2" id="userName"></p>
+				<p class="detail_cen_p2">打赏人-</p>
+				<div class="both"></div>
 			</div>
 		</div>
 	</div>

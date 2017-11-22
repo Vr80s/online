@@ -1,0 +1,436 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>我的账户</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+
+<style>
+	.complaint_cen{
+		width: 100%;
+		height: 100%;
+		background: #fff;
+		margin-top: 2.2rem;
+	}
+	.complaint_cen_div{
+		width: 100%;
+		height: 1rem;
+		background: #fff;
+	}
+	.complaint_cen_title{
+		width: 97%;
+		height: 1rem;
+		line-height: 1rem;
+		font-size: 0.7rem;
+		color: #666;
+		margin-left: 0.4rem;
+		background: #fff;
+		padding: 0.5rem 0;
+		border-bottom: 1px solid #e5e5e5;
+	}
+	.complaint_details{
+		width: 100%;
+		height: 3rem;
+		/*background: red;*/
+		margin-top: 1rem;
+		border-bottom: 1px solid #e5e5e5;
+	}
+	.complaint_details_cen{
+		width: 95%;
+		height: 3rem;
+		line-height: 3rem;
+		margin: 0 auto;
+		/*background: #00A7FF;*/
+	}
+	.complaint_details_div{
+		width: 11rem;
+		overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    font-size: 0.65rem;
+	    color: #333;
+	    float: left;
+	}
+	.complaint_details_img{
+		width: 3rem;
+		height: 2rem;
+		overflow: hidden;
+		float: right;
+		margin-top: 0.55rem;
+	}
+	.complaint_details_img img{
+		width: 100%;
+	}
+	.description{
+		width: 100%;
+		height: 100%;
+		background: #fff;
+	}
+	.description_title{
+		width: 97%;
+	    height: 1rem;
+	    line-height: 1rem;
+	    font-size: 0.7rem;
+	    color: #666;
+	    margin-left: 0.4rem;
+	    background: #fff;
+	    padding: 0.5rem 0;
+	    margin-top: 0.4rem;
+	    border-bottom: 1px solid #e5e5e5;
+	}
+	.description_textarea{
+		width: 97%;
+		 margin: 0 auto;
+		height: 4.5rem;
+		border-bottom: 1px solid #e5e5e5;
+		position: relative;
+	}
+	textarea{
+		width: 100%;
+		height: 3rem;
+		border: 0;
+		/*background: #00BB12;*/
+		color: #666;
+		outline: none;
+		resize: none;
+		text-indent: 2em;
+		margin-top: 0.3rem;
+	}
+	.description_size{
+		font-size: 0.6rem;
+		color: #999;
+		position: absolute;
+		right: 0;
+		bottom: 0.5rem;
+	}
+	
+	
+	/*图片上传*/
+	.container {
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            clear: both;
+        }
+        
+        .z_photo {
+            width: 92%;
+            height: 5rem;
+            padding: 0.3rem;
+            overflow: auto;
+            clear: both;
+            margin: 1rem auto;
+            border: 1px solid #555;
+        }
+        
+        .z_photo img {
+            width: 2.5rem;
+            /*height: 1rem;*/
+        }
+        
+        .z_addImg {
+        	width: 2.5rem;
+        	overflow: hidden;
+            float: left;
+            margin-right: 0.2rem;
+        }
+        
+        .z_file {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: url(../images/z_add.png) no-repeat;
+            background-size: 100% 100%;
+            float: left;
+            margin-right: 0.2rem;
+        }
+        
+        .z_file input::-webkit-file-upload-button {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: none;
+            position: absolute;
+            outline: 0;
+            opacity: 0;
+        }
+        
+        .z_file input#file {
+            display: block;
+            width: auto;
+            border: 0;
+            vertical-align: middle;
+        }
+        /*遮罩层*/
+        
+        .z_mask {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            display: none;
+        }
+        
+        .z_alert {
+            width: 9rem;
+		    height: 5rem;
+		    border-radius: .2rem;
+		    background: #fff;
+		    font-size: .6rem;
+		    text-align: center;
+		    position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    margin-left: -4.5rem;
+		    margin-top: -2rem;
+        }
+        
+        .z_alert p:nth-child(1) {
+            line-height: 3.5rem;
+        }
+        
+        .z_alert p:nth-child(2) span {
+            display: inline-block;
+		    width: 49%;
+		    height: 0.9rem;
+		    line-height: 0.9rem;
+		    line-height: .9rem;
+		    float: left;
+		    border-top: 1px solid #ddd;
+        }
+        
+        .z_cancel {
+            border-right: 1px solid #ddd;
+        }
+        /*圖片上传結束*/
+       
+       .container_size span{
+       	color: #333;
+       }
+       .container_size{
+       		font-size: 0.6rem;
+       		color: #666;
+       		margin-left: 0.4rem;
+    		margin-top: 0.5rem;
+       }
+       .btn{
+       		width: 94%;
+       		height: 1.4rem;
+       		line-height: 1.4rem;
+       		background: #00bc12;
+       		color: #fff;
+       		font-size: 0.6rem;
+       		margin: 0 auto;
+       		text-align: center;
+       		border-radius: 6px;
+       		margin-top: 1rem;
+       }
+</style>    
+</head>
+<body style="background:#efefef;">
+
+<form action="/bxg/version/addTipOff" method="post" onsubmit = "return checkUser();" id="formid"
+		enctype="multipart/form-data"  style="margin-top:0.36rem;"">
+		
+	<div class="attention_top" style="border: none;">
+		<div class="attention_left" id="grabble_img" onclick="history.go(-1)"><div class="return"></div></div>
+		
+		<div class="dl">投诉详情</div>
+	</div>
+	<div class="both"></div>
+	<!-- 中间内容开始 -->
+	<div class="complaint_cen">
+		<div class="complaint_cen_div"><p class="complaint_cen_title">投诉内容</p></div>
+		<div class="both"></div>
+		<div class="complaint_details">
+			<div class="complaint_details_cen">
+				<div class="complaint_details_div">我是标题我是标题我是标题我是标题我是标题我是标题我是标题</div>
+				<div class="complaint_details_img"><img id="complaint_details_img_img" src="../images/list_img.png"/></div>
+			</div>
+		</div>
+	</div>
+	<div class="both"></div>
+	<div class="description">
+		<div class="description_title">投诉描述</div>
+		
+		<div class="description_textarea">
+			<textarea name="" rows="" id="contentId" cols=""></textarea>
+			<div class="description_size">最多可写200字</div>
+		</div>
+		<div class="both"></div>
+			
+		<div class="container">
+	    	<div class="container_size"><span>证据截图</span>(点击上方投诉内容截图进去,最多4张)</div>
+	    <!--    照片添加    -->
+	        <div class="z_photo" style="margin-top: 0.5rem;margin-bottom: 0.5rem;">
+	            <div class="z_file">
+	                <input type="file" name="file" id="file" value="" accept="image/*" multiple onchange="imgChange('z_photo','z_file');" />
+	
+	            </div>
+	
+	        </div>
+	
+	        <!--遮罩层-->
+	        <div class="z_mask">
+	            <!--弹出框-->
+	            <div class="z_alert">
+	                <p>确定要删除这张图片吗？</p>
+	                <p style="margin-top: 0.5rem;">
+	                    <span class="z_cancel">取消</span>
+	                    <span class="z_sure">确定</span>
+	                </p>
+	            </div>
+	        </div>
+	    </div>
+		<div class="both"></div>
+	</div>
+	
+	<div class="btn" onclick = "checkUser();">提交</div>
+</form>	
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+</body>
+ <script type="text/javascript">
+        //px转换为rem
+        (function(doc, win) {
+//          var docEl = doc.documentElement,
+//              resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+//              recalc = function() {
+//                  var clientWidth = docEl.clientWidth;
+//                  if (!clientWidth) return;
+//                  if (clientWidth >= 640) {
+//                      docEl.style.fontSize = '100px';
+//                  } else {
+//                      docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+//                  }
+//              };
+
+            if (!doc.addEventListener) return;
+           /*  win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false); */
+        })(document, window);
+
+        function imgChange(obj1, obj2) {
+            //获取点击的文本框
+            var file = document.getElementById("file");
+            //存放图片的父级元素
+            var imgContainer = document.getElementsByClassName(obj1)[0];
+            //获取的图片文件
+            var fileList = file.files;
+            //文本框的父级元素
+            var input = document.getElementsByClassName(obj2)[0];
+            var imgArr = [];
+            //遍历获取到得图片文件
+            for (var i = 0; i < fileList.length; i++) {
+            	//alert(fileList.length)
+                var imgUrl = window.URL.createObjectURL(file.files[i]);
+                imgArr.push(imgUrl);
+                var img = document.createElement("img");
+                img.setAttribute("src", imgArr[i]);
+                var imgAdd = document.createElement("div");
+                imgAdd.setAttribute("class", "z_addImg");
+                imgAdd.appendChild(img);
+                imgContainer.appendChild(imgAdd);
+                
+                /* var input = document.createElement("input");
+                input = file;
+                //<input type="file" name="files" id="file" value="" accept="image/*" multiple onchange="imgChange('z_photo','z_file');" />
+                input.setAttribute("type", "file");
+                input.setAttribute("name", "files");
+                input.removeAttribute("onchange");
+                input.removeAttribute("id"); */
+                //input.setAttribute("style","display:none");
+                var a = $("#file").clone();
+                a.attr("id","");
+                a.attr("onchange","");
+                a.css("display","none");
+                a.attr("name", "files");
+                $(imgAdd).append(a);
+            };
+            imgRemove();
+        };
+
+        function imgRemove() {
+            var imgList = document.getElementsByClassName("z_addImg");
+            var mask = document.getElementsByClassName("z_mask")[0];
+            var cancel = document.getElementsByClassName("z_cancel")[0];
+            var sure = document.getElementsByClassName("z_sure")[0];
+            for (var j = 0; j < imgList.length; j++) {
+                imgList[j].index = j;
+                imgList[j].onclick = function() {
+                    var t = this;
+                    mask.style.display = "block";
+                    cancel.onclick = function() {
+                        mask.style.display = "none";
+                    };
+                    sure.onclick = function() {
+                        mask.style.display = "none";
+                        t.style.display = "none";
+                        
+                        $(t).find("input").remove(); 
+                    };
+
+                }
+            };
+        };
+        
+        var label = getQueryString("label");
+        var courseId = sessionStorage.getItem("tipOffCourseId");
+        
+        if(stringnull(courseId)){
+        	requestService("/bxg/common/shareJump",{courseId : courseId}, function(data) {
+    			if (data.success) {
+    				 var result = data.resultObject;
+    				 // gradeName,smallimg_path as smallImgPath   
+    				 $(".complaint_details_div").html(result.gradeName);
+    				 $("#complaint_details_img_img").html(result.smallImgPath);
+    			}
+            },false)
+        }
+        
+        
+       //表单验证
+       function checkUser(){
+    	   if(!stringnull(courseId)){
+    		   alert("课程有误,请稍后重试!");
+    		   return;
+    	   }
+    	   if(!stringnull(label)){
+    		   alert("举报标签有误!");
+    		   return;
+           } 
+    	   var content = $("#contentId").val();
+    	   if(content.trim().length>200){
+    		   alert("举报内容不能大于于200字");
+    		   return;
+    	   }
+    	   var imgLength = $("input[name=files]").length;
+    	   if(imgLength>4 ){
+    		   alert("上传的图片不能大于4张");
+    		   return;
+    	   }
+    	   if(imgLength==0 ){
+    		   alert("至少上传一张图片");
+    		   return;
+    	   }
+    	   document.getElementById("formid").submit();
+       } 
+    </script>
+</html>

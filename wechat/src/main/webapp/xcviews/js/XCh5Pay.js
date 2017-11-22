@@ -30,6 +30,8 @@ function weixin(url,params,returnUrl) {
 	}
 }
 function wechatH5(url,params,returnUrl){
+	var domain = window.location.host;
+	returnUrl =domain +returnUrl;
     $.ajax({
         url : url+"?"+params,
         type : 'get',

@@ -98,7 +98,7 @@ function  goPay() {
     		 var params = data.resultObject;
              if(data.success){
              	 if(is_weixn()){
-                      location.href = "wechat_alipay.html?orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo")+"&redirectUrl="+getgetRedirectUrl(allCourse);
+                      location.href = "wechat_alipay.html?orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo")+"&redirectUrl="+getgetRedirectUrl(allCourse,true);
                       return;
                   }
                   jmpPayPage("/bxg/alipay/pay",payType,"orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo"),null);
@@ -123,7 +123,7 @@ function  goPay() {
         if(stringnull(openId)){
         	strparam+="&openId="+openId;
         }
-        jmpPayPage("/bxg/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse));
+        jmpPayPage("/bxg/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse,false));
     }
 }
 /**
@@ -131,26 +131,27 @@ function  goPay() {
  * @param allCourse
  * @returns {String}
  */
-function getgetRedirectUrl(allCourse){
-	
+function getgetRedirectUrl(allCourse,falg){
 	//alert(window.location.host);
-	var domain = window.location.host;
-	
+	var domain = "";
+	if(falg){
+	    domain = window.location.host;
+	}
 	var redirectUrl="";
 	if(allCourse.length>1){  //如果此订单中有多个订单，返回到我的订单页面
-	    redirectUrl=domain+"/xcviews/html/indent.html";
+	    redirectUrl="/xcviews/html/indent.html";
 	    return redirectUrl;
 	}else{
 	    var c=allCourse[0];  //判断此课程是预约呢、直播、点播的课程
 	    if(c.lineState != 2){ //直播状态1.直播中，2预告，3直播结束
 	    	if(c.type==1){     
 	 	    	//bxg/xcpage/courseDetails?courseId=724
-	 	        redirectUrl=domain+"/bxg/xcpage/courseDetails?courseId="+c.id;
+	 	        redirectUrl="/bxg/xcpage/courseDetails?courseId="+c.id;
 	 	    }else{
-	 	        redirectUrl=domain+"/xcviews/html/particulars.html?courseId="+c.id;
+	 	        redirectUrl="/xcviews/html/particulars.html?courseId="+c.id;
 	 	    }
 	    }else{
-	    	redirectUrl=domain+"/xcviews/html/foreshow.html?course_id="+c.id;
+	    	redirectUrl="/xcviews/html/foreshow.html?course_id="+c.id;
 	    }
 	    return redirectUrl;
 	}
