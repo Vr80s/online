@@ -6079,8 +6079,8 @@ footer{
     border-radius: 6px;
 }
 .history_bg_cen_size{
-	font-size: 0.6rem;
-    margin-top: 1.95rem;
+	font-size: 0.65rem;
+    margin-top: 1.85rem;
     margin-left: 0.4rem;
     text-align: center;
 }
@@ -6102,6 +6102,7 @@ footer{
     line-height: 1.825rem;*/
     text-align: center;
     color: #00bc12 !important;
+    font-size: 0.65rem !important;
 }
 .history_bg_bto2{
 	float: left;
@@ -6111,6 +6112,7 @@ footer{
     line-height: 1.825rem;*/
     text-align: center;
     color: #666 !important;
+    font-size: 0.65rem !important;
 }
 .boxbtn{
 	/*height: 1.825rem;*/
