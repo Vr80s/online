@@ -6062,7 +6062,7 @@ footer{
     height: 100%;
     background: #000;
     opacity: 0.5;
-    z-index: 99999999;
+    z-index: 999999991;
     top: 0;
     left: 0;
 }
@@ -6083,6 +6083,7 @@ footer{
     margin-top: 1.85rem;
     margin-left: 0.4rem;
     text-align: center;
+    color: #333;
 }
 .history_bg_bto div{
 	font-size: 0.6rem;
