@@ -1837,25 +1837,28 @@ footer{
 .label01{
 	width: 0.9rem;
     height: 0.9rem;
-    background: url(../images/lable1.png);
+    background: url(../images/lable1.png) no-repeat;
     background-size: 100% 100%;
+    display: block;
 }
 .label02{
 	width: 0.9rem;
     height: 0.9rem;
-    background: url(../images/lable1.png);
+    background: url(../images/lable1.png) no-repeat;
     background-size: 100% 100%;
 }
 .label1{
 	width: 0.9rem;
 	height: 0.9rem;
-    background: url(../images/lable.png);
+    background: url(../images/lable.png) no-repeat;
     background-size: 100% 100%;
+    display: block;
 }
 .buy_put{
-	width: 1.2rem;
-	height: 0.8rem;
-	opacity: 0;
+	width: 15rem;
+    height: 1.5rem;
+    opacity: 0;
+    margin-left: -14rem;
 }
 
 /*同意条款开始*/
