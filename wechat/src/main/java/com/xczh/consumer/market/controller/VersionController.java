@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,13 +92,14 @@ public class VersionController {
     @RequestMapping("addTipOff")
 	public void addTipOff(HttpServletRequest req,
 								  HttpServletResponse res, LiveExamineInfo liveExamineInfo,
-								  @RequestParam MultipartFile [] files) throws IOException{
+								  @RequestParam MultipartFile [] files) throws IOException, SQLException, ServletException{
     	
     /*	ConfigUtil cfg = new ConfigUtil(req.getSession());
 		String returnCodeUri = cfg.getConfig("returnCodeUri");*/
     	List<String> list;
     	String courseId = req.getParameter("courseId");
     	String label = req.getParameter("label");
+    	String token = req.getParameter("token");
 		try {
 			String content = req.getParameter("content");
 	    	CourseLecturVo cv =  null;
@@ -118,16 +121,19 @@ public class VersionController {
 	    		i++;
 			}
 	    	String teacherId =1+"";
-	    	String userId =appBrowserService.getOnlineUserByReq(req).getId();
-	    	
-	    	versionService.insertTipOff(content,courseId,label,teacherId,userId,imgStrs);
+	    	//String userId =appBrowserService.getOnlineUserByReq(req).getId();
+	    	versionService.insertTipOff(content,courseId,label,teacherId,"",imgStrs);
 			//return ResponseObject.newSuccessResponseObject("举报成功");
-	    	res.sendRedirect(returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=1");
+	    	String str =  returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=1";
+	    	System.out.println(str);
+	    	//req.getRequestDispatcher(str).forward(req,res);
+	    	
+	    	res.sendRedirect("/xcviews/html/complaint_details.html?label="+label+"&falg=1");
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			//return ResponseObject.newErrorResponseObject("举报失败");
-			res.sendRedirect(returnOpenidUri + "/xcviews/html/complaint_details.html?label="+label+"&falg=2");
+			res.sendRedirect("/xcviews/html/complaint_details.html?label="+label+"&falg=2");
 		}
     	
 	}

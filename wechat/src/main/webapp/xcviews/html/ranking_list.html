@@ -134,11 +134,10 @@
 	<img src="../images/null14.png" alt="" />
 	<p>还没有人送礼快去直播</p>
 </div>
-
 <!-- 点击性别开始 -->
     <div class="sex_pet_name" style="display: block;">
       <div class="sex_pet_name_top">
-        <div class="return" onclick="location.href ='persons.html'"></div>
+        <div class="return" onclick="history.go(-1)"></div>
         <div class="dl"
           style="width: 80%; float: left; margin-left: 0.9rem;">熊猫币贡献榜</div>
         <!--<div class="pet_name_right" id="sex_save" style="width:1.8rem;margin-right:0.2rem;">保存</div>-->
@@ -147,9 +146,6 @@
       
       <div style="width: 100%;height: 100%;background: #fff;">
 	      <div class="ranking_body">
-	      	
-
-	      	
 	      </div>
       </div>
       <div class="both"></div>
@@ -178,59 +174,77 @@
         requestService("/bxg/gift/userRankingList",{userId:userId},function(data) {
             if (data.success) {
                 var list=data.resultObject;
-                var html="";
-                for (var i=0;i<list.length;i++){
+                if(list.length>0){
+                	
+                	 $(".contribution").hide();
+                	
+                	 var html="";
+                     for (var i=0;i<list.length;i++){
 
-                    var pName="";
-                    if(i==0){
-                        pName="状元";
-                    }else if(i==1){
-                        pName="榜眼";
-                    }else if(i==2){
-                        pName="探花";
-                    }else{
-                        pName="第"+(i+1)+"名";
-                    }
+                         var pName="";
+                         if(i==0){
+                             pName="状元";
+                         }else if(i==1){
+                             pName="榜眼";
+                         }else if(i==2){
+                             pName="探花";
+                         }else{
+                             pName="第"+(i+1)+"名";
+                         }
 
-                    var pLogo="";
-                    if(i==0){
-                        pLogo="/xcviews/images/scholar0.png";
-                    }else if(i==1){
-                        pLogo="/xcviews/images/prize01.png";
-                    }else if(i==2){
-                        pLogo="/xcviews/images/tertius01.png";
-                    }
+                         var pLogo="";
+                         if(i==0){
+                             pLogo="/xcviews/images/scholar0.png";
+                         }else if(i==1){
+                             pLogo="/xcviews/images/prize01.png";
+                         }else if(i==2){
+                             pLogo="/xcviews/images/tertius01.png";
+                         }
 
-                    html+="<div class='leaderboard_list'>\n";
+                         html+="<div class='leaderboard_list'>\n";
 
-                    if(i==0 || i==1 || i==2){
-                        html+="<div class='leaderboard_left'>\n";
-                        html+="<img src='"+pLogo+"' alt='' style='width: 1.6rem;height:0.9rem' /><br />";
-                        html+="<span>"+pName+"</span>";
-                    }else{
-                        html+="<div class='leaderboard_left' style='line-height: 1.8rem;'>\n";
-                        html+="<span>"+pName+"</span>";
-                    }
-                    html+="</div>\n" +
-                        "<div class='leaderboard_center'>\n" +
-                        "<img src='"+list[i].smallHeadPhoto+"' alt='' />\n" +
-                        "<div class='leaderboard_center_size'>\n" +
-                        "<p class='p1'>"+list[i].name+"</p>\n" +
-                        "<p class='p2'>\n" +
-                        "贡献&nbsp;&nbsp;<span>"+list[i].giftCount+"</span>\n" +
-                        "</p>\n" +
-                        "</div>\n" +
-                        "</div>\n" +
-                        "<img src='' alt=''\n" +
-                        "class='leaderboard_list_right' />\n" +
-                        "<div class='both'></div>\n" +
-                        "</div>";
+                         if(i==0 || i==1 || i==2){
+                             html+="<div class='leaderboard_left'>\n";
+                             html+="<img src='"+pLogo+"' alt='' style='width: 1.6rem;height:0.9rem' /><br />";
+                             html+="<span>"+pName+"</span>";
+                         }else{
+                             html+="<div class='leaderboard_left' style='line-height: 1.8rem;'>\n";
+                             html+="<span>"+pName+"</span>";
+                         }
+                         html+="</div>\n" +
+                             "<div class='leaderboard_center' title='1'>\n" +
+                             "<img src='"+list[i].smallHeadPhoto+"' alt='' />\n" +
+                             "<div class='leaderboard_center_size'>\n" +
+                             "<p class='p1'>"+list[i].name+"</p>\n" +
+                             "<p class='p2'>\n" +
+                             "贡献&nbsp;&nbsp;<span>"+list[i].giftCount+"</span>\n" +
+                             "</p>\n" +
+                             "</div>\n" +
+                             "</div>\n" +
+                             "<img src='' alt=''\n" +
+                             "class='leaderboard_list_right' />\n" +
+                             "<div class='both'></div>\n" +
+                             "</div>";
 
+                     }
+                     /*html+="<div style="height:5rem;"></div>";*/
+                     $(".ranking_body").html(html);
+                     
+                     
+                }else{
+                	$(".contribution").show();
                 }
-                /*html+="<div style="height:5rem;"></div>";*/
-                $(".ranking_body").html(html);
             }
         },false);
 	
+        
+        $(".leaderboard_center").click(function(obj){
+        	
+        	 var id = $(this).attr("title");
+        	location.href = "/xcviews/html/personage.html?lecturerId="+id;
+        })
+        
 </script>
+
+
 </html>

@@ -267,8 +267,10 @@
 			 */
 			$(".site_bto_right02").click(function(){
 				var id = $(this)[0].title;
-				$("#address_bg_bto1").attr("title",id);
-				$(".history_bg").show();
+//				$("#address_bg_bto1").attr("title",id);
+//				$(".history_bg").show();
+				
+				deleteAddress(this);
 			});
 	}
 	/**

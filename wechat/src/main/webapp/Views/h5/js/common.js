@@ -153,7 +153,9 @@ if(current.indexOf("/bxg/page/login/")==-1
 		&& current.indexOf("/bxg/page/reg")==-1  
 		&& current.indexOf("/xcviews/html/find.html")==-1
 		&& current.indexOf("/bxg/page/forgotPassword")==-1 
-		&& current.indexOf("/xcviews/html/personalfor.html")==-1 ){
+		&& current.indexOf("/xcviews/html/personalfor.html")==-1
+		&& current.indexOf("/xcviews/html/complaint.html")==-1
+		&& current.indexOf("/xcviews/html/complaint_details.html")==-1){
 	
 	
 	var user_cookie = cookie.get("_uc_t_");
