@@ -1449,7 +1449,7 @@ footer{
     background-size: 100% 100%;
     margin-bottom:0.5rem;
 	animation: move  .5s linear forwards; 
-   
+   	z-index: 9;
 }
 /* @keyframes move{
 	form{
