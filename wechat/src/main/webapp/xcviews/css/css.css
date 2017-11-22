@@ -4028,7 +4028,7 @@ footer{
 .my_details1_img{
 	width: 60%;
 	float: left;
-	margin-left: 0.35rem;
+	/*margin-left: 0.35rem;*/
 }
 .my_details1_img img{
 	width: 1.5rem;

@@ -76,12 +76,15 @@ function initOrderList(status,downOrOn){
                 			if(liveStatus==1){
                 				liveTypeOrState ="直播中";
                 				liveTypeImg ="/xcviews/images/zhibo001.png";
+                				$('.pp').hide();
                 			}else if(liveStatus==2){
                 				liveTypeOrState ="预告";
                 				liveTypeImg ="/xcviews/images/yugao001.png"	
+                				$('.pp').hide();
                 			}else{
                 				liveTypeOrState ="回放";
                 				liveTypeImg ="/xcviews/images/huifang001.png"
+                				$('.pp').hide();
                 			}
                 		}else if(type == 2){
                 			liveTypeOrState ="视频";
@@ -115,7 +118,7 @@ function initOrderList(status,downOrOn){
 							}
 							
 							html+="<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "老师</span></p>" +
-									"<p style='position: absolute;right: 0.4rem;font-size: 0.6rem;font-family:'微软雅黑';'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
+									"<p class='pp' style='position: absolute;right: 0.4rem;font-size: 0.6rem;color: #666;'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
 							"<div class='indent_main_two'><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";
                         }
 
