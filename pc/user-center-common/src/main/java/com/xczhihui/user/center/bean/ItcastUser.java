@@ -82,6 +82,10 @@ public class ItcastUser implements Serializable {
 	 */
 	private Date registDate;
 
+	private String headPhoto;
+
+	private String uuid;
+
 	@Override
 	public String toString() {
 		return String
@@ -91,6 +95,22 @@ public class ItcastUser implements Serializable {
 		                id, loginName, password, salt, nikeName, sex, email,
 		                mobile, type, origin,
 		                status, lastLoginDate, registDate);
+	}
+
+	public String getHeadPhoto() {
+		return headPhoto;
+	}
+
+	public void setHeadPhoto(String headPhoto) {
+		this.headPhoto = headPhoto;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public int getId() {

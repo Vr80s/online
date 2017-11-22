@@ -47,13 +47,32 @@ public class Token implements Serializable {
 	
 	private String nickName;
 
+	private String headPhoto;
+
+	private String uuid;
+
 	@Override
 	public String toString() {
 		return "userId:" + userId + " loginName:" + loginName + " origin:" + origin + " ticket:" + ticket + " expires:" + expires + " mobile:"
 				+ mobile + " type:" + type + " email:" + email +" nickName:" +nickName;
 	}
-	
-	
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getHeadPhoto() {
+		return headPhoto;
+	}
+
+	public void setHeadPhoto(String headPhoto) {
+		this.headPhoto = headPhoto;
+	}
+
 	public String getNickName() {
 		return nickName;
 	}
