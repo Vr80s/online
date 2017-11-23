@@ -60,7 +60,9 @@ document.getElementById("btn").addEventListener("tap", function() {
 			var reg = document.getElementById("reg");
 			reminderror.innerHTML = "";
 		} else {
-			reminderror.innerHTML = data.errorMessage;
+			reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>同一手机号两次发送间隔至少90秒！</div></div></div>";
+		setTimeout(function(){$(".vanish2").hide();},1500);
+//			reminderror.innerHTML = data.errorMessage;  同一手机号两次发送间隔至少90秒！
 		}
 	});
 })
@@ -127,7 +129,8 @@ function checkCode(username, code, userpassword) {
 			//登录之后到主页面呢
 			location.href = "/bxg/page/login/1";
 		} else {
-			tishi.innerHTML = data.errorMessage;
+			reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
+							setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
 }
