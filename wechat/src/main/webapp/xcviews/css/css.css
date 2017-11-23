@@ -84,7 +84,7 @@ img{
     /*font-family: "微软雅黑";*/
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.3rem;
-    font-size: 0.55rem;
+    font-size: 0.6rem;
 }
 .phone_bottom1{
 	margin-bottom: 1.5rem;
@@ -92,9 +92,9 @@ img{
 .last_input input{
 	width: 58%;
 	height:1rem;
-    font-size: 0.55rem;
+    font-size: 0.6rem;
     color: #999;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
     border: 0px;
     border: none;
     background: none;
@@ -183,7 +183,7 @@ img{
     display: inline-block;
     text-align: right;
     color: #00bc12;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
     border-radius: 6px;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
