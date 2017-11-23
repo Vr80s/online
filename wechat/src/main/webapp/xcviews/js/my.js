@@ -143,12 +143,14 @@ document.getElementById("btn").addEventListener("tap", function() {
 	var number = document.getElementById("number").value; // 手机号
 	if (!stringnull(number)) {
 		$("#reminderror").show();
-		reminderror.innerHTML = "手机号不能为空";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
 		$("#reminderror").show();
-		reminderror.innerHTML = "手机号格式不正确";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	
@@ -173,8 +175,9 @@ document.getElementById("btn").addEventListener("tap", function() {
 				urlparm.vtype=1;
 				falg = false;
 			}else if(data.code == 201){
-				reminderror.innerHTML = data.resultObject.errorMessage;
+				reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>此手机号已经绑定过微信号了</div></div></div>"
 				$("#reminderror").show();
+				setTimeout(function(){$(".vanish2").hide();},1500);
 				return;
 			}else if(data.code == 202){
 				urlparm.vtype=2;
@@ -216,30 +219,35 @@ reg.addEventListener("tap", function() {
 	var yanzhengma = document.getElementById("yanzhengma").value;
 	if (!stringnull(number)) {
 		$("#reminderror").show();
-		reminderror.innerHTML = "手机号不能为空";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
 		$("#reminderror").show();
-		reminderror.innerHTML = "手机号格式不正确";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!stringnull(yanzhengma)) {
 		$("#reminderror").show();
-		reminderror.innerHTML = "验证码不能为空";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	var userpassword = document.getElementById("userpassword").value; // 密码
 	if(!falg){
 		if (!stringnull(userpassword)) {
 			$("#reminderror").show();
-			reminderror.innerHTML = "请输入6-18位密码!";
+			reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入6-18位密码!</div></div></div>";
+			setTimeout(function(){$(".vanish").hide();},1500);
 			return false;
 		}
 		var pwdLength = userpassword.trim().length;
 	    if(pwdLength < 6 || pwdLength > 18) {
 	    	 $("#reminderror").show();
-	         reminderror.innerHTML = "请输入6-18位密码!";
+	         reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入6-18位密码!</div></div></div>";
+	         setTimeout(function(){$(".vanish").hide();},1500);
 	         return false;
 	    }
 	}

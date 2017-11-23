@@ -56,36 +56,44 @@
 	/**
 	 * 保存地址
 	 */
+	
+	
 	$("#address_save").click(function(){
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
 		if(!stringnull(consignee) && (consigneeLength<3 || consigneeLength >20) ){  
-			$("#errorMsg").html("<p>收货人不能为空</p><p>收货人长度0-20</p>");
+			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请填写收货人</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish").hide();},1500);
 			return false;
+			
 		}
 		var phone =$("#phone").val();
 		if (!stringnull(phone)) {
-			$("#errorMsg").text("手机号不能为空");
+			$("#errorMsg").html("<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>请填写手机号</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish0").hide();},1500);
 			return false;
 		}
 		if (!(/^1[34578]\d{9}$/.test(phone))) {
-			$("#errorMsg").text("手机号格式不正确");
+			$("#errorMsg").html("<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>手机号格式不正确</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish1").hide();},1500);
 			return false;
 		}
 		
 		var detailed_address =$("#detailed_address").val();
 		if(!stringnull(detailed_address) || (detailed_address.length >50)){  
-			$("#errorMsg").html("<p>收货人不能为空</p><p>详细地址不能大于50</p>");
+			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>收货人不能为空,详细地址不能大于50</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish2").hide();},1500);
 			return false;
 		}
 		var cityP =$("#cityP").text();
 		if(!stringnull(cityP) || cityP == "请选择"){
-			$("#errorMsg").html("<p>请选择省市区</p>");
+			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish3").hide();},1500);
 			return false;
 		}
 		var provinces ="";var city = "";var county ="";
