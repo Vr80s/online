@@ -757,11 +757,11 @@ footer{
 	float: left;
     font-size: 0.6rem;
     color: #424a53;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    margin-left: 1.37rem;
+    margin-right: 1.37rem;
     margin-top: 0.4rem;
-    /*font-family: "微軟雅黑";*/
-    width: 1.2rem;
+    /* font-family: "微軟雅黑"; */
+    width: 1.5rem;
 }
 .index_list_div_li1{
 	width: 1.1rem;
@@ -862,19 +862,20 @@ footer{
 	margin-right: 0.25rem;
 }
 .line_top_right{
-	width: 7.3rem;
+	width: 6.7rem;
 	float: right;
 	margin-top: 0.2rem;
 }
 .line_top_right div{
 	float: left;
     font-size: 0.7rem;
-    /*font-family: "微软雅黑";*/
-    padding-right: 0.5rem;
+    padding-right: 0.2rem;
     border-right: 1px solid #ccc;
-    margin-left: 0.5rem;
+    /* margin-left: 0.5rem; */
     height: 0.5rem;
     line-height: 0.5rem;
+    width: 2rem;
+    text-align: center;
 }
 .index_list_div1{
 	color: #00bc12;

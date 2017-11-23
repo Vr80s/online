@@ -22,6 +22,7 @@
 <script src="/xcviews/js/common/js.js"></script>
 <link rel="stylesheet" href="/xcviews/css/css.css">
 <link rel="stylesheet" href="/xcviews/css/tailor.css">
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 <link rel="stylesheet" href="/xcviews/css/personCommon.css">
 <script type="text/javascript"  src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
 </head>
@@ -67,9 +68,9 @@
   			var nikeName = $("#info").val().trim();
   			if(!stringnull(nikeName) || nikeName.length>20 || nikeName.length<4){
   			   cymYonghuInfo.show();
-   			   cymYonghuInfo.html("<p>个性签名不能为空</p>"
-  			          + "<p>长度只能在4-20个字符之间</p>");
-   		       return false;
+   			   cymYonghuInfo.html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>个性签名不能为空，长度只能在4-20个字符之间</div></div></div>");
+   		      setTimeout(function(){$(".vanish2").hide();},1500); 
+   		      return false;
   			}
   			//隐藏错误，
   			cymYonghuInfo.hide();
