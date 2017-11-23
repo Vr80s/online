@@ -273,16 +273,11 @@ public class OnlineUserMapper extends BasicSimpleDao {
 						original.getSmallHeadPhoto())) {
 			sb.append(" small_head_photo ='" + map.get("smallHeadPhoto") + "',");
 		}
-		
-		
-		if (StringUtils.hasText(map.get("occupation"))  //用户职业
-				&& Integer.parseInt(map.get("occupation")) != original.getOccupation()) {
-			
+		if (StringUtils.hasText(map.get("occupation"))) {
 			sb.append(" occupation =" + Integer.parseInt(map.get("occupation")) + ",");
 		}
 		if (StringUtils.hasText(map.get("occupationOther")) //身份信息
 				&& !map.get("occupationOther").equals(original.getOccupationOther())) {
-			
 			sb.append(" occupation_other ='" + map.get("occupationOther") + "',");
 		}
 		

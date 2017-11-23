@@ -64,8 +64,9 @@ public class TokenFilter implements Filter {
 		/bxg/live/list
 	    /bxg/bunch/list
 	*/
-	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index,"
-			+ "/bxg/bunch/categorylist,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain";
+	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
+			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain";
+	
 	
 	/**
 	 * 举报不拦截  /xcviews/html/share.html
@@ -90,6 +91,7 @@ public class TokenFilter implements Filter {
 		}     
 	}
 
+	
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
@@ -117,8 +119,7 @@ public class TokenFilter implements Filter {
 		 * app请求会携带过来token为null那么就给他返回token
 		 * 浏览器请求是不携带的。
 		 */
-		
-		if(isExcludedPage){ //放行
+		if(isExcludedPage || currentURL.equals("/bxg/version/addTipOff")){ //放行
 			chain.doFilter(request, response);
 		}else{
 			int statusFalg = 200;

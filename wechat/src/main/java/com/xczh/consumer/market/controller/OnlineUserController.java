@@ -523,6 +523,7 @@ public class OnlineUserController {
        /*   if(map.get("sex").equals("2")){
         	  map.remove("sex");
           }*/
+          System.out.println(map.toString());
           return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
             e.printStackTrace();

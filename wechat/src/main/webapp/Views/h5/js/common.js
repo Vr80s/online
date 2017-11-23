@@ -154,6 +154,7 @@ if(current.indexOf("https")!=-1){
 }
 /*alert(current+"==============="+domain);*/
 if(current.indexOf("/bxg/page/login/")==-1 
+		&& current.indexOf("/bxg/page/index/")==-1 
 		&& current.indexOf("/xcviews/html/share.html")==-1
 		&& current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/xcviews/html/my.html")==-1
@@ -165,6 +166,7 @@ if(current.indexOf("/bxg/page/login/")==-1
 		&& current.indexOf("/xcviews/html/personalfor.html")==-1
 		&& current.indexOf("/xcviews/html/complaint.html")==-1
 		&& current.indexOf("/xcviews/html/complaint_details.html")==-1
+		&& current.indexOf("/xcviews/html/index.html")==-1
 		&& current != domain){
 	
 	
@@ -179,6 +181,7 @@ if(current.indexOf("/bxg/page/login/")==-1
 function requestService(url, param, callback, ac) {
 	if (ac == null)
 		ac = true;// 默认异步
+	
 	mui.ajax({
 		url : url,
 		type : "post",
