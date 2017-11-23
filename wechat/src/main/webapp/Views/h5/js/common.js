@@ -35,7 +35,8 @@ function getServerHost(){
 		return server_domain;
 	}
 	if(!stringnull(server_domain)){
-		return "http://wx.ixincheng.com"; 
+		//alert("1234");
+		return "http://www.ixincheng.com"; 
 	}
 	return server_domain; 
 }
@@ -86,10 +87,12 @@ function h5PcConversions(falg,courserId){
 	}
 	if(!(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
 			browser.versions.iPhone || browser.versions.iPad)){    
+		
+		 var nihao   = getServerHost();
 		if(falg ){//ture
-			window.location = getServerHost()+"/course/courses?courseId="+courserId
+			window.location = nihao+"/course/courses?courseId="+courserId
 		}else{
-			window.location = getServerHost();
+			window.location = nihao;
 		}
 		return false;
 	}else{
@@ -98,7 +101,7 @@ function h5PcConversions(falg,courserId){
 }
 
 var current = location.href;
-
+var domain = window.location.host;
 if(current.indexOf("/xcviews/html/share.html")==-1
 		&& current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/bxg/xcpage/courseDetails")==-1
@@ -144,7 +147,13 @@ var cookie = {
 //http://localhost:58080/bxg/xcpage/courseDetails?courseId=410
 
 
-if(current.indexOf("/bxg/page/login/")==-1  
+if(current.indexOf("https")!=-1){
+	domain = "https://"+domain+"/";
+}else{
+	domain = "http://"+domain+"/";
+}
+/*alert(current+"==============="+domain);*/
+if(current.indexOf("/bxg/page/login/")==-1 
 		&& current.indexOf("/xcviews/html/share.html")==-1
 		&& current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/xcviews/html/my.html")==-1
@@ -155,7 +164,8 @@ if(current.indexOf("/bxg/page/login/")==-1
 		&& current.indexOf("/bxg/page/forgotPassword")==-1 
 		&& current.indexOf("/xcviews/html/personalfor.html")==-1
 		&& current.indexOf("/xcviews/html/complaint.html")==-1
-		&& current.indexOf("/xcviews/html/complaint_details.html")==-1){
+		&& current.indexOf("/xcviews/html/complaint_details.html")==-1
+		&& current != domain){
 	
 	
 	var user_cookie = cookie.get("_uc_t_");

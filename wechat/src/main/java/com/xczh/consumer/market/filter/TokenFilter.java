@@ -64,8 +64,8 @@ public class TokenFilter implements Filter {
 		/bxg/live/list
 	    /bxg/bunch/list
 	*/
-	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,"
-			+ "/bxg/bunch/categorylist,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery";
+	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index,"
+			+ "/bxg/bunch/categorylist,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain";
 	
 	/**
 	 * 举报不拦截  /xcviews/html/share.html
@@ -117,6 +117,7 @@ public class TokenFilter implements Filter {
 		 * app请求会携带过来token为null那么就给他返回token
 		 * 浏览器请求是不携带的。
 		 */
+		
 		if(isExcludedPage){ //放行
 			chain.doFilter(request, response);
 		}else{
