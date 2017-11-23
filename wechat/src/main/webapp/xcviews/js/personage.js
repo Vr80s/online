@@ -28,11 +28,11 @@ requestService("/bxg/common/judgeUserIsTeacher", {
 			//隐藏 视频数、礼物数
 			$(".personage_pay").hide(); 
 		}else{
-			userIndexStatisticsInfo();
-			
 			viewContributionList();
 		}
 },false)
+
+userIndexStatisticsInfo();
 /**
  * 用户主页 -- 主播课程列表
  */
@@ -106,7 +106,7 @@ function userIndexCourseList(type,falg){
 						"<div class='public1_list_bg'>"+
 						"</div>"+
 						"<div class='public1_list_img' onclick='userIndex("+JSON.stringify(obj)+")'>"+
-							"<img src='../images/line_03.jpg' alt=''>"+
+							"<img src='"+obj.smallImgPath+"' alt=''>"+
 						"</div>"+
 						"<div class='public1_title'>"+obj.gradeName+"</div>"+
 						"<div class='public1_cen'>"+
@@ -174,6 +174,8 @@ window.onload=function(){
         if(type!=0){
           pageNumber = 1;
       	  userIndexCourseList(type,false);
+        }else{
+        	$(".null15").hide();
         }
       })
     }
@@ -273,8 +275,8 @@ function userIndexStatisticsInfo(){
 		 isFours = bigObj.isFours;
 		/* *//**
 		  * 目前是课程数
-		  *//*
-		 $("#courseAll").text(bigObj.courseAll);*/
+		  */
+		 $("#courseAll").val(bigObj.courseAll);
 		 /**
 		  * 礼物数
 		  */
@@ -338,6 +340,7 @@ $(".personage_return").click(function(){
 		sessionStorage.removeItem("personageHistory");
 		location.href="/xcviews/html/index.html";//默认返回到首页吧
 	}
+	//history.go(-1);
 })
 
 /**

@@ -67,6 +67,11 @@ public class TokenFilter implements Filter {
 	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,"
 			+ "/bxg/bunch/categorylist,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery";
 	
+	/**
+	 * 举报不拦截  /xcviews/html/share.html
+	 */
+	private String str6 = "/xcviews/html/complaint.html,/xcviews/html/complaint_details.html";
+	
 	
 	public static void main(String[] args) {
 		System.out.println(str.split(",").length+str1.split(",").length+str2.split(",").length+str3.split(",").length);
@@ -78,7 +83,8 @@ public class TokenFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
 		//excludedPages = filterConfig.getInitParameter("excludedPages"); 
-		String all = str + "," +str1+","+str2+","+str3+","+str4+","+str5;
+		String all = str + "," +str1+","+str2+","+str3+","+str4+","+str5+","+str6;
+		
 		if (StringUtils.isNotEmpty(all)) {   
 		    excludedPageArray = all.split(",");     
 		}     
@@ -95,7 +101,7 @@ public class TokenFilter implements Filter {
 		request.setCharacterEncoding("UTF-8");
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
-		
+
 		boolean isExcludedPage = false;   
 		String currentURL = request.getRequestURI(); // 取得根目录所对应的绝对路径:
 		if(Arrays.asList(excludedPageArray).contains(currentURL)){

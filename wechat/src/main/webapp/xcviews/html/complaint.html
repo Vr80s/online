@@ -16,10 +16,9 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="../js/js.js"></script>
-<link rel="stylesheet" href="../css/css.css">
-
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script src="/Views/h5/js/js.js"></script>
+<link rel="stylesheet" href="/xcviews/css/css.css">
+<script type="text/javascript" src="/Views/h5/js/jquery-1.8.3.min.js"></script>
 
 <style>
 	.complaint_cen{
@@ -126,7 +125,7 @@
 	</div>
 </body>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<!-- <script type="text/javascript" src="/Views/h5/js/common.js"></script> -->
 <script>
 
 /* function getQueryString(name) {
@@ -135,9 +134,30 @@
     if (r != null) return unescape(r[2]); return null;
 }
  */
+ /**
+  * 截取url传递的参数
+  * @param name 传递 key  得到value 
+  * @returns
+  */
+ function getQueryString(name) {
+     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+     var r = window.location.search.substr(1).match(reg);
+     if (r != null) return unescape(r[2]); return null;
+ }
+//判断字段空值
+ function stringnull(zifu) {
+ 	if (zifu == "" || zifu == null || zifu == undefined || zifu == "undefined"
+ 			|| zifu == "null") {
+ 		return false;
+ 	}
+ 	return true;
+
+ }
 var courseId = getQueryString("courseId");
+var token =getQueryString("token"); 
 if(stringnull(courseId)){
 	sessionStorage.setItem("tipOffCourseId",courseId);
+	sessionStorage.setItem("tipOffToken",token);
 }
 </script>
 

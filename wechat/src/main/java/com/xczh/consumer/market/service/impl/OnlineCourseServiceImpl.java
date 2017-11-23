@@ -765,7 +765,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	    
 	    List<Map<String,Object>> mapList = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new MapListHandler(), params);
 	    for (Map<String, Object> map : mapList) {
-	    	if(null !=map && map.get("lineState").equals("1")){
+	    	if(null !=map && Integer.parseInt(map.get("lineState").toString())==1){
 	    		mapIsLive.put("status", "1");
 	    		mapIsLive.put("id", map.get("id").toString());
 	    	}

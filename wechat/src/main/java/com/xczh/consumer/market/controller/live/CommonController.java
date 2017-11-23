@@ -123,9 +123,9 @@ public class CommonController {
 			Integer focusCount  = focusService.findMyFocusCount(lecturerId);
 			
 			/**
-			 * 得到讲师下面的所有课程数  ---》如果是数的话客户会比较蒙
+			 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
 			 */
-			//Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
+			Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
 			/**
 			 * 得到这个讲师的所有   礼物数
 			 */
@@ -136,7 +136,7 @@ public class CommonController {
 			Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
 
 			//mapAll.put("giftAll", giftAll);           // 礼物数 
-			//mapAll.put("courseAll", courseAll);       // 课程数 
+			mapAll.put("courseAll", courseAll);       // 课程数 
 			//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
 			
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注

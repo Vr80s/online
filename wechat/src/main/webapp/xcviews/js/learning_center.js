@@ -106,7 +106,7 @@ function initOrderList(status,downOrOn){
     					if(onlineCourse==1){ //线下课程
                             course.endTime=formatDateTime(course.endTime);
                             course.startTime=formatDateTime(course.startTime);
-							html+="<div class='indent_main_one'><div class='train_list_bto1' style=' height:1rem;'><div class='train_lecturer1' style=' float:left;margin-top:0;'>社会你涛哥</div><div class='train_list_bto1_maip' style='max-width: 3rem;'><div class='train_list_bto1_img' style='margin-right: 0;'><img src='../images/maip.png' alt=''></div><div class='train_list_bto1_area' style='max-width: 2rem;'>"+course.address+"</div></div><div class='train_list_bto01' style=' margin-top:0.6rem;'>￥2000</div></div><div class='offline_bg'><div class='offline_date'>2017.11.16-2017.11.16</div></div><div class='both'></div></div>";
+							html+="<div class='indent_main_one'><div class='train_list_bto1' style=' height:1rem;'><div class='train_lecturer1' style=' float:left;margin-top:0;'>社会你涛哥</div><div class='train_list_bto1_maip' style='max-width: 3rem;'><div class='train_list_bto1_img' style='margin-right: 0;'><img src='../images/maip.png' alt=''></div><div class='train_list_bto1_area' style='max-width: 2rem;'>"+course.city+"</div></div><div class='train_list_bto01' style=' margin-top:0.6rem;'>￥2000</div></div><div class='offline_bg'><div class='offline_date'>2017.11.16-2017.11.16</div></div><div class='both'></div></div>";
 						}else{
     						if(course.currentPrice<=0){
                                 course.currentPrice="免费";
