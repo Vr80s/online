@@ -67,17 +67,17 @@ function initOrderList(status,downOrOn){
                 	html+="<div class='indent_main'>";
                 		var course =order;
                 		var type  =  course.type; // type :1 直播  2视频 3 音频
-                		var liveStatus = course.liveStatus;
+                		var lineState = course.lineState;
                 		var liveTypeOrState ="直播";  //直播状态 1.直播中，2预告，3直播结束
                 		var liveTypeImg = '';
 						var onlineCourse=course.onlineCourse;
                 		//判断课程的状态啦  
                 		if(type == 1){
-                			if(liveStatus==1){
+                			if(lineState==1){
                 				liveTypeOrState ="直播中";
                 				liveTypeImg ="/xcviews/images/zhibo001.png";
                 				$('.pp').hide();
-                			}else if(liveStatus==2){
+                			}else if(lineState==2){
                 				liveTypeOrState ="预告";
                 				liveTypeImg ="/xcviews/images/yugao001.png"	
                 				$('.pp').hide();
@@ -92,7 +92,7 @@ function initOrderList(status,downOrOn){
                 			liveTypeOrState ="音频";
                 		}
                 		//立即观看、去预约呢，还是直播呢，还是点播呢
-                		html+="<div class='indent_main_cen' title="+type+" onlineCourse="+onlineCourse+"  courseId = "+course.id+" alt="+liveStatus+">"+
+                		html+="<div class='indent_main_cen' title="+type+" onlineCourse="+onlineCourse+"  courseId = "+course.id+" alt="+lineState+">"+
             				"<div class='indent_main_cen_left'>"+
             					"<img  src='/xcviews/images/meng.png' alt='' class='img_show' />"+
             					"<img  src='"+course.smallImgPath+"' alt='' class='img_show1' />"+
@@ -179,7 +179,7 @@ function initOrderList(status,downOrOn){
  */
 mui("#refreshContainer").on('tap', '.indent_main_cen', function (event) {
 	var div = $(this);
-	var liveStatus = div.attr("alt");     // liveStatus
+	var lineState = div.attr("alt");     // lineState
 	var type = div.attr("title"); //type
 	var courseId = div.attr("courseId"); //type
 
@@ -191,7 +191,7 @@ mui("#refreshContainer").on('tap', '.indent_main_cen', function (event) {
 	}
 
 	if(type == 1){  
-		if(liveStatus!=2){ //直播详情
+		if(lineState!=2){ //直播详情
 			location.href = "/bxg/xcpage/courseDetails?courseId="+courseId;
 			return;
 		}else{     //预告

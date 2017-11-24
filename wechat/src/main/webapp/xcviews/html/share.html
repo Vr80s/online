@@ -240,8 +240,8 @@
     	  requestService("/bxg/common/shareJump",{courseId : course_id}, function(data) {
 				if (data.success) {
 					 var result = data.resultObject;
-					 if(result.type == 1){   // 0 直播已结束	 1 直播还未开始	 2 正在直播
-						 if(result.state == 1){//预约
+					 if(result.type == 1){  //直播状态 1.直播中，2预告，3直播结束
+						 if(result.state == 2){//预约
 								location.href = "/xcviews/html/foreshow.html?course_id=" + course_id;
 						 }else{
 							 location.href = "/bxg/xcpage/courseDetails?courseId="+course_id;

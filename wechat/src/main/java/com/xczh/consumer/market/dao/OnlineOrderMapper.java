@@ -175,7 +175,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 			sql2.append(" select course.id as id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
 			sql2.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");  
 			sql2.append(" if(course.type is not null,1,if(course.multimedia_type=1,2,3)) as type, "); //type 1直播  2点播 3音频
-			sql2.append(" course.live_status as liveStatus,course.online_course as  onlineCourse, ");
+			sql2.append(" course.live_status as lineState,course.online_course as  onlineCourse, ");
 			sql2.append(" course.smallimg_path as smallimgPath,course.start_time as startTime,course.end_time as endTime,"
 					+ "ou.name as teacherName,ou.id as userId");
 			sql2.append("  from oe_order_detail as de ");
@@ -186,27 +186,6 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 			Object params2[] = {id};
 			List<OnlineCourse> lists2 = this.query(JdbcUtil.getCurrentConnection(), sql2.toString(),
 					new BeanListHandler<>(OnlineCourse.class),params2);
-			
-			//lineState: 0 直播已结束 1 直播还未开始 2 正在直播
-			
-			for (OnlineCourse onlineCourse : lists2) {
-				if(onlineCourse.getType() == 1){ //表示直播
-					Date start = onlineCourse.getStartTime();
-					Date end = onlineCourse.getEndTime();
-					Date now = new Date();
-					// lineState 0 直播已结束 1 直播还未开始 2 正在直播
-					if(end!=null && start!=null){
-						if (end.getTime() < now.getTime()) {// 结束时间小于当前时间，说明已经结束
-							onlineCourse.setLineState(0);
-						} else if (start.getTime() > now.getTime()) { // 开始时间大于当前时间，说明已经还没开始
-							onlineCourse.setLineState(1);
-						} else if (start.getTime() < now.getTime()
-								&& end.getTime() > now.getTime()) {//正在直播
-							onlineCourse.setLineState(2);
-						}
-					}
-				}
-			}
 			//课程有效期 //支付状态 0:未支付 1:已支付 2:已关闭
 			order.setAllCourse(lists2);
 		}
@@ -234,7 +213,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 					this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId,userId);
 					return list;
 				}else if(2==type){
-				sql = " select oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type,oc.live_status as liveStatus, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath, oc.`start_time` AS startTime, oc.`end_time` AS endTime,oc.direct_id" +
+				sql = " select oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type,oc.live_status as lineState, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath, oc.`start_time` AS startTime, oc.`end_time` AS endTime,oc.direct_id" +
 						" from  oe_course  oc join `apply_r_grade_course` argc on oc.id = argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id    where oc.`online_course` = 0 and oc.type = 1 and argc.user_id=?  group by oc.id ";
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
@@ -246,89 +225,6 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 					}
 		return null;
 
-//		StringBuffer sql = new StringBuffer();
-//		sql.append(" select od.id,od.create_person as createPerson,od.create_time as createTime,od.is_delete as isDelete,od.sort, ");
-//		sql.append(" od.order_no as orderNo,");
-//		sql.append(" od.actual_pay as actualPay,od.pay_account as payAccount,od.purchaser as purchaser,od.pay_type as payType, ");
-//		sql.append(" od.pay_time as payTime,od.order_status as orderStatus,od.user_id as userId,od.order_from as orderFrom, ");
-//		sql.append(" od.is_count_brokerage as isCountBrokerage,od.preferenty_money as preferentyMoney from oe_order as od  ");
-//		sql.append(" where od.user_id = ?  and od.order_status=1 ");//已支付的订单
-//		Object[] params = null;
-//
-//			params = new Object[]{userId};
-//
-//
-//
-//		sql.append(" order by od.order_status asc,od.create_time desc ");
-//		List<OnlineOrder> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineOrder.class, params);
-//		System.out.println(sql.toString());
-//		for(OnlineOrder order : lists){
-//			/**
-//			 * 该订单下的：课程有效时间
-//			 */
-//			//订单支付时间
-//			Date d = order.getCreateTime();
-//			String dStr = DateUtil.dateAddYear(d);
-//			order.setValidity(dStr);
-////			/**
-////			 * 订单失效时间是1天
-////			 */
-////			String dyStr = DateUtil.dateAddDay(d);
-////			order.setOrderValidity(dyStr);
-//			String id = order.getId();
-//			StringBuffer sql2 = new StringBuffer();
-//			sql2.append(" select course.address,course.online_course onlineCourse,course.id as id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
-//			sql2.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");
-//			sql2.append(" if(course.type is not null,1,if(course.multimedia_type=1,2,3)) as type, "); //type 1直播  2点播 3音频
-//			sql2.append(" course.live_status as liveStatus, ");
-//			sql2.append(" course.smallimg_path as smallimgPath,course.start_time as startTime,course.end_time as endTime,"
-//					+ "ou.name as teacherName,ou.id as userId");
-//			sql2.append("  from oe_order_detail as de ");
-//			sql2.append(" ,oe_course as course,oe_user as ou where de.course_id = course.id and course.user_lecturer_id = ou.id "
-//					+ "  and de.order_id = ? ");
-//
-//
-//			// online_course  课程形式:0-线上课程1-线下课程
-//			// multimedia_type 多媒体类型1视频2音频
-//			// type 课程分类 1:公开直播课
-//
-//			if(1==type){
-//				sql2.append(" and course.type!=1 ");
-//			}else if(2==type){
-//				sql2.append(" and course.type=1 ");
-//			}else if(3==type){
-//				sql2.append(" and course.online_course=1 ");
-//			}
-//
-//
-//			Object params2[] = {id};
-//			List<OnlineCourse> lists2 = this.query(JdbcUtil.getCurrentConnection(), sql2.toString(),
-//					new BeanListHandler<>(OnlineCourse.class),params2);
-//
-//			//lineState: 0 直播已结束 1 直播还未开始 2 正在直播
-//
-//			for (OnlineCourse onlineCourse : lists2) {
-//				if(onlineCourse.getType() == 1){ //表示直播
-//					Date start = onlineCourse.getStartTime();
-//					Date end = onlineCourse.getEndTime();
-//					Date now = new Date();
-//					// lineState 0 直播已结束 1 直播还未开始 2 正在直播
-//					if(end!=null && start!=null){
-//						if (end.getTime() < now.getTime()) {// 结束时间小于当前时间，说明已经结束
-//							onlineCourse.setLineState(0);
-//						} else if (start.getTime() > now.getTime()) { // 开始时间大于当前时间，说明已经还没开始
-//							onlineCourse.setLineState(1);
-//						} else if (start.getTime() < now.getTime()
-//								&& end.getTime() > now.getTime()) {//正在直播
-//							onlineCourse.setLineState(2);
-//						}
-//					}
-//				}
-//			}
-//			//课程有效期 //支付状态 0:未支付 1:已支付 2:已关闭
-//			order.setAllCourse(lists2);
-//		}
-//		return lists;
 	}
 	/**
 	 * 根据订单号查询信息
@@ -350,26 +246,6 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		Object params[] = {id};
 		List<OnlineCourse> list = this.query(JdbcUtil.getCurrentConnection(),
 				sql.toString(),new BeanListHandler<>(OnlineCourse.class),params);
-		
-		for (OnlineCourse onlineCourse : list) {
-			/*if(onlineCourse.getType() == 1){ //表示直播
-				Date start = onlineCourse.getStartTime();
-				Date end = onlineCourse.getEndTime();
-				Date now = new Date();
-				// lineState 0 直播已结束 1 直播还未开始 2 正在直播
-				if(end!=null && start!=null){
-					if (end.getTime() < now.getTime()) {// 结束时间小于当前时间，说明已经结束
-						onlineCourse.setLineState(0);
-					} else if (start.getTime() > now.getTime()) { // 开始时间大于当前时间，说明已经还没开始
-						onlineCourse.setLineState(1);
-					} else if (start.getTime() < now.getTime()
-							&& end.getTime() > now.getTime()) {//正在直播
-						onlineCourse.setLineState(2);
-					}
-				}
-			}*/
-		}
-		
 		
 		return list;
 	}

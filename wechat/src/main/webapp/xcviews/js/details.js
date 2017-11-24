@@ -82,14 +82,11 @@ var result="";
             }
 
             lineState =result.lineState;
-            /*result.lineState = 1;*/
             /**
              * 判断是直播呢，还是回放呢
-             *  0 直播已结束 1 直播还未开始 2 正在直播
-             *  
              *  显示正在直播和直播回放
              */
-            if(result.lineState == 0){  //隐藏送礼
+            if(result.lineState == 3){  //隐藏送礼
             	
             	//直播回放
             	$("title").text("直播回放");mywords

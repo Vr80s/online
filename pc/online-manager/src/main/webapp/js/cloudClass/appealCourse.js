@@ -467,14 +467,17 @@ function toPass(obj){
 /**
  * 点击驳回  显示一个弹框，然后输入内容
  */
-function toBoHui(){
+function toBoHui(obj){
+	var oo = $(obj).parent().parent().parent();
+	var aData =  _courseTable.fnGetData(oo);
+	$("#bohuiExamineId").val(aData.id);
 	/*
 	 * 显示这个弹框，
 	 */
 	var dialog = openDialog("bohuiDialog","bohuiDiv","修改课程",580,580,true,"确定",function(){
 	if($("#bohui-form").valid()){
 			mask();
-            $("#bohui-form").attr("action", basePath+"/cloudClass/examine/updateCourseById"); //请求的方法
+            $("#bohui-form").attr("action", basePath+"/cloudClass/examine/bohuiApply"); //请求的方法
             $("#bohui-form").ajaxSubmit(function(data){
             	try{
             		data = jQuery.parseJSON(jQuery(data).text());
@@ -487,7 +490,9 @@ function toBoHui(){
                     layer.msg(data.errorMessage);
                      freshTable(_courseTable);
                 }else{
-                	 layer.msg(data.errorMessage);
+                	 alertInfo(data.errorMessage);
+                	 $("#bohuiDialog").dialog("close");
+                	 freshTable(_courseTable);
                 }
             });
 		}

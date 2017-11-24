@@ -492,6 +492,7 @@ function toBoHui(obj){
                      freshTable(_courseTable);
                 }else{
                 	 layer.msg(data.errorMessage);
+                	 $("#bohuiDialog").dialog("close");
                 }
             });
 		}

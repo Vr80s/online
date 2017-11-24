@@ -77,15 +77,15 @@ function initOrderList(status,downOrOn){
                 	for(var j=0;j<order.allCourse.length;j++){
                 		var course =order.allCourse[j];
                 		var type  =  course.type; // type :1 直播  2视频 3 音频
-                		var liveStatus = course.liveStatus;
+                		var lineState = course.lineState;
                 		var liveTypeOrState ="直播";  //直播状态 1.直播中，2预告，3直播结束
                 		//判断课程的状态啦  
                 		if(type == 1){
-                			if(liveStatus==1){
+                			if(lineState==1){
                 				liveTypeOrState ="直播中";
-                			}else if(liveStatus==2){
+                			}else if(lineState==2){
                 				liveTypeOrState ="预告";
-                			}else if(liveStatus==3){
+                			}else if(lineState==3){
                 				liveTypeOrState ="回放";
                 			}
                 		}else if(type == 2){
@@ -95,7 +95,7 @@ function initOrderList(status,downOrOn){
                 		}
                 		//立即观看、去预约呢，还是直播呢，还是点播呢
                 		html+="<div class='indent_main_cen' title="+type+" courseId = "+course.id+" " +
-                				"onlineCourse="+course.onlineCourse+" alt="+liveStatus+">"+
+                				"onlineCourse="+course.onlineCourse+" alt="+lineState+">"+
             				"<div class='indent_main_cen_left'>"+
             					"<img  src='"+course.smallImgPath+"' alt='' />"+
             					"<p class='indent_main_left_p1'>" + course.gradeName + "</p>"+
@@ -157,7 +157,7 @@ function initOrderList(status,downOrOn){
  */
 mui("#refreshContainer").on('tap', '.indent_main_cen', function (event) {
 	var div = $(this);
-	var liveStatus = div.attr("alt");     // liveStatus
+	var lineState = div.attr("alt");     // lineState
 	var type = div.attr("title"); //type
 	var courseId = div.attr("courseId"); //type
 	var onlineCourse = div.attr("onlineCourse"); //type
@@ -167,7 +167,7 @@ mui("#refreshContainer").on('tap', '.indent_main_cen', function (event) {
 		return;
 	}else{
 		if(type == 1){  
-			if(liveStatus!=2){ //直播详情
+			if(lineState!=2){ //直播详情
 				location.href = "/bxg/xcpage/courseDetails?courseId="+courseId;
 				return;
 			}else{     //预告

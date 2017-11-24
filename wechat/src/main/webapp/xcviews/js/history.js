@@ -158,17 +158,14 @@ if(type ==2){
 }
 mui("#refreshContainer").on('tap', '.zhibo_list', function (event) {
 	var ev = $(this);
-	// type='"+course.type+"' lineState='"+course.lineState+"'  id=
 	var type = ev.context.align;
 	var lineState = ev.context.title;
 	var courseId = ev.context.id;
 	
-	//type lineState couserId
-	//name='"+course.type+"' class='"+course.lineState+"'  id='"+course.id+"'
 	if(type == 1){//直播
 		sessionStorage.setItem("historyType", 1);
 		sessionStorage.setItem("livePage", 2);
-		if(lineState == 1){ //需要预约
+		if(lineState == 2){ //需要预约
 			location.href = "/xcviews/html/foreshow.html?course_id="+courseId+"";
 		}else{
 			location.href = "/bxg/xcpage/courseDetails?courseId="+courseId+"";

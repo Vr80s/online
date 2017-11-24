@@ -149,21 +149,23 @@ if (stringnull(falg) && falg == 2) {
 var label = getQueryString("label");
 var courseId = sessionStorage.getItem("tipOffCourseId");
 var tipOffToken = sessionStorage.getItem("tipOffToken");
-if (stringnull(courseId)) {
-	requestService("/bxg/common/shareJump", {
-		courseId : courseId,
-		token : tipOffToken
-	}, function(data) {
-		if (data.success) {
-			var result = data.resultObject;
-			// gradeName,smallimg_path as smallImgPath
-			$(".complaint_details_div").html(result.gradeName);
-			$("#complaint_details_img_img").html(result.smallImgPath);
-		}
-	}, false)
-} else {
-	alert("课程信息有误");
-}
+alert(courseId);
+alert(tipOffToken);
+//if (stringnull(courseId)) {
+//	requestService("/bxg/common/shareJump", {
+//		courseId : courseId,
+//		token : tipOffToken
+//	}, function(data) {
+//		if (data.success) {
+//			var result = data.resultObject;
+//			// gradeName,smallimg_path as smallImgPath
+//			$(".complaint_details_div").html(result.gradeName);
+//			$("#complaint_details_img_img").html(result.smallImgPath);
+//		}
+//	}, false)
+//} else {
+//	alert("课程信息有误");
+//}
 $("#courseId").val(courseId);
 $("#label").val(label);
 $("#token").val(tipOffToken);

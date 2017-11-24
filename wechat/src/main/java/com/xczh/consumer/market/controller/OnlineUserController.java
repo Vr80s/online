@@ -442,32 +442,32 @@ public class OnlineUserController {
 	public ResponseObject userCenterFormSub(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		//TODO
         try{
-        	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-             MultipartFile fileMul = multipartRequest.getFile("file");  
-             Map<String,String> map = new HashMap<String,String>();
-             if(fileMul!=null && !fileMul.isEmpty()){  
-                 // 获得文件名：   
-                 String filename = fileMul.getOriginalFilename();   
-                 // 获得输入流：   
-                 //InputStream input = fileMul.getInputStream();   
-                 
-                 if(filename!=null && !filename.trim().equals("")){
-                     filename = filename.toLowerCase();
-         			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
-         					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
-         				return ResponseObject.newErrorResponseObject("文件类型有误");
-         			}
-         			String contentType =  fileMul.getContentType();//文件类型
-         			byte [] bs = fileMul.getBytes();
-         			String projectName="other";
-         			String fileType="1"; //图片类型了
-         			String headImgPath = service.upload(null, //用户中心的用户ID
-     				projectName, filename,contentType, bs,fileType,null);
-         			JSONObject json = JSONObject.parseObject(headImgPath);
-         			System.out.println("文件路径——path:"+headImgPath);
-         			map.put("smallHeadPhoto", json.get("url").toString());
-                 }
-             }  	
+    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+         MultipartFile fileMul = multipartRequest.getFile("file");  
+         Map<String,String> map = new HashMap<String,String>();
+         if(fileMul!=null && !fileMul.isEmpty()){  
+             // 获得文件名：   
+             String filename = fileMul.getOriginalFilename();   
+             // 获得输入流：   
+             //InputStream input = fileMul.getInputStream();   
+             
+             if(filename!=null && !filename.trim().equals("")){
+                 filename = filename.toLowerCase();
+     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
+     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
+     				return ResponseObject.newErrorResponseObject("文件类型有误");
+     			}
+     			String contentType =  fileMul.getContentType();//文件类型
+     			byte [] bs = fileMul.getBytes();
+     			String projectName="other";
+     			String fileType="1"; //图片类型了
+     			String headImgPath = service.upload(null, //用户中心的用户ID
+ 				projectName, filename,contentType, bs,fileType,null);
+     			JSONObject json = JSONObject.parseObject(headImgPath);
+     			System.out.println("文件路径——path:"+headImgPath);
+     			map.put("smallHeadPhoto", json.get("url").toString());
+             }
+         }  	
         	
           String sex= request.getParameter("sex");  
           String nickname= request.getParameter("nickname");  
@@ -500,7 +500,7 @@ public class OnlineUserController {
         	  user = cacheService.get(token);
           }else{
         	  user = (OnlineUser) request.getSession().getAttribute("_user_");
-          }  
+         }  
           if(null == user){
              return ResponseObject.newErrorResponseObject("获取用户信息有误");
           }

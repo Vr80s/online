@@ -310,7 +310,7 @@ $(document).ready(function() {
    
     var falg = 1;
    
-    if(lineState !=2 ){
+    if(lineState !=1 ){
         $(".chatmsg-box").mCustomScrollbar({
             scrollInertia: 200,
         	theme:"dark",

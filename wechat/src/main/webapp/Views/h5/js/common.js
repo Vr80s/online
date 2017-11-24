@@ -326,13 +326,6 @@ mui(".nav-content").on('click', '.gotodetails', function() {
 	window.location.href = "/bxg/page/my_course";
 })
 
-function courseDetails(courseId,lineState,page){
-	/**
-	 * 这个地方只需要判断是否已经预约就行了..
-	 *  就直播需要预约啦。其他的不需要啦
-	 */
-	alert("这个地方换位置了啊");
-}
 /**
  * 增加观看记录
  * 课程id

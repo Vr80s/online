@@ -22,7 +22,7 @@ function courseDetails1(courseObj,page){
 	if(courseObj.type == 1){//直播
 		sessionStorage.setItem("queryType", 1);
 		sessionStorage.setItem("livePage", 3);
-		if(lineState == 1){ //需要预约
+		if(lineState == 2){ //需要预约
 			location.href = "/xcviews/html/foreshow.html?course_id="+courseId+"";
 		}else{
 			location.href = "/bxg/xcpage/courseDetails?"+courseId+"";
@@ -125,7 +125,6 @@ queryResult();
  * 观看视频详情
  */
 function courseDetails(courseid,lineState){
-	//live_status  直播状态 1.直播中，2预告，3直播结束
 	if(stringnull(lineState)){
 		if(lineState !=2 ){
 			location.href = "/bxg/xcpage/courseDetails?courseId="+courseid;

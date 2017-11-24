@@ -70,14 +70,12 @@ requestService("/bxg/common/h5ShareAfter",{
 		
 		$("#teacherId").val(result.userId);
 		
-		//判断分享的时间课程类型，得到这个课程的学习人数，这个课程的讲师，这个课程的额缩率图，这个课程的描述
-		//观众人数
 		if(result.type == 1){ //直播详情
-			if(result.lineState == 2){
+			
+			if(result.lineState == 1){    // 正在直播
 				$(".buy_bottom_p1").show();
 			}
-			
-			if(result.lineState != 1){
+			if(result.lineState != 3){    // 直播或者回放
 				 $(".details_size").html("观看人数：<span>"+result.learndCount+"</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
 					 		" 礼物：<span>"+result.giftCount+"</span>");
 				 sessionStorage.setItem("share", "liveDetails"); 

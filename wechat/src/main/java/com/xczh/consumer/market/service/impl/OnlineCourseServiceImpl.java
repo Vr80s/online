@@ -66,19 +66,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 				page_size, queryParam);
 		//根据用户id和课程id
 		//这里紧紧是判断密码是否为null  -- 没有判断用户是否已经输入了
-		for (int i = 0; i < list.size(); i++) {
-			CourseLecturVo courseLecturVo = list.get(i);
-			//直播状态1.直播中，2预告，3直播结束
-			//0 直播已结束 1 直播还未开始 2 正在直播
-			if(courseLecturVo.getLineState() == 1){
-				courseLecturVo.setLineState(2);
-			}else if(courseLecturVo.getLineState() == 2){
-				System.out.println("预告");
-				courseLecturVo.setLineState(1);
-			}else if(courseLecturVo.getLineState() == 3){
-				courseLecturVo.setLineState(0);
-			}
-		}
 		newList.addAll(list);
 		return list;
 	}
@@ -93,9 +80,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
         //lineState: 0 直播已结束 1 直播还未开始 2 正在直播		 
 		//直播状态1.直播中，2预告，3直播结束
 		//0 直播已结束 1 直播还未开始 2 正在直播
-		if(courseLecturVo.getLineState() == 1){
-			courseLecturVo.setLineState(2);
-		}else if(courseLecturVo.getLineState() == 2){
+		 if(courseLecturVo.getLineState() == 2){
 			System.out.println("预告");
 			/**
 			 * 获取当前预约人数
@@ -111,33 +96,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			}else{
 				courseLecturVo.setIsSubscribe(1);
 			}
-			courseLecturVo.setLineState(1);
-		}else if(courseLecturVo.getLineState() == 3){
-			courseLecturVo.setLineState(0);
 		}
-		
-		/*Integer state  = WeihouInterfacesListUtil.getOnlineState(courseLecturVo.getDirectId());
-		if(state==1){
-			courseLecturVo.setLineState(2);
-		}else if(state==2){
-			*//**
-			 * 获取当前预约人数
-			 *//*
-			Integer subCount = selectSubscribeInfoNumberCourse(course_id);
-			courseLecturVo.setCountSubscribe(subCount);
-			*//**
-			 * 判断自己是否预约了
-			 *//*
-			Integer isSubscribe = selectSubscribeInfoIs(course_id,userId);
-			if(isSubscribe == 0){//未预约
-				courseLecturVo.setIsSubscribe(isSubscribe);
-			}else{
-				courseLecturVo.setIsSubscribe(1);
-			}
-			courseLecturVo.setLineState(1);
-		}else if(state==5){
-			courseLecturVo.setLineState(0);
-		}*/
 		return courseLecturVo;
 	}
 
@@ -525,15 +484,8 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		CourseLecturVo courseLecturVo = this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 				new BeanHandler<>(CourseLecturVo.class),params);
 		
-	    /**
-	     * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播 
-	     */
-        //lineState: 0 直播已结束 1 直播还未开始 2 正在直播		 
 		//直播状态1.直播中，2预告，3直播结束
-		//0 直播已结束 1 直播还未开始 2 正在直播
-		if(courseLecturVo.getLineState() == 1){
-			courseLecturVo.setLineState(2);
-		}else if(courseLecturVo.getLineState() == 2){
+		 if(courseLecturVo.getLineState() == 2){
 			System.out.println("预告");
 			/**
 			 * 获取当前预约人数
@@ -549,11 +501,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			}else{
 				courseLecturVo.setIsSubscribe(1);
 			}
-			courseLecturVo.setLineState(1);
-		}else if(courseLecturVo.getLineState() == 3){
-			courseLecturVo.setLineState(0);
 		}
-		
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 	}
 
@@ -646,7 +594,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 			
 			sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) "); //观看人数
-			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount ");
+			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.live_status as  lineState  ");
 			
 			sql.append(" from oe_course c,oe_user ou ");
 			sql.append(" where c.user_lecturer_id = ou.id and c.id = ? and c.is_delete=0 and c.status = 1  and  c.type=1  ");
@@ -658,25 +606,12 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 //			3	int	否	活动已结束
 //			4	int	否	活动当前为点播
 //			5	int	否	结束且有自动回放
-//	       lineState: 0 直播已结束 1 直播还未开始 2 正在直播		 
-			Date start = clv.getStartTime();
-			Date end = clv.getEndTime();
-			Date now = new Date();
-			// lineState 0 直播已结束 1 直播还未开始 2 正在直播
-			if(end!=null && start!=null){
-				if (end.getTime() < now.getTime()) {// 结束时间小于当前时间，说明已经结束
-					clv.setLineState(0);
-				} else if (start.getTime() > now.getTime()) { // 开始时间大于当前时间，说明已经还没开始
-					/**
-					 * 获取当前预约人数
-					 */
-					Integer subCount = selectSubscribeInfoNumberCourse(courseId);
-					clv.setCountSubscribe(subCount);
-					clv.setLineState(1);
-				} else if (start.getTime() < now.getTime()
-						&& end.getTime() > now.getTime()) {//正在直播
-					clv.setLineState(2);
-				}
+			 if (clv.getLineState() == 2) { // 开始时间大于当前时间，说明已经还没开始
+				/**
+				 * 获取当前预约人数
+				 */
+				Integer subCount = selectSubscribeInfoNumberCourse(courseId);
+				clv.setCountSubscribe(subCount);
 			}
 		}else{
 			StringBuffer sql = new StringBuffer("");
@@ -708,25 +643,8 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		if(map==null){
 			return null;
 		}
-		if(map.get("directId")!=null){
-			//直播状态1.直播中，2预告，3直播结束
-			//0 直播已结束 1 直播还未开始 2 正在直播
-			if(null != map.get("lineState") && map.get("lineState").equals("1")){
-				map.put("state", 2);
-			}else if(null != map.get("lineState") && map.get("lineState").equals("2")){
-				map.put("state", 1);
-			}else if(null != map.get("lineState") && map.get("lineState").equals("3")){
-				map.put("state", 0);
-			}
-		}
 		return map;
 	}
-	
-	
-	
-	
-	
-	
 	
 	public static void main(String[] args) {
 		

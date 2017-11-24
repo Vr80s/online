@@ -295,10 +295,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 //		4	int	否	活动当前为点播
 //		5	int	否	结束且有自动回放
 //
-//      lineState: 0 直播已结束 1 直播还未开始 2 正在直播
-		//直播状态1.直播中，2预告，3直播结束
-		//0 直播已结束 1 直播还未开始 2 正在直播
-
 			/**
 			 * 获取当前预约人数
 			 */

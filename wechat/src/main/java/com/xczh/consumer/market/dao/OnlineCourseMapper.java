@@ -126,7 +126,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 	public Map<String, Object> shareJump(Integer courseId) throws SQLException{
 		
 		String sql = "select c.direct_Id as directId,IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "
-				+ "c.live_status as  lineState,c.grade_name as gradeName,smallimg_path as smallImgPath   from oe_course as c where id = ?";
+				+ "c.live_status as state,c.grade_name as gradeName,smallimg_path as smallImgPath   from oe_course as c where id = ?";
 		Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,
 				new MapHandler(),courseId);
 		return map;

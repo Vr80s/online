@@ -46,10 +46,6 @@ function requestLiveList(downOrOn) {
 					}
 					// 直播数据结果
 					var liveList = data.resultObject;
-					// 先添加直播的
-					// 先全部添加下吧
-					//a 标签 锚点 
-					//var  a_name = "maodian"+live.id;
 					
 					if(liveList.length>0){
 						for (var int = 0; int < liveList.length; int++) {
@@ -72,8 +68,7 @@ function requestLiveList(downOrOn) {
 							}
 							
 							
-							if (live.lineState == 0) {
-								
+							if (live.lineState == 3) {  // 1 直播中，2 预告， 3 回放
 								liveHtml0 += "<div class='home_list3'>";
 								
 								liveHtml0 += "<div class='broadcast3'><div class='broadcast3_bg'></div><img src='/xcviews/images/play.png' alt='' /><span>回放</span></div>";
@@ -94,7 +89,7 @@ function requestLiveList(downOrOn) {
 										+ currentOnlineNumber
 										+ "</span><div class='index_price'><span>"+watchStr+"</span>"
 										+"</div></div></div></div>";
-							} else if (live.lineState == 1) { // 直播还未开始
+							} else if (live.lineState == 2) { // 直播还未开始
 
 								liveHtml0 += "<div class='home_list2'>";
 								
@@ -117,7 +112,7 @@ function requestLiveList(downOrOn) {
 										+ currentOnlineNumber
 										+ "</span><div class='index_price'><span>"+watchStr+"</span>"
 										+"</div></div></div></div>";
-							} else if (live.lineState == 2) { // 正在直播
+							} else if (live.lineState == 1) { // 正在直播
 
 								liveHtml0 += "<div class='home_list1'>";
 								
@@ -191,7 +186,7 @@ mui("#refreshContainer").on('tap', '.course_img', function (event) {
 	addHistory(courseId,1);
 	
 	sessionStorage.setItem("livePage", 1); 
-	if(lineState == 1){ //需要预约
+	if(lineState == 2){ //需要预约
 		location.href = "/xcviews/html/foreshow.html?course_id="+courseId+"";
 	}else{
 		location.href = "/bxg/xcpage/courseDetails?courseId="+courseId;

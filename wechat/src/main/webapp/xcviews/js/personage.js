@@ -122,7 +122,7 @@ function userIndexCourseList(type,falg){
 							
 							var liveTypeOrState  = ""; 
 							var liveTypeImg = "";
-							// lineState：   0 直播已结束 1 直播还未开始 2 正在直播	
+							// lineState：    1 直播中，2 预告， 3 回放	
 							if(lineState==1){
                 				liveTypeOrState ="直播中";
                 				liveTypeImg ="/xcviews/images/zhibo001.png";
