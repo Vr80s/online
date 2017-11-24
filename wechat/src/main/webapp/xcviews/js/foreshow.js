@@ -103,7 +103,8 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 				pwdAndBuy = 2;
 			}else{
-				$(".buy_bottom_p1").html("<span style='font-size:0.7rem;'>免费视频</span>")
+				//$(".buy_bottom_p1").html("<span style='font-size:0.7rem;'>免费视频111</span>")
+				$(".buy_bottom_p1").html("<p style='font-size:0.7rem;margin-top: 0.4rem;'>免费视频</p>")
 				$(".buy_bottom_p2").html(result.learndCount+"人预约");
 				$(".buy_bottom_p2").hide();
 				
@@ -320,7 +321,8 @@ function goPay() {
 					location.href = "/xcviews/html/pay.html?orderId="+result.orderId+"&courseId=" + course_id
 							+ "&orderNo=" + result.orderNo+ "&page=2";
 				} else {
-					alert("提交订单错误！请稍后再试！");
+					$(".vanish1").show();
+					setTimeout(function(){$(".vanish1").hide();},1500);
 				}
 			});
 		}else if(pwdAndBuy == 2){
@@ -347,7 +349,8 @@ function goPay() {
 			return;
 		}*/
 	}else{
-		alert("状态异常");
+		$(".vanish3").show();
+		setTimeout(function(){$(".vanish3").hide();},1500);
 	}
 }
 /*
@@ -373,11 +376,13 @@ function enterPassword() {
 			$("#passwordDiv").hide();
 			pwdAndBuy = 0;
 			$("#buy_right a").html("已预约");
-            alert("开始直播时,您可以直接观看");
+            $(".vanish5").show();
+			setTimeout(function(){$(".vanish5").hide();},1500);
             
             
 		} else {
-			alert("密码错误！");
+			$(".vanish6").show();
+			setTimeout(function(){$(".vanish6").hide();},1500);
 		}
 	});
 }
