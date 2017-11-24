@@ -12,7 +12,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 <!-- <script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script> -->
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->
@@ -25,109 +25,34 @@
 
 <link rel="stylesheet" href="../css/css.css">
 
-	<script>
-		//任一一项没有填写 就展示当前页,否则直接跳转到报名成功
-
-        requestService("/bxg/apply/get", {userId : getQueryString("userId")}, function(data) {
-            if (data.success) {
-                var result = data.resultObject;
-
-				//必填
-                var wechatNo=result.wechatNo;
-                var idCardNo=result.idCardNo;
-
-                //非必填
-                var qq=result.qq;
-                var email=result.email;
-                var sex=result.sex;
-                var occupation=result.occupation;
-                var isFirst=result.isFirst;
-                var referee=result.referee;
-
-                if(wechatNo==null||wechatNo==''||idCardNo==null||idCardNo==''||qq==null||qq==''||email==null||email==''||sex==null||sex==''||occupation==null||occupation==''||isFirst==null||isFirst==''||referee==null||referee==''){
-						$("#wechatNo").val(wechatNo);
-						$("#idCardNo").val(idCardNo);
-						$("#qq").val(qq);
-						$("#email").val(email);
-						$("#occupation").val(occupation);
-						$("#referee").val(referee);
-
-						if(sex!=null&&sex!=''){
-                            $("input[name=sex][value=" + sex + "]").attr("checked", true); //设置当前性别选中项
-						}
-
-                    	if(isFirst!=null&&isFirst!=''){
-                    	$("input[name=sex][value=" + isFirst + "]").attr("checked", true);
-                   		 }
-
-				}else{
-                    location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
-				}
-
-            }else{
-                alert("提交订单错误！请稍后再试！");
-            }
-
-        });
-
-
-        function sub(){
-			//必填
-            var wechatNo=$("#wechatNo").val();
-
-            if(wechatNo==null||wechatNo==''){
-				alert("微信号为必填项!");
-                return false;
-			}
-            var idCardNo=$("#idCardNo").val();
-            if(idCardNo==null||idCardNo==''){
-                alert("身份证号为必填项!");
-                return false;
-            }
-            //非必填
-            var qq=$("#qq").val();
-            var email=$("#email").val();
-            var occupation=$("#occupation").val();
-            var referee=$("#referee").val();
-
-
-
-            var sex=$('input:radio[name="sex"]:checked').val();
-            if(sex==null){
-                alert("请选择性别!");
-                return false;
-            }
-
-            var isFirst=$('input:radio[name="isFirst"]:checked').val();
-            if(isFirst==null){
-                alert("请选择是否首次参加!");
-                return false;
-            }
-
-            requestService("/bxg/apply/updateDetailsInfo", {wechatNo : wechatNo,idCardNo:idCardNo,qq:qq,email:email,occupation:occupation,referee:referee,sex:sex,isFirst:isFirst,userId : getQueryString("userId")}, function(data) {
-
-                if (data.success) {
-                   // var result = data.resultObject;
-                    location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
-                }else{
-                    alert("提交失败!请联系管理员");
-				}
-
-
-            });
-		}
-
-	</script>
+	
 	<style type="text/css">
 		.personal_main_radio{
-			    width: 100%;
+			width: 100%;
 		    height: 1.8rem;
 		    line-height: 1.8rem;
+		}
+		.vanish{
+			display: none;
+		}
+		.vanish3{
+			display: none;
+		}
+		.vanish0{
+			display: none;
 		}
 	</style>
 </head>
 
 <body style="background:#f0f0f0;">
+	
+	<!--<div id="#div"></div>-->
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>微信号为必填项</div></div></div>
+	<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>身份证号为必填项</div></div></div>
+	<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>请填写 正确的邮箱号</div></div></div>
+	
+	
+	
 	<div class="personal_top_bg"></div>
 	<!-- 报名详细信息头部开始 -->
 	<div class="personal">
@@ -145,7 +70,7 @@
 			<div class="both"></div>
 			<div class="personal_main_one">
 				<div class="personal_main_size">身份证号</div>
-				<div class="personal_main_put"><input id="idCardNo" type="text" placeholder="(必填) 请输入本人身份证号" /></div>
+				<div class="personal_main_put"><input id="idCardNo" type="text" placeholder="(必填) 请输入本人身份证号" maxlength="19" /></div>
 			</div>
 			<div class="both"></div>
 			
@@ -228,5 +153,122 @@
 	<!-- 报名详细信息cen结束 -->
 
 </body>
+<script>
+		//任一一项没有填写 就展示当前页,否则直接跳转到报名成功
 
+        requestService("/bxg/apply/get", {userId : getQueryString("userId")}, function(data) {
+            if (data.success) {
+                var result = data.resultObject;
+
+				//必填
+                var wechatNo=result.wechatNo;
+                var idCardNo=result.idCardNo;
+
+                //非必填
+                var qq=result.qq;
+                var email=result.email;
+                var sex=result.sex;
+                var occupation=result.occupation;
+                var isFirst=result.isFirst;
+                var referee=result.referee;
+
+                if(wechatNo==null||wechatNo==''||idCardNo==null||idCardNo==''||qq==null||qq==''||email==null||email==''||sex==null||sex==''||occupation==null||occupation==''||isFirst==null||isFirst==''||referee==null||referee==''){
+						$("#wechatNo").val(wechatNo);
+						$("#idCardNo").val(idCardNo);
+						$("#qq").val(qq);
+						$("#email").val(email);
+						$("#occupation").val(occupation);
+						$("#referee").val(referee);
+
+						if(sex!=null&&sex!=''){
+                            $("input[name=sex][value=" + sex + "]").attr("checked", true); //设置当前性别选中项
+						}
+
+                    	if(isFirst!=null&&isFirst!=''){
+                    	$("input[name=sex][value=" + isFirst + "]").attr("checked", true);
+                   		 }
+
+				}else{
+                    location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
+				}
+
+            }else{
+                alert("提交订单错误！请稍后再试！");
+            }
+
+        });
+
+
+        function sub(){
+			//必填
+            var wechatNo=$("#wechatNo").val();
+
+            if(wechatNo==null||wechatNo==''){
+            	
+				$(".vanish").show();
+				setTimeout(function(){$(".vanish").hide();},1500);
+                return false;
+			}
+            var idCardNo=$("#idCardNo").val();
+            if(idCardNo==null||idCardNo==''){
+                $(".vanish3").show();
+				setTimeout(function(){$(".vanish3").hide();},1500);
+                return false;
+            }
+            
+            
+            //先隐藏掉，这段表示身份证号几位数
+            /*if(idCardNo.length < 18 || idCardNo.length >= 20) {
+		          $(".vanish3").show();
+					setTimeout(function(){$(".vanish3").hide();},1500);
+		          return false;
+		    }*/
+            
+            
+            
+            
+            //非必填
+            var qq=$("#qq").val();
+            var email=$("#email").val();
+            
+            /*隐藏邮箱*/
+           /* if(email.length<=0){
+                $(".vanish0").show();
+				setTimeout(function(){$(".vanish0").hide();},1500);
+                return false;
+            }*/
+            
+            
+            var occupation=$("#occupation").val();
+            var referee=$("#referee").val();
+
+			
+
+
+            var sex=$('input:radio[name="sex"]:checked').val();
+            if(sex==null){
+                alert("请选择性别!");
+                return false;
+            }
+
+            var isFirst=$('input:radio[name="isFirst"]:checked').val();
+            if(isFirst==null){
+                alert("请选择是否首次参加!");
+                return false;
+            }
+
+            requestService("/bxg/apply/updateDetailsInfo", {wechatNo : wechatNo,idCardNo:idCardNo,qq:qq,email:email,occupation:occupation,referee:referee,sex:sex,isFirst:isFirst,userId : getQueryString("userId")}, function(data) {
+
+                if (data.success) {
+                   // var result = data.resultObject;
+                    location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
+                }else{
+                    alert("提交失败!请联系管理员");
+				}
+
+
+            });
+		}
+
+	</script>
 </html>
