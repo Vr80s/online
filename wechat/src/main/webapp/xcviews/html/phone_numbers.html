@@ -107,56 +107,7 @@
 <script>
 
 
-$(".call_popup_btn").click(function(){
-	 location.href ='system.html';
-})
 
-/*
- * 绑定现有的手机号，也就是更换原来的手机号
- */
-function updateMobile(){
-	
-	if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取用户手机号有误</div></div></div>");
-		$("#errorMsg").show();
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}
-	var number = $("#new_mobile").val();
-	if (!(/^1[34578]\d{9}$/.test(number))) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>");
-		$("#errorMsg").show();
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}
-	
-	var code= $("#new_code").val();
-	if(!stringnull(code)){
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
-		$("#errorMsg").show();
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}
-	var urlparm = {
-		oldUsername:currentName,
-		newUsername:number,
-		code:code,
-		vtype:4   	//类型，3注册，2重置密码
-    };
-	requestService("/bxg/bs/updatePhone", 
-			urlparm, function(data) {
-		if (data.success) {
-			//更改完手机号后，需要把session中的这个东西换下呢？
-			localStorage.setItem("name",number);
-			$(".call_popup_size2").text(number);
-			$(".call_popup").show();
-		} else {
-			$("#errorMsg").html(data.errorMessage);
-			$("#errorMsg").show();
-			return false;
-		}
-	});
-}
 
 
 </script>

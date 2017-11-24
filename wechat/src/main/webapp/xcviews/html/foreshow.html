@@ -13,6 +13,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="/xcviews/css/css.css">
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 <style>
 .guanzhu1,.guanzhu2{
     display: none
@@ -194,15 +195,15 @@
 	    float: left;
 	}
 	.buy_bottom_p1{
-		font-size: 14px !important;
-    	margin-left: 0.4rem;
+		font-size: 0.8rem !important;
+    	margin-left: 0.1rem;
 	}
 	.look_put button{
 		height: 1.45rem;
 		line-height: 1.45rem;
 	}
 	.buy_bottom_p2{
-		font-size: 0.7rem;
+		font-size: 0.5rem;
 	}
 	#mobile_subscribe{
 		/*height: 100%;*/
@@ -221,9 +222,38 @@
 	    background: #fff;
 	    margin-top: 5.5rem;
 	}
+	
+	.fx_bg {
+	    width: 0.65rem;
+	    height: 0.65rem;
+	    background: url(/xcviews/images/fx.png)no-repeat;
+	    background-size: 100% 100%;
+	    float: right;
+	    margin-right: 0.3rem;
+	    margin-top: 0.6rem;
+	}
+	.vanish{
+		display: none;
+		z-index: 999991;
+	}
+	.vanish0{
+		display: none;
+		z-index: 999991;
+	}
+	.vanish1{
+		display: none;
+		z-index: 999991;
+	}
 </style>
 </head>
 <body style="background: #efefef;">
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>预约成功</div></div></div>
+	
+	<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>您已预约成功</div></div></div>
+	
+	<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>提交订单错误！请稍后再试！</div></div></div>
+	<!--<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>预约成功</div></div></div>-->
+	
 	<!-- 头部开始 -->
 	<header>
 		<div class="grabble">
@@ -231,9 +261,9 @@
 				<div class="grabble_left" onclick="isLoginJump()">
 					<div class="grabble_img"></div>
 				</div>
-				<span class="history_span" style="color: #666;font-size: 1rem;width: 76%;padding-top: 0.1rem;">直播预告</span>
-				<div class="history_img_right"  id="share"
-					style="width: 1.6rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.4rem;">分享</div>
+				<span class="history_span" style="color: #666;font-size: 0.851rem;width: 76%;padding-top: 0.1rem;">直播预告</span>
+				<!--<div class="history_img_right"  id="share" style="width: 1.6rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.4rem;">分享</div>-->
+				<div class="history_img_right" id="share" style="width: 1.8rem;height: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
@@ -291,18 +321,18 @@
 	<div class="both"></div>
 	<div class="buy_bottom_bg">
 		<!-- <div class="buy_bg"></div> -->
-		<footer style="padding: 0.4rem 0;">
+		<footer style="padding1: 0.4rem 0;">
 			<div class="base buy_bottom">
 				<ul>
 					<li class="buy_left" id="buy_foreshow">
-					    <p class="buy_bottom_p1" style="margin-top: 0.3rem;">
+					    <p class="buy_bottom_p1" style="margin-top: 0.3rem1;">
 								<!-- ￥<span>168.00</span> -->
 						</p>
-						<p class="buy_bottom_p2" style="margin-top: 0.5rem;"></p></li>
+						<p class="buy_bottom_p2" style="margin-top: 0.5rem1;"></p></li>
 					<li class="buy_right" id="buy_right">
 					   <!-- 已经预约 -->
 					   <!-- <a href="javascript: ;">立即购买</a> -->
-					   <a href="javascript: ;" onclick="goPay()" class="yuyue" style="height: 2.45rem;line-height: 2.45rem;margin-top: -0.4rem;">立即预约</a>
+					   <a href="javascript: ;" onclick="goPay()" class="yuyue" style="height: 2.15rem;line-height: 2.15rem;margin-top: -0.2rem;">立即预约</a>
 					</li>
 				</ul>
 			</div>

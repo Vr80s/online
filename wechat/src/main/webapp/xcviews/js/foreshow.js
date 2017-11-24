@@ -94,6 +94,8 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 			if(result.watchState == 1){   //需要购买
 				$(".buy_bottom_p1").html("￥<span>"+result.currentPrice+"</span>");
 				$(".buy_bottom_p2").html(result.learndCount+"人已购买");
+				
+				
 				pwdAndBuy = 1;
 			}else if(result.watchState == 2){ //需要密码
 				/*$(".buy_bottom_p1").html("<span>需要密码</span>");*/
@@ -104,6 +106,7 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 				$(".buy_bottom_p1").html("<span style='font-size:0.7rem;'>免费视频</span>")
 				$(".buy_bottom_p2").html(result.learndCount+"人预约");
 				$(".buy_bottom_p2").hide();
+				
 				pwdAndBuy = 0;
 			}
 		}else if(result.isSubscribe == 1){//已经预约
@@ -112,12 +115,14 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 			if(result.watchState == 1){
 				pwdAndBuy = 1;
 				$(".buy_bottom_p2").html(result.learndCount+"人已购买");
+				
 			}else if(result.watchState == 2){
 				pwdAndBuy = 2;
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 			}else if(result.watchState == 0){
 				pwdAndBuy = 0;
 				$(".buy_bottom_p2").html(result.learndCount+"人已预约");
+				$(".buy_bottom_p2").css("margin-top","0.5rem");
 			}
 			$("#buy_right a").html("已预约");
 		}
@@ -292,11 +297,14 @@ function goPay() {
 			/*隐藏上部分区域预告时间*/
 			/*$(".order_center").hide();*/
 			
-			alert("预约成功");
+//			alert("预约成功");
+			$(".vanish").show();
+			setTimeout(function(){$(".vanish").hide();},1500);
 			/*
 			 * 变成已预约
 			 */
 			$("#buy_right a").html("已预约");
+//			$(".buy_bottom_p2").css("margin-top","0.5rem;");
 			/*
 			 * 发送短息啦
 			 */
@@ -328,8 +336,10 @@ function goPay() {
 			$("#passwordDiv").show();
 		}
 	}else if(isSubscribe == 1){//已经预约，还需要在判断是否确认密码
+		$(".vanish0").show();
+		setTimeout(function(){$(".vanish0").hide();},1500);
 		
-		alert("您已预约成功"); 
+//		alert("您已预约成功"); 
 		/*if(pwdAndBuy == 2){
 			$("#passwordDiv").show();
 		}else if(pwdAndBuy == 0){

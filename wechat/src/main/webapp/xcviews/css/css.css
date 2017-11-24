@@ -74,7 +74,7 @@ img{
 	width: 85%;
 	height: 10rem;
 	margin: 0 auto;
-	margin-top: 7.25rem;
+	margin-top: 5rem;
 	font-size: 0.74rem;
 	color:#999;
 	/*font-family: "微软雅黑";*/
@@ -84,7 +84,7 @@ img{
     /*font-family: "微软雅黑";*/
     border-bottom: 1px solid #ccc;
     padding-bottom: 0.3rem;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
 }
 .phone_bottom1{
 	margin-bottom: 1.5rem;

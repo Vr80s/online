@@ -141,7 +141,8 @@ function login(){
 				}
 			}
 		} else {
-			tishi.innerHTML = "账号或密码错误";
+			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>账号或密码错误</div></div></div>";
+			setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
 }
