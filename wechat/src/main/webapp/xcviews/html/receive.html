@@ -129,10 +129,10 @@ function giftList(downOrOn){
 				var liveHtml0="";
 				liveHtml0+="<li class='li_click' onclick='receiveDetails("+JSON.stringify(obj)+")'>"+
  					"<div class='attention_li'>"+
- 					"<p class='attention_p1'>"+returnstring(obj.giftName)+"<span></span></p>"+
+ 					"<p class='attention_p1'>"+returnstring(obj.giftName)+"<span>+"+returnstring(obj.count)+"</span></p>"+
  						"<p class='attention_p2'>"+returnstring(obj.createTime)+"&nbsp;&nbsp;</p>"+
  					"</div>"+
- 					"<div class='attention_right'>+"+returnstring(obj.count)+"熊猫币</div>"+
+ 					"<div class='attention_right'>"+getQueryString(obj.success)+"熊猫币</div>"+
  					"<div class='both'></div>"+
 // 	ui新图隐藏名字				"<div class='attention_right' style='margin-top:-1.3rem;'>"+returnstring(obj.name)+"</div>"+
  					"<div class='both'></div>"+
@@ -208,6 +208,13 @@ function pullupRefresh() {
 		giftList(false);
 	}, 500);
 }
+
+	
+		
+ 
+
+    
+    
 
 
 </script>
