@@ -227,7 +227,9 @@ mui("#refreshContainer").on('tap', '.common_click', function (event) {
 	            var result = data.resultObject;
 	            location.href = "/xcviews/html/pay.html?orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
 	        }else{
-	            alert("提交订单错误！请稍后再试！");
+//	            alert("提交订单错误！请稍后再试！");
+				$(".vanish2").show();
+				setTimeout(function(){$(".vanish2").hide();},1500);
 	        }
 	    });
 	}
@@ -264,7 +266,10 @@ function deleteOrcancel(){
 				}
 			});
 		}else{
-			alert("网络异常");
+//			alert("网络异常");
+			$(".vanish").show();
+			setTimeout(function(){$(".vanish").hide();},1500);	
+
 		}
 	})
 }
