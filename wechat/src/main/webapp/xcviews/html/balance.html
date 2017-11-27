@@ -79,12 +79,10 @@ window.onload=function(){
 		<div class="dl" style="padding-top1: 0.2rem;">余额</div>
 	</div>
 	<div class="both"></div>
-	<!-- 中间内容开始 -->
-	<div class="deposit">
+	<!--<div class="deposit">
 		<div class="deposit_cen" style="margin-top: 2.2rem;">
 			<div class="deposit_cen_border">
 				<div class="deposit_cen_auto">
-					<!-- <div class="deposit_cen_img"></div> -->
 					<div class="deposit_cen_size"><span style="display: inline-flex;margin-right: 0.2rem;"><img src="../images/account01.png" alt="" style="width: 0.85rem;height: 0.825rem;" /> </span><span>余额:</span> &nbsp;&nbsp;<span id="xmb"></span> &nbsp;熊猫币</div>
 				</div>
 			</div>
@@ -92,8 +90,31 @@ window.onload=function(){
 			<div class="deposit_chongzhi" onclick="location.href ='echarge.html'">充 值</div>
 			<div class="deposit_tiixan" id="jiangshidiv2" onclick="location.href ='withdraw.html'">提 现</div>
 		</div>
+	</div>-->
+	
+	
+	<div class="deposit">
+		<div class="deposit_cen">
+			<div class="deposit_cen_border">
+			<div class="deposit_cen_auto">
+				
+				<div class="deposit_cen_size">
+					<div class="deposit_cen_img1"><span style="display: inline-flex;margin-right: 0.2rem;"> </span>余额</div>
+					
+				</div>
+			</div>
+			</div>
+			<div class="panda_coin"><img src="../images/account01.png" alt="" style="width: 0.975rem;height: 1rem;" /><span id="xmb"></span></div>
+			<div class="deposit_cen_size01" id="jiangshidiv1">(可提现人民币：<span id="rmb"></span>元，<span onclick="location.href='convert.html'">详情</span>)</div>
+			<div class="deposit_chongzhi" onclick="location.href ='echarge.html'">充 值</div>
+			<div class="deposit_tiixan" id="jiangshidiv1" onclick="location.href ='withdraw.html'" style="display: block !important;">提 现</div>
+		</div>
 	</div>
+	
+	
+	
 </body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 <script>
 
@@ -104,32 +125,42 @@ window.onload=function(){
      */
     function init(){
     	
-    	requestService("/bxg/bs/isLecturer", {orderId:1}, function(data) {
-    		 if (data.success) {
+      	requestService("/bxg/bs/isLecturer", {orderId:1}, function(data) {
+      		 if (data.success) {
                  var result = data.resultObject;
 					if(result==0){
-	                     var i=0;
-	                     $("#jiangshidiv"+i++).hide();
-	                     $("#jiangshidiv"+i++).hide();
-	                     $("#jiangshidiv"+i++).hide();
-					}
+                     var i=0;
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+                     $("#jiangshidiv"+i++).hide();
+					}else{
+						$(".zhongzhi").css("border-bottom","1px solid #e5e5e5");
+					}	
              }
-    	})
-    	
-    	requestService("/bxg/enchash/getEnchashmentRmbBalance", {orderId:1}, function(data) {
-    		 if (data.success) {
-                 var result = data.resultObject;
+            
+   		})		
 
-                 $("#rmb").html(result);
-             }
-   		})
-    	requestService("/bxg/enchash/getEnchashmentBalance", {orderId:1}, function(data) {
-    		 if (data.success) {
-                 var result = data.resultObject;
-                 $("#xmb").html(result);
-             }
-  		})
+
+   		requestService("/bxg/enchash/getEnchashmentRmbBalance", {orderId:1}, function(data) {
+	   		 if (data.success) {
+	             var result = data.resultObject;
+	
+	             $("#rmb").html(result);
+	         }
+   		})	
+   	
+   		requestService("/bxg/enchash/getEnchashmentBalance", {orderId:1}, function(data) {
+	   		 if (data.success) {
+	             var result = data.resultObject;
+	             $("#xmb").html(result);
+	         }
+   		})	
+   		
     }
+
     init();
 
 

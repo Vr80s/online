@@ -345,10 +345,14 @@ function deleteAddress(obj){
 			if (data.success) {
 				 $(obj).attr("title","");
 				 
-				 alert("删除数据成功！");
+//				 alert("删除数据成功！");
+				$(".vanish").show();
+				setTimeout(function(){$(".vanish").hide();},1500);
 				 addressList();
 			} else {
-			    alert("获取数据有误！");
+//			    alert("获取数据有误！");
+				$(".vanish1").show();
+				setTimeout(function(){$(".vanish1").hide();},1500);
 				return false;
 			}
 		});

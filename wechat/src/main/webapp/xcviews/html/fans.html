@@ -47,17 +47,20 @@
 		    width: 3.5rem;
 		    background: white;
 		    font-size: 0.55rem;
-		    font-family: "微软雅黑";
+		    /*font-family: "微软雅黑";*/
 		    margin: 0 auto;
 		    text-align: center;
 		    margin-top: 2rem;
-		    border: 1px solid #d2d2d2;
+		    border: 1px solid #e5e5e5;
 		    height: 1rem;
 		    line-height: 1rem;
 		    border-radius: 6px;
 		}
-		.focus{
+		.attention_right{
 			color: #666;
+		}
+		.focus{
+			color: #00bc12;
 		}
 		.attention_li{
 			width: 11rem;
@@ -158,7 +161,7 @@
                     var focusHtml="";
                     var html="";
                     if(isFocus==0){
-    					focusHtml="<span class='focus' lecturerId='"+result[i].lecturerId+"'>未关注</span>";
+    					focusHtml="<span class='focus' lecturerId='"+result[i].lecturerId+"'>加关注</span>";
     				}else if(isFocus==2){
                         focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"'>互相关注</span>";
     				}

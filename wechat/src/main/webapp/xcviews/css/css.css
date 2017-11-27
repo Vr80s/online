@@ -3489,13 +3489,13 @@ footer{
 	display: none;
 }
 .call_cen{
-	width: 100%;
+	width: 89%;
 	height: 1.9rem;
 	line-height: 1.9rem;
 	font-size: 0.7rem;
 	color: #000;
 	margin-left: 0.4rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	margin-top: 0.3rem;
 }
 .call_put{
@@ -3503,7 +3503,7 @@ footer{
     height: 2.125rem;
     background: #fff;
     line-height: 2.125rem;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
 }
 .call_put input{
 	width: 72%;
@@ -5481,11 +5481,11 @@ footer{
     margin-top: 0rem;
 }
 .train_list_bto2 div{
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .train_list_bto01{
 	float: left;
-	color: #ff0000;
+	color: #ff6767;
 	font-size: 0.7rem;
     width: 5rem;
     overflow: hidden;
@@ -5510,7 +5510,7 @@ footer{
 	color: #000;
 	font-size: 0.5rem;
 	margin-top: 0.08rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 /*线下培训班结束*/
 
