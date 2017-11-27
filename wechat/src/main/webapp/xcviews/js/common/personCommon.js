@@ -94,8 +94,8 @@ function  sendCode(obj){
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish2").hide();},1500);
 			
-			/*updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
-							setTimeout(function(){$(".vanish").hide();},1500);*/
+			updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
+							setTimeout(function(){$(".vanish").hide();},1500);
 			
 		}
 		
@@ -111,10 +111,19 @@ function  sendCode(obj){
 
 $(".pet_name_right").click(function(){
 	
-	/*var newcode = document.getElementById("new_code");
-	var newcodes = document.getElementById("new_code").value;;*/
+	var newcode = document.getElementById("new_code");
+	var newcodes = document.getElementById("new_code").value;
 	
-	/*if (newcodes.length > 0) {
+	var vtype = "";
+	var number= "";
+	
+	
+	
+	
+		number = $("#new_mobile").val();
+	
+	
+	/*if (newcodes = !null) {
 		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为111空</div></div></div>");
 		$("#errorMsg").show();
 		
@@ -122,21 +131,72 @@ $(".pet_name_right").click(function(){
 		return false;
 	}*/
 	
+	if (!stringnull(number)) {
+		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
+		$("#errorMsg").show();
+		
+		setTimeout(function(){$(".vanish").hide();},1500);
+		return false;
+	}
 	
-	/*if (newcode = !null) {
+	if (!(/^1[34578]\d{9}$/.test(number))) {
+		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>");
+		$("#errorMsg").show();
+		setTimeout(function(){$(".vanish").hide();},1500);
+		return false;
+	}
+	
+	
+	var code= $("#new_code").val();
+	if(!stringnull(code)){
 		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
 		$("#errorMsg").show();
 		
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
-	}*/
+	}
+	
+	var urlparm = {
+		username : number,
+		vtype:vtype   	//类型，3注册，4重置密码
+	};
+	requestService("/bxg/bs/phoneCheck", 
+			urlparm, function(data) {
+		if (data.success) {
+			time(obj);
+//			reminderror.innerHTML = "";
+
+
+		} else {
+			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>");
+			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish").hide();},1500);
+			
+			/*updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
+							setTimeout(function(){$(".vanish").hide();},1500);*/
+			
+		}
+			
+	});
 	
 	
-	/*if (newcode = null) {
+/*	if (newcode = !null) {
+		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
+		$("#errorMsg").show();
+		
+		setTimeout(function(){$(".vanish").hide();},1500);
+		return false;
+	}
+	
+	
+	if (newcode = null) {
 		$("#errorMsg").html();
 	
 		return false;
 	}*/
+	
+	
+	
 
 	
 	
