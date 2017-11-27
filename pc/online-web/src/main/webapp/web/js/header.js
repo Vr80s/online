@@ -1,3 +1,7 @@
+var bbs_domain = 'http://dev.ixincheng.com:8082/index';
+
+
+
 //如果有链接的点击事件
 function on_click_msg(msg_id, msg_link) {
     var $this=$(this);
@@ -120,6 +124,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<a href="/web/html/forum.html" class="forum">书房斋</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus">问答</a>'+
 //        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
+        '<a href='+bbs_domain+'>论坛</a>'+
         '</div>'+
         ' </div>'+
         '<div class="header_right">'+
