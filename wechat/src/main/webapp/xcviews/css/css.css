@@ -2963,7 +2963,7 @@ footer{
 /*充值记录开始*/
 .detail{
 	width: 100%;
-    min-height: 9rem;
+    min-height: 8rem;
     background: #fff;
     margin-top: 0.4rem;
     padding-bottom: 0.4rem;
@@ -3522,7 +3522,7 @@ footer{
 	background: #00bc12;
 	text-align: center;
 	font-size: 0.55rem;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	float: right;
 	border-radius: 6px;
 	margin-top: 0.45rem;
@@ -5469,7 +5469,7 @@ footer{
 	float: right;
     font-size: 0.5rem;
     color: #00bc12;
-    font-family: "微软雅黑";
+    /*font-family: "微软雅黑";*/
     max-width: 9rem;
     overflow: hidden;
     text-overflow: ellipsis;

@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="/xcviews/css/css.css">
 <link rel="stylesheet" href="/xcviews/css/tailor.css">
 <link rel="stylesheet" href="/xcviews/css/personCommon.css">
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 <script type="text/javascript"  src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
 </head>
 <style>
@@ -49,8 +50,25 @@
 	    margin-left: 0.4rem;
 	    margin-top: 0.4rem;
 	}
+	.pet_name_right1{
+		  position: absolute;
+	    right: 0.2rem;
+	    top: 8rem;
+	    width: 95%;
+	    height: 1.7rem;
+	    background: #ccc;
+	    line-height: 1.7rem;
+	    text-align: center;
+	    border-radius: 6px;
+	    color: #fff;
+	    margin-right: 0.2rem;
+	    font-size: 0.7rem;
+	}
 </style>
 <body class="person_body">
+	
+	
+	
 <!-- 更换手机号开始 -->
      <div class="call" style="display: block;">
       <div class="pet_name_top" style="position: relative;">
@@ -64,7 +82,9 @@
         <input type="tel" name="current_mobile" id="current_mobile"  placeholder="请输入验证码" />
         <div class="call_code" id="call_code_current" onclick="sendCode(this)" >获取验证码</div>
       </div>
-      <div class="pet_name_right" id="update_mobile_next">继续</div>
+      <div class="pet_name_right1" id="update_mobile_next">继续</div>
+      
+      <div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
     </div> 
     
     <!--<div class="call01">
@@ -113,14 +133,18 @@ $(".call_cen").text("当前绑定的手机号："+localStorage.name);
 $("#update_mobile_next").click(function(){
 	
 	if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
-		$("#errorMsg").html("获取用户手机号有误");
+		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>获取用户手机号有误</div></div></div>");
 		$("#errorMsg").show();
+		
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	var code= $("#current_mobile").val();
 	if(!stringnull(code)){
-		$("#errorMsg").html("验证码不能为空");
+		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
 		$("#errorMsg").show();
+		
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	var urlparm = {
@@ -138,8 +162,11 @@ $("#update_mobile_next").click(function(){
 			$(".call").hide();
     		$(".attention").hide();  */
 		} else {
-			$("#errorMsg").html(data.errorMessage);
+			
+//			$("#errorMsg").html(data.errorMessage);  动态码不正确
+			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确！</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
 })

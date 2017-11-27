@@ -91,12 +91,6 @@ public class BrowserUserController {
 	@ResponseBody
 	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String token = req.getParameter("token");
-		/*String appUniqueId = req.getParameter("appUniqueId");
-		cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
-		cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());*/
-		//  "token不能为空", 1001     "已过期", 1002   "有效",1000     "某某型号登录",1003
-		
-		
 		if(null == token){
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
