@@ -43,7 +43,9 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" share_code as shareCode,change_time as changeTime,origin,type,vhall_id as vhallId,"
 				+ "vhall_pass as vhallPass,vhall_name as vhallName, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where login_name = ?  ");
 		Object params[] = { loginName };
 		OnlineUser o=this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -68,7 +70,8 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" menu_id as menuId,union_id as unionId,user_type as userType,ref_id as refId,parent_id as parentId, ");
 		sql.append(" share_code as shareCode,change_time as changeTime,origin,type,room_number as roomNumber, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info ");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info, ");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -91,7 +94,8 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" menu_id as menuId,union_id as unionId,user_type as userType,ref_id as refId,parent_id as parentId ");
 		sql.append(" ,share_code as shareCode,change_time as changeTime,origin,type, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where name = ?  ");
 		Object params[] = { name };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -408,7 +412,8 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" share_code as shareCode,change_time as changeTime,origin,type,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName,");
 
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 
 		sql.append(" from oe_user where union_id = ?  ");
 		Object params[] = { unionid_ };

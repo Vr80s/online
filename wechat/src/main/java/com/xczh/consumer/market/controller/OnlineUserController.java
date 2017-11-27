@@ -480,6 +480,7 @@ public class OnlineUserController {
           
           String occupation= request.getParameter("occupation"); 
           String occupationOther= request.getParameter("occupationOther"); 
+          String occupationText= request.getParameter("occupationText"); 
           
           map.put("sex", sex);
           map.put("nickname", nickname);
@@ -492,8 +493,9 @@ public class OnlineUserController {
           
           //新增 身份信息、职业信息
           map.put("occupation", occupation);
-          map.put("occupationOther", occupationOther);
+          map.put("occupationText", occupationText);
           
+          map.put("occupationOther", occupationOther);
           OnlineUser user = new OnlineUser();
           String token = request.getParameter("token");
           if(token !=null ){
