@@ -37,7 +37,6 @@ public class WatchHistoryController {
 		if(ou==null){
 		   return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-		
 		int pageNumber = Integer.parseInt(req.getParameter("pageNumber"));
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		String type = req.getParameter("type");
