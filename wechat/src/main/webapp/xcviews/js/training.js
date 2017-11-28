@@ -2,7 +2,22 @@
  * 
  */
  function formatDateTime(inputTime) {
-        var date = new Date(inputTime);
+        /*var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        return y + '.' + m + '.' + d;*/
+       
+       
+       var date = new Date(inputTime);
         var y = date.getFullYear();
         var m = date.getMonth() + 1;
         m = m < 10 ? ('0' + m) : m;
@@ -15,6 +30,13 @@
         minute = minute < 10 ? ('0' + minute) : minute;
         second = second < 10 ? ('0' + second) : second;
         return y + '.' + m + '.' + d;
+        
+        
+
+        
+        
+        
+        
     };
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -52,6 +74,9 @@
                   var serverTime=data;
                   var endTime = Date.parse(new Date(result.endTime));
                   if(endTime<serverTime){
+                  	
+//                		alert(endTime);
+                  	
                       $(".training_teacher_bto").show();
                       $(".footer_buyDiv").show();
                       $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">报名已截止</div>");
