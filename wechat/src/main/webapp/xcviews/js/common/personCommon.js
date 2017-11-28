@@ -109,6 +109,8 @@ function  sendCode(obj){
 }
 
 
+
+//這是編輯地址新添加的
 $(".pet_name_right").click(function(){
 	
 	var newcode = document.getElementById("new_code");
