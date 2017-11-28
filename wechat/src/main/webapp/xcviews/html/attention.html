@@ -23,9 +23,9 @@
 	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
 </head>
 	<style>
-		.mui-block{
+		/*.mui-block{
 			top: -0.5rem;
-		}
+		}*/
 		.wm-block{
             width: 100% !important;
             height: 2.8rem !important;
@@ -50,7 +50,7 @@
 			height: 6.925rem;
 		}
 		.mui-pull {
-		    bottom: -48px;
+		    bottom: 0px;
 		}
 		.attention_li{
 			width: 11rem;
@@ -148,7 +148,7 @@
                     if(isFocus==1){
                         focusHtml="<span class='focus' lecturerId='"+result[i].lecturerId+"'>已关注</span>";
                     }else if(isFocus==2){
-                        focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"' style='color: #999;>互相关注</span>";
+                        focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"' style='color: #999;'>互相关注</span>";
                     }
                     html+="<li class='userIndex' title='"+result[i].lecturerId+"'  ><div class='attention_li'><img src='"+result[i].lecturerHeadImg+"'/>"+
                     "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li></div><div class='both'>"
