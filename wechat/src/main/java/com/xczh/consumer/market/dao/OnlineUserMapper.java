@@ -306,7 +306,8 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,occupation,occupation_other as occupationOther,");
-		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,individuality_signature as info ");
+		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info,");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { userId };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),

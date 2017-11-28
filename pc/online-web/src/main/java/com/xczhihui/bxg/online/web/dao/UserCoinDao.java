@@ -50,17 +50,18 @@ public class UserCoinDao extends SimpleHibernateDao {
 	 **/
 	public Page<RechargeRecord> getUserCoinIncreaseRecord(String userId,
 			Integer pageNumber, Integer pageSize) {
-		String sql="select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,apr.`total_amount` total"
+		
+		String sql="select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,apr.`total_amount` total,uci.`balance` as balance"
 				+ " from `user_coin_increase` uci ,`alipay_payment_record` apr where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = apr.`out_trade_no`"
 				+ " union "
-				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,aprh.`total_amount` total"
+				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,aprh.`total_amount` total,uci.`balance` as balance"
 				+ " from `user_coin_increase` uci ,`alipay_payment_record_h5` aprh where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = aprh.`out_trade_no`"
 				+ " union "
-				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'微信' as payType , CAST((wpf.`total_fee`/100) AS DECIMAL(18,2)) AS total"
+				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'微信' as payType , CAST((wpf.`total_fee`/100) AS DECIMAL(18,2)) AS total,uci.`balance` as balance"
 				+ " from `user_coin_increase` uci ,`wxcp_pay_flow` wpf where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = wpf.`out_trade_no`"
 
 				+ " union "
-				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'applePay' as payType , ii.actual_price AS total"
+				+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'applePay' as payType , ii.actual_price AS total,uci.`balance` as balance"
 				+ " from `user_coin_increase` uci ,`iphone_iap` ii where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = ii.`order_no`"
 
 				+ " ORDER BY `create_time` DESC";

@@ -108,7 +108,7 @@ function rechargeList(downOrOn){
  					"<p class='attention_p1'>余额充值</p>"+
  						"<p class='attention_p2'>"+returnstring(obj.createTime)+"&nbsp;&nbsp;</p>"+
  					"</div>"+
- 					"<div class='attention_right'>+"+returnstring(obj.total)+" 熊猫币</div>"+
+ 					"<div class='attention_right'>+"+returnstring(obj.value)+" 熊猫币</div>"+
  					/*"<div class='attention_right01'>现金</div>"+*/
  					"<div class='both'></div>"+
  					"<div class='attention_right' style='margin-top:-1.3rem;'></div>"+
@@ -151,7 +151,7 @@ mui("#refreshContainer").on('tap', '.li_click', function (event) {
     "paytype": "支付宝" */
 	
 	var url = "/xcviews/html/payor.html?orderNo="+obj.orderNo+"&value="
-			+obj.value+"&createTime="+obj.createTime+"&paytype="+obj.paytype+"&total="+obj.total;
+			+obj.value+"&createTime="+obj.createTime+"&paytype="+obj.paytype+"&total="+obj.total+"&balance"+obj.balance;
 	var enurl = encodeURI(url);
     enurl = encodeURI(enurl);
 	location.href = enurl;

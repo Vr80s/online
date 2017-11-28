@@ -34,11 +34,15 @@ public class MenuController {
 		String sql="SELECT id,name FROM oe_menu where is_delete = 0 and name <> '全部' and status=1 and yun_status = 1";
 		dao.findEntitiesByJdbc(MenuVo.class, sql, params);*/
         try {
+        	
+        	String type = req.getParameter("type");
         	List<MenuVo> list = new ArrayList<MenuVo>();
-        	MenuVo mv = new MenuVo();
-        	mv.setId(0);
-        	mv.setName("全部");
-        	//list.add(mv);
+        	if(type == null || !"1".equals(type)){
+        		MenuVo mv = new MenuVo();
+            	mv.setId(0);
+            	mv.setName("全部");
+            	list.add(mv);
+        	}
         	list.addAll(menuService.list());
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (SQLException e) {
@@ -46,9 +50,4 @@ public class MenuController {
 			return ResponseObject.newErrorResponseObject("错误");
 		}
     }
-
-
-    
-
-
 }

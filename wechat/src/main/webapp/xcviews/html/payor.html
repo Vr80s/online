@@ -70,7 +70,7 @@
 			</div>
 			<div class="detail_cen">
 				<p class="detail_cen_p1">余额</p>
-				<p class="detail_cen_p2">1200熊猫币</p>
+				<p class="detail_cen_p2" id="balance"></p>
 				<div class="both"></div>
 			</div>
 			<div class="detail_cen">
@@ -88,17 +88,13 @@
         var r = url.substr(1).match(reg);
         if (r != null) return unescape(r[2]); return null;
     }
-/* 	orderNo: "595",
-	createTime: 1505640180000,
-	value: "392.700000",
-	paytype: "微信" */
     
     var orderNo = getQueryString("orderNo");
     var value = getQueryString("value"); //熊猫币
     var createTime = getQueryString("createTime");
     var paytype = getQueryString("paytype");
-    var total = getQueryString("total"); //金额
-    
+    var total = getQueryString("total"); //人民币
+    var balance = getQueryString("balance"); //充值后余额
    
 	if(stringnull(value)){
 		 $("#totalAmount1").text(value);
@@ -118,6 +114,10 @@
 	if(stringnull(paytype)){
 		$("#remark").text(paytype);
 	}
+	if(stringnull(balance)){
+		$("#balance").text(balance+"熊猫币");
+	}
+	
 </script>
 </body>
 </html>
