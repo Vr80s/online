@@ -47,7 +47,9 @@
 					$("#detailed_address").val(umv.detailedAddress);
 				/*	$("#postal_code").val(umv.postalCode);*/
 				} else {
-				    alert("获取数据有误！");
+//				    alert("获取数据有误！");
+					$(".vanish0").show();
+					setTimeout(function(){$(".vanish0").hide();},1500);
 					return false;
 				}
 		});
@@ -215,7 +217,7 @@
 					if(result.isAcquiescence == 1 || results.length==1){//是默认地址
 						isAcquiesStr+="<div class='sit_bg site_bg01'></div><span class=''>默认地址</span>";
 					}else{
-						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='moren_span'>设为默认地址</span>";
+						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='moren_span' style='color: #666;'>设为默认地址</span>";
 					}
 					str += "<div class='site'>"+
 					"<div class='site_div'>"+

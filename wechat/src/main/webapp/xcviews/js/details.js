@@ -179,7 +179,9 @@ var result="";
                             var result = data.resultObject;
                             $("#xmbShowSpan").html(result.balanceTotal);
                         }else{
-                            alert("熊猫币余额获取失败！请稍后再试");
+//                          alert("熊猫币余额获取失败！请稍后再试");
+							$(".vanish2")show();
+							setTimeout(function(){$(".vanish2").hide();},1500);
                         }
 
                     });
@@ -280,7 +282,9 @@ function  goPay() {
             var result = data.resultObject;
             location.href = "/xcviews/html/pay.html?courseId="+course_id+"&orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
         }else{
-            alert("提交订单错误！请稍后再试！");
+//          alert("提交订单错误！请稍后再试！");
+			$(".vanish4").show();
+			setTimeout(function(){$(".vanish4").hide();},1500);
         }
 
     });

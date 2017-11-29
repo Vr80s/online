@@ -109,10 +109,14 @@ function  sendCode(obj){
 }
 
 
+
+//這是編輯地址新添加的
 $(".pet_name_right").click(function(){
 	
 	var newcode = document.getElementById("new_code");
-	var newcodes = document.getElementById("new_code").value;
+	
+	/*先注释掉,有影响,好几个页面保存功能*/
+//	var newcodes = document.getElementById("new_code").value;
 	
 	var vtype = "";
 	var number= "";

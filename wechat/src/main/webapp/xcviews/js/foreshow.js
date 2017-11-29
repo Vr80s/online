@@ -99,12 +99,12 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 				pwdAndBuy = 1;
 			}else if(result.watchState == 2){ //需要密码
 				/*$(".buy_bottom_p1").html("<span>需要密码</span>");*/
-				$(".buy_bottom_p1").html("<span style='font-size:0.7rem;margin-top: -0.3rem;display: -webkit-box;'>密码预约</span>")
+				$(".buy_bottom_p1").html("<span style='font-size:0.6rem;margin-top: -0.3rem;display: -webkit-box;'>密码预约</span>")
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 				pwdAndBuy = 2;
 			}else{
 				//$(".buy_bottom_p1").html("<span style='font-size:0.7rem;'>免费视频111</span>")
-				$(".buy_bottom_p1").html("<p style='font-size:0.7rem;margin-top: 0.4rem;'>免费视频</p>")
+				$(".buy_bottom_p1").html("<p style='font-size:0.6rem;margin-top: 0.4rem;'>免费视频</p>")
 				$(".buy_bottom_p2").html(result.learndCount+"人预约");
 				$(".buy_bottom_p2").hide();
 				

@@ -76,15 +76,15 @@ function initOrderList(status,downOrOn){
                 			if(lineState==1){
                 				liveTypeOrState ="直播中";
                 				liveTypeImg ="/xcviews/images/zhibo001.png";
-//              				$('.pp').css("display","none");
+                				$('.pp').hide();
                 			}else if(lineState==2){
                 				liveTypeOrState ="预告";
                 				liveTypeImg ="/xcviews/images/yugao001.png"	
-//              				$('.pp').css("display","none");
+                				$('.pp').hide();
                 			}else{
                 				liveTypeOrState ="回放";
                 				liveTypeImg ="/xcviews/images/huifang001.png"
-//              				$('.pp').css("display","none");
+                				$('.pp').css("display","none");
                 			}
                 		}else if(type == 2){
                 			liveTypeOrState ="视频";
@@ -111,17 +111,18 @@ function initOrderList(status,downOrOn){
 							
     					if(course.currentPrice<=0){
                                 course.currentPrice="免费";
-                                
+//                              $('.span_span').hide();
 							}
     					
 							if(course.endTime==null){
                                 course.endTime="不限";
+                                
 							}else{
                                 course.endTime=formatDateTime(course.endTime);
 							}
 							
 							html+="<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "老师</span></p>" +
-									"<p class='pp' style='position: absolute;right: 0.4rem;font-size: 0.6rem;color: #666;'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
+									"<p class='pp' style='position: absolute;right: 0.4rem;font-size: 0.6rem;color: #666;'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span style='width: 1.8rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
 							"<div class='indent_main_two'><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";
                         }
 

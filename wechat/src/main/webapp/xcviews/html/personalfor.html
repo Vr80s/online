@@ -19,13 +19,15 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<!--<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>-->
 <script src="../js/js.js"></script>
 
 <link rel="stylesheet" href="../css/css.css">
 
-	
+<link href="/xcviews/css/mui.picker.css" rel="stylesheet" />
+<link href="/xcviews/css/mui.poppicker.css" rel="stylesheet" />
+<link href="../css/picker.css" rel="stylesheet" />
 	<style type="text/css">
 		.personal_main_radio{
 			width: 100%;
@@ -40,6 +42,69 @@
 		}
 		.vanish0{
 			display: none;
+		}
+		.person_p1{
+			width: 3.5rem;
+		    font-size: 0.6rem;
+		    color: #333;
+		    float: left;
+		    text-align: left;
+		    margin-right: 0.5rem;
+		}
+		.szd_cityP{
+			width: 4.9rem;
+		    font-size: 0.6rem;
+		    color: #999;
+		    outline: none;
+		    text-indent: 0.4rem;
+		    text-align: right;
+		    margin-right: 0.4rem;
+		    border: 0;
+		}
+		.my_right_img{
+			width: 0.325rem;
+		    height: 0.561rem;
+		    /* background: red; */
+		    margin-top: -0.35rem;
+		    margin-right: 0.8rem;
+		}
+		.my_right_img img{
+			width: 0.325rem;
+    		height: 0.56rem;
+    		margin-top: -0.9rem;
+		}
+		#szd_cityP{
+			font-size: 0.6rem;
+    		color: #999;
+		}
+		#sfxx{
+			font-size: 0.6rem;
+    		color: #999;
+		}
+		
+		.zx_mask{
+			height: 40%;
+		}
+		.mui-poppicker-btn-cancel{
+			font-size: 15px;
+		    height: 45px;
+		    padding: 0 10px;
+		    border: none;
+		    outline: none;
+		    color: #00bc12;
+		    background: #f0f1f2;
+		}
+		.mui-btn{
+			font-size: 15px !important;
+		    height: 45px;
+		    padding: 0 10px;
+		    border: none;
+		    outline: none;
+		    color: #00bc12;
+		    background: none;
+		}
+		.mui-poppicker-header{
+			padding: 0;
 		}
 	</style>
 </head>
@@ -102,15 +167,35 @@
 			</div>
 			<div class="both"></div>
 			
-			<div class="personal_main_one">
+			<!--<div class="personal_main_one">
 				<div class="personal_main_size">职业</div>
 				<div class="personal_main_put"><input id="occupation"  type="text" placeholder="请输入您的职业" /></div>
+			</div>-->
+			
+			<div class="person_cen_top" id="showUserPicker">
+				<p class="person_p1">职业</p>
+				<div class="person_cen_right">
+					<p id="sfxx">请选择</p>
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
 			</div>
 			<div class="both"></div>
-			<div class="personal_main_one">
+			<!--<div class="personal_main_one">
 				<div class="personal_main_size">邮寄地址</div>
 				<div class="personal_main_put"><input id="occupation"  type="text" placeholder="请输入您的职业" /></div>
+			</div>-->
+			
+			<div class="person_cen_top person_three" onclick="szd_picker2()">
+				<p class="person_p1">邮寄地址</p>
+				<div class="person_cen_right" style="margin-top:0.05rem;">
+					<p id="szd_cityP">请选择</p>   
+					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				</div>
+				<div class="both"></div>
 			</div>
+			
+			
 			<div class="both"></div>
 			
 			<textarea type="text" placeholder="请输入详细地址" id="detailed_address" style="text-align: left;font-size:0.65rem;width: 100%;float: right;height: 3rem;border: 0;outline: none;resize: none;margin-top: 0.5rem;font-size: 0.65rem;color: #999;background: #fff;"></textarea>
@@ -153,6 +238,136 @@
 	<!-- 报名详细信息cen结束 -->
 
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+        
+		var jobList =[];
+		requestService("/bxg/bs/getUserInfoById",{userId:localStorage.getItem("userId")},
+				function(data) {
+				if (data.success) {
+					commonLocalStorageSetItem(data);
+			        //搞下身份信息
+			    	requestService("/bxg/oa/jobVo",{group:"occupation"}, function(data) {
+						if (data.success) {
+							//jobList = data.resultObject;
+							
+							var occupation  = localStorage.getItem("occupation");
+							
+							for (var int = 0; int <  data.resultObject.length; int++) {
+								var job ={};
+								var array_element =  data.resultObject[int];
+								job.text = array_element.value;
+								job.value=array_element.id;
+								if(job.value == occupation){
+									$("#sfxx").text(job.text);
+								}
+								jobList.push(job);
+							}
+							//{"id":"19","key":"0","value":"中医爱好者"}
+						}
+					},false);
+			    	if(stringnull(localStorage.getItem("occupationOther"))){
+			       	      $("#zyxx").text(localStorage.getItem("occupationOther"));
+			        }
+			        
+			} else {
+				alert("网络异常");
+			}
+		},false);
+		
+		
+		//身份信息
+		var userPicker = new mui.PopPicker();
+
+		//userPicker.setData(jobList);
+		 userPicker.setData(jobList); 
+		var showUserPickerButton = document.getElementById('showUserPicker');
+		var userResult = document.getElementById('sfxx');
+		showUserPickerButton.addEventListener('tap', function(event) {
+			userPicker.show(function(items) {
+				//sfxx
+				userResult.innerText = items[0].text;
+				userResult.className = items[0].value;
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+				checkUser1("occupation");
+			});
+		}, false);
+  		
+  		$(".person_three").click(function(){
+  			$(".mui-active").hide();
+  			$(".zx_mask").show();
+  		});
+  		$("#showUserPicker").click(function(){
+  			$(".zx_mask").hide();
+  			$(".mui-active").show();
+  		});
+  		
+	});
+</script>
+
+
+
+
+		<!--js放上面报错-->
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+
+	<script src="../js/city.js"></script>
+	<script src="../js/picker.min.js"></script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+
+<script>
+
+/* <p id="szd_cityP" onclick="szd_picker2()">请选择</p>    */
+
+
+
+    /* 选择省市区插件    -- 初始化所在地这个地方啦 */
+    function szd_picker2() {
+        var nowValue = document.getElementById('nowValue');
+        new Picker({
+            "title": '请选择',//标题(可选)
+            "defaultValue": "",//默认值-多个以空格分开（可选）
+            "type": 2,//需要联动级数[1、2、3]（可选）
+            "data": cityData,//数据(必传)
+            "keys": {
+                "id": "Code",
+                "value": "Name",
+                "childData": "level"//最多3级联动
+            },//数组内的键名称(必传，id、text、data)
+            "callBack": function (val) {
+                //回调函数（val为选择的值）
+				$("#szd_cityP").html(val);
+//				checkUser1("provinceCityName");
+            }
+        });
+    };
+
+    /* 选择省市区插件    -- 初始化新增地址这个地方啦 */
+    function picker2() {
+        //var nowValue = document.getElementById('nowValue');
+        new Picker({
+            "title": '请选择',//标题(可选)
+            "defaultValue": "内蒙古自治区 呼和浩特市 赛罕区",//默认值-多个以空格分开（可选）
+            "type": 3,//需要联动级数[1、2、3]（可选）
+            "data": cityData,//数据(必传)
+            "keys": {
+                "id": "Code",
+                "value": "Name",
+                "childData": "level"//最多3级联动
+            },//数组内的键名称(必传，id、text、data)
+            "callBack": function (val) {
+                //回调函数（val为选择的值）
+				$("#cityP").html(val);
+				//checkUser1();
+            }
+        });
+    };
+
+</script>
+	
 <script>
 		//任一一项没有填写 就展示当前页,否则直接跳转到报名成功
 
@@ -271,4 +486,7 @@
 		}
 
 	</script>
+	
+	
+
 </html>
