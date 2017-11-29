@@ -138,7 +138,7 @@ public class BBSUserController extends OnlineBaseController {
 
 	}
 	
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	@RequestMapping(value = "logout")
 	public ResponseObject logout(HttpServletRequest request,HttpServletResponse response) {
 		callback.onLogout(request, response);
 		UserUtil.cleanSessionCookie(request, response);
