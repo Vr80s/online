@@ -230,6 +230,16 @@ $(document).ready(function(){
 	    line-height: 1.55rem;
 	    border-top: 1px solid #e5e5e5;
 	}
+	
+	.fx_bg {
+	    width: 0.65rem;
+	    height: 0.65rem;
+	    background: url(/xcviews/images/fx.png)no-repeat;
+	    background-size: 100% 100%;
+	    float: right;
+	    margin-right: 0.3rem;
+	    margin-top: 0.6rem;
+	}
 </style>
 
 </head>
@@ -256,8 +266,9 @@ $(document).ready(function(){
 					<div class="grabble_img"></div>
 				</div>
 				
-				<span class="history_span" style="color:#666;width:77%;">视频详情</span>
-				<div class="history_img_right" id="share" style="width:1.6rem;color:#00bc12;">分享</div>
+				<span class="history_span" style="color:#666;width:12.2rem;">视频详情</span>
+				<!--<div class="history_img_right" id="share" style="width:1.6rem;color:#00bc12;">分享</div>-->
+				<div class="history_img_right" id="share" style="width: 1.8rem;height: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
@@ -444,7 +455,7 @@ $(document).ready(function(){
 	<!-- 底部购买开始 -->
 	<div class="buy_bottom_bg" id="buyDiv" style="display: none;">
 		<div class="buy_bg" id="bug_bg"></div>
-		<footer style="padding: 0.8rem 0;">
+		<footer>
 			<div class="base buy_bottom">
 				<ul>
 					<li class="buy_left"><p class="buy_bottom_p1">
