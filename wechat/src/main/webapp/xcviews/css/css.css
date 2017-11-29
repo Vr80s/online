@@ -6026,7 +6026,7 @@ footer{
 	color: #ff0000;
 }
 .training_teacher_bto_left .p2{
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 	font-size: 0.5rem;
 	color: #999;
 }
@@ -6037,7 +6037,7 @@ footer{
 	line-height: 2.1rem;
 	text-align: center;
 	background: #00bc12;
-	font-size: 0.75rem;
+	font-size: 0.6rem;
 	color: #fff;
 }
 .training_teacher_bto_right_close{
@@ -6226,12 +6226,12 @@ footer{
 .personage_pay .p1{
 	font-size: 0.7rem;
 	color: #000;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .personage_pay .p2{
 	font-size: 0.5rem;
 	color: #999;
-	font-family: "微软雅黑";
+	/*font-family: "微软雅黑";*/
 }
 .personage_pay_left{
 	float: left;
