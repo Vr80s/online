@@ -17,8 +17,9 @@ requestService("/bxg/common/judgeUserIsTeacher", {
 	userId:lecturerId}, function(data) {
 		if(!data.success){//普通用户
 			//personage_bto_ul
-			//隐藏tab页
+			//隐藏tab页     
 			$(".personage_bto_ul").hide();
+			$(".personage_bto").css("margin-top","0");
 			//隐藏熊猫币贡献榜
 			$(".contribution").hide();
 			//隐藏灰色进度条
