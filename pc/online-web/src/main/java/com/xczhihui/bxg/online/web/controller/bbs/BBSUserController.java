@@ -128,7 +128,7 @@ public class BBSUserController extends OnlineBaseController {
 				UserUtil.setSessionCookie(request, response, o, t);
 				callback.onLogin(request, response);
 
-				return ResponseObject.newSuccessResponseObject(null);
+				return ResponseObject.newSuccessResponseObject(o);
 			} else {
 				return ResponseObject.newErrorResponseObject("用户名密码错误");
 			}
