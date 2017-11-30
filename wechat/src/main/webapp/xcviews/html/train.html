@@ -212,8 +212,29 @@
                   	}
                   
               },false);*/
-            
-            
+//           requestService("/bxg/common/getSystemTime",{course_id : 1},
+//           	var serverTime=data;
+//                var endTime = Date.parse(new Date(result.endTime));
+             
+            /*function getCurrentDate() {
+		      var dtCur = new Date();
+		      var yearCur = dtCur.getFullYear();
+		      var monCur = dtCur.getMonth() + 1;
+		      var dayCur = dtCur.getDate();
+		      var hCur = dtCur.getHours();
+		      var mCur = dtCur.getMinutes();
+		      var sCur = dtCur.getSeconds();
+		      var timeCur = yearCur + "-" + (monCur < 10 ? "0" + monCur : monCur) + "-"
+		        + (dayCur < 10 ? "0" + dayCur : dayCur) + " " + (hCur < 10 ? "0" + hCur : hCur)
+		        + ":" + (mCur < 10 ? "0" + mCur : mCur) + ":" + (sCur < 10 ? "0" + sCur : sCur);
+		      return timeCur;
+		    }
+             
+             
+             if(getCurrentDate>result.endTime){
+             	$(".train_list_bto03").html("<div class='train_list_bto03'>1111</div>");
+             }*/
+             
             
             for(var i=0;i<result.length;i++){
             	
@@ -221,11 +242,32 @@
                     "<div class='train_list_one'>\n" +
                     "<div class='train_list_left'>\n" +
                     "<div class='train_list_left_img'><img src='"+result[i].smallImgPath+"' alt='' />\n" +
-                    "\n" +
-                    "<div class='div_bg'>\n" +
+                    "\n";
+                    html+="<div class='div_bg'>\n" +
                     "<div class='train_list_bto03'>"+result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].substr(5,10).replace(/-/g, ".")+"</div>\n" +
-                    "</div>\n" +
-                    "</div>\n" +
+                    "</div>\n";
+                    
+                    
+                    
+                    
+                    
+                    
+                    /*var serverTime;
+                    
+                    requestService("/bxg/common/getSystemTime",{course_id : 1},
+	                    function(data) {
+	                  		serverTime=data;
+	                  	var endTime = Date.parse(new Date(result[i].endTime));
+	                  	if(endTime<serverTime){
+	                      	
+	                      	$(".train_list_bto03").html("<div class='train_list_bto03'>1111</div>");
+	                  	}
+	                  
+	              	},false);*/
+                    
+                    
+                    
+                    html+="</div>\n" +
                     "</div>\n" +
                    "<div class='train_list_left0'>\n" +
                     "<div class='train_list_bto1_size'>"+result[i].gradeName+"</div>\n" +
