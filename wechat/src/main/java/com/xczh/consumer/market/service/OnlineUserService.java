@@ -159,4 +159,25 @@ public interface OnlineUserService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public void updateOnlineUserByWeixinInfo(OnlineUser ou, OnlineUser ouNew)throws SQLException;
+	/**
+	 * 查询出苹果手机游客登录信息
+	 * @param id
+	 * @return
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	Map<String, Object> getAppTouristRecord(String appOnlyOne)
+			throws SQLException;
+	/**
+	 * 保存apple 游客登录的信息
+	 * @param id
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	void saveAppTouristRecord(String userId, String appOnlyOne)
+			throws SQLException;
 }

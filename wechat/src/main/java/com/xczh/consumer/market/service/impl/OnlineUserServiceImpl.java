@@ -564,4 +564,19 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		// TODO Auto-generated method stub
 		onlineUserDao.updateOnlineUserByWeixinInfo(ou,ouNew);
 	}	
+
+	@Override
+	public Map<String, Object> getAppTouristRecord(String appOnlyOne)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		return onlineUserDao.getAppTouristRecord(appOnlyOne);
+	}	
+	@Override
+	public void saveAppTouristRecord(String userId,String appOnlyOne)
+			throws SQLException {
+		// TODO Auto-generated method stub
+	    onlineUserDao.saveAppTouristRecord(userId,appOnlyOne);
+	}	
+	
+	
 }

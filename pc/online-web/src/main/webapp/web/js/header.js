@@ -1,6 +1,11 @@
-var bbs_domain = 'http://dev.ixincheng.com:8082/index';
 
 
+var bbs_domain = 'http://bbs.ixincheng.com/index';
+
+var domain = document.domain;
+if(domain.indexOf("bbs")==-1){
+	bbs_domain = 'http://dev.ixincheng.com:8082/index';
+}
 
 //如果有链接的点击事件
 function on_click_msg(msg_id, msg_link) {

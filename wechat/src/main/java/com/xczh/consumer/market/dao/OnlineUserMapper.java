@@ -504,7 +504,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 	public void updateOnlineUserByWeixinInfo(OnlineUser ou, OnlineUser ouNew) throws SQLException {
 
-
 		StringBuilder sb = new StringBuilder("");
 		sb.append("update oe_user set ");
 
@@ -540,5 +539,33 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			Object[] params = { ou.getId() };
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
+	}
+
+	/**
+	 * 查询出apple 游客登录的信息
+	 * @param id
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	public Map<String, Object> getAppTouristRecord(String appOnlyOne) throws SQLException {
+		String sql = " select id,user_id as userId,app_only_one as appOnlyOne from apple_tourist_record where app_only_one = ?";
+		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
+				sql, new MapHandler(), appOnlyOne);
+		return map;
+	}
+	/**
+	 * 保存apple 游客登录的信息
+	 * @param id
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	public void saveAppTouristRecord(String userId,String appOnlyOne) throws SQLException {
+		String sql = " insert into apple_tourist_record(user_id,app_only_one) values(?,?) ";
+		super.update(JdbcUtil.getCurrentConnection(), sql,
+				userId,appOnlyOne);
 	}
 }

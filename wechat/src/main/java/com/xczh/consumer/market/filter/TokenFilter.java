@@ -65,7 +65,7 @@ public class TokenFilter implements Filter {
 	    /bxg/bunch/list
 	*/
 	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
-			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain";
+			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain,/bxg/bs/appLogin";
 	
 	
 	/**
