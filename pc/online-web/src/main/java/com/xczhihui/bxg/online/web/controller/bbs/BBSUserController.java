@@ -128,7 +128,7 @@ public class BBSUserController extends OnlineBaseController {
 				UserUtil.setSessionCookie(request, response, o, t);
 				callback.onLogin(request, response);
 
-				return ResponseObject.newSuccessResponseObject(null);
+				return ResponseObject.newSuccessResponseObject(o);
 			} else {
 				return ResponseObject.newErrorResponseObject("用户名密码错误");
 			}
@@ -138,7 +138,7 @@ public class BBSUserController extends OnlineBaseController {
 
 	}
 	
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	@RequestMapping(value = "logout")
 	public ResponseObject logout(HttpServletRequest request,HttpServletResponse response) {
 		callback.onLogout(request, response);
 		UserUtil.cleanSessionCookie(request, response);

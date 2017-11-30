@@ -97,6 +97,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<li><a data-id="mydata"><i class="iconfont icon-xueyuan"></i>我的资料</a></li>'+
         '<li><a data-id="idea"><i class="iconfont icon-yijianfankui"></i>意见反馈</a></li>'+
         '<li><a data-id="mymoney"><i class="iconfont icon-qianbao"></i>我的资产</a></li>'+
+        '<li><a data-id="mytiezi"><i class="iconfont icon-zaixiankecheng"></i>我的贴子</a></li>'+
         '<li><a data-exit="exit"><i class="iconfont icon-tuichu"></i>安全退出</a></li>'+
       
         ' </ul></div></div>'+
