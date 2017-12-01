@@ -1,10 +1,9 @@
 
 
-var bbs_domain = 'http://bbs.ixincheng.com/index';
-
+var bbs_domain = 'http://bbs.ixincheng.com';
 var domain = document.domain;
 if(domain.indexOf("bbs")==-1){
-	bbs_domain = 'http://dev.ixincheng.com:8082/index';
+	bbs_domain = 'http://dev.ixincheng.com:45444';
 }
 
 //如果有链接的点击事件
@@ -18,8 +17,6 @@ function on_click_msg(msg_id, msg_link) {
         }
     }, false);
 };
-
-
 
 //$("<script src='http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>").appendTo('head');
 
@@ -130,7 +127,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<a href="/web/html/forum.html" class="forum">书房斋</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus">问答</a>'+
 //        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
-        '<a href='+bbs_domain+'>论坛</a>'+
+        '<a href='+bbs_domain+"/index"+'>论坛</a>'+
         '</div>'+
         ' </div>'+
         '<div class="header_right">'+
@@ -700,64 +697,73 @@ if (myBrowser() == "IE55") {
                 }
             });
         }
+        
         $(".dropdownmenu li a").click(function (evt) {
+        	
+        	
             $(".top-item").removeClass("selected");
             var btn = $(evt.target);
             var id = "personcenter";
             window.localStorage.personcenter = $(evt.target).attr("data-id");
-            if (window.location.pathname == "/web/html/personcenter.html") {
-                if ($(this).attr("data-exit")) {
-                    RequestService("/online/user/logout", "GET", {}, function () {
-                        location.href = "/index.html";
-                        $(".loginGroup .logout").css("display", "block");
-                        $(".loginGroup .login").css("display", "none");
-                    });
-                } else {
-                    $(".left-nav ." + window.localStorage.personcenter).click();
-                }
-            } else {
-                if ($(this).attr("data-exit")) {
-                    RequestService("/online/user/logout", "GET", {}, function () {
-                        location.href = "/index.html";
-                        $(".loginGroup .logout").css("display", "block");
-                        $(".loginGroup .login").css("display", "none");
-                    });
-                } else {
-                    location.href = "/web/html/personcenter.html";
-                    RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive
-                        if (data.success) {
-                            if (data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-                                path = data.resultObject.smallHeadPhoto;
-                            } else {
-                                path = bath + data.resultObject.smallHeadPhoto
-                            }
-                            //头像预览
-                            $(".userPic").css({
-                                background: "url(" + path + ") no-repeat",
-                                backgroundSize: "100% 100%"
-                            });
-                            $('#login').modal('hide');
-                            $("html").css({"overflow-x": "hidden", "overflow-y": "auto"});
-                            $(".loginGroup .logout").hide();
-                            $(".loginGroup .login").show();
-                            $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
-                            localStorage.username = data.resultObject.loginName;
-                            localStorage.userid = data.resultObject.id;
-                            if ($(btn.parent().hasClass('selected'))) {
 
-                            } else {
-                                hideHtml();
-                            }
-                        } else {
-                            alert("header jmp index");
+            if($(evt.target).attr("data-id") == "mytiezi"){ //
+            	
+            	location.href = bbs_domain+"/myReply";
+            }else{
+                if (window.location.pathname == "/web/html/personcenter.html") {
+                    if ($(this).attr("data-exit")) {
+                        RequestService("/online/user/logout", "GET", {}, function () {
                             location.href = "/index.html";
-                            localStorage.username = null;
-                            localStorage.password = null;
-                            $(".login").css("display", "none");
-                            $(".logout").css("display", "block");
-//                          }
-                        }
-                    });
+                            $(".loginGroup .logout").css("display", "block");
+                            $(".loginGroup .login").css("display", "none");
+                        });
+                    } else {
+                        $(".left-nav ." + window.localStorage.personcenter).click();
+                    }
+                } else {
+                    if ($(this).attr("data-exit")) {
+                        RequestService("/online/user/logout", "GET", {}, function () {
+                            location.href = "/index.html";
+                            $(".loginGroup .logout").css("display", "block");
+                            $(".loginGroup .login").css("display", "none");
+                        });
+                    } else {
+                        location.href = "/web/html/personcenter.html";
+                        RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive
+                            if (data.success) {
+                                if (data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+                                    path = data.resultObject.smallHeadPhoto;
+                                } else {
+                                    path = bath + data.resultObject.smallHeadPhoto
+                                }
+                                //头像预览
+                                $(".userPic").css({
+                                    background: "url(" + path + ") no-repeat",
+                                    backgroundSize: "100% 100%"
+                                });
+                                $('#login').modal('hide');
+                                $("html").css({"overflow-x": "hidden", "overflow-y": "auto"});
+                                $(".loginGroup .logout").hide();
+                                $(".loginGroup .login").show();
+                                $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
+                                localStorage.username = data.resultObject.loginName;
+                                localStorage.userid = data.resultObject.id;
+                                if ($(btn.parent().hasClass('selected'))) {
+
+                                } else {
+                                    hideHtml();
+                                }
+                            } else {
+                                alert("header jmp index");
+                                location.href = "/index.html";
+                                localStorage.username = null;
+                                localStorage.password = null;
+                                $(".login").css("display", "none");
+                                $(".logout").css("display", "block");
+//                              }
+                            }
+                        });
+                    }
                 }
             }
 
