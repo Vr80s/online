@@ -104,7 +104,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 	/**
 	 * 添加用户
-	 * 
 	 * @param user
 	 * @throws SQLException
 	 */
@@ -234,11 +233,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		StringBuilder sb = new StringBuilder("");
 		sb.append("update oe_user set ");
 
-		// userId: 用户ID,nickname: 昵称,sex:性别,
-		// provinceId:省份ID provinceName:省份名字
-		// cityId :城市ID cityName:城市名字
-		// email:邮件,file:头像 individualitySignature:个性签名
-
 		if (StringUtils.hasText(map.get("info"))
 				&& !map.get("info").equals(original.getName())) {
 			sb.append(" info ='" + map.get("info") + "',");
@@ -284,7 +278,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("occupationOther").equals(original.getOccupationOther())) {
 			sb.append(" occupation_other ='" + map.get("occupationOther") + "',");
 		}
-		
 		
 		String sql = sb.toString();
 		if (sql.indexOf(",") != -1) {
@@ -504,7 +497,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 	public void updateOnlineUserByWeixinInfo(OnlineUser ou, OnlineUser ouNew) throws SQLException {
 
-
 		StringBuilder sb = new StringBuilder("");
 		sb.append("update oe_user set ");
 
@@ -540,5 +532,33 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			Object[] params = { ou.getId() };
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
+	}
+
+	/**
+	 * 查询出apple 游客登录的信息
+	 * @param id
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	public Map<String, Object> getAppTouristRecord(String appOnlyOne) throws SQLException {
+		String sql = " select id,user_id as userId,app_only_one as appOnlyOne from apple_tourist_record where app_only_one = ?";
+		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
+				sql, new MapHandler(), appOnlyOne);
+		return map;
+	}
+	/**
+	 * 保存apple 游客登录的信息
+	 * @param id
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	public void saveAppTouristRecord(String userId,String appOnlyOne) throws SQLException {
+		String sql = " insert into apple_tourist_record(user_id,app_only_one) values(?,?) ";
+		super.update(JdbcUtil.getCurrentConnection(), sql,
+				userId,appOnlyOne);
 	}
 }

@@ -6,23 +6,16 @@ function is_weixn(){
         return false;
     }
 }
-
 if(!is_weixn()){
     $(".weixin_li").remove();
 }
-
 /**
  * 判断是否需要跳转到pc网页
  */
 h5PcConversions(true,course_id);
-
-
 if(localStorage.getItem("userId")==null){
     location.href ="/xcviews/html/share.html?course_id="+course_id;
 }
-
-
-
 /**
   * 视频id
   */
@@ -30,7 +23,6 @@ var videoId = "";var teacherId;var teacherName;
 var courseHead ="";var roomNumber="";var lineState =1;
 var result="";
 //统一提交的方法
-
 	requestService("/bxg/live/liveDetails", {course_id : course_id}, function(data) {
 		if (data.success) {
 
@@ -180,7 +172,7 @@ var result="";
                             $("#xmbShowSpan").html(result.balanceTotal);
                         }else{
 //                          alert("熊猫币余额获取失败！请稍后再试");
-							$(".vanish2")show();
+							$(".vanish2").show();
 							setTimeout(function(){$(".vanish2").hide();},1500);
                         }
 

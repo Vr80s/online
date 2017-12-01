@@ -13,6 +13,15 @@ function dateStr(bbb) {
       return y + '-' + m + '-' + d+' '+h+':'+minute;  
 }; 
 
+function dateStrYMd(bbb) {  
+    var y = date.getFullYear();  
+    var m = date.getMonth() + 1;  
+    m = m < 10 ? ('0' + m) : m;  
+    var d = date.getDate();  
+    d = d < 10 ? ('0' + d) : d;  
+    return y + '-' + m + '-' + d;  
+}; 
+
 /**
  *  订单列表：
  */
@@ -71,6 +80,8 @@ function initOrderList(status,downOrOn){
                 		var liveTypeOrState ="直播";  //直播状态 1.直播中，2预告，3直播结束
                 		var liveTypeImg = '';
 						var onlineCourse=course.onlineCourse;
+						
+						var courseEndTime = "";
                 		//判断课程的状态啦  
                 		if(type == 1){
                 			if(lineState==1){
@@ -104,23 +115,24 @@ function initOrderList(status,downOrOn){
                 		}
 
     					if(onlineCourse==1){ //线下课程
-                            course.endTime=formatDateTime(course.endTime);
-                            course.startTime=formatDateTime(course.startTime);
-							html+="<div class='indent_main_one'><div class='train_list_bto1' style=' height:1rem;'><div class='train_lecturer1' style=' float:left;margin-top:0;'>社会你涛哥</div><div class='train_list_bto1_maip' style='max-width: 3rem;'><div class='train_list_bto1_img' style='margin-right: 0;'><img src='../images/maip.png' alt=''></div><div class='train_list_bto1_area' style='max-width: 2rem;'>"+course.city+"</div></div><div class='train_list_bto01' style=' margin-top:0.6rem;'><span>￥</sapn>"+course.currentPrice+"</div></div><div class='offline_bg'><div class='offline_date'>"+course.startTime+"-"+course.endTime+"</div></div><div class='both'></div></div>";
+                            var qixian = "";
+                            if(stringnull(course.endTime) && stringnull(course.startTime)){
+                            	 course.endTime=course.endTime.replace(/-/g,".");
+                                 course.startTime=course.startTime.replace(/-/g,".");
+                            	qixian =course.startTime.substring(0,10)+"-"+course.endTime.substring(0,10);
+                            }
+							html+="<div class='indent_main_one'><div class='train_list_bto1' style=' height:1rem;'><div class='train_lecturer1' style=' float:left;margin-top:0;'>社会你涛哥</div><div class='train_list_bto1_maip' style='max-width: 3rem;'><div class='train_list_bto1_img' style='margin-right: 0;'><img src='../images/maip.png' alt=''></div><div class='train_list_bto1_area' style='max-width: 2rem;'>"+course.city+"</div></div><div class='train_list_bto01' style=' margin-top:0.6rem;'><span>￥</sapn>"+course.currentPrice+"</div></div><div class='offline_bg'><div class='offline_date'>"+qixian+"</div></div><div class='both'></div></div>";
 						}else{
 							
     					if(course.currentPrice<=0){
                                 course.currentPrice="免费";
 //                              $('.span_span').hide();
 							}
-    					
 							if(course.endTime==null){
                                 course.endTime="不限";
-                                
 							}else{
-                                course.endTime=formatDateTime(course.endTime);
+                                course.endTime=course.endTime.substring(0,10);
 							}
-							
 							html+="<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "老师</span></p>" +
 									"<p class='pp' style='position: absolute;right: 0.4rem;font-size: 0.6rem;color: #666;'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span style='width: 1.8rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
 							"<div class='indent_main_two'><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";

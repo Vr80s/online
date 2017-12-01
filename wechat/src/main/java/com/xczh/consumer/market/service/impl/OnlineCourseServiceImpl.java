@@ -674,13 +674,11 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	@Override
 	public Map<String, String> teacherIsLive(String lecturerId) throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select c.id as id,live_status as  lineState");
-		sql.append(" from oe_course c ");
-		sql.append(" where  c.user_lecturer_id = ? and c.is_delete=0 and c.status = 1 and c.type=1  ");
-	    Object params[] = { lecturerId };
-	    
+		sql.append("select c.id as id,live_status as  lineState,ou.is_lecturer as isLecturer");
+		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" where  c.user_lecturer_id = ? and ou.id = ? and c.is_delete=0 and c.status = 1 and c.type=1  ");
+	    Object params[] = { lecturerId,lecturerId };
 	    Map<String,String> mapIsLive = new HashMap<String,String>();
-	    
 	    List<Map<String,Object>> mapList = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new MapListHandler(), params);
 	    for (Map<String, Object> map : mapList) {
 	    	if(null !=map && Integer.parseInt(map.get("lineState").toString())==1){
