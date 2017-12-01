@@ -188,7 +188,17 @@
         second = second < 10 ? ('0' + second) : second;
         return  m + '-' + d/!*+' '+h+':'+minute+':'+second*!/;
     };*/
-
+   
+     
+    function dateStrYMd(date) {  
+        var y = date.getFullYear();  
+        var m = date.getMonth() + 1;  
+        m = m < 10 ? ('0' + m) : m;  
+        var d = date.getDate();  
+        d = d < 10 ? ('0' + d) : d;  
+        return y + '-' + m + '-' + d;  
+    }; 
+    
    function opitem(id){
         location.href='training.html?id='+id;
    }
@@ -242,7 +252,7 @@
                		serverTime=data;
            	},false); */
            	var myDate = new Date();
-            var currentDay =myDate.getFullYear()+""+(myDate.getMonth()+1)+""+myDate.getDate() ;
+            var currentDay =dateStrYMd(myDate).replace(/-/g,"");
             for(var i=0;i<result.length;i++){
             	var endTime = result[i].endTime.replace(/-/g,"").substring(0,8);
                	var xxqx = "";
