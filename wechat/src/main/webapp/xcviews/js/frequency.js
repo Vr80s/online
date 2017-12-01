@@ -41,6 +41,7 @@ $(".frequency_div1").click(function() {
 	$(".frequency_div3").removeClass('frequency_div_p');
 	$(".frequency_div4").removeClass('frequency_div_p');
 	$(".frequency_div5").removeClass('frequency_div_p');
+	$(".frequency_div7").removeClass('frequency_div_p');
 	$(".frequency_div1 img").show();
 	$(".video_list").show();
 	$(".frequency_div2 img").hide();
@@ -60,6 +61,7 @@ $(".frequency_div2").click(function() {
 	$(".frequency_div4").removeClass('frequency_div_p');
 	$(".frequency_div5").removeClass('frequency_div_p');
 	$(".frequency_div6").removeClass('frequency_div_p');
+	$(".frequency_div7").removeClass('frequency_div_p');
 	$(".frequency_div2 img").show();
 	/*
 	 * $(".video_list1").show(); $(".video_list2").hide();
@@ -82,6 +84,7 @@ $(".frequency_div3").click(function() {
 	$(".frequency_div4").removeClass('frequency_div_p');
 	$(".frequency_div5").removeClass('frequency_div_p');
 	$(".frequency_div6").removeClass('frequency_div_p');
+	$(".frequency_div7").removeClass('frequency_div_p');
 	$(".frequency_div3 img").show();
 	/*
 	 * $(".video_list2").show(); $(".video_list1").hide();
@@ -122,10 +125,12 @@ $(".frequency_div4").click(function() {
 $(".frequency_div5").click(function() {
 	$(this).addClass('frequency_div_p');
 	$(".frequency_div1").removeClass('frequency_div_p');
+	$(".frequency_div2").removeClass('frequency_div_p');
 	$(".frequency_div3").removeClass('frequency_div_p');
 	$(".frequency_div4").removeClass('frequency_div_p');
 	$(".frequency_div1").removeClass('frequency_div_p');
 	$(".frequency_div6").removeClass('frequency_div_p');
+	$(".frequency_div7").removeClass('frequency_div_p');
 	$(".frequency_div5 img").show();
 	/*
 	 * $(".video_list4").show(); $(".video_list2").hide();
@@ -147,8 +152,9 @@ $(".frequency_div6").click(function() {
 	$(".frequency_div1").removeClass('frequency_div_p');
 	$(".frequency_div3").removeClass('frequency_div_p');
 	$(".frequency_div4").removeClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
+	$(".frequency_div2").removeClass('frequency_div_p');
 	$(".frequency_div5").removeClass('frequency_div_p');
+	$(".frequency_div7").removeClass('frequency_div_p');
 	$(".frequency_div6 img").show();
 	/*
 	 * $(".video_list4").show(); $(".video_list2").hide();
@@ -165,6 +171,31 @@ $(".frequency_div6").click(function() {
 	requestbunchList(true, name);
 });
 
+$(".frequency_div7").click(function() {
+	$(this).addClass('frequency_div_p');
+	$(".frequency_div1").removeClass('frequency_div_p');
+	$(".frequency_div3").removeClass('frequency_div_p');
+	$(".frequency_div4").removeClass('frequency_div_p');
+	$(".frequency_div2").removeClass('frequency_div_p');
+	$(".frequency_div5").removeClass('frequency_div_p');
+	$(".frequency_div6").removeClass('frequency_div_p');
+//	$(".frequency_div7").removeClass('frequency_div_p');
+	$(".frequency_div7 img").show();
+	/*
+	 * $(".video_list4").show(); $(".video_list2").hide();
+	 * $(".video_list").hide(); $(".video_list3").hide();
+	 * $(".video_list1").hide();
+	 */
+	$(".frequency_div5 img").hide();
+	$(".frequency_div2 img").hide();
+	$(".frequency_div3 img").hide();
+	$(".frequency_div4 img").hide();
+	$(".frequency_div1 img").hide();
+	$(".frequency_div6 img").hide();
+
+	var name = $(this).attr("name");
+	requestbunchList(true, name);
+});
 
 
 var multimedia_type = getQueryString("multimedia_type");
