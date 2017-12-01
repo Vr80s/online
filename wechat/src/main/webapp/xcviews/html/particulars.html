@@ -1,5 +1,4 @@
 <!doctype html>
-
 <!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
 <html lang="en" style="font-size: 84.3125px;">
 <!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
@@ -26,8 +25,6 @@
 		.mCustomScrollBox{
 			height:85%;
 		}
-		
-		
 		/* 修改黑色背景色 */
 		.buy_bg{
 			height: 8.95rem;
@@ -249,19 +246,41 @@ $(document).ready(function(){
      	}
          
      }); 
-     /* $("#face").click(function(){
-    	 
-     }); */
-     
      
     /*  $("#face").toggle(function(){
     	 $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
          $(".face_img01").css('background-size','100% 100%'); 
 	    		function(){
  		 $(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
- 	     $(".face_img01").css('background-size','100% 100%');
+ 	     $(".face_img01").css('background-size','100% 100%');  
 	 ); */
+	
+	/*点击头部*/
+	$("header").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
      
+     /*点击视频区域*/
+     $("#video").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
+     /*点击评论详情*/
+     $(".details_footer").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
+	
+	
+     $(".chatmsg-box").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
      
      
      $("#sendChat").click(function() {
@@ -272,6 +291,23 @@ $(document).ready(function(){
           $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
           $(".face_img01").css('background-size','100% 100%'); 
      });
+     
+     /*处理华为手机输入框遮挡*/
+     
+	var clientHeight = document.documentElement.clientHeight || document.body.clientHeight; $(window).on('resize', function () {
+    var nowClientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    if (clientHeight > nowClientHeight) {
+        //键盘弹出的事件处理
+        $("header").css("margin-top","-0.7rem"); 
+		$(".details_top").css("margin-top","-0.7rem"); 
+    }
+    else {
+        //键盘收起的事件处理
+        $("header").css("margin-top","0rem"); 
+	          $(".details_top").css("margin-top","0rem"); 
+    } });
+    
+    
 });
 </script>
 
@@ -486,7 +522,7 @@ $(document).ready(function(){
 	<!-- 头部结束 -->
 
 	<!-- 中间内容开始 -->
-	<div class="" style="position: fixed;width:100%;background:#fff;border-bottom: 1px solid #d2d2d2;z-index:9999;">
+	<div class="details_top" style="position: fixed;width:100%;background:#fff;border-bottom: 1px solid #d2d2d2;z-index:9999;">
 		<div class="details">
 			<!--<video width="100%" controls="controls" controls="controls">
 			  	<source src="../images/movie.ogg" type="video/ogg">
