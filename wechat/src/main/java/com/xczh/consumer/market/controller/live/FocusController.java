@@ -79,6 +79,7 @@ public class FocusController {
 		 *  是否是讲师：0,用户，1既是用户也是讲师
 		 */
 		/*Map<String,Object> ma1p = onlineUserService.getUserIsTeacher(user.getId());*/
+		//onlineUserService.getUserIsTeacher(user.getId());
 		map.put("user", user);
 		return ResponseObject.newSuccessResponseObject(map);
 	}

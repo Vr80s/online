@@ -104,7 +104,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 	/**
 	 * 添加用户
-	 * 
 	 * @param user
 	 * @throws SQLException
 	 */
@@ -234,11 +233,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		StringBuilder sb = new StringBuilder("");
 		sb.append("update oe_user set ");
 
-		// userId: 用户ID,nickname: 昵称,sex:性别,
-		// provinceId:省份ID provinceName:省份名字
-		// cityId :城市ID cityName:城市名字
-		// email:邮件,file:头像 individualitySignature:个性签名
-
 		if (StringUtils.hasText(map.get("info"))
 				&& !map.get("info").equals(original.getName())) {
 			sb.append(" info ='" + map.get("info") + "',");
@@ -284,7 +278,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("occupationOther").equals(original.getOccupationOther())) {
 			sb.append(" occupation_other ='" + map.get("occupationOther") + "',");
 		}
-		
 		
 		String sql = sb.toString();
 		if (sql.indexOf(",") != -1) {

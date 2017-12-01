@@ -405,91 +405,6 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("用户名密码错误");
 		}
 	}
-	
-	/**
-	 * 
-	 * Description：
-	 * @param req
-	 * @param res
-	 * @return
-	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	@RequestMapping("appLogin")
-	@ResponseBody
-	public ResponseObject appOnlyOneId(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		
-		/**
-		 *   注册一个用户      因为这个用户不仅仅要看视频，还需要还需要进行购买的行为了。
-		 *    
-		 *   最开始的时候给他一个用户id，在给另一个参数。
-		 *     下次在来的时候：判断存在，就不动了。
-		 *   	如果注册的话，就把这个用户信息改下。且
-		 *   
-		 *   
-		 *   记录下用户id、记录下设备id。
-		 *   	如果存在的话，就不存了。
-		 *   	取出这个用户id,然后请求出这个用户，生成一个token。保存在redis中。
-		 *   
-		 */
-		String appUniqueId = req.getParameter("appUniqueId");
-		
-		/*
-		 * 查一下这个表，是否存在这个信息。如果存在，那么就不创建了。如果
-		 */
-		
-		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
-		OnlineUser ou = new OnlineUser();
-		if(map==null){
-			ou.setId(UUID.randomUUID().toString().replace("-", ""));
-			ou.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-			//随机抽取一个字符串
-			
-			ou.setStatus(0);
-			ou.setCreateTime(new Date());
-			ou.setDelete(false);
-			ou.setVisitSum(0);
-			ou.setStayTime(0);
-			ou.setUserType(0);
-			ou.setOrigin("online");
-			ou.setMenuId(-1);
-			ou.setSex(OnlineUser.SEX_UNKNOWN);
-			ou.setCreateTime(new Date());
-			ou.setType(1);
-			
-			
-			//Collections.shuffle(initializeNames);
-			/*String [] arr = initializeNames.split(",");*/
-			/*int index=(int)(Math.random()*arr.length);
-			String name = arr[index];*/
-			String name = "游客";
-			String weihouUserId = WeihouInterfacesListUtil.createUser(
-					ou.getId(),
-					WeihouInterfacesListUtil.moren,
-					name, 
-					ou.getSmallHeadPhoto());
-			
-			if(weihouUserId!=null){
-				ou.setVhallId(weihouUserId);  //微吼id
-				//u.setVhallName(u.getId());  //微吼名字
-				ou.setVhallName(name);
-				ou.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
-			}
-			onlineUserService.addOnlineUser(ou);
-			
-			//也需要保存这个信息啦
-			onlineUserService.saveAppTouristRecord(ou.getId(), appUniqueId);
-		}else{
-			ou = onlineUserService.findUserById(map.get("userId").toString());
-		}
-		String ticket = UUID.randomUUID().toString().replace("-", "");
-		ou.setTicket(ticket);
-		ou.setLoginName(appUniqueId);
-		this.onlogin(req, res, null, ou,ticket);
-		return ResponseObject.newSuccessResponseObject(ou);
-	}
 	/**
 	 * 登陆成功处理
 	 * @param req
@@ -1018,6 +933,121 @@ public class BrowserUserController {
 		}
 		return null;
 	}
+	
+	
+	
+	/**
+	 * 
+	 * Description：
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	@RequestMapping("appLogin")
+	@ResponseBody
+	public ResponseObject appOnlyOneId(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		/**
+		 *   注册一个用户      因为这个用户不仅仅要看视频，还需要还需要进行购买的行为了。
+		 *    
+		 *   最开始的时候给他一个用户id，在给另一个参数。
+		 *     下次在来的时候：判断存在，就不动了。
+		 *   	如果注册的话，就把这个用户信息改下。且
+		 *   
+		 *   
+		 *   记录下用户id、记录下设备id。
+		 *   	如果存在的话，就不存了。
+		 *   	取出这个用户id,然后请求出这个用户，生成一个token。保存在redis中。
+		 *   
+		 */
+		String appUniqueId = req.getParameter("appUniqueId");
+		
+		/*
+		 * 查一下这个表，是否存在这个信息。如果存在，那么就不创建了。如果
+		 */
+		
+		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
+		OnlineUser ou = new OnlineUser();
+		if(map==null){
+			ou.setId(UUID.randomUUID().toString().replace("-", ""));
+			ou.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+			//随机抽取一个字符串
+			ou.setStatus(0);
+			ou.setCreateTime(new Date());
+			ou.setDelete(false);
+			ou.setVisitSum(0);
+			ou.setStayTime(0);
+			ou.setUserType(0);
+			ou.setOrigin("online");
+			ou.setMenuId(-1);
+			ou.setSex(OnlineUser.SEX_UNKNOWN);
+			ou.setCreateTime(new Date());
+			ou.setType(1);
+			
+			
+			//Collections.shuffle(initializeNames);
+			/*String [] arr = initializeNames.split(",");*/
+			/*int index=(int)(Math.random()*arr.length);
+			String name = arr[index];*/
+			String name = "游客";
+			String weihouUserId = WeihouInterfacesListUtil.createUser(
+					ou.getId(),
+					WeihouInterfacesListUtil.moren,
+					name, 
+					ou.getSmallHeadPhoto());
+			
+			if(weihouUserId!=null){
+				ou.setVhallId(weihouUserId);  //微吼id
+				//u.setVhallName(u.getId());  //微吼名字
+				ou.setVhallName(name);
+				ou.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+			}
+			onlineUserService.addOnlineUser(ou);
+			
+			//也需要保存这个信息啦
+			onlineUserService.saveAppTouristRecord(ou.getId(), appUniqueId);
+		}else{
+			ou = onlineUserService.findUserById(map.get("userId").toString());
+		}
+		String ticket = UUID.randomUUID().toString().replace("-", "");
+		ou.setTicket(ticket);
+		ou.setLoginName(appUniqueId);
+		this.onlogin(req, res, null, ou,ticket);
+		return ResponseObject.newSuccessResponseObject(ou);
+	}
+	
+	/**
+	 * apple用户提交注册
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="applePhoneRegist")
+	@ResponseBody
+	public ResponseObject applePhoneRegist(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		String appUniqueId = req.getParameter("appUniqueId");
+		String password = req.getParameter("password");
+		String username = req.getParameter("username");
+		String code = req.getParameter("code");
+		if(null == password || null == username || null == code){
+			return ResponseObject.newErrorResponseObject("参数异常");
+		}
+		String vtype = "1";
+		//短信验证码
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		if (!checkCode.isSuccess()) {
+			return checkCode;
+		}
+		return onlineUserService.updateIPhoneRegist(req, password,username,vtype,appUniqueId);
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		
 		
@@ -1030,4 +1060,8 @@ public class BrowserUserController {
 		
 		System.out.println(rand);
 	}
+	
+	
+	
+	
 }

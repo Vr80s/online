@@ -180,4 +180,17 @@ public interface OnlineUserService {
 	 */
 	void saveAppTouristRecord(String userId, String appOnlyOne)
 			throws SQLException;
+	/**
+	 * Description：iphone手机注册使用
+	 * @param req
+	 * @param password
+	 * @param username
+	 * @param vtype
+	 * @param appUniqueId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
+			String password, String username, String vtype, String appUniqueId)throws Exception;
 }

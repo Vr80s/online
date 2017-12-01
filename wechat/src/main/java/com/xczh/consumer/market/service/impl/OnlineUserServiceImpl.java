@@ -156,7 +156,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		onlineUserDao.updateOnlineUser(user);
 	}
 	
-	//TODO
 	@Override
 	public OnlineUser addUser(String mobile, String username, String shareCode, String password) throws Exception {
 		OnlineUser u = new OnlineUser();
@@ -331,7 +330,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
 					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 		}
-		if(null == user){
+		if(null == user ){
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
 			user = this.addUser(mobile, "",shareCode,password);
 		}
@@ -561,22 +560,64 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	@Override
 	public void updateOnlineUserByWeixinInfo(OnlineUser ou, OnlineUser ouNew)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		onlineUserDao.updateOnlineUserByWeixinInfo(ou,ouNew);
 	}	
 
 	@Override
 	public Map<String, Object> getAppTouristRecord(String appOnlyOne)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		return onlineUserDao.getAppTouristRecord(appOnlyOne);
 	}	
 	@Override
 	public void saveAppTouristRecord(String userId,String appOnlyOne)
 			throws SQLException {
-		// TODO Auto-generated method stub
 	    onlineUserDao.saveAppTouristRecord(userId,appOnlyOne);
+	}
+	@Override
+	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
+			String password, String mobile, String vtype, String appUniqueId) throws Exception {
+		
+		//手机
+		ItcastUser iu = userCenterAPI.getUser(mobile);
+		OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
+		if(iu == null){
+		   //向用户中心注册
+			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
+					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+		}
+		if(null == user ){
+			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
+			user = this.updateUser(mobile, mobile,shareCode,password,appUniqueId);
+		}
+		//注册过后删除这个被记录的验证码
+		List<VerificationCode> lists = onlineUserDao.getListVerificationCode(mobile,vtype);
+		if(null != lists && lists.size() > 0){
+			onlineUserDao.deleteVerificationCodeById(lists.get(0).getId());
+		}
+		/**
+		 * 为用户初始化一条代币记录
+		 */
+		userCoinService.saveUserCoin(user.getId());
+		return ResponseObject.newSuccessResponseObject(user);
+		
 	}	
 	
-	
+	public OnlineUser updateUser(String mobile, String username,
+			String shareCode, String password,String appUniqueId) throws Exception{
+		
+		//查询出这个用户
+		Map<String, Object> map = onlineUserDao.getAppTouristRecord(appUniqueId);
+		if(map == null){
+			return null;
+		}
+		OnlineUser u = onlineUserDao.findUserById(map.get("userId").toString());
+		//保存本地库
+		u.setLoginName(mobile);
+		u.setMobile(mobile);
+		u.setName(mobile);
+		u.setPassword(password);
+
+		//onlineUserDao.updateOnlineUserAddPwdAndUserName(u);
+		return u;
+	}
 }
