@@ -111,6 +111,7 @@ public class CookieUtil {
 	public static void setCookie(HttpServletResponse response, String name,
 	        String value, String domain, String path, int maxAge) {
 		Cookie cookie = new Cookie(name, value);
+		if(domain != null)
 		cookie.setDomain(domain);//cookie绑定域名关闭--20170829-yuruixin
 		cookie.setPath(path);
 		cookie.setMaxAge(maxAge);
