@@ -117,7 +117,7 @@ function userIndexCourseList(type,falg){
 						"<div class='public1_list_bottom'>"+  //这是观看人数
 							"<img src='../images/yjing.png' alt=''>"+obj.learndCount+
 						"</div>"+								//这是播放时间
-						"<div class='public1_list_bottom0'>"+obj.courseLength+
+						"<div class='public1_list_bottom0'>"+obj.courseTimeConver+
 						"</div>";
 						if(type==1){//直播
 							

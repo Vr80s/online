@@ -85,7 +85,7 @@ public class CourseLecturVo implements Serializable {
     /**
      * 课程时长
      */
-    public double courseLength;
+    public double courseLength = 0;
     /**
      * 请求 --》直播使用了， 微吼接口得到的当前在线人数返回的结果集
      */
@@ -152,6 +152,9 @@ public class CourseLecturVo implements Serializable {
 	
 	private String city;//线下课程所在城市
 
+	
+	private String courseTimeConver; //课程时间转换为: 00:00:00
+	
 	public String getUdescription() {
 		return udescription;
 	}
@@ -391,4 +394,14 @@ public class CourseLecturVo implements Serializable {
 	public void setvId(String vId) {
 		this.vId = vId;
 	}
+
+	public String getCourseTimeConver() {
+		return courseTimeConver;
+	}
+
+	public void setCourseTimeConver(String courseTimeConver) {
+		this.courseTimeConver = courseTimeConver;
+	}
+	
+	
 }

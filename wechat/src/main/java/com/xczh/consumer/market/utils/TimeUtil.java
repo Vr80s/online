@@ -103,12 +103,51 @@ public class TimeUtil {
 		day = hour/24;
 	    return day == 0 ? 1 : day;  
 	}
+
+	
+	/**
+	 * 将秒转换为:00:00:00
+	 */
+	public static String formatTime(Object timeTemp) {  
+        int timeParam = 0;  
+        if (timeTemp instanceof Integer) {  
+            timeParam = (Integer) timeTemp;  
+        }  
+        if (timeTemp instanceof String) {  
+            timeParam = Integer.valueOf((String) timeTemp);  
+        }  
+        if (timeTemp instanceof Double) {  
+            timeParam = ((Double)timeTemp).intValue();  
+        } 
+        int second = timeParam % 60;  
+        int minuteTemp = timeParam / 60;  
+        if (minuteTemp > 0) {  
+            int minute = minuteTemp % 60;  
+            int hour = minuteTemp / 60;  
+            if (hour > 0) {  
+                return (hour >= 10 ? (hour + "") : ("0" + hour)) + ":" + (minute >= 10 ? (minute + "") : ("0" + minute))  
+                        + ":" + (second >= 10 ? (second + "") : ("0" + second));  
+            } else {  
+                return "00:" + (minute >= 10 ? (minute + "") : ("0" + minute)) + ":"  
+                        + (second >= 10 ? (second + "") : ("0" + second));  
+            }  
+        } else {  
+            return "00:00:" + (second >= 10 ? (second + "") : ("0" + second));  
+        }  
+    }  
+	
+	
+	public static void main(String[] args) {
+		System.out.println(formatTime(36000));
+	}
+	
+	
 	/**
 	 * 返回分秒
 	 * @param
 	 * @return 例如:00时59分59秒
 	 */
-	public static String timeConvert(long ms){
+	public static String timeConvertHHM(long ms){
 		StringBuilder str = new StringBuilder();
 		if(ms/(1000 * 60 *60) > 1){
 			str.append((ms/(1000 * 60 * 60)) + "时");
@@ -142,6 +181,8 @@ public class TimeUtil {
 		}
 		return str.toString();
 	}
+	
+	
 	/**
 	 * 返回分秒
 	 * @param

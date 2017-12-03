@@ -9,6 +9,7 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.*;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -300,18 +301,17 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	    if(type == 1){
 	    	common.append("select c.id as id,c.grade_name as gradeName,c.smallimg_path as smallImgPath,");
 	 	    common.append("c.start_time as startTime,c.end_time as endTime,");
-	 	    common.append("c.learnd_count as learndCount,c.course_length as courseLength,");
+	 	    common.append("c.learnd_count as learndCount,(c.course_length*3600) as courseLength,");
 	 	    common.append("c.original_cost as originalCost,c.current_price as currentPrice,");
 	 	    common.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  // 观看状态  
 	 	    common.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 	 	    common.append(" ou.small_head_photo as headImg,ou.name as name, ");
 	 	    common.append(" c.live_status as  lineState ");
 	    }else{
-	    	
 	    	common.append(" select oc.id as id,oc.grade_name as gradeName,ocm.img_url as smallImgPath,");
 	 	    common.append(" oc.start_time as startTime,oc.end_time as endTime, ");
 	 	    common.append(" oc.learnd_count as learndCount,");
-	 	    common.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");
+	 	    common.append(" (select sum(time_to_sec(CONCAT('00:',video_time))) from  oe_video where course_id = oc.id) as courseLength, ");
 	 	    common.append(" oc.original_cost as originalCost,oc.current_price as currentPrice, ");
 	 	    common.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");  // 观看状态  
 	 	    common.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, "); //类型 
@@ -338,6 +338,14 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		System.out.println("sql : "+common.toString());
 		Object [] params = {lecturerId};
 		List<CourseLecturVo> list = super.queryPage(JdbcUtil.getCurrentConnection(), common.toString(),pageNumber,pageSize,CourseLecturVo.class,params);
+		
+		for (CourseLecturVo courseLecturVo : list) {
+			if(courseLecturVo.getCourseLength()>0){
+				courseLecturVo.setCourseTimeConver(TimeUtil.formatTime(courseLecturVo.getCourseLength()));
+			}else{
+				courseLecturVo.setCourseTimeConver("00:00:00");
+			}
+		}
 		return list;
 	}
 

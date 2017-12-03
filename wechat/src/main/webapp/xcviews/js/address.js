@@ -322,10 +322,9 @@
 			
 			$(".site_bto_right02").click(function(){
 				var id = $(this)[0].title;
-//				$("#address_bg_bto1").attr("title",id);
-//				$(".history_bg").show();
-				
-				deleteAddress(this);
+				$(".history_bg_bto2").attr("title",id);
+				$(".history_bg").show();
+				//deleteAddress(this);
 			});
 	}
 	/**
@@ -339,6 +338,7 @@ $(".history_bg_bto1").click(function(){
 	$(".history_bg").hide();
 });
 $(".history_bg_bto2").click(function(){
+	deleteAddress(this);
 	$(".history_bg").hide();
 });
 function deleteAddress(obj){

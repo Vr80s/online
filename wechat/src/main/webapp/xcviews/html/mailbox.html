@@ -30,6 +30,7 @@
 <body>
 
        <!-- 点击更改邮箱开始 -->
+<form id="form">       
     <div class="mailbox" style="display: block;">
       <div class="mailbox_top">
         <div class="return" onclick="location.href ='persons.html'"></div>
@@ -45,7 +46,7 @@
       <div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
     </div>
     <!-- 点击更改邮箱结束 -->
-  
+ </form> 
 </body>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript"
@@ -75,9 +76,9 @@ $(".mailbox_right").click(function(){
 		}else if (email.indexOf('@') == -1 && !regEmail.test(email)) {
 			cymYonghuInfo.show();
 			cymYonghuInfo.html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>邮箱格式不正确!</div></div></div>");
-          setTimeout(function(){$(".vanish").hide();},1500);
-          return false;
-      }
+            setTimeout(function(){$(".vanish").hide();},1500);
+            return false;
+        }
 	checkUser1("email");
 	/* $(".person_body").removeClass('person_body1');
 	$(".attention").show();
