@@ -70,6 +70,8 @@
 			return false;
 			
 		}
+		$("#vanishs").hide();
+		
 		var phone =$("#phone").val();
 		if (!stringnull(phone)) {
 			$("#errorMsg").html("<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>请填写手机号</div></div></div>");
@@ -232,7 +234,7 @@
 										"<div class='site_bg001'></div>"+
 										"<span>编辑</span>"+
 									"</div>"+
-									"<div class='site_bto_right02'  name='' title='"+result.id+"'>"+
+									"<div class='site_bto_right02' name='' title='"+result.id+"'>"+
 										"<div class='site_bg002'></div>"+
 										"<span >删除</span>"+
 									"</div>"+
@@ -314,6 +316,10 @@
 			/**
 			 * 删除这个地址啦
 			 */
+			/*$(".site_bto_right02").click(function(){
+				$(".history_bg").show();
+			});*/
+			
 			$(".site_bto_right02").click(function(){
 				var id = $(this)[0].title;
 //				$("#address_bg_bto1").attr("title",id);

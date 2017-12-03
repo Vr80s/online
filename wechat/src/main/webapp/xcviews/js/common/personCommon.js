@@ -59,7 +59,7 @@ function  sendCode(obj){
 		number = $("#new_mobile").val();
 	}
 	if (!stringnull(number)) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
+		$("#errorMsg").html("<div class='vanish vanishs' id='vanishs'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
 		$("#errorMsg").show();
 		
 		setTimeout(function(){$(".vanish").hide();},1500);
