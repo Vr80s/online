@@ -18,7 +18,7 @@
 <!-- 网页自适应JS代码引入 -->
 <script src="../js/js.js"></script>
 <link rel="stylesheet" href="../css/css.css">
-
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript">
@@ -131,9 +131,18 @@
 	.echarge_footer_cen{
 		width: 95%;
 	}
+	.vanish{
+		display: none;
+	}
+	.vanish2{
+		display: none;
+	}
 </style>
 </head>
 <body style="background:#efefef;">
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>最小支持充值10元</div></div></div>
+	<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>非法操作!充值金额必须为整数。</div></div></div>
+	
 	<div class="attention_top">
 		<div class="attention_left" id="grabble_img" onclick="history.go(-1)"><div class="return"></div></div>
 		
@@ -289,7 +298,9 @@
         var inputNum=$("#inputNum").val();
         if(inputNum!='') {
             if ((!isInteger(inputNum))) {
-                alert("非法操作!充值金额必须为整数.");
+            	setTimeout(function(){$(".vanish2").hide();},1500);
+            	$(".vanish2").show();
+//              alert("非法操作!充值金额必须为整数.");
                 $("#inputNum").val("")
                 $("#payprice").html(0.0)
             } else {
@@ -306,8 +317,9 @@
 
 	function goPay(){
         if( $("#payprice").html()<10){
-
-            alert("最小支持充值10元");
+			setTimeout(function(){$(".vanish").hide();},1500);
+			$(".vanish").show();
+            /*alert("最小支持充值10元");*/
             return;
 		}
 var payType=1;
