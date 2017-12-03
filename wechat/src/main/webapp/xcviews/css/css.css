@@ -2036,8 +2036,10 @@ footer{
 	border-radius: 0 6px 6px 0px;
 	position: absolute;
     right: 0;
-    margin-right: 0.82rem;
-    /*top: 0rem;*/
+    top: 0rem;
+    margin-right: 0.87rem;
+    margin-top: 2.25rem;
+	border: 1px solid #00bc12;
 }
 /*观看登录结束*/
 
