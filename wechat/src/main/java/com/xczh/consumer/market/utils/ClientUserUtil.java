@@ -80,6 +80,8 @@ public class ClientUserUtil {
 				jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 				String openid_ = (String)jsonObject.get("openid");
 				String nickname_ = (String)jsonObject.get("nickname");
+				nickname_ = SLEmojiFilter.filterEmoji(nickname_);
+				
 				String sex_ = String.valueOf(jsonObject.get("sex"));
 				String language_ = (String)jsonObject.get("language");
 				String city_ = (String)jsonObject.get("city");
@@ -158,6 +160,8 @@ public class ClientUserUtil {
 			JSONObject jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 			String openid_ = (String)jsonObject.get("openid");
 			String nickname_ = (String)jsonObject.get("nickname");
+			nickname_ = SLEmojiFilter.filterEmoji(nickname_);
+			
 			String sex_ = String.valueOf(jsonObject.get("sex"));
 			String language_ = (String)jsonObject.get("language");
 			String city_ = (String)jsonObject.get("city");
@@ -278,6 +282,8 @@ public class ClientUserUtil {
 			jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 			String openid_ = (String)jsonObject.get("openid");
 			String nickname_ = (String)jsonObject.get("nickname");
+			nickname_ = SLEmojiFilter.filterEmoji(nickname_);
+			
 			String sex_ = String.valueOf(jsonObject.get("sex"));
 			String language_ = (String)jsonObject.get("language");
 			String city_ = (String)jsonObject.get("city");
@@ -427,6 +433,8 @@ public class ClientUserUtil {
 			jsonObject = JSONObject.fromObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 			String openid_ = (String)jsonObject.get("openid");
 			String nickname_ = (String)jsonObject.get("nickname");
+			nickname_ = SLEmojiFilter.filterEmoji(nickname_);
+			
 			String sex_ = String.valueOf(jsonObject.get("sex"));
 			String language_ = (String)jsonObject.get("language");
 			String city_ = (String)jsonObject.get("city");
@@ -454,6 +462,7 @@ public class ClientUserUtil {
 				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setUnionid(unionid_);
+				
 				//TODO  这个地方要改下
 				/*wxcpClientUserWxMapping.setClient_id(common.getId());*/
 			    wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);

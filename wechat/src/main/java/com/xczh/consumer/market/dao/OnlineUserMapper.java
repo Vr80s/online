@@ -71,6 +71,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" share_code as shareCode,change_time as changeTime,origin,type,room_number as roomNumber, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info, ");
+		sql.append(" vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
@@ -560,5 +561,72 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		String sql = " insert into apple_tourist_record(user_id,app_only_one) values(?,?) ";
 		super.update(JdbcUtil.getCurrentConnection(), sql,
 				userId,appOnlyOne);
+	}
+
+	public void updateOnlineUserAddPwdAndUserName(OnlineUser u) throws SQLException {
+
+		StringBuilder sb = new StringBuilder("");
+		sb.append("update oe_user set ");
+		
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" login_name ='" + u.getLoginName() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" mobile ='" + u.getMobile() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" name ='" + u.getName() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" password ='" + u.getPassword() + "',");
+		}
+
+		if (u.getSex()!=2) {
+			sb.append(" sex ='" + u.getSex() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getUnionId())) {
+			sb.append(" union_id ='" + u.getUnionId() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getSmallHeadPhoto())) {
+			sb.append(" small_head_photo ='" + u.getSmallHeadPhoto() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getOrigin())) {
+			sb.append(" origin ='" + u.getOrigin() + "',");
+		}
+		
+
+		if (StringUtils.hasText(u.getSmallHeadPhoto())) {
+			sb.append(" small_head_photo ='" + u.getSmallHeadPhoto() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getOrigin())) {
+			sb.append(" origin ='" + u.getOrigin() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getDistrict())) {
+			sb.append(" region_id = '" + u.getDistrict() + "',");
+			sb.append(" region_area_id = '" + u.getProvince() + "',");
+			sb.append(" region_city_id = '" + u.getCity()+ "',");
+			sb.append(" province_name = '" + u.getProvinceName() + "',");
+			sb.append(" city_name = '" + u.getCityName() + "',");
+		}
+		
+		String sql = sb.toString();
+		if (sql.indexOf(",") != -1) {
+			sql = sql.substring(0, sb.length() - 1);
+			sql += " where id = ? ";
+			
+			System.out.println("user center update " + sql);
+			Object[] params = { u.getId() };
+			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
+		}
+		
 	}
 }

@@ -837,6 +837,11 @@ public class OnlineUserController {
 		String password = req.getParameter("password"); //密码
 		String openId = req.getParameter("openId");     //openId
 		String code = req.getParameter("code");         //验证码
+		String appleLogo= req.getParameter("appleLogo"); //苹果标识
+		
+		String appUniqueId = req.getParameter("appUniqueId");
+		
+		
 		if(null == username || null == code || null == password){
 			return ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
 		}
@@ -855,11 +860,10 @@ public class OnlineUserController {
 		if(null == m){
 			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
 		}
-
 		/**
 		 * 向用户中心添加数据
 		 *  用户名、 密码、昵称、性别、邮箱、手机号
-		 *  第三方登录的用户名和密码是opendi
+		 *  第三方登录的用户名和密码是openId
 		 */
 	    ItcastUser iu = userCenterAPI.getUser(username);
 		if(iu == null){
@@ -871,11 +875,9 @@ public class OnlineUserController {
 		 * 判断这个用户是否在外面注册过
 		 */
 		OnlineUser ou1 = onlineUserService.findUserByLoginName(username);
-		
 		if(ou1 !=null ){ //此用户已经注册过了
 			
 			ou1.setUnionId(m.getUnionid());
-			//onlineUserMapper.updateUserUnionidByid(ou1);
 			onlineUserService.updateUserUnionidByid(ou1);
 			
 			Token t = userCenterAPI.loginMobile(username,iu.getPassword(), TokenExpires.TenDay);
@@ -892,58 +894,102 @@ public class OnlineUserController {
 			 */
 			OnlineUser ou =  onlineUserService.findOnlineUserByUnionid(m.getUnionid());
 			if(ou == null){
-				OnlineUser u = new OnlineUser();
-				u.setId(UUID.randomUUID().toString().replace("-", ""));
-				u.setSex(Integer.parseInt(m.getSex()));
-				u.setUnionId(m.getUnionid());
-				u.setStatus(0);
-				u.setCreateTime(new Date());
-				u.setDelete(false);
-				u.setName(m.getNickname());   //微信名字
-				u.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
-				u.setVisitSum(0);
-				u.setStayTime(0);
-				u.setUserType(0);
-				u.setOrigin("weixin");
-				u.setMenuId(-1);
-				u.setCreateTime(new Date());
-				u.setType(1);
-				
-				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
-				u.setVhallId(weihouUserId);  //微吼id
-				u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码 
-				u.setVhallName(u.getName());
-				u.setPassword(iu.getPassword()); 
-				u.setUserCenterId(iu.getId());
-				u.setLoginName(username);
-				 /**
-				 * 将从微信获取的省市区信息变为对应的id和name
-				 */
-				System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
-				Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
-				if(map!=null){
-					Object objId = map.get("cid");
-					int countryId = Integer.parseInt(objId.toString());
-					u.setDistrict(countryId+"");
-					map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
+				//apple
+				if(!StringUtils.isNotBlank(appleLogo)){
+					OnlineUser u = new OnlineUser();
+					u.setId(UUID.randomUUID().toString().replace("-", ""));
+					u.setSex(Integer.parseInt(m.getSex()));
+					u.setUnionId(m.getUnionid());
+					u.setStatus(0);
+					u.setCreateTime(new Date());
+					u.setDelete(false);
+					u.setName(m.getNickname());   //微信名字
+					u.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
+					u.setVisitSum(0);
+					u.setStayTime(0);
+					u.setUserType(0);
+					u.setOrigin("weixin");
+					u.setMenuId(-1);
+					u.setCreateTime(new Date());
+					u.setType(1);
+					
+					String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
+					u.setVhallId(weihouUserId);  //微吼id
+					u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码 
+					u.setVhallName(u.getName());
+					u.setPassword(iu.getPassword()); 
+					u.setUserCenterId(iu.getId());
+					u.setLoginName(username);
+					 /**
+					 * 将从微信获取的省市区信息变为对应的id和name
+					 */
+					System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
 					if(map!=null){
-						objId = map.get("cid");
-						Object objName = map.get("name");	
-						int provinceId = Integer.parseInt(objId.toString());
-						u.setProvince(provinceId+"");
-						u.setProvinceName(objName.toString());
-						map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+						Object objId = map.get("cid");
+						int countryId = Integer.parseInt(objId.toString());
+						u.setDistrict(countryId+"");
+						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
 						if(map!=null){
 							objId = map.get("cid");
-							objName = map.get("name");
-							int cityId = Integer.parseInt(objId.toString());
-							u.setCity(cityId+"");
-							u.setCityName(objName.toString());
+							Object objName = map.get("name");	
+							int provinceId = Integer.parseInt(objId.toString());
+							u.setProvince(provinceId+"");
+							u.setProvinceName(objName.toString());
+							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+							if(map!=null){
+								objId = map.get("cid");
+								objName = map.get("name");
+								int cityId = Integer.parseInt(objId.toString());
+								u.setCity(cityId+"");
+								u.setCityName(objName.toString());
+							}
 						}
 					}
+					onlineUserService.addOnlineUser(u);
+					ou = u;
+				
+				}else{
+				    Map<String, Object> map1 = onlineUserService.getAppTouristRecord(appUniqueId);
+				    ou = onlineUserService.findUserById(map1.get("userId").toString());
+					
+				    ou.setSex(Integer.parseInt(m.getSex()));
+				    ou.setUnionId(m.getUnionid());
+				    ou.setName(m.getNickname());   //微信名字
+				    ou.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
+				    ou.setOrigin("weixin");
+				    ou.setVhallName(m.getNickname());
+				    ou.setPassword(iu.getPassword()); 
+				    ou.setUserCenterId(iu.getId());
+				    ou.setLoginName(username);
+					 /**
+					 * 将从微信获取的省市区信息变为对应的id和name
+					 */
+					System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
+					if(map!=null){
+						Object objId = map.get("cid");
+						int countryId = Integer.parseInt(objId.toString());
+						ou.setDistrict(countryId+"");
+						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
+						if(map!=null){
+							objId = map.get("cid");
+							Object objName = map.get("name");	
+							int provinceId = Integer.parseInt(objId.toString());
+							ou.setProvince(provinceId+"");
+							ou.setProvinceName(objName.toString());
+							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+							if(map!=null){
+								objId = map.get("cid");
+								objName = map.get("name");
+								int cityId = Integer.parseInt(objId.toString());
+								ou.setCity(cityId+"");
+								ou.setCityName(objName.toString());
+							}
+						}
+					}
+					onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
 				}
-				onlineUserService.addOnlineUser(u);
-				ou = u;
 			}
 			
 			/**
@@ -962,6 +1008,10 @@ public class OnlineUserController {
 			return  ResponseObject.newSuccessResponseObject(ou);
 		}
 	}	
+	
+	
+	
+	
 	/**
 	 * 登陆成功处理
 	 * @param req

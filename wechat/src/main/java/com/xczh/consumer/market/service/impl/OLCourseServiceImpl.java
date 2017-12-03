@@ -260,6 +260,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 		String sql="select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
 				+ "IFNULL(default_student_count, 0) learndCount,ou.name,oc.grade_name gradeName,oc.description,oc.current_price currentPrice,"
+				+ "if(oc.course_pwd is not null and oc.course_pwd !='',2,if(oc.is_free =0,1,0)) as watchState,"
 				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime from"
 				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where oc.is_delete=0 and oc.status=1 and oc.online_course =1 ";
 

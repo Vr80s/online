@@ -32,6 +32,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -81,38 +82,6 @@ public class BrowserUserController {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
-	
-	/**
-	 * Description：
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	@RequestMapping(value="checkToken")
-	@ResponseBody
-	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String token = req.getParameter("token");
-		if(null == token){
-			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
-		}
-		OnlineUser ou = cacheService.get(token);
-		if(null == ou){
-			return ResponseObject.newErrorResponseObject("已过期", 1002);
-		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
-			return ResponseObject.newSuccessResponseObject("有效",1000);
-		}else{
-			String model = cacheService.get(ou.getLoginName());
-		    if(model!=null){
-		       return ResponseObject.newErrorResponseObject(model,1003);
-		    }
-			return ResponseObject.newErrorResponseObject("其他设备",1004);
-		}
-    }
 	/**
 	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
 	 * @param req
@@ -538,6 +507,8 @@ public class BrowserUserController {
 		JSONObject jsonObject = JSONObject.parseObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 		String openid_ = (String)jsonObject.get("openid");
 		String nickname_ = (String)jsonObject.get("nickname");
+		nickname_ = SLEmojiFilter.filterEmoji(nickname_);
+		
 		String sex_ = String.valueOf(jsonObject.get("sex"));
 		String language_ = (String)jsonObject.get("language");
 		String city_ = (String)jsonObject.get("city");
@@ -557,7 +528,9 @@ public class BrowserUserController {
 			wxcpClientUserWxMapping.setWx_public_id(public_id);
 			wxcpClientUserWxMapping.setWx_public_name(public_name);
 			wxcpClientUserWxMapping.setOpenid(openid_);
+			
 			wxcpClientUserWxMapping.setNickname(nickname_);
+			
 			wxcpClientUserWxMapping.setSex(sex_);
 			wxcpClientUserWxMapping.setLanguage(language_);
 			wxcpClientUserWxMapping.setCity(city_);
@@ -582,7 +555,7 @@ public class BrowserUserController {
 			 *  用户名、 密码、昵称、性别、邮箱、手机号
 			 *  第三方登录的用户名和密码是opendi
 			 */
-			userCenterAPI.regist(openid_, unionid_,nickname_, UserSex.parse(Integer.parseInt(sex_)), null,
+			userCenterAPI.regist(openid_, unionid_,SLEmojiFilter.filterEmoji(nickname_), UserSex.parse(Integer.parseInt(sex_)), null,
 					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
 			
 			ItcastUser iu =  userCenterAPI.getUser(openid_);
@@ -1007,7 +980,6 @@ public class BrowserUserController {
 				ou.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
 			}
 			onlineUserService.addOnlineUser(ou);
-			
 			//也需要保存这个信息啦
 			onlineUserService.saveAppTouristRecord(ou.getId(), appUniqueId);
 		}else{
@@ -1019,7 +991,26 @@ public class BrowserUserController {
 		this.onlogin(req, res, null, ou,ticket);
 		return ResponseObject.newSuccessResponseObject(ou);
 	}
-	
+	@RequestMapping(value="checkToken")
+	@ResponseBody
+	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String token = req.getParameter("token");
+		if(null == token){
+			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
+		}
+		OnlineUser ou = cacheService.get(token);
+		if(null == ou){
+			return ResponseObject.newErrorResponseObject("已过期", 1002);
+		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
+			return ResponseObject.newSuccessResponseObject("有效",1000);
+		}else{
+			String model = cacheService.get(ou.getLoginName());
+		    if(model!=null){
+		       return ResponseObject.newErrorResponseObject(model,1003);
+		    }
+			return ResponseObject.newErrorResponseObject("其他设备",1004);
+		}
+    }
 	/**
 	 * apple用户提交注册
 	 * @param req
@@ -1044,9 +1035,6 @@ public class BrowserUserController {
 		}
 		return onlineUserService.updateIPhoneRegist(req, password,username,vtype,appUniqueId);
 	}
-	
-	
-	
 	
 	public static void main(String[] args) {
 		

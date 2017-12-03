@@ -16,6 +16,15 @@
         second = second < 10 ? ('0' + second) : second;
         return y + '.' + m + '.' + d;
     };
+    
+    function dateStrYMd(date) {  
+        var y = date.getFullYear();  
+        var m = date.getMonth() + 1;  
+        m = m < 10 ? ('0' + m) : m;  
+        var d = date.getDate();  
+        d = d < 10 ? ('0' + d) : d;  
+        return y + '-' + m + '-' + d;  
+    };     
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
@@ -34,6 +43,9 @@
          *  0 直播已结束 1 直播还未开始 2 正在直播
          */
         //判断是否可预约
+    	var myDate = new Date();
+        var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+        
         if(result.watchState == 0){
             $("#buyDiv").show();
             $("#buyPirce").html(result.currentPrice);
@@ -45,23 +57,25 @@
 
             //如果已结束就禁止报名
             /* 点击线下课程出现的弹框，测试提出bug，就给隐藏掉了。*/
-
+            var endTime = result.endTime.replace(/-/g,"").substring(0,8);
+            if(parseInt(endTime)<parseInt(currentDay)){
+                $(".training_teacher_bto").show();
+                $(".footer_buyDiv").show();
+                $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">报名已截止</div>");
+            }/*else{
+                $(".training_teacher_bto").show();
+                $(".footer_buyDiv").show();
+                $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名222</div>");
+            }*/
+            
+            
 			//获取电脑屏幕时间
-              requestService("/bxg/common/getSystemTime",{course_id : 1},
-                    function(data) {
-                  var serverTime=data;
-                  var endTime = Date.parse(new Date(result.endTime));
-                  if(endTime<serverTime){
-                      $(".training_teacher_bto").show();
-                      $(".footer_buyDiv").show();
-                      $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">报名已截止</div>");
-                  }/*else{
-                      $(".training_teacher_bto").show();
-                      $(".footer_buyDiv").show();
-                      $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名222</div>");
-                  }*/
-                  
-              },false);
+//              requestService("/bxg/common/getSystemTime",{course_id : 1},
+//                    function(data) {
+//                  var serverTime=data;
+//                  var endTime = Date.parse(new Date(result.endTime));
+//                 
+//              },false);
             
         }else if(result.watchState == 2){  //goto 付费页面
             $("#buyDiv").show();

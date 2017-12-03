@@ -193,4 +193,5 @@ public interface OnlineUserService {
 	 */
 	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
 			String password, String username, String vtype, String appUniqueId)throws Exception;
+	void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception;
 }
