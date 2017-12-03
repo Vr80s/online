@@ -1,13 +1,14 @@
 
 var bbs_person =  'http://dev.ixincheng.com';
-
-
 var bbs_domain = 'http://bbs.ixincheng.com';
 var domain = document.domain;
-if(domain.indexOf("bbs")==-1){
-	bbs_domain = 'http://dev.ixincheng.com:45444';
+if(domain.indexOf("dev")!=-1){//开发环境
+	bbs_domain = 'http://dev.ixincheng.com:8082';
+}else if(domain.indexOf("test")!=-1){//测试环境
+    bbs_domain = 'http://test-bbs.ixincheng.com';
+}else{//生产环境
+    bbs_domain = 'http://bbs.ixincheng.com';
 }
-
 //如果有链接的点击事件
 function on_click_msg(msg_id, msg_link) {
     var $this=$(this);
@@ -96,7 +97,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<li><a data-id="mydata"><i class="iconfont icon-xueyuan"></i>我的资料</a></li>'+
         '<li><a data-id="idea"><i class="iconfont icon-yijianfankui"></i>意见反馈</a></li>'+
         '<li><a data-id="mymoney"><i class="iconfont icon-qianbao"></i>我的资产</a></li>'+
-        '<li><a href="'+bbs_person+'/myReply"  data-id="mytiezi"><i class="iconfont icon-qianbao"></i>我的贴子</a></li>'+
+        '<li><a href="'+bbs_domain+'/myReply"  data-id="mytiezi"><i class="iconfont icon-qianbao"></i>我的贴子</a></li>'+
         '<li><a data-exit="exit"><i class="iconfont icon-tuichu"></i>安全退出</a></li>'+
       
         ' </ul></div></div>'+

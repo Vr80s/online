@@ -141,28 +141,7 @@ public class BunchPlanController {
 		 * 我的礼物总数 
 		 */
 		courseLecturVo.setCountGift(giftService.findByUserId(courseLecturVo.getUserId()));
-		/**
-		 * 课程没有送礼的，不用广播啦
-		 */
-//		if(courseLecturVo.getWatchState()==0){
-//			/**
-//			 * 记录人次
-//			 */
-//			onlineWebService.saveEntryVideo(Integer.parseInt(courseid),user);
-//		}
-		
-		
-//		if(courseLecturVo.getWatchState()==2){  //是否已经认证了密码了
-//			ResponseObject resp = onlineCourseService.courseIsConfirmPwd(user,Integer.parseInt(courseid));
-//			if(resp.isSuccess()){//认证通过
-//				courseLecturVo.setWatchState(0);
-//			}
-//		}else if(courseLecturVo.getWatchState()==1){  //是否已经付过费了
-//			ResponseObject resp = onlineCourseService.courseIsBuy(user,Integer.parseInt(courseid));
-//			if(resp.isSuccess()){//已经付过费了
-//				courseLecturVo.setWatchState(0);
-//			}
-//		}
+
 		if(courseLecturVo.getWatchState()!=0){
 			if(courseLecturVo.getUserId().equals(user.getId()) ||
 					onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){

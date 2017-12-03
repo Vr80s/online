@@ -57,6 +57,12 @@ function initOrderList(status,downOrOn){
 			}
 			var result = data.resultObject;
         	if(result.length>0){
+        		
+        		
+        		//   20171201
+        		var myDate = new Date();
+                var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+        		
                 for(var i=0;i<result.length;i++) {
                 	var odiv = document.createElement("div");
 					odiv.className = "mui-table-view-cell";
@@ -73,20 +79,23 @@ function initOrderList(status,downOrOn){
 						var onlineCourse=course.onlineCourse;
 						
 						var courseEndTime = "";
-                		//判断课程的状态啦  
+                		//判断课程的状态啦 
+						
+						var zhiboyincang ="";
                 		if(type == 1){
+                			zhiboyincang = "display:none;";
                 			if(lineState==1){
                 				liveTypeOrState ="直播中";
                 				liveTypeImg ="/xcviews/images/zhibo001.png";
-                				$('.pp').hide();
+                				//$('.pp').hide();
                 			}else if(lineState==2){
                 				liveTypeOrState ="预告";
                 				liveTypeImg ="/xcviews/images/yugao001.png"	
-                				$('.pp').hide();
+                				//$('.pp').hide();
                 			}else{
                 				liveTypeOrState ="回放";
                 				liveTypeImg ="/xcviews/images/huifang001.png"
-                				$('.pp').css("display","none");
+                			    //$('.pp').hide();
                 			}
                 		}else if(type == 2){
                 			liveTypeOrState ="视频";
@@ -106,33 +115,39 @@ function initOrderList(status,downOrOn){
                 		}
 
     					if(onlineCourse==1){ //线下课程
-                            var qixian = "";
-                            if(stringnull(course.endTime) && stringnull(course.startTime)){
-                            	 course.endTime=course.endTime.replace(/-/g,".");
-                                 course.startTime=course.startTime.replace(/-/g,".");
-                            	qixian =course.startTime.substring(0,10)+"-"+course.endTime.substring(0,10);
-                            }
-							html+="<div class='indent_main_one'><div class='train_list_bto1' style=' height:1rem;'><div class='train_lecturer1' style=' float:left;margin-top:0;'>社会你涛哥</div><div class='train_list_bto1_maip' style='max-width: 3rem;'><div class='train_list_bto1_img' style='margin-right: 0;'><img src='../images/maip.png' alt=''></div><div class='train_list_bto1_area' style='max-width: 2rem;'>"+course.city+"</div></div><div class='train_list_bto01' style=' margin-top:0.6rem;'><span>￥</sapn>"+course.currentPrice+"</div></div><div class='offline_bg'><div class='offline_date'>"+qixian+"</div></div><div class='both'></div></div>";
+                            var endTime = result[i].endTime.replace(/-/g,"").substring(0,8);
+                           	var qixian = "";
+                        	if(parseInt(endTime)<parseInt(currentDay)){
+                        		qixian ="已过期";
+                           	}else{
+                           		//xxqx = result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].replace(/-/g, ".");
+                           		if(stringnull(course.endTime) && stringnull(course.startTime)){
+                           			course.endTime=course.endTime.replace(/-/g,".");
+                           			course.startTime=course.startTime.replace(/-/g,".");
+                           			qixian =course.startTime.substring(0,10)+"-"+course.endTime.substring(0,10);
+                           		}
+                           	}
+                            html+="<div class='indent_main_one'><div class='train_list_bto1' style=' height:1rem;'><div class='train_lecturer1' style=' float:left;margin-top:0;'>社会你涛哥</div><div class='train_list_bto1_maip' style='max-width: 3rem;'><div class='train_list_bto1_img' style='margin-right: 0;'><img src='../images/maip.png' alt=''></div><div class='train_list_bto1_area' style='max-width: 2rem;'>"+course.city+"</div></div><div class='train_list_bto01' style=' margin-top:0.6rem;'><span>￥</sapn>"+course.currentPrice+"</div></div><div class='offline_bg'><div class='offline_date'>"+qixian+"</div></div><div class='both'></div></div>";
 						}else{
 							
     					if(course.currentPrice<=0){
-                                course.currentPrice="免费";
-//                              $('.span_span').hide();
-							}
+                            course.currentPrice="免费";
+						}else{
+							course.currentPrice="￥"+course.currentPrice;
+						}
 							if(course.endTime==null){
                                 course.endTime="不限";
 							}else{
                                 course.endTime=course.endTime.substring(0,10);
 							}
 							html+="<div class='indent_main_one'><p class='indent_main_left_p2'><span>" + course.teacherName + "老师</span></p>" +
-									"<p class='pp' style='position: absolute;right: 0.4rem;font-size: 0.6rem;color: #666;'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span style='width: 1.8rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
+									"<p class='pp' style='position: absolute;right: 0.4rem;font-size: 0.6rem;color: #666;"+zhiboyincang+"'>"+liveTypeOrState+"</p><p class='indent_main_left_p3'><span style='width: 1.8rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>"+course.currentPrice+"</span></p><div class='both'></div></div>"+
 							"<div class='indent_main_two'><p class='indent_main_left_p03'>课程有效期："+course.endTime+"</p></div>";
                         }
 
                 		html+="</div>"+"</div>";
                 	var orderStatus=order.orderStatus;
                 	html+="<div class='both'></div>"+
-                	
                 	
                 	/*备份*/
                 	/*"<div class='indent_main_bot' title="+order.id+" id="+order.orderNo+">";*/

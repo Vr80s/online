@@ -141,7 +141,8 @@ public class CourseLecturVo implements Serializable {
     
     public Integer isSubscribe; //0 未预约  1预约
     
-    public Integer watchState; //观看状态 0免费  1收费  2 需要密码验证
+    
+    public Integer watchState = 0; //观看状态 0免费  1收费  2 需要密码验证
     
     public String imRoomId; //im房间号
 

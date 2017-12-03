@@ -60,8 +60,8 @@ document.getElementById("btn").addEventListener("tap", function() {
 			var reg = document.getElementById("reg");
 			reminderror.innerHTML = "";
 		} else {
-			reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>同一手机号两次发送间隔至少90秒！</div></div></div>";
-		setTimeout(function(){$(".vanish2").hide();},1500);
+			reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>"+data.errorMessage+"</div></div></div>";
+		    setTimeout(function(){$(".vanish2").hide();},1500);
 //			reminderror.innerHTML = data.errorMessage;  同一手机号两次发送间隔至少90秒！  用户不存在用的同一个
 		}
 	});

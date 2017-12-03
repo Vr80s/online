@@ -617,7 +617,14 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setName(mobile);
 		u.setPassword(password);
 
-		//onlineUserDao.updateOnlineUserAddPwdAndUserName(u);
+		onlineUserDao.updateOnlineUserAddPwdAndUserName(u);
 		return u;
 	}
+	
+	@Override
+	public void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception{
+		onlineUserDao.updateOnlineUserAddPwdAndUserName(ou);
+	}
+	
+	
 }
