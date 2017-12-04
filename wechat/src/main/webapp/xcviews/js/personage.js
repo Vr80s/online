@@ -103,6 +103,11 @@ function userIndexCourseList(type,falg){
 						watchStr ="加密";
 					}
 					
+					var courseTime = "";
+					if(type ==1){
+						courseTime = obj.courseTimeConver;
+					}
+					
 					html +="<div class='public1_list'>"+
 						"<div class='public1_list_bg'>"+
 						"</div>"+
@@ -117,7 +122,7 @@ function userIndexCourseList(type,falg){
 						"<div class='public1_list_bottom'>"+  //这是观看人数
 							"<img src='../images/yjing.png' alt=''>"+obj.learndCount+
 						"</div>"+								//这是播放时间
-						"<div class='public1_list_bottom0'>"+obj.courseTimeConver+
+						"<div class='public1_list_bottom0'>"+courseTime+
 						"</div>";
 						if(type==1){//直播
 							

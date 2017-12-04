@@ -160,7 +160,7 @@ window.onload=function(){
 	    line-height: 0.7rem;
 	}
 	.page_put input {
-	    width: 6.95rem;
+	   /* width: 6.95rem;
 	    height: 1rem;
 	    outline: none;
 	    border-top: 2px solid #e8e8e8;
@@ -171,12 +171,29 @@ window.onload=function(){
 	    top: 0;
 	    background: #f8f8f8;
 	    border-radius: 60px;
+	    text-indent: 0.5rem;*/
+	   	width: 15.2rem;
+	    height: 1.2rem;
+	    outline: none;
+	    position: absolute;
+	    top: 0;
+	    background: #f8f8f8;
+	    border-radius: 60px;
 	    text-indent: 0.5rem;
+	    left: 0;
+    	margin-left: 0.4rem;
+    	border: 0;
+    	font-size: 0.6rem;
 	}
 	.page_put a {
-	    position: absolute;
+	    /*position: absolute;
 	    top: 7px;
 	    right: 7px;
+	    width: 0.55rem;
+	    height: 0.55rem;*/
+	   	position: absolute;
+	    top: 0.3rem;
+	    left: 5.2rem;
 	    width: 0.55rem;
 	    height: 0.55rem;
 	}
@@ -188,6 +205,31 @@ window.onload=function(){
 		height: 0.7rem;
     	line-height: 0.7rem;
 	}
+	.base ul li{
+		margin-left: 2.4rem;
+	}
+	.page_put{
+		width: 15.95rem;
+    	height: 1.05rem;
+    	position: relative;
+	}
+	
+	
+	.page_put ::-webkit-input-placeholder{
+		color: #999;
+	}
+	.page_put :-moz-placeholder{
+		color: #999;
+	}
+	.page_put :-ms-placeholder{
+		color: #999;
+	}
+	.page_put placeholder{
+		color: #999;
+	}
+	.base li p{
+		margin-top: -0.25rem1;
+	}
 </style>
 
 </head>
@@ -195,13 +237,13 @@ window.onload=function(){
 
 	<!-- 头部开始 -->
 	<header id="header">
-		<div class="header_img">
+		<!--<div class="header_img">
 			<img src="/xcviews/images/logo_top.png" alt="" >
-		</div>
+		</div>-->
 		<div class="page" >
 			 <!-- <div class="page_put" id="index_search"></div>  -->
 			 <div class="page_put">
-				 <input type="text" id="index_search" readonly="readonly" />
+				 <input type="text" id="index_search" readonly="readonly" placeholder="输入主播/课程" style="text-align: center;" />
 				<a href="javascript: ;"><img src="/xcviews/images/seek.png" alt="" /></a>
 			</div>
 		</div>
@@ -328,10 +370,10 @@ window.onload=function(){
 	<footer>
 		<div class="base">
 			<ul>
-				<li><a href="/xcviews/html/index.html" class="base_a1" style="width: 1.175rem;height: 1.675rem;background: url(/xcviews/images/a01.png) no-repeat;background-size: 100% 100%;"></a></li>
-				<li><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2" style="width: 1.175rem;height: 1.675rem;"></a></li>
-				<li><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3" style="width: 1.175rem;height: 1.675rem;"></a></li>
-				<li><a href="/xcviews/html/my.html" class="base_a4" style="width: 1.175rem;height: 1.675rem;"></a></li>
+				<li><a href="/bxg/page/index/null/null" class="base_a1" style="width: 0.875rem;height: 0.85rem;background: url(/xcviews/images/a01.png) no-repeat;background-size: 100% 100%;margin: 0.1rem 0 0.1rem 0.05rem;"></a><p style="font-size: 0.5rem;color: #00bc12;">首页</p></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2" style="width: 0.85rem;height: 0.85rem;margin: 0.1rem 0 0.1rem 0.08rem;"></a><p style="font-size: 0.5rem;color: #333;">视频</p></li>
+				<li><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3" style="width: 0.875rem;height: 0.875rem;margin: 0.05rem 0 0.13rem 0.05rem;"></a><p style="font-size: 0.5rem;color: #333;">音频</p></li>
+				<li><a href="/xcviews/html/my.html" class="base_a4" style="width: 0.775rem;height: 0.925rem;margin: 0rem 0 0.1rem 0.095rem"></a><p style="font-size: 0.5rem;color: #333;">我的</p></li>
 			</ul>
 			
 		</div>

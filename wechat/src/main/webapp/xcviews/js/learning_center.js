@@ -12,7 +12,28 @@ function dateStr(bbb) {
       minute = minute < 10 ? ('0' + minute) : minute;  
       return y + '-' + m + '-' + d+' '+h+':'+minute;  
 }; 
-
+    function dateStrYMd(date) {  
+        var y = date.getFullYear();  
+        var m = date.getMonth() + 1;  
+        m = m < 10 ? ('0' + m) : m;  
+        var d = date.getDate();  
+        d = d < 10 ? ('0' + d) : d;  
+        return y + '-' + m + '-' + d;  
+    }; 
+    
+       function GetDateStr(AddDayCount) { 
+	    var dd = new Date(); 
+	        dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期 
+	        var y = dd.getFullYear(); 
+	        var m = dd.getMonth()+1;//获取当前月份的日期 
+	        
+	        m = m < 10 ? ('0' + m) : m;  
+	        
+	        var d = dd.getDate(); 
+	        
+	        d = d < 10 ? ('0' + d) : d;  
+	        return y+"-"+m+"-"+d; 
+     } 
 /**
  *  订单列表：
  */
@@ -60,8 +81,9 @@ function initOrderList(status,downOrOn){
         		
         		
         		//   20171201
-        		var myDate = new Date();
-                var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+            var myDate = new Date();
+           // var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+            var currentDay = GetDateStr(1).replace(/-/g,"");
         		
                 for(var i=0;i<result.length;i++) {
                 	var odiv = document.createElement("div");
@@ -117,7 +139,7 @@ function initOrderList(status,downOrOn){
     					if(onlineCourse==1){ //线下课程
                             var endTime = result[i].endTime.replace(/-/g,"").substring(0,8);
                            	var qixian = "";
-                        	if(parseInt(endTime)<parseInt(currentDay)){
+                        	if(parseInt(endTime)<=parseInt(currentDay)){
                         		qixian ="已过期";
                            	}else{
                            		//xxqx = result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].replace(/-/g, ".");
