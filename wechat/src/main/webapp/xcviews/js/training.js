@@ -113,7 +113,12 @@
 
     function apply(){
         var phone =$("#phone").val();
-        
+        if($("#realName").val()==''){
+        	$(".vanish").show();
+        	setTimeout(function(){$(".vanish").hide();},1500);
+//          alert("姓名不能为空!");
+            return false;
+        }
         
         if($("#phone").val()==''){
 //          alert("手机号不能为空!");
@@ -130,12 +135,7 @@
         }
         
         
-        if($("#realName").val()==''){
-        	$(".vanish").show();
-        	setTimeout(function(){$(".vanish").hide();},1500);
-//          alert("姓名不能为空!");
-            return false;
-        }
+        
 
 
            requestService("/bxg/apply/updateBaseInfo",{phone:$("#phone").val(),realName:$("#realName").val()},
