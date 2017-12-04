@@ -152,12 +152,12 @@ document.getElementById("btn").addEventListener("tap", function() {
 		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>";
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
-		$(".my_bg_cen").css("height","16.5rem");
-	}else{
+//		$(".my_bg_cen").css("height","16.5rem");
+	}/*else{
 		
 		
 		$(".my_bg_cen").css("height","18.2rem");
-	}
+	}*/
 	if (!(/^1[34578]\d{9}$/.test(number))) {
 		$("#reminderror").show();
 		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
@@ -194,6 +194,8 @@ document.getElementById("btn").addEventListener("tap", function() {
 				reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>此手机号已经绑定过微信号了</div></div></div>"
 				$("#reminderror").show();
 				setTimeout(function(){$(".vanish2").hide();},1500);
+				$(".my_bg_cen").css("height","16.5rem");
+				
 				return;
 			}else if(data.code == 202){
 				urlparm.vtype=2;

@@ -4087,7 +4087,7 @@ footer{
 }
 .my_bg_cen{
 	width: 13.5rem;
-	height: 17.5rem;
+	/*height: 17.5rem;*/
 	background: #fff;
 	position: absolute;
     top: 50%;
