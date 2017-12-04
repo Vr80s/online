@@ -88,6 +88,7 @@ public class GiftController {
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
 		System.out.println("====================="+user.getId());
+		
 		GiftStatement giftStatement=new GiftStatement();
 		giftStatement.setCreateTime(new Date());
 		giftStatement.setGiver(user.getId());

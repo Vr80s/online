@@ -374,62 +374,6 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("用户名密码错误");
 		}
 	}
-	/**
-	 * 登陆成功处理
-	 * @param req
-	 * @param res
-	 * @param token
-	 * @param user
-	 */
-	@SuppressWarnings("unchecked")
-	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-                        Token token, OnlineUser user, String ticket){
-		/**
-		 * 存在两个票，两个票都可以得到用户信息。
-		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
-		 */
-		String appUniqueId = req.getParameter("appUniqueId");
-		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
-			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-			String model = req.getParameter("model");
-			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
-				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());
-			}else if(user.getLoginName()!=null){
-				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
-			}
-		}else{
-			// 用户登录成功
-			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
-			req.getSession().invalidate();
-			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
-			// 获得到ServletCOntext中存的Map集合.
-			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext()
-					.getAttribute("userMap");
-			// 判断用户是否已经在map集合中'
-			HttpSession session = userMap.get(user);
-			if(session!=null && userMap.containsKey(user)){
-				/**
-				 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
-				 * 得到客户端信息
-				 */
-				Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-				//session.invalidate();
-				session.setAttribute("topOff", mapClientInfo);
-				session.setAttribute("_user_",null);
-			}else if(session!=null){
-				session.setAttribute("topOff",null);
-			}
-			// 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
-			req.getSession().setMaxInactiveInterval(86400);//设置session失效时间
-			req.getSession().setAttribute("_user_", user);
-			/**
-			 * 这是cookie 
-			 */
-			UCCookieUtil.writeTokenCookie(res, token);
-		}
-	}
 	
 	@RequestMapping(value = "/index")
 	public void index(HttpServletRequest req,
@@ -923,7 +867,6 @@ public class BrowserUserController {
 	@RequestMapping("appLogin")
 	@ResponseBody
 	public ResponseObject appOnlyOneId(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		
 		/**
 		 *   注册一个用户      因为这个用户不仅仅要看视频，还需要还需要进行购买的行为了。
 		 *    
@@ -938,7 +881,6 @@ public class BrowserUserController {
 		 *   
 		 */
 		String appUniqueId = req.getParameter("appUniqueId");
-		
 		/*
 		 * 查一下这个表，是否存在这个信息。如果存在，那么就不创建了。如果
 		 */
@@ -960,13 +902,10 @@ public class BrowserUserController {
 			ou.setSex(OnlineUser.SEX_UNKNOWN);
 			ou.setCreateTime(new Date());
 			ou.setType(1);
-			
-			
 			//Collections.shuffle(initializeNames);
-			/*String [] arr = initializeNames.split(",");*/
-			/*int index=(int)(Math.random()*arr.length);
-			String name = arr[index];*/
-			String name = "游客";
+			String [] arr = "人参,人发,卜芥,儿茶,八角,丁香,刀豆,三七,三棱,干姜,干漆,广白,广角,广丹,大黄,大戟,大枣,大蒜,大蓟,小蓟,小麦,小蘖".split(",");
+			int index=(int)(Math.random()*arr.length);
+			String name = arr[index];
 			String weihouUserId = WeihouInterfacesListUtil.createUser(
 					ou.getId(),
 					WeihouInterfacesListUtil.moren,
@@ -988,9 +927,74 @@ public class BrowserUserController {
 		String ticket = UUID.randomUUID().toString().replace("-", "");
 		ou.setTicket(ticket);
 		ou.setLoginName(appUniqueId);
-		this.onlogin(req, res, null, ou,ticket);
+		this.appleOnlogin(req, res, null, ou,ticket);
 		return ResponseObject.newSuccessResponseObject(ou);
 	}
+	
+	public void appleOnlogin(HttpServletRequest req, HttpServletResponse res,
+            Token token, OnlineUser user, String ticket){
+		
+		System.out.println("ticket:"+ticket);
+		cacheService.set(ticket, user,TokenExpires.Day.getExpires());
+		cacheService.set(user.getId(),ticket,TokenExpires.Day.getExpires());
+	}
+	/**
+	 * 登陆成功处理
+	 * @param req
+	 * @param res
+	 * @param token
+	 * @param user
+	 */
+	@SuppressWarnings("unchecked")
+	public void onlogin(HttpServletRequest req, HttpServletResponse res,
+                        Token token, OnlineUser user, String ticket){
+		/**
+		 * 存在两个票，两个票都可以得到用户信息。
+		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
+		 */
+		String appUniqueId = req.getParameter("appUniqueId");
+		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
+			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
+			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
+			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
+			String model = req.getParameter("model");
+			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
+				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());
+			}else if(user.getLoginName()!=null){
+				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
+			}
+		}else{
+			// 用户登录成功
+			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
+			req.getSession().invalidate();
+			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
+			// 获得到ServletCOntext中存的Map集合.
+			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext()
+					.getAttribute("userMap");
+			// 判断用户是否已经在map集合中'
+			HttpSession session = userMap.get(user);
+			if(session!=null && userMap.containsKey(user)){
+				/**
+				 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
+				 * 得到客户端信息
+				 */
+				Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
+				//session.invalidate();
+				session.setAttribute("topOff", mapClientInfo);
+				session.setAttribute("_user_",null);
+			}else if(session!=null){
+				session.setAttribute("topOff",null);
+			}
+			// 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
+			req.getSession().setMaxInactiveInterval(86400);//设置session失效时间
+			req.getSession().setAttribute("_user_", user);
+			/**
+			 * 这是cookie 
+			 */
+			UCCookieUtil.writeTokenCookie(res, token);
+		}
+	}
+	
 	@RequestMapping(value="checkToken")
 	@ResponseBody
 	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
