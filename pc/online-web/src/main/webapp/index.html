@@ -88,12 +88,15 @@
           
           if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
             browser.versions.iPhone || browser.versions.iPad){
-              if(document.location.host=='www.ixincheng.com'){
-                  wxurl = "http://wx.ixincheng.com";
+
+              if(document.location.host=='www.ipandatcm.com'){
+                  wxurl = "http://m.ipandatcm.com";
               }else{
                   wxurl = "http://test-wx.ixincheng.com";
               }
               window.location = wxurl+"/bxg/page/index/null/null";
+          }else if(document.location.host=='www.ixincheng.com'){
+              window.location = "http://www.ipandatcm.com";
           }
     </script>
     <script>

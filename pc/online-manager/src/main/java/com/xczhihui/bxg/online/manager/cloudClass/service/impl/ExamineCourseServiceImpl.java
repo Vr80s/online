@@ -62,8 +62,8 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	private String envFlag;
 	@Value("${LIVE_VHALL_USER_ID}")
 	private String liveVhallUserId;
-	@Value("${rate}")
-	private double rate;
+//	@Value("${rate}")
+//	private double rate;
     
 	@Override
 	public List<Menu> getMenus() {

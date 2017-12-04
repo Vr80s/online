@@ -23,8 +23,8 @@ import com.xczhihui.bxg.online.manager.utils.Group;
 public class ExamineCourseDao extends HibernateDao<Course>{
 
 	
-	@Value("${rate}")
-	private double rate;
+//	@Value("${rate}")
+//	private double rate;
 	
 	public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo,
 			int pageNumber, int pageSize) {
