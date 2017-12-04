@@ -290,26 +290,22 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		/**
 		 * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播
 		 */
-//		1	int	否	直播进行中, 参加者可以进入观看直播
-//		2	int	否	预约中 , 活动预约中,尚未开始
-//		3	int	否	活动已结束
-//		4	int	否	活动当前为点播
-//		5	int	否	结束且有自动回放
-//
 			/**
 			 * 获取当前预约人数
 			 */
-			Integer subCount = onlineCourseService.selectSubscribeInfoNumberCourse(id);
-			courseLecturVo.setCountSubscribe(subCount);
-			/**
-			 * 判断自己是否预约了
-			 */
+		Integer subCount = onlineCourseService.selectSubscribeInfoNumberCourse(id);
+		courseLecturVo.setCountSubscribe(subCount);
+		/**
+		 * 判断自己是否预约了
+		 */
+		if(userId!=null){
 			Integer isSubscribe = onlineCourseService.selectSubscribeInfoIs(id,userId);
 			if(isSubscribe == 0){//未预约
 				courseLecturVo.setIsSubscribe(isSubscribe);
 			}else{
 				courseLecturVo.setIsSubscribe(1);
 			}
+		}
 		return courseLecturVo;
 	}
 }

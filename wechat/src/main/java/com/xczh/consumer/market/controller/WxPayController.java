@@ -357,7 +357,7 @@ public class WxPayController {
 						userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
 						userCoinIncrease.setChangeType(1);
 						userCoinIncrease.setPayType(1);
-						userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee())/100*rate));
+						userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee())/100*rate));//熊猫币
 						userCoinIncrease.setCreateTime(new Date());
 //						userCoinIncrease.setChangeType(0);
 						userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
@@ -548,7 +548,7 @@ public class WxPayController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res.getWriter().write(e.getMessage());
+			//res.getWriter().write(e.getMessage());
 		}
 	}
 	
@@ -681,7 +681,6 @@ public class WxPayController {
 	 * @param res
 	 * @param params
 	 * @throws Exception
-	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("h5GetCodeAndUserName")
@@ -821,7 +820,7 @@ public class WxPayController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res.getWriter().write(e.getMessage());
+			//res.getWriter().write(e.getMessage());
 		}
 	}
 

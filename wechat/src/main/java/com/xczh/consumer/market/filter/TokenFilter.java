@@ -29,13 +29,13 @@ public class TokenFilter implements Filter {
 	/*
 	 * 登录前不拦截的控制器：
 	 */
-	private static String str ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login"
+	private static String str ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login,/bxg/page/login/1"
 			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/page/login/1,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
 			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/wxjs/h5JSSDK,/bxg/page/verifyLoginStatus";
 	/*
 	 * 登录前不拦截的页面，因为可能来自分享。
 	 */
-	private static String str1 = "/xcviews/html/share.html,/xcviews/html/foreshow.html,"
+	private static String str1 = "/xcviews/html/share.html,/xcviews/html/foreshow.html,/bxg/common/shareLink,"
 			+ "/xcviews/html/my.html,/bxg/common/pcShareLink,/bxg/wxpay/h5GetOpenidForPersonal";
 	/*
 	 * 或者说是来自请求微信的信息
@@ -52,7 +52,7 @@ public class TokenFilter implements Filter {
 	/**
 	 * 其余的不拦截的作用
 	 */
-	private String str4 = "/bxg/common/h5ShareAfter,/bxg/version/checkUpdate,/bxg/live/addLive,/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo";
+	private static String str4 = "/bxg/common/h5ShareAfter,/bxg/version/checkUpdate,/bxg/live/addLive,/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo,/bxg/message/add";
 	/*
 	 * 首页不拦截
 	 */
@@ -64,18 +64,31 @@ public class TokenFilter implements Filter {
 		/bxg/live/list
 	    /bxg/bunch/list
 	*/
-	private String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
+	private static String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain,/bxg/bs/appLogin";
-	
 	
 	/**
 	 * 举报不拦截  /xcviews/html/share.html
 	 */
-	private String str6 = "/xcviews/html/complaint.html,/xcviews/html/complaint_details.html";
+	private  static String str6 = "/xcviews/html/complaint.html,/xcviews/html/complaint_details.html";
 	
+	/*
+	 * 新版为了播放开放的接口
+	 */
+	private static String str7 = "/bxg/live/liveDetails,/bxg/reward/list,/bxg/gift/list,/bxg/gift/rankingList";
+
+	private  static String str8 = "/bxg/bunch/offLineClassItem,/bxg/live/getMoneySum,/bxg/common/userIsSubscribe,/bxg/bunch/detail";
+	
+	private static String str9 = "/bxg/video/getVideos,/bxg/wxjs/h5JSSDK,/bxg/common/getWeihouSign";
+	
+	//   bxg/gift/userRankingList
+	private  static String str10 = "/bxg/common/judgeUserIsTeacher,bxg/gift/userRankingList,/bxg/common/userHomePage,/bxg/common/userHomePageCourseList";
+	
+	private static String str11 = "/bxg/history/list,/bxg/history/add,/bxg/history/empty,/bxg/live/getPreLiveCount,/bxg/focus/myHome";
 	
 	public static void main(String[] args) {
-		System.out.println(str.split(",").length+str1.split(",").length+str2.split(",").length+str3.split(",").length);
+		System.out.println((str + "," +str1+","+str2+","+str3+","+str4+","+str5+","+str6+","+str7+","+str8+","+str9+","+str10+","+str11).split(",").length);
+	
 	}
 	
 	private String[] excludedPageArray; 
@@ -84,7 +97,7 @@ public class TokenFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
 		//excludedPages = filterConfig.getInitParameter("excludedPages"); 
-		String all = str + "," +str1+","+str2+","+str3+","+str4+","+str5+","+str6;
+		String all = str + "," +str1+","+str2+","+str3+","+str4+","+str5+","+str6+","+str7+","+str8+","+str9+","+str10+","+str11;
 		
 		if (StringUtils.isNotEmpty(all)) {   
 		    excludedPageArray = all.split(",");     
@@ -163,14 +176,16 @@ public class TokenFilter implements Filter {
 	    			}
 		    	}  
 		    }else{ //说明这个请求的来自app，需要验证是否失效
-		    	Map<String,Object> mapApp = validateLoginFormApp(strToken);
+		    	chain.doFilter(request, response);
+		    	
+		    	/*Map<String,Object> mapApp = validateLoginFormApp(strToken);
 		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
 		    	if(code == 1000){
 		    		chain.doFilter(request, response);
 		    	}else{
 		    		 PrintWriter out = response.getWriter();//获取PrintWriter输出流
 		    		 out.println(mapApp);
-		    	}
+		    	}*/
 		    }
 		}
 	}

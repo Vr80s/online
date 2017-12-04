@@ -569,9 +569,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		return onlineUserDao.getAppTouristRecord(appOnlyOne);
 	}	
 	@Override
-	public void saveAppTouristRecord(String userId,String appOnlyOne)
+	public void saveAppTouristRecord(Map<String,Object> map,String appOnlyOne)
 			throws SQLException {
-	    onlineUserDao.saveAppTouristRecord(userId,appOnlyOne);
+	    onlineUserDao.saveAppTouristRecord(map,appOnlyOne);
 	}
 	@Override
 	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
@@ -625,6 +625,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	public void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception{
 		onlineUserDao.updateOnlineUserAddPwdAndUserName(ou);
 	}
-	
-	
+	@Override
+	public OnlineUser findUserByIdAndVhallNameInfo(String userId) throws SQLException {
+		// TODO Auto-generated method stub
+		return onlineUserDao.findUserByIdAndVhallNameInfo(userId);
+	}
 }
