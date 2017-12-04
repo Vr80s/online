@@ -202,6 +202,20 @@
         return y + '-' + m + '-' + d;  
     }; 
     
+    function GetDateStr(AddDayCount) { 
+	    var dd = new Date(); 
+	        dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期 
+	        var y = dd.getFullYear(); 
+	        var m = dd.getMonth()+1;//获取当前月份的日期 
+	        
+	        m = m < 10 ? ('0' + m) : m;  
+	        
+	        var d = dd.getDate(); 
+	        
+	        d = d < 10 ? ('0' + d) : d;  
+	        return y+"-"+m+"-"+d; 
+     } 
+    
    function opitem(id){
         location.href='training.html?id='+id;
    }
@@ -255,11 +269,15 @@
                		serverTime=data;
            	},false); */
            	var myDate = new Date();
-            var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+           	var  aa = GetDateStr(1);
+           	//alert(aa);
+            //var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+            var currentDay = GetDateStr(1).replace(/-/g,"");
+            //alert(currentDay);
             for(var i=0;i<result.length;i++){
             	var endTime = result[i].endTime.replace(/-/g,"").substring(0,8);
                	var xxqx = "";
-            	if(parseInt(endTime)<parseInt(currentDay)){
+            	if(parseInt(endTime)<=parseInt(currentDay)){
             		xxqx ="已过期";
                	}else{
                		xxqx = result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].replace(/-/g, ".");
