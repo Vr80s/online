@@ -308,7 +308,7 @@ window.onload = function() {
 		'<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
 		'</p>' +
 		'<div class="bigpic-body-btn">' +
-		'{{if item.apply==false}}' +
+		'{{if item.apply==false && item.available}}' +
 		'<a  href="javascript:;" class="gotengxun purchase">立即报名</a>' +
 		'{{if item.currentPrice!="0.00"}}' +
 //		'<a class="free-try-to-lean" >免费试学</a>' +
