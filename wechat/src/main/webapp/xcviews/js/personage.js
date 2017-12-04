@@ -337,9 +337,11 @@ $(".personage_return").click(function(){
 		sessionStorage.removeItem("personageHistory");
 		history.go(-2);
 	}
-	if(stringnull(personageHistory) || personageHistory >1){
+	if(stringnull(personageHistory) || personageHistory >5){
 		sessionStorage.removeItem("personageHistory");
-		location.href="/xcviews/html/index.html";//默认返回到首页吧
+		location.href="/xcviews/html/my.html";//默认返回到首页吧
+		//history.go(-1);
+
 	}
 	//history.go(-1);
 })
