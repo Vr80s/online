@@ -125,7 +125,8 @@ function historyCommon(type1,downOrOn){
 					$('body').css('background','#efefef');
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-					$('body').css('background','url(/xcviews/images/index_bg.jpg)');
+//					$('body').css('background','url(/xcviews/images/index_bg.jpg)');
+					$('body').css('background','#efefef');
 				}
 			}
 		}else{
