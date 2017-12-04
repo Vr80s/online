@@ -424,7 +424,7 @@ $(function() {
 		'<div class="cy-myprofile-myfom-dv-1">' +
 		// '<div class="buer"><span class="red"></span>微信:</div>' +
 		// '<a  href="javascript:;" style="text-decoration:none;color:#2cb82c">进行绑定>></a>' +
-		// '</div>' +
+		'</div>' +
 		
 		
 		'<div class="cy-myprofile-myfom-dv-radio-zu">' +
