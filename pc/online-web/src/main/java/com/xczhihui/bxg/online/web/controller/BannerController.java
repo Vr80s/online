@@ -18,12 +18,13 @@ public class BannerController {
     @Autowired
     private BannerService  service;
     /**
-     * 查询Banner全部列表
+     * 查询Banner列表
+     * type:2.主页banner3.头条banner4.创业banner5.海外banner
      * @return ResponseObject
      */
     @RequestMapping(value = "/getBannerList",method= RequestMethod.GET)
-    public ResponseObject listBanner(){
-        return ResponseObject.newSuccessResponseObject(service.list(null,null));
+    public ResponseObject listBanner(Integer type){
+        return ResponseObject.newSuccessResponseObject(service.list(null,null,type));
     }
 
     /**

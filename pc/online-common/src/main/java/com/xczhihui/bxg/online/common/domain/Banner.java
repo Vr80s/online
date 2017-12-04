@@ -50,6 +50,17 @@ public class Banner extends BasicEntity2 implements Serializable {
 	private java.util.Date endTime;
 	@Column(name = "click_count")
 	private Integer clickCount;
+	@Column(name = "type")
+	private Integer type;
+
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
 	public String getImgPath() {
 		return imgPath;
