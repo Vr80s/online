@@ -75,7 +75,8 @@
     requestService("/bxg/bunch/offLineClassItem", {id : getQueryString("id")}, function(data) {
     	 var result = data.resultObject;
          $("#name").html(result.gradeName);
-         $("#date").html(formatDateTime(result.startTime));
+//       $("#date").html(formatDateTime(result.startTime));
+		$("#date").html( result.startTime.split(" ")[0].replace(/-/g, "."));
     })
 </script>
 </html>
