@@ -116,18 +116,24 @@
         
         
         if($("#phone").val()==''){
-            alert("手机号不能为空!");
+//          alert("手机号不能为空!");
+			$(".vanish0").show();
+        	setTimeout(function(){$(".vanish0").hide();},1500);
             return false;
         }
         
         if (!(/^1[34578]\d{9}$/.test(phone))) {
-            alert("请输入正确的手机号");
+//          alert("请输入正确的手机号");
+			$(".vanish1").show();
+        	setTimeout(function(){$(".vanish1").hide();},1500);
             return false;
         }
         
         
         if($("#realName").val()==''){
-            alert("姓名不能为空!");
+        	$(".vanish").show();
+        	setTimeout(function(){$(".vanish").hide();},1500);
+//          alert("姓名不能为空!");
             return false;
         }
 

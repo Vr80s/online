@@ -20,7 +20,7 @@
 <!-- 网页自适应JS代码引入 -->
 <script src="../js/js.js"></script>
 <link rel="stylesheet" href="../css/css.css">
-
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 
 <script>
 	$(document).ready(function(){
@@ -238,6 +238,15 @@
 	    color: #666 !important;
 	    font-size: 0.65rem !important;
 	}
+	.vanish{
+		display: none;
+	}
+	.vanish0{
+		display: none;
+	}
+	.vanish1{
+		display: none;
+	}
 </style>
 <script type="text/javascript">
 	/*window.onload = function(){
@@ -280,6 +289,10 @@
 </head>
 
 <body style="background:#efefef;">
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>姓名不能为空!</div></div></div>
+	<div class='vanish0'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空!</div></div></div>
+	<div class='vanish1'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入正确的手机号</div></div></div>
+	
 	<!-- 立即报名弹框开始 -->
 	<div class="submit_tarining" style="display: none" id="baseInfoDiv">
 		<div class="submit_tarining_bg"></div>

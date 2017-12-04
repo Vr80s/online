@@ -27,11 +27,9 @@ var result="";
 		if (data.success) {
 
             result = data.resultObject;
-            
             //视频id
             videoId = result.directId;
             watchState = result.watchState;
-            
             //判断是否可预约
             if(result.watchState == 0){
 
