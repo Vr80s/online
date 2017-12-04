@@ -134,25 +134,41 @@ function time(o) {
 /**
  * 获取验证码
  */
+/*$("#btn").click(function(){
+	$(".my_bg_cen").css("height","18.2rem");
+});*/
+
 document.getElementById("btn").addEventListener("tap", function() {
+	
+	
 	var tel2_a = $(".my_bg_tel2_a").html();
 	if(tel2_a.indexOf("获取验证码")==-1){
 		return;
 	}
 	var _this = this;
 	var number = document.getElementById("number").value; // 手机号
-	if (!stringnull(number)) {
+	if (!stringnull(number)) {  //熊猫登录微信  我的页
 		$("#reminderror").show();
 		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>";
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
+		$(".my_bg_cen").css("height","16.5rem");
+	}else{
+		
+		
+		$(".my_bg_cen").css("height","18.2rem");
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
 		$("#reminderror").show();
 		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
 		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
-	}
+//		$(".my_bg_cen").css("height","16.5rem");
+	}/*else{
+		$(".my_bg_cen").css("height","18.2rem");
+	}*/
+	
+	
 	
 	if(isSend){
 		return;
@@ -292,3 +308,6 @@ function checkCode(username, code,userpassword,falg) {
 		}
 	});
 }
+
+
+
