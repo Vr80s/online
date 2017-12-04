@@ -211,6 +211,9 @@ if (multimedia_type == 1) { // 视频
 	
 	$("title").text("音频");
 	$(".home_top span").html("音频");
+	$(".base_li2_a2 p").css("color","#00BC12");
+	$(".base_li2_a1 p").css("color","#ccc");
+	
 }
 var bunchType = sessionStorage.getItem("bunchType");
 if (!stringnull(bunchType)) {
