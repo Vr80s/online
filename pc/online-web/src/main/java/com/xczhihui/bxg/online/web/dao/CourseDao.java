@@ -1,9 +1,7 @@
 package com.xczhihui.bxg.online.web.dao;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -260,7 +258,7 @@ public class CourseDao extends SimpleHibernateDao {
         String courseTableName = "1".equals(ispreview) ? "oe_course_preview" : "oe_course";
         String course_type = "1".equals(ispreview) ? "" : "c.course_type,";
         if (courseId != null) {
-        	String sql = " select "+course_type+" c.id,c.direct_id, c.is_recommend, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,"+
+        	String sql = " select "+course_type+" c.id,c.direct_id, c.is_recommend,c.online_course as onlineCourse, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,"+
 //                         " if(c.is_free=1,IFNULL((SELECT  COUNT(*)  FROM apply_r_grade_course WHERE course_id = c.id),0)+SUM(IFNULL(default_student_count, 0)),"+
 //                         " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,"+
                          " IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,"+
@@ -292,6 +290,7 @@ public class CourseDao extends SimpleHibernateDao {
             }
         }
 
+        checkAvailable(courseVo);
         return courseVo;
     }
 
@@ -314,7 +313,7 @@ public class CourseDao extends SimpleHibernateDao {
 
     /**
      * 根据课程ID号，查找购买的课程是否下架
-     * @param orderNo 订单号
+     * @param
      * @return
      */
     public CourseApplyVo getPurchaseCourseByCourseId(String orderId) {
@@ -499,7 +498,7 @@ public class CourseDao extends SimpleHibernateDao {
 
     /**
      * 购买课程时，进行检测此订单关联的课程是否下架以及是否购买
-     * @param orderNo 订单号
+     * @param
      */
     public   void   checkCouseInfo(String  orderId){
         //查看报名的课程是否存在
@@ -657,8 +656,37 @@ public class CourseDao extends SimpleHibernateDao {
 
         return courseVo;
     }
-	
-	public void updateSentById(Integer id) {
+
+    private void checkAvailable(CourseVo courseVo) {
+        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(courseVo.getStartTime());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);//时
+        calendar.set(Calendar.MINUTE, 0);//分
+        calendar.set(Calendar.SECOND, 0);//秒
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
+        Date date = calendar.getTime();
+        System.out.println("Christmas is:"+format.format(date));
+        String now = format.format(Calendar.getInstance().getTime());
+        Date nowd;
+        try {
+            nowd = format.parse(now);
+            int flag = nowd.compareTo(date);
+            if (flag > 0) {//当天及当天之后，<0就是在日期之前
+                System.out.println("已过期");
+                courseVo.setAvailable(false);
+            }else{
+                System.out.println("未过期");
+                courseVo.setAvailable(true);
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void updateSentById(Integer id) {
 		String sql="update oe_course set is_sent = 1 where  id = :id";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("id", id);
@@ -696,8 +724,6 @@ public class CourseDao extends SimpleHibernateDao {
      }
 	
 	
-	public static void main(String[] args) {
-		System.out.println("\u6d3b\u52a8ID\u4e0d\u80fd\u4e3a\u7a7a");
-	}
+
 
 }

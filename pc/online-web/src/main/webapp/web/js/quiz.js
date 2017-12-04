@@ -117,16 +117,16 @@ $(function() {
 	$(".qusTitle").on("blur",function(){
 		$(this).css("border","1px solid #e4e4e4");
 	})
-//	$(".qusTitle").on("blur",function(){
-//		$(this).css("border","1px solid #e4e4e4");
-//		if($.trim($(".qusTitle").val())==""){
-//			$(".title-warn").html("问题标题不能为空").css("display","block");
-//		}else if($.trim($(".qusTitle").val()).length<5||$.trim($(".qusTitle").val()).length>50){
-//			$(".title-warn").html("问题标题介于5-50个字之间").css("display","block");
-//		}else{
-//			$(".title-warn").css("display","none");
-//		}
-//	})
+	$(".qusTitle").on("blur",function(){
+		$(this).css("border","1px solid #e4e4e4");
+		if($.trim($(".qusTitle").val())==""){
+			$(".title-warn").html("问题标题不能为空").css("display","block");
+		}else if($.trim($(".qusTitle").val()).length<5||$.trim($(".qusTitle").val()).length>50){
+			$(".title-warn").html("问题标题介于5-50个字之间").css("display","block");
+		}else{
+			$(".title-warn").css("display","none");
+		}
+	})
 	$(".simditor-body").click(function(){
 		$(".text-warn").css("display","none");
 	})
