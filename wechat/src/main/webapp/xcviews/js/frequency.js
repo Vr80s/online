@@ -323,11 +323,13 @@ function requestbunchList(downOrOn, menuId) {
 							var odiv = document.createElement("div");
 							odiv.id = 'content';
 							
-							var img_str = "voice_null.png";
+							var img_str = "video_null.png";
+							var tip_str = '音频正在赶来的路上...';
 							if(multimedia_type==1){
 								img_str = "video_null.png";
+								tip_str = '视频正在赶来的路上...';
 							}	
-							odiv.innerHTML = '<img style="width:7.675rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" />';
+							odiv.innerHTML = '<img src="/xcviews/images/'+img_str+'" alt="" class="kongbai" /><p>'+tip_str+'</p>';
 							document.getElementById("video_list_ul").appendChild(odiv);
 						} else {
 							mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);

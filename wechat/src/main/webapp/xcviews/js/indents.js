@@ -140,7 +140,8 @@ function initOrderList(status,downOrOn){
 					var odiv = document.createElement("div");
 					odiv.id = 'content';
 					var img_str = "null01.png";
-					odiv.innerHTML = '<img style="width:4.675rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" />';
+					var tip_str = "您还没有订单消息";
+					odiv.innerHTML = '<img style="width:4.75rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" /><p>'+ tip_str +'</p>';
 					document.getElementById("indent_main").appendChild(odiv);
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);

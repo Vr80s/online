@@ -1515,21 +1515,23 @@ footer{
     margin: 0 auto;
     text-align: center;
     float: left;
-    height: 2rem;
+    height: 2.5rem;
 }
 .animation_gift img{
-	width: 2.35rem;
+	/*width: 2.35rem;*/
+	width: 2rem;
     border-radius: 60px;
     float: left;
     text-align: center;
     display: block;
     margin: 0 auto;
-    margin-top: -0.2rem;
-    
+    /*margin-top: -0.2rem;*/    
+    margin-top: 0.2rem;    
 }
 
 .animation_gift1{
 	width: 2.35rem;
+	/*width: 2.35rem;*/
     float: right;
     float: left;
     margin: 0 auto;
@@ -5504,7 +5506,7 @@ footer{
 .train_list_bto01{
 	float: left;
 	color: #ff6767;
-	font-size: 0.7rem;
+	font-size: 0.55rem;
     width: 5rem;
     overflow: hidden;
     overflow: hidden;
