@@ -60,27 +60,33 @@ public class FocusController {
 		
 		String userId = req.getParameter("userId");
 		OnlineUser user = onlineUserService.findUserById(userId);
-		//OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
-		/*System.out.println("myHome   user.getId()"+user.getId());*/
-		if(null == user){	
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}
-		user = onlineUserService.findUserById(user.getId());
+		
 		Map<String,Object> map =new HashMap<String, Object>();
-		//我的粉丝总数
-		Integer countFans =	focusService.findMyFansCount(user.getId());
-		//我的关注总数
-		Integer countFocus =focusService.findMyFocusCount(user.getId());
-		map.put("countFans", countFans);
-		map.put("countFocus", countFocus);
-		map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
-		/**
-		 * 查下房间号
-		 *  是否是讲师：0,用户，1既是用户也是讲师
-		 */
-		/*Map<String,Object> ma1p = onlineUserService.getUserIsTeacher(user.getId());*/
-		//onlineUserService.getUserIsTeacher(user.getId());
-		map.put("user", user);
+		if(null == user){	
+			//return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			map.put("countFans", 0);
+			map.put("countFocus", 0);
+			map.put("xmbCount", 0);
+			/**
+			 * 查下房间号
+			 *  是否是讲师：0,用户，1既是用户也是讲师
+			 */
+			map.put("user", null);
+		}else{
+			user = onlineUserService.findUserById(user.getId());
+			//我的粉丝总数
+			Integer countFans =	focusService.findMyFansCount(user.getId());
+			//我的关注总数
+			Integer countFocus =focusService.findMyFocusCount(user.getId());
+			map.put("countFans", countFans);
+			map.put("countFocus", countFocus);
+			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
+			/**
+			 * 查下房间号
+			 *  是否是讲师：0,用户，1既是用户也是讲师
+			 */
+			map.put("user", user);
+		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 	/**

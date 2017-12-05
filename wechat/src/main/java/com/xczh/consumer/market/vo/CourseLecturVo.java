@@ -131,15 +131,15 @@ public class CourseLecturVo implements Serializable {
     /**
      * 是否关注了这个主播
      */
-    public Integer isfocus; //课程分类   0 未关注     1 关注
+    public Integer isfocus = 0; //课程分类   0 未关注     1 关注
     
-    public Integer countFans; //粉丝数
+    public Integer countFans =0; //粉丝数
     
-    public Integer countGift; //礼物数
+    public Integer countGift = 0; //礼物数
     
-    public Integer countSubscribe; //预约的人数
+    public Integer countSubscribe =0; //预约的人数
     
-    public Integer isSubscribe; //0 未预约  1预约
+    public Integer isSubscribe = 0; //0 未预约  1预约
     
     
     public Integer watchState = 0; //观看状态 0免费  1收费  2 需要密码验证

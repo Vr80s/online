@@ -4,6 +4,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
+
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.springframework.stereotype.Repository;
@@ -16,21 +17,19 @@ import java.util.Map;
 @Repository
 public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 
+	
+	public List<OeWatchHistory> getOeWatchHistotyListAppId(int pageNumber, int pageSize, String userId, String type) throws SQLException {
+		// TODO Auto-generated method stub
+		String str = "select * from oe_watch_history owh where owh.user_id = ? and owh.type = ? order by owh.watch_time desc";
+		System.out.println(str);
+		Object[] params = {userId,type};
+		return super.queryPage(JdbcUtil.getCurrentConnection(), str,pageNumber,pageSize,OeWatchHistory.class,params);
+	}
+	
 	public List<OeWatchHistory> getOeWatchHistotyList(int pageNumber, int pageSize, String userId, String type) throws SQLException {
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer("");
 		//课程id一样，并且
-		/*sql.append("select user_id as userId,lecturer_id as lecturerId,course_id as courseId,smallimg_path as smallimgPath,grade_name as gradeName,"
-				+ "lecturer_name as lecturerName,teacher_head_img as teacherHeadImg,watch_time as watchTime,"
-				+ "is_free as isFree,is_approve as isApprove,start_time as startTime,end_time as endTime,type as type"
-				+ " from oe_watch_history where user_id = ? and type = ? order by watch_time desc ");*/
-		/*sql.append("select owh.user_id as userId,owh.lecturer_id as lecturerId,owh.course_id as courseId,");
-		sql.append("oc.smallimg_path as smallimgPath,oc.grade_name as gradeName,");
-		sql.append("ou.name as lecturerName,ou.small_head_photo as teacherHeadImg,owh.watch_time as watchTime,");
-		sql.append("oc.is_free as isFree,oc.start_time as startTime,oc.end_time as endTime, owh.type as type  ");
-		sql.append("from oe_watch_history as owh,oe_user as ou,oe_course as oc  ");
-		sql.append("where owh.lecturer_id = ou.id and owh.course_id = oc.id  ");
-		sql.append("and owh.user_id = ? and owh.type = ? order by owh.watch_time desc");*/
 		if(type.equals("1")){
 			sql.append("select owh.user_id as userId,owh.lecturer_id as lecturerId,owh.course_id as courseId,");
 			sql.append("oc.smallimg_path as smallimgPath,oc.grade_name as gradeName,");
@@ -53,11 +52,11 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 		return super.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(),pageNumber,pageSize,OeWatchHistory.class,params);
 	}
 
-	public Integer findOnlineWatchHistory(OnlineUser ou, String courseId) throws SQLException{
+	public Integer findOnlineWatchHistory(String userId, String courseId) throws SQLException{
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select count(*) as allCount from oe_watch_history where user_id =? and course_id = ?");    
 		Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),
-				new MapHandler(),ou.getId(),courseId);
+				new MapHandler(),userId,courseId);
 		Integer all_count = 0;
 		if(map!=null && map.size()>0){
 			Object allCount = map.get("allCount");
@@ -67,13 +66,13 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 	}
 	
 	
-	public void updateOnlineWatchHistory(OnlineUser ou, String courseId) throws SQLException{
+	public void updateOnlineWatchHistory(String userId, String courseId) throws SQLException{
 		StringBuilder sql = new StringBuilder();
 		sql.append("update oe_watch_history set watch_time =? where user_id = ? and course_id =?	");
-		this.update(JdbcUtil.getCurrentConnection(),sql.toString(),new Date(),ou.getId(),courseId);
+		this.update(JdbcUtil.getCurrentConnection(),sql.toString(),new Date(),userId,courseId);
 	}
 	
-	public void saveOnlineWatchHistory1(OnlineUser ou, String courseId, String type) throws SQLException {
+	public void saveOnlineWatchHistory1(String userId, String courseId, String type) throws SQLException {
 		// TODO Auto-generated method stub
 		
 		if("1".equals(type)){ //直播啦
@@ -93,7 +92,7 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 			sql.append("values                              ");
 			sql.append("(?,?,?,?,?,?,?,?,?,?,?,?,?,?)  ");
 			this.update(JdbcUtil.getCurrentConnection(),sql.toString(), 
-					ou.getUserId(),cv.getUserId(),courseId,cv.getSmallImgPath(),
+					userId,cv.getUserId(),courseId,cv.getSmallImgPath(),
 					cv.getGradeName(),cv.getName(),cv.getHeadImg(),new Date(),
 					type,cv.getIsFree(),cv.getIsApprove(),cv.getStartTime(),cv.getEndTime(),cv.getDirectId());
 		}else if("2".equals(type) || "3".equals(type)){ //点播和音频
@@ -113,11 +112,10 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 			sql.append("values                              ");
 			sql.append("(?,?,?,?,?,?,?,?,?,?,?)  ");
 			this.update(JdbcUtil.getCurrentConnection(),sql.toString(), 
-					ou.getUserId(),cv.getUserId(),courseId,cv.getSmallImgPath(),
+					userId,cv.getUserId(),courseId,cv.getSmallImgPath(),
 					cv.getGradeName(),cv.getName(),cv.getHeadImg(),new Date(),
 					type,cv.getIsFree(),cv.getIsApprove());
 		}
-		
 
 //		Object[] params = {courseId};
 //		CourseLecturVo cv = this.query(JdbcUtil.getCurrentConnection(),strSql,new BeanHandler<>(CourseLecturVo.class),params);

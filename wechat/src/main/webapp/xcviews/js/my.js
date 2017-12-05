@@ -194,7 +194,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 				reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>此手机号已经绑定过微信号了</div></div></div>"
 				$("#reminderror").show();
 				setTimeout(function(){$(".vanish2").hide();},1500);
-				$(".my_bg_cen").css("height","16.5rem");
+				/*$(".my_bg_cen").css("height","16.5rem");*/
 				
 				return;
 			}else if(data.code == 202){
@@ -304,9 +304,13 @@ function checkCode(username, code,userpassword,falg) {
             	location.href = "/xcviews/html/my.html";
             }
 		} else {
-			var configresult = data.resultObject;
-			reminderror.innerHTML =configresult.errorMessage;
+			//var configresult = data.resultObject;
+			//reminderror.innerHTML =data.errorMessage;
+			reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>"+data.errorMessage+"</div></div></div>";
+			//$(".vanish").show();
 			$("#reminderror").show();
+			setTimeout(function(){$(".vanish").hide();},1500);
+//			$("#reminderror").show();
 		}
 	});
 }

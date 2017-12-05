@@ -7,6 +7,7 @@ import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,16 +32,37 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     @Override
     public void increase(String userId,int xmb,String json, String actualPrice) {
 
-        UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
-        userCoinIncrease.setUserId(userId);
-        userCoinIncrease.setChangeType(1);
-        userCoinIncrease.setPayType(3);
-        userCoinIncrease.setValue(new BigDecimal(xmb));
-        userCoinIncrease.setCreateTime(new Date());
-        userCoinIncrease.setOrderFrom(3);
-        userCoinIncrease.setOrderNoRecharge(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
-
-        iphoneIpaMapper.save(json,actualPrice,JSONObject.parseObject(json).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("transaction_id").toString(),userCoinIncrease.getOrderNoRecharge(),userId,"充值熊猫币："+xmb+"个");
-        userCoinService.updateBalanceForIncrease(userCoinIncrease);
+    	try {
+    		System.out.println("3333333333333333333333333333================================================");
+    		
+    		UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
+	        userCoinIncrease.setUserId(userId);
+	        userCoinIncrease.setChangeType(1);
+	        userCoinIncrease.setPayType(3);
+	        userCoinIncrease.setValue(new BigDecimal(xmb));
+	        userCoinIncrease.setCreateTime(new Date());
+	        userCoinIncrease.setOrderFrom(3);
+	        userCoinIncrease.setOrderNoRecharge(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
+	        
+	        iphoneIpaMapper.save(json,
+	        		actualPrice,
+	        		JSONObject.parseObject(json).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("transaction_id").toString(),
+	        		userCoinIncrease.getOrderNoRecharge(),
+	        		userId,
+	        		"充值熊猫币："+xmb+"个");
+	        
+	        
+	        System.out.println("444444444444444444444444444444444================================================");
+	        
+	        userCoinService.updateBalanceForIncrease(userCoinIncrease);
+	        
+	        
+	        System.out.println("4555555555555555555555555555555================================================");
+	        
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+      
     }
 }

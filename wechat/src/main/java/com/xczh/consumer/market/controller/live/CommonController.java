@@ -88,69 +88,65 @@ public class CommonController {
 		//关注人数         用户头像
 		//直播的课程     传递一个讲师id 就ok了... 得到讲师下的所有课程，得到讲师下的所有粉丝，得到讲师的
 		
+		
+		
 		String lecturerId = req.getParameter("lecturerId");
+		
+		Map<String,Object> mapAll = new HashMap<String,Object>();
+		/**
+		 * 得到讲师   主要是房间号，缩略图的信息啦
+		 */
+		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
+		
+		/**
+		 * 关注讲师的粉丝  显示六个
+		 */
+		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
+		/**
+		 * 粉丝总数 
+		 */
+		Integer fansCount  = focusService.findMyFansCount(lecturerId);
+		/**
+		 * 关注总数 
+		 */
+		Integer focusCount  = focusService.findMyFocusCount(lecturerId);
+		/**
+		 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
+		 */
+		Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
+		/**
+		 * 得到这个讲师的所有   礼物数
+		 */
+		//Integer giftAll = giftService.findByUserId(lecturerId);
+		   /**
+         * 得到判断这个主播有没有正在直播的课程啦	
+         */
+		Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
+		
+		
+		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
+		mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
+		mapAll.put("fansCount", fansCount);       //粉丝总数
+		mapAll.put("focusCount", focusCount);   	  // 关注总数
+		//mapAll.put("giftAll", giftAll);           // 礼物数 
+		mapAll.put("courseAll", courseAll);       // 课程数 
+		//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
+		
+		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
-	    }
-			
 		if(null == lecturerId){  //讲师id
 			return ResponseObject.newErrorResponseObject("缺少参数");
 		}
-		try {
-			Map<String,Object> mapAll = new HashMap<String,Object>();
-			/**
-			 * 得到讲师   主要是房间号，缩略图的信息啦
-			 */
-			Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
-			/**
-			 * 关注讲师的粉丝  显示六个
-			 */
-			//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
-			/**
+	    if(user==null){
+	    	mapAll.put("isFours", 0); 
+	    }else{
+	    	/**
 			 * 是否已经关注了这个主播：0 未关注  1已关注
 			 */
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
-			
-			/**
-			 * 粉丝总数 
-			 */
-			Integer fansCount  = focusService.findMyFansCount(lecturerId);
-			
-			/**
-			 * 关注总数 
-			 */
-			Integer focusCount  = focusService.findMyFocusCount(lecturerId);
-			
-			/**
-			 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
-			 */
-			Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
-			/**
-			 * 得到这个讲师的所有   礼物数
-			 */
-			//Integer giftAll = giftService.findByUserId(lecturerId);
-            /**
-             * 得到判断这个主播有没有正在直播的课程啦	
-             */
-			Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
-
-			//mapAll.put("giftAll", giftAll);           // 礼物数 
-			mapAll.put("courseAll", courseAll);       // 课程数 
-			//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
-			
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
-			mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-			mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
-			mapAll.put("fansCount", fansCount);       //粉丝总数
-			mapAll.put("focusCount", focusCount);   	  // 关注总数
-			
-			
-			return ResponseObject.newSuccessResponseObject(mapAll);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("后台数据异常");
-		}
+	    }
+	    return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 	/**
 	 * Description：用户主页    -- 课程列表

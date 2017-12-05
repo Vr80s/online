@@ -178,7 +178,7 @@ public interface OnlineUserService {
 	 *         email: 15936216273@163.com
 	 * @throws SQLException
 	 */
-	void saveAppTouristRecord(String userId, String appOnlyOne)
+	void saveAppTouristRecord(Map<String,Object> map, String appOnlyOne)
 			throws SQLException;
 	/**
 	 * Description：iphone手机注册使用
@@ -194,4 +194,6 @@ public interface OnlineUserService {
 	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
 			String password, String username, String vtype, String appUniqueId)throws Exception;
 	void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception;
+	
+	public OnlineUser findUserByIdAndVhallNameInfo(String string)throws SQLException;
 }

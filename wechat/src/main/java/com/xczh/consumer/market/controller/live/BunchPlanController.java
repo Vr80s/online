@@ -115,23 +115,22 @@ public class BunchPlanController {
 			return ResponseObject.newErrorResponseObject("课程ID是空的");
 		}
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
-		if(user == null ){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}
 		CourseLecturVo courseLecturVo =wxcpCourseService.bunchDetailsByCourseId(Integer.parseInt(courseid));
-		/*
-		 * 得到此课程下的排序最靠上面的一个
-		 */
+		
 		if(courseLecturVo == null){
 			return ResponseObject.newSuccessResponseObject("获取课程异常");
 		}
-		//courseLecturVo.setImRoomId(courseLecturVo.getId()+postfix);
-		/**
-	     * 是否关注
-	     */
-		Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
-		courseLecturVo.setIsfocus(isFours);
-		
+		if(user != null ){
+			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
+			courseLecturVo.setIsfocus(isFours);
+			if(courseLecturVo.getWatchState()!=0){
+				if(courseLecturVo.getUserId().equals(user.getId()) ||
+						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
+			       //System.out.println("同学,当前课程您已经报名了!");
+			       courseLecturVo.setWatchState(0);    
+			    };
+			}
+		}
 		/*
 		 * 我的粉丝总数
 		 */
@@ -141,14 +140,7 @@ public class BunchPlanController {
 		 * 我的礼物总数 
 		 */
 		courseLecturVo.setCountGift(giftService.findByUserId(courseLecturVo.getUserId()));
-
-		if(courseLecturVo.getWatchState()!=0){
-			if(courseLecturVo.getUserId().equals(user.getId()) ||
-					onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
-		       //System.out.println("同学,当前课程您已经报名了!");
-		       courseLecturVo.setWatchState(0);    
-		    };
-		}
+	
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);
 	}
 	
@@ -231,14 +223,15 @@ public class BunchPlanController {
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
 */
-
 		String userId=req.getParameter("userId");
-		OnlineUser onlineUser=new OnlineUser();
-		onlineUser.setId(userId);
 		CourseLecturVo courseLecturVo=wxcpCourseService.offLineClassItem(id,userId);
-		ResponseObject resp = onlineCourseService.courseIsBuy(onlineUser,id);
-		if(resp.isSuccess()){//已经付过费了
-			courseLecturVo.setWatchState(0);
+		if(userId!=null){
+			OnlineUser onlineUser=new OnlineUser();
+			onlineUser.setId(userId);
+			ResponseObject resp = onlineCourseService.courseIsBuy(onlineUser,id);
+			if(resp.isSuccess()){//已经付过费了
+				courseLecturVo.setWatchState(0);
+			}
 		}
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);
 	}

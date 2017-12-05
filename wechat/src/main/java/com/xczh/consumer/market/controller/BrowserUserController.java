@@ -850,9 +850,6 @@ public class BrowserUserController {
 		}
 		return null;
 	}
-	
-	
-	
 	/**
 	 * 
 	 * Description：
@@ -867,68 +864,40 @@ public class BrowserUserController {
 	@RequestMapping("appLogin")
 	@ResponseBody
 	public ResponseObject appOnlyOneId(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		/**
-		 *   注册一个用户      因为这个用户不仅仅要看视频，还需要还需要进行购买的行为了。
-		 *    
-		 *   最开始的时候给他一个用户id，在给另一个参数。
-		 *     下次在来的时候：判断存在，就不动了。
-		 *   	如果注册的话，就把这个用户信息改下。且
-		 *   
-		 *   
-		 *   记录下用户id、记录下设备id。
-		 *   	如果存在的话，就不存了。
-		 *   	取出这个用户id,然后请求出这个用户，生成一个token。保存在redis中。
-		 *   
-		 */
+		
 		String appUniqueId = req.getParameter("appUniqueId");
 		/*
-		 * 查一下这个表，是否存在这个信息。如果存在，那么就不创建了。如果
+		 * 1、判断是游客登录呢，还是普通用户登录
 		 */
-		
 		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
-		OnlineUser ou = new OnlineUser();
-		if(map==null){
-			ou.setId(UUID.randomUUID().toString().replace("-", ""));
-			ou.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-			//随机抽取一个字符串
-			ou.setStatus(0);
-			ou.setCreateTime(new Date());
-			ou.setDelete(false);
-			ou.setVisitSum(0);
-			ou.setStayTime(0);
-			ou.setUserType(0);
-			ou.setOrigin("online");
-			ou.setMenuId(-1);
-			ou.setSex(OnlineUser.SEX_UNKNOWN);
-			ou.setCreateTime(new Date());
-			ou.setType(1);
-			//Collections.shuffle(initializeNames);
+		
+		if(map ==null){ //第一次进来
 			String [] arr = "人参,人发,卜芥,儿茶,八角,丁香,刀豆,三七,三棱,干姜,干漆,广白,广角,广丹,大黄,大戟,大枣,大蒜,大蓟,小蓟,小麦,小蘖".split(",");
 			int index=(int)(Math.random()*arr.length);
 			String name = arr[index];
 			String weihouUserId = WeihouInterfacesListUtil.createUser(
-					ou.getId(),
+					UUID.randomUUID().toString().replace("-", ""),
 					WeihouInterfacesListUtil.moren,
 					name, 
-					ou.getSmallHeadPhoto());
-			
+					null);
 			if(weihouUserId!=null){
-				ou.setVhallId(weihouUserId);  //微吼id
+				map = new HashMap<String, Object>();
+				/*ou.setVhallId(weihouUserId);  //微吼id
 				//u.setVhallName(u.getId());  //微吼名字
 				ou.setVhallName(name);
 				ou.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+				*/			
+				//map.put("userId", weihouUserId);
+				//map.put("loginName", name);
+				map.put("vhallId", weihouUserId);
+				map.put("vhallName", name);
+				map.put("vhallPass", WeihouInterfacesListUtil.moren);
 			}
-			onlineUserService.addOnlineUser(ou);
 			//也需要保存这个信息啦
-			onlineUserService.saveAppTouristRecord(ou.getId(), appUniqueId);
-		}else{
-			ou = onlineUserService.findUserById(map.get("userId").toString());
+			onlineUserService.saveAppTouristRecord(map, appUniqueId);
 		}
-		String ticket = UUID.randomUUID().toString().replace("-", "");
-		ou.setTicket(ticket);
-		ou.setLoginName(appUniqueId);
-		this.appleOnlogin(req, res, null, ou,ticket);
-		return ResponseObject.newSuccessResponseObject(ou);
+		
+		return ResponseObject.newSuccessResponseObject(map);
 	}
 	
 	public void appleOnlogin(HttpServletRequest req, HttpServletResponse res,
@@ -948,6 +917,8 @@ public class BrowserUserController {
 	@SuppressWarnings("unchecked")
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
                         Token token, OnlineUser user, String ticket){
+		
+		System.out.println("用户普通登录----》ticket"+ticket);
 		/**
 		 * 存在两个票，两个票都可以得到用户信息。
 		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了

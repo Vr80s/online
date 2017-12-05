@@ -205,50 +205,48 @@ public class LiveController {
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
 		}
+		/*
+		 * 全部不拦截  --》
+		 */
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
-		if(null == user){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}
 		int course_id =Integer.parseInt(req.getParameter("course_id"));
-		
-		CourseLecturVo courseLecturVo = onlineCourseService.
+		CourseLecturVo courseLecturVo  = null;
+		if(null == user){
+			
+			 courseLecturVo = onlineCourseService.
+					liveDetailsByCourseId(course_id,null); //课程简介
+			
+		}else{
+			
+			courseLecturVo = onlineCourseService.
 				liveDetailsByCourseId(course_id,user.getId()); //课程简介
+			 
+			if(courseLecturVo.getWatchState()==0){
+				/**
+				 * 记录人次
+				 */
+				onlineWebService.saveEntryVideo(course_id, user);
+			}else{
+				
+				if(courseLecturVo.getUserId().equals(user.getId()) ||
+						onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
+			       //System.out.println("同学,当前课程您已经报名了!");
+			       courseLecturVo.setWatchState(0);    
+			    };
+				
+			}
+			
+			/**
+			 * 是否已经关注了这个主播：0 未关注  1已关注
+			 */
+			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
+			courseLecturVo.setIsfocus(isFours);
+		}
+		
 		if(null == courseLecturVo){
 			return ResponseObject.newErrorResponseObject("获取课程数据有误");
 		}
-		
-		if(courseLecturVo.getWatchState()==0){
-			/**
-			 * 记录人次
-			 */
-			onlineWebService.saveEntryVideo(course_id, user);
-		}
-		/**
-		 * 是否已经关注了这个主播：0 未关注  1已关注
-		 */
-		Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
-		courseLecturVo.setIsfocus(isFours);
-		/**
-		 * 判断用户是否需要密码或者付费
-		 */
-		/*if(courseLecturVo.getWatchState()==2){ //是否已经认证了密码了
-			ResponseObject resp = onlineCourseService.courseIsConfirmPwd(user,course_id);
-			if(resp.isSuccess()){//认证通过
-				courseLecturVo.setWatchState(0);
-			}
-		}else if(courseLecturVo.getWatchState()==1){//是否已经付过费了
-			ResponseObject resp = onlineCourseService.courseIsBuy(user,course_id);
-			if(resp.isSuccess()){//已经付过费了
-				courseLecturVo.setWatchState(0);
-			}
-		}*/
-		if(courseLecturVo.getWatchState()!=0){
-			if(courseLecturVo.getUserId().equals(user.getId()) ||
-					onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
-		       //System.out.println("同学,当前课程您已经报名了!");
-		       courseLecturVo.setWatchState(0);    
-		    };
-		}
+	
 		/**
 		 * 发送广播
 		 */
@@ -408,6 +406,9 @@ public class LiveController {
 	@RequestMapping("/getPreLiveCount")
 	@ResponseBody
 	public ResponseObject getPreLiveCount(String userId){
+		if(userId == null){
+			return ResponseObject.newSuccessResponseObject(0);
+		}
 		return ResponseObject.newSuccessResponseObject(liveExamineInfoService.getPreLiveCount(userId));
 	}
 

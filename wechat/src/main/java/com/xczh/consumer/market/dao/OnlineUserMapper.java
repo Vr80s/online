@@ -300,7 +300,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,occupation,occupation_other as occupationOther,");
-		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info,");
+		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info,is_lecturer as isLecturer,");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { userId };
@@ -544,7 +544,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 * @throws SQLException
 	 */
 	public Map<String, Object> getAppTouristRecord(String appOnlyOne) throws SQLException {
-		String sql = " select id,user_id as userId,app_only_one as appOnlyOne from apple_tourist_record where app_only_one = ?";
+		String sql = " select vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass from apple_tourist_record where app_only_one = ?";
 		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
 				sql, new MapHandler(), appOnlyOne);
 		return map;
@@ -557,10 +557,10 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 *         email: 15936216273@163.com
 	 * @throws SQLException
 	 */
-	public void saveAppTouristRecord(String userId,String appOnlyOne) throws SQLException {
-		String sql = " insert into apple_tourist_record(user_id,app_only_one) values(?,?) ";
+	public void saveAppTouristRecord(Map<String,Object> map,String appOnlyOne) throws SQLException {
+		String sql = " insert into apple_tourist_record(app_only_one,user_id,vhall_id,vhall_name,vhall_pass) values(?,?,?,?,?) ";
 		super.update(JdbcUtil.getCurrentConnection(), sql,
-				userId,appOnlyOne);
+				appOnlyOne,null,map.get("vhallId"),map.get("vhallName"),map.get("vhallPass"));
 	}
 
 	public void updateOnlineUserAddPwdAndUserName(OnlineUser u) throws SQLException {
@@ -627,6 +627,21 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			Object[] params = { u.getId() };
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
-		
 	}
+	
+	
+	/**
+	 * 根据id查询用户
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public OnlineUser findUserByIdAndVhallNameInfo(String id) throws SQLException {
+		StringBuffer sql = new StringBuffer(); 
+		sql.append(" select id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName,login_name as loginName");
+		sql.append(" from oe_user where id = ?  ");
+		Object params[] = { id };
+		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(OnlineUser.class), params);
+	}
+	
 }

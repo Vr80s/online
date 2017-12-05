@@ -82,7 +82,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		//直播状态1.直播中，2预告，3直播结束
 		//0 直播已结束 1 直播还未开始 2 正在直播
 		 if(courseLecturVo.getLineState() == 2){
-			System.out.println("预告");
 			/**
 			 * 获取当前预约人数
 			 */
@@ -91,11 +90,13 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			/**
 			 * 判断自己是否预约了
 			 */
-			Integer isSubscribe = selectSubscribeInfoIs(course_id,userId);
-			if(isSubscribe == 0){//未预约
-				courseLecturVo.setIsSubscribe(isSubscribe);
-			}else{
-				courseLecturVo.setIsSubscribe(1);
+			if(userId!=null){
+				Integer isSubscribe = selectSubscribeInfoIs(course_id,userId);
+				if(isSubscribe == 0){//未预约
+					courseLecturVo.setIsSubscribe(isSubscribe);
+				}else{
+					courseLecturVo.setIsSubscribe(1);
+				}
 			}
 		}
 		return courseLecturVo;
