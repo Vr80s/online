@@ -10,9 +10,7 @@ import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
-import com.xczhihui.bxg.online.web.service.ActivityTotalService;
-import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
-import com.xczhihui.bxg.online.web.service.UserService;
+import com.xczhihui.bxg.online.web.service.*;
 import com.xczhihui.bxg.online.web.service.impl.OnlineLoginoutCallback;
 import com.xczhihui.bxg.online.web.utils.HttpUtil;
 import com.xczhihui.bxg.online.web.utils.MD5Util;
@@ -74,6 +72,13 @@ public class BBSUserController extends OnlineBaseController {
 
 	@Autowired
 	private UserCenterAPI api;
+
+	@Autowired
+	private MessageService messageService;
+
+	@Autowired
+	private ShoppingCartService shoppingCartService;
+
 
 	@Value("${domain}")
 	private String domain;
@@ -842,5 +847,35 @@ public class BBSUserController extends OnlineBaseController {
 		request.getSession().setAttribute("_token_", token);
 		request.getSession().setAttribute("_user_", user);
 		UCCookieUtil.writeTokenCookie(response, token);
+	}
+
+
+	/**
+	 * 获取未读消息总数
+	 * @return
+	 */
+	@RequestMapping(path="findMessageCount",method= RequestMethod.GET)
+	@ResponseBody
+	public ResponseObject findMessageCount(HttpSession s){
+		OnlineUser user =  (OnlineUser)s.getAttribute("_user_");
+		if(user == null) {
+			return OnlineResponse.newErrorOnlineResponse("请登录!");
+		}
+		return OnlineResponse.newSuccessOnlineResponse(messageService.findMessageCount(user.getId()));
+	}
+
+	/**
+	 * 查询我的购物车中课程数量
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value = "/findCourseNum" )
+	@ResponseBody
+	public ResponseObject findCourseNum(HttpServletRequest req) {
+		BxgUser user = UserLoginUtil.getLoginUser(req);
+		if (user == null) {
+			return ResponseObject.newErrorResponseObject("请登录！");
+		}
+		return ResponseObject.newSuccessResponseObject(shoppingCartService.findCourseNum(user.getId()));
 	}
 }
