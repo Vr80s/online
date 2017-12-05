@@ -43,11 +43,11 @@
 			width: 5.55rem;
 			height: 6.925rem;
 			margin: 0 auto;
-			margin-top: 5.1rem;
+			margin-top: 8.75rem;
+			text-align: center;
 		}
 		.kongbai_div img{
-			width: 5.55rem;
-			height: 6.925rem;
+			width: 4.65rem;
 		}
 		.mui-pull {
 		    bottom: 0px;
@@ -57,6 +57,17 @@
 		}
 		.attention_right{
 			width: 4rem;
+		}
+		#clist{
+			background: none;
+		}
+		.kongbai_div p{
+			color: #999;
+			font-size: 0.6rem;
+			margin-top: 0.65rem;
+		}
+		.wm-block{
+			background: #fff;
 		}
 	</style>
 <body style="background:#efefef;">
@@ -166,7 +177,8 @@
 					document.getElementById("clist").innerHTML ="";
 					var odiv = document.createElement("div");
 					odiv.id = 'content';
-					odiv.innerHTML = '<div class="kongbai_div"><img src="/xcviews/images/null04.png" alt="" class="kongbai" /></div>';
+					var tip_str = "还没有关注的人哦";
+					odiv.innerHTML = '<div class="kongbai_div"><img src="/xcviews/images/null04.png" alt="" class="kongbai" /><p>'+ tip_str +'</p></div>';
 					document.getElementById("clist").appendChild(odiv);
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
