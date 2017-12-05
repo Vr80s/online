@@ -29,13 +29,13 @@
 	width: 5.625rem;
 	height: 7.45rem;
 	margin: 0 auto;
-	margin-top: 4.75rem;
+	margin-top: 8.75rem;
 }
 
 .non_payment_null_img {
-	width: 5.625rem;
-	height: 7.45rem;
-	background: url(/xcviews/images/null07.png) no-repeat;;
+	width: 4.5rem;
+	height: 4.525rem;
+	background: url(/xcviews/images/null05.png) no-repeat;;
 	background-size: 100% 100%;
 }
 
@@ -75,6 +75,13 @@
     margin-top: 0.2rem;
     color: #00bc12;
 }
+.body_p{
+	font-size: 0.6rem;
+	color: #999;
+	text-align: center;
+	margin-top: 0.85rem;
+	display: none;
+}
 </style>
 </head>
 
@@ -88,6 +95,8 @@
 		<div class="both"></div>
 		
 		<div class="non_payment_null1"></div>
+		<p class="body_p">您还没有体现消息！</p>
+		
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll" style="margin-top: 1.75rem;">
 				<div class="attention_center" style="margin-top:0.5rem;">
@@ -184,6 +193,7 @@
 								if (num == "0") {
 									$('.non_payment_null1').addClass('non_payment_null_img');
 									$('body').css('background', '#efefef');
+									$(".body_p").show();
 								} else {
 									mui('#refreshContainer').pullRefresh()
 											.endPullupToRefresh(true);

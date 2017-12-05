@@ -37,14 +37,14 @@
 		}
 		.null_kongbai_cen{
 			width: 5.525rem;
-				height: 7.45rem;
-				margin: 0 auto;
-				margin-top: 4.75rem;
+			height: 7.45rem;
+			margin: 0 auto;
+			margin-top: 8.75rem;
 		}
 		.null_kongbai_cen1{
-			width: 7.425rem;
-			height: 7.225rem;
-			background: url(/xcviews/images/null10.png) no-repeat;;
+			width: 4.5rem;
+			height: 4.525rem;
+			background: url(/xcviews/images/video_null.png) no-repeat;;
 			background-size:100% 100%;
 		}
 		.attention_left{
@@ -55,16 +55,12 @@
 		.detail{
 			margin-top: 2.2rem;
 		}
-		/*.detail_top p{
-			font-size: 0.7rem;
-		}
-		.detail_cen p{
-			font-size: 0.7rem;
-		}*/
-	
-		.attention_right{
-			/*font-size: 0.7rem;*/
-    		/*margin-top: 0.8rem;*/
+		.body_p{
+			font-size: 0.6rem;
+			color: #999;
+			text-align: center;
+			margin-top: 0.85rem;
+			display: none;
 		}
 	</style>
 </head>
@@ -82,6 +78,7 @@
 	    <div class="null_kongbai">
 			<div class="null_kongbai_cen">
 			</div>
+			<p class="body_p">您好没有收到任何礼物！</p>
 		</div>
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			  <div class="mui-scroll"  style="margin-top:2rem;">
@@ -149,6 +146,7 @@ function giftList(downOrOn){
 			if(num == "0") {
 				$('.null_kongbai_cen').addClass('null_kongbai_cen1');
 				$('body').css('background','#efefef');
+				$(".body_p").show();
 			} else {
 				mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
 				$('body').css('background','url(/xcviews/images/index_bg.jpg)');
