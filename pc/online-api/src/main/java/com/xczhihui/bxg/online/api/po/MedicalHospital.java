@@ -1,0 +1,220 @@
+package com.xczhihui.bxg.online.api.po;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+
+
+/**
+ * The persistent class for the medical_hospital database table.
+ * 
+ */
+@Entity
+@Table(name="medical_hospital")
+@NamedQuery(name="MedicalHospital.findAll", query="SELECT m FROM MedicalHospital m")
+public class MedicalHospital implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private String id;
+
+	private String accountid;
+
+	private String city;
+
+	@Column(name="create_person")
+	private String createPerson;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="create_time")
+	private Date createTime;
+
+	private boolean deleted;
+
+	private String description;
+
+	@Column(name="detailed_address")
+	private String detailedAddress;
+
+	private String email;
+
+	private String lal;
+
+	private String name;
+
+	@Column(name="post_code")
+	private int postCode;
+
+	private String province;
+
+	private String remark;
+
+	private boolean status;
+
+	private String tel;
+
+	@Column(name="update_person")
+	private String updatePerson;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="update_time")
+	private Date updateTime;
+
+	private String version;
+
+	public MedicalHospital() {
+	}
+
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getAccountid() {
+		return this.accountid;
+	}
+
+	public void setAccountid(String accountid) {
+		this.accountid = accountid;
+	}
+
+	public String getCity() {
+		return this.city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCreatePerson() {
+		return this.createPerson;
+	}
+
+	public void setCreatePerson(String createPerson) {
+		this.createPerson = createPerson;
+	}
+
+	public Date getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public boolean getDeleted() {
+		return this.deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDetailedAddress() {
+		return this.detailedAddress;
+	}
+
+	public void setDetailedAddress(String detailedAddress) {
+		this.detailedAddress = detailedAddress;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLal() {
+		return this.lal;
+	}
+
+	public void setLal(String lal) {
+		this.lal = lal;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPostCode() {
+		return this.postCode;
+	}
+
+	public void setPostCode(int postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getProvince() {
+		return this.province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getRemark() {
+		return this.remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public boolean getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getTel() {
+		return this.tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getUpdatePerson() {
+		return this.updatePerson;
+	}
+
+	public void setUpdatePerson(String updatePerson) {
+		this.updatePerson = updatePerson;
+	}
+
+	public Date getUpdateTime() {
+		return this.updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	public String getVersion() {
+		return this.version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+}
