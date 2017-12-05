@@ -41,11 +41,11 @@ $(function () {
     var articleBanner = '{{each articleBanner}}' +
             '{{if $index==0}}'+
         '<li style="z-index: 2">' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
-        '<div class="banner-info">' +
-        '<span class="banner-type">{{$value.name}}</span>' +
-        '<span class="banner-title">{{$value.title}}</span>' +
-        '</div>' +
+        '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
+        // '<div class="banner-info">' +
+        // '<span class="banner-type">{{$value.name}}</span>' +
+        // '<span class="banner-title">{{$value.title}}</span>' +
+        // '</div>' +
         '<div class="image-overlay"></div>'+
         '</a>' +
         '</li>' +
@@ -114,7 +114,8 @@ $(function () {
         "</li>" +
         '{{/each}}';
     //banner
-    RequestService("/bxs/article/getArticleBanner", "GET", null, function (data) {
+    // RequestService("/bxs/article/getArticleBanner", "GET", null, function (data) {
+    RequestService("/banner/getBannerList?type=3", "GET", null, function (data) {
         $(".slider").html(template.compile(articleBanner)({
             articleBanner: data.resultObject
         }));

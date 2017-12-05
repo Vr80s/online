@@ -240,7 +240,7 @@ var liveTrailerTemplate='{{each items}}' +' <li>\n' +
 
 /*轮播图*/
 $(function () {
-    RequestService("/banner/getBannerList", "GET", "", function (data) {
+    RequestService("/banner/getBannerList?type=2", "GET", "", function (data) {
         if (data.resultObject.length === 1) {
             $.each(data.resultObject, function (index, item) {
                 $("#left,#right").css("display", "none");

@@ -5,6 +5,8 @@ var searchJson = new Array();
 var courseArray=new Array();
 $(function() {
 	nowTime=show();
+	debugger
+    searchJson.push('{"tempMatchType":undefined,"propertyName":"search_type","propertyValue1":"'+$("#search_type").val()+'","tempType":undefined}');
     loadBanner2List();
 });
 
