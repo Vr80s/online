@@ -1515,18 +1515,17 @@ footer{
     margin: 0 auto;
     text-align: center;
     float: left;
-    height: 2.5rem;
+    height: 2rem;
 }
 .animation_gift img{
 	/*width: 2.35rem;*/
 	width: 2rem;
-    border-radius: 60px;
     float: left;
     text-align: center;
     display: block;
     margin: 0 auto;
-    /*margin-top: -0.2rem;*/    
-    margin-top: 0.2rem;    
+    margin-top: 0.1rem;    
+    /*margin-top: 0.2rem;*/    
 }
 
 .animation_gift1{
