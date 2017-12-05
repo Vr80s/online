@@ -44,12 +44,11 @@
 			display: none;
 		}
 		.person_p1{
-			width: 3.5rem;
+			width: 2.5rem;
 		    font-size: 0.6rem;
 		    color: #333;
 		    float: left;
 		    text-align: left;
-		    margin-right: 0.5rem;
 		}
 		.szd_cityP{
 			width: 4.9rem;
@@ -76,6 +75,13 @@
 		#szd_cityP{
 			font-size: 0.6rem;
     		color: #999;
+    		width: 11.8rem;
+		    /* overflow: hidden; */
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		    text-align: right;
+		    /*font-size: 0.65rem;*/
 		}
 		#sfxx{
 			font-size: 0.6rem;
@@ -345,26 +351,30 @@
         });
     };
 
-    /* 选择省市区插件    -- 初始化新增地址这个地方啦 */
-    function picker2() {
-        //var nowValue = document.getElementById('nowValue');
-        new Picker({
-            "title": '请选择',//标题(可选)
-            "defaultValue": "内蒙古自治区 呼和浩特市 赛罕区",//默认值-多个以空格分开（可选）
-            "type": 3,//需要联动级数[1、2、3]（可选）
-            "data": cityData,//数据(必传)
-            "keys": {
-                "id": "Code",
-                "value": "Name",
-                "childData": "level"//最多3级联动
-            },//数组内的键名称(必传，id、text、data)
-            "callBack": function (val) {
-                //回调函数（val为选择的值）
-				$("#cityP").html(val);
-				//checkUser1();
-            }
-        });
-    };
+   /* 选择省市区插件    -- 初始化新增地址这个地方啦 */
+function picker2() {
+    //var nowValue = document.getElementById('nowValue');
+    new Picker({
+        "title": '请选择',//标题(可选)
+        "defaultValue": "内蒙古自治区 呼和浩特市 赛罕区",//默认值-多个以空格分开（可选）
+        "type": 3,//需要联动级数[1、2、3]（可选）
+        "data": cityData,//数据(必传)
+        "keys": {
+            "id": "Code",
+            "value": "Name",
+            "childData": "level"//最多3级联动
+        },//数组内的键名称(必传，id、text、data)
+        "callBack": function (val) {
+            //回调函数（val为选择的值）
+			$("#cityP").html(val);
+			//checkUser1();
+        }
+    });
+};
+
+$("#address_save").click(function(){
+	$("#vanishs").hide();
+})
 
 </script>
 	
