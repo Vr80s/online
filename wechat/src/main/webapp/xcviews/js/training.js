@@ -51,7 +51,7 @@
             $("#buyPirce").html(result.currentPrice);
             $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名</div>");
 
-        }else if(result.watchState == 1){  //goto 付费页面
+        }else if(result.watchState == 1){  //付费
             $("#buyDiv").show();
             $("#buyPirce").html(result.currentPrice);
 
@@ -62,25 +62,7 @@
                 $(".training_teacher_bto").show();
                 $(".footer_buyDiv").show();
                 $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">报名已截止</div>");
-            }/*else{
-                $(".training_teacher_bto").show();
-                $(".footer_buyDiv").show();
-                $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名222</div>");
-            }*/
-            
-            
-			//获取电脑屏幕时间
-//              requestService("/bxg/common/getSystemTime",{course_id : 1},
-//                    function(data) {
-//                  var serverTime=data;
-//                  var endTime = Date.parse(new Date(result.endTime));
-//                 
-//              },false);
-            
-        }else if(result.watchState == 2){  //goto 付费页面
-            $("#buyDiv").show();
-            $("#buyPirce").html(result.currentPrice);
-            $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名</div>");
+            }
         }
         /**
          * 为详情页面添加数据
@@ -133,18 +115,13 @@
         	setTimeout(function(){$(".vanish1").hide();},1500);
             return false;
         }
-        
-        
-        
-
-
-           requestService("/bxg/apply/updateBaseInfo",{phone:$("#phone").val(),realName:$("#realName").val()},
-                   function(data) {
-             //显示基本报名信息
-                        if(data.success){
-                            goPay();
-                        }
-            },false);
+       requestService("/bxg/apply/updateBaseInfo",{phone:$("#phone").val(),realName:$("#realName").val()},
+               function(data) {
+         //显示基本报名信息
+                    if(data.success){
+                        goPay();
+                    }
+        },false);
         
 
         
