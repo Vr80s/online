@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -135,11 +136,7 @@ public class TimeUtil {
             return "00:00:" + (second >= 10 ? (second + "") : ("0" + second));  
         }  
     }  
-	
-	
-	public static void main(String[] args) {
-		System.out.println(formatTime(36000));
-	}
+
 	
 	
 	/**
@@ -385,4 +382,51 @@ public class TimeUtil {
 			isTrue = false;
 		return isTrue;
 	}
+	
+	
+	
+	public static void main(String[] args) {
+		
+		System.out.println(dateCompare(new Date(),Calendar.getInstance(),1));
+	
+	}
+	
+	/**
+	 * Description：参数时间与   当前时间 比较，也可以与当前时间的前x天或后x天比较。   
+	 * @param startDate
+	 * @param lastDate
+	 * @return
+	 * @return boolean  如果当前时间加上这个参数小于登录startDate 返回true
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static boolean dateCompare(Date startDate,Calendar calendar,Integer dayCount){
+		
+		String str = "";
+		int year = calendar.get(Calendar.YEAR);
+		str += year;
+		int mothod = calendar.get(Calendar.MONTH)+dayCount;
+		if(mothod<10){
+			str+="0"+mothod;
+		}else{
+			str+=mothod;
+		}
+		int day = calendar.get(Calendar.DATE)+1;			
+		if(day<10){
+			str+="0"+day;
+		}else{
+			str+=day;
+		}
+		
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		String str1 = f.format(startDate);
+		str1 = str1.replaceAll("-","");
+		
+		if(Integer.parseInt(str)<=Integer.parseInt(str1)){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
+	
 }

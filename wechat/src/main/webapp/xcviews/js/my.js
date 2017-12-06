@@ -29,15 +29,18 @@ function init(){
     //未支付
     requestService("/bxg/focus/myHome",  {userId : localStorage.userId}, function(data) {
         var result = data.resultObject;
-        $("#countFans").html(result.countFans);
-        $("#countFocus").html(result.countFocus);
-        $("#xmbCount").html(result.xmbCount);
-        //这一期暂时不显示房间号
-        $("#name").html(result.user.name);
-        $("#smallHeadPhoto").attr("src",result.user.smallHeadPhoto);
+        if(stringnull(result)){
+    	   $("#countFans").html(result.countFans);
+           $("#countFocus").html(result.countFocus);
+           $("#xmbCount").html(result.xmbCount);
+           //这一期暂时不显示房间号
+           $("#name").html(result.user.name);
+           if(stringnull(result.user)){
+        	   $("#smallHeadPhoto").attr("src",result.user.smallHeadPhoto);
+           }
+        }
     },false);
 }
-
 
 $(".my_bg_color").hide();
 $(".my_bg_cen").hide();
