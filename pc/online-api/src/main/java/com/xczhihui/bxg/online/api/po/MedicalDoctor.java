@@ -37,8 +37,6 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="detailed_address")
 	private String detailedAddress;
 
-	private String hospital;
-
 	private String name;
 
 	private String province;
@@ -133,14 +131,6 @@ public class MedicalDoctor implements Serializable {
 
 	public void setDetailedAddress(String detailedAddress) {
 		this.detailedAddress = detailedAddress;
-	}
-
-	public String getHospital() {
-		return this.hospital;
-	}
-
-	public void setHospital(String hospital) {
-		this.hospital = hospital;
 	}
 
 	public String getName() {

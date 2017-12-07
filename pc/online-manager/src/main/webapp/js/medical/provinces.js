@@ -3255,10 +3255,14 @@ $(function() {
         sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
       }
     });
-  $("#choosePro").after(sb.toString());
+  debugger
+  $("#province").append(sb.toString());
+  $("#edit_province").append(sb.toString());
+  // $("#choosePro").after(sb.toString());
   //$("#view_choosePro").after(sb.toString());
-  $("#edit_choosePro").after(sb.toString());
-  
+  $("#citys").append(sb.toString());
+  $("#edit_citys").append(sb.toString());
+
 }); 
 
 

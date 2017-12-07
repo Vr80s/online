@@ -18,8 +18,6 @@ public class MedicalHospital implements Serializable {
 	@Id
 	private String id;
 
-	private String accountid;
-
 	private String city;
 
 	@Column(name="create_person")
@@ -29,7 +27,7 @@ public class MedicalHospital implements Serializable {
 	@Column(name="create_time")
 	private Date createTime;
 
-	private boolean deleted;
+	private Boolean deleted;
 
 	private String description;
 
@@ -43,13 +41,24 @@ public class MedicalHospital implements Serializable {
 	private String name;
 
 	@Column(name="post_code")
-	private int postCode;
+	private Integer postCode;
 
 	private String province;
 
 	private String remark;
 
-	private boolean status;
+	private Boolean status;
+
+	public Integer getStatusnum() {
+		return statusnum;
+	}
+
+	public void setStatusnum(Integer statusnum) {
+		this.statusnum = statusnum;
+	}
+
+	@Transient
+	private Integer statusnum;
 
 	private String tel;
 
@@ -71,14 +80,6 @@ public class MedicalHospital implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getAccountid() {
-		return this.accountid;
-	}
-
-	public void setAccountid(String accountid) {
-		this.accountid = accountid;
 	}
 
 	public String getCity() {
@@ -105,11 +106,11 @@ public class MedicalHospital implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public boolean getDeleted() {
+	public Boolean getDeleted() {
 		return this.deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
 
@@ -153,11 +154,11 @@ public class MedicalHospital implements Serializable {
 		this.name = name;
 	}
 
-	public int getPostCode() {
+	public Integer getPostCode() {
 		return this.postCode;
 	}
 
-	public void setPostCode(int postCode) {
+	public void setPostCode(Integer postCode) {
 		this.postCode = postCode;
 	}
 
@@ -177,11 +178,11 @@ public class MedicalHospital implements Serializable {
 		this.remark = remark;
 	}
 
-	public boolean getStatus() {
+	public Boolean getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
