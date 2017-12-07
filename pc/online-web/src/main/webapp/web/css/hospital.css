@@ -331,6 +331,7 @@ padding:0 20px;
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf{
 	padding:10px;
 	font-size:14px;
+	width:260px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_address{
 	margin:10px 0 14px 0;
