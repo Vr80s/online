@@ -180,7 +180,6 @@ input,button{
   background-color: #2cb82c;
   border: none;
 }
-
 #forum .forum-banner .hot-article {
   float: right;
   width: 320px;
@@ -227,12 +226,18 @@ input,button{
     font-size: 14px;
     font-weight: 700;
 }
+#forum .forum-banner .hot-article .hot-article-list .live_list .teacher_info > h4 > span{
+	padding-left:10px;
+	font-size: 14px;
+	color: #151515;
+	font-weight:400;
+}
 #forum .forum-banner .hot-article .hot-article-list .live_list .live_btn{
 	float:right;
 	margin-top:15px;
 }
 #forum .forum-banner .hot-article .hot-article-list .live_list .live_btn > button{
-	width: 66px;
+	width: 92px;
     height: 36px;
     float: right;
     background: #00BC12;
@@ -240,6 +245,9 @@ input,button{
     border: none;
     color: #fff;
     font-size: 14px;
+}
+#forum .forum-banner .hot-article .hot-article-list .live_list .live_btn .not_sign{
+	  background: #FF4012;
 }
 /*#forum .forum-banner .hot-article .hot-article-list li {
   margin-top: 18px;
@@ -291,6 +299,67 @@ input,button{
   width: 860px;
   float: left;
   background-color: #f8f8f8;
+}
+#forum .forum-content .forum-content-left .studentStep{
+	background-color: #fff;
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list >li{
+	padding:20px;
+	padding-right:0px;
+	border-bottom:1px solid #F0F0F0;
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list >li:last-child{
+	border-bottom:none;
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .teacher_pic{
+	display:inline-block;
+	width:100px;
+	height:100px;
+	border-radius:50%;
+	margin-right:20px;
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .study_step{
+	display:inline-block;
+	width:104px;
+	height:36px;
+	line-height:36px;
+	color:#fff;
+	padding-left:10px;
+	background-image:url(../images/step_bg.png)
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .student_num,
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .sign_num,
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .student_pic{
+	float:right;
+	margin-right:20px;
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .student_pic span{
+	display:inline-block;
+	width:60px;
+	height:60px;
+	background-image:url(../images/teacher_small_pic.png);
+	margin-left: 20px;
+    float: left;
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .student_num,
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .sign_num{
+	width:100px;
+	height:100px;
+	background: #F0F0F0;
+	border-radius: 4px;
+	text-align: center;
+    padding-top: 20px;
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .student_num h3,
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .sign_num h3{
+margin:0;
+font-size:40px;	
+}
+#forum .forum-content .forum-content-left .studentStep .studentStep_list .student_pic{
+	width:336px;
+	height:100px;
+	background: #F0F0F0;
+	padding-top:20px;
 }
 #forum .forum-content .forum-content-left .forum-content-tag {
   padding: 22px 30px 17px 0;
