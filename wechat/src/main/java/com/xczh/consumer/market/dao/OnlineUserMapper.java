@@ -544,7 +544,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 * @throws SQLException
 	 */
 	public Map<String, Object> getAppTouristRecord(String appOnlyOne) throws SQLException {
-		String sql = " select vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass from apple_tourist_record where app_only_one = ?";
+		String sql = " select user_id as userId,is_reigs as isRegis,vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass from apple_tourist_record where app_only_one = ?";
 		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
 				sql, new MapHandler(), appOnlyOne);
 		return map;
@@ -557,10 +557,10 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 *         email: 15936216273@163.com
 	 * @throws SQLException
 	 */
-	public void saveAppTouristRecord(Map<String,Object> map,String appOnlyOne) throws SQLException {
+	public void saveAppTouristRecord(OnlineUser ou,String appOnlyOne) throws SQLException {
 		String sql = " insert into apple_tourist_record(app_only_one,user_id,vhall_id,vhall_name,vhall_pass) values(?,?,?,?,?) ";
 		super.update(JdbcUtil.getCurrentConnection(), sql,
-				appOnlyOne,null,map.get("vhallId"),map.get("vhallName"),map.get("vhallPass"));
+				appOnlyOne,ou.getId(),ou.getVhallId(),ou.getVhallName(),ou.getVhallPass());
 	}
 
 	public void updateOnlineUserAddPwdAndUserName(OnlineUser u) throws SQLException {
@@ -628,8 +628,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
 	}
-	
-	
 	/**
 	 * 根据id查询用户
 	 * @param id
@@ -638,10 +636,19 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 */
 	public OnlineUser findUserByIdAndVhallNameInfo(String id) throws SQLException {
 		StringBuffer sql = new StringBuffer(); 
-		sql.append(" select id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName,login_name as loginName");
+		sql.append(" select id as id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(OnlineUser.class), params);
+	}
+
+	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		StringBuilder sb = new StringBuilder("");
+		sb.append("update apple_tourist_record set is_reigs = ? where app_only_one = ?");
+		Object[] params = {isReigs,appUniqueId};
+		this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
 	}
 	
 }

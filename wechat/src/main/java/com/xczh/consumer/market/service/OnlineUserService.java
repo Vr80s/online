@@ -178,7 +178,7 @@ public interface OnlineUserService {
 	 *         email: 15936216273@163.com
 	 * @throws SQLException
 	 */
-	void saveAppTouristRecord(Map<String,Object> map, String appOnlyOne)
+	void saveAppTouristRecord(OnlineUser ou, String appOnlyOne)
 			throws SQLException;
 	/**
 	 * Description：iphone手机注册使用
@@ -196,4 +196,22 @@ public interface OnlineUserService {
 	void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception;
 	
 	public OnlineUser findUserByIdAndVhallNameInfo(String string)throws SQLException;
+	/**
+	 * Description：添加游客默认的信息
+	 * @param appUniqueId
+	 * @return
+	 * @throws Exception
+	 * @return OnlineUser
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public OnlineUser addYkUser(String appUniqueId) throws Exception;
+	/**
+	 * 
+	 * Description：apple退出登录  标识
+	 * @param appUniqueId
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs)throws SQLException;
 }

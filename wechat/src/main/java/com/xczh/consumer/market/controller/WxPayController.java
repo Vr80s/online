@@ -50,6 +50,7 @@ import com.xczh.consumer.market.service.WxcpOrderPayService;
 import com.xczh.consumer.market.service.WxcpPayFlowService;
 import com.xczh.consumer.market.service.WxcpWxRedpackService;
 import com.xczh.consumer.market.service.WxcpWxTransService;
+import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.GenerateSequenceUtil;
@@ -135,6 +136,10 @@ public class WxPayController {
 	private UserCenterAPI userCenterAPI;
 	@Autowired
 	private OnlineUserMapper onlineUserMapper;
+	
+	@Autowired
+	private iphoneIpaService iIpaService;
+	
 	/**
 	 * 订单支付
 	 * 
@@ -304,7 +309,6 @@ public class WxPayController {
 			}else{
 				key = WxPayConst.gzh_ApiKey;
 			}
-			
 			if (MD5SignUtil.VerifySignature(map, map.get(key_sign),key)) {
 				
 				System.out.println("回调后签名对比是否成功");
@@ -395,6 +399,80 @@ public class WxPayController {
 		return null;
 	}
 
+	/**
+	 * 
+	 */
+	@RequestMapping("appleIapPayOrder")
+	@ResponseBody
+	@Transactional
+	public ResponseObject appleInternalPurchaseOrder(HttpServletRequest req,
+			HttpServletResponse res, Map<String, String> params)
+			throws Exception {
+		
+		try {
+			System.out.println("======================================");
+			/*
+			 * 传递过来一个订单号
+			 */
+			String order_no = req.getParameter("order_no");
+			//String courderName = req.getParameter("courderName");
+			System.out.println("======================================"+order_no);
+			/**
+			 * 然后你那边加下密
+			 */
+			//得到更多的参数。然后
+			String transaction_id = CodeUtil.getRandomUUID();
+			
+			String s = "out_trade_no=" + order_no + "&result_code=SUCCESS"
+					+ "&transaction_id="+transaction_id+"&key=" + onlinekey;
+			
+			String mysign = CodeUtil.MD5Encode(s).toLowerCase();
+			String resXml = "<xml>" + "<out_trade_no><![CDATA[" + order_no
+					+ "]]></out_trade_no>"
+					+ "<result_code><![CDATA[SUCCESS]]></result_code>"
+					+ "<transaction_id>"+transaction_id+"<![CDATA[]]></transaction_id>"
+					+ "<sign><![CDATA[" + mysign
+					+ "]]></sign>" + " </xml> ";
+			
+			System.out.println("请求web端的  ios   内购成功回调  pay_notify_iosiap");
+			String msg = HttpUtil.sendDataRequest(
+					pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml
+							.toString().getBytes());
+			
+			System.out.println("msg  >>>  " + msg);
+			Gson g = new GsonBuilder().create();
+			Map<String, Object> mp = g.fromJson(msg, Map.class);
+			boolean falg =  Boolean.valueOf(mp.get("success").toString());
+	        if(falg){
+	        	/**
+	    		 * 获取订单详情
+	    		 */
+	    		ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
+	    		if(null == orderDetails.getResultObject()){
+	    			return ResponseObject.newErrorResponseObject("未找到订单信息");
+	    		}
+	    		OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
+	    		Double actualPrice = order.getActualPay();//订单金额
+	    		String courderName ="";
+	    		if(order.getAllCourse().size()>0){
+	    			courderName =order.getAllCourse().get(0).getGradeName();
+	    		}
+	    		double  xmb = actualPrice * rate;
+	    		/**
+	    		 * 记录下ios支付成功后的记录
+	    		 */
+	    		ResponseObject finalResult = iIpaService.iapOrder(order.getUserId(), xmb, order_no, actualPrice+"",courderName);
+	    		return finalResult;
+	        }else{
+	        	return ResponseObject.newErrorResponseObject("签名有误");
+	        }
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("服务器有误");
+		}
+	}
+	
 	/**
 	 * 调用在线接口
 	 * 

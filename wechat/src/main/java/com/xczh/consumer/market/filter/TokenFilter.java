@@ -64,7 +64,21 @@ public class TokenFilter implements Filter {
 	private  static String str8 = "/bxg/bunch/offLineClassItem,/bxg/live/getMoneySum,/bxg/common/userIsSubscribe,/bxg/bunch/detail";
 	private static String str9 = "/bxg/video/getVideos,/bxg/wxjs/h5JSSDK,/bxg/common/getWeihouSign";
 	private  static String str10 = "/bxg/common/judgeUserIsTeacher,bxg/gift/userRankingList,/bxg/common/userHomePage,/bxg/common/userHomePageCourseList";
-	private static String str11 = "/bxg/history/list,/bxg/history/add,/bxg/history/empty,/bxg/live/getPreLiveCount,/bxg/focus/myHome";
+	private static String str11 = "/bxg/history/list,/bxg/history/add,/bxg/history/empty,/bxg/live/getPreLiveCount,/bxg/focus/myHome,/bxg/user/appleLogout";
+	/**
+	 * 订单接口、学习中心接口不拦截
+	 */
+	private static String str12 = "/bxg/order/save,/bxg/order/list,/bxg/order/getByOrderNo,/bxg/order/update,/bxg/order/saveRegenerate,/bxg/learningCenter/list";
+	
+	/**
+	 * 充值、消费接口不拦截
+	 */
+	private static String str13 = "/bxg/order/consumptionList,/bxg/oa/userCoinList,/bxg/enchash/getEnchashmentRmbBalance,/bxg/enchash/getEnchashmentBalance,/bxg/iap/setIapCertificate";
+	
+	/**
+	 * 额外要增加的接口
+	 */
+	private static String str14 =  "/bxg/bs/isLecturer,/bxg/wxpay/appleIapPayOrder";
 	
 	public static void main(String[] args) {
 		System.out.println((str + "," +str1+","+str2+","+str3).split(",").length);
@@ -80,7 +94,7 @@ public class TokenFilter implements Filter {
 		// TODO Auto-generated method stub
 		
 		String excludedPageStr = str + "," +str1+","+str2+","+str3+","+str4;
-		String appExcludedPageStr = str4+","+str5+","+","+str7+","+str8+","+str9+","+str10+","+str11;
+		String appExcludedPageStr = str4+","+str5+","+","+str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14;
 		
 		if (StringUtils.isNotEmpty(excludedPageStr)) {   
 		    excludedPageArray = excludedPageStr.split(",");
@@ -101,6 +115,9 @@ public class TokenFilter implements Filter {
 
 		boolean isExcludedPage = false;   
 		String currentURL = request.getRequestURI(); // 取得根目录所对应的绝对路径:
+		
+		System.out.println("currentURL:"+currentURL);
+		
 		if(Arrays.asList(excludedPageArray).contains(currentURL)){
 			     isExcludedPage = true;     
 		}
@@ -118,8 +135,8 @@ public class TokenFilter implements Filter {
 			 * 如果是app的话也需要拦截，因为拦截需要验证下时候是否在其他客户端登录
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
-			
-			System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
+			appUniqueId = request.getParameter("appUniqueId");
+			//System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
 		    if(null == appUniqueId){ //说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
@@ -169,6 +186,8 @@ public class TokenFilter implements Filter {
 			    		 PrintWriter out = response.getWriter();//获取PrintWriter输出流
 			    		 out.println(mapApp);
 			    	}
+				}else{
+					chain.doFilter(request, response);
 				}
 		    }
 		}
