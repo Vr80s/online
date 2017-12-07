@@ -116,8 +116,6 @@ public class TokenFilter implements Filter {
 		boolean isExcludedPage = false;   
 		String currentURL = request.getRequestURI(); // 取得根目录所对应的绝对路径:
 		
-		System.out.println("currentURL:"+currentURL);
-		
 		if(Arrays.asList(excludedPageArray).contains(currentURL)){
 			     isExcludedPage = true;     
 		}
@@ -137,8 +135,6 @@ public class TokenFilter implements Filter {
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
 			appUniqueId = request.getParameter("appUniqueId");
 			System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
-
-			
 			if(null == appUniqueId){ //说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
@@ -177,6 +173,7 @@ public class TokenFilter implements Filter {
 	    			}
 		    	}  
 		    }else{ 
+		    	
 		    	if(!Arrays.asList(appExcludedPageArray).contains(currentURL)){
 		    		String strToken = (String) request.getAttribute("token");
 		 		    strToken = request.getParameter("token");
