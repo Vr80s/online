@@ -32,7 +32,7 @@ public class Banner2Dao extends SimpleHibernateDao {
 											   "	oe_banner2 ob " +
 											   " left JOIN user ou ON ( " +
 											   " 	ob.create_person = ou.login_name " +
-											   " ) where ob.is_delete = 0 ");
+											   " ) where ob.is_delete = 0");
 		   
 		   if(banner2Vo.getStatus() != null)
 		   {
@@ -44,6 +44,12 @@ public class Banner2Dao extends SimpleHibernateDao {
 		   {
 			   sql.append(" and ob.description like :description");
 			   paramMap.put("description", "%"+banner2Vo.getDescription()+"%");
+		   }
+
+		   if(banner2Vo.getType() != null)
+		   {
+			   sql.append(" and ob.type = :type");
+			   paramMap.put("type", banner2Vo.getType());
 		   }
 		   
 		   sql.append(" order by  ob. status desc,ob.sort asc ,ob.create_time desc");

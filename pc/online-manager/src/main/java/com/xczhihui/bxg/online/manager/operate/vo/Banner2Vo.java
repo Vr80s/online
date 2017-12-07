@@ -17,7 +17,16 @@ public class Banner2Vo extends OnlineBaseVo  {
     private java.util.Date endTime;
     private Integer clickCount;
     private String createPersonName;
-    
+    private Integer type;
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
 	public String getId() {
 		return id;
 	}

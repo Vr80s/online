@@ -16,7 +16,7 @@ public interface BannerService {
          * @param pageSize 每页显示多少行，默认20
          * @return  分页列表数据
          */
-        public List<BannerVo> list(Integer pageNumber,Integer pageSize);
+        public List<BannerVo> list(Integer pageNumber,Integer pageSize,Integer type);
 
         public void updateClickCount(Integer id);
 

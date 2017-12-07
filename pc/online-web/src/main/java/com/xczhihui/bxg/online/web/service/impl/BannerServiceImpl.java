@@ -23,11 +23,12 @@ public class BannerServiceImpl extends OnlineBaseServiceImpl implements BannerSe
      * @return page.getItems()
      */
     @Override
-    public List<BannerVo> list(Integer pageNumber, Integer pageSize){
+    public List<BannerVo> list(Integer pageNumber, Integer pageSize,Integer type){
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and status=1 order by sort ", paramMap, pageNumber, pageSize);
+        paramMap.put("type",type);
+        Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
         return page.getItems();
     }
 

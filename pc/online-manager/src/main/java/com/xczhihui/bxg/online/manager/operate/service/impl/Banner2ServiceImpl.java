@@ -43,6 +43,8 @@ public class Banner2ServiceImpl extends OnlineBaseServiceImpl implements Banner2
 		//banner.setStartTime();//启用时间为空
 		//banner.setEndTime();//禁用时间为空
 		banner.setClickCount(0);//点击次数为0
+
+		banner.setType(banner2Vo.getType());
 		dao.save(banner);
 	}
 

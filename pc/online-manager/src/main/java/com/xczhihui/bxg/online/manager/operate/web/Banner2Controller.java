@@ -52,6 +52,7 @@ public class Banner2Controller{
          Groups groups = Tools.filterGroup(params);
          Group statusGroup = groups.findByName("status");
          Group descriptionGroup = groups.findByName("description");
+         Group typeGroup = groups.findByName("search_type");
 
          Banner2Vo searchVo=new Banner2Vo();
          if(statusGroup!=null){
@@ -60,6 +61,10 @@ public class Banner2Controller{
          
          if(descriptionGroup!=null){
         	 searchVo.setDescription(descriptionGroup.getPropertyValue1().toString());
+         }
+
+         if(typeGroup!=null){
+        	 searchVo.setType(Integer.valueOf(typeGroup.getPropertyValue1().toString()));
          }
          
          Page<Banner2Vo> page = banner2Service.findBanner2Page(searchVo, currentPage, pageSize);
@@ -179,4 +184,5 @@ public class Banner2Controller{
          responseObj.setSuccess(true);
          return responseObj;
     }
+
 }
