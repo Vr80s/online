@@ -861,6 +861,7 @@ public class BrowserUserController {
 		
 		String appUniqueId = req.getParameter("appUniqueId");
 		String token = req.getParameter("token");
+		String type = req.getParameter("type");
 		/**
 		 * 如果存在这个token。那么说明这个token可以的啦。就不用用appUniqueId来判断了
 		 * 直接中缓存中得到这个token。如果这个token没有或者失效了。那么就中数据库中取下。
@@ -887,7 +888,7 @@ public class BrowserUserController {
 			 * 2、当登录的时候，在增加这个标识符为0:  
 			 */
 			Boolean regis =  (Boolean) map.get("isRegis");
-			if(!regis){ //返回用户基本信息   --主要是不返回loginName
+			if(!regis|| type.equals("1")){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
 			}else{ //返回用户信息 -- 包括loginName
 				ou = onlineUserService.findUserById(map.get("userId").toString());
