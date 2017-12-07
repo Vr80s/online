@@ -208,7 +208,7 @@ public class BunchPlanController {
 			/*
 			 * 我感觉这里的发挥下后台的作用了
 			 */
-			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),1);
+			boolean falg = TimeUtil.dateCompare(courseLecturVo.getStartTime(),Calendar.getInstance(),-1);
 			if(falg){
 				courseLecturVo.setCutoff(0);
 			}else{
@@ -245,7 +245,7 @@ public class BunchPlanController {
 		CourseLecturVo courseLecturVo=wxcpCourseService.offLineClassItem(id,userId);
 		
 		if(courseLecturVo!=null){
-			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),1);
+			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),-1);
 			if(falg){
 				courseLecturVo.setCutoff(0);
 			}else{

@@ -393,40 +393,39 @@ public class TimeUtil {
 	
 	/**
 	 * Description：参数时间与   当前时间 比较，也可以与当前时间的前x天或后x天比较。   
-	 * @param startDate
-	 * @param lastDate
+	 * @param startDate  传入的变量时间
+	 * @param lastDate   当前时间
 	 * @return
-	 * @return boolean  如果当前时间加上这个参数小于登录startDate 返回true
+	 * @return boolean  
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public static boolean dateCompare(Date startDate,Calendar calendar,Integer dayCount){
 		
-		String str = "";
+		String strFrist = "";
 		int year = calendar.get(Calendar.YEAR);
-		str += year;
-		int mothod = calendar.get(Calendar.MONTH)+dayCount;
+		strFrist += year;
+		int mothod = calendar.get(Calendar.MONTH)+1;
 		if(mothod<10){
-			str+="0"+mothod;
+			strFrist+="0"+mothod;
 		}else{
-			str+=mothod;
+			strFrist+=mothod;
 		}
-		int day = calendar.get(Calendar.DATE)+1;			
+		int day = calendar.get(Calendar.DATE)+dayCount;			
 		if(day<10){
-			str+="0"+day;
+			strFrist+="0"+day;
 		}else{
-			str+=day;
+			strFrist+=day;
 		}
-		
+		//    9-1  10   如果10《9-1 那么可以报名
 		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-		String str1 = f.format(startDate);
-		str1 = str1.replaceAll("-","");
+		String second = f.format(startDate);
+		second = second.replaceAll("-","");
 		
-		if(Integer.parseInt(str)<=Integer.parseInt(str1)){
+		if(Integer.parseInt(strFrist)>=Integer.parseInt(second)){
 			return true;
 		}else{
 			return false;
 		}
-		
 	}
 	
 }
