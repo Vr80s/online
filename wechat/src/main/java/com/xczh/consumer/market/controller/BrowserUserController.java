@@ -932,7 +932,7 @@ public class BrowserUserController {
 		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
 			
 			//设置登录标识
-			onlineUserService.updateAppleTourisrecord(appUniqueId,0);
+			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());

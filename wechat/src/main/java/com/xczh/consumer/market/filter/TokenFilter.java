@@ -32,7 +32,6 @@ public class TokenFilter implements Filter {
 	private static String str ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login,/bxg/page/login/1"
 			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/page/login/1,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
 			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/wxjs/h5JSSDK,/bxg/page/verifyLoginStatus";
-	
 	/*
 	 * 登录前不拦截的页面，因为可能来自分享。
 	 */
@@ -50,20 +49,20 @@ public class TokenFilter implements Filter {
 	 * 支付的回调不应该拦截的地方 
 	 */
 	private static String str3 = "/bxg/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/bxg/alipay/pay,/bxg/alipay/rewardPay,/bxg/alipay/payXianXia,/bxg/alipay/rechargePay";
-	
-	
 	/*
 	 * 因为这些接口和h5无关
 	 * 新版为了播放开放的接口
 	 */
 	private static String str4 = "/bxg/common/h5ShareAfter,/bxg/version/checkUpdate,/bxg/live/addLive,"
-			+ "/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo,/bxg/message/add";
+			+ "/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo,/bxg/message/add,"
+			+ "/bxg/apply/updateBaseInfo";
+	
 	private static String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain,/bxg/bs/appLogin";
-	private static String str7 = "/bxg/live/liveDetails,/bxg/reward/list,/bxg/gift/list,/bxg/gift/rankingList";
+	private static String str7 = "/bxg/live/liveDetails,/bxg/reward/list,/bxg/gift/sendGift,/bxg/gift/list,/bxg/gift/rankingList";
 	private  static String str8 = "/bxg/bunch/offLineClassItem,/bxg/live/getMoneySum,/bxg/common/userIsSubscribe,/bxg/bunch/detail";
 	private static String str9 = "/bxg/video/getVideos,/bxg/wxjs/h5JSSDK,/bxg/common/getWeihouSign";
-	private  static String str10 = "/bxg/common/judgeUserIsTeacher,bxg/gift/userRankingList,/bxg/common/userHomePage,/bxg/common/userHomePageCourseList";
+	private  static String str10 = "/bxg/common/judgeUserIsTeacher,/bxg/gift/userRankingList,/bxg/common/userHomePage,/bxg/common/userHomePageCourseList";
 	private static String str11 = "/bxg/history/list,/bxg/history/add,/bxg/history/empty,/bxg/live/getPreLiveCount,/bxg/focus/myHome,/bxg/user/appleLogout";
 	/**
 	 * 订单接口、学习中心接口不拦截
@@ -78,7 +77,8 @@ public class TokenFilter implements Filter {
 	/**
 	 * 额外要增加的接口
 	 */
-	private static String str14 =  "/bxg/bs/isLecturer,/bxg/wxpay/appleIapPayOrder";
+	private static String str14 =  "/bxg/bs/isLecturer,/bxg/wxpay/appleIapPayOrder,/bxg/common/coursePwdConfirm,/bxg/bs/applePhoneRegist";
+	
 	
 	public static void main(String[] args) {
 		System.out.println((str + "," +str1+","+str2+","+str3).split(",").length);
@@ -136,8 +136,10 @@ public class TokenFilter implements Filter {
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
 			appUniqueId = request.getParameter("appUniqueId");
-			//System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
-		    if(null == appUniqueId){ //说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
+			System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
+
+			
+			if(null == appUniqueId){ //说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
 		    		/*

@@ -1,5 +1,11 @@
 package com.xczh.consumer.market.service.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.dao.IphoneIpaMapper;
 import com.xczh.consumer.market.service.iphoneIpaService;
@@ -9,12 +15,6 @@ import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @author liutao
