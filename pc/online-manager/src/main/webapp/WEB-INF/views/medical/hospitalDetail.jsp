@@ -98,6 +98,7 @@
 }
 .span4 { background-color: #EEEEEE; }
 .span8 { background-color: #EEEEEE; }
+.remove { display: none !important;}
 </style>
 <script type="text/javascript">
 	try {
@@ -162,15 +163,12 @@
 								</label>
 						</div>
 						<div class="col-xs-8" style="text-align: left">
-							<!-- <button class="btn btn-sm btn-success" id="testSaveBtn">
-								预览
-							</button> -->
 							<button class="btn btn-sm btn-success" id="desSaveBtn">
 								保存
 							</button>
-							<!-- <button class="btn btn-sm btn-success" id="returnbutton2">
+							<button class="btn btn-sm btn-success" id="returnbutton2">
 								返回
-							</button> -->
+							</button>
 						</div>
 					</div>
 			</div>
@@ -181,7 +179,7 @@
 		<!-- 增加form -->
 		<div id="detailDiv">
 			<form class="form-horizontal" id="courseDetailForm" method="post" action="">
-				<input type="hidden" name="courseId" id="courseId" value="${param.courseId}">
+				<input type="hidden" name="medicalHospitalId" id="courseId" value="${param.courseId}">
 				<input type="hidden" name="weburl" id="weburl" value="${weburl}">
 				<input type="hidden" name="page" id="page" value="${param.page}">
 				<div class="form-group" style="margin-top:18px;">
@@ -190,21 +188,33 @@
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file" class="uploadImg"/>
 						</div>
-						<input name="smallImgPath" id="edit_smallImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture1" id="edit_smallImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 					<!-- 设置多个展示图暂时关闭 -->
-					<!-- <div class="col-sm-3" style="width: 285px; height: 140px;">
+					<div class="col-sm-3" style="width: 285px; height: 140px;">
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file1" class="uploadImg"/>
 						</div>
-						<input name="smallImgPath1" id="edit_smallImgPath1" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture2" id="edit_smallImgPath1" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 					<div class="col-sm-3" style="width: 285px; height: 140px;">
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file2" class="uploadImg"/>
 						</div>
-						<input name="smallImgPath2" id="edit_smallImgPath2" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-					</div> -->
+						<input name="picture3" id="edit_smallImgPath2" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+					</div>
+					<div class="col-sm-3" style="width: 285px; height: 140px;">
+						<div class="clearfix">
+							<input type="file" name="smallImgPath_file" id="smallImgPath_file3" class="uploadImg"/>
+						</div>
+						<input name="picture4" id="edit_smallImgPath3" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+					</div>
+					<div class="col-sm-3" style="width: 285px; height: 140px;">
+						<div class="clearfix">
+							<input type="file" name="smallImgPath_file" id="smallImgPath_file4" class="uploadImg"/>
+						</div>
+						<input name="picture5" id="edit_smallImgPath4" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+					</div>
 				</div>
 
 
@@ -219,9 +229,9 @@
 				<i class="glyphicon glyphicon-ok"></i> 确定
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<!-- <button class="btn btn-sm btn-success qx_bx" id="cancelbt">
-				<i class="glyphicon glyphicon-remove"></i> 取消
-			</button> -->
+			<button class="btn btn-sm btn-success qx_bx" id="cancelbt">
+				<i class="glyphicon glyphicon-remove"></i> 返回
+			</button>
 		</div>
 	</div>
   </div>

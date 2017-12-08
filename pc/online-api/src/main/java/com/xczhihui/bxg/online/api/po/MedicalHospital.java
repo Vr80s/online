@@ -59,6 +59,8 @@ public class MedicalHospital implements Serializable {
 
 	@Transient
 	private Integer statusnum;
+	@Transient
+	private boolean hasPicture;
 
 	private String tel;
 
@@ -72,6 +74,14 @@ public class MedicalHospital implements Serializable {
 	private String version;
 
 	public MedicalHospital() {
+	}
+
+	public boolean isHasPicture() {
+		return hasPicture;
+	}
+
+	public void setHasPicture(boolean hasPicture) {
+		this.hasPicture = hasPicture;
 	}
 
 	public String getId() {

@@ -234,20 +234,12 @@ public class HospitalController extends AbstractController{
     
     /**
      * 添加课程详情
-     * @param MedicalHospitalId
-     * @param smallImgPath
-     * @param MedicalHospitalDetail
-     * @param MedicalHospitalOutline
-     * @param commonProblem
      * @return
      */
 	@RequestMapping(value = "updateMedicalHospitalDetail", method = RequestMethod.POST)
 	@ResponseBody
-	 public ResponseObject updateMedicalHospitalDetail(String MedicalHospitalId, String smallImgPath,String smallImgPath1,String smallImgPath2, String MedicalHospitalDetail,
-				String MedicalHospitalOutline, String commonProblem){
-		if(smallImgPath1!=null)smallImgPath += "dxg"+smallImgPath1;
-		if(smallImgPath2!=null)smallImgPath += "dxg"+smallImgPath2;
-		hospitalService.updateMedicalHospitalDetail(MedicalHospitalId, smallImgPath, null, MedicalHospitalDetail, MedicalHospitalOutline, commonProblem);
+	 public ResponseObject updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5){
+		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 

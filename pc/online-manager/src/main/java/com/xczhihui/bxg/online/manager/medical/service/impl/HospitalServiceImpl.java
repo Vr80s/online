@@ -52,6 +52,9 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 	public void addMedicalHospital(MedicalHospital medicalHospital) {
 		String id = UUID.randomUUID().toString().replace("-","");
 		medicalHospital.setId(id);
+		medicalHospital.setCreateTime(new Date());
+		medicalHospital.setDeleted(false);
+		medicalHospital.setStatus(false);
 		dao.save(medicalHospital);
 	}
 
@@ -110,32 +113,45 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 
 
 	@Override
-	public void updateMedicalHospitalDetail(String MedicalHospitalId, String smallImgPath, String detailImgPath, String MedicalHospitalDetail,
-			String MedicalHospitalOutline, String commonProblem) {
-		MedicalHospital c = hospitalDao.findOneEntitiyByProperty(MedicalHospital.class, "id", Integer.valueOf(MedicalHospitalId));
-//		c.setSmallImgPath(smallImgPath);
-//		c.setBigImgPath(smallImgPath);
-//		c.setDetailImgPath(detailImgPath);
-//		c.setMedicalHospitalDetail(MedicalHospitalDetail);
-//		c.setMedicalHospitalOutline(MedicalHospitalOutline);
-//		c.setCommonProblem(commonProblem);
-		hospitalDao.update(c);
+	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5 ) {
+		List<MedicalHospitalPicture> mhps = dao.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", medicalHospitalId);
+		for (int i = 0; i < mhps.size(); i++) {
+			dao.delete(mhps.get(i));
+		}
+		savePicture(medicalHospitalId,picture1,"1");
+		savePicture(medicalHospitalId,picture2,"2");
+		savePicture(medicalHospitalId,picture3,"3");
+		savePicture(medicalHospitalId,picture4,"4");
+		savePicture(medicalHospitalId,picture5,"5");
 	}
+
+	public void savePicture(String medicalHospitalId,String picture,String version){
+		MedicalHospitalPicture mhp = new MedicalHospitalPicture();
+		String id = UUID.randomUUID().toString().replace("-","");
+		mhp.setId(id);
+		mhp.setHospitalId(medicalHospitalId);
+		mhp.setPicture(picture);
+		mhp.setVersion(version);
+		mhp.setCreateTime(new Date());
+		dao.save(mhp);
+	}
+
 
 
 	@Override
 	public Map<String, Object> getMedicalHospitalDetail(String medicalHospitalId) {
 		MedicalHospital mh = hospitalDao.findOneEntitiyByProperty(MedicalHospital.class, "id", medicalHospitalId);
 
-		List<MedicalHospitalPicture> c = dao.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", medicalHospitalId);
-		if (c != null) {
+		String sql="select * from medical_hospital_picture where hospital_id = '"+medicalHospitalId+"' order by version";
+
+		List<MedicalHospitalPicture> voList=dao.findEntitiesByJdbc(MedicalHospitalPicture.class, sql, null);
+
+//		List<MedicalHospitalPicture> c = dao.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", medicalHospitalId);
 			Map<String, Object> retn = new HashMap<String, Object>();
 			retn.put("hospital", mh);
-			retn.put("picture", c);
+			retn.put("picture", voList);
 			/*2017-08-14---yuruixin*/
 			return retn;
-		}
-		return null;
 	}
 
 	public List<MedicalHospital> findByName(String name){
