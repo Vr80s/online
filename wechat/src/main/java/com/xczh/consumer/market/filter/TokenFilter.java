@@ -83,7 +83,8 @@ public class TokenFilter implements Filter {
 	public static void main(String[] args) {
 		System.out.println((str + "," +str1+","+str2+","+str3).split(",").length);
 
-		System.out.println((str4+","+str5+","+","+str7+","+str8+","+str9+","+str10+","+str11).split(",").length);}
+		System.out.println((str4+","+str5+","+","+str7+","+str8+","+str9+","+str10+","+str11).split(",").length);
+	}
 	
 	private String[] excludedPageArray; 
 	
@@ -134,7 +135,7 @@ public class TokenFilter implements Filter {
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
 			appUniqueId = request.getParameter("appUniqueId");
-			System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
+			//System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
 			if(null == appUniqueId){ //说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
