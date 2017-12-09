@@ -196,14 +196,15 @@
             var result = data.resultObject;
             var html="";
         
-           	var myDate = new Date();
+          /*  	var myDate = new Date();
            	var  aa = GetDateStr(1);
-            var currentDay = GetDateStr(1).replace(/-/g,"");
+            var currentDay = GetDateStr(1).replace(/-/g,""); */
             //alert(currentDay);
             for(var i=0;i<result.length;i++){
             	var endTime = result[i].endTime.replace(/-/g,"").substring(0,8);
                	var xxqx = "";
-            	if(parseInt(endTime)<=parseInt(currentDay)){
+               	//parseInt(endTime)<=parseInt(currentDay)
+            	if(result[i].cutoff == 0){
             		xxqx ="已过期";
                	}else{
                		xxqx = result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].replace(/-/g, ".");

@@ -203,6 +203,9 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 	public List<OnlineCourse> getLearningCenterList(Integer type, String userId,
 												Integer pageNumber, Integer pageSize) throws SQLException {
 		String sql="";
+		
+		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0)  ";//这个用来比较啦
+		
 			if(1==type){
 				//CourseVo
 				sql = " select oc.end_time endTime, oc.online_course onlineCourse,oc.current_price currentPrice,ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
@@ -218,8 +221,10 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
 			}else if(3==type){
-				 sql = " select oc.address,oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,oc.start_time startTime,oc.end_time endTime" +
-						" from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id   where argc.user_id=?  AND oc.`online_course`=1 group by oc.id ";
+				 sql = " select oc.address,oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,"
+				 		+ "oc.start_time startTime,oc.end_time endTime, " 
+						+  dateWhere 
+						+ " from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id   where argc.user_id=?  AND oc.`online_course`=1 group by oc.id ";
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
 				}
