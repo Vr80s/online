@@ -503,45 +503,6 @@
 			                            <input type="hidden" value="search_courseName" class="propertyName"/>
 			                        </div>
 			                    </td>
-			                    <%-- <td>
-			                        <div class="profile-info-value searchTr">
-			                            <input type="hidden" class="propertyValue1" value="${type}" id="type" style="width: 150px;">
-			                            <input type="hidden" value="type" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="menuName" id="search_menu" value="" class="propertyValue1"  >
-						               		<option value="">学科</option>
-						               		<c:forEach var="menus" items="${menuVo}">
-						                        <option value="${menus.id}">${menus.name}</option>
-						                    </c:forEach>
-						               </select>
-			                            <input type="hidden" value="search_menu" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="courseTypeId" id="search_scoreType" value="" class="propertyValue1" >
-						               		<option value="">医馆类别</option>
-						               		 <c:forEach var="scoreTypes" items="${scoreTypeVo}">
-						                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
-						                    </c:forEach>
-						               </select>
-			                            <input type="hidden" value="search_scoreType" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="search_courseType" id="search_courseType" value="" class="propertyValue1" >
-						               		<option value="">授课方式</option>
-						               		<c:forEach var="teachMethods" items="${teachMethodVo}">
-						                        <option value="${teachMethods.id}">${teachMethods.name}</option>
-						                    </c:forEach>
-						               </select>
-			                            <input type="hidden" value="search_courseType" class="propertyName"/>
-			                        </div>
-			                    </td> --%>
 			                    <td>
 			                       <div class="profile-info-value searchTr">
 			                            <select name="search_status" id="search_status" value="" class="propertyValue1" >

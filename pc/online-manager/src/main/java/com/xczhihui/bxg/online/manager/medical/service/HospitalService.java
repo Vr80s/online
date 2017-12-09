@@ -60,15 +60,8 @@ public interface HospitalService {
   
 	/**
 	 * 增加课程详情
-	 * @param MedicalHospitalId
-	 * @param smallImgPath
-	 * @param detailImgPath
-	 * @param MedicalHospitalDetail
-	 * @param MedicalHospitalOutline
-	 * @param commonProblem
 	 */
-	public void updateMedicalHospitalDetail(String MedicalHospitalId, String smallImgPath, String detailImgPath, String MedicalHospitalDetail,
-                                   String MedicalHospitalOutline, String commonProblem);
+	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5 );
 	/**
 	 * 获得课程详情
 	 * @param MedicalHospitalId

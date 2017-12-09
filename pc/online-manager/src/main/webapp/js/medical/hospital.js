@@ -34,6 +34,13 @@ $(function(){
                 return getLocalTime(data);
             }
             },
+    { "title": "医馆照片", "class":"center","width":"6%","sortable":false,"data": 'hasPicture',"mRender":function (data, display, row) {
+    	if(data){
+    		return data="<span name='zt'>已上传</span>";
+    	}else{
+    		return data="<span name='zt'>待补充</span>";
+    	}
+    } },
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -317,53 +324,6 @@ function showDetailDialog(obj,status){
 	window.location.href=basePath+'/home#medical/hospital/hospitalDetail?page='+page+'&courseId='+aData.id;
 }
 
-function showVideoDialog(obj,status){
-	debugger;
-	var oo = $(obj).parent().parent().parent();
-    var aData,page;
-    if(status==1) {
-        aData = P_courseTable.fnGetData(oo); // get datarow
-        page = getCurrentPageNo(P_courseTable);
-    }else{
-        aData = M_courseTable.fnGetData(oo); // get datarow
-        page = getCurrentPageNo(M_courseTable);
-    }
-    window.location.href=basePath+'/home#cloudclass/course/videoRes?page='+
- 	page+'&courseId='+aData.id+'&courseName='+encodeURIComponent(aData.courseName);
-}
-
-/**
- * 设置学习计划模板
- * @param obj
- */
-function setPlanTemplate(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = P_courseTable.fnGetData(oo);
-	var courseId = aData.id;
-	ajaxRequest(basePath+'/studyPlan/ifExistTemplate',{"courseId":courseId},function(res){
-		if(res.success){
-			window.location.href=basePath+'/home#studyPlan/template?courseId='+courseId+'&courseName='+encodeURIComponent(aData.courseName)+'&totalDay='+res.resultObject;
-		}else{
-			studyDayForm.resetForm();
-			openDialog("setStudyDayDialog", "setStudyDayDiv", "设置学习计划天数", 350, 200, true, "确定", function () {
-				if ($("#studyDay-form").valid()) {
-					mask();
-					$("#courseId").val(courseId);
-					$("#studyDay-form").attr("action", basePath + "/studyPlan/savePlanTemplate");
-					$("#studyDay-form").ajaxSubmit(function (data) {
-						unmask();
-						if (data.success) {
-							var totalDay = $("#totalDay_update").val();
-							window.location.href=basePath+'/home#studyPlan/template?courseId='+courseId+'&courseName='+encodeURIComponent(aData.courseName)+'&totalDay='+totalDay;
-						} else {
-							layer.msg(data.errorMessage);
-						}
-					});
-				}
-			});
-		}
-	});
-}
 
 
 /**
@@ -649,28 +609,28 @@ function search_P(){
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
 	searchButton(P_courseTable,json);
 };
-/**
- * 微课列表搜索
- */
-function search_M(){
-	var json = new Array();
-    json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"1","tempType":"String"}');
-	$("#searchDiv_M .searchTr").each(function() {
-		if (!isnull($(this).find('.propertyValue1').val())) {
-			var propertyValue2 = $(this).find('.propertyValue2').val();
-			if(!isnull(propertyValue2)){
-				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()
-					+',"propertyValue2":"'+propertyValue2+'"}');
-			}else{
-				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()+'}');
-			}
-		}
-	});
-	var str = "[" + json.join(",") + "]";
-	M_courseTable.fnFilter(str);
-};
+// /**
+//  * 微课列表搜索
+//  */
+// function search_M(){
+// 	var json = new Array();
+//     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"1","tempType":"String"}');
+// 	$("#searchDiv_M .searchTr").each(function() {
+// 		if (!isnull($(this).find('.propertyValue1').val())) {
+// 			var propertyValue2 = $(this).find('.propertyValue2').val();
+// 			if(!isnull(propertyValue2)){
+// 				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
+// 					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()
+// 					+',"propertyValue2":"'+propertyValue2+'"}');
+// 			}else{
+// 				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
+// 					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()+'}');
+// 			}
+// 		}
+// 	});
+// 	var str = "[" + json.join(",") + "]";
+// 	M_courseTable.fnFilter(str);
+// };
 /**
  * 课程排序列表搜索
  */
@@ -989,15 +949,7 @@ $(".list-items1").on("click",function(event){
       sanjiaoChangeStatus(target2);
   }
 })
-//清空
-$(".clear").unbind().on("click",function(){
-  $(this).parent().next(".allTeacher").html("");
-})
-function deleteTeacher(){
-  $(".allTeacherClose").on("click",function(){
-      $(this).parent().remove();
-  })
-}
+
 
 
 (function() {

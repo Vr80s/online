@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.medical.dao;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.MedicalHospital;
+import com.xczhihui.bxg.online.api.po.MedicalHospitalPicture;
 import com.xczhihui.bxg.online.manager.common.dao.HibernateDao;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -35,6 +36,15 @@ public class HospitalDao extends HibernateDao<MedicalHospital>{
 		 sql.append(" order by status desc");
 
 		 Page<MedicalHospital> medicalHospitals = this.findPageBySQL(sql.toString(), paramMap, MedicalHospital.class, pageNumber, pageSize);
+		 for (int i = 0; i < medicalHospitals.getItems().size(); i++) {
+			 MedicalHospital mh =  medicalHospitals.getItems().get(i);
+			 List<MedicalHospitalPicture> c = this.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", mh.getId());
+			 if(c.size()>=5){
+				 mh.setHasPicture(true);
+			 }else{
+				 mh.setHasPicture(false);
+			 }
+		 }
 		 return medicalHospitals;
 //		 }
 	 }
