@@ -4,11 +4,13 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.api.po.MedicalDoctor;
+import com.xczhihui.bxg.online.api.po.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -210,13 +213,17 @@ public class DoctorController extends AbstractController{
     }
     
     /**
-     * 添加课程详情
+     * 添加或者修改身份验证的信息
      * @return
      */
 	@RequestMapping(value = "updateMedicalDoctorDetail", method = RequestMethod.POST)
 	@ResponseBody
-	 public ResponseObject updateMedicalDoctorDetail(String medicalDoctorId, String picture1, String picture2, String picture3, String picture4, String picture5){
-		doctorService.updateMedicalDoctorDetail(medicalDoctorId, picture1, picture2, picture3, picture4, picture5);
+	 public ResponseObject updateMedicalDoctorDetail(String medicalDoctorId, String authenticationInformationId
+			 ,String picture1, String picture2, 
+			 String picture3, String picture4, String picture5,String picture6){
+		
+		doctorService.updateMedicalDoctorDetail(medicalDoctorId,authenticationInformationId,picture1,
+				picture2, picture3, picture4, picture5,picture6);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 
@@ -225,6 +232,30 @@ public class DoctorController extends AbstractController{
 	public String doctorDetail(HttpServletRequest request) {
 
 		request.setAttribute("weburl", weburl);
+		
+		String doctorId = request.getParameter("doctorId");
+		String mdaiId = request.getParameter("mdaiId");
+		
+		System.out.println("doctorId:"+doctorId+",mdaiId:"+mdaiId);
+		/*
+		 * 这里需要传递两个参数
+		 *   一个是医师id，一个是医师基本信息id
+		 */
+		request.setAttribute("doctorId", doctorId);
+		request.setAttribute("mdaiId", mdaiId);
+		
 		return CLOUD_CLASS_PATH_PREFIX + "/doctorDetail";
 	}
+	
+	@RequestMapping(value = "mdaiDetail")
+	@ResponseBody
+	public ResponseObject mdaiDetail(String authenticationInformationId) {
+
+		 MedicalDoctorAuthenticationInformation  mdai = doctorService.mdaiDetail(authenticationInformationId);
+		
+		 return ResponseObject.newSuccessResponseObject( mdai);
+	}
+	
+	
+	
 }

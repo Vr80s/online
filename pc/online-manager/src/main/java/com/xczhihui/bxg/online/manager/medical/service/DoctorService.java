@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.medical.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.MedicalDoctor;
+import com.xczhihui.bxg.online.api.po.MedicalDoctorAuthenticationInformation;
 
 import java.util.List;
 import java.util.Map;
@@ -58,9 +59,21 @@ public interface DoctorService {
      public void deletes(String[] ids);
   
 	/**
-	 * 增加医师详情
+	 * 
+	 * Description：增加医馆信息
+	 * @param medicalDoctorId
+	 * @param picture1  真实头像
+	 * @param picture2 职称证明
+	 * @param picture3 身份证正面
+	 * @param picture4  身份证反面
+	 * @param picture5 医师资格证
+	 * @param picture6 职业医师证
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
 	 */
-	public void updateMedicalDoctorDetail(String medicalDoctorId, String picture1, String picture2, String picture3, String picture4, String picture5);
+	public void updateMedicalDoctorDetail(String medicalDoctorId,String authenticationInformationId,
+			String picture1, String picture2, String picture3, String picture4, String picture5,String picture6);
 	/**
 	 * 获得医师详情
 	 * @param MedicalDoctorId
@@ -76,5 +89,7 @@ public interface DoctorService {
 	public List<MedicalDoctor> findByName(String name);
 
 	MedicalDoctor findMedicalDoctorById(String id);
+
+	public MedicalDoctorAuthenticationInformation mdaiDetail(String mdaiId);
 
 }
