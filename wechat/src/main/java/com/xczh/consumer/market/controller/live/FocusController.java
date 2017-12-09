@@ -59,6 +59,8 @@ public class FocusController {
 			throws Exception {
 		
 		String userId = req.getParameter("userId");
+		String token = req.getParameter("token");
+		
 		OnlineUser user = onlineUserService.findUserById(userId);
 		
 		Map<String,Object> map =new HashMap<String, Object>();
@@ -85,6 +87,7 @@ public class FocusController {
 			 * 查下房间号
 			 *  是否是讲师：0,用户，1既是用户也是讲师
 			 */
+			user.setTicket(token);
 			map.put("user", user);
 		}
 		return ResponseObject.newSuccessResponseObject(map);
