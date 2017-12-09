@@ -258,7 +258,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	@Override
 	public List<CourseLecturVo> offLineClassList(int number, int pageSize) throws SQLException {
 
-		
 		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff ";//这个用来比较啦
 		
 		String dateWhereCutoff = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) ";//这个用来比较啦
@@ -271,7 +270,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "from"
 				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
 				+  dateWhereCutoff +" = 1 and"  //表示没有截止的
-				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time desc)";
+				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time )";
 		
 		sql +="  UNION all  ";
 		
@@ -283,7 +282,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "from"
 				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
 				+  dateWhereCutoff +" = 0 and"  //表示没有截止的
-				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time)";	
+				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time desc)";	
 		
 
 		return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),sql,number,pageSize,CourseLecturVo.class);
