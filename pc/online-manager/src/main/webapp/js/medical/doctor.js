@@ -275,7 +275,13 @@ function showDetailDialog(obj,status){
 		aData = M_courseTable.fnGetData(oo); // get datarow
         page = getCurrentPageNo(M_courseTable);
 	}
-	window.location.href=basePath+'/home#medical/doctor/doctorDetail?page='+page+'&courseId='+aData.id;
+	var str ="";
+	if(aData.authenticationInformationId!=null && aData.authenticationInformationId!="" && aData.authenticationInformationId!=undefined){
+		str += "&mdaiId="+aData.authenticationInformationId;
+	}else{
+		str += "&mdaiId=";
+	}
+	window.location.href=basePath+'/home#medical/doctor/doctorDetail?page='+page+'&doctorId='+aData.id+str;
 }
 
 

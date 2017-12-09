@@ -18,10 +18,10 @@ public class MedicalDoctorAuthenticationInformation implements Serializable {
 	@Id
 	private String id;
 
-	@Column(name="card_negative")
+	@Column(name="card_negative")   //身份证反面
 	private String cardNegative;
 
-	@Column(name="card_positive")
+	@Column(name="card_positive")   //身份证正面
 	private String cardPositive;
 
 	@Column(name="create_person")
@@ -34,19 +34,19 @@ public class MedicalDoctorAuthenticationInformation implements Serializable {
 	private boolean deleted;
 
 	@Column(name="head_portrait")
-	private String headPortrait;
+	private String headPortrait;     //头像
 
-	@Column(name="professional_certificate")
+	@Column(name="professional_certificate")    //职业医师证
 	private String professionalCertificate;
 
-	@Column(name="qualification_certificate")
+	@Column(name="qualification_certificate")   //医师资格证
 	private String qualificationCertificate;
 
 	private String remark;
 
 	private boolean status;
 
-	@Column(name="title_prove")
+	@Column(name="title_prove")      // 职称证明
 	private String titleProve;
 
 	@Column(name="update_person")
