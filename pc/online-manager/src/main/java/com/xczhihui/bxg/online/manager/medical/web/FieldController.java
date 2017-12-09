@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 菜单控制层实现类
@@ -81,6 +82,16 @@ public class FieldController {
           tableVo.setiTotalDisplayRecords(total);
           tableVo.setiTotalRecords(total);
           return tableVo;
+     }
+
+     @RequiresPermissions("cloudClass:menu:MedicalField")
+     @RequestMapping(value = "alllist")
+     @ResponseBody
+     public List<MedicalField> alllist(String id,Integer type) {
+
+          List<MedicalField> allField = service.findAllField(id,type);
+
+          return allField;
      }
      
      /**
@@ -168,8 +179,6 @@ public class FieldController {
      
      /**
       * 禁用or启用
-      * @param request
-      * @param model
       * @return
       */
      @RequestMapping(value = "updateStatus", method = RequestMethod.POST)
@@ -185,6 +194,28 @@ public class FieldController {
                responseObj.setErrorMessage("操作失败");
           }
           return responseObj;
+     }
+
+
+
+     @RequestMapping(value = "addHospitalField", method = RequestMethod.POST)
+     @ResponseBody
+     public ResponseObject addHospitalField(String id,String[] fieldId) {
+          ResponseObject responseObject=new ResponseObject();
+          service.addHospitalField(id,fieldId);
+          responseObject.setSuccess(true);
+          responseObject.setResultObject("医疗领域配置成功！");
+          return responseObject;
+     }
+
+     @RequestMapping(value = "addDoctorField", method = RequestMethod.POST)
+     @ResponseBody
+     public ResponseObject addDoctorField(String id,String[] fieldId) {
+          ResponseObject responseObject=new ResponseObject();
+          service.addDoctorField(id,fieldId);
+          responseObject.setSuccess(true);
+          responseObject.setResultObject("医疗领域配置成功！");
+          return responseObject;
      }
 
 }

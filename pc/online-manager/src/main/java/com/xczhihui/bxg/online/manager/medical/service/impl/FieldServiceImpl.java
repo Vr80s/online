@@ -1,17 +1,17 @@
 package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.api.po.MedicalDoctor;
+import com.xczhihui.bxg.online.api.po.MedicalDoctorField;
 import com.xczhihui.bxg.online.api.po.MedicalField;
+import com.xczhihui.bxg.online.api.po.MedicalHospitalField;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.manager.medical.dao.FieldDao;
 import com.xczhihui.bxg.online.manager.medical.service.FieldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  *   MenuServiceImpl:菜单业务层接口实现类
@@ -44,9 +44,9 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 
 	@Override
 	public List<MedicalField> list() {
-		String sql="select * from score_type where is_delete=0 and status=1 and id<>0 order by sort";
-		Map<String,Object> params=new HashMap<String,Object>();
-		List<MedicalField> voList=medicalFieldDao.findEntitiesByJdbc(MedicalField.class, sql, params);
+		String sql="select * from medical_field where deleted=0 and status=1 order by  convert(name using gbk) ASC";
+//		Map<String,Object> params=new HashMap<String,Object>();
+		List<MedicalField> voList=medicalFieldDao.findEntitiesByJdbc(MedicalField.class, sql, null);
 		return voList;
 	}
 
@@ -105,6 +105,65 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 		}
 		medicalFieldDao.update(medicalField);
 
+	}
+
+	@Override
+	public List<MedicalField> findAllField(String id, Integer type) {
+		List<MedicalField> list = list();
+		if(type == 1){//医馆
+			List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(MedicalHospitalField.class, "hospitalId", id);
+			for (int i = 0; i < mhfs.size(); i++) {
+				for (int j = 0; j < list.size(); j++) {
+					if(mhfs.get(i).getFieldId().equals(list.get(j).getId())){
+						list.get(j).setHas(true);
+					}
+				}
+			}
+		}else{//医师
+			List<MedicalDoctorField> mdfs = dao.findEntitiesByProperty(MedicalDoctorField.class, "doctorId", id);
+			for (int i = 0; i < mdfs.size(); i++) {
+				for (int j = 0; j < list.size(); j++) {
+					if(mdfs.get(i).getFieldId().equals(list.get(j).getId())){
+						list.get(j).setHas(true);
+					}
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void addHospitalField(String id, String[] field) {
+		List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(MedicalHospitalField.class, "hospitalId", id);
+		for (int i = 0; i < mhfs.size(); i++) {
+			dao.delete(mhfs.get(i));
+		}
+		for (int i = 0; i < field.length; i++) {
+			MedicalHospitalField medicalHospitalField = new MedicalHospitalField();
+			String mid = UUID.randomUUID().toString().replace("-","");
+			medicalHospitalField.setId(mid);
+			medicalHospitalField.setFieldId(field[i]);
+			medicalHospitalField.setHospitalId(id);
+			medicalHospitalField.setCreateTime(new Date());
+			dao.save(medicalHospitalField);
+		}
+	}
+
+	@Override
+	public void addDoctorField(String id, String[] fieldId) {
+		List<MedicalDoctorField> mhfs = dao.findEntitiesByProperty(MedicalDoctorField.class, "doctorId", id);
+		for (int i = 0; i < mhfs.size(); i++) {
+			dao.delete(mhfs.get(i));
+		}
+		for (int i = 0; i < fieldId.length; i++) {
+			MedicalDoctorField medicalDoctorField = new MedicalDoctorField();
+			String mid = UUID.randomUUID().toString().replace("-","");
+			medicalDoctorField.setId(mid);
+			medicalDoctorField.setFieldId(fieldId[i]);
+			medicalDoctorField.setDoctorId(id);
+			medicalDoctorField.setCreateTime(new Date());
+			dao.save(medicalDoctorField);
+		}
 	}
 
 

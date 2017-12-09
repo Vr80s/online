@@ -60,7 +60,7 @@ public class FieldDao extends HibernateDao<MedicalField> {
 	 * @return
 	 */
 	public MedicalField findByNotEqId(MedicalField searchEntity) {
-		StringBuilder sql=new StringBuilder("select * from score_type where id <> :id and name=:name and  is_delete =0");
+		StringBuilder sql=new StringBuilder("select * from medical_field where name=:name and  is_delete =0");
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("id",searchEntity.getId());
         params.put("name", searchEntity.getName());
@@ -71,40 +71,6 @@ public class FieldDao extends HibernateDao<MedicalField> {
         return null;
 	}
 
-	/**
-	 * 删除数据
-	 * @param _ids
-	 */
-	public void deletes(String[] _ids) {
-		if(_ids.length>0) {
-            StringBuilder sql = new StringBuilder(" update score_type set is_delete=1 where  id IN (");
-            for(int i=0;i<_ids.length;i++){
-                if(i!=0)
-                    sql.append(",");
-                sql.append("'"+_ids[i]+"'");
-            }
-            sql.append(")");
-            this.getNamedParameterJdbcTemplate().update(sql.toString(), new HashMap<String, Object>());
-        }
-
-	}
-
-
-	/**
-	 * 通过id进行查询
-	 * @param parseInt
-	 * @return
-	 */
-	public MedicalField searchById(String parseInt) {
-		StringBuilder sql=new StringBuilder("select * from score_type where id=:id");
-        Map<String,Object> params=new HashMap<String,Object>();
-        params.put("id",parseInt);
-        List<MedicalField> menus=this.getNamedParameterJdbcTemplate().query(sql.toString(),params,BeanPropertyRowMapper.newInstance(MedicalField.class));
-        if(menus.size()>0){
-            return menus.get(0);
-        }
-        return null;
-	}
 
 	/**
 	 * 删除数据

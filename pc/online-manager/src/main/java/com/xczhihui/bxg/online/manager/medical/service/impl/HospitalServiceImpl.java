@@ -35,18 +35,18 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
     	return page;
 	
 	}
-
-	@Override
-	public List<MedicalHospital> list(String MedicalHospitalType) {
-		String sql="select *,grade_name as MedicalHospitalName from oe_MedicalHospital where is_delete=0 and status=1 ";
-		Map<String,Object> params=new HashMap<String,Object>();
-		if(MedicalHospitalType != null && !"".equals(MedicalHospitalType)){
-			sql += " and MedicalHospital_type = :MedicalHospitalType ";
-			params.put("MedicalHospitalType", MedicalHospitalType);
-		}
-		List<MedicalHospital> voList=dao.findEntitiesByJdbc(MedicalHospital.class, sql, params);
-		return voList;
-	}
+//
+//	@Override
+//	public List<MedicalHospital> list(String MedicalHospitalType) {
+//		String sql="select *,grade_name as MedicalHospitalName from oe_MedicalHospital where is_delete=0 and status=1 ";
+//		Map<String,Object> params=new HashMap<String,Object>();
+//		if(MedicalHospitalType != null && !"".equals(MedicalHospitalType)){
+//			sql += " and MedicalHospital_type = :MedicalHospitalType ";
+//			params.put("MedicalHospitalType", MedicalHospitalType);
+//		}
+//		List<MedicalHospital> voList=dao.findEntitiesByJdbc(MedicalHospital.class, sql, params);
+//		return voList;
+//	}
 
 	@Override
 	public void addMedicalHospital(MedicalHospital medicalHospital) {

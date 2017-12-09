@@ -9,7 +9,6 @@ import java.util.Map;
 public interface HospitalService {
 	
 
-	public List<MedicalHospital> list(String MedicalHospitalType);
 	/**
 	 * 新增课程
 	 *

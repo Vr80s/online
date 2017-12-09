@@ -70,4 +70,9 @@ public interface FieldService {
 	 */
 	public void updateStatus(String id);
 
+    List<MedicalField> findAllField(String id, Integer type);
+
+    void addHospitalField(String id, String[] field);
+
+    void addDoctorField(String id, String[] fieldId);
 }

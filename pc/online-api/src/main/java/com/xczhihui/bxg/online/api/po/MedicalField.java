@@ -45,7 +45,18 @@ public class MedicalField implements Serializable {
 
 	private String version;
 
+	@Transient
+	private Boolean has;
+
 	public MedicalField() {
+	}
+
+	public Boolean getHas() {
+		return has;
+	}
+
+	public void setHas(Boolean has) {
+		this.has = has;
 	}
 
 	public String getId() {

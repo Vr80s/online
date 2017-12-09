@@ -37,14 +37,10 @@ public class HospitalController extends AbstractController{
 	@Autowired
 	private HospitalService hospitalService;
 	
-	@Autowired
-	private AttachmentCenterService att;
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
-	
-	@Autowired
-	private OnlineUserService  onlineUserService;
-	
+
+
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		return CLOUD_CLASS_PATH_PREFIX + "/hospital";
@@ -59,8 +55,6 @@ public class HospitalController extends AbstractController{
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo MedicalHospitals(TableVo tableVo) {
-		 
-		 
 	      int pageSize = tableVo.getiDisplayLength();
           int index = tableVo.getiDisplayStart();
           int currentPage = index / pageSize + 1;
@@ -185,21 +179,6 @@ public class HospitalController extends AbstractController{
 		hospitalService.updateStatus(id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
-	
-	/**
-	 * 修改图片
-	 * @param medicalHospital
-	 * @return
-	 */
-	@RequestMapping(value = "updateRecImgPath", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseObject updateRecImgPath(MedicalHospital medicalHospital){
-		ResponseObject responseObj = new ResponseObject();
-		hospitalService.updateRecImgPath(medicalHospital);
-		responseObj.setSuccess(true);
-		responseObj.setErrorMessage("设置成功！");
-		return responseObj;
-	}
 
 	/**
 	 * 逻辑删除
@@ -242,18 +221,18 @@ public class HospitalController extends AbstractController{
 		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
-
-	@RequestMapping(value = "uploadImg", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseObject uploadImg(String content){
-		String str = content.split("base64,")[1];
-		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-		Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png", null);
-		if (a.getError() != 0) {
-			return ResponseObject.newErrorResponseObject("上传失败！");
-		}
-		return ResponseObject.newSuccessResponseObject(a);
-	}
+//
+//	@RequestMapping(value = "uploadImg", method = RequestMethod.POST)
+//	@ResponseBody
+//	public ResponseObject uploadImg(String content){
+//		String str = content.split("base64,")[1];
+//		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
+//		Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png", null);
+//		if (a.getError() != 0) {
+//			return ResponseObject.newErrorResponseObject("上传失败！");
+//		}
+//		return ResponseObject.newSuccessResponseObject(a);
+//	}
 
 
 	@RequestMapping(value = "hospitalDetail")

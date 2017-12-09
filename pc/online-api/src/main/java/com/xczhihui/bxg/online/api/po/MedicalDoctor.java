@@ -66,7 +66,18 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="work_time")
 	private String workTime;
 
+	@Transient
+	private Integer statusnum;
+
 	public MedicalDoctor() {
+	}
+
+	public Integer getStatusnum() {
+		return statusnum;
+	}
+
+	public void setStatusnum(Integer statusnum) {
+		this.statusnum = statusnum;
 	}
 
 	public String getId() {
