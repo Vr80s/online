@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.api.po;
+package com.xczhihui.bxg.online.manager.medical.po;
 
 import java.io.Serializable;
 import javax.persistence.*;

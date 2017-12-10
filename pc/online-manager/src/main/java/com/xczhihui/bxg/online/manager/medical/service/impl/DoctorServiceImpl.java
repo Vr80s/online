@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctor;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctorAuthenticationInformation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,8 +16,6 @@ import org.springframework.stereotype.Service;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
-import com.xczhihui.bxg.online.api.po.MedicalDoctor;
-import com.xczhihui.bxg.online.api.po.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.manager.medical.dao.DoctorDao;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorService;

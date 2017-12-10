@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.manager.medical.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.MedicalDoctor;
-import com.xczhihui.bxg.online.api.po.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctor;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctorAuthenticationInformation;
 
 import java.util.List;
 import java.util.Map;
@@ -46,14 +46,12 @@ public interface DoctorService {
 
     /**
 	 * 逻辑删除
-	 * @param String id
 	 * @return
 	 */
     public void deleteMedicalDoctorById(String id);
 
     /**
 	 * 删除
-	 * @param String id
 	 * @return
 	 */
      public void deletes(String[] ids);
@@ -84,7 +82,6 @@ public interface DoctorService {
 
 	/**
 	 * 根据名字查找医师
-	 * @param String name
 	 */
 	public List<MedicalDoctor> findByName(String name);
 

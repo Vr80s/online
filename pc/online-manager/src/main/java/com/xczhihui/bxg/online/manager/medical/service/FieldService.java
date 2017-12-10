@@ -3,7 +3,7 @@ package com.xczhihui.bxg.online.manager.medical.service;
 
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.MedicalField;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalField;
 
 import java.util.List;
 

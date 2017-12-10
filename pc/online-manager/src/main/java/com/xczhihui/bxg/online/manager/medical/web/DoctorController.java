@@ -3,8 +3,8 @@ package com.xczhihui.bxg.online.manager.medical.web;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
-import com.xczhihui.bxg.online.api.po.MedicalDoctor;
-import com.xczhihui.bxg.online.api.po.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctor;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
@@ -251,7 +251,7 @@ public class DoctorController extends AbstractController{
 	@ResponseBody
 	public ResponseObject mdaiDetail(String authenticationInformationId) {
 
-		 MedicalDoctorAuthenticationInformation  mdai = doctorService.mdaiDetail(authenticationInformationId);
+		 MedicalDoctorAuthenticationInformation mdai = doctorService.mdaiDetail(authenticationInformationId);
 		
 		 return ResponseObject.newSuccessResponseObject( mdai);
 	}

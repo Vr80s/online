@@ -1,12 +1,11 @@
 package com.xczhihui.bxg.online.manager.medical.dao;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.MedicalHospital;
-import com.xczhihui.bxg.online.api.po.MedicalHospitalPicture;
 import com.xczhihui.bxg.online.manager.common.dao.HibernateDao;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalHospital;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalHospitalPicture;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

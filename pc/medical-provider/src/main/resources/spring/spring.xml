@@ -20,9 +20,9 @@
     <import resource="classpath:spring/spring-mybatis.xml"/>
 
     <!-- dubbo -->
-    <dubbo:application name="medical-provider"/>
-    <dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
-    <dubbo:protocol name="dubbo" host="127.0.0.1" port="50883" />
+    <dubbo:application name="${dubbo.app.name}"/>
+    <dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>
+    <dubbo:protocol name="dubbo" host="${dubbo.protocol.host}" port="${dubbo.protocol.port}" />
 
     <dubbo:service interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService" ref="medicalHospitalBusinessServiceImpl" timeout="${dubbo.consumer.timeout}" />
     <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" ref="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}" />

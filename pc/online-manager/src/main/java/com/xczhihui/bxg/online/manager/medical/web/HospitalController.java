@@ -1,15 +1,10 @@
 package com.xczhihui.bxg.online.manager.medical.web;
 
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
-import com.xczhihui.bxg.online.api.po.MedicalHospital;
+import com.xczhihui.bxg.online.manager.medical.po.MedicalHospital;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
-import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
