@@ -72,8 +72,18 @@ public class MedicalHospital implements Serializable {
 	private Date updateTime;
 
 	private String version;
+	@Transient
+	private boolean isDependence;
 
 	public MedicalHospital() {
+	}
+
+	public boolean isDependence() {
+		return isDependence;
+	}
+
+	public void setDependence(boolean dependence) {
+		isDependence = dependence;
 	}
 
 	public boolean isHasPicture() {

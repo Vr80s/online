@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.manager.medical.service;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 
 import java.util.List;
 import java.util.Map;
@@ -89,4 +90,7 @@ public interface DoctorService {
 
 	public MedicalDoctorAuthenticationInformation mdaiDetail(String mdaiId);
 
+	void updateMedicalHospitalDoctorDetail(String doctorId, String hospitalId);
+
+	List<MedicalHospital> getMedicalHospital(String doctorId);
 }

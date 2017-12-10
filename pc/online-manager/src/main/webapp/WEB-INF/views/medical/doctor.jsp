@@ -803,5 +803,28 @@
 		</div>
 	</form>
 </div>
+
+
+<!-- 查看 -->
+<div id="hospitalDialogDiv"></div>
+<div id="hospitalDialog" class="hide" >
+
+	<form class='form-horizontal' id="hospital-form"  method="post"  action="">
+		<input type="hidden" name="doctorId" id="parentId1"/>
+		<div class='form-group'>
+			<div class='col-sm-3 control-label no-padding-right'><b>医师名称:</b></div>
+			<div id="child_MenuName1" class='col-sm-8 paddingtop7px padding7'></div>
+		</div>
+		<div class='form-group'>
+			<div class='col-sm-3 control-label no-padding-right'><b>医馆:</b></div>
+			<div class='col-sm-8'>
+				<%--<input type="hidden" name="nouse" id="nouse" value="nouse" autofocus="autofocus">--%>
+				<table id="hospitals">
+
+				</table>
+			</div>
+		</div>
+	</form>
+</div>
 <script type="text/javascript" src="${base}/js/medical/provinces.js?v=112312312311"></script>
 <script type="text/javascript" src="${base}/js/medical/doctor.js?v=112312312311"></script>

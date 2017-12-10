@@ -5,6 +5,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
@@ -227,7 +228,6 @@ public class DoctorController extends AbstractController{
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 
-
 	@RequestMapping(value = "doctorDetail")
 	public String doctorDetail(HttpServletRequest request) {
 
@@ -255,7 +255,28 @@ public class DoctorController extends AbstractController{
 		
 		 return ResponseObject.newSuccessResponseObject( mdai);
 	}
-	
-	
+
+	/**
+	 * 医师医馆关联接口
+	 * @return
+	 */
+	@RequestMapping(value = "updateMedicalHospitalDoctor", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateMedicalHospitalDoctor(String doctorId, String hospitalId){
+		doctorService.updateMedicalHospitalDoctorDetail(doctorId,hospitalId);
+		return ResponseObject.newSuccessResponseObject("修改成功！");
+	}
+
+	/**
+	 * 获取所有医馆接口
+	 * @return
+	 */
+	@RequestMapping(value = "getMedicalHospital")
+	@ResponseBody
+	public List<MedicalHospital> getMedicalHospital(String id){
+
+		List<MedicalHospital> medicalHospitals= doctorService.getMedicalHospital(id);
+		return medicalHospitals;
+	}
 	
 }

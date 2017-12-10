@@ -111,6 +111,16 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 
 	//头像
 	private String headPortrait;
+	//医馆名
+	private String hospitalName;
+
+	public String getHospitalName() {
+		return hospitalName;
+	}
+
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
+	}
 
 	public String getHeadPortrait() {
 		return headPortrait;

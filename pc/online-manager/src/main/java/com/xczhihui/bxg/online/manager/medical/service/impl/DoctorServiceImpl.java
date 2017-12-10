@@ -1,13 +1,8 @@
 package com.xczhihui.bxg.online.manager.medical.service.impl;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
-import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -150,32 +145,9 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		
 	}
 
-	public void savePicture(String medicalDoctorId,String picture,String version){
-//		MedicalDoctorPicture mhp = new MedicalDoctorPicture();
-//		String id = UUID.randomUUID().toString().replace("-","");
-//		mhp.setId(id);
-//		mhp.setDoctorId(medicalDoctorId);
-//		mhp.setPicture(picture);
-//		mhp.setVersion(version);
-//		mhp.setCreateTime(new Date());
-//		dao.save(mhp);
-	}
-
-
-
 	@Override
 	public Map<String, Object> getMedicalDoctorDetail(String medicalDoctorId) {
-//		MedicalDoctor mh = DoctorDao.findOneEntitiyByProperty(MedicalDoctor.class, "id", medicalDoctorId);
-//
-//		String sql="select * from medical_Doctor_picture where Doctor_id = '"+medicalDoctorId+"' order by version";
-//
-//		List<MedicalDoctorPicture> voList=dao.findEntitiesByJdbc(MedicalDoctorPicture.class, sql, null);
-
-//		List<MedicalDoctorPicture> c = dao.findEntitiesByProperty(MedicalDoctorPicture.class, "DoctorId", medicalDoctorId);
 			Map<String, Object> retn = new HashMap<String, Object>();
-//			retn.put("Doctor", mh);
-//			retn.put("picture", voList);
-			/*2017-08-14---yuruixin*/
 			return retn;
 	}
 
@@ -194,6 +166,44 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		return dao.findOneEntitiyByProperty(MedicalDoctorAuthenticationInformation.class, "id", mdaiId);
 	}
 
+	@Override
+	public void updateMedicalHospitalDoctorDetail(String doctorId, String hospitalId) {
+		//删除之前关系表
+		List<MedicalHospitalDoctor> mhps = dao.findEntitiesByProperty(MedicalHospitalDoctor.class, "doctorId", doctorId);
+		for (int i = 0; i < mhps.size(); i++) {
+			dao.delete(mhps.get(i));
+		}
 
+		//添加新的关系表
+		MedicalHospitalDoctor medicalHospitalDoctor = new MedicalHospitalDoctor();
 
+		String id = UUID.randomUUID().toString().replace("-","");
+		medicalHospitalDoctor.setId(id);
+		medicalHospitalDoctor.setDoctorId(doctorId);
+		medicalHospitalDoctor.setHospitalId(hospitalId);
+		medicalHospitalDoctor.setCreateTime(new Date());
+		dao.save(medicalHospitalDoctor);
+	}
+
+	@Override
+	public List<MedicalHospital> getMedicalHospital(String doctorId) {
+		List<MedicalHospital> list = getMedicalHospitals();
+
+		List<MedicalHospitalDoctor> mhds = dao.findEntitiesByProperty(MedicalHospitalDoctor.class, "doctorId", doctorId);
+
+		for (int i = 0; i < mhds.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if(mhds.get(i).getHospitalId().equals(list.get(j).getId())){
+					list.get(j).setDependence(true);
+				}
+			}
+		}
+		return list;
+	}
+
+	public List<MedicalHospital> getMedicalHospitals() {
+		String sql="select * from medical_hospital where deleted=0 and status=1 order by  convert(name using gbk) ASC";
+		List<MedicalHospital> voList=dao.findEntitiesByJdbc(MedicalHospital.class, sql, null);
+		return voList;
+	}
 }

@@ -216,35 +216,10 @@ public class HospitalController extends AbstractController{
 		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
-//
-//	@RequestMapping(value = "uploadImg", method = RequestMethod.POST)
-//	@ResponseBody
-//	public ResponseObject uploadImg(String content){
-//		String str = content.split("base64,")[1];
-//		byte[] b = org.apache.commons.codec.binary.Base64.decodeBase64(str);
-//		Attachment a = att.addAttachment(UserHolder.getCurrentUser().getId(), AttachmentType.ONLINE, "1.png", b, "image/png", null);
-//		if (a.getError() != 0) {
-//			return ResponseObject.newErrorResponseObject("上传失败！");
-//		}
-//		return ResponseObject.newSuccessResponseObject(a);
-//	}
 
 
 	@RequestMapping(value = "hospitalDetail")
-	public String courseDetail(HttpServletRequest request) {
-//		List<Menu> menuVos= courseService.getfirstMenus(null);
-//		request.setAttribute("menuVo", menuVos);
-//
-//		//在列表初始化时查找出课程类别
-//		List<ScoreType> scoreTypeVos = courseService.getScoreType();
-//		request.setAttribute("scoreTypeVo", scoreTypeVos);
-//
-//		//在列表初始化时查找出授课方式
-//		List<TeachMethod> teachMethodVos= courseService.getTeachMethod();
-//		request.setAttribute("teachMethodVo", teachMethodVos);
-//
-//		List<LecturerVo> Lecturers = courseService.getLecturers();
-//		request.setAttribute("lecturerVo", Lecturers);
+	public String hospitalDetail(HttpServletRequest request) {
 
 		request.setAttribute("weburl", weburl);
 		return CLOUD_CLASS_PATH_PREFIX + "/hospitalDetail";

@@ -47,14 +47,16 @@ $(function(){
 	    	if(row.status){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-wrench"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-wrench"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
@@ -897,10 +899,6 @@ function openFieldManage(obj){
     	debugger
         drawMenusPage(data);
 
-        if(row.courseCount==0){
-            $("input:checkbox").removeAttr("disabled");
-        }
-
         $("#childMenu-form").attr("action", basePath+"/medical/field/addDoctorField");
         openDialog("childMenuDialog","childMenuDialogDiv","关联医疗领域",580,450,true,"提交",function(){
             $("input:checkbox").removeAttr("disabled");
@@ -946,6 +944,7 @@ function drawMenusPage(data){
         }
 }
 
+
 function doctorType(data){
     if(data == 1){//1.名青年中医2.名老中医3.少数民族中医4.国医大师5.古中医
         return "名青年中医";
@@ -960,6 +959,65 @@ function doctorType(data){
     }
 }
 
+
+function openHospitalManage(obj){
+
+    debugger
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo); // get datarow
+    rowId = row.id;
+    $("#parentId1").val(row.id);
+    $("#child_MenuName1").html(row.name);
+    var courseCount = row.courseCount
+    ajaxRequest(basePath+"/medical/doctor/getMedicalHospital",{'id':row.id},function(data) {
+        debugger
+        drawHospitalPage(data);
+
+        $("#hospital-form").attr("action", basePath+"/medical/doctor/updateMedicalHospitalDoctor");
+        openDialog("hospitalDialog","hospitalDialogDiv","关联医馆",580,450,true,"提交",function(){
+        	debugger
+            $("input:checkbox").removeAttr("disabled");
+            mask();
+
+            $("#hospital-form").ajaxSubmit(function(data){
+                unmask();
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                if(data.success){
+                    $("#hospitalDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    // freshTable(cloudClassMenuTable);
+                }else{
+                    layer.msg(data.errorMessage);
+                }
+            });
+
+        });
+
+    });
+}
+
+function drawHospitalPage(data){
+    $("#hospitals").html("");
+    for(var i=0;i<data.length;i++){
+        var rowData="<tr id='childMenus_tr_"+data[i].id+"'><td> ";
+        if(data[i].dependence){
+            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='radio' name='hospitalId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+        }else{
+            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='radio' name='hospitalId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+        }
+        rowData+="</td>";
+        rowData+="<td>";
+        rowData+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        rowData+="</td>";
+        rowData+="</tr>";
+        $("#hospitals").append(rowData);
+
+    }
+}
 function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
 }
