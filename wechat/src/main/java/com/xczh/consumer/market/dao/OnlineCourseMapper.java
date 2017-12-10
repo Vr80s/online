@@ -50,7 +50,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("c.smallimg_path as smallImgPath,ou.room_number as roomNumber,c.start_time as startTime,c.end_time as endTime,");
 		sql.append("c.description as description,ou.id as userId,"
 				+ " c.original_cost as originalCost,c.current_price as currentPrice,");  //课程简介
-		sql.append("if(c.course_pwd is not null and c.course_pwd !='',2,if(c.is_free =0,1,0)) as watchState, ");  //课程简介
+		sql.append("if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  //课程简介
 		
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.live_status as  lineState ");
