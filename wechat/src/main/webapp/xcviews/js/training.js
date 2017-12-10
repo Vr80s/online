@@ -43,8 +43,8 @@
          *  0 直播已结束 1 直播还未开始 2 正在直播
          */
         //判断是否可预约
-    	var myDate = new Date();
-        var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+    	/*var myDate = new Date();
+        var currentDay =dateStrYMd(myDate).replace(/-/g,"");*/
         
         if(result.watchState == 0){
             $("#buyDiv").show();
@@ -58,7 +58,7 @@
             //如果已结束就禁止报名
             /* 点击线下课程出现的弹框，测试提出bug，就给隐藏掉了。*/
             var endTime = result.endTime.replace(/-/g,"").substring(0,8);
-            if(parseInt(endTime)<parseInt(currentDay)){
+            if(result.cutoff == 0){
                 $(".training_teacher_bto").show();
                 $(".footer_buyDiv").show();
                 $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">报名已截止</div>");
