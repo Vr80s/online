@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- 引入属性文件 -->
     <context:property-placeholder location="classpath:config.properties"/>
-
     <!-- Service包(自动注入) -->
     <context:component-scan base-package="com.xczhihui.medical.*.service"/>
-
     <import resource="classpath:spring/spring-mybatis.xml"/>
+
+    <!-- dubbo -->
+    <dubbo:application name="medical-provider"/>
+    <dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
+    <dubbo:protocol name="dubbo" host="127.0.0.1" port="50883" />
+
+    <dubbo:service interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService" ref="medicalHospitalBusinessServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" ref="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
 </beans>

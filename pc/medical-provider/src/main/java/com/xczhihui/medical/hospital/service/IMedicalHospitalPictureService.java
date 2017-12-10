@@ -8,7 +8,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
  *  服务类
  * </p>
  *
- * @author Yanghu
+ * @author yuxin
  * @since 2017-12-09
  */
 public interface IMedicalHospitalPictureService extends IService<MedicalHospitalPicture> {

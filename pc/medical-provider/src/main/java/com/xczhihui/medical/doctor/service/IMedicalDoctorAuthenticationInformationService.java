@@ -8,7 +8,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
  *  服务类
  * </p>
  *
- * @author Yanghu
+ * @author yuxin
  * @since 2017-12-09
  */
 public interface IMedicalDoctorAuthenticationInformationService extends IService<MedicalDoctorAuthenticationInformation> {

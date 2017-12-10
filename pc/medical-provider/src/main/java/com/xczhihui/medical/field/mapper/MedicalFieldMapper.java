@@ -8,7 +8,7 @@ import com.xczhihui.medical.field.model.MedicalField;
   *  Mapper 接口
  * </p>
  *
- * @author Yanghu
+ * @author yuxin
  * @since 2017-12-09
  */
 public interface MedicalFieldMapper extends BaseMapper<MedicalField> {

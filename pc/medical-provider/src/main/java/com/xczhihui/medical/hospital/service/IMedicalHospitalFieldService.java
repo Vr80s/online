@@ -8,7 +8,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalField;
  *  服务类
  * </p>
  *
- * @author Yanghu
+ * @author yuxin
  * @since 2017-12-09
  */
 public interface IMedicalHospitalFieldService extends IService<MedicalHospitalField> {

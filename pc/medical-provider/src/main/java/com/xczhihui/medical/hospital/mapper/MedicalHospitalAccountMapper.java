@@ -9,7 +9,7 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
   *  Mapper 接口
  * </p>
  *
- * @author Yanghu
+ * @author yuxin
  * @since 2017-12-09
  */
 public interface MedicalHospitalAccountMapper extends BaseMapper<MedicalHospitalAccount> {

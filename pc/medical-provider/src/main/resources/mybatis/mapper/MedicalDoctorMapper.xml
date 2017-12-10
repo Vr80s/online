@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper">
+
+	<!-- 通用查询结果列-->
+	<!--<sql id="Base_Column_List">-->
+		<!--id, name, age-->
+	<!--</sql>-->
+	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		select * from medical_doctor where deleted = 0 and status = 1
+	</select>
+
+</mapper>

@@ -8,7 +8,7 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorField;
  *  服务类
  * </p>
  *
- * @author Yanghu
+ * @author yuxin
  * @since 2017-12-09
  */
 public interface IMedicalDoctorFieldService extends IService<MedicalDoctorField> {
