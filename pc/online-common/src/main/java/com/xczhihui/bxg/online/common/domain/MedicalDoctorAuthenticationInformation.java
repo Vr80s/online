@@ -1,7 +1,7 @@
-package com.xczhihui.bxg.online.manager.medical.po;
+package com.xczhihui.bxg.online.common.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 

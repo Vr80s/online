@@ -19,4 +19,6 @@ import java.util.List;
 public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
 
     List<MedicalHospital> selectHospitalList(Page<MedicalHospital> page);
+
+    MedicalHospital selectHospitalById(String id);
 }

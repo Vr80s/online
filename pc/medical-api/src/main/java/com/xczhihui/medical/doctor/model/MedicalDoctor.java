@@ -109,6 +109,16 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
      */
 	private String remark;
 
+	//头像
+	private String headPortrait;
+
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
 
 	public String getId() {
 		return id;

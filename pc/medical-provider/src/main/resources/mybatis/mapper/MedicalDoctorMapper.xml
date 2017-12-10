@@ -2,12 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper">
 
-	<!-- 通用查询结果列-->
-	<!--<sql id="Base_Column_List">-->
-		<!--id, name, age-->
-	<!--</sql>-->
 	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
-		select * from medical_doctor where deleted = 0 and status = 1
+		SELECT
+		  md.id,
+		  md.`name`,
+		  md.`title`,
+		  mdai.head_portrait headPortrait
+		FROM
+		  medical_doctor md
+		  LEFT JOIN `medical_doctor_authentication_information` mdai
+			ON md.`authentication_information_id` = mdai.`id`
+		WHERE md.deleted = 0
+		  AND md.status = 1
+	</select>
+
+	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		select * from medical_doctor where deleted = 0 and status = 1 and id = #{id}
 	</select>
 
 </mapper>

@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.manager.medical.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalHospital;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 
 import java.util.List;
 import java.util.Map;

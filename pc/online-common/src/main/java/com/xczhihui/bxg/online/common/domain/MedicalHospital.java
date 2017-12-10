@@ -1,25 +1,22 @@
-package com.xczhihui.bxg.online.manager.medical.po;
+package com.xczhihui.bxg.online.common.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
 /**
- * The persistent class for the medical_doctor database table.
+ * The persistent class for the medical_hospital database table.
  * 
  */
 @Entity
-@Table(name="medical_doctor")
-@NamedQuery(name="MedicalDoctor.findAll", query="SELECT m FROM MedicalDoctor m")
-public class MedicalDoctor implements Serializable {
+@Table(name="medical_hospital")
+@NamedQuery(name="MedicalHospital.findAll", query="SELECT m FROM MedicalHospital m")
+public class MedicalHospital implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;
-
-	@Column(name="authentication_information_id")
-	private String authenticationInformationId;
 
 	private String city;
 
@@ -30,47 +27,27 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="create_time")
 	private Date createTime;
 
-	private boolean deleted;
+	private Boolean deleted;
 
 	private String description;
 
 	@Column(name="detailed_address")
 	private String detailedAddress;
 
+	private String email;
+
+	private String lal;
+
 	private String name;
+
+	@Column(name="post_code")
+	private Integer postCode;
 
 	private String province;
 
 	private String remark;
 
-	private boolean status;
-
-	private String tel;
-
-	private String title;
-
-	private String type;
-
-	@Column(name="update_person")
-	private String updatePerson;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="update_time")
-	private Date updateTime;
-
-	@Column(name="user_id")
-	private String userId;
-
-	private String version;
-
-	@Column(name="work_time")
-	private String workTime;
-
-	@Transient
-	private Integer statusnum;
-
-	public MedicalDoctor() {
-	}
+	private Boolean status;
 
 	public Integer getStatusnum() {
 		return statusnum;
@@ -80,20 +57,39 @@ public class MedicalDoctor implements Serializable {
 		this.statusnum = statusnum;
 	}
 
+	@Transient
+	private Integer statusnum;
+	@Transient
+	private boolean hasPicture;
+
+	private String tel;
+
+	@Column(name="update_person")
+	private String updatePerson;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="update_time")
+	private Date updateTime;
+
+	private String version;
+
+	public MedicalHospital() {
+	}
+
+	public boolean isHasPicture() {
+		return hasPicture;
+	}
+
+	public void setHasPicture(boolean hasPicture) {
+		this.hasPicture = hasPicture;
+	}
+
 	public String getId() {
 		return this.id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getAuthenticationInformationId() {
-		return this.authenticationInformationId;
-	}
-
-	public void setAuthenticationInformationId(String authenticationInformationId) {
-		this.authenticationInformationId = authenticationInformationId;
 	}
 
 	public String getCity() {
@@ -120,11 +116,11 @@ public class MedicalDoctor implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public boolean getDeleted() {
+	public Boolean getDeleted() {
 		return this.deleted;
 	}
 
-	public void setDeleted(boolean deleted) {
+	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
 
@@ -144,12 +140,36 @@ public class MedicalDoctor implements Serializable {
 		this.detailedAddress = detailedAddress;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getLal() {
+		return this.lal;
+	}
+
+	public void setLal(String lal) {
+		this.lal = lal;
+	}
+
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Integer getPostCode() {
+		return this.postCode;
+	}
+
+	public void setPostCode(Integer postCode) {
+		this.postCode = postCode;
 	}
 
 	public String getProvince() {
@@ -168,11 +188,11 @@ public class MedicalDoctor implements Serializable {
 		this.remark = remark;
 	}
 
-	public boolean getStatus() {
+	public Boolean getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(Boolean status) {
 		this.status = status;
 	}
 
@@ -182,22 +202,6 @@ public class MedicalDoctor implements Serializable {
 
 	public void setTel(String tel) {
 		this.tel = tel;
-	}
-
-	public String getTitle() {
-		return this.title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getUpdatePerson() {
@@ -216,28 +220,12 @@ public class MedicalDoctor implements Serializable {
 		this.updateTime = updateTime;
 	}
 
-	public String getUserId() {
-		return this.userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	public String getVersion() {
 		return this.version;
 	}
 
 	public void setVersion(String version) {
 		this.version = version;
-	}
-
-	public String getWorkTime() {
-		return this.workTime;
-	}
-
-	public void setWorkTime(String workTime) {
-		this.workTime = workTime;
 	}
 
 }

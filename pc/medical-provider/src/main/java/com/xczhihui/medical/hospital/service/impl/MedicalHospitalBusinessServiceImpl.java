@@ -27,4 +27,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         page.setRecords(medicalHospitalMapper.selectHospitalList(page));
         return page;
     }
+
+    @Override
+    public MedicalHospital selectHospitalById(String id) {
+        return medicalHospitalMapper.selectHospitalById(id);
+    }
+
 }

@@ -1,8 +1,8 @@
 package com.xczhihui.bxg.online.manager.medical.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctor;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
 
 import java.util.List;
 import java.util.Map;

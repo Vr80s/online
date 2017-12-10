@@ -1,7 +1,7 @@
-package com.xczhihui.bxg.online.manager.medical.po;
+package com.xczhihui.bxg.online.common.domain;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -10,9 +10,9 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="medical_hospital_field")
-@NamedQuery(name="MedicalHospitalField.findAll", query="SELECT m FROM MedicalHospitalField m")
-public class MedicalHospitalField implements Serializable {
+@Table(name="medical_hospital_doctor")
+//@NamedQuery(name="MedicalHospitalField.findAll", query="SELECT m FROM MedicalHospitalField m")
+public class MedicalHospitalDoctor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -22,13 +22,13 @@ public class MedicalHospitalField implements Serializable {
 	@Column(name="create_time")
 	private Date createTime;
 
-	@Column(name="field_id")
-	private String fieldId;
+	@Column(name="doctor_id")
+	private String doctorId;
 
 	@Column(name="hospital_id")
 	private String hospitalId;
 
-	public MedicalHospitalField() {
+	public MedicalHospitalDoctor() {
 	}
 
 	public String getId() {
@@ -47,14 +47,6 @@ public class MedicalHospitalField implements Serializable {
 		this.createTime = createTime;
 	}
 
-	public String getFieldId() {
-		return this.fieldId;
-	}
-
-	public void setFieldId(String fieldId) {
-		this.fieldId = fieldId;
-	}
-
 	public String getHospitalId() {
 		return this.hospitalId;
 	}
@@ -63,4 +55,11 @@ public class MedicalHospitalField implements Serializable {
 		this.hospitalId = hospitalId;
 	}
 
+	public String getDoctorId() {
+		return doctorId;
+	}
+
+	public void setDoctorId(String doctorId) {
+		this.doctorId = doctorId;
+	}
 }

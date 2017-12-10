@@ -3,7 +3,7 @@ package com.xczhihui.bxg.online.manager.medical.web;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalHospital;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;

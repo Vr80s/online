@@ -2,10 +2,10 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
+import com.xczhihui.bxg.online.common.domain.MedicalField;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalField;
 import com.xczhihui.bxg.online.manager.medical.dao.FieldDao;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctorField;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalField;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalHospitalField;
 import com.xczhihui.bxg.online.manager.medical.service.FieldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

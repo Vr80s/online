@@ -10,4 +10,8 @@
 		select * from medical_hospital where deleted = 0 and status = 1
 	</select>
 
+	<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		select * from medical_hospital where deleted = 0 and status = 1 and id = #{id}
+	</select>
+
 </mapper>

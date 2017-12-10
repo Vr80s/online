@@ -2,10 +2,10 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
 import com.xczhihui.bxg.online.manager.cloudClass.service.LecturerService;
 import com.xczhihui.bxg.online.manager.medical.dao.HospitalDao;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalHospital;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalHospitalPicture;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

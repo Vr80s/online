@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,13 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalDoctorMapper medicalDoctorMapper;
 
     @Override
-    public Page<MedicalHospital> selectDoctorPage(Page<MedicalHospital> page) {
+    public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page) {
         page.setRecords(medicalDoctorMapper.selectDoctorList(page));
         return page;
+    }
+
+    @Override
+    public MedicalDoctor selectDoctorById(String id) {
+        return medicalDoctorMapper.selectDoctorById(id);
     }
 }

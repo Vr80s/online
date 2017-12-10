@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctor;
-import com.xczhihui.bxg.online.manager.medical.po.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -110,7 +110,7 @@ public class MpGenerator {
         };
 
         // 自定义 xxList.jsp 生成
-//        List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
+        List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
 //        focList.add(new FileOutConfig("/template/list.jsp.vm") {
 //            @Override
 //            public String outputFile(TableInfo tableInfo) {
@@ -122,14 +122,14 @@ public class MpGenerator {
 //        mpg.setCfg(cfg);
 
         // 调整 xml 生成目录演示
-//        focList.add(new FileOutConfig("/templates/mapper.xml.vm") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                return "/develop/code/xml/" + tableInfo.getEntityName() + ".xml";
-//            }
-//        });
-//        cfg.setFileOutConfigList(focList);
-//        mpg.setCfg(cfg);
+        focList.add(new FileOutConfig("/templates/mapper.xml.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return "/develop/code/xml/" + tableInfo.getEntityName() + ".xml";
+            }
+        });
+        cfg.setFileOutConfigList(focList);
+        mpg.setCfg(cfg);
 
         // 关闭默认 xml 生成，调整生成 至 根目录
         TemplateConfig tc = new TemplateConfig();
