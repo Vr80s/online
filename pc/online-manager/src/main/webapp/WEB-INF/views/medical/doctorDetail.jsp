@@ -234,15 +234,14 @@
 								<input type="file" name="smallImgPath_file"
 									id="smallImgPath_file" class="uploadImg" />
 							</div>
-							<input name="picture1" id="edit_smallImgPath" value=""
+							<input name="picture1" id="edit_smallImgPath" value="" class="{required:true}" 
 								type="text"
 								style="position: absolute; opacity: 0; filter: Alpha(opacity = 0);">
 						</div>
 					</div>
 					<!-- 设置多个展示图 -->
 					<div class="form-group col-sm-6" style="margin-top: 18px;">
-						<label class="col-sm-2 control-label no-padding-right"><font
-							color="red">*</font>职称证明:</label>
+						<label class="col-sm-2 control-label no-padding-right">职称证明:</label>
 						<div class="col-sm-4" style="width: 285px; height: 140px;">
 							<div class="clearfix">
 								<input type="file" name="smallImgPath_file"
@@ -255,8 +254,7 @@
 					</div>
 					<!-- 设置多个展示图 -->
 					<div class="form-group col-sm-6" style="margin-top: 18px;">
-						<label class="col-sm-2 control-label no-padding-right"><font
-							color="red">*</font>身份证正面:</label>
+						<label class="col-sm-2 control-label no-padding-right">身份证正面:</label>
 						<div class="col-sm-4" style="width: 285px; height: 140px;">
 							<div class="clearfix">
 								<input type="file" name="smallImgPath_file"
@@ -269,8 +267,7 @@
 					</div>
 					<!-- 设置多个展示图 -->
 					<div class="form-group col-sm-6" style="margin-top: 18px;">
-						<label class="col-sm-2 control-label no-padding-right"><font
-							color="red">*</font>身份证反面:</label>
+						<label class="col-sm-2 control-label no-padding-right">身份证反面:</label>
 						<div class="col-sm-4" style="width: 285px; height: 140px;">
 							<div class="clearfix">
 								<input type="file" name="smallImgPath_file"
@@ -285,8 +282,7 @@
 					</div>
 					<!-- 设置多个展示图 -->
 					<div class="form-group col-sm-6" style="margin-top: 18px;">
-						<label class="col-sm-2 control-label no-padding-right"><font
-							color="red">*</font>医师资格证:</label>
+						<label class="col-sm-2 control-label no-padding-right">医师资格证:</label>
 						<div class="col-sm-4" style="width: 285px; height: 140px;">
 							<div class="clearfix">
 								<input type="file" name="smallImgPath_file"
@@ -299,8 +295,7 @@
 					</div>
 					<!-- 设置多个展示图 -->
 					<div class="form-group  col-sm-6" style="margin-top: 18px;">
-						<label class="col-sm-2 control-label no-padding-right"><font
-							color="red">*</font>职业医师证:</label>
+						<label class="col-sm-2 control-label no-padding-right">职业医师证:</label>
 						<div class="col-sm-4" style="width: 285px; height: 140px;">
 							<div class="clearfix">
 								<input type="file" name="smallImgPath_file"
