@@ -311,4 +311,23 @@ public class CityServiceImpl  extends OnlineBaseServiceImpl implements CityServi
 		return dao.getNamedParameterJdbcTemplate().queryForMap(sql,paramMap);
 	}
 
+	@Override
+	public UserAddressManagerVo findAcquiescenceAddressById(String id) {
+		// TODO Auto-generated method stub
+		String sql = "select id,user_id as userId,provinces,city,county,street,consignee,phone,detailed_address as detailedAddress"
+				+ ",is_acquiescence as isAcquiescence, postal_code as postalCode,create_time as createTime from "
+				+ " user_address_manager where user_id = '"+id+"' and is_acquiescence = 1 limit 1";
+		/*Map<String,Object> params=new HashMap<String,Object>();
+		params.put("id", id);*/
+		
+		List<UserAddressManagerVo>  listUam =  dao.getNamedParameterJdbcTemplate().query(sql,new HashMap<>(),BeanPropertyRowMapper.newInstance(UserAddressManagerVo.class));
+		
+		if(listUam!=null &&listUam.size()>0){
+			return listUam.get(0);
+		}else{
+			return null;
+		}
+		//UserAddressManagerVo um= dao.getNamedParameterJdbcTemplate().queryForObject(sql,params,new BeanPropertyRowMapper<UserAddressManagerVo>(UserAddressManagerVo.class));
+	}
+
 }
