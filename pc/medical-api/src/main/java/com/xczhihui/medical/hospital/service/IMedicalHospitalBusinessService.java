@@ -20,7 +20,7 @@ public interface IMedicalHospitalBusinessService {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:03 2017/12/10 0010
      **/
-    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page);
+    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page,String name);
 
     /**
      * Description：通过医馆id获取医馆详细信息

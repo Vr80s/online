@@ -18,12 +18,12 @@ public class HospitalController {
     private IMedicalHospitalBusinessService medicalHospitalBusinessServiceImpl;
 
 
-    @RequestMapping(value = "/getHospital",method= RequestMethod.GET)
-    public ResponseObject listBanner(Integer type){
+    @RequestMapping(value = "/getHospitals",method= RequestMethod.GET)
+    public ResponseObject listBanner(Integer type,String name){
         Page<MedicalHospital> page = new Page<>();
         page.setCurrent(1);
         page.setSize(5);
-        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalPage(page));
+        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalPage(page,name));
     }
 
 }

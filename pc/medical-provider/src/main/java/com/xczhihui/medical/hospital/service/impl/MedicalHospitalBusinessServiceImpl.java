@@ -23,8 +23,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     @Autowired
     private MedicalHospitalMapper medicalHospitalMapper;
 
-    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page) {
-        page.setRecords(medicalHospitalMapper.selectHospitalList(page));
+    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page,String name) {
+        page.setRecords(medicalHospitalMapper.selectHospitalList(page,name));
         return page;
     }
 

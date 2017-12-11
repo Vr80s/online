@@ -8,6 +8,9 @@
 	<!--</sql>-->
 	<select id="selectHospitalList" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
 		select * from medical_hospital where deleted = 0 and status = 1
+		<if test="name != null">
+			and name like concat('%',#{name},'%')
+		</if>
 	</select>
 
 	<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
