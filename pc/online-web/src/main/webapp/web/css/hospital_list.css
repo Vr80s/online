@@ -105,7 +105,8 @@ input,button{
 padding:0 20px;	
 }
 #forum .forum-content .forum-content-left .forum-content-info .more_hospital{
-	text-align:center;
+    bottom: 30px;
+	text-align: center;
 }
 #forum .forum-content .forum-content-left .forum-content-info .more_hospital button{
 	width: 122px;
@@ -177,6 +178,15 @@ padding:0 20px;
     width: 10px;
     height: 10px;
     background-image: url(../images/hospital/half_star.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .gray_star{
+	display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-image: url(../images/hospital/gray_star.png);
     background-position: center;
     background-repeat: no-repeat;
     vertical-align: middle;
