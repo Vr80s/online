@@ -258,11 +258,32 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	@Override
 	public List<CourseLecturVo> offLineClassList(int number, int pageSize) throws SQLException {
 
-		String sql="select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
+		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff ";//这个用来比较啦
+		
+		String dateWhereCutoff = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) ";//这个用来比较啦
+		
+		String sql="( select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
 				+ "IFNULL(default_student_count, 0) learndCount,ou.name,oc.grade_name gradeName,oc.description,oc.current_price currentPrice,"
-				+ "if(oc.course_pwd is not null and oc.course_pwd !='',2,if(oc.is_free =0,1,0)) as watchState,"
-				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime from"
-				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where oc.is_delete=0 and oc.status=1 and oc.online_course =1 ";
+				+ "if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,"
+				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime, "
+				+  dateWhere
+				+ "from"
+				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
+				+  dateWhereCutoff +" = 1 and"  //表示没有截止的
+				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time )";
+		
+		sql +="  UNION all  ";
+		
+		sql += "( select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
+				+ "IFNULL(default_student_count, 0) learndCount,ou.name,oc.grade_name gradeName,oc.description,oc.current_price currentPrice,"
+				+ "if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,"
+				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime, "
+				+  dateWhere
+				+ "from"
+				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
+				+  dateWhereCutoff +" = 0 and"  //表示没有截止的
+				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time desc)";	
+		
 
 		return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),sql,number,pageSize,CourseLecturVo.class);
 	}
@@ -270,16 +291,20 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	@Override
 	public CourseLecturVo offLineClassItem(Integer id,String userId) throws SQLException {
 
+		String dateWhere = " if(date_sub(date_format(c.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff ";//这个用来比较啦
+		
 		StringBuilder sql = new StringBuilder("");
 		sql.append("select ou.description udescription,c.address,c.id,c.direct_Id as directId,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,");
 		sql.append("c.smallimg_path as smallImgPath,ou.room_number as roomNumber,c.start_time as startTime,c.end_time as endTime,");
 		sql.append("c.description as description,ou.id as userId,"
 				+ " c.original_cost as originalCost,c.current_price as currentPrice,");  //课程简介
-		sql.append("if(c.course_pwd is not null and c.course_pwd !='',2,if(c.is_free =0,1,0)) as watchState, ");  //课程简介
+		sql.append("if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  //课程简介
 
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
-		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,live_status as  lineState ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,live_status as  lineState, ");
 
+	    sql.append(dateWhere);
+		
 		sql.append(" from oe_course c,oe_user ou ");
 		sql.append(" where  c.user_lecturer_id = ou.id and c.id = ?  and c.is_delete=0 and c.status = 1  and  c.online_course=1  ");
 		Object[] params = {id};

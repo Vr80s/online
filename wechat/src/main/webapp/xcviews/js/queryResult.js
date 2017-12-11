@@ -64,9 +64,12 @@ function queryResult(){
 				 $("#hot_hot").hide();
 				 $('.non_payment_null').css('display','block');
 				 $('.non_payment_null').addClass('non_payment_nul_img');
+				 $('.non_payment_null06 p').css('display','block');
 				 return;
 			}else{
-				 $("#hot_hot").show(); $('.non_payment_null').css('display','none');
+				 $("#hot_hot").show(); 
+				 $('.non_payment_null').css('display','none');
+				 $('.non_payment_null06 p').css('display','none');
 			}
 			var bozhuHtml ="";var zhiboHtml ="";var bunchHtml ="";
 			

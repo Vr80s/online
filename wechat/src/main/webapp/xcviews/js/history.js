@@ -97,7 +97,7 @@ function historyCommon(type1,downOrOn){
 			
 			if (objList.length>0) {
 				$('.null_kongbai_cen').removeClass('null_kongbai_cen1');
-				
+				$('.null_kongbai p').hide();
 				for (var int = 0; int < objList.length; int++) {
 					var odiv = document.createElement("div");
 					odiv.className = "wm-block mui-table-view-cell";
@@ -123,6 +123,7 @@ function historyCommon(type1,downOrOn){
 				if(num == "0") {
 					$('.null_kongbai_cen').addClass('null_kongbai_cen1');
 					$('body').css('background','#efefef');
+					$('.null_kongbai p').show();
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
 //					$('body').css('background','url(/xcviews/images/index_bg.jpg)');

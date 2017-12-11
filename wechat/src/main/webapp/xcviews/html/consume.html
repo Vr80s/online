@@ -27,11 +27,18 @@
 			width: 5.525rem;
 			height: 7.45rem;
 			margin: 0 auto;
-			margin-top: 4.75rem;
+			margin-top: 8.75rem;
+		}
+		.attention_center_p{
+			font-size: 0.6rem;
+			color: #999;
+			margin-top: 0.85rem;
+			display: none;
+			text-align: center;
 		}
 		.non_payment_null_img{
-			width: 5.525rem;
-			height: 7.45rem;
+			width: 4.5rem;
+    		height: 4.525rem;
 			background: url(/xcviews/images/null05.png) no-repeat;;
 			background-size:100% 100%;
 		}
@@ -71,7 +78,8 @@
 		</div>
 		<div class="both"></div>
 		<div class="attention_center">
-		<div class="non_payment_null1"></div>
+			<div class="non_payment_null1"></div>
+			<p class="attention_center_p">您还没有消费信息！</p>
 			<ul id="clist">
 				<div class="both"></div>
 			</ul>
@@ -102,8 +110,10 @@
 			}
             if(html!=''){    
             	$('.non_payment_null1').remove();
+            	$(".attention_center_p").hide();
             }   else{
             	$('.non_payment_null1').addClass('non_payment_null_img');
+            	$(".attention_center_p").show();
             }
 			$("#clist").html(html);
         }

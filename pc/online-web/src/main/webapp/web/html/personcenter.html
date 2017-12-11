@@ -587,6 +587,11 @@ var _hmt = _hmt || [];
         if(window.localStorage.getItem('findStyle')=='profile'){
         	$('.profile').click()
         }
+        
+        //判断顶部消息颜色
+        if(window.localStorage.personcenter == 'mynews'){
+        	$('.mynews').css('color','#2cb82c');
+        }
     });
 </script>
 </body>

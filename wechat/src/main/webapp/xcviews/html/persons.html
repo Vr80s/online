@@ -533,6 +533,7 @@ pre:after {
 	    margin-right: 0.4rem;
 	    margin-top: 0.2rem;
 	    padding-top: 0;
+	    display: grid;
 	}
 	#logoBox img{
 		width: 100%;
@@ -561,6 +562,16 @@ pre:after {
 	    height: 2.25rem;
 	    margin-top: 0.75rem;
 	    margin-right: 1rem;
+	}
+	#szd_cityP{
+		font-size: 0.65rem;
+	    color: #999;
+	    width: 11.8rem;
+	    /* overflow: hidden; */
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    text-align: right;
 	}
 </style>
 </head>
@@ -795,7 +806,7 @@ pre:after {
         new Picker({
             "title": '请选择',//标题(可选)
             "defaultValue": "",//默认值-多个以空格分开（可选）
-            "type": 2,//需要联动级数[1、2、3]（可选）
+            "type": 3,//需要联动级数[1、2、3]（可选）
             "data": cityData,//数据(必传)
             "keys": {
                 "id": "Code",

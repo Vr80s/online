@@ -1,9 +1,11 @@
 package com.xczh.consumer.market.controller.live;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.*;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,12 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.FocusService;
+import com.xczh.consumer.market.service.GiftService;
+import com.xczh.consumer.market.service.OLCourseServiceI;
+import com.xczh.consumer.market.service.OnlineCourseService;
+import com.xczh.consumer.market.service.OnlineWebService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.TimeUtil;
+import com.xczh.consumer.market.vo.CourseLecturVo;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
@@ -202,9 +208,30 @@ public class BunchPlanController {
 			String city = courseLecturVo.getAddress();
 			String [] citys = city.split("-");
 			courseLecturVo.setCity(citys[1]);
+			/*
+			 * 我感觉这里的发挥下后台的作用了
+			 */
+//			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),1);
+//			if(falg){
+//				courseLecturVo.setCutoff(0);
+//			}else{
+//				courseLecturVo.setCutoff(1);
+//			}
 		}
 		System.out.println("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
+	}
+	
+	public static void main(String[] args) {
+		Calendar calendar = Calendar.getInstance();
+        /** 
+         * 获取 年 ，月 ，日 
+         */  
+        System.out.println(calendar.get(Calendar.YEAR));  
+        //默认从0-11  
+        System.out.println(calendar.get(Calendar.MONTH)+1);  
+        System.out.println(calendar.get(Calendar.DATE));  
+		
 	}
 
 	/**
@@ -215,16 +242,11 @@ public class BunchPlanController {
 	public ResponseObject offLineClassItem(HttpServletRequest req,
 										   HttpServletResponse res, Integer id)
 			throws Exception {
-	/*	Map<String, String> params =new HashMap<>();
-		params.put("token",req.getParameter("token"));
 
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
-		if(null == user){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}
-*/
+		
 		String userId=req.getParameter("userId");
 		CourseLecturVo courseLecturVo=wxcpCourseService.offLineClassItem(id,userId);
+		
 		if(userId!=null){
 			OnlineUser onlineUser=new OnlineUser();
 			onlineUser.setId(userId);

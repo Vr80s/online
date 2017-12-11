@@ -170,3 +170,16 @@ ul {
     pointer-events: none;
     background: rgba(209, 213, 216, 0.7);
 }
+
+.edit_one_put p{
+	text-align: right;
+    font-size: 0.65rem;
+    width: 11.8rem;
+    overflow: hidden;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.edit_one_put{
+	margin-right: 0 !important;
+}
