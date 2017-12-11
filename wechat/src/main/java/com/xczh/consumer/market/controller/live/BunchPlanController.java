@@ -1,10 +1,11 @@
 package com.xczh.consumer.market.controller.live;
 
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.*;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.TimeUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,14 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.FocusService;
+import com.xczh.consumer.market.service.GiftService;
+import com.xczh.consumer.market.service.OLCourseServiceI;
+import com.xczh.consumer.market.service.OnlineCourseService;
+import com.xczh.consumer.market.service.OnlineWebService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.TimeUtil;
+import com.xczh.consumer.market.vo.CourseLecturVo;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
@@ -208,12 +211,12 @@ public class BunchPlanController {
 			/*
 			 * 我感觉这里的发挥下后台的作用了
 			 */
-			boolean falg = TimeUtil.dateCompare(courseLecturVo.getStartTime(),Calendar.getInstance(),-1);
-			if(falg){
-				courseLecturVo.setCutoff(0);
-			}else{
-				courseLecturVo.setCutoff(1);
-			}
+//			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),1);
+//			if(falg){
+//				courseLecturVo.setCutoff(0);
+//			}else{
+//				courseLecturVo.setCutoff(1);
+//			}
 		}
 		System.out.println("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
@@ -244,14 +247,6 @@ public class BunchPlanController {
 		String userId=req.getParameter("userId");
 		CourseLecturVo courseLecturVo=wxcpCourseService.offLineClassItem(id,userId);
 		
-		if(courseLecturVo!=null){
-			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),-1);
-			if(falg){
-				courseLecturVo.setCutoff(0);
-			}else{
-				courseLecturVo.setCutoff(1);
-			}
-		}
 		if(userId!=null){
 			OnlineUser onlineUser=new OnlineUser();
 			onlineUser.setId(userId);

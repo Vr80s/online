@@ -72,16 +72,24 @@ public class LearningCenterController {
 				String [] citys = city.split("-");
 				onlineCourse.setCity(citys[1]);
 			}
-			if(type == 3){
-				boolean falg = TimeUtil.dateCompare(onlineCourse.getEndTime(),Calendar.getInstance(),-1);
-				if(falg){
-					onlineCourse.setCutoff(0);
-				}else{
-					onlineCourse.setCutoff(1);
-				}
-			}
+//			if(type == 3){
+//				boolean falg = TimeUtil.dateCompare(onlineCourse.getEndTime(),Calendar.getInstance(),1);
+//				if(falg){
+//					onlineCourse.setCutoff(0);
+//				}else{
+//					onlineCourse.setCutoff(1);
+//				}
+//			}
 		}
 		System.out.println("list.size():"+lists.size());
         return ResponseObject.newSuccessResponseObject(lists);
     }
+
+
+
+
+
+
+
+
 }

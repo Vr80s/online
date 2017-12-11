@@ -180,10 +180,10 @@ input,button{
   background-color: #2cb82c;
   border: none;
 }
+
 #forum .forum-banner .hot-article {
   float: right;
   width: 320px;
-  height: 346px;
   background-color: #fff;
 }
 #forum .forum-banner .hot-article .hot-article-title {
@@ -199,7 +199,49 @@ input,button{
   word-break: break-all;
   word-wrap: break-word;
 }
-#forum .forum-banner .hot-article .hot-article-list li {
+#forum .forum-banner .hot-article .hot-article-list .live_list {
+	height:60px;
+	margin:20px 0;
+}
+
+#forum .forum-banner .hot-article .hot-article-list .live_list > li{
+	float:left;
+}
+
+#forum .forum-banner .hot-article .hot-article-list .live_list .teacher_photo{
+	width:60px;
+	height:60px;
+	border-radius:50%;
+	background-image:url(../images/teacher_small_pic.png);
+	background-repeat: no-repeat;
+	background-position:center;
+	margin-right:10px;
+}
+#forum .forum-banner .hot-article .hot-article-list .live_list .teacher_info > p{
+	margin: 0;
+    font-size: 14px;
+    color: #333;
+} 
+#forum .forum-banner .hot-article .hot-article-list .live_list .teacher_info > h4{
+	margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+#forum .forum-banner .hot-article .hot-article-list .live_list .live_btn{
+	float:right;
+	margin-top:15px;
+}
+#forum .forum-banner .hot-article .hot-article-list .live_list .live_btn > button{
+	width: 66px;
+    height: 36px;
+    float: right;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+}
+/*#forum .forum-banner .hot-article .hot-article-list li {
   margin-top: 18px;
   cursor: pointer;
 }
@@ -241,15 +283,14 @@ input,button{
 }
 #forum .forum-banner .hot-article .hot-article-list span:hover {
   color: #2cb82c;
-}
+}*/
 #forum .forum-content {
   margin-top: 20px;
 }
 #forum .forum-content .forum-content-left {
   width: 860px;
   float: left;
-  padding-bottom: 30px;
-  background-color: #fff;
+  background-color: #f8f8f8;
 }
 #forum .forum-content .forum-content-left .forum-content-tag {
   padding: 22px 30px 17px 0;
@@ -290,11 +331,22 @@ input,button{
   position: fixed;
   top: 0;
 }
-#forum .forum-content .forum-content-left .forum-content-info {
+/*#forum .forum-content .forum-content-left .forum-content-info {
   min-height: 443px;
+}*/
+#forum .forum-content .forum-content-left .forum-content-info {
+	background-color:#fff;
+	position: relative;
+}
+#forum .forum-content .forum-content-left .forum-content-info .class_more{
+	position: absolute;
+	top:20px;
+	right:20px;
+	color:#333;
 }
 #forum .forum-content .forum-content-left .forum-content-info .hospital_title{
 	padding-left:20px;
+	padding-top:20px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list{
 padding:0 20px;	
@@ -319,6 +371,28 @@ padding:0 20px;
 	margin-right:12px;
 	margin-bottom:20px;
 	position:relative;
+	width:260px;
+	vertical-align:middle;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .money_person{
+	position: absolute;
+    bottom: 10px;
+    width:240px;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .money_person .class_price{
+	float:left;
+	color:red;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .money_person .study_person,
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .money_person >em{
+	float:right;
+	color:#666;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .money_person >em{
+	display:inline-block;
+	width:10px;
+	height:14px;
+	background-image: url(../images/studentCount.png);
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals > a{
 	position:absolute;
@@ -331,22 +405,12 @@ padding:0 20px;
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf{
 	padding:10px;
 	font-size:14px;
-	width:260px;
+	height:97px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_address{
 	margin:10px 0 14px 0;
 }
-#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_pass{
-	display: inline-block;
-    background-color: #2cb82c;
-    color: #fff;
-    font-size: 12px;
-    border-radius: 2px;
-    padding: 2px 8px;
-    width: 52px;
-    height: 20px;
-}
-   
+
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_address em{
 	display: inline-block;
     width: 13px;
@@ -358,24 +422,12 @@ padding:0 20px;
     margin-right:7.8px;
     color:#666;
 }
-#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .full_star{
-	display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-image: url(../images/hospital/star.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    vertical-align: middle;
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_name{
+	display:inline-block;
+	width:240px;
 }
-#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .half_star{
-	display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-image: url(../images/hospital/half_star.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    vertical-align: middle;
-}
+
+
 #forum .forum-content .forum-content-left .forum-content-info .page-no-result {
   padding-top: 140px;
   width: 250px;
@@ -475,6 +527,38 @@ padding:0 20px;
 	font-size:14px;
 	color:#fff;
 }
+#forum .forum-content .forum-content-right .school_teacher{
+	width:320px;
+	background-color:#fff;
+	margin-bottom:20px;
+}
+#forum .forum-content .forum-content-right .school_teacher > h4{
+	padding:20px 0 0 20px;
+	font-size:16px;
+}
+#forum .forum-content .forum-content-right .school_teacher .teacher_picList{
+	padding:0 20px;
+}
+
+#forum .forum-content .forum-content-right .school_teacher .teacher_picList li{
+	float:left;
+	margin-right:13px;
+	text-align:center;
+}
+#forum .forum-content .forum-content-right .school_teacher .teacher_picList li:nth-child(4n){
+	margin-right:0px;
+}
+#forum .forum-content .forum-content-right .school_teacher .teacher_picList > li > img{
+	width:60px;
+	height:60px;
+	border-radius:50%;
+	
+}
+#forum .forum-content .forum-content-right .school_teacher .teacher_picList > li > p{
+	font-size:14px;
+	font-weight:700;
+	padding-top: 10px;
+}
 #forum .forum-content .forum-content-right .forum-hot-tag {
   background-color: #fff;
 }
@@ -541,249 +625,5 @@ padding:0 20px;
   color: #188EEE;
   padding-left:0px;
 }
-/*#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround li:hover {
-  color: #fff;
-  background-color: #2cb82c;
-  border: 1px solid #2cb82c;
-}*/
-/*#forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround li:hover a {
-  color: #fff;
-}*/
-#forum .forum-content .forum-content-right .forum-hot-course {
-  margin-top: 20px;
-  background-color: #fff;
-  display: inline-block;
-  width: 100%;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title {
-  padding: 17px 20px 0 20px;
-  font-size: 16px;
-  color: #333;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title > span{
-	font-size:16px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner {
-  float: right;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .curCount,
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner span {
-  display: inline-block;
-  font-size: 12px;
-  color: #999;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .allLunbo {
-  margin-right: 5px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .prev {
-  background: url("/web/images/125/left.png") no-repeat center center;
-  background-position-x: 4px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .next {
-  background: url("/web/images/125/right.png") no-repeat center center;
-  background-position-x: 5px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .prev,
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .next {
-  background-color: #ccc;
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  vertical-align: middle;
-  margin-top: -1px;
-  cursor: pointer;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .prev:hover,
-#forum .forum-content .forum-content-right .forum-hot-course .forum-hot-course-title .forum-hot-course-banner .next:hover {
-  background-color: #2cb82c;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course {
-  padding: 0 20px 0;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .slide-box {
-  height: 255px;
-  width: 255px;
-  overflow: hidden;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent {
-  padding: 0;
-  left: 0;
-  position: relative;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent > li{
-	margin:20px 0;
-	font-size:14px;
-	color:#333;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent > li > h4{
-	font-size:14px;
-	font-weight:700;
-}
 
-/*#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent li {
-  float: left;
-  width: 100%;
-  position: absolute;
-  background: #fff;
-  top: 3px;
-  left: 100%;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent li:hover {
-  -webkit-box-shadow: 1px 1px 4px 1px #ddd;
-  -moz-box-shadow: 1px 1px 4px 1px #ddd;
-  box-shadow: 1px 1px 4px 1px #ddd;
-}*/
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent .diyiye {
-  left: 0;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent .diyiye a {
-  text-decoration: none;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course a {
-  float: left;
-  margin-right: 20px;
-  width: 100%;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .classCategory {
-  width: 38px;
-  height: 22px;
-  text-align: center;
-  line-height: 22px;
-  color: white;
-  background: url("../images/index/label.png") no-repeat left top;
-  position: absolute;
-  right: 18px;
-  font-size: 12px;
-  top: -2px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .img {
-  text-align: center;
-  line-height: 152px;
-  width: 250px;
-  height: 152px;
-  background-color: #f0f0f0;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .img img {
-  width: 100%;
-  height: 100%;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .aimg {
-  text-align: center;
-  line-height: 152px;
-  width: 250px;
-  height: 152px;
-  background-color: #f0f0f0;
-  background-position: center;
-  background-repeat: no-repeat;
-  overflow: hidden;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .aimg img {
-  margin-top: -7px;
-  margin-left: -25px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail {
-  padding: 0 10px;
-  border: 1px solid #e4e4e4;
-  border-top: none;
-  box-sizing: content-box;
-  overflow: hidden;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail a {
-  text-decoration: none;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info {
-  padding-top: 2px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail em {
-  font-size: 12px;
-  color: #2cb82c;
-  font-style: normal;
-  display: inline-block;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .timeAndTeac {
-  display: block;
-  margin: 4px 0;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .timeAndTeac span {
-  font-size: 12px;
-  color: #999;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .timeAndTeac i {
-  font-style: normal;
-  height: 12px;
-  color: #ccc;
-  display: inline-block;
-  margin: 0 10px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info span i {
-  font-style: normal;
-  font-size: 16px;
-  color: #ff4012;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .price {
-  display: inline-block;
-  margin: 0 6px 0 0;
-  font-size: 16px;
-  color: #ff4012;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .price1 {
-  font-style: normal;
-  font-size: 13px;
-  color: #999;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .pricefree {
-  display: inline-block;
-  margin: 0 6px 0 0;
-  font-size: 14px;
-  color: #2cb82c;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info del {
-  color: #999;
-  font-size: 12px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .stuCount {
-  font-size: 12px;
-  color: #666;
-  vertical-align: super;
-  margin-top: 3px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .stuCount img {
-  margin-right: 4px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info .stuCount .studentCou {
-  display: inline-block;
-  vertical-align: middle;
-  margin-top: 1px;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail p {
-  color: #333;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .title {
-  max-width: 211px;
-  display: inline-block;
-  margin-bottom: 0;
-  overflow: hidden;
-  font-weight: 500;
-  font-size: 14px;
-  color: #333;
-  margin-top: 11px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .title:hover {
-  color: #2cb82c;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail span {
-  color: #999;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info > span:nth-child(1) {
-  float: left;
-}
-#forum .forum-content .forum-content-right .forum-hot-course .hot-course .course .detail .info > span:nth-child(2) {
-  float: right;
-}
+

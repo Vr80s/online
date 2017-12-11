@@ -240,22 +240,23 @@ public class AlipayController {
             throw new RuntimeException("找不到订单 ！");
         }
 
-
         //订单号  支付的钱
-        String orderNo2 = onlineOrder.getOrderNo();
-
+        orderNo = onlineOrder.getOrderNo();
+        System.out.println("orderNo:"+orderNo);
+        System.out.println("orderNo2:"+orderNo);
+        
         String ap = null;
         ap = onlineOrder.getActualPay().toString();
         if (ap.indexOf(".") >= 0 && ap.substring(ap.lastIndexOf(".")).length() < 3) {
             ap = ap + "0";
         } else {
         }
-
+        
         //  if (request.getParameter("WIDout_trade_no") != null) {
         // 商户订单号，商户网站订单系统中唯一订单号，必填
-        String out_trade_no = new String(orderNo2.getBytes("ISO-8859-1"), "UTF-8");
+        String out_trade_no = new String(orderNo.getBytes("ISO-8859-1"), "UTF-8");
         // 订单名称，必填
-        String subject = onlineOrderService.getCourseNames(orderNo2);//new String("订单支付".getBytes("ISO-8859-1"), "UTF-8");
+        String subject = onlineOrderService.getCourseNames(orderNo);//new String("订单支付".getBytes("ISO-8859-1"), "UTF-8");
         // 付款金额，必填
         String total_amount = String.valueOf(ap);
         // 商品描述，可空
@@ -282,12 +283,8 @@ public class AlipayController {
         OrderParamVo orderParamVo=new OrderParamVo();
         orderParamVo.setUserId(onlineOrder.getUserId());
 
-//
 //        PayBiz payBizRun=  PayBizRunFactory.init("dashang");
-//
-//
 //        AlipayTradeWapPayRequest alipa= payBizRun.(request,response);
-
 
         String passbackParams = JSONObject.toJSON(orderParamVo).toString();
         System.out.println("附加参数：" + passbackParams);
@@ -296,12 +293,16 @@ public class AlipayController {
         // 设置异步通知地址
         alipay_request.setNotifyUrl(alipayConfig.notify_url);
         // 设置同步地址
-
         //如果订单包含多个课程就跳到订单列表,否则直接跳掉视频详情页,如果是从微信出来的,就跳到返回微信的页面
-
-
         List<OnlineCourse> cList=null;
         if(StringUtils.isNotBlank(request.getParameter("formIsWechat"))){
+        	
+        	System.out.println("orderNo:"+orderNo);
+        	
+        	System.out.println("OnlineOrder:"+onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject());
+        	
+        	//System.out.println("OnlineOrder:"+onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject().getAllCourse().s);
+        	
             cList= ((OnlineOrder)onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject()).getAllCourse();
             int cCount=cList.size();
             if(cCount>1) { //多个课程 跳到订单列表
