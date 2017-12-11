@@ -95,7 +95,31 @@ public class MedicalHospital extends Model<MedicalHospital> {
      * 备注
      */
 	private String remark;
+	/**
+	 * 是否已认证
+	 */
+	@TableField("is_authentication")
+	private Boolean isAuthentication;
+	/**
+	 * 分值
+	 */
+	private Double score;
 
+	public Boolean getAuthentication() {
+		return isAuthentication;
+	}
+
+	public void setAuthentication(Boolean authentication) {
+		isAuthentication = authentication;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
 
 	public String getId() {
 		return id;
