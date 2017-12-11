@@ -37,6 +37,7 @@ import com.xczh.consumer.market.bean.WxcpPayFlow;
 import com.xczh.consumer.market.bean.WxcpWxTrans;
 import com.xczh.consumer.market.dao.OnlineOrderMapper;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
+import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineOrderService;
@@ -72,6 +73,7 @@ import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
 import com.xczhihui.bxg.online.api.po.RewardStatement;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.CityService;
+import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -114,7 +116,13 @@ public class WxPayController {
 
 	@Autowired
 	private UserCoinService userCoinService;
+	
+	@Autowired
+	private EnchashmentService enchashmentService;
 
+    @Autowired
+    private AppBrowserService appBrowserService;
+	
 	@Value("${online.weburl}")
 	private String pcUrl;
 
@@ -417,6 +425,26 @@ public class WxPayController {
 			String order_no = req.getParameter("order_no");
 			//String courderName = req.getParameter("courderName");
 			System.out.println("======================================"+order_no);
+			
+			ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
+    		if(null == orderDetails.getResultObject()){
+    			return ResponseObject.newErrorResponseObject("未找到订单信息");
+    		}
+			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
+    		Double actualPrice = order.getActualPay();//订单金额
+    		double  xmb = actualPrice * rate;
+    		
+    		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+    		if(user == null) {
+    	         return ResponseObject.newErrorResponseObject("登录超时！");
+    	    }
+    		String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		double d = Double.valueOf(userYE);
+    		System.out.println("要消费余额:"+xmb);
+    		System.out.println("当前用户余额:"+d);
+    		if(xmb>d){
+    			return ResponseObject.newErrorResponseObject("余额不足,请到个人账户充值！");
+			}
 			/**
 			 * 然后你那边加下密
 			 */
@@ -447,17 +475,10 @@ public class WxPayController {
 	        	/**
 	    		 * 获取订单详情
 	    		 */
-	    		ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
-	    		if(null == orderDetails.getResultObject()){
-	    			return ResponseObject.newErrorResponseObject("未找到订单信息");
-	    		}
-	    		OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
-	    		Double actualPrice = order.getActualPay();//订单金额
 	    		String courderName ="";
 	    		if(order.getAllCourse().size()>0){
 	    			courderName =order.getAllCourse().get(0).getGradeName();
 	    		}
-	    		double  xmb = actualPrice * rate;
 	    		/**
 	    		 * 记录下ios支付成功后的记录
 	    		 */
