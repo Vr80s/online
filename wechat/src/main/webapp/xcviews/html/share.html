@@ -40,7 +40,7 @@
 		background: red;
 	    background: red;
 	    position: fixed;
-	    z-index: 99999999;
+	    z-index: 999999999999;
 	    top: 1.6rem;
 	    right: 0;
 	}
@@ -104,6 +104,14 @@
 	.history_span{
 		text-indent: 2rem;
 	}
+	.fx_bg {
+	    width: 0.65rem;
+	    height: 0.65rem;
+	    background: url(/xcviews/images/fx.png)no-repeat;
+	    background-size: 100% 100%;
+	    float: right;
+	    margin-right: 0.3rem;
+	}
 </style>
 </head>
 <body style="background: #efefef;">
@@ -113,8 +121,9 @@
 			<div class="grabble_top">
 				<div class="grabble_img" id="grabble_img"></div>
 				<span class="history_span" style="color: #333;font-size: 1rem;">课程分享</span>
-				<div class="history_img_right"  id="share"
-					style="width: 1.6rem; color: #00bc12;" >分享</div>
+				<!--<div class="history_img_right"  id="share"
+					style="width: 1.6rem; color: #00bc12;" >分享</div>-->
+					<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;margin-top: 0.6rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
@@ -182,7 +191,7 @@
 	<div class="both"></div>
 	<div class="buy_bottom_bg">
 		<!-- <div class="buy_bg"></div> -->
-		<footer style="padding: 0.8rem 0;">
+		<footer>
 			<div class="base buy_bottom">
 				<ul>
 					<li class="buy_left" id="buy_foreshow">
