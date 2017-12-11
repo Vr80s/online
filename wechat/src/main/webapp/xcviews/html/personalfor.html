@@ -244,77 +244,6 @@
 	<!-- 报名详细信息cen结束 -->
 
 </body>
-<script type="text/javascript">
-	$(document).ready(function(){
-        
-		var jobList =[];
-		requestService("/bxg/bs/getUserInfoById",{userId:localStorage.getItem("userId")},
-				function(data) {
-				if (data.success) {
-					commonLocalStorageSetItem(data);
-			        //搞下身份信息
-			    	requestService("/bxg/oa/jobVo",{group:"occupation"}, function(data) {
-						if (data.success) {
-							//jobList = data.resultObject;
-							
-							var occupation  = localStorage.getItem("occupation");
-							
-							for (var int = 0; int <  data.resultObject.length; int++) {
-								var job ={};
-								var array_element =  data.resultObject[int];
-								job.text = array_element.value;
-								job.value=array_element.id;
-								if(job.value == occupation){
-									$("#sfxx").text(job.text);
-								}
-								jobList.push(job);
-							}
-							//{"id":"19","key":"0","value":"中医爱好者"}
-						}
-					},false);
-			    	if(stringnull(localStorage.getItem("occupationOther"))){
-			       	      $("#zyxx").text(localStorage.getItem("occupationOther"));
-			        }
-			        
-			} else {
-				alert("网络异常");
-			}
-		},false);
-		
-		
-		//身份信息
-		var userPicker = new mui.PopPicker();
-
-		//userPicker.setData(jobList);
-		 userPicker.setData(jobList); 
-		var showUserPickerButton = document.getElementById('showUserPicker');
-		var userResult = document.getElementById('sfxx');
-		showUserPickerButton.addEventListener('tap', function(event) {
-			userPicker.show(function(items) {
-				//sfxx
-				userResult.innerText = items[0].text;
-				userResult.className = items[0].value;
-				//返回 false 可以阻止选择框的关闭
-				//return false;
-				checkUser1("occupation");
-			});
-		}, false);
-  		
-  		$(".person_three").click(function(){
-  			$(".mui-active").hide();
-  			$(".zx_mask").show();
-  		});
-  		$("#showUserPicker").click(function(){
-  			$(".zx_mask").hide();
-  			$(".mui-active").show();
-  		});
-  		
-	});
-</script>
-
-
-
-
 		<!--js放上面报错-->
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
@@ -327,8 +256,6 @@
 <script>
 
 /* <p id="szd_cityP" onclick="szd_picker2()">请选择</p>    */
-
-
 
     /* 选择省市区插件    -- 初始化所在地这个地方啦 */
     function szd_picker2() {
@@ -381,6 +308,8 @@ $("#address_save").click(function(){
 <script>
 		//任一一项没有填写 就展示当前页,否则直接跳转到报名成功
 
+		var occupationText = "";
+		
         requestService("/bxg/apply/get", {userId : getQueryString("userId")}, function(data) {
             if (data.success) {
                 var result = data.resultObject;
@@ -396,13 +325,24 @@ $("#address_save").click(function(){
                 var occupation=result.occupation;
                 var isFirst=result.isFirst;
                 var referee=result.referee;
-
-                if(wechatNo==null||wechatNo==''||idCardNo==null||idCardNo==''||qq==null||qq==''||email==null||email==''||sex==null||sex==''||occupation==null||occupation==''||isFirst==null||isFirst==''||referee==null||referee==''){
-						$("#wechatNo").val(wechatNo);
+                
+                if(wechatNo==null||wechatNo==''|| 
+                		 idCardNo==null||idCardNo==''|| 
+                		 qq==null||qq==''||email==null||email==''
+                		 ||sex==null||sex==''
+                		 ||occupation==null||occupation==''
+                		 ||isFirst==null||isFirst==''
+                		 ||referee==null||referee==''){
+						
+                	    $("#wechatNo").val(wechatNo);
 						$("#idCardNo").val(idCardNo);
 						$("#qq").val(qq);
 						$("#email").val(email);
-						$("#occupation").val(occupation);
+						
+						//$("#occupation").val(occupation);
+						occupationText = occupation;
+						
+						$("#sfxx").text(job.occupationText);
 						$("#referee").val(referee);
 
 						if(sex!=null&&sex!=''){
@@ -410,9 +350,8 @@ $("#address_save").click(function(){
 						}
 
                     	if(isFirst!=null&&isFirst!=''){
-                    	$("input[name=sex][value=" + isFirst + "]").attr("checked", true);
-                   		 }
-
+                    		$("input[name=sex][value=" + isFirst + "]").attr("checked", true);
+                   		}
 				}else{
                     location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
 				}
@@ -421,9 +360,60 @@ $("#address_save").click(function(){
                 alert("提交订单错误！请稍后再试！");
             }
 
-        });
+        },false);
 
 
+    	//身份信息
+		requestService("/bxg/oa/jobVo",{group:"occupation"}, function(data) {
+			if (data.success) {
+				//jobList = data.resultObject;
+				var occupation  = localStorage.getItem("occupation");
+				for (var int = 0; int <  data.resultObject.length; int++) {
+					var job ={};
+					var array_element =  data.resultObject[int];
+					job.text = array_element.value;
+					job.value=array_element.id;
+					
+					
+					if(occupationText == ""){
+						if(job.value == occupation){
+							$("#sfxx").text(job.text);
+						}
+					}
+					jobList.push(job);
+				}
+			}
+		},false);
+		//身份信息下拉框
+		//身份信息
+		var userPicker = new mui.PopPicker();
+
+		//userPicker.setData(jobList);
+		userPicker.setData(jobList); 
+		var showUserPickerButton = document.getElementById('showUserPicker');
+		var userResult = document.getElementById('sfxx');
+		showUserPickerButton.addEventListener('tap', function(event) {
+			userPicker.show(function(items) {
+				//sfxx
+				userResult.innerText = items[0].text;
+				userResult.className = items[0].value;
+				//返回 false 可以阻止选择框的关闭
+				//return false;
+				checkUser1("occupation");
+			});
+		}, false);
+  		
+  		$(".person_three").click(function(){
+  			$(".mui-active").hide();
+  			$(".zx_mask").show();
+  		});
+  		$("#showUserPicker").click(function(){
+  			$(".zx_mask").hide();
+  			$(".mui-active").show();
+  		});
+		
+		
+		
         function sub(){
 			//必填
             var wechatNo=$("#wechatNo").val();
@@ -440,8 +430,6 @@ $("#address_save").click(function(){
 				setTimeout(function(){$(".vanish3").hide();},1500);
                 return false;
             }
-            
-            
             //先隐藏掉，这段表示身份证号几位数
             /*if(idCardNo.length < 18 || idCardNo.length >= 20) {
 		          $(".vanish3").show();
@@ -449,39 +437,31 @@ $("#address_save").click(function(){
 		          return false;
 		    }*/
             
-            
-            
-            
             //非必填
-            var qq=$("#qq").val();
+            //var qq=$("#qq").val();
             var email=$("#email").val();
-            
             /*隐藏邮箱*/
            /* if(email.length<=0){
                 $(".vanish0").show();
 				setTimeout(function(){$(".vanish0").hide();},1500);
                 return false;
             }*/
-            
-            
-            var occupation=$("#occupation").val();
-            var referee=$("#referee").val();
-
-			
-
-
             var sex=$('input:radio[name="sex"]:checked').val();
             if(sex==null){
                 alert("请选择性别!");
                 return false;
             }
-
+            var occupation=$("#occupationText").val();
+            //课程介绍人
+            var referee=$("#referee").val();
+            //时候首次参加
             var isFirst=$('input:radio[name="isFirst"]:checked').val();
             if(isFirst==null){
                 alert("请选择是否首次参加!");
                 return false;
             }
 
+            //更改报名的信息
             requestService("/bxg/apply/updateDetailsInfo", {wechatNo : wechatNo,idCardNo:idCardNo,qq:qq,email:email,occupation:occupation,referee:referee,sex:sex,isFirst:isFirst,userId : getQueryString("userId")}, function(data) {
 
                 if (data.success) {
