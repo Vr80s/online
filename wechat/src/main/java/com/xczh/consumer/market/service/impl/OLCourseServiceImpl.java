@@ -264,7 +264,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		
 		String sql="( select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
 				+ "IFNULL(default_student_count, 0) learndCount,ou.name,oc.grade_name gradeName,oc.description,oc.current_price currentPrice,"
-				+ "if(oc.course_pwd is not null and oc.course_pwd !='',2,if(oc.is_free =0,1,0)) as watchState,"
+				+ "if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,"
 				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime, "
 				+  dateWhere
 				+ "from"
@@ -276,7 +276,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		
 		sql += "( select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
 				+ "IFNULL(default_student_count, 0) learndCount,ou.name,oc.grade_name gradeName,oc.description,oc.current_price currentPrice,"
-				+ "if(oc.course_pwd is not null and oc.course_pwd !='',2,if(oc.is_free =0,1,0)) as watchState,"
+				+ "if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,"
 				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime, "
 				+  dateWhere
 				+ "from"
@@ -298,7 +298,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		sql.append("c.smallimg_path as smallImgPath,ou.room_number as roomNumber,c.start_time as startTime,c.end_time as endTime,");
 		sql.append("c.description as description,ou.id as userId,"
 				+ " c.original_cost as originalCost,c.current_price as currentPrice,");  //课程简介
-		sql.append("if(c.course_pwd is not null and c.course_pwd !='',2,if(c.is_free =0,1,0)) as watchState, ");  //课程简介
+		sql.append("if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  //课程简介
 
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,live_status as  lineState, ");
