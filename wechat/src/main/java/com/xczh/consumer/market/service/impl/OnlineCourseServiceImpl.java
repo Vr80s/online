@@ -75,6 +75,10 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	public CourseLecturVo liveDetailsByCourseId(int course_id, String userId)
 			throws SQLException {
 		CourseLecturVo courseLecturVo = courseMapper.liveDetailsByCourseId(course_id);
+		//
+		if(courseLecturVo ==null){
+			return null;
+		}
 	    /**
 	     * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播 
 	     */
@@ -518,13 +522,11 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	public List<CourseLecturVo> findLiveListByQueryKey(int start_page, int pageNumber,
                                                        String queryParam) throws SQLException {
 		/*
-		 *  先从礼物表里面查出来被送例如最多的课程 
+		 *  公共的模糊查询条件
 		 */
 		StringBuilder comSql = new StringBuilder(); 
 		if(queryParam!=null && !"".equals(queryParam) && !"null".equals(queryParam)){
 			comSql.append(" and ("); 
-			/*comSql.append(" ou.room_number like '%"+ queryParam + "%'"); 
-			comSql.append(" or "); */
 			comSql.append(" ou.name like '%"+ queryParam + "%'"); 
 			comSql.append(" or "); 
 			comSql.append(" c.grade_name like '%"+ queryParam + "%')"); 
@@ -533,12 +535,13 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		 StringBuilder sql = new StringBuilder();
 		 sql.append(" select SUM(ogs.count) as a,ogs.live_id from oe_gift_statement as ogs ,oe_user as ou,oe_course as c ");
 		 sql.append(" where ogs.receiver =ou.id and ogs.live_id = c.id ");
-		//房间编号/主播/课程
 		
 		sql.append(comSql);
+		
 		sql.append(" group by live_id order by a desc limit  "+start_page+","+pageNumber); 
 		
 		System.out.println("sql:"+sql.toString());
+		
 		List<Map<String, Object>> mapList =super.query(JdbcUtil.getCurrentConnection(), sql.toString(), new MapListHandler());
 		
 		String ids = "";

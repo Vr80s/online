@@ -764,7 +764,7 @@ pre:after {
 			</div>
 			-->
 			
-			<div class="person_cen_top person_seven" style="border-bottom:0px;margin-bottom: 0;" onclick="location.href ='address.html'">
+			<div class="person_cen_top person_seven" style="border-bottom:0px;margin-bottom: 0;" onclick="gotoAddress()">
 				<p class="person_p1">地址管理</p>
 				<div class="person_cen_right">
 					<!-- <p id="person_five">添加地址</p> -->
@@ -797,6 +797,14 @@ pre:after {
 <script src="../js/mui.poppicker.js"></script>
 
 <script>
+	
+	//去地址管理页面
+	function gotoAddress(){
+		
+		sessionStorage.setItem("address_back", "persons.html");
+		
+		location.href="address.html";
+	}
 
 /* <p id="szd_cityP" onclick="szd_picker2()">请选择</p>    */
 

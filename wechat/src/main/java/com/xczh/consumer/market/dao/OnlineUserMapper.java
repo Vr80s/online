@@ -322,17 +322,18 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	public List<Map<String, Object>> findHotHostByQueryKey(String queryKey)
 			throws SQLException {
 
+		
 		// 如果有搜索参数的时候的话就显示3个数据，没有的话就显示4个
 		Integer pageNumber = 4;
 		/**
 		 * 直接先检索关注表啦
 		 */
-		String strSql = " select count(*) as count1,of.lecturer_id as lecturerId from oe_focus as of ";
-		/*
-		 */
+		String strSql = " select count(*) as count1,of.lecturer_id as userId,ou.name as name,ou.small_head_photo as headImg "
+				+ "from oe_focus as of ";
+		
 		if (queryKey != null && !"".equals(queryKey)
 				&& !"null".equals(queryKey)) {
-			strSql += ",oe_user as ou  where  of.lecturer_id = ou.id and ou.name like '%" + queryKey + "%' ";
+			strSql += ",oe_user as ou  where  of.lecturer_id = ou.id  and ou.status = 0 and ou.is_delete =0 and ou.name like '%" + queryKey + "%' ";
 			pageNumber = 3;
 		}
 		strSql += " GROUP BY of.lecturer_id ORDER BY count1 desc limit "
@@ -342,53 +343,34 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		List<Map<String, Object>> listMap = this.query(
 				JdbcUtil.getCurrentConnection(), strSql, new MapListHandler());
 
-		List<Map<String, Object>> bigMap = new ArrayList<Map<String, Object>>();
 		String ids = "";
 		if (listMap.size() > 0) {
 			for (Map<String, Object> map : listMap) {
-				String lecturer_id = map.get("lecturerId").toString();
-				ids += "'" + lecturer_id + "'" + ",";
-				String lecSql = "select id as userId,name,small_head_photo as headImg,room_number as roomNumber ";
-				lecSql += " from oe_user where id =? ";
-				Map<String, Object> map1 = this.query(
-						JdbcUtil.getCurrentConnection(), lecSql,
-						new MapHandler(), lecturer_id);
-				if (map1 != null) {
-					map1.put("count", map.get("count1").toString());
-					bigMap.add(map1);
-				}
+				String userId = map.get("userId").toString();
+				ids += "'" + userId + "'" + ",";
 			}
 		}
-		if (bigMap.size() == pageNumber) {
-			return bigMap;
+		List<Map<String, Object>> bigMap = new ArrayList<Map<String, Object>>();
+		if (listMap.size() == pageNumber) {
+			return listMap;
 		} else {
-			int pageSize = pageNumber - bigMap.size();
+			int pageSize = pageNumber - listMap.size();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select id as userId,name,small_head_photo as headImg,room_number as roomNumber");
-			sql.append(" from oe_user where is_lecturer = 1 and status = 0  ");
+			sql.append("select id as userId,name,small_head_photo as headImg ");
+			sql.append(" from oe_user where is_lecturer = 1 and status = 0 and ou.is_delete =0 ");
 			if (ids != "") {
 				ids = ids.substring(0, ids.length() - 1);
 				sql.append(" and id not in (" + ids + ")");
 			}
-			/*
-			 * if(queryKey!=null && !"".equals(queryKey) &&
-			 * !"null".equals(queryKey)){
-			 * sql.append(" and (name like '%"+queryKey+"%'");
-			 * sql.append(" or room_number like '%"+queryKey+"%')"); }
-			 */
 			if (queryKey != null && !"".equals(queryKey)
 					&& !"null".equals(queryKey)) {
 				sql.append(" and (name like '%" + queryKey + "%' )");
 			}
-
 			sql.append(" limit " + pageSize);
 			List<Map<String, Object>> chapters = super.query(
 					JdbcUtil.getCurrentConnection(), sql.toString(),
 					new MapListHandler());
 
-			for (Map<String, Object> map : chapters) {
-				map.put("count", 0);
-			}
 			bigMap.addAll(chapters);
 		}
 		return bigMap;

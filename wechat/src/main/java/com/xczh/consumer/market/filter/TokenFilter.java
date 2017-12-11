@@ -54,13 +54,15 @@ public class TokenFilter implements Filter {
 	 * 新版为了播放开放的接口
 	 */
 	private static String str4 = "/bxg/common/h5ShareAfter,/bxg/version/checkUpdate,/bxg/live/addLive,"
-			+ "/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo,/bxg/message/add,"
+			+ "/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo,/bxg/message/add,/bxg/common/getDomain,"
 			+ "/bxg/apply/updateBaseInfo";
 	
 	private static String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
-			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/common/getDomain,/bxg/bs/appLogin";
+			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/bs/appLogin";
+	
+	
 	private static String str7 = "/bxg/live/liveDetails,/bxg/reward/list,/bxg/gift/sendGift,/bxg/gift/list,/bxg/gift/rankingList";
-	private  static String str8 = "/bxg/bunch/offLineClassItem,/bxg/live/getMoneySum,/bxg/common/userIsSubscribe,/bxg/bunch/detail";
+	private  static String str8 = "/bxg/bunch/offLineClassItem,/bxg/live/getMoneySum,/bxg/common/userIsSubscribe,/bxg/bunch/detail,/bxg/oa/jobVo";
 	private static String str9 = "/bxg/video/getVideos,/bxg/wxjs/h5JSSDK,/bxg/common/getWeihouSign";
 	private  static String str10 = "/bxg/common/judgeUserIsTeacher,/bxg/gift/userRankingList,/bxg/common/userHomePage,/bxg/common/userHomePageCourseList";
 	private static String str11 = "/bxg/history/list,/bxg/history/add,/bxg/history/empty,/bxg/live/getPreLiveCount,/bxg/focus/myHome,/bxg/user/appleLogout";
@@ -79,6 +81,8 @@ public class TokenFilter implements Filter {
 	 */
 	private static String str14 =  "/bxg/bs/isLecturer,/bxg/wxpay/appleIapPayOrder,/bxg/common/coursePwdConfirm,/bxg/bs/applePhoneRegist";
 	
+	private static String str15 =  "/bxg/city/saveAddress,/bxg/city/updateAddress,/bxg/city/getAddressAll,/bxg/city/updateIsAcquies,/bxg/city/deleteAddressById,/bxg/city/getAllPCC";
+	
 	
 	public static void main(String[] args) {
 		System.out.println((str + "," +str1+","+str2+","+str3).split(",").length);
@@ -94,8 +98,8 @@ public class TokenFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
 		
-		String excludedPageStr = str + "," +str1+","+str2+","+str3+","+str4;
-		String appExcludedPageStr = str4+","+str5+","+","+str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14;
+		String excludedPageStr = str + "," +str1+","+str2+","+str3+","+str4+","+str5;
+		String appExcludedPageStr =str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14+","+str15;
 		
 		if (StringUtils.isNotEmpty(excludedPageStr)) {   
 		    excludedPageArray = excludedPageStr.split(",");

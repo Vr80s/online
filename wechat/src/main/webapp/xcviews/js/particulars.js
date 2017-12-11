@@ -191,9 +191,6 @@ function  goPay() {
     });
 }
 
-
-
-
 function ckProPrice() {
     //判断商品价格
     var reg = /(^[-+]?[1-9]\d*(\.\d{1,2})?$)|(^[-+]?[0]{1}(\.\d{1,2})?$)/;
@@ -356,12 +353,15 @@ document.getElementById('qqShare').onclick = function(e){
  * 邮件主题：【微信JS-SDK反馈】具体问题
  * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
  */
+
+var domain = window.location.protocol+"//"+document.domain;
+
 wx.ready(function () {
 	//发送到朋友
 	wx.onMenuShareAppMessage({
 	    title: result.gradeName, // 分享标题
 	    desc: result.courseDescription, // 分享描述
-	    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+	    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 	    imgUrl: result.smallImgPath, // 分享图标
 	    type: '', // 分享类型,music、video或link，不填默认为link
 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -381,7 +381,7 @@ wx.ready(function () {
 	//发送到朋友圈
 	wx.onMenuShareTimeline({
 	    title: result.gradeName, // 分享标题
-	    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+	    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 	    imgUrl: result.smallImgPath, // 分享图标
 	    success: function () {
 	        // 用户确认分享后执行的回调函数
@@ -400,7 +400,7 @@ wx.ready(function () {
 	wx.onMenuShareQQ({
 	    title: result.gradeName, // 分享标题
 	    desc: result.courseDescription, // 分享描述
-	    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+	    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 	    imgUrl: result.smallImgPath, // 分享图标
 	    success: function () {
 	       // 用户确认分享后执行的回调函数

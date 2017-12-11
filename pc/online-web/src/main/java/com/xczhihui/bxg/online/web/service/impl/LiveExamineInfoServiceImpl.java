@@ -90,7 +90,7 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             		+ "c.direct_id directId, IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id ), 0 ) + IFNULL(default_student_count, 0) learndCount "
             		+ "FROM live_examine_info lei  "
             		+ "left JOIN  oe_course c ON (lei.id = c.examine_id) "
-            		+ "inner join oe_menu om on (om.id=lei.type) WHERE lei.user_id = :userId   ");
+            		+ "inner join oe_menu om on (om.id=lei.type) WHERE lei.user_id = :userId and  c.is_delete=0 and c.status = 1  ");
             if("0".equals(examineStatus)){ //待直播
                 sb.append(" and lei.examine_status = 1  AND c.live_status != 3  ");
             }else if("2".equals(examineStatus)){ //直播完成

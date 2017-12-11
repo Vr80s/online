@@ -1,0 +1,39 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title></title>-->
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script>
+/**
+ * 截取url传递的参数
+ * @param name 传递 key  得到value 
+ * @returns
+ */
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+var domain = window.location.protocol+"//"+document.domain;
+
+debugger;
+var course = getQueryString("courseId");
+console.log(parseFloat(course).toString());
+if(course!=null && course!="" && parseFloat(course).toString() != "NaN"){
+	location.href =domain+"/bxg/common/pcShareLink?courseId="+course;
+}else{
+	location.href =domain+"/bxg/page/index/null/null";
+}
+</script>
+</head>
+<body>
+</body>
+</html>

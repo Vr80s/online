@@ -22,12 +22,10 @@ document.getElementById("grabble_img").addEventListener("tap",function() {
 })
 
 var course_id =getQueryString("course_id");
-
 /**
  * 这个东西不能暴露在前端的。
  */
 function getOpenid(){
-	
 	if(isWeiXin()){ //来自微信浏览器
 		/**
 		 * 这个直接获取用户的  h5BsGetCodeUr  然后去绑定手机号啦！
@@ -37,12 +35,10 @@ function getOpenid(){
 		location.href ="/bxg/page/login/1";
 	}
 }
-
 /**
  * 判断是否需要跳转到pc网页。响应式的一种吧
  */
 h5PcConversions(true,course_id);
-
 /**
  * 分享页面关注
  */
@@ -157,12 +153,14 @@ requestService("/bxg/common/h5ShareAfter",{
 	 * 邮件主题：【微信JS-SDK反馈】具体问题
 	 * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
 	 */
+	var domain = window.location.protocol+"//"+document.domain;
+
 	wx.ready(function () {
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: result.gradeName, // 分享标题
 		    desc: descriptionType, // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 		    imgUrl: result.smallImgPath, // 分享图标
 		    type: '', // 分享类型,music、video或link，不填默认为link
 		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -183,7 +181,7 @@ requestService("/bxg/common/h5ShareAfter",{
 		//发送到朋友圈
 		wx.onMenuShareTimeline({
 		    title: result.gradeName, // 分享标题
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
@@ -202,7 +200,7 @@ requestService("/bxg/common/h5ShareAfter",{
 		wx.onMenuShareQQ({
 		    title: result.gradeName, // 分享标题
 		    desc: descriptionType, // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		       // 用户确认分享后执行的回调函数

@@ -44,21 +44,14 @@ function getServerHost(){
 
 /*
  * 判断是否来自分享啦网站链接用微信打开的啦
+ * 
+ * 
+ * 如果来
+ * 
+ * 
  */
 var accessCommon = localStorage.access;
-// 如果来自微信端的话
-if (accessCommon == "wx") {
-	var openid = localStorage.openid;
-	if (openid == undefined || openid == "" || openid == null) {
-		// 请求下后台，获取url。进行转发啦！
-		requestService("/bxg/wxjs/h5BsGetCodeUrl ", null, function(data) {
-			if (data.success) {
-				var getCodeUrl = data.resultObject;
-				window.location.href = getCodeUrl;
-			}
-		})
-	}
-}
+
 /**
  * courseId 课程id
  * falg： false 官网   ture课程页面
@@ -106,6 +99,7 @@ if(current.indexOf("/xcviews/html/share.html")==-1
 		&& current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/bxg/xcpage/courseDetails")==-1
 		&& current.indexOf("/xcviews/html/particulars.html")==-1){
+	
 	h5PcConversions(false);
 }
 
@@ -164,8 +158,6 @@ if(current.indexOf("/bxg/page/login/")==-1
 		&& current.indexOf("/xcviews/html/find.html")==-1
 		&& current.indexOf("/bxg/page/forgotPassword")==-1 
 		&& current.indexOf("/xcviews/html/personalfor.html")==-1
-		&& current.indexOf("/xcviews/html/complaint.html")==-1
-		&& current.indexOf("/xcviews/html/complaint_details.html")==-1
 		&& current.indexOf("/xcviews/html/index.html")==-1
 		&& current != domain){
 	
@@ -173,6 +165,16 @@ if(current.indexOf("/bxg/page/login/")==-1
 	var user_cookie = cookie.get("_uc_t_");
 	if(user_cookie == null){  //去登录页面
 		location.href = "/bxg/page/login/1";
+	}
+	/*
+	 * 如果是微信浏览器的话，如果要实现支付，必须就需要存在openId。
+	 *    这个是以防万一。
+	 */
+	if (accessCommon == "wx") {
+		var openid = localStorage.openid;
+		if (openid == undefined || openid == "" || openid == null) {
+			window.location.href = "/bxg/wxjs/h5BsGetCodeUrl";
+		}
 	}
 }
 
@@ -236,6 +238,8 @@ function getQueryString(name) {
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
 }
+
+
 
 /**
  * 现在的入口有两个呢，一个是
