@@ -6091,10 +6091,10 @@ footer{
 .history_bg_cen{
 	width: 11.55rem;
     height: 6.35rem;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: 8.5rem;
+    margin-top: -5.5rem;
     margin-left: -37%;
     background: #f4f4f4;
     z-index: 999999999;
