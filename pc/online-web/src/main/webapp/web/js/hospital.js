@@ -93,7 +93,7 @@ $(function () {
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
-            '<li><a href="/web/html/forumBiaoqian.html?tagId={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
+            '<li><a href="/web/html/hospital_list.html?Id={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
             '{{/each}}';
     var relativeCourse = '{{each item as $value i}}' +
         "<li>" +
@@ -127,7 +127,7 @@ $(function () {
         init();
     });
     //优秀医馆部分 hot-article
-    RequestService("/getRecHospitals", "GET", null, function (data) {
+    RequestService("/medical/hospital/getRecHospitals", "GET", null, function (data) {
         if(data.resultObject.length==0){
             $(".hot-article-list").html(template.compile(emptyDefaul));
         }else{
@@ -176,7 +176,7 @@ $(function () {
 //        })
 //    });
     //医馆搜索中的热门标签
-    RequestService("/bxs/article/getHotTags","GET",null,function(data){
+    RequestService("/medical/hospital/getHotField","GET",null,function(data){
         if(data.resultObject.length==0){
             $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
         }else{
@@ -354,7 +354,7 @@ $(function () {
 	
 	//渲染医馆列表方法
 	function getHostipalList(current,size,name){
-	    RequestService("/getHospitals","GET",{
+	    RequestService("/medical/hospital/getHospitals","GET",{
 	    	current:current,
 	    	size:size,
 	    	name:name

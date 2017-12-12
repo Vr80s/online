@@ -40,6 +40,7 @@
 .content_box #main .main_left .hospital_detail_inf{
     width: 860px;
     height: 715px;
+    position: relative;
 }
 .content_box #main .main_left .hospital_detail_inf h3{
     font-size: 20px;
@@ -82,10 +83,16 @@
 .content_box #main .main_left .hospital_detail_inf .hospital_detail_inf_bottom{
     height: 60px;
     line-height: 60px;
-    margin:0 -20px;
+    margin: 0 -20px;
     background-color: #dadada;
-    padding:0 20px;
+    padding: 0 20px;
     font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+.content_box #main .main_left .hospital_detail_inf .hospital_detail_inf_bottom > p>span{
+	margin-right: 30px;
 }
 .content_box #main .main_left .hospital_doctor{
 
