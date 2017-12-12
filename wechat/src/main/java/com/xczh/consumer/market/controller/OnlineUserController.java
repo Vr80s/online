@@ -166,6 +166,30 @@ public class OnlineUserController {
 	}
 	
 	/**
+	 * 退出登录
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("appleLogout")
+	@ResponseBody
+	public ResponseObject appleLogout(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
+		UCCookieUtil.clearTokenCookie(res);
+		req.getSession().setAttribute("_user_", null);
+		String token = req.getParameter("token");
+		if(token!=null){
+			cacheService.delete(token);
+		}
+		String appUniqueId = req.getParameter("appUniqueId");
+		//设置登录标识
+		onlineUserService.updateAppleTourisrecord(appUniqueId,0);
+		return ResponseObject.newSuccessResponseObject("退出成功");
+	}
+	
+	
+	/**
 	 * 微信退出登录
 	 * @param req
 	 * @param res

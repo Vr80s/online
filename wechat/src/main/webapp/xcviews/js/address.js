@@ -1,6 +1,18 @@
 
+    /**
+     * 可能是来自填写报名信息页面的
+     */
+     
 
-	
+    var userId = localStorage.getItem("userId");
+    $(".address_return").click(function(){
+    	var person = sessionStorage.getItem("address_back");
+    	if(person=="personalfor.html"){
+    		location.href ='personalfor.html?userId='+userId;
+    	}else{
+    		location.href ='persons.html';
+    	}
+    })  
 	/**
 	 * 新增地址或修改地址返回
 	 */

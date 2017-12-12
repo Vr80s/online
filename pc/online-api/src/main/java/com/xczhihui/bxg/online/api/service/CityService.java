@@ -154,5 +154,15 @@ public interface CityService {
 			throws SQLException;
 	
 	public Integer []  getCodeByName(String proince, String city)throws SQLException;
+	/**
+	 * 
+	 * Description：通过用户id得到用户的默认地址
+	 * @param id
+	 * @return
+	 * @return UserAddressManagerVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public UserAddressManagerVo findAcquiescenceAddressById(String id);
 
 }

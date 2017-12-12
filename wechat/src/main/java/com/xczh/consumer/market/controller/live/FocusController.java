@@ -6,8 +6,8 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-
 import com.xczhihui.bxg.online.api.service.UserCoinService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,9 +60,23 @@ public class FocusController {
 		
 		String userId = req.getParameter("userId");
 		String token = req.getParameter("token");
-		
-		OnlineUser user = onlineUserService.findUserById(userId);
-		
+		OnlineUser user =null;
+		if(token!=null){
+			user = appBrowserService.getOnlineUserByReq(req);
+		}else{
+			String appUniqueId = req.getParameter("appUniqueId");
+			if(appUniqueId!=null){
+				Map<String, Object> mapAppRecord = onlineUserService.getAppTouristRecord(appUniqueId);
+				Boolean regis =  (Boolean) mapAppRecord.get("isRegis");
+				if(!regis){ //返回用户基本信息   --主要是不返回loginName
+					user = onlineUserService.findUserByIdAndVhallNameInfo(mapAppRecord.get("userId").toString());
+				}else{ //返回用户信息 -- 包括loginName
+					user = onlineUserService.findUserById(mapAppRecord.get("userId").toString());
+				}
+			}else{
+				user = onlineUserService.findUserById(userId);
+			}
+		}
 		Map<String,Object> map =new HashMap<String, Object>();
 		if(null == user){	
 			//return ResponseObject.newErrorResponseObject("获取用户信息异常");
@@ -75,7 +89,6 @@ public class FocusController {
 			 */
 			map.put("user", null);
 		}else{
-			user = onlineUserService.findUserById(user.getId());
 			//我的粉丝总数
 			Integer countFans =	focusService.findMyFansCount(user.getId());
 			//我的关注总数

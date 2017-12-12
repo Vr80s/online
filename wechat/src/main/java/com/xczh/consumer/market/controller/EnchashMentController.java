@@ -55,9 +55,11 @@ public class EnchashMentController {
         params2.put("token",request.getParameter("token"));
         OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
         if (user == null) {
-            throw new RuntimeException("登录超时！");
+        	return ResponseObject.newSuccessResponseObject(0);	
+        }else{
+        	return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentBalance(user.getId()));	
         }
-        return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentBalance(user.getId()));
+       
     }
 
     @RequestMapping("getEnchashmentRmbBalance")
@@ -73,5 +75,7 @@ public class EnchashMentController {
         return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentRmbBalance(user.getId()));
     }
 
-
+    
+    
+    
 }

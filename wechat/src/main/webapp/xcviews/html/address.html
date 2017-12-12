@@ -99,12 +99,23 @@
 		
 		
 		.history_bg_bto01 {
-    margin: 0 auto;
-    margin-top: 1.6rem;
-    width: 100%;
-    border-top: 1px solid #d2d2da;
-    line-height: 1.8rem;
-}
+		    margin: 0 auto;
+		    margin-top: 1.6rem;
+		    width: 100%;
+		    border-top: 1px solid #d2d2da;
+		    line-height: 1.8rem;
+		}
+		
+		.address_return {
+		    width: 0.51rem;
+		    height: 0.851rem;
+		    display: inline-block;
+		    float: left;
+		    background: url(../images/return.png) no-repeat;
+		    background-size: 100% 100%;
+		    margin-left: 0.4rem;
+		    margin-top: 0.5rem;
+		}
 		
 	</style>
 </head>
@@ -133,7 +144,7 @@
     <!-- 地址管理开始 -->
     <div class="site_call" style="display: block; !important">
       <div class="pet_name_top">
-        <div class="return" id="return_address"></div>
+        <div class="address_return"></div>
         <div class="dl"
           style="width: 75%;float: left;margin-left: 1.5rem;">地址管理</div>
         <div class="both"></div>
@@ -166,6 +177,8 @@
 <script src="../js/city.js"></script>
 <script src="../js/picker.min.js"></script>
 <script>
+
+
 
 /**
  * 请求地址

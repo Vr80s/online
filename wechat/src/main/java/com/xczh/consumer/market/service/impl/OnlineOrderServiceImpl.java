@@ -90,7 +90,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		if(null == course){
 			return ResponseObject.newErrorResponseObject("查询不到课程信息！");
 		}
-		
 //		boolean falg = oLCourseMapper.queryOrderIsShop(course.getId(),user.getId());
 //		if(falg){
 //			return ResponseObject.newErrorResponseObject("已经购买了此课程！");
@@ -174,7 +173,7 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		order.setCreatePerson(user.getLoginName());
 		order.setCreateTime(new Date());     //创建时间
 		order.setUserId(user.getId());       //用户ID
-		order.setOrderFrom(orderFrom);               //订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销' 4:h5网页    5：手机app 
+		order.setOrderFrom(orderFrom);       //订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销' 4:h5网页    5：手机app 
 		order.setPayAccount("暂无");          //支付账号
 		order.setPayTime(new Date());
 		orderMapper.addOrder(order);
