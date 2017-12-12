@@ -240,7 +240,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 												Integer pageNumber, Integer pageSize) throws SQLException {
 		String sql="";
 		
-		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0)  ";//这个用来比较啦
+		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff ";//这个用来比较啦
 		
 			if(1==type){
 				//CourseVo
