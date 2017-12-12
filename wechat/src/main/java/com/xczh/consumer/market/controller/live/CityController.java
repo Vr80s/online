@@ -123,7 +123,6 @@ public class CityController {
 			return ResponseObject.newErrorResponseObject("删除失败");
 		}
 	}
-	
 	/**
 	 * 根据id查找地址
 	 */
@@ -140,6 +139,21 @@ public class CityController {
 			return ResponseObject.newErrorResponseObject("修改失败");
 		}
 	}
+	
+	/**
+	 * 根据用户id得到该用户的默认地址
+	 */
+	@RequestMapping("findAddressByUserId")
+	@ResponseBody
+	public ResponseObject findAcquiescenceAddressById(HttpServletRequest req,
+			HttpServletResponse res) throws SQLException {
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+
+		UserAddressManagerVo umv =  cityService.findAddressByUserIdAndAcq(ou.getId());
+		return ResponseObject.newSuccessResponseObject(umv);
+	}
+	
+	
 	
 	/**
 	 * 得到所有都省份和市

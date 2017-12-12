@@ -3,6 +3,7 @@ package com.xczhihui.medical.hospital.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,9 +19,11 @@ import java.util.List;
  */
 public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
 
-    List<MedicalHospital> selectHospitalList(@Param("page") Page<MedicalHospital> page, @Param("name") String name);
+    List<MedicalHospital> selectHospitalList(@Param("page") Page<MedicalHospital> page, @Param("name") String name,@Param("field") String field);
 
     MedicalHospital selectHospitalById(String id);
 
     List<MedicalHospital> selectRecHospital();
+
+    List<MedicalField> getHotField();
 }

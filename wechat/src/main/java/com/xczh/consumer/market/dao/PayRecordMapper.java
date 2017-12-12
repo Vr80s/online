@@ -17,7 +17,16 @@ public class PayRecordMapper extends BasicSimpleDao {
 
     public List<PayRecordVo> findByUserId(String userId,
                                           Integer pageNumber, Integer pageSize) throws SQLException {
-        String sql="SELECT r.* FROM ( SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount totalAmount FROM alipay_payment_record apr WHERE apr.user_id =? UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount totalAmount FROM alipay_payment_record_h5 apr WHERE apr.user_id =? UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.time_end gmtCreate,  truncate((apr.total_fee/100),2)  totalAmount FROM wxcp_pay_flow apr WHERE user_id =? union select ii.order_no,ii.`subject`,ii.create_time gmtCreate,ii.actual_price totalAmount from iphone_iap ii where ii.user_id=? ) r ORDER BY r.gmtCreate DESC";
+        String sql="SELECT r.* FROM "
+        		+ "( SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount totalAmount "
+        		+ " FROM alipay_payment_record apr WHERE apr.user_id =? "
+        		+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount totalAmount "
+        		+ " FROM alipay_payment_record_h5 apr WHERE apr.user_id =? "
+        		+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.time_end gmtCreate,  truncate((apr.total_fee/100),2)  totalAmount "
+        		+ " FROM wxcp_pay_flow apr WHERE user_id =?"
+        		+ " union select ii.order_no,ii.`subject`,ii.create_time gmtCreate,ii.actual_price totalAmount "
+        		+ "from iphone_iap ii where ii.user_id=? ) r ORDER BY r.gmtCreate DESC";
+        
         Object[] params = new Object[]{userId,userId,userId,userId};
         List<PayRecordVo> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,PayRecordVo.class, params);
         return lists;

@@ -56,6 +56,18 @@ public class MedicalHospitalRecruit implements Serializable {
 
 	private Integer sort;
 
+	public Integer getStatusnum() {
+		return statusnum;
+	}
+
+	public void setStatusnum(Integer statusnum) {
+		this.statusnum = statusnum;
+	}
+
+	@Transient
+	private Integer statusnum;
+
+
 	public String getId() {
 		return id;
 	}

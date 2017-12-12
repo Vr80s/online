@@ -82,6 +82,7 @@ public class IapController {
     	
     	System.out.println("111111111111111================================================");
         System.out.println("receipt:"+receipt);
+        
         String url = certificateUrl;
         final String certificateCode = receipt;
 
@@ -177,8 +178,6 @@ public class IapController {
             while((line = reader.readLine())!= null){
                 sb.append(line);
             }
-            
-            
             System.out.println("要通过这个参数来得到这个用户的信息："+sb.toString());
             return sb.toString();
 

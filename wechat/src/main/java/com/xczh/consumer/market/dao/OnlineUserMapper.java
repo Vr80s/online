@@ -322,17 +322,18 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	public List<Map<String, Object>> findHotHostByQueryKey(String queryKey)
 			throws SQLException {
 
+		
 		// 如果有搜索参数的时候的话就显示3个数据，没有的话就显示4个
 		Integer pageNumber = 4;
 		/**
 		 * 直接先检索关注表啦
 		 */
-		String strSql = " select count(*) as count1,of.lecturer_id as lecturerId from oe_focus as of ";
-		/*
-		 */
+		String strSql = " select count(*) as count1,of.lecturer_id as userId,ou.name as name,ou.small_head_photo as headImg "
+				+ "from oe_focus as of ";
+		
+		strSql += ",oe_user as ou  where  of.lecturer_id = ou.id  and ou.status = 0 and ou.is_delete =0 and ou.name like '%" + queryKey + "%' ";
 		if (queryKey != null && !"".equals(queryKey)
 				&& !"null".equals(queryKey)) {
-			strSql += ",oe_user as ou  where  of.lecturer_id = ou.id and ou.name like '%" + queryKey + "%' ";
 			pageNumber = 3;
 		}
 		strSql += " GROUP BY of.lecturer_id ORDER BY count1 desc limit "
@@ -342,53 +343,35 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		List<Map<String, Object>> listMap = this.query(
 				JdbcUtil.getCurrentConnection(), strSql, new MapListHandler());
 
-		List<Map<String, Object>> bigMap = new ArrayList<Map<String, Object>>();
 		String ids = "";
 		if (listMap.size() > 0) {
 			for (Map<String, Object> map : listMap) {
-				String lecturer_id = map.get("lecturerId").toString();
-				ids += "'" + lecturer_id + "'" + ",";
-				String lecSql = "select id as userId,name,small_head_photo as headImg,room_number as roomNumber ";
-				lecSql += " from oe_user where id =? ";
-				Map<String, Object> map1 = this.query(
-						JdbcUtil.getCurrentConnection(), lecSql,
-						new MapHandler(), lecturer_id);
-				if (map1 != null) {
-					map1.put("count", map.get("count1").toString());
-					bigMap.add(map1);
-				}
+				String userId = map.get("userId").toString();
+				ids += "'" + userId + "'" + ",";
 			}
 		}
-		if (bigMap.size() == pageNumber) {
-			return bigMap;
+		List<Map<String, Object>> bigMap = new ArrayList<Map<String, Object>>();
+		if (listMap.size() == pageNumber) {
+			return listMap;
 		} else {
-			int pageSize = pageNumber - bigMap.size();
+			bigMap.addAll(listMap);
+			int pageSize = pageNumber - listMap.size();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select id as userId,name,small_head_photo as headImg,room_number as roomNumber");
-			sql.append(" from oe_user where is_lecturer = 1 and status = 0  ");
+			sql.append("select id as userId,name,small_head_photo as headImg ");
+			sql.append(" from oe_user where is_lecturer = 1 and status = 0 and is_delete =0 ");
 			if (ids != "") {
 				ids = ids.substring(0, ids.length() - 1);
 				sql.append(" and id not in (" + ids + ")");
 			}
-			/*
-			 * if(queryKey!=null && !"".equals(queryKey) &&
-			 * !"null".equals(queryKey)){
-			 * sql.append(" and (name like '%"+queryKey+"%'");
-			 * sql.append(" or room_number like '%"+queryKey+"%')"); }
-			 */
 			if (queryKey != null && !"".equals(queryKey)
 					&& !"null".equals(queryKey)) {
 				sql.append(" and (name like '%" + queryKey + "%' )");
 			}
-
 			sql.append(" limit " + pageSize);
 			List<Map<String, Object>> chapters = super.query(
 					JdbcUtil.getCurrentConnection(), sql.toString(),
 					new MapListHandler());
 
-			for (Map<String, Object> map : chapters) {
-				map.put("count", 0);
-			}
 			bigMap.addAll(chapters);
 		}
 		return bigMap;
@@ -544,7 +527,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 * @throws SQLException
 	 */
 	public Map<String, Object> getAppTouristRecord(String appOnlyOne) throws SQLException {
-		String sql = " select vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass from apple_tourist_record where app_only_one = ?";
+		String sql = " select user_id as userId,is_reigs as isRegis,vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass from apple_tourist_record where app_only_one = ?";
 		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
 				sql, new MapHandler(), appOnlyOne);
 		return map;
@@ -557,10 +540,10 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 *         email: 15936216273@163.com
 	 * @throws SQLException
 	 */
-	public void saveAppTouristRecord(Map<String,Object> map,String appOnlyOne) throws SQLException {
+	public void saveAppTouristRecord(OnlineUser ou,String appOnlyOne) throws SQLException {
 		String sql = " insert into apple_tourist_record(app_only_one,user_id,vhall_id,vhall_name,vhall_pass) values(?,?,?,?,?) ";
 		super.update(JdbcUtil.getCurrentConnection(), sql,
-				appOnlyOne,null,map.get("vhallId"),map.get("vhallName"),map.get("vhallPass"));
+				appOnlyOne,ou.getId(),ou.getVhallId(),ou.getVhallName(),ou.getVhallPass());
 	}
 
 	public void updateOnlineUserAddPwdAndUserName(OnlineUser u) throws SQLException {
@@ -628,8 +611,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
 	}
-	
-	
 	/**
 	 * 根据id查询用户
 	 * @param id
@@ -638,10 +619,19 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 */
 	public OnlineUser findUserByIdAndVhallNameInfo(String id) throws SQLException {
 		StringBuffer sql = new StringBuffer(); 
-		sql.append(" select id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName,login_name as loginName");
+		sql.append(" select id as id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(OnlineUser.class), params);
+	}
+
+	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		StringBuilder sb = new StringBuilder("");
+		sb.append("update apple_tourist_record set is_reigs = ? where app_only_one = ?");
+		Object[] params = {isReigs,appUniqueId};
+		this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
 	}
 	
 }

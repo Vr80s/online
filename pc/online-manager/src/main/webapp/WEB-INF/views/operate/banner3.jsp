@@ -17,7 +17,7 @@
 <div class="page-header">
   当前位置：运营管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span> 创业banner管理 </span>
+  <span> 头条banner管理 </span>
 </div>
 
 
@@ -85,7 +85,7 @@
 			 <label class="col-sm-3 control-label no-padding-right" for="description"><font color="red">*</font>banner名称: </label>
 			 <div class="col-sm-6">
 			 		<input type="text" name="description"  id="add_description" maxlength="50" class="col-xs-10 col-sm-12 {required:true}">
-			 		<input type="text" name="type" value="3"  maxlength="50">
+			 		<input type="hidden" name="type" value="3"  maxlength="50">
              </div>
 		</div>
 	    <div class="space-4"></div>

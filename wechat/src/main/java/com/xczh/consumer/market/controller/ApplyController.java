@@ -7,6 +7,9 @@ import com.xczh.consumer.market.service.ApplyService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.typeutil.StringUtil;
 import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
+import com.xczhihui.bxg.online.api.service.CityService;
+import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +36,10 @@ public class ApplyController {
 
     @Autowired
     private AppBrowserService appBrowserService;
+    
+    
+    @Autowired
+    private CityService cityService;
 
     @RequestMapping("updateBaseInfo")
     @ResponseBody
@@ -73,7 +81,12 @@ System.out.println(apply.toString());
             OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
             userId=user.getId();
         }
-        return ResponseObject.newSuccessResponseObject(applyService.get(userId));
+        Apply apply = applyService.get(userId);
+        UserAddressManagerVo umv =  cityService.findAcquiescenceAddressById(userId);
+        if(apply!=null && umv !=null){
+        	apply.setUserAddressManagerVo(umv);
+        }
+        return ResponseObject.newSuccessResponseObject(apply);
     }
 
 }

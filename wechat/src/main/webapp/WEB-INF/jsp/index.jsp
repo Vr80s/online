@@ -27,6 +27,26 @@
 					.getAttribute("openId").equals("null")) ? "" : request
 					.getAttribute("openId")%>';
 	}
+	
+    if(wxOrbrower == "wx" && stringnull(param_openId)){
+    	/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
+	    localStorage.setItem("openid", param_openId);
+		var ccontrollerAddress = "/bxg/user/isLogined";
+		requestService(ccontrollerAddress, null, function(data) {
+			if (data.success) {
+				/*
+				 * 存储session
+				 */
+				commonLocalStorageSetItem(data);
+			}else{
+				alert("网络异常");
+			}
+		})	
+    }
+	
+	
+	
+	
 </script>
 <%-- <%@ include file="../../Views/h5/index.html"%> --%>
 <%@ include file="../../xcviews/html/newindex.html"%>

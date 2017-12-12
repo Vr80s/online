@@ -492,7 +492,8 @@ public class CommonController {
 			}else{
 				mapCourseInfo.put("description", "");
 			}
-			mapCourseInfo.put("link",returnOpenidUri+"/bxg/common/pcShareLink.html?courseId="+Integer.parseInt(courseId));
+			
+			mapCourseInfo.put("link",returnOpenidUri+"/bxg/common/pcShareLink?courseId="+Integer.parseInt(courseId));
 			return ResponseObject.newSuccessResponseObject(mapCourseInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -525,15 +526,20 @@ public class CommonController {
 		 */
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 		if(user == null){ //直接跳转到分享页面
+			
 			res.sendRedirect(returnOpenidUri +url);//
 		}else{
 			try {
 				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
 				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
-				if(type == 1){ //直播或者预约详情页
-					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").equals("2")){
+				if(type == 1){ //直播或者预约详情页            1.直播中，2预告，3直播结束
+					
+					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").equals("2")){  //预告
 						url = "/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
-					}else if(null != mapCourseInfo.get("lineState")){
+						
+					
+					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
+					
 						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId);
 					}
 				}else{ //视频音频详情页

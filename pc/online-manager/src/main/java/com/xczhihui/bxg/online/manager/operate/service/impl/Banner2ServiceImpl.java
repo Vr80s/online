@@ -71,14 +71,14 @@ public class Banner2ServiceImpl extends OnlineBaseServiceImpl implements Banner2
 			String hqlPre="from Banner where isDelete=0 and status = 1";
 			List<Banner> list= dao.findByHQL(hqlPre);
 
-			if(list.size() < 8){
+//			if(list.size() < 8){
 				if(banner.getStartTime() == null)//第一次启用
 				{
 					banner.setStartTime(new Date());
 				}
-			}else{
-				return false;//达到8个就返回false
-			}
+//			}else{
+//				return false;//达到8个就返回false
+//			}
 		}
 		banner.setStatus(Math.abs(banner.getStatus()-1));//状态
 		dao.update(banner);

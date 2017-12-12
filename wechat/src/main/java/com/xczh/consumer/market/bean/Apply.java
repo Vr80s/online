@@ -6,6 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
+
 import java.util.Date;
 
 /**
@@ -132,6 +135,14 @@ public class Apply extends BasicEntity {
      */
     @Column(name = "is_first")
     private Boolean isFirst;
+    
+    
+    /**
+     * 如果在选填地址的时候，如果存在默认地址，带回去默认地址，如果没有，就不带回了
+     */
+    private UserAddressManagerVo userAddressManagerVo;
+    
+    
 
     public Integer getIsOldUser() {
         return isOldUser;
@@ -284,8 +295,16 @@ public class Apply extends BasicEntity {
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
+    
+    public UserAddressManagerVo getUserAddressManagerVo() {
+		return userAddressManagerVo;
+	}
 
-    @Override
+	public void setUserAddressManagerVo(UserAddressManagerVo userAddressManagerVo) {
+		this.userAddressManagerVo = userAddressManagerVo;
+	}
+
+	@Override
     public String toString() {
         return "Apply{" +
                 "userId='" + userId + '\'' +

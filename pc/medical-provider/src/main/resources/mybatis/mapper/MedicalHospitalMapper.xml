@@ -7,11 +7,26 @@
 		<!--id, name, age-->
 	<!--</sql>-->
 	<select id="selectHospitalList" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
-		select * from medical_hospital where deleted = 0 and status = 1
+		select * from medical_hospital mh
+		<if test="field != null">
+			join medical_hospital_field mhf on mh.id = mhf.hospital_id and mhf.`field_id`=#{field}
+		</if>
+		where deleted = 0 and status = 1
 		<if test="name != null">
 			and name like concat('%',#{name},'%')
 		</if>
 		order by score desc
+	</select>
+	<select id="getHotField" resultType="com.xczhihui.medical.field.model.MedicalField">
+		SELECT
+		  mf.*
+		FROM
+		  `medical_field` mf
+		  LEFT JOIN `medical_hospital_field` mhf
+			ON mf.`id` = mhf.`field_id`
+		GROUP BY mhf.`field_id`
+		ORDER BY COUNT(mhf.`field_id`) DESC
+		LIMIT 0, 10
 	</select>
 
 	<select id="selectRecHospital" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
