@@ -171,7 +171,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 			StringBuffer sql2 = new StringBuffer();
 			sql2.append(" select course.id as id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
 			sql2.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");  
-			sql2.append(" if(course.type is not null,1,if(course.multimedia_type=1,2,3)) as type, "); //type 1直播  2点播 3音频
+			sql2.append(" IF(course.type is not null,1,if(course.online_course = 1,4,if(course.multimedia_type=1,2,3))) as type, "); //type 1直播  2点播 3音频
 			sql2.append(" course.live_status as lineState,course.online_course as  onlineCourse, ");
 			sql2.append(" course.smallimg_path as smallimgPath,course.start_time as startTime,course.end_time as endTime,"
 					+ "ou.name as teacherName,ou.id as userId");
@@ -257,7 +257,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
 			}else if(3==type){
-				 sql = " select oc.address,oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,"
+				 sql = " select oc.address,oc.online_course onlineCourse, oc.current_price currentPrice,4 as type, ou.name as teacherName,oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,"
 				 		+ "oc.start_time startTime,oc.end_time endTime, " 
 						+  dateWhere 
 						+ " from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id   where argc.user_id=?  AND oc.`online_course`=1 and oc.is_delete=0 and oc.status=1 group by oc.id ";
@@ -277,7 +277,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select course.id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
 		sql.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");
-		sql.append(" if(course.type is not null,1,if(course.multimedia_type=1,2,3)) as type, ");
+		sql.append(" IF(course.type is not null,1,if(course.online_course = 1,4,if(course.multimedia_type=1,2,3))) as type, ");
 		sql.append(" course.live_status as  lineState, ");
 		
 		sql.append(" course.start_time as startTime,course.end_time as endTime,ou.name as teacherName,ou.id as userId, ");
