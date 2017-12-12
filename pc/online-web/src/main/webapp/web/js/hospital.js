@@ -44,7 +44,7 @@ $(function () {
     var articleBanner = '{{each articleBanner}}' +
             '{{if $index==0}}'+
         '<li style="z-index: 2">' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
+        '<a href="/web/html/forumDetail.html?Id={{$value.id}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
         '<div class="banner-info">' +
         '<span class="banner-type">{{$value.name}}</span>' +
         '<span class="banner-title">{{$value.title}}</span>' +
@@ -54,7 +54,7 @@ $(function () {
         '</li>' +
         '{{else}}'+
         '<li>' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
+        '<a href="/web/html/forumDetail.html?Id={{$value.id}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
         '<div class="banner-info">' +
         '<span class="banner-type">{{$value.name}}</span>' +
         '<span class="banner-title">{{$value.title}}</span>' +
@@ -117,7 +117,7 @@ $(function () {
         "</li>" +
         '{{/each}}';
     //请求轮播图部分banner
-    RequestService("/bxs/article/getArticleBanner", "GET", null, function (data) {
+    RequestService("/banner/getBannerList", "GET", {type:2}, function (data) {
         $(".slider").html(template.compile(articleBanner)({
             articleBanner: data.resultObject
         }));

@@ -1,4 +1,5 @@
 $(function(){
+	$('.path .hospital').addClass('select');
 	//初始化请求信息
 	window.current = 1;
 	window.size = 20;
