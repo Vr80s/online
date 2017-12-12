@@ -200,12 +200,12 @@ input,button{
   word-wrap: break-word;
 }
 #forum .forum-banner .hot-article .hot-article-list li {
-  margin-top: 18px;
+  margin-top: 6px;
   cursor: pointer;
 }
 #forum .forum-banner .hot-article .hot-article-list li span {
   display: inline-block;
-  width: 220px;
+  padding:0 5px;
   vertical-align: middle;
   white-space: nowrap;
   overflow: hidden;
@@ -315,10 +315,13 @@ padding:0 20px;
 
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals{
 	border: 1px solid #DEDEDE;
-	display:inline-block;
-	margin-right:12px;
-	margin-bottom:20px;
-	position:relative;
+  display: inline-block;
+  margin-right: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  vertical-align: middle;
+  width: 260px;
+  height: 251px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals > a{
 	position:absolute;
@@ -372,6 +375,15 @@ padding:0 20px;
     width: 10px;
     height: 10px;
     background-image: url(../images/hospital/half_star.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .gray_star{
+	display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-image: url(../images/hospital/gray_star.png);
     background-position: center;
     background-repeat: no-repeat;
     vertical-align: middle;

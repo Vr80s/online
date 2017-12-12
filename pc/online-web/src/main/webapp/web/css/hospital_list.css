@@ -120,11 +120,15 @@ padding:0 20px;
 }
 
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals{
-	border: 1px solid #DEDEDE;
-	display:inline-block;
-	margin-right:30px;
-	margin-bottom:20px;
-	position:relative;
+    border: 1px solid #DEDEDE;
+    display: inline-block;
+    margin-right: 30px;
+    margin-bottom: 20px;
+    position: relative;
+    width: 262px;
+    height: 251px;
+    vertical-align: middle;
+	
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals > a{
 	position:absolute;

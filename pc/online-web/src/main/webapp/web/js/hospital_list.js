@@ -18,7 +18,6 @@ $(function(){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
 	           alert("没有数据/搜索失败")
-	           $('#hospital_list').html('')
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
