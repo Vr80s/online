@@ -331,9 +331,9 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		String strSql = " select count(*) as count1,of.lecturer_id as userId,ou.name as name,ou.small_head_photo as headImg "
 				+ "from oe_focus as of ";
 		
+		strSql += ",oe_user as ou  where  of.lecturer_id = ou.id  and ou.status = 0 and ou.is_delete =0 and ou.name like '%" + queryKey + "%' ";
 		if (queryKey != null && !"".equals(queryKey)
 				&& !"null".equals(queryKey)) {
-			strSql += ",oe_user as ou  where  of.lecturer_id = ou.id  and ou.status = 0 and ou.is_delete =0 and ou.name like '%" + queryKey + "%' ";
 			pageNumber = 3;
 		}
 		strSql += " GROUP BY of.lecturer_id ORDER BY count1 desc limit "
@@ -354,10 +354,11 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		if (listMap.size() == pageNumber) {
 			return listMap;
 		} else {
+			bigMap.addAll(listMap);
 			int pageSize = pageNumber - listMap.size();
 			StringBuffer sql = new StringBuffer();
 			sql.append("select id as userId,name,small_head_photo as headImg ");
-			sql.append(" from oe_user where is_lecturer = 1 and status = 0 and ou.is_delete =0 ");
+			sql.append(" from oe_user where is_lecturer = 1 and status = 0 and is_delete =0 ");
 			if (ids != "") {
 				ids = ids.substring(0, ids.length() - 1);
 				sql.append(" and id not in (" + ids + ")");

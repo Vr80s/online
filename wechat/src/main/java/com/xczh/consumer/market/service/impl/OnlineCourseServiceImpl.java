@@ -534,7 +534,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		
 		 StringBuilder sql = new StringBuilder();
 		 sql.append(" select SUM(ogs.count) as a,ogs.live_id from oe_gift_statement as ogs ,oe_user as ou,oe_course as c ");
-		 sql.append(" where ogs.receiver =ou.id and ogs.live_id = c.id ");
+		 sql.append(" where ogs.receiver =ou.id and ogs.live_id = c.id and c.is_delete=0 and c.status = 1  and ou.status = 0 and ou.is_delete =0 ");
 		
 		sql.append(comSql);
 		

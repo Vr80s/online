@@ -90,13 +90,13 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             		+ "c.direct_id directId, IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id ), 0 ) + IFNULL(default_student_count, 0) learndCount "
             		+ "FROM live_examine_info lei  "
             		+ "left JOIN  oe_course c ON (lei.id = c.examine_id) "
-            		+ "inner join oe_menu om on (om.id=lei.type) WHERE lei.user_id = :userId and  c.is_delete=0 and c.status = 1  ");
+            		+ "inner join oe_menu om on (om.id=lei.type) WHERE lei.user_id = :userId  and  lei.is_delete=0 ");
             if("0".equals(examineStatus)){ //待直播
-                sb.append(" and lei.examine_status = 1  AND c.live_status != 3  ");
+                sb.append(" and lei.examine_status = 1  AND c.live_status != 3  and  c.is_delete=0 and c.status = 1 ");
             }else if("2".equals(examineStatus)){ //直播完成
-                sb.append(" AND c.live_status = 3 "); //直播结束
+                sb.append(" AND c.live_status = 3  and  c.is_delete=0 and c.status = 1 ");
             }else if("1".equals(examineStatus)){ //审核中
-                sb.append(" AND (lei.examine_status = 0 or lei.examine_status = 2) "); //直播结束
+                sb.append(" AND (lei.examine_status = 0 or lei.examine_status = 2)  ");
             }
             sb.append(" ORDER BY lei.start_time");
             Map<String,Object> param=new HashMap<>();
