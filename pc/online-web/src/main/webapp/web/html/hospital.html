@@ -303,6 +303,93 @@
 </div>
 
 
+
+<!-- 医馆模板 -->
+<script type="text/template" id="hospitalTpl"> 
+{{each hospital as hospital i}}
+
+<div class="hospitals">
+	<a href="javascript:;" id={{hospital.id}}></a>
+	<img src="../images/hospital/hospital_pic.png" alt="">
+	<div class="hospital_inf">
+		<span class="hospital_name">{{hospital.name}}</span>
+		{{if hospital.authentication}}
+		<span class="hospital_pass">已认证</span>
+		{{else}}
+
+		{{/if}}
+		<div class="hospital_address"><em></em><span>{{hospital.province}}</span></div>
+		<div class="hospital_star">
+		{{if hospital.score==0.5}}
+			<em class="half_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+		{{else if  hospital.score ==1}}
+			<em class="full_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+		{{else if  hospital.score ==1.5}}
+			<em class="full_star"></em>
+			<em class="half_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+		{{else if  hospital.score ==2}}
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			{{else if  hospital.score ==2.5}}
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="half_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			{{else if  hospital.score ==3}}
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="gray_star"></em>
+			<em class="gray_star"></em>
+			{{else if  hospital.score ==3.5}}
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="half_star"></em>
+			<em class="gray_star"></em>
+			{{else if  hospital.score ==4}}
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="gray_star"></em>
+			{{else if  hospital.score ==4.5}}
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="half_star"></em>
+			{{else if  hospital.score ==5}}
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+			<em class="full_star"></em>
+		{{/if}}
+		
+		
+		</div>
+	</div>
+</div>
+ {{/each}}
+</script> 
+
+
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
