@@ -106,8 +106,8 @@ function initOrderList(status,downOrOn){
                 	 }
                 	var orderStatus=order.orderStatus;
                 	html+="<div class='both'></div>"+
-        			"<div class='indent_main_bot' title="+order.id+" id="+order.orderNo+">"+
-        				"<div style='width: 97%;height: 1.65rem;float:right;border-top: 1px solid #dfdfe2;'>"+
+        			"<div class='indent_main_bot' >"+
+        				"<div style='width: 97%;height: 1.65rem;float:right;border-top: 1px solid #dfdfe2;' title="+order.id+" id="+order.orderNo+" >"+
 							"<p class='indent_main_left_p03' style='font-size: 0.6rem;color: #666;float: left;'>课程有效期：不限</p>";
 	        				if(orderStatus == 0){
 	        					html+="<a href='javascript: ;'   class='indent_main_bot_a common_click gotoPay' >去支付</a>" +
@@ -140,7 +140,8 @@ function initOrderList(status,downOrOn){
 					var odiv = document.createElement("div");
 					odiv.id = 'content';
 					var img_str = "null01.png";
-					odiv.innerHTML = '<img style="width:4.675rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" />';
+					var tip_str = "您还没有订单消息";
+					odiv.innerHTML = '<img style="width:4.75rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" /><p>'+ tip_str +'</p>';
 					document.getElementById("indent_main").appendChild(odiv);
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);

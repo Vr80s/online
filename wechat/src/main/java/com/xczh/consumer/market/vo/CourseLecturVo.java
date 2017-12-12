@@ -152,8 +152,9 @@ public class CourseLecturVo implements Serializable {
 	
 	private String city;//线下课程所在城市
 
-	
 	private String courseTimeConver; //课程时间转换为: 00:00:00
+	
+	private Integer cutoff =0;	// 0 已截止  1 未截止
 	
 	public String getUdescription() {
 		return udescription;
@@ -401,6 +402,14 @@ public class CourseLecturVo implements Serializable {
 
 	public void setCourseTimeConver(String courseTimeConver) {
 		this.courseTimeConver = courseTimeConver;
+	}
+
+	public Integer getCutoff() {
+		return cutoff;
+	}
+
+	public void setCutoff(Integer cutoff) {
+		this.cutoff = cutoff;
 	}
 	
 	

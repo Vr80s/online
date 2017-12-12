@@ -43,44 +43,26 @@
          *  0 直播已结束 1 直播还未开始 2 正在直播
          */
         //判断是否可预约
-    	var myDate = new Date();
-        var currentDay =dateStrYMd(myDate).replace(/-/g,"");
+    	/*var myDate = new Date();
+        var currentDay =dateStrYMd(myDate).replace(/-/g,"");*/
         
         if(result.watchState == 0){
             $("#buyDiv").show();
             $("#buyPirce").html(result.currentPrice);
             $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名</div>");
 
-        }else if(result.watchState == 1){  //goto 付费页面
+        }else if(result.watchState == 1){  //付费
             $("#buyDiv").show();
             $("#buyPirce").html(result.currentPrice);
 
             //如果已结束就禁止报名
             /* 点击线下课程出现的弹框，测试提出bug，就给隐藏掉了。*/
             var endTime = result.endTime.replace(/-/g,"").substring(0,8);
-            if(parseInt(endTime)<parseInt(currentDay)){
+            if(result.cutoff == 0){
                 $(".training_teacher_bto").show();
                 $(".footer_buyDiv").show();
                 $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">报名已截止</div>");
-            }/*else{
-                $(".training_teacher_bto").show();
-                $(".footer_buyDiv").show();
-                $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名222</div>");
-            }*/
-            
-            
-			//获取电脑屏幕时间
-//              requestService("/bxg/common/getSystemTime",{course_id : 1},
-//                    function(data) {
-//                  var serverTime=data;
-//                  var endTime = Date.parse(new Date(result.endTime));
-//                 
-//              },false);
-            
-        }else if(result.watchState == 2){  //goto 付费页面
-            $("#buyDiv").show();
-            $("#buyPirce").html(result.currentPrice);
-            $("#bmspan").html("<div class=\"training_teacher_bto_right_close\" id=\"bmbtn\">已报名</div>");
+            }
         }
         /**
          * 为详情页面添加数据
@@ -133,18 +115,13 @@
         	setTimeout(function(){$(".vanish1").hide();},1500);
             return false;
         }
-        
-        
-        
-
-
-           requestService("/bxg/apply/updateBaseInfo",{phone:$("#phone").val(),realName:$("#realName").val()},
-                   function(data) {
-             //显示基本报名信息
-                        if(data.success){
-                            goPay();
-                        }
-            },false);
+       requestService("/bxg/apply/updateBaseInfo",{phone:$("#phone").val(),realName:$("#realName").val()},
+               function(data) {
+         //显示基本报名信息
+                    if(data.success){
+                        goPay();
+                    }
+        },false);
         
 
         

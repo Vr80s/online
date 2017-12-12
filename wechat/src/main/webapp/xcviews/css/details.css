@@ -145,16 +145,11 @@
 .send_img {
 	position: absolute;
 	top: 0.55rem;
-	/* right: 0.4rem; */
-	/* width: 1.8rem; */
-	/* height: 1.18rem; */
 	background: #fff;
-	/* border-radius: 6px 6px 3px 0px; */
 	width: 1.375rem;
 	height: 1.15rem;
-	/*background: url(/xcviews/images/jiantou02.jpg) no-repeat;*/
 	background-size: 100% 100%;
-	right: 0.4rem;
+	right: 0.2rem;
 }
 
 .send_img img {
@@ -207,11 +202,6 @@
 	height: 1.2rem;
 }
 
-.send_img {
-	/* height: 1rem; */
-	
-}
-
 #sendChat img {
 	margin-top: 0;
 }
@@ -221,15 +211,6 @@
 	height: 100%;
 	position: relative;
 	overflow: hidden;
-}
-
-.idDom {
-	/* width: 100%;
-      height: 2.5rem;
-      background: #666;
-      position: fixed;
-      bottom: 0px; */
-	
 }
 
 .content {
@@ -309,7 +290,6 @@ i {
 	bottom: 3.75rem;
 	width: 6.675rem;
 	height: 3.6rem;
-	/* background: red; */
 }
 
 .coze_bottom {
@@ -320,7 +300,6 @@ i {
 .poson {
 	position: relative;
 	float: left;
-	/* right: -1.4rem; */
 }
 
 .give_a1_span02 {
@@ -334,12 +313,6 @@ i {
 	background-size: 100% 100%;
 }
 
-.details {
-	/* position: fixed;
-	    top: 2rem;
-	    right: 0; */
-	
-}
 
 .details_bottom {
 	width: 100%;

@@ -1518,18 +1518,19 @@ footer{
     height: 2rem;
 }
 .animation_gift img{
-	width: 2.35rem;
-    border-radius: 60px;
+	/*width: 2.35rem;*/
+	width: 2rem;
     float: left;
     text-align: center;
     display: block;
     margin: 0 auto;
-    margin-top: -0.2rem;
-    
+    margin-top: 0.1rem;    
+    /*margin-top: 0.2rem;*/    
 }
 
 .animation_gift1{
 	width: 2.35rem;
+	/*width: 2.35rem;*/
     float: right;
     float: left;
     margin: 0 auto;
@@ -5504,7 +5505,7 @@ footer{
 .train_list_bto01{
 	float: left;
 	color: #ff6767;
-	font-size: 0.7rem;
+	font-size: 0.55rem;
     width: 5rem;
     overflow: hidden;
     overflow: hidden;
@@ -6090,10 +6091,10 @@ footer{
 .history_bg_cen{
 	width: 11.55rem;
     height: 6.35rem;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: 8.5rem;
+    margin-top: -5.5rem;
     margin-left: -37%;
     background: #f4f4f4;
     z-index: 999999999;

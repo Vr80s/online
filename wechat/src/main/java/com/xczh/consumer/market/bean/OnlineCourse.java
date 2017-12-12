@@ -185,6 +185,8 @@ public class OnlineCourse {
     private String address; //线下课程地址
     
     private String city; //所在城市 
+    
+    private Integer cutoff =0;	// 0 已截止  1 未截止
 
     
     public String getActualPay() {
@@ -535,6 +537,14 @@ public class OnlineCourse {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Integer getCutoff() {
+		return cutoff;
+	}
+
+	public void setCutoff(Integer cutoff) {
+		this.cutoff = cutoff;
 	}
     
 }

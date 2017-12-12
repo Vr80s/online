@@ -1,0 +1,246 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Microsoft YaHei';
+  background-color: #f7f7f7;
+  overflow-x: hidden ;
+}
+div,
+span,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: inline-block;
+  outline: none;
+}
+input,button{
+	outline:none;
+}
+.clearfix:after {
+  content: "";
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+#forum {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+#forum .forum-content {
+  margin-top: 20px;
+}
+#forum .forum-content .forum-content-left {
+  width: 1200px;
+  float: left;
+  padding-bottom: 30px;
+  background-color: #fff;
+}
+#forum .forum-content .forum-content-left .forum-content-tag {
+  padding: 22px 30px 17px 0;
+  background-color: #fff;
+  width: 830px;
+  margin-left: 30px;
+}
+#forum .forum-content .forum-content-left .forum-content-tag li {
+  float: left;
+  margin-right: 50px;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-content-tag li em.select,
+#forum .forum-content .forum-content-left .forum-content-tag li em.select1 {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #2cb82c;
+  margin-right: 10px;
+  margin-top: -1px;
+  vertical-align: middle;
+}
+#forum .forum-content .forum-content-left .forum-content-tag li em.select1 {
+  background-color: #fff;
+}
+#forum .forum-content .forum-content-left .forum-content-tag li:hover {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-left .forum-content-tag li.select {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-left .forum-content-tag.articleFloat {
+  position: fixed;
+  top: 0;
+}
+#forum .forum-content .forum-content-left .forum-content-info {
+  min-height: 443px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .hospital_title{
+	padding-left:20px;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list{
+padding:0 20px;	
+}
+/*#forum .forum-content .forum-content-left .forum-content-info .more_hospital{
+	text-align:center;
+}
+#forum .forum-content .forum-content-left .forum-content-info .more_hospital button{
+	width: 122px;
+    height: 36px;
+    background-color: #fff;
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    outline:none;
+}*/
+
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals{
+	border: 1px solid #DEDEDE;
+	display:inline-block;
+	margin-right:30px;
+	margin-bottom:20px;
+	position:relative;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals > a{
+	position:absolute;
+	width:100%;
+	height:100%;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals:nth-child(4n){
+	margin-right:0px;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf{
+	padding:10px;
+	font-size:14px;
+	width:260px;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_address{
+	margin:10px 0 14px 0;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_pass{
+	display: inline-block;
+    background-color: #2cb82c;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 2px;
+    padding: 2px 8px;
+    width: 52px;
+    height: 20px;
+}
+   
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_address em{
+	display: inline-block;
+    width: 13px;
+    height: 15px;
+    background-image: url(../images/hospital/address.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    margin-right:7.8px;
+    color:#666;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .full_star{
+	display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-image: url(../images/hospital/star.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+#forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .half_star{
+	display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-image: url(../images/hospital/half_star.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+}
+#forum .forum-content .forum-content-left .forum-content-info .page-no-result {
+  padding-top: 140px;
+  width: 250px;
+  min-height: 300px;
+  text-align: center;
+  margin: 0px auto;
+}
+#forum .forum-content .forum-content-left .forum-content-info .page-no-result .no-title {
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  margin-top: 15px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-left {
+  float: left;
+  width: 260px;
+  height: 160px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right {
+  float: right;
+  width: 530px;
+  height: 160px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-title a {
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-title a:hover {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-content {
+  margin: 11px 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 24px;
+  height: 99px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags {
+  font-size: 12px;
+  color: #999;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags span {
+  margin: 0 25px;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags a {
+  color: #999;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags i {
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #ccc;
+}
+#forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-tags em {
+  width: 2px;
+  height: 2px;
+  display: inline-block;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #999;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+#forum .forum-content .forum-content-left .pages {
+  margin: 30px 0 0px;
+  display: none;
+}

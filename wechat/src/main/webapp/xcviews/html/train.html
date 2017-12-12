@@ -161,36 +161,7 @@
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 <script>
-/*    function formatDateTime(inputTime) {
-        var date = new Date(inputTime);
-        var y = date.getFullYear();
-        var m = date.getMonth() + 1;
-        m = m < 10 ? ('0' + m) : m;
-        var d = date.getDate();
-        d = d < 10 ? ('0' + d) : d;
-        var h = date.getHours();
-        h = h < 10 ? ('0' + h) : h;
-        var minute = date.getMinutes();
-        var second = date.getSeconds();
-        minute = minute < 10 ? ('0' + minute) : minute;
-        second = second < 10 ? ('0' + second) : second;
-        return y + '-' + m + '-' + d/!*+' '+h+':'+minute+':'+second*!/;
-    };
-    function formatDateTime2(inputTime) {
-        var date = new Date(inputTime);
-        var y = date.getFullYear();
-        var m = date.getMonth() + 1;
-        m = m < 10 ? ('0' + m) : m;
-        var d = date.getDate();
-        d = d < 10 ? ('0' + d) : d;
-        var h = date.getHours();
-        h = h < 10 ? ('0' + h) : h;
-        var minute = date.getMinutes();
-        var second = date.getSeconds();
-        minute = minute < 10 ? ('0' + minute) : minute;
-        second = second < 10 ? ('0' + second) : second;
-        return  m + '-' + d/!*+' '+h+':'+minute+':'+second*!/;
-    };*/
+
    
      
     function dateStrYMd(date) {  
@@ -224,60 +195,16 @@
     	if (data.success) {
             var result = data.resultObject;
             var html="";
-            
-            
-            
-            /*var serverTime
-            requestService("/bxg/common/getSystemTime",{course_id : 1},
-                    function(data) {
-                  		serverTime=data;
-                  	var endTime = Date.parse(new Date(result.endTime));
-                  	if(endTime<serverTime){
-                      	$(".training_teacher_bto").show();
-                      	$(".footer_buyDiv").show();
-                      	$(".train_list_bto03").html("<div class='train_list_bto03'>1111</div>");
-                  	}
-                  
-              },false);*/
-//           requestService("/bxg/common/getSystemTime",{course_id : 1},
-//           	var serverTime=data;
-//                var endTime = Date.parse(new Date(result.endTime));
-             
-            /*function getCurrentDate() {
-		      var dtCur = new Date();
-		      var yearCur = dtCur.getFullYear();
-		      var monCur = dtCur.getMonth() + 1;
-		      var dayCur = dtCur.getDate();
-		      var hCur = dtCur.getHours();
-		      var mCur = dtCur.getMinutes();
-		      var sCur = dtCur.getSeconds();
-		      var timeCur = yearCur + "-" + (monCur < 10 ? "0" + monCur : monCur) + "-"
-		        + (dayCur < 10 ? "0" + dayCur : dayCur) + " " + (hCur < 10 ? "0" + hCur : hCur)
-		        + ":" + (mCur < 10 ? "0" + mCur : mCur) + ":" + (sCur < 10 ? "0" + sCur : sCur);
-		      return timeCur;
-		    }
-             
-             
-             if(getCurrentDate>result.endTime){
-             	$(".train_list_bto03").html("<div class='train_list_bto03'>1111</div>");
-             }*/
-             
-             
-/*             var serverTime;
-            requestService("/bxg/common/getSystemTime",{course_id : 1},
-                 function(data) {
-               		serverTime=data;
-           	},false); */
-           	var myDate = new Date();
+        
+          /*  	var myDate = new Date();
            	var  aa = GetDateStr(1);
-           	//alert(aa);
-            //var currentDay =dateStrYMd(myDate).replace(/-/g,"");
-            var currentDay = GetDateStr(1).replace(/-/g,"");
+            var currentDay = GetDateStr(1).replace(/-/g,""); */
             //alert(currentDay);
             for(var i=0;i<result.length;i++){
             	var endTime = result[i].endTime.replace(/-/g,"").substring(0,8);
                	var xxqx = "";
-            	if(parseInt(endTime)<=parseInt(currentDay)){
+               	//parseInt(endTime)<=parseInt(currentDay)
+            	if(result[i].cutoff == 0){
             		xxqx ="已过期";
                	}else{
                		xxqx = result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].replace(/-/g, ".");
