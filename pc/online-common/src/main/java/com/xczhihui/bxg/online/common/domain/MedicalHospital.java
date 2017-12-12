@@ -75,7 +75,59 @@ public class MedicalHospital implements Serializable {
 	@Transient
 	private boolean isDependence;
 
+	private boolean recommend;
+
+	private boolean authentication;
+
+	private Double score;
+
+	private Integer sort;
+
+	@Column(name="recommend_sort")
+	private Integer recommendSort;
+
+
 	public MedicalHospital() {
+	}
+
+	public boolean isRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(boolean recommend) {
+		this.recommend = recommend;
+	}
+
+	public boolean isAuthentication() {
+		return authentication;
+	}
+
+	public void setAuthentication(boolean authentication) {
+		this.authentication = authentication;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public Integer getRecommendSort() {
+		return recommendSort;
+	}
+
+	public void setRecommendSort(Integer recommendSort) {
+		this.recommendSort = recommendSort;
 	}
 
 	public boolean isDependence() {

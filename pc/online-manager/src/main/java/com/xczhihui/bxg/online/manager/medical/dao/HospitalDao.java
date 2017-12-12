@@ -61,4 +61,31 @@ public class HospitalDao extends HibernateDao<MedicalHospital>{
 		MedicalHospital MedicalHospital = this.findEntity(dc);
 		return MedicalHospital;
 	}
+
+	public Page<MedicalHospital> findRecMedicalHospitalPage(MedicalHospital medicalHospital, int pageNumber, int pageSize) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder("select * from medical_hospital where deleted = 0 and recommend = 1");
+		if (medicalHospital.getName() != null) {
+			paramMap.put("name", "%" + medicalHospital.getName() + "%");
+			sql.append("and name like :name ");
+		}
+		if (medicalHospital.getStatusnum() != null) {
+			paramMap.put("status", medicalHospital.getStatus());
+			sql.append("and status = :status ");
+		}
+
+		sql.append(" order by recommend_sort desc");
+
+		Page<MedicalHospital> medicalHospitals = this.findPageBySQL(sql.toString(), paramMap, MedicalHospital.class, pageNumber, pageSize);
+		for (int i = 0; i < medicalHospitals.getItems().size(); i++) {
+			MedicalHospital mh =  medicalHospitals.getItems().get(i);
+			List<MedicalHospitalPicture> c = this.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", mh.getId());
+			if(c.size()>=5){
+				mh.setHasPicture(true);
+			}else{
+				mh.setHasPicture(false);
+			}
+		}
+		return medicalHospitals;
+	}
 }

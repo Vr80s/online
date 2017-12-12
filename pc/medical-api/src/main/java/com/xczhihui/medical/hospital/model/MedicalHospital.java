@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -98,19 +99,29 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	/**
 	 * 是否已认证
 	 */
-	@TableField("is_authentication")
-	private Boolean isAuthentication;
+	@TableField("authentication")
+	private Boolean authentication;
 	/**
 	 * 分值
 	 */
 	private Double score;
 
+	private List<MedicalHospitalPicture> medicalHospitalPictures;
+
+	public List<MedicalHospitalPicture> getMedicalHospitalPictures() {
+		return medicalHospitalPictures;
+	}
+
+	public void setMedicalHospitalPictures(List<MedicalHospitalPicture> medicalHospitalPictures) {
+		this.medicalHospitalPictures = medicalHospitalPictures;
+	}
+
 	public Boolean getAuthentication() {
-		return isAuthentication;
+		return authentication;
 	}
 
 	public void setAuthentication(Boolean authentication) {
-		isAuthentication = authentication;
+		this.authentication = authentication;
 	}
 
 	public Double getScore() {

@@ -4,6 +4,8 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleTypeVo;
+import com.xczhihui.bxg.online.manager.boxueshe.vo.TagVo;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
@@ -152,6 +154,8 @@ public class HospitalController extends AbstractController{
 			 	old.setCity(medicalHospital.getCity());
 			 	old.setDetailedAddress(medicalHospital.getDetailedAddress());
 			 	old.setDescription(medicalHospital.getDescription());
+			 	old.setScore(medicalHospital.getScore());
+			 	old.setAuthentication(medicalHospital.isAuthentication());
 			 	hospitalService.updateMedicalHospital(old);
 	            responseObj.setSuccess(true);
 	            responseObj.setErrorMessage("修改成功");
@@ -223,5 +227,94 @@ public class HospitalController extends AbstractController{
 
 		request.setAttribute("weburl", weburl);
 		return CLOUD_CLASS_PATH_PREFIX + "/hospitalDetail";
+	}
+
+	@RequestMapping(value = "updateRec")
+	@ResponseBody
+	public ResponseObject updateRec(String ids,int isRec) {
+		ResponseObject responseObject=new ResponseObject();
+		if(ids!=null) {
+			String[] _ids = ids.split(",");
+			if(hospitalService.updateRec(_ids,isRec))
+			{
+				responseObject.setSuccess(true);
+				responseObject.setErrorMessage("操作成功!");
+			}else{
+				responseObject.setSuccess(false);
+				responseObject.setErrorMessage("最多设置十个推荐医馆!");
+			}
+		}
+		return responseObject;
+	}
+
+
+	@RequestMapping(value = "recList")
+	@ResponseBody
+	public TableVo recList(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
+
+		MedicalHospital searchVo=new MedicalHospital();
+		Group MedicalHospitalName = groups.findByName("search_courseName");
+		Group medicalHospitalStatus = groups.findByName("search_status");
+//          searchVo.setOnlineMedicalHospital(1);
+		if (MedicalHospitalName != null) {
+			searchVo.setName(MedicalHospitalName.getPropertyValue1().toString());
+		}
+		if (medicalHospitalStatus != null) {
+			searchVo.setStatusnum(Integer.valueOf(medicalHospitalStatus.getPropertyValue1().toString()));
+			if(searchVo.getStatusnum() == 1){
+				searchVo.setStatus(true);
+			}else{
+				searchVo.setStatus(false);
+			}
+		}
+		Page<MedicalHospital> page = hospitalService.findRecMedicalHospitalPage(searchVo, currentPage, pageSize);
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+
+	}
+
+	/**
+	 * 推荐上移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "upMoveRec", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject upMoveRec(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		hospitalService.updateSortUpRec(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
+	/**
+	 * 推荐下移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "downMoveRec", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject downMoveRec(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		hospitalService.updateSortDownRec(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
+	/**
+	 * 添加、修改招聘信息
+	 * @return
+	 */
+	@RequestMapping(value = "toRecruit")
+	public String toRecruit(HttpServletRequest request) {
+		return CLOUD_CLASS_PATH_PREFIX + "/recuit";
 	}
 }

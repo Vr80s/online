@@ -11,6 +11,19 @@
 		<if test="name != null">
 			and name like concat('%',#{name},'%')
 		</if>
+		order by score desc
+	</select>
+
+	<select id="selectRecHospital" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		select
+		  *
+		from
+		  medical_hospital
+		where deleted = 0
+		  and status = 1
+		  and recommend = 1
+		order by recommend_sort desc
+		limit 0, 10
 	</select>
 
 	<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">

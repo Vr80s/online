@@ -10,28 +10,28 @@ public interface HospitalService {
 	
 
 	/**
-	 * 新增课程
+	 * 新增医馆
 	 *
 	 *@return void
 	 */
 	public void addMedicalHospital(MedicalHospital MedicalHospital);
 
 	/**
-	 * 修改课程
+	 * 修改医馆
 	 *
 	 *@return void
 	 */
 	public void updateMedicalHospital(MedicalHospital MedicalHospital);
 
 	/**
-	 * 修改课程
+	 * 修改医馆
 	 *
 	 *@return void
 	 */
 	public void updateRecImgPath(MedicalHospital MedicalHospital);
 
 	/**
-	 * 根据条件分页获取课程信息。
+	 * 根据条件分页获取医馆信息。
 	 *
 	 * @return
 	 */
@@ -58,11 +58,11 @@ public interface HospitalService {
      public void deletes(String[] ids);
   
 	/**
-	 * 增加课程详情
+	 * 增加医馆详情
 	 */
 	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5 );
 	/**
-	 * 获得课程详情
+	 * 获得医馆详情
 	 * @param MedicalHospitalId
 	 * @return
 	 */
@@ -70,11 +70,18 @@ public interface HospitalService {
 	
 
 	/**
-	 * 根据名字查找课程
+	 * 根据名字查找医馆
 	 * @param String name
 	 */
 	public List<MedicalHospital> findByName(String name);
 
 	MedicalHospital findMedicalHospitalById(String id);
 
+    boolean updateRec(String[] ids, int isRec);
+
+	Page<MedicalHospital> findRecMedicalHospitalPage(MedicalHospital searchVo, int currentPage, int pageSize);
+
+	void updateSortUpRec(String id);
+
+	void updateSortDownRec(String id);
 }

@@ -476,6 +476,20 @@
 </div>
 
 <div style="height: 100%;" class="clearfix">
+	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+		<li role="presentation" class="active">
+			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆管理</a>
+		</li>
+		<li role="presentation">
+			<a href="#box_px" aria-controls="box_px" class="kctj_bx" role="tab" onclick="updateRec(null,1)"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆推荐</a>
+		</li>
+		<%--<li role="presentation">--%>
+			<%--<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"--%>
+			   <%--data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程排序</a>--%>
+		<%--</li>--%>
+	</ul>
 
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
@@ -488,9 +502,9 @@
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-					<!-- <button class="btn btn-sm btn-success rec_P" title="设为推荐">
+					<button class="btn btn-sm btn-success rec_P" title="设为推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button> -->
+					</button>
 				</p>
 			
 			<div class="searchDivClass" id="searchDiv">
@@ -532,27 +546,27 @@
 				</div>
 			</div>
         </div>
-		<div role="tabpanel" class="tab-pane active" id="box_px">
-			<div class="mainrighttab tabresourse bordernone" id="courseDiv_PX" style="display:none">
+		<div role="tabpanel" class="tab-pane" id="box_px">
+			<div class="mainrighttab tabresourse bordernone" id="courseDiv_PX" >
 				<div class="searchDivClass" id="searchDiv_PX">
 					<div class="profile-info-row" >
-						<table frame=void style="width: 100%">
+						<%--<table frame=void style="width: 100%">
 							<tr>
-							<td>
-			                        <div class="profile-info-value searchTr">
-			                            <input type="hidden" class="propertyValue1" value="${type}" style="width: 150px;">
-			                            <input type="hidden" value="type" class="propertyName"/>
-			                        </div>
-			                    </td>
 								<td>
-                                    <div class="profile-info-value searchTr">
-                                        <select name="search_service_type" id="search_service_type_PX" value="" class="propertyValue1" >
-                                            <option value="">业务类别</option>
-                                            <option value="1">微课</option>
-                                            <option value="0">职业课</option>
-                                        </select>
-                                        <input type="hidden" value="search_service_type" class="propertyName"/>
-                                    </div>
+									<div class="profile-info-value searchTr">
+										<input type="hidden" class="propertyValue1" value="${type}" style="width: 150px;">
+										<input type="hidden" value="type" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_service_type" id="search_service_type_PX" value="" class="propertyValue1" >
+											<option value="">业务类别</option>
+											<option value="1">微课</option>
+											<option value="0">职业课</option>
+										</select>
+										<input type="hidden" value="search_service_type" class="propertyName"/>
+									</div>
 								</td>
 								<td>
 									<div class="profile-info-value searchTr">
@@ -568,7 +582,7 @@
 								<td>
 									<div class="profile-info-value searchTr">
 										<select name="courseTypeId" id="search_scoreType_PX" value="" class="propertyValue1" >
-											<option value="">医馆类别</option>
+											<option value="">课程类别</option>
 											<c:forEach var="scoreTypes" items="${scoreTypeVo}">
 												<option value="${scoreTypes.id}">${scoreTypes.name}</option>
 											</c:forEach>
@@ -576,21 +590,11 @@
 										<input type="hidden" value="search_scoreType" class="propertyName"/>
 									</div>
 								</td>
-								<%-- <td>
-									<div class="profile-info-value searchTr">
-										<select name="search_courseType" id="search_courseType_PX" value="" class="propertyValue1" >
-											<option value="">授课方式</option>
-											<c:forEach var="teachMethods" items="${teachMethodVo}">
-												<option value="${teachMethods.id}">${teachMethods.name}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" value="search_courseType" class="propertyName"/>
-									</div>
-								</td> --%>
+
 								<td>
 									<div class="profile-info-value searchTr">
 										<select name="search_status" id="search_status_PX" value="" class="propertyValue1" >
-											<option value="">医馆状态</option>
+											<option value="">课程状态</option>
 											<option value="1">已启用</option>
 											<option value="0">已禁用</option>
 										</select>
@@ -604,7 +608,7 @@
 									</button>
 								</td>
 							</tr>
-						</table>
+						</table>--%>
 					</div>
 				</div>
 				<div class="row">
@@ -704,7 +708,12 @@
 			 	<%--<input type="hidden" name="descriptionHid" id="descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
              </div>
 		</div>
-		
+			<div class="form-group"  style="margin-top: 18px;" >
+				<label class="col-sm-3 control-label no-padding-right">评分: </label>
+				<div class="col-sm-6" >
+					<input type="text"  name="score" maxlength="50" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,range:[0,5]}">
+				</div>
+			</div>
 	</form>
 </div>
 
@@ -727,20 +736,20 @@
              </div>
 		</div>
 		<div class="form-group">
-			 <label class="col-sm-4 control-label no-padding-right" for="lal"><font color="red">*</font><b>经纬度:</b> </label>
+			 <label class="col-sm-4 control-label no-padding-right" for="lal"><b>经纬度:</b> </label>
 			 <div class="col-sm-6">
 			 	<p id="show_lal" class="paddingtop7px padding7"></p>
              </div>
 		</div>
 		<div class="form-group">
-			 <label class="col-sm-4 control-label no-padding-right" for="postCode"><font color="red">*</font><b>邮编:</b> </label>
+			 <label class="col-sm-4 control-label no-padding-right" for="postCode"><b>邮编:</b> </label>
 			 <div class="col-sm-6">
 			 	<p id="show_postCode" class="paddingtop7px padding7"></p>
              </div>
 		</div>
 
 		<div class="form-group">
-			 <label class="col-sm-4 control-label no-padding-right" for="email"><font color="red">*</font><b>email:</b> </label>
+			 <label class="col-sm-4 control-label no-padding-right" for="email"><b>email:</b> </label>
 			 <div class="col-sm-6">
 			 	<p id="show_email" class="paddingtop7px padding7"></p>
              </div>
@@ -763,9 +772,14 @@
 			 	<p id="show_detailedAddress" class="paddingtop7px padding7"></p>
              </div>
 		</div>
-
 		<div class="form-group">
-			 <label class="col-sm-4 control-label no-padding-right" for="description"><font color="red">*</font><b>医馆简介:</b> </label>
+			<label class="col-sm-4 control-label no-padding-right" ><b>评分:</b> </label>
+			<div class="col-sm-6">
+				<p id="show_score" class="paddingtop7px padding7"></p>
+			</div>
+		</div>
+		<div class="form-group">
+			 <label class="col-sm-4 control-label no-padding-right" for="description"><b>医馆简介:</b> </label>
 			 <div class="col-sm-6">
 			 	<!-- <input type="text" name="courseDescribe"  id="show_courseDescribe" disabled="disabled" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}"> -->
 			 	<p id="show_description" class="paddingtop7px padding7" style="word-break:break-all;word-wrap:break-word;width:250px"></p>
@@ -846,7 +860,19 @@
 				<%--<input type="hidden" name="descriptionHid" id="edit_descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
 			</div>
 		</div>
-
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="postCode">是否已认证: </label>
+			<div class="col-sm-6" >
+				<input type="radio" id="edit_authentication_y" name="authentication" value="1">是
+				<input type="radio" id="edit_authentication_n" name="authentication" value="0">否
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right">评分: </label>
+			<div class="col-sm-6" >
+				<input type="text" id="edit_score" name="score" maxlength="50" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,5]}">
+			</div>
+		</div>
 	</form>
 </div>
 

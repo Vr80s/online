@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.hospital.mapper.MedicalHospitalPictureMapper">
+
+	<!-- 通用查询结果列-->
+	<!--<sql id="Base_Column_List">-->
+		<!--id, name, age-->
+	<!--</sql>-->
+	<select id="getMedicalHospitalPictureByHospitalId" resultType="com.xczhihui.medical.hospital.model.MedicalHospitalPicture">
+		select * from medical_hospital_picture where hospital_id = #{hospitalId}
+
+	</select>
+
+
+</mapper>

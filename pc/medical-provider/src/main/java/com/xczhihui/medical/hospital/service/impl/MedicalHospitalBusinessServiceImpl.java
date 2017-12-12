@@ -3,11 +3,14 @@ package com.xczhihui.medical.hospital.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
+import com.xczhihui.medical.hospital.mapper.MedicalHospitalPictureMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,15 +25,26 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     @Autowired
     private MedicalHospitalMapper medicalHospitalMapper;
+    @Autowired
+    private MedicalHospitalPictureMapper medicalHospitalPictureMapper;
 
-    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page,String name) {
+    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page, String name) {
         page.setRecords(medicalHospitalMapper.selectHospitalList(page,name));
+        for (int i = 0; i < page.getRecords().size(); i++) {
+            List<MedicalHospitalPicture> medicalHospitalPictures = medicalHospitalPictureMapper.getMedicalHospitalPictureByHospitalId(page.getRecords().get(i).getId());
+            page.getRecords().get(i).setMedicalHospitalPictures(medicalHospitalPictures);
+        }
         return page;
     }
 
     @Override
     public MedicalHospital selectHospitalById(String id) {
         return medicalHospitalMapper.selectHospitalById(id);
+    }
+
+    @Override
+    public List<MedicalHospital> selectRecHospital() {
+        return medicalHospitalMapper.selectRecHospital();
     }
 
 }

@@ -21,4 +21,6 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
     List<MedicalHospital> selectHospitalList(@Param("page") Page<MedicalHospital> page, @Param("name") String name);
 
     MedicalHospital selectHospitalById(String id);
+
+    List<MedicalHospital> selectRecHospital();
 }

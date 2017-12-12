@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
 
-import java.util.List;
-
 /**
  * ClassName: UserCoin.java <br>
  * Description:用户-代币余额表 <br>
