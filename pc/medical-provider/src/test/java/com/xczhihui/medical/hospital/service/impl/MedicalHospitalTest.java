@@ -52,7 +52,7 @@ public class MedicalHospitalTest  extends BaseJunit4Test {
         Page<MedicalHospital> page = new Page<>();
         page.setCurrent(1);
         page.setSize(5);
-        Page<MedicalHospital> medicalHospitalPage = iMedicalHospitalBusinessService.selectHospitalPage(page,"www");
+        Page<MedicalHospital> medicalHospitalPage = iMedicalHospitalBusinessService.selectHospitalPage(page,"www", "");
         for (MedicalHospital medicalHospital : medicalHospitalPage.getRecords()) {
             System.out.println(medicalHospital.toString());
         }

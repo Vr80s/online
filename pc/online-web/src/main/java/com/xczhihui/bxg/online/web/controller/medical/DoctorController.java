@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/medical/doctor")
 public class DoctorController {
 
     @Autowired

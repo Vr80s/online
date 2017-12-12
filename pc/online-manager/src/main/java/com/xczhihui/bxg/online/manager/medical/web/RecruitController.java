@@ -4,8 +4,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
-import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleTypeVo;
-import com.xczhihui.bxg.online.manager.boxueshe.vo.TagVo;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
@@ -23,31 +22,19 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
- * 医馆管理控制层实现类
+ * 简历管理控制层实现类
  * @author yxd
  */
 
 @Controller
-@RequestMapping("medical/hospital")
-public class HospitalController extends AbstractController{
+@RequestMapping("medical/recruit")
+public class RecruitController extends AbstractController{
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/medical/";
 	@Autowired
 	private HospitalService hospitalService;
 	
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
-
-
-	@RequestMapping(value = "index")
-	public String index(HttpServletRequest request) {
-		return CLOUD_CLASS_PATH_PREFIX + "/hospital";
-	}
-	
-	@RequestMapping(value = "MedicalHospitalDetail")
-	public String MedicalHospitalDetail(HttpServletRequest request) {
-		request.setAttribute("weburl", weburl);
-		return CLOUD_CLASS_PATH_PREFIX + "/hospitalDetail";
-	}
 
 	@RequestMapping(value = "list")
 	@ResponseBody
@@ -58,12 +45,15 @@ public class HospitalController extends AbstractController{
           String params = tableVo.getsSearch();
           Groups groups = Tools.filterGroup(params);
           
-          MedicalHospital searchVo=new MedicalHospital();
-          Group MedicalHospitalName = groups.findByName("search_courseName");
+          MedicalHospitalRecruit searchVo=new MedicalHospitalRecruit();
+//          Group MedicalHospitalName = groups.findByName("search_courseName");
+          Group MedicalHospitalId = groups.findByName("hospitalId");
           Group medicalHospitalStatus = groups.findByName("search_status");
-//          searchVo.setOnlineMedicalHospital(1);
-          if (MedicalHospitalName != null) {
-        	  searchVo.setName(MedicalHospitalName.getPropertyValue1().toString());
+//          if (MedicalHospitalName != null) {
+//        	  searchVo.setName(MedicalHospitalName.getPropertyValue1().toString());
+//          }
+          if (MedicalHospitalId != null) {
+        	  searchVo.setHospitalId(MedicalHospitalId.getPropertyValue1().toString());
           }
           if (medicalHospitalStatus != null) {
 			  searchVo.setStatusnum(Integer.valueOf(medicalHospitalStatus.getPropertyValue1().toString()));
@@ -73,7 +63,7 @@ public class HospitalController extends AbstractController{
 					searchVo.setStatus(false);
 				}
           }
-          Page<MedicalHospital> page = hospitalService.findMedicalHospitalPage(searchVo, currentPage, pageSize);
+          Page<MedicalHospitalRecruit> page = hospitalService.findMedicalHospitalRecruitPage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();
           tableVo.setAaData(page.getItems());
           tableVo.setiTotalDisplayRecords(total);
@@ -84,25 +74,15 @@ public class HospitalController extends AbstractController{
 	
 	/**
 	 * 添加
-	 * @param medicalHospital
 	 * @return
 	 */
 //	@RequiresPermissions("RealClass:menu:MedicalHospital")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
-	 public ResponseObject add(MedicalHospital medicalHospital){
+	 public ResponseObject add(MedicalHospitalRecruit medicalHospitalRecruit){
 		ResponseObject responseObj = new ResponseObject();
-		List<MedicalHospital> entitys= hospitalService.findByName(medicalHospital.getName());
-		for(MedicalHospital entity:entitys){
-			if(!entity.getDeleted()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("医馆名称已存在！");
-		         return responseObj;
-			}
-		}
-
 		try{
-			hospitalService.addMedicalHospital(medicalHospital);
+			hospitalService.addMedicalHospitalRecruit(medicalHospitalRecruit);
             responseObj.setSuccess(true);
             responseObj.setErrorMessage("新增成功");
             
@@ -119,10 +99,10 @@ public class HospitalController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "findMedicalHospitalById", method = RequestMethod.GET)
+	@RequestMapping(value = "findMedicalHospitalRecruitById", method = RequestMethod.GET)
 	@ResponseBody
-	  public MedicalHospital findMedicalHospitalById(String id) {
-		return 	hospitalService.findMedicalHospitalById(id);
+	  public MedicalHospitalRecruit findMedicalHospitalRecruitById(String id) {
+		return 	hospitalService.findMedicalHospitalRecruitById(id);
 	}
 	
 	/**
@@ -130,33 +110,17 @@ public class HospitalController extends AbstractController{
 	 * @param medicalHospital
 	 * @return
 	 */
-	@RequestMapping(value = "updateMedicalHospitalById", method = RequestMethod.POST)
+	@RequestMapping(value = "updateMedicalHospitalRecruitById", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject updateMedicalHospitalById (MedicalHospital medicalHospital){
+	public ResponseObject updateMedicalHospitalRecruitById (MedicalHospitalRecruit medicalHospitalRecruit){
 		ResponseObject responseObj = new ResponseObject();
-		List<MedicalHospital> entitys= hospitalService.findByName(medicalHospital.getName());
-		for(MedicalHospital entity: entitys){
-			if(!entity.getDeleted()&&!entity.getId().equals(medicalHospital.getId())){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("医馆名称已存在！");
-		         return responseObj;
-			}
-		}
-
 		 try{
-			 	MedicalHospital old = hospitalService.findMedicalHospitalById(medicalHospital.getId());
-			 	old.setName(medicalHospital.getName());
-			 	old.setLal(medicalHospital.getLal());
-			 	old.setTel(medicalHospital.getTel());
-			 	old.setEmail(medicalHospital.getEmail());
-			 	old.setPostCode(medicalHospital.getPostCode());
-			 	old.setProvince(medicalHospital.getProvince());
-			 	old.setCity(medicalHospital.getCity());
-			 	old.setDetailedAddress(medicalHospital.getDetailedAddress());
-			 	old.setDescription(medicalHospital.getDescription());
-			 	old.setScore(medicalHospital.getScore());
-			 	old.setAuthentication(medicalHospital.isAuthentication());
-			 	hospitalService.updateMedicalHospital(old);
+			 MedicalHospitalRecruit old = hospitalService.findMedicalHospitalRecruitById(medicalHospitalRecruit.getId());
+			 	old.setPosition(medicalHospitalRecruit.getPosition());
+			 	old.setJobRequirements(medicalHospitalRecruit.getJobRequirements());
+			 	old.setPostDuties(medicalHospitalRecruit.getPostDuties());
+			 	old.setUpdateTime(medicalHospitalRecruit.getUpdateTime());
+			 	hospitalService.updateMedicalHospitalRecruit(old);
 	            responseObj.setSuccess(true);
 	            responseObj.setErrorMessage("修改成功");
 	       }catch(Exception e){
@@ -314,10 +278,7 @@ public class HospitalController extends AbstractController{
 	 * @return
 	 */
 	@RequestMapping(value = "toRecruit")
-	public String toRecruit(HttpServletRequest request,String hospitalId) {
-		request.setAttribute("hospitalId", hospitalId);
+	public String toRecruit(HttpServletRequest request) {
 		return CLOUD_CLASS_PATH_PREFIX + "/recruit";
 	}
-
-
 }

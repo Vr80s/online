@@ -1044,15 +1044,12 @@ $(".rec_P").click(function(){
     }
 });
 $(".kctj_bx").click(function(){
-    // $("#courseDiv").hide();
-    // $("#courseDiv_M").hide();
-    // $("#courseDiv_PX").hide();
-    // $("#courseRecDiv").show();
     freshTable(PX_courseTable);
 });
 
 
 function showRecruit(obj,status){
+	debugger;
     var oo = $(obj).parent().parent().parent();
     var aData,page;
     if(status==1) {
@@ -1062,7 +1059,7 @@ function showRecruit(obj,status){
         aData = M_courseTable.fnGetData(oo); // get datarow
         page = getCurrentPageNo(M_courseTable);
     }
-    window.location.href=basePath+'/home#medical/hospital/hospitalDetail?page='+page+'&courseId='+aData.id;
+    window.location.href=basePath+'/home#medical/hospital/toRecruit?page='+page+'&hospitalId='+aData.id;
 }
 function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');

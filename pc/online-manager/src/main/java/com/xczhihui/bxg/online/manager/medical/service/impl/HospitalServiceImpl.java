@@ -5,6 +5,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 import com.xczhihui.bxg.online.manager.cloudClass.service.LecturerService;
 import com.xczhihui.bxg.online.manager.medical.dao.HospitalDao;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
@@ -63,13 +64,14 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 		dao.save(medicalHospital);
 	}
 
-
 	@Override
 	public void updateMedicalHospital(MedicalHospital medicalHospital) {
-//		MedicalHospital medicalHospital = dao.findOneEntitiyByProperty(MedicalHospital.class, "id", medicalHospitalvo.getId());
-
-
 		dao.update(medicalHospital);
+	}
+
+	@Override
+	public void updateMedicalHospitalRecruit(MedicalHospitalRecruit medicalHospitalRecruit) {
+		dao.update(medicalHospitalRecruit);
 	}
 	
 	@Override
@@ -168,6 +170,10 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 	public MedicalHospital findMedicalHospitalById(String id) {
 		return dao.findOneEntitiyByProperty(MedicalHospital.class, "id", id);
 	}
+	@Override
+	public MedicalHospitalRecruit findMedicalHospitalRecruitById(String id) {
+		return dao.findOneEntitiyByProperty(MedicalHospitalRecruit.class, "id", id);
+	}
 
 	@Override
 	public boolean updateRec(String[] ids,int isRecommend) {
@@ -264,5 +270,21 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 		dao.update(coursePre);
 		dao.update(courseNext);
 
+	}
+
+	@Override
+	public Page<MedicalHospitalRecruit> findMedicalHospitalRecruitPage(MedicalHospitalRecruit searchVo, int pageNumber, int pageSize) {
+		Page<MedicalHospitalRecruit> page = hospitalDao.findMedicalHospitalRecruitPage(searchVo, pageNumber, pageSize);
+		return page;
+	}
+
+	@Override
+	public void addMedicalHospitalRecruit(MedicalHospitalRecruit medicalHospitalRecruit) {
+		String id = UUID.randomUUID().toString().replace("-","");
+		medicalHospitalRecruit.setId(id);
+		medicalHospitalRecruit.setCreateTime(new Date());
+		medicalHospitalRecruit.setStatus(false);
+		medicalHospitalRecruit.setDeleted(false);
+		dao.save(medicalHospitalRecruit);
 	}
 }

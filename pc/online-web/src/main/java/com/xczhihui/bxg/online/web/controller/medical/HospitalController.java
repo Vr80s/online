@@ -7,11 +7,12 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/medical/hospital")
 public class HospitalController {
 
     @Autowired
@@ -24,12 +25,12 @@ public class HospitalController {
      * @Date: 下午 3:09 2017/12/10 0010
      **/
     @RequestMapping(value = "/getHospitals",method= RequestMethod.GET)
-    public ResponseObject getHospitals(Integer current,Integer size,String name){
+    public ResponseObject getHospitals(Integer current,Integer size,String name,String field){
         Page<MedicalHospital> page = new Page<>();
 
         page.setCurrent(current);
         page.setSize(size);
-        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalPage(page,name));
+        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalPage(page,name,field));
     }
 
     /**
@@ -51,5 +52,14 @@ public class HospitalController {
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectRecHospital());
     }
 
+    /**
+     * 获取热门引用医疗领域
+     * @return
+     */
+    @RequestMapping(value = "getHotField")
+    @ResponseBody
+    public ResponseObject getHotField(){
+        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.getHotField());
+    }
 
 }

@@ -2,6 +2,7 @@ package com.xczhihui.medical.hospital.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface IMedicalHospitalBusinessService {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:03 2017/12/10 0010
      **/
-    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page, String name);
+    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page, String name, String field);
 
     /**
      * Description：通过医馆id获取医馆详细信息
@@ -40,4 +41,5 @@ public interface IMedicalHospitalBusinessService {
      **/
     public List<MedicalHospital> selectRecHospital();
 
+    List<MedicalField> getHotField();
 }

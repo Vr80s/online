@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.medical.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 
 import java.util.List;
 import java.util.Map;
@@ -84,4 +85,12 @@ public interface HospitalService {
 	void updateSortUpRec(String id);
 
 	void updateSortDownRec(String id);
+
+    Page<MedicalHospitalRecruit> findMedicalHospitalRecruitPage(MedicalHospitalRecruit searchVo, int currentPage, int pageSize);
+
+    void addMedicalHospitalRecruit(MedicalHospitalRecruit medicalHospitalRecruit);
+
+	MedicalHospitalRecruit findMedicalHospitalRecruitById(String id);
+
+	void updateMedicalHospitalRecruit(MedicalHospitalRecruit old);
 }
