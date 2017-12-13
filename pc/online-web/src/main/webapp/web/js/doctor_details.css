@@ -1,0 +1,335 @@
+* {
+  margin: 0px;
+  padding: 0;
+  box-sizing: border-box; 
+  list-style: none;
+  text-decoration: none;
+}
+.content {
+  width: 1200px;
+  margin: 0 auto;
+}
+.clearfix:after {
+  /*最简方式*/
+  content: '';
+  display: block;
+  clear: both;
+}
+.clearfix {
+  /*兼容 IE*/
+  zoom: 1;
+}
+.header {
+  margin-top:20px;
+  height: 200px;
+  background-image: url(../images/doctor_detail/header_bg.png);
+  background-repeat: no-repeat;
+  background-position: top ;
+  -webkit-background-size: 100% 50%;
+  background-size: 100% 50%;
+}
+.header .header_inf {
+  height: 200px;
+}
+.header .header_inf .header_inf_left {
+  float: left;
+  position: relative;
+  width: 152px;
+  height: 152px;
+  margin-top: 24px;
+  background-image: url(../images/doctor_detail/touxiang.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: 99%;
+  background-size: 99%;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.header .header_inf .header_inf_left img {
+  width: 50px;
+  height: 52px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.header .header_inf .header_inf_right {
+  float: left;
+  padding-top: 54px;
+}
+.header .header_inf .header_inf_right > span {
+  color: #fff;
+}
+.header .header_inf .header_inf_right > span:first-child {
+  font-weight: 700;
+  font-size: 20px;
+}
+.header .header_inf .header_inf_right .doctor_inf1 {
+  padding-top: 20px;
+}
+.header .header_inf .header_inf_right .doctor_inf1 > span {
+  font-size: 16px;
+  color: #333333;
+  margin-right: 30px;
+}
+.header .header_inf .header_inf_right .doctor_inf1 span em {
+  display: inline-block;
+  margin-right: 10px;
+}
+.header .header_inf .header_inf_right .doctor_inf1 .zhiwu em {
+  width: 14px;
+  height: 14px;
+  background-image: url(../images/doctor_detail/zhicheng.png);
+}
+.header .header_inf .header_inf_right .doctor_inf1 .yiguan em {
+  width: 14px;
+  height: 13px;
+  background-image: url(../images/doctor_detail/yiguan.png);
+}
+.header .header_inf .header_inf_right .doctor_inf1 .dizhi em {
+  width: 13px;
+  height: 15px;
+  background-image: url(../images/doctor_detail/address.png);
+}
+.header .header_inf .header_inf_right .doctor_inf2 {
+  padding-top: 10px;
+}
+.header .header_inf .header_inf_right .doctor_inf2 p {
+  font-size: 16px;
+  color: #333333;
+}
+.header .header_inf .header_inf_right .doctor_inf2 p span {
+  margin-right: 20px;
+}
+.content_box {
+  background-color: #f0f0f0;
+  padding-top: 20px;
+  padding-bottom: 60px;
+}
+.content_box #main .main_left {
+  width: 860px;
+  float: left;
+  background-color: #f0f0f0;
+}
+.content_box #main .main_left > div {
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 20px;
+}
+.content_box #main .main_left .doctor_int p {
+  font-size: 14px;
+  color: #333333;
+  line-height: 24px;
+}
+.content_box #main .main_left .hospital > h3 {
+  margin-bottom: 10px;
+}
+.content_box #main .main_left .hospital{
+	position: relative;
+}
+.content_box #main .main_left .hospital>a{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+.content_box #main .main_left .hospital .hospital_pic {
+  width: 270px;
+  height: 178px;
+  float: left;
+}
+.content_box #main .main_left .hospital .hospital_pic img {
+  width: 100%;
+  height: 100%;
+}
+.content_box #main .main_left .hospital .hospital_inf {
+  float: left;
+  padding-left: 20px;
+}
+.content_box #main .main_left .hospital .hospital_inf > p {
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #666666;
+}
+.content_box #main .main_left .class .class_top {
+  margin-bottom: 20px;
+}
+.content_box #main .main_left .class .class_top > span {
+  font-weight: 700;
+  font-size: 20px;
+  color: #333333;
+}
+.content_box #main .main_left .class .class_top a {
+  float: right;
+  color: #333;
+}
+.content_box #main .main_left .class .class_bottom .class_inf {
+  width: 260px;
+  height: 244px;
+  border: 1px solid #DEDEDE;
+  margin-right: 20px;
+  float: left;
+  margin-bottom: 20px;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_pic {
+  width: 260px;
+  height: 145.3px;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_pic img {
+  width: 100%;
+  height: 100%;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom {
+  height: 97px;
+  padding: 10px;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom > p {
+  margin-bottom: 10px;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_title {
+  font-size: 14px;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_address em {
+  display: inline-block;
+  width: 13px;
+  height: 15px;
+  background-image: url(../images/doctor_detail/address.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_pirce {
+  color: #f40;
+}
+.content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_person {
+  float: right;
+}
+.content_box #main .main_left .class .class_bottom .class_inf:nth-child(3n) {
+  margin-right: 0;
+}
+.content_box #main .main_left .zhuanlan .class_top > span {
+  font-weight: 700;
+  font-size: 20px;
+  color: #333333;
+}
+.content_box #main .main_left .zhuanlan .class_top a {
+  float: right;
+  color: #333;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li {
+  border-bottom: 1px solid #F0F0F0;
+  padding: 20px 0;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li:last-child {
+  border-bottom: none;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_left {
+  width: 260px;
+  height: 147px;
+  float: left;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right {
+  float: left;
+  width: 530px;
+  padding-left: 20px;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right h3 {
+  font-size: 16px;
+  color: #333333;
+  font-weight: 700;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right p {
+  font-size: 14px;
+  color: #666666;
+  line-height: 24px;
+}
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right span {
+  font-size: 14px;
+  color: #666666;
+}
+.content_box #main .main_right {
+  width: 320px;
+  float: right;
+  background-color: #f0f0f0;
+}
+.content_box #main .main_right > div {
+  margin-bottom: 20px;
+}
+.content_box #main .main_right .renling {
+  width: 320px;
+  height: 115px;
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+.content_box #main .main_right .renling p {
+  font-size: 14px;
+  color: #333333;
+  margin-bottom: 20px;
+}
+.content_box #main .main_right .renling a {
+  display: inline-block;
+  width: 92px;
+  height: 36px;
+  line-height: 36px;
+  background-color: #00BC12 ;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+.content_box #main .main_right .zhuzuo {
+  background-color: #fff;
+  padding: 20px;
+}
+.content_box #main .main_right .zhuzuo h3 {
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.content_box #main .main_right .zhuzuo .zhuzuo_left {
+  float: left;
+  text-align: center;
+}
+.content_box #main .main_right .zhuzuo .zhuzuo_left img {
+  width: 134px;
+  height: 140px;
+  margin-bottom: 10px;
+}
+.content_box #main .main_right .zhuzuo .zhuzuo_right {
+  float: left;
+  text-align: center;
+}
+.content_box #main .main_right .zhuzuo .zhuzuo_right img {
+  width: 134px;
+  height: 140px;
+  margin-bottom: 10px;
+}
+.content_box #main .main_right .about_doctor {
+  background-color: #fff;
+  padding: 20px;
+}
+.content_box #main .main_right .about_doctor h3 {
+  margin-bottom: 23px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.content_box #main .main_right .about_doctor .about_doctor_list > li {
+  width: 60px;
+  text-align: center;
+  float: left;
+  margin-right: 13px;
+  margin-bottom: 20px;
+}
+.content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+.content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic img {
+  width: 60px;
+  height: 60px;
+}
+.content_box #main .main_right .about_doctor .about_doctor_list > li:nth-child(4n) {
+  margin-right: 0;
+}

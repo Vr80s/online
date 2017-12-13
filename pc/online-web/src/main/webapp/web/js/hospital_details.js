@@ -1,7 +1,6 @@
 $(function(){
 	$('.path .hospital').addClass('select');
-	//纵向轮播
-	$('.pgwSlider').pgwSlider();
+
 
 	
 	//获取url中参数值的方法
@@ -47,8 +46,45 @@ $(function(){
 //				
 //			}
 //		}
+
+
+	//渲染纵向轮播
+   	$('#lunbo').html(template('lunboTpl',data.resultObject));
+   	//设置右侧图片
+   	var num = 0;
+   	if(data.resultObject.medicalHospitalPictures.length!=0){
+   		$('.big_pic').attr('src',data.resultObject.medicalHospitalPictures[0].picture)
+   		
+   	setInterval(function(){
+   		if(num < 3){
+   			num += 1;
+   				$('.big_pic').attr('src',data.resultObject.medicalHospitalPictures[num].picture);
+   		}else{
+   			num = 0;
+   			$('.big_pic').attr('src',data.resultObject.medicalHospitalPictures[num].picture);
+   		}
+   	},2000)
+   	}
+   	
+   	
     });
     
+		//纵向轮播
+		setTimeout(function(){
+//			$('.pgwSlider').pgwSlider();
+		},1500)
+	
+	//右侧图片设置
+	
+	$('.big_pic').click(function(){
+		console.log(222)
+	})
+	//点击图片改变
 	
 	
+	$('body').on('click','.lunboPic',function(){
+		$('.big_pic').attr('src',$(this).attr('src'))
+	})
+	
+
 })

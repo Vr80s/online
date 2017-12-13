@@ -61,12 +61,12 @@
                 <h3></h3>
                 <div class="hospital_detail_pic clearfix" id="hospital_detail_pic">
                     <div class="hospital_detail_pic_left">
-                        <img src="../images/hospital_detail/hospital_pic2.png" alt="暂无图片" class="big_pic">
+                        <img src="../images/hospital_detail/hospital_pic.png" alt="" class="big_pic">
                     </div>
                     <div class="hospital_detail_pic_right" id="lunbo">
-                        <img src="../images/hospital_detail/hospital_pic.png" alt="暂无图片">
-                        <img src="../images/hospital_detail/hospital_pic.png" alt="暂无图片">
-                        <img src="../images/hospital_detail/hospital_pic.png" alt="暂无图片">
+                        <img src="../images/hospital_detail/hospital_pic.png" alt="">
+                        <img src="../images/hospital_detail/hospital_pic.png" alt="">
+                        <img src="../images/hospital_detail/hospital_pic.png" alt="">
                     </div>
                     <!-- <div class="m">
 
@@ -295,13 +295,9 @@
 
 
 <script type="text/template" id="lunboTpl">
-{{if medicalHospitalPictures}}
 {{each medicalHospitalPictures as item i}}
 <img src={{item.picture}} alt="暂无图片" class="lunboPic">
 {{/each}}
-{{else}}
-
-{{/if}}
 </script>
 
 
