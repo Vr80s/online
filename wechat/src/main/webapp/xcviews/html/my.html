@@ -99,6 +99,7 @@
 		}
 		.vanish2{
 			left: 0.1rem;
+			display: none;
 		}
 	</style>
 	
@@ -246,7 +247,7 @@
 			<div class="my_bg_hint">请用手机登录绑定微信账号</div>
 			<div class="my_bg_tel">手机号&nbsp;&nbsp;<input type="tel" placeholder="手机号" name="" id="number" maxlength="11" /></div>
 			<div class="my_bg_tel2">
-				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="4位动态码" name="yanzhengma" id="yanzhengma" style="width:3.6rem;">
+				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="4位动态码" name="yanzhengma" id="yanzhengma" style="width:3.6rem;" maxlength="4" />
 				<a href="javascript: ;" id="btn" class="my_bg_tel2_a"><span class="my_bg_tel2_span">获取验证码</span></a>
 			</div>
 			<div class="my_bg_tel" id="hide_pws" style="display:none;">密码&nbsp;&nbsp;<input type="password" placeholder="6-18位密码" name="userpassword" id="userpassword"></div>
