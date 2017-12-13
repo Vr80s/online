@@ -345,12 +345,19 @@ input,button{
 	background:#fff;
 	padding:20px;
 	margin-bottom:20px;
+	position: relative;
 }
 #forum .forum-content .forum-content-left .doctor_list > h2{	
 font-weight:700;
 font-size: 20px;
 color: #333333;
 margin-top:0;
+}
+#forum .forum-content .forum-content-left .doctor_list > a{
+	    position: absolute;
+	    top: 20px;
+	    right: 20px;
+	    color: #000;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li{
 	width:400px;
@@ -369,9 +376,11 @@ margin-top:0;
 	height:70px;
 	float:left;
 	margin-right:10px;
+	border-radius: 50%;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > p{
 	font-size:14px;
+	height: 20px;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > h5{
 	font-size:14px;

@@ -2,6 +2,8 @@
  * Created by admin on 2017/1/3.
  */
 $(function () {
+	$('.forum').css('color','#000');
+	$('.path .doctor').addClass('select');
 	
 	
 	
@@ -44,7 +46,7 @@ $(function () {
     var articleBanner = '{{each articleBanner}}' +
             '{{if $index==0}}'+
         '<li style="z-index: 2">' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
+        '<a href="/web/html/forumDetail.html?Id={{$value.id}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
         '<div class="banner-info">' +
         '<span class="banner-type">{{$value.name}}</span>' +
         '<span class="banner-title">{{$value.title}}</span>' +
@@ -54,7 +56,7 @@ $(function () {
         '</li>' +
         '{{else}}'+
         '<li>' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
+        '<a href="/web/html/forumDetail.html?Id={{$value.id}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
         '<div class="banner-info">' +
         '<span class="banner-type">{{$value.name}}</span>' +
         '<span class="banner-title">{{$value.title}}</span>' +
@@ -117,7 +119,7 @@ $(function () {
         "</li>" +
         '{{/each}}';
     //请求轮播图部分banner
-    RequestService("/bxs/article/getArticleBanner", "GET", null, function (data) {
+    RequestService("/banner/getBannerList", "GET", {type:6}, function (data) {
         $(".slider").html(template.compile(articleBanner)({
             articleBanner: data.resultObject
         }));
@@ -338,6 +340,97 @@ $(function () {
         })
     }
     addSelectedMenu();
+    
+    
+    
+    //初始化请求数据
+//  window.hospitalId = null;
+	window.type = "";
+	window.name = "";
+    window.current = 1;
+   	window.size = 4;
+    
+    
+    	//国医大师渲染
+	    RequestService("/medical/doctor/getDoctors","GET",{
+			type:4,
+			current:current,
+			size:size
+	    },function(data){
+	        if(data.resultObject.records.length == 0){
+	        	//没有数据处理
+	           alert("国医大师没有数据")
+	        }else{
+	        	//获取到数据渲染
+	           $('#guoyi').html(template('guoyiTpl',{doctor:data.resultObject.records}));
+	        }
+	    });
+    
+    
+    
+		//名老中医
+	    RequestService("/medical/doctor/getDoctors","GET",{
+			type:2,
+			current:current,
+			size:size
+	    },function(data){
+	        if(data.resultObject.records.length == 0){
+	        	//没有数据处理
+	           alert("名老中医没有数据")
+	        }else{
+	        	//获取到数据渲染
+	           $('#minglao').html(template('minglaoTpl',{doctor:data.resultObject.records}));
+	        }
+	    });
+	    
+	    //名青中医
+	    RequestService("/medical/doctor/getDoctors","GET",{
+			type:1,
+			current:current,
+			size:size
+	    },function(data){
+	        if(data.resultObject.records.length == 0){
+	        	//没有数据处理
+	           alert("名老中医没有数据")
+	        }else{
+	        	//获取到数据渲染
+	           $('#mingqing').html(template('mingqingTpl',{doctor:data.resultObject.records}));
+	        }
+	    });
+	    
+	    //古中医
+	    RequestService("/medical/doctor/getDoctors","GET",{
+			type:5,
+			current:current,
+			size:size
+	    },function(data){
+	        if(data.resultObject.records.length == 0){
+	        	//没有数据处理
+	           alert("名老中医没有数据")
+	        }else{
+	        	//获取到数据渲染
+	           $('#guzhongyi').html(template('guzhongyiTpl',{doctor:data.resultObject.records}));
+	        }
+	    });
+    
+     	//少数民族中医
+	    RequestService("/medical/doctor/getDoctors","GET",{
+			type:3,
+			current:current,
+			size:size
+	    },function(data){
+	        if(data.resultObject.records.length == 0){
+	        	//没有数据处理
+	           alert("名老中医没有数据")
+	        }else{
+	        	//获取到数据渲染
+	           $('#shaoshu').html(template('shaoshuTpl',{doctor:data.resultObject.records}));
+	        }
+	    });
+    
+    
+    
+    
 });
 
 function addSelectedMenu(){

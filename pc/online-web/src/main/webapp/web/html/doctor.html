@@ -107,9 +107,10 @@
     <div class="forum-content clearfix">
         <div class="forum-content-left">
             <!-- TODO -->
-            <div class="doctor_list clearfix">
-            <h2>国医大师</h2>
-            <ul class="doctor_inf">
+            <div class="doctor_list clearfix" >
+            <h2>国医大师</h2> 
+            <a href="javascript:;">更多></a>
+            <ul class="doctor_inf" id="guoyi">
 				<li>
 					<img src="../images/teacher_small_pic.png" alt="">
 					<h5>施小墨</h5>
@@ -145,7 +146,8 @@
             
             <div class="doctor_list clearfix">
             <h2>名老中医</h2>
-            <ul class="doctor_inf">
+            <a href="javascript:;">更多></a>
+            <ul class="doctor_inf" id="minglao">
 				<li>
 					<img src="../images/teacher_small_pic.png" alt="">
 					<h5>施小墨</h5>
@@ -180,7 +182,8 @@
             
             <div class="doctor_list clearfix">
             <h2>名青年中医</h2>
-            <ul class="doctor_inf">
+            <a href="javascript:;">更多></a>
+            <ul class="doctor_inf" id="mingqing">
 				<li>
 					<img src="../images/teacher_small_pic.png" alt="">
 					<h5>施小墨</h5>
@@ -216,7 +219,8 @@
             
             <div class="doctor_list clearfix">
             <h2>古中医</h2>
-            <ul class="doctor_inf">
+            <a href="javascript:;">更多></a>
+            <ul class="doctor_inf" id="guzhongyi">
 				<li>
 					<img src="../images/teacher_small_pic.png" alt="">
 					<h5>施小墨</h5>
@@ -252,7 +256,8 @@
             
             <div class="doctor_list clearfix">
             <h2>少数民族中医</h2>
-            <ul class="doctor_inf">
+            <a href="javascript:;">更多></a>
+            <ul class="doctor_inf" id="shaoshu">
 				<li>
 					<img src="../images/teacher_small_pic.png" alt="">
 					<h5>施小墨</h5>
@@ -307,9 +312,9 @@
           
               
             <div class="forum-hot-tag">
-                <div class="forum-hot-tag-title">医馆搜索</div>
+                <div class="forum-hot-tag-title">医师搜索</div>
                 <div class="search_hos_box">
-                 	<input class="search_hos" type="text" placeholder="请输入名字搜索医馆">
+                 	<input class="search_hos" type="text" placeholder="请输入名字搜索医师">
                 </div>
                 <p>按擅长领域搜索</p>
                 <ul class="forum-hot-tagGround">
@@ -385,6 +390,67 @@
         </div>
     </div>
 </div>
+
+
+<!-- 国医大师-->
+<script type="text/template" id="guoyiTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}</h5>
+		<p>{{doctor.workTime}}</p>
+		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 名老中医-->
+<script type="text/template" id="minglaoTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}</h5>
+		<p>{{doctor.workTime}}</p>
+		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 名青中医-->
+<script type="text/template" id="mingqingTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}</h5>
+		<p>{{doctor.workTime}}</p>
+		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 古中医-->
+<script type="text/template" id="guzhongyiTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}</h5>
+		<p>{{doctor.workTime}}</p>
+		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 少数民族中医-->
+<script type="text/template" id="shaoshuTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}</h5>
+		<p>{{doctor.workTime}}</p>
+		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+	</li>
+ {{/each}}
+</script> 
 
 
 </body>
