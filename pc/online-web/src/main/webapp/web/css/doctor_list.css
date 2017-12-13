@@ -138,6 +138,12 @@
   float: left;
   margin-right: 13px;
   margin-bottom: 20px;
+ 	position: relative;
+}
+.content_box #main .main_right .about_doctor .about_doctor_list > li>a{
+	position: absolute;
+	width: 100%;
+	height: 100%;
 }
 .content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic {
   display: inline-block;

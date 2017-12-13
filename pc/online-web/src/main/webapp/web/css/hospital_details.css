@@ -47,7 +47,7 @@
     color: #333333;
     margin-bottom: 18px;
 }
-.content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_left{
+/*.content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_left{
     float: left;
     width: 619px;
     height: 342px;
@@ -69,7 +69,7 @@
 }
 .content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_right img:last-child{
     margin-bottom: 0;
-}
+}*/
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_pic{
     margin-bottom: 30px;
 }

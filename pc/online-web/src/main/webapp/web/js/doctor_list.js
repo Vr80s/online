@@ -1,4 +1,5 @@
 $(function(){
+	$('.path .hospital').addClass('select');
 	//获取url中参数值的方法
 	function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -16,6 +17,7 @@ $(function(){
 	window.size = 8;
 	window.name = "";
 	window.type =getQueryString(type)?getQueryString(type):"";
+	console.log(type)
 	getHostipalList(current,size,name,type);
 	
 	
@@ -43,7 +45,7 @@ $(function(){
 //		if(e.keyCode==13){
 		  var name =$('.doctor_search_ipt > input').val();
 		  console.log(name)
-		  getHostipalList(current,size,name);
+		  getHostipalList(current,size,name,type);
 //		}
 		});
 		
@@ -52,9 +54,17 @@ $(function(){
 	    $('.more_doctor').click(function(){
 	    	current +=1;
 	    	console.log(current)
-	    	getHostipalList(current,size,name);
+	    	getHostipalList(current,size,name,type);
 	    })
 	    
+	    
+	    //名师推荐部分
+	     RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){
+	       
+	        	console.log(data);
+	           $('#doc_rec').html(template('doc_recTpl',{doc:data.resultObject}));
+	      });
+//	    });
 	    
 	    
 	    

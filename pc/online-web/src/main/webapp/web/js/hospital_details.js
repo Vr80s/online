@@ -1,5 +1,8 @@
 $(function(){
 	$('.path .hospital').addClass('select');
+	//纵向轮播
+	$('.pgwSlider').pgwSlider();
+
 	
 	//获取url中参数值的方法
 	function getQueryString(name) {
@@ -32,8 +35,20 @@ $(function(){
        var shi =  data.resultObject.city;
        $('.sheng').text(sheng);
        $('.shi').text(shi);
-     
+		//渲染纵向轮播
+//		if(data.resultObject.medicalHospitalPictures){
+//			
+//			console.log(data.resultObject.medicalHospitalPictures.length)
+//			for(var i = 0;i < data.resultObject.medicalHospitalPictures.length; i++ ){
+//				var $li = "<li><img src="+data.resultObject.medicalHospitalPictures[i].picture+"></li>";
+//				if(i<=3){
+//					$('#lunbo').append($li);
+//				}
+//				
+//			}
+//		}
     });
+    
 	
 	
 })

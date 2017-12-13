@@ -22,7 +22,8 @@
     <link rel="stylesheet" href="/web/css/hospital_details.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
-
+	<link rel="stylesheet" href="/web/css/pgwslider.min.css"/>
+	
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
     <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
@@ -59,14 +60,30 @@
             <div class="hospital_detail_inf">
                 <h3></h3>
                 <div class="hospital_detail_pic clearfix">
-                    <div class="hospital_detail_pic_left">
+                    <!--<div class="hospital_detail_pic_left">
                         <img src="../images/hospital_detail/hospital_pic.png" alt="">
                     </div>
                     <div class="hospital_detail_pic_right">
                         <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         <img src="../images/hospital_detail/hospital_pic.png" alt="">
                         <img src="../images/hospital_detail/hospital_pic.png" alt="">
-                    </div>
+                    </div>-->
+                    <div class="m">
+
+						<ul class="pgwSlider" id='lunbo'>
+
+							<li><img src="../images/paris.jpg" alt="Paris, France"><span>暂无图片</span></li>
+
+							<li><img src="../images/new-york.jpg" alt="Montréal, QC, Can2ada"><span>暂无图片</span></li>
+
+							<li> <img src="../images/shanghai.jpg" alt="shanghai"> <span>暂无图片</span></li>
+				
+							<li> <img src="../images/new-york.jpg" alt="New York, NY, USA"><span>暂无图片</span> </li>
+
+					</ul>
+
+				</div>
+                    
                 </div>
                 <p>江苏省国医馆成立后各地成立支馆，纷纷举办国医学校、讲习所，诊所等。民国24年(1935年)6月29日，苏州中医自己组织了“国医联合诊所”，发起人有顾福如等，地址在景德路27号，分设内、外、妇、儿四科。
                 </p>
@@ -78,7 +95,7 @@
             </div>
 
             <!--医馆名家-->
-            <div class="hospital_doctor clearfix">
+            <div class="hospital_doctor clearfix hide">
                 <div class="hospital_top">
                     <span>医馆名家</span>
                     <a href="javascript:;">
@@ -118,7 +135,7 @@
                 </ul>
             </div>
             <!--课程-->
-            <div class="class clearfix">
+            <div class="class clearfix hide">
                 <div class="class_top">
                     <span>课程</span>
                     <a href="javascript:;">
@@ -221,7 +238,7 @@
 
 
 			<!--联系方式-->
-            <div class="contant_way clearfix">
+            <div class="contant_way clearfix hide">
              <h3>联系方式</h3>
                 <div class="map">
                     	地图
@@ -235,7 +252,7 @@
 
 
         <!--右侧-->
-        <div class="main_right">
+        <div class="main_right hide">
             <!--账号认领-->
             <div class="import_thing">
                <h2>重要通知</h2>
@@ -283,6 +300,7 @@
 <script src="/web/js/hospital_details.js"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
+<script src="/web/js/pgwslider.min.js"></script>
 <script type="text/javascript">
     $(function () {
         $('input').placeholder();
