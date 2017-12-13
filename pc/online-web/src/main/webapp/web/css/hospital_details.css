@@ -83,15 +83,15 @@
 .content_box #main .main_left .hospital_detail_inf .hospital_detail_inf_bottom{
     height: 60px;
     line-height: 60px;
-    margin: 0 -20px;
+    margin:0 -20px;
     background-color: #dadada;
-    padding: 0 20px;
+    padding:0 20px;
     font-size: 14px;
     position: absolute;
     bottom: 0;
-    width: 100%
+    width: 100%;
 }
-.content_box #main .main_left .hospital_detail_inf .hospital_detail_inf_bottom > p>span{
+.content_box #main .main_left .hospital_detail_inf .hospital_detail_inf_bottom > p > span:first-child{
 	margin-right: 30px;
 }
 .content_box #main .main_left .hospital_doctor{

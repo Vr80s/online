@@ -2,6 +2,9 @@
  * Created by admin on 2017/1/3.
  */
 $(function () {
+	
+	
+	
     /*相关课程*/
     $(".path a").each(function(){
         if($(this).text()=="博学社"){
