@@ -102,7 +102,7 @@
                         更多&nbsp;>
                     </a>
                 </div>
-                <ul class="doctor_inf">
+                <ul class="doctor_inf ">
                     <li>
                         <img src="../images/hospital_detail/touxiang.png" alt="">
                         <h5>施小墨</h5>
@@ -304,6 +304,18 @@
 {{/if}}
 </script>
 
+
+<!-- 医馆医师-->
+<script type="text/template" id="hos_docTpl"> 
+{{each doctor as doctor i}}
+	<li>
+        <img src="../images/hospital_detail/touxiang.png" alt="">
+        <h5>施小墨</h5>
+        <p>每周二、四</p>
+        <p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+    </li>
+ {{/each}}
+</script> 
 
 
 </body>
