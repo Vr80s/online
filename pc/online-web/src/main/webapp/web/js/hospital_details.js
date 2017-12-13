@@ -51,8 +51,10 @@ $(function(){
 	//渲染纵向轮播
    	$('#lunbo').html(template('lunboTpl',data.resultObject));
    	//设置右侧图片
-   	$('.big_pic').attr('src',data.resultObject.medicalHospitalPictures[0].picture)
    	var num = 0;
+   	if(data.resultObject.medicalHospitalPictures.length!=0){
+   		$('.big_pic').attr('src',data.resultObject.medicalHospitalPictures[0].picture)
+   		
    	setInterval(function(){
    		if(num < 3){
    			num += 1;
@@ -62,6 +64,9 @@ $(function(){
    			$('.big_pic').attr('src',data.resultObject.medicalHospitalPictures[num].picture);
    		}
    	},2000)
+   	}
+   	
+   	
     });
     
 		//纵向轮播

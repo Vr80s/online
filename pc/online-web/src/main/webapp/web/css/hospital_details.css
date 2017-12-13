@@ -76,6 +76,7 @@
 }
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_pic{
     margin-bottom: 30px;
+    border: 1px solid #f0f0f0;
 }
 .content_box #main .main_left .hospital_detail_inf  > P{
     margin-bottom: 17px;
