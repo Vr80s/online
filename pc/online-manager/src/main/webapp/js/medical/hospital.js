@@ -1009,12 +1009,12 @@ $(".rec_P").click(function(){
 
     for(var i = 0;i<trs.size();i++){
         if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用"){
-            showDelDialog("","","无法推荐禁用课程！","");
+            showDelDialog("","","无法推荐禁用医馆！","");
             return false;
         }
 
         if($(trs[i]).parent().parent().find("[name='sftj']").eq("0").text() == "已推荐"){
-            showDelDialog("","","无法推荐已推荐课程！","");
+            showDelDialog("","","无法推荐已推荐医馆！","");
             return false;
         }
         ids.push($(trs[i]).val());
@@ -1040,7 +1040,7 @@ $(".rec_P").click(function(){
             }
         });
     }else{
-        showDelDialog("","","请选择推荐课程！","");
+        showDelDialog("","","请选择推荐医馆！","");
     }
 });
 $(".kctj_bx").click(function(){

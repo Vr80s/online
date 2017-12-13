@@ -33,7 +33,7 @@ public class HospitalDao extends HibernateDao<MedicalHospital>{
 			 sql.append("and status = :status ");
 		 }
 
-		 sql.append(" order by status desc");
+		 sql.append(" order by status desc,create_time desc");
 
 		 Page<MedicalHospital> medicalHospitals = this.findPageBySQL(sql.toString(), paramMap, MedicalHospital.class, pageNumber, pageSize);
 		 for (int i = 0; i < medicalHospitals.getItems().size(); i++) {

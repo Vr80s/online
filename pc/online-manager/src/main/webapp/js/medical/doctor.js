@@ -8,11 +8,11 @@ var studyDayForm;//设置学习计划模板表单
 var _courseRecTable;//课程推荐列表
 
 $(function(){
-	document.onkeydown=function(event){
-		if(event.keyCode == 13) {
-            return false;
-        }
-	}
+	// document.onkeydown=function(event){
+	// 	if(event.keyCode == 13) {
+     //        return false;
+     //    }
+	// }
 	//debugger;
 	/** 医师列表begin */
     var searchCase_P = new Array();
@@ -51,7 +51,7 @@ $(function(){
 				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
+				'<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
@@ -59,7 +59,7 @@ $(function(){
 				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
+				'<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
 	    	}
 	    }
 	}];
@@ -87,6 +87,76 @@ $(function(){
 		// }
 	});
 	/** 医师列表end */
+
+    /** 医师排序列表begin */
+    var objData_PX = [
+        { "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
+        { "title": "姓名", "class":"center","width":"9%","sortable":false,"data": 'name' },
+        { "title": "职称", "class":"center","width":"8%","sortable":false,"data": 'title'},
+        // { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
+        { "title": "坐诊时间", "class":"center","width":"6%", "sortable":false,"data": 'workTime',"visible":true},
+        { "title": "所在地", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
+            debugger
+            return row.province+"-"+row.city;
+        }}, { "title": "医师类别", "class":"center","width":"8%","sortable":false,"data": 'type','mRender':function(data){
+            return doctorType(data);}},
+        // { "title": "创建日期", "class":"center","width":"8%","sortable":false,"data": 'createTime','mRender':function(data){
+        //     return getLocalTime(data);}
+        // },
+        { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data) {
+            if(data==1){
+                return data="<span name='zt'>已启用</span>";
+            }else{
+                return data="<span name='zt'>已禁用</span>";
+            }
+        } },
+        {"sortable": false,"class": "center","width":"5%","title":"排序","mRender":function (data, display, row) {
+            if(row.status ==1){//如果是禁用
+                return '<div class="hidden-sm hidden-xs action-buttons">'+
+                    '<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMoveRec(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+                    '<a class="blue" name="downa" href="javascript:void(-1);" title="下移"  onclick="downMoveRec(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+            }else{
+                return '<div class="hidden-sm hidden-xs action-buttons">'+
+                    '<a class="gray" href="javascript:void(-1);" title="上移"  ><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+                    '<a class="gray" href="javascript:void(-1);" title="下移"  ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+            }
+        }},
+        { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+            return '<div class="hidden-sm hidden-xs action-buttons">'+
+                '<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ' ;
+        }
+        }
+    ];
+    PX_courseTable = initTables("courseTable_PX",basePath+"/medical/doctor/recList",objData_PX,true,true,1,null,searchCase_P,function(data){
+        var iDisplayStart = data._iDisplayStart;
+        var countNum = data._iRecordsTotal;//总条数
+        pageSize = data._iDisplayLength;//每页显示条数
+        currentPage = iDisplayStart / pageSize +1;//页码
+        // if(currentPage == 1){//第一页的第一行隐藏向上箭头
+        //     $("#courseTable_PX tbody tr:first td").eq(9).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
+        // }
+        // if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
+        //     $("#courseTable_PX tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
+        // }
+        var countPage;
+        if(countNum%pageSize == 0){
+            countPage = parseInt(countNum/pageSize);
+        }else{
+            countPage = parseInt(countNum/pageSize) + 1;
+        }
+
+        $("[name='upa']").each(function(index){
+            if(index == 0){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
+        $("[name='downa']").each(function(index){
+            if(index == $("[name='downa']").size()-1){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
+    });
+    /** 医馆排序列表end */
 
 	courseForm = $("#addCourse-form").validate({
         rules: {
@@ -309,15 +379,15 @@ function downMove(obj){
  * @param obj
  */
 function downMoveRec(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = _courseRecTable.fnGetData(oo);
-	ajaxRequest(basePath+'/cloudclass/course/downMoveRec',{"id":aData.id},function(res){
-		if(res.success){
-			freshTable(_courseRecTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-	});
+    var oo = $(obj).parent().parent().parent();
+    var aData = PX_courseTable.fnGetData(oo);
+    ajaxRequest(basePath+'/medical/doctor/downMoveRec',{"id":aData.id},function(res){
+        if(res.success){
+            freshTable(PX_courseTable);
+        }else{
+            layer.msg(res.errorMessage);
+        }
+    });
 };
 
 $(".add_P").click(function(){
@@ -999,6 +1069,82 @@ function openHospitalManage(obj){
 
     });
 }
+/**
+ * 设置推荐
+ * @param obj
+ */
+function updateRec(obj){
+    debugger
+    var oo = $(obj).parent().parent().parent();
+    var row = PX_courseTable.fnGetData(oo); // get datarow
+    ajaxRequest(basePath+"/medical/doctor/updateRec",{"ids":row.id,"isRec":0},function(data){
+        if(data.success){
+            layer.msg("取消成功！");
+            freshTable(PX_courseTable);
+        }else{
+            layer.msg("取消失败！");
+        }
+    });
+};
+$(".rec_P").click(function(){
+    var ids = new Array();
+    var trs = $(".dataTable tbody input[type='checkbox']:checked");
+
+    for(var i = 0;i<trs.size();i++){
+        if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用"){
+            showDelDialog("","","无法推荐禁用医馆！","");
+            return false;
+        }
+
+        if($(trs[i]).parent().parent().find("[name='sftj']").eq("0").text() == "已推荐"){
+            showDelDialog("","","无法推荐已推荐医馆！","");
+            return false;
+        }
+        ids.push($(trs[i]).val());
+    }
+    if(ids.length > 10)
+    {
+        showDelDialog("","","最多只能推荐10个医馆！","");
+        return false;
+    }
+
+    if(ids.length>0){
+        ajaxRequest(basePath+"/medical/doctor/updateRec",{'ids':ids.join(","),"isRec":1},function(data){
+            if(!data.success){//如果失败
+                //alertInfo(data.errorMessage);
+                layer.msg(data.errorMessage);
+            }else{
+                if(!isnull(P_courseTable)){
+                    layer.msg("推荐成功！");
+                    //freshDelTable(P_courseTable);
+                    search_P();
+                }
+                layer.msg(data.errorMessage);
+            }
+        });
+    }else{
+        showDelDialog("","","请选择推荐课程！","");
+    }
+});
+
+
+/**
+ * 课程推荐列表上移
+ * @param obj
+ */
+function upMoveRec(obj){
+    var oo = $(obj).parent().parent().parent();
+    var aData = PX_courseTable.fnGetData(oo);
+    ajaxRequest(basePath+'/medical/doctor/upMoveRec',{"id":aData.id},function(res){
+        if(res.success){
+            freshTable(PX_courseTable);
+        }else{
+            layer.msg(res.errorMessage);
+        }
+    });
+};
+
+
 
 function drawHospitalPage(data){
     $("#hospitals").html("");
@@ -1018,6 +1164,11 @@ function drawHospitalPage(data){
 
     }
 }
+
+$(".kctj_bx").click(function(){
+	debugger
+    freshTable(PX_courseTable);
+});
 function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
 }

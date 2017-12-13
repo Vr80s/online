@@ -60,9 +60,9 @@ public class FieldDao extends HibernateDao<MedicalField> {
 	 * @return
 	 */
 	public MedicalField findByNotEqId(MedicalField searchEntity) {
-		StringBuilder sql=new StringBuilder("select * from medical_field where name=:name and  is_delete =0");
+		StringBuilder sql=new StringBuilder("select * from medical_field where name=:name and  deleted =0");
         Map<String,Object> params=new HashMap<String,Object>();
-        params.put("id",searchEntity.getId());
+//        params.put("id",searchEntity.getId());
         params.put("name", searchEntity.getName());
         List<MedicalField> menus=this.getNamedParameterJdbcTemplate().query(sql.toString(),params,BeanPropertyRowMapper.newInstance(MedicalField.class));
         if(menus.size()>0){

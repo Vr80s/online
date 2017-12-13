@@ -93,4 +93,12 @@ public interface DoctorService {
 	void updateMedicalHospitalDoctorDetail(String doctorId, String hospitalId);
 
 	List<MedicalHospital> getMedicalHospital(String doctorId);
+
+    Page<MedicalDoctor> findRecMedicalDoctorPage(MedicalDoctor searchVo, int currentPage, int pageSize);
+
+    boolean updateRec(String[] ids, int isRec);
+
+	void updateSortUpRec(String id);
+
+	void updateSortDownRec(String id);
 }

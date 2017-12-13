@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * 简历管理控制层实现类
@@ -181,7 +180,7 @@ public class RecruitController extends AbstractController{
 	@RequestMapping(value = "updateMedicalHospitalDetail", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5){
-		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5);
+//		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5, picture6, picture7, picture8, picture9);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 

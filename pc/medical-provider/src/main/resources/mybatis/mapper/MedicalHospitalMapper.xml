@@ -17,9 +17,10 @@
 		</if>
 		order by score desc
 	</select>
+
 	<select id="getHotField" resultType="com.xczhihui.medical.field.model.MedicalField">
 		SELECT
-		  mf.*
+		  mf.id,mf.name
 		FROM
 		  `medical_field` mf
 		  LEFT JOIN `medical_hospital_field` mhf

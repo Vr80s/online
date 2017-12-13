@@ -11,6 +11,9 @@
 		  mh.`name` hospitalName
 		FROM
 		  medical_doctor md
+		<if test="field != null">
+			join medical_doctor_field mdf on mh.id = mdf.doctor_id and mdf.`field_id`=#{field}
+		</if>
 		  LEFT JOIN `medical_doctor_authentication_information` mdai
 			ON md.`authentication_information_id` = mdai.`id`
 		  LEFT JOIN `medical_hospital_doctor` mhd
@@ -19,10 +22,70 @@
 			ON mhd.`hospital_id` = mh.`id`
 		WHERE md.deleted = 0
 		  AND md.status = 1
+		<if test="type != null">
+			and md.type = type
+		</if>
+		<if test="hospitalId != null">
+			and mh.id = #{hospitalId}
+		</if>
+		<if test="name != null">
+			and md.name like concat('%',#{name},'%')
+		</if>
 	</select>
 
 	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
-		select * from medical_doctor where deleted = 0 and status = 1 and id = #{id}
+		SELECT
+		md.*,
+		md.`work_time` workTime,
+		mdai.head_portrait headPortrait,
+		mh.`id` hospitalId
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		AND md.id = #{id}
+	</select>
+
+	<select id="getHotField" resultType="com.xczhihui.medical.field.model.MedicalField">
+		SELECT
+		mf.id,mf.name
+		FROM
+		`medical_field` mf
+		LEFT JOIN `medical_doctor_field` mdf
+		ON mf.`id` = mdf.`field_id`
+		GROUP BY mdf.`field_id`
+		ORDER BY COUNT(mdf.`field_id`) DESC
+		LIMIT 0, 10
+	</select>
+
+
+	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		select
+		*
+		from
+		medical_doctor
+		where deleted = 0
+		and status = 1
+		and recommend = 1
+		order by recommend_sort desc
+		limit 0, 10
+	</select>
+
+	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.model.MedicalField">
+		SELECT
+		  mf.name,
+		  mf.id
+		FROM
+		  `medical_field` mf,
+		  `medical_doctor_field` mdf
+		WHERE mf.`id` = mdf.`field_id`
+		and mdf.doctor_id = #{doctorId}
 	</select>
 
 </mapper>
