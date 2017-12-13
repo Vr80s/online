@@ -51,7 +51,7 @@
 <body>
 <!--头部-->
 	<div class="header" id="doctor_detail_header">
-        <div class="header_inf content">
+        <!--<div class="header_inf content">
             <div class="header_inf_left">
                 <img src="../images/doctor_detail/xunzhang.png" alt="">
             </div>
@@ -64,11 +64,11 @@
                 </div>
                 <div class="doctor_inf2">
                     <p>主治：                   	
-                    	<!--<span>时令病</span><span>湿温病</span><span>肠胃病</span>-->
+                    	<span>时令病</span><span>湿温病</span><span>肠胃病</span>
                     </p>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 
 <!--主体-->
@@ -82,6 +82,9 @@
                    施今墨毕生致力于中医事业的发展。提倡中西医结合，培养了许多中医人才。长期从事中医临床，治愈了许多疑难重症，创制了许多新成药，献出700个验方。为中医事业作出突出贡献，在国内外享有很高的声望。</p>
            </div>
             <!--坐诊医馆-->
+            <div id="doc_hospital">
+            	
+           
             <div class="hospital clearfix">
             	<a class="to_hospital_detail"></a>
                 <h3>坐诊医馆</h3>
@@ -95,6 +98,7 @@
                     <p>地址：<span>暂无数据</span></p>
                 </div>
             </div>
+             </div>
             <!--课程-->
             <div class="class clearfix hide">
                 <div class="class_top">
@@ -351,29 +355,52 @@
         </div>
     </div>
 </div>
-<!--
+
 <script  type="text/template" id="doctor_detail_topTpl">
-	{{each  doctor as doctor i}}
-	{{doctor}}
 	<div class="header_inf content">
             <div class="header_inf_left">
                 <img src="../images/doctor_detail/xunzhang.png" alt="">
             </div>
             <div class="header_inf_right">
-                <span>{{doctor.name}} </span> <span>北京四大名医</span>
+                <span>{{name}}  </span><span>{{title}}</span>
                 <div class="doctor_inf1">
-                    <span class="zhiwu"><em></em>主任医师</span>
-                    <span class="yiguan"><em></em>胡庆余堂国医馆</span>
-                    <span class="dizhi"><em></em>北京</span>
+                    <span class="zhiwu"><em></em>{{title}}</span>
+                    {{if medicalHospital}}
+                    <span class="yiguan"><em></em>{{medicalHospital.name}}</span>
+                    {{/if}}
+                    <span class="dizhi"><em></em>{{city}}</span>
                 </div>
                 <div class="doctor_inf2">
-                    <p>主治：<span>时令病</span><span>湿温病</span><span>肠胃病</span></p>
+                	{{if fields}}
+                    <p>主治：
+                    	{{each fields as item i}}
+                    	<span>{{item.name}}</span>
+                    	 {{/each}}
+                    </p>
+                   {{/if}}
                 </div>
             </div>
         </div>
-	{{/each}}
+
 </script>
--->
+
+
+<!--<script type="text/template" id="doc_hospitalTpl">
+	<div class="hospital clearfix">
+            	<a class="to_hospital_detail"></a>
+                <h3>坐诊医馆</h3>
+                <div class="hospital_pic">
+                    <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                </div>
+                <div class="hospital_inf">
+                
+                    <p>暂无数据</p>
+                    <p>预约电话：<span>暂无数据</span></p>
+                    <p>坐诊时间：<span>暂无数据</span></p>
+                    <p>地址：<span>暂无数据</span></p>
+                </div>
+    </div>
+</script>-->
 
 
 </body>

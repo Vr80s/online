@@ -47,7 +47,7 @@
     color: #333333;
     margin-bottom: 18px;
 }
-/*.content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_left{
+.content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_left{
     float: left;
     width: 619px;
     height: 342px;
@@ -60,6 +60,7 @@
     float: right;
     width: 177px;
     height: 342px;
+    overflow: hidden;
 }
 .content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_right img{
     width: 177px;
@@ -67,9 +68,12 @@
     margin-bottom: 24px;
     float: right;
 }
+.content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_right img:hover{
+	cursor: pointer;
+}
 .content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_right img:last-child{
-    margin-bottom: 0;
-}*/
+    margin-bottom: 0px;
+}
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_pic{
     margin-bottom: 30px;
 }
