@@ -258,7 +258,9 @@
 				}
 				$("#address_list").html(str);
 			} else {
-				alert("请求列表有误");
+				$(".vanish5").show();
+				setTimeout(function(){$(".vanish5").hide();},1500);
+				/*alert("请求列表有误");*/
 			}
 		},false);
 		
