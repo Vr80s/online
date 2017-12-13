@@ -3,14 +3,14 @@ $(function(){
 	
 	//初始化请求信息
 	window.current = 1;
-	window.size = 20;
+	window.size = 8;
 	window.name = "";
-	getHostipalList(current,size,name); 
+	getHostipalList(current,size,name);
 	
 	
-	//渲染医馆列表方法
+	//渲染医师列表方法
 	function getHostipalList(current,size,name){
-	    RequestService("/medical/hospital/getHospitals","GET",{
+	    RequestService("/medical/doctor/getDoctors","GET",{ 
 	    	current:current,
 	    	size:size,
 	    	name:name
@@ -21,7 +21,7 @@ $(function(){
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
-	           $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
+	           $('#doctor_list').append(template('doctorListTpl',{doctor:data.resultObject.records}));
 	        }
 	    });
 	}
@@ -37,7 +37,7 @@ $(function(){
 		
 	    
 	    //点击更多
-	    $('.more_hospital').click(function(){
+	    $('.more_doctor').click(function(){
 	    	current +=1;
 	    	console.log(current)
 	    	getHostipalList(current,size,name);

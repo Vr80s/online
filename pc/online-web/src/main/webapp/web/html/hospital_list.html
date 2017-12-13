@@ -236,7 +236,6 @@
 <!-- 医馆模板 -->
 <script type="text/template" id="hospitalTpl"> 
 {{each hospital as hospital i}}
-
 <div class="hospitals">
 	<a href="/web/html/hospital_details.html?Id={{hospital.id}}" id={{hospital.id}}></a>
 	<img src="../images/hospital/hospital_pic.png" alt="">
@@ -299,7 +298,7 @@
 			<em class="gray_star"></em>
 			{{else if  4 < hospital.score && hospital.score <= 4.5}}
 			<em class="full_star"></em>
-			<em class="full_star"></em>
+			<em class="full_star"></em> 
 			<em class="full_star"></em>
 			<em class="full_star"></em>
 			<em class="half_star"></em>

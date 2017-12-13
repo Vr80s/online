@@ -6,7 +6,7 @@ $(function(){
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     var r = window.location.search.substr(1).match(reg);
     if (r != null) {
-        return unescape(r[2]);
+        return unescape(r[2]); 
     }
     return null;
 	}
@@ -15,11 +15,15 @@ $(function(){
 	//获取医师的id值
 	var id = getQueryString('Id');
 	 RequestService("/medical/doctor/getDoctorById", "GET", {
-	 	id:id
+	 	id:id,
 	 }, function (data) {
        console.log(data);
+       //医师名字
+       $('.header_inf_right>span:first-child').text(data.resultObject.name);
+       //医师职位
+       $('.header_inf_right>span:nth-child(2)').text(data.resultObject.title);
        //医师头像
-       $('.header_inf_left').attr('background-image','url('+data.resultObject.headPortrait+')')
+       $('.header_inf_left').attr('background-image','url('+data.resultObject.headPortrait+')');
        //职位渲染
        $('.zhiwu').html("<em></em>"+data.resultObject.title+"");
        //所在医院渲染
