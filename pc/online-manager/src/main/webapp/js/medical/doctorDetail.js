@@ -215,6 +215,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file5",function(){
 $('#okbt,#previewbt').on('click',function(e){
     var id = $(e.currentTarget).attr('id');
     // var methodName = 'updateCourseDetail';
+	debugger
     var validate = $("#courseDetailForm").valid();
     if(validate){
         mask();

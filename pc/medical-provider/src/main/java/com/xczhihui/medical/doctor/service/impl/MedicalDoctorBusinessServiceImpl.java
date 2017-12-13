@@ -1,8 +1,10 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
@@ -27,6 +29,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalDoctorMapper medicalDoctorMapper;
     @Autowired
     private IMedicalHospitalBusinessService iMedicalHospitalBusinessService;
+    @Autowired
+    private MedicalDoctorAuthenticationInformationMapper medicalDoctorAuthenticationInformationMapper;
 
     @Override
     public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page, Integer type, String hospitalId, String name, String field) {
@@ -39,8 +43,14 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         MedicalDoctor medicalDoctor = medicalDoctorMapper.selectDoctorById(id);
         List<MedicalField> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(medicalDoctor.getId());
         medicalDoctor.setFields(medicalFields);
-        MedicalHospital medicalHospital = iMedicalHospitalBusinessService.selectHospitalById(medicalDoctor.getHospitalId());
-        medicalDoctor.setMedicalHospital(medicalHospital);
+        if(medicalDoctor.getHospitalId() != null){
+            MedicalHospital medicalHospital = iMedicalHospitalBusinessService.selectHospitalById(medicalDoctor.getHospitalId());
+            medicalDoctor.setMedicalHospital(medicalHospital);
+        }
+        if(medicalDoctor.getAuthenticationInformationId()!=null){
+            MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformationMapper.selectByDoctorId(medicalDoctor.getAuthenticationInformationId());
+            medicalDoctor.setMedicalDoctorAuthenticationInformation(medicalDoctorAuthenticationInformation);
+        }
         return medicalDoctor;
     }
 

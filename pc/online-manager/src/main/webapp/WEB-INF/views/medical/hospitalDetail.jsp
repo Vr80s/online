@@ -134,7 +134,7 @@
 </ul>
 <!-- Tab panes -->
 <div class="tab-content" style="padding-left: 0;">
-  <div role="tabpanel" class="tab-pane" id="home">
+  <%--<div role="tabpanel" class="tab-pane" id="home">
   		<div id="divKcjs" class="row">
 		<br/>
 			<div class="col-xs-3" style="width:20%">
@@ -173,7 +173,7 @@
 					</div>
 			</div>
 		</div>
-  </div>
+  </div>--%>
   <div role="tabpanel" class="tab-pane active" id="profile">
   		<div id="divKcxq">
 		<!-- 增加form -->
@@ -195,13 +195,13 @@
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file1" class="uploadImg"/>
 						</div>
-						<input name="picture2" id="edit_smallImgPath1" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture2" id="edit_smallImgPath1" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 					<div class="col-sm-4" style="width: 285px; height: 140px;">
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file2" class="uploadImg"/>
 						</div>
-						<input name="picture3" id="edit_smallImgPath2" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture3" id="edit_smallImgPath2" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 				</div>
 
@@ -210,19 +210,19 @@
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file3" class="uploadImg"/>
 						</div>
-						<input name="picture4" id="edit_smallImgPath3" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture4" id="edit_smallImgPath3" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 					<div class="col-sm-4" style="width: 285px; height: 140px;">
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file4" class="uploadImg"/>
 						</div>
-						<input name="picture5" id="edit_smallImgPath4" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture5" id="edit_smallImgPath4" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 					<div class="col-sm-4" style="width: 285px; height: 140px;">
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file5" class="uploadImg"/>
 						</div>
-						<input name="picture6" id="edit_smallImgPath5" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture6" id="edit_smallImgPath5" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 				</div>
 
@@ -231,19 +231,19 @@
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file6" class="uploadImg"/>
 						</div>
-						<input name="picture7" id="edit_smallImgPath6" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture7" id="edit_smallImgPath6" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 					<div class="col-sm-4" style="width: 285px; height: 140px;">
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file7" class="uploadImg"/>
 						</div>
-						<input name="picture8" id="edit_smallImgPath7" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture8" id="edit_smallImgPath7" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 					<div class="col-sm-4" style="width: 285px; height: 140px;">
 						<div class="clearfix">
 							<input type="file" name="smallImgPath_file" id="smallImgPath_file8" class="uploadImg"/>
 						</div>
-						<input name="picture9" id="edit_smallImgPath8" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+						<input name="picture9" id="edit_smallImgPath8" value="" type="text"  style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 				</div>
 
@@ -441,3 +441,7 @@
 <script type="text/javascript" charset="utf-8" src="${base}/ueditor/lang/zh-cn/zh-cn.js"></script>
 
 <script type="text/javascript" src="${base}/js/medical/hospitalDetail.js?v=2.32"></script>
+			</div>
+			</div>
+			</div>
+</div>

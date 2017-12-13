@@ -40,7 +40,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     @Override
     public MedicalHospital selectHospitalById(String id) {
-        return medicalHospitalMapper.selectHospitalById(id);
+        MedicalHospital medicalHospital = medicalHospitalMapper.selectHospitalById(id);
+        List<MedicalHospitalPicture> medicalHospitalPictures = medicalHospitalPictureMapper.getMedicalHospitalPictureByHospitalId(medicalHospital.getId());
+        medicalHospital.setMedicalHospitalPictures(medicalHospitalPictures);
+        return medicalHospital;
     }
 
     @Override

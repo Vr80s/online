@@ -76,11 +76,12 @@ $("#courseDetailForm").on("change","#smallImgPath_file",function(){
 	var id = $(this).attr("id");
 	ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
 		if (data.error == 0) {
+			debugger
 			$("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
 			$("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
 			$("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
 			
-			$("#edit_smallImgPath").val(data.url);
+			$("#edit_smallImgPath0").val(data.url);
 			document.getElementById("smallImgPath_file").focus();
 			document.getElementById("smallImgPath_file").blur();
 			$(".remove").hide();
@@ -289,7 +290,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file8",function(){
 $('#okbt,#previewbt').on('click',function(e){
     var id = $(e.currentTarget).attr('id');
     // var methodName = 'updateCourseDetail';
-
+	debugger
     var validate = $("#courseDetailForm").valid();
 
     if(validate){
