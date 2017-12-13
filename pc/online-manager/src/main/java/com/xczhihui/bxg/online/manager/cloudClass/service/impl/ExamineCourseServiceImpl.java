@@ -413,6 +413,8 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			LiveExamineInfo lei = findExamineById(id);
             if(lei !=null){
             	
+               lei.setIsDelete(true);
+               dao.update(lei);
                /*
                 * 审核状态 0未审核 1 审核通过 2 审核未通过
                 * 
@@ -421,32 +423,11 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
                 * 如果删除了审核未通过的那么就让此课程变为未审核的状态。对应的申诉中的信息也变成了无效的。
                 */
                if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
-            	   lei.setIsDelete(true);
-                    dao.update(lei);
             	   courseService.deleteCourseByExamineId(lei.getId(),true);
                }  
             }
         }
 	}
-	
-	@Override
-	public void updateRecoverys(String[] _ids) {
-		/*
-		 * 修改这个的状态
-		 */
-		for(String id : _ids){
-			LiveExamineInfo lei = findExamineById(id);
-            if(lei !=null){
-                 if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
-                	 lei.setIsDelete(false);
-                     dao.update(lei);
-              	    courseService.deleteCourseByExamineId(lei.getId(),false);
-                 }  
-            }
-        }
-	}
-	
-	
 	@Override
 	public LiveAppealInfo findAppealInfoById(Integer id) {
 		return dao.findOneEntitiyByProperty(LiveAppealInfo.class, "id", id);
@@ -454,6 +435,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	
 	@Override
 	public void deletesAppeal(String[] _ids) {
+		
 		for(String id : _ids){
 			LiveAppealInfo lei = findAppealInfoById(Integer.parseInt(id));
             if(lei !=null){
@@ -462,41 +444,22 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
             }
         }
 	}
-
 	@Override
-	public void updateAppeal(String[] _ids) {
-		// TODO Auto-generated method stub
+	public void updateRecoverys(String[] _ids) {
+		/*
+		 * 修改这个的状态
+		 */
 		for(String id : _ids){
-			LiveAppealInfo lei = findAppealInfoById(Integer.parseInt(id));
+			LiveExamineInfo lei = findExamineById(id);
             if(lei !=null){
-            	 lei.setDelete(false);
+            	 lei.setIsDelete(false);
                  dao.update(lei);
+                 
+                 if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+              	    courseService.deleteCourseByExamineId(lei.getId(),false);
+                 }  
             }
         }
-	}
-	@Override
-	public void updateCxBoHui(String id) {
-		// TODO Auto-generated method stub
-		
-		//将驳回理由设置删除掉，然后将状态变为未审核状态
-		//查找这个数据
-		LiveExamineInfo lei = findExamineById(id);
-		if(lei.getExamineStatus().equals("2")){//审核失败
-			lei.setExamineStatus("0");
-	        dao.update(lei);
-		}
-		
-		List<LiveAppealInfo> list =examineCourseDao.findeAppealInfosByExamineId(id);
-	    for (LiveAppealInfo liveAppealInfo : list) {
-	    	 liveAppealInfo.setDelete(true);
-             dao.update(liveAppealInfo);
-		}
-	}
-	@Override
-	public List<LiveAppealInfoVo> getApplysByExamId(String id) {
-		// TODO Auto-generated method stub
-		List<LiveAppealInfoVo> list =examineCourseDao.findeAppealInfoVosByExamineId(id);
-		return list;
 	}
 	
 	

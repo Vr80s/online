@@ -2,16 +2,21 @@ package com.xczhihui.bxg.online.manager.cloudClass.dao;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.LiveAppealInfo;
 import com.xczhihui.bxg.online.common.domain.LiveExamineInfo;
+import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LiveAppealInfoVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LiveExamineInfoVo;
@@ -154,7 +159,26 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 	     return lei;
 	}
 
+	
+	public List<LiveAppealInfo> findeAppealInfosByExamineId(String examineId) {
+		
+		 String sql="select la.*,ou.name as name from live_appeal as la,user as ou  where la.reviewer_person = ou.id and"
+		 		+ "  la.examine_id = :examineId and la.is_delete = 0 ";
+		 Map<String,Object> paramMap=new HashMap<String,Object>();
+		 paramMap.put("examineId", examineId);
+		 return this.getNamedParameterJdbcTemplate().query(sql.toString(),paramMap,BeanPropertyRowMapper.newInstance(LiveAppealInfo.class));
+	}
 
+	
+	
+	public List<LiveAppealInfoVo> findeAppealInfoVosByExamineId(String examineId) {
+		
+		 String sql="select la.*,ou.name as name from live_appeal as la,user as ou  where la.reviewer_person = ou.id "
+		 		+ " and  la.examine_id = :examineId and  la.is_delete = 0 ";
+		 Map<String,Object> paramMap=new HashMap<String,Object>();
+		 paramMap.put("examineId", examineId);
+		 return this.getNamedParameterJdbcTemplate().query(sql.toString(),paramMap,BeanPropertyRowMapper.newInstance(LiveAppealInfoVo.class));
+	}
 	public Page<LiveExamineInfoVo> findCloudClassCoursePage1(
 			LiveExamineInfoVo liveExamineInfoVo, int pageNumber, int pageSize) {
 		// TODO Auto-generated method stub
@@ -173,7 +197,7 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 			 			+ "la.against_reason as againstReason,la.appeal_time  as appealTime,"
 			 			+ " ou.name as lecturerName,m.name as menuName "
 			 			+ "from live_appeal as la,live_examine_info as le ,oe_user as ou,oe_menu as m where ");
-			 	sql.append("  la.examine_id = le.id and le.user_id = ou.id and le.type=m.id   ");
+			 	sql.append("  la.examine_id = le.id and le.user_id = ou.id and le.type=m.id  ");
 			 	if(liveExamineInfoVo.getS_startTime() != null){
 			 		 sql.append(" and DATE_FORMAT(le.create_time,'%Y-%m-%d') >=:startTime");
 			            paramMap.put("startTime", liveExamineInfoVo.getStartTime());

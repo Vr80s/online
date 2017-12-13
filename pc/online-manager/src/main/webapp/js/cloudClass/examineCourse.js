@@ -58,25 +58,40 @@ $(function(){
       } 
 	},
     
-    { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+    { "sortable": false,"class": "center","width":"8%","title":"状态","mRender":function (data, display, row) {
     	
     	var str =  '<div class="hidden-sm hidden-xs action-buttons">';
-    	//str+='<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
     	if(row.examineStatus == "0"){
-    		str +='<a class="blue" href="javascript:void(-1);" title="通过" onclick="toPass(this);">通过</a>';
-    		str +='<a class="blue" href="javascript:void(-1);" title="驳回" onclick="toBoHui(this);">驳回</a>'; 
+    		str +="<span>未审核</span>";
 		}else if(row.examineStatus == "1"){
-		    
 			str +="<span>已通过</span>";
-			//return '已通过';
 		}else if(row.examineStatus == "2"){
 			str +="<span>已驳回</span>";
-            //return '已驳回';
 		}
-        return str;
+    	return str;
       } 
 	},
     
+	{ "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+	    	var str =  '<div class="hidden-sm hidden-xs action-buttons">';
+	    	//str+='<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+	    	if(row.examineStatus == "0"){
+	    		str +='<a class="blue" href="javascript:void(-1);" title="通过" onclick="toPass(this);">通过</a>';
+	    		str +='<a class="blue" href="javascript:void(-1);" title="驳回" onclick="toBoHui(this);">驳回</a>'; 
+			}else if(row.examineStatus == "1"){
+				if(row.isDelete){
+					str +='<a class="blue" href="javascript:void(-1);" title="恢复此审核过的直播,此直播变为有效状态,用户端也将看到此直播" onclick="huifuZhiBo(this);">恢复直播</a>';
+				}else{
+					str +='<a class="blue" href="javascript:void(-1);" title="删除直播,用户端将看不到此直播" onclick="delZhiBo(this);">删除直播</a>';
+				}
+			}else if(row.examineStatus == "2"){
+				
+				//撤销驳回   --》 重新审核
+				str +='<a class="blue" href="javascript:void(-1);" title="撤销驳回,删除驳回理由,可重新审核" onclick="cxBoHui(this);">撤销驳回</a>';
+			}
+	    	return str;
+	      } 
+		},
     
     { "title": "审核人", "class":"center","width":"8%","sortable":false,"data": 'auditPersonStr',"mRender":function (data, display, row) {
     	if(data==null){
@@ -134,134 +149,8 @@ $(function(){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
 			});
-			courseForm = $("#addCourse-form").validate({
-		        messages: {
-		        	smallingPath:{
-						required:"课程展示图不能为空！",
-						
-		            },
-					courseName: {
-						required:"请输入课程名称！",
-						minlength:"课程名称过短，应大于2个字符！",
-						maxlength:"课程名称过长，应小于20个字符！"
-		            },
-					classTemplate: {
-						required:"请输入班级名称模板！"
-					},
-					menuId: {
-						required:"请选择所属学科！"
-					},
-					lecturerId:{
-						required:"选择教师！"
-					},
-					userLecturerId:{
-						required:"选择教师！"
-					},
-					courseLength: {
-						required:"请输入课程时长！",
-						digits: "课程时长必须为整数！"
-					},
-					coursePwd: {
-						digits: "课程密码必须为整数！"
-					},
-					startTime: {
-						required:"开播时间不能为空！",
-					},
-					endTime: {
-						required:"结束时间不能为空！",
-					},
-					directId: {
-						required:"直播间ID不能为空！",
-					},
-					externalLinks: {
-						required:"外部链接不能为空！"
-					},
-					teacherImgPath: {
-						required:"讲师头像不能为空！"
-					}
-		        }
-		    });
-		updateCourseForm = $("#updateCourse-form").validate({
-			messages: {
-				smallingPath:{
-					required:"课程展示图不能为空！",
-					
-	            },
-				courseName: {
-					required:"请输入课程名称！",
-					minlength:"课程名称过短，应大于2个字符！",
-					maxlength:"课程名称过长，应小于20个字符！"
-	            },
-				classTemplate: {
-					required:"请输入班级名称模板！"
-				},
-				menuId: {
-					required:"请选择所属学科！"
-				},
-				lecturerId:{
-					required:"选择教师！"
-				},
-				courseLength: {
-					required:"请输入课程时长！",
-					digits: "课程时长必须为整数！"
-				},
-				coursePwd: {
-					digits: "课程密码必须为整数！"
-				},
-				startTime: {
-					required:"开播时间不能为空！",
-				},
-				endTime: {
-					required:"结束时间不能为空！",
-				},
-				directId: {
-					required:"直播间ID不能为空！",
-				},
-				externalLinks: {
-					required:"外部链接不能为空！"
-				},
-				smallingPath:{
-					required:"课程展示图不能为空！",
-					
-	            },
-				courseName: {
-					required:"请输入课程名称！",
-					minlength:"课程名称过短，应大于2个字符！",
-					maxlength:"课程名称过长，应小于20个字符！"
-	            },
-				classTemplate: {
-					required:"请输入班级名称模板！"
-				},
-				menuId: {
-					required:"请选择所属学科！"
-				},
-				lecturerId:{
-					required:"选择教师！"
-				},
-				userLecturerId:{
-					required:"选择教师！"
-				},
-				courseLength: {
-					required:"请输入课程时长！",
-					digits: "课程时长必须为整数！"
-				},
-				startTime: {
-					required:"开播时间不能为空！",
-				},
-				endTime: {
-					required:"结束时间不能为空！",
-				},
-				directId: {
-					required:"直播间ID不能为空！",
-				},
-				externalLinks: {
-					required:"外部链接不能为空！"
-				},
-				teacherImgPath: {
-					required:"讲师头像不能为空！"
-				}
-			}
-		});
+	
+		
 		
 		buihuiForm = $("#bohui-form").validate({
 			messages: {
@@ -340,81 +229,6 @@ Date.prototype.Format = function(fmt) { //author: meizz
   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
   return fmt;   
 } 
-//新增框
-$(".add_bx").click(function(){
-	courseForm.resetForm();
-	
-	$("#lecturer").html("");
-	$('#lecturer').append("<option value=''>请选择</option>");
-	
-	$("#add-directIdDiv").hide();
-	$("#add-externalLinksDiv").hide();
-	$('#startTime').datepicker( "option" , {
-		 minDate: null,
-		 maxDate: null} );
-//	$('#endTime').datepicker( "option" , {
-//		 minDate: null,
-//		 maxDate: null} );
-	 $('#startTime').datetimepicker({
-	    	showSecond: true,
-			changeMonth: true,
-			changeYear: true,
-			dateFormat:'yy-mm-dd',
-			monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
-			timeFormat: 'HH:mm:ss',
-	    	onSelect: function( startDate ) {
-	    		var $startDate = $( "#startTime" );
-	    		var $endDate = $('#endTime');
-	    		var endDate = $endDate.datepicker( 'getDate' );
-	    		if(endDate < startDate){
-	    			$endDate.datetimepicker('setDate', startDate - 3600*1*24*60*60*60);
-	    		}
-	    		$endDate.datetimepicker( "option", "minDate", startDate );
-	    	}
-	    });
-//	    $('#endTime').datetimepicker({
-//	    	showSecond: true,
-//			changeMonth: true,
-//			changeYear: true,
-//			dateFormat:'yy-mm-dd',
-//			monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
-//			timeFormat: 'HH:mm:ss',
-//	    	onSelect: function( endDate ) {
-//	    		var $startDate = $( "#startTime" );
-//	    		var $endDate = $('#endTime');
-//	    		var startDate = $startDate.datepicker( "getDate" );
-//	    		if(endDate < startDate){
-//	    			$startDate.datetimepicker('setDate', startDate + 3600*1*24*60*60*60);
-//	    		}
-//	    		$startDate.datetimepicker( "option", "maxDate", endDate );
-//	    	}
-//	    });
-	imgSenBut();
-	createImageUpload($('#addCourse-form .uploadImg'));//生成图片编辑器
-	
-	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增公开课",580,600,true,"确定",function(){
-		
-		if($("#addCourse-form").valid()){
-			mask();
-			 $("#addCourse-form").attr("action", basePath+"/publiccloudclass/course/addCourse");
-	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
-                	unmask();
-	                if(data.success){
-	                    $("#addCourseDialog").dialog("close");
-	                    layer.msg(data.errorMessage);
-	                    freshTable(_courseTable);
-	                }else{
-	                	layer.msg(data.errorMessage);
-	                }
-	            });
-		}
-	});
-});
 
 
 
@@ -480,14 +294,106 @@ function toPass(obj){
 		});
 	},null,"确认此课程审核通过?");
 }
+
+
+
+/*str +='<a class="blue" href="javascript:void(-1);" title="删除直播,用户端将看不到此直播" onclick="delZhiBo(this);">删除直播</a>';
+str +="<span>已通过</span>";
+//return '已通过';
+}else if(row.examineStatus == "2"){
+
+//撤销驳回   --》 重新审核
+str +='<a class="blue" href="javascript:void(-1);" title="撤销驳回,删除驳回理由,可重新审核" onclick="cxBoHui(this);">撤销驳回</a>';
+str +="<span>已驳回</span>";
+//return '已驳回';
+*/
+
+/**
+ *  恢复此直播
+ */
+function huifuZhiBo(obj){
+	debugger;
+	var oo = $(obj).parent().parent().parent();
+	var aData =  _courseTable.fnGetData(oo);
+	var ids =[];
+	ids.push(aData.id)
+	showDelDialog(function(){
+		mask();
+		var url = "/cloudClass/examine/recoverys";
+		ajaxRequest(url,{'ids':ids.join(",")},function(data){
+			
+			unmask();
+			//if(data.success){
+				alertInfo(data.errorMessage);
+				freshTable(_courseTable);
+			//}else{
+			//	alertInfo(data.errorMessage);
+				//freshTable(_courseTable);
+			//}
+		});
+	},null,"恢复此审核过的直播,此直播变为有效状态,用户端也将看到此直播?");
+}
+
+/**
+ *   删除此直播
+ */
+function delZhiBo(obj){
+	var oo = $(obj).parent().parent().parent();
+	var aData =  _courseTable.fnGetData(oo);
+	var ids =[];
+	ids.push(aData.id)
+	showDelDialog(function(){
+		mask();
+		var url = "/cloudClass/examine/deletes";
+		ajaxRequest(url,{'ids':ids.join(",")},function(data){
+			
+			unmask();
+			//if(data.success){
+				alertInfo(data.errorMessage);
+				freshTable(_courseTable);
+			//}else{
+			//	alertInfo(data.errorMessage);
+				//freshTable(_courseTable);
+			//}
+		});
+	},null,"删除此审核过的直播,此直播变为无效状态,用户端也将看不到此直播?");
+}
+
+/**
+ * 撤销此驳回
+ * @param obj
+ */
+function cxBoHui(obj){
+	debugger;
+	
+	var oo = $(obj).parent().parent().parent();
+	var aData =  _courseTable.fnGetData(oo);
+	var ids =[];
+	ids.push(aData.id);
+	showDelDialog(function(){
+		mask();
+		var url = "cloudClass/examine/cxBoHui";
+		ajaxRequest(url,{'id':aData.id},function(data){
+			unmask();
+			if(data.success){
+				alertInfo(data.errorMessage);
+				freshTable(_courseTable);
+			}else{
+				alertInfo(data.errorMessage);
+				freshTable(_courseTable);
+			}
+		});
+	},null,"撤销此驳回,将删除原有驳回理由,且可重新审核?");
+}
+
 /**
  * 点击驳回  显示一个弹框，然后输入内容
  */
 function toBoHui(obj){
+	debugger;
 	var oo = $(obj).parent().parent().parent();
 	var aData =  _courseTable.fnGetData(oo);
 	$("#bohuiExamineId").val(aData.id);
-	
 	/*
 	 * 显示这个弹框，
 	 */
@@ -520,7 +426,6 @@ function toBoHui(obj){
 function toEdit(obj){
 	
 	debugger;
-	updateCourseForm.resetForm();
 	$('#startTime_edit').datepicker( "option" , {
 		 minDate: null,
 		 maxDate: null} );
@@ -566,7 +471,6 @@ function toEdit(obj){
 	
 	debugger;
 	reviewImageRecImg("smallImgPath_file_edit",row.logo);//预览
-	reviewImageRecImg2("teacherImgPath_file_edit",row.logo);//预览
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	
@@ -617,9 +521,6 @@ function toEdit(obj){
 	
 	$("#edid_currentPrice").val(row.price); //现价
 	
-	
-	
-	
 	$("#edid_courseDescribe1").val(row.content); //简介
 	
 	console.log($("#userId option").eq(i).val()+"==="+row.userId+"==="+$("#userId option").eq(i).text());
@@ -632,29 +533,58 @@ function toEdit(obj){
 			//$("#updateCourse-form #userId").val($("#userId option").eq(i).text());
 		}
     }
-	
-	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","课程详情",580,650,true,"确定",function(){
-		
+	/**
+	 * 得到申诉信息
+	 */
+	$.ajax({
+		url:basePath+"/cloudClass/examine/getApplysByExamId",
+		data:{'id':row.id},
+		type:'POST',
+		async: false,
+		success:function(data){
+			if(!data.success){
+				alertInfo(data.errorMessage);
+			}else{
+				var obj = data.resultObject;
+				var str ="";
+				for (var int = 0; int < obj.length; int++) {
+					var reviewerTime  = obj[int].reviewerTime.replace(" ",",");
+					str += "<div class='form-group' id='edit-originalCost' style='margin-top: 15px;'>"
+					  +"<label class='col-sm-2 control-label' for='coursePwd'>审核人: </label>"
+					  +"<div class='col-sm-3'>"
+					  +"<input type='text' name='auditPersonStr' disabled='disabled' value="+obj[int].name+" readonly='readonly'  id='auditPersonStr'  class='col-xs-10 col-sm-12'>"
+					  +"</div>"
+		             
+					  +"<label class='col-sm-3 control-label' for='courseName'>审核时间: </label>"
+					  +"<div class='col-sm-3'>"
+					  +"<input type='text' name='reviewerTime' disabled='disabled' value="+reviewerTime+"  readonly='readonly'   id='reviewerTime'  class='col-xs-10 col-sm-12'>"
+					  +"</div>"
+					  +"</div>"
+		      
+					  +"<div class='form-group' style='margin-top: 15px;'>"
+					  +"<label class='col-sm-2 control-label no-padding-right' for='courseDescribe'>驳回原因: </label>"
+					  +" <div class='col-sm-6'>"
+					  +"<textarea class='form-control' name='againstReason' id='againstReason'  disabled='disabled'  readonly='readonly'  rows='3'>"+obj[int].againstReason+"</textarea>"
+					  +"</div>"
+					  +"</div>"
+					  
+					  if(int == 0){
+						 $("#appealTime").val(obj[int].appealTime); //申诉时间
+						 $("#appealReason").val(obj[int].appealReason); //申诉理由
+					  }
+				}
+				
+				if(str!=""){
+					$("#shxx").html(str);
+					$(".ssxx").show();
+				}else{
+					$(".ssxx").hide();
+				}
+			}
+		}
+	});
+	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","课程详情",800,600,true,"确定",function(){
 		 $("#EditCourseDialog").dialog("close");
-//		if($("#updateCourse-form").valid()){
-//			mask();
-//            $("#updateCourse-form").attr("action", basePath+"/cloudClass/examine/updateCourseById");
-//            $("#updateCourse-form").ajaxSubmit(function(data){
-//            	try{
-//            		data = jQuery.parseJSON(jQuery(data).text());
-//            	}catch(e) {
-//            		data = data;
-//            	}
-//                unmask();
-//                if(data.success){
-//                    $("#EditCourseDialog").dialog("close");
-//                    layer.msg(data.errorMessage);
-//                     freshTable(_courseTable);
-//                }else{
-//                	 layer.msg(data.errorMessage);
-//                }
-//            });
-//		}
 	});
 }
 

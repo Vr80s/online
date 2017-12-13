@@ -139,11 +139,11 @@
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-3" style="padding: 0;">
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
-						<i class="glyphicon glyphicon-trash"></i> 批量删除
-					</button>、
+						<i class="glyphicon glyphicon-trash"></i> 批量删除直播
+					</button>
 					
 					<button class="btn btn-sm btn-success recovery_bx" title="批量恢复">
-						<i class="glyphicon glyphicon-trash"></i> 批量恢复
+						<i class="glyphicon glyphicon-trash"></i> 批量恢复直播
 					</button>
 				</p>
 			<div class="searchDivClass" id="searchDiv">
@@ -336,29 +336,26 @@
 	<div id="dialogEditCourseDiv"></div>
 	<div id="EditCourseDialog" class="hide">
 		<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
-			<input type="hidden" id="editCourse_id"  name="id"  disabled="disabled"  readonly="readonly" class="col-xs-10 col-sm-8 {required:true}">
+			<input type="hidden" id="editCourse_id"    name="id" class="col-xs-10 col-sm-8 {required:true}">
+			
+			<div style="background-color: #eacaca;font-size: 16px;">申请课程描述:</div>
+			
 			<div class="form-group" style="margin-top:18px;">
-					<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
-					<div class="col-sm-6">
+					<label class="col-sm-2 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
+					<div class="col-sm-4">
 						<div class="clearfix">
-							<input type="file" name="log" id="smallImgPath_file_edit" class="uploadImg"/>
+							<input type="file" name="log" id="smallImgPath_file_edit" class="uploadImg">
 						</div>
-						<input name="logo" id="smallImgPath_edit" value=""  disabled="disabled"  readonly="readonly" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 				</div>
 				<div class="form-group"  style="margin-top: 18px;" >
-					 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>公开课名称: </label>
-					 <div class="col-sm-6">
-					 		<input type="text" name="title"  disabled="disabled"  readonly="readonly"  id="courseName_edit" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
+					 <label class="col-sm-2 control-label" for="courseName"><font color="red">*</font>公开课名称: </label>
+					 <div class="col-sm-3">
+					 		<input type="text" name="title" disabled="disabled"  readonly="readonly"  id="courseName_edit" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
 		             </div>
-				</div> 
-			    <div class="space-4"></div>
-				<div class="space-4"></div>
-				
-			    <div class="form-group"  style="margin-top: 18px;" >
-					 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>申请状态: </label>
-					 <div class="col-sm-6">
-		               <select name="examineStatus" id="examineStatus" disabled="disabled"  readonly="readonly" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" ><!-- onchange="changeMenu_edit();" -->
+		             <label class="col-sm-2 control-label" for="menuName"><font color="red">*</font>申请状态: </label>
+					 <div class="col-sm-3">
+		               <select name="examineStatus" id="examineStatus" disabled="disabled"  readonly="readonly"  value="" class="clearfix col-xs-10 col-sm-12 {required:true}" ><!-- onchange="changeMenu_edit();" -->
 		               		<option value="">请选择</option>
 		               		<!-- 审核状态 0未审核 1 审核通过 2 审核未通过 -->
 		                    <option value="0">未审核</option>
@@ -366,88 +363,143 @@
 		                          <option value="2">审核未通过</option>
 		               </select>
 		             </div>
-				</div>
+				</div> 
 				
-				<div class="space-4"></div>
-				
-			    <div class="space-4"></div>
-				<div class="form-group"  style="margin-top: 18px;" >
-					 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>所属学科: </label>
-					 <div class="col-sm-6">
-		               <select name="type" id="menuId_edit" value="" disabled="disabled"  readonly="readonly" class="clearfix col-xs-10 col-sm-12 {required:true}" ><!-- onchange="changeMenu_edit();" -->
+				<div class="form-group" style="margin-top: 18px;">
+					 <label class="col-sm-2 control-label" for="menuName"><font color="red">*</font>所属学科: </label>
+					 <div class="col-sm-3">
+		               <select name="type" id="menuId_edit" value="" disabled="disabled"  readonly="readonly"  class="clearfix col-xs-10 col-sm-12 {required:true}" ><!-- onchange="changeMenu_edit();" -->
 		               		<option value="">请选择</option>
 		               		<c:forEach var="menus" items="${menuVo}">
 		                        <option value="${menus.id}">${menus.name}</option>
 		                    </c:forEach>
 		               </select>
 		             </div>
-				</div>
-			   <div class="space-4"></div>
-					<div class="form-group"  style="margin-top: 18px;" >
-			            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>讲师：</label>
-					    <div class="ui-widget col-sm-6">
-							  <select  name="userId" id="userId" disabled="disabled"  readonly="readonly" class="clearfix col-xs-10 col-sm-12 {required:true}">
+		             
+		              <label class="col-sm-2 control-label" ><font color="red">*</font>讲师：</label>
+					    <div class="ui-widget col-sm-3">
+							  <select  name="userId" id="userId" disabled="disabled"  readonly="readonly"  class="clearfix col-xs-10 col-sm-12 {required:true}">
 							    <option value="">请选择...</option>
 							    <c:forEach var="map" items="${mapList}">
 				                        <option  value="${map.id}">${map.name}</option>
 				                </c:forEach>
 				              </select>  
 					     </div>
-					</div>	
+				</div>
+			   <div class="space-4"></div>
+					<%-- <div class="form-group"   >
+			            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>讲师：</label>
+					    <div class="ui-widget col-sm-6">
+							  <select  name="userId" id="userId" disabled="disabled"  readonly="readonly"  class="clearfix col-xs-10 col-sm-12 {required:true}">
+							    <option value="">请选择...</option>
+							    <c:forEach var="map" items="${mapList}">
+				                        <option  value="${map.id}">${map.name}</option>
+				                </c:forEach>
+				              </select>  
+					     </div>
+					</div> --%>	
 				<div class="space-4"></div>
-				<div class="form-group"  style="margin-top: 18px;" >
-					 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程时长: </label>
-					 <div class="col-sm-3" style="width: 43%;">
-					 	<input type="text" name="whenLong"  id="courseLength_edit" disabled="disabled"  readonly="readonly" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+				<div class="form-group"   >
+					 <label class="col-sm-2 control-label" for="courseName"><font color="red">*</font>课程时长: </label>
+					 <div class="col-sm-2">
+					 	<input type="text" name="whenLong"  disabled="disabled"  readonly="readonly"  id="courseLength_edit" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
 		             </div>
-					 <div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
-		           	 小时
+					 <div class="col-sm-1 control-label " style="text-align: left;">
+		           	      小时
 		            </div>
+		            
+		            <label class="col-sm-2 control-label "><i class="text-danger">*</i> 开播时间: </label>
+		            <div class="col-sm-4">
+		                <input type="text" name="startTime" disabled="disabled"  readonly="readonly"   id="startTime_edit" maxlength="20" readonly="readonly" class="datetime-picker col-xs-10 col-sm-8 {required:true,date:true,rangelength:[10,19]}">
+		            </div>
+		             
 				</div>
 				
-				<div class="space-4"></div>
-		        <div class="form-group" style="margin-top: 18px;">
+		       <!--  <div class="form-group" style="margin-top: 18px;">
 		            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 开播时间: </label>
 		            <div class="col-sm-9">
-		                <input type="text" name="startTime"  id="startTime_edit" disabled="disabled"  readonly="readonly" maxlength="20" readonly="readonly" class="datetime-picker col-xs-10 col-sm-8 {required:true,date:true,rangelength:[10,19]}">
+		                <input type="text" name="startTime" disabled="disabled"  readonly="readonly"   id="startTime_edit" maxlength="20" readonly="readonly" class="datetime-picker col-xs-10 col-sm-8 {required:true,date:true,rangelength:[10,19]}">
 		            </div>
-		        </div>
-		       <div class="space-4"></div>
-		        
+		        </div> -->
 			     <div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
-					 <label class="col-sm-3 control-label no-padding-right" for="coursePwd">密码: </label>
-					 <div class="col-sm-6">
-					 	<input type="text" name="password" id="coursePwd_edid" disabled="disabled"  readonly="readonly"  maxlength="10"  class="col-xs-10 col-sm-12">
+					 <label class="col-sm-2 control-label" for="coursePwd">密码: </label>
+					 <div class="col-sm-3">
+					 	<input type="text" name="password" disabled="disabled"  readonly="readonly"  id="coursePwd_edit"  maxlength="10"  class="col-xs-10 col-sm-12">
+		             </div>
+		             
+		             <label class="col-sm-3 control-label" for="courseName">现价格(人民币/元): </label>
+					 <div class="col-sm-3">
+					 	<input type="text" name="price" disabled="disabled"  readonly="readonly"   id="edid_currentPrice" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,99999.99]}">
 		             </div>
 				</div>
-		        
-				
-				<div class="form-group" id="edit-currentPrice" style="margin-top: 18px;">
+			<!-- 	<div class="form-group" id="edit-currentPrice" style="margin-top: 18px;">
 					 <label class="col-sm-3 control-label no-padding-right" for="courseName">现价格(人民币/元): </label>
 					 <div class="col-sm-6">
-					 	<input type="text" name="price"  id="edid_currentPrice" disabled="disabled"  readonly="readonly" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,99999.99]}">
-		             </div>
-				</div>
-				
-			
-				<div class="form-group" style="margin-top: 18px;">
-					 <label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>
-					 <div class="col-sm-6">
-					 	<textarea class="form-control" name="content" id="edid_courseDescribe1"  disabled="disabled"  readonly="readonly" rows="3"></textarea>
-					 	<!-- <input type="hidden" name="descriptionHid"  disabled="disabled"  readonly="readonly" id="edid_descriptionHid" class="col-xs-10 col-sm-12 {rangelength:[1,170]}"> -->
-		             </div>
-				</div>
-		        <!-- <div class="form-group"  style="margin-top: 18px;" >
-					 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>直播布局: </label>
-					 <div class="">
-					 	<p class="paddingtop7px padding7" style="line-height:22px"> 
-						 	<label style="cursor: pointer;"><input type="radio" disabled="disabled"  readonly="readonly" style="cursor: pointer;vertical-align:text-top;margin-top:2px;margin-left:2px;margin-right:5px" name="directSeeding"  id="this_web_edit1" value="1" >单视频</label> 
-					 	</p>
+					 	<input type="text" name="price" disabled="disabled"  readonly="readonly"   id="edid_currentPrice" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,99999.99]}">
 		             </div>
 				</div> -->
+				<div class="form-group" style="margin-top: 15px;">
+					 <label class="col-sm-2 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>
+					 <div class="col-sm-6">
+					 	<textarea class="form-control" name="content" id="edid_courseDescribe1"  disabled="disabled"  readonly="readonly"  rows="3"></textarea>
+					 	<!-- <input type="hidden" name="descriptionHid" disabled="disabled"  readonly="readonly"   id="edid_descriptionHid" class="col-xs-10 col-sm-12 {rangelength:[1,170]}"> -->
+		             </div>
+				</div>
+		      
+ <div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;"  class="ssxx">审核信息:</div>
+		      
+		      <div id="shxx">
+		      
+		      </div>
+<!-- 		      	<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
+					 <label class="col-sm-2 control-label" for="coursePwd">审核人: </label>
+					 <div class="col-sm-3">
+					 	<input type="text" name="auditPersonStr" disabled="disabled"  readonly="readonly"  id="auditPersonStr"  maxlength="10"  class="col-xs-10 col-sm-12">
+		             </div>
+		             
+		             <label class="col-sm-3 control-label" for="courseName">审核时间: </label>
+					 <div class="col-sm-3">
+					 	<input type="text" name="reviewerTime" disabled="disabled"  readonly="readonly"   id="reviewerTime" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,99999.99]}">
+		             </div>
+				</div>
+		      
+		      	<div class="form-group" style="margin-top: 15px;">
+					 <label class="col-sm-2 control-label no-padding-right" for="courseDescribe">驳回原因: </label>
+					 <div class="col-sm-6">
+					 	<textarea class="form-control" name="againstReason" id="againstReason"  disabled="disabled"  readonly="readonly"  rows="3"></textarea>
+					 	<input type="hidden" name="descriptionHid" disabled="disabled"  readonly="readonly"   id="edid_descriptionHid" class="col-xs-10 col-sm-12 {rangelength:[1,170]}">
+		             </div>
+				</div> -->
+				
+				
+<div class="ssxx">
+<div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;" >申诉信息:</div>
+
+
+
+		      	<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
+					 <label class="col-sm-2 control-label" for="coursePwd">申诉时间: </label>
+					 <div class="col-sm-3">
+					 	<input type="text" name="appealTime" disabled="disabled"  readonly="readonly"  id="appealTime"  maxlength="10"  class="col-xs-10 col-sm-12">
+		             </div>
+		             
+		             <!-- <label class="col-sm-3 control-label" for="courseName">申诉理由: </label>
+					 <div class="col-sm-3">
+					 	<input type="text" name="price" disabled="disabled"  readonly="readonly"   id="edid_currentPrice" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,99999.99]}">
+		             </div> -->
+				</div>
+				
+					<div class="form-group" style="margin-top: 15px;">
+					 <label class="col-sm-2 control-label no-padding-right" for="courseDescribe">申诉理由: </label>
+					 <div class="col-sm-6">
+					 	<textarea class="form-control" name="appealReason" id="appealReason"  disabled="disabled"  readonly="readonly"  rows="3"></textarea>
+					 	<!-- <input type="hidden" name="descriptionHid" disabled="disabled"  readonly="readonly"   id="edid_descriptionHid" class="col-xs-10 col-sm-12 {rangelength:[1,170]}"> -->
+		             </div>
+				</div>
+		      
 		</form>
 	</div>
-	
+</div>		
 	
 	
 	<!-- 查看主播入口form -->
