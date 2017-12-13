@@ -117,7 +117,7 @@ $(function () {
         "</li>" +
         '{{/each}}';
     //请求轮播图部分banner
-    RequestService("/banner/getBannerList", "GET", {type:2}, function (data) {
+    RequestService("/banner/getBannerList", "GET", {type:7}, function (data) {
         $(".slider").html(template.compile(articleBanner)({
             articleBanner: data.resultObject
         }));
@@ -177,7 +177,7 @@ $(function () {
 //    });
     //医馆搜索中的热门标签
     RequestService("/medical/hospital/getHotField","GET",null,function(data){
-        if(data.resultObject.length==0){
+        if(data.resultObject.length==0){ 
             $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
         }else{
             $(".forum-hot-tagGround").html(template.compile(hotTag)({
