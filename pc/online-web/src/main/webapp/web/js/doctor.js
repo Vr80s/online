@@ -95,7 +95,7 @@ $(function () {
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
-            '<li><a href="/web/html/forumBiaoqian.html?tagId={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
+            '<li><a href="/web/html/forumBiaoqian.html?Id={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
             '{{/each}}';
     var relativeCourse = '{{each item as $value i}}' +
         "<li>" +
@@ -180,7 +180,7 @@ $(function () {
 //        })
 //    });
     //医馆搜索中的热门标签
-    RequestService("/bxs/article/getHotTags","GET",null,function(data){
+    RequestService("/medical/doctor/getHotField","GET",null,function(data){
         if(data.resultObject.length==0){
             $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
         }else{
