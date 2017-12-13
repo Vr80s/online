@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -25,11 +25,11 @@ public class DoctorController {
      * @Date: 下午 3:07 2017/12/10 0010
      **/
     @RequestMapping(value = "/getDoctors",method= RequestMethod.GET)
-    public ResponseObject getDoctors(Integer type){
+    public ResponseObject getDoctors(Integer current,Integer size,Integer type,String hospitalId,String name,String field){
         Page<MedicalDoctor> page = new Page<>();
-        page.setCurrent(1);
-        page.setSize(5);
-        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page));
+        page.setCurrent(current);
+        page.setSize(size);
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page,type,hospitalId,name,field));
     }
 
     /**
@@ -41,5 +41,20 @@ public class DoctorController {
     @RequestMapping(value = "/getDoctorById",method= RequestMethod.GET)
     public ResponseObject getDoctorById(String id) {
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorById(id));
+    }
+
+    @RequestMapping(value = "/getRecDoctors",method= RequestMethod.GET)
+    public ResponseObject getRecDoctors(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectRecDoctor());
+    }
+
+    /**
+     * 获取医师热门引用医疗领域
+     * @return
+     */
+    @RequestMapping(value = "getHotField")
+    @ResponseBody
+    public ResponseObject getHotField(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotField());
     }
 }

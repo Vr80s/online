@@ -3,9 +3,12 @@ package com.xczhihui.medical.doctor.model;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.medical.field.model.MedicalField;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -62,7 +65,9 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
      */
 	@TableField("detailed_address")
 	private String detailedAddress;
-    /**
+
+
+	/**
      * 坐诊时间
      */
 	@TableField("work_time")
@@ -75,51 +80,71 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
     /**
      * 1已删除0未删除
      */
-	private Boolean deleted;
+//	private Boolean deleted;
     /**
      * 启用状态
      */
-	private Boolean status;
+//	private Boolean status;
     /**
      * 创建时间
      */
-	@TableField("create_time")
-	private Date createTime;
+//	@TableField("create_time")
+//	private Date createTime;
     /**
      * 创建人id
      */
-	@TableField("create_person")
-	private String createPerson;
+//	@TableField("create_person")
+//	private String createPerson;
     /**
      * 更新时间
      */
-	@TableField("update_time")
-	private Date updateTime;
+//	@TableField("update_time")
+//	private Date updateTime;
     /**
      * 更新人id
      */
-	@TableField("update_person")
-	private String updatePerson;
+//	@TableField("update_person")
+//	private String updatePerson;
     /**
      * 版本
      */
-	private String version;
+//	private String version;
     /**
      * 备注
      */
-	private String remark;
+//	private String remark;
 
 	//头像
 	private String headPortrait;
 	//医馆名
-	private String hospitalName;
+	private String hospitalId;
 
-	public String getHospitalName() {
-		return hospitalName;
+	private List<MedicalField> fields;
+
+	private MedicalHospital medicalHospital;
+
+	public MedicalHospital getMedicalHospital() {
+		return medicalHospital;
 	}
 
-	public void setHospitalName(String hospitalName) {
-		this.hospitalName = hospitalName;
+	public void setMedicalHospital(MedicalHospital medicalHospital) {
+		this.medicalHospital = medicalHospital;
+	}
+
+	public List<MedicalField> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<MedicalField> fields) {
+		this.fields = fields;
+	}
+
+	public String getHospitalId() {
+		return hospitalId;
+	}
+
+	public void setHospitalId(String hospitalId) {
+		this.hospitalId = hospitalId;
 	}
 
 	public String getHeadPortrait() {
@@ -210,6 +235,10 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 		this.detailedAddress = detailedAddress;
 	}
 
+	public String getAuthenticationInformationId() {
+		return authenticationInformationId;
+	}
+
 	public String getWorkTime() {
 		return workTime;
 	}
@@ -218,77 +247,10 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 		this.workTime = workTime;
 	}
 
-	public String getAuthenticationInformationId() {
-		return authenticationInformationId;
-	}
-
 	public void setAuthenticationInformationId(String authenticationInformationId) {
 		this.authenticationInformationId = authenticationInformationId;
 	}
 
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getCreatePerson() {
-		return createPerson;
-	}
-
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getUpdatePerson() {
-		return updatePerson;
-	}
-
-	public void setUpdatePerson(String updatePerson) {
-		this.updatePerson = updatePerson;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {
@@ -308,16 +270,15 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 			", province=" + province +
 			", city=" + city +
 			", detailedAddress=" + detailedAddress +
-			", workTime=" + workTime +
 			", authenticationInformationId=" + authenticationInformationId +
-			", deleted=" + deleted +
-			", status=" + status +
-			", createTime=" + createTime +
-			", createPerson=" + createPerson +
-			", updateTime=" + updateTime +
-			", updatePerson=" + updatePerson +
-			", version=" + version +
-			", remark=" + remark +
+//			", deleted=" + deleted +
+//			", status=" + status +
+//			", createTime=" + createTime +
+//			", createPerson=" + createPerson +
+//			", updateTime=" + updateTime +
+//			", updatePerson=" + updatePerson +
+//			", version=" + version +
+//			", remark=" + remark +
 			"}";
 	}
 }

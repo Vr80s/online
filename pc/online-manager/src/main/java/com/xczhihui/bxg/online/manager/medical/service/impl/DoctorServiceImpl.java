@@ -23,13 +23,13 @@ import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorService {
 
     @Autowired
-    private DoctorDao DoctorDao;
+    private DoctorDao doctorDao;
     @Value("${ENV_FLAG}")
 	private String envFlag;
     
     @Override
 	public Page<MedicalDoctor> findMedicalDoctorPage(MedicalDoctor medicalDoctor, int pageNumber, int pageSize) {
-    	Page<MedicalDoctor> page = DoctorDao.findMedicalDoctorPage(medicalDoctor, pageNumber, pageSize);
+    	Page<MedicalDoctor> page = doctorDao.findMedicalDoctorPage(medicalDoctor, pageNumber, pageSize);
     	return page;
 	
 	}
@@ -80,7 +80,7 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 
 	@Override
 	public void deleteMedicalDoctorById(String id) {
-         DoctorDao.deleteById(id);
+		doctorDao.deleteById(id);
 	}
 
 	@Override
@@ -201,9 +201,112 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		return list;
 	}
 
+	@Override
+	public boolean updateRec(String[] ids,int isRecommend) {
+		// TODO Auto-generated method stub
+		List<String> ids2 = new ArrayList();
+		if(isRecommend == 1){//如果是要推荐 那么就验证 推荐数量是否大于4
+			//校验是否被引用
+			String hqlPre="from MedicalDoctor where deleted=0 and recommend = 1";
+			List<MedicalDoctor> list= dao.findByHQL(hqlPre);
+			if(list.size() > 0){//只有原来大于0才执行
+				for(int i = 0;i<ids.length;i++){
+					int j = 0;
+					Iterator<MedicalDoctor> iterator = list.iterator();
+					while(iterator.hasNext()){//剔除本次推荐的与已经推荐的重复的
+						MedicalDoctor medicalDoctor = iterator.next();
+						if(medicalDoctor.getId().equals(ids[i])){//如果存在就把他剔除掉从list中
+							j =1;
+						}
+					}
+					if(j == 0){
+						System.out.println(" ["+i+"]"+ids[i]);
+						ids2.add(ids[i]);
+					}
+				}
+			}else{
+				for(int i=0;i<ids.length;i++)
+				{
+					ids2.add(ids[i]);
+				}
+			}
+			//已经存在的数量 +  即将添加的数量
+			if((list.size()+ids2.size()) > 10){
+				return false;
+			}
+		}else{//如果是取消推荐
+			for(int i=0;i<ids.length;i++)
+			{
+				ids2.add(ids[i]);
+			}
+		}
+
+		String sql="select ifnull(min(recommend_sort),0) from medical_doctor where  deleted=0 and recommend = 1";
+		int i = dao.queryForInt(sql,null);//最小的排序
+
+		for(String id:ids2){
+			if(id == "" || id == null){
+				continue;
+			}
+			i = i -1;
+			String hqlPre="from MedicalDoctor where  deleted = 0 and id = ?";
+			MedicalDoctor medicalDoctor= dao.findByHQLOne(hqlPre,new Object[] {id});
+			if(medicalDoctor !=null){
+				medicalDoctor.setRecommend(isRecommend==1);
+				medicalDoctor.setRecommendSort(i);
+				dao.update(medicalDoctor);
+			}
+		}
+		return true;
+	}
+	@Override
+	public Page<MedicalDoctor> findRecMedicalDoctorPage(MedicalDoctor medicalDoctor, int currentPage, int pageSize) {
+		Page<MedicalDoctor> page = doctorDao.findRecMedicalDoctorPage(medicalDoctor, currentPage, pageSize);
+		return page;
+	}
+
 	public List<MedicalHospital> getMedicalHospitals() {
 		String sql="select * from medical_hospital where deleted=0 and status=1 order by  convert(name using gbk) ASC";
 		List<MedicalHospital> voList=dao.findEntitiesByJdbc(MedicalHospital.class, sql, null);
 		return voList;
+	}
+
+
+	@Override
+	public void updateSortUpRec(String id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from MedicalDoctor where  deleted=0 and id = ?";
+		MedicalDoctor coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		Integer medicalDoctorPreSort=coursePre.getRecommendSort();
+
+		String hqlNext="from MedicalDoctor where recommendSort > (select recommendSort from MedicalDoctor where id= ? )  and deleted=0 and recommend = 1 order by recommendSort ";
+		MedicalDoctor courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		Integer medicalDoctorNextSort=courseNext.getRecommendSort();
+
+		coursePre.setRecommendSort(medicalDoctorNextSort);
+		courseNext.setRecommendSort(medicalDoctorPreSort);
+
+		dao.update(coursePre);
+		dao.update(courseNext);
+
+	}
+
+	@Override
+	public void updateSortDownRec(String id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from MedicalDoctor where  deleted=0 and id = ?";
+		MedicalDoctor coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		Integer medicalHospitalPreSort=coursePre.getRecommendSort();
+
+		String hqlNext="from MedicalDoctor where recommendSort < (select recommendSort from MedicalDoctor where id= ? )  and deleted=0 and recommend = 1 order by recommendSort desc";
+		MedicalDoctor courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		Integer medicalHospitalNextSort=courseNext.getRecommendSort();
+
+		coursePre.setRecommendSort(medicalHospitalNextSort);
+		courseNext.setRecommendSort(medicalHospitalPreSort);
+
+		dao.update(coursePre);
+		dao.update(courseNext);
+
 	}
 }

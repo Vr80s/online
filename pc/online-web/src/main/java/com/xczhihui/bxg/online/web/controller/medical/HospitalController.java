@@ -46,14 +46,11 @@ public class HospitalController {
 
     @RequestMapping(value = "/getRecHospitals",method= RequestMethod.GET)
     public ResponseObject getRecHospitals(){
-        Page<MedicalHospital> page = new Page<>();
-        page.setCurrent(1);
-        page.setSize(5);
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectRecHospital());
     }
 
     /**
-     * 获取热门引用医疗领域
+     * 获取医馆热门引用医疗领域
      * @return
      */
     @RequestMapping(value = "getHotField")

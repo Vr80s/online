@@ -61,7 +61,7 @@ public interface HospitalService {
 	/**
 	 * 增加医馆详情
 	 */
-	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5 );
+	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5, String picture6, String picture7, String picture8, String picture9);
 	/**
 	 * 获得医馆详情
 	 * @param MedicalHospitalId

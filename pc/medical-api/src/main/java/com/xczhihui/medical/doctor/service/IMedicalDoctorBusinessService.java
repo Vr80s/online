@@ -3,7 +3,9 @@ package com.xczhihui.medical.doctor.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.field.model.MedicalField;
+
+import java.util.List;
 
 /**
  * <p>
@@ -21,8 +23,11 @@ public interface IMedicalDoctorBusinessService {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:02 2017/12/10 0010
      **/
-    public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page);
+    public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page, Integer type, String hospitalId, String name, String field);
 
     public MedicalDoctor selectDoctorById(String id);
 
+    List<MedicalField> getHotField();
+
+    List<MedicalDoctor> selectRecDoctor();
 }

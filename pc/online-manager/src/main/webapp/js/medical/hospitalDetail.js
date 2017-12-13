@@ -29,26 +29,30 @@ $(function() {
 		success:function(data){
 			if (data.success) {
 				debugger;
-				if(data.resultObject.picture.length>0){
-					$('#edit_smallImgPath').val(data.resultObject.picture[0].picture);
-					reviewImage("edit_smallImgPath", data.resultObject.picture[0].picture);
+				for(var i in data.resultObject.picture){
+                    $('#edit_smallImgPath'+i).val(data.resultObject.picture[i].picture);
+                    reviewImage("edit_smallImgPath"+i, data.resultObject.picture[i].picture);
 				}
-                if(data.resultObject.picture.length>1){
-                    $('#edit_smallImgPath1').val(data.resultObject.picture[1].picture);
-                    reviewImage("edit_smallImgPath1", data.resultObject.picture[1].picture);
-                }
-                if(data.resultObject.picture.length>2){
-                    $('#edit_smallImgPath2').val(data.resultObject.picture[2].picture);
-                    reviewImage("edit_smallImgPath2", data.resultObject.picture[2].picture);
-                }
-                if(data.resultObject.picture.length>3){
-                    $('#edit_smallImgPath3').val(data.resultObject.picture[3].picture);
-                    reviewImage("edit_smallImgPath3", data.resultObject.picture[3].picture);
-                }
-                if(data.resultObject.picture.length>4){
-                    $('#edit_smallImgPath4').val(data.resultObject.picture[4].picture);
-                    reviewImage("edit_smallImgPath4", data.resultObject.picture[4].picture);
-                }
+                // if(data.resultObject.picture.length>0){
+					// $('#edit_smallImgPath0').val(data.resultObject.picture[0].picture);
+					// reviewImage("edit_smallImgPath0", data.resultObject.picture[0].picture);
+                // }
+                // if(data.resultObject.picture.length>1){
+                //     $('#edit_smallImgPath1').val(data.resultObject.picture[1].picture);
+                //     reviewImage("edit_smallImgPath1", data.resultObject.picture[1].picture);
+                // }
+                // if(data.resultObject.picture.length>2){
+                //     $('#edit_smallImgPath2').val(data.resultObject.picture[2].picture);
+                //     reviewImage("edit_smallImgPath2", data.resultObject.picture[2].picture);
+                // }
+                // if(data.resultObject.picture.length>3){
+                //     $('#edit_smallImgPath3').val(data.resultObject.picture[3].picture);
+                //     reviewImage("edit_smallImgPath3", data.resultObject.picture[3].picture);
+                // }
+                // if(data.resultObject.picture.length>4){
+                //     $('#edit_smallImgPath4').val(data.resultObject.picture[4].picture);
+                //     reviewImage("edit_smallImgPath4", data.resultObject.picture[4].picture);
+                // }
 			}
 		}
 	});
@@ -180,6 +184,103 @@ $("#courseDetailForm").on("change","#smallImgPath_file4",function(){
 			alert(data.message);
 		}
 	})
+});
+
+//图片上传统一上传到附件中心---- 修改  列表页
+$("#courseDetailForm").on("change","#smallImgPath_file5",function(){
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.alert("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+            $("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
+
+            $("#edit_smallImgPath5").val(data.url);
+            document.getElementById("smallImgPath_file5").focus();
+            document.getElementById("smallImgPath_file5").blur();
+            $(".remove").hide();
+        }else {
+            alert(data.message);
+        }
+    })
+});
+//图片上传统一上传到附件中心---- 修改  列表页
+$("#courseDetailForm").on("change","#smallImgPath_file6",function(){
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.alert("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+            $("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
+
+            $("#edit_smallImgPath6").val(data.url);
+            document.getElementById("smallImgPath_file6").focus();
+            document.getElementById("smallImgPath_file6").blur();
+            $(".remove").hide();
+        }else {
+            alert(data.message);
+        }
+    })
+});
+//图片上传统一上传到附件中心---- 修改  列表页
+$("#courseDetailForm").on("change","#smallImgPath_file7",function(){
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.alert("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+            $("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
+
+            $("#edit_smallImgPath7").val(data.url);
+            document.getElementById("smallImgPath_file7").focus();
+            document.getElementById("smallImgPath_file7").blur();
+            $(".remove").hide();
+        }else {
+            alert(data.message);
+        }
+    })
+});
+//图片上传统一上传到附件中心---- 修改  列表页
+$("#courseDetailForm").on("change","#smallImgPath_file8",function(){
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.alert("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+            $("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
+
+            $("#edit_smallImgPath8").val(data.url);
+            document.getElementById("smallImgPath_file8").focus();
+            document.getElementById("smallImgPath_file8").blur();
+            $(".remove").hide();
+        }else {
+            alert(data.message);
+        }
+    })
 });
 
 

@@ -34,7 +34,7 @@ public class DoctorDao extends HibernateDao<MedicalDoctor>{
 			 sql.append("and status = :status ");
 		 }
 
-		 sql.append(" order by status desc");
+		 sql.append(" order by status desc,create_time desc");
 
 		 Page<MedicalDoctor> medicalDoctors = this.findPageBySQL(sql.toString(), paramMap, MedicalDoctor.class, pageNumber, pageSize);
 //		 for (int i = 0; i < medicalDoctors.getItems().size(); i++) {
@@ -62,5 +62,23 @@ public class DoctorDao extends HibernateDao<MedicalDoctor>{
 		dc.add(Restrictions.eq("id", MedicalDoctorId));
 		MedicalDoctor MedicalDoctor = this.findEntity(dc);
 		return MedicalDoctor;
+	}
+
+	public Page<MedicalDoctor> findRecMedicalDoctorPage(MedicalDoctor medicalDoctor, int currentPage, int pageSize) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder("select * from medical_doctor where deleted = 0 and recommend = 1");
+		if (medicalDoctor.getName() != null) {
+			paramMap.put("name", "%" + medicalDoctor.getName() + "%");
+			sql.append("and name like :name ");
+		}
+		if (medicalDoctor.getStatusnum() != null) {
+			paramMap.put("status", medicalDoctor.getStatus());
+			sql.append("and status = :status ");
+		}
+
+		sql.append(" order by recommend_sort desc");
+
+		Page<MedicalDoctor> medicalHospitals = this.findPageBySQL(sql.toString(), paramMap, MedicalDoctor.class, currentPage, pageSize);
+		return medicalHospitals;
 	}
 }

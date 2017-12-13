@@ -211,13 +211,13 @@ public class HospitalController extends AbstractController{
     }
     
     /**
-     * 添加课程详情
+     * 修改图片
      * @return
      */
 	@RequestMapping(value = "updateMedicalHospitalDetail", method = RequestMethod.POST)
 	@ResponseBody
-	 public ResponseObject updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5){
-		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5);
+	 public ResponseObject updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5, String picture6, String picture7, String picture8, String picture9){
+		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5, picture6, picture7, picture8, picture9);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 

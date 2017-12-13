@@ -476,7 +476,16 @@
 </div>
 
 <div style="height: 100%;" class="clearfix">
-
+	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+		<li role="presentation" class="active">
+			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医师管理</a>
+		</li>
+		<li role="presentation">
+			<a href="#box_px" aria-controls="box_px" class="kctj_bx" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医师推荐</a>
+		</li>
+	</ul>
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
@@ -488,9 +497,9 @@
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-					<!-- <button class="btn btn-sm btn-success rec_P" title="设为推荐">
+					<button class="btn btn-sm btn-success rec_P" title="设为推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button> -->
+					</button>
 				</p>
 			
 			<div class="searchDivClass" id="searchDiv">
@@ -545,6 +554,92 @@
 				</div>
 			</div>
         </div>
+		<div role="tabpanel" class="tab-pane" id="box_px">
+			<div class="mainrighttab tabresourse bordernone" id="courseDiv_PX" >
+				<div class="searchDivClass" id="searchDiv_PX">
+					<div class="profile-info-row" >
+						<%--<table frame=void style="width: 100%">
+							<tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<input type="hidden" class="propertyValue1" value="${type}" style="width: 150px;">
+										<input type="hidden" value="type" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_service_type" id="search_service_type_PX" value="" class="propertyValue1" >
+											<option value="">业务类别</option>
+											<option value="1">微课</option>
+											<option value="0">职业课</option>
+										</select>
+										<input type="hidden" value="search_service_type" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="menuName" id="search_menu_PX" value="" class="propertyValue1"  >
+											<option value="">学科</option>
+											<c:forEach var="menus" items="${menuVo}">
+												<option value="${menus.id}">${menus.name}</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" value="search_menu" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="courseTypeId" id="search_scoreType_PX" value="" class="propertyValue1" >
+											<option value="">课程类别</option>
+											<c:forEach var="scoreTypes" items="${scoreTypeVo}">
+												<option value="${scoreTypes.id}">${scoreTypes.name}</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" value="search_scoreType" class="propertyName"/>
+									</div>
+								</td>
+
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_status" id="search_status_PX" value="" class="propertyValue1" >
+											<option value="">课程状态</option>
+											<option value="1">已启用</option>
+											<option value="0">已禁用</option>
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<button id="searchBtn_PX" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_PX();">
+										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+									</button>
+								</td>
+							</tr>
+						</table>--%>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<table id="courseTable_PX"
+							   class="table table-striped table-bordered table-hover">
+							<colgroup>
+								<col width='3%'></col>
+								<col width='5%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='10%'></col>
+							</colgroup>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 </div>
 
@@ -618,7 +713,7 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right">医师简介: </label>
 			 <div class="col-sm-6">
-			 	<textarea class="form-control" name="description" id="description"  rows="3" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}"></textarea>
+			 	<textarea class="form-control" name="description" id="description"  rows="8" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}"></textarea>
 			 	<%--<input type="hidden" name="descriptionHid" id="descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
              </div>
 		</div>
@@ -754,7 +849,7 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="description">医师简介: </label>
 			<div class="col-sm-6">
-				<textarea class="form-control" name="description" id="edit_description"  rows="3"></textarea>
+				<textarea class="form-control" name="description" id="edit_description"  rows="8"></textarea>
 				<%--<input type="hidden" name="descriptionHid" id="edit_descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
 			</div>
 		</div>

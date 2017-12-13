@@ -69,7 +69,28 @@ public class MedicalDoctor implements Serializable {
 	@Transient
 	private Integer statusnum;
 
+	private boolean recommend;
+
+	@Column(name="recommend_sort")
+	private Integer recommendSort;
+
 	public MedicalDoctor() {
+	}
+
+	public boolean isRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(boolean recommend) {
+		this.recommend = recommend;
+	}
+
+	public Integer getRecommendSort() {
+		return recommendSort;
+	}
+
+	public void setRecommendSort(Integer recommendSort) {
+		this.recommendSort = recommendSort;
 	}
 
 	public Integer getStatusnum() {

@@ -278,5 +278,84 @@ public class DoctorController extends AbstractController{
 		List<MedicalHospital> medicalHospitals= doctorService.getMedicalHospital(id);
 		return medicalHospitals;
 	}
-	
+
+	@RequestMapping(value = "recList")
+	@ResponseBody
+	public TableVo recList(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
+
+		MedicalDoctor searchVo=new MedicalDoctor();
+		Group MedicalDoctorName = groups.findByName("search_courseName");
+		Group medicalDoctorStatus = groups.findByName("search_status");
+//          searchVo.setOnlineMedicalHospital(1);
+		if (MedicalDoctorName != null) {
+			searchVo.setName(MedicalDoctorName.getPropertyValue1().toString());
+		}
+		if (medicalDoctorStatus != null) {
+			searchVo.setStatusnum(Integer.valueOf(medicalDoctorStatus.getPropertyValue1().toString()));
+			if(searchVo.getStatusnum() == 1){
+				searchVo.setStatus(true);
+			}else{
+				searchVo.setStatus(false);
+			}
+		}
+		Page<MedicalDoctor> page = doctorService.findRecMedicalDoctorPage(searchVo, currentPage, pageSize);
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+
+	}
+
+	@RequestMapping(value = "updateRec")
+	@ResponseBody
+	public ResponseObject updateRec(String ids,int isRec) {
+		ResponseObject responseObject=new ResponseObject();
+		if(ids!=null) {
+			String[] _ids = ids.split(",");
+			if(doctorService.updateRec(_ids,isRec))
+			{
+				responseObject.setSuccess(true);
+				responseObject.setErrorMessage("操作成功!");
+			}else{
+				responseObject.setSuccess(false);
+				responseObject.setErrorMessage("最多设置十个推荐医师!");
+			}
+		}
+		return responseObject;
+	}
+
+	/**
+	 * 推荐上移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "upMoveRec", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject upMoveRec(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		doctorService.updateSortUpRec(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
+	/**
+	 * 推荐下移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "downMoveRec", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject downMoveRec(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		doctorService.updateSortDownRec(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
 }

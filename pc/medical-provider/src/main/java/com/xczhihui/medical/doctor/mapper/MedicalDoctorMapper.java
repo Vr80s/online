@@ -4,7 +4,8 @@ package com.xczhihui.medical.doctor.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.field.model.MedicalField;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,7 +19,13 @@ import java.util.List;
  */
 public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
-    List<MedicalDoctor> selectDoctorList(Page<MedicalDoctor> page);
+    List<MedicalDoctor> selectDoctorList(@Param("page") Page<MedicalDoctor> page, @Param("type") Integer type, @Param("hospitalId") String hospitalId, @Param("name") String name, @Param("field") String field);
 
     MedicalDoctor selectDoctorById(String id);
+
+    List<MedicalField> getHotField();
+
+    List<MedicalDoctor> selectRecDoctor();
+
+    List<MedicalField> selectMedicalFieldsByDoctorId(String doctorId);
 }

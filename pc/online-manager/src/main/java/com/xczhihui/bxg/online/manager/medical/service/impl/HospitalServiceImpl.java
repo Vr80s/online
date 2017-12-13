@@ -2,7 +2,6 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
@@ -120,7 +119,7 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 
 
 	@Override
-	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5 ) {
+	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5, String picture6, String picture7, String picture8, String picture9) {
 		List<MedicalHospitalPicture> mhps = dao.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", medicalHospitalId);
 		for (int i = 0; i < mhps.size(); i++) {
 			dao.delete(mhps.get(i));
@@ -130,6 +129,10 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 		savePicture(medicalHospitalId,picture3,"3");
 		savePicture(medicalHospitalId,picture4,"4");
 		savePicture(medicalHospitalId,picture5,"5");
+		savePicture(medicalHospitalId,picture6,"6");
+		savePicture(medicalHospitalId,picture7,"7");
+		savePicture(medicalHospitalId,picture8,"8");
+		savePicture(medicalHospitalId,picture9,"9");
 	}
 
 	public void savePicture(String medicalHospitalId,String picture,String version){
