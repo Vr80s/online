@@ -8,7 +8,8 @@
 		  md.`name`,
 		  md.`title`,
 		  mdai.head_portrait headPortrait,
-		  mh.`name` hospitalName
+		  mh.`name` hospitalName,
+		  md.type
 		FROM
 		  medical_doctor md
 		<if test="field != null">
@@ -23,7 +24,7 @@
 		WHERE md.deleted = 0
 		  AND md.status = 1
 		<if test="type != null">
-			and md.type = type
+			and md.type = #{type}
 		</if>
 		<if test="hospitalId != null">
 			and mh.id = #{hospitalId}
