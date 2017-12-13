@@ -429,6 +429,18 @@ $(function () {
 	    });
     
     
+      //名医推荐
+//	    RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){
+//	        if(data.resultObject.records.length == 0){
+//	        	//没有数据处理
+//	           alert("名医推荐没有数据")
+//	        }else{
+//	        	//获取到数据渲染
+//	        	console.log(data)
+////	           $('#doctor_tuijian').html(template('doctor_tuijianTpl',{doctor:data.resultObject.records}));
+//	        }
+//	    });
+    
     
     
 });
