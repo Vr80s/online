@@ -342,20 +342,51 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		
 		 String hql="from Course where direct_id = ?";
          Course course= dao.findByHQLOne(hql,new Object[] {changeCallbackVo.getWebinarId()});
+         
+         String startOrEnd ="";
          if(course!=null){
         	 switch (changeCallbackVo.getEvent()) {
         	 case "start":
-        		 course.setLiveStatus(1);
+        		 startOrEnd ="start_time";
+        		course.setLiveStatus(1);
         		 break;
         	 case "stop":
+        		 startOrEnd ="end_time";
         		 course.setLiveStatus(3);
         		 break;
         	 default:
         		 break;
         	 }
         	 dao.update(course);
+        	 
+        	if(startOrEnd!=""){
+        		
+        		String findSql = "select record_count  from oe_live_time_record where live_id = :live_id order by record_count desc limit 1";
+        		Map<String,Object> find = new HashMap<String,Object>();
+        		find.put("live_id", course.getDirectId());
+        		List<Integer> list = dao.getNamedParameterJdbcTemplate().queryForList(findSql, find, Integer.class);
+
+        		
+        		Integer maxRecord = 0;
+        		if(list!=null && list.size()>0){
+        			maxRecord = list.get(0);
+        			maxRecord ++;
+        		}
+        		
+        		/**
+        		 * 并且记录当前视频id开播的次数：
+        		 */
+        		String end ="insert into  oe_live_time_record (course_id,live_id,"+startOrEnd+",record_count)  "
+        				+ "values (:course_id,:live_id,:"+startOrEnd+",:record_count)";
+        		
+    			Map<String,Object> paramsEnd=new HashMap<String,Object>();
+    			paramsEnd.put("course_id", course.getId());
+    			paramsEnd.put("live_id", course.getDirectId());
+    			paramsEnd.put(""+startOrEnd+"", new Date());
+    			paramsEnd.put("record_count", maxRecord);
+    			dao.getNamedParameterJdbcTemplate().update(end, paramsEnd);
+        	} 
          }
-		
 	}
 	
 

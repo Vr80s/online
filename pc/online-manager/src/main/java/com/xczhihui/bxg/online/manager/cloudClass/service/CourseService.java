@@ -253,4 +253,6 @@ public interface CourseService {
 	void updateSortDownForReal(Integer id);
 
 	public Course getPublicCourseById(Integer courseId);
+
+	public void deleteCourseByExamineId(String id, boolean b);
 }

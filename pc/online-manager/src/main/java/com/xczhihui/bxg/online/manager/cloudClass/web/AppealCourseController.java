@@ -92,14 +92,16 @@ public class AppealCourseController {
 		if (status != null) {
 			liveExamineInfoVo.setExamineStatus(status.getPropertyValue1().toString());
 		}
-/*		Group title = groups.findByName("title");
-		if (title != null) {
-			liveExamineInfoVo.setType((title.getPropertyValue1().toString()));
-		}*/
 		Group name = groups.findByName("name");
 		if (name != null) {
 			liveExamineInfoVo.setLecturerName((name.getPropertyValue1().toString()));
 		}
+		Group ssIsdelete = groups.findByName("ssIsdelete");
+		if (ssIsdelete != null) {
+			String falg = ssIsdelete.getPropertyValue1().toString();
+			liveExamineInfoVo.setIsDelete(falg.equals("1") ? true : false);
+		}
+		
 		Page<LiveExamineInfoVo> page = examineCourseService.findAppealListPage(liveExamineInfoVo,currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
@@ -168,7 +170,18 @@ public class AppealCourseController {
          return responseObject;
     }
 	
-	
+    @RequestMapping(value = "recoverys", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateRecoverys(String ids) throws InvocationTargetException, IllegalAccessException {
+         ResponseObject responseObject=new ResponseObject();
+         if(ids!=null) {
+              String[] _ids = ids.split(",");
+              examineCourseService.updateRecoverys(_ids);
+         }
+         responseObject.setSuccess(true);
+         responseObject.setErrorMessage("恢复成功!");
+         return responseObject;
+    }
 	
     public static void main(String[] args) {
 		System.out.println("\u5e03\u5c40\u8bbe\u7f6e\u53c2\u6570\u9519\u8bef");
