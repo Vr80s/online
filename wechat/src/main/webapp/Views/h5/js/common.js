@@ -4,19 +4,11 @@
 	})
 })(mui);
 
-function show(str){
-/*	var str ="";
-	document.getElementById("nihao").innerHTML=str;
-	setTimeout(function(){
-		
-		str +="<div id='popup'>"+
-			"<div class='popup_bg'></div>"+
-			"<div class='popup_div' id='nihao'></div>"+
-			"</div>";
-		document.getElementById("popup").style.display="none";
-	},3000);	*/
-}
 
+
+var accessCommon = localStorage.access;
+var current = location.href;
+var domain = window.location.host;
 
 /**
  * 得到  online-web 的测试或者生成域名 
@@ -40,17 +32,6 @@ function getServerHost(){
 	}
 	return server_domain; 
 }
-
-
-/*
- * 判断是否来自分享啦网站链接用微信打开的啦
- * 
- * 
- * 如果来
- * 
- * 
- */
-var accessCommon = localStorage.access;
 
 /**
  * courseId 课程id
@@ -93,8 +74,10 @@ function h5PcConversions(falg,courserId){
 	}
 }
 
-var current = location.href;
-var domain = window.location.host;
+
+/**
+ * 分享的页面可能被来自pc端浏览器的访问
+ */
 if(current.indexOf("/xcviews/html/share.html")==-1
 		&& current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/bxg/xcpage/courseDetails")==-1
@@ -137,16 +120,11 @@ var cookie = {
 /**
  * 得到这个cookie,如果没有过期，那么就
  */
-//登录页面、预约页面、详情页面、分享页面都不需要  /xcviews/html/share.html,/xcviews/html/foreshow.html,/xcviews/html/my.html
-//http://localhost:58080/bxg/xcpage/courseDetails?courseId=410
-
-
 if(current.indexOf("https")!=-1){
 	domain = "https://"+domain+"/";
 }else{
 	domain = "http://"+domain+"/";
 }
-/*alert(current+"==============="+domain);*/
 if(current.indexOf("/bxg/page/login/")==-1 
 		&& current.indexOf("/bxg/page/index/")==-1 
 		&& current.indexOf("/xcviews/html/share.html")==-1
@@ -160,7 +138,6 @@ if(current.indexOf("/bxg/page/login/")==-1
 		&& current.indexOf("/xcviews/html/personalfor.html")==-1
 		&& current.indexOf("/xcviews/html/index.html")==-1
 		&& current != domain){
-	
 	
 	var user_cookie = cookie.get("_uc_t_");
 	if(user_cookie == null){  //去登录页面
@@ -207,12 +184,6 @@ function requestService(url, param, callback, ac) {
 }
 
 /**
- * 现在有的页面是不拦截的
- */
-
-
-
-/**
  * 判断是否是
  */
 
@@ -257,7 +228,6 @@ function isLoginJump(){
 			  	before_address.indexOf("personage.html")!=-1 || 
 			  		before_address.indexOf("index.html")!=-1 || 
 			  		before_address.indexOf("queryResult")!=-1){
-		  
 		  
 		  history.back(-1);
 	  }else{
@@ -466,17 +436,6 @@ function qupay(userId, orderNo) {
 			var paySign = resultpay.paySign;
 			// 支付成功后的回调函数
 
-			// timestamp = '"' + timestamp + '"';
-			// nonceStr = '"' + nonceStr + '"';
-			// package = '"' + package + '"';
-			// signType = '"' + signType + '"';
-			// paySign = '"' + paySign + '"';
-
-			// alert('timestamp=[' + timestamp + ']');
-			// alert('nonceStr=[' + nonceStr + ']');
-			// alert('package=[' + package + ']');
-			// alert('signType=[' + signType + ']');
-			// alert('paySign=[' + paySign + ']');
 
 			wx.chooseWXPay({
 				timestamp : timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符

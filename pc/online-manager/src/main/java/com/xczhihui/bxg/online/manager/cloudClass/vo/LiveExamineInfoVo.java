@@ -68,15 +68,15 @@ public class LiveExamineInfoVo implements Serializable{
     
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
   	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date reviewerTime;    //审核时间
+    private Date reviewerTime;    //审核时间 -- 
 	
-    private String againstReason; //驳回理由
+    private String againstReason; //驳回理由 --
     
     
     
     private String auditPerson;  //审核人id
     
-    private String auditPersonStr; //审核人名字
+    private String auditPersonStr; //审核人名字  -- 
     
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
    	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -89,6 +89,11 @@ public class LiveExamineInfoVo implements Serializable{
     private Date s_endTime;
     
 
+    private Boolean isDelete; //直播申诉---是否有效
+    
+    private Boolean ssisDelete; //申诉审核---是否有效
+    
+    
 	public String getId() {
 		return id;
 	}
@@ -321,6 +326,22 @@ public class LiveExamineInfoVo implements Serializable{
 		this.endTime = endTime;
 	}
 
+	public Boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(Boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	public Boolean getSsisDelete() {
+		return ssisDelete;
+	}
+
+	public void setSsisDelete(Boolean ssisDelete) {
+		this.ssisDelete = ssisDelete;
+	}
+	
 	
 	
 }

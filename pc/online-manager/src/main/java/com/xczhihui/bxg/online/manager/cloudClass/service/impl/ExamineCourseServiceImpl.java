@@ -406,18 +406,25 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	}
 	@Override
 	public void deletes(String[] _ids) {
-		for(String id : _ids){
-			String hqlPre="from LiveAppealInfo where  isDelete=0 and examineId = ?";
-			Grade grade= dao.findByHQLOne(hqlPre,new Object[] {id});
-            if(grade !=null){
-            	throw new RuntimeException ("该数据被引用，无法删除！");
-            }
-        }
+		/*
+		 * 修改这个的状态
+		 */
 		for(String id : _ids){
 			LiveExamineInfo lei = findExamineById(id);
             if(lei !=null){
-            	 lei.setIsDelete(true);
-                 dao.update(lei);
+            	
+               lei.setIsDelete(true);
+               dao.update(lei);
+               /*
+                * 审核状态 0未审核 1 审核通过 2 审核未通过
+                * 
+                * 如果删除了审核通过的那么就让此课程不显示在前台。对应中的直播课程也变为无效。
+                * 如果删除了未审核的
+                * 如果删除了审核未通过的那么就让此课程变为未审核的状态。对应的申诉中的信息也变成了无效的。
+                */
+               if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+            	   courseService.deleteCourseByExamineId(lei.getId(),true);
+               }  
             }
         }
 	}
@@ -428,7 +435,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	
 	@Override
 	public void deletesAppeal(String[] _ids) {
-		// TODO Auto-generated method stub
+		
 		for(String id : _ids){
 			LiveAppealInfo lei = findAppealInfoById(Integer.parseInt(id));
             if(lei !=null){
@@ -437,4 +444,24 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
             }
         }
 	}
+	@Override
+	public void updateRecoverys(String[] _ids) {
+		/*
+		 * 修改这个的状态
+		 */
+		for(String id : _ids){
+			LiveExamineInfo lei = findExamineById(id);
+            if(lei !=null){
+            	 lei.setIsDelete(false);
+                 dao.update(lei);
+                 
+                 if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+              	    courseService.deleteCourseByExamineId(lei.getId(),false);
+                 }  
+            }
+        }
+	}
+	
+	
+	
 }

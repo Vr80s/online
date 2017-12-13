@@ -54,4 +54,7 @@ public interface ExamineCourseService {
 
 	LiveAppealInfo findAppealInfoById(Integer id);
 
+
+	void updateRecoverys(String[] _ids);
+
 }

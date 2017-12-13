@@ -85,6 +85,7 @@ public class ExamineCourseController {
 		 {"tempMatchType":undefined,"propertyName":search_type,"propertyValue1":"0","tempType":undefined},
 		 {"tempMatchType":"9","propertyName":"title","propertyValue1":"0","tempType":"String"}]*/
 		
+		
 		LiveExamineInfoVo liveExamineInfoVo = new LiveExamineInfoVo();
 		Group startTime = groups.findByName("startTime");
 		if (startTime != null) {
@@ -98,7 +99,6 @@ public class ExamineCourseController {
 		if (status != null) {
 			liveExamineInfoVo.setExamineStatus(status.getPropertyValue1().toString());
 		}
-		
 		Group type = groups.findByName("type");
 		if (type != null) {
 			liveExamineInfoVo.setType((type.getPropertyValue1().toString()));
@@ -106,6 +106,11 @@ public class ExamineCourseController {
 		Group name = groups.findByName("name");
 		if (name != null) {
 			liveExamineInfoVo.setLecturerName((name.getPropertyValue1().toString()));
+		}
+		Group isDelte = groups.findByName("isDelete");
+		if (isDelte != null) {
+			String falg = isDelte.getPropertyValue1().toString();
+			liveExamineInfoVo.setIsDelete(falg.equals("1") ? true : false);
 		}
 		
 		Page<LiveExamineInfoVo> page = examineCourseService.findCoursePage(liveExamineInfoVo,currentPage, pageSize);
@@ -195,6 +200,19 @@ public class ExamineCourseController {
          }
          responseObject.setSuccess(true);
          responseObject.setErrorMessage("删除成功!");
+         return responseObject;
+    }
+    
+    @RequestMapping(value = "recoverys", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateRecoverys(String ids) throws InvocationTargetException, IllegalAccessException {
+         ResponseObject responseObject=new ResponseObject();
+         if(ids!=null) {
+              String[] _ids = ids.split(",");
+              examineCourseService.updateRecoverys(_ids);
+         }
+         responseObject.setSuccess(true);
+         responseObject.setErrorMessage("恢复成功!");
          return responseObject;
     }
 	

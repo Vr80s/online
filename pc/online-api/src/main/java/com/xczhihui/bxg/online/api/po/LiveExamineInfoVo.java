@@ -28,6 +28,8 @@ public class LiveExamineInfoVo implements Serializable{
     
     private String imRoomId; 
     
+    private Date tureTime;
+    
     public String getContent() {
         return content;
     }
@@ -162,6 +164,14 @@ public class LiveExamineInfoVo implements Serializable{
 
 	public void setImRoomId(String imRoomId) {
 		this.imRoomId = imRoomId;
+	}
+
+	public Date getTureTime() {
+		return tureTime;
+	}
+
+	public void setTureTime(Date tureTime) {
+		this.tureTime = tureTime;
 	}
     
     

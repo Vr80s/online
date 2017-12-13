@@ -132,24 +132,20 @@
 </div>
 
 <div style="height: 100%;" class="clearfix">
-    <!-- Nav tabs -->
- <!--    <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab" style="margin:0px;">
-        <li role="presentation" class="active">
-            <a href="#home" aria-controls="home" class="kcgl_bx" role="tab" style="padding: 10px 5px;"
-               data-toggle="tab">直播管理</a>
-        </li>
-    </ul> -->
- 
+
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-				<p class="col-xs-2" style="padding: 0;">
+				<p class="col-xs-3" style="padding: 0;">
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
+					</button>、
+					
+					<button class="btn btn-sm btn-success recovery_bx" title="批量恢复">
+						<i class="glyphicon glyphicon-trash"></i> 批量恢复
 					</button>
 				</p>
-			
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
 			            <table frame=void style="width: 100%">
@@ -202,6 +198,18 @@
 			                            <input type="hidden" value="search_type" class="propertyName"/>
 			                        </div>
 			                    </td>
+			                    
+			                    <td>
+			                       <div class="profile-info-value searchTr">
+			                            <select name="search_isdelete" id="search_isdelete" value="" class="propertyValue1" >
+						               		    <option value="">是否有效</option>
+						                        <option value="0">有效</option>
+						                        <option value="1">无效</option>
+						               </select>
+			                            <input type="hidden" value="search_isdelete" class="propertyName"/>
+			                        </div>
+			                    </td>
+			                    
 			                    <td>
 			                        <div class="profile-info-value searchTr">
 			                            <input type="text" placeholder = "直播课程/主播" class="propertyValue1" id="search_courseName" style="width: 150px;">
@@ -233,7 +241,6 @@
         			
         			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
-			
 			            <table frame=void style="width: 100%">
 			                <tr>
 			                    <td>
@@ -287,8 +294,6 @@
 			        </div>
 			    </div>
 			
-        	
-        	
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="courseRecTable"

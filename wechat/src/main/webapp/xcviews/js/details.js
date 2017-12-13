@@ -63,21 +63,15 @@ var result="";
              */
             if(result.isfocus == 1){
                 $(".guanzhu2").show();
-                //grabble.png  /xcviews/images/guanzhu_03.png
-                //$("#guanzhuimg").attr("src","/xcviews/images/guanzhu_03.png");
             }else if(result.isfocus == 0){
-                //grabble.png  /xcviews/images/grabble.png
                 $(".guanzhu1").show();
-                //$("#guanzhuimg").attr("src","/xcviews/images/guanzhu_03.png");
             }
-
             lineState =result.lineState;
             /**
              * 判断是直播呢，还是回放呢
              *  显示正在直播和直播回放
              */
             if(result.lineState == 3){  //隐藏送礼
-            	
             	//直播回放
             	$("title").text("直播回放");mywords
             	$(".history_span").text("直播回放");
@@ -201,9 +195,7 @@ var result="";
             var children = $("#zhibopinglun [class='p1']").text(result.gradeName);
             var children = $("#zhibopinglun [class='p2']").text(result.name);
             
-            //
             $(".anchor_center").text(result.description);
-            
             
           //视频id不等于null的时候
           if(stringnull(videoId)){
@@ -539,7 +531,7 @@ if(isWeiXin()){
 	},false)	
 
 	wx.config({
-	    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 	    appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
 	    timestamp: signObj.timestamp, // 必填，生成签名的时间戳
 	    nonceStr:signObj.noncestr, // 必填，生成签名的随机串

@@ -87,7 +87,18 @@ $(function(){
     
     { "title": "审核时间", "class":"center","width":"10%", "sortable":false,"data": 'auditTime',"mRender":function (data, display, row) {
     	return data;
-    } }
+    } },
+    { "sortable": false,"class": "center","width":"8%","title":"是否有效","mRender":function (data, display, row) {
+    	var str =  '<div class="hidden-sm hidden-xs action-buttons">';
+    	//str+='<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+    	if(row.isDelete){
+    		str +='<span>无效</span>';
+		}else{
+			str +="<span>有效</span>";
+		}
+        return str;
+      } 
+	},
     
     ];
 	
@@ -439,10 +450,15 @@ debugger;
 
 /**
  * 批量逻辑删除
- * 
  */
 $(".dele_bx").click(function(){
 	deleteAll(basePath+"/cloudClass/examine/deletes",_courseTable);
+});
+/**
+ * 批量回复操作 
+ */
+$(".recovery_bx").click(function(){
+	deleteAll(basePath+"/cloudClass/examine/recoverys",_courseTable);
 });
 
 //点击通过
@@ -839,8 +855,9 @@ function search(){
      var status=$("#search_status").val();
      var type=$("#search_type").val();
      var name=$("#search_courseName").val();
-     
-     
+
+     var isDelete=$("#search_isdelete").val();
+     searchJson = new Array();
      if(startTime != "" || stopTime != "") {
     	 if (startTime != "" && stopTime != "" && startTime > stopTime) {
              alertInfo("开始日期不能大于结束日期");
@@ -861,6 +878,11 @@ function search(){
      if(name!=null&&name!=""){
          searchJson.push('{"tempMatchType":"10","propertyName":"name","propertyValue1":"' + name + '","tempType":"String"}');
      }
+     
+     if(isDelete!=null&&isDelete!=""){
+         searchJson.push('{"tempMatchType":"10","propertyName":"isDelete","propertyValue1":"' + isDelete + '","tempType":"Integer"}');
+     }
+     
      searchButton(_courseTable,searchJson);
      searchJson.pop();
 };
