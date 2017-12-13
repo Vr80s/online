@@ -53,6 +53,7 @@ public class UserCoinServiceImpl implements UserCoinService {
      */
     @Override
     public Map<String, String> getBalanceByUserId(String userId) {
+    	
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
         if (uc == null) throw new RuntimeException("用户账户不存在！");
         BigDecimal balanceTotal = uc.getBalance().add(uc.getBalanceGive()).add(uc.getBalanceRewardGift());

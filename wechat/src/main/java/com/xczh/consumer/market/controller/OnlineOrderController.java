@@ -121,7 +121,6 @@ public class OnlineOrderController {
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
 	    }
-
 		if(null == req.getParameter("courseId") || null == req.getParameter("orderFrom")){
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
@@ -305,7 +304,4 @@ public class OnlineOrderController {
 		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(orderId,onlineOrder.getUserId());
 		return ro;
 	}
-	
-	
-	
 }

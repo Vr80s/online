@@ -235,33 +235,6 @@
     <script type="text/javascript" src="/Views/h5/js/common.js"></script>	
     <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript">
-    
-    
-     /* 判断用户是否登录了，如果登录，那么返回对应的页面即可。 */
-     //如果没有这个用户信息呢，就跳转到分享页面
-     //分享过来的话，需要去这个页面吗？
-    var token = localStorage.getItem("token");
-    if(stringnull(token)){
-      //跳转到详情页呢，还是预约页面呢？需要判断下
-      ///bxg/common/shareJump
-      var course_id =getQueryString("course_id")
-      if(stringnull(course_id)){
-    	  requestService("/bxg/common/shareJump",{courseId : course_id}, function(data) {
-				if (data.success) {
-					 var result = data.resultObject;
-					 if(result.type == 1){  //直播状态 1.直播中，2预告，3直播结束
-						 if(result.state == 2){//预约
-								location.href = "/xcviews/html/foreshow.html?course_id=" + course_id;
-						 }else{
-							 location.href = "/bxg/xcpage/courseDetails?courseId="+course_id;
-						 }
-					 }else{ //视频详情页
-						 location.href = "/xcviews/html/particulars.html?courseId=" + course_id;
-					 }
-				}
-	      },false)
-      }
-    }
 	//初始化微信 jssdk
 	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
 	var urlparm = {
@@ -291,7 +264,6 @@
 			'showMenuItems'         
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-    
     </script>
     <script src="/xcviews/js/share.js?v=1.0" type="text/javascript"></script>
 </html>

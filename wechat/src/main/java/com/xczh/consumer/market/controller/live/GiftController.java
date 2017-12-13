@@ -140,6 +140,7 @@ public class GiftController {
 //			map=remoteGiftService.addGiftStatement(giftStatement);
 //				}
 
+		
 		RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId()); // 1.获得锁对象实例
 		boolean resl = false;
 		try {
@@ -148,6 +149,8 @@ public class GiftController {
 			map=remoteGiftService.addGiftStatement(giftStatement);
 		}catch (Exception e){
 			e.printStackTrace();
+			System.out.println(e.getMessage());
+			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}finally {
 			if(resl){
 				redissonLock.unlock();

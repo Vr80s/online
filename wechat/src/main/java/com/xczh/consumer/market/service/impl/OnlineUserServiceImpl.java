@@ -569,9 +569,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		return onlineUserDao.getAppTouristRecord(appOnlyOne);
 	}	
 	@Override
-	public void saveAppTouristRecord(Map<String,Object> map,String appOnlyOne)
+	public void saveAppTouristRecord(OnlineUser ou,String appOnlyOne)
 			throws SQLException {
-	    onlineUserDao.saveAppTouristRecord(map,appOnlyOne);
+	    onlineUserDao.saveAppTouristRecord(ou,appOnlyOne);
 	}
 	@Override
 	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
@@ -594,10 +594,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if(null != lists && lists.size() > 0){
 			onlineUserDao.deleteVerificationCodeById(lists.get(0).getId());
 		}
-		/**
-		 * 为用户初始化一条代币记录
-		 */
-		userCoinService.saveUserCoin(user.getId());
 		return ResponseObject.newSuccessResponseObject(user);
 		
 	}	
@@ -616,7 +612,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setMobile(mobile);
 		u.setName(mobile);
 		u.setPassword(password);
-
+		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		
 		onlineUserDao.updateOnlineUserAddPwdAndUserName(u);
 		return u;
 	}
@@ -630,4 +627,54 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		// TODO Auto-generated method stub
 		return onlineUserDao.findUserByIdAndVhallNameInfo(userId);
 	}
+	
+	@Override
+	public OnlineUser addYkUser(String appUniqueId) throws Exception {
+		
+		String [] arr = "人参,人发,卜芥,儿茶,八角,丁香,刀豆,三七,三棱,干姜,干漆,广白,广角,广丹,大黄,大戟,大枣,大蒜,大蓟,小蓟,小麦,小蘖".split(",");
+		int index=(int)(Math.random()*arr.length);
+		String name = arr[index];
+		
+		OnlineUser u = new OnlineUser();
+		//保存本地库
+		u.setId(UUID.randomUUID().toString().replace("-", ""));
+		//u.setLoginName(name);
+		//u.setMobile(mobile);
+		u.setStatus(0);
+		u.setCreateTime(new Date());
+		u.setDelete(false);
+		u.setName(name);   //默认一个名字
+		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		u.setVisitSum(0);
+		u.setStayTime(0);
+		u.setUserType(0);
+		u.setOrigin("apple_yk");
+		u.setMenuId(-1);
+		//u.setPassword(password);
+		u.setSex(OnlineUser.SEX_UNKNOWN);
+		u.setType(1);
+		//分销，设置上级
+		String weihouUserId = WeihouInterfacesListUtil.createUser(
+				u.getId(),
+				WeihouInterfacesListUtil.moren,
+				name,
+				returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		
+		u.setVhallId(weihouUserId);  //微吼id
+		u.setVhallName(name);
+		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+		onlineUserDao.addOnlineUser(u);
+		
+		/**
+		 * 为用户初始化一条代币记录
+		 */
+		userCoinService.saveUserCoin(u.getId());
+		return u;
+	}
+	@Override
+	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs) throws SQLException {
+		// TODO Auto-generated method stub
+		onlineUserDao.updateAppleTourisrecord(appUniqueId,isReigs);
+	}
+	
 }

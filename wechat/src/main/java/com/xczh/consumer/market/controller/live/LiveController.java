@@ -128,8 +128,6 @@ public class LiveController {
 			/**
 			 * 查询直播信息 --》 直播信息按照礼物的多少来排序
 			 */
-//			List<CourseLecturVo> liveList = 
-//					onlineCourseService.findLiveListInfo(1,3,queryParam);  ByQueryKey
 			List<CourseLecturVo> liveList =
 			     onlineCourseService.findLiveListByQueryKey(0,3,queryParam);
 			/**
@@ -215,12 +213,17 @@ public class LiveController {
 			
 			 courseLecturVo = onlineCourseService.
 					liveDetailsByCourseId(course_id,null); //课程简介
-			
+			 if(null == courseLecturVo){
+					return ResponseObject.newErrorResponseObject("获取课程数据有误");
+			 }
 		}else{
 			
 			courseLecturVo = onlineCourseService.
 				liveDetailsByCourseId(course_id,user.getId()); //课程简介
-			 
+			
+			if(null == courseLecturVo){
+				return ResponseObject.newErrorResponseObject("获取课程数据有误");
+			}
 			if(courseLecturVo.getWatchState()==0){
 				/**
 				 * 记录人次
@@ -242,11 +245,6 @@ public class LiveController {
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
 			courseLecturVo.setIsfocus(isFours);
 		}
-		
-		if(null == courseLecturVo){
-			return ResponseObject.newErrorResponseObject("获取课程数据有误");
-		}
-	
 		/**
 		 * 发送广播
 		 */

@@ -539,7 +539,7 @@ if(isWeiXin()){
 	},false)	
 
 	wx.config({
-	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 	    appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
 	    timestamp: signObj.timestamp, // 必填，生成签名的时间戳
 	    nonceStr:signObj.noncestr, // 必填，生成签名的随机串
@@ -555,22 +555,24 @@ if(isWeiXin()){
 			'showMenuItems'
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-	
+	var domain = window.location.protocol+"//"+document.domain;
 	wx.ready(function () {
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: result.gradeName, // 分享标题
 		    desc: result.description.stripHTML(), // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
 		    imgUrl: result.smallImgPath, // 分享图标
 		    type: '', // 分享类型,music、video或link，不填默认为link
 		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
+		    	alert("测试微信分享--成功");
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
 		    },
 		    cancel: function () {
+		    	alert("测试微信分享-取消");
 		        // 用户取消分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
@@ -579,7 +581,7 @@ if(isWeiXin()){
 		//发送到朋友圈
 		wx.onMenuShareTimeline({
 		    title: result.gradeName, // 分享标题
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
@@ -598,7 +600,7 @@ if(isWeiXin()){
 		wx.onMenuShareQQ({
 		    title: result.gradeName, // 分享标题
 		    desc: result.description.stripHTML(), // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		       // 用户确认分享后执行的回调函数
