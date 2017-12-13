@@ -365,6 +365,10 @@ $(function () {
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
+	        	console.log(data.resultObject.records.length)
+	        	if(data.resultObject.records.length < 9){
+	        		$('.more_hospital>button').css('display','none');
+	        	}
 	           $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        }
 	    });

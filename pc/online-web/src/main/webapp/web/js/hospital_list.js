@@ -20,7 +20,7 @@ $(function(){
 	           alert("没有数据/搜索失败")
 	        }else{
 	        	//获取到数据渲染
-	        	if(data.resultObject.records.length <= 20){
+	        	if(data.resultObject.records.length < 20){
 	        		$('.more_hospital > button').css('display','none');
 	        	}
 	        	//创建一个盒子
