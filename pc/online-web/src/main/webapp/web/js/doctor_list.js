@@ -1,19 +1,31 @@
 $(function(){
-	
-	
+	//获取url中参数值的方法
+	function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]); 
+    }
+    return null;
+	}
+	var type = getQueryString('type');
+
+
 	//初始化请求信息
 	window.current = 1;
 	window.size = 8;
 	window.name = "";
-	getHostipalList(current,size,name);
+	window.type =getQueryString(type)?getQueryString(type):"";
+	getHostipalList(current,size,name,type);
 	
 	
 	//渲染医师列表方法
-	function getHostipalList(current,size,name){
+	function getHostipalList(current,size,name,type){
 	    RequestService("/medical/doctor/getDoctors","GET",{ 
 	    	current:current,
 	    	size:size,
-	    	name:name
+	    	name:name,
+	    	type:type
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理 
@@ -27,12 +39,12 @@ $(function(){
 	}
 	
 	//搜索功能
-	$('.search_hos').keydown(function(e){
-		if(e.keyCode==13){
-		  var name = $('.search_hos').val();
+	$('.doctor_search_ipt > button').click(function(e){
+//		if(e.keyCode==13){
+		  var name =$('.doctor_search_ipt > input').val();
 		  console.log(name)
 		  getHostipalList(current,size,name);
-		}
+//		}
 		});
 		
 	    

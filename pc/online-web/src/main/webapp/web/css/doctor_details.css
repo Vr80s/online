@@ -123,6 +123,14 @@
 .content_box #main .main_left .hospital > h3 {
   margin-bottom: 10px;
 }
+.content_box #main .main_left .hospital{
+	position: relative;
+}
+.content_box #main .main_left .hospital>a{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
 .content_box #main .main_left .hospital .hospital_pic {
   width: 270px;
   height: 178px;

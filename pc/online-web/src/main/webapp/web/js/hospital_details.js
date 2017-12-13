@@ -19,6 +19,8 @@ $(function(){
 	 	id:id
 	 }, function (data) {
        console.log(data);
+       //医馆标题变化
+       $('.hospital_detail_inf > h3').text(data.resultObject.name)
        //渲染医馆简介
        var con = data.resultObject.description;
        $('.hospital_detail_inf>p').text(con);
@@ -30,7 +32,7 @@ $(function(){
        var shi =  data.resultObject.city;
        $('.sheng').text(sheng);
        $('.shi').text(shi);
-      
+     
     });
 	
 	

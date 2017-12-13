@@ -26,8 +26,7 @@ $(function(){
        $('.header_inf_left').attr('background-image','url('+data.resultObject.headPortrait+')');
        //职位渲染
        $('.zhiwu').html("<em></em>"+data.resultObject.title+"");
-       //所在医院渲染
-       $('.yiguan').html("<em></em>"+data.resultObject.medicalHospital.name+"");
+     
        //所在城市渲染
        $('.dizhi').html("<em></em>"+data.resultObject.city+"");
        //主治症状
@@ -38,8 +37,15 @@ $(function(){
        }
        //医师描述
        $('.doctor_int>p').text(data.resultObject.description)
-       
+   		
+   		
+       if(data.resultObject.medicalHospital){
+       	
+       	  $('.yiguan').html("<em></em>"+data.resultObject.medicalHospital.name+"");
+       	  
        //坐诊医馆信息
+       //跳转
+       $('.to_hospital_detail').attr('href','/web/html/hospital_details.html?'+data.resultObject.medicalHospital.id+'');
        //名称
        $('.hospital_inf>p:first-child').text(data.resultObject.medicalHospital.name);
        //电话
@@ -49,6 +55,8 @@ $(function(){
        $('.hospital_inf>p:nth-child(3)>span').text(worktime);
        //医馆地址
        $('.hospital_inf>p:nth-child(4)>span').text(data.resultObject.medicalHospital.province+data.resultObject.medicalHospital.city)
+       }
+       
        //渲染医馆简介
 //     var con = data.resultObject.description;
 //     $('.hospital_detail_inf>p').text(con);
