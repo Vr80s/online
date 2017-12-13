@@ -139,7 +139,7 @@ function initOrderList(status,downOrOn){
     					if(onlineCourse==1){ //线下课程
                             var endTime = result[i].endTime.replace(/-/g,"").substring(0,8);
                            	var qixian = "";
-                        	if(parseInt(endTime)<=parseInt(currentDay)){
+                        	if(course.cutoff == 0){
                         		qixian ="已过期";
                            	}else{
                            		//xxqx = result[i].startTime.split(" ")[0].replace(/-/g, ".")+"-"+result[i].endTime.split(" ")[0].replace(/-/g, ".");

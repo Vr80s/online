@@ -251,77 +251,14 @@
 	<script src="../js/picker.min.js"></script>
 	<script src="../js/mui.picker.js"></script>
 	<script src="../js/mui.poppicker.js"></script>
-
-<script>
-
-
-
-
-//去地址管理页面
-function gotoAddress(){
-	
-	sessionStorage.setItem("address_back", "personalfor.html");
-	
-	location.href="address.html";
-}
-
-/* <p id="szd_cityP" onclick="szd_picker2()">请选择</p>    */
-
-    /* 选择省市区插件    -- 初始化所在地这个地方啦 */
-    function szd_picker2() {
-        var nowValue = document.getElementById('nowValue');
-        new Picker({
-            "title": '请选择',//标题(可选)
-            "defaultValue": "",//默认值-多个以空格分开（可选）
-            "type": 3,//需要联动级数[1、2、3]（可选）
-            "data": cityData,//数据(必传)
-            "keys": {
-                "id": "Code",
-                "value": "Name",
-                "childData": "level"//最多3级联动
-            },//数组内的键名称(必传，id、text、data)
-            "callBack": function (val) {
-                //回调函数（val为选择的值）
-				$("#szd_cityP").html(val);
-//				checkUser1("provinceCityName");
-            }
-        });
-    };
-
-   /* 选择省市区插件    -- 初始化新增地址这个地方啦 */
-function picker2() {
-    //var nowValue = document.getElementById('nowValue');
-    new Picker({
-        "title": '请选择',//标题(可选)
-        "defaultValue": "内蒙古自治区 呼和浩特市 赛罕区",//默认值-多个以空格分开（可选）
-        "type": 3,//需要联动级数[1、2、3]（可选）
-        "data": cityData,//数据(必传)
-        "keys": {
-            "id": "Code",
-            "value": "Name",
-            "childData": "level"//最多3级联动
-        },//数组内的键名称(必传，id、text、data)
-        "callBack": function (val) {
-            //回调函数（val为选择的值）
-			$("#cityP").html(val);
-			//checkUser1();
-        }
-    });
-};
-
-$("#address_save").click(function(){
-	$("#vanishs").hide();
-})
-
-</script>
 	
 <script>
 		//任一一项没有填写 就展示当前页,否则直接跳转到报名成功
-
+		
 		var occupationText = "";
 		
         requestService("/bxg/apply/get", {userId : getQueryString("userId")}, function(data) {
-            if (data.success) {
+            if (data.success && data.resultObject !=null ) {
                 var result = data.resultObject;
 
 				//必填
@@ -336,61 +273,55 @@ $("#address_save").click(function(){
                 var isFirst=result.isFirst;
                 var referee=result.referee;
                 
-                if(wechatNo==null||wechatNo==''|| 
+              /*   if(wechatNo==null||wechatNo==''|| 
                 		 idCardNo==null||idCardNo==''|| 
                 		 qq==null||qq==''||email==null||email==''
                 		 ||sex==null||sex==''
                 		 ||occupation==null||occupation==''
                 		 ||isFirst==null||isFirst==''
-                		 ||referee==null||referee==''){
+                		 ||referee==null||referee==''){ */
 						
                 	    $("#wechatNo").val(wechatNo);
 						$("#idCardNo").val(idCardNo);
 						$("#qq").val(qq);
 						$("#email").val(email);
 						
-						//$("#occupation").val(occupation);
-						occupationText = occupation;
+						if(stringnull(occupation)){
+							occupationText = occupation;
+							$("#sfxx").text(occupationText);
+						}
 						
-						$("#sfxx").text(occupationText);
 						$("#referee").val(referee);
 
-						if(sex!=null&&sex!=''){
-                            $("input[name=sex][value=" + sex + "]").attr("checked", true); //设置当前性别选中项
-						}
+						var sex = (sex == 2 || sex == 1) ? 1 : 0;
+						
+                        $("input[name=sex][value=" + sex  + "]").attr("checked", true); //设置当前性别选中项
 
-                    	if(isFirst!=null&&isFirst!=''){
-                    		$("input[name=sex][value=" + isFirst + "]").attr("checked", true);
-                   		}
+                        var isf = isFirst ? 1 : 0;
+                    	$("input[name=isFirst][value=" + isf + "]").attr("checked", true);
                     	var userAddressManagerVo=result.userAddressManagerVo;
                     	var str = "暂无邮寄地址信息";
                     	if(stringnull(userAddressManagerVo)){
                     		str = userAddressManagerVo.provinces+""+userAddressManagerVo.city+""+userAddressManagerVo.county+""+userAddressManagerVo.detailedAddress
                     	}
                     	$("#detailed_address").val(str);
-				}else{
-                    location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
-				}
+				//}else{
+                    //location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
+				//}
 
-            }else{
-                alert("提交订单错误！请稍后再试！");
             }
-
         },false);
 
         var jobList =[];
     	//身份信息
 		requestService("/bxg/oa/jobVo",{group:"occupation"}, function(data) {
 			if (data.success) {
-				//jobList = data.resultObject;
 				var occupation  = localStorage.getItem("occupation");
 				for (var int = 0; int <  data.resultObject.length; int++) {
 					var job ={};
 					var array_element =  data.resultObject[int];
 					job.text = array_element.value;
 					job.value=array_element.id;
-					
-					
 					if(occupationText == ""){
 						if(job.value == occupation){
 							$("#sfxx").text(job.text);
@@ -410,12 +341,8 @@ $("#address_save").click(function(){
 		var userResult = document.getElementById('sfxx');
 		showUserPickerButton.addEventListener('tap', function(event) {
 			userPicker.show(function(items) {
-				//sfxx
 				userResult.innerText = items[0].text;
 				userResult.className = items[0].value;
-				//返回 false 可以阻止选择框的关闭
-				//return false;
-				//checkUser1("occupation");
 			});
 		}, false);
   		
@@ -427,10 +354,30 @@ $("#address_save").click(function(){
   			$(".zx_mask").hide();
   			$(".mui-active").show();
   		});
-		
-		
-		
-        function sub(){
+  		/*
+  		 * 跳转到地址管理前进行部分信息保存
+  		 */
+  		function gotoAddress(){
+  	       var wechatNo=$("#wechatNo").val();
+  		   var idCardNo=$("#idCardNo").val();
+  		   var email=$("#email").val(); 
+  		   var sex=$('input:radio[name="sex"]:checked').val();
+           var occupation=$("#sfxx").text();
+           //课程介绍人
+           var referee=$("#referee").val();
+           //时候首次参加
+           var isFirst=$('input:radio[name="isFirst"]:checked').val();
+           //更改报名的信息
+           requestService("/bxg/apply/updateDetailsInfo", {wechatNo : wechatNo,idCardNo:idCardNo,email:email,occupation:occupation,referee:referee,sex:sex,isFirst:isFirst,userId : getQueryString("userId")}, function(data) {
+               if (data.success) {
+           			sessionStorage.setItem("address_back", "personalfor.html");
+           			location.href="address.html";
+               }else{
+                   alert("提交失败!请联系管理员");
+				}
+           });
+  		}
+        function sub(falg){
 			//必填
             var wechatNo=$("#wechatNo").val();
 
@@ -476,18 +423,14 @@ $("#address_save").click(function(){
                 alert("请选择是否首次参加!");
                 return false;
             }
-
             //更改报名的信息
             requestService("/bxg/apply/updateDetailsInfo", {wechatNo : wechatNo,idCardNo:idCardNo,email:email,occupation:occupation,referee:referee,sex:sex,isFirst:isFirst,userId : getQueryString("userId")}, function(data) {
-
                 if (data.success) {
                    // var result = data.resultObject;
                     location.href='registration.html?id='+getQueryString("id")+"&userId="+getQueryString("userId");
                 }else{
                     alert("提交失败!请联系管理员");
 				}
-
-
             });
 		}
 

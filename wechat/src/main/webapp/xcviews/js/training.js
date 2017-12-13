@@ -82,7 +82,7 @@
    
 
     function showBaseInfoDiv(){
-        requestService("/bxg/apply/get",{id:1},
+        requestService("/bxg/apply/get",{userId:localStorage.userId},
                    function(data) {
             if(data.success){
                 var result = data.resultObject;

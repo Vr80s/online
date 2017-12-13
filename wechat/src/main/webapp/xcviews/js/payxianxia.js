@@ -102,10 +102,9 @@ function getgetRedirectUrl(allCourse,falg){
 	var redirectUrl="";
 	if(allCourse.length>1){
 	    redirectUrl="/xcviews/html/indent.html";
-	    return redirectUrl;
 	}else{
-	    //var c=allCourse[0];
-	        redirectUrl="/xcviews/html/personalfor.html?userId="+localStorage.userId+"&id="+getQueryString("id"); //此处跳转到待定
-	    return redirectUrl;
+	    redirectUrl="/xcviews/html/personalfor.html?userId="+localStorage.userId+"&id="+getQueryString("id"); //此处跳转到待定
 	}
+	//alert(redirectUrl);
+	return redirectUrl;
 }

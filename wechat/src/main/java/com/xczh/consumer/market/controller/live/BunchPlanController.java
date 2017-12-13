@@ -253,6 +253,8 @@ public class BunchPlanController {
 			ResponseObject resp = onlineCourseService.courseIsBuy(onlineUser,id);
 			if(resp.isSuccess()){//已经付过费了
 				courseLecturVo.setWatchState(0);
+			}else{
+				
 			}
 		}
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);

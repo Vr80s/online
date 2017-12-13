@@ -513,12 +513,13 @@ public class CommonController {
 	 */
 	@RequestMapping("pcShareLink")
 	public void pcShareLink(HttpServletRequest req,HttpServletResponse res, Map<String,String> params)throws Exception{
+		
+		
 		String courseId = req.getParameter("courseId");  //视频id
 		if(courseId == null ){
 			System.out.println("参数异常啦");
 		}
         System.out.println("===========================================");		
-		
 		String url  ="/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
@@ -526,20 +527,15 @@ public class CommonController {
 		 */
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 		if(user == null){ //直接跳转到分享页面
-			
 			res.sendRedirect(returnOpenidUri +url);//
 		}else{
 			try {
 				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
 				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 				if(type == 1){ //直播或者预约详情页            1.直播中，2预告，3直播结束
-					
-					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").equals("2")){  //预告
+					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
 						url = "/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
-						
-					
 					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
-					
 						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId);
 					}
 				}else{ //视频音频详情页
