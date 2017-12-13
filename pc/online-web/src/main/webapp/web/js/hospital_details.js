@@ -86,5 +86,22 @@ $(function(){
 		$('.big_pic').attr('src',$(this).attr('src'))
 	})
 	
+	
+	//医馆医师
+	    RequestService("/medical/doctor/getDoctors","GET",{
+			current:1,
+			size:4,
+			hospitalId:id
+	    },function(data){
+	        if(data.resultObject.records.length == 0){
+	        	//没有数据处理
+	           alert("名老中医没有数据")
+	        }else{
+	        	console.log(data)
+	        	//获取到数据渲染
+//	           $('#shaoshu').html(template('shaoshuTpl',{doctor:data.resultObject.records}));
+	        }
+	    });
+	
 
 })
