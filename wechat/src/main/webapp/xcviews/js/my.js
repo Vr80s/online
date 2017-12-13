@@ -196,6 +196,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 			}else if(data.code == 201){
 				reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>此手机号已经绑定过微信号了</div></div></div>"
 				$("#reminderror").show();
+				$(".vanish2").show();
 				setTimeout(function(){$(".vanish2").hide();},1500);
 				/*$(".my_bg_cen").css("height","16.5rem");*/
 				
