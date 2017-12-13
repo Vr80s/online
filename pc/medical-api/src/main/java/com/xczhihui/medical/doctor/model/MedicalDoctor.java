@@ -123,6 +123,16 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 
 	private MedicalHospital medicalHospital;
 
+	private MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation;
+
+	public MedicalDoctorAuthenticationInformation getMedicalDoctorAuthenticationInformation() {
+		return medicalDoctorAuthenticationInformation;
+	}
+
+	public void setMedicalDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation) {
+		this.medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformation;
+	}
+
 	public MedicalHospital getMedicalHospital() {
 		return medicalHospital;
 	}

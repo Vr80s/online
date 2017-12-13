@@ -14,4 +14,5 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
  */
 public interface MedicalDoctorAuthenticationInformationMapper extends BaseMapper<MedicalDoctorAuthenticationInformation> {
 
+    MedicalDoctorAuthenticationInformation selectByDoctorId(String id);
 }
