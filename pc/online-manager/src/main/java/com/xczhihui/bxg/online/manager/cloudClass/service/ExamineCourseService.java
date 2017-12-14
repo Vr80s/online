@@ -57,4 +57,14 @@ public interface ExamineCourseService {
 
 	void updateRecoverys(String[] _ids);
 
+
+	public void updateAppeal(String[] _ids);
+
+
+	public void updateCxBoHui(String id);
+
+
+	public List<LiveAppealInfoVo> getApplysByExamId(String id);
+	
+
 }
