@@ -1,5 +1,5 @@
 $(function(){
-	$('.path .hospital').addClass('select');
+	$('.path .doctor').addClass('select');
 	//获取url中参数值的方法
 	function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
