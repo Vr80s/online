@@ -118,6 +118,7 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 	private String headPortrait;
 	//医馆名
 	private String hospitalId;
+	private String hospitalName;
 
 	private List<MedicalField> fields;
 
@@ -127,6 +128,14 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 
 	public MedicalDoctorAuthenticationInformation getMedicalDoctorAuthenticationInformation() {
 		return medicalDoctorAuthenticationInformation;
+	}
+
+	public String getHospitalName() {
+		return hospitalName;
+	}
+
+	public void setHospitalName(String hospitalName) {
+		this.hospitalName = hospitalName;
 	}
 
 	public void setMedicalDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation) {
