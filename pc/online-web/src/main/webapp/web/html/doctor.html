@@ -401,7 +401,14 @@
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}</h5>
 		<p>{{doctor.workTime}}</p>
-		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
 	</li>
  {{/each}}
 </script> 
@@ -414,7 +421,14 @@
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}</h5>
 		<p>{{doctor.workTime}}</p>
-		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
 	</li>
  {{/each}}
 </script> 
@@ -427,7 +441,14 @@
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}</h5>
 		<p>{{doctor.workTime}}</p>
-		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
 	</li>
  {{/each}}
 </script> 
@@ -440,7 +461,14 @@
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}</h5>
 		<p>{{doctor.workTime}}</p>
-		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
 	</li>
  {{/each}}
 </script> 
@@ -453,7 +481,14 @@
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}</h5>
 		<p>{{doctor.workTime}}</p>
-		<p>{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;{{doctor.hospitalName}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
 	</li>
  {{/each}}
 </script> 
