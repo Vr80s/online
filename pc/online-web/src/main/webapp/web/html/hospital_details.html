@@ -80,7 +80,7 @@
                 <div class="thumbCont">
                     <ul id="lunbo">
                         <!-- img属性, url=url, text=描述, bigimg=大图, alt=标题  -->
-                        <li>
+                        <!--<li>
                             <div><img src="../images/1.jpg" url="url" bigImg="../images/1.jpg"></div>
                         </li>
                         <li>
@@ -109,7 +109,7 @@
                         </li>
                         <li>
                             <div><img src="../images/5.jpg" url="url"  bigImg="../images/5.jpg"></div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -346,13 +346,15 @@
 <!--医馆信息-->
 <script type="text/template" id="hos_infTpl">
 
-
+{{if fields.length != 0}}
 <p>医疗领域：
 	{{each fields}}
 	<span>{{$value.name}}&nbsp;</span>
 	{{/each}}
 </p>
-
+{{else}}
+<h3>暂无数据</h3>
+{{/if}}
 </script>
 
 

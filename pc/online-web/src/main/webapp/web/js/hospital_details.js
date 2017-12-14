@@ -87,7 +87,8 @@ $(function(){
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
-	           alert("名老中医没有数据")
+//	           alert("名老中医没有数据")
+			$('.doctor_inf').html('<h3>暂无数据</h3>');
 	        }else{
 	        	console.log(data)
 	        	//获取到数据渲染
