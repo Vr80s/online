@@ -36,6 +36,9 @@ $(function(){
 	$('#hos_inf').html(template('hos_infTpl',data.resultObject));
 	
 	//渲染纵向轮播
+	if(data.resultObject.medicalHospitalPictures.length == 0){
+		$('#hospital_detail_pic').html('<h3>暂无医馆图片</h3>');
+	}
    	$('#lunbo').html(template('lunboTpl',data.resultObject));
    	
    	//启动轮播图

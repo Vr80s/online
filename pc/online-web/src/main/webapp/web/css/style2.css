@@ -52,9 +52,9 @@ a:hover {
 .control {
     width: 619px;
     height: 342px;
-    background: #282828;
+    background: #fff;
     display: block;
-    position: absolute;
+    /*position: absolute;*/
     top: 0;
     left: 0;
     overflow: hidden;

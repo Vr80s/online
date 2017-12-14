@@ -1,14 +1,6 @@
 $(function(){
 	
 	$('.path .hospital').addClass('select');
-	//初始化请求信息
-	window.current = 1;
-	window.size = 20;
-	window.name =getQueryString('name')?getQueryString('name'):"";
-	window.field=getQueryString('field')?getQueryString('field'):"";
-	console.log(field)
-	getHostipalList(current,size,name,field); 
-	
 	
 	function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -18,6 +10,25 @@ $(function(){
     }
     return null;
 	}
+	
+	
+	//解码
+	var searchUrl =window.location.href;  
+    var searchData =searchUrl.split("=");        //截取 url中的“=”,获得“=”后面的参数  
+    var  searchText =decodeURI(searchData[1]);   //decodeURI解码  
+	
+	//初始化请求信息
+	window.current = 1;
+	window.size = 20;
+	window.name =searchText?searchText:"";
+	window.field=getQueryString('field')?getQueryString('field'):"";
+	console.log(field)
+	getHostipalList(current,size,name,field); 
+	
+	
+	
+	
+	
 	//是否有参数
 	var url=location.search; 
 	if(url.indexOf("?")!=-1){

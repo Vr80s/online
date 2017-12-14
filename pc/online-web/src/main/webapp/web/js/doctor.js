@@ -95,7 +95,7 @@ $(function () {
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
-            '<li><a href="/web/html/doctor_list.html?field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
+            '<li><a href="/web/html/doctor_list.html?name=""&field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
             '{{/each}}';
     var relativeCourse = '{{each item as $value i}}' +
         "<li>" +
@@ -431,9 +431,12 @@ $(function () {
     
     //点击搜索按钮
     $('.search_hos_btn').click(function(){
-    	var name = $('.search_hos').val();
+    	//编码
+    	var name = jQuery.trim($('.search_hos').val());
     	console.log(name)
-    	window.open('/web/html/doctor_list.html?name='+name+'');  
+    	var searchUrl =encodeURI('/web/html/doctor_list.html?name='+name);  
+//  	window.open('/web/html/doctor_list.html?name='+name); 
+  		window.location.href =searchUrl;
     })
       //名医推荐
 //	    RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){

@@ -10,16 +10,21 @@ $(function(){
     return null;
 	}
 
+	//解码
+  	var searchUrl =window.location.href;  
+    var searchData =searchUrl.split("=");        //截取 url中的“=”,获得“=”后面的参数  
+    var  searchText =decodeURI(searchData[1]);   //decodeURI解码  
+//  console.log(searchText);
 
 	//初始化请求信息
 	window.current = 1;
 	window.size = 8;
-	window.name =getQueryString('name')?getQueryString('name'):"";
+	window.name =searchText?searchText:"";
 	window.type =getQueryString('type')?getQueryString('type'):"";
 	window.field=getQueryString('field')?getQueryString('field'):"";
 	getHostipalList(current,size,name,type,field);
 	
-	console.log(name)
+	console.log(decodeURI(name))
 	//渲染医师列表方法
 	function getHostipalList(current,size,name,type,field){
 	    RequestService("/medical/doctor/getDoctors","GET",{ 
