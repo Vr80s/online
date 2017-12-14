@@ -126,7 +126,7 @@
             <div class="about_doctor">
                 <h3>名医推荐</h3>
                 <ul class="about_doctor_list clearfix" id="doc_rec">
-                    <li>
+                    <!--<li>
                         <span class="about_doctor_pic">
                              <img src="../images/doctor_detail/touxiang.png" alt="">
                         </span>
@@ -172,7 +172,7 @@
                         </span>
                         <p>朱春苏1</p>
 
-                    </li>
+                    </li>-->
                     
                 </ul>
             </div>
@@ -180,22 +180,34 @@
     </div>
 </div>
 <script  type="text/template" id="doctorListTpl">
-	{{each doctor as doctor i}}
+	{{each records}}
 			<li class="clearfix">
-				<a href="/web/html/doctor_details.html?Id={{doctor.id}}" id={{doctor.id}}></a>
+				<a href="/web/html/doctor_details.html?Id={{$value.id}}" id={{$value.id}}></a>
            			<div class="doctor_pic">
-           				<img src={{doctor.headPortrait}} alt="" />
+           				<img src={{$value.headPortrait}} alt="" />
            			</div>
            			<div class="doctor_inf">
-           				<h4>{{doctor.name}}&nbsp;&nbsp;{{doctor.medicalHospital}}&nbsp;&nbsp; {{doctor.province}}&nbsp;{{doctor.city}}</h4>
-           				<span>{{doctor.title}}</span>
+           				<h4>{{$value.name}}&nbsp;&nbsp;{{$value.medicalHospital}}&nbsp;&nbsp; {{$value.province}}&nbsp;{{$value.city}}</h4>
+           				<span>{{$value.title}}</span>
            				<!--<p>科室： <span>中医内科/儿科/肿瘤科</span></p>-->
-           				<p>擅长：<span>中西医结合治肿瘤、脾胃病、血液病、睡眠障碍、糖尿病、内科杂病等。</span> </p>
-           				
+           				{{if $value.fields}}
+           				<p>擅长：
+           					 {{include 'scoreTemplate' $value}}  
+           				</p>
+           				{{/if}}
            			</div>
            	</li>
 	{{/each}}
 </script>
+
+<!--主治子模板-->
+<script id="scoreTemplate" type="text/html">
+    {{each fields}}
+        <span>{{$value.name}}</span>
+        <span>、</span>
+    {{/each}}
+</script>
+
 
 
 <script type="text/templage" id="doc_recTpl">
@@ -203,7 +215,7 @@
 	<li>
 		<a href="/web/html/doctor_details.html?Id={{doc.id}}"></a>
         <span class="about_doctor_pic">
-            <img src="../images/doctor_detail/touxiang.png" alt="">
+            <img src={{doc.headPortrait}} alt="暂无图片">
         </span>
         <p>{{doc.name}}</p>
 
