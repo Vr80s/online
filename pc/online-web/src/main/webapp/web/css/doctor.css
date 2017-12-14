@@ -396,6 +396,9 @@ margin-top:0;
 	font-weight:700;
 	margin-top:0px;
 }
+#forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > h5 >span{
+	font-weight: 400;
+}
 #forum .forum-content .forum-content-right {
   width: 320px;
   float: right;
