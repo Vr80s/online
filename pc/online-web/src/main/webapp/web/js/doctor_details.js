@@ -36,7 +36,7 @@ $(function(){
 //     	$('.doctor_inf2 > p').append(span);
 //     }
        //医师描述
-       $('.doctor_int>p').text(data.resultObject.description)
+       $('.doctor_int>p').html(data.resultObject.description)
 // 		
 // 		
        if(data.resultObject.medicalHospital){
@@ -46,6 +46,8 @@ $(function(){
        //坐诊医馆信息
        //跳转
        $('.to_hospital_detail').attr('href','/web/html/hospital_details.html?'+data.resultObject.medicalHospital.id+'');
+       //医馆图片
+       $('.hospital_pic>img').attr('src',data.resultObject.medicalHospital.medicalHospitalPictures[0].picture)
        //名称
        $('.hospital_inf>p:first-child').text(data.resultObject.medicalHospital.name);
        //电话

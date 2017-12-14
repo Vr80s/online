@@ -338,6 +338,7 @@ padding:0 20px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_address{
 	margin:10px 0 14px 0;
+	height: 20px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_pass{
 	display: inline-block;
@@ -363,8 +364,8 @@ padding:0 20px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .full_star{
 	display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 12px;
     background-image: url(../images/hospital/star.png);
     background-position: center;
     background-repeat: no-repeat;
@@ -372,8 +373,8 @@ padding:0 20px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .half_star{
 	display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 12px;
     background-image: url(../images/hospital/half_star.png);
     background-position: center;
     background-repeat: no-repeat;
@@ -381,8 +382,8 @@ padding:0 20px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list .hospitals .hospital_inf .hospital_star .gray_star{
 	display: inline-block;
-    width: 10px;
-    height: 10px;
+    width: 11px;
+    height: 12px;
     background-image: url(../images/hospital/gray_star.png);
     background-position: center;
     background-repeat: no-repeat;

@@ -37,6 +37,8 @@
   width: 152px;
   height: 152px;
   margin-top: 24px;
+      background: #fff;
+    padding: 1px;
   /*background-image: url(../images/doctor_detail/touxiang.png);*/
   /*background-repeat: no-repeat;*/
   /*background-position: center center;*/
@@ -84,16 +86,19 @@
   width: 14px;
   height: 14px;
   background-image: url(../images/doctor_detail/zhicheng.png);
+  background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf1 .yiguan em {
   width: 14px;
   height: 13px;
   background-image: url(../images/doctor_detail/yiguan.png);
+  background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf1 .dizhi em {
   width: 13px;
   height: 15px;
   background-image: url(../images/doctor_detail/address.png);
+  background-position: center center; 
 }
 .header .header_inf .header_inf_right .doctor_inf2 {
   padding-top: 10px;
@@ -140,6 +145,7 @@
   width: 270px;
   height: 178px;
   float: left;
+  padding: 5px;
 }
 .content_box #main .main_left .hospital .hospital_pic img {
   width: 100%;
@@ -153,6 +159,9 @@
   margin-bottom: 16px;
   font-size: 14px;
   color: #666666;
+}
+.content_box #main .main_left .hospital .hospital_inf > p:first-child{
+	color: #333;
 }
 .content_box #main .main_left .class .class_top {
   margin-bottom: 20px;

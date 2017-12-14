@@ -78,8 +78,7 @@
         <div class="main_left">
             <!--医生简介-->
            <div class="doctor_int">
-               <p>施今墨（1881.3.28～1969.8.22），原名毓黔，字奖生，祖籍浙江省杭州市萧山区，中国近代中医临床家、教育家、改革家，“北京四大名医”之一。
-                   施今墨毕生致力于中医事业的发展。提倡中西医结合，培养了许多中医人才。长期从事中医临床，治愈了许多疑难重症，创制了许多新成药，献出700个验方。为中医事业作出突出贡献，在国内外享有很高的声望。</p>
+               <p></p>
            </div>
             <!--坐诊医馆-->
             <div id="doc_hospital">
@@ -89,7 +88,7 @@
             	<a class="to_hospital_detail"></a>
                 <h3>坐诊医馆</h3>
                 <div class="hospital_pic">
-                    <img src="../images/doctor_detail/hospital_pic.png" alt="">
+                    <img src="" alt="暂无图片">
                 </div>
                 <div class="hospital_inf">
                     <p>暂无数据</p>
@@ -372,7 +371,7 @@
                     <span class="dizhi"><em></em>{{city}}</span>
                 </div>
                 <div class="doctor_inf2">
-                	{{if fields}}
+                	{{if fields.length != 0}}
                     <p>主治：
                     	{{each fields as item i}}
                     	<span>{{item.name}}</span>
