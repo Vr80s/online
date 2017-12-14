@@ -6,7 +6,7 @@ $(function(){
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     var r = window.location.search.substr(1).match(reg);
     if (r != null) {
-        return unescape(r[2]); 
+        return (r[2]); 
     }
     return null;
 	}
@@ -15,7 +15,7 @@ $(function(){
 	//解码
 	var searchUrl =window.location.href;  
     var searchData =searchUrl.split("=");        //截取 url中的“=”,获得“=”后面的参数  
-    var  searchText =decodeURI(searchData[1]);   //decodeURI解码  
+    var  searchText =decodeURI(getQueryString("name"));   //decodeURI解码  
 	
 	//初始化请求信息
 	window.current = 1;

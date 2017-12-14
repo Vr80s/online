@@ -6,7 +6,6 @@ $(function () {
 	$('.path .doctor').addClass('select');
 	
 	
-	
     /*相关课程*/
     $(".path a").each(function(){
         if($(this).text()=="博学社"){
@@ -95,7 +94,7 @@ $(function () {
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
-            '<li><a href="/web/html/doctor_list.html?name=""&field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
+            '<li><a href="/web/html/doctor_list.html?name=&field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
             '{{/each}}';
     var relativeCourse = '{{each item as $value i}}' +
         "<li>" +

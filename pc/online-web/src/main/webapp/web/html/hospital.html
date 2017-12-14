@@ -317,7 +317,13 @@
 		{{else}}
 
 		{{/if}}
-		<div class="hospital_address"><em></em><span>{{hospital.province}}</span></div>
+		<div class="hospital_address"><em></em><span>
+			{{if hospital.province == hospital.city}}
+				{{hospital.province}}
+			{{else}}
+			{{hospital.province}}&nbsp;{{hospital.city}}
+			{{/if}}
+		</span></div>
 		<div class="hospital_star">
 		{{if 0 < hospital.score && hospital.score <= 0.5}}
 			<em class="half_star"></em>
