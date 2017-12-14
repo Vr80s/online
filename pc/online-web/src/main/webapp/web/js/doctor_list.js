@@ -42,7 +42,7 @@ $(function(){
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
-	        	$('#doctor_list').html('');
+//	        	$('#doctor_list').html('');
 	        	if(data.resultObject.pages == current){
 	        		$('.search_more').css('display','none')
 	        	}
