@@ -14,7 +14,7 @@ $(function(){
 	//初始化请求信息
 	window.current = 1;
 	window.size = 8;
-	window.name = "";
+	window.name =getQueryString('name')?getQueryString('name'):"";
 	window.type =getQueryString('type')?getQueryString('type'):"";
 	window.field=getQueryString('field')?getQueryString('field'):"";
 	getHostipalList(current,size,name,type,field);

@@ -4,7 +4,7 @@ $(function(){
 	//初始化请求信息
 	window.current = 1;
 	window.size = 20;
-	window.name = "";
+	window.name =getQueryString('name')?getQueryString('name'):"";
 	window.field=getQueryString('field')?getQueryString('field'):"";
 	console.log(field)
 	getHostipalList(current,size,name,field); 
@@ -36,6 +36,7 @@ $(function(){
 	        	//没有数据处理 
 //	           alert("没有数据/搜索失败")
 	           $('#hospital_list').html('<h3>暂无数据<h3>');
+	           $('.more_hospital').css('display','none');
 	        }else{
 	        	//获取到数据渲染
 	        	if(data.resultObject.records.length < 20){

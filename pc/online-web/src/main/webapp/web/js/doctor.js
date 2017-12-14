@@ -429,6 +429,12 @@ $(function () {
 	    });
     
     
+    //点击搜索按钮
+    $('.search_hos_btn').click(function(){
+    	var name = $('.search_hos').val();
+    	console.log(name)
+    	window.open('/web/html/doctor_list.html?name='+name+'');  
+    })
       //名医推荐
 //	    RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){
 //	        if(data.resultObject.records.length == 0){

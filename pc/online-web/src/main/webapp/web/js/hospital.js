@@ -378,9 +378,12 @@ $(function () {
 	//搜索功能
 	$('.search_hos_btn').click(function(e){
 //		if(e.keyCode==13){
+//		  var name = $('.search_hos').val();
+//		  console.log(name)
+//		  getHostipalList(current,size,name);
 		  var name = $('.search_hos').val();
-		  console.log(name)
-		  getHostipalList(current,size,name);
+    	console.log(name)
+    	window.open('/web/html/hospital_list.html?name='+name+'');  
 //		}
 		});
 		
