@@ -39,7 +39,7 @@ $(function(){
 	           $('.more_hospital').css('display','none');
 	        }else{
 	        	//获取到数据渲染
-	        	if(data.resultObject.records.length < 20){
+	        	if(data.resultObject.pages == current){
 	        		$('.more_hospital > button').css('display','none');
 	        	}
 	        	//创建一个盒子

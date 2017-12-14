@@ -37,6 +37,9 @@ $(function(){
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
+	        	if(data.resultObject.pages == current){
+	        		$('.search_more').css('display','none')
+	        	}
 	           $('#doctor_list').append(template('doctorListTpl',data.resultObject));
 	        }
 	    });
