@@ -498,16 +498,30 @@ padding:0 20px;
 #forum .forum-content .forum-content-right .forum-hot-tag .search_hos_box{
 	text-align:center;
 	margin-bottom:20px;
+	padding: 0 20px;
 }
 #forum .forum-content .forum-content-right .forum-hot-tag .search_hos{
 	height:36px;
 	text-indent:2em;
 	border: 1px solid #F0F0F0;
 	outline:none;
-	width: 280px;
+	width: 220px;
 	background-image: url(../images/hospital/hos_search.png);
     background-repeat: no-repeat;
     background-position: 9px 11px;
+    float: left;
+}
+#forum .forum-content .forum-content-right .forum-hot-tag .search_hos_box > button{
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #FFFFFF;
+    background: #00BC12;
+    border: none;
+    outline: none;
+    float: right;
 }
 #forum .forum-content .forum-content-right .forum-hot-tag .search_hos::-webkit-input-placeholder { /* Chrome */
   color: #999;

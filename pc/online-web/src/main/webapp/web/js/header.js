@@ -169,15 +169,18 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<div class="header_left">'+
         '<div class="path">'+
         '<a href="/index.html" class="home">首页</a>'+
-        '<a href="/classroom.html" class="classroom">中医课堂</a>'+
+       
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+
-        '<a href="/web/html/forum.html" class="forum">书房斋</a>'+
-        '<a href="/web/html/ansAndQus.html" class="ansAndQus">问答</a>'+
+        '<a href="/web/html/forum.html" class="forum">头条</a>'+
+        '<a href="/web/html/doctor.html" class="doctor">名医</a>'+
+         '<a href="/classroom.html" class="classroom">学堂</a>'+
+        '<a href="/web/html/hospital.html" class="hospital">医馆</a>'+
+        '<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>'+
 //        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
         '<a href='+bbs_domain+"/index"+'>论坛</a>'+
-        '<a href="/web/html/doctor.html" class="doctor">名医</a>'+
-        '<a href="/web/html/hospital.html" class="hospital">医馆</a>'+
+        
+        
         '</div>'+
         ' </div>'+
         '<div class="header_right">'+

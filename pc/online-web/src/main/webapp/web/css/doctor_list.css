@@ -35,6 +35,9 @@
   background-color: #fff;
   padding: 20px;
 }
+.content_box #main .main_left #doctor_list{
+	min-height: 400px;
+}
 
 .content_box #main .main_left .doctor .doctor_search_top h3{
 	float: left;

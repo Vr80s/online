@@ -31,7 +31,9 @@ $(function(){
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理 
-	           alert("没有数据/搜索失败")
+//	           alert("没有数据/搜索失败")
+				$('#doctor_list').html('<h3>暂无数据</h3>');
+				$('.search_more').css('display','none')
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子

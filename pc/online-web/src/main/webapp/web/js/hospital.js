@@ -361,7 +361,8 @@ $(function () {
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
-	           alert("没有数据/搜索失败")
+//	           alert("没有数据/搜索失败")
+	            $('#hospital_list').html('<h3>暂无数据</h3>');
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
@@ -375,12 +376,12 @@ $(function () {
 	}
 	
 	//搜索功能
-	$('.search_hos').keydown(function(e){
-		if(e.keyCode==13){
+	$('.search_hos_btn').click(function(e){
+//		if(e.keyCode==13){
 		  var name = $('.search_hos').val();
 		  console.log(name)
 		  getHostipalList(current,size,name);
-		}
+//		}
 		});
 		
 	    

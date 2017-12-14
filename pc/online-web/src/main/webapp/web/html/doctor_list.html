@@ -187,7 +187,13 @@
            				<img src={{$value.headPortrait}} alt="" />
            			</div>
            			<div class="doctor_inf">
-           				<h4>{{$value.name}}&nbsp;&nbsp;{{$value.medicalHospital}}&nbsp;&nbsp; {{$value.province}}&nbsp;{{$value.city}}</h4>
+           				<h4>{{$value.name}}&nbsp;&nbsp;{{$value.medicalHospital}}&nbsp;&nbsp; 
+           					{{if $value.province == $value.city}}
+           						{{$value.province}}
+           					{{else}}
+           						{{$value.province}}&nbsp;{{$value.city}}
+           					{{/if}}
+           				</h4>
            				<span>{{$value.title}}</span>
            				<!--<p>科室： <span>中医内科/儿科/肿瘤科</span></p>-->
            				{{if $value.fields}}
@@ -203,8 +209,8 @@
 <!--主治子模板-->
 <script id="scoreTemplate" type="text/html">
     {{each fields}}
-        <span>{{$value.name}}</span>
-        <span>、</span>
+        <span>{{$value.name}}&nbsp;</span>
+       
     {{/each}}
 </script>
 
