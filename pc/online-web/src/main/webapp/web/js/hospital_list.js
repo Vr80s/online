@@ -18,6 +18,11 @@ $(function(){
     }
     return null;
 	}
+	//是否有参数
+	var url=location.search; 
+	if(url.indexOf("?")!=-1){
+		$('.hospital_title').text('搜索结果')
+	};
 	
 	//渲染医馆列表方法
 	function getHostipalList(current,size,name,field){
