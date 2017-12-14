@@ -30,8 +30,11 @@ $(function(){
        //联系方式
        $('.hospital_detail_inf_bottom_tel').text('联系电话：'+data.resultObject.tel)
        //地址渲染
-       $('.sheng').text(data.resultObject.province);
-       $('.shi').text(data.resultObject.city);
+       if(data.resultObject.detaileAddress ){
+       		$('.sheng').text(data.resultObject.detaileAddress);
+       }
+       
+      
 	
 	//医馆信息渲染
 	$('#hos_inf').html(template('hos_infTpl',data.resultObject));
