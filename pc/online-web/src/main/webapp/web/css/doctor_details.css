@@ -37,15 +37,20 @@
   width: 152px;
   height: 152px;
   margin-top: 24px;
-  background-image: url(../images/doctor_detail/touxiang.png);
-  background-repeat: no-repeat;
-  background-position: center center;
+  /*background-image: url(../images/doctor_detail/touxiang.png);*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center center;*/
   -webkit-background-size: 99%;
   background-size: 99%;
   border-radius: 50%;
   margin-right: 20px;
 }
-.header .header_inf .header_inf_left img {
+.header .header_inf .header_inf_left>img:first-child {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.header .header_inf .header_inf_left>img:nth-child(2) {
   width: 50px;
   height: 52px;
   position: absolute;
