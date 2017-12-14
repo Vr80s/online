@@ -80,6 +80,11 @@
     height: 402px !important;
     width: 822px;
 }
+.content_box #main .main_left .hospital_detail_inf  .hospital_detail_con {
+	    height: 150px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
 .content_box #main .main_left .hospital_detail_inf  > P{
     margin-bottom: 17px;
     font-size: 14px;
