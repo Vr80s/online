@@ -122,6 +122,14 @@
     margin-bottom: 20px;
     margin-right: 20px;
     padding: 20px 10px;
+    position: relative;
+}
+.content_box #main .main_left .hospital_doctor > .doctor_inf > li >a{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
 }
 .content_box #main .main_left .hospital_doctor > .doctor_inf > li:nth-child(2n){
     margin-right: 0;

@@ -99,7 +99,7 @@ $(function(){
 	        }else{
 	        	console.log(data)
 	        	//获取到数据渲染
-//	           $('#shaoshu').html(template('shaoshuTpl',{doctor:data.resultObject.records}));
+	           $('#yiguan_mingjia').html(template('hos_docTpl',{doctor:data.resultObject.records}));
 	        }
 	    });
 	

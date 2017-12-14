@@ -95,14 +95,14 @@
             </div>
 
             <!--医馆名家-->
-            <div class="hospital_doctor clearfix hide">
+            <div class="hospital_doctor clearfix ">
                 <div class="hospital_top">
                     <span>医馆名家</span>
-                    <a href="javascript:;">
+                    <a href="javascript:;" class="hide">
                         更多&nbsp;>
                     </a>
                 </div>
-                <ul class="doctor_inf ">
+                <ul class="doctor_inf" id="yiguan_mingjia">
                     <li>
                         <img src="../images/hospital_detail/touxiang.png" alt="">
                         <h5>施小墨</h5>
@@ -309,10 +309,21 @@
 <script type="text/template" id="hos_docTpl"> 
 {{each doctor as doctor i}}
 	<li>
-        <img src="../images/hospital_detail/touxiang.png" alt="">
-        <h5>施小墨</h5>
-        <p>每周二、四</p>
-        <p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+        <img src={{doctor.headPortrait}}alt="">
+        <h5>{{doctor.name}}</h5>
+        <p>{{doctor.workTime}}</p>
+        <p>
+        	{{if doctor.province == doctor.city}}
+        		{{doctor.province}}&nbsp;
+        	{{else}}
+        		{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+        	{{/if}}
+        	
+        	{{if doctor.medicalHospital}}
+        		{{doctor.medicalHospital.name}}
+        	{{/if}}
+        </p>
     </li>
  {{/each}}
 </script> 
