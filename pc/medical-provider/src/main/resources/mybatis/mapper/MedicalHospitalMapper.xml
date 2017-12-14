@@ -46,4 +46,14 @@
 		select * from medical_hospital where deleted = 0 and status = 1 and id = #{id}
 	</select>
 
+	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.model.MedicalField">
+		SELECT
+		mf.name,
+		mf.id
+		FROM
+		`medical_field` mf,
+		`medical_hospital_field` mhf
+		WHERE mf.`id` = mhf.`field_id`
+		and mhf.hospital_id = #{hospitalId}
+	</select>
 </mapper>

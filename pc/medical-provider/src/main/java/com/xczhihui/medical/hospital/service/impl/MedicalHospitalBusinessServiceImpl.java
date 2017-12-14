@@ -2,6 +2,7 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalPictureMapper;
@@ -29,6 +30,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     @Autowired
     private MedicalHospitalPictureMapper medicalHospitalPictureMapper;
 
+
     public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page, String name, String field) {
         page.setRecords(medicalHospitalMapper.selectHospitalList(page,name,field));
         for (int i = 0; i < page.getRecords().size(); i++) {
@@ -43,6 +45,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         MedicalHospital medicalHospital = medicalHospitalMapper.selectHospitalById(id);
         List<MedicalHospitalPicture> medicalHospitalPictures = medicalHospitalPictureMapper.getMedicalHospitalPictureByHospitalId(medicalHospital.getId());
         medicalHospital.setMedicalHospitalPictures(medicalHospitalPictures);
+        List<MedicalField> medicalFields = medicalHospitalMapper.selectMedicalFieldsByDoctorId(medicalHospital.getId());
+        medicalHospital.setFields(medicalFields);
         return medicalHospital;
     }
 

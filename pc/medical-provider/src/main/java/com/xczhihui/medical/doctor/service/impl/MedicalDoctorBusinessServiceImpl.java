@@ -34,7 +34,14 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page, Integer type, String hospitalId, String name, String field) {
-        page.setRecords(medicalDoctorMapper.selectDoctorList(page,type,hospitalId,name,field));
+        List<MedicalDoctor> records = medicalDoctorMapper.selectDoctorList(page, type, hospitalId, name, field);
+        if(field!=null){
+            for (int i = 0; i < records.size(); i++) {
+                List<MedicalField> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(records.get(i).getId());
+                records.get(i).setFields(medicalFields);
+            }
+        }
+        page.setRecords(records);
         return page;
     }
 
