@@ -4,15 +4,14 @@
 
 	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
 		SELECT
-		  md.id,
-		  md.`name`,
-		  md.`title`,
+		  md.*,
+		  md.`work_time` workTime,
 		  mdai.head_portrait headPortrait,
-		  mh.`name` hospitalName,
-		  md.type
+		  mh.`name` hospitalName
+
 		FROM
 		  medical_doctor md
-		<if test="field != null">
+		<if test="field != null and field!=''">
 			join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{field}
 		</if>
 		  LEFT JOIN `medical_doctor_authentication_information` mdai
@@ -23,13 +22,13 @@
 			ON mhd.`hospital_id` = mh.`id`
 		WHERE md.deleted = 0
 		  AND md.status = 1
-		<if test="type != null">
+		<if test="type != null and type != ''">
 			and md.type = #{type}
 		</if>
-		<if test="hospitalId != null">
+		<if test="hospitalId != null and hospitalId!=''">
 			and mh.id = #{hospitalId}
 		</if>
-		<if test="name != null">
+		<if test="name != null and name!=''">
 			and md.name like concat('%',#{name},'%')
 		</if>
 	</select>

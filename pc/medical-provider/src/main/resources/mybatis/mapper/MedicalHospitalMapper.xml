@@ -8,14 +8,14 @@
 	<!--</sql>-->
 	<select id="selectHospitalList" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
 		select * from medical_hospital mh
-		<if test="field != null">
+		<if test="field != null and field!=''">
 			join medical_hospital_field mhf on mh.id = mhf.hospital_id and mhf.`field_id`=#{field}
 		</if>
 		where deleted = 0 and status = 1
-		<if test="name != null">
+		<if test="name != null and name!=''">
 			and name like concat('%',#{name},'%')
 		</if>
-		order by score desc
+		ORDER BY authentication DESC, score DESC
 	</select>
 
 	<select id="getHotField" resultType="com.xczhihui.medical.field.model.MedicalField">
