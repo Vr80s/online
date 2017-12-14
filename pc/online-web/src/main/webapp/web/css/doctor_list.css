@@ -102,6 +102,10 @@
 .content_box #main .main_left .doctor_list #doctor_list> li .doctor_inf{
 	float: left;
 }
+.content_box #main .main_left .doctor_list #doctor_list> li .doctor_inf span,
+.content_box #main .main_left .doctor_list #doctor_list> li .doctor_inf p{
+	color: #666;
+}
 .content_box #main .main_left .search_more{
 	text-align: center;
 }

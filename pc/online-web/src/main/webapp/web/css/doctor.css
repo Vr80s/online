@@ -390,6 +390,7 @@ margin-top:0;
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > p{
 	font-size:14px;
 	height: 20px;
+	color: #666;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > h5{
 	font-size:14px;
@@ -398,6 +399,7 @@ margin-top:0;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > h5 >span{
 	font-weight: 400;
+	color: #333;
 }
 #forum .forum-content .forum-content-right {
   width: 320px;
