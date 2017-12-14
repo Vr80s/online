@@ -26,4 +26,6 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
     List<MedicalHospital> selectRecHospital();
 
     List<MedicalField> getHotField();
+
+    List<MedicalField> selectMedicalFieldsByDoctorId(String hospitalId);
 }

@@ -3,6 +3,7 @@ package com.xczhihui.medical.hospital.model;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.medical.field.model.MedicalField;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -107,6 +108,16 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	private Double score;
 
 	private List<MedicalHospitalPicture> medicalHospitalPictures;
+
+	private List<MedicalField> fields;
+
+	public List<MedicalField> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<MedicalField> fields) {
+		this.fields = fields;
+	}
 
 	public List<MedicalHospitalPicture> getMedicalHospitalPictures() {
 		return medicalHospitalPictures;
