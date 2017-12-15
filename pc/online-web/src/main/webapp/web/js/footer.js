@@ -14,7 +14,8 @@ var footers={
 	'<li data-id="first" data-url="/web/html/aboutUs.html" >关于我们<span>|</span></li>'+
 //	'<li data-id="two" data-url="/web/html/aboutUs.html">人才招聘<span>|</span></li>'+
 	'<li data-id="three" data-url="/web/html/aboutUs.html">联系我们<span>|</span></li>'+
-	'<li data-id="four" class="noline" data-url="/web/html/aboutUs.html">常见问题</li>'+
+	'<li data-id="four" class="noline" data-url="/web/html/aboutUs.html">常见问题<span>|</span></li>'+
+	'<li data-id="five" data-url="/copyright.html" class="noline">版权声明</li>'+
 	'</ul></div>'+
 	'<div class="trademark">琼ICP备17002789号  Copyright &copy; 2017-2018  熊猫中医 All Rights Reserved <span style="margin-right:5px;"></span></div>'+
 	'</div></div></footer></div>',
