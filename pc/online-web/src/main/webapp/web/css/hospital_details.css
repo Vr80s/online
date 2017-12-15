@@ -43,7 +43,7 @@
     position: relative;
 }
 .content_box #main .main_left .hospital_detail_inf h3{
-    font-size: 20px;
+    font-size: 18px;
     color: #333333;
     margin-bottom: 18px;
 }
@@ -81,9 +81,9 @@
     width: 822px;
 }
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_con {
-	    height: 150px;
-    overflow: hidden;
-    overflow-y: scroll;
+	    height: 180px;
+    overflow: auto;
+    /*overflow-y: scroll;*/
 }
 .content_box #main .main_left .hospital_detail_inf  > P{
     margin-bottom: 17px;

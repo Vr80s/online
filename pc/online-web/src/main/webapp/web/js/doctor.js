@@ -358,7 +358,8 @@ $(function () {
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
-	           alert("国医大师没有数据")
+	        	$('#doc_lis1').css('display','none');
+//	           alert("国医大师没有数据")
 	        }else{
 	        	//获取到数据渲染
 	           $('#guoyi').html(template('guoyiTpl',{doctor:data.resultObject.records}));
@@ -375,7 +376,9 @@ $(function () {
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
-	           alert("名老中医没有数据")
+	        	$('#doc_lis2').css('display','none');
+	        	
+//	           alert("名老中医没有数据")
 	        }else{
 	        	//获取到数据渲染
 	           $('#minglao').html(template('minglaoTpl',{doctor:data.resultObject.records}));
@@ -390,7 +393,9 @@ $(function () {
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
-	           alert("名老中医没有数据")
+	        	$('#doc_lis3').css('display','none');
+	        	
+//	           alert("名老中医没有数据")
 	        }else{
 	        	//获取到数据渲染
 	           $('#mingqing').html(template('mingqingTpl',{doctor:data.resultObject.records}));
@@ -405,7 +410,9 @@ $(function () {
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
-	           alert("名老中医没有数据")
+	        	$('#doc_lis4').css('display','none');
+	        	
+//	           alert("名老中医没有数据")
 	        }else{
 	        	//获取到数据渲染
 	           $('#guzhongyi').html(template('guzhongyiTpl',{doctor:data.resultObject.records}));
@@ -420,10 +427,13 @@ $(function () {
 	    },function(data){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
-	           alert("名老中医没有数据")
+	        	$('#doc_lis5').css('display','none');
+	        	
+//	           alert("名老中医没有数据")
 	        }else{
 	        	//获取到数据渲染
 	           $('#shaoshu').html(template('shaoshuTpl',{doctor:data.resultObject.records}));
+	           
 	        }
 	    });
     
