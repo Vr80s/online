@@ -39,7 +39,7 @@
 		  and status = 1
 		  and recommend = 1
 		order by recommend_sort desc
-		limit 0, 10
+		limit 0, 6
 	</select>
 
 	<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">

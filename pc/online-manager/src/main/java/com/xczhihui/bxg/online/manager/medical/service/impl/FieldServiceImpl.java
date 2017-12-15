@@ -154,14 +154,16 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 		for (int i = 0; i < mhfs.size(); i++) {
 			dao.delete(mhfs.get(i));
 		}
-		for (int i = 0; i < fieldId.length; i++) {
-			MedicalDoctorField medicalDoctorField = new MedicalDoctorField();
-			String mid = UUID.randomUUID().toString().replace("-","");
-			medicalDoctorField.setId(mid);
-			medicalDoctorField.setFieldId(fieldId[i]);
-			medicalDoctorField.setDoctorId(id);
-			medicalDoctorField.setCreateTime(new Date());
-			dao.save(medicalDoctorField);
+		if(fieldId!=null){
+			for (int i = 0; i < fieldId.length; i++) {
+				MedicalDoctorField medicalDoctorField = new MedicalDoctorField();
+				String mid = UUID.randomUUID().toString().replace("-","");
+				medicalDoctorField.setId(mid);
+				medicalDoctorField.setFieldId(fieldId[i]);
+				medicalDoctorField.setDoctorId(id);
+				medicalDoctorField.setCreateTime(new Date());
+				dao.save(medicalDoctorField);
+			}
 		}
 	}
 
