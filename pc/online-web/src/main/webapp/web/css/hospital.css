@@ -193,6 +193,7 @@ input,button{
   font-size: 16px;
   color: #333;
   font-family: MicrosoftYaHei;
+  margin-bottom: 10px;
 }
 #forum .forum-banner .hot-article .hot-article-list {
   padding: 0 20px;
@@ -202,6 +203,7 @@ input,button{
 #forum .forum-banner .hot-article .hot-article-list li {
   margin-top: 6px;
   cursor: pointer;
+  margin-bottom: 20px;
 }
 #forum .forum-banner .hot-article .hot-article-list li span {
   display: inline-block;
