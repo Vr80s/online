@@ -48,6 +48,7 @@ $(function(){
 	    	type:type,
 	    	field:field
 	    },function(data){
+	    	$('.search_more').css('display','block')
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理 
 //	           alert("没有数据/搜索失败")
@@ -67,6 +68,7 @@ $(function(){
 	
 	//搜索功能
 	$('.doctor_search_ipt > button').click(function(e){
+		 current = 1;
 //		if(e.keyCode==13){
 		$('#doctor_list').html('');
 		  var name =$('.doctor_search_ipt > input').val();
