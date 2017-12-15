@@ -51,11 +51,11 @@ $(function () {
         '</li>' +
         '{{else}}'+
         '<li>' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
-        '<div class="banner-info">' +
-        '<span class="banner-type">{{$value.name}}</span>' +
-        '<span class="banner-title">{{$value.title}}</span>' +
-        '</div>' +
+        '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
+        // '<div class="banner-info">' +
+        // '<span class="banner-type">{{$value.name}}</span>' +
+        // '<span class="banner-title">{{$value.title}}</span>' +
+        // '</div>' +
         '<div class="image-overlay"></div>'+
         '</a>' +
         '</li>' +
