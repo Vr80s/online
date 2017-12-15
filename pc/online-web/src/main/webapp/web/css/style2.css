@@ -234,7 +234,8 @@ a:hover {
     position: absolute;
     color: #000;
     z-index: 9;
-    outline: none
+    outline: none;
+    display: none;
 }
 .thumbPrev span,
 .thumbNext span {

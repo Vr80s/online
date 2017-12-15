@@ -39,8 +39,9 @@
 /*医馆信息*/
 .content_box #main .main_left .hospital_detail_inf{
     width: 860px;
-    height: 715px;
+    /*height: 715px;*/
     position: relative;
+    padding-bottom: 54px;
 }
 .content_box #main .main_left .hospital_detail_inf h3{
     font-size: 18px;
@@ -76,12 +77,13 @@
 }*/
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_pic{
     margin-bottom: 0px;
-    border: 1px solid #f0f0f0;
+    /*border: 1px solid #f0f0f0;*/
     height: 402px !important;
     width: 822px;
 }
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_con {
-	    height: 180px;
+	    /*height: 180px;*/
+	   min-height: 180px;
     overflow: auto;
     /*overflow-y: scroll;*/
 }

@@ -27,7 +27,7 @@ $(function(){
 	
 	//顶部搜索列表title变化
 	if(type == 1){
-		$('.doctor_search_top > h3').text('名青年中医列表')
+		$('.doctor_search_top > h3').text('中青年名中医列表')
 	}else if(type == 2){
 		$('.doctor_search_top > h3').text('名老中医列表')
 	}else if(type == 3){
@@ -35,7 +35,7 @@ $(function(){
 	}else if(type == 4){
 		$('.doctor_search_top > h3').text('国医大师列表')
 	}else if(type == 5){
-		$('.doctor_search_top > h3').text('古中医列表')
+		$('.doctor_search_top > h3').text('家传中医列表')
 	}
 	
 	console.log(decodeURI(name))
