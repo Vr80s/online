@@ -263,6 +263,9 @@ public class DoctorController extends AbstractController{
 	@RequestMapping(value = "updateMedicalHospitalDoctor", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateMedicalHospitalDoctor(String doctorId, String hospitalId){
+		if(hospitalId==null || "".equals(hospitalId)){
+			return ResponseObject.newErrorResponseObject("必须选择一个医馆才能保存！");
+		}
 		doctorService.updateMedicalHospitalDoctorDetail(doctorId,hospitalId);
 		return ResponseObject.newSuccessResponseObject("修改成功！");
 	}
