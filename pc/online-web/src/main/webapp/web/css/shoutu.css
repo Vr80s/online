@@ -269,46 +269,7 @@ color: #333333;
 .content_box #main .main_left .class .class_bottom .class_inf:nth-child(3n) {
   margin-right: 0;
 }
-.content_box #main .main_left .zhuanlan .class_top > span {
-  font-weight: 700;
-  font-size: 20px;
-  color: #333333;
-}
-.content_box #main .main_left .zhuanlan .class_top a {
-  float: right;
-  color: #333;
-}
-.content_box #main .main_left .zhuanlan .zhuanlan_list > li {
-  border-bottom: 1px solid #F0F0F0;
-  padding: 20px 0;
-}
-.content_box #main .main_left .zhuanlan .zhuanlan_list > li:last-child {
-  border-bottom: none;
-}
-.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_left {
-  width: 260px;
-  height: 147px;
-  float: left;
-}
-.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right {
-  float: left;
-  width: 530px;
-  padding-left: 20px;
-}
-.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right h3 {
-  font-size: 16px;
-  color: #333333;
-  font-weight: 700;
-}
-.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right p {
-  font-size: 14px;
-  color: #666666;
-  line-height: 24px;
-}
-.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right span {
-  font-size: 14px;
-  color: #666666;
-}
+
 .content_box #main .main_right {
   width: 320px;
   float: right;
