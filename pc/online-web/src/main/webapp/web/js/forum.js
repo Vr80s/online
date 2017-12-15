@@ -158,7 +158,11 @@ $(function () {
             $(this).find("em").removeClass("select1").addClass("select");
             list.type=$(this).attr("data-articleId");
             $(".pages").css("display", "none");
-            paperArticle();
+//          var list={
+//          	pageNumber: 1,
+//          	 pageSize:6
+//          };
+            paperArticle(true);
         });
         $(".forum-content-tag li").eq(0).click();
         var bxsTagName=localStorage.getItem("bxsArticleType");
@@ -241,7 +245,11 @@ $(function () {
         }
     });
     //获取文章列表
-    function paperArticle(){
+    function paperArticle(first){
+
+		if(first)
+		list.pageNumber = 1;
+//  	debugger;
         RequestService("/bxs/article/getPaperArticle",'GET',list,function(data){
             if(data.resultObject.items.length==0){
                 $(".forum-content-info").html(template.compile(emptyDefaul))
