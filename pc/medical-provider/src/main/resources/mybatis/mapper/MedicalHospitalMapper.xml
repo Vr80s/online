@@ -43,7 +43,7 @@
 	</select>
 
 	<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
-		select * from medical_hospital where deleted = 0 and status = 1 and id = #{id}
+		select *,detailed_address detailedAddress from medical_hospital where deleted = 0 and status = 1 and id = #{id}
 	</select>
 
 	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.model.MedicalField">

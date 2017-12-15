@@ -83,7 +83,7 @@ public class OnlineInterceptor implements HandlerInterceptor {
 			if (serializable != null && user != null) {
 				UserLoginUtil.setLoginUser(request, this.addUserIfHasNo(user, t));
 			} else {
-				//UCCookieUtil.clearTokenCookie(response);1
+				UCCookieUtil.clearTokenCookie(response);//20171214若无票据 清理cookies
 			}
 		}
 		
