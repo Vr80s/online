@@ -154,6 +154,7 @@
 .content_box #main .main_left .hospital .hospital_inf {
   float: left;
   padding-left: 20px;
+  width: 550px;
 }
 .content_box #main .main_left .hospital .hospital_inf > p {
   margin-bottom: 16px;
