@@ -337,7 +337,7 @@
 <script type="text/template" id="lunboTpl">
 {{if medicalHospitalPictures}}
 {{each medicalHospitalPictures as item i}}
-{{if item.picture}}
+{{if item.picture != null}}
  <li>
       <div><img src={{item.picture}} url="javascript:;"  bigImg={{item.picture}}></div>
 </li>

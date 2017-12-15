@@ -309,10 +309,10 @@
 
 <div class="hospitals">
 	<a href="/web/html/hospital_details.html?Id={{hospital.id}}" id={{hospital.id}} target="_blank"></a>
-	{{if hospital.medicalHospitalPictures.length != 0}}
+	{{if hospital.medicalHospitalPictures.length != 0 && hospital.medicalHospitalPictures[0].picture}}
 	<img src={{hospital.medicalHospitalPictures[0].picture}} style="width: 100%;height: 147px;" alt="">
 	{{else}}
-	<img src=""style="width: 100%;height: 147px;" alt="暂无图片">
+	<img src="" style="width: 100%;height: 147px;" alt="暂无图片">
 	{{/if}}
 	<div class="hospital_inf">
 		<span class="hospital_name">{{hospital.name}}</span>

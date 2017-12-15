@@ -239,7 +239,11 @@
 {{each hospital as hospital i}}
 <div class="hospitals">
 	<a href="/web/html/hospital_details.html?Id={{hospital.id}}" id={{hospital.id}}></a>
-	<img src="../images/hospital/hospital_pic.png" alt="">
+	{{if hospital.medicalHospitalPictures.length!=0 && hospital.medicalHospitalPictures[0].picture}}
+	<img src={{hospital.medicalHospitalPictures[0].picture}} alt="">
+	{{else}}
+	<img src="" alt="暂无图片">
+	{{/if}}
 	<div class="hospital_inf">
 		<span class="hospital_name">{{hospital.name}}</span>
 		{{if hospital.authentication}}
