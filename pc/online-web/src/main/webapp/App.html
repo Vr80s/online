@@ -87,14 +87,16 @@ $(function(){
 	//安卓/ISO点击下载事件
     $('.android-down').click(function(){
            console.log('android-event')
-           $('#ios_app').css('display','none')
-           $('#EWM').css('visibility','')
-            $('#EWM').css('display','block')
+//         $('#ios_app').css('display','none')
+			$('#EWM').attr('src','webview/images/usershow/ERWEIMA-ICON.png')
+//         $('#EWM').css('visibility','')
+//          $('#EWM').css('display','block')
     })
      $('.ios-down').click(function(){
           console.log('ios-event')
-          $('#EWM').css('visibility','hidden')
-            $('#ios_app').css('display','block')
+//        $('#EWM').css('visibility','hidden')
+			$('#EWM').attr('src','webview/images/usershow/IOS_down.jpg')
+//          $('#ios_app').css('display','block')
           
     })
     //顶部app变色
