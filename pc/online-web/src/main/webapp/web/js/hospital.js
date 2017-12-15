@@ -45,20 +45,20 @@ $(function () {
             '{{if $index==0}}'+
         '<li style="z-index: 2">' +
         '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
-        '<div class="banner-info">' +
-        '<span class="banner-type">{{$value.name}}</span>' +
-        '<span class="banner-title">{{$value.title}}</span>' +
-        '</div>' +
+        // '<div class="banner-info">' +
+        // '<span class="banner-type">{{$value.name}}</span>' +
+        // '<span class="banner-title">{{$value.title}}</span>' +
+        // '</div>' +
         '<div class="image-overlay"></div>'+
         '</a>' +
         '</li>' +
         '{{else}}'+
         '<li>' +
         '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
-        '<div class="banner-info">' +
-        '<span class="banner-type">{{$value.name}}</span>' +
-        '<span class="banner-title">{{$value.title}}</span>' +
-        '</div>' +
+        // '<div class="banner-info">' +
+        // '<span class="banner-type">{{$value.name}}</span>' +
+        // '<span class="banner-title">{{$value.title}}</span>' +
+        // '</div>' +
         '<div class="image-overlay"></div>'+
         '</a>' +
         '</li>' +
