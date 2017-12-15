@@ -35,6 +35,9 @@
   background-color: #fff;
   padding: 20px;
 }
+.content_box #main .main_left .doctor{
+	margin-bottom: 0px;
+}
 .content_box #main .main_left #doctor_list{
 	min-height: 400px;
 }
@@ -102,9 +105,11 @@
 .content_box #main .main_left .doctor_list #doctor_list> li .doctor_inf{
 	float: left;
 }
+
 .content_box #main .main_left .doctor_list #doctor_list> li .doctor_inf span,
 .content_box #main .main_left .doctor_list #doctor_list> li .doctor_inf p{
 	color: #666;
+	font-size: 14px;
 }
 .content_box #main .main_left .doctor_list #doctor_list> li .doctor_inf p{
 	width: 710px;
@@ -154,6 +159,9 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
+}
+.content_box #main .main_right .about_doctor .about_doctor_list > li>p{
+	font-size: 14px;
 }
 .content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic {
   display: inline-block;

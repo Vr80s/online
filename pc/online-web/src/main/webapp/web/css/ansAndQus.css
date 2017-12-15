@@ -255,7 +255,7 @@ body {
   /* margin-left: 15px;*/
 }
 .page-ans-qus .content-list-qus {
-  width: 878px;
+  width: 890px;
   margin-right: 20px;
   margin-bottom: 40px;
   display: inline-block;
@@ -350,7 +350,7 @@ body {
   text-overflow: ellipsis;
 }
 .page-ans-qus .content-list-qus .content .ansAndQus-left-list .listansAndQuse .list-questions .list-questions-right {
-  width: 760px;
+  width: 740px;
   float: left;
 }
 .page-ans-qus .content-list-qus .content .ansAndQus-left-list .listansAndQuse .list-questions .list-questions-right .list-questions-right-subject {
