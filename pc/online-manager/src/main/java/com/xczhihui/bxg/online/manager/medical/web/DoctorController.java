@@ -97,14 +97,14 @@ public class DoctorController extends AbstractController{
 	@ResponseBody
 	 public ResponseObject add(MedicalDoctor medicalDoctor){
 		ResponseObject responseObj = new ResponseObject();
-		List<MedicalDoctor> entitys= doctorService.findByName(medicalDoctor.getName());
-		for(MedicalDoctor entity:entitys){
-			if(!entity.getDeleted()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("医师名称已存在！");
-		         return responseObj;
-			}
-		}
+//		List<MedicalDoctor> entitys= doctorService.findByName(medicalDoctor.getName());
+//		for(MedicalDoctor entity:entitys){
+//			if(!entity.getDeleted()){
+//				 responseObj.setSuccess(false);
+//		         responseObj.setErrorMessage("医师名称已存在！");
+//		         return responseObj;
+//			}
+//		}
 
 		try{
 			doctorService.addMedicalDoctor(medicalDoctor);

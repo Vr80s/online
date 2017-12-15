@@ -84,7 +84,9 @@ public class UserController extends OnlineBaseController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
 		OnlineUser o = service.findUserByLoginName(username);
-		Token t = userCenterAPI.login4BBS(username, password,o.getSmallHeadPhoto(),o.getId(),TokenExpires.Day);
+		Token t = null;
+		if(o!=null)
+		t = userCenterAPI.login4BBS(username, password,o.getSmallHeadPhoto(),o.getId(),TokenExpires.Day);
 //		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
 			if (o != null) {

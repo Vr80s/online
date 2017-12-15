@@ -38,7 +38,8 @@
 		md.*,
 		md.`work_time` workTime,
 		mdai.head_portrait headPortrait,
-		mh.`id` hospitalId
+		mh.`id` hospitalId,
+		md.detailed_address detailedAddress
 		FROM
 		medical_doctor md
 		LEFT JOIN `medical_doctor_authentication_information` mdai

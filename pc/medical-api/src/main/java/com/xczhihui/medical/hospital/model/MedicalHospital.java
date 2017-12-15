@@ -168,6 +168,9 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	}
 
 	public String getDescription() {
+		if(description == null) return null;
+		description = description.replace("\n\n","<br/>");
+		description = description.replace("\n","<br/>");
 		return description;
 	}
 

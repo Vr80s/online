@@ -142,6 +142,7 @@ public class UCCookieUtil {
 
 	private static void clearBXGCookie(HttpServletResponse response, String name) {
 		CookieUtil.setCookie(response, name, "", DEFAULT_DOMAIN, "/", 0);
+		CookieUtil.setCookie(response, name, "", null, "/", 0);//20171215 yuxin
 	}
 
 	private static void writeBXGCookie(HttpServletResponse response, String name, String value, long maxAge) {
