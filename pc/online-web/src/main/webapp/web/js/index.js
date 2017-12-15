@@ -671,10 +671,10 @@ function getData(menuId,pageNumber){
 			//请求消费记录数据
 			RequestService("/course/getPageCourseByMenuId?menuId="+menuId+"&couseTypeId=0&pageNumber="+pageNumber+"&pageSize=8&type=1", "get", null, function(data) {
 				console.log(data)
-				if(data.resultObject.totalPageCount==0){
-					$('.zhongyi .pagination').css({'display':'none'});
-				}else{
+				if(data.resultObject.totalPageCount>1){
 					$('.zhongyi .pagination').css({'display':'block'});
+				}else{
+					$('.zhongyi .pagination').css({'display':'none'});
 					//渲染到页面中
 //					 $("#xfjl").html(template("list1",{item:data.resultObject.items}));
 					 str = strcourse;
