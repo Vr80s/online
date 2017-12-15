@@ -30,8 +30,8 @@ $(function(){
        //联系方式
        $('.hospital_detail_inf_bottom_tel').text('联系电话：'+data.resultObject.tel)
        //地址渲染
-       if(data.resultObject.detaileAddress ){
-       		$('.sheng').text(data.resultObject.detaileAddress);
+       if(data.resultObject.detailedAddress ){
+       		$('.sheng').text(data.resultObject.detailedAddress);
        }
        
       

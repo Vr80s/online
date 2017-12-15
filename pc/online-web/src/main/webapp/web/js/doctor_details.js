@@ -45,18 +45,28 @@ $(function(){
        	  
        //坐诊医馆信息
        //跳转
-       $('.to_hospital_detail').attr('href','/web/html/hospital_details.html?'+data.resultObject.medicalHospital.id+'');
+       $('.to_hospital_detail').attr('href','/web/html/hospital_details.html?id='+data.resultObject.medicalHospital.id+'');
        //医馆图片
-       $('.hospital_pic>img').attr('src',data.resultObject.medicalHospital.medicalHospitalPictures[0].picture)
+       if(data.resultObject.medicalHospital.medicalHospitalPictures){
+       	 $('.hospital_pic>img').attr('src',data.resultObject.medicalHospital.medicalHospitalPictures[0].picture)
+       }
        //名称
        $('.hospital_inf>p:first-child').text(data.resultObject.medicalHospital.name);
        //电话
-       $('.hospital_inf>p:nth-child(2)>span').text(data.resultObject.medicalHospital.tel);
+       if(data.resultObject.medicalHospital.tel){
+       	$('.hospital_inf>p:nth-child(2)>span').text(data.resultObject.medicalHospital.tel);
+       }
+       
        //坐诊时间
        var worktime = data.resultObject.workTime;
        $('.hospital_inf>p:nth-child(3)>span').text(worktime);
        //医馆地址
-       $('.hospital_inf>p:nth-child(4)>span').text(data.resultObject.medicalHospital.province+data.resultObject.medicalHospital.city)
+       if(data.resultObject.medicalHospital.province == data.resultObject.medicalHospital.city){
+       	$('.hospital_inf>p:nth-child(4)>span').text(data.resultObject.medicalHospital.city)
+       }else{
+       	$('.hospital_inf>p:nth-child(4)>span').text(data.resultObject.medicalHospital.province+data.resultObject.medicalHospital.city)
+       }
+       
        }
        //顶部渲染
         $('#doctor_detail_header').html(template('doctor_detail_topTpl',data.resultObject));
