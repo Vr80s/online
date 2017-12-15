@@ -68,10 +68,10 @@ $(function () {
     var hotArticle = '{{each hotArticle}}' +
         '{{if $index<=2}}' +
         '<li>' +
-        '<a href="/web/html/hospital_details.html?Id={{$value.id}}" target="_blank"><em class="select">{{$index+1}}</em><span>{{$value.province}}</span><span title="{{$value.name}}">{{$value.name}}</span></a>' +
+        '<a href="/web/html/hospital_details.html?Id={{$value.id}}" target="_blank"><em class="select">{{$index+1}}</em>{{$value.province}}&nbsp;&nbsp;{{$value.name}}</a>' +
         '</li>' +
         '{{else}}' +
-        '<li><a href="/web/html/hospital_details.html?Id={{$value.id}}" target="_blank"><em>{{$index+1}}</em><span>{{$value.province}}</span><span title="{{$value.name}}">{{$value.name}}</span></li></a>' +
+        '<li><a href="/web/html/hospital_details.html?Id={{$value.id}}" target="_blank"><em>{{$index+1}}</em>{{$value.province}}&nbsp;&nbsp;{{$value.name}}</li></a>' +
         '{{/if}}' +
         '{{/each}}';
     var articleType='{{each articleType}}'+

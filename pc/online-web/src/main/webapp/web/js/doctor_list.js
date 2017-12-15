@@ -24,6 +24,20 @@ $(function(){
 	window.field=getQueryString('field')?getQueryString('field'):"";
 	getHostipalList(current,size,name,type,field);
 	
+	
+	//顶部搜索列表title变化
+	if(type == 1){
+		$('.doctor_search_top > h3').text('名青年中医列表')
+	}else if(type == 2){
+		$('.doctor_search_top > h3').text('名老中医列表')
+	}else if(type == 3){
+		$('.doctor_search_top > h3').text('少数民族中医列表')
+	}else if(type == 4){
+		$('.doctor_search_top > h3').text('国医大师列表')
+	}else if(type == 5){
+		$('.doctor_search_top > h3').text('古中医列表')
+	}
+	
 	console.log(decodeURI(name))
 	//渲染医师列表方法
 	function getHostipalList(current,size,name,type,field){

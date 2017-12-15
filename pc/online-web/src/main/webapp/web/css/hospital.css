@@ -217,6 +217,9 @@ input,button{
   color: #333;
   font-size: 14px;
 }
+#forum .forum-banner .hot-article .hot-article-list li a:hover{
+	color: #2cb82c;
+}
 #forum .forum-banner .hot-article .hot-article-list li em {
   display: inline-block;
   width: 20px;
