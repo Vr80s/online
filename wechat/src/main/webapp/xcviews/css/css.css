@@ -2023,6 +2023,9 @@ footer{
     font-size: 0.8rem;
     color: #fff;
 }
+.look_put{
+	position: relative;
+}
 .look_put input{
 	width: 11rem;
 	height: 1.3rem;
@@ -2033,6 +2036,7 @@ footer{
 	text-indent: 0.5rem;
 	color: #999;
 }
+
  .input01::-webkit-input-placeholder{
 	color: #999;
 } 
@@ -2055,7 +2059,7 @@ footer{
     right: 0;
     top: 0rem;
     margin-right: 0.87rem;
-    margin-top: 2.25rem;
+    /*margin-top: 2.25rem;*/
 	border: 1px solid #00bc12;
 }
 /*观看登录结束*/
