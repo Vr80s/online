@@ -70,6 +70,7 @@ $(function(){
 //		if(e.keyCode==13){
 		$('#doctor_list').html('');
 		  var name =$('.doctor_search_ipt > input').val();
+		  var field = '';
 		  console.log(name)
 		  getHostipalList(current,size,name,type,field);
 //		}
