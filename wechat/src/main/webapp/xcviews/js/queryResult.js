@@ -22,7 +22,7 @@ function courseDetails1(courseObj,page){
 	if(courseObj.type == 1){//直播
 		sessionStorage.setItem("queryType", 1);
 		sessionStorage.setItem("livePage", 3);
-		if(lineState == 1){ //需要预约
+		if(lineState == 2){ //需要预约
 			location.href = "/xcviews/html/foreshow.html?course_id="+courseId+"";
 		}else{
 			location.href = "/bxg/xcpage/courseDetails?"+courseId+"";
@@ -64,9 +64,12 @@ function queryResult(){
 				 $("#hot_hot").hide();
 				 $('.non_payment_null').css('display','block');
 				 $('.non_payment_null').addClass('non_payment_nul_img');
+				 $('.non_payment_null06 p').css('display','block');
 				 return;
 			}else{
-				 $("#hot_hot").show(); $('.non_payment_null').css('display','none');
+				 $("#hot_hot").show(); 
+				 $('.non_payment_null').css('display','none');
+				 $('.non_payment_null06 p').css('display','none');
 			}
 			var bozhuHtml ="";var zhiboHtml ="";var bunchHtml ="";
 			
@@ -125,7 +128,6 @@ queryResult();
  * 观看视频详情
  */
 function courseDetails(courseid,lineState){
-	//live_status  直播状态 1.直播中，2预告，3直播结束
 	if(stringnull(lineState)){
 		if(lineState !=2 ){
 			location.href = "/bxg/xcpage/courseDetails?courseId="+courseid;

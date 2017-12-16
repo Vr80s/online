@@ -38,6 +38,10 @@ public class IapController {
     //购买凭证验证地址
     @Value("${iphone.iap.url}")
     private  String certificateUrl;
+    
+    //购买凭证验证地址
+    @Value("${rate}")
+    private  Integer rate;
 
 
 
@@ -75,7 +79,10 @@ public class IapController {
     @RequestMapping("/setIapCertificate")
     public Object setIapCertificate( String receipt,String userId,String actualPrice) throws SQLException {
        // receipt=new String(Base64.decode(receipt));
+    	
+    	System.out.println("111111111111111================================================");
         System.out.println("receipt:"+receipt);
+        
         String url = certificateUrl;
         final String certificateCode = receipt;
 
@@ -85,55 +92,53 @@ public class IapController {
          System.out.println("苹果返回数据:"+resp);
 
          //把苹果返回的数据存到数据库
-
         String productId= JSONObject.parseObject(resp).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("product_id").toString();
+       
         System.out.println("productId:"+productId);
         if(StringUtils.isBlank(productId)){
             return ResponseObject.newErrorResponseObject("操作失败！找不到productId");
         }
-
         //记录数据 增加熊猫币
-
 //            10熊猫币 	消耗型项目	com.bj.healthlive.coin_01
 //            60熊猫币 	消耗型项目	com.bj.healthlive.coin_02
 //            120熊猫币 	消耗型项目	com.bj.healthlive.coin_03
 //            500熊猫币 	消耗型项目	com.bj.healthlive.coin_04
 //            980熊猫币 	消耗型项目	com.bj.healthlive.coin_05
 //            4880熊猫币 	消耗型项目	com.bj.healthlive.coin_06
-
-            int xmb=0;
-            switch (productId){
-
-                case "com.bj.healthlive.coin_01":
-                    xmb=10;
-                    break;
-                case "com.bj.healthlive.coin_02":
-                    xmb=60;
-                    break;
-                case "com.bj.healthlive.coin_03":
-                    xmb=120;
-                    break;
-                case "com.bj.healthlive.coin_04":
-                    xmb=500;
-                    break;
-                case "com.bj.healthlive.coin_05":
-                    xmb=980;
-                    break;
-                case "com.bj.healthlive.coin_06":
-                    xmb=4880;
-                    break;
-                    default:
-                        throw new RuntimeException("productId不正确");
-            }
-
+//            int xmb=Integer.parseInt(actualPrice)*rate;
+//            switch (productId){
+//
+//                case "com.bj.healthlive.coin_01":
+//                    xmb=10;
+//                    break;
+//                case "com.bj.healthlive.coin_02":
+//                    xmb=60;
+//                    break;
+//                case "com.bj.healthlive.coin_03":
+//                    xmb=120;
+//                    break;
+//                case "com.bj.healthlive.coin_04":
+//                    xmb=500;
+//                    break;
+//                case "com.bj.healthlive.coin_05":
+//                    xmb=980;
+//                    break;
+//                case "com.bj.healthlive.coin_06":
+//                    xmb=4880;
+//                    break;
+//                    default:
+//                        throw new RuntimeException("productId不正确");
+//            }
+            //
+        
+        	int xmb=Integer.parseInt(actualPrice)*10;
             iphoneIpaService.increase(userId,xmb,resp,actualPrice);
-
+            System.out.println("22222222222222222222222222222====================");
             return ResponseObject.newSuccessResponseObject(null);
         }else{
             return null;
         }
     }
-
     /**
      * 发送请求
      * @param url
@@ -173,6 +178,7 @@ public class IapController {
             while((line = reader.readLine())!= null){
                 sb.append(line);
             }
+            System.out.println("要通过这个参数来得到这个用户的信息："+sb.toString());
             return sb.toString();
 
         } catch (Exception e) {

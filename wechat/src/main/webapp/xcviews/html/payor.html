@@ -31,23 +31,26 @@
 	<div class="attention">
 		<div class="attention_top">
 			<div class="return" onclick="history.go(-1)"></div>
-			<div class="dl" style="padding-top:0.2rem;">充值明细</div>
+			<div class="dl">充值明细</div>
 		</div>
 		<div class="both"></div>
 		<div class="detail" style="margin-top: 2.2rem;">
-			<div class="detail_top" style="border: none;margin-bottom: 0;padding-bottom: 0;">
+			<div class="detail_top" style="padding-bottom: 0;">
 				<p class="detail_cen_p1">充值金额</p>
-				<p class="detail_cen_p2" id="totalAmount1"></p>
+				<p class="detail_cen_p2" style="margin-right: 0.4rem;font-size: 1rem;">熊猫币</p>
+				<p class="detail_cen_p2" id="totalAmount1" style="font-size: 1rem;"></p>
 				<div class="both"></div>
 			</div>
-			<div class="detail_top">
+			
+			<!--ui新图隐藏-->
+			<!--<div class="detail_top">
 				<p class="detail_cen_p1">入账金额</p>
 				<p class="detail_cen_p2" id="totalAmount"></p>
 				<div class="both"></div>
-			</div>
+			</div>-->
 			<div class="detail_cen">
 				<p class="detail_cen_p1">类型</p>
-				<p class="detail_cen_p2">收入</p>
+				<p class="detail_cen_p2">充值</p>
 				<div class="both"></div>
 			</div>
 			<div class="detail_cen">
@@ -58,6 +61,16 @@
 			<div class="detail_cen">
 				<p class="detail_cen_p1">交易单号</p>
 				<p class="detail_cen_p2" id=outTradeNo></p>
+				<div class="both"></div>
+			</div>
+			<div class="detail_cen">
+				<p class="detail_cen_p1">状态</p>
+				<p class="detail_cen_p2">成功</p>
+				<div class="both"></div>
+			</div>
+			<div class="detail_cen">
+				<p class="detail_cen_p1">余额</p>
+				<p class="detail_cen_p2" id="balance"></p>
 				<div class="both"></div>
 			</div>
 			<div class="detail_cen">
@@ -75,17 +88,13 @@
         var r = url.substr(1).match(reg);
         if (r != null) return unescape(r[2]); return null;
     }
-/* 	orderNo: "595",
-	createTime: 1505640180000,
-	value: "392.700000",
-	paytype: "微信" */
     
     var orderNo = getQueryString("orderNo");
     var value = getQueryString("value"); //熊猫币
     var createTime = getQueryString("createTime");
     var paytype = getQueryString("paytype");
-    var total = getQueryString("total"); //金额
-    
+    var total = getQueryString("total"); //人民币
+    var balance = getQueryString("balance"); //充值后余额
    
 	if(stringnull(value)){
 		 $("#totalAmount1").text(value);
@@ -105,6 +114,10 @@
 	if(stringnull(paytype)){
 		$("#remark").text(paytype);
 	}
+	if(stringnull(balance)){
+		$("#balance").text(balance+"熊猫币");
+	}
+	
 </script>
 </body>
 </html>

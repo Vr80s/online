@@ -840,11 +840,16 @@ $.getUrlParam = function(name) {
 							if(data.resultObject.currentPage == 1) {
 								$("#Pagination").pagination(data.resultObject.totalPageCount, {
 									callback: function(page) { //翻页功能
+										console.log(page);
 										var param = {
 											pageNumber: page + 1,
 											pageSize: pageSize
 										};
-										course(courseStatus, param.pageNumber, pageSize);
+//										console.log(param.pageNumber);
+//										course(1, 1, 12);
+										console.log(param.pageNumber,param.pageSize);
+//										pageSize = param.pageSize;
+//										course(courseStatus, pageNumber, pageSize);
 									}
 								});
 							}
@@ -935,6 +940,7 @@ $.getUrlParam = function(name) {
 												pageNumber: page + 1,
 												pageSize: pageSize
 										};
+										console.log(page);
 										course_xianxia(courseStatus, param.pageNumber, pageSize);
 									}
 								});
@@ -1015,15 +1021,23 @@ $.getUrlParam = function(name) {
 												pageNumber: page + 1,
 												pageSize: pageSize
 										};
-										course_live(courseStatus, param.pageNumber, pageSize);
+										console.log(param.pageNumber);
+										console.log(courseStatus);
+										course_live(courseStatus, param.pageNumber,pageSize);
+
 									}
 								});
 							}
 							if(courseStatus == 0) {
+								$('.loadrr').css("display", "none");
+								$(".main-right .mycourse-live .right-course .course1-live").css("display", "none");
+								$(".main-right .mycourse-live .right-course .course0-live").css("display", "block");
 								$(".main-right .mycourse-live .right-course .course0-live").html(template.compile(mycourse)({
 									items: data.resultObject.items
 								}));
 							} else if(courseStatus == 1) {
+								$('.loadrr').css("display", "none");
+								$(".main-right .mycourse-live .right-course .course1-live").css("display", "block");
 								$(".main-right .mycourse-live .right-course .course1-live").html(template.compile(mycourse)({
 									items: data.resultObject.items
 								}));
@@ -1104,6 +1118,7 @@ $.getUrlParam = function(name) {
 											pageNumber: page + 1,
 											pageSize: pageSize
 										};
+//										console.log(page);
 										order(state, time, param.pageNumber, pageSize);
 									}
 								});

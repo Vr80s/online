@@ -289,6 +289,41 @@ $(function(){
 	    background: url(/xcviews/images/null13.png) no-repeat;
 	    background-size: 100% 100%;
     }
+    .facebox-mobile0{
+    	margin-top: -1.5rem !important;
+    	left: -0.6rem !important;
+    }
+    
+    
+    /*弹框  视频迷路了，请试试其他视频。 */
+   	.history_bg_cen{
+   		width: 11.55rem;
+	    height: 6.35rem;
+	    position: fixed;
+	    top: 50%;
+	    left: 50%;
+	    margin-left: -37%;
+	    background: #f4f4f4;
+	    z-index: 999999999;
+	    border-radius: 6px;
+   	}
+   	.history_bg_bto{
+   		margin: 0 auto;
+	    margin-top: 1.8rem;
+	    width: 100%;
+	    border-top: 1px solid #e5e5e5;
+	    line-height: 1.8rem;
+   	}
+   	.history_bg_bto div{
+   		width: 100%;
+   	}
+   	
+   	.vanish2{
+   		display: none;
+   	}
+   	.vanish4{
+   		display: none;
+   	}
 </style>
 
 <script>
@@ -368,7 +403,7 @@ $(function(){
 		$(".gift_ul_li li:first-child").click();
 		
 		
-		$(".give_lable1:eq(1)").click();
+		$(".give_lable1:eq(2)").click();
 		
 		
 		if($("#doc img").attr("src").length==0){
@@ -377,10 +412,52 @@ $(function(){
 			$(".pinch-zoom-container").css("display","block");
 			$(".fd_img").css("display","none");
 		}	
+		
+		
+		/*处理华为手机上输入框遮挡*/
+		/*$("#mywords").click(function(){
+			$("body").css("margin-top","-1rem");
+			$(".details_cen1").css("margin-top","-1rem");
+		});
+		$("#sendChat").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$(".give_a1").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$(".give_a1_span02").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$(".face").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$(".details_footer").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$(".video").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$(".details_size").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$("header").click(function(){
+			$("body").css("margin-top","0rem");
+		});*/
+		/*$(".give_a1").click(function(){
+			$("body").css("margin-top","0rem");
+		});
+		$(".give_a1").click(function(){
+			$("body").css("margin-top","0rem");
+		});*/
 	};
 </script>
 </head>
 <body style="background: #efefef;">
+	<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>熊猫币余额获取失败！请稍后再试</div></div></div>
+	<div class='vanish4'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
+	
+	<div class='vanish02'><div class='vanish02_bg'></div><div class='vanish02_cen'><div class='vanish02_size'>提交订单错误！请稍后再试！</div></div></div>
+	
 		<!--礼物出现的区域  -->
 		<!-- <div class=""  id="text" onkeypress="if(event.keyCode==13) {btn.click();return false;}"></div> -->
 	<!-- <div id="opacity"></div> -->
@@ -389,8 +466,9 @@ $(function(){
 	<!-- 如果视频id出现错误，弹框 -->
 	<div class="history_bg" style="display:none;">
 		<div class="history_bg_color"></div>
-		<div class="history_bg_cen"  style="top:0%;height: 5rem;">
-			<div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>
+		<div class="history_bg_cen"  style="top:0%;">
+			<!--<div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>-->
+			<div class="history_bg_cen_size">视频迷路了，请试试其他视频。</div>
 			<div class="history_bg_bto">
 				<div class="history_bg_bto1" style="float:right;" onclick="javascript:history.back(-1);">确定</div>
 				<!-- <div class="history_bg_bto2">取消</div> -->
@@ -408,12 +486,12 @@ $(function(){
 				</div>
 
 				<span class="history_span"
-					style="width: 74%; color: #666; font-size: 1rem;position: absolute;left: 2.1rem;"></span>
+					style="width: 74%; color: #666; font-size: 0.851rem;position: absolute;left: 2.1rem;"></span>
 				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
-	<div class="footer_k" style="height: 1.8rem;"></div>
+	<div class="footer_k" style="height: 1.8rem;display: none;"></div>
 		
 	<!-- 头部结束 -->
 	<!-- 中间内容开始 -->
@@ -421,7 +499,7 @@ $(function(){
 		style="position: fixed; width: 100%; background: #fff; border-bottom: 1px solid #d2d2d2; z-index: 9999;">
 		<!-- <div class="video" id="video" style="width: 100%;height:200px;"></div> -->
 		<!-- <div class="doc" id="doc" style="display: none"></div> -->
-		<div class="video" id="video" style="width: 100%; height: 8.95rem; background: url(/xcviews/images/play_back.png1) no-repeat; background-size: cover;">
+		<div class="video" id="video" style="width: 100%; height: 8.95rem; background: url(/xcviews/images/play_back.png1) no-repeat; background-size: cover;margin-top: 0.5rem;">
 			
 		</div>
 		<!--<div class="video_img"><img src="/xcviews/images/play_back.png" /></div>-->
@@ -531,7 +609,9 @@ $(function(){
 				<!-- 表情 -->
 			<div class="give_a01" style="margin-top: -1.47rem;margin-right: 0;display: block;position: absolute;display: block !important; margin-left: -1.3rem;">
 				<a id="face" href="javascript:;" class="face give_a1_span" style="margin-left: -0.2rem;display: inline-block;margin-top: 0.3rem;position: absolute;left: -0.18rem;top: 1.5rem;padding: 0.2rem;"><div class="face_img01" ></div><!-- <img src="/xcviews/images/face.png" style="margin-top: -0.1rem;width:1.1rem;" class="face_img01" /> --></a>
+				<div class="both"></div>
 			</div>
+			
 			<!--打赏暂时关闭-->
 			<!--<a href="javascript: ;"  class="give_a2"><img src="/xcviews/images/give.png" alt="" /></a>-->
 		</div>
@@ -634,6 +714,7 @@ $(function(){
 							<div class="import1">100</div>
 							<div class="import2">50</div>
 							<div class="import3">10</div>
+							<div class="import5">1</div>
 						</div>
 					</div>
 					
@@ -778,7 +859,7 @@ $(function(){
 </body>
 <!-- <script>development="dev"</script> -->
 <script src="/xcviews/weihoujs/jquery.min.js"></script>
-<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script src="/xcviews/weihoujs/vhallSDK.js"></script>
 <script src="/xcviews/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -795,7 +876,7 @@ $(function(){
 
 
  
-  <script type="text/javascript">
+<script type="text/javascript">
  $(document).ready(function(){
 	
 	/* $("#doc img").click(function(){

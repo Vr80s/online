@@ -4,7 +4,7 @@
 <!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
 <html lang="en" style="font-size: 84.3125px;">
 <!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
-
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 <head>
 <meta charset="utf-8">
 <!--<title>注册</title>-->
@@ -47,7 +47,16 @@ $(document).ready(function() {
 	.phone_password{
 		bottom: -0.3rem;
 	}
+	
+	
+	.vanish{
+		left: 0.1rem;
+	}
+	.vanish2{
+		left: 0.1rem;
+	}
 </style>
+
 </head>
 
 <body>
@@ -58,14 +67,14 @@ $(document).ready(function() {
 		</div>
 		<div class="last_input">
 			<div class="phone phone_bottom1">
-				请输入手机号&nbsp;&nbsp;<input type="tel" name="number" id="number" style="width:70%;" />
+				请输入手机号&nbsp;&nbsp;<input type="tel" name="number" id="number" style="width:7rem;" maxlength="11" />
 			</div>
 			<div class="phone phone_bottom2">
-				输入验证码&nbsp;&nbsp;<input type="tel" value="" name="yanzhengma" id='yanzhengma' style="width:49%;" />
-				<a href="javascript: ;"  id="btn" class="phone_password gain" />获取验证码</a>
+				输入验证码&nbsp;&nbsp;<input type="tel" value="" name="yanzhengma" id='yanzhengma' style="width:5rem;" />
+				<a href="javascript: ;"  id="btn" class="phone_password gain" maxlength="4" />获取验证码</a>
 			</div>
 			<div class="phone phone_bottom1">
-				设置6位以上密码&nbsp;&nbsp;<input type="password" value="" id='userpassword' type="password" style="width:61%;" />
+				设置6位以上密码&nbsp;&nbsp;<input type="password" value="" id='userpassword' type="password" style="width:6rem;" maxlength="18" />
 			</div>
 			
 			<div class="tishi" id="reminderror" style="text-align: center;color: red;margin-top: 20px;font-size: 14px;"></div>
@@ -81,7 +90,7 @@ $(document).ready(function() {
 	</div>
 	<div class="deal_show">
 		<div id="" style="width: 100%;">
-			<div id="deal_title" style="height: 52px;background: #91b18a;text-align: center;line-height: 52px;color: #fff;">
+			<div id="deal_title" style="height: 52px;background: #00bc12;text-align: center;line-height: 52px;color: #fff;">
 				熊猫中医云课堂用户协议<span class="deal_title_close">X</span>
 			</div>
 			<div id="deal_p">

@@ -143,6 +143,15 @@ pre:after {
     margin-top: 0rem;
     margin-right: 0.4rem;
 }
+.mui-poppicker-header .mui-btn{
+	font-size: 15px;
+    height: 34px;
+    padding: 0 10px;
+    border: none;
+    outline: none;
+    color: #00bc12;
+    background: none;
+}
 </style>
 <link href="../css/picker.css" rel="stylesheet" />
 
@@ -204,7 +213,6 @@ pre:after {
 								}
 								jobList.push(job);
 							}
-							//{"id":"19","key":"0","value":"中医爱好者"}
 						}
 					},false);
 			        
@@ -474,9 +482,21 @@ pre:after {
     		//
   		});
   		
+  		
+  		
+  		$(".person_three").click(function(){
+  			$(".mui-active").hide();
+  		});
+  		$("#showUserPicker").click(function(){
+  			$(".mui-zx_mask").hide();
+  		});
+  		
 	});
 </script>
 <style>
+	.zx_mask{
+		height: 40%;
+	}
 	.person_img{
 		margin-top: 0;
 	}
@@ -511,67 +531,47 @@ pre:after {
 	    height: 2rem;
 	    float: right;
 	    margin-right: 0.4rem;
-	    margin-top: 0.62rem;
+	    margin-top: 0.2rem;
 	    padding-top: 0;
+	    display: grid;
 	}
 	#logoBox img{
 		width: 100%;
 		height: 100%;
+	}
+	.person_cen{
+		padding: 0;
 		border: 0;
-		border: none;
 	}
-	.person_cen_parent{
-		width: 100%;
-	    height: 100%;
-	    background: #fff;
-	}
-	.person_cen_top{
-		width: 100%;
-		height: 2.3rem;
+	.person{
+		position: relative;
+	    line-height: 3.75rem;
 	    padding: 0;
-	    line-height: 2.3rem;
-	    margin-bottom: 0;
+	    height: 3.75rem;
+	    margin: 0;
 	}
-	.person_cen{
+	.person0{
 		width: 97%;
-		float: right;
+	    line-height: 3.75rem;
+	    height: 3.75rem;
+	    border-bottom: 1px solid #e5e5e5;
+	    float: right;
 	}
-	.my_right_img{
-		margin-right: 0.6rem;
+	#logoBox{
+		width: 2.25rem;
+	    height: 2.25rem;
+	    margin-top: 0.75rem;
+	    margin-right: 1rem;
 	}
-	.person_cen{
-		margin-top: 0rem;
-		padding-bottom: 0;
-	}
-	.person p{
-		margin-left: 0;
-	}
-	.person_p1{
-		color: #333;
-	}
-	.person_cen_right p{
-		color: #989898;
-	}
-	.mui-poppicker{
-		box-shadow: none;
-	}
-	.mui-poppicker-btn-cancel{
-	    font-size: 15px !important;
-	    height: 45px;
-	    padding: 0 10px !important;
-	    border: none;
-	    outline: none;
-	    color: #00bc12;
-	    background: #f0f1f2;
-	}
-	.mui-btn-blue{
-		font-size: 15px !important;
-	    height: 45px;
-	    padding: 0 10px !important;
-	    border: none;
-	    outline: none;
-	    color: #00bc12;
-	    background: #f0f1f2;
+	#szd_cityP{
+		font-size: 0.65rem;
+	    color: #999;
+	    width: 11.8rem;
+	    /* overflow: hidden; */
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    text-align: right;
 	}
 </style>
 </head>
@@ -591,7 +591,9 @@ pre:after {
 	</div>
 	<!-- 点击头像出现框结束 -->
 	
-
+	
+	
+	
 	<div style="position: relative;">
 	
 		<!--头部-->
@@ -638,29 +640,27 @@ pre:after {
 			<div class="dl" style="padding-top1: 0.2rem;">资料设置</div>
 		</div>
 		<div class="both"></div>
-		<div class="person_cen_parent" style="margin-top: 2.275rem;">
-			<div class="person" style="position: relative;height: 3.25rem;line-height: 3.25rem;padding: 0;width: 97%;float: right;border-bottom: 1px solid #eee;margin: 0;">
-				<p>头像</p>
-				<form method="post" enctype="multipart/form-data" id="form1">
-					<!-- 头像。别删亲 -->
-				   	<!--   <input id="file" type="file" name="file" onchange="checkUser()" style="width:14.5rem;height:2rem;position: absolute;right:0.38rem;top:0.4rem;opacity: 0;" />
-				 <div class="person_img" style="margin-top: 0.2rem;">
-						<img src="../images/touxiang.png" id="headImg" alt="">
-					 </div> -->
-					 <!-- 图像区域 -->
-				 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="width:2rem;height:2rem;margin-right: 1rem;" onchange="checkUser()">
-					    <img  src="" width="100%" id="headImg" />
-					</a>
-					
-					<div class="person_cen_right">
-						<div class="my_right_img" style="margin-right: -2.45rem;margin-top: 0;"><img src="/xcviews/images/right_jian.png"></div>
-					</div>
-					
-				</form>
+		<div class="person" style="">
+			<div class="person0">
+			<p>头像</p>
+			<form method="post" enctype="multipart/form-data" id="form1">
+				<!-- 头像。别删亲 -->
+			   	<!--   <input id="file" type="file" name="file" onchange="checkUser()" style="width:14.5rem;height:2rem;position: absolute;right:0.38rem;top:0.4rem;opacity: 0;" />
+			 <div class="person_img" style="margin-top: 0.2rem;">
+					<img src="../images/touxiang.png" id="headImg" alt="">
+				 </div> -->
+				 <!-- 图像区域 -->
+			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" onchange="checkUser()">
+				    <img  src="" width="100%" id="headImg" />
+				</a>
+				
+				<div class="my_right_img" style="position: absolute;right: -0.25rem;"><img src="/xcviews/images/right_jian.png"></div>
+			</form>
 			</div>
+			<div class="both"></div>
 		</div>
-		<div class="person_cen_parent">
 		<div class="person_cen">
+			<div class="person_cen0">
 			<div class="person_cen_top person_one" onclick="location.href ='nickname.html'">
 				<p class="person_p1">昵称</p>
 				<div class="person_cen_right">
@@ -669,7 +669,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-		    <div class="both"></div>
+		    
 		    <div class="person_cen_top person_two" onclick="location.href ='change_sex.html'">
 				<p class="person_p1">性别</p>
 				<div class="person_cen_right">
@@ -678,7 +678,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
+			
 			<div class="person_cen_top person_five" onclick="location.href ='mailbox.html'">
 				<p class="person_p1">邮箱</p>
 				<div class="person_cen_right">
@@ -687,7 +687,7 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
+			
 		   <div class="person_cen_top person_three" onclick="szd_picker2()">
 				<p class="person_p1">所在地</p>
 				<div class="person_cen_right" style="margin-top:0.05rem;">
@@ -696,8 +696,8 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
-			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'" style="border: 0;">
+			
+			<div class="person_cen_top person_sign" onclick="location.href ='signature.html'" style="margin-bottom: 0;border: 0;">
 				<p class="person_p1">个性签名</p>
 				<div class="person_cen_right">
 					<p id="person_sign"></p>  
@@ -705,14 +705,14 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
+			</div>
 			<div class="both"></div>
 		</div>
 		<div class="both"></div>
-		</div>
 		
-		<div class="both"></div>
-		<div class="person_cen_parent" style="margin-top: 0.4rem;">
-		<div class="person_cen">
+		
+		<div class="person_cen" style="margin-top: 0.4rem;margin-bottom: 0.4rem;">
+			<div class="person_cen0">
 			<div class="person_cen_top" id="showUserPicker">
 				<p class="person_p1">身份信息</p>
 				<div class="person_cen_right">
@@ -721,7 +721,6 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="both"></div>
 			<div class="person_cen_top" onclick="location.href ='occupation_info.html'" style="border: 0;">
 				<p class="person_p1">职业信息</p>
 				<div class="person_cen_right">
@@ -730,12 +729,12 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-		</div>
-		<div class="both"></div>
+			</div>
+			<div class="both"></div>
 		</div>
 		
-		<div class="person_cen_parent" style="margin-top: 0.4rem;">
 		<div class="person_cen">
+			<div class="person_cen0">
 		<!-- 	
 		   <div class="person_cen_top person_four" onclick="location.href ='change_password.html'">
 				<p class="person_p1">密码</p>
@@ -765,7 +764,7 @@ pre:after {
 			</div>
 			-->
 			
-			<div class="person_cen_top person_seven" style="border-bottom:0px" onclick="location.href ='address.html'">
+			<div class="person_cen_top person_seven" style="border-bottom:0px;margin-bottom: 0;" onclick="gotoAddress()">
 				<p class="person_p1">地址管理</p>
 				<div class="person_cen_right">
 					<!-- <p id="person_five">添加地址</p> -->
@@ -773,8 +772,8 @@ pre:after {
 				</div>
 				<div class="both"></div>
 			</div>
-		</div>
-		<div class="both"></div>
+			</div>
+			<div class="both"></div>
 		</div>
 		<!-- <div class="quit" id="quit">退出登录</div> -->
 	</div>
@@ -798,6 +797,14 @@ pre:after {
 <script src="../js/mui.poppicker.js"></script>
 
 <script>
+	
+	//去地址管理页面
+	function gotoAddress(){
+		
+		sessionStorage.setItem("address_back", "persons.html");
+		
+		location.href="address.html";
+	}
 
 /* <p id="szd_cityP" onclick="szd_picker2()">请选择</p>    */
 
@@ -807,7 +814,7 @@ pre:after {
         new Picker({
             "title": '请选择',//标题(可选)
             "defaultValue": "",//默认值-多个以空格分开（可选）
-            "type": 2,//需要联动级数[1、2、3]（可选）
+            "type": 3,//需要联动级数[1、2、3]（可选）
             "data": cityData,//数据(必传)
             "keys": {
                 "id": "Code",

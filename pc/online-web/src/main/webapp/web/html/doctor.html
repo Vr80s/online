@@ -1,0 +1,518 @@
+<!DOCTYPE html> 
+<html>
+<head lang="en">
+    <!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IEedge"/>
+    <meta charset="UTF-8">
+    <title>熊猫中医 - 名医</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <meta name="keywords"
+          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+    <meta name="description"
+          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+    <meta name="renderer" content="webkit">
+    <meta name="baidu-site-verification" content="UHaAQAeAQF"/>
+    <link rel="stylesheet" href="/web/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/web/css/mylogin.css"/>
+    <link rel="stylesheet" href="/web/css/componet.css"/>
+    <link rel="stylesheet" href="/web/css/header.css"/>
+    <link rel="stylesheet" href="/web/css/doctor.css"/>
+    <link rel="stylesheet" href="/web/css/footer.css"/>
+    <link rel="stylesheet" href="/web/font/iconfont.css"/>
+
+    <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/web/js/artTemplate.js"></script>
+    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="/web/js/helpers.js"></script>
+    <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
+
+    <!--百度统计-->
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?9905b58e5fa2d9e2dd20bd22ee8ffe8c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+<div id="forum" class="clearfix">
+    <div class="forum-banner">
+        <div class="banner">
+            <ul id="slider" class="slider">
+
+            </ul>
+            <div id="left"><em></em></div>
+            <div id="right"><em></em></div>
+            <div id="selector" class="selector">
+
+            </div>
+        </div>
+        <div class="hot-article hide">
+            <span class="hot-article-title">每周免费预约大师号</span>
+            <p class="appointment">参与有百分之一的机会获得近期大师预约号</p>
+            <div class="hot-article-list">
+            <!-- TODO -->
+            
+            	<div class="appointments clearfix">
+					<ul class="appointment_left">
+						<li class="appointment_doctor_pic"></li>
+						<li class="last_time">揭晓倒计时</li>
+						<li class="Count_down">14：33：30</li>
+					</ul>
+					<ul class="appointment_right">
+						<li>国医大师<span class="doctor_name">段富津</span></li>
+						<li class="appointment_doc_address"><span>黑龙江</span><span>哈尔滨</span></li>
+						<li class="appointment_doc_school"><em></em>哈尔滨中医药大学</li>
+						<li class="appointment_time"><em></em>2017.12.12下午</li>
+						<li class="appointment_btn"><button>免费预约</button></li>
+					</ul>
+				</div>
+				
+				<div class="appointments clearfix">
+					<ul class="appointment_left">
+						<li class="appointment_doctor_pic"></li>
+						<li class="last_time">揭晓倒计时</li>
+						<li class="Count_down">14：33：30</li>
+					</ul>
+					<ul class="appointment_right">
+						<li>国医大师<span class="doctor_name">段富津</span></li>
+						<li class="appointment_doc_address"><span>黑龙江</span><span>哈尔滨</span></li>
+						<li class="appointment_doc_school"><em></em>哈尔滨中医药大学</li>
+						<li class="appointment_time"><em></em>2017.12.12下午</li>
+						<li class="appointment_btn"><button>免费预约</button></li>
+					</ul>
+				</div>
+				
+				
+				
+            
+
+            </div>
+        </div>
+    </div>
+    <div class="forum-content clearfix">
+        <div class="forum-content-left">
+            <!-- TODO -->
+            <div class="doctor_list clearfix" id="doc_lis1">
+            <h2>国医大师</h2> 
+            <a href="/web/html/doctor_list.html?name=&type=4" target="_blank">更多></a>
+            <ul class="doctor_inf" id="guoyi">
+				<!--<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>-->
+				
+			</ul>
+            </div>
+            
+            
+            <div class="doctor_list clearfix" id="doc_lis2">
+            <h2>名老中医</h2>
+            <a href="/web/html/doctor_list.html?name=&type=2" target="_blank">更多></a>
+            <ul class="doctor_inf" id="minglao">
+				<!--<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				-->
+			</ul>
+            </div>
+            
+            <div class="doctor_list clearfix" id="doc_lis3">
+            <h2>中青年名中医</h2>
+            <a href="/web/html/doctor_list.html?name=&type=1" target="_blank">更多></a>
+            <ul class="doctor_inf" id="mingqing">
+				<!--<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>-->
+				
+			</ul>
+            </div>
+            
+            
+            <div class="doctor_list clearfix" id="doc_lis4">
+            <h2>家传中医</h2>
+            <a href="/web/html/doctor_list.html?name=&type=5" target="_blank">更多></a>
+            <ul class="doctor_inf" id="guzhongyi">
+				<!--<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>-->
+				
+			</ul>
+            </div>
+            
+            
+            <div class="doctor_list clearfix" id="doc_lis5">
+            <h2>少数民族中医</h2>
+            <a href="/web/html/doctor_list.html?name=&type=3" target="_blank">更多></a>
+            <ul class="doctor_inf" id="shaoshu">
+				<!--<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>
+				
+				<li>
+					<img src="../images/teacher_small_pic.png" alt="">
+					<h5>施小墨</h5>
+					<p>每周二、四</p>
+					<p>广东&nbsp;广州&nbsp;同仁堂国医馆</p>
+				</li>-->
+				
+			</ul>
+            </div>
+            
+            
+            
+            
+           
+            
+            
+            
+            
+            <div class="pages">
+                <div id="Pagination"></div>
+            </div>
+        </div>
+        <div class="forum-content-right">
+        
+        <div class="forum-hosJoin hide">
+                <p>期待有志于传承和发展中医药的医馆加入</p>
+               <button>医官入住</button>
+            </div>
+            
+          
+              
+            <div class="forum-hot-tag">
+                <div class="forum-hot-tag-title">医师搜索</div>
+                <div class="search_hos_box clearfix">
+                	<button class="search_hos_btn">搜索</button>
+                 	<input class="search_hos" type="text" placeholder="请输入名字搜索医师">
+                </div>
+                <p>按擅长领域搜索</p>
+                <ul class="forum-hot-tagGround">
+
+                </ul>
+            </div>
+            
+            
+              <!-- 名师报道 -->
+            <div class="school_teacher hide">
+            	<h4>名师报道</h4>
+            	<ul class="teacher_picList clearfix" id="doctor_tuijian">
+            	
+            	<!-- TODO -->
+					<li>
+						<a href="javascript:;">中医药席卷全球成独特风景，发展热情被彻底掀了起来</a>
+					</li>
+					
+					<li>
+						<a href="javascript:;">外向的孤独患者有何不可</a>
+					</li>
+					
+					<li>
+						<a href="javascript:;">活像个孤独患者自我拉扯，外向的孤独患者</a>
+					</li>
+					
+					<li>
+						<a href="javascript:;">中医药席卷全球成独特风景，发展热情被彻底掀了起来</a>
+					</li>
+					
+					<li>
+						<a href="javascript:;">中医药席卷全球成独特风景，发展热情被彻底掀了起来</a>
+					</li>
+					
+				</ul>
+            </div>
+            
+            
+            
+            
+            <!-- 名医书籍 -->
+            <div class="teacher_books hide">
+            <h4>名医书籍</h4>
+            	<ul class="book_list clearfix">
+            	<!-- TODO -->
+					<li>
+						<img src="../images/books.png" alt="">
+						<div>
+						<span class="book_name">药房里买得到的传世名方</span>
+						<h5 class="book_author">佟彤</h5>
+						</div>
+					</li>
+					
+					<li>
+						<img src="../images/books.png" alt="">
+						<div>
+						<span class="book_name">药房里买得到的传世名方</span>
+						<h5 class="book_author">佟彤</h5>
+						</div>
+					</li>
+					
+					<li>
+						<img src="../images/books.png" alt="">
+						<div>
+						<span class="book_name">药房里买得到的传世名方</span>
+						<h5 class="book_author">佟彤</h5>
+						</div>
+					</li>
+				</ul>
+            
+            </div>
+          
+        </div>
+    </div>
+</div>
+
+
+<!-- 国医大师-->
+<script type="text/template" id="guoyiTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
+		<p>{{doctor.workTime}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 名老中医-->
+<script type="text/template" id="minglaoTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
+		<p>{{doctor.workTime}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 名青中医-->
+<script type="text/template" id="mingqingTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
+		<p>{{doctor.workTime}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 家传中医-->
+<script type="text/template" id="guzhongyiTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
+		<p>{{doctor.workTime}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
+	</li>
+ {{/each}}
+</script> 
+
+<!-- 少数民族中医-->
+<script type="text/template" id="shaoshuTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<img src={{doctor.headPortrait}} alt="">
+		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
+		<p>{{doctor.workTime}}</p>
+		<p>
+			{{if doctor.province == doctor.city}}
+				{{doctor.city}}&nbsp;
+			{{else}}
+				{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
+			{{/if}}
+			{{doctor.hospitalName}}
+		</p>
+	</li>
+ {{/each}}
+</script> 
+
+
+<!-- 名医推荐-->
+<!--<script type="text/template" id="doctor_tuijianTpl"> 
+{{each doctor as doctor i}}
+	<li>
+		<a href="javascript:;">中医药席卷全球成独特风景，发展热情被彻底掀了起来</a>
+	</li>
+ {{/each}}
+</script> -->
+
+
+
+</body>
+</html>
+<script src="/web/js/jquery.pagination.js"></script>
+<script src="/web/js/doctor.js"></script>
+<script type="text/javascript" src="/web/js/footer.js"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('input').placeholder();
+    });
+</script>

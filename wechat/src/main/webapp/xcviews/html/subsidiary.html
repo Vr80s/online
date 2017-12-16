@@ -26,12 +26,12 @@
 		.detail{
 			margin-top: 2.2rem;
 		}
-		.detail_top p{
+		/*.detail_top p{
 			font-size: 0.7rem;
 		}
 		.detail_cen p{
 			font-size: 0.7rem;
-		}
+		}*/
 	</style>
 </head>
     
@@ -47,6 +47,7 @@
 		<div class="detail">
 			<div class="detail_top">
 				<p class="detail_cen_p1">出账金额</p>
+				<p class="detail_cen_p2" style="font-size: 1rem;margin-right: 0.4rem;">元</p>
 				<p class="detail_cen_p2" id="totalAmount"></p>
 				<div class="both"></div>
 			</div>
@@ -123,9 +124,9 @@
 	if(stringnull(enchashmentAccountType)){
 		var enchashmentAccountTypeStr ="";
 		if(enchashmentAccountType == 0){
-			enchashmentAccountTypeStr ="未处理";
+			enchashmentAccountTypeStr ="审核中";
 		}else if(enchashmentAccountType == 1){
-			enchashmentAccountTypeStr ="通过";
+			enchashmentAccountTypeStr ="成功";
 		}else if(enchashmentAccountType == 2){
 			enchashmentAccountTypeStr ="驳回";
 		}

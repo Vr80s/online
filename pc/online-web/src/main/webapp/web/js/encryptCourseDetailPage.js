@@ -134,8 +134,8 @@ window.onload=function(){
         '{{/if}}';
 	var haoping = '<div class="good-reputation">' +
 		'<div class="good-reputation-count">' +
-
-		'<span class="totalPeople">(<span class="totalCount"></span>条评论)</span>' +
+		'<span>好评</span><span class="goodPing"></span>' +
+		'<span class="totalPeople">(<span class="totalCount"></span>条评论，<span class="haopingCount"></span>条好评)</span>' +
 		' </div> </div>';
 
 	var stuEvalutation = '<div class="studentEvaluate">' +
@@ -146,7 +146,9 @@ window.onload=function(){
 		'<span class="repuName" title="{{$value.userName}}">{{$value.userName}}</span>' +
 		'</div>' +
 		'<div class="good-detail-info">' +
-
+		'<div class="starts">' +
+		'{{#stuEvluatStars($value.starLevel)}}' +
+		'</div>' +
 		'<div class="reputationContent">{{$value.content}}</div>' +
 		'<div class="repuationRelatInfo clearfix">' +
 		'<div class="repuTime">时间：{{dataSub($value.createTime)}}</div>' +
@@ -181,13 +183,16 @@ window.onload=function(){
         '{{/each}}'+
         "</div>";
     var mytitlelist = '<div class="bigpic-img">' +
+    	'{{if item.recommend == true}}'+
+    	'<img src="/web/images/recommend2.png" style="position: absolute;top: 27px;left: 27px;width: 70px;height: 70px;"/>' +
+    	'{{/if}}'+
         '<img src="{{item.bigImgPath}}"/>' +
         '</div>' +
         '<div class="bigpic-body">' +
         '<span class="bigpic-body-title">' +
         '<span class="bigpic-body-title-nav">{{item.courseName}}</span>' +
         '{{if item.recommend == true}}' +
-        '<i class="iconfont icon-jingpin jingpingCourse"><span>精</span></i>'+
+      //  '<i class="iconfont icon-jingpin jingpingCourse"><span>精</span></i>'+
         '{{/if}}'+
         '</span>' +
         '<p class="bigpic-body-text dot-ellipsis" title="{{item.description}}">{{item.description}}</p>' +

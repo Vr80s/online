@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script type="text/javascript">
     /*
-     *
      */
     function isWeiXin() {
    		var ua = window.navigator.userAgent.toLowerCase();
@@ -12,7 +11,6 @@
    			return false;
    		}
    	}
- 	
     var wxOrbrower,param_code,param_openId;
  	if (isWeiXin()) {
  		console.log(" 是来自微信内置浏览器")
@@ -28,8 +26,11 @@
 		 param_openId = '<%=(request.getAttribute("openId") == null || request
 					.getAttribute("openId").equals("null")) ? "" : request
 					.getAttribute("openId")%>';
+					
+		if(param_openId !=null && param_openId!="" ){
+			 localStorage.setItem("openid", param_openId);
+		}			
 	}
 </script>
 <%-- <%@ include file="../../Views/h5/index.html"%> --%>
-
 <%@ include file="../../xcviews/html/newindex.html"%>

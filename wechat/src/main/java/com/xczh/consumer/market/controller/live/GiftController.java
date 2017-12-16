@@ -88,6 +88,7 @@ public class GiftController {
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
 		System.out.println("====================="+user.getId());
+		
 		GiftStatement giftStatement=new GiftStatement();
 		giftStatement.setCreateTime(new Date());
 		giftStatement.setGiver(user.getId());
@@ -139,6 +140,7 @@ public class GiftController {
 //			map=remoteGiftService.addGiftStatement(giftStatement);
 //				}
 
+		
 		RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId()); // 1.获得锁对象实例
 		boolean resl = false;
 		try {
@@ -147,6 +149,8 @@ public class GiftController {
 			map=remoteGiftService.addGiftStatement(giftStatement);
 		}catch (Exception e){
 			e.printStackTrace();
+			System.out.println(e.getMessage());
+			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}finally {
 			if(resl){
 				redissonLock.unlock();
@@ -222,6 +226,4 @@ public class GiftController {
 
 		return ResponseObject.newSuccessResponseObject(giftService.userRankingList(userId));
 	}
-
-
 }

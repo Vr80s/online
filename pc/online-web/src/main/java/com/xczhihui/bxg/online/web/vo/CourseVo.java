@@ -200,8 +200,18 @@ public class CourseVo{
     
     
     private Integer liveStatus; //直播状态1.直播中，2预告，3直播结束
-    
-	public String getCoursePwd() {
+
+    private boolean isAvailable;//是否有效
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    public String getCoursePwd() {
 		return coursePwd;
 	}
 

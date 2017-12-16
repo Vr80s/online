@@ -171,7 +171,7 @@ public class OnlineCourse {
     
     public Integer type; //
     
-    public Integer lineState; //0 直播已结束 1 直播还未开始 2 正在直播
+    public Integer lineState; //瑞鑫加的直播状态  直播状态 1.直播中，2预告，3直播结束
 
     private String actualPay;//实付金额
     
@@ -179,13 +179,14 @@ public class OnlineCourse {
     
     private Date endTime;
     
-    private Integer liveStatus; //瑞鑫加的直播状态  直播状态 1.直播中，2预告，3直播结束
 
     private String onlineCourse; //直播 线下课
 
     private String address; //线下课程地址
     
     private String city; //所在城市 
+    
+    private Integer cutoff =0;	// 0 已截止  1 未截止
 
     
     public String getActualPay() {
@@ -514,14 +515,6 @@ public class OnlineCourse {
 		this.endTime = endTime;
 	}
 
-	public Integer getLiveStatus() {
-		return liveStatus;
-	}
-
-	public void setLiveStatus(Integer liveStatus) {
-		this.liveStatus = liveStatus;
-	}
-
     public String getOnlineCourse() {
         return onlineCourse;
     }
@@ -544,6 +537,14 @@ public class OnlineCourse {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Integer getCutoff() {
+		return cutoff;
+	}
+
+	public void setCutoff(Integer cutoff) {
+		this.cutoff = cutoff;
 	}
     
 }

@@ -94,16 +94,20 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 			if(result.watchState == 1){   //需要购买
 				$(".buy_bottom_p1").html("￥<span>"+result.currentPrice+"</span>");
 				$(".buy_bottom_p2").html(result.learndCount+"人已购买");
+				
+				
 				pwdAndBuy = 1;
 			}else if(result.watchState == 2){ //需要密码
 				/*$(".buy_bottom_p1").html("<span>需要密码</span>");*/
-				$(".buy_bottom_p1").html("<span style='font-size:0.7rem;margin-top: -0.3rem;display: -webkit-box;'>密码预约</span>")
+				$(".buy_bottom_p1").html("<span style='font-size:0.6rem;display: -webkit-box;'>密码预约</span>")
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 				pwdAndBuy = 2;
 			}else{
-				$(".buy_bottom_p1").html("<span style='font-size:0.7rem;'>免费视频</span>")
+				//$(".buy_bottom_p1").html("<span style='font-size:0.7rem;'>免费视频111</span>")
+				$(".buy_bottom_p1").html("<p style='font-size:0.6rem;margin-top: 0.4rem;'>免费视频</p>")
 				$(".buy_bottom_p2").html(result.learndCount+"人预约");
 				$(".buy_bottom_p2").hide();
+				
 				pwdAndBuy = 0;
 			}
 		}else if(result.isSubscribe == 1){//已经预约
@@ -112,14 +116,18 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 			if(result.watchState == 1){
 				pwdAndBuy = 1;
 				$(".buy_bottom_p2").html(result.learndCount+"人已购买");
+				
 			}else if(result.watchState == 2){
 				pwdAndBuy = 2;
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 			}else if(result.watchState == 0){
 				pwdAndBuy = 0;
 				$(".buy_bottom_p2").html(result.learndCount+"人已预约");
+				$(".buy_bottom_p2").css("margin-top","0.5rem");
 			}
 			$("#buy_right a").html("已预约");
+			$("#buy_right a").css("background","#ccc");
+			$(".buy_bottom_p2").css("margin-top","0.5rem");
 		}
 	} else {
 
@@ -172,12 +180,13 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 	 * 邮件主题：【微信JS-SDK反馈】具体问题
 	 * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
 	 */
+	var domain = window.location.protocol+"//"+document.domain;
 	wx.ready(function () {
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: result.gradeName, // 分享标题
 		    desc: result.description.stripHTML(), // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 		    imgUrl: result.smallImgPath, // 分享图标
 		    type: '', // 分享类型,music、video或link，不填默认为link
 		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -198,7 +207,7 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 		//发送到朋友圈
 		wx.onMenuShareTimeline({
 		    title: result.gradeName, // 分享标题
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
@@ -217,7 +226,7 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 		wx.onMenuShareQQ({
 		    title: result.gradeName, // 分享标题
 		    desc: result.description.stripHTML(), // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接  这个连接一定要和微信中配置的jssdk 权限域名一致
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		       // 用户确认分享后执行的回调函数
@@ -292,11 +301,14 @@ function goPay() {
 			/*隐藏上部分区域预告时间*/
 			/*$(".order_center").hide();*/
 			
-			alert("预约成功");
+//			alert("预约成功");
+			$(".vanish").show();
+			setTimeout(function(){$(".vanish").hide();},1500);
 			/*
 			 * 变成已预约
 			 */
 			$("#buy_right a").html("已预约");
+//			$(".buy_bottom_p2").css("margin-top","0.5rem;");
 			/*
 			 * 发送短息啦
 			 */
@@ -312,7 +324,8 @@ function goPay() {
 					location.href = "/xcviews/html/pay.html?orderId="+result.orderId+"&courseId=" + course_id
 							+ "&orderNo=" + result.orderNo+ "&page=2";
 				} else {
-					alert("提交订单错误！请稍后再试！");
+					$(".vanish1").show();
+					setTimeout(function(){$(".vanish1").hide();},1500);
 				}
 			});
 		}else if(pwdAndBuy == 2){
@@ -328,8 +341,10 @@ function goPay() {
 			$("#passwordDiv").show();
 		}
 	}else if(isSubscribe == 1){//已经预约，还需要在判断是否确认密码
+		$(".vanish0").show();
+		setTimeout(function(){$(".vanish0").hide();},1500);
 		
-		alert("您已预约成功"); 
+//		alert("您已预约成功"); 
 		/*if(pwdAndBuy == 2){
 			$("#passwordDiv").show();
 		}else if(pwdAndBuy == 0){
@@ -337,7 +352,8 @@ function goPay() {
 			return;
 		}*/
 	}else{
-		alert("状态异常");
+		$(".vanish3").show();
+		setTimeout(function(){$(".vanish3").hide();},1500);
 	}
 }
 /*
@@ -363,11 +379,13 @@ function enterPassword() {
 			$("#passwordDiv").hide();
 			pwdAndBuy = 0;
 			$("#buy_right a").html("已预约");
-            alert("开始直播时,您可以直接观看");
+            $(".vanish5").show();
+			setTimeout(function(){$(".vanish5").hide();},1500);
             
             
 		} else {
-			alert("密码错误！");
+			$(".vanish6").show();
+			setTimeout(function(){$(".vanish6").hide();},1500);
 		}
 	});
 }

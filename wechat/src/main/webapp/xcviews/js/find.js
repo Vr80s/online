@@ -43,11 +43,13 @@ document.getElementById("btn").addEventListener("tap", function() {
 		vtype:2   	//类型，1注册，2重置密码
 	};
 	if (!stringnull(number)) {
-		reminderror.innerHTML = "手机号不能为空";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		reminderror.innerHTML = "手机号格式不正确";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	requestService("/bxg/user/sendCode", urlparm, function(data) {
@@ -58,7 +60,9 @@ document.getElementById("btn").addEventListener("tap", function() {
 			var reg = document.getElementById("reg");
 			reminderror.innerHTML = "";
 		} else {
-			reminderror.innerHTML = data.errorMessage;
+			reminderror.innerHTML = "<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>"+data.errorMessage+"</div></div></div>";
+		    setTimeout(function(){$(".vanish2").hide();},1500);
+//			reminderror.innerHTML = data.errorMessage;  同一手机号两次发送间隔至少90秒！  用户不存在用的同一个
 		}
 	});
 })
@@ -67,25 +71,30 @@ reg.addEventListener("tap", function() {
 	var yanzhengma = document.getElementById("yanzhengma").value;
 	var userpassword = document.getElementById("userpassword").value; // 密码
 	if (!stringnull(number)) {
-		reminderror.innerHTML = "手机号不能为空";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		reminderror.innerHTML = "手机号格式不正确";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!stringnull(yanzhengma)) {
-		reminderror.innerHTML = "验证码不能为空";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!stringnull(userpassword)) {
-		reminderror.innerHTML = "密码不能为空";
+		reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>密码不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	var pwdLength = userpassword.trim().length;
-	if(pwdLength < 6 && pwdLength > 18) {
-         reminderror.innerHTML = "请输入6-18位密码!";
-         return false;
+    if(pwdLength < 6 || pwdLength > 18) {
+          reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入6-18位密码!</div></div></div>";
+          setTimeout(function(){$(".vanish").hide();},1500);
+          return false;
     }
 	checkCode(number, yanzhengma, userpassword);
 
@@ -120,7 +129,8 @@ function checkCode(username, code, userpassword) {
 			//登录之后到主页面呢
 			location.href = "/bxg/page/login/1";
 		} else {
-			tishi.innerHTML = data.errorMessage;
+			reminderror.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
+							setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
 }

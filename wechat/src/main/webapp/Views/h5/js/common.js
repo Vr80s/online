@@ -4,19 +4,11 @@
 	})
 })(mui);
 
-function show(str){
-/*	var str ="";
-	document.getElementById("nihao").innerHTML=str;
-	setTimeout(function(){
-		
-		str +="<div id='popup'>"+
-			"<div class='popup_bg'></div>"+
-			"<div class='popup_div' id='nihao'></div>"+
-			"</div>";
-		document.getElementById("popup").style.display="none";
-	},3000);	*/
-}
 
+
+var accessCommon = localStorage.access;
+var current = location.href;
+var domain = window.location.host;
 
 /**
  * 得到  online-web 的测试或者生成域名 
@@ -35,29 +27,12 @@ function getServerHost(){
 		return server_domain;
 	}
 	if(!stringnull(server_domain)){
-		return "http://wx.ixincheng.com"; 
+		//alert("1234");
+		return "http://www.ixincheng.com"; 
 	}
 	return server_domain; 
 }
 
-
-/*
- * 判断是否来自分享啦网站链接用微信打开的啦
- */
-var accessCommon = localStorage.access;
-// 如果来自微信端的话
-if (accessCommon == "wx") {
-	var openid = localStorage.openid;
-	if (openid == undefined || openid == "" || openid == null) {
-		// 请求下后台，获取url。进行转发啦！
-		requestService("/bxg/wxjs/h5BsGetCodeUrl ", null, function(data) {
-			if (data.success) {
-				var getCodeUrl = data.resultObject;
-				window.location.href = getCodeUrl;
-			}
-		})
-	}
-}
 /**
  * courseId 课程id
  * falg： false 官网   ture课程页面
@@ -86,10 +61,12 @@ function h5PcConversions(falg,courserId){
 	}
 	if(!(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
 			browser.versions.iPhone || browser.versions.iPad)){    
+		
+		 var nihao   = getServerHost();
 		if(falg ){//ture
-			window.location = getServerHost()+"/course/courses?courseId="+courserId
+			window.location = nihao+"/course/courses?courseId="+courserId
 		}else{
-			window.location = getServerHost();
+			window.location = nihao;
 		}
 		return false;
 	}else{
@@ -97,12 +74,15 @@ function h5PcConversions(falg,courserId){
 	}
 }
 
-var current = location.href;
 
+/**
+ * 分享的页面可能被来自pc端浏览器的访问
+ */
 if(current.indexOf("/xcviews/html/share.html")==-1
 		&& current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/bxg/xcpage/courseDetails")==-1
 		&& current.indexOf("/xcviews/html/particulars.html")==-1){
+	
 	h5PcConversions(false);
 }
 
@@ -140,11 +120,13 @@ var cookie = {
 /**
  * 得到这个cookie,如果没有过期，那么就
  */
-//登录页面、预约页面、详情页面、分享页面都不需要  /xcviews/html/share.html,/xcviews/html/foreshow.html,/xcviews/html/my.html
-//http://localhost:58080/bxg/xcpage/courseDetails?courseId=410
-
-
-if(current.indexOf("/bxg/page/login/")==-1  
+if(current.indexOf("https")!=-1){
+	domain = "https://"+domain+"/";
+}else{
+	domain = "http://"+domain+"/";
+}
+if(current.indexOf("/bxg/page/login/")==-1 
+		&& current.indexOf("/bxg/page/index/")==-1 
 		&& current.indexOf("/xcviews/html/share.html")==-1
 		&& current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/xcviews/html/my.html")==-1
@@ -153,12 +135,23 @@ if(current.indexOf("/bxg/page/login/")==-1
 		&& current.indexOf("/bxg/page/reg")==-1  
 		&& current.indexOf("/xcviews/html/find.html")==-1
 		&& current.indexOf("/bxg/page/forgotPassword")==-1 
-		&& current.indexOf("/xcviews/html/personalfor.html")==-1 ){
-	
+		&& current.indexOf("/xcviews/html/personalfor.html")==-1
+		&& current.indexOf("/xcviews/html/index.html")==-1
+		&& current != domain){
 	
 	var user_cookie = cookie.get("_uc_t_");
 	if(user_cookie == null){  //去登录页面
 		location.href = "/bxg/page/login/1";
+	}
+	/*
+	 * 如果是微信浏览器的话，如果要实现支付，必须就需要存在openId。
+	 *    这个是以防万一。
+	 */
+	if (accessCommon == "wx") {
+		var openid = localStorage.openid;
+		if (openid == undefined || openid == "" || openid == null) {
+			window.location.href = "/bxg/wxjs/h5BsGetCodeUrl";
+		}
 	}
 }
 
@@ -167,6 +160,7 @@ if(current.indexOf("/bxg/page/login/")==-1
 function requestService(url, param, callback, ac) {
 	if (ac == null)
 		ac = true;// 默认异步
+	
 	mui.ajax({
 		url : url,
 		type : "post",
@@ -188,12 +182,6 @@ function requestService(url, param, callback, ac) {
 		}
 	});
 }
-
-/**
- * 现在有的页面是不拦截的
- */
-
-
 
 /**
  * 判断是否是
@@ -222,6 +210,8 @@ function getQueryString(name) {
     if (r != null) return unescape(r[2]); return null;
 }
 
+
+
 /**
  * 现在的入口有两个呢，一个是
  */
@@ -238,7 +228,6 @@ function isLoginJump(){
 			  	before_address.indexOf("personage.html")!=-1 || 
 			  		before_address.indexOf("index.html")!=-1 || 
 			  		before_address.indexOf("queryResult")!=-1){
-		  
 		  
 		  history.back(-1);
 	  }else{
@@ -311,13 +300,6 @@ mui(".nav-content").on('click', '.gotodetails', function() {
 	window.location.href = "/bxg/page/my_course";
 })
 
-function courseDetails(courseId,lineState,page){
-	/**
-	 * 这个地方只需要判断是否已经预约就行了..
-	 *  就直播需要预约啦。其他的不需要啦
-	 */
-	alert("这个地方换位置了啊");
-}
 /**
  * 增加观看记录
  * 课程id
@@ -454,17 +436,6 @@ function qupay(userId, orderNo) {
 			var paySign = resultpay.paySign;
 			// 支付成功后的回调函数
 
-			// timestamp = '"' + timestamp + '"';
-			// nonceStr = '"' + nonceStr + '"';
-			// package = '"' + package + '"';
-			// signType = '"' + signType + '"';
-			// paySign = '"' + paySign + '"';
-
-			// alert('timestamp=[' + timestamp + ']');
-			// alert('nonceStr=[' + nonceStr + ']');
-			// alert('package=[' + package + ']');
-			// alert('signType=[' + signType + ']');
-			// alert('paySign=[' + paySign + ']');
 
 			wx.chooseWXPay({
 				timestamp : timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
@@ -557,6 +528,7 @@ function commonLocalStorageSetItem(data){
 	
 	localStorage.setItem("occupation",configresult.occupation);
 	localStorage.setItem("occupationOther",configresult.occupationOther);
+	localStorage.setItem("occupationText",configresult.occupationText);
 }
 
 /** * 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)

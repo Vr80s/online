@@ -21,7 +21,15 @@
 <!-- 网页自适应JS代码引入 -->
 <script src="/xcviews/js/common/js.js"></script>
 <link rel="stylesheet" href="/xcviews/css/css.css">
-
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
+<style type="text/css">
+	.vanish{
+		left: 0.1rem;
+	}
+	.vanish2{
+		left: 0.1rem;
+	}
+</style>
 </head>
 <body>
 	<div class="find">
@@ -31,14 +39,14 @@
 		</div>
 		<div class="last_input" style="margin-top:1.95rem;">
 			<div class="phone phone_bottom1">
-				请输入手机号&nbsp;&nbsp;<input type="tel" value=""  placeholder="请输入手机号码"  name="number" id="number" style="width:70%;" />
+				请输入手机号&nbsp;&nbsp;<input type="tel" value=""  placeholder="请输入手机号码"  name="number" id="number" style="width:7rem;" maxlength="11" />
 			</div>
 			<div class="phone phone_bottom2">
-				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="输入验证码" name="yanzhengma" id='yanzhengma' style="width:49%;" />
+				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="输入验证码" name="yanzhengma" id='yanzhengma' style="width: 6rem;" maxlength="4"  />
 				<a href="javascript: ;" class="phone_password gain" id="btn" /><span class="phone_span" style="bottom:-1.2rem;">获取验证码</span></a>
 			</div>
 			<div class="phone phone_bottom1">
-				设置6位以上密码&nbsp;&nbsp;<input  value="" placeholder="6-18位密码"  id='userpassword' type="password" style="width:61%;" />
+				设置6位以上密码&nbsp;&nbsp;<input  value="" placeholder="6-18位密码"  id='userpassword' type="password" style="width:8;" maxlength="18" minlength="6" />
 			</div>
 			<div class="tishi" id="reminderror" style="text-align: center;color: red;margin-top: 20px;font-size: 14px;"></div>
 			<button class="last_bu1" id="reg">提 交</button>

@@ -9,6 +9,7 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.*;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -66,19 +67,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 				page_size, queryParam);
 		//根据用户id和课程id
 		//这里紧紧是判断密码是否为null  -- 没有判断用户是否已经输入了
-		for (int i = 0; i < list.size(); i++) {
-			CourseLecturVo courseLecturVo = list.get(i);
-			//直播状态1.直播中，2预告，3直播结束
-			//0 直播已结束 1 直播还未开始 2 正在直播
-			if(courseLecturVo.getLineState() == 1){
-				courseLecturVo.setLineState(2);
-			}else if(courseLecturVo.getLineState() == 2){
-				System.out.println("预告");
-				courseLecturVo.setLineState(1);
-			}else if(courseLecturVo.getLineState() == 3){
-				courseLecturVo.setLineState(0);
-			}
-		}
 		newList.addAll(list);
 		return list;
 	}
@@ -87,16 +75,17 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	public CourseLecturVo liveDetailsByCourseId(int course_id, String userId)
 			throws SQLException {
 		CourseLecturVo courseLecturVo = courseMapper.liveDetailsByCourseId(course_id);
+		//
+		if(courseLecturVo ==null){
+			return null;
+		}
 	    /**
 	     * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播 
 	     */
         //lineState: 0 直播已结束 1 直播还未开始 2 正在直播		 
 		//直播状态1.直播中，2预告，3直播结束
 		//0 直播已结束 1 直播还未开始 2 正在直播
-		if(courseLecturVo.getLineState() == 1){
-			courseLecturVo.setLineState(2);
-		}else if(courseLecturVo.getLineState() == 2){
-			System.out.println("预告");
+		 if(courseLecturVo.getLineState() == 2){
 			/**
 			 * 获取当前预约人数
 			 */
@@ -105,39 +94,15 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			/**
 			 * 判断自己是否预约了
 			 */
-			Integer isSubscribe = selectSubscribeInfoIs(course_id,userId);
-			if(isSubscribe == 0){//未预约
-				courseLecturVo.setIsSubscribe(isSubscribe);
-			}else{
-				courseLecturVo.setIsSubscribe(1);
+			if(userId!=null){
+				Integer isSubscribe = selectSubscribeInfoIs(course_id,userId);
+				if(isSubscribe == 0){//未预约
+					courseLecturVo.setIsSubscribe(isSubscribe);
+				}else{
+					courseLecturVo.setIsSubscribe(1);
+				}
 			}
-			courseLecturVo.setLineState(1);
-		}else if(courseLecturVo.getLineState() == 3){
-			courseLecturVo.setLineState(0);
 		}
-		
-		/*Integer state  = WeihouInterfacesListUtil.getOnlineState(courseLecturVo.getDirectId());
-		if(state==1){
-			courseLecturVo.setLineState(2);
-		}else if(state==2){
-			*//**
-			 * 获取当前预约人数
-			 *//*
-			Integer subCount = selectSubscribeInfoNumberCourse(course_id);
-			courseLecturVo.setCountSubscribe(subCount);
-			*//**
-			 * 判断自己是否预约了
-			 *//*
-			Integer isSubscribe = selectSubscribeInfoIs(course_id,userId);
-			if(isSubscribe == 0){//未预约
-				courseLecturVo.setIsSubscribe(isSubscribe);
-			}else{
-				courseLecturVo.setIsSubscribe(1);
-			}
-			courseLecturVo.setLineState(1);
-		}else if(state==5){
-			courseLecturVo.setLineState(0);
-		}*/
 		return courseLecturVo;
 	}
 
@@ -341,18 +306,17 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	    if(type == 1){
 	    	common.append("select c.id as id,c.grade_name as gradeName,c.smallimg_path as smallImgPath,");
 	 	    common.append("c.start_time as startTime,c.end_time as endTime,");
-	 	    common.append("c.learnd_count as learndCount,c.course_length as courseLength,");
+	 	    common.append("c.learnd_count as learndCount,(c.course_length*3600) as courseLength,");
 	 	    common.append("c.original_cost as originalCost,c.current_price as currentPrice,");
 	 	    common.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  // 观看状态  
 	 	    common.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 	 	    common.append(" ou.small_head_photo as headImg,ou.name as name, ");
 	 	    common.append(" c.live_status as  lineState ");
 	    }else{
-	    	
 	    	common.append(" select oc.id as id,oc.grade_name as gradeName,ocm.img_url as smallImgPath,");
 	 	    common.append(" oc.start_time as startTime,oc.end_time as endTime, ");
 	 	    common.append(" oc.learnd_count as learndCount,");
-	 	    common.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");
+	 	    common.append(" (select sum(time_to_sec(CONCAT('00:',video_time))) from  oe_video where course_id = oc.id) as courseLength, ");
 	 	    common.append(" oc.original_cost as originalCost,oc.current_price as currentPrice, ");
 	 	    common.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");  // 观看状态  
 	 	    common.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, "); //类型 
@@ -379,6 +343,14 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		System.out.println("sql : "+common.toString());
 		Object [] params = {lecturerId};
 		List<CourseLecturVo> list = super.queryPage(JdbcUtil.getCurrentConnection(), common.toString(),pageNumber,pageSize,CourseLecturVo.class,params);
+		
+		for (CourseLecturVo courseLecturVo : list) {
+			if(courseLecturVo.getCourseLength()>0){
+				courseLecturVo.setCourseTimeConver(TimeUtil.formatTime(courseLecturVo.getCourseLength()));
+			}else{
+				courseLecturVo.setCourseTimeConver("00:00:00");
+			}
+		}
 		return list;
 	}
 
@@ -525,15 +497,8 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		CourseLecturVo courseLecturVo = this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 				new BeanHandler<>(CourseLecturVo.class),params);
 		
-	    /**
-	     * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播 
-	     */
-        //lineState: 0 直播已结束 1 直播还未开始 2 正在直播		 
 		//直播状态1.直播中，2预告，3直播结束
-		//0 直播已结束 1 直播还未开始 2 正在直播
-		if(courseLecturVo.getLineState() == 1){
-			courseLecturVo.setLineState(2);
-		}else if(courseLecturVo.getLineState() == 2){
+		 if(courseLecturVo.getLineState() == 2){
 			System.out.println("预告");
 			/**
 			 * 获取当前预约人数
@@ -549,11 +514,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			}else{
 				courseLecturVo.setIsSubscribe(1);
 			}
-			courseLecturVo.setLineState(1);
-		}else if(courseLecturVo.getLineState() == 3){
-			courseLecturVo.setLineState(0);
 		}
-		
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 	}
 
@@ -561,13 +522,11 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	public List<CourseLecturVo> findLiveListByQueryKey(int start_page, int pageNumber,
                                                        String queryParam) throws SQLException {
 		/*
-		 *  先从礼物表里面查出来被送例如最多的课程 
+		 *  公共的模糊查询条件
 		 */
 		StringBuilder comSql = new StringBuilder(); 
 		if(queryParam!=null && !"".equals(queryParam) && !"null".equals(queryParam)){
 			comSql.append(" and ("); 
-			/*comSql.append(" ou.room_number like '%"+ queryParam + "%'"); 
-			comSql.append(" or "); */
 			comSql.append(" ou.name like '%"+ queryParam + "%'"); 
 			comSql.append(" or "); 
 			comSql.append(" c.grade_name like '%"+ queryParam + "%')"); 
@@ -575,13 +534,14 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		
 		 StringBuilder sql = new StringBuilder();
 		 sql.append(" select SUM(ogs.count) as a,ogs.live_id from oe_gift_statement as ogs ,oe_user as ou,oe_course as c ");
-		 sql.append(" where ogs.receiver =ou.id and ogs.live_id = c.id ");
-		//房间编号/主播/课程
+		 sql.append(" where ogs.receiver =ou.id and ogs.live_id = c.id and c.is_delete=0 and c.status = 1  and ou.status = 0 and ou.is_delete =0 ");
 		
 		sql.append(comSql);
+		
 		sql.append(" group by live_id order by a desc limit  "+start_page+","+pageNumber); 
 		
 		System.out.println("sql:"+sql.toString());
+		
 		List<Map<String, Object>> mapList =super.query(JdbcUtil.getCurrentConnection(), sql.toString(), new MapListHandler());
 		
 		String ids = "";
@@ -646,7 +606,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 			
 			sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) "); //观看人数
-			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount ");
+			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.live_status as  lineState  ");
 			
 			sql.append(" from oe_course c,oe_user ou ");
 			sql.append(" where c.user_lecturer_id = ou.id and c.id = ? and c.is_delete=0 and c.status = 1  and  c.type=1  ");
@@ -658,25 +618,12 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 //			3	int	否	活动已结束
 //			4	int	否	活动当前为点播
 //			5	int	否	结束且有自动回放
-//	       lineState: 0 直播已结束 1 直播还未开始 2 正在直播		 
-			Date start = clv.getStartTime();
-			Date end = clv.getEndTime();
-			Date now = new Date();
-			// lineState 0 直播已结束 1 直播还未开始 2 正在直播
-			if(end!=null && start!=null){
-				if (end.getTime() < now.getTime()) {// 结束时间小于当前时间，说明已经结束
-					clv.setLineState(0);
-				} else if (start.getTime() > now.getTime()) { // 开始时间大于当前时间，说明已经还没开始
-					/**
-					 * 获取当前预约人数
-					 */
-					Integer subCount = selectSubscribeInfoNumberCourse(courseId);
-					clv.setCountSubscribe(subCount);
-					clv.setLineState(1);
-				} else if (start.getTime() < now.getTime()
-						&& end.getTime() > now.getTime()) {//正在直播
-					clv.setLineState(2);
-				}
+			 if (clv.getLineState() == 2) { // 开始时间大于当前时间，说明已经还没开始
+				/**
+				 * 获取当前预约人数
+				 */
+				Integer subCount = selectSubscribeInfoNumberCourse(courseId);
+				clv.setCountSubscribe(subCount);
 			}
 		}else{
 			StringBuffer sql = new StringBuffer("");
@@ -708,25 +655,8 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		if(map==null){
 			return null;
 		}
-		if(map.get("directId")!=null){
-			//直播状态1.直播中，2预告，3直播结束
-			//0 直播已结束 1 直播还未开始 2 正在直播
-			if(null != map.get("lineState") && map.get("lineState").equals("1")){
-				map.put("state", 2);
-			}else if(null != map.get("lineState") && map.get("lineState").equals("2")){
-				map.put("state", 1);
-			}else if(null != map.get("lineState") && map.get("lineState").equals("3")){
-				map.put("state", 0);
-			}
-		}
 		return map;
 	}
-	
-	
-	
-	
-	
-	
 	
 	public static void main(String[] args) {
 		
@@ -756,16 +686,14 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	@Override
 	public Map<String, String> teacherIsLive(String lecturerId) throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select c.id as id,live_status as  lineState");
-		sql.append(" from oe_course c ");
-		sql.append(" where  c.user_lecturer_id = ? and c.is_delete=0 and c.status = 1 and c.type=1  ");
-	    Object params[] = { lecturerId };
-	    
+		sql.append("select c.id as id,live_status as  lineState,ou.is_lecturer as isLecturer");
+		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" where  c.user_lecturer_id = ? and ou.id = ? and c.is_delete=0 and c.status = 1 and c.type=1  ");
+	    Object params[] = { lecturerId,lecturerId };
 	    Map<String,String> mapIsLive = new HashMap<String,String>();
-	    
 	    List<Map<String,Object>> mapList = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new MapListHandler(), params);
 	    for (Map<String, Object> map : mapList) {
-	    	if(null !=map && map.get("lineState").equals("1")){
+	    	if(null !=map && Integer.parseInt(map.get("lineState").toString())==1){
 	    		mapIsLive.put("status", "1");
 	    		mapIsLive.put("id", map.get("id").toString());
 	    	}

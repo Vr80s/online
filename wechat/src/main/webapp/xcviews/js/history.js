@@ -97,7 +97,7 @@ function historyCommon(type1,downOrOn){
 			
 			if (objList.length>0) {
 				$('.null_kongbai_cen').removeClass('null_kongbai_cen1');
-				
+				$('.null_kongbai p').hide();
 				for (var int = 0; int < objList.length; int++) {
 					var odiv = document.createElement("div");
 					odiv.className = "wm-block mui-table-view-cell";
@@ -123,9 +123,11 @@ function historyCommon(type1,downOrOn){
 				if(num == "0") {
 					$('.null_kongbai_cen').addClass('null_kongbai_cen1');
 					$('body').css('background','#efefef');
+					$('.null_kongbai p').show();
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
-					$('body').css('background','url(/xcviews/images/index_bg.jpg)');
+//					$('body').css('background','url(/xcviews/images/index_bg.jpg)');
+					$('body').css('background','#efefef');
 				}
 			}
 		}else{
@@ -158,17 +160,14 @@ if(type ==2){
 }
 mui("#refreshContainer").on('tap', '.zhibo_list', function (event) {
 	var ev = $(this);
-	// type='"+course.type+"' lineState='"+course.lineState+"'  id=
 	var type = ev.context.align;
 	var lineState = ev.context.title;
 	var courseId = ev.context.id;
 	
-	//type lineState couserId
-	//name='"+course.type+"' class='"+course.lineState+"'  id='"+course.id+"'
 	if(type == 1){//直播
 		sessionStorage.setItem("historyType", 1);
 		sessionStorage.setItem("livePage", 2);
-		if(lineState == 1){ //需要预约
+		if(lineState == 2){ //需要预约
 			location.href = "/xcviews/html/foreshow.html?course_id="+courseId+"";
 		}else{
 			location.href = "/bxg/xcpage/courseDetails?courseId="+courseId+"";

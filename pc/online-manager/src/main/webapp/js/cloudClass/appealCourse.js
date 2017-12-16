@@ -98,7 +98,17 @@ $(function(){
     	return "<span name='reviewerPerson'>"+data+"</span>";
     } },
     
-    { "title": "审核时间", "class":"center","width":"8%", "sortable":false,"data": 'reviewerTime' }
+    { "sortable": false,"class": "center","width":"8%","title":"是否有效","mRender":function (data, display, row) {
+    	var str =  '<div class="hidden-sm hidden-xs action-buttons">';
+    	//str+='<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+    	if(row.isDelete){
+    		str +='<span>已失效</span>';
+		}else{
+			str +="<span>有效</span>";
+		}
+        return str;
+      } 
+	}
     
      ];
 	_courseTable = initTables("courseTable",basePath+"/cloudClass/appeal/list",objData,true,true,2,null,searchCase,function(data){
@@ -133,172 +143,7 @@ $(function(){
 					$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 				}
 			});
-			courseForm = $("#addCourse-form").validate({
-		        messages: {
-		        	smallingPath:{
-						required:"课程展示图不能为空！",
-						
-		            },
-					courseName: {
-						required:"请输入课程名称！",
-						minlength:"课程名称过短，应大于2个字符！",
-						maxlength:"课程名称过长，应小于20个字符！"
-		            },
-					classTemplate: {
-						required:"请输入班级名称模板！"
-					},
-					menuId: {
-						required:"请选择所属学科！"
-					},
-					lecturerId:{
-						required:"选择教师！"
-					},
-					userLecturerId:{
-						required:"选择教师！"
-					},
-					courseLength: {
-						required:"请输入课程时长！",
-						digits: "课程时长必须为整数！"
-					},
-					coursePwd: {
-						digits: "课程密码必须为整数！"
-					},
-					startTime: {
-						required:"开播时间不能为空！",
-					},
-					endTime: {
-						required:"结束时间不能为空！",
-					},
-					directId: {
-						required:"直播间ID不能为空！",
-					},
-					externalLinks: {
-						required:"外部链接不能为空！"
-					},
-					teacherImgPath: {
-						required:"讲师头像不能为空！"
-					}
-		        }
-		    });
-		updateCourseForm = $("#updateCourse-form").validate({
-			messages: {
-				smallingPath:{
-					required:"课程展示图不能为空！",
-					
-	            },
-				courseName: {
-					required:"请输入课程名称！",
-					minlength:"课程名称过短，应大于2个字符！",
-					maxlength:"课程名称过长，应小于20个字符！"
-	            },
-				classTemplate: {
-					required:"请输入班级名称模板！"
-				},
-				menuId: {
-					required:"请选择所属学科！"
-				},
-				lecturerId:{
-					required:"选择教师！"
-				},
-				courseLength: {
-					required:"请输入课程时长！",
-					digits: "课程时长必须为整数！"
-				},
-				coursePwd: {
-					digits: "课程密码必须为整数！"
-				},
-				startTime: {
-					required:"开播时间不能为空！",
-				},
-				endTime: {
-					required:"结束时间不能为空！",
-				},
-				directId: {
-					required:"直播间ID不能为空！",
-				},
-				externalLinks: {
-					required:"外部链接不能为空！"
-				},
-				smallingPath:{
-					required:"课程展示图不能为空！",
-					
-	            },
-				courseName: {
-					required:"请输入课程名称！",
-					minlength:"课程名称过短，应大于2个字符！",
-					maxlength:"课程名称过长，应小于20个字符！"
-	            },
-				classTemplate: {
-					required:"请输入班级名称模板！"
-				},
-				menuId: {
-					required:"请选择所属学科！"
-				},
-				lecturerId:{
-					required:"选择教师！"
-				},
-				userLecturerId:{
-					required:"选择教师！"
-				},
-				courseLength: {
-					required:"请输入课程时长！",
-					digits: "课程时长必须为整数！"
-				},
-				startTime: {
-					required:"开播时间不能为空！",
-				},
-				endTime: {
-					required:"结束时间不能为空！",
-				},
-				directId: {
-					required:"直播间ID不能为空！",
-				},
-				externalLinks: {
-					required:"外部链接不能为空！"
-				},
-				teacherImgPath: {
-					required:"讲师头像不能为空！"
-				}
-			}
-		});
 	});
-
-
-	var objRecData = [
-	{title: '序号', "class": "center","data-width":"13px" ,"data": 'id',datafield: 'xuhao', "sortable": false},
-	{ "title": "公开课名称", "width":"16%","class":"center","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
-    		return "<span name='courseNameList'>"+data+"</span>";
-    } },
-	{ "title": "学科", "class":"center","width":"12%","sortable":false,"data": 'menuName' },
-	{ "title": "授课老师", "class":"center","width":"12%","sortable":false,"data": 'lecturerName' ,"mRender":function (data, display, row) {
-    		return "<span name='lecturerNameList'>"+data+"</span>";
-    } },
-//	{ "title": "鲜花数", "class":"center","width":"8%","sortable":false,"data": 'flowersNumber' },
-	{ "title": "访问量", "class":"center","width":"12%","sortable":false,"data": 'pv' },
-//	{ "title": "最高在线人数", "class":"center","width":"8%","sortable":false,"data": 'highestNumberLine' },
-//	{ "title": "直播结束时<br/>在线人数", "class":"center","width":"8%","sortable":false,"data": 'endLineNumber' },
-	{ "title": "课程时长", "class":"center","width":"12%", "sortable":false,"data": 'courseLength'},
-	{ "title": "开始时间", "class":"center","width":"12%", "sortable":false,"data": 'startTime'},
-	{ "title": "结束时间", "class":"center","width":"12%", "sortable":false,"data": 'endTime' },
-	{ "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'smallimgPath',"visible":false},
-	{ "title": "直播方式", "class":"center","width":"13%","sortable":false,"data": 'directSeeding',"visible":false},
-	{ "title": "直播间ID", "class":"center","width":"13%","sortable":false,"data": 'directId'},
-	{ "title": "外部链接", "class":"center","width":"13%","sortable":false,"data": 'externalLinks',"visible":false}];
-
-	_courseRecTable = initTables("courseRecTable",basePath+"/publiccloudclass/course/coursesReclist",objRecData,true,true,1,null,searchCase,function(data){
-		var texts = $("[name='courseNameList']");
-	    for (var i = 0; i < texts.length; i++) {
-	            texts.eq(i).parent().attr("title",texts.eq(i).text());
-	    }
-	    var texts1 = $("[name='lecturerNameList']");
-	    for (var i = 0; i < texts.length; i++) {
-	    	texts1.eq(i).parent().attr("title",texts1.eq(i).text());
-	    }
-	});
-	createImageUpload($('.uploadImg'));//生成图片编辑器
-	    
-	createDatePicker($("#search_startTime"));
-	createDatePicker($("#search_endTime"));
 });
 
 
@@ -330,82 +175,6 @@ Date.prototype.Format = function(fmt) { //author: meizz
   fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
   return fmt;   
 } 
-//新增框
-$(".add_bx").click(function(){
-	courseForm.resetForm();
-	
-	$("#lecturer").html("");
-	$('#lecturer').append("<option value=''>请选择</option>");
-	
-	$("#add-directIdDiv").hide();
-	$("#add-externalLinksDiv").hide();
-	$('#startTime').datepicker( "option" , {
-		 minDate: null,
-		 maxDate: null} );
-//	$('#endTime').datepicker( "option" , {
-//		 minDate: null,
-//		 maxDate: null} );
-	 $('#startTime').datetimepicker({
-	    	showSecond: true,
-			changeMonth: true,
-			changeYear: true,
-			dateFormat:'yy-mm-dd',
-			monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
-			timeFormat: 'HH:mm:ss',
-	    	onSelect: function( startDate ) {
-	    		var $startDate = $( "#startTime" );
-	    		var $endDate = $('#endTime');
-	    		var endDate = $endDate.datepicker( 'getDate' );
-	    		if(endDate < startDate){
-	    			$endDate.datetimepicker('setDate', startDate - 3600*1*24*60*60*60);
-	    		}
-	    		$endDate.datetimepicker( "option", "minDate", startDate );
-	    	}
-	    });
-//	    $('#endTime').datetimepicker({
-//	    	showSecond: true,
-//			changeMonth: true,
-//			changeYear: true,
-//			dateFormat:'yy-mm-dd',
-//			monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
-//			timeFormat: 'HH:mm:ss',
-//	    	onSelect: function( endDate ) {
-//	    		var $startDate = $( "#startTime" );
-//	    		var $endDate = $('#endTime');
-//	    		var startDate = $startDate.datepicker( "getDate" );
-//	    		if(endDate < startDate){
-//	    			$startDate.datetimepicker('setDate', startDate + 3600*1*24*60*60*60);
-//	    		}
-//	    		$startDate.datetimepicker( "option", "maxDate", endDate );
-//	    	}
-//	    });
-	imgSenBut();
-	createImageUpload($('#addCourse-form .uploadImg'));//生成图片编辑器
-	
-	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增公开课",580,600,true,"确定",function(){
-		
-		if($("#addCourse-form").valid()){
-			mask();
-			 $("#addCourse-form").attr("action", basePath+"/publiccloudclass/course/addCourse");
-	            $("#addCourse-form").ajaxSubmit(function(data){
-	            	try{
-                		data = jQuery.parseJSON(jQuery(data).text());
-                	}catch(e) {
-                		data = data;
-                	  }
-                	unmask();
-	                if(data.success){
-	                    $("#addCourseDialog").dialog("close");
-	                    layer.msg(data.errorMessage);
-	                    freshTable(_courseTable);
-	                }else{
-	                	layer.msg(data.errorMessage);
-	                }
-	            });
-		}
-	});
-});
-
 
 
 $('#startTime_edit,#courseLength_edit').change(function(){
@@ -447,6 +216,14 @@ $(".dele_bx").click(function(){
 	deleteAll(basePath+"/cloudClass/appeal/deletes",_courseTable);
 });
 
+/**
+ * 批量回复操作 
+ */
+$(".recovery_bx").click(function(){
+	deleteAll(basePath+"/cloudClass/appeal/recoverys",_courseTable);
+});
+
+
 //点击通过
 function toPass(obj){
 	var oo = $(obj).parent().parent().parent();
@@ -467,14 +244,17 @@ function toPass(obj){
 /**
  * 点击驳回  显示一个弹框，然后输入内容
  */
-function toBoHui(){
+function toBoHui(obj){
+	var oo = $(obj).parent().parent().parent();
+	var aData =  _courseTable.fnGetData(oo);
+	$("#bohuiExamineId").val(aData.id);
 	/*
 	 * 显示这个弹框，
 	 */
 	var dialog = openDialog("bohuiDialog","bohuiDiv","修改课程",580,580,true,"确定",function(){
 	if($("#bohui-form").valid()){
 			mask();
-            $("#bohui-form").attr("action", basePath+"/cloudClass/examine/updateCourseById"); //请求的方法
+            $("#bohui-form").attr("action", basePath+"/cloudClass/examine/bohuiApply"); //请求的方法
             $("#bohui-form").ajaxSubmit(function(data){
             	try{
             		data = jQuery.parseJSON(jQuery(data).text());
@@ -487,7 +267,9 @@ function toBoHui(){
                     layer.msg(data.errorMessage);
                      freshTable(_courseTable);
                 }else{
-                	 layer.msg(data.errorMessage);
+                	 alertInfo(data.errorMessage);
+                	 $("#bohuiDialog").dialog("close");
+                	 freshTable(_courseTable);
                 }
             });
 		}
@@ -552,7 +334,6 @@ function toEdit(obj){
 	
 	$("#editCourse_id").val(row.id); //ID
 	
-	debugger;
 	//所属学科
 	for(i=0;i<$("#menuId_edit option").length;i++){
 		if($("#menuId_edit option").eq(i).text()==row.menuName){
@@ -587,39 +368,18 @@ function toEdit(obj){
 		$("#this_web_edit2").removeAttr('checked');
 	}
 	$("#directId_edit").val(row.directId);//直播间ID
-//	$("#externalLinks_edit").val(row.externalLinks);//外部链接
 	$("#smallImgPath_edit").val(row.logo); //图片字段赋值
 	$("#teacherImgPath_edit").val(row.teacherImgPath); //图片字段赋值
 	
 	$("#coursePwd_edit").val(row.password); //密码
 	
-	//$("#edid_originalCost").val(row.originalCost); //原价
 	$("#edid_currentPrice").val(row.price); //现价
 	$("#edid_courseDescribe1").val(row.content); //简介
 	
-	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","课程详情",580,650,true,"确定",function(){
+	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","课程详情",800,600,true,"确定",function(){
 		
 		$("#EditCourseDialog").dialog("close");
-//		if($("#updateCourse-form").valid()){
-//			mask();
-//            $("#updateCourse-form").attr("action", basePath+"/cloudClass/examine/updateCourseById");
-//            $("#updateCourse-form").ajaxSubmit(function(data){
-//            	try{
-//            		data = jQuery.parseJSON(jQuery(data).text());
-//            	}catch(e) {
-//            		data = data;
-//            	  }
-//            
-//                unmask();
-//                if(data.success){
-//                    $("#EditCourseDialog").dialog("close");
-//                    layer.msg(data.errorMessage);
-//                     freshTable(_courseTable);
-//                }else{
-//                	 layer.msg(data.errorMessage);
-//                }
-//            });
-//		}
+
 	});
 	console.log($("#userId option").eq(i).val()+"==="+row.userId+"==="+$("#userId option").eq(i).text());
 	//杨宣修改--增加模糊查询讲师功能
@@ -631,6 +391,23 @@ function toEdit(obj){
 			//$("#updateCourse-form #userId").val($("#userId option").eq(i).text());
 		}
     }
+	
+	debugger;
+	
+	
+    $("#auditPersonStr").val(row.auditPersonStr); //审核人
+    
+    $("#reviewerTime").val(row.reviewerTime); //审核时间
+    
+    //$("#edid_courseDescribe1").val(row.content); //审核状态   examineStatus
+    
+    
+    
+    $("#againstReason").val(row.againstReason); //驳回理由
+    
+    $("#appealTime").val(row.appealTime); //申诉时间
+    
+    $("#appealReason").val(row.appealReason); //申诉理由
 	
 	
 }
@@ -826,11 +603,15 @@ function updateStatus(obj){
 
 function search(){
 
+	 searchJson  = new Array();	
+	
 	 var startTime=$("#s_startTime").val(); //开始时间
      var stopTime=$("#s_stopTime").val(); //结束时间
      var status=$("#search_status").val();
      var title=$("#search_type").val();
      var name=$("#search_courseName").val();
+     
+     var ssIsdelete=$("#search_ssIsdelete").val();
      
      if(startTime != "" || stopTime != "") {
     	 if (startTime != "" && stopTime != "" && startTime > stopTime) {
@@ -853,18 +634,11 @@ function search(){
          searchJson.push('{"tempMatchType":"10","propertyName":"name","propertyValue1":"' + name + '","tempType":"String"}');
      }
      
+     if(ssIsdelete!=null&&ssIsdelete!=""){
+         searchJson.push('{"tempMatchType":"10","propertyName":"ssIsdelete","propertyValue1":"' + ssIsdelete + '","tempType":"String"}');
+     }
+     
      searchButton(_courseTable,searchJson);
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
-     searchJson.pop();
      searchJson.pop();
 };
 /**

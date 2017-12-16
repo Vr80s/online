@@ -95,6 +95,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
     	if (orders.size() > 0) {
     		
     		/*
+<<<<<<< HEAD
     		 * 查询这个订单下的课程:
     		 *   如果这个课程是单个的课程，并且这个课程是预约的情况下，要发个短信了。
     		 *   

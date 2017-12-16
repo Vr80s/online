@@ -41,21 +41,21 @@ $(function () {
     var articleBanner = '{{each articleBanner}}' +
             '{{if $index==0}}'+
         '<li style="z-index: 2">' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
-        '<div class="banner-info">' +
-        '<span class="banner-type">{{$value.name}}</span>' +
-        '<span class="banner-title">{{$value.title}}</span>' +
-        '</div>' +
+        '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
+        // '<div class="banner-info">' +
+        // '<span class="banner-type">{{$value.name}}</span>' +
+        // '<span class="banner-title">{{$value.title}}</span>' +
+        // '</div>' +
         '<div class="image-overlay"></div>'+
         '</a>' +
         '</li>' +
         '{{else}}'+
         '<li>' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank" style="background:url({{$value.banner_path}})no-repeat top center">' +
-        '<div class="banner-info">' +
-        '<span class="banner-type">{{$value.name}}</span>' +
-        '<span class="banner-title">{{$value.title}}</span>' +
-        '</div>' +
+        '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
+        // '<div class="banner-info">' +
+        // '<span class="banner-type">{{$value.name}}</span>' +
+        // '<span class="banner-title">{{$value.title}}</span>' +
+        // '</div>' +
         '<div class="image-overlay"></div>'+
         '</a>' +
         '</li>' +
@@ -86,7 +86,7 @@ $(function () {
             '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
             '<div class="forum-info-tags">'+
             '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+
-            '<span>{{$value.name}}<em></em>{{dataSub($value.create_time)}}</span>'+
+//          '<span>{{dataSub($value.create_time)}}</span>'+
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
@@ -114,7 +114,8 @@ $(function () {
         "</li>" +
         '{{/each}}';
     //banner
-    RequestService("/bxs/article/getArticleBanner", "GET", null, function (data) {
+    // RequestService("/bxs/article/getArticleBanner", "GET", null, function (data) {
+    RequestService("/banner/getBannerList?type=3", "GET", null, function (data) {
         $(".slider").html(template.compile(articleBanner)({
             articleBanner: data.resultObject
         }));
@@ -157,7 +158,11 @@ $(function () {
             $(this).find("em").removeClass("select1").addClass("select");
             list.type=$(this).attr("data-articleId");
             $(".pages").css("display", "none");
-            paperArticle();
+//          var list={
+//          	pageNumber: 1,
+//          	 pageSize:6
+//          };
+            paperArticle(true);
         });
         $(".forum-content-tag li").eq(0).click();
         var bxsTagName=localStorage.getItem("bxsArticleType");
@@ -240,7 +245,11 @@ $(function () {
         }
     });
     //获取文章列表
-    function paperArticle(){
+    function paperArticle(first){
+
+		if(first)
+		list.pageNumber = 1;
+//  	debugger;
         RequestService("/bxs/article/getPaperArticle",'GET',list,function(data){
             if(data.resultObject.items.length==0){
                 $(".forum-content-info").html(template.compile(emptyDefaul))

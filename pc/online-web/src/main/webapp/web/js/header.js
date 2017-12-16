@@ -1,3 +1,59 @@
+$(function(){
+    //解析url地址
+    var ourl = document.location.search;
+    var url = document.location.host;
+    var apams = ourl.substring(1).split("&");
+    var arr = [];
+    for (i = 0; i < apams.length; i++) {
+        var apam = apams[i].split("=");
+        arr[i] = apam[1];
+        var courserId = arr[0];
+    };
+    var browser={
+        versions:function(){
+            var u = navigator.userAgent, app = navigator.appVersion;
+            return {//移动终端浏览器版本信息
+                trident: u.indexOf('Trident') > -1, //IE内核
+                presto: u.indexOf('Presto') > -1, //opera内核
+                webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                iPhone: u.indexOf('iPhone') > -1 , //是否为iPhone或者QQHD浏览器
+                iPad: u.indexOf('iPad') > -1, //是否iPad
+                webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                weixin: u.indexOf('MicroMessenger') > -1, //是否微信
+                qq: u.match(/\sQQ/i) == " qq" //是否QQ
+            };
+        }(),
+        language:(navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    if(document.location.host=='www.ixincheng.com'){
+        window.location = "http://www.ipandatcm.com";
+    }else if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
+        browser.versions.iPhone || browser.versions.iPad){
+
+        if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com'){
+            wxurl = "http://m.ipandatcm.com";
+        }else{
+            wxurl = "http://test-wx.ixincheng.com";
+        }
+        window.location = wxurl+"/bxg/page/index/null/null";
+    }
+});
+
+
+var bbs_person =  'http://dev.ixincheng.com';
+var bbs_domain = 'http://bbs.ipandatcm.com';
+var domain = document.domain;
+if(domain.indexOf("dev")!=-1){//开发环境
+	bbs_domain = 'http://dev.ixincheng.com:8082';
+}else if(domain.indexOf("test")!=-1){//测试环境
+    bbs_domain = 'http://test-bbs.ixincheng.com';
+}else{//生产环境
+    bbs_domain = 'http://bbs.ipandatcm.com';
+}
 //如果有链接的点击事件
 function on_click_msg(msg_id, msg_link) {
     var $this=$(this);
@@ -9,8 +65,6 @@ function on_click_msg(msg_id, msg_link) {
         }
     }, false);
 };
-
-
 
 //$("<script src='http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js'></script>").appendTo('head');
 
@@ -88,6 +142,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<li><a data-id="mydata"><i class="iconfont icon-xueyuan"></i>我的资料</a></li>'+
         '<li><a data-id="idea"><i class="iconfont icon-yijianfankui"></i>意见反馈</a></li>'+
         '<li><a data-id="mymoney"><i class="iconfont icon-qianbao"></i>我的资产</a></li>'+
+        '<li><a href="'+bbs_domain+'/myReply"  data-id="mytiezi"><i class="iconfont icon-zaixiankecheng"></i>我的贴子</a></li>'+
         '<li><a data-exit="exit"><i class="iconfont icon-tuichu"></i>安全退出</a></li>'+
       
         ' </ul></div></div>'+
@@ -99,14 +154,14 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
     	'</li>'+
     	
 
-    	'<li><a href="/App.html">APP下载</a></li>'+
+    	'<li><a href="/App.html" class="appDown">APP下载</a></li>'+
     	
     	'<li>'+
 //    	语言选择连接暂时隐藏
 //    	'<a href="javascript:;">语言选择</a>'+
     	
     	'</li>'+
-    	'<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: red;padding: 0 2px;border-radius: 5px;position: absolute;color:white"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: red;padding: 0 2px;border-radius: 5px;position: absolute;color:white"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li>'+
+    	'<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li>'+
     	'</ul></div></div>',
         nav:
         	
@@ -114,12 +169,18 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<div class="header_left">'+
         '<div class="path">'+
         '<a href="/index.html" class="home">首页</a>'+
-        '<a href="/classroom.html" class="classroom">中医课堂</a>'+
+       
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+
-        '<a href="/web/html/forum.html" class="forum">书房斋</a>'+
-        '<a href="/web/html/ansAndQus.html" class="ansAndQus">问答</a>'+
+        '<a href="/web/html/forum.html" class="forum">头条</a>'+
+        '<a href="/web/html/doctor.html" class="doctor">名医</a>'+
+         '<a href="/classroom.html" class="classroom">学堂</a>'+
+        '<a href="/web/html/hospital.html" class="hospital">医馆</a>'+
+        '<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>'+
 //        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
+        '<a href='+bbs_domain+"/index"+'>论坛</a>'+
+        
+        
         '</div>'+
         ' </div>'+
         '<div class="header_right">'+
@@ -689,64 +750,73 @@ if (myBrowser() == "IE55") {
                 }
             });
         }
+        
         $(".dropdownmenu li a").click(function (evt) {
+        	
+        	
             $(".top-item").removeClass("selected");
             var btn = $(evt.target);
             var id = "personcenter";
             window.localStorage.personcenter = $(evt.target).attr("data-id");
-            if (window.location.pathname == "/web/html/personcenter.html") {
-                if ($(this).attr("data-exit")) {
-                    RequestService("/online/user/logout", "GET", {}, function () {
-                        location.href = "/index.html";
-                        $(".loginGroup .logout").css("display", "block");
-                        $(".loginGroup .login").css("display", "none");
-                    });
-                } else {
-                    $(".left-nav ." + window.localStorage.personcenter).click();
-                }
-            } else {
-                if ($(this).attr("data-exit")) {
-                    RequestService("/online/user/logout", "GET", {}, function () {
-                        location.href = "/index.html";
-                        $(".loginGroup .logout").css("display", "block");
-                        $(".loginGroup .login").css("display", "none");
-                    });
-                } else {
-                    location.href = "/web/html/personcenter.html";
-                    RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive
-                        if (data.success) {
-                            if (data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-                                path = data.resultObject.smallHeadPhoto;
-                            } else {
-                                path = bath + data.resultObject.smallHeadPhoto
-                            }
-                            //头像预览
-                            $(".userPic").css({
-                                background: "url(" + path + ") no-repeat",
-                                backgroundSize: "100% 100%"
-                            });
-                            $('#login').modal('hide');
-                            $("html").css({"overflow-x": "hidden", "overflow-y": "auto"});
-                            $(".loginGroup .logout").hide();
-                            $(".loginGroup .login").show();
-                            $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
-                            localStorage.username = data.resultObject.loginName;
-                            localStorage.userid = data.resultObject.id;
-                            if ($(btn.parent().hasClass('selected'))) {
 
-                            } else {
-                                hideHtml();
-                            }
-                        } else {
-                            alert("header jmp index");
+            if($(evt.target).attr("data-id") == "mytiezi"){ //
+            	
+            	location.href = bbs_domain+"/myReply";
+            }else{
+                if (window.location.pathname == "/web/html/personcenter.html") {
+                    if ($(this).attr("data-exit")) {
+                        RequestService("/online/user/logout", "GET", {}, function () {
                             location.href = "/index.html";
-                            localStorage.username = null;
-                            localStorage.password = null;
-                            $(".login").css("display", "none");
-                            $(".logout").css("display", "block");
-//                          }
-                        }
-                    });
+                            $(".loginGroup .logout").css("display", "block");
+                            $(".loginGroup .login").css("display", "none");
+                        });
+                    } else {
+                        $(".left-nav ." + window.localStorage.personcenter).click();
+                    }
+                } else {
+                    if ($(this).attr("data-exit")) {
+                        RequestService("/online/user/logout", "GET", {}, function () {
+                            location.href = "/index.html";
+                            $(".loginGroup .logout").css("display", "block");
+                            $(".loginGroup .login").css("display", "none");
+                        });
+                    } else {
+                        location.href = "/web/html/personcenter.html";
+                        RequestService("/online/user/isAlive", "GET", null, function (data) {///online/user/isAlive
+                            if (data.success) {
+                                if (data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+                                    path = data.resultObject.smallHeadPhoto;
+                                } else {
+                                    path = bath + data.resultObject.smallHeadPhoto
+                                }
+                                //头像预览
+                                $(".userPic").css({
+                                    background: "url(" + path + ") no-repeat",
+                                    backgroundSize: "100% 100%"
+                                });
+                                $('#login').modal('hide');
+                                $("html").css({"overflow-x": "hidden", "overflow-y": "auto"});
+                                $(".loginGroup .logout").hide();
+                                $(".loginGroup .login").show();
+                                $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
+                                localStorage.username = data.resultObject.loginName;
+                                localStorage.userid = data.resultObject.id;
+                                if ($(btn.parent().hasClass('selected'))) {
+
+                                } else {
+                                    hideHtml();
+                                }
+                            } else {
+                                alert("header jmp index");
+                                location.href = "/index.html";
+                                localStorage.username = null;
+                                localStorage.password = null;
+                                $(".login").css("display", "none");
+                                $(".logout").css("display", "block");
+//                              }
+                            }
+                        });
+                    }
                 }
             }
 

@@ -24,40 +24,49 @@
 	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
 	
 	<style>
-		.mui-block{
+		/*.mui-block{
 			top:1.5rem;
-		}
+		}*/
 		.wm-block{
 			width: 100% !important;
 		    height: 2.8rem !important;
 		    margin-top: 0rem;
-		    border-bottom: 1px solid #d2d2d2;
+		    /*border-bottom: 1px solid #d2d2d2;*/
 		}
 		.kongbai_div{
 			width: 11.275rem;
 			height: 6.925rem;
 			margin: 0 auto;
-			margin-top: 5.1rem;
+			margin-top: 8.75rem;
+			text-align: center;
 		}
 		.kongbai_div img{
-			width: 11.275rem;
-			height: 6.925rem;
+			width: 4.675rem;
 		}
+		.kongbai_div p{
+			font-size: 0.6rem;
+			color: #999;
+			margin-top: 0.65rem;
+		}
+		
 		.perfection{
 		    width: 3.5rem;
 		    background: white;
 		    font-size: 0.55rem;
-		    font-family: "微软雅黑";
+		    /*font-family: "微软雅黑";*/
 		    margin: 0 auto;
 		    text-align: center;
 		    margin-top: 2rem;
-		    border: 1px solid #d2d2d2;
+		    border: 1px solid #e5e5e5;
 		    height: 1rem;
 		    line-height: 1rem;
 		    border-radius: 6px;
 		}
-		.focus{
+		.attention_right{
 			color: #666;
+		}
+		.focus{
+			color: #00bc12;
 		}
 		.attention_li{
 			width: 11rem;
@@ -68,6 +77,20 @@
 		.attention_right{
 			width: 3rem;
 		}
+		#content{
+			background: none;
+		}
+		#clist{
+			background: none;
+		}
+		.wm-block{
+			background: #fff;
+		}
+		.attention_left{
+			width: 1rem;
+			height: 1.8rem;
+			float: left;
+		}
 	</style>
 </head>
 
@@ -76,13 +99,14 @@
 	<!-- 我的粉丝开始 -->
 	<div class="attention">
 		<div class="attention_top">
-			<div class="return"  onclick="history.go(-1)" style="margin-top: 0.36rem;"></div>
-			<div class="dl" style="padding-bottom:0.2rem;">我的粉丝</div>
+			<div class="attention_left" onclick="history.go(-1)"><div class="return" style="margin-top: 0.52rem;"></div></div>
+			
+			<div class="dl">我的粉丝</div>
 		</div>
 		<div class="both"></div>
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
-				<div class="attention_center" style="margin-top:2rem;">
+				<div class="attention_center" style="margin-top:2.25rem;">
 					<div class="non_payment_null1"></div>
 					<ul id="clist">
 						
@@ -158,7 +182,7 @@
                     var focusHtml="";
                     var html="";
                     if(isFocus==0){
-    					focusHtml="<span class='focus' lecturerId='"+result[i].lecturerId+"'>未关注</span>";
+    					focusHtml="<span class='focus' lecturerId='"+result[i].lecturerId+"'>加关注</span>";
     				}else if(isFocus==2){
                         focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"'>互相关注</span>";
     				}
@@ -178,7 +202,8 @@
 					document.getElementById("clist").innerHTML ="";
 					var odiv = document.createElement("div");
 					odiv.id = 'content';
-					odiv.innerHTML = "<div class='kongbai_div'><img src='/xcviews/images/null03.png' class='kongbai' /><div  class='perfection'>完善信息</div></div>";
+//					var tip_str = "您还没有粉丝，快去完善个人信息吧！";
+					odiv.innerHTML = "<div class='kongbai_div'><img src='/xcviews/images/null03.png' class='kongbai' /><p>您还没有粉丝，快去完善个人信息吧！</p><div  class='perfection'>完善信息</div></div>";
 					document.getElementById("clist").appendChild(odiv);
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
@@ -202,7 +227,7 @@
     //点击完善信息
     mui("#refreshContainer").on('tap', '.perfection', function (event) {
     	
-    	location.href = "/xcviews/html/person.html";
+    	location.href = "/xcviews/html/persons.html";
     });
 
     /**

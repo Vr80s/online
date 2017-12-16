@@ -29,6 +29,7 @@ import com.xczhihui.user.center.web.utils.CookieUtil;
 import com.xczhihui.user.center.web.utils.UCCookieUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -76,58 +77,21 @@ public class UserController extends OnlineBaseController {
 
 	@Autowired
 	private UserCenterAPI api;
+
+	@Value("${domain}")
+	private String domain;
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
-//		String info = "测试pc";
-		/**
-		 * 1.获得客户机信息
-		 */
-		/*String requestUrl = request.getRequestURL().toString();//得到请求的URL地址
-		String requestUri = request.getRequestURI();//得到请求的资源
-		String queryString = request.getQueryString();//得到请求的URL地址中附带的参数
-		String remoteAddr = request.getRemoteAddr();//得到来访者的IP地址
-		String remoteHost = request.getRemoteHost();
-		int remotePort = request.getRemotePort();
-		String remoteUser = request.getRemoteUser();
-		String method = request.getMethod();//得到请求URL地址时使用的方法
-		String pathInfo = request.getPathInfo();
-		String localAddr = request.getLocalAddr();//获取WEB服务器的IP地址
-		String localName = request.getLocalName();//获取WEB服务器的主机名
-		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
-		//通过设置响应头控制浏览器以UTF-8的编码显示数据，如果不加这句话，那么浏览器显示的将是乱码
-		response.setHeader("content-type", "text/html;charset=UTF-8");
-		System.out.println("获取到的客户机信息如下：");
-		System.out.println("<hr/>");
-		System.out.println("请求的URL地址："+requestUrl);
-		System.out.println("<br/>");
-		System.out.println("请求的资源："+requestUri);
-		System.out.println("<br/>");
-		System.out.println("请求的URL地址中附带的参数："+queryString);
-		System.out.println("<br/>");
-		System.out.println("来访者的IP地址："+remoteAddr);
-		System.out.println("<br/>");
-		System.out.println("来访者的主机名："+remoteHost);
-		System.out.println("<br/>");
-		System.out.println("使用的端口号："+remotePort);
-		System.out.println("<br/>");
-		System.out.println("remoteUser："+remoteUser);
-		System.out.println("<br/>");
-		System.out.println("请求使用的方法："+method);
-		System.out.println("<br/>");
-		System.out.println("pathInfo："+pathInfo);
-		System.out.println("<br/>");
-		System.out.println("localAddr："+localAddr);
-		System.out.println("<br/>");
-		System.out.println("localName："+localName);*/
-
-
-
-		Token t = userCenterAPI.login(username, password,TokenExpires.Day);
+		OnlineUser o = service.findUserByLoginName(username);
+		Token t = null;
+		if(o!=null)
+		t = userCenterAPI.login4BBS(username, password,o.getSmallHeadPhoto(),o.getId(),TokenExpires.Day);
 //		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
-			OnlineUser o = service.findUserByLoginName(username);
 			if (o != null) {
+				t.setHeadPhoto(o.getSmallHeadPhoto());
+				t.setUuid(o.getId());
 				if (o.isDelete() || o.getStatus() == -1){
 					return ResponseObject.newErrorResponseObject("用户已禁用");
 				}
@@ -243,7 +207,7 @@ public class UserController extends OnlineBaseController {
 				req.getSession().setAttribute("_token_", token);
 				req.getSession().setAttribute("_user_", user);
 				UCCookieUtil.writeTokenCookie(res, token);
-				CookieUtil.setCookie(res, "first_login", "1", "ixincheng.com", "/", 10);;
+			CookieUtil.setCookie(res, "first_login", "1", domain, "/", 10);;
 				//活动统计
 				String cok = CookieUtil.getCookieValue(req, "act_code_from");
 				if (cok != null && !"".equals(cok)) {

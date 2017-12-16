@@ -60,6 +60,32 @@
 	#deal_p{
 		margin-top: 52px;
 	}
+	
+	.buy_pay{
+		margin-bottom: 0.4rem;
+		margin-left: 0;
+	    width: 96%;
+	    font-size: 0.6rem;
+	    color: #333;
+	    line-height: 1.4rem;
+	}
+	.hot_zhibo{
+		padding-bottom: 0.2rem;
+	}
+	.buy_bottom ul li p{
+		margin-top: -0.15rem;
+	}
+	.zhibo{
+		
+	}
+	.buy_clause{
+		padding: 0;
+		height: 1.75rem;
+		line-height: 1.75rem;
+	}
+	#deal_title span{
+		font-size: 1.5rem;
+	}
 </style>
 </head>
 <body style="background:#efefef;">
@@ -93,26 +119,28 @@
 
 	<!-- 支付方式开始 -->
 	<div class="hot_zhibo buy">
-		<p style="color:#999;margin-bottom:0.7rem;">支付方式</p>
-		<div class="zhibo">
-			<div class="buy_pay buy_pay01">
-				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" />
+		<p style="color:#999;">选择支付方式</p>
+		<div class="zhibo" style="width: 97%;border-bottom: 1px solid #e5e5e5;margin-right: 0;margin-bottom: 0.4rem;">
+			<div class="buy_pay buy_pay02" id="zfbDiv" style="margin-left: 0;width: 96%;">支付宝
+				<img src="../images/pay01.png" alt="" class="buy_pay_img" style="width: 1.55rem;height: 1.275rem;" />
+				<span><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></span>
+			</div>
+		</div>
+		<div class="both"></div>
+		<div class="zhibo" style="width: 97%;border-bottom: 0;margin-right: 0;margin-bottom: 0rem;">
+			<div class="buy_pay buy_pay01" style="margin-left: 0;width: 96%;margin-bottom: 0.2rem;">
+				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" style="width: 1.425rem;height: 1.275rem;" />微信支付
 				<span>
 					<label class="label02"><input name="fruit" type="radio" value="1" class="buy_put" /></label>
 				</span>
 			</div>
 		</div>
-		<div class="zhibo">
-			<div class="buy_pay buy_pay02" id="zfbDiv">
-				<img src="../images/pay01.png" alt="" class="buy_pay_img" />
-				<span><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></span>
-			</div>
-		</div>
+		
 	</div>
 	<!-- 支付方式结束 -->
 
 	<!-- 同意条款开始 -->
-	<div class="buy_clause">
+	<div class="buy_clause"style="border-bottom: 1px solid #e5e5e5;border-top: 1px solid #e5e5e5;">
 		<span>
 			<label class="label1"><input name="xi" type="radio" value="cc" class="buy_put" checked="checked" /></label>
 		</span>
@@ -127,7 +155,7 @@
 		<div class="base buy_bottom">
 			<ul>
 				<li class="buy_left"><p class="buy_bottom_p1">￥<span id="buyPirce"></span></p><p class="buy_bottom_p2">该视频为收费视频</p></li>
-				<li class="buy_right" id="buy_right"><a href="javascript: ;" onclick="goPay()">去支付</a></li>
+				<li class="buy_right" id="buy_right"><a href="javascript: ;" onclick="goPay()">立即支付</a></li>
 			</ul>
 		</div>
 	</footer>
@@ -137,7 +165,7 @@
 	<div class="deal_show">
 		<div id="" style="width: 100%;">
 			<div id="deal_title" style="width: 100%;height: 52px;background: #00bc12;text-align: center;line-height: 52px;color: #fff;position: fixed;top: 0;">
-				用户充值协议<span class="deal_title_close" >X</span>
+				用户充值协议<span class="deal_title_close" >×</span>
 			</div>
 			<div id="deal_p">
 				<p style="margin-top:0.2rem;">尊敬的用户您好，在同意本协议前，请您认真阅读并充分知悉、理解熊猫中医平台的各项规则及要求，以及国家关于该类互联网信息服务的法律法规等。如果您对本协议的任何条款表示异议，您可以选择不使用；使用则意味着您将同意遵守本协议下全部规定，以及我们后续对使用协议随时所作的任何修改，并完全服从于我们的统一管理。本协议已对与您的权益有或可能具有重大关系的条款，及对熊猫中医平台具有或可能具有免责或限制责任的条款用粗体字予以标注，请您注意。</p>

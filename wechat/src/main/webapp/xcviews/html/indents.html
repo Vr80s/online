@@ -19,6 +19,7 @@
 <script src="../js/js.js"></script>
 	<link rel="stylesheet" href="/xcviews/css/mui.min.css">
 <link rel="stylesheet" href="../css/css.css">
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 <!-- <link rel="stylesheet" href="/xcviews/js/js/style.css"> -->
 
 
@@ -90,16 +91,11 @@
 		font-size: 0.55rem;
 	    color: #00bc12;
 	    border: 1px solid #00bc12;
-	    border-radius: 6px;
-	    margin-right: 0.4rem;
 	    text-align: right;
 	    display: inline-block;
 	    text-align: center;
 	    float: right;
-	    line-height: 1.2rem;
 	    margin-top: 0.32rem;
-	    width: 3.4rem;
-	    height: 1.05rem;
 	    background: none;
 	    line-height: 1.05rem;
 	    border-radius: 60px;
@@ -160,17 +156,13 @@
 	.frequency_div ul li{
 		margin-left: 1.55rem;
 	}
-	
-	  /* mui-scroll可能影响刷新效果 */
- 	/* .mui-scroll{
-		height: 100%;
-	}  */
 	.indent_main{
 		height: 100%;
 	}
 	#content{
-		width: 4.675rem;
+		width: 5.675rem;
 		margin: 0 auto;
+		text-align: center;
 	}
  	.order_falg{
 		font-size: 0.55rem;
@@ -179,8 +171,10 @@
 	    text-align: center;
 	    float: right;
 	    margin-top: 0.32rem;
-	    width: 3.4rem;
-	    height: 1.05rem;
+	    /*处理安卓和ios兼容  不用宽高，用padding值*/
+	    /*width: 3.4rem;
+	    height: 1.05rem;*/
+	   	padding: 0.02rem 0.5rem;
 	    background: none;
 	    line-height: 1.05rem;
 	    border-radius: 60px;
@@ -194,33 +188,26 @@
     
     .history_bg_cen_size{
     	text-align: center;
-    	font-size: 0.7rem;
-    	margin-top: 0.5rem;
+    	font-size: 0.65rem;
+    	margin-top: 1.85rem;
 
     }
     .history_bg_bto01{
     	margin: 0 auto;
-    	margin-top: 1rem;
-    	width: 57%;
+	    margin-top: 1.6rem; 
+	    width: 100%;
+	    border-top: 1px solid #d2d2da;
+	    line-height: 1.8rem;
     }
    .history_bg_bto01 div {
 	    font-size: 0.6rem;
-	    /*color: #5ebdad;
-	    font-family: "微软雅黑";*/
 	}
-    
-    
-    /*测试滑动*/
-   /*.swipe{
-   	max-height: 21.5rem !important;
-    overflow: auto !important;
-    background: aliceblue;
-   }
-   .li_list{
-   	font-size: 14px;
-   }*/
-  
-  
+	
+  	#content p{
+  		font-size: 0.6rem;
+  		color: #999;
+  		margin-top: 0.75rem;
+  	}
   /*新ui*/
  .indent_main_cen_left{
  	width: 95%;
@@ -246,21 +233,30 @@
  .indent_main{
  	background: #fff;
  }
+.history_bg_cen {
+    margin-top: 6.5rem;
+}
    
-   
+.vanish2{
+	display: none;
+}
+.vanish{
+	display: none;
+}
 </style>
 </head>
 
 <body style="background:#efefef;">
-
+	<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>提交订单错误！请稍后再试！</div></div></div>
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>网络异常</div></div></div>
 
 	<div class="history_bg" style="display:none;">
 		<div class="history_bg_color"></div>
 		<div class="history_bg_cen">
 			<div class="history_bg_cen_size">确定要清空观看记录吗？</div>
 			<div class="history_bg_bto01">
-				<div class="history_bg_bto1">取消</div>
-				<div class="history_bg_bto2" onclick="deleteOrcancel(this)" style="color: #00bc12;">确定</div>
+				<div class="history_bg_bto1" style="border-right: 1px solid #d2d2da;color: #666 !important;">取消</div>
+				<div class="history_bg_bto2" onclick="deleteOrcancel(this)" style="color: #00bc12 !important;border: 0;">确定</div>
 				
 				<div class="both"></div>
 			</div>

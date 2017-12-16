@@ -6,23 +6,16 @@ function is_weixn(){
         return false;
     }
 }
-
 if(!is_weixn()){
     $(".weixin_li").remove();
 }
-
 /**
  * 判断是否需要跳转到pc网页
  */
 h5PcConversions(true,course_id);
-
-
 if(localStorage.getItem("userId")==null){
     location.href ="/xcviews/html/share.html?course_id="+course_id;
 }
-
-
-
 /**
   * 视频id
   */
@@ -30,16 +23,13 @@ var videoId = "";var teacherId;var teacherName;
 var courseHead ="";var roomNumber="";var lineState =1;
 var result="";
 //统一提交的方法
-
 	requestService("/bxg/live/liveDetails", {course_id : course_id}, function(data) {
 		if (data.success) {
 
             result = data.resultObject;
-            
             //视频id
             videoId = result.directId;
             watchState = result.watchState;
-            
             //判断是否可预约
             if(result.watchState == 0){
 
@@ -73,32 +63,25 @@ var result="";
              */
             if(result.isfocus == 1){
                 $(".guanzhu2").show();
-                //grabble.png  /xcviews/images/guanzhu_03.png
-                //$("#guanzhuimg").attr("src","/xcviews/images/guanzhu_03.png");
             }else if(result.isfocus == 0){
-                //grabble.png  /xcviews/images/grabble.png
                 $(".guanzhu1").show();
-                //$("#guanzhuimg").attr("src","/xcviews/images/guanzhu_03.png");
             }
-
             lineState =result.lineState;
-            /*result.lineState = 1;*/
             /**
              * 判断是直播呢，还是回放呢
-             *  0 直播已结束 1 直播还未开始 2 正在直播
-             *  
              *  显示正在直播和直播回放
              */
-            if(result.lineState == 0){  //隐藏送礼
-            	
+            if(result.lineState == 3){  //隐藏送礼
             	//直播回放
-            	$("title").text("直播回放");
+            	$("title").text("直播回放");mywords
             	$(".history_span").text("直播回放");
-            	
+            	$("#mywords").css("width","11.4rem");
+            	$("#face").css("top","1.45rem");
+            	$("#face").css('left','0.06rem');
             	
             	$(".give_a1").hide();
             	$(".give_a1_img").hide();
-            	$("#mywords").css('width','10.1rem;');
+//          	$("#mywords").css('width','10.1rem;');
             	/*$("#face").css('margin-left','0.3rem');*/
             	$(".give_a1_span02").hide();
             	$(".poson").css('right','-1.4rem');
@@ -107,17 +90,19 @@ var result="";
                 $(".send_img").css('background-size','100% 100%');
                
                 /*点击input  发送往右跑动了，给0.4rem没起作用*/
-            	/*$("#mywords").click(function() {
-            		$(".send_img").css('right','0.4rem');
-                });*/
+            	$("#mywords").click(function() {
+            		$(".give_a1").hide();
+            		$(".give_a1_img").hide();
+//          		$(".send_img").css('right','-2.4rem');
+                });//CryptoKeyPair车人都是次日递,侧欧佛为空//、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、z
             	$(".details_size").hide();
             	$(".poson").css('right','-2.1rem');
             	$(".div_input").css('width','13.2rem');
             	$(".coze_bottom_input").css('margin-left','0rem');
             	/*$(".div_input").css('margin-left','2.3rem');*/
             	/*$("face").css('margin-top','2rem;');*/
-            	$(".give_a01").css('margin-top','0.2rem');
-            	$(".give_a01").css('margin-left','0.65rem');
+//          	$(".give_a01").css('margin-top','0.2rem');
+            	$(".give_a01").css('margin-left','0.5rem');
             	$("#face").click(function() {
             		
             		$(".coze_bottom").css('bottom','7.1rem');
@@ -138,9 +123,6 @@ var result="";
             		$(".div_input").css('margin-left','2.3rem');
             	});
             	    
-           
-              	
-            	
             	/*点击发送*/
             	$("#sendChat").click(function() {
         		    $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
@@ -154,6 +136,13 @@ var result="";
                     $(".give_a1_span02 img").hide();
                     $(".coze_bottom").css("bottom","0");
                 });	
+                
+                /*点击表情包  facebox-mobile  margin-top: -2rem;*/
+//              $(".face_img01").click(function() {  //
+               		/*$(".face").css("top","-1.5rem");
+               		$(".facebox").css("margin-top","-2rem");*/
+//              });
+              
             	
             }else{
             	
@@ -163,7 +152,7 @@ var result="";
             	
             	
                 $("#mywords").click(function() {
-                    $(".give_a1_img").hide();
+//                  $(".give_a1_img").hide();
                 });
 
                 // 点击送礼开始  --显示送礼列表
@@ -174,7 +163,9 @@ var result="";
                             var result = data.resultObject;
                             $("#xmbShowSpan").html(result.balanceTotal);
                         }else{
-                            alert("熊猫币余额获取失败！请稍后再试");
+//                          alert("熊猫币余额获取失败！请稍后再试");
+							$(".vanish2").show();
+							setTimeout(function(){$(".vanish2").hide();},1500);
                         }
 
                     });
@@ -204,9 +195,7 @@ var result="";
             var children = $("#zhibopinglun [class='p1']").text(result.gradeName);
             var children = $("#zhibopinglun [class='p2']").text(result.name);
             
-            //
             $(".anchor_center").text(result.description);
-            
             
           //视频id不等于null的时候
           if(stringnull(videoId)){
@@ -275,7 +264,9 @@ function  goPay() {
             var result = data.resultObject;
             location.href = "/xcviews/html/pay.html?courseId="+course_id+"&orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
         }else{
-            alert("提交订单错误！请稍后再试！");
+//          alert("提交订单错误！请稍后再试！");
+			$(".vanish4").show();
+			setTimeout(function(){$(".vanish4").hide();},1500);
         }
 
     });
@@ -439,7 +430,7 @@ function refreshGiftRanking(){
 	                    	html+="<span>"+pName+"</span>";
 	                    } 
 	               html+="</div>\n" +
-	                    "<div class='leaderboard_center'>\n" +
+	                    "<div class='leaderboard_center' title="+list[i].userId+" >\n" +
 	                    "<img src='"+list[i].smallHeadPhoto+"' alt='' />\n" +
 	                    "<div class='leaderboard_center_size'>\n" +
 	                    "<p class='p1'>"+list[i].name+"</p>\n" +
@@ -456,6 +447,14 @@ function refreshGiftRanking(){
 	            }
 	            /*html+="<div style="height:5rem;"></div>";*/
 	            $("#phbList").html(html);
+	            
+	            /**
+	             * 点击查看
+	             */
+	            $(".leaderboard_center").click(function(){
+	            	var teacherId = $(this).attr("title");
+	            	location.href = "/xcviews/html/personage.html?lecturerId="+teacherId;
+	            })
 	    }
 	},false);
 	
@@ -548,22 +547,24 @@ if(isWeiXin()){
 			'showMenuItems'
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-	
+	var domain = window.location.protocol+"//"+document.domain;
 	wx.ready(function () {
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: result.gradeName, // 分享标题
 		    desc: result.description.stripHTML(), // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
 		    imgUrl: result.smallImgPath, // 分享图标
 		    type: '', // 分享类型,music、video或link，不填默认为link
 		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
+		    	alert("测试微信分享--成功");
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
 		    },
 		    cancel: function () {
+		    	alert("测试微信分享-取消");
 		        // 用户取消分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
@@ -572,7 +573,7 @@ if(isWeiXin()){
 		//发送到朋友圈
 		wx.onMenuShareTimeline({
 		    title: result.gradeName, // 分享标题
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
@@ -591,7 +592,7 @@ if(isWeiXin()){
 		wx.onMenuShareQQ({
 		    title: result.gradeName, // 分享标题
 		    desc: result.description.stripHTML(), // 分享描述
-		    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
 		    imgUrl: result.smallImgPath, // 分享图标
 		    success: function () {
 		       // 用户确认分享后执行的回调函数

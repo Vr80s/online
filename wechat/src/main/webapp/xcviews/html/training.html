@@ -20,7 +20,7 @@
 <!-- 网页自适应JS代码引入 -->
 <script src="../js/js.js"></script>
 <link rel="stylesheet" href="../css/css.css">
-
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
 
 <script>
 	$(document).ready(function(){
@@ -39,14 +39,18 @@
   		$(".training_teacher_title0").click(function(){
   			$(".training_teacher0").show();
   			$(".training_teacher1").hide();
-  			$(".training_teacher_title0").css("border-bottom","1px solid #00bc12");
+  			$(this).css("color","#00bc12");
   			$(".training_teacher_title01").css("border-bottom","0");
+  			$(".training_teacher_title0").css("border-bottom","1px solid #00bc12");
+  			$(".training_teacher_title01").css("color","#333");
   		});
   		
   		/*点击课程介绍*/
   		$(".training_teacher_title01").click(function(){
   			$(".training_teacher0").hide();
   			$(".training_teacher1").show();
+  			$(this).css("color","#00bc12");
+  			$(".training_teacher_title0").css("color","#333");
   			$(".training_teacher_title01").css("border-bottom","1px solid #00bc12");
   			$(".training_teacher_title0").css("border-bottom","0");
   		});
@@ -73,7 +77,7 @@
 
 <style>
 	.time_span{
-		font-size: 0.7rem;
+		font-size: 0.6rem;
 	    color: #fff;
 	    margin-left: 0.4rem;
 	    position: absolute;
@@ -83,22 +87,23 @@
 	}
 	.training_message_maip3{
 		margin-top: 0.37rem;
-		position: absolute;
+	    position: absolute;
 	    bottom: 0;
 	    width: 100%;
 	    height: 1.9rem;
-	    line-height: 1.9rem;
+	    line-height: 2.1rem;
 	    color: #fff;
 	    text-align: left;
 	    text-indent: 3.5rem;
 	    background: url(/xcviews/images/bg.png);
+	    font-size: 0.6rem;
 	}
 	.training_message_maip2_area{
 		width: 4.2rem;
 	    float: right;
 	    font-size: 0.5rem;
 	    color: #999;
-	    font-family: "微软雅黑";
+	    /*font-family: "微软雅黑";*/
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	    white-space: nowrap;
@@ -191,35 +196,56 @@
 		opacity: 0.5;
 	}
 	.call_border_color{
-		width: 90%;
-		height: 5rem;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-left: -7.2rem;
-	    margin-top: -4rem;
-	    background: #fff;
-	    border-radius: 8px;
+		width: 11.55rem;
+	    height: 6.35rem;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    margin-left: -37%;
+	    background: #f4f4f4;
+	    z-index: 999999999;
+	    border-radius: 6px;
+	    margin-top: -5.8rem;
 	}
 	.call_border_size{
 		font-size: 0.7rem;;
 		color: #333;
 		text-align: center;
 		width: 100%;
-		margin-top: 1.3rem;
+		margin-top: 1.85rem;
 	}
 	.Yes{
-		font-size: 0.7rem;
+		font-size: 0.65rem;
 		color: #333;
-		margin-top: 1.3rem;
-		margin-top: 1.2rem;
+		margin: 0 auto;
+	    margin-top: 1.6rem;
+	    width: 100%;
+	    border-top: 1px solid #d2d2da;
+	    line-height: 1.8rem;
 	}
 	.yes{
 		float: left;
-		margin-left: 4rem;
+	    width: 5.75rem;
+	    text-align: center;
+	    color: #00bc12 !important;
+	    font-size: 0.65rem !important;
 	}
 	.yes_no{
-		margin-left: 10rem;
+		float: left;
+	    width: 5.75rem;
+	    border-right: 1px solid #d2d2da;
+	    text-align: center;
+	    color: #666 !important;
+	    font-size: 0.65rem !important;
+	}
+	.vanish{
+		display: none;
+	}
+	.vanish0{
+		display: none;
+	}
+	.vanish1{
+		display: none;
 	}
 </style>
 <script type="text/javascript">
@@ -263,6 +289,10 @@
 </head>
 
 <body style="background:#efefef;">
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>姓名不能为空!</div></div></div>
+	<div class='vanish0'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空!</div></div></div>
+	<div class='vanish1'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入正确的手机号</div></div></div>
+	
 	<!-- 立即报名弹框开始 -->
 	<div class="submit_tarining" style="display: none" id="baseInfoDiv">
 		<div class="submit_tarining_bg"></div>
@@ -287,7 +317,7 @@
 	<!-- 线下培训班主页开始 -->
 	<div class="attention">
 		<div class="attention_top">
-			<div class="return"  onclick="history.go(-1)"></div>
+			<div class="return"  onclick="location.href = 'train.html'"></div>
 			<div class="dl">线下培训班</div>
 		</div>
 		<div class="both"></div>
@@ -380,11 +410,12 @@
 	<div class="call_border">
 		<div class="call_border_bg"></div>
 		<div class="call_border_color">
-			<div class="call_border_size">是否拨打15936216273号码?</div>
+			<div class="call_border_size">是否拨打0898-32881934号码?</div>
 			
 			<div class="Yes">
-				<a href="tel:15936216273" class="yes">是</a>
 				<p class="yes_no">否</p>
+				<a href="tel:0898-32881934" class="yes">是</a>
+				
 				<div class="both"></div>
 			</div>
 			

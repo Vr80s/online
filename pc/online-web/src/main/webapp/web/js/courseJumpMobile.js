@@ -28,16 +28,20 @@ $(function(){
 				};
 			}(),  
 			language:(navigator.browserLanguage || navigator.language).toLowerCase()  
-	}   
-	
-	if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
-			browser.versions.iPhone || browser.versions.iPad){
-		if(url=='www.ipandatcm.com'){
-            window.location = "http://wx.ixincheng.com/bxg/common/pcShareLink?courseId="+courserId;
-		}else{
-            window.location = "http://test-wx.ixincheng.com/bxg/common/pcShareLink?courseId="+courserId;
-        }
 	}
+
+    if(browser.versions.mobile || browser.versions.ios || browser.versions.android ||
+        browser.versions.iPhone || browser.versions.iPad){
+
+        if(document.location.host=='www.ipandatcm.com' ||document.location.host=='www.ixincheng.com'){
+            wxurl = "http://m.ipandatcm.com";
+        }else{
+            wxurl = "http://test-wx.ixincheng.com";
+        }
+        window.location = wxurl+"/bxg/page/index/null/null";
+    }else if(document.location.host=='www.ixincheng.com'){
+        window.location = "http://www.ipandatcm.com";
+    }
 });
 
 

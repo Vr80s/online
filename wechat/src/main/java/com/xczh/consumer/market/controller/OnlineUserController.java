@@ -166,6 +166,30 @@ public class OnlineUserController {
 	}
 	
 	/**
+	 * 退出登录
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("appleLogout")
+	@ResponseBody
+	public ResponseObject appleLogout(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
+		UCCookieUtil.clearTokenCookie(res);
+		req.getSession().setAttribute("_user_", null);
+		String token = req.getParameter("token");
+		if(token!=null){
+			cacheService.delete(token);
+		}
+		String appUniqueId = req.getParameter("appUniqueId");
+		//设置登录标识
+		onlineUserService.updateAppleTourisrecord(appUniqueId,0);
+		return ResponseObject.newSuccessResponseObject("退出成功");
+	}
+	
+	
+	/**
 	 * 微信退出登录
 	 * @param req
 	 * @param res
@@ -442,32 +466,32 @@ public class OnlineUserController {
 	public ResponseObject userCenterFormSub(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		//TODO
         try{
-        	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-             MultipartFile fileMul = multipartRequest.getFile("file");  
-             Map<String,String> map = new HashMap<String,String>();
-             if(fileMul!=null && !fileMul.isEmpty()){  
-                 // 获得文件名：   
-                 String filename = fileMul.getOriginalFilename();   
-                 // 获得输入流：   
-                 //InputStream input = fileMul.getInputStream();   
-                 
-                 if(filename!=null && !filename.trim().equals("")){
-                     filename = filename.toLowerCase();
-         			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
-         					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
-         				return ResponseObject.newErrorResponseObject("文件类型有误");
-         			}
-         			String contentType =  fileMul.getContentType();//文件类型
-         			byte [] bs = fileMul.getBytes();
-         			String projectName="other";
-         			String fileType="1"; //图片类型了
-         			String headImgPath = service.upload(null, //用户中心的用户ID
-     				projectName, filename,contentType, bs,fileType,null);
-         			JSONObject json = JSONObject.parseObject(headImgPath);
-         			System.out.println("文件路径——path:"+headImgPath);
-         			map.put("smallHeadPhoto", json.get("url").toString());
-                 }
-             }  	
+    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+         MultipartFile fileMul = multipartRequest.getFile("file");  
+         Map<String,String> map = new HashMap<String,String>();
+         if(fileMul!=null && !fileMul.isEmpty()){  
+             // 获得文件名：   
+             String filename = fileMul.getOriginalFilename();   
+             // 获得输入流：   
+             //InputStream input = fileMul.getInputStream();   
+             
+             if(filename!=null && !filename.trim().equals("")){
+                 filename = filename.toLowerCase();
+     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
+     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
+     				return ResponseObject.newErrorResponseObject("文件类型有误");
+     			}
+     			String contentType =  fileMul.getContentType();//文件类型
+     			byte [] bs = fileMul.getBytes();
+     			String projectName="other";
+     			String fileType="1"; //图片类型了
+     			String headImgPath = service.upload(null, //用户中心的用户ID
+ 				projectName, filename,contentType, bs,fileType,null);
+     			JSONObject json = JSONObject.parseObject(headImgPath);
+     			System.out.println("文件路径——path:"+headImgPath);
+     			map.put("smallHeadPhoto", json.get("url").toString());
+             }
+         }  	
         	
           String sex= request.getParameter("sex");  
           String nickname= request.getParameter("nickname");  
@@ -476,9 +500,11 @@ public class OnlineUserController {
           String provinceName= request.getParameter("provinceName");
           String cityId= request.getParameter("cityId");
           String provinceId= request.getParameter("provinceId");
+          String info= request.getParameter("info");
           
           String occupation= request.getParameter("occupation"); 
           String occupationOther= request.getParameter("occupationOther"); 
+          String occupationText= request.getParameter("occupationText"); 
           
           map.put("sex", sex);
           map.put("nickname", nickname);
@@ -487,18 +513,20 @@ public class OnlineUserController {
           map.put("provinceName", provinceName);
           map.put("cityId", cityId);
           map.put("provinceId", provinceId);
+          map.put("info", info);
           
           //新增 身份信息、职业信息
           map.put("occupation", occupation);
-          map.put("occupationOther", occupationOther);
+          map.put("occupationText", occupationText);
           
+          map.put("occupationOther", occupationOther);
           OnlineUser user = new OnlineUser();
           String token = request.getParameter("token");
           if(token !=null ){
         	  user = cacheService.get(token);
           }else{
         	  user = (OnlineUser) request.getSession().getAttribute("_user_");
-          }  
+         }  
           if(null == user){
              return ResponseObject.newErrorResponseObject("获取用户信息有误");
           }
@@ -521,6 +549,7 @@ public class OnlineUserController {
        /*   if(map.get("sex").equals("2")){
         	  map.remove("sex");
           }*/
+          System.out.println(map.toString());
           return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
             e.printStackTrace();
@@ -832,6 +861,11 @@ public class OnlineUserController {
 		String password = req.getParameter("password"); //密码
 		String openId = req.getParameter("openId");     //openId
 		String code = req.getParameter("code");         //验证码
+		String appleLogo= req.getParameter("appleLogo"); //苹果标识
+		
+		String appUniqueId = req.getParameter("appUniqueId");
+		
+		
 		if(null == username || null == code || null == password){
 			return ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
 		}
@@ -850,11 +884,10 @@ public class OnlineUserController {
 		if(null == m){
 			return  ResponseObject.newErrorResponseObject("网络不给力,刷新页面试试");
 		}
-
 		/**
 		 * 向用户中心添加数据
 		 *  用户名、 密码、昵称、性别、邮箱、手机号
-		 *  第三方登录的用户名和密码是opendi
+		 *  第三方登录的用户名和密码是openId
 		 */
 	    ItcastUser iu = userCenterAPI.getUser(username);
 		if(iu == null){
@@ -866,11 +899,9 @@ public class OnlineUserController {
 		 * 判断这个用户是否在外面注册过
 		 */
 		OnlineUser ou1 = onlineUserService.findUserByLoginName(username);
-		
 		if(ou1 !=null ){ //此用户已经注册过了
 			
 			ou1.setUnionId(m.getUnionid());
-			//onlineUserMapper.updateUserUnionidByid(ou1);
 			onlineUserService.updateUserUnionidByid(ou1);
 			
 			Token t = userCenterAPI.loginMobile(username,iu.getPassword(), TokenExpires.TenDay);
@@ -887,58 +918,102 @@ public class OnlineUserController {
 			 */
 			OnlineUser ou =  onlineUserService.findOnlineUserByUnionid(m.getUnionid());
 			if(ou == null){
-				OnlineUser u = new OnlineUser();
-				u.setId(UUID.randomUUID().toString().replace("-", ""));
-				u.setSex(Integer.parseInt(m.getSex()));
-				u.setUnionId(m.getUnionid());
-				u.setStatus(0);
-				u.setCreateTime(new Date());
-				u.setDelete(false);
-				u.setName(m.getNickname());   //微信名字
-				u.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
-				u.setVisitSum(0);
-				u.setStayTime(0);
-				u.setUserType(0);
-				u.setOrigin("weixin");
-				u.setMenuId(-1);
-				u.setCreateTime(new Date());
-				u.setType(1);
-				
-				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
-				u.setVhallId(weihouUserId);  //微吼id
-				u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码 
-				u.setVhallName(u.getName());
-				u.setPassword(iu.getPassword()); 
-				u.setUserCenterId(iu.getId());
-				u.setLoginName(username);
-				 /**
-				 * 将从微信获取的省市区信息变为对应的id和name
-				 */
-				System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
-				Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
-				if(map!=null){
-					Object objId = map.get("cid");
-					int countryId = Integer.parseInt(objId.toString());
-					u.setDistrict(countryId+"");
-					map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
+				//apple
+				if(!StringUtils.isNotBlank(appleLogo)){
+					OnlineUser u = new OnlineUser();
+					u.setId(UUID.randomUUID().toString().replace("-", ""));
+					u.setSex(Integer.parseInt(m.getSex()));
+					u.setUnionId(m.getUnionid());
+					u.setStatus(0);
+					u.setCreateTime(new Date());
+					u.setDelete(false);
+					u.setName(m.getNickname());   //微信名字
+					u.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
+					u.setVisitSum(0);
+					u.setStayTime(0);
+					u.setUserType(0);
+					u.setOrigin("weixin");
+					u.setMenuId(-1);
+					u.setCreateTime(new Date());
+					u.setType(1);
+					
+					String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
+					u.setVhallId(weihouUserId);  //微吼id
+					u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码 
+					u.setVhallName(u.getName());
+					u.setPassword(iu.getPassword()); 
+					u.setUserCenterId(iu.getId());
+					u.setLoginName(username);
+					 /**
+					 * 将从微信获取的省市区信息变为对应的id和name
+					 */
+					System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
 					if(map!=null){
-						objId = map.get("cid");
-						Object objName = map.get("name");	
-						int provinceId = Integer.parseInt(objId.toString());
-						u.setProvince(provinceId+"");
-						u.setProvinceName(objName.toString());
-						map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+						Object objId = map.get("cid");
+						int countryId = Integer.parseInt(objId.toString());
+						u.setDistrict(countryId+"");
+						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
 						if(map!=null){
 							objId = map.get("cid");
-							objName = map.get("name");
-							int cityId = Integer.parseInt(objId.toString());
-							u.setCity(cityId+"");
-							u.setCityName(objName.toString());
+							Object objName = map.get("name");	
+							int provinceId = Integer.parseInt(objId.toString());
+							u.setProvince(provinceId+"");
+							u.setProvinceName(objName.toString());
+							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+							if(map!=null){
+								objId = map.get("cid");
+								objName = map.get("name");
+								int cityId = Integer.parseInt(objId.toString());
+								u.setCity(cityId+"");
+								u.setCityName(objName.toString());
+							}
 						}
 					}
+					onlineUserService.addOnlineUser(u);
+					ou = u;
+				
+				}else{
+				    Map<String, Object> map1 = onlineUserService.getAppTouristRecord(appUniqueId);
+				    ou = onlineUserService.findUserById(map1.get("userId").toString());
+					
+				    ou.setSex(Integer.parseInt(m.getSex()));
+				    ou.setUnionId(m.getUnionid());
+				    ou.setName(m.getNickname());   //微信名字
+				    ou.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
+				    ou.setOrigin("weixin");
+				    ou.setVhallName(m.getNickname());
+				    ou.setPassword(iu.getPassword()); 
+				    ou.setUserCenterId(iu.getId());
+				    ou.setLoginName(username);
+					 /**
+					 * 将从微信获取的省市区信息变为对应的id和name
+					 */
+					System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
+					if(map!=null){
+						Object objId = map.get("cid");
+						int countryId = Integer.parseInt(objId.toString());
+						ou.setDistrict(countryId+"");
+						map = cityService.getSingCityByCodeAndPid(m.getProvince(), countryId);
+						if(map!=null){
+							objId = map.get("cid");
+							Object objName = map.get("name");	
+							int provinceId = Integer.parseInt(objId.toString());
+							ou.setProvince(provinceId+"");
+							ou.setProvinceName(objName.toString());
+							map = cityService.getSingDistrictByCodeAndPid(m.getCity(), provinceId);
+							if(map!=null){
+								objId = map.get("cid");
+								objName = map.get("name");
+								int cityId = Integer.parseInt(objId.toString());
+								ou.setCity(cityId+"");
+								ou.setCityName(objName.toString());
+							}
+						}
+					}
+					onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
 				}
-				onlineUserService.addOnlineUser(u);
-				ou = u;
 			}
 			
 			/**
@@ -957,6 +1032,10 @@ public class OnlineUserController {
 			return  ResponseObject.newSuccessResponseObject(ou);
 		}
 	}	
+	
+	
+	
+	
 	/**
 	 * 登陆成功处理
 	 * @param req

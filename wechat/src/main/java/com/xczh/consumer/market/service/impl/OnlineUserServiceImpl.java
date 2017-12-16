@@ -156,7 +156,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		onlineUserDao.updateOnlineUser(user);
 	}
 	
-	//TODO
 	@Override
 	public OnlineUser addUser(String mobile, String username, String shareCode, String password) throws Exception {
 		OnlineUser u = new OnlineUser();
@@ -331,7 +330,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
 					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 		}
-		if(null == user){
+		if(null == user ){
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
 			user = this.addUser(mobile, "",shareCode,password);
 		}
@@ -561,7 +560,121 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	@Override
 	public void updateOnlineUserByWeixinInfo(OnlineUser ou, OnlineUser ouNew)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		onlineUserDao.updateOnlineUserByWeixinInfo(ou,ouNew);
 	}	
+
+	@Override
+	public Map<String, Object> getAppTouristRecord(String appOnlyOne)
+			throws SQLException {
+		return onlineUserDao.getAppTouristRecord(appOnlyOne);
+	}	
+	@Override
+	public void saveAppTouristRecord(OnlineUser ou,String appOnlyOne)
+			throws SQLException {
+	    onlineUserDao.saveAppTouristRecord(ou,appOnlyOne);
+	}
+	@Override
+	public ResponseObject updateIPhoneRegist(HttpServletRequest req,
+			String password, String mobile, String vtype, String appUniqueId) throws Exception {
+		
+		//手机
+		ItcastUser iu = userCenterAPI.getUser(mobile);
+		OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
+		if(iu == null){
+		   //向用户中心注册
+			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
+					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+		}
+		if(null == user ){
+			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
+			user = this.updateUser(mobile, mobile,shareCode,password,appUniqueId);
+		}
+		//注册过后删除这个被记录的验证码
+		List<VerificationCode> lists = onlineUserDao.getListVerificationCode(mobile,vtype);
+		if(null != lists && lists.size() > 0){
+			onlineUserDao.deleteVerificationCodeById(lists.get(0).getId());
+		}
+		return ResponseObject.newSuccessResponseObject(user);
+		
+	}	
+	
+	public OnlineUser updateUser(String mobile, String username,
+			String shareCode, String password,String appUniqueId) throws Exception{
+		
+		//查询出这个用户
+		Map<String, Object> map = onlineUserDao.getAppTouristRecord(appUniqueId);
+		if(map == null){
+			return null;
+		}
+		OnlineUser u = onlineUserDao.findUserById(map.get("userId").toString());
+		//保存本地库
+		u.setLoginName(mobile);
+		u.setMobile(mobile);
+		u.setName(mobile);
+		u.setPassword(password);
+		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		
+		onlineUserDao.updateOnlineUserAddPwdAndUserName(u);
+		return u;
+	}
+	
+	@Override
+	public void updateOnlineUserAddPwdAndUserName(OnlineUser ou) throws Exception{
+		onlineUserDao.updateOnlineUserAddPwdAndUserName(ou);
+	}
+	@Override
+	public OnlineUser findUserByIdAndVhallNameInfo(String userId) throws SQLException {
+		// TODO Auto-generated method stub
+		return onlineUserDao.findUserByIdAndVhallNameInfo(userId);
+	}
+	
+	@Override
+	public OnlineUser addYkUser(String appUniqueId) throws Exception {
+		
+		String [] arr = "人参,人发,卜芥,儿茶,八角,丁香,刀豆,三七,三棱,干姜,干漆,广白,广角,广丹,大黄,大戟,大枣,大蒜,大蓟,小蓟,小麦,小蘖".split(",");
+		int index=(int)(Math.random()*arr.length);
+		String name = arr[index];
+		
+		OnlineUser u = new OnlineUser();
+		//保存本地库
+		u.setId(UUID.randomUUID().toString().replace("-", ""));
+		//u.setLoginName(name);
+		//u.setMobile(mobile);
+		u.setStatus(0);
+		u.setCreateTime(new Date());
+		u.setDelete(false);
+		u.setName(name);   //默认一个名字
+		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		u.setVisitSum(0);
+		u.setStayTime(0);
+		u.setUserType(0);
+		u.setOrigin("apple_yk");
+		u.setMenuId(-1);
+		//u.setPassword(password);
+		u.setSex(OnlineUser.SEX_UNKNOWN);
+		u.setType(1);
+		//分销，设置上级
+		String weihouUserId = WeihouInterfacesListUtil.createUser(
+				u.getId(),
+				WeihouInterfacesListUtil.moren,
+				name,
+				returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		
+		u.setVhallId(weihouUserId);  //微吼id
+		u.setVhallName(name);
+		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+		onlineUserDao.addOnlineUser(u);
+		
+		/**
+		 * 为用户初始化一条代币记录
+		 */
+		userCoinService.saveUserCoin(u.getId());
+		return u;
+	}
+	@Override
+	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs) throws SQLException {
+		// TODO Auto-generated method stub
+		onlineUserDao.updateAppleTourisrecord(appUniqueId,isReigs);
+	}
+	
 }

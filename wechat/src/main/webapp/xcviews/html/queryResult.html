@@ -54,13 +54,13 @@
 		width: 7.675rem;
 		height: 7.375rem;
 		margin: 0 auto;
-		margin-top: 4.75rem;
+		margin-top: 6.45rem;
 		display: none;
 	}
 	.non_payment_nul_img{
-		width: 7.675rem;
-		height: 7.375rem;
-		background: url(/xcviews/images/null06.png) no-repeat;;
+		width: 4.6rem;
+    	height: 4.525rem;
+		background: url(/xcviews/images/null06.png) no-repeat;
 		background-size:100% 100%;
 	}
 	.grabble_top input{
@@ -72,13 +72,14 @@
 	    height: 1.8rem;
 	    font-size: 0.65rem;
 	    color: #00bc12;
-    	font-size: 0.7rem;
+    	font-size: 0.6rem;
+    	text-indent: 0.2rem;
 	}
 	
 	.sousuo{
 		width: 6.4rem;
 		height: 0.5rem;
-		font-size: 0.7rem;
+		font-size: 0.6rem;
 		color: #999;
 		position: absolute;
 	    top: 0;
@@ -86,13 +87,13 @@
 	    pointer-events:none
 	}
 	.sousuo_bg{
-		width: 0.475rem;
-	    height: 0.475rem;
-	    background: url(/xcviews/images/sousuo0.png) no-repeat;
+		width: 0.575rem;
+    	height: 0.55rem;
+	    background: url(/xcviews/images/seek.png) no-repeat;
 	    background-size: 100% 100%;
 	    position: absolute;
-	    top: 0.6rem;
-	    left: -0.6rem;
+	    top: 0.65rem;
+	    left: -0.7rem;
 	}
 	#result_input{
 		border: 0;
@@ -119,6 +120,22 @@
 	}
 	.zhibo_list_title1{
 		width: 10.8rem;
+	}
+	.hot_zhibo p{
+		border: 0;
+		text-indent: 0rem;
+	}
+	.non_payment_null06{
+		width: 7.675rem;.
+		text-align: center;
+		margin: 0 auto;
+	}
+	.non_payment_null06 p{
+		font-size: 0.6rem;
+		color: #999;
+		margin-top: 0.85rem;
+		text-align: center;
+		display: none;
 	}
 </style>
 <script type="text/javascript">
@@ -189,7 +206,14 @@
 	<!-- 中间内容开始 -->
 	<!-- 热门播主开始 -->
 	
-	<div  class="non_payment_null"></div>
+	<!--默认背景图-->
+	<div class="non_payment_null06">
+		<div class="non_payment_null"></div>
+		<p>没有搜索到你想要的信息</p>
+	</div>
+
+	
+	
 	<div id="hot_hot">
 	<div class="hot_zhibo" id="search_after">
 		<p style="font-size: 0.6rem;">播主</p>
@@ -201,7 +225,7 @@
 	</div>
 	
     <div class="hot_zhibo" id="search_before">
-		<p>热门播主</p>
+		<p style="text-indent: 0.4rem;">热门播主</p>
 		<div class="zhibo">
 			<ul class="hot_zhibo_ul" id="bozhu_result_before">
 			</ul>
@@ -214,7 +238,7 @@
 
 	<!-- 热门直播开始 -->
 	<div class="hot_zhibo">
-		<p>热门直播</p>
+		<p style="text-indent: 0.4rem;">热门直播</p>
 		<div class="zhibo" id="zhibo_result" style="float: right;">
 		</div>
 		<div class="both"></div>
@@ -225,7 +249,7 @@
 	<!-- 热门课程开始 -->
 	
 	<div class="hot_zhibo">
-		<p>热门课程</p>
+		<p style="text-indent: 0.4rem;">热门课程</p>
 		<div class="zhibo" id="kecheng_result" style="float: right;">
 		</div>
 		<div class="both"></div>

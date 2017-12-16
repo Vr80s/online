@@ -3272,7 +3272,7 @@ function doProvAndCityRelation() {
   }
 
   if ($("#chooseCity").length === 0) {
-    city.append("<option id='chooseCity' value='-1'>请选择您所在城市</option>");
+    // city.append("<option id='chooseCity' value='-1'>请选择您所在城市</option>");
   }
   
   var sb = new StringBuffer();
@@ -3285,9 +3285,10 @@ function doProvAndCityRelation() {
   
   var province =$("#province").find("option:selected").text();
   $("#realProvince").val(province);
-  
-  $("#chooseCity").after(sb.toString());
-  
+
+    city.append(sb.toString());
+  // $("#chooseCity").after(sb.toString());
+
 } 
 
 
@@ -3324,12 +3325,13 @@ function doCityAndCountyRelation() {
  * 修改使用
  */
 function doProvAndCityRelationEdit() {
+    debugger
   var city = $("#edit_citys");
   //if (city.children().length > 1) {
    city.empty();
   //}
   if ($("#edit_chooseCity").length === 0) {
-    city.append("<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>");
+    // city.append("<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>");
   }
   var sb = new StringBuffer();
   $.each(cityJson,
@@ -3341,14 +3343,16 @@ function doProvAndCityRelationEdit() {
   
   var province =$("#edit_province").find("option:selected").text();
   $("#edit_realProvince").val(province);
-  
-  $("#edit_chooseCity").after(sb.toString());
+
+    city.append(sb.toString());
+  // $("#edit_chooseCity").after(sb.toString());
 }
 
 /**
  * 市选择产生变化
  */
 function onchangeCityAdd(){
+    debugger
 	var province =$("#citys").find("option:selected").text();
 	$("#realCitys").val(province);
 }

@@ -43,12 +43,13 @@
 		<div class="success01_size">《<span id="name"></span>》课程，该课将在</div>
 		<div class="success01_size"><span id="date"></span>正式开课，</div>
 		<div class="success01_size" style="margin-bottom: 1.3rem;">届时我们将通知您相关上课事宜！</div>
-		<div class="success01_btn"  onclick="location.href='/xcviews/html/newindex.html'">返回</div>
+		<div class="success01_btn"  onclick="gotoTraining()">返回</div>
 	</div>
 	<!-- 报名成功cen结束 -->
 
 </body>
-
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
 <script>
     function formatDateTime(inputTime) {
         var date = new Date(inputTime);
@@ -71,10 +72,16 @@
         if (r != null) return unescape(r[2]); return null;
     }
     
+    //去详情页面
+    function gotoTraining(){
+    	 location.href='training.html?id='+getQueryString("id");
+    }
+    
     requestService("/bxg/bunch/offLineClassItem", {id : getQueryString("id")}, function(data) {
     	 var result = data.resultObject;
          $("#name").html(result.gradeName);
-         $("#date").html(formatDateTime(result.startTime));
+//       $("#date").html(formatDateTime(result.startTime));
+		 $("#date").html( result.startTime.split(" ")[0].replace(/-/g, "."));
     })
 </script>
 </html>

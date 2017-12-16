@@ -43,7 +43,9 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" share_code as shareCode,change_time as changeTime,origin,type,vhall_id as vhallId,"
 				+ "vhall_pass as vhallPass,vhall_name as vhallName, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where login_name = ?  ");
 		Object params[] = { loginName };
 		OnlineUser o=this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -68,7 +70,9 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" menu_id as menuId,union_id as unionId,user_type as userType,ref_id as refId,parent_id as parentId, ");
 		sql.append(" share_code as shareCode,change_time as changeTime,origin,type,room_number as roomNumber, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info ");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info, ");
+		sql.append(" vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName, ");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -91,7 +95,8 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" menu_id as menuId,union_id as unionId,user_type as userType,ref_id as refId,parent_id as parentId ");
 		sql.append(" ,share_code as shareCode,change_time as changeTime,origin,type, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where name = ?  ");
 		Object params[] = { name };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -100,7 +105,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 	/**
 	 * 添加用户
-	 * 
 	 * @param user
 	 * @throws SQLException
 	 */
@@ -230,11 +234,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		StringBuilder sb = new StringBuilder("");
 		sb.append("update oe_user set ");
 
-		// userId: 用户ID,nickname: 昵称,sex:性别,
-		// provinceId:省份ID provinceName:省份名字
-		// cityId :城市ID cityName:城市名字
-		// email:邮件,file:头像 individualitySignature:个性签名
-
 		if (StringUtils.hasText(map.get("info"))
 				&& !map.get("info").equals(original.getName())) {
 			sb.append(" info ='" + map.get("info") + "',");
@@ -273,19 +272,13 @@ public class OnlineUserMapper extends BasicSimpleDao {
 						original.getSmallHeadPhoto())) {
 			sb.append(" small_head_photo ='" + map.get("smallHeadPhoto") + "',");
 		}
-		
-		
-		if (StringUtils.hasText(map.get("occupation"))  //用户职业
-				&& Integer.parseInt(map.get("occupation")) != original.getOccupation()) {
-			
+		if (StringUtils.hasText(map.get("occupation"))) {
 			sb.append(" occupation =" + Integer.parseInt(map.get("occupation")) + ",");
 		}
 		if (StringUtils.hasText(map.get("occupationOther")) //身份信息
 				&& !map.get("occupationOther").equals(original.getOccupationOther())) {
-			
 			sb.append(" occupation_other ='" + map.get("occupationOther") + "',");
 		}
-		
 		
 		String sql = sb.toString();
 		if (sql.indexOf(",") != -1) {
@@ -305,9 +298,10 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 */
 	public Map<String, Object> findUserRoomNumberById(String userId)
 			throws SQLException {
-		StringBuffer sql = new StringBuffer();  
+		StringBuffer sql = new StringBuffer();
 		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,occupation,occupation_other as occupationOther,");
-		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,individuality_signature as info ");
+		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info,is_lecturer as isLecturer,");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { userId };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
@@ -328,17 +322,18 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	public List<Map<String, Object>> findHotHostByQueryKey(String queryKey)
 			throws SQLException {
 
+		
 		// 如果有搜索参数的时候的话就显示3个数据，没有的话就显示4个
 		Integer pageNumber = 4;
 		/**
 		 * 直接先检索关注表啦
 		 */
-		String strSql = " select count(*) as count1,of.lecturer_id as lecturerId from oe_focus as of ";
-		/*
-		 */
+		String strSql = " select count(*) as count1,of.lecturer_id as userId,ou.name as name,ou.small_head_photo as headImg "
+				+ "from oe_focus as of ";
+		
+		strSql += ",oe_user as ou  where  of.lecturer_id = ou.id  and ou.status = 0 and ou.is_delete =0 and ou.name like '%" + queryKey + "%' ";
 		if (queryKey != null && !"".equals(queryKey)
 				&& !"null".equals(queryKey)) {
-			strSql += ",oe_user as ou  where  of.lecturer_id = ou.id and ou.name like '%" + queryKey + "%' ";
 			pageNumber = 3;
 		}
 		strSql += " GROUP BY of.lecturer_id ORDER BY count1 desc limit "
@@ -348,53 +343,35 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		List<Map<String, Object>> listMap = this.query(
 				JdbcUtil.getCurrentConnection(), strSql, new MapListHandler());
 
-		List<Map<String, Object>> bigMap = new ArrayList<Map<String, Object>>();
 		String ids = "";
 		if (listMap.size() > 0) {
 			for (Map<String, Object> map : listMap) {
-				String lecturer_id = map.get("lecturerId").toString();
-				ids += "'" + lecturer_id + "'" + ",";
-				String lecSql = "select id as userId,name,small_head_photo as headImg,room_number as roomNumber ";
-				lecSql += " from oe_user where id =? ";
-				Map<String, Object> map1 = this.query(
-						JdbcUtil.getCurrentConnection(), lecSql,
-						new MapHandler(), lecturer_id);
-				if (map1 != null) {
-					map1.put("count", map.get("count1").toString());
-					bigMap.add(map1);
-				}
+				String userId = map.get("userId").toString();
+				ids += "'" + userId + "'" + ",";
 			}
 		}
-		if (bigMap.size() == pageNumber) {
-			return bigMap;
+		List<Map<String, Object>> bigMap = new ArrayList<Map<String, Object>>();
+		if (listMap.size() == pageNumber) {
+			return listMap;
 		} else {
-			int pageSize = pageNumber - bigMap.size();
+			bigMap.addAll(listMap);
+			int pageSize = pageNumber - listMap.size();
 			StringBuffer sql = new StringBuffer();
-			sql.append("select id as userId,name,small_head_photo as headImg,room_number as roomNumber");
-			sql.append(" from oe_user where is_lecturer = 1 and status = 0  ");
+			sql.append("select id as userId,name,small_head_photo as headImg ");
+			sql.append(" from oe_user where is_lecturer = 1 and status = 0 and is_delete =0 ");
 			if (ids != "") {
 				ids = ids.substring(0, ids.length() - 1);
 				sql.append(" and id not in (" + ids + ")");
 			}
-			/*
-			 * if(queryKey!=null && !"".equals(queryKey) &&
-			 * !"null".equals(queryKey)){
-			 * sql.append(" and (name like '%"+queryKey+"%'");
-			 * sql.append(" or room_number like '%"+queryKey+"%')"); }
-			 */
 			if (queryKey != null && !"".equals(queryKey)
 					&& !"null".equals(queryKey)) {
 				sql.append(" and (name like '%" + queryKey + "%' )");
 			}
-
 			sql.append(" limit " + pageSize);
 			List<Map<String, Object>> chapters = super.query(
 					JdbcUtil.getCurrentConnection(), sql.toString(),
 					new MapListHandler());
 
-			for (Map<String, Object> map : chapters) {
-				map.put("count", 0);
-			}
 			bigMap.addAll(chapters);
 		}
 		return bigMap;
@@ -413,7 +390,8 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" share_code as shareCode,change_time as changeTime,origin,type,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName,");
 
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
-		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info");
+		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 
 		sql.append(" from oe_user where union_id = ?  ");
 		Object params[] = { unionid_ };
@@ -503,7 +481,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 	public void updateOnlineUserByWeixinInfo(OnlineUser ou, OnlineUser ouNew) throws SQLException {
 
-
 		StringBuilder sb = new StringBuilder("");
 		sb.append("update oe_user set ");
 
@@ -540,4 +517,121 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
 	}
+
+	/**
+	 * 查询出apple 游客登录的信息
+	 * @param id
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	public Map<String, Object> getAppTouristRecord(String appOnlyOne) throws SQLException {
+		String sql = " select user_id as userId,is_reigs as isRegis,vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass from apple_tourist_record where app_only_one = ?";
+		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
+				sql, new MapHandler(), appOnlyOne);
+		return map;
+	}
+	/**
+	 * 保存apple 游客登录的信息
+	 * @param id
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 * @throws SQLException
+	 */
+	public void saveAppTouristRecord(OnlineUser ou,String appOnlyOne) throws SQLException {
+		String sql = " insert into apple_tourist_record(app_only_one,user_id,vhall_id,vhall_name,vhall_pass) values(?,?,?,?,?) ";
+		super.update(JdbcUtil.getCurrentConnection(), sql,
+				appOnlyOne,ou.getId(),ou.getVhallId(),ou.getVhallName(),ou.getVhallPass());
+	}
+
+	public void updateOnlineUserAddPwdAndUserName(OnlineUser u) throws SQLException {
+
+		StringBuilder sb = new StringBuilder("");
+		sb.append("update oe_user set ");
+		
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" login_name ='" + u.getLoginName() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" mobile ='" + u.getMobile() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" name ='" + u.getName() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getLoginName())) {
+			sb.append(" password ='" + u.getPassword() + "',");
+		}
+
+		if (u.getSex()!=2) {
+			sb.append(" sex ='" + u.getSex() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getUnionId())) {
+			sb.append(" union_id ='" + u.getUnionId() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getSmallHeadPhoto())) {
+			sb.append(" small_head_photo ='" + u.getSmallHeadPhoto() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getOrigin())) {
+			sb.append(" origin ='" + u.getOrigin() + "',");
+		}
+		
+
+		if (StringUtils.hasText(u.getSmallHeadPhoto())) {
+			sb.append(" small_head_photo ='" + u.getSmallHeadPhoto() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getOrigin())) {
+			sb.append(" origin ='" + u.getOrigin() + "',");
+		}
+		
+		if (StringUtils.hasText(u.getDistrict())) {
+			sb.append(" region_id = '" + u.getDistrict() + "',");
+			sb.append(" region_area_id = '" + u.getProvince() + "',");
+			sb.append(" region_city_id = '" + u.getCity()+ "',");
+			sb.append(" province_name = '" + u.getProvinceName() + "',");
+			sb.append(" city_name = '" + u.getCityName() + "',");
+		}
+		
+		String sql = sb.toString();
+		if (sql.indexOf(",") != -1) {
+			sql = sql.substring(0, sb.length() - 1);
+			sql += " where id = ? ";
+			
+			System.out.println("user center update " + sql);
+			Object[] params = { u.getId() };
+			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
+		}
+	}
+	/**
+	 * 根据id查询用户
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public OnlineUser findUserByIdAndVhallNameInfo(String id) throws SQLException {
+		StringBuffer sql = new StringBuffer(); 
+		sql.append(" select id as id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
+		sql.append(" from oe_user where id = ?  ");
+		Object params[] = { id };
+		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(OnlineUser.class), params);
+	}
+
+	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+		StringBuilder sb = new StringBuilder("");
+		sb.append("update apple_tourist_record set is_reigs = ? where app_only_one = ?");
+		Object[] params = {isReigs,appUniqueId};
+		this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
+	}
+	
 }

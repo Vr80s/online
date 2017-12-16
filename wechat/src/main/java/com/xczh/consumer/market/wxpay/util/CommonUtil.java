@@ -41,6 +41,30 @@ public class CommonUtil {
 		return res;
 	}
 
+	/**
+	 * Description：随机生成的邮件啦
+	 * @return
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static String CreateNoncestrXC() {
+		String chars = "abcdefghijklmnopqrstuvwxyz";
+		String res = "";
+		for (int i = 0; i < 11; i++) {
+			Random rd = new Random();
+			res += chars.charAt(rd.nextInt(chars.length() - 1));
+		}
+		return res;
+	}
+	
+	public static void main(String[] args) {
+		
+		
+		System.out.println(CreateNoncestr());
+		
+	}
+	
+	
 	public static String FormatQueryParaMap(HashMap<String, String> parameters) throws SDKRuntimeException {
 		String buff = "";
 		try {
@@ -541,17 +565,6 @@ public class CommonUtil {
         return responseMap;
     }
 	
-	public static void main(String[] args) {
-		/*
-		try {
-			String str="{\"access_token\":\"2yAuK-gAlOrwb8Tnb0irWt-op_BQez1SJt9zqLnLj6Ik5TxcXl6YEicge06scEUCwTpytYoqBjftyf3RYRLpzhziU1n3gy1_Uwnl81iNeD8\",\"expires_in\":7200,\"refresh_token\":\"Jz_l22mn9M1Vc3ZED7bWv53DdlWL8oMKBr6AAQMD-DkGc7HF2Fi0lt0_Bq-yr7PYzWFi2zS3xYEjQgkT0W0s9gc3dqHp65_JKihULWstYIw\",\"openid\":\"o4pRAwc17kSiqDDsM1VJZ9op88B4\",\"scope\":\"snsapi_base\"}";
-			Map<String, String> res =GsonUtils.fromJson(str, Map.class);
-			System.out.println(res.get("openid"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
-	}
 //	public static String getSign(SignAbledBean payInfo) throws Exception {
 //		String signTemp = orderParamByAscii(payInfo);
 //		String sign = MD5SignUtil.Sign(signTemp, WxPayConst.app_key);

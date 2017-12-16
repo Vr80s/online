@@ -65,7 +65,7 @@ function  goPay() {
     		 var params = data.resultObject;
              if(data.success){
              	 if(is_weixn()){
-                      location.href = "wechat_alipay_xianxia.html?orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo")+"&redirectUrl="+getgetRedirectUrl(allCourse);
+                      location.href = "wechat_alipay_xianxia.html?orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo")+"&redirectUrl="+getgetRedirectUrl(allCourse,true);
                       return;
                   }
                   jmpPayPage("/bxg/alipay/payXianXia",payType,"orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo"),null);
@@ -90,17 +90,21 @@ function  goPay() {
         if(stringnull(openId)){
         	strparam+="&openId="+openId;
         }
-        jmpPayPage("/bxg/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse));
+        jmpPayPage("/bxg/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse,false));
     }
 }
-function getgetRedirectUrl(allCourse){
-var redirectUrl="";
-if(allCourse.length>1){
-    redirectUrl=getServerHost()+"/xcviews/html/indent.html";
-    return redirectUrl;
-}else{
-    //var c=allCourse[0];
-        redirectUrl=getServerHost()+"/xcviews/html/personalfor.html?userId="+localStorage.userId+"&id="+getQueryString("id"); //此处跳转到待定
-    return redirectUrl;
-}
+function getgetRedirectUrl(allCourse,falg){
+	//var domain = window.location.host;
+	var domain = "";
+	if(falg){
+	    domain = window.location.host;
+	}
+	var redirectUrl="";
+	if(allCourse.length>1){
+	    redirectUrl="/xcviews/html/indent.html";
+	}else{
+	    redirectUrl="/xcviews/html/personalfor.html?userId="+localStorage.userId+"&id="+getQueryString("id"); //此处跳转到待定
+	}
+	//alert(redirectUrl);
+	return redirectUrl;
 }

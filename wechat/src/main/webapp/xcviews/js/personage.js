@@ -17,8 +17,9 @@ requestService("/bxg/common/judgeUserIsTeacher", {
 	userId:lecturerId}, function(data) {
 		if(!data.success){//普通用户
 			//personage_bto_ul
-			//隐藏tab页
+			//隐藏tab页     
 			$(".personage_bto_ul").hide();
+			$(".personage_bto").css("margin-top","0");
 			//隐藏熊猫币贡献榜
 			$(".contribution").hide();
 			//隐藏灰色进度条
@@ -28,11 +29,11 @@ requestService("/bxg/common/judgeUserIsTeacher", {
 			//隐藏 视频数、礼物数
 			$(".personage_pay").hide(); 
 		}else{
-			userIndexStatisticsInfo();
-			
 			viewContributionList();
 		}
 },false)
+
+userIndexStatisticsInfo();
 /**
  * 用户主页 -- 主播课程列表
  */
@@ -102,11 +103,16 @@ function userIndexCourseList(type,falg){
 						watchStr ="加密";
 					}
 					
+					var courseTime = "";
+					if(type ==1){
+						courseTime = obj.courseTimeConver;
+					}
+					
 					html +="<div class='public1_list'>"+
 						"<div class='public1_list_bg'>"+
 						"</div>"+
 						"<div class='public1_list_img' onclick='userIndex("+JSON.stringify(obj)+")'>"+
-							"<img src='../images/line_03.jpg' alt=''>"+
+							"<img src='"+obj.smallImgPath+"' alt=''>"+
 						"</div>"+
 						"<div class='public1_title'>"+obj.gradeName+"</div>"+
 						"<div class='public1_cen'>"+
@@ -116,13 +122,13 @@ function userIndexCourseList(type,falg){
 						"<div class='public1_list_bottom'>"+  //这是观看人数
 							"<img src='../images/yjing.png' alt=''>"+obj.learndCount+
 						"</div>"+								//这是播放时间
-						"<div class='public1_list_bottom0'>"+obj.courseLength+
+						"<div class='public1_list_bottom0'>"+courseTime+
 						"</div>";
 						if(type==1){//直播
 							
 							var liveTypeOrState  = ""; 
 							var liveTypeImg = "";
-							// lineState：   0 直播已结束 1 直播还未开始 2 正在直播	
+							// lineState：    1 直播中，2 预告， 3 回放	
 							if(lineState==1){
                 				liveTypeOrState ="直播中";
                 				liveTypeImg ="/xcviews/images/zhibo001.png";
@@ -174,6 +180,8 @@ window.onload=function(){
         if(type!=0){
           pageNumber = 1;
       	  userIndexCourseList(type,false);
+        }else{
+        	$(".null15").hide();
         }
       })
     }
@@ -258,7 +266,7 @@ function userIndexStatisticsInfo(){
 		 if(stringnull(mapLiveState.status) && mapLiveState.status == 1){
 			 $(".personage_top_cen_in").attr("id",mapLiveState.id);
 		 }else{
-			 //$(".personage_top_cen_img").hide(); 
+			 $(".personage_top_cen_img").hide(); 
 		 }
 		 /**
 		  * 是否关注
@@ -273,8 +281,8 @@ function userIndexStatisticsInfo(){
 		 isFours = bigObj.isFours;
 		/* *//**
 		  * 目前是课程数
-		  *//*
-		 $("#courseAll").text(bigObj.courseAll);*/
+		  */
+		 $("#courseAll").val(bigObj.courseAll);
 		 /**
 		  * 礼物数
 		  */
@@ -334,10 +342,13 @@ $(".personage_return").click(function(){
 		sessionStorage.removeItem("personageHistory");
 		history.go(-2);
 	}
-	if(stringnull(personageHistory) || personageHistory >1){
+	if(stringnull(personageHistory) || personageHistory >5){
 		sessionStorage.removeItem("personageHistory");
-		location.href="/xcviews/html/index.html";//默认返回到首页吧
+		location.href="/xcviews/html/my.html";//默认返回到首页吧
+		//history.go(-1);
+
 	}
+	//history.go(-1);
 })
 
 /**

@@ -211,18 +211,15 @@ public class WxJSController {
 	public ResponseObject setWxMenu (HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
 		String access_token = req.getParameter("access_token");
-		
-		//access_token ="QDgC1tDtP-Zk8JZQqhycg3u9XXyZVuGSqpm5wQ1w84ED1rlJ13F2hiUh28AQJoQI_Ifx81kJurvzOuPUXjE0LklRoK8tUyYdW55mSVveO6UPVKfABAFLA";
-		
+		access_token ="6mcGpY9ORGOF_Vw7s0VdYnSoNIaOTeYnJWrHAcb1Xaihi7dIDi-SqjV6B_uY4FJ_N6PT2NKtYKQjCWvVB5OTptOea-JBV13UEfYmskk2L1wTBCeABADLM";
 		if(access_token == null || access_token.isEmpty()) return null;
-		
 		String strUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN"
 				.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token);
 		
-		String strLinkHome 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=http://test-wx.ixincheng.com/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" "
-								.replace("appid=APPID", "appid=wx48d230a99f1c20d9");
-		String strMyCenter 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=http://test-wx.ixincheng.com/bxg/wxpay/h5GetOpenidForPersonal&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" "
-				.replace("appid=APPID", "appid=wx48d230a99f1c20d9");
+		String strLinkHome 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=http://m.ipandatcm.com/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" "
+								.replace("appid=APPID", "appid=wx81c7ce773415e00a");
+		String strMyCenter 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=http://m.ipandatcm.com/bxg/wxpay/h5GetOpenidForPersonal&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" "
+				.replace("appid=APPID", "appid=wx81c7ce773415e00a");
 //		String strMyShare 	= 	" \"url\":\"+"returnOpenidUri"+/Views/h5/my_share.html\" ";
 //		String strMyCenter 	= 	" \"url\":\"+"returnOpenidUri"+/bxg/page/personal\" ";
 		

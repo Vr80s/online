@@ -102,9 +102,14 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 	private Integer stayTime;
 
 	/**
-	 * 职业
+	 * 职业id
 	 */
 	private Integer occupation;
+	/**
+	 * 职业value
+	 */
+	private String occupationText;
+	
 	/**
 	 * 职业,其他
 	 */
@@ -633,6 +638,14 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 	
 	
 	
+	public String getOccupationText() {
+		return occupationText;
+	}
+
+	public void setOccupationText(String occupationText) {
+		this.occupationText = occupationText;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -658,6 +671,10 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 		return true;
 	}
 
+	
+	
+	/****************************  单用户登录使用了   **************************************************/
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void valueBound(HttpSessionBindingEvent event) {

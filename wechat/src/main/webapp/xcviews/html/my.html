@@ -24,8 +24,11 @@
 	<script type="text/javascript" src="/xcviews/js/js.js"></script>
 	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
 	<link rel="stylesheet" href="/xcviews/css/css.css">
+	<link rel="stylesheet" href="/xcviews/css/vanish.css">
+	
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<!--<script type="text/javascript" src="/Views/h5/js/common/personCommon.js"></script>-->
 	<style>
 		.my_details{
 			height: 4.3rem;
@@ -38,7 +41,7 @@
 		}
 		.my_bg_cen{
 			width: 92%;
-		    height: 16.5rem;
+		    /*height: 16.5rem;*/
 		    background: #fff;
 		    position: absolute;
 		    top: 50%;
@@ -89,13 +92,22 @@
 		.my_three_right1{
 			color: #333;
 		}
+		
+		
+		.vanish{
+			left: 0.1rem;
+		}
+		.vanish2{
+			left: 0.1rem;
+			display: none;
+		}
 	</style>
 	
 	<script type="text/javascript">
 		window.onload = function(){
-			$("#btn").click(function(){
+			/*$("#btn").click(function(){
 				$(".my_bg_cen").css("height","18.2rem");
-			});
+			});*/
 		};
 	</script>
 </head>
@@ -220,10 +232,10 @@
 	<footer>
 		<div class="base">
 			<ul>
-				<li><a href="/bxg/page/index/null/null" class="base_a1" style="width: 1.175rem;height: 1.675rem;"></a></li>
-			    <li><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2" style="width: 1.175rem;height: 1.675rem;"></a></li>
-				<li><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3" style="width: 1.175rem;height: 1.675rem;"></a></li>
-				<li><a href="/xcviews/html/my.html" class="base_a4" style="width: 1.175rem;height: 1.675rem;background: url(../images/a04.png) no-repeat;background-size: 100% 100%;"></a></li>
+				<li><a href="/bxg/page/index/null/null" class="base_a1" style="width: 0.875rem;height: 0.85rem;margin: 0.1rem 0 0.1rem 0.05rem;"></a><p style="font-size: 0.5rem;color: #333;margin-top: -0.25rem;">首页</p></li>
+				<li class="base_li2_a1"><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2" style="width: 0.85rem;height: 0.85rem;margin: 0.1rem 0 0.1rem 0.08rem;"></a><p style="font-size: 0.5rem;color: #333;margin-top: -0.25rem;">视频</p></li>
+				<li class="base_li2_a2"><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3" style="width: 0.875rem;height: 0.875rem;margin: 0.05rem 0 0.13rem 0.05rem;"></a><p style="font-size: 0.5rem;color: #333;margin-top: -0.25rem;">音频</p></li>
+				<li><a href="/xcviews/html/my.html" class="base_a4" style="width: 0.775rem;height: 0.925rem;margin: 0rem 0 0.1rem 0.095rem;background: url(/xcviews/images/a04.png) no-repeat;background-size: 100% 100%;"></a><p style="font-size: 0.5rem;color: #00BC12;margin-top: -0.25rem;">我的</p></li>
 			</ul>
 		</div>
 	</footer>
@@ -233,13 +245,13 @@
 		<div class="my_bg_cen" style="display:none;">
 			<div class="my_bg_logor"><img src="../images/logor.jpg" /></div>
 			<div class="my_bg_hint">请用手机登录绑定微信账号</div>
-			<div class="my_bg_tel">手机号&nbsp;&nbsp;<input type="tel" placeholder="手机号" name="" id="number"></div>
+			<div class="my_bg_tel">手机号&nbsp;&nbsp;<input type="tel" placeholder="手机号" name="" id="number" maxlength="11" /></div>
 			<div class="my_bg_tel2">
-				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="4位动态码" name="yanzhengma" id="yanzhengma" style="width:3.6rem;">
+				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="4位动态码" name="yanzhengma" id="yanzhengma" style="width:3.6rem;" maxlength="4" />
 				<a href="javascript: ;" id="btn" class="my_bg_tel2_a"><span class="my_bg_tel2_span">获取验证码</span></a>
 			</div>
 			<div class="my_bg_tel" id="hide_pws" style="display:none;">密码&nbsp;&nbsp;<input type="password" placeholder="6-18位密码" name="userpassword" id="userpassword"></div>
-			<div class="tishi" id="reminderror"	style="text-align: center; color: red;font-size:0.55rem;"></div>
+			<div class="tishi" id="reminderror"	style="text-align: center; color: red;font-size:0.55rem;"><div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'></div></div></div></div>
 			<div class="my_bg_btn" id="reg">进入熊猫中医</div>
 			
 			<div class="my_bg_btn01" onclick="location.href ='/bxg/page/login/1'">返回登录</div>

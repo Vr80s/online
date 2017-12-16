@@ -310,7 +310,7 @@ $(document).ready(function() {
    
     var falg = 1;
    
-    if(lineState !=2 ){
+    if(lineState !=1 ){
         $(".chatmsg-box").mCustomScrollbar({
             scrollInertia: 200,
         	theme:"dark",
@@ -347,29 +347,59 @@ $(document).ready(function() {
     
     $("#sendChat").click(function() {
     	
-    	var userInfo  = VHALL_SDK.getUserinfo();
-    	
-        var text = $("#mywords").val();
+//    	var userInfo  = VHALL_SDK.getUserinfo();
+//        var text = $("#mywords").val();
+//        var msg = null;
+//	    msg = VHALL_SDK.sendChat({
+//		      text: text
+//		  });
+//		if (msg)
+//		var str = "<div class='coze_cen_ri'> "+
+//			 "<img src="+msg.avatar+" alt='' "+
+//			"	class='coze_cen_ri_img' /> "+
+//			"  <div class='coze_cen_bg_ri'> "+
+//			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+msg.content+"  "+
+//			" </div> "+
+//			" <div class='both'></div></div>";
+//	    $("#chatmsg").append(str);  
+//	    $("#mywords").val('');
+//	    
+//	    setTimeout(function(){
+//	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+//        },50);
+	  
+	    var text = $("#mywords").val();
+	    giftDsPuTong(text);
+	    
+    });
+    
+    /**
+     * 普通聊天、发送礼物、打赏要显示的
+     * 在评论区应该显示的内容
+     */
+    function giftDsPuTong(content){
+        var userInfo  = VHALL_SDK.getUserinfo();
         var msg = null;
-	    msg = VHALL_SDK.sendChat({
-		      text: text
-		  });
-		if (msg)
-		var str = "<div class='coze_cen_ri'> "+
+ 	    msg = VHALL_SDK.sendChat({
+ 		      text: content
+ 		  });
+ 		if (msg){
+ 			var str = "<div class='coze_cen_ri'> "+
 			 "<img src="+msg.avatar+" alt='' "+
 			"	class='coze_cen_ri_img' /> "+
 			"  <div class='coze_cen_bg_ri'> "+
 			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+msg.content+"  "+
 			" </div> "+
 			" <div class='both'></div></div>";
-	    $("#chatmsg").append(str);  
-	    $("#mywords").val('');
-	    
-	    setTimeout(function(){
-	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
-        },50);
-	  
-    });
+ 			
+	        $("#chatmsg").append(str);  
+	        $("#mywords").val('');
+ 		}
+ 	    setTimeout(function(){
+ 	    	  $(".chatmsg-box").mCustomScrollbar("scrollTo","bottom","0");
+         },50);
+    }
+    
     VHALL_SDK.on("playerReady", function(){
     	/**
     	 * 设备准备就绪后

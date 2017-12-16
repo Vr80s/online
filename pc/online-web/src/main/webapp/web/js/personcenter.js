@@ -422,8 +422,8 @@ $(function() {
 		'</div>' +
 		
 		'<div class="cy-myprofile-myfom-dv-1">' +
-		'<div class="buer"><span class="red"></span>微信:</div>' +
-		'<a  href="javascript:;" style="text-decoration:none;color:#2cb82c">进行绑定>></a>' +
+		// '<div class="buer"><span class="red"></span>微信:</div>' +
+		// '<a  href="javascript:;" style="text-decoration:none;color:#2cb82c">进行绑定>></a>' +
 		'</div>' +
 		
 		
@@ -746,7 +746,7 @@ $(function() {
 		'<div class="usAddress" style="display: none;">'+
 		 '<div class="address-title clearfix" style="margin-top:20px">' +
 	        '<button class="add-addressBtn">+常用地址添加</button>' +
-	        '<p>您已常创建 <span class="addNum">1</span>个收货地址，最多可以创建<span>20</span>个</p> ' +
+	        '<p>您已创建 <span class="addNum">1</span>个收货地址，最多可以创建<span>20</span>个</p> ' +
 	        '</div> ' +
 	        // <!--常用地址列表-->
 	        '<div class="address-list"> ' +

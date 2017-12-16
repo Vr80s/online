@@ -34,137 +34,20 @@ function requestCategorylist() {
 }
 requestCategorylist();
 
-
-$(".frequency_div1").click(function() {
-	$(this).addClass('frequency_div_p');
-	$(".frequency_div2").removeClass('frequency_div_p');
-	$(".frequency_div3").removeClass('frequency_div_p');
-	$(".frequency_div4").removeClass('frequency_div_p');
-	$(".frequency_div5").removeClass('frequency_div_p');
-	$(".frequency_div1 img").show();
-	$(".video_list").show();
-	$(".frequency_div2 img").hide();
-	$(".frequency_div3 img").hide();
-	$(".frequency_div4 img").hide();
-	$(".frequency_div5 img").hide();
-	$(".frequency_div6 img").hide();
-
-	var name = $(this).attr("name");
+/*
+ * 上面的分类 点击事件
+ */
+$("#pagenavi li").click(function(){
 	
-	requestbunchList(true, name);
-});
-$(".frequency_div2").click(function() {
+	$("#pagenavi li").each(function(){
+		$(this).removeClass('frequency_div_p');
+		//$(".frequency_div2 img").hide();
+	});
+	
 	$(this).addClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
-	$(".frequency_div3").removeClass('frequency_div_p');
-	$(".frequency_div4").removeClass('frequency_div_p');
-	$(".frequency_div5").removeClass('frequency_div_p');
-	$(".frequency_div6").removeClass('frequency_div_p');
-	$(".frequency_div2 img").show();
-	/*
-	 * $(".video_list1").show(); $(".video_list2").hide();
-	 * $(".video_list4").hide(); $(".video_list3").hide();
-	 * $(".video_list").hide();
-	 */
-	$(".frequency_div1 img").hide();
-	$(".frequency_div3 img").hide();
-	$(".frequency_div4 img").hide();
-	$(".frequency_div5 img").hide();
-	$(".frequency_div6 img").hide();
-
 	var name = $(this).attr("name");
 	requestbunchList(true, name);
-});
-$(".frequency_div3").click(function() {
-	$(this).addClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
-	$(".frequency_div2").removeClass('frequency_div_p');
-	$(".frequency_div4").removeClass('frequency_div_p');
-	$(".frequency_div5").removeClass('frequency_div_p');
-	$(".frequency_div6").removeClass('frequency_div_p');
-	$(".frequency_div3 img").show();
-	/*
-	 * $(".video_list2").show(); $(".video_list1").hide();
-	 * $(".video_list4").hide(); $(".video_list3").hide();
-	 * $(".video_list").hide();
-	 */
-	$(".frequency_div2 img").hide();
-	$(".frequency_div1 img").hide();
-	$(".frequency_div4 img").hide();
-	$(".frequency_div5 img").hide();
-	$(".frequency_div6 img").hide();
-
-	var name = $(this).attr("name");
-	requestbunchList(true, name);
-});
-$(".frequency_div4").click(function() {
-	$(this).addClass('frequency_div_p');
-	$(".frequency_div2").removeClass('frequency_div_p');
-	$(".frequency_div3").removeClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
-	$(".frequency_div5").removeClass('frequency_div_p');
-	$(".frequency_div6").removeClass('frequency_div_p');
-	$(".frequency_div4 img").show();
-	/*
-	 * $(".video_list3").show(); $(".video_list2").hide();
-	 * $(".video_list1").hide(); $(".video_list4").hide();
-	 * $(".video_list").hide();
-	 */
-	$(".frequency_div2 img").hide();
-	$(".frequency_div3 img").hide();
-	$(".frequency_div1 img").hide();
-	$(".frequency_div5 img").hide();
-	$(".frequency_div6 img").hide();
-
-	var name = $(this).attr("name");
-	requestbunchList(true, name);
-});
-$(".frequency_div5").click(function() {
-	$(this).addClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
-	$(".frequency_div3").removeClass('frequency_div_p');
-	$(".frequency_div4").removeClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
-	$(".frequency_div6").removeClass('frequency_div_p');
-	$(".frequency_div5 img").show();
-	/*
-	 * $(".video_list4").show(); $(".video_list2").hide();
-	 * $(".video_list").hide(); $(".video_list3").hide();
-	 * $(".video_list1").hide();
-	 */
-	$(".frequency_div2 img").hide();
-	$(".frequency_div3 img").hide();
-	$(".frequency_div4 img").hide();
-	$(".frequency_div1 img").hide();
-	$(".frequency_div6 img").hide();
-
-	var name = $(this).attr("name");
-	requestbunchList(true, name);
-});
-
-$(".frequency_div6").click(function() {
-	$(this).addClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
-	$(".frequency_div3").removeClass('frequency_div_p');
-	$(".frequency_div4").removeClass('frequency_div_p');
-	$(".frequency_div1").removeClass('frequency_div_p');
-	$(".frequency_div5").removeClass('frequency_div_p');
-	$(".frequency_div6 img").show();
-	/*
-	 * $(".video_list4").show(); $(".video_list2").hide();
-	 * $(".video_list").hide(); $(".video_list3").hide();
-	 * $(".video_list1").hide();
-	 */
-	$(".frequency_div5 img").hide();
-	$(".frequency_div2 img").hide();
-	$(".frequency_div3 img").hide();
-	$(".frequency_div4 img").hide();
-	$(".frequency_div1 img").hide();
-
-	var name = $(this).attr("name");
-	requestbunchList(true, name);
-});
-
+})
 
 
 var multimedia_type = getQueryString("multimedia_type");
@@ -180,6 +63,9 @@ if (multimedia_type == 1) { // 视频
 	
 	$("title").text("音频");
 	$(".home_top span").html("音频");
+	$(".base_li2_a2 p").css("color","#00BC12");
+	$(".base_li2_a1 p").css("color","#333");
+	
 }
 var bunchType = sessionStorage.getItem("bunchType");
 if (!stringnull(bunchType)) {
@@ -289,11 +175,13 @@ function requestbunchList(downOrOn, menuId) {
 							var odiv = document.createElement("div");
 							odiv.id = 'content';
 							
-							var img_str = "voice_null.png";
+							var img_str = "video_null.png";
+							var tip_str = '音频正在赶来的路上...';
 							if(multimedia_type==1){
 								img_str = "video_null.png";
+								tip_str = '视频正在赶来的路上...';
 							}	
-							odiv.innerHTML = '<img style="width:7.675rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" />';
+							odiv.innerHTML = '<img src="/xcviews/images/'+img_str+'" alt="" class="kongbai" /><p>'+tip_str+'</p>';
 							document.getElementById("video_list_ul").appendChild(odiv);
 						} else {
 							mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);

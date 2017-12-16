@@ -1,6 +1,18 @@
 
+    /**
+     * 可能是来自填写报名信息页面的
+     */
+     
 
-	
+    var userId = localStorage.getItem("userId");
+    $(".address_return").click(function(){
+    	var person = sessionStorage.getItem("address_back");
+    	if(person=="personalfor.html"){
+    		location.href ='personalfor.html?userId='+userId;
+    	}else{
+    		location.href ='persons.html';
+    	}
+    })  
 	/**
 	 * 新增地址或修改地址返回
 	 */
@@ -47,7 +59,9 @@
 					$("#detailed_address").val(umv.detailedAddress);
 				/*	$("#postal_code").val(umv.postalCode);*/
 				} else {
-				    alert("获取数据有误！");
+//				    alert("获取数据有误！");
+					$(".vanish0").show();
+					setTimeout(function(){$(".vanish0").hide();},1500);
 					return false;
 				}
 		});
@@ -56,36 +70,46 @@
 	/**
 	 * 保存地址
 	 */
+	
+	
 	$("#address_save").click(function(){
 		var consignee = $("#consignee").val();
 		var consigneeLength = consignee.length;
 		if(!stringnull(consignee) && (consigneeLength<3 || consigneeLength >20) ){  
-			$("#errorMsg").html("<p>收货人不能为空</p><p>收货人长度0-20</p>");
+			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请填写收货人</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish").hide();},1500);
 			return false;
+			
 		}
+		$("#vanishs").hide();
+		
 		var phone =$("#phone").val();
 		if (!stringnull(phone)) {
-			$("#errorMsg").text("手机号不能为空");
+			$("#errorMsg").html("<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>请填写手机号</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish0").hide();},1500);
 			return false;
 		}
 		if (!(/^1[34578]\d{9}$/.test(phone))) {
-			$("#errorMsg").text("手机号格式不正确");
+			$("#errorMsg").html("<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>手机号格式不正确</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish1").hide();},1500);
 			return false;
 		}
 		
 		var detailed_address =$("#detailed_address").val();
 		if(!stringnull(detailed_address) || (detailed_address.length >50)){  
-			$("#errorMsg").html("<p>收货人不能为空</p><p>详细地址不能大于50</p>");
+			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>收货人不能为空,详细地址不能大于50</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish2").hide();},1500);
 			return false;
 		}
 		var cityP =$("#cityP").text();
 		if(!stringnull(cityP) || cityP == "请选择"){
-			$("#errorMsg").html("<p>请选择省市区</p>");
+			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
 			$("#errorMsg").show();
+			setTimeout(function(){$(".vanish3").hide();},1500);
 			return false;
 		}
 		var provinces ="";var city = "";var county ="";
@@ -114,7 +138,9 @@
 			phone:phone
 		}
 		
-		var addressId  = $("#address_id").val();
+		
+		/*修改前*/
+		/*var addressId  = $("#address_id").val();
 		var alertStr = "新增成功";
 		
 		var url_address = "/bxg/city/saveAddress";
@@ -123,17 +149,13 @@
 			url_address = "/bxg/city/updateAddress";
 			alertStr = "修改成功";
 		}
-		/**
-		 * 保存地址
-		 */
+		
 		requestService(url_address, 
 				urlparm, function(data) {
 			if (data.success) {
 				
 				alert(alertStr);
-				/**
-				 * 添加后返回到list页面：
-				 */
+				
 				 location.href ='address.html';
 			} else {
 				$("#errorMsg").html(data.errorMessage);
@@ -141,7 +163,48 @@
 				return false;
 			}
 		});
+	})*/
+	
+	var addressId  = $("#address_id").val();
+		$(".person_prosperity").show();
+		$(".prosperity_cen_top").text("新增成功");
+		
+		var url_address = "/bxg/city/saveAddress";
+		if(stringnull(addressId)){
+			urlparm.id = addressId;
+			url_address = "/bxg/city/updateAddress";
+			$(".person_prosperity").show();
+			$(".prosperity_cen_top").text("修改成功");
+		}
+		/**
+		 * 保存地址
+		 */
+		requestService(url_address, 
+				urlparm, function(data) {
+			if (data.success) {
+//				$(".person_prosperity").show();
+//				$(".prosperity_cen_top").text("新增成111功");
+				/*alert(alertStr);*/
+				
+				/**
+				 * 添加后返回到list页面：
+				 */
+/*				 location.href ='address.html';*/
+			} else {
+				$("#errorMsg").html(data.errorMessage);
+				$("#errorMsg").show();
+//				$(".prosperity_cen_top").text("新增成功");
+
+
+				/*$(".person_prosperity").show();
+				$(".prosperity_cen_top").text("新增成11111功");*/
+				return false;
+			}
+		});
 	})
+	
+	
+	
 	
 	
 	/* 地址管理结束 */
@@ -168,7 +231,7 @@
 					if(result.isAcquiescence == 1 || results.length==1){//是默认地址
 						isAcquiesStr+="<div class='sit_bg site_bg01'></div><span class=''>默认地址</span>";
 					}else{
-						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='moren_span'>设为默认地址</span>";
+						isAcquiesStr+="<div class='site_bg1 sit_bg'></div><span class='moren_span' style='color: #666;'>设为默认地址</span>";
 					}
 					str += "<div class='site'>"+
 					"<div class='site_div'>"+
@@ -183,7 +246,7 @@
 										"<div class='site_bg001'></div>"+
 										"<span>编辑</span>"+
 									"</div>"+
-									"<div class='site_bto_right02'  name='' title='"+result.id+"'>"+
+									"<div class='site_bto_right02' name='' title='"+result.id+"'>"+
 										"<div class='site_bg002'></div>"+
 										"<span >删除</span>"+
 									"</div>"+
@@ -195,7 +258,9 @@
 				}
 				$("#address_list").html(str);
 			} else {
-				alert("请求列表有误");
+				$(".vanish5").show();
+				setTimeout(function(){$(".vanish5").hide();},1500);
+				/*alert("请求列表有误");*/
 			}
 		},false);
 		
@@ -265,10 +330,15 @@
 			/**
 			 * 删除这个地址啦
 			 */
+			/*$(".site_bto_right02").click(function(){
+				$(".history_bg").show();
+			});*/
+			
 			$(".site_bto_right02").click(function(){
 				var id = $(this)[0].title;
-				$("#address_bg_bto1").attr("title",id);
+				$(".history_bg_bto2").attr("title",id);
 				$(".history_bg").show();
+				//deleteAddress(this);
 			});
 	}
 	/**
@@ -282,6 +352,7 @@ $(".history_bg_bto1").click(function(){
 	$(".history_bg").hide();
 });
 $(".history_bg_bto2").click(function(){
+	deleteAddress(this);
 	$(".history_bg").hide();
 });
 function deleteAddress(obj){
@@ -296,10 +367,14 @@ function deleteAddress(obj){
 			if (data.success) {
 				 $(obj).attr("title","");
 				 
-				 alert("删除数据成功！");
+//				 alert("删除数据成功！");
+				$(".vanish").show();
+				setTimeout(function(){$(".vanish").hide();},1500);
 				 addressList();
 			} else {
-			    alert("获取数据有误！");
+//			    alert("获取数据有误！");
+				$(".vanish1").show();
+				setTimeout(function(){$(".vanish1").hide();},1500);
 				return false;
 			}
 		});

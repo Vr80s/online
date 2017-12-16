@@ -85,7 +85,7 @@ public class CourseLecturVo implements Serializable {
     /**
      * 课程时长
      */
-    public double courseLength;
+    public double courseLength = 0;
     /**
      * 请求 --》直播使用了， 微吼接口得到的当前在线人数返回的结果集
      */
@@ -131,17 +131,18 @@ public class CourseLecturVo implements Serializable {
     /**
      * 是否关注了这个主播
      */
-    public Integer isfocus; //课程分类   0 未关注     1 关注
+    public Integer isfocus = 0; //课程分类   0 未关注     1 关注
     
-    public Integer countFans; //粉丝数
+    public Integer countFans =0; //粉丝数
     
-    public Integer countGift; //礼物数
+    public Integer countGift = 0; //礼物数
     
-    public Integer countSubscribe; //预约的人数
+    public Integer countSubscribe =0; //预约的人数
     
-    public Integer isSubscribe; //0 未预约  1预约
+    public Integer isSubscribe = 0; //0 未预约  1预约
     
-    public Integer watchState; //观看状态 0免费  1收费  2 需要密码验证
+    
+    public Integer watchState = 0; //观看状态 0免费  1收费  2 需要密码验证
     
     public String imRoomId; //im房间号
 
@@ -151,6 +152,10 @@ public class CourseLecturVo implements Serializable {
 	
 	private String city;//线下课程所在城市
 
+	private String courseTimeConver; //课程时间转换为: 00:00:00
+	
+	private Integer cutoff =0;	// 0 已截止  1 未截止
+	
 	public String getUdescription() {
 		return udescription;
 	}
@@ -390,4 +395,22 @@ public class CourseLecturVo implements Serializable {
 	public void setvId(String vId) {
 		this.vId = vId;
 	}
+
+	public String getCourseTimeConver() {
+		return courseTimeConver;
+	}
+
+	public void setCourseTimeConver(String courseTimeConver) {
+		this.courseTimeConver = courseTimeConver;
+	}
+
+	public Integer getCutoff() {
+		return cutoff;
+	}
+
+	public void setCutoff(Integer cutoff) {
+		this.cutoff = cutoff;
+	}
+	
+	
 }

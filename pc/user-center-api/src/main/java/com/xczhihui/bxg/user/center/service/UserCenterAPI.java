@@ -105,6 +105,8 @@ public interface UserCenterAPI {
 	 */
 	public Token login(String loginName, String password, TokenExpires tokenExpires);
 
+	public Token login4BBS(String loginName, String password, String smallHeadPhoto, String id, TokenExpires tokenExpires);
+
 	public Token loginForLimit(String loginName, String password, TokenExpires tokenExpires,int clientType,String info);
 	/**
 	 * 登录

@@ -23,15 +23,15 @@
 	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
 </head>
 	<style>
-		.mui-block{
+		/*.mui-block{
 			top: -0.5rem;
-		}
+		}*/
 		.wm-block{
             width: 100% !important;
             height: 2.8rem !important;
-            top: 1.8rem;
+            top: 0rem;
             margin-top: 0rem;
-            border-bottom: 1px solid #d2d2d2;
+            /*border-bottom: 1px solid #d2d2d2;*/
 		}
         .attention_right span{
             font-size: 0.7rem;
@@ -43,14 +43,14 @@
 			width: 5.55rem;
 			height: 6.925rem;
 			margin: 0 auto;
-			margin-top: 5.1rem;
+			margin-top: 8.75rem;
+			text-align: center;
 		}
 		.kongbai_div img{
-			width: 5.55rem;
-			height: 6.925rem;
+			width: 4.65rem;
 		}
 		.mui-pull {
-		    bottom: -48px;
+		    bottom: 0px;
 		}
 		.attention_li{
 			width: 11rem;
@@ -58,21 +58,33 @@
 		.attention_right{
 			width: 4rem;
 		}
+		#clist{
+			background: none;
+		}
+		.kongbai_div p{
+			color: #999;
+			font-size: 0.6rem;
+			margin-top: 0.65rem;
+		}
+		.wm-block{
+			background: #fff;
+		}
 	</style>
 <body style="background:#efefef;">
 
 	<!-- 我的关注开始 -->
 	<div class="attention">
 		<div class="attention_top">
-			<div class="return"  onclick="history.go(-1)" style="margin-top:0.36rem;"></div>
+			<div class="return"  onclick="history.go(-1)" style="margin-top:0.5rem;"></div>
 			<div class="dl" style="padding-bottom:0.2rem;">我的关注</div>
 		</div>
 		<div class="both"></div>
 
 	 <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
 		  <div class="mui-scroll">
-			<div class="attention_center" style="margin-top:0.25rem;">
+			<div class="attention_center" style="margin-top:2.25rem;">
 				<ul id="clist">
+					<div class="both"></div>
 				</ul>
 			</div>
 	  	 </div>
@@ -147,10 +159,10 @@
                     if(isFocus==1){
                         focusHtml="<span class='focus' lecturerId='"+result[i].lecturerId+"'>已关注</span>";
                     }else if(isFocus==2){
-                        focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"'>互相关注</span>";
+                        focusHtml="<span class='cancelFocus' lecturerId='"+result[i].lecturerId+"' style='color: #999;'>互相关注</span>";
                     }
-                    html+="<li class='userIndex' title='"+result[i].lecturerId+"'  ><div class='attention_li'><img src='"+result[i].lecturerHeadImg+"'  />"+
-                    "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li>"
+                    html+="<li class='userIndex' title='"+result[i].lecturerId+"'  ><div class='attention_li'><img src='"+result[i].lecturerHeadImg+"'/>"+
+                    "<p class='attention_p1'>"+result[i].lecturerName+"</p><p class='attention_p2'>粉丝数：<span>"+result[i].fansCount+"</span></p></div><div class='attention_right'>"+focusHtml+"</div><div class='both'></div></li></div><div class='both'>"
 
                     odiv.innerHTML = html;
 					content.appendChild(odiv);
@@ -165,7 +177,8 @@
 					document.getElementById("clist").innerHTML ="";
 					var odiv = document.createElement("div");
 					odiv.id = 'content';
-					odiv.innerHTML = '<div class="kongbai_div"><img src="/xcviews/images/null04.png" alt="" class="kongbai" /></div>';
+					var tip_str = "还没有关注的人哦";
+					odiv.innerHTML = '<div class="kongbai_div"><img src="/xcviews/images/null04.png" alt="" class="kongbai" /><p>'+ tip_str +'</p></div>';
 					document.getElementById("clist").appendChild(odiv);
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);

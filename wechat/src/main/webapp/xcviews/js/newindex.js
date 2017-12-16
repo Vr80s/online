@@ -37,7 +37,7 @@ function gotoDetails(courseObj){
 	if(courseObj.type == 1){
 		//增加观看记录
 		sessionStorage.setItem("livePage", 0); 
-		if(courseObj.lineState == 1){ //需要预约
+		if(courseObj.lineState == 2){ //需要预约
 			location.href = "/xcviews/html/foreshow.html?course_id="+courseId+"";
 		}else{
 			location.href = "/bxg/xcpage/courseDetails?courseId="+courseId;
@@ -171,12 +171,12 @@ function onlineCourse(type){
 				             * 判断是直播呢，还是回放呢
 				             */
 							var samll = "";
-							if(course.lineState == 0){  // 0 直播已结束 1 直播还未开始 2 正在直播 
+							if(course.lineState == 3){ // 1 直播中，2 预告， 3 回放
 								samll +="<div class='public1_img_opcity'><div class='public1_img_opcity_bg'></div><img src='/xcviews/images/huifang.png' alt=''><span>回放</span></div>";
-							}else if(course.lineState == 1){
-								samll +="<div class='public1_img_bg'><div class='public1_img_bg_color'></div><span>直播预告"+course.startTime.substring(0,10)+"</span></div>";
 							}else if(course.lineState == 2){
-								samll +="<div class='public1_img'><img src='/xcviews/images/tv.png' alt=''><span>直播中</span></div>";
+								samll +="<div class='public1_img_bg'><div class='public1_img_bg_color'></div><span>直播预告"+course.startTime.substring(0,10)+"</span></div>";
+							}else if(course.lineState == 1){
+								samll +="<div class='public1_img'><img src='/xcviews/images/tv0.png' alt=''><span>直播中</span></div>";
 							}
 					    	str+=samll;
 					    }

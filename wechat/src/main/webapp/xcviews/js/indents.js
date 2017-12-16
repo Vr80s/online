@@ -77,15 +77,15 @@ function initOrderList(status,downOrOn){
                 	for(var j=0;j<order.allCourse.length;j++){
                 		var course =order.allCourse[j];
                 		var type  =  course.type; // type :1 直播  2视频 3 音频
-                		var liveStatus = course.liveStatus;
+                		var lineState = course.lineState;
                 		var liveTypeOrState ="直播";  //直播状态 1.直播中，2预告，3直播结束
                 		//判断课程的状态啦  
                 		if(type == 1){
-                			if(liveStatus==1){
+                			if(lineState==1){
                 				liveTypeOrState ="直播中";
-                			}else if(liveStatus==2){
+                			}else if(lineState==2){
                 				liveTypeOrState ="预告";
-                			}else if(liveStatus==3){
+                			}else if(lineState==3){
                 				liveTypeOrState ="回放";
                 			}
                 		}else if(type == 2){
@@ -95,7 +95,7 @@ function initOrderList(status,downOrOn){
                 		}
                 		//立即观看、去预约呢，还是直播呢，还是点播呢
                 		html+="<div class='indent_main_cen' title="+type+" courseId = "+course.id+" " +
-                				"onlineCourse="+course.onlineCourse+" alt="+liveStatus+">"+
+                				"onlineCourse="+course.onlineCourse+" alt="+lineState+">"+
             				"<div class='indent_main_cen_left'>"+
             					"<img  src='"+course.smallImgPath+"' alt='' />"+
             					"<p class='indent_main_left_p1'>" + course.gradeName + "</p>"+
@@ -106,8 +106,8 @@ function initOrderList(status,downOrOn){
                 	 }
                 	var orderStatus=order.orderStatus;
                 	html+="<div class='both'></div>"+
-        			"<div class='indent_main_bot' title="+order.id+" id="+order.orderNo+">"+
-        				"<div style='width: 97%;height: 1.65rem;float:right;border-top: 1px solid #dfdfe2;'>"+
+        			"<div class='indent_main_bot' >"+
+        				"<div style='width: 97%;height: 1.65rem;float:right;border-top: 1px solid #dfdfe2;' title="+order.id+" id="+order.orderNo+" >"+
 							"<p class='indent_main_left_p03' style='font-size: 0.6rem;color: #666;float: left;'>课程有效期：不限</p>";
 	        				if(orderStatus == 0){
 	        					html+="<a href='javascript: ;'   class='indent_main_bot_a common_click gotoPay' >去支付</a>" +
@@ -140,7 +140,8 @@ function initOrderList(status,downOrOn){
 					var odiv = document.createElement("div");
 					odiv.id = 'content';
 					var img_str = "null01.png";
-					odiv.innerHTML = '<img style="width:4.675rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" />';
+					var tip_str = "您还没有订单消息";
+					odiv.innerHTML = '<img style="width:4.75rem;margin-top:4.75rem;" src="/xcviews/images/'+img_str+'" alt="" class="kongbai" /><p>'+ tip_str +'</p>';
 					document.getElementById("indent_main").appendChild(odiv);
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
@@ -157,7 +158,7 @@ function initOrderList(status,downOrOn){
  */
 mui("#refreshContainer").on('tap', '.indent_main_cen', function (event) {
 	var div = $(this);
-	var liveStatus = div.attr("alt");     // liveStatus
+	var lineState = div.attr("alt");     // lineState
 	var type = div.attr("title"); //type
 	var courseId = div.attr("courseId"); //type
 	var onlineCourse = div.attr("onlineCourse"); //type
@@ -167,7 +168,7 @@ mui("#refreshContainer").on('tap', '.indent_main_cen', function (event) {
 		return;
 	}else{
 		if(type == 1){  
-			if(liveStatus!=2){ //直播详情
+			if(lineState!=2){ //直播详情
 				location.href = "/bxg/xcpage/courseDetails?courseId="+courseId;
 				return;
 			}else{     //预告
@@ -227,7 +228,9 @@ mui("#refreshContainer").on('tap', '.common_click', function (event) {
 	            var result = data.resultObject;
 	            location.href = "/xcviews/html/pay.html?orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
 	        }else{
-	            alert("提交订单错误！请稍后再试！");
+//	            alert("提交订单错误！请稍后再试！");
+				$(".vanish2").show();
+				setTimeout(function(){$(".vanish2").hide();},1500);
 	        }
 	    });
 	}
@@ -264,7 +267,10 @@ function deleteOrcancel(){
 				}
 			});
 		}else{
-			alert("网络异常");
+//			alert("网络异常");
+			$(".vanish").show();
+			setTimeout(function(){$(".vanish").hide();},1500);	
+
 		}
 	})
 }

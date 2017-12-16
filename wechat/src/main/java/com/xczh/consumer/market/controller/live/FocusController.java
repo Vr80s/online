@@ -6,8 +6,8 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
-
 import com.xczhihui.bxg.online.api.service.UserCoinService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,27 +59,50 @@ public class FocusController {
 			throws Exception {
 		
 		String userId = req.getParameter("userId");
-		OnlineUser user = onlineUserService.findUserById(userId);
-		//OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
-		/*System.out.println("myHome   user.getId()"+user.getId());*/
-		if(null == user){	
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		String token = req.getParameter("token");
+		OnlineUser user =null;
+		if(token!=null){
+			user = appBrowserService.getOnlineUserByReq(req);
+		}else{
+			String appUniqueId = req.getParameter("appUniqueId");
+			if(appUniqueId!=null){
+				Map<String, Object> mapAppRecord = onlineUserService.getAppTouristRecord(appUniqueId);
+				Boolean regis =  (Boolean) mapAppRecord.get("isRegis");
+				if(!regis){ //返回用户基本信息   --主要是不返回loginName
+					user = onlineUserService.findUserByIdAndVhallNameInfo(mapAppRecord.get("userId").toString());
+				}else{ //返回用户信息 -- 包括loginName
+					user = onlineUserService.findUserById(mapAppRecord.get("userId").toString());
+				}
+			}else{
+				user = onlineUserService.findUserById(userId);
+			}
 		}
-		user = onlineUserService.findUserById(user.getId());
 		Map<String,Object> map =new HashMap<String, Object>();
-		//我的粉丝总数
-		Integer countFans =	focusService.findMyFansCount(user.getId());
-		//我的关注总数
-		Integer countFocus =focusService.findMyFocusCount(user.getId());
-		map.put("countFans", countFans);
-		map.put("countFocus", countFocus);
-		map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
-		/**
-		 * 查下房间号
-		 *  是否是讲师：0,用户，1既是用户也是讲师
-		 */
-		/*Map<String,Object> ma1p = onlineUserService.getUserIsTeacher(user.getId());*/
-		map.put("user", user);
+		if(null == user){	
+			//return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			map.put("countFans", 0);
+			map.put("countFocus", 0);
+			map.put("xmbCount", 0);
+			/**
+			 * 查下房间号
+			 *  是否是讲师：0,用户，1既是用户也是讲师
+			 */
+			map.put("user", null);
+		}else{
+			//我的粉丝总数
+			Integer countFans =	focusService.findMyFansCount(user.getId());
+			//我的关注总数
+			Integer countFocus =focusService.findMyFocusCount(user.getId());
+			map.put("countFans", countFans);
+			map.put("countFocus", countFocus);
+			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
+			/**
+			 * 查下房间号
+			 *  是否是讲师：0,用户，1既是用户也是讲师
+			 */
+			user.setTicket(token);
+			map.put("user", user);
+		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 	/**

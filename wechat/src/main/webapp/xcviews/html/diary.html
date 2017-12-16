@@ -38,12 +38,12 @@
 			width: 7.425rem;
 			height: 7.225rem;
 			margin: 0 auto;
-			margin-top: 4.75rem;
+			margin-top: 8.75rem;
 		}
 		.null_kongbai_cen1{
-			width: 7.425rem;
-			height: 7.225rem;
-			background: url(/xcviews/images/null11.png) no-repeat;;
+			width: 4.5rem;
+			height: 4.525rem;
+			background: url(/xcviews/images/video_null.png) no-repeat;;
 			background-size:100% 100%;
 		}
 		.attention_left{
@@ -54,15 +54,11 @@
 		.detail{
 			margin-top: 2.2rem;
 		}
-		.detail_top p{
-			font-size: 0.7rem;
-		}
-		.detail_cen p{
-			font-size: 0.7rem;
-		}
-	    .attention_right{
-			font-size: 0.7rem;
-    		margin-top: 0.8rem;
+		.body_p{
+			font-size: 0.6rem;
+			color: #999;
+			text-align: center;
+			margin-top: 0.85rem;
 		}
 	</style>
 </head>
@@ -78,12 +74,12 @@
 		<div class="both"></div>
 		
 	    <div class="null_kongbai">
-			<div class="null_kongbai_cen">
-			</div>
+			<div class="null_kongbai_cen"></div>
+			<p class="body_p">您还没有收到任何打赏！</p>
 		</div>
 		
 		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
-			  <div class="mui-scroll"  style="margin-top:2rem;">
+			  <div class="mui-scroll"  style="margin-top:1.75rem;">
 			     <div class="attention_center" style="margin-top:0.5rem;">
 					<ul>
 					 <div id="attention_center">
@@ -135,12 +131,12 @@
     				var liveHtml0="";
     				liveHtml0+="<li id='' class='li_click' onclick='diaryDetails("+JSON.stringify(obj)+")' >"+
      					"<div class='attention_li'>"+
-     					"<p class='attention_p1'>打赏<span></span></p>"+
+     					"<p class='attention_p1'>"+returnstring(obj.name)+"<span></span></p>"+
      						"<p class='attention_p2'>"+returnstring(obj.createTime)+"&nbsp;&nbsp;</p>"+
      					"</div>"+
-     					"<div class='attention_right'>"+returnstring(obj.price)+"</div>"+
+						"<div class='attention_right'>+"+returnstring(obj.price)+"元</div>"+
      					"<div class='both'></div>"+
-     					"<div class='attention_right' style='margin-top:-1.3rem;'>"+returnstring(obj.name)+"</div>"+
+ //   新ui隐藏	    					"<div class='attention_right' style='margin-top:-1.3rem;'>"+returnstring(obj.name)+"</div>"+
      					"<div class='both'></div>"+
      				"</li>";
                 	odiv.innerHTML = liveHtml0;
@@ -157,6 +153,7 @@
 				if(num == "0") {
 					$('.null_kongbai_cen').addClass('null_kongbai_cen1');
 					$('body').css('background','#efefef');
+					$(".body_p").show();
 				} else {
 					mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
 					$('body').css('background','url(/xcviews/images/index_bg.jpg)');

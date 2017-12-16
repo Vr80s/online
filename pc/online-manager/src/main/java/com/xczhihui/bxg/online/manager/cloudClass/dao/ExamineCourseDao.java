@@ -23,8 +23,8 @@ import com.xczhihui.bxg.online.manager.utils.Group;
 public class ExamineCourseDao extends HibernateDao<Course>{
 
 	
-	@Value("${rate}")
-	private double rate;
+//	@Value("${rate}")
+//	private double rate;
 	
 	public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo,
 			int pageNumber, int pageSize) {
@@ -86,7 +86,7 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 		StringBuilder sql =new StringBuilder("select le.*,ou.name as lecturerName ,m.name as menuName,"
 				+ " (select u.login_name from user as u where u.id = le.audit_person ) as auditPersonStr "
 				+ " from live_examine_info le,oe_menu m,oe_user ou  "
-				+ " where le.is_delete = 0 and le.type=m.id and le.user_id = ou.id ");
+				+ " where le.type=m.id and le.user_id = ou.id ");
 	 	if(liveExamineInfoVo.getS_startTime() != null){
 	 		 sql.append(" and DATE_FORMAT(le.create_time,'%Y-%m-%d') >=:startTime");
 	            paramMap.put("startTime", liveExamineInfoVo.getS_startTime());
@@ -99,15 +99,25 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 	 		paramMap.put("status", liveExamineInfoVo.getExamineStatus());
 	 		sql.append(" and le.examine_status = :status ");
 	 	}
-	 	/*if(liveExamineInfoVo.getType() != null){
-	 		paramMap.put("type", liveExamineInfoVo.getMenuId());
-	 		sql.append(" and le.type = :type ");
-	 	}*/
+	 	
+	 	if(liveExamineInfoVo.getType() != null){
+	 		paramMap.put("type", liveExamineInfoVo.getType());
+	 		sql.append(" and le.see_mode = :type ");
+	 	}
+	 	
 	 	if(liveExamineInfoVo.getLecturerName() != null){
 	 		paramMap.put("title", "%"+liveExamineInfoVo.getLecturerName()+"%" );
 	 		paramMap.put("gradeName", "%" +liveExamineInfoVo.getLecturerName()+"%");
 	 		sql.append(" and (ou.name like :title or le.title like :gradeName)");
 	 	}
+	 	
+	 	if(liveExamineInfoVo.getIsDelete() != null){
+	 		paramMap.put("is_delete", liveExamineInfoVo.getIsDelete() ? 1 : 0 );
+	 		sql.append(" and le.is_delete = :is_delete ");
+	 	}
+	 	
+	 	sql.append(" order by le.create_time desc ");
+	 	
 	 	System.out.println("sql.toString():"+sql.toString());
 	 	Page<LiveExamineInfoVo> pageList =this.findPageBySQL(sql.toString(), paramMap, LiveExamineInfoVo.class, pageNumber, pageSize);
 		
@@ -158,7 +168,7 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 				//主播、驳回原因、申述时间、申述理由、申述详情、审核人、审核时间
 				
 				StringBuilder sql =new StringBuilder(); //live_appeal  live_examine_info
-			 	sql.append("select le.*,la.id as appId,la.appeal_reason as appealReason,"
+			 	sql.append("select le.*,la.id as appId,la.appeal_reason as appealReason,la.is_delete as ssisDelete,"
 			 			+ "(select u.login_name from user as u where u.id = la.reviewer_person ) as auditPersonStr,la.reviewer_time as reviewerTime,"
 			 			+ "la.against_reason as againstReason,la.appeal_time  as appealTime,"
 			 			+ " ou.name as lecturerName,m.name as menuName "
@@ -181,19 +191,16 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 			 		paramMap.put("gradeName", "%" +liveExamineInfoVo.getLecturerName()+"%");
 			 		sql.append(" and (ou.name like :title or le.title like :gradeName)");
 			 	}
-			 	//sql.append(" order by c.status desc, c.sort desc");
+			 	
+				if(liveExamineInfoVo.getSsisDelete() != null){
+			 		paramMap.put("is_delete", liveExamineInfoVo.getSsisDelete() ? 1 : 0 );
+			 		sql.append(" and la.is_delete = :is_delete ");
+			 	}
+			 	
 			 	System.out.println("sql.toString():"+sql.toString());
 			 	System.out.println(pageNumber+"========"+pageSize);
 			 	Page<LiveExamineInfoVo> pageList =  this.findPageBySQL(sql.toString(), paramMap, LiveExamineInfoVo.class, pageNumber, pageSize);
-				/*for (LiveExamineInfoVo lv : pageList.getItems()) {
-		 			if(lv.getPrice()!=null){
-		 				BigDecimal bd = lv.getPrice();
-		 	 			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
-		 	 			lv.setPrice(bd_half_up);
-		 				BigDecimal bd = lv.getPrice();
-		 				lv.setPrice(CountUtils.div(bd,rate,2));
-		 			}
-				}*/
+		
 				return pageList;
 	}
 	

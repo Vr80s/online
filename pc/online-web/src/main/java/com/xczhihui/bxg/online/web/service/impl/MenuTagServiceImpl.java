@@ -196,7 +196,7 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 					if (!CollectionUtils.isEmpty(tags))
 						map.put("tag", tags);
 					/*yuruixin-20170831*/
-					if(tags.size()>1)
+					if(tags.size()>0)
 						resultList.add(map);
 					/*yuruixin-20170831*/
 				}

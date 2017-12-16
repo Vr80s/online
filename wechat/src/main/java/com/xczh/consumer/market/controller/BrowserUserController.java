@@ -1,8 +1,10 @@
 package com.xczh.consumer.market.controller;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,8 +30,10 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
+import com.xczh.consumer.market.utils.CodeUtil;
 import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -72,47 +77,12 @@ public class BrowserUserController {
 	@Autowired
 	private UserCoinService userCoinService;
 
-
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-	/**
-	 * Description：
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 * @return ResponseObject
-	 * @author name：yangxuan <br>email: 15936216273@163.com
-	 *
-	 */
-	@RequestMapping(value="checkToken")
-	@ResponseBody
-	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String token = req.getParameter("token");
-		/*String appUniqueId = req.getParameter("appUniqueId");
-		cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
-		cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());*/
-		//  "token不能为空", 1001     "已过期", 1002   "有效",1000     "某某型号登录",1003
-		
-		
-		if(null == token){
-			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
-		}
-		OnlineUser ou = cacheService.get(token);
-		if(null == ou){
-			return ResponseObject.newErrorResponseObject("已过期", 1002);
-		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
-			return ResponseObject.newSuccessResponseObject("有效",1000);
-		}else{
-			String model = cacheService.get(ou.getLoginName());
-		    if(model!=null){
-		       return ResponseObject.newErrorResponseObject(model,1003);
-		    }
-			return ResponseObject.newErrorResponseObject("其他设备",1004);
-		}
-    }
+	@Value("${returnOpenidUri}")
+	private String returnOpenidUri;
+	
 	/**
 	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
 	 * @param req
@@ -161,7 +131,6 @@ public class BrowserUserController {
 			userCenterAPI.updatePassword(username, null, password);
 			return ResponseObject.newSuccessResponseObject("修改密码成功");
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("修改密码失败");
 		}
@@ -191,7 +160,6 @@ public class BrowserUserController {
 			userCenterAPI.updatePassword(username, null, password);
 			return ResponseObject.newSuccessResponseObject("修改密码成功");
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("修改密码失败");
 		}
@@ -216,7 +184,6 @@ public class BrowserUserController {
 			userCenterAPI.updatePassword(username, null, newPassword);
 			return ResponseObject.newSuccessResponseObject("修改密码成功");
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("修改密码失败");
 		}
@@ -240,7 +207,6 @@ public class BrowserUserController {
 			userCenterAPI.checkPassword(username, oldPassword);
 			return ResponseObject.newSuccessResponseObject("密码一致");
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("密码一致");
 		}
@@ -405,71 +371,12 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("用户名密码错误");
 		}
 	}
-	/**
-	 * 登陆成功处理
-	 * @param req
-	 * @param res
-	 * @param token
-	 * @param user
-	 */
-	@SuppressWarnings("unchecked")
-	public void onlogin(HttpServletRequest req, HttpServletResponse res,
-                        Token token, OnlineUser user, String ticket){
-		
-		
-		/**
-		 * 存在两个票，两个票都可以得到用户信息。
-		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
-		 */
-		String appUniqueId = req.getParameter("appUniqueId");
-		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
-			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
-			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-			String model = req.getParameter("model");
-			if(StringUtils.isNotBlank(model)){
-				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());
-			}else{
-				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
-			}
-		}else{
-			// 用户登录成功
-			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
-			req.getSession().invalidate();
-			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
-			// 获得到ServletCOntext中存的Map集合.
-			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext()
-					.getAttribute("userMap");
-			// 判断用户是否已经在map集合中'
-			HttpSession session = userMap.get(user);
-			if(session!=null && userMap.containsKey(user)){
-				/**
-				 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
-				 * 得到客户端信息
-				 */
-				Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
-				//session.invalidate();
-				session.setAttribute("topOff", mapClientInfo);
-				session.setAttribute("_user_",null);
-			}else if(session!=null){
-				session.setAttribute("topOff",null);
-			}
-			// 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
-			req.getSession().setMaxInactiveInterval(86400);//设置session失效时间
-			req.getSession().setAttribute("_user_", user);
-			/**
-			 * 这是cookie 
-			 */
-			UCCookieUtil.writeTokenCookie(res, token);
-		}
-	}
 	
 	@RequestMapping(value = "/index")
 	public void index(HttpServletRequest req,
 			HttpServletResponse res)throws Exception{
 		
     	Cookie []	c = req.getCookies();
-		
     	for (Cookie cookie : c) {
     		System.out.println("cookieName+"+cookie.getName());
 		}
@@ -541,6 +448,8 @@ public class BrowserUserController {
 		JSONObject jsonObject = JSONObject.parseObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 		String openid_ = (String)jsonObject.get("openid");
 		String nickname_ = (String)jsonObject.get("nickname");
+		nickname_ = SLEmojiFilter.filterEmoji(nickname_);
+		
 		String sex_ = String.valueOf(jsonObject.get("sex"));
 		String language_ = (String)jsonObject.get("language");
 		String city_ = (String)jsonObject.get("city");
@@ -560,7 +469,9 @@ public class BrowserUserController {
 			wxcpClientUserWxMapping.setWx_public_id(public_id);
 			wxcpClientUserWxMapping.setWx_public_name(public_name);
 			wxcpClientUserWxMapping.setOpenid(openid_);
+			
 			wxcpClientUserWxMapping.setNickname(nickname_);
+			
 			wxcpClientUserWxMapping.setSex(sex_);
 			wxcpClientUserWxMapping.setLanguage(language_);
 			wxcpClientUserWxMapping.setCity(city_);
@@ -585,7 +496,7 @@ public class BrowserUserController {
 			 *  用户名、 密码、昵称、性别、邮箱、手机号
 			 *  第三方登录的用户名和密码是opendi
 			 */
-			userCenterAPI.regist(openid_, unionid_,nickname_, UserSex.parse(Integer.parseInt(sex_)), null,
+			userCenterAPI.regist(openid_, unionid_,SLEmojiFilter.filterEmoji(nickname_), UserSex.parse(Integer.parseInt(sex_)), null,
 					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
 			
 			ItcastUser iu =  userCenterAPI.getUser(openid_);
@@ -820,7 +731,6 @@ public class BrowserUserController {
 				return ResponseObject.newErrorResponseObject(str);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
@@ -936,5 +846,195 @@ public class BrowserUserController {
 		}
 		return null;
 	}
+	/**
+	 * Description：
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("appLogin")
+	@ResponseBody
+	public ResponseObject appOnlyOneId(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		
+		String appUniqueId = req.getParameter("appUniqueId");
+		String token = req.getParameter("token");
+		String type = req.getParameter("type");
+		/**
+		 * 如果存在这个token。那么说明这个token可以的啦。就不用用appUniqueId来判断了
+		 * 直接中缓存中得到这个token。如果这个token没有或者失效了。那么就中数据库中取下。
+		 * 在从数据库中去的时候
+		 */
+		OnlineUser ou = new OnlineUser();
+		if(token!=null && cacheService.get(token)!=null){
+			ou = cacheService.get(token);
+			return ResponseObject.newSuccessResponseObject(ou);
+		}
+		/*
+		 * 1、判断是游客登录呢，还是普通用户登录
+		 */
+		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
+		if(map ==null){ //第一次进来
+			ou = onlineUserService.addYkUser(appUniqueId);
+			//也需要保存这个信息啦
+			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
+		}else{
+			/**
+			 * 1、点击退出的时候，在数据库中变化一个值
+			 *   如果这个值是1，说明它是退出登录了。在进入的时候我返回他一些基本的信息。
+			 *   如果这个是是0,。进入的时候我返回他更过的信息。
+			 * 2、当登录的时候，在增加这个标识符为0:  
+			 */
+			Boolean regis =  (Boolean) map.get("isRegis");
+			if(!regis|| type.equals("1")){ //返回用户基本信息   --主要是不返回loginName
+				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
+			}else{ //返回用户信息 -- 包括loginName
+				ou = onlineUserService.findUserById(map.get("userId").toString());
+			}
+		}
+		/**
+		 * 游客身份进入后，存缓存到redis中。也就是这个票
+		 * 	 通过这个票进行各种身份通过，对出登录删除这个票就行了。
+		 *  在以游客的身份过来的话，就判断这个票有效无效。如果无效就在生成这个票。如果有效，就还用这个票吧。
+		 * 
+		 */
+		String ticket = CodeUtil.getRandomUUID();
+		ou.setTicket(ticket);
+		cacheService.set(ticket, ou,TokenExpires.Day.getExpires());
+		return ResponseObject.newSuccessResponseObject(ou);
+	}
+	public void appleOnlogin(HttpServletRequest req, HttpServletResponse res,
+            Token token, OnlineUser user, String ticket){
+		
+		System.out.println("ticket:"+ticket);
+		cacheService.set(ticket, user,TokenExpires.Day.getExpires());
+		cacheService.set(user.getId(),ticket,TokenExpires.Day.getExpires());
+	}
+	/**
+	 * 登陆成功处理
+	 * @param req
+	 * @param res
+	 * @param token
+	 * @param user
+	 * @throws SQLException 
+	 */
+	@SuppressWarnings("unchecked")
+	public void onlogin(HttpServletRequest req, HttpServletResponse res,
+                        Token token, OnlineUser user, String ticket) throws SQLException{
+		
+		System.out.println("用户普通登录----》ticket"+ticket);
+		/**
+		 * 存在两个票，两个票都可以得到用户信息。
+		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
+		 */
+		String appUniqueId = req.getParameter("appUniqueId");
+		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
+			
+			//设置登录标识
+			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
+			
+			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
+			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
+			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
+			String model = req.getParameter("model");
+			if(StringUtils.isNotBlank(model) && user.getLoginName()!=null){
+				cacheService.set(user.getLoginName(),model,TokenExpires.TenDay.getExpires());
+			}else if(user.getLoginName()!=null){
+				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
+			}
+		}else{
+			// 用户登录成功
+			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
+			req.getSession().invalidate();
+			// 第二个BUG的解决:判断用户是否已经在Map集合中,存在：已经在列表中.销毁其session.
+			// 获得到ServletCOntext中存的Map集合.
+			Map<OnlineUser, HttpSession> userMap = (Map<OnlineUser, HttpSession>) req.getServletContext()
+					.getAttribute("userMap");
+			// 判断用户是否已经在map集合中'
+			HttpSession session = userMap.get(user);
+			if(session!=null && userMap.containsKey(user)){
+				/**
+				 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
+				 * 得到客户端信息
+				 */
+				Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
+				//session.invalidate();
+				session.setAttribute("topOff", mapClientInfo);
+				session.setAttribute("_user_",null);
+			}else if(session!=null){
+				session.setAttribute("topOff",null);
+			}
+			// 使用监听器:HttpSessionBandingListener作用在JavaBean上的监听器.
+			req.getSession().setMaxInactiveInterval(86400);//设置session失效时间
+			req.getSession().setAttribute("_user_", user);
+			/**
+			 * 这是cookie 
+			 */
+			UCCookieUtil.writeTokenCookie(res, token);
+		}
+	}
+	
+	@RequestMapping(value="checkToken")
+	@ResponseBody
+	public ResponseObject checkToken(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		String token = req.getParameter("token");
+		if(null == token){
+			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
+		}
+		OnlineUser ou = cacheService.get(token);
+		if(null == ou){
+			return ResponseObject.newErrorResponseObject("已过期", 1002);
+		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
+			return ResponseObject.newSuccessResponseObject("有效",1000);
+		}else{
+			String model = cacheService.get(ou.getLoginName());
+		    if(model!=null){
+		       return ResponseObject.newErrorResponseObject(model,1003);
+		    }
+			return ResponseObject.newErrorResponseObject("其他设备",1004);
+		}
+    }
+	/**
+	 * apple用户提交注册
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="applePhoneRegist")
+	@ResponseBody
+	public ResponseObject applePhoneRegist(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+		String appUniqueId = req.getParameter("appUniqueId");
+		String password = req.getParameter("password");
+		String username = req.getParameter("username");
+		String code = req.getParameter("code");
+		if(null == password || null == username || null == code){
+			return ResponseObject.newErrorResponseObject("参数异常");
+		}
+		String vtype = "1";
+		//短信验证码
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		if (!checkCode.isSuccess()) {
+			return checkCode;
+		}
+		return onlineUserService.updateIPhoneRegist(req, password,username,vtype,appUniqueId);
+	}
+	
+	public static void main(String[] args) {
+		
+		
+		int [] arr = {1,2,3,4};
+		//产生0-(arr.length-1)的整数值,也是数组的索引
+		System.out.println(Math.random() +"==="+Math.random()*arr.length);
+		int index=(int)(Math.random()*arr.length);
+		System.out.println(index);
+		int rand = arr[index];
+		
+		System.out.println(rand);
+	}
+	
+	
+	
 	
 }

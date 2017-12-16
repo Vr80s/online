@@ -1,0 +1,242 @@
+<!DOCTYPE html> 
+<html>
+<head lang="en">
+    <!--[if IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
+    <![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IEedge"/>
+    <meta charset="UTF-8">
+    <title>熊猫中医 - 名医</title>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <meta name="keywords"
+          content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
+    <meta name="description"
+          content="熊猫中医云课堂为。课程大纲全新优化，内容有广度、有深度，顶尖讲师全程直播授课。专注整合优势教学资源、打造适合在线学习并能保证教学结果的优质教学产品，同时打造和运营一整套教育生态软件体系，为用户提供满足自身成长和发展要求的有效服务。"/>
+    <meta name="renderer" content="webkit">
+    <meta name="baidu-site-verification" content="UHaAQAeAQF"/>
+    <link rel="stylesheet" href="/web/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/web/css/mylogin.css"/>
+    <link rel="stylesheet" href="/web/css/componet.css"/>
+    <link rel="stylesheet" href="/web/css/header.css"/>
+    <link rel="stylesheet" href="/web/css/doctor_list.css"/>
+    <link rel="stylesheet" href="/web/css/footer.css"/>
+    <link rel="stylesheet" href="/web/font/iconfont.css"/>
+
+    <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/web/js/artTemplate.js"></script>
+    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/jquery.dotdotdot.js" type="text/javascript" charset="utf-8"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
+    <!-----引用layer------>
+    <script type="text/javascript" src="/web/js/helpers.js"></script>
+    <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
+
+    <!--百度统计-->
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?9905b58e5fa2d9e2dd20bd22ee8ffe8c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+<body>
+
+
+<!--主体-->
+<div class="content_box">
+    <div class="content clearfix" id="main"> 
+        <!--左侧-->
+        <div class="main_left">
+           
+            <!--名医搜索列表-->
+            <div class="doctor clearfix">
+              <div class="doctor_search_top clearfix">
+              	<h3>名医列表</h3>
+              	<div class="doctor_search_ipt">
+              		<input type="text" placeholder="输入名字搜索医师"/>
+              		<button>搜索</button>
+              	</div>
+              	
+              </div>
+              <div class="doctor_search_bottom"></div>
+            </div>
+           
+           <!--名医列表展示-->
+           <div class="doctor_list">
+           	<ul id="doctor_list">
+           		<!--<li class="clearfix">
+           			<div class="doctor_pic">
+           				<img src="../images/doctor_detail/touxiang.png" alt="" />
+           			</div>
+           			<div class="doctor_inf">
+           				<h4>施小墨&nbsp;&nbsp;胡庆余堂国医馆&nbsp;&nbsp; 广东&nbsp;广州</h4>
+           				<span></span>
+           				<p>科室： <span>中医内科/儿科/肿瘤科</span></p>
+           				<p>擅长：<span>中西医结合治肿瘤、脾胃病、血液病、睡眠障碍、糖尿病、内科杂病等。</span> </p>
+           				
+           			</div>
+           		</li>
+           		<li class="clearfix">
+           			<div class="doctor_pic">
+           				<img src="../images/doctor_detail/touxiang.png" alt="" />
+           			</div>
+           			<div class="doctor_inf">
+           				<h4>施小墨&nbsp;&nbsp;胡庆余堂国医馆&nbsp;&nbsp; 广东&nbsp;广州</h4>
+           				<span></span>
+           				<p>科室： <span>中医内科/儿科/肿瘤科</span></p>
+           				<p>擅长：<span>中西医结合治肿瘤、脾胃病、血液病、睡眠障碍、糖尿病、内科杂病等。</span> </p>
+           				
+           			</div>
+           		</li>
+           		<li class="clearfix">
+           			<div class="doctor_pic">
+           				<img src="../images/doctor_detail/touxiang.png" alt="" />
+           			</div>
+           			<div class="doctor_inf">
+           				<h4>施小墨&nbsp;&nbsp;胡庆余堂国医馆&nbsp;&nbsp; 广东&nbsp;广州</h4>
+           				<span></span>
+           				<p>科室： <span>中医内科/儿科/肿瘤科</span></p>
+           				<p>擅长：<span>中西医结合治肿瘤、脾胃病、血液病、睡眠障碍、糖尿病、内科杂病等。</span> </p>
+           				
+           			</div>
+           		</li>-->
+           	</ul>
+           	<div class="search_more">
+           		<button class="more_doctor">更多</button>
+           	</div>
+           </div>
+           
+
+        </div>
+
+
+        <!--右侧-->
+        <div class="main_right">
+           
+            <!--名医推荐-->
+            <div class="about_doctor">
+                <h3>名医推荐</h3>
+                <ul class="about_doctor_list clearfix" id="doc_rec">
+                    <!--<li>
+                        <span class="about_doctor_pic">
+                             <img src="../images/doctor_detail/touxiang.png" alt="">
+                        </span>
+                       <p>朱春苏</p>
+
+                    </li>
+
+                    <li>
+                        <span class="about_doctor_pic">
+                             <img src="../images/doctor_detail/touxiang.png" alt="">
+                        </span>
+                        <p>朱春苏</p>
+
+                    </li>
+
+                    <li>
+                        <span class="about_doctor_pic">
+                             <img src="../images/doctor_detail/touxiang.png" alt="">
+                        </span>
+                        <p>朱春苏</p>
+
+                    </li>
+
+                    <li>
+                        <span class="about_doctor_pic">
+                             <img src="../images/doctor_detail/touxiang.png" alt="">
+                        </span>
+                        <p>朱春苏</p>
+
+                    </li>
+
+                    <li>
+                        <span class="about_doctor_pic">
+                             <img src="../images/doctor_detail/touxiang.png" alt="">
+                        </span>
+                        <p>朱春苏</p>
+
+                    </li>
+
+                    <li>
+                        <span class="about_doctor_pic">
+                             <img src="../images/doctor_detail/touxiang.png" alt="">
+                        </span>
+                        <p>朱春苏1</p>
+
+                    </li>-->
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script  type="text/template" id="doctorListTpl">
+	{{each records}}
+			<li class="clearfix">
+				<a href="/web/html/doctor_details.html?Id={{$value.id}}" id={{$value.id}}></a>
+           			<div class="doctor_pic">
+           				<img src={{$value.headPortrait}} alt="" />
+           			</div>
+           			<div class="doctor_inf">
+           				<h4>{{$value.name}}&nbsp;&nbsp;{{$value.medicalHospital}}&nbsp;&nbsp; 
+           					{{if $value.province == $value.city}}
+           						{{$value.province}}
+           					{{else}}
+           						{{$value.province}}&nbsp;{{$value.city}}
+           					{{/if}}
+           				</h4>
+           				<span>{{$value.title}}</span>
+           				<!--<p>科室： <span>中医内科/儿科/肿瘤科</span></p>-->
+           				{{if $value.fields}}
+           				<p>擅长：
+           					 {{include 'scoreTemplate' $value}}  
+           				</p>
+           				{{/if}}
+           			</div>
+           	</li>
+	{{/each}}
+</script>
+
+<!--主治子模板-->
+<script id="scoreTemplate" type="text/html">
+    {{each fields}}
+        <span>{{$value.name}}&nbsp;</span>
+       
+    {{/each}}
+</script>
+
+
+
+<script type="text/templage" id="doc_recTpl">
+	{{each doc as doc i}}
+	<li>
+		<a href="/web/html/doctor_details.html?Id={{doc.id}}"></a>
+        <span class="about_doctor_pic">
+            <img src={{doc.headPortrait}} alt="暂无图片">
+        </span>
+        <p>{{doc.name}}</p>
+
+    </li>
+	{{/each}}
+</script>
+
+</body>
+</html>
+<script src="/web/js/jquery.pagination.js"></script>
+<script src="/web/js/doctor_list.js"></script>
+<script type="text/javascript" src="/web/js/footer.js"></script>
+<script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('input').placeholder();
+    });
+</script>

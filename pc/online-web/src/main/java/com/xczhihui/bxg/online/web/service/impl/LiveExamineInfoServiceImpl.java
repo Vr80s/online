@@ -33,6 +33,9 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
     
 	@Value("${rate}")
 	private Integer rate;
+	
+	@Value("${gift.im.room.postfix}")
+	private String postfix;
 
     @Override
     public String add(LiveExamineInfo liveExamineInfo){
@@ -84,21 +87,30 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             		+ "lei.examine_status examineStatus, lei.id, lei.logo, lei.title, "
             		+ "lei.see_mode seeMode, lei.price, lei.start_time startTime,"
             		+ "lei.end_time endTime, "
+            		+ " if(c.direct_id is not null,(select start_time from oe_live_time_record where live_id = c.direct_id order by record_count limit 1),null) as tureTime,  "
             		+ "c.direct_id directId, IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id ), 0 ) + IFNULL(default_student_count, 0) learndCount "
             		+ "FROM live_examine_info lei  "
-            		+ "left JOIN  oe_course c ON (lei.id = c.examine_id) "
-            		+ "inner join oe_menu om on (om.id=lei.type) WHERE lei.user_id = :userId   ");
+            		+ "left JOIN  oe_course c ON (lei.id = c.examine_id)"
+            		+ "inner join oe_menu om on (om.id=lei.type)   WHERE lei.user_id = :userId  and  lei.is_delete = 0 ");
             if("0".equals(examineStatus)){ //待直播
-                sb.append(" and lei.examine_status = 1  AND c.live_status != 3  ");
+                sb.append(" and lei.examine_status = 1  AND c.live_status != 3  and  c.is_delete=0 and c.status = 1 ");  
             }else if("2".equals(examineStatus)){ //直播完成
-                sb.append(" AND c.live_status = 3 "); //直播结束
+                sb.append(" AND c.live_status = 3  and  c.is_delete=0 and c.status = 1 ");
             }else if("1".equals(examineStatus)){ //审核中
-                sb.append(" AND (lei.examine_status = 0 or lei.examine_status = 2) "); //直播结束
+                sb.append(" AND (lei.examine_status = 0 or lei.examine_status = 2)  ");
             }
             sb.append(" ORDER BY lei.start_time");
             Map<String,Object> param=new HashMap<>();
             param.put("userId",userId);
-            return simpleHibernateDao.findPageBySQL(sb.toString(),param,LiveExamineInfoVo.class,pageNumber,pageSize).getItems();
+            
+            
+            //courseLecturVo.setImRoomId(courseLecturVo.getId()+postfix);
+            List<LiveExamineInfoVo>  list= simpleHibernateDao.findPageBySQL(sb.toString(),param,LiveExamineInfoVo.class,pageNumber,pageSize).getItems();
+            for (LiveExamineInfoVo liveExamineInfoVo : list) {
+            	System.out.println(liveExamineInfoVo.getCourseId()+postfix);
+            	liveExamineInfoVo.setImRoomId(liveExamineInfoVo.getCourseId()+postfix);
+			}
+            return  list;
     }
 
     @Override
@@ -215,8 +227,10 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
     @Override
     public int getPreLiveCount(String userId) {
 
-
-        String sql="SELECT count(*) FROM live_examine_info lei LEFT JOIN oe_course c ON (lei.id = c.examine_id) INNER JOIN oe_menu om ON (om.id = lei.type) WHERE lei.user_id =:userId AND lei.examine_status = 1 AND c.live_status != 3";
+        String sql="SELECT count(*) FROM live_examine_info lei "
+        		+ "LEFT JOIN oe_course c ON (lei.id = c.examine_id) "
+        		+ "INNER JOIN oe_menu om ON (om.id = lei.type) "
+        		+ "  WHERE lei.user_id =:userId AND lei.examine_status = 1 AND c.live_status != 3 and c.is_delete=0 and c.status = 1  and lei.is_delete = 0 ";
         Map<String,Object> param=new HashMap<>();
         param.put("userId",userId);
         return simpleHibernateDao.getNamedParameterJdbcTemplate().queryForObject(sql,param,Integer.class);

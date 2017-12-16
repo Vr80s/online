@@ -174,6 +174,7 @@ $("#returnbutton").click(function(){
  * @param imgSrc   图片路径
  */
 function reviewImage(inputId,imgSrc){
+	if(imgSrc==null || imgSrc == "")return;
 	var fileName = imgSrc;
 	if(imgSrc.indexOf("/")>-1){
 		fileName = imgSrc.substring(imgSrc.lastIndexOf("/")+1);

@@ -51,20 +51,24 @@ function login(){
 	var number = document.getElementById("account").value;
 	var password = document.getElementById("password").value;
 	if (number == "") {
-		tishi.innerHTML = "用户名不能为空";
+		tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>用户名不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		tishi.innerHTML = "请输入正确格式的账号";
+		tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入正确格式的账号</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	if (password == "") {
-		tishi.innerHTML = "密码不能为空";
+		tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>密码不能为空</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	var pwdLength = password.trim().length;
 	if (pwdLength < 6 || pwdLength > 18) {
-		tishi.innerHTML = "请输入6~18位的密码";
+		tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>请输入6~18位的密码</div></div></div>";
+		setTimeout(function(){$(".vanish").hide();},1500);
 		return false;
 	}
 	var urlparm = {
@@ -137,7 +141,8 @@ function login(){
 				}
 			}
 		} else {
-			tishi.innerHTML = "账号或密码错误";
+			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>账号或密码错误</div></div></div>";
+			setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
 }

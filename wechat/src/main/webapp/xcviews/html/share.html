@@ -40,7 +40,7 @@
 		background: red;
 	    background: red;
 	    position: fixed;
-	    z-index: 99999999;
+	    z-index: 999999999999;
 	    top: 1.6rem;
 	    right: 0;
 	}
@@ -104,6 +104,14 @@
 	.history_span{
 		text-indent: 2rem;
 	}
+	.fx_bg {
+	    width: 0.65rem;
+	    height: 0.65rem;
+	    background: url(/xcviews/images/fx.png)no-repeat;
+	    background-size: 100% 100%;
+	    float: right;
+	    margin-right: 0.3rem;
+	}
 </style>
 </head>
 <body style="background: #efefef;">
@@ -113,8 +121,9 @@
 			<div class="grabble_top">
 				<div class="grabble_img" id="grabble_img"></div>
 				<span class="history_span" style="color: #333;font-size: 1rem;">课程分享</span>
-				<div class="history_img_right"  id="share"
-					style="width: 1.6rem; color: #00bc12;" >分享</div>
+				<!--<div class="history_img_right"  id="share"
+					style="width: 1.6rem; color: #00bc12;" >分享</div>-->
+					<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;margin-top: 0.6rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
@@ -182,7 +191,7 @@
 	<div class="both"></div>
 	<div class="buy_bottom_bg">
 		<!-- <div class="buy_bg"></div> -->
-		<footer style="padding: 0.8rem 0;">
+		<footer>
 			<div class="base buy_bottom">
 				<ul>
 					<li class="buy_left" id="buy_foreshow">
@@ -226,33 +235,6 @@
     <script type="text/javascript" src="/Views/h5/js/common.js"></script>	
     <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript">
-    
-    
-     /* 判断用户是否登录了，如果登录，那么返回对应的页面即可。 */
-     //如果没有这个用户信息呢，就跳转到分享页面
-     //分享过来的话，需要去这个页面吗？
-    var token = localStorage.getItem("token");
-    if(stringnull(token)){
-      //跳转到详情页呢，还是预约页面呢？需要判断下
-      ///bxg/common/shareJump
-      var course_id =getQueryString("course_id")
-      if(stringnull(course_id)){
-    	  requestService("/bxg/common/shareJump",{courseId : course_id}, function(data) {
-				if (data.success) {
-					 var result = data.resultObject;
-					 if(result.type == 1){   // 0 直播已结束	 1 直播还未开始	 2 正在直播
-						 if(result.state == 1){//预约
-								location.href = "/xcviews/html/foreshow.html?course_id=" + course_id;
-						 }else{
-							 location.href = "/bxg/xcpage/courseDetails?courseId="+course_id;
-						 }
-					 }else{ //视频详情页
-						 location.href = "/xcviews/html/particulars.html?courseId=" + course_id;
-					 }
-				}
-	      },false)
-      }
-    }
 	//初始化微信 jssdk
 	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
 	var urlparm = {
@@ -282,7 +264,6 @@
 			'showMenuItems'         
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-    
     </script>
     <script src="/xcviews/js/share.js?v=1.0" type="text/javascript"></script>
 </html>

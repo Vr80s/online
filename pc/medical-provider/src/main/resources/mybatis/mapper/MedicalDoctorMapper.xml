@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper">
+
+	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		SELECT
+		  md.*,
+		  md.`work_time` workTime,
+		  mdai.head_portrait headPortrait,
+		  mh.`name` hospitalName
+
+		FROM
+		  medical_doctor md
+		<if test="field != null and field!=''">
+			join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{field}
+		</if>
+		  LEFT JOIN `medical_doctor_authentication_information` mdai
+			ON md.`authentication_information_id` = mdai.`id`
+		  LEFT JOIN `medical_hospital_doctor` mhd
+			ON mhd.`doctor_id` = md.`id`
+		  LEFT JOIN `medical_hospital` mh
+			ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		  AND md.status = 1
+		<if test="type != null and type != ''">
+			and md.type = #{type}
+		</if>
+		<if test="hospitalId != null and hospitalId!=''">
+			and mh.id = #{hospitalId}
+		</if>
+		<if test="name != null and name!=''">
+			and md.name like concat('%',#{name},'%')
+		</if>
+	</select>
+
+	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		SELECT
+		md.*,
+		md.`work_time` workTime,
+		mdai.head_portrait headPortrait,
+		mh.`id` hospitalId,
+		md.detailed_address detailedAddress
+		FROM
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+		ON md.`authentication_information_id` = mdai.`id`
+		LEFT JOIN `medical_hospital_doctor` mhd
+		ON mhd.`doctor_id` = md.`id`
+		LEFT JOIN `medical_hospital` mh
+		ON mhd.`hospital_id` = mh.`id`
+		WHERE md.deleted = 0
+		AND md.status = 1
+		AND md.id = #{id}
+	</select>
+
+	<select id="getHotField" resultType="com.xczhihui.medical.field.model.MedicalField">
+		SELECT
+		mf.id,mf.name
+		FROM
+		`medical_field` mf
+		LEFT JOIN `medical_doctor_field` mdf
+		ON mf.`id` = mdf.`field_id`
+		GROUP BY mdf.`field_id`
+		ORDER BY COUNT(mdf.`field_id`) DESC
+		LIMIT 0, 10
+	</select>
+
+
+	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		select
+		md.*,
+		mdai.head_portrait headPortrait
+		from
+		medical_doctor md
+		LEFT JOIN `medical_doctor_authentication_information` mdai
+			ON md.`authentication_information_id` = mdai.`id`
+		where md.deleted = 0
+		and md.status = 1
+		and md.recommend = 1
+		order by md.recommend_sort desc
+		limit 0, 10
+	</select>
+
+	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.model.MedicalField">
+		SELECT
+		  mf.name,
+		  mf.id
+		FROM
+		  `medical_field` mf,
+		  `medical_doctor_field` mdf
+		WHERE mf.`id` = mdf.`field_id`
+		and mdf.doctor_id = #{doctorId}
+	</select>
+
+</mapper>

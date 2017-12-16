@@ -9,19 +9,19 @@ import java.util.List;
 public interface OnlineWatchHistoryService {
 
 	
-	List<OeWatchHistory> getOeWatchHistotyList(int pageNumber, int pageSize, String userId, String type) throws SQLException;
+	List<OeWatchHistory> getOeWatchHistotyList(int pageNumber, int pageSize, String userId, String type,OnlineUser ou) throws SQLException;
 
 	void saveOnlineWatchHistory(OnlineUser ou, String courseId)throws SQLException;
 
 	void deleteOnlineWatchHistoryByUserIdAndType(String userId, String type)throws SQLException;
 
-	void saveOnlineWatchHistory1(OnlineUser ou, String courseId, String type)
+	void saveOnlineWatchHistory1(String userId, String courseId, String type)
 			throws SQLException;
 
-	void updateOnlineWatchHistory(OnlineUser ou, String courseId)
+	void updateOnlineWatchHistory(String userId, String courseId)
 			throws SQLException;
 
-	Integer findOnlineWatchHistory(OnlineUser ou, String courseId)
+	Integer findOnlineWatchHistory(String userId, String courseId)
 			throws SQLException;
 
 }

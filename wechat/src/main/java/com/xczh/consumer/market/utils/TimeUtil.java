@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -103,12 +104,47 @@ public class TimeUtil {
 		day = hour/24;
 	    return day == 0 ? 1 : day;  
 	}
+
+	
+	/**
+	 * 将秒转换为:00:00:00
+	 */
+	public static String formatTime(Object timeTemp) {  
+        int timeParam = 0;  
+        if (timeTemp instanceof Integer) {  
+            timeParam = (Integer) timeTemp;  
+        }  
+        if (timeTemp instanceof String) {  
+            timeParam = Integer.valueOf((String) timeTemp);  
+        }  
+        if (timeTemp instanceof Double) {  
+            timeParam = ((Double)timeTemp).intValue();  
+        } 
+        int second = timeParam % 60;  
+        int minuteTemp = timeParam / 60;  
+        if (minuteTemp > 0) {  
+            int minute = minuteTemp % 60;  
+            int hour = minuteTemp / 60;  
+            if (hour > 0) {  
+                return (hour >= 10 ? (hour + "") : ("0" + hour)) + ":" + (minute >= 10 ? (minute + "") : ("0" + minute))  
+                        + ":" + (second >= 10 ? (second + "") : ("0" + second));  
+            } else {  
+                return "00:" + (minute >= 10 ? (minute + "") : ("0" + minute)) + ":"  
+                        + (second >= 10 ? (second + "") : ("0" + second));  
+            }  
+        } else {  
+            return "00:00:" + (second >= 10 ? (second + "") : ("0" + second));  
+        }  
+    }  
+
+	
+	
 	/**
 	 * 返回分秒
 	 * @param
 	 * @return 例如:00时59分59秒
 	 */
-	public static String timeConvert(long ms){
+	public static String timeConvertHHM(long ms){
 		StringBuilder str = new StringBuilder();
 		if(ms/(1000 * 60 *60) > 1){
 			str.append((ms/(1000 * 60 * 60)) + "时");
@@ -142,6 +178,8 @@ public class TimeUtil {
 		}
 		return str.toString();
 	}
+	
+	
 	/**
 	 * 返回分秒
 	 * @param
@@ -344,4 +382,50 @@ public class TimeUtil {
 			isTrue = false;
 		return isTrue;
 	}
+	
+	
+	
+	public static void main(String[] args) {
+		
+		System.out.println(dateCompare(new Date(),Calendar.getInstance(),1));
+	
+	}
+	
+	/**
+	 * Description：参数时间与   当前时间 比较，也可以与当前时间的前x天或后x天比较。   
+	 * @param startDate  传入的变量时间
+	 * @param lastDate   当前时间
+	 * @return
+	 * @return boolean  
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public static boolean dateCompare(Date startDate,Calendar calendar,Integer dayCount){
+		
+		String strFrist = "";
+		int year = calendar.get(Calendar.YEAR);
+		strFrist += year;
+		int mothod = calendar.get(Calendar.MONTH)+1;
+		if(mothod<10){
+			strFrist+="0"+mothod;
+		}else{
+			strFrist+=mothod;
+		}
+		int day = calendar.get(Calendar.DATE)+dayCount;			
+		if(day<10){
+			strFrist+="0"+day;
+		}else{
+			strFrist+=day;
+		}
+		//    9-1  10   如果10《9-1 那么可以报名
+		SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		String second = f.format(startDate);
+		second = second.replaceAll("-","");
+		
+		if(Integer.parseInt(strFrist)>=Integer.parseInt(second)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 }
