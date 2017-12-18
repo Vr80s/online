@@ -45,14 +45,14 @@ $(function(){
 
 
 var bbs_person =  'http://dev.ixincheng.com';
-var bbs_domain = 'http://bbs.ixincheng.com';
+var bbs_domain = 'http://bbs.ipandatcm.com';
 var domain = document.domain;
 if(domain.indexOf("dev")!=-1){//开发环境
 	bbs_domain = 'http://dev.ixincheng.com:8082';
 }else if(domain.indexOf("test")!=-1){//测试环境
     bbs_domain = 'http://test-bbs.ixincheng.com';
 }else{//生产环境
-    bbs_domain = 'http://bbs.ixincheng.com';
+    bbs_domain = 'http://bbs.ipandatcm.com';
 }
 //如果有链接的点击事件
 function on_click_msg(msg_id, msg_link) {
