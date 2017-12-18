@@ -2,66 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper">
 
-	<resultMap type="com.xczhihui.medical.hospital.model.MedicalHospital" id="MedicalHospitalBaseResult">
-		<id column="id" property="id" />
-		<id column="name" property="name" />
-		<id column="lal" property="lal" />
-		<id column="description" property="description" />
-		<id column="tel" property="tel" />
-		<id column="email" property="email" />
-		<id column="province" property="province" />
-		<id column="city" property="city" />
-		<id column="detailed_address" property="detailedAddress" />
-		<id column="score" property="score" />
-		<id column="authentication" property="authentication" />
-	</resultMap>
-
-	<resultMap type="com.xczhihui.medical.hospital.model.MedicalHospital" id="MedicalHospitalListResult" extends="MedicalHospitalBaseResult">
-		<collection property="medicalHospitalPictures" ofType="com.xczhihui.medical.hospital.model.MedicalHospitalPicture">
-			<id column="picture" property="picture"/>
-		</collection>
-	</resultMap>
-
-	<resultMap type="com.xczhihui.medical.hospital.model.MedicalHospital" id="MedicalHospitalResult" extends="MedicalHospitalBaseResult">
-		<collection property="medicalHospitalPictures" ofType="com.xczhihui.medical.hospital.model.MedicalHospitalPicture">
-			<id column="picture" property="picture"/>
-		</collection>
-		<collection property="fields" ofType="com.xczhihui.medical.field.model.MedicalField">
-			<id column="fieldName" property="name"/>
-		</collection>
-	</resultMap>
-<!--
-	<select id="selectHospitalList" resultMap="MedicalHospitalListResult">
-		select mh.*, mhp.`picture`  from medical_hospital mh
-		LEFT JOIN `medical_hospital_picture` mhp
-		ON mh.`id` = mhp.`hospital_id`
-		where mh.id in
-		<foreach collection="list" index="index" item="id" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-		ORDER BY mh.authentication DESC, mh.score DESC
-	</select>-->
-	<select id="selectHospitalAndPictureList" resultMap="MedicalHospitalListResult">
-		select mh.*, mhp.`picture`  from medical_hospital mh
-		LEFT JOIN `medical_hospital_picture` mhp
-		ON mh.`id` = mhp.`hospital_id`
-		where mh.id in
-		<foreach collection="list" index="index" item="id" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-		ORDER BY mh.authentication DESC, mh.score DESC ,convert(mh.name using gbk) ASC
-	</select>
-
-	<select id="selectHospitalIdList" resultType="java.lang.String">
-		select mh.id  from medical_hospital mh
+	<!-- 通用查询结果列-->
+	<!--<sql id="Base_Column_List">-->
+		<!--id, name, age-->
+	<!--</sql>-->
+	<select id="selectHospitalList" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		select * from medical_hospital mh
 		<if test="field != null and field!=''">
 			join medical_hospital_field mhf on mh.id = mhf.hospital_id and mhf.`field_id`=#{field}
 		</if>
-		where mh.deleted = 0 and mh.status = 1
+		where deleted = 0 and status = 1
 		<if test="name != null and name!=''">
-			and mh.name like concat('%',#{name},'%')
+			and name like concat('%',#{name},'%')
 		</if>
-		ORDER BY mh.authentication DESC, mh.score DESC,convert(name using gbk) ASC
+		ORDER BY authentication DESC, score DESC
 	</select>
 
 	<select id="getHotField" resultType="com.xczhihui.medical.field.model.MedicalField">
@@ -88,42 +42,18 @@
 		limit 0, 6
 	</select>
 
-	<!--<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">-->
-		<!--select id,name,detailed_address detailedAddress from medical_hospital where deleted = 0 and status = 1 and id = #{id}-->
-	<!--</select>-->
+	<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		select *,detailed_address detailedAddress from medical_hospital where deleted = 0 and status = 1 and id = #{id}
+	</select>
 
-	<select id="selectMedicalFieldsByHospitalId" resultType="com.xczhihui.medical.field.model.MedicalField">
+	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.model.MedicalField">
 		SELECT
-		mf.name
+		mf.name,
+		mf.id
 		FROM
 		`medical_field` mf,
 		`medical_hospital_field` mhf
 		WHERE mf.`id` = mhf.`field_id`
 		and mhf.hospital_id = #{hospitalId}
-	</select>
-
-
-	<select id="selectHospitalById"  resultMap="MedicalHospitalResult">
-		SELECT
-		  mh.id,
-		  mh.name,
-		  mh.lal,
-		  mh.description,
-		  mh.tel,
-		  mh.email,
-		  mh.province,
-		  mh.city,
-		  mh.detailed_address,
-		  mh.score,
-		  mh.authentication,
-		  mh.recommend,
-		  mhp.`picture`,
-		  mf.`name` fieldName
-		FROM
-		  medical_hospital mh LEFT JOIN `medical_hospital_picture` mhp ON mh.`id`=mhp.`hospital_id`
-		  LEFT JOIN `medical_hospital_field` mhf ON mh.id = mhf.`hospital_id`
-		  LEFT JOIN `medical_field` mf ON mf.`id`=mhf.`field_id`
-		WHERE mh.deleted = 0
-		  AND mh.status = 1  and  mh.id = #{id}
 	</select>
 </mapper>
