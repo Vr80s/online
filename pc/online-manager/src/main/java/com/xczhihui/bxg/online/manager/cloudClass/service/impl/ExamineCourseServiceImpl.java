@@ -217,21 +217,22 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	}
 	
 	public static void main(String[] args) {
-		/*long l = Long.parseLong(3600111+"") / (1000*60*60);
+		Double d =  4200000D / (1000*60*60);
 	        
-        double f = Double.parseDouble(l+"");
+        /*(double f = Double.parseDouble(l+"");
 		BigDecimal b = new BigDecimal(f);
 		double f1 = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-		
-		BigDecimal bd=new BigDecimal("2.345");//建议使用String参数
+		*/
+		System.out.println(d);
+		BigDecimal bd=new BigDecimal(d);//建议使用String参数
 		BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
 		BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
 		System.out.println(bd_half_even);
-		System.out.println(bd_half_up);*/
+		System.out.println(bd_half_up);
 		
 		//entity.setCurrentPrice(le.getPrice().doubleValue());
-		BigDecimal bd=new BigDecimal("0.01");
-		System.out.println(bd.doubleValue());
+		/*BigDecimal bd=new BigDecimal("0.01");
+		System.out.println(bd.doubleValue());*/
 	}
 	
 	
@@ -252,13 +253,10 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			entity.setMenuId(Integer.parseInt(le.getType())); //学科的id
 			
 		    //时间转换
-	        long l = Long.parseLong(le.getWhenLong()) / (1000*60*60);
-	      /*  double f = Double.parseDouble(l+"");
-			BigDecimal b = new BigDecimal(f);
-			double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();*/
+	        Double d =  Double.valueOf(le.getWhenLong()) / (1000*60*60);
 	        
-			BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
-			//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
+	        
+			BigDecimal bd=new BigDecimal(d);//建议使用String参数
 			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
 			//System.out.println(bd_half_even);
 			System.out.println(bd_half_up);
@@ -268,7 +266,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			entity.setStatus('1' + ""); //状态
 			entity.setStartTime(le.getStartTime());//直播开始时间
 	
-			l= Long.parseLong(le.getWhenLong()) +  le.getStartTime().getTime();
+			Long l= Long.parseLong(le.getWhenLong()) +  le.getStartTime().getTime();
 			Date dend = new Date(l);
 			entity.setEndTime(dend);//直播结束时间
 
@@ -334,8 +332,6 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			dao.update(course);
 		}
 	}
-	
-	
 	
     /**
      * 通过审核
