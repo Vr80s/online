@@ -186,7 +186,7 @@ window.onload = function() {
 		'<p class="bigpic-body-text dot-ellipsis" title="{{item.description}}">{{item.description}}</p>' +
 		'<p class="bigpic-body-list">' +
 		'<span class="body-list-right">主讲：{{item.teacherName}}</span>' +
-		'<span class="body-list-right myTimes" title="课程时长" style="cursor:default">学习时长：{{#timeChange(item.courseLength)}}</span>' +
+		'<span class="body-list-right myTimes" title="课程时长" style="cursor:default">课程时长：{{#timeChange(item.courseLength)}}</span>' +
 		'<span title="学习人数" style="cursor:default">学习人数：{{item.learndCount}}人已学习</span>' +
 		'{{if item.apply==true}}' +
 		'<span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年' +

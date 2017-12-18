@@ -223,11 +223,17 @@ function viewUserDialog(obj) {
 	$("#ip_look").html(aData.lastLoginIp);
 	$("#visitSum_look").html(aData.visitSum);
 	$("#gradeName_look").html(aData.gradeName);
-	
 	$("#view_room_number").html(aData.roomNumber);
+	
+	$("#account_look").html(aData.loginName);
+	$("#balance_look").html(aData.balance);
+	$("#balanceGive_look").html(aData.balanceGive);
+	$("#vhallId_look").html(aData.vhallId);
+	$("#last_time_look").html(aData.lastLoginDate);
+	$("#regis__time_look").html(aData.createTime);
 	//view_room_number
 	//$("#isPay_look").html(aData.isPay==1?'已付费':'未付费');
-	var dialog = openDialogNoBtnName("userInfoDialog","dialogUserInfoDiv","查看用户",543,400,false,"确定",null);
+	var dialog = openDialogNoBtnName("userInfoDialog","dialogUserInfoDiv","查看用户",600,400,false,"确定",null);
 	//var dialog = openDialog("userInfoDialog", "dialogUserInfoDiv", "查看用户", 543,400, false);
 	/*dialog.find("#close").click(function() {
 		dialog.dialog("close");

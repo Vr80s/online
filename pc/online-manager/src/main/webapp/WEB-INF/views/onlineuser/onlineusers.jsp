@@ -25,7 +25,7 @@
 			<tr>
 				<td >
 					<span class="searchTr">
-						<input type="text"  id="searchName" class="propertyValue1" style="width:140px;" placeholder="用户昵称/注册用户名"/>
+						<input type="text"  id="searchName" class="propertyValue1" style="width:240px;" placeholder="用户昵称/注册用户名/qq号/邮箱"/>
 						<input type="hidden" value="searchName" class="propertyName"/>
 					</span>
 					&nbsp;&nbsp;
@@ -121,6 +121,30 @@
 			<label class="col-sm-2 control-label no-padding-right">性别: </label>
 	        <div class="col-sm-4"><p id="sex_look" class="paddingtop7px padding7"></p></div>
 		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-right">用户账号: </label>
+	        <div class="col-sm-4"><p id="account_look" class="paddingtop7px padding7"></p></div>
+			<label class="col-sm-2 control-label no-padding-right">充值余额: </label>
+	        <div class="col-sm-4"><p id="balance_look" class="paddingtop7px padding7"></p></div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-right">赠送余额: </label>
+	        <div class="col-sm-4"><p id="balanceGive_look" class="paddingtop7px padding7"></p></div>
+			<label class="col-sm-2 control-label no-padding-right">微吼账号: </label>
+	        <div class="col-sm-4"><p id="vhallId_look" class="paddingtop7px padding7"></p></div>
+		</div>
+		
+		
+		
+		<div class="form-group">
+			<label class="col-sm-2 control-label no-padding-right">最后登录时间: </label>
+	        <div class="col-sm-4"><p id="last_time_look" class="paddingtop7px padding7"></p></div>
+			<label class="col-sm-2 control-label no-padding-right">注册时间: </label>
+	        <div class="col-sm-4"><p id="regis__time_look" class="paddingtop7px padding7"></p></div>
+		</div>
+		
 		<div class="clean"></div>
 		<div class="form-group">
 	        <label class="col-sm-2 control-label no-padding-right">手机号: </label>
@@ -139,24 +163,16 @@
 		<div class="form-group">
 	        <label class="col-sm-2 control-label no-padding-right">访问次数: </label>
 	        <div class="col-sm-4"><p id="visitSum_look" class="paddingtop7px padding7 autowrap"></p></div>
-	        <label class="col-sm-2 control-label no-padding-right"> &nbsp; </label>
-	        <div class="col-sm-4"><p class="hg paddingtop7px padding7">&nbsp;</p></div>
+	        
+	        <label class="col-sm-2 control-label no-padding-right"> 房间号: </label>
+	        <div class="col-sm-4"><p id="view_room_number" class="hg paddingtop7px padding7"></p></div>
 		</div>
 		<div class="space-4"></div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label no-padding-right"> 报名记录: </label>
 	        <div class="col-sm-4"><p id="gradeName_look" class="hg paddingtop7px padding7"></p></div>
+	        
 		</div>
-	   <div class="space-4"></div>
-		<div class="form-group">
-			<label class="col-sm-2 control-label no-padding-right"> 房间号: </label>
-	        <div class="col-sm-4"><p id="view_room_number" class="hg paddingtop7px padding7"></p></div>
-		</div>
-	    <!-- <div class="form-group">
-			<label class="col-sm-5"></label> 
-	        	<div class="col-sm-2">  <a class="btn btn-default" id="close"> 关闭 </a>
-	        </div>
-	    </div> -->
     </form>
 </div>
 <!-- 查看 -->
