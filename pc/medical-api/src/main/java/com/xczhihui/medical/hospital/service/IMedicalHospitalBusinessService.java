@@ -42,4 +42,5 @@ public interface IMedicalHospitalBusinessService {
     public List<MedicalHospital> selectRecHospital();
 
     List<MedicalField> getHotField();
+
 }

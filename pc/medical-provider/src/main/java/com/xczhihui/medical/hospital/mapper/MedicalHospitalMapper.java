@@ -19,7 +19,9 @@ import java.util.List;
  */
 public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
 
-    List<MedicalHospital> selectHospitalList(@Param("page") Page<MedicalHospital> page, @Param("name") String name,@Param("field") String field);
+    List<String> selectHospitalIdList(@Param("page") Page<MedicalHospital> page, @Param("name") String name,@Param("field") String field);
+
+    List<MedicalHospital> selectHospitalAndPictureList(List<String> mhIds);
 
     MedicalHospital selectHospitalById(String id);
 
@@ -27,5 +29,5 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
 
     List<MedicalField> getHotField();
 
-    List<MedicalField> selectMedicalFieldsByDoctorId(String hospitalId);
+    List<MedicalField> selectMedicalFieldsByHospitalId(String hospitalId);
 }
