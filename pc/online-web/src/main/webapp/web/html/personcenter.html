@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" > 
     <meta charset="UTF-8">
-    <title>熊猫中医云课堂 - 线上中医教育</title>
+    <title>熊猫1中医云课堂 - 线上中医教育</title>
     <link rel="shortcut icon" href="../../favicon.ico"/>
     <meta name="keywords"
           content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
@@ -589,9 +589,16 @@ var _hmt = _hmt || [];
         }
         
         //判断顶部消息颜色
-        if(window.localStorage.personcenter == 'mynews'){
-        	$('.mynews').css('color','#2cb82c');
-        }
+        setInterval(function(){
+        	if(window.localStorage.personcenter == 'mynews'){
+        		$('.message').css('color','#2cb82c');
+        	}else{
+        		$('.message').css('color','#ccc');
+        	}
+        },500)
+        
+        
+        
     });
 </script>
 </body>
