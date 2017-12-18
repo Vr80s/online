@@ -32,15 +32,21 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
 
     public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page, String name, String field) {
-        List<String> mhIds = medicalHospitalMapper.selectHospitalIdList(page, name, field);
-        List<MedicalHospital> medicalHospitals = medicalHospitalMapper.selectHospitalAndPictureList(mhIds);
-        page.setRecords(medicalHospitals);
+        page.setRecords(medicalHospitalMapper.selectHospitalList(page,name,field));
+        for (int i = 0; i < page.getRecords().size(); i++) {
+            List<MedicalHospitalPicture> medicalHospitalPictures = medicalHospitalPictureMapper.getMedicalHospitalPictureByHospitalId(page.getRecords().get(i).getId());
+            page.getRecords().get(i).setMedicalHospitalPictures(medicalHospitalPictures);
+        }
         return page;
     }
 
     @Override
     public MedicalHospital selectHospitalById(String id) {
         MedicalHospital medicalHospital = medicalHospitalMapper.selectHospitalById(id);
+        List<MedicalHospitalPicture> medicalHospitalPictures = medicalHospitalPictureMapper.getMedicalHospitalPictureByHospitalId(medicalHospital.getId());
+        medicalHospital.setMedicalHospitalPictures(medicalHospitalPictures);
+        List<MedicalField> medicalFields = medicalHospitalMapper.selectMedicalFieldsByDoctorId(medicalHospital.getId());
+        medicalHospital.setFields(medicalFields);
         return medicalHospital;
     }
 
@@ -53,6 +59,5 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     public List<MedicalField> getHotField() {
         return medicalHospitalMapper.getHotField();
     }
-
 
 }
