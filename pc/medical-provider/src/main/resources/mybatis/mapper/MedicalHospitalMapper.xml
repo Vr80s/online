@@ -42,7 +42,15 @@
 		ORDER BY mh.authentication DESC, mh.score DESC
 	</select>-->
 	<select id="selectHospitalAndPictureList" resultMap="MedicalHospitalListResult">
-		select mh.*, mhp.`picture`  from medical_hospital mh
+		select
+		mh.id,
+		mh.name,
+		mh.province,
+		mh.city,
+		mh.detailed_address,
+		mh.score,
+		mh.authentication,
+		mh.recommend, mhp.`picture`  from medical_hospital mh
 		LEFT JOIN `medical_hospital_picture` mhp
 		ON mh.`id` = mhp.`hospital_id`
 		where mh.id in
