@@ -226,9 +226,15 @@ public class OnlineUser extends BxgUser implements Serializable {
 	@Column(name = "city_name")
 	private String  cityName;    //市的名字
 	
+	@Column(name = "county_name")
+	private String  countyName;    //区的名字
+	
 	
 	@Column(name = "individuality_signature")
 	private String  individualitySignature;    //个性签名
+	
+	
+	
 
 	public String getVhallId() {
 		return vhallId;

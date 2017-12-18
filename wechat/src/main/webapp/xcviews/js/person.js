@@ -230,6 +230,7 @@ function checkUser1(saveFalg){
 	  var sex  = "";       //性别
 	  var email = "";      // 
 	  var provinceCityName = "";
+	  var provinceCityId ="";
 	  var info = "";
 	  var occupation = "";
 	  var  occupationOther = "";
@@ -240,7 +241,9 @@ function checkUser1(saveFalg){
 	  }else  if(saveFalg == "email"){
 		  email = $("#form input[name='email']").val();
 	  }else  if(saveFalg == "provinceCityName"){
-		  provinceCityName  =  $("#szd_cityP").html();
+		 // provinceCityName  =  $("#szd_cityP").html();
+		  provinceCityName  =  $("#xzdz").text();
+		  provinceCityId  =  $("#xzdz").attr("class");
 	  }else  if(saveFalg == "info"){
 		  info = $("#info").val().trim();
 	  }else if(saveFalg == "occupation"){
@@ -256,6 +259,7 @@ function checkUser1(saveFalg){
 		  sex:stringnull(sex) ? sex : "",
 		  email:stringnull(email) ? email : "",
 		  provinceCityName:stringnull(provinceCityName) ? provinceCityName : "",
+				  provinceCityId:stringnull(provinceCityId) ? provinceCityId : "",		  
 		  info:stringnull(info) ? info : "",
 	      occupation:stringnull(occupation) ? occupation : "",
 	      occupationOther:stringnull(occupationOther) ? occupationOther : ""
@@ -286,6 +290,10 @@ function checkUser1(saveFalg){
 			if(stringnull(result.cityName)){
 				localStorage.setItem("cityName",result.cityName);
 				localStorage.setItem("cityId",result.cityId);
+			}
+			if(stringnull(result.countyName)){
+				localStorage.setItem("countyName",result.countyName);
+				localStorage.setItem("countyId",result.countyId);
 			}
 			if(stringnull(result.info)){
 				localStorage.setItem("info",result.info);
