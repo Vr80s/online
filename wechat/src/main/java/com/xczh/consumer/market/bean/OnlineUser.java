@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import javax.persistence.Column;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
@@ -216,6 +217,8 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 	private String  provinceName;  //省的名字
 	
 	private String  cityName;    //市的名字
+	
+	private String  countyName;    //区的名字
 	
 	private String individualitySignature;//个性签名
 	
@@ -673,6 +676,14 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 
 	
 	
+	public String getCountyName() {
+		return countyName;
+	}
+
+	public void setCountyName(String countyName) {
+		this.countyName = countyName;
+	}
+
 	/****************************  单用户登录使用了   **************************************************/
 	
 	@SuppressWarnings("unchecked")

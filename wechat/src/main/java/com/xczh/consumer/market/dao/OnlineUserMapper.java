@@ -250,6 +250,10 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("cityId").equals(original.getCity())) {
 			sb.append(" region_city_id = '" + map.get("cityId") + "',");
 		}
+		if (StringUtils.hasText(map.get("countyId"))
+				&& !map.get("countyId").equals(original.getCity())) {
+			sb.append(" region_id = '" + map.get("countyId") + "',");
+		}
 		if (StringUtils.hasText(map.get("provinceName"))
 				&& !map.get("provinceName").equals(original.getProvince())) {
 			sb.append(" province_name = '" + map.get("provinceName") + "',");
@@ -258,6 +262,11 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("cityName").equals(original.getCity())) {
 			sb.append(" city_name = '" + map.get("cityName") + "',");
 		}
+		if (StringUtils.hasText(map.get("countyName"))
+				&& !map.get("countyName").equals(original.getProvince())) {
+			sb.append(" county_name = '" + map.get("countyName") + "',");
+		}	
+		
 		if (StringUtils.hasText(map.get("email"))
 				&& !map.get("email").equals(original.getEmail())) {
 			sb.append(" email = '" + map.get("email") + "',");

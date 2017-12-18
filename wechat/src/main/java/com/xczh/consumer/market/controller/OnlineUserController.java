@@ -591,6 +591,7 @@ public class OnlineUserController {
           String email= req.getParameter("email");  
           String info= req.getParameter("info"); 
           String provinceCityName= req.getParameter("provinceCityName"); 
+          String provinceCityId= req.getParameter("provinceCityId"); 
           
           String occupation= req.getParameter("occupation"); 
           String occupationOther= req.getParameter("occupationOther"); 
@@ -610,28 +611,18 @@ public class OnlineUserController {
           map.put("occupation", occupation);
           map.put("occupationOther", occupationOther);
           
-          
           if(StringUtils.isNotBlank(provinceCityName)){
         	  String [] str =  provinceCityName.split(" ");
-        	  //根据名字得到id，好惨
-        	  if(str.length ==2){
-        		  String proince =  str[0].trim();
-        		  String city =  str[1].trim();
-        		  if(proince.indexOf("省")!=-1 || proince.indexOf("市")!=-1){
-        			  proince = proince.substring(0,proince.length()-1);
-        		  }else if(proince.endsWith("区")){
-        			  proince = proince.substring(0,2);
-        		  }
-        		  if(city.indexOf("省")!=-1 || city.indexOf("市")!=-1){
-        			  city = city.substring(0,city.length()-1);
-        		  }else if(proince.endsWith("区") || proince.endsWith("州") || proince.endsWith("盟")){
-        			  city = city.substring(0,2);
-        		  }
-        		  Integer [] code = cityService.getCodeByName(proince,city);
-        		  map.put("provinceName", proince);
-        		  map.put("cityName", city);
-        		  map.put("provinceId", code[0]+"");
-        		  map.put("cityId", code[1]+"");
+        	  String [] ids =  provinceCityId.split(" ");
+        	  //根据名字得到id，好惨        	  
+        	  if(str.length ==3 && ids.length == 3){
+        		  map.put("provinceName", str[0]);
+        		  map.put("cityName", str[1]);
+           		  map.put("countyName", str[2]);
+        		  
+        		  map.put("provinceId", ids[0]);
+        		  map.put("cityId", ids[1]);
+        		  map.put("countyId", ids[2]);
         	  }
           }
           userCenterAPI.update(user.getLoginName(),nickname,org.springframework.util.StringUtils.hasText(sex) ? Integer.parseInt(sex) : 3,email, null, 10, 10);

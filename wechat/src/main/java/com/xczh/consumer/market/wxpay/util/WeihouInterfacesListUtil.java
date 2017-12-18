@@ -25,6 +25,11 @@ public class WeihouInterfacesListUtil {
 	//得到微吼用户id
 	public static final String currentUserID ="http://e.vhall.com/api/vhallapi/v2/user/get-user-id"; 
 	
+	//注册用户
+	public static final String register = "http://e.vhall.com/api/vhallapi/v2/user/register";
+	
+	//获取用户信息
+	public static final String getUserInfo = "http://e.vhall.com/api/vhallapi/v2/user/get-user-info";
 	
 	public static final String app_key = "71a22e5b4a41483d41d96474511f58f3";
 	
@@ -62,6 +67,7 @@ public class WeihouInterfacesListUtil {
 		parameters.put("account", "v19624388");
 		parameters.put("password", "xinchengzhihui");
 		
+		
 		parameters.put("third_user_id", videoId);
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		JSONObject js = JSONObject.parseObject(json);
@@ -78,7 +84,6 @@ public class WeihouInterfacesListUtil {
 	
 	
 	//测试
-	
 	public static void main(String[] args) {
 		//currentUserID("24e7d53a956f4a4eb7b22d5742626e8f");
 		//third_user_id
@@ -88,9 +93,11 @@ public class WeihouInterfacesListUtil {
 		/*createUser("137827828781", "123456", "123456", "http://attachment-center.ixincheng.com:38080/data/"
 				+ "picture/online/2017/09/25/15/e4981eeaec9746f7b965ee475ed90a2c.jpg");*/
 		
-		getUserinfo("21054339", "name,head");
+		//账号：15936216273, 接口/bxg/bs/login返回的微吼id是"22785686", 微吼登录返回的id是"20383761".
 		
-/*		updateUser("6798c0bdeeea47f8ae6c016a97ee36ac", null, "yangxuanhao", "http://attachment-center.ixincheng.com:38080/data/"
+		getUserinfo("22785686", "name,head");
+		
+/*		updateUser("6798c0bdeeea47f8ae6c016a97ee36ac", null, "yangxuanhao","http://attachment-center.ixincheng.com:38080/data/"
 				+ "picture/online/2017/09/25/15/e4981eeaec9746f7b965ee475ed90a2c.jpg");*/
 		
 	}
@@ -260,42 +267,36 @@ public class WeihouInterfacesListUtil {
 	
 	/**
 	 * Description：请求微吼创建用户接口，得到一个微吼用户id。
-	 * @param userId
-	 * @param pass
-	 * @param name
-	 * @param head
+	 * @param userId  第三方用户id
+	 * @param pass	登录密码
+	 * @param name  姓名
+	 * @param head	头像
 	 * @return
 	 * @return String
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public static String createUser(String userId,String pass,
 			String name,String head) {
-		String whUrl = "http://e.vhall.com/api/vhallapi/v2/user/register";
-		Map<String, String> parameters = new TreeMap<String, String>();
-		/* 公共参数 */
-		parameters.put("auth_type", "1");
-		parameters.put("account", "v19624388");
-		parameters.put("password", "xinchengzhihui");
 
+		Map<String, String> parameters =  WeihouInterfacesListUtil.getBaseParams();
+		
 		parameters.put("third_user_id", userId);
 		parameters.put("pass", pass);
 		parameters.put("name", name);
 		parameters.put("head", head);
 		
-		String json = HttpUtil.sendPostRequest(whUrl, parameters);
+		String json = HttpUtil.sendPostRequest(register, parameters);
 		
 		JSONObject js = JSONObject.parseObject(json);
-		System.out.println(js.toJSONString());
 		if(js.get("msg").equals("success")){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(jsData.toJSONString());
 			String vhallId = jsData.get("user_id").toString();
 			return vhallId;
 		}else if(Integer.parseInt(js.get("code").toString()) == 10804){
-			//{"msg":"当前第三方用户已创建,密码数据不一致,请使用更新接口修改数据","code":10804,"data":[]}
+			
 			return updateUser(userId, pass, name, head);
 		}
-		System.out.println(json+":"+userId+":"+pass);
 		return null;
 	}
 	
