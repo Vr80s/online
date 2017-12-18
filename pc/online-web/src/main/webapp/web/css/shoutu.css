@@ -155,11 +155,12 @@
 	
 }
 .content_box #main .main_left .baoming .baoming_top .baoming_top_con .student_pic{
-	width: 395px;
+	/*width: 395px;*/
   height: 100px;
   background: #F0F0F0;
   padding-top: 20px;
   padding-left: 7px;
+  padding-right: 20px;
 }
 .content_box #main .main_left .baoming .baoming_top .baoming_top_con .student_pic span{
 	  display: inline-block;
@@ -179,6 +180,9 @@
 	background: #f0f0f0;
 	outlin: none;
 	border: none;
+	border-radius: 4px;
+	background-color: #00BC12;
+	color: #fff;
 }
 .content_box #main .main_left .baoming .baoming_top .baoming_top_title > h3{
 	float: left;
@@ -199,6 +203,34 @@
 .content_box #main .main_left .baoming .baomint_bottom > p{
 	font-size: 14px;
 	color: #666;
+}
+.content_box #main .main_left .kaohe .kaohe_top{
+	height: 36px;
+  line-height: 36px;
+}
+.content_box #main .main_left .kaohe .kaohe_top > span,
+.content_box #main .main_left .biye .biye_top > span{
+	  display: inline-block;
+    width: 104px;
+    height: 36px;
+    background-image: url(../images/step_bg.png);
+    background-repeat: no-repeat;
+    line-height: 36px;
+    text-align: center;
+    float: left;
+    margin-right: 20px;
+    margin-left: -20px;
+    color: #fff;
+}
+.content_box #main .main_left .biye .biye_top{
+	height: 36px;
+  line-height: 36px;
+}
+.content_box #main .main_left .biye .biye_bottom{
+	
+}
+.content_box #main .main_left .genshi .genshi_top >h3{
+	float: left;
 }
 .content_box #main .main_left .class .class_top {
   margin-bottom: 20px;
@@ -222,7 +254,7 @@ color: #333333;
     color: #fff;
     font-size: 16px;
     font-weight: 400;
-        background-size: 100% 100%;
+    background-size: 100% 100%;
 }
 .content_box #main .main_left .class .class_bottom .class_inf {
   width: 260px;
@@ -232,6 +264,19 @@ color: #333333;
   float: left;
   margin-bottom: 20px;
 }
+.content_box #main .main_left .class .class_bottom .gengxin>button{
+	  display: inline-block;
+    width: 144px;
+    height: 36px;
+    background: #f0f0f0;
+    line-height: 36px;
+    text-align: center;
+    margin-top: 104px;
+    margin-left: 58px;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+} 
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_pic {
   width: 260px;
   height: 145.3px;
@@ -243,6 +288,9 @@ color: #333333;
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom {
   height: 97px;
   padding: 10px;
+}
+.content_box #main .main_left #genshi .class_bottom .class_inf .class_inf_bottom {
+	position: relative;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom > p {
   margin-bottom: 10px;
@@ -262,6 +310,12 @@ color: #333333;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_pirce {
   color: #f40;
+}
+.content_box #main .main_left #genshi .class_bottom .class_inf .class_inf_bottom .class_pirce{
+	color: #666;
+	font-size: 14px;
+	position: absolute;
+	bottom: 10px;
 }
 .content_box #main .main_left .class .class_bottom .class_inf .class_inf_bottom .class_person {
   float: right;

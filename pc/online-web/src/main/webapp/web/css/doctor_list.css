@@ -38,7 +38,9 @@
 }
 .content_box #main .main_left .doctor_list{
 	padding-top: 0px;
+	
 }
+
 .content_box #main .main_left .doctor{
 	margin-bottom: 0px;
 	padding-bottom: 0;
@@ -46,7 +48,9 @@
 .content_box #main .main_left #doctor_list{
 	min-height: 400px;
 }
-
+.content_box #main .main_left .doctor_list {
+	padding-top: 0;
+}
 .content_box #main .main_left .doctor .doctor_search_top h3{
 	float: left;
 }
