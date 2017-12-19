@@ -24,7 +24,10 @@ public class UCCookieUtil {
 	static Logger logger = LoggerFactory.getLogger(UCCookieUtil.class);
 
 	private  static String DEFAULT_DOMAIN ;
-
+	/**
+	 * 用户中心token cookie名
+	 */
+	private static String COOKIE_TOKEN_NAME;
 
 
 	static{
@@ -36,6 +39,7 @@ public class UCCookieUtil {
 
 			//微信公众号和h5
 			DEFAULT_DOMAIN = properties.getProperty("domain");
+			COOKIE_TOKEN_NAME = properties.getProperty("cookieTokenName");
 
 			System.out.println("读取配置信息成功！");
 		}catch(Exception e){
@@ -53,10 +57,7 @@ public class UCCookieUtil {
 	}
 
 
-	/**
-	 * 用户中心token cookie名
-	 */
-	private final static String COOKIE_TOKEN_NAME = "_uc_t_";
+
 
 	/**
 	 * 从cookie构造token

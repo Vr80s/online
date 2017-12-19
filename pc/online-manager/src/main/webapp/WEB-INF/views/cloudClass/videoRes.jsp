@@ -29,7 +29,7 @@
 <script type="text/javascript">
 		try {
 			var sessionId = "${pageContext.session.id}";
-			var uc_t = getCookie('_uc_t_');
+//			var uc_t = getCookie('_uc_t_');
 			console.log(sessionId);
 			var scripts = [ null, null ];
 			$('.page-content-area').ace_ajax('loadScripts', scripts,
