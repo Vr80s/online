@@ -632,10 +632,7 @@ public class WxPayController {
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
-				
 				onlogin(req,res,t,ou,t.getTicket());
-				
-				
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
 				} else{
@@ -650,6 +647,62 @@ public class WxPayController {
 			//res.getWriter().write(e.getMessage());
 		}
 	}
+	
+	@RequestMapping("h5ShareGetWxUserInfo")
+	public void h5ShareGetWxUserInfo(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		
+		System.out.println("wx return code:" + req.getParameter("code"));
+		System.out.println("courseId:" + req.getParameter("courseId"));
+		System.out.println("courseId_type_lineState:" + req.getParameter("courseId_type_lineState"));
+		
+		String []  str = req.getParameter("courseId_type_lineState").split("_");
+		String courseId = str[0];
+		String type = str[1];
+		String lineState = str[2];
+		System.out.println("courseId:"+courseId+",type:"+type+",lineState:"+lineState);
+		try {
+			String code = req.getParameter("code");
+			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+			/*
+			 * 判断这个uninonid是否在user表中存在
+			 */
+			OnlineUser ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
+			String openid = wxw.getOpenid();
+			
+			String url  = "/bxg/page/index/"+ openid + "/" + code;
+			/**
+			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
+			 */
+			ConfigUtil cfg = new ConfigUtil(req.getSession());
+			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
+			if(ou != null){
+			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+				ou.setTicket(t.getTicket());
+				onlogin(req,res,t,ou,t.getTicket());
+				
+				//这样直接跳转的话，怎样跳转呢，直接到直播页面啊，还是直接到
+				if(StringUtils.isNotBlank(type) && !"1".equals(type)){
+					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
+				}else if(StringUtils.isNotBlank(type) && "1".equals(type)){
+					if(StringUtils.isNotBlank(lineState) && "2".equals(lineState)){
+						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId)+"&openId="+openid;
+					}else{
+						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
+					}
+				}
+				System.out.println("url:"+url);
+				res.sendRedirect(returnOpenidUri + url);
+			}else{
+				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
+				res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			//res.getWriter().write(e.getMessage());
+		}
+	}
+	
 	
 	/**
 	 * 

@@ -826,22 +826,25 @@ $(function(){
 <script src="/xcviews/weihoujs/underscore-min.js"></script>
 <script type="text/javascript" src="/xcviews/newjs/weihoudetails.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript">
+
+if(isWeiXin() && stringnull(getQueryString("openId"))){
+	localStorage.setItem("openid", getQueryString("openId"));	
+	var ccontrollerAddress = "/bxg/user/isLogined";
+	requestService(ccontrollerAddress, null, function(data) {
+		if (data.success) {
+			commonLocalStorageSetItem(data);
+		}else{
+			alert("网络异常");
+		}
+	},false)
+}
 
 
+</script>
 <script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
 <script type="text/javascript" src="/xcviews/js/strophe.js"></script>
 <script type="text/javascript" src="/xcviews/js/im/giftSend.js"></script>
 <script type="text/javascript" src="/xcviews/js/details_change.js"></script>
 <script type="text/javascript" src="/xcviews/js/details.js"></script>
-
-
- 
-<script type="text/javascript">
- $(document).ready(function(){
-	
-	/* $("#doc img").click(function(){
-  		alert(456);
-	}); */
-}); 
-</script> 
 </html>
