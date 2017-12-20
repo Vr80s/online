@@ -107,4 +107,19 @@ $(function(){
 	    });
 	
 
+	
+	//医馆招聘信息
+	    RequestService("/medical/hospitalRecruit/getHospitalRecruitById","GET",{
+			hospitalId:id
+	    },function(data){
+	        if(data.resultObject.length == 0){
+				$('.employ').addClass('hide')
+	        }else{
+	        	console.log(data)
+	           $('#employ').html(template('employ_infTpl',{inf:data.resultObject}));
+	        }
+	    });
+	
+	
+
 })

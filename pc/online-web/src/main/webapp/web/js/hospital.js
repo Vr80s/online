@@ -190,7 +190,7 @@ $(function () {
     
      //医馆坐诊医生招募
     RequestService("/medical/hospitalRecruit/getRecHospitalRecruits","GET",null,function(data){
-        if(data.success == false){ 
+        if(data.resultObject.length == 0){ 
             $('#doctor_recruit_list').addClass('hide');
         }else{
         	console.log(data);
