@@ -23,19 +23,6 @@ document.getElementById("grabble_img").addEventListener("tap",function() {
 
 var course_id =getQueryString("course_id");
 /**
- * 这个东西不能暴露在前端的。
- */
-function getOpenid(){
-	if(isWeiXin()){ //来自微信浏览器
-		/**
-		 * 这个直接获取用户的  h5BsGetCodeUr  然后去绑定手机号啦！
-		 */
-		location.href ="/bxg/wxjs/h5BsGetCodeUrl";
-	}else{
-		location.href ="/bxg/page/login/1";
-	}
-}
-/**
  * 判断是否需要跳转到pc网页。响应式的一种吧
  */
 h5PcConversions(true,course_id);
@@ -49,6 +36,7 @@ var pwdAndBuy = "";
 var isSubscribe ="";
 var teacherId="";
 var type ="";
+var lineState ="";
 
 var result="";
 
@@ -61,10 +49,11 @@ requestService("/bxg/common/h5ShareAfter",{
 		
 	    result = data.resultObject;
 		type = result.type;
+		lineState = result.lineState;
 		
 		sessionStorage.setItem("shareCourseId",course_id);
 		
-		if(result.type != 1){ //视频和音频
+		if(result.type != 1){ //视频和音频   
 			
 			$(".details_size").html("观看人数：<span>"+result.learndCount+"</span>");
 		
@@ -95,6 +84,7 @@ requestService("/bxg/common/h5ShareAfter",{
 			sessionStorage.setItem("share", "liveDetails"); 
 		}else{  	//直播预告
 			
+			
 			$(".details_bottom").hide();
 			$(".order_center").show();
 			var y = result.startTime.substring(0,4);
@@ -119,6 +109,24 @@ requestService("/bxg/common/h5ShareAfter",{
 	} else {
 	}
 }, false)
+
+/**
+ * 这个东西不能暴露在前端的。
+ */
+function getOpenid(){
+	
+	if(isWeiXin()){ //来自微信浏览器
+		/**
+		 * 这个直接获取用户的  h5BsGetCodeUr  然后去绑定手机号啦！
+		 * var type ="";
+		 *  var lineState ="";
+		 */
+		location.href ="/bxg/wxjs/h5ShareGetWxOpenId?courseId="+course_id+"&type="+type+"&lineSatus="+lineState;
+	}else{
+		location.href ="/bxg/page/login/1";
+	}
+}
+
 
 /**************** 微信分享 *************************/
 

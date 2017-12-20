@@ -88,8 +88,6 @@ public class CommonController {
 		//关注人数         用户头像
 		//直播的课程     传递一个讲师id 就ok了... 得到讲师下的所有课程，得到讲师下的所有粉丝，得到讲师的
 		
-		
-		
 		String lecturerId = req.getParameter("lecturerId");
 		
 		Map<String,Object> mapAll = new HashMap<String,Object>();
@@ -450,6 +448,8 @@ public class CommonController {
 		if(courseId == null ){
 			return ResponseObject.newErrorResponseObject("获取参数异常");
 		}
+		
+		
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课
 		 *     因为他们的文案不在一个地方存
@@ -514,7 +514,9 @@ public class CommonController {
 	@RequestMapping("pcShareLink")
 	public void pcShareLink(HttpServletRequest req,HttpServletResponse res, Map<String,String> params)throws Exception{
 		
-		
+		/**
+		 * 这里有个问题就是。如果去分享页面的话
+		 */
 		String courseId = req.getParameter("courseId");  //视频id
 		if(courseId == null ){
 			System.out.println("参数异常啦");
@@ -523,7 +525,6 @@ public class CommonController {
 		String url  ="/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
-		 *   
 		 */
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 		if(user == null){ //直接跳转到分享页面
@@ -532,9 +533,15 @@ public class CommonController {
 			try {
 				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
 				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
-				if(type == 1){ //直播或者预约详情页            1.直播中，2预告，3直播结束
+				
+				System.out.println("type:"+type);
+				if(type == 1){ //直播或者预约详情页           
+					
+					//1.直播中，2预告，3直播结束
 					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
-						url = "/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
+					
+						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId);
+					
 					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
 						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId);
 					}

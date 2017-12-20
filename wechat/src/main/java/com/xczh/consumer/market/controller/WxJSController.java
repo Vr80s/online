@@ -1,16 +1,22 @@
 package com.xczh.consumer.market.controller;
 
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.bean.WxcpConcernInfo;
 import com.xczh.consumer.market.bean.WxcpWxJsconfig;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.WxcpConcernInfoService;
 import com.xczh.consumer.market.service.WxcpWxJsconfigService;
+import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Sha1SignUtil;
+import com.xczh.consumer.market.utils.Token;
+import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
+import com.xczhihui.user.center.bean.TokenExpires;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -118,7 +124,7 @@ public class WxJSController {
 	   return ResponseObject.newSuccessResponseObject(map);
 	}
 	/**
-	 * Description：调用微信信息获取到用户基本信息
+	 * Description：调用微信信息获取到用户基本信息。
 	 * @param req
 	 * @param res
 	 * @param params
@@ -128,12 +134,38 @@ public class WxJSController {
 	 */
 	@RequestMapping("h5BsGetCodeUrl")
 	public void getOpenId(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception{
+		
 		String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+		
 		System.out.println("strLinkHome:"+strLinkHome);
 		//存到session中，如果用户回调成功
 		res.sendRedirect(strLinkHome);
 	}
 
+	
+	/**
+	 * Description：来自分享的调用   -- 主要是为了，存在的用户自动登录，并且直接去课程的页面。不存在的用户让绑定手机号
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("h5ShareGetWxOpenId")
+	public void getShareOpenId(HttpServletRequest req, HttpServletResponse res) throws Exception{
+		
+		String	courseId = req.getParameter("courseId");
+		String	type = req.getParameter("type");
+		String	lineState = req.getParameter("lineState");                                                                                                                           
+		String courseId_type_lineState =  courseId+"_"+type+"_"+lineState;
+		String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5ShareGetWxUserInfo?courseId_type_lineState="+courseId_type_lineState+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+		System.out.println("strLinkHome:"+strLinkHome);
+		//存到session中，如果用户回调成功
+		res.sendRedirect(strLinkHome);
+	}
+	
+	
 	/**
 	 * Description：调用微信信息获取到用户基本信息
 	 * @param req
