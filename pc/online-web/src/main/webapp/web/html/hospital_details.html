@@ -301,7 +301,7 @@
             </div>
 
             <!--招募信息-->
-            <div class="employ hide">
+            <div class="employ" id="employ">
                 <h3>招聘信息</h3>
                 <div class="employ_inf">
                     <p>薪资面议    <span>|</span>    江苏南京</p>
@@ -339,7 +339,7 @@
 {{each medicalHospitalPictures as item i}}
 {{if item.picture != null}}
  <li>
-      <div><img src={{item.picture}} url="javascript:;"  bigImg={{item.picture}} alt=""></div>
+      <div><img src={{item.picture}} url="javascript:;"  bigImg={{item.picture}}></div>
 </li>
 {{/if }}
 {{/each}}
@@ -378,13 +378,26 @@
         		{{doctor.province}}&nbsp;{{doctor.city}}&nbsp;
         	{{/if}}
         	
-        	{{if doctor.medicalHospital}}
-        		{{doctor.medicalHospital.name}}
+        	{{if doctor.medicalHospitalVo}}
+        		{{doctor.medicalHospitalVo.name}}
         	{{/if}}
         </p>
     </li>
  {{/each}}
 </script> 
+
+
+<!--医馆招聘信息-->
+<script type="text/template" id="employ_infTpl">
+
+{{each inf as inf i}}
+<div class="employ_inf">
+    <!--<p>薪资面议    <span>|</span>江苏南京</p>-->
+    <p>岗位职责：<span>{{inf.postDuties}}</span></p>
+    <p>任职要求：<span>{{inf.jobRequirements}}</span></p>
+</div>
+{{/each}}
+</script>
 
 
 

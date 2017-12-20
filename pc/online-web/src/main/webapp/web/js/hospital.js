@@ -185,6 +185,18 @@ $(function () {
             }))
         }
     });
+    
+    
+    
+     //医馆坐诊医生招募
+    RequestService("/medical/hospitalRecruit/getRecHospitalRecruits","GET",null,function(data){
+        if(data.resultObject.length == 0){ 
+            $('#doctor_recruit_list').addClass('hide');
+        }else{
+        	console.log(data);
+          $('#doctor_recruit_list').html(template('doctor_recruit',{doctor:data.resultObject}));
+        }
+    });
     //相关课程
 //    RequestService("/bxs/article/getHotCourses", "GET",null, function (data) {
 //        if (data.resultObject.length == 0) {
