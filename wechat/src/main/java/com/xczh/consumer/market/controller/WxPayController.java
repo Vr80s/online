@@ -688,7 +688,6 @@ public class WxPayController {
 					if(StringUtils.isNotBlank(lineState) && "2".equals(lineState)){
 						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId)+"&openId="+openid;
 					}else{
-						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
 					}
 				}
 				System.out.println("url:"+url);

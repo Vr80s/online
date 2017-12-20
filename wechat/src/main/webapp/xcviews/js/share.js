@@ -114,14 +114,12 @@ requestService("/bxg/common/h5ShareAfter",{
  * 这个东西不能暴露在前端的。
  */
 function getOpenid(){
-	
 	if(isWeiXin()){ //来自微信浏览器
 		/**
-		 * 这个直接获取用户的  h5BsGetCodeUr  然后去绑定手机号啦！
-		 * var type ="";
-		 *  var lineState ="";
+		 * 这里到分享页面后。点击让绑定手机号
 		 */
-		location.href ="/bxg/wxjs/h5ShareGetWxOpenId?courseId="+course_id+"&type="+type+"&lineSatus="+lineState;
+		//location.href ="/bxg/wxjs/h5ShareGetWxOpenId?courseId="+course_id+"&type="+type+"&lineState="+lineState;
+		location.href ="/xcviews/html/my.html?openId="+getQueryString("openid");
 	}else{
 		location.href ="/bxg/page/login/1";
 	}
