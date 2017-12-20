@@ -807,8 +807,10 @@ if (myBrowser() == "IE55") {
                                     hideHtml();
                                 }
                             } else {
-                                alert("header jmp index");
-                                location.href = "/index.html";
+                            	location.href = "/webapp/otherDevice.html";
+                            	
+                               /* alert("header jmp index");
+                                location.href = "/index.html";*/
                                 localStorage.username = null;
                                 localStorage.password = null;
                                 $(".login").css("display", "none");
