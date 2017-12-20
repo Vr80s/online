@@ -754,7 +754,7 @@ $(function() {
 	        '<span class="address-main-close">X</span> ' +
 	        '<div class="address-maim-top clearfix"><p>天天&nbsp;&nbsp;</p></div> ' +
 	        '<div class="clearfix"><p>收货人: <span>天天</span></p><p>手机: <span>139****6940</span></p></div> ' +
-	        '<div class="clearfix"><p>所在地址: <span>海南海口市美兰区演丰镇</span></p><p>地址: <span>心承志会大厦201</span></p></div> ' +
+	        '<div class="clearfix"><p>所在地区: <span>海南海口市美兰区演丰镇</span></p><p>详细地址: <span>心承志会大厦201</span></p></div> ' +
 	        '<div class="clearfix"><p>邮编: <span>115100</span></p></div> ' +
 	        '<div class="clearfix"><a href="javascript:;">编辑</a><a href="javascript:;">设为默认</a></div> ' +
 	        '</div> ' +
