@@ -262,11 +262,24 @@ pre:after {
 		var cityValue = localStorage.getItem("city");
 		var disValue = localStorage.getItem("district");
 		
-		if(stringnull(pervinceValue) && stringnull(cityValue) && stringnull(disValue)){
-			picker.pickers[0].setSelectedValue(pervinceValue);
-			picker.pickers[1].setSelectedValue(cityValue);
-			picker.pickers[2].setSelectedValue(disValue);
+		
+		
+		function countMin(){
+			picker.pickers[0].setSelectedValue(3);
+			picker.pickers[3].setSelectedValue(6);
+			picker.pickers[6].setSelectedValue(2);
 		}
+		setTimeout(function(){
+			//这个就是mui的的多级选择。我的天
+			if(stringnull(pervinceValue) && stringnull(cityValue) && stringnull(disValue)){
+				picker.pickers[0].setSelectedValue(3,0,function(){
+					picker.pickers[1].setSelectedValue(6,0,function(){
+						picker.pickers[2].setSelectedValue(81);
+					});
+				});
+			}
+		},2000)
+		
 		
 		
 		var showCityPicker = document.getElementById('showCityPicker');
@@ -287,9 +300,9 @@ pre:after {
 				}
 				
 				if(items.length>=2){
-					picker.pickers[0].setSelectedValue(items[0]);
-					picker.pickers[1].setSelectedValue(items[1]);
-					picker.pickers[2].setSelectedValue(items[2]);
+					picker.pickers[0].setSelectedValue(items[0].value);
+					picker.pickers[1].setSelectedValue(items[1].value);
+					picker.pickers[2].setSelectedValue(items[2].value);
 				}
 				
 				cityResult.innerText = citysNames;
