@@ -167,7 +167,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         	
 //        	开始
         '<div class="header_left">'+
-        '<div class="path">'+
+        '<div class="path" style="width:92%">'+
         '<a href="/index.html" class="home">首页</a>'+
        
 //        '<a href="#">师承有道</a>'+
