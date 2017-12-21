@@ -3,6 +3,7 @@ package com.xczhihui.medical.doctor.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
 import com.xczhihui.medical.field.vo.MedicalFieldVo;
 
@@ -39,4 +40,14 @@ public interface IMedicalDoctorBusinessService {
     List<OeBxsArticleVo> getSpecialColumnByDoctorId(String doctorId);
 
     OeBxsArticleVo getSpecialColumnDetailsById(String articleId);
+
+    List<MedicalWritingsVo> getWritingsByDoctorId(String doctorId);
+
+    MedicalWritingsVo getWritingsDetailsById(String writingsId);
+
+    List<MedicalWritingsVo> getRecentlyWritings();
+
+    List<OeBxsArticleVo> getRecentlyNewsReports();
+
+    Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page);
 }

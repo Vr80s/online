@@ -2,7 +2,9 @@ package com.xczhihui.medical.doctor.mapper;
 
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.OeBxsArticle;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
 
 import java.util.List;
@@ -24,4 +26,8 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     List<OeBxsArticleVo> getSpecialColumnByDoctorId(String doctorId);
 
     OeBxsArticleVo getSpecialColumnDetailsById(String articleId);
+
+    List<OeBxsArticleVo> getRecentlyNewsReports();
+
+    List<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page);
 }

@@ -42,13 +42,44 @@
 		  oba.id,
 		  oba.`title`,
 		  oba.`content`,
-		  oba.`create_time`,
-		  oba.`img_path`
+		  oba.`create_time` createTime,
+		  oba.`img_path` imgPath
 		FROM
 		  `oe_bxs_article` oba
 		  JOIN `medical_doctor_report` mdr
 			ON oba.`id` = mdr.`article_id`
-		  	AND mdr.`doctor_id`= #{doctorId}
+			where
+		  	mdr.`doctor_id`= #{doctorId}
+			ORDER BY oba.`create_time` DESC
+	</select>
+
+	<select id="getRecentlyNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+		SELECT
+		  oba.id,
+		  oba.`title`,
+		  oba.`create_time` createTime,
+		  oba.`img_path` imgPath
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `medical_doctor_report` mdr
+			ON oba.`id` = mdr.`article_id`
+			GROUP BY oba.id
+			ORDER BY oba.`create_time` DESC
+			LIMIT 0,5
+	</select>
+
+	<select id="getNewsReportsByPage" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+		SELECT
+		  oba.id,
+		  oba.`title`,
+		  oba.`content`,
+		  oba.`create_time` createTime,
+		  oba.`img_path` imgPath
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `medical_doctor_report` mdr
+			ON oba.`id` = mdr.`article_id`
+			GROUP BY oba.id
 			ORDER BY oba.`create_time` DESC
 	</select>
 

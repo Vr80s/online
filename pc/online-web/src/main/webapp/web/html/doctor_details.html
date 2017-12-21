@@ -201,7 +201,7 @@
             </div>
 
             <!--专栏-->
-            <div class="zhuanlan clearfix hide">
+            <div class="zhuanlan clearfix hide" id="zhuanlan">
                 <div class="class_top">
                     <span>专栏</span>
                     <a href="javascript:;">
@@ -209,7 +209,7 @@
                     </a>
                 </div>
 
-                <ul class="zhuanlan_list">
+                <ul class="zhuanlan_list" id="zhuanlan_list">
                     <li class="clearfix">
                         <div class="zhuanlan_left">
                             <img src="../images/doctor_detail/hospital_pic.png" alt="">
@@ -411,12 +411,28 @@
     <div class="zhuanlan_right">
         <h3>{{inf.title}}</h3>
         <p>{{inf.content}}</p>
-//      <span>2017.11.11</span>
+<!--//      <span>2017.11.11</span>-->
     </div>
 </li>
 
 {{/each}}
 </script>
+
+<script type="text/template" id="zhuanlanTpl">
+{{each inf as inf i}}
+<li class="clearfix">
+   <div class="zhuanlan_left">
+        <img src="../images/doctor_detail/hospital_pic.png" alt="">
+    </div>
+    <div class="zhuanlan_right">
+        <h3>{{inf.title}}</h3>
+        <p>{{inf.content}}</p>
+        <!--<span>2017.11.11</span>-->
+    </div>
+</li>
+{{/each}}
+</script>
+
 
 </body>
 </html>
