@@ -111,4 +111,22 @@ $(function(){
 	    });
 	    
 	
+	
+	
+	//获取医师对应的专栏列表
+	  RequestService("/medical/doctor/getSpecialColumnByDoctorId", "GET", {
+	 	doctorId:id
+	 }, function (data) {
+	        if(data.resultObject.length == 0){
+	        	//没有数据处理
+//	           $('#zhuanlan').addClass('hide');
+	           console.log(data);
+	        }else{
+	        	//获取到数据渲染
+	        	//创建一个盒子
+//	        	console.log(data);
+	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject}));
+	        }
+	    });
+	    
 })

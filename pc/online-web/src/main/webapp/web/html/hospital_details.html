@@ -303,7 +303,7 @@
             <!--招募信息-->
             <div class="employ" id="employ">
                 <h3>招聘信息</h3>
-                <div class="employ_inf">
+                <!--<div class="employ_inf">
                     <p>薪资面议    <span>|</span>    江苏南京</p>
                     <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
                     <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
@@ -325,7 +325,7 @@
                     <p>薪资面议    <span>|</span>    江苏南京</p>
                     <p>岗位职责：<span>负责日常咨询工作、诊断工作，能对病患及时作虎医疗诊断意见，并采取合理恰当的临床医疗措施。</span></p>
                     <p>任职要求：<span>年龄45岁以上，有医师资格证书，20年以上从医经验。</span></p>
-                </div>
+                </div>-->
 
             </div>
 
@@ -393,8 +393,9 @@
 {{each inf as inf i}}
 <div class="employ_inf">
     <!--<p>薪资面议    <span>|</span>江苏南京</p>-->
-    <p>岗位职责：<span>{{inf.postDuties}}</span></p>
-    <p>任职要求：<span>{{inf.jobRequirements}}</span></p>
+    <h4>招聘岗位：{{inf.position}}</h4>
+    <p>岗位职责：<span>{{#inf.postDuties}}</span></p>
+    <p>任职要求：<span>{{#inf.jobRequirements}}</span></p>
 </div>
 {{/each}}
 </script>
