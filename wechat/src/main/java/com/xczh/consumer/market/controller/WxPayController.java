@@ -653,20 +653,23 @@ public class WxPayController {
 		
 		System.out.println("wx return code:" + req.getParameter("code"));
 		System.out.println("courseId:" + req.getParameter("courseId"));
-		System.out.println("courseId_type_lineState:" + req.getParameter("courseId_type_lineState"));
+///		System.out.println("courseId_type_lineState:" + req.getParameter("courseId_type_lineState"));
 		
-		String []  str = req.getParameter("courseId_type_lineState").split("_");
-		String courseId = str[0];
-		String type = str[1];
-		String lineState = str[2];
-		System.out.println("courseId:"+courseId+",type:"+type+",lineState:"+lineState);
+//		String []  str = req.getParameter("courseId_type_lineState").split("_");
+//		String courseId = str[0];
+//		String type = str[1];
+//		String lineState = str[2];
+//		System.out.println("courseId:"+courseId+",type:"+type+",lineState:"+lineState);
 		try {
 			String code = req.getParameter("code");
+			String courseId = req.getParameter("courseId");
+			
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			/*
 			 * 判断这个uninonid是否在user表中存在
 			 */
 			OnlineUser ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
+			
 			String openid = wxw.getOpenid();
 			
 			String url  = "/bxg/page/index/"+ openid + "/" + code;
@@ -675,35 +678,47 @@ public class WxPayController {
 			 */
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
+			//先判断这个用户是否存在
 			if(ou != null){
-			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
-				ou.setTicket(t.getTicket());
-				onlogin(req,res,t,ou,t.getTicket());
 				
+				System.out.println("}}}}}}}}}}}}}}}}} ou.getUnionId():"+ou.getUnionId());
+				
+				OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+				if(user == null){ //直接跳转到分享页面
+					//这里不用判断用户有没有登录了。没哟登录帮他登录
+				    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+					ou.setTicket(t.getTicket());
+					onlogin(req,res,t,ou,t.getTicket());
+				}	
+				
+				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
+				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 				//这样直接跳转的话，怎样跳转呢，直接到直播页面啊，还是直接到
-				if(StringUtils.isNotBlank(type) && !"1".equals(type)){
-					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
-				}else if(StringUtils.isNotBlank(type) && "1".equals(type)){
-					if(StringUtils.isNotBlank(lineState) && "2".equals(lineState)){
+				if(type == 1){ //直播或者预约详情页           
+					//1.直播中，2预告，3直播结束
+					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
 						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId)+"&openId="+openid;
-					}else{
+					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
 						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
 					}
+				}else{ //视频音频详情页
+					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
 				}
-				System.out.println("url:"+url);
+				System.out.println("}}}}}}}}}}}}}}}}}} url："+url);
 				res.sendRedirect(returnOpenidUri + url);
 			}else{
+				System.out.println("}}}}}}}}}}}}}}}}}用户不存在");
+				
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
+				//这里跳转到分享页面啦
+				res.sendRedirect(returnOpenidUri + "/xcviews/html/share.html?openid="+openid+"&course_id="+courseId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			//res.getWriter().write(e.getMessage());
 		}
 	}
-	
-	
 	/**
 	 * 
 	 * 1、需要在写一个来判断这个微信信息是否包含了手机号。

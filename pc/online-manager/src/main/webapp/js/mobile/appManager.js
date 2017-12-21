@@ -208,7 +208,6 @@ function updateStatus(obj,status){
 		}else{
 			alertInfo(data.errorMessage);
 		}
-		
 	});
 };
 
@@ -221,7 +220,9 @@ $("#addMobileBanner-form").on("change","#imgPath_file",function(){
 // 		return;
 // 	}
  	var id = $(this).attr("id");
+ 	 mask();
  	ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=2", function(data){
+ 		unmask();
  		if (data.error == 0) {
  			debugger
  			$("#add_imgPath").val(data.url);
