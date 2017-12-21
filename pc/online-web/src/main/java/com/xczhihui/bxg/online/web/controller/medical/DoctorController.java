@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -69,6 +70,30 @@ public class DoctorController {
     }
 
     /**
+     * 获取最近五篇医师报道
+     * @return
+     */
+    @RequestMapping(value = "getRecentlyNewsReports")
+    @ResponseBody
+    public ResponseObject getRecentlyNewsReports(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getRecentlyNewsReports());
+    }
+
+    /**
+     * Description：获取医师分页信息
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 3:07 2017/12/10 0010
+     **/
+    @RequestMapping(value = "/getNewsReportsByPage",method= RequestMethod.GET)
+    public ResponseObject getNewsReportsByPage(Integer current,Integer size){
+        Page<OeBxsArticleVo> page = new Page<>();
+        page.setCurrent(current);
+        page.setSize(size);
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getNewsReportsByPage(page));
+    }
+
+    /**
      * 根据报道id获取相关医师报道详情
      * @return
      */
@@ -98,4 +123,35 @@ public class DoctorController {
     public ResponseObject getSpecialColumnDetailsById(String articleId){
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getSpecialColumnDetailsById(articleId));
     }
+
+    /**
+     * 根据医师id获取相关著作列表
+     * @return
+     */
+    @RequestMapping(value = "getWritingsByDoctorId")
+    @ResponseBody
+    public ResponseObject getWritingsByDoctorId(String doctorId){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getWritingsByDoctorId(doctorId));
+    }
+
+    /**
+     * 根据著作id获取著作详情
+     * @return
+     */
+    @RequestMapping(value = "getWritingsByWritingsId")
+    @ResponseBody
+    public ResponseObject getWritingsDetailsById(String writingsId){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getWritingsDetailsById(writingsId));
+    }
+
+    /**
+     * 获取最近的3篇著作
+     * @return
+     */
+    @RequestMapping(value = "getRecentlyWritings")
+    @ResponseBody
+    public ResponseObject getRecentlyWritings(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getRecentlyWritings());
+    }
+
 }

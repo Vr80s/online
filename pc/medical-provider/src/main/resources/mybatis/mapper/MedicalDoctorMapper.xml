@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper">
 
+	<resultMap type="com.xczhihui.medical.doctor.vo.MedicalWritingsVo" id="MedicalWritingsResult">
+		<id column="id" property="id" />
+		<id column="articleId" property="articleId" />
+		<id column="title" property="title" />
+		<id column="author" property="author" />
+		<id column="buyLink" property="buyLink" />
+		<id column="imgPath" property="imgPath" />
+		<id column="content" property="content" />
+
+		<collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+			<id column="did" property="id"/>
+			<id column="dname" property="name"/>
+			<id column="headPortrait" property="headPortrait"/>
+			<id column="province" property="province"/>
+			<id column="city" property="city"/>
+		</collection>
+	</resultMap>
+
+
 	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
 		SELECT
 		  md.*,
@@ -90,6 +109,71 @@
 		  `medical_doctor_field` mdf
 		WHERE mf.`id` = mdf.`field_id`
 		and mdf.doctor_id = #{doctorId}
+	</select>
+
+	<select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVo">
+		SELECT
+		  mw.id,
+		  mw.`title`,
+		  mw.`author`,
+		  oba.`img_path` imgPath
+		FROM
+		  `medical_writings` mw
+		  LEFT JOIN `oe_bxs_article` oba
+			ON mw.`article_id` = oba.id
+		  LEFT JOIN `medical_doctor_writings` mdw
+			ON mdw.`writings_id` = mw.`id`
+		  LEFT JOIN `medical_doctor` md
+			ON md.id = mdw.`doctor_id`
+			WHERE md.id = #{doctorId}
+			AND mw.`deleted`=0 AND mw.`status`=1
+	ORDER BY mw.`create_time` desc
+	</select>
+
+	<select id="getRecentlyWritings" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVo">
+		SELECT
+		  mw.id,
+		  mw.`title`,
+		  mw.`author`,
+		  oba.`img_path` imgPath
+		FROM
+		  `medical_writings` mw
+		  LEFT JOIN `oe_bxs_article` oba
+			ON mw.`article_id` = oba.id
+		  LEFT JOIN `medical_doctor_writings` mdw
+			ON mdw.`writings_id` = mw.`id`
+		  LEFT JOIN `medical_doctor` md
+			ON md.id = mdw.`doctor_id`
+		WHERE mw.`deleted` = 0
+		  AND mw.`status` = 1
+	ORDER BY mw.`create_time` desc
+	</select>
+
+	<select id="getWritingsDetailsById" resultMap="MedicalWritingsResult">
+		SELECT
+		  mw.id,
+		  mw.`article_id` articleId,
+		  mw.`title`,
+		  mw.`author`,
+		  mw.`buy_link` buyLink,
+		  oba.`img_path` imgPath,
+		  oba.`content` ,
+		  md.id did,
+		  md.`name` dname,
+		  md.`province`,
+		  md.`city`,
+		  mdai.`head_portrait` headPortrait
+		FROM
+		  `medical_writings` mw
+		  LEFT JOIN `oe_bxs_article` oba
+			ON mw.`article_id` = oba.id
+		  LEFT JOIN `medical_doctor_writings` mdw
+			ON mdw.`writings_id` = mw.`id`
+		  LEFT JOIN `medical_doctor` md
+			ON md.id = mdw.`doctor_id`
+		  LEFT JOIN `medical_doctor_authentication_information` mdai
+			ON md.`authentication_information_id` = mdai.`id`
+			WHERE mw.id = #{writingsId}
 	</select>
 
 </mapper>

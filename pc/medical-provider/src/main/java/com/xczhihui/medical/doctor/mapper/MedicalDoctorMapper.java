@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
 import com.xczhihui.medical.field.vo.MedicalFieldVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -29,4 +30,10 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     List<MedicalDoctorVo> selectRecDoctor();
 
     List<MedicalFieldVo> selectMedicalFieldsByDoctorId(String doctorId);
+
+    List<MedicalWritingsVo> getWritingsByDoctorId(String doctorId);
+
+    MedicalWritingsVo getWritingsDetailsById(String writingsId);
+
+    List<MedicalWritingsVo> getRecentlyWritings();
 }
