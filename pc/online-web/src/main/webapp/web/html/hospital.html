@@ -260,13 +260,13 @@
 
                 </ul>
             </div>
-            <div class="forum-hot-course hide">
+            <div class="forum-hot-course ">
                 <div class="forum-hot-course-title">
                     <span>坐诊医生招募</span>
                 </div>
                 <div class="hot-course">
                     <div id="box" class="slideBox clearfix">
-                        <ul class="course boxContent clearfix">
+                        <ul class="course boxContent clearfix" id="doctor_recruit_list">
                             <li>
 								<h4>招募治胃病医师</h4>
 								<span>北京  同仁堂国医馆</span>
@@ -404,6 +404,15 @@
  {{/each}}
 </script> 
 
+<!--医馆招募信息-->
+<script type="text/templage" id="doctor_recruit">
+	{{each doctor as doctor i}}
+	<li>
+		<h4>招募{{doctor.position}}</h4>
+		<span data-id="{{doctor.id}}">{{doctor.hospitalName}}</span>
+    </li>
+	{{/each}}
+</script>
 
 
 </body>

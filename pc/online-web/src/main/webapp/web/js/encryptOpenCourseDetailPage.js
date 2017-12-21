@@ -227,6 +227,7 @@ window.onload=function(){
     RequestService("/course/getCourseById", "POST", {
         courserId:courserId
     }, function(data) {
+    	
         free=data.resultObject.free;
         $(".sidebar-body-QQ-name").append("<p class='greend-QQnumber'><span>QQ号 : </span>"+
         "<a href='tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin="+data.resultObject.qqno+"' >"+ data.resultObject.qqno + "</a></p>")
@@ -353,9 +354,9 @@ window.onload=function(){
 
         });
         $(".myClassName").text(data.resultObject.courseName);
-        $(".myClassName").attr("href","/web/html/courseIntroductionPage.html?id="+courserId+'&courseType='+courseType+'&free='+fre);
+       // $(".myClassName").attr("href","/web/html/courseIntroductionPage.html?id="+courserId+'&courseType='+courseType+'&free='+free);
         $(".enter-class").attr("href",data.resultObject.cloudClassroom);
-        $(".table-title-inset .course-details").click();
+        $(".course-details").click();
         //省略号
         $('.bigpic-body-text').dotdotdot();
     });
@@ -401,11 +402,11 @@ window.onload=function(){
         RequestService("/course/getCourseById", "GET", {
             courserId:courserId
         }, function(data) {
-            if(data.resultObject.courseDetail==null || data.resultObject.courseDetail==""){
+            if(data.resultObject.description==null || data.resultObject.description==""){
                 $(".table-modal").html(template.compile(emptyDefaul));
             }else {
                 //获取其他数据
-                $(".table-modal").html("<div class='pic'>" + data.resultObject.courseDetail + "</div>");
+                $(".table-modal").html("<div class='pic'>" + data.resultObject.description + "</div>");
             }
         })
     });

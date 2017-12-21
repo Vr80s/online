@@ -239,7 +239,7 @@
 
 
             <!--媒体报道-->
-            <div class="zhuanlan clearfix hide">
+            <div class="zhuanlan clearfix " id="media_report">
                 <div class="class_top">
                     <span>媒体报道</span>
                     <a href="javascript:;">
@@ -247,8 +247,8 @@
                     </a>
                 </div>
 
-                <ul class="zhuanlan_list">
-                    <li class="clearfix">
+                <ul class="zhuanlan_list" id="meaid_list">
+                    <!--<li class="clearfix">
                         <div class="zhuanlan_left">
                             <img src="../images/doctor_detail/hospital_pic.png" alt="">
                         </div>
@@ -268,7 +268,7 @@
                             <p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传...</p>
                             <span>2017.11.11</span>
                         </div>
-                    </li>
+                    </li>-->
 
 
 
@@ -365,8 +365,8 @@
                 <span>{{name}}  </span><span>{{title}}</span>
                 <div class="doctor_inf1">
                     <span class="zhiwu"><em></em>{{title}}</span>
-                    {{if medicalHospital}}
-                    <span class="yiguan"><em></em>{{medicalHospital.name}}</span>
+                    {{if medicalHospitalVo}}
+                    <span class="yiguan"><em></em>{{medicalHospitalVo.name}}</span>
                     {{/if}}
                     <span class="dizhi"><em></em>{{city}}</span>
                 </div>
@@ -401,7 +401,22 @@
                 </div>
     </div>
 </script>-->
+<script type="text/template" id="meaidTpl">
 
+{{each inf as inf i}}
+ <li class="clearfix">
+    <div class="zhuanlan_left">
+        <img src="../images/doctor_detail/hospital_pic.png" alt="">
+    </div>
+    <div class="zhuanlan_right">
+        <h3>{{inf.title}}</h3>
+        <p>{{inf.content}}</p>
+//      <span>2017.11.11</span>
+    </div>
+</li>
+
+{{/each}}
+</script>
 
 </body>
 </html>

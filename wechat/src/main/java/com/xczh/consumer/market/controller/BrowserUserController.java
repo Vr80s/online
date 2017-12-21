@@ -230,6 +230,8 @@ public class BrowserUserController {
 		String username = req.getParameter("username");
 		Map<String,String> mapReq = new HashMap<String, String>();
 		try {
+			
+			
 			ItcastUser user = userCenterAPI.getUser(username);
 			int code =202;
 			
@@ -496,7 +498,7 @@ public class BrowserUserController {
 			 *  用户名、 密码、昵称、性别、邮箱、手机号
 			 *  第三方登录的用户名和密码是opendi
 			 */
-			userCenterAPI.regist(openid_, unionid_,SLEmojiFilter.filterEmoji(nickname_), UserSex.parse(Integer.parseInt(sex_)), null,
+			userCenterAPI.regist(openid_, unionid_,nickname_, UserSex.parse(Integer.parseInt(sex_)), null,
 					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
 			
 			ItcastUser iu =  userCenterAPI.getUser(openid_);
@@ -604,6 +606,7 @@ public class BrowserUserController {
 			/**
 			 * 通过微信得到用户基本信息
 			 */
+			
 			String user_buffer =  CommonUtil.getUserInfo(access_token,openid);
 			JSONObject jsonObject = JSONObject.parseObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 			String openid_ = (String)jsonObject.get("openid");
@@ -615,6 +618,8 @@ public class BrowserUserController {
 			String country_ = (String)jsonObject.get("country");
 			String headimgurl_ = (String)jsonObject.get("headimgurl");
 			String unionid_ = (String)jsonObject.get("unionid");
+			
+			nickname_= SLEmojiFilter.filterEmoji(nickname_);
 			
 			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid);
 			/**
@@ -807,16 +812,16 @@ public class BrowserUserController {
 	@RequestMapping(value="isLecturer")
 	@ResponseBody
 	public ResponseObject isLecturer(HttpServletRequest request){
-
-		Map<String, String> params2=new HashMap<>();
-		params2.put("token",request.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
 			throw new RuntimeException("登录超时！");
 		}
 		try {
-
-			OnlineUser onlineUser=	onlineUserService.findUserById(user.getId());
+			String userId = request.getParameter("userId");
+			if(!StringUtils.isNotBlank(userId)){
+				userId = user.getId();
+			}
+			OnlineUser onlineUser=	onlineUserService.findUserById(userId);
 			return ResponseObject.newSuccessResponseObject(onlineUser.getIsLecturer());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -909,6 +914,8 @@ public class BrowserUserController {
             Token token, OnlineUser user, String ticket){
 		
 		System.out.println("ticket:"+ticket);
+		System.out.println("userid"+user.getId());
+		
 		cacheService.set(ticket, user,TokenExpires.Day.getExpires());
 		cacheService.set(user.getId(),ticket,TokenExpires.Day.getExpires());
 	}
@@ -984,16 +991,22 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
 		OnlineUser ou = cacheService.get(token);
+		System.out.println("token"+token);
+		System.out.println("userid"+ou.getId());
+		System.out.println("cacheService.get(ou.getId())"+cacheService.get(ou.getId()));
+		
 		if(null == ou){
 			return ResponseObject.newErrorResponseObject("已过期", 1002);
 		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
 			return ResponseObject.newSuccessResponseObject("有效",1000);
-		}else{
+		}else if(ou.getLoginName()!=null){
 			String model = cacheService.get(ou.getLoginName());
 		    if(model!=null){
 		       return ResponseObject.newErrorResponseObject(model,1003);
 		    }
 			return ResponseObject.newErrorResponseObject("其他设备",1004);
+		}else{
+			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}
     }
 	/**

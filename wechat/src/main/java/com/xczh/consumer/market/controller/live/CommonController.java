@@ -88,8 +88,6 @@ public class CommonController {
 		//关注人数         用户头像
 		//直播的课程     传递一个讲师id 就ok了... 得到讲师下的所有课程，得到讲师下的所有粉丝，得到讲师的
 		
-		
-		
 		String lecturerId = req.getParameter("lecturerId");
 		
 		Map<String,Object> mapAll = new HashMap<String,Object>();
@@ -513,39 +511,51 @@ public class CommonController {
 	 */
 	@RequestMapping("pcShareLink")
 	public void pcShareLink(HttpServletRequest req,HttpServletResponse res, Map<String,String> params)throws Exception{
-		
-		
+		/*
+		 * 难道这里就需要搞下吗。
+		 */
+		//判断这个用户是否已经存在了。
+		/**
+		 * 这里有个问题就是。如果去分享页面的话
+		 */
 		String courseId = req.getParameter("courseId");  //视频id
-		if(courseId == null ){
-			System.out.println("参数异常啦");
-		}
-        System.out.println("===========================================");		
-		String url  ="/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
+		String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+		res.sendRedirect(strLinkHome);
+//		if(courseId == null ){
+//			System.out.println("参数异常啦");
+//		}
+//        System.out.println("===========================================");		
+//		String url  ="/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
-		 *   
 		 */
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
-		if(user == null){ //直接跳转到分享页面
-			res.sendRedirect(returnOpenidUri +url);//
-		}else{
-			try {
-				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
-				if(type == 1){ //直播或者预约详情页            1.直播中，2预告，3直播结束
-					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
-						url = "/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
-					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
-						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId);
-					}
-				}else{ //视频音频详情页
-					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId);
-				}
-				res.sendRedirect(returnOpenidUri +url);//
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+//		if(user == null){ //直接跳转到分享页面
+//			res.sendRedirect(returnOpenidUri +url);//
+//		}else{
+//			try {
+//				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
+//				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
+//				
+//				System.out.println("type:"+type);
+//				if(type == 1){ //直播或者预约详情页           
+//					
+//					//1.直播中，2预告，3直播结束
+//					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
+//					
+//						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId);
+//					
+//					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
+//						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId);
+//					}
+//				}else{ //视频音频详情页
+//					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId);
+//				}
+//				res.sendRedirect(returnOpenidUri +url);//
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 	
 	/**

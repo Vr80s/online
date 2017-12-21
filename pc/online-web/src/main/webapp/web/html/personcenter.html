@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" > 
     <meta charset="UTF-8">
-    <title>熊猫中医云课堂 - 线上中医教育</title>
+    <title>熊猫中医 - 个人中心</title>
     <link rel="shortcut icon" href="../../favicon.ico"/>
     <meta name="keywords"
           content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
@@ -555,10 +555,10 @@ var _hmt = _hmt || [];
 <span class="address-main-close" data-id="{{item.id}}">X</span>
 <div class="address-maim-top clearfix"><p style="font-size: 18px;">{{item.consignee}}&nbsp;&nbsp;</p></div>
 <div class="clearfix"><p>收货人: <span class="consignee">{{item.consignee}}</span></p><p>手机: <span class="phone">{{item.phone}}</span></p></div>
-<div class="clearfix"><p>所在地址: <span class="notdetaileAaddress"><span class="sheng">{{item.provinces}}</span><span class="shi">{{item.city}}</span><span class="xiang">{{item.county}}</span></span></p><p>地址: <span class="detailedAddress">{{item.detailedAddress}}</span></p></div>
+<div class="clearfix"><p>所在地区: <span class="notdetaileAaddress"><span class="sheng">{{item.provinces}}</span><span class="shi">{{item.city}}</span><span class="xiang">{{item.county}}</span></span></p><p>详细地址: <span class="detailedAddress">{{item.detailedAddress}}</span></p></div>
 <div class="clearfix"><p>邮编: <span class="postalCode">{{item.postalCode}}</span></p></div>
 {{if item.isAcquiescence == 1 }}
-<div class="clearfix"><a href="javascript:;" class="editor" >编辑</a><a href="javascript:;" class="setAsaddress" style="color: white;padding: 0 10px;background-color: #2cb82c;">默认地址</a></div>
+<div class="clearfix"><a href="javascript:;" class="editor" >编辑</a><a href="javascript:;" class="setAsaddress" style="color: white;padding: 2px 10px;background-color: #2cb82c;">默认地址</a></div>
 {{else if item.isAcquiescence == 0 }}
 <div class="clearfix"><a href="javascript:;" class="editor" >编辑</a><a href="javascript:;" class="setAsaddress">设为默认</a></div>
 {{/if}}
@@ -589,9 +589,16 @@ var _hmt = _hmt || [];
         }
         
         //判断顶部消息颜色
-        if(window.localStorage.personcenter == 'mynews'){
-        	$('.mynews').css('color','#2cb82c');
-        }
+        setInterval(function(){
+        	if(window.localStorage.personcenter == 'mynews'){
+        		$('.message').css('color','#2cb82c');
+        	}else{
+        		$('.message').css('color','#ccc');
+        	}
+        },500)
+        
+        
+        
     });
 </script>
 </body>

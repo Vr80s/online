@@ -6,6 +6,7 @@
 <head>
 <meta charset="utf-8">
 <!--<title></title>-->
+<title>熊猫中医</title>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
@@ -908,7 +909,20 @@ $(document).ready(function(){
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript">
+if(isWeiXin() && stringnull(getQueryString("openId"))){
+	localStorage.setItem("openid", getQueryString("openId"));	
+	var ccontrollerAddress = "/bxg/user/isLogined";
+	requestService(ccontrollerAddress, null, function(data) {
+		if (data.success) {
+			commonLocalStorageSetItem(data);
+		}else{
+			alert("网络异常");
+		}
+	},false)
+}
 
+</script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script type="text/JavaScript">
 

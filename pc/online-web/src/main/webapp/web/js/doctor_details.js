@@ -95,4 +95,20 @@ $(function(){
 //	        }
 //	    });
 	
+	//获取医师对应的媒体报道
+	  RequestService("/medical/doctor/getNewsReports", "GET", {
+	 	doctorId:id
+	 }, function (data) {
+	        if(data.resultObject.length == 0){
+	        	//没有数据处理
+	           $('#media_report').addClass('hide');
+	        }else{
+	        	//获取到数据渲染
+	        	//创建一个盒子
+	        	console.log(data);
+	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject}));
+	        }
+	    });
+	    
+	
 })

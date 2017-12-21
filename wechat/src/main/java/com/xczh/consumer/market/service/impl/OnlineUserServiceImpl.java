@@ -644,7 +644,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setCreateTime(new Date());
 		u.setDelete(false);
 		u.setName(name);   //默认一个名字
-		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);

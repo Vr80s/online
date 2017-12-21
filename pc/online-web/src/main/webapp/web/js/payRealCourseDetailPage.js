@@ -669,11 +669,11 @@ window.onload = function() {
         RequestService("/course/getCourseById", "GET", {
             courserId: courserId
         }, function(data) {
-            if(data.resultObject.courseDetail == null || data.resultObject.courseDetail == "") {
+            if(data.resultObject.description == null || data.resultObject.description == "") {
                 $(".table-modal").html(template.compile(emptyDefaul));
             } else {
                 //获取其他数据
-                $(".table-modal").html("<div class='pic'>" + data.resultObject.courseDetail + "</div>");
+                $(".table-modal").html("<div class='pic'>" + data.resultObject.description + "</div>");
             }
         })
     });
