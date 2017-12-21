@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.OeBxsArticleMapper">
+	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVo" id="MedicalArticleBaseResult">
+		<id column="id" property="id" />
+		<id column="title" property="title" />
+		<id column="content" property="content" />
+		<id column="create_time" property="createTime" />
+		<id column="img_path" property="imgPath" />
+	</resultMap>
+
+	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVo" id="MedicalArticleListResult" extends="MedicalArticleBaseResult">
+		<id column="browse_sum" property="browseSum" />
+		<id column="comment_sum" property="commentSum" />
+		<id column="praise_sum" property="praiseSum" />
+		<collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+			<id column="dId" property="id"/>
+			<id column="dName" property="name"/>
+			<id column="province" property="province"/>
+			<id column="city" property="city"/>
+			<id column="headPortrait" property="headPortrait"/>
+		</collection>
+	</resultMap>
+
+	<select id="getSpecialColumnByDoctorId" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+		SELECT
+		  oba.id,
+		  oba.`title`,
+		  oba.`content`,
+		  oba.`create_time` createTime,
+		  oba.`img_path` imgPath
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `medical_doctor_author_article` mdaa
+			ON oba.`id` = mdaa.`article_id`
+		   AND mdaa.`doctor_id` = #{doctorId}
+		ORDER BY oba.`create_time` DESC
+	</select>
+
+	<select id="getNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+		SELECT
+		  oba.id,
+		  oba.`title`,
+		  oba.`content`,
+		  oba.`create_time`,
+		  oba.`img_path`
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `medical_doctor_report` mdr
+			ON oba.`id` = mdr.`article_id`
+		  	AND mdr.`doctor_id`= #{doctorId}
+			ORDER BY oba.`create_time` DESC
+	</select>
+
+	<select id="getNewsReportByArticleId" resultMap="MedicalArticleListResult">
+		SELECT
+		  oba.id,
+		  oba.`title`,
+		  oba.`content`,
+		  oba.`create_time`,
+		  oba.`img_path`,
+		  oba.`browse_sum`,
+		  oba.`comment_sum`,
+		  oba.`praise_sum`,
+		  md.name dName,
+		  md.`id` dId,
+		  md.`province`,
+		  md.`city`,
+		  mdai.head_portrait headPortrait
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `medical_doctor_report` mdr
+			ON oba.`id` = mdr.`article_id`
+		  	LEFT JOIN `medical_doctor` md ON
+			  md.id = mdr.`doctor_id`
+			  LEFT JOIN `medical_doctor_authentication_information` mdai
+			  ON mdai.`id` = md.`authentication_information_id`
+			where mdr.article_id = #{articleId}
+			ORDER BY oba.`create_time` DESC
+	</select>
+
+	<select id="getSpecialColumnDetailsById" resultMap="MedicalArticleListResult">
+		SELECT
+		  oba.id,
+		  oba.`title`,
+		  oba.`content`,
+		  oba.`create_time`,
+		  oba.`img_path`,
+		  oba.`browse_sum`,
+		  oba.`comment_sum`,
+		  oba.`praise_sum`,
+		  md.name dName,
+		  md.`id` dId,
+		  md.`province`,
+		  md.`city`,
+		  mdai.head_portrait headPortrait
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `medical_doctor_author_article` mdaa
+			ON oba.`id` = mdaa.`article_id`
+		  LEFT JOIN `medical_doctor` md
+			ON md.id = mdaa.`doctor_id`
+		  LEFT JOIN `medical_doctor_authentication_information` mdai
+			ON mdai.`id` = md.`authentication_information_id`
+		WHERE mdaa.article_id = #{articleId}
+		ORDER BY oba.`create_time` DESC
+	</select>
+
+</mapper>

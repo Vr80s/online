@@ -2,8 +2,9 @@ package com.xczhihui.medical.doctor.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.field.model.MedicalField;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
+import com.xczhihui.medical.field.vo.MedicalFieldVo;
 
 import java.util.List;
 
@@ -23,11 +24,19 @@ public interface IMedicalDoctorBusinessService {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:02 2017/12/10 0010
      **/
-    public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page, Integer type, String hospitalId, String name, String field);
+    public Page<MedicalDoctorVo> selectDoctorPage(Page<MedicalDoctorVo> page, Integer type, String hospitalId, String name, String field);
 
-    public MedicalDoctor selectDoctorById(String id);
+    public MedicalDoctorVo selectDoctorById(String id);
 
-    List<MedicalField> getHotField();
+    List<MedicalFieldVo> getHotField();
 
-    List<MedicalDoctor> selectRecDoctor();
+    List<MedicalDoctorVo> selectRecDoctor();
+
+    List<OeBxsArticleVo> getNewsReports(String doctorId);
+
+    OeBxsArticleVo  getNewsReportByArticleId(String doctorId);
+
+    List<OeBxsArticleVo> getSpecialColumnByDoctorId(String doctorId);
+
+    OeBxsArticleVo getSpecialColumnDetailsById(String articleId);
 }

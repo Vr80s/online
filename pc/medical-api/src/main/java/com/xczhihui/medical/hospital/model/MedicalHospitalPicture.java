@@ -166,7 +166,7 @@ public class MedicalHospitalPicture extends Model<MedicalHospitalPicture> {
 
 	@Override
 	public String toString() {
-		return "MedicalHospitalPicture{" +
+		return "MedicalHospitalPictureVo{" +
 			", id=" + id +
 			", hospitalId=" + hospitalId +
 			", picture=" + picture +

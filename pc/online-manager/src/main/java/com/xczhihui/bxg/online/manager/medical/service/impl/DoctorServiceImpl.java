@@ -174,15 +174,17 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 			dao.delete(mhps.get(i));
 		}
 
-		//添加新的关系表
-		MedicalHospitalDoctor medicalHospitalDoctor = new MedicalHospitalDoctor();
+		if(hospitalId != null && !"".equals(hospitalId)){
+			//添加新的关系表
+			MedicalHospitalDoctor medicalHospitalDoctor = new MedicalHospitalDoctor();
 
-		String id = UUID.randomUUID().toString().replace("-","");
-		medicalHospitalDoctor.setId(id);
-		medicalHospitalDoctor.setDoctorId(doctorId);
-		medicalHospitalDoctor.setHospitalId(hospitalId);
-		medicalHospitalDoctor.setCreateTime(new Date());
-		dao.save(medicalHospitalDoctor);
+			String id = UUID.randomUUID().toString().replace("-","");
+			medicalHospitalDoctor.setId(id);
+			medicalHospitalDoctor.setDoctorId(doctorId);
+			medicalHospitalDoctor.setHospitalId(hospitalId);
+			medicalHospitalDoctor.setCreateTime(new Date());
+			dao.save(medicalHospitalDoctor);
+		}
 	}
 
 	@Override
@@ -308,5 +310,76 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		dao.update(coursePre);
 		dao.update(courseNext);
 
+	}
+
+	@Override
+	public List<MedicalDoctor> findAllDoctor(String id) {
+		List<MedicalDoctor> list = list();
+		List<MedicalDoctorAuthorArticle> mdaa = dao.findEntitiesByProperty(MedicalDoctorAuthorArticle.class, "articleId", id);
+		for (int i = 0; i < mdaa.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if(mdaa.get(i).getDoctorId().equals(list.get(j).getId())){
+					list.get(j).setHas(true);
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public void addDoctorAuthorArticle(String id, String[] doctor) {
+		List<MedicalDoctorAuthorArticle> mdaas = dao.findEntitiesByProperty(MedicalDoctorAuthorArticle.class, "articleId", id);
+		for (int i = 0; i < mdaas.size(); i++) {
+			dao.delete(mdaas.get(i));
+		}
+		if(doctor != null){
+			for (int i = 0; i < doctor.length; i++) {
+				MedicalDoctorAuthorArticle medicalDoctorAuthorArticle = new MedicalDoctorAuthorArticle();
+				String mid = UUID.randomUUID().toString().replace("-","");
+				medicalDoctorAuthorArticle.setId(mid);
+				medicalDoctorAuthorArticle.setDoctorId(doctor[i]);
+				medicalDoctorAuthorArticle.setArticleId(id);
+				medicalDoctorAuthorArticle.setCreateTime(new Date());
+				dao.save(medicalDoctorAuthorArticle);
+			}
+		}
+	}
+	@Override
+	public void addDoctorReport(String id, String[] doctor) {
+		List<MedicalDoctorReport> mdaas = dao.findEntitiesByProperty(MedicalDoctorReport.class, "articleId", id);
+		for (int i = 0; i < mdaas.size(); i++) {
+			dao.delete(mdaas.get(i));
+		}
+		if(doctor != null){
+			for (int i = 0; i < doctor.length; i++) {
+				MedicalDoctorReport medicalDoctorReport= new MedicalDoctorReport();
+				String mid = UUID.randomUUID().toString().replace("-","");
+				medicalDoctorReport.setId(mid);
+				medicalDoctorReport.setDoctorId(doctor[i]);
+				medicalDoctorReport.setArticleId(id);
+				medicalDoctorReport.setCreateTime(new Date());
+				dao.save(medicalDoctorReport);
+			}
+		}
+	}
+
+	@Override
+	public List<MedicalDoctor> allListForReport(String articleId) {
+		List<MedicalDoctor> list = list();
+		List<MedicalDoctorReport> mdr = dao.findEntitiesByProperty(MedicalDoctorReport.class, "articleId", articleId);
+		for (int i = 0; i < mdr.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if(mdr.get(i).getDoctorId().equals(list.get(j).getId())){
+					list.get(j).setHas(true);
+				}
+			}
+		}
+		return list;
+	}
+
+	public List<MedicalDoctor> list() {
+		String sql="select * from medical_doctor where deleted=0 and status=1 order by  convert(name using gbk) ASC";
+		List<MedicalDoctor> voList=dao.findEntitiesByJdbc(MedicalDoctor.class, sql, null);
+		return voList;
 	}
 }

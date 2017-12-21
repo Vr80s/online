@@ -93,4 +93,12 @@ public interface HospitalService {
 	MedicalHospitalRecruit findMedicalHospitalRecruitById(String id);
 
 	void updateMedicalHospitalRecruit(MedicalHospitalRecruit old);
+
+    void updateRecruitStatus(String id);
+
+	void deletesRecruit(String[] ids);
+
+	void updateSortDown(String id);
+
+	void updateSortUp(String id);
 }

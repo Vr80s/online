@@ -6,7 +6,7 @@
 	<!--<sql id="Base_Column_List">-->
 		<!--id, name, age-->
 	<!--</sql>-->
-	<select id="selectByDoctorId" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation">
+	<select id="selectByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVo">
 		select * from medical_doctor_authentication_information where id = #{id}
 
 	</select>

@@ -6,7 +6,7 @@
 	<!--<sql id="Base_Column_List">-->
 		<!--id, name, age-->
 	<!--</sql>-->
-	<select id="getMedicalHospitalPictureByHospitalId" resultType="com.xczhihui.medical.hospital.model.MedicalHospitalPicture">
+	<select id="getMedicalHospitalPictureByHospitalId" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVo">
 		select id,hospital_id hospitalId, picture from medical_hospital_picture where hospital_id = #{hospitalId}
 		 order by version
 

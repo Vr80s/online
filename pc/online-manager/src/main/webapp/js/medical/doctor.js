@@ -1151,9 +1151,9 @@ function drawHospitalPage(data){
     for(var i=0;i<data.length;i++){
         var rowData="<tr id='childMenus_tr_"+data[i].id+"'><td> ";
         if(data[i].dependence){
-            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='radio' name='hospitalId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='hospitalId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
         }else{
-            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='radio' name='hospitalId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='hospitalId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
         }
         rowData+="</td>";
         rowData+="<td>";
@@ -1161,7 +1161,7 @@ function drawHospitalPage(data){
         rowData+="</td>";
         rowData+="</tr>";
         $("#hospitals").append(rowData);
-
+        checckboxSingle();
     }
 }
 
@@ -1173,3 +1173,14 @@ function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
 }
 
+
+function checckboxSingle (){
+    $(':checkbox[name=hospitalId]').each(function(){
+        $(this).click(function(){
+            if(this.checked){
+                $(':checkbox[name=hospitalId]').removeAttr('checked');
+                $(this).prop('checked','checked');
+            }
+        });
+    });
+}
