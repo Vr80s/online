@@ -66,6 +66,11 @@ public class UserVo {
      * 详细地址
      */
     private String fullAddress;
+    
+    /**
+     * 地区
+     */
+    public String countyName;
 
     public String getUserId() {
         return userId;
@@ -178,4 +183,15 @@ public class UserVo {
     public void setFullAddress(String fullAddress) {
         this.fullAddress = fullAddress;
     }
+
+	public String getCountyName() {
+		return countyName;
+	}
+
+	public void setCountyName(String countyName) {
+		this.countyName = countyName;
+	}
+    
+    
+    
 }

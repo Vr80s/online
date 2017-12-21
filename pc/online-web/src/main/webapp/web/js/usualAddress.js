@@ -30,20 +30,16 @@ function getCity(){
 			})
 	}
 
-
-
-
-
 //区县渲染
 function getDistrict(){
-	var pid = $('.Province option:selected').val()
-	var cid =  $('.City option:selected').val()
+	var pid = $('.Province1 option:selected').val()
+	var cid =  $('.City1 option:selected').val()
 	console.log(cid)
 	RequestService("/address/getAllPCC", "get", {}, function(data){
 		if(data.success == true){
-			console.log(data.resultObject[pid-1].cityList[cid])
+			//console.log(data.resultObject[pid-1].cityList[cid])
 			//区县
-			 $(".District").html(template("dis",{item:data.resultObject[pid-1].cityList[cid].disList}));
+			 $(".District1").html(template("dis",{item:data.resultObject[pid-1].cityList[cid].disList}));
 		}
 	})
 }

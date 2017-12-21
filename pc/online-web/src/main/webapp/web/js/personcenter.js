@@ -445,7 +445,7 @@ $(function() {
 //	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
 	        //市
-	        '<select class="City1"> ' +
+	        '<select class="City1" onchange="getDistrict()"> ' +
 	        '<option value="volvo" >--选择市--</option> ' +
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +
@@ -453,12 +453,12 @@ $(function() {
 	        '</select> ' +
 	        
 	        //区
-//	        '<select class="District"> ' +
-//	        '<option value="volvo">--选择区/县--</option> ' +
-////	        '<option value="saab">Saab</option> ' +
-////	        '<option value="opel">Opel</option> ' +
-////	        '<option value="audi">Audi</option> ' +
-//	        '</select> ' +
+	        '<select class="District1"> ' +
+	        '<option value="volvo">--选择区/县--</option> ' +
+//	        '<option value="saab">Saab</option> ' +
+//	        '<option value="opel">Opel</option> ' +
+//	        '<option value="audi">Audi</option> ' +
+	        '</select> ' +
 	        '<p class="address_warn" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
 		
