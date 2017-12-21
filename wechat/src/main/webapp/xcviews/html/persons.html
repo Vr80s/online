@@ -256,9 +256,18 @@ pre:after {
 		});
 		picker.setData(mucityData);
 		
-		picker.pickers[0].setSelectedValue(2);
-		picker.pickers[1].setSelectedValue(2);
-		picker.pickers[2].setSelectedValue(19);
+		//给这个省市区下拉框增加 默认值，如果有的情况下
+		
+		var pervinceValue = localStorage.getItem("province");
+		var cityValue = localStorage.getItem("city");
+		var disValue = localStorage.getItem("district");
+		
+		if(stringnull(pervinceValue) && stringnull(cityValue) && stringnull(disValue)){
+			picker.pickers[0].setSelectedValue(pervinceValue);
+			picker.pickers[1].setSelectedValue(cityValue);
+			picker.pickers[2].setSelectedValue(disValue);
+		}
+		
 		
 		var showCityPicker = document.getElementById('showCityPicker');
 		var cityResult = document.getElementById('xzdz');
@@ -276,6 +285,13 @@ pre:after {
 						citysIds +=items[int].value +" ";
 					}
 				}
+				
+				if(items.length>=2){
+					picker.pickers[0].setSelectedValue(items[0]);
+					picker.pickers[1].setSelectedValue(items[1]);
+					picker.pickers[2].setSelectedValue(items[2]);
+				}
+				
 				cityResult.innerText = citysNames;
 				cityResult.className = citysIds;
 				checkUser1("provinceCityName");

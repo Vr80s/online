@@ -496,10 +496,12 @@ public class OnlineUserController {
           String sex= request.getParameter("sex");  
           String nickname= request.getParameter("nickname");  
           String email= request.getParameter("email");  
+          
           String cityName= request.getParameter("cityName");
           String provinceName= request.getParameter("provinceName");
           String cityId= request.getParameter("cityId");
           String provinceId= request.getParameter("provinceId");
+          
           String info= request.getParameter("info");
           
           String occupation= request.getParameter("occupation"); 
@@ -511,9 +513,14 @@ public class OnlineUserController {
           map.put("email", email);
           map.put("cityName", cityName);
           map.put("provinceName", provinceName);
-          map.put("cityId", cityId);
-          map.put("provinceId", provinceId);
+      
+          map.put("province", provinceId);
+          map.put("city", cityId);
+          map.put("district", "");
           map.put("info", info);
+          
+  		
+          
           
           //新增 身份信息、职业信息
           map.put("occupation", occupation);
@@ -575,6 +582,8 @@ public class OnlineUserController {
 	public ResponseObject userCenterFormSub1(HttpServletRequest req, HttpServletResponse response)throws Exception{
 		//TODO
         try{
+        	
+        	
           OnlineUser user = new OnlineUser();
           String token = req.getParameter("token");
           if(token !=null ){
@@ -620,9 +629,9 @@ public class OnlineUserController {
         		  map.put("cityName", str[1]);
            		  map.put("countyName", str[2]);
         		  
-        		  map.put("provinceId", ids[0]);
-        		  map.put("cityId", ids[1]);
-        		  map.put("countyId", ids[2]);
+        		  map.put("province", ids[0]);
+        		  map.put("city", ids[1]);
+        		  map.put("district", ids[2]);
         	  }
           }
           userCenterAPI.update(user.getLoginName(),nickname,org.springframework.util.StringUtils.hasText(sex) ? Integer.parseInt(sex) : 3,email, null, 10, 10);

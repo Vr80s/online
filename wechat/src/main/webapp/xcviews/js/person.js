@@ -241,7 +241,6 @@ function checkUser1(saveFalg){
 	  }else  if(saveFalg == "email"){
 		  email = $("#form input[name='email']").val();
 	  }else  if(saveFalg == "provinceCityName"){
-		 // provinceCityName  =  $("#szd_cityP").html();
 		  provinceCityName  =  $("#xzdz").text();
 		  provinceCityId  =  $("#xzdz").attr("class");
 	  }else  if(saveFalg == "info"){
@@ -285,15 +284,15 @@ function checkUser1(saveFalg){
 			}
 			if(stringnull(result.provinceName)){
 				localStorage.setItem("provinceName",result.provinceName);
-				localStorage.setItem("provinceId",result.provinceId);
+				localStorage.setItem("province",result.province);
 			}
 			if(stringnull(result.cityName)){
 				localStorage.setItem("cityName",result.cityName);
-				localStorage.setItem("cityId",result.cityId);
+				localStorage.setItem("city",result.city);
 			}
 			if(stringnull(result.countyName)){
 				localStorage.setItem("countyName",result.countyName);
-				localStorage.setItem("countyId",result.countyId);
+				localStorage.setItem("district",result.district);
 			}
 			if(stringnull(result.info)){
 				localStorage.setItem("info",result.info);

@@ -244,17 +244,19 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("nickname").equals(original.getName())) {
 			sb.append(" name ='" + map.get("nickname") + "',");
 		}
-		if (StringUtils.hasText(map.get("provinceId"))
-				&& !map.get("provinceId").equals(original.getProvince())) {
-			sb.append(" region_area_id = '" + map.get("provinceId") + "',");
+		
+		
+		if (StringUtils.hasText(map.get("province"))
+				&& !map.get("province").equals(original.getProvince())) {
+			sb.append(" region_area_id = '" + map.get("province") + "',");
 		}
-		if (StringUtils.hasText(map.get("cityId"))
-				&& !map.get("cityId").equals(original.getCity())) {
-			sb.append(" region_city_id = '" + map.get("cityId") + "',");
+		if (StringUtils.hasText(map.get("city"))
+				&& !map.get("city").equals(original.getCity())) {
+			sb.append(" region_city_id = '" + map.get("city") + "',");
 		}
-		if (StringUtils.hasText(map.get("countyId"))
-				&& !map.get("countyId").equals(original.getCity())) {
-			sb.append(" region_id = '" + map.get("countyId") + "',");
+		if (StringUtils.hasText(map.get("district"))
+				&& !map.get("district").equals(original.getCity())) {
+			sb.append(" region_id = '" + map.get("district") + "',");
 		}
 		if (StringUtils.hasText(map.get("provinceName"))
 				&& !map.get("provinceName").equals(original.getProvince())) {
