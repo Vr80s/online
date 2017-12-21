@@ -15,6 +15,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import javax.persistence.Column;
+
 /**
  * 用户中心dao
  * @author duanqh
@@ -65,9 +67,13 @@ public class UserCenterDao extends SimpleHibernateDao {
 //				"a.jobyears AS jobyearId," +
 //				"a.full_address AS fullAddress," +
 				"a.sex," +
-				"a.province_name AS province," +
-				"a.city_name AS city," +
+				"a.province_name AS provinceName," +
+				"a.city_name AS cityName," +
 				"a.county_name AS countyName," +
+
+				"a.region_area_id AS province," +
+				"a.region_city_id AS city," +
+				"a.region_id AS district," +
 				
 				"ifnull(a.target,'') AS target," +
 //				"ifnull(a.region_area_id,'') AS province," +

@@ -267,12 +267,17 @@ function checkUser1(saveFalg){
 			}
 			if(stringnull(result.provinceName)){
 				localStorage.setItem("provinceName",result.provinceName);
-				localStorage.setItem("provinceId",result.provinceId);
+				localStorage.setItem("province",result.province);
 			}
 			if(stringnull(result.cityName)){
 				localStorage.setItem("cityName",result.cityName);
-				localStorage.setItem("cityId",result.cityId);
+				localStorage.setItem("city",result.city);
 			}
+			if(stringnull(result.countyName)){
+				localStorage.setItem("countyName",result.countyName);
+				localStorage.setItem("district",result.district);
+			}
+			
 			if(stringnull(result.info)){
 				localStorage.setItem("info",result.info);
 				$("#person_sign").html(result.info);

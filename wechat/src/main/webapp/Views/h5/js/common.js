@@ -517,10 +517,16 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("name",configresult.loginName);
 	localStorage.setItem("smallHeadPhoto",configresult.smallHeadPhoto);
 	localStorage.setItem("sex",configresult.sex);
-	localStorage.setItem("provinceName",configresult.provinceName);
-	localStorage.setItem("cityName",configresult.cityName);
+	
 	localStorage.setItem("province",configresult.province);
 	localStorage.setItem("city",configresult.city);
+	localStorage.setItem("district",configresult.district);
+	
+	
+	localStorage.setItem("provinceName",configresult.provinceName);
+	localStorage.setItem("cityName",configresult.cityName);
+	localStorage.setItem("countyName",configresult.countyName);
+	
 	localStorage.setItem("email",configresult.email);
 	localStorage.setItem("info",configresult.info);
 	localStorage.setItem("username",configresult.name);

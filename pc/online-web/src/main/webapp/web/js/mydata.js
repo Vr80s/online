@@ -713,25 +713,24 @@ function addgetdata() { //回填数据
 		num += 1;
 		if(num<30){
 			if(data.resultObject.province != ''&&data.resultObject.city != null){
-			$('.Province1 option:selected').text(data.resultObject.province)
+				
+			$('.Province1 option:selected').val(data.resultObject.province);	
+			$('.Province1 option:selected').text(data.resultObject.provinceName)
 			console.log(data.resultObject.province )
 			}
 		}
 	},100)
 	
-	//省份渲染
-//		if(data.resultObject.province != ''&&data.resultObject.city != null){
-//		$('.Province1 option:selected').text(data.resultObject.province)
-//		console.log(data.resultObject.province )
-//	}
-//		
+	
 		//城市渲染
 	if(data.resultObject.city != ''&&data.resultObject.city != null){
-		$('.City1 option:selected').text(data.resultObject.city)
+		$('.City1 option:selected').val(data.resultObject.city);
+		$('.City1 option:selected').text(data.resultObject.cityName);
 	}
 	debugger;
 	//城市渲染
 	if(data.resultObject.countyName != ''&&data.resultObject.countyName != null){
+		$('.District1 option:selected').val(data.resultObject.district);
 		$('.District1 option:selected').text(data.resultObject.countyName);
 	}
 	
@@ -1904,8 +1903,29 @@ function geren() {
 			return false;
 			
 		}
-	
 
+		//在获取这些id啦
+		debugger;
+		var provinceval  = $('.Province1  option:selected').val();
+		var disval =  $('.District1  option:selected').val();
+		var cityval =  $('.City1  option:selected').val();
+		
+		var province  = $('.Province1  option:selected').val();
+		var disval =  $('.District1  option:selected').val();
+		var cityval =  $('.City1  option:selected').val();
+		
+/*	    private  String  province;
+	    *//**
+	     * 学校id号
+	     *//*
+	    private String city;
+	    *//**
+	     * 学历
+	     *//*
+	    private String district;*/
+		
+		
+		
 //		保存个人信息数据
 		RequestService("/online/user/updateUser", "POST", {
 			userId: localStorage.userid,
@@ -1916,10 +1936,14 @@ function geren() {
 			//						occupationOther: $(".myradioipt").val(),
 			jobyearId: shijian(),
 			target: $("#food5").attr("data-id"),
-			province: $('.Province1  option:selected').text(),
+			provinceName: $('.Province1  option:selected').text(),
 //			district: $(".City1").attr("value"),
-			city: $('.City1  option:selected').text(),
+			cityName: $('.City1  option:selected').text(),
 			countyName: $('.District1  option:selected').text(),
+			
+			province : $('.Province1  option:selected').val(),
+			city : $('.City1  option:selected').val(),
+			district :  $('.District1  option:selected').val(),
 			
 			fullAddress: $(".menpaihao").val(),
 			sex:sex,
