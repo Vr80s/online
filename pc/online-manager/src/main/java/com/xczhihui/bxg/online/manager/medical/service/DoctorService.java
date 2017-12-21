@@ -101,4 +101,12 @@ public interface DoctorService {
 	void updateSortUpRec(String id);
 
 	void updateSortDownRec(String id);
+
+    List<MedicalDoctor> findAllDoctor(String id);
+
+	void addDoctorAuthorArticle(String id, String[] doctorId);
+
+    List<MedicalDoctor> allListForReport(String articleId);
+
+	void addDoctorReport(String id, String[] doctorId);
 }

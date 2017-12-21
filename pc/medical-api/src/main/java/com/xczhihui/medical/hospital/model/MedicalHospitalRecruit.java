@@ -1,11 +1,12 @@
-package com.xczhihui.medical.doctor.model;
-
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
+package com.xczhihui.medical.hospital.model;
 
 import java.io.Serializable;
+
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -13,47 +14,40 @@ import java.util.Date;
  * </p>
  *
  * @author yuxin
- * @since 2017-12-09
+ * @since 2017-12-20
  */
-@TableName("medical_doctor_authentication_information")
-public class MedicalDoctorAuthenticationInformation extends Model<MedicalDoctorAuthenticationInformation> {
+@TableName("medical_hospital_recruit")
+public class MedicalHospitalRecruit extends Model<MedicalHospitalRecruit> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 医师认证信息表
+     * 医馆招聘表
      */
 	private String id;
     /**
-     * 头像
+     * 医馆id
      */
-	@TableField("head_portrait")
-	private String headPortrait;
+	@TableField("hospital_id")
+	private String hospitalId;
     /**
-     * 职称证明
+     * 职位
      */
-	@TableField("title_prove")
-	private String titleProve;
+	private String position;
     /**
-     * 身份证正面
+     * 工作经验 0.不限 1.0-1年 2.1-3年 3.3-5年 4.5-10年 5.10年以上
      */
-	@TableField("card_positive")
-	private String cardPositive;
+	private String years;
     /**
-     * 身份证反面
+     * 岗位职责
      */
-	@TableField("card_negative")
-	private String cardNegative;
+	@TableField("post_duties")
+	private String postDuties;
     /**
-     * 医师资格证
+     * 职位要求
      */
-	@TableField("qualification_certificate")
-	private String qualificationCertificate;
-    /**
-     * 职业医师证
-     */
-	@TableField("professional_certificate")
-	private String professionalCertificate;
+	@TableField("job_requirements")
+	private String jobRequirements;
     /**
      * 1已删除0未删除
      */
@@ -90,6 +84,14 @@ public class MedicalDoctorAuthenticationInformation extends Model<MedicalDoctorA
      * 备注
      */
 	private String remark;
+    /**
+     * 是否推荐
+     */
+	private Boolean recommend;
+    /**
+     * 医馆招聘排序字段
+     */
+	private Integer sort;
 
 
 	public String getId() {
@@ -100,52 +102,44 @@ public class MedicalDoctorAuthenticationInformation extends Model<MedicalDoctorA
 		this.id = id;
 	}
 
-	public String getHeadPortrait() {
-		return headPortrait;
+	public String getHospitalId() {
+		return hospitalId;
 	}
 
-	public void setHeadPortrait(String headPortrait) {
-		this.headPortrait = headPortrait;
+	public void setHospitalId(String hospitalId) {
+		this.hospitalId = hospitalId;
 	}
 
-	public String getTitleProve() {
-		return titleProve;
+	public String getPosition() {
+		return position;
 	}
 
-	public void setTitleProve(String titleProve) {
-		this.titleProve = titleProve;
+	public void setPosition(String position) {
+		this.position = position;
 	}
 
-	public String getCardPositive() {
-		return cardPositive;
+	public String getYears() {
+		return years;
 	}
 
-	public void setCardPositive(String cardPositive) {
-		this.cardPositive = cardPositive;
+	public void setYears(String years) {
+		this.years = years;
 	}
 
-	public String getCardNegative() {
-		return cardNegative;
+	public String getPostDuties() {
+		return postDuties;
 	}
 
-	public void setCardNegative(String cardNegative) {
-		this.cardNegative = cardNegative;
+	public void setPostDuties(String postDuties) {
+		this.postDuties = postDuties;
 	}
 
-	public String getQualificationCertificate() {
-		return qualificationCertificate;
+	public String getJobRequirements() {
+		return jobRequirements;
 	}
 
-	public void setQualificationCertificate(String qualificationCertificate) {
-		this.qualificationCertificate = qualificationCertificate;
-	}
-
-	public String getProfessionalCertificate() {
-		return professionalCertificate;
-	}
-
-	public void setProfessionalCertificate(String professionalCertificate) {
-		this.professionalCertificate = professionalCertificate;
+	public void setJobRequirements(String jobRequirements) {
+		this.jobRequirements = jobRequirements;
 	}
 
 	public Boolean getDeleted() {
@@ -212,6 +206,22 @@ public class MedicalDoctorAuthenticationInformation extends Model<MedicalDoctorA
 		this.remark = remark;
 	}
 
+	public Boolean getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(Boolean recommend) {
+		this.recommend = recommend;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -219,14 +229,13 @@ public class MedicalDoctorAuthenticationInformation extends Model<MedicalDoctorA
 
 	@Override
 	public String toString() {
-		return "MedicalDoctorAuthenticationInformationVo{" +
+		return "MedicalHospitalRecruitVo{" +
 			", id=" + id +
-			", headPortrait=" + headPortrait +
-			", titleProve=" + titleProve +
-			", cardPositive=" + cardPositive +
-			", cardNegative=" + cardNegative +
-			", qualificationCertificate=" + qualificationCertificate +
-			", professionalCertificate=" + professionalCertificate +
+			", hospitalId=" + hospitalId +
+			", position=" + position +
+			", years=" + years +
+			", postDuties=" + postDuties +
+			", jobRequirements=" + jobRequirements +
 			", deleted=" + deleted +
 			", status=" + status +
 			", createTime=" + createTime +
@@ -235,6 +244,8 @@ public class MedicalDoctorAuthenticationInformation extends Model<MedicalDoctorA
 			", updatePerson=" + updatePerson +
 			", version=" + version +
 			", remark=" + remark +
+			", recommend=" + recommend +
+			", sort=" + sort +
 			"}";
 	}
 }

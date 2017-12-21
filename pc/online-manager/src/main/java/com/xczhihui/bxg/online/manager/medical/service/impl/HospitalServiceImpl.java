@@ -40,18 +40,6 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
     	return page;
 
 	}
-//
-//	@Override
-//	public List<MedicalHospital> list(String MedicalHospitalType) {
-//		String sql="select *,grade_name as MedicalHospitalName from oe_MedicalHospital where is_delete=0 and status=1 ";
-//		Map<String,Object> params=new HashMap<String,Object>();
-//		if(MedicalHospitalType != null && !"".equals(MedicalHospitalType)){
-//			sql += " and MedicalHospital_type = :MedicalHospitalType ";
-//			params.put("MedicalHospitalType", MedicalHospitalType);
-//		}
-//		List<MedicalHospital> voList=dao.findEntitiesByJdbc(MedicalHospital.class, sql, params);
-//		return voList;
-//	}
 
 	@Override
 	public void addMedicalHospital(MedicalHospital medicalHospital) {
@@ -72,7 +60,69 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 	public void updateMedicalHospitalRecruit(MedicalHospitalRecruit medicalHospitalRecruit) {
 		dao.update(medicalHospitalRecruit);
 	}
-	
+
+	@Override
+	public void updateRecruitStatus(String id) {
+		String hql="from MedicalHospitalRecruit where 1=1 and deleted=0 and id = ?";
+		MedicalHospitalRecruit medicalHospitalRecruit= dao.findByHQLOne(hql, new Object[]{id});
+
+		if(medicalHospitalRecruit.getStatus()){
+			medicalHospitalRecruit.setStatus(false);
+		}else{
+			medicalHospitalRecruit.setStatus(true);
+		}
+
+		dao.update(medicalHospitalRecruit);
+	}
+
+	@Override
+	public void deletesRecruit(String[] ids) {
+		for(String id:ids){
+			String hqlPre="from MedicalHospitalRecruit where id = ?";
+			MedicalHospitalRecruit medicalHospitalRecruit= dao.findByHQLOne(hqlPre,new Object[] {id});
+			if(medicalHospitalRecruit !=null){
+				medicalHospitalRecruit.setDeleted(true);
+				dao.update(medicalHospitalRecruit);
+			}
+		}
+	}
+
+	@Override
+	public void updateSortDown(String id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from MedicalHospitalRecruit where  deleted=0 and id = ?";
+		MedicalHospitalRecruit medicalHospitalRecruit= dao.findByHQLOne(hqlPre,new Object[] {id});
+		Integer medicalHospitalPreSort=medicalHospitalRecruit.getSort();
+
+		String hqlNext="from MedicalHospitalRecruit where sort < (select sort from MedicalHospitalRecruit where id= ? )  and deleted=0 and hospital_id = '"+medicalHospitalRecruit.getHospitalId()+"' order by sort desc";
+		MedicalHospitalRecruit medicalHospitalRecruitNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		Integer medicalHospitalNextSort=medicalHospitalRecruitNext.getSort();
+
+		medicalHospitalRecruit.setSort(medicalHospitalNextSort);
+		medicalHospitalRecruitNext.setSort(medicalHospitalPreSort);
+
+		dao.update(medicalHospitalRecruit);
+		dao.update(medicalHospitalRecruitNext);
+	}
+
+	@Override
+	public void updateSortUp(String id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from MedicalHospitalRecruit where  deleted=0 and id = ?";
+		MedicalHospitalRecruit medicalHospitalRecruit= dao.findByHQLOne(hqlPre,new Object[] {id});
+		Integer medicalHospitalPreSort=medicalHospitalRecruit.getSort();
+
+		String hqlNext="from MedicalHospitalRecruit where sort > (select sort from MedicalHospitalRecruit where id= ? )  and deleted=0  and hospital_id = '"+medicalHospitalRecruit.getHospitalId()+"'order by sort asc";
+		MedicalHospitalRecruit medicalHospitalRecruitNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		Integer medicalHospitalNextSort=medicalHospitalRecruitNext.getSort();
+
+		medicalHospitalRecruit.setSort(medicalHospitalNextSort);
+		medicalHospitalRecruitNext.setSort(medicalHospitalPreSort);
+
+		dao.update(medicalHospitalRecruit);
+		dao.update(medicalHospitalRecruitNext);
+	}
+
 	@Override
 	public void updateRecImgPath(MedicalHospital MedicalHospital) {
 //		MedicalHospital MedicalHospital = dao.findOneEntitiyByProperty(MedicalHospital.class, "id", MedicalHospital.getId());
@@ -288,6 +338,17 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 		medicalHospitalRecruit.setCreateTime(new Date());
 		medicalHospitalRecruit.setStatus(false);
 		medicalHospitalRecruit.setDeleted(false);
+
+		Map<String,Object> params=new HashMap<String,Object>();
+		String sql="SELECT IFNULL(MAX(sort),0) as sort FROM medical_hospital_recruit where deleted=0 and hospital_id = '"+medicalHospitalRecruit.getHospitalId()+"'";
+		List<MedicalHospitalRecruit> temp = dao.findEntitiesByJdbc(MedicalHospitalRecruit.class, sql, params);
+		int sort;
+		if(temp.size()>0){
+			sort=temp.get(0).getSort().intValue()+1;
+		}else{
+			sort=1;
+		}
+		medicalHospitalRecruit.setSort(sort);
 		dao.save(medicalHospitalRecruit);
 	}
 }

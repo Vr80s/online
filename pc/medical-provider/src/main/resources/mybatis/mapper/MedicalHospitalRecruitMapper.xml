@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.hospital.mapper.MedicalHospitalRecruitMapper">
+	<select id="selectRecHospitalRecruit" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVo">
+		SELECT
+		  mhr.id,
+		  mhr.`position`,
+		  mhr.years,
+		  mhr.`job_requirements` jobRequirements,
+		  mhr.`post_duties` postDuties,
+		  mh.`name` hospitalName,
+		  mh.id hospitalId
+		FROM
+		  medical_hospital_recruit mhr
+		  LEFT JOIN `medical_hospital` mh
+			ON mhr.`hospital_id` = mh.`id`
+		WHERE mhr.deleted = 0
+		AND mhr.`status`=1
+		  AND mh.`deleted` = 0
+		  AND mh.`status` = 1
+		ORDER BY mhr.create_time DESC
+		LIMIT 0, 7
+	</select>
+
+	<select id="selectHospitalRecruitByHospitalId" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVo">
+		SELECT
+		  mhr.id,mhr.`position`,
+		  mhr.years,
+		  mhr.`job_requirements` jobRequirements,
+		  mhr.`post_duties` postDuties
+		FROM
+		  medical_hospital_recruit mhr
+		WHERE mhr.deleted = 0
+		  AND mhr.`status`=1
+		  AND mhr.hospital_id = #{hospitalId}
+		  ORDER BY mhr.`sort` DESC
+	</select>
+
+</mapper>

@@ -5,6 +5,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 import com.xczhihui.bxg.online.manager.utils.Group;
@@ -263,9 +264,9 @@ public class DoctorController extends AbstractController{
 	@RequestMapping(value = "updateMedicalHospitalDoctor", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateMedicalHospitalDoctor(String doctorId, String hospitalId){
-		if(hospitalId==null || "".equals(hospitalId)){
-			return ResponseObject.newErrorResponseObject("必须选择一个医馆才能保存！");
-		}
+//		if(hospitalId==null || "".equals(hospitalId)){
+//			return ResponseObject.newErrorResponseObject("必须选择一个医馆才能保存！");
+//		}
 		doctorService.updateMedicalHospitalDoctorDetail(doctorId,hospitalId);
 		return ResponseObject.newSuccessResponseObject("修改成功！");
 	}
@@ -361,4 +362,42 @@ public class DoctorController extends AbstractController{
 		return responseObj;
 	}
 
+
+	@RequestMapping(value = "allListForArticle")
+	@ResponseBody
+	public List<MedicalDoctor> allListForArticle(String articleId) {
+
+		List<MedicalDoctor> allField = doctorService.findAllDoctor(articleId);
+
+		return allField;
+	}
+
+	@RequestMapping(value = "addDoctorAuthorArticle", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject addDoctorAuthorArticle(String id,String[] doctorId) {
+		ResponseObject responseObject=new ResponseObject();
+		doctorService.addDoctorAuthorArticle(id,doctorId);
+		responseObject.setSuccess(true);
+		responseObject.setResultObject("医师作者配置成功！");
+		return responseObject;
+	}
+
+	@RequestMapping(value = "allListForReport")
+	@ResponseBody
+	public List<MedicalDoctor> allListForReport(String articleId) {
+
+		List<MedicalDoctor> allField = doctorService.allListForReport(articleId);
+
+		return allField;
+	}
+
+	@RequestMapping(value = "addDoctorReport", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject addDoctorReport(String id,String[] doctorIds) {
+		ResponseObject responseObject=new ResponseObject();
+		doctorService.addDoctorReport(id,doctorIds);
+		responseObject.setSuccess(true);
+		responseObject.setResultObject("报道-医师关联成功！");
+		return responseObject;
+	}
 }

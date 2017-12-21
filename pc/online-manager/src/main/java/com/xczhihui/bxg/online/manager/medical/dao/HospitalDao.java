@@ -97,7 +97,11 @@ public class HospitalDao extends HibernateDao<MedicalHospital>{
 			paramMap.put("status", medicalHospitalRecruit.getStatus());
 			sql.append(" and status = :status ");
 		}
-		sql.append(" order by status desc");
+		if (medicalHospitalRecruit.getPosition() != null) {
+			paramMap.put("position", "%"+medicalHospitalRecruit.getPosition()+"%");
+			sql.append(" and position like :position ");
+		}
+		sql.append(" order by status desc,sort desc");
 		Page<MedicalHospitalRecruit> medicalHospitalRecruits = this.findPageBySQL(sql.toString(), paramMap, MedicalHospitalRecruit.class, pageNumber, pageSize);
 		return medicalHospitalRecruits;
 	}

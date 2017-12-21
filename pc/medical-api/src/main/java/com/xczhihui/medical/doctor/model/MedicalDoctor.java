@@ -281,7 +281,7 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 
 	@Override
 	public String toString() {
-		return "MedicalDoctor{" +
+		return "MedicalDoctorVo{" +
 			", id=" + id +
 			", name=" + name +
 			", title=" + title +

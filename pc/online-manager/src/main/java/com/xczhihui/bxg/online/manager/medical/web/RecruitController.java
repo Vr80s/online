@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 /**
  * 简历管理控制层实现类
@@ -37,7 +38,7 @@ public class RecruitController extends AbstractController{
 
 	@RequestMapping(value = "list")
 	@ResponseBody
-	public TableVo MedicalHospitals(TableVo tableVo) {
+	public TableVo MedicalHospitalRecruits(TableVo tableVo) {
 	      int pageSize = tableVo.getiDisplayLength();
           int index = tableVo.getiDisplayStart();
           int currentPage = index / pageSize + 1;
@@ -46,13 +47,17 @@ public class RecruitController extends AbstractController{
           
           MedicalHospitalRecruit searchVo=new MedicalHospitalRecruit();
 //          Group MedicalHospitalName = groups.findByName("search_courseName");
-          Group MedicalHospitalId = groups.findByName("hospitalId");
+		  Group MedicalHospitalId = groups.findByName("hospitalId");
+          Group MedicalHospitalRecruitName = groups.findByName("search_recruitName");
           Group medicalHospitalStatus = groups.findByName("search_status");
 //          if (MedicalHospitalName != null) {
 //        	  searchVo.setName(MedicalHospitalName.getPropertyValue1().toString());
 //          }
           if (MedicalHospitalId != null) {
         	  searchVo.setHospitalId(MedicalHospitalId.getPropertyValue1().toString());
+          }
+          if (MedicalHospitalRecruitName != null) {
+        	  searchVo.setPosition(MedicalHospitalRecruitName.getPropertyValue1().toString());
           }
           if (medicalHospitalStatus != null) {
 			  searchVo.setStatusnum(Integer.valueOf(medicalHospitalStatus.getPropertyValue1().toString()));
@@ -106,7 +111,7 @@ public class RecruitController extends AbstractController{
 	
 	/**
 	 * 编辑
-	 * @param medicalHospital
+	 * @param medicalHospitalRecruit
 	 * @return
 	 */
 	@RequestMapping(value = "updateMedicalHospitalRecruitById", method = RequestMethod.POST)
@@ -118,7 +123,8 @@ public class RecruitController extends AbstractController{
 			 	old.setPosition(medicalHospitalRecruit.getPosition());
 			 	old.setJobRequirements(medicalHospitalRecruit.getJobRequirements());
 			 	old.setPostDuties(medicalHospitalRecruit.getPostDuties());
-			 	old.setUpdateTime(medicalHospitalRecruit.getUpdateTime());
+			 	old.setYears(medicalHospitalRecruit.getYears());
+			 	old.setUpdateTime(new Date());
 			 	hospitalService.updateMedicalHospitalRecruit(old);
 	            responseObj.setSuccess(true);
 	            responseObj.setErrorMessage("修改成功");
@@ -135,10 +141,10 @@ public class RecruitController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "updateStatus", method = RequestMethod.POST)
+	@RequestMapping(value = "updateRecruitStatus", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStatus(String id){
-		hospitalService.updateStatus(id);
+    public ResponseObject updateRecruitStatus(String id){
+		hospitalService.updateRecruitStatus(id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 
@@ -147,7 +153,7 @@ public class RecruitController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "deleteMedicalHospitalById", method = RequestMethod.POST)
+	@RequestMapping(value = "deleteMedicalHospitalRecruitById", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject deleteMedicalHospitalById(String id){
 		hospitalService.deleteMedicalHospitalById(id);
@@ -160,37 +166,13 @@ public class RecruitController extends AbstractController{
          ResponseObject responseObject=new ResponseObject();
          if(ids!=null) {
               String[] _ids = ids.split(",");
-              hospitalService.deletes(_ids);
+              hospitalService.deletesRecruit(_ids);
          }
          responseObject.setSuccess(true);
          responseObject.setErrorMessage("删除成功!");
          return responseObject;
     }
 
-    @RequestMapping(value = "getHospitalDetail", method = RequestMethod.POST)
-	@ResponseBody
-	 public ResponseObject getMedicalHospitalDetail(String medicalHospitalId){
-    	return ResponseObject.newSuccessResponseObject(hospitalService.getMedicalHospitalDetail(medicalHospitalId));
-    }
-    
-    /**
-     * 添加课程详情
-     * @return
-     */
-	@RequestMapping(value = "updateMedicalHospitalDetail", method = RequestMethod.POST)
-	@ResponseBody
-	 public ResponseObject updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5){
-//		hospitalService.updateMedicalHospitalDetail(medicalHospitalId, picture1, picture2, picture3, picture4, picture5, picture6, picture7, picture8, picture9);
-        return ResponseObject.newSuccessResponseObject("修改成功！");
-    }
-
-
-	@RequestMapping(value = "hospitalDetail")
-	public String hospitalDetail(HttpServletRequest request) {
-
-		request.setAttribute("weburl", weburl);
-		return CLOUD_CLASS_PATH_PREFIX + "/hospitalDetail";
-	}
 
 	@RequestMapping(value = "updateRec")
 	@ResponseBody
@@ -242,6 +224,34 @@ public class RecruitController extends AbstractController{
 		tableVo.setiTotalRecords(total);
 		return tableVo;
 
+	}
+
+	/**
+	 * 上移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "upMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject upMove(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		hospitalService.updateSortUp(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
+	/**
+	 * 下移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "downMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject downMove(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		hospitalService.updateSortDown(id);
+		responseObj.setSuccess(true);
+		return responseObj;
 	}
 
 	/**

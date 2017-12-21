@@ -77,6 +77,8 @@ public class ArticleVo  extends OnlineBaseVo{
 	 * 作者
 	 */
 	private String author;
+	private String doctorAuthor;
+	private String reportDoctor;
 	/**
 	 * sort
 	 */
@@ -88,7 +90,31 @@ public class ArticleVo  extends OnlineBaseVo{
 	 */
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date createTime;
-	
+
+	public String getReportDoctor() {
+		return reportDoctor;
+	}
+
+	public void setReportDoctor(String reportDoctor) {
+		this.reportDoctor = reportDoctor;
+	}
+
+	public Boolean getRecommend() {
+		return isRecommend;
+	}
+
+	public void setRecommend(Boolean recommend) {
+		isRecommend = recommend;
+	}
+
+	public String getDoctorAuthor() {
+		return doctorAuthor;
+	}
+
+	public void setDoctorAuthor(String doctorAuthor) {
+		this.doctorAuthor = doctorAuthor;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}

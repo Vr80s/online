@@ -3,6 +3,7 @@ package com.xczhihui.medical.hospital.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
@@ -13,7 +14,7 @@ import test.BaseJunit4Test;
  * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
  * Create Time: 下午 6:08 2017/12/9 0009<br>
  */
-public class MedicalHospitalTest  extends BaseJunit4Test {
+public class MedicalHospitalVoTest extends BaseJunit4Test {
 
 //    @Autowired //自动注入
 //    private IUserService iUserService;
@@ -37,8 +38,8 @@ public class MedicalHospitalTest  extends BaseJunit4Test {
 //    @Rollback(false)  //标明使用完此方法后事务不回滚,true时为回滚
     public void test2(){
 //        System.out.println("测试iMedicalHospitalService");
-//        List<MedicalHospital> medicalHospitals = iMedicalHospitalBusinessService.selectList(null);
-//        for (MedicalHospital medicalHospital : medicalHospitals) {
+//        List<MedicalHospitalVo> medicalHospitals = iMedicalHospitalBusinessService.selectList(null);
+//        for (MedicalHospitalVo medicalHospital : medicalHospitals) {
 //            System.out.println(medicalHospital.toString());
 //        }
     }
@@ -49,11 +50,11 @@ public class MedicalHospitalTest  extends BaseJunit4Test {
 //    @Rollback(false)  //标明使用完此方法后事务不回滚,true时为回滚
     public void test3(){
         System.out.println("测试iMedicalHospitalService");
-        Page<MedicalHospital> page = new Page<>();
+        Page<MedicalHospitalVo> page = new Page<>();
         page.setCurrent(1);
         page.setSize(5);
-        Page<MedicalHospital> medicalHospitalPage = iMedicalHospitalBusinessService.selectHospitalPage(page,"www", "");
-        for (MedicalHospital medicalHospital : medicalHospitalPage.getRecords()) {
+        Page<MedicalHospitalVo> medicalHospitalPage = iMedicalHospitalBusinessService.selectHospitalPage(page,"www", "");
+        for (MedicalHospitalVo medicalHospital : medicalHospitalPage.getRecords()) {
             System.out.println(medicalHospital.toString());
         }
     }

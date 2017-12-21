@@ -475,19 +475,19 @@
 <script src="${base}/js/layer/layer.js"></script>
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-	当前位置：简历管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-</small> <span> 简历管理 </span>
+	当前位置：招聘管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+</small> <span> 招聘管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
 	<%--<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">--%>
 		<%--<li role="presentation" class="active">
 			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">简历管理</a>
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">招聘管理</a>
 		</li>--%>
 		<%--<li role="presentation">
 			<a href="#box_px" aria-controls="box_px" class="kctj_bx" role="tab" onclick="updateRec(null,1)"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">简历推荐</a>
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">招聘推荐</a>
 		</li>--%>
 		<%--<li role="presentation">--%>
 		<%--<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"--%>
@@ -517,8 +517,8 @@
 							<tr>
 								<td>
 									<div class="profile-info-value searchTr">
-										<input type="text" placeholder = "简历名" class="propertyValue1" id="search_courseName" style="width: 150px;">
-										<input type="hidden" value="search_courseName" class="propertyName"/>
+										<input type="text" placeholder = "职位名" class="propertyValue1" id="search_recruitName" style="width: 150px;">
+										<input type="hidden" value="search_recruitName" class="propertyName"/>
 									</div>
 								</td>
 								<td>
@@ -657,12 +657,12 @@
 
 <!-- 修改form -->
 <div id="dialogEditCourseDiv"></div>
-<div id="EditCourseDialog" class="hide">
+<div id="EditRecruitDialog" class="hide">
 	<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
 		<div class="form-group" style="margin-top: 18px;">
 			<label class="col-sm-3 control-label no-padding-right" for="position"><font color="red">*</font>职位: </label>
 			<div class="col-sm-6">
-				<input type="text" name="name"  id="edit_position" maxlength="30"  class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:30}">
+				<input type="text" name="position"  id="edit_position" maxlength="30"  class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:30}">
 				<input type="hidden" name="id"  id="edit_id" maxlength="32"  class="col-xs-10 col-sm-12 {required:true}">
 			</div>
 		</div>
