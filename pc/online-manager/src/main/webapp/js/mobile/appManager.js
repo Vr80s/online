@@ -131,6 +131,9 @@ function loadMobileBannerList(){
  	mobileBannerForm.resetForm();
  	$(".clearfixAdd").remove();
 
+ 	$("#kewudeie").hide();
+ 	$("#add_imgPath").val("");
+ 	
  	var dialog = openDialog("addMobileBannerDialog","dialogAddMobileBannerDiv","新增",580,500,true,"确定",function(){
  		if($("#addMobileBanner-form").valid()){
  			 mask();
@@ -213,19 +216,35 @@ function updateStatus(obj,status){
 
 //图片上传统一上传到附件中心---- 修改  列表页
 $("#addMobileBanner-form").on("change","#imgPath_file",function(){
- 	var v = this.value.split(".")[1].toUpperCase();
-// 	if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
-// 		layer.alert("图片格式错误,请重新选择.");
-// 		this.value="";
-// 		return;
-// 	}
+	var ys_name = "";
+	ys_name = this.value;
+	
+	var nameArr = ys_name.split(".");        //截取路径
+	var name = nameArr[nameArr.length - 1]; //获取文件的名字
+ 	var v = name.toUpperCase();
+ 	if(v!='APK'){
+ 		layer.alert("错误的安装包文件,请重新选择.");
+ 		this.value="";
+ 		return;
+ 	}
  	var id = $(this).attr("id");
- 	 mask();
+    mask();
  	ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=2", function(data){
  		unmask();
  		if (data.error == 0) {
  			debugger
  			$("#add_imgPath").val(data.url);
+ 			
+ 			$("#kewudeie").show();
+ 			
+ 			
+ 			 var urlArr = ys_name.split("\\");        //截取路径
+ 			 var getName = urlArr[urlArr.length - 1]; //获取文件的名字
+ 			 $("#jia_imgPath_file").val(getName);
+ 			
+ 			$("#ys_filename").text(getName);
+ 			$("#xz_fileurl").text(data.url);
+ 			
  			document.getElementById("imgPath_file").focus();
  			document.getElementById("imgPath_file").blur();
  			$(".remove").hide();

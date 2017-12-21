@@ -86,6 +86,8 @@ public class UserDataVo {
 	 * 详细地址
 	 */
 	private String fullAddress;
+	
+	private String countyName;
 
 
 	public String getIdCardNo() {
@@ -316,4 +318,14 @@ public class UserDataVo {
 	public void setFullAddress(String fullAddress) {
 		this.fullAddress = fullAddress;
 	}
+
+	public String getCountyName() {
+		return countyName;
+	}
+
+	public void setCountyName(String countyName) {
+		this.countyName = countyName;
+	}
+
+	
 }

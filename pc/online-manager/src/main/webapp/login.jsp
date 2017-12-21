@@ -21,6 +21,11 @@
         padding: 0px;
         margin: 0px;
     }
+    .login{
+    	background:url("${contextPath}/images/login-bg.png") no-repeat center;
+    	background-size: cover;
+    	height: 100%;
+    }
         .logheader{
              width: 269px;
             height: 64px;
@@ -34,7 +39,7 @@
         .logbanner{
            width: 100%;
             height: 457px;
-            background: #614eaf;
+
         }
         .banimg{
             margin: 0 auto;width:1339px;
@@ -49,11 +54,12 @@
             background: #fff;
             position: absolute;
             z-index: 3;
-            top: 64px;
+            top:160px;
             left: 910px;
         }
         .logform h3{
             margin: 23px 20px;
+            text-align: center;
         }
         .loginm div{
             height: 38px;
@@ -89,7 +95,7 @@
         }
 
         .loginBtn{
-             background: #614eaf;
+             background:#72a571;
             border: none;
             border-radius: 6px;
             width: 300px;
@@ -97,12 +103,15 @@
             color: #fff;
             font-size: 24px;line-height: 40px;
             cursor: pointer;
+            
         }
 
         .foot{
-            text-align: center;
-            line-height: 20px;
-            font-size: 12px;
+           	 font-size: 15px;
+                position: fixed;
+			    left: 50%;
+			    margin-left: -100px;
+			    bottom: 14%;
         }
         
         .errorInfo{
@@ -113,9 +122,9 @@
 </head>
 <body>
 <div class="login">
-    <p class="logheader">
+    <!--<p class="logheader">
     	<img  src="${base}/images/logo_1.png" style="height: 75;">
-    </p>
+    </p>-->
     <div class="logban">
         <div class="logbanner" >
            <div class="banimg">

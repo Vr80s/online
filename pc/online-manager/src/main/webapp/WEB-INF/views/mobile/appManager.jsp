@@ -85,8 +85,13 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
 			 <div class="col-sm-6">
-						<input type="file" name="filename" id="imgPath_file"/>
-					<input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
+					 <input type="file" name="filename1" id="imgPath_file"/>
+					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
+					 <div id="kewudeie" style="padding-top:20px;">
+					 <p><span>原始文件名：</span><span id="ys_filename"></span></p>
+					 <p><span>下载地址：</span><p id="xz_fileurl" style="word-wrap: break-word;word-break: normal;"></p></p>
+					 </div>
+					 <input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
              </div>
 		</div>
 	    <div class="space-4"></div>

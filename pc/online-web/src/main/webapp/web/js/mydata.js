@@ -729,6 +729,11 @@ function addgetdata() { //回填数据
 	if(data.resultObject.city != ''&&data.resultObject.city != null){
 		$('.City1 option:selected').text(data.resultObject.city)
 	}
+	debugger;
+	//城市渲染
+	if(data.resultObject.countyName != ''&&data.resultObject.countyName != null){
+		$('.District1 option:selected').text(data.resultObject.countyName);
+	}
 	
 
 
@@ -1914,6 +1919,8 @@ function geren() {
 			province: $('.Province1  option:selected').text(),
 //			district: $(".City1").attr("value"),
 			city: $('.City1  option:selected').text(),
+			countyName: $('.District1  option:selected').text(),
+			
 			fullAddress: $(".menpaihao").val(),
 			sex:sex,
 			occupationOther:$('.zhiYe').val(),

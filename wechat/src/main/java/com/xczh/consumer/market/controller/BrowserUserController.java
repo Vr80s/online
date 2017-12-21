@@ -498,7 +498,7 @@ public class BrowserUserController {
 			 *  用户名、 密码、昵称、性别、邮箱、手机号
 			 *  第三方登录的用户名和密码是opendi
 			 */
-			userCenterAPI.regist(openid_, unionid_,SLEmojiFilter.filterEmoji(nickname_), UserSex.parse(Integer.parseInt(sex_)), null,
+			userCenterAPI.regist(openid_, unionid_,nickname_, UserSex.parse(Integer.parseInt(sex_)), null,
 					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
 			
 			ItcastUser iu =  userCenterAPI.getUser(openid_);
@@ -606,6 +606,7 @@ public class BrowserUserController {
 			/**
 			 * 通过微信得到用户基本信息
 			 */
+			
 			String user_buffer =  CommonUtil.getUserInfo(access_token,openid);
 			JSONObject jsonObject = JSONObject.parseObject(user_buffer);//Map<String, Object> user_info =GsonUtils.fromJson(user_buffer, Map.class);
 			String openid_ = (String)jsonObject.get("openid");
@@ -617,6 +618,8 @@ public class BrowserUserController {
 			String country_ = (String)jsonObject.get("country");
 			String headimgurl_ = (String)jsonObject.get("headimgurl");
 			String unionid_ = (String)jsonObject.get("unionid");
+			
+			nickname_= SLEmojiFilter.filterEmoji(nickname_);
 			
 			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid);
 			/**
