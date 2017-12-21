@@ -72,6 +72,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info, ");
 		sql.append(" vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName, ");
+		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
@@ -96,6 +97,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" ,share_code as shareCode,change_time as changeTime,origin,type, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where name = ?  ");
 		Object params[] = { name };
@@ -242,17 +244,19 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("nickname").equals(original.getName())) {
 			sb.append(" name ='" + map.get("nickname") + "',");
 		}
-		if (StringUtils.hasText(map.get("provinceId"))
-				&& !map.get("provinceId").equals(original.getProvince())) {
-			sb.append(" region_area_id = '" + map.get("provinceId") + "',");
+		
+		
+		if (StringUtils.hasText(map.get("province"))
+				&& !map.get("province").equals(original.getProvince())) {
+			sb.append(" region_area_id = '" + map.get("province") + "',");
 		}
-		if (StringUtils.hasText(map.get("cityId"))
-				&& !map.get("cityId").equals(original.getCity())) {
-			sb.append(" region_city_id = '" + map.get("cityId") + "',");
+		if (StringUtils.hasText(map.get("city"))
+				&& !map.get("city").equals(original.getCity())) {
+			sb.append(" region_city_id = '" + map.get("city") + "',");
 		}
-		if (StringUtils.hasText(map.get("countyId"))
-				&& !map.get("countyId").equals(original.getCity())) {
-			sb.append(" region_id = '" + map.get("countyId") + "',");
+		if (StringUtils.hasText(map.get("district"))
+				&& !map.get("district").equals(original.getCity())) {
+			sb.append(" region_id = '" + map.get("district") + "',");
 		}
 		if (StringUtils.hasText(map.get("provinceName"))
 				&& !map.get("provinceName").equals(original.getProvince())) {
@@ -310,6 +314,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,occupation,occupation_other as occupationOther,");
 		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info,is_lecturer as isLecturer,");
+		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { userId };
@@ -400,6 +405,9 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		
+		sql.append(" county_name as countyName, ");
+		
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 
 		sql.append(" from oe_user where union_id = ?  ");

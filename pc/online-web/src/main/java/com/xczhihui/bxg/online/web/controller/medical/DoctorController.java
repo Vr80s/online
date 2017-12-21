@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class DoctorController {
      **/
     @RequestMapping(value = "/getDoctors",method= RequestMethod.GET)
     public ResponseObject getDoctors(Integer current,Integer size,Integer type,String hospitalId,String name,String field){
-        Page<MedicalDoctor> page = new Page<>();
+        Page<MedicalDoctorVo> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page,type,hospitalId,name,field));
@@ -56,5 +56,46 @@ public class DoctorController {
     @ResponseBody
     public ResponseObject getHotField(){
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotField());
+    }
+
+    /**
+     * 根据医师id获取相关医师报道
+     * @return
+     */
+    @RequestMapping(value = "getNewsReports")
+    @ResponseBody
+    public ResponseObject getNewsReports(String doctorId){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getNewsReports(doctorId));
+    }
+
+    /**
+     * 根据报道id获取相关医师报道详情
+     * @return
+     */
+    @RequestMapping(value = "getNewsReportByArticleId")
+    @ResponseBody
+    public ResponseObject getNewsReportByArticleId(String articleId){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getNewsReportByArticleId(articleId));
+    }
+
+
+    /**
+     * 根据医师id获取相关医师报道
+     * @return
+     */
+    @RequestMapping(value = "getSpecialColumnByDoctorId")
+    @ResponseBody
+    public ResponseObject getSpecialColumnByDoctorId(String doctorId){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getSpecialColumnByDoctorId(doctorId));
+    }
+
+    /**
+     * 根据专栏文章id获取文章内容详情
+     * @return
+     */
+    @RequestMapping(value = "getSpecialColumnDetailsById")
+    @ResponseBody
+    public ResponseObject getSpecialColumnDetailsById(String articleId){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getSpecialColumnDetailsById(articleId));
     }
 }

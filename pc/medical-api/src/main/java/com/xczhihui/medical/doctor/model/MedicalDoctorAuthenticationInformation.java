@@ -219,7 +219,7 @@ public class MedicalDoctorAuthenticationInformation extends Model<MedicalDoctorA
 
 	@Override
 	public String toString() {
-		return "MedicalDoctorAuthenticationInformation{" +
+		return "MedicalDoctorAuthenticationInformationVo{" +
 			", id=" + id +
 			", headPortrait=" + headPortrait +
 			", titleProve=" + titleProve +

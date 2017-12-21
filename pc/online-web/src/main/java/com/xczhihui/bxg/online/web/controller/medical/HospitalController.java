@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class HospitalController {
      **/
     @RequestMapping(value = "/getHospitals",method= RequestMethod.GET)
     public ResponseObject getHospitals(Integer current,Integer size,String name,String field){
-        Page<MedicalHospital> page = new Page<>();
+        Page<MedicalHospitalVo> page = new Page<>();
 
         page.setCurrent(current);
         page.setSize(size);

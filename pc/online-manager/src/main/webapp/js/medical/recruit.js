@@ -7,7 +7,7 @@ var studyDayForm;//设置学习计划模板表单
 
 var _courseRecTable;//课程推荐列表
 
-var hospitalId =
+// var hospitalId =
 
 $(function(){
     // document.onkeydown=function(event){
@@ -62,18 +62,18 @@ $(function(){
                 return data="<span name='zt'>已禁用</span>";
             }
         } },
-        /*{"sortable": false,"class": "center","width":"5%","title":"排序","mRender":function (data, display, row) {
+        {"sortable": false,"class": "center","width":"5%","title":"排序","mRender":function (data, display, row) {
     //    	debugger;
-    //    	if(row.status=="1"){
+       	if(row.status=="1"){
                 return '<div class="hidden-sm hidden-xs action-buttons">'+
                 '<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
                 '<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    //    	}else{
-    //    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-    //    		'<a class="gray" href="javascript:void(-1);" title="上移" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-    //    		'<a class="gray" href="javascript:void(-1);" title="下移" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-    //    	}
-        }},*/
+       	}else{
+       		return '<div class="hidden-sm hidden-xs action-buttons">'+
+       		'<a class="gray" href="javascript:void(-1);" title="上移" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+       		'<a class="gray" href="javascript:void(-1);" title="下移" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+       	}
+        }},
         { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
             if(row.status){
                 return '<div class="hidden-sm hidden-xs action-buttons">'+
@@ -96,26 +96,26 @@ $(function(){
         }];
 
     P_courseTable = initTables("courseTable",basePath+"/medical/recruit/list",objData,true,true,0,null,searchCase_P,function(data){
-        // debugger;
-        // var iDisplayStart = data._iDisplayStart;
-        // var countNum = data._iRecordsTotal;//总条数
-        // pageSize = data._iDisplayLength;//每页显示条数
-        // currentPage = iDisplayStart / pageSize +1;//页码
-        // if(currentPage == 1){//第一页的第一行隐藏向上箭头
-        // 	$("#courseTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
-        // }
-        // if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
-        // 	$("#courseTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-        // }
-        // var countPage;
-        // if(countNum%pageSize == 0){
-        // 	countPage = parseInt(countNum/pageSize);
-        // }else{
-        // 	countPage = parseInt(countNum/pageSize) + 1;
-        // }
-        // if(countPage == currentPage){//隐藏最后一条数据下移
-        // 	$("#courseTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-        // }
+        debugger;
+        var iDisplayStart = data._iDisplayStart;
+        var countNum = data._iRecordsTotal;//总条数
+        pageSize = data._iDisplayLength;//每页显示条数
+        currentPage = iDisplayStart / pageSize +1;//页码
+        if(currentPage == 1){//第一页的第一行隐藏向上箭头
+        	$("#courseTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
+        }
+        if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
+        	$("#courseTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
+        }
+        var countPage;
+        if(countNum%pageSize == 0){
+        	countPage = parseInt(countNum/pageSize);
+        }else{
+        	countPage = parseInt(countNum/pageSize) + 1;
+        }
+        if(countPage == currentPage){//隐藏最后一条数据下移
+        	$("#courseTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
+        }
     });
     /** 招聘信息列表end */
 
@@ -480,6 +480,7 @@ $(".add_P").click(function(){
 function search_P(){
     var json = new Array();
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    json.push('{"tempMatchType":undefined,"propertyName":"hospitalId","propertyValue1":"'+hospitalId+'","tempType":undefined}');
     searchButton(P_courseTable,json);
 };
 /**
@@ -558,7 +559,7 @@ function toEdit(obj,status){
 
 
         var edit_title="修改招聘信息";
-        var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",edit_title,580,650,true,"确定",function(){
+        var dialog = openDialog("EditRecruitDialog","dialogEditCourseDiv",edit_title,580,650,true,"确定",function(){
             debugger
             $("#edit_realProvince").val($("#edit_province").find("option:selected").text());
             $("#edit_realCitys").val($("#edit_citys").find("option:selected").text());
@@ -566,7 +567,7 @@ function toEdit(obj,status){
             $("#edid_descriptionHid").val($("#edid_courseDescribe").val());
             if($("#updateCourse-form").valid()){
                 mask();
-                $("#updateCourse-form").attr("action", basePath+"/medical/recruit/updateMedicalHospitalById");
+                $("#updateCourse-form").attr("action", basePath+"/medical/recruit/updateMedicalHospitalRecruitById");
                 $("#updateCourse-form").ajaxSubmit(function(data){
                     try{
                         data = jQuery.parseJSON(jQuery(data).text());
@@ -577,7 +578,7 @@ function toEdit(obj,status){
                     unmask();
                     if(data.success){
 
-                        $("#EditCourseDialog").dialog("close");
+                        $("#EditRecruitDialog").dialog("close");
                         layer.msg(data.errorMessage);
                         if(edit_title=='修改招聘信息'){
                             freshTable(P_courseTable);
@@ -608,7 +609,7 @@ function updateStatus(obj,status){
     }else{
         row = M_courseTable.fnGetData(oo); // get datarow
     }
-    ajaxRequest(basePath+"/medical/recruit/updateStatus",{"id":row.id},function(){
+    ajaxRequest(basePath+"/medical/recruit/updateRecruitStatus",{"id":row.id},function(){
         if(status==1) {
             freshTable(P_courseTable);
         }else{

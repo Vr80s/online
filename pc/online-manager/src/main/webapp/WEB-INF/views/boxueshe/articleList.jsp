@@ -15,7 +15,7 @@
 <script src="${base}/js/layer/layer.js"></script>
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-  当前位置：博学社管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+  当前位置：头条管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
   <span>文章管理 </span>
 </div>
@@ -107,5 +107,25 @@
 			
 			</table>
 		</div>
-	</div>    
+	</div>
+    <!-- 查看 -->
+    <div id="childMenuDialogDiv"></div>
+    <div id="childMenuDialog" class="hide" >
+        <form class='form-horizontal' id="childMenu-form"  method="post"  action="">
+            <input type="hidden" name="id" id="parentId"/>
+            <div class='form-group'>
+                <div class='col-sm-3 control-label no-padding-right'><b>文章名称:</b></div>
+                <div id="child_MenuName" class='col-sm-8 paddingtop7px padding7'></div>
+            </div>
+            <div class='form-group'>
+                <div class='col-sm-3 control-label no-padding-right'><b>医师列表:</b></div>
+                <div class='col-sm-8'>
+                    <%--<input type="hidden" name="nouse" id="nouse" value="nouse" autofocus="autofocus">--%>
+                    <table id="childMenus">
+
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

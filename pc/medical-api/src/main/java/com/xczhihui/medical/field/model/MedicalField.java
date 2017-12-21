@@ -93,7 +93,7 @@ public class MedicalField extends Model<MedicalField> {
 
 	@Override
 	public String toString() {
-		return "MedicalField{" +
+		return "MedicalFieldVo{" +
 			", id=" + id +
 			", name=" + name +
 //			", parentId=" + parentId +

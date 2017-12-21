@@ -3,6 +3,7 @@ package com.xczhihui.medical.doctor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVo;
 
 /**
  * <p>
@@ -14,5 +15,5 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
  */
 public interface MedicalDoctorAuthenticationInformationMapper extends BaseMapper<MedicalDoctorAuthenticationInformation> {
 
-    MedicalDoctorAuthenticationInformation selectByDoctorId(String id);
+    MedicalDoctorAuthenticationInformationVo selectByDoctorId(String id);
 }

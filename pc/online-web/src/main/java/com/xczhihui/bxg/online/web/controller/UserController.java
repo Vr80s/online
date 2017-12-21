@@ -485,6 +485,16 @@ public class UserController extends OnlineBaseController {
 		String city = ServletRequestUtils.getStringParameter(request,
 				"city");
 		
+		String district = ServletRequestUtils.getStringParameter(request,
+				"district");
+		
+		
+		String provinceName = ServletRequestUtils.getStringParameter(request,
+				"provinceName");
+		
+		String cityName = ServletRequestUtils.getStringParameter(request,
+				"cityName");
+		
 		String countyName = ServletRequestUtils.getStringParameter(request,
 				"countyName");
 		
@@ -509,8 +519,14 @@ public class UserController extends OnlineBaseController {
 //		vo.setCompany(company);
 //		vo.setPosts(posts);
 //		vo.setJobyearId(jobyearId);
+		
 		vo.setProvince(province);
 		vo.setCity(city);
+		vo.setDistrict(district);
+		
+		
+		vo.setProvinceName(provinceName);
+		vo.setCityName(cityName);
 		vo.setCountyName(countyName);
 //		vo.setDistrict(district);
 		vo.setTarget(target);

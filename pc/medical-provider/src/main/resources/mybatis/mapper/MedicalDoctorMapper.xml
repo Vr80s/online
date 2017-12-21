@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper">
 
-	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
 		SELECT
 		  md.*,
 		  md.`work_time` workTime,
@@ -33,7 +33,7 @@
 		</if>
 	</select>
 
-	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
 		SELECT
 		md.*,
 		md.`work_time` workTime,
@@ -53,7 +53,7 @@
 		AND md.id = #{id}
 	</select>
 
-	<select id="getHotField" resultType="com.xczhihui.medical.field.model.MedicalField">
+	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVo">
 		SELECT
 		mf.id,mf.name
 		FROM
@@ -66,7 +66,7 @@
 	</select>
 
 
-	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
 		select
 		md.*,
 		mdai.head_portrait headPortrait
@@ -81,7 +81,7 @@
 		limit 0, 10
 	</select>
 
-	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.model.MedicalField">
+	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVo">
 		SELECT
 		  mf.name,
 		  mf.id

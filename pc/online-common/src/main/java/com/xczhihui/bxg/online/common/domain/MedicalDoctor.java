@@ -69,12 +69,23 @@ public class MedicalDoctor implements Serializable {
 	@Transient
 	private Integer statusnum;
 
+	@Transient
+	private boolean has;
+
 	private boolean recommend;
 
 	@Column(name="recommend_sort")
 	private Integer recommendSort;
 
 	public MedicalDoctor() {
+	}
+
+	public boolean isHas() {
+		return has;
+	}
+
+	public void setHas(boolean has) {
+		this.has = has;
 	}
 
 	public boolean isRecommend() {

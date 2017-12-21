@@ -2,12 +2,10 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
-import com.xczhihui.medical.field.model.MedicalField;
+import com.xczhihui.medical.field.vo.MedicalFieldVo;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
-import com.xczhihui.medical.hospital.mapper.MedicalHospitalPictureMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
-import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,30 +25,28 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     @Autowired
     private MedicalHospitalMapper medicalHospitalMapper;
-    @Autowired
-    private MedicalHospitalPictureMapper medicalHospitalPictureMapper;
 
 
-    public Page<MedicalHospital> selectHospitalPage(Page<MedicalHospital> page, String name, String field) {
+    public Page<MedicalHospitalVo> selectHospitalPage(Page<MedicalHospitalVo> page, String name, String field) {
         List<String> mhIds = medicalHospitalMapper.selectHospitalIdList(page, name, field);
-        List<MedicalHospital> medicalHospitals = medicalHospitalMapper.selectHospitalAndPictureList(mhIds);
+        List<MedicalHospitalVo> medicalHospitals = medicalHospitalMapper.selectHospitalAndPictureList(mhIds);
         page.setRecords(medicalHospitals);
         return page;
     }
 
     @Override
-    public MedicalHospital selectHospitalById(String id) {
-        MedicalHospital medicalHospital = medicalHospitalMapper.selectHospitalById(id);
-        return medicalHospital;
+    public MedicalHospitalVo selectHospitalById(String id) {
+        MedicalHospitalVo medicalHospitalVo = medicalHospitalMapper.selectHospitalById(id);
+        return medicalHospitalVo;
     }
 
     @Override
-    public List<MedicalHospital> selectRecHospital() {
+    public List<MedicalHospitalVo> selectRecHospital() {
         return medicalHospitalMapper.selectRecHospital();
     }
 
     @Override
-    public List<MedicalField> getHotField() {
+    public List<MedicalFieldVo> getHotField() {
         return medicalHospitalMapper.getHotField();
     }
 
