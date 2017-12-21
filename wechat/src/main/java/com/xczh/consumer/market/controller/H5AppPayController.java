@@ -111,6 +111,10 @@ public class H5AppPayController {
 		if (null == onlineOrder) {
 			return ResponseObject.newSuccessResponseObject(retobj);
 		}
+		if(onlineOrder.getActualPay() < (0.01d)){
+			return ResponseObject.newErrorResponseObject("金额必须大于等于0.01");
+		}
+		
 		Double actualPay = onlineOrder.getActualPay() * 100;
 		int price = actualPay.intValue();
 

@@ -41,11 +41,11 @@ public class VersionInfoVo implements Serializable {
         isMustUpdate = mustUpdate;
     }
 
-    public Boolean getUpdate() {
+    public Boolean getIsUpdate() {
         return isUpdate;
     }
 
-    public void setUpdate(Boolean update) {
+    public void setIsUpdate(Boolean update) {
         isUpdate = update;
     }
 

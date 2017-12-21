@@ -70,25 +70,38 @@ public class VersionController {
         }
 
         VersionInfoVo newVer=versionService.getNewVersion();
+        System.out.println("version:"+userVersion);
+        System.out.println("newVer.getVersion():"+newVer.getVersion());
+        
         VersionInfoVo defaultNoUpdateResult=new VersionInfoVo();
-        defaultNoUpdateResult.setUpdate(false);
+        defaultNoUpdateResult.setIsUpdate(false);
         if(newVer==null){
             return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
         }
-
-
         //对比版本号
         String newVersion=newVer.getVersion();
         int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);
         if (diff <= 0) {
             return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
         }
-        newVer.setUpdate(true);
+        newVer.setIsUpdate(true);
+        
         return ResponseObject.newSuccessResponseObject(newVer);
     }
 
 
 
+    public static void main(String[] args) {
+    	int diff = VersionCompareUtil.compareVersion("1.0.40","1.0.31");
+    	System.out.println(diff);
+        if (diff <= 0) {
+           System.out.println("=========一样了");
+        }else{
+        	System.out.println("=========新了");
+        }
+	}
+    
+    
     @RequestMapping("addTipOff")
 	public void addTipOff(HttpServletRequest req,
 								  HttpServletResponse res, LiveExamineInfo liveExamineInfo,

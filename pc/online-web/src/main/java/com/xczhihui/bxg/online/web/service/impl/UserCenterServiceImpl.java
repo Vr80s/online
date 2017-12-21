@@ -63,7 +63,7 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 			u.setInfo(user.getAutograph());
 			u.setProvinceName(user.getProvince());
 			u.setCityName(user.getCity());
-//			u.setDistrict(user.getDistrict());
+			u.setCountyName(user.getCountyName());
 		    u.setLoginName(user.getLoginName());
 			u.setTarget(user.getTarget());
 			u.setSex(user.getSex());

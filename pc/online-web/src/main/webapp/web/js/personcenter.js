@@ -445,7 +445,7 @@ $(function() {
 //	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
 	        //市
-	        '<select class="City1"> ' +
+	        '<select class="City1" onchange="getDistrict()"> ' +
 	        '<option value="volvo" >--选择市--</option> ' +
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +
@@ -453,12 +453,12 @@ $(function() {
 	        '</select> ' +
 	        
 	        //区
-//	        '<select class="District"> ' +
-//	        '<option value="volvo">--选择区/县--</option> ' +
-////	        '<option value="saab">Saab</option> ' +
-////	        '<option value="opel">Opel</option> ' +
-////	        '<option value="audi">Audi</option> ' +
-//	        '</select> ' +
+	        '<select class="District1"> ' +
+	        '<option value="volvo">--选择区/县--</option> ' +
+//	        '<option value="saab">Saab</option> ' +
+//	        '<option value="opel">Opel</option> ' +
+//	        '<option value="audi">Audi</option> ' +
+	        '</select> ' +
 	        '<p class="address_warn" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
 		
@@ -754,7 +754,7 @@ $(function() {
 	        '<span class="address-main-close">X</span> ' +
 	        '<div class="address-maim-top clearfix"><p>天天&nbsp;&nbsp;</p></div> ' +
 	        '<div class="clearfix"><p>收货人: <span>天天</span></p><p>手机: <span>139****6940</span></p></div> ' +
-	        '<div class="clearfix"><p>所在地址: <span>海南海口市美兰区演丰镇</span></p><p>地址: <span>心承志会大厦201</span></p></div> ' +
+	        '<div class="clearfix"><p>所在地区: <span>海南海口市美兰区演丰镇</span></p><p>详细地址: <span>心承志会大厦201</span></p></div> ' +
 	        '<div class="clearfix"><p>邮编: <span>115100</span></p></div> ' +
 	        '<div class="clearfix"><a href="javascript:;">编辑</a><a href="javascript:;">设为默认</a></div> ' +
 	        '</div> ' +

@@ -635,4 +635,14 @@ public class OnlineUser extends BxgUser implements Serializable {
 	public void setIndividualitySignature(String individualitySignature) {
 		this.individualitySignature = individualitySignature;
 	}
+
+	public String getCountyName() {
+		return countyName;
+	}
+
+	public void setCountyName(String countyName) {
+		this.countyName = countyName;
+	}
+
+	
 }

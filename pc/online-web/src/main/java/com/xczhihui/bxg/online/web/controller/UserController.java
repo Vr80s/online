@@ -484,6 +484,10 @@ public class UserController extends OnlineBaseController {
 				"province");
 		String city = ServletRequestUtils.getStringParameter(request,
 				"city");
+		
+		String countyName = ServletRequestUtils.getStringParameter(request,
+				"countyName");
+		
 //		String district = ServletRequestUtils.getStringParameter(request,
 //				"district");
 		String target = ServletRequestUtils.getStringParameter(request,
@@ -507,6 +511,7 @@ public class UserController extends OnlineBaseController {
 //		vo.setJobyearId(jobyearId);
 		vo.setProvince(province);
 		vo.setCity(city);
+		vo.setCountyName(countyName);
 //		vo.setDistrict(district);
 		vo.setTarget(target);
 		vo.setLoginName(loginName);
