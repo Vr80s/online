@@ -190,6 +190,8 @@ pre:after {
 			        }
 			        
 			        if(stringnull(localStorage.getItem("provinceName"))){
+			        	
+			        	
 			        	 $("#xzdz").text(localStorage.getItem("provinceName")+" "+localStorage.getItem("cityName")+" "+localStorage.getItem("countyName"));
 			        }
 			        
@@ -253,16 +255,16 @@ pre:after {
 	   	 	layer: 3
 		});
 		picker.setData(mucityData);
-		picker.pickers[0].setSelectedIndex(1);
-		picker.pickers[1].setSelectedIndex(1);
-		picker.pickers[2].setSelectedIndex(1);
+		
+		picker.pickers[0].setSelectedValue(2);
+		picker.pickers[1].setSelectedValue(2);
+		picker.pickers[2].setSelectedValue(19);
+		
 		var showCityPicker = document.getElementById('showCityPicker');
 		var cityResult = document.getElementById('xzdz');
 		showCityPicker.addEventListener('tap', function(event) {
 			picker.show(function(items) {
 				
-			/* 	aaa = items[0].text;
-				aaa = items[0].value; */
 				var citysNames = "";
 				var citysIds ="";
 				for (var int = 0; int < items.length; int++) {

@@ -87,6 +87,10 @@ public class UserDataVo {
 	 */
 	private String fullAddress;
 	
+	private String provinceName;
+	
+	private String cityName;
+	
 	private String countyName;
 
 
@@ -325,6 +329,22 @@ public class UserDataVo {
 
 	public void setCountyName(String countyName) {
 		this.countyName = countyName;
+	}
+
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
 
 	

@@ -72,6 +72,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info, ");
 		sql.append(" vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName, ");
+		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
@@ -96,6 +97,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" ,share_code as shareCode,change_time as changeTime,origin,type, ");
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where name = ?  ");
 		Object params[] = { name };
@@ -310,6 +312,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select id,name,room_number as roomNumber,sex,province_name as provinceName,occupation,occupation_other as occupationOther,");
 		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info,is_lecturer as isLecturer,");
+		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { userId };
@@ -400,6 +403,9 @@ public class OnlineUserMapper extends BasicSimpleDao {
 
 		sql.append(" region_id as district,region_area_id as province,region_city_id as city,");
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
+		
+		sql.append(" county_name as countyName, ");
+		
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 
 		sql.append(" from oe_user where union_id = ?  ");

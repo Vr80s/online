@@ -521,6 +521,9 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("cityName",configresult.cityName);
 	localStorage.setItem("province",configresult.province);
 	localStorage.setItem("city",configresult.city);
+	
+	localStorage.setItem("countyName",configresult.countyName);
+	
 	localStorage.setItem("email",configresult.email);
 	localStorage.setItem("info",configresult.info);
 	localStorage.setItem("username",configresult.name);
