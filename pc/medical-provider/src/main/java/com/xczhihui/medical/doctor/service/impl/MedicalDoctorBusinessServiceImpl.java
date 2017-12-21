@@ -7,6 +7,7 @@ import com.xczhihui.medical.doctor.mapper.OeBxsArticleMapper;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
 import com.xczhihui.medical.field.vo.MedicalFieldVo;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
@@ -91,5 +92,32 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Override
     public OeBxsArticleVo getSpecialColumnDetailsById(String articleId) {
         return oeBxsArticleMapper.getSpecialColumnDetailsById(articleId);
+    }
+
+    @Override
+    public List<MedicalWritingsVo> getWritingsByDoctorId(String doctorId) {
+        return medicalDoctorMapper.getWritingsByDoctorId(doctorId);
+    }
+
+    @Override
+    public MedicalWritingsVo getWritingsDetailsById(String writingsId) {
+        return medicalDoctorMapper.getWritingsDetailsById(writingsId);
+    }
+
+    @Override
+    public List<MedicalWritingsVo> getRecentlyWritings() {
+        return medicalDoctorMapper.getRecentlyWritings();
+    }
+
+    @Override
+    public List<OeBxsArticleVo> getRecentlyNewsReports() {
+        return oeBxsArticleMapper.getRecentlyNewsReports();
+    }
+
+    @Override
+    public Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page) {
+        List<OeBxsArticleVo> records = oeBxsArticleMapper.getNewsReportsByPage(page);
+        page.setRecords(records);
+        return page;
     }
 }
