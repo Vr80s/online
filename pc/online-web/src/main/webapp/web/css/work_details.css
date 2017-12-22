@@ -1,0 +1,361 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+}
+img{
+	border: 0;
+}
+a{
+	text-decoration: none;
+}
+
+.both{
+	clear: both;
+}
+
+
+/*名医著作详情开始*/
+.work_dtails{
+	width: 1200px;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+
+/*左侧内容开始*/
+.work_dtails_left{
+	width: 860px;
+	float: left;
+	background: #fff;
+}
+.writer_name{
+	width: 100%;
+	height: 160px;
+	margin-top: 30px;
+    /*padding-bottom: 20px;*/
+    border-bottom: 1px solid #F0F0F0;
+}
+.writer_name_cen{
+	width: 820px;
+	margin: 0 auto
+}
+.writer_name_cen img{
+	width: 140px;
+	height: 140px;
+	float: left;
+	margin-right: 10px;
+}
+.writer_title{
+	width: 560px;
+	height: 140px;
+	float: left;
+}
+.writer_title_name{
+	width: 560px;
+	font-size: 16px;
+	color: #333333;
+	font-weight: bold;
+	margin-top: 10px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.writer_buy{
+	float: right;
+	width: 88px;
+	height: 34px;
+	line-height: 36px;
+	border: 1px solid #00BC12;
+	border-radius: 4px;
+	text-align: center;
+	margin-top: 47px;
+	margin-right: 10px;
+}
+
+.writer_buy a{
+	font-size: 14px;
+	color: #00BC12;
+}
+.writer_author_name{
+	font-size: 14px;
+	color: #333333;
+
+}
+
+.work_dtails_main{
+	width: 820px;
+	margin: 0 auto;
+	padding-bottom: 30px;
+
+}
+.work_dtails_main img{
+	width: 100%;
+	margin: 0 auto;
+	display: block;
+	margin-top: 24px;
+	margin-bottom: 24px;
+}
+.work_dtails_main_size{
+	font-size: 14px;
+	color: #333333;
+	line-height: 24px;
+	margin-top: 24px;
+	text-indent: 2em;
+}
+/* .work_dtails_criticism{
+	width: 100%;
+	height: 800px;
+	background: #ddd;
+	margin-top: 20px;
+}
+.work_criticism_title{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	text-indent: 1em;
+	border-bottom: 1px solid #F0F0F0;
+	font-size: 16px;
+	color: #333333;
+}
+.work_criticism_main{
+	width: 820px;
+	margin: 0 auto;
+}
+.work_criticism_cen{
+	min-height: 128px;
+	margin-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #F0F0F0;
+}
+.work_criticism_person img{
+	width: 60px;
+	height: 60px;
+	border-radius: 60px;
+	margin-right: 10px;
+	float: left;
+}
+
+.work_criticism_name{
+	line-height: 20px;
+    height: 20px;
+    background: rosybrown;
+    width: 750px;
+    float: right;
+    margin-top: 20px;
+}
+.work_criticism_name div{
+	font-size: 14px;
+	float: left;
+}
+.work_criticism_people{
+	font-weight: bold;
+	color: #333333;
+	margin-right: 4px;
+}
+.work_criticism_date{
+	font-size: 14px;
+	color: #999999;
+}
+.work_criticism_reply{
+	font-size: 14px;
+	color: #188EEE;
+	float: right !important;
+	cursor: pointer;
+}
+.work_criticism_size{
+	width: 750px;
+	float: right;
+	font-size: 14px;
+	color: #333333;
+	line-height: 24px;
+	margin-bottom: 20px;
+}
+.work_criticism_replied{
+	width: 750px;
+	float: right;
+	display: none;
+}
+.work_criticism_textarea0 textarea{
+	width: 678px;
+	height: 48px;
+	border: 1px solid #fff;
+	outline: none;
+	resize: none;
+	background: none;
+	margin-top: 6px;
+}
+.work_criticism_show{
+	width: 92px;
+	height: 26px;
+	line-height: 26px;
+	float: right;
+	margin-top: 4px;
+}
+.work_show_cancel{
+	float: left;
+	font-size: 14px;
+	color: #999999;
+	cursor: pointer;
+}
+.work_show_comment{
+	float: right;
+	font-size: 14px;
+	color: #999999;
+	cursor: pointer;
+}
+.work_show_comment_click{
+	color: #188EEE;
+}
+.work_show_reply{
+	float: right;
+	width: 750px;
+	min-height: 60px;
+	background: #F0F0F0;
+	padding: 10px 0;
+	display: none;
+}
+.work_show_replier{
+
+}
+.work_show_replier img{
+	width: 60px;
+	height: 60px;
+	border-radius: 60px;
+	margin-right: 10px;
+	float: left;
+	margin-left: 10px;
+}
+.work_show_name{
+	width: 670px;
+    height: 20px;
+    background: royalblue;
+    float: right;
+    margin-top: 20px;
+}
+.work_show_name div{
+	float: left;
+	height: 20px;
+	line-height: 20px;
+}
+.work_show_replier_size{
+	float: right;
+	width: 670px;
+	font-size: 14px;
+	color: #333333;
+	line-height: 24px;
+} */
+/*左侧内容结束*/
+
+
+/*右侧内容开始*/
+.work_dtails_right{
+	width: 320px;
+	float: right;
+	/*height: 1060px;*/
+}
+.work_right_author{
+	margin-bottom: 20px;
+    background: #fff;
+    padding-bottom: 22px;
+    padding-top: 22px;
+    min-height: 152px;
+}
+.work_right_author .name{
+	font-size: 16px;
+	color: #333333;
+	margin: 0 0 22px 20px;
+}
+.work_right_author .work_right_name:last-child{
+	margin-bottom: 0;
+}
+.work_right_name{
+	margin-bottom: 22px
+}
+.work_right_name img{
+	width: 100px;
+	height: 100px;
+	border-radius: 60px;
+	float: left;
+	margin: 0 20px;
+}
+.work_right_name_p{
+	float: left;
+	width: 170px;
+}
+.work_right_name_p .p0{
+	font-size: 14px;
+	color: #333333;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 4px;
+}
+
+.work_right_name_p .p1{
+	font-size: 14px;
+	color: #666;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+} 
+
+
+/*这是名医书籍*/
+.dtails_book{
+	/*margin-bottom: 20px;*/
+    background: #fff;
+    padding-bottom: 20px;
+    padding-top: 22px;
+    min-height: 152px;
+}
+.dtails_book .name{
+	font-size: 16px;
+    color: #333333;
+    margin: 0 0 22px 20px;
+}
+.dtails_book_a{
+	margin-bottom: 15px;
+	display: inline-block;
+}
+.dtails_book_name{
+	margin-bottom: 20px;
+}
+.dtails_book_name:last-child{
+	margin-bottom: 0;
+}
+.dtails_book_name img{
+	width: 80px;
+	height: 100px;
+	float: left;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+.dtails_book_p{
+	width: 210px;
+    height: 50px;
+    float: right;
+    margin-top: 8px;
+}
+.dtails_book_p p{
+	font-size: 14px;
+	color: #333333;
+}
+.dtails_book_p .p0{
+	width: 200px;
+	min-height: 20px;
+	max-height: 40px;
+}
+.dtails_book_p .p1{
+	font-weight: bold;
+	margin-top: 10px;
+}
+    
+
+/*右侧内容结束*/
+/*名医著作详情结束*/
+
+
+
+
