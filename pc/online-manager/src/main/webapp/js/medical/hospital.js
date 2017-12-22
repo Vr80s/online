@@ -81,7 +81,7 @@ $(function(){
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="医馆图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="照片信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
+				'<a class="blue" href="javascript:void(-1);" title="招聘信息" onclick="showRecruit(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
