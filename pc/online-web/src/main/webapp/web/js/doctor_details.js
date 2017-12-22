@@ -100,12 +100,8 @@ $(function(){
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.length == 0){
-	        	//没有数据处理
 	           $('#media_report').addClass('hide');
 	        }else{
-	        	//获取到数据渲染
-	        	//创建一个盒子
-	        	console.log(data);
 	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject}));
 	        }
 	    });
@@ -119,17 +115,31 @@ $(function(){
 	 }, function (data) {
 	        if(data.resultObject.length == 0){
 	        	//没有数据处理
-//	           $('#zhuanlan').addClass('hide');
-	           console.log(data);
+	           $('.zhuanlan').addClass('hide');
 	        }else{
-	        	//获取到数据渲染
-	        	//创建一个盒子
-//	        	console.log(data);
 	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject}));
 	        }
 	    });
 	    
 	    //给更多报道按钮添加医师id
 	    $('.more_madia_report').attr('href','/web/html/doctor_report.html?doctorId='+id+'')
+	    
+	    //给更多专栏按钮添加医师id
+	     $('.more_zhuanlan').attr('href','/web/html/colomn.html?doctorId='+id+'')
+	     
+	     
+	    //医师详情页面的著作部分
+	      RequestService("/medical/doctor/getWritingsByDoctorId", "GET", {
+	 	doctorId:id
+	 }, function (data) {
+	        if(data.resultObject.length == 0){
+	           $('.zhuzuo').addClass('hide')
+	        }else{
+	        	//获取到数据渲染
+	        	//创建一个盒子
+	           $('#zhuzuo_list').html(template('zhuzuoTpl',{book:data.resultObject}));
+	        }
+	    });
+	    
 	    
 })

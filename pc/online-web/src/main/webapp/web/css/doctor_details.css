@@ -242,6 +242,10 @@
   height: 147px;
   float: left;
 }
+.content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_left >a >img{
+	width: 258px;
+	height: 160px;
+}
 .content_box #main .main_left .zhuanlan .zhuanlan_list > li .zhuanlan_right {
   float: left;
   width: 530px;
@@ -311,11 +315,18 @@
 .content_box #main .main_right .zhuzuo .zhuzuo_left {
   float: left;
   text-align: center;
+  width: 134px;
 }
 .content_box #main .main_right .zhuzuo .zhuzuo_left img {
-  width: 134px;
+  width: 80%;
   height: 140px;
   margin-bottom: 10px;
+}
+.content_box #main .main_right .zhuzuo .zhuzuo_left p{
+	height: 20px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+white-space: nowrap;
 }
 .content_box #main .main_right .zhuzuo .zhuzuo_right {
   float: left;
