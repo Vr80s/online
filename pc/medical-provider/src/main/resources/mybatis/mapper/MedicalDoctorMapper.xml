@@ -100,6 +100,30 @@
 		limit 0, 10
 	</select>
 
+	<select id="getHotSpecialColumnAuthor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+		SELECT
+		  SUM(oba.`browse_sum`) sbs,
+		  COUNT(oba.`id`) ci,
+		  md.`name`,
+		  md.`id`,
+		  mdai.`head_portrait` headPortrait,
+		  md.`signature`
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `article_type` art
+			ON oba.type_id = art.`id`
+		  JOIN `medical_doctor_author_article` mdaa
+			ON mdaa.`article_id` = oba.`id`
+		  JOIN `medical_doctor` md
+			ON mdaa.`doctor_id` = md.`id`
+		  JOIN `medical_doctor_authentication_information` mdai
+			ON mdai.id = md.`authentication_information_id`
+		WHERE art.id = #{specialColumn}
+		AND oba.`is_delete`=0 AND oba.`status`=1
+		GROUP BY md.`id`
+		ORDER BY sbs DESC ,ci DESC,CONVERT(md.`name` USING gbk) ASC
+	</select>
+
 	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVo">
 		SELECT
 		  mf.name,
@@ -131,6 +155,26 @@
 	</select>
 
 	<select id="getRecentlyWritings" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVo">
+		SELECT
+		  mw.id,
+		  mw.`title`,
+		  mw.`author`,
+		  oba.`img_path` imgPath
+		FROM
+		  `medical_writings` mw
+		  LEFT JOIN `oe_bxs_article` oba
+			ON mw.`article_id` = oba.id
+		  LEFT JOIN `medical_doctor_writings` mdw
+			ON mdw.`writings_id` = mw.`id`
+		  LEFT JOIN `medical_doctor` md
+			ON md.id = mdw.`doctor_id`
+		WHERE mw.`deleted` = 0
+		  AND mw.`status` = 1
+	ORDER BY mw.`create_time` desc
+	limit 0, 3
+	</select>
+
+	<select id="getWritingsByPage" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVo">
 		SELECT
 		  mw.id,
 		  mw.`title`,

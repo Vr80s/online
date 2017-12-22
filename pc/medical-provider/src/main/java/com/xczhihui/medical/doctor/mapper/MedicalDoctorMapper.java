@@ -36,4 +36,8 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     MedicalWritingsVo getWritingsDetailsById(String writingsId);
 
     List<MedicalWritingsVo> getRecentlyWritings();
+
+    List<MedicalDoctorVo> getHotSpecialColumnAuthor(String specialColumn);
+
+    List<MedicalWritingsVo> getWritingsByPage(Page<MedicalWritingsVo> page);
 }

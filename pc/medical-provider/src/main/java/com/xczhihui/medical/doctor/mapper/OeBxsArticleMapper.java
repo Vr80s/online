@@ -30,4 +30,6 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
     List<OeBxsArticleVo> getRecentlyNewsReports();
 
     List<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page);
+
+    List<OeBxsArticleVo> getHotSpecialColumn(String specialColumn);
 }

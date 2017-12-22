@@ -129,7 +129,7 @@ public class ArticleController extends AbstractController{
 		String content = articleVo.getContent();
 		content = Base64ToimageURL(content);
 		articleVo.setContent(content);
-		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+//		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
 		articleService.addArticle(articleVo);
 		articleService.addArticleTag(articleVo);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
@@ -165,7 +165,7 @@ public class ArticleController extends AbstractController{
 		String content = articleVo.getContent();
 		content = Base64ToimageURL(content);
 		articleVo.setContent(content);
-		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+//		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
 		articleService.updateArticle(articleVo);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
     }
@@ -191,14 +191,15 @@ public class ArticleController extends AbstractController{
 	}
 	
 	@RequestMapping(value = "toEdit")
-	public String toEdit(HttpServletRequest request,Integer id,String typeId,String typeName,String tagId,String tagName) {
+	public String toEdit(HttpServletRequest request,Integer id,String typeId,String typeName,String tagId,String tagName,String author) {
 		 
 			ArticleVo article=articleService.findArticleById(id);
 			article.setTypeId(typeId);
 			article.setTypeName(typeName);
 			article.setTagId(tagId);
 			article.setTagName(tagName);
-			
+			article.setAuthor(author);
+
 			List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
 		 	List<TagVo> tags= articleService.getTags();
 			request.setAttribute("articleTypes", articleTypes);

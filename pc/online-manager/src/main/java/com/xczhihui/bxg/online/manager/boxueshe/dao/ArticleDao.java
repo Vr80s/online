@@ -29,7 +29,7 @@ public class ArticleDao extends HibernateDao<ArticleVo>{
 				"  GROUP_CONCAT(tag.name) AS tagName,\n" +
 				"  GROUP_CONCAT(tag.id) AS tagId,\n" +
 				"  arttype.`name` AS typeName,\n" +
-				"  u.name AS author ,\n" +
+				"  article.user_id AS author ,\n" +
 				"  md.`name` doctorAuthor ,\n" +
 				"  GROUP_CONCAT(md1.name) AS reportDoctor " +
 				"FROM\n" +
@@ -48,8 +48,7 @@ public class ArticleDao extends HibernateDao<ArticleVo>{
 				"  ON mdr.`doctor_id` = md1.`id`  "+
 				"  WHERE article.id = art.article_id \n" +
 				"  AND art.tag_id = tag.id \n" +
-				"  AND article.type_id = arttype.id \n" +
-				"  AND article.user_id = u.id ");
+				"  AND article.type_id = arttype.id \n");
 
 	  if(articleVo.getTitle() != null){
 		   sql.append(" and article.title like :title");
