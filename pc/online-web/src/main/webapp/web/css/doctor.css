@@ -464,6 +464,11 @@ margin-top:0;
 #forum .forum-content .forum-content-right .teacher_books >div{
 	position: relative;
 }
+#forum .forum-content .forum-content-right .teacher_books >div>h4{
+	font-size: 16px;
+	margin-top: 0;
+	margin-bottom: 20px;
+}
 #forum .forum-content .forum-content-right .teacher_books >div > a{
 	position: absolute;
 	right: 0;
