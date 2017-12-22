@@ -50,7 +50,7 @@
 </head>
 <body>
 <div id="forum" class="clearfix">
-    <div class="forum-banner clearfix">
+    <div class="forum-banner ">
         <div class="banner">
             <ul id="slider" class="slider">
 
@@ -61,12 +61,76 @@
 
             </div>
         </div>
-        <div class="hot-article">
-            <span class="hot-article-title">热门文章</span>
+        <div class="hot-article hide">
+            <span class="hot-article-title">推荐阅读</span>
             <ul class="hot-article-list">
 
             </ul>
         </div>
+        
+        <div class="dajia_zhuanlan">
+        	<h4>大家专栏</h4>
+        	<div id="dajia_zhuanlan_list">
+        		<ul id="dajia_zhuanlan_list2">
+        			<li class="clearfix">
+        				<div class="touxiang">
+        					<img src="../images/doctor_detail/touxiang.png" alt="" />
+        				</div>
+        				<div class="dajia_inf">
+        					<span>朱春苏</span>
+        					<p>温中行气化湿的啥人</p>
+        				</div>
+        			</li>
+        			
+        			<li  class="clearfix">
+        				<div class="touxiang">
+        					<img src="../images/doctor_detail/touxiang.png" alt="" />
+        				</div>
+        				<div class="dajia_inf">
+        					<span>朱春苏</span>
+        					<p>温中行气化湿的啥人</p>
+        				</div>
+        			</li>
+        			
+        			<li  class="clearfix">
+        				<div class="touxiang">
+        					<img src="../images/doctor_detail/touxiang.png" alt="" />
+        				</div>
+        				<div class="dajia_inf">
+        					<span>朱春苏</span>
+        					<p>温中行气化湿的啥人</p>
+        				</div>
+        			</li>
+        			
+        			<li  class="clearfix">
+        				<div class="touxiang">
+        					<img src="../images/doctor_detail/touxiang.png" alt="" />
+        				</div>
+        				<div class="dajia_inf">
+        					<span>朱春苏</span>
+        					<p>温中行气化湿的啥人</p>
+        				</div>
+        			</li>
+        			
+        			<li  class="clearfix">
+        				<div class="touxiang">
+        					<img src="../images/doctor_detail/touxiang.png" alt="" />
+        				</div>
+        				<div class="dajia_inf">
+        					<span>朱春苏</span>
+        					<p>温中行气化湿的啥人</p>
+        				</div>
+        			</li>
+        			
+        		</ul>
+        	</div>
+        	
+        </div>
+        
+        
+       
+        
+        
     </div>
     <div class="forum-content clearfix">
         <div class="forum-content-left">
@@ -83,7 +147,7 @@
             </div>
         </div>
         <div class="forum-content-right">
-            <div class="forum-hot-tag">
+            <div class="forum-hot-tag hide">
                 <div class="forum-hot-tag-title">热门标签</div>
                 <ul class="forum-hot-tagGround">
 
@@ -108,11 +172,104 @@
                     </div>
                 </div>
             </div>
+            
+            
+             <!--推荐专栏作者-->
+        	<div class="zhuanlan_zuozhe">
+        	<h4>推荐专栏作者</h4>
+        	<ul id="zhuanlan_zuozhe">
+        		<li class="clearfix">
+        			<div class="zuozhe_touxaing">
+        				<img src="../images/doctor_detail/touxiang.png" alt="" />
+        			</div>
+        			<div class="zuozhe_inf">
+        				<span>鹿明中医</span>
+        				<p>关注中医药发展创业</p>
+        			</div>
+        		</li>
+        		
+        		<li class="clearfix">
+        			<div class="zuozhe_touxaing">
+        				<img src="../images/doctor_detail/touxiang.png" alt="" />
+        			</div>
+        			<div class="zuozhe_inf">
+        				<span>鹿明中医</span>
+        				<p>关注中医药发展创业</p>
+        			</div>
+        		</li>
+        		
+        		<li class="clearfix">
+        			<div class="zuozhe_touxaing">
+        				<img src="../images/doctor_detail/touxiang.png" alt="" />
+        			</div>
+        			<div class="zuozhe_inf">
+        				<span>鹿明中医</span>
+        				<p>关注中医药发展创业</p>
+        			</div>
+        		</li>
+        		
+        		<li class="clearfix">
+        			<div class="zuozhe_touxaing">
+        				<img src="../images/doctor_detail/touxiang.png" alt="" />
+        			</div>
+        			<div class="zuozhe_inf">
+        				<span>鹿明中医</span>
+        				<p>关注中医药发展创业</p>
+        			</div>
+        		</li>
+        	</ul>
+        	</div>
+            
+            
+            <div class="hot-article">
+            <span class="hot-article-title">推荐阅读</span>
+            <ul class="hot-article-list">
+
+            </ul>
+        	</div>
+        	
+        	
+        	
         </div>
     </div>
 </div>
 
 
+<!--大家专栏-->
+<script type="text/template" id="hotdajiaTpl">
+	{{each inf as inf i}}
+	<li class="clearfix" style="position:relative">
+	<a href="/web/html/zhuanlan_detail.html?id={{inf.id}}" style='display:block;position:absolute;width:100%;height:100%'></a>
+        <div class="touxiang">
+        	<img src="../images/doctor_detail/touxiang.png" alt="暂无图片" />
+        </div>
+        <div class="dajia_inf">
+        	<span>朱春苏</span>
+        	<p>{{inf.title}}</p>
+        </div>
+    </li>
+
+	{{/each}}
+</script>
+
+
+
+<!--热门专栏作者-->
+<script type="text/template" id="hotzuozheTpl">
+	{{each inf as inf i}}
+	<li class="clearfix" style="position:relative">
+	<a href="/web/html/zhuanlan_detail.html?id={{inf.id}}" style='display:block;position:absolute;width:100%;height:100%'></a>
+        <div class="touxiang">
+        	<img src={{inf.headPortrait}} alt="暂无图片" />
+        </div>
+        <div class="dajia_inf">
+        	<span>{{inf.name}}</span>
+        	<p>{{inf.title}}</p>
+        </div>
+    </li>
+
+	{{/each}}
+</script>
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>

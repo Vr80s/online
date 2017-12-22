@@ -65,10 +65,10 @@ $(function () {
     var hotArticle = '{{each hotArticle}}' +
         '{{if $index<=2}}' +
         '<li>' +
-        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><em class="select">{{$index+1}}</em><span title="{{$value.title}}">{{$value.title}}</span></a>' +
+        '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><span title="{{$value.title}}">{{$value.title}}</span></a>' +
         '</li>' +
         '{{else}}' +
-        '<li><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><em>{{$index+1}}</em><span title="{{$value.title}}">{{$value.title}}</span></li></a>' +
+        '<li><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><span title="{{$value.title}}">{{$value.title}}</span></li></a>' +
         '{{/if}}' +
         '{{/each}}';
     var articleType='{{each articleType}}'+
@@ -338,6 +338,31 @@ $(function () {
         })
     }
     addSelectedMenu();
+    
+    
+    
+    
+    //头条右侧大家专栏部分
+	    RequestService("/medical/doctor/getHotSpecialColumn","GET",null,function(data){
+	        if(data.success==false || data.resultObject.length == 0){
+	           $('.dajia_zhuanlan').addClass('hide')
+	        }else{
+	        	//获取到数据渲染
+	           $('#dajia_zhuanlan_list2').html(template('hotdajiaTpl',{inf:data.resultObject}));
+	        }
+	    });
+	    
+     //头条右侧热门作者
+	    RequestService("/medical/doctor/getHotSpecialColumnAuthor","GET",null,function(data){
+	        if(data.success==false || data.resultObject.length == 0){
+	           $('.zhuanlan_zuozhe').addClass('hide')
+	        }else{
+	        	//获取到数据渲染
+	        	console.log(data)
+	           $('#zhuanlan_zuozhe').html(template('hotzuozheTpl',{inf:data.resultObject}));
+	        }
+	    });
+    
 });
 
 function addSelectedMenu(){
