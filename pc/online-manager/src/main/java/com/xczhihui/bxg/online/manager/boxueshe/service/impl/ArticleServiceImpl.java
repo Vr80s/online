@@ -50,6 +50,8 @@ public class ArticleServiceImpl implements ArticleService{
 				+ "(:title,:content,:typeId,:imgPath,:userId) ";
 	
 		KeyHolder kh=new GeneratedKeyHolder();
+		
+		
 		articleDao.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(articleVo),kh );
 		articleVo.setId(kh.getKey().intValue());
 		

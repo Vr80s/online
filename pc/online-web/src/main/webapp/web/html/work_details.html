@@ -43,29 +43,42 @@
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
 
    <script>
+   	
         window.onload = function(){
 
             /*点击回复*/
-            /*$(".work_criticism_reply").click(function(){
+            $(".work_criticism_reply").click(function(){
+            	$(".work_criticism_textarea0 textarea").val("");
                 $(".work_criticism_replied").show();
-            });*/
+            });
 
             /*点击取消*/
-            /*$(".work_show_cancel").click(function(){
+            $(".work_show_cancel").click(function(){
                 $(".work_criticism_replied").hide();
-            });*/
+            });
 
             /*点击评论*/
-            /*$(".work_show_comment").click(function(){
-                $(".work_criticism_replied").hide();
-                $(".work_show_reply").show();
-                $(this).css("color","#999");
-            });*/
-
+            $(".work_show_comment").click(function(){
+            	
+            	if($(".work_criticism_textarea0 textarea").val()==''){
+            	  $(".work_show_warn").show()
+            	}else{
+	            	$(".work_criticism_replied").hide();
+	            	$(".work_show_warn").hide()
+	            	$(".work_show_replier_size").html($(".work_criticism_textarea0 textarea").val());
+	                $(".work_show_reply").show();
+	                $(this).css("color","#999");
+            	}
+               
+            });
             // 点击评论区文本域textarea
-            /*$(".work_criticism_textarea0 textarea").click(function(){
+            $(".work_criticism_textarea0 textarea").click(function(){
                 $(".work_show_comment").css("color","#188EEE");
-            });*/
+            });
+//          博主点击二级回复
+			$(".work_criticism_btn").click(function(){
+                $(".work_show_replier_textarea1").show();
+            });
 
         };
    </script>
@@ -103,13 +116,13 @@
             </div>
             <div class="both"></div>
 
-
-            <!-- <div class="work_dtails_criticism">
+<!--评论开始-->
+            <div class="work_dtails_criticism">
                 <div class="work_criticism_title">全部评论</div>
                 <div class="work_criticism_main">
                     <div class="work_criticism_cen">
                         <div class="work_criticism_person">
-                            <img src="./images/criticism_img.png" alt="" />
+                            <img src="../images/criticism_img.png" alt="" />
                             <div class="work_criticism_name">
                                 <div class="work_criticism_people">柠檬</div>
                                 <div class="work_criticism_date">2017-12-21</div>
@@ -117,17 +130,18 @@
                             </div>
                             <div class="both"></div>
                             <div class="work_criticism_size">
-                                这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容
+                               	 这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容这里是评论的内容
                             </div>
             
                             <div class="work_criticism_replied">
                                 <div class="work_criticism_textarea">
-                                    <img src="./images/criticism_img.png" alt="">
+                                    <img src="../images/criticism_img.png" alt="">
                                     <div class="work_criticism_textarea0">
                                         <textarea name="" id="" cols="" rows="" placeholder="写下你的评论..."></textarea>
                                     </div>
                                 </div>
                                 <div class="both"></div>
+                                <div class="work_show_warn">内容不能为空!</div>
                                 <div class="work_criticism_show">
                                     <div class="work_show_cancel">取消</div>
                                     <div class="work_show_comment">评论</div>
@@ -136,13 +150,21 @@
             
                             <div class="work_show_reply">
                                 <div class="work_show_replier">
-                                    <img src="./images/criticism_img.png" alt="" />
+                                    <img src="../images/criticism_img.png" alt="" />
                                     <div class="work_show_name">
                                         <div class="work_criticism_people">柠檬</div>
                                         <div class="work_criticism_date">2017-12-21</div>
+                                        <div class="work_criticism_btn">回复</div>
                                     </div>
                                     <div class="both"></div>
                                     <div class="work_show_replier_size">我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复我是回复</div>
+                               		<div class="work_show_replier_textarea1">
+                               			<textarea name="" rows="" cols="" placeholder="博主@柠檬"></textarea>
+                               			<p class="work_show_warn02">内容不能为空</p>
+                               			<p class="work_show_comment02">评论</p>
+                               			<p class="work_show_cancel02">取消</p>
+                                   		
+                               		</div>
                                 </div>
                             </div>
                             <div class="both"></div>
@@ -150,8 +172,8 @@
                         <div class=""></div>
                     </div>
                 </div>
-            </div> -->
-
+            </div> 
+<!--评论结束-->
         </div>
         <!-- 左侧内容结束 -->
 

@@ -109,4 +109,6 @@ public interface DoctorService {
     List<MedicalDoctor> allListForReport(String articleId);
 
 	void addDoctorReport(String id, String[] doctorId);
+
+	public List<MedicalDoctor> getMedicalDoctor(String writingsId);
 }

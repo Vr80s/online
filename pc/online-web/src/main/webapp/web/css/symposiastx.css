@@ -1,0 +1,68 @@
+/*大家专栏*/
+.both{
+    clear: both;
+}
+.colomn_li img{
+    width: 100px;
+    height: 100px;
+    border-radius: 60px;
+    float: left;
+    margin-right: 20px;
+    
+}
+.colomn_li_p{
+    float: left;
+    width: 160px;
+}
+.colomn_li_p .p0{
+    font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 4px;
+    line-height: 24px;
+}
+.colomn_li_p .p1{
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 24px;
+}
+.about_doctor ul li{
+    margin-top: 20px;
+}
+
+.colomn_li0{
+    margin-left: 20px;
+    padding-top: 30px;
+}
+.colomn_li0 img{
+    width: 100px;
+    height: 100px;
+    border-radius: 60px;
+    float: left;
+    margin-right: 20px;
+    
+}
+.colomn_li_div{
+    float: left;
+    width: 600px;
+}
+.colomn_li_div .div0{
+    font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 4px;
+    line-height: 24px;
+}
+.colomn_li_div .div1{
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 24px;
+}

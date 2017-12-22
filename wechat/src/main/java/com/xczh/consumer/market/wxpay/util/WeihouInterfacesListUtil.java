@@ -25,7 +25,7 @@ public class WeihouInterfacesListUtil {
 	//得到微吼用户id
 	public static final String currentUserID ="http://e.vhall.com/api/vhallapi/v2/user/get-user-id"; 
 	
-	//注册用户
+	//注册用户  http://e.vhall.com/api/vhallapi/v2/user/register
 	public static final String register = "http://e.vhall.com/api/vhallapi/v2/user/register";
 	
 	//获取用户信息
@@ -43,7 +43,10 @@ public class WeihouInterfacesListUtil {
 		//公共参数
 		parameters.put("auth_type", "1");
 		parameters.put("password", "xinchengzhihui");
-		parameters.put("webinar_id", "985221");
+		parameters.put("account", "v19624388");
+		
+		//{head=123, webinar_id=1, password=xinchengzhihui, pass=123, webinar_id=985221, third_user_id=1111, name=yangxuan}
+		
 		
 		return parameters;
 	}
@@ -95,7 +98,8 @@ public class WeihouInterfacesListUtil {
 		
 		//账号：15936216273, 接口/bxg/bs/login返回的微吼id是"22785686", 微吼登录返回的id是"20383761".
 		
-		getUserinfo("22785686", "name,head");
+		//getUserinfo("22785686", "name,head");
+		System.out.println(createUser("123456","123456","yangxuan","123456"));
 		
 /*		updateUser("6798c0bdeeea47f8ae6c016a97ee36ac", null, "yangxuanhao","http://attachment-center.ixincheng.com:38080/data/"
 				+ "picture/online/2017/09/25/15/e4981eeaec9746f7b965ee475ed90a2c.jpg");*/
