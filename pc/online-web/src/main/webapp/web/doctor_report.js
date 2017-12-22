@@ -3,7 +3,7 @@ $(function(){
 	//设置初始化数据
 	window.current = 1;
 	window.size = 7;
-	window.doctorId = getQueryString('doctorId')?getQueryString('doctorId'):'';
+	window.doctorId = getQueryString('id')?getQueryString('id'):'';
 	
 	//头部的医师变色
 	$('.path .doctor').addClass('select');

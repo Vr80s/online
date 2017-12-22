@@ -129,4 +129,7 @@ $(function(){
 	        }
 	    });
 	    
+	    //给更多报道按钮添加医师id
+	    $('.more_madia_report').attr('href','/web/html/doctor_report.html?doctorId='+id+'')
+	    
 })

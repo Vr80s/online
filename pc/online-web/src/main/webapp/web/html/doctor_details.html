@@ -242,7 +242,7 @@
             <div class="zhuanlan clearfix " id="media_report">
                 <div class="class_top">
                     <span>媒体报道</span>
-                    <a href="javascript:;">
+                    <a href="javascript:;" class="more_madia_report">
                         更多&nbsp;>
                     </a>
                 </div>
@@ -279,9 +279,9 @@
 
 
         <!--右侧-->
-        <div class="main_right hide">
+        <div class="main_right ">
             <!--账号认领-->
-            <div class="renling">
+            <div class="renling hide">
                 <p>若您是李辅仁本人，可以认领此账号</p>
                 <a href="javascript:;">认领</a>
             </div>
@@ -298,7 +298,7 @@
                 </div>
             </div>
             <!--相关医师-->
-            <div class="about_doctor">
+            <div class="about_doctor hide">
                 <h3>相关医师</h3>
                 <ul class="about_doctor_list clearfix">
                     <li>
@@ -401,33 +401,38 @@
                 </div>
     </div>
 </script>-->
+
+
+<!--媒体报道-->
 <script type="text/template" id="meaidTpl">
 
 {{each inf as inf i}}
  <li class="clearfix">
     <div class="zhuanlan_left">
-        <img src="../images/doctor_detail/hospital_pic.png" alt="">
+        <a href="/web/html/report.html?id={{inf.id}}"><img src="../images/doctor_detail/hospital_pic.png" alt=""></a>
     </div>
     <div class="zhuanlan_right">
-        <h3>{{inf.title}}</h3>
-        <p>{{inf.content}}</p>
-<!--//      <span>2017.11.11</span>-->
+        <h3><a href="/web/html/report.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h3>
+        <p>{{change(inf.content)}}</p>
+        <span>{{inf.createTime}}</span>
     </div>
 </li>
 
 {{/each}}
 </script>
 
+
+<!--专栏-->
 <script type="text/template" id="zhuanlanTpl">
 {{each inf as inf i}}
 <li class="clearfix">
    <div class="zhuanlan_left">
-        <img src="../images/doctor_detail/hospital_pic.png" alt="">
+        <a href="/web/html/zhuanlan_detail.html?id={{inf.id}}"><img src="../images/doctor_detail/hospital_pic.png" alt=""></a>
     </div>
     <div class="zhuanlan_right">
-        <h3>{{inf.title}}</h3>
-        <p>{{inf.content}}</p>
-        <!--<span>2017.11.11</span>-->
+        <h3><a href="/web/html/zhuanlan_detail.html?id={{inf.id}}">{{inf.title}}</a></h3>
+        <p>{{change(inf.content)}}</p>
+        <span>{{inf.createTime}}</span>
     </div>
 </li>
 {{/each}}
