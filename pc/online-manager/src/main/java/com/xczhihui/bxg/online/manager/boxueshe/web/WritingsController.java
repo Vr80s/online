@@ -1,6 +1,5 @@
 package com.xczhihui.bxg.online.manager.boxueshe.web;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,10 +23,11 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.MedicalWritings;
 import com.xczhihui.bxg.online.manager.boxueshe.service.ArticleService;
-import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleTypeVo;
+import com.xczhihui.bxg.online.manager.boxueshe.service.WritingService;
 import com.xczhihui.bxg.online.manager.boxueshe.vo.ArticleVo;
-import com.xczhihui.bxg.online.manager.boxueshe.vo.TagVo;
+import com.xczhihui.bxg.online.manager.boxueshe.vo.WritingVo;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
@@ -39,12 +39,15 @@ import com.xczhihui.bxg.online.manager.utils.Tools;
  */
 
 @Controller
-@RequestMapping("boxueshe/article")
-public class ArticleController extends AbstractController{
+@RequestMapping("boxueshe/writing")
+public class WritingsController extends AbstractController{
 	protected final static String BOXUESHE_PATH_PREFIX = "/boxueshe/";
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private WritingService writingService;
 	
 	@Autowired
 	private AttachmentCenterService att;
@@ -52,17 +55,17 @@ public class ArticleController extends AbstractController{
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
 	
-	@RequiresPermissions("boxueshe:menu:article")
+	@RequiresPermissions("boxueshe:menu:writing")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
-		List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
-	 	List<TagVo> tags= articleService.getTags();
-	 	request.setAttribute("articleTypes", articleTypes);
-	 	request.setAttribute("tags", tags);
-		return BOXUESHE_PATH_PREFIX + "/articleList";
+//		List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
+//	 	List<TagVo> tags= articleService.getTags();
+//	 	request.setAttribute("articleTypes", articleTypes);
+//	 	request.setAttribute("tags", tags);
+		return BOXUESHE_PATH_PREFIX + "/writingList";
 	}
 	
-	@RequiresPermissions("boxueshe:menu:article")
+	@RequiresPermissions("boxueshe:menu:writing")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo articles(TableVo tableVo) {
@@ -72,23 +75,15 @@ public class ArticleController extends AbstractController{
          String params = tableVo.getsSearch();
          Groups groups = Tools.filterGroup(params);
          
-         ArticleVo searchVo=new ArticleVo();
+         WritingVo searchVo=new WritingVo();
          
          Group title = groups.findByName("search_title");
          if (title != null) {
        	  searchVo.setTitle(title.getPropertyValue1().toString());
          }
-         Group type = groups.findByName("search_type");
-         if (type != null) {
-       	  searchVo.setTypeId(type.getPropertyValue1().toString());
-         }
          Group status = groups.findByName("statusSearch");
          if(status != null){
           searchVo.setStatus(Integer.parseInt(status.getPropertyValue1().toString()));
-         }
-         Group isRecommend = groups.findByName("search_isRecommend");
-         if(isRecommend !=null&& !"".equals(isRecommend)){
-          searchVo.setIsRecommend("1".equals(isRecommend.getPropertyValue1().toString())==true?true:false);
          }
          Group startTime = groups.findByName("startTime");
          if (startTime != null) {
@@ -99,7 +94,8 @@ public class ArticleController extends AbstractController{
        	  searchVo.setStopTime(DateUtil.parseDate(stopTime.getPropertyValue1().toString(),"yyyy-MM-dd"));
          }
          
-         Page<ArticleVo> page = articleService.findCoursePage(searchVo, currentPage, pageSize);
+         Page<MedicalWritings> page = writingService.findCoursePage(searchVo, currentPage, pageSize);
+         
          int total = page.getTotalCount();
          tableVo.setAaData(page.getItems());
          tableVo.setiTotalDisplayRecords(total);
@@ -109,12 +105,12 @@ public class ArticleController extends AbstractController{
 	
 	@RequestMapping(value = "toAdd")
 	public String toAdd(HttpServletRequest request) {
-		 	List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
+		 	/*List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
 		 	List<TagVo> tags= articleService.getTags();
 		 	request.setAttribute("articleTypes", articleTypes);
-		 	request.setAttribute("tags", tags);
+		 	request.setAttribute("tags", tags);*/
 		 	request.setAttribute("weburl", weburl);
-			return BOXUESHE_PATH_PREFIX + "/articleAdd";
+			return BOXUESHE_PATH_PREFIX + "/writingAdd";
 		}
 	
 	/**
@@ -122,16 +118,21 @@ public class ArticleController extends AbstractController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	@RequiresPermissions("boxueshe:menu:writing")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
-	 public ResponseObject add(HttpServletRequest request,ArticleVo articleVo){
-		String content = articleVo.getContent();
+	 public ResponseObject add(HttpServletRequest request,WritingVo writingVo){
+		String content = writingVo.getContent();
 		content = Base64ToimageURL(content);
-		articleVo.setContent(content);
+		
 //		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
-		articleService.addArticle(articleVo);
-		articleService.addArticleTag(articleVo);
+//		articleService.addArticle(articleVo);
+//		articleService.addArticleTag(articleVo);
+		writingVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+		writingVo.setContent(content);
+		//添加著作   文章
+		writingService.addWriting(writingVo);
+		
 		return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 	
@@ -140,7 +141,7 @@ public class ArticleController extends AbstractController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	@RequiresPermissions("boxueshe:menu:writing")
 	@RequestMapping(value = "addPre", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject addPre(HttpServletRequest request,ArticleVo articleVo){
@@ -158,15 +159,19 @@ public class ArticleController extends AbstractController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	@RequiresPermissions("boxueshe:menu:writing")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
-	 public ResponseObject update(HttpServletRequest request,ArticleVo articleVo){
-		String content = articleVo.getContent();
+	 public ResponseObject update(HttpServletRequest request,WritingVo writingVo){
+		String content = writingVo.getContent();
 		content = Base64ToimageURL(content);
-		articleVo.setContent(content);
-//		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
-		articleService.updateArticle(articleVo);
+		/*articleVo.setContent(content);
+		articleVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+		articleService.updateArticle(articleVo);*/
+		writingVo.setUserId(UserLoginUtil.getLoginUser(request).getId());
+		//articleService.updateWriting(writingVo);
+		writingService.updateWriting(writingVo);
+		
 		return ResponseObject.newSuccessResponseObject("操作成功！");
     }
 	
@@ -191,35 +196,54 @@ public class ArticleController extends AbstractController{
 	}
 	
 	@RequestMapping(value = "toEdit")
-	public String toEdit(HttpServletRequest request,Integer id,String typeId,String typeName,String tagId,String tagName,String author) {
+	public String toEdit(HttpServletRequest request,String id) {
 		 
-			ArticleVo article=articleService.findArticleById(id);
-			article.setTypeId(typeId);
-			article.setTypeName(typeName);
-			article.setTagId(tagId);
-			article.setTagName(tagName);
-			article.setAuthor(author);
-
-			List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
-		 	List<TagVo> tags= articleService.getTags();
-			request.setAttribute("articleTypes", articleTypes);
-		 	request.setAttribute("tags", tags);
-		 	request.setAttribute("article", article);
+			WritingVo  writingVo =writingService.findWritingById(id);
+			
+			ArticleVo article=articleService.findArticleById(Integer.parseInt(writingVo.getArticleId()));
+			writingVo.setImgPath(article.getImgPath());
+			writingVo.setContent(article.getContent());
+			
+		 	request.setAttribute("writing", writingVo);
 		 	request.setAttribute("weburl", weburl);
-			return BOXUESHE_PATH_PREFIX + "/articleEdit";
-		}
+			
+			return BOXUESHE_PATH_PREFIX + "/writingEdit";
+	}
+	
+	/**
+	 * 
+	 * Description：增加或者修改关联的信息
+	 * @param id
+	 * @param fieldId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+    @RequestMapping(value = "updateMedicalDoctorWritings", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject updateMedicalDoctorWritings(String id,String[] doctorId) {
+         ResponseObject responseObject=new ResponseObject();
+         writingService.updateMedicalDoctorWritings(id,doctorId);
+         responseObject.setSuccess(true);
+         responseObject.setResultObject("医师配置成功！");
+         return responseObject;
+    }
+	
+	
+	
 	
 	/**
 	 * 删除
 	 * 
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	@RequiresPermissions("boxueshe:menu:writing")
 	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject deletes(String ids){
 	    if(ids!=null) {
             String[] _ids = ids.split(",");
-            articleService.deletes(_ids);
+            writingService.deletes(_ids);
        }
 		return ResponseObject.newSuccessResponseObject("操作成功！");
     }
@@ -231,8 +255,8 @@ public class ArticleController extends AbstractController{
 	 */
 	@RequestMapping(value = "updateStatus", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject updateStatus(Integer id){
-		articleService.updateStatus(id);
+    public ResponseObject updateStatus(String id){
+		writingService.updateStatus(id);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
 	

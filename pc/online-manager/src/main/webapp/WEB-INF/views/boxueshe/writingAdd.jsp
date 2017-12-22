@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
 <link href="${base}/js/layer/skin/layer.css" type="text/css" />	
-<script type="text/javascript" src="js/boxueshe/articleAdd.js"></script>
+<script type="text/javascript" src="js/boxueshe/writingAdd.js"></script>
 <script type="text/javascript">
 	try {
 		var scripts = [ null, null ];
@@ -19,16 +19,16 @@
 <div class="page-header">
   当前位置：博学社管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 			</small> 
-			文章管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+			著作管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 		</small>
-  <span>新增文章 </span>
+  <span>新增著作 </span>
 </div>
 <!-- 新增 form -->
 <div id="dialogArticleDiv"></div>
 <div id="addArticleDialog" >
 	<form id="addArticle-form" class="form-horizontal"  method="post" action="" >
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章图片:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>著作图片:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" id="imgAdd" style="width: 240px;">
 					<!-- <input type="file" name="imgPath_file" id="imgPath_file" class="uploadImg"/> -->
@@ -38,47 +38,32 @@
 		</div>
 		
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属分类:</label>
-			<div class="col-sm-3" >
-				<div class="clearfix " style="width: 240px;">
-					<select   name="typeId"   id="typeId"   class="col-xs-12 col-sm-12 {required:true}" >
-                        <option  value="" >请选择</option>
-                       	<c:forEach var="m" items="${articleTypes}">
-                            <option value="${m.id}">${m.name}</option>
-                         </c:forEach> 
-                    </select>
-				</div>
-			</div>
-		</div>
-		
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>所属标签:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>作者:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" id="tagName" readonly="readonly"  onclick="openTagDiv()" class="col-xs-12 col-sm-12 {required:true}" style="cursor: pointer;">
-					 <input type="hidden" name="tagId" id="tagId" >
+					 <input type="text" name="author" id="author"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
 		
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>文章标题:</label>
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>书名:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
 					 <input type="text" name="title" id="title"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
-
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>作者:</label>
+		
+	    <div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>购买连接:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" name="userId" id="userId"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
+					 <input type="text" name="buyLink" id="buyLink"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="form-group " style="margin-top:18px;margin-bottom:60px">
 			<label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>内容:</label>
 			<div class="col-lg-10 " style="height:250px">
@@ -88,13 +73,11 @@
 				</div>
 			</div>
 		</div>
-	
 	</form>
-	
 	<div class="col-xs-7" style="text-align: right;margin-top:150px;">
-		<button class="btn btn-sm btn-success" id="previewSaveBtn">
+		<!-- <button class="btn btn-sm btn-success" id="previewSaveBtn">
 			预览
-		</button>
+		</button> -->
 		<button class="btn btn-sm btn-success" id="saveBtn">
 			保存
 		</button>

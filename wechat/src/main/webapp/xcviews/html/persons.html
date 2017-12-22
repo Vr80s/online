@@ -272,9 +272,9 @@ pre:after {
 		setTimeout(function(){
 			//这个就是mui的的多级选择。我的天
 			if(stringnull(pervinceValue) && stringnull(cityValue) && stringnull(disValue)){
-				picker.pickers[0].setSelectedValue(3,0,function(){
-					picker.pickers[1].setSelectedValue(6,0,function(){
-						picker.pickers[2].setSelectedValue(81);
+				picker.pickers[0].setSelectedValue(pervinceValue,0,function(){
+					picker.pickers[1].setSelectedValue(cityValue,0,function(){
+						picker.pickers[2].setSelectedValue(disValue);
 					});
 				});
 			}

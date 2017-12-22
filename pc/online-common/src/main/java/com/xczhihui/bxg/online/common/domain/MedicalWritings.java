@@ -1,6 +1,11 @@
 package com.xczhihui.bxg.online.common.domain;
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,6 +31,7 @@ public class MedicalWritings implements Serializable {
 	@Column(name="article_id")
 	private String articleId;
 
+	
 	private String remark;
 
 	private boolean status;
@@ -37,6 +43,8 @@ public class MedicalWritings implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
 
 	@Column(name="update_person")
@@ -44,11 +52,16 @@ public class MedicalWritings implements Serializable {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="update_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date updateTime;
 
 	private String version;
 
 	private Integer sort;
+	
+	@Transient
+	private Integer commentSum; //评论数
 
 	public String getId() {
 		return id;
@@ -81,6 +94,7 @@ public class MedicalWritings implements Serializable {
 	public void setBuy_link(String buy_link) {
 		this.buy_link = buy_link;
 	}
+
 
 	public String getArticleId() {
 		return articleId;
@@ -161,4 +175,14 @@ public class MedicalWritings implements Serializable {
 	public void setSort(Integer sort) {
 		this.sort = sort;
 	}
+
+	public Integer getCommentSum() {
+		return commentSum;
+	}
+
+	public void setCommentSum(Integer commentSum) {
+		this.commentSum = commentSum;
+	}
+	
+	
 }
