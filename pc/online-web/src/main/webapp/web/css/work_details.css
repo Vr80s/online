@@ -105,7 +105,7 @@ a{
 	margin-top: 24px;
 	text-indent: 2em;
 }
-/* .work_dtails_criticism{
+ .work_dtails_criticism{
 	width: 100%;
 	height: 800px;
 	background: #ddd;
@@ -194,6 +194,13 @@ a{
 	float: right;
 	margin-top: 4px;
 }
+.work_show_warn{
+	color: red;
+    float: left;
+    margin-left: 67px;
+    font-size: 14px;
+    display: none;
+}
 .work_show_cancel{
 	float: left;
 	font-size: 14px;
@@ -240,13 +247,55 @@ a{
 	height: 20px;
 	line-height: 20px;
 }
+.work_show_name .work_criticism_btn{
+	float: right;
+	color: #188EEE;
+	font-size: 14px;
+	margin-right: 10px;
+}
 .work_show_replier_size{
 	float: right;
 	width: 670px;
 	font-size: 14px;
 	color: #333333;
 	line-height: 24px;
-} */
+	word-wrap:break-word; 
+} 
+.work_show_replier_textarea1{
+	display: none;
+	float: right;
+	
+}
+.work_show_replier_textarea1 textarea{
+	width: 670px;
+    height: 48px;
+    border: 1px solid #fff;
+    outline: none;
+    resize: none;
+    background: none;
+    margin-top: 6px;
+    font-size: 14px;
+    float: right;
+    margin-bottom: 10px;
+}
+.work_show_warn02{
+	color: red;
+	font-size: 14px;
+	float: left;
+	margin-left: 79px;
+	margin-bottom: 0;
+	
+}
+.work_show_comment02{
+	float: right;
+	font-size: 14px;
+	margin-left: 35px;
+
+}
+.work_show_cancel02{
+	float: right;
+	font-size: 14px;
+}
 /*左侧内容结束*/
 
 
