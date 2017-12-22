@@ -1,0 +1,119 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+}
+img{
+	border: 0;
+}
+a{
+	text-decoration: none;
+}
+
+.both{
+	clear: both;
+}
+
+.startups{
+	width: 1200px;
+	margin: 0 auto;
+}
+.intro_name{
+	width: 100%;
+	height: 216px;
+	padding-top: 30px;
+	background: #fff;
+    margin-bottom: 25px;
+    margin-top: 20px;
+    padding-bottom: 30px;
+    display: inline-table;
+}
+.intro_name_cen{
+	width: 100%;
+}
+.intro_logo{
+	width: 160px;
+	height: 160px;
+	/*background: blue;*/
+	margin: 0 60px;
+	float: left;
+    margin-top: 13px;
+}
+.intro_logo img{
+	width: 100%;
+}
+.intro_name_size h4{
+	color: #333;
+	margin-bottom: 8px;
+}
+.intro_name_size ul li{
+	line-height: 26px;
+	font-size: 14px;
+	color: #333333;
+	line-height: 26px;
+}
+
+/*机构简介开始*/
+.startups_main{
+	width: 100%;
+	margin: 0 auto;
+	background: #fff;
+}
+.startups_main_cen{
+	width: 1080px;
+	margin: 0 auto;
+	padding-top: 60px;
+    padding-bottom: 57px;
+}
+.startups_main_title{
+	font-size: 20px;
+	color: #333333;
+	margin-bottom: 20px;
+}
+.startups_main_text{
+	font-size: 14px;
+	color: #333333;
+	line-height: 22px;
+}
+.startups_file p{
+	font-size: 14px;
+	color: #0C0000;
+	line-height: 22px;
+}
+.startups_file{
+	width: 100%;
+	height: 22px;
+	position: relative;
+}
+
+.startups_file p{
+	font-size: 14px;
+	color: #188EEE;
+	line-height: 22px;
+}
+.startups_file label{
+	position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 22px;
+
+}
+.startups_file label input{
+	width: 100%;cursor: pointer;
+}
+
+.startups_main_img{
+	width: 100%;
+	margin-top: 30px;
+}
+.startups_main_img img{
+	width: 100%;
+}
+/*机构简介结束*/
+
+
+

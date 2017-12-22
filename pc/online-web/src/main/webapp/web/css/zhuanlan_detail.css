@@ -1,0 +1,171 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+}
+img{
+	border: 0;
+}
+a{
+	text-decoration: none;
+}
+
+.both{
+	clear: both;
+}
+.report{
+	width: 1200px;
+	/*height: 1000px;*/
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.report_left{
+	width: 820px;
+	float: left;
+	background: #fff;
+	padding: 0 20px;
+	margin-bottom: 20px;
+}
+.report_right{
+	width: 320px;
+}
+.report_title{
+	font-size: 16px;
+	color: #333333;
+	margin-top: 30px;
+	margin-bottom: 6px;
+}
+.report_tag{
+	width: 100%;
+    height: 26px;
+    line-height: 26px;
+}
+.report_tag_img{
+	vertical-align: middle;
+}
+.report_tag_span_one{
+	font-size: 14px;
+	color: #666666;
+	margin-right: 24px;
+}
+.report_tag_span_two{
+	font-size: 14px;
+	color: #666666;
+	margin-right: 24px;
+}
+.report_tag{
+	margin-bottom: 30px;
+}
+.report_tag a{
+	font-size: 14px;
+	color: #188EEE;
+	line-height: 26px;
+}
+
+.report_left_main img{
+	margin: 0 auto;
+    display: block;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+.report_left_main_sizes{
+	font-size: 14px;
+	color: #333333;
+	line-height: 24px;
+	text-indent: 2em;
+	margin-top: 24px;
+}
+.report_left_main_indicate{
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	background: #F0F0F0;
+	font-size: 14px;
+	color: #333333;
+	text-indent: 1em;
+	margin: 30px 0;
+}
+.report_left_main_indicate a{
+	color: #188EEE;
+}
+/*左侧内容结束*/
+
+
+/*右侧内容开始*/
+.report_right{
+	width: 320px;
+    float: right;
+    height: 1060px;
+}
+.report_right_doctor{
+	margin-bottom: 20px;
+    background: #fff;
+    padding-bottom: 22px;
+    padding-top: 22px;
+    min-height: 152px;
+}
+.report_right_doctor .name{
+	font-size: 16px;
+    color: #333333;
+    margin: 0 0 22px 20px;
+}
+.report_right_name{
+	margin-bottom: 22px;
+}
+.report_right_name img{
+	width: 100px;
+    height: 100px;
+    border-radius: 60px;
+    float: left;
+    margin: 0 20px;
+}
+.report_right_name_p{
+	float: left;
+    width: 170px;
+}
+.report_right_name_p .p0{
+	font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 4px;
+}
+.report_right_name_p .p1{
+	font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/*这是推荐阅读*/
+.report_right_read{
+	background: #fff;
+    padding-bottom: 20px;
+    padding-top: 22px;
+    min-height: 152px;
+}
+.report_right_read .name{
+	font-size: 16px;
+    color: #333333;
+    margin: 0 0 22px 20px;
+}
+.report_right_read ul li{
+	width: 280px;
+    margin: 0 auto;
+	margin-bottom: 12px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.report_right_read ul li a{
+	font-size: 14px;
+	color: #666666;
+}
+/*右侧内容结束*/
+
+
+
