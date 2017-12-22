@@ -447,17 +447,35 @@ $(function () {
 //  	window.open('/web/html/doctor_list.html?name='+name); 
   		window.location.href =searchUrl;
     })
-      //名医推荐
-//	    RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){
-//	        if(data.resultObject.records.length == 0){
-//	        	//没有数据处理
+    
+    
+//      名医报道
+	    RequestService("/medical/doctor/getRecentlyNewsReports","GET",null,function(data){
+	        if(data.success==false||data.resultObject.length == 0){
+	        	//没有数据处理
 //	           alert("名医推荐没有数据")
-//	        }else{
-//	        	//获取到数据渲染
-//	        	console.log(data)
-////	           $('#doctor_tuijian').html(template('doctor_tuijianTpl',{doctor:data.resultObject.records}));
-//	        }
-//	    });
+	           $('.school_teacher').addClass('hide')
+	        }else{
+	        	//获取到数据渲染
+	        	console.log(data)
+	           $('#doctor_baodao').html(template('doctor_baodaoTpl',{doctor:data.resultObject}));
+	        }
+	    });
+	    
+	    
+	    
+	    //      名医书籍
+	    RequestService("/medical/doctor/getRecentlyWritings","GET",null,function(data){
+	        if(data.success==false || data.resultObject.length == 0){
+	        	//没有数据处理
+//	           alert("名医推荐没有数据")
+	           $('.teacher_books').addClass('hide')
+	        }else{
+	        	//获取到数据渲染
+	        	console.log(data)
+	           $('#boos_list').html(template('doctor_bookTpl',{book:data.resultObject}));
+	        }
+	    });
     
     
     

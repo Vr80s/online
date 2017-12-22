@@ -427,10 +427,19 @@ margin-top:0;
 	background-color:#fff;
 	margin-bottom:20px;
 }
-#forum .forum-content .forum-content-right .school_teacher > h4{
+#forum .forum-content .forum-content-right .school_teacher >div{
+	position: relative;
+}
+#forum .forum-content .forum-content-right .school_teacher >div> h4{
 	padding:20px 0 0 20px;
 	font-size:16px;
 	margin-bottom:20px;
+}
+#forum .forum-content .forum-content-right .school_teacher >div >a{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	color: #000;
 }
 #forum .forum-content .forum-content-right .school_teacher .teacher_picList{
 	padding:0 20px;
@@ -451,6 +460,15 @@ margin-top:0;
 #forum .forum-content .forum-content-right .teacher_books{
 	background-color:#fff;
 	padding:20px;
+}
+#forum .forum-content .forum-content-right .teacher_books >div{
+	position: relative;
+}
+#forum .forum-content .forum-content-right .teacher_books >div > a{
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #000;
 }
 #forum .forum-content .forum-content-right .teacher_books .book_list li{
 	height:100px;

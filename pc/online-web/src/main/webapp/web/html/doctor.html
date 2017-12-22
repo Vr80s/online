@@ -325,12 +325,16 @@
             
             
               <!-- 名师报道 -->
-            <div class="school_teacher hide">
-            	<h4>名师报道</h4>
-            	<ul class="teacher_picList clearfix" id="doctor_tuijian">
+            <div class="school_teacher ">
+            	<div>
+            		<h4>名师报道</h4>
+            		<a href="/web/html/doctor_report.html">></a>
+            	</div>
+            	
+            	<ul class="teacher_picList clearfix" id="doctor_baodao">
             	
             	<!-- TODO -->
-					<li>
+					<!--<li>
 						<a href="javascript:;">中医药席卷全球成独特风景，发展热情被彻底掀了起来</a>
 					</li>
 					
@@ -348,7 +352,7 @@
 					
 					<li>
 						<a href="javascript:;">中医药席卷全球成独特风景，发展热情被彻底掀了起来</a>
-					</li>
+					</li>-->
 					
 				</ul>
             </div>
@@ -357,11 +361,15 @@
             
             
             <!-- 名医书籍 -->
-            <div class="teacher_books hide">
-            <h4>名医书籍</h4>
-            	<ul class="book_list clearfix">
+            <div class="teacher_books ">
+            	<div id="">
+            		<h4>名医书籍</h4>
+            		<a href="/web/html/doctor_book.html">></a>
+            	</div>
+            
+            	<ul class="book_list clearfix" id="boos_list">
             	<!-- TODO -->
-					<li>
+					<!--<li>
 						<img src="../images/books.png" alt="">
 						<div>
 						<span class="book_name">药房里买得到的传世名方</span>
@@ -383,7 +391,7 @@
 						<span class="book_name">药房里买得到的传世名方</span>
 						<h5 class="book_author">佟彤</h5>
 						</div>
-					</li>
+					</li>-->
 				</ul>
             
             </div>
@@ -494,16 +502,28 @@
 </script> 
 
 
-<!-- 名医推荐-->
-<!--<script type="text/template" id="doctor_tuijianTpl"> 
+<!-- 名医报道-->
+<script type="text/template" id="doctor_baodaoTpl"> 
 {{each doctor as doctor i}}
 	<li>
-		<a href="javascript:;">中医药席卷全球成独特风景，发展热情被彻底掀了起来</a>
+		<a href="/web/html/doctor_report.html?id={{doctor.id}}">{{doctor.title}}</a>
 	</li>
  {{/each}}
-</script> -->
+</script> 
 
-
+<!-- 名医书籍-->
+<script type="text/template" id="doctor_bookTpl"> 
+{{each book as book i}}
+	<li style="position: relative;">
+		<a href="/web/html/doctor_book.html?id={{book.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
+		<img src="{{book.imgPath}}" alt="">
+		<div>
+			<span class="book_name">{{book.title}}</span>
+			<h5 class="book_author">{{book.author}}</h5>
+		</div>
+	</li>
+ {{/each}}
+</script> 
 
 </body>
 </html>
