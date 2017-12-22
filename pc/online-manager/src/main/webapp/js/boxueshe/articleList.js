@@ -77,7 +77,7 @@ $(".add_bx").click(function(){
 function toEdit(obj){
 	var oo = $(obj).parent().parent().parent();
 	var row = articleTable.fnGetData(oo); // get datarow
-	turnPage(basePath+'/home#boxueshe/article/toEdit?id='+row.id+"&typeId="+row.typeId+"&typeName="+row.typeName+"&tagId="+row.tagId+"&tagName="+encodeURIComponent(row.tagName));
+	turnPage(basePath+'/home#boxueshe/article/toEdit?id='+row.id+"&typeId="+row.typeId+"&typeName="+row.typeName+"&tagId="+row.tagId+"&author="+row.author+"&tagName="+encodeURIComponent(row.tagName));
 }
 
 /**

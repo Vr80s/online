@@ -71,12 +71,21 @@ public class MedicalDoctorVo implements Serializable{
 	//医馆名
 	private String hospitalId;
 	private String hospitalName;
+	private String signature;
 
 	private List<MedicalFieldVo> fields;
 
 	private MedicalHospitalVo medicalHospital;
 
 	private MedicalDoctorAuthenticationInformationVo medicalDoctorAuthenticationInformation;
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
 
 	public String getId() {
 		return id;

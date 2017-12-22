@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,7 +106,7 @@ public class DoctorController {
 
 
     /**
-     * 根据医师id获取相关医师报道
+     * 根据医师id获取相关医师专栏
      * @return
      */
     @RequestMapping(value = "getSpecialColumnByDoctorId")
@@ -152,6 +153,40 @@ public class DoctorController {
     @ResponseBody
     public ResponseObject getRecentlyWritings(){
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getRecentlyWritings());
+    }
+
+    /**
+     * Description：获取医师著作分页信息
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 3:07 2017/12/10 0010
+     **/
+    @RequestMapping(value = "/getWritingsByPage",method= RequestMethod.GET)
+    public ResponseObject getWritingsByPage(Integer current,Integer size){
+        Page<MedicalWritingsVo> page = new Page<>();
+        page.setCurrent(current);
+        page.setSize(size);
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getWritingsByPage(page));
+    }
+
+    /**
+     * 获取热门专栏文章
+     * @return
+     */
+    @RequestMapping(value = "getHotSpecialColumn")
+    @ResponseBody
+    public ResponseObject getHotSpecialColumn(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotSpecialColumn());
+    }
+
+    /**
+     * 获取热门专栏作者
+     * @return
+     */
+    @RequestMapping(value = "getHotSpecialColumnAuthor")
+    @ResponseBody
+    public ResponseObject getHotSpecialColumnAuthor(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotSpecialColumnAuthor());
     }
 
 }

@@ -452,6 +452,20 @@ $(".add_P").click(function(){
     $("#province option:first").prop("selected", 'selected');
     var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增招聘信息",580,600,true,"确定",function(){
         if($("#addCourse-form").valid()){
+            if($("#postDuties").val().length>500){
+                layer.msg("岗位职责长度不能超过500字");
+                return;
+            }else if($("#postDuties").val()==null||$("#postDuties").val()==''){
+                layer.msg("岗位职责不能为空");
+                return;
+            }
+            if($("#jobRequirements").val().length>500){
+                layer.msg("职位要求长度不能超过500字");
+                return;
+            }else if($("#jobRequirements").val()==null||$("#jobRequirements").val()==''){
+                layer.msg("职位要求不能为空");
+                return;
+            }
             mask();
             $("#addCourse-form").attr("action", basePath+"/medical/recruit/add");
             $("#addCourse-form").ajaxSubmit(function(data){
@@ -566,6 +580,20 @@ function toEdit(obj,status){
 
             $("#edid_descriptionHid").val($("#edid_courseDescribe").val());
             if($("#updateCourse-form").valid()){
+                if($("#edit_postDuties").val().length>500){
+                    layer.msg("岗位职责长度不能超过500字");
+                    return;
+                }else if($("#edit_postDuties").val()==null||$("#edit_postDuties").val()==''){
+                    layer.msg("岗位职责不能为空");
+                    return;
+                }
+                if($("#edit_jobRequirements").val().length>500){
+                    layer.msg("职位要求长度不能超过500字");
+                    return;
+                }else if($("#edit_jobRequirements").val()==null||$("#edit_jobRequirements").val()==''){
+                    layer.msg("职位要求不能为空");
+                    return;
+                }
                 mask();
                 $("#updateCourse-form").attr("action", basePath+"/medical/recruit/updateMedicalHospitalRecruitById");
                 $("#updateCourse-form").ajaxSubmit(function(data){

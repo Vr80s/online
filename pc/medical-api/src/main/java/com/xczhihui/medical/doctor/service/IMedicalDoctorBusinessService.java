@@ -50,4 +50,10 @@ public interface IMedicalDoctorBusinessService {
     List<OeBxsArticleVo> getRecentlyNewsReports();
 
     Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page);
+
+    List<OeBxsArticleVo> getHotSpecialColumn();
+
+    List<MedicalDoctorVo> getHotSpecialColumnAuthor();
+
+    Page<MedicalWritingsVo> getWritingsByPage(Page<MedicalWritingsVo> page);
 }

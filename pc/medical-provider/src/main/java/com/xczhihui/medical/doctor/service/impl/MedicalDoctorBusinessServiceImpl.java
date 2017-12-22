@@ -13,6 +13,7 @@ import com.xczhihui.medical.field.vo.MedicalFieldVo;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +35,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalDoctorAuthenticationInformationMapper medicalDoctorAuthenticationInformationMapper;
     @Autowired
     private OeBxsArticleMapper oeBxsArticleMapper;
+    @Value("${specialColumn}")
+    private String specialColumn;
 
     @Override
     public Page<MedicalDoctorVo> selectDoctorPage(Page<MedicalDoctorVo> page, Integer type, String hospitalId, String name, String field) {
@@ -118,6 +121,23 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     public Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page) {
         List<OeBxsArticleVo> records = oeBxsArticleMapper.getNewsReportsByPage(page);
         page.setRecords(records);
+        return page;
+    }
+
+    @Override
+    public List<OeBxsArticleVo> getHotSpecialColumn() {
+        return oeBxsArticleMapper.getHotSpecialColumn(specialColumn);
+    }
+
+    @Override
+    public List<MedicalDoctorVo> getHotSpecialColumnAuthor() {
+        return medicalDoctorMapper.getHotSpecialColumnAuthor(specialColumn);
+    }
+
+    @Override
+    public Page<MedicalWritingsVo> getWritingsByPage(Page<MedicalWritingsVo> page) {
+        List<MedicalWritingsVo> writings = medicalDoctorMapper.getWritingsByPage(page);
+        page.setRecords(writings);
         return page;
     }
 }

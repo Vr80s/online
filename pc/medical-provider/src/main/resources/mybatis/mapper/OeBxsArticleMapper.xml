@@ -7,6 +7,7 @@
 		<id column="content" property="content" />
 		<id column="create_time" property="createTime" />
 		<id column="img_path" property="imgPath" />
+		<id column="author" property="author" />
 	</resultMap>
 
 	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVo" id="MedicalArticleListResult" extends="MedicalArticleBaseResult">
@@ -35,6 +36,29 @@
 			ON oba.`id` = mdaa.`article_id`
 		   AND mdaa.`doctor_id` = #{doctorId}
 		ORDER BY oba.`create_time` DESC
+	</select>
+
+	<select id="getHotSpecialColumn" resultMap="MedicalArticleListResult">
+		SELECT
+		  oba.id,
+		  oba.`title`,
+		  oba.`browse_sum`,
+		  md.`name` dname,
+		  md.`id` did,
+		  mdai.`head_portrait` headPortrait
+		from
+		  `oe_bxs_article` oba
+		  join `article_type` art
+			on oba.type_id = art.`id`
+		  join `medical_doctor_author_article` mdaa
+			on mdaa.`article_id` = oba.`id`
+		  join `medical_doctor` md
+			on mdaa.`doctor_id` = md.`id`
+		  join `medical_doctor_authentication_information` mdai
+			on mdai.id = md.`authentication_information_id`
+		where art.id =  #{specialColumn}
+		order by oba.`browse_sum` desc ,convert(oba.`title` using gbk) ASC
+		limit 0, 6
 	</select>
 
 	<select id="getNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
@@ -93,6 +117,7 @@
 		  oba.`browse_sum`,
 		  oba.`comment_sum`,
 		  oba.`praise_sum`,
+		  oba.user_id author,
 		  md.name dName,
 		  md.`id` dId,
 		  md.`province`,
@@ -120,6 +145,7 @@
 		  oba.`browse_sum`,
 		  oba.`comment_sum`,
 		  oba.`praise_sum`,
+		  oba.user_id author,
 		  md.name dName,
 		  md.`id` dId,
 		  md.`province`,
