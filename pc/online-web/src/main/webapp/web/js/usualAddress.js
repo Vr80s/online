@@ -13,9 +13,27 @@ function getCity1(){
 				if(data.success == true){
 					//市
 					 $(".City1").html(template("cit1",{item:data.resultObject[pid-1].cityList}));
+					 
+					 //<option value="volvo">--选择市--</option>
+					//县
+					 $(".District1").html(template("dis",{item:null}));
+					 
 				}
 			})
 	}
+
+//区县渲染
+function getDistrict(){
+	var pid = $('.Province1 option:selected').val()
+	var cid =  $('.City1 option:selected').val()
+	console.log(cid)
+	RequestService("/address/getAllPCC", "get", {}, function(data){
+		if(data.success == true){
+			//区县
+			 $(".District1").html(template("dis",{item:data.resultObject[pid-1].cityList[cid].disList}));
+		}
+	})
+}
 
 
 //市数据渲染
@@ -30,19 +48,7 @@ function getCity(){
 			})
 	}
 
-//区县渲染
-function getDistrict(){
-	var pid = $('.Province1 option:selected').val()
-	var cid =  $('.City1 option:selected').val()
-	console.log(cid)
-	RequestService("/address/getAllPCC", "get", {}, function(data){
-		if(data.success == true){
-			//console.log(data.resultObject[pid-1].cityList[cid])
-			//区县
-			 $(".District1").html(template("dis",{item:data.resultObject[pid-1].cityList[cid].disList}));
-		}
-	})
-}
+
 
 
 //请求常用地址数据渲染到页面中
