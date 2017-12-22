@@ -17,7 +17,7 @@ $(function(){
 	    RequestService("/medical/doctor/getNewsReportByArticleId","GET",{
 	    	articleId:articleId
 	    },function(data){
-	        if(data.success==false || data.resultObject.length == 0){
+	        if(data.success==false ||data.resultObject==null|| data.resultObject.length == 0){
 	           $('.teacher_books').addClass('hide')
 	        }else{
 	        	//获取到数据渲染
