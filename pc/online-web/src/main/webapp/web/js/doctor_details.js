@@ -127,6 +127,9 @@ $(function(){
 	    //给更多专栏按钮添加医师id
 	     $('.more_zhuanlan').attr('href','/web/html/colomn.html?doctorId='+id+'')
 	     
+	    //更多著作部分添加医师id
+
+	      $('.zhuzuo_title a').attr('href','/web/html/doctor_book.html?doctorId='+id+'')
 	     
 	    //医师详情页面的著作部分
 	      RequestService("/medical/doctor/getWritingsByDoctorId", "GET", {
