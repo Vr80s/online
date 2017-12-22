@@ -282,7 +282,7 @@ public class DoctorController extends AbstractController{
 		List<MedicalHospital> medicalHospitals= doctorService.getMedicalHospital(id);
 		return medicalHospitals;
 	}
-
+	
 	@RequestMapping(value = "recList")
 	@ResponseBody
 	public TableVo recList(TableVo tableVo) {
@@ -399,5 +399,16 @@ public class DoctorController extends AbstractController{
 		responseObject.setSuccess(true);
 		responseObject.setResultObject("报道-医师关联成功！");
 		return responseObject;
+	}
+	
+	/**
+	 * 获取所有医师   名字 的 接口
+	 * @return
+	 */
+	@RequestMapping(value = "getMedicalDoctor")
+	@ResponseBody
+	public List<MedicalDoctor> getMedicalDoctor(String writingsId){
+		List<MedicalDoctor> medicalHospitals= doctorService.getMedicalDoctor(writingsId);
+		return medicalHospitals;
 	}
 }

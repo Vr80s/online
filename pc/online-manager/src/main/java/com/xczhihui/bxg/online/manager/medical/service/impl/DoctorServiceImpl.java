@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 import java.util.*;
 
 import com.xczhihui.bxg.online.common.domain.*;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -381,5 +382,20 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		String sql="select * from medical_doctor where deleted=0 and status=1 order by  convert(name using gbk) ASC";
 		List<MedicalDoctor> voList=dao.findEntitiesByJdbc(MedicalDoctor.class, sql, null);
 		return voList;
+	}
+
+	@Override
+	public List<MedicalDoctor> getMedicalDoctor(String writingsId) {
+		// TODO Auto-generated method stub
+		List<MedicalDoctor> list = list();
+		List<MedicalDoctorWritings> mdr = dao.findEntitiesByProperty(MedicalDoctorWritings.class, "writingsId", writingsId);
+		for (int i = 0; i < mdr.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if(mdr.get(i).getDoctorId().equals(list.get(j).getId())){
+					list.get(j).setHas(true);
+				}
+			}
+		}
+		return list;
 	}
 }
