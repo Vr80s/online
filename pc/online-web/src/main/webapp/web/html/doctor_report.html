@@ -159,8 +159,8 @@
             <!--相关医师-->
             <div class="about_doctor">
                 <h3>名医推荐</h3>
-                <ul class="about_doctor_list clearfix">
-                    <li>
+                <ul class="about_doctor_list clearfix" id="doc_rec">
+                    <!--<li>
                         <span class="about_doctor_pic">
                              <img src="../images/doctor_detail/touxiang.png" alt="">
                         </span>
@@ -206,7 +206,7 @@
                         </span>
                         <p>朱春苏</p>
 
-                    </li>
+                    </li>-->
                     
                 </ul>
             </div>
@@ -234,6 +234,20 @@
 {{/each}}	
 </script>
 
+
+<!--名医推荐-->
+<script type="text/templage" id="doc_recTpl">
+	{{each doc as doc i}}
+	<li style="position: relative;">
+		<a href="/web/html/doctor_details.html?Id={{doc.id}}" style="display:inline-block;position: absolute;width: 100%;height: 100%;"></a>
+        <span class="about_doctor_pic">
+            <img src={{doc.headPortrait}} alt="暂无图片">
+        </span>
+        <p>{{doc.name}}</p>
+
+    </li>
+	{{/each}}
+</script>
 
 </body>
 </html>

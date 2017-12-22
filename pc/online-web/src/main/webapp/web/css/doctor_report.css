@@ -147,6 +147,7 @@
 .content_box #main .main_right .about_doctor .about_doctor_list > li .about_doctor_pic img {
   width: 60px;
   height: 60px;
+  border-radius: 50%;
 }
 .content_box #main .main_right .about_doctor .about_doctor_list > li:nth-child(4n) {
   margin-right: 0;
