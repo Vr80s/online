@@ -75,6 +75,12 @@
 	color: #666666;
 	line-height: 24px;
 	padding-top: 8px;
+	height: 80px;
+	overflow: hidden;
+  text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .content_box #main .main_left .doctor_book .doctor_book_bottom #doctor_book_list li .doctor_book_left{

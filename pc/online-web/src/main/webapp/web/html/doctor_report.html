@@ -6,7 +6,7 @@
     <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IEedge"/>
     <meta charset="UTF-8">
-    <title>熊猫中医 - 名医著作</title>
+    <title>熊猫中医 - 名医报道</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
     <meta name="keywords"
           content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
@@ -62,7 +62,7 @@
          	</div>
          	<div class="doctor_book_bottom">
          		<ul id="doctor_book_list">
-         			<li class="clearfix">
+         			<!--<li class="clearfix">
          				<div class="doctor_book_left">
          					<img src="../images/doctor_detail/book2.png" alt="" />
          				</div>
@@ -137,12 +137,12 @@
          					<p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传</p>
          					<span>2017.11.11</span>
          				</div>
-         			</li>
+         			</li>-->
          			
          		</ul>
          	</div>
          	
-         	<div class="doctor_book_more">
+         	<div class="doctor_book_more hide">
          		<button>更多</button>
          	</div>
          </div>
@@ -215,11 +215,30 @@
     </div>
 </div>
 
+<!--名医报道-->
+<script type="text/template" id="report_listTpl">
+{{each inf as inf i}}
+<li class="clearfix">
+    <div class="doctor_book_left">
+        <a href="/web/html/report.html?id={{inf.id}}">
+        	<img src="{{inf.imgPath}}" alt="" />
+        </a>
+    </div>
+    <div class="doctor_book_inf">
+        <h4><a href="/web/html/report.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h4>
+        <p>{{change(inf.content)}}</p>
+        <span>{{inf.createTime}}</span>
+    </div>
+</li>
+
+{{/each}}	
+</script>
+
 
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
-<script src="/web/js/doctor_book.js"></script>
+<script src="/web/js/doctor_report.js"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript">
