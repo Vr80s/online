@@ -11,7 +11,9 @@ img{
 a{
 	text-decoration: none;
 }
-
+.hide{
+	display: none;
+}
 .both{
 	clear: both;
 }
@@ -36,6 +38,7 @@ a{
 	color: #333333;
 	margin-top: 30px;
 	margin-bottom: 6px;
+	font-weight: 700;
 }
 .report_tag{
 	width: 100%;
@@ -97,15 +100,19 @@ a{
 /*右侧内容开始*/
 .report_right{
 	width: 320px;
-    float: right;
+    float: left;
+    margin-left: 20px;
     height: 1060px;
 }
-.report_right_doctor{
+.report_right > div{
 	margin-bottom: 20px;
+}
+.report_right_doctor{
     background: #fff;
-    padding-bottom: 22px;
     padding-top: 22px;
-    min-height: 152px;
+}
+.report_right_doctor:last-child{
+	padding-bottom: 20px;
 }
 .report_right_doctor .name{
 	font-size: 16px;

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link rel="stylesheet" href="/web/css/componet.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
-    <link rel="stylesheet" href="shoutu.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
 
@@ -46,15 +45,15 @@
 <body style="background: #f7f7f7;">
 <!-- 名医报道详情开始 -->
     <div class="report">
-        <div class="report_left">
-            <div class="report_title">家庭医生签约应该怎么做？看看全国百强社区卫生服务中心就知道了</div>
+        <div class="report_left" id="report_box">
+            <!--<div class="report_title">家庭医生签约应该怎么做？看看全国百强社区卫生服务中心就知道了</div>
             <div class="report_tag">
                <img src="/web/images/1513861952(1).jpg" alt="" class="report_tag_img" />
                <span class="report_tag_span_one">路名医生</span>
                <span class="report_tag_span_two">2017-12-21</span>
-                <a href="javascript: ;">名医报道</a>
+                <a href="javascript: ;">名医报道</a>-->
                <!-- <span class="report_tag_span_three"></span> -->
-            </div>
+            <!--</div>
             <div class="report_left_main">
                 <img src="/web/images/john_singer.jpg" alt="">
                 <div class="report_left_main_sizes">
@@ -71,23 +70,40 @@
                 </div>
                 <div class="report_left_main_indicate">
                     本文转<span>自动脉网</span> <a href="javascript: ;">原文链接</a> 转载请注明出处
-                </div>
+                </div>-->
 
             </div>
         </div>
         <div class="report_right">
             <!-- 这是报道的名医 -->
-            <div class="report_right_doctor">
-                <p class="name">报道的名医</p>
-                <div class="report_right_name">
-                    <img src="/web/images/criticism_img.png" alt="">
-                    <div class="report_right_name_p">
-                        <p class="p0">段富津</p>
-                        <p class="p1">黑龙江 哈尔滨</p>
-                    </div>
-                </div>
-                <div class="both"></div>
+            <div id="report_doc_list" style="background: #fff;">
+            	<p class="name" style="padding:20px;padding-bottom: 0px;">报道的名医</p>
+            	<div id="report_doctor_list">
+            		 <!--<div class="report_right_doctor">
+                	<div class="report_right_name">
+                    	<img src="/web/images/criticism_img.png" alt="">
+                    	<div class="report_right_name_p">
+                        	<p class="p0">段富津</p>
+                        	<p class="p1">黑龙江 哈尔滨</p>
+                    	</div>
+                	</div>
+                	<div class="both"></div>
+            	</div>
+            	
+            	 <div class="report_right_doctor">
+                	<div class="report_right_name">
+                    	<img src="/web/images/criticism_img.png" alt="">
+                    	<div class="report_right_name_p">
+                        	<p class="p0">段富津</p>
+                        	<p class="p1">黑龙江 哈尔滨</p>
+                    	</div>
+                	</div>
+                	<div class="both"></div>
+            	</div>-->
+            	</div>
+            	
             </div>
+           
 
             <!-- 这是推荐阅读 -->
             <div class="report_right_read">
@@ -101,10 +117,51 @@
         </div>
     </div>
 <!-- 名医报道详情结束 -->
+
+
+<!--报道详情-->
+<script type="text/template" id="report_detailTpl">
+	 <div class="report_title">{{title}}</div>
+            <div class="report_tag">
+               <img src="/web/images/1513861952(1).jpg" alt="" class="report_tag_img" />
+               <span class="report_tag_span_one">路名医生</span>
+               <span class="report_tag_span_two">{{createTime}}</span>
+                <a href="/web/html/doctor_report.html">名医报道</a>
+               <!-- <span class="report_tag_span_three"></span> -->
+            </div>
+            <div class="report_left_main">
+                <img src="{{imgPath}}" alt="">
+                <div class="report_left_main_sizes">
+                  {{change(content)}}
+                </div>
+                
+                <div class="report_left_main_indicate">
+                    本文转<span>自动脉网</span> <a href="javascript: ;">原文链接</a> 转载请注明出处
+                </div>
+            </div>
+</script>
+
+
+<!--右侧报道的名医-->
+<script type="text/template" id="report_docTpl">
+	{{each inf as inf i}}
+	<div class="report_right_doctor">
+        <div class="report_right_name">
+            <img src="{{inf.headPortrait}}" alt="">
+            <div class="report_right_name_p">
+                <p class="p0">{{inf.name}}</p>
+                <p class="p1">{{inf.province}}&nbsp;{{inf.city}}</p>
+            </div>
+        </div>
+    <div class="both"></div>
+    </div>
+	{{/each}}
+</script>
+
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
-<script src="/web/js/shoutu.js"></script>
+<script src="/web/js/report.js"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 
