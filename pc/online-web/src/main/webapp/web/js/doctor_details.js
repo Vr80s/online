@@ -1,6 +1,11 @@
 $(function(){
 	$('.path .doctor').addClass('select');
 	
+	
+	
+	window.current = 1;
+	window.size = 2;
+	
 	//获取url中参数值的方法
 	function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -96,13 +101,15 @@ $(function(){
 //	    });
 	
 	//获取医师对应的媒体报道
-	  RequestService("/medical/doctor/getNewsReports", "GET", {
+	  RequestService("/medical/doctor/getNewsReportsByPage", "GET", {
+	  	current:current,
+	  	size:size,
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.length == 0){
 	           $('#media_report').addClass('hide');
 	        }else{
-	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject}));
+	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject.records}));
 	        }
 	    });
 	    
@@ -110,14 +117,16 @@ $(function(){
 	
 	
 	//获取医师对应的专栏列表
-	  RequestService("/medical/doctor/getSpecialColumnByDoctorId", "GET", {
+	  RequestService("/medical/doctor/getSpecialColumnsByPage", "GET", {
+	  	current:current,
+	  	size:size,
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.length == 0){
 	        	//没有数据处理
 	           $('.zhuanlan').addClass('hide');
 	        }else{
-	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject}));
+	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject.records}));
 	        }
 	    });
 	    
