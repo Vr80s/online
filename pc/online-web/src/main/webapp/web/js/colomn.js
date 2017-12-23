@@ -24,7 +24,7 @@ $(function(){
 	
 	//没有条件的进行列表渲染
 	function getReportList(current,size,doctorId){
-		RequestService("/medical/doctor/getNewsReportsByPage","GET",{
+		RequestService("/medical/doctor/getSpecialColumnsByPage","GET",{
 			current:current,
 			size:size,
 			doctorId:doctorId
