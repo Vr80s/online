@@ -654,7 +654,10 @@ padding:0 20px;
 	font-size:14px;
 	font-weight:700;
 }
-
+#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent > li > a{
+	font-size: 14px;
+	color: #333;
+}
 /*#forum .forum-content .forum-content-right .forum-hot-course .hot-course .boxContent li {
   float: left;
   width: 100%;
@@ -675,7 +678,7 @@ padding:0 20px;
   text-decoration: none;
 }
 #forum .forum-content .forum-content-right .forum-hot-course .hot-course .course a {
-  float: left;
+  /*float: left;*/
   margin-right: 20px;
   width: 100%;
 }

@@ -409,7 +409,7 @@
 	{{each doctor as doctor i}}
 	<li>
 		<h4>招募{{doctor.position}}</h4>
-		<span data-id="{{doctor.id}}">{{doctor.hospitalName}}</span>
+		<a href="/web/html/hospital_details.html?Id={{doctor.hospitalId}}">{{doctor.hospitalName}}</a>
     </li>
 	{{/each}}
 </script>
