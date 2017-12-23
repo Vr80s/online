@@ -14,7 +14,7 @@ $(function(){
 	
 	
 	    // 报道详情页面数据请求
-	    RequestService("/medical/doctor/getNewsReportByArticleId","GET",{
+	    RequestService("/medical/doctor/getSpecialColumnDetailsById","GET",{
 	    	articleId:articleId
 	    },function(data){
 	        if(data.success==false ||data.resultObject==null|| data.resultObject.length == 0){
@@ -34,6 +34,10 @@ $(function(){
 	          
 	        }
 	    });
+	    
+	    
+	    
+	  
 	    
 	    
 	    

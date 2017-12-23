@@ -3,8 +3,8 @@
     clear: both;
 }
 .colomn_li img{
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border-radius: 60px;
     float: left;
     margin-right: 20px;
@@ -18,8 +18,8 @@
     font-size: 14px;
     color: #333333;
     font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 4px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .colomn_li_p .p1{
     font-size: 14px;
@@ -29,5 +29,5 @@
     white-space: nowrap;
 }
 .about_doctor ul li{
-    margin-top: 20px;
+    margin-top: 10px;
 }
