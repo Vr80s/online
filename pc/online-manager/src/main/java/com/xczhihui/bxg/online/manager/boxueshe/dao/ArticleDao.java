@@ -24,33 +24,49 @@ public class ArticleDao extends HibernateDao<ArticleVo>{
 		// TODO Auto-generated method stub
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 //		StringBuilder sql =new StringBuilder("SELECT article.* ,group_concat(tag.name) as tagName ,group_concat(tag.id) as tagId,arttype.`name` as typeName,u.name as author from oe_bxs_article article,article_r_tag art ,oe_bxs_tag tag , article_type arttype, user u where article.id = art.article_id and art.tag_id = tag.id and article.type_id =arttype.id and article.user_id = u.id ");
+//		StringBuilder sql =new StringBuilder("SELECT \n" +
+//				"  article.*,\n" +
+//				"  GROUP_CONCAT(tag.name) AS tagName,\n" +
+//				"  GROUP_CONCAT(tag.id) AS tagId,\n" +
+//				"  arttype.`name` AS typeName,\n" +
+//				"  article.user_id AS author ,\n" +
+//				"  md.`name` doctorAuthor ,\n" +
+//				"  GROUP_CONCAT(md1.name) AS reportDoctor " +
+//				"FROM\n" +
+//				"  article_r_tag art,\n" +
+//				"  oe_bxs_tag tag,\n" +
+//				"  article_type arttype,\n" +
+//				"  USER u ,\n" +
+//				"  oe_bxs_article article\n" +
+//				"  LEFT JOIN `medical_doctor_author_article` mdaa\n" +
+//				"  ON mdaa.`article_id` = article.`id`\n" +
+//				"  LEFT JOIN `medical_doctor` md\n" +
+//				"  ON mdaa.`doctor_id` = md.`id`\n" +
+//				" LEFT JOIN `medical_doctor_report` mdr\n" +
+//				"  ON mdr.`article_id` = article.`id`\n" +
+//				"  LEFT JOIN `medical_doctor` md1\n" +
+//				"  ON mdr.`doctor_id` = md1.`id`  "+
+//				"  WHERE article.id = art.article_id \n" +
+//				"  AND art.tag_id = tag.id \n" +
+//				"  AND article.type_id = arttype.id \n");
 		StringBuilder sql =new StringBuilder("SELECT \n" +
 				"  article.*,\n" +
 				"  GROUP_CONCAT(tag.name) AS tagName,\n" +
 				"  GROUP_CONCAT(tag.id) AS tagId,\n" +
 				"  arttype.`name` AS typeName,\n" +
-				"  article.user_id AS author ,\n" +
-				"  md.`name` doctorAuthor ,\n" +
-				"  GROUP_CONCAT(md1.name) AS reportDoctor " +
+				"  article.`user_id` author,\n" +
+				"  (SELECT md.name FROM `medical_doctor_author_article` mdaa JOIN medical_doctor md ON mdaa.`doctor_id` = md.`id` WHERE mdaa.`article_id` = article.`id`) doctorAuthor,\n" +
+				"  (SELECT GROUP_CONCAT(md.name) FROM `medical_doctor_report` mdr JOIN medical_doctor md ON mdr.`doctor_id` = md.`id` WHERE mdr.`article_id` = article.`id`) reportDoctor\n" +
 				"FROM\n" +
+				"  oe_bxs_article article,\n" +
 				"  article_r_tag art,\n" +
 				"  oe_bxs_tag tag,\n" +
-				"  article_type arttype,\n" +
-				"  USER u ,\n" +
-				"  oe_bxs_article article\n" +
-				"  LEFT JOIN `medical_doctor_author_article` mdaa\n" +
-				"  ON mdaa.`article_id` = article.`id`\n" +
-				"  LEFT JOIN `medical_doctor` md\n" +
-				"  ON mdaa.`doctor_id` = md.`id`\n" +
-				" LEFT JOIN `medical_doctor_report` mdr\n" +
-				"  ON mdr.`article_id` = article.`id`\n" +
-				"  LEFT JOIN `medical_doctor` md1\n" +
-				"  ON mdr.`doctor_id` = md1.`id`  "+
-				"  WHERE article.id = art.article_id \n" +
+				"  article_type arttype\n" +
+				"WHERE article.id = art.article_id \n" +
 				"  AND art.tag_id = tag.id \n" +
-				"  AND article.type_id = arttype.id \n");
+				"  AND article.type_id = arttype.id ");
 
-	  if(articleVo.getTitle() != null){
+		if(articleVo.getTitle() != null){
 		   sql.append(" and article.title like :title");
 		   paramMap.put("title", "%"+articleVo.getTitle()+"%");
 	   }

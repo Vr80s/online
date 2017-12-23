@@ -23,7 +23,7 @@
 		</collection>
 	</resultMap>
 
-	<select id="getSpecialColumnByDoctorId" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+	<select id="getSpecialColumns" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
 		SELECT
 		  oba.id,
 		  oba.`title`,
@@ -34,7 +34,10 @@
 		  `oe_bxs_article` oba
 		  JOIN `medical_doctor_author_article` mdaa
 			ON oba.`id` = mdaa.`article_id`
-		   AND mdaa.`doctor_id` = #{doctorId}
+		where oba.`is_delete`=0 AND oba.`status`=1
+		<if test="doctorId != null and doctorId!=''">
+		   and mdaa.`doctor_id` = #{doctorId}
+		</if>
 		ORDER BY oba.`create_time` DESC
 	</select>
 
@@ -56,7 +59,8 @@
 			on mdaa.`doctor_id` = md.`id`
 		  join `medical_doctor_authentication_information` mdai
 			on mdai.id = md.`authentication_information_id`
-		where art.id =  #{specialColumn}
+		where oba.`is_delete`=0 AND oba.`status`=1
+		and art.id =  #{specialColumn}
 		order by oba.`browse_sum` desc ,convert(oba.`title` using gbk) ASC
 		limit 0, 6
 	</select>
@@ -72,8 +76,8 @@
 		  `oe_bxs_article` oba
 		  JOIN `medical_doctor_report` mdr
 			ON oba.`id` = mdr.`article_id`
-			where
-		  	mdr.`doctor_id`= #{doctorId}
+			where oba.`is_delete`=0 AND oba.`status`=1
+		  	and mdr.`doctor_id`= #{doctorId}
 			ORDER BY oba.`create_time` DESC
 	</select>
 
@@ -87,6 +91,7 @@
 		  `oe_bxs_article` oba
 		  JOIN `medical_doctor_report` mdr
 			ON oba.`id` = mdr.`article_id`
+		where oba.`is_delete`=0 AND oba.`status`=1
 			GROUP BY oba.id
 			ORDER BY oba.`create_time` DESC
 			LIMIT 0,5
@@ -103,6 +108,10 @@
 		  `oe_bxs_article` oba
 		  JOIN `medical_doctor_report` mdr
 			ON oba.`id` = mdr.`article_id`
+		where oba.`is_delete`=0 AND oba.`status`=1
+		<if test="doctorId != null and doctorId!=''">
+			and mdr.`doctor_id` = #{doctorId}
+		</if>
 			GROUP BY oba.id
 			ORDER BY oba.`create_time` DESC
 	</select>

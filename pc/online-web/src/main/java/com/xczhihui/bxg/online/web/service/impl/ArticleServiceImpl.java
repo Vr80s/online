@@ -56,15 +56,15 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         String  sql="";
         if(tagId==null){
             paramMap.put("type",type);
-            sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,u.`name`, Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId," +
-                "  Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\") tag FROM oe_bxs_article b,user u,article_r_tag ar,oe_bxs_tag t" +
-                " where  b.id= ar.article_id and b.user_id=u.id and ar.tag_id=t.id and b.is_delete=0 " +
+            sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,b.`user_id` name, Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId," +
+                "  Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\") tag FROM oe_bxs_article b,article_r_tag ar,oe_bxs_tag t" +
+                " where  b.id= ar.article_id and ar.tag_id=t.id and b.is_delete=0 " +
                 " and b.status=1 and b.type_id=:type  GROUP BY b.id  order by b.create_time desc";
         }else{
             paramMap.put("tagId",tagId);
-            sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,u.`name`,  Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\")  tagId," +
-                    " Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag FROM oe_bxs_article b,user u,article_r_tag ar,oe_bxs_tag t" +
-                    " where  b.id= ar.article_id and b.user_id=u.id and ar.tag_id=t.id and b.is_delete=0 " +
+            sql=" SELECT b.id,b.title,b.content,b.img_path,b.create_time,b.`user_id` name,  Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\")  tagId," +
+                    " Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag FROM oe_bxs_article b,article_r_tag ar,oe_bxs_tag t" +
+                    " where  b.id= ar.article_id and ar.tag_id=t.id and b.is_delete=0 " +
                     " and b.status=1 and b.id  in (select article_id from article_r_tag  where status=1 and  tag_id=:tagId)  GROUP BY b.id  order by b.create_time desc";
         }
         return dao.findPageBySQL(sql, paramMap, ArticleVo.class, pageNumber, pageSize);
@@ -122,9 +122,9 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
             tableName=" oe_bxs_preview_article  ba";
             paramMap.put("articleId",preId);
         }
-        String  sql=" SELECT ba.title,ba.content,ba.img_path,ba.create_time,ba.browse_sum,ba.praise_sum,ba.comment_sum,u.`name`,at.name typeName,Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag , " +
-                    "Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId, if(find_in_set(:loginName,ba.praise_login_names)>0,1,0)  as isPraise from "+tableName+",article_type at,user u,article_r_tag ar,oe_bxs_tag t "+
-                    " where ba.type_id=at.id and ba.user_id= u.id and ba.id =ar.article_id and ar.tag_id=t.id and " +
+        String  sql=" SELECT ba.title,ba.content,ba.img_path,ba.create_time,ba.browse_sum,ba.praise_sum,ba.comment_sum,ba.`user_id` name,at.name typeName,Concat(\"[\",GROUP_CONCAT('\"',t.name,'\"'),\"]\")  tag , " +
+                    "Concat(\"[\",GROUP_CONCAT('\"',t.id,'\"'),\"]\") tagId, if(find_in_set(:loginName,ba.praise_login_names)>0,1,0)  as isPraise from "+tableName+",article_type at,article_r_tag ar,oe_bxs_tag t "+
+                    " where ba.type_id=at.id and ba.id =ar.article_id and ar.tag_id=t.id and " +
                     "  ba.is_delete=0 "+status+" and ba.id=:articleId ";
         List< Map<String,Object>> articles=  dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
         return  articles.size() > 0 ? articles.get(0) : null;
