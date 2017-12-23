@@ -383,11 +383,11 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		             Arrays.sort(array1);
 		             Arrays.sort(array2);
 		             if (Arrays.equals(array1, array2)) {
-		            	 System.out.println("两个数组中的元素值相同");
+		            	 //System.out.println("两个数组中的元素值相同");
 		            	 falg = true;
 		                 break;
 		             } else {
-		                 System.out.println("两个数组中的元素值不相同");
+		                 //System.out.println("两个数组中的元素值不相同");
 		             }
 		     }
 		}
