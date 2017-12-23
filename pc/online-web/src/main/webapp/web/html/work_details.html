@@ -19,13 +19,11 @@
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link rel="stylesheet" href="/web/css/componet.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
-    <link rel="stylesheet" href="shoutu.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
 
     <!-- 名医著作详情 -->
     <link rel="stylesheet" href="/web/css/work_details.css">
-    <script src="jquery-1.8.3.min.js"></script>
     <!-- <link rel="stylesheet" href="/web/css/startup_project.css"> -->
 
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
@@ -89,8 +87,8 @@
         <!-- 左侧内容开始 -->
         <div class="work_dtails_left">
             <div class="work_dtails_left_top">
-                <div class="writer_name">
-                    <div class="writer_name_cen">
+                <div class="writer_name" id="book_inf">
+                    <!--<div class="writer_name_cen">
                         <img src="/web/images/work_name.png" alt="" />
                         <div class="writer_title">
                             <div class="writer_title_name">施今墨对药</div>
@@ -99,25 +97,25 @@
                         <div class="writer_buy"><a href="javascript: ;">去购买</a></div>
                         <div class="both"></div>
                     </div>
-                    <div class="both"></div>
+                    <div class="both"></div>-->
 
                 </div>
                 <div class="both"></div>
-                <div class="work_dtails_main">
-                    <img src="/web/images/john_singer.jpg" alt="" />
+                <div class="work_dtails_main" id="book_main">
+                    <!--<img src="/web/images/john_singer.jpg" alt="" />
                     <div class="work_dtails_main_size"> 最近，由中国社区卫生协会和四川省卫生计生委联合主办的第十二届中国社区卫生服务发展论坛在成都召开，开幕式上，国家卫生计生委基层卫生司副司长诸宏明宣读了《关于发布2017年全国百强社区卫生服务中心名单的通知》。本次公布的榜单，共有203家社区卫生服务中心榜上有名。</div>
                     <div class="work_dtails_main_size"> 真正让动脉网感到好奇的，其实并非谁上了榜，谁没上榜，而是一家社区卫生中心要进入到这份榜单，究竟应该具备什么样的能力？带着这样的疑问，动脉网搜寻了相关公开资料，并且采访了多家进入到榜单中的百强社区卫生中心主任。从那些信息中，我们挖掘到了百强榜背后的意义和价值所在。</div>
                     <img src="/web/images/john_singer.jpg" alt="" />
                     <div class="work_dtails_main_size">一家社区卫生中心，应该包含哪些能力？</div>
                     <div class="work_dtails_main_size"> 事实上，早在2015年，国家卫生计生委便对社区卫生中心的能力提升建设做了明确定义。2015年11月5日，国家卫生计生委、国家中医药管理局决定启动“社区卫生服务提升工程”（以下简称“服务提升工程”）。</div>
                     <div class="work_dtails_main_size">服务提升工程的目标是：到2020年，通过持续推进社区卫生服务提升工程，使社区卫生服务机构环境得到明显改善，服务功能得到完善，服务质量大幅提升；辖区居民普遍与全科医生团队建立稳定的服务关系，居民首诊在社区的比例、社区卫生服务利用率、社区门急诊人次占比均有明显提高；居民通过社区卫生服务机构能够获得安全、有效、经济、方便、综合、连续的公共卫生和基本医疗服务。</div>
-                    <div class="work_dtails_main_size">服务提升工程实施主体为社区卫生服务中心，社区卫生服务站参照社区卫生服务中心有关要求执行。具体内容包括</div>
+                    <div class="work_dtails_main_size">服务提升工程实施主体为社区卫生服务中心，社区卫生服务站参照社区卫生服务中心有关要求执行。具体内容包括</div>-->
                 </div>
             </div>
             <div class="both"></div>
 
 <!--评论开始-->
-            <div class="work_dtails_criticism">
+            <div class="work_dtails_criticism hide">
                 <div class="work_criticism_title">全部评论</div>
                 <div class="work_criticism_main">
                     <div class="work_criticism_cen">
@@ -180,9 +178,10 @@
         <!-- 右侧内容开始 -->
         <div class="work_dtails_right">
             <!-- 这是作者 -->
-            <div class="work_right_author">
+            <div class="work_right_author"> 
                 <p class="name">作者</p>
-                <div class="work_right_name">
+                <div  id="book_author">
+                	 <!--<div class="work_right_name">
                     <img src="/web/images/criticism_img.png" alt="" />
                     <div class="work_right_name_p">
                         <p class="p0">段富津</p>
@@ -190,13 +189,25 @@
                     </div>
                     <div class="both"></div>
                 </div>
+                
+                 <div class="work_right_name">
+                    <img src="/web/images/criticism_img.png" alt="" />
+                    <div class="work_right_name_p">
+                        <p class="p0">段富津</p>
+                        <p class="p1">黑龙江 哈尔滨</p>
+                    </div>
+                    <div class="both"></div>
+                </div>-->
+                </div>
+               
             </div>
 
             <!-- 这是名医书籍 -->
             <div class="work_dtails_book">
                 <div class="dtails_book">
                     <p class="name">名医书籍</p>
-                        <div class="dtails_book_name">
+                    <div id="book_list">
+                    	 <div class="dtails_book_name">
                             <img src="/web/images/u923.png" alt="" />
                             <div class="dtails_book_p">
                                 <p class="p0 text0">药房里买得到的传世名方药房里买得到的传世名方药房里买得到的传世名方</p>
@@ -220,6 +231,8 @@
                             </div>
                             <div class="both"></div>
                         </div>
+                    </div>
+                       
                     
                 </div>
             </div>
@@ -231,10 +244,66 @@
 
     </div>
 <!-- 名医著作详情结束 -->
+
+
+
+<!--顶部著作简介-->
+<script type="text/template" id="book_infTpl">
+	<div class="writer_name_cen">
+    <img src={{imgPath}} alt="" />
+        <div class="writer_title">
+            <div class="writer_title_name">{{title}}</div>
+            	<div class="writer_author_name">作者：<span>{{author}}</span></div>
+            </div>
+            <div class="writer_buy"><a href="javascript: ;">去购买</a></div>
+            <div class="both"></div>
+    </div>
+    <div class="both"></div>
+</script>
+
+<!--内容渲染-->
+<script type="text/template" id="book_mianTpl">
+	{{change(content)}}
+</script>
+
+
+
+<!--右侧作者渲染-->
+<script type="text/template" id="book_authorTpl">
+	{{each author as author i}}
+	   <div class="work_right_name" style="position: relative;">
+	   	<a href="/web/html/doctor_details.html?Id={{author.id}}"  style="position: absolute;width: 100%;height: 100%;"></a>
+		    <img src={{author.headPortrait}} alt="" />
+		    <div class="work_right_name_p">
+		        <p class="p0">{{author.name}}</p>
+		        <p class="p1">{{author.province}}&nbsp;{{author.city}}</p>
+		    </div>
+		    <div class="both"></div>
+		</div>
+    {{/each}}
+</script>
+
+
+<!--右侧书籍列表-->
+<script type="text/template" id="book_listTpl">
+		{{each book as book i}}
+		 <div class="dtails_book_name" style="position: relative;">
+		 	<a href="/web/html/work_details.html?id={{book.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
+            <img src={{book.imgPath}} alt="" />
+            <div class="dtails_book_p">
+                <p class="p0 text0">{{book.title}}</p>
+                <p class="p1">{{book.author}}</p>
+            </div>
+            <div class="both"></div>
+        </div>
+		{{/each}}
+</script>
+
+
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
-<script src="/web/js/shoutu.js"></script>
+<script src="/web/js/work_details.js"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 
