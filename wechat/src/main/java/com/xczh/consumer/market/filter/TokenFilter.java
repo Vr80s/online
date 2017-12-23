@@ -108,7 +108,7 @@ public class TokenFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
 		
-		String excludedPageStr = str + "," +str1+","+str2+","+str3;
+		String excludedPageStr = str+","+str1+","+str2+","+str3;
 	    
 	    String appExcludedPageStr = str5;
 		//String appExcludedPageStr =str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14+","+str15;

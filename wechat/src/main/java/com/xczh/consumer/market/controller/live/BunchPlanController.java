@@ -130,9 +130,11 @@ public class BunchPlanController {
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
 			courseLecturVo.setIsfocus(isFours);
 			if(courseLecturVo.getWatchState()!=0){
+				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
 			       //System.out.println("同学,当前课程您已经报名了!");
+					
 			       courseLecturVo.setWatchState(0);    
 			    };
 			}

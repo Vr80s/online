@@ -32,8 +32,10 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.domain.AlipayTradeAppPayModel;
 import com.alipay.api.domain.AlipayTradeWapPayModel;
 import com.alipay.api.internal.util.AlipaySignature;
+import com.alipay.api.request.AlipayOpenPublicTemplateMessageIndustryModifyRequest;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
+import com.alipay.api.response.AlipayOpenPublicTemplateMessageIndustryModifyResponse;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -811,6 +813,8 @@ public class AlipayController {
 	public void alipayNotify(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+		
+		
 		// 获取支付宝POST过来反馈信息
 		Map<String, String> para = new HashMap<String, String>();
 		Map requestParams = request.getParameterMap();
@@ -824,6 +828,7 @@ public class AlipayController {
 			}
 			// 乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
 			// valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
+			System.out.println(name+"{}{}{}{}{}{}{}{}"+valueStr);
 			para.put(name, valueStr);
 		}
 		// 获取支付宝的通知返回参数，可参考技术文档中页面跳转同步通知参数列表(以下仅供参考)//
@@ -847,6 +852,8 @@ public class AlipayController {
 		boolean verify_result = AlipaySignature.rsaCheckV1(para,
 				alipayConfig.ALIPAY_PUBLIC_KEY, alipayConfig.CHARSET, "RSA2");
 
+		System.out.println("verify_result:"+verify_result);
+		
 		if (verify_result) {// 验证成功
 			if ("TRADE_CLOSED".equals(para.get("trade_status"))) {
 				return;
@@ -887,6 +894,8 @@ public class AlipayController {
 			alipayPaymentRecordH5.setVoucherDetailList(para
 					.get("voucher_detail_list"));
 
+			
+			System.out.println("trade_status:"+trade_status);
 			if (trade_status.equals("TRADE_SUCCESS")) {
 				// 判断该笔订单是否在商户网站中已经做过处理
 				// 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
@@ -896,8 +905,16 @@ public class AlipayController {
 				// 注意：
 				// 如果签约的是可退款协议，退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
 				// 如果没有签约可退款协议，那么付款完成后，支付宝系统发送该交易状态通知。
+				
+				
+				System.out.println("alipayPaymentRecordH5:"+alipayPaymentRecordH5
+						.getPassbackParams());
 				if (StringUtils.isNotBlank(alipayPaymentRecordH5
 						.getPassbackParams())) {
+					
+					
+					System.out.println("trade_status:"+trade_status);
+					
 					String ppbt = JSONObject
 							.parseObject(
 									alipayPaymentRecordH5.getPassbackParams())
@@ -925,6 +942,8 @@ public class AlipayController {
 						return;
 					} else if (ppbt.equals("2")) { // 普通订单
 
+						
+						
 						System.out.println("回调数据包："
 								+ alipayPaymentRecordH5.getPassbackParams());
 						alipayPaymentRecordH5.setUserId((JSONObject
@@ -935,9 +954,15 @@ public class AlipayController {
 
 						alipayPaymentRecordH5Service
 								.insert(alipayPaymentRecordH5);
+						
+						
+						System.out.println("普通订单=============================");
+						
 						boolean onlinePaySuccess = httpOnline(out_trade_no,
 								trade_no); // 普通订单
 
+						
+						System.out.println("普通订单=============================");
 						if (onlinePaySuccess) {
 							response.getWriter().println("success"); // 请不要修改或删除
 						}
@@ -1012,19 +1037,76 @@ public class AlipayController {
 	}
 
 	
+	public AlipayTradeAppPayResponse pay1() throws AlipayApiException{
+	    //正式环境使用
+	    //AlipayClient client = new DefaultAlipayClient(Config.serverUrl, Config.appId, Config.privateKey, Config.format, Config.charset, Config.alipayPulicKey, Config.signType);
+	    //沙箱环境使用
+		
+		
+		AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do",
+				"2017072807932656", "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQChsJLO96VFCaRCLozFDbk+w1X0te3s3I7bJ8c3igZsstFAbm8WDb5Y/h41BOGeVC2LOSsjZQC2awcs/fso2QpFPGTBlk5kcMgT4ezMijCSKKM2pK9Cvh97/02YO0g/VkjX6AZFVd77t+XwrkPOiygb9PyEDq/jIvO8WcIucdP771r/ZvE89NRypa9kAcr41twDYPWY62mNs2YyjYmTLQd5mFsi/4BBatdPz0XvtXA1kmSRUhvUcvzmCm6jk0RwXVy6Ea7Z0Ceu+4pfnc/aJFfcKJv6UJQQ3rmipmwinhYi2nJ4bVtIgx+ASNlXINWt3bTJmGMZqFVtCZ3l49yCOzfBAgMBAAECggEAMuyrAFaNDfZgbpu8qF+PJY5eJymZmw1ITQv1Oa/WICwdrZ5ajGadueenWemEqdo3Ue8agBZSqCGDbA8+KHpbOr0vuqz9WbMPwPtaGn23mIEGDrLFpE6/Gc2qAbVCJvilDqM8PmAyT7N2z1wDbSz04AFD+s+pY+9hNsRKXVhqfKFA71nJ4rT8EUBYGbhJLh7Gme8nS583umoWVwjHrvPLqfZe9QB576kbWwCJOBqXKStpTYea9bNZUWbtw20hGrDfCMyyzjUL3K0ecezL4vxTaSGR6unpcG9TdJfBq6KmIKJG/cyejI2R9NjhXfLHOCCqLc6BHe0qkNbC+fitLTCtVQKBgQDYfD9W7AX/jpCy3RvgF+vpB7c3uUS771lTtQ07nMn90Yavx/1mk2UodYymL2LRubCH1M9SHltdk9lBxe70YiPlhIJJZeCOs1CUErtfDoYnKERhwpGx/1s44qjs9ooPcSdNAKoRDjFXNIQPnw6+k1UzQ0dvrGXp/7/r0pnblJWviwKBgQC/M+Gf/YcZkrQ+GSGWUDS5AUWjZadbIlRCLSTW8GDMMVbmrzc+7DuMAA1QuhyHS1HDnz38NeJBEK3Uqs4qIYXn2lF5u2z/l6eAFEOd1OFFPE6NrjqUy+nslAuoO2QvuwJQ8AjjcjdPJKc66zRRrovNHLAkGextT+Ci5eNIxxOfYwKBgQC/XFz07d+DfjcEFJVOanbbXzmipT9PzQwuBS20UyzuE2c2PNcO9B2IPRhd0idM8hJMj13P3guvVUDHdjp6hcHrYU11qftsyK7ipQhBx2nodRy1ObNmHy44w4rFJEz3x3MRCxRJzTzqM/7EfDohVcULcl5UJZVU2gCBaYEda2NBbwKBgBuVsZRycD5JQwW+fHECK0kRnOlg7g8g2cUeXDVCQsTSzXXEi5ThYgnlrAYcg6clP6uYWsn7QCQg8uM+rTW41mfHwH9ugeAyEfFRexvXLZTeiXq5SyxSavI9vZzMzLxyH3hr2OxvevlJEXNXoZmzM+oonGTo9IokvwThY7QJPJR/AoGBAMpoH2mmmIpNZnAkJw82YS0PfUy3bF7nBUU5mEnZiEVnrMY10uqgohSDt+wslbpx2dL7NoRrSx3K5l5sEV4QNv/u1FZMF0cUSlXY78LTiLiPLZtmvXLmbZhmNag/irMXJ0pZ8Q5xOrO0Na4nuLPOfDrtXK1q2FIKeYDIUDgzvVli",
+				"json", "UTF-8",
+				"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuzLNkQQ41cDv/azbuctIziPqUVDbpaT3r5NT5d6mhaDQ8m1v3UtFa0rM7oV4XiLhM8O0uBH6Dx0U0eb9izOjE2yIDWT8FJaraOKf6ncscpfawZX79TDg+L+531uBUFExsrhNaCZDNpmmREyXkPkpXHIlYDTpuUzwdJpXtaQPE9B8yeVsrixdEAT5XnSfyhqP/KJeo8P8Axj7w3aTY5vjduLXVfBOyOTVw/5bx2LfqFPkUl12xIr3L0KE1tSVAzdGrTEReWQDPkOU5Q7FdLsck+FCquadcZtg/Kj5d07dD/i++VeThK8yB6DaQ/dUloMTmwvYxclFnkGfGjR8qFXjYQIDAQAB",
+				"RSA2");
+		
+		
+//		public  String CHARSET = "UTF-8";
+//		// 返回格式
+//		public  String FORMAT = "json";
+		
+//		alipay.appid=2017072807932656
+//				alipay.rsaprivate_key=MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQChsJLO96VFCaRCLozFDbk+w1X0te3s3I7bJ8c3igZsstFAbm8WDb5Y/h41BOGeVC2LOSsjZQC2awcs/fso2QpFPGTBlk5kcMgT4ezMijCSKKM2pK9Cvh97/02YO0g/VkjX6AZFVd77t+XwrkPOiygb9PyEDq/jIvO8WcIucdP771r/ZvE89NRypa9kAcr41twDYPWY62mNs2YyjYmTLQd5mFsi/4BBatdPz0XvtXA1kmSRUhvUcvzmCm6jk0RwXVy6Ea7Z0Ceu+4pfnc/aJFfcKJv6UJQQ3rmipmwinhYi2nJ4bVtIgx+ASNlXINWt3bTJmGMZqFVtCZ3l49yCOzfBAgMBAAECggEAMuyrAFaNDfZgbpu8qF+PJY5eJymZmw1ITQv1Oa/WICwdrZ5ajGadueenWemEqdo3Ue8agBZSqCGDbA8+KHpbOr0vuqz9WbMPwPtaGn23mIEGDrLFpE6/Gc2qAbVCJvilDqM8PmAyT7N2z1wDbSz04AFD+s+pY+9hNsRKXVhqfKFA71nJ4rT8EUBYGbhJLh7Gme8nS583umoWVwjHrvPLqfZe9QB576kbWwCJOBqXKStpTYea9bNZUWbtw20hGrDfCMyyzjUL3K0ecezL4vxTaSGR6unpcG9TdJfBq6KmIKJG/cyejI2R9NjhXfLHOCCqLc6BHe0qkNbC+fitLTCtVQKBgQDYfD9W7AX/jpCy3RvgF+vpB7c3uUS771lTtQ07nMn90Yavx/1mk2UodYymL2LRubCH1M9SHltdk9lBxe70YiPlhIJJZeCOs1CUErtfDoYnKERhwpGx/1s44qjs9ooPcSdNAKoRDjFXNIQPnw6+k1UzQ0dvrGXp/7/r0pnblJWviwKBgQC/M+Gf/YcZkrQ+GSGWUDS5AUWjZadbIlRCLSTW8GDMMVbmrzc+7DuMAA1QuhyHS1HDnz38NeJBEK3Uqs4qIYXn2lF5u2z/l6eAFEOd1OFFPE6NrjqUy+nslAuoO2QvuwJQ8AjjcjdPJKc66zRRrovNHLAkGextT+Ci5eNIxxOfYwKBgQC/XFz07d+DfjcEFJVOanbbXzmipT9PzQwuBS20UyzuE2c2PNcO9B2IPRhd0idM8hJMj13P3guvVUDHdjp6hcHrYU11qftsyK7ipQhBx2nodRy1ObNmHy44w4rFJEz3x3MRCxRJzTzqM/7EfDohVcULcl5UJZVU2gCBaYEda2NBbwKBgBuVsZRycD5JQwW+fHECK0kRnOlg7g8g2cUeXDVCQsTSzXXEi5ThYgnlrAYcg6clP6uYWsn7QCQg8uM+rTW41mfHwH9ugeAyEfFRexvXLZTeiXq5SyxSavI9vZzMzLxyH3hr2OxvevlJEXNXoZmzM+oonGTo9IokvwThY7QJPJR/AoGBAMpoH2mmmIpNZnAkJw82YS0PfUy3bF7nBUU5mEnZiEVnrMY10uqgohSDt+wslbpx2dL7NoRrSx3K5l5sEV4QNv/u1FZMF0cUSlXY78LTiLiPLZtmvXLmbZhmNag/irMXJ0pZ8Q5xOrO0Na4nuLPOfDrtXK1q2FIKeYDIUDgzvVli
+//				alipay.notify_url=http://m.ipandatcm.com/bxg/alipay/alipayNotifyUrl
+//				alipay.return_url=http://m.ipandatcm.com/xcviews/html/indent.html
+//				alipay.url=https://openapi.alipay.com/gateway.do
+//				alipay.alipay_public_key=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuzLNkQQ41cDv/azbuctIziPqUVDbpaT3r5NT5d6mhaDQ8m1v3UtFa0rM7oV4XiLhM8O0uBH6Dx0U0eb9izOjE2yIDWT8FJaraOKf6ncscpfawZX79TDg+L+531uBUFExsrhNaCZDNpmmREyXkPkpXHIlYDTpuUzwdJpXtaQPE9B8yeVsrixdEAT5XnSfyhqP/KJeo8P8Axj7w3aTY5vjduLXVfBOyOTVw/5bx2LfqFPkUl12xIr3L0KE1tSVAzdGrTEReWQDPkOU5Q7FdLsck+FCquadcZtg/Kj5d07dD/i++VeThK8yB6DaQ/dUloMTmwvYxclFnkGfGjR8qFXjYQIDAQAB
+
+		
+		
+		AlipayOpenPublicTemplateMessageIndustryModifyRequest request = new AlipayOpenPublicTemplateMessageIndustryModifyRequest();
+	    //异步地址传值方式
+		//此次只是参数展示，未进行字符串转义，实际情况下请转义
+		request.setBizContent("  {" +
+		"    \"primary_industry_name\":\"IT科技/IT软件与服务\"," +
+		"    \"primary_industry_code\":\"10001/20102\"," +
+		"    \"secondary_industry_code\":\"10001/20102\"," +
+		"    \"secondary_industry_name\":\"IT科技/IT软件与服务\"" +
+		" }");
+		AlipayOpenPublicTemplateMessageIndustryModifyResponse response = alipayClient.execute(request); 
+		//调用成功，则处理业务逻辑
+		if(response.isSuccess()){
+			//.....
+			System.out.println("成功");
+		}else{
+			System.out.println("失败");
+		}
+	    return  null;
+	}
+
+	
 	public static void main(String[] args) {
 		
-		String ap = "中国你好";
-        try {
-        	double apd = Double.valueOf(ap);
-            if(apd < (0.01d)){
-    			System.out.println("金额必须大于等于0.01");
-    		}
-		} catch (Exception e) {
-			 e.printStackTrace();
-			System.out.println("请输入正确的金额");
-		}
 		
+		//System.out.println(alipayConfig.URL);
+//		String ap = "中国你好";
+//        try {
+//        	double apd = Double.valueOf(ap);
+//            if(apd < (0.01d)){
+//    			System.out.println("金额必须大于等于0.01");
+//    		}
+//		} catch (Exception e) {
+//			 e.printStackTrace();
+//			System.out.println("请输入正确的金额");
+//		}
+////		
+		AlipayController ali = new AlipayController();
+		try {
+			ali.pay1();
+		} catch (AlipayApiException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		
 	}
 	
 }
