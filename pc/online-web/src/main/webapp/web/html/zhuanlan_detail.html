@@ -145,12 +145,13 @@
 <!--右侧报道的名医-->
 <script type="text/template" id="report_docTpl">
 	{{each inf as inf i}}
-	<div class="report_right_doctor">
+	<div class="report_right_doctor" style="position: relative;">
+		<a href="/web/html/symposiastx.html?doctorId={{inf.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
         <div class="report_right_name">
             <img src="{{inf.headPortrait}}" alt="">
             <div class="report_right_name_p">
                 <p class="p0">{{inf.name}}</p>
-                <p class="p1">{{inf.province}}&nbsp;{{inf.city}}</p>
+                <p class="p1">{{inf.signature}}</p>
             </div>
         </div>
     <div class="both"></div>
