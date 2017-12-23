@@ -275,6 +275,17 @@ img {
 	float: left;
 	    margin-right: 20px;
 }
+#forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li > .dajia_inf > p{
+	    width: 180px;
+    height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+        margin-top: 10px;
+}
+#forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li > .dajia_inf >span{
+	font-weight: 700;
+}
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li > .touxiang{
 	width: 60px;
 	height: 60px;
