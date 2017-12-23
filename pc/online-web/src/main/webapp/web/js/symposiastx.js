@@ -1,5 +1,13 @@
 $(function(){
 	
+	//设置初始化数据
+	window.current = 1;
+	window.size = 7;
+	window.doctorId = getQueryString('doctorId')?getQueryString('doctorId'):'';
+	
+	
+	
+	
 	//获取url中参数值的方法
 	function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -14,14 +22,16 @@ $(function(){
 	
 	
 	    // 报道详情页面数据请求
-	    RequestService("/medical/doctor/getSpecialColumnByDoctorId","GET",{
+	    RequestService("/medical/doctor/getSpecialColumnsByPage","GET",{
+	    	current:current,
+	    	size:size,
 	    	doctorId:doctorId
 	    },function(data){
 	        if(data.success==false ||data.resultObject==null|| data.resultObject.length == 0){
 	           $('#doctor_book_list').addClass('hide')
 	        }else{
 	        	//获取到数据渲染
-	           $('#doctor_book_list').html(template('zhuanlan_listTpl',{inf:data.resultObject}));
+	           $('#doctor_book_list').html(template('zhuanlan_listTpl',{inf:data.resultObject.records}));
 	           
 	        
 	          
