@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,7 +57,12 @@ public class CriticizeController {
 			throws Exception {
 		
 		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
+		
+		String pageSizeStr = req.getParameter("pageSize");
 		int pageSize = 20;
+		if(StringUtils.isNotBlank(pageSizeStr)){
+			pageSize = Integer.parseInt(req.getParameter("pageSize"));
+		}
 		String videoId = req.getParameter("videoId");
 		String name = req.getParameter("name");
 		

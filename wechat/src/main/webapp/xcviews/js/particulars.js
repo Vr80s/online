@@ -46,7 +46,7 @@ var pageNumber = 1;
  * 获取评论列表
  * 
  */
-var name = localStorage.name;
+var loginName = localStorage.loginName;
 var userId =  localStorage.userId;
 var smallHeadPhoto =  localStorage.smallHeadPhoto;
 function  getVideoCriticize(pageNumber,vId){
@@ -64,7 +64,7 @@ function  getVideoCriticize(pageNumber,vId){
 	var dataParams ={
 		pageNumber:pageNumber,
 		videoId:vId,	
-		name:name,
+		loginName:loginName,
 		pageSize:10
 	}
 	requestService("/bxg/criticize/getVideoCriticize", 
