@@ -26,7 +26,9 @@ public class WritingDao extends HibernateDao<ArticleVo>{
 		// TODO Auto-generated method stub
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		
-		StringBuilder sql =new StringBuilder("SELECT mw.*,oba.comment_sum as commentSum from "
+		StringBuilder sql =new StringBuilder("SELECT mw.*,oba.comment_sum as commentSum  ,\n" +
+				"  (SELECT GROUP_CONCAT(md.name) FROM `medical_doctor_writings` mdw JOIN `medical_doctor` md ON mdw.doctor_id = md.id WHERE mdw.writings_id = mw.id) doctorName" +
+				" from "
 				+ "medical_writings as mw,oe_bxs_article as oba  where 1=1 and mw.article_id = oba.id ");
 
 		  if(articleVo.getTitle() != null){

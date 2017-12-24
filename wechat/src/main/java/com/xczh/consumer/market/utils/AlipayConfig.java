@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class AlipayConfig {
 	// 商户appid
 	@Value("${alipay.appid}")
-	public  String APPID = "2017072807932656";
+	public  String APPID;
 	// 私钥 pkcs8格式的
 	@Value("${alipay.rsaprivate_key}")
 	public  String RSA_PRIVATE_KEY;

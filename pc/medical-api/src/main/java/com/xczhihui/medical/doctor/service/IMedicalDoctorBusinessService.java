@@ -37,7 +37,7 @@ public interface IMedicalDoctorBusinessService {
 
     OeBxsArticleVo  getNewsReportByArticleId(String doctorId);
 
-    List<OeBxsArticleVo> getSpecialColumnByDoctorId(String doctorId);
+    Page<OeBxsArticleVo> getSpecialColumns(Page<OeBxsArticleVo> page, String doctorId);
 
     OeBxsArticleVo getSpecialColumnDetailsById(String articleId);
 
@@ -49,7 +49,7 @@ public interface IMedicalDoctorBusinessService {
 
     List<OeBxsArticleVo> getRecentlyNewsReports();
 
-    Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page);
+    Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page, String doctorId);
 
     List<OeBxsArticleVo> getHotSpecialColumn();
 

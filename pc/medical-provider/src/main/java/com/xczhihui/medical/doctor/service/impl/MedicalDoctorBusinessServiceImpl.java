@@ -88,8 +88,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     }
 
     @Override
-    public List<OeBxsArticleVo> getSpecialColumnByDoctorId(String doctorId) {
-        return oeBxsArticleMapper.getSpecialColumnByDoctorId(doctorId);
+    public Page<OeBxsArticleVo> getSpecialColumns(Page<OeBxsArticleVo> page, String doctorId) {
+        List<OeBxsArticleVo> specialColumns = oeBxsArticleMapper.getSpecialColumns(page, doctorId);
+        page.setRecords(specialColumns);
+        return page;
     }
 
     @Override
@@ -118,8 +120,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     }
 
     @Override
-    public Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page) {
-        List<OeBxsArticleVo> records = oeBxsArticleMapper.getNewsReportsByPage(page);
+    public Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page, String doctorId) {
+        List<OeBxsArticleVo> records = oeBxsArticleMapper.getNewsReportsByPage(page,doctorId);
         page.setRecords(records);
         return page;
     }

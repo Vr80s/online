@@ -57,11 +57,21 @@ public class MedicalWritings implements Serializable {
 	private Date updateTime;
 
 	private String version;
+	@Transient
+	private String doctorName;
 
 	private Integer sort;
 	
 	@Transient
 	private Integer commentSum; //评论数
+
+	public String getDoctorName() {
+		return doctorName;
+	}
+
+	public void setDoctorName(String doctorName) {
+		this.doctorName = doctorName;
+	}
 
 	public String getId() {
 		return id;

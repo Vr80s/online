@@ -87,7 +87,7 @@ $("#addArticle-form").on("change","#imgPath_file",function(){
 		if (data.error == 0) {
 			$("#"+id).parent().find(".ace-file-name").after("<img scr='' class='middle'/>");
 			$("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
-			$("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
+			$("#"+id).parent().find(".ace-file-name img").attr("style","width: 160px; height: 200px;");
 
 			$("#add_imgPath").val(data.url);
 			document.getElementById("imgPath_file").focus();
@@ -165,7 +165,7 @@ $("#saveBtn").click(function(){
 
 //返回
 $("#returnbutton").click(function(){
-	turnPage(basePath+'/home#boxueshe/article/index');
+	turnPage(basePath+'/home#boxueshe/writing/index');
 })
 
 /**
@@ -182,7 +182,7 @@ function reviewImage(inputId,imgSrc){
 	$("#"+inputId).parent().find('.ace-file-name').remove();
 	$("#"+inputId).parent().find(".ace-file-container").addClass('hide-placeholder').attr('data-title', null)
 	.addClass('selected').html('<span class="ace-file-name" data-title="'+fileName+'">'
-			 +('<img class="middle" style="width: 250px; height: 140px;" src="'+imgSrc+'"><i class="ace-icon fa fa-picture-o file-image"></i>')
+			 +('<img class="middle" style="width: 160px; height: 200px;" src="'+imgSrc+'"><i class="ace-icon fa fa-picture-o file-image"></i>')
 					 +'</span>');
 }
 

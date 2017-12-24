@@ -86,7 +86,7 @@ $(function () {
             '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
             '<div class="forum-info-tags">'+
             '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+
-//          '<span>{{dataSub($value.create_time)}}</span>'+
+         '<span>{{$value.name}}<em></em>{{dataSub($value.create_time)}}</span>'+
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
