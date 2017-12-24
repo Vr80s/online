@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <!--[if IE 9]>
@@ -6,7 +6,7 @@
     <![endif]-->
     <meta http-equiv="X-UA-Compatible" content="IEedge"/>
     <meta charset="UTF-8">
-    <title>熊猫中医博学社 - 名医著作详情</title>
+    <title>熊猫中医博学社 - 线上中医教育</title>
     <link rel="shortcut icon" href="/favicon.ico"/>
     <meta name="keywords"
           content="中医教育,中医传承,中医线下教育，海口中医养生，国粹，传承，中医，中药，心承，熊猫中医"/>
@@ -19,13 +19,10 @@
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link rel="stylesheet" href="/web/css/componet.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
+    <link rel="stylesheet" href="/web/css/zhuanlan_detail.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
-
-    <!-- 名医报道详情 -->
-    <link rel="stylesheet" href="/web/css/zhuanlan_detail.css">
-    <!-- <script src="jquery-1.8.3.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="/web/css/startup_project.css"> -->
+    <link rel="stylesheet" href="/web/css/modal.css"/>
 
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
@@ -40,46 +37,61 @@
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/modal.js" type="text/javascript" charset="utf-8"></script>
 
+    <!--百度统计-->
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?9905b58e5fa2d9e2dd20bd22ee8ffe8c";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
-<body style="background: #f7f7f7;">
-<!-- 名医报道详情开始 -->
-    <div class="report">
-        <div class="report_left" id="report_box">
-            <!--<div class="report_title">家庭医生签约应该怎么做？看看全国百强社区卫生服务中心就知道了</div>
-            <div class="report_tag">
-               <img src="/web/images/1513861952(1).jpg" alt="" class="report_tag_img" />
-               <span class="report_tag_span_one">路名医生</span>
-               <span class="report_tag_span_two">2017-12-21</span>
-                <a href="javascript: ;">名医报道</a>-->
-               <!-- <span class="report_tag_span_three"></span> -->
-            <!--</div>
-            <div class="report_left_main">
-                <img src="/web/images/john_singer.jpg" alt="">
-                <div class="report_left_main_sizes">
-                    最近，由中国社区卫生协会和四川省卫生计生委联合主办的第十二届中国社区卫生服务发展论坛在成都召开，开幕式上，国家卫生计生委基层卫生司副司长诸宏明宣读了《关于发布2017年全国百强社区卫生服务中心名单的通知》。本次公布的榜单，共有203家社区卫生服务中心榜上有名。
-                </div>
-                <div class="report_left_main_sizes">
-                    最近，由中国社区卫生协会和四川省卫生计生委联合主办的第十二届中国社区卫生服务发展论坛在成都召开，开幕式上，国家卫生计生委基层卫生司副司长诸宏明宣读了《关于发布2017年全国百强社区卫生服务中心名单的通知》。本次公布的榜单，共有203家社区卫生服务中心榜上有名。
-                </div>
-                <div class="report_left_main_sizes">
-                     一家社区卫生中心，应该包含哪些能力？事实上，早在2015年，国家卫生计生委便对社区卫生中心的能力提升建设做了明确定义。2015年11月5日，国家卫生计生委、国家中医药管理局决定启动“社区卫生服务提升工程”（以下简称“服务提升工程”）。
-                </div>
-                <div class="report_left_main_sizes">
-                    服务提升工程的目标是：到2020年，通过持续推进社区卫生服务提升工程，使社区卫生服务机构环境得到明显改善，服务功能得到完善，服务质量大幅提升；辖区居民普遍与全科医生团队建立稳定的服务关系，居民首诊在社区的比例、社区卫生服务利用率、社区门急诊人次占比均有明显提高；居民通过社区卫生服务机构能够获得安全、有效、经济、方便、综合、连续的公共卫生和基本医疗服务。服务提升工程实施主体为社区卫生服务中心，社区卫生服务站参照社区卫生服务中心有关要求执行。具体内容包括
-                </div>
-                <div class="report_left_main_indicate">
-                    本文转<span>自动脉网</span> <a href="javascript: ;">原文链接</a> 转载请注明出处
-                </div>-->
+<body>
+<div id="forum" class="clearfix">
+    <div class="forum-nav hide">
+        <a href="/web/html/forum.html">博学社</a><span> > </span><a href="/web/html/forum.html" class="myClassName" style="margin-left:0px"></a><span> > </span><span style="margin-left:0px">文章详情</span>
+    </div>
+    <div class="forum-content clearfix">
+        <div class="forum-content-left">
+            <div class="forum-detailInfo">
 
             </div>
+            <div class="forum-community clearfix">
+                <div class="forum-community-title">参与讨论</div>
+                <div class="forum-community-loginHit">
+                    请<span class="forum-community-lgoin">登录</span>后参与讨论
+                </div>
+                <textarea name="" id="" class="forum-community-textarea" placeholder="说点儿什么吧……" cols="30" rows="10"></textarea>
+                <div class="emptyHit"><i class="iconfont icon-tanhao"></i>请输入内容</div>
+                <div class="community-submit">提交</div>
+            </div>
+            <div class="all-comment">
+                <div class="all-comment-title">
+                    <span>全部评论</span>
+                    <span class="community-count"></span>
+                </div>
+                <div class="forum-communitybox">
+
+                </div>
+            </div>
+
+            <div class="pages">
+                <div id="Pagination"></div>
+            </div>
         </div>
+       
+       
+       
         <div class="report_right">
             <!-- 这是报道的名医 -->
             <div id="report_doc_list" style="background: #fff;">
             	<p class="name" style="padding:20px;padding-bottom: 0px;">报道的名医</p>
             	<div id="report_doctor_list">
-            		 <!--<div class="report_right_doctor">
+            		<!--<div class="report_right_doctor clearfix">
                 	<div class="report_right_name">
                     	<img src="/web/images/criticism_img.png" alt="">
                     	<div class="report_right_name_p">
@@ -90,7 +102,7 @@
                 	<div class="both"></div>
             	</div>
             	
-            	 <div class="report_right_doctor">
+            	 <div class="report_right_doctor clearfix">
                 	<div class="report_right_name">
                     	<img src="/web/images/criticism_img.png" alt="">
                     	<div class="report_right_name_p">
@@ -99,12 +111,12 @@
                     	</div>
                 	</div>
                 	<div class="both"></div>
-            	</div>-->
             	</div>
+            	</div>-->
             	
             </div>
            
-
+ 			</div>
             <!-- 这是推荐阅读 -->
             <div class="report_right_read">
                 <p class="name">推荐阅读</p>
@@ -114,44 +126,24 @@
                     <li><a href="javascript: ;">中医药席卷全球成独特风景，发展热情被彻</a></li>
                 </ul>
             </div>
-        </div>
-    </div>
-<!-- 名医报道详情结束 -->
+            
 
+        
+   
+</div>
 
-<!--报道详情-->
-<script type="text/template" id="report_detailTpl">
-	 <div class="report_title">{{title}}</div>
-            <div class="report_tag">
-               <img src="/web/images/1513861952(1).jpg" alt="" class="report_tag_img" />
-               <span class="report_tag_span_one">路名医生</span>
-               <span class="report_tag_span_two">{{createTime}}</span>
-                <a href="/web/html/doctor_report.html">名医报道</a>
-               <!-- <span class="report_tag_span_three"></span> -->
-            </div>
-            <div class="report_left_main">
-                <img src="{{imgPath}}" alt="">
-                <div class="report_left_main_sizes">
-                  {{change(content)}}
-                </div>
-                
-                <div class="report_left_main_indicate">
-                    本文转<span>自动脉网</span> <a href="javascript: ;">原文链接</a> 转载请注明出处
-                </div>
-            </div>
-</script>
 
 
 <!--右侧报道的名医-->
 <script type="text/template" id="report_docTpl">
 	{{each inf as inf i}}
-	<div class="report_right_doctor" style="position: relative;">
+	<div class="report_right_doctor clearfix" style="position: relative;">
 		<a href="/web/html/doctor_details.html?Id={{inf.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
         <div class="report_right_name">
             <img src="{{inf.headPortrait}}" alt="">
             <div class="report_right_name_p">
                 <p class="p0">{{inf.name}}</p>
-                <p class="p1">{{inf.signature}}</p>
+                <p class="p1">{{inf.province}}&nbsp;{{inf.city}}</p>
             </div>
         </div>
     <div class="both"></div>
@@ -165,4 +157,8 @@
 <script src="/web/js/zhuanlan_detail.js"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
-
+<script type="text/javascript">
+    $(function () {
+        $('input').placeholder();
+    });
+</script>
