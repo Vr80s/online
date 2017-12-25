@@ -3,7 +3,7 @@ package com.xczhihui.medical.hospital.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVo;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO;
 
 import java.util.List;
 
@@ -17,5 +17,5 @@ import java.util.List;
  */
 public interface MedicalHospitalPictureMapper extends BaseMapper<MedicalHospitalPicture> {
 
-    public List<MedicalHospitalPictureVo> getMedicalHospitalPictureByHospitalId(String hospitalId);
+    public List<MedicalHospitalPictureVO> getMedicalHospitalPictureByHospitalId(String hospitalId);
 }

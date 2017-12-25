@@ -163,7 +163,7 @@ $("#saveBtn").click(function(){
 
 //返回
 $("#returnbutton").click(function(){
-	turnPage(basePath+'/home#boxueshe/article/index');
+	turnPage(basePath+'/home#boxueshe/writing/index');
 })
 
 //新增预览

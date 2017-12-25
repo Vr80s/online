@@ -9,11 +9,12 @@ $(function(){
 	var objData = [{ "title": checkbox,"class":"center","width":"4%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
     }},
-	{ "title": "ID", "class": "center","width":"4%","sortable": false,"data":"id" },
+	// { "title": "ID", "class": "center","width":"4%","sortable": false,"data":"id" },
 	{ "title": "书名", "class": "center","width":"15%","sortable": false,"data":"title" ,"mRender":function (data, display, row) {
 		return data.replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }},
 	{ "title": "作者", "class": "center","width":"8%","sortable": false,"data":"author" },
+	{ "title": "关联医师", "class": "center","width":"8%","sortable": false,"data":"doctorName" },
 	{ "title": "评论数", "class": "center","width":"6%","sortable": false,"data":"commentSum" },
 	{ "title": '更新时间', "class": "center","width": "9%","data": 'createTime', "sortable": false},
 	{ "title": "状态", "class": "center","width":"7%","sortable": false,"data":"status","mRender":function (data, display, row) {

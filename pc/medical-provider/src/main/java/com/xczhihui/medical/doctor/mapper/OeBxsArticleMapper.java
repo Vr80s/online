@@ -4,8 +4,8 @@ package com.xczhihui.medical.doctor.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.OeBxsArticle;
-import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,15 +19,17 @@ import java.util.List;
  */
 public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
 
-    List<OeBxsArticleVo> getNewsReports(String doctorId);
+    List<OeBxsArticleVO> getNewsReports(String doctorId);
 
-    OeBxsArticleVo getNewsReportByArticleId(String articleId);
+    OeBxsArticleVO getNewsReportByArticleId(String articleId);
 
-    List<OeBxsArticleVo> getSpecialColumnByDoctorId(String doctorId);
+    List<OeBxsArticleVO> getSpecialColumns(@Param("page") Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId);
 
-    OeBxsArticleVo getSpecialColumnDetailsById(String articleId);
+    OeBxsArticleVO getSpecialColumnDetailsById(String articleId);
 
-    List<OeBxsArticleVo> getRecentlyNewsReports();
+    List<OeBxsArticleVO> getRecentlyNewsReports();
 
-    List<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page);
+    List<OeBxsArticleVO> getNewsReportsByPage(@Param("page") Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId, @Param("doctorReport") String doctorReport);
+
+    List<OeBxsArticleVO> getHotSpecialColumn(String specialColumn);
 }

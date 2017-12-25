@@ -1,6 +1,6 @@
 package com.xczhihui.medical.doctor.vo;
 
-import com.xczhihui.medical.field.vo.MedicalFieldVo;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 import java.io.Serializable;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author yuxin
  * @since 2017-12-09
  */
-public class MedicalDoctorVo implements Serializable{
+public class MedicalDoctorVO implements Serializable{
 
     /**
      * 医师表
@@ -71,12 +71,21 @@ public class MedicalDoctorVo implements Serializable{
 	//医馆名
 	private String hospitalId;
 	private String hospitalName;
+	private String signature;
 
-	private List<MedicalFieldVo> fields;
+	private List<MedicalFieldVO> fields;
 
 	private MedicalHospitalVo medicalHospital;
 
-	private MedicalDoctorAuthenticationInformationVo medicalDoctorAuthenticationInformation;
+	private MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation;
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
+	}
 
 	public String getId() {
 		return id;
@@ -194,11 +203,11 @@ public class MedicalDoctorVo implements Serializable{
 		this.hospitalName = hospitalName;
 	}
 
-	public List<MedicalFieldVo> getFields() {
+	public List<MedicalFieldVO> getFields() {
 		return fields;
 	}
 
-	public void setFields(List<MedicalFieldVo> fields) {
+	public void setFields(List<MedicalFieldVO> fields) {
 		this.fields = fields;
 	}
 
@@ -210,11 +219,11 @@ public class MedicalDoctorVo implements Serializable{
 		this.medicalHospital = medicalHospitalVo;
 	}
 
-	public MedicalDoctorAuthenticationInformationVo getMedicalDoctorAuthenticationInformation() {
+	public MedicalDoctorAuthenticationInformationVO getMedicalDoctorAuthenticationInformation() {
 		return medicalDoctorAuthenticationInformation;
 	}
 
-	public void setMedicalDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformationVo medicalDoctorAuthenticationInformation) {
+	public void setMedicalDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation) {
 		this.medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformation;
 	}
 

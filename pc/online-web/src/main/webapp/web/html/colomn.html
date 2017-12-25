@@ -163,10 +163,10 @@
             <!--推荐专栏作者-->
             <div class="about_doctor">
                 <h3>推荐专栏作者</h3>
-                <ul>
+                <ul id="about_doctorList">
 
 
-                   <li >
+                   <!--<li >
                         <div class="colomn_li">
                             <img src="../images/criticism_img.png" alt="">
                             <div class="colomn_li_p">
@@ -205,7 +205,7 @@
                            </div>
                            <div class="both"></div>
                         </div>
-                   </li>
+                   </li>-->
                 </ul>
 
             </div>
@@ -214,19 +214,19 @@
     </div>
 </div>
 
-<!--名医报道-->
+<!--大家专栏部分-->
 <script type="text/template" id="report_listTpl">
 {{each inf as inf i}}
 <li class="clearfix">
     <div class="doctor_book_left">
-        <a href="/web/html/report.html?id={{inf.id}}">
+        <a href="/web/html/zhuanlan_detail.html?id={{inf.id}}">
             <img src="{{inf.imgPath}}" alt="" />
         </a>
     </div>
     <div class="doctor_book_inf">
-        <h4><a href="/web/html/report.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h4>
+        <h4><a href="/web/html/zhuanlan_detail.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h4>
         <p>{{change(inf.content)}}</p>
-        <span>{{inf.createTime}}</span>
+        <span>{{inf.author}}&nbsp;{{inf.createTime}}</span>
     </div>
 </li>
 
@@ -234,24 +234,30 @@
 </script>
 
 
-<!--名医推荐-->
-<!--<script type="text/templage" id="doc_recTpl">
-    {{each doc as doc i}}
-    <li style="position: relative;">
-        <a href="/web/html/doctor_details.html?Id={{doc.id}}" style="display:inline-block;position: absolute;width: 100%;height: 100%;"></a>
-        <span class="about_doctor_pic">
-            <img src={{doc.headPortrait}} alt="暂无图片">
-        </span>
-        <p>{{doc.name}}</p>
-
+<!--专栏作者-->
+<script type="text/template" id="zhuanlan_zuozheTpl">
+	{{each doc as doc i}}
+	 <li style="position:relative">
+	 <a href="/web/html/symposiastx.html?doctorId={{doc.id}}" style="position:absolute;width:100%;height:100%"></a>
+        <div class="colomn_li">
+            <img src={{doc.headPortrait}} alt="">
+                <div class="colomn_li_p">
+                    <p class="p0">{{doc.name}}</p>
+                    <p class="p1">{{doc.signature}}</p>
+                </div>
+        <div class="both"></div>
+        </div>
     </li>
-    {{/each}}
-</script>-->
+	{{/each}}
+</script>
+
+
+
 
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
-<script src="/web/js/doctor_report.js"></script>
+<script src="/web/js/colomn.js"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript">

@@ -69,7 +69,16 @@
 				</div>
 			</div>
 		</div>
-		
+
+		<div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>作者:</label>
+			<div class="col-sm-3" >
+				<div class="clearfix" style="width: 240px;">
+					 <input type="text" name="userId" id="userId"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group " style="margin-top:18px;margin-bottom:60px">
 			<label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>内容:</label>
 			<div class="col-lg-10 " style="height:250px">

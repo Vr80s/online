@@ -1,6 +1,6 @@
 package com.xczhihui.medical.hospital.vo;
 
-import com.xczhihui.medical.field.vo.MedicalFieldVo;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -63,9 +63,9 @@ public class MedicalHospitalVo implements Serializable{
 	 */
 	private Double score;
 
-	private List<MedicalHospitalPictureVo> medicalHospitalPictures;
+	private List<MedicalHospitalPictureVO> medicalHospitalPictures;
 
-	private List<MedicalFieldVo> fields;
+	private List<MedicalFieldVO> fields;
 
 	public String getId() {
 		return id;
@@ -159,19 +159,19 @@ public class MedicalHospitalVo implements Serializable{
 		this.score = score;
 	}
 
-	public List<MedicalHospitalPictureVo> getMedicalHospitalPictures() {
+	public List<MedicalHospitalPictureVO> getMedicalHospitalPictures() {
 		return medicalHospitalPictures;
 	}
 
-	public void setMedicalHospitalPictures(List<MedicalHospitalPictureVo> medicalHospitalPictures) {
+	public void setMedicalHospitalPictures(List<MedicalHospitalPictureVO> medicalHospitalPictures) {
 		this.medicalHospitalPictures = medicalHospitalPictures;
 	}
 
-	public List<MedicalFieldVo> getFields() {
+	public List<MedicalFieldVO> getFields() {
 		return fields;
 	}
 
-	public void setFields(List<MedicalFieldVo> fields) {
+	public void setFields(List<MedicalFieldVO> fields) {
 		this.fields = fields;
 	}
 

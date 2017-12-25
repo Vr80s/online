@@ -1,7 +1,5 @@
 package com.xczhihui.medical.doctor.vo;
 
-import com.xczhihui.medical.field.vo.MedicalFieldVo;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
  * @author yuxin
  * @since 2017-12-09
  */
-public class MedicalWritingsVo implements Serializable{
+public class MedicalWritingsVO implements Serializable{
 
     /**
      * 著作表
@@ -26,7 +24,7 @@ public class MedicalWritingsVo implements Serializable{
 	private String buyLink;
 	private String imgPath;
 	private String content;
-	private List<MedicalDoctorVo> medicalDoctors;
+	private List<MedicalDoctorVO> medicalDoctors;
 
 	public String getId() {
 		return id;
@@ -84,11 +82,11 @@ public class MedicalWritingsVo implements Serializable{
 		this.content = content;
 	}
 
-	public List<MedicalDoctorVo> getMedicalDoctors() {
+	public List<MedicalDoctorVO> getMedicalDoctors() {
 		return medicalDoctors;
 	}
 
-	public void setMedicalDoctors(List<MedicalDoctorVo> medicalDoctors) {
+	public void setMedicalDoctors(List<MedicalDoctorVO> medicalDoctors) {
 		this.medicalDoctors = medicalDoctors;
 	}
 }

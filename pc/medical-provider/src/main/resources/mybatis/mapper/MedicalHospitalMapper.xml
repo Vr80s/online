@@ -17,16 +17,16 @@
 	</resultMap>
 
 	<resultMap type="com.xczhihui.medical.hospital.vo.MedicalHospitalVo" id="MedicalHospitalListResult" extends="MedicalHospitalBaseResult">
-		<collection property="medicalHospitalPictures" ofType="com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVo">
+		<collection property="medicalHospitalPictures" ofType="com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO">
 			<id column="picture" property="picture"/>
 		</collection>
 	</resultMap>
 
 	<resultMap type="com.xczhihui.medical.hospital.vo.MedicalHospitalVo" id="MedicalHospitalResult" extends="MedicalHospitalBaseResult">
-		<collection property="medicalHospitalPictures" ofType="com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVo">
+		<collection property="medicalHospitalPictures" ofType="com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO">
 			<id column="picture" property="picture"/>
 		</collection>
-		<collection property="fields" ofType="com.xczhihui.medical.field.vo.MedicalFieldVo">
+		<collection property="fields" ofType="com.xczhihui.medical.field.vo.MedicalFieldVO">
 			<id column="fieldName" property="name"/>
 		</collection>
 	</resultMap>
@@ -72,7 +72,7 @@
 		ORDER BY mh.authentication DESC, mh.score DESC,convert(name using gbk) ASC
 	</select>
 
-	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVo">
+	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
 		SELECT
 		  mf.id,mf.name
 		FROM
@@ -100,7 +100,7 @@
 		<!--select id,name,detailed_address detailedAddress from medical_hospital where deleted = 0 and status = 1 and id = #{id}-->
 	<!--</select>-->
 
-	<select id="selectMedicalFieldsByHospitalId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVo">
+	<select id="selectMedicalFieldsByHospitalId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
 		SELECT
 		mf.name
 		FROM

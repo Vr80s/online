@@ -1,6 +1,11 @@
 $(function(){
 	$('.path .doctor').addClass('select');
 	
+	
+	
+	window.current = 1;
+	window.size = 2;
+	
 	//获取url中参数值的方法
 	function getQueryString(name) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
@@ -96,17 +101,15 @@ $(function(){
 //	    });
 	
 	//获取医师对应的媒体报道
-	  RequestService("/medical/doctor/getNewsReports", "GET", {
+	  RequestService("/medical/doctor/getNewsReportsByPage", "GET", {
+	  	current:current,
+	  	size:size,
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.length == 0){
-	        	//没有数据处理
 	           $('#media_report').addClass('hide');
 	        }else{
-	        	//获取到数据渲染
-	        	//创建一个盒子
-	        	console.log(data);
-	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject}));
+	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject.records}));
 	        }
 	    });
 	    
@@ -114,22 +117,41 @@ $(function(){
 	
 	
 	//获取医师对应的专栏列表
-	  RequestService("/medical/doctor/getSpecialColumnByDoctorId", "GET", {
+	  RequestService("/medical/doctor/getSpecialColumnsByPage", "GET", {
+	  	current:current,
+	  	size:size,
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.length == 0){
 	        	//没有数据处理
-//	           $('#zhuanlan').addClass('hide');
-	           console.log(data);
+	           $('.zhuanlan').addClass('hide');
 	        }else{
-	        	//获取到数据渲染
-	        	//创建一个盒子
-//	        	console.log(data);
-	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject}));
+	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject.records}));
 	        }
 	    });
 	    
 	    //给更多报道按钮添加医师id
 	    $('.more_madia_report').attr('href','/web/html/doctor_report.html?doctorId='+id+'')
+	    
+	    //给更多专栏按钮添加医师id
+	     $('.more_zhuanlan').attr('href','/web/html/colomn.html?doctorId='+id+'')
+	     
+	    //更多著作部分添加医师id
+
+	      $('.zhuzuo_title a').attr('href','/web/html/doctor_book.html?doctorId='+id+'')
+	     
+	    //医师详情页面的著作部分
+	      RequestService("/medical/doctor/getWritingsByDoctorId", "GET", {
+	 	doctorId:id
+	 }, function (data) {
+	        if(data.resultObject.length == 0){
+	           $('.zhuzuo').addClass('hide')
+	        }else{
+	        	//获取到数据渲染
+	        	//创建一个盒子
+	           $('#zhuzuo_list').html(template('zhuzuoTpl',{book:data.resultObject}));
+	        }
+	    });
+	    
 	    
 })

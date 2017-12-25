@@ -13,7 +13,7 @@ import java.util.List;
  * @author yuxin
  * @since 2017-12-20
  */
-public class OeBxsArticleVo implements Serializable {
+public class OeBxsArticleVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -38,6 +38,7 @@ public class OeBxsArticleVo implements Serializable {
      * banner图片
      */
 	private String bannerPath;
+	private String author;
     /**
      * 阅读量
      */
@@ -57,13 +58,21 @@ public class OeBxsArticleVo implements Serializable {
 
 	private Date createTime;
 
-	private List<MedicalDoctorVo> medicalDoctors;
+	public String getAuthor() {
+		return author;
+	}
 
-	public List<MedicalDoctorVo> getMedicalDoctors() {
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	private List<MedicalDoctorVO> medicalDoctors;
+
+	public List<MedicalDoctorVO> getMedicalDoctors() {
 		return medicalDoctors;
 	}
 
-	public void setMedicalDoctors(List<MedicalDoctorVo> medicalDoctors) {
+	public void setMedicalDoctors(List<MedicalDoctorVO> medicalDoctors) {
 		this.medicalDoctors = medicalDoctors;
 	}
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper">
 
-	<resultMap type="com.xczhihui.medical.doctor.vo.MedicalWritingsVo" id="MedicalWritingsResult">
+	<resultMap type="com.xczhihui.medical.doctor.vo.MedicalWritingsVO" id="MedicalWritingsResult">
 		<id column="id" property="id" />
 		<id column="articleId" property="articleId" />
 		<id column="title" property="title" />
@@ -11,7 +11,7 @@
 		<id column="imgPath" property="imgPath" />
 		<id column="content" property="content" />
 
-		<collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+		<collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 			<id column="did" property="id"/>
 			<id column="dname" property="name"/>
 			<id column="headPortrait" property="headPortrait"/>
@@ -21,7 +21,7 @@
 	</resultMap>
 
 
-	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 		SELECT
 		  md.*,
 		  md.`work_time` workTime,
@@ -52,7 +52,7 @@
 		</if>
 	</select>
 
-	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 		SELECT
 		md.*,
 		md.`work_time` workTime,
@@ -72,7 +72,7 @@
 		AND md.id = #{id}
 	</select>
 
-	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVo">
+	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
 		SELECT
 		mf.id,mf.name
 		FROM
@@ -85,7 +85,7 @@
 	</select>
 
 
-	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 		select
 		md.*,
 		mdai.head_portrait headPortrait
@@ -100,7 +100,32 @@
 		limit 0, 10
 	</select>
 
-	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVo">
+	<select id="getHotSpecialColumnAuthor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
+		SELECT
+		  SUM(oba.`browse_sum`) sbs,
+		  COUNT(oba.`id`) ci,
+		  md.`name`,
+		  md.`id`,
+		  mdai.`head_portrait` headPortrait,
+		  md.`signature`
+		FROM
+		  `oe_bxs_article` oba
+		  JOIN `article_type` art
+			ON oba.type_id = art.`id`
+		  JOIN `medical_doctor_author_article` mdaa
+			ON mdaa.`article_id` = oba.`id`
+		  JOIN `medical_doctor` md
+			ON mdaa.`doctor_id` = md.`id`
+		  JOIN `medical_doctor_authentication_information` mdai
+			ON mdai.id = md.`authentication_information_id`
+		WHERE art.id = #{specialColumn}
+		AND oba.`is_delete`=0 AND oba.`status`=1
+		GROUP BY md.`id`
+		ORDER BY sbs DESC ,ci DESC,CONVERT(md.`name` USING gbk) ASC
+		limit 0,5
+	</select>
+
+	<select id="selectMedicalFieldsByDoctorId" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
 		SELECT
 		  mf.name,
 		  mf.id
@@ -111,7 +136,7 @@
 		and mdf.doctor_id = #{doctorId}
 	</select>
 
-	<select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVo">
+	<select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
 		SELECT
 		  mw.id,
 		  mw.`title`,
@@ -127,10 +152,11 @@
 			ON md.id = mdw.`doctor_id`
 			WHERE md.id = #{doctorId}
 			AND mw.`deleted`=0 AND mw.`status`=1
+			GROUP BY oba.id
 	ORDER BY mw.`create_time` desc
 	</select>
 
-	<select id="getRecentlyWritings" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVo">
+	<select id="getRecentlyWritings" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
 		SELECT
 		  mw.id,
 		  mw.`title`,
@@ -146,6 +172,29 @@
 			ON md.id = mdw.`doctor_id`
 		WHERE mw.`deleted` = 0
 		  AND mw.`status` = 1
+		  GROUP BY oba.id
+	ORDER BY mw.`create_time` desc
+	limit 0, 3
+	</select>
+
+	<select id="getWritingsByPage" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
+		SELECT
+		  mw.id,
+		  mw.`title`,
+		  mw.`author`,
+		  oba.`img_path` imgPath,
+		  oba.content
+		FROM
+		  `medical_writings` mw
+		  LEFT JOIN `oe_bxs_article` oba
+			ON mw.`article_id` = oba.id
+		  LEFT JOIN `medical_doctor_writings` mdw
+			ON mdw.`writings_id` = mw.`id`
+		  LEFT JOIN `medical_doctor` md
+			ON md.id = mdw.`doctor_id`
+		WHERE mw.`deleted` = 0
+		  AND mw.`status` = 1
+		  GROUP BY oba.id
 	ORDER BY mw.`create_time` desc
 	</select>
 

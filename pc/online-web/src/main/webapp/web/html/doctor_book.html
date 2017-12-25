@@ -62,7 +62,7 @@
          	</div>
          	<div class="doctor_book_bottom">
          		<ul id="doctor_book_list">
-         			<li class="clearfix">
+         			<!--<li class="clearfix">
          				<div class="doctor_book_left">
          					<img src="../images/doctor_detail/book2.png" alt="" />
          				</div>
@@ -137,11 +137,11 @@
          					<span>作者：</span><span>施今墨</span>
          					<p>2017年11月16日-19日，实现五大升级的第四届中国国际中医药大健康博览会暨高峰论坛（简称：中医药康博会/TCMIEC）将于广州琶洲国际采购中心1-4号馆隆重举办。届时，除了高官政要，行业专家、大咖外，还将有8000名海内外专业买家，8万名传</p>
          				</div>
-         			</li>
+         			</li>-->
          		</ul>
          	</div>
          	
-         	<div class="doctor_book_more">
+         	<div class="doctor_book_more hide">
          		<button>更多</button>
          	</div>
          </div>
@@ -228,6 +228,27 @@
 
     </li>
 	{{/each}}
+</script>
+
+
+<!--名医著作-->
+<script type="text/template" id="report_listTpl">
+{{each inf as inf i}}
+<li class="clearfix">
+    <div class="doctor_book_left">
+        <a href="/web/html/work_details.html?id={{inf.id}}">
+        	<img src="{{inf.imgPath}}" alt="" />
+        </a>
+    </div>
+    <div class="doctor_book_inf">
+        <h4><a href="/web/html/work_details.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h4>
+        <span>作者:{{inf.author}}</span>
+        <p>{{change(inf.content)}}</p>
+        <span>{{inf.createTime}}</span>
+    </div>
+</li>
+
+{{/each}}	
 </script>
 
 </body>
