@@ -35,8 +35,7 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     public void increase(String userId,int xmb,String json, String actualPrice) {
 
     	try {
-    		System.out.println("3333333333333333333333333333================================================");
-    		
+
     		UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
 	        userCoinIncrease.setUserId(userId);
 	        userCoinIncrease.setChangeType(1);
@@ -53,15 +52,8 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 	        		userId,
 	        		"充值熊猫币："+xmb+"个",
 	        		1);
-	        
-	        
-	        System.out.println("444444444444444444444444444444444================================================");
-	        
+
 	        userCoinService.updateBalanceForIncrease(userCoinIncrease);
-	        
-	        
-	        System.out.println("4555555555555555555555555555555================================================");
-	        
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

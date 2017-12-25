@@ -1,7 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
@@ -22,7 +22,7 @@ public class MedicalDoctorBusinessServiceImplTest  extends BaseJunit4Test {
 //    @Rollback(false)  //标明使用完此方法后事务不回滚,true时为回滚
     public void test1(){
         System.out.println("测试iMedicalHospitalBusinessService");
-        MedicalDoctorVo medicalDoctor = iMedicalDoctorBusinessService.selectDoctorById("3476f961251b4094b020b560b8fddf48");
+        MedicalDoctorVO medicalDoctor = iMedicalDoctorBusinessService.selectDoctorById("3476f961251b4094b020b560b8fddf48");
         System.out.println(medicalDoctor.toString());
     }
 

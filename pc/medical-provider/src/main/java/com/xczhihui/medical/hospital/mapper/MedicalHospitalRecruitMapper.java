@@ -1,7 +1,7 @@
 package com.xczhihui.medical.hospital.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVo;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
 
 import java.util.List;
 
@@ -13,9 +13,9 @@ import java.util.List;
  * @author yuxin
  * @since 2017-12-20
  */
-public interface MedicalHospitalRecruitMapper extends BaseMapper<MedicalHospitalRecruitVo> {
+public interface MedicalHospitalRecruitMapper extends BaseMapper<MedicalHospitalRecruitVO> {
 
-    List<MedicalHospitalRecruitVo> selectRecHospitalRecruit();
+    List<MedicalHospitalRecruitVO> selectRecHospitalRecruit();
 
-    List<MedicalHospitalRecruitVo> selectHospitalRecruitByHospitalId(String hospitalId);
+    List<MedicalHospitalRecruitVO> selectHospitalRecruitByHospitalId(String hospitalId);
 }

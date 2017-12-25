@@ -57,22 +57,23 @@ $(function(){
 //          '<span>评论(<span class="articleCommCoun">{{items.comment_sum}}</span>)</span>'+
             '</div></div>'+
             '<div><img src={{imgPath}} alt="" / style="width:100%"></div>'+
-            '<div class="forum-detail-content">{{#content}}</div>'+
-            '<div class="forum-hitzanBox">'+
-            '{{if praiseSum==0}}'+
-            '<div class="forum-hitzan">'+
-            '<i class="iconfont icon-zan"></i>'+
-            '<span>{{praiseSum}}</span>'+
-            '<div class="forum-hitzan-plus">+1</div>'+
-            '</div>' +
-            '{{else}}'+
-            '<div class="yiZan">'+
-            '<i class="iconfont icon-zan"></i>'+
-            '<span>{{praiseSum}}</span>'+
-            '<div class="forum-hitzan-plus">+1</div>'+
-            '</div>' +
-            '{{/if}}'+
-            '</div>';
+            '<div class="forum-detail-content">{{#content}}</div>';
+            //去除点赞区域
+//          '<div class="forum-hitzanBox">'+
+//          '{{if praiseSum==0}}'+
+//          '<div class="forum-hitzan">'+
+//          '<i class="iconfont icon-zan"></i>'+
+//          '<span>{{praiseSum}}</span>'+
+//          '<div class="forum-hitzan-plus">+1</div>'+
+//          '</div>' +
+//          '{{else}}'+
+//          '<div class="yiZan">'+
+//          '<i class="iconfont icon-zan"></i>'+
+//          '<span>{{praiseSum}}</span>'+
+//          '<div class="forum-hitzan-plus">+1</div>'+
+//          '</div>' +
+//          '{{/if}}'+
+//          '</div>';
         
 //  var articleDetail = '<h1>{{title}}</h1>';
             
@@ -174,6 +175,20 @@ $(function(){
             });
         });
     });
+    
+    	//右侧热门作者
+	    RequestService("/bxs/article/getHotArticle","GET",null,function(data){
+	        if(data.success==false || data.resultObject.length == 0){
+	           $('.report_right_read').addClass('hide')
+	        }else{
+	        	//获取到数据渲染
+	        	console.log(data)
+	           $('#RecommendRead').html(template('RecommendReadTpl',{inf:data.resultObject}));
+	        }
+	    });
+    
+    
+    
     //评论
     RequestService("/online/user/isAlive", "GET", null, function(data) {
         if (data.success == false) {

@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author yuxin
  * @since 2017-12-20
  */
-public class MedicalHospitalRecruitVo implements Serializable {
+public class MedicalHospitalRecruitVO implements Serializable {
 
     /**
      * 医馆招聘表

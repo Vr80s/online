@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.doctor.mapper.OeBxsArticleMapper">
-	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVo" id="MedicalArticleBaseResult">
+	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVO" id="MedicalArticleBaseResult">
 		<id column="id" property="id" />
 		<id column="title" property="title" />
 		<id column="content" property="content" />
@@ -10,11 +10,11 @@
 		<id column="author" property="author" />
 	</resultMap>
 
-	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVo" id="MedicalArticleListResult" extends="MedicalArticleBaseResult">
+	<resultMap type="com.xczhihui.medical.doctor.vo.OeBxsArticleVO" id="MedicalArticleListResult" extends="MedicalArticleBaseResult">
 		<id column="browse_sum" property="browseSum" />
 		<id column="comment_sum" property="commentSum" />
 		<id column="praise_sum" property="praiseSum" />
-		<collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVo">
+		<collection property="medicalDoctors" ofType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 			<id column="dId" property="id"/>
 			<id column="dName" property="name"/>
 			<id column="province" property="province"/>
@@ -23,7 +23,7 @@
 		</collection>
 	</resultMap>
 
-	<select id="getSpecialColumns" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+	<select id="getSpecialColumns" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
 		SELECT
 		  oba.id,
 		  oba.`title`,
@@ -65,7 +65,7 @@
 		limit 0, 6
 	</select>
 
-	<select id="getNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+	<select id="getNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
 		SELECT
 		  oba.id,
 		  oba.`title`,
@@ -81,7 +81,7 @@
 			ORDER BY oba.`create_time` DESC
 	</select>
 
-	<select id="getRecentlyNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+	<select id="getRecentlyNewsReports" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
 		SELECT
 		  oba.id,
 		  oba.`title`,
@@ -97,7 +97,7 @@
 			LIMIT 0,5
 	</select>
 
-	<select id="getNewsReportsByPage" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVo">
+	<select id="getNewsReportsByPage" resultType="com.xczhihui.medical.doctor.vo.OeBxsArticleVO">
 		SELECT
 		  oba.id,
 		  oba.`title`,

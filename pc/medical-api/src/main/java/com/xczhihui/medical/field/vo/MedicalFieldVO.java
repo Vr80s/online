@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @author yuxin
  * @since 2017-12-09
  */
-public class MedicalFieldVo implements Serializable {
+public class MedicalFieldVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

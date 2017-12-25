@@ -2,7 +2,7 @@ package com.xczhihui.medical.hospital.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.field.vo.MedicalFieldVo;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 import java.util.List;
@@ -41,6 +41,6 @@ public interface IMedicalHospitalBusinessService {
      **/
     public List<MedicalHospitalVo> selectRecHospital();
 
-    List<MedicalFieldVo> getHotField();
+    List<MedicalFieldVO> getHotField();
 
 }
