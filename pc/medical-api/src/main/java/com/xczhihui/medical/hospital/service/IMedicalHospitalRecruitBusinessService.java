@@ -1,7 +1,7 @@
 package com.xczhihui.medical.hospital.service;
 
 
-import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVo;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:03 2017/12/10 0010
      **/
-    public List<MedicalHospitalRecruitVo> selectRecHospitalRecruit();
+    public List<MedicalHospitalRecruitVO> selectRecHospitalRecruit();
 
     /**
      * Description：获取最近时间七个医馆招聘信息
@@ -29,7 +29,7 @@ public interface IMedicalHospitalRecruitBusinessService {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:03 2017/12/10 0010
      **/
-    public List<MedicalHospitalRecruitVo> selectHospitalRecruitByHospitalId(String hospitalId);
+    public List<MedicalHospitalRecruitVO> selectHospitalRecruitByHospitalId(String hospitalId);
 
 
 

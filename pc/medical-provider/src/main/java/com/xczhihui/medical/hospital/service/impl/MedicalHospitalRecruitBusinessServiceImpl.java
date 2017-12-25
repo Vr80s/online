@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalRecruitMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVo;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +27,12 @@ public class MedicalHospitalRecruitBusinessServiceImpl extends ServiceImpl<Medic
 
 
     @Override
-    public List<MedicalHospitalRecruitVo> selectRecHospitalRecruit() {
+    public List<MedicalHospitalRecruitVO> selectRecHospitalRecruit() {
         return medicalHospitalRecruitMapper.selectRecHospitalRecruit();
     }
 
     @Override
-    public List<MedicalHospitalRecruitVo> selectHospitalRecruitByHospitalId(String hospitalId) {
+    public List<MedicalHospitalRecruitVO> selectHospitalRecruitByHospitalId(String hospitalId) {
         return medicalHospitalRecruitMapper.selectHospitalRecruitByHospitalId(hospitalId);
     }
 }

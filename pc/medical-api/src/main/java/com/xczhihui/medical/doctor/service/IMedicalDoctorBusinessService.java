@@ -2,10 +2,10 @@ package com.xczhihui.medical.doctor.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
-import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
-import com.xczhihui.medical.field.vo.MedicalFieldVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
 
 import java.util.List;
 
@@ -25,35 +25,35 @@ public interface IMedicalDoctorBusinessService {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 2:02 2017/12/10 0010
      **/
-    public Page<MedicalDoctorVo> selectDoctorPage(Page<MedicalDoctorVo> page, Integer type, String hospitalId, String name, String field);
+    public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field);
 
-    public MedicalDoctorVo selectDoctorById(String id);
+    public MedicalDoctorVO selectDoctorById(String id);
 
-    List<MedicalFieldVo> getHotField();
+    List<MedicalFieldVO> getHotField();
 
-    List<MedicalDoctorVo> selectRecDoctor();
+    List<MedicalDoctorVO> selectRecDoctor();
 
-    List<OeBxsArticleVo> getNewsReports(String doctorId);
+    List<OeBxsArticleVO> getNewsReports(String doctorId);
 
-    OeBxsArticleVo  getNewsReportByArticleId(String doctorId);
+    OeBxsArticleVO  getNewsReportByArticleId(String doctorId);
 
-    Page<OeBxsArticleVo> getSpecialColumns(Page<OeBxsArticleVo> page, String doctorId);
+    Page<OeBxsArticleVO> getSpecialColumns(Page<OeBxsArticleVO> page, String doctorId);
 
-    OeBxsArticleVo getSpecialColumnDetailsById(String articleId);
+    OeBxsArticleVO getSpecialColumnDetailsById(String articleId);
 
-    List<MedicalWritingsVo> getWritingsByDoctorId(String doctorId);
+    List<MedicalWritingsVO> getWritingsByDoctorId(String doctorId);
 
-    MedicalWritingsVo getWritingsDetailsById(String writingsId);
+    MedicalWritingsVO getWritingsDetailsById(String writingsId);
 
-    List<MedicalWritingsVo> getRecentlyWritings();
+    List<MedicalWritingsVO> getRecentlyWritings();
 
-    List<OeBxsArticleVo> getRecentlyNewsReports();
+    List<OeBxsArticleVO> getRecentlyNewsReports();
 
-    Page<OeBxsArticleVo> getNewsReportsByPage(Page<OeBxsArticleVo> page, String doctorId);
+    Page<OeBxsArticleVO> getNewsReportsByPage(Page<OeBxsArticleVO> page, String doctorId);
 
-    List<OeBxsArticleVo> getHotSpecialColumn();
+    List<OeBxsArticleVO> getHotSpecialColumn();
 
-    List<MedicalDoctorVo> getHotSpecialColumnAuthor();
+    List<MedicalDoctorVO> getHotSpecialColumnAuthor();
 
-    Page<MedicalWritingsVo> getWritingsByPage(Page<MedicalWritingsVo> page);
+    Page<MedicalWritingsVO> getWritingsByPage(Page<MedicalWritingsVO> page);
 }
