@@ -989,9 +989,6 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
 		OnlineUser ou = cacheService.get(token);
-		System.out.println("token"+token);
-		System.out.println("userid"+ou.getId());
-		System.out.println("cacheService.get(ou.getId())"+cacheService.get(ou.getId()));
 		
 		if(null == ou){
 			return ResponseObject.newErrorResponseObject("已过期", 1002);
