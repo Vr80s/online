@@ -106,9 +106,10 @@
 		  oba.`img_path` imgPath
 		FROM
 		  `oe_bxs_article` oba
-		  JOIN `medical_doctor_report` mdr
+		 LEFT JOIN `medical_doctor_report` mdr
 			ON oba.`id` = mdr.`article_id`
 		where oba.`is_delete`=0 AND oba.`status`=1
+		and oba.type_id =  #{doctorReport}
 		<if test="doctorId != null and doctorId!=''">
 			and mdr.`doctor_id` = #{doctorId}
 		</if>
@@ -134,13 +135,13 @@
 		  mdai.head_portrait headPortrait
 		FROM
 		  `oe_bxs_article` oba
-		  JOIN `medical_doctor_report` mdr
+		  LEFT JOIN `medical_doctor_report` mdr
 			ON oba.`id` = mdr.`article_id`
-		  	LEFT JOIN `medical_doctor` md ON
-			  md.id = mdr.`doctor_id`
-			  LEFT JOIN `medical_doctor_authentication_information` mdai
-			  ON mdai.`id` = md.`authentication_information_id`
-			where mdr.article_id = #{articleId}
+		  LEFT JOIN `medical_doctor` md
+			ON md.id = mdr.`doctor_id`
+		  LEFT JOIN `medical_doctor_authentication_information` mdai
+			ON mdai.`id` = md.`authentication_information_id`
+			where oba.id = #{articleId}
 			ORDER BY oba.`create_time` DESC
 	</select>
 
@@ -162,13 +163,13 @@
 		  mdai.head_portrait headPortrait
 		FROM
 		  `oe_bxs_article` oba
-		  JOIN `medical_doctor_author_article` mdaa
+		  LEFT JOIN `medical_doctor_author_article` mdaa
 			ON oba.`id` = mdaa.`article_id`
 		  LEFT JOIN `medical_doctor` md
 			ON md.id = mdaa.`doctor_id`
 		  LEFT JOIN `medical_doctor_authentication_information` mdai
 			ON mdai.`id` = md.`authentication_information_id`
-		WHERE mdaa.article_id = #{articleId}
+		WHERE oba.id = #{articleId}
 		ORDER BY oba.`create_time` DESC
 	</select>
 

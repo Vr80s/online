@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ArticleService;
 import com.xczhihui.bxg.online.web.vo.AppraiseVo;
 import com.xczhihui.bxg.online.web.vo.ArticleVo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,11 @@ import java.util.UUID;
  */
 @Service
 public class ArticleServiceImpl extends OnlineBaseServiceImpl implements ArticleService {
+
+    @Value("${specialColumn}")
+    private String specialColumn;
+    @Value("${doctorReport}")
+    private String doctorReport;
 
     /**
      * 获取博学社banner信息
@@ -77,7 +83,9 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      */
     public List<Map<String,Object>>  getHotArticle(){
         Map<String,Object> paramMap = new HashMap<String,Object>();
-        String sql="select id, title from oe_bxs_article where is_delete=0 and `status`=1 and browse_sum>0  order by browse_sum desc limit 7";
+        paramMap.put("t1",specialColumn);
+        paramMap.put("t2",doctorReport);
+        String sql="select id, title from oe_bxs_article where is_delete=0 and `status`=1 and browse_sum>0 and type_id !=:t1 and type_id !=:t2   order by browse_sum desc limit 7";
         return  dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
     }
 
@@ -140,7 +148,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("articleId", articleId);
         String sql= " select a.id,a.title from article_r_tag  art,oe_bxs_article a where art.article_id= a.id  and a.is_delete=0 and a.status=1 and a.id !=:articleId  and art.tag_id in (" +
-                    " SELECT t.id from oe_bxs_article ba,user u,article_r_tag ar,oe_bxs_tag t  where ba.user_id= u.id  and ba.id =ar.article_id and ar.tag_id=t.id " +
+                    " SELECT t.id from oe_bxs_article ba,article_r_tag ar,oe_bxs_tag t  where ba.id =ar.article_id and ar.tag_id=t.id " +
                     " and ba.is_delete=0 and ba.`status`=1  and ba.id=:articleId) group by art.article_id  order by a.browse_sum desc limit 7 ";
         return   dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
     }
