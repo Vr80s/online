@@ -13,7 +13,7 @@ import java.util.List;
  * @author yuxin
  * @since 2017-12-20
  */
-public class OeBxsArticleVo implements Serializable {
+public class OeBxsArticleVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -66,13 +66,13 @@ public class OeBxsArticleVo implements Serializable {
 		this.author = author;
 	}
 
-	private List<MedicalDoctorVo> medicalDoctors;
+	private List<MedicalDoctorVO> medicalDoctors;
 
-	public List<MedicalDoctorVo> getMedicalDoctors() {
+	public List<MedicalDoctorVO> getMedicalDoctors() {
 		return medicalDoctors;
 	}
 
-	public void setMedicalDoctors(List<MedicalDoctorVo> medicalDoctors) {
+	public void setMedicalDoctors(List<MedicalDoctorVO> medicalDoctors) {
 		this.medicalDoctors = medicalDoctors;
 	}
 

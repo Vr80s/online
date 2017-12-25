@@ -2,7 +2,7 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.medical.field.vo.MedicalFieldVo;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
@@ -46,7 +46,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     }
 
     @Override
-    public List<MedicalFieldVo> getHotField() {
+    public List<MedicalFieldVO> getHotField() {
         return medicalHospitalMapper.getHotField();
     }
 

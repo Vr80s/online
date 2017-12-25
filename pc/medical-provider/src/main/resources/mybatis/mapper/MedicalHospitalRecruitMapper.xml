@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.hospital.mapper.MedicalHospitalRecruitMapper">
-	<select id="selectRecHospitalRecruit" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVo">
+	<select id="selectRecHospitalRecruit" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO">
 		SELECT
 		  mhr.id,
 		  mhr.`position`,
@@ -22,7 +22,7 @@
 		LIMIT 0, 7
 	</select>
 
-	<select id="selectHospitalRecruitByHospitalId" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVo">
+	<select id="selectHospitalRecruitByHospitalId" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalRecruitVO">
 		SELECT
 		  mhr.id,mhr.`position`,
 		  mhr.years,

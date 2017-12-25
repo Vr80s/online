@@ -4,9 +4,9 @@ package com.xczhihui.medical.doctor.mapper;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
-import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
-import com.xczhihui.medical.field.vo.MedicalFieldVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
+import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,23 +21,23 @@ import java.util.List;
  */
 public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
 
-    List<MedicalDoctorVo> selectDoctorList(@Param("page") Page<MedicalDoctorVo> page, @Param("type") Integer type, @Param("hospitalId") String hospitalId, @Param("name") String name, @Param("field") String field);
+    List<MedicalDoctorVO> selectDoctorList(@Param("page") Page<MedicalDoctorVO> page, @Param("type") Integer type, @Param("hospitalId") String hospitalId, @Param("name") String name, @Param("field") String field);
 
-    MedicalDoctorVo selectDoctorById(String id);
+    MedicalDoctorVO selectDoctorById(String id);
 
-    List<MedicalFieldVo> getHotField();
+    List<MedicalFieldVO> getHotField();
 
-    List<MedicalDoctorVo> selectRecDoctor();
+    List<MedicalDoctorVO> selectRecDoctor();
 
-    List<MedicalFieldVo> selectMedicalFieldsByDoctorId(String doctorId);
+    List<MedicalFieldVO> selectMedicalFieldsByDoctorId(String doctorId);
 
-    List<MedicalWritingsVo> getWritingsByDoctorId(String doctorId);
+    List<MedicalWritingsVO> getWritingsByDoctorId(String doctorId);
 
-    MedicalWritingsVo getWritingsDetailsById(String writingsId);
+    MedicalWritingsVO getWritingsDetailsById(String writingsId);
 
-    List<MedicalWritingsVo> getRecentlyWritings();
+    List<MedicalWritingsVO> getRecentlyWritings();
 
-    List<MedicalDoctorVo> getHotSpecialColumnAuthor(String specialColumn);
+    List<MedicalDoctorVO> getHotSpecialColumnAuthor(String specialColumn);
 
-    List<MedicalWritingsVo> getWritingsByPage(Page<MedicalWritingsVo> page);
+    List<MedicalWritingsVO> getWritingsByPage(Page<MedicalWritingsVO> page);
 }

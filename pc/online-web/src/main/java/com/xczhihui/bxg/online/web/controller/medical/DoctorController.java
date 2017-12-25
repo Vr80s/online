@@ -3,10 +3,10 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.web.vo.ArticleVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
-import com.xczhihui.medical.doctor.vo.MedicalWritingsVo;
-import com.xczhihui.medical.doctor.vo.OeBxsArticleVo;
+import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
+import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +29,7 @@ public class DoctorController {
      **/
     @RequestMapping(value = "/getDoctors",method= RequestMethod.GET)
     public ResponseObject getDoctors(Integer current,Integer size,Integer type,String hospitalId,String name,String field){
-        Page<MedicalDoctorVo> page = new Page<>();
+        Page<MedicalDoctorVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page,type,hospitalId,name,field));
@@ -89,7 +89,7 @@ public class DoctorController {
      **/
     @RequestMapping(value = "/getNewsReportsByPage",method= RequestMethod.GET)
     public ResponseObject getNewsReportsByPage(Integer current,Integer size,String doctorId){
-        Page<OeBxsArticleVo> page = new Page<>();
+        Page<OeBxsArticleVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getNewsReportsByPage(page,doctorId));
@@ -113,7 +113,7 @@ public class DoctorController {
     @RequestMapping(value = "getSpecialColumnsByPage")
     @ResponseBody
     public ResponseObject getSpecialColumnsByPage(Integer current,Integer size,String doctorId){
-        Page<OeBxsArticleVo> page = new Page<>();
+        Page<OeBxsArticleVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getSpecialColumns(page,doctorId));
@@ -167,7 +167,7 @@ public class DoctorController {
      **/
     @RequestMapping(value = "/getWritingsByPage",method= RequestMethod.GET)
     public ResponseObject getWritingsByPage(Integer current,Integer size){
-        Page<MedicalWritingsVo> page = new Page<>();
+        Page<MedicalWritingsVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getWritingsByPage(page));

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @author yuxin
  * @since 2017-12-09
  */
-public class MedicalDoctorAuthenticationInformationVo implements Serializable {
+public class MedicalDoctorAuthenticationInformationVO implements Serializable {
 
     /**
      * 医师认证信息表
