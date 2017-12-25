@@ -72,7 +72,7 @@
         	<h4>大家专栏</h4>
         	<div id="dajia_zhuanlan_list">
         		<ul id="dajia_zhuanlan_list2">
-        			<li class="clearfix">
+        			<!--<li class="clearfix">
         				<div class="touxiang">
         					<img src="../images/doctor_detail/touxiang.png" alt="" />
         				</div>
@@ -120,7 +120,7 @@
         					<span>朱春苏</span>
         					<p>温中行气化湿的啥人</p>
         				</div>
-        			</li>
+        			</li>-->
         			
         		</ul>
         	</div>
@@ -241,16 +241,17 @@
 	<li class="clearfix" style="position:relative">
 	<a href="/web/html/zhuanlan_detail.html?id={{inf.id}}" style='display:block;position:absolute;width:100%;height:100%'></a>
         <div class="touxiang">
-        	<img src="../images/doctor_detail/touxiang.png" alt="暂无图片" />
+        	<img src={{inf.medicalDoctors[0].headPortrait}} alt="暂无图片" />
         </div>
         <div class="dajia_inf">
-        	<span>朱春苏</span>
+        	<span>{{inf.medicalDoctors[0].name}}</span>
         	<p>{{inf.title}}</p>
         </div>
     </li>
 
 	{{/each}}
 </script>
+
 
 
 
