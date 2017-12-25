@@ -153,6 +153,49 @@ $(function () {
             }
         });
         $(".forum-content-tag li").click(function(){
+        	console.log($(this).text())
+        	if($(this).text() == '大家专栏'){
+        		
+        	articlePaper='{{each articlePaper}}'+
+            '<div class="forum-info clearfix">'+
+            '<a href="/web/html/zhuanlan_detail.html?id={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
+            '<div class="forum-info-right">'+
+            '<div class="forum-info-title"><a href="/web/html/zhuanlan_detail.html?id={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
+            '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
+            '<div class="forum-info-tags">'+
+            '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+
+         	'<span>{{$value.name}}<em></em>{{dataSub($value.create_time)}}</span>'+
+            '</div></div></div>'+
+            '{{/each}}';	
+        		
+        	}else if($(this).text() == '名医报道'){
+        		
+        		articlePaper='{{each articlePaper}}'+
+            '<div class="forum-info clearfix">'+
+            '<a href="/web/html/report.html?id={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
+            '<div class="forum-info-right">'+
+            '<div class="forum-info-title"><a href="/web/html/report.html?id={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
+            '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
+            '<div class="forum-info-tags">'+
+            '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+
+         	'<span>{{$value.name}}<em></em>{{dataSub($value.create_time)}}</span>'+
+            '</div></div></div>'+
+            '{{/each}}';
+        	}else{
+        		
+        		articlePaper='{{each articlePaper}}'+
+            '<div class="forum-info clearfix">'+
+            '<a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
+            '<div class="forum-info-right">'+
+            '<div class="forum-info-title"><a href="/web/html/forumDetail.html?articleId={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
+            '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
+            '<div class="forum-info-tags">'+
+            '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+
+         	'<span>{{$value.name}}<em></em>{{dataSub($value.create_time)}}</span>'+
+            '</div></div></div>'+
+            '{{/each}}';
+            
+        	}
             $(this).addClass("select").siblings().removeClass("select");
             $(".forum-content-tag li").find("em").addClass("select1");
             $(this).find("em").removeClass("select1").addClass("select");
