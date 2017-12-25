@@ -50,6 +50,7 @@ $(function(){
     var articleDetail='<div class="forum-detail">'+
             '<div class="forum-detail-title">{{title}}</div>'+
             '<div class="forum-info-tags">'+
+            '<img src="/web/images/studentCount.png" />'+
 //          '<i class="iconfont icon-biaoqian"></i>{{#tagGroup(items.tag,items.tagId)}}'+
             '<span>{{author}}&nbsp;&nbsp;&nbsp;{{dataSub(createTime)}}</span>'+
 //          '<span>阅读({{items.browse_sum}})</span>'+
