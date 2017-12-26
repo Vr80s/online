@@ -607,7 +607,7 @@
 			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;">
-			<label class="col-sm-3 control-label no-padding-right" for="postDuties">岗位职责: </label>
+			<label class="col-sm-3 control-label no-padding-right" for="postDuties"><font color="red">*</font>岗位职责: </label>
 			<div class="col-sm-6">
 				<textarea class="form-control" name="postDuties" id="postDuties" cols="30" rows="6" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,5]}"></textarea>
 			</div>
@@ -615,7 +615,7 @@
 
 		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right">职位要求: </label>
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>职位要求: </label>
 			<div class="col-sm-6">
 				<textarea class="form-control" name="jobRequirements" id="jobRequirements"  cols="30" rows="6" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,5]}"></textarea>
 			</div>
@@ -681,7 +681,7 @@
 			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;">
-			<label class="col-sm-3 control-label no-padding-right" for="postDuties">岗位职责: </label>
+			<label class="col-sm-3 control-label no-padding-right" for="postDuties"><font color="red">*</font>岗位职责: </label>
 			<div class="col-sm-6">
 				<textarea class="form-control" name="postDuties" id="edit_postDuties"  cols="30" rows="6" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,5]}"></textarea>
 			</div>
@@ -690,7 +690,7 @@
 
 		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right">职位要求: </label>
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>职位要求: </label>
 			<div class="col-sm-6">
 				<textarea class="form-control" name="jobRequirements" id="edit_jobRequirements"  cols="30" rows="6" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,5]}"></textarea>
 			</div>

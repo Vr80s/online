@@ -204,7 +204,7 @@
             <div class="zhuanlan clearfix " id="zhuanlan">
                 <div class="class_top">
                     <span>专栏</span>
-                    <a href="/web/html/colomn.html" id="more_zhuanlan">
+                    <a href="/web/html/columnListing.html" id="more_zhuanlan">
                         更多&nbsp;>
                     </a>
                 </div>
@@ -289,7 +289,7 @@
             <div class="zhuzuo clearfix">
             	<div class="zhuzuo_title">
             		 <h3>著作</h3>
-            		 <a href="/web/html/work_details.html">></a>
+            		 <a href="/web/html/pubsDetails.html">></a>
             	</div>
                
                 <div id="zhuzuo_list">
@@ -425,10 +425,10 @@
 {{each inf as inf i}}
  <li class="clearfix">
     <div class="zhuanlan_left">
-        <a href="/web/html/report.html?articleId={{inf.id}}"><img src={{inf.imgPath}} alt=""></a>
+        <a href="/web/html/newsDetails.html?articleId={{inf.id}}"><img src={{inf.imgPath}} alt=""></a>
     </div>
     <div class="zhuanlan_right">
-        <h3><a href="/web/html/report.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h3>
+        <h3><a href="/web/html/newsDetails.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h3>
         <p>{{change(inf.content)}}</p>
         <span>{{inf.createTime}}</span>
     </div>
@@ -443,10 +443,10 @@
 {{each inf as inf i}}
 <li class="clearfix">
    <div class="zhuanlan_left">
-        <a href="/web/html/zhuanlan_detail.html?id={{inf.id}}"><img src={{inf.imgPath}} alt=""></a>
+        <a href="/web/html/columnDetails.html?id={{inf.id}}"><img src={{inf.imgPath}} alt=""></a>
     </div>
     <div class="zhuanlan_right">
-        <h3><a href="/web/html/zhuanlan_detail.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h3>
+        <h3><a href="/web/html/columnDetails.html?id={{inf.id}}" style="color: #000;">{{inf.title}}</a></h3>
         <p>{{change(inf.content)}}</p>
         <span>{{inf.createTime}}</span>
     </div>
@@ -459,7 +459,7 @@
 <script type="text/template" id="zhuzuoTpl">
 	{{each book as book i}}
 		<div class="zhuzuo_left" style="position:relative">
-		<a href="/web/html/work_details.html?id={{book.id}}" style="display:block;position:absolute;width:100%;height:100%"></a>
+		<a href="/web/html/pubsDetails.html?id={{book.id}}" style="display:block;position:absolute;width:100%;height:100%"></a>
             <img src={{book.imgPath}} alt="">
             <p>{{book.author}}</p>
         </div>

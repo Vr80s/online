@@ -25,7 +25,7 @@ $(function(){
     // { "title": "医馆ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "医馆名", "class":"center","width":"9%","sortable":false,"data": 'name' },
     // { "title": "经纬度", "class":"center","width":"8%","sortable":false,"data": 'lal'},
-    { "title": "score", "class":"center","width":"6%", "sortable":false,"data": 'score',"visible":true},
+    { "title": "评分", "class":"center","width":"6%", "sortable":false,"data": 'score',"visible":true},
     { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
     { "title": "email", "class":"center","width":"6%", "sortable":false,"data": 'email',"visible":true},
     { "title": "地址", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {

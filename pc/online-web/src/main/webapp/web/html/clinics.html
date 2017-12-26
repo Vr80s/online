@@ -308,7 +308,7 @@
 {{each hospital as hospital i}}
 
 <div class="hospitals">
-	<a href="/web/html/hospital_details.html?Id={{hospital.id}}" id={{hospital.id}} target="_blank"></a>
+	<a href="/web/html/clinicDetails.html?Id={{hospital.id}}" id={{hospital.id}} target="_blank"></a>
 	{{if hospital.medicalHospitalPictures.length != 0 && hospital.medicalHospitalPictures[0].picture}}
 	<img src={{hospital.medicalHospitalPictures[0].picture}} style="width: 100%;height: 147px;" alt="">
 	{{else}}
@@ -409,7 +409,7 @@
 	{{each doctor as doctor i}}
 	<li>
 		<h4>招募{{doctor.position}}</h4>
-		<a href="/web/html/hospital_details.html?Id={{doctor.hospitalId}}">{{doctor.city}}&nbsp;&nbsp;{{doctor.hospitalName}}</a>
+		<a href="/web/html/clinicDetails.html?Id={{doctor.hospitalId}}">{{doctor.city}}&nbsp;&nbsp;{{doctor.hospitalName}}</a>
     </li>
 	{{/each}}
 </script>

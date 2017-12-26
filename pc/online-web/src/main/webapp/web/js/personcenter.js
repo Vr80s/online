@@ -930,6 +930,9 @@ $(function() {
        '</div>'+
     '</div>'+
     
+    
+    
+    
     '<div id="rmbTopanda" style="display:none">'+
     '<span class="closeTip">X</span>'+
     '<p style="text-align:center;font-weight:700">兑换比例</p>'+
@@ -956,7 +959,8 @@ $(function() {
             '<li role="presentation" class=""><a class="messages" href="#messages" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">提现记录</a></li>'+
             '<li role="presentation" class=""><a class="settings" href="#settings" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false">收到礼物</a></li>'+
             '<li role="presentation" class=""><a class="reward" href="#reward " aria-controls="reward" role="tab" data-toggle="tab" aria-expanded="true">收到打赏</a></li>'+
-            '{{/if}}' +
+           	'<li role="presentation" class=""><a class="lecturer" href="#lecturer " aria-controls="lecturer" role="tab" data-toggle="tab" aria-expanded="false">讲师</a></li>'+
+           '{{/if}}' +
            '</ul>'+
         
 
@@ -1002,9 +1006,15 @@ $(function() {
 //                    '<li><span>125064050</span><span>-300</span><span>2017.08.28</span><span>我就是我不一样的烟火</span></li>'+
                ' </ul>'+
             '</div>'+
+             '<div role="tabpanel" class="tab-pane " id="lecturer">'+
+                '<ul id="jiangshi" >'+
+                    '<li><span>讲师</span><span>学生</span><span>修为</span><span>时间</span><span>赠送人</span></li>'+
+                       '<li><span>黄飞虎</span><span>赵日天</span><span>元婴期</span><span>2017-12-05</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>'+
+               ' </ul>'+
+            '</div>'+
         '</div>'+
         '</div>'+
-    
+    	
 
     //<!--分页部分-->
     '<div class="device-page">'+
@@ -1021,6 +1031,15 @@ $(function() {
 '<div id="mask" style="display: none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.3;z-index:888;filter:alpha(opacity=30);">'
 	
 });
+//点击详情弹窗
+function btn_details(){
+	$(".bg_03").fadeIn(200);
+	$(".my_details").fadeIn(200);
+}
+$(".my_close").click(function(){
+	$(".bg_03").fadeOut(200);
+	$(".my_details").fadeOut(200);
+})
 
 function fileClick() {
 	return $("#upload-file").click();
