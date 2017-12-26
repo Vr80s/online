@@ -195,31 +195,19 @@ pre:after {
             }else{
                 yonghuNameLength=0;
             }
-        if(nikeName == ""){
-           cymYonghuInfo.show();
-           $(".common0").show();
-           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-                  + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
-           return false;          
-        }else if(!nickNameReg.test(nikeName)){
-           cymYonghuInfo.show();
-           $(".common0").show();
-           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-                + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
-             return false;
-        }else if(numberReg.test(nikeName)){
-          cymYonghuInfo.show();
-          $(".common0").show();
-          /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-                      + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
-             return false;
-        }else if (yonghuNameLength > 20 || yonghuNameLength < 4){
-          cymYonghuInfo.show();
-          $(".common0").show();
-           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-                      + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
-                return false;
-            }
+         if(nikeName == ""){
+	           cymYonghuInfo.show();
+	           $(".common0").show();
+	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
+	                  + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
+	           return false;          
+	      }else if (yonghuNameLength > 15 || yonghuNameLength < 2){
+	          cymYonghuInfo.show();
+	          $(".common0").show();
+	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
+	                      + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
+	                return false;
+	        } 
         cymYonghuInfo.hide();
         checkUser1("nickname");
         //验证名称的合法性
@@ -319,15 +307,10 @@ pre:after {
 	<div class="common0">
 		<div class="common_bg"></div>
 		<div class="common">
-			<div class="common_cen">支持中文、字母、数字、'-'、'_'的组合，4-20个字符
-格式错误,仅支持汉字、字母、数字、'-''_'的组合
-用户名不能是纯数字，请重新输入！
-长度只能在4-20个字符之间</div>
+			<div class="common_cen">长度只能在2-15个字符之间</div>
 			<div class="affirm">确认</div>
 		</div>
 	</div>
-	
-	
 <form action="bxg/user/userCenterFormSub" method="post" enctype="multipart/form-data" id="form" onsubmit="return checkUser(); style="margin-top:0.36rem;"">
     <!-- 点击昵称开始 -->
     <div class="pet_name" style="display: block;">

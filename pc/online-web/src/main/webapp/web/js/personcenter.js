@@ -389,7 +389,7 @@ $(function() {
 		
 		'<div class="cy-myprofile-myfom-dv-1">' +
 		'<div class="buer"><span class="red">*</span>用户名:</div>' +
-		'<input type="text" maxlength="20" class="firsname ipt"/>' +
+		'<input type="text" maxlength="15" class="firsname ipt"/>' +
 		'<span class="nick-warn-name warning">用户名不能为空</span>' +
 		'</div>' +
 		
