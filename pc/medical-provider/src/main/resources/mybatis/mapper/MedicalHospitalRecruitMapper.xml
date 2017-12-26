@@ -9,7 +9,8 @@
 		  mhr.`job_requirements` jobRequirements,
 		  mhr.`post_duties` postDuties,
 		  mh.`name` hospitalName,
-		  mh.id hospitalId
+		  mh.id hospitalId,
+  		  mh.`city`
 		FROM
 		  medical_hospital_recruit mhr
 		  LEFT JOIN `medical_hospital` mh

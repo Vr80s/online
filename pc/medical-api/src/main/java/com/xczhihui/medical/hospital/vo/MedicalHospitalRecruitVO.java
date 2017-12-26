@@ -20,6 +20,7 @@ public class MedicalHospitalRecruitVO implements Serializable {
      * 医馆id
      */
 	private String hospitalId;
+	private String city;
 	/**
      * 医馆名称
      */
@@ -40,6 +41,14 @@ public class MedicalHospitalRecruitVO implements Serializable {
      * 职位要求
      */
 	private String jobRequirements;
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	public String getId() {
 		return id;
