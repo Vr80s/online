@@ -316,6 +316,15 @@ min-height: 400px;
     padding-bottom: 20px;
     margin-bottom: 20px;
 }
+.content_box #main .main_right .employ .employ_inf > h4{
+	font-size: 14px;
+	color: #333;
+	font-weight: 700;
+}
+.content_box #main .main_right .employ .employ_inf > p{
+	font-size: 14px;
+	color: #333;
+}
 .content_box #main .main_right .employ .employ_inf:last-child{
     border-bottom:none ;
     padding-bottom: 0;

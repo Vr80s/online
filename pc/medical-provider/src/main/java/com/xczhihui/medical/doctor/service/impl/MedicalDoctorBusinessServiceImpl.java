@@ -37,6 +37,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private OeBxsArticleMapper oeBxsArticleMapper;
     @Value("${specialColumn}")
     private String specialColumn;
+    @Value("${doctorReport}")
+    private String doctorReport;
 
     @Override
     public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field) {
@@ -121,7 +123,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public Page<OeBxsArticleVO> getNewsReportsByPage(Page<OeBxsArticleVO> page, String doctorId) {
-        List<OeBxsArticleVO> records = oeBxsArticleMapper.getNewsReportsByPage(page,doctorId);
+        List<OeBxsArticleVO> records = oeBxsArticleMapper.getNewsReportsByPage(page,doctorId,doctorReport);
         page.setRecords(records);
         return page;
     }

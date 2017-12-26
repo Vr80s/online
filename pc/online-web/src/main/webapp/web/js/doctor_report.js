@@ -33,9 +33,12 @@ $(function(){
 	   	//没有数据处理
 	        $('#doctor_book_list').addClass('hide')
 	   }else{
-	   		if(data.resultObject.records.length > size){
+	   		if( current*size < data.resultObject.total){
 	   			$('.doctor_book_more').removeClass('hide')
+	   		}else{
+	   			$('.doctor_book_more').addClass('hide')
 	   		}
+	   		
 	    	//获取到数据渲染
 	    	console.log(data)
 	    	$('#doctor_book_list').append(template('report_listTpl',{inf:data.resultObject.records}));
@@ -47,7 +50,7 @@ $(function(){
 	getReportList(current,size,doctorId);
 	
 	//点击更多
-	$('.doctor_book_list').click(function(){
+	$('.doctor_book_more button').click(function(){
 		current += 1;
 		getReportList(current,size,doctorId);
 	})
