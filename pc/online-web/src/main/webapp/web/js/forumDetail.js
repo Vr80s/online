@@ -48,11 +48,13 @@ $(function(){
     var articleDetail='<div class="forum-detail">'+
             '<div class="forum-detail-title">{{items.title}}</div>'+
             '<div class="forum-info-tags">'+
-            '<i class="iconfont icon-biaoqian"></i>{{#tagGroup(items.tag,items.tagId)}}'+
-            '<span>{{items.name}}<em></em>{{dataSub(items.create_time)}}</span>'+
-            '<span>阅读({{items.browse_sum}})</span>'+
-            '<span>点赞(<span class="articleHitCoun">{{items.praise_sum}}</span>)</span>'+
-            '<span>评论(<span class="articleCommCoun">{{items.comment_sum}}</span>)</span>'+
+//          '<i class="iconfont icon-biaoqian"></i>{{#tagGroup(items.tag,items.tagId)}}'+
+			'<img src="/web/images/studentCount.png" />'+
+            '<span>{{items.name}}&nbsp;&nbsp;&nbsp;{{dataSub(items.create_time)}}</span>'+
+//          '<span>阅读({{items.browse_sum}})</span>'+
+//          '<span>点赞(<span class="articleHitCoun">{{items.praise_sum}}</span>)</span>'+
+//          '<span>评论(<span class="articleCommCoun">{{items.comment_sum}}</span>)</span>'+
+
             '</div></div>'+
             '<div class="forum-detail-content">{{#items.content}}</div>'+
             '<div class="forum-hitzanBox">'+
