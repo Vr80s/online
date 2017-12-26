@@ -58,8 +58,10 @@ $(function(){
 	        	//获取到数据渲染
 	        	//创建一个盒子
 //	        	$('#doctor_list').html('');
-	        	if(data.resultObject.pages == current){
-	        		$('.search_more').css('display','none')
+	        	if(current*size < data.resultObject.total){
+	        		$('.search_more').removeClass('hide')
+	        	}else{
+	        			$('.search_more').addClass('hide')
 	        	}
 	           $('#doctor_list').append(template('doctorListTpl',data.resultObject));
 	        }

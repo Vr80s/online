@@ -88,7 +88,7 @@ function gongzhonghao(url,params,returnUrl){
             }
         }else{
         	//请求重新登录
-        	alert("重新登录下试试");
+        	alert(data.errorMessage);
         }
     });
 }
