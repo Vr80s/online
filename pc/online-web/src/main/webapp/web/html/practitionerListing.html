@@ -182,7 +182,7 @@
 <script  type="text/template" id="doctorListTpl">
 	{{each records}}
 			<li class="clearfix">
-				<a href="/web/html/doctor_details.html?Id={{$value.id}}" id={{$value.id}}></a>
+				<a href="/web/html/practitionerDetails.html?Id={{$value.id}}" id={{$value.id}}></a>
            			<div class="doctor_pic">
            				<img src={{$value.headPortrait}} alt="" />
            			</div>
@@ -219,7 +219,7 @@
 <script type="text/templage" id="doc_recTpl">
 	{{each doc as doc i}}
 	<li>
-		<a href="/web/html/doctor_details.html?Id={{doc.id}}"></a>
+		<a href="/web/html/practitionerDetails.html?Id={{doc.id}}"></a>
         <span class="about_doctor_pic">
             <img src={{doc.headPortrait}} alt="暂无图片">
         </span>

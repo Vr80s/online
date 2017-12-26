@@ -68,10 +68,10 @@ $(function () {
     var hotArticle = '{{each hotArticle}}' +
         '{{if $index<=2}}' +
         '<li>' +
-        '<a href="/web/html/hospital_details.html?Id={{$value.id}}" target="_blank"><em class="select">{{$index+1}}</em>{{$value.city}}&nbsp;&nbsp;{{$value.name}}</a>' +
+        '<a href="/web/html/clinicDetails.html?Id={{$value.id}}" target="_blank"><em class="select">{{$index+1}}</em>{{$value.city}}&nbsp;&nbsp;{{$value.name}}</a>' +
         '</li>' +
         '{{else}}' +
-        '<li><a href="/web/html/hospital_details.html?Id={{$value.id}}" target="_blank"><em>{{$index+1}}</em>{{$value.city}}&nbsp;&nbsp;{{$value.name}}</li></a>' +
+        '<li><a href="/web/html/clinicDetails.html?Id={{$value.id}}" target="_blank"><em>{{$index+1}}</em>{{$value.city}}&nbsp;&nbsp;{{$value.name}}</li></a>' +
         '{{/if}}' +
         '{{/each}}';
     var articleType='{{each articleType}}'+
@@ -93,7 +93,7 @@ $(function () {
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
-            '<li><a href="/web/html/hospital_list.html?name=&field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
+            '<li><a href="/web/html/clinicListing.html?name=&field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
             '{{/each}}';
     var relativeCourse = '{{each item as $value i}}' +
         "<li>" +
@@ -396,7 +396,7 @@ $(function () {
     	//编码
     	
     	var name = jQuery.trim($('.search_hos').val());
-    	var searchUrl =encodeURI('/web/html/hospital_list.html?name='+name);  
+    	var searchUrl =encodeURI('/web/html/clinicListing.html?name='+name);  
 //  	window.open('/web/html/doctor_list.html?name='+name); 
   		window.location.href =searchUrl;
 //		}

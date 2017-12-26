@@ -41,6 +41,7 @@ var watchState="";
         //视频id
         videoId = result.directId;
         watchState = result.watchState;
+        
         /*
          * 如果videoId不存在的时候，需要显示视频正在来的路上
          */
@@ -75,7 +76,6 @@ var watchState="";
                 $("#passwordDiv").show();
              }
         }
-        
         //用户id
         teacherId=result.userId;
         teacherName=name;

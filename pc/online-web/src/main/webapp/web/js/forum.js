@@ -158,9 +158,9 @@ $(function () {
         		
         	articlePaper='{{each articlePaper}}'+
             '<div class="forum-info clearfix">'+
-            '<a href="/web/html/zhuanlan_detail.html?id={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
+            '<a href="/web/html/columnDetails.html?id={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
             '<div class="forum-info-right">'+
-            '<div class="forum-info-title"><a href="/web/html/zhuanlan_detail.html?id={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
+            '<div class="forum-info-title"><a href="/web/html/columnDetails.html?id={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
             '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
             '<div class="forum-info-tags">'+
             '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+
@@ -172,9 +172,9 @@ $(function () {
         		
         		articlePaper='{{each articlePaper}}'+
             '<div class="forum-info clearfix">'+
-            '<a href="/web/html/report.html?id={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
+            '<a href="/web/html/newsDetails.html?id={{$value.id}}" target="_blank"><img class="forum-info-left" src="{{$value.img_path}}" alt=""/></a>'+
             '<div class="forum-info-right">'+
-            '<div class="forum-info-title"><a href="/web/html/report.html?id={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
+            '<div class="forum-info-title"><a href="/web/html/newsDetails.html?id={{$value.id}}" target="_blank">{{$value.title}}</a></div>'+
             '<div class="forum-info-content dot-ellipsis">{{change($value.content)}}</div>'+
             '<div class="forum-info-tags">'+
             '<i class="iconfont icon-biaoqian"></i>{{#tagGroup($value.tag,$value.tagId)}}'+

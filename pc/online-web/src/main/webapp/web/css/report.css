@@ -301,7 +301,7 @@ img {
 }
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right {
   float: right;
-  width: 770px;
+  width: 750px;
 }
 #forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime .comment-person {
   font-size: 14px;
@@ -327,7 +327,7 @@ img {
   font-size: 14px;
   color: #666;
   margin-top: 8px;
-  width: 650px;
+  width: 750px;
   word-break: break-all;
   word-wrap: break-word;
 }
@@ -339,7 +339,7 @@ img {
   display: none;
   position: absolute;
   right: 0px;
-  top: 88px;
+  top: 13px;
   font-size: 12px;
   color: #999;
   cursor: pointer;

@@ -238,7 +238,7 @@
 <script type="text/template" id="hospitalTpl"> 
 {{each hospital as hospital i}}
 <div class="hospitals">
-	<a href="/web/html/hospital_details.html?Id={{hospital.id}}" id={{hospital.id}}></a>
+	<a href="/web/html/clinicDetails.html?Id={{hospital.id}}" id={{hospital.id}}></a>
 	{{if hospital.medicalHospitalPictures.length!=0 && hospital.medicalHospitalPictures[0].picture}}
 	<img src={{hospital.medicalHospitalPictures[0].picture}} alt="">
 	{{else}}

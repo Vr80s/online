@@ -30,11 +30,9 @@ var result="";
             //视频id
             videoId = result.directId;
             watchState = result.watchState;
+            
             //判断是否可预约
-            if(result.watchState == 0){
-
-            }else if(result.watchState == 1){  //goto 付费页面
-               
+            if(result.watchState == 1){  //goto 付费页面
             	var b_smallImgPath ="url("+result.smallImgPath+") no-repeat";
              	$("#bug_bg").css("background",b_smallImgPath);
             	
@@ -308,7 +306,9 @@ function ckProPrice() {
         alert("请输入赠送金额！");
         return false;
     } else {
-        if ($("#actualPay").val() != ""){
+    	
+    	
+    	if ($("#actualPay").val() != ""){
             if (!reg.test($("#actualPay").val())) {
                 alert("价格不合法！");
                 return false;
@@ -327,6 +327,35 @@ function ckProPrice() {
         }
     }
 }
+
+
+/*
+ * 得到焦点失去焦点
+ */
+$('#searchKey').focus(function() { 
+	
+	$('#lbSearch').text(''); 
+}); 
+
+$('#searchKey').blur(function() { 
+	var str = $(this).val(); 
+	str = $.trim(str); 
+	if(str == '') 
+	$('#lbSearch').text('搜神马？'); 
+}); 
+
+/*
+ * 当这个值发生变化了，进行。
+ */
+$('#searchKey').change(function() { 
+	var str = $(this).val(); 
+	str = $.trim(str); 
+	if(str == '') 
+	$('#lbSearch').text('搜神马？'); 
+}); 
+
+
+
 /*function ds(payType){*/
 function ds(){
     if(!ckProPrice()){
@@ -559,12 +588,10 @@ if(isWeiXin()){
 		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
 		    success: function () {
 		        // 用户确认分享后执行的回调函数
-		    	alert("测试微信分享--成功");
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();
 		    },
 		    cancel: function () {
-		    	alert("测试微信分享-取消");
 		        // 用户取消分享后执行的回调函数
 		    	$(".weixin_ceng").hide();
 		    	$(".share").hide();

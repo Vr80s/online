@@ -50,7 +50,7 @@ $(function(){
        	  
        //坐诊医馆信息
        //跳转
-       $('.to_hospital_detail').attr('href','/web/html/hospital_details.html?id='+data.resultObject.medicalHospital.id+'');
+       $('.to_hospital_detail').attr('href','/web/html/clinicDetails.html?id='+data.resultObject.medicalHospital.id+'');
        //医馆图片
        if(data.resultObject.medicalHospital.medicalHospitalPictures){
        	 $('.hospital_pic>img').attr('src',data.resultObject.medicalHospital.medicalHospitalPictures[0].picture)
@@ -131,14 +131,14 @@ $(function(){
 	    });
 	    
 	    //给更多报道按钮添加医师id
-	    $('.more_madia_report').attr('href','/web/html/doctor_report.html?doctorId='+id+'')
+	    $('.more_madia_report').attr('href','/web/html/practitioneNews.html?doctorId='+id+'')
 	    
 	    //给更多专栏按钮添加医师id
-	     $('.more_zhuanlan').attr('href','/web/html/colomn.html?doctorId='+id+'')
+	     $('.more_zhuanlan').attr('href','/web/html/columnListing.html?doctorId='+id+'')
 	     
 	    //更多著作部分添加医师id
 
-	      $('.zhuzuo_title a').attr('href','/web/html/doctor_book.html?doctorId='+id+'')
+	      $('.zhuzuo_title a').attr('href','/web/html/pubs.html?doctorId='+id+'')
 	     
 	    //医师详情页面的著作部分
 	      RequestService("/medical/doctor/getWritingsByDoctorId", "GET", {

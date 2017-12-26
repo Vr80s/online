@@ -272,7 +272,7 @@
 <script type="text/template" id="book_authorTpl">
 	{{each author as author i}}
 	   <div class="work_right_name" style="position: relative;">
-	   	<a href="/web/html/doctor_details.html?Id={{author.id}}"  style="position: absolute;width: 100%;height: 100%;"></a>
+	   	<a href="/web/html/clinicDetails.html?Id={{author.id}}"  style="position: absolute;width: 100%;height: 100%;"></a>
 		    <img src={{author.headPortrait}} alt="" />
 		    <div class="work_right_name_p">
 		        <p class="p0">{{author.name}}</p>
@@ -288,7 +288,7 @@
 <script type="text/template" id="book_listTpl">
 		{{each book as book i}}
 		 <div class="dtails_book_name" style="position: relative;">
-		 	<a href="/web/html/work_details.html?id={{book.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
+		 	<a href="/web/html/pubsDetails.html?id={{book.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
             <img src={{book.imgPath}} alt="" />
             <div class="dtails_book_p">
                 <p class="p0 text0">{{book.title}}</p>
