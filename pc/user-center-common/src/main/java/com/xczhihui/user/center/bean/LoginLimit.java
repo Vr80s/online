@@ -26,8 +26,6 @@ public class LoginLimit implements Serializable {
 		return serialVersionUID;
 	}
 
-
-
 	public Integer getId() {
 		return id;
 	}
