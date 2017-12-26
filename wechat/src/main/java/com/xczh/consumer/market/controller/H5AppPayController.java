@@ -269,7 +269,8 @@ public class H5AppPayController {
 		Reward reward=rewardService.findById(rewardParamVo.getRewardId());
 		if(reward==null){
 			throw new IllegalArgumentException("无此打赏类型");
-		}else if(!reward.getIsFreedom()&&reward.getPrice().doubleValue()!=Double.valueOf(req.getParameter("actualPay")).doubleValue()){
+		}else if(!reward.getIsFreedom()&&
+				reward.getPrice().doubleValue()!=Double.valueOf(req.getParameter("actualPay")).doubleValue()){
 			throw new IllegalArgumentException("打赏类型与金额不符");
 		}
 //		//根据价格获取giftId
