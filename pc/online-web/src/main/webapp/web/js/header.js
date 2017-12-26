@@ -175,7 +175,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<a href="/web/html/forum.html" class="forum">头条</a>'+
         '<a href="/web/html/bestPractitioners.html" class="doctor">名医</a>'+
          '<a href="/classroom.html" class="classroom">学堂</a>'+
-        '<a href="/web/html/hospital.html" class="hospital">医馆</a>'+
+        '<a href="/web/html/clinics.html" class="hospital">医馆</a>'+
         '<a href="/web/html/ansAndQus.html" class="ansAndQus">问道</a>'+
 //        '<a href="/web/html/Exhibition.html" target="_blank">作品展</a>'+
         '<a href='+bbs_domain+"/index"+'>论坛</a>'+

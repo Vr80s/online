@@ -328,7 +328,7 @@
             <div class="school_teacher ">
             	<div>
             		<h4>名师报道</h4>
-            		<a href="/web/html/doctor_report.html">></a>
+            		<a href="/web/html/practitioneNews.html">></a>
             	</div>
             	
             	<ul class="teacher_picList clearfix" id="doctor_baodao">
@@ -364,7 +364,7 @@
             <div class="teacher_books ">
             	<div id="">
             		<h4>名医书籍</h4>
-            		<a href="/web/html/doctor_book.html">></a>
+            		<a href="/web/html/pubs.html">></a>
             	</div>
             
             	<ul class="book_list clearfix" id="boos_list">
@@ -405,7 +405,7 @@
 <script type="text/template" id="guoyiTpl"> 
 {{each doctor as doctor i}}
 	<li>
-		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<a href="/web/html/practitionerDetails.html?Id={{doctor.id}}" target="_blank"></a>
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
 		<p>{{doctor.workTime}}</p>
@@ -425,7 +425,7 @@
 <script type="text/template" id="minglaoTpl"> 
 {{each doctor as doctor i}}
 	<li>
-		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<a href="/web/html/practitionerDetails.html?Id={{doctor.id}}" target="_blank"></a>
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
 		<p>{{doctor.workTime}}</p>
@@ -445,7 +445,7 @@
 <script type="text/template" id="mingqingTpl"> 
 {{each doctor as doctor i}}
 	<li>
-		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<a href="/web/html/practitionerDetails.html?Id={{doctor.id}}" target="_blank"></a>
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
 		<p>{{doctor.workTime}}</p>
@@ -465,7 +465,7 @@
 <script type="text/template" id="guzhongyiTpl"> 
 {{each doctor as doctor i}}
 	<li>
-		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<a href="/web/html/practitionerDetails.html?Id={{doctor.id}}" target="_blank"></a>
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
 		<p>{{doctor.workTime}}</p>
@@ -485,7 +485,7 @@
 <script type="text/template" id="shaoshuTpl"> 
 {{each doctor as doctor i}}
 	<li>
-		<a href="/web/html/doctor_details.html?Id={{doctor.id}}" target="_blank"></a>
+		<a href="/web/html/practitionerDetails.html?Id={{doctor.id}}" target="_blank"></a>
 		<img src={{doctor.headPortrait}} alt="">
 		<h5>{{doctor.name}}&nbsp;<span>{{doctor.title}}</span></h5>
 		<p>{{doctor.workTime}}</p>
@@ -506,7 +506,7 @@
 <script type="text/template" id="doctor_baodaoTpl"> 
 {{each doctor as doctor i}}
 	<li>
-		<a href="/web/html/report.html?id={{doctor.id}}">{{doctor.title}}</a>
+		<a href="/web/html/newsDetails.html?id={{doctor.id}}">{{doctor.title}}</a>
 	</li>
  {{/each}}
 </script> 
@@ -515,7 +515,7 @@
 <script type="text/template" id="doctor_bookTpl"> 
 {{each book as book i}}
 	<li style="position: relative;">
-		<a href="/web/html/work_details.html?id={{book.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
+		<a href="/web/html/pubsDetails.html?id={{book.id}}" style="position: absolute;width: 100%;height: 100%;"></a>
 		<img src="{{book.imgPath}}" alt="">
 		<div>
 			<span class="book_name">{{book.title}}</span>

@@ -94,7 +94,7 @@ $(function () {
             '</div></div></div>'+
             '{{/each}}';
     var hotTag='{{each hotTag}}'+
-            '<li><a href="/web/html/doctor_list.html?name=&field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
+            '<li><a href="/web/html/practitionerListing.html?name=&field={{$value.id}}" target="_blank">{{$value.name}}</a></li>'+
             '{{/each}}';
     var relativeCourse = '{{each item as $value i}}' +
         "<li>" +
@@ -443,7 +443,7 @@ $(function () {
     	//编码
     	var name = jQuery.trim($('.search_hos').val());
     	console.log(name)
-    	var searchUrl =encodeURI('/web/html/doctor_list.html?name='+name);  
+    	var searchUrl =encodeURI('/web/html/practitionerListing.html?name='+name);  
 //  	window.open('/web/html/doctor_list.html?name='+name); 
   		window.location.href =searchUrl;
     })
