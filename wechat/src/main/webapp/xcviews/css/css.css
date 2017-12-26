@@ -2039,6 +2039,7 @@ footer{
 	margin-left: 0.89rem;
 	text-indent: 0.5rem;
 	color: #999;
+	position: absolute;
 }
 
  .input01::-webkit-input-placeholder{
