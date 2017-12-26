@@ -551,17 +551,18 @@ $(document)
 					}
 				});
 
+/**
+ * 点击事件  
+ */
 function clearCheck() {
 	var aBtn6 = $('#cdPrices .give_lable1');
 	for (i = 0; i < aBtn6.length; i++) {
 		for (i = 0; i < aBtn6.length; i++) {
 			$(aBtn6[i]).removeClass('givebg');
 			$(aBtn6[i]).find('.give_money1').css('color', '#000');
-			$(aBtn6[i]).find('.give_lable1_span').removeClass(
+			$(aBtn6[i]).find('.give_lable1_span').removeClass(    
 					'give_lable1_span1');
 		}
 	}
-
 	$("#sid").val(sid);
-	// $(aBtn[0]).click();
 }
