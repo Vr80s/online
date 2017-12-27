@@ -1035,6 +1035,12 @@ $(function() {
 });
 //点击详情弹窗
 function btn_details(){
+	RequestService("/gift/getLiveCourseByUserId?pageNumber="+pageNumber+"&pageSize=6", "post", {
+				id:$(this).attr("data-userId")
+			}, function(data){
+				 $("my_details").html(template("my_data",{item:id}));
+
+			})
 	$(".bg_03").fadeIn(200);
 	$(".my_details").fadeIn(200);
 }

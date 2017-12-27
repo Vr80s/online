@@ -160,6 +160,7 @@ var _hmt = _hmt || [];
 			<th>昵称</th>
 			<th>实际支付</th>
 		</tr>
+		
 		<tr>
 			<td>张大龙</td>
 			<td>2017-12-20</td>
@@ -524,11 +525,37 @@ var _hmt = _hmt || [];
  <script type="text/template" id="list7">
 <li><span>直播课程名称</span><span>直播开始时间</span><span>直播报名人数</span><span>直播报名总金额</span><span>单价</span><span>操作</span></li>
 {{each item as item i}}
-<li><span>{{item.courseName}}</span><span>{{item.startTime}}</span><span>{{item.enrollmentCount}}</span><span>{{item.totalAmount}}</span><span>{{item.price}}</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>
+<li><span>{{item.courseName}}</span><span>{{item.startTime}}</span><span>{{item.enrollmentCount}}</span><span>{{item.totalAmount}}</span><span>{{item.price}}</span><span data-userId={{item.id}} onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>
 {{/each}}
 </script> 
 
-
+ <!--课程直播点击详情返回ID--> 
+ <!--<script type="text/template" id="my_data">
+	<div class="my_details_top">
+		<p class="my_title">详情</p>
+		<p class="my_close">X</p>
+	</div>
+	<p class="my_all_data">汇总：</p>
+	<ul class="my_data_list">
+		<li>报名人数：127 人</li>
+		<li>收到礼物：+800</li>		
+	</ul>
+	<table class="my_table" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<th>账号</th>
+			<th>报名时间</th>
+			<th>昵称</th>
+			<th>实际支付</th>
+		</tr>
+		
+		<tr>
+			<td>张大龙</td>
+			<td>2017-12-20</td>
+			<td>国医大师</td>
+			<td>500</td>
+		</tr>
+	</table>
+</script> -->
 
 
 <!-- 个人信息省份模板 -->
