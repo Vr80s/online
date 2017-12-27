@@ -162,7 +162,6 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("修改密码失败");
 		}
 	}
-	
 	/**
 	 * 修改密码
 	 * @param req
@@ -320,7 +319,6 @@ public class BrowserUserController {
 		try {
 			//存储在redis中了，有效期为10天。
 			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
-			System.out.println("中国你好啊");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("用户名密码有误");
@@ -881,6 +879,8 @@ public class BrowserUserController {
 		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
 		if(map ==null){ //第一次进来
 			ou = onlineUserService.addYkUser(appUniqueId);
+			
+			System.out.println("用户中心id:"+ou.getUserCenterId());
 			//也需要保存这个信息啦
 			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
 		}else{
@@ -891,10 +891,19 @@ public class BrowserUserController {
 			 * 2、当登录的时候，在增加这个标识符为0:  
 			 */
 			Boolean regis =  (Boolean) map.get("isRegis");
-			if(!regis|| type.equals("1")){ //返回用户基本信息   --主要是不返回loginName
+			System.out.println("userCenterId:"+map.get("userCenterId"));
+			if(!regis|| type.equals("1") ){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
 			}else{ //返回用户信息 -- 包括loginName
 				ou = onlineUserService.findUserById(map.get("userId").toString());
+			}
+			if(map.get("userCenterId")!=null){
+				ou.setUserCenterId(Integer.parseInt(map.get("userCenterId").toString()));
+			}else{
+				ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+				if(iu!=null){
+					ou.setUserCenterId(iu.getId());
+				}
 			}
 		}
 		/**

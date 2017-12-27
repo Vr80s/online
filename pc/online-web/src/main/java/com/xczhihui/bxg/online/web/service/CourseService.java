@@ -9,6 +9,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
@@ -46,8 +47,18 @@ public interface CourseService {
      * @param ispreview 是否为预览，1为预览
      * @return Example 分页列表
      */
-    public CourseVo getCourseById(Integer courseId,String ispreview,HttpServletRequest request);
+    public CourseVo getCourseById(Integer courseId,String ispreview,HttpServletRequest request,OnlineUser ou);
 
+    /**
+     * 根据课程ID号，查找对应的课程对象
+     * @param courseId 课程id
+     * @param ispreview 是否为预览，1为预览
+     * @return Example 分页列表
+     */
+    //public CourseVo getCourseById(Integer courseId,String ispreview,HttpServletRequest request,OnlineUser ou);
+
+    
+    
     public Page<CourseVo> findUserRealCoursePage(String userId,Integer courseStatus, Integer pageNumber, Integer pageSize);
 
     /**
