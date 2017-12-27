@@ -119,7 +119,7 @@ public class GiftDao extends SimpleHibernateDao {
 	}
 
     public Object getLiveCourseByUserId(String userId, Integer pageNumber, Integer pageSize) {
-		String sql="SELECT \n" +
+		String sql="SELECT  oc.id,\n" +
 				"  oc.`grade_name` courseName,\n" +
 				"  oc.`start_time` startTime,\n" +
 				"  oc.`end_time` endTime,\n" +
