@@ -33,12 +33,12 @@ public class VersionInfoVo implements Serializable {
         this.downUrl = downUrl;
     }
 
-    public Boolean getMustUpdate() {
+    public Boolean getIsMustUpdate() {
         return isMustUpdate;
     }
 
-    public void setMustUpdate(Boolean mustUpdate) {
-        isMustUpdate = mustUpdate;
+    public void setIsMustUpdate(Boolean isMustUpdate) {
+    	this.isMustUpdate = isMustUpdate;
     }
 
     public Boolean getIsUpdate() {

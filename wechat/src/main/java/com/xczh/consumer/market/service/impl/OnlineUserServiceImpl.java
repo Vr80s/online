@@ -582,8 +582,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
 		if(iu == null){
 		   //向用户中心注册
-			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
-					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+//			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
+//					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+			userCenterAPI.update(mobile,"",0, null, mobile,0, 0);
 		}
 		if(null == user ){
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
@@ -635,7 +636,22 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		int index=(int)(Math.random()*arr.length);
 		String name = arr[index];
 		
+		/**
+		 * 因为要用到用户中心id了
+		 */
+		ItcastUser iu = userCenterAPI.getUser(appUniqueId);
+		if(iu == null){
+		   //向用户中心注册
+			userCenterAPI.regist(appUniqueId, "123456", "", UserSex.UNKNOWN, null,
+					appUniqueId, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+			
+			iu = userCenterAPI.getUser(appUniqueId);
+		}
 		OnlineUser u = new OnlineUser();
+		
+		//用户中心id  用于发送礼物等操作
+		u.setUserCenterId(iu.getId());
+
 		//保存本地库
 		u.setId(UUID.randomUUID().toString().replace("-", ""));
 		//u.setLoginName(name);
@@ -665,10 +681,12 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
 		onlineUserDao.addOnlineUser(u);
 		
+		
 		/**
 		 * 为用户初始化一条代币记录
 		 */
 		userCoinService.saveUserCoin(u.getId());
+		
 		return u;
 	}
 	@Override
