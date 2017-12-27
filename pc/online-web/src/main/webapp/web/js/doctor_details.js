@@ -106,7 +106,7 @@ $(function(){
 	  	size:size,
 	 	doctorId:id
 	 }, function (data) {
-	        if(data.resultObject.length == 0){
+	        if(data.resultObject.records.length == 0 || data.resultObject == null){
 	           $('#media_report').addClass('hide');
 	        }else{
 	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject.records}));
@@ -122,9 +122,9 @@ $(function(){
 	  	size:size,
 	 	doctorId:id
 	 }, function (data) {
-	        if(data.resultObject.length == 0){
+	        if(data.resultObject.records.length == 0 ||data.resultObject==null){
 	        	//没有数据处理
-	           $('.zhuanlan').addClass('hide');
+	           $('#zhuanlan').addClass('hide');
 	        }else{
 	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject.records}));
 	        }

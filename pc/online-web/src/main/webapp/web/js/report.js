@@ -146,8 +146,8 @@ $(function(){
         $(".forum-detailInfo").html(template.compile(articleDetail)(data.resultObject));
         
         //右侧报道名医渲染
-        if(data.resultObject.medicalDoctors.length == 0){
-					 $('#report_doctor_list').addClass('hide');
+        if(data.resultObject.medicalDoctors.length == 0 ||data.resultObject == null ){
+					 $('#report_doc_list').addClass('hide');
 				}else{
 					$('#report_doctor_list').html(template('report_docTpl',{inf:data.resultObject.medicalDoctors}));
 				}
