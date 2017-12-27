@@ -83,17 +83,5 @@ public class SLEmojiFilter {
             }
         }
     }
-    
-    
-    public static void main(String[] args) {
-    	String str = "\\xF0\\x9F\\x8D   哈哈f..?这是一首姜丹的范德萨范德萨十点多大封顶是否水电费哈哈哈哈哈方式特浮点数是否锁定。、、、■★◀㏘▄☜";
-    	System.out.println("转换前："+str);
-    	str = filterEmoji(str);
-    	System.out.println("转换后："+str);
-    	
-	}
-    
-    
-    
-    
+
 }

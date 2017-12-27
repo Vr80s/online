@@ -762,8 +762,7 @@ public class BBSUserController extends OnlineBaseController {
 				}
 			}
 		}else{
-			//我们的网站被CSRF攻击了或者用户取消了授权
-			System.out.print("没有获取到响应参数");
+//			System.out.print("没有获取到响应参数");
 		}
 	}
 
@@ -808,8 +807,7 @@ public class BBSUserController extends OnlineBaseController {
 				response.sendRedirect("/web/html/bindAccount.html");
 			}
 		}else{
-			//我们的网站被CSRF攻击了或者用户取消了授权
-			System.out.print("没有获取到响应参数");
+//			System.out.print("没有获取到响应参数");
 		}
 	}
 	/**

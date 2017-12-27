@@ -247,7 +247,6 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 						}
 					}
 					if(j == 0){
-						System.out.println(" ["+i+"]"+ids[i]);
 						ids2.add(ids[i]);
 					}
 				}

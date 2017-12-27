@@ -303,7 +303,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 	public String updateOrderNo(String oldOrderNo) throws SQLException {
 		//修改一下原来的订单号（微信不能重复下单）
 		String newOrder= TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
-		System.out.println("newOrder:"+newOrder);
 		orderMapper.update(JdbcUtil.getCurrentConnection(),"update oe_order set order_no=? where order_no=?",newOrder,oldOrderNo);
 		return newOrder;
 	}

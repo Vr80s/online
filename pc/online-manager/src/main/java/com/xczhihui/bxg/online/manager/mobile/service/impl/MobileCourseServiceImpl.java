@@ -94,7 +94,6 @@ public class MobileCourseServiceImpl extends OnlineBaseServiceImpl implements Mo
 		paramMap.put("courseId", courseId);
 		List<CourseVo> temp=mobileCourseDao.findEntitiesByJdbc(CourseVo.class, selectSqlByCourse, paramMap);
 		if(temp.size()>0){
-			//System.out.println("进入更新");
 			mobileCourseDao.getNamedParameterJdbcTemplate().getJdbcOperations().update("update  oe_course_mobile set " +
 					"img_url=?, " +
 					"description=? where course_id=?" ,new Object[]{smallImgPath,courseDetail,courseId});
