@@ -715,6 +715,7 @@ if (myBrowser() == "IE55") {
                 return;
             }
             isCliclLogin = true;
+            
             login(data);
         });
 
@@ -731,6 +732,16 @@ if (myBrowser() == "IE55") {
                         window.location.href="/web/html/myStudyCenter.html";
                         window.localStorage.myStudyCenter=null;
                     }
+                    /*
+                     * 获取当前页面
+                     */
+                    var current = location.href;
+                    debugger;
+                    if(current.indexOf("otherDevice.html")!=-1){
+                    	
+                    	window.location.href="/index.html";
+                    }
+                    
                 } else { //登陆错误提示
                     $(".loginGroup .logout").css("display", "block");
                     errorMessage(result.errorMessage);

@@ -68,7 +68,7 @@ $(function() {
 		$(".headMess .learnd").html(data.resultObject.learn_count);
 		//课程名称
 		$("#courseName").html(data.resultObject.courseName);
-        $("#title-share").html(data.resultObject.courseName);
+        $("#title-share").html(data.resultObject.courseName); 
 		$(".liveMess .lb span").html(data.resultObject.courseName);
 		//教师头像
 		$(".headImg img").attr("src", data.resultObject.head_img);
@@ -121,7 +121,18 @@ $(function() {
             var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&') ;
             window.open(_src);
 
+            
         })
+        /**
+         * 如果课程名太长的话，可能导致礼物列表的框框变化
+         */
+        //alert($(".right-header").css("height"));
+		var rightHeaderHeight = $(".right-header").css("height");
+		rightHeaderHeight = rightHeaderHeight.substring(0,rightHeaderHeight.length-2);
+		//alert(rightHeaderHeight);
+		if(rightHeaderHeight>150){
+			$("#chat-list").css("padding-top","60px;");
+		}
 	});
 	
 	//直播间访问量增加

@@ -62,7 +62,7 @@ function onMessage(msg) {
 	        var text = Strophe.getText(body);
 	        text = text.replaceAll("&quot;","\"");
         	data = JSON.parse(text);
-        	
+        	debugger;
         	createGiftList(data);
     	}catch(err){
 //        	console.info(err);
@@ -106,6 +106,7 @@ $(document).ready(function() {
 	var selectGift=null;
 	var lastTime = new Date();
 	var isContinuous=false;
+	var myid =null;
 	//获取右侧底部的礼物数据
 	RequestService("/gift/getGift", "GET", {
 	}, function(data) {
@@ -214,16 +215,26 @@ $(document).ready(function() {
 function createGiftList(data){
 	if(data.messageType==1){
 
+		debugger;
+		
+/*		<div class="headImg" style="float: left;">
+			<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/09/23/14/0b77783055f44003bb32228eb3549887.png">
+		</div>*/
+		
+		
 		//获取最后一次的id
 		var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
-		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa'>" +
+		li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;'>" +
+				"<div class='headImg' style='float: left;'>" +
+			 	"  <img style ='width:54px;height:54px;border-radius: 60px;margin-right: 10px;' src='"+data.senderInfo.avatar+"'>" +
+			    " </div>" +
 				"<div class='sender-gif'>" +
 				"<p>"+data.senderInfo.userName+"：</p>" +
 				"<span>赠送给主播</span>&nbsp;&nbsp;" +
 				"<span>"+data.giftInfo.name+"</span>" +
 				"</div>" +
-				"<div class='imgNum'><img style='position: absolute;width: 54px;left:163px;height: 54px;' src="+data.giftInfo.smallimgPath+">" +
-				"<span style=' position: absolute; left: 220px;top: 20px'>X"+data.giftInfo.continuousCount+"</span>" +
+				"<div class='imgNum'><img style='position: absolute;width: 54px;right: 25px;height: 54px;' src="+data.giftInfo.smallimgPath+">" +
+				"<span style=' position: absolute; right: 0;top: 20px'>X"+data.giftInfo.continuousCount+"</span>" +
 				"</div>" +
 		"</li>")
 		$('#chat-list').append(li);
@@ -239,12 +250,15 @@ function createGiftList(data){
 	}else if(data.messageType==0){//打赏
 	//右侧生成打赏得礼物
 			var li = $('<li style="background-color:#fafafa;margin-bottom: 10px"></li>');
-			li.html("<li class='clearfix' style='position: relative;background-color:#fafafa' >" +
+			li.html("<li class='clearfix' style='position: relative;background-color:#fafafa;margin-left:0;' >" +
+					"<div class='headImg' style='float: left;'>" +
+				 	"  <img style ='width:54px;height:54px;border-radius: 60px;margin-right: 10px;' src='"+data.senderInfo.avatar+"'>" +
+				    " </div>" +
 					"<div class='sender-gif'>" +
 					"<p>"+data.senderInfo.userName+"：</p>" +
 					"<span>打赏给主播&nbsp;&nbsp;红包</span>&nbsp;&nbsp;" +
 					"</div>" +
-					"<div class='imgNum'><img src='../../../images/hongbao.png' style='width: 54px;height: 54px;position: absolute;left: 163px;'>" +
+					"<div class='imgNum'><img src='../../../images/hongbao.png' style='position: absolute;width: 54px;height: 54px;right: 25px;'>" +
 					"</div>" +
 			"</li>")
 			$('#chat-list').append(li);
