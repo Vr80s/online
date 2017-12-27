@@ -27,7 +27,7 @@ public interface OeBxsArticleMapper extends BaseMapper<OeBxsArticle> {
 
     OeBxsArticleVO getSpecialColumnDetailsById(String articleId);
 
-    List<OeBxsArticleVO> getRecentlyNewsReports();
+    List<OeBxsArticleVO> getRecentlyNewsReports(@Param("doctorReport") String doctorReport);
 
     List<OeBxsArticleVO> getNewsReportsByPage(@Param("page") Page<OeBxsArticleVO> page, @Param("doctorId") String doctorId, @Param("doctorReport") String doctorReport);
 

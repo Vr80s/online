@@ -50,8 +50,10 @@ $(function(){
     var articleDetail='<div class="forum-detail">'+
             '<div class="forum-detail-title">{{title}}</div>'+
             '<div class="forum-info-tags">'+
+            '<img src="/web/images/studentCount.png" />'+
 //          '<i class="iconfont icon-biaoqian"></i>{{#tagGroup(items.tag,items.tagId)}}'+
             '<span>{{author}}&nbsp;&nbsp;&nbsp;{{dataSub(createTime)}}</span>'+
+            '<a href="/web/html/columnListing.html" style="color: #188EEE;margin-left:20px">大家专栏</a>'+
 //          '<span>阅读({{items.browse_sum}})</span>'+
 //          '<span>点赞(<span class="articleHitCoun">{{items.praise_sum}}</span>)</span>'+
 //          '<span>评论(<span class="articleCommCoun">{{items.comment_sum}}</span>)</span>'+

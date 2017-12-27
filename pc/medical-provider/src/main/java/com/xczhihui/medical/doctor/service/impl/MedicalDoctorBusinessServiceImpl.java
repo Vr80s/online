@@ -118,7 +118,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     @Override
     public List<OeBxsArticleVO> getRecentlyNewsReports() {
-        return oeBxsArticleMapper.getRecentlyNewsReports();
+        return oeBxsArticleMapper.getRecentlyNewsReports(doctorReport);
     }
 
     @Override
