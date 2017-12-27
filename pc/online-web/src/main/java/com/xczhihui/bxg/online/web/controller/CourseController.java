@@ -228,6 +228,7 @@ public class CourseController {
     @RequestMapping(value = "/subscribe")
     public ResponseObject subscribe(String mobile, Integer courseId, HttpSession session) throws ClientException {
         OnlineUser u =  (OnlineUser)session.getAttribute("_user_");
+        if(u==null)return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
         return service.insertSubscribe(u.getId(),mobile,courseId);
     }
     

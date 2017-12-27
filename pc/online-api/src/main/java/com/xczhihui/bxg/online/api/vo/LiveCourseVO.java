@@ -10,12 +10,21 @@ import java.io.Serializable;
  */
 public class LiveCourseVO implements Serializable{
 
+	private String id;
 	private String courseName;
 	private String startTime;
 	private String endTime;
 	private String enrollmentCount;
 	private String totalAmount;
 	private String price;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getTotalAmount() {
 		return totalAmount;
