@@ -1034,20 +1034,23 @@ $(function() {
 	
 });
 //点击详情弹窗
-function btn_details(){
-	RequestService("/gift/getLiveCourseByUserId?pageNumber="+pageNumber+"&pageSize=6", "post", {
-				id:$(this).attr("data-userId")
-			}, function(data){
-				 $("my_details").html(template("my_data",{item:id}));
 
+function btn_details(t){
+	var bb=$(t).attr("data-id");
+	RequestService("/gift/getLiveCourseUsersById", "POST", {
+				pageNumber:1,
+				pageSize:6,
+				id:bb
+		}, function(data){
+				 $(".my_details").html(template("my_data",{item:data.resultObject.items}));
 			})
 	$(".bg_03").fadeIn(200);
 	$(".my_details").fadeIn(200);
 }
-$(".my_close").click(function(){
+function my_cloce(){
 	$(".bg_03").fadeOut(200);
 	$(".my_details").fadeOut(200);
-})
+}
 //点击详情弹窗结束
 function fileClick() {
 	return $("#upload-file").click();
