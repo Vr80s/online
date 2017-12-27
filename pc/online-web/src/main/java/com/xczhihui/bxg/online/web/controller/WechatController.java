@@ -125,7 +125,6 @@ public class WechatController {
 			cacheService.set(cacheKey,attach,7200);
 
 
-			System.out.println("wxlttrlenth:"+attach.length());
 			Map<String, Object> msg = orderService.addWeixinPayUnifiedorder(body,
 					newOrderNo, payInfo.get("course_id").toString(), (int) d,extDatas);
 			if (!msg.containsKey("errorMsg")) {
@@ -194,7 +193,6 @@ public class WechatController {
 			cacheService.set(cacheKey,attach,7200);
 
 			String orderNo=TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
-			System.out.println("wxlttrlenth:"+attach.length());
 			Map<String, Object> msg = orderService.addWeixinPayUnifiedorder(body,
 					orderNo, UUID.randomUUID().toString().replaceAll("-",""), (int) d,extDatas);
 			if (!msg.containsKey("errorMsg")) {
@@ -246,7 +244,6 @@ public class WechatController {
 			
 			cacheService.set(cacheKey,attach,7200);
 
-			System.out.println("wxlttrlenth:"+attach.length());
 			Map<String, Object> msg = orderService.addWeixinPayUnifiedorder(body,
 					orderNo, UUID.randomUUID().toString().replaceAll("-",""), (int) d,extDatas);
 			if (!msg.containsKey("errorMsg")) {
@@ -373,8 +370,6 @@ public class WechatController {
 							rs.setOrderNo(out_trade_no);
 							rs.setChannel(1);
 							rs.setStatus(1);
-							System.out.println("RewardStatement"+rs.toString());
-//							rewardService.insert(rs);
 							userCoinService.updateBalanceForReward(rs);
 							wxcpPayFlow.setUser_id(rpv.getUserId());
 							wxcpPayFlow.setSubject(rpv.getSubject());
@@ -385,7 +380,6 @@ public class WechatController {
 							uci.setPayType(1);//
 							uci.setOrderNoRecharge(out_trade_no);
 							uci.setOrderFrom(1);
-							System.out.println("UserCoinIncrease"+uci.toString());
 							userCoinService.updateBalanceForIncrease(uci);
 							wxcpPayFlow.setUser_id(uci.getUserId());
 							wxcpPayFlow.setSubject(uci.getSubject());

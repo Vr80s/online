@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 import javax.annotation.Resource;
 
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -39,6 +41,8 @@ import com.xczhihui.user.center.bean.UserType;
  */
 @Service
 public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements OrderInputService {
+
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Resource(name = "simpleHibernateDao")
 	private SimpleHibernateDao dao;
@@ -225,7 +229,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 				+ vo.getCreate_person()+"','"+umap.get("id")+"',"+vo.getOrder_from()+") ";
 		dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 //		subscribe(vo);将预约注释掉
-		System.out.println("用户"+vo.getLogin_name()+"购买"+vo.getCourse_id()+"加入"+vo.getClass_id()+"成功");
+		logger.info("用户"+vo.getLogin_name()+"购买"+vo.getCourse_id()+"加入"+vo.getClass_id()+"成功");
 		return order_no;
 	}
 

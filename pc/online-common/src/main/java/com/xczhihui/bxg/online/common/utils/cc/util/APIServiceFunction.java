@@ -95,8 +95,6 @@ public class APIServiceFunction {
 			URLConnection conn = url.openConnection();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					conn.getInputStream(),"utf-8"));
-			System.out.println("------------e----s-----");
-//					conn.getInputStream(),"utf-8"));
 			String line = null;
 			while ((line = reader.readLine()) != null) {
 				document.append(line);

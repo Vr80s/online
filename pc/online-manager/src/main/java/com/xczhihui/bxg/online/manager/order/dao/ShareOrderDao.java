@@ -60,7 +60,6 @@ public class ShareOrderDao extends SimpleHibernateDao {
 		}
 		
 		sql.append(" order by oe.create_time desc ");
-		//System.out.println("sql:"+sql.toString());
 		//先取出该取得用户
 		Page<ShareOrderVo> ms = this.findPageBySQL(sql.toString(), paramMap, ShareOrderVo.class, pageNumber, pageSize);
 		
