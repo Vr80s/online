@@ -1,16 +1,14 @@
 package com.xczh.consumer.market.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.service.OnlineCourseService;
-import com.xczh.consumer.market.service.VersionService;
-import com.xczh.consumer.market.utils.ConfigUtil;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.VersionCompareUtil;
-import com.xczh.consumer.market.vo.CourseLecturVo;
-import com.xczh.consumer.market.vo.VersionInfoVo;
-import com.xczhihui.bxg.online.api.po.LiveExamineInfo;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.File;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OLAttachmentCenterService;
+import com.xczh.consumer.market.service.OnlineCourseService;
+import com.xczh.consumer.market.service.VersionService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.VersionCompareUtil;
+import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.VersionInfoVo;
+import com.xczhihui.bxg.online.api.po.LiveExamineInfo;
 
 /**
  * @author liutao
