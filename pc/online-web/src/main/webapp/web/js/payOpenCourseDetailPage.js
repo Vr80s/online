@@ -199,9 +199,8 @@ window.onload = function() {
 		'{{/if}}' +
 		'</p>' +
 		
-		
 		'{{if item.selfCourse == true}}' +
-			'<a href="/web/livepage/{{item.id}}/{{item.direct_id}}/null" class="purchase" >立即查看</a>' +
+			'<a href="/web/livepage/{{item.id}}/{{item.direct_id}}/null" class="purchase common_ljck" >立即查看</a>' +
     	'{{else}}'+   
 			'{{if item.free == true}}' +
 			'<p class="bigpic-body-money">' +

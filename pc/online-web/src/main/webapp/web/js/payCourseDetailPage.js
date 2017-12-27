@@ -200,7 +200,7 @@ window.onload = function() {
 		'</p>' +
 		
 		'{{if item.selfCourse == true}}' +
-		'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即查看</a>' +
+		'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase common_ljck" >立即查看</a>' +
 	    '{{else}}'+   
 			'{{if item.free == true}}' +
 			'<p class="bigpic-body-money">' +

@@ -213,7 +213,7 @@ window.onload=function(){
         
         
         '{{if item.selfCourse == true}}' +
-        	'<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即查看</a>'+
+        	'<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即查看</a>'+
         '{{else}}'+   
 	        '{{if item.free == true}}' +
 	        '<p class="bigpic-body-money">' +

@@ -142,7 +142,7 @@ window.onload = function () {
         
         
     	'{{if item.selfCourse == true}}' +
-    		'<span class="bigpic-body-overmoney">立即查看</span>' +
+    		'<span class="bigpic-body-overmoney common_ljck">立即查看</span>' +
     	'{{else}}'+   
 	        '{{if item.free == true}}' +
 		        '<p class="bigpic-body-money">' +
