@@ -17,7 +17,7 @@ public class AppraiseDao extends SimpleHibernateDao{
 	public Page<AppraiseVo> findAppraisePage(AppraiseVo appraiseVo, int currentPage, int pageSize) {
 		// TODO Auto-generated method stub
         Map<String,Object> paramMap=new HashMap<String,Object>();
-        StringBuilder sql=new StringBuilder("SELECT a.id , a.content ,a.article_id , u.`name`,a.create_time from oe_bxs_appraise a ,oe_bxs_article art,user u where a.is_delete = 0 and a.article_id = art.id and art.user_id=u.id");
+        StringBuilder sql=new StringBuilder("SELECT a.id , a.content ,a.article_id ,a.user_id name ,a.create_time from oe_bxs_appraise a ,oe_bxs_article art where a.is_delete = 0 and a.article_id = art.id ");
 		
 		
         if(appraiseVo.getArticleId()!=null && !"".equals(appraiseVo.getArticleId())){

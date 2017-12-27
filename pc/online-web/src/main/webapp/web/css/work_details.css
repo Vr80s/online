@@ -76,8 +76,11 @@ a{
 }
 
 .writer_buy a{
-	font-size: 14px;
-	color: #00BC12;
+	display: inline-block;
+    font-size: 14px;
+    color: #00BC12;
+    width: 100%;
+    height: 100%;
 }
 .writer_author_name{
 	font-size: 14px;
