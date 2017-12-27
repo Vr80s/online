@@ -135,4 +135,31 @@ public class GiftController {
 		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
 		return ResponseObject.newSuccessResponseObject(giftService.getReceivedReward(loginUser.getId(), pageNumber, pageSize));
 	}
+
+	/**
+	 * Description：分页获取直播课程列表
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 **/
+	@RequestMapping(value = "/getLiveCourseByUserId")
+	@ResponseBody
+	public ResponseObject getLiveCourseByUserId(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
+		//获取登录用户
+		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseByUserId(loginUser.getId(), pageNumber, pageSize));
+	}
+	/**
+	 * Description：获取直播课程对应的课程报名情况
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 **/
+	@RequestMapping(value = "/getLiveCourseUsersById")
+	@ResponseBody
+	public ResponseObject getLiveCourseUsersById(HttpServletRequest request,String id,Integer pageNumber,Integer pageSize) throws Exception {
+		//获取登录用户
+		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
+		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseUsersById(id,loginUser.getId(), pageNumber, pageSize));
+	}
 }

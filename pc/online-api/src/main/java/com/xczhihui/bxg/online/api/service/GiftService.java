@@ -1,7 +1,6 @@
 package com.xczhihui.bxg.online.api.service;
 
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -69,11 +68,21 @@ public interface GiftService {
 
 
 	/**
-	 * Description：送礼物(加锁)
-	 * @param giftStatement
+	 * Description：分页获取该主播的直播课程
+	 * @param userId
+	 * @param pageNumber
+	 * @param pageSize
 	 * @return
-	 * @return GiftStatement
+	 * @return Object
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public Map<String,Object> sendGiftStatement(GiftStatement giftStatement);
+	public Object getLiveCourseByUserId (String userId, Integer pageNumber,	Integer pageSize);
+
+	/**
+	 * Description：获取直播课程对应的课程报名情况
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 8:20 2017/12/26 0026
+	 **/
+	Object getLiveCourseUsersById(String id, String userId, Integer pageNumber, Integer pageSize);
 }

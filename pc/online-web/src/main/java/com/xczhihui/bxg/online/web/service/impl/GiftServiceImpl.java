@@ -122,11 +122,12 @@ public class GiftServiceImpl implements GiftService {
 	}
 
 	@Override
-	public Map<String, Object> sendGiftStatement(GiftStatement giftStatement) {
-    	System.out.println("sssssssssssssssss");
-		synchronized (giftStatement.getGiver().intern()){
-			System.out.println("eeeeeeeeeeeeeeeeee");
-			return addGiftStatement(giftStatement);
-		}
+	public Object getLiveCourseByUserId(String userId, Integer pageNumber, Integer pageSize) {
+		return giftDao.getLiveCourseByUserId(userId,pageNumber,pageSize);
+	}
+
+	@Override
+	public Object getLiveCourseUsersById(String id, String userId, Integer pageNumber, Integer pageSize) {
+		return giftDao.getLiveCourseUsersById(id,userId,pageNumber,pageSize);
 	}
 }

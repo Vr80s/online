@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.bxg.online.api.vo.LiveCourseUserVO;
+import com.xczhihui.bxg.online.api.vo.LiveCourseVO;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -113,6 +115,57 @@ public class GiftDao extends SimpleHibernateDao {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
         Page<ReceivedReward> page = this.findPageBySQL(sql.toString(), paramMap, ReceivedReward.class, pageNumber, pageSize);
+		return page;
+	}
+
+    public Object getLiveCourseByUserId(String userId, Integer pageNumber, Integer pageSize) {
+		String sql="SELECT \n" +
+				"  oc.`grade_name` courseName,\n" +
+				"  oc.`start_time` startTime,\n" +
+				"  oc.`end_time` endTime,\n" +
+				"  COUNT(argc.id) enrollmentCount,\n" +
+				"  oc.`current_price` price  ,\n" +
+				"  IFNULL(SUM(ood.`actual_pay`),0) totalAmount \n" +
+				"FROM\n" +
+				"  `oe_course` oc \n" +
+				"  JOIN `oe_user` ou \n" +
+				"    ON oc.`user_lecturer_id` = ou.`id` \n" +
+				"  JOIN `apply_r_grade_course` argc\n" +
+				"  ON oc.id=argc.`course_id`" +
+				"LEFT JOIN `oe_order_detail` ood\n" +
+				"  ON oc.id=ood.`course_id`\n" +
+				"WHERE oc.`is_delete` = 0 \n" +
+				"AND oc.`type`=1 AND ou.id = :userId\n" +
+				"GROUP BY oc.id ORDER BY oc.`start_time` DESC";
+
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("userId", userId);
+		Page<LiveCourseVO> page = this.findPageBySQL(sql.toString(), paramMap, LiveCourseVO.class, pageNumber, pageSize);
+		return page;
+    }
+
+	public Object getLiveCourseUsersById(String id, String userId, Integer pageNumber, Integer pageSize) {
+		String sql="SELECT \n" +
+				"  ou.`login_name` loginName,\n" +
+				"  ou.name,\n" +
+				"  argc.`create_time` createTime,\n" +
+				"  IFNULL(ood.`actual_pay`,0) actualPay\n" +
+				"FROM\n" +
+				"  `apply_r_grade_course` argc \n" +
+				"  JOIN `oe_course` oc \n" +
+				"    ON argc.`course_id` = oc.id \n" +
+				"  JOIN `oe_user` ou \n" +
+				"  ON argc.`user_id` = ou.`id`" +
+				"  LEFT JOIN `oe_order_detail` ood\n" +
+				"  ON ood.`course_id`=oc.id\n" +
+				"  WHERE oc.`is_delete`=0\n" +
+				"  AND argc.`is_payment` IN (0,2) AND oc.`user_lecturer_id`=:userId AND oc.id=:id\n" +
+				"  ORDER BY argc.`create_time`";
+
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("userId", userId);
+		paramMap.put("id", id);
+		Page<LiveCourseUserVO> page = this.findPageBySQL(sql.toString(), paramMap, LiveCourseUserVO.class, pageNumber, pageSize);
 		return page;
 	}
 
