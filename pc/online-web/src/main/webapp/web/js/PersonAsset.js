@@ -291,7 +291,10 @@
 				}
 			})
 		}
-				
+		
+		
+		
+		
 		//消费记录点击
 		$('.home').click(function(){
 			showData();
@@ -301,7 +304,7 @@
 			function getData(pageNumber){
 				RequestService("/web/consumptionList?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data) {
 //					console.log(data)
-					if(data.resultObject.totalPageCount==0){
+					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
 						$('.pagination').css({'display':'none'});
 						$("#xfjl").html(template("list1",{item:data.resultObject.items}));
 					}else{
@@ -341,7 +344,7 @@
 			function getData(pageNumber){
 				RequestService("/userCoin/userCoinConsumptionRecord?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data){
 //					console.log(data)				
-					if(data.resultObject.totalPageCount==0){
+					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
 						$('.pagination').css({'display':'none'});
 						 $("#payMoney").html(template("list6",{item:data.resultObject.items}));
 					}else{
@@ -386,7 +389,7 @@
 			function getData(pageNumber){
 				RequestService("/userCoin/userCoinIncreaseRecord?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data){
 //					console.log(data)				
-					if(data.resultObject.totalPageCount==0){
+					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
 						$('.pagination').css({'display':'none'});
 						 $("#payMoney").html(template("list2",{item:data.resultObject.items}));
 					}else{
@@ -441,7 +444,7 @@
 							data.resultObject.items[i].enchashmentStatus="已驳回";
 						}
 					}
-					if(data.resultObject.totalPageCount==0){
+					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
 						$('.pagination').css({'display':'none'});
 						 $("#txjl").html(template("list3",{item:data.resultObject.items}));
 					}else{
@@ -482,7 +485,7 @@
 			function getData(pageNumber){
 				RequestService("/gift/receivedGift?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data) {
 //					console.log(data);
-					if(data.resultObject.totalPageCount==0){
+					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
 						$('.pagination').css({'display':'none'});
 						 $("#sdlw").html(template("list4",{item:data.resultObject.items}));
 					}else{
@@ -494,6 +497,7 @@
 				})
 			}
 		})
+		
 		
 		
 		//收到打赏
@@ -522,7 +526,7 @@
 			function getData(pageNumber){
 				RequestService("/gift/receivedReward?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data) {
 //					console.log(data)
-					if(data.resultObject.totalPageCount==0){
+					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
 						$('.pagination').css({'display':'none'});
 						 $("#dsjl").html(template("list5",{item:data.resultObject.items}));
 					}else{
@@ -536,6 +540,75 @@
 		})
 		
 		$('.pagination').css({"cursor": 'pointer'});
+		
+		
+		
+		
+		
+		//直播列表数据获取
+		function getData2(pageNumber){
+			//请求消费记录数据
+			RequestService("/gift/getLiveCourseByUserId?pageNumber="+pageNumber+"&pageSize=6", "POST", null, function(data) {
+				console.log(data)
+				if(data.resultObject.totalPageCount==0){
+					$('.pagination').css({'display':'none'});
+				}else{
+					//渲染到页面中
+					 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
+					//每次请求完数据就去渲染分页部分
+					fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
+				}
+			})
+		}
+		
+		
+		
+		//直播列表
+		$('.lecturer').click(function(){
+
+			showData();
+			getPersonMoney();
+			window.pageNum = 1;
+			getData2(pageNum)
+			function fenye(currentPage,numberOfPages,totalPages){
+				if(numberOfPages>5){
+					numberOfPages = 5;
+				}
+				$('.pagination').bootstrapPaginator({
+		            bootstrapMajorVersion:3,
+		            size:'small',
+		            currentPage:currentPage,
+		            numberOfPages:numberOfPages,
+		            totalPages:totalPages,
+		            onPageClicked:function (event, originalEvent, type,page) {
+//		                console.log(page)    
+		                window.pageNumber = page;
+		                getData2(pageNumber)
+		            }
+		        });
+			}
+			function getData2(pageNumber){
+				RequestService("/gift/getLiveCourseByUserId?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data) {
+//					console.log(data);
+					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
+						$('.pagination').css({'display':'none'});
+						 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
+					}else{
+						$('.pagination').css({'display':'block'});
+						 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
+							fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
+					}
+					
+				})
+			}
+		})
+		
+		
+		
+		
+		
+		
+		
 		
 		//开启
 		$('#recharge').click(function(){

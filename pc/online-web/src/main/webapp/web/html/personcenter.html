@@ -155,20 +155,16 @@ var _hmt = _hmt || [];
 	</ul>
 	<table class="my_table" border="0" cellspacing="0" cellpadding="0">
 		<tr>
-			<th>讲师</th>
-			<th>学员</th>
+			<th>账号</th>
 			<th>报名时间</th>
-			<th>送礼</th>
-			<th>称号</th>
-			<th>操作</th>
+			<th>昵称</th>
+			<th>实际支付</th>
 		</tr>
 		<tr>
 			<td>张大龙</td>
-			<td>陈龙潇</td>
 			<td>2017-12-20</td>
-			<td>+500</td>
 			<td>国医大师</td>
-			<td>待定</td>
+			<td>500</td>
 		</tr>
 	</table>
 </div>
@@ -523,6 +519,15 @@ var _hmt = _hmt || [];
 <li><span>{{item.orderNo}}</span><span>{{item.price}}</span><span>{{item.gain}}</span><span>{{item.createTime}}</span><span>{{item.name}}</span></li>
 {{/each}}
 </script> 
+
+<!-- //直播课程记录模板 -->
+ <script type="text/template" id="list7">
+<li><span>直播课程名称</span><span>直播开始时间</span><span>直播报名人数</span><span>直播报名总金额</span><span>单价</span><span>操作</span></li>
+{{each item as item i}}
+<li><span>{{item.courseName}}</span><span>{{item.startTime}}</span><span>{{item.enrollmentCount}}</span><span>{{item.totalAmount}}</span><span>{{item.price}}</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>
+{{/each}}
+</script> 
+
 
 
 

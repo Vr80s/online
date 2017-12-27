@@ -959,8 +959,10 @@ $(function() {
             '<li role="presentation" class=""><a class="messages" href="#messages" aria-controls="messages" role="tab" data-toggle="tab" aria-expanded="false">提现记录</a></li>'+
             '<li role="presentation" class=""><a class="settings" href="#settings" aria-controls="settings" role="tab" data-toggle="tab" aria-expanded="false">收到礼物</a></li>'+
             '<li role="presentation" class=""><a class="reward" href="#reward " aria-controls="reward" role="tab" data-toggle="tab" aria-expanded="true">收到打赏</a></li>'+
-           	'<li role="presentation" class=""><a class="lecturer" href="#lecturer " aria-controls="lecturer" role="tab" data-toggle="tab" aria-expanded="false">讲师</a></li>'+
+           	'<li role="presentation" class=""><a class="lecturer" href="#lecturer " aria-controls="lecturer" role="tab" data-toggle="tab" aria-expanded="true">直播课程列表</a></li>'+
+           
            '{{/if}}' +
+
            '</ul>'+
         
 
@@ -1008,8 +1010,8 @@ $(function() {
             '</div>'+
              '<div role="tabpanel" class="tab-pane " id="lecturer">'+
                 '<ul id="jiangshi" >'+
-                    '<li><span>讲师</span><span>学生</span><span>修为</span><span>时间</span><span>赠送人</span></li>'+
-                       '<li><span>黄飞虎</span><span>赵日天</span><span>元婴期</span><span>2017-12-05</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>'+
+                    '<li><span>直播课程名称</span><span>直播开始时间</span><span>直播报名人数</span><span>直播报名总金额</span><span>单价</span><span>操作</span></li>'+
+//                     '<li><span>黄飞虎</span><span>赵日天</span><span>元婴期</span><span>赵日天</span><span>2017-12-05</span><span onclick="btn_details()" style="color:green; cursor: pointer;">详情</span></li>'+
                ' </ul>'+
             '</div>'+
         '</div>'+
@@ -1040,7 +1042,7 @@ $(".my_close").click(function(){
 	$(".bg_03").fadeOut(200);
 	$(".my_details").fadeOut(200);
 })
-
+//点击详情弹窗结束
 function fileClick() {
 	return $("#upload-file").click();
 }
