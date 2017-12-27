@@ -162,7 +162,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @return Example 分页列表
      */
     @Override
-    public CourseVo getCourseById( Integer courseId,String ispreview,HttpServletRequest request) {
+    public CourseVo getCourseById( Integer courseId,String ispreview,HttpServletRequest request,OnlineUser ou) {
         //根据当前课程ID，查找对应的课程信息
         CourseVo courseVo =  coursedao.getCourseById(courseId,ispreview,request);
         String  names="";
@@ -180,19 +180,23 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 //                 }
 //                courseVo.setTeacherName(names);
 //            }
+        	
+        	System.out.println("courseVo.getUserLecturerId()"+courseVo.getUserLecturerId()+"=====ou.getId():"+ou.getId());
         	String name = "暂无讲师";
         	String teacherDescription="";
         	OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
         	if(onlineUser!=null){
         		name=onlineUser.getName();
         		teacherDescription=onlineUser.getDescription();
+        		
+        		if(courseVo.getUserLecturerId().equals(ou.getId())){
+            		courseVo.setSelfCourse(true);
+            	}
         	}
         	courseVo.setTeacherName(name);
         	courseVo.setTeacherNames(name);
 			courseVo.setTeacherDescription(teacherDescription);
         }
-
-
         return  courseVo;
     }
     
