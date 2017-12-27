@@ -192,20 +192,26 @@ window.onload=function(){
         '</span>' +
         '{{/if}}'+
         '</p>' +
-        '{{if item.free == true}}' +
-        '<p class="bigpic-body-money">' +
-        '<span class="bigpic-body-overmoney">免费</span>' +
-        '</p>' +
-        '<div class="bigpic-body-btn">' +
-        '</div>'+
-        '</div>' +
-        '{{else}}' +
-        '<p class="bigpic-body-money">' +
-        '<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
-        '<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
-        '</p>' +
-        '</div>' +
-        '{{/if}}';
+        
+        
+        '{{if item.selfCourse == true}}' +
+        	'<span class="bigpic-body-overmoney">免费</span>' +
+		'{{else}}'+  
+	        '{{if item.free == true}}' +
+		        '<p class="bigpic-body-money">' +
+		        '<span class="bigpic-body-overmoney">免费</span>' +
+		        '</p>' +
+		        '<div class="bigpic-body-btn">' +
+		        '</div>'+
+		        '</div>' +
+		        '{{else}}' +
+		        '<p class="bigpic-body-money">' +
+		        '<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
+		        '<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
+		        '</p>' +
+		        '</div>' +
+		     '{{/if}}'+    
+	     '{{/if}}';
     var emptyDefaul =
         "<div class='page-no-result'>" +
         "<img src='../images/personcenter/my_nodata.png'>" +

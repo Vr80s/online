@@ -1,357 +1,516 @@
-*{
-	margin: 0;
-	padding: 0;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Microsoft YaHei';
+  background-color: #f7f7f7;
+  overflow-x: hidden ;
 }
-li{
-	list-style: none;
+div,
+span,
+ul,
+li {
+  margin: 0;
+  padding: 0;
 }
-img{
-	border: 0;
+img {
+  display: inline-block;
+  outline: none;
 }
-a{
-	text-decoration: none;
+.clearfix:after {
+  content: "";
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
 }
-
-.both{
-	clear: both;
+#forum {
+  width: 1200px;
+  margin: 0 auto;
 }
-
-
-/*名医著作详情开始*/
-.work_dtails{
-	width: 1200px;
-	margin: 0 auto;
-	margin-top: 20px;
+#forum .page-no-result {
+  padding-top: 95px;
+  width: 250px;
+  min-height: 300px;
+  text-align: center;
+  margin: 0px auto;
 }
-
-/*左侧内容开始*/
-.work_dtails_left{
-	width: 860px;
-	float: left;
-	background: #fff;
+#forum .page-no-result .no-title {
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  margin-top: 15px;
 }
-.writer_name{
-	width: 100%;
+#forum .forum-nav {
+  margin: 15px 0;
+}
+#forum .forum-nav a {
+  font-size: 12px;
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+#forum .forum-nav a:hover {
+  color: #2cb82c;
+}
+#forum .forum-nav span {
+  font-size: 12px;
+  color: #999;
+  margin-left: 5px;
+}
+#forum .forum-nav .myXuekeName:hover {
+  color: #2cb82c;
+  cursor: pointer;
+}
+#forum .forum-content {
+  margin-top: 16px;
+}
+#forum .forum-content .forum-content-left {
+  width: 860px;
+  min-height: 956px;
+  float: left;
+  background-color: #fff;
+  padding: 25px 30px 58px;
+}
+#forum .forum-content .forum-content-left #book_inf_top{
+	position: relative;
 	height: 160px;
-	margin-top: 30px;
-    /*padding-bottom: 20px;*/
-    border-bottom: 1px solid #F0F0F0;
+	border-bottom: 1px solid #f0f0f0;
 }
-.writer_name_cen{
-	width: 820px;
-	margin: 0 auto
-}
-.writer_name_cen img{
-	width: 140px;
+#forum .forum-content .forum-content-left #book_inf_top > img{
+	width: 100px;
 	height: 140px;
-	float: left;
-	margin-right: 10px;
 }
-.writer_title{
-	width: 560px;
-	height: 140px;
-	float: left;
+#forum .forum-content .forum-content-left #book_inf_top >a{
+	display: inline-block;
+	width: 90px;
+	height: 36px;
+	color: #00BC12;
+	border: 1px solid #00BC12;
+	border-radius: 4px;
+	line-height: 36px;
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 60px;
 }
-.writer_title_name{
-	width: 560px;
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail {
+  position: relative;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-detail-title {
+  font-size: 22px;
+  color: #333;
+  font-weight: bold;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-info-tags {
+  margin-top: 10px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-info-tags > span {
+  font-size: 14px;
+  color: #999;
+  display: inline-block;
+  margin-left: 5px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-info-tags a {
+  font-size: 14px;
+  color: #999;
+  display: inline-block;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-info-tags i {
+  font-size: 12px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 5px;
+  color: #ccc;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-info-tags em {
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  vertical-align: middle;
+  background-color: #999;
+  margin: 0 5px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-shouCang {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 68px;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  border: 1px solid #e4e4e4;
+  font-size: 12px;
+  color: #333;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-shouCang i {
+  color: #bbb;
+  font-size: 14px;
+  display: inline-block;
+  margin-right: 5px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .forum-shouCang i.cur {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail .select {
+  color: #2cb82c;
+  border: 1px solid #2cb82c;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail-content {
+  margin-top: 23px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-detail-content img {
+  max-width: 830px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox {
+  position: relative;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .forum-hitzan,
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .yiZan {
+  width: 66px;
+  height: 66px;
+  margin: 37px auto;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #2cb82c;
+  text-align: center;
+  color: #fff;
+  vertical-align: middle;
+  overflow: hidden;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .forum-hitzan i,
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .yiZan i {
+  display: block;
+  margin-top: 11px;
+  font-size: 20px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .forum-hitzan span,
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .yiZan span {
+  display: block;
+  font-size: 12px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .forum-hitzan .forum-hitzan-plus,
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .yiZan .forum-hitzan-plus {
+  display: none;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  color: #2cb82c;
+  margin-left: -10px;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .forum-hitzan:hover {
+  background: #28A528;
+}
+#forum .forum-content .forum-content-left .forum-detailInfo .forum-hitzanBox .yiZan {
+  background-color: #ccc;
+  cursor: default;
+}
+#forum .forum-content .forum-content-left .forum-community {
+  position: relative;
+}
+#forum .forum-content .forum-content-left .forum-community .emptyHit {
+  display: none;
+  width: 150px;
+  float: left;
+  margin-left: 2px;
+  font-size: 12px;
+  color: #FF4012;
+  margin-top: -2px;
+}
+#forum .forum-content .forum-content-left .forum-community .emptyHit i {
+  font-size: 12px;
+  color: #FF4012;
+  display: inline-block;
+  margin-right: 5px;
+}
+#forum .forum-content .forum-content-left .forum-community .forum-community-title {
+  font-size: 16px;
+  color: #333;
+}
+#forum .forum-content .forum-content-left .forum-community .forum-community-loginHit {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  top: 33px;
+  line-height: 100px;
+  text-align: center;
+  font-size: 14px;
+  background-color: #fafafa;
+  color: #333;
+}
+#forum .forum-content .forum-content-left .forum-community .forum-community-loginHit .forum-community-lgoin {
+  display: inline-block;
+  margin: 0 5px;
+  color: #2cb82c;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-community .community-submit {
+  width: 86px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  color: #fff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background-color: #2cb82c;
+  margin-top: 12px;
+  font-size: 14px;
+  float: right;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .forum-community .community-submit:hover {
+  background-color: #28a528;
+}
+#forum .forum-content .forum-content-left .forum-community .forum-community-textarea {
+  width: 800px;
+  height: 100px;
+  border: 1px solid #eee;
+  background-color: #fafafa;
+  resize: none;
+  outline: none;
+  margin-top: 12px;
+  font-size: 12px;
+  color: #999;
+  padding: 10px;
+}
+#forum .forum-content .forum-content-left .all-comment {
+  margin-top: 17px;
+}
+#forum .forum-content .forum-content-left .all-comment .all-comment-title span:first-child {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+#forum .forum-content .forum-content-left .all-comment .all-comment-title .community-count {
+  font-size: 14px;
+  color: #999;
+  display: inline-block;
+  margin-left: 10px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content {
+  padding: 15px 0 17px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content > img {
+  float: left;
+  width: 40px;
+  height: 40px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .img img {
+  float: left;
+  width: 40px;
+  height: 40px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right {
+  float: right;
+  width: 750px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime .comment-person {
+  font-size: 14px;
+  color: #2cb82c;
+  display: inline-block;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime em {
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #999;
+  vertical-align: middle;
+  margin: 0 5px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-personAndTime .comment-time {
+  font-size: 14px;
+  color: #999;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-info {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+  width: 755px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .comment-info .replyName {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-comment,
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete {
+  display: none;
+  position: absolute;
+  right: 0px;
+  top: 15px;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-comment i,
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete i {
+  font-size: 12px;
+  color: #999;
+  display: inline-block;
+  margin-right: 5px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-comment:hover,
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete:hover,
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-comment:hover i,
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete:hover i {
+  color: #2cb82c;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .reply-delete {
+  right: 65px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box {
+  position: relative;
+  margin-top: 10px;
+  display: none;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .emptyHit {
+  display: none;
+  width: 150px;
+  float: left;
+  margin-left: 2px;
+  font-size: 12px;
+  color: #FF4012;
+  margin-top: 2px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .emptyHit i {
+  font-size: 12px;
+  color: #FF4012;
+  display: inline-block;
+  margin-right: 5px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .pinglunSanjiao {
+  position: absolute;
+  top: -5px;
+  left: 103px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .replyPerson {
+  position: absolute;
+  left: 15px;
+  top: 11px;
+  font-size: 12px;
+  color: #999;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .reply-input {
+  outline: none;
+  width: 770px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+  background-color: #fafafa;
+  border: 1px solid #eee;
+  font-size: 12px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .reply-btn {
+  float: right;
+  margin-top: 10px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .reply-btn div {
+  display: inline-block;
+  font-size: 12px;
+  color: #999;
+  cursor: pointer;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .reply-btn .reply {
+  width: 50px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  color: #fff;
+  background-color: #2cb82c;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  margin-left: 17px;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right .replay-box .reply-btn .reply:hover {
+  background-color: #28a528;
+}
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right:hover .reply-comment,
+#forum .forum-content .forum-content-left .all-comment .forum-community-content .forum-comment-content .forum-comment-right:hover .reply-delete {
+  display: block;
+}
+#forum .forum-content .forum-content-left .pages {
+  margin: 30px 0 0px;
+  display: none;
+}
+.report_right{
+	width: 320px;
+}
+
+/*右侧内容开始*/
+.report_right{
+	width: 320px;
+    float: left;
+    margin-left: 20px;
+    height: 1060px;
+}
+.report_right > div{
+	margin-bottom: 20px;
+}
+.report_right_doctor{
+    background: #fff;
+    padding-top: 22px;
+}
+.report_right_doctor:last-child{
+	padding-bottom: 20px;
+}
+.report_right_doctor .name{
 	font-size: 16px;
-	color: #333333;
-	font-weight: bold;
-	margin-top: 10px;
-    margin-bottom: 8px;
+    color: #333333;
+    margin: 0 0 22px 20px;
+}
+.report_right_name{
+	margin-bottom: 22px;
+}
+.report_right_name img{
+	width: 100px;
+    height: 100px;
+    border-radius: 60px;
+    float: left;
+    margin: 0 20px;
+}
+.report_right_name_p{
+	float: left;
+    width: 170px;
+}
+.report_right_name_p .p0{
+	font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 4px;
+}
+.report_right_name_p .p1{
+	font-size: 14px;
+    color: #666;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.writer_buy{
-	float: right;
-	width: 88px;
-	height: 34px;
-	line-height: 36px;
-	border: 1px solid #00BC12;
-	border-radius: 4px;
-	text-align: center;
-	margin-top: 47px;
-	margin-right: 10px;
-}
 
-.writer_buy a{
-	display: inline-block;
-    font-size: 14px;
-    color: #00BC12;
-    width: 100%;
-    height: 100%;
-}
-.writer_author_name{
-	font-size: 14px;
-	color: #333333;
-
-}
-
-.work_dtails_main{
-	width: 820px;
-	margin: 0 auto;
-	padding-bottom: 30px;
-
-}
-.work_dtails_main img{
-	width: 100%;
-	margin: 0 auto;
-	display: block;
-	margin-top: 24px;
-	margin-bottom: 24px;
-}
-.work_dtails_main_size{
-	font-size: 14px;
-	color: #333333;
-	line-height: 24px;
-	margin-top: 24px;
-	text-indent: 2em;
-}
- .work_dtails_criticism{
-	width: 100%;
-	height: 800px;
-	background: #ddd;
-	margin-top: 20px;
-}
-.work_criticism_title{
-	width: 100%;
-	height: 60px;
-	line-height: 60px;
-	text-indent: 1em;
-	border-bottom: 1px solid #F0F0F0;
-	font-size: 16px;
-	color: #333333;
-}
-.work_criticism_main{
-	width: 820px;
-	margin: 0 auto;
-}
-.work_criticism_cen{
-	min-height: 128px;
-	margin-top: 20px;
-	padding-bottom: 20px;
-	border-bottom: 1px solid #F0F0F0;
-}
-.work_criticism_person img{
-	width: 60px;
-	height: 60px;
-	border-radius: 60px;
-	margin-right: 10px;
-	float: left;
-}
-
-.work_criticism_name{
-	line-height: 20px;
-    height: 20px;
-    background: rosybrown;
-    width: 750px;
-    float: right;
-    margin-top: 20px;
-}
-.work_criticism_name div{
-	font-size: 14px;
-	float: left;
-}
-.work_criticism_people{
-	font-weight: bold;
-	color: #333333;
-	margin-right: 4px;
-}
-.work_criticism_date{
-	font-size: 14px;
-	color: #999999;
-}
-.work_criticism_reply{
-	font-size: 14px;
-	color: #188EEE;
-	float: right !important;
-	cursor: pointer;
-}
-.work_criticism_size{
-	width: 750px;
-	float: right;
-	font-size: 14px;
-	color: #333333;
-	line-height: 24px;
-	margin-bottom: 20px;
-}
-.work_criticism_replied{
-	width: 750px;
-	float: right;
-	display: none;
-}
-.work_criticism_textarea0 textarea{
-	width: 678px;
-	height: 48px;
-	border: 1px solid #fff;
-	outline: none;
-	resize: none;
-	background: none;
-	margin-top: 6px;
-}
-.work_criticism_show{
-	width: 92px;
-	height: 26px;
-	line-height: 26px;
-	float: right;
-	margin-top: 4px;
-}
-.work_show_warn{
-	color: red;
-    float: left;
-    margin-left: 67px;
-    font-size: 14px;
-    display: none;
-}
-.work_show_cancel{
-	float: left;
-	font-size: 14px;
-	color: #999999;
-	cursor: pointer;
-}
-.work_show_comment{
-	float: right;
-	font-size: 14px;
-	color: #999999;
-	cursor: pointer;
-}
-.work_show_comment_click{
-	color: #188EEE;
-}
-.work_show_reply{
-	float: right;
-	width: 750px;
-	min-height: 60px;
-	background: #F0F0F0;
-	padding: 10px 0;
-	display: none;
-}
-.work_show_replier{
-
-}
-.work_show_replier img{
-	width: 60px;
-	height: 60px;
-	border-radius: 60px;
-	margin-right: 10px;
-	float: left;
-	margin-left: 10px;
-}
-.work_show_name{
-	width: 670px;
-    height: 20px;
-    background: royalblue;
-    float: right;
-    margin-top: 20px;
-}
-.work_show_name div{
-	float: left;
-	height: 20px;
-	line-height: 20px;
-}
-.work_show_name .work_criticism_btn{
-	float: right;
-	color: #188EEE;
-	font-size: 14px;
-	margin-right: 10px;
-}
-.work_show_replier_size{
-	float: right;
-	width: 670px;
-	font-size: 14px;
-	color: #333333;
-	line-height: 24px;
-	word-wrap:break-word; 
-} 
-.work_show_replier_textarea1{
-	display: none;
-	float: right;
-	
-}
-.work_show_replier_textarea1 textarea{
-	width: 670px;
-    height: 48px;
-    border: 1px solid #fff;
-    outline: none;
-    resize: none;
-    background: none;
-    margin-top: 6px;
-    font-size: 14px;
-    float: right;
-    margin-bottom: 10px;
-}
-.work_show_warn02{
-	color: red;
-	font-size: 14px;
-	float: left;
-	margin-left: 79px;
-	margin-bottom: 0;
-	
-}
-.work_show_comment02{
-	float: right;
-	font-size: 14px;
-	margin-left: 35px;
-
-}
-.work_show_cancel02{
-	float: right;
-	font-size: 14px;
-}
-/*左侧内容结束*/
-
-
-/*右侧内容开始*/
-.work_dtails_right{
-	width: 320px;
-	float: right;
-	/*height: 1060px;*/
-}
-.work_right_author{
-	margin-bottom: 20px;
-    background: #fff;
-    padding-bottom: 22px;
-    padding-top: 22px;
-    min-height: 152px;
-}
-.work_right_author .name{
-	font-size: 16px;
-	color: #333333;
-	margin: 0 0 22px 20px;
-}
-.work_right_author .work_right_name:last-child{
-	margin-bottom: 0;
-}
-.work_right_name{
-	margin-bottom: 22px
-}
-.work_right_name img{
-	width: 100px;
-	height: 100px;
-	border-radius: 60px;
-	float: left;
-	margin: 0 20px;
-}
-.work_right_name_p{
-	float: left;
-	width: 170px;
-}
-.work_right_name_p .p0{
-	font-size: 14px;
-	color: #333333;
-	font-weight: bold;
-	margin-top: 30px;
-	margin-bottom: 4px;
-}
-
-.work_right_name_p .p1{
-	font-size: 14px;
-	color: #666;
-	overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-} 
 
 
 /*这是名医书籍*/
@@ -403,11 +562,3 @@ a{
 	font-weight: bold;
 	margin-top: 10px;
 }
-    
-
-/*右侧内容结束*/
-/*名医著作详情结束*/
-
-
-
-

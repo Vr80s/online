@@ -5,6 +5,11 @@
  * Created by admin on 2017/1/3.
  */
 $(function(){
+	
+	//头部的医师变色
+	$('.path .forum').addClass('select');
+	
+	
     $(".path a").each(function(){
         if($(this).text()=="博学社"){
             $(this).addClass("select").siblings().removeClass("select");

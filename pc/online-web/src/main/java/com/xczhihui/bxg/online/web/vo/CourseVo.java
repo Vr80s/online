@@ -202,7 +202,21 @@ public class CourseVo{
     private Integer liveStatus; //直播状态1.直播中，2预告，3直播结束
 
     private boolean isAvailable;//是否有效
+    
+    
+    private boolean isSelfCourse; //是否自己的课程 
+    
 
+    
+    public boolean isSelfCourse() {
+        return isSelfCourse;
+    }
+
+    public void setSelfCourse(boolean isSelfCourse) {
+        this.isSelfCourse = isSelfCourse;
+    }
+    
+    
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -577,6 +591,9 @@ public class CourseVo{
 		this.liveStatus = liveStatus;
 	}
 
+	
+	
+	
 	public static String getWeekOfDate(Date dt) {
         String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
         Calendar cal = Calendar.getInstance();

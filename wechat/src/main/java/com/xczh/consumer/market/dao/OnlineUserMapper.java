@@ -544,7 +544,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 * @throws SQLException
 	 */
 	public Map<String, Object> getAppTouristRecord(String appOnlyOne) throws SQLException {
-		String sql = " select user_id as userId,is_reigs as isRegis,vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass from apple_tourist_record where app_only_one = ?";
+		String sql = " select user_id as userId,is_reigs as isRegis,vhall_id as vhallId,vhall_name as vhallName,vhall_pass as vhallPass,user_center_id as userCenterId from apple_tourist_record where app_only_one = ?";
 		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
 				sql, new MapHandler(), appOnlyOne);
 		return map;
@@ -558,9 +558,9 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 * @throws SQLException
 	 */
 	public void saveAppTouristRecord(OnlineUser ou,String appOnlyOne) throws SQLException {
-		String sql = " insert into apple_tourist_record(app_only_one,user_id,vhall_id,vhall_name,vhall_pass) values(?,?,?,?,?) ";
+		String sql = " insert into apple_tourist_record(app_only_one,user_id,vhall_id,vhall_name,vhall_pass,user_center_id) values(?,?,?,?,?,?) ";
 		super.update(JdbcUtil.getCurrentConnection(), sql,
-				appOnlyOne,ou.getId(),ou.getVhallId(),ou.getVhallName(),ou.getVhallPass());
+				appOnlyOne,ou.getId(),ou.getVhallId(),ou.getVhallName(),ou.getVhallPass(),ou.getUserCenterId());
 	}
 
 	public void updateOnlineUserAddPwdAndUserName(OnlineUser u) throws SQLException {

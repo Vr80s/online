@@ -1,3 +1,5 @@
+
+
 package com.xczhihui.bxg.online.manager.utils;
 
 import org.slf4j.Logger;
@@ -118,7 +120,7 @@ public class TimeUtil {
 	        minute = (int) total_minute%60;  
 	  
 	    } catch (ParseException e) {  
-	        System.out.println("传入的时间格式不符合规定");  
+	        e.printStackTrace();
 	    }  
 	  
 	    sb.append("工作时间为：").append(hour).append("小时").append(minute).append("分钟");  
@@ -348,15 +350,6 @@ public class TimeUtil {
 		return timeLong;
 	}
 	
-	public static void main(String[] args) {
-//		System.out.println(countTime(new Date(new Date().getTime()-24*3600), new Date()));
-//		System.out.println(countTime("2016-02-07 23:57:59", "2016-03-07 23:47:59"));
-//		System.out.println(getMinuteAndSecond(464356));
-//		System.out.println(timeConvertMMSS(234354));
-		System.out.println(timeConvertHHMM(1354111111));
-//		System.out.println(timeConvert(342352345));
-//		System.out.println(getTimeLong("08:34"));
-	}
 	//指定日期加上指定天数得到新日期
 	public static Date addDate(Date date,long day) throws ParseException {
 		 long time = date.getTime(); // 得到指定日期的毫秒数

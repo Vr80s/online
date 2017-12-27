@@ -50,9 +50,6 @@ public class BarrierDao extends SimpleHibernateDao {
 		   
 		   sql.append(" order by ob.create_time asc ");
 		   
-//		   System.out.println("查询getChapterId"+barrierVo.getChapterId());
-//		   System.out.println("查询副SQL"+sql.toString());
-		   
 		   Page<BarrierVo> ms = this.findPageBySQL(sql.toString(), paramMap, BarrierVo.class, pageNumber, pageSize);
       	   return ms;
 	}

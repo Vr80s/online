@@ -89,9 +89,13 @@ $(function(){
 	    
 	    //名师推荐部分
 	     RequestService("/medical/doctor/getRecDoctors","GET",null,function(data){
-	       
+	       if(data.resultObject == null || data.resultObject.length == 0){
+	       	$('.about_doctor').addClass('hide');
+	       }else{
+	       	$('#doc_rec').html(template('doc_recTpl',{doc:data.resultObject}));
+	       }
 	        console.log(data);
-	        $('#doc_rec').html(template('doc_recTpl',{doc:data.resultObject}));
+	       
 	        
 	      });
 //	    });

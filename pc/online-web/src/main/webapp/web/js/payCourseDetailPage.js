@@ -198,29 +198,34 @@ window.onload = function() {
 		'</span>' +
 		'{{/if}}' +
 		'</p>' +
-		'{{if item.free == true}}' +
-		'<p class="bigpic-body-money">' +
-		'<span class="bigpic-body-overmoney">免费</span>' +
-		'</p>' +
-		'</div>' +
-		'{{else}}' +
-		'<p class="bigpic-body-money">' +
-		'<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
-		'<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
-		'</p>' +
-		'<div class="bigpic-body-btn">' +
-		'{{if item.apply==false}}' +
-		'<a  href="javascript:;" class="gotengxun purchase">立即报名</a>' +
-		'{{if item.currentPrice!="0.00"}}' +
-		'<a class="free-try-to-lean" >免费试学</a>' +
-		'<span class="addCar">加入购物车</span>' +
-		'{{/if}}' +
-		'{{else}}' +
-		'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
-		'{{/if}}' +
-		'</div>' +
-		'</div>' +
-		'{{/if}}';
+		
+		'{{if item.selfCourse == true}}' +
+		'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase common_ljck" >立即查看</a>' +
+	    '{{else}}'+   
+			'{{if item.free == true}}' +
+			'<p class="bigpic-body-money">' +
+			'<span class="bigpic-body-overmoney">免费</span>' +
+			'</p>' +
+			'</div>' +
+			'{{else}}' +
+			'<p class="bigpic-body-money">' +
+			'<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
+			'<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
+			'</p>' +
+			'<div class="bigpic-body-btn">' +
+			'{{if item.apply==false}}' +
+			'<a  href="javascript:;" class="gotengxun purchase">立即报名</a>' +
+			'{{if item.currentPrice!="0.00"}}' +
+			'<a class="free-try-to-lean" >免费试学</a>' +
+			'<span class="addCar">加入购物车</span>' +
+			'{{/if}}' +
+			'{{else}}' +
+			'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
+			'{{/if}}' +
+			'</div>' +
+			'</div>' +
+			 '{{/if}}'+
+		 '{{/if}}';
 	var courseList = '{{each items}}' +
 		'<div class="classgrand">{{$value.name}}</div>' +
 		'<div class="course-time">报名截止时间：' + '<span>{{dataSub($value.curriculumTime)}}</span>' + '</div>' +

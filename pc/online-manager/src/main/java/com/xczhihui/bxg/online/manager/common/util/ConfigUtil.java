@@ -33,9 +33,4 @@ public class ConfigUtil {
 	public static String getValue(String key){
 		return pt.getProperty(key);
 	}
-	
-	public static void main(String[] args) {
-	    System.out.println(config_path);
-	    System.out.println(ConfigUtil.getValue("video_sync_sh")); 
-    }
 }

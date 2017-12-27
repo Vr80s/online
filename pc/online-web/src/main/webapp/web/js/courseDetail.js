@@ -139,18 +139,24 @@ window.onload = function () {
         '<span title="学习人数" style="cursor:default">学习人数：{{item.learndCount}}人已学习</span>' +
         '<span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年</span>' +
         '</p>' +
-        '{{if item.free == true}}' +
-        '<p class="bigpic-body-money">' +
-        	'<span class="bigpic-body-overmoney">免费</span>' +
-        '</p>' +
-        '</div>' +
-        '{{else}}' +
-        '<p class="bigpic-body-money">' +
-        '<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
-        '<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
-        '</p>' +
-        '</div>' +
-        '{{/if}}';
+        
+        
+    	'{{if item.selfCourse == true}}' +
+    		'<span class="bigpic-body-overmoney common_ljck">立即查看</span>' +
+    	'{{else}}'+   
+	        '{{if item.free == true}}' +
+		        '<p class="bigpic-body-money">' +
+		        	'<span class="bigpic-body-overmoney">免费</span>' +
+		        '</p>' +
+		        '</div>' +
+		        '{{else}}' +
+		        '<p class="bigpic-body-money">' +
+		        '<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
+		        '<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
+		        '</p>' +
+		        '</div>' +
+		     '{{/if}}'+   
+	     '{{/if}}';
     var emptyDefaul =
         "<div class='page-no-result'>" +
         "<img src='../images/personcenter/my_nodata.png'>" +
