@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -74,9 +73,6 @@ public class UserController extends OnlineBaseController {
 	
 	@Autowired
 	private ActivityTotalService totalService;
-
-	@Autowired
-	private UserCenterAPI api;
 
 	@Value("${domain}")
 	private String domain;
@@ -322,7 +318,7 @@ public class UserController extends OnlineBaseController {
 		if(cookieToken!=null){
 			redisToken=cacheService.get("tuk_"+cookieToken.getUserId());
 
-			if(!redisToken.getTicket().equals(cookieToken.getTicket())){
+			if(redisToken!=null && !redisToken.getTicket().equals(cookieToken.getTicket())){
 				code = "2";
 				UCCookieUtil.clearTokenCookie(response);
 				request.getSession().invalidate();

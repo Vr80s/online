@@ -144,33 +144,30 @@ var _hmt = _hmt || [];
 <body>
 <!--讲师弹窗-->
 <div class="my_details">
-	<div class="my_details_top">
+	<!--<div class="my_details_top">
 		<p class="my_title">详情</p>
 		<p class="my_close">X</p>
-	</div>
-	<p class="my_all_data">汇总：</p>
+	</div>-->
+	<!--<p class="my_all_data">汇总：</p>
 	<ul class="my_data_list">
 		<li>报名人数：127 人</li>
 		<li>收到礼物：+800</li>		
-	</ul>
-	<table class="my_table" border="0" cellspacing="0" cellpadding="0">
+	</ul>-->
+	<!--<table class="my_table" border="0" cellspacing="0" cellpadding="0">
 		<tr>
-			<th>讲师</th>
-			<th>学员</th>
+			<th>账号</th>
 			<th>报名时间</th>
-			<th>送礼</th>
-			<th>称号</th>
-			<th>操作</th>
+			<th>昵称</th>
+			<th>实际支付</th>
 		</tr>
+		
 		<tr>
 			<td>张大龙</td>
-			<td>陈龙潇</td>
 			<td>2017-12-20</td>
-			<td>+500</td>
 			<td>国医大师</td>
-			<td>待定</td>
+			<td>500</td>
 		</tr>
-	</table>
+	</table>-->
 </div>
 <div class="bg_03"></div>
 <!--讲师弹窗结束-->
@@ -312,13 +309,7 @@ var _hmt = _hmt || [];
 		<img src="" alt="" style="width: 100%;height: 100%" id="chongzhi_qrcode">
 	</div>
 	</div>
-	
-
-	</div>
-
-</div>	
-
-
+</div>
 
 
 
@@ -524,6 +515,39 @@ var _hmt = _hmt || [];
 {{/each}}
 </script> 
 
+<!-- //直播课程记录模板 -->
+ <script type="text/template" id="list7">
+<li><span>直播课程名称</span><span>直播开始时间</span><span>直播报名人数</span><span>直播报名总金额</span><span>单价</span><span>操作</span></li>
+{{each item as item i}}
+<li><span>{{item.courseName}}</span><span>{{item.startTime}}</span><span>{{item.enrollmentCount}}</span><span>{{item.totalAmount}}</span><span>{{item.price}}</span><span data-id="{{item.id}}" onclick="btn_details(this)" style="cursor: pointer; color: green;">详情</span></li>
+{{/each}}
+</script> 
+
+ <!--课程直播点击详情返回ID--> 
+ <script type="text/template" id="my_data">
+
+ 	
+	<div class="my_details_top">
+		<p class="my_title">详情</p>
+		<p class="my_close" onclick="my_cloce()">X</p>
+	</div>
+	<table class="my_table" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<th>账号</th>
+			<th>报名时间</th>
+			<th>昵称</th>
+			<th>实际支付</th>
+		</tr>
+{{each item as obj i}}
+		<tr>
+			<td>{{obj.loginName}}</td>
+			<td>{{obj.createTime}}</td>
+			<td>{{obj.name}}</td>
+			<td>{{obj.actualPay}}</td>
+		</tr>
+{{/each}}
+	</table>
+</script> 
 
 
 <!-- 个人信息省份模板 -->

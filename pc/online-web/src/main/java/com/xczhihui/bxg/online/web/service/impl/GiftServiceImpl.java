@@ -57,6 +57,7 @@ public class GiftServiceImpl implements GiftService {
 //			throw new RuntimeException("");
 			userCoinService.updateBalanceForGift(giftStatement,gift);//扣除用户相应的代币数量,主播增加相应代币
 		OnlineUser u = onlineUserCenterService.getUser(giftStatement.getGiver());
+		if(u==null)throw new RuntimeException(giftStatement.getGiver()+"--用户不存在");//20171227-yuxin
 		GiftStatement gs = new GiftStatement();
 		try {
 			BeanUtils.copyProperties(gs, giftStatement);

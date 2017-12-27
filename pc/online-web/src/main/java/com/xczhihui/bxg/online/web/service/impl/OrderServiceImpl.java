@@ -93,25 +93,6 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
     			+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
     	List<OrderVo> orders = orderDao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
     	if (orders.size() > 0) {
-    		
-    		/*
-<<<<<<< HEAD
-    		 * 查询这个订单下的课程:
-    		 *   如果这个课程是单个的课程，并且这个课程是预约的情况下，要发个短信了。
-    		 *   
-    		 *   直播状态1.直播中，2预告，3直播结束
-    		 *   
-    		 *   先注释掉吧
-    		 */
-//    		if(orders.size()==1){
-//    			Integer cid =  orders.get(0).getCourse_id();
-//    			CourseVo cv = courseDao.findCourseLiveStatus(cid);
-//    			if(cv.getLiveStatus().equals(2)){ //增加预约信息，并且发送短信
-//    				//String userId, String mobile, Integer courseId
-//    				//courseDao.insertSubscribe();
-//    				
-//    			}
-//    		}
     		//更新订单表
 			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+transaction_id+"' where order_no='"+orderNo+"' ";
 			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
