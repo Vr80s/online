@@ -1,5 +1,9 @@
 $(function(){
 	
+	//头部的医师变色
+	$('.path .forum').addClass('select');
+	
+	
 	//设置初始化数据
 	window.current = 1;
 	window.size = 7;
