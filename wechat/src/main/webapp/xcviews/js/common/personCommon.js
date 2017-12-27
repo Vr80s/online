@@ -48,9 +48,6 @@ var currentName = localStorage.name;
 function  sendCode(obj){
 	var vtype = "";
 	var number= "";
-	
-	
-	
 	if(obj.id == "call_code_current"){
 		vtype = 3;
 		number = currentName; // 手机号
@@ -96,116 +93,11 @@ function  sendCode(obj){
 			
 			updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
 							setTimeout(function(){$(".vanish").hide();},1500);
-			
 		}
-		
-	
-		
-		
-		
-		
-		
 	});
 }
 
 
-
-//這是編輯地址新添加的
-$(".pet_name_right").click(function(){
-	
-	var newcode = document.getElementById("new_code");
-	
-	/*先注释掉,有影响,好几个页面保存功能*/
-//	var newcodes = document.getElementById("new_code").value;
-	
-	var vtype = "";
-	var number= "";
-	
-	
-	
-	
-		number = $("#new_mobile").val();
-	
-	
-	/*if (newcodes = !null) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为111空</div></div></div>");
-		$("#errorMsg").show();
-		
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}*/
-	
-	if (!stringnull(number)) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
-		$("#errorMsg").show();
-		
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}
-	
-	if (!(/^1[34578]\d{9}$/.test(number))) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>");
-		$("#errorMsg").show();
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}
-	
-	
-	var code= $("#new_code").val();
-	if(!stringnull(code)){
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
-		$("#errorMsg").show();
-		
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}
-	
-	var urlparm = {
-		username : number,
-		vtype:vtype   	//类型，3注册，4重置密码
-	};
-	requestService("/bxg/bs/phoneCheck", 
-			urlparm, function(data) {
-		if (data.success) {
-			time(obj);
-//			reminderror.innerHTML = "";
-
-
-		} else {
-			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>");
-			$("#errorMsg").show();
-			setTimeout(function(){$(".vanish").hide();},1500);
-			
-			/*updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
-							setTimeout(function(){$(".vanish").hide();},1500);*/
-			
-		}
-			
-	});
-	
-	
-/*	if (newcode = !null) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
-		$("#errorMsg").show();
-		
-		setTimeout(function(){$(".vanish").hide();},1500);
-		return false;
-	}
-	
-	
-	if (newcode = null) {
-		$("#errorMsg").html();
-	
-		return false;
-	}*/
-	
-	
-	
-
-	
-	
-});
-	
 
 /*
  * 用户修昵称、邮件、地址信息
