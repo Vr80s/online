@@ -5,6 +5,7 @@
 		<groupId>com.xczhihui</groupId>
 		<artifactId>bxg-root-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../parent-pom</relativePath>
 	</parent>
 
 	<artifactId>medical-api</artifactId>
