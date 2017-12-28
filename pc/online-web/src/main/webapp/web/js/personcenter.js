@@ -173,7 +173,7 @@ $(function() {
 				//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑更换头像↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑//
 
 			} else {
-				alert("personcenter.js jmp index.html");
+				// alert("personcenter.js jmp index.html");
 				location.href = "../../index.html";
 				localStorage.username = null;
 				localStorage.password = null;
