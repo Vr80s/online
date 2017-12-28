@@ -20,7 +20,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.net.ftp.parser.MacOsPeterFTPEntryParser;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import ch.qos.logback.classic.Logger;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
@@ -100,6 +102,7 @@ public class LiveController {
 	@Autowired
 	private Broadcast broadcast;
 	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(LiveController.class);
 	
 	/**
 	 * Description： 直播搜索接口
@@ -116,6 +119,7 @@ public class LiveController {
 	public ResponseObject listKeywordQuery(HttpServletRequest req,
 			 HttpServletResponse res, Map<String, String> params)
 			throws Exception {
+		
 		try {
 			String queryParam = req.getParameter("keyword");
 			Map<String,Object> allMap = new HashMap<String, Object>();
@@ -146,7 +150,6 @@ public class LiveController {
 			return ResponseObject.newErrorResponseObject("后台流程异常");
 		}
 	}
-	
 	/**
 	 * Description： 直播列表页
 	 * @param req
@@ -162,14 +165,17 @@ public class LiveController {
 	public ResponseObject list(HttpServletRequest req,
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
+		
+		log.info("{}{}{}{}{}{}{}{}{}");
+		
+		log.debug("================{}{}");
+		
 		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
 			return ResponseObject.newErrorResponseObject("缺少分页参数");
 		}
 		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		try {
-			System.out.println("===================");
-			System.err.println("pageNumber:"+pageNumber+"=============="+"pageSize:"+pageSize);
 			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(pageNumber,pageSize,null);
 			System.out.println("list.size():"+list.size());
 			if(list!=null && list.size()>0){

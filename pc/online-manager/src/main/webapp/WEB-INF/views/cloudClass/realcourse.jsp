@@ -755,6 +755,7 @@
 	    
 	    <div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
+			 
 			 <div class="col-sm-3">
                <select id="province" name="province" onchange="doProvAndCityRelation();" 
                         class="clearfix col-xs-10 col-sm-12 {required:true}" >
@@ -762,11 +763,20 @@
   　　　　　　	   </select>
   			   <input  type="hidden" name="realProvince" id="realProvince"/>	
              </div>
+              
               <div class="col-sm-3">
-               <select id="citys" name="city" onchange="onchangeCityAdd();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+               <select id="citys" name="city" onchange="doCityAndCountyRelation();" class="clearfix col-xs-10 col-sm-12 {required:true}">
  　　　　　　　　			<option id='chooseCity' value='-1'>请选择您所在城市</option>
  　　　　		　　</select>
  			  <input  type="hidden" name="realCitys" id="realCitys"/>	
+ 			  </div>
+ 			  
+ 			  <div class="col-sm-3" onchange="choosAddCounty();">
+               <select id="county" name="countys" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='chooseCountys' value='-1'>请选择您所在县区</option>
+ 　　　　		　　</select>
+ 
+ 			  <input  type="hidden" name="realCounty" id="realCounty"/>	
  			  </div>
 		</div>
 	    
@@ -774,8 +784,8 @@
 		<div class="form-group" id="add-currentPrice"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>授课详细地址: </label>
 			 <div class="col-sm-6">
-			 	<input type="text" name="address" value="" id="address"  class="col-xs-10 col-sm-12 {required:true}">
-             </div>
+			 	<input type="text" name="address" value="" id="address" maxlength="200" class="col-xs-10 col-sm-12 {required:true}">
+             </div> 
 		</div>
 	    
 		<%--<div class="form-group"  style="margin-top: 18px;" >
@@ -1129,10 +1139,17 @@
   				<input type="hidden" name = "realProvince"  id="edit_realProvince"/>
   			 </div>
   			 <div class="col-sm-3">	
-                <select id="edit_citys" name="city" onchange="onchangeCityEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+                <select id="edit_citys" name="city" onchange="doProvAndCountyRelationEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
  　　　　　　　　			<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>
  　　　　		　　 </select>
  				<input type="hidden" name = "realCitys"  id="edit_realCitys"/>
+             </div>
+             
+              <div class="col-sm-3">	
+                <select id="edit_county" name="county" onchange="onchangeCountyEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
+ 　　　　　　　　			<option id='edit_chooseCounty' value='-1'>请选择您所在县区</option>
+ 　　　　		　　 </select>
+ 				<input type="hidden" name ="realCounty"  id="edit_realCounty"/>
              </div>
 		</div>
 		
@@ -1304,5 +1321,5 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/cloudClass/provinces.js?v=112312312311"></script>
+<script type="text/javascript" src="${base}/js/cloudClass/provinces.js"></script>
 <script type="text/javascript" src="${base}/js/cloudClass/realcourse.js?v=112312312311"></script>

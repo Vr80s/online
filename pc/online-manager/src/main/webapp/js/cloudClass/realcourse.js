@@ -1023,25 +1023,26 @@ function toEdit(obj,status){
     	//省市区
     	var address = result[0].address;
     	var p_c_a = address.split("-");
-    	
     	if(p_c_a.length==3){
     		//省
-//    		for(i=0;i<$("#edit_province option").length;i++){
-//        		if($("#edit_province option").eq(i).text()==p_c_a[0]){
-//        			$("#edit_province option").eq(i).attr("selected",true); 
-//        			//$("#edit_province").text(p_c_a[0]);
-//        			break;
-//        		}
-//        	}
+    		for(i=0;i<$("#edit_province option").length;i++){
+        		if($("#edit_province option").eq(i).text()==p_c_a[0]){
+        			$("#edit_province option").eq(i).attr("selected",true); 
+        			break;
+        		}
+        	}
     		
     		$("#edit_citys").empty();
+    		$("#edit_county").empty();
+    		
     		
     		var street = p_c_a[0];
-    		$('#edit_province option:contains(' + street + ')').each(function(){
-    		  if ($(this).text() == street) {
-    		     $(this).attr('selected', true);
-    		  }
-    		});
+//    		$('#edit_province option:contains(' + street + ')').each(function(){
+//    		  if ($(this).text() == street) {
+//    		     $(this).attr('selected', true);
+//    		  }
+//    		});
+    		
     		//市
 //    		for(i=0;i<$("#edit_citys option").length;i++){
 //        		if($("#edit_citys option").eq(i).text()==p_c_a[1]){
@@ -1049,14 +1050,22 @@ function toEdit(obj,status){
 //        			//$("#edid_multimediaType").val($("#edid_multimediaType option").eq(i).val());
 //        		}
 //        	}
+    		
     		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
     		$("#edit_citys").append(city);
-    		//授课地点
-    		$("#edit_address").val(p_c_a[2]);
+    		
+    		var countysDetails = p_c_a[2].split(" ");
+    		
+    		var county = "<option id='10089'>"+countysDetails[0]+"</option>";
+    		$("#edit_county").append(county);
     		
     		
     		$("#edit_realProvince").val(p_c_a[0]);
     		$("#edit_realCitys").val(p_c_a[1]);
+    		$("#edit_realCounty").val(p_c_a[2]);
+    		
+    		//授课地点
+    		$("#edit_address").val(countysDetails[1]);
     	}
     	
     	

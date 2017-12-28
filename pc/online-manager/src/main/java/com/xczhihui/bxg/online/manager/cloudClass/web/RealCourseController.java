@@ -235,16 +235,16 @@ public class RealCourseController extends AbstractController{
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
 		courseVo.setOnlineCourse(1);
-		
 		/**
 		 * 因为线下课程存在地区的，所以呢，需要搞下啦
 		 * 这里需要搞下地址的转换
 		 */
 		String province  = courseVo.getRealProvince();
 		String city = courseVo.getRealCitys();
-		String address = province+"-"+city+"-"+courseVo.getAddress();
-		courseVo.setAddress(address);
+		String county = courseVo.getRealCounty();
 		
+		String address = province+"-"+city+"-"+county+" "+courseVo.getAddress();
+		courseVo.setAddress(address);
 		try{
 			courseService.addCourse(courseVo);
             responseObj.setSuccess(true);
@@ -308,7 +308,8 @@ public class RealCourseController extends AbstractController{
 		 */
 		String province  = courseVo.getRealProvince();
 		String city = courseVo.getRealCitys();
-		String address = province+"-"+city+"-"+courseVo.getAddress();
+String county = courseVo.getRealCounty();
+		String address = province+"-"+city+"-"+county+" "+courseVo.getAddress();
 		courseVo.setAddress(address);
 		
 		

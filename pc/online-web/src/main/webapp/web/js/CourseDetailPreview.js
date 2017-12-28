@@ -195,7 +195,7 @@ window.onload=function(){
         
         
         '{{if item.selfCourse == true}}' +
-        	'<span class="bigpic-body-overmoney">免费</span>' +
+        	'<span class="bigpic-body-overmoney common_ljck">免费</span>' +
 		'{{else}}'+  
 	        '{{if item.free == true}}' +
 		        '<p class="bigpic-body-money">' +

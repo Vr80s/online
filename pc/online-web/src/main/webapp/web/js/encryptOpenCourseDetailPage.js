@@ -171,7 +171,7 @@ window.onload=function(){
         '</p>' +
         
         '{{if item.selfCourse == true}}' +
-        	'<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/'+direct_id+'/null">立即学习</a>' +
+        	'<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/'+direct_id+'/null">立即查看</a>' +
 	    '{{else}}'+        
 	        '{{if item.free == true}}' +
 		        '<p class="bigpic-body-money">' +
