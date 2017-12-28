@@ -272,7 +272,7 @@ function init() {
         step++;
     }
 
-    var timer = window.setInterval(autoChange, 5000);
+    var timer = window.setInterval(autoChange, 2000);
 
     //点击圆圈切换
     $selector.on('click', function (e) {
@@ -282,7 +282,7 @@ function init() {
             $target.addClass('cur').siblings().removeClass('cur');
             step = $target.index();
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
-            timer = window.setInterval(autoChange, 5000);
+            timer = window.setInterval(autoChange, 2000);
         }
     });
 
@@ -298,7 +298,7 @@ function init() {
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
         }
-        timer = window.setInterval(autoChange, 5000);
+        timer = window.setInterval(autoChange, 2000);
     })
     $right.on('click', function () {
         window.clearInterval(timer);
@@ -311,7 +311,7 @@ function init() {
             $sliders.eq(step).fadeIn(800).siblings().fadeOut(800);
             $selectors.eq(step).addClass('cur').siblings().removeClass('cur');
         }
-        timer = window.setInterval(autoChange, 5000);
+        timer = window.setInterval(autoChange, 2000);
     })
 }
 
