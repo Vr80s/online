@@ -3261,40 +3261,73 @@ $(function() {
   
 }); 
 
-
-
 // 省值变化时 处理市
 function doProvAndCityRelation() {
+	debugger;
   var city = $("#citys");
-
+  var county = $("#county");
+  
   if (city.children().length > 1) {
-    city.empty();
+     city.empty();
   }
-
+  
   if ($("#chooseCity").length === 0) {
     // city.append("<option id='chooseCity' value='-1'>请选择您所在城市</option>");
   }
-  
   var sb = new StringBuffer();
+  var cityVal = "";
   $.each(cityJson,
     function(i, val) {
       if (val.item_code.substr(0, 2) == $("#province").val().substr(0, 2) && val.item_code.substr(2, 4) != '0000' && val.item_code.substr(4, 2) == '00') {
         sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+        if(cityVal == ""){
+        	 cityVal = val.item_code;
+        	 $("#realCitys").val(val.item_name);
+        }
       }
-    });
-  
+  });
   var province =$("#province").find("option:selected").text();
   $("#realProvince").val(province);
-
-    city.append(sb.toString());
+  
+  city.append(sb.toString());
+  debugger;
+  var county = $("#county");
+  var countyVal = "";
+  if(county!=null && county!=undefined){
+	  var sb1 = new StringBuffer();
+	  if (county.children().length > 1) {
+		  county.empty();
+	  }
+	  $.each(cityJson, function(i, val) {
+	      if (cityVal == '110100' || cityVal == "120100" || cityVal == "310100" || cityVal == "500100") {
+	        if (val.item_code.substr(0, 3) == cityVal.substr(0, 3) && val.item_code.substr(4, 2) != '00') {
+	          sb1.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+	          
+	          if(countyVal == ""){
+	         	 $("#realCounty").val(val.item_name);
+	          }
+	        }
+	      } else {
+	        if (val.item_code.substr(0, 4) == cityVal.substr(0, 4) && val.item_code.substr(4, 2) != '00') {
+	          sb1.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+	          
+	          if(countyVal == ""){
+	         	 $("#realCounty").val(val.item_name);
+	         }
+	        }
+	      }
+	  });
+	  county.append(sb1.toString());
+  }
   // $("#chooseCity").after(sb.toString());
-
 } 
-
-
 
 // 市值变化时 处理区/县
 function doCityAndCountyRelation() {
+	
+  var province =$("#citys").find("option:selected").text();
+  $("#realCitys").val(province);	
+	
   var cityVal = $("#citys").val();
   var county = $("#county");
   if (county.children().length > 1) {
@@ -3317,7 +3350,6 @@ function doCityAndCountyRelation() {
       }
     });
   $("#chooseCounty").after(sb.toString());
-
 }
 
 
@@ -3334,19 +3366,83 @@ function doProvAndCityRelationEdit() {
     // city.append("<option id='edit_chooseCity' value='-1'>请选择您所在城市</option>");
   }
   var sb = new StringBuffer();
+  var cityVal = "";
   $.each(cityJson,
     function(i, val) {
       if (val.item_code.substr(0, 2) == $("#edit_province").val().substr(0, 2) && val.item_code.substr(2, 4) != '0000' && val.item_code.substr(4, 2) == '00') {
         sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+        if(cityVal == ""){
+        	cityVal = val.item_code;
+       	 	$("#realCitys").val(cityVal);
+        }
       }
     });
   
   var province =$("#edit_province").find("option:selected").text();
   $("#edit_realProvince").val(province);
 
-    city.append(sb.toString());
-  // $("#edit_chooseCity").after(sb.toString());
+  city.append(sb.toString());
+  
+  
+  var county = $("#edit_county");
+  var countyVal = "";
+  if(county!=null && county!=undefined){
+	  var sb1 = new StringBuffer();
+	  //if (county.children().length > 1) {
+		  county.empty();
+	  //}
+	  $.each(cityJson, function(i, val) {
+	      if (cityVal == '110100' || cityVal == "120100" || cityVal == "310100" || cityVal == "500100") {
+	        if (val.item_code.substr(0, 3) == cityVal.substr(0, 3) && val.item_code.substr(4, 2) != '00') {
+	          sb1.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+	          
+	          if(countyVal == ""){
+	         	 $("#realCounty").val(countyVal);
+	          }
+	        }
+	      } else {
+	        if (val.item_code.substr(0, 4) == cityVal.substr(0, 4) && val.item_code.substr(4, 2) != '00') {
+	          sb1.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+	          
+	          if(countyVal == ""){
+	         	 $("#realCounty").val(countyVal);
+	         }
+	        }
+	      }
+	  });
+	  county.append(sb1.toString());
+  }
 }
+
+function doProvAndCountyRelationEdit(){
+	
+	  var citys =$("#edit_citys").find("option:selected").text();
+	  $("#realCitys").val(citys);	
+		
+	  var cityVal = $("#edit_citys").val();
+	  var county = $("#edit_county");
+	  if (county.children().length > 1) {
+	    county.empty();
+	  }
+	  if ($("#edit_chooseCounty").length === 0) {
+	    county.append("<option id='edit_chooseCounty' value='-1'>请选择您所在区/县</option>");
+	  }
+	  var sb = new StringBuffer();
+	  $.each(cityJson,
+	    function(i, val) {
+	      if (cityVal == '110100' || cityVal == "120100" || cityVal == "310100" || cityVal == "500100") {
+	        if (val.item_code.substr(0, 3) == cityVal.substr(0, 3) && val.item_code.substr(4, 2) != '00') {
+	          sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+	        }
+	      } else {
+	        if (val.item_code.substr(0, 4) == cityVal.substr(0, 4) && val.item_code.substr(4, 2) != '00') {
+	          sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+	        }
+	      }
+	    });
+	  $("#edit_chooseCounty").after(sb.toString());
+}
+
 
 /**
  * 市选择产生变化
@@ -3356,12 +3452,21 @@ function onchangeCityAdd(){
 	var province =$("#citys").find("option:selected").text();
 	$("#realCitys").val(province);
 }
+
 function onchangeCityEdit(){
 	var province =$("#edit_citys").find("option:selected").text();
 	$("#edit_realCitys").val(province);
 }
 
+function choosAddCounty(){
+	var province =$("#county").find("option:selected").text();
+	$("#realCounty").val(province);
+}
 
+function onchangeCountyEdit(){
+	var province =$("#edit_county").find("option:selected").text();
+	$("#edit_realCounty").val(province);
+}
 
 function StringBuffer(str) {
   var arr = [];

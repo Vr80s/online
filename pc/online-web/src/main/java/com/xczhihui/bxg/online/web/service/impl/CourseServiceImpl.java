@@ -181,7 +181,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 //                courseVo.setTeacherName(names);
 //            }
         	
-        	System.out.println("courseVo.getUserLecturerId()"+courseVo.getUserLecturerId()+"=====ou.getId():"+ou.getId());
+        	//System.out.println("courseVo.getUserLecturerId()"+courseVo.getUserLecturerId()+"=====ou.getId():"+ou.getId());
         	String name = "暂无讲师";
         	String teacherDescription="";
         	OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
@@ -189,7 +189,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         		name=onlineUser.getName();
         		teacherDescription=onlineUser.getDescription();
         		
-        		if(courseVo.getUserLecturerId().equals(ou.getId())){
+        		if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
             		courseVo.setSelfCourse(true);
             	}
         	}

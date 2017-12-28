@@ -315,6 +315,8 @@ public class CourseVo extends OnlineBaseVo{
     
     private String realCitys;
     
+    private String realCounty;
+    
     
     public String getAddress() {
 		return address;
@@ -931,6 +933,16 @@ public class CourseVo extends OnlineBaseVo{
 		this.realCitys = realCitys;
 	}
 
+	public String getRealCounty() {
+		return realCounty;
+	}
+
+	public void setRealCounty(String realCounty) {
+		this.realCounty = realCounty;
+	}
+
+	
+	
 	
 }
 
