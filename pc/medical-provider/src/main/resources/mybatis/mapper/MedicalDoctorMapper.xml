@@ -50,6 +50,7 @@
 		<if test="name != null and name!=''">
 			and md.name like concat('%',#{name},'%')
 		</if>
+		ORDER BY CONVERT(md.`name` USING gbk) ASC
 	</select>
 
 	<select id="selectDoctorById" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">

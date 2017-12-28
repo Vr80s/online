@@ -133,7 +133,7 @@ public class Banner2Controller{
 		{
 			return ResponseObject.newSuccessResponseObject("操作成功！");
 		}else{
-			return ResponseObject.newSuccessResponseObject("启用失败，banner启用上限为8个！");
+			return ResponseObject.newSuccessResponseObject("启用失败，banner启用上限为5个！");
 		}
 		
 	}
