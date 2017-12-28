@@ -380,7 +380,9 @@
             <div class="header_inf_right">
                 <span>{{name}}  </span><span>{{title}}</span>
                 <div class="doctor_inf1">
-                    <span class="zhiwu"><em></em>{{title}}</span>
+                	{{if title}}
+                	<span class="zhiwu"><em></em>{{title}}</span>
+                	{{/if}}
                     {{if medicalHospitalVo}}
                     <span class="yiguan"><em></em>{{medicalHospitalVo.name}}</span>
                     {{/if}}
