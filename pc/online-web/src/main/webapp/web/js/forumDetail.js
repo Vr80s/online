@@ -61,22 +61,22 @@ $(function(){
 //          '<span>评论(<span class="articleCommCoun">{{items.comment_sum}}</span>)</span>'+
 
             '</div></div>'+
-            '<div class="forum-detail-content">{{#items.content}}</div>'+
-            '<div class="forum-hitzanBox">'+
-            '{{if items.isPraise==0}}'+
-            '<div class="forum-hitzan">'+
-            '<i class="iconfont icon-zan"></i>'+
-            '<span>{{items.praise_sum}}</span>'+
-            '<div class="forum-hitzan-plus">+1</div>'+
-            '</div>' +
-            '{{else}}'+
-            '<div class="yiZan">'+
-            '<i class="iconfont icon-zan"></i>'+
-            '<span>{{items.praise_sum}}</span>'+
-            '<div class="forum-hitzan-plus">+1</div>'+
-            '</div>' +
-            '{{/if}}'+
-            '</div>';
+            '<div class="forum-detail-content">{{#items.content}}</div>';
+//          '<div class="forum-hitzanBox">'+
+//          '{{if items.isPraise==0}}'+
+//          '<div class="forum-hitzan">'+
+//          '<i class="iconfont icon-zan"></i>'+
+//          '<span>{{items.praise_sum}}</span>'+
+//          '<div class="forum-hitzan-plus">+1</div>'+
+//          '</div>' +
+//          '{{else}}'+
+//          '<div class="yiZan">'+
+//          '<i class="iconfont icon-zan"></i>'+
+//          '<span>{{items.praise_sum}}</span>'+
+//          '<div class="forum-hitzan-plus">+1</div>'+
+//          '</div>' +
+//          '{{/if}}'+
+//          '</div>';
     var commentInfo='{{each items}}'+
             '<div class="forum-community-content">'+
             '<div class="forum-comment-content clearfix">'+
