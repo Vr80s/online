@@ -1033,15 +1033,18 @@ $(function() {
 '<div id="mask" style="display: none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;opacity:0.3;z-index:888;filter:alpha(opacity=30);">'
 	
 });
-//点击详情弹窗
-
+//点击直播课程详情弹窗
 function btn_details(t){
 	var bb=$(t).attr("data-id");
 	RequestService("/gift/getLiveCourseUsersById", "POST", {
 				pageNumber:1,
-				pageSize:6,
+				pageSize:10000,
 				id:bb
 		}, function(data){
+			var arr=[]
+			for (var i =0;i<data.resultObject.items.length;i++) {
+				data.resultObject.items[i].createTime = data.resultObject.items[i].createTime.substring(0,16);
+			}
 				 $(".my_details").html(template("my_data",{item:data.resultObject.items}));
 			})
 	$(".bg_03").fadeIn(200);
@@ -1051,7 +1054,12 @@ function my_cloce(){
 	$(".bg_03").fadeOut(200);
 	$(".my_details").fadeOut(200);
 }
-//点击详情弹窗结束
+//点击直播课程详情弹窗结束
+
+
+
+
+
 function fileClick() {
 	return $("#upload-file").click();
 }

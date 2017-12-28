@@ -544,23 +544,23 @@
 		
 		
 		
-		
-		//直播列表数据获取
-		function getData2(pageNumber){
-			//请求消费记录数据
-			RequestService("/gift/getLiveCourseByUserId?pageNumber="+pageNumber+"&pageSize=6", "POST", null, function(data) {
-				console.log(data)
-				if(data.resultObject.totalPageCount==0){
-					$('.pagination').css({'display':'none'});
-				}else{
-					//渲染到页面中
-					 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
-					//每次请求完数据就去渲染分页部分
-					fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
-				}
-			})
-		}
-		
+//		
+//		//直播列表数据获取
+//		function getData2(pageNumber){
+//			//请求消费记录数据
+//			RequestService("/gift/getLiveCourseByUserId?pageNumber="+pageNumber+"&pageSize=6", "POST", null, function(data) {
+//				console.log(data)
+//				if(data.resultObject.totalPageCount==0){
+//					$('.pagination').css({'display':'none'});
+//				}else{
+//					//渲染到页面中
+//					 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
+//					//每次请求完数据就去渲染分页部分
+//					fenye(data.resultObject.currentPage,data.resultObject.totalPageCount,data.resultObject.totalPageCount);
+//				}
+//			})
+//		}
+//		
 		
 		
 		//直播列表
@@ -592,6 +592,9 @@
 //					console.log(data);
 					if(data.resultObject.totalPageCount==0||data.resultObject.totalPageCount<6){
 						$('.pagination').css({'display':'none'});
+						for (var i =0;i<data.resultObject.items.length;i++) {
+								data.resultObject.items[i].startTime = data.resultObject.items[i].startTime.substring(0,16);
+							}
 						 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
 					}else{
 						$('.pagination').css({'display':'block'});
