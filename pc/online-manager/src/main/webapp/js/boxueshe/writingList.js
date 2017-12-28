@@ -100,7 +100,7 @@ function openDoctorManage(obj){
                 if(data.success){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
-                    freshTable(cloudClassMenuTable);
+                    freshTable(articleTable);
                 }else{
                     layer.msg(data.errorMessage);
                 }
@@ -268,6 +268,7 @@ function openReportManage(obj){
                     $("#childMenuDialog").dialog("close");
                     layer.msg(data.resultObject);
                     freshTable(articleTable);
+                    
                 }else{
                     layer.msg(data.errorMessage);
                 }
