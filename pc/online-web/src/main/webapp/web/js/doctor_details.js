@@ -134,7 +134,7 @@ $(function(){
 	    $('.more_madia_report').attr('href','/web/html/practitioneNews.html?doctorId='+id+'')
 	    
 	    //给更多专栏按钮添加医师id
-	     $('.more_zhuanlan').attr('href','/web/html/columnListing.html?doctorId='+id+'')
+	     $('#more_zhuanlan').attr('href','/web/html/columnListing.html?doctorId='+id+'')
 	     
 	    //更多著作部分添加医师id
 
