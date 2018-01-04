@@ -103,7 +103,7 @@ $(function() {
 		"mRender":function (data, display, row){
 			if(data && data != ''){
 				var d = new Date(data);
-				return d.format('yyyy-M-d h:m:s');
+				return d.format('yyyy-M-d hh:mm:ss');
 			}
         }
 	},{
