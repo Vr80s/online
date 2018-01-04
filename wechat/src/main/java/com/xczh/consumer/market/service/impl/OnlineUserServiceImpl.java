@@ -585,6 +585,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 //			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
 //					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 			userCenterAPI.update(mobile,"",0, null, mobile,0, 0);
+			userCenterAPI.updatePassword(appUniqueId,"123456",password);
 		}
 		if(null == user ){
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
@@ -636,13 +637,15 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		int index=(int)(Math.random()*arr.length);
 		String name = arr[index];
 		
+		String password = "123456";
+		
 		/**
 		 * 因为要用到用户中心id了
 		 */
 		ItcastUser iu = userCenterAPI.getUser(appUniqueId);
 		if(iu == null){
 		   //向用户中心注册
-			userCenterAPI.regist(appUniqueId, "123456", "", UserSex.UNKNOWN, null,
+			userCenterAPI.regist(appUniqueId, password, "", UserSex.UNKNOWN, null,
 					appUniqueId, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 			
 			iu = userCenterAPI.getUser(appUniqueId);
@@ -666,7 +669,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setUserType(0);
 		u.setOrigin("apple_yk");
 		u.setMenuId(-1);
-		//u.setPassword(password);
+		u.setPassword(password);
 		u.setSex(OnlineUser.SEX_UNKNOWN);
 		u.setType(1);
 		//分销，设置上级

@@ -53,6 +53,8 @@ function loadOrderList(){
             	payType = "微信支付";
             }else if(data == 2){
             	payType = "网银支付";
+            }else if(data == 3){
+            	payType= "苹果内购"
             }else{
             	payType= "-- --"
             }
