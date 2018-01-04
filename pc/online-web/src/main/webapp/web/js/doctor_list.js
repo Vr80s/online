@@ -39,6 +39,14 @@ $(function(){
 	}
 	
 	console.log(decodeURI(name))
+//	渲染到所搜栏中
+	if(decodeURI(name)){
+		$('.doctor_search_ipt > input').val(decodeURI(name));
+	}else{
+		$('.doctor_search_ipt > input').val('');
+	}
+	
+	
 	//渲染医师列表方法
 	function getHostipalList(current,size,name,type,field){
 	    RequestService("/medical/doctor/getDoctors","GET",{ 
