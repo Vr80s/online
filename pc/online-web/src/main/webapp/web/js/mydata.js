@@ -727,7 +727,7 @@ function addgetdata() { //回填数据
 		$('.City1 option:selected').val(data.resultObject.city);
 		$('.City1 option:selected').text(data.resultObject.cityName);
 	}
-	debugger;
+//	debugger;
 	//城市渲染
 	if(data.resultObject.countyName != ''&&data.resultObject.countyName != null){
 		$('.District1 option:selected').val(data.resultObject.district);
@@ -1910,7 +1910,7 @@ function geren() {
 			
 		}
 		//在获取这些id啦
-		debugger;
+//		debugger;
 		var provinceval  = $('.Province1  option:selected').val();
 		var disval =  $('.District1  option:selected').val();
 		var cityval =  $('.City1  option:selected').val();
