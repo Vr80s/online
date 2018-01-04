@@ -66,14 +66,18 @@ public class CCVideoController {
 		paramsMap.put("player_height",setScale+"");
 		paramsMap.put("format", "json");
 		long time = System.currentTimeMillis();
+		
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
 		System.out.println(responsestr);
 		if (responsestr.contains("\"error\":")) {
 			return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
 		}
-		return ResponseObject.newSuccessResponseObject(responsestr);
 		
+		responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
+		
+		System.out.println(responsestr);
+		return ResponseObject.newSuccessResponseObject(responsestr);
 
 		/*<script src="https://p.bokecc.com/player?vid=9FFDF6EC272558969C33DC5901307461"
 		+ "&siteid=B5E673E55C702C42&autoStart=false"

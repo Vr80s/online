@@ -168,8 +168,6 @@ public class LiveController {
 		
 		log.info("{}{}{}{}{}{}{}{}{}");
 		
-		log.debug("================{}{}");
-		
 		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
 			return ResponseObject.newErrorResponseObject("缺少分页参数");
 		}
