@@ -445,7 +445,7 @@ $(function() {
 //	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
 	        //市
-	        '<select class="City1" onchange="getDistrict()"> ' +
+	        '<select class="City1" onchange="getDistrict1()"> ' +
 	        '<option value="volvo" >--选择市--</option> ' +
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +
