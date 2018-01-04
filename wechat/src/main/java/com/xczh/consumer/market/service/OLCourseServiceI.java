@@ -69,4 +69,6 @@ public interface OLCourseServiceI {
 	 *
 	 */
 	CourseLecturVo offLineClassItem( Integer id,String userId)throws SQLException;
+	
+	public List<CourseLecturVo> recommendCourseList(int i, int j, String str,List<MenuVo> listmv) throws SQLException;
 }
