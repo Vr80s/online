@@ -6,6 +6,8 @@
  * IE只认可year/month/day格式 不认可year-month-day格式
  */
 
+
+
 if(courserId=="undefined"){
     var courserId=142;
 }
@@ -35,6 +37,9 @@ template.helper("stuEvluatStars", function(num) {
 	return start;
 });
 window.onload=function(){
+	
+	
+	
     $(".header_left .path a").each(function() {
         if($(this).text() == "云课堂") {
             $(this).addClass("select");
@@ -42,6 +47,7 @@ window.onload=function(){
             $(this).removeClass("select");
         }
     });
+    $('.path .classroom').addClass('select');
     template.helper('href', function (num) {
         if (num != "") {
             return ''+bath+'/web/courseDetail/' + num;
@@ -206,35 +212,29 @@ window.onload=function(){
         '</span>' +
         '{{/if}}'+
         '</p>' +
-        
-        '{{if item.selfCourse == true}}' +
-        	'<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即查看</a>'+
-    	'{{else}}'+ 
-	        '{{if item.free == true}}' +
-	        '<p class="bigpic-body-money">' +
-	        	'<span class="bigpic-body-overmoney">免费</span>' +
-	        '</p>' +
-	        '<div class="bigpic-body-btn">' +
-	        '{{if item.apply==true}}'+
-	        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即学习</a>'+
-	        '{{else}}'+
-	        '<a class="sign-up purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" target="_blank">立即报名</a>'+
-	        '{{/if}}'+
-	        '</div>'+
-	        '</div>' +
-	        '{{else}}' +
-	        '<p class="bigpic-body-money">' +
-	        '<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
-	        '<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
-	        '</p>' +
-	        '<div class="bigpic-body-btn">' +
-	        '<a href="javascript:;" class="purchase" target="_blank">立即报名</a>'+
-	        '<a href="javascript:;" class="free-try-to-lean" ">免费试学</a>'+
-	        '</div>'+
-	        '</div>' +
-	    	 '{{/if}}'+
-	    '{{/if}}';
-    
+        '{{if item.free == true}}' +
+        '<p class="bigpic-body-money">' +
+        	'<span class="bigpic-body-overmoney">免费</span>' +
+        '</p>' +
+        '<div class="bigpic-body-btn">' +
+        '{{if item.apply==true}}'+
+        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即学习</a>'+
+        '{{else}}'+
+        '<a class="sign-up purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" target="_blank">立即报名</a>'+
+        '{{/if}}'+
+        '</div>'+
+        '</div>' +
+        '{{else}}' +
+        '<p class="bigpic-body-money">' +
+        '<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
+        '<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
+        '</p>' +
+        '<div class="bigpic-body-btn">' +
+        '<a href="javascript:;" class="purchase" target="_blank">立即报名</a>'+
+        '<a href="javascript:;" class="free-try-to-lean" ">免费试学</a>'+
+        '</div>'+
+        '</div>' +
+        '{{/if}}';
     var emptyDefaul =
         "<div class='page-no-result'>" +
         "<img src='../images/personcenter/my_nodata.png'>" +
