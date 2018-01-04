@@ -45,7 +45,7 @@ $(function () {
     var articleBanner = '{{each articleBanner}}' +
             '{{if $index==0}}'+
         '<li style="z-index: 2">' +
-        '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center">' +
+        '<a href="{{$value.imgHref}}" target="_blank" style="background:url({{$value.imgPath}})no-repeat top center;background-size:100% 100%">' +
         // '<div class="banner-info">' +
         // '<span class="banner-type">{{$value.name}}</span>' +
         // '<span class="banner-title">{{$value.title}}</span>' +
