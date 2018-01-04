@@ -388,9 +388,12 @@ margin-top:0;
 	border-radius: 50%;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > p{
-	font-size:14px;
-	height: 20px;
-	color: #666;
+	    font-size: 14px;
+    height: 20px;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li > h5{
 	font-size:14px;
