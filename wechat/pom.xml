@@ -36,6 +36,10 @@
             <scope>system</scope>
             <systemPath>${JAVA_HOME}/lib/tools.jar</systemPath>
         </dependency>
+        
+ 
+        
+        
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -615,6 +619,16 @@
 			<groupId>org.igniterealtime.smack</groupId>
 			<artifactId>smack-extensions</artifactId>
 		</dependency>
+
+
+
+	  <dependency>
+		  <groupId>com.xczhihui</groupId>
+		  <artifactId>medical-api</artifactId>
+		  <version>1.0.0-SNAPSHOT</version>
+	  </dependency>
+        	
+
 
 
 	</dependencies>

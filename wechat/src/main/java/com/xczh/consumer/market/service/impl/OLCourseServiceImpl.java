@@ -2,6 +2,7 @@ package com.xczh.consumer.market.service.impl;
 
 import com.xczh.consumer.market.dao.OLCourseMapper;
 import com.xczh.consumer.market.dao.OnlineLecturerMapper;
+import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.JdbcUtil;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +28,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 	@Autowired
 	private OnlineCourseService onlineCourseService;
+	
+	@Autowired
+	private MenuService menuService;
 	
 	/***
 	 * 学科分类列表
@@ -333,4 +338,85 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		}
 		return courseLecturVo;
 	}
+	
+	/***
+	 * 直播搜索页面的接口调整
+	 * @param number
+	 * @param pageSize
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<CourseLecturVo> recommendCourseList(int number, int pageSize,
+                                                      String queryParam,List<MenuVo> listmv) throws SQLException{
+		
+		
+		//学习人数、当前价格、课程类型、课程图片、讲师名、课程名字
+		
+		StringBuffer all = new StringBuffer("");
+		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
+				+ "ocm.img_url as smallImgPath,ou.name as name,");
+		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
+		all.append(" oc.live_status as  lineState, ");    		//课程类型
+		
+		
+		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
+		
+		all.append(" '精品课程' as note ");
+		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
+		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1 order by learndCount desc,oc.create_time desc  limit 0,"+pageSize +")");
+		
+		
+		all.append("  union all ");
+		
+		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
+				+ "ocm.img_url as smallImgPath,ou.name as name,");
+		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
+		all.append(" oc.live_status as  lineState, ");    		//课程类型
+		
+		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
+		
+		all.append(" '最新课程' as note ");
+		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
+		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  order by  oc.create_time desc limit 0,"+pageSize +")");
+		
+		
+		all.append("  union all ");
+		
+//		List<MenuVo> listmv = menuService.list();
+		
+//		List<Integer> menus = new ArrayList<Integer>();
+//		menus.add(200);
+//		menus.add(201);
+//		menus.add(202);
+		
+		int i = 0;
+		for (MenuVo menuVo : listmv) {
+			i++;
+			all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
+					+ "ocm.img_url as smallImgPath,ou.name as name,");
+			all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
+			all.append(" oc.live_status as  lineState, ");    		//课程类型
+			
+			all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+					+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
+			
+			all.append(" om.name as note ");
+			all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou,oe_menu om  ");
+			all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 ");
+			all.append(" and om.id  = "+menuVo.getId());
+			all.append("  order by learndCount desc,oc.create_time desc limit 0,"+pageSize+" ) ");
+			
+			if(i < listmv.size()){
+				all.append("  union all ");
+			}
+		}
+		System.out.println(all.toString());
+		
+		return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),all.toString(),0,Integer.MAX_VALUE,CourseLecturVo.class);
+	}
+	
+	
+	
 }
