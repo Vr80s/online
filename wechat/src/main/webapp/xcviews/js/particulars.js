@@ -196,12 +196,14 @@ function chZJ(videoId,chapterId,vid){
 			var playCodeStr = data.resultObject;
 			var playCodeObj = JSON.parse(playCodeStr);
 			console.log(playCodeObj.video.playcode);
+			
 			$("#ccvideo").html(playCodeObj.video.playcode);
-	        
+			
+			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
 		 	/**
 	    	 * 初始化评论区
 	    	 */
-	    	getVideoCriticize(1,vid);
+	    	//getVideoCriticize(1,vid);
 			
 		}else{
     		$(".history_bg").show();
@@ -361,7 +363,7 @@ $("#sendChat").click(function() {
   	  if(data.success){
 			  $("#mywords").val('');
 			  
-			  getVideoCriticize(1,vid);
+			  //getVideoCriticize(1,vid);
 			  
 	 	      $(".discuss_main").mCustomScrollbar("scrollTo","bottom","0");
   	  }else{
