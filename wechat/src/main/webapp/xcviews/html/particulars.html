@@ -6,7 +6,7 @@
 
 <head>
 <meta charset="utf-8">
-<!--<title></title>-->
+<title>熊猫中医</title>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
@@ -347,6 +347,40 @@ $(document).ready(function(){
 		font-size: 0.55rem;
     	color: #999;
 	}
+	.history_bg_cen{
+		margin-top: 10.5rem;
+	}
+	.history_bg_bto{
+		margin-top: 1.5rem;
+	}
+	.history_bg_bto div{
+		float: right;
+	    height: 2rem;
+	    width: 100%;
+	    border-top: 1px solid #000000;
+	    margin-top: 0rem;
+	    line-height: 2rem;
+	}
+	.ccH5playerBox{
+		height: 8.95rem !important;
+	}
+	.ccH5playerBox video{
+		height: 8.95rem !important;
+	}
+	.details_anchor_center{
+		padding-top: 0;
+	}
+	#ccvideo table{
+		height: 8.95rem !important;
+	}
+	.fx_bg {
+	    width: 0.65rem;
+	    height: 0.65rem;
+	    background: url(/xcviews/images/fx.png)no-repeat;
+	    background-size: 100% 100%;
+	    float: right;
+	    margin-right: 0.3rem;
+	}
 </style>
    
 </head>
@@ -355,7 +389,7 @@ $(document).ready(function(){
     <!-- 如果视频id出现错误，弹框 -->
 	<div class="history_bg" style="display:none;">
 		<div class="history_bg_color"></div>
-		<div class="history_bg_cen"  style="top:0%;height: 5rem;">
+		<div class="history_bg_cen"  style="top:0%;height: 6rem;">
 			<div class="history_bg_cen_size">视频走丢了，请试试其他视频。</div>
 			<div class="history_bg_bto">
 				<div class="history_bg_bto1" style="float:right;" onclick="javascript:history.back(-1);">确定</div>
@@ -372,8 +406,9 @@ $(document).ready(function(){
 				<div class="grabble_left" onclick="isLoginJump()">
 					<div class="grabble_img"></div>
 				</div>
-				<span class="history_span" style="color:#666;width:77%;">视频详情</span>
-				<div class="history_img_right" id="share" style="width:1.6rem;color:#00bc12;">分享</div>
+				<span class="history_span" style="color:#666;width:12.2rem;">视频详情</span>
+				<!--<div class="history_img_right" id="share" style="width:1.6rem;color:#00bc12;">分享</div>-->
+				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;margin-top: 0.6rem;"><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
