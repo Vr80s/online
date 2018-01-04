@@ -8,6 +8,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,9 @@ public class FocusController {
 
 	@Autowired
 	private UserCoinService userCoinService;
+	
+	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(FocusController.class);
 	/**
 	 * Description： 我的主页
 	 * @param req

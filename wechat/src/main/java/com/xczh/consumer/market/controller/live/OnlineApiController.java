@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.live;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,6 +52,8 @@ public class OnlineApiController {
 	@Autowired
 	private CommonApiService commonApiService;
 	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(OnlineApiController.class);
+	
 	/**
 	 * Description：得到用户充值列表
 	 * @param req
@@ -74,7 +77,7 @@ public class OnlineApiController {
 		
 		Page<RechargeRecord> page =  userCoinService.getUserCoinIncreaseRecord(ou.getId()
 				, pageNumber, pageSize);
-		System.out.println("page.getPageSize()"+page.getPageSize());
+		log.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	
@@ -90,7 +93,7 @@ public class OnlineApiController {
 		@SuppressWarnings("unchecked")
 		Page<ReceivedGift> page =  (Page<ReceivedGift>) giftService.getReceivedGift(ou.getId()
 				, pageNumber, pageSize);
-		System.out.println("page.getPageSize()"+page.getPageSize());
+		log.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	/**
@@ -115,7 +118,7 @@ public class OnlineApiController {
 		@SuppressWarnings("unchecked")
 		Page<ReceivedGift> page =  (Page<ReceivedGift>) giftService.getReceivedReward(ou.getId()
 				, pageNumber, pageSize);
-		System.out.println("page.getPageSize()"+page.getPageSize());
+		log.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	/**
@@ -139,7 +142,7 @@ public class OnlineApiController {
 		Page<EnchashmentApplication> page =  (Page<EnchashmentApplication>) 
 				enchashmentService.enchashmentApplicationList(ou.getId()
 				, pageNumber, pageSize);
-		System.out.println("page.getPageSize()");
+		log.info("page.getPageSize()");
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	

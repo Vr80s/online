@@ -638,7 +638,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		String name = arr[index];
 		
 		String password = "123456";
-		
 		/**
 		 * 因为要用到用户中心id了
 		 */

@@ -16,6 +16,7 @@ import com.xczh.consumer.market.utils.WebUtil;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -72,6 +73,8 @@ public class H5AppPayController {
 	@Value("${minimum_amount}")
 	private Double minimumAmount;
 	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(H5AppPayController.class);
+	
 	/**
 	 * 拉取微信访问用户信息；
 	 * @param req
@@ -99,7 +102,7 @@ public class H5AppPayController {
 		if(!ro.isSuccess()){//存在此订单哈，
 			return ro;
 		}
-		System.out.println("wxPay   user.getId()"+u.getId());
+		log.info("wxPay   user.getId()"+u.getId());
 		
 		String userId = u.getId();
 		if (null == orderId || null == userId || null == order_From) {
@@ -163,7 +166,7 @@ public class H5AppPayController {
 		String extDatas ="order&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString(),7200);
-		System.out.println("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
+		log.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(newOrderNo, price,  "订单支付",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -173,11 +176,11 @@ public class H5AppPayController {
 				retpay = CommonUtil.getSignER(retpay);
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			System.out.println("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// System.out.println(jsonObject);
+			log.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// log.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		System.out.println("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
@@ -295,7 +298,7 @@ public class H5AppPayController {
 		String extDatas ="reward&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(rewardParamVo).toString(),7200);
-		System.out.println("打赏参数："+extDatas.length());
+		log.info("打赏参数："+extDatas.length());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "打赏支付",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -308,11 +311,11 @@ public class H5AppPayController {
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
 			
-			System.out.println("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// System.out.println(jsonObject);
+			log.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// log.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		System.out.println("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
@@ -402,7 +405,7 @@ public class H5AppPayController {
 		String extDatas ="recharge&"+cacheKey;
 		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
 		cacheService.set(cacheKey,passbackParams,7200);
-		System.out.println("充值参数："+extDatas.length());
+		log.info("充值参数："+extDatas.length());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -415,11 +418,11 @@ public class H5AppPayController {
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
 
-			System.out.println("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// System.out.println(jsonObject);
+			log.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// log.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		System.out.println("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 

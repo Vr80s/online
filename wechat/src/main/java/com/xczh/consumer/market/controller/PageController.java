@@ -62,9 +62,6 @@ public class PageController {
 		req.setAttribute("code", code);
 		req.setAttribute("access", "wx");
 		
-		System.out.println("openId"+openId);
-		System.out.println("code"+code);
-		
 		req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}
 	
@@ -139,7 +136,6 @@ public class PageController {
 		//String page = req.getParameter("rest_page");
 		req.setAttribute("page", page);
 		String openId = req.getParameter("openid");
-		System.out.println(openId);
 		req.setAttribute("openId", openId);
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/login.jsp?openId="+openId).forward(req, res);
