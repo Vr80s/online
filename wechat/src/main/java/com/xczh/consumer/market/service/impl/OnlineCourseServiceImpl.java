@@ -521,6 +521,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	@Override
 	public List<CourseLecturVo> findLiveListByQueryKey(int start_page, int pageNumber,
                                                        String queryParam) throws SQLException {
+		
 		/*
 		 *  公共的模糊查询条件
 		 */
@@ -580,8 +581,8 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		sql2.append(" limit " +(pageNumber -mapList.size()));
 		
 		if(mapList.size()>0 && mapList.size()<3){
-			sql1.append(" union ");
-			String allSql = sql1.toString()+sql2.toString();
+			
+			String allSql = "( " + sql1.toString() +" ) union " +"( " +sql2.toString()+" )";
 			System.out.println(allSql);
 			list =  super.query(JdbcUtil.getCurrentConnection(), allSql,new BeanListHandler<>(CourseLecturVo.class));
 		}else if(mapList.size() == 3){
