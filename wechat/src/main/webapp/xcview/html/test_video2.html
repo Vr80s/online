@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>hangge.com</title>
+</head>
+<style>
+    #durationBar{
+        border:solid 1px #164900;
+        width:100%;
+        margin-bottom:5px;
+    }
+ 
+    #positionBar{
+        height:20px;
+        color:white;
+        font-weight:bold;
+        background:#2D9900;
+        text-align:center;
+    }
+</style>
+     
+<script>
+    //播放
+    function play(){
+        var video = document.getElementById("videoPlayer");
+        video.play();
+    }
+ 
+    //暂停
+    function pause(){
+        var video = document.getElementById("videoPlayer");
+        video.pause();
+    }
+ 
+    //停止
+    function stop(){
+        var video = document.getElementById("videoPlayer");
+        video.pause();
+        video.currentTime = 0;
+    }
+ 
+    //快放
+    function speedUp(){
+        var video = document.getElementById("videoPlayer");
+        video.play();
+        video.playbackRate = 2;
+    }
+ 
+    //慢放
+    function slowDown(){
+        var video = document.getElementById("videoPlayer");
+        video.play();
+        video.playbackRate = 0.5;
+    }
+ 
+    //正常速度
+    function normalSpeed(){
+        var video = document.getElementById("videoPlayer");
+        video.play();
+        video.playbackRate = 1;
+    }
+ 
+    //进度条相关
+    function progressUpdate(){
+        var video = document.getElementById("videoPlayer");
+ 
+        //动态设置进度条
+        var postionBar = document.getElementById("positionBar");
+        postionBar.style.width = (video.currentTime / video.duration * 100) + "%";
+ 
+        //设置播放时间
+        displayStatus.innerHTML = (Math.round(video.currentTime*100)/100) + "秒";
+    }
+</script>
+ 
+<body>
+    <video id="videoPlayer" type="video/mp4"
+			src="http://flv.bn.netease.com/videolib3/1709/21/XxJHm2857/SD/XxJHm2857-mobile.mp4" width="400" height="300"
+        ontimeupdate="progressUpdate()">
+    </video>
+ 
+    <div id="durationBar">
+        <div id="positionBar"><span id="displayStatus">0秒</span></div>
+    </div>
+ 
+    <button onclick="play()">播放</button>
+    <button onclick="pause()">暂停</button>
+    <button onclick="stop()">停止</button>
+    &nbsp;&nbsp;
+    <button onclick="speedUp()">快放</button>
+    <button onclick="slowDown()">慢放</button>
+    <button onclick="normalSpeed()">正常</button>
+</body>
+</html>

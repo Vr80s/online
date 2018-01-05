@@ -1,0 +1,276 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>充值</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+
+
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+
+    window.onload=function(){
+        var aBtn=$('.echarge_click_one');
+        for(i=0;i<aBtn.length;i++){
+            $(aBtn[i]).click(function(){
+                for(i=0;i<aBtn.length;i++){
+                    $(aBtn[i]).removeClass('echarge_click_one_bg');
+                    $(aBtn[i]).addClass('echarge_click_one');
+                    $(aBtn[i]).find('.echarge_click_one_size1').css('color','#00bc12');
+                    $(aBtn[i]).find('.echarge_click_one_size2').css('color','#999');
+                }
+                $(this).removeClass('echarge_click_one');
+                $(this).addClass('echarge_click_one_bg');
+                $(this).find('.echarge_click_one_size1').css('color','#fff');
+                $(this).find('.echarge_click_one_size1').css('margin-top','0.3rem');
+                $(this).find('.echarge_click_one_size2').css('margin-top','0.3rem');
+                $(this).find('.echarge_click_one_size2').css('color','#fff');
+                $(".echarge_click_one_size3").show();
+                $(".echarge_click_two_show").hide();
+            })
+        }
+        $(aBtn[0]).click();
+
+
+
+        $(".echarge_click_two").click(function() {
+            $(".echarge_click_one_size3").hide();
+            $(".echarge_click_two_show").show();
+            $(".echarge_show").focus();
+
+
+            $('.echarge_click').find(".echarge_div").removeClass('echarge_click_one_bg');
+            $('.echarge_click').find(".echarge_div").addClass('echarge_click_one');
+            $('.echarge_click_one_size1').css('color','#999');
+            $('.echarge_click_one_size1').css('margin-top','0.3rem');
+            $('.echarge_click_one_size2').css('margin-top','0.3rem');
+            $('.echarge_click_one_size2').css('color','#999');
+
+        });
+
+    };
+</script>
+<style>
+	.attention_left{
+		float: left;
+	    height: 1.875rem;
+	    width: 1.5rem;
+	}
+	.echarge_right{
+		width: 7rem;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    text-align: right;
+	}
+</style>
+</head>
+<body style="background:#efefef;">
+	<div class="attention_top" style="border: none;">
+		<div class="attention_left" id="grabble_img" onclick="history.go(-1)"><div class="return"></div></div>
+		
+		<div class="dl" style="padding-top1: 0.2rem;">充值</div>
+	</div>
+	<div class="both"></div>
+	
+	<div style="padding-bottom: 3rem;">
+	<!-- 中间内容开始 -->
+	<div class="echarge">
+		<div class="echarge_top">
+			<div class="echarge_size">
+				<div class="echarge_left">充值账号：&nbsp;<span id="name"></span></div>
+				<div class="echarge_right">余额&nbsp;&nbsp;<span id="xmbCount"></span></div>
+			</div>
+			<div class="both"></div>
+			<div class="echarge_size">
+				<div class="echarge_left">支付方式：&nbsp;微信</div>
+			</div>
+			<div class="both"></div>
+			<div class="echarge_size">
+				<div class="echarge_left">充值数量：&nbsp;10熊猫币=1元</div>
+			</div>
+		</div>
+	</div>
+	<div class="echarge_radio">
+		<div class="echarge_click">
+			<div class="echarge_click_one echarge_div" onclick="ch(10)">
+				<p class="echarge_click_one_size1">100熊猫币</p>
+				<p class="echarge_click_one_size2">¥10元</p>
+			</div>
+			<div class="echarge_click_one echarge_div" onclick="ch(50)">
+				<p class="echarge_click_one_size1">500熊猫币</p>
+				<p class="echarge_click_one_size2">¥50元</p>
+			</div>
+			<div class="echarge_click_one echarge_div" onclick="ch(100)">
+				<p class="echarge_click_one_size1">1000熊猫币</p>
+				<p class="echarge_click_one_size2">¥100元</p>
+			</div>
+			
+			<div class="echarge_click_one echarge_div" onclick="ch(500)">
+				<p class="echarge_click_one_size1">5000熊猫币</p>
+				<p class="echarge_click_one_size2">¥500元</p>
+			</div>
+			<div class="echarge_click_one echarge_div" onclick="ch(1000)">
+				<p class="echarge_click_one_size1">10000熊猫币</p>
+				<p class="echarge_click_one_size2">¥1000元</p>
+			</div>
+			<div class="echarge_click_one echarge_div" onclick="ch(5000)">
+				<p class="echarge_click_one_size1">50000熊猫币</p>
+				<p class="echarge_click_one_size2">¥5000元</p>
+			</div>
+			<div class="echarge_click_one echarge_div" onclick="ch(10000)">
+				<p class="echarge_click_one_size1">100000熊猫币</p>
+				<p class="echarge_click_one_size2">¥10000元</p>
+			</div>
+			<div class="echarge_click_one echarge_div" onclick="ch(50000)">
+				<p class="echarge_click_one_size1">500000熊猫币</p>
+				<p class="echarge_click_one_size2">¥50000元</p>
+			</div>
+			<div class="echarge_click_two" onclick="ch(0)">
+				<p class="echarge_click_one_size3">其他数量</p>
+				<div class="echarge_click_two_show">
+					<input type="tel" id="inputNum" onblur="checkInput(-1)" class="echarge_show" /><span>熊猫币</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<!--中间内容结束 -->
+	
+	<!-- 底部开始 -->
+	<div class="echarge_footer">
+		<div class="echarge_footer_cen" onclick="goPay()">立即支付<sapn id="payprice">0.0</sapn>元</div>
+	</div>
+	<!-- 底部结束 -->
+	
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
+<script>
+    function is_weixn(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+	function init(){
+		$("#name").html(localStorage.getItem("name"));
+        requestService("/bxg/bs/getBalanceTotal", {course_id : 1}, function(data) {
+            if (data.success) { //去详情页面
+                var result = data.resultObject;
+                $("#xmbCount").html(result.xmbCount);
+
+            }
+        });
+	}
+    init();
+
+    function isInteger(obj) {
+        return obj%1 === 0
+    }
+	$(function () {
+
+		$("#inputNum").keyup(function(){
+            checkInput(3);
+                   });
+
+
+    });
+
+    function ch(price){
+
+        if(price==0){ //自由输入
+			if($("#inputNum").val()=='') {
+                $("#payprice").html(0.0);
+            }else {
+                $("#payprice").html($("#inputNum").val()/10);
+			}
+
+        }else{
+            $(".echarge_click_one_size3").show();
+            $(".echarge_click_two_show").hide();
+            $("#payprice").html(price);
+        }
+    }
+
+    function checkInput(len){
+        var inputNum=$("#inputNum").val();
+        if(inputNum!='') {
+            if ((!isInteger(inputNum))) {
+                alert("非法操作!充值金额必须为整数.");
+                $("#inputNum").val("")
+                $("#payprice").html(0.0)
+            } else {
+                $("#payprice").html(inputNum / 10);
+                return true;
+            }
+        }else{
+            $(".echarge_click_one_size3").show();
+            $(".echarge_click_two_show").hide();
+            $("#payprice").html(0)
+		}
+
+	}
+
+	function goPay(){
+        if( $("#payprice").html()<10){
+
+            alert("最小支持充值10元");
+            return;
+		}
+var payType=1;
+
+
+        if(payType==0){ //支付宝
+
+                        if(is_weixn()){
+                            location.href = "wechat_alipay_chongzhi.html?actualPay="+$("#payprice").html();
+                            return;
+                        }
+                        jmpPayPage("/bxg/alipay/rechargePay",payType,"actualPay="+$("#payprice").html(),null);
+
+
+        }else{
+
+
+        var btype = localStorage.getItem("access");
+        var openId = localStorage.getItem("openid");
+        var orderForm;
+        if (btype == 'wx') {
+            orderForm = 4;
+        } else if (btype == 'brower') { //h5
+            orderForm = 3
+        }
+        var strparam = "clientType=" + orderForm + "&actualPay=" + $("#payprice").html();
+        if (stringnull(openId)) {
+            strparam += "&openId=" + openId;
+        }
+        jmpPayPage("/bxg/pay/rechargePay", 1, strparam, getServerHost() + "/xcviews/html/topup.html?xmbCount=" + $("#payprice").html() * 10);
+    }
+	}
+
+	requestService("/bxg/enchash/getEnchashmentBalance", {orderId:1}, function(data) {
+		if (data.success) {
+            var result = data.resultObject;
+            $("#xmbCount").html(result);
+        }
+	},false)
+</script>
+</html>

@@ -1,0 +1,45 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>提现失败</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+
+<style>
+	#grabble_img{
+		width: 1.8rem;
+    	height: 1.8rem;
+    	float: left;
+	}
+</style>
+</head>
+<body style="background:#efefef;">
+	<div class="attention_top" style="border: none;">
+		<div class="attention_left" id="grabble_img" onclick="history.go(-1)"><div class="return"></div></div>
+		
+		<div class="dl">提现失败</div>
+	</div>
+	<div class="both"></div>
+	<!-- 中间内容开始 -->
+	<div class="success">
+		<div class="success_bg" style="background: url(/xcviews/images/no01.png) no-repeat;background-size: 100% 100%;"></div>
+		<div class="success_cen">提现申请失败，请重新提交提现申请</div>
+		<div class="withdraw_finds_btn" style="margin-top: 1rem;" onclick="history.go(-1)">重新填写</div>
+	</div>
+	<!--中间内容结束 -->
+</body>
+</html>

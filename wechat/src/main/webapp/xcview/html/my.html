@@ -1,0 +1,262 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>我的主页</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+
+
+
+
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<script type="text/javascript" src="/xcviews/js/js.js"></script>
+	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" href="/xcviews/css/css.css">
+	<link rel="stylesheet" href="/xcviews/css/vanish.css">
+	
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<!--<script type="text/javascript" src="/Views/h5/js/common/personCommon.js"></script>-->
+	<style>
+		.my_details{
+			height: 4.3rem;
+		}
+		.my_three_right1{
+			font-size: 1rem;
+			overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		}
+		.my_bg_cen{
+			width: 92%;
+		    /*height: 16.5rem;*/
+		    background: #fff;
+		    position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    margin-top: -8.75rem;
+		    margin-left: -7.35rem;
+		    z-index: 99999;
+		    border-radius: 6px;
+		}
+		.my_bg_tel2_span{
+			line-height: 1rem;
+		}
+		.my_bg_tel{
+			width: 90%;
+		}
+		.my_bg_tel2{
+			width: 90%;
+		}
+		.my_bg_btn{
+			width: 90%;
+		}
+		.my_three_leftp1{
+			width: 5rem;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		}
+		.my_three_cen1{
+			overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		}
+		.my_bg_btn01{
+			height: 1.95rem;
+		    line-height: 1.95rem;
+		    font-size: 0.65rem;
+		    color: #00bc12;
+		    margin: 0 auto;
+		    text-align: center;
+		    border-radius: 6px;
+		}
+		.my_three_leftp1{
+			color: #333;
+		}
+		.my_three_cen1{
+			color: #333;
+		}
+		.my_three_right1{
+			color: #333;
+		}
+		
+		
+		.vanish{
+			left: 0.1rem;
+		}
+		.vanish2{
+			left: 0.1rem;
+			display: none;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		window.onload = function(){
+			/*$("#btn").click(function(){
+				$(".my_bg_cen").css("height","18.2rem");
+			});*/
+		};
+	</script>
+</head>
+<body style="background: #efefef;">
+	<div class="attention_top">
+		<div class="dl" style="padding-top1: 0.2rem;">我的</div>
+	</div>
+
+	<!-- 我的主页开始 -->
+	<div class="my" style="margin-top: 1.89rem;">
+		<div class="my_head_border">
+			<div class="my_head">
+				<div class="my_head_left">
+					<div class="my_head_img"><img src="/web/images/defaultHead/5.png" 
+					style="/*width: 100%; */ height:100%;" id="smallHeadPhoto" /></div><p id="name"></p>
+				</div>
+				<div class="my_head_right my_set_p" id="my_set_p"><img src="/xcviews/images/right_jian.png" /></div>
+			</div>		
+		</div>
+		<!-- <div class="my_set"><p class="my_set_p" id="my_set_p" style="margin-right:0.4rem;">设置</p></div>
+		<div class="my_center">
+			<div class="my_center_img"><img src="" id="smallHeadPhoto" alt="" /></div>
+			<p id="name"></p>
+			<div class="my_center_room" style="display:none;">房间号：<span id="roomNumber"></span></div>
+		</div> -->
+	</div>
+	<div class="my_three">
+		<ul>
+			<li>
+				<div class="my_three_left"  onclick="location.href='balance.html'">
+					<p class="my_three_leftp1" id="xmbCount" style="margin-top: 0.1rem;"></p>
+					<p class="my_three_leftp2">熊猫币</p>
+				</div>
+			</li>
+			<li style="width: 0.05rem;height: 1.3rem;margin-left: 0;margin-top: 0.6rem;"><img src="../images/shu00.png" alt="" style="width: 0.05rem;height: 1.3rem;" /></li>
+			<li onclick="location.href ='attention.html'">
+				<div class="my_three_cen">
+					<p class="my_three_cen1" id="countFocus"></p>
+					<p class="my_three_cen2">我的关注</p>
+				</div>
+			</li>
+			<li style="width: 0.05rem;height: 1.3rem;margin-left: 0;margin-top: 0.6rem;"><img src="../images/shu00.png" alt="" style="width: 0.05rem;height: 1.3rem;" /></li>
+			<li onclick="location.href ='fans.html'">
+				<div class="my_three_right">
+					<p class="my_three_right1" id="countFans"></p>
+					<p class="my_three_right2">我的粉丝</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="my_details">	
+		<a href="javascript: ;">
+			<div class="my_details1"  onclick="location.href ='deposit.html'">
+				<div class="my_details1_img">
+					<img src="../images/hu.png" alt="" style="width: 0.85rem;height: 0.65rem;margin-top: 0.4rem;" />
+					<span>我的账户</span>
+				</div>
+				<div class="my_right_img"><img src="/xcviews/images/right_jian.png" /></div>
+				<div class="both"></div>
+			</div>
+		</a>	
+		<a href="javascript: ;">
+			<div class="my_details1"  onclick="location.href ='indents.html'">
+				<div class="my_details1_img">
+					<img src="../images/indent_img.png" alt="" style="width: 0.8rem;height: 0.8rem;margin-top: 0.3rem;" />
+					<span>我的订单</span>
+				</div>
+				<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				<div class="both"></div>
+			</div>
+		</a>	
+		<!-- <a href="javascript: ;">
+			<div class="my_details1"  onclick="location.href ='consume.html'">
+				<div class="my_details1_img">
+					<img src="../images/consume.png" alt="" />
+					<span>消费记录</span>
+				</div>
+				<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				<div class="both"></div>
+			</div>
+		</a> -->
+<!--		<a href="javascript: ;">
+			<div class="my_details1">
+				<div class="my_details1_img">
+					<img src="../images/recharge.png" alt="" />
+					<span>充值记录</span>
+				</div>
+				<img src="../images/right.png" alt="" class="my_details1_img_ri" />
+				<div class="both"></div>
+			</div>
+		</a>-->
+	</div>
+	<div class="my_details" style="height: 2.1rem;" onclick="location.href ='learning_center.html'">
+		<a href="javascript: ;">
+			<div class="my_details1" style="border: 0;">
+				<div class="my_details1_img">
+					<img src="../images/study.png" alt="" style="width: 0.65rem;height: 0.725rem;margin-top: 0.4rem;" />
+					<span>学习中心</span>
+				</div>
+				<div class="my_right_img"><img src="/xcviews/images/right_jian.png" /></div>
+				<div class="both"></div>
+			</div>
+		</a>
+	</div>
+	<div class="my_details" onclick="location.href ='system.html'" style="height: 2.2rem;margin-top: 0.4rem;">	
+		<a href="javascript: ;">
+			<div class="my_details1" style="border: 0;">
+				<div class="my_details1_img">
+					<img src="../images/set.png" alt="" style="width: 0.675rem;height: 0.65rem;margin-top: 0.44rem;" />
+					<span>系统设置</span>
+				</div>
+				<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+				<div class="both"></div>
+			</div>
+		</a>
+	</div>
+	
+	
+	<!-- 底部结束 -->
+	<div class="footer_k"></div>
+	<footer>
+		<div class="base">
+			<ul>
+				<li><a href="/bxg/page/index/null/null" class="base_a1" style="width: 0.875rem;height: 0.85rem;margin: 0.1rem 0 0.1rem 0.05rem;"></a><p style="font-size: 0.5rem;color: #333;margin-top: -0.25rem;">首页</p></li>
+				<li class="base_li2_a1"><a href="/xcviews/html/frequency.html?multimedia_type=1" class="base_a2" style="width: 0.85rem;height: 0.85rem;margin: 0.1rem 0 0.1rem 0.08rem;"></a><p style="font-size: 0.5rem;color: #333;margin-top: -0.25rem;">视频</p></li>
+				<li class="base_li2_a2"><a href="/xcviews/html/frequency.html?multimedia_type=2" class="base_a3" style="width: 0.875rem;height: 0.875rem;margin: 0.05rem 0 0.13rem 0.05rem;"></a><p style="font-size: 0.5rem;color: #333;margin-top: -0.25rem;">音频</p></li>
+				<li><a href="/xcviews/html/my.html" class="base_a4" style="width: 0.775rem;height: 0.925rem;margin: 0rem 0 0.1rem 0.095rem;background: url(/xcviews/images/a04.png) no-repeat;background-size: 100% 100%;"></a><p style="font-size: 0.5rem;color: #00BC12;margin-top: -0.25rem;">我的</p></li>
+			</ul>
+		</div>
+	</footer>
+	<!-- 底部结束 -->
+	<div calss="my_bg">
+		<div class="my_bg_color" style="display:none;"></div>
+		<div class="my_bg_cen" style="display:none;">
+			<div class="my_bg_logor"><img src="../images/logor.jpg" /></div>
+			<div class="my_bg_hint">请用手机登录绑定微信账号</div>
+			<div class="my_bg_tel">手机号&nbsp;&nbsp;<input type="tel" placeholder="手机号" name="" id="number" maxlength="11" /></div>
+			<div class="my_bg_tel2">
+				输入验证码&nbsp;&nbsp;<input type="tel" value="" placeholder="4位动态码" name="yanzhengma" id="yanzhengma" style="width:3.6rem;" maxlength="4" />
+				<a href="javascript: ;" id="btn" class="my_bg_tel2_a"><span class="my_bg_tel2_span">获取验证码</span></a>
+			</div>
+			<div class="my_bg_tel" id="hide_pws" style="display:none;">密码&nbsp;&nbsp;<input type="password" placeholder="6-18位密码" name="userpassword" id="userpassword"></div>
+			<div class="tishi" id="reminderror"	style="text-align: center; color: red;font-size:0.55rem;"><div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'></div></div></div></div>
+			<div class="my_bg_btn" id="reg">进入熊猫中医</div>
+			
+			<div class="my_bg_btn01" onclick="location.href ='/bxg/page/login/1'">返回登录</div>
+		</div>
+	</div>
+    <script type="text/javascript" src="/xcviews/js/my.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>我的订单</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<script type="text/javascript" src="/xcviews/js/js.js"></script>
+	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" href="/xcviews/css/mui.min.css">
+	<link rel="stylesheet" href="/xcviews/css/css.css">
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<!-- 选项卡 -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#indent_p01").click(function(){
+	  		$(this).addClass('indent_p2');
+	  		$("#indent_p1").removeClass('indent_p2');
+	  		$("#indent_p2").addClass('indent_p1');
+	  		$("#indent_p02").removeClass('indent_p2');
+    		$(".non_payment").show();
+    		$(".indent_img01").show();
+    		$(".paid").hide();
+    		$(".paid02").hide();
+    		$(".non_payment01").hide();
+    		$(".indent_img1").hide();
+    		$(".indent_img2").hide();
+    		$(".indent_img02").hide();
+  		});
+		
+		
+		
+	  	$("#indent_p1").click(function(){
+	  		$(this).addClass('indent_p2');
+	  		$("#indent_p01").removeClass('indent_p2');
+	  		$("#indent_p2").removeClass('indent_p2');
+	  		$("#indent_p02").removeClass('indent_p2');
+    		$(".non_payment").show();
+    		$(".indent_img1").show();
+    		$(".paid").hide();
+    		$(".paid02").hide();
+    		$(".indent_img01").hide();
+    		$(".indent_img2").hide();
+    		$(".indent_img02").hide();
+    		
+  		});
+  		$("#indent_p2").click(function(){
+	  		$(this).addClass('indent_p2');
+	  		$("#indent_p1").removeClass('indent_p2');
+	  		$("#indent_p01").removeClass('indent_p2');
+	  		$("#indent_p02").removeClass('indent_p2');
+    		$(".indent_img1").hide();
+    		$(".indent_img01").hide();
+    		$(".indent_img02").hide();
+    		$(".paid02").hide();
+    		$(".non_payment").hide();
+    		$(".paid").show();
+    		$(".indent_img2").show();
+  		});
+  		$("#indent_p02").click(function(){
+	  		$(this).addClass('indent_p2');
+	  		$("#indent_p1").removeClass('indent_p2');
+	  		$("#indent_p01").removeClass('indent_p2');
+	  		$("#indent_p2").removeClass('indent_p2');
+	  		$(".indent_img01").hide();
+    		$(".indent_img1").hide();
+    		$(".indent_img2").hide();
+    		$(".paid").hide();
+    		$(".non_payment").hide();
+    		$(".paid02").show();
+    		$(".indent_img02").show();
+  		});
+
+  		$("#indent_p01").click();
+	});
+</script>
+<style>
+	.non_payment_null1{
+		width: 5.525rem;
+		height: 7.075rem;
+		margin: 0 auto;
+		margin-top: 4.75rem;
+	}
+	.non_payment_null_img{
+		width: 5.525rem;
+		height: 7.075rem;
+		background: url(/xcviews/images/null01.png) no-repeat;;
+		background-size:100% 100%;
+	}
+	.non_payment_null2{
+		width: 5.525rem;
+		height: 7.075rem;
+		margin: 0 auto;
+		margin-top: 4.75rem;
+	}
+	.non_payment_null2_img{
+		width: 5.525rem;
+		height: 7.075rem;
+		background: url(/xcviews/images/null01.png) no-repeat;;
+		background-size:100% 100%;
+	}
+	.attention_left{
+		width: 1.6rem;
+	    height: 1.8rem;
+	    float: left;
+	}
+</style>
+</head>
+
+<body style="background:#efefef;">
+
+	<!-- 我的订单开始 -->
+	<div class="attention">
+		<div class="attention_top">
+			<div class="attention_left" onclick="history.go(-1)"><div class="return" style="margin-top: 0.36rem;"></div></div>
+			
+			<div class="dl" style="padding-bottom: 0.2rem;">我的订单</div>
+		</div>
+		<div class="both"></div>
+		<div class="indent" style="padding-top:1.941rem;">
+			<div class="indent_top">
+				<ul>
+					<li>
+						<p class="indent_p1"  id="indent_p01">全部</p>
+						<img src="../images/indent_bg.png" alt="" class="indent_img01" />
+					</li>
+					<li>
+						<p class="indent_p1"  id="indent_p1">未支付</p>
+						<img src="../images/indent_bg.png" alt="" class="indent_img1" />
+					</li>
+					<li>
+						<p class="indent_p1" id="indent_p2">已支付</p>
+						<img src="../images/indent_bg.png" alt="" class="indent_img2" />
+					</li>
+					<li>
+						<p class="indent_p1" id="indent_p02">已失效</p>
+						<img src="../images/indent_bg.png" alt="" class="indent_img02" />
+					</li>
+					
+				</ul>
+			</div>
+			<div class="non_payment01">
+				<div class="non_payment_null1"></div>
+				<div class="indent_main" id="noList">
+					
+				    
+			     </div>
+			     <div class="annotation" style="display:none;">注：订单支付有效期为24小时，24小时候自动取消！</div>
+			</div>
+			<div class="non_payment">
+				<div class="non_payment_null1"></div>
+				<div class="indent_main" id="noList">
+					
+				    
+			     </div>
+			     <div class="annotation" style="display:none;">注：订单支付有效期为24小时，24小时候自动取消！</div>
+			</div>
+		     <div class="paid">
+		     	<div  class="non_payment_null2"></div>
+		     	
+				<div class="indent_main" id="list">
+				    
+				    
+			     </div>
+			     <div class="annotation" style="display:none;">注：订单支付有效期为24小时，24小时候自动取消！</div>
+		    </div>
+		    <div class="paid02">
+		     	<div  class="non_payment_null2"></div>
+		     	
+				<div class="indent_main" id="list">
+				    
+				    
+			     </div>
+			     <div class="annotation" style="display:none;">注：订单支付有效期为24小时，24小时候自动取消！</div>
+		    </div>
+	</div>
+	<!-- 我的订单结束 -->
+</body>
+<script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
+      function dateStr(bbb) {  
+      	  var date = new Date(bbb);
+          var y = date.getFullYear();  
+          var m = date.getMonth() + 1;  
+          m = m < 10 ? ('0' + m) : m;  
+          var d = date.getDate();  
+          d = d < 10 ? ('0' + d) : d;  
+          var h = date.getHours();  
+          var minute = date.getMinutes();  
+          minute = minute < 10 ? ('0' + minute) : minute;  
+          return y + '-' + m + '-' + d+' '+h+':'+minute;  
+      };  
+    function init(){
+        //未支付
+        requestService("/bxg/order/list",  {pageNumber : 1,pageSize:10,status:0,userId:localStorage.getItem("userId")}, function(data) {
+            var result = data.resultObject;
+            var html="";
+        
+            for(var i=0;i<result.length;i++) {
+                html += "<div class='indent_main'>\n" +
+                    "<div class='indent_main_top'>\n" +
+                    "<div class='indent_main_top_left'>订单编号：<span>" + result[i].orderNo + "</span>"+
+                    "<span style='margin-left: 1rem;'>" + dateStr(result[i].createTime) + "</span></div>\n" +
+                    "<div class='indent_main_top_right'></div>\n" +
+                    "</div>";
+                    
+                	var cs="";
+                    for(var j=0;j<result[i].allCourse.length;j++){
+
+                    cs+="<div class='indent_main_cen'>\n" +
+                    "<div class='indent_main_cen_left'>\n" +
+                    "<img src='"+result[i].allCourse[j].smallImgPath+"' alt='' />\n" +
+                    "<p class='indent_main_left_p1'>" + result[i].allCourse[j].gradeName + "</p>\n" +
+                    "<p class='indent_main_left_p2'>" + result[i].allCourse[j].teacherName + "</p>\n" +
+                    "</div>\n" +
+                    "</div>";
+            		}
+                html +=cs;
+
+                var orderStatus=result[i].orderStatus;
+
+                if(orderStatus==2){
+                    html+="<div class='both'></div>\n" +
+                        "<div class='indent_main_bot'>\n" +
+                        "<div class='indent_main_bot_left'>订单金额：<span>￥<span>"+result[i].actualPay+"</span></span></div>\n" +
+                        "<a href='javascript:void(0)' class='indent_main_bot_a'>订单取消</a>"+
+                        "</div>\n" +
+                        "</div>";
+				}else {
+                html+="<div class='both'></div>\n" +
+                    "<div class='indent_main_bot'>\n" +
+                    "<div class='indent_main_bot_left'>订单金额：<span>￥<span>"+result[i].actualPay+"</span></span></div>\n" +
+                    "<a href='/xcviews/html/pay.html?orderNo="+result[i].orderNo+"&orderId="+result[i].id+"' class='indent_main_bot_a'>立即购买</a>"+
+                    "</div>\n" +
+                    "</div>";
+                }
+            }
+            if(html!=''){
+            	
+                
+            	$('.non_payment_null1').remove();
+            }   else{
+            	$('.non_payment_null1').addClass('non_payment_null_img');
+            }	
+            	
+            $("#noList").html(html);
+        });
+
+
+        //已支付
+        requestService("/bxg/order/list",  {pageNumber : 1,pageSize:10,status:1,userId:localStorage.getItem("userId")}, function(data) {
+            var result = data.resultObject;
+            var html="";
+            
+            for(var i=0;i<result.length;i++) {
+                html += "<div class='indent_main'>\n" +
+                    "<div class='indent_main_top'>\n" +
+                    "<div class='indent_main_top_left'>订单编号：<span>" + result[i].orderNo + "</span>"+
+                    "<spna style='text-align: right;margin-left: 1rem;' >"+dateStr(result[i].payTime)+"</span></div>\n" +
+                    "<div class='indent_main_top_right'></div>\n" +
+                    "</div>";
+                    
+                var cs="";
+                for(var j=0;j<result[i].allCourse.length;j++){
+
+                    cs+="<div class='indent_main_cen'>\n" +
+                        "<div class='indent_main_cen_left'>\n" +
+                        "<img src='"+result[i].allCourse[j].smallImgPath+"' alt='' />\n" +
+                        "<p class='indent_main_left_p1'>" + result[i].allCourse[j].gradeName + "</p>\n" +
+                        "<p class='indent_main_left_p2'>" + result[i].allCourse[j].teacherName + "</p>\n" +
+                        "</div>\n" +
+                        "</div>";
+                }
+                html +=cs;
+                html+="<div class='both'></div>\n" +
+                    "<div class='indent_main_bot'>\n" +
+                    "<div class='indent_main_bot_left'>订单金额：<span>￥<span>"+result[i].actualPay+"</span></span></div>\n" +
+                   /* "<a href='/xcviews/html/pay.html?orderId="+result[i].orderId+"' class='indent_main_bot_a'>立即购买</a>"+*/
+                    "</div>\n" +
+                    "</div>";
+            }
+			if(html!=''){    
+            	$('.non_payment_null2').remove();
+            }   else{
+            	$('.non_payment_null2').addClass('non_payment_null_img');
+            }
+            $("#list").html(html);
+        });
+    }
+    init();
+</script>
+</html>

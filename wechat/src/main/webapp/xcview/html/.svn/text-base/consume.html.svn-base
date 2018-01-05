@@ -1,0 +1,118 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>消费记录</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<script type="text/javascript" src="/xcviews/js/js.js"></script>
+	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" href="/xcviews/css/css.css">
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	
+	<style>
+		.non_payment_null1{
+			width: 5.525rem;
+			height: 7.45rem;
+			margin: 0 auto;
+			margin-top: 4.75rem;
+		}
+		.non_payment_null_img{
+			width: 5.525rem;
+			height: 7.45rem;
+			background: url(/xcviews/images/null05.png) no-repeat;;
+			background-size:100% 100%;
+		}
+		.attention_left{
+			width: 1.6rem;
+		    height: 1.8rem;
+		    float: left;
+		}
+		.detail{
+			margin-top: 2.2rem;
+		}
+		.detail_top p{
+			font-size: 0.7rem;
+		}
+		.detail_cen p{
+			font-size: 0.7rem;
+		}
+		.consume_right01{
+			
+		}
+		.consume_right01{
+			float: right;
+		    margin-right: 0.4rem;
+		    font-size: 0.7rem;
+		    margin-top: 0.2rem;
+		    color: #00bc12;
+		}
+	</style>
+</head>
+
+<body style="background:#efefef;">
+
+	<!-- 消费记录开始 -->
+	<div class="attention">
+		
+		<div class="attention_top">
+			<div class="attention_left" onclick="history.go(-1)"><div class="return" style="margin-top: 0.36rem;margin-top: 0.5rem;"></div></div>
+		
+			<div class="dl" style="padding-bottom:0.2rem;">消费记录</div>
+		</div>
+		<div class="both"></div>
+		<div class="attention_center">
+		<div class="non_payment_null1"></div>
+			<ul id="clist">
+				
+			</ul>
+		</div>
+	</div>
+	<!-- 消费记录结束 -->
+
+
+<script>
+
+	function goItem(orderNo){
+		window.location="consumed.html"+"?orderNo="+orderNo;
+	}
+
+	function init(){
+    requestService("/bxg/order/consumptionList", {pageNumber : 1,pageSize:10}, function(data) {
+        if (data.success) {
+            var result = data.resultObject;
+            var html="";
+            for(var i=0;i<result.length;i++){
+                html+="<li onclick=goItem('"+returnstring(result[i].outTradeNo)+"')><div class='consume_li'>"+
+                "<p class='consume_p1'>"+returnstring(result[i].subject)+"</p>"+
+                "<p class='consume_p2'>"+returnstring(result[i].gmtCreate)+"</p>"+
+                "</div><div class='consume_right xc_myaccount' style='margin-top: 0.6rem;'>-"+returnstring(result[i].totalAmount)+"</div>"+
+                "<div class='consume_right01'>现金</div><div class='both'></div></li>";
+			}
+            if(html!=''){    
+            	$('.non_payment_null1').remove();
+            }   else{
+            	$('.non_payment_null1').addClass('non_payment_null_img');
+            }
+			$("#clist").html(html);
+        }
+    });
+    }
+
+    init();
+</script>
+
+</body>
+</html>
