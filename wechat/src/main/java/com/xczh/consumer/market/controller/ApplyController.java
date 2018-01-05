@@ -11,6 +11,7 @@ import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.vo.UserAddressManagerVo;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,9 @@ public class ApplyController {
     @Autowired
     private CityService cityService;
 
+    
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(ApplyController.class);
+    
     @RequestMapping("updateBaseInfo")
     @ResponseBody
     public ResponseObject updateBaseInfo(HttpServletRequest request, HttpServletResponse res){
@@ -67,7 +71,7 @@ public class ApplyController {
             apply.setReferee(null);
         }
 
-System.out.println(apply.toString());
+log.info(apply.toString());
         OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
         applyService.updateDetailsInfo(apply);
         return ResponseObject.newSuccessResponseObject(null);

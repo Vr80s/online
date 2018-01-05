@@ -9,6 +9,7 @@ import com.xczh.consumer.market.service.*;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +55,7 @@ public class H5AloneController {
 	@Autowired
 	private OnlineWebService onlineWebService;
 	
-	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(H5AloneController.class);
 	/**
 	 * 这个方法暂时先这样提供，能用到的就用呗
 	 * 
@@ -104,7 +105,7 @@ public class H5AloneController {
 		if(courseLecturVo.getWatchState()!=0){
 			if(courseLecturVo.getUserId().equals(user.getId()) 
 					|| onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
-		       //System.out.println("同学,当前课程您已经报名了!");
+		       //log.info("同学,当前课程您已经报名了!");
 		       courseLecturVo.setWatchState(0);    
 		    };
 		}

@@ -168,8 +168,6 @@ public class LiveController {
 		
 		log.info("{}{}{}{}{}{}{}{}{}");
 		
-		log.debug("================{}{}");
-		
 		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
 			return ResponseObject.newErrorResponseObject("缺少分页参数");
 		}
@@ -177,7 +175,7 @@ public class LiveController {
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		try {
 			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(pageNumber,pageSize,null);
-			System.out.println("list.size():"+list.size());
+			log.info("list.size():"+list.size());
 			if(list!=null && list.size()>0){
 				return ResponseObject.newSuccessResponseObject(list);
 			}else{
@@ -239,7 +237,7 @@ public class LiveController {
 				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
-			       //System.out.println("同学,当前课程您已经报名了!");
+			       //log.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };
 				
@@ -293,10 +291,10 @@ public class LiveController {
 				projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
 
 		JSONObject json = JSONObject.parseObject(headImgPath);
-		System.out.println("文件路径——path:"+headImgPath);
+		log.info("文件路径——path:"+headImgPath);
 		map.put("logo", json.get("url").toString());
 
-		System.out.println("req.getParameterprice================"+req.getParameter("price"));
+		log.info("req.getParameterprice================"+req.getParameter("price"));
 		if(liveExamineInfo.getSeeMode().equals("1")){//收费
 			liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
 		}

@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,8 @@ public class BunchPlanController {
 	@Autowired
 	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
-
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(BunchPlanController.class);
+	
 	@Value("${gift.im.room.postfix}")
 	private String postfix;
 	@Value("${gift.im.boshService}")
@@ -94,7 +96,7 @@ public class BunchPlanController {
 		String menid = req.getParameter("menu_id");
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		System.out.println("pageNumber:"+s+"===========================pageSize:"+e);
+		log.info("pageNumber:"+s+"===========================pageSize:"+e);
 		String multimedia_type = req.getParameter("multimedia_type");
 		if ("".equals(menid) || menid == null || "null".equals(menid)) {
 			return ResponseObject.newErrorResponseObject("分类id不能为空");
@@ -113,7 +115,7 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.courseXCListByCategory(menid,number, pageSize,Integer.parseInt(multimedia_type));
-		System.out.println("list.size():"+list.size());
+		log.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 	/***
@@ -147,7 +149,7 @@ public class BunchPlanController {
 				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
-			       //System.out.println("同学,当前课程您已经报名了!");
+			       //log.info("同学,当前课程您已经报名了!");
 					
 			       courseLecturVo.setWatchState(0);    
 			    };
@@ -178,7 +180,7 @@ public class BunchPlanController {
 		String keyWord = req.getParameter("keyWord");
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		System.out.println("pageNumber:"+s+"===========================pageSize:"+e);
+		log.info("pageNumber:"+s+"===========================pageSize:"+e);
 		int number = 0;
 		if (!"".equals(s) && s != null && !"null".equals(s)) {
 			number = Integer.valueOf(s);
@@ -190,7 +192,7 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.offLineClass(keyWord,number, pageSize);
-		System.out.println("list.size():"+list.size());
+		log.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 
@@ -205,7 +207,7 @@ public class BunchPlanController {
 		//多媒体类型1视频2音频
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		System.out.println("pageNumber:"+s+"===========================pageSize:"+e);
+		log.info("pageNumber:"+s+"===========================pageSize:"+e);
 		int number = 1;
 		if (!"".equals(s) && s != null && !"null".equals(s)) {
 			number = Integer.valueOf(s);
@@ -234,7 +236,7 @@ public class BunchPlanController {
 //				courseLecturVo.setCutoff(1);
 //			}
 		}
-		System.out.println("list.size():"+list.size());
+		log.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 	
@@ -243,10 +245,10 @@ public class BunchPlanController {
         /** 
          * 获取 年 ，月 ，日 
          */  
-        System.out.println(calendar.get(Calendar.YEAR));  
-        //默认从0-11  
-        System.out.println(calendar.get(Calendar.MONTH)+1);  
-        System.out.println(calendar.get(Calendar.DATE));  
+//        log.info(calendar.get(Calendar.YEAR));  
+//        //默认从0-11  
+//        log.info(calendar.get(Calendar.MONTH)+1);  
+//        log.info(calendar.get(Calendar.DATE));  
 		
 	}
 
@@ -416,7 +418,7 @@ public class BunchPlanController {
 	    List<MenuVo> listmv = menuService.list();
 		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,1,null,listmv);
 		
-		System.out.println(listAll.size());
+		log.info(listAll.size()+"");
 		
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		

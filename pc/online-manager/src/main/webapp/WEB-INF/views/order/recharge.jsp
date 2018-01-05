@@ -21,7 +21,7 @@
 <div class="page-header">
   当前位置：销售管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span> 订单管理 </span>
+  <span> 充值中心 </span>
 </div>
 
 
@@ -82,13 +82,13 @@
                             </select>
                         </div>
                     </td>
-                	<td>
+                <!-- 	<td>
                         <div class="profile-info-value searchTr">
                             <input type="text"   id="search_courseName" name="search_courseName"  class="propertyValue1"  placeholder = "课程名称关键字" maxlength="30"/>
                             <input type="hidden" value="search_courseName" class="propertyName"/>
                         </div>
-                    </td>
-                	<td style="display:none">
+                    </td> -->
+                	<td>
                         <div class="profile-info-value searchTr">
                             <input type="text"   id="search_orderNo" name="search_orderNo" class="propertyValue1"  placeholder = "订单号关键字" maxlength="30"/>
                             <input type="hidden" value="search_orderNo" class="propertyName"/>

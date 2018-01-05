@@ -5,6 +5,7 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class XCPageController {
 	@Value("${gift.im.host}")
 	private  String host;
 
-
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(XCPageController.class);
 	/**
 	 * 跳转到观看历史页面
 	 * @param req
@@ -77,7 +78,7 @@ public class XCPageController {
 		
 		String courseId = req.getParameter("courseId");
 		for (String key : params.keySet()) {
-			   System.out.println("key= "+ key + " and value= " + req.getParameter(key));
+			   log.info("key= "+ key + " and value= " + req.getParameter(key));
 	    }
 		req.setAttribute("course_id", courseId);
 
