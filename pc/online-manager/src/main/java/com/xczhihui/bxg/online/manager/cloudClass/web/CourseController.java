@@ -609,23 +609,23 @@ public class CourseController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-//	@RequestMapping(value = "updateCourseVideoInfo", method = RequestMethod.POST)
-//	@ResponseBody
-//	public ResponseObject updateCourseVideoInfo(String id) {
-//		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideoInfo(id));
-//	}
+	@RequestMapping(value = "updateCourseVideoInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateCourseVideoInfo(String id) {
+		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideoInfo(id));
+	}
 	
 	/**
 	 * 同步CC视频分类
 	 * @return
 	 * @throws Exception 
 	 */
-//	@RequestMapping(value = "updateCategoryInfo", method = RequestMethod.POST)
-//	@ResponseBody
-//	public ResponseObject updateCategoryInfo(String courseId) throws Exception {
-//		courseService.updateCategoryInfo(courseId);
-//		return ResponseObject.newSuccessResponseObject("操作成功！");
-//	}
+	@RequestMapping(value = "updateCategoryInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateCategoryInfo(String courseId) throws Exception {
+		courseService.updateCategoryInfo(courseId);
+		return ResponseObject.newSuccessResponseObject("操作成功！");
+	}
 	
 	 /**
      * 老师列表

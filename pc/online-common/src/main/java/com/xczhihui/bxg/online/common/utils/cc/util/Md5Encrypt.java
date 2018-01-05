@@ -38,4 +38,7 @@ public class Md5Encrypt {
 		}	
 	}
 	
+	public static void main(String[] args) {
+		System.out.println(md5("w94XthRUAH9ViHEtFecuUKpCS5JuHzXf"));
+	}
 }
