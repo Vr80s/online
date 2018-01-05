@@ -591,11 +591,12 @@
 			function getData(pageNumber){
 				RequestService("/gift/getLiveCourseByUserId?pageNumber="+pageNumber+"&pageSize=6", "get", null, function(data) {
 //					console.log(data);
+					for (var i =0;i<data.resultObject.items.length;i++) {
+								data.resultObject.items[i].startTime = data.resultObject.items[i].startTime.substring(0,19);
+							}
 					if(data.resultObject.totalCount==0||data.resultObject.totalCount<=6){
 						$('.pagination').css({'display':'none'});
-						for (var i =0;i<data.resultObject.items.length;i++) {
-								data.resultObject.items[i].startTime = data.resultObject.items[i].startTime.substring(0,16);
-							}
+						
 						 $("#jiangshi").html(template("list7",{item:data.resultObject.items}));
 					}else{
 						$('.pagination').css({'display':'block'});
