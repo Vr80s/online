@@ -1040,8 +1040,7 @@ function btn_details(t){
 				pageNumber:1,
 				pageSize:10000,
 				id:bb
-		}, function(data){
-			var arr=[]
+	}, function(data){
 			for (var i =0;i<data.resultObject.items.length;i++) {
 				data.resultObject.items[i].createTime = data.resultObject.items[i].createTime.substring(0,16);
 			}
