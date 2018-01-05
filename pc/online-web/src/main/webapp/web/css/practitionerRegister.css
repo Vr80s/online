@@ -38,15 +38,28 @@ img {
 .practitioner_title{
 	padding: 20px;
 	border-bottom: 1px solid #f2f2f2;
+	margin-bottom: 0;
 }
 .practitioner_examine{
 	width: 494px;
 	height: 36px;
 	overflow: hidden;
+	margin: 30px 0 0 20px;
+	background: url(../images/examine_01.png) no-repeat center;
 }
-
-
-
+.practitioner_examine  ul li{
+	list-style: none;
+	float: left;
+	color: #999999;
+	margin: 6px 36px 0 33px;
+}
+.practitioner_examine  ul li:nth-child(1){
+	color: white;
+}
+.practitioner_examine  ul li:nth-child(3){
+	margin-right: 0;
+	margin-left: 21px;
+}
 
 
 
