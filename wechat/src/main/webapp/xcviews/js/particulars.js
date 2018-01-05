@@ -198,7 +198,6 @@ function chZJ(videoId,chapterId,vid){
 			console.log(playCodeObj.video.playcode);
 			
 			$("#ccvideo").html(playCodeObj.video.playcode);
-			
 			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
 		 	/**
 	    	 * 初始化评论区

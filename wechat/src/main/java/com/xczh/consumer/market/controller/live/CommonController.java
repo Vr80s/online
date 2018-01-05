@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -345,7 +346,7 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject subscribe(HttpServletRequest req,
 			HttpServletResponse res, Map<String,String> params)throws Exception {
-		/*String mobile =req.getParameter("mobile");*/
+		String mobile =req.getParameter("mobile");
 		String course_id =req.getParameter("course_id");
 	    if(course_id==null){
 	    	return ResponseObject.newErrorResponseObject("缺少参数");
@@ -362,9 +363,13 @@ public class CommonController {
 		CourseLecturVo courseVo =onlineCourseService.get(Integer.parseInt(course_id));
 		SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日 HH时mm分");
 		String start = sdf.format(courseVo.getStartTime());
+		
+		if(!StringUtils.isNotBlank(mobile)){
+			mobile = user.getLoginName();
+		}
 		//发送短信
-		SmsUtil.sendSmsSubscribe(user.getLoginName(), courseVo.getGradeName(), start, null, true);
-		return onlineCourseService.addSubscribeInfo(user,user.getLoginName(),Integer.parseInt(course_id));
+		SmsUtil.sendSmsSubscribe(mobile, courseVo.getGradeName(), start, null, true);
+		return onlineCourseService.addSubscribeInfo(user,mobile,Integer.parseInt(course_id));
 	}
 	
 	/**

@@ -35,7 +35,7 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
 	public Page<OnlineUser> findUserPage(String lastLoginIp, String createTimeStart, String createTimeEnd,
 			String lastLoginTimeStart, String lastLoginTimeEnd, String searchName, Integer status,Integer lstatus,int pageNumber,
 			int pageSize) {
-		String sql1 = "select u.id,u.login_name,u.name as name,if(o.sex is null,2,o.sex) as sex,u.stay_time,"
+		String sql = "select u.id,u.login_name,u.name as name,if(o.sex is null,2,o.sex) as sex,u.stay_time,"
 				+ "uc.balance,uc.balance_give balanceGive,vhall_id, "
 				+ "o.mobile,o.qq,o.email,u.last_login_ip,u.visit_sum,u.create_time,u.last_login_date,u.menu_id as menuId,u.is_lecturer as isLecturer,m.name as menuName, "
 				+ "u.status,o.id as applyId,u.room_number as roomNumber from oe_user u left join oe_apply o on u.id = o.user_id left join oe_menu m on u.menu_id = m.id "
