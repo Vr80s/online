@@ -971,6 +971,16 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		return course;
 	}
 
+	@Override
+	public void deleteCourseByExamineId(String examineId, boolean falg) {
+		String hqlPre="from Course where  examine_id = ?";
+		Course course= dao.findByHQLOne(hqlPre,new Object[] {examineId});
+		if(course !=null){
+			course.setDelete(falg);
+			dao.update(course);
+		}
+	}
+
 
 	@Override
 	public void updateCategoryInfo(String courseId) throws Exception {
