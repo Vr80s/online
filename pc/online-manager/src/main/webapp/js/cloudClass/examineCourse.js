@@ -30,6 +30,10 @@ $(function(){
     		return data="<span name='zt'> 审核通过 </span>";
     	}else if(data == 2){
     		return data="<span name='zt'>审核未通过</span>";
+    	}else if(data == 3){
+    		return data="<span name='zt'> 申诉中 </span>";
+    	}else if(data == 4){
+    		return data="<span name='zt'>申诉失败</span>";
     	}
     }},
     { "title": "主播", "class":"center","width":"10%","sortable":false,"data": 'lecturerName',"mRender":function (data, display, row) {
@@ -67,6 +71,10 @@ $(function(){
 			str +="<span>已通过</span>";
 		}else if(row.examineStatus == "2"){
 			str +="<span>已驳回</span>";
+		}else if(row.examineStatus == "3"){
+			str +="<span>申诉中</span>";
+		}else if(row.examineStatus == "4"){
+			str +="<span>申诉失败</span>";
 		}
     	return str;
       } 
@@ -75,7 +83,7 @@ $(function(){
 	{ "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 	    	var str =  '<div class="hidden-sm hidden-xs action-buttons">';
 	    	//str+='<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
-	    	if(row.examineStatus == "0"){
+	    	if(row.examineStatus == "0" || row.examineStatus == "3"){
 	    		str +='<a class="blue" href="javascript:void(-1);" title="通过" onclick="toPass(this);">通过</a>';
 	    		str +='<a class="blue" href="javascript:void(-1);" title="驳回" onclick="toBoHui(this);">驳回</a>'; 
 			}else if(row.examineStatus == "1"){
@@ -84,8 +92,7 @@ $(function(){
 				}else{
 					str +='<a class="blue" href="javascript:void(-1);" title="删除直播,用户端将看不到此直播" onclick="delZhiBo(this);">删除直播</a>';
 				}
-			}else if(row.examineStatus == "2"){
-				
+			}else if(row.examineStatus == "2" || row.examineStatus == "4"){
 				//撤销驳回   --》 重新审核
 				str +='<a class="blue" href="javascript:void(-1);" title="撤销驳回,删除驳回理由,可重新审核" onclick="cxBoHui(this);">撤销驳回</a>';
 			}

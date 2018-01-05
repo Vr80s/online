@@ -477,9 +477,17 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		
 		//将驳回理由设置删除掉，然后将状态变为未审核状态
 		//查找这个数据
+		
+		 //0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
+		
 		LiveExamineInfo lei = findExamineById(id);
 		if(lei.getExamineStatus().equals("2")){//审核失败
 			lei.setExamineStatus("0");
+	        dao.update(lei);
+		}
+		
+		if(lei.getExamineStatus().equals("4")){//审核失败
+			lei.setExamineStatus("3");
 	        dao.update(lei);
 		}
 		
