@@ -1042,7 +1042,7 @@ function btn_details(t){
 				id:bb
 	}, function(data){
 			for (var i =0;i<data.resultObject.items.length;i++) {
-				data.resultObject.items[i].createTime = data.resultObject.items[i].createTime.substring(0,16);
+				data.resultObject.items[i].createTime = data.resultObject.items[i].createTime.substring(0,19);
 			}
 				 $(".my_details").html(template("my_data",{item:data.resultObject.items}));
 			})
