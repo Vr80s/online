@@ -21,7 +21,6 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 	public List<OeWatchHistory> getOeWatchHistotyListAppId(int pageNumber, int pageSize, String userId, String type) throws SQLException {
 		// TODO Auto-generated method stub
 		String str = "select * from oe_watch_history owh where owh.user_id = ? and owh.type = ? order by owh.watch_time desc";
-		System.out.println(str);
 		Object[] params = {userId,type};
 		return super.queryPage(JdbcUtil.getCurrentConnection(), str,pageNumber,pageSize,OeWatchHistory.class,params);
 	}
@@ -47,7 +46,6 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 			sql.append("where owh.lecturer_id = ou.id and owh.course_id = oc.id and ocm.course_id =oc.id  ");
 			sql.append("and owh.user_id = ? and owh.type = ? order by owh.watch_time desc");
 		}
-		System.out.println(sql.toString());
 		Object[] params = {userId,type};
 		return super.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(),pageNumber,pageSize,OeWatchHistory.class,params);
 	}

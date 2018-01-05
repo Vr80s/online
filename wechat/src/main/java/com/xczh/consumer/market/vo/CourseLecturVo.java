@@ -156,6 +156,10 @@ public class CourseLecturVo implements Serializable {
 	
 	private Integer cutoff =0;	// 0 已截止  1 未截止
 	
+	
+	private String  note; //
+	
+	
 	public String getUdescription() {
 		return udescription;
 	}
@@ -411,6 +415,12 @@ public class CourseLecturVo implements Serializable {
 	public void setCutoff(Integer cutoff) {
 		this.cutoff = cutoff;
 	}
-	
-	
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
 }

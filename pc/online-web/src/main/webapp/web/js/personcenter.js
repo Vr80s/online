@@ -173,7 +173,7 @@ $(function() {
 				//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑更换头像↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑//
 
 			} else {
-				// alert("personcenter.js jmp index.html");
+				alert("personcenter.js jmp index.html");
 				location.href = "../../index.html";
 				localStorage.username = null;
 				localStorage.password = null;
@@ -395,7 +395,7 @@ $(function() {
 		
 		'<div>' +
 		'<div class="buer cy-myprofile-myfom-dv-span">个性签名:</div>' +
-		'<textarea class="mycytextarea" style="overflow:hidden" maxlength="30" placeholder="说点什么来彰显你的个性吧……" onchange="this.value=this.value.substring(0, 30)" onkeydown="this.value=this.value.substring(0, 30)" onkeyup="this.value=this.value.substring(0, 30)"></textarea>' +
+		'<textarea class="mycytextarea" style="overflow:hidden" maxlength="15" placeholder="说点什么来彰显你的个性吧……" onchange="this.value=this.value.substring(0, 30)" onkeydown="this.value=this.value.substring(0, 30)" onkeyup="this.value=this.value.substring(0, 30)"></textarea>' +
 		'<span class="text-warn warning">个性签名不得超过30个字符</span>' +
 		'</div>' +
 		'<div>' +
@@ -445,7 +445,7 @@ $(function() {
 //	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
 	        //市
-	        '<select class="City1" onchange="getDistrict()"> ' +
+	        '<select class="City1" onchange="getDistrict1()"> ' +
 	        '<option value="volvo" >--选择市--</option> ' +
 //	        '<option value="saab">Saab</option> ' +
 //	        '<option value="opel">Opel</option> ' +
@@ -587,7 +587,7 @@ $(function() {
 //		'<p class="warn">职业课程需要填写报名信息，只需填写一次，适应于其他所有课程；</br>此信息不公开显示，只是为了方便老师通知课程信息，提供优质课程服务；</br>如果您是法律在线（面授、双元、熊猫中医职业课程）的学员，请在证件号中输入您的身份证号验证您的身份（针对老学员会有优惠）；</p>' +
 		'<div class="cy-myprofile-myfom-dv-1" style="margin-bottom:12px">' +
 		'<div class="buer"><i class="red">*</i>姓名:</div>' +
-		'<input type="text" maxlength="7" class="truename ipt"/>' +
+		'<input type="text" maxlength="15" class="truename ipt"/>' +
 		'<span class="true-warn warning">真实姓名不能为空</span>' +
 		'</div>' +
 		
@@ -621,7 +621,7 @@ $(function() {
 		
 		'<div>' +
 		'<div class="buer"><i class="red">*</i>手机号:</div>' +
-		'<input type="text" maxlength="18" class="phonenumber ipt"/>' +
+		'<input type="text" maxlength="11" class="phonenumber ipt"/>' +
 		'<span class="phone-warn warning">手机号不得为空</span>' +
 		'</div>' +
 		
@@ -634,7 +634,7 @@ $(function() {
 		
 		'<div>' +
 		'<div class="buer"><i class="red">*</i>身份证号:</div>' +
-		'<input type="text"  class="cardNumber ipt"/>' +
+		'<input type="text"  maxlength="18" class="cardNumber ipt"/>' +
 		'<span class="card-warn warning">身份证号不得为空</span>' +
 		'<span class="cardMark"><img src="/web/images/personcenter/cardProving.png" />已认证为老学员！</span>' +
 		'</div>' +
@@ -801,7 +801,7 @@ $(function() {
 	        '<div class="address-info4 clearfix"> ' +
 	        '<div class="address-info4-left"> ' +
 	        '<p><span>*</span>手机号码:</p> ' +
-	        '<input type="text" class="phone"> ' +
+	        '<input type="text" maxlength="11"  class="phone"> ' +
 	        '</div> ' +
 	        '<div class="address-info4-right"> ' +
 	        '<p><span>*</span>邮编:</p> ' +
@@ -892,7 +892,7 @@ $(function() {
        ' <form action="">'+
             '<div><label>姓&nbsp;&nbsp;&nbsp;名:<input placeholder="请输入姓名" type="text" class="userName cashipt" ></label></div>'+
             '<span class="userName-warn cashwarn"></span>'+
-            '<div><label>手机号:<input type="text" class="telNumber cashipt" ></label></div>'+
+            '<div><label>手机号:<input type="text" maxlength="11"  class="telNumber cashipt" ></label></div>'+
             '<span class="telNumber-warn cashwarn"></span>'+
             '<div>支付方式<span style="border: 2px solid #2cb82c !important;margin-left: 25px;padding: 5px 10px;border-radius: 10px;">支付宝</span></div>'+
             '<div><label>支付宝账号<input type="text" class="eaccount cashipt" placeholder="请输入支付宝账号"></label></div>'+

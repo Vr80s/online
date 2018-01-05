@@ -58,7 +58,6 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" from oe_course c,oe_user ou ");
 		sql.append(" where  c.user_lecturer_id = ou.id and c.id = ?  and c.is_delete=0 and c.status = 1 "); /*and  c.type=1 */
 		Object[] params = {course_id};
-		System.out.println(sql.toString());
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 	}
 

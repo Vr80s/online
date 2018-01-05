@@ -1,10 +1,11 @@
-package com.xczh.consumer.market.controller.live;
+/*package com.xczh.consumer.market.controller.live;
 
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +28,9 @@ public class CriticizeController {
 	@Autowired
 	private AppBrowserService appBrowserService; 
 	
-	/**
+	*//**
 	 * 添加评论
-	 */
+	 *//*
 	@RequestMapping("saveCriticize")
 	@ResponseBody
 	public ResponseObject saveCriticize(HttpServletRequest req,
@@ -46,9 +47,9 @@ public class CriticizeController {
 			return ResponseObject.newSuccessResponseObject("评论添加成功");
 		}
 	}
-	/**
+	*//**
 	 * 得到此视频下的所有评论
-	 */
+	 *//*
 	@RequestMapping("getVideoCriticize")
 	@ResponseBody
 	public ResponseObject getVideoCriticize(HttpServletRequest req,
@@ -56,20 +57,25 @@ public class CriticizeController {
 			throws Exception {
 		
 		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
+		
+		String pageSizeStr = req.getParameter("pageSize");
 		int pageSize = 20;
+		if(StringUtils.isNotBlank(pageSizeStr)){
+			pageSize = Integer.parseInt(req.getParameter("pageSize"));
+		}
 		String videoId = req.getParameter("videoId");
 		String name = req.getParameter("name");
 		
 		Page<CriticizeVo> pageList  = criticizeService.getVideoCriticize(videoId, name, pageNumber, pageSize);
 		return ResponseObject.newSuccessResponseObject(pageList);
 	}
-    /**
+    *//**
      * 点赞、取消点赞
      * @param request
      * @param isPraise
      * @param criticizeId
      * @return
-     */
+     *//*
     @RequestMapping("updatePraise")
 	@ResponseBody
     public ResponseObject updatePraise(HttpServletRequest request,Boolean isPraise, String criticizeId) {
@@ -84,3 +90,4 @@ public class CriticizeController {
     }
 	
 }
+*/

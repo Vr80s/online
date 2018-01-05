@@ -44,6 +44,8 @@ public class RechargeController{
          int currentPage = index / pageSize + 1;
          String params = tableVo.getsSearch();
          Groups groups = Tools.filterGroup(params);
+
+         
          Group startTimeGroup = groups.findByName("startTime");
          Group stopTimeGroup = groups.findByName("stopTime");
          Group payTypeGroup = groups.findByName("search_payType");

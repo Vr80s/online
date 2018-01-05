@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,6 +81,8 @@ public class OnlineUserController {
 	
 	@Autowired
 	private CityService cityService;
+	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(OnlineUserController.class);
 	
 	@RequestMapping("login")
 	@ResponseBody
@@ -200,7 +203,7 @@ public class OnlineUserController {
 	@RequestMapping("wechatLogout")
 	public void logoutWechat(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
-	    System.out.println("wx return code:" + req.getParameter("code"));
+	    log.info("wx return code:" + req.getParameter("code"));
 		ConfigUtil cfg = new ConfigUtil(req.getSession());
 		String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 		try {
@@ -357,7 +360,7 @@ public class OnlineUserController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("获取错误信息啦"+e.getMessage());
+			log.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
 			
 		}
@@ -488,7 +491,7 @@ public class OnlineUserController {
      			String headImgPath = service.upload(null, //用户中心的用户ID
  				projectName, filename,contentType, bs,fileType,null);
      			JSONObject json = JSONObject.parseObject(headImgPath);
-     			System.out.println("文件路径——path:"+headImgPath);
+     			log.info("文件路径——path:"+headImgPath);
      			map.put("smallHeadPhoto", json.get("url").toString());
              }
          }  	
@@ -550,13 +553,13 @@ public class OnlineUserController {
           cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
           String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,map.get("nickname"),map.get("smallHeadPhoto"));
           if(weiHouResp == null){
-        	  System.out.println("同步微吼昵称，头像失败");
+        	  log.info("同步微吼昵称，头像失败");
           }
           //先这样处理，到时他们在线的时候在给他们说下吧
        /*   if(map.get("sex").equals("2")){
         	  map.remove("sex");
           }*/
-          System.out.println(map.toString());
+          log.info(map.toString());
           return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
             e.printStackTrace();
@@ -644,7 +647,7 @@ public class OnlineUserController {
           OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
           req.getSession().setAttribute("_user_",newUser);
           if(weiHouResp == null){
-        	  System.out.println("同步微吼昵称失败");
+        	  log.info("同步微吼昵称失败");
           }
           return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
@@ -711,7 +714,7 @@ public class OnlineUserController {
  			String headImgPath = service.upload(null, //用户中心的用户ID
 				projectName, imageName, suffix, bs123,fileType,null);
  			JSONObject json = JSONObject.parseObject(headImgPath);
- 			System.out.println("文件路径——path:"+headImgPath);
+ 			log.info("文件路径——path:"+headImgPath);
  			map.put("smallHeadPhoto", json.get("url").toString());
         	  
 /*    	    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
@@ -735,7 +738,7 @@ public class OnlineUserController {
         			String headImgPath = service.upload(null, //用户中心的用户ID
     				projectName, filename,contentType, bs,fileType,null);
         			JSONObject json = JSONObject.parseObject(headImgPath);
-        			System.out.println("文件路径——path:"+headImgPath);
+        			log.info("文件路径——path:"+headImgPath);
         			map.put("smallHeadPhoto", json.get("url").toString());
                 }
             }*/
@@ -758,7 +761,7 @@ public class OnlineUserController {
           request.getSession().setAttribute("_user_",newUser);
           
           if(weiHouResp == null){
-        	  System.out.println("同步微吼头像失败");
+        	  log.info("同步微吼头像失败");
           }
           return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
@@ -947,7 +950,7 @@ public class OnlineUserController {
 					 /**
 					 * 将从微信获取的省市区信息变为对应的id和name
 					 */
-					System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					log.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
 					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
 					if(map!=null){
 						Object objId = map.get("cid");
@@ -989,7 +992,7 @@ public class OnlineUserController {
 					 /**
 					 * 将从微信获取的省市区信息变为对应的id和name
 					 */
-					System.out.println("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
+					log.info("country_:"+m.getCountry()+",province_:"+m.getProvince()+",city_:"+m.getCity());
 					Map<String,Object> map = cityService.getSingProvinceByCode(m.getCountry());
 					if(map!=null){
 						Object objId = map.get("cid");

@@ -1,12 +1,15 @@
 package com.xczh.consumer.market.controller.live;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,16 +17,21 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.GiftService;
+import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineWebService;
+import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.MenuVo;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
@@ -53,7 +61,15 @@ public class BunchPlanController {
 	
 	@Autowired
 	private GiftService giftService;
+	
+	@Autowired
+	private MenuService menuService;
+	
+	@Autowired
+	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(BunchPlanController.class);
+	
 	@Value("${gift.im.room.postfix}")
 	private String postfix;
 	@Value("${gift.im.boshService}")
@@ -80,7 +96,7 @@ public class BunchPlanController {
 		String menid = req.getParameter("menu_id");
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		System.out.println("pageNumber:"+s+"===========================pageSize:"+e);
+		log.info("pageNumber:"+s+"===========================pageSize:"+e);
 		String multimedia_type = req.getParameter("multimedia_type");
 		if ("".equals(menid) || menid == null || "null".equals(menid)) {
 			return ResponseObject.newErrorResponseObject("分类id不能为空");
@@ -99,7 +115,7 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.courseXCListByCategory(menid,number, pageSize,Integer.parseInt(multimedia_type));
-		System.out.println("list.size():"+list.size());
+		log.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 	/***
@@ -133,7 +149,7 @@ public class BunchPlanController {
 				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
-			       //System.out.println("同学,当前课程您已经报名了!");
+			       //log.info("同学,当前课程您已经报名了!");
 					
 			       courseLecturVo.setWatchState(0);    
 			    };
@@ -164,7 +180,7 @@ public class BunchPlanController {
 		String keyWord = req.getParameter("keyWord");
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		System.out.println("pageNumber:"+s+"===========================pageSize:"+e);
+		log.info("pageNumber:"+s+"===========================pageSize:"+e);
 		int number = 0;
 		if (!"".equals(s) && s != null && !"null".equals(s)) {
 			number = Integer.valueOf(s);
@@ -176,7 +192,7 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.offLineClass(keyWord,number, pageSize);
-		System.out.println("list.size():"+list.size());
+		log.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 
@@ -191,7 +207,7 @@ public class BunchPlanController {
 		//多媒体类型1视频2音频
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		System.out.println("pageNumber:"+s+"===========================pageSize:"+e);
+		log.info("pageNumber:"+s+"===========================pageSize:"+e);
 		int number = 1;
 		if (!"".equals(s) && s != null && !"null".equals(s)) {
 			number = Integer.valueOf(s);
@@ -220,7 +236,7 @@ public class BunchPlanController {
 //				courseLecturVo.setCutoff(1);
 //			}
 		}
-		System.out.println("list.size():"+list.size());
+		log.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 	
@@ -229,10 +245,10 @@ public class BunchPlanController {
         /** 
          * 获取 年 ，月 ，日 
          */  
-        System.out.println(calendar.get(Calendar.YEAR));  
-        //默认从0-11  
-        System.out.println(calendar.get(Calendar.MONTH)+1);  
-        System.out.println(calendar.get(Calendar.DATE));  
+//        log.info(calendar.get(Calendar.YEAR));  
+//        //默认从0-11  
+//        log.info(calendar.get(Calendar.MONTH)+1);  
+//        log.info(calendar.get(Calendar.DATE));  
 		
 	}
 
@@ -261,4 +277,201 @@ public class BunchPlanController {
 		}
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);
 	}
+	
+	
+	
+	/*****************************************
+	 * 
+	 * 
+	 * 	新版app关于学堂的接口
+	 * 
+	 * 
+	 * **************************************
+	 */
+	
+	/**
+	 * 分类
+	 */
+	@RequestMapping("schoolClass")
+	@ResponseBody
+	public ResponseObject schoolClass(HttpServletRequest req,
+										   HttpServletResponse res, Integer id)
+			throws Exception {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//课程分类
+		map.put("category", menuService.list());
+		
+		List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
+		Map<String, Object> m1 = new HashMap<String, Object>();
+		m1.put("1", "大师课");
+		Map<String, Object> m2 = new HashMap<String, Object>();
+		m2.put("2", "经典课");
+		Map<String, Object> m3 = new HashMap<String, Object>();
+		m3.put("3", "小白课程");
+		Map<String, Object> m4 = new HashMap<String, Object>();
+		m4.put("4", "免费课程");
+		
+		list.add(m1);
+		list.add(m2);
+		list.add(m3);
+		list.add(m4);
+				
+		//课程专题   -- 假数据
+		map.put("project", list);
+		
+		
+		List<Map<String, Object>>  list1  = new ArrayList<Map<String,Object>>();
+		Map<String, Object> m11 = new HashMap<String, Object>();
+		m11.put("1", "视频课程");
+		Map<String, Object> m21 = new HashMap<String, Object>();
+		m21.put("2", "直播课程");
+		Map<String, Object> m31 = new HashMap<String, Object>();
+		m31.put("3", "音频课程");
+		Map<String, Object> m41 = new HashMap<String, Object>();
+		m41.put("4", "线下课程");
+		
+		list1.add(m11);
+		list1.add(m21);
+		list1.add(m31);
+		list1.add(m41);
+		
+		//课程类型
+		map.put("type", list1);
+		return ResponseObject.newSuccessResponseObject(map);
+	}
+	
+
+	/**
+	 * 推荐中 上不包含的信息
+	 */
+	@RequestMapping("recommendTop")
+	@ResponseBody
+	public ResponseObject recommendTop(HttpServletRequest req,
+										   HttpServletResponse res, Integer id)
+			throws Exception {
+		
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		//课程banner
+		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map1.put("cid", "1");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
+		
+		map2.put("cid", "2");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		listTj.add(map1);
+		listTj.add(map2);
+		
+		mapAll.put("banner", listTj);
+		
+		
+		//课程专题   -- 假数据
+	    
+		List<Map<String, Object>>  listNw  = new ArrayList<Map<String,Object>>();
+		Map<String, Object> m1 = new HashMap<String, Object>();
+		m1.put("1", "大师课");
+		Map<String, Object> m2 = new HashMap<String, Object>();
+		m2.put("2", "经典课");
+		Map<String, Object> m3 = new HashMap<String, Object>();
+		m3.put("3", "小白课程");
+		Map<String, Object> m4 = new HashMap<String, Object>();
+		m4.put("4", "免费课程");
+		
+		listNw.add(m1);
+		listNw.add(m2);
+		listNw.add(m3);
+		listNw.add(m4);
+		mapAll.put("project", listNw);
+		
+		
+		//名师推荐 名师推荐,没有按照排序做，或者按照这个讲师的课程数来排序呗
+		
+		
+		Page<MedicalDoctorVO> page = new Page<>();
+	    page.setCurrent(1);
+	    page.setSize(5);
+		
+	    //map.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
+		
+		return ResponseObject.newSuccessResponseObject(mapAll);
+	}
+	
+	 
+	/**
+	 * 推荐中包含的下面的课程
+	 */
+	@RequestMapping("recommendBunch")
+	@ResponseBody
+	public ResponseObject recommendBunch(HttpServletRequest req,
+										   HttpServletResponse res, Integer id)
+			throws Exception {
+		
+		/**
+		 * 精品课程 按照购买人数来排序。
+		 * 最新课程 课程的时间排序
+		 * 针灸课程
+		 * 古书经典
+		 */
+	    List<MenuVo> listmv = menuService.list();
+		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,1,null,listmv);
+		
+		log.info(listAll.size()+"");
+		
+		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+		
+		Map<String,Object> mapTj = new HashMap<String, Object>();
+		Map<String,Object> mapNw = new HashMap<String, Object>();
+		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
+		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
+		
+		for (CourseLecturVo courseLecturVo : listAll) {
+			if("精品课程".equals(courseLecturVo.getNote())){
+				listTj.add(courseLecturVo);
+			}
+			if("最新课程".equals(courseLecturVo.getNote())){
+				listNw.add(courseLecturVo);
+			}
+		}
+		mapTj.put("title","精品课程");
+		mapTj.put("courseList",listTj);
+		
+		mapTj.put("title","最新课程");
+		mapTj.put("courseList",listNw);
+		
+		mapCourseList.add(mapTj);
+		mapCourseList.add(mapNw);
+		//定义好这
+		for (MenuVo menuVo : listmv) {
+			Map<String,Object> mapMenu = new HashMap<String, Object>();
+			List<CourseLecturVo> listMenu = new ArrayList<CourseLecturVo>();
+			for (CourseLecturVo courseLecturVo : listAll) {
+				if(menuVo.getName().equals(courseLecturVo.getNote())){
+					listMenu.add(courseLecturVo);
+				}
+			}
+			mapMenu.put("title", menuVo.getName());
+			mapMenu.put("courseList", listMenu);
+			mapCourseList.add(mapMenu);
+		}
+		return ResponseObject.newSuccessResponseObject(mapCourseList);
+	}
+	
+	
+	
+	/*****************************************
+	 * 
+	 * 
+	 * 		新版app关于学堂的接口   -- 线下培训班接口
+	 * 
+	 * **************************************
+	 */
+	
+	
+	
+	
+	
+	
 }

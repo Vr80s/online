@@ -13,6 +13,7 @@ import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,9 @@ public class GiftController {
 
 	private RedissonClient redisson;
 
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(GiftController.class);
+	
+	
 	public GiftController(){
 		//Redisson连接配置文件
 		Config config = new Config();
@@ -87,7 +91,7 @@ public class GiftController {
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-		System.out.println("====================="+user.getId());
+		log.info("====================="+user.getId());
 		
 		GiftStatement giftStatement=new GiftStatement();
 		giftStatement.setCreateTime(new Date());
@@ -96,7 +100,7 @@ public class GiftController {
 		giftStatement.setLiveId(req.getParameter("liveId"));
 		giftStatement.setReceiver(req.getParameter("receiverId"));
 		//giftStatement.setCount(Integer.valueOf(req.getParameter()("continuousCount")));
-		System.out.println("c:"+req.getParameter("continuousCount"));
+		log.info("c:"+req.getParameter("continuousCount"));
 		try {
 			giftStatement.setCount(Integer.valueOf(req.getParameter("count")));
 			if(giftStatement.getCount()<1){
@@ -145,11 +149,11 @@ public class GiftController {
 		boolean resl = false;
 		try {
 			resl = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);//等待十秒。有效期五秒
-//			System.out.println(giftStatement.getLiveId()+":"+resl);
+//			log.info(giftStatement.getLiveId()+":"+resl);
 			map=remoteGiftService.addGiftStatement(giftStatement);
 		}catch (Exception e){
 			e.printStackTrace();
-			System.out.println(e.getMessage());
+			log.info(e.getMessage());
 			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}finally {
 			if(resl){
