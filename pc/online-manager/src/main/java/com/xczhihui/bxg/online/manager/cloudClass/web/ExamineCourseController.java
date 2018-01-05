@@ -194,6 +194,7 @@ public class ExamineCourseController {
     @ResponseBody
     public ResponseObject deletes(String ids) throws InvocationTargetException, IllegalAccessException {
          ResponseObject responseObject=new ResponseObject();
+         
          if(ids!=null) {
               String[] _ids = ids.split(",");
               examineCourseService.deletes(_ids);
@@ -215,10 +216,46 @@ public class ExamineCourseController {
          responseObject.setErrorMessage("恢复成功!");
          return responseObject;
     }
+    
+	/**
+	 * Description：撤销驳回
+	 * @param ids
+	 * @return
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+    @RequestMapping(value = "cxBoHui", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject cxBoHui(String id) throws InvocationTargetException, IllegalAccessException {
+         ResponseObject responseObject=new ResponseObject();
+         //if(ids!=null) {
+         //     String[] _ids = ids.split(",");
+         examineCourseService.updateCxBoHui(id);
+         //}
+         responseObject.setSuccess(true);
+         responseObject.setErrorMessage("恢复成功!");
+         return responseObject;
+    }
 	
-	
-	
-	
+    
+	/**
+	 * Description：根据申请id查找申诉信息
+	 * @param ids
+	 * @return
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+    @RequestMapping(value = "getApplysByExamId", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject getApplysByExamId(String id) throws InvocationTargetException, IllegalAccessException {
+    	
+         return ResponseObject.newSuccessResponseObject(examineCourseService.getApplysByExamId(id));
+    }
+    
     public static void main(String[] args) {
 		System.out.println("\u5e03\u5c40\u8bbe\u7f6e\u53c2\u6570\u9519\u8bef");
 	}

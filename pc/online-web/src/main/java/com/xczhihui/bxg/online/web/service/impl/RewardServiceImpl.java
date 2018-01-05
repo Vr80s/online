@@ -49,7 +49,15 @@ public class RewardServiceImpl implements RewardService {
 		dc.add(Restrictions.eq("id", Integer.valueOf(rewardId)));
 		return rewardDao.findEntity(dc);
 	}
-	
+	/**
+	 * Description：打赏广播
+	 * @param rewardStatement
+	 * @throws XMPPException
+	 * @throws SmackException
+	 * @throws IOException
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
 	public void rewardBroadcast(RewardStatement rewardStatement) throws XMPPException, SmackException, IOException{
 		Map<String,Object> mapSenderInfo = new HashMap<String,Object>();
     	Map<String,Object> maprewardInfo = new HashMap<String,Object>();

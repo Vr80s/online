@@ -99,7 +99,7 @@ public class AppealCourseController {
 		Group ssIsdelete = groups.findByName("ssIsdelete");
 		if (ssIsdelete != null) {
 			String falg = ssIsdelete.getPropertyValue1().toString();
-			liveExamineInfoVo.setIsDelete(falg.equals("1") ? true : false);
+			liveExamineInfoVo.setSsisDelete(falg.equals("1") ? true : false);
 		}
 		
 		Page<LiveExamineInfoVo> page = examineCourseService.findAppealListPage(liveExamineInfoVo,currentPage, pageSize);
@@ -176,7 +176,7 @@ public class AppealCourseController {
          ResponseObject responseObject=new ResponseObject();
          if(ids!=null) {
               String[] _ids = ids.split(",");
-              examineCourseService.updateRecoverys(_ids);
+              examineCourseService.updateAppeal(_ids);
          }
          responseObject.setSuccess(true);
          responseObject.setErrorMessage("恢复成功!");

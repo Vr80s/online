@@ -305,12 +305,17 @@ public class BunchPlanController {
 		
 		List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
 		Map<String, Object> m1 = new HashMap<String, Object>();
-		m1.put("1", "大师课");
+		m1.put("code", "1");
+		m1.put("code", "1");
+		m1.put("title", "大师课");
 		Map<String, Object> m2 = new HashMap<String, Object>();
+		m1.put("code", "2");
 		m2.put("2", "经典课");
 		Map<String, Object> m3 = new HashMap<String, Object>();
+		m1.put("code", "3");
 		m3.put("3", "小白课程");
 		Map<String, Object> m4 = new HashMap<String, Object>();
+		m1.put("code", "4");
 		m4.put("4", "免费课程");
 		
 		list.add(m1);
@@ -472,6 +477,36 @@ public class BunchPlanController {
 	
 	
 	
+	/*****************************************
+	 * 
+	 * 		检索管理
+	 * 
+	 * **************************************
+	 */
+
+	
+	/**
+	 * 搜索所有的课程
+	 * 
+	 * 可通过关键字  -- 关键字是全文匹配
+	 * 
+	 * 上面哪个是
+	 * 分类搜索
+	 * 是否收费
+	 * 类型
+	 * 城市
+	 * 
+	 */
+	@RequestMapping("queryAllCourse")
+	@ResponseBody
+	public ResponseObject queryAllCourse(HttpServletRequest req,HttpServletResponse res)
+			throws Exception {
+
+
+		
+		
+		return ResponseObject.newSuccessResponseObject(null);
+	}
 	
 	
 }

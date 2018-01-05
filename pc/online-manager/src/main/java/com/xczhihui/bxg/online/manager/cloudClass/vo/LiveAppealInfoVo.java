@@ -31,6 +31,8 @@ public class LiveAppealInfoVo implements Serializable{
     private String againstReason; //驳回理由
     
     
+    private String name; //审核人名字
+    
     
 	public Integer getId() {
 		return id;
@@ -88,7 +90,14 @@ public class LiveAppealInfoVo implements Serializable{
 	public void setAgainstReason(String againstReason) {
 		this.againstReason = againstReason;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	
 	
