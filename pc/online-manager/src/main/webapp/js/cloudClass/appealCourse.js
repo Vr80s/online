@@ -17,7 +17,7 @@ $(function(){
         }
 	}
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
-		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'appId' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
     }},
     {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
@@ -86,10 +86,12 @@ $(function(){
 		}else if(row.examineStatus == "2"){
 			str+='<span>已驳回</span> ';
 		}
+    	if(row.ssisDelete){
+    		str ='<span>撤回驳回</span>';
+		}
         return str;
      } 
 	},
-    
     
     { "title": "审核人", "class":"center","width":"5%","sortable":false,"data": 'auditPersonStr',"mRender":function (data, display, row) {
         if(data==null){
@@ -101,8 +103,8 @@ $(function(){
     { "sortable": false,"class": "center","width":"8%","title":"是否有效","mRender":function (data, display, row) {
     	var str =  '<div class="hidden-sm hidden-xs action-buttons">';
     	//str+='<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
-    	if(row.isDelete){
-    		str +='<span>已失效</span>';
+    	if(row.ssisDelete){
+    		str +='<span>无效</span>';
 		}else{
 			str +="<span>有效</span>";
 		}
@@ -282,7 +284,6 @@ function toBoHui(obj){
 function toEdit(obj){
 	
 	debugger;
-	updateCourseForm.resetForm();
 	$('#startTime_edit').datepicker( "option" , {
 		 minDate: null,
 		 maxDate: null} );
@@ -306,29 +307,14 @@ function toEdit(obj){
     		$endDate.datetimepicker( "option", "minDate", startDate );
     	}
     });
-//    $('#endTime_edit').datetimepicker({
-//    	showSecond: true,
-//		changeMonth: true,
-//		changeYear: true,
-//		dateFormat:'yy-mm-dd',
-//		monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
-//		timeFormat: 'HH:mm:ss',
-//    	onSelect: function( endDate ) {
-//    		var $startDate = $( "#startTime_edit" );
-//    		var $endDate = $('#endTime_edit');
-//    		var startDate = $startDate.datepicker( "getDate" );
-//    		if(endDate < startDate){
-//    			$startDate.datetimepicker('setDate', startDate + 3600*1*24*60*60*60);
-//    		}
-//    		$startDate.datetimepicker( "option", "maxDate", endDate );
-//    	}
-//    });
+
 	var oo = $(obj).parent().parent().parent();
 	var row = _courseTable.fnGetData(oo); // get datarow
 	
 	debugger;
-	reviewImageRecImg("smallImgPath_file_edit",row.logo);//预览
-	reviewImageRecImg2("teacherImgPath_file_edit",row.logo);//预览
+	//reviewImageRecImg("smallImgPath_file_edit",row.logo);//预览
+
+	$("#middle_image").attr("src",row.logo); //杨宣自定义预览
 
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	

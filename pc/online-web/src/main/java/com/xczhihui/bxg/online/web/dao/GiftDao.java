@@ -141,8 +141,7 @@ public class GiftDao extends SimpleHibernateDao {
 				"  WHERE oc.`is_delete` = 0 \n" +
 				"    AND oc.`type` = 1 \n" +
 				"    AND ou.id = :userId \n" +
-				"  GROUP BY argc.course_id\n" +
-				"   ) a \n" +
+				"  GROUP BY argc.id) a \n" +
 				"GROUP BY a.id \n" +
 				"ORDER BY a.`startTime` DESC ";
 
@@ -168,7 +167,7 @@ public class GiftDao extends SimpleHibernateDao {
 				"  ON ood.`course_id`=oc.id\n" +
 				"  WHERE oc.`is_delete`=0\n" +
 				"  AND argc.`is_payment` IN (0,2) AND oc.`user_lecturer_id`=:userId AND oc.id=:id\n" +
-				"  ORDER BY argc.`create_time`";
+				" GROUP BY argc.id ORDER BY argc.`create_time`";
 
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("userId", userId);

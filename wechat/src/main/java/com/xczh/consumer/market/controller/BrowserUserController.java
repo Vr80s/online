@@ -345,7 +345,8 @@ public class BrowserUserController {
 				}
 				//把这个票给前端
 				o.setTicket(t.getTicket());
-				//把用户中心的数据给他
+				
+				//把用户中心的数据给他   这里im都要用到
 				o.setUserCenterId(user.getId());
 				o.setPassword(user.getPassword());
 				
@@ -878,8 +879,6 @@ public class BrowserUserController {
 			ou = cacheService.get(token);
 			return ResponseObject.newSuccessResponseObject(ou);
 		}
-		String ticket = CodeUtil.getRandomUUID();
-		ou.setTicket(ticket);
 		/*
 		 * 1、判断是游客登录呢，还是普通用户登录
 		 */
@@ -897,23 +896,16 @@ public class BrowserUserController {
 			 * 2、当登录的时候，在增加这个标识符为0:  
 			 */
 			Boolean regis =  (Boolean) map.get("isRegis");
-			log.info(""
-					+ ""
-					+ ":"+map.get("userCenterId"));
+			log.info(""+map.get("userCenterId"));
+			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
 			if(!regis|| type.equals("1") ){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
-				ou.setPassword("123456");
-				
 			}else{ //返回用户信息 -- 包括loginName
 				ou = onlineUserService.findUserById(map.get("userId").toString());
 			}
-			if(map.get("userCenterId")!=null){
-				ou.setUserCenterId(Integer.parseInt(map.get("userCenterId").toString()));
-			}else{
-				ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-				if(iu!=null){
-					ou.setUserCenterId(iu.getId());
-				}
+			if(iu!=null){
+				ou.setUserCenterId(iu.getId());
+				ou.setPassword(iu.getPassword());
 			}
 		}
 		/**
@@ -921,6 +913,8 @@ public class BrowserUserController {
 		 * 	 通过这个票进行各种身份通过，对出登录删除这个票就行了。
 		 *  在以游客的身份过来的话，就判断这个票有效无效。如果无效就在生成这个票。如果有效，就还用这个票吧。
 		 */
+		String ticket = CodeUtil.getRandomUUID();
+		ou.setTicket(ticket);
 		cacheService.set(ticket, ou,TokenExpires.Day.getExpires());
 		return ResponseObject.newSuccessResponseObject(ou);
 	}

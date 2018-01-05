@@ -138,16 +138,14 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-				<p class="col-xs-2" style="padding: 0;">
+				<!-- <p class="col-xs-2" style="padding: 0;">
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-					
-					
 					<button class="btn btn-sm btn-success recovery_bx" title="批量恢复">
 						<i class="glyphicon glyphicon-trash"></i> 批量恢复
 					</button>
-				</p>
+				</p> -->
 			
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
@@ -354,9 +352,16 @@
 					<label class="col-sm-2 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
 					<div class="col-sm-4">
 						<div class="clearfix">
-							<input type="file" name="log" id="smallImgPath_file_edit" class="uploadImg"/>
+							
+							<label class="ace-file-input ace-file-multiple">
+							<input type="file" name="log" id="smallImgPath_file_edit" class="uploadImg">
+							<span class="ace-file-container hide-placeholder selected">
+							<span class="ace-file-name"  data-title="f29fa54122004a4e84295db60a116289.jpg">
+							<img class="middle" id="middle_image" style="width: 252px; height: 97px;" src="">
+							<i class="ace-icon fa fa-picture-o file-image"></i>
+							</span></span><a class="remove" href="#" style="display: none;"><i class=" ace-icon fa fa-times"></i></a>
+							</label>
 						</div>
-						<input name="logo" id="smallImgPath_edit" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
 					</div>
 				</div>
 				<div class="form-group"  style="margin-top: 18px;" >
@@ -471,7 +476,7 @@
 		             </div>
 				</div>
 		      
-		      <div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;">审核信息:</div>
+ <div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;">审核信息:</div>
 		      
 		      	<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 					 <label class="col-sm-2 control-label" for="coursePwd">审核人: </label>
@@ -485,18 +490,6 @@
 		             </div>
 				</div>
 		      
-<!-- 		      	<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
-					 <label class="col-sm-2 control-label" for="coursePwd">审核状态: </label>
-					 <div class="col-sm-3">
-					 	<input type="text" name="password" disabled="disabled"  readonly="readonly"  id="coursePwd_edit"  maxlength="10"  class="col-xs-10 col-sm-12">
-		             </div>
-		             
-		             <label class="col-sm-3 control-label" for="courseName">驳回原因: </label>
-					 <div class="col-sm-3">
-					 	<input type="text" name="price" disabled="disabled"  readonly="readonly"   id="edid_currentPrice" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,99999.99]}">
-		             </div>
-				</div> -->
-		      
 		      	<div class="form-group" style="margin-top: 15px;">
 					 <label class="col-sm-2 control-label no-padding-right" for="courseDescribe">驳回原因: </label>
 					 <div class="col-sm-6">
@@ -504,8 +497,10 @@
 					 	<!-- <input type="hidden" name="descriptionHid" disabled="disabled"  readonly="readonly"   id="edid_descriptionHid" class="col-xs-10 col-sm-12 {rangelength:[1,170]}"> -->
 		             </div>
 				</div>
-		      
-		        <div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;">申诉信息:</div>
+				
+				
+	      
+<div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;">申诉信息:</div>
 		      
 		      	<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
 					 <label class="col-sm-2 control-label" for="coursePwd">申诉时间: </label>
