@@ -32,13 +32,13 @@ $(function(){
     	}
     }},
 
-    // { "title": "是否推荐", "class": "center","width":"7%","sortable": false,"data":"isRecommend" ,"mRender":function (data, display, row) {
-    // 	if(data){
-    // 		return data="推荐";
-    // 	}else{
-    // 		return data="未推荐";
-    // 	}
-    // }},
+    { "title": "是否推荐", "class": "center","width":"7%","sortable": false,"data":"isRecommend" ,"mRender":function (data, display, row) {
+    	if(data){
+    		return data="推荐";
+    	}else{
+    		return data="未推荐";
+    	}
+    }},
 	{ "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 		var str = "<div class=\"hidden-sm hidden-xs action-buttons\">";
 		if(row.typeName == '大家专栏'){
@@ -54,11 +54,16 @@ $(function(){
         str += '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
 		if(row.status=="1"){
             str += '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a>';
-            // str += '<a class="blue" href="javascript:void(-1);" title="banner推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
+            // str += '<a class="blue" href="javascript:void(-1);" title="推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
     	}else{
             str += '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
             // str += '<a class="blue" href="javascript:void(-1);" title="banner推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
     	}
+        if(!row.isRecommend){
+            str += '<a class="blue" href="javascript:void(-1);" title="推荐" onclick="recommendDialog(this)"><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
+        }else{
+            str += '<a class="gray" href="javascript:void(-1);" title="推荐" ><i class="ace-icon glyphicon glyphicon-fire bigger-130"></i></a>';
+        }
     	return str;
 	}}
 	]

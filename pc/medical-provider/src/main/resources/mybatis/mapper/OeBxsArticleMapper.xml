@@ -95,7 +95,7 @@
 		  AND oba.`status` = 1
 		  and oba.type_id =  #{doctorReport}
 		GROUP BY oba.id
-		ORDER BY oba.`create_time` DESC
+		ORDER BY oba.`is_recommend` DESC , oba.`create_time` DESC
 		LIMIT 0, 5
 	</select>
 
