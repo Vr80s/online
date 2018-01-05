@@ -363,6 +363,30 @@ public class LiveController {
 		return ResponseObject.newSuccessResponseObject(result);
 	}
 
+	
+	/**
+	 * 取消审核
+	 * Description：
+	 * @param id
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("/cancelAudit")
+	@ResponseBody
+	public ResponseObject cancelAudit(HttpServletRequest req,
+			 HttpServletResponse res,String examineId){
+		try {
+			liveExamineInfoService.cancelAudit(examineId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("网络异常,请稍等");
+		}
+		return ResponseObject.newSuccessResponseObject("取消成功");
+	}
+	
+	
+	
 	@RequestMapping("selectCurrentLive")
 	@ResponseBody
 	public ResponseObject selectCurrentLive(HttpServletRequest req,
@@ -417,7 +441,6 @@ public class LiveController {
 	@RequestMapping("/liveIsAvailable")
 	@ResponseBody
 	public ResponseObject liveIsAvailable(Integer id){
-
 		try {
 			CourseLecturVo courseVo =onlineCourseService.get(id);
 			if(courseVo==null){
@@ -429,4 +452,5 @@ public class LiveController {
 
 		return ResponseObject.newSuccessResponseObject(null);
 	}
+	
 }

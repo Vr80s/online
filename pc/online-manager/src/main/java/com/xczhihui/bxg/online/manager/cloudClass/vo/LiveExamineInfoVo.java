@@ -94,6 +94,9 @@ public class LiveExamineInfoVo implements Serializable{
     private Boolean ssisDelete; //申诉审核---是否有效
     
     
+    private Integer auditCount; //审核次数
+    
+    
 	public String getId() {
 		return id;
 	}
@@ -341,7 +344,14 @@ public class LiveExamineInfoVo implements Serializable{
 	public void setSsisDelete(Boolean ssisDelete) {
 		this.ssisDelete = ssisDelete;
 	}
-	
+
+	public Integer getAuditCount() {
+		return auditCount;
+	}
+
+	public void setAuditCount(Integer auditCount) {
+		this.auditCount = auditCount;
+	}
 	
 	
 }
