@@ -35,6 +35,13 @@ $(function(){
 		$('.hospital_title').text('搜索结果')
 	};
 	
+	
+	if(decodeURI(name)){
+		$('.search_hos_box > input').val(decodeURI(name));
+	}else{
+		$('.search_hos_box > input').val('');
+	}
+	
 	//渲染医馆列表方法
 	function getHostipalList(current,size,name,field){
 	    RequestService("/medical/hospital/getHospitals","GET",{
