@@ -633,7 +633,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 */
 	public OnlineUser findUserByIdAndVhallNameInfo(String id) throws SQLException {
 		StringBuffer sql = new StringBuffer(); 
-		sql.append(" select id as id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
+		sql.append(" select id as id,name as name,small_head_photo as smallHeadPhoto,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(OnlineUser.class), params);
