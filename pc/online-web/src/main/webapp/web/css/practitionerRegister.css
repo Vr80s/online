@@ -1,0 +1,113 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Microsoft YaHei';
+  background-color: #f7f7f7;
+  overflow-x: hidden ;
+}
+div,
+span,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+img {
+  display: inline-block;
+  outline: none;
+}
+.clearfix:after {
+  content: "";
+  height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+.wp {
+  width: 1200px;
+  margin: 0 auto;
+}
+.practitioner_settled{
+	float: left;
+	width: 860px;
+	height: 580px;
+	background: white;
+	margin-top: 20px;
+}
+.practitioner_title{
+	padding: 20px;
+	border-bottom: 1px solid #f2f2f2;
+}
+.practitioner_examine{
+	width: 494px;
+	height: 36px;
+	overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.practitioner_benefit{
+	width: 320px;
+	height: 580px;
+	background: white;
+	float: right;
+	margin-top: 20px;
+}

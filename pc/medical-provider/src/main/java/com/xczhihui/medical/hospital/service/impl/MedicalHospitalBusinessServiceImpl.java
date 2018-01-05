@@ -29,8 +29,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
     public Page<MedicalHospitalVo> selectHospitalPage(Page<MedicalHospitalVo> page, String name, String field) {
         List<String> mhIds = medicalHospitalMapper.selectHospitalIdList(page, name, field);
-        List<MedicalHospitalVo> medicalHospitals = medicalHospitalMapper.selectHospitalAndPictureList(mhIds);
-        page.setRecords(medicalHospitals);
+        if(mhIds.size()>0){
+            List<MedicalHospitalVo> medicalHospitals = medicalHospitalMapper.selectHospitalAndPictureList(mhIds);
+            page.setRecords(medicalHospitals);
+        }
         return page;
     }
 
