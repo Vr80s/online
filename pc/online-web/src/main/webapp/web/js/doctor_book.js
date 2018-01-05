@@ -13,7 +13,7 @@ $(function(){
 	
 	//设置初始化数据
 	window.current = 1;
-	window.size = 7;
+	window.size = 10;
 	window.doctorId = getQueryString('doctorId')?getQueryString('doctorId'):'';
 	
 	//头部的医师变色

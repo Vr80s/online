@@ -201,8 +201,9 @@ pre:after {
 	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
 	                  + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
 	           return false;          
-	      }else if (yonghuNameLength > 15 || yonghuNameLength < 2){
+	      }else if (yonghuNameLength > 15 || yonghuNameLength < 3){
 	          cymYonghuInfo.show();
+		  			$(".common_cen").html("昵称不能低于2个字符");
 	          $(".common0").show();
 	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
 	                      + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
@@ -307,7 +308,7 @@ pre:after {
 	<div class="common0">
 		<div class="common_bg"></div>
 		<div class="common" style="height:4rem;">
-			<div class="common_cen">长度不能小于2位</div>
+			<div class="common_cen">长度不能大于15位</div>
 			<div class="affirm">确认</div>
 		</div>
 	</div>
