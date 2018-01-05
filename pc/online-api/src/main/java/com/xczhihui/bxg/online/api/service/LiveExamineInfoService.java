@@ -44,5 +44,12 @@ public interface LiveExamineInfoService {
 
     int getPreLiveCount(String userId);
 
-
+    
+    /**
+     * Description：此处的取消审核，就直接把数据删掉了
+     * @param examineId
+     * @return void
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	void cancelAudit(String examineId);
 }

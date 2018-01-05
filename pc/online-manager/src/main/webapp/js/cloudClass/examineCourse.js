@@ -105,7 +105,6 @@ $(function(){
     } },
     { "sortable": false,"class": "center","width":"8%","title":"是否有效","mRender":function (data, display, row) {
     	var str =  '<div class="hidden-sm hidden-xs action-buttons">';
-    	//str+='<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
     	if(row.isDelete){
     		str +='<span>无效</span>';
 		}else{
@@ -162,38 +161,6 @@ $(function(){
 		
 	});
 
-
-	var objRecData = [
-	{title: '序号', "class": "center","data-width":"13px" ,"data": 'id',datafield: 'xuhao', "sortable": false},
-	{ "title": "公开课名称", "width":"16%","class":"center","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
-    		return "<span name='courseNameList'>"+data+"</span>";
-    } },
-	{ "title": "学科", "class":"center","width":"12%","sortable":false,"data": 'menuName' },
-	{ "title": "授课老师", "class":"center","width":"12%","sortable":false,"data": 'lecturerName' ,"mRender":function (data, display, row) {
-    		return "<span name='lecturerNameList'>"+data+"</span>";
-    } },
-//	{ "title": "鲜花数", "class":"center","width":"8%","sortable":false,"data": 'flowersNumber' },
-	{ "title": "访问量", "class":"center","width":"12%","sortable":false,"data": 'pv' },
-//	{ "title": "最高在线人数", "class":"center","width":"8%","sortable":false,"data": 'highestNumberLine' },
-//	{ "title": "直播结束时<br/>在线人数", "class":"center","width":"8%","sortable":false,"data": 'endLineNumber' },
-	{ "title": "课程时长", "class":"center","width":"12%", "sortable":false,"data": 'courseLength'},
-	{ "title": "开始时间", "class":"center","width":"12%", "sortable":false,"data": 'startTime'},
-	{ "title": "结束时间", "class":"center","width":"12%", "sortable":false,"data": 'endTime' },
-	{ "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'smallimgPath',"visible":false},
-	{ "title": "直播方式", "class":"center","width":"13%","sortable":false,"data": 'directSeeding',"visible":false},
-	{ "title": "直播间ID", "class":"center","width":"13%","sortable":false,"data": 'directId'},
-	{ "title": "外部链接", "class":"center","width":"13%","sortable":false,"data": 'externalLinks',"visible":false}];
-
-	_courseRecTable = initTables("courseRecTable",basePath+"/publiccloudclass/course/coursesReclist",objRecData,true,true,1,null,searchCase,function(data){
-		var texts = $("[name='courseNameList']");
-	    for (var i = 0; i < texts.length; i++) {
-	            texts.eq(i).parent().attr("title",texts.eq(i).text());
-	    }
-	    var texts1 = $("[name='lecturerNameList']");
-	    for (var i = 0; i < texts.length; i++) {
-	    	texts1.eq(i).parent().attr("title",texts1.eq(i).text());
-	    }
-	});
 	createImageUpload($('.uploadImg'));//生成图片编辑器
 	    
 	createDatePicker($("#search_startTime"));
@@ -577,7 +544,9 @@ function toEdit(obj){
 				if(str!=""){
 					$("#shxx").html(str);
 					$(".ssxx").show();
+					$("#shxx").show();
 				}else{
+					$("#shxx").hide();
 					$(".ssxx").hide();
 				}
 			}

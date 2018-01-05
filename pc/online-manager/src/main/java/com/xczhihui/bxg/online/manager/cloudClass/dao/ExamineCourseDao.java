@@ -89,7 +89,7 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		
 		StringBuilder sql =new StringBuilder("select le.*,ou.name as lecturerName ,m.name as menuName,"
-				+ " (select u.login_name from user as u where u.id = le.audit_person ) as auditPersonStr "
+				+ " (select u.login_name from user as u where u.id = le.audit_person ) as auditPersonStr"
 				+ " from live_examine_info le,oe_menu m,oe_user ou  "
 				+ " where le.type=m.id and le.user_id = ou.id ");
 	 	if(liveExamineInfoVo.getS_startTime() != null){

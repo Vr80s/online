@@ -82,6 +82,15 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
     @Override
     public List<LiveExamineInfoVo> liseByExamineStatus(String userId, String examineStatus, int pageNumber, int pageSize) {
 
+    	
+    		/*
+    		 * 在审核中这块
+    		 * 
+    		 * 	审核状态:  0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
+    		 *  待直播 -- 	 显示正在审核的啦。
+    		 *  直播完成  -- c.live_status != 3
+    		 * 		 还需要展示两个状态：申诉受理中、申诉失败
+    		 */
             StringBuilder sb=new StringBuilder("SELECT c.id courseId,"
             		+ " c.live_status liveStatus,lei.create_time createTime,om.name type,"
             		+ "lei.examine_status examineStatus, lei.id, lei.logo, lei.title, "
@@ -92,12 +101,12 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             		+ "FROM live_examine_info lei  "
             		+ "left JOIN  oe_course c ON (lei.id = c.examine_id)"
             		+ "inner join oe_menu om on (om.id=lei.type)   WHERE lei.user_id = :userId  and  lei.is_delete = 0 ");
-            if("0".equals(examineStatus)){ //待直播
+            if("0".equals(examineStatus)){ //待直播 -- 
                 sb.append(" and lei.examine_status = 1  AND c.live_status != 3  and  c.is_delete=0 and c.status = 1 ");  
             }else if("2".equals(examineStatus)){ //直播完成
                 sb.append(" AND c.live_status = 3  and  c.is_delete=0 and c.status = 1 ");
             }else if("1".equals(examineStatus)){ //审核中
-                sb.append(" AND (lei.examine_status = 0 or lei.examine_status = 2)  ");
+                sb.append(" AND (lei.examine_status = 0 or lei.examine_status = 2  or lei.examine_status = 3 or lei.examine_status = 4)  ");
             }
             sb.append(" ORDER BY lei.start_time");
             Map<String,Object> param=new HashMap<>();
@@ -218,7 +227,7 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             param.put("content",content);
             param.put("examineId",examineId);
             simpleHibernateDao.getNamedParameterJdbcTemplate().update(sql,param);
-            String sql2="update live_examine_info set examine_status=0 where id=:examineId ";
+            String sql2="update live_examine_info set examine_status=3 where id=:examineId ";
             Map<String,Object> param2=new HashMap<>();
             param2.put("examineId",examineId);
             simpleHibernateDao.getNamedParameterJdbcTemplate().update(sql2,param2);
@@ -235,4 +244,14 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
         param.put("userId",userId);
         return simpleHibernateDao.getNamedParameterJdbcTemplate().queryForObject(sql,param,Integer.class);
     }
+
+	@Override
+	public void cancelAudit(String examineId) {
+		// TODO Auto-generated method stub
+		 //0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
+		 String sql2="delete from  live_examine_info set examine_status !=2  where id=:examineId ";
+		 Map<String,Object> param2=new HashMap<>();
+         param2.put("examineId",examineId);
+         simpleHibernateDao.getNamedParameterJdbcTemplate().update(sql2,param2);
+	}
 }

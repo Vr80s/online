@@ -378,14 +378,6 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	@Override
 	public void updateBohuiApply(LiveAppealInfoVo lai) {
 		/**
-		 * 1、来自 申请的驳回
-		 *   更改申请的状态    新增申诉记录（申请的id，驳回人，审核时间，驳回理由，2 审核未通过）     
-		 *   app端可以通过申诉来更改这个审核状态，并且更改申请的状态
-		 *   
-		 * 2、当有申诉请求的时候，我们再次驳回呢
-		 *  新增申诉记录（申请的id，驳回人，审核时间，驳回理由，2 审核未通过）     
-		 */
-		/**
 		 * 设置为没有审核
 		 */
 		User user = (User) UserHolder.getRequireCurrentUser();//驳回人 
@@ -396,10 +388,15 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		entity.setReviewerTime(new Date());               //审核时间
 		entity.setAgainstReason(lai.getAgainstReason());  //驳回理由
 		dao.save(entity);
-		
-		
 		LiveExamineInfo lei = findExamineById(lai.getExamineId());
-		lei.setExamineStatus("2"); 		  //2 审核未通过
+		/**
+		 * 看状态啦。	 0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
+		 */
+		if(lei.getExamineStatus().equals("0")){
+			lei.setExamineStatus("2"); 		  //2 	审核未通过
+		}else if(lei.getExamineStatus().equals("3")){
+			lei.setExamineStatus("4"); 		  //4 	审核失败
+		}
 		lei.setAuditPerson(user.getId()); //审核人
 		lei.setAuditTime(new Date());     //审核时间 
 		dao.update(lei);
