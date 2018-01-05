@@ -451,29 +451,10 @@
 		      <div id="shxx">
 		      
 		      </div>
-<!-- 		      	<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
-					 <label class="col-sm-2 control-label" for="coursePwd">审核人: </label>
-					 <div class="col-sm-3">
-					 	<input type="text" name="auditPersonStr" disabled="disabled"  readonly="readonly"  id="auditPersonStr"  maxlength="10"  class="col-xs-10 col-sm-12">
-		             </div>
-		             
-		             <label class="col-sm-3 control-label" for="courseName">审核时间: </label>
-					 <div class="col-sm-3">
-					 	<input type="text" name="reviewerTime" disabled="disabled"  readonly="readonly"   id="reviewerTime" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,99999.99]}">
-		             </div>
-				</div>
-		      
-		      	<div class="form-group" style="margin-top: 15px;">
-					 <label class="col-sm-2 control-label no-padding-right" for="courseDescribe">驳回原因: </label>
-					 <div class="col-sm-6">
-					 	<textarea class="form-control" name="againstReason" id="againstReason"  disabled="disabled"  readonly="readonly"  rows="3"></textarea>
-					 	<input type="hidden" name="descriptionHid" disabled="disabled"  readonly="readonly"   id="edid_descriptionHid" class="col-xs-10 col-sm-12 {rangelength:[1,170]}">
-		             </div>
-				</div> -->
 				
 				
 <div class="ssxx">
-<div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;" >申诉信息:</div>
+	<div style="background-color: #eacaca;font-size: 16px;margin-top: 15px;" >申诉信息:</div>
 
 
 
