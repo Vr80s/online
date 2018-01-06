@@ -35,6 +35,7 @@ $(function(){
        
        if(data.resultObject.detailedAddress ){
        		$('.detail').text(data.resultObject.detailedAddress)
+       		$('.detail').attr('title',data.resultObject.detailedAddress)
        }
        
       
