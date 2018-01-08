@@ -12,6 +12,7 @@ import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -337,6 +338,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setUserLecturerId(courseVo.getUserLecturerId());
 		course.setOnlineCourse(courseVo.getOnlineCourse());
 		course.setAddress(courseVo.getAddress());
+		course.setCity(courseVo.getRealCitys());
+		
 		if(course.getOnlineCourse() == 1){
 			course.setStartTime(courseVo.getStartTime());
 			course.setEndTime(courseVo.getEndTime());
@@ -416,6 +419,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setCoursePwd(courseVo.getCoursePwd());
 		course.setUserLecturerId(courseVo.getUserLecturerId());
 		course.setAddress(courseVo.getAddress());
+		course.setCity(courseVo.getRealCitys());
+		
 		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
 		
 //		if(0==course.getOriginalCost()&&0==course.getCurrentPrice()){
@@ -1166,5 +1171,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 				}
 			}
 		}
+	}
+
+	@Override
+	public void deleteCourseByExamineId(String id, boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 }

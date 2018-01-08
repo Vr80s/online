@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -415,6 +416,68 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		System.out.println(all.toString());
 		
 		return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),all.toString(),0,Integer.MAX_VALUE,CourseLecturVo.class);
+	}
+
+	@Override
+	public List<CourseLecturVo> queryAllCourse(Integer menuType,
+			String multimediaType, String isFree,String city, String queryKey,
+			Integer pageNumber, Integer pageSize) {
+
+	    pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize =12;
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        StringBuffer  sqlSb=new StringBuffer();
+        
+        
+        sqlSb.append(" select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
+				+ "ocm.img_url as smallImgPath,ou.small_head_photo as headImg,ou.name as name,");
+        sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "+IFNULL(oc.default_student_count, 0) learndCount,");
+        sqlSb.append(" if(if(oc.is_free =0,1,0)) as watchState, ");//是否免费
+        sqlSb.append(" oe.city as city, ");//是否免费
+        //课程类型     音频、视频、直播、线下培训班   1 2 3 4
+        sqlSb.append(" if(oc.online_course =1,4,IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3))) as type "); 
+        
+        
+        sqlSb.append(" from oe_course oc,oe_course_mobile ocm,oe_user ou ");
+        
+        sqlSb.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1 and oc.type is null ");//and oc.is_free=0 oc.course_type=1 and
+        sqlSb.append(" and oc.multimedia_type =? ");
+        
+        
+        
+        /**
+         * 如果选择了城市后，类型就只能是线下培训班了。
+         * 
+         */
+        if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
+        	sqlSb.append(" and oc.city= '"+city+"'");
+        	
+        	sqlSb.append(" and oc.online_course =1 ");
+        }
+        
+        if(menuType!=null){
+	        if(menuType==1||menuType==2||menuType==3){
+	            paramMap.put("type", menuType);
+	            sqlSb.append(" AND om.type = :type ");
+	        }else if(menuType ==4){
+	            sqlSb.append(" AND cou.online_course = 1 ");
+	        }
+        }
+
+        if(org.apache.commons.lang.StringUtils.isNotBlank(multimediaType)){
+            sqlSb.append(" and cou.multimedia_type=:multimediaType");
+            paramMap.put("multimediaType", multimediaType);
+        }
+
+        if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
+            sqlSb.append(" and cou.is_free=:isFree");
+            paramMap.put("isFree", isFree);
+        }
+		
+		
+		
+		return null;
 	}
 	
 	
