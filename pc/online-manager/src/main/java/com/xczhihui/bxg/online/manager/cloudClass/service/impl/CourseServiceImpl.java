@@ -1165,7 +1165,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public String updateCourseVideo(String id) {
 
-		Map<String, String> vs = new HashMap<String, String>();
+		Map<String, String> vs1 = new HashMap<String, String>();
 		Map<String, String> cs = new HashMap<String, String>();
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -1173,34 +1173,19 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 		String msg = "";
 
-		String sql = "select sp.id,sp.`name` from oe_course ke,oe_chapter zhang,oe_chapter jie,oe_chapter zsd,oe_video sp " +
-				" where sp.chapter_id=zsd.id and zsd.parent_id=jie.id and jie.parent_id=zhang.id and zhang.parent_id=ke.id " +
-				" and ke.id=:id and zhang.is_delete=0 and jie.is_delete=0 and zsd.is_delete=0 and sp.is_delete=0 and sp.video_id is null ";
+		String sql = "SELECT oc.`grade_name` FROM `oe_course` oc WHERE oc.id=:id";
 		paramMap.put("id", id);
-
-		List<Map<String, Object>> vsmp = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-		if (vsmp.size() <= 0) {
-			return "ok";
-		}
-
-		for (Map<String, Object> map : vsmp) {
-			vs.put(String.valueOf(map.get("id")), String.valueOf(map.get("name")));
-		}
-
+		List<String> courseNames = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap,String.class);
+		String courseName = courseNames.get(0);
 
 		List<String> categories = new ArrayList<String>();
 		List<CategoryBean> allCategories = CCUtils.getAllCategories();
 		for (CategoryBean categoryBean : allCategories) {
 			if (categoryBean.getName().equals(CNAME)) {
-//				List<CategoryBean> subs = categoryBean.getSubs();
-//				for (CategoryBean sub : subs) {
 				categories.add(categoryBean.getId());
-//				}
 				break;
 			}
 		}
-//		categories.clear();
-//		categories.add("5C3F061265D9303B");
 		for (String categoryid : categories) {
 			for (int i = 1; i < 999999; i++) {
 				Map<String, String> paramsMap = new HashMap<String, String>();
@@ -1257,23 +1242,20 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			}
 		}
 
-		for (Map.Entry<String, String> video : vs.entrySet()) {
-			String vinfo = cs.get(video.getValue());
+			String vinfo = cs.get(courseName);
 			if (vinfo != null) {
 				String vid = vinfo.split("_#_")[0];
 				String ms = vinfo.split("_#_")[1];
-//				sql = "update oe_video set video_id='"+vid+"',video_time='"+ms+"' where id='"+video.getKey()+"' ";
 				sql = "update oe_course set direct_id='" + vid + "',course_length='" + ms + "' where id=" + id + "";
 				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 			} else {
-				msg += (video.getValue() + "<br>");
+				msg += (courseName + "<br>");
 			}
-		}
 
 		if (msg.length() > 0) {
-			return "同步成功，但以下视频还未上传：<br>" + msg + "请使用客户端上传后再次同步";
+			return "以下视频还未上传：<br>" + msg + "请使用客户端上传后再次同步";
 		}
 		return "ok";
 	}
-	
+
 }

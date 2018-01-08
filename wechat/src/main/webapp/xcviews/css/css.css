@@ -1227,7 +1227,7 @@ footer{
 	width: 100%;
 }
 .details_footer_width ul li{
-	float: left;
+	/*float: left;*/
     font-size: 0.7rem;
     /*margin-left: 2.85rem;*/
     margin-left: 4.38rem;
