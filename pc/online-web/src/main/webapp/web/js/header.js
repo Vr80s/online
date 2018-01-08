@@ -172,7 +172,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
        
 //        '<a href="#">师承有道</a>'+
 //        '<a href="#">国医馆</a>'+
-        '<a href="/web/html/forum.html" class="forum">头条</a>'+
+        '<a href="/web/html/news.html" class="forum">头条</a>'+
         '<a href="/web/html/bestPractitioners.html" class="doctor">名医</a>'+
          '<a href="/classroom.html" class="classroom">学堂</a>'+
         '<a href="/web/html/clinics.html" class="hospital">医馆</a>'+
