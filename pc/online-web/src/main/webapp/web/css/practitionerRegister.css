@@ -13,6 +13,7 @@ li {
   margin: 0;
   padding: 0;
 }
+label{font-weight: 500;}
 img {
   display: inline-block;
   outline: none;
@@ -51,7 +52,7 @@ img {
 	list-style: none;
 	float: left;
 	color: #999999;
-	margin: 6px 36px 0 33px;
+	margin:7px 36px 0 33px;
 }
 .practitioner_examine  ul li:nth-child(1){
 	color: white;
@@ -60,67 +61,127 @@ img {
 	margin-right: 0;
 	margin-left: 21px;
 }
+.practitioner_inf{
+	width: 115px;
+	height: 300px;
+
+	float: left;
+}
+.practitioner_inf ul li{
+	list-style: none;
+	text-align: right;
+	padding-top: 35px;
+}
+.practitioner_inf ul li span{
+	color: red;
+}
 
 
+.practitioner_input{
+	width: 317px;
+	height: 419px;
 
+	float: left;
+	margin-left: 20px;
+}
+.practitioner_input ul li{
+	list-style: none;
+	margin-top: 23px;
+	position: relative;
+}
+.practitioner_input ul li:nth-child(1){
+	margin-top: 25px;
+}
+.practitioner_input ul li input{
+	width: 287px;
+	height: 35px;
+	border: 1px solid #f0f0f0;
+	padding-left: 5px;
+	outline: none;
+}
+.practitioner_input ul li input:focus{
+border: 1px solid #2db92c;
+outline: none;
+}
+.practitioner_input ul li span{
+	position: absolute;
+	top: 35px;
+	left: 0;
+	color: red;
+	font-size: 13px;
+	display: none;
+}
+.practitioner_input ul li .my_different{
+	position: absolute;
+	top: 35px;
+	left: 0;
+	color: red;
+	font-size: 12px;
+	display: none;
+}
+.practitioner_input .my_code input{
+	width: 182px;
+}
+.practitioner_input .my_code button{
+	width: 87px;
+	height: 37px;
+	background: #00bd12;
+    float: right;
+    border: 0;
+    border-radius: 7px;
+    font-size: 15px;
+    margin-right: 30px;
+    color: white;
+    outline: none;
+}
+.practitioner_input .register{
+	width: 95px;
+	height: 35px;
+	background: #00bd12;
+    border: 0;
+    color: white;
+    margin: 27px 17px 0 0;
+}
+.practitioner_input .have_login{
+	font-size: 14px;
+}
+.practitioner_input .have_login a{
+	text-decoration: none;
+	color: #188eee;
+}
+.practitioner_input .btn_checkbox{
+	font-size: 14px;
+	margin-top: 10px;
+}
+.practitioner_input .btn_checkbox input{
+	margin-right: 5px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*医师的好处*/
 .practitioner_benefit{
 	width: 320px;
 	height: 580px;
 	background: white;
 	float: right;
 	margin-top: 20px;
+	padding: 22px 15px;
+	overflow-x: 0;
+	overflow-y: auto;
+}
+.practitioner_gain{
+	padding-bottom: 22px;
+	margin: 0;
+}
+.practitioner_article li{
+	list-style: none;
+}
+.practitioner_article li:nth-child(odd){
+	font-size: 17px;
+	margin-bottom: 8px;
+}
+.practitioner_article li:nth-child(even){
+	font-size: 14px;
+	color: #666666;
+	margin-bottom: 20px;
+	
 }
