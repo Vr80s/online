@@ -61,15 +61,15 @@ window.onload = function() {
 		'<a href="{{#zhibohref($value.id)}}" target="_blank" data-videoId="{{$value.id}}">' +
 		'{{#hasImg($value.smallImgPath)}}' +
 		'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
-		'<div class="range clearfix">' +
-		'<div class="rangelength">' +
-		'<img src="../images/130/mystudy_icon01.png"/ class="lt">' +
-		'{{#range($value.learndCount,$value.count)}}' +
-		'</div>' +
-		'<div class="rangenum">' +
-		'<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
-		'</div>' +
-		'</div>' +
+		// '<div class="range clearfix">' +
+		// '<div class="rangelength">' +
+		// '<img src="../images/130/mystudy_icon01.png"/ class="lt">' +
+		// '{{#range($value.learndCount,$value.count)}}' +
+		// '</div>' +
+		// '<div class="rangenum">' +
+		// '<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
+		// '</div>' +
+		// '</div>' +
 		'</a>' +
 		'</div>' +
 		'{{/each}}' +
