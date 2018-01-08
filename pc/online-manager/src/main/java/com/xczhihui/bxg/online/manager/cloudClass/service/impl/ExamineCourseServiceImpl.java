@@ -263,7 +263,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			//System.out.println(bd_half_even);
 			System.out.println(bd_half_up);
 			
-			entity.setCourseLength(bd_half_up.doubleValue()); //课程时长
+			entity.setCourseLength(bd_half_up.doubleValue()+""); //课程时长
 			entity.setCreateTime(new Date()); //当前时间
 			entity.setStatus('1' + ""); //状态
 			entity.setStartTime(le.getStartTime());//直播开始时间

@@ -55,7 +55,7 @@ public class CourseVo{
     /**
      * 课程时长
      */
-    private Double courseLength;
+    private String courseLength;
 
     /**
      * 已经学习人数
@@ -373,11 +373,11 @@ public class CourseVo{
         this.currentPrice = currentPrice;
     }
 
-    public Double getCourseLength() {
+    public String getCourseLength() {
         return courseLength;
     }
 
-    public void setCourseLength(Double courseLength) {
+    public void setCourseLength(String courseLength) {
         this.courseLength = courseLength;
     }
 

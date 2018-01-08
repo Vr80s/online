@@ -123,7 +123,6 @@ public class ExamineCourseController {
 	}
 	/**
 	 * 编辑
-	 * @param vo
 	 * @return
 	 */
 	@RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
@@ -146,7 +145,6 @@ public class ExamineCourseController {
 	/**
 	 * 通过审核
 	 * Description：
-	 * @param args
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
@@ -169,7 +167,6 @@ public class ExamineCourseController {
 	/**
 	 * 驳回审核
 	 * Description：
-	 * @param args
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
@@ -219,7 +216,6 @@ public class ExamineCourseController {
     
 	/**
 	 * Description：撤销驳回
-	 * @param ids
 	 * @return
 	 * @throws InvocationTargetException
 	 * @throws IllegalAccessException
@@ -242,7 +238,6 @@ public class ExamineCourseController {
     
 	/**
 	 * Description：根据申请id查找申诉信息
-	 * @param ids
 	 * @return
 	 * @throws InvocationTargetException
 	 * @throws IllegalAccessException
