@@ -292,7 +292,7 @@ public class BunchPlanController {
 	/**
 	 * 分类
 	 */
-	@RequestMapping("schoolClass")
+	@RequestMapping("courseClass")
 	@ResponseBody
 	public ResponseObject schoolClass(HttpServletRequest req,
 										   HttpServletResponse res, Integer id)
@@ -306,17 +306,16 @@ public class BunchPlanController {
 		List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
 		Map<String, Object> m1 = new HashMap<String, Object>();
 		m1.put("code", "1");
-		m1.put("code", "1");
 		m1.put("title", "大师课");
 		Map<String, Object> m2 = new HashMap<String, Object>();
-		m1.put("code", "2");
-		m2.put("2", "经典课");
+		m2.put("code", "2");
+		m2.put("title", "经典课");
 		Map<String, Object> m3 = new HashMap<String, Object>();
-		m1.put("code", "3");
-		m3.put("3", "小白课程");
+		m3.put("code", "3");
+		m3.put("title", "小白课程");
 		Map<String, Object> m4 = new HashMap<String, Object>();
-		m1.put("code", "4");
-		m4.put("4", "免费课程");
+		m4.put("code", "4");
+		m4.put("title", "免费课程");
 		
 		list.add(m1);
 		list.add(m2);
@@ -325,14 +324,16 @@ public class BunchPlanController {
 				
 		//课程专题   -- 假数据
 		map.put("project", list);
-		
-		
+//		
 		List<Map<String, Object>>  list1  = new ArrayList<Map<String,Object>>();
 		Map<String, Object> m11 = new HashMap<String, Object>();
+		m11.put("courseType", "视频课程");
 		m11.put("1", "视频课程");
 		Map<String, Object> m21 = new HashMap<String, Object>();
+		m11.put("courseType", "视频课程");
 		m21.put("2", "直播课程");
 		Map<String, Object> m31 = new HashMap<String, Object>();
+		m11.put("courseType", "视频课程");
 		m31.put("3", "音频课程");
 		Map<String, Object> m41 = new HashMap<String, Object>();
 		m41.put("4", "线下课程");
@@ -341,7 +342,6 @@ public class BunchPlanController {
 		list1.add(m21);
 		list1.add(m31);
 		list1.add(m41);
-		
 		//课程类型
 		map.put("type", list1);
 		return ResponseObject.newSuccessResponseObject(map);
@@ -477,6 +477,9 @@ public class BunchPlanController {
 	
 	
 	
+	
+	
+	
 	/*****************************************
 	 * 
 	 * 		检索管理
@@ -496,15 +499,14 @@ public class BunchPlanController {
 	 */
 	@RequestMapping("queryAllCourse")
 	@ResponseBody
-	public ResponseObject queryAllCourse(Integer menuType,String multimediaType,String city,String isFree,String queryKey,
+	public ResponseObject queryAllCourse(Integer menuType,Integer courseType,
+			String city,String isFree,String queryKey,
 			Integer pageNumber, Integer pageSize)
 			throws Exception {
-
-		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,multimediaType,isFree,city,queryKey,pageNumber,pageSize);
 		
+		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,courseType,
+				isFree,city,queryKey,pageNumber,pageSize);
 		
-		return ResponseObject.newSuccessResponseObject(null);
+		return ResponseObject.newSuccessResponseObject(list);
 	}
-	
-	
 }

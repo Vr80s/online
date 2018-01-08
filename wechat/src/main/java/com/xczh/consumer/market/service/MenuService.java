@@ -13,4 +13,6 @@ import java.util.Map;
 public interface MenuService {
 
     List<MenuVo> list()throws SQLException;
+
+    List<MenuVo> offlineCity()throws SQLException;
 }

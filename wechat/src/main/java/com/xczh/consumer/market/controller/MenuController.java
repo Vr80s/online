@@ -50,4 +50,15 @@ public class MenuController {
 			return ResponseObject.newErrorResponseObject("错误");
 		}
     }
+    
+    @RequestMapping("offlineCity")
+    @ResponseBody
+    public ResponseObject offlineCity(HttpServletRequest req, HttpServletResponse res) {
+        try {
+			return ResponseObject.newSuccessResponseObject(menuService.offlineCity());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			return ResponseObject.newErrorResponseObject("错误");
+		}
+    }
 }

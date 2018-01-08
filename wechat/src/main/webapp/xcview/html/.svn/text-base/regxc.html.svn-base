@@ -1,0 +1,211 @@
+<%@page pageEncoding="UTF-8"%> 
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>注册</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/common/js.js"></script>
+<script src="/xcviews//js/jquery-1.8.3.min.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".check01_a").click(function() {
+		$(".deal_show").show();
+		$(".last").hide();
+	});
+	$(".deal_title_close").click(function() {
+		$(".last").show();
+		$(".deal_show").hide();
+	});
+	
+	var isShow = getQueryString("isShow");
+	if(isShow == "true"){
+		$(".deal_show").show();
+		$(".last").hide();
+	}else{
+		$(".last").show();
+	}
+});
+</script>
+
+<link rel="stylesheet" href="/xcviews/css/css.css">
+<style>
+	.phone_password{
+		bottom: -0.3rem;
+	}
+</style>
+</head>
+
+<body>
+	<div class="last" style="dispaly:none;">
+		<div class="last_top">
+			<!-- <div class="return" id="return" style="margin-top: 0.2rem;"></div> -->
+			<div class="dl" style="margin-top:0.2rem;">注册</div>
+		</div>
+		<div class="last_input">
+			<div class="phone phone_bottom1">
+				请输入手机号&nbsp;&nbsp;<input type="tel" name="number" id="number" style="width:70%;" />
+			</div>
+			<div class="phone phone_bottom2">
+				输入验证码&nbsp;&nbsp;<input type="tel" value="" name="yanzhengma" id='yanzhengma' style="width:49%;" />
+				<a href="javascript: ;"  id="btn" class="phone_password gain" />获取验证码</a>
+			</div>
+			<div class="phone phone_bottom1">
+				设置6位以上密码&nbsp;&nbsp;<input type="password" value="" id='userpassword' type="password" style="width:61%;" />
+			</div>
+			
+			<div class="tishi" id="reminderror" style="text-align: center;color: red;margin-top: 20px;font-size: 14px;"></div>
+			<button class="last_bu1" id="reg">注册账号</button>
+			<button class="last_bu2" style="margin-bottom: 1rem;"><a href="javascript:;" onclick="javascript:history.back(-1);">返回登录</a></button>
+			
+			<div class="check">
+		      	<input id="checkbox1" class="checkbox" type="checkbox" checked ="checked" />
+			</div>
+			<div class="check01"><p>我已阅读并同意</p><span><a href="javascript: ;" class="check01_a">《熊猫中医云课堂用户协议》</a></span></div>
+			
+		</div>
+	</div>
+	<div class="deal_show">
+		<div id="" style="width: 100%;">
+			<div id="deal_title" style="height: 52px;background: #91b18a;text-align: center;line-height: 52px;color: #fff;">
+				熊猫中医云课堂用户协议<span class="deal_title_close">X</span>
+			</div>
+			<div id="deal_p">
+				<p style="margin-top:0.2rem;">熊猫中医云课堂是主要依靠网络技术，通过熊猫中医云课堂平台向您在线提供在线学习与移动学习服务。请您在注册和使用熊猫中医云课堂学习平台前仔细阅读本协议。如您不同意本协议任何条款，请勿注册账号或使用本平台。
+				</p>
+				<b>一.注册协议条款的确认和接受</b>
+				<p>1、本协议双方为江苏熊猫中医(海口)健康科技有限公司旗下的熊猫中医云课堂（以下亦称“本网站”）和熊猫中医云课堂注册用户。本协议阐述之条款和条件适用于熊猫中医云课堂（所涉域名为：www.ixincheng.com）的全部学习服务，包括但不限于各种课程视频、学习内容、源代码、资料及相应服务。
+				</p>
+				<p>2、熊猫中医云课堂同意按照本协议的规定及其不定时发布的操作规则提供基于互联网和移动网的相关服务(以下称“网络服务”)。为获得网络服务，申请人应当认真阅读、充分理解本《协议》中各条款, 包括免除或者限制本网站责任的免责条款及对用户的权利限制条款。认真阅读并选择接受或不接受本《协议》(未成年人应在法定监护人陪同下阅读)。同意接受本协议的全部条款的，申请人应当按照页面上的提示完成全部的注册程序，并在注册程序过程中点击“同意”按钮，否则视为不接受本《协议》全部条款，申请人应当终止并退出申请。
+				</p>
+				<p>3、注册用户在使用熊猫中医云课堂中的有关服务时，应承诺接受并遵守各项相关规则的规定。熊猫中医云课堂有权根据实际运营需要而不定时修改本协议或补充协议，如本协议有任何变更，将通过网站消息或其他方式通知用户。如注册用户不同意相关变更，则应立即终止账号使用，否则即视同用户同意并完全接受修订后的协议版本。经修订的协议一经公布于熊猫中医云课堂网站链接及页面，立即自动生效，亦成为本协议的一部分。注册用户登录且继续使用服务将被视为已接受修订后的协议。除书面另行声明外，任何扩大的服务范围及新增提供的内容均受本协议约束。
+				</p>
+				<b>二. 注册用户的权利和义务
+				</b>
+				<p>1、用户在注册时应按照注册提示提供准确的用户名、密码及真实的联系邮箱、手机号码、真实姓名等所要求的个人资料，并及时更新注册（报名）资料，符合及时、详尽、准确的要求，用户输入的所有个人信息将被视作用户的准确身份信息。
+				</p>
+				<p>2、如果学员提供的资料包含有不正确或不良的信息，本网站保留结束学员使用网络服务资格的权利。
+				</p>
+				<p>3、在支付课程或会员费用并经熊猫中医云课堂确认后，注册用户有权通过本人在熊猫中医云课堂的注册的账号享受相应服务。具体服务内容的时间、进度及期限以熊猫中医云课堂的具体课程及产品说明、公告及内容为准。
+				</p>
+				<p>4、熊猫中医云课堂的注册账号只为注册用户本人所专有并仅限由其本人自己使用。
+				</p>
+				<p>5、未经熊猫中医云课堂许可，不得以任何形式向第三方转让、授权、出售熊猫中医云课堂课程、服务或授权第三方使用注册账号，不得以任何形式通过本站内容进行盈利活动，不得在商业环境下展映、传播本网站教学内容。
+				</p>
+				<p>6、注册用户仅对其在熊猫中医云课堂上享有的服务及内容有使用权，并不对该内容拥有相关知识产权。未经熊猫中医云课堂或其他有权第三方的许可，用户不得对包括视频、学习软件、学习资料、音频内容等在内的任何内容进行翻录、复制、发行、破解、信息网络传播或其他违反知识产权相关法律、法规的行为，否则所导致的一切民事、行政或刑事责任，由用户自行承担。
+				</p>
+				<p>7、对于用户在熊猫中医云课堂中所下载任何标有熊猫中医云课堂所有的资料，注册用户只得根据具体的使用协议进行使用，并不拥有该产品及产品中任何内容的一切知识产权。除非经相应的产品使用协议许可，注册用户不得自行或授权他人对软件或其中的任何一部分进行复制、反编译、倒序制造、反汇编、试图推导源代码、破译、修改或创作衍生作品，因此而造成熊猫中医云课堂或任何第三方的损失，由用户承担全部责任。熊猫中医云课堂对上述侵权或违约行为保留追索的权利。
+				</p>
+				<p>8、对于注册用户在熊猫中医云课堂提交的问题与笔记，注册用户同意熊猫中医云课堂对此内容享有复制、发行及独家的出版权。
+				</p>
+				<p>9、注册用户应对其账号的全部使用行为承担责任，应严格遵守本协议、相关法律法规、账号及课程使用规定。未经熊猫中医云课堂许可，禁止用户向任何第三方提供熊猫中医云课堂中的任何内容或资料。
+				</p>
+				<p>10、注册用户应自行配备上网的所需设备，包括个人电脑、调制解调器或其他必备上网装置；用户应自行负担因使用这种接入方式而产生的上网电话费、上网信息费等费用。
+				</p>
+				<p>11、熊猫中医云课堂的所有服务均附期限，用户应在截止日期前享受其购买的服务。因到期服务终止所导致的任何后果，熊猫中医云课堂不承担任何责任。
+				</p>
+				<p>12、注册用户的熊猫中医云课堂充值（包括但不限于通过网上支付、邮局汇款、银行电汇、货到付款、上门购买并现金支付、自经销商处购买听课卡等各种购买方式），一经购买都不允许任何形式的退换和退费。
+				</p>
+				<p>
+					13、用户在账号使用过程中不得制作、复制、发布、传播含有下列内容的信息：
+					</p><p class="indent">(1) 反对宪法所确定的基本原则的；</p>
+					<p class="indent">(2) 危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；</p>
+					<p class="indent">(3) 损害国家荣誉和利益的；</p>
+					<p class="indent">(4) 煽动民族仇恨、民族歧视，破坏民族团结的；</p>
+					<p class="indent">(5) 破坏国家宗教政策，宣扬邪教和封建迷信的；</p>
+					<p class="indent">(6) 散布谣言，扰乱社会秩序，破坏社会稳定的；</p>
+					<p class="indent">(7) 散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；</p>
+					<p class="indent">(8) 侮辱或者诽谤他人，侵害他人合法权益的；</p>
+					<p class="indent">(9) 干扰或者侵犯熊猫中医云课堂的正常运行和秩序，影响其他用户正常使用的；</p>
+					<p class="indent">(10) 含有法律、行政法规禁止的其他信息内容的。</p>
+
+				<p></p>
+				<p>14、注册用户将自行承担注册账号使用过程中可能发生的风险和损失。
+				</p>
+				<p>	15、用户对本协议或将来的修改版本有任何异议的，或对产品服务存有异议或不满的，可以通过客服向熊猫中医云课堂有关部门进行反映沟通，不得通过煽动、诋毁及通过散布其他不良信息方式进行。
+				</p>
+				<b>三. 熊猫中医云课堂的权利和义务
+				</b>
+				<p>1、熊猫中医云课堂有义务通过现有技术维护熊猫中医云课堂的正常运行，并努力提升和改进服务使用户的学习活动得以顺利进行；由于不可抗力所导致服务的中止或终止，熊猫中医云课堂不对因此造成注册用户的任何损失承担责任。
+				</p>
+				<p>2、用户在注册及使用熊猫中医云课堂过程中遇到的相关问题，熊猫中医云课堂将力争及时作出反馈。
+				</p>
+				<p>3、如因系统维护或升级而需暂停服务时，熊猫中医云课堂应提前告知用户。
+				</p>
+				<p>4、熊猫中医云课堂不保证其服务一定能够满足用户的全部要求，也不担保其服务不会因各种客观原因中断。</p>
+				<b>四. 免责条款
+				</b>
+				<p>1、当用户所享有的服务中显示其他第三方网站或内容时，由于熊猫中医云课堂无法控制及审核该网站或内容，因此并不对该网站或内容真实性、有效性、合法性等效力承担责任。对于用户任何因使用或信赖该网站或内容所导致的任何直接或间接损失，熊猫中医云课堂均不承担任何责任。
+				</p>
+				<p>2、由于用户将个人注册账号信息告知他人或与他人共享注册帐号的，由此导致的任何风险或损失，熊猫中医云课堂不对此负任何责任。</p>
+				<p>3、任何由于黑客攻击、计算机病毒侵入或发作、政府管制、硬件故障、不可抗力等非熊猫中医云课堂故意或严重过失而造成的用户个人资料泄露、丢失、被盗用、被篡改或服务暂定或终止的，对注册用户所造成的风险或损失，熊猫中医云课堂均得免责。
+				</p>
+				<p>4、若因线路及非熊猫中医云课堂控制范围外的或其它不可抗力而导致暂停服务暂定或终止，所造成的一切风险与损失，熊猫中医云课堂不负任何责任。
+				</p>
+				<p>5、熊猫中医云课堂有权根据用户的实际需求进行服务调整的权利，并有权根据实际情况调整本网站内容的售价， 由此造成的一切不便与损失，熊猫中医云课堂均得免责。
+				</p>
+				<p>6、有权利删减自己的课程。
+				</p>
+				<b>五. 隐私条款
+				</b>
+				<p>熊猫中医云课堂将严格履行用户个人隐私保密义务，承诺不公开、编辑或透露用户个人信息，但以下情况除外：1、经用户授权透露这些信息；2、应政府部门、法律及法规要求提供、披露相关用户个人资料；3、在特定情况下，为竭力维护用户个人、其他社会个体和公共安全需要。
+				</p>
+				<b>六. 法律
+				</b>
+				<p>本协议根据现行中华人民共和国法律法规制定并解释。如发生协议条款与中华人民共和国法律法规相抵触时，则抵触内容将按法律规定重新解释，但不影响其它条款的效力。
+				</p>
+				<b>七. 解释权
+				</b>
+				<p>上述条款的解释权在法律允许的范围内归熊猫中医云课堂所有。
+				</p>
+			</div>
+
+		</div>
+	</div>
+	
+	
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>		
+<script src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>	
+<script src="/xcviews/js/reg.js"></script>	
+
+<script  type="text/javascript">
+	$(document).ready(function(){
+	    var flag = 1;
+	    $(".check").click(function(){
+	        if(flag == 1){
+	            $(".check").css("background","url(/xcviews/images/select.png) no-repeat");
+	            $(".check").css("background-size","100% 100%");
+	            flag = 0;
+	        } else{
+	            $(".check").css("background","url(/xcviews/images/noSelect.png) no-repeat");
+	            $(".check").css("background-size","100% 100%");
+	            flag = 1;
+	        }
+	    })
+	    $(".check").click();
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#btn').click(function(){
+			$('#yanzhengma').focus();
+		});
+	});
+</script>
+</body>
+</html>

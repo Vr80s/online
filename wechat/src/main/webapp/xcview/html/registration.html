@@ -1,0 +1,90 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>报名成功</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!-- <script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script> -->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script>
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+
+
+</head>
+
+<body style="background:#efefef;">
+	
+	<!-- 报名成功头部开始 -->
+	<div class="success1">
+		<div class="success1_top">
+		<!--	<div class="success_top_img"><img src="../images/return.png" alt="" /></div>-->
+			<div class="success_top_cen">报名成功</div>
+		</div>
+	
+	</div>
+	<!-- 报名成功头部结束 -->
+	<!-- 报名成功cen开始 -->
+	<div class="success01">
+		<div class="success01_img"><img src="../images/ok01.png" alt="" /></div>
+		<div class="success01_size">恭喜您成功报名</div>
+		<div class="success01_size">《<span id="name"></span>》课程，该课将在</div>
+		<div class="success01_size"><span id="date"></span>正式开课，</div>
+		<div class="success01_size" style="margin-bottom: 1.3rem;">届时我们将通知您相关上课事宜！</div>
+		<div class="success01_btn"  onclick="gotoTraining()">返回</div>
+	</div>
+	<!-- 报名成功cen结束 -->
+
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script>
+    function formatDateTime(inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        return y + '-' + m + '-' + d/*+' '+h+':'+minute+':'+second*/;
+    };
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    
+    //去详情页面
+    function gotoTraining(){
+    	 location.href='training.html?id='+getQueryString("id");
+    }
+    
+    requestService("/bxg/bunch/offLineClassItem", {id : getQueryString("id")}, function(data) {
+    	 var result = data.resultObject;
+         $("#name").html(result.gradeName);
+//       $("#date").html(formatDateTime(result.startTime));
+		 $("#date").html( result.startTime.split(" ")[0].replace(/-/g, "."));
+    })
+</script>
+</html>
+
+
+

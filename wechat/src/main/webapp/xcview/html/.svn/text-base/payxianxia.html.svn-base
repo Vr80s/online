@@ -1,0 +1,119 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>报名线下课程</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../css/css.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="../js/js.js"></script>
+
+<!-- input背景切换 -->
+<script type="text/javascript" src="../js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+			$(".label01").click(function(){
+		  		$(this).addClass('label1');
+		  		$(".label02").removeClass('label1');
+	  		});
+	  		$(".label02").click(function(){
+		  		$(this).addClass('label1');
+		  		$(".label01").removeClass('label1');
+	  		});
+	  		$(".label02").click();
+	  		
+	  		$(".label03").click(function(){
+		  		$(this).addClass('label1');
+		  		$(this).removeClass('label03');
+	  		});
+
+		});
+	</script>
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="grabble">
+			<div class="grabble_top">
+				<div class="grabble_img"  onclick="history.go(-1)"></div>
+				<div class="dl">购买线下课程</div>
+			</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height:1.8rem;"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<!-- 热门课程开始 -->
+	<div class="hot_zhibo buy">
+		<p style="color:#999;">商品信息</p>
+		<div class="zhibo" style="margin-bottom: 0.2rem;" id="clist">
+			<div class="zhibo_list1">
+				<img src="../images/zhibo1.jpg" alt="" id="cimg" />
+				<div class="zhibo_right1">
+					<div class="zhibo_list_title1"><a href="javascript: ;"><span id="guanzhu2"></span></a></div>
+					<div class="zhibo_list_size1 buy_size">￥<span  id="buyPirce2"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 热门课程结束 -->
+
+	<!-- 支付方式开始 -->
+	<div class="hot_zhibo buy">
+		<p style="color:#999;margin-bottom:0.7rem;">支付方式</p>
+		<div class="zhibo">
+			<div class="buy_pay">
+				<img src="../images/weixin_pay.png" alt="" class="buy_pay_img" />
+				<span>
+					<label class="label02"><input name="fruit" type="radio" value="1" class="buy_put" /></label>
+				</span>
+			</div>
+		</div>
+		<div class="zhibo">
+			<div class="buy_pay" id="zfbDiv">
+				<img src="../images/pay01.png" alt="" class="buy_pay_img" />
+				<sapn><label class="label01"><input name="fruit" type="radio" value="0" class="buy_put" /></label></sapn>
+			</div>
+		</div>
+	</div>
+	<!-- 支付方式结束 -->
+
+	<!-- 同意条款开始 -->
+	<div class="buy_clause">
+		<span>
+			<label class="label1"><input name="xi" type="radio" value="cc" class="buy_put" checked="checked" /></label>
+		</span>
+		<div class="buy_clause_a">我已阅读并同意<a href="payment_agree.html">《用户付费协议》</a></div>
+	</div>
+	<!-- 同意条款结束 -->
+	<!-- 中间内容结束 -->
+
+	<!-- 底部结束 -->
+	<div class="footer_k"></div>
+	<footer style="padding:0.8rem 0;">
+		<div class="base buy_bottom">
+			<ul>
+				<li class="buy_left"><p class="buy_bottom_p1">￥<span id="buyPirce"></span></p><p class="buy_bottom_p2">该视频为收费视频</p></li>
+				<li class="buy_right" id="buy_right"><a href="javascript: ;" onclick="goPay()">去支付</a></li>
+			</ul>
+		</div>
+	</footer>
+	<!-- 底部结束 -->
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
+<script type="text/javascript" src="/xcviews/js/payxianxia.js"></script>
+</html>

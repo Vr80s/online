@@ -1,0 +1,154 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>提现明细</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+	<script type="text/javascript" src="/xcviews/js/js.js"></script>
+	<script type="text/javascript" src="/xcviews/js/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" href="/xcviews/css/css.css">
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	
+	<style>
+		.detail{
+			margin-top: 2.2rem;
+		}
+		.detail_top p{
+			font-size: 0.7rem;
+		}
+		.detail_cen p{
+			font-size: 0.7rem;
+		}
+	</style>
+</head>
+    
+<body style="background:#efefef;">
+
+	<!-- 消费明细开始 -->
+	<div class="attention">
+		<div class="attention_top">
+			<div class="return" onclick="history.go(-1)" style="margin-top: 0.5rem;"></div>
+			<div class="dl">提现明细</div>
+		</div>
+		<div class="both"></div>
+		<div class="detail">
+			<div class="detail_top">
+				<p class="detail_cen_p1">出账金额</p>
+				<p class="detail_cen_p2" id="totalAmount"></p>
+				<div class="both"></div>
+			</div>
+			<div class="detail_cen">
+				<p class="detail_cen_p1">类型</p>
+				<p class="detail_cen_p2">提现</p>
+				<div class="both"></div>
+			</div>
+			<div class="detail_cen">
+				<p class="detail_cen_p1">时间</p>
+				<p class="detail_cen_p2" id="gmtCreate"></p>
+				<div class="both"></div>
+			</div>
+			<div class="detail_cen">
+				<p class="detail_cen_p1">交易单号</p>
+				<p class="detail_cen_p2" id="outTradeNo"></p>
+				<div class="both"></div>
+			</div>
+			 <div class="detail_cen">
+				<p class="detail_cen_p1">余额</p>
+				<p class="detail_cen_p2" id="tixian_ye"></p>
+				<div class="both"></div>
+			</div>
+			<div class="detail_cen">
+				<p class="detail_cen_p1">支付结果</p>
+				<p class="detail_cen_p2" id="pay_result"></p>
+				<div class="both"></div>
+			</div>
+		    <div class="detail_cen">
+				<p class="detail_cen_p1">备注</p>
+				<p class="detail_cen_p2 detail_cen_p02" id="subject"></p>
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 消费明细结束 -->
+
+</body>
+
+<script>
+	function getQueryString(name) {
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	    var url =decodeURI(decodeURI(location.search)); //获取url中"?"符后的字串，使用了两次decodeRUI解码
+	    var r = url.substr(1).match(reg);
+	    if (r != null) return unescape(r[2]); return null;
+	}
+	var orderNo = getQueryString("orderNo");
+	var price = getQueryString("price");
+	var createTime = getQueryString("createTime");
+	
+	var enableEnchashmentBalance = getQueryString("enableEnchashmentBalance");
+	var enchashmentAccountType = getQueryString("enchashmentAccountType");
+	var enchashmentStatus = getQueryString("enchashmentStatus");
+	/* var name = getQueryString("name"); */
+	
+	var newRemark = getQueryString("newRemark");
+	
+	//提现状态：0.未处理，1通过，2驳回
+	
+	if(stringnull(price)){
+		$("#totalAmount").text(price); 
+	}
+	if(stringnull(createTime)){
+		$("#gmtCreate").text(createTime);
+	}
+	if(stringnull(orderNo)){
+		$("#outTradeNo").text(orderNo);
+	}
+	
+	//enchashment_account_type  提现状态：0.未处理，1通过，2驳回
+	if(stringnull(enableEnchashmentBalance)){
+		$("#tixian_ye").text(enableEnchashmentBalance);
+	}
+	if(stringnull(enchashmentAccountType)){
+		var enchashmentAccountTypeStr ="";
+		if(enchashmentAccountType == 0){
+			enchashmentAccountTypeStr ="未处理";
+		}else if(enchashmentAccountType == 1){
+			enchashmentAccountTypeStr ="通过";
+		}else if(enchashmentAccountType == 2){
+			enchashmentAccountTypeStr ="驳回";
+		}
+		$("#pay_result").text(enchashmentAccountTypeStr); 
+	}
+	//enchashment_status 0:支付宝 1:微信 2:网银 3:余额 
+/* 	if(stringnull(enchashmentStatus)){
+		var enchashmentStatusStr ="";
+		if(enchashmentStatus == 0){
+			enchashmentStatusStr ="支付宝";
+		}else if(enchashmentStatus == 1){
+			enchashmentStatusStr ="微信";
+		}else if(enchashmentStatus == 2){
+			enchashmentStatusStr ="网银";
+		}else if(enchashmentStatus == 3){
+			enchashmentStatusStr ="余额包";
+		}
+		$("#subject").text(enchashmentStatusStr);
+	} */
+	if(stringnull(newRemark)){
+		$("#subject").text(newRemark);
+	}
+	
+</script>
+
+</html>

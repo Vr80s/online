@@ -1,0 +1,237 @@
+<%@page pageEncoding="UTF-8"%>
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>搜索</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/xcviews/css/css.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="/xcviews/js/common/js.js"></script>
+<style>
+	.hot_zhibo_ul li a{
+		font-size: 0.55rem;
+	}
+	.hot_zhibo_ul li a img{
+		width: 1.75rem;
+		height: 1.75rem;
+	}
+	.zhibo_list_size1 img{
+		width: 0.8rem;
+		height: 0.8rem;
+		margin-top: 0.6rem;
+	}
+	.history_img_right{
+		margin-top: 0.1rem;
+	}
+	#grabble_img{
+		/* margin-top: 0.5rem; */
+	}
+	#bozhu_result_before li a img{
+		margin-left:0;
+	}
+	#result_input{
+		vertical-align: middle;
+		margin-top: -0.2rem;
+		margin-left: 0.4rem;
+    	width: 13rem;
+	}
+	.history_img_right{
+		margin-top:0;
+	}
+	.non_payment_null{
+		width: 7.675rem;
+		height: 7.375rem;
+		margin: 0 auto;
+		margin-top: 4.75rem;
+		display: none;
+	}
+	.non_payment_nul_img{
+		width: 7.675rem;
+		height: 7.375rem;
+		background: url(/xcviews/images/null06.png) no-repeat;;
+		background-size:100% 100%;
+	}
+	.grabble_top input{
+		margin-left: 0;
+	}
+	.grabble_left{
+		float: right;
+	    width: 1.85rem;
+	    height: 1.8rem;
+	    font-size: 0.65rem;
+	    color: #00bc12;
+    	font-size: 0.8rem;
+	}
+	
+	.sousuo{
+		width: 6.4rem;
+		height: 0.5rem;
+		font-size: 0.7rem;
+		color: #999;
+		position: absolute;
+	    top: 0;
+	    left: 5.5rem;
+	    pointer-events:none
+	}
+	.sousuo_bg{
+		width: 0.475rem;
+	    height: 0.475rem;
+	    background: url(/xcviews/images/sousuo0.png) no-repeat;
+	    background-size: 100% 100%;
+	    position: absolute;
+	    top: 0.6rem;
+	    left: -0.6rem;
+	}
+	#result_input{
+		border: 0;
+		background: #f5f5f5;
+	}
+	
+</style>
+<script type="text/javascript">
+	 document.onkeydown=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+          /*if(e && e.keyCode==27){ // 按 Esc 
+              //要做的事情
+            }
+          if(e && e.keyCode==113){ // 按 F2 
+               //要做的事情
+             }*/            
+        if(e && e.keyCode==13){ // enter 键
+              //要做的事情
+            $(".history_img_right").click();
+            $("#result_input").blur();
+            $("#result_input").blur(function(){
+			$("body").trigger("click");	
+		});
+              
+        } 
+    }; 
+   
+</script>
+<script type="text/javascript">
+	
+	/*搜索input框*/
+	window.onload = function(){
+		$("#result_input").blur(function(){
+			if($("#result_input").val() != ""){
+				
+				$(".sousuo").css("display","none");
+			}else{
+				$(".sousuo").css("display","block");
+			};
+		});
+		
+		$("#result_input").click(function(){
+			$(".sousuo").css("display","none");
+		});
+	};
+</script>
+</head>
+<body style="background: #efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="grabble">
+			<div class="grabble_top">
+				
+				<!--搜索页返回上一步新版隐藏掉，改為取消-->
+				<div class="grabble_left" id="grabble_img"><!--<div class="grabble_img"></div>这是返回上一步的北京图片-->取消</div>
+				
+				<input type="text" placeholder="" id="result_input" />
+				
+				<div class="sousuo">
+					<div class="sousuo_bg"></div>
+					<div class="">输入主播/课程</div>
+				</div>
+				<!-- <span class="history_span"><span class="history_span_one" style="margin-left: 2.4rem;">直播</span><span class="history_span_two">视频</span><span class="history_span_three" style="color:#91b18a1111;">音频</span></span> -->
+				<div class="history_img_right" onclick="queryResult()" style="margin-right:0.4rem;display: none;">
+					<button style="margin-top:0.2rem;">搜 索</button>
+				</div>
+			</div>
+		</div>
+	</header>
+	<div class="footer_k"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<!-- 热门播主开始 -->
+	
+	<div  class="non_payment_null"></div>
+	<div id="hot_hot">
+	<div class="hot_zhibo" id="search_after">
+		<p style="font-size: 0.6rem;">播主</p>
+		<div class="zhibo">
+			<ul class="result_zhibo_ul" id="bozhu_result_after">
+			</ul>
+			<div class="both"></div>
+		</div>
+	</div>
+	
+    <div class="hot_zhibo" id="search_before">
+		<p>热门播主</p>
+		<div class="zhibo">
+			<ul class="hot_zhibo_ul" id="bozhu_result_before">
+			</ul>
+			<div class="both"></div>
+		</div>
+	</div>
+	
+	<div class="both"></div>
+	<!-- 热门播主结束 -->
+
+	<!-- 热门直播开始 -->
+	<div class="hot_zhibo">
+		<p>热门直播</p>
+		<div class="zhibo" id="zhibo_result">
+		</div>
+	</div>
+	
+	<!-- 热门直播结束 -->
+
+	<!-- 热门课程开始 -->
+	
+	<div class="hot_zhibo">
+		<p>热门课程</p>
+		<div class="zhibo" id="kecheng_result">
+		</div>
+	</div>
+	</div>
+	<!-- 热门课程结束 -->
+
+	<!-- 中间内容结束 -->
+
+	<!-- 底部结束 -->
+<!-- 	<div class="footer_k"></div>
+	<footer>
+		<div class="base">
+			<ul>
+				<li><a href="/bxg/page/index/null/null" class="base_a1"
+					style="background: url(/xcviews/images/a01.png) no-repeat; background-size: 100% 100%;"></a></li>
+				<li><a href="javascript: ;" class="base_a2"></a></li>
+				<li><a href="javascript: ;" class="base_a3"></a></li>
+				<li><a href="/xcviews/html/my.html" class="base_a4"></a></li>
+			</ul>
+		</div>
+	</footer> -->
+	<!-- 底部结束 -->
+	
+	
+	
+</body>
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcviews/js/queryResult.js"></script>
+</html>
