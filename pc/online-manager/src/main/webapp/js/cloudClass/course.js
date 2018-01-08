@@ -34,8 +34,8 @@ $(function(){
     }},
     { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
-    { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
-        return data+"h";
+    { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":true,"mRender":function (data, display, row) {
+        return data;
     }},
     { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
     { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
@@ -76,6 +76,7 @@ $(function(){
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
 //				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,1)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="同步视频" onclick="updateCourseVideo('+row.id+');"><i class="ace-icon glyphicon glyphicon-cloud-download bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
 //				'<a class="blue" href="javascript:void(-1);" title="设置学习计划模板" onclick="setPlanTemplate(this);"><i class="ace-icon fa fa-sitemap bigger-130"></i></a></div>';
 	    	}else{
@@ -87,7 +88,8 @@ $(function(){
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
 //				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,1)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
+                    '<a class="blue" href="javascript:void(-1);" title="同步视频" onclick="updateCourseVideo('+row.id+');"><i class="ace-icon glyphicon glyphicon-cloud-download bigger-130"></i></a>'+
+					'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
 //				'<a class="blue" href="javascript:void(-1);" title="设置学习计划模板" onclick="setPlanTemplate(this);"><i class="ace-icon fa fa-sitemap bigger-130"></i></a></div>';
 	    	}
 	    } 
@@ -2062,8 +2064,23 @@ function deleteTeacher(){
   });
 })( jQuery );
 
-$(function() {
-});
+function updateCourseVideo(id){
+    mask();
+    debugger
+    ajaxRequest(basePath+"/cloudclass/course/updateCourseVideo","id="+id,function(data){
+        unmask();
+        if(data.success){
+            if(data.resultObject == 'ok'){
+                freshTable(P_courseTable);
+                layer.msg("操作成功！");
+            } else {
+                alertInfo(data.resultObject);
+            }
+        } else {
+            alertInfo(data.errorMessage);
+        }
+    });
+}
 
 
 

@@ -326,230 +326,7 @@ $(function() {
 	$(".videoBody-menuList").height(aheight);
 	$(".videoBody-video").height(aheight);
 	$(".loadImg").css("display", "block");
-	//获取视频目录
-	videoNav();
 
-	function videoNav() {
-		RequestService("/video/getvideos", "GET", {
-			courseId: courseId,
-			sectionId: sectionId,
-			isTryLearn: 0
-		}, function(data) {
-			if(data.success == true) {
-				$(".videoBody-list .nav-video").html(template.compile(videoMemu)({
-					items: data.resultObject
-				}));
-				$(".freeTable-list div").each(function() {
-					if($(this).attr("data-vid") == vId) {
-						$(this).find("img").removeClass("hide");
-						$(this).parent().prev().find(".shang").removeClass("hide");
-						$(this).parent().prev().find(".xia").addClass("hide");
-						$(this).parent().removeClass("hide");
-						$(this).addClass("hoverBorder");
-						$(this).parent().removeClass("hide");
-						chapterId = $(this).attr("data-chapterid");
-					}
-				});
-				$(".videoBody-list .nav-video .menuList").on("click", function() {
-					if($(this).next().hasClass("hide")) {
-						$(this).next().removeClass("hide");
-						$(this).find(".shang").removeClass("hide");
-						$(this).find(".xia").addClass("hide");
-					} else {
-						$(this).next().addClass("hide");
-						$(this).find(".shang").addClass("hide");
-						$(this).find(".xia").removeClass("hide");
-					}
-				});
-				//点击课程
-				$(".freeTable-list .video").off().on("click", function() {
-					var $this = $(this);
-					if($(this).attr("lockstatus") != "0") {
-						$.ajax({
-							type: "get",
-							url: bath + "/online/user/isAlive",
-							async: false,
-							success: function(data) {
-								if(data.success === true) {
-									location.href = "video.html?courseId=" + courseId + "&sectionId=" + sectionId + "&chapterId=" + chapterId + "&vId=" + $this.attr('data-vId') + "&videoId=" + $this.attr('data-videoId');
-								} else {
-									$('#login').modal('show');
-									return false;
-								}
-							}
-						});
-					} else {
-						//						console.log("需要解锁")
-					}
-				});
-				//点击试卷
-				$(".freeTable-list .shijuan").off().on("click", function() {
-					var examId = $(this).attr("barrier_id");
-					var $this = $(this);
-					if($this.find(".lock").attr("barrierstatus") == 0 && $this.find(".lock").attr("lockstatus") == 0) {
-						return false;
-					} else {
-						$(".tj").removeClass("hoverBorder");
-						$this.addClass("hoverBorder");
-						//获取关卡信息
-						RequestService("/barrier/getNewBarrierBasicInfo", "get", {
-							id: examId
-						}, function(data) {
-							if(data.success == true) {
-								//1为成功0为失败2为还未闯过3为正在闯关
-								if(data.resultObject.result == 1) {
-									$(".censorshipSuccess .s1 em").html(data.resultObject.name);
-									$(".censorshipSuccess .s2 em").html(data.resultObject.total_score + "/" + data.resultObject.pass_score_percent);
-									$(".censorshipSuccess .s5 em").html(data.resultObject.score);
-									if(data.resultObject.number_pass != 0) {
-										$(".censorshipSuccess .s3 .e1").html(data.resultObject.number_pass);
-										$(".censorshipSuccess .s3 .e2").html(data.resultObject.rank);
-									} else {
-										$(".censorshipSuccess .s3").hide();
-									}
-									$(".censorshipSuccess .s4 em").html(timeChange(data.resultObject.use_time));
-									$(".censorshipSuccess").show();
-									//继续学习
-									$(".censorshipSuccess .continueLearn").off().on("click", function() {
-										$(".censorshipSuccess").hide();
-										$(".tj").each(function() {
-											if($(this).attr("barrier_id") == examId) {
-												if($(this).nextAll(".video").length == 0) {
-													if($(this).parent(".freeTable-list").nextAll(".freeTable-list").length != 0) {
-														var $m = $(this).parent(".freeTable-list").nextAll(".freeTable-list");
-														$m.removeClass("hide").siblings(".freeTable-list").addClass("hide");
-														//													$m.find(".tj").eq(0).click();
-														var $n = $m.find(".video").eq(0);
-
-														location.href = "video.html?courseId=" + courseId + "&sectionId=" + sectionId + "&chapterId=" + chapterId + "&vId=" + $n.attr('data-vId') + "&videoId=" + $n.attr('data-videoId');
-													}
-												} else if($(this).nextAll(".video").length != 0) {
-													//												$this.nextAll(".tj").eq(0).click();
-													var $n = $(this).nextAll(".video").eq(0);
-													location.href = "video.html?courseId=" + courseId + "&sectionId=" + sectionId + "&chapterId=" + chapterId + "&vId=" + $n.attr('data-vId') + "&videoId=" + $n.attr('data-videoId');
-												}
-											}
-										})
-									});
-									//闯关成功查看试卷
-									$(".censorshipSuccess .watchShijuan").off().on("click", function() {
-										$(".censorshipSuccess").hide();
-										window.open("/web/html/censorshipResult.html?gqid=" + examId + "&examStatu=1");
-									});
-								} else if(data.resultObject.result == 0) {
-									$(".censorshipFail .s1 em").html(data.resultObject.name);
-									$(".censorshipFail .s2 em").html(data.resultObject.total_score + "/" + data.resultObject.pass_score_percent);
-									$(".censorshipFail .s5 em").html(data.resultObject.score);
-									$(".censorshipFail .s4 em").html(timeChange(data.resultObject.use_time));
-									$(".censorshipFail").show();
-									//闯关失败查看试卷
-									$(".censorshipFail .look").off().on("click", function() {
-										$(".censorshipFail").hide();
-										window.open("/web/html/censorshipResult.html?gqid=" + examId + "&examStatu=2");
-									});
-									//闯关失败再试一次
-									$(".censorshipFail .tryAgain").off().on("click", function() {
-										$(".censorshipFail").hide();
-										waitTry(examId);
-										window.open("/web/html/censorship.html?gqid=" + examId + "&examStatu=0", examId);
-									});
-								} else if(data.resultObject.result == 2 || data.resultObject.result == 3) {
-									$(".censorship .s1 em").html(data.resultObject.name);
-									$(".censorship .s2 em").html(data.resultObject.total_score + "/" + data.resultObject.pass_score_percent);
-									$(".censorship .s3 em").html(data.resultObject.limit_time);
-									$(".censorship .s4 em").html(data.resultObject.sum_total);
-									$(".censorship").show();
-									//闯关
-									$(".censorship .chuangguan").off().on("click", function() {
-										$(".censorship").hide();
-										waitTry(examId);
-										//生成试卷
-										window.open("/web/html/censorship.html?gqid=" + examId + "&examStatu=0", examId);
-									});
-								};
-							};
-						});
-					};
-				});
-			}
-		});
-	};
-	//正在闯关状态处理逻辑
-	function waitTry(examId) {
-		$(".passThrough").show();
-		$(".passThrough .passContent span").on("click", function() {
-			$(".passThrough").hide();
-			RequestService("/barrier/getNewBarrierBasicInfo", "get", {
-				id: examId
-			}, function(data) {
-				if(data.success == true) {
-					//1为成功0为失败2为还未闯过3为正在闯关
-					if(data.resultObject.result == 1) {
-						$(".censorshipSuccess .s1 em").html(data.resultObject.name);
-						$(".censorshipSuccess .s2 em").html(data.resultObject.total_score + "/" + data.resultObject.pass_score_percent);
-						$(".censorshipSuccess .s5 em").html(data.resultObject.score);
-						if(data.resultObject.number_pass != 0) {
-							$(".censorshipSuccess .s3 .e1").html(data.resultObject.number_pass);
-							$(".censorshipSuccess .s3 .e2").html(data.resultObject.rank);
-						} else {
-							$(".censorshipSuccess .s3").hide();
-						};
-						$(".censorshipSuccess .s4 em").html(timeChange(data.resultObject.use_time));
-						$(".censorshipSuccess").show();
-						//继续学习
-						$(".censorshipSuccess .continueLearn").off().on("click", function() {
-							$(".censorshipSuccess").hide();
-							$(".tj").each(function() {
-								if($(this).attr("barrier_id") == examId) {
-									if($(this).nextAll(".video").length == 0) {
-										if($(this).parent(".freeTable-list").nextAll(".freeTable-list").length != 0) {
-											var $m = $(this).parent(".freeTable-list").nextAll(".freeTable-list");
-											$m.removeClass("hide").siblings(".freeTable-list").addClass("hide");
-											//													$m.find(".tj").eq(0).click();
-											var $n = $m.find(".video").eq(0);
-
-											location.href = "video.html?courseId=" + courseId + "&sectionId=" + sectionId + "&chapterId=" + chapterId + "&vId=" + $n.attr('data-vId') + "&videoId=" + $n.attr('data-videoId');
-										}
-									} else if($(this).nextAll(".video").length != 0) {
-										//												$this.nextAll(".tj").eq(0).click();
-										var $n = $(this).nextAll(".video").eq(0);
-										location.href = "video.html?courseId=" + courseId + "&sectionId=" + sectionId + "&chapterId=" + chapterId + "&vId=" + $n.attr('data-vId') + "&videoId=" + $n.attr('data-videoId');
-									}
-								}
-							})
-						});
-						//闯关成功查看试卷
-						$(".censorshipSuccess .watchShijuan").off().on("click", function() {
-							$(".censorshipSuccess").hide();
-							window.open("/web/html/censorshipResult.html?gqid=" + examId + "&examStatu=1");
-						});
-					} else if(data.resultObject.result == 0) {
-						$(".censorshipFail .s1 em").html(data.resultObject.name);
-						$(".censorshipFail .s2 em").html(data.resultObject.total_score + "/" + data.resultObject.pass_score_percent);
-						$(".censorshipFail .s5 em").html(data.resultObject.score);
-						$(".censorshipFail .s4 em").html(timeChange(data.resultObject.use_time));
-						$(".censorshipFail").show();
-						//闯关失败查看试卷
-						$(".censorshipFail .look").off().on("click", function() {
-							$(".censorshipFail").hide();
-							window.open("/web/html/censorshipResult.html?gqid=" + examId + "&examStatu=2");
-						});
-						//闯关失败再试一次
-						$(".censorshipFail .tryAgain").off().on("click", function() {
-							$(".censorshipFail").hide();
-							waitTry(examId);
-							window.open("/web/html/censorship.html?gqid=" + examId + "&examStatu=0", examId);
-						});
-					} else if(data.resultObject.result == 2 || data.resultObject.result == 3) {
-						$(".waitingTry").show();
-						$(".waitingTry span").off().on("click", function() {
-							$(".waitingTry").hide();
-						});
-					};
-				};
-			});
-		});
-	};
 	//时间格式处理
 	function timeChange(num) {
 		return '' + num + "分钟";
@@ -567,7 +344,8 @@ $(function() {
 	RequestService("/online/user/isAlive", "GET", null, function(data) { ///online/user/isAlive
 		if(data.success === true) {
 			RequestService("/online/vedio/getVidoInfo", "GET", {
-				video_id: video_id,
+				// video_id: video_id,
+                courseId: courseId,
 				width: awidth,
 				height: aheight,
 				autoPlay: false
@@ -592,7 +370,7 @@ $(function() {
 		courseId: courseId
 	}, function(data) {
 		$(".headerBody .rightT p").html(data.resultObject.courseName).attr("title", data.resultObject.courseName);
-		document.title = data.resultObject.courseName + " - 年轻人的在线IT课堂";
+		document.title = data.resultObject.courseName ;
 		if(data.resultObject.teacherName != undefined) {
 			$(".headerBody .rightT i").html(data.resultObject.teacherName);
 		} else {
@@ -886,7 +664,7 @@ $(function() {
 					$(".tipRelease").hide();
 				};
 				RequestService("/video/saveCriticize", "POST", {
-					videoId: vId,
+					videoId: courseId,
 					chapterId: chapterId,
 					content: releaseTxt,
 					starLevel: starLenth,
@@ -940,7 +718,7 @@ $(function() {
 	function givecriticize() {
 		//获取评价列表
 		RequestService("/video/getVideoCriticize", "GET", {
-			videoId: vId,
+			videoId: courseId,
 			pageNumber: pageNumber,
 			pageSize: pageSize
 		}, function(data) {

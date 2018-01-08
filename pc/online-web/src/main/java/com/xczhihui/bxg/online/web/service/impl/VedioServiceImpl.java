@@ -11,6 +11,9 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.domain.Course;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -191,9 +194,13 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 
 	@Override
 	public Map<String, Object> getCCVideoInfo(Map<String, String> paramsMap) {
+		DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
+		dc.add(Restrictions.eq("id", Integer.valueOf(paramsMap.get("courseId"))));
+		Course course = dao.findEntity(dc);
+
 		Map<String,Object> returnmap = new HashMap<String,Object>();
 
-		String src = "https://p.bokecc.com/flash/single/"+OnlineConfig.CC_USER_ID+"_"+paramsMap.get("videoid")+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1/player.swf";
+		String src = "https://p.bokecc.com/flash/single/"+OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1/player.swf";
 		String id = UUID.randomUUID().toString().replace("-", "");
 		String playCode = "";
 		playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
@@ -213,14 +220,14 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 
 		returnmap.put("playCode", playCode);
 
-		String title = "暂无";
-		List<Map<String, Object>> vs = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.queryForList("select `name` from oe_video where video_id='"+paramsMap.get("videoid")+"' ");
-		if (vs != null && vs.size() > 0) {
-			title = String.valueOf(vs.get(0).get("name"));
-		}
+//		String title = "暂无";
+//		List<Map<String, Object>> vs = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
+//				.queryForList("select `name` from oe_video where video_id='"+paramsMap.get("videoid")+"' ");
+//		if (vs != null && vs.size() > 0) {
+//			title = String.valueOf(vs.get(0).get("name"));
+//		}
 
-		returnmap.put("title", title);
+		returnmap.put("title", course.getGradeName());
 
 		return returnmap;
 	}
