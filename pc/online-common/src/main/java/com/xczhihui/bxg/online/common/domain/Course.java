@@ -103,7 +103,7 @@ public class Course extends BasicEntity2 implements Serializable {
 	 * 课程时长
 	 */
 	@Column(name = "course_length")
-	private Double  courseLength;
+	private String  courseLength;
 
 
 	/**
@@ -466,11 +466,11 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.learndCount = learndCount;
 	}
 
-	public Double getCourseLength() {
+	public String getCourseLength() {
 		return courseLength;
 	}
 
-	public void setCourseLength(Double courseLength) {
+	public void setCourseLength(String courseLength) {
 		this.courseLength = courseLength;
 	}
 

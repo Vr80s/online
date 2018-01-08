@@ -38,7 +38,6 @@ import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LecturerVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.MenuVo;
-import com.xczhihui.bxg.online.manager.utils.subscribe.Subscribe;
 
 /**
  *   CourseServiceImpl:课程业务层接口实现类
@@ -55,6 +54,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     private CourseSubscribeDao courseSubscribeDao;
     @Value("${ENV_FLAG}")
 	private String envFlag;
+    private static String CNAME = "video-on-demand-background";//由后台配置的点播视频
     
     @Override
 	public Page<CourseVo> findCoursePage(CourseVo courseVo,  int pageNumber, int pageSize) {
@@ -366,28 +366,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId FROM oe_course oc "
 				+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
 				+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType WHERE oc.id = :courseId";
-		
-//		String sql="select c.learnd_count as learndCount , c.grade_name as courseName ,c.bigimg_path as bigImgPath,c.detailimg_path as detailImgPath,c.smallimg_path as smallingPath "
-//				+ ",c.menu_number as menuNameSecond,c.live_time as liveTime ,c.graduate_time as graduateTime "
-//				+ ",c.lecturer_Id as lecturerId ,c.description as description,l.`name` as lecturerName from oe_course c, oe_lecturer l "
-//				+ "where c.lecturer_Id = l.id AND c.id=:courseId ";
 		List<CourseVo> courseVoList=dao.findEntitiesByJdbc(CourseVo.class, sql, paramMap);
-//		if(courseVoList!=null&&courseVoList.size()>0){
-//			String menuNumberSecond = courseVoList.get(0).getMenuNameSecond();
-//			String menuNumberFirst= courseVoList.get(0).getMenuNameSecond().substring(0, 4);
-//			paramMap.put("menuNumberSecond", menuNumberSecond);
-//			paramMap.put("menuNumberFirst", menuNumberFirst);
-//			paramMap.put("lecturerId", courseVoList.get(0).getLecturerId());
-//			String sqloeMenuSecound = "SELECT name as name from oe_menu where number =:menuNumberSecond";
-//			List<MenuVo> MenuVoList = dao.findEntitiesByJdbc(MenuVo.class, sqloeMenuSecound, paramMap);
-//			courseVoList.get(0).setMenuNameSecond(MenuVoList.get(0).getName());
-			
-//			if(MenuVoList!=null&&MenuVoList.size()>0){
-//				String sqloeMenuFirst="SELECT name as name from oe_menu where level =1 AND number =:menuNumberFirst";
-//				List<MenuVo> MenuVoListFist = dao.findEntitiesByJdbc(MenuVo.class, sqloeMenuFirst, paramMap);
-//				courseVoList.get(0).setMenuName(MenuVoListFist.get(0).getName());
-//			}
-//		}
 		sql = "select sum(IFNULL(t.default_student_count,0)) from oe_grade t where t.course_id = ?";
 		courseVoList.get(0).setLearndCount(courseDao.queryForInt(sql, new Object[]{id}));//累计默认报名人数
 		return courseVoList;
@@ -1176,5 +1155,119 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 				}
 			}
 		}
+	}
+
+
+	@Override
+	public String updateCourseVideo(String id) {
+
+		Map<String, String> vs = new HashMap<String, String>();
+		Map<String, String> cs = new HashMap<String, String>();
+
+		Map<String,Object> paramMap = new HashMap<String,Object>();
+		Course c = dao.get(Integer.valueOf(id), Course.class);
+
+		String msg = "";
+
+		String sql = "select sp.id,sp.`name` from oe_course ke,oe_chapter zhang,oe_chapter jie,oe_chapter zsd,oe_video sp "+
+				" where sp.chapter_id=zsd.id and zsd.parent_id=jie.id and jie.parent_id=zhang.id and zhang.parent_id=ke.id "+
+				" and ke.id=:id and zhang.is_delete=0 and jie.is_delete=0 and zsd.is_delete=0 and sp.is_delete=0 and sp.video_id is null ";
+		paramMap.put("id", id);
+
+		List<Map<String, Object>> vsmp = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+		if (vsmp.size() <= 0) {
+			return "ok";
+		}
+
+		for (Map<String, Object> map : vsmp) {
+			vs.put(String.valueOf(map.get("id")),String.valueOf(map.get("name")));
+		}
+
+
+		List<String> categories = new ArrayList<String>();
+		List<CategoryBean> allCategories = CCUtils.getAllCategories();
+		for (CategoryBean categoryBean : allCategories) {
+			if (categoryBean.getName().equals(CNAME)) {
+//				List<CategoryBean> subs = categoryBean.getSubs();
+//				for (CategoryBean sub : subs) {
+					categories.add(categoryBean.getId());
+//				}
+				break;
+			}
+		}
+//		categories.clear();
+//		categories.add("5C3F061265D9303B");
+		for (String categoryid : categories) {
+			for(int i=1; i<999999; i++){
+				Map<String, String> paramsMap = new HashMap<String, String>();
+				paramsMap.put("categoryid", categoryid);
+				paramsMap.put("userid", OnlineConfig.CC_USER_ID);
+				paramsMap.put("num_per_page", "100");
+				paramsMap.put("page", i+"");
+				paramsMap.put("format", "json");
+				long time = System.currentTimeMillis();
+				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
+				String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos+"?" + requestURL);
+
+				if (responsestr.contains("\"error\":")) {
+					throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
+				}
+
+				Gson g = new GsonBuilder().create();
+				Map<String, Object> mp = g.fromJson(responsestr, Map.class);
+				Map<String, Object> root = (Map<String, Object>)mp.get("videos");
+				ArrayList<Object> videos = (ArrayList<Object>)root.get("video");
+
+				if (videos == null || videos.size() <= 0) {
+					break;
+				}
+
+				for (Object object : videos) {
+					Map<String, Object> video = (Map<String, Object>)object;
+
+					String duration = video.get("duration").toString();
+					double d = Double.valueOf(duration);
+					String m = String.valueOf((int)d / 60);
+					String s = String.valueOf((int)d % 60);
+					m = m.length()==1 ? "0"+m : m;
+					s = s.length()==1 ? "0"+s : s;
+					String ms = m+":"+s;
+
+					String vid = video.get("id").toString();
+					String title = video.get("title").toString();
+
+					if (cs.containsKey(title)) {
+						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
+						if (d > oldduration) {
+							cs.put(title, vid+"_#_"+ms+"_#_"+duration);
+						}
+					} else {
+						cs.put(title, vid+"_#_"+ms+"_#_"+duration);
+					}
+				}
+
+				try {
+					Thread.sleep(200);
+				} catch (InterruptedException e) {}
+			}
+		}
+
+		for(Map.Entry<String, String> video : vs.entrySet()){
+			String vinfo = cs.get(video.getValue());
+			if (vinfo != null) {
+				String vid = vinfo.split("_#_")[0];
+				String ms = vinfo.split("_#_")[1];
+//				sql = "update oe_video set video_id='"+vid+"',video_time='"+ms+"' where id='"+video.getKey()+"' ";
+				sql = "update oe_course set direct_id='"+vid+"',course_length='"+ms+"' where id="+id+"";
+				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+			} else{
+				msg += (video.getValue()+"<br>");
+			}
+		}
+
+		if (msg.length() > 0) {
+			return "同步成功，但以下视频还未上传：<br>"+msg+"请使用客户端上传后再次同步";
+		}
+		return "ok";
 	}
 }
