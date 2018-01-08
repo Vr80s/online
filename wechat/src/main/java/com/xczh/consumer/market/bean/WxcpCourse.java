@@ -28,7 +28,7 @@ public class WxcpCourse implements Serializable {
 	private Integer learnd_count;
 	private Double original_cost;
 	private Double current_price;
-	private Double course_length;
+	private String course_length;
 	
 	private Integer menu_id;
 	private String course_type_id;
@@ -167,10 +167,10 @@ public class WxcpCourse implements Serializable {
 	public void setCurrent_price(Double current_price) {
 		this.current_price = current_price;
 	}
-	public Double getCourse_length() {
+	public String getCourse_length() {
 		return course_length;
 	}
-	public void setCourse_length(Double course_length) {
+	public void setCourse_length(String course_length) {
 		this.course_length = course_length;
 	}
 	public Integer getMenu_id() {

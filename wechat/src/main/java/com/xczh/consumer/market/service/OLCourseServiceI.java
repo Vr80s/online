@@ -71,4 +71,20 @@ public interface OLCourseServiceI {
 	CourseLecturVo offLineClassItem( Integer id,String userId)throws SQLException;
 	
 	public List<CourseLecturVo> recommendCourseList(int i, int j, String str,List<MenuVo> listmv) throws SQLException;
+	/**
+	 * 
+	 * Description：查询
+	 * @param menuType
+	 * @param multimediaType
+	 * @param isFree
+	 * @param queryKey
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 * @return List<CourseLecturVo>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public List<CourseLecturVo> queryAllCourse(Integer menuType,
+			String multimediaType, String isFree, String city,String queryKey,
+			Integer pageNumber, Integer pageSize);
 }

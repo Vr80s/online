@@ -100,7 +100,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 			all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1 and oc.type is null ");//and oc.is_free=0 oc.course_type=1 and
 			all.append(" and oc.multimedia_type =? ");
 			all.append(" order by oc.sort asc");
-			//all.append(" limit " + number+","+pageSize);
+
 			Object[] params = {multimedia_type};
 			
 			return super.queryPage(JdbcUtil.getCurrentConnection(),all.toString(),number,pageSize,CourseLecturVo.class,params);

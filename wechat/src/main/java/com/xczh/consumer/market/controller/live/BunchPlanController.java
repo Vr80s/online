@@ -487,22 +487,20 @@ public class BunchPlanController {
 	
 	/**
 	 * 搜索所有的课程
-	 * 
 	 * 可通过关键字  -- 关键字是全文匹配
-	 * 
 	 * 上面哪个是
 	 * 分类搜索
 	 * 是否收费
 	 * 类型
 	 * 城市
-	 * 
 	 */
 	@RequestMapping("queryAllCourse")
 	@ResponseBody
-	public ResponseObject queryAllCourse(HttpServletRequest req,HttpServletResponse res)
+	public ResponseObject queryAllCourse(Integer menuType,String multimediaType,String city,String isFree,String queryKey,
+			Integer pageNumber, Integer pageSize)
 			throws Exception {
 
-
+		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,multimediaType,isFree,city,queryKey,pageNumber,pageSize);
 		
 		
 		return ResponseObject.newSuccessResponseObject(null);

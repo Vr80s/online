@@ -103,7 +103,7 @@ public class Course extends BasicEntity2 implements Serializable {
 	 * 课程时长
 	 */
 	@Column(name = "course_length")
-	private Double  courseLength;
+	private String  courseLength;
 
 
 	/**
@@ -299,6 +299,10 @@ public class Course extends BasicEntity2 implements Serializable {
 	private String examineId;
 	
 	
+	@Column(name = "city")
+	private String city;
+	
+	
 	public int getMultimediaType() {
 		return multimediaType;
 	}
@@ -466,11 +470,11 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.learndCount = learndCount;
 	}
 
-	public Double getCourseLength() {
+	public String getCourseLength() {
 		return courseLength;
 	}
 
-	public void setCourseLength(Double courseLength) {
+	public void setCourseLength(String courseLength) {
 		this.courseLength = courseLength;
 	}
 
@@ -749,5 +753,12 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setExamineId(String examineId) {
 		this.examineId = examineId;
 	}
-	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 }

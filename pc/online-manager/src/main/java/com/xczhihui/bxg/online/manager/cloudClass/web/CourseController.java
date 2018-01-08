@@ -609,7 +609,7 @@ public class CourseController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "updateCourseVideoInfo", method = RequestMethod.POST)
+	@RequestMapping(value = "updateCourseVideoInfo11111111111111111111111111111", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseVideoInfo(String id) {
 		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideoInfo(id));
@@ -683,10 +683,16 @@ public class CourseController extends AbstractController{
         return ResponseObject.newSuccessResponseObject(null);
     }
 
-//	@RequestMapping(value = "initSend")
-//	@ResponseBody
-//	public String initSend(HttpServletRequest request) {
-	// courseService.initOpenCourseToSend();
-//		return "ok";
-//	}
+
+	/**
+	 * 同步课程视频信息（无章节知识点版）
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "updateCourseVideoInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateCourseVideo(String id) {
+		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideo(id));
+	}
+
 }
