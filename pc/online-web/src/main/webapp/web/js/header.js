@@ -166,6 +166,23 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         nav:
         	
 //        	开始
+		'<div class="header_right">'+
+        '<a href="/index.html"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>'+
+//        '<a href="javascript:;" class="studentCenterBox">学习中心</a>'+
+//        '<div class="shoppingBox">' +
+//             '<a href="javascript:;" data-id="" class="shoppingCar">购物车</a>'+
+//             '<span class="shopping"><em></em></span>'+
+//        '</div>'+
+//        '<div class="messageBox">' +
+//             '<a href="javascript:;" data-id="mynews" class="message">消息</a>'+
+//             '<span class="messageCount"><em></em></span>'+
+//        '</div>'+
+//        '<span class="lineBetween">|</span>'+
+        
+//        '<a class="btn-login btn-link" data-toggle="modal" data-target="#login" data-backdrop="static">登录</a>'+
+//        ' <a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a>'+
+        
+        '</div>'+
         '<div class="header_left">'+
         '<div class="path" style="width:95%">'+
         '<a href="/index.html" class="home">首页</a>'+
@@ -183,23 +200,9 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         
         '</div>'+
         ' </div>'+
-        '<div class="header_right">'+
-        '<a href="/index.html"><img src="/web/images/pandaLogo.jpg" alt="" width="206" height="50" style="float:left"></a>'+
-//        '<a href="javascript:;" class="studentCenterBox">学习中心</a>'+
-//        '<div class="shoppingBox">' +
-//             '<a href="javascript:;" data-id="" class="shoppingCar">购物车</a>'+
-//             '<span class="shopping"><em></em></span>'+
-//        '</div>'+
-//        '<div class="messageBox">' +
-//             '<a href="javascript:;" data-id="mynews" class="message">消息</a>'+
-//             '<span class="messageCount"><em></em></span>'+
-//        '</div>'+
-//        '<span class="lineBetween">|</span>'+
+       
         
-//        '<a class="btn-login btn-link" data-toggle="modal" data-target="#login" data-backdrop="static">登录</a>'+
-//        ' <a class="btn-register btn-link" href="/web/html/login.html?ways=register">注册</a>'+
-        
-        '</div></div>',
+        '</div>',
         login:'<div class="modal" id="login" data-backdrop="static">'+
         '<div class="modal-dialog login-module" role="document">'+
         '<div class="cymylogin">'+

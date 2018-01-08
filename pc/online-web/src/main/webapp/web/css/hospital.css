@@ -197,7 +197,7 @@ input,button{
   padding: 17px 20px 0px 20px ;
   font-size: 16px;
   color: #333;
-  font-family: MicrosoftYaHei;
+  /*font-family: MicrosoftYaHei;*/
   margin-bottom: 10px;
 }
 #forum .forum-banner .hot-article .hot-article-list {
