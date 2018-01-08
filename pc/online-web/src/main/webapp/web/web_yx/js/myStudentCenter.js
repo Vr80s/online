@@ -23,7 +23,7 @@ window.onload = function() {
 		}
 	});
 	template.helper('zhibohref', function(id) {
-		return "/web/html/CourseDetailZhiBo.html?courseId=" + id;
+		return "/web/html/video.html?courseId=" + id;
 	});
 	template.helper('orderState', function(num) {
 		if(num == 0) {

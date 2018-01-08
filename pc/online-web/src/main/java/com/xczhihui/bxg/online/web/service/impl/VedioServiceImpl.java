@@ -199,8 +199,11 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 		Course course = dao.findEntity(dc);
 
 		Map<String,Object> returnmap = new HashMap<String,Object>();
-
-		String src = "https://p.bokecc.com/flash/single/"+OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1/player.swf";
+		String audioStr="";
+		if(course.getMultimediaType()==2){
+			audioStr = "_2";
+		}
+		String src = "https://p.bokecc.com/flash/single/"+OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
 		String id = UUID.randomUUID().toString().replace("-", "");
 		String playCode = "";
 		playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";

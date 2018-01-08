@@ -198,7 +198,7 @@ window.onload = function() {
 		'</p>' +
 		
 		'{{if item.selfCourse == true}}' +
-		'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase common_ljck" >立即查看</a>' +
+		'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase common_ljck" >立即查看</a>' +
 	    '{{else}}'+   
 			'{{if item.free == true}}' +
 			'<p class="bigpic-body-money">' +
@@ -218,7 +218,7 @@ window.onload = function() {
 			'<span class="addCar">加入购物车</span>' +
 			'{{/if}}' +
 			'{{else}}' +
-			'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
+			'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
 			'{{/if}}' +
 			'</div>' +
 			'</div>' +
@@ -281,7 +281,7 @@ window.onload = function() {
 		}, 2000)
 	}
 	$("#payCourseSlider .purchase").attr("href", '/web/html/order.html?courseId=' + courserId);
-	$("#payCourseSlider .studyImmed").attr("href", '/web/html/CourseDetailZhiBo.html?courseId=' + courserId);//'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
+	$("#payCourseSlider .studyImmed").attr("href", '/web/html/video.html?courseId=' + courserId);//'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
 	var free;
 	RequestService("/grade/findGradeInfoByCourseId", "GET", {
 		courseId: courserId
