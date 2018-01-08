@@ -316,9 +316,8 @@ public class CourseVo extends OnlineBaseVo{
     private String realCitys;
     
     private String realCounty;
-    
-    
-    public String getAddress() {
+
+	public String getAddress() {
 		return address;
 	}
 

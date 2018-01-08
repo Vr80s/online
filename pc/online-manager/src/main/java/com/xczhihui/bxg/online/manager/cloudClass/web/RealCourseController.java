@@ -245,6 +245,7 @@ public class RealCourseController extends AbstractController{
 		
 		String address = province+"-"+city+"-"+county+" "+courseVo.getAddress();
 		courseVo.setAddress(address);
+		
 		try{
 			courseService.addCourse(courseVo);
             responseObj.setSuccess(true);
@@ -311,7 +312,7 @@ public class RealCourseController extends AbstractController{
 String county = courseVo.getRealCounty();
 		String address = province+"-"+city+"-"+county+" "+courseVo.getAddress();
 		courseVo.setAddress(address);
-		
+		courseVo.setRealCitys(city);
 		
 		 try{
 			 	CourseVo old = courseService.getCourseById(courseVo.getId());

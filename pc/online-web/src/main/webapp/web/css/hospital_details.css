@@ -105,6 +105,11 @@
     bottom: 0;
     width: 100%;
 }
+.content_box #main .main_left .hospital_detail_inf .hospital_detail_inf_bottom > p {
+	  text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 .content_box #main .main_left .hospital_detail_inf .hospital_detail_inf_bottom > p > span:first-child{
 	margin-right: 30px;
 }

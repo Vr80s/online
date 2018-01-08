@@ -12,6 +12,7 @@ import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -337,6 +338,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setUserLecturerId(courseVo.getUserLecturerId());
 		course.setOnlineCourse(courseVo.getOnlineCourse());
 		course.setAddress(courseVo.getAddress());
+		course.setCity(courseVo.getRealCitys());
+		
 		if(course.getOnlineCourse() == 1){
 			course.setStartTime(courseVo.getStartTime());
 			course.setEndTime(courseVo.getEndTime());
@@ -395,6 +398,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setCoursePwd(courseVo.getCoursePwd());
 		course.setUserLecturerId(courseVo.getUserLecturerId());
 		course.setAddress(courseVo.getAddress());
+		course.setCity(courseVo.getRealCitys());
+		
 		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
 		
 //		if(0==course.getOriginalCost()&&0==course.getCurrentPrice()){
@@ -1157,20 +1162,19 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		}
 	}
 
-
 	@Override
 	public String updateCourseVideo(String id) {
 
 		Map<String, String> vs = new HashMap<String, String>();
 		Map<String, String> cs = new HashMap<String, String>();
 
-		Map<String,Object> paramMap = new HashMap<String,Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		Course c = dao.get(Integer.valueOf(id), Course.class);
 
 		String msg = "";
 
-		String sql = "select sp.id,sp.`name` from oe_course ke,oe_chapter zhang,oe_chapter jie,oe_chapter zsd,oe_video sp "+
-				" where sp.chapter_id=zsd.id and zsd.parent_id=jie.id and jie.parent_id=zhang.id and zhang.parent_id=ke.id "+
+		String sql = "select sp.id,sp.`name` from oe_course ke,oe_chapter zhang,oe_chapter jie,oe_chapter zsd,oe_video sp " +
+				" where sp.chapter_id=zsd.id and zsd.parent_id=jie.id and jie.parent_id=zhang.id and zhang.parent_id=ke.id " +
 				" and ke.id=:id and zhang.is_delete=0 and jie.is_delete=0 and zsd.is_delete=0 and sp.is_delete=0 and sp.video_id is null ";
 		paramMap.put("id", id);
 
@@ -1180,7 +1184,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		}
 
 		for (Map<String, Object> map : vsmp) {
-			vs.put(String.valueOf(map.get("id")),String.valueOf(map.get("name")));
+			vs.put(String.valueOf(map.get("id")), String.valueOf(map.get("name")));
 		}
 
 
@@ -1190,7 +1194,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			if (categoryBean.getName().equals(CNAME)) {
 //				List<CategoryBean> subs = categoryBean.getSubs();
 //				for (CategoryBean sub : subs) {
-					categories.add(categoryBean.getId());
+				categories.add(categoryBean.getId());
 //				}
 				break;
 			}
@@ -1198,16 +1202,16 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 //		categories.clear();
 //		categories.add("5C3F061265D9303B");
 		for (String categoryid : categories) {
-			for(int i=1; i<999999; i++){
+			for (int i = 1; i < 999999; i++) {
 				Map<String, String> paramsMap = new HashMap<String, String>();
 				paramsMap.put("categoryid", categoryid);
 				paramsMap.put("userid", OnlineConfig.CC_USER_ID);
 				paramsMap.put("num_per_page", "100");
-				paramsMap.put("page", i+"");
+				paramsMap.put("page", i + "");
 				paramsMap.put("format", "json");
 				long time = System.currentTimeMillis();
-				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,OnlineConfig.CC_API_KEY);
-				String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos+"?" + requestURL);
+				String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
+				String responsestr = APIServiceFunction.HttpRetrieve(Config.api_category_videos + "?" + requestURL);
 
 				if (responsestr.contains("\"error\":")) {
 					throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
@@ -1215,23 +1219,23 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 				Gson g = new GsonBuilder().create();
 				Map<String, Object> mp = g.fromJson(responsestr, Map.class);
-				Map<String, Object> root = (Map<String, Object>)mp.get("videos");
-				ArrayList<Object> videos = (ArrayList<Object>)root.get("video");
+				Map<String, Object> root = (Map<String, Object>) mp.get("videos");
+				ArrayList<Object> videos = (ArrayList<Object>) root.get("video");
 
 				if (videos == null || videos.size() <= 0) {
 					break;
 				}
 
 				for (Object object : videos) {
-					Map<String, Object> video = (Map<String, Object>)object;
+					Map<String, Object> video = (Map<String, Object>) object;
 
 					String duration = video.get("duration").toString();
 					double d = Double.valueOf(duration);
-					String m = String.valueOf((int)d / 60);
-					String s = String.valueOf((int)d % 60);
-					m = m.length()==1 ? "0"+m : m;
-					s = s.length()==1 ? "0"+s : s;
-					String ms = m+":"+s;
+					String m = String.valueOf((int) d / 60);
+					String s = String.valueOf((int) d % 60);
+					m = m.length() == 1 ? "0" + m : m;
+					s = s.length() == 1 ? "0" + s : s;
+					String ms = m + ":" + s;
 
 					String vid = video.get("id").toString();
 					String title = video.get("title").toString();
@@ -1239,35 +1243,37 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 					if (cs.containsKey(title)) {
 						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
 						if (d > oldduration) {
-							cs.put(title, vid+"_#_"+ms+"_#_"+duration);
+							cs.put(title, vid + "_#_" + ms + "_#_" + duration);
 						}
 					} else {
-						cs.put(title, vid+"_#_"+ms+"_#_"+duration);
+						cs.put(title, vid + "_#_" + ms + "_#_" + duration);
 					}
 				}
 
 				try {
 					Thread.sleep(200);
-				} catch (InterruptedException e) {}
+				} catch (InterruptedException e) {
+				}
 			}
 		}
 
-		for(Map.Entry<String, String> video : vs.entrySet()){
+		for (Map.Entry<String, String> video : vs.entrySet()) {
 			String vinfo = cs.get(video.getValue());
 			if (vinfo != null) {
 				String vid = vinfo.split("_#_")[0];
 				String ms = vinfo.split("_#_")[1];
 //				sql = "update oe_video set video_id='"+vid+"',video_time='"+ms+"' where id='"+video.getKey()+"' ";
-				sql = "update oe_course set direct_id='"+vid+"',course_length='"+ms+"' where id="+id+"";
+				sql = "update oe_course set direct_id='" + vid + "',course_length='" + ms + "' where id=" + id + "";
 				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-			} else{
-				msg += (video.getValue()+"<br>");
+			} else {
+				msg += (video.getValue() + "<br>");
 			}
 		}
 
 		if (msg.length() > 0) {
-			return "同步成功，但以下视频还未上传：<br>"+msg+"请使用客户端上传后再次同步";
+			return "同步成功，但以下视频还未上传：<br>" + msg + "请使用客户端上传后再次同步";
 		}
 		return "ok";
 	}
+	
 }

@@ -299,6 +299,10 @@ public class Course extends BasicEntity2 implements Serializable {
 	private String examineId;
 	
 	
+	@Column(name = "city")
+	private String city;
+	
+	
 	public int getMultimediaType() {
 		return multimediaType;
 	}
@@ -749,5 +753,12 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setExamineId(String examineId) {
 		this.examineId = examineId;
 	}
-	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 }
