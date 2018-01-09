@@ -121,7 +121,7 @@ $(function(){
 	    },function(data){
 	    	//更多给名医添加id
 	    	console.log(id);
-	    	$('#more_doc').attr('href','/web/html/practitionerListing.html?hospitalId='+id+'')
+	    	$('#more_doc').attr('href','/web/html/practitionerListing.html?name=&hospitalId='+id+'')
 	        if(data.resultObject.length == 0){
 				$('.employ').addClass('hide')
 	        }else{
