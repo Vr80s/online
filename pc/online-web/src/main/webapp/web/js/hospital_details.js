@@ -21,10 +21,13 @@ $(function(){
 	 RequestService("/medical/hospital/getHospitalById", "GET", {
 	 	id:id
 	 }, function (data) {
+       $('title').text('熊猫中医 - '+data.resultObject.name);
+	 	
 //	 	$('#hospital_detail_pic').html('');
        console.log(data);
        //医馆标题变化
-       $('.hospital_detail_inf > h3').text(data.resultObject.name)
+       $('.hospital_detail_inf > h3').text(data.resultObject.name);
+
        //渲染医馆简介
        $('.hospital_detail_con>p').html(data.resultObject.description);
        //联系方式
