@@ -122,8 +122,6 @@ public class CourseController extends AbstractController{
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
-		 
-		 
 	      int pageSize = tableVo.getiDisplayLength();
           int index = tableVo.getiDisplayStart();
           int currentPage = index / pageSize + 1;

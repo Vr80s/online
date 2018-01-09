@@ -291,7 +291,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		}
 		Course course = new Course();
 		course.setGradeName(courseVo.getCourseName()); //课程名称
-		course.setClassTemplate(courseVo.getClassTemplate()); //课程名称模板mv
+		course.setClassTemplate(courseVo.getCourseName()); //课程名称模板mv//20180109  yuxin 将课程名作为模板
 		course.setMenuId(courseVo.getMenuId()); //学科id
 		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
 		course.setCourseType(courseVo.getCourseType()); //授课方式
