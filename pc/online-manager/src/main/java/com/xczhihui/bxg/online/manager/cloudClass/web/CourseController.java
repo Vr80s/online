@@ -692,7 +692,12 @@ public class CourseController extends AbstractController{
 	@RequestMapping(value = "updateCourseVideoInfo", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseVideo(String id) {
+		
+		
 		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideo(id));
 	}
 
+	
+	
+	
 }

@@ -410,4 +410,13 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		}
 		return list;
 	}
+	/**
+	 * 获取所有的医师
+	 */
+	@Override
+	public List<MedicalDoctor> getAllMedicalDoctorList() {
+		// TODO Auto-generated method stub
+		return list();
+	}
+	
 }

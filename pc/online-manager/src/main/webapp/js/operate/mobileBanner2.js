@@ -1,30 +1,45 @@
-var mobileBannerTable;
-var mobileBannerForm;
-var mobileBannerFormEdit;
+var banner2Table;
+var banner2Form;
 var nowTime;
 var searchJson = new Array();
 var courseArray=new Array();
 $(function() {
 	nowTime=show();
-    loadMobileBannerList();
+	debugger
+    searchJson.push('{"tempMatchType":undefined,"propertyName":"search_type","propertyValue1":"'+$("#search_type").val()+'","tempType":undefined}');
+    loadBanner2List();
 });
 
 //列表展示
-function loadMobileBannerList(){
+function loadBanner2List(){
 	var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
     var dataFields = [
 		{ "title": checkbox,"class":"center","width":"5%","height":"68px","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
 		    return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
 		}},
         {title: '序号', "class": "center", "width": "5%","height":"68px","data": 'id',datafield: 'xuhao', "sortable": false},
-        {title: 'banner名称', "class": "center","height":"68px","data": 'name', "sortable": false},
+        {title: 'banner名称', "class": "center","height":"68px","data": 'description', "sortable": false},
         {title: '缩略图', "class": "center", "width": "144px","height":"38px","data": 'imgPath', "sortable": false,"mRender":function(data,display,row){
         	return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;' onclick='showImg(\""+row.id+"\",\""+row.description+"\",\""+row.imgPath+"\")'/>";
         }},
-        {title: '链接地址', "class": "center","height":"68px","data": 'url', "sortable": false,"mRender":function(data,display,row){
+        {title: '链接地址', "class": "center","height":"68px","data": 'imgHref', "sortable": false,"mRender":function(data,display,row){
         	return "<div style='white-space:normal;'><a href='"+data+"' target='blank'>"+data+"</a></div>";
         }},
-        {title: '点击量', "class": "center", "width": "6%","height":"68px","data": 'clickSum', "sortable": false},
+        {title: '点击量', "class": "center", "width": "6%","height":"68px","data": 'clickCount', "sortable": false},
+        {title: '展示时间段', "class": "center", "width": "180px","height":"68px","data": 'startTime', "sortable": false,"mRender":function(data,display,row){
+        	var dayCount;
+        	if(row.startTime==null&&row.endTime==null){//新添加banner
+        		return null
+        	}else if(row.startTime!=null&&row.endTime==null){//启用状态的banner（每次启用必须设置禁用时间为null）
+        		dayCount=dateDiff(row.startTime,nowTime);
+        		return dayCount+"天</br>("+row.startTime+"至"+nowTime+")"
+        	}else if(row.startTime!=null&&row.endTime!=null){//禁用状态的banner
+        		dayCount=dateDiff(row.startTime,row.endTime);
+        		return dayCount+"天</br>("+row.startTime+"至"+row.endTime+")"
+        	}else{
+        		return "数据异常";
+        	}
+        }},
         {title: '创建人', "class": "center", "width": "6%","height":"68px","data": 'createPersonName', "sortable": false},
         {title: '状态', "class": "center", "width": "6%","height":"68px", "data": 'status', "sortable": false,"mRender":function(data,display,row){
         	var status ;
@@ -46,21 +61,21 @@ function loadMobileBannerList(){
         	}
         	return '<div class="hidden-sm hidden-xs action-buttons">'+str;
         }},
-        {title:"操作","class": "center","width":"8%","height":"34px","data":"id","sortable": false,"mRender":function (data, display, row) {
+        {title:"操作","class": "center","width":"6%","height":"34px","data":"id","sortable": false,"mRender":function (data, display, row) {
 
-                var buttons= '<div class="hidden-sm hidden-xs action-buttons"><a class="blue" href="javascript:void(-1);" title="修改" onclick="updateMobileBanner(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
+                var buttons= '<div class="hidden-sm hidden-xs action-buttons"><a class="blue" href="javascript:void(-1);" title="修改" onclick="updateBanner2(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
 	   			if(row.status==1) {
-					buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,0);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
+					buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
 				}else{
-					buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ';
-				}
+					buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ';
+				};
 				buttons += "</div>";
                 return buttons;
             }
         }
     ];
 
-    mobileBannerTable = initTables("mobileBannerTable", basePath + "/operate/mobileBanner/findMobileBannerList", dataFields, true, true, 2,null,searchJson,function(data){
+    banner2Table = initTables("banner2Table", basePath + "/operate/banner2/findBanner2List", dataFields, true, true, 2,null,searchJson,function(data){
         var iDisplayStart = data._iDisplayStart;
         var countNum = data._iRecordsTotal;//总条数
         pageSize = data._iDisplayLength;//每页显示条数
@@ -86,7 +101,7 @@ function loadMobileBannerList(){
 		});
     });
 
-    mobileBannerForm = $("#addMobileBanner-form").validate({
+    banner2Form = $("#addBanner2-form").validate({
         messages: {
         	description: {
 				required:"请输入banner名称！",
@@ -100,8 +115,8 @@ function loadMobileBannerList(){
 			}
         }
     });
-
-    mobileBannerFormEdit = $("#updateMobileBanner-form").validate({
+    
+    banner2FormEdit = $("#updateBanner2-form").validate({
         messages: {
         	description: {
 				required:"请输入banner名称！",
@@ -121,12 +136,27 @@ function loadMobileBannerList(){
 
  //条件搜索
  function search(){
-     searchButton(mobileBannerTable,searchJson);
+	 
+     var search_status = $("#search_status").val();
+     var search_description = $("#search_description").val();
+     
+     if(search_status != ""){
+    	 searchJson.push('{"tempMatchType":"8","propertyName":"status","propertyValue1":"' + search_status + '","tempType":"String"}');
+     }
+     
+     if(search_description!=null&&search_description!=""){
+         searchJson.push('{"tempMatchType":"9","propertyName":"description","propertyValue1":"' + search_description + '","tempType":"String"}');
+     }
+
+     searchButton(banner2Table,searchJson);
+     searchJson.pop();
+     searchJson.pop();
+
 }
 
 //新增框
  $(".add_bx").click(function(){
- 	mobileBannerForm.resetForm();
+ 	banner2Form.resetForm();
  	//$(".remove").trigger("click");
  	$(".clearfixAdd").remove();
  	$("#addDiv").prepend("<div class=\"clearfixAdd\">\n" +
@@ -134,11 +164,11 @@ function loadMobileBannerList(){
 						  "</div>");
  	createImageUpload($('#imgPath_file'));//生成图片编辑器
 
- 	var dialog = openDialog("addMobileBannerDialog","dialogAddMobileBannerDiv","新增",580,500,true,"确定",function(){
- 		if($("#addMobileBanner-form").valid()){
+ 	var dialog = openDialog("addBanner2Dialog","dialogAddBanner2Div","新增banner",580,500,true,"确定",function(){
+ 		if($("#addBanner2-form").valid()){
  			 mask();
- 			 $("#addMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/addMobileBanner");
- 	            $("#addMobileBanner-form").ajaxSubmit(function(data){
+ 			 $("#addBanner2-form").attr("action", basePath+"/operate/banner2/addBanner2");
+ 	            $("#addBanner2-form").ajaxSubmit(function(data){
  	            	try{
                  		data = jQuery.parseJSON(jQuery(data).text());
                  	}catch(e) {
@@ -146,33 +176,35 @@ function loadMobileBannerList(){
                  	}
  	                unmask();
  	                if(data.success){
- 	                    $("#addMobileBannerDialog").dialog("close");
- 	                    layer.msg(data.resultObject);
- 	                    freshTable(mobileBannerTable);
+ 	                    $("#addBanner2Dialog").dialog("close");
+ 	                    layer.msg(data.errorMessage);
+ 	                    freshTable(banner2Table);
  	                }else{
- 	                	alertInfo(data.errorMessage);
+ 	                	layer.msg(data.errorMessage);
  	               }
+ 	               $("html").eq(0).css("overflow","scroll");
  	         });
  		}
  	});
-});
+ });
 
-function updateMobileBanner(obj){
+function updateBanner2(obj){
 	var oo = $(obj).parent().parent().parent();
-	var row = mobileBannerTable.fnGetData(oo); // get datarow
-	mobileBannerFormEdit.resetForm();
-	$("#update_name").val(row.name);
-	$("#update_url").val(row.url);
+	var row = banner2Table.fnGetData(oo); // get datarow
+	$("#updateCourse-form").resetForm();
+	$("#update_description").val(row.description);
+	$("#update_imgHref").val(row.imgHref);
 	$("#update_imgPath").val(row.imgPath);
 	$("#update_id").val(row.id);
 
 	reviewImage("update_imgPath_file",row.imgPath);
+	$(".remove").hide();
 	
- 	var dialog = openDialog("updateMobileBannerDialog","dialogUpdateMobileBannerDiv","修改",580,500,true,"确定",function(){
- 		if($("#updateMobileBanner-form").valid()){
+ 	var dialog = openDialog("updateBanner2Dialog","dialogUpdateBanner2Div","修改banner",580,500,true,"确定",function(){
+ 		if($("#updateBanner2-form").valid()){
  			 mask();
- 			 $("#updateMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/updateMobileBannerById");
- 	            $("#updateMobileBanner-form").ajaxSubmit(function(data){
+ 			 $("#updateBanner2-form").attr("action", basePath+"/operate/banner2/updateBanner2ById");
+ 	            $("#updateBanner2-form").ajaxSubmit(function(data){
  	            	try{
                  		data = jQuery.parseJSON(jQuery(data).text());
                  	}catch(e) {
@@ -180,12 +212,13 @@ function updateMobileBanner(obj){
                  	}
  	                unmask();
  	                if(data.success){
- 	                    $("#updateMobileBannerDialog").dialog("close");
- 	                    layer.msg(data.resultObject);
- 	                    freshTable(mobileBannerTable);
+ 	                    $("#updateBanner2Dialog").dialog("close");
+ 	                    layer.msg(data.errorMessage);
+ 	                    freshTable(banner2Table);
  	                }else{
- 	                	alertInfo(data.errorMessage);
+ 	                	layer.msg(data.errorMessage);
  	               }
+ 	               $("html").eq(0).css("overflow","scroll");
  	         });
  		}
  	});
@@ -195,22 +228,17 @@ function updateMobileBanner(obj){
  * 状态修改
  * @param obj
  */
-function updateStatus(obj,status){
+function updateStatus(obj){
 	var oo = $(obj).parent().parent().parent();
-	var row = mobileBannerTable.fnGetData(oo); // get datarow
-	ajaxRequest(basePath+"/operate/mobileBanner/updateStatus",{"id":row.id,"status":status},function(data){
-		if(data.success){
-			layer.msg(data.resultObject);
-			freshTable(mobileBannerTable);
-		}else{
-			alertInfo(data.errorMessage);
-		}
-		
+	var row = banner2Table.fnGetData(oo); // get datarow
+	ajaxRequest(basePath+"/operate/banner2/updateStatus",{"id":row.id},function(data){
+		layer.msg(data.resultObject);
+		freshTable(banner2Table);
 	});
 };
 
 //图片上传统一上传到附件中心---- 修改  列表页
-$("#addMobileBanner-form").on("change","#imgPath_file",function(){
+$("#addBanner2-form").on("change","#imgPath_file",function(){
  	var v = this.value.split(".")[1].toUpperCase();
  	if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
  		layer.alert("图片格式错误,请重新选择.");
@@ -234,7 +262,7 @@ $("#addMobileBanner-form").on("change","#imgPath_file",function(){
  });
 
 //图片上传统一上传到附件中心---- 修改  列表页
-$("#updateMobileBanner-form").on("change","#update_imgPath_file",function(){
+$("#updateBanner2-form").on("change","#update_imgPath_file",function(){
  	var v = this.value.split(".")[1].toUpperCase();
  	if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
  		layer.alert("图片格式错误,请重新选择.");
@@ -270,6 +298,7 @@ $("#updateMobileBanner-form").on("change","#update_imgPath_file",function(){
 		  content: '<img src="'+rowImgPath+'" onclick="layer.closeAll()"/>',
 		  shadeClose:true
 		});
+	 
 }
 
  /**
@@ -277,7 +306,7 @@ $("#updateMobileBanner-form").on("change","#update_imgPath_file",function(){
   * 
   */
 $(".dele_bx").click(function(){
- 	deleteAll(basePath+"/operate/mobileBanner/deletes",mobileBannerTable);
+ 	deleteAll(basePath+"/operate/banner2/deletes",banner2Table);
 });
 
 /**
@@ -286,10 +315,10 @@ $(".dele_bx").click(function(){
  */
 function upMove(obj){
 	var oo = $(obj).parent().parent().parent();
-	var aData = mobileBannerTable.fnGetData(oo);
-	ajaxRequest(basePath+'/operate/mobileBanner/upMove',{"id":aData.id},function(res){
+	var aData = banner2Table.fnGetData(oo);
+	ajaxRequest(basePath+'/operate/banner2/upMove',{"id":aData.id},function(res){
 		if(res.success){
-			freshTable(mobileBannerTable);
+			freshTable(banner2Table);
 		}else{
 			layer.msg(res.errorMessage);
 		}
@@ -302,77 +331,15 @@ function upMove(obj){
  */
 function downMove(obj){
 	var oo = $(obj).parent().parent().parent();
-	var aData = mobileBannerTable.fnGetData(oo);
-	ajaxRequest(basePath+'/operate/mobileBanner/downMove',{"id":aData.id},function(res){
+	var aData = banner2Table.fnGetData(oo);
+	ajaxRequest(basePath+'/operate/banner2/downMove',{"id":aData.id},function(res){
 		if(res.success){
-			freshTable(mobileBannerTable);
+			freshTable(banner2Table);
 		}else{
 			layer.msg(res.errorMessage);
 		}
 	});
 };
-
-/**
- * 关联医师
- * @param obj
- */
-function openFieldManage(obj){
-	ajaxRequest(basePath+"/medical/field/alllist",{'id':row.id,'type':2},function(data) {
-	    openDialog("childMenuDialog","childMenuDialogDiv","关联医疗领域",580,450,true,"提交",function(){
-	    	
-	    	 drawMenusPage(data);
-	    	 $("#childMenuDialog").dialog("close");
-	    
-	    });
-	});    
-}
-
-/**
- * 关联课程
- * @param obj
- */
-function openFieldManage(obj){
-	ajaxRequest(basePath+"/medical/field/alllist",{'id':row.id,'type':2},function(data) {
-	    openDialog("childMenuDialog","childMenuDialogDiv","关联医疗领域",580,450,true,"提交",function(){
-	    	
-	    	 drawMenusPage(data);
-	    	 $("#childMenuDialog").dialog("close");
-	    
-	    });
-	});    
-}
-
-
-function drawMenusPage(data){
-    $("#childMenus").html("");
-    for(var i=0;i<data.length;i++){
-        var rowData="<tr id='childMenus_tr_"+data[i].id+"'><td> ";
-        if(data[i].has){
-            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='doctorId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
-        }else{
-            rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='doctorId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
-        }
-        rowData+="</td>";
-        rowData+="<td>";
-        rowData+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-        rowData+="</td>";
-        rowData+="</tr>";
-        $("#childMenus").append(rowData);
-        checckboxSingle();
-    }
-}
-
-function checckboxSingle (){
-    $(':checkbox[name=hospitalId]').each(function(){
-        $(this).click(function(){
-            if(this.checked){
-                $(':checkbox[name=hospitalId]').removeAttr('checked');
-                $(this).prop('checked','checked');
-            }
-        });
-    });
-}
-
 
 
 //获取当前时间
@@ -382,7 +349,7 @@ function show(){
 	   str += (mydate.getMonth()+1) + "-";
 	   str += mydate.getDate() ;
 	   return str;
-}
+	  }
 
 //字符串转成Time(dateDiff)所需方法
 function stringToTime(string) {

@@ -127,35 +127,47 @@ $(function(){
         }
         }
     ];
-    PX_courseTable = initTables("courseTable_PX",basePath+"/medical/doctor/recList",objData_PX,true,true,1,null,searchCase_P,function(data){
-        var iDisplayStart = data._iDisplayStart;
-        var countNum = data._iRecordsTotal;//总条数
-        pageSize = data._iDisplayLength;//每页显示条数
-        currentPage = iDisplayStart / pageSize +1;//页码
-        // if(currentPage == 1){//第一页的第一行隐藏向上箭头
-        //     $("#courseTable_PX tbody tr:first td").eq(9).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
-        // }
-        // if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
-        //     $("#courseTable_PX tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-        // }
-        var countPage;
-        if(countNum%pageSize == 0){
-            countPage = parseInt(countNum/pageSize);
-        }else{
-            countPage = parseInt(countNum/pageSize) + 1;
-        }
-
-        $("[name='upa']").each(function(index){
-            if(index == 0){
-                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-            }
-        });
-        $("[name='downa']").each(function(index){
-            if(index == $("[name='downa']").size()-1){
-                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
-            }
-        });
+    
+    $(".kctj_bx").click(function(){
+    	debugger
+        freshTable(PX_courseTable1());
     });
+    
+    
+    function PX_courseTable1(){
+    	 PX_courseTable = initTables("courseTable_PX",basePath+"/medical/doctor/recList",objData_PX,true,true,1,null,searchCase_P,function(data){
+    	        var iDisplayStart = data._iDisplayStart;
+    	        var countNum = data._iRecordsTotal;//总条数
+    	        pageSize = data._iDisplayLength;//每页显示条数
+    	        currentPage = iDisplayStart / pageSize +1;//页码
+    	        // if(currentPage == 1){//第一页的第一行隐藏向上箭头
+    	        //     $("#courseTable_PX tbody tr:first td").eq(9).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	        // }
+    	        // if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
+    	        //     $("#courseTable_PX tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	        // }
+    	        var countPage;
+    	        if(countNum%pageSize == 0){
+    	            countPage = parseInt(countNum/pageSize);
+    	        }else{
+    	            countPage = parseInt(countNum/pageSize) + 1;
+    	        }
+
+    	        $("[name='upa']").each(function(index){
+    	            if(index == 0){
+    	                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	            }
+    	        });
+    	        $("[name='downa']").each(function(index){
+    	            if(index == $("[name='downa']").size()-1){
+    	                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+    	            }
+    	        });
+    	    });
+    	 
+    	 return PX_courseTable;
+    }
+   
     /** 医馆排序列表end */
 
 	courseForm = $("#addCourse-form").validate({
@@ -1165,10 +1177,6 @@ function drawHospitalPage(data){
     }
 }
 
-$(".kctj_bx").click(function(){
-	debugger
-    freshTable(PX_courseTable);
-});
 function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
 }

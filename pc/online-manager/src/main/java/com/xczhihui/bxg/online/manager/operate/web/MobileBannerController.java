@@ -1,5 +1,8 @@
 package com.xczhihui.bxg.online.manager.operate.web;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -11,150 +14,222 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 
-
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.manager.ask.vo.AccuseVo;
+import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
-
+import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 import com.xczhihui.bxg.online.manager.operate.service.MobileBannerService;
 import com.xczhihui.bxg.online.manager.operate.vo.MobileBannerVo;
 
 @Controller
 @RequestMapping(value = "/operate/mobileBanner")
-public class MobileBannerController{
-	
+public class MobileBannerController {
+
 	@Autowired
 	private MobileBannerService mobileBannerService;
-	
+
+	@Autowired
+	private OnlineUserService onlineUserService;
+
+	@Autowired
+	private DoctorService doctorService;
+
 	/**
-     * 
-     * @return
-     */
-    @RequestMapping(value = "/index")
-    public ModelAndView index(){
-         ModelAndView mav=new ModelAndView("/operate/mobileBanner");
-         return mav;
-    }
+	 * @return
+	 */
+	@RequestMapping(value = "/index")
+	public ModelAndView index(HttpServletRequest request) {
+		
+		// 课程管理
+		List<Map<String, Object>> mapCourseList = onlineUserService.getAllCourseName();
+		
+		// 所有的医师
+		List<MedicalDoctor> listDoctor = doctorService.getAllMedicalDoctorList();
+		
+		// 所有的医师
+		//List<MedicalDoctor> listDoctor = doctorService.getAllMedicalDoctorList();
+		
+		request.setAttribute("mapCourseList", mapCourseList);
+		request.setAttribute("listDoctor", listDoctor);
+		// 得到所有的专题
+		ModelAndView mav = new ModelAndView("/operate/mobileBanner");
+		return mav;
+	}
+
+	// recommended
+	// offline
+	// live
+	// Listen to the teacher
+	// 推荐
+	@RequiresPermissions("mobile:menu:recommendedIndex")
+	@RequestMapping(value = "/recommendedIndex")
+	public ModelAndView recommendedBanner(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/operate/mobileRecommendedBanner");
+		// 课程管理
+		List<Map<String, Object>> mapCourseList = onlineUserService
+				.getAllCourseName();
+		// 所有的医师
+		List<MedicalDoctor> listDoctor = doctorService.getAllMedicalDoctorList();
+		request.setAttribute("mapCourseList", mapCourseList);
+		request.setAttribute("listDoctor", listDoctor);
+		
+		return mav;
+	}
+
+	@RequiresPermissions("mobile:menu:offlineIndex")
+	@RequestMapping(value = "/offlineIndex")
+	public ModelAndView offlineBanner() {
+		ModelAndView mav = new ModelAndView("/operate/mobileOfflineBanner");
+		return mav;
+	}
+
+	@RequiresPermissions("mobile:menu:liveIndex")
+	@RequestMapping(value = "/liveIndex")
+	public ModelAndView liveBanner() {
+		ModelAndView mav = new ModelAndView("/operate/mobileLiveBanner");
+		return mav;
+	}
+
+	@RequiresPermissions("mobile:menu:listenIndex")
+	@RequestMapping(value = "/listenIndex")
+	public ModelAndView listenBanner() {
+		ModelAndView mav = new ModelAndView("/operate/mobileListenBanner");
+		return mav;
+	}
 
 	@RequiresPermissions("mobile:menu:banner")
-    @RequestMapping(value = "/findMobileBannerList", method = RequestMethod.POST)
-    @ResponseBody
-    public TableVo findMobileBannerList(TableVo tableVo) {
-         int pageSize = tableVo.getiDisplayLength();
-         int index = tableVo.getiDisplayStart();
-         int currentPage = index / pageSize + 1;
-         String params = tableVo.getsSearch();
-         Groups groups = Tools.filterGroup(params);
-         Group statusGroup = groups.findByName("search_status");
-         Group nameGroup = groups.findByName("search_name");
+	@RequestMapping(value = "/findMobileBannerList", method = RequestMethod.POST)
+	@ResponseBody
+	public TableVo findMobileBannerList(TableVo tableVo) {
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
+		int currentPage = index / pageSize + 1;
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
+		Group statusGroup = groups.findByName("search_status");
+		Group nameGroup = groups.findByName("search_name");
 
-         MobileBannerVo searchVo=new MobileBannerVo();
+		MobileBannerVo searchVo = new MobileBannerVo();
 
-         if(statusGroup!=null){
-        	 searchVo.setStatus(Integer.parseInt(statusGroup.getPropertyValue1().toString()));
-         }
+		if (statusGroup != null) {
+			searchVo.setStatus(Integer.parseInt(statusGroup.getPropertyValue1()
+					.toString()));
+		}
 
-         if(nameGroup!=null){
-              searchVo.setName(nameGroup.getPropertyValue1().toString());
-         }
+		if (nameGroup != null) {
+			searchVo.setName(nameGroup.getPropertyValue1().toString());
+		}
 
-         Page<MobileBannerVo> page = mobileBannerService.findMobileBannerPage(searchVo, currentPage, pageSize);
+		Page<MobileBannerVo> page = mobileBannerService.findMobileBannerPage(
+				searchVo, currentPage, pageSize);
+		int total = page.getTotalCount();
+		tableVo.setAaData(page.getItems());
+		tableVo.setiTotalDisplayRecords(total);
+		tableVo.setiTotalRecords(total);
+		return tableVo;
+	}
 
-         int total = page.getTotalCount();
-         tableVo.setAaData(page.getItems());
-         tableVo.setiTotalDisplayRecords(total);
-         tableVo.setiTotalRecords(total);
-         return tableVo;
-    }
-
-    /**
+	/**
 	 * 添加
+	 * 
 	 * @param vo
 	 * @return
 	 */
 	@RequiresPermissions("mobile:menu:banner")
 	@RequestMapping(value = "/addMobileBanner", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject addMobileBanner(MobileBannerVo mobileBannerVo,HttpServletRequest request){
-		mobileBannerVo.setCreatePerson(UserLoginUtil.getLoginUser(request).getLoginName());
+	public ResponseObject addMobileBanner(MobileBannerVo mobileBannerVo,
+			HttpServletRequest request) {
+		mobileBannerVo.setCreatePerson(UserLoginUtil.getLoginUser(request)
+				.getLoginName());
 		mobileBannerService.addMobileBanner(mobileBannerVo);
-        return ResponseObject.newSuccessResponseObject("新增成功!");
-    }
+		return ResponseObject.newSuccessResponseObject("新增成功!");
+	}
 
 	/**
 	 * 编辑
+	 * 
 	 * @param vo
 	 * @return
 	 */
 	@RequiresPermissions("mobile:menu:banner")
 	@RequestMapping(value = "updateMobileBannerById", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseObject updateMobileBannerById (MobileBannerVo mobileBannerVo){
+	public ResponseObject updateMobileBannerById(MobileBannerVo mobileBannerVo) {
 		mobileBannerService.updateMobileBanner(mobileBannerVo);
 		return ResponseObject.newSuccessResponseObject("修改成功!");
 	}
 
 	/**
 	 * 修改状态(禁用or启用)
-	 * @param Integer id
+	 * 
+	 * @param Integer
+	 *            id
 	 * @return
 	 */
 	@RequestMapping(value = "updateStatus", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject updateStatus(MobileBannerVo mobileBannerVo){
+	@ResponseBody
+	public ResponseObject updateStatus(MobileBannerVo mobileBannerVo) {
 		mobileBannerService.updateStatus(mobileBannerVo);
 		return ResponseObject.newSuccessResponseObject("操作成功！");
 	}
-	
-	/**
-	 * 批量逻辑删除
-	 * @param Integer id
-	 * @return
-	 */
-    @RequestMapping(value = "deletes", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject deletes(String ids){
-         ResponseObject responseObject=new ResponseObject();
-         if(ids!=null) {
-              String[] _ids = ids.split(",");
-              mobileBannerService.deletes(_ids);
-         }
-         responseObject.setSuccess(true);
-         responseObject.setErrorMessage("删除完成!");
-         return responseObject;
-    }
 
 	/**
-     * 上移
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "upMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject upMove(String id) {
-         ResponseObject responseObj = new ResponseObject();
-         mobileBannerService.updateSortUp(id);
-         responseObj.setSuccess(true);
-         return responseObj;
-    }
-    
+	 * 批量逻辑删除
+	 * 
+	 * @param Integer
+	 *            id
+	 * @return
+	 */
+	@RequestMapping(value = "deletes", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject deletes(String ids) {
+		ResponseObject responseObject = new ResponseObject();
+		if (ids != null) {
+			String[] _ids = ids.split(",");
+			mobileBannerService.deletes(_ids);
+		}
+		responseObject.setSuccess(true);
+		responseObject.setErrorMessage("删除完成!");
+		return responseObject;
+	}
+
 	/**
-     * 下移
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "downMove", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject downMove(String id) {
-         ResponseObject responseObj = new ResponseObject();
-         mobileBannerService.updateSortDown(id);
-         responseObj.setSuccess(true);
-         return responseObj;
-    }
+	 * 上移
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "upMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject upMove(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		mobileBannerService.updateSortUp(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
+	/**
+	 * 下移
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "downMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject downMove(String id) {
+		ResponseObject responseObj = new ResponseObject();
+		mobileBannerService.updateSortDown(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
 }
