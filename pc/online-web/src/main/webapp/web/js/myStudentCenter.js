@@ -87,15 +87,15 @@ $.getUrlParam = function(name) {
 		'<a href="javascript:;"   data-videoId="{{$value.id}}">' +
 		'{{#hasImg($value.smallImgPath)}}' +
 		'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
-		'<div class="range clearfix">' +
-		'<div class="rangelength">' +
-		'<img src="/web/images/130/mystudy_icon01.png"/ class="lt">' +
-		'{{#range($value.learndCount,$value.count)}}' +
-		'</div>' +
-		'<div class="rangenum">' +
-		'<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
-		'</div>' +
-		'</div>' +
+		// '<div class="range clearfix">' +
+		// '<div class="rangelength">' +
+		// '<img src="/web/images/130/mystudy_icon01.png"/ class="lt">' +
+		// '{{#range($value.learndCount,$value.count)}}' +
+		// '</div>' +
+		// '<div class="rangenum">' +
+		// '<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
+		// '</div>' +
+		// '</div>' +
 		'</a>' +
 		'</div>' +
 		'{{/each}}' +
@@ -112,9 +112,9 @@ $.getUrlParam = function(name) {
 //	'<img src="/web/images/130/mystudy_icon01.png"/ class="lt">' +
 //	'{{#range($value.learndCount,$value.count)}}' +
 //	'</div>' +
-	'<div class="rangenum">' +
+// 	'<div class="rangenum">' +
 //	'<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
-	'</div>' +
+// 	'</div>' +
 	'</div>' +
 	'</a>' +
 	'</div>' +
@@ -132,7 +132,7 @@ $.getUrlParam = function(name) {
 //	'<img src="/web/images/130/mystudy_icon01.png"/ class="lt">' +
 //	'{{#range($value.learndCount,$value.count)}}' +
 //	'</div>' +
-	'<div class="rangenum">' +
+// 	'<div class="rangenum">' +
 //	'<span class="curr">{{$value.learndCount}}</span>/<span class="all">{{$value.count}}</span>' +
 	'</div>' +
 	'</div>' +
