@@ -349,10 +349,13 @@ input,button{
 	position: relative;
 }
 #forum .forum-content .forum-content-left .doctor_list > h2{	
-font-weight:700;
-font-size: 20px;
+font-weight:500;
+font-size: 18px;
 color: #333333;
 margin-top:0;
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 #forum .forum-content .forum-content-left .doctor_list > a{
 	    position: absolute;
@@ -436,7 +439,7 @@ margin-top:0;
 }
 #forum .forum-content .forum-content-right .school_teacher >div> h4{
 	padding:20px 0 0 20px;
-	font-size:16px;
+	font-size:18px;
 	margin-bottom:20px;
 }
 #forum .forum-content .forum-content-right .school_teacher >div >a{
@@ -469,7 +472,7 @@ margin-top:0;
 	position: relative;
 }
 #forum .forum-content .forum-content-right .teacher_books >div>h4{
-	font-size: 16px;
+	font-size: 18px;
 	margin-top: 0;
 	margin-bottom: 20px;
 }
@@ -560,7 +563,7 @@ margin-top:0;
   display: inline-block;
   width: 100%;
   padding: 17px 20px;
-  font-size: 16px;
+  font-size: 18px;
   color: #333;
 }
 #forum .forum-content .forum-content-right .forum-hot-tag .forum-hot-tagGround {
