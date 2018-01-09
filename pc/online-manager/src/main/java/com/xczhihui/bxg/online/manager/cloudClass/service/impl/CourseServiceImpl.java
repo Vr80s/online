@@ -344,6 +344,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			course.setStartTime(courseVo.getStartTime());
 			course.setEndTime(courseVo.getEndTime());
 		}
+
+		// zhuwenbao-2018-01-09 设置课程的展示图
+		// findCourseById 是直接拿小图 getCourseDetail是从大图里拿 同时更新两个 防止两者数据不一样
+		course.setSmallImgPath(courseVo.getSmallimgPath());
+		course.setBigImgPath(courseVo.getSmallimgPath());
+
 		dao.save(course);
 	}
 
@@ -366,7 +372,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 				+ "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.course_pwd as coursePwd,oc.grade_qq gradeQQ,oc.default_student_count defaultStudentCount,"
 				+ "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
 				+ "oc.current_price as currentPrice,oc.description as description ,oc.cloud_classroom as cloudClassroom ,"
-				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId FROM oe_course oc "
+				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId,oc.smallimg_path as smallimgPath FROM oe_course oc "
 				+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
 				+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType WHERE oc.id = :courseId";
 		List<CourseVo> courseVoList=dao.findEntitiesByJdbc(CourseVo.class, sql, paramMap);
@@ -401,7 +407,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setCity(courseVo.getRealCitys());
 		
 		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
-		
+
+		// findCourseById 是直接拿小图 getCourseDetail是从大图里拿 同时更新两个 防止两者数据不一样
+		course.setSmallImgPath(courseVo.getSmallimgPath());
+		course.setBigImgPath(courseVo.getSmallimgPath());
+
 //		if(0==course.getOriginalCost()&&0==course.getCurrentPrice()){
 		if(0==course.getCurrentPrice()){
 			course.setIsFree(true); //免费

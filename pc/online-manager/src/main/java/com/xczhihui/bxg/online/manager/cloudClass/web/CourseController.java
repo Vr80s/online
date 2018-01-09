@@ -278,6 +278,12 @@ public class CourseController extends AbstractController{
 		}
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
+
+		if(courseVo.getSmallimgPath() == null || "".equals(courseVo.getSmallimgPath().trim())){
+			responseObj.setErrorMessage("课程展示图不能为空");
+			return responseObj;
+		}
+
 		try{
 			courseService.addCourse(courseVo);
             responseObj.setSuccess(true);
@@ -349,6 +355,11 @@ public class CourseController extends AbstractController{
 		}
 		if(courseVo.getCurrentPrice() == null){
 			courseVo.setCurrentPrice(0.0);
+		}
+
+		if(courseVo.getSmallimgPath() == null || "".equals(courseVo.getSmallimgPath().trim())){
+			responseObj.setErrorMessage("课程展示图不能为空");
+			return responseObj;
 		}
 
 		 try{
