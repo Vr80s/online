@@ -553,7 +553,7 @@ $(function() {
 	});
 	//返回按钮
 	$("#return").click(function() {
-		location.href = "/web/html/CourseDetailZhiBo.html?courseId=" + courseId;
+		location.href = "/course/courses?courseId=" + courseId;
 	});
 	//已学习
 	$(".getNextPlay").click(function() {
@@ -1491,7 +1491,7 @@ $(function() {
 	});
 	//点击返回列表
 	$(".goup").click(function() {
-		location.href = "/web/html/CourseDetailZhiBo.html?courseId=" + courseId;
+		location.href = "/web/html/video.html?courseId=" + courseId;
 	});
 	//三种状态的关卡判断关闭
 	$(".censorship-close").on("click", function() {

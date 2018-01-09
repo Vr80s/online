@@ -197,7 +197,7 @@ input,button{
   padding: 17px 20px 0px 20px ;
   font-size: 16px;
   color: #333;
-  font-family: MicrosoftYaHei;
+  /*font-family: MicrosoftYaHei;*/
   margin-bottom: 10px;
 }
 #forum .forum-banner .hot-article .hot-article-list {
@@ -305,7 +305,8 @@ input,button{
 }
 #forum .forum-content .forum-content-left .forum-content-info .hospital_title{
 	padding-left:20px;
-	font-size: 20px;
+	font-size: 16px;
+	font-weight: 500;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list{
 padding:0 20px;	

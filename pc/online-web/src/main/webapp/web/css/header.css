@@ -223,7 +223,8 @@ body header .header_body {
 }
 html header .header_body .header_left,
 body header .header_body .header_left {
-  float: right;
+  float: left;
+  margin-left: 75px;
 }
 html header .header_body .header_left > a,
 body header .header_body .header_left > a,

@@ -352,7 +352,7 @@
                     var J = a(this).find("img").attr("url");
                     var I = a(this).find("img").attr("alt");
                     var M = a(this).find("img").attr("text");
-                    var K = '<li><div class="imgWrap"><a href="' + J + '" title="' + I + '"><img src="' + N + '" alt="' + I + '" /></a></div><div class="opacity"></div><div class="textDesc"><div class="title"><a href="' + J + '" target="_blank">' + I + '</a></div><div class="text">' + M + "</div></div></li>";
+                    var K = '<li><div class="imgWrap"><a href="' + J + '" ><img src="' + N + '" alt="' + I + '" /></a></div><div class="opacity"></div><div class="textDesc"><div class="title"><a href="' + J + '" target="_blank">' + I + '</a></div><div class="text">' + M + "</div></div></li>";
                     a(this).data("data", L);
                     q.append(K)
                 });

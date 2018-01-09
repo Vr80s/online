@@ -346,7 +346,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public String getCoursesPage(Integer courseId) {
-		CourseVo cv = coursedao.findCourseOrderById(courseId);
+        CourseVo cv = coursedao.findCourseOrderById(courseId);
 		if(cv==null)return "";
 		if(cv.getType()!=null && cv.getType()==1){
 			if("1".equals(cv.getCoursePwd())){
@@ -359,7 +359,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		}else{
 			if("1".equals(cv.getCoursePwd())){
 				return "encryptCourseDetailPage.html";//加密直播
-			}else if(cv.isFree()){
+			}else if(cv.isFree()||Double.valueOf(cv.getCurrentPrice())==0){
 				return "freeCourseDetailPage.html";//免费直播
 			}else{
 				return "payCourseDetailPage.html";//付费直播

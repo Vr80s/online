@@ -120,27 +120,27 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 				sql="select course_type,class_template,grade_student_sum,ifnull(grade_qq,0) grade_qq from oe_course  where id="+order.getCourse_id();
 				List<Map<String, Object>> courses = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
 				//如果微课，获取已报名人数少于额定人数的班级，如果没有此种班级，自动生成班级
-				if(Integer.valueOf(courses.get(0).get("course_type").toString())==1){
-					qqno=courses.get(0).get("grade_qq").toString();
-					sql="select id from oe_grade where is_delete=0 and grade_status = 1 and course_id ='"+order.getCourse_id()+"' and curriculum_time is null  and "+
-						"  ifnull(student_count+default_student_count,0)< student_amount order by create_time  limit 1 ";
-					List<Map<String, Object>> grades = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-					//存在报名未结束的班级
-					if (grades.size() > 0) {
-						gradeId = Integer.valueOf(grades.get(0).get("id").toString());
-					}else {
-						//查看上一个班级是第几期，要在这期上面加1
-						sql="select count(id)+1 number,(select AUTO_INCREMENT gradeId FROM information_schema.TABLES WHERE  TABLE_NAME ='oe_grade' and TABLE_SCHEMA='online') id  from oe_grade  where course_id="+order.getCourse_id();
-						List<Map<String, Object>> gradeInfos= orderDao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-						Map<String, Object> gradeInfo=gradeInfos.get(0);
-						//生成班级
-						sql=" insert into oe_grade (create_time,is_delete,course_id,name,qqno,status,sort,grade_status,student_amount) " +
-							" values (now(),0,"+order.getCourse_id()+",'"+courses.get(0).get("class_template").toString()+Integer.valueOf(gradeInfo.get("number").toString())+"期','"+
-							 courses.get(0).get("grade_qq")+"',1,1,1,"+courses.get(0).get("grade_student_sum")+")";
-						orderDao.getNamedParameterJdbcTemplate().update(sql,paramMap);
-						gradeId=Integer.valueOf(gradeInfo.get("id").toString());
-					}
-				}else{
+//				if(Integer.valueOf(courses.get(0).get("course_type").toString())==1){
+//					qqno=courses.get(0).get("grade_qq").toString();
+//					sql="select id from oe_grade where is_delete=0 and grade_status = 1 and course_id ='"+order.getCourse_id()+"' and curriculum_time is null  and "+
+//						"  ifnull(student_count+default_student_count,0)< student_amount order by create_time  limit 1 ";
+//					List<Map<String, Object>> grades = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+//					//存在报名未结束的班级
+//					if (grades.size() > 0) {
+//						gradeId = Integer.valueOf(grades.get(0).get("id").toString());
+//					}else {
+//						//查看上一个班级是第几期，要在这期上面加1
+//						sql="select count(id)+1 number,(select AUTO_INCREMENT gradeId FROM information_schema.TABLES WHERE  TABLE_NAME ='oe_grade' and TABLE_SCHEMA='online') id  from oe_grade  where course_id="+order.getCourse_id();
+//						List<Map<String, Object>> gradeInfos= orderDao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
+//						Map<String, Object> gradeInfo=gradeInfos.get(0);
+//						//生成班级
+//						sql=" insert into oe_grade (create_time,is_delete,course_id,name,qqno,status,sort,grade_status,student_amount) " +
+//							" values (now(),0,"+order.getCourse_id()+",'"+courses.get(0).get("class_template").toString()+Integer.valueOf(gradeInfo.get("number").toString())+"期','"+
+//							 courses.get(0).get("grade_qq")+"',1,1,1,"+courses.get(0).get("grade_student_sum")+")";
+//						orderDao.getNamedParameterJdbcTemplate().update(sql,paramMap);
+//						gradeId=Integer.valueOf(gradeInfo.get("id").toString());
+//					}
+//				}else{
 					String class_id = orders.get(0).getClass_id();//报名可以选择班级
 					if (class_id == null || "".equals(class_id.trim())) {
 						//如果是职业课，获取报名人数少于额定人数而且当前时间小于报名截止日期，如果没有此班级就将学院挂在虚拟班级(班级id=0)
@@ -149,12 +149,12 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 						List<Map<String, Object>> grades = orderDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
 						if (grades.size() > 0) {
 							gradeId = Integer.valueOf(grades.get(0).get("id").toString());
-							qqno=grades.get(0).get("qqno").toString();
+//							qqno=grades.get(0).get("qqno").toString();
 						}
 					} else {
 						gradeId = Integer.valueOf(class_id.trim());
 					}
-				}
+//				}
 
 				//写用户、报名、课程中间表
 				id = UUID.randomUUID().toString().replace("-", "");
@@ -167,10 +167,10 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
 				//写用户视频表
-				sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,apply_id,course_id,status) "
-						+ " select uuid(),'"+order.getCreate_person()+"',sort,id,'"+order.getUser_id()+"','"+apply_id+"',course_id,status "
-								+ "from oe_video where course_id="+order.getCourse_id()+" and is_delete=0 ";
-				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+//				sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,apply_id,course_id,status) "
+//						+ " select uuid(),'"+order.getCreate_person()+"',sort,id,'"+order.getUser_id()+"','"+apply_id+"',course_id,status "
+//								+ "from oe_video where course_id="+order.getCourse_id()+" and is_delete=0 ";
+//				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
 				//更新班级报名人数
 				if (gradeId != 0) {

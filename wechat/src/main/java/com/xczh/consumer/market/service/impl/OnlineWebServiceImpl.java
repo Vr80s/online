@@ -87,13 +87,12 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       this.update(JdbcUtil.getCurrentConnection(), sql,ops);
 
 	       //写用户视频表
-	       sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-	               + " select replace(uuid(),'-',''),?,sort,id,?,course_id "
-	               + "from oe_video where course_id=? and is_delete=0 and status=1 ";
-	       //orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-	       System.out.println(sql);
-	       Object [] params3 ={u.getLoginName(),u.getId(),courseId};
-	       this.update(JdbcUtil.getCurrentConnection(), sql,params3);
+//	       sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
+//	               + " select replace(uuid(),'-',''),?,sort,id,?,course_id "
+//	               + "from oe_video where course_id=? and is_delete=0 and status=1 ";
+//	       //orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+//	       Object [] params3 ={u.getLoginName(),u.getId(),courseId};
+//	       this.update(JdbcUtil.getCurrentConnection(), sql,params3);
 	   }
 	
 	   /**
