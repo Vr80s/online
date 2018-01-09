@@ -60,6 +60,9 @@ public class TokenFilter implements Filter {
 			+ "/bxg/user/appleLogout";
 	
 	
+	private static String str6 = "/bxg/bunch/courseClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop";
+	
+	
 //	/*
 //	 * 因为这些接口和h5无关
 //	 * 新版为了播放开放的接口
@@ -108,11 +111,10 @@ public class TokenFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
 		
-		String excludedPageStr = str+","+str1+","+str2+","+str3;
+		String excludedPageStr = str+","+str1+","+str2+","+str3+","+str6;
 	    
-	    String appExcludedPageStr = str5;
+	    String appExcludedPageStr = str5+","+str6;
 		//String appExcludedPageStr =str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14+","+str15;
-		
 		if (StringUtils.isNotEmpty(excludedPageStr)) {   
 		    excludedPageArray = excludedPageStr.split(",");
 		    appExcludedPageArray  = appExcludedPageStr.split(",");

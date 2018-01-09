@@ -364,6 +364,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
 		
 		all.append(" '精品课程' as note ");
+		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
 		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1 order by learndCount desc,oc.create_time desc  limit 0,"+pageSize +")");
 		
@@ -379,18 +380,13 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
 		
 		all.append(" '最新课程' as note ");
+		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
 		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  order by  oc.create_time desc limit 0,"+pageSize +")");
 		
 		
 		all.append("  union all ");
 		
-//		List<MenuVo> listmv = menuService.list();
-		
-//		List<Integer> menus = new ArrayList<Integer>();
-//		menus.add(200);
-//		menus.add(201);
-//		menus.add(202);
 		
 		int i = 0;
 		for (MenuVo menuVo : listmv) {

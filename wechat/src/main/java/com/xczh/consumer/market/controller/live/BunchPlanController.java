@@ -298,24 +298,27 @@ public class BunchPlanController {
 										   HttpServletResponse res, Integer id)
 			throws Exception {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
+		//Map<String, Object> map = new HashMap<String, Object>();
+		List<Object> list11 = new ArrayList<Object>();
 		
 		//课程分类
-		map.put("category", menuService.list());
+		//map.put("category", menuService.list());
+		list11.add(menuService.list());
+		
 		
 		List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
 		Map<String, Object> m1 = new HashMap<String, Object>();
-		m1.put("code", "1");
-		m1.put("title", "大师课");
+		m1.put("id", "1");
+		m1.put("name", "大师课");
 		Map<String, Object> m2 = new HashMap<String, Object>();
-		m2.put("code", "2");
-		m2.put("title", "经典课");
+		m2.put("id", "2");
+		m2.put("name", "经典课");
 		Map<String, Object> m3 = new HashMap<String, Object>();
-		m3.put("code", "3");
-		m3.put("title", "小白课程");
+		m3.put("id", "3");
+		m3.put("name", "小白课程");
 		Map<String, Object> m4 = new HashMap<String, Object>();
-		m4.put("code", "4");
-		m4.put("title", "免费课程");
+		m4.put("id", "4");
+		m4.put("name", "免费课程");
 		
 		list.add(m1);
 		list.add(m2);
@@ -323,33 +326,37 @@ public class BunchPlanController {
 		list.add(m4);
 				
 		//课程专题   -- 假数据
-		map.put("project", list);
-//		
+		//map.put("project", list);
+		list11.add(list);
+		
+		//		
 		List<Map<String, Object>>  list1  = new ArrayList<Map<String,Object>>();
 		Map<String, Object> m11 = new HashMap<String, Object>();
-		m11.put("courseType", "视频课程");
-		m11.put("1", "视频课程");
+		m11.put("id", "1");
+		m11.put("name", "视频课程");
 		Map<String, Object> m21 = new HashMap<String, Object>();
-		m11.put("courseType", "视频课程");
-		m21.put("2", "直播课程");
+		m21.put("id", "2");
+		m21.put("name", "音频课程");
 		Map<String, Object> m31 = new HashMap<String, Object>();
-		m11.put("courseType", "视频课程");
-		m31.put("3", "音频课程");
+		m31.put("id", "3");
+		m31.put("name", "直播课程");
 		Map<String, Object> m41 = new HashMap<String, Object>();
-		m41.put("4", "线下课程");
+		m41.put("id", "4");
+		m41.put("name", "线下课程");
 		
 		list1.add(m11);
 		list1.add(m21);
 		list1.add(m31);
 		list1.add(m41);
 		//课程类型
-		map.put("type", list1);
-		return ResponseObject.newSuccessResponseObject(map);
+		//map.put("type", list1);
+		list11.add(list1);
+		return ResponseObject.newSuccessResponseObject(list11);
 	}
 	
 
 	/**
-	 * 推荐中 上不包含的信息
+	 * 推荐中   上不包含的信息
 	 */
 	@RequestMapping("recommendTop")
 	@ResponseBody
@@ -362,28 +369,38 @@ public class BunchPlanController {
 		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		Map<String, Object> map2 = new HashMap<String, Object>();
-		map1.put("cid", "1");
+		map1.put("tid", "1");
 		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
+		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		map1.put("linkCondition", "1"); //活动页的话，就是活动id   活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
 		
 		map2.put("cid", "2");
 		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		map2.put("linkCondition", "1"); //活动页的话，就是活动id   活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
 		listTj.add(map1);
 		listTj.add(map2);
 		
 		mapAll.put("banner", listTj);
 		
-		
 		//课程专题   -- 假数据
 	    
 		List<Map<String, Object>>  listNw  = new ArrayList<Map<String,Object>>();
+		
 		Map<String, Object> m1 = new HashMap<String, Object>();
-		m1.put("1", "大师课");
+		m1.put("projectId", "1");
+		m1.put("title", "大师课");
 		Map<String, Object> m2 = new HashMap<String, Object>();
-		m2.put("2", "经典课");
+		m2.put("projectId", "2");
+		m2.put("title", "经典课");
 		Map<String, Object> m3 = new HashMap<String, Object>();
-		m3.put("3", "小白课程");
+		m3.put("projectId", "3");
+		m3.put("title", "小白课程");
 		Map<String, Object> m4 = new HashMap<String, Object>();
-		m4.put("4", "免费课程");
+		m4.put("projectId", "4");
+		m4.put("title", "免费课程");
 		
 		listNw.add(m1);
 		listNw.add(m2);
@@ -391,15 +408,12 @@ public class BunchPlanController {
 		listNw.add(m4);
 		mapAll.put("project", listNw);
 		
-		
 		//名师推荐 名师推荐,没有按照排序做，或者按照这个讲师的课程数来排序呗
-		
-		
 		Page<MedicalDoctorVO> page = new Page<>();
 	    page.setCurrent(1);
 	    page.setSize(5);
-		
-	    //map.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
+	    
+	    mapAll.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
 		
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
@@ -429,6 +443,7 @@ public class BunchPlanController {
 		
 		Map<String,Object> mapTj = new HashMap<String, Object>();
 		Map<String,Object> mapNw = new HashMap<String, Object>();
+		
 		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
 		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
 		
@@ -440,11 +455,13 @@ public class BunchPlanController {
 				listNw.add(courseLecturVo);
 			}
 		}
-		mapTj.put("title","精品课程");
+		mapTj.put("menuType","goodsCourse");
+		mapTj.put("name","精品课程");
 		mapTj.put("courseList",listTj);
 		
-		mapTj.put("title","最新课程");
-		mapTj.put("courseList",listNw);
+		mapTj.put("menuType","newCourse");
+		mapNw.put("name","最新课程");
+		mapNw.put("courseList",listNw);
 		
 		mapCourseList.add(mapTj);
 		mapCourseList.add(mapNw);
@@ -457,9 +474,12 @@ public class BunchPlanController {
 					listMenu.add(courseLecturVo);
 				}
 			}
-			mapMenu.put("title", menuVo.getName());
-			mapMenu.put("courseList", listMenu);
-			mapCourseList.add(mapMenu);
+			if(listMenu!=null && listMenu.size()>0){
+				mapMenu.put("menuType", menuVo.getId());
+				mapMenu.put("name", menuVo.getName());
+				mapMenu.put("courseList", listMenu);
+				mapCourseList.add(mapMenu);
+			}
 		}
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
