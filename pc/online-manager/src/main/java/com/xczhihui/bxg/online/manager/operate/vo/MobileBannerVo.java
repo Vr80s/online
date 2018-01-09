@@ -19,6 +19,11 @@ public class MobileBannerVo extends OnlineBaseVo  {
     private Integer status;
     private Integer seq;
     private String createPersonName;
+    
+    private Integer linkType;
+    private String linkCondition;
+    private Integer bannerType;
+    
 
 	public String getId() {
 		return id;
@@ -80,4 +85,23 @@ public class MobileBannerVo extends OnlineBaseVo  {
 	public void setCreatePersonName(String createPersonName) {
 		this.createPersonName = createPersonName;
 	}
+	public Integer getLinkType() {
+		return linkType;
+	}
+	public void setLinkType(Integer linkType) {
+		this.linkType = linkType;
+	}
+	public String getLinkCondition() {
+		return linkCondition;
+	}
+	public void setLinkCondition(String linkCondition) {
+		this.linkCondition = linkCondition;
+	}
+	public Integer getBannerType() {
+		return bannerType;
+	}
+	public void setBannerType(Integer bannerType) {
+		this.bannerType = bannerType;
+	}
+	
 }
