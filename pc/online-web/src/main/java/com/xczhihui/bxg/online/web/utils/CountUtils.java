@@ -38,7 +38,6 @@ public class CountUtils {
 	public static void main(String[] args) {
 		BigDecimal b1 = new BigDecimal("0.0222");   
 		BigDecimal b2 = new BigDecimal("0.0222");  
-		System.out.println("你好"+b1.subtract(b2));
 	}
 	
 	

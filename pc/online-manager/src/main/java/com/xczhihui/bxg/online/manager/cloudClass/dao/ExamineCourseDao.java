@@ -123,7 +123,6 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 	 	
 	 	sql.append(" order by le.create_time desc ");
 	 	
-	 	System.out.println("sql.toString():"+sql.toString());
 	 	Page<LiveExamineInfoVo> pageList =this.findPageBySQL(sql.toString(), paramMap, LiveExamineInfoVo.class, pageNumber, pageSize);
 		
  	/*	for (LiveExamineInfoVo lv : pageList.getItems()) {
@@ -221,8 +220,6 @@ public class ExamineCourseDao extends HibernateDao<Course>{
 			 		sql.append(" and la.is_delete = :is_delete ");
 			 	}
 			 	
-			 	System.out.println("sql.toString():"+sql.toString());
-			 	System.out.println(pageNumber+"========"+pageSize);
 			 	Page<LiveExamineInfoVo> pageList =  this.findPageBySQL(sql.toString(), paramMap, LiveExamineInfoVo.class, pageNumber, pageSize);
 		
 				return pageList;

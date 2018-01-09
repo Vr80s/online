@@ -66,7 +66,7 @@ public class MyTask extends SimpleHibernateDao{
     public void addShareOrder(){
          //查询所有未产生佣金的已完成订单
     	orderDao.addShareOrder();
-    	System.out.println("查询所有未产生佣金的已完成订单");
+//    	System.out.println("查询所有未产生佣金的已完成订单");
     }
 
     /**

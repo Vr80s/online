@@ -770,7 +770,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 						}
 						
 						if(j == 0){
-							System.out.println(" ["+i+"]"+ids[i]);
 							ids2.add(ids[i]);
 						}
 					}
@@ -1116,7 +1115,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			Gson g = new GsonBuilder().create();
 			Map<String, Object> mp = g.fromJson(responsestr, Map.class);
 			Map<String, Object> category = (Map<String, Object>)mp.get("category");
-			System.out.println("创建一级CC分类："+category.get("name"));
 		}
 	}
 
@@ -1154,7 +1152,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 						Gson g = new GsonBuilder().create();
 						Map<String, Object> mp = g.fromJson(responsestr, Map.class);
 						Map<String, Object> category = (Map<String, Object>)mp.get("category");
-						System.out.println("创建二级CC分类："+bean.getName()+"-----"+category.get("name"));
 						Thread.sleep(500);
 					}
 				}

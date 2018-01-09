@@ -17,14 +17,12 @@ import java.util.Locale;
 public class test {
     public static void main(String[] args) {
         java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
-//        System.out.println("Today is:"+format.format(Calendar.getInstance().getTime()));
         Calendar calendar = new GregorianCalendar(2017, 11, 6,10,20,30);
         calendar.set(Calendar.HOUR_OF_DAY, 0);//时
         calendar.set(Calendar.MINUTE, 0);//分
         calendar.set(Calendar.SECOND, 0);//秒
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
         Date date = calendar.getTime();
-        System.out.println("2007 Christmas is:"+format.format(date));
         String now = format.format(Calendar.getInstance().getTime());
         Date nowd;
         try {

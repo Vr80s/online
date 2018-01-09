@@ -66,7 +66,6 @@ public class AttachmentController {
 		attachment.setOrgFileName(orgFileName);
 		attachment.setDelete(false);
 		attachmentService.saveFullAttachment(attachment);
-		System.out.println(attachment.getId());
 	}
 	
 	/**
