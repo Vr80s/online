@@ -115,7 +115,6 @@ public class OnlineInterceptor implements HandlerInterceptor {
 			boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$",t.getLoginName());
 			boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",t.getLoginName());
 			if (ism  || ise) {
-				System.out.println("其他系统用户登陆写入用户！"+t.getLoginName()+";"+t.getTicket());
 				o = new OnlineUser();
 				o.setLoginName(user.getLoginName());
 				o.setName(user.getNikeName());

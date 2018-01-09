@@ -591,7 +591,6 @@ public class PlanServiceImpl extends OnlineBaseServiceImpl implements PlanServic
 					"  and op.chuanjiang_has = 1) t " +
 					" where (t.chuanjiangHas = 0 or (t.chuanjiangHas = 1 and t.`name` is not null and t.`name` <> ''))" +//#剔除掉有串讲 但是没有知识点的记录 
 					" order by t.planDate  ,t.sort asc ";
-//		System.out.println("获取数据sql"+sql);
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		paramMap.put("gradeId", planVo.getGradeId());
 		List<Map<String,Object>> list = planDao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);

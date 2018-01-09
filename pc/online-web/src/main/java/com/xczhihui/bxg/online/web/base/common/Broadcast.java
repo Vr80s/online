@@ -61,7 +61,7 @@ public class Broadcast {
 			connection.login();
 		}
 		// 是否已经通过身份验证
-		System.out.println("Authenticated = " + connection.isAuthenticated());
+//		System.out.println("Authenticated = " + connection.isAuthenticated());
 		if(!connection.isAuthenticated()){
 			connection.login();
 		}
@@ -110,7 +110,7 @@ public class Broadcast {
 		try {
             MultiUserChat multiUserChat=mMultiUserChatManager.getMultiUserChat(roomId+postfix);
             multiUserChat.join("system");
-            System.out.println(body);
+//            System.out.println(body);
     		Message message=multiUserChat.createMessage();
     		message.setBody(body);
     		multiUserChat.sendMessage(message);

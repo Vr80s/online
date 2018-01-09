@@ -34,19 +34,7 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        paramMap.put("courseId",courseId);
 	        paramMap.put("userId",u.getId());
 	        paramMap.put("loginName",u.getLoginName());
-	        
-//	       if(type == 1){
-//	    	   if(this.getLiveUserCourse(courseId, u.getId()).size()>0){
-//	    		   System.out.println("同学,当前直播您已经报名了!");
-//	    		   return;
-//	    	   }
-//	       }else if(type == 2){
-//	    	   //查看用户是否已经报过此课程
-//		       if( this.getUserCourse(courseId,u.getId()).size()>0){
-//		           System.out.println("同学,当前课程您已经报名了!");
-//		           return;
-//		       };
-//	       }
+
 	       if(this.getLiveUserCourse(courseId,u.getId()).size()>0){
 	           System.out.println("同学,当前课程您已经报名了!");
 	           return;

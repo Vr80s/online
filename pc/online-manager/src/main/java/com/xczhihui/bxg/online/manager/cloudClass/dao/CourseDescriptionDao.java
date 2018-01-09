@@ -34,7 +34,6 @@ public class CourseDescriptionDao extends SimpleHibernateDao {
 		   paramMap.put("courseId", courseDescriptionVo.getCourseId());
 		   
 		   sql.append(" order by t.sort asc");
-		   System.out.println("查询："+sql.toString());
 		   List<Map<String,Object>> ms = this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
       	   return ms;
 	}

@@ -95,7 +95,6 @@ public class CriticizeDao extends SimpleHibernateDao {
 		   }else{
 			   sql.append(" order by create_time desc");
 		   }
-		   System.out.println("查询评价副SQL"+sql.toString());
 		   Page<CriticizeVo> ms = this.findPageBySQL(sql.toString(), paramMap, CriticizeVo.class, pageNumber, pageSize);
       	   return ms;
 	}
@@ -156,7 +155,6 @@ public class CriticizeDao extends SimpleHibernateDao {
 		 		sql.append(" group by oc.id  order by oc.sort desc");	
 		 	}
 	 		
-	 		System.out.println("查询评价主SQL"+sql.toString());
 	 		Page<CourseVo> courseVos=this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 	 		for(CourseVo entityVo :courseVos.getItems()){
 	 			List<ApplyGradeCourse> temps= this.findEntitiesByProperty(ApplyGradeCourse.class, "courseId", entityVo.getId());

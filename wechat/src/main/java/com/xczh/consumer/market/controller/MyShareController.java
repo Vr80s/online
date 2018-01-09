@@ -36,7 +36,6 @@ public class MyShareController {
 
 		/*刘涛修改 暂时写死*/
 		String courseId = "191";
-		System.out.println(courseId);
 		return ResponseObject.newSuccessResponseObject(shareService.findOneCourse(courseId));
 	}
 	

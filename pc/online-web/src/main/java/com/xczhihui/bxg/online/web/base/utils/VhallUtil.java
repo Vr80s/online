@@ -59,7 +59,7 @@ public class VhallUtil {
 		if(m.get("msg").equals("success")){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
-			System.out.println(json+":"+u.getLoginName()+":"+password);
+//			System.out.println(json+":"+u.getLoginName()+":"+password);
 			return vhallId;
 		}
 		return null;
@@ -107,7 +107,7 @@ public class VhallUtil {
 		if(m.get("msg").equals("success")){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
-			System.out.println(json+":"+u.getLoginName()+":"+password);
+//			System.out.println(json+":"+u.getLoginName()+":"+password);
 			return vhallId;
 		}
 		return null;
@@ -142,7 +142,6 @@ public class VhallUtil {
 		
 		
 		String json = HttpUtil.sendPostRequest(WEBINAR_CREATE, parameters);
-		System.out.println(json);
 		Map<String, String> m =json2Map(json);
 		if(m.get("code").equals("200")){
 			return m.get("data");
@@ -170,7 +169,6 @@ public class VhallUtil {
 		System.out.println(json);
 		Map<String, String> m =json2Map(json);
 		if(m.get("code").equals("200")){
-			System.out.println(m.get("data"));
 			return m.get("data");
 		}
 		return null;
@@ -262,7 +260,6 @@ public class VhallUtil {
                 sb2.append((char) ch);
             }
             resStr = sb2.toString();
-            System.out.println(resStr);
 			conn.disconnect();
 			
 		}catch(Exception e){
@@ -309,27 +306,27 @@ public class VhallUtil {
 		webinar.setLayout("3");
 		String id = createWebinar(webinar);*/
 //		getWebinarUrl(977685530+"");
-		String ks = getKValue();
-		System.out.println(cheackKValue(ks));
-		Thread.sleep(1000);
-		System.out.println(cheackKValue(ks));
-		Thread.sleep(1000);
-		System.out.println(cheackKValue(ks));
-		Thread.sleep(1000);
-		System.out.println(cheackKValue(ks));
-		Thread.sleep(1000);
-		System.out.println(cheackKValue(ks));
-		Thread.sleep(1000);
-		System.out.println(cheackKValue(ks));
-		Thread.sleep(1000);
-		System.out.println(cheackKValue(ks));
-		Thread.sleep(1000);
+//		String ks = getKValue();
+//		System.out.println(cheackKValue(ks));
+//		Thread.sleep(1000);
+//		System.out.println(cheackKValue(ks));
+//		Thread.sleep(1000);
+//		System.out.println(cheackKValue(ks));
+//		Thread.sleep(1000);
+//		System.out.println(cheackKValue(ks));
+//		Thread.sleep(1000);
+//		System.out.println(cheackKValue(ks));
+//		Thread.sleep(1000);
+//		System.out.println(cheackKValue(ks));
+//		Thread.sleep(1000);
+//		System.out.println(cheackKValue(ks));
+//		Thread.sleep(1000);
 	}
 
 	public static String getKValue(){
 		String timestr = new Date().getTime()/1000+"";
-		System.out.println(CodeUtil.encodePassword(timestr,"adsf"));
-		System.out.println("ts"+timestr);
+//		System.out.println(CodeUtil.encodePassword(timestr,"adsf"));
+//		System.out.println("ts"+timestr);
 		return CodeUtil.encodePassword(timestr,"adsf");
 	}
 

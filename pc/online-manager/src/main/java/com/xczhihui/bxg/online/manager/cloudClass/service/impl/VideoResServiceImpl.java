@@ -907,9 +907,7 @@ public class VideoResServiceImpl implements VideoResService {
 	
 	@Override
 	public List<TreeNode> getChapterTreeBarrier(String courseId,String courseName) {
-//		System.out.println("courseId:"+courseId);
-//		System.out.println("courseName:"+courseName);
-		
+
 		Map<String, Object> paramMap =null;
 //		String sql="select id,name ,parent_id as pId,level ,level as type ,level as contenttype from oe_chapter where is_delete=0 and course_id= "+courseId +" order by sort";
 		String sql= " select * from ( " +

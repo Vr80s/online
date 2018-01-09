@@ -3260,6 +3260,7 @@ $(function() {
   $("#edit_province").append(sb.toString());
   // $("#choosePro").after(sb.toString());
   //$("#view_choosePro").after(sb.toString());
+    sb = '<option value="110100">北京市</option>';
   $("#citys").append(sb.toString());
   $("#edit_citys").append(sb.toString());
 
@@ -3270,10 +3271,10 @@ $(function() {
 // 省值变化时 处理市
 function doProvAndCityRelation() {
   var city = $("#citys");
-
-  if (city.children().length > 1) {
+debugger
+  // if (city.children().length > 1) {
     city.empty();
-  }
+  // }
 
   if ($("#chooseCity").length === 0) {
     // city.append("<option id='chooseCity' value='-1'>请选择您所在城市</option>");
@@ -3289,7 +3290,9 @@ function doProvAndCityRelation() {
   
   var province =$("#province").find("option:selected").text();
   $("#realProvince").val(province);
-
+    // if(sb.toString==null){
+    //     sb.append("<option value='" + $("#province").find("option:selected").val() + "'>" + $("#province").find("option:selected").text() + "</option>");
+    // }
     city.append(sb.toString());
   // $("#chooseCity").after(sb.toString());
 

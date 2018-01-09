@@ -81,7 +81,7 @@
 			ON mf.`id` = mhf.`field_id`
 		GROUP BY mhf.`field_id`
 		ORDER BY COUNT(mhf.`field_id`) DESC
-		LIMIT 0, 10
+		LIMIT 0, 8
 	</select>
 
 	<select id="selectRecHospital" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalVo">
@@ -93,7 +93,7 @@
 		  and status = 1
 		  and recommend = 1
 		order by recommend_sort desc
-		limit 0, 6
+		limit 0, 7
 	</select>
 
 	<!--<select id="selectHospitalById" resultType="com.xczhihui.medical.hospital.voMedicalHospital">-->

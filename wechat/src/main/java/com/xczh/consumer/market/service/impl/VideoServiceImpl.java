@@ -51,10 +51,10 @@ public class VideoServiceImpl implements VideoService {
         Iterator<String> iter = keySet.iterator();
         while (iter.hasNext()) {
             String key = iter.next();
-            System.out.println(key + ":" + kv.get(key));
+//            System.out.println(key + ":" + kv.get(key));
             sb.append(key +"="+ kv.get(key)+"&");
         }
-        System.out.println(sb.toString());
+//        System.out.println(sb.toString());
 //		return sb.toString();
         return kv;
 	}

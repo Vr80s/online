@@ -332,7 +332,6 @@ public class PublicCourseController {
     @ResponseBody
     public ResponseObject changeCallback(ChangeCallbackVo changeCallbackVo) throws IllegalAccessException, InvocationTargetException {
     	ResponseObject responseObj = new ResponseObject();
-    	System.out.println("直播状态发生变化"+changeCallbackVo.toString());
     	publicCourseService.updateLiveStatus(changeCallbackVo);
     	responseObj.setSuccess(true);
     	responseObj.setResultObject(changeCallbackVo);

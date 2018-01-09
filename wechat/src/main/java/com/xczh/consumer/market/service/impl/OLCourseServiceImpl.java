@@ -314,8 +314,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		sql.append(" from oe_course c,oe_user ou ");
 		sql.append(" where  c.user_lecturer_id = ou.id and c.id = ?  and c.is_delete=0 and c.status = 1  and  c.online_course=1  ");
 		Object[] params = {id};
-		System.out.println(sql.toString());
-
 
 		CourseLecturVo courseLecturVo = wxcpCourseDao.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 		/**
