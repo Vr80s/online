@@ -229,7 +229,6 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 						}
 					}
 					if(j == 0){
-						System.out.println(" ["+i+"]"+ids[i]);
 						ids2.add(ids[i]);
 					}
 				}

@@ -307,6 +307,8 @@ input,button{
 	padding-left:20px;
 	font-size: 16px;
 	font-weight: 500;
+	border-bottom: 1px solid #efefef;
+    padding-bottom: 10px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list{
 padding:0 20px;	

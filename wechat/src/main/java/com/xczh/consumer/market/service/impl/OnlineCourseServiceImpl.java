@@ -250,21 +250,9 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		/**
 		 * 判断用户是否需要密码或者付费
 		 */
-		/*if(courseLecturVo.getWatchState()==2){ //是否已经认证了密码了
-			ResponseObject resp = courseIsConfirmPwd(user,course_id);
-			if(resp.isSuccess()){//认证通过
-				courseLecturVo.setWatchState(0);
-			}
-		}else if(courseLecturVo.getWatchState()==1){//是否已经付过费了
-			ResponseObject resp = courseIsBuy(user,course_id);
-			if(resp.isSuccess()){//已经付过费了
-				courseLecturVo.setWatchState(0);
-			}
-		}*/
 		if(courseLecturVo.getWatchState()!=0){
 			if(courseLecturVo.getUserId().equals(user.getId()) || onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
-		       //System.out.println("同学,当前课程您已经报名了!");
-		       courseLecturVo.setWatchState(0);    
+		       courseLecturVo.setWatchState(0);
 		    };
 		}
 		/**
@@ -474,7 +462,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	@Override
     public void updateBrowseSum(Integer courseId) throws SQLException {
         String sql = " update oe_course  set pv = (pv + 1)  where id = ? and is_delete = 0 and status=1 ";
-        System.out.println(sql);
         super.update(JdbcUtil.getCurrentConnection(),sql, courseId);
     }
 	
@@ -499,7 +486,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		
 		//直播状态1.直播中，2预告，3直播结束
 		 if(courseLecturVo.getLineState() == 2){
-			System.out.println("预告");
 			/**
 			 * 获取当前预约人数
 			 */
@@ -565,8 +551,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql1.append("and  c.id  in ("+ids+") ");
 		}
 		sql1.append(comSql);
-		
-		System.out.println("sql1:"+sql1.toString());
 		
 		StringBuffer sql2 = new StringBuffer("");
 		sql2.append("select c.id,c.direct_Id as directId,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
@@ -637,7 +621,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.description as courseDescription ");
 			sql.append(" from oe_course c,oe_course_mobile as ocm,oe_user ou ");
 			sql.append(" where c.user_lecturer_id = ou.id and c.id = ? and c.id = ocm.course_id  and c.is_delete=0 and c.status = 1 ");
-			System.out.println(sql.toString());
 			clv = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 					new BeanHandler<>(CourseLecturVo.class),courseId);
 		}
