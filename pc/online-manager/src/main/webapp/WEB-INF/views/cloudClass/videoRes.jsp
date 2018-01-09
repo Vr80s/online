@@ -115,12 +115,12 @@
 		<div style="width: 81%; float: right">
 
 			<p  class="col-xs-7" style="padding: 0;">
-				<!-- <button class="btn btn-sm btn-success async_video_button" title="同步CC视频">
+				<button class="btn btn-sm btn-success async_video_button" title="同步CC视频">
 					<i class="glyphicon glyphicon-plus"></i> 同步CC视频
 				</button>
 				<button class="btn btn-sm btn-success async_category_button" title="同步CC分类">
 					<i class="glyphicon glyphicon-plus"></i> 同步CC分类
-				</button> -->
+				</button>
 				<button style="display: none;" class="btn btn-sm btn-success add_bx add_video_button" title="新增视频">
 						<i class="glyphicon glyphicon-plus"></i> 新增视频
 				</button>

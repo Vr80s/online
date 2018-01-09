@@ -205,13 +205,18 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 	}
 
 	@Override
-	public boolean updateRec(String[] ids,int isRecommend) {
+	public Integer updateRec(String[] ids,int isRecommend) {
+		
+		Integer code = 1000; //code：1000  操作成功!   code：1001  最多设置十个推荐医师!   code：1002   你所选中的被推荐人已是被推荐!
+		
 		// TODO Auto-generated method stub
 		List<String> ids2 = new ArrayList();
 		if(isRecommend == 1){//如果是要推荐 那么就验证 推荐数量是否大于4
 			//校验是否被引用
 			String hqlPre="from MedicalDoctor where deleted=0 and recommend = 1";
 			List<MedicalDoctor> list= dao.findByHQL(hqlPre);
+			
+			int y = 0;
 			if(list.size() > 0){//只有原来大于0才执行
 				for(int i = 0;i<ids.length;i++){
 					int j = 0;
@@ -220,6 +225,7 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 						MedicalDoctor medicalDoctor = iterator.next();
 						if(medicalDoctor.getId().equals(ids[i])){//如果存在就把他剔除掉从list中
 							j =1;
+							y++;
 						}
 					}
 					if(j == 0){
@@ -235,8 +241,14 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 			}
 			//已经存在的数量 +  即将添加的数量
 			if((list.size()+ids2.size()) > 10){
-				return false;
+				return 1001;
 			}
+			
+			//如果本次推荐的人已经全部都是推荐人了，提示你所选中的被推荐人已是推荐人
+			if(y == ids.length){
+				return 1002;
+			}
+			
 		}else{//如果是取消推荐
 			for(int i=0;i<ids.length;i++)
 			{
@@ -260,7 +272,7 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 				dao.update(medicalDoctor);
 			}
 		}
-		return true;
+		return 1000;
 	}
 	@Override
 	public Page<MedicalDoctor> findRecMedicalDoctorPage(MedicalDoctor medicalDoctor, int currentPage, int pageSize) {
@@ -398,4 +410,13 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		}
 		return list;
 	}
+	/**
+	 * 获取所有的医师
+	 */
+	@Override
+	public List<MedicalDoctor> getAllMedicalDoctorList() {
+		// TODO Auto-generated method stub
+		return list();
+	}
+	
 }

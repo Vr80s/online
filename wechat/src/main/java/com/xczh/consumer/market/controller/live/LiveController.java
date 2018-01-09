@@ -168,8 +168,6 @@ public class LiveController {
 		
 		log.info("{}{}{}{}{}{}{}{}{}");
 		
-		log.debug("================{}{}");
-		
 		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
 			return ResponseObject.newErrorResponseObject("缺少分页参数");
 		}
@@ -177,7 +175,7 @@ public class LiveController {
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		try {
 			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(pageNumber,pageSize,null);
-			System.out.println("list.size():"+list.size());
+			log.info("list.size():"+list.size());
 			if(list!=null && list.size()>0){
 				return ResponseObject.newSuccessResponseObject(list);
 			}else{
@@ -239,7 +237,7 @@ public class LiveController {
 				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
-			       //System.out.println("同学,当前课程您已经报名了!");
+			       //log.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };
 				
@@ -293,10 +291,10 @@ public class LiveController {
 				projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
 
 		JSONObject json = JSONObject.parseObject(headImgPath);
-		System.out.println("文件路径——path:"+headImgPath);
+		log.info("文件路径——path:"+headImgPath);
 		map.put("logo", json.get("url").toString());
 
-		System.out.println("req.getParameterprice================"+req.getParameter("price"));
+		log.info("req.getParameterprice================"+req.getParameter("price"));
 		if(liveExamineInfo.getSeeMode().equals("1")){//收费
 			liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
 		}
@@ -365,6 +363,30 @@ public class LiveController {
 		return ResponseObject.newSuccessResponseObject(result);
 	}
 
+	
+	/**
+	 * 取消审核
+	 * Description：
+	 * @param id
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("/cancelAudit")
+	@ResponseBody
+	public ResponseObject cancelAudit(HttpServletRequest req,
+			 HttpServletResponse res,String examineId){
+		try {
+			liveExamineInfoService.cancelAudit(examineId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("网络异常,请稍等");
+		}
+		return ResponseObject.newSuccessResponseObject("取消成功");
+	}
+	
+	
+	
 	@RequestMapping("selectCurrentLive")
 	@ResponseBody
 	public ResponseObject selectCurrentLive(HttpServletRequest req,
@@ -419,7 +441,6 @@ public class LiveController {
 	@RequestMapping("/liveIsAvailable")
 	@ResponseBody
 	public ResponseObject liveIsAvailable(Integer id){
-
 		try {
 			CourseLecturVo courseVo =onlineCourseService.get(id);
 			if(courseVo==null){
@@ -431,4 +452,5 @@ public class LiveController {
 
 		return ResponseObject.newSuccessResponseObject(null);
 	}
+	
 }

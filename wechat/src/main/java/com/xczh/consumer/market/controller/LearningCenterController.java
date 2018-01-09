@@ -10,6 +10,7 @@ import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,8 @@ public class LearningCenterController {
     @Autowired
     private OnlineUserService onlineUserService;
 
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(LearningCenterController.class);
+    
     /**
      * 获取列表
      * @param req
@@ -81,7 +84,7 @@ public class LearningCenterController {
 //				}
 //			}
 		}
-		System.out.println("list.size():"+lists.size());
+		log.info("list.size():"+lists.size());
         return ResponseObject.newSuccessResponseObject(lists);
     }
 

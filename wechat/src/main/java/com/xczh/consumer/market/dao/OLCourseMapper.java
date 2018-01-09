@@ -100,10 +100,8 @@ public class OLCourseMapper extends BasicSimpleDao {
 			all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1 and oc.type is null ");//and oc.is_free=0 oc.course_type=1 and
 			all.append(" and oc.multimedia_type =? ");
 			all.append(" order by oc.sort asc");
-			//all.append(" limit " + number+","+pageSize);
+
 			Object[] params = {multimedia_type};
-			
-			System.out.println(all.toString());
 			
 			return super.queryPage(JdbcUtil.getCurrentConnection(),all.toString(),number,pageSize,CourseLecturVo.class,params);
 			//return super.query(JdbcUtil.getCurrentConnection(), all.toString(), new BeanListHandler<>(CourseLecturVo.class),params);
@@ -124,8 +122,6 @@ public class OLCourseMapper extends BasicSimpleDao {
 			sql.append(" order by oc.sort asc");
 			//sql.append(" limit " + number+","+pageSize);
 			Object[] params = {menu_id,multimedia_type};
-			
-			System.out.println(sql.toString());
 			
 			return super.queryPage(JdbcUtil.getCurrentConnection(),sql.toString(),number,pageSize,CourseLecturVo.class,params);
 			//return super.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanListHandler<>(CourseLecturVo.class),params);
@@ -165,7 +161,6 @@ public class OLCourseMapper extends BasicSimpleDao {
 			all.append(" oc.grade_name like '%"+ queryParam + "%')"); 
 		}
 		all.append(" order by learndCount desc");
-		System.out.println(all.toString());
 		return super.queryPage(JdbcUtil.getCurrentConnection(),all.toString(),number,pageSize,CourseLecturVo.class);
 	}
 	

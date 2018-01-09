@@ -165,10 +165,10 @@ public class ArticleServiceImpl implements ArticleService{
         	  throw new IllegalArgumentException("已推荐");
         }
 	 
-		List<ArticleVo> vos=articleDao.findEntitiesByJdbc(ArticleVo.class, "select * from oe_bxs_article where is_recommend = 1", new HashMap<String, Object>());
-		if(vos!=null&&vos.size()>=6){
-			  throw new IllegalArgumentException("最多推荐6个");
-		}
+//		List<ArticleVo> vos=articleDao.findEntitiesByJdbc(ArticleVo.class, "select * from oe_bxs_article where is_recommend = 1", new HashMap<String, Object>());
+//		if(vos!=null&&vos.size()>=6){
+//			  throw new IllegalArgumentException("最多推荐6个");
+//		}
 		 
 		 String sql="update oe_bxs_article SET is_recommend =:recommend  where id =:id";
 			Map<String,Object> param=new HashMap<String,Object>();

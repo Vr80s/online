@@ -585,6 +585,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 //			userCenterAPI.regist(mobile, password, "", UserSex.UNKNOWN, null,
 //					mobile, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 			userCenterAPI.update(mobile,"",0, null, mobile,0, 0);
+			userCenterAPI.updatePassword(appUniqueId,"123456",password);
 		}
 		if(null == user ){
 			String shareCode = CookieUtil.getCookieValue(req, "_usercode_");
@@ -632,9 +633,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	@Override
 	public OnlineUser addYkUser(String appUniqueId) throws Exception {
 		
-		String [] arr = "人参,人发,卜芥,儿茶,八角,丁香,刀豆,三七,三棱,干姜,干漆,广白,广角,广丹,大黄,大戟,大枣,大蒜,大蓟,小蓟,小麦,小蘖".split(",");
-		int index=(int)(Math.random()*arr.length);
-		String name = arr[index];
+		//String [] arr = "人参,人发,卜芥,儿茶,八角,丁香,刀豆,三七,三棱,干姜,干漆,广白,广角,广丹,大黄,大戟,大枣,大蒜,大蓟,小蓟,小麦,小蘖".split(",");
+//		int index=(int)(Math.random()*arr.length);
+		String name = "游客";
+		String password = "123456";
 		
 		/**
 		 * 因为要用到用户中心id了
@@ -642,7 +644,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		ItcastUser iu = userCenterAPI.getUser(appUniqueId);
 		if(iu == null){
 		   //向用户中心注册
-			userCenterAPI.regist(appUniqueId, "123456", "", UserSex.UNKNOWN, null,
+			userCenterAPI.regist(appUniqueId, password, "", UserSex.UNKNOWN, null,
 					appUniqueId, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 			
 			iu = userCenterAPI.getUser(appUniqueId);
@@ -659,14 +661,15 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setStatus(0);
 		u.setCreateTime(new Date());
 		u.setDelete(false);
-		u.setName(name);   //默认一个名字
-		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		u.setName("");   //默认一个名字
+		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/yx_mr.png");
 		u.setVisitSum(0);
 		u.setStayTime(0);
 		u.setUserType(0);
 		u.setOrigin("apple_yk");
 		u.setMenuId(-1);
-		//u.setPassword(password);
+		u.setPassword(iu.getPassword());
 		u.setSex(OnlineUser.SEX_UNKNOWN);
 		u.setType(1);
 		//分销，设置上级
@@ -680,8 +683,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setVhallName(name);
 		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
 		onlineUserDao.addOnlineUser(u);
-		
-		
 		/**
 		 * 为用户初始化一条代币记录
 		 */

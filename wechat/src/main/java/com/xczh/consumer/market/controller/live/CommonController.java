@@ -13,6 +13,8 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -67,7 +69,7 @@ public class CommonController {
 	@Value("${webdomain}")
 	private String webdomain;
 	
-	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(CommonController.class);
 	
 	
 	/**
@@ -203,7 +205,7 @@ public class CommonController {
 		String userId = req.getParameter("userId");
 		//是否是讲师：0,用户，1既是用户也是讲师  is_lecturer
 	    Map<String,Object>  map =  onlineUserService.judgeUserIsTeacher(userId);
-	    System.out.println("map.get(is_lecturer)"+map.get("is_lecturer"));
+	    log.info("map.get(is_lecturer)"+map.get("is_lecturer"));
 	    if(null !=map && map.get("is_lecturer").toString().equals("0")){
 	    	return ResponseObject.newErrorResponseObject(map.get("is_lecturer").toString());
 	    }else{
@@ -344,7 +346,7 @@ public class CommonController {
 	@ResponseBody
 	public ResponseObject subscribe(HttpServletRequest req,
 			HttpServletResponse res, Map<String,String> params)throws Exception {
-		/*String mobile =req.getParameter("mobile");*/
+		String mobile =req.getParameter("mobile");
 		String course_id =req.getParameter("course_id");
 	    if(course_id==null){
 	    	return ResponseObject.newErrorResponseObject("缺少参数");
@@ -361,9 +363,13 @@ public class CommonController {
 		CourseLecturVo courseVo =onlineCourseService.get(Integer.parseInt(course_id));
 		SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日 HH时mm分");
 		String start = sdf.format(courseVo.getStartTime());
+		
+		if(!StringUtils.isNotBlank(mobile)){
+			mobile = user.getLoginName();
+		}
 		//发送短信
-		SmsUtil.sendSmsSubscribe(user.getLoginName(), courseVo.getGradeName(), start, null, true);
-		return onlineCourseService.addSubscribeInfo(user,user.getLoginName(),Integer.parseInt(course_id));
+		SmsUtil.sendSmsSubscribe(mobile, courseVo.getGradeName(), start, null, true);
+		return onlineCourseService.addSubscribeInfo(user,mobile,Integer.parseInt(course_id));
 	}
 	
 	/**
@@ -412,7 +418,7 @@ public class CommonController {
 		String roomNumber = req.getParameter("video");  //视频id
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
 		String gvhallId = user.getVhallId();
-		System.out.println("微吼gvhallId:"+gvhallId);
+		log.info("微吼gvhallId:"+gvhallId);
 		
 		//JSONObject json = WeihouInterfacesListUtil.getUserinfo(gvhallId,"name,head,id");
 		//String vh_app_key = "71a22e5b4a41483d41d96474511f58f3";
@@ -454,7 +460,7 @@ public class CommonController {
 		 */
 		try {
 			Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-			System.out.println("type:"+type);
+			log.info("type:"+type);
 			CourseLecturVo courseLecturVo = onlineCourseService.h5ShareAfter(Integer.parseInt(courseId), type);
 			if(type ==1){
 				//礼物数：
@@ -481,7 +487,7 @@ public class CommonController {
 		 */
 		try {
 			Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-			System.out.println("type:"+type);
+			log.info("type:"+type);
 			Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 			if(mapCourseInfo.get("description")!=null){
 				String description = mapCourseInfo.get("description").toString();
@@ -522,9 +528,9 @@ public class CommonController {
 		String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 		res.sendRedirect(strLinkHome);
 //		if(courseId == null ){
-//			System.out.println("参数异常啦");
+//			log.info("参数异常啦");
 //		}
-//        System.out.println("===========================================");		
+//        log.info("===========================================");		
 //		String url  ="/xcviews/html/share.html?course_id="+Integer.parseInt(courseId);
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
@@ -537,7 +543,7 @@ public class CommonController {
 //				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
 //				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 //				
-//				System.out.println("type:"+type);
+//				log.info("type:"+type);
 //				if(type == 1){ //直播或者预约详情页           
 //					
 //					//1.直播中，2预告，3直播结束
@@ -617,12 +623,12 @@ public class CommonController {
         sb.append(WeihouInterfacesListUtil.AppSecretKey);
         while (iter.hasNext()) {
             String key = iter.next();
-            //System.out.println(key + ":" + signkv.get(key));
+            //log.info(key + ":" + signkv.get(key));
             sb.append(key + signkv.get(key));
         }
         sb.append(WeihouInterfacesListUtil.AppSecretKey);
-        //System.out.println(sb.toString());
-        //System.out.println(getMD5(sb.toString()));
+        //log.info(sb.toString());
+        //log.info(getMD5(sb.toString()));
         return getMD5(sb.toString());
 	}
 	

@@ -8,7 +8,10 @@ import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+
 import net.sf.json.JSONObject;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +42,9 @@ public class ClientUserController {
 
 	@Autowired
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
+	
+	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(ClientUserController.class);
 	
 	/**
 	 * 拉取微信访问用户信息；

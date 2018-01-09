@@ -217,22 +217,21 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	}
 	
 	public static void main(String[] args) {
-		Double d =  4200000D / (1000*60*60);
+		/*long l = Long.parseLong(3600111+"") / (1000*60*60);
 	        
-        /*(double f = Double.parseDouble(l+"");
+        double f = Double.parseDouble(l+"");
 		BigDecimal b = new BigDecimal(f);
 		double f1 = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-		*/
-		System.out.println(d);
-		BigDecimal bd=new BigDecimal(d);//建议使用String参数
+		
+		BigDecimal bd=new BigDecimal("2.345");//建议使用String参数
 		BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
 		BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
 		System.out.println(bd_half_even);
-		System.out.println(bd_half_up);
+		System.out.println(bd_half_up);*/
 		
 		//entity.setCurrentPrice(le.getPrice().doubleValue());
-		/*BigDecimal bd=new BigDecimal("0.01");
-		System.out.println(bd.doubleValue());*/
+		BigDecimal bd=new BigDecimal("0.01");
+		System.out.println(bd.doubleValue());
 	}
 	
 	
@@ -253,20 +252,23 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			entity.setMenuId(Integer.parseInt(le.getType())); //学科的id
 			
 		    //时间转换
-	        Double d =  Double.valueOf(le.getWhenLong()) / (1000*60*60);
+	        long l = Long.parseLong(le.getWhenLong()) / (1000*60*60);
+	      /*  double f = Double.parseDouble(l+"");
+			BigDecimal b = new BigDecimal(f);
+			double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();*/
 	        
-	        
-			BigDecimal bd=new BigDecimal(d);//建议使用String参数
+			BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
+			//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
 			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
 			//System.out.println(bd_half_even);
 			System.out.println(bd_half_up);
 			
-			entity.setCourseLength(bd_half_up.doubleValue()); //课程时长
+			entity.setCourseLength(bd_half_up.doubleValue()+""); //课程时长
 			entity.setCreateTime(new Date()); //当前时间
 			entity.setStatus('1' + ""); //状态
 			entity.setStartTime(le.getStartTime());//直播开始时间
 	
-			Long l= Long.parseLong(le.getWhenLong()) +  le.getStartTime().getTime();
+			l= Long.parseLong(le.getWhenLong()) +  le.getStartTime().getTime();
 			Date dend = new Date(l);
 			entity.setEndTime(dend);//直播结束时间
 
@@ -333,6 +335,8 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		}
 	}
 	
+	
+	
     /**
      * 通过审核
      */
@@ -374,14 +378,6 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	@Override
 	public void updateBohuiApply(LiveAppealInfoVo lai) {
 		/**
-		 * 1、来自 申请的驳回
-		 *   更改申请的状态    新增申诉记录（申请的id，驳回人，审核时间，驳回理由，2 审核未通过）     
-		 *   app端可以通过申诉来更改这个审核状态，并且更改申请的状态
-		 *   
-		 * 2、当有申诉请求的时候，我们再次驳回呢
-		 *  新增申诉记录（申请的id，驳回人，审核时间，驳回理由，2 审核未通过）     
-		 */
-		/**
 		 * 设置为没有审核
 		 */
 		User user = (User) UserHolder.getRequireCurrentUser();//驳回人 
@@ -392,10 +388,15 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		entity.setReviewerTime(new Date());               //审核时间
 		entity.setAgainstReason(lai.getAgainstReason());  //驳回理由
 		dao.save(entity);
-		
-		
 		LiveExamineInfo lei = findExamineById(lai.getExamineId());
-		lei.setExamineStatus("2"); 		  //2 审核未通过
+		/**
+		 * 看状态啦。	 0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
+		 */
+		if(lei.getExamineStatus().equals("0")){
+			lei.setExamineStatus("2"); 		  //2 	审核未通过
+		}else if(lei.getExamineStatus().equals("3")){
+			lei.setExamineStatus("4"); 		  //4 	审核失败
+		}
 		lei.setAuditPerson(user.getId()); //审核人
 		lei.setAuditTime(new Date());     //审核时间 
 		dao.update(lei);
@@ -409,8 +410,6 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			LiveExamineInfo lei = findExamineById(id);
             if(lei !=null){
             	
-               lei.setIsDelete(true);
-               dao.update(lei);
                /*
                 * 审核状态 0未审核 1 审核通过 2 审核未通过
                 * 
@@ -419,27 +418,14 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
                 * 如果删除了审核未通过的那么就让此课程变为未审核的状态。对应的申诉中的信息也变成了无效的。
                 */
                if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+            	   lei.setIsDelete(true);
+                    dao.update(lei);
             	   courseService.deleteCourseByExamineId(lei.getId(),true);
                }  
             }
         }
 	}
-	@Override
-	public LiveAppealInfo findAppealInfoById(Integer id) {
-		return dao.findOneEntitiyByProperty(LiveAppealInfo.class, "id", id);
-	}
 	
-	@Override
-	public void deletesAppeal(String[] _ids) {
-		
-		for(String id : _ids){
-			LiveAppealInfo lei = findAppealInfoById(Integer.parseInt(id));
-            if(lei !=null){
-            	 lei.setDelete(true);
-                 dao.update(lei);
-            }
-        }
-	}
 	@Override
 	public void updateRecoverys(String[] _ids) {
 		/*
@@ -448,14 +434,74 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		for(String id : _ids){
 			LiveExamineInfo lei = findExamineById(id);
             if(lei !=null){
-            	 lei.setIsDelete(false);
-                 dao.update(lei);
-                 
                  if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+                	 lei.setIsDelete(false);
+                     dao.update(lei);
               	    courseService.deleteCourseByExamineId(lei.getId(),false);
                  }  
             }
         }
+	}
+	
+	
+	@Override
+	public LiveAppealInfo findAppealInfoById(Integer id) {
+		return dao.findOneEntitiyByProperty(LiveAppealInfo.class, "id", id);
+	}
+	
+	@Override
+	public void deletesAppeal(String[] _ids) {
+		for(String id : _ids){
+			LiveAppealInfo lei = findAppealInfoById(Integer.parseInt(id));
+            if(lei !=null){
+            	 lei.setDelete(true);
+                 dao.update(lei);
+            }
+        }
+	}
+
+	@Override
+	public void updateAppeal(String[] _ids) {
+		// TODO Auto-generated method stub
+		for(String id : _ids){
+			LiveAppealInfo lei = findAppealInfoById(Integer.parseInt(id));
+            if(lei !=null){
+            	 lei.setDelete(false);
+                 dao.update(lei);
+            }
+        }
+	}
+	@Override
+	public void updateCxBoHui(String id) {
+		// TODO Auto-generated method stub
+		
+		//将驳回理由设置删除掉，然后将状态变为未审核状态
+		//查找这个数据
+		
+		 //0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
+		
+		LiveExamineInfo lei = findExamineById(id);
+		if(lei.getExamineStatus().equals("2")){//审核失败
+			lei.setExamineStatus("0");
+	        dao.update(lei);
+		}
+		
+		if(lei.getExamineStatus().equals("4")){//审核失败
+			lei.setExamineStatus("3");
+	        dao.update(lei);
+		}
+		
+		List<LiveAppealInfo> list =examineCourseDao.findeAppealInfosByExamineId(id);
+	    for (LiveAppealInfo liveAppealInfo : list) {
+	    	 liveAppealInfo.setDelete(true);
+             dao.update(liveAppealInfo);
+		}
+	}
+	@Override
+	public List<LiveAppealInfoVo> getApplysByExamId(String id) {
+		// TODO Auto-generated method stub
+		List<LiveAppealInfoVo> list =examineCourseDao.findeAppealInfoVosByExamineId(id);
+		return list;
 	}
 	
 	

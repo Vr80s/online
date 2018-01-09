@@ -55,7 +55,7 @@ public class CourseLecturVo extends OnlineBaseVo {
     /**
      *课程时长
      */
-    private Double courseLength;
+    private String courseLength;
 
     /**
      *是否免费 true:免费  false:不免费
@@ -212,11 +212,11 @@ public class CourseLecturVo extends OnlineBaseVo {
         this.originalCost = originalCost;
     }
 
-    public Double getCourseLength() {
+    public String getCourseLength() {
         return courseLength;
     }
 
-    public void setCourseLength(Double courseLength) {
+    public void setCourseLength(String courseLength) {
         this.courseLength = courseLength;
     }
 

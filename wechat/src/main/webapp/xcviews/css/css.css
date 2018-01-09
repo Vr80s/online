@@ -1229,7 +1229,8 @@ footer{
 .details_footer_width ul li{
 	float: left;
     font-size: 0.7rem;
-    margin-left: 2.85rem;
+    /*margin-left: 2.85rem;*/
+    margin-left: 4.38rem;
     color: #000;
     margin-top: 0rem !important;
 }
@@ -3642,7 +3643,7 @@ footer{
     padding-bottom: 0.4rem;
 }
 .site_cen1{
-	width: 3rem;
+	min-width: 3rem;
     height: 1rem;
     display: inline-block;
     line-height: 1rem;

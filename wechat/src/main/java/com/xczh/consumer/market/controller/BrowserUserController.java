@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
+import com.xczh.consumer.market.controller.live.LiveController;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineCourseService;
@@ -80,6 +82,9 @@ public class BrowserUserController {
 
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
+	
+	
+	private static final org.slf4j.Logger log = LoggerFactory.getLogger(BrowserUserController.class);
 	
 	/**
 	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
@@ -340,7 +345,8 @@ public class BrowserUserController {
 				}
 				//把这个票给前端
 				o.setTicket(t.getTicket());
-				//把用户中心的数据给他
+				
+				//把用户中心的数据给他   这里im都要用到
 				o.setUserCenterId(user.getId());
 				o.setPassword(user.getPassword());
 				
@@ -376,7 +382,7 @@ public class BrowserUserController {
 		
     	Cookie []	c = req.getCookies();
     	for (Cookie cookie : c) {
-    		System.out.println("cookieName+"+cookie.getName());
+    		log.info("cookieName+"+cookie.getName());
 		}
     	Cookie cookie = new Cookie("nihao", "nihao");
 		cookie.setDomain("localhost");
@@ -388,7 +394,7 @@ public class BrowserUserController {
 		cookie = CookieUtil.getCookie(req,"nihao");
 		if(cookie!=null)
 		{
-			System.out.println("cookie:"+cookie.getValue());
+			log.info("cookie:"+cookie.getValue());
 		}
     	
 //		req.setAttribute("access", "brower");
@@ -401,15 +407,15 @@ public class BrowserUserController {
 //		long time = System.currentTimeMillis() + 10 * 1000;
 //		token.setExpires(time);
 //		cacheService.set(ticket, token, 1*1000);
-//		System.out.println("存储成功");
+//		log.info("存储成功");
 //		token = cacheService.get(token.getTicket());
-//		System.out.println(token.getEmail());
+//		log.info(token.getEmail());
 //		
 //		String str = cacheService.get("123");
-//		System.out.println("str:"+str);
+//		log.info("str:"+str);
 //		
 //		
-//		System.out.println("取数据成功");
+//		log.info("取数据成功");
 //		req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}
 	
@@ -427,8 +433,8 @@ public class BrowserUserController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject addGetUserInfoByCode(HttpServletRequest req, HttpServletResponse res )throws Exception  {
-		System.out.println("wx get access_token:" + req.getParameter("access_token"));
-		System.out.println("wx get openid:" + req.getParameter("openid"));
+		log.info("wx get access_token:" + req.getParameter("access_token"));
+		log.info("wx get openid:" + req.getParameter("openid"));
 		
 //		String access_token = "i9X50V0RcmKT48n0l8HFO7R4R9mP7ue9Jg1Jm3Uo-ZmSaYDKS5dCu_BjpWusetygygGjQ9SXLWQhp-JaCFbzgg";
 //		String openid = "oN9qS1ShzGgzs5aovtk7i9TJqz2Y";
@@ -582,8 +588,8 @@ public class BrowserUserController {
 	@Transactional
 	public ResponseObject addAppThirdparty(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		System.out.println("wx get access_token	:" + req.getParameter("access_token"));
-		System.out.println("wx get openid	:" + req.getParameter("openid"));
+		log.info("wx get access_token	:" + req.getParameter("access_token"));
+		log.info("wx get openid	:" + req.getParameter("openid"));
 		
 		String access_token = req.getParameter("access_token");
 		String openid = req.getParameter("openid");
@@ -733,7 +739,7 @@ public class BrowserUserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("获取错误信息啦"+e.getMessage());
+			log.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
 		}
 	}
@@ -879,8 +885,7 @@ public class BrowserUserController {
 		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
 		if(map ==null){ //第一次进来
 			ou = onlineUserService.addYkUser(appUniqueId);
-			
-			System.out.println("用户中心id:"+ou.getUserCenterId());
+			log.info("用户中心id:"+ou.getUserCenterId());
 			//也需要保存这个信息啦
 			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
 		}else{
@@ -891,26 +896,22 @@ public class BrowserUserController {
 			 * 2、当登录的时候，在增加这个标识符为0:  
 			 */
 			Boolean regis =  (Boolean) map.get("isRegis");
-			System.out.println("userCenterId:"+map.get("userCenterId"));
+			log.info(""+map.get("userCenterId"));
+			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
 			if(!regis|| type.equals("1") ){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
 			}else{ //返回用户信息 -- 包括loginName
 				ou = onlineUserService.findUserById(map.get("userId").toString());
 			}
-			if(map.get("userCenterId")!=null){
-				ou.setUserCenterId(Integer.parseInt(map.get("userCenterId").toString()));
-			}else{
-				ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-				if(iu!=null){
-					ou.setUserCenterId(iu.getId());
-				}
+			if(iu!=null){
+				ou.setUserCenterId(iu.getId());
+				ou.setPassword(iu.getPassword());
 			}
 		}
 		/**
 		 * 游客身份进入后，存缓存到redis中。也就是这个票
 		 * 	 通过这个票进行各种身份通过，对出登录删除这个票就行了。
 		 *  在以游客的身份过来的话，就判断这个票有效无效。如果无效就在生成这个票。如果有效，就还用这个票吧。
-		 * 
 		 */
 		String ticket = CodeUtil.getRandomUUID();
 		ou.setTicket(ticket);
@@ -919,9 +920,6 @@ public class BrowserUserController {
 	}
 	public void appleOnlogin(HttpServletRequest req, HttpServletResponse res,
             Token token, OnlineUser user, String ticket){
-		
-		System.out.println("ticket:"+ticket);
-		System.out.println("userid"+user.getId());
 		
 		cacheService.set(ticket, user,TokenExpires.Day.getExpires());
 		cacheService.set(user.getId(),ticket,TokenExpires.Day.getExpires());
@@ -938,7 +936,7 @@ public class BrowserUserController {
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
                         Token token, OnlineUser user, String ticket) throws SQLException{
 		
-		System.out.println("用户普通登录----》ticket"+ticket);
+		log.info("用户普通登录----》ticket"+ticket);
 		/**
 		 * 存在两个票，两个票都可以得到用户信息。
 		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
@@ -1043,12 +1041,11 @@ public class BrowserUserController {
 		
 		int [] arr = {1,2,3,4};
 		//产生0-(arr.length-1)的整数值,也是数组的索引
-		System.out.println(Math.random() +"==="+Math.random()*arr.length);
+		log.info(Math.random() +"==="+Math.random()*arr.length);
 		int index=(int)(Math.random()*arr.length);
-		System.out.println(index);
+		log.info(index+"");
 		int rand = arr[index];
-		
-		System.out.println(rand);
+		log.info(rand+"");
 	}
 	
 	

@@ -96,7 +96,7 @@ public interface DoctorService {
 
     Page<MedicalDoctor> findRecMedicalDoctorPage(MedicalDoctor searchVo, int currentPage, int pageSize);
 
-    boolean updateRec(String[] ids, int isRec);
+    Integer updateRec(String[] ids, int isRec);
 
 	void updateSortUpRec(String id);
 
@@ -111,4 +111,6 @@ public interface DoctorService {
 	void addDoctorReport(String id, String[] doctorId);
 
 	public List<MedicalDoctor> getMedicalDoctor(String writingsId);
+
+	List<MedicalDoctor> getAllMedicalDoctorList();
 }

@@ -119,11 +119,11 @@ input,button{
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list{
 padding:0 20px;	
 }
-#forum .forum-content .forum-content-left .forum-content-info .more_hospital{
+#forum .forum-content .forum-content-left .more_hospital{
     bottom: 30px;
 	text-align: center;
 }
-#forum .forum-content .forum-content-left .forum-content-info .more_hospital button{
+#forum .forum-content .forum-content-left .more_hospital button{
 	width: 122px;
     height: 36px;
     background-color: #fff;

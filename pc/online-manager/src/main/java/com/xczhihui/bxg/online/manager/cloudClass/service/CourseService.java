@@ -227,12 +227,12 @@ public interface CourseService {
 	 * 同步课程视频信息
 	 * @param id
 	 */
-//	public String updateCourseVideoInfo(String id);
+	public String updateCourseVideoInfo(String id);
 	/**
 	 * 同步CC分类
 	 * @return
 	 */
-//	public void updateCategoryInfo(String courseId) throws Exception;
+	public void updateCategoryInfo(String courseId) throws Exception;
 
 	public Object lectereListByCourseIdAndRoleType(int roleType, String courseId);
 
@@ -255,4 +255,10 @@ public interface CourseService {
 	public Course getPublicCourseById(Integer courseId);
 
 	public void deleteCourseByExamineId(String id, boolean b);
+
+	/**
+	 * 同步课程视频信息（无章节知识点版）
+	 * @param id
+	 */
+	public String updateCourseVideo(String id);
 }

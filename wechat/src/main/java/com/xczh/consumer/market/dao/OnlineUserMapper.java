@@ -297,7 +297,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		if (sql.indexOf(",") != -1) {
 			sql = sql.substring(0, sb.length() - 1);
 			sql += " where id = ? ";
-			System.out.println("user center update " + sql);
 			Object[] params = { original.getId() };
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
@@ -353,7 +352,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		strSql += " GROUP BY of.lecturer_id ORDER BY count1 desc limit "
 				+ pageNumber;
 
-		System.out.println("strSql:" + strSql);
 		List<Map<String, Object>> listMap = this.query(
 				JdbcUtil.getCurrentConnection(), strSql, new MapListHandler());
 
@@ -623,7 +621,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 			sql = sql.substring(0, sb.length() - 1);
 			sql += " where id = ? ";
 			
-			System.out.println("user center update " + sql);
 			Object[] params = { u.getId() };
 			this.update(JdbcUtil.getCurrentConnection(), sql.toString(), params);
 		}
@@ -636,7 +633,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 */
 	public OnlineUser findUserByIdAndVhallNameInfo(String id) throws SQLException {
 		StringBuffer sql = new StringBuffer(); 
-		sql.append(" select id as id,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
+		sql.append(" select id as id,name as name,small_head_photo as smallHeadPhoto,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
 		sql.append(" from oe_user where id = ?  ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(OnlineUser.class), params);

@@ -42,10 +42,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
     @Autowired
     private LecturerService service;
-    
-    @Autowired
-	private UserCenterAPI userCenterAPI;
-    
+
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
 
@@ -64,14 +61,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
         if(!CollectionUtils.isEmpty(page.getItems())){
             for (CourseLecturVo courseLecturVo :page.getItems()) {
-                  /*List<LecturVo> lecturVos = service.findLecturerById(courseLecturVo.getId());
-                  if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 1){
-                       courseLecturVo.setName(lecturVos.get(0).getName());
-                  }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 2){
-                      courseLecturVo.setName(lecturVos.get(0).getName()+"、" +lecturVos.get(1).getName());
-                  }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() > 2){
-                      courseLecturVo.setName(lecturVos.get(0).getName()+"、" +lecturVos.get(1).getName()+"等");
-                  }*/
                 String name = "暂无讲师";
                 OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
                 if(onlineUser!=null)name=onlineUser.getName();
@@ -95,14 +84,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
         if(!CollectionUtils.isEmpty(page.getItems())){
             for (CourseLecturVo courseLecturVo :page.getItems()) {
-                  /*List<LecturVo> lecturVos = service.findLecturerById(courseLecturVo.getId());
-                  if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 1){
-                       courseLecturVo.setName(lecturVos.get(0).getName());
-                  }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() == 2){
-                      courseLecturVo.setName(lecturVos.get(0).getName()+"、" +lecturVos.get(1).getName());
-                  }else if(!CollectionUtils.isEmpty(lecturVos) && lecturVos.size() > 2){
-                      courseLecturVo.setName(lecturVos.get(0).getName()+"、" +lecturVos.get(1).getName()+"等");
-                  }*/
             	String name = "暂无讲师";
             	OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
             	if(onlineUser!=null)name=onlineUser.getName();
@@ -168,20 +149,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         String  names="";
         //如果此课程存在,再根据课程ID 查找此课程下的老师
         if(courseVo != null){
-//            List<LecturVo> lecturVos = service.findLecturerById(courseId);
-//            if (!CollectionUtils.isEmpty(lecturVos)) {
-//                 if(lecturVos.size()==1){
-//                     names=lecturVos.get(0).getName();
-//                 }else if(lecturVos.size()==2) {
-//                     names = lecturVos.get(0).getName() + "、" + lecturVos.get(1).getName();
-//                 }else
-//                 {
-//                     names = lecturVos.get(0).getName() + "、" + lecturVos.get(1).getName()+"等";
-//                 }
-//                courseVo.setTeacherName(names);
-//            }
-        	
-        	//System.out.println("courseVo.getUserLecturerId()"+courseVo.getUserLecturerId()+"=====ou.getId():"+ou.getId());
         	String name = "暂无讲师";
         	String teacherDescription="";
         	OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
@@ -189,7 +156,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         		name=onlineUser.getName();
         		teacherDescription=onlineUser.getDescription();
         		
-        		if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){
+        		if(ou!=null && courseVo.getUserLecturerId().equals(ou.getId())){// 20170105---杨宣
             		courseVo.setSelfCourse(true);
             	}
         	}
@@ -209,24 +176,10 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     public CourseVo getOpenCourseById( Integer courseId,String ispreview,HttpServletRequest request) {
     	//根据当前课程ID，查找对应的课程信息
     	CourseVo courseVo =  coursedao.getOpenCourseById(courseId,ispreview,request);
-//    	String  names="";
     	//如果此课程存在,再根据课程ID 查找此课程下的老师
     	if(courseVo != null){
     		OnlineUser onlineUser = coursedao.getLecturer(courseVo.getUserLecturerId());
     		courseVo.setTeacherName(onlineUser.getName());
-//    		courseVo.set
-//    		List<LecturVo> lecturVos = service.findLecturerById(courseId);
-//    		if (!CollectionUtils.isEmpty(lecturVos)) {
-//    			if(lecturVos.size()==1){
-//    				names=lecturVos.get(0).getName();
-//    			}else if(lecturVos.size()==2) {
-//    				names = lecturVos.get(0).getName() + "、" + lecturVos.get(1).getName();
-//    			}else
-//    			{
-//    				names = lecturVos.get(0).getName() + "、" + lecturVos.get(1).getName()+"等";
-//    			}
-//    			courseVo.setTeacherName(names);
-//    		}
     	}
     	
     	

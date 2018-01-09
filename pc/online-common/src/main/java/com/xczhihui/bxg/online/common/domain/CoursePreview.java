@@ -101,7 +101,7 @@ public class CoursePreview extends BasicEntity2 {
 	 * 课程时长
 	 */
 	@Column(name = "course_length")
-	private Double  courseLength;
+	private String  courseLength;
 
 
 	/**
@@ -296,11 +296,11 @@ public class CoursePreview extends BasicEntity2 {
 		this.originalCost = originalCost;
 	}
 
-	public Double getCourseLength() {
+	public String getCourseLength() {
 		return courseLength;
 	}
 
-	public void setCourseLength(Double courseLength) {
+	public void setCourseLength(String courseLength) {
 		this.courseLength = courseLength;
 	}
 

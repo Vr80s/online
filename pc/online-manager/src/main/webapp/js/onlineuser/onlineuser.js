@@ -78,10 +78,12 @@ $(function() {
 		"sortable" : false,
 		"data" : 'createTime',
 		"mRender":function (data, display, row){
-			if(data && data != ''){
+			
+			return data;
+			/*if(data && data != ''){
 				var d = new Date(data);
 				return d.format('yyyy-M-d');
-			}
+			}*/
         }
 	},{
 		"title" : "停留时长",
@@ -101,10 +103,11 @@ $(function() {
 		"width" : "10%",
 		"data" : 'lastLoginDate',
 		"mRender":function (data, display, row){
-			if(data && data != ''){
-				var d = new Date(data);
-				return d.format('yyyy-M-d h:m:s');
-			}
+//			if(data && data != ''){
+//				var d = new Date(data);
+//				return d.format('yyyy-M-d hh:mm:ss');
+//			}
+			return data;
         }
 	},{
 		"title" : "充值余额",

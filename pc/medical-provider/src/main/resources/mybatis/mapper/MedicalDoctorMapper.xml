@@ -175,7 +175,7 @@
 		  AND mw.`status` = 1
 		  GROUP BY oba.id
 	ORDER BY mw.`create_time` desc
-	limit 0, 3
+	limit 0, 5
 	</select>
 
 	<select id="getWritingsByPage" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">

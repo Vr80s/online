@@ -3,6 +3,7 @@ package com.xczhihui.bxg.common.support.service;
 import java.util.List;
 
 import com.xczhihui.bxg.common.support.domain.SystemVariate;
+import com.xczhihui.bxg.common.util.bean.Page;
 
 /**
  * 系统变量，处理系统的数据字典、配置等。
@@ -84,5 +85,8 @@ public interface SystemVariateService {
 	 * @return
 	 */
 	public String getNameByValue(String parentValue,String value);
+
+	public Page<SystemVariate> getSystemVariatesList(Object object,
+			int currentPage, int pageSize);
 
 }

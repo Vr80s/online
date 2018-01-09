@@ -156,8 +156,6 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		}
 		sql.append(" order by od.order_status asc,od.create_time desc ");
 		List<OnlineOrder> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineOrder.class, params);
-		System.out.println(sql.toString());
-		
 		
 		for (int i = 0; i < lists.size(); i++) {
 			
@@ -385,7 +383,6 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 //        calendar.add(Calendar.WEEK_OF_YEAR, -1);
         calendar.add(Calendar.YEAR, 1);
         date = calendar.getTime();
-        System.out.println(date);
     }
 	
 	

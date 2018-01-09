@@ -879,7 +879,7 @@
 
 <!-- 查看 -->
 <div id="childMenuDialogDiv"></div>
-<div id="childMenuDialog" class="hide" >
+<div id="childMenuDialog" class="hide" >'
 
 	<form class='form-horizontal' id="childMenu-form"  method="post"  action="">
 		<input type="hidden" name="id" id="parentId"/>

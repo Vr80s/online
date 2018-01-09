@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -363,6 +364,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
 		
 		all.append(" '精品课程' as note ");
+		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
 		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1 order by learndCount desc,oc.create_time desc  limit 0,"+pageSize +")");
 		
@@ -378,18 +380,13 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
 		
 		all.append(" '最新课程' as note ");
+		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
 		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  order by  oc.create_time desc limit 0,"+pageSize +")");
 		
 		
 		all.append("  union all ");
 		
-//		List<MenuVo> listmv = menuService.list();
-		
-//		List<Integer> menus = new ArrayList<Integer>();
-//		menus.add(200);
-//		menus.add(201);
-//		menus.add(202);
 		
 		int i = 0;
 		for (MenuVo menuVo : listmv) {
@@ -415,6 +412,84 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		System.out.println(all.toString());
 		
 		return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),all.toString(),0,Integer.MAX_VALUE,CourseLecturVo.class);
+	}
+
+	@Override
+	public List<CourseLecturVo> queryAllCourse(Integer menuType,
+			Integer courseType, String isFree,String city, String queryKey,
+			Integer pageNumber, Integer pageSize) throws SQLException {
+
+	    pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize =12;
+        
+        StringBuffer  unionSql =new StringBuffer();
+        StringBuffer  commonSql =new StringBuffer();
+        StringBuffer  zbSql =new StringBuffer();
+        StringBuffer  spSql =new StringBuffer();
+        StringBuffer  condSql = new StringBuffer();
+        StringBuffer  sortSql = new StringBuffer();
+        
+        sortSql.append(" order by  learndCount desc,oc.create_time desc ");
+        
+        if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
+        	condSql.append(" and oc.city= '"+city+"'");
+        	condSql.append(" and oc.online_course =1 ");
+        }
+        if(menuType!=null){
+        	condSql.append(" AND oc.menu_id = '"+menuType+"'");
+        }
+        if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
+        	condSql.append(" and oc.is_free = '"+isFree+"'");
+        }
+        /**
+         * 目前检索的是讲师名和课程id
+         */
+        if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
+        	condSql.append(" and ("); 
+        	condSql.append(" ou.name like '%"+ queryKey + "%'"); 
+        	condSql.append(" or "); 
+        	condSql.append(" oc.grade_name like '%"+ queryKey + "%')"); 
+        }
+        
+        
+        commonSql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
+				+ "ou.small_head_photo as headImg,ou.name as name,");
+        commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
+        commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
+        commonSql.append(" oc.city as city, ");//是否免费
+        //课程类型     音频、视频、直播、线下培训班   1 2 3 4
+        commonSql.append(" if(oc.online_course =1,4,IF(oc.type is not null,3,if(oc.multimedia_type=1,1,2))) as type, "); 
+        
+        
+        zbSql.append(" oc.smallimg_path as smallImgPath");
+    	zbSql.append(" from oe_course oc,oe_user ou,oe_menu as om ");
+    	zbSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "
+    			+ "oc.is_delete=0 and oc.status = 1 and ou.status =0   ");
+        
+    	spSql.append(" ocm.img_url as smallImgPath ");
+    	spSql.append(" from oe_course oc,oe_course_mobile ocm,oe_user ou,oe_menu as om ");
+    	spSql.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and om.id = oc.menu_id "
+    			+ " and oc.is_delete=0 and oc.status=1 and oc.type is null ");
+    	
+    	if(courseType!=null){
+    		if(courseType==1||courseType==2){ //视频或者音频
+            	spSql.append(" and oc.multimedia_type = '"+ courseType+"'");  //多媒体类型1视频2音频
+            	commonSql.append(spSql).append(condSql).append(sortSql);
+            	unionSql.append(commonSql);
+            }else if(courseType==3 || courseType==4){ //直播  或者线下课程
+            	zbSql.append(" and "+ (courseType==3 ? " oc.type=1 " : " oc.online_course =1 "));
+            	commonSql.append(zbSql).append(condSql).append(sortSql);
+            	unionSql.append(commonSql);
+            }
+    	}else{
+    		unionSql.append(" ( ").append(commonSql).append(spSql).append(condSql).append(sortSql).append(" ) "); 
+        	unionSql.append(" union "); 
+        	unionSql.append(" ( ").append(commonSql).append(zbSql).append(condSql).append(sortSql).append(" ) "); 
+    	}
+    	System.out.println("unionSql:"+unionSql.toString());
+        return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),unionSql.toString(),
+        		pageNumber,pageSize,CourseLecturVo.class);
 	}
 	
 	

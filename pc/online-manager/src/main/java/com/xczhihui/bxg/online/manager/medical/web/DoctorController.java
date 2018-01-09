@@ -322,13 +322,16 @@ public class DoctorController extends AbstractController{
 		ResponseObject responseObject=new ResponseObject();
 		if(ids!=null) {
 			String[] _ids = ids.split(",");
-			if(doctorService.updateRec(_ids,isRec))
+			if(doctorService.updateRec(_ids,isRec) == 1000)
 			{
 				responseObject.setSuccess(true);
 				responseObject.setErrorMessage("操作成功!");
-			}else{
+			}else if(doctorService.updateRec(_ids,isRec) == 1001){
 				responseObject.setSuccess(false);
 				responseObject.setErrorMessage("最多设置十个推荐医师!");
+			}else if(doctorService.updateRec(_ids,isRec) == 1002){
+				responseObject.setSuccess(false);
+				responseObject.setErrorMessage("你所选中的被推荐人已是被推荐!");
 			}
 		}
 		return responseObject;

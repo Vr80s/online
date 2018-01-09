@@ -63,6 +63,8 @@ $(function(){
 	$('.search_hos_btn').click(function(e){
 //		if(e.keyCode==13){
 		  var name = $('.search_hos').val();
+//		  页码变成1
+		current=1;
 		  console.log(name)
 		   RequestService("/medical/hospital/getHospitals","GET",{
 	    	current:current,

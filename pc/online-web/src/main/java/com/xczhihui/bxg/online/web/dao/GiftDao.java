@@ -119,24 +119,31 @@ public class GiftDao extends SimpleHibernateDao {
 	}
 
     public Object getLiveCourseByUserId(String userId, Integer pageNumber, Integer pageSize) {
-		String sql="SELECT  oc.id,\n" +
-				"  oc.`grade_name` courseName,\n" +
-				"  oc.`start_time` startTime,\n" +
-				"  oc.`end_time` endTime,\n" +
-				"  COUNT(argc.id) enrollmentCount,\n" +
-				"  oc.`current_price` price  ,\n" +
-				"  IFNULL(SUM(ood.`actual_pay`),0) totalAmount \n" +
+		String sql="SELECT \n" +
+				"  * \n" +
 				"FROM\n" +
-				"  `oe_course` oc \n" +
-				"  JOIN `oe_user` ou \n" +
-				"    ON oc.`user_lecturer_id` = ou.`id` \n" +
-				"  JOIN `apply_r_grade_course` argc\n" +
-				"  ON oc.id=argc.`course_id`" +
-				"LEFT JOIN `oe_order_detail` ood\n" +
-				"  ON oc.id=ood.`course_id`\n" +
-				"WHERE oc.`is_delete` = 0 \n" +
-				"AND oc.`type`=1 AND ou.id = :userId\n" +
-				"GROUP BY oc.id ORDER BY oc.`start_time` DESC";
+				"  (SELECT \n" +
+				"    argc.`course_id` id,\n" +
+				"    oc.`grade_name` courseName,\n" +
+				"    oc.`start_time` startTime,\n" +
+				"    oc.`end_time` endTime,\n" +
+				"    COUNT(argc.id) enrollmentCount,\n" +
+				"    oc.`current_price` price,\n" +
+				"    IFNULL(SUM(ood.`actual_pay`), 0) totalAmount \n" +
+				"  FROM\n" +
+				"    `oe_course` oc \n" +
+				"    JOIN `oe_user` ou \n" +
+				"      ON oc.`user_lecturer_id` = ou.`id` \n" +
+				"    JOIN `apply_r_grade_course` argc \n" +
+				"      ON oc.id = argc.`course_id` \n" +
+				"    LEFT JOIN `oe_order_detail` ood \n" +
+				"      ON oc.id = ood.`course_id` \n" +
+				"  WHERE oc.`is_delete` = 0 \n" +
+				"    AND oc.`type` = 1 \n" +
+				"    AND ou.id = :userId \n" +
+				"  GROUP BY argc.id) a \n" +
+				"GROUP BY a.id \n" +
+				"ORDER BY a.`startTime` DESC ";
 
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("userId", userId);
@@ -160,7 +167,7 @@ public class GiftDao extends SimpleHibernateDao {
 				"  ON ood.`course_id`=oc.id\n" +
 				"  WHERE oc.`is_delete`=0\n" +
 				"  AND argc.`is_payment` IN (0,2) AND oc.`user_lecturer_id`=:userId AND oc.id=:id\n" +
-				"  ORDER BY argc.`create_time`";
+				" GROUP BY argc.id ORDER BY argc.`create_time`";
 
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("userId", userId);

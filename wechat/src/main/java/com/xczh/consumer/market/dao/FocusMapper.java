@@ -44,10 +44,8 @@ public class FocusMapper extends BasicSimpleDao{
 		sql.append(" from oe_focus as of,oe_user as ou                              ");
 		sql.append(" where of.user_id = ?   and of.lecturer_id = ou.id   and ou.is_delete = 0  and ou.status = 0     ");
 		
-		System.out.println(sql.toString());
 		List<FocusVo> list = super.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(),
 				number,pageSize,FocusVo.class,userId,userId);
-		System.out.println(list.size());
 		return list;
 	}
 	/***
