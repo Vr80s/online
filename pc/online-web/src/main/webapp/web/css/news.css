@@ -276,15 +276,17 @@ img {
 	    margin-right: 20px;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li > .dajia_inf > p{
-	    width: 180px;
+	  width: 180px;
     height: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-        margin-top: 10px;
+    margin-top: 10px;
+    font-size: 14px;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li > .dajia_inf >span{
 	font-weight: 700;
+	font-size: 14px;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li > .touxiang{
 	width: 60px;
@@ -441,11 +443,11 @@ img {
 #forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-left {
   float: left;
   width: 260px;
-  height: 160px;
+  height: 147px;
 }
 #forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right {
   float: right;
-  width: 530px;
+  width: 520px;
   height: 160px;
 }
 #forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-title a {
@@ -457,7 +459,7 @@ img {
   color: #2cb82c;
 }
 #forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-content {
-  margin: 11px 0;
+  margin: 5px 0;
   font-size: 14px;
   color: #666;
   line-height: 24px;

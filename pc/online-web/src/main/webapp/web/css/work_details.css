@@ -465,7 +465,7 @@ img {
 	width: 320px;
     float: left;
     margin-left: 20px;
-    height: 1060px;
+    /*height: 1060px;*/
 }
 .report_right > div{
 	margin-bottom: 20px;

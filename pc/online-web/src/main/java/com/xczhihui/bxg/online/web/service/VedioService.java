@@ -35,6 +35,8 @@ public interface VedioService {
 	 * @return
 	 */
 	public Map<String,Object> getVideoInfo(Map<String, String> paramsMap, HttpServletRequest req);
+
+	public Map<String,Object> getCCVideoInfo(Map<String, String> paramsMap);
 	/**
 	 * 获得上传路径
 	 * @param title

@@ -53,7 +53,6 @@ redis-server-timeout=50000*/
 		config.setMaxIdle(maxIdle);
 		config.setMaxTotal(maxTotal);
 		
-		System.out.println("config"+config+"config"+host+"config"+port+"config"+timeout);
 		if (password == null) {
 			pool = new JedisPool(config,host,port,timeout);
 		} else {

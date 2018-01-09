@@ -121,7 +121,7 @@ window.onload=function(){
 //        '确认报名' +
 //        '</a>' +
         '<input class="gotengxun"  type="button" value="确认报名" id="surePost">'+
-        '<a class="baomingSucces" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >' +
+        '<a class="baomingSucces" href="/web/html/video.html?courseId='+courserId+'" >' +
         '立即学习' +
         '</a>' +
         '{{else}}' +
@@ -134,8 +134,8 @@ window.onload=function(){
         '{{/if}}';
 	var haoping = '<div class="good-reputation">' +
 		'<div class="good-reputation-count">' +
-		'<span>好评</span><span class="goodPing"></span>' +
-		'<span class="totalPeople">(<span class="totalCount"></span>条评论，<span class="haopingCount"></span>条好评)</span>' +
+
+		'<span class="totalPeople">(<span class="totalCount"></span>条评论)</span>' +
 		' </div> </div>';
 
 	var stuEvalutation = '<div class="studentEvaluate">' +
@@ -146,9 +146,7 @@ window.onload=function(){
 		'<span class="repuName" title="{{$value.userName}}">{{$value.userName}}</span>' +
 		'</div>' +
 		'<div class="good-detail-info">' +
-		'<div class="starts">' +
-		'{{#stuEvluatStars($value.starLevel)}}' +
-		'</div>' +
+
 		'<div class="reputationContent">{{$value.content}}</div>' +
 		'<div class="repuationRelatInfo clearfix">' +
 		'<div class="repuTime">时间：{{dataSub($value.createTime)}}</div>' +
@@ -213,7 +211,7 @@ window.onload=function(){
         
         
         '{{if item.selfCourse == true}}' +
-        	'<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即查看</a>'+
+        	'<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/video.html?courseId='+courserId+'" >立即查看</a>'+
         '{{else}}'+   
 	        '{{if item.free == true}}' +
 	        '<p class="bigpic-body-money">' +
@@ -221,7 +219,7 @@ window.onload=function(){
 	        '</p>' +
 	        '<div class="bigpic-body-btn">' +
 	        '{{if item.apply==true}}'+
-	        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即学习</a>'+
+	        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/video.html?courseId='+courserId+'" >立即学习</a>'+
 	        '{{else}}'+
 	        '<a class="sign-up purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" target="_blank">立即报名</a>'+
 	        '{{/if}}'+
@@ -268,7 +266,7 @@ window.onload=function(){
         '</div>' +
         '</div>';
     var free;
-    $(".baomingSucces").attr("href","/web/html/CourseDetailZhiBo.html?courseId="+courserId);
+    $(".baomingSucces").attr("href","/web/html/video.html?courseId="+courserId);
     RequestService("/course/getCourseById", "POST", {
         courserId:courserId
     }, function(data) {
@@ -371,7 +369,7 @@ window.onload=function(){
                                             $(".sign-up-body,.gotengxun").css("display","none");
                                             $(".sign-up-success,.baomingSucces").css("display","block");
                                             $(".bigpic-body-btn .sign-up").text("立即学习");
-                                            $(".sign-up,.baomingSucces").attr("href","/web/html/CourseDetailZhiBo.html?courseId="+courserId);
+                                            $(".sign-up,.baomingSucces").attr("href","/web/html/video.html?courseId="+courserId);
                                             $(".sign-up1").css("display","none");
                                             $("#payCourseSlider .baomingSucces").css("display","block");
                                             $(".sign-up").unbind("click");

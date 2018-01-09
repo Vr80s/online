@@ -19,11 +19,12 @@ $(function(){
 	//初始化请求信息
 	window.current = 1;
 	window.size = 8;
+	window.hospitalId = getQueryString('hospitalId');
 	window.name =searchText?searchText:"";
 	window.type =getQueryString('type')?getQueryString('type'):"";
 	window.field=getQueryString('field')?getQueryString('field'):"";
 	getHostipalList(current,size,name,type,field);
-	
+	console.log(hospitalId);
 	
 	//顶部搜索列表title变化
 	if(type == 1){
@@ -54,7 +55,8 @@ $(function(){
 	    	size:size,
 	    	name:name,
 	    	type:type,
-	    	field:field
+	    	field:field,
+	    	hospitalId:hospitalId
 	    },function(data){
 	    	$('.search_more').css('display','block')
 	        if(data.resultObject.records.length == 0){

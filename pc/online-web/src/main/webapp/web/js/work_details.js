@@ -11,6 +11,10 @@ $(function(){
             $(this).addClass("select").siblings().removeClass("select");
         }
     });
+    
+    $('.path .doctor').addClass('select');
+    
+    
     //解析url地址
     var ourl = document.location.search;
     var apams = ourl.substring(1).split("&");

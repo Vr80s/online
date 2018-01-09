@@ -50,8 +50,6 @@ public class CourseDescriptionServiceImpl extends OnlineBaseServiceImpl implemen
 
 	@Override
 	public void updateCourseDescription(CourseDescriptionVo courseDescriptionVo) {
-//		System.out.println("ID："+courseDescriptionVo.getId());
-
 		CourseDescription courseDescription = dao.findOneEntitiyByProperty(CourseDescription.class, "id", courseDescriptionVo.getId());
 		courseDescription.setCourseTitle(courseDescriptionVo.getCourseTitle());
 		courseDescription.setStatus(courseDescriptionVo.getStatus());
@@ -63,8 +61,6 @@ public class CourseDescriptionServiceImpl extends OnlineBaseServiceImpl implemen
 	
 	@Override
 	public void updateTestCourseDescription(CourseDescriptionVo courseDescriptionVo) {
-//		System.out.println("ID："+courseDescriptionVo.getId());
-		
 		CourseDescription courseDescription = dao.findOneEntitiyByProperty(CourseDescription.class, "id", courseDescriptionVo.getId());
 		courseDescription.setCourseTitle(courseDescriptionVo.getCourseTitle());
 		courseDescription.setStatus(courseDescriptionVo.getStatus());

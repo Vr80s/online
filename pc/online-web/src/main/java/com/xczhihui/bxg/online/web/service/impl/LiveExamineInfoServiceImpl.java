@@ -116,7 +116,6 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             //courseLecturVo.setImRoomId(courseLecturVo.getId()+postfix);
             List<LiveExamineInfoVo>  list= simpleHibernateDao.findPageBySQL(sb.toString(),param,LiveExamineInfoVo.class,pageNumber,pageSize).getItems();
             for (LiveExamineInfoVo liveExamineInfoVo : list) {
-            	System.out.println(liveExamineInfoVo.getCourseId()+postfix);
             	liveExamineInfoVo.setImRoomId(liveExamineInfoVo.getCourseId()+postfix);
 			}
             return  list;

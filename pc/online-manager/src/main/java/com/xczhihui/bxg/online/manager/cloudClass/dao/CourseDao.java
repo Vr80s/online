@@ -29,7 +29,7 @@ import java.util.Map;
 public class CourseDao extends HibernateDao<Course>{
 	 public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
-		 StringBuilder sql = new StringBuilder("SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName, oc.multimedia_type multimediaType, oc.address, IF(ISNULL(oc.`course_pwd`),0,1) coursePwd,"
+		 StringBuilder sql = new StringBuilder("SELECT oc.id as id ,oc.grade_name as courseName,oc.direct_id directId, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName, oc.multimedia_type multimediaType, oc.address, IF(ISNULL(oc.`course_pwd`),0,1) coursePwd,"
 				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,"
 				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
 				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"

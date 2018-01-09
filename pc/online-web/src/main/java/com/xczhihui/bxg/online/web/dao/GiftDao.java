@@ -120,23 +120,30 @@ public class GiftDao extends SimpleHibernateDao {
 
     public Object getLiveCourseByUserId(String userId, Integer pageNumber, Integer pageSize) {
 		String sql="SELECT \n" +
-				"  * \n" +
+				"  a.*,\n" +
+				"  COUNT(a.argcid) enrollmentCount\n" +
 				"FROM\n" +
 				"  (SELECT \n" +
 				"    argc.`course_id` id,\n" +
+				"    argc.id argcid,\n" +
 				"    oc.`grade_name` courseName,\n" +
 				"    oc.`start_time` startTime,\n" +
 				"    oc.`end_time` endTime,\n" +
-				"    COUNT(argc.id) enrollmentCount,\n" +
-				"    oc.`current_price` price,\n" +
-				"    IFNULL(SUM(ood.`actual_pay`), 0) totalAmount \n" +
+				"    oc.`current_price` price \n" +
 				"  FROM\n" +
 				"    `oe_course` oc \n" +
 				"    JOIN `oe_user` ou \n" +
 				"      ON oc.`user_lecturer_id` = ou.`id` \n" +
 				"    JOIN `apply_r_grade_course` argc \n" +
 				"      ON oc.id = argc.`course_id` \n" +
-				"    LEFT JOIN `oe_order_detail` ood \n" +
+				"    LEFT JOIN \n" +
+				"      (SELECT \n" +
+				"        aa.* \n" +
+				"      FROM\n" +
+				"        `oe_order_detail` aa \n" +
+				"        JOIN `oe_order` bb \n" +
+				"          ON aa.`order_id` = bb.`id` \n" +
+				"          AND bb.`order_status` = 1) ood \n" +
 				"      ON oc.id = ood.`course_id` \n" +
 				"  WHERE oc.`is_delete` = 0 \n" +
 				"    AND oc.`type` = 1 \n" +
@@ -148,8 +155,40 @@ public class GiftDao extends SimpleHibernateDao {
 		Map<String,Object> paramMap = new HashMap<>();
 		paramMap.put("userId", userId);
 		Page<LiveCourseVO> page = this.findPageBySQL(sql.toString(), paramMap, LiveCourseVO.class, pageNumber, pageSize);
+		for (int i = 0; i < page.getItems().size(); i++) {
+			LiveCourseVO liveCourseVO = page.getItems().get(i);
+			liveCourseVO.setTotalAmount(getLiveCourseTotalAmountById(liveCourseVO.getId()));
+		}
 		return page;
     }
+
+
+	public String getLiveCourseTotalAmountById(String courseId) {
+		String sql="SELECT \n" +
+				"  SUM(ap.actualPay) actualPay \n" +
+				"FROM\n" +
+				"  (SELECT \n" +
+				"    IFNULL(ood.`actual_pay`, 0) actualPay \n" +
+				"  FROM\n" +
+				"    `apply_r_grade_course` argc \n" +
+				"    JOIN `oe_course` oc \n" +
+				"      ON argc.`course_id` = oc.id \n" +
+				"    JOIN `oe_user` ou \n" +
+				"      ON argc.`user_id` = ou.`id` \n" +
+				"    LEFT JOIN `oe_order_detail` ood \n" +
+				"      ON ood.`course_id` = oc.id \n" +
+				"  WHERE oc.`is_delete` = 0 \n" +
+				"    AND argc.`is_payment` IN (0, 2) \n" +
+				"    AND oc.id = :courseId \n" +
+				"  GROUP BY argc.id \n" +
+				"  ORDER BY argc.`create_time`) ap ";
+
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("courseId", courseId);
+		String totalAmount = this.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
+		return totalAmount;
+	}
+
 
 	public Object getLiveCourseUsersById(String id, String userId, Integer pageNumber, Integer pageSize) {
 		String sql="SELECT \n" +

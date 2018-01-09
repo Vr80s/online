@@ -34,8 +34,8 @@ $(function(){
     }},
     { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
-    { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
-        return data+"h";
+    { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":true,"mRender":function (data, display, row) {
+        return data;
     }},
     { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
     { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
@@ -58,6 +58,12 @@ $(function(){
     	}else{
     		return "<span name='sftj'>未推荐</span>";
     	}
+    } },{ "title": "视频同步", "class":"center","width":"6%","sortable":false,"data": 'directId',"mRender":function (data, display, row) {
+    	if(data!=null && data!=''){
+    		return '<span style="color: #13da08;" name="sftj">已同步</span>';
+    	}else{
+    		return '<span style="color: #da0823;" name="sftj">未同步</span>';
+    	}
     } },
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
@@ -75,9 +81,8 @@ $(function(){
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-//				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,1)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
-//				'<a class="blue" href="javascript:void(-1);" title="设置学习计划模板" onclick="setPlanTemplate(this);"><i class="ace-icon fa fa-sitemap bigger-130"></i></a></div>';
+				'<a class="blue" href="javascript:void(-1);" title="同步视频" onclick="updateCourseVideo('+row.id+');"><i class="ace-icon glyphicon glyphicon-cloud-download bigger-130"></i></a>'
+				// '<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 	    		/*'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
@@ -86,9 +91,8 @@ $(function(){
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-//				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,1)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
-//				'<a class="blue" href="javascript:void(-1);" title="设置学习计划模板" onclick="setPlanTemplate(this);"><i class="ace-icon fa fa-sitemap bigger-130"></i></a></div>';
+                '<a class="blue" href="javascript:void(-1);" title="同步视频" onclick="updateCourseVideo('+row.id+');"><i class="ace-icon glyphicon glyphicon-cloud-download bigger-130"></i></a>'
+				// '<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
 	    	}
 	    } 
 	},
@@ -331,14 +335,8 @@ $(function(){
 				minlength:"课程名称过短，应大于2个字符！",
 				maxlength:"课程名称过长，应小于20个字符！"
 			},
-			classTemplate: {
-				required:"请输入班级名称模板！"
-			},
 			classRatedNum: {
 				required:"请输入班级额定人数！"
-			},
-			gradeQQ: {
-				required:"请输入班级QQ群！"
 			},
 			defaultStudentCount: {
 				required:"请输入默认报名人数！"
@@ -659,7 +657,7 @@ function downMoveRec(obj){
  * 添加职业课
  */
 $(".add_P").click(function(){
-	
+	debugger
 	$("input[name='isFree']").eq(1).attr("checked","checked");
 	/*$("#add-originalCost").hide();
 	$("#add-currentPrice").hide();*/
@@ -2062,8 +2060,23 @@ function deleteTeacher(){
   });
 })( jQuery );
 
-$(function() {
-});
+function updateCourseVideo(id){
+    mask();
+    debugger
+    ajaxRequest(basePath+"/cloudclass/course/updateCourseVideo","id="+id,function(data){
+        unmask();
+        if(data.success){
+            if(data.resultObject == 'ok'){
+                freshTable(P_courseTable);
+                layer.msg("操作成功！");
+            } else {
+                alertInfo(data.resultObject);
+            }
+        } else {
+            alertInfo(data.errorMessage);
+        }
+    });
+}
 
 
 

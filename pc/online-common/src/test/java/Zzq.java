@@ -17,7 +17,6 @@ public class Zzq {
         List<String> resultList = new ArrayList<>();
         ergodic(new File(forderPath), resultList);
         for (int i = 0; i < resultList.size(); i++) {
-            System.out.println(resultList.get(i));
             if(j<45*60)
             cr(resultList.get(i),"C:\\yu.doc");
         }

@@ -41,13 +41,11 @@ public class CourseRecommendController{
 		int currentPage = index / pageSize + 1;
 		String params = tableVo.getsSearch();
 		
-//		System.out.println(params);
 		Groups groups = Tools.filterGroup(params);
 		
 		CourseRecommendVo searchVo=new CourseRecommendVo();
 		
 		Group showCourseId = groups.findByName("search_showCourseId");
-//		System.out.println(""+showCourseId.getPropertyValue1().toString());
 		if (showCourseId != null) {
 			searchVo.setShowCourseId(Integer.parseInt(showCourseId.getPropertyValue1().toString()));
 		}

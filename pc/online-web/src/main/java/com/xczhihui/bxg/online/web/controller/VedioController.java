@@ -87,18 +87,18 @@ public class VedioController {
 	 * 获得播放代码
 	 * 
 	 * @param req
-	 * @param video_id
+	 * @param courseId
 	 * @param width
 	 * @param height
 	 * @param autoPlay
 	 * @return
 	 */
 	@RequestMapping(value = "getVidoInfo", method = RequestMethod.GET)
-	public ResponseObject getVidoInfo(HttpServletRequest req, String video_id, String width, String height,
+	public ResponseObject getVidoInfo(HttpServletRequest req, String courseId, String width, String height,
 			String autoPlay) {
 
 		Map<String, String> paramsMap = new HashMap<String, String>();
-		paramsMap.put("videoid", video_id);
+		paramsMap.put("courseId", courseId);
 
 		if (width != null) {
 			paramsMap.put("player_width", width);
@@ -110,7 +110,7 @@ public class VedioController {
 			paramsMap.put("auto_play", autoPlay);
 		}
 		
-		return ResponseObject.newSuccessResponseObject(service.getVideoInfo(paramsMap,req));
+		return ResponseObject.newSuccessResponseObject(service.getCCVideoInfo(paramsMap));
 	}
 
 //	/**

@@ -276,21 +276,6 @@ public class MessageController {
 
 		String regEx="<a.+?href="; 
 		String regEx2="\">";
-		/*Pattern p=Pattern.compile(regEx);
-		
-		Matcher m=p.matcher(messageVo.getContext());
-		
-		boolean result=m.find();
-		System.out.println(result);
-		System.out.println(messageVo.getContext().replaceAll(regEx, "<a href=\"javascript:void(0);\" onlick=\'on_click_msg\\(msg_id,"));
-		
-	
-		Pattern p2=Pattern.compile(regEx2);
-		Matcher m2=p2.matcher(messageVo.getContext());
-		boolean result2=m2.find();
-		System.out.println(result2);
-		System.out.println(messageVo.getContext().replaceAll(regEx, "<a href=\"javascript:void(0);\" onlick=\'on_click_msg\\(msg_id,").replaceAll(regEx2,"\")>"));*/
-		
 
 		if(!"-1".equals(messageVo.getGrade())){
 			//循环班级查找班级下的学生

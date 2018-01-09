@@ -69,7 +69,6 @@ public class EmailService {
 		  msg.setSentDate(new Date());
 		  Transport.send(msg);
 		  
-		  System.out.println("Message sent.");
 		  return true;
 		 }
 	public static void main(String[] args) throws AddressException, MessagingException {
