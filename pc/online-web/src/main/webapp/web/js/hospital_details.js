@@ -106,6 +106,9 @@ $(function(){
 	        }else{
 	        	console.log(data)
 	        	//获取到数据渲染
+	        	if(data.resultObject.records.length > 4){
+	        		$('#more_doc').removeClass('hide');
+	        	};
 	           $('#yiguan_mingjia').html(template('hos_docTpl',{doctor:data.resultObject.records}));
 	        }
 	    });
@@ -116,6 +119,9 @@ $(function(){
 	    RequestService("/medical/hospitalRecruit/getHospitalRecruitById","GET",{
 			hospitalId:id
 	    },function(data){
+	    	//更多给名医添加id
+	    	console.log(id);
+	    	$('#more_doc').attr('href','/web/html/practitionerListing.html?name=&hospitalId='+id+'')
 	        if(data.resultObject.length == 0){
 				$('.employ').addClass('hide')
 	        }else{
