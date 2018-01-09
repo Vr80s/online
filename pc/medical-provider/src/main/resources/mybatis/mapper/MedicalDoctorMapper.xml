@@ -82,7 +82,7 @@
 		ON mf.`id` = mdf.`field_id`
 		GROUP BY mdf.`field_id`
 		ORDER BY COUNT(mdf.`field_id`) DESC
-		LIMIT 0, 10
+		LIMIT 0, 8
 	</select>
 
 
