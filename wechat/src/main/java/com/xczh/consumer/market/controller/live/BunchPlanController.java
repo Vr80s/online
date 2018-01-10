@@ -168,8 +168,10 @@ public class BunchPlanController {
 		String appUniqueId = req.getParameter("appUniqueId");
 		log.info("flag:"+flag);
 		log.info("appUniqueId:"+appUniqueId);
+		log.info("liveid:"+courseLecturVo.getDirectId());
 		if(!StringUtils.isNotBlank(flag) && StringUtils.isNotBlank(appUniqueId)){ //等于null的是以前的版本需要判断是否需要获取视频id
 			courseLecturVo = changeLiveId(courseLecturVo);
+			log.info("liveid:"+courseLecturVo.getDirectId());
 		}
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);
 	}
@@ -523,6 +525,13 @@ public class BunchPlanController {
 	 * 
 	 * **************************************
 	 */
+	
+
+	
+	
+	
+	
+	
 	
 	/**
 	 * 推荐中 上不包含的信息

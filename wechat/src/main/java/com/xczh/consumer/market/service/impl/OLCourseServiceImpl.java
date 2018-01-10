@@ -233,12 +233,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		CourseLecturVo courseLecturVo = wxcpCourseDao.bunchDetailsByCourseId(course_id);
 		//少了一个视频id
 		//查课下所有知识点
-		if(courseLecturVo!=null){
-			 Map<String,String> map = wxcpCourseDao.getVideoFirst(course_id);
-			 courseLecturVo.setChapterId(map.get("chapterId"));
-			 courseLecturVo.setDirectId(map.get("videoId"));
-			 courseLecturVo.setvId(map.get("vId"));
-		}
+//		if(courseLecturVo!=null){
+//			 Map<String,String> map = wxcpCourseDao.getVideoFirst(course_id);
+//			 courseLecturVo.setChapterId(map.get("chapterId"));
+//			 courseLecturVo.setDirectId(map.get("videoId"));
+//			 courseLecturVo.setvId(map.get("vId"));
+//		}
 		return courseLecturVo;
 	}
 

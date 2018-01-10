@@ -166,6 +166,7 @@ function  getVideoCriticize(pageNumber,vId){
  * @param videoId
  */
 function chZJ(videoId,chapterId,vid){
+	
 	/**
 	 * 清空评论区的列表
 	 */
@@ -204,7 +205,6 @@ function chZJ(videoId,chapterId,vid){
 	    	 * 初始化评论区
 	    	 */
 	    	//getVideoCriticize(1,vid);
-			
 		}else{
     		$(".history_bg").show();
 		}
