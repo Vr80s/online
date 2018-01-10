@@ -54,51 +54,48 @@ requestService("/bxg/common/h5ShareAfter",{
 		sessionStorage.setItem("shareCourseId",course_id);
 		
 		if(result.type != 1){ //视频和音频   
-			
 			$(".details_size").html("观看人数：<span>"+result.learndCount+"</span>");
-		
 			$(".buy_bottom_p1").hide();
 			descriptionType =result.courseDescription
-		
 			sessionStorage.setItem("share", "bunchDetails");
-		}
-		if(result.lineState != 2){   // 正在直播或者回放
-			
-			if(result.lineState == 1){    // 正在直播
-				$(".buy_bottom_p1").show();
+		}else{
+			if(result.lineState != 2){   // 正在直播或者回放
+				if(result.lineState == 1){    // 正在直播
+					$(".buy_bottom_p1").show();
+				}
+				$(".details_size").html("观看人数：<span>"+result.learndCount+"</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+				 		" 礼物：<span>"+result.giftCount+"</span>");
+				
+				descriptionType =result.description;
+				
+				$(".details_bottom").show();
+				$(".order_center").hide();
+				$(".order").css("background","url("+result.smallImgPath+")");
+				$('.order').css('backgroundSize','100% 100%')
+				
+		        $(".buy_right a").html("立即观看");
+				
+				sessionStorage.setItem("share", "liveDetails"); 
+			}else{  	//直播预告
+				$(".details_bottom").hide();
+				$(".order_center").show();
+				var y = result.startTime.substring(0,4);
+				var m = result.startTime.substring(5,7);
+				var d = result.startTime.substring(8,10);
+				var h = result.startTime.substring(11,13);
+				var minute = result.startTime.substring(14,16);
+				$(".order_center p:eq(0)").html(h+":"+minute+"开播");
+				$(".order_center p:eq(1)").html(y+"."+m+"."+d);
+				$(".order_center p:eq(2)").html("已预约人数："+result.countSubscribe);
+				$(".buy_right a").html("立即预约");
+				
+				sessionStorage.setItem("share", "foresshow"); 
 			}
-			
-			$(".details_size").html("观看人数：<span>"+result.learndCount+"</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
-			 		" 礼物：<span>"+result.giftCount+"</span>");
-			
-			descriptionType =result.description;
-			
-			$(".details_bottom").show();
-			$(".order_center").hide();
-			$(".order").css("background","url("+result.smallImgPath+")");
-			$('.order').css('backgroundSize','100% 100%')
-			
-	        $(".buy_right a").html("立即观看");
-			
-			
-			sessionStorage.setItem("share", "liveDetails"); 
-		}else{  	//直播预告
-			
-			
-			$(".details_bottom").hide();
-			$(".order_center").show();
-			var y = result.startTime.substring(0,4);
-			var m = result.startTime.substring(5,7);
-			var d = result.startTime.substring(8,10);
-			var h = result.startTime.substring(11,13);
-			var minute = result.startTime.substring(14,16);
-			$(".order_center p:eq(0)").html(h+":"+minute+"开播");
-			$(".order_center p:eq(1)").html(y+"."+m+"."+d);
-			$(".order_center p:eq(2)").html("已预约人数："+result.countSubscribe);
-			$(".buy_right a").html("立即预约");
-			
-			sessionStorage.setItem("share", "foresshow"); 
 		}
+//		alert("share:"+sessionStorage.getItem("share"));
+//		alert("shareCourseId:"+sessionStorage.getItem("shareCourseId"));
+		
+		
 		$(".buy_bottom_p2").html(result.learndCount+"人学习");
 		$("#teacherId").val(result.userId);
 		$("#content").html(result.description);

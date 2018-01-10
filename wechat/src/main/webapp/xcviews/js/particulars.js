@@ -525,7 +525,7 @@ function initZJ(){
 //微博分享 
 document.getElementById('weiboShare').onclick = function(e){
 	    var  p = {
-	        url: getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 	        title :result.gradeName,/*分享标题(可选)*/
 	        pic : result.smallImgPath /*分享图片(可选)*/
 	    };
@@ -540,7 +540,7 @@ document.getElementById('weiboShare').onclick = function(e){
 //qq分享 
 document.getElementById('qqShare').onclick = function(e){
 	    var  p = {
-	        url: getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 	        desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
 	        title : result.gradeName,/*分享标题(可选)*/
 	        summary : result.description.stripHTML(),/*分享描述(可选)*/
@@ -572,7 +572,7 @@ wx.ready(function () {
 	wx.onMenuShareAppMessage({
 	    title: result.gradeName, // 分享标题
 	    desc: result.courseDescription, // 分享描述
-	    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+	    link:getServerHost()+"/wx_share.html?courseId="+course_id, // 分享链接
 	    imgUrl: result.smallImgPath, // 分享图标
 	    type: '', // 分享类型,music、video或link，不填默认为link
 	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -592,7 +592,7 @@ wx.ready(function () {
 	//发送到朋友圈
 	wx.onMenuShareTimeline({
 	    title: result.gradeName, // 分享标题
-	    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+	    link:getServerHost()+"/wx_share.html?courseId="+course_id, // 分享链接
 	    imgUrl: result.smallImgPath, // 分享图标
 	    success: function () {
 	        // 用户确认分享后执行的回调函数
@@ -611,7 +611,7 @@ wx.ready(function () {
 	wx.onMenuShareQQ({
 	    title: result.gradeName, // 分享标题
 	    desc: result.courseDescription, // 分享描述
-	    link:getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id, // 分享链接
+	    link:getServerHost()+"/wx_share.html?courseId="+course_id, // 分享链接
 	    imgUrl: result.smallImgPath, // 分享图标
 	    success: function () {
 	       // 用户确认分享后执行的回调函数

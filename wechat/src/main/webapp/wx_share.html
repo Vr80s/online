@@ -5,13 +5,32 @@
 
 <head>
 <meta charset="utf-8">
-<!--<title></title>-->
+<title>熊猫中医</title>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <script>
+
+
+function isWeiXin() {
+	var ua = window.navigator.userAgent.toLowerCase();
+	console.log(ua);//mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
+	if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+		return true;
+	} else {
+		return false;
+	}
+}
+var wxOrbrower
+if (isWeiXin()) {
+	console.log(" 是来自微信内置浏览器")
+	wxOrbrower = "wx";
+} else {
+	wxOrbrower = "brower";
+}
+
 /**
  * 截取url传递的参数
  * @param name 传递 key  得到value 
@@ -23,12 +42,11 @@ function getQueryString(name) {
     if (r != null) return unescape(r[2]); return null;
 }
 var domain = window.location.protocol+"//"+document.domain;
-
 debugger;
 var course = getQueryString("courseId");
 console.log(parseFloat(course).toString());
 if(course!=null && course!="" && parseFloat(course).toString() != "NaN"){
-	location.href =domain+"/bxg/common/pcShareLink?courseId="+course;
+	location.href =domain+"/bxg/common/pcShareLink?courseId="+course+"&wxOrbrower="+wxOrbrower;
 }else{
 	location.href =domain+"/bxg/page/index/null/null";
 }
