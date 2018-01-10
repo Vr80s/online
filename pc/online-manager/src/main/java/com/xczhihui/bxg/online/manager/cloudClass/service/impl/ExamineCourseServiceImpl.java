@@ -281,17 +281,21 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			
 		    //时间转换
 	        long l = Long.parseLong(le.getWhenLong()) / (1000*60*60);
+	        
+	        
 	      /*  double f = Double.parseDouble(l+"");
 			BigDecimal b = new BigDecimal(f);
 			double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();*/
 	        
-			BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
-			//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
-			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
+//			BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
+//			//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
+//			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
 			//System.out.println(bd_half_even);
+	        
+	        double bd_half_up =  com.xczhihui.bxg.online.manager.utils.CountUtils.div(
+	        		Double.parseDouble(le.getWhenLong()), 3600000d,2);
 			System.out.println(bd_half_up);
-			
-			entity.setCourseLength(bd_half_up.doubleValue()+""); //课程时长
+			entity.setCourseLength(bd_half_up+""); //课程时长
 			entity.setCreateTime(new Date()); //当前时间
 			entity.setStatus('1' + ""); //状态
 			entity.setStartTime(le.getStartTime());//直播开始时间
