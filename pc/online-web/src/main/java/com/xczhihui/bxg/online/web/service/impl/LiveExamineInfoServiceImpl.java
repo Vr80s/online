@@ -193,7 +193,7 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
                 ExamineProgressVo.Progress progress3=new ExamineProgressVo().new Progress();
                 if(progressDto.getAppealTime()!=null){
                     ExamineProgressVo.Progress progress4=new ExamineProgressVo().new Progress();
-                    progress4.setName("您的直播申请被拒绝，原因:"+progressDto.getAgainstReason());
+                    progress4.setName("您提起的申诉被驳回，原因:"+progressDto.getAgainstReason());
                     progress4.setExaminTime(progressDto.getReviewerTime());
                     if(appealCount(examineId)<1){
                         progress4.setShowAppeal(true);
