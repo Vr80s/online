@@ -355,7 +355,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
 				+ "ocm.img_url as smallImgPath,ou.name as name,");
 		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
-		all.append(" oc.live_status as  lineState, ");    		//课程类型
+		all.append(" oc.live_status as  lineState, "); 
 		
 		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
