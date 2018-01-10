@@ -1571,11 +1571,11 @@ $(".rec_P").click(function(){
 		}
 		ids.push($(trs[i]).val());
 	}
-	if(ids.length > 4)
-	{
-		showDelDialog("","","最多只能推荐4个点播课程！","");
-		return false;
-	}
+//	if(ids.length > 4)
+//	{
+//		showDelDialog("","","最多只能推荐4个点播课程！","");
+//		return false;
+//	}
 
 	if(ids.length>0){ 
 			ajaxRequest(basePath+"/cloudclass/course/updateRec",{'ids':ids.join(","),"isRec":1},function(data){

@@ -142,6 +142,11 @@
             <a href="#inbox" aria-controls="inbox" class="kctj_bx" role="tab" style="padding: 10px 5px;"
                data-toggle="tab">直播统计</a>
         </li>
+
+		<li role="presentation">
+            <a href="#liveremon" aria-controls="#liveremon" class="zbtj_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播推荐</a>
+        </li>
     </ul>
  
     <!-- Tab panes -->
@@ -154,6 +159,9 @@
 					</button>
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
+					</button>
+					<button class="btn btn-sm btn-success rec_P" title="设为推荐">
+						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
 					</button>
 				</p>
 			
@@ -287,6 +295,54 @@
 							    <col width='12%'></col>
 							    <col width='12%'></col>
 							    <col width='12%'></col>
+							    
+							    <col width='12%'></col>
+							    <col width='12%'></col>
+							    <col width='12%'></col>
+							    <col width='12%'></col>
+							    <col width='14%'></col>
+							    
+							    <col width='14%'></col>
+							</colgroup>
+						</table>
+					</div>
+				</div>
+			</div>
+        </div>
+        
+        
+        <div role="tabpanel" class="tab-pane" id="liveremon">
+        	<div class="mainrighttab tabresourse bordernone" id="courseZbRecDiv" style="display:none">
+        			
+        			<div class="searchDivClass" id="searchDiv">
+			        <div class="profile-info-row" >
+			            <table frame=void style="width: 100%">
+			                <tr>
+			                    <td>
+			                        <div class="profile-info-value searchTr">
+										<select name="courseTypeId" id="search_multimediaType" value="" class="propertyValue1" >
+											<option value="1" selected = "selected">直播中</option>
+											<option value="2">直播预告</option>
+											<option value="2">直已结束</option>
+										</select>
+										<input type="hidden" value="search_multimediaType" class="propertyName"/>
+									</div>
+			                    </td>
+			                </tr>
+			            </table>
+			        </div>
+			    </div>
+        	
+				<div class="row">
+					<div class="col-xs-12">
+						<table id="courseZbRecTable"
+							class="table table-striped table-bordered table-hover">
+							<colgroup>
+							    <col width='5%'></col>
+							    <col width='17%'></col>
+							    <col width='12%'></col>
+							    <col width='12%'></col>
+							    <col width='12%'></col>
 							    <col width='12%'></col>
 							    <col width='12%'></col>
 							    <col width='12%'></col>
@@ -299,6 +355,7 @@
 				</div>
 			</div>
         </div>
+        
     </div>
  
 	<!-- 增加form -->

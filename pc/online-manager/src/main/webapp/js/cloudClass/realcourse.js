@@ -1605,46 +1605,32 @@ $(".rec_M").click(function(){
  * 展示线下培训班管理
  * 
  */
-$(".zykgl_bx").click(function(){
+$(".xxpxb_bx").click(function(){
 	$("#courseDiv").show();
-	$("#courseDiv_M").hide();
-	$("#courseDiv_PX").hide();
 	$("#courseRecDiv").hide();
+	$("#courseCityDiv").hide();
 	freshTable(P_courseTable);
 });
 /**
- * 展示微课管理
+ *>线下课推荐管理
  *
  */
-$(".wkgl_bx").click(function(){
+$(".xxtj_bx").click(function(){
 	$("#courseDiv").hide();
-	$("#courseDiv_M").show();
-	$("#courseDiv_PX").hide();
-	$("#courseRecDiv").hide();
+	$("#courseRecDiv").show();
+	$("#courseCityDiv").hide();
 	freshTable(M_courseTable);
 });
 /**
- * 展示课程推荐
- * 
+ * 城市推荐管理
  */
-$(".kctj_bx").click(function(){
+$(".city_bx").click(function(){
 	$("#courseDiv").hide();
-	$("#courseDiv_M").hide();
-	$("#courseDiv_PX").hide();
-	$("#courseRecDiv").show();
+	$("#courseRecDiv").hide();
+	$("#courseCityDiv").show();
 	freshTable(_courseRecTable);
 });
-/**
- * 展示课程排序
- *
- */
-$(".kcpx_bx").click(function(){
-	$("#courseDiv").hide();
-	$("#courseDiv_M").hide();
-	$("#courseDiv_PX").show();
-	$("#courseRecDiv").hide();
-	freshTable(PX_courseTable);
-});
+
 
 function test(){
 	$(".libox").css("display","block");
