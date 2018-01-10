@@ -984,6 +984,10 @@ $("#updateCourse-form").on("change","#edit_bigImgPathFile",function(){
 // zhuwenbao-2018-0109 图片上传统一上传到附件中心-新增职业课
 $("#addCourse-form").on("change","#smallImgPath_file",function(){
     _this = this;
+
+    // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
+    $('.ui-dialog-buttonset .ui-button-text').eq(1).addClass('add_P_cancel');
+
     var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
     if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
         layer.msg("图片格式错误,请重新选择.");
@@ -999,9 +1003,6 @@ $("#addCourse-form").on("change","#smallImgPath_file",function(){
 
             $("#smallImgPath").val(data.url);
 
-            // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
-            $('.ui-dialog-buttonset .ui-button-text').eq(1).addClass('add_P_cancel');
-
             document.getElementById("imgAdd").focus();
             document.getElementById("imgAdd").blur();
             $(".remove").hide();
@@ -1014,6 +1015,10 @@ $("#addCourse-form").on("change","#smallImgPath_file",function(){
 // zhuwenbao-2018-0109 图片上传统一上传到附件中心-修改职业课
 $("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
     _this = this;
+
+    // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
+    $('.ui-dialog-buttonset .ui-button-text').eq(3).addClass('edit_P_cancel');
+
     var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
     if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
         layer.msg("图片格式错误,请重新选择.");
@@ -1028,9 +1033,6 @@ $("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
             $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
 
             $("#edid_smallImgPath").val(data.url);
-
-            // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
-            $('.ui-dialog-buttonset .ui-button-text').eq(3).addClass('edit_P_cancel');
 
             document.getElementById("imgAdd").focus();
             document.getElementById("imgAdd").blur();
