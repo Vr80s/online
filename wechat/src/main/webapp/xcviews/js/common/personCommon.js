@@ -87,12 +87,13 @@ function  sendCode(obj){
 
 
 		} else {
-			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>同一手机号两次发送间隔至少90秒！</div></div></div>");
+			
+			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>"+data.errorMessage+"</div></div></div>");
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish2").hide();},1500);
 			
-			updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
-							setTimeout(function(){$(".vanish").hide();},1500);
+//			updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
+//							setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
 }
