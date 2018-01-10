@@ -498,7 +498,7 @@ requestService("/bxg/live/getMoneySum", {id: course_id}, function(data) {
 //微博分享 
 document.getElementById('weiboShare').onclick = function(e){
 	    var  p = {
-	        url: getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 	        title :result.gradeName,/*分享标题(可选)*/
 	        pic : result.smallImgPath /*分享图片(可选)*/
 	    };
@@ -513,7 +513,7 @@ document.getElementById('weiboShare').onclick = function(e){
 //qq分享 
 document.getElementById('qqShare').onclick = function(e){
 	    var  p = {
-	        url: getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 	        desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
 	        title : result.gradeName,/*分享标题(可选)*/
 	        summary : result.description.stripHTML(),/*分享描述(可选)*/
@@ -526,11 +526,6 @@ document.getElementById('qqShare').onclick = function(e){
 	    var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&') ;
 	    window.open(_src);
 };
-
-
-
-
-
 /**************** 微信分享 *************************/
 /*
  * 注意：

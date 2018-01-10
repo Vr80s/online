@@ -118,7 +118,7 @@ function login(){
 				if(access == "brower"){
 					if(stringnull(share) && share == "liveDetails"){  //liveDetails bunchDetails
 						sessionStorage.removeItem("share");
-						location.href = "/bxg/xcpage/courseDetails?courseId="+courseid;
+						location.href = "/bxg/xcpage/courseDetails?courseId="+shareCourseId;
 						return;
 					}else if(stringnull(share) && share == "bunchDetails"){  //xcviews/html/particulars.html?courseId=299
 						sessionStorage.removeItem("share");
