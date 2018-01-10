@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.stereotype.Controller;
 
 
+
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
@@ -21,7 +22,6 @@ import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
-
 import com.xczhihui.bxg.online.manager.operate.service.MobileBannerService;
 import com.xczhihui.bxg.online.manager.operate.vo.MobileBannerVo;
 
@@ -63,6 +63,13 @@ public class MobileBannerController{
          if(nameGroup!=null){
               searchVo.setName(nameGroup.getPropertyValue1().toString());
          }
+         
+         Group bannerType = groups.findByName("banner_type");
+ 		 if (bannerType != null) {
+ 			searchVo.setBannerType(Integer.parseInt(bannerType.getPropertyValue1().toString()));
+ 		 }
+         
+         
 
          Page<MobileBannerVo> page = mobileBannerService.findMobileBannerPage(searchVo, currentPage, pageSize);
 

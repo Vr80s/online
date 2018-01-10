@@ -30,19 +30,24 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements Mo
 		int sort = dao.queryForInt(sql, null) - 1;
 		mobileBannerVo.setClickSum(0);
 		mobileBannerVo.setStatus(0);;
-		sql = "INSERT INTO oe_course_mobile_banner  ( id ,  name ,  url ,  click_sum ,  create_person ,  create_time ,  status ,  seq ,  img_path ) " +
-				"VALUES (REPLACE(UUID(),'-',''), ?, ?, ?, ?, now(), ?, ?, ?)";
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, new Object[]{mobileBannerVo.getName(),mobileBannerVo.getUrl(),mobileBannerVo.getClickSum(),
-				mobileBannerVo.getCreatePerson(),mobileBannerVo.getStatus(),sort,mobileBannerVo.getImgPath()});
+		sql = "INSERT INTO oe_course_mobile_banner  ( id ,  name ,  url ,  click_sum ,  "
+				+ "create_person ,  create_time ,  status ,  seq ,  img_path , link_type  ,banner_type ) " +
+				"VALUES (REPLACE(UUID(),'-',''), ?, ?, ?, ?, now(), ?, ?, ?,?,?)";
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, new Object[]{
+				mobileBannerVo.getName(),mobileBannerVo.getUrl(),mobileBannerVo.getClickSum(),
+				mobileBannerVo.getCreatePerson(),mobileBannerVo.getStatus(),sort,
+				mobileBannerVo.getImgPath(),mobileBannerVo.getLinkType(),mobileBannerVo.getBannerType()});
 	}
 
 	@Override
 	public void updateMobileBanner(MobileBannerVo mobileBannerVo) {
 		String sql ="UPDATE oe_course_mobile_banner " +
-					"SET name = ?, url = ?, img_path = ? " +
+					"SET name = ?, url = ?, img_path = ? ,link_type = ?  " +
 					"WHERE " +
 					"	id = ? ";
-		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, new Object[]{mobileBannerVo.getName(),mobileBannerVo.getUrl(),mobileBannerVo.getImgPath(),mobileBannerVo.getId()});
+		dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, new Object[]{
+				mobileBannerVo.getName(),mobileBannerVo.getUrl(),
+				mobileBannerVo.getImgPath(),mobileBannerVo.getLinkType(),mobileBannerVo.getId()});
 	}
 
 	@Override

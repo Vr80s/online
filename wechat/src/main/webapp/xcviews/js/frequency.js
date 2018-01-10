@@ -206,7 +206,7 @@ mui("#refreshContainer").on('tap', 'li', function (event) {
 				if (className.indexOf("frequency_div_p") != -1) {
 					sessionStorage.setItem("bunchType", index);
 					location.href = "/xcviews/html/particulars.html?courseId="
-							+ courseId;
+							+ courseId+"&multimedia_type="+multimedia_type;
 					return;
 				}
 	});
