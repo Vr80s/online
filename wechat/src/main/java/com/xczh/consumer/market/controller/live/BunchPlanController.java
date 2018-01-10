@@ -164,8 +164,11 @@ public class BunchPlanController {
 		 * 我的礼物总数 
 		 */
 		//做下播放的兼容性
-		String newFalg = req.getParameter("newFalg");//传递一个参数
-		if(StringUtils.isNotBlank(newFalg)){
+		String flag = req.getParameter("flag");//传递一个参数
+		String appUniqueId = req.getParameter("appUniqueId");
+		log.info("flag:"+flag);
+		log.info("appUniqueId:"+appUniqueId);
+		if(!StringUtils.isNotBlank(flag) && StringUtils.isNotBlank(appUniqueId)){ //等于null的是以前的版本需要判断是否需要获取视频id
 			courseLecturVo = changeLiveId(courseLecturVo);
 		}
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);
@@ -179,15 +182,15 @@ public class BunchPlanController {
 //		265106673    593193792   814649885
 		Map<Integer,String> map = new HashMap<Integer,String>();
 		// key 课程id   value  对应的视频id
-		map.put(1, "562965798");
-		map.put(2, "238481982");
-		map.put(3, "598747364");
-		map.put(4, "340273573");
+		map.put(557, "562965798");
+		map.put(556, "238481982");
+		map.put(555, "598747364");
+/*		map.put(4, "340273573");
 		map.put(5, "337055289");
 		map.put(6, "362080337");
 		map.put(7, "265106673");
 		map.put(8, "593193792");
-		map.put(9, "814649885");
+		map.put(9, "814649885");*/
 		for (Integer key : map.keySet()) {
 			System.out.println("key= "+ key + " and value= " + map.get(key));
 			if(key.equals(new Integer(courseLecturVo.getId()))){
@@ -326,53 +329,60 @@ public class BunchPlanController {
 										   HttpServletResponse res, Integer id)
 			throws Exception {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		//课程分类
-		map.put("category", menuService.list());
-		
-		List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
-		Map<String, Object> m1 = new HashMap<String, Object>();
-		m1.put("code", "1");
-		m1.put("code", "1");
-		m1.put("title", "大师课");
-		Map<String, Object> m2 = new HashMap<String, Object>();
-		m1.put("code", "2");
-		m2.put("2", "经典课");
-		Map<String, Object> m3 = new HashMap<String, Object>();
-		m1.put("code", "3");
-		m3.put("3", "小白课程");
-		Map<String, Object> m4 = new HashMap<String, Object>();
-		m1.put("code", "4");
-		m4.put("4", "免费课程");
-		
-		list.add(m1);
-		list.add(m2);
-		list.add(m3);
-		list.add(m4);
+		//Map<String, Object> map = new HashMap<String, Object>();
+				List<Object> list11 = new ArrayList<Object>();
 				
-		//课程专题   -- 假数据
-		map.put("project", list);
-		
-		
-		List<Map<String, Object>>  list1  = new ArrayList<Map<String,Object>>();
-		Map<String, Object> m11 = new HashMap<String, Object>();
-		m11.put("1", "视频课程");
-		Map<String, Object> m21 = new HashMap<String, Object>();
-		m21.put("2", "直播课程");
-		Map<String, Object> m31 = new HashMap<String, Object>();
-		m31.put("3", "音频课程");
-		Map<String, Object> m41 = new HashMap<String, Object>();
-		m41.put("4", "线下课程");
-		
-		list1.add(m11);
-		list1.add(m21);
-		list1.add(m31);
-		list1.add(m41);
-		
-		//课程类型
-		map.put("type", list1);
-		return ResponseObject.newSuccessResponseObject(map);
+				//课程分类
+				//map.put("category", menuService.list());
+				list11.add(menuService.list());
+				
+				
+				List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
+				Map<String, Object> m1 = new HashMap<String, Object>();
+				m1.put("id", "1");
+				m1.put("name", "大师课");
+				Map<String, Object> m2 = new HashMap<String, Object>();
+				m2.put("id", "2");
+				m2.put("name", "经典课");
+				Map<String, Object> m3 = new HashMap<String, Object>();
+				m3.put("id", "3");
+				m3.put("name", "小白课程");
+				Map<String, Object> m4 = new HashMap<String, Object>();
+				m4.put("id", "4");
+				m4.put("name", "免费课程");
+				
+				list.add(m1);
+				list.add(m2);
+				list.add(m3);
+				list.add(m4);
+						
+				//课程专题   -- 假数据
+				//map.put("project", list);
+				list11.add(list);
+				
+				//		
+				List<Map<String, Object>>  list1  = new ArrayList<Map<String,Object>>();
+				Map<String, Object> m11 = new HashMap<String, Object>();
+				m11.put("id", "1");
+				m11.put("name", "视频课程");
+				Map<String, Object> m21 = new HashMap<String, Object>();
+				m21.put("id", "2");
+				m21.put("name", "音频课程");
+				Map<String, Object> m31 = new HashMap<String, Object>();
+				m31.put("id", "3");
+				m31.put("name", "直播课程");
+				Map<String, Object> m41 = new HashMap<String, Object>();
+				m41.put("id", "4");
+				m41.put("name", "线下课程");
+				
+				list1.add(m11);
+				list1.add(m21);
+				list1.add(m31);
+				list1.add(m41);
+				//课程类型
+				//map.put("type", list1);
+				list11.add(list1);
+				return ResponseObject.newSuccessResponseObject(list11);
 	}
 	
 
@@ -390,28 +400,42 @@ public class BunchPlanController {
 		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		Map<String, Object> map2 = new HashMap<String, Object>();
-		map1.put("cid", "1");
+		map1.put("tid", "1");
 		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
 		
-		map2.put("cid", "2");
+		
+		map2.put("tid", "2");
 		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
 		listTj.add(map1);
 		listTj.add(map2);
 		
 		mapAll.put("banner", listTj);
 		
-		
 		//课程专题   -- 假数据
 	    
 		List<Map<String, Object>>  listNw  = new ArrayList<Map<String,Object>>();
+		
 		Map<String, Object> m1 = new HashMap<String, Object>();
-		m1.put("1", "大师课");
+		m1.put("projectId", "1");
+		m1.put("title", "大师课");
+		m1.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
 		Map<String, Object> m2 = new HashMap<String, Object>();
-		m2.put("2", "经典课");
+		m2.put("projectId", "2");
+		m2.put("title", "经典课");
+		m2.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
 		Map<String, Object> m3 = new HashMap<String, Object>();
-		m3.put("3", "小白课程");
+		m3.put("projectId", "3");
+		m3.put("title", "小白课程");
+		m3.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
 		Map<String, Object> m4 = new HashMap<String, Object>();
-		m4.put("4", "免费课程");
+		m4.put("projectId", "4");
+		m4.put("title", "免费课程");
+		m4.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
 		
 		listNw.add(m1);
 		listNw.add(m2);
@@ -419,15 +443,12 @@ public class BunchPlanController {
 		listNw.add(m4);
 		mapAll.put("project", listNw);
 		
-		
 		//名师推荐 名师推荐,没有按照排序做，或者按照这个讲师的课程数来排序呗
-		
-		
 		Page<MedicalDoctorVO> page = new Page<>();
 	    page.setCurrent(1);
-	    page.setSize(5);
-		
-	    //map.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
+	    page.setSize(7);
+	    
+	    mapAll.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
 		
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
@@ -449,7 +470,8 @@ public class BunchPlanController {
 		 * 古书经典
 		 */
 	    List<MenuVo> listmv = menuService.list();
-		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,1,null,listmv);
+	    
+		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,4,null,listmv);
 		
 		log.info(listAll.size()+"");
 		
@@ -502,8 +524,96 @@ public class BunchPlanController {
 	 * **************************************
 	 */
 	
+	/**
+	 * 推荐中 上不包含的信息
+	 */
+	@RequestMapping("offLine")
+	@ResponseBody
+	public ResponseObject offLine(HttpServletRequest req,
+										   HttpServletResponse res, Integer id)
+			throws Exception {
+		
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		//课程banner
+		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map1.put("tid", "1");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		
+		map2.put("tid", "2");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		listTj.add(map1);
+		listTj.add(map2);
+		
+		mapAll.put("banner", listTj);
+		
+		//城市
+	    
+		List<Map<String, Object>>  listNw  = new ArrayList<Map<String,Object>>();
+		
+		Map<String, Object> m1 = new HashMap<String, Object>();
+		m1.put("cId", "1");
+		m1.put("title", "北京");
+		m1.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		Map<String, Object> m2 = new HashMap<String, Object>();
+		m2.put("cId", "2");
+		m2.put("title", "上海");
+		m2.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		Map<String, Object> m3 = new HashMap<String, Object>();
+		m3.put("cId", "3");
+		m3.put("title", "广州");
+		m3.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		Map<String, Object> m4 = new HashMap<String, Object>();
+		m4.put("cId", "4");
+		m4.put("title", "成都");
+		m4.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		
+		Map<String, Object> m5 = new HashMap<String, Object>();
+		m5.put("cId", "4");
+		m5.put("title", "郑州");
+		m5.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		
+		listNw.add(m1);
+		listNw.add(m2);
+		listNw.add(m3);
+		listNw.add(m4);
+		listNw.add(m5);
+		mapAll.put("cityList", listNw);
+		
 	
-	
+		//城市  城市中的课程
+	    List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+		
+		Map<String,Object> mapTj = new HashMap<String, Object>();
+		Map<String,Object> mapNw = new HashMap<String, Object>();
+		Map<String,Object> mapZz = new HashMap<String, Object>();
+		
+		
+		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5);
+		
+		mapTj.put("title","全国城市");
+		mapTj.put("courseList",list);
+		
+		mapNw.put("title","上海城市");
+		mapNw.put("courseList",list);
+		
+		mapZz.put("title","郑州城市");
+		mapZz.put("courseList",list);
+		
+		mapCourseList.add(mapTj);
+		mapCourseList.add(mapNw);
+		mapCourseList.add(mapZz);
+		mapAll.put("allCourseList",mapCourseList);
+		
+		return ResponseObject.newSuccessResponseObject(mapAll);
+	}
 	
 	/*****************************************
 	 * 
@@ -511,8 +621,6 @@ public class BunchPlanController {
 	 * 
 	 * **************************************
 	 */
-
-	
 	/**
 	 * 搜索所有的课程
 	 * 可通过关键字  -- 关键字是全文匹配
@@ -534,5 +642,53 @@ public class BunchPlanController {
 		return ResponseObject.newSuccessResponseObject(null);
 	}
 	
+	
+	/*****************************************
+	 * 		新版app关于学堂的接口   -- 直播接口
+	 * **************************************
+	 */
+	/**
+	 * 推荐中 上不包含的信息
+	 */
+	@RequestMapping("listenCourse")
+	@ResponseBody
+	public ResponseObject onlineLive(HttpServletRequest req,
+										   HttpServletResponse res, Integer id)
+			throws Exception {
+		
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		//课程banner
+		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map1.put("tid", "1");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		
+		map2.put("tid", "2");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		listTj.add(map1);
+		listTj.add(map2);
+		
+		mapAll.put("banner", listTj);
+		
+		//城市  城市中的课程
+	    List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+		
+		Map<String,Object> mapTj = new HashMap<String, Object>();
+		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5);
+		
+		mapTj.put("title","听课推荐");
+		mapTj.put("courseList",list);
+		mapCourseList.add(mapTj);
+		mapAll.put("allCourseList",mapCourseList);
+		
+		return ResponseObject.newSuccessResponseObject(mapAll);
+	}
 	
 }
