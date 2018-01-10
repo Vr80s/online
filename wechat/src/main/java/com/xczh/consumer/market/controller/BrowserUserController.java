@@ -231,11 +231,8 @@ public class BrowserUserController {
 		String username = req.getParameter("username");
 		Map<String,String> mapReq = new HashMap<String, String>();
 		try {
-			
-			
 			ItcastUser user = userCenterAPI.getUser(username);
 			int code =202;
-			
 			if (null == user){
 				code = 200;
 			}else{
@@ -245,7 +242,7 @@ public class BrowserUserController {
 			    OnlineUser ou = onlineUserService.findUserByLoginName(username);
 			    if(null != ou){
 		    	    String unionId = ou.getUnionId();
-				    if(null !=unionId){
+				    if(null !=unionId && !"".equals(unionId)){
 				    	code = 201;
 				    }else{
 				    	code = 202;
@@ -260,7 +257,6 @@ public class BrowserUserController {
 						//如果是正常的手机号
 						//这个地方会返回这个用户的微吼id和名字
 						OnlineUser newUser = onlineUserService.addUser(username, user.getNike_name(),null,user.getPassword());
-						
 						code = 202;
 					}
 			    }
@@ -276,7 +272,7 @@ public class BrowserUserController {
 				rob.setCode(201);
 		    	rob.setSuccess(true);
 		    	mapReq.put("code", 201+"");
-				mapReq.put("errorMessage","此手机号已经绑定过微信号了");
+				mapReq.put("errorMessage","该手机号已经绑定其他微信帐号");
 				rob.setResultObject(mapReq);
 				return rob;
 			}else{
@@ -291,7 +287,7 @@ public class BrowserUserController {
 			rob.setCode(200);
 	    	rob.setSuccess(true);
 	    	mapReq.put("code", 202+"");
-			mapReq.put("errorMessage","此手机号已经绑定过微信号了");
+			mapReq.put("errorMessage","服务器异常");
 			rob.setResultObject(mapReq);
 			return rob;
 		}

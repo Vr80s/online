@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -395,7 +396,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setMenuId(courseVo.getMenuId()); //学科的id
 		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
 		course.setCourseType(courseVo.getCourseType()); //授课方式id
-		course.setCourseLength(courseVo.getCourseLength()); //课程时长
+//		course.setCourseLength(courseVo.getCourseLength()); //课程时长
 		//course.setIsFree(courseVo.getIsFree()); //是否免费
 		course.setOriginalCost(courseVo.getOriginalCost()); //原价格
 		course.setCurrentPrice(courseVo.getCurrentPrice()); //现价格
@@ -623,8 +624,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	public void updateCourseDetail(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
 			String courseOutline, String commonProblem) {
 		Course c = courseDao.findOneEntitiyByProperty(Course.class, "id", Integer.valueOf(courseId));
-		c.setSmallImgPath(smallImgPath);
-		c.setBigImgPath(smallImgPath);
+
+		// zhuwenbao 2018-01-09 在课程详情页面已经移除调smallImgPath选项 不加判断的话会将之前的smallImgPath设置为null
+		if(smallImgPath != null && !smallImgPath.trim().equals("")){
+			c.setSmallImgPath(smallImgPath);
+			c.setBigImgPath(smallImgPath);
+		}
 		c.setDetailImgPath(detailImgPath);
 		c.setCourseDetail(courseDetail);
 		c.setCourseOutline(courseOutline);
@@ -1223,11 +1228,17 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 					String duration = video.get("duration").toString();
 					double d = Double.valueOf(duration);
-					String m = String.valueOf((int) d / 60);
-					String s = String.valueOf((int) d % 60);
-					m = m.length() == 1 ? "0" + m : m;
-					s = s.length() == 1 ? "0" + s : s;
-					String ms = m + ":" + s;
+					int totalM = (int)d/(60);
+					int h = totalM/60;
+					double m = Double.valueOf(totalM-h*60) / 60;
+					DecimalFormat df   = new DecimalFormat("######0.00");
+					m = Double.valueOf(df.format(m));
+//					String s = String.valueOf((int) d % 60);
+//					h = h.length() == 1 ? "0" + h : h;
+//					m = m.length() == 1 ? "0" + m : m;
+//					s = s.length() == 1 ? "0" + s : s;
+					String hm = String.valueOf(h + m);
+//					String ms = m + ":" + s;
 
 					String vid = video.get("id").toString();
 					String title = video.get("title").toString();
@@ -1235,10 +1246,10 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 					if (cs.containsKey(title)) {
 						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
 						if (d > oldduration) {
-							cs.put(title, vid + "_#_" + ms + "_#_" + duration);
+							cs.put(title, vid + "_#_" + hm + "_#_" + duration);
 						}
 					} else {
-						cs.put(title, vid + "_#_" + ms + "_#_" + duration);
+						cs.put(title, vid + "_#_" + hm + "_#_" + duration);
 					}
 				}
 

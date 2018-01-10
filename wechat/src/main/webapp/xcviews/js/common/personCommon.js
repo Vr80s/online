@@ -84,15 +84,19 @@ function  sendCode(obj){
 		if (data.success) {
 			time(obj);
 //			reminderror.innerHTML = "";
-
-
 		} else {
-			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>同一手机号两次发送间隔至少90秒！</div></div></div>");
+			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>"+data.errorMessage+"</div></div></div>");
+			var mobile = $(".vanish2_size").html();	
+			if(mobile.length<8){
+				
+				$(".vanish2_bg").css("height","1.4rem");
+				$(".vanish2_bg").css("width","8rem");
+				$(".vanish2_bg").css("margin-left","-3.8rem");
+		
+			};
 			$("#errorMsg").show();
 			setTimeout(function(){$(".vanish2").hide();},1500);
 			
-			updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
-							setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
 }

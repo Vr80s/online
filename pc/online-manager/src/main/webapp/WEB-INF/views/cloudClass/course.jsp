@@ -514,7 +514,7 @@
 			
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
-			            <table frame=void style="width: 100%">
+			            <table frame=void >
 			                <tr>
 			                    <td>
 			                        <div class="profile-info-value searchTr">
@@ -606,7 +606,7 @@
 
 				<div class="searchDivClass" id="searchDiv_M">
 					<div class="profile-info-row" >
-						<table frame=void style="width: 100%">
+						<table frame=void >
 							<tr>
 								<td>
 									<div class="profile-info-value searchTr">
@@ -757,7 +757,7 @@
 			<div class="mainrighttab tabresourse bordernone" id="courseDiv_PX" style="display:none">
 				<div class="searchDivClass" id="searchDiv_PX">
 					<div class="profile-info-row" >
-						<table frame=void style="width: 100%">
+						<table frame=void >
 							<tr>
 							<td>
 			                        <div class="profile-info-value searchTr">
@@ -857,6 +857,17 @@
 <div id="addCourseDialog" class="hide">
 	<form id="addCourse-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
 		<input type="hidden" id="add_serviceType"  name="serviceType">
+
+		<div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
+			<div class="col-sm-6">
+				<div class="clearfix"  id="imgAdd">
+					<input type="file" name="smallImgPath_file" id="smallImgPath_file" class="uploadImg uploadImg_add" />
+				</div>
+				<input name="smallimgPath" id="smallImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+			</div>
+		</div>
+
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程名称: </label>
 			 <div class="col-sm-6">
@@ -1200,7 +1211,18 @@
 <div id="EditCourseDialog" class="hide">
 	<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
 	<input type="hidden" id="editCourse_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
-	<div class="form-group" style="margin-top: 18px;">
+
+		<div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
+			<div class="col-sm-6">
+				<div class="clearfix"  id="imgEdit">
+					<input type="file" name="smallImgPathFileEdit" id="smallImgPathFileEdit" class="uploadImg uploadImg_edit" />
+				</div>
+				<input name="smallimgPath" id="edid_smallImgPath" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+			</div>
+		</div>
+
+		<div class="form-group" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程名称: </label>
 			 <div class="col-sm-6">
 			 	<input type="text" name="courseName"  id="edid_courseName" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">

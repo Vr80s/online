@@ -11,6 +11,7 @@ a {
   padding: 0;
   width: 1200px;
   padding-bottom: 60px;
+  margin: 0 auto;
 }
 .container .row {
   margin: 0;
@@ -23,6 +24,7 @@ a {
   width: 220px;
   float: left;
   background-color: #fff;
+  position: relative;
 }
 #doctor_in_inf .news_nav ul .doctor_inf img {
   width: 80px;
@@ -45,6 +47,9 @@ a {
   padding: 5px 10px;
   text-align: center;
   line-height: 58px;
+}
+#doctor_in_inf .news_nav ul li:first-child{
+	padding-top: 30px;
 }
 #doctor_in_inf .news_nav ul li a {
   width: 100%;
@@ -103,4 +108,30 @@ a {
 }
 #doctor_in_inf .text-center .tab-content #doc_doctor .bottomContent .bottomContent_inf a {
   color: #188EEE;
+}
+.news_nav .picModal {
+  cursor: pointer;
+  position: absolute;
+  left: 60%;
+  top: 70px;
+  width: 26px;
+  height: 26px;
+  color: #2CB82C;
+  background: #fff;
+  font-size: 12px;
+  text-align: center;
+  line-height: 26px;
+  -webkit-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.18);
+  -moz-border-radius: 100px;
+  /* Firefox */
+  -webkit-border-radius: 100px;
+  /* Safari 和 Chrome */
+  border-radius: 100px;
+  /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+  margin: 10px auto 15px;
+}
+.news_nav .picModal .icon-xiangji {
+  font-size: 12px;
 }

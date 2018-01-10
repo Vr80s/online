@@ -28,7 +28,6 @@ function gotoDetails(courseObj){
 	
 	var courseId = courseObj.courseId;
 	var type = courseObj.type;
-	
 	/**
 	 * 添加观看记录
 	 */
@@ -44,7 +43,7 @@ function gotoDetails(courseObj){
 		}
 	}else{
 		sessionStorage.setItem("bunchPage", 0);
-		location.href = "/xcviews/html/particulars.html?courseId="+ courseId;
+		location.href = "/xcviews/html/particulars.html?courseId="+ courseId+"&multimedia_type="+courseObj.multimediaType;
 	}
 }
 
@@ -164,7 +163,11 @@ function onlineCourse(type){
 					}else if(course.watchState == 2){
 						watchStr ="加密";
 					}
-//					course.lineState = 1;
+					/*
+					 * 用户判断是音频呢还是视频呢
+					 */
+					course.multimediaType=urlParam.multimedia_type;
+
 					str+="<div class='public1_list' onclick='gotoDetails("+JSON.stringify(course)+")' >";
 					    if(type == 1){
 					    	 /**

@@ -336,7 +336,7 @@
 	<div class="searchDivClass" id="searchDivKclb">
 	        <div class="profile-info-row" style="float: left">
 	
-	            <table frame=void style="width: 100%">
+	            <table frame=void >
 	                <tr>
 	                    <!-- <td>
 	                        <div class="profile-info-value searchTr">

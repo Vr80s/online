@@ -666,6 +666,9 @@ function downMoveRec(obj){
  */
 $(".add_P").click(function(){
 	debugger
+
+    createImageUpload($('.uploadImg_add'));//'新增职业课'弹出框的生成图片编辑器
+
 	$("input[name='isFree']").eq(1).attr("checked","checked");
 	/*$("#add-originalCost").hide();
 	$("#add-currentPrice").hide();*/
@@ -986,6 +989,85 @@ $("#updateCourse-form").on("change","#edit_bigImgPathFile",function(){
 	})
 });
 
+// zhuwenbao-2018-0109 图片上传统一上传到附件中心-新增职业课
+$("#addCourse-form").on("change","#smallImgPath_file",function(){
+    _this = this;
+
+    // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
+    $('.ui-dialog-buttonset .ui-button-text').eq(1).addClass('add_P_cancel');
+
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.msg("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+            console.log('上传成功');
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+
+            $("#smallImgPath").val(data.url);
+
+            document.getElementById("imgAdd").focus();
+            document.getElementById("imgAdd").blur();
+            $(".remove").hide();
+        } else {
+            layer.msg(data.message);
+        }
+    })
+});
+
+// zhuwenbao-2018-0109 图片上传统一上传到附件中心-修改职业课
+$("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
+    _this = this;
+
+    // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
+    $('.ui-dialog-buttonset .ui-button-text').eq(3).addClass('edit_P_cancel');
+
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.msg("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+            console.log('上传成功');
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+
+            $("#edid_smallImgPath").val(data.url);
+
+            document.getElementById("imgAdd").focus();
+            document.getElementById("imgAdd").blur();
+            $(".remove").hide();
+        } else {
+            layer.msg(data.message);
+        }
+    })
+});
+
+// 防止 新增／修改职业课 上传好图片后 直接点取消或者右上角的x后 下次再新增职业课时出现上次上传好的图
+$('#dialogAddCourseDiv').on("click",".ui-dialog-titlebar-close", function () {
+    $(".ace-file-container").remove();
+});
+
+$('#dialogAddCourseDiv').on("click",".add_P_cancel", function () {
+    $(".ace-file-container").remove();
+});
+
+$('#dialogEditCourseDiv').on("click",".ui-dialog-titlebar-close", function () {
+    $(".ace-file-container").remove();
+});
+
+$('#dialogEditCourseDiv').on("click",".edit_P_cancel", function () {
+    $(".ace-file-container").remove();
+});
+
 /**
  * 职业课列表搜索
  */
@@ -1094,7 +1176,13 @@ function previewDialog(obj,status){
     	$("#show_menuName").text(result[0].xMenuName); //所属学科
     	$("#show_menuNameSecond").text(result[0].scoreTypeName); //课程类别
     	$("#show_courseType").text(result[0].teachMethodName); //授课方式
-    	$("#show_courseLength").text(result[0].courseLength+"小时"); //课程时长
+		debugger
+		if(result[0].courseLength==null){
+            $("#show_courseLength").text("暂无"); //课程时长
+		}else{
+            $("#show_courseLength").text(result[0].courseLength+"小时"); //课程时长
+		}
+
     	$("#show_coursePwd").text(result[0].coursePwd); //课程时长
 		$("#show_gradeQQ").text(result[0].gradeQQ); //班级QQ群
     	$("#show_qqno").text(result[0].qqno); //咨询QQ
@@ -1165,6 +1253,10 @@ function toEdit(obj,status){
 //        timeFormat: "HH:mm:ss",
 //        dateFormat: "yy-mm-dd"
 //    });
+
+    // zhuwenbao-2018-0109
+    createImageUpload($('.uploadImg_edit'));//'修改'弹出框的生成图片编辑器
+
 	updateCourseForm.resetForm();
 	var oo = $(obj).parent().parent().parent();
 	var row;
@@ -1249,6 +1341,9 @@ function toEdit(obj,status){
 		$("#edid_gradeQQ").val(result[0].gradeQQ); //班级QQ群
 		$("#edid_defaultStudentCount").val(result[0].defaultStudentCount); //默认报名人数
 
+        // zhuwenbao-2018-0109
+        reviewImage("edid_smallImgPath", result[0].smallimgPath);// 照片回显
+		$('#edid_smallImgPath').val(result[0].smallimgPath);
 		
 	    //回显课程讲师
 		for(i=0;i<$("#combobox1 option").length;i++){
@@ -1323,6 +1418,10 @@ function toEdit(obj,status){
                     if(data.success){
                     	
                         $("#EditCourseDialog").dialog("close");
+
+                        // zhuwenbao-2018-0109 删除这个元素 是因为课程展示图回显后 然后更新课程 没有将回显的div删除 造成弹出框呈现多张课程展示图
+                        $(".ace-file-container").remove();
+
                         layer.msg(data.errorMessage);
                         if(edit_title=='修改职业课程'){
                         	freshTable(P_courseTable);	

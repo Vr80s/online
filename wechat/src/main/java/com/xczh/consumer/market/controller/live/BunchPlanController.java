@@ -531,7 +531,96 @@ public class BunchPlanController {
 	
 	
 	
+	/**
+	 * 推荐中 上不包含的信息
+	 */
+	@RequestMapping("offLine")
+	@ResponseBody
+	public ResponseObject offLine(HttpServletRequest req,
+										   HttpServletResponse res, Integer id)
+			throws Exception {
+		
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		//课程banner
+		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map1.put("tid", "1");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		
+		map2.put("tid", "2");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		listTj.add(map1);
+		listTj.add(map2);
+		
+		mapAll.put("banner", listTj);
+		
+		//城市
+	    
+		List<Map<String, Object>>  listNw  = new ArrayList<Map<String,Object>>();
+		
+		Map<String, Object> m1 = new HashMap<String, Object>();
+		m1.put("cId", "1");
+		m1.put("title", "北京");
+		m1.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		Map<String, Object> m2 = new HashMap<String, Object>();
+		m2.put("cId", "2");
+		m2.put("title", "上海");
+		m2.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		Map<String, Object> m3 = new HashMap<String, Object>();
+		m3.put("cId", "3");
+		m3.put("title", "广州");
+		m3.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		Map<String, Object> m4 = new HashMap<String, Object>();
+		m4.put("cId", "4");
+		m4.put("title", "成都");
+		m4.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		
+		Map<String, Object> m5 = new HashMap<String, Object>();
+		m5.put("cId", "4");
+		m5.put("title", "郑州");
+		m5.put("icon", "http://47.92.138.228:88/images/upload/2017-12-20/3bd6f786-ce14-46e3-a3c8-9b36a5ffcf03.png");
+		
+		listNw.add(m1);
+		listNw.add(m2);
+		listNw.add(m3);
+		listNw.add(m4);
+		listNw.add(m5);
+		mapAll.put("cityList", listNw);
+		
 	
+		//城市  城市中的课程
+	    List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+		
+		Map<String,Object> mapTj = new HashMap<String, Object>();
+		Map<String,Object> mapNw = new HashMap<String, Object>();
+		Map<String,Object> mapZz = new HashMap<String, Object>();
+		
+		
+		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5);
+		
+		mapTj.put("title","全国城市");
+		mapTj.put("courseList",list);
+		
+		mapNw.put("title","上海城市");
+		mapNw.put("courseList",list);
+		
+		mapZz.put("title","郑州城市");
+		mapZz.put("courseList",list);
+		
+		mapCourseList.add(mapTj);
+		mapCourseList.add(mapNw);
+		mapCourseList.add(mapZz);
+		mapAll.put("allCourseList",mapCourseList);
+		
+		return ResponseObject.newSuccessResponseObject(mapAll);
+	}
 	
 	/**
 	 * 推荐中 上不包含的信息

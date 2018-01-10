@@ -280,7 +280,7 @@ public class MailUtil {
 		builder.append("            (若无法点击，请复制到浏览器)");
 		builder.append("        </p>");
 		builder.append("        <p class=\"addr\">");
-		builder.append("            海南省海口市美兰区演丰镇瑶城一路D栋熊猫中医大厦");
+		builder.append("            海南省海口市美兰区演丰镇瑶城一路D栋心承智慧大厦");
 		builder.append("        </p>");
 		builder.append("    </div>");
 		builder.append("</div>");
@@ -568,7 +568,7 @@ public class MailUtil {
 		builder.append("            (若无法点击，请复制到浏览器)");
 		builder.append("        </p>");
 		builder.append("        <p class=\"addr\">");
-		builder.append("            海南省海口市美兰区演丰镇瑶城一路D栋熊猫中医大厦");
+		builder.append("            海南省海口市美兰区演丰镇瑶城一路D栋心承智慧大厦");
 		builder.append("        </p>");
 		builder.append("    </div>");
 		builder.append("</div>");

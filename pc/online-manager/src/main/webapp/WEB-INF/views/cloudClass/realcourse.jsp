@@ -510,7 +510,7 @@
 			
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
-			            <table frame=void style="width: 100%">
+			            <table frame=void >
 			                <tr>
 			                    <td>
 			                        <div class="profile-info-value searchTr">
@@ -541,7 +541,7 @@
 			<div class="mainrighttab tabresourse bordernone" id="courseResDiv" style="display:none">
 				<div class="searchDivClass" id="searchResDiv_PX">
 					<div class="profile-info-row" >
-						<table frame=void style="width: 100%">
+						<table frame=void >
 							<tr>
 								<td>
 									<div class="profile-info-value searchTr">
