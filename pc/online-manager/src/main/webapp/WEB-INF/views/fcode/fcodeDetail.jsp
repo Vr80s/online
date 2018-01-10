@@ -43,7 +43,7 @@
     <div class="searchDivClass" id="searchDiv">
         <div class="profile-info-row" >
 			<input type="hidden" value="${lotNo}" id="lotNo">
-            <table frame=void style="width: 100%">
+            <table frame=void >
                  <tr>
                  	<td>
                        <div class="profile-info-value searchTr">

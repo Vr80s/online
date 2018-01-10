@@ -12710,6 +12710,9 @@ li.item-default {
   float: right;
   margin-top: -4px;
 }
+.profile-info-row >table{ 
+	float:right
+}
 .profile-info-name {
   text-align: right;
   padding: 6px 10px 6px 4px;

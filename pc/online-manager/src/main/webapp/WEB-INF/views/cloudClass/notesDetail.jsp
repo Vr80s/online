@@ -50,7 +50,7 @@
 			</p>
 			<div class="searchDivClass" id="searchDiv">
 		        <div class="profile-info-row" >
-		            <table frame=void style="width: 100%">
+		            <table frame=void >
 		                <tr>
 		                	<td style="display: none">
 		                        <div class="profile-info-value searchTr">
