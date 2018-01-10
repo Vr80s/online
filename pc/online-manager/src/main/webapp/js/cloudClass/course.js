@@ -1141,7 +1141,13 @@ function previewDialog(obj,status){
     	$("#show_menuName").text(result[0].xMenuName); //所属学科
     	$("#show_menuNameSecond").text(result[0].scoreTypeName); //课程类别
     	$("#show_courseType").text(result[0].teachMethodName); //授课方式
-    	$("#show_courseLength").text(result[0].courseLength+"小时"); //课程时长
+		debugger
+		if(result[0].courseLength==null){
+            $("#show_courseLength").text("暂无"); //课程时长
+		}else{
+            $("#show_courseLength").text(result[0].courseLength+"小时"); //课程时长
+		}
+
     	$("#show_coursePwd").text(result[0].coursePwd); //课程时长
 		$("#show_gradeQQ").text(result[0].gradeQQ); //班级QQ群
     	$("#show_qqno").text(result[0].qqno); //咨询QQ
