@@ -543,6 +543,14 @@ public class OnlineUserController {
           if(sex!=null){
         	  Integer.parseInt(sex);
           }
+          
+          if(email!=null && email.length()>32){
+        	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
+          }
+          if(email!=null && !com.xczh.consumer.market.utils.StringUtils.checkEmail(email)){
+        	  return ResponseObject.newErrorResponseObject("邮箱长度不能大于32");
+          }
+          
           userCenterAPI.update(user.getLoginName(),nickname,sex!=null ? Integer.parseInt(sex) : 3,email, null, 10, 10);
           onlineUserService.updateUserCenterData(user,map);
           /**

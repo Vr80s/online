@@ -84,10 +84,7 @@ function  sendCode(obj){
 		if (data.success) {
 			time(obj);
 //			reminderror.innerHTML = "";
-
-
 		} else {
-			
 			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>"+data.errorMessage+"</div></div></div>");
 			var mobile = $(".vanish2_size").html();	
 			if(mobile.length<8){

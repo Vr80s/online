@@ -169,7 +169,7 @@
 			<div class="col-sm-5 padding0px" id="searchDiv">
 				<div class="fright">
 					<div class="profile-info-row">
-					   <table style="display: none;" id="searchTable" frame=void style="width: 100%">
+					   <table style="display: none;" id="searchTable" frame=void >
 					   		<tr>
 			                    <td>
 			                    	<div class="profile-info-value searchTr">
