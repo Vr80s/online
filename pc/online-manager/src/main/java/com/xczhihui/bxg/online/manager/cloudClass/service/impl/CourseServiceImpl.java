@@ -396,7 +396,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setMenuId(courseVo.getMenuId()); //学科的id
 		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
 		course.setCourseType(courseVo.getCourseType()); //授课方式id
-		course.setCourseLength(courseVo.getCourseLength()); //课程时长
+//		course.setCourseLength(courseVo.getCourseLength()); //课程时长
 		//course.setIsFree(courseVo.getIsFree()); //是否免费
 		course.setOriginalCost(courseVo.getOriginalCost()); //原价格
 		course.setCurrentPrice(courseVo.getCurrentPrice()); //现价格
