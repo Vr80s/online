@@ -1,19 +1,7 @@
 
-html {
-	-ms-touch-action: none;
-}
-
-body,ul,li {
-	padding: 0;
-	margin: 0;
-	border: 0;
-	list-style:none
-}
-
-
 #wrapper {
 	/*margin:10px;*/
-	background: #fff;
+	/*background: #fff;*/
 }
 
 .tabSlider-transition{
@@ -75,15 +63,20 @@ body,ul,li {
 	border-bottom: 1px solid #D8DDE6;
 	border-radius: 0;
 	width: 100%;
+	background: #fff;
 }
 .tabSlider .tabSlider-hd.line li {
 	border: 0 none;
-	color: inherit;
+	color: #151515;
+	height: 1.702rem;
+    line-height: 1.702rem;
+    padding: 0;
 }
 .tabSlider .tabSlider-hd.line li.curr {
-	background: none;
+	/*background: none;*/
 	border-bottom: 2px solid #00BC12;
 	color: #00BC12;
+	background: #fff;
 }
 
 .tabSlider .tabSlider-hd.slide {
@@ -112,7 +105,7 @@ body,ul,li {
 .tabSlider .tabSlider-bd {
 	position:relative;
 	min-height: 100px;
-	background:#f0f0f0;
+	/*background:#f0f0f0;*/
 	width: 100%;
 	overflow: hidden;
 	transition: height 200ms ease-in-out;

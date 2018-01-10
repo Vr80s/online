@@ -1,0 +1,78 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+
+/*头部搜索开始*/
+header{
+	width: 100%;
+	height: 1.872rem;
+	background: #fff;
+}
+.header{
+	width: 14.851rem;
+	height: 100%;
+	margin-left: 0.553rem;
+	padding-top: 0.298rem;
+}
+
+.header_seek{
+	width: 13.319rem;
+	height: 1.276rem;
+    line-height: 1.276rem;
+	background: #F0F0F0;
+	border-radius: 100px;
+	position: relative;
+	text-indent: 0.511rem;
+	float: left;
+}
+.header_seek_main{
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 0.553rem;
+	color: #999999;
+}
+.header_seek_main img{
+	width: 0.766rem;
+	height: 0.766rem;
+	vertical-align: -webkit-baseline-middle;
+    vertical-align: text-bottom;
+    margin-right: 0.383rem;
+}
+.header_seek input{
+	width: 13rem;
+    height: 1.276rem;
+    line-height: 1.276rem;
+    border-radius: 100px;
+    position: relative;
+    text-indent: 0.511rem;
+    float: right;
+    border: 0;
+    background: none;
+    margin-right: 0.15rem;
+    outline: none;
+}
+.header_cancel{
+	float: right;
+	width: 1.5rem;
+	height: 1.277rem;
+	line-height: 1.277rem;
+	text-align: right;
+	font-size: 0.596rem;
+	color: #333;
+}
+
+
