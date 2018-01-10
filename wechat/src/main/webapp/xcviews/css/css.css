@@ -4242,6 +4242,12 @@ footer{
 .my_head_img img{
 	border-radius: 60px;
 }
+.my_head_left #name{
+	width: 7.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .my_head_right{
 	float: right;
     width: 3rem;
