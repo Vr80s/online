@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,6 @@ import com.xczh.consumer.market.service.MenuService;
 import com.xczh.consumer.market.service.OLCourseServiceI;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineWebService;
-import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.MenuVo;
@@ -163,11 +163,39 @@ public class BunchPlanController {
 		/*
 		 * 我的礼物总数 
 		 */
-		courseLecturVo.setCountGift(giftService.findByUserId(courseLecturVo.getUserId()));
-	
+		//做下播放的兼容性
+		String newFalg = req.getParameter("newFalg");//传递一个参数
+		if(StringUtils.isNotBlank(newFalg)){
+			courseLecturVo = changeLiveId(courseLecturVo);
+		}
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);
 	}
-	
+	public CourseLecturVo changeLiveId(CourseLecturVo courseLecturVo){
+//		姚老师：
+//		562965798    238481982   598747364
+//		王老师
+//		340273573    337055289    362080337
+//		郝万山
+//		265106673    593193792   814649885
+		Map<Integer,String> map = new HashMap<Integer,String>();
+		// key 课程id   value  对应的视频id
+		map.put(1, "562965798");
+		map.put(2, "238481982");
+		map.put(3, "598747364");
+		map.put(4, "340273573");
+		map.put(5, "337055289");
+		map.put(6, "362080337");
+		map.put(7, "265106673");
+		map.put(8, "593193792");
+		map.put(9, "814649885");
+		for (Integer key : map.keySet()) {
+			System.out.println("key= "+ key + " and value= " + map.get(key));
+			if(key.equals(new Integer(courseLecturVo.getId()))){
+				courseLecturVo.setDirectId( map.get(key));
+			}
+	    }
+		return courseLecturVo;
+	}
 	/**
 	 * 线下培训班
 	 */
@@ -500,7 +528,7 @@ public class BunchPlanController {
 			Integer pageNumber, Integer pageSize)
 			throws Exception {
 
-		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,multimediaType,isFree,city,queryKey,pageNumber,pageSize);
+		//List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,multimediaType,isFree,city,queryKey,pageNumber,pageSize);
 		
 		
 		return ResponseObject.newSuccessResponseObject(null);
