@@ -69,14 +69,13 @@ public class VersionController {
         }
 
         VersionInfoVo newVer=versionService.getNewVersion();
-        log.info("version:"+userVersion);
-        log.info("newVer.getVersion():"+newVer.getVersion());
-        
         VersionInfoVo defaultNoUpdateResult=new VersionInfoVo();
         defaultNoUpdateResult.setIsUpdate(false);
         if(newVer==null){
             return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
         }
+        log.info("version:"+userVersion);
+        log.info("newVer.getVersion():"+newVer.getVersion());
         //对比版本号
         String newVersion=newVer.getVersion();
         int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);

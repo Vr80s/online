@@ -111,9 +111,9 @@ public class RandomUtils {
 			set.add("I am: " + i);	
 		}
 		
-		for (int i = 0; i < 10; i++) {
-			System.out.println(getRandomElement(set));
-		}
+//		for (int i = 0; i < 10; i++) {
+//			System.out.println(getRandomElement(set));
+//		}
 	}
 }
 

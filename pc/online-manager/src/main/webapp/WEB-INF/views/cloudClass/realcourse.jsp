@@ -477,10 +477,10 @@
 
 <div style="height: 100%;" class="clearfix">
     <!-- Nav tabs -->
-    <!-- <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+     <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">职业课管理</a>
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下培训班管理</a>
         </li>
 		<li role="presentation">
 			<a href="#box_m" aria-controls="box_m" class="wkgl_bx" role="tab"
@@ -494,7 +494,7 @@
 			<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程排序</a>
 		</li>
-    </ul> -->
+    </ul>
  
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
@@ -694,6 +694,17 @@
 <div id="addCourseDialog" class="hide">
 	<form id="addCourse-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
 		<input type="hidden" id="add_serviceType"  name="serviceType">
+
+		<div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
+			<div class="col-sm-6">
+				<div class="clearfix"  id="imgAdd">
+					<input type="file" name="smallImgPath_file" id="smallImgPath_file" class="uploadImg uploadImg_add" />
+				</div>
+				<input name="smallimgPath" id="smallImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+			</div>
+		</div>
+
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程名称: </label>
 			 <div class="col-sm-6">
@@ -1087,8 +1098,19 @@
 <div id="dialogEditCourseDiv"></div>
 <div id="EditCourseDialog" class="hide">
 	<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
-	<input type="hidden" id="editCourse_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
-	<div class="form-group" style="margin-top: 18px;">
+		<input type="hidden" id="editCourse_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
+
+		<div class="form-group" style="margin-top:18px;">
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
+			<div class="col-sm-6">
+				<div class="clearfix"  id="imgEdit">
+					<input type="file" name="smallImgPathFileEdit" id="smallImgPathFileEdit" class="uploadImg uploadImg_edit" />
+				</div>
+				<input name="smallimgPath" id="edid_smallImgPath" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+			</div>
+		</div>
+
+		<div class="form-group" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程名称: </label>
 			 <div class="col-sm-6">
 			 	<input type="text" name="courseName"  id="edid_courseName" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">

@@ -765,7 +765,7 @@ $(function() {
 	        '<div class="add-address-title"><h5 class="style_title"></h5><span class="add-address-close">x</span></div> ' +
 	        '<div class="address-info1"> ' +
 	        '<p><span>*</span>收货人:</p> ' +
-	        '<input type="text" class="consignee">' +
+	        '<input type="text" class="consignee" maxlength="15">' +
 	        '</div> ' +
 	        
 	        '<div class="address-info2"> ' +

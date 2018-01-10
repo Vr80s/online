@@ -138,8 +138,8 @@ window.onload = function() {
 		"</div>";
 	var haoping = '<div class="good-reputation">' +
 		'<div class="good-reputation-count">' +
-		'<span>好评</span><span class="goodPing"></span>' +
-		'<span class="totalPeople">(<span class="totalCount"></span>条评论，<span class="haopingCount"></span>条好评)</span>' +
+
+		'<span class="totalPeople">(<span class="totalCount"></span>条评论)</span>' +
 		' </div> </div>';
 
 	var stuEvalutation = '<div class="studentEvaluate">' +
@@ -150,9 +150,7 @@ window.onload = function() {
 		'<span class="repuName" title="{{$value.userName}}">{{$value.userName}}</span>' +
 		'</div>' +
 		'<div class="good-detail-info">' +
-		'<div class="starts">' +
-		'{{#stuEvluatStars($value.starLevel)}}' +
-		'</div>' +
+
 		'<div class="reputationContent">{{$value.content}}</div>' +
 		'<div class="repuationRelatInfo clearfix">' +
 		'<div class="repuTime">时间：{{dataSub($value.createTime)}}</div>' +
@@ -200,7 +198,7 @@ window.onload = function() {
 		'</p>' +
 		
 		'{{if item.selfCourse == true}}' +
-		'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase common_ljck" >立即查看</a>' +
+		'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase common_ljck" >立即查看</a>' +
 	    '{{else}}'+   
 			'{{if item.free == true}}' +
 			'<p class="bigpic-body-money">' +
@@ -220,7 +218,7 @@ window.onload = function() {
 			'<span class="addCar">加入购物车</span>' +
 			'{{/if}}' +
 			'{{else}}' +
-			'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
+			'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
 			'{{/if}}' +
 			'</div>' +
 			'</div>' +
@@ -283,7 +281,7 @@ window.onload = function() {
 		}, 2000)
 	}
 	$("#payCourseSlider .purchase").attr("href", '/web/html/order.html?courseId=' + courserId);
-	$("#payCourseSlider .studyImmed").attr("href", '/web/html/CourseDetailZhiBo.html?courseId=' + courserId);//'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
+	$("#payCourseSlider .studyImmed").attr("href", '/web/html/video.html?courseId=' + courserId);//'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
 	var free;
 	RequestService("/grade/findGradeInfoByCourseId", "GET", {
 		courseId: courserId

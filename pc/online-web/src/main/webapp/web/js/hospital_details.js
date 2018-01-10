@@ -21,10 +21,13 @@ $(function(){
 	 RequestService("/medical/hospital/getHospitalById", "GET", {
 	 	id:id
 	 }, function (data) {
+       $('title').text('熊猫中医 - '+data.resultObject.name);
+	 	
 //	 	$('#hospital_detail_pic').html('');
        console.log(data);
        //医馆标题变化
-       $('.hospital_detail_inf > h3').text(data.resultObject.name)
+       $('.hospital_detail_inf > h3').text(data.resultObject.name);
+
        //渲染医馆简介
        $('.hospital_detail_con>p').html(data.resultObject.description);
        //联系方式
@@ -103,6 +106,9 @@ $(function(){
 	        }else{
 	        	console.log(data)
 	        	//获取到数据渲染
+	        	if(data.resultObject.records.length > 4){
+	        		$('#more_doc').removeClass('hide');
+	        	};
 	           $('#yiguan_mingjia').html(template('hos_docTpl',{doctor:data.resultObject.records}));
 	        }
 	    });
@@ -113,6 +119,9 @@ $(function(){
 	    RequestService("/medical/hospitalRecruit/getHospitalRecruitById","GET",{
 			hospitalId:id
 	    },function(data){
+	    	//更多给名医添加id
+	    	console.log(id);
+	    	$('#more_doc').attr('href','/web/html/practitionerListing.html?name=&hospitalId='+id+'')
 	        if(data.resultObject.length == 0){
 				$('.employ').addClass('hide')
 	        }else{

@@ -116,7 +116,6 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             //courseLecturVo.setImRoomId(courseLecturVo.getId()+postfix);
             List<LiveExamineInfoVo>  list= simpleHibernateDao.findPageBySQL(sb.toString(),param,LiveExamineInfoVo.class,pageNumber,pageSize).getItems();
             for (LiveExamineInfoVo liveExamineInfoVo : list) {
-            	System.out.println(liveExamineInfoVo.getCourseId()+postfix);
             	liveExamineInfoVo.setImRoomId(liveExamineInfoVo.getCourseId()+postfix);
 			}
             return  list;
@@ -200,19 +199,17 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
                         progress4.setShowAppeal(true);
                     }
                     progressList.add(progress4);
-
-
-
-                    progress3.setName("您提起的申诉已在审核中，请等待");
+                    
+                    progress3.setName("您提起的申诉已在申诉中，请等待");
                     progress3.setExaminTime(addTwoSecond(progressDto.getAppealTime()));
                     progressList.add(progress3);
                     continue;
                 }else{
-                progress3.setName("您的直播申请被拒绝，原因:"+progressDto.getAgainstReason());
-                progress3.setExaminTime(progressDto.getReviewerTime());
-                if(appealCount(examineId)<1){
-                    progress3.setShowAppeal(true);
-                }
+	                progress3.setName("您的直播申请被拒绝，原因:"+progressDto.getAgainstReason());
+	                progress3.setExaminTime(progressDto.getReviewerTime());
+	                if(appealCount(examineId)<1){
+	                    progress3.setShowAppeal(true);
+	                }
                 }
                 progressList.add(progress3);
         }

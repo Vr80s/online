@@ -185,7 +185,6 @@ public class DateUtil {
 	   Double bb = (double) (60*60*1000);
 	   Double aa = 2.1;
 	   Long cc = (long) (aa * bb);
-	   System.out.println(converLongTimeToStr((cc)));
-	   
+
 	 }
 }

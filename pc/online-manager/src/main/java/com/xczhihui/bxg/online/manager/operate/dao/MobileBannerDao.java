@@ -39,7 +39,15 @@ public class MobileBannerDao extends SimpleHibernateDao {
 			   sql.append(" and t.status = :status ");
 			   paramMap.put("status", mobileBannerVo.getStatus());
 		   }
+		   
+		   if(mobileBannerVo.getBannerType() != null && !"".equals(mobileBannerVo.getBannerType())){
+			   sql.append(" and t.banner_type = :bannerType ");
+			   paramMap.put("bannerType", mobileBannerVo.getBannerType());
+		   }
 		   sql.append(" order by t.status desc,t.seq desc ");
+		   
+		   System.out.println("mobile:"+sql.toString());
+		   
 		   Page<MobileBannerVo> ms = this.findPageBySQL(sql.toString(), paramMap, MobileBannerVo.class, pageNumber, pageSize);
       	   return ms;
 	}

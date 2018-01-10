@@ -697,6 +697,40 @@
 		</div>
         <div role="tabpanel" class="tab-pane" id="inbox">
         	<div class="mainrighttab tabresourse bordernone" id="courseRecDiv" style="display:none">
+        			<div class="searchDivClass" id="searchBtn_TX">
+					<div class="profile-info-row" >
+						<table frame=void style="width: 100%">
+							<tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="courseTypeId" id="search_multimediaType" value="" class="propertyValue1" >
+											<option value="">媒体类型</option> 
+											<option value="1" selected = "selected">视频</option>
+											<option value="2">音频</option>
+										</select>
+										<input type="hidden" value="search_multimediaType" class="propertyName"/>
+									</div>
+									
+									<%--  <select name="courseTypeId" id="search_scoreType" value="" class="propertyValue1" >
+						               		<option value="">课程类别</option>
+						               		 <c:forEach var="scoreTypes" items="${scoreTypeVo}">
+						                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
+						                    </c:forEach> 
+						               </select>
+			                            <input type="hidden" value="search_scoreType" class="propertyName"/> --%>
+								</td>
+								<td>
+									<button id="searchBtn_T" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_T();">
+										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+        		
+        		
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="courseRecTable"
@@ -829,13 +863,13 @@
 			 		<input type="text" name="courseName"  id="courseName" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
              </div>
 		</div>
-	    <div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="classTemplate"><font color="red">*</font>班级名称模板: </label>
-			 <div class="col-sm-6">
-			 		<input type="text" name="classTemplate"  id="classTemplate" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">
-             </div>
-		</div>
+	    <%--<div class="space-4"></div>--%>
+		<%--<div class="form-group"  style="margin-top: 18px;" >--%>
+			 <%--<label class="col-sm-3 control-label no-padding-right" for="classTemplate"><font color="red">*</font>班级名称模板: </label>--%>
+			 <%--<div class="col-sm-6">--%>
+			 		<%--<input type="text" name="classTemplate"  id="classTemplate" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">--%>
+             <%--</div>--%>
+		<%--</div>--%>
         <div class="form-group"  style="margin-top: 18px;display: none" id="gradeStudentSum">
             <label class="col-sm-3 control-label no-padding-right" for="classRatedNum"><font color="red">*</font>班级额定人数: </label>
             <div class="col-sm-6" >
@@ -902,15 +936,15 @@
             </div>
 		</div>
 		<div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程时长: </label>
-			 <div class="col-sm-3" style="width: 43%;">
-			 	<input type="text" name="courseLength"  id="courseLength" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
-             </div>
-			 <div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
-           	 小时
-            </div>
-		</div>
+		<%--<div class="form-group"  style="margin-top: 18px;" >--%>
+			 <%--<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程时长: </label>--%>
+			 <%--<div class="col-sm-3" style="width: 43%;">--%>
+			 	<%--<input type="text" name="courseLength"  id="courseLength" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">--%>
+             <%--</div>--%>
+			 <%--<div class="col-sm-1 control-label no-padding-left" style="text-align: left;">--%>
+           	 <%--小时--%>
+            <%--</div>--%>
+		<%--</div>--%>
 		
 		<div class="form-group"  style="margin-top: 18px;" >
             <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>讲师：</label>
@@ -932,12 +966,12 @@
              </div>
 		</div>
 		
-		<div class="form-group"  style="margin-top: 18px;" >
+		<%--<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>咨询QQ: </label>
 			 <div class="col-sm-6">
 			 	<input type="text" name="qqno"  id="qqno" maxlength="15"  class="col-xs-10 col-sm-12 {required:true,digits:true,minlength:5}">
              </div>
-		</div>
+		</div>--%>
 		<!-- <div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName">课程链接: </label>
 			 <div class="col-sm-6" >
@@ -1054,12 +1088,12 @@
 				<p id=show_gradeQQ class="paddingtop7px padding7"></p>
 			</div>
 		</div>
-		<div class="form-group">
+		<%--<div class="form-group">
 			 <label class="col-sm-4 control-label no-padding-right" for="courseName"><font color="red">*</font><b>咨询QQ:</b> </label>
 			 <div class="col-sm-6">
 			 	<p id=show_qqno class="paddingtop7px padding7"></p>
              </div>
-		</div>
+		</div>--%>
 		<!-- <div class="form-group"  >
 		 	 <label class="col-sm-4 control-label no-padding-right" for="courseName"><b>课程链接:</b> </label>
 			 <div class="col-sm-6" >
@@ -1173,12 +1207,12 @@
              </div>
 		</div>
 		
-		<div class="form-group" style="margin-top: 18px;">
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>班级名称模板: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="classTemplate"  id="edid_classTemplate" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">
-             </div>
-		</div>
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			 <%--<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>班级名称模板: </label>--%>
+			 <%--<div class="col-sm-6">--%>
+			 	<%--<input type="text" name="classTemplate"  id="edid_classTemplate" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">--%>
+             <%--</div>--%>
+		<%--</div>--%>
         <div class="form-group"  style="margin-top: 18px;" id="edid_classRatedNum">
             <label class="col-sm-3 control-label no-padding-right" for="gradeStudentSum"><font color="red">*</font>班级额定人数: </label>
             <div class="col-sm-6" >
@@ -1245,15 +1279,15 @@
             </div>
 		</div>
 		
-		<div class="form-group" style="margin-top: 18px;">
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程时长: </label>
-			 <div class="col-sm-6" style="width: 43%;">
-			 	<input type="text" name="courseLength"  id="edid_courseLength" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
-             </div>
-             <div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
-           	 小时
-            </div>
-		</div>
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			 <%--<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程时长: </label>--%>
+			 <%--<div class="col-sm-6" style="width: 43%;">--%>
+			 	<%--<input type="text" name="courseLength"  id="edid_courseLength" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">--%>
+             <%--</div>--%>
+             <%--<div class="col-sm-1 control-label no-padding-left" style="text-align: left;">--%>
+           	 <%--小时--%>
+            <%--</div>--%>
+		<%--</div>--%>
 		
 		<div class="form-group"  style="margin-top: 18px;" >
             <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>讲师：</label>
@@ -1274,12 +1308,12 @@
              </div>
 		</div>
 		
-		<div class="form-group"  style="margin-top: 18px;" >
+		<%--<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>咨询QQ: </label>
 			 <div class="col-sm-6">
 			 	<input type="text" name="qqno"  id="edid_qqno" maxlength="15"  class="col-xs-10 col-sm-12 {required:true,digits:true,minlength:5}">
              </div>
-		</div>
+		</div>--%>
 		
 		<!-- <div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="courseName">课程链接: </label>

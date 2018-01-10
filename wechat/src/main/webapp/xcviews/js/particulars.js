@@ -19,6 +19,7 @@ function getQueryString(name) {
 }
 
 var course_id=getQueryString("courseId");
+var multimediaType = getQueryString("multimedia_type");
 
 /**
  * 判断是否需要跳转到pc网页
@@ -169,7 +170,6 @@ function chZJ(videoId,chapterId,vid){
 	 * 清空评论区的列表
 	 */
 	$("#new_chatmsg").html("");
-	
 	/*videoId = videoId;
 	chapterId = chapterId;*/
 	sessionStorage.setItem("videoId",videoId);
@@ -188,7 +188,8 @@ function chZJ(videoId,chapterId,vid){
 	var dataParams = {
 		playerwidth:playerwidth,	
 		playerheight:playerheight,
-		videoId:videoId
+		videoId:videoId,
+		multimedia_type:multimediaType
 	}
 	requestService("/bxg/ccvideo/commonCourseStatus", 
 			dataParams, function(data) {

@@ -38,6 +38,10 @@ public class ProjectTypeController {
           ModelAndView mav=new ModelAndView("cloudClass/projectType");
           return mav;
      }
+     
+     /**
+      * 我们在增加线下培训班时，然后把这个城市同步到那边。我们在那边
+      */
 
      @RequestMapping(value = "list")
      @ResponseBody

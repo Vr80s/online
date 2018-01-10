@@ -115,6 +115,65 @@ $(function(){
 		}
 	});
 	/** 线下培训班列表end */
+	
+	//TODO
+	
+	/** 课程推荐列表begin */
+	var searchCase_P = new Array();
+    searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"'+$("#type").val()+'","tempType":undefined}');
+	var objRecData = [
+	                  
+      { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
+      { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
+      { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+      { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
+      {"sortable": false,"class": "center","width":"10%","title":"排序","mRender":function (data, display, row) {
+    	return '<div class="hidden-sm hidden-xs action-buttons">'+
+		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+      }},
+      { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+    		return '<div class="hidden-sm hidden-xs action-buttons">'+
+			'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ' +
+    		'<a class="blue" href="javascript:void(-1);" title="设置图片" onclick="updateRecImg(this);">设置图片</a> </div>';
+  		}
+      }];
+
+	_courseRecTable = initTables("courseRecTable",basePath+"/cloudclass/course/recList",objRecData,false,false,1,null,searchCase_P,function(data){
+		$("[name='upa']").each(function(index){
+			if(index == 0){
+				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+			}
+		}); 
+		$("[name='downa']").each(function(index){
+			if(index == $("[name='downa']").size()-1){
+				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+			}
+		});
+		$("#courseRecTable_info").hide();
+		
+//		$("#courseRecTable tr").each(function(){
+//			$(this).find("td").eq(0).attr("width","10px");
+//		});
+	});
+	/** 课程推荐列表end */
+	
+	
+	
+	
+	//TODO
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/** 表单验证START */
 	studyDayForm = $("#studyDay-form").validate({
@@ -461,6 +520,8 @@ function downMoveRec(obj){
  * 添加线下课
  */
 $(".add_P").click(function(){
+
+    createImageUpload($('.uploadImg_add'));//新增弹出框的生成图片编辑器
 	
 	$("input[name='isFree']").eq(1).attr("checked","checked");
 	/*$("#add-originalCost").hide();
@@ -788,6 +849,56 @@ $("#updateCourse-form").on("change","#edit_bigImgPathFile",function(){
 		}
 	})
 });
+// zhuwenbao-2018-0109 图片上传统一上传到附件中心-新增（线下培训班）
+$("#addCourse-form").on("change","#smallImgPath_file",function(){
+    _this = this;
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.msg("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+        	console.log('上传成功');
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 85px; height: 85px;");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+
+            $("#smallImgPath").val(data.url);
+            document.getElementById("imgAdd").focus();
+            document.getElementById("imgAdd").blur();
+            $(".remove").hide();
+        } else {
+            layer.msg(data.message);
+        }
+    })
+});
+// zhuwenbao-2018-0109 图片上传统一上传到附件中心-修改（线下培训班）
+$("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
+    _this = this;
+    var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
+    if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
+        layer.msg("图片格式错误,请重新选择.");
+        this.value="";
+        return;
+    }
+    var id = $(this).attr("id");
+    ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
+        if (data.error == 0) {
+            console.log('上传成功');
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 85px; height: 85px;");
+            $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
+
+            $("#edid_smallImgPath").val(data.url);
+            document.getElementById("imgAdd").focus();
+            document.getElementById("imgAdd").blur();
+            $(".remove").hide();
+        } else {
+            layer.msg(data.message);
+        }
+    })
+});
 
 /**
  * 线下培训班列表搜索
@@ -933,8 +1044,11 @@ function previewDialog(obj,status){
  */
 function toEdit(obj,status){
     debugger
+
+    createImageUpload($('.uploadImg_edit'));//'修改'弹出框的生成图片编辑器
+
 	updateCourseForm.resetForm();
-	
+
 	var oo = $(obj).parent().parent().parent();
 	var row;
 	if(status==1) {
@@ -1067,8 +1181,10 @@ function toEdit(obj,status){
     		//授课地点
     		$("#edit_address").val(countysDetails[1]);
     	}
-    	
-    	
+
+		// zhuwenbao-2018-0109
+        reviewImage("edid_smallImgPath", result[0].smallimgPath);// 照片回显
+
     	$("#edid_courseName").val(result[0].courseName); //课程名称
     	$("#edid_classTemplate").val(result[0].classTemplate); //班级名称模板
     	$("#edid_courseLength").val(result[0].courseLength); //课程时长
@@ -1156,6 +1272,10 @@ function toEdit(obj,status){
                     if(data.success){
                     	
                         $("#EditCourseDialog").dialog("close");
+
+                        // 删除这个元素 是因为课程展示图回显后 然后更新课程 没有将回显的div删除 造成弹出框呈现多张课程展示图
+                        $(".ace-file-container").remove();
+
                         layer.msg(data.errorMessage);
                         if(edit_title=='修改线下培训班'){
                         	freshTable(P_courseTable);	

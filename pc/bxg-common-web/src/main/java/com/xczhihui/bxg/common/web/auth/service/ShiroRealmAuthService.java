@@ -53,7 +53,6 @@ public class ShiroRealmAuthService extends AuthorizingRealm {
 		BxgUser user = (BxgUser) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 		Set<String> roles = this.authFinder.findRoles(user.getId());
-		System.out.println("roles:" + (roles == null));
 		if (roles != null && roles.size() > 0) {
 			info.addRoles(roles);
 		}

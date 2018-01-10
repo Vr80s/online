@@ -304,7 +304,8 @@ public class VideoDao extends SimpleHibernateDao {
         DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
 		dc.add(Restrictions.eq("id", courseId));
         Course c = orderDao.findEntity(dc);
-        if((c.getType()==null||c.getType()!=1) && videos.size()<= 0){
+//        if((c.getType()==null||c.getType()!=1) && videos.size()<= 0){
+        if((c.getType()==null||c.getType()!=1) && (c.getDirectId()==null||c.getDirectId().equals(""))){
             throw new RuntimeException("此课程下没有相关视频!");
         };
         String sql="";
@@ -331,11 +332,10 @@ public class VideoDao extends SimpleHibernateDao {
         orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
         //写用户视频表
-        sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-//                + " select replace(uuid(),'-',''),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
-                + " select uuid(),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
-                + "from oe_video where course_id=:courseId and is_delete=0 and status=1 ";
-        orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+//        sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
+//                + " select uuid(),'"+u.getLoginName()+"',sort,id,'"+u.getId()+"',course_id "
+//                + "from oe_video where course_id=:courseId and is_delete=0 and status=1 ";
+//        orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
     }
 
 

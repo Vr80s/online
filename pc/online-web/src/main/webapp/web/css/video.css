@@ -808,7 +808,7 @@ p {
   height: 100%!important;
 }
 .videoBody .videoBody-top .videoBody-video {
-  padding-right: 290px;
+  /*padding-right: 290px;*/
   position: relative;
 }
 .videoBody .videoBody-top .videoBody-video .shadowJiaZai {

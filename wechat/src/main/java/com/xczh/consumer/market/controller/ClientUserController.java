@@ -76,10 +76,8 @@ public class ClientUserController {
 					
 		if(openid != null && !openid.isEmpty()) {
 			JSONObject jsonObject = JSONObject.fromObject(openid);
-			System.out.println("pullWxInfo->\r\n\t"+"openid="+jsonObject.get("openid") + "&code=" + auth_code);
 			return ResponseObject.newSuccessResponseObject("openid="+jsonObject.get("openid") + "&code=" + auth_code);
 		} else {
-			System.out.println("pullWxInfo->\r\n\t"+"openid=,code=");
 			return ResponseObject.newSuccessResponseObject("openid=,code=");
 		}
 	}	

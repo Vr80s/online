@@ -17,6 +17,13 @@ $(function(){
     var searchData =searchUrl.split("=");        //截取 url中的“=”,获得“=”后面的参数  
     var  searchText =decodeURI(getQueryString("name"));   //decodeURI解码  
 	
+	//	渲染到所搜栏中
+	if(searchText){
+		$('.search_hos_box > input').val(searchText);
+	}else{
+		$('.search_hos_box > input').val('');
+	}
+	
 	//初始化请求信息
 	window.current = 1;
 	window.size = 20;

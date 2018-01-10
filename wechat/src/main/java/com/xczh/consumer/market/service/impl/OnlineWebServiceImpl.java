@@ -34,19 +34,7 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        paramMap.put("courseId",courseId);
 	        paramMap.put("userId",u.getId());
 	        paramMap.put("loginName",u.getLoginName());
-	        
-//	       if(type == 1){
-//	    	   if(this.getLiveUserCourse(courseId, u.getId()).size()>0){
-//	    		   System.out.println("同学,当前直播您已经报名了!");
-//	    		   return;
-//	    	   }
-//	       }else if(type == 2){
-//	    	   //查看用户是否已经报过此课程
-//		       if( this.getUserCourse(courseId,u.getId()).size()>0){
-//		           System.out.println("同学,当前课程您已经报名了!");
-//		           return;
-//		       };
-//	       }
+
 	       if(this.getLiveUserCourse(courseId,u.getId()).size()>0){
 	           System.out.println("同学,当前课程您已经报名了!");
 	           return;
@@ -87,13 +75,12 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       this.update(JdbcUtil.getCurrentConnection(), sql,ops);
 
 	       //写用户视频表
-	       sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-	               + " select replace(uuid(),'-',''),?,sort,id,?,course_id "
-	               + "from oe_video where course_id=? and is_delete=0 and status=1 ";
-	       //orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-	       System.out.println(sql);
-	       Object [] params3 ={u.getLoginName(),u.getId(),courseId};
-	       this.update(JdbcUtil.getCurrentConnection(), sql,params3);
+//	       sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
+//	               + " select replace(uuid(),'-',''),?,sort,id,?,course_id "
+//	               + "from oe_video where course_id=? and is_delete=0 and status=1 ";
+//	       //orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+//	       Object [] params3 ={u.getLoginName(),u.getId(),courseId};
+//	       this.update(JdbcUtil.getCurrentConnection(), sql,params3);
 	   }
 	
 	   /**

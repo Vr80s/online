@@ -160,20 +160,20 @@ public class WechatDao  extends SimpleHibernateDao {
 
                     paramMap.put("courseId", wechatVo.getCourseId());
                     //1、查询当前课程下所有视频
-                    String querySql = "select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0 and status=1 ";
-                    List<UserVideoVo> videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
+//                    String querySql = "select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0 and status=1 ";
+//                    List<UserVideoVo> videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
                     //2、循环此课程下的所有视频，将视频信息插入用户视频中间表，归用户所有
-                    if (!CollectionUtils.isEmpty(videos) && videos.size() > 0) {
-                        for (UserVideoVo video : videos) {
-                            video.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-                            video.setUser_id(userId);
-                            video.setCreate_person(wechatVo.getMobile());
-                            video.setCourse_id(courseId);
-                            String sql = " insert into user_r_video (id,create_person,video_id,user_id,course_id) "
-                                    + " values (:id,:create_person,:video_id,:user_id,:course_id) ";
-                            this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(video));
-                        }
-                    }
+//                    if (!CollectionUtils.isEmpty(videos) && videos.size() > 0) {
+//                        for (UserVideoVo video : videos) {
+//                            video.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+//                            video.setUser_id(userId);
+//                            video.setCreate_person(wechatVo.getMobile());
+//                            video.setCourse_id(courseId);
+//                            String sql = " insert into user_r_video (id,create_person,video_id,user_id,course_id) "
+//                                    + " values (:id,:create_person,:video_id,:user_id,:course_id) ";
+//                            this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(video));
+//                        }
+//                    }
 
                 }
         }else{

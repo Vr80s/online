@@ -56,6 +56,11 @@ public class CCVideoController {
 		String playerwidth = req.getParameter("playerwidth");
 		String playerheight = req.getParameter("playerheight");
 		String videoId = req.getParameter("videoId");
+		
+		String multimedia_type = req.getParameter("multimedia_type");
+		
+		System.out.println(multimedia_type+"============");
+		
 		boolean autoplay = true;
 		Map<String, String> paramsMap = new HashMap<String, String>();
 		paramsMap.put("userid", "B5E673E55C702C42");
@@ -76,9 +81,10 @@ public class CCVideoController {
 		if (responsestr.contains("\"error\":")) {
 			return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
 		}
-		
-		responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
-		
+		//如果是音频的话需要这样暂时替换下
+		if(multimedia_type.equals("2")){
+			responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
+		}
 		log.info(responsestr);
 		return ResponseObject.newSuccessResponseObject(responsestr);
 

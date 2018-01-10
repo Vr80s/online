@@ -27,7 +27,6 @@ public class Takeaway {
         for (Map.Entry<String, String> entry : m.entrySet()) {
 //            System.out.println("name = " + entry.getKey() + ", price = " + entry.getValue());
             String personalActualTotal = (new BigDecimal(entry.getValue()).divide(total,2,BigDecimal.ROUND_UP)).multiply(actualTotal).setScale(2,BigDecimal.ROUND_UP).toString();
-            System.out.println(entry.getKey()+"外卖金额："+entry.getValue()+"实际支付金额："+personalActualTotal);
         }
     }
 }
