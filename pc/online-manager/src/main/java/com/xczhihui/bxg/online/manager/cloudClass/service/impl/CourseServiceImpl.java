@@ -792,7 +792,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 				}
 			}
 			//已经存在的数量 +  即将添加的数量
-            if((list.size()+ids2.size()) > 4){
+            if((list.size()+ids2.size()) > 12){
             	return false;
             }
 		}else{//如果是取消推荐

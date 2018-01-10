@@ -477,10 +477,10 @@
 
 <div style="height: 100%;" class="clearfix">
     <!-- Nav tabs -->
-    <!-- <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+     <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">职业课管理</a>
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下培训班管理</a>
         </li>
 		<li role="presentation">
 			<a href="#box_m" aria-controls="box_m" class="wkgl_bx" role="tab"
@@ -494,7 +494,7 @@
 			<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程排序</a>
 		</li>
-    </ul> -->
+    </ul>
  
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">

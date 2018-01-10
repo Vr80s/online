@@ -115,6 +115,65 @@ $(function(){
 		}
 	});
 	/** 线下培训班列表end */
+	
+	//TODO
+	
+	/** 课程推荐列表begin */
+	var searchCase_P = new Array();
+    searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"'+$("#type").val()+'","tempType":undefined}');
+	var objRecData = [
+	                  
+      { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
+      { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
+      { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+      { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
+      {"sortable": false,"class": "center","width":"10%","title":"排序","mRender":function (data, display, row) {
+    	return '<div class="hidden-sm hidden-xs action-buttons">'+
+		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+      }},
+      { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+    		return '<div class="hidden-sm hidden-xs action-buttons">'+
+			'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ' +
+    		'<a class="blue" href="javascript:void(-1);" title="设置图片" onclick="updateRecImg(this);">设置图片</a> </div>';
+  		}
+      }];
+
+	_courseRecTable = initTables("courseRecTable",basePath+"/cloudclass/course/recList",objRecData,false,false,1,null,searchCase_P,function(data){
+		$("[name='upa']").each(function(index){
+			if(index == 0){
+				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+			}
+		}); 
+		$("[name='downa']").each(function(index){
+			if(index == $("[name='downa']").size()-1){
+				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+			}
+		});
+		$("#courseRecTable_info").hide();
+		
+//		$("#courseRecTable tr").each(function(){
+//			$(this).find("td").eq(0).attr("width","10px");
+//		});
+	});
+	/** 课程推荐列表end */
+	
+	
+	
+	
+	//TODO
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/** 表单验证START */
 	studyDayForm = $("#studyDay-form").validate({

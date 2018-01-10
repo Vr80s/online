@@ -199,34 +199,34 @@ public class CourseController extends AbstractController{
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
 		
+//		 Integer offLine = courseVo.getOnlineCourse();
+//		 Integer courseType = courseVo.getOnlineCourse();
+//		 Integer multimediaType = courseVo.getMultimediaType();
+//		 Integer liveStatus = courseVo.getLiveStatus();//直播状态1.直播中，2预告，3直播结束
+		
 		CourseVo searchVo=new CourseVo();
-//		Group courseName = groups.findByName("search_courseName");
-//		
-//		if (courseName != null) {
-//			searchVo.setCourseName(courseName.getPropertyValue1().toString());
-//		}
-//		
-//		Group menuId = groups.findByName("search_menu");
-//		if (menuId != null) {
-//			searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
-//		}
-//		
-//		Group scoreTypeId = groups.findByName("search_scoreType");
-//		if (scoreTypeId != null) {
-//			searchVo.setCourseTypeId(scoreTypeId.getPropertyValue1().toString());
-//		}
-//		
-//		Group courseType = groups.findByName("search_courseType");
-//		
-//		if (courseType != null) {
-//			searchVo.setCourseType(courseType.getPropertyValue1().toString());
-//		}
-//		
-//		Group isRecommend = groups.findByName("search_isRecommend");
-//		
-//		if (isRecommend != null) {
-//			searchVo.setIsRecommend(Integer.parseInt(isRecommend.getPropertyValue1().toString()));
-//		}
+		Group onlineCourse = groups.findByName("search_onlineCourse");
+		
+		if (onlineCourse != null) {
+			searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
+		}
+		
+		Group type = groups.findByName("search_type");
+		if (type != null) {
+			searchVo.setType(Integer.valueOf(type.getPropertyValue1().toString()));
+		}
+		
+		Group multimediaType = groups.findByName("search_multimediaType");
+		if (multimediaType != null) {
+			searchVo.setMultimediaType(Integer.valueOf(multimediaType.getPropertyValue1().toString()));
+		}
+		
+		Group liveStatus = groups.findByName("search_liveStatus");
+		
+		if (liveStatus != null) {
+			searchVo.setLiveStatus(Integer.valueOf(liveStatus.getPropertyValue1().toString()));
+		}
+		
 		
 		Page<CourseVo> page = courseService.findCourseRecPage(searchVo, currentPage, pageSize);
 		int total = page.getTotalCount();
@@ -279,10 +279,10 @@ public class CourseController extends AbstractController{
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
 
-		if(courseVo.getSmallimgPath() == null || "".equals(courseVo.getSmallimgPath().trim())){
+	/*	if(courseVo.getSmallimgPath() == null || "".equals(courseVo.getSmallimgPath().trim())){
 			responseObj.setErrorMessage("课程展示图不能为空");
 			return responseObj;
-		}
+		}*/
 
 		try{
 			courseService.addCourse(courseVo);

@@ -117,13 +117,40 @@ public class CourseDao extends HibernateDao<Course>{
 	 public Page<CourseVo> findCloudClassCourseRecPage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String,Object> paramMap=new HashMap<String,Object>();
 		 StringBuilder sql =new StringBuilder( "SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName,"
-				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,"
+				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.multimedia_type as multimediaType,"
 				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
 				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
 				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.rec_img_path,oc.course_type as serviceType FROM oe_course oc "
 				 + "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
 				 + "LEFT JOIN teach_method tm ON tm.id = oc.courseType "
 				 + "left join oe_grade og on og.course_id = oc.id where oc.is_delete = 0  ");
+		 
+		 /**
+		  * 这里不仅仅是课程进行推荐
+		  *     并且课程的推荐位需要按照：视频、音频进行排序
+		  *  	对线下课进行排序
+		  *  	对直播进行排序：预告、直播中、已经结束的
+					online_course    = 1 线下课
+					type  不等于null 就是   直播
+					multimedia_type = 1 视频  = 2音频
+		  */
+		 
+		 Integer offLine = courseVo.getOnlineCourse();
+		 Integer courseType = courseVo.getType();
+		 Integer multimediaType = courseVo.getMultimediaType();
+		 Integer liveStatus = courseVo.getLiveStatus();//直播状态1.直播中，2预告，3直播结束
+		 
+		 if(offLine!=null && !"".equals(offLine) &&offLine.equals(1) ){
+			 sql.append(" and oc.online_course = 1 ");
+			 
+		 }else if(courseType!=null && !"".equals(courseType)){
+			 sql.append(" and oc.type = 1 ");
+			 if(liveStatus != null && !"".equals(offLine)){
+				 sql.append(" and oc.live_status = "+ liveStatus);
+			 }		 
+		 }else if(multimediaType !=null && !"".equals(multimediaType) && !multimediaType.equals(0)){
+			 sql.append(" and oc.multimedia_type = "+multimediaType);
+		 }
 		 
 		 paramMap.put("isRecommend","1");//只查询已推荐的课程
 		 sql.append(" and oc.is_recommend = :isRecommend ");
