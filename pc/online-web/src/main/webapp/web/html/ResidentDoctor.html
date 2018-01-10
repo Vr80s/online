@@ -22,8 +22,10 @@
     <link rel="stylesheet" href="/web/css/index.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
+
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
     <link rel="stylesheet" href="/web/css/ResidentDoctor.css">
+        <link rel="stylesheet" href="/web/css/style.css"/>
     <link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
 
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
@@ -47,9 +49,14 @@
 		<div class="row">
 			<!--左侧按钮部分-->
 			<div class="news_nav">
+				<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
+    						<i class="iconfont icon-xiangji"></i>
+    			</div>
+    					
 				 <ul>
 					 <li class="doctor_inf">
-						 <img src="/web/images/head_pic.png" alt="">
+						 <img src="" alt="">
+						 <!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
 						 <h4>橘子柠檬可乐</h4>
 						 <p>说点什么来彰显你的个性...</p>
 					 </li>
@@ -121,8 +128,47 @@
 
 
 
+<div class="mask"></div>
+<div id="headImg" class="clearfix">
+    <div class="container clearfix">
+        <div class="img-title"><p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+        <div class="img-box1">
+            <a href="javascript:void(0)" class="upload-img">
+                <p onclick="fileClick()"><span>+</span>选择图片</p>
+            </a>
+
+            <p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+        </div>
+        <div class="imageBox">
+            <div class="thumbBox"></div>
+            <div class="spinner" style="display: none"></div>
+        </div>
+        <div class="action clearfix">
+            <div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+            <div class="new-contentarea tc">
+                <div class="bbox clearfix">
+                	<span>滚动鼠标可调整头像大小</span>
+                    <a href="javascript:void(0)" class="upload-img reclick">
+                        <p onclick="fileClick()">重新上传</p>
+                    </a>
+                </div>
+                <input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg"/>
+            </div>
+            <span class="btn-upload bbtn">确定</span>
+            <a href="javascript:;" class="btn-quit bbtn">取消</a>
+        </div>
+        <div class="cropped">
+            <div class="cropTitle">预览</div>
+            <div class="cropped-con"></div>
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 </html>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
+<script type="text/javascript" src="/web/js/cropbox.js"></script>
+<script src="/web/js/ResidentDoctor.js"></script>

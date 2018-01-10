@@ -32,7 +32,7 @@ body .mask {
     display: none;
 }
 
-.container {
+ #headImg  .container {
     width: 510px;
     position: relative;
     font-family: 微软雅黑;
@@ -42,20 +42,20 @@ body .mask {
     padding: 0;
 }
 
-.container .img-title {
+ #headImg  .container .img-title {
     width: 100%;
     line-height: 30px;
     font-size: 18px;
 }
 
-.container .img-title p {
+ #headImg  .container .img-title p {
     line-height: 30px;
     display: inline-block;
     color: #333;
     margin-top: 15px;
 }
 
-.container .img-title i {
+ #headImg  .container .img-title i {
     float: right;
     margin-top: 15px;;
     margin-right:40px;

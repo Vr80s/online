@@ -309,7 +309,7 @@ public class RealCourseController extends AbstractController{
 		 */
 		String province  = courseVo.getRealProvince();
 		String city = courseVo.getRealCitys();
-String county = courseVo.getRealCounty();
+		String county = courseVo.getRealCounty();
 		String address = province+"-"+city+"-"+county+" "+courseVo.getAddress();
 		courseVo.setAddress(address);
 		courseVo.setRealCitys(city);
