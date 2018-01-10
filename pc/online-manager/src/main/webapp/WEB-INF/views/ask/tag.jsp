@@ -101,7 +101,7 @@
 	<div class="searchDivClass" id="searchDiv">
 		<div class="profile-info-row">
 
-			<table frame=void style="width: 100%">
+			<table frame=void >
 				<input type="hidden" id="menuId" value="${menuId}" />
 				<input type="hidden" id="quesSort" value="quesSort" />
 				<input type="hidden" id="citesSort" value="citesSort" />

@@ -81,7 +81,7 @@
 	<div class="searchDivClass" id="searchDiv">
 		<div class="profile-info-row">
 				<input type="hidden" id="monthSort" value="1"/>
-			<table frame=void style="width: 100%">
+			<table frame=void >
 				<tr>
 					<td>
 						<div class="profile-info-value searchTr">

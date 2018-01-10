@@ -184,28 +184,28 @@
 				<input type="hidden" name="courseId" id="courseId" value="${param.courseId}">
 				<input type="hidden" name="weburl" id="weburl" value="${weburl}">
 				<input type="hidden" name="page" id="page" value="${param.page}">
-				<div class="form-group" style="margin-top:18px;">
-					<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>
-					<div class="col-sm-3" style="width: 285px; height: 140px;">
-						<div class="clearfix">
-							<input type="file" name="smallImgPath_file" id="smallImgPath_file" class="uploadImg"/>
-						</div>
-						<input name="smallImgPath" id="edit_smallImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-					</div>
+				<!--<div class="form-group" style="margin-top:18px;">-->
+                        <!--<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>课程展示图:</label>-->
+                    <!--<div class="col-sm-3" style="width: 285px; height: 140px;">-->
+                        <!--<div class="clearfix">-->
+                        <!--<input type="file" name="smallImgPath_file" id="smallImgPath_file" class="uploadImg"/>-->
+                        <!--</div>-->
+                        <!--<input name="smallImgPath" id="edit_smallImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">-->
+                        <!--</div>-->
 					<!-- 设置多个展示图暂时关闭 -->
-					<!-- <div class="col-sm-3" style="width: 285px; height: 140px;">
-						<div class="clearfix">
-							<input type="file" name="smallImgPath_file" id="smallImgPath_file1" class="uploadImg"/>
-						</div>
-						<input name="smallImgPath1" id="edit_smallImgPath1" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-					</div>
-					<div class="col-sm-3" style="width: 285px; height: 140px;">
-						<div class="clearfix">
-							<input type="file" name="smallImgPath_file" id="smallImgPath_file2" class="uploadImg"/>
-						</div>
-						<input name="smallImgPath2" id="edit_smallImgPath2" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
-					</div> -->
-				</div>
+					<!-- <div class="col-sm-3" style="width: 285px; height: 140px;">-->
+                    <!--<div class="clearfix">-->
+                    <!--<input type="file" name="smallImgPath_file" id="smallImgPath_file1" class="uploadImg"/>-->
+                    <!--</div>-->
+                    <!--<input name="smallImgPath1" id="edit_smallImgPath1" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-3" style="width: 285px; height: 140px;">-->
+                        <!--<div class="clearfix">-->
+                        <!--<input type="file" name="smallImgPath_file" id="smallImgPath_file2" class="uploadImg"/>-->
+                        <!--</div>-->
+                        <!--<input name="smallImgPath2" id="edit_smallImgPath2" value="" type="text" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">-->
+                        <!--</div> -->
+                        <!--</div>-->
 				<div class="space-4"></div>
 				<div class="form-group " style="margin-top:50px;margin-bottom:60px">
 					<label class="col-sm-1 control-label no-padding-right" for="courseDetail_content"><font color="red">*</font>课程详情:</label>
@@ -327,7 +327,7 @@
 	<div class="searchDivClass" id="searchDivKclb">
 	        <div class="profile-info-row" style="float: left">
 	
-	            <table frame=void style="width: 100%">
+	            <table frame=void >
 	                <tr>
 	                    <!-- <td>
 	                        <div class="profile-info-value searchTr">

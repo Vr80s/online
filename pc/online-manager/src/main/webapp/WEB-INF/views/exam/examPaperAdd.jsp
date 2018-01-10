@@ -535,7 +535,7 @@
 	<div class="col-xs-11" style="margin-left: 38px;width: 900px;">
 		<div class="searchDivClass" id="searchDiv">
 	        <div class="profile-info-row" >
-	            <table frame=void style="width: 100%">
+	            <table frame=void >
 	                <tr>
 	                	<td>
 	                        <div class="profile-info-value searchTr">

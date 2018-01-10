@@ -135,6 +135,9 @@
         	}
         	return ''+num+'小时';
         }*/
+        if(num==null){
+            return '暂无';
+        }
         return ''+num+'小时';
     });
     //头像

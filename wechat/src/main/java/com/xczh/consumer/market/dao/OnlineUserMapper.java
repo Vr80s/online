@@ -244,8 +244,6 @@ public class OnlineUserMapper extends BasicSimpleDao {
 				&& !map.get("nickname").equals(original.getName())) {
 			sb.append(" name ='" + map.get("nickname") + "',");
 		}
-		
-		
 		if (StringUtils.hasText(map.get("province"))
 				&& !map.get("province").equals(original.getProvince())) {
 			sb.append(" region_area_id = '" + map.get("province") + "',");
