@@ -46,6 +46,9 @@ a {
   text-align: center;
   line-height: 58px;
 }
+#doctor_in_inf .news_nav ul li:first-child{
+	padding-top: 30px;
+}
 #doctor_in_inf .news_nav ul li a {
   width: 100%;
   height: 100%;

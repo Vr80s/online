@@ -102,9 +102,11 @@ $(function(){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理
 //	           alert("名老中医没有数据")
-			$('.doctor_inf').html('<h3>暂无数据</h3>');
+//			$('.doctor_inf').html('<h3>暂无数据</h3>');
+			$('.hospital_doctor').addClass('hide')
 	        }else{
 	        	console.log(data)
+	        	$('.hospital_doctor').removeClass('hide')
 	        	//获取到数据渲染
 	        	if(data.resultObject.records.length > 4){
 	        		$('#more_doc').removeClass('hide');

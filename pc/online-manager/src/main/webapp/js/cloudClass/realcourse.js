@@ -463,7 +463,6 @@ function downMoveRec(obj){
 $(".add_P").click(function(){
 
     createImageUpload($('.uploadImg_add'));//新增弹出框的生成图片编辑器
-	
 	$("input[name='isFree']").eq(1).attr("checked","checked");
 	/*$("#add-originalCost").hide();
 	$("#add-currentPrice").hide();*/
@@ -793,6 +792,10 @@ $("#updateCourse-form").on("change","#edit_bigImgPathFile",function(){
 // zhuwenbao-2018-0109 图片上传统一上传到附件中心-新增（线下培训班）
 $("#addCourse-form").on("change","#smallImgPath_file",function(){
     _this = this;
+
+    // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
+    $('.ui-dialog-buttonset .ui-button-text').eq(1).addClass('add_P_cancel');
+
     var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
     if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
         layer.msg("图片格式错误,请重新选择.");
@@ -803,7 +806,7 @@ $("#addCourse-form").on("change","#smallImgPath_file",function(){
     ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
         if (data.error == 0) {
         	console.log('上传成功');
-            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 85px; height: 85px;");
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
             $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
 
             $("#smallImgPath").val(data.url);
@@ -818,6 +821,10 @@ $("#addCourse-form").on("change","#smallImgPath_file",function(){
 // zhuwenbao-2018-0109 图片上传统一上传到附件中心-修改（线下培训班）
 $("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
     _this = this;
+
+    // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
+    $('.ui-dialog-buttonset .ui-button-text').eq(3).addClass('edit_P_cancel');
+
     var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
     if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
         layer.msg("图片格式错误,请重新选择.");
@@ -828,10 +835,11 @@ $("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
     ajaxFileUpload(this.id,basePath+"/attachmentCenter/upload?projectName=online&fileType=1", function(data){
         if (data.error == 0) {
             console.log('上传成功');
-            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 85px; height: 85px;");
+            $("#"+id).parent().find(".ace-file-name img").attr("style","width: 250px; height: 140px;");
             $("#"+id).parent().find(".ace-file-name img").attr("src",data.url);
 
             $("#edid_smallImgPath").val(data.url);
+
             document.getElementById("imgAdd").focus();
             document.getElementById("imgAdd").blur();
             $(".remove").hide();
@@ -839,6 +847,23 @@ $("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
             layer.msg(data.message);
         }
     })
+});
+
+// 防止 新增／修改职业课 上传好图片后 直接点取消或者右上角的x后 下次再新增职业课时出现上次上传好的图
+$('#dialogAddCourseDiv').on("click",".ui-dialog-titlebar-close", function () {
+    $(".ace-file-container").remove();
+});
+
+$('#dialogAddCourseDiv').on("click",".add_P_cancel", function () {
+    $(".ace-file-container").remove();
+});
+
+$('#dialogEditCourseDiv').on("click",".ui-dialog-titlebar-close", function () {
+    $(".ace-file-container").remove();
+});
+
+$('#dialogEditCourseDiv').on("click",".edit_P_cancel", function () {
+    $(".ace-file-container").remove();
 });
 
 /**
@@ -1125,6 +1150,7 @@ function toEdit(obj,status){
 
 		// zhuwenbao-2018-0109
         reviewImage("edid_smallImgPath", result[0].smallimgPath);// 照片回显
+        $('#edid_smallImgPath').val(result[0].smallimgPath);
 
     	$("#edid_courseName").val(result[0].courseName); //课程名称
     	$("#edid_classTemplate").val(result[0].classTemplate); //班级名称模板
