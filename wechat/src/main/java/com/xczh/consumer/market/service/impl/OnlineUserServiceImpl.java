@@ -456,7 +456,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			//在用户重新获取登陆对象
 			ItcastUser iu = userCenterAPI.getUser(username);
 			if(iu!=null){
-				return "此账号已被绑定";
+				return "此手机号已被绑定";
 			}
 			OnlineUser o = onlineUserDao.findUserByLoginName(username);
 			if (o != null) {
