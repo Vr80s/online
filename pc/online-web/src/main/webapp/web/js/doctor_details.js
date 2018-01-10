@@ -107,8 +107,9 @@ $(function(){
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.records.length == 0 || data.resultObject == null){
-	           $('#media_report').addClass('hide');
+//	           $('#media_report').addClass('hide');
 	        }else{
+	        	 $('#media_report').removeClass('hide');
 	           $('#meaid_list').html(template('meaidTpl',{inf:data.resultObject.records}));
 	        }
 	    });
@@ -124,8 +125,9 @@ $(function(){
 	 }, function (data) {
 	        if(data.resultObject.records.length == 0 ||data.resultObject==null){
 	        	//没有数据处理
-	           $('#zhuanlan').addClass('hide');
+//	           $('#zhuanlan').addClass('hide');
 	        }else{
+	        	 $('#zhuanlan').removeClass('hide');
 	           $('#zhuanlan_list').html(template('zhuanlanTpl',{inf:data.resultObject.records}));
 	        }
 	    });
@@ -145,8 +147,9 @@ $(function(){
 	 	doctorId:id
 	 }, function (data) {
 	        if(data.resultObject.length == 0){
-	           $('.zhuzuo').addClass('hide')
+	          
 	        }else{
+	        	 $('.zhuzuo').removeClass('hide')
 	        	//获取到数据渲染
 	        	//创建一个盒子
 	           $('#zhuzuo_list').html(template('zhuzuoTpl',{book:data.resultObject}));
