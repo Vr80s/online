@@ -79,6 +79,107 @@ header{
 }
 /*右侧系统消息结束*/
 
+/*分类开始*/
+.classify{
+	width: 100%;
+	height: 100%;
+}
+/*课程分类开始*/
+.classify_course{
+	width: 100%;
+	/*height: 5.83rem;*/
+	background: #fff;
+	margin-top: 0.426rem;
+	margin-bottom: 0.426rem;
+	padding-bottom: 0.213rem;
+}
+.classify_course_title{
+	font-size: 0.681rem;
+    color: #2F2F2F;
+    margin-left: 0.553rem;
+    margin-bottom: 0.638rem;
+    padding-top: 0.638rem;
+}
+.classify_course_type_one{
+	float: left;
+	width: 4.468rem;
+	height: 1.106rem;
+	line-height: 1.106rem;
+	text-align: center;
+	border: 1px solid #DEDEDE;
+	border-radius: 8px;
+	font-size: 0.596rem;
+	color: #333333;
+    margin-left: 0.58rem;
+    margin-bottom: 0.638rem;
+}
+/*课程分类结束*/
+
+/*专题课程开始*/
+.classify_special{
+	width: 100%;
+	/*height: 5.83rem;*/
+	background: #fff;
+	margin-top: 0.426rem;
+	margin-bottom: 0.426rem;
+	padding-bottom: 0.213rem;
+}
+.classify_special_title{
+	font-size: 0.681rem;
+    color: #2F2F2F;
+    margin-left: 0.553rem;
+    margin-bottom: 0.638rem;
+    padding-top: 0.638rem;
+}
+.classify_special_type_one{
+	float: left;
+	width: 4.468rem;
+	height: 1.106rem;
+	line-height: 1.106rem;
+	text-align: center;
+	border: 1px solid #DEDEDE;
+	border-radius: 8px;
+	font-size: 0.596rem;
+	color: #333333;
+    margin-left: 0.58rem;
+    margin-bottom: 0.638rem;
+}
+/*专题课程结束*/
+
+/*课程类型开始*/
+.classify_mold{
+	width: 100%;
+	/*height: 5.83rem;*/
+	background: #fff;
+	margin-top: 0.426rem;
+	margin-bottom: 0.426rem;
+	padding-bottom: 0.213rem;
+}
+.classify_mold_title{
+	font-size: 0.681rem;
+    color: #2F2F2F;
+    margin-left: 0.553rem;
+    margin-bottom: 0.638rem;
+    padding-top: 0.638rem;
+}
+.classify_mold_type_one{
+	float: left;
+	width: 4.468rem;
+	height: 1.106rem;
+	line-height: 1.106rem;
+	text-align: center;
+	border: 1px solid #DEDEDE;
+	border-radius: 8px;
+	font-size: 0.596rem;
+	color: #333333;
+    margin-left: 0.58rem;
+    margin-bottom: 0.638rem;
+}
+/*课程类型结束*/
+
+/*分类结束*/
+
+
 .slide_one{
 	width: 100%;
 	height: 3.064rem;
@@ -437,7 +538,7 @@ header{
 }
 .acupuncture_main_three_size .p2 span{
 	font-size: 0.511rem;
-    color: #F97B49;
+    color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -990,7 +1091,7 @@ header{
 }
 .boutique_main_one_size .p2 span{
 	font-size: 0.511rem;
-    color: #F97B49;
+    color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1350,7 +1451,7 @@ header{
 }
 .newest_main_one_size .p2 span{
 	font-size: 0.511rem;
-    color: #F97B49;
+    color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -1518,7 +1619,7 @@ header{
 }
 .newest_main_three_size .p2 span{
 	font-size: 0.511rem;
-    color: #F97B49;
+    color: #999;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
