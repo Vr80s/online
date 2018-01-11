@@ -404,7 +404,7 @@ $(function () {
 		
 	    
 	    //点击更多
-	    $('.more_hospital').click(function(){
+	    $('.more_hospital>button').click(function(){
 	    	current +=1;
 	    	console.log(current)
 	    	getHostipalList(current,size,name);
