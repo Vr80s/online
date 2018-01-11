@@ -538,24 +538,33 @@
 			</div>
         </div>
 		<div role="tabpanel" class="tab-pane active" id="box_m">
-			<div class="mainrighttab tabresourse bordernone" id="courseResDiv" style="display:none">
-				<div class="searchDivClass" id="searchResDiv_PX">
+			<div class="mainrighttab tabresourse bordernone" id="courseRecDiv" style="display:none">
+				<div class="searchDivClass" id="search_P">
 					<div class="profile-info-row" >
 						<table frame=void >
 							<tr>
 								<td>
-									<div class="profile-info-value searchTr">
+									<!-- <div class="profile-info-value searchTr">
 										<select name="search_status" id="search_status_PX" value="" class="propertyValue1" >
 											<option value="">课程状态</option>
 											<option value="1">已启用</option>
 											<option value="0">已禁用</option>
 										</select>
 										<input type="hidden" value="search_status" class="propertyName"/>
+									</div> -->
+									
+									<div class="profile-info-value searchTr">
+										<select name="search_status" id="search_rec" value="" class="propertyValue1" >
+											<option value="">所在城市</option>
+											<!-- <option value="1">已启用</option>
+											<option value="0">已禁用</option> -->
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
 									</div>
 								</td>
 								<td>
-									<button id="searchBtn_PX" type="button" class="btn btn-sm  btn-primary "
-											onclick="search_PX();">
+									<button id="searchBtn_rec" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_rec();">
 										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
 									</button>
 								</td>
@@ -565,7 +574,7 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<table id="courseResTable"
+						<table id="courseRecTable"
 							   class="table table-striped table-bordered table-hover">
 							<colgroup>
 								<col width='5%'></col>
@@ -594,17 +603,17 @@
 							<tr>
 								<td>
 									<div class="profile-info-value searchTr">
-										<select name="search_status" id="search_status_PX" value="" class="propertyValue1" >
-											<option value="">课程状态</option>
-											<option value="1">已启用</option>
-											<option value="0">已禁用</option>
+										<select name="search_status" id="search_city" value="" class="propertyValue1" >
+											<option value="">所在城市</option>
+											<!-- <option value="1">已启用</option>
+											<option value="0">已禁用</option> -->
 										</select>
 										<input type="hidden" value="search_status" class="propertyName"/>
 									</div>
 								</td>
 								<td>
-									<button id="searchBtn_PX" type="button" class="btn btn-sm  btn-primary "
-											onclick="search_PX();">
+									<button id="searchBtn_city" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_City();">
 										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
 									</button>
 								</td>

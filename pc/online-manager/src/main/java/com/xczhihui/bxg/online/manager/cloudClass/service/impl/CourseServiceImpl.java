@@ -29,8 +29,10 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.CoursePreview;
 import com.xczhihui.bxg.online.common.domain.Grade;
 import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.OffLineCity;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
+import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseDao;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseSubscribeDao;
@@ -1274,6 +1276,99 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			return "以下视频还未上传：<br>" + msg + "请使用客户端上传后再次同步";
 		}
 		return "ok";
+	}
+
+	@Override
+	public void addCourseCity(String city) {
+		// TODO Auto-generated method stub
+		/**
+		 * 添加前，看存在此城市，如果存在那么就不添加
+		 */
+		if(!findCourseCityByName(city)){
+			User user = (User) UserHolder.getRequireCurrentUser(); 
+			String savesql=" insert into oe_offline_city (create_person,create_time,city_name)"+
+					" values ('"+user.getCreatePerson()+"',now(),'"+city+"')";
+			 Map<String,Object> params=new HashMap<String,Object>();
+			dao.getNamedParameterJdbcTemplate().update(savesql, params);
+		}
+	}
+	
+	@Override
+	public Boolean findCourseCityByName(String city) {
+		 Map<String,Object> params=new HashMap<String,Object>();
+		 List<Integer>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_offline_city o where  o.city_name = '"+city+"'",params,Integer.class);
+		 System.out.println("cityList"+list.size());
+		 if(list!=null && null!= list.get(0) && list.get(0)>0){
+			 return true;
+		 }
+		 return false;
+	}
+	
+	@Override
+	public OffLineCity findCourseCityByName(Integer cityId) {
+		String hqlPre="from OffLineCity where id  = '"+cityId+"'";;
+		OffLineCity object =  dao.findByHQLOne(hqlPre,new Object[] {});
+		return object;
+	}
+	
+	@Override
+	public void deleteCourseCityByName(String city) {
+		String savesql=" delete from oe_offline_city where city_name = '"+city+"'";
+		Map<String,Object> params=new HashMap<String,Object>();
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+	
+	@Override
+	public Page<OffLineCity>  getCourseCityList(Integer pageNumber,Integer pageSize) {
+		String sql="select  *  from  oe_offline_city where  is_delete = 0 ";
+		//List<OffLineCity> list= dao.findByHQL(hqlPre);
+		Map<String,Object> params=new HashMap<String,Object>();
+		Page<OffLineCity> courseVos = dao.findPageBySQL(sql, params, OffLineCity.class, pageNumber, pageSize);
+		return courseVos;
+	}
+
+	@Override
+	public void updateCourseCityStatus(Integer courseId) {
+		// TODO Auto-generated method stub
+		
+		String hql="from Course where 1=1 and isDelete=0 and id = ?";
+        Course course= dao.findByHQLOne(hql, new Object[]{courseId});
+        
+        Map<String,Object> params=new HashMap<String,Object>();
+        
+        //查出所有为禁用的
+        List<String>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_offline_city o where  o.status=1 and "
+				 		+ "o.city_name = '"+course.getCity()+"'",params,String.class);
+        
+        Integer status = 0;
+        if(list!=null && list.size()>0){
+        	status = 1;
+		}
+        String savesql=" update  oe_offline_city  set status = '"+status+"' where city_name = '"+course.getCity()+"' ";
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+
+	@Override
+	public void deleteCourseCityStatus(Integer courseId) {
+
+		String hql="from Course where 1=1 and isDelete=0 and id = ?";
+        Course course= dao.findByHQLOne(hql, new Object[]{courseId});
+        
+        Map<String,Object> params=new HashMap<String,Object>();
+        
+        //查出所有为禁用的
+        List<String>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_offline_city o where o.is_delete=0  and "
+				 		+ "o.city_name = '"+course.getCity()+"'",params,String.class);
+        
+        Integer status = 1;
+        if(list!=null && list.size()>0){
+        	status = 0;
+		}
+        String savesql=" update  oe_offline_city  set  is_delete= '"+status+"' where city_name = '"+course.getCity()+"' ";
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
 	}
 
 }
