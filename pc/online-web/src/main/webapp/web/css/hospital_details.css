@@ -327,6 +327,8 @@ min-height: 360px;
 	font-size: 14px;
 	color: #333;
 	font-weight: 700;
+	margin-bottom: 5px;
+	margin-top: 10px;
 }
 .content_box #main .main_right .employ .employ_inf > p{
 	font-size: 14px;
