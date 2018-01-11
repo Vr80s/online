@@ -209,6 +209,7 @@ input,button{
   margin-top: 6px;
   cursor: pointer;
   margin-bottom: 20px;
+  line-height: 20px;
 }
 #forum .forum-banner .hot-article .hot-article-list li span {
   display: inline-block;
