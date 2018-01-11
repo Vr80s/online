@@ -459,7 +459,7 @@ $(function() {
 //	        '<option value="opel">Opel</option> ' +
 //	        '<option value="audi">Audi</option> ' +
 	        '</select> ' +
-	        '<p class="address_warn" style="display:none;color:red">请填写所在地区信息</p>'+
+	        '<p class="address_warn  warning" style="display:none;color:red">请填写所在地区信息</p>'+
 	        '</div> ' +
 		
 		

@@ -12,9 +12,11 @@ $(function(){
        { "title": "序号", "class":"center","width":"80px","sortable":false,"data": 'rowId' },
        { "title": "意见编号", "class":"center","bVisible": false,"sortable":false,"data": 'id',"width":"80px"  },
        { "title": "用户编号", "class":"center","bVisible": false,"sortable":false,"data": 'userId',"width":"80px"  },
-       { "title": "意见标题", "class":"center","sortable":false,"data": 'title' ,"mRender":function (data, display, row) {
-    		titleArray[row.id]=data.replace(/[\r\n]/g,"");
-        	return "<span class='titleSpan' id='"+row.id+"'></span>";//data.replace(/[\r\n]/g,"");
+       { "title": "意见内容", "class":"center","sortable":false,"data": 'title' ,"mRender":function (data, display, row) {
+       	// debugger
+    		// titleArray[row.id]=data.replace(/[\r\n]/g,"");
+            // return "<span class='titleSpan' id='"+row.id+"'></span>";//data.replace(/[\r\n]/g,"");
+        	return "<span>"+row.context+"</span>";//data.replace(/[\r\n]/g,"");
        }},
        { "title": "创建时间", "class":"center","sortable":false,"data": 'createTimeStr' },
        { "title": "回复时间", "class":"center","sortable":false,"data": 'lastTimeStr' },
@@ -174,6 +176,7 @@ function feedbackDialog(obj){
 	var aData = feedbackTable.fnGetData(oo);
 	$("#show_title").val(aData.title);
 	$("#show_createtimeStr").val(aData.createTimeStr);
+	// aData.context = aData.context.replace('<font color="#2cb82c">意见反馈：</font>','');
 	$("#show_context").val(aData.context);
 	$("#show_statusStr").val(aData.answerStatus);
 	ajaxRequest(basePath+"/feedback/findFeekBackByFeedId",{"feedId":aData.id},function(res) {
@@ -185,6 +188,8 @@ function feedbackDialog(obj){
 			replytitle=res.resultObject.title;
 			replycreateTimeStr=res.resultObject.createTimeStr;
 		}
+		debugger;
+        replytext = replytext.replace('<font color=\"#2cb82c\">意见反馈：</font>',"");
 		$("#show_replytext").val(replytext);
 		$("#show_replytitle").val(replytitle);
 		$("#show_replycreateTimeStr").val(replycreateTimeStr);

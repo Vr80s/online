@@ -87,7 +87,7 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 		BxgUser u = UserHolder.getCurrentUser();
 		Message message = new Message();
 		message.setLastTime(new Date());
-		message.setContext(vo.getReplytext());
+		message.setContext("<font color=\"#2cb82c\">意见反馈：</font>"+vo.getReplytext());
 		message.setPid(vo.getId());
 		message.setUserId(vo.getUserId());
 		message.setType(0);
