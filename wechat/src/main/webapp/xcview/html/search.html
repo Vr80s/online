@@ -53,6 +53,19 @@
 			$(".header_seek_main").css("display","none");
 		});
 //		头部input搜索框结束
+
+
+		/*清除历史开始*/
+		$(".search_history_title .div1").click(function(){
+			$(".search_history_list_one").remove();
+		});
+		/*清除历史结束*/
+		
+//		点击X开始
+		$(".search_history_list_one .div1").click(function(){
+			$(this).parent().remove();
+		});
+//		点击X结束
 		
 	};
 </script>
@@ -75,6 +88,54 @@
 		</div>
 	</header>
 	<!--头部搜索结束-->
+	
+	<!--热门搜索开始-->
+	<div class="search_hot">
+		<div class="search_hot_title">热门搜索</div>
+		<div class="search_hot_main">
+			<div class="search_hot_main_one">针灸疗法</div>
+			<div class="search_hot_main_one">各式推拿</div>
+			<div class="search_hot_main_one">美容养生</div>
+			<div class="search_hot_main_one">药膳食疗</div>
+			<div class="search_hot_main_one">古籍经典</div>
+			<div class="search_hot_main_one">各家综合</div>
+			<div class="both"></div>  <!--both清除浮动-->
+		</div>
+	</div>
+	<!--热门搜索结束-->
+	
+	<!--搜索历史开始-->
+	<div class="search_history">
+		<div class="search_history_title">
+			<div class="div0">搜索历史</div>
+			<div class="div1">清除历史</div>
+			<div class="both"></div>
+		</div>
+		<div class="search_history_list">
+			<div class="search_history_list_one">
+				<div class="div0">针灸疗法</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">麦冬</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">伤寒论</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">各式推拿</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<!--搜索历史结束-->
 	
 
 </body>
