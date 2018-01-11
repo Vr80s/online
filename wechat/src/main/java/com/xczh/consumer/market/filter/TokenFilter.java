@@ -59,7 +59,7 @@ public class TokenFilter implements Filter {
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/bs/appLogin,/bxg/focus/myHome,"
 			+ "/bxg/user/appleLogout";
 	
-	private static String str6 = "/bxg/bunch/courseClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse";
+	private static String str6 = "/bxg/bunch/schoolClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse";
 	
 	
 //	/*
@@ -105,6 +105,7 @@ public class TokenFilter implements Filter {
 	private String[] excludedPageArray; 
 	
 	private String[] appExcludedPageArray;
+	
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
