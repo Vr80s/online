@@ -84,6 +84,10 @@ public class RealCourseController extends AbstractController{
 		List<LecturerVo> lecturers = courseService.getLecturers();
 		request.setAttribute("lecturerVo", lecturers);
 		
+		//得到所有的讲师
+		Page<OffLineCity> page = courseService.getCourseCityList(new OffLineCity(),0,Integer.MAX_VALUE);
+		request.setAttribute("cityVo", page.getItems());
+		
 		List<Map<String, Object>> mapList = onlineUserService.getAllUserLecturer();
 		for (Map<String, Object> map : mapList) {
 			String str = "昵称:"+map.get("name").toString() + ",账号:"+map.get("logo").toString();
@@ -655,17 +659,26 @@ public class RealCourseController extends AbstractController{
           OffLineCity searchVo=new OffLineCity();
 
 	    Group city = groups.findByName("search_city");
-	    if (StringUtils.isNotBlank(city)) {
-	  	  searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
+	    if (city!=null) {
+	    	searchVo.setCityName(city.getPropertyValue1().toString());
 	    }
-          
-          Page<OffLineCity> page = courseService.getCourseCityList(currentPage, pageSize);
+          Page<OffLineCity> page = courseService.getCourseCityList(searchVo,currentPage, pageSize);
           int total = page.getTotalCount();
           tableVo.setAaData(page.getItems());
           tableVo.setiTotalDisplayRecords(total);
           tableVo.setiTotalRecords(total);
           return tableVo;
-		
+	}
+	
+	
+	@RequestMapping(value = "courseCityUpdate")
+	@ResponseBody
+	public ResponseObject courseCityUpdate(OffLineCity offLineCity) {
+		if(offLineCity==null || offLineCity.getIcon() ==null){
+			 ResponseObject.newErrorResponseObject("请选择图标！");
+		}
+		courseService.updateCourseCity(offLineCity);
+        return ResponseObject.newSuccessResponseObject("修改成功！");
 	}
     
 }

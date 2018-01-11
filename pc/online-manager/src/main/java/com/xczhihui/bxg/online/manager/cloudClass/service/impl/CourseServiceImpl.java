@@ -1320,9 +1320,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 	
 	@Override
-	public Page<OffLineCity>  getCourseCityList(Integer pageNumber,Integer pageSize) {
-		String sql="select  *  from  oe_offline_city where  is_delete = 0 ";
+	public Page<OffLineCity>  getCourseCityList(OffLineCity searchVo,Integer pageNumber,Integer pageSize) {
+		String sql="select  *  from  oe_offline_city where  is_delete = 0 and status = 1 ";
 		//List<OffLineCity> list= dao.findByHQL(hqlPre);
+		 if(searchVo.getCityName()!=null && !"".equals(searchVo.getCityName())){
+			 sql+=" and city_name = '"+searchVo.getCityName()+"'";
+		 }
 		Map<String,Object> params=new HashMap<String,Object>();
 		Page<OffLineCity> courseVos = dao.findPageBySQL(sql, params, OffLineCity.class, pageNumber, pageSize);
 		return courseVos;
@@ -1336,14 +1339,15 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         Course course= dao.findByHQLOne(hql, new Object[]{courseId});
         
         Map<String,Object> params=new HashMap<String,Object>();
-        
-        //查出所有为禁用的
-        List<String>  list = dao.getNamedParameterJdbcTemplate().
-				 queryForList("select count(*) as c from oe_offline_city o where  o.status=1 and "
-				 		+ "o.city_name = '"+course.getCity()+"'",params,String.class);
+        /*
+         * 课程中所有关于这个城市的
+         */
+        List<Integer>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_course o where  o.status=1 and "
+				 		+ "o.city = '"+course.getCity()+"'",params,Integer.class);
         
         Integer status = 0;
-        if(list!=null && list.size()>0){
+        if(list!=null && null!= list.get(0) && list.get(0)>0){
         	status = 1;
 		}
         String savesql=" update  oe_offline_city  set status = '"+status+"' where city_name = '"+course.getCity()+"' ";
@@ -1359,15 +1363,23 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         Map<String,Object> params=new HashMap<String,Object>();
         
         //查出所有为禁用的
-        List<String>  list = dao.getNamedParameterJdbcTemplate().
-				 queryForList("select count(*) as c from oe_offline_city o where o.is_delete=0  and "
-				 		+ "o.city_name = '"+course.getCity()+"'",params,String.class);
+        List<Integer>  list = dao.getNamedParameterJdbcTemplate().
+				 queryForList("select count(*) as c from oe_course o where o.is_delete=0  and "
+				 		+ "o.city = '"+course.getCity()+"'",params,Integer.class);
         
         Integer status = 1;
-        if(list!=null && list.size()>0){
+        if(list!=null && null!= list.get(0) && list.get(0)>0){
         	status = 0;
 		}
         String savesql=" update  oe_offline_city  set  is_delete= '"+status+"' where city_name = '"+course.getCity()+"' ";
+		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+
+	@Override
+	public void updateCourseCity(OffLineCity offLineCity) {
+		// TODO Auto-generated method stub
+		String savesql=" update  oe_offline_city  set icon = '"+offLineCity.getIcon()+"' where id = '"+offLineCity.getId()+"' ";
+		Map<String,Object> params=new HashMap<String,Object>();
 		dao.getNamedParameterJdbcTemplate().update(savesql, params);
 	}
 

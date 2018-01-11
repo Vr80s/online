@@ -554,10 +554,11 @@
 									</div> -->
 									
 									<div class="profile-info-value searchTr">
-										<select name="search_status" id="search_rec" value="" class="propertyValue1" >
+										<select name="search_city" id="search_rec" value="" class="propertyValue1" >
 											<option value="">所在城市</option>
-											<!-- <option value="1">已启用</option>
-											<option value="0">已禁用</option> -->
+						               		<c:forEach var="city" items="${cityVo}">
+						                        <option value="${city.cityName}">${city.cityName}</option>
+						                    </c:forEach>
 										</select>
 										<input type="hidden" value="search_status" class="propertyName"/>
 									</div>
@@ -603,10 +604,11 @@
 							<tr>
 								<td>
 									<div class="profile-info-value searchTr">
-										<select name="search_status" id="search_city" value="" class="propertyValue1" >
+										<select name="search_city" id="search_city" value="" class="propertyValue1" >
 											<option value="">所在城市</option>
-											<!-- <option value="1">已启用</option>
-											<option value="0">已禁用</option> -->
+						               		<c:forEach var="city" items="${cityVo}">
+						                        <option value="${city.cityName}">${city.cityName}</option>
+						                    </c:forEach>
 										</select>
 										<input type="hidden" value="search_status" class="propertyName"/>
 									</div>
@@ -1212,7 +1214,7 @@
 						<input type="file" name="update_recImgPath_file" id="update_recImgPath_file" class="uploadImg"/>
 					</div>
 					（图片尺寸上传限制：252*97）
-					<input name="recImgPath" id="update_recImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+					<input name="icon" id="update_recImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
              </div>
 		</div>
 	</form>

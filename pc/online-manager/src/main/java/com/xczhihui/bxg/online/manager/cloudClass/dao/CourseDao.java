@@ -30,7 +30,7 @@ public class CourseDao extends HibernateDao<Course>{
 	 public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
 		 StringBuilder sql = new StringBuilder("SELECT oc.id as id ,oc.grade_name as courseName,oc.direct_id directId, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName, oc.multimedia_type multimediaType, oc.address, IF(ISNULL(oc.`course_pwd`),0,1) coursePwd,"
-				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,"
+				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.city as realCitys,"
 				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
 				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
 				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.qqno,oc.course_type as serviceType,oc.user_lecturer_id as userLecturerId, "//TODO 杨宣增加userLecturerId
@@ -118,7 +118,7 @@ public class CourseDao extends HibernateDao<Course>{
 		 Map<String,Object> paramMap=new HashMap<String,Object>();
 		 StringBuilder sql =new StringBuilder( "SELECT oc.id as id ,oc.grade_name as courseName, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName,"
 				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.multimedia_type as multimediaType,"
-				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,ou.name  as lecturerName,oc.city as city,"
+				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,ou.name  as lecturerName,oc.city as realCitys,"
 				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
 				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.rec_img_path,oc.course_type as serviceType FROM oe_course oc "
 				 + "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
@@ -140,9 +140,14 @@ public class CourseDao extends HibernateDao<Course>{
 		 Integer multimediaType = courseVo.getMultimediaType();
 		 Integer liveStatus = courseVo.getLiveStatus();//直播状态1.直播中，2预告，3直播结束
 		 
+		 String city = courseVo.getRealCitys();//
+		 
+		 
 		 if(offLine!=null && !"".equals(offLine) &&offLine.equals(1) ){
 			 sql.append(" and oc.online_course = 1 ");
-			 
+			 if(city!=null && !"".equals(city)){
+				 sql.append(" and oc.city ='"+city+"'");
+			 }
 		 }else if(courseType!=null && !"".equals(courseType)){
 			 sql.append(" and oc.type = 1 ");
 			 if(liveStatus != null && !"".equals(offLine)){

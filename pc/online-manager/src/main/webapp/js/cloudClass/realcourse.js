@@ -26,6 +26,7 @@ $(function(){
     { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
     { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+    { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
         return data+"h";
@@ -127,7 +128,7 @@ debugger;
     { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
     { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
-    { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'city'},
+    { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
     { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"width":"8%"},
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
@@ -154,11 +155,10 @@ debugger;
     }];
      debugger;
      
-     var searchCase_P = new Array();
-     searchCase_P.push('{"tempMatchType":9,"propertyName":"search_onlineCourse","propertyValue1":"1","tempType":Integer}');
-     
-     
-	_courseRecTable = initTables("courseRecTable",basePath+"/cloudclass/course/recList",objRecData,true,true,0,null,searchCase_P,function(data){
+     var searchCase_P1 = new Array();
+     searchCase_P1.push('{"tempMatchType":9,"propertyName":"search_onlineCourse","propertyValue1":"1","tempType":Integer}');
+	
+     _courseRecTable = initTables("courseRecTable",basePath+"/cloudclass/course/recList",objRecData,true,true,0,null,searchCase_P1,function(data){
 	
 		debugger;
 		var iDisplayStart = data._iDisplayStart;
@@ -195,11 +195,12 @@ debugger;
     { "title": "城市名称", "class":"center","width":"9%","sortable":false,"data": 'cityName' },
     { "title": "城市展示图", "class":"center","width":"13%","sortable":false,"data": 'icon' ,"mRender":function (data, display, row) {
     	if(data != "" && data != null){
-    		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;' onclick='showImg(\""+row.id+"\",\""+row.courseName+"\",\""+row.recImgPath+"\")'/>";
+    		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
     	}else{
     		return "暂无图片";    	
     	}
 	}},
+	//TODO
     {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
     	var str;
     	if(row.status ==1){//如果是禁用
@@ -221,23 +222,9 @@ debugger;
 	_cityTable = initTables("courseCityTable",basePath+"/realClass/course/courseCityList",objCityData,true,true,0,null,searchCase_P,function(data){
 	
 		
-		
-		console.log(data.json.aaData);
-		var options ="";
-		for (var int = 0; int < data.json.aaData.length; int++) {
-			var city = data.json.aaData;
-			options+="<option value='"+city.cityName+"'>"+city.cityName+"</option>";
-		}
-		$("#search_city").append(options);  
-		
-		
 	});
-	
 	/** 城市管理结束 */
 	
-	//TODO
-	
-
 	/** 表单验证START */
 	studyDayForm = $("#studyDay-form").validate({
 		messages: {
@@ -381,7 +368,6 @@ debugger;
 	});
 	/** 表单验证END */
 
-	//TODO
 	
 	//新增根据一级菜单获取相应的二级菜单 暂时用不上，现在没有级联菜单
 	$('#menuName').change(function(){
@@ -438,7 +424,7 @@ debugger;
 
 	$("#updateRecImg-form").validate({
 		messages: {
-			recImgPath: {
+			icon: {
 				required: "请选择图片！"
 			}
 		}
@@ -996,23 +982,24 @@ function search_P(){
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
 	searchButton(P_courseTable,json);
 };
+//TODO
 /**
  * 线下培训班推荐
  */
 function search_rec(){
 	
-	var json = new Array();
-    json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
-	searchButton(P_courseTable,json);
+	var searchCase_P = new Array();
+	searchCase_P.push('{"tempMatchType":9,"propertyName":"search_onlineCourse","propertyValue1":"1","tempType":Integer}');
+	searchCase_P.push('{"tempMatchType":"9","propertyName":"search_city","propertyValue1":"'+$("#search_rec").val()+'","tempType":"String"}');
+	searchButton(_courseRecTable,searchCase_P);
 };
 /**
  * 城市推荐管理
  */
 function search_City(){
-	
 	var json = new Array();
-    json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
-	searchButton(P_courseTable,json);
+    json.push('{"tempMatchType":"9","propertyName":"search_city","propertyValue1":"'+$("#search_city").val()+'","tempType":"String"}');
+	searchButton(_cityTable,json);
 };
 
 
@@ -1390,7 +1377,7 @@ function updateStatus(obj,status){
 	}else{
 		row = M_courseTable.fnGetData(oo); // get datarow
 	}
-	ajaxRequest(basePath+"/cloudclass/course/updateStatus",{"id":row.id},function(){
+	ajaxRequest(basePath+"/realClass/course/updateStatus",{"id":row.id},function(){
 		if(status==1) {
 			freshTable(P_courseTable);
 		}else{
@@ -1421,8 +1408,9 @@ function updateRec(obj){
  * @param obj
  */
 function updateRecImg(obj){
+	debugger; //TODO
 	var oo = $(obj).parent().parent().parent();
-	var row = _courseRecTable.fnGetData(oo); // get datarow
+	var row = _cityTable.fnGetData(oo); // get datarow
 	
 	$(".clearfixUpdate").remove();
  	$("#updateRecImg").prepend("<div class=\"clearfixUpdate\">\n" +
@@ -1436,14 +1424,12 @@ function updateRecImg(obj){
 	
 	if(row.recImgPath != null && row.recImgPath != ""){
 		reviewImageRecImg("update_recImgPath_file",row.recImgPath);
-		
 		$(".remove").hide();
 	}
-
 	var dialog = openDialog("updateRecImgDialog","dialogUpdateRecImgDiv","设置课程展示图",580,330,true,"确定",function(){
  		if($("#updateRecImg-form").valid()){
  			 mask();
- 			 $("#updateRecImg-form").attr("action", basePath+"/cloudclass/course/updateRecImgPath");
+ 			 $("#updateRecImg-form").attr("action", basePath+"/realClass/course/courseCityUpdate");
  	            $("#updateRecImg-form").ajaxSubmit(function(data){
  	            	try{
                  		data = jQuery.parseJSON(jQuery(data).text());
@@ -1451,10 +1437,11 @@ function updateRecImg(obj){
                  		data = data;
                  	}
  	                unmask();
+ 	                debugger;
  	                if(data.success){
  	                    $("#updateRecImgDialog").dialog("close");
- 	                    layer.msg(data.errorMessage);
- 	                    freshTable(_courseRecTable);
+ 	                    layer.msg("修改成功");
+ 	                    freshTable(_cityTable);
  	                }else{
  	                	layer.msg(data.errorMessage);
  	               }

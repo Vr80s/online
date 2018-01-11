@@ -211,6 +211,12 @@ public class CourseController extends AbstractController{
 			searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
 		}
 		
+		Group city = groups.findByName("search_city");
+		
+		if (city != null) {
+			searchVo.setRealCitys(city.getPropertyValue1().toString());
+		}
+		
 		Group type = groups.findByName("search_type");
 		if (type != null) {
 			searchVo.setType(Integer.valueOf(type.getPropertyValue1().toString()));

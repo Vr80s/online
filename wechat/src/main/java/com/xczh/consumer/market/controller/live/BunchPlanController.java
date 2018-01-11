@@ -165,11 +165,17 @@ public class BunchPlanController {
 		 */
 		//做下播放的兼容性
 		String flag = req.getParameter("flag");//传递一个参数
+		String newflag = req.getParameter("newflag");//传递一个参数
+		if(StringUtils.isNotBlank(newflag)){
+			flag = newflag;
+		}
+		
 		String appUniqueId = req.getParameter("appUniqueId");
 		log.info("flag:"+flag);
 		log.info("appUniqueId:"+appUniqueId);
 		log.info("liveid:"+courseLecturVo.getDirectId());
-		if(!StringUtils.isNotBlank(flag) && StringUtils.isNotBlank(appUniqueId)){ //等于null的是以前的版本需要判断是否需要获取视频id
+		
+		if((!StringUtils.isNotBlank(flag) && StringUtils.isNotBlank(appUniqueId))){ //等于null的是以前的版本需要判断是否需要获取视频id
 			courseLecturVo = changeLiveId(courseLecturVo);
 			log.info("liveid:"+courseLecturVo.getDirectId());
 		}
@@ -184,15 +190,17 @@ public class BunchPlanController {
 //		265106673    593193792   814649885
 		Map<Integer,String> map = new HashMap<Integer,String>();
 		// key 课程id   value  对应的视频id
-		map.put(557, "562965798");
-		map.put(556, "238481982");
-		map.put(555, "598747364");
-/*		map.put(4, "340273573");
-		map.put(5, "337055289");
-		map.put(6, "362080337");
-		map.put(7, "265106673");
-		map.put(8, "593193792");
-		map.put(9, "814649885");*/
+		map.put(611, "562965798");
+		map.put(612, "238481982");
+		map.put(613, "598747364");
+		
+		map.put(614, "340273573");
+		map.put(615, "337055289");
+		map.put(616, "362080337");
+		
+		map.put(608, "265106673");
+		map.put(609, "593193792");
+		map.put(610, "814649885");
 		for (Integer key : map.keySet()) {
 			System.out.println("key= "+ key + " and value= " + map.get(key));
 			if(key.equals(new Integer(courseLecturVo.getId()))){
@@ -338,7 +346,6 @@ public class BunchPlanController {
 				//map.put("category", menuService.list());
 				list11.add(menuService.list());
 				
-				
 				List<Map<String, Object>>  list  = new ArrayList<Map<String,Object>>();
 				Map<String, Object> m1 = new HashMap<String, Object>();
 				m1.put("id", "1");
@@ -474,8 +481,6 @@ public class BunchPlanController {
 	    List<MenuVo> listmv = menuService.list();
 	    
 		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,4,null,listmv);
-		
-		log.info(listAll.size()+"");
 		
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		

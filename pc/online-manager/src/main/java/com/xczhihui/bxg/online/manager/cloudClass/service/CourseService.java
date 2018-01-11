@@ -296,9 +296,11 @@ public interface CourseService {
 	 * @return List<OffLineCity>
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	Page<OffLineCity>   getCourseCityList(Integer pageNumber,Integer pageSize);
+	Page<OffLineCity>   getCourseCityList(OffLineCity searchVo,Integer pageNumber,Integer pageSize);
 
 	public void updateCourseCityStatus(Integer id);
 
 	public void deleteCourseCityStatus(Integer id);
+
+	public void updateCourseCity(OffLineCity offLineCity);
 }
