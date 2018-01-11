@@ -1,5 +1,4 @@
 var scoreTypeTable;
-var roleForm;
 var searchCase;
 var seed=1;
 var searchCase = new Array();
@@ -14,7 +13,7 @@ $(function(){
 				        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
 				    }},
 	               { "title": "序号", "class": "center","width":"80px","sortable": false,"data":"sort" },
-	               { "title": "医疗领域名称", "class":"center","sortable":false,"data": 'name' },
+	               { "title": "科室名称", "class":"center","sortable":false,"data": 'name' },
 	               { "title": "创建人", "class":"center","sortable":false,"data": 'createPerson' },
 					{ "title": "创建日期", "class":"center","sortable":false,"data": 'createTime','mRender':function(data, display, row){
 						return getLocalTime(data);
@@ -24,21 +23,7 @@ $(function(){
 						return row.status?"已启用":"已禁用";
 						}
 					},
-					// { "sortable": false,"data":"id","class": "center","width":"10%","title":"排序","mRender":function (data, display, row) {
-					// 	if(row.status ==1){//如果是禁用
-				    	// 	return '<div class="hidden-sm hidden-xs action-buttons">'+
-				    	// 	'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-				     //    	'<a class="blue" name="downa" href="javascript:void(-1);" title="下移"  onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-				    	// }else{
-				    	// 	return '<div class="hidden-sm hidden-xs action-buttons">'+
-				    	// 	'<a class="gray" href="javascript:void(-1);" title="上移"  ><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-				     //    	'<a class="gray" href="javascript:void(-1);" title="下移"  ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
-				    	// }
-			   		// 	}
-					// },
 	               { "sortable": false,"data":"id","class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
-	               	// debugger
-		            	//    if(row.menuCount==0){
 		            		   var buttons= '<div class="hidden-sm hidden-xs action-buttons">'+
 								'<a class="blue" href="javascript:void(-1);" title="查看" onclick="openShow(this)"><i class="ace-icon fa fa-search  bigger-130"></i></a>'+
 								'<a class="blue" href="javascript:void(-1);" title="修改" onclick="editDialog(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
@@ -48,23 +33,12 @@ $(function(){
 									buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ';
 								};
 		      				return buttons;
-		            	   // }else{
-		            		//    var buttons= '<div class="hidden-sm hidden-xs action-buttons">'+
-							// 	'<a class="blue" href="javascript:void(-1);" title="查看" onclick="openShow(this)"><i class="ace-icon fa fa-search  bigger-130"></i></a>'+
-							// 	'<a class="gray" href="javascript:void(-1);" title="修改" ><i class="ace-icon fa fa-pencil bigger-130"></i></a>';
-					   		// 	if(row.status==1) {
-							// 		buttons+='<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
-							// 	}else{
-							// 		buttons+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> ';
-							// 	};
-		      				// return buttons;
-		            	   // }
 
 				   		}
 		      		},
 		      		{ "title": "被引用的数量", "class": "center","width":"80px","sortable": false,"data":"menuCount","visible":false }
 		      		];
-	scoreTypeTable = initTables("scoreTypeTable",basePath+"/medical/field/list",objData,true,true,2,null,searchCase,function(data){
+	scoreTypeTable = initTables("scoreTypeTable",basePath+"/medical/department/list",objData,true,true,2,null,searchCase,function(data){
 		debugger
 			// var iDisplayStart = data._iDisplayStart;
 			// var countNum = data._iRecordsTotal;//总条数
@@ -100,7 +74,7 @@ $(function(){
 	addForm = $("#add-form").validate({
 		messages:{
 			name: {
-				required:"请输入医疗领域名称！",
+				required:"请输入科室名称！",
 				minlength:"授课方式名称过短，应大于2个字符！"
 			}
 		}
@@ -109,7 +83,7 @@ $(function(){
 	updateForm= $("#update-form").validate({
 		messages:{
 			name: {
-				required:"请输入医疗领域名称！",
+				required:"请输入科室名称！",
 				minlength:"授课方式名称过短，应大于2个字符！"
 			}
 		}
@@ -134,14 +108,14 @@ $(function(){
 			    $(this).val($(this).val().substring(0,100));
 			   }
 		   });
-//		 ajaxRequest(basePath+"/medical/field/maxSort",null,function(result){
+//		 ajaxRequest(basePath+"/medical/department/maxSort",null,function(result){
 			  $("input[name='code']").removeAttr("disabled");//增加角色把代码框放开
 			  addForm.resetForm();
 			 // $("#remark").val(result.resultObject+1); 去掉之前sort的默认值
-			  openDialog("roleDialog","dialogRoleDiv","新增医疗领域",500,330,true,"提交",function(){
+			  openDialog("roleDialog","dialogRoleDiv","新增科室",500,330,true,"提交",function(){
 				  if($("#add-form").valid()){
 					  mask();
-					  $("#add-form").attr("action", "medical/field/add");
+					  $("#add-form").attr("action", "medical/department/add");
 					  $("#add-form").ajaxSubmit(function(data){
 						  unmask();
 						  if(data.success){
@@ -177,7 +151,7 @@ $(function(){
 function updateStatus(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = scoreTypeTable.fnGetData(oo);
-	ajaxRequest(basePath+"/medical/field/updateStatus",{"id":aData.id,"status":aData.status},function(){
+	ajaxRequest(basePath+"/medical/department/updateStatus",{"id":aData.id,"status":aData.status},function(){
 		freshTable(scoreTypeTable);
 	});
 }
@@ -191,27 +165,6 @@ function childrenMenusUpdateStatus(id,status){
 	});
 }
 
-/**
- * 上移
- * @param obj
- *//*
-function childrenMenusUpMove(id,pid){
-	ajaxRequest(basePath+"/cloudClass/menu/up",{"pid":pid,"id":id,"level":2},function(res){
-		if(res.success){
-			ajaxRequest(basePath+"/cloudClass/menu/childMenu",{'pid':pid},function(data) {
-				drawMenusPage(data,pid);
-			});
-		}
-	});
-}
-
-*
-
-
-/**
- * 上移
- * @param obj
- */
 function upMove(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = scoreTypeTable.fnGetData(oo);
@@ -260,10 +213,10 @@ function editDialog(obj){
 	$("#update_id").val(aData.id);
 	$("#update_name").val(aData.name);
 	$("#update_remark").val(aData.remark);
-	openDialog("updateDialog","updateDialogDiv","修改医疗领域",500,330,true,"提交",function(){
+	openDialog("updateDialog","updateDialogDiv","修改科室",500,330,true,"提交",function(){
 		if($("#update-form").valid()){
 			mask();
-			$("#update-form").attr("action", "medical/field/update");
+			$("#update-form").attr("action", "medical/department/update");
 			$("#update-form").ajaxSubmit(function(data){
 				unmask();
 				if(data.success){
@@ -288,36 +241,11 @@ function openShow(obj){
 	$("#show_createTime").text(row.createTime);
 	$("#show_status").text(row.status=="1"?"已启用":"已禁用");
 	$("#show_remark").text(row.remark);
-	var dialog = openDialogNoBtnName("previewCloudClasMenuDialog","previewCloudClasMenuDialogDiv","查看医疗领域",555,350,false,"确定",null);
+	var dialog = openDialogNoBtnName("previewCloudClasMenuDialog","previewCloudClasMenuDialogDiv","查看科室",555,350,false,"确定",null);
 }
-
-
-function openMenuManage(obj){
-	var oo = $(obj).parent().parent().parent();
-	var row = scoreTypeTable.fnGetData(oo); // get datarow
-	$("#parentId").val(row.id);
-	ajaxRequest(basePath+"/cloudClass/menu/childMenu",{'pid':row.id},function(data) {
-		drawMenusPage(data,row.id);
-		var dialog = openDialogNoBtnName("childMenuDialog", "childMenuDialogDiv", "设置", 555, 230, true, "确定", null);
-	});
-}
-
-
 
 function cancelRow(trId){
 	$(trId).hide();
-}
-function saveMenusRow(menus_name_id,pid){
-	var menuName=$("#"+menus_name_id).val();
-	if(menuName!=null&&menuName.length>0){
-		ajaxRequest(basePath+"/cloudClass/menu/addChildren",{'menuName':menuName,'parentId':pid},function(data) {
-			if(data.success){
-				ajaxRequest(basePath+"/cloudClass/menu/childMenu",{'pid':pid},function(data) {
-					drawMenusPage(data,pid);
-				})
-			}
-		});
-	}
 }
 function appendRow(pid){
 	$("#childMenus").append("<tr id='tr_"+seed+"'><td><input type='text' id='menus_name_"+seed+"' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='保存' onclick='saveMenusRow(\"menus_name_"+seed+"\",\""+pid+"\")'/>&nbsp;&nbsp;&nbsp;<input type='button' value='取消' onclick='cancelRow(tr_"+seed+")'/></td></tr>");
@@ -394,7 +322,7 @@ function search(){
 }
 
 function deleteBatch(){
-	deleteAll(basePath+"/medical/field/deletes",scoreTypeTable);
+	deleteAll(basePath+"/medical/department/deletes",scoreTypeTable);
 }
 
 

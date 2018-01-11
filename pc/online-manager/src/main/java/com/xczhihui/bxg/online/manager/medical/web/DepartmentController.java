@@ -3,16 +3,15 @@ package com.xczhihui.bxg.online.manager.medical.web;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
-import com.xczhihui.bxg.online.common.domain.MedicalField;
+import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
 import com.xczhihui.bxg.online.common.domain.User;
-import com.xczhihui.bxg.online.manager.medical.service.FieldService;
+import com.xczhihui.bxg.online.manager.medical.service.DepartmentService;
 import com.xczhihui.bxg.online.manager.user.service.UserService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,25 +24,24 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 菜单控制层实现类
+ * 科室控制层实现类
  * @author Rongcai Kang
  */
 @RestController()
-@RequestMapping(value = "/medical/field")
-public class FieldController {
+@RequestMapping(value = "/medical/department")
+public class DepartmentController {
 
      @Autowired
-     private FieldService service;
+     private DepartmentService service;
      @Autowired
      private UserService userService;
 
      @RequestMapping(value = "/index")
      public ModelAndView index(){
-          ModelAndView mav=new ModelAndView("/medical/field");
+          ModelAndView mav=new ModelAndView("/medical/department");
           return mav;
      }
 
-     @RequiresPermissions("cloudClass:menu:MedicalField")
      @RequestMapping(value = "list")
      @ResponseBody
      public TableVo list(TableVo tableVo) {
@@ -56,22 +54,16 @@ public class FieldController {
           Group nameGroup = groups.findByName("name");
           Group time_startGroup = groups.findByName("time_start");
           Group time_endGroup = groups.findByName("time_end");
-          MedicalField searchVo=new MedicalField();
+          MedicalDepartment searchVo=new MedicalDepartment();
           if(createPersonGroup!=null){
                searchVo.setCreatePerson(createPersonGroup.getPropertyValue1().toString());
           }
-//          if(time_startGroup!=null){
-//               searchVo.setTime_start(DateUtil.parseDate(time_startGroup.getPropertyValue1().toString(), "yyyy-MM-dd"));
-//          }
-//          if(time_endGroup!=null){
-//               searchVo.setTime_end(DateUtil.parseDate(time_endGroup.getPropertyValue1().toString(),"yyyy-MM-dd"));
-//          }
           if(nameGroup!=null){
                searchVo.setName(nameGroup.getPropertyValue1().toString());
           }
-          Page<MedicalField> page = service.findMenuPage(searchVo, currentPage, pageSize);
+          Page<MedicalDepartment> page = service.findMenuPage(searchVo, currentPage, pageSize);
           if(page.getItems().size()>0){
-               for(MedicalField vo:page.getItems()){
+               for(MedicalDepartment vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
                     if(user!=null)
                          vo.setCreatePerson(user.getName());
@@ -84,35 +76,34 @@ public class FieldController {
           return tableVo;
      }
 
-     @RequiresPermissions("cloudClass:menu:MedicalField")
      @RequestMapping(value = "alllist")
      @ResponseBody
-     public List<MedicalField> alllist(String id,Integer type) {
+     public List<MedicalDepartment> alllist(String id) {
 
-          List<MedicalField> allField = service.findAllField(id,type);
+          List<MedicalDepartment> allField = service.findAllDepartment(id);
 
           return allField;
      }
      
      /**
       * 添加数据
-      * @param MedicalField
+      * @param MedicalDepartment
       * @return
       * @throws InvocationTargetException
       * @throws IllegalAccessException
       */
      @RequestMapping(value = "add", method = RequestMethod.POST)
      @ResponseBody
-     public ResponseObject add(MedicalField MedicalField) throws InvocationTargetException, IllegalAccessException {
+     public ResponseObject add(MedicalDepartment MedicalDepartment) throws InvocationTargetException, IllegalAccessException {
     	 ResponseObject responseObj = new ResponseObject();
-          MedicalField entity=new MedicalField();
-          BeanUtils.copyProperties(entity, MedicalField);
-          entity.setName(MedicalField.getName());
-          entity.setRemark(MedicalField.getRemark());
+          MedicalDepartment entity=new MedicalDepartment();
+          BeanUtils.copyProperties(entity, MedicalDepartment);
+          entity.setName(MedicalDepartment.getName());
+          entity.setRemark(MedicalDepartment.getRemark());
           if(entity.getName()==null){
-               throw new IllegalArgumentException("请输入医疗领域名称");
+               throw new IllegalArgumentException("请输入科室名称");
           }
-          MedicalField existsEntity = service.findMedicalFieldByName(entity.getName());
+          MedicalDepartment existsEntity = service.findMedicalDepartmentByName(entity.getName());
           if (existsEntity != null && existsEntity.getDeleted()!=true) {
                throw new IllegalArgumentException("已经存在");
           }
@@ -122,32 +113,32 @@ public class FieldController {
 //          entity.setStatus(false);
           service.save(entity);
           responseObj.setSuccess(true);
-          responseObj.setErrorMessage("新增医疗领域成功");
+          responseObj.setErrorMessage("新增科室成功");
          return responseObj;
      }
      
      /**
-      * 更新医疗领域管理表
-      * @param menu
+      * 更新科室管理表
+      * @param medicalDepartment
       * @return
       * @throws InvocationTargetException
       * @throws IllegalAccessException
       */
      @RequestMapping(value = "update", method = RequestMethod.POST)
      @ResponseBody
-     public ResponseObject update(MedicalField MedicalField) throws InvocationTargetException, IllegalAccessException {
+     public ResponseObject update(MedicalDepartment medicalDepartment) throws InvocationTargetException, IllegalAccessException {
           ResponseObject responseObject=new ResponseObject();
-          MedicalField entity=new MedicalField();
-          BeanUtils.copyProperties(entity,MedicalField);
-          entity.setName(MedicalField.getName());
-          if(MedicalField==null)
+          MedicalDepartment entity=new MedicalDepartment();
+          BeanUtils.copyProperties(entity,medicalDepartment);
+          entity.setName(medicalDepartment.getName());
+          if(medicalDepartment==null)
                throw new IllegalArgumentException("不存在记录");
-          MedicalField searchEntity=service.findById(MedicalField.getId());
-          searchEntity.setName(MedicalField.getName());
+          MedicalDepartment searchEntity=service.findById(medicalDepartment.getId());
+          searchEntity.setName(medicalDepartment.getName());
           if (service.exists(searchEntity)) {
                throw new IllegalArgumentException("已经存在了");
           }
-          MedicalField me=service.findById(MedicalField.getId());
+          MedicalDepartment me=service.findById(medicalDepartment.getId());
           me.setName(entity.getName());
           me.setRemark(entity.getRemark());
           service.update(me);
@@ -196,25 +187,13 @@ public class FieldController {
           return responseObj;
      }
 
-
-
-     @RequestMapping(value = "addHospitalField", method = RequestMethod.POST)
+     @RequestMapping(value = "addDoctorDepartment", method = RequestMethod.POST)
      @ResponseBody
-     public ResponseObject addHospitalField(String id,String[] fieldId) {
+     public ResponseObject addDoctorDepartment(String id,String[] departmentId) {
           ResponseObject responseObject=new ResponseObject();
-          service.addHospitalField(id,fieldId);
+          service.addDoctorDepartment(id,departmentId);
           responseObject.setSuccess(true);
-          responseObject.setResultObject("医疗领域配置成功！");
-          return responseObject;
-     }
-
-     @RequestMapping(value = "addDoctorField", method = RequestMethod.POST)
-     @ResponseBody
-     public ResponseObject addDoctorField(String id,String[] fieldId) {
-          ResponseObject responseObject=new ResponseObject();
-          service.addDoctorField(id,fieldId);
-          responseObject.setSuccess(true);
-          responseObject.setResultObject("医疗领域配置成功！");
+          responseObject.setResultObject("科室配置成功！");
           return responseObject;
      }
 

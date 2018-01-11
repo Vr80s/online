@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.manager.medical.dao;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.MedicalField;
+import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
 import com.xczhihui.bxg.online.manager.common.dao.HibernateDao;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
@@ -10,12 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository("fieldDao")
-public class FieldDao extends HibernateDao<MedicalField> {
+@Repository("departmentDao")
+public class DepartmentDao extends HibernateDao<MedicalDepartment> {
 
-    public Page<MedicalField> findMedicalFieldPage(MedicalField menuVo, int pageNumber, int pageSize){
+    public Page<MedicalDepartment> findMedicalDepartmentPage(MedicalDepartment menuVo, int pageNumber, int pageSize){
         Map<String,Object> paramMap=new HashMap<String,Object>();
-        StringBuilder sql=new StringBuilder("SELECT * FROM `medical_field` ds where deleted=0 ");
+        StringBuilder sql=new StringBuilder("SELECT * FROM `medical_department` ds where deleted=0 ");
         if(menuVo.getName()!=null&&!"".equals(menuVo.getName())){
             sql.append(" and ds.name like :name ");
             paramMap.put("name","%"+menuVo.getName()+"%");
@@ -25,7 +25,7 @@ public class FieldDao extends HibernateDao<MedicalField> {
             paramMap.put("create_person", "%" + menuVo.getCreatePerson()+"%");
         }
         sql.append(" order by  status desc,create_time desc ");
-        Page<MedicalField> pages = this.findPageBySQL(sql.toString(), paramMap, MedicalField.class, pageNumber, pageSize);
+        Page<MedicalDepartment> pages = this.findPageBySQL(sql.toString(), paramMap, MedicalDepartment.class, pageNumber, pageSize);
 
         return pages;
     }
@@ -35,11 +35,11 @@ public class FieldDao extends HibernateDao<MedicalField> {
 	 * @param parseInt
 	 * @return
 	 */
-	public MedicalField findById(String parseInt) {
-		StringBuilder sql=new StringBuilder("select * from medical_field where id=:id");
+	public MedicalDepartment findById(String parseInt) {
+		StringBuilder sql=new StringBuilder("select * from medical_department where id=:id");
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("id",parseInt);
-        List<MedicalField> menus=this.getNamedParameterJdbcTemplate().query(sql.toString(),params,BeanPropertyRowMapper.newInstance(MedicalField.class));
+        List<MedicalDepartment> menus=this.getNamedParameterJdbcTemplate().query(sql.toString(),params,BeanPropertyRowMapper.newInstance(MedicalDepartment.class));
         if(menus.size()>0){
             return menus.get(0);
         }
@@ -51,11 +51,11 @@ public class FieldDao extends HibernateDao<MedicalField> {
 	 * @param searchEntity
 	 * @return
 	 */
-	public MedicalField findByNotEqId(MedicalField searchEntity) {
-		StringBuilder sql=new StringBuilder("select * from medical_field where name=:name and  deleted =0");
+	public MedicalDepartment findByNotEqId(MedicalDepartment searchEntity) {
+		StringBuilder sql=new StringBuilder("select * from medical_department where name=:name and  deleted =0");
         Map<String,Object> params=new HashMap<String,Object>();
         params.put("name", searchEntity.getName());
-        List<MedicalField> menus=this.getNamedParameterJdbcTemplate().query(sql.toString(),params,BeanPropertyRowMapper.newInstance(MedicalField.class));
+        List<MedicalDepartment> menus=this.getNamedParameterJdbcTemplate().query(sql.toString(),params,BeanPropertyRowMapper.newInstance(MedicalDepartment.class));
         if(menus.size()>0){
             return menus.get(0);
         }
@@ -69,7 +69,7 @@ public class FieldDao extends HibernateDao<MedicalField> {
 	 * @return
 	 */
 	public String deleteById(String id) {
-		String deleteSql = " update medical_field set deleted=1 where  id = :id ";
+		String deleteSql = " update medical_department set deleted=1 where  id = :id ";
 		Map<String,Object> params2=new HashMap<String,Object>();
 		params2.put("id", id);
 		this.getNamedParameterJdbcTemplate().update(deleteSql, params2);

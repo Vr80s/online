@@ -3,7 +3,7 @@ package com.xczhihui.bxg.online.manager.medical.service;
 
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.MedicalField;
+import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  *   MenuService:菜单业务层接口类
  * * @author Rongcai Kang
  */
-public interface FieldService {
+public interface DepartmentService {
 	/**
 	 * 查询课程列表数据
 	 * @param menuVo
@@ -19,43 +19,43 @@ public interface FieldService {
 	 * @param pageSize
 	 * @return
 	 */
-    public Page<MedicalField> findMenuPage(MedicalField menuVo, Integer pageNumber, Integer pageSize);
+    public Page<MedicalDepartment> findMenuPage(MedicalDepartment menuVo, Integer pageNumber, Integer pageSize);
 
     /**
      * 查询课程类别名称是否存在
      * @param name
      * @return
      */
-	public MedicalField findMedicalFieldByName(String name);
+	public MedicalDepartment findMedicalDepartmentByName(String name);
 
-	public List<MedicalField> list();
+	public List<MedicalDepartment> list();
 
 
 	/**
 	 * 保存实体
 	 * @param entity
 	 */
-	public void save(MedicalField entity);
+	public void save(MedicalDepartment entity);
 
 	/**
 	 * 判断实体是否存在
 	 * @param searchEntity
 	 * @return
 	 */
-	public boolean exists(MedicalField searchEntity);
+	public boolean exists(MedicalDepartment searchEntity);
 
 	/**
 	 * 更新课程类别
 	 * @param me
 	 */
-	public void update(MedicalField me);
+	public void update(MedicalDepartment me);
 
 	/**
 	 *通过id进行查找
 	 * @param string
 	 * @return
 	 */
-	public MedicalField findById(String string);
+	public MedicalDepartment findById(String string);
 
 	/**
 	 * 删除数据
@@ -70,9 +70,7 @@ public interface FieldService {
 	 */
 	public void updateStatus(String id);
 
-    List<MedicalField> findAllField(String id, Integer type);
+    List<MedicalDepartment> findAllDepartment(String id);
 
-    void addHospitalField(String id, String[] field);
-
-    void addDoctorField(String id, String[] fieldId);
+    void addDoctorDepartment(String id, String[] departmentId);
 }

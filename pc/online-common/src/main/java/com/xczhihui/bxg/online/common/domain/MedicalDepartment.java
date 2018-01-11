@@ -10,9 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="medical_field")
-@NamedQuery(name="MedicalField.findAll", query="SELECT m FROM MedicalField m")
-public class MedicalField implements Serializable {
+@Table(name="medical_department")
+public class MedicalDepartment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -48,7 +47,7 @@ public class MedicalField implements Serializable {
 	@Transient
 	private Boolean has;
 
-	public MedicalField() {
+	public MedicalDepartment() {
 	}
 
 	public Boolean getHas() {

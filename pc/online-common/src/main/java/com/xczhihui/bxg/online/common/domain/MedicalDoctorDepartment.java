@@ -10,9 +10,8 @@ import java.util.Date;
  * 
  */
 @Entity
-@Table(name="medical_doctor_field")
-@NamedQuery(name="MedicalDoctorField.findAll", query="SELECT m FROM MedicalDoctorField m")
-public class MedicalDoctorField implements Serializable {
+@Table(name="medical_doctor_department")
+public class MedicalDoctorDepartment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,10 +24,10 @@ public class MedicalDoctorField implements Serializable {
 	@Column(name="doctor_id")
 	private String doctorId;
 
-	@Column(name="field_id")
-	private String fieldId;
+	@Column(name="department_id")
+	private String departmentId;
 
-	public MedicalDoctorField() {
+	public MedicalDoctorDepartment() {
 	}
 
 	public String getId() {
@@ -55,12 +54,11 @@ public class MedicalDoctorField implements Serializable {
 		this.doctorId = doctorId;
 	}
 
-	public String getFieldId() {
-		return this.fieldId;
+	public String getDepartmentId() {
+		return departmentId;
 	}
 
-	public void setFieldId(String fieldId) {
-		this.fieldId = fieldId;
+	public void setDepartmentId(String departmentId) {
+		this.departmentId = departmentId;
 	}
-
 }

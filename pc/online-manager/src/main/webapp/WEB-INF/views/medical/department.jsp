@@ -15,12 +15,12 @@
 <div class="page-header">
   当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span> 医疗领域管理 </span>
+  <span> 科室管理 </span>
 </div>
 
 <div class="mainrighttab tabresourse bordernone">
   <p class="col-xs-4" style="padding:0px">
-    <button class="btn btn-sm btn-success add_bx" id="add_button" title="新增医疗领域"><i class="glyphicon glyphicon-plus"></i> 新增医疗领域</button>
+    <button class="btn btn-sm btn-success add_bx" id="add_button" title="新增科室"><i class="glyphicon glyphicon-plus"></i> 新增科室</button>
     <button class="btn btn-sm btn-success deletes_bx"  onclick="deleteBatch();" title="批量删除"><i class="glyphicon glyphicon-trash"></i> 批量删除</button>
   </p>
     <div class="searchDivClass" id="searchDiv">
@@ -34,25 +34,9 @@
                             <input type="hidden" value="createPerson" class="propertyName"/>
                         </div>
                     </td>
-                   <%-- <td>
-                        <div class="profile-info-value searchTr">
-                            <input type="text" class="datetime-picker" name="time_start" id="time_start"  placeholder = "开始创建时间"/>
-                            <input type="hidden" value="time_start" class="propertyValue1"/>
-
-                        </div>
-                    </td>
-                    <td style="font-size: 12px">
-                        &nbsp;&nbsp;至
-                    </td>
                     <td>
                         <div class="profile-info-value searchTr">
-                            <input type="text" class="datetime-picker" name="time_end" id="time_end" placeholder = "结束创建时间"/>
-                            <input type="hidden" value="time_end" class="propertyValue1"/>
-                        </div>
-                    </td>--%>
-                    <td>
-                        <div class="profile-info-value searchTr">
-                            <input type="text" placeholder = "医疗领域名称" class="propertyValue1" id="name" style="width: 150px;">
+                            <input type="text" placeholder = "科室名称" class="propertyValue1" id="name" style="width: 150px;">
                             <input type="hidden" value="name" class="propertyName"/>
                         </div>
                     </td>
@@ -79,7 +63,7 @@
   <form  method="post" class="form-horizontal" role="form" id="add-form" style="margin-top: 15px;">
     <input type="hidden" name="id" id="id">
     <div class="form-group">
-      <label class="col-xs-12 col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 医疗领域名称: </label>
+      <label class="col-xs-12 col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 科室名称: </label>
       <div class="col-xs-12 col-sm-9">
         <input type="text" name="name" style="margin-right: 15px;"  maxlength="4" class="col-xs-10 col-sm-8 {required:true,minlength:2}">
       </div>
@@ -101,7 +85,7 @@
     <form action="user/role/add" method="post" class="form-horizontal" role="form" id="update-form" style="margin-top: 15px;">
         <input type="hidden" name="id" id="update_id">
         <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 医疗领域名称: </label>
+            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 科室名称: </label>
             <div class="col-sm-9">
                 <input type="text" id="update_name" name="name"  style="margin-right: 15px;"  maxlength="4" class="col-xs-10 col-sm-8 {required:true,minlength:2}">
             </div>
@@ -123,7 +107,7 @@
 <div id="previewCloudClasMenuDialog" class="hide" >
     <form class="form-horizontal"  method="post" action="" style="width:500px;margin-top: 15px;" >
         <div class="form-group row">
-            <label class="col-sm-5 control-label no-padding-right"><i class="text-danger">*</i><span style="font-weight: bold;"> 医疗领域名称: </span></label>
+            <label class="col-sm-5 control-label no-padding-right"><i class="text-danger">*</i><span style="font-weight: bold;"> 科室名称: </span></label>
             <div class="col-sm-7">
                 <p id="show_menuName" class="paddingtop7px padding7"></p>
             </div>
@@ -162,7 +146,7 @@
 <div id="childMenuDialogDiv"></div>
 <div id="childMenuDialog" class="hide" >
 
-    <label class="control-label no-padding-right"><i class="text-danger">*</i> 请设置改分类包含的医疗领域: </label>
+    <label class="control-label no-padding-right"><i class="text-danger">*</i> 请设置改分类包含的科室: </label>
     <form class="form-horizontal"  method="post" action="" style="width:500px;">
         <input type="hidden" name="parentId" id="parentId"/>
         <table id="childMenus">
@@ -173,4 +157,4 @@
 -->
 
 
-<script type="text/javascript" src="${base}/js/medical/field.js?ver=1.2"></script>
+<script type="text/javascript" src="${base}/js/medical/department.js?ver=1.2"></script>

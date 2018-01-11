@@ -2,33 +2,36 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
-import com.xczhihui.bxg.online.common.domain.MedicalField;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalField;
-import com.xczhihui.bxg.online.manager.medical.dao.FieldDao;
-import com.xczhihui.bxg.online.manager.medical.service.FieldService;
+import com.xczhihui.bxg.online.manager.medical.dao.DepartmentDao;
+import com.xczhihui.bxg.online.manager.medical.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 /**
  *   MenuServiceImpl:菜单业务层接口实现类
  *   @author Rongcai Kang
  */
 @Service
-public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldService {
+public class DepartmentServiceImpl extends OnlineBaseServiceImpl implements DepartmentService {
 
     @Autowired
-    private FieldDao medicalFieldDao;
+    private DepartmentDao departmentDao;
 
 
     /**
      * 查询列表
      */
     @Override
-    public Page<MedicalField> findMenuPage(MedicalField menuVo, Integer pageNumber, Integer pageSize)  {
-        Page<MedicalField> page = medicalFieldDao.findMedicalFieldPage(menuVo, pageNumber, pageSize);
+    public Page<MedicalDepartment> findMenuPage(MedicalDepartment menuVo, Integer pageNumber, Integer pageSize)  {
+        Page<MedicalDepartment> page = departmentDao.findMedicalDepartmentPage(menuVo, pageNumber, pageSize);
         return page;
     }
 
@@ -37,15 +40,15 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
      * 查找输入的课程类别是否存在
      */
 	@Override
-	public MedicalField findMedicalFieldByName(String name) {
-		return medicalFieldDao.findOneEntitiyByProperty(MedicalField.class,"name",name);
+	public MedicalDepartment findMedicalDepartmentByName(String name) {
+		return departmentDao.findOneEntitiyByProperty(MedicalDepartment.class,"name",name);
 	}
 
 	@Override
-	public List<MedicalField> list() {
-		String sql="select * from medical_field where deleted=0 and status=1 order by  convert(name using gbk) ASC";
+	public List<MedicalDepartment> list() {
+		String sql="select * from medical_Department where deleted=0 and status=1 order by  convert(name using gbk) ASC";
 //		Map<String,Object> params=new HashMap<String,Object>();
-		List<MedicalField> voList=medicalFieldDao.findEntitiesByJdbc(MedicalField.class, sql, null);
+		List<MedicalDepartment> voList=departmentDao.findEntitiesByJdbc(MedicalDepartment.class, sql, null);
 		return voList;
 	}
 
@@ -54,17 +57,17 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 	 * 保存实体
 	 */
 	@Override
-	public void save(MedicalField entity) {
+	public void save(MedicalDepartment entity) {
 		String id = UUID.randomUUID().toString().replace("-","");
 		entity.setId(id);
-		medicalFieldDao.save(entity);
+		departmentDao.save(entity);
 	}
 
 
 	@Override
-	public boolean exists(MedicalField searchEntity) {
+	public boolean exists(MedicalDepartment searchEntity) {
 		//输入了一个名称 这个名称数据库已经存在了
-        MedicalField she=medicalFieldDao.findByNotEqId(searchEntity);
+        MedicalDepartment she=departmentDao.findByNotEqId(searchEntity);
         if(she!=null){
             return true;
         }
@@ -73,14 +76,14 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 
 
 	@Override
-	public void update(MedicalField me) {
-		medicalFieldDao.update(me);
+	public void update(MedicalDepartment me) {
+		departmentDao.update(me);
 	}
 
 
 	@Override
-	public MedicalField findById(String parseInt) {
-		return medicalFieldDao.findById(parseInt);
+	public MedicalDepartment findById(String parseInt) {
+		return departmentDao.findById(parseInt);
 	}
 
 
@@ -88,7 +91,7 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 	public String deletes(String[] _ids) {
 		String msg = "";
         for(String id:_ids){
-        	msg = medicalFieldDao.deleteById(id);
+        	msg = departmentDao.deleteById(id);
         }
         return  msg;
 
@@ -96,35 +99,24 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 
 	@Override
 	public void updateStatus(String id) {
-		MedicalField medicalField=medicalFieldDao.findById(id);
-		if(medicalField.getStatus()){
-			medicalField.setStatus(false);
+		MedicalDepartment MedicalDepartment=departmentDao.findById(id);
+		if(MedicalDepartment.getStatus()){
+			MedicalDepartment.setStatus(false);
 		}else{
-			medicalField.setStatus(true);
+			MedicalDepartment.setStatus(true);
 		}
-		medicalFieldDao.update(medicalField);
+		departmentDao.update(MedicalDepartment);
 
 	}
 
 	@Override
-	public List<MedicalField> findAllField(String id, Integer type) {
-		List<MedicalField> list = list();
-		if(type == 1){//医馆
-			List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(MedicalHospitalField.class, "hospitalId", id);
-			for (int i = 0; i < mhfs.size(); i++) {
-				for (int j = 0; j < list.size(); j++) {
-					if(mhfs.get(i).getFieldId().equals(list.get(j).getId())){
-						list.get(j).setHas(true);
-					}
-				}
-			}
-		}else{//医师
-			List<MedicalDoctorField> mdfs = dao.findEntitiesByProperty(MedicalDoctorField.class, "doctorId", id);
-			for (int i = 0; i < mdfs.size(); i++) {
-				for (int j = 0; j < list.size(); j++) {
-					if(mdfs.get(i).getFieldId().equals(list.get(j).getId())){
-						list.get(j).setHas(true);
-					}
+	public List<MedicalDepartment> findAllDepartment(String id) {
+		List<MedicalDepartment> list = list();
+		List<MedicalDoctorDepartment> mdfs = dao.findEntitiesByProperty(MedicalDoctorDepartment.class, "doctorId", id);
+		for (int i = 0; i < mdfs.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if(mdfs.get(i).getDepartmentId().equals(list.get(j).getId())){
+					list.get(j).setHas(true);
 				}
 			}
 		}
@@ -132,37 +124,20 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 	}
 
 	@Override
-	public void addHospitalField(String id, String[] field) {
-		List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(MedicalHospitalField.class, "hospitalId", id);
-		for (int i = 0; i < mhfs.size(); i++) {
-			dao.delete(mhfs.get(i));
-		}
-		for (int i = 0; i < field.length; i++) {
-			MedicalHospitalField medicalHospitalField = new MedicalHospitalField();
-			String mid = UUID.randomUUID().toString().replace("-","");
-			medicalHospitalField.setId(mid);
-			medicalHospitalField.setFieldId(field[i]);
-			medicalHospitalField.setHospitalId(id);
-			medicalHospitalField.setCreateTime(new Date());
-			dao.save(medicalHospitalField);
-		}
-	}
-
-	@Override
-	public void addDoctorField(String id, String[] fieldId) {
-		List<MedicalDoctorField> mhfs = dao.findEntitiesByProperty(MedicalDoctorField.class, "doctorId", id);
+	public void addDoctorDepartment(String id, String[] fieldId) {
+		List<MedicalDoctorDepartment> mhfs = dao.findEntitiesByProperty(MedicalDoctorDepartment.class, "doctorId", id);
 		for (int i = 0; i < mhfs.size(); i++) {
 			dao.delete(mhfs.get(i));
 		}
 		if(fieldId!=null){
 			for (int i = 0; i < fieldId.length; i++) {
-				MedicalDoctorField medicalDoctorField = new MedicalDoctorField();
+				MedicalDoctorDepartment medicalDoctorDepartment = new MedicalDoctorDepartment();
 				String mid = UUID.randomUUID().toString().replace("-","");
-				medicalDoctorField.setId(mid);
-				medicalDoctorField.setFieldId(fieldId[i]);
-				medicalDoctorField.setDoctorId(id);
-				medicalDoctorField.setCreateTime(new Date());
-				dao.save(medicalDoctorField);
+				medicalDoctorDepartment.setId(mid);
+				medicalDoctorDepartment.setDepartmentId(fieldId[i]);
+				medicalDoctorDepartment.setDoctorId(id);
+				medicalDoctorDepartment.setCreateTime(new Date());
+				dao.save(medicalDoctorDepartment);
 			}
 		}
 	}
