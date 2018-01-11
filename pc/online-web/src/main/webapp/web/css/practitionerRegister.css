@@ -40,6 +40,7 @@ img {
 	padding: 20px;
 	border-bottom: 1px solid #f2f2f2;
 	margin-bottom: 0;
+	font-size: 18px;
 }
 .practitioner_examine{
 	width: 494px;
@@ -171,6 +172,7 @@ outline: none;
 .practitioner_gain{
 	padding-bottom: 22px;
 	margin: 0;
+	font-size: 18px;
 }
 .practitioner_article li{
 	list-style: none;

@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <style>
 .ace-nav{height:5%;}
+.navbar-buttons{padding-top: 20px;}
 </style>
 
     <div id="navbar" class="navbar navbar-default">
@@ -32,7 +33,7 @@
 				</div>
 
 				<!-- #section:basics/navbar.dropdown -->
-				<div class="navbar-buttons navbar-header pull-right" role="navigation" style="margin-top:3px;">
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">					
 
 						<!-- #section:basics/navbar.user_menu -->

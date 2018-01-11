@@ -57,8 +57,9 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 			String sql = "select t.name from oe_user t where t.id = :id";
 			Map paramMap = new HashMap();
 			paramMap.put("id", dest.getUserId());
+			String userName = dao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
 			try {
-				dest.setUserName(dao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class));
+				dest.setUserName(userName);
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -86,7 +87,7 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 		BxgUser u = UserHolder.getCurrentUser();
 		Message message = new Message();
 		message.setLastTime(new Date());
-		message.setContext(vo.getReplytext());
+		message.setContext("<font color=\"#2cb82c\">意见反馈：</font>"+vo.getReplytext());
 		message.setPid(vo.getId());
 		message.setUserId(vo.getUserId());
 		message.setType(0);

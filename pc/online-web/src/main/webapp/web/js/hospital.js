@@ -363,7 +363,7 @@ $(function () {
 	window.name = "";
 	getHostipalList(current,size,name);
 	
-	
+	var pages;
 	//渲染医馆列表方法
 	function getHostipalList(current,size,name){
 	    RequestService("/medical/hospital/getHospitals","GET",{
@@ -375,12 +375,15 @@ $(function () {
 	        	//没有数据处理
 //	           alert("没有数据/搜索失败")
 	            $('#hospital_list').html('<h3>暂无数据</h3>');
-	        }else{
+	        }else if(current == data.resultObject.pages){
+	        	 $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
+	        	 $('.more_hospital').addClass('hide');
+	        } else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
 	        	console.log(data.resultObject.records.length)
-	        	if(data.resultObject.records.length < 9){
-	        		$('.more_hospital>button').css('display','none');
+	        	if(data.resultObject.pages > 1){
+	        		$('.more_hospital').removeClass('hide');
 	        	}
 	           $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        }
@@ -404,7 +407,7 @@ $(function () {
 		
 	    
 	    //点击更多
-	    $('.more_hospital').click(function(){
+	    $('.more_hospital>button').click(function(){
 	    	current +=1;
 	    	console.log(current)
 	    	getHostipalList(current,size,name);

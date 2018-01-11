@@ -196,7 +196,7 @@ p {
   padding: 0;
   border: 0;
   font-size: 12px;
-  font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important;
+  /*font-family: "Baskerville Old Face", "Microsoft Yahei", "Hiragino Sans GB", sans-serif !important;*/
 }
 header,
 footer {
