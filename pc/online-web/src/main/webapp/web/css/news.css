@@ -47,7 +47,8 @@ img {
 	margin-bottom: 20px;
 }
 #forum .forum-banner .dajia_zhuanlan > h4{
-	margin-bottom: 20px;
+	margin-bottom: 16px;
+	margin-top: 0px;
 }
 #forum .forum-banner .dajia_zhuanlan #dajia_zhuanlan_list ul li > div{
 	display: inline-block;
@@ -235,8 +236,8 @@ img {
     padding: 17px 20px;
     font-size: 16px;
     color: #333;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 20px;
+    /*border-bottom: 1px solid #eee;*/
+    /*margin-bottom: 20px;*/
 }
 #forum .forum-content .forum-content-right .hot-article-list{
 	    padding: 0 20px;
@@ -265,7 +266,8 @@ img {
     margin-bottom: 20px;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe > h4{
-	    margin-bottom: 20px;
+	    margin-bottom: 16px;
+	    margin-top: 0px;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li{
 	    margin-bottom: 20px;
@@ -401,11 +403,12 @@ img {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  background-color: #2cb82c;
+  /*background-color: #2cb82c;*/
   margin-right: 10px;
   margin-top: -1px;
   vertical-align: middle;
 }
+
 #forum .forum-content .forum-content-left .forum-content-tag li em.select1 {
   background-color: #fff;
 }
@@ -451,7 +454,7 @@ img {
   height: 160px;
 }
 #forum .forum-content .forum-content-left .forum-content-info .forum-info .forum-info-right .forum-info-title a {
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
   font-weight: bold;
 }
