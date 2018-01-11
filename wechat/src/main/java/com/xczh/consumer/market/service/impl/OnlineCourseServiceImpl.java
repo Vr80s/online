@@ -427,6 +427,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			map = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 					new MapHandler(),courseId);
 		}else{
+			
 			StringBuffer sql = new StringBuffer("");
 			sql.append("select c.grade_name as gradeName,c.multimedia_type as multimediaType,");
 			sql.append("ocm.img_url as smallImgPath,c.description as description");
