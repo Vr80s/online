@@ -29,9 +29,10 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements Message
     public void addFeedBack(String userId, String title, String describe) {
         Message message = new Message();
         message.setTitle(title);
-        message.setContext("<font color=\"#2cb82c\">意见反馈：</font>"+describe);
+//        message.setContext("<font color=\"#2cb82c\">意见反馈：</font>"+describe);
+        message.setContext(describe);
         message.setUserId(userId);
-        message.setType(0);
+        message.setType(2);
         message.setStatus((short) 1);
         message.setCreateTime(new Date());
         message.setReadstatus((short) 0);
