@@ -49,8 +49,8 @@
 						</td>
 						<td>
 							<div class="profile-info-value searchTr">
-								<input type="text" id="q_title" placeholder = "意见标题" class="propertyValue1">
-								<input type="hidden" value="q_title" class="propertyName"/>
+								<%--<input type="text" id="q_title" placeholder = "意见标题" class="propertyValue1">--%>
+								<%--<input type="hidden" value="q_title" class="propertyName"/>--%>
 								<input type="hidden" value="5" class="tempMatchType"/><!-- 4等于 5包含 6小于 7大于  8小于等于  9大于等于  10之间 -->
 								<input type="hidden" value="String" class="tempType"/><!-- 默认是String -->
 							</div>
@@ -77,25 +77,25 @@
 	<form class="form-horizontal" id="addfeedBack-form" method="post" action="">
 		<input type="hidden" value="" id="feedId" name="id">
 		<input type="hidden" value="" id="feedUserId" name="userId">
-		<div class="form-group row">
-			<label class="control-label col-xs-12 col-sm-2 no-padding-right" ><font color="red">*</font>回答标题:</label>
-			<div class="col-xs-12 col-sm-9">
-					<input type="text" name="title" id="add_replytitle" maxlength="32" style="width:345px" class="{required:true}"/>
-			</div>
-		</div>
+		<%--<div class="form-group row">--%>
+			<%--<label class="control-label col-xs-12 col-sm-2 no-padding-right" ><font color="red">*</font>回答标题:</label>--%>
+			<%--<div class="col-xs-12 col-sm-9">--%>
+					<%--<input type="text" name="title" id="add_replytitle" maxlength="32" style="width:345px" class="{required:true}"/>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="form-group row">
 			<label class="control-label col-xs-12 col-sm-2 no-padding-right" ><font color="red">*</font>回答内容:</label>
 			<div class="col-xs-12 col-sm-9">
 					<textarea style="position: relative; resize: none;width:345px;font-size: 12px" maxlength="125" name="replytext" id="add_replytext"  class="{required:true}"  ></textarea>
 			</div>
 		</div>
-		<div class="form-group row">
-			<label class="control-label col-xs-12 col-sm-2 no-padding-right"
-					>意见标题:</label>
-			<div class="col-lg-7 col-xs-9">
-				<input type="text" disabled="disabled" id="add_title" style="width:345px"/>
-			</div>
-		</div>
+		<%--<div class="form-group row">--%>
+			<%--<label class="control-label col-xs-12 col-sm-2 no-padding-right"--%>
+					<%-->意见标题:</label>--%>
+			<%--<div class="col-lg-7 col-xs-9">--%>
+				<%--<input type="text" disabled="disabled" id="add_title" style="width:345px"/>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="form-group row">
 			<label class="control-label col-xs-12 col-sm-2 no-padding-right"
 					>创建时间:</label>
@@ -115,13 +115,13 @@
 
 	<!-- 预览 -->
 <div id="showfeedBackDialog" class="hide">
-	<div class="form-group row">
-		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
-				>意见标题:</label>
-		<div class="col-lg-7 col-xs-9">
-			<input type="text" readonly="readonly" id="show_title" style="width:345px"/>
-		</div>
-	</div>
+	<%--<div class="form-group row">--%>
+		<%--<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"--%>
+				<%-->意见标题:</label>--%>
+		<%--<div class="col-lg-7 col-xs-9">--%>
+			<%--<input type="text" readonly="readonly" id="show_title" style="width:345px"/>--%>
+		<%--</div>--%>
+	<%--</div>--%>
 	<div class="form-group row">
 		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
 				>创建时间:</label>
@@ -136,13 +136,13 @@
 			<textarea cols="45" rows="5" id="show_context" class="col-xs-12" style="position: relative; resize: none; width:345px;font-size: 12px" readonly="readonly"></textarea>
 		</div>
 	</div>
-	<div class="form-group row">
-		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
-				>回复标题:</label>
-		<div class="col-lg-7 col-xs-9">
-			<input type="text" readonly="readonly" class="col-xs-12" id="show_replytitle" style="width:345px"/>
-		</div>
-	</div>
+	<%--<div class="form-group row">--%>
+		<%--<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"--%>
+				<%-->回复标题:</label>--%>
+		<%--<div class="col-lg-7 col-xs-9">--%>
+			<%--<input type="text" readonly="readonly" class="col-xs-12" id="show_replytitle" style="width:345px"/>--%>
+		<%--</div>--%>
+	<%--</div>--%>
 	<div class="form-group row">
 		<label class="control-label col-xs-12 col-sm-2 no-padding-right" style="text-align:right;"
 				>回复内容:</label>
