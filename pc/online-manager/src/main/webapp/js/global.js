@@ -691,6 +691,7 @@ function initTables(tabId,url,objData,bFilter,bPaginate,showNum,callback,searchC
  * @returns  返回dataTable对象
  */
 function initTables(tabId,url,objData,bFilter,bPaginate,showNum,initComplete,searchCase,callback,iDisplayLength){
+	debugger;
 	var searchs = "";
 	if(!isnull(searchCase) && searchCase.length>0){
 		searchs = "[" + searchCase.join(",") + "]";

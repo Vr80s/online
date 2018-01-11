@@ -226,8 +226,6 @@ public class CourseController extends AbstractController{
 		if (liveStatus != null) {
 			searchVo.setLiveStatus(Integer.valueOf(liveStatus.getPropertyValue1().toString()));
 		}
-		
-		
 		Page<CourseVo> page = courseService.findCourseRecPage(searchVo, currentPage, pageSize);
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());

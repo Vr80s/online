@@ -7,6 +7,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.domain.Grade;
 import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.OffLineCity;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.common.domain.TeachMethod;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseLecturVo;
@@ -261,4 +262,43 @@ public interface CourseService {
 	 * @param id
 	 */
 	public String updateCourseVideo(String id);
+
+	public void addCourseCity(String city);
+
+	/**
+	 * Description：根据id获取线下培训班
+	 * @param cityId
+	 * @return
+	 * @return OffLineCity
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	OffLineCity findCourseCityByName(Integer cityId);
+    /**
+     * Description：根据城市名判断是否存在此城市
+     * @param city
+     * @return
+     * @return Boolean
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	Boolean findCourseCityByName(String city);
+	/**
+	 * Description：当禁用或者启用时，如果这个城市是最后一个。就直接删除吧,查询不出来。
+	 * 		也就禁用了。在删除线下培训班时，如果判断得到这个城市是最后一个的话，就也删除这个
+	 * @param city
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	void deleteCourseCityByName(String city);
+	/**
+	 * 获取所有的城市管理数据
+	 * Description：
+	 * @return
+	 * @return List<OffLineCity>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	Page<OffLineCity>   getCourseCityList(Integer pageNumber,Integer pageSize);
+
+	public void updateCourseCityStatus(Integer id);
+
+	public void deleteCourseCityStatus(Integer id);
 }
