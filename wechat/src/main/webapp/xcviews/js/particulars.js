@@ -553,7 +553,22 @@ document.getElementById('qqShare').onclick = function(e){
 	    var _src = "http://connect.qq.com/widget/shareqq/index.html?" + s.join('&') ;
 	    window.open(_src);
 };
-
+//qq空间分享 
+document.getElementById('qqShare0').onclick = function(e){
+	    var  p = {
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+	        title : result.gradeName,/*分享标题(可选)*/
+	        summary : result.description.stripHTML(),/*分享描述(可选)*/
+	        pics : result.smallImgPath  /*分享图片(可选)*/
+	    };
+	    var s = [];
+	    for (var i in p) {
+	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
+	    }
+	    var _src = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + s.join('&') ;
+	    window.open(_src);
+};
 
 /**************** 微信分享 *************************/
 /*
