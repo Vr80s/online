@@ -533,8 +533,8 @@ public class CourseDao extends SimpleHibernateDao {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
          if(courseId !=null){
-             String querySql=" select u.small_head_photo smallPhoto,u.`name` userName,c.id,c.content,c.star_level starLevel,c.create_time createTime,c.praise_sum praiseSum,v.`name` videoName," +
-                             " c.response,c.response_time response_time from oe_criticize c ,oe_user u,oe_video v  where c.user_id=u.id  and c.video_id=v.id and c.is_delete=0 and c.`status`=1 and   c.course_id=:courseId";
+             String querySql=" select u.small_head_photo smallPhoto,u.`name` userName,c.id,c.content,c.star_level starLevel,c.create_time createTime,c.praise_sum praiseSum," +
+                             " c.response,c.response_time response_time from oe_criticize c ,oe_user u where c.user_id=u.id and c.is_delete=0 and c.`status`=1 and   c.course_id=:courseId";
              Map<String,Object> paramMap = new HashMap<>();
              paramMap.put("courseId",courseId);
              Page<CriticizeVo>  criticizes = this.findPageBySQL(querySql,paramMap,CriticizeVo.class,pageNumber,pageSize);
