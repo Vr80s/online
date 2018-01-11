@@ -98,7 +98,7 @@
 }
 .span4 { background-color: #EEEEEE; }
 .span8 { background-color: #EEEEEE; }
-.remove { display: none !important;}
+/*.remove { display: none !important;}*/
 </style>
 <script type="text/javascript">
 	try {
