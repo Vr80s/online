@@ -250,10 +250,10 @@
 	{{each inf as inf i}}
 		 <li class="clearfix">
             <div class="doctor_book_left">
-               <a href="/web/html/columnListing.html?id={{inf.id}}"><img src={{inf.imgPath}} alt="" /></a>
+               <a href="/web/html/columnDetails.html?id={{inf.id}}"><img src={{inf.imgPath}} alt="" /></a>
             </div>
             <div class="doctor_book_inf">
-            	<a href="/web/html/columnListing.html?id={{inf.id}}"><h4>{{inf.title}}</h4></a>
+            	<a href="/web/html/columnDetails.html?id={{inf.id}}"><h4>{{inf.title}}</h4></a>
                 <p>{{change(inf.content)}}</p>
                 <span>{{inf.createTime}}</span>
             </div>

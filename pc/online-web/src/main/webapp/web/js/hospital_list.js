@@ -54,11 +54,14 @@ $(function(){
 	        	//没有数据处理 
 //	           alert("没有数据/搜索失败")
 	           $('#hospital_list').html('<h3>暂无数据<h3>');
-	           $('.more_hospital').css('display','none');
+//	           $('.more_hospital').css('display','none');
+	        }else if(current == data.resultObject.pages){
+	        	$('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
+	        	$('.more_hospital').addClass('hide');
 	        }else{
 	        	//获取到数据渲染
-	        	if(data.resultObject.pages == current){
-	        		$('.more_hospital > button').css('display','none');
+	        	if(data.resultObject.pages > 1){
+	        		$('.more_hospital').removeClass('hide');
 	        	}
 	        	//创建一个盒子
 	           $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
@@ -94,10 +97,10 @@ $(function(){
 		
 	    
 	    //点击更多
-	    $('.more_hospital').click(function(){
+	    $('.more_hospital>button').click(function(){
 	    	current +=1;
 	    	console.log(current)
-	    	getHostipalList(current,size,name);
+	    	getHostipalList(current,size,name,field);
 	    })
 	    
 	    

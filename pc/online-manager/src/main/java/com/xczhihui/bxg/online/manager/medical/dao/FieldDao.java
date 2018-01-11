@@ -24,14 +24,6 @@ public class FieldDao extends HibernateDao<MedicalField> {
             sql.append(" and ds.create_person like :create_person ");
             paramMap.put("create_person", "%" + menuVo.getCreatePerson()+"%");
         }
-//        if(menuVo.getTime_start()!=null){
-//            sql.append(" and ds.create_time >=:create_time_start");
-//            paramMap.put("create_time_start", menuVo.getTime_start());
-//        }
-//        if(menuVo.getTime_end() !=null){
-//            sql.append(" and ds.create_time <=:create_time_end");
-//            paramMap.put("create_time_end", menuVo.getTime_end());
-//        }
         sql.append(" order by  status desc,create_time desc ");
         Page<MedicalField> pages = this.findPageBySQL(sql.toString(), paramMap, MedicalField.class, pageNumber, pageSize);
 
@@ -62,7 +54,6 @@ public class FieldDao extends HibernateDao<MedicalField> {
 	public MedicalField findByNotEqId(MedicalField searchEntity) {
 		StringBuilder sql=new StringBuilder("select * from medical_field where name=:name and  deleted =0");
         Map<String,Object> params=new HashMap<String,Object>();
-//        params.put("id",searchEntity.getId());
         params.put("name", searchEntity.getName());
         List<MedicalField> menus=this.getNamedParameterJdbcTemplate().query(sql.toString(),params,BeanPropertyRowMapper.newInstance(MedicalField.class));
         if(menus.size()>0){

@@ -931,7 +931,7 @@ $("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
     _this = this;
 
     // 添加唯一class用来区分用户点击的是确定按钮还是取消按钮
-    $('.ui-dialog-buttonset .ui-button-text').eq(3).addClass('edit_P_cancel');
+    $('.ui-dialog-buttonset .ui-button-text').eq(1).addClass('edit_P_cancel');
 
     var v = this.value.split(".")[this.value.split(".").length-1].toUpperCase();
     if(v!='BMP' && v!='GIF' && v!='JPEG' && v!='PNG' && v!='SVG' && v!='JPG'){
@@ -1099,6 +1099,9 @@ function toEdit(obj,status){
 
 	updateCourseForm.resetForm();
 
+    // 防止第二次点击编辑的时候 省份没有显示出来
+    $('#edit_province').find("option:selected").attr("selected",false);
+
 	var oo = $(obj).parent().parent().parent();
 	var row;
 	if(status==1) {
@@ -1191,7 +1194,7 @@ function toEdit(obj,status){
     		//省
     		for(i=0;i<$("#edit_province option").length;i++){
         		if($("#edit_province option").eq(i).text()==p_c_a[0]){
-        			$("#edit_province option").eq(i).attr("selected",true); 
+        			$("#edit_province option").eq(i).attr("selected",true);
         			break;
         		}
         	}
@@ -1326,6 +1329,8 @@ function toEdit(obj,status){
 
                         // 删除这个元素 是因为课程展示图回显后 然后更新课程 没有将回显的div删除 造成弹出框呈现多张课程展示图
                         $(".ace-file-container").remove();
+                        // 防止第二次点击编辑的时候 省份没有显示出来
+                        $('#edit_province').find("option:selected").attr("selected",false);
 
                         layer.msg(data.errorMessage);
                         if(edit_title=='修改线下培训班'){

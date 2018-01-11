@@ -45,7 +45,7 @@ $(function(){
 // 		
 // 		
        if(data.resultObject.medicalHospital){
-       	
+       	$('#doc_hospital').show()
        	  $('.yiguan').html("<em></em>"+data.resultObject.medicalHospital.name+"");
        	  
        //坐诊医馆信息
@@ -54,7 +54,7 @@ $(function(){
        //医馆图片
        if(data.resultObject.medicalHospital.medicalHospitalPictures){
        	 $('.hospital_pic>img').attr('src',data.resultObject.medicalHospital.medicalHospitalPictures[0].picture)
-       }
+       }     
        //名称
        $('.hospital_inf>p:first-child').text(data.resultObject.medicalHospital.name);
        //电话
@@ -77,6 +77,10 @@ $(function(){
        		$('.hospital_inf>p:nth-child(4)>span:nth-child(2)').text(data.resultObject.medicalHospital.detailedAddress)
        }
        
+       }
+       else{
+       	 //若医馆无图片则隐藏
+       	 $('#doc_hospital').hide()
        }
        //顶部渲染
         $('#doctor_detail_header').html(template('doctor_detail_topTpl',data.resultObject));

@@ -5,6 +5,7 @@
  * Created by admin on 2017/1/3.
  */
 $(function(){
+	$('.path .forum').addClass('select');
     $(".path a").each(function(){
         if($(this).text()=="博学社"){
             $(this).addClass("select").siblings().removeClass("select");

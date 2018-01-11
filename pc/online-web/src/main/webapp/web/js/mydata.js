@@ -1907,18 +1907,22 @@ function geren() {
 		if($('.shenFen').val() == 'volvo'){
 			$(".nick-warn-shenfen").text("请选择身份信息").css("display", "inline-block");
 			return false;
-			
 		}
+		
+		
 		//在获取这些id啦
 //		debugger;
-		var provinceval  = $('.Province1  option:selected').val();
-		var disval =  $('.District1  option:selected').val();
-		var cityval =  $('.City1  option:selected').val();
+//		var provinceval  = $('.Province1  option:selected').val();
+//		var disval =  $('.District1  option:selected').val();
+//		var cityval =  $('.City1  option:selected').val();
 		
 		var province  = $('.Province1  option:selected').val();
 		var disval =  $('.District1  option:selected').val();
 		var cityval =  $('.City1  option:selected').val();
-		
+		if(province == 'volvo' || disval == 'volvo' || cityval == 'volvo'){
+			$(".address_warn").text("请填写所在地区信息").css("display", "block");
+			return false;
+		}
 /*	    private  String  province;
 	    *//**
 	     * 学校id号

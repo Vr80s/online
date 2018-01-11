@@ -146,11 +146,13 @@ window.onload=function(){
 		'<span class="repuName" title="{{$value.userName}}">{{$value.userName}}</span>' +
 		'</div>' +
 		'<div class="good-detail-info">' +
-
+        '<div class="starts">' +
+        '{{#stuEvluatStars($value.starLevel)}}' +
+        '</div>' +
 		'<div class="reputationContent">{{$value.content}}</div>' +
 		'<div class="repuationRelatInfo clearfix">' +
 		'<div class="repuTime">时间：{{dataSub($value.createTime)}}</div>' +
-		'<div class="repuOrigin">来源：{{$value.videoName}}</div>' +
+		// '<div class="repuOrigin">来源：{{$value.videoName}}</div>' +
 		'<div class="repuHitZan">' +
 		'<i class="iconfont icon-zan"></i><span class="repuHitZanCount">{{$value.praiseSum}}</span>' +
 		'</div>' +

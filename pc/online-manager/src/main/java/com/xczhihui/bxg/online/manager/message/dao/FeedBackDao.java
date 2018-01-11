@@ -79,7 +79,7 @@ public class FeedBackDao extends HibernateDao<Menu> {
 		}
 		Order order = Order.asc(orderByName);
 		dc.addOrder(order);
-		Order order1 = Order.asc("createTime");
+		Order order1 = Order.desc("createTime");
 		dc.addOrder(order1);
 		return this.findPageByCriteria(dc, pageNumber, pageSize);
 	}

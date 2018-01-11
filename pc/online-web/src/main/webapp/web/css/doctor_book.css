@@ -85,10 +85,14 @@
 	width: 100px;
 	height: 140px;
 	margin-right: 20px;
+	position: relative;
 }
 .content_box #main .main_left .doctor_book .doctor_book_bottom #doctor_book_list li .doctor_book_left img{
 	width: 100px;
-	height: 140px;
+	/*height: 140px;*/
+	position: absolute;
+	top:50%;
+	transform: translateY(-50%);
 }
 .content_box #main .main_left .doctor_book .doctor_book_more{
 	text-align: center;

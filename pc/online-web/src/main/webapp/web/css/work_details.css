@@ -78,7 +78,7 @@ img {
 	border-bottom: 1px solid #f0f0f0;
 }
 #forum .forum-content .forum-content-left #book_inf_top > img{
-	width: 100px;
+	/*width: 100px;*/
 	height: 140px;
 }
 #forum .forum-content .forum-content-left #book_inf_top >a{
@@ -538,7 +538,7 @@ img {
 }
 .dtails_book_name img{
 	width: 80px;
-	height: 100px;
+	/*height: 100px;*/
 	float: left;
 	margin-left: 20px;
 	margin-right: 10px;
