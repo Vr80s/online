@@ -41,7 +41,7 @@
     float: right;
     vertical-align: top;
     padding: 0 30px;
-    min-height: 520px;
+    min-height: 621px;
     background-color: #fff;
     padding-bottom: 50px;
     display: none;
@@ -98,4 +98,10 @@
     padding-bottom: 50px;
     display: none;
     margin-top: 20px;
+}
+.arrow_jt{
+	color: #d8d8d8;
+}
+#open_list{
+	
 }
