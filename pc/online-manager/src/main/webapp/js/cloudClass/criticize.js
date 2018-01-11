@@ -14,7 +14,14 @@ function loadCriticizeList(){
 	      { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
 	      { "title": "课程类别", "class":"center","width":"9%","sortable":false,"data": 'scoreTypeName' },
 	      { "title": "授课方式", "class":"center","width":"8%","sortable":false,"data": 'teachMethodName',"mRender":function (data, display, row) {
-	      		return "<span name='skfs'>"+data+"</span>";
+	      		// return "<span name='skfs'>"+data+"</span>";
+			  if(row.onlineCourse==1){
+					return "<span name='skfs'>线下课程</span>";
+			  }else if(row.type==1){
+                  return "<span name='skfs'>直播</span>";
+			  }else{
+                  return "<span name='skfs'>点播</span>";
+			  }
 	      } },
 	      { "title": "班级数", "class":"center","width":"8%","sortable":false,"data": 'countGradeNum'},
 	      { "title": "好评率", "class":"center","width":"8%","sortable":false,"data": 'goodCriticizeNum',"mRender":function (data, display, row) {
