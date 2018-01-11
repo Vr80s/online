@@ -59,7 +59,7 @@
 			<label class="col-sm-1 control-label no-padding-right"><font color="red">*</font>购买连接:</label>
 			<div class="col-sm-3" >
 				<div class="clearfix" style="width: 240px;">
-					 <input type="text" name="buyLink" id="buyLink"  maxlength="30" class="col-xs-12 col-sm-12 {required:true}" >
+					 <input type="text" name="buyLink" id="buyLink"  maxlength="100" class="col-xs-12 col-sm-12 {required:true}" >
 				</div>
 			</div>
 		</div>
