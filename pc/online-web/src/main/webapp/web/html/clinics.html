@@ -97,7 +97,7 @@
 					
 				</div>	
 				
-				<div class="more_hospital">
+				<div class="more_hospital hide">
 					<button>更多</button>
 				</div>
             </div>
@@ -176,7 +176,7 @@
 	{{if hospital.medicalHospitalPictures.length != 0 && hospital.medicalHospitalPictures[0].picture}}
 	<img src={{hospital.medicalHospitalPictures[0].picture}} style="width: 100%;height: 147px;" alt="">
 	{{else}}
-	<img src="" style="width: 100%;height: 147px;" alt="暂无图片">
+	<img src="/web/images/hospitalDefault.png" style="width: 100%;height: 147px;" alt="暂无图片">
 	{{/if}}
 	<div class="hospital_inf">
 		<span class="hospital_name">{{hospital.name}}</span>

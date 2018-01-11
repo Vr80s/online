@@ -46,7 +46,6 @@
 .content_box #main .main_left .hospital_detail_inf h3{
     font-size: 18px;
     color: #333333;
-    margin-bottom: 18px;
 }
 /*.content_box #main .main_left .hospital_detail_inf .hospital_detail_pic .hospital_detail_pic_left{
     float: left;
@@ -83,9 +82,12 @@
 }
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_con {
 	    /*height: 180px;*/
-	   min-height: 180px;
+	  min-height: 180px;
     overflow: auto;
     /*overflow-y: scroll;*/
+}
+.content_box #main .main_left .hospital_detail_inf  .hospital_detail_con > p{
+	font-size: 14px;
 }
 .content_box #main .main_left .hospital_detail_inf  > P{
     margin-bottom: 17px;
@@ -325,6 +327,8 @@ min-height: 360px;
 	font-size: 14px;
 	color: #333;
 	font-weight: 700;
+	margin-bottom: 5px;
+	margin-top: 10px;
 }
 .content_box #main .main_right .employ .employ_inf > p{
 	font-size: 14px;
