@@ -58,8 +58,22 @@
 }
 
 .select_list ul li span{
-	margin-left: 60px;
+	margin-left: 15px;
 	font-size: 16px;
+}
+.select_list ul li .left_range{
+	margin-left: 30px;
+	color: #cacbcb;
+}
+.select_list ul li .ino_color{
+	color: #00bc12;
+}
+.select_list ul li:hover .left_range{
+	color: #00bc12;
+}
+.select_list ul li .arrow_jt{
+	margin-left: 70px;
+	color: #cacbcb;
 }
 .select_list ul li:hover{
 	color: #00bc12;

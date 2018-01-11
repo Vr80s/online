@@ -5,6 +5,8 @@ $(function(){
 				$(this).addClass("active");
 				$(".wrap_box .little_box").hide()
 				$(".select_box").hide().eq($(this).index()).show();
+//				图标颜色变化
+				$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color")
 			})
 			$(".select_list .select-ud").bind('click',function(event){
             	event.stopPropagation();			
@@ -17,7 +19,7 @@ $(function(){
 				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
 				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")		
 			})
-//			对课程目录下小的下拉进行操作		
+//			对课程目录下小的下拉div进行操作		
 			$(".select_list .littleBox p").bind('click',function(event){
             	event.stopPropagation();
 				$(".select_list .littleBox p").removeClass("activeP");

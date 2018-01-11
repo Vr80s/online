@@ -12,7 +12,7 @@ a{text-decoration: none;}
 .video_left{width: 712px;height: 395px;/* background: red; */float: left;}
 .video_div{width: 712px;height: 395px;position: relative;overflow: hidden;}
 .video_div:hover{cursor: pointer;}
-.video_img{width: 100%;}
+.video_img{width: 100%;height: 100%;}
 .video_div_bottom{position: absolute;bottom: 0px;left: 0px;z-index:2;width: 100%;height: 45px;background: #fff;}
 .video_div_bottom_bg1{width: 60px;height: 45px;background: url(../images/yugao/0823_03.png) center no-repeat;float: left;}
 .video_div_bottom_bg2{width: 165px;height: 45px;/*background: url(../images/yugao/082304_03.png) left no-repeat;*//*background: url(../images/yugao/y082305_03.png) left no-repeat;*/float: left;font-size:14px;color:#000;line-height: 45px;text-indent: 2.5em;}
@@ -77,7 +77,7 @@ a{text-decoration: none;}
     text-align: center;
     width: 140px;
 }
-.cover_img img{vertical-align: top;height: 100%;}
+.cover_img img{vertical-align: top;height: 100%;width: 100%;}
 
 .yugao2:after{content:'';display:block;height:0;overflow:hidden;clear:both}
 .yugao2 .w_yugao2{float:right;width:468px;}
