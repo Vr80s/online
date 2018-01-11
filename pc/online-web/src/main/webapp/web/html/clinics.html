@@ -131,7 +131,7 @@
                 <div class="hot-course">
                     <div id="box" class="slideBox clearfix">
                         <ul class="course boxContent clearfix" id="doctor_recruit_list">
-                            <li>
+                            <!--<li>
 								<h4>招募治胃病医师</h4>
 								<span>北京  同仁堂国医馆</span>
                             </li>
@@ -158,7 +158,7 @@
                              <li>
 								<h4>招募治胃病医师</h4>
 								<span>北京  同仁堂国医馆</span>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -272,7 +272,7 @@
 <script type="text/templage" id="doctor_recruit">
 	{{each doctor as doctor i}}
 	<li>
-		<h4>招募{{doctor.position}}</h4>
+		<h4><a href="/web/html/clinicDetails.html?Id={{doctor.hospitalId}}" style="color: #000;">招募{{doctor.position}}</a></h4>
 		<a href="/web/html/clinicDetails.html?Id={{doctor.hospitalId}}">{{doctor.city}}&nbsp;&nbsp;{{doctor.hospitalName}}</a>
     </li>
 	{{/each}}
@@ -282,7 +282,7 @@
 </body>
 </html>
 <script src="/web/js/jquery.pagination.js"></script>
-<script src="/web/js/hospital.js"></script>
+<script src="/web/js/hospital.js?v=ipandatcm_1.2.1"></script>
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript">
