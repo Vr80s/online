@@ -9,7 +9,7 @@
     background-color: #fff;
     float: left;
     margin-top: 20px;
-    padding-bottom: 18px;
+    padding-bottom: 39px;
 }
 .doctor_inf{
 	text-align: center;
@@ -41,7 +41,7 @@
     float: right;
     vertical-align: top;
     padding: 0 30px;
-    min-height: 621px;
+    min-height: 642px;
     background-color: #fff;
     padding-bottom: 50px;
     display: none;
@@ -64,6 +64,7 @@
 .select_list ul li .left_range{
 	margin-left: 30px;
 	color: #cacbcb;
+	font-size: 14px;
 }
 .select_list ul li .ino_color{
 	color: #00bc12;
@@ -90,7 +91,7 @@
 	color: #666666;
 	margin: 0;
 	padding: 16px 0;
-	margin-left: 60px;
+	margin-left: 65px;
 	font-size: 16px;
 }
 .select_list .littleBox p:hover{
