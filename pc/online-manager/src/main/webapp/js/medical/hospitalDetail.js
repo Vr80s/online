@@ -84,7 +84,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file",function(){
 			$("#edit_smallImgPath0").val(data.url);
 			document.getElementById("smallImgPath_file").focus();
 			document.getElementById("smallImgPath_file").blur();
-			$(".remove").hide();
+			// $(".remove").hide();
 		}else {
 			alert(data.message);
 		}
@@ -108,7 +108,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file1",function(){
 			$("#edit_smallImgPath1").val(data.url);
 			document.getElementById("smallImgPath_file1").focus();
 			document.getElementById("smallImgPath_file1").blur();
-			$(".remove").hide();
+			// $(".remove").hide();
 		}else {
 			alert(data.message);
 		}
@@ -132,7 +132,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file2",function(){
 			$("#edit_smallImgPath2").val(data.url);
 			document.getElementById("smallImgPath_file2").focus();
 			document.getElementById("smallImgPath_file2").blur();
-			$(".remove").hide();
+			// $(".remove").hide();
 		}else {
 			alert(data.message);
 		}
@@ -156,7 +156,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file3",function(){
 			$("#edit_smallImgPath3").val(data.url);
 			document.getElementById("smallImgPath_file3").focus();
 			document.getElementById("smallImgPath_file3").blur();
-			$(".remove").hide();
+			// $(".remove").hide();
 		}else {
 			alert(data.message);
 		}
@@ -180,7 +180,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file4",function(){
 			$("#edit_smallImgPath4").val(data.url);
 			document.getElementById("smallImgPath_file4").focus();
 			document.getElementById("smallImgPath_file4").blur();
-			$(".remove").hide();
+			// $(".remove").hide();
 		}else {
 			alert(data.message);
 		}
@@ -205,7 +205,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file5",function(){
             $("#edit_smallImgPath5").val(data.url);
             document.getElementById("smallImgPath_file5").focus();
             document.getElementById("smallImgPath_file5").blur();
-            $(".remove").hide();
+            // $(".remove").hide();
         }else {
             alert(data.message);
         }
@@ -229,7 +229,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file6",function(){
             $("#edit_smallImgPath6").val(data.url);
             document.getElementById("smallImgPath_file6").focus();
             document.getElementById("smallImgPath_file6").blur();
-            $(".remove").hide();
+            // $(".remove").hide();
         }else {
             alert(data.message);
         }
@@ -253,7 +253,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file7",function(){
             $("#edit_smallImgPath7").val(data.url);
             document.getElementById("smallImgPath_file7").focus();
             document.getElementById("smallImgPath_file7").blur();
-            $(".remove").hide();
+            // $(".remove").hide();
         }else {
             alert(data.message);
         }
@@ -277,7 +277,7 @@ $("#courseDetailForm").on("change","#smallImgPath_file8",function(){
             $("#edit_smallImgPath8").val(data.url);
             document.getElementById("smallImgPath_file8").focus();
             document.getElementById("smallImgPath_file8").blur();
-            $(".remove").hide();
+            // $(".remove").hide();
         }else {
             alert(data.message);
         }
@@ -291,9 +291,9 @@ $('#okbt,#previewbt').on('click',function(e){
     var id = $(e.currentTarget).attr('id');
     // var methodName = 'updateCourseDetail';
 	debugger
-    var validate = $("#courseDetailForm").valid();
+    // var validate = $("#courseDetailForm").valid();
 
-    if(validate){
+    // if(validate){
         mask();
         $("#courseDetailForm").attr("action", basePath+"/medical/hospital/updateMedicalHospitalDetail");
         $("#courseDetailForm").ajaxSubmit(function(data){
@@ -311,6 +311,14 @@ $('#okbt,#previewbt').on('click',function(e){
                 $("html").eq(0).css("overflow","scroll");
             }
         });
-    }
+    // }
+
+});
+
+
+$('.remove').click(function () {
+
+	// console.log($(this).parent().parent().next().attr('id'));
+    $(this).parent().parent().next().val("");
 
 });
