@@ -441,7 +441,7 @@ img {
 }
 #forum .forum-content .forum-content-right .hot-article {
   width: 290px;
-  height: 366px;
+  height: 346px;
   background-color: #fff;
 }
 #forum .forum-content .forum-content-right .hot-article .hot-article-title {
@@ -450,7 +450,8 @@ img {
   padding: 17px 20px;
   font-size: 16px;
   color: #333;
-  border-bottom: 1px solid #eee;
+  /*border-bottom: 1px solid #eee;*/
+ padding-bottom:0px;
 }
 #forum .forum-content .forum-content-right .hot-article .hot-article-list {
   padding: 0 20px;

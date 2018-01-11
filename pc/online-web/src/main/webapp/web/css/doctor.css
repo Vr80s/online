@@ -350,10 +350,11 @@ input,button{
 }
 #forum .forum-content .forum-content-left .doctor_list > h2{	
 font-weight:500;
-font-size: 18px;
+font-size: 20px;
 color: #333333;
+font-weight: 700;
 margin-top:0;
-    border-bottom: 1px solid #efefef;
+    /*border-bottom: 1px solid #efefef;*/
     padding-bottom: 10px;
     margin-bottom: 20px;
 }
