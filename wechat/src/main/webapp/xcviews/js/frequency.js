@@ -200,16 +200,18 @@ mui("#refreshContainer").on('tap', 'li', function (event) {
 	 */
 	addHistory(courseId,Number(multimedia_type)+1);
 	sessionStorage.setItem("bunchPage", 1);
-	$("#frequency_div li").each(
-			function(index, element) {
-				var className = element.className;
-				if (className.indexOf("frequency_div_p") != -1) {
-					sessionStorage.setItem("bunchType", index);
-					location.href = "/xcviews/html/particulars.html?courseId="
-							+ courseId+"&multimedia_type="+multimedia_type;
-					return;
-				}
-	});
+//	alert(multimedia_type);
+//	alert("1");
+	location.href = "/xcviews/html/particulars.html?courseId="+courseId+"&multimedia_type="+multimedia_type;
+//	$("#frequency_div li").each(
+//		function(index, element) {
+//			var className = element.className;
+//			if (className.indexOf("io") != -1) {
+//				sessionStorage.setItem("bunchType", index);
+//				location.href = "/xcviews/html/particulars.html?courseId="+courseId+"&multimedia_type="+multimedia_type;
+//				return;
+//			}
+//	});
 });
 
 /**

@@ -651,30 +651,40 @@ public class WxPayController {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	@RequestMapping("h5ShareGetWxUserInfo")
 	public void h5ShareGetWxUserInfo(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		
 		log.info("wx return code:" + req.getParameter("code"));
 		log.info("courseId:" + req.getParameter("courseId"));
-///		log.info("courseId_type_lineState:" + req.getParameter("courseId_type_lineState"));
-		
-//		String []  str = req.getParameter("courseId_type_lineState").split("_");
-//		String courseId = str[0];
-//		String type = str[1];
-//		String lineState = str[2];
-//		log.info("courseId:"+courseId+",type:"+type+",lineState:"+lineState);
+		log.info("wxOrbrower:" + req.getParameter("wxOrbrower"));
 		try {
-			String code = req.getParameter("code");
 			String courseId = req.getParameter("courseId");
-			
-			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
-			/*
-			 * 判断这个uninonid是否在user表中存在
-			 */
-			OnlineUser ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
-			
-			String openid = wxw.getOpenid();
-			
+			String code = req.getParameter("code");
+			String wxOrbrower = req.getParameter("wxOrbrower");
+			OnlineUser ou =null;
+			String openid ="";
+			//判断是微信浏览器还是普通浏览器
+			if(!StringUtils.isNotBlank(wxOrbrower)){
+				WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+				openid = wxw.getOpenid();
+				/*
+				 * 判断这个uninonid是否在user表中存在
+				 */
+				ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
+				if(ou!=null){
+					OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+					if(user == null){ //直接跳转到分享页面
+						//这里不用判断用户有没有登录了。没哟登录帮他登录
+					    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+						Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+						ou.setTicket(t.getTicket());
+						onlogin(req,res,t,ou,t.getTicket());
+					}	
+				}
+			}else{
+				ou =  appBrowserService.getOnlineUserByReq(req);
+			}
 			String url  = "/bxg/page/index/"+ openid + "/" + code;
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
@@ -683,18 +693,7 @@ public class WxPayController {
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 			//先判断这个用户是否存在
 			if(ou != null){
-				
 				log.info("}}}}}}}}}}}}}}}}} ou.getUnionId():"+ou.getUnionId());
-				
-				OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-				if(user == null){ //直接跳转到分享页面
-					//这里不用判断用户有没有登录了。没哟登录帮他登录
-				    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
-					ou.setTicket(t.getTicket());
-					onlogin(req,res,t,ou,t.getTicket());
-				}	
-				
 				Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
 				Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
 				//这样直接跳转的话，怎样跳转呢，直接到直播页面啊，还是直接到
@@ -706,13 +705,17 @@ public class WxPayController {
 						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
 					}
 				}else{ //视频音频详情页
-					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
+					//haiyao   multimediaType
+					Integer multimediaType = 1;
+					if(null != mapCourseInfo.get("multimediaType") && mapCourseInfo.get("multimediaType").toString().equals("2")){
+						multimediaType = 2;
+					}
+					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid+"&multimedia_type="+multimediaType;
 				}
 				log.info("}}}}}}}}}}}}}}}}}} url："+url);
 				res.sendRedirect(returnOpenidUri + url);
 			}else{
 				log.info("}}}}}}}}}}}}}}}}}用户不存在");
-				
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
 				//这里跳转到分享页面啦
 				res.sendRedirect(returnOpenidUri + "/xcviews/html/share.html?openid="+openid+"&course_id="+courseId);

@@ -420,7 +420,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		if(type ==1 ){
 			StringBuffer sql = new StringBuffer("");
 			sql.append("select c.grade_name as gradeName,");
-			sql.append("c.smallimg_path as smallImgPath,");
+			sql.append("c.smallimg_path as smallImgPath,c.multimedia_type as multimediaType,");
 			sql.append("c.description as description,live_status as lineState");
 			sql.append(" from oe_course c");
 			sql.append(" where c.id = ? and c.is_delete=0 and c.status = 1  and  c.type=1  ");
@@ -428,7 +428,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 					new MapHandler(),courseId);
 		}else{
 			StringBuffer sql = new StringBuffer("");
-			sql.append("select c.grade_name as gradeName,");
+			sql.append("select c.grade_name as gradeName,c.multimedia_type as multimediaType,");
 			sql.append("ocm.img_url as smallImgPath,c.description as description");
 			sql.append(" from oe_course c,oe_course_mobile as ocm ");
 			sql.append(" where c.id = ocm.course_id and c.id = ? and c.is_delete=0 and c.status = 1 ");

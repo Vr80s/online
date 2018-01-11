@@ -177,7 +177,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 		StringBuffer all = new StringBuffer("");
 		all.append(" select oc.id,oc.grade_name as gradeName,"
 				+ "ocm.img_url as smallImgPath,ocm.description as description,multimedia_type as multimediaType,"
-				+ "ou.small_head_photo as headImg,ou.name as name,ou.id as userId,ou.room_number as roomNumber,"
+				+ "ou.small_head_photo as headImg,ou.name as name,ou.id as userId,ou.room_number as roomNumber,direct_id as directId," 
 				+ "oc.original_cost as originalCost,oc.current_price as currentPrice,");
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");
