@@ -95,7 +95,7 @@ header{
 }
 .classify_course_title{
 	font-size: 0.681rem;
-    color: #2F2F2F;
+    color: #333;
     margin-left: 0.553rem;
     margin-bottom: 0.638rem;
     padding-top: 0.638rem;
@@ -126,7 +126,7 @@ header{
 }
 .classify_special_title{
 	font-size: 0.681rem;
-    color: #2F2F2F;
+    color: #333;
     margin-left: 0.553rem;
     margin-bottom: 0.638rem;
     padding-top: 0.638rem;
@@ -157,7 +157,7 @@ header{
 }
 .classify_mold_title{
 	font-size: 0.681rem;
-    color: #2F2F2F;
+    color: #333;
     margin-left: 0.553rem;
     margin-bottom: 0.638rem;
     padding-top: 0.638rem;
@@ -242,7 +242,7 @@ header{
 }
 .teacher_slider_main_title{
 	font-size: 0.681rem;
-	color: #2F2F2F;
+	color: #333;
 	margin-left: 0.553rem;
 	margin-bottom: 0.426rem;
 	padding-top: 0.638rem;
@@ -289,7 +289,7 @@ header{
 }
 .acupuncture_title{
 	font-size: 0.681rem;
-	color: #2F2F2F;
+	color: #333;
 	margin-left: 0.553rem;
     margin-bottom: 0.426rem;
     padding-top: 0.638rem;
@@ -649,7 +649,7 @@ header{
 }
 .ancient_title{
 	font-size: 0.681rem;
-    color: #2F2F2F;
+    color: #333;
     margin-left: 0.553rem;
     margin-bottom: 0.426rem;
     padding-top: 0.638rem;
@@ -1010,7 +1010,7 @@ header{
 }
 .boutique_title{
 	font-size: 0.681rem;
-	color: #2F2F2F;
+	color: #333;
 	margin-left: 0.553rem;
     margin-bottom: 0.426rem;
     padding-top: 0.638rem;
@@ -1370,7 +1370,7 @@ header{
 }
 .newest_title{
 	font-size: 0.681rem;
-	color: #2F2F2F;
+	color: #333;
 	margin-left: 0.553rem;
     margin-bottom: 0.426rem;
     padding-top: 0.638rem;
@@ -1731,7 +1731,7 @@ header{
 }
 .lectures_title{
 	font-size: 0.681rem;
-	color: #2F2F2F;
+	color: #333;
 	margin-left: 0.553rem;
     margin-bottom: 0.426rem;
     padding-top: 0.638rem;
@@ -1821,9 +1821,38 @@ header{
 }
 
 /*听课结束*/
-
-
 /*头部搜索结束*/
+
+/*底部旋转开始*/
+@-webkit-keyframes rotation{
+from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}
+}
+
+.rotation_bottom{
+	width: 1.702rem;
+	height: 1.702rem;
+	border-radius: 50px;
+	padding: 0.15rem;
+	background: #fff;
+	position: fixed;
+	right: 0.4rem;
+	bottom: 2.5rem;
+	box-shadow: 0px 0px 14px #F97B49;
+	
+	-webkit-transform: rotate(360deg);
+	animation: rotation 3s linear infinite;
+	-moz-animation: rotation 3s linear infinite;
+	-webkit-animation: rotation 3s linear infinite;
+	-o-animation: rotation 3s linear infinite;
+}
+.rotation_bottom img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50px;
+}
+/*底部旋转结束*/
+
 
 /*底部开始*/
 .footer_perch{
