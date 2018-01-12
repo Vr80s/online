@@ -1778,9 +1778,9 @@ $(".kctj_bx").click(function(){
 	$("#courseDiv_M").hide();
 	$("#courseDiv_PX").hide();
 	$("#courseRecDiv").show();
-	
+	var multimediaType = $(this).attr("title");
 	var json = new Array();
-	json.push('{"tempMatchType":"9","propertyName":"search_multimediaType","propertyValue1":"1","tempType":"Integer"}');
+	json.push('{"tempMatchType":"9","propertyName":"search_multimediaType","propertyValue1":"'+multimediaType+'","tempType":"Integer"}');
 	searchButton(_courseRecTable,json);
 });
 /**

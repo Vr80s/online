@@ -144,9 +144,20 @@
         </li>
 
 		<li role="presentation">
-            <a href="#liveremon" aria-controls="#liveremon" class="zbtj_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播推荐</a>
+            <a href="#liveremon" aria-controls="#liveremon" title="1" class="zbtj_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播中推荐</a>
         </li>
+        
+        <li role="presentation">
+            <a href="#liveremon" aria-controls="#liveremon" title="2"  class="zbtj_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播预告推荐</a>
+        </li>
+        
+        <li role="presentation">
+            <a href="#liveremon" aria-controls="#liveremon" title="3" class="zbtj_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">直播结束推荐</a>
+        </li>
+        
     </ul>
  
     <!-- Tab panes -->
@@ -282,8 +293,6 @@
 			            </table>
 			        </div>
 			    </div>
-			
-        	
         	
 				<div class="row">
 					<div class="col-xs-12">
@@ -313,8 +322,7 @@
         
         <div role="tabpanel" class="tab-pane" id="liveremon">
         	<div class="mainrighttab tabresourse bordernone" id="courseZbRecDiv" style="display:none">
-        			
-        			<div class="searchDivClass" id="searchDiv">
+        		<!-- <div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
 			            <table frame=void style="width: 100%">
 			                <tr>
@@ -331,7 +339,7 @@
 			                </tr>
 			            </table>
 			        </div>
-			    </div>
+			    </div> -->
         	
 				<div class="row">
 					<div class="col-xs-12">
