@@ -667,17 +667,17 @@ public class CourseDao extends SimpleHibernateDao {
         calendar.set(Calendar.SECOND, 0);//秒
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
         Date date = calendar.getTime();
-        System.out.println("Christmas is:"+format.format(date));
+//        System.out.println("Christmas is:"+format.format(date));
         String now = format.format(Calendar.getInstance().getTime());
         Date nowd;
         try {
             nowd = format.parse(now);
             int flag = nowd.compareTo(date);
             if (flag > 0) {//当天及当天之后，<0就是在日期之前
-                System.out.println("已过期");
+//                System.out.println("已过期");
                 courseVo.setAvailable(false);
             }else{
-                System.out.println("未过期");
+//                System.out.println("未过期");
                 courseVo.setAvailable(true);
             }
         } catch (ParseException e) {
