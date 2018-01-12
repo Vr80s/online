@@ -54,8 +54,9 @@ public class Configurations {
 
 	public static String getFileRepository() {
 		String val = getConfig("STREAM_FILE_REPOSITORY");
-		if (val == null || val.isEmpty())
-			val = REPOSITORY;
+		if (val == null || val.isEmpty()) {
+            val = REPOSITORY;
+        }
 		return val;
 	}
 

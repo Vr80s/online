@@ -55,7 +55,9 @@ public class UserCoinServiceImpl implements UserCoinService {
     public Map<String, String> getBalanceByUserId(String userId) {
     	
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
-        if (uc == null) throw new RuntimeException(userId+"--用户账户不存在！");
+        if (uc == null) {
+            throw new RuntimeException(userId + "--用户账户不存在！");
+        }
         BigDecimal balanceTotal = uc.getBalance().add(uc.getBalanceGive()).add(uc.getBalanceRewardGift());
         Map<String, String> balance = new HashMap<String, String>();
         balance.put("balance_reward_gift", uc.getBalanceRewardGift().setScale(0, BigDecimal.ROUND_DOWN).toString());
@@ -100,8 +102,9 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setCreateTime(new Date());
         uci.setDeleted(false);
         uci.setStatus(true);
-        if (uci.getBrokerageValue() == null)
+        if (uci.getBrokerageValue() == null) {
             uci.setBrokerageValue(BigDecimal.ZERO);
+        }
         userCoinDao.save(uci);
     }
 
@@ -114,7 +117,9 @@ public class UserCoinServiceImpl implements UserCoinService {
         dc.add(Restrictions.eq("userId", ucc.getUserId()));
         UserCoin uc = userCoinDao.findEntity(dc);
 
-        if (uc == null) throw new RuntimeException("用户账户不存在！");
+        if (uc == null) {
+            throw new RuntimeException("用户账户不存在！");
+        }
 
         BigDecimal balance = BigDecimal.ZERO;
         BigDecimal balanceGive = BigDecimal.ZERO;
@@ -250,7 +255,9 @@ public class UserCoinServiceImpl implements UserCoinService {
         dc.add(Restrictions.eq("userId", ucc.getUserId()));
         UserCoin uc = userCoinDao.findEntity(dc);
 
-        if (uc == null) throw new RuntimeException("用户账户不存在！");
+        if (uc == null) {
+            throw new RuntimeException("用户账户不存在！");
+        }
 
         BigDecimal balanceRewardGift = BigDecimal.ZERO;
         BigDecimal balance = BigDecimal.ZERO;

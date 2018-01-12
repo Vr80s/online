@@ -253,7 +253,9 @@ public class WxJSController {
 		
 		String access_token = req.getParameter("access_token");
 		access_token ="6mcGpY9ORGOF_Vw7s0VdYnSoNIaOTeYnJWrHAcb1Xaihi7dIDi-SqjV6B_uY4FJ_N6PT2NKtYKQjCWvVB5OTptOea-JBV13UEfYmskk2L1wTBCeABADLM";
-		if(access_token == null || access_token.isEmpty()) return null;
+		if(access_token == null || access_token.isEmpty()) {
+            return null;
+        }
 		String strUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN"
 				.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token);
 		
@@ -352,26 +354,33 @@ public class WxJSController {
 		List<WxcpConcernInfo> listWxcpConcernInfo = new LinkedList<WxcpConcernInfo>();
 		String access_token = req.getParameter("access_token");
 		String public_id  = WxPayConst.gzh_appid;
-		if(public_id == null || public_id.isEmpty() || access_token == null || access_token.isEmpty() )		
-			return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
+		if(public_id == null || public_id.isEmpty() || access_token == null || access_token.isEmpty() ) {
+            return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
+        }
 		log.info("getWxConcernList->access_token->\r\n\t"+access_token);
 		
 		WxcpConcernInfo condConcernInfo = new WxcpConcernInfo();
 		condConcernInfo.setPublic_id(public_id);
 		listWxcpConcernInfo = wxcpConcernInfoService.select(condConcernInfo, null);
-		if(listWxcpConcernInfo==null) listWxcpConcernInfo = new LinkedList<WxcpConcernInfo>();
+		if(listWxcpConcernInfo==null) {
+            listWxcpConcernInfo = new LinkedList<WxcpConcernInfo>();
+        }
 		log.info("getWxConcernList->listWxcpConcernInfo->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfo).toString());
 		
 		String strUrl = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid="
 				.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token);
 		StringBuffer sbRet = HttpsRequest.httpsRequest(strUrl, "GET", null);//{"access_token":"ACCESS_TOKEN","expires_in":7200}//{"errcode":40013,"errmsg":"invalid appid"}
-		if(sbRet==null) return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo); 
+		if(sbRet==null) {
+            return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
+        }
 		JSONObject jsonObject = JSONObject.fromObject(sbRet.toString());
 		String total = jsonObject.getString("total");
 		String count = jsonObject.getString("count");		
 		JSONArray data = jsonObject.getJSONArray("data");//String data = (String)jsonObject.get("data");
 		String next_openid = (String)jsonObject.getString("next_openid");
-		if(total == null || count  == null || data == null /*|| next_openid == null*/) return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
+		if(total == null || count  == null || data == null /*|| next_openid == null*/) {
+            return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
+        }
 		log.info("getWxConcernList->/user/get?access_token->\r\n\t"+sbRet.toString());
 		
 		List<WxcpConcernInfo> listWxcpConcernInfoNew = new LinkedList<WxcpConcernInfo>();
@@ -384,21 +393,29 @@ public class WxJSController {
 		}
 		
 		while(true) {
-			if(next_openid == null || next_openid.trim().isEmpty()) break;
+			if(next_openid == null || next_openid.trim().isEmpty()) {
+                break;
+            }
 			strUrl = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID"
 					.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token)
 					.replace("next_openid=NEXT_OPENID", "next_openid=" + next_openid);	
 			
 			sbRet = HttpsRequest.httpsRequest(strUrl, "GET", null);//{"access_token":"ACCESS_TOKEN","expires_in":7200}//{"errcode":40013,"errmsg":"invalid appid"}
-			if(sbRet==null) break; 
+			if(sbRet==null) {
+                break;
+            }
 			
 			jsonObject = JSONObject.fromObject(sbRet.toString());
 			total = jsonObject.getString("total");
 			count = jsonObject.getString("count");		
 			data = jsonObject.getJSONArray("data");//String data = (String)jsonObject.get("data");
 			next_openid = (String)jsonObject.getString("next_openid");
-			if(total == null || count  == null || data == null ) break;
-			if(next_openid == null || (next_openid != null && next_openid.trim().length() == 0) ) break;
+			if(total == null || count  == null || data == null ) {
+                break;
+            }
+			if(next_openid == null || (next_openid != null && next_openid.trim().length() == 0) ) {
+                break;
+            }
 			
 			log.info("getWxConcernList->/user/get?access_token->\r\n\t"+sbRet.toString());			
 			
@@ -420,7 +437,9 @@ public class WxJSController {
 					have = 1;break;
 				}
 			}
-			if(0 == have) listWxcpConcernInfoDel.add(listWxcpConcernInfo.get(i));
+			if(0 == have) {
+                listWxcpConcernInfoDel.add(listWxcpConcernInfo.get(i));
+            }
 		}
 		for(int k=0;k<listWxcpConcernInfoDel.size();k++) {
 			wxcpConcernInfoService.delete(listWxcpConcernInfoDel.get(k));
@@ -456,18 +475,22 @@ public class WxJSController {
 		List<WxcpConcernInfo> listWxcpConcernInfo = new LinkedList<WxcpConcernInfo>();
 		String public_id  = WxPayConst.gzh_appid;
 		String open_id  = req.getParameter("open_id");
-		if(public_id == null || public_id.isEmpty() || open_id == null || open_id.isEmpty())		
-			return ResponseObject.newSuccessResponseObject(-1);
+		if(public_id == null || public_id.isEmpty() || open_id == null || open_id.isEmpty()) {
+            return ResponseObject.newSuccessResponseObject(-1);
+        }
 		
 		WxcpConcernInfo condConcernInfo = new WxcpConcernInfo();
 		condConcernInfo.setPublic_id(public_id);
 		condConcernInfo.setOpen_id(open_id);;
 		listWxcpConcernInfo = wxcpConcernInfoService.select(condConcernInfo, null);
-		if(listWxcpConcernInfo==null) listWxcpConcernInfo = new LinkedList<WxcpConcernInfo>();
-		if(listWxcpConcernInfo != null && listWxcpConcernInfo.size()>0)
-			return ResponseObject.newSuccessResponseObject(0);
-		else 
-			return ResponseObject.newSuccessResponseObject(-1);
+		if(listWxcpConcernInfo==null) {
+            listWxcpConcernInfo = new LinkedList<WxcpConcernInfo>();
+        }
+		if(listWxcpConcernInfo != null && listWxcpConcernInfo.size()>0) {
+            return ResponseObject.newSuccessResponseObject(0);
+        } else {
+            return ResponseObject.newSuccessResponseObject(-1);
+        }
 	}
 	
 	@RequestMapping("getWxJsConfig")
@@ -477,8 +500,9 @@ public class WxJSController {
 		WxcpWxJsconfig wxcpWxJsconfig = new WxcpWxJsconfig();
 		String openid = req.getParameter("openid");
 		String jsconfig_url  = req.getParameter("jsconfig_url");
-		if(openid == null || openid.isEmpty() || jsconfig_url == null || jsconfig_url.isEmpty())		
-			return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);
+		if(openid == null || openid.isEmpty() || jsconfig_url == null || jsconfig_url.isEmpty()) {
+            return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);
+        }
 		log.info("getWxJsConfig->openid->\r\n\t"+openid);
 		log.info("getWxJsConfig->jsconfig_url->\r\n\t"+jsconfig_url);
 		
@@ -514,11 +538,15 @@ public class WxJSController {
 					.replace("appid=APPID", "appid=" + WxPayConst.gzh_appid)
 					.replace("secret=APPSECRET", "secret=" + WxPayConst.gzh_Secret);
 			StringBuffer sbRet = HttpsRequest.httpsRequest(strUrl, "GET", null);//{"access_token":"ACCESS_TOKEN","expires_in":7200}//{"errcode":40013,"errmsg":"invalid appid"}
-			if(sbRet==null) return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig); 
+			if(sbRet==null) {
+                return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);
+            }
 			JSONObject jsonObject = JSONObject.fromObject(sbRet.toString());
 			access_token = (String)jsonObject.get("access_token");
 			//if(access_token==null || access_token.length()<=6) return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);//for test			
-			if(access_token==null || access_token.length()<=6) access_token = "dWfPE4DxkXGEsM4AOVs8VMC_PGGVi490u5h9nbSlYy3-s8VMCPGGVi490sM4AOVdWfPE4Dxk";
+			if(access_token==null || access_token.length()<=6) {
+                access_token = "dWfPE4DxkXGEsM4AOVs8VMC_PGGVi490u5h9nbSlYy3-s8VMCPGGVi490sM4AOVdWfPE4Dxk";
+            }
 			log.info("getWxJsConfig->access_token->\r\n\t"+sbRet.toString());
 		}
 		
@@ -527,13 +555,17 @@ public class WxJSController {
 			String strUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi"		
 					.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token);
 			StringBuffer sbRet = HttpsRequest.httpsRequest(strUrl, "GET", null);//{"errcode":0,"errmsg":"ok","ticket":"bxLdikRXVbTPdHSM05e5u5sUoXNKd8-41ZO3MhKoyN5OfkWITDGgnr2fwJ0m9E8NYzWKVZvdVtaUgWvsdshFKA","expires_in":7200}
-			if(sbRet==null) return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig); 
+			if(sbRet==null) {
+                return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);
+            }
 			JSONObject jsonObject = JSONObject.fromObject(sbRet.toString());
 			//??String errcode = (String)jsonObject.get("errcode");
 			//??if(errcode == null || !errcode.equals("0")) return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);
 			jsapi_ticket = (String)jsonObject.get("ticket");
 			//return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);//for test 
-			if(jsapi_ticket==null || jsapi_ticket.length()<=6) jsapi_ticket = "sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg";
+			if(jsapi_ticket==null || jsapi_ticket.length()<=6) {
+                jsapi_ticket = "sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg";
+            }
 			log.info("getWxJsConfig->jsapi_ticket->\r\n\t"+sbRet.toString());
 		}
 				

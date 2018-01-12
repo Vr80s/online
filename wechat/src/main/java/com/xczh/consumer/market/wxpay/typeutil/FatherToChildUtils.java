@@ -20,8 +20,9 @@ public class FatherToChildUtils {
         Field ff[]= fatherClass.getDeclaredFields(); 
         for(int i=0;i<ff.length;i++){ 
             Field f=ff[i];//取出每一个属性，如deleteDate 
-            if(Modifier.isStatic(f.getModifiers()))
-            	continue;//跳过静态成员
+            if(Modifier.isStatic(f.getModifiers())) {
+                continue;//跳过静态成员
+            }
             Class type=f.getType(); 
             try {
                 Method m = fatherClass.getMethod("get"+upperHeadChar(f.getName()));//方法getDeleteDate 

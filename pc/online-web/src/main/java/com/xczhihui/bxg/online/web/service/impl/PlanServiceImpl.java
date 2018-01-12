@@ -37,8 +37,9 @@ public class PlanServiceImpl extends OnlineBaseServiceImpl implements PlanServic
             List<Map<String, Object>> grades =  this.getDao().getNamedParameterJdbcTemplate().queryForList(gradesql, paramMap);
             /*20170724---yuruixin*/
             Integer gradeId = null;
-            if(grades.size()>0)
-            	gradeId=Integer.valueOf(grades.get(0).get("grade_id").toString());
+            if(grades.size()>0) {
+                gradeId = Integer.valueOf(grades.get(0).get("grade_id").toString());
+            }
             /*20170724---yuruixin*/
             paramMap.put("grade_id",gradeId);
             //获取此班级的学习计划

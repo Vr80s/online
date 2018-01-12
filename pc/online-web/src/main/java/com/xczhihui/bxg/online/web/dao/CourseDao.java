@@ -284,8 +284,9 @@ public class CourseDao extends SimpleHibernateDao {
                 courseVo.setIsApply(listVideo.size() > 0 ? true : false);
                 
                 ApplyGradeCourse  applyGradeCourse = applyGradeCourseDao.findByCourseIdAndUserId(courseId, loginUser.getId());
-                if(applyGradeCourse != null)
-                courseVo.setIsApply(applyGradeCourse.getIsPayment().equals("1") ? false : true);
+                if(applyGradeCourse != null) {
+                    courseVo.setIsApply(applyGradeCourse.getIsPayment().equals("1") ? false : true);
+                }
                 
             }
         }

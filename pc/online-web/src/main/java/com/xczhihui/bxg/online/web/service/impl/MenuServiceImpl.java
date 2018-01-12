@@ -50,8 +50,9 @@ public class MenuServiceImpl  extends OnlineBaseServiceImpl implements MenuServi
                 MenuVo vo = new MenuVo();
                 BeanUtils.copyProperties(vo, m);
                 List<ScoreTypeVo> secondMenu = this.getAllSecondMenuByIndex(m.getId(), null, null);
-                if (!CollectionUtils.isEmpty(secondMenu))
-                       vo.setSencodMenu(secondMenu);
+                if (!CollectionUtils.isEmpty(secondMenu)) {
+                    vo.setSencodMenu(secondMenu);
+                }
                        resultList.add(vo);
             }
         }

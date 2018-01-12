@@ -16,8 +16,9 @@ public class JsonUtil {
      * @return
      */
     public static String toJson(Object object){
-        if(object!=null)
-           return gson.toJson(object);
+        if(object!=null) {
+            return gson.toJson(object);
+        }
         return "{}";
     }
 }

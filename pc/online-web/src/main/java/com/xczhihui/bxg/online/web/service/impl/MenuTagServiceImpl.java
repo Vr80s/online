@@ -142,10 +142,12 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 				BeanUtils.copyProperties(vo, m);
 				map.put("menu", vo);
 				List<AskTagVo> tags = askTagDao.getTagsByMenuId(m.getId());
-				if (!CollectionUtils.isEmpty(tags))
-					map.put("tag", tags);
-				if(tags.size()>0)
-					resultList.add(map);
+				if (!CollectionUtils.isEmpty(tags)) {
+                    map.put("tag", tags);
+                }
+				if(tags.size()>0) {
+                    resultList.add(map);
+                }
 			}
 		}
 		return resultList;
@@ -172,32 +174,38 @@ public class MenuTagServiceImpl  implements OnlineBaseService, MenuTagService {
 					if(user.getMenuId().equals(m.getId())) {
 						map.put("menu", vo);
 						List<AskTagVo> tags = askTagDao.getTagsByMenuId(m.getId());
-						if (!CollectionUtils.isEmpty(tags))
-							map.put("tag", tags);
+						if (!CollectionUtils.isEmpty(tags)) {
+                            map.put("tag", tags);
+                        }
 						/*yuruixin-20170831*/
-						if(tags.size()>1)
-							resultList.add(map);
+						if(tags.size()>1) {
+                            resultList.add(map);
+                        }
 						/*yuruixin-20170831*/
 					}else {
 						if(courseDao.checkUserToPay(loginUser.getId(),m.getId())) {  //购买了付费课程，此学科公开显示
 							map.put("menu", vo);
 							List<AskTagVo> tags = askTagDao.getTagsByMenuId(m.getId());
-							if (!CollectionUtils.isEmpty(tags))
-								map.put("tag", tags);
+							if (!CollectionUtils.isEmpty(tags)) {
+                                map.put("tag", tags);
+                            }
 							/*yuruixin-20170831*/
-							if(tags.size()>1)
-								resultList.add(map);
+							if(tags.size()>1) {
+                                resultList.add(map);
+                            }
 							/*yuruixin-20170831*/
 						}
 					}
 				}else{  //全部用户都可以看到
 					map.put("menu", vo);
 					List<AskTagVo> tags = askTagDao.getTagsByMenuId(m.getId());
-					if (!CollectionUtils.isEmpty(tags))
-						map.put("tag", tags);
+					if (!CollectionUtils.isEmpty(tags)) {
+                        map.put("tag", tags);
+                    }
 					/*yuruixin-20170831*/
-					if(tags.size()>0)
-						resultList.add(map);
+					if(tags.size()>0) {
+                        resultList.add(map);
+                    }
 					/*yuruixin-20170831*/
 				}
 			}

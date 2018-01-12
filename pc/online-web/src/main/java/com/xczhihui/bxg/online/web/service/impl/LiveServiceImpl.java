@@ -232,7 +232,9 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 		String description = (String) course.get("description");
 		Integer liveStatus = (Integer) course.get("liveStatus");
 		long coursePwd =  (long) course.get("coursePwd");
-		if(description==null)description="";
+		if(description==null) {
+            description = "";
+        }
 		description=description.replaceAll("\n", "");
 		String page="";
 		if(coursePwd==1){

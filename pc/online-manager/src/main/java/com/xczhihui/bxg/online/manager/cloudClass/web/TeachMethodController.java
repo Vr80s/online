@@ -54,8 +54,9 @@ public class TeachMethodController {
           if(page.getItems().size()>0){
                for(TeachMethodVo vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
-                    if(user!=null)
-                         vo.setCreatePerson(user.getName());
+                    if(user!=null) {
+                        vo.setCreatePerson(user.getName());
+                    }
                }
           }
           int total = page.getTotalCount();
@@ -120,8 +121,9 @@ public class TeachMethodController {
           TeachMethod entity=new TeachMethod();
           BeanUtils.copyProperties(entity,teachMethodVo);
           entity.setName(teachMethodVo.getName());
-          if(teachMethodVo==null)
-               throw new IllegalArgumentException("不存在记录");
+          if(teachMethodVo==null) {
+              throw new IllegalArgumentException("不存在记录");
+          }
           TeachMethod searchEntity=teachMethodService.findById(teachMethodVo.getId());
           searchEntity.setName(teachMethodVo.getName());
           if (teachMethodService.exists(searchEntity)) {

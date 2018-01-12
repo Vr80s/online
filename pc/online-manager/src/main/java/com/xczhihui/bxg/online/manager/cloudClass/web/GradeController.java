@@ -383,10 +383,12 @@ public class GradeController {
         String qqno=request.getParameter("qqno");//QQ群
 //        String defaultStudentCount=request.getParameter("defaultStudentCount");
         
-        if(classTemplate==null)
-            classTemplate="";
-        if(nameNumber==null)
-            nameNumber="";
+        if(classTemplate==null) {
+            classTemplate = "";
+        }
+        if(nameNumber==null) {
+            nameNumber = "";
+        }
         grade.setName(classTemplate + nameNumber + "期");
         grade.setStudentAmount(Integer.valueOf(studentAmount));
         grade.setCourseId(courseId);
@@ -450,10 +452,12 @@ public class GradeController {
         String qqno=request.getParameter("qqno");//QQ群
         String defaultStudentCount=request.getParameter("defaultStudentCount");
         
-        if(classTemplate==null)
-            classTemplate="";
-        if(nameNumber==null)
-            nameNumber="";
+        if(classTemplate==null) {
+            classTemplate = "";
+        }
+        if(nameNumber==null) {
+            nameNumber = "";
+        }
         Grade grade=service.findById(Integer.parseInt(id));
         grade.setName(classTemplate + nameNumber + "期");
         List<Grade> gradeByNameList=service.getByName(grade.getName());

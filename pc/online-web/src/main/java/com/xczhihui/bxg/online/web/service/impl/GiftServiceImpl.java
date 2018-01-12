@@ -44,7 +44,9 @@ public class GiftServiceImpl implements GiftService {
 		dc.add(Restrictions.eq("isDelete", false));
 		dc.add(Restrictions.eq("id", Integer.valueOf(giftStatement.getGiftId())));
 		Gift gift = giftDao.findEntity(dc);
-		if(gift == null)throw new NotSuchGiftException();
+		if(gift == null) {
+            throw new NotSuchGiftException();
+        }
 		giftStatement.setCreateTime(new Date());
 		giftStatement.setGiftId(gift.getId()+"");
 		giftStatement.setGiftName(gift.getName());
@@ -55,9 +57,13 @@ public class GiftServiceImpl implements GiftService {
 		
 		if(gift.getPrice()>0)
 //			throw new RuntimeException("");
-			userCoinService.updateBalanceForGift(giftStatement,gift);//扣除用户相应的代币数量,主播增加相应代币
+        {
+            userCoinService.updateBalanceForGift(giftStatement, gift);//扣除用户相应的代币数量,主播增加相应代币
+        }
 		OnlineUser u = onlineUserCenterService.getUser(giftStatement.getGiver());
-		if(u==null)throw new RuntimeException(giftStatement.getGiver()+"--用户不存在");//20171227-yuxin
+		if(u==null) {
+            throw new RuntimeException(giftStatement.getGiver() + "--用户不存在");//20171227-yuxin
+        }
 		GiftStatement gs = new GiftStatement();
 		try {
 			BeanUtils.copyProperties(gs, giftStatement);

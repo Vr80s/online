@@ -77,8 +77,12 @@ public class WxcpWxRedpackMapper extends BasicSimpleDao {
 		sql.append(")                                   ");
 		                                        		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getRp_id()==null || record.getRp_id().isEmpty()) record.setRp_id(id);
-		if(record.getCreate_time()==null) record.setCreate_time(new Date());
+		if(record.getRp_id()==null || record.getRp_id().isEmpty()) {
+            record.setRp_id(id);
+        }
+		if(record.getCreate_time()==null) {
+            record.setCreate_time(new Date());
+        }
 		
 		super.update(
 			JdbcUtil.getCurrentConnection(),
@@ -155,24 +159,31 @@ public class WxcpWxRedpackMapper extends BasicSimpleDao {
 		sql.append("	wxcp_wx_redpack   				");
 		sql.append("where                  				");
 		sql.append("	1 = 1               			");	
-		if(condition.getRp_id() != null && !condition.getRp_id().isEmpty())
-		sql.append("	and rp_id = ?    				");	
-		if(condition.getRe_openid() != null && !condition.getRe_openid().isEmpty())
-		sql.append("	and re_openid = ?    			");
-		if(condition.getWxappid() != null && !condition.getWxappid().isEmpty() )
-		sql.append("   	and wxappid = ? 				");	
+		if(condition.getRp_id() != null && !condition.getRp_id().isEmpty()) {
+            sql.append("	and rp_id = ?    				");
+        }
+		if(condition.getRe_openid() != null && !condition.getRe_openid().isEmpty()) {
+            sql.append("	and re_openid = ?    			");
+        }
+		if(condition.getWxappid() != null && !condition.getWxappid().isEmpty() ) {
+            sql.append("   	and wxappid = ? 				");
+        }
 		sql.append("order by    						");
 		sql.append("	create_time desc				");
-		if(limit!=null && limit.length() > 0) 
-		sql.append("	limit " + limit);
+		if(limit!=null && limit.length() > 0) {
+            sql.append("	limit " + limit);
+        }
 		
 		ArrayList<Object> conList = new ArrayList<Object>(); 
-		if(condition.getRp_id() != null && !condition.getRp_id().isEmpty())
-			conList.add(condition.getRp_id());
-		if(condition.getRe_openid() != null && !condition.getRe_openid().isEmpty())
-			conList.add(condition.getRe_openid());	
-		if(condition.getWxappid() != null && !condition.getWxappid().isEmpty() )
-			conList.add(condition.getWxappid());	
+		if(condition.getRp_id() != null && !condition.getRp_id().isEmpty()) {
+            conList.add(condition.getRp_id());
+        }
+		if(condition.getRe_openid() != null && !condition.getRe_openid().isEmpty()) {
+            conList.add(condition.getRe_openid());
+        }
+		if(condition.getWxappid() != null && !condition.getWxappid().isEmpty() ) {
+            conList.add(condition.getWxappid());
+        }
 		
 		Object[] params = new Object [conList.size()];
 		conList.toArray(params);				

@@ -69,9 +69,11 @@ public class PageController {
         //如果浏览器中获取有用户登录，接着在库里面查询此用户是管理员还是普通用户
         if(user !=null){  //是管理员
               if(type==1) //博问答管理员
-                  response.sendRedirect("/web/html/qusAndAnsDetailGuanLi.html?qid="+qid);
-              else
-                  response.sendRedirect("/web/html/qusAndAnsDetailTouSu.html?qid="+qid);
+              {
+                  response.sendRedirect("/web/html/qusAndAnsDetailGuanLi.html?qid=" + qid);
+              } else {
+                  response.sendRedirect("/web/html/qusAndAnsDetailTouSu.html?qid=" + qid);
+              }
         }else{
            throw new RuntimeException("您不是管理员！");
             // response.sendRedirect("/web/html/404.html");

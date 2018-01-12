@@ -538,8 +538,12 @@ public class CourseController extends AbstractController{
 	@ResponseBody
 	 public ResponseObject updateCourseDetail(String courseId, String smallImgPath,String smallImgPath1,String smallImgPath2, String courseDetail,
 				String courseOutline, String commonProblem){
-		if(smallImgPath1!=null)smallImgPath += "dxg"+smallImgPath1;
-		if(smallImgPath2!=null)smallImgPath += "dxg"+smallImgPath2;
+		if(smallImgPath1!=null) {
+            smallImgPath += "dxg" + smallImgPath1;
+        }
+		if(smallImgPath2!=null) {
+            smallImgPath += "dxg" + smallImgPath2;
+        }
 		courseService.updateCourseDetail(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
@@ -548,8 +552,12 @@ public class CourseController extends AbstractController{
 	@ResponseBody
 	 public ResponseObject addPreview(String courseId, String smallImgPath,String smallImgPath1,String smallImgPath2, String courseDetail,
 				String courseOutline, String commonProblem){
-		if(smallImgPath1!=null)smallImgPath += "dxg"+smallImgPath1;
-		if(smallImgPath2!=null)smallImgPath += "dxg"+smallImgPath2;
+		if(smallImgPath1!=null) {
+            smallImgPath += "dxg" + smallImgPath1;
+        }
+		if(smallImgPath2!=null) {
+            smallImgPath += "dxg" + smallImgPath2;
+        }
 		courseService.addPreview(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem);
         return ResponseObject.newSuccessResponseObject("操作成功！");
     }

@@ -277,8 +277,9 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
            CourseApplyVo courseApplyVo= courseDao.getCourseApplyByCourseId(courseId);
 //           if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getOriginalCost())==0 && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
     	   if(courseApplyVo.getCoursePwd()!=null&&!"".equals(courseApplyVo.getCoursePwd().trim())){
-    		   if(password==null || !password.equals(courseApplyVo.getCoursePwd()))
-    		   return "密码错误";
+    		   if(password==null || !password.equals(courseApplyVo.getCoursePwd())) {
+                   return "密码错误";
+               }
     	   }
            if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
                videoDao.saveEntryVideo(courseId,request);

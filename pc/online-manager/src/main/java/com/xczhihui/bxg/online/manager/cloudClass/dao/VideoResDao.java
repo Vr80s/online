@@ -25,8 +25,9 @@ public class VideoResDao extends HibernateDao<VideoResVo>{
 	 		sql.append(" and v.chapter_id in( ");
 	 		String [] ids=searchVo.getChapterId().split(",");
 	 		 for(int i=0;i<ids.length;i++){
-	                if(i!=0)
-	                    sql.append(",");
+	                if(i!=0) {
+                        sql.append(",");
+                    }
 	                sql.append("'"+ids[i]+"'");
 	            }
 	            sql.append(" ) ");

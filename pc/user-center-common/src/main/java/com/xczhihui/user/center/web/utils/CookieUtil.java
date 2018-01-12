@@ -41,8 +41,9 @@ public class CookieUtil {
 	 */
 	public static Cookie getCookie(HttpServletRequest request, String name) {
 		Cookie cookies[] = request.getCookies();
-		if (cookies == null || name == null || name.length() == 0)
-			return null;
+		if (cookies == null || name == null || name.length() == 0) {
+            return null;
+        }
 		Cookie cookie = null;
 		for (int i = 0; i < cookies.length; i++) {
 			cookie = cookies[i];
@@ -111,8 +112,9 @@ public class CookieUtil {
 	public static void setCookie(HttpServletResponse response, String name,
 	        String value, String domain, String path, int maxAge) {
 		Cookie cookie = new Cookie(name, value);
-		if(domain != null)
-		cookie.setDomain(domain);//cookie绑定域名关闭--20170829-yuruixin
+		if(domain != null) {
+            cookie.setDomain(domain);//cookie绑定域名关闭--20170829-yuruixin
+        }
 		cookie.setPath(path);
 		cookie.setMaxAge(maxAge);
 		response.addCookie(cookie);

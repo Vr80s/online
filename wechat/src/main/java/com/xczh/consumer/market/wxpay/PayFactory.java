@@ -112,8 +112,9 @@ public class PayFactory {
 //			sign = URLEncoder.encode(sign, "utf-8");
 //			map.put("payLink", preSing + "&sign_type=\"RSA\"&sign=\"" + sign + "\"");
 //			return map;
-		} else
-			;
+		} else {
+            ;
+        }
 		return null;
 	}
 	

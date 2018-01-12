@@ -138,8 +138,9 @@ public final class ImageUtil {
 		if (!imageFile.exists()) {
 			throw new IOException("Not found the images:" + inputImage);
 		}
-		if (outImage == null || outImage.isEmpty())
-			outImage = inputImage;
+		if (outImage == null || outImage.isEmpty()) {
+            outImage = inputImage;
+        }
 		String format = inputImage.substring(inputImage.lastIndexOf(".") + 1, inputImage.length());
 		try (InputStream imageInputStream = new FileInputStream(imageFile);
 				OutputStream imageOutputStream = new FileOutputStream(new File(outImage))) {

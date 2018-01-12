@@ -37,14 +37,17 @@ public  class IoUtil {
      * @throws IOException
      */
     public static File getFile(String filename) throws IOException {
-        if (filename == null || filename.isEmpty())
+        if (filename == null || filename.isEmpty()) {
             return null;
+        }
         String name = filename.replaceAll("/", Matcher.quoteReplacement(File.separator));
         File f = new File(Configurations.getFileRepository() + File.separator + name);
-        if (!f.getParentFile().exists())
+        if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
-        if (!f.exists())
+        }
+        if (!f.exists()) {
             f.createNewFile();
+        }
 
         return f;
     }
@@ -57,14 +60,17 @@ public  class IoUtil {
      * @throws IOException
      */
     public static File getTokenedFile(String key) throws IOException {
-        if (key == null || key.isEmpty())
+        if (key == null || key.isEmpty()) {
             return null;
+        }
 
         File f = new File(Configurations.getFileRepository() + File.separator + "token" + File.separator +key);
-        if (!f.getParentFile().exists())
+        if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
-        if (!f.exists())
+        }
+        if (!f.exists()) {
             f.createNewFile();
+        }
 
         return f;
     }
@@ -73,46 +79,55 @@ public  class IoUtil {
     
 
     public static File getTokenedFile(String key,String base_dir,String projectName) throws IOException {
-        if (key == null || key.isEmpty())
+        if (key == null || key.isEmpty()) {
             return null;
+        }
         
         AttachmentType type = AttachmentType.valueOf(projectName.toUpperCase());
 		String path = type.getName() +  File.separator  + FileUtil.getYearMonthDayHourPath();
 		
         File f = new File(base_dir + File.separator + path + File.separator +  key);
-        if (!f.getParentFile().exists())
+        if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
-        if (!f.exists())
+        }
+        if (!f.exists()) {
             f.createNewFile();
+        }
 
         return f;
     }
     
     public static File getFile(String filename,String base_dir,String projectName) throws IOException {
-        if (filename == null || filename.isEmpty())
+        if (filename == null || filename.isEmpty()) {
             return null;
+        }
 //        String name = filename.replaceAll("/", Matcher.quoteReplacement(File.separator));
         AttachmentType type = AttachmentType.valueOf(projectName.toUpperCase());
         String path = type.getName() +  File.separator   + FileUtil.getYearMonthDayHourPath();
         File f = new File(base_dir + File.separator + path + File.separator +  filename );
-        if (!f.getParentFile().exists())
+        if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
-        if (!f.exists())
+        }
+        if (!f.exists()) {
             f.createNewFile();
+        }
         
         return f;
     }
 
     
     public static void storeToken(String key) throws IOException {
-        if (key == null || key.isEmpty())
+        if (key == null || key.isEmpty()) {
             return;
+        }
 
         File f = new File(Configurations.getFileRepository() + File.separator + "token" + File.separator +key);
-        if (!f.getParentFile().exists())
+        if (!f.getParentFile().exists()) {
             f.getParentFile().mkdirs();
-        if (!f.exists())
+        }
+        if (!f.exists()) {
             f.createNewFile();
+        }
     }
 
     /**
@@ -122,8 +137,9 @@ public  class IoUtil {
      */
     public static void close(Closeable stream) {
         try {
-            if (stream != null)
+            if (stream != null) {
                 stream.close();
+            }
         } catch (IOException e) {
         }
     }

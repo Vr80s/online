@@ -50,30 +50,37 @@ public class DemoUtil {
 		@SuppressWarnings("unchecked")
 		Iterator<Element> videoElements = document.getRootElement()
 				.elementIterator("video");
-		if (videoElements == null)
-			return;
+		if (videoElements == null) {
+            return;
+        }
 		while (videoElements.hasNext()) {
 			try {
 				Element videoElement = videoElements.next();
 				String videoid = videoElement.element("id").getTextTrim();
-				if (videoid == null)
-					continue;
+				if (videoid == null) {
+                    continue;
+                }
 				String title = videoElement.element("title").getTextTrim();
-				if (title == null)
-					title = "";
+				if (title == null) {
+                    title = "";
+                }
 				String desp = videoElement.element("desp").getTextTrim();
-				if (desp == null)
-					desp = "";
+				if (desp == null) {
+                    desp = "";
+                }
 				String tags = videoElement.element("tags").getTextTrim();
-				if (tags == null)
-					tags = "";
+				if (tags == null) {
+                    tags = "";
+                }
 				String secondStr = videoElement.element("duration")
 						.getTextTrim();
-				if (secondStr == null)
-					secondStr = "00:00:00";
+				if (secondStr == null) {
+                    secondStr = "00:00:00";
+                }
 				String image = videoElement.element("image").getTextTrim();
-				if (image == null)
-					image = "";
+				if (image == null) {
+                    image = "";
+                }
 
 				String duration = DateUtil.turnSecondsToTimestring(Integer
 						.parseInt(secondStr));
