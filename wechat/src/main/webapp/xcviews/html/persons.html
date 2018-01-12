@@ -555,6 +555,10 @@ pre:after {
   			$(".mui-zx_mask").hide();
   		});
   		
+  		
+  		
+
+  		
 	});
 </script>
 <style>
@@ -602,6 +606,8 @@ pre:after {
 	#logoBox img{
 		width: 100%;
 		height: 100%;
+		width: 2.25rem !important;
+    	height: 2.25rem;
 	}
 	.person_cen{
 		padding: 0;
@@ -637,6 +643,10 @@ pre:after {
 	    white-space: nowrap;
 	    text-align: right;
 	}
+	
+	.qx{
+		display: none;
+	}
 </style>
 </head>
 
@@ -654,9 +664,6 @@ pre:after {
 		</div>
 	</div>
 	<!-- 点击头像出现框结束 -->
-	
-	
-	
 	
 	<div style="position: relative;">
 	
@@ -685,13 +692,15 @@ pre:after {
 	
 	
  	<div id="dpage">
-		 <a href="javascript:void(0);">
+		 <a href="javascript:void(0);" class="choice">
 		     <input type="button" name="file" class="button" value="选择图片">
 			  <input id="file" type="file" onchange="javascript:setImagePreview();" accept="image/*" multiple  />
 		      </a>
 		<!--  <a href="javascript:void(0);"><input type="button" name="file" class="button" value="选取照片">
 			  <input id="file" type="file" onchange="javascript:setImagePreview();" accept="image/*" multiple  /></a> -->
 		 <a href="javascript:void(0);" class="qx"><button id="clipBtn">截取图片</button></a>
+		 
+		 <a href="javascript: ;" class="return_img">退出</a>
 	</div>
 	
 	
@@ -1173,5 +1182,29 @@ function setImagePreview() {
 	return document.getElementById("DivUp").style.display = "block",
 			!0
 }
+</script>
+
+<script type="text/javascript">
+	window.onload = function(){
+		//		上传图片
+		$(".choice").click(function(){
+  			$(".qx").show();
+  			$(".qx").css("display","block");
+  			$(".choice").hide();
+  		});
+  		$(".qx").click(function(){
+  			$(".choice").show();
+  			$(".qx").hide();
+  		});
+  		$(".return_img").click(function(){
+  			$(".choice").show();
+  			$(".qx").hide();
+  			$(".htmleaf-container").hide();
+  			$("#dpage").hide();
+  		});
+  		$("#logoBox").click(function(){
+  			$("#dpage").show();
+  		});
+	};
 </script>
 </html>
