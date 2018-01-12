@@ -11,6 +11,7 @@ $(".history_span_two").click(function(){
 	$(".history_span_one").removeClass('history_span_addclass');
 	$(".history_span_three").removeClass('history_span_addclass');
 	
+	
 	historyCommon(2,true);
 });
 $(".history_span_three").click(function(){
@@ -70,9 +71,7 @@ function emptyHistoryByType(){
 }
 
 var dataLength = 0;
-/**
- * 默认加载主播
- */
+
 
 function historyCommon(type1,downOrOn){
 	type  = type1
@@ -179,7 +178,8 @@ mui("#refreshContainer").on('tap', '.zhibo_list', function (event) {
 			sessionStorage.setItem("historyType", 3);
 		}
 		sessionStorage.setItem("bunchPage", 2);
-		location.href = "/xcviews/html/particulars.html?courseId="+courseId;
+		type--;
+		location.href = "/xcviews/html/particulars.html?courseId="+courseId+"&multimedia_type="+type;
 	}
 });
 
