@@ -64,7 +64,16 @@ public class CourseApplyVo {
     
     private int onlineCourse;
 
-    
+    private String directId;
+
+    public String getDirectId() {
+        return directId;
+    }
+
+    public void setDirectId(String directId) {
+        this.directId = directId;
+    }
+
     public String getCoursePwd() {
 		return coursePwd;
 	}

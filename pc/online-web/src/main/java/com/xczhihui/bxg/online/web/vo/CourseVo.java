@@ -151,6 +151,8 @@ public class CourseVo{
     private  String  preferentyMoney;
     private  String  multimediaType;
 
+    private String directId;
+
     /**
      * 当前下单时间
      */
@@ -233,7 +235,15 @@ public class CourseVo{
 		this.coursePwd = coursePwd;
 	}
 
-	public Integer getOnlineCourse() {
+    public String getDirectId() {
+        return directId;
+    }
+
+    public void setDirectId(String directId) {
+        this.directId = directId;
+    }
+
+    public Integer getOnlineCourse() {
 		return onlineCourse;
 	}
 
