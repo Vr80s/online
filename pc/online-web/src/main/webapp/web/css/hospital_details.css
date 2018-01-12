@@ -79,6 +79,7 @@
     /*border: 1px solid #f0f0f0;*/
     height: 402px !important;
     width: 822px;
+    position: relative;
 }
 .content_box #main .main_left .hospital_detail_inf  .hospital_detail_con {
 	    /*height: 180px;*/

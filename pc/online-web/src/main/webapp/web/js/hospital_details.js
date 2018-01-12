@@ -48,7 +48,8 @@ $(function(){
 	
 	//渲染纵向轮播
 	if(data.resultObject.medicalHospitalPictures.length == 0){
-		$('#hospital_detail_pic').html('<h3>暂无医馆图片</h3>');
+//		$('#hospital_detail_pic').html('<h3>暂无医馆图片</h3>');
+		$('#hospital_detail_pic').html("<img src='/web/images/hospitalDefault.png' alt='暂无图片' style='width: 619px;height: 342px;transform: translateY(-50%);top:50%;position: absolute;'>");
 	}
    	$('#lunbo').html(template('lunboTpl',data.resultObject));
    	
