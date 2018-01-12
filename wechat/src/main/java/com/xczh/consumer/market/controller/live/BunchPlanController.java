@@ -145,12 +145,13 @@ public class BunchPlanController {
 		if(user != null ){
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
 			courseLecturVo.setIsfocus(isFours);
-			if(courseLecturVo.getWatchState()!=0){
-				
+			
+			if(courseLecturVo.getWatchState()==0){
+				onlineWebService.saveEntryVideo(Integer.parseInt(courseid), user);
+			}else{
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
 			       //log.info("同学,当前课程您已经报名了!");
-					
 			       courseLecturVo.setWatchState(0);    
 			    };
 			}
@@ -169,7 +170,6 @@ public class BunchPlanController {
 		if(StringUtils.isNotBlank(newflag)){
 			flag = newflag;
 		}
-		
 		String appUniqueId = req.getParameter("appUniqueId");
 		log.info("flag:"+flag);
 		log.info("appUniqueId:"+appUniqueId);
@@ -201,6 +201,12 @@ public class BunchPlanController {
 		map.put(608, "265106673");
 		map.put(609, "593193792");
 		map.put(610, "814649885");
+/*		map.put(4, "340273573");
+		map.put(5, "337055289");
+		map.put(6, "362080337");
+		map.put(7, "265106673");
+		map.put(8, "593193792");
+		map.put(9, "814649885");*/
 		for (Integer key : map.keySet()) {
 			System.out.println("key= "+ key + " and value= " + map.get(key));
 			if(key.equals(new Integer(courseLecturVo.getId()))){
@@ -481,6 +487,8 @@ public class BunchPlanController {
 	    List<MenuVo> listmv = menuService.list();
 	    
 		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,4,null,listmv);
+		
+		log.info(listAll.size()+"");
 		
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		

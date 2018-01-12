@@ -45,18 +45,22 @@ public class WxcpPayFlowMapper extends BasicSimpleDao {
 		sql.append("	wxcp_pay_flow   	");
 		sql.append("where                  	");
 		sql.append("	1 = 1               ");	
-		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty())
-		sql.append("	and openid = ?    ");
-		if(condition.getOut_trade_no() != null && !condition.getOut_trade_no().isEmpty())
-		sql.append("	and out_trade_no = ?    ");	
+		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty()) {
+            sql.append("	and openid = ?    ");
+        }
+		if(condition.getOut_trade_no() != null && !condition.getOut_trade_no().isEmpty()) {
+            sql.append("	and out_trade_no = ?    ");
+        }
 		sql.append("order by    			");
 		sql.append("	date_format(time_end,'%Y-%m-%d %H:%i:%s') desc	");
 
 		ArrayList<String> conList = new ArrayList<String>(); 
-		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty())
-			conList.add(condition.getOpenid());
-		if(condition.getOut_trade_no() != null && !condition.getOut_trade_no().isEmpty())
-			conList.add(condition.getOut_trade_no());	
+		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty()) {
+            conList.add(condition.getOpenid());
+        }
+		if(condition.getOut_trade_no() != null && !condition.getOut_trade_no().isEmpty()) {
+            conList.add(condition.getOut_trade_no());
+        }
 		
 		Object[] params = new Object [conList.size()];
 		conList.toArray(params);				
@@ -117,7 +121,9 @@ public class WxcpPayFlowMapper extends BasicSimpleDao {
 		sql.append(")                                   ");
 		                                        		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getFlow_id()==null || record.getFlow_id().isEmpty()) record.setFlow_id(id);
+		if(record.getFlow_id()==null || record.getFlow_id().isEmpty()) {
+            record.setFlow_id(id);
+        }
 		
 		super.update(
 			JdbcUtil.getCurrentConnection()	, 

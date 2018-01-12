@@ -117,8 +117,9 @@ public class CommonUtil {
 
 		Iterator<String> itor = payInfo.keySet().iterator();
 		List<String> sort = new ArrayList<String>();
-		while (itor.hasNext())
-			sort.add(itor.next());
+		while (itor.hasNext()) {
+            sort.add(itor.next());
+        }
 		Collections.sort(sort);
 
 		StringBuffer bf = new StringBuffer();
@@ -128,10 +129,11 @@ public class CommonUtil {
 		for (String fdname : sort) {
 			fdvalue = payInfo.get(fdname);
 			if (fdvalue != null && fdvalue.toString().length() > 0) {
-				if (!isft)
-					bf.append("&");
-				else
-					isft = false;
+				if (!isft) {
+                    bf.append("&");
+                } else {
+                    isft = false;
+                }
 				bf.append(fdname + "=" + fdvalue);
 			}
 		}
@@ -156,8 +158,9 @@ public class CommonUtil {
 		String name = null;
 		for (Field field : fields) {
 			name = field.getName();
-			if ("serialVersionUID".equals(name))
-				continue;
+			if ("serialVersionUID".equals(name)) {
+                continue;
+            }
 			sortlst.add(name);
 		}
 
@@ -167,10 +170,11 @@ public class CommonUtil {
 		for (String fdname : sortlst) {
 			fdvalue = bean.getAttributeValue(fdname);
 			if (fdvalue != null && fdvalue.toString().length() > 0) {
-				if (!isft)
-					bf.append("&");
-				else
-					isft = false;
+				if (!isft) {
+                    bf.append("&");
+                } else {
+                    isft = false;
+                }
 				bf.append(fdname + "=" + fdvalue);
 			}
 		}
@@ -239,8 +243,9 @@ public class CommonUtil {
 			if (IsNumeric(val)) {
 				xml += "<" + key + ">" + val + "</" + key + ">";
 
-			} else
-				xml += "<" + key + "><![CDATA[" + val + "]]></" + key + ">";
+			} else {
+                xml += "<" + key + "><![CDATA[" + val + "]]></" + key + ">";
+            }
 		}
 
 		xml += "</xml>";
@@ -258,7 +263,10 @@ public class CommonUtil {
 		
 		HttpsRequest request = new HttpsRequest();
 		String buffer = request.sendPost(WxPayConst.unitorder_url, xmlobj);
-		if(buffer == null) buffer = "";buffer = buffer.trim();
+		if(buffer == null) {
+            buffer = "";
+        }
+        buffer = buffer.trim();
 		System.out.println("getPrePayInfos=\r\n" + buffer.toString());
 		
 		/*??
@@ -389,13 +397,16 @@ public class CommonUtil {
 	public static Map<String, String> parseXml(String xml) throws Exception {
 		
 		Map<String, String> map = new HashMap<String, String>();
-		if(xml==null) return map;
+		if(xml==null) {
+            return map;
+        }
 		
 		Document document = DocumentHelper.parseText(xml);
 		Element root = document.getRootElement();
 		List<Element> elementList = root.elements();
-		for (Element e : elementList)
-			map.put(e.getName(), e.getText());
+		for (Element e : elementList) {
+            map.put(e.getName(), e.getText());
+        }
 		
 		return map;
 	}
@@ -506,7 +517,9 @@ public class CommonUtil {
         
         String sendWxTranskUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
         String response = HttpsRequest.sslPost(sendWxTranskUrl,xml);
-        if(response==null) response = "";
+        if(response==null) {
+            response = "";
+        }
         response = response.replace("__", "_");
         
         Map<String, String> responseMap = xmlUtil.parseXml(response);
@@ -558,7 +571,9 @@ public class CommonUtil {
         
         String sendRedPackUrl = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
         String response = HttpsRequest.sslPost(sendRedPackUrl,xml);
-        if(response==null) response = "";
+        if(response==null) {
+            response = "";
+        }
         response = response.replace("__", "_");
         
         Map<String, String> responseMap = xmlUtil.parseXml(response);

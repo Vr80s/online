@@ -41,8 +41,9 @@ public class BeanHelper {
 		String errStr;
 		try {
 			Method method = getInstance().getMethod(bean, propertyName, false);
-			if ((propertyName != null) && (method == null))
-				return null;
+			if ((propertyName != null) && (method == null)) {
+                return null;
+            }
 			if (method == null) {
 				return null;
 			}
@@ -58,11 +59,13 @@ public class BeanHelper {
 		Object[] result = new Object[propertys.length];
 		try {
 			Method[] methods = getInstance().getMethods(bean, propertys, false);
-			for (int i = 0; i < propertys.length; i++)
-				if ((propertys[i] == null) || (methods[i] == null))
-					result[i] = null;
-				else
-					result[i] = methods[i].invoke(bean, NULL_ARGUMENTS);
+			for (int i = 0; i < propertys.length; i++) {
+                if ((propertys[i] == null) || (methods[i] == null)) {
+                    result[i] = null;
+                } else {
+                    result[i] = methods[i].invoke(bean, NULL_ARGUMENTS);
+                }
+            }
 		} catch (Exception e) {    	
 			String errStr = new StringBuilder().append("Failed to get getPropertys from ").append(bean.getClass()).toString();
 			throw new RuntimeException(errStr, e);
@@ -99,9 +102,9 @@ public class BeanHelper {
 		reflectionInfo = cachedReflectionInfo(bean.getClass());
 		for (int i = 0; i < propertys.length; i++) {
 			Method method = null;
-			if (isSetMethod)
-				method = reflectionInfo.getWriteMethod(propertys[i]);
-			else {
+			if (isSetMethod) {
+                method = reflectionInfo.getWriteMethod(propertys[i]);
+            } else {
 				method = reflectionInfo.getReadMethod(propertys[i]);
 			}
 			methods[i] = method;
@@ -116,9 +119,9 @@ public class BeanHelper {
 		ReflectionInfo reflectionInfo = null;
 
 		reflectionInfo = cachedReflectionInfo(bean.getClass());
-		if (isSetMethod)
-			method = reflectionInfo.getWriteMethod(propertyName);
-		else {
+		if (isSetMethod) {
+            method = reflectionInfo.getWriteMethod(propertyName);
+        } else {
 			method = reflectionInfo.getReadMethod(propertyName);
 		}
     
@@ -140,9 +143,9 @@ public class BeanHelper {
 			if (reflectionInfo == null) {
 				reflectionInfo = new ReflectionInfo();
 				List<PropDescriptor> propDesc= new ArrayList<PropDescriptor>();
-				if (pdescriptor != null)
-					propDesc.addAll(pdescriptor);
-				else {
+				if (pdescriptor != null) {
+                    propDesc.addAll(pdescriptor);
+                } else {
 					propDesc = getPropertyDescriptors(beanCls);
 				}
 				for (PropDescriptor pd : propDesc) {
@@ -166,8 +169,9 @@ public class BeanHelper {
 	public static void invokeMethod(Object bean, Method method, Object value) {
 	  
 		try {
-			if (method == null)
-				return;
+			if (method == null) {
+                return;
+            }
 			Object[] arguments = { value };
 			method.invoke(bean, arguments);
 		} catch (Exception e) {    	

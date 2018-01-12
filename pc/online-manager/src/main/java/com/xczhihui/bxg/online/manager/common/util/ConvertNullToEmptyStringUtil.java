@@ -31,18 +31,21 @@ public class ConvertNullToEmptyStringUtil {
 			Field[] fileds = tClass.getDeclaredFields();
 			ArrayList<Field> setValueFields = new ArrayList<Field>();
 			for(Field field:fileds){
-				if(field.getType().isAssignableFrom(String.class))
-					setValueFields.add(field);
+				if(field.getType().isAssignableFrom(String.class)) {
+                    setValueFields.add(field);
+                }
 			}
-			if(setValueFields.size()==0)
-				return page;
+			if(setValueFields.size()==0) {
+                return page;
+            }
 			for(T item:page.getItems()){
 				for(Field field:setValueFields){
 					String methodName = field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1);
 					try {
 						Object fieldValue = tClass.getMethod("get"+methodName).invoke(item);
-						if(fieldValue==null)
-							tClass.getMethod("set"+methodName, String.class).invoke(item,"");
+						if(fieldValue==null) {
+                            tClass.getMethod("set" + methodName, String.class).invoke(item, "");
+                        }
 					} catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
 						logger.error(e.getMessage());
 					}

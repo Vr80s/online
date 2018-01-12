@@ -221,8 +221,9 @@ public class WxPayController {
 			req.setCharacterEncoding("utf-8");
 			ServletInputStream is = req.getInputStream();
 			String content = IOUtils.toString(is);
-			if (content == null)
-				content = "";
+			if (content == null) {
+                content = "";
+            }
 			content = content.trim();
 			System.out
 					.println("wxNotify->content->\r\n\t" + content.toString());// log.info("wxNotify=\r\n"
@@ -295,8 +296,9 @@ public class WxPayController {
 									.length() == 0
 							|| listWxcpPayFlow.get(i).getReturn_code() == null
 							|| listWxcpPayFlow.get(i).getReturn_code().trim()
-									.length() == 0)
-						continue;
+									.length() == 0) {
+                        continue;
+                    }
 					if (listWxcpPayFlow.get(i).getResult_code()
 							.equals("SUCCESS")
 							&& listWxcpPayFlow.get(i).getReturn_code()
@@ -332,53 +334,54 @@ public class WxPayController {
 					//RewardParamVo rpv= com.alibaba.fastjson.JSONObject.parseObject(wxcpPayFlow.getAttach(),RewardParamVo.class);
 					//if("1".equals(rpv.getT())){
 
-					if(attachs.length>0)
-					if(attachs[0].equals("reward")){
+					if(attachs.length>0) {
+                        if (attachs[0].equals("reward")) {
 
-					    String json=cacheService.get(attachs[1]);
-						RewardParamVo rpv= com.alibaba.fastjson.JSONObject.parseObject(json,RewardParamVo.class);
-						RewardStatement rs=new RewardStatement();
-						BeanUtils.copyProperties(rs,rpv);
-						rs.setCreateTime(new Date());
-						rs.setPayType(1);//
-						rs.setOrderNo(out_trade_no);
-						rs.setPrice((new Double(wxcpPayFlow.getTotal_fee())/100));
-						rs.setChannel(1);
-						rs.setStatus(1);
-						//rewardService.insert(rs);
-						wxcpPayFlow.setUser_id(rpv.getUserId());
-						wxcpPayFlow.setSubject(rpv.getSubject());
-						wxcpPayFlowService.insert(wxcpPayFlow);
-						userCoinService.updateBalanceForReward(rs);
-						res.getWriter().write(tell_ok);
-						log.info("打赏回调打印:"+json);
-				//	}
-					}else if(attachs[0].equals("order")){
-						String json=cacheService.get(attachs[1]);
-						OrderParamVo rpv= com.alibaba.fastjson.JSONObject.parseObject(json,OrderParamVo.class);
-						wxcpPayFlow.setUser_id(rpv.getUserId());
-						log.info("order回调打印:"+json);
-						wxcpPayFlow.setSubject(rpv.getSubject());
-						wxcpPayFlowService.insert(wxcpPayFlow);
-					}else if(attachs[0].equals("recharge")){
-						String json=cacheService.get(attachs[1]);
-						RechargeParamVo rpv= com.alibaba.fastjson.JSONObject.parseObject(json,RechargeParamVo.class);
-						wxcpPayFlow.setUser_id(rpv.getUserId());
-						log.info("充值回调打印:"+json);
-						wxcpPayFlow.setSubject(rpv.getSubject());
-						wxcpPayFlowService.insert(wxcpPayFlow);
+                            String json = cacheService.get(attachs[1]);
+                            RewardParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RewardParamVo.class);
+                            RewardStatement rs = new RewardStatement();
+                            BeanUtils.copyProperties(rs, rpv);
+                            rs.setCreateTime(new Date());
+                            rs.setPayType(1);//
+                            rs.setOrderNo(out_trade_no);
+                            rs.setPrice((new Double(wxcpPayFlow.getTotal_fee()) / 100));
+                            rs.setChannel(1);
+                            rs.setStatus(1);
+                            //rewardService.insert(rs);
+                            wxcpPayFlow.setUser_id(rpv.getUserId());
+                            wxcpPayFlow.setSubject(rpv.getSubject());
+                            wxcpPayFlowService.insert(wxcpPayFlow);
+                            userCoinService.updateBalanceForReward(rs);
+                            res.getWriter().write(tell_ok);
+                            log.info("打赏回调打印:" + json);
+                            //	}
+                        } else if (attachs[0].equals("order")) {
+                            String json = cacheService.get(attachs[1]);
+                            OrderParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, OrderParamVo.class);
+                            wxcpPayFlow.setUser_id(rpv.getUserId());
+                            log.info("order回调打印:" + json);
+                            wxcpPayFlow.setSubject(rpv.getSubject());
+                            wxcpPayFlowService.insert(wxcpPayFlow);
+                        } else if (attachs[0].equals("recharge")) {
+                            String json = cacheService.get(attachs[1]);
+                            RechargeParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RechargeParamVo.class);
+                            wxcpPayFlow.setUser_id(rpv.getUserId());
+                            log.info("充值回调打印:" + json);
+                            wxcpPayFlow.setSubject(rpv.getSubject());
+                            wxcpPayFlowService.insert(wxcpPayFlow);
 
-						UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
-						userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
-						userCoinIncrease.setChangeType(1);
-						userCoinIncrease.setPayType(1);
-						userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee())/100*rate));//熊猫币
-						userCoinIncrease.setCreateTime(new Date());
+                            UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
+                            userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
+                            userCoinIncrease.setChangeType(1);
+                            userCoinIncrease.setPayType(1);
+                            userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate));//熊猫币
+                            userCoinIncrease.setCreateTime(new Date());
 //						userCoinIncrease.setChangeType(0);
-						userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
-						userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
-						userCoinService.updateBalanceForIncrease(userCoinIncrease);
-					}
+                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
+                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
+                            userCoinService.updateBalanceForIncrease(userCoinIncrease);
+                        }
+                    }
 				}
 
 				log.info("WxPayController->wxNotify->sign success");
@@ -546,8 +549,10 @@ public class WxPayController {
 						+ jsonObject.get("openid") + "/" + code);// res.sendRedirect(returnCodeUri+"?code="+code);
 			} else
 				// res.getWriter().write(openid);
-				res.sendRedirect(returnCodeUri + "/bxg/page/index/" + openid
-						+ "/" + code);
+            {
+                res.sendRedirect(returnCodeUri + "/bxg/page/index/" + openid
+                        + "/" + code);
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1029,8 +1034,9 @@ public class WxPayController {
 				JSONObject jsonObject = JSONObject.fromObject(openid);
 				res.sendRedirect(returnOpenidUriRedirect
 						+ jsonObject.get("openid") + "&courseId=" + courseId);
-			} else
-				res.getWriter().write(openid);
+			} else {
+                res.getWriter().write(openid);
+            }
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1044,8 +1050,9 @@ public class WxPayController {
 
 		String redirect_uri = req.getParameter("redirect_uri");
 		String code = req.getParameter("code");
-		if (code == null)
-			code = "bxgcodesimulate";
+		if (code == null) {
+            code = "bxgcodesimulate";
+        }
 		try {
 			res.sendRedirect(redirect_uri + "?code=" + code);
 		} catch (Exception e) {
@@ -1064,8 +1071,9 @@ public class WxPayController {
 			String code = req.getParameter("code");
 			if (code != null && !code.isEmpty()) {
 				res.getWriter().write("code=" + code);
-			} else
-				res.getWriter().write("failure");
+			} else {
+                res.getWriter().write("failure");
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1082,8 +1090,9 @@ public class WxPayController {
 			String openid = req.getParameter("openid");
 			if (openid != null && !openid.isEmpty()) {
 				res.getWriter().write("openid=" + openid);
-			} else
-				res.getWriter().write("failure");
+			} else {
+                res.getWriter().write("failure");
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1105,8 +1114,9 @@ public class WxPayController {
 				|| total_amount == null || total_amount.trim().length() == 0
 				|| wishing == null || wishing.trim().length() == 0
 				|| act_name == null || act_name.trim().length() == 0
-				|| remark == null || remark.trim().length() == 0)
-			return ResponseObject.newSuccessResponseObject(null);
+				|| remark == null || remark.trim().length() == 0) {
+            return ResponseObject.newSuccessResponseObject(null);
+        }
 
 		String sub_mch_id = req.getParameter("sub_mch_id");
 		String nick_name = req.getParameter("nick_name");
@@ -1184,8 +1194,9 @@ public class WxPayController {
 		String openid_ = req.getParameter("openid");
 		String amount_ = req.getParameter("amount");
 		if (openid_ == null || openid_.trim().length() == 0 || amount_ == null
-				|| amount_.trim().length() == 0)
-			return ResponseObject.newSuccessResponseObject(null);
+				|| amount_.trim().length() == 0) {
+            return ResponseObject.newSuccessResponseObject(null);
+        }
 
 		String re_user_name_ = req.getParameter("re_user_name");
 		String desc_ = req.getParameter("desc");

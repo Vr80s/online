@@ -137,8 +137,9 @@ public class Page<T> {
 	private void calProperties() {
 		if (this.totalCount > 0) {
 			this.totalPageCount = this.totalCount / this.pageSize;
-			if (this.totalCount % this.pageSize > 0)
-				this.totalPageCount++;
+			if (this.totalCount % this.pageSize > 0) {
+                this.totalPageCount++;
+            }
 		} else {
 			this.totalCount = 0;
 			this.totalPageCount = 0;

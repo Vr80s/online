@@ -26,36 +26,37 @@ public class RewardStatementDao extends HibernateDao<Course>{
 		 StringBuilder sql = new StringBuilder("SELECT ogs.`id`,ogs.`price`,ou1.name giver,ou2.name receiver,"
 		 		+ "ogs.`pay_type`,ogs.`create_time` createTime,ogs.`channel`,ogs.client_type clientType FROM `oe_reward_statement` ogs "
 		 		+ "LEFT JOIN `oe_user` ou1 ON ogs.`giver`=ou1.`id` LEFT JOIN `oe_user` ou2 ON ogs.`receiver`=ou2.`id` where 1=1 " );
-		if(rewardStatementVo.getSearchType()!=null)
-			switch (rewardStatementVo.getSearchType()) {
-			case 1://礼物金额
-				if (rewardStatementVo.getSearchCondition() != null) {
-					paramMap.put("price", rewardStatementVo.getSearchCondition());
-					sql.append(" and ogs.price = :price ");
-				}
-				break;
-			case 2://赠送人
-				if (rewardStatementVo.getSearchCondition() != null) {
-					paramMap.put("giver", "%" + rewardStatementVo.getSearchCondition() + "%");
-					sql.append(" and ou1.name like :giver ");
-				}
-				break;
-			case 3://收到人
-				if (rewardStatementVo.getSearchCondition() != null) {
-					paramMap.put("receiver", "%" + rewardStatementVo.getSearchCondition() + "%");
-					sql.append(" and ou2.name like :receiver ");
-				}
-				break;
-			case 4://订单编号
-				if (rewardStatementVo.getSearchCondition() != null) {
-					 paramMap.put("id", rewardStatementVo.getSearchCondition());
-					 sql.append(" and ogs.`id` = :id ");
-				 }
-				break;
-		
-			default:
-				break;
-			}
+		if(rewardStatementVo.getSearchType()!=null) {
+            switch (rewardStatementVo.getSearchType()) {
+                case 1://礼物金额
+                    if (rewardStatementVo.getSearchCondition() != null) {
+                        paramMap.put("price", rewardStatementVo.getSearchCondition());
+                        sql.append(" and ogs.price = :price ");
+                    }
+                    break;
+                case 2://赠送人
+                    if (rewardStatementVo.getSearchCondition() != null) {
+                        paramMap.put("giver", "%" + rewardStatementVo.getSearchCondition() + "%");
+                        sql.append(" and ou1.name like :giver ");
+                    }
+                    break;
+                case 3://收到人
+                    if (rewardStatementVo.getSearchCondition() != null) {
+                        paramMap.put("receiver", "%" + rewardStatementVo.getSearchCondition() + "%");
+                        sql.append(" and ou2.name like :receiver ");
+                    }
+                    break;
+                case 4://订单编号
+                    if (rewardStatementVo.getSearchCondition() != null) {
+                        paramMap.put("id", rewardStatementVo.getSearchCondition());
+                        sql.append(" and ogs.`id` = :id ");
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
 		 
 		 
 		if (rewardStatementVo.getStartTime() != null) {

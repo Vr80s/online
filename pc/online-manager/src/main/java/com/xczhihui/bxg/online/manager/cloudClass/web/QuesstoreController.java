@@ -210,10 +210,12 @@ public class QuesstoreController {
 		Map<String, String> map = new HashMap<String, String>();
 		for (int i = 0;; i++) {
 			String pn = "";
-			if (question.getQuestionType() == 0)
-				pn = "radioOptionValue" + (i + 1);
-			if (question.getQuestionType() == 1)
-				pn = "multipleOptionValue" + (i + 1);
+			if (question.getQuestionType() == 0) {
+                pn = "radioOptionValue" + (i + 1);
+            }
+			if (question.getQuestionType() == 1) {
+                pn = "multipleOptionValue" + (i + 1);
+            }
 			String option = ServletRequestUtils.getStringParameter(request, pn,null);
 			if (option == null) {
 				break;
@@ -321,10 +323,12 @@ public class QuesstoreController {
 		question.setStatus(Integer.parseInt(vo.getStatus()));
 		for (int i = 0;; i++) {
 			String pn = "";
-			if (question.getQuestionType() == 0)
-				pn = "radioOptionValue" + (i + 1);
-			if (question.getQuestionType() == 1)
-				pn = "multipleOptionValue" + (i + 1);
+			if (question.getQuestionType() == 0) {
+                pn = "radioOptionValue" + (i + 1);
+            }
+			if (question.getQuestionType() == 1) {
+                pn = "multipleOptionValue" + (i + 1);
+            }
 			String option = ServletRequestUtils.getStringParameter(request, pn,null);
 			if (option == null) {
 				break;

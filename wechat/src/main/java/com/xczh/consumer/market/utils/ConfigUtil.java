@@ -24,7 +24,9 @@ public class ConfigUtil {
 	public ConfigUtil(HttpSession session){
 		ServletContext sc = session.getServletContext();
 		String strRootDir = sc.getRealPath("/");
-		if(strRootDir.charAt(strRootDir.length()-1) != File.separatorChar) strRootDir += File.separator;
+		if(strRootDir.charAt(strRootDir.length()-1) != File.separatorChar) {
+            strRootDir += File.separator;
+        }
 		String path=strRootDir + "WEB-INF/classes" + File.separator + "config.properties";		
 		this.CONFIG_FILE = path;
 		this.init();

@@ -210,8 +210,9 @@ public class VideoResServiceImpl implements VideoResService {
 		StringBuilder sql  = new StringBuilder("select * from oe_video where is_delete=0 ");
 		sql.append(" and chapter_id in ( ");
  		for(int i=0;i<topics.size();i++){
-	        if(i!=0)
-	            sql.append(",");
+	        if(i!=0) {
+                sql.append(",");
+            }
 	        sql.append("'"+topics.get(i).getId()+"'");
         }
         sql.append(" ) ");
@@ -449,8 +450,9 @@ public class VideoResServiceImpl implements VideoResService {
 		StringBuilder sql = new StringBuilder("SELECT c.id FROM oe_chapter c,oe_video v,user_r_video uv where c.is_delete=0 and v.is_delete=0 and uv.is_delete=0 and v.chapter_id = c.id and v.id =uv.video_id and c.id in( ");
 		String [] ids=NodeIds.split(",");
 		 for(int i=0;i<ids.length;i++){
-               if(i!=0)
+               if(i!=0) {
                    sql.append(",");
+               }
                sql.append("'"+ids[i]+"'");
            }
            sql.append(" ) ");

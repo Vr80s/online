@@ -173,7 +173,7 @@ $(function() {
 				//↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑更换头像↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑//
 
 			} else {
-				alert("personcenter.js jmp index.html");
+//				alert("personcenter.js jmp index.html");
 				location.href = "../../index.html";
 				localStorage.username = null;
 				localStorage.password = null;
@@ -254,16 +254,22 @@ $(function() {
 							$(".login").css("display", "none");
 							$(".logout").css("display", "block");
 						} else { //验证
-							var miaoshu = $(".textarea-miaoshu").val().trim();
-							if(miaoshu == null || miaoshu.length > 140) {
+							var title = $(".text-title").val().trim(),
+								miaoshu = $(".textarea-miaoshu").val().trim();
+							if(title == "") {
 								$(".text-title").css("border-color", "red");
-								$(".error-msg span").text("描述在1~140字之间");
+								$(".error-msg span").text("请输入标题");
 								$(".error-msg").show();
 								return false;
-							} else {
+							} else if(title.length < 5) {
+								$(".text-title").css("border-color", "red");
+								$(".error-msg span").text("标题5~50字之间");
+								$(".error-msg").show();
+								return false;
+							} else if(title.length > 4 && title.length < 51) {
 								var data = {
 									userId: localStorage.id,
-									title: null,
+									title: title,
 									describe: miaoshu
 								};
 								$.post(bath + "/online/message/addFeedBack", data, function(data) {
@@ -338,13 +344,13 @@ $(function() {
 //		"<div class='pointer'></div>" +
 		"</div>" +
 		"<div class='form-horizontal view-stack view-stack-idea'>" +
-		// "<div class='form-group '>" +
-		// "<label class='fl control-label'><span class='required_01'>*</span>标题</label>" +
-		// "<div class='col-sm-7'>" +
-		// "<input  type='text' class='view_01 text-title  require idea-title' placeholder='5-50字之间' maxlength='50'  id='title'>" +
-		// "</div>" +
-		// "<label for='miaoshu' class='control-label error-msg'><img src='../images/tanhao.png'><span>标题5~50字之间</span></label>" +
-		// "</div>" +
+		"<div class='form-group '>" +
+		"<label class='fl control-label'><span class='required_01'>*</span>标题</label>" +
+		"<div class='col-sm-7'>" +
+		"<input  type='text' class='view_01 text-title  require idea-title' placeholder='5-50字之间' maxlength='50'  id='title'>" +
+		"</div>" +
+		"<label for='miaoshu' class='control-label error-msg'><img src='../images/tanhao.png'><span>标题5~50字之间</span></label>" +
+		"</div>" +
 		"<div class='form-group'>" +
 		"<label for='miaoshu' class='control-label fl'><span class='required_01' style='padding: 0px 13px;'></span>描述</label>" +
 		"<div class='col-sm-9'>" +

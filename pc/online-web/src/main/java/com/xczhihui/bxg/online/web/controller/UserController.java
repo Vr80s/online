@@ -81,8 +81,9 @@ public class UserController extends OnlineBaseController {
 	public ResponseObject login(String username, String password,HttpServletRequest request,HttpServletResponse response) {
 		OnlineUser o = service.findUserByLoginName(username);
 		Token t = null;
-		if(o!=null)
-		t = userCenterAPI.login4BBS(username, password,o.getSmallHeadPhoto(),o.getId(),TokenExpires.Day);
+		if(o!=null) {
+            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Day);
+        }
 //		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
 			if (o != null) {

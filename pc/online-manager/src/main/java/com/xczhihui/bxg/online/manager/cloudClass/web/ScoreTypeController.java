@@ -83,8 +83,9 @@ public class ScoreTypeController {
           if(page.getItems().size()>0){
                for(ScoreTypeVo vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
-                    if(user!=null)
-                         vo.setCreatePerson(user.getName());
+                    if(user!=null) {
+                        vo.setCreatePerson(user.getName());
+                    }
                }
           }
           int total = page.getTotalCount();
@@ -145,8 +146,9 @@ public class ScoreTypeController {
           ScoreType entity=new ScoreType();
           BeanUtils.copyProperties(entity,scoreTypeVo);
           entity.setName(scoreTypeVo.getName());
-          if(scoreTypeVo==null)
-               throw new IllegalArgumentException("不存在记录");
+          if(scoreTypeVo==null) {
+              throw new IllegalArgumentException("不存在记录");
+          }
           ScoreType searchEntity=service.findById(scoreTypeVo.getId());
           searchEntity.setName(scoreTypeVo.getName());
           if (service.exists(searchEntity)) {

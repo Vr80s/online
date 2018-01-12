@@ -49,6 +49,7 @@ img {
 #forum .forum-banner .dajia_zhuanlan > h4{
 	margin-bottom: 16px;
 	margin-top: 0px;
+	font-size: 16px;
 }
 #forum .forum-banner .dajia_zhuanlan #dajia_zhuanlan_list ul li > div{
 	display: inline-block;
@@ -268,6 +269,7 @@ img {
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe > h4{
 	    margin-bottom: 16px;
 	    margin-top: 0px;
+	    font-size: 16px;
 }
 #forum .forum-content .forum-content-right .zhuanlan_zuozhe #zhuanlan_zuozhe > li{
 	    margin-bottom: 20px;

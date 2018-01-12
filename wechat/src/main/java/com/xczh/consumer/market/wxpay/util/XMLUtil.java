@@ -40,7 +40,9 @@ public class XMLUtil {
 	public Map<String, String> parseXml(String msg)
 			throws Exception {
 		
-		if(msg==null) return null;
+		if(msg==null) {
+            return null;
+        }
 		
 		// 将解析结果存储在HashMap中
 		Map<String, String> map = new HashMap<String, String>();
@@ -57,8 +59,9 @@ public class XMLUtil {
 		List<Element> elementList = root.elements();
 
 		// 遍历所有子节点
-		for (Element e : elementList)
-			map.put(e.getName(), e.getText());
+		for (Element e : elementList) {
+            map.put(e.getName(), e.getText());
+        }
 
 		// 释放资源
 		inputStream.close();

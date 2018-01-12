@@ -90,7 +90,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 			all.append(" select oc.id,oc.grade_name as gradeName,oc.original_cost as originalCost,oc.current_price as currentPrice,"
 					+ "ocm.img_url as smallImgPath,ou.small_head_photo as headImg,ou.name as name,");
 			
-			all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+			all.append(" oc.course_length as courseLength, ");//课程时长 
 			
 			all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");
@@ -110,7 +110,8 @@ public class OLCourseMapper extends BasicSimpleDao {
 			sql.append(" select oc.id,oc.grade_name as gradeName,oc.original_cost as originalCost,oc.current_price as currentPrice,"
 					+ "ocm.img_url as smallImgPath,ou.small_head_photo as headImg,ou.name as name, ");
 			
-			sql.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+			//sql.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+			sql.append(" oc.course_length as courseLength, ");//课程时长
 			
 			sql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");
@@ -144,7 +145,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 		all.append(" if(oc.is_free = 0,1,if(oc.course_pwd is null,0,2)) as watchState, ");//观看状态
 		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");//观看状态
 		
-		all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+		all.append(" oc.course_length as courseLength, ");//课程时长 
 		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");
@@ -182,7 +183,9 @@ public class OLCourseMapper extends BasicSimpleDao {
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");
 		
-		all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+		//all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
+		all.append(" oc.course_length  as courseLength, ");//课程时长 
+		
 		
 		all.append("if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,");//判断是否要输入密码
 		all.append(" oc.description as courseDescription  ");//判断是否要输入密码

@@ -35,8 +35,9 @@ public class PayUtils {
 
 			generatedUrl = retobj.get(WxPayConst.return_code_url);// ??
 			// System.out.println("成功!");
-		} else
-			System.out.println("失败..." + retobj.get("return_msg"));
+		} else {
+            System.out.println("失败..." + retobj.get("return_msg"));
+        }
 
 		return generatedUrl;
 	}
@@ -57,8 +58,9 @@ public class PayUtils {
 			// generatedUrl=MakeQRUtil.generateQRimg(retobj.get(WxPayConst.return_code_url),bo.getOrderCode());
 			MakeQRUtil.outputQRimgStream(
 					retobj.get(WxPayConst.return_code_url), stream);
-		} else
-			System.out.println("失败..." + retobj.get("return_msg"));
+		} else {
+            System.out.println("失败..." + retobj.get("return_msg"));
+        }
 	}
 
 	public static Map<String, String> fromBizBean2PrePay4App(BizOrder bo)
@@ -85,8 +87,9 @@ public class PayUtils {
 			// 转换package兼容android
 			param.put("packagev", "Sign=WXPay");
 			return param;
-		} else
-			System.out.println("失败..." + retobj.get("return_msg"));
+		} else {
+            System.out.println("失败..." + retobj.get("return_msg"));
+        }
 
 		return null;
 	}
@@ -125,8 +128,9 @@ public class PayUtils {
 			param.put("signType", "MD5");
 			param.put("paySign", CommonUtil.getSign(param));
 			return param;
-		} else
-			System.out.println("失败..." + retobj.get("return_msg"));
+		} else {
+            System.out.println("失败..." + retobj.get("return_msg"));
+        }
 		return null;
 	}
 
@@ -150,8 +154,9 @@ public class PayUtils {
 		System.out.println("微信app支付返回:" + retobj.toString());
 		if (retobj != null && WxPayConst.recode_success.equals(retobj.get("result_code"))) {
 			return retobj;
-		} else
-			System.out.println("失败..." + retobj.get("return_msg"));
+		} else {
+            System.out.println("失败..." + retobj.get("return_msg"));
+        }
 		return null;
 	}
 	/**
@@ -174,8 +179,9 @@ public class PayUtils {
 		System.out.println("微信app支付返回:" + retobj.toString());
 		if (retobj != null && WxPayConst.recode_success.equals(retobj.get("result_code"))) {
 			return retobj;
-		} else
-			System.out.println("失败..." + retobj.get("return_msg"));
+		} else {
+            System.out.println("失败..." + retobj.get("return_msg"));
+        }
 		return null;
 	}
 	
@@ -198,14 +204,16 @@ public class PayUtils {
 				param.put("signType", "MD5");
 				param.put("paySign", CommonUtil.getSign(param));
 				return param;
-			} else
-				System.out.println("失败..." + retobj.get("return_msg"));
+			} else {
+                System.out.println("失败..." + retobj.get("return_msg"));
+            }
 		}
 		System.out.println("微信app支付返回:" + retobj.toString());
 		if (retobj != null && WxPayConst.recode_success.equals(retobj.get("result_code"))) {
 			return retobj;
-		} else
-			System.out.println("失败..." + retobj.get("return_msg"));
+		} else {
+            System.out.println("失败..." + retobj.get("return_msg"));
+        }
 		return null;
 	}
 	

@@ -318,17 +318,25 @@ $(function(){
     	}
 	}},
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
-    { "title": "课程类别", "class":"center","width":"9%","sortable":false,"data": 'scoreTypeName' },
-    { "title": "授课方式", "class":"center","width":"10%","sortable":false,"data": 'teachMethodName' },
+    { "title": "讲师", "class":"center","width":"10%","sortable":false,"data": 'lecturerName' },
     
     { "title": "现价格", "class":"center","width":"9%","sortable":false,"mRender":function(data,display,row){
     	return data = row.currentPrice;
     }},
-    {"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
+    {"sortable": false,"class": "center","width":"10%","title":"排序","mRender":function (data, display, row) {
     	return '<div class="hidden-sm hidden-xs action-buttons">'+
 		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
     	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
 	}},
+	
+/*	'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+	'<a class="blue" name="downa" href="javascript:void(-1);" title="下移"  onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+	
+	  {"sortable": false,"class": "center","width":"8%","title":"排序","mRender":function (data, display, row) {
+	    	if(row.status ==1){//如果是禁用
+	    		return '<div class="hidden-sm hidden-xs action-buttons">'+*/
+	
+	
     { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ';
@@ -918,6 +926,56 @@ function downMove(obj){
 };
 
 /**
+ * 课程推荐列表上移
+ * @param obj
+ */
+function upMoveRec(obj){
+	debugger;
+	var oo = $(obj).parent().parent().parent();
+	var aData = zb_courseRecTable.fnGetData(oo);
+	ajaxRequest(basePath+'/cloudclass/course/upMoveRec',{"id":aData.id},function(res){
+		if(res.success){
+			freshTable(zb_courseRecTable);
+		}else{
+			layer.msg(res.errorMessage);
+		}
+	});
+};
+
+/**
+ * 课程推荐列表下移
+ * @param obj
+ */
+function downMoveRec(obj){
+	var oo = $(obj).parent().parent().parent();
+	var aData = zb_courseRecTable.fnGetData(oo);
+	ajaxRequest(basePath+'/cloudclass/course/downMoveRec',{"id":aData.id},function(res){
+		if(res.success){
+			freshTable(zb_courseRecTable);
+		}else{
+			layer.msg(res.errorMessage);
+		}
+	});
+};
+
+
+/**
+ * 状态修改
+ * @param obj
+ */
+function updateRec(obj){
+	var oo = $(obj).parent().parent().parent();
+	var row = zb_courseRecTable.fnGetData(oo); // get datarow
+	ajaxRequest(basePath+"/cloudclass/course/updateRec",{"ids":row.id,"isRec":0},function(data){
+		if(data.success){
+			layer.msg("取消成功！");
+			freshTable(zb_courseRecTable);
+		}else{
+			layer.msg("取消失败！");
+		}
+	});
+};
+/**
  * 职业课批量推荐
  * 
  */
@@ -990,20 +1048,20 @@ $(".kctj_bx").click(function(){
 });
 
 /**
- * 公开课推荐显示
+ * 直播中推荐 /  直播预告推荐 /  直播结束推荐
  */
 $(".zbtj_bx").click(function(){
 	$("#courseZbRecDiv").show();
 	$("#courseDiv").hide();
 	$("#courseRecDiv").hide();
-	
-	 var searchCase_P = new Array();
+	var liveStatus = $(this).attr("title");
+	var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":8,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
-    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_liveStatus","propertyValue1":"1","tempType":"Integer"}');
-	
+    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_liveStatus","propertyValue1":"'+liveStatus+'","tempType":"Integer"}');
     searchButton(zb_courseRecTable,searchCase_P);
 	//freshTable(_courseZbRecTable);
 });
+
 
 function searchCourseRecTable(){
 	searchButton(_courseRecTable);

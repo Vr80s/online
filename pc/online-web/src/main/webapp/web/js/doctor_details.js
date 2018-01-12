@@ -67,14 +67,14 @@ $(function(){
        $('.hospital_inf>p:nth-child(3)>span').text(worktime);
        //医馆地址
        if(data.resultObject.medicalHospital.province == data.resultObject.medicalHospital.city){
-       	$('.hospital_inf>p:nth-child(4)>span:first-child').text(data.resultObject.medicalHospital.city)
+       	$('.hospital_inf>p:nth-child(4)>span>span:first-child').text(data.resultObject.medicalHospital.city)
        }else{
-       	$('.hospital_inf>p:nth-child(4)>span:first-child').text(data.resultObject.medicalHospital.province+data.resultObject.medicalHospital.city)
+       	$('.hospital_inf>p:nth-child(4)>span>span:first-child').text(data.resultObject.medicalHospital.province+data.resultObject.medicalHospital.city)
        }
        
        //详细地址
        if(data.resultObject.medicalHospital.detailedAddress){
-       		$('.hospital_inf>p:nth-child(4)>span:nth-child(2)').text(data.resultObject.medicalHospital.detailedAddress)
+       		$('.hospital_inf>p:nth-child(4)>span>span:nth-child(2)').text(data.resultObject.medicalHospital.detailedAddress)
        }
        
        }

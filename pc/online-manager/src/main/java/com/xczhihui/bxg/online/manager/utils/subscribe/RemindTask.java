@@ -38,7 +38,9 @@ public class RemindTask extends TimerTask {
         
 //        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Course course = courseService.findOpenCourseById(courseId,version) ;
-        if(course == null) return;
+        if(course == null) {
+            return;
+        }
 //		String startTime = sdf.format(course.getStartTime());   
         long m =  Math.abs( course.getStartTime().getTime() - new Date().getTime()) / (1000 * 60) + 1;
         System.out.println("courseId:"+courseId+"直播订阅通知已经触发！"+new Date());

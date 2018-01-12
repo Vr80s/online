@@ -82,8 +82,9 @@ public class ExcelPoiUtil {
 	
 	@SuppressWarnings("resource")
 	public static HSSFSheet getSheet(String filename) throws Exception {
-		if (filename == null || "".equals(filename.trim()))
-			return null;
+		if (filename == null || "".equals(filename.trim())) {
+            return null;
+        }
 		FileInputStream in = null;
 		try {
 			in = new FileInputStream(filename);
@@ -107,8 +108,9 @@ public class ExcelPoiUtil {
 
 	@SuppressWarnings("resource")
 	public static XSSFSheet getSheet2007(String filename) throws Exception {
-		if (filename == null || "".equals(filename.trim()))
-			return null;
+		if (filename == null || "".equals(filename.trim())) {
+            return null;
+        }
 
 		FileInputStream in = null;
 		try {
@@ -135,16 +137,18 @@ public class ExcelPoiUtil {
 		Iterator<Cell> celliIterator = row.cellIterator();
 		while (celliIterator.hasNext()) {
 			String temp = getStrByCell(celliIterator.next());
-			if (temp != null && !temp.trim().isEmpty())
-				return false;
+			if (temp != null && !temp.trim().isEmpty()) {
+                return false;
+            }
 		}
 		return true;
 	}
 
 	public static String getStrByCell(Cell cell) {
 
-		if (cell == null)
-			return null;
+		if (cell == null) {
+            return null;
+        }
 		String temp = null;
 
 		switch (cell.getCellType()) {
@@ -186,10 +190,11 @@ public class ExcelPoiUtil {
 			break;
 		}
 
-		if (temp == null || temp.trim().equals(""))
-			temp = null;
-		else
-			temp = temp.trim();
+		if (temp == null || temp.trim().equals("")) {
+            temp = null;
+        } else {
+            temp = temp.trim();
+        }
 
 		return trim(temp);
 	}

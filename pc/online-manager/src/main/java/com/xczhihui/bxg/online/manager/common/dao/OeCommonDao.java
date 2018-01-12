@@ -70,10 +70,11 @@ public class OeCommonDao extends HibernateDao {
 		if (groups != null && groups.getGroupList() != null) {
 			innerSql.append("where 1=1 ");
 			for (Group group : groups.getGroupList()) {
-				if (group.getMatchType() == PropertyFilter.MatchType.EQ)
-					innerSql.append(" and " + group.getPropertyName() + "=" + group.getPropertyValue1());
-				else if (group.getMatchType() == PropertyFilter.MatchType.LIKE)
-					innerSql.append(" and " + group.getPropertyName() + " like '%" + group.getPropertyValue1() + "%'");
+				if (group.getMatchType() == PropertyFilter.MatchType.EQ) {
+                    innerSql.append(" and " + group.getPropertyName() + "=" + group.getPropertyValue1());
+                } else if (group.getMatchType() == PropertyFilter.MatchType.LIKE) {
+                    innerSql.append(" and " + group.getPropertyName() + " like '%" + group.getPropertyValue1() + "%'");
+                }
 			}
 		}
 		sql.append(" (").append(innerSql).append(") oec ");

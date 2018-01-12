@@ -15,8 +15,9 @@ public class StringUtil {
 	private static String changeFirstCharacterCase(boolean capitalize, String str){
     
 		int strLen;
-		if ((str == null) || ((strLen = str.length()) == 0))
-			return str;
+		if ((str == null) || ((strLen = str.length()) == 0)) {
+            return str;
+        }
 		StringBuffer buf = new StringBuffer(strLen);
 		if (capitalize) {
 			buf.append(Character.toUpperCase(str.charAt(0)));

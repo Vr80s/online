@@ -36,8 +36,9 @@ public class QuestionServiceImpl  extends OnlineBaseServiceImpl implements Quest
         if (!CollectionUtils.isEmpty(questionVos)) {
             for (QuestionVo questionVo : questionVos) {
                   QuestionVo  answers =  this.getQuestionByPid(questionVo.getCourseId(),questionVo.getId());
-                  if (answers != null)
+                  if (answers != null) {
                       questionVo.setAnswers(answers.getQuestionName());
+                  }
             }
         }
         return questionVos;

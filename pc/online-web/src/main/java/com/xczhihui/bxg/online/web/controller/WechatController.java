@@ -354,36 +354,37 @@ public class WechatController {
 
 					String[] attachs=attach.split("&");
 
-					if(attachs.length>0)
-						if(attachs[0].equals("order")) {
-							String json = cacheService.get(attachs[1]);
-							OrderParamVo orderParamVo=  com.alibaba.fastjson.JSONObject.parseObject(json,OrderParamVo.class);
-							wxcpPayFlow.setSubject(orderParamVo.getSubject());
-							wxcpPayFlow.setUser_id(orderParamVo.getUserId());
-						}else if(attachs[0].equals("reward")){
-							String json = cacheService.get(attachs[1]);
-							RewardParamVo rpv=  JSONObject.parseObject(json,RewardParamVo.class);
-							RewardStatement rs=new RewardStatement();
-							BeanUtils.copyProperties(rs,rpv);
-							rs.setCreateTime(new Date());
-							rs.setPayType(1);//
-							rs.setOrderNo(out_trade_no);
-							rs.setChannel(1);
-							rs.setStatus(1);
-							userCoinService.updateBalanceForReward(rs);
-							wxcpPayFlow.setUser_id(rpv.getUserId());
-							wxcpPayFlow.setSubject(rpv.getSubject());
-						}else if(attachs[0].equals("recharge")){
-							String json = cacheService.get(attachs[1]);
-							UserCoinIncrease uci=  JSONObject.parseObject(json,UserCoinIncrease.class);
-							uci.setCreateTime(new Date());
-							uci.setPayType(1);//
-							uci.setOrderNoRecharge(out_trade_no);
-							uci.setOrderFrom(1);
-							userCoinService.updateBalanceForIncrease(uci);
-							wxcpPayFlow.setUser_id(uci.getUserId());
-							wxcpPayFlow.setSubject(uci.getSubject());
-						}
+					if(attachs.length>0) {
+                        if (attachs[0].equals("order")) {
+                            String json = cacheService.get(attachs[1]);
+                            OrderParamVo orderParamVo = JSONObject.parseObject(json, OrderParamVo.class);
+                            wxcpPayFlow.setSubject(orderParamVo.getSubject());
+                            wxcpPayFlow.setUser_id(orderParamVo.getUserId());
+                        } else if (attachs[0].equals("reward")) {
+                            String json = cacheService.get(attachs[1]);
+                            RewardParamVo rpv = JSONObject.parseObject(json, RewardParamVo.class);
+                            RewardStatement rs = new RewardStatement();
+                            BeanUtils.copyProperties(rs, rpv);
+                            rs.setCreateTime(new Date());
+                            rs.setPayType(1);//
+                            rs.setOrderNo(out_trade_no);
+                            rs.setChannel(1);
+                            rs.setStatus(1);
+                            userCoinService.updateBalanceForReward(rs);
+                            wxcpPayFlow.setUser_id(rpv.getUserId());
+                            wxcpPayFlow.setSubject(rpv.getSubject());
+                        } else if (attachs[0].equals("recharge")) {
+                            String json = cacheService.get(attachs[1]);
+                            UserCoinIncrease uci = JSONObject.parseObject(json, UserCoinIncrease.class);
+                            uci.setCreateTime(new Date());
+                            uci.setPayType(1);//
+                            uci.setOrderNoRecharge(out_trade_no);
+                            uci.setOrderFrom(1);
+                            userCoinService.updateBalanceForIncrease(uci);
+                            wxcpPayFlow.setUser_id(uci.getUserId());
+                            wxcpPayFlow.setSubject(uci.getSubject());
+                        }
+                    }
 					wxcpPayFlowService.insert(wxcpPayFlow);
 
 
