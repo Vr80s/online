@@ -5,8 +5,10 @@ var searchJson = new Array();
 var courseArray=new Array();
 $(function() {
 	nowTime=show();
+    $("#addProjectType").val(1);
+    $("#updateProjectType").val(1);
 	debugger
-    searchJson.push('{"tempMatchType":undefined,"propertyName":"search_type","propertyValue1":"'+$("#search_type").val()+'","tempType":undefined}');
+    searchJson.push('{"tempMatchType":1,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
     loadBanner2List();
 });
 
@@ -74,6 +76,23 @@ function loadBanner2List(){
 				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 			}
 		});
+    });
+
+    /**
+     * 展示课程专题管理
+     *
+     */
+    $(".zykgl_bx").click(function(){
+        $("#courseDiv").show();
+
+        var banneType =  $(this).attr("title");
+
+        $("#addProjectType").val(banneType);
+        $("#updateProjectType").val(banneType);
+
+        var json = new Array();
+        json.push('{"tempMatchType":1,"propertyName":"search_type","propertyValue1":"'+banneType+'","tempType":Integer}');
+        searchButton(banner2Table,json);
     });
 
     banner2Form = $("#addBanner2-form").validate({
@@ -163,6 +182,8 @@ function updateBanner2(obj){
 	$("#update_description").val(row.name);
 	$("#update_imgPath").val(row.icon);
 	$("#update_id").val(row.id);
+    $("#update_linkCondition").val(row.linkCondition);
+
 
 	reviewImage("update_imgPath_file",row.icon);
 	$(".remove").hide();

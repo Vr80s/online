@@ -3,6 +3,9 @@ package com.xczhihui.bxg.online.manager.cloudClass.web;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
+import com.xczhihui.bxg.online.manager.utils.Group;
+import com.xczhihui.bxg.online.manager.utils.Groups;
+import com.xczhihui.bxg.online.manager.utils.Tools;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,8 +52,15 @@ public class ProjectTypeController {
           int pageSize = tableVo.getiDisplayLength();
           int index = tableVo.getiDisplayStart();
           int currentPage = index / pageSize + 1;
-          
-          Page<Project> page = service.findProjectPage(null, currentPage, pageSize);
+          String params = tableVo.getsSearch();
+          Groups groups = Tools.filterGroup(params);
+          Group searchType = groups.findByName("search_type");
+          Project p = new Project();
+          if (searchType != null) {
+               p.setType(Integer.parseInt(searchType.getPropertyValue1().toString()));
+          }
+
+          Page<Project> page = service.findProjectPage(p, currentPage, pageSize);
           
           if(page.getItems().size()>0){
                for(Project vo:page.getItems()){
@@ -68,7 +78,7 @@ public class ProjectTypeController {
      
      /**
       * 添加数据
-      * @param projectTypeVo
+      * @param project
       * @return
       * @throws InvocationTargetException
       * @throws IllegalAccessException
@@ -83,7 +93,13 @@ public class ProjectTypeController {
           if(project.getName()==null){
                throw new IllegalArgumentException("请输入课程类别名称");
           }
-          Project existsEntity = service.findProjectTypeByName(project.getName());
+          if(project.getLinkType()==null){
+               throw new IllegalArgumentException("请选择连接类型");
+          }
+          if(project.getLinkCondition()==null){
+               throw new IllegalArgumentException("请输入连接地址");
+          }
+          Project existsEntity = service.findProjectTypeByNameAndByType(project.getName(),project.getType());
           if (existsEntity != null && existsEntity.isDelete()!=true) {
                throw new IllegalArgumentException("已经存在");
           }
@@ -104,7 +120,7 @@ public class ProjectTypeController {
      
      /**
       * 更新课程类别管理表
-      * @param Project
+      * @param project
       * @return
       * @throws InvocationTargetException
       * @throws IllegalAccessException
@@ -114,9 +130,10 @@ public class ProjectTypeController {
      public ResponseObject update(Project project) throws InvocationTargetException, IllegalAccessException {
           ResponseObject responseObject=new ResponseObject();
           
-          if(project==null || project.getName() == null || project.getIcon() ==null)
+          if(project==null || project.getName() == null || project.getIcon() ==null
+                  || project.getLinkType() == null || project.getLinkCondition() == null)
               throw new IllegalArgumentException("请输入必填项");
-          Project existsEntity = service.findProjectTypeByName(project.getName());
+          Project existsEntity = service.findProjectTypeByNameAndByType(project.getName(),project.getType());
    
           if (existsEntity!=null && !existsEntity.getId().equals(project.getId())) {
                throw new IllegalArgumentException("已经存在了");
@@ -152,8 +169,7 @@ public class ProjectTypeController {
      
      /**
       * 禁用or启用
-      * @param request
-      * @param model
+      * @param id
       * @return
       */
      @RequestMapping(value = "updateStatus", method = RequestMethod.POST)

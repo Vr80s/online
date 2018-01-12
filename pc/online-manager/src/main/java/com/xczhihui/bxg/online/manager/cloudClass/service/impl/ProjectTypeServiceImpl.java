@@ -15,6 +15,8 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.shiro.util.CollectionUtils;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +60,12 @@ public class ProjectTypeServiceImpl extends OnlineBaseServiceImpl implements Pro
 	}
 
 	@Override
-	public Project findProjectTypeByName(String name) {
-		return projectTypeDao.findOneEntitiyByProperty(Project.class,"name",name);
+	public Project findProjectTypeByNameAndByType(String name,Integer type) {
+		DetachedCriteria dc = DetachedCriteria.forClass(Project.class);
+		dc.add(Restrictions.eq("name", name));
+		dc.add(Restrictions.eq("type", type));
+		return projectTypeDao.findEntity(dc);
+		//return projectTypeDao.findOneEntitiyByProperty(Project.class,"name",name);
 	}
 
 	@Override
