@@ -39,11 +39,30 @@ public class Project extends BasicEntity2 implements Serializable {
 	 */
 	@Column(name = "status")
 	private Integer status;
+
 	/**
 	 * 备注
 	 */
 	@Column(name = "remark")
 	private String remark;
+
+	/**
+	 * 连接类型
+	 */
+	@Column(name = "link_type")
+	private Integer linkType;
+
+	/**
+	 * 链接地址
+	 */
+	@Column(name = "link_condition")
+	private String linkCondition;
+
+	/**
+	 * 类型           1 推荐 2 分类
+	 */
+	@Column(name = "type")
+	private Integer type;
 
 	public String getName() {
 		return name;
@@ -89,5 +108,29 @@ public class Project extends BasicEntity2 implements Serializable {
 
 	public void setIcon(String icon) {
 		this.icon = icon;
+	}
+
+	public Integer getLinkType() {
+		return linkType;
+	}
+
+	public void setLinkType(Integer linkType) {
+		this.linkType = linkType;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public String getLinkCondition() {
+		return linkCondition;
+	}
+
+	public void setLinkCondition(String linkCondition) {
+		this.linkCondition = linkCondition;
 	}
 }

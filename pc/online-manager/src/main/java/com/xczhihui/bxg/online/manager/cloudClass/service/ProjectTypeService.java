@@ -8,7 +8,7 @@ public interface ProjectTypeService {
 	public Page<Project> findProjectPage(Project project, int currentPage,
 			int pageSize);
 
-	public Project findProjectTypeByName(String name);
+	public Project findProjectTypeByNameAndByType(String name,Integer type);
 
 	public int getMaxSort();
 

@@ -20,8 +20,13 @@ public class ProjectTypeDao extends HibernateDao<Project>{
 	public Page<Project> findProjectPage(Project project, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
-		StringBuilder sql =new StringBuilder("select * from oe_project where is_delete=0 order by  status desc,sort asc ");
 		Map<String,Object> paramMap=new HashMap<String,Object>();
+		StringBuilder sql =new StringBuilder("select * from oe_project where is_delete=0 ");
+		if(project.getType() != null && !"".equals(project.getType())){
+			sql.append(" and type = :type ");
+			paramMap.put("type", project.getType());
+		}
+		sql.append(" order by  status desc,sort asc ");
 		return this.findPageBySQL(sql.toString(), paramMap, Project.class, pageNumber, pageSize);
 	}
 
