@@ -201,6 +201,12 @@ public class BunchPlanController {
 		map.put(608, "265106673");
 		map.put(609, "593193792");
 		map.put(610, "814649885");
+/*		map.put(4, "340273573");
+		map.put(5, "337055289");
+		map.put(6, "362080337");
+		map.put(7, "265106673");
+		map.put(8, "593193792");
+		map.put(9, "814649885");*/
 		for (Integer key : map.keySet()) {
 			System.out.println("key= "+ key + " and value= " + map.get(key));
 			if(key.equals(new Integer(courseLecturVo.getId()))){
@@ -481,6 +487,8 @@ public class BunchPlanController {
 	    List<MenuVo> listmv = menuService.list();
 	    
 		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,4,null,listmv);
+		
+		log.info(listAll.size()+"");
 		
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		
