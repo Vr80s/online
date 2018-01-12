@@ -362,7 +362,8 @@ margin-top:0;
 	    position: absolute;
 	    top: 20px;
 	    right: 20px;
-	    color: #000;
+	    color: #333;
+	    font-size: 14px;
 }
 #forum .forum-content .forum-content-left .doctor_list .doctor_inf > li{
 	width:400px;
@@ -434,6 +435,7 @@ margin-top:0;
 	width:320px;
 	background-color:#fff;
 	margin-bottom:20px;
+	margin-top: 20px;
 }
 #forum .forum-content .forum-content-right .school_teacher >div{
 	position: relative;
