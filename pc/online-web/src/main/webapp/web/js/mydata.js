@@ -709,17 +709,22 @@ function addgetdata() { //回填数据
 	
 	//省份渲染 无奈之举
 	var num = 1;
-	setInterval(function(){
+	setTimeout(function(){
 		num += 1;
 		if(num<30){
 			if(data.resultObject.province != ''&&data.resultObject.city != null){
 				
-			$('.Province1 option:selected').val(data.resultObject.province);	
-			$('.Province1 option:selected').text(data.resultObject.provinceName)
-			console.log(data.resultObject.province )
+//			$('.Province1 option:selected').val(data.resultObject.province);	
+//			$('.Province1 option:selected').text(data.resultObject.provinceName)
+//			console.log(data.resultObject.province )
+			$(".Province1 option[value="+data.resultObject.province+"]").attr('selected','selected');
+			
 			}
 		}
 	},100)
+	
+	
+	
 	
 	
 		//城市渲染

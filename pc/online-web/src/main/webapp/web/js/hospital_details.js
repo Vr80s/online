@@ -99,7 +99,7 @@ $(function(){
 			size:4,
 			hospitalId:id
 	    },function(data){
-	        if(data.resultObject.records.length == 0){
+	        if(data.resultObject.total < 4){
 	        	//没有数据处理
 //	           alert("名老中医没有数据")
 //			$('.doctor_inf').html('<h3>暂无数据</h3>');
@@ -108,7 +108,7 @@ $(function(){
 	        	console.log(data)
 	        	$('.hospital_doctor').removeClass('hide')
 	        	//获取到数据渲染
-	        	if(data.resultObject.records.length > 4){
+	        	if(data.resultObject.total > 4){
 	        		$('#more_doc').removeClass('hide');
 	        	};
 	           $('#yiguan_mingjia').html(template('hos_docTpl',{doctor:data.resultObject.records}));
