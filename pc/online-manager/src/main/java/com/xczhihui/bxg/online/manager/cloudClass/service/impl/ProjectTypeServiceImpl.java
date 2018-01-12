@@ -65,7 +65,6 @@ public class ProjectTypeServiceImpl extends OnlineBaseServiceImpl implements Pro
 		dc.add(Restrictions.eq("name", name));
 		dc.add(Restrictions.eq("type", type));
 		return projectTypeDao.findEntity(dc);
-		//return projectTypeDao.findOneEntitiyByProperty(Project.class,"name",name);
 	}
 
 	@Override
