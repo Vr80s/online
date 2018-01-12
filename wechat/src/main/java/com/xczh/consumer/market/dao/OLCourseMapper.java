@@ -99,7 +99,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 			all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
 			all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1 and oc.type is null ");//and oc.is_free=0 oc.course_type=1 and
 			all.append(" and oc.multimedia_type =? ");
-			all.append(" order by oc.sort asc");
+			all.append(" order by oc.sort desc");
 
 			Object[] params = {multimedia_type};
 			
