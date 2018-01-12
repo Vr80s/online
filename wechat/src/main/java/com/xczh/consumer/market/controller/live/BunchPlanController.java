@@ -145,12 +145,13 @@ public class BunchPlanController {
 		if(user != null ){
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
 			courseLecturVo.setIsfocus(isFours);
-			if(courseLecturVo.getWatchState()!=0){
-				
+			
+			if(courseLecturVo.getWatchState()==0){
+				onlineWebService.saveEntryVideo(Integer.parseInt(courseid), user);
+			}else{
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
 			       //log.info("同学,当前课程您已经报名了!");
-					
 			       courseLecturVo.setWatchState(0);    
 			    };
 			}
@@ -169,7 +170,6 @@ public class BunchPlanController {
 		if(StringUtils.isNotBlank(newflag)){
 			flag = newflag;
 		}
-		
 		String appUniqueId = req.getParameter("appUniqueId");
 		log.info("flag:"+flag);
 		log.info("appUniqueId:"+appUniqueId);

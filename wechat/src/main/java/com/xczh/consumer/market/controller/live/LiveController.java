@@ -230,20 +230,14 @@ public class LiveController {
 				return ResponseObject.newErrorResponseObject("获取课程数据有误");
 			}
 			if(courseLecturVo.getWatchState()==0){
-				/**
-				 * 记录人次
-				 */
 				onlineWebService.saveEntryVideo(course_id, user);
 			}else{
-				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
 			       //log.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };
-				
 			}
-			
 			/**
 			 * 是否已经关注了这个主播：0 未关注  1已关注
 			 */

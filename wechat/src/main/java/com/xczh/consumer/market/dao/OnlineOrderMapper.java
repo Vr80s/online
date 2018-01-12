@@ -239,26 +239,25 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		String sql="";
 		
 		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff ";//这个用来比较啦
-		
 			if(1==type){
 				//CourseVo
 				sql = " select oc.end_time endTime, oc.online_course onlineCourse,oc.current_price currentPrice,ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
 						" ( SELECT COUNT(id) from oe_video  where course_id=oc.id and is_delete=0 and  status=1  ) as count, " +
 						" ( SELECT COUNT(id) from user_r_video  where course_id=oc.id and study_status=1  and status=1 and is_delete=0 and  user_id=? ) as learndCount" +
-						" from  oe_course  oc left join  user_r_video v  on oc.id = v.course_id inner join oe_user as ou on oc.user_lecturer_id = ou.id  where v.user_id=?  and oc.is_delete=0 and oc.status=1 group by oc.id ";
+						" from  oe_course  oc  join  apply_r_grade_course argc  on oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id  where argc.user_id=? and  oc.type is null and oc.multimedia_type in (1,2) and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc ";
 					List<OnlineCourse> list =
 					this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId,userId);
 					return list;
 			}else if(2==type){
 				sql = " select oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type,oc.live_status as lineState, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath, oc.`start_time` AS startTime, oc.`end_time` AS endTime,oc.direct_id" +
-						" from  oe_course  oc join `apply_r_grade_course` argc on oc.id = argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id    where oc.`online_course` = 0 and oc.type = 1 and  argc.user_id=? and oc.is_delete=0 and oc.status=1 group by oc.id ";
+						" from  oe_course  oc join `apply_r_grade_course` argc on oc.id = argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id    where oc.`online_course` = 0 and oc.type = 1 and  argc.user_id=? and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc";
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
 			}else if(3==type){
 				 sql = " select oc.address,oc.online_course onlineCourse, oc.current_price currentPrice,4 as type, ou.name as teacherName,oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,"
 				 		+ "oc.start_time startTime,oc.end_time endTime, " 
 						+  dateWhere 
-						+ " from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id   where argc.user_id=?  AND oc.`online_course`=1 and oc.is_delete=0 and oc.status=1 group by oc.id ";
+						+ " from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id   where argc.user_id=?  AND oc.`online_course`=1 and oc.is_delete=0 and oc.status=1 group by oc.id order by argc.create_time desc ";
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
 				}
