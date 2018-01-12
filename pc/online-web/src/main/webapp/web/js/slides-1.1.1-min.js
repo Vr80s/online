@@ -40,8 +40,8 @@
             start: 1,
             effect: "slide",
             fadeEasing: "",
-            play: 5000,
-            pause: 2000,
+            play: 1500,
+            pause: 1500,
             hoverPause: false
         };
         b = a.extend({}, a.fn.olvSlides.option, b);
