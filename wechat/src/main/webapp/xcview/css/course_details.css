@@ -1,0 +1,195 @@
+﻿*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+
+/*头部开始*/
+header {
+    width: 100%;
+    height: 1.872rem;
+    line-height: 1.872rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+.header {
+    width: 14.851rem;
+    height: 100%;
+    margin-left: 0.553rem;
+    /* padding-top: 0.298rem; */
+}
+.header_return {
+    width: 2.15rem;
+    height: 1.8rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_return img {
+    width: 0.511rem;
+    height: 0.915rem;
+}
+.header_title {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.766rem;
+    text-align: center;
+    color: #333;
+    z-index: 9;
+}
+.header_share{
+	width: 2.15rem;
+    height: 1.8rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+/*    float: right;*/
+    position: absolute;
+    z-index: 10;
+    right: 0.362rem;
+    text-align: right;
+}
+.header_share img {
+    width: 0.894rem;
+    height: 0.915rem;
+}
+/*头部结束*/
+
+
+/*中间内容开始*/
+.course_main{
+	width: 100%;
+	height: 100%;
+    margin-top: 1.872rem;
+}
+.course_video_bg{
+	width: 100%;
+	height: 9.043rem;
+	background: url(../images/video_bg.png) no-repeat;
+	background-size: 100% 100%;
+}
+.course_video{
+	width: 100%;
+	height: 100%;
+}
+.course_video_bottom{
+	width: 100%;
+	min-height: 3.766rem;
+	background: #fff;
+	padding-top: 0.638rem;
+	height: 800px;
+}
+.course_video_title{
+	width: 14.851rem;
+    text-align: center;
+    font-size: 0.681rem;
+    color: #333;
+    margin: 0 auto;
+    margin-bottom: 0.34rem;
+}
+.course_video_cen{
+	width: 14.851rem;
+	text-align: center;
+	font-size: 0.553rem;
+	color: #666;
+	margin: 0 auto;
+	margin-bottom: 0.34rem;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.course_video_graded{
+	width: 6.851rem;
+    height: 20px;
+    background: #c5c5c5;
+    margin: 0 auto;
+}
+.course_video_review{
+	font-size: 0.511rem;
+	color: #999;
+	float: right;
+}
+.course_video_review span{
+	
+}
+
+/*星星css开始*/
+
+.block{ 
+	width:118px; 
+	/*margin:0 0 20px 0; 
+	padding-top:10px; 
+	padding-left:50px; 
+	line-height:21px;*/
+	float: left;
+	margin-top: 2px;
+}
+.block .star_score{ 
+	float:left;
+}
+.star_list{
+	height:21px;
+	margin:50px; 
+	line-height:21px;
+}
+.block p,.block .attitude{ 
+	padding-left:20px; 
+	line-height:21px; 
+	display:inline-block;
+}
+.block p span{ 
+	color:#C00; 
+	font-size:16px; 
+}
+
+.star_score { 
+	background:url(../images/x1.png); 
+	width:160px; 
+	height:13px;  
+	position:relative; 
+	background-size: 24px 13px;
+}
+
+.star_score a{ 
+	height:13px; 
+	display:block; 
+	text-indent:-999em; 
+	position:absolute;
+	left:0;
+}
+
+.star_score a:hover{ 
+	background:url(../images/x0.png);
+	left:0;
+	background-size: 24px 13px;
+}
+
+.star_score a.clibg{ 
+	background:url(../images/x0.png);
+	left:0;
+	background-size: 24px 13px;
+}
+/*星星css结束*/
+/*中间内容结束*/
+
+
+
+

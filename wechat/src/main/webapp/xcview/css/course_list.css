@@ -22,6 +22,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 9;
 }
 .header{
 	width: 14.851rem;
@@ -33,11 +34,13 @@ header {
 	display: none;
 }
 .header_return{
-	width: 1.15rem;
-    height: 1.2rem;
+	width: 2.15rem;
+    height: 1.8rem;
     /* background: red; */
     margin-right: 0.362rem;
     float: left;
+    position: absolute;
+    z-index: 10;
 }
 .header_return img{
 	width: 0.511rem;
