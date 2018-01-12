@@ -19,7 +19,7 @@ $(function(){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
     }},
     {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
-	{ "title": "直播id", "class":"center","width":"15%","sortable":false,"data": 'id' ,"mRender":function (data, display, row) {
+	{ "title": "直播id", "class":"center","width":"6%","sortable":false,"data": 'id' ,"mRender":function (data, display, row) {
 		return "<span name='courseNameList'>"+data+"</span>";
 	} }, { "title": "直播名称", "class":"center","width":"15%","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
 		return "<span name='courseNameList'>"+data+"</span>";
@@ -43,6 +43,13 @@ $(function(){
     	data = row.originalCost+"/"+row.currentPrice;
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
+    { "title": "是否推荐", "class":"center","width":"9%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
+		if(data==1){
+			return "<span name='sftj'>已推荐</span>";
+		}else{
+			return "<span name='sftj'>未推荐</span>";
+		}
+	} },
     { "title": "是否加密", "class":"center","width":"8%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
     	if(data != null)
     		return "是";
@@ -89,6 +96,7 @@ $(function(){
 	{ "title": "直播间ID", "class":"center","width":"13%","sortable":false,"data": 'directId',"visible":false},
 	{ "title": "外部链接", "class":"center","width":"13%","sortable":false,"data": 'externalLinks',"visible":false}];
 
+	//TODO
 	_courseTable = initTables("courseTable",basePath+"/publiccloudclass/course/list",objData,true,true,2,null,searchCase,function(data){
 		var texts = $("[name='courseNameList']");
 	    for (var i = 0; i < texts.length; i++) {
@@ -291,7 +299,7 @@ $(function(){
 	
 	
 	/** 直播课 begin */
-	
+	//TODO
     var objZbRecData = [
     { "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"20%","sortable":false,"data": 'courseName' },
@@ -323,15 +331,13 @@ $(function(){
 	}},
     { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ' +
-    		'<a class="blue" href="javascript:void(-1);" title="设置图片" onclick="updateRecImg(this);">设置图片</a> </div>';
+			'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ';
   		}
 	}];
 
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":8,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_liveStatus","propertyValue1":"1","tempType":"Integer"}');
-    
     
 	zb_courseRecTable = initTables("courseZbRecTable",basePath+"/cloudclass/course/recList",objZbRecData,true,true,0,null,searchCase_P,function(data){
 		$("[name='upa']").each(function(index){
@@ -939,22 +945,19 @@ $(".rec_P").click(function(){
 		}
 		ids.push($(trs[i]).val());
 	}
-	if(ids.length > 4)
-	{
-		showDelDialog("","","最多只能推荐4个点播课程！","");
-		return false;
-	}
-
+//	if(ids.length > 4)
+//	{
+//		showDelDialog("","","最多只能推荐4个点播课程！","");
+//		return false;
+//	}
 	if(ids.length>0){ 
 			ajaxRequest(basePath+"/cloudclass/course/updateRec",{'ids':ids.join(","),"isRec":1},function(data){
 				if(!data.success){//如果失败
-					//alertInfo(data.errorMessage);
 					layer.msg(data.errorMessage);
 				}else{
-					if(!isnull(P_courseTable)){
+					if(!isnull(_courseTable)){
                         layer.msg("推荐成功！");
-                        //freshDelTable(P_courseTable);
-						search_P();
+                        freshDelTable(_courseTable);
 					}
 					layer.msg(data.errorMessage);
 				}
@@ -998,7 +1001,7 @@ $(".zbtj_bx").click(function(){
     searchCase_P.push('{"tempMatchType":8,"propertyName":"search_type","propertyValue1":"1","tempType":Integer}');
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_liveStatus","propertyValue1":"1","tempType":"Integer"}');
 	
-    searchButton(zb_courseRecTable,json);
+    searchButton(zb_courseRecTable,searchCase_P);
 	//freshTable(_courseZbRecTable);
 });
 
