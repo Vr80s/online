@@ -20,8 +20,9 @@ public class PPTResDao extends HibernateDao<Files>{
 	 		sql.append(" and f.chapter_id in( ");
 	 		String [] ids=searchVo.getChapterId().split(",");
 	 		 for(int i=0;i<ids.length;i++){
-	                if(i!=0)
-	                    sql.append(",");
+	                if(i!=0) {
+                        sql.append(",");
+                    }
 	                sql.append("'"+ids[i]+"'");
 	            }
 	            sql.append(" ) ");
@@ -42,8 +43,9 @@ public class PPTResDao extends HibernateDao<Files>{
 	 		sql.append(" and f.chapter_id in( ");
 	 		String [] ids=searchVo.getChapterId().split(",");
 	 		 for(int i=0;i<ids.length;i++){
-	                if(i!=0)
-	                    sql.append(",");
+	                if(i!=0) {
+                        sql.append(",");
+                    }
 	                sql.append("'"+ids[i]+"'");
 	            }
 	            sql.append(" ) ");

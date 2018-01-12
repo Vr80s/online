@@ -91,7 +91,9 @@ public class MedicalHospitalRecruitVO implements Serializable {
 	}
 
 	public String getPostDuties() {
-		if(postDuties == null) return null;
+		if(postDuties == null) {
+            return null;
+        }
 		postDuties = postDuties.replace("\n\n","<br/>");
 		postDuties = postDuties.replace("\n","<br/>");
 		return postDuties;
@@ -102,7 +104,9 @@ public class MedicalHospitalRecruitVO implements Serializable {
 	}
 
 	public String getJobRequirements() {
-		if(jobRequirements == null) return null;
+		if(jobRequirements == null) {
+            return null;
+        }
 		jobRequirements = jobRequirements.replace("\n\n","<br/>");
 		jobRequirements = jobRequirements.replace("\n","<br/>");
 		return jobRequirements;

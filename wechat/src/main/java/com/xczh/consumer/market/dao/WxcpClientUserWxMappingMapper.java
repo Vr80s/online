@@ -35,7 +35,9 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 	 * @throws SQLException
 	 */
 	public WxcpClientUserWxMapping getWxcpClientUserWxMappingByOpenId(String openId) throws SQLException {
-		if(openId==null) return null;
+		if(openId==null) {
+            return null;
+        }
 		String sql = "select * from wxcp_client_user_wx_mapping where openid = ? ";
 		Object params[] = {openId};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(WxcpClientUserWxMapping.class),params);
@@ -56,7 +58,9 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 			Object params[] = {openid,wx_public_id};
 			return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(WxcpClientUserWxMapping.class),params);
 		}
-		else return new WxcpClientUserWxMapping();
+		else {
+            return new WxcpClientUserWxMapping();
+        }
 	}
 	
 	/**
@@ -64,7 +68,9 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 	 **/
 	public int insert( WxcpClientUserWxMapping record ) throws SQLException {
 		
-		if(record==null) return -1;
+		if(record==null) {
+            return -1;
+        }
 		
 		WxcpClientUserWxMapping record_0  = this.getWxcpClientUserWxMappingInfo(record.getClient_id(),record.getOpenid(),record.getWx_public_id());
 		if(record_0 == null) { 	
@@ -159,7 +165,9 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 	 **/
 	public int update( WxcpClientUserWxMapping record ) throws SQLException {
 		
-		if(record==null) return -1;
+		if(record==null) {
+            return -1;
+        }
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("update  							");

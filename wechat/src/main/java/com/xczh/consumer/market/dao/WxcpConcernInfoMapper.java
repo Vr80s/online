@@ -21,7 +21,9 @@ import java.util.UUID;
 public class WxcpConcernInfoMapper extends BasicSimpleDao {
 	
 	public int insert( WxcpConcernInfo record ) throws SQLException {
-		if(record==null) return -1;
+		if(record==null) {
+            return -1;
+        }
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into wxcp_concern_info 		");
@@ -38,7 +40,9 @@ public class WxcpConcernInfoMapper extends BasicSimpleDao {
 		sql.append(")                                   ");
 		                                        		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getConcern_id()==null || record.getConcern_id().isEmpty()) record.setConcern_id(id);
+		if(record.getConcern_id()==null || record.getConcern_id().isEmpty()) {
+            record.setConcern_id(id);
+        }
 		
 		super.update(
 			JdbcUtil.getCurrentConnection(),
@@ -53,24 +57,32 @@ public class WxcpConcernInfoMapper extends BasicSimpleDao {
 
 	public int delete( WxcpConcernInfo condition ) throws SQLException {
 
-		if(condition==null) return -1;
+		if(condition==null) {
+            return -1;
+        }
 		
 		StringBuilder sql = new StringBuilder();		
 		sql.append("delete from wxcp_concern_info where 1 = 1 ");		
-		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty())
-		sql.append("	and concern_id = ?    		");	
-		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty())
-		sql.append("	and public_id = ?    		");
-		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() )
-		sql.append("   	and open_id = ? 			");	
+		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty()) {
+            sql.append("	and concern_id = ?    		");
+        }
+		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty()) {
+            sql.append("	and public_id = ?    		");
+        }
+		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() ) {
+            sql.append("   	and open_id = ? 			");
+        }
 		
 		ArrayList<Object> conList = new ArrayList<Object>(); 
-		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty())
-			conList.add(condition.getConcern_id());
-		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty())
-			conList.add(condition.getPublic_id());	
-		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() )
-			conList.add(condition.getOpen_id());	
+		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty()) {
+            conList.add(condition.getConcern_id());
+        }
+		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty()) {
+            conList.add(condition.getPublic_id());
+        }
+		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() ) {
+            conList.add(condition.getOpen_id());
+        }
 		
 		Object[] params = new Object [conList.size()];
 		conList.toArray(params);				
@@ -84,7 +96,10 @@ public class WxcpConcernInfoMapper extends BasicSimpleDao {
 
 	public List<WxcpConcernInfo> select(WxcpConcernInfo condition, String limit) throws SQLException {
 		
-		if(condition==null) return new LinkedList<WxcpConcernInfo>();;
+		if(condition==null) {
+            return new LinkedList<WxcpConcernInfo>();
+        }
+        ;
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("select 							");
@@ -95,22 +110,29 @@ public class WxcpConcernInfoMapper extends BasicSimpleDao {
 		sql.append("	wxcp_concern_info   		");
 		sql.append("where                  			");
 		sql.append("	1 = 1               		");	
-		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty())
-		sql.append("	and concern_id = ?    		");	
-		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty())
-		sql.append("	and public_id = ?    		");
-		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() )
-		sql.append("   	and open_id = ? 			");	
-		if(limit!=null && limit.length() > 0) 
-		sql.append("	limit " + limit);
+		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty()) {
+            sql.append("	and concern_id = ?    		");
+        }
+		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty()) {
+            sql.append("	and public_id = ?    		");
+        }
+		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() ) {
+            sql.append("   	and open_id = ? 			");
+        }
+		if(limit!=null && limit.length() > 0) {
+            sql.append("	limit " + limit);
+        }
 		
 		ArrayList<Object> conList = new ArrayList<Object>(); 
-		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty())
-			conList.add(condition.getConcern_id());
-		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty())
-			conList.add(condition.getPublic_id());	
-		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() )
-			conList.add(condition.getOpen_id());	
+		if(condition.getConcern_id() != null && !condition.getConcern_id().isEmpty()) {
+            conList.add(condition.getConcern_id());
+        }
+		if(condition.getPublic_id() != null && !condition.getPublic_id().isEmpty()) {
+            conList.add(condition.getPublic_id());
+        }
+		if(condition.getOpen_id() != null && !condition.getOpen_id().isEmpty() ) {
+            conList.add(condition.getOpen_id());
+        }
 		
 		Object[] params = new Object [conList.size()];
 		conList.toArray(params);				

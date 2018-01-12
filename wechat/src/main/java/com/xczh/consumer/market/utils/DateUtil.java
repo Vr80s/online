@@ -133,8 +133,9 @@ public class DateUtil {
 	 * @return String
 	 */
 	public static String getZodiac(int year) {
-		if (year < 1900)
-			return null;
+		if (year < 1900) {
+            return null;
+        }
 		String str = "鼠牛虎兔龙蛇马羊猴鸡狗猪";
 		int num = (year - 1900) % 12;
 		return str.substring(num, num + 1);

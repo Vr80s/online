@@ -36,8 +36,9 @@ public class CriticizeDao extends SimpleHibernateDao {
 			   sql.append(" and oc.chapter_id in( ");
 		 		String [] ids=criticizeVo.getChapterId().split(",");
 		 		 for(int i=0;i<ids.length;i++){
-		                if(i!=0)
-		                    sql.append(",");
+		                if(i!=0) {
+                            sql.append(",");
+                        }
 		                sql.append("'"+ids[i]+"'");
 		         }
 		         sql.append(" ) ");

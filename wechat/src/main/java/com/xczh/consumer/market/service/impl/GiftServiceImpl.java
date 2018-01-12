@@ -38,7 +38,9 @@ public class GiftServiceImpl implements GiftService {
     @Override
     public GiftStatement addGiftStatement(GiftStatement giftStatement) {
         Gift gift = giftMapper.get(giftStatement.getGiftId());
-        if(gift == null||(gift.getIsDelete()!=null&&gift.getIsDelete()==true))throw new RuntimeException("找不到礼物！");
+        if(gift == null||(gift.getIsDelete()!=null&&gift.getIsDelete()==true)) {
+            throw new RuntimeException("找不到礼物！");
+        }
         giftStatement.setCreateTime(new Date());
         giftStatement.setGiftId(gift.getId()+"");
         giftStatement.setGiftName(gift.getName());
@@ -51,8 +53,9 @@ public class GiftServiceImpl implements GiftService {
             try {
 
 
-                if(gift.getPrice()>0)
+                if(gift.getPrice()>0) {
                     doConsumption(giftStatement);
+                }
 
                 giftStatementMapper.addGiftStatement(giftStatement);
             } catch (SQLException e) {

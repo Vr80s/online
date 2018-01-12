@@ -77,8 +77,9 @@ public class Groups {
 		if(groupList==null){
 			groupList=new ArrayList<Group>();
 		}
-		if (group != null)
-			groupList.add(group);
+		if (group != null) {
+            groupList.add(group);
+        }
 	}
 	
 	public Groups(List<Group> groupList){
@@ -171,8 +172,9 @@ public class Groups {
 	}
 	
 	public void Remove(Group group){
-		if (groupList != null && !groupList.isEmpty() && group != null)
-			groupList.remove(group);
+		if (groupList != null && !groupList.isEmpty() && group != null) {
+            groupList.remove(group);
+        }
 	}
 	
 	/**
@@ -182,8 +184,9 @@ public class Groups {
 	 */
 	public void Remove(int index)
 	{
-		if (!groupList.isEmpty() && index < groupList.size())
-			groupList.remove(index);
+		if (!groupList.isEmpty() && index < groupList.size()) {
+            groupList.remove(index);
+        }
 		
 	}
 	
@@ -198,8 +201,9 @@ public class Groups {
 		{
 			for(Group g: groupList)
 			{
-				if (g.getPropertyName().equals(name.trim()))
-					return g;
+				if (g.getPropertyName().equals(name.trim())) {
+                    return g;
+                }
 			}
 		}
 		

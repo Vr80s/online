@@ -107,8 +107,9 @@ public class ScoreTypeDao extends HibernateDao<ScoreType> {
 		if(_ids.length>0) {
             StringBuilder sql = new StringBuilder(" update score_type set is_delete=1 where  id IN (");
             for(int i=0;i<_ids.length;i++){
-                if(i!=0)
+                if(i!=0) {
                     sql.append(",");
+                }
                 sql.append("'"+_ids[i]+"'");
             }
             sql.append(")");

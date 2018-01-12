@@ -109,12 +109,15 @@ public class LinkDao extends HibernateDao<Otherlink>{
 			for(Entry<String, Object> entry:paramMap.entrySet()){
 				Object paramValue = entry.getValue();
 				if(paramValue != null && StringUtils.hasText(paramValue.toString())){
-					if(entry.getKey().equals("urlOrcreatPer"))
-						sbSql.append(" AND (oe_otherlink.create_person like '%"+entry.getValue()+"%' OR oe_otherlink.url like '%"+entry.getValue()+"%')");
-					if(entry.getKey().equals("timeEnd"))
-						endStr = " AND '"+entry.getValue()+"')";
-					if(entry.getKey().equals("timeStart"))
-						sbSql.append(" AND (oe_otherlink.create_time BETWEEN '"+entry.getValue()+"'");
+					if(entry.getKey().equals("urlOrcreatPer")) {
+                        sbSql.append(" AND (oe_otherlink.create_person like '%" + entry.getValue() + "%' OR oe_otherlink.url like '%" + entry.getValue() + "%')");
+                    }
+					if(entry.getKey().equals("timeEnd")) {
+                        endStr = " AND '" + entry.getValue() + "')";
+                    }
+					if(entry.getKey().equals("timeStart")) {
+                        sbSql.append(" AND (oe_otherlink.create_time BETWEEN '" + entry.getValue() + "'");
+                    }
 					
 				}
 			}

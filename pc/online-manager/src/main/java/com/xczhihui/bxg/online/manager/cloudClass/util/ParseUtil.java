@@ -127,8 +127,9 @@ public class ParseUtil {
 		if (StringUtil.checkNull(string)) {
 			return null;
 		}
-		if (delim == null)
-			delim = ",";
+		if (delim == null) {
+            delim = ",";
+        }
 		String[] array = string.split(delim);
 		List<String> list = new ArrayList<String>();
 		list = Arrays.asList(array);
@@ -139,8 +140,9 @@ public class ParseUtil {
 	 * 判断多选题的选项是否是答案
 	 */
 	public static boolean isContained(String option, List<String> answerList) {
-		if (CollectionUtils.isEmpty(answerList))
-			return false;
+		if (CollectionUtils.isEmpty(answerList)) {
+            return false;
+        }
 		for (int i = 0, len = answerList.size(); i < len; i++) {
 			if (option.equals(answerList.get(i))) {
 				return true;
@@ -181,8 +183,9 @@ public class ParseUtil {
 	 * @return int 得到的字符串长度
 	 */
 	public static int length(String s) {
-		if (s == null)
-			return 0;
+		if (s == null) {
+            return 0;
+        }
 		char[] c = s.toCharArray();
 		int len = 0;
 		for (int i = 0; i < c.length; i++) {

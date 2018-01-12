@@ -102,14 +102,16 @@ public class FormDataServlet extends HttpServlet {
                     params.put(name, value);
                     System.out.println(name + ":" + value);
                 } else {
-                    if (token == null || token.trim().length() < 1)
+                    if (token == null || token.trim().length() < 1) {
                         token = req.getParameter(TokenServlet.TOKEN_FIELD);
+                    }
                     /** TODO: validate your token. */
 
                     // 这里不能保证token能有值
                     filename = item.getName();
-                    if (token == null || token.trim().length() < 1)
+                    if (token == null || token.trim().length() < 1) {
                         token = filename;
+                    }
                     
                     String base_dir = "2".equals(params.get("fileType")) ? rootPath : picturePath;
                     result = IoUtil.streaming(in, token, filename,base_dir,params.get("fileType"),params.get("projectName"));
@@ -122,8 +124,9 @@ public class FormDataServlet extends HttpServlet {
             message = "Error: " + fne.getLocalizedMessage();
         } finally {
             try {
-                if (success)
+                if (success) {
                     json.put(StreamServlet.START_FIELD, result.get("size"));
+                }
 				
 				AttachmentType type = AttachmentType.valueOf(params.get("projectName").toUpperCase());
 				

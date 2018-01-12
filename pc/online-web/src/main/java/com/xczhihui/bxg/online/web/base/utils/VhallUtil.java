@@ -95,12 +95,15 @@ public class VhallUtil {
 		parameters.put("password", PWD);
 		/* 公共参数 */
 		parameters.put("third_user_id", u.getId());
-		if(password!=null)
-			parameters.put("pass", password);
-		if(u.getSmallHeadPhoto()!=null)
-			parameters.put("head", u.getSmallHeadPhoto());
-		if(u.getName()!=null)
-			parameters.put("name", u.getName());
+		if(password!=null) {
+            parameters.put("pass", password);
+        }
+		if(u.getSmallHeadPhoto()!=null) {
+            parameters.put("head", u.getSmallHeadPhoto());
+        }
+		if(u.getName()!=null) {
+            parameters.put("name", u.getName());
+        }
 		
 		String json = HttpUtil.sendPostRequest(USER_UPDATE, parameters);
 		Map<String, String> m =json2Map(json);
@@ -129,16 +132,21 @@ public class VhallUtil {
 		
 		parameters.put("subject", webinar.getSubject());
 		parameters.put("start_time", webinar.getStart_time());
-		if(webinar.getUser_id()!=null)
-			parameters.put("user_id", webinar.getUser_id());
-		if(webinar.getLayout()!=null)
-			parameters.put("layout", webinar.getLayout());
-		if(webinar.getType()!=null)
-			parameters.put("type", webinar.getType());
-		if(webinar.getAuto_record()!=null)
-			parameters.put("auto_record", webinar.getAuto_record());
-		if(webinar.getHost()!=null)
-			parameters.put("host", webinar.getHost());
+		if(webinar.getUser_id()!=null) {
+            parameters.put("user_id", webinar.getUser_id());
+        }
+		if(webinar.getLayout()!=null) {
+            parameters.put("layout", webinar.getLayout());
+        }
+		if(webinar.getType()!=null) {
+            parameters.put("type", webinar.getType());
+        }
+		if(webinar.getAuto_record()!=null) {
+            parameters.put("auto_record", webinar.getAuto_record());
+        }
+		if(webinar.getHost()!=null) {
+            parameters.put("host", webinar.getHost());
+        }
 		
 		
 		String json = HttpUtil.sendPostRequest(WEBINAR_CREATE, parameters);

@@ -64,7 +64,9 @@ public class WxcpPayFlowDao extends SimpleHibernateDao {
 		sql.append(")                                   ");
 		                                        		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getFlow_id()==null || record.getFlow_id().isEmpty()) record.setFlow_id(id);
+		if(record.getFlow_id()==null || record.getFlow_id().isEmpty()) {
+            record.setFlow_id(id);
+        }
 
 		return super.getNamedParameterJdbcTemplate().getJdbcOperations().update(
 			sql.toString()					,

@@ -73,7 +73,7 @@ input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webki
 button::-moz-focus-inner, input::-moz-focus-inner{border: 0;padding: 0;}
 textarea{overflow: auto;vertical-align: top;}
 table{border-collapse: collapse;border-spacing: 0;}
-#clipArea{height: 90%;}
+#clipArea{height: 94%;}
 
 /*上传图标*/
 #file{float: left;height: 100%;}

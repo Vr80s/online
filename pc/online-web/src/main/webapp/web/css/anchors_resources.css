@@ -14,6 +14,7 @@
 .doctor_inf{
 	text-align: center;
     padding-top: 20px;
+    position: relative;
 }
 .doctor_inf img {
   width: 80px;
@@ -119,4 +120,31 @@
 }
 #open_list{
 	
+}
+
+.doctor_inf .picModal {
+  cursor: pointer;
+  position: absolute;
+  left: 60%;
+  top: 60px;
+  width: 26px;
+  height: 26px;
+  color: #2CB82C;
+  background: #fff;
+  font-size: 12px;
+  text-align: center;
+  line-height: 26px;
+  -webkit-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.18);
+  -moz-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.18);
+  box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.18);
+  -moz-border-radius: 100px;
+  /* Firefox */
+  -webkit-border-radius: 100px;
+  /* Safari 和 Chrome */
+  border-radius: 100px;
+  /* Opera 10.5+, 以及使用了IE-CSS3的IE浏览器 */
+  margin: 10px auto 15px;
+}
+.doctor_inf .picModal .icon-xiangji {
+  font-size: 12px;
 }

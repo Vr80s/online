@@ -23,17 +23,18 @@ class PropDescriptor {
 		this.beanType = beanType;
 		this.name = propName;
 		
-		if ((this.name.startsWith("m_")) && (this.name.length() > 2))
-			this.baseName = StringUtil.capitalize(this.name.substring(2));
-		else
-			this.baseName = StringUtil.capitalize(propName);
+		if ((this.name.startsWith("m_")) && (this.name.length() > 2)) {
+            this.baseName = StringUtil.capitalize(this.name.substring(2));
+        } else {
+            this.baseName = StringUtil.capitalize(propName);
+        }
 	}
 
 	public synchronized Method getReadMethod(Class<?> currBean) {
 		String readMethodName = null;
-		if ((this.propType == Boolean.TYPE) || (this.propType == null))
-			readMethodName = "is" + this.baseName;
-		else {
+		if ((this.propType == Boolean.TYPE) || (this.propType == null)) {
+            readMethodName = "is" + this.baseName;
+        } else {
 			readMethodName = "get" + this.baseName;
 		}
 		Class classStart = currBean;

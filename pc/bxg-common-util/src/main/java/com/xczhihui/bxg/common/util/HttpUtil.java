@@ -156,8 +156,9 @@ public class HttpUtil {
 			InputStream in = urlConn.getInputStream();
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
 			byte[] buf = new byte[1024];
-			for (int i = 0; (i = in.read(buf)) > 0;)
-				os.write(buf, 0, i);
+			for (int i = 0; (i = in.read(buf)) > 0;) {
+                os.write(buf, 0, i);
+            }
 			in.close();
 			return os.toByteArray();
 		} catch (Exception e) {

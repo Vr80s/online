@@ -76,10 +76,12 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 			u.setSex(user.getSex());
 //		    u.setFullAddress(user.getFullAddress());
 			u.setOccupationOther(user.getOccupationOther());
-			if (user.getOccupation() != null && user.getOccupation() > 0)
-				u.setOccupation(user.getOccupation());
-			if (user.getJobyearId() != null && user.getJobyearId() > 0)
-				u.setJobyears(user.getJobyearId());
+			if (user.getOccupation() != null && user.getOccupation() > 0) {
+                u.setOccupation(user.getOccupation());
+            }
+			if (user.getJobyearId() != null && user.getJobyearId() > 0) {
+                u.setJobyears(user.getJobyearId());
+            }
 			dao.update(u);
 			
 			//存用户中心

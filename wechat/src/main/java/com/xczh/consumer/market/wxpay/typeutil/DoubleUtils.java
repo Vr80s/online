@@ -35,8 +35,9 @@ public class DoubleUtils {
      * @return
      */
     public static double getDouble(String str){
-    	if(StringUtil.isEmpty(str))
-    		return 0d;
+    	if(StringUtil.isEmpty(str)) {
+            return 0d;
+        }
     	return Double.parseDouble(str);
     }
     

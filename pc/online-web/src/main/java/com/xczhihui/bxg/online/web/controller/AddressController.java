@@ -41,7 +41,9 @@ public class AddressController {
 
 		//获取当前登陆用户信息
 		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(req);
-		if(u==null)throw new RuntimeException("未登录");
+		if(u==null) {
+            throw new RuntimeException("未登录");
+        }
 		/**
 		 * 获取所有的省份
 		 */
@@ -58,7 +60,9 @@ public class AddressController {
 			throws Exception {
 		//获取当前登陆用户信息
 		OnlineUser ou = (OnlineUser) UserLoginUtil.getLoginUser(req);
-		if(ou==null)throw new RuntimeException("未登录");
+		if(ou==null) {
+            throw new RuntimeException("未登录");
+        }
 		udm.setUserId(ou.getId());
 		cityService.saveAddress(udm);
 		return ResponseObject.newSuccessResponseObject("保存成功");

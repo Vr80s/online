@@ -3,8 +3,9 @@ package com.xczh.consumer.market.wxpay.typeutil;
 public class LongUtil {
 	
 	public static long toLong(Long src){
-		if(src==null)
-			return 0l;
+		if(src==null) {
+            return 0l;
+        }
 		return src.longValue();
 	}
 	

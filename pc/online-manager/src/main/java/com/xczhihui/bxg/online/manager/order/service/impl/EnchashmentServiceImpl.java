@@ -146,8 +146,9 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		uci.setDeleted(false);
 		uci.setStatus(true);
 		uci.setOrderNoReject(ea.getId().toString());//存入对应的提现单号
-		if (uci.getBrokerageValue() == null)
-			uci.setBrokerageValue(BigDecimal.ZERO);
+		if (uci.getBrokerageValue() == null) {
+            uci.setBrokerageValue(BigDecimal.ZERO);
+        }
 		dao.save(uci);
 	}
 
