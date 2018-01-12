@@ -147,7 +147,7 @@ function submitAddress_editor(id){
 
 var flag;
 function initAddressBind(){
-	
+
 	//个人信息请求三级联动数据
 	RequestService("/address/getAllPCC", "get", {}, function(data){
 		//请求成功渲染
