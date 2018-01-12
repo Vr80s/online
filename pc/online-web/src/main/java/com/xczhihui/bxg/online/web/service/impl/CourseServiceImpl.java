@@ -63,7 +63,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
             for (CourseLecturVo courseLecturVo :page.getItems()) {
                 String name = "暂无讲师";
                 OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
-                if(onlineUser!=null)name=onlineUser.getName();
+                if(onlineUser!=null) {
+                    name = onlineUser.getName();
+                }
                 courseLecturVo.setName(name);
             }
         }
@@ -86,7 +88,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
             for (CourseLecturVo courseLecturVo :page.getItems()) {
             	String name = "暂无讲师";
             	OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
-            	if(onlineUser!=null)name=onlineUser.getName();
+            	if(onlineUser!=null) {
+                    name = onlineUser.getName();
+                }
             	courseLecturVo.setName(name);
             }
         }
@@ -347,7 +351,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public String getCoursesPage(Integer courseId) {
         CourseVo cv = coursedao.findCourseOrderById(courseId);
-		if(cv==null)return "";
+		if(cv==null) {
+            return "";
+        }
 		if(cv.getType()!=null && cv.getType()==1){
 			if("1".equals(cv.getCoursePwd())){
 				return "encryptOpenCourseDetailPage.html";//加密直播

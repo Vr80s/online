@@ -59,10 +59,11 @@ public class ThingAspect {
                 JdbcUtil.rollback();
             }
             //抛出异常
-            if (e instanceof InvocationTargetException)
-                throw ((InvocationTargetException)e).getTargetException();
-            else
+            if (e instanceof InvocationTargetException) {
+                throw ((InvocationTargetException) e).getTargetException();
+            } else {
                 throw e;
+            }
 
         } finally {
             //关闭数连接（将连接放回池里）

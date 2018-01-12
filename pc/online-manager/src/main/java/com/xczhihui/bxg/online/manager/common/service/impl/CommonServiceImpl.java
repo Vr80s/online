@@ -38,20 +38,24 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements CommonSe
 
 	@Override
 	public void addCommon(Common common) {
-		if (common != null)
-			commonDao.save(common);
+		if (common != null) {
+            commonDao.save(common);
+        }
 	}
 
 	@Override
 	public void updateCommon(Common common) {
 		if (common != null){
 			Common commonSrc = commonDao.get(common.getId(), Common.class);
-			if(commonSrc == null)
-				return;
-			if(StringUtils.hasText(common.getKey()))
-				commonSrc.setKey(common.getKey());
-			if(StringUtils.hasText(common.getGroup()))
-				commonSrc.setGroup(common.getGroup());
+			if(commonSrc == null) {
+                return;
+            }
+			if(StringUtils.hasText(common.getKey())) {
+                commonSrc.setKey(common.getKey());
+            }
+			if(StringUtils.hasText(common.getGroup())) {
+                commonSrc.setGroup(common.getGroup());
+            }
 			commonSrc.setVal(common.getVal());
 			commonSrc.setSort(common.getSort());
 			commonDao.update(commonSrc);
@@ -61,9 +65,11 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements CommonSe
 	@Override
 	public void deleteCommon(String id, boolean isLogic) {
 		if (StringUtils.hasText(id)) {
-			if(isLogic)
-				commonDao.deleteLogic(id, Common.class);
-			else commonDao.delete(id, Common.class);
+			if(isLogic) {
+                commonDao.deleteLogic(id, Common.class);
+            } else {
+                commonDao.delete(id, Common.class);
+            }
 		}
 
 	}

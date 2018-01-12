@@ -119,7 +119,9 @@ public class GiftController {
 	public ResponseObject receivedGift(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
 		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null)return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+		if(loginUser==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
 		return ResponseObject.newSuccessResponseObject(giftService.getReceivedGift(loginUser.getId(), pageNumber, pageSize));
 	}
 	
@@ -134,7 +136,9 @@ public class GiftController {
 	public ResponseObject receivedReward(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
 		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null)return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+		if(loginUser==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
 		return ResponseObject.newSuccessResponseObject(giftService.getReceivedReward(loginUser.getId(), pageNumber, pageSize));
 	}
 
@@ -149,7 +153,9 @@ public class GiftController {
 	public ResponseObject getLiveCourseByUserId(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
 		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null)return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+		if(loginUser==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
 		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseByUserId(loginUser.getId(), pageNumber, pageSize));
 	}
 	/**
@@ -163,7 +169,9 @@ public class GiftController {
 	public ResponseObject getLiveCourseUsersById(HttpServletRequest request,String id,Integer pageNumber,Integer pageSize) throws Exception {
 		//获取登录用户
 		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser==null)return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+		if(loginUser==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
 		return ResponseObject.newSuccessResponseObject(giftService.getLiveCourseUsersById(id,loginUser.getId(), pageNumber, pageSize));
 	}
 }

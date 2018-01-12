@@ -73,8 +73,9 @@ public class FieldController {
           if(page.getItems().size()>0){
                for(MedicalField vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
-                    if(user!=null)
-                         vo.setCreatePerson(user.getName());
+                    if(user!=null) {
+                        vo.setCreatePerson(user.getName());
+                    }
                }
           }
           int total = page.getTotalCount();
@@ -140,8 +141,9 @@ public class FieldController {
           MedicalField entity=new MedicalField();
           BeanUtils.copyProperties(entity,MedicalField);
           entity.setName(MedicalField.getName());
-          if(MedicalField==null)
-               throw new IllegalArgumentException("不存在记录");
+          if(MedicalField==null) {
+              throw new IllegalArgumentException("不存在记录");
+          }
           MedicalField searchEntity=service.findById(MedicalField.getId());
           searchEntity.setName(MedicalField.getName());
           if (service.exists(searchEntity)) {

@@ -18,8 +18,9 @@ public class ConfigUtil {
 			 e.printStackTrace();
 		} finally {
 			try {
-				if (is != null)
-					is.close();
+				if (is != null) {
+                    is.close();
+                }
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

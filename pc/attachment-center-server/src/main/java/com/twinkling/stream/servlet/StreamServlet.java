@@ -91,8 +91,9 @@ public class StreamServlet extends HttpServlet {
 			success = false;
 		} finally {
 			try {
-				if (success)
-					json.put(START_FIELD, start);
+				if (success) {
+                    json.put(START_FIELD, start);
+                }
 				json.put(TokenServlet.SUCCESS, success);
 				json.put(TokenServlet.MESSAGE, message);
 			} catch (JSONException e) {}
@@ -133,8 +134,9 @@ public class StreamServlet extends HttpServlet {
 			content = req.getInputStream();
 			int read = 0;
 			final byte[] bytes = new byte[BUFFER_LENGTH];
-			while ((read = content.read(bytes)) != -1)
-				out.write(bytes, 0, read);
+			while ((read = content.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
 
 			start = f.length();
 		} catch (StreamException se) {
@@ -179,8 +181,9 @@ public class StreamServlet extends HttpServlet {
 				
 			}
 			try {
-				if (success)
-					json.put(START_FIELD, start);
+				if (success) {
+                    json.put(START_FIELD, start);
+                }
 				if("".equals(message)){
 					json.put(TokenServlet.MESSAGE, a ==null ? "":a.getId());
 				}else{

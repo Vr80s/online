@@ -27,7 +27,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 * @throws SQLException 
 	 */
 	public WxcpClientUser getWxcpClientUser(String clientId) throws SQLException{
-		if(clientId==null) return null;
+		if(clientId==null) {
+            return null;
+        }
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select user.user_id as user_id,user.user_name as user_name, ");
 		sql.append(" user.user_nick_name as user_nick_name,user.openname as openname, ");
@@ -45,7 +47,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 * @throws SQLException 
 	 */
 	public WxcpClientUser getWxcpClientUserByMobile(String user_mobile) throws SQLException{
-		if(user_mobile==null) return null;
+		if(user_mobile==null) {
+            return null;
+        }
 		String sql = "select * from wxcp_client_user where user_status = 1 and user_mobile = ? ";
 		Object params[] = {user_mobile};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(WxcpClientUser.class),params);
@@ -58,7 +62,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 * @throws SQLException 
 	 */
 	public WxcpClientUser getWxcpClientUserByOpenid(String openid) throws SQLException{
-		if(openid==null) return null;
+		if(openid==null) {
+            return null;
+        }
 		String sql = "select * from wxcp_client_user where user_status = 1 and openid = ? ";
 		Object params[] = {openid};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(WxcpClientUser.class),params);
@@ -70,7 +76,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 * @throws SQLException
 	 */
 	public void updateWxcpClientUser(WxcpClientUser user) throws SQLException {
-		if(user==null) return;
+		if(user==null) {
+            return;
+        }
 		String sql = "update wxcp_client_user set user_nick_name = ? , openname = ? "
 				+ ", user_mobile= ? , user_sex = ? ,user_birthday = ? where user_status = 1 and user_id = ? ";
 		Object params[] = {user.getUser_nick_name(),user.getOpenname(),user.getUser_mobile(),
@@ -83,7 +91,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 **/
 	public int insert( WxcpClientUser user ) throws SQLException {
 		
-		if(user==null) return -1;
+		if(user==null) {
+            return -1;
+        }
 		
 		WxcpClientUser user_0  = this.getWxcpClientUserByMobile(user.getUser_mobile());
 		if(user_0 == null) { 	
@@ -135,8 +145,12 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 			sql.append(")                                   ");
 			
 			String id = UUID.randomUUID().toString().replace("-", "");
-			if(user.getUser_id()==null || user.getUser_id().isEmpty()) user.setUser_id(id);
-			if(user.getCreate_time()==null) user.setCreate_time(new Date());
+			if(user.getUser_id()==null || user.getUser_id().isEmpty()) {
+                user.setUser_id(id);
+            }
+			if(user.getCreate_time()==null) {
+                user.setCreate_time(new Date());
+            }
 			
 			super.update(
 				JdbcUtil.getCurrentConnection(), 
@@ -178,7 +192,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 **/
 	public int update( WxcpClientUser user ) throws SQLException {
 		
-		if(user==null) return -1;
+		if(user==null) {
+            return -1;
+        }
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("update  						");
@@ -243,7 +259,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 */
 	public WxcpClientUser getCenterUserByUserName(String userName) throws SQLException{
 		
-		if(userName==null) return null;
+		if(userName==null) {
+            return null;
+        }
 		
 		StringBuffer sql = new StringBuffer("");
 		sql.append(" select user.user_id as user_id,user.user_name as user_name,user.user_password as user_password , ");
@@ -264,7 +282,9 @@ public class WxcpClientUserMapper extends BasicSimpleDao{
 	 */
 	public List<WxcpClientUser> getCenterUserInfo(WxcpClientUser wxcpClientUser) throws SQLException{
 		
-		if(wxcpClientUser==null) return null;
+		if(wxcpClientUser==null) {
+            return null;
+        }
 		
 		StringBuffer sql = new StringBuffer("");
 		

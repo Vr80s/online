@@ -16,8 +16,9 @@ public class GenerateSequenceUtil {
 	static {
 		Random r = new Random();
 		spec = r.nextInt(99);
-		while (spec < 10)
-			spec = r.nextInt(99);
+		while (spec < 10) {
+            spec = r.nextInt(99);
+        }
 	}
 	
 	public static String GetDateTimeStr() {
@@ -45,10 +46,11 @@ public class GenerateSequenceUtil {
 		String strPart1 = GetDateTimeStr();
 		String strPart2 = String.format("%04d%02d", seq, spec);
 		
-		if (seq == MAX)
-			seq = 0;
-		else
-			seq++;		
+		if (seq == MAX) {
+            seq = 0;
+        } else {
+            seq++;
+        }
 				
 		// Long lValue = new Long(strPart1 + strPart2);// Long lValue = Long.parseLong(strPart1 + strPart2); // 提升效率有一点算一点		
 		String sValue = strPart1 + strPart2;

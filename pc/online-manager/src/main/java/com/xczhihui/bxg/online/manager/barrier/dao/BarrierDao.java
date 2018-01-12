@@ -35,8 +35,9 @@ public class BarrierDao extends SimpleHibernateDao {
 			   sql.append(" and ob.kpoint_id in( ");
 		 		String [] ids=barrierVo.getChapterId().split(",");
 		 		 for(int i=0;i<ids.length;i++){
-		                if(i!=0)
-		                    sql.append(",");
+		                if(i!=0) {
+                            sql.append(",");
+                        }
 		                sql.append("'"+ids[i]+"'");
 		         }
 		         sql.append(" ) ");

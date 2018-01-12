@@ -203,7 +203,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql="SELECT id,name FROM oe_menu where is_delete = 0 and name <> '全部' and status=1 and yun_status = 1 ";
-		if(type != null) sql = sql + " and type = "+type;
+		if(type != null) {
+            sql = sql + " and type = " + type;
+        }
 		dao.findEntitiesByJdbc(MenuVo.class, sql, params);
 	    return dao.findEntitiesByJdbc(Menu.class, sql, params);
 	}
@@ -657,10 +659,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			if(imgStr != null){
 				String[] imgArr = imgStr.split("dxg");
 				img0 = imgArr[0];
-				if(imgArr.length>1)
-					img1 = imgArr[1];
-				if(imgArr.length>2)
-					img2 = imgArr[2];
+				if(imgArr.length>1) {
+                    img1 = imgArr[1];
+                }
+				if(imgArr.length>2) {
+                    img2 = imgArr[2];
+                }
 			}
 			retn.put("smallImgPath", img0);
 			retn.put("smallImgPath1", img1);
@@ -682,7 +686,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public void addPreview(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
 			String courseOutline, String commonProblem) {
-		if (courseDetail == null) courseDetail = "";
+		if (courseDetail == null) {
+            courseDetail = "";
+        }
 		CoursePreview c = courseDao.get(Integer.valueOf(courseId), CoursePreview.class);
 		if(c != null){
 			courseDao.getNamedParameterJdbcTemplate().getJdbcOperations().execute("delete from oe_course_preview where id = "+courseId);
@@ -949,8 +955,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public Course findOpenCourseById(Integer id,String version) {
 		Course course=dao.findOneEntitiyByProperty(Course.class, "id", id);
-		if(course != null && version != null && version.equals(course.getVersion()) && !course.isDelete() && "1".equals(course.getStatus()))
-			return  course;
+		if(course != null && version != null && version.equals(course.getVersion()) && !course.isDelete() && "1".equals(course.getStatus())) {
+            return course;
+        }
 		return null;
 	}
 

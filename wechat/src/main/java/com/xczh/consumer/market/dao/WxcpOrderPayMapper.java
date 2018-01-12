@@ -76,8 +76,12 @@ public class WxcpOrderPayMapper extends BasicSimpleDao{
 		                                        
 		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getPay_id()==null || record.getPay_id().isEmpty()) record.setPay_id(id);
-		if(record.getCreate_datetime()==null) record.setCreate_datetime(new Date());
+		if(record.getPay_id()==null || record.getPay_id().isEmpty()) {
+            record.setPay_id(id);
+        }
+		if(record.getCreate_datetime()==null) {
+            record.setCreate_datetime(new Date());
+        }
 		
 		super.update(
 				JdbcUtil.getCurrentConnection(),

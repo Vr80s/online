@@ -252,8 +252,9 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		webinar.setStart_time(start_time);
 		OnlineUser ou = getLecturer(entity.getUserLecturerId());
 		String teacherName = null;
-		if(ou!=null)
-			teacherName = ou.getName();
+		if(ou!=null) {
+            teacherName = ou.getName();
+        }
 		webinar.setHost(teacherName);
 		webinar.setLayout(entity.getDirectSeeding().toString());
 		OnlineUser u = onlineUserService.getOnlineUserByUserId(entity.getUserLecturerId());
@@ -294,8 +295,9 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		webinar.setStart_time(start_time);
 		OnlineUser ou = getLecturer(entity.getUserLecturerId());
 		String teacherName = null;
-		if(ou!=null)
-			teacherName = ou.getName();
+		if(ou!=null) {
+            teacherName = ou.getName();
+        }
 		webinar.setHost(teacherName);
 		webinar.setLayout(entity.getDirectSeeding()+"");
 		return VhallUtil.updateWebinar(webinar);
@@ -327,8 +329,9 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		webinar.setStart_time(start_time);
 		OnlineUser ou = getLecturer(entity.getUserLecturerId());
 		String teacherName = null;
-		if(ou!=null)
-			teacherName = ou.getName();
+		if(ou!=null) {
+            teacherName = ou.getName();
+        }
 		webinar.setHost(teacherName);
 		webinar.setLayout(ou.getDistrict());
 		String webinarId = VhallUtil.createWebinar(webinar);

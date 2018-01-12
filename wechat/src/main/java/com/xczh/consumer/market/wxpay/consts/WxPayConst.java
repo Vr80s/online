@@ -112,7 +112,9 @@ public class WxPayConst {
 	public static String getNotifyUrl() {
 		//HttpServletRequest request = ServletActionContext.getRequest();
 		String strRootDir = System.getProperty("user.dir").replace("bin", "webapps");
-		if(strRootDir.charAt(strRootDir.length()-1) != File.separatorChar) strRootDir += File.separator;
+		if(strRootDir.charAt(strRootDir.length()-1) != File.separatorChar) {
+            strRootDir += File.separator;
+        }
 		System.out.println("getNotifyUrl->strRootDir->\r\n\t" + strRootDir );
 		String path=strRootDir + "ROOT/WEB-INF/classes" + File.separator + "config.properties";
 		System.out.println("getNotifyUrl->path->\r\n\t" + path );

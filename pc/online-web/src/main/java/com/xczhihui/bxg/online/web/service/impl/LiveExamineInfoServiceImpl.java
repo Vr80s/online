@@ -188,33 +188,33 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
             progress2.setExaminTime(addTwoSecond(liveExamineInfoVo.getCreateTime()));
             progress2.setName("您提交的直播申请已在审核中，请等待");
             progressList.add(progress2);
-            if(dtoList.size()>0)
-            for (ProgressDto progressDto:dtoList){
-                ExamineProgressVo.Progress progress3=new ExamineProgressVo().new Progress();
-                if(progressDto.getAppealTime()!=null){
-                    ExamineProgressVo.Progress progress4=new ExamineProgressVo().new Progress();
-                    progress4.setName("您的直播申请被拒绝，原因:"+progressDto.getAgainstReason());
-                    progress4.setExaminTime(progressDto.getReviewerTime());
-                    if(appealCount(examineId)<1){
-                        progress4.setShowAppeal(true);
+            if(dtoList.size()>0) {
+                for (ProgressDto progressDto : dtoList) {
+                    ExamineProgressVo.Progress progress3 = new ExamineProgressVo().new Progress();
+                    if (progressDto.getAppealTime() != null) {
+                        ExamineProgressVo.Progress progress4 = new ExamineProgressVo().new Progress();
+                        progress4.setName("您的直播申请被拒绝，原因:" + progressDto.getAgainstReason());
+                        progress4.setExaminTime(progressDto.getReviewerTime());
+                        if (appealCount(examineId) < 1) {
+                            progress4.setShowAppeal(true);
+                        }
+                        progressList.add(progress4);
+
+
+                        progress3.setName("您提起的申诉已在审核中，请等待");
+                        progress3.setExaminTime(addTwoSecond(progressDto.getAppealTime()));
+                        progressList.add(progress3);
+                        continue;
+                    } else {
+                        progress3.setName("您的直播申请被拒绝，原因:" + progressDto.getAgainstReason());
+                        progress3.setExaminTime(progressDto.getReviewerTime());
+                        if (appealCount(examineId) < 1) {
+                            progress3.setShowAppeal(true);
+                        }
                     }
-                    progressList.add(progress4);
-
-
-
-                    progress3.setName("您提起的申诉已在审核中，请等待");
-                    progress3.setExaminTime(addTwoSecond(progressDto.getAppealTime()));
                     progressList.add(progress3);
-                    continue;
-                }else{
-                progress3.setName("您的直播申请被拒绝，原因:"+progressDto.getAgainstReason());
-                progress3.setExaminTime(progressDto.getReviewerTime());
-                if(appealCount(examineId)<1){
-                    progress3.setShowAppeal(true);
                 }
-                }
-                progressList.add(progress3);
-        }
+            }
         return examineProgressVo;
     }
 

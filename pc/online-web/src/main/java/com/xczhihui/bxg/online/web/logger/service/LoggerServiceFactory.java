@@ -43,8 +43,9 @@ public class LoggerServiceFactory {
      * 追加到日志容器
      */
     public static void appendToLoggerContext(Class clazz, Logger logger) {
-        if (!existsLoggerContext(clazz))
+        if (!existsLoggerContext(clazz)) {
             loggerContext.put(clazz, logger);
+        }
     }
 
     /**

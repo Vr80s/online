@@ -376,10 +376,11 @@ public class TimeUtil {
 	 */
 	public static boolean checkNull(String str) {
 		boolean isTrue = false;
-		if (null == str || "".equals(str.trim()))
-			isTrue = true;
-		else
-			isTrue = false;
+		if (null == str || "".equals(str.trim())) {
+            isTrue = true;
+        } else {
+            isTrue = false;
+        }
 		return isTrue;
 	}
 	

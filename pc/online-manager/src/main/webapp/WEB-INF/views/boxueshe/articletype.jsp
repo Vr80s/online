@@ -26,9 +26,9 @@
         <button class="btn btn-sm btn-success add_type" title="新增分类">
             <i class="glyphicon glyphicon-plus"></i> 新增分类
         </button>
-        <button class="btn btn-sm btn-success del_batch" title="批量删除">
-            <i class="glyphicon glyphicon-trash"></i> 批量删除
-        </button>
+        <%--<button class="btn btn-sm btn-success del_batch" title="批量删除">--%>
+            <%--<i class="glyphicon glyphicon-trash"></i> 批量删除--%>
+        <%--</button>--%>
 		<button class="btn btn-sm btn-primary" title="文章数从高到低排列" onclick="search(1)">
 			文章数↓
 		</button>

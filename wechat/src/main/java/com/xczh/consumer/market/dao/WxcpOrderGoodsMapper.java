@@ -33,11 +33,17 @@ public class WxcpOrderGoodsMapper extends BasicSimpleDao{
 	 **/
 	public List<WxcpOrderGoodsExt> getListWxcpGoodsInfo(ArrayList<String> ids/*String order_id*/) throws SQLException{
 
-		if(ids == null || ids.size() == 0) return new ArrayList<WxcpOrderGoodsExt>();
+		if(ids == null || ids.size() == 0) {
+            return new ArrayList<WxcpOrderGoodsExt>();
+        }
 		
 		String con_str = "";		
-		for(int i=0;i<ids.size();i++) con_str += "'" + ids.get(i) + "',"; 
-		if(con_str.charAt(con_str.length()-1) == ',') con_str = con_str.substring(0,con_str.length()-1);
+		for(int i=0;i<ids.size();i++) {
+            con_str += "'" + ids.get(i) + "',";
+        }
+		if(con_str.charAt(con_str.length()-1) == ',') {
+            con_str = con_str.substring(0, con_str.length() - 1);
+        }
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("select 															");			
@@ -151,11 +157,21 @@ public class WxcpOrderGoodsMapper extends BasicSimpleDao{
 		                                        
 		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getO2g_id()==null || record.getO2g_id().isEmpty()) record.setO2g_id(id);
-		if(record.getCreated_time()==null) record.setCreated_time(new Date());
-		if(record.getUpdated_time()==null) record.setUpdated_time(new Date());
-		if(record.getSeller_id()==null) record.setSeller_id("");
-		if(record.getActure_fee()==null) record.setActure_fee(0);
+		if(record.getO2g_id()==null || record.getO2g_id().isEmpty()) {
+            record.setO2g_id(id);
+        }
+		if(record.getCreated_time()==null) {
+            record.setCreated_time(new Date());
+        }
+		if(record.getUpdated_time()==null) {
+            record.setUpdated_time(new Date());
+        }
+		if(record.getSeller_id()==null) {
+            record.setSeller_id("");
+        }
+		if(record.getActure_fee()==null) {
+            record.setActure_fee(0);
+        }
 		
 		super.update(
 			JdbcUtil.getCurrentConnection(), 

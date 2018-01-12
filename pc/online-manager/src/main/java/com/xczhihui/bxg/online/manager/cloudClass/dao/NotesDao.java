@@ -37,8 +37,9 @@ public class NotesDao extends SimpleHibernateDao {
 			    sql.append(" and ono.chapter_id in( ");
 		 		String [] ids=notesVo.getChapterId().split(",");
 		 		 for(int i=0;i<ids.length;i++){
-		                if(i!=0)
-		                    sql.append(",");
+		                if(i!=0) {
+                            sql.append(",");
+                        }
 		                sql.append("'"+ids[i]+"'");
 		         }
 		         sql.append(" ) ");

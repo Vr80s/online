@@ -50,8 +50,12 @@ public class WxcpWxJsconfigMapper extends BasicSimpleDao {
 		sql.append(")                                   ");
 		                                        		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getId()==null || record.getId().isEmpty()) record.setId(id);
-		if(record.getCreate_time()==null) record.setCreate_time(new Date());
+		if(record.getId()==null || record.getId().isEmpty()) {
+            record.setId(id);
+        }
+		if(record.getCreate_time()==null) {
+            record.setCreate_time(new Date());
+        }
 		
 		super.update(
 			JdbcUtil.getCurrentConnection(),
@@ -96,24 +100,31 @@ public class WxcpWxJsconfigMapper extends BasicSimpleDao {
 		sql.append("	wxcp_wx_jsconfig   		");
 		sql.append("where                  		");
 		sql.append("	1 = 1               	");	
-		if(condition.getId() != null && !condition.getId().isEmpty())
-		sql.append("	and id = ?    			");	
-		if(condition.getAppid() != null && !condition.getAppid().isEmpty())
-		sql.append("	and appid = ?    		");
-		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty() )
-		sql.append("   	and openid = ? 			");	
+		if(condition.getId() != null && !condition.getId().isEmpty()) {
+            sql.append("	and id = ?    			");
+        }
+		if(condition.getAppid() != null && !condition.getAppid().isEmpty()) {
+            sql.append("	and appid = ?    		");
+        }
+		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty() ) {
+            sql.append("   	and openid = ? 			");
+        }
 		sql.append("order by    				");
 		sql.append("	create_time desc		");
-		if(limit!=null && limit.length() > 0) 
-		sql.append("	limit " + limit);
+		if(limit!=null && limit.length() > 0) {
+            sql.append("	limit " + limit);
+        }
 		
 		ArrayList<Object> conList = new ArrayList<Object>(); 
-		if(condition.getId() != null && !condition.getId().isEmpty())
-			conList.add(condition.getId());
-		if(condition.getAppid() != null && !condition.getAppid().isEmpty())
-			conList.add(condition.getAppid());	
-		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty() )
-			conList.add(condition.getOpenid());	
+		if(condition.getId() != null && !condition.getId().isEmpty()) {
+            conList.add(condition.getId());
+        }
+		if(condition.getAppid() != null && !condition.getAppid().isEmpty()) {
+            conList.add(condition.getAppid());
+        }
+		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty() ) {
+            conList.add(condition.getOpenid());
+        }
 		
 		Object[] params = new Object [conList.size()];
 		conList.toArray(params);				

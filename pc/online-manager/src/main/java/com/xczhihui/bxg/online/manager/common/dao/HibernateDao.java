@@ -605,8 +605,9 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				// order by 别名处理
 				temp = groups.getOrderbys()[i];
 
-				if (temp.isEmpty())
-					continue;
+				if (temp.isEmpty()) {
+                    continue;
+                }
 				
 				if (groups.getOrders()[i]){
 					sBuffer.append(tempclass.getSimpleName()+"."+temp+" asc,");
@@ -718,9 +719,9 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 			temClass = value.getType();
 			// 加上全名
 			String alisStr = "";
-			if (!isSame)
-				alisStr = string;
-			else {
+			if (!isSame) {
+                alisStr = string;
+            } else {
 				alisStr = string + t;
 
 			}
@@ -841,8 +842,9 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 			whereBufferHou.append(temName).append(".").append(alisStr).append(" < ");
 			break;
 		case LE:
-			if (group.getRelation() == MatchType.AND)
-				whereBufferHou.append(temName).append(".").append(alisStr).append(" <= ");
+			if (group.getRelation() == MatchType.AND) {
+                whereBufferHou.append(temName).append(".").append(alisStr).append(" <= ");
+            }
 			break;
 		case GT:
 			whereBufferHou.append(temName).append(".").append(alisStr).append(" > ");
@@ -909,8 +911,9 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				// order by 别名处理
 				temp = groups.getOrderbys()[i];
 
-				if (temp.isEmpty())
-					continue;
+				if (temp.isEmpty()) {
+                    continue;
+                }
 				
 				if (groups.getOrders()[i]){
 					sBuffer.append(temp+" asc,");
@@ -1132,8 +1135,9 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 			whereBufferHou.append(alisStr).append(" < ");
 			break;
 		case LE:
-			if (group.getRelation() == MatchType.AND)
-				whereBufferHou.append(alisStr).append(" <= ");
+			if (group.getRelation() == MatchType.AND) {
+                whereBufferHou.append(alisStr).append(" <= ");
+            }
 			break;
 		case GT:
 			whereBufferHou.append(alisStr).append(" > ");

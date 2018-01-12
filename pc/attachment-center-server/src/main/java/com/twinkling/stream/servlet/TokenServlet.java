@@ -43,8 +43,9 @@ public class TokenServlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		try {
 			json.put(TOKEN_FIELD, token);
-			if (Configurations.isCrossed())
-				json.put(SERVER_FIELD, Configurations.getCrossServer());
+			if (Configurations.isCrossed()) {
+                json.put(SERVER_FIELD, Configurations.getCrossServer());
+            }
 			json.put(SUCCESS, true);
 			json.put(MESSAGE, "");
 		} catch (JSONException e) {
