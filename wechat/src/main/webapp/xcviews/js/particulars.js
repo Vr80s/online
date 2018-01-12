@@ -582,63 +582,96 @@ document.getElementById('qqShare0').onclick = function(e){
  * 邮件主题：【微信JS-SDK反馈】具体问题
  * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
  */
-wx.ready(function () {
-	//发送到朋友
-	wx.onMenuShareAppMessage({
-	    title: result.gradeName, // 分享标题
-	    desc: result.courseDescription, // 分享描述
-	    link:getServerHost()+"/wx_share.html?courseId="+course_id, // 分享链接
-	    imgUrl: result.smallImgPath, // 分享图标
-	    type: '', // 分享类型,music、video或link，不填默认为link
-	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-	    success: function () {
-	        // 用户确认分享后执行的回调函数
-	    	$(".weixin_ceng").hide();
-	    	$(".share").hide();
-	    	//alert("分享成功");
-	    },
-	    cancel: function () {
-	        // 用户取消分享后执行的回调函数
-	    	//alert("取消分享");
-	    	$(".weixin_ceng").hide();
-	    	$(".share").hide();
-	    }
+if(isWeiXin()){
+	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var urlparm = {
+		url: window.location.href
+	}
+	var signObj = "";
+	requestService(ccontrollerAddress, urlparm, function(data) {
+		if (data.success) {
+			signObj = data.resultObject;
+		    console.log(JSON.stringify(signObj));
+		}	
+	},false)	
+
+	wx.config({
+	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
+	    timestamp: signObj.timestamp, // 必填，生成签名的时间戳
+	    nonceStr:signObj.noncestr, // 必填，生成签名的随机串
+	    signature: signObj.sign,// 必填，签名，见附录1
+	    jsApiList: [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'hideMenuItems',
+			'showMenuItems'
+	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
-	//发送到朋友圈
-	wx.onMenuShareTimeline({
-	    title: result.gradeName, // 分享标题
-	    link:getServerHost()+"/wx_share.html?courseId="+course_id, // 分享链接
-	    imgUrl: result.smallImgPath, // 分享图标
-	    success: function () {
-	        // 用户确认分享后执行的回调函数
-	    	$(".weixin_ceng").hide();
-	    	$(".share").hide();
-	    	//alert("分享成功");
-	    },
-	    cancel: function () {
-	        // 用户取消分享后执行的回调函数
-	    	//alert("取消分享");
-	    	$(".weixin_ceng").hide();
-	    	$(".share").hide();
-	    }
-	});
-    //发送到qq  
-	wx.onMenuShareQQ({
-	    title: result.gradeName, // 分享标题
-	    desc: result.courseDescription, // 分享描述
-	    link:getServerHost()+"/wx_share.html?courseId="+course_id, // 分享链接
-	    imgUrl: result.smallImgPath, // 分享图标
-	    success: function () {
-	       // 用户确认分享后执行的回调函数
-	    	$(".weixin_ceng").hide();
-	    	$(".share").hide();
-	    	//alert("分享成功");
-	    },
-	    cancel: function () {
-	       // 用户取消分享后执行的回调函数
-	    	//alert("取消分享");
-	    	$(".weixin_ceng").hide();
-	    	$(".share").hide();
-	    }
-	});
-})        
+	var domain = window.location.protocol+"//"+document.domain;
+
+	wx.ready(function () {
+		//发送到朋友
+		wx.onMenuShareAppMessage({
+		    title: result.gradeName, // 分享标题
+		    desc: result.courseDescription, // 分享描述
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
+		    imgUrl: result.smallImgPath, // 分享图标
+		    type: '', // 分享类型,music、video或link，不填默认为link
+		    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		    success: function () {
+		        // 用户确认分享后执行的回调函数
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+		    	//alert("分享成功");
+		    },
+		    cancel: function () {
+		        // 用户取消分享后执行的回调函数
+		    	//alert("取消分享");
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+		    }
+		});
+		//发送到朋友圈
+		wx.onMenuShareTimeline({
+		    title: result.gradeName, // 分享标题
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
+		    imgUrl: result.smallImgPath, // 分享图标
+		    success: function () {
+		        // 用户确认分享后执行的回调函数
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+		    	//alert("分享成功");
+		    },
+		    cancel: function () {
+		        // 用户取消分享后执行的回调函数
+		    	//alert("取消分享");
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+		    }
+		});
+	    //发送到qq  
+		wx.onMenuShareQQ({
+		    title: result.gradeName, // 分享标题
+		    desc: result.courseDescription, // 分享描述
+		    link:domain+"/wx_share.html?courseId="+course_id, // 分享链接
+		    imgUrl: result.smallImgPath, // 分享图标
+		    success: function () {
+		       // 用户确认分享后执行的回调函数
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+		    	//alert("分享成功");
+		    },
+		    cancel: function () {
+		       // 用户取消分享后执行的回调函数
+		    	//alert("取消分享");
+		    	$(".weixin_ceng").hide();
+		    	$(".share").hide();
+		    }
+		});
+	})   
+}	

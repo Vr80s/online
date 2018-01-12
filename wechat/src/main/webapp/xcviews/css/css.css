@@ -3914,9 +3914,13 @@ footer{
 	-moz-transform:translate3d(0px,-143px,0px);
 	transform:translate3d(0px,-143px,0px);
  }
-#dpage a { display:block; width:100%; text-align:center; height:40px; background:#fff; color:#333; line-height:40px; border-bottom:1px solid #ebebeb; font-size:16px; position:relative;  }
+#dpage a { /*display:block;*/ width:100%; text-align:center; height:40px; background:#fff; color:#333; line-height:40px; border-bottom:1px solid #ebebeb; font-size:16px; position:relative;  }
+#dpage .choice{display: block;}
+#dpage .px{display: block;}
 #dpage a:nth-child(3) { margin-top:10px; margin-bottom:10px; background:none;  }
-
+.return_img{    text-align: center;
+    display: block;
+    margin: 0 !important;}
 .logoBox { display:block; padding-top:10%;  }
 
 
