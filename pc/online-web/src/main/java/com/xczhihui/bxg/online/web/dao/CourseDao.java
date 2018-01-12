@@ -150,10 +150,19 @@ public class CourseDao extends SimpleHibernateDao {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("userId", userId);
         paramMap.put("courseStatus", courseStatus);
-        String sql = " select oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
-                " ( SELECT COUNT(id) from oe_video  where course_id=oc.id and is_delete=0 and  status=1  ) as count, " +
-                " ( SELECT COUNT(id) from user_r_video  where course_id=oc.id and study_status=1  and status=1 and is_delete=0 and  user_id=:userId ) as learndCount" +
-                " from  oe_course  oc left join  user_r_video v  on oc.id = v.course_id  where v.user_id=:userId  and oc.is_free =:courseStatus  group by oc.id ";
+        String sql = "SELECT \n" +
+                "  oc.id,\n" +
+                "  oc.grade_name AS courseName,\n" +
+                "  oc.smallimg_path AS smallImgPath\n" +
+                "FROM\n" +
+                "  oe_course oc \n" +
+                "  JOIN \n" +
+                "  `apply_r_grade_course` argc\n" +
+                "  ON oc.`id` = argc.`course_id`\n" +
+                "WHERE argc.`user_id` = :userId \n" +
+                "  AND oc.is_free = :courseStatus \n" +
+                "  AND argc.`is_payment` IN (0,2) AND oc.`type` IS NULL \n" +
+                "GROUP BY oc.id " ;
         Page<CourseVo> page = this.findPageBySQL(sql, paramMap, CourseVo.class, pageNumber, pageSize);
         return page;
     }

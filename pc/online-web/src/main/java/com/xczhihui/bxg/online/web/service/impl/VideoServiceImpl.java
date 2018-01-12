@@ -291,7 +291,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     public  String   findVideosByCourseId(Integer courseId){
     	/*20170810---yuruixin*/
     	CourseVo course = courseDao.findCourseOrderById(courseId);
-        if(course.getType()==null && videoDao.findVideosByCourseId(courseId).size() <=0 ){
+        if(course.getType()==null && (course.getDirect_id() == null || "".equals(course.getDirect_id().trim())) ){
             throw new RuntimeException(String.format("视频正在来的路上，请稍后购买"));
         }
         return "购买";
