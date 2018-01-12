@@ -150,10 +150,19 @@ public class CourseDao extends SimpleHibernateDao {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("userId", userId);
         paramMap.put("courseStatus", courseStatus);
-        String sql = " select oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
-                " ( SELECT COUNT(id) from oe_video  where course_id=oc.id and is_delete=0 and  status=1  ) as count, " +
-                " ( SELECT COUNT(id) from user_r_video  where course_id=oc.id and study_status=1  and status=1 and is_delete=0 and  user_id=:userId ) as learndCount" +
-                " from  oe_course  oc left join  user_r_video v  on oc.id = v.course_id  where v.user_id=:userId  and oc.is_free =:courseStatus  group by oc.id ";
+        String sql = "SELECT \n" +
+                "  oc.id,\n" +
+                "  oc.grade_name AS courseName,\n" +
+                "  oc.smallimg_path AS smallImgPath\n" +
+                "FROM\n" +
+                "  oe_course oc \n" +
+                "  JOIN \n" +
+                "  `apply_r_grade_course` argc\n" +
+                "  ON oc.`id` = argc.`course_id`\n" +
+                "WHERE argc.`user_id` = :userId \n" +
+                "  AND oc.is_free = :courseStatus \n" +
+                "  AND argc.`is_payment` IN (0,2) AND oc.`type` IS NULL AND oc.`online_course`=0 \n" +
+                "GROUP BY oc.id " ;
         Page<CourseVo> page = this.findPageBySQL(sql, paramMap, CourseVo.class, pageNumber, pageSize);
         return page;
     }
@@ -284,8 +293,9 @@ public class CourseDao extends SimpleHibernateDao {
                 courseVo.setIsApply(listVideo.size() > 0 ? true : false);
                 
                 ApplyGradeCourse  applyGradeCourse = applyGradeCourseDao.findByCourseIdAndUserId(courseId, loginUser.getId());
-                if(applyGradeCourse != null)
-                courseVo.setIsApply(applyGradeCourse.getIsPayment().equals("1") ? false : true);
+                if(applyGradeCourse != null) {
+                    courseVo.setIsApply(applyGradeCourse.getIsPayment().equals("1") ? false : true);
+                }
                 
             }
         }
@@ -320,7 +330,7 @@ public class CourseDao extends SimpleHibernateDao {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("orderNo",orderId);
         if (StringUtils.hasText(orderId)) {
-            String sql = " select type,c.id,c.is_free,o.user_id as userId,c.online_course onlineCourse from oe_order o,oe_order_detail od,oe_course c" +
+            String sql = " select type,c.id,c.is_free,o.user_id as userId,c.direct_id directId,c.online_course onlineCourse from oe_order o,oe_order_detail od,oe_course c" +
                     " where o.id=od.order_id and od.course_id=c.id and o.id=:orderNo and c.is_delete =0 and c.status=1  ";
             List<CourseApplyVo> courseVoList =   this.findEntitiesByJdbc(CourseApplyVo.class, sql, paramMap);
             return  courseVoList.size() > 0 ? courseVoList.get(0) : null;
@@ -473,7 +483,7 @@ public class CourseDao extends SimpleHibernateDao {
      * @return 返回对应的课程对象
      */
     public  CourseVo   findCourseOrderById(Integer  courseId){
-         String  sql =" select id ,is_free isFree, course_type,is_sent isSent, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,online_course onlineCourse,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
+         String  sql =" select id ,is_free isFree, course_type,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,online_course onlineCourse,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
                       " current_price as currentPrice, now() as create_time, type, FORMAT(original_cost - current_price,2) as preferentyMoney from oe_course  where id =:courseId";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId",courseId);
@@ -509,10 +519,10 @@ public class CourseDao extends SimpleHibernateDao {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId",course.getId());
         //1、查询当前课程下是否有视频
-        String  querySql="select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0";
-        List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
+//        String  querySql="select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0";
+//        List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
         /*20170810---yuruixin*/
-        if (course.getOnlineCourse()==0 && course.getType()==null && videos.size() <= 0)
+        if (course.getOnlineCourse()==0 && course.getType()==null && (course.getDirectId()==null || course.getDirectId().trim().equals("")))
         {
             throw new RuntimeException("此课暂时没有视频,请稍后购买!");
         }
@@ -667,17 +677,17 @@ public class CourseDao extends SimpleHibernateDao {
         calendar.set(Calendar.SECOND, 0);//秒
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
         Date date = calendar.getTime();
-        System.out.println("Christmas is:"+format.format(date));
+//        System.out.println("Christmas is:"+format.format(date));
         String now = format.format(Calendar.getInstance().getTime());
         Date nowd;
         try {
             nowd = format.parse(now);
             int flag = nowd.compareTo(date);
             if (flag > 0) {//当天及当天之后，<0就是在日期之前
-                System.out.println("已过期");
+//                System.out.println("已过期");
                 courseVo.setAvailable(false);
             }else{
-                System.out.println("未过期");
+//                System.out.println("未过期");
                 courseVo.setAvailable(true);
             }
         } catch (ParseException e) {

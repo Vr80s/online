@@ -65,8 +65,9 @@ public class DepartmentController {
           if(page.getItems().size()>0){
                for(MedicalDepartment vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
-                    if(user!=null)
-                         vo.setCreatePerson(user.getName());
+                    if(user!=null) {
+                        vo.setCreatePerson(user.getName());
+                    }
                }
           }
           int total = page.getTotalCount();
@@ -131,8 +132,9 @@ public class DepartmentController {
           MedicalDepartment entity=new MedicalDepartment();
           BeanUtils.copyProperties(entity,medicalDepartment);
           entity.setName(medicalDepartment.getName());
-          if(medicalDepartment==null)
-               throw new IllegalArgumentException("不存在记录");
+          if(medicalDepartment==null) {
+              throw new IllegalArgumentException("不存在记录");
+          }
           MedicalDepartment searchEntity=service.findById(medicalDepartment.getId());
           searchEntity.setName(medicalDepartment.getName());
           if (service.exists(searchEntity)) {

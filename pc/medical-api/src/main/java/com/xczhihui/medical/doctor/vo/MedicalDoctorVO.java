@@ -228,7 +228,9 @@ public class MedicalDoctorVO implements Serializable{
 	}
 
 	public String getDescription() {
-		if(description == null) return null;
+		if(description == null) {
+            return null;
+        }
 		description = description.replace("\n\n","<br/>");
 		description = description.replace("\n","<br/>");
 		return description;

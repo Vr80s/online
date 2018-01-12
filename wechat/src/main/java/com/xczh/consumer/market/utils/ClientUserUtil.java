@@ -93,7 +93,9 @@ public class ClientUserUtil {
 				
 				System.out.println("unionid_:"+unionid_);
 				
-				if(nickname_ == null) nickname_ = user_nick_name ;		
+				if(nickname_ == null) {
+                    nickname_ = user_nick_name;
+                }
 				//WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
 				wxcpClientUserWxMapping.setOpenid(openid_);
 				wxcpClientUserWxMapping.setNickname(nickname_);
@@ -109,8 +111,11 @@ public class ClientUserUtil {
 				int ret = wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
 				
 				
-				if(ret == 0) return code_buffer;
-				else return null;
+				if(ret == 0) {
+                    return code_buffer;
+                } else {
+                    return null;
+                }
 			}else{
 				//
 				//微信端进入页面即登录---20170727---yuruixin
@@ -311,7 +316,9 @@ public class ClientUserUtil {
 				wxcpClientUserWxMapping.setNickname(user_nick_name);
 				wxcpClientUserWxMapping.setWx_public_id(public_id);
 				wxcpClientUserWxMapping.setWx_public_name(public_name);
-				if(nickname_ == null) nickname_ = user_nick_name ;		
+				if(nickname_ == null) {
+                    nickname_ = user_nick_name;
+                }
 				wxcpClientUserWxMapping.setOpenid(openid_);
 				wxcpClientUserWxMapping.setNickname(nickname_);
 				wxcpClientUserWxMapping.setSex(sex_);

@@ -9,8 +9,9 @@ import java.util.regex.Pattern;
 public class StringUtil {
 
 	public static String getString(Object obj) {
-		if (obj == null)
-			return null;
+		if (obj == null) {
+            return null;
+        }
 		return obj.toString();
 	}
 
@@ -50,8 +51,9 @@ public class StringUtil {
 	 * @return
 	 */
 	public static long getIdFromStr(String str) {
-		if (isEmpty(str))
-			return 0;
+		if (isEmpty(str)) {
+            return 0;
+        }
 		return Long.parseLong(str);
 	}
 

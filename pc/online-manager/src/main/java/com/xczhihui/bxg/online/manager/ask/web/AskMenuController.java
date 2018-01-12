@@ -135,8 +135,9 @@ public class AskMenuController {
           if(page.getItems().size()>0){
                for(MenuVo vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
-                    if(user!=null)
-                         vo.setCreatePerson(user.getName());
+                    if(user!=null) {
+                        vo.setCreatePerson(user.getName());
+                    }
                }
           }
           int total = page.getTotalCount();
@@ -375,8 +376,9 @@ public class AskMenuController {
           Menu entity=new Menu();
           BeanUtils.copyProperties(entity,menu);
           entity.setName(menu.getMenuName());
-          if(menu==null)
-               throw new IllegalArgumentException("不存在记录");
+          if(menu==null) {
+              throw new IllegalArgumentException("不存在记录");
+          }
           Menu searchEntity=service.findById(Integer.parseInt(menu.getId()));
           searchEntity.setName(menu.getMenuName());
           if (service.exists(searchEntity)) {

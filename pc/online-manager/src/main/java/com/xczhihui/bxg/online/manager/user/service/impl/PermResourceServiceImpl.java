@@ -124,8 +124,9 @@ public class PermResourceServiceImpl implements PermResourceService {
 
 		if (old.isDelete() != resource.isDelete()) {
 			old.setDelete(resource.isDelete());
-			if (old.isDelete())
-				old.setCreateTime(new Date());
+			if (old.isDelete()) {
+                old.setCreateTime(new Date());
+            }
 
 			updateIsDelete(old.isDelete(), old.getId(), old.getCreateTime());
 
@@ -185,10 +186,11 @@ public class PermResourceServiceImpl implements PermResourceService {
 			resourceDao.updateDelete(ids, 0, updateTime);
 		}
 
-		if (!CollectionUtils.isEmpty(ids))
-			for (String childId : ids) {
-				updateIsDelete(isDelete, childId, updateTime);
-			}
+		if (!CollectionUtils.isEmpty(ids)) {
+            for (String childId : ids) {
+                updateIsDelete(isDelete, childId, updateTime);
+            }
+        }
 
 	}
 

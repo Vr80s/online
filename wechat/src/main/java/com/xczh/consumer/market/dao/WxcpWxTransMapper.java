@@ -57,7 +57,9 @@ public class WxcpWxTransMapper extends BasicSimpleDao {
 		sql.append(")                                   ");
 		                                        		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getTrans_id()==null || record.getTrans_id().isEmpty()) record.setTrans_id(id);
+		if(record.getTrans_id()==null || record.getTrans_id().isEmpty()) {
+            record.setTrans_id(id);
+        }
 		//if(record.getCreate_time()==null) record.setCreate_time(new Date());
 		
 		super.update(
@@ -117,20 +119,25 @@ public class WxcpWxTransMapper extends BasicSimpleDao {
 		sql.append("	wxcp_wx_trans   					");
 		sql.append("where                  					");
 		sql.append("	1 = 1               				");	
-		if(condition.getTrans_id() != null && !condition.getTrans_id().isEmpty())
-		sql.append("	and trans_id = ?    				");	
-		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty())
-		sql.append("	and openid = ?    			");
+		if(condition.getTrans_id() != null && !condition.getTrans_id().isEmpty()) {
+            sql.append("	and trans_id = ?    				");
+        }
+		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty()) {
+            sql.append("	and openid = ?    			");
+        }
 		//sql.append("order by    						");
 		//sql.append("	create_time desc				");
-		if(limit!=null && limit.length() > 0) 
-		sql.append("	limit " + limit);
+		if(limit!=null && limit.length() > 0) {
+            sql.append("	limit " + limit);
+        }
 		
 		ArrayList<Object> conList = new ArrayList<Object>(); 
-		if(condition.getTrans_id() != null && !condition.getTrans_id().isEmpty())
-			conList.add(condition.getTrans_id());
-		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty())
-			conList.add(condition.getOpenid());	
+		if(condition.getTrans_id() != null && !condition.getTrans_id().isEmpty()) {
+            conList.add(condition.getTrans_id());
+        }
+		if(condition.getOpenid() != null && !condition.getOpenid().isEmpty()) {
+            conList.add(condition.getOpenid());
+        }
 		
 		Object[] params = new Object [conList.size()];
 		conList.toArray(params);				

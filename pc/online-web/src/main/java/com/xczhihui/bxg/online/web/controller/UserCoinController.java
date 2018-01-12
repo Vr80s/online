@@ -62,7 +62,9 @@ public class UserCoinController {
 	public ResponseObject balance(HttpServletRequest request) throws Exception {
 		//获取登录用户
         BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-        if(loginUser==null)return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        if(loginUser==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
 		Map<String,String> balance = userCoinService.getBalanceByUserId(loginUser.getId());
 		balance.put("account", loginUser.getLoginName());
 		return ResponseObject.newSuccessResponseObject(balance);
@@ -116,8 +118,9 @@ public class UserCoinController {
 	public ResponseObject getRchargeOrderNo(HttpServletRequest request) throws Exception {
 		//获取登录用户
 		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-		if(loginUser!=null)
-			return ResponseObject.newSuccessResponseObject(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
+		if(loginUser!=null) {
+            return ResponseObject.newSuccessResponseObject(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
+        }
 		return ResponseObject.newErrorResponseObject(null);
 	}
 
@@ -152,7 +155,9 @@ public class UserCoinController {
 	@RequestMapping(value = "/userDataForRecharge")
 	public ResponseObject getUserDataForRecharge(HttpServletRequest request,EnchashmentApplication ea) {
 		OnlineUser u =  (OnlineUser)request.getSession().getAttribute("_user_");
-		if(u==null) return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+		if(u==null) {
+            return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
+        }
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("balanceTotal", userCoinService.getBalanceByUserId(u.getId()).get("balanceTotal"));
 		m.put("account", u.getLoginName());

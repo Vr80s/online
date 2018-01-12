@@ -41,8 +41,9 @@ public class CookieUtil {
 	 */
 	public static Cookie getCookie(HttpServletRequest request, String name) {
 		Cookie cookies[] = request.getCookies();
-		if (cookies == null || name == null || name.length() == 0)
-			return null;
+		if (cookies == null || name == null || name.length() == 0) {
+            return null;
+        }
 		Cookie cookie = null;
 		for (int i = 0; i < cookies.length; i++) {
 			cookie = cookies[i];

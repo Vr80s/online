@@ -56,10 +56,11 @@ public class StringUtil {
 	 */
 	public static boolean checkNull(String str) {
 		boolean isTrue = false;
-		if (null == str || "".equals(str.trim()))
-			isTrue = true;
-		else
-			isTrue = false;
+		if (null == str || "".equals(str.trim())) {
+            isTrue = true;
+        } else {
+            isTrue = false;
+        }
 		return isTrue;
 	}
 
@@ -408,8 +409,9 @@ public class StringUtil {
 	 * @return 判断结果, true 为全数字, false 为还有非数字字符
 	 */
 	public static boolean isNumeric(String input) {
-		if (checkNull(input))
-			return false;
+		if (checkNull(input)) {
+            return false;
+        }
 
 		for (int i = 0; i < input.length(); i++) {
 			char charAt = input.charAt(i);
@@ -511,8 +513,9 @@ public class StringUtil {
 	 */
 	public static boolean isSortFloat(String input) {
 		
-		if (null == input || input.trim().equals(""))
-			return false;
+		if (null == input || input.trim().equals("")) {
+            return false;
+        }
 		
 		try {
 			float f = Float.valueOf(input).floatValue();
@@ -532,14 +535,16 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean checkOnlyChar(String s) {
-		if (s == null || s.equals(""))
-			return false;
+		if (s == null || s.equals("")) {
+            return false;
+        }
 
 		for (int j = 0; j < s.length(); j++) {
 			char c = s.charAt(j);
 			int i = (int) c;
-			if ((i >= 65 && i <= 90) || (i >= 97 && i <= 122))
-				return true;
+			if ((i >= 65 && i <= 90) || (i >= 97 && i <= 122)) {
+                return true;
+            }
 		}
 
 		return false;

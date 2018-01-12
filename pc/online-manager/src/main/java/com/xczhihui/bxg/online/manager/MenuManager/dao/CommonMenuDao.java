@@ -197,8 +197,9 @@ public class CommonMenuDao extends HibernateDao<Menu> {
         if(ids.length>0) {
             StringBuilder sql = new StringBuilder(" update oe_menu set is_delete=1 where level=1 and  id in(");
             for(int i=0;i<ids.length;i++){
-                if(i!=0)
+                if(i!=0) {
                     sql.append(",");
+                }
                 sql.append("'"+ids[i]+"'");
             }
             sql.append(" ) ");

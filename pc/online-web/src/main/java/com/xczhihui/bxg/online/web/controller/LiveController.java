@@ -125,7 +125,9 @@ public class LiveController {
 	public ResponseObject getLiveTrailer(HttpServletRequest request){
 		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
 		String userId = null;
-		if(user != null) userId = user.getId();
+		if(user != null) {
+            userId = user.getId();
+        }
 		List<OpenCourseVo> openCourses = service.getOpenCourse(null,userId);
 		return ResponseObject.newSuccessResponseObject(openCourses);
 	}

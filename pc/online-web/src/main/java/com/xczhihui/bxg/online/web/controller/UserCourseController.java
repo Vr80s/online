@@ -62,10 +62,12 @@ public class UserCourseController {
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
-        if(pageNumber==null)
-            pageNumber=1;
-        if(pageSize==null)
-            pageSize=15;
+        if(pageNumber==null) {
+            pageNumber = 1;
+        }
+        if(pageSize==null) {
+            pageSize = 15;
+        }
         Page<CourseVo> courseVoPage=courseService.findUserCoursePage(loginUser.getId(),courseStatus, pageNumber, pageSize);
         return ResponseObject.newSuccessResponseObject(courseVoPage);
     }
@@ -85,10 +87,12 @@ public class UserCourseController {
     	if (loginUser == null) {
     		return OnlineResponse.newErrorOnlineResponse("请登录！");
     	}
-    	if(pageNumber==null)
-    		pageNumber=1;
-    	if(pageSize==null)
-    		pageSize=15;
+    	if(pageNumber==null) {
+            pageNumber = 1;
+        }
+    	if(pageSize==null) {
+            pageSize = 15;
+        }
     	Page<CourseVo> courseVoPage=courseService.findUserPublicCoursePage(loginUser.getId(),courseStatus, pageNumber, pageSize);
     	return ResponseObject.newSuccessResponseObject(courseVoPage);
     }
@@ -108,10 +112,12 @@ public class UserCourseController {
     	if (loginUser == null) {
     		return OnlineResponse.newErrorOnlineResponse("请登录！");
     	}
-    	if(pageNumber==null)
-    		pageNumber=1;
-    	if(pageSize==null)
-    		pageSize=15;
+    	if(pageNumber==null) {
+            pageNumber = 1;
+        }
+    	if(pageSize==null) {
+            pageSize = 15;
+        }
     	Page<CourseVo> courseVoPage=courseService.findUserRealCoursePage(loginUser.getId(),courseStatus, pageNumber, pageSize);
     	return ResponseObject.newSuccessResponseObject(courseVoPage);
     }

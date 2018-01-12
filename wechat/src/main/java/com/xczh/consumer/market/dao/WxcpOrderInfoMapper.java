@@ -164,13 +164,27 @@ public class WxcpOrderInfoMapper extends BasicSimpleDao{
 		sql.append(")                                   ");
 		                                        		
 		String id = UUID.randomUUID().toString().replace("-", "");
-		if(record.getId()==null || record.getId().isEmpty()) record.setId(id);
-		if(record.getExpire_time()==null) record.setExpire_time(new Date());
-		if(record.getPayment_timeout()==null) record.setPayment_timeout(new Date());
-		if(record.getPayment_time()==null) record.setPayment_time(new Date());
-		if(record.getCreated_time()==null) record.setCreated_time(new Date());
-		if(record.getUpdated_time()==null) record.setUpdated_time(new Date());
-		if(record.getOrder_no()==null || record.getOrder_no().isEmpty()) record.setOrder_no(GenerateSequenceUtil.generateSequenceNo());
+		if(record.getId()==null || record.getId().isEmpty()) {
+            record.setId(id);
+        }
+		if(record.getExpire_time()==null) {
+            record.setExpire_time(new Date());
+        }
+		if(record.getPayment_timeout()==null) {
+            record.setPayment_timeout(new Date());
+        }
+		if(record.getPayment_time()==null) {
+            record.setPayment_time(new Date());
+        }
+		if(record.getCreated_time()==null) {
+            record.setCreated_time(new Date());
+        }
+		if(record.getUpdated_time()==null) {
+            record.setUpdated_time(new Date());
+        }
+		if(record.getOrder_no()==null || record.getOrder_no().isEmpty()) {
+            record.setOrder_no(GenerateSequenceUtil.generateSequenceNo());
+        }
 		
 		super.update(
 			JdbcUtil.getCurrentConnection(), 
@@ -259,22 +273,28 @@ public class WxcpOrderInfoMapper extends BasicSimpleDao{
 		sql.append("	wxcp_order_info   		");
 		sql.append("where                  		");
 		sql.append("	1 = 1               	");	
-		if(condition.getId() != null && !condition.getId().isEmpty())
-		sql.append("	and id = ?    			");	
-		if(condition.getBuyer_id() != null && !condition.getBuyer_id().isEmpty())
-		sql.append("	and buyer_id = ?    	");
-		if(condition.getOrder_status() != null && condition.getOrder_status() > 0 )
-		sql.append("   	and order_status = ? 	");	
+		if(condition.getId() != null && !condition.getId().isEmpty()) {
+            sql.append("	and id = ?    			");
+        }
+		if(condition.getBuyer_id() != null && !condition.getBuyer_id().isEmpty()) {
+            sql.append("	and buyer_id = ?    	");
+        }
+		if(condition.getOrder_status() != null && condition.getOrder_status() > 0 ) {
+            sql.append("   	and order_status = ? 	");
+        }
 		sql.append("order by    				");
 		sql.append("	created_time desc		");
 
 		ArrayList<Object> conList = new ArrayList<Object>(); 
-		if(condition.getId() != null && !condition.getId().isEmpty())
-			conList.add(condition.getId());	
-		if(condition.getBuyer_id() != null && !condition.getBuyer_id().isEmpty())
-			conList.add(condition.getBuyer_id());
-		if(condition.getOrder_status() != null && condition.getOrder_status() > 0)
-			conList.add(condition.getOrder_status());	
+		if(condition.getId() != null && !condition.getId().isEmpty()) {
+            conList.add(condition.getId());
+        }
+		if(condition.getBuyer_id() != null && !condition.getBuyer_id().isEmpty()) {
+            conList.add(condition.getBuyer_id());
+        }
+		if(condition.getOrder_status() != null && condition.getOrder_status() > 0) {
+            conList.add(condition.getOrder_status());
+        }
 		
 		Object[] params = new Object [conList.size()];
 		conList.toArray(params);				

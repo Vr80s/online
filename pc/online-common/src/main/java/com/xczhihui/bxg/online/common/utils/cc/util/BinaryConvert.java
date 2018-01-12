@@ -26,10 +26,11 @@ class BinaryConvert {
 		String stmp = "";
 		for (int n = 0; n < b.length; n++) {
 			stmp = (Integer.toHexString(b[n] & 0XFF));
-			if (stmp.length() == 1)
-				hs.append("0" + stmp);				
-			else
-				hs.append(stmp);
+			if (stmp.length() == 1) {
+                hs.append("0" + stmp);
+            } else {
+                hs.append(stmp);
+            }
 		}
 		return hs.toString().toUpperCase();
 	}

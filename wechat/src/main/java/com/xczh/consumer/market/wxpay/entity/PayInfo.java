@@ -187,8 +187,9 @@ public class PayInfo extends SignAbledBean implements Serializable {
 		payInfo.setTrade_type(tradeType);//
 		
 		payInfo.setNotify_url(WxPayConst.returnOpenidUri+"/bxg/wxpay/wxNotify");
-		if(!StringUtil.isEmpty(bizOrder.getOpenId()))
-			payInfo.setOpenid(bizOrder.getOpenId());
+		if(!StringUtil.isEmpty(bizOrder.getOpenId())) {
+            payInfo.setOpenid(bizOrder.getOpenId());
+        }
 		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		// 签名
 		payInfo.setSign(CommonUtil.getSign(payInfo));
@@ -226,8 +227,9 @@ public class PayInfo extends SignAbledBean implements Serializable {
 		payInfo.setSpbill_create_ip(khdip);// payInfo.setSpbill_create_ip(bizOrder);		
 		payInfo.setTrade_type(tradeType);//
 		payInfo.setNotify_url(WxPayConst.returnOpenidUri+"/bxg/wxpay/wxNotify");
-		if(!StringUtil.isEmpty(bizOrder.getOpenId()))
-			payInfo.setOpenid(bizOrder.getOpenId());
+		if(!StringUtil.isEmpty(bizOrder.getOpenId())) {
+            payInfo.setOpenid(bizOrder.getOpenId());
+        }
 		
 		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		// 签名
@@ -265,8 +267,9 @@ public class PayInfo extends SignAbledBean implements Serializable {
 		payInfo.setSpbill_create_ip(khdip);// payInfo.setSpbill_create_ip(bizOrder);		
 		payInfo.setTrade_type(tradeType);//
 		payInfo.setNotify_url(WxPayConst.returnOpenidUri+"/bxg/wxpay/wxNotify");
-		if(!StringUtil.isEmpty(bizOrder.getOpenId()))
-			payInfo.setOpenid(bizOrder.getOpenId());
+		if(!StringUtil.isEmpty(bizOrder.getOpenId())) {
+            payInfo.setOpenid(bizOrder.getOpenId());
+        }
 		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		// 签名
 		payInfo.setSign(CommonUtil.getSign(payInfo));
@@ -315,8 +318,9 @@ public class PayInfo extends SignAbledBean implements Serializable {
 		payInfo.setAttach(bizOrder.getId());
 		
 	    //9ED42A76220A3258231C8B51C615571C
-		if(!StringUtil.isEmpty(bizOrder.getOpenId()))
-			payInfo.setOpenid(bizOrder.getOpenId());
+		if(!StringUtil.isEmpty(bizOrder.getOpenId())) {
+            payInfo.setOpenid(bizOrder.getOpenId());
+        }
 		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());		
 		payInfo.setSign(CommonUtil.getSign(payInfo,tradeType));
 		System.out.println("createPayInfo->\r\n\t" + JSONObject.fromObject(payInfo).toString());

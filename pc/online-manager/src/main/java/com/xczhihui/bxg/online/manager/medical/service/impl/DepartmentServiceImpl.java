@@ -88,9 +88,9 @@ public class DepartmentServiceImpl extends OnlineBaseServiceImpl implements Depa
 
 
 	@Override
-	public String deletes(String[] _ids) {
+	public String deletes(String[] ids) {
 		String msg = "";
-        for(String id:_ids){
+        for(String id:ids){
         	msg = departmentDao.deleteById(id);
         }
         return  msg;
@@ -99,13 +99,13 @@ public class DepartmentServiceImpl extends OnlineBaseServiceImpl implements Depa
 
 	@Override
 	public void updateStatus(String id) {
-		MedicalDepartment MedicalDepartment=departmentDao.findById(id);
-		if(MedicalDepartment.getStatus()){
-			MedicalDepartment.setStatus(false);
+		MedicalDepartment medicalDepartment=departmentDao.findById(id);
+		if(medicalDepartment.getStatus()){
+			medicalDepartment.setStatus(false);
 		}else{
-			MedicalDepartment.setStatus(true);
+			medicalDepartment.setStatus(true);
 		}
-		departmentDao.update(MedicalDepartment);
+		departmentDao.update(medicalDepartment);
 
 	}
 

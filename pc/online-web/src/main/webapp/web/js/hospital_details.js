@@ -48,7 +48,8 @@ $(function(){
 	
 	//渲染纵向轮播
 	if(data.resultObject.medicalHospitalPictures.length == 0){
-		$('#hospital_detail_pic').html('<h3>暂无医馆图片</h3>');
+//		$('#hospital_detail_pic').html('<h3>暂无医馆图片</h3>');
+		$('#hospital_detail_pic').html("<img src='/web/images/hospitalDefault.png' alt='暂无图片' style='width: 619px;height: 342px;transform: translateY(-50%);top:50%;position: absolute;'>");
 	}
    	$('#lunbo').html(template('lunboTpl',data.resultObject));
    	
@@ -99,7 +100,7 @@ $(function(){
 			size:4,
 			hospitalId:id
 	    },function(data){
-	        if(data.resultObject.records.length == 0){
+	        if(data.resultObject.total < 4){
 	        	//没有数据处理
 //	           alert("名老中医没有数据")
 //			$('.doctor_inf').html('<h3>暂无数据</h3>');
@@ -108,7 +109,7 @@ $(function(){
 	        	console.log(data)
 	        	$('.hospital_doctor').removeClass('hide')
 	        	//获取到数据渲染
-	        	if(data.resultObject.records.length > 4){
+	        	if(data.resultObject.total > 4){
 	        		$('#more_doc').removeClass('hide');
 	        	};
 	           $('#yiguan_mingjia').html(template('hos_docTpl',{doctor:data.resultObject.records}));

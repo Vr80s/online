@@ -659,18 +659,23 @@ public class OnlineUser extends BasicEntity implements Serializable,HttpSessionB
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (getClass() != obj.getClass()) {
+            return false;
+        }
 		OnlineUser other = (OnlineUser) obj;
 		if (getId() == null) {
-			if (other.getId() != null)
-				return false;
-		} else if (!getId().equals(other.getId()))
-			return false;
+			if (other.getId() != null) {
+                return false;
+            }
+		} else if (!getId().equals(other.getId())) {
+            return false;
+        }
 		return true;
 	}
 

@@ -321,7 +321,9 @@ public class HttpsRequest implements IServiceRequest {
         	String apiclient_cert= "";
         	if(true) {
         		String strRootDir = System.getProperty("user.dir").replace("bin", "webapps");		
-        		if(strRootDir.charAt(strRootDir.length()-1) != File.separatorChar) strRootDir += File.separator;
+        		if(strRootDir.charAt(strRootDir.length()-1) != File.separatorChar) {
+                    strRootDir += File.separator;
+                }
         		System.out.println("sslPost->strRootDir->" + strRootDir );
         		String path=strRootDir + "ROOT/WEB-INF/classes" + File.separator + "config.properties";
         		System.out.println("sslPost->path->" + path );
@@ -329,7 +331,9 @@ public class HttpsRequest implements IServiceRequest {
         		apiclient_cert= cfg.getConfig("apiclient_cert");
         		System.out.println("sslPost->apiclient_cert->" + apiclient_cert );
         	}
-        	if(apiclient_cert==null || apiclient_cert.trim().length() == 0) return "";
+        	if(apiclient_cert==null || apiclient_cert.trim().length() == 0) {
+                return "";
+            }
         	
             KeyStore keyStore  = KeyStore.getInstance("PKCS12");
             FileInputStream instream = new FileInputStream(new File(/*"D:/certs/apiclient_cert.p12"*/apiclient_cert));

@@ -48,6 +48,10 @@
 			<!--左边点击-->
 			<div class="left-listNav">
 				<div class="doctor_inf">
+					<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
+    						<i class="iconfont icon-xiangji"></i>
+    				</div>
+    				
 					 <img src="../images/5.jpg" alt="">
 					 <!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
 					 <h4>橘子柠檬可乐</h4>
@@ -106,11 +110,52 @@
 				<div class="little_box">资源44</div>
 			</div>	
 		</div>
+		
+		
+	
+	
+<div class="mask"></div>
+<div id="headImg" class="clearfix">
+    <div class="container clearfix">
+        <div class="img-title"><p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+        <div class="img-box1">
+            <a href="javascript:void(0)" class="upload-img">
+                <p onclick="fileClick()" class="fileUpdata"><span>+</span>选择图片</p>
+            </a>
+
+            <p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+        </div>
+        <div class="imageBox">
+            <div class="thumbBox"></div>
+            <div class="spinner" style="display: none"></div>
+        </div>
+        <div class="action clearfix">
+            <div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+            <div class="new-contentarea tc">
+                <div class="bbox clearfix">
+                	<span>滚动鼠标可调整头像大小</span>
+                    <a href="javascript:void(0)" class="upload-img reclick">
+                        <p onclick="fileClick()" class='fileUpdata'>重新上传</p>
+                    </a>
+                </div>
+                <input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg"/>
+            </div>
+            <span class="btn-upload bbtn">确定</span>
+            <a href="javascript:;" class="btn-quit bbtn">取消</a>
+        </div>
+        <div class="cropped">
+            <div class="cropTitle">预览</div>
+            <div class="cropped-con"></div>
+        </div>
+    </div>
+</div>
+	
 	</body>
 	
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
-	 <script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
+	<script type="text/javascript" src="/web/js/cropbox.js"></script>
+	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
   	
 
 </html>

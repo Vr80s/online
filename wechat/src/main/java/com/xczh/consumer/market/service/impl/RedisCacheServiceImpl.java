@@ -160,8 +160,9 @@ redis-server-timeout=50000*/
 	}
 
 	private Serializable byte2Object(byte[] bytes) {
-		if (bytes == null || bytes.length == 0)
-			return null;
+		if (bytes == null || bytes.length == 0) {
+            return null;
+        }
 
 		try {
 			ObjectInputStream inputStream;
