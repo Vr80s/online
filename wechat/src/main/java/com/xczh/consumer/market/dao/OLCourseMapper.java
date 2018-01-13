@@ -120,7 +120,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 			sql.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
 			sql.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  and oc.menu_id=?  and oc.type is null");//and oc.is_free=0 oc.course_type=1 and
 			sql.append(" and oc.multimedia_type =? ");
-			sql.append(" order by oc.sort asc");
+			sql.append(" order by oc.sort desc");
 			//sql.append(" limit " + number+","+pageSize);
 			Object[] params = {menu_id,multimedia_type};
 			
@@ -188,7 +188,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 		
 		
 		all.append("if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,");//判断是否要输入密码
-		all.append(" oc.description as courseDescription  ");//判断是否要输入密码
+		all.append(" ocm.description as courseDescription  ");
 		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
 		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.id =?  and oc.is_delete=0 and oc.status=1 and oc.type is null");
