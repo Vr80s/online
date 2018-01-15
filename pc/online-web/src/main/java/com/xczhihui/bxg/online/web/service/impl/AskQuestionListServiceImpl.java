@@ -94,7 +94,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
                     if (u != null) {
                         //看当前用户是否针对当前学科有权限，如果有，可以看到回答信息，否则必须购买才可以看到
                         OnlineUser user=questionListDao.findOneEntitiyByProperty(OnlineUser.class, "loginName", u.getLoginName());
-                        if(user.getMenuId()==askQuestionVo.getMent_id()) {
+                        if(user.getMenuId().intValue()==askQuestionVo.getMent_id().intValue()) {
                             //获取当前提问下的问题信息()
                             AskAnswerVo askAnswerVo = questionListDao.findAskAnswerByQuestionId(askQuestionVo.getId(), u);
                             if (askAnswerVo != null) {
