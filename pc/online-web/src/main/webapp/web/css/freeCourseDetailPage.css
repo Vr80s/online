@@ -345,6 +345,7 @@ a {
 #course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-title .jingpingCourse span {
   position: absolute;
   left: 5px;
+  top: 4px;
   color: #fff;
   font-size: 12px;
 }
