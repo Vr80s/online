@@ -311,6 +311,8 @@ a {
   width: 426px;
   height: 260px;
   float: left;
+  position: relative;
+  padding: 1px;
 }
 #course-list .bigpic .bigpic-title .bigpic-img img {
   width: 100%;
