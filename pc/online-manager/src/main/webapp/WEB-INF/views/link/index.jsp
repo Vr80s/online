@@ -4,7 +4,7 @@
 <link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />	
 <link href="${base}/js/layer/skin/layer.css" type="text/css" />	
 <script src="${base}/js/layer/layer.js?v=4"></script>
-<script type="text/javascript" src="${base}/js/link/list.js?v=3"></script>
+<script type="text/javascript" src="${base}/js/link/list.js?v=ipandatcm_1.3"></script>
 
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <script type="text/javascript">

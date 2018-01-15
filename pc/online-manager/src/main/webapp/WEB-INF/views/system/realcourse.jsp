@@ -1322,4 +1322,4 @@
 	</form>
 </div>
 <script type="text/javascript" src="${base}/js/cloudClass/provinces.js"></script>
-<script type="text/javascript" src="${base}/js/cloudClass/realcourse.js?v=112312312311"></script>
+<script type="text/javascript" src="${base}/js/cloudClass/realcourse.js?v=ipandatcm_1.3"></script>

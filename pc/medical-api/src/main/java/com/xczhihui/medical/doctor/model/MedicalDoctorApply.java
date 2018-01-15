@@ -6,7 +6,6 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -90,9 +89,9 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 	@TableField("professional_certificate")
 	private String professionalCertificate;
     /**
-     * 是否通过认证
+     * 0拒绝1通过2未处理
      */
-	private Boolean status;
+	private Integer status;
     /**
      * 1已删除0未删除
      */
@@ -247,11 +246,11 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 		this.professionalCertificate = professionalCertificate;
 	}
 
-	public Boolean getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

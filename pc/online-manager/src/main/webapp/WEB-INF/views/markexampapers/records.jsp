@@ -77,4 +77,4 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="${base}/js/markexampapers/records.js?v=1"></script>
+<script type="text/javascript" src="${base}/js/markexampapers/records.js?v=ipandatcm_1.3"></script>
