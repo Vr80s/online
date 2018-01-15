@@ -88,4 +88,4 @@
     </div>
     <span style="position:absolute;bottom:10px;right:10px;color:red;top:2px;">数据截止至：<span id="updateDataTime"></span></span>
 </div>
-<script type="text/javascript" src="${base}/js/activity/activityDetail.js?v=1.7"></script>
+<script type="text/javascript" src="${base}/js/activity/activityDetail.js?v=ipandatcm_1.3"></script>

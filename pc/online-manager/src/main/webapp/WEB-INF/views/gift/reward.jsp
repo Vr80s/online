@@ -252,4 +252,4 @@
             });			
 			
 </script>
-<script type="text/javascript" src="${base}/js/gift/reward.js?v=1"></script>
+<script type="text/javascript" src="${base}/js/gift/reward.js?v=ipandatcm_1.3"></script>

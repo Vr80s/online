@@ -203,4 +203,4 @@
     </div>
     <table id="paperListTable" class="table table-striped table-bordered table-hover"></table>
 </div>
-<script type="text/javascript" src="${base}/js/homework/papers.js?v=1"></script>
+<script type="text/javascript" src="${base}/js/homework/papers.js?v=ipandatcm_1.3"></script>
