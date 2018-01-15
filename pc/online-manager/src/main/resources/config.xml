@@ -55,6 +55,7 @@
 			<list>
 				<value>com.xczhihui.bxg.online.**.domain</value>
 				<value>com.xczhihui.bxg.online.api.po</value>
+				<value>com.xczhihui.bxg.online.manager.mobile.vo</value>
 			</list>
 		</property>
 		<property name="annotatedClasses">

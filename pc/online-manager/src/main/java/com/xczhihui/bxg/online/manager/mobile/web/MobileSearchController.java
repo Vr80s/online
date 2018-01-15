@@ -1,18 +1,4 @@
-package com.xczhihui.bxg.online.manager.cloudClass.web;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-
-import com.xczhihui.bxg.online.manager.utils.Group;
-import com.xczhihui.bxg.online.manager.utils.Groups;
-import com.xczhihui.bxg.online.manager.utils.Tools;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+package com.xczhihui.bxg.online.manager.mobile.web;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
@@ -20,25 +6,39 @@ import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.domain.Project;
 import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.manager.cloudClass.service.ProjectTypeService;
+import com.xczhihui.bxg.online.manager.mobile.service.MobileSearchService;
+import com.xczhihui.bxg.online.manager.mobile.vo.MobileSearchVo;
 import com.xczhihui.bxg.online.manager.user.service.UserService;
+import com.xczhihui.bxg.online.manager.utils.Group;
+import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
+import com.xczhihui.bxg.online.manager.utils.Tools;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 /**
- * 菜单控制层实现类
+ * 移动端搜索控制层实现类
  * @author Rongcai Kang
  */
 @RestController()
-@RequestMapping(value = "/cloudClass/projectType")
-public class ProjectTypeController {
+@RequestMapping(value = "/mobile/search")
+public class MobileSearchController {
 
      @Autowired
-     private ProjectTypeService service;
+     private MobileSearchService service;
      @Autowired
      private UserService userService;
 
      @RequestMapping(value = "/index")
      public ModelAndView index(){
-          ModelAndView mav=new ModelAndView("cloudClass/projectType");
+          ModelAndView mav=new ModelAndView("mobile/mobileSearch");
           return mav;
      }
      
@@ -55,18 +55,19 @@ public class ProjectTypeController {
           String params = tableVo.getsSearch();
           Groups groups = Tools.filterGroup(params);
           Group searchType = groups.findByName("search_type");
-          Project p = new Project();
+          MobileSearchVo m = new MobileSearchVo();
           if (searchType != null) {
-               p.setType(Integer.parseInt(searchType.getPropertyValue1().toString()));
+               m.setSearchType(Integer.parseInt(searchType.getPropertyValue1().toString()));
           }
 
-          Page<Project> page = service.findProjectPage(p, currentPage, pageSize);
+          Page<MobileSearchVo> page = service.findMobileSearchPage(m, currentPage, pageSize);
           
           if(page.getItems().size()>0){
-               for(Project vo:page.getItems()){
+               for(MobileSearchVo vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
-                    if(user!=null)
+                    if(user!=null){
                          vo.setCreatePerson(user.getName());
+                    }
                }
           }
           int total = page.getTotalCount();
@@ -78,82 +79,69 @@ public class ProjectTypeController {
      
      /**
       * 添加数据
-      * @param project
+      * @param mobileSearchVo
       * @return
       * @throws InvocationTargetException
       * @throws IllegalAccessException
       */
      @RequestMapping(value = "add", method = RequestMethod.POST)
      @ResponseBody
-     public ResponseObject add(Project project) throws InvocationTargetException, IllegalAccessException {
+     public ResponseObject add(MobileSearchVo mobileSearchVo) throws InvocationTargetException, IllegalAccessException {
     	  ResponseObject responseObj = new ResponseObject();
     	  
-    	  System.out.println(project.getName());
-    	  System.out.println(project.getIcon());
-          if(project.getName()==null){
-               throw new IllegalArgumentException("请输入课程类别名称");
+
+          if(mobileSearchVo.getName()==null){
+               throw new IllegalArgumentException("请输入搜索名称");
           }
-          if(project.getLinkType()==null){
-               throw new IllegalArgumentException("请选择连接类型");
-          }
-          if(project.getLinkCondition()==null){
-               throw new IllegalArgumentException("请输入连接地址");
-          }
-          Project existsEntity = service.findProjectTypeByNameAndByType(project.getName(),project.getType());
+          MobileSearchVo existsEntity = service.findMobileSearchByNameAndByType(mobileSearchVo.getName(),mobileSearchVo.getSearchType());
           if (existsEntity != null && existsEntity.isDelete()!=true) {
                throw new IllegalArgumentException("已经存在");
-          }else if(existsEntity != null && existsEntity.isDelete()==true){
-               existsEntity.setLinkType(project.getLinkType());
-               existsEntity.setLinkCondition(project.getLinkCondition());
-               existsEntity.setIcon(project.getIcon());
+          } else if(existsEntity != null && existsEntity.isDelete()==true){
                existsEntity.setStatus(0);
                existsEntity.setDelete(false);
                service.update(existsEntity);
                responseObj.setSuccess(true);
-               responseObj.setErrorMessage("新增课程专题成功");
+               responseObj.setErrorMessage("新增搜索关键字成功");
                return responseObj;
+
           }
-          project.setCreatePerson(UserHolder.getCurrentUser().getName());
-          project.setCreateTime(new Date());
-          project.setSort(service.getMaxSort()+1);
-          project.setStatus(0);
+          mobileSearchVo.setCreatePerson(UserHolder.getCurrentUser().getName());
+          mobileSearchVo.setCreateTime(new Date());
+          mobileSearchVo.setSeq(service.getMaxSort()+1);
+          mobileSearchVo.setStatus(0);
           try{
-        	  service.save(project);
+        	  service.save(mobileSearchVo);
               responseObj.setSuccess(true);
-              responseObj.setErrorMessage("新增课程专题成功");
+              responseObj.setErrorMessage("新增搜索关键字成功");
          }catch(Exception e){
               responseObj.setSuccess(false);
-              responseObj.setErrorMessage("新增课程专题失败");
+              responseObj.setErrorMessage("新增搜索关键字失败");
          }
          return responseObj;
      }
      
      /**
-      * 更新课程类别管理表
-      * @param project
+      * 更新数据
+      * @param mobileSearchVo
       * @return
       * @throws InvocationTargetException
       * @throws IllegalAccessException
       */
      @RequestMapping(value = "update", method = RequestMethod.POST)
      @ResponseBody
-     public ResponseObject update(Project project) throws InvocationTargetException, IllegalAccessException {
+     public ResponseObject update(MobileSearchVo mobileSearchVo) throws InvocationTargetException, IllegalAccessException {
           ResponseObject responseObject=new ResponseObject();
           
-          if(project==null || project.getName() == null || project.getIcon() ==null
-                  || project.getLinkType() == null || project.getLinkCondition() == null)
+          if(mobileSearchVo==null || mobileSearchVo.getName() == null ){
               throw new IllegalArgumentException("请输入必填项");
-          Project existsEntity = service.findProjectTypeByNameAndByType(project.getName(),project.getType());
-   
-          if (existsEntity!=null && !existsEntity.getId().equals(project.getId())) {
-               throw new IllegalArgumentException("已经存在了");
           }
-          Project pj = service.findById(project.getId().toString());
-          pj.setName(project.getName());
-          pj.setIcon(project.getIcon());
-          pj.setLinkType(project.getLinkType());
-          pj.setLinkCondition(project.getLinkCondition());
-          service.update(pj);
+          MobileSearchVo existsEntity = service.findMobileSearchByNameAndByType(mobileSearchVo.getName(),mobileSearchVo.getSearchType());
+          if (existsEntity != null && existsEntity.isDelete()!=true) {
+               throw new IllegalArgumentException("已经存在");
+          }
+          MobileSearchVo ms = service.findById(mobileSearchVo.getId().toString());
+          ms.setName(mobileSearchVo.getName());
+          service.update(ms);
           responseObject.setSuccess(true);
           responseObject.setErrorMessage("修改完成!");
           return responseObject;
