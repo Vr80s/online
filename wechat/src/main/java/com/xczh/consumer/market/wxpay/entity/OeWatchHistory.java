@@ -46,6 +46,10 @@ public class OeWatchHistory {
      */
     public Integer  lineState; //直播状态
     
+    public Integer  watchState; //直播状态
+    
+    
+    
     /**
      * 请求 --》直播使用了， 微吼接口得到的当前在线人数返回的结果集
      */
@@ -196,6 +200,16 @@ public class OeWatchHistory {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public Integer getWatchState() {
+		return watchState;
+	}
+
+	public void setWatchState(Integer watchState) {
+		this.watchState = watchState;
+	}
+	
+	
 	
     
 }

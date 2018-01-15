@@ -75,7 +75,7 @@ public interface OLCourseServiceI {
 	 * 
 	 * Description：查询
 	 * @param menuType
-	 * @param multimediaType
+	 * @param courseType
 	 * @param isFree
 	 * @param queryKey
 	 * @param pageNumber
@@ -85,6 +85,6 @@ public interface OLCourseServiceI {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public List<CourseLecturVo> queryAllCourse(Integer menuType,
-			String multimediaType, String isFree, String city,String queryKey,
-			Integer pageNumber, Integer pageSize);
+			Integer courseType, String isFree, String city,String queryKey,
+			Integer pageNumber, Integer pageSize) throws SQLException;
 }

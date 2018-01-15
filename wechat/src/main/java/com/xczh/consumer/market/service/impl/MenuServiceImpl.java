@@ -47,4 +47,11 @@ public class MenuServiceImpl implements MenuService {
         return list;
     }
 
+	@Override
+	public List<MenuVo> offlineCity() throws SQLException {
+		// TODO Auto-generated method stub
+		String sql=" select city as name,count(*) as countNumber from oe_course where city is not null group by city ORDER BY id desc ";
+		List<MenuVo> list=    basicSimpleDao.query(JdbcUtil.getCurrentConnection(),sql,new BeanListHandler<MenuVo>(MenuVo.class));
+        return list;
+	}
 }

@@ -477,24 +477,20 @@
 
 <div style="height: 100%;" class="clearfix">
     <!-- Nav tabs -->
-    <!-- <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+     <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
-            <a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">职业课管理</a>
+            <a href="#home" aria-controls="home" class="xxpxb_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下培训班管理</a>
         </li>
 		<li role="presentation">
-			<a href="#box_m" aria-controls="box_m" class="wkgl_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">微课管理</a>
+			<a href="#box_m" aria-controls="box_m" class="xxtj_bx" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下课推荐管理</a>
 		</li>
         <li role="presentation">
-            <a href="#inbox" aria-controls="inbox" class="kctj_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程推荐</a>
+            <a href="#city_m" aria-controls="city_m" class="city_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">城市推荐管理</a>
         </li>
-		<li role="presentation">
-			<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程排序</a>
-		</li>
-    </ul> -->
+    </ul>
  
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
@@ -507,9 +503,9 @@
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-					<!-- <button class="btn btn-sm btn-success rec_P" title="设为推荐">
+					 <button class="btn btn-sm btn-success rec_P" title="设为推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button> -->
+					</button>
 				</p>
 			
 			<div class="searchDivClass" id="searchDiv">
@@ -522,55 +518,6 @@
 			                            <input type="hidden" value="search_courseName" class="propertyName"/>
 			                        </div>
 			                    </td>
-			                    <%-- <td>
-			                        <div class="profile-info-value searchTr">
-			                            <input type="hidden" class="propertyValue1" value="${type}" id="type" style="width: 150px;">
-			                            <input type="hidden" value="type" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="menuName" id="search_menu" value="" class="propertyValue1"  >
-						               		<option value="">学科</option>
-						               		<c:forEach var="menus" items="${menuVo}">
-						                        <option value="${menus.id}">${menus.name}</option>
-						                    </c:forEach>
-						               </select>
-			                            <input type="hidden" value="search_menu" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="courseTypeId" id="search_scoreType" value="" class="propertyValue1" >
-						               		<option value="">课程类别</option>
-						               		 <c:forEach var="scoreTypes" items="${scoreTypeVo}">
-						                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
-						                    </c:forEach> 
-						               </select>
-			                            <input type="hidden" value="search_scoreType" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="search_courseType" id="search_courseType" value="" class="propertyValue1" >
-						               		<option value="">授课方式</option>
-						               		<c:forEach var="teachMethods" items="${teachMethodVo}">
-						                        <option value="${teachMethods.id}">${teachMethods.name}</option>
-						                    </c:forEach>
-						               </select>
-			                            <input type="hidden" value="search_courseType" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-			                            <select name="search_isRecommend" id="search_isRecommend" value="" class="propertyValue1" >
-						               		<option value="">是否已推荐</option>
-						                        <option value="1">已推荐</option>
-						                        <option value="0">未推荐</option>
-						               </select>
-			                            <input type="hidden" value="search_isRecommend" class="propertyName"/>
-			                        </div>
-			                    </td> --%>
 			                    <td>
 			                        <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
 			                                onclick="search_P();">
@@ -590,74 +537,35 @@
 				</div>
 			</div>
         </div>
-		<div role="tabpanel" class="tab-pane active" id="box_px">
-			<div class="mainrighttab tabresourse bordernone" id="courseDiv_PX" style="display:none">
-				<div class="searchDivClass" id="searchDiv_PX">
+		<div role="tabpanel" class="tab-pane active" id="box_m">
+			<div class="mainrighttab tabresourse bordernone" id="courseRecDiv" style="display:none">
+				<div class="searchDivClass" id="search_P">
 					<div class="profile-info-row" >
 						<table frame=void >
 							<tr>
-							<td>
-			                        <div class="profile-info-value searchTr">
-			                            <input type="hidden" class="propertyValue1" value="${type}" style="width: 150px;">
-			                            <input type="hidden" value="type" class="propertyName"/>
-			                        </div>
-			                    </td>
 								<td>
-                                    <div class="profile-info-value searchTr">
-                                        <select name="search_service_type" id="search_service_type_PX" value="" class="propertyValue1" >
-                                            <option value="">业务类别</option>
-                                            <option value="1">微课</option>
-                                            <option value="0">职业课</option>
-                                        </select>
-                                        <input type="hidden" value="search_service_type" class="propertyName"/>
-                                    </div>
-								</td>
-								<td>
-									<div class="profile-info-value searchTr">
-										<select name="menuName" id="search_menu_PX" value="" class="propertyValue1"  >
-											<option value="">学科</option>
-											<c:forEach var="menus" items="${menuVo}">
-												<option value="${menus.id}">${menus.name}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" value="search_menu" class="propertyName"/>
-									</div>
-								</td>
-								<td>
-									<div class="profile-info-value searchTr">
-										<select name="courseTypeId" id="search_scoreType_PX" value="" class="propertyValue1" >
-											<option value="">课程类别</option>
-											<c:forEach var="scoreTypes" items="${scoreTypeVo}">
-												<option value="${scoreTypes.id}">${scoreTypes.name}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" value="search_scoreType" class="propertyName"/>
-									</div>
-								</td>
-								<%-- <td>
-									<div class="profile-info-value searchTr">
-										<select name="search_courseType" id="search_courseType_PX" value="" class="propertyValue1" >
-											<option value="">授课方式</option>
-											<c:forEach var="teachMethods" items="${teachMethodVo}">
-												<option value="${teachMethods.id}">${teachMethods.name}</option>
-											</c:forEach>
-										</select>
-										<input type="hidden" value="search_courseType" class="propertyName"/>
-									</div>
-								</td> --%>
-								<td>
-									<div class="profile-info-value searchTr">
+									<!-- <div class="profile-info-value searchTr">
 										<select name="search_status" id="search_status_PX" value="" class="propertyValue1" >
 											<option value="">课程状态</option>
 											<option value="1">已启用</option>
 											<option value="0">已禁用</option>
 										</select>
 										<input type="hidden" value="search_status" class="propertyName"/>
+									</div> -->
+									
+									<div class="profile-info-value searchTr">
+										<select name="search_city" id="search_rec" value="" class="propertyValue1" >
+											<option value="">所在城市</option>
+						               		<c:forEach var="city" items="${cityVo}">
+						                        <option value="${city.cityName}">${city.cityName}</option>
+						                    </c:forEach>
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
 									</div>
 								</td>
 								<td>
-									<button id="searchBtn_PX" type="button" class="btn btn-sm  btn-primary "
-											onclick="search_PX();">
+									<button id="searchBtn_rec" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_rec();">
 										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
 									</button>
 								</td>
@@ -667,7 +575,57 @@
 				</div>
 				<div class="row">
 					<div class="col-xs-12">
-						<table id="courseTable_PX"
+						<table id="courseRecTable"
+							   class="table table-striped table-bordered table-hover">
+							<colgroup>
+								<col width='5%'></col>
+								<col width='12%'></col>
+								<col width='10%'></col>
+								<col width='12%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='10%'></col>
+								<col width='8%'></col>
+								<col width='10%'></col>
+							</colgroup>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 城市推荐管理 -->
+		<div role="tabpanel" class="tab-pane active" id="city_m">
+			<div class="mainrighttab tabresourse bordernone" id="courseCityDiv" style="display:none">
+				<div class="searchDivClass" id="searchCityDiv_PX">
+					<div class="profile-info-row" >
+						<table frame=void style="width: 100%">
+							<tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_city" id="search_city" value="" class="propertyValue1" >
+											<option value="">所在城市</option>
+						               		<c:forEach var="city" items="${cityVo}">
+						                        <option value="${city.cityName}">${city.cityName}</option>
+						                    </c:forEach>
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<button id="searchBtn_city" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_City();">
+										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<table id="courseCityTable"
 							   class="table table-striped table-bordered table-hover">
 							<colgroup>
 								<col width='5%'></col>
@@ -1256,7 +1214,7 @@
 						<input type="file" name="update_recImgPath_file" id="update_recImgPath_file" class="uploadImg"/>
 					</div>
 					（图片尺寸上传限制：252*97）
-					<input name="recImgPath" id="update_recImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
+					<input name="icon" id="update_recImgPath" value="" type="text" class="{required:true}" style="position: absolute; opacity: 0; filter:Alpha(opacity=0);">
              </div>
 		</div>
 	</form>

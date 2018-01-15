@@ -33,6 +33,9 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 			sql.append("select owh.user_id as userId,owh.lecturer_id as lecturerId,owh.course_id as courseId,");
 			sql.append("oc.smallimg_path as smallimgPath,oc.grade_name as gradeName,");
 			sql.append("ou.name as lecturerName,ou.small_head_photo as teacherHeadImg,owh.watch_time as watchTime,");
+			sql.append(" if(oc.course_pwd is not null,2,if(oc.is_free = 0,1,0)) as watchState, ");  // 观看状态  
+			sql.append(" oc.live_status as  lineState, ");
+			
 			sql.append("oc.is_free as isFree,oc.start_time as startTime,oc.end_time as endTime, owh.type as type  ");
 			sql.append("from oe_watch_history as owh,oe_user as ou,oe_course as oc  ");
 			sql.append("where owh.lecturer_id = ou.id and owh.course_id = oc.id  ");

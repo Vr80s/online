@@ -111,4 +111,6 @@ public interface DoctorService {
 	void addDoctorReport(String id, String[] doctorId);
 
 	public List<MedicalDoctor> getMedicalDoctor(String writingsId);
+
+	List<MedicalDoctor> getAllMedicalDoctorList();
 }

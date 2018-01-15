@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -229,20 +230,14 @@ public class LiveController {
 				return ResponseObject.newErrorResponseObject("获取课程数据有误");
 			}
 			if(courseLecturVo.getWatchState()==0){
-				/**
-				 * 记录人次
-				 */
 				onlineWebService.saveEntryVideo(course_id, user);
 			}else{
-				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
 			       //log.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };
-				
 			}
-			
 			/**
 			 * 是否已经关注了这个主播：0 未关注  1已关注
 			 */
@@ -452,5 +447,78 @@ public class LiveController {
 
 		return ResponseObject.newSuccessResponseObject(null);
 	}
+	
+	
+	/*****************************************
+	 * 		新版app关于学堂的接口   -- 直播接口
+	 * **************************************
+	 */
+	/**
+	 * 推荐中 上不包含的信息
+	 */
+	@RequestMapping("onlineLive")
+	@ResponseBody
+	public ResponseObject onlineLive(HttpServletRequest req,
+										   HttpServletResponse res, Integer id)
+			throws Exception {
+		
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		//课程banner
+		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map1 = new HashMap<String, Object>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map1.put("tid", "1");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		
+		map2.put("tid", "2");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		listTj.add(map1);
+		listTj.add(map2);
+		
+		mapAll.put("banner", listTj);
+		
+		//城市  城市中的课程
+	    List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+		
+		Map<String,Object> mapTj = new HashMap<String, Object>();
+		Map<String,Object> mapNw = new HashMap<String, Object>();
+		Map<String,Object> mapZz = new HashMap<String, Object>();
+		Map<String,Object> mapHf = new HashMap<String, Object>();
+		
+		
+		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(1,4,null);
+		
+		mapTj.put("title","正在直播");
+		mapTj.put("courseList",list);
+		
+		mapNw.put("title","即将直播");
+		mapNw.put("courseList",list);
+		
+		mapZz.put("title","直播课程");
+		mapZz.put("courseList",list);
+		
+		mapHf.put("title","精彩直播回放");
+		mapHf.put("courseList",list);
+		
+		mapCourseList.add(mapTj);
+		mapCourseList.add(mapNw);
+		mapCourseList.add(mapZz);
+		mapCourseList.add(mapHf);
+		mapAll.put("allCourseList",mapCourseList);
+		
+		return ResponseObject.newSuccessResponseObject(mapAll);
+	}
+	
+	
+	
+	
+	
+	
 	
 }

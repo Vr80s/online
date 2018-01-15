@@ -54,40 +54,17 @@ function userIndexCourseList(type,falg){
 			var objList = data.resultObject;
 			if(!falg){
 				$("#personage_bto_cen1").html("");
-//				$(".null15").show();
-			}/*else{
-				$(".null15").show();
-			}*/
-			
-//			var NullPersonage = $("#personage_bto_cen1").html("");
-			
-//			if(NullPersonage == null || NullPersonage.length == 0){
-//				$(".null15").show();
-//			}else{
-//				$(".null15").hide();
-//			}
-			
-			/*if(falg){
-				$("#personage_bto_cen1").html("");
-				$(".null15").show();
-			}else{
-				$(".null15").hide();
-			}*/
-			
-			
+			}
 			if(objList.length<6){
 				$(".more_btm").hide();
 			}else{
 				$(".more_btm").show();
 			}
-			
-			
 			if(objList == null || objList.length == 0){
 				$(".null15").show();
 			}else{
 				$(".null15").hide();
 			}
-			
 			
 			var html ="";
 			if (objList.length>0) {

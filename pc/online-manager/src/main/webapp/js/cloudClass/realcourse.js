@@ -6,6 +6,7 @@ var updateCourseForm;//修改课程表单
 var studyDayForm;//设置学习计划模板表单
 
 var _courseRecTable;//课程推荐列表
+var _cityTable;
 
 $(function(){
 	document.onkeydown=function(event){
@@ -25,6 +26,7 @@ $(function(){
     { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
     { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+    { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
         return data+"h";
@@ -39,6 +41,13 @@ $(function(){
     { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
     { "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
     { "title": "实际报名人数", "class":"center","sortable":false,"data": 'actCount',"visible":false},
+    { "title": "是否推荐", "class":"center","width":"8%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
+		if(data==1){
+			return "<span name='sftj'>已推荐</span>";
+		}else{
+			return "<span name='sftj'>未推荐</span>";
+		}
+	} },
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -83,15 +92,8 @@ $(function(){
 //				'<a class="blue" href="javascript:void(-1);" title="设置学习计划模板" onclick="setPlanTemplate(this);"><i class="ace-icon fa fa-sitemap bigger-130"></i></a></div>';
 	    	}
 	    } 
-	},
-	{ "title": "学科id", "class": "center","sortable": false,"data":"menuId","visible":false },
-    { "title": "课程类别id", "class": "center","sortable": false,"data":"courseTypeId","visible":false },
-    {title: '讲师', "class": "center", "width": "7%","data": 'role_type1', "visible": false},
-    {title: '班主任', "class": "center", "width": "7%","data": 'role_type2', "visible": false},
-    {title: '助教', "class": "center", "width": "7%","data": 'role_type3', "visible": false},
-    {title: '地址', "class": "center", "width": "7%","data": 'address', "visible": false},
-    { "title": "授课方式", "class":"center","width":"8%","sortable":false,"data": 'teachMethodName', "visible": false}];
-	
+	}];
+debugger;
 	P_courseTable = initTables("courseTable",basePath+"/realClass/course/list",objData,true,true,0,null,searchCase_P,function(data){
 		debugger;
 		var iDisplayStart = data._iDisplayStart;
@@ -115,7 +117,114 @@ $(function(){
 		}
 	});
 	/** 线下培训班列表end */
-
+	
+	//TODO
+	
+	/** 课程推荐列表begin */
+	
+    var objRecData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
+    }},
+    { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
+    { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
+    { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+    { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
+    { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"width":"8%"},
+    { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
+    	if(data==1){
+    		return data="<span name='zt'>已启用</span>";
+    	}else{
+    		return data="<span name='zt'>已禁用</span>";
+    	}
+    } },
+    {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
+    	var str;
+    	if(row.status ==1){//如果是禁用
+    		str='<a class="blue" name="upa" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+        	'<a class="blue" href="javascript:void(-1);" name="downa" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+    	}else{//如果是不禁用
+    		str='<a class="gray" href="javascript:void(-1);" title="上移"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+        	'<a class="gray" href="javascript:void(-1);" title="下移" ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+    	}
+    	return '<div class="hidden-sm hidden-xs action-buttons">'+str;
+    }},
+    { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
+		return '<div class="hidden-sm hidden-xs action-buttons">'+
+		'<a class="blue" href="javascript:void(-1);" title="取消推荐" onclick="updateRec(this);">取消推荐</a> ';
+		}
+    }];
+     debugger;
+     
+     var searchCase_P1 = new Array();
+     searchCase_P1.push('{"tempMatchType":9,"propertyName":"search_onlineCourse","propertyValue1":"1","tempType":Integer}');
+	
+     _courseRecTable = initTables("courseRecTable",basePath+"/cloudclass/course/recList",objRecData,true,true,0,null,searchCase_P1,function(data){
+	
+		debugger;
+		var iDisplayStart = data._iDisplayStart;
+		var countNum = data._iRecordsTotal;//总条数
+		pageSize = data._iDisplayLength;//每页显示条数
+		currentPage = iDisplayStart / pageSize +1;//页码
+		if(currentPage == 1){//第一页的第一行隐藏向上箭头
+			$("#courseRecTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
+		}
+		if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
+			$("#courseRecTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
+		}
+		var countPage;
+		if(countNum%pageSize == 0){
+			countPage = parseInt(countNum/pageSize);
+		}else{
+			countPage = parseInt(countNum/pageSize) + 1;
+		}
+		if(countPage == currentPage){//隐藏最后一条数据下移
+			$("#courseRecTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
+		}
+		
+		
+	});
+	/** 课程推荐列表end */
+	
+	
+	/** 城市管理开始 */
+	//TODO
+	var objCityData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
+    }},
+    { "title": "城市管理ID", "class": "center","width":"5%","sortable": false,"data":"id" },
+    { "title": "城市名称", "class":"center","width":"9%","sortable":false,"data": 'cityName' },
+    { "title": "城市展示图", "class":"center","width":"13%","sortable":false,"data": 'icon' ,"mRender":function (data, display, row) {
+    	if(data != "" && data != null){
+    		return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+    	}else{
+    		return "暂无图片";    	
+    	}
+	}},
+	//TODO
+    {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
+    	var str;
+    	if(row.status ==1){//如果是禁用
+    		str='<a class="blue" name="upa" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+        	'<a class="blue" href="javascript:void(-1);" name="downa" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+    	}else{//如果是不禁用
+    		str='<a class="gray" href="javascript:void(-1);" title="上移"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+        	'<a class="gray" href="javascript:void(-1);" title="下移" ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+    	}
+    	return '<div class="hidden-sm hidden-xs action-buttons">'+str;
+    }},
+	{ "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
+		return '<div class="hidden-sm hidden-xs action-buttons">'+
+		'<a class="blue" href="javascript:void(-1);" title="设置图片" onclick="updateRecImg(this);">设置图片</a> </div>';
+		}
+	}];
+     debugger;
+    // P_courseTable = initTables("courseTable",basePath+"/realClass/course/list",objData,true,true,0,null,searchCase_P,function(data){
+	_cityTable = initTables("courseCityTable",basePath+"/realClass/course/courseCityList",objCityData,true,true,0,null,searchCase_P,function(data){
+	
+		
+	});
+	/** 城市管理结束 */
+	
 	/** 表单验证START */
 	studyDayForm = $("#studyDay-form").validate({
 		messages: {
@@ -259,7 +368,6 @@ $(function(){
 	});
 	/** 表单验证END */
 
-	//TODO
 	
 	//新增根据一级菜单获取相应的二级菜单 暂时用不上，现在没有级联菜单
 	$('#menuName').change(function(){
@@ -316,7 +424,7 @@ $(function(){
 
 	$("#updateRecImg-form").validate({
 		messages: {
-			recImgPath: {
+			icon: {
 				required: "请选择图片！"
 			}
 		}
@@ -875,48 +983,24 @@ function search_P(){
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
 	searchButton(P_courseTable,json);
 };
+//TODO
 /**
- * 微课列表搜索
+ * 线下培训班推荐
  */
-function search_M(){
-	var json = new Array();
-    json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"1","tempType":"String"}');
-	$("#searchDiv_M .searchTr").each(function() {
-		if (!isnull($(this).find('.propertyValue1').val())) {
-			var propertyValue2 = $(this).find('.propertyValue2').val();
-			if(!isnull(propertyValue2)){
-				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()
-					+',"propertyValue2":"'+propertyValue2+'"}');
-			}else{
-				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()+'}');
-			}
-		}
-	});
-	var str = "[" + json.join(",") + "]";
-	M_courseTable.fnFilter(str);
+function search_rec(){
+	
+	var searchCase_P = new Array();
+	searchCase_P.push('{"tempMatchType":9,"propertyName":"search_onlineCourse","propertyValue1":"1","tempType":Integer}');
+	searchCase_P.push('{"tempMatchType":"9","propertyName":"search_city","propertyValue1":"'+$("#search_rec").val()+'","tempType":"String"}');
+	searchButton(_courseRecTable,searchCase_P);
 };
 /**
- * 课程排序列表搜索
+ * 城市推荐管理
  */
-function search_PX(){
+function search_City(){
 	var json = new Array();
-	$("#searchDiv_PX .searchTr").each(function() {
-		if (!isnull($(this).find('.propertyValue1').val())) {
-			var propertyValue2 = $(this).find('.propertyValue2').val();
-			if(!isnull(propertyValue2)){
-				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()
-					+',"propertyValue2":"'+propertyValue2+'"}');
-			}else{
-				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()+'}');
-			}
-		}
-	});
-	var str = "[" + json.join(",") + "]";
-	PX_courseTable.fnFilter(str);
+    json.push('{"tempMatchType":"9","propertyName":"search_city","propertyValue1":"'+$("#search_city").val()+'","tempType":"String"}');
+	searchButton(_cityTable,json);
 };
 
 
@@ -1299,7 +1383,7 @@ function updateStatus(obj,status){
 	}else{
 		row = M_courseTable.fnGetData(oo); // get datarow
 	}
-	ajaxRequest(basePath+"/cloudclass/course/updateStatus",{"id":row.id},function(){
+	ajaxRequest(basePath+"/realClass/course/updateStatus",{"id":row.id},function(){
 		if(status==1) {
 			freshTable(P_courseTable);
 		}else{
@@ -1330,8 +1414,9 @@ function updateRec(obj){
  * @param obj
  */
 function updateRecImg(obj){
+	debugger; //TODO
 	var oo = $(obj).parent().parent().parent();
-	var row = _courseRecTable.fnGetData(oo); // get datarow
+	var row = _cityTable.fnGetData(oo); // get datarow
 	
 	$(".clearfixUpdate").remove();
  	$("#updateRecImg").prepend("<div class=\"clearfixUpdate\">\n" +
@@ -1345,14 +1430,12 @@ function updateRecImg(obj){
 	
 	if(row.recImgPath != null && row.recImgPath != ""){
 		reviewImageRecImg("update_recImgPath_file",row.recImgPath);
-		
 		$(".remove").hide();
 	}
-
 	var dialog = openDialog("updateRecImgDialog","dialogUpdateRecImgDiv","设置课程展示图",580,330,true,"确定",function(){
  		if($("#updateRecImg-form").valid()){
  			 mask();
- 			 $("#updateRecImg-form").attr("action", basePath+"/cloudclass/course/updateRecImgPath");
+ 			 $("#updateRecImg-form").attr("action", basePath+"/realClass/course/courseCityUpdate");
  	            $("#updateRecImg-form").ajaxSubmit(function(data){
  	            	try{
                  		data = jQuery.parseJSON(jQuery(data).text());
@@ -1360,10 +1443,11 @@ function updateRecImg(obj){
                  		data = data;
                  	}
  	                unmask();
+ 	                debugger;
  	                if(data.success){
  	                    $("#updateRecImgDialog").dialog("close");
- 	                    layer.msg(data.errorMessage);
- 	                    freshTable(_courseRecTable);
+ 	                    layer.msg("修改成功");
+ 	                    freshTable(_cityTable);
  	                }else{
  	                	layer.msg(data.errorMessage);
  	               }
@@ -1578,46 +1662,33 @@ $(".rec_M").click(function(){
  * 展示线下培训班管理
  * 
  */
-$(".zykgl_bx").click(function(){
+$(".xxpxb_bx").click(function(){
 	$("#courseDiv").show();
-	$("#courseDiv_M").hide();
-	$("#courseDiv_PX").hide();
 	$("#courseRecDiv").hide();
+	$("#courseCityDiv").hide();
 	freshTable(P_courseTable);
 });
 /**
- * 展示微课管理
+ *>线下课推荐管理
  *
  */
-$(".wkgl_bx").click(function(){
+//TODO
+$(".xxtj_bx").click(function(){
 	$("#courseDiv").hide();
-	$("#courseDiv_M").show();
-	$("#courseDiv_PX").hide();
-	$("#courseRecDiv").hide();
-	freshTable(M_courseTable);
-});
-/**
- * 展示课程推荐
- * 
- */
-$(".kctj_bx").click(function(){
-	$("#courseDiv").hide();
-	$("#courseDiv_M").hide();
-	$("#courseDiv_PX").hide();
 	$("#courseRecDiv").show();
+	$("#courseCityDiv").hide();
 	freshTable(_courseRecTable);
 });
 /**
- * 展示课程排序
- *
+ * 城市推荐管理
  */
-$(".kcpx_bx").click(function(){
+$(".city_bx").click(function(){
 	$("#courseDiv").hide();
-	$("#courseDiv_M").hide();
-	$("#courseDiv_PX").show();
 	$("#courseRecDiv").hide();
-	freshTable(PX_courseTable);
+	$("#courseCityDiv").show();
+	freshTable(_cityTable);
 });
+
 
 function test(){
 	$(".libox").css("display","block");

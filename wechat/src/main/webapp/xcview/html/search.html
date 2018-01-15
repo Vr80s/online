@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/js.js"></script>
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/search.css" />
+ <script type="text/javascript">
+	window.onload = function(){
+		
+//		头部input搜索框开始
+		document.onkeydown=function(event){
+	        var e = event || window.event || arguments.callee.caller.arguments[0];
+	          /*if(e && e.keyCode==27){ // 按 Esc 
+	              //要做的事情
+	            }
+	          if(e && e.keyCode==113){ // 按 F2 
+	               //要做的事情
+	             }*/            
+	        if(e && e.keyCode==13){ // enter 键
+	              //要做的事情
+//	            $(".history_img_right").click();
+	            $("#header_input").blur();
+	            $("#header_input").blur(function(){
+				$("body").trigger("click");	
+			});
+	              
+	        } 
+	    }; 
+		
+		$("#header_input").blur(function(){
+			if($("#header_input").val() != ""){
+				
+				$(".header_seek_main").css("display","none");
+			}else{
+				$(".header_seek_main").css("display","block");
+			};
+		});
+		$("#header_input").click(function(){
+			$(".header_seek_main").css("display","none");
+		});
+//		头部input搜索框结束
+
+
+		/*清除历史开始*/
+		$(".search_history_title .div1").click(function(){
+			$(".search_history_list_one").remove();
+		});
+		/*清除历史结束*/
+		
+//		点击X开始
+		$(".search_history_list_one .div1").click(function(){
+			$(this).parent().remove();
+		});
+//		点击X结束
+		
+	};
+</script>
+
+
+</head>
+
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			
+			<div class="header_seek"> 
+				<input type="text" name="" value="" id="header_input" />
+				<div class="header_seek_main">
+					<img src="/xcview/images/sousuo0.png" alt="" />针灸疗法
+				</div>
+			</div>
+			<div class="header_cancel">取消</div>
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	<!--热门搜索开始-->
+	<div class="search_hot">
+		<div class="search_hot_title">热门搜索</div>
+		<div class="search_hot_main">
+			<div class="search_hot_main_one">针灸疗法</div>
+			<div class="search_hot_main_one">各式推拿</div>
+			<div class="search_hot_main_one">美容养生</div>
+			<div class="search_hot_main_one">药膳食疗</div>
+			<div class="search_hot_main_one">古籍经典</div>
+			<div class="search_hot_main_one">各家综合</div>
+			<div class="both"></div>  <!--both清除浮动-->
+		</div>
+	</div>
+	<!--热门搜索结束-->
+	
+	<!--搜索历史开始-->
+	<div class="search_history">
+		<div class="search_history_title">
+			<div class="div0">搜索历史</div>
+			<div class="div1">清除历史</div>
+			<div class="both"></div>
+		</div>
+		<div class="search_history_list">
+			<div class="search_history_list_one">
+				<div class="div0">针灸疗法</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">麦冬</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">伤寒论</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+			<div class="search_history_list_one">
+				<div class="div0">各式推拿</div>
+				<div class="div1">×</div>
+				<div class="both"></div>
+			</div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<!--搜索历史结束-->
+	
+
+</body>
+
+</html>

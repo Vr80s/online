@@ -1,0 +1,984 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title></title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../css/css.css">
+	<style>
+		.guanzhu1 {
+			display: none;
+		}
+
+		.guanzhu2 {
+			display: none;
+		}
+		.mCSB_inside>.mCSB_container{
+			margin-right:0rem;
+		}
+		.mCustomScrollBox{
+			height:85%;
+		}
+		/* 修改黑色背景色 */
+		.buy_bg{
+			height: 8.95rem;
+		}
+		.details_footer_width ul li{
+			margin-top: 0.2rem;
+		}
+		.buy_center{
+			top: 4rem;
+			margin-top:0;
+			height: 5rem;
+		}
+		.look_main p{
+			margin-top:0;
+		}
+		
+		/*这段css是控制  没有视频的时候的展示,不确定是否有影响和其他弹框*/
+		.history_bg_cen{
+			margin-top: 9rem;
+		}
+	</style>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<link rel=stylesheet
+	href="/xcviews/css/jquery.mCustomScrollbar.min.css">
+<script type="text/javascript" src="../js/js.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".li1").click(function(){
+  		$(this).addClass('details');
+  		$(".li2").removeClass('details');
+  		$(".li3").removeClass('details');
+  		$(".li4").removeClass('details');
+		$(".coze_bottom").show();
+		$(".coze").show();
+		$(".details1").hide();
+		$(".document").hide();
+		$(".chapter").hide();
+		
+		/* $(".opc").show(); */
+		
+	});
+	$(".li2").click(function(){
+  		$(this).addClass('details');
+  		$(".li1").removeClass('details');
+  		$(".li3").removeClass('details');
+  		$(".li4").removeClass('details');
+		$(".details1").show();
+		$(".coze").hide();
+		$(".document").hide();
+		$(".chapter").hide();
+		$(".details_chat").hide();
+		$(".coze_bottom").hide();
+		$(".coze_bottom").css("bottom","0");
+		$(".facebox-mobile").hide();
+		$(".face_img01").css("background","url(/xcviews/images/face.png) no-repeat");
+		$(".face_img01").css("background-size","100% 100%");
+		$(".opc").hide();	
+	});
+  	$(".li3").click(function(){
+  		$(this).addClass('details');
+  		$(".li1").removeClass('details');
+  		$(".li2").removeClass('details');
+  		$(".li4").removeClass('details');
+		$(".chapter").show();
+		$(".coze").hide();
+		$(".details1").hide();
+		$(".document").hide();
+		$(".details_chat").hide();
+		$(".coze_bottom").hide();
+		$(".coze_bottom").css("bottom","0");
+		$(".facebox-mobile").hide();
+		$(".face_img01").css("background","url(/xcviews/images/face.png) no-repeat");
+		$(".face_img01").css("background-size","100% 100%");
+	 });
+	$(".li4").click(function(){
+  		$(this).addClass('details');
+  		$(".li1").removeClass('details');
+  		$(".li2").removeClass('details');
+  		$(".li3").removeClass('details');
+		$(".document").show();
+		$(".coze").hide();
+		$(".details1").hide();
+		$(".chapter").hide();
+		$(".details_chat").hide();
+		$(".coze_bottom").hide();
+	});
+		$(".li2").click();
+
+
+		$(".close").click(function(){
+		$(".details_chat").hide();
+		});
+
+
+		// 点击分享
+	$(".history_img_right").click(function() {
+		$(".share").show();
+	});
+	$(".share_footer_call").click(function() {
+		$(".share").hide();
+	});
+
+
+    $(".gift_ul_li").on("click","li",function(){
+    	$(this).addClass('gift_ul_li_li').siblings().removeClass('gift_ul_li_li');
+    });
+
+
+ // 第一层
+    var aBtn0=$('.chapter_title');
+        for(i=0;i<aBtn0.length;i++){
+            $(aBtn0[i]).click(function(){
+	      if($(this).next(".chapter_main").css("display")=="none"){
+	        $(this).next(".chapter_main").show();
+	        }else{
+	        $(this).next(".chapter_main").hide();
+	      }
+	      	$(this).next(".chapter_main").find(".chapter_main_cen").hide();
+	      	$(this).next(".chapter_main").find(".chapter_main_cen").find(".chapter_main_cen_ul").hide();
+	    });
+    }  
+
+     // 第二层
+    var aBtn2=$('.chapter_main_title');
+        for(i=0;i<aBtn2.length;i++){
+            $(aBtn2[i]).click(function(){
+        if($(this).next(".chapter_main_cen").css("display")=="none"){
+          $(this).next(".chapter_main_cen").show();
+          $(this).find(".chapter_main_title_bg").addClass('chapter_main_title_bg01');
+          }else{
+          $(this).next(".chapter_main_cen").hide();
+            $(this).find(".chapter_main_title_bg").removeClass('chapter_main_title_bg01');
+        }
+        $(this).next(".chapter_main_cen").find(".chapter_main_cen_ul").hide();
+      });
+    } 
+
+	// 第三层
+	var aBtn1=$('.chapter_main_cen_title');
+  	for(i=0;i<aBtn1.length;i++){
+        $(aBtn1[i]).click(function(){
+			if($(this).next(".chapter_main_cen_ul").css("display")=="none"){
+				$(this).next(".chapter_main_cen_ul").show();
+				}else{
+				$(this).next(".chapter_main_cen_ul").hide();
+			}
+		});
+     } 
+
+	// 第四层
+    $(".chapter_main_cen_ul li").click(function(){
+  		$(".chapter_cen_ul_span").addClass('chapter_ul_span01');
+  		$(".give_lable2_span").removeClass('give_lable1_span1');
+		});
+
+	var aBtn=$('.chapter_main_cen_ul li');
+      for(i=0;i<aBtn.length;i++){
+        
+        $(aBtn[i]).click(function(){
+
+          for(i=0;i<aBtn.length;i++){
+            $(aBtn[i]).removeClass('chapter_main_cen_ul_li01');
+          }
+          
+          $(this).addClass('chapter_main_cen_ul_li01');
+        })
+     }
+     $(aBtn[0]).click();
+
+     
+     /*微信*/
+     $(".weixin_li").click(function() {
+         $(".weixin_ceng").show();
+     });
+     $(".weixin_ceng").click(function() {
+         $(this).hide();
+     }); 
+     
+     /* 点击发送 */
+     $(".send_img").click(function() {
+         $(".give_a1_span02").hide();
+     });
+     
+     //文本域
+     $("#mywords").click(function() {
+         $(".facebox-mobile").hide();
+         $(".coze_bottom").css("bottom","0rem");
+         /* 点击文本域，发送图切换 */
+         $("#sendChat").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');
+         $("#sendChat").css('background-size','100% 100%'); 
+         /* 点击文本域，笑脸图切换 */
+         $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+         $(".face_img01").css('background-size','100% 100%'); 
+         
+     });  
+     
+     
+     $("#face").click(function() {
+         $(".facebox-mobile").css("left","0px");
+         /* $(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
+         $(".face_img01").css('background-size','100% 100%'); */
+
+        var a = $(".facebox-mobile").css("display");
+     	if(a=="block"){
+             setTimeout(function(){
+             	 $(".facebox-mobile").hide();
+             	$(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+                $(".face_img01").css('background-size','100% 100%'); 
+             },50);
+             $(".coze_bottom").css("bottom","0rem");
+     	}else{
+     		 $(".coze_bottom").css("bottom","7.2rem");
+     		$(".facebox-mobile").css("maegin-left","0px !important");
+     		$(".facebox-mobile").css("top","32px !important");
+     		
+     		 setTimeout(function(){
+     			 $(".facebox-mobile").show();
+     			$(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
+     	 	     $(".face_img01").css('background-size','100% 100%');
+             },50);
+     	}
+         
+     }); 
+     
+    /*  $("#face").toggle(function(){
+    	 $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+         $(".face_img01").css('background-size','100% 100%'); 
+	    		function(){
+ 		 $(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
+ 	     $(".face_img01").css('background-size','100% 100%');  
+	 ); */
+	
+	/*点击头部*/
+	$("header").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
+     
+     /*点击视频区域*/
+     $("#video").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
+     /*点击评论详情*/
+     $(".details_footer").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
+	
+	
+     $(".chatmsg-box").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
+     
+     
+     $("#sendChat").click(function() {
+          $(".coze_bottom").css("bottom","0rem"); 
+          $("#sendChat").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');
+          $("#sendChat").css('background-size','100% 100%'); 
+          
+          $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+          $(".face_img01").css('background-size','100% 100%'); 
+     });
+     
+     /*处理华为手机输入框遮挡*/
+     
+	var clientHeight = document.documentElement.clientHeight || document.body.clientHeight; $(window).on('resize', function () {
+    var nowClientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+    if (clientHeight > nowClientHeight) {
+        //键盘弹出的事件处理
+        $("header").css("margin-top","-0.7rem"); 
+		$(".details_top").css("margin-top","-0.7rem"); 
+    }
+    else {
+        //键盘收起的事件处理
+        $("header").css("margin-top","0rem"); 
+	          $(".details_top").css("margin-top","0rem"); 
+    } });
+    
+    
+});
+</script>
+
+<style>
+	.facebox-mobile{
+		left: 0px ;
+	}
+	.weixin_ceng{
+		width:100%;
+		height:100%;
+    	display:none;
+		
+	}
+	.weixin_ceng_bg{
+		width: 100%;
+	    height: 100%;
+	    background: #000;
+	    opacity: 0.5;
+	    position: fixed;
+	    left: 0;
+	    top: 0;
+    	z-index: 999999999999;
+	}
+	.weixin_img{
+		/* width:7rem;
+		height:7rem; */
+		background: red;
+	    background: red;
+	    position: fixed;
+	    z-index: 999999999999;
+	    top: 0rem;
+	    right: 0;
+	}
+	.weixin_img img{
+		position: absolute;
+		top:0rem;
+		right: 0.3rem;
+		width:6rem;
+		z-index: 99999999;
+	}
+	.details_anchor_attention{
+		margin-top:0.5rem;
+	}
+	.grabble_left{
+		width: 1.8rem;
+	    height: 1.8rem;
+	    float: left;
+	}
+	.mCSB_inside>.mCSB_container{
+		margin-right: 0;
+	}
+	.mCustomScrollBox{
+		padding-top: 0.5rem;
+	}
+	.coze_bottom{
+		padding: 0;
+	}
+	.textarea01{
+		width: 13.3rem;
+	    border-radius: 6px;
+	    float: right;
+	    margin-left: 1.6rem;
+	    height: 1.45rem;
+	    line-height: 1.45rem;
+	    border: 1px solid #ccc;
+	    outline: none;
+	    font-size: 0.7rem;
+	    text-indent: 0.3rem;
+	    color: #999;
+	    border-radius: 9px;
+	    margin-top: 0.335rem;
+	}
+	.give_a01{
+		margin-top: 0.6rem;
+	    margin-right: 0.2rem;
+	    display: block;
+	    float: left;
+	    position: absolute;
+	    left: 0;
+	}
+	#mywords{
+		background: #fff;	
+	}
+	.face_img01 {
+		width: 1.2rem;
+   	 	height: 1.2rem;
+	    background: url(/xcviews/images/face.png) no-repeat;
+	    background-size: 100% 100%;
+	    margin-left: 0.4rem;
+	    position: absolute;
+    	top: -2px;
+	}
+	.give_a01 .facebox-mobile{
+		top: 36px !important;
+	}
+	.coze_bottom input{
+		border: none;
+		margin-top: 0;
+		margin-left: 0;
+		background: none;
+	}
+	.div1_put{
+		width: 13.3rem;
+		height: 1.45rem;
+	    line-height: 1.45rem;
+	    border: 1px solid #ccc;
+	    outline: none;
+	    font-size: 0.7rem;
+	    text-indent: 0.3rem;
+	    color: #999;
+	    border-radius: 9px;
+	    margin-top: 0.35rem;
+	    margin-left: 1.6rem;
+	    background: #fff;
+	}
+	.anchor_center02{
+		padding-top: 3.4rem;
+		margin-bottom: 2.5rem;
+	}
+	.details_anchor{
+		margin-top: -0.7rem;
+	}
+	#mCSB_1{
+		margin-top: -0.4rem;
+	}
+	.opc{
+		width: 100%;
+	    height: 50px;
+	    background: #fff;
+	    height: 2.215rem;
+	    position: fixed;
+	    z-index: 999999999;
+	    bottom: 0;
+	    opacity: 0;
+	}
+	.history_bg_bto{
+		margin-top: 0.6rem;
+	}
+	
+	.fd_img_bg{
+	    width: 4.5rem;
+	    height: 4.525rem;
+	    position: absolute;
+	    bottom: 0;
+	    background: url(/xcviews/images/null13.png) no-repeat;
+	    background-size: 100% 100%;
+    }
+    
+    .fx_bg {
+	    width: 0.65rem;
+	    height: 0.65rem;
+	    background: url(/xcviews/images/fx.png)no-repeat;
+	    background-size: 100% 100%;
+	    float: right;
+	    margin-right: 0.3rem;
+	}
+	.history_bg_cen{
+		width: 11.55rem;
+	    height: 6.35rem;
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    margin-left: -37%;
+	    background: #f4f4f4;
+	    z-index: 999999999;
+	    border-radius: 6px;
+	    font-size: 0.65rem;
+	    text-align: center;
+	}
+	.history_bg_bto1{
+		width: 100%;
+	    border-top: 1px solid #d2d2da;
+	    line-height: 1.8rem;
+	    font-size: 0.65rem !important;
+	    margin-top: 1.2rem;
+	}
+	.sr-bdimgshare-black{
+		display: none !important;
+	}
+</style>
+
+</head>
+<body style="background:#efefef;">
+	<div class="opc"></div>
+
+
+    <!-- 如果视频id出现错误，弹框 -->
+	<div class="history_bg" style="display:none;">
+		<div class="history_bg_color"></div>
+		<div class="history_bg_cen"  style="">
+			<div class="history_bg_cen_size">视频迷路了，请试试其他视频。<!--此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span>--></div>
+			<div class="history_bg_bto">
+				<div class="history_bg_bto1" style="float:right;" onclick="javascript:history.back(-1);">确定</div>
+				<!-- <div class="history_bg_bto2">取消</div> -->
+				<div class="both"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 头部开始 -->
+	<header>
+		<div class="grabble">
+			<div class="grabble_top">
+				<div class="grabble_left" onclick="isLoginJump()">
+					<div class="grabble_img"></div>
+				</div>
+				
+				<span class="history_span" style="color:#666;width:12.2rem;">视频详情</span>
+				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;margin-top: 0.6rem;"><div class="fx_bg"></div></div>
+				<!--<div class="history_img_right" id="share" style="width:1.6rem;color:#00bc12;">分享</div>-->
+			</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height:1.8rem;"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="details_top" style="position: fixed;width:100%;background:#fff;border-bottom: 1px solid #d2d2d2;z-index:9999;">
+		<div class="details">
+			<!--<video width="100%" controls="controls" controls="controls">
+			  	<source src="../images/movie.ogg" type="video/ogg">
+			  	<source src="../images/movie.mp4" type="video/mp4">
+			</video>-->
+			<span id="videoSpan">
+				<div class="video" id="video" style="width: 100%; height: 8.95rem;">
+				</div>
+			</span>
+			
+			<!-- 没有视频的时候展示效果开始 -->
+			<div class="no_video" style="dispaly:none">
+				视频正在赶来的路上
+			</div>
+			<!-- 没有视频的时候展示效果结束 -->
+			
+			<div class="details_bottom">
+				<!-- <div class="details_size" style="min-width: 4rem;bottom:3rem;background: url(/xcviews/images/size_bg.png);background-size: 100% 100%;">
+					观看人数：<span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+					礼物：<span></span>
+				</div> -->
+			</div>
+		</div>
+		<div class="details_footer">
+			<div class="details_footer_width">
+				<ul>
+					<li><span class="li2">详情</span></li>
+					<li><span class="li3">章节</span></li>
+					<li><span class="li1">评论</span></li>
+					<!-- <li><span class="li4">文档</span></li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+<!--	<div class="details_chat">
+		<div class="details_chat_center">
+			<img src="../images/touxiang.png" alt="" class="details_chat1" />
+			<div class="details_chat_attention"  id="zhibopinglun">
+				<p class="p1"></p>
+				<p class="p2">播&nbsp;&nbsp;&nbsp;主：<span></span></p>
+				&lt;!&ndash; <p class="p3">房间号：<span>232200</span></p> &ndash;&gt;
+			</div>
+			<div class="details_chat2">
+				<img src="../images/guanzhu_03.png" alt="" />
+				<p id="guanzhu1" class="guanzhu1"  style="width: 3rem;background: #8cc427;padding: 0.25rem;border-radius: 9px;">关注</p>
+				<p id="guanzhu2" class="guanzhu2" style="width:3.5rem;background: #666;width: 3.3rem;padding: 0.25rem;border-radius: 9px;">已关注</p>
+			</div>
+			<div class="close"><img src="../images/x.png" alt="" /></div>
+		</div>
+		<div class="both"></div>
+	</div>-->
+	<div class="footer_k" style="height:10rem;"></div>
+    
+    <!-- 详情聊天开始 -->
+	<div class="coze" style="margin-top: 1rem;">
+	 	<div style="height:0rem;"></div>
+	 	<div class="chatmsg-box" style="height:12rem;">
+			<div class="coze_center" id="chatmsg"
+				style="overflow: auto;">
+				<div class="footer_k" style="height: 3.6rem;"></div>
+			</div>
+		</div>	
+	</div>	
+	<div class="coze_bottom" style="height: 2.215rem;">
+			<div class="coze_bottom_input" style="margin-right:0;">
+				<div class="send_img" id="sendChat" style="background: url(/xcviews/images/jiantou02.jpg) no-repeat;background-size: 100% 100%; position: absolute;top: 0.45rem;right: 0.8rem;width: 1.375rem;height: 1.15rem;border-radius: 6px 6px 3px 0px;margin-top: 0.1rem;border-radius: 6px;">
+					<!-- <img src="/xcviews/images/send.jpg" data-bd-imgshare-binded="1"> -->
+					
+				</div>
+			
+				<div class="div1_put">
+					<input id=mywords onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)' style="width:11rem;border-radius: 6px 0 0 6px;float: left;margin-left: 0.2rem;" class="textarea01" />
+				</div>
+			</div>
+			<div class="give_a01" style=" margin-right: 0.2rem; display: block;">
+				<a id="face" href="javascript:;" class="face give_a1_span" style="margin-left: 0.3rem; display: inline;position: relative;">
+					<div class="face_img01" ></div>
+					<!-- <img src="/xcviews/images/face.png" style="margin-top: -0.2rem;" class="face_img01" data-bd-imgshare-binded="1"> -->
+				</a>
+					
+				<!-- <span class="face give_a1_span02" style="margin-left: 0.1rem; display: inline;"><img src="/xcviews/images/give.png" style="margin-top: -0.2rem;" data-bd-imgshare-binded="1"></span> -->
+					
+					
+					<!-- <span class="give_a1_span"
+					id="sendChat">发送</span> -->
+			</div>
+			
+			
+			<!-- <a id="face" href="javascript:;" class="face particulars_a" style="margin-right:0;"></a>
+			<a href="javascript: ;" class="give_a1 particulars_a" id="sendChat">发送</a> -->
+			<!-- <a href="javascript: ;"  class="give_a2"><img src="../images/give.png" alt="" /></a> -->
+	</div>
+    <!-- 详情评论结束 -->
+
+	<!-- 直播打赏开始 -->
+	<!--<div class="give_bottom">
+		<p>打赏</p>
+		<div class="give_lable1">
+			<span class="give_lable1_span"></span>
+			<label for=""  class="lable1_put">
+				<input name="give" type="radio" />
+			</label>
+			<span class="give_money1">￥<span>1.88</span></span>
+		</div>
+		<div class="give_lable2">
+			<span class="give_lable2_span"></span>
+			<label for=""  class="lable2_put">
+				<input name="give" type="radio" />
+			</label>
+			<span class="give_money2">￥<span>8.88</span></span>
+		</div>
+		<div class="give_lable3">
+			<span class="give_lable3_span"></span>
+			<label for=""  class="lable3_put">
+				<input name="give" type="radio" />
+			</label>
+			<span class="give_money3">￥<span>88.88</span></span>
+		</div>
+
+		<div class="both"></div>
+		<div class="give_footer">
+			<input type="text" placeholder="输入其他金额" class="give_footer_put" />
+			<a href="javascript: ;">微信支付</a>
+			<span class="give_footer_span">X</span>
+		</div>
+		
+	</div>-->
+	<!-- 直播打赏结束 -->
+
+
+	<!-- 直播分享页开始 -->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_footer">
+			<ul>
+				<li style="margin-left: 2.8rem;" class="weixin_li"><a href="javascript: ;"><img src="/xcviews/images/share01.png" alt="" /><p>微信</p></a></li>
+				<!-- <li><script type="text/javascript">document.write(['<a href="http://service.weibo.com/share/share.php?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank" ><img src="/xcviews/images/share03.png" alt="" /><p>新浪微博<\/p><\/a>'].join(''));</script></li>
+				<li><script type="text/javascript">document.write(['<a href="http://connect.qq.com/widget/shareqq/index.html?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank" ><img src="/xcviews/images/share04.png" alt="" /><p>qq好友<\/p><\/a>'].join(''));</script></li>
+		 -->
+		 
+		 	<li id="weiboShare">
+			 	   <a href="javascript:;" target="_blank">
+			 	   <img src="/xcviews/images/share03.png" alt="" data-bd-imgshare-binded="1"><p>新浪微博</p></a>
+			 	 </li>
+				<li id="qqShare">
+				   <a href="javascript:;" target="_blank">
+				   <img src="/xcviews/images/share04.png" alt="" data-bd-imgshare-binded="1"><p>qq好友</p></a>
+				</li>
+		 
+			</ul>
+			<div class="both"></div>
+			<div class="share_footer_call">取消</div>
+		</div>
+	</div>
+	
+	<!-- 点击微信-->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" /></div>
+	</div>
+
+
+<!--	<section class="screenW">
+        <div class="subW">
+            <div class="info">
+                <div class="shareBox">
+                    <h2>请选择您的分享方式：</h2>
+                    <div class="bdsharebuttonbox">
+                        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a>
+                        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a>
+                        <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友">QQ</a>
+                        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a>
+                        &lt;!&ndash;<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a>&ndash;&gt;
+                    </div>
+                    <div class="bdsharebuttonbox">
+                        <a href="#" onclick="return false;" class="popup_more" data-cmd="more"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="close">关闭</div>
+        </div>
+    </section>-->
+	<!--<script src="../js/zepto.min.js"></script>-->
+	<script src="../js/main.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<!-- 直播分享页结束 -->
+
+
+	<!-- 直播送礼物开始 -->
+
+	<!-- <div class="send_gifts">
+		<p class="send_gifts_p">送礼物</p>
+		<div class="send_gifts_ul">
+			<ul class="gift_ul_li">
+				<li>
+					<a href="javascript: ;">
+						<div class="gifts_div">
+							<img src="http://attachment-center.ixincheng.com:38080/data/picture/online/2017/08/15/16/1d125361667e49f1b05b12e5bf035bee.png" alt="" />
+						</div>
+						
+						<div class="gift_p">
+							<p class="liwu" style="font-size:0.7rem;color:#666;" class="gift_p1">杏仁糖</p>
+							<p class="jiage" style="font-size:0.6rem;color:#999;">免费</p>
+						</div>
+						
+					</a>
+				</li>
+				<li>
+					<a href="javascript: ;">
+						<div class="gifts_div">
+							<img src="../images/gift0828.png" alt="" />
+						</div>
+						&lt;!&ndash; <img src="" alt="" /> &ndash;&gt;
+						<div class="gift_p">
+							<p class="liwu" style="font-size:0.7rem;color:#666;">杏仁糖</p>
+							<p class="jiage" style="font-size:0.6rem;color:#8cc427;">1000</p>
+						</div>
+						
+					</a>
+				</li>
+				<li>
+					<a href="javascript: ;">
+						<div class="gifts_div">
+							<img src="../images/gift0828.png" alt="" />
+						</div>
+						&lt;!&ndash; <img src="" alt="" /> &ndash;&gt;
+						<div class="gift_p">
+							<p class="liwu" style="font-size:0.7rem;color:#666;">杏仁糖</p>
+							<p class="jiage" style="font-size:0.6rem;color:#8cc427;">1000</p>
+						</div>
+						
+					</a>
+				</li>
+				<li>
+					<a href="javascript: ;">
+						<div class="gifts_div">
+							<img src="../images/gift0828.png" alt="" />
+						</div>
+						&lt;!&ndash; <img src="" alt="" /> &ndash;&gt;
+						<div class="gift_p">
+							<p class="liwu" style="font-size:0.7rem;color:#666;">杏仁糖</p>
+							<p class="jiage" style="font-size:0.6rem;color:#8cc427;">1000</p>
+						</div>
+						
+					</a>
+				</li>
+				<li>
+					<a href="javascript: ;">
+						<div class="gifts_div">
+							<img src="../images/gift0828.png" alt="" />
+						</div>
+						&lt;!&ndash; <img src="" alt="" /> &ndash;&gt;
+						<div class="gift_p">
+							<p class="liwu" style="font-size:0.7rem;color:#666;">杏仁糖</p>
+							<p class="jiage" style="font-size:0.6rem;color:#8cc427;">1000</p>
+						</div>
+						
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="both"></div>
+		<div class="balance">
+			<div class="balance_size">
+				&lt;!&ndash;余额：<span>1000</span>&ndash;&gt;
+			</div>
+			<div class="balance_send">发送</div>
+		</div>
+	</div>-->
+	<!-- 直播送礼物结束 -->
+
+
+
+	<!-- 详情主播开始 -->
+	<div class="details1">
+		<div class="details_anchor">
+			<div class="details_anchor_center">
+				<img src="../images/touxiang.png" alt="" id="headImg" class="details_portrait" onclick="userIndex()"/>
+				<div class="details_anchor_attention" id="zhibopinglun" style="width:8rem;">
+					<p class="p1"></p>
+					<p class="p2">播&nbsp;&nbsp;&nbsp;主：<span></span></p>
+					<!-- <p class="p3">房间号：<span></span></p> -->
+				</div>
+				<div class="details_attention" style="width:0;padding:0;background:none;display: inline-table;">
+					<!-- <img src="../images/guanzhu_03.png" alt="" style="margin-top: -0.1rem;margin-left: 0.19rem;" /> -->
+					<p id="guanzhu2" class="guanzhu1"
+						style="width: 3.025rem;height: 1.2rem;background: url(/xcviews/images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -0.5rem;"></p>
+					<p class="guanzhu2"
+						style="background: url(/xcviews/images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -0.5rem;"></p>
+					<input id="teacherId" style="display:none;">
+				</div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="anchor_center02">
+			<div class="anchor_center" style="padding: 0.4rem 0;width: 95%;line-height:1rem;">
+				<div class="details_anchor_title" style="background:none;padding: 0;color: #00bc12;margin-bottom: 0.3rem;">&nbsp;&nbsp;课程介绍</div>
+				<div class="anchor_center_div1">
+					1、<span>理论课与课堂示范</span>
+				</div>
+				<div class="anchor_center_div1">
+					2、<span>天应奇针疗法的理论基础</span>
+				</div>
+				<div class="anchor_center_div1">
+					3、<span>皮肤与疼痛的关系组合针治疗疼痛的原理</span>
+				</div>
+				<div class="anchor_center_div1">
+					4、<span>疼痛与运动筋膜链的关系中医气、经络和疼痛的关系肌肉应力点与触发点的关系</span>
+				</div>
+				<div class="anchor_center_div1">
+					5、<span>疗法应用与临床施教怎样查找应力点</span>
+				</div>
+				<div class="anchor_center_div1">
+					6、<span>人体异常形态与疼痛的关系组合针的使用方法和注意事项火针的适应症与使用方法</span>
+				</div>
+				<div class="anchor_center_div1">
+					7、<span>临床操作培训怎样在动态与静态中查找应力点、阻力点</span>
+				</div>
+				<div class="anchor_center_div1">
+					8、<span>天应奇针疗法的手法治疗诊断与施针治疗技巧</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="both"></div>
+	<!-- 详情主播结束 -->
+
+	<!-- 章节开始 -->
+	<div class="chapter">
+		<div class="chapter_one" id="zjList"></div>
+	</div>
+	<!-- 章节结束 -->
+	
+	
+	<!-- 文档开始 -->
+	<div class="document">
+		<div class="document_ceneter" id="doc">
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<!-- 文档结束 -->
+
+	<!-- 底部购买开始 -->
+	<div class="buy_bottom_bg" id="buyDiv" style="display: none;">
+		<div class="buy_bg" id="bug_bg"></div>
+		<footer>
+			<div class="base buy_bottom">
+				<ul>
+					<li class="buy_left"><p class="buy_bottom_p1" style="margin-top: -0.2rem;">
+						￥<span id="buyPirce"></span>
+					</p>
+						<p class="buy_bottom_p2">该视频为收费视频</p></li>
+					<li class="buy_right" id="buy_right"><a href="javascript: ;"
+															onclick="goPay()">购买</a></li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+	<!-- 底部购买结束 -->
+
+	<!-- 密码开始 -->
+	<div class="buy_bottom_bg" id="passwordDiv"  style="display: none;">
+		<div class="buy_bg"></div>
+		<div class="buy_center buy1_center">
+			<div class="look_main">
+				<p>该视频需要密码播放！</p>
+				<div class="look_put">
+					<input type="password" placeholder="请在此处输入密码" id="password" class="input01" style="border-right:0;" />
+					<button onclick="enterPassword()" style="height:1.42rem;">观看</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<!-- <script>development="dev"</script> -->
+<script src="/xcviews/weihoujs/jquery.min.js"></script>
+
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript">
+if(isWeiXin() && stringnull(getQueryString("openId"))){
+	localStorage.setItem("openid", getQueryString("openId"));	
+	var ccontrollerAddress = "/bxg/user/isLogined";
+	requestService(ccontrollerAddress, null, function(data) {
+		if (data.success) {
+			commonLocalStorageSetItem(data);
+		}else{
+			alert("网络异常");
+		}
+	},false)
+}
+
+</script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/JavaScript">
+
+	var token = localStorage.getItem("token");
+	if(!stringnull(token)){
+	  location.href = "/xcviews/html/share.html?course_id=" + getQueryString("courseId");
+	}
+		
+	//初始化微信 jssdk
+	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var urlparm = {
+		url: window.location.href
+	}
+	var signObj = "";
+	requestService(ccontrollerAddress, urlparm, function(data) {
+		if (data.success) {
+			signObj = data.resultObject;
+		    console.log(JSON.stringify(signObj));
+		}	
+	},false)	
+	wx.config({
+	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
+	    timestamp: signObj.timestamp, // 必填，生成签名的时间戳
+	    nonceStr:signObj.noncestr, // 必填，生成签名的随机串
+	    signature: signObj.sign,// 必填，签名，见附录1
+	    jsApiList: [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'hideMenuItems',
+			'showMenuItems'         
+	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	});
+</script>
+
+<!-- <script type="text/javascript" src="/xcviews/js/particulars.js"></script> -->
+<script src="/xcviews/weihoujs/vhallSDK.js"></script>
+<script src="/xcviews/weihoujs/jquery.mCustomScrollbar.concat.min.js"></script>
+<!--<script type="text/JavaScript"
+	src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
+<script src="/xcviews/weihoujs/underscore-min.js"></script>
+<script type="text/javascript" src="/xcviews/newjs/weihouparticulars.js"></script>
+
+<script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
+<script type="text/javascript" src="/xcviews/js/strophe.js"></script>
+<script type="text/javascript" src="/xcviews/js/particulars.js"></script>
+</html>
