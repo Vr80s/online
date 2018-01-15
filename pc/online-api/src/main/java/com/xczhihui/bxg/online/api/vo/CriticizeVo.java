@@ -43,10 +43,12 @@ public class CriticizeVo implements Serializable {
 
     private  Date  response_time;
 
+    
     /**
      * 视频名称
      */
     private String videoName;
+    
 
     public String getId() {
         return id;
