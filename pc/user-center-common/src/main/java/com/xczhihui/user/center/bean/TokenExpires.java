@@ -24,7 +24,8 @@ public enum TokenExpires {
 		FourDay(Day.getExpires() * 4),
 		FiveDay(Day.getExpires() * 5),
 		TenDay(Day.getExpires() * 10),
-		TwentyDay(Day.getExpires() * 20);
+		TwentyDay(Day.getExpires() * 20),
+		Year(Day.getExpires() * 365);
 
 		private TokenExpires(int expires) {
 			this.expires = expires;

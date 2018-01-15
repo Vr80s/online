@@ -82,7 +82,7 @@ public class UserController extends OnlineBaseController {
 		OnlineUser o = service.findUserByLoginName(username);
 		Token t = null;
 		if(o!=null) {
-            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Day);
+            t = userCenterAPI.login4BBS(username, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
         }
 //		Token t = userCenterAPI.loginForLimit(username, password,TokenExpires.Day,1,info);
 		if (t != null) {
@@ -100,30 +100,32 @@ public class UserController extends OnlineBaseController {
 					service.updateVhallInfo(o);
 				}
 			} else {
-				//本系统没有此用户，说明此用户来自熊猫中医其他系统，新增此用户
-				boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", username);
-				boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",username);
-				if (!ism && !ise) {
-					return ResponseObject.newErrorResponseObject("请用手机或邮箱登陆");
-				}
-				
-				ItcastUser u = this.userCenterAPI.getUser(username);
-    			o = new OnlineUser();
-    			o.setLoginName(u.getLoginName());
-    			o.setName(u.getNikeName());
-    			o.setEmail(u.getEmail());
-    			o.setMobile(u.getMobile());
-    			o.setCreateTime(new Date());
-    			o.setDelete(false);
-    			o.setStatus(0);
-    			o.setVisitSum(0);
-    			o.setStayTime(0);
-				o.setSmallHeadPhoto("/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-    			o.setUserType(0);
-    			o.setMenuId(-1);
-    			o.setOrigin(u.getOrigin());
-    			o.setType(u.getType());
-    			service.addUser(o);
+				return ResponseObject.newErrorResponseObject("用户不存在");
+//				//本系统没有此用户，说明此用户来自熊猫中医其他系统，新增此用户
+//				boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", username);
+//				boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",username);
+//				if (!ism && !ise) {
+//					return ResponseObject.newErrorResponseObject("请用手机或邮箱登陆");
+//				}
+//
+//				ItcastUser u = this.userCenterAPI.getUser(username);
+//    			o = new OnlineUser();
+//    			o.setLoginName(u.getLoginName());
+//    			o.setName(u.getNikeName());
+//    			o.setEmail(u.getEmail());
+//    			o.setMobile(u.getMobile());
+//    			o.setCreateTime(new Date());
+//    			o.setDelete(false);
+//    			o.setStatus(0);
+//    			o.setVisitSum(0);
+//    			o.setStayTime(0);
+//				o.setSmallHeadPhoto("/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
+//    			o.setUserType(0);
+//    			o.setMenuId(-1);
+//    			o.setOrigin(u.getOrigin());
+//    			o.setType(u.getType());
+//    			service.addUser(o);
+
 			}
 			
 			UserUtil.setSessionCookie(request, response, o, t);
