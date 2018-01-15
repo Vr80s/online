@@ -709,7 +709,7 @@ function addgetdata() { //回填数据
 	
 	//省份渲染 无奈之举
 	var num = 1;
-	setTimeout(function(){
+	setInterval(function(){
 		num += 1;
 		if(num<30){
 			if(data.resultObject.province != ''&&data.resultObject.city != null){
