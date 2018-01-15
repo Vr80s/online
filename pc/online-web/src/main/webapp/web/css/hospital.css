@@ -305,11 +305,12 @@ input,button{
   min-height: 443px;
 }
 #forum .forum-content .forum-content-left .forum-content-info .hospital_title{
-	padding-left:20px;
-	font-size: 16px;
-	font-weight: 500;
-	border-bottom: 1px solid #efefef;
+	padding-left: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid #efefef;
     padding-bottom: 10px;
+    margin-top: 15px;
 }
 #forum .forum-content .forum-content-left .forum-content-info #hospital_list{
 padding:0 20px;	

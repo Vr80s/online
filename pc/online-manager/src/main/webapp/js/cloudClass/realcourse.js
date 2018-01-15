@@ -623,6 +623,7 @@ $(".add_P").click(function(){
                 	  }
                 	unmask();
 	                if(data.success){
+                        $(".ace-file-container").remove();
 	                    $("#addCourseDialog").dialog("close");
 	                    layer.msg(data.errorMessage);
 	                    freshTable(P_courseTable);

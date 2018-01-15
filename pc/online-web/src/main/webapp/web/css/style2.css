@@ -126,9 +126,11 @@ a:hover {
 .ssprev,
 .ssnext {
     width: 49px;
-    height: 49px;
+    /*height: 49px;*/
+   height: 80px;
     position: absolute;
-    bottom: 151px;
+    /*bottom: 151px;*/
+   bottom: 123px;
     color: #FFF;
     font-size: 14px;
     z-index: 9;
@@ -143,15 +145,20 @@ a:hover {
 }
 .ssprev {
     left: 0;
-    background: url(../images/arrows_01.png) no-repeat;
+    background:url(../images/prev_left.png) rgba(0,0,0,0.15) no-repeat 17px 20px ;
+
+    
+    /*background: url(../images/arrows_01.png) no-repeat;
     _filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src="../images/arrows_01.png");
-    _background: none
+    _background: none*/
 }
 .ssnext {
     right: 0;
-    background: url(../images/arrows_02.png) no-repeat;
+    /*background: url(../images/arrows_02.png) no-repeat;
     _filter: progid: DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src="../images/arrows_02.png");
-    _background: none
+    _background: none*/
+    background:url(../images/next_right.png) rgba(0,0,0,0.15) no-repeat 17px 20px ;
+   
 }
 /* 分页 */
 .pageClass {
