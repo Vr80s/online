@@ -15,19 +15,23 @@ public class WxcpWxJsconfigServiceImpl implements WxcpWxJsconfigService {
 	@Autowired
 	private WxcpWxJsconfigMapper wxcpWxJsconfigMapper;
 	
-	public int insert( WxcpWxJsconfig record ) throws SQLException {
+	@Override
+    public int insert(WxcpWxJsconfig record ) throws SQLException {
 		return wxcpWxJsconfigMapper.insert(record);
 	}
 	
-	public int delete( String id ) throws SQLException {
+	@Override
+    public int delete(String id ) throws SQLException {
 		return wxcpWxJsconfigMapper.delete(id);
 	}
 	
-	public int update( WxcpWxJsconfig record ) throws SQLException {
+	@Override
+    public int update(WxcpWxJsconfig record ) throws SQLException {
 		return wxcpWxJsconfigMapper.update(record);
 	}
 	
-	public List<WxcpWxJsconfig> select(WxcpWxJsconfig condition, String limit) throws SQLException {
+	@Override
+    public List<WxcpWxJsconfig> select(WxcpWxJsconfig condition, String limit) throws SQLException {
 		return wxcpWxJsconfigMapper.select(condition, limit);				
 	}
 	

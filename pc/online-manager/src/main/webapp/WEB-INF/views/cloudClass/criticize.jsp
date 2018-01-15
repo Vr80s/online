@@ -91,4 +91,4 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="${base}/js/cloudClass/criticize.js?v=1.7"></script>
+<script type="text/javascript" src="${base}/js/cloudClass/criticize.js?v=ipandatcm_1.3"></script>

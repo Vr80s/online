@@ -152,7 +152,8 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 			return retn;
 	}
 
-	public List<MedicalDoctor> findByName(String name){
+	@Override
+    public List<MedicalDoctor> findByName(String name){
 		List<MedicalDoctor> MedicalDoctors=dao.findEntitiesByProperty(MedicalDoctor.class, "name", name);
 		return MedicalDoctors;
 	}

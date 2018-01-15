@@ -524,4 +524,4 @@
 	src="${base}/ueditor/lang/zh-cn/zh-cn.js"></script>
 
 <script type="text/javascript"
-	src="${base}/js/medical/doctorDetail.js?v=2.32"></script>
+	src="${base}/js/medical/doctorDetail.js?v=ipandatcm_1.3"></script>

@@ -160,10 +160,12 @@ public class Apply extends BasicEntity {
         this.idCardNo = idCardNo;
     }
 
+    @Override
     public String getUserId() {
         return userId;
     }
 
+    @Override
     public void setUserId(String userId) {
         this.userId = userId;
     }

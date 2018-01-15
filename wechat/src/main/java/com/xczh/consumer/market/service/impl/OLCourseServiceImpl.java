@@ -345,8 +345,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	 * @return
 	 * @throws SQLException
 	 */
-	public List<CourseLecturVo> recommendCourseList(int number, int pageSize,
-                                                      String queryParam,List<MenuVo> listmv) throws SQLException{
+	@Override
+    public List<CourseLecturVo> recommendCourseList(int number, int pageSize,
+                                                    String queryParam, List<MenuVo> listmv) throws SQLException{
 		
 		
 		//学习人数、当前价格、课程类型、课程图片、讲师名、课程名字

@@ -59,7 +59,7 @@ public class GiftController {
 
 	private RedissonClient redisson;
 
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(GiftController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GiftController.class);
 	
 	
 	public GiftController(){
@@ -91,7 +91,7 @@ public class GiftController {
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-		log.info("====================="+user.getId());
+		LOGGER.info("====================="+user.getId());
 		
 		GiftStatement giftStatement=new GiftStatement();
 		giftStatement.setCreateTime(new Date());
@@ -100,7 +100,7 @@ public class GiftController {
 		giftStatement.setLiveId(req.getParameter("liveId"));
 		giftStatement.setReceiver(req.getParameter("receiverId"));
 		//giftStatement.setCount(Integer.valueOf(req.getParameter()("continuousCount")));
-		log.info("c:"+req.getParameter("continuousCount"));
+		LOGGER.info("c:"+req.getParameter("continuousCount"));
 		try {
 			giftStatement.setCount(Integer.valueOf(req.getParameter("count")));
 			if(giftStatement.getCount()<1){
@@ -149,11 +149,11 @@ public class GiftController {
 		boolean resl = false;
 		try {
 			resl = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);//等待十秒。有效期五秒
-//			log.info(giftStatement.getLiveId()+":"+resl);
+//			LOGGER.info(giftStatement.getLiveId()+":"+resl);
 			map=remoteGiftService.addGiftStatement(giftStatement);
 		}catch (Exception e){
 			e.printStackTrace();
-			log.info(e.getMessage());
+			LOGGER.info(e.getMessage());
 			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}finally {
 			if(resl){

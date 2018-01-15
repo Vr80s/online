@@ -47,7 +47,7 @@ class BinaryConvert {
 			return null;
 		}
 		
-		if (str.equals("")){
+		if ("".equals(str)){
 			return new byte[0];
 		}
 

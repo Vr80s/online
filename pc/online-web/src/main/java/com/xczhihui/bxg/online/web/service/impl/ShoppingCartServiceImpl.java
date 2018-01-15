@@ -82,7 +82,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
      * @param courseIds 加入购物车课程id数组
      * @param rule_id 活动id号
      */
-    public ResponseObject addCourseToCart(String userId, String[] courseIds,String rule_id) {
+    @Override
+    public ResponseObject addCourseToCart(String userId, String[] courseIds, String rule_id) {
         List<String> ids = Arrays.asList(courseIds);
         Iterator<String> iter = ids.iterator();
         while (iter.hasNext()) {

@@ -305,7 +305,7 @@ public class VideoDao extends SimpleHibernateDao {
 		dc.add(Restrictions.eq("id", courseId));
         Course c = orderDao.findEntity(dc);
 //        if((c.getType()==null||c.getType()!=1) && videos.size()<= 0){
-        if((c.getType()==null||c.getType()!=1) && (c.getDirectId()==null||c.getDirectId().equals(""))){
+        if((c.getType()==null||c.getType()!=1) && (c.getDirectId()==null|| "".equals(c.getDirectId()))){
             throw new RuntimeException("此课程下没有相关视频!");
         };
         String sql="";

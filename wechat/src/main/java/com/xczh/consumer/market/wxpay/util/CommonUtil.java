@@ -262,7 +262,7 @@ public class CommonUtil {
 	public static Map<String, String> getPrePayInfos(Object xmlobj) throws Exception {
 		
 		HttpsRequest request = new HttpsRequest();
-		String buffer = request.sendPost(WxPayConst.unitorder_url, xmlobj);
+		String buffer = request.sendPost(WxPayConst.UNITORDER_URL, xmlobj);
 		if(buffer == null) {
             buffer = "";
         }
@@ -300,7 +300,7 @@ public class CommonUtil {
 	public static String getAccessToken() throws Exception {
 		
 		String out = "";
-		String in = WxPayConst.query_access_token.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
+		String in = WxPayConst.QUERY_ACCESS_TOKEN.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
 				.replace("secret=secret", "secret=" + WxPayConst.gzh_Secret);
 		System.out.println("openidtest"+in);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
@@ -317,7 +317,7 @@ public class CommonUtil {
 	public static String getWxCode(String uri) throws Exception {
 		
 		String out = "";
-		String in = WxPayConst.code_url.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
+		String in = WxPayConst.CODE_URL.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
 				.replace("redirect_uri=url", "redirect_uri=" + uri);
 		System.out.println("openidtest"+in);
 		
@@ -334,7 +334,7 @@ public class CommonUtil {
 	public static String getWxCode2(String uri) throws Exception {
 		
 		String out = "";
-		String in = WxPayConst.code_url_2.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
+		String in = WxPayConst.CODE_URL_2.replace("appid=appid", "appid=" + WxPayConst.gzh_appid)
 				.replace("redirect_uri=url", "redirect_uri=" + uri);
 		System.out.println("openidtest"+in);
 		
@@ -350,8 +350,8 @@ public class CommonUtil {
 	 */
 	public static String getOpenId(String code) throws Exception {
 		
-		String out = ""; //?? openid获取URL : WxPayConst.oauth_url；
-		String in=WxPayConst.oauth_url.replace("appid=APPID","appid="+WxPayConst.gzh_appid)
+		String out = ""; //?? openid获取URL : WxPayConst.OAUTH_URL；
+		String in=WxPayConst.OAUTH_URL.replace("appid=APPID","appid="+WxPayConst.gzh_appid)
 				.replace("secret=SECRET","secret="+WxPayConst.gzh_Secret).
 				replace("code=CODE", "code="+code);
 		System.out.println("openidtest"+in);
@@ -368,9 +368,9 @@ public class CommonUtil {
 	 */
 	public static String getUserInfo(String access_token,String openid) throws Exception {	
 		String out = ""; 		
-		String in=WxPayConst.user_url.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
+		String in=WxPayConst.USER_URL.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-		System.out.println("getUserInfo:"+buffer.toString());
+		System.out.println("GET_USER_INFO:"+buffer.toString());
 		return buffer.toString();
 	}
 		
@@ -383,7 +383,7 @@ public class CommonUtil {
 	 */
 	public static String getUserManagerGetInfo(String access_token,String openid) throws Exception {	
 		String out = ""; 		
-		String in=WxPayConst.usermanager_getinfo_url.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
+		String in=WxPayConst.USERMANAGER_GETINFO_URL.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
 		
 	    /*in="https://api.weixin.qq.com/cgi-bin/user/info?access_token=WbOLClDPg-7y5R41vPYIxwoplYD6OFUzXEwycStaclA6HqOU"
 	 		+ "zjmr2V_cCM7cc-yZz5wY8l-g-sLBVHaFaial0sGDDnkw8Tq_7VXfCfIrDwLMhQ01uRNgfqQ0XnhRvQtrMRFjADAFKY&openid=ovE_ow7RIZFm3Rf8NpCWwK00UGsU";*/
@@ -533,8 +533,8 @@ public class CommonUtil {
         }
         for (String key : sArray.keySet()) {
             String value = sArray.get(key);
-            if (value == null || value.equals("") || key.equalsIgnoreCase("sign")
-                || key.equalsIgnoreCase("sign_type")) {
+            if (value == null || "".equals(value) || "sign".equalsIgnoreCase(key)
+                || "sign_type".equalsIgnoreCase(key)) {
                 continue;
             }
             result.put(key, value);
@@ -582,13 +582,13 @@ public class CommonUtil {
 	
 //	public static String getSign(SignAbledBean payInfo) throws Exception {
 //		String signTemp = orderParamByAscii(payInfo);
-//		String sign = MD5SignUtil.Sign(signTemp, WxPayConst.app_key);
+//		String sign = MD5SignUtil.Sign(signTemp, WxPayConst.APP_KEY);
 //		return sign;
 //	}
 	public static String getSign(SignAbledBean payInfo, String tradeType) throws SDKRuntimeException {
 		String signTemp = orderParamByAscii(payInfo);
 		String sign ="";
-		if(PayInfo.trade_type_app.equals(tradeType)){
+		if(PayInfo.TRADE_TYPE_APP.equals(tradeType)){
 		    sign = MD5SignUtil.Sign(signTemp, WxPayConst.app_ApiKey);
 		}else{
 			sign = MD5SignUtil.Sign(signTemp, WxPayConst.gzh_ApiKey);

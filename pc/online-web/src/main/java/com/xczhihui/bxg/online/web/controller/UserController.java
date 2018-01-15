@@ -741,7 +741,7 @@ public class UserController extends OnlineBaseController {
 		//生成签名
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		request.getSession().setAttribute("qq_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
+		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
 		Map<String,String> param = new HashMap<>();
 		param.put("response_type", "code");
 		param.put("client_id", ThirdConnectionConfig.QQ_APP_ID);
@@ -759,7 +759,7 @@ public class UserController extends OnlineBaseController {
 	public void qquserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
 		//生成签名
 		String uuid = (String) request.getSession().getAttribute("qq_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
+		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.QQ_APP_KEY, "utf-8").toUpperCase();
 		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
 			String accessToken = service.getQQAccessToken(code);
 			if (accessToken != null) {
@@ -793,7 +793,7 @@ public class UserController extends OnlineBaseController {
 		//生成签名
 		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 		request.getSession().setAttribute("wx_connect_state",uuid);
-		String state = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
+		String state = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
 		Map<String,String> param = new HashMap<>();
 		param.put("response_type", "code");
 		param.put("client_id", ThirdConnectionConfig.WX_APP_ID);
@@ -811,7 +811,7 @@ public class UserController extends OnlineBaseController {
 	public void wechatUserInfo(HttpServletRequest request, HttpServletResponse response,String code,String state) throws Exception {
 		//生成签名
 		String uuid = (String) request.getSession().getAttribute("wx_connect_state");
-		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&key="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
+		String stateSign = MD5Util.MD5Encode("uuid="+uuid+"&KEY="+ ThirdConnectionConfig.WX_APP_KEY, "utf-8").toUpperCase();
 		if(!StringUtils.isEmpty(state) && !StringUtils.isEmpty(stateSign) && state.equalsIgnoreCase(stateSign)) {
 			Map<String, String> returnMap = service.saveWechatUserInfo(code);
 			if (returnMap != null) {

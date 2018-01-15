@@ -1,46 +1,15 @@
 package com.xczhihui.bxg.online.manager.cloudClass.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.shiro.util.CollectionUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.Project;
-import com.xczhihui.bxg.online.common.domain.Chapter;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.Project;
-import com.xczhihui.bxg.online.common.domain.QuesStore;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.ProjectTypeDao;
-import com.xczhihui.bxg.online.manager.cloudClass.dao.QuestionDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.ProjectTypeService;
-import com.xczhihui.bxg.online.manager.cloudClass.service.QuestionService;
-import com.xczhihui.bxg.online.manager.cloudClass.util.ParseUtil;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.QuestionOptionPicture;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.TreeNode;
-import com.xczhihui.bxg.online.manager.common.util.ExcelPoiUtil;
-import com.xczhihui.bxg.online.manager.utils.StringUtil;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /**
  * 题库service实现类

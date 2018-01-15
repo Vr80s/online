@@ -25,12 +25,14 @@ public class UCenterAuthFinder implements AuthFinder {
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 
-	public Set<String> findRoles(String userId) {
+	@Override
+    public Set<String> findRoles(String userId) {
 		// TODO 从用户中心获取用户角色
 		return new HashSet<>();
 	}
 
-	public Set<String> findPermissions(String userId) {
+	@Override
+    public Set<String> findPermissions(String userId) {
 		// TODO 从用户中心获取用户权限
 		return new HashSet<>();
 	}

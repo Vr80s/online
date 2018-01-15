@@ -73,7 +73,7 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				}
 				String   opSign = map.get("opSign").toString();
 				//2==新增操作,1==更新操作
-				if(opSign.equals("1")){
+				if("1".equals(opSign)){
 					this.update(map.get("loginName")+"" , map.get("name")+"", Integer.valueOf(map.get("sex")+""), map.get("email")+"" ,map.get("mobile")+"" , UserType.STUDENT.getValue() ,0);
 				}else{
 					ItcastUser u = this.getUser(map.get("loginName").toString());
@@ -355,7 +355,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		itcastUser.setPassword(encPassord);
 	}
 
-	public TableVo getUsers(TableVo vo) {
+	@Override
+    public TableVo getUsers(TableVo vo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if(!StringUtils.isEmpty(vo.getsSearch())){
 			Gson gson = new Gson();
@@ -472,6 +473,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				ll.setAppSign(sign);
 				ll.setAppInfo(info);
 				ll.setAppLastTime(lastTime);
+				break;
+			default:
 				break;
 		}
 		if(ll.getId()==null){

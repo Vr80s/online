@@ -188,11 +188,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			}
 		}
 		//String uuid = UUID.randomUUID().toString().replace("-", "");
-		String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren,mobile, u.getSmallHeadPhoto());
+		String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.MOREN,mobile, u.getSmallHeadPhoto());
 		u.setVhallId(weihouUserId);  //微吼id
 		//u.setVhallName(u.getId());  //微吼名字
 		u.setVhallName(mobile);
-		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
 		onlineUserDao.addOnlineUser(u);
 		return u;
 	}
@@ -675,13 +675,13 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		//分销，设置上级
 		String weihouUserId = WeihouInterfacesListUtil.createUser(
 				u.getId(),
-				WeihouInterfacesListUtil.moren,
+				WeihouInterfacesListUtil.MOREN,
 				name,
 				returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
 		
 		u.setVhallId(weihouUserId);  //微吼id
 		u.setVhallName(name);
-		u.setVhallPass(WeihouInterfacesListUtil.moren);    //微吼密码 
+		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
 		onlineUserDao.addOnlineUser(u);
 		/**
 		 * 为用户初始化一条代币记录

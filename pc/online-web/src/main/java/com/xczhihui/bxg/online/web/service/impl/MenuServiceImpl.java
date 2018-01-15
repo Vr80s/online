@@ -75,7 +75,8 @@ public class MenuServiceImpl  extends OnlineBaseServiceImpl implements MenuServi
      * @param type 
      * @return
      */
-    public List<Menu> getAllFirstMenu( Integer pageNumber, Integer pageSize, String type){
+    @Override
+    public List<Menu> getAllFirstMenu(Integer pageNumber, Integer pageSize, String type){
             pageNumber = pageNumber == null ? 1 : pageNumber;
             pageSize = pageSize == null ? 20 : pageSize;
             Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -88,7 +89,8 @@ public class MenuServiceImpl  extends OnlineBaseServiceImpl implements MenuServi
      * 博文答首页模块获取全部一级菜单
      * @return
      */
-    public List<Menu> getFirstQuestionMenu( Integer pageNumber, Integer pageSize){
+    @Override
+    public List<Menu> getFirstQuestionMenu(Integer pageNumber, Integer pageSize){
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -101,7 +103,8 @@ public class MenuServiceImpl  extends OnlineBaseServiceImpl implements MenuServi
      * 博问答提问页面获取有权限的一级菜单
      * @return
      */
-    public List<Menu> getQuestionFirstMenu( Integer pageNumber, Integer pageSize){
+    @Override
+    public List<Menu> getQuestionFirstMenu(Integer pageNumber, Integer pageSize){
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String, Object> paramMap = new HashMap<String, Object>();

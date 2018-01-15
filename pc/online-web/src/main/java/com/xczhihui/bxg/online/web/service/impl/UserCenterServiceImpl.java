@@ -100,7 +100,8 @@ public class UserCenterServiceImpl extends OnlineBaseServiceImpl implements Onli
 
 
 
-	public Map<String,String>  updateApply(ApplyVo applyVo,HttpServletRequest request) {
+	@Override
+    public Map<String,String>  updateApply(ApplyVo applyVo, HttpServletRequest request) {
 		Map<String,String> mapValue=new HashMap<String,String>();
 		OnlineUser user= (OnlineUser) request.getSession().getAttribute(Constant.LOGINUSER);
 		if (user == null){

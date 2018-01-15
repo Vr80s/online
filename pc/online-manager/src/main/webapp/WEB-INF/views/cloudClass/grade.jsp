@@ -1092,4 +1092,4 @@
   </table>
 </div>
 
-<script type="text/javascript" src="${base}/js/cloudClass/grade.js?v=1"></script>
+<script type="text/javascript" src="${base}/js/cloudClass/grade.js?v=ipandatcm_1.3"></script>

@@ -72,10 +72,12 @@ public class ShareOrderVo extends OnlineBaseVo  {
 	public void setBuyUserId(String buyUserId) {
 		this.buyUserId = buyUserId;
 	}
-	public java.util.Date getCreateTime() {
+	@Override
+    public java.util.Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(java.util.Date createTime) {
+	@Override
+    public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
 	}
 	public Integer getSort() {

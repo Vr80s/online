@@ -23,10 +23,12 @@ public class CourseDescriptionVo extends OnlineBaseVo  {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public java.util.Date getCreateTime() {
+	@Override
+    public java.util.Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(java.util.Date createTime) {
+	@Override
+    public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
 	}
 	public Integer getStatus() {

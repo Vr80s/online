@@ -19,13 +19,13 @@ import java.text.DateFormat;
 public class UtilDate {
 	
     /** 年月日时分秒(无下划线) yyyyMMddHHmmss */
-    public static final String dtLong                  = "yyyyMMddHHmmss";
+    public static final String DT_LONG = "yyyyMMddHHmmss";
     
     /** 完整时间 yyyy-MM-dd HH:mm:ss */
-    public static final String simple                  = "yyyy-MM-dd HH:mm:ss";
+    public static final String SIMPLE = "yyyy-MM-dd HH:mm:ss";
     
     /** 年月日(无下划线) yyyyMMdd */
-    public static final String dtShort                 = "yyyyMMdd";
+    public static final String DT_SHORT = "yyyyMMdd";
 	
     
     /**
@@ -35,7 +35,7 @@ public class UtilDate {
      */
 	public  static String getOrderNum(){
 		Date date=new Date();
-		DateFormat df=new SimpleDateFormat(dtLong);
+		DateFormat df=new SimpleDateFormat(DT_LONG);
 		return df.format(date);
 	}
 	
@@ -45,7 +45,7 @@ public class UtilDate {
 	 */
 	public  static String getDateFormatter(){
 		Date date=new Date();
-		DateFormat df=new SimpleDateFormat(simple);
+		DateFormat df=new SimpleDateFormat(SIMPLE);
 		return df.format(date);
 	}
 	
@@ -55,7 +55,7 @@ public class UtilDate {
 	 */
 	public static String getDate(){
 		Date date=new Date();
-		DateFormat df=new SimpleDateFormat(dtShort);
+		DateFormat df=new SimpleDateFormat(DT_SHORT);
 		return df.format(date);
 	}
 	

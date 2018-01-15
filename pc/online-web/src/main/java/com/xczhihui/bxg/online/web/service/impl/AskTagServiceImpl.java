@@ -28,6 +28,7 @@ public class AskTagServiceImpl extends OnlineBaseServiceImpl implements AskTagSe
      * @param menuId
      * @return
      */
+    @Override
     public List<AskTagVo> getTagsByMenuId(Integer menuId) {
         return askTagDao.getTagsByMenuId(menuId);
     }

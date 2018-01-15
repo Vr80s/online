@@ -391,4 +391,4 @@
             });			
 			
 </script>
-<script type="text/javascript" src="${base}/js/order/enchashmentManager.js?v=1.7"></script>
+<script type="text/javascript" src="${base}/js/order/enchashmentManager.js?v=ipandatcm_1.3"></script>

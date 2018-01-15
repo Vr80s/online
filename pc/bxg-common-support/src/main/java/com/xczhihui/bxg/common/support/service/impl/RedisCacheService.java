@@ -57,7 +57,8 @@ public class RedisCacheService implements CacheService {
 		this.set(key, obj, time);
 	}
 
-	public void set(final String key, final Serializable obj, final int seconds) {
+	@Override
+    public void set(final String key, final Serializable obj, final int seconds) {
 		Jedis jedis = null;
 		try {
 			jedis = this.getJedis();

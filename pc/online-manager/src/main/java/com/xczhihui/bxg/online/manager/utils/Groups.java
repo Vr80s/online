@@ -99,7 +99,7 @@ public class Groups {
 		childGroups2 = null;
 	}
 	public void RemoveOders(Groups groups){
-		if(groups.getOrderby()!=null && !groups.getOrderby().equals("")){
+		if(groups.getOrderby()!=null && !"".equals(groups.getOrderby())){
 			groups.setOrderby(null);
 		}
 		if(groups.getOrderbys()!=null && groups.getOrderbys().length>0){
@@ -108,7 +108,7 @@ public class Groups {
 	}
 	
 	public void transferGroupsOrders(Groups groups, Groups newGroups){
-		if(groups.getOrderby()!=null && !groups.getOrderby().equals("")){
+		if(groups.getOrderby()!=null && !"".equals(groups.getOrderby())){
 			newGroups.setOrderby(groups.getOrderby());
 			newGroups.setOrder(groups.isOrder());
 		}

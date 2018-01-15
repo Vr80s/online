@@ -75,19 +75,6 @@ public class CourseDao extends SimpleHibernateDao {
         sqlSb.append("  where  cou.is_delete=0  and  cou.status=1  ");
         sqlSb.append(" AND ISNULL(cou.type) ");
         sqlSb.append(" AND cou.`online_course`!=1 ");
-//        switch (menuId) {
-//            case 0:
-//                break;
-//            case 1:
-//                break;
-//            case 2:
-//                break;
-//            case 3:
-//                break;
-//            default:
-//                sqlSb.append(" and  menu_id = :menuId ");
-//                break;
-//        }
         if(menuType!=null){
         if(menuType==1||menuType==2||menuType==3){
             paramMap.put("type", menuType);
@@ -242,12 +229,12 @@ public class CourseDao extends SimpleHibernateDao {
         	paramMap.put("type", type);
         	sqlSb.append(" AND om.type = :type ");
         	sqlSb.append(" AND om.yun_status = 1 ");
-        	sqlSb= couseTypeId.equals("0") ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
+        	sqlSb= "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
         	sqlSb.append(" AND cou.online_course = 0 ");
         }else if(type ==4){
         	sqlSb.append(" AND cou.online_course = 1 ");
         }else{
-        	sqlSb= couseTypeId.equals("0") ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
+        	sqlSb= "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
         	sqlSb.append(" AND cou.online_course = 0 ");
         }
         sqlSb.append(" order by  cou.sort desc ") ;
@@ -294,7 +281,7 @@ public class CourseDao extends SimpleHibernateDao {
                 
                 ApplyGradeCourse  applyGradeCourse = applyGradeCourseDao.findByCourseIdAndUserId(courseId, loginUser.getId());
                 if(applyGradeCourse != null) {
-                    courseVo.setIsApply(applyGradeCourse.getIsPayment().equals("1") ? false : true);
+                    courseVo.setIsApply("1".equals(applyGradeCourse.getIsPayment()) ? false : true);
                 }
                 
             }
@@ -522,7 +509,7 @@ public class CourseDao extends SimpleHibernateDao {
 //        String  querySql="select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0";
 //        List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
         /*20170810---yuruixin*/
-        if (course.getOnlineCourse()==0 && course.getType()==null && (course.getDirectId()==null || course.getDirectId().trim().equals("")))
+        if (course.getOnlineCourse()==0 && course.getType()==null && (course.getDirectId()==null || "".equals(course.getDirectId().trim())))
         {
             throw new RuntimeException("此课暂时没有视频,请稍后购买!");
         }
@@ -677,7 +664,7 @@ public class CourseDao extends SimpleHibernateDao {
         calendar.set(Calendar.SECOND, 0);//秒
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
         Date date = calendar.getTime();
-//        System.out.println("Christmas is:"+format.format(date));
+//        System.out.println("Christmas is:"+FORMAT.FORMAT(date));
         String now = format.format(Calendar.getInstance().getTime());
         Date nowd;
         try {

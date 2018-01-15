@@ -110,7 +110,7 @@ public class ExamineCourseController {
 		Group isDelte = groups.findByName("isDelete");
 		if (isDelte != null) {
 			String falg = isDelte.getPropertyValue1().toString();
-			liveExamineInfoVo.setIsDelete(falg.equals("1") ? true : false);
+			liveExamineInfoVo.setIsDelete("1".equals(falg) ? true : false);
 		}
 		
 		Page<LiveExamineInfoVo> page = examineCourseService.findCoursePage(liveExamineInfoVo,currentPage, pageSize);

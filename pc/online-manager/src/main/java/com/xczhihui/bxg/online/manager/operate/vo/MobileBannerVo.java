@@ -49,16 +49,20 @@ public class MobileBannerVo extends OnlineBaseVo  {
 	public void setClickSum(Integer clickSum) {
 		this.clickSum = clickSum;
 	}
-	public String getCreatePerson() {
+	@Override
+    public String getCreatePerson() {
 		return createPerson;
 	}
-	public void setCreatePerson(String createPerson) {
+	@Override
+    public void setCreatePerson(String createPerson) {
 		this.createPerson = createPerson;
 	}
-	public java.util.Date getCreateTime() {
+	@Override
+    public java.util.Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(java.util.Date createTime) {
+	@Override
+    public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
 	}
 	public Integer getStatus() {

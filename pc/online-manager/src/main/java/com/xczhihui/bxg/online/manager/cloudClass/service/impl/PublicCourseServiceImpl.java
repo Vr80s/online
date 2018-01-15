@@ -242,7 +242,8 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String createWebinar(Course entity) {
+	@Override
+    public String createWebinar(Course entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getGradeName());
 		webinar.setIntroduction(entity.getDescription());
@@ -319,7 +320,8 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String reCreateWebinar(CourseVo entity) {
+	@Override
+    public String reCreateWebinar(CourseVo entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getCourseName());
 		webinar.setIntroduction(entity.getDescription());

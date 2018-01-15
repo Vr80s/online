@@ -262,7 +262,7 @@ public class ChapterDao extends SimpleHibernateDao {
                              BarrierVo barrier=null;
                              point.put("lock_status", 1);
                              if(mapBarriers.size()>0){
-                                 if( point.get("barrier_id") ==null || point.get("barrier_id").equals("") ){
+                                 if( point.get("barrier_id") ==null || "".equals(point.get("barrier_id"))){
                                      pointMap.add(point);
                                  }else {
                                      barrier=mapBarriers.get(point.get("barrier_id"));
@@ -436,7 +436,7 @@ public class ChapterDao extends SimpleHibernateDao {
                          BarrierVo barrier=null;
                          point.put("lock_status", 1);
                          if(mapBarriers.size()>0){
-                             if( point.get("barrier_id") ==null || point.get("barrier_id").equals("") ){
+                             if( point.get("barrier_id") ==null || "".equals(point.get("barrier_id"))){
                                  pointMap.add(point);
                              }else {
                                  barrier=mapBarriers.get(point.get("barrier_id"));

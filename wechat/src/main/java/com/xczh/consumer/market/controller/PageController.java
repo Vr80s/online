@@ -60,7 +60,7 @@ public class PageController {
 		
 		req.setAttribute("openId", openId);
 		req.setAttribute("code", code);
-		req.setAttribute("access", "wx");
+		req.setAttribute("access", "WX");
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}

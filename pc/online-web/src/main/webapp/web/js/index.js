@@ -94,7 +94,7 @@ var strcourse =
     '{{each item}}' +
     '<div class="course clearfix">' +
     '{{if $value.isRecommend == true}}' +
-    '<img style="position:absolute;width: 16%;top:-2px;left:-2px" src="/web/images/recommend2.png" ></img>'+
+    '<img style="position:absolute;width: 16%;top:-2px;left:-2px;z-index:999" src="/web/images/recommend2.png" ></img>'+
     '{{/if}}' +
     '{{#indexHref($value.description_show,$value.free,$value.id,$value.courseType,$value.type,$value.direct_id,null,$value.coursePwd)}}'+
     '{{#hasImg($value.smallImgPath)}}' +

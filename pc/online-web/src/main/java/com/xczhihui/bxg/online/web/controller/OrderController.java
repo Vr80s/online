@@ -65,7 +65,7 @@ public class OrderController {
         if( u != null){
                 //是否已经生成此课程待支付订单 如果未生成:则生成订单,并且限时免费课购买成功
                Map<String,Object> result=orderService.findOrderByCourseId(ids, u.getId(),orderNo);
-               if(result.get("isBuy").toString().equals("false")) {
+               if("false".equals(result.get("isBuy").toString())) {
                    mapValues= orderService.saveOrder(orderNo, ids, request);
                    //限时免费课或总支付为0元，购买成功
                    if(orderService.findCourseIsFree(ids) || Double.valueOf(mapValues.get("actualPay").toString()) <= 0){

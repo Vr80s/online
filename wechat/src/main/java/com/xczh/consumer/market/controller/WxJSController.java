@@ -63,7 +63,7 @@ public class WxJSController {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(WxJSController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WxJSController.class);
 	
 	/**
 	 * Description：如果是微信公众号的话需要签名下微信提供的jsssdk，这样才能使用微信的内置的分享和其他功能
@@ -84,16 +84,16 @@ public class WxJSController {
 		String cache_access_token =  cacheService.get("access_token");
 		String js_ticket_access_token = cacheService.get("js_ticket");
 		
-		if(cache_access_token ==null || js_ticket_access_token==null || 
-				js_ticket_access_token.equals("js_ticket")){
+		if(cache_access_token ==null || js_ticket_access_token==null ||
+                "js_ticket".equals(js_ticket_access_token)){
 			String strLinkHome 	= "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET"
 					.replace("appid=APPID", "appid="+ WxPayConst.gzh_appid).replace("secret=APPSECRET", "secret="+ WxPayConst.gzh_Secret);
 			
-			log.info("strLinkHome:"+strLinkHome);
+			LOGGER.info("strLinkHome:"+strLinkHome);
 			String out = "";
 			StringBuffer buffer = HttpsRequest.httpsRequest(strLinkHome, "GET", out);
 			
-			log.info("buffer:"+buffer.toString());
+			LOGGER.info("buffer:"+buffer.toString());
 			
 			JSONObject jsonObject = JSONObject.fromObject(buffer.toString());//Map<String, Object> access_info =GsonUtils.fromJson(code_buffer, Map.class);
 			String access_token = (String)jsonObject.get("access_token");
@@ -102,7 +102,7 @@ public class WxJSController {
 			jsonObject = JSONObject.fromObject(buffer.toString());
 			js_ticket_access_token = (String)jsonObject.get("ticket");
 			
-			log.info(js_ticket_access_token);
+			LOGGER.info(js_ticket_access_token);
 			
 			if(StringUtils.hasText(access_token)){
 				cacheService.set("access_token",access_token, 7100);
@@ -124,8 +124,8 @@ public class WxJSController {
 			map.put("sign", strSha1);
 			map.put("appId", WxPayConst.gzh_appid);
 
-			log.info("strSha1"+strSha1);
-			log.info("map："+map);
+			LOGGER.info("strSha1"+strSha1);
+			LOGGER.info("map："+map);
 		} catch (DigestException e) {
 			e.printStackTrace();
 			 return ResponseObject.newErrorResponseObject("获取初始化信息数据有误");
@@ -146,7 +146,7 @@ public class WxJSController {
 		
 		String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 		
-		log.info("strLinkHome:"+strLinkHome);
+		LOGGER.info("strLinkHome:"+strLinkHome);
 		//存到session中，如果用户回调成功
 		res.sendRedirect(strLinkHome);
 	}
@@ -169,7 +169,7 @@ public class WxJSController {
 		String	lineState = req.getParameter("lineState");                                                                                                                           
 		String courseId_type_lineState =  courseId+"_"+type+"_"+lineState;
 		String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5ShareGetWxUserInfo?courseId_type_lineState="+courseId_type_lineState+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
-		log.info("strLinkHome:"+strLinkHome);
+		LOGGER.info("strLinkHome:"+strLinkHome);
 		//存到session中，如果用户回调成功
 		res.sendRedirect(strLinkHome);
 	}
@@ -203,7 +203,7 @@ public class WxJSController {
 			"/bxg/wxpay/h5GetCodeAndUserMobile?userName="+userName+
 		    "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
 		
-		log.info("strLinkHome:"+strLinkHome);
+		LOGGER.info("strLinkHome:"+strLinkHome);
 		/*
 		 * 	   这个地方需要用到微信重定向了，因为需要用户授权了。
 		 * 存到session中，如果用户回调成功。一旦转发后，
@@ -241,7 +241,7 @@ public class WxJSController {
 				+ "share="+share+"&courseid="+courseid+"&shareCourseId="+shareCourseId
 				+ "&response_type=code&scope=snsapi_base&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
 		
-		log.info("h5BsGetCodeUrlAndBase:"+strLinkHome);
+		LOGGER.info("h5BsGetCodeUrlAndBase:"+strLinkHome);
 		
 		res.sendRedirect(strLinkHome);
 	}
@@ -308,7 +308,7 @@ public class WxJSController {
 	    
 		ConfigUtil cfg = new ConfigUtil(req.getSession());
 		String wxToken = cfg.getConfig("wxToken");	
-		log.info("wxToken=" + wxToken);
+		LOGGER.info("wxToken=" + wxToken);
 	    
 	    String[] str = { wxToken, timestamp, nonce };
 	    Arrays.sort(str); // 字典序排序
@@ -331,11 +331,11 @@ public class WxJSController {
 	    }
 	    	    
 	    //if(true) {
-	    //	log.info("signature=" + signature);
-	    //	log.info("echostr=" + echostr);
-	    //	log.info("timestamp=" + timestamp);
-	    //	log.info("nonce=" + nonce);
-	    //	log.info("digest=" + digest);
+	    //	LOGGER.info("signature=" + signature);
+	    //	LOGGER.info("echostr=" + echostr);
+	    //	LOGGER.info("timestamp=" + timestamp);
+	    //	LOGGER.info("nonce=" + nonce);
+	    //	LOGGER.info("digest=" + digest);
 	    //}
 	    
 	    // 确认请求来至微信
@@ -357,7 +357,7 @@ public class WxJSController {
 		if(public_id == null || public_id.isEmpty() || access_token == null || access_token.isEmpty() ) {
             return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
         }
-		log.info("getWxConcernList->access_token->\r\n\t"+access_token);
+		LOGGER.info("getWxConcernList->access_token->\r\n\t"+access_token);
 		
 		WxcpConcernInfo condConcernInfo = new WxcpConcernInfo();
 		condConcernInfo.setPublic_id(public_id);
@@ -365,7 +365,7 @@ public class WxJSController {
 		if(listWxcpConcernInfo==null) {
             listWxcpConcernInfo = new LinkedList<WxcpConcernInfo>();
         }
-		log.info("getWxConcernList->listWxcpConcernInfo->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfo).toString());
+		LOGGER.info("getWxConcernList->listWxcpConcernInfo->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfo).toString());
 		
 		String strUrl = "https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid="
 				.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token);
@@ -381,7 +381,7 @@ public class WxJSController {
 		if(total == null || count  == null || data == null /*|| next_openid == null*/) {
             return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
         }
-		log.info("getWxConcernList->/user/get?access_token->\r\n\t"+sbRet.toString());
+		LOGGER.info("getWxConcernList->/user/get?access_token->\r\n\t"+sbRet.toString());
 		
 		List<WxcpConcernInfo> listWxcpConcernInfoNew = new LinkedList<WxcpConcernInfo>();
 		for(int i=0;i<data.size();i++) {
@@ -417,7 +417,7 @@ public class WxJSController {
                 break;
             }
 			
-			log.info("getWxConcernList->/user/get?access_token->\r\n\t"+sbRet.toString());			
+			LOGGER.info("getWxConcernList->/user/get?access_token->\r\n\t"+sbRet.toString());
 			
 			for(int i=0;i<data.size();i++) {
 				WxcpConcernInfo item = new WxcpConcernInfo();
@@ -427,7 +427,7 @@ public class WxJSController {
 				listWxcpConcernInfoNew.add(item);
 			}
 		}
-		log.info("getWxConcernList->listWxcpConcernInfoNew->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfoNew).toString());
+		LOGGER.info("getWxConcernList->listWxcpConcernInfoNew->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfoNew).toString());
 		
 		List<WxcpConcernInfo> listWxcpConcernInfoDel = new LinkedList<WxcpConcernInfo>();
 		for(int i=0;i<listWxcpConcernInfo.size();i++) {
@@ -462,8 +462,8 @@ public class WxJSController {
 			wxcpConcernInfoService.insert(listWxcpConcernInfoIns.get(k));
 		}
 		
-		log.info("getWxConcernList->listWxcpConcernInfoIns->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfoIns).toString());
-		log.info("getWxConcernList->listWxcpConcernInfoDel->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfoDel).toString());
+		LOGGER.info("getWxConcernList->listWxcpConcernInfoIns->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfoIns).toString());
+		LOGGER.info("getWxConcernList->listWxcpConcernInfoDel->\r\n\t"+JSONArray.fromObject(listWxcpConcernInfoDel).toString());
 		
 		return ResponseObject.newSuccessResponseObject(listWxcpConcernInfo);
 	}
@@ -503,8 +503,8 @@ public class WxJSController {
 		if(openid == null || openid.isEmpty() || jsconfig_url == null || jsconfig_url.isEmpty()) {
             return ResponseObject.newSuccessResponseObject(wxcpWxJsconfig);
         }
-		log.info("getWxJsConfig->openid->\r\n\t"+openid);
-		log.info("getWxJsConfig->jsconfig_url->\r\n\t"+jsconfig_url);
+		LOGGER.info("getWxJsConfig->openid->\r\n\t"+openid);
+		LOGGER.info("getWxJsConfig->jsconfig_url->\r\n\t"+jsconfig_url);
 		
 		WxcpWxJsconfig condWxJsconfig = new WxcpWxJsconfig();
 		condWxJsconfig.setOpenid(openid);
@@ -523,7 +523,7 @@ public class WxJSController {
 			Date now_time = new Date();
 			if(create_time.getTime() > now_time.getTime()) {
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String expires_time = sdf.format(c.getTime());
+				String expires_time = sdf.FORMAT(c.getTime());
 				wxcpWxJsconfig.setExpires_time(expires_time);
 				wxcpWxJsconfig.setExpires_timestamp(String.valueOf(c.getTime().getTime()));
 				setWxRights(wxcpWxJsconfig);
@@ -547,7 +547,7 @@ public class WxJSController {
 			if(access_token==null || access_token.length()<=6) {
                 access_token = "dWfPE4DxkXGEsM4AOVs8VMC_PGGVi490u5h9nbSlYy3-s8VMCPGGVi490sM4AOVdWfPE4Dxk";
             }
-			log.info("getWxJsConfig->access_token->\r\n\t"+sbRet.toString());
+			LOGGER.info("getWxJsConfig->access_token->\r\n\t"+sbRet.toString());
 		}
 		
 		String jsapi_ticket = "";
@@ -566,7 +566,7 @@ public class WxJSController {
 			if(jsapi_ticket==null || jsapi_ticket.length()<=6) {
                 jsapi_ticket = "sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg";
             }
-			log.info("getWxJsConfig->jsapi_ticket->\r\n\t"+sbRet.toString());
+			LOGGER.info("getWxJsConfig->jsapi_ticket->\r\n\t"+sbRet.toString());
 		}
 				
 		if(true) {			
@@ -650,7 +650,7 @@ public class WxJSController {
                   "&noncestr=" + nonce_str +
                   "&timestamp=" + timestamp +
                   "&url=" + url;
-        log.info(string1);
+        LOGGER.info(string1);
 		??*/        
 		String[] paramArr = new String[] { "jsapi_ticket=" + jsapi_ticket,
 				"timestamp=" + timestamp, "noncestr=" + nonce_str, "url=" + url };
@@ -686,13 +686,13 @@ public class WxJSController {
         ret.put("timestamp", timestamp);
         ret.put("signature", signature);
         
-        log.info("WxJSController->sign->\r\n\t");
-        log.info("\tcontent="+content);
-        log.info("\turl="+url);
-        log.info("\tjsapi_ticket="+jsapi_ticket);
-        log.info("\tnonceStr="+nonce_str);
-        log.info("\ttimestamp="+timestamp);
-        log.info("\tsignature="+signature);
+        LOGGER.info("WxJSController->sign->\r\n\t");
+        LOGGER.info("\tcontent="+content);
+        LOGGER.info("\turl="+url);
+        LOGGER.info("\tjsapi_ticket="+jsapi_ticket);
+        LOGGER.info("\tnonceStr="+nonce_str);
+        LOGGER.info("\ttimestamp="+timestamp);
+        LOGGER.info("\tsignature="+signature);
         
         return ret;
     }
@@ -774,7 +774,7 @@ public class WxJSController {
     		try {
     			//微信加密sh1 js
 				String strSha1 = Sha1SignUtil.SHA1(map);
-				log.info(strSha1);
+				LOGGER.info(strSha1);
 			} catch (DigestException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

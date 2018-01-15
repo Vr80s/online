@@ -4,7 +4,7 @@ public class LongUtil {
 	
 	public static long toLong(Long src){
 		if(src==null) {
-            return 0l;
+            return 0L;
         }
 		return src.longValue();
 	}

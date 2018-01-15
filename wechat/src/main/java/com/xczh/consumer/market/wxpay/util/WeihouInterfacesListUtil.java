@@ -17,26 +17,26 @@ import java.util.*;
 public class WeihouInterfacesListUtil {
 
 	//当前在线人数
-	public static final String currentonlinenumber = "http://e.vhall.com/api/vhallapi/v2/webinar/current-online-number";
+	public static final String CURRENTONLINENUMBER = "http://e.vhall.com/api/vhallapi/v2/webinar/current-online-number";
 	
 	//获取活动状态
-	public static final String currentonlinestate ="http://e.vhall.com/api/vhallapi/v2/webinar/state"; 
+	public static final String CURRENTONLINESTATE ="http://e.vhall.com/api/vhallapi/v2/webinar/state";
 	
 	//得到微吼用户id
-	public static final String currentUserID ="http://e.vhall.com/api/vhallapi/v2/user/get-user-id"; 
+	public static final String CURRENT_USER_ID ="http://e.vhall.com/api/vhallapi/v2/user/get-user-id";
 	
 	//注册用户  http://e.vhall.com/api/vhallapi/v2/user/register
-	public static final String register = "http://e.vhall.com/api/vhallapi/v2/user/register";
+	public static final String REGISTER = "http://e.vhall.com/api/vhallapi/v2/user/REGISTER";
 	
 	//获取用户信息
-	public static final String getUserInfo = "http://e.vhall.com/api/vhallapi/v2/user/get-user-info";
+	public static final String GET_USER_INFO = "http://e.vhall.com/api/vhallapi/v2/user/get-user-info";
 	
-	public static final String app_key = "71a22e5b4a41483d41d96474511f58f3";
+	public static final String APP_KEY = "71a22e5b4a41483d41d96474511f58f3";
 	
-	public static final String AppSecretKey = "1898130bad871d1bf481823ba1f3ffb1";
+	public static final String APP_SECRET_KEY = "1898130bad871d1bf481823ba1f3ffb1";
 	
 	
-	public static final String moren = "123456";//第三方登录默认微吼密码
+	public static final String MOREN = "123456";//第三方登录默认微吼密码
 	
 	public static Map<String,String> getBaseParams(){
 		Map<String,String> parameters = new HashMap<String,String>();
@@ -63,7 +63,7 @@ public class WeihouInterfacesListUtil {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public static Integer currentUserID(String videoId) {
-		String whUrl = currentUserID;
+		String whUrl = CURRENT_USER_ID;
 		Map<String, String> parameters = new TreeMap<String, String>();
 		/* 公共参数 */
 		parameters.put("auth_type", "1");
@@ -75,7 +75,7 @@ public class WeihouInterfacesListUtil {
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		JSONObject js = JSONObject.parseObject(json);
 		//System.out.println(js.toJSONString());
-		if(js.get("code").equals("200")){
+		if("200".equals(js.get("code"))){
 			//JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(js.toJSONString());
 			if(js.get("data")!=null){
@@ -88,7 +88,7 @@ public class WeihouInterfacesListUtil {
 	
 	//测试
 	public static void main(String[] args) {
-		//currentUserID("24e7d53a956f4a4eb7b22d5742626e8f");
+		//CURRENT_USER_ID("24e7d53a956f4a4eb7b22d5742626e8f");
 		//third_user_id
 		//getUserinfo("20383761", "name,head,third_user_id");
 		
@@ -122,7 +122,7 @@ public class WeihouInterfacesListUtil {
 /*		if(!StringUtils.hasText(name) &&!StringUtils.hasText(head)){
 			return null;
 		}*/
-		String whUrl = currentonlinestate;
+		String whUrl = CURRENTONLINESTATE;
 		Map<String, String> parameters = new TreeMap<String, String>();
 		/* 公共参数 */
 		parameters.put("auth_type", "1");
@@ -133,7 +133,7 @@ public class WeihouInterfacesListUtil {
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		JSONObject js = JSONObject.parseObject(json);
 		//System.out.println(js.toJSONString());
-		if(js.get("code").equals("200")){
+		if("200".equals(js.get("code"))){
 			//JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(js.toJSONString());
 			if(js.get("data")!=null){
@@ -154,7 +154,7 @@ public class WeihouInterfacesListUtil {
 	public static JSONObject getCurrentOnlineNumber(String webinar_id){
 		Map<String,String> parameters =  getBaseParams();
 		parameters.put("webinar_id", webinar_id);
-		String str  = HttpUtil.sendPostRequest(currentonlinenumber, parameters);
+		String str  = HttpUtil.sendPostRequest(CURRENTONLINENUMBER, parameters);
 		JSONObject js = JSONObject.parseObject(str);
 		return js;
 	}
@@ -170,7 +170,7 @@ public class WeihouInterfacesListUtil {
 	public static boolean currentonLinenumberConditions(Date recordDate){
 		boolean falg = false;
 		Calendar c = new GregorianCalendar();
-		//System.out.println("系统当前时间      ："+df.format(date));
+		//System.out.println("系统当前时间      ："+df.FORMAT(date));
 		c.setTime(recordDate);//设置参数时间
 		c.add(Calendar.SECOND,+30);//把日期往后增加SECOND 秒.整数往后推,负数往前移动
 		recordDate = c.getTime();
@@ -216,7 +216,7 @@ public class WeihouInterfacesListUtil {
 		}
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		Map<String, String> m =json2Map(json);
-		if(m.get("msg").equals("success")){
+		if("success".equals(m.get("msg"))){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
 			System.out.println(json+":"+userId);
@@ -260,7 +260,7 @@ public class WeihouInterfacesListUtil {
 		//Map<String, String> m =json2Map(json);
 		JSONObject js = JSONObject.parseObject(json);
 		System.out.println(js.toJSONString());
-		if(js.get("msg").equals("成功")){
+		if("成功".equals(js.get("msg"))){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(jsData.toJSONString());
 			return jsData;
@@ -289,10 +289,10 @@ public class WeihouInterfacesListUtil {
 		parameters.put("name", name);
 		parameters.put("head", head);
 		
-		String json = HttpUtil.sendPostRequest(register, parameters);
+		String json = HttpUtil.sendPostRequest(REGISTER, parameters);
 		
 		JSONObject js = JSONObject.parseObject(json);
-		if(js.get("msg").equals("success")){
+		if("success".equals(js.get("msg"))){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(jsData.toJSONString());
 			String vhallId = jsData.get("user_id").toString();

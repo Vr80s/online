@@ -44,7 +44,7 @@ public class FocusController {
 	private UserCoinService userCoinService;
 	
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(FocusController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(FocusController.class);
 	/**
 	 * Description： 我的主页
 	 * @param req

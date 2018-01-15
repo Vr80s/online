@@ -29,6 +29,7 @@ public class QuestionServiceImpl  extends OnlineBaseServiceImpl implements Quest
      * @param courseId
      * @return
      */
+    @Override
     public List<QuestionVo> getQuestionList(Integer courseId) {
          //获取到当前课程下的所有问题信息
          List<QuestionVo> questionVos= questionDao.getQuestionList(courseId);
@@ -49,7 +50,8 @@ public class QuestionServiceImpl  extends OnlineBaseServiceImpl implements Quest
      * @param pid
      * @return
      */
-    public QuestionVo getQuestionByPid(Integer courseId,String pid) {
+    @Override
+    public QuestionVo getQuestionByPid(Integer courseId, String pid) {
         return questionDao.getQuestionByPid(courseId,pid);
     }
 }

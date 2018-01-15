@@ -30,7 +30,7 @@ public class ReflectionUtils {
 		try {
 			if(field.getType().getName().equals((boolean.class).getName())
 					|| field.getType().getName().equals((Boolean.class).getName())){
-				if(!propertyName.substring(0,2).equals("is")){
+				if(!"is".equals(propertyName.substring(0, 2))){
 					getterMethodName="is"+StringUtils.capitalize(propertyName);
 				}else{
 					getterMethodName="get"+StringUtils.capitalize(propertyName);

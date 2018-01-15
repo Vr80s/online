@@ -126,7 +126,7 @@ public class StudyPlanController extends AbstractController {
         if(knowledgeIds!=null) {
             String[] ids = knowledgeIds.split(",");
             for (String id : ids) {
-                if (id.split("_").length == 2 && id.split("_")[0].equalsIgnoreCase("kpoint")) {
+                if (id.split("_").length == 2 && "kpoint".equalsIgnoreCase(id.split("_")[0])) {
                     tids.add(id.split("_")[1]);
                 }
             }

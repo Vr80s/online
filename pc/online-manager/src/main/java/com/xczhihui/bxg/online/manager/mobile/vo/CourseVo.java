@@ -740,11 +740,13 @@ public class CourseVo extends OnlineBaseVo {
 		this.teachingDays = teachingDays;
 	}
 
-	public Date getCreateTime() {
+	@Override
+    public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	@Override
+    public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 

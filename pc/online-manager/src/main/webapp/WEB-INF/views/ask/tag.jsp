@@ -172,4 +172,4 @@
 </div>
 
 
-<script type="text/javascript" src="${base}/js/ask/tag.js?v=1.1"></script>
+<script type="text/javascript" src="${base}/js/ask/tag.js?v=ipandatcm_1.3"></script>

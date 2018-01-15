@@ -32,6 +32,7 @@ public class ChapterServiceImpl  extends OnlineBaseServiceImpl implements Chapte
      * @param courseId  课程id
      * @return 章节信息集合
      */
+    @Override
     public List<ChapterVo> findChapterInfo(Integer courseId, HttpServletRequest request) {
         return chapterDao.findChapterInfo(courseId, request);
     }
@@ -41,7 +42,8 @@ public class ChapterServiceImpl  extends OnlineBaseServiceImpl implements Chapte
      * @param chapterId  章的id号
      * @return 章节信息集合
      */
-    public  List<Map<String, Object>>  findChapterByChapterId(String chapterId ,Integer courseId,HttpServletRequest request) {
+    @Override
+    public  List<Map<String, Object>>  findChapterByChapterId(String chapterId , Integer courseId, HttpServletRequest request) {
          return  chapterDao.findChapterByChapterId(chapterId, courseId, request);
     }
 
@@ -50,7 +52,8 @@ public class ChapterServiceImpl  extends OnlineBaseServiceImpl implements Chapte
      * @param courseId  课程ID号
      * @return 最后播放未完成的视频
      */
-    public ChapterPointVo  findLastPayVideo (Integer courseId,HttpServletRequest request) {
+    @Override
+    public ChapterPointVo  findLastPayVideo (Integer courseId, HttpServletRequest request) {
         return  chapterDao.findLastPayVideo( courseId, request);
     }
 

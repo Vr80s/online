@@ -451,7 +451,8 @@ public class UserServiceImpl implements UserService {
 	 * 获取用户资料
 	 * @return
 	 */
-	public UserDataVo getUserData(OnlineUser loginUser) {
+	@Override
+    public UserDataVo getUserData(OnlineUser loginUser) {
 		UserDataVo vo = new UserDataVo();
 		if (StringUtils.hasText(loginUser.getId())) {
 			vo = userCenterDao.getUserData(loginUser.getId());
@@ -501,7 +502,8 @@ public class UserServiceImpl implements UserService {
 	 * @param nickName  昵称
 	 * @return
 	 */
-    public Boolean  checkNickName(String  nickName,OnlineUser u) {
+    @Override
+    public Boolean  checkNickName(String  nickName, OnlineUser u) {
 		String sql = "select name from oe_user where name = ? ";
 		List<UserDataVo> ou = dao.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,
 				BeanPropertyRowMapper.newInstance(UserDataVo.class), nickName);

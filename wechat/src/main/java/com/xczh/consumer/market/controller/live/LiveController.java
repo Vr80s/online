@@ -34,8 +34,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import ch.qos.logback.classic.Logger;
-
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
@@ -103,7 +101,7 @@ public class LiveController {
 	@Autowired
 	private Broadcast broadcast;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(LiveController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(LiveController.class);
 	
 	/**
 	 * Description： 直播搜索接口
@@ -167,7 +165,7 @@ public class LiveController {
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 		
-		log.info("{}{}{}{}{}{}{}{}{}");
+		LOGGER.info("{}{}{}{}{}{}{}{}{}");
 		
 		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
 			return ResponseObject.newErrorResponseObject("缺少分页参数");
@@ -176,7 +174,7 @@ public class LiveController {
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		try {
 			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(pageNumber,pageSize,null);
-			log.info("list.size():"+list.size());
+			LOGGER.info("list.size():"+list.size());
 			if(list!=null && list.size()>0){
 				return ResponseObject.newSuccessResponseObject(list);
 			}else{
@@ -234,7 +232,7 @@ public class LiveController {
 			}else{
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
-			       //log.info("同学,当前课程您已经报名了!");
+			       //LOGGER.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };
 			}
@@ -286,14 +284,14 @@ public class LiveController {
 				projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
 
 		JSONObject json = JSONObject.parseObject(headImgPath);
-		log.info("文件路径——path:"+headImgPath);
+		LOGGER.info("文件路径——path:"+headImgPath);
 		map.put("logo", json.get("url").toString());
 
-		log.info("req.getParameterprice================"+req.getParameter("price"));
-		if(liveExamineInfo.getSeeMode().equals("1")){//收费
+		LOGGER.info("req.getParameterprice================"+req.getParameter("price"));
+		if("1".equals(liveExamineInfo.getSeeMode())){//收费
 			liveExamineInfo.setPrice(new BigDecimal(req.getParameter("price")));
 		}
-		if(liveExamineInfo.getSeeMode().equals("2")){//密码
+		if("2".equals(liveExamineInfo.getSeeMode())){//密码
 			liveExamineInfo.setPassword(req.getParameter("password"));
 		}
 

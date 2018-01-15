@@ -610,8 +610,8 @@ public class HttpUtil {
 				|| "unknown".equalsIgnoreCase(ipAddress)) {
 			ipAddress = request.getRemoteAddr();
 
-			if (ipAddress.equals("127.0.0.1")
-					|| ipAddress.equals("0:0:0:0:0:0:0:1")) {
+			if ("127.0.0.1".equals(ipAddress)
+					|| "0:0:0:0:0:0:0:1".equals(ipAddress)) {
 				// 根据网卡获取本机配置的IP地址
 				InetAddress inetAddress = null;
 				try {
