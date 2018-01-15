@@ -26,7 +26,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Autowired
 	private CourseMapper iCourseMapper;
 	
-	public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
+	@Override
+    public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
 		// TODO Auto-generated method stub
 		List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
 		return   page.setRecords(records);

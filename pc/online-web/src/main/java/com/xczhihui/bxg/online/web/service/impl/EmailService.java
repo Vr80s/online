@@ -53,7 +53,8 @@ public class EmailService {
 		  props.setProperty("mail.smtp.socketFactory.port", "465");
 		  props.put("mail.smtp.auth", "true");
 		  Session session = Session.getDefaultInstance(props, new Authenticator(){
-		      protected PasswordAuthentication getPasswordAuthentication() {
+		      @Override
+              protected PasswordAuthentication getPasswordAuthentication() {
 		          return new PasswordAuthentication(username, password);
 		      }});
 		 

@@ -33,6 +33,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * 获取博学社banner信息
      * @return
      */
+    @Override
     public List<Map<String, Object>> getArticleBanner() {
         Map<String,Object> paramMap = new HashMap<String,Object>();
         String  sql="select b.id,b.banner_path,b.title,a.name from oe_bxs_article b,article_type a where b.type_id = a.id and  b.is_delete= 0 and b.status=1 and b.is_recommend=1  order by b.sort desc ";
@@ -44,6 +45,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * 获取文章分类
      * @return
      */
+    @Override
     public  List<Map<String,Object>>  getArticleType(){
         Map<String,Object> paramMap = new HashMap<String,Object>();
         String  sql="select id,name from article_type  where `status`=1  order by sort desc ";
@@ -54,7 +56,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * @param type
      * @return
      */
-    public Page<ArticleVo> getPaperArticle(Integer pageNumber, Integer pageSize,String type,String tagId)
+    @Override
+    public Page<ArticleVo> getPaperArticle(Integer pageNumber, Integer pageSize, String type, String tagId)
     {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
@@ -81,6 +84,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * 获取热门文章
      * @return
      */
+    @Override
     public List<Map<String,Object>>  getHotArticle(){
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("t1",specialColumn);
@@ -93,6 +97,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * 热门标签
      * @return
      */
+    @Override
     public List<Map<String, Object>> getHotTags() {
         Map<String,Object> paramMap = new HashMap<String,Object>();
         String  sql=" SELECT a.* from  (select t.id, t.`name` from oe_bxs_article a ,article_r_tag art ,oe_bxs_tag t "+
@@ -105,7 +110,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * 获取文章信息更具文章id
      * @return
      */
-    public Map<String,Object>  updateBrowseSumAndgetArticleById( Integer articleId,Integer preId,HttpServletRequest request)
+    @Override
+    public Map<String,Object>  updateBrowseSumAndgetArticleById(Integer articleId, Integer preId, HttpServletRequest request)
     {
 
         String loginName="0";
@@ -144,6 +150,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * @param articleId
      * @return
      */
+    @Override
     public List<Map<String,Object>> getCorrelationTitle(Integer articleId){
         Map<String,Object> paramMap = new HashMap<String,Object>();
         paramMap.put("articleId", articleId);
@@ -157,7 +164,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * 保存评论信息
      * @param appraiseVo
      */
-    public void  saveAppraise(AppraiseVo appraiseVo,HttpServletRequest request){
+    @Override
+    public void  saveAppraise(AppraiseVo appraiseVo, HttpServletRequest request){
         //获取当前登陆用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         appraiseVo.setUser_id(loginUser.getId());
@@ -179,7 +187,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * @param articleId
      * @return
      */
-    public Page<AppraiseVo>  getAppraiseByArticleId(Integer articleId,Integer pageNumber,Integer pageSize,HttpServletRequest request){
+    @Override
+    public Page<AppraiseVo>  getAppraiseByArticleId(Integer articleId, Integer pageNumber, Integer pageSize, HttpServletRequest request){
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 20 : pageSize;
         Map<String,Object> paramMap = new HashMap<String,Object>();
@@ -203,7 +212,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * @param request
      * @return
      */
-    public  Map<String,Object>   updatePraiseSum(Integer articleId,Integer praiseSum,HttpServletRequest request){
+    @Override
+    public  Map<String,Object>   updatePraiseSum(Integer articleId, Integer praiseSum, HttpServletRequest request){
         //获取当前登陆用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
 
@@ -236,7 +246,8 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * @param appraiseId
      * @param request
      */
-    public  void   deleteAppraiseId(String appraiseId,HttpServletRequest request){
+    @Override
+    public  void   deleteAppraiseId(String appraiseId, HttpServletRequest request){
         //获取当前登陆用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
         Map<String,Object> paramMap = new HashMap<String,Object>();
@@ -260,6 +271,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
      * 获取热门课程
      * @return
      */
+    @Override
     public List<Map<String,Object>>  getHotCourses(){
          Map<String,Object> paramMap = new HashMap<String,Object>();
          String  sql=" SELECT c.id,c.grade_name courseName,c.original_cost as original_cost,c.current_price as current_price, c.smallimg_path, tm.`name`,c.description_show,c.is_free," +

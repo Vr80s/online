@@ -48,10 +48,12 @@ public class AppraiseVo extends OnlineBaseVo {
 	@DateTimeFormat(pattern = "yyyy-M-d HH:mm:ss")
     @JsonFormat(pattern = "yyyy-M-d HH:mm", timezone = "GMT+8")
     private Date startTime;
+    @Override
     public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	@Override
+    public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	/*

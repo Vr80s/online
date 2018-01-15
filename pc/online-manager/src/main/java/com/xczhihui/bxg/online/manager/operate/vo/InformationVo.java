@@ -45,16 +45,20 @@ public class InformationVo extends OnlineBaseVo  {
 	public void setInformationtype(String informationtype) {
 		this.informationtype = informationtype;
 	}
-	public String getCreatePerson() {
+	@Override
+    public String getCreatePerson() {
 		return createPerson;
 	}
-	public void setCreatePerson(String createPerson) {
+	@Override
+    public void setCreatePerson(String createPerson) {
 		this.createPerson = createPerson;
 	}
-	public java.util.Date getCreateTime() {
+	@Override
+    public java.util.Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(java.util.Date createTime) {
+	@Override
+    public void setCreateTime(java.util.Date createTime) {
 		this.createTime = createTime;
 	}
 	public String getHrefAdress() {

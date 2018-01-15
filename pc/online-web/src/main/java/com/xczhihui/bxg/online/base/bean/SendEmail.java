@@ -29,7 +29,8 @@ public class SendEmail {
 		  final String username = "system@ixincheng.com";
 		  final String password = "Ixincheng1234";
 		  Session session = Session.getDefaultInstance(props, new Authenticator(){
-		      protected PasswordAuthentication getPasswordAuthentication() {
+		      @Override
+              protected PasswordAuthentication getPasswordAuthentication() {
 		          return new PasswordAuthentication(username, password);
 		      }});
 		 

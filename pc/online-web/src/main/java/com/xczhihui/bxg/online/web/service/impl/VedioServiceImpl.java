@@ -317,6 +317,7 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 //		}
 //	}
 
+	@Override
 	@Resource(name="simpleHibernateDao")
 	public void setDao(SimpleHibernateDao dao) {
 		this.dao = dao;

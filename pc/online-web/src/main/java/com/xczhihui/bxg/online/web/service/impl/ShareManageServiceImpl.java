@@ -56,6 +56,7 @@ public class ShareManageServiceImpl implements ShareManageService{
      * 查询用户各级别用户人数
      * @return
      */
+    @Override
     public Map<String, Object> findUserCount(HttpServletRequest request){
         //获取当前登陆用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
@@ -74,7 +75,8 @@ public class ShareManageServiceImpl implements ShareManageService{
      * @param request  当前登录用户
      * @return
      */
-    public Page<ShareUserVo> findOneLevelUser(Integer searchCase,String searchContent,String startTime,String endTime,Integer pageNumber, Integer pageSize,HttpServletRequest request) throws ParseException {
+    @Override
+    public Page<ShareUserVo> findOneLevelUser(Integer searchCase, String searchContent, String startTime, String endTime, Integer pageNumber, Integer pageSize, HttpServletRequest request) throws ParseException {
         //获取当前登陆用户信息
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         return  shareManageDao.findOneLevelUser(searchCase,searchContent,startTime,endTime,pageNumber,pageSize,u);

@@ -63,6 +63,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param menuId     学科ID号
      * @return
      */
+    @Override
     public Page<AskQuestionVo> findListQuestion(OnlineUser u, Integer pageNumber, Integer pageSize, Integer menuId, String status, String tag, String title, String text, String content) {
         //处理搜索条件中的特殊字符
         title = MysqlUtils.replaceESC(title);
@@ -125,6 +126,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * 获取问题数据，根据问题ID号
      * @param questionId 问题ID号
      */
+    @Override
     public AskQuestionVo findQuestionById(Token token, String questionId, HttpServletRequest request) {
         //获取当前问题信息
         AskQuestionVo questionVo = questionListDao.findQuestionById(questionId);
@@ -171,6 +173,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      *
      * @param questionId 问题ID号
      */
+    @Override
     public AskQuestionVo findAdminQuestionById(String questionId, HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("_adminUser_");
         //获取当前问题信息
@@ -198,6 +201,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      *
      * @param qu 问题的id号
      */
+    @Override
     public String updateBrowseSum(AskQuestionVo qu) {
         questionListDao.updateBrowseSum(qu);
         return "浏览数增加成功";
@@ -208,6 +212,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      *
      * @param qu 参数封装对象
      */
+    @Override
     public String saveQuestion(AskQuestionVo qu, HttpServletRequest request) {
         //获取当前登陆用户信息
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
@@ -231,6 +236,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param title 提问标题信息
      * @return 类似问题集合
      */
+    @Override
     public List<AskQuestionVo> findSimilarProblemByTitle(String title) {
         if (title.equals("")) {
             return null;
@@ -244,6 +250,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param menuId 学科id号
      * @return
      */
+    @Override
     public List<CourseVo> getCourseByMenuId(Integer menuId) {
         return questionListDao.getCourseByMenuId(menuId);
     }
@@ -255,6 +262,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param
      * @return
      */
+    @Override
     public List<AskQuestionVo> getHotAnswer() {
         return questionListDao.getHotAnswer();
     }
@@ -266,6 +274,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param
      * @return
      */
+    @Override
     public List<AskQuestionVo> getSameProblem(String[] tags, Integer menuId, String qId) {
         return questionListDao.getSameProblem(tags, menuId, qId);
     }
@@ -277,6 +286,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param questionId 问题id号
      * @return
      */
+    @Override
     public String deleteQuestionById(HttpServletRequest request, OnlineUser u, String questionId) {
         //再删除问题信息
         questionListDao.deleteQuestionById(request, questionId, u);
@@ -294,7 +304,8 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * @param pageSize
      * @return
      */
-    public Page<AskQuestionVo> findVideoQuestion(String videoId,Integer type,Integer pageNumber, Integer pageSize,HttpServletRequest request) {
+    @Override
+    public Page<AskQuestionVo> findVideoQuestion(String videoId, Integer type, Integer pageNumber, Integer pageSize, HttpServletRequest request) {
          //获取当前登陆用户信息
          OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
          if(u != null){
@@ -308,6 +319,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      * 修改问题信息内容
      * @param questionVo
      */
+    @Override
     public void updateQuestion(AskQuestionVo  questionVo){
          questionListDao.updateQuestion(questionVo);
     }

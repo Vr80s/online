@@ -53,6 +53,7 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
      *  未报名,向学员表添加数据,并向学员班级课程表中添加一条数据
      *
      */
+    @Override
     public String saveApply(OnlineUser onlineUser, Integer courseId, Integer gradeId) {
         //判断当前用户是否报名
         boolean  applyStatus= onlineUser.isApply();
@@ -242,7 +243,8 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public void saveApply(Apply apply, OnlineUser onlineUser) {
+	@Override
+    public void saveApply(Apply apply, OnlineUser onlineUser) {
 		// 查询一下当前用户的学员信息
 		Apply a = applyDao.findByUserId(onlineUser.getId());
 		if (a == null) {

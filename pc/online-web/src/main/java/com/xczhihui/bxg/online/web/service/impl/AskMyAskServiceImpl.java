@@ -44,7 +44,8 @@ public class AskMyAskServiceImpl implements AskMyAskService {
 	 * @param pageSize
 	 * @return
 	 */
-	public  Page<AskQuestionVo> findMyQuestionInfo(String loginName,String status,Integer pageNumber,Integer pageSize){
+	@Override
+    public  Page<AskQuestionVo> findMyQuestionInfo(String loginName, String status, Integer pageNumber, Integer pageSize){
 		return  dao.findMyQuestionInfo(loginName,status,pageNumber,pageSize);
 	}
 }

@@ -8,8 +8,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class MemberInterceptor implements HandlerInterceptor{
 
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
+	@Override
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response, Object handler) throws Exception {
 		//请求的路径
 		String contextPath = request.getContextPath();
 		String userName = request.getHeader("userName");
@@ -26,13 +27,15 @@ public class MemberInterceptor implements HandlerInterceptor{
 		}
 	}
 
-	public void postHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+	@Override
+    public void postHandle(HttpServletRequest request,
+                           HttpServletResponse response, Object handler,
+                           ModelAndView modelAndView) throws Exception {
 	}
 
-	public void afterCompletion(HttpServletRequest request,
-			HttpServletResponse response, Object handler, Exception ex)
+	@Override
+    public void afterCompletion(HttpServletRequest request,
+                                HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 
 	}

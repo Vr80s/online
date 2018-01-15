@@ -665,7 +665,8 @@ public class VideoResServiceImpl implements VideoResService {
 		return newVideos;
 	}
 	
-	public void addVideoToUerVideo(Integer courseId,Video video){
+	@Override
+    public void addVideoToUerVideo(Integer courseId, Video video){
 		Video temp =videoResDao.findOneEntitiyByProperty(Video.class, "id", video.getId());
 		//新增视频同步到用户视频
 		String hql="from UserRVideo where courseId =? group by userId ";

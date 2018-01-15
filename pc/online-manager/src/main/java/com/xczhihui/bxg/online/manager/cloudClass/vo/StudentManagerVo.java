@@ -175,11 +175,13 @@ public class StudentManagerVo extends OnlineBaseVo{
 		this.stopTime = stopTime;
 	}
 
-	public Date getCreateTime() {
+	@Override
+    public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	@Override
+    public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	 

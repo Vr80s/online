@@ -63,7 +63,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
      * @param ids
      * @param request
      */
-    public Map<String,String> saveOrder(String orderNo,String ids,HttpServletRequest request){
+    @Override
+    public Map<String,String> saveOrder(String orderNo, String ids, HttpServletRequest request){
         return orderDao.saveOrder(orderNo,ids,request);
     }
 
@@ -71,7 +72,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
      * 获取用户全部订单信息
      * @return 所有订单信息
      */
-    public Page<OrderVo> getMyAllOrder(Integer  orderStatus,Integer timeQuantum,Integer pageNumber, Integer pageSize,HttpServletRequest request){
+    @Override
+    public Page<OrderVo> getMyAllOrder(Integer  orderStatus, Integer timeQuantum, Integer pageNumber, Integer pageSize, HttpServletRequest request){
         OnlineUser u =  (OnlineUser) request.getSession().getAttribute("_user_");
         if(u != null){
              return  orderDao.getMyAllOrder(orderStatus,timeQuantum,pageNumber, pageSize,u.getId());
@@ -209,7 +211,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	/**
 	 * 为购买用户发送消息通知
 	 */
-	public  void  savePurchaseNotice(String  basePath,String orderNo){
+	@Override
+    public  void  savePurchaseNotice(String  basePath, String orderNo){
 		//为购买用户发送消息通知
 		List<Map<String, Object>> courses=courseDao.findNewestCourse(orderNo);
 		if(courses.size() > 0) {
@@ -260,16 +263,19 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
      * @param orderNo  订单号
      * @return
      */
+    @Override
     public OrderVo findOrderByOrderNo(String orderNo){
          return  orderDao.findOrderByOrderNo(orderNo);
     }
 
-	public OrderVo findOrderByOrderId(String orderId){
+	@Override
+    public OrderVo findOrderByOrderId(String orderId){
 		return  orderDao.findOrderByOrderId(orderId);
 	}
 
 
-    public Map<String,Object>  findOrderByCourseId(String ids,String userId,String orderNo){
+    @Override
+    public Map<String,Object>  findOrderByCourseId(String ids, String userId, String orderNo){
         return orderDao.findOrderByCourseId(ids, userId,orderNo);
     }
 
@@ -278,7 +284,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param ids  课程id号
 	 * @return
 	 */
-	public Boolean findCourseIsFree(String ids){
+	@Override
+    public Boolean findCourseIsFree(String ids){
 		return   orderDao.findCourseIsFree(ids);
 	}
 
@@ -384,7 +391,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param type:0删除订单 1:取消订单
 	 * @param orderNo
 	 */
-	public void  updateOrderStatu(Integer type,String orderNo,OnlineUser user){
+	@Override
+    public void  updateOrderStatu(Integer type, String orderNo, OnlineUser user){
 		String sql="";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("user_id",user.getId());
@@ -413,7 +421,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param ids 购买课程的id数组
 	 * @return
 	 */
-	public List<Map<String,Object>> findActivityOrder(HttpServletRequest request,String ids){
+	@Override
+    public List<Map<String,Object>> findActivityOrder(HttpServletRequest request, String ids){
 		return  orderDao.findActivityOrder(request,ids);
 	}
 
@@ -422,7 +431,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param ids
 	 * @return
 	 */
-	public List<Map<String,Object>>  findActivityCourse(String ids){
+	@Override
+    public List<Map<String,Object>>  findActivityCourse(String ids){
 		return orderDao.findActivityCourse(ids);
 	}
 
@@ -431,7 +441,8 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 	 * @param idArr  课程id号
 	 * @return 返回对应的课程对象
 	 */
-	public  List<Map<String,Object>>   findNotActivityOrder(String  idArr,String orderNo,HttpServletRequest request){
+	@Override
+    public  List<Map<String,Object>>   findNotActivityOrder(String  idArr, String orderNo, HttpServletRequest request){
 		return  orderDao.findNotActivityOrder(idArr,orderNo,request);
 	}
 

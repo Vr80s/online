@@ -63,10 +63,12 @@ public class TeachMethodVo extends OnlineBaseVo {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public Date getCreateTime() {
+	@Override
+    public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	@Override
+    public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	public Integer getCourseCount() {

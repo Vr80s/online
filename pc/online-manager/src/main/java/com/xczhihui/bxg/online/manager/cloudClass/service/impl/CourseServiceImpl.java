@@ -82,7 +82,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param pageSize 每页显示多少行，默认20
      * @return Example 分页列表
      */
-    public List<CourseLecturVo>  getCourseAndLecturerlist(Integer number, Integer courseType,Integer pageNumber, Integer pageSize) {
+    @Override
+	public List<CourseLecturVo>  getCourseAndLecturerlist(Integer number, Integer courseType, Integer pageNumber, Integer pageSize) {
 
          List<CourseLecturVo> courseLecturVos=null;
          //先根据菜单编号获取相关课程信息
@@ -872,6 +873,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	
+	@Override
 	public List<Course> findByName(String name){
 		List<Course> courses=dao.findEntitiesByProperty(Course.class, "gradeName", name);
 		/*if(course!=null&&!course.isDelete()){

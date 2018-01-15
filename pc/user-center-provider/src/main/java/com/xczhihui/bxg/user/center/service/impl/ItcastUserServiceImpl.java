@@ -355,7 +355,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		itcastUser.setPassword(encPassord);
 	}
 
-	public TableVo getUsers(TableVo vo) {
+	@Override
+    public TableVo getUsers(TableVo vo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if(!StringUtils.isEmpty(vo.getsSearch())){
 			Gson gson = new Gson();

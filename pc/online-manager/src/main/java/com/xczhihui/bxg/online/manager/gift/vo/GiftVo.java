@@ -64,11 +64,13 @@ public class GiftVo extends OnlineBaseVo{
 		this.name = name;
 	}
 
-	public String getCreatePerson() {
+	@Override
+    public String getCreatePerson() {
 		return createPerson;
 	}
 
-	public void setCreatePerson(String createPerson) {
+	@Override
+    public void setCreatePerson(String createPerson) {
 		this.createPerson = createPerson;
 	}
 

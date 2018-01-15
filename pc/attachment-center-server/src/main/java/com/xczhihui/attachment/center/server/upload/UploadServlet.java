@@ -45,11 +45,13 @@ public class UploadServlet extends HttpServlet {
 	@Autowired
 	private AttachmentService attachmentService;
 
-	public void init(ServletConfig config) throws ServletException {
+	@Override
+    public void init(ServletConfig config) throws ServletException {
 		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doOptions(request,response);
 		int resumableChunkNumber = getResumableChunkNumber(request);
 		ResumableInfo info = getResumableInfo(request);
@@ -95,7 +97,8 @@ public class UploadServlet extends HttpServlet {
 		}
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doOptions(request,response);
 		int resumableChunkNumber = getResumableChunkNumber(request);
 
@@ -150,14 +153,16 @@ public class UploadServlet extends HttpServlet {
 		return info;
 	}
 
-	protected void doOptions(HttpServletRequest req, HttpServletResponse resp)   throws ServletException, IOException {
+	@Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp)   throws ServletException, IOException {
 		resp.setContentType("application/json");
 		resp.setHeader("Access-Control-Allow-Headers", "Content-Range,Content-Type");
 		resp.setHeader("Access-Control-Allow-Origin", ConfigUtil.getValueByName("STREAM_CROSS_ORIGIN"));
 		resp.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
 	}
 
-	 public void destroy()
+	 @Override
+     public void destroy()
 	  {
 	    super.destroy();
 	  }

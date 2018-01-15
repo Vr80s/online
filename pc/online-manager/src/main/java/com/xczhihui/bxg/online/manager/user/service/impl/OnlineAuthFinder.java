@@ -26,11 +26,13 @@ public class OnlineAuthFinder implements AuthFinder {
 
 	private UserService userService;
 
-	public Set<String> findRoles(String userId) {
+	@Override
+    public Set<String> findRoles(String userId) {
 		return this.roleService.findRoleCodes(userId);
 	}
 
-	public Set<String> findPermissions(String userId) {
+	@Override
+    public Set<String> findPermissions(String userId) {
 		return this.resourceService.findPermissions(userId);
 	}
 

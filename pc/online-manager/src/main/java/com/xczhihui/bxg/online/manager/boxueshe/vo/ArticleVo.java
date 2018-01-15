@@ -115,10 +115,12 @@ public class ArticleVo  extends OnlineBaseVo{
 		this.doctorAuthor = doctorAuthor;
 	}
 
-	public Date getCreateTime() {
+	@Override
+    public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	@Override
+    public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	public Integer getId() {

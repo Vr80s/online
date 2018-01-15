@@ -59,7 +59,8 @@ public class WxcpClientUserServiceImpl implements WxcpClientUserService {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public WxcpClientUser getWxcpClientUserByOpenid(String openid) throws SQLException {
+	@Override
+    public WxcpClientUser getWxcpClientUserByOpenid(String openid) throws SQLException {
 		return wxcpClientUserMapper.getWxcpClientUserByOpenid(openid);
 	}
 	
@@ -74,7 +75,8 @@ public class WxcpClientUserServiceImpl implements WxcpClientUserService {
 	/**
 	 * 更新；
 	 **/
-	public int update( WxcpClientUser user ) throws SQLException {
+	@Override
+    public int update(WxcpClientUser user ) throws SQLException {
 		return wxcpClientUserMapper.update(user);
 	}
 	/**
@@ -82,7 +84,8 @@ public class WxcpClientUserServiceImpl implements WxcpClientUserService {
 	 * @return
 	 * @throws SQLException 
 	 */
-	public List<WxcpClientUser> getCenterUserInfo(WxcpClientUser wxcpClientUser) throws SQLException {
+	@Override
+    public List<WxcpClientUser> getCenterUserInfo(WxcpClientUser wxcpClientUser) throws SQLException {
 		return wxcpClientUserMapper.getCenterUserInfo(wxcpClientUser);
 	}
 	/**
@@ -91,7 +94,8 @@ public class WxcpClientUserServiceImpl implements WxcpClientUserService {
 	 * @param nike_name
 	 * @throws Exception
 	 */
-	public void saveClientUserForUserCenter(String mobile,String nike_name)throws Exception {
+	@Override
+    public void saveClientUserForUserCenter(String mobile, String nike_name)throws Exception {
 		WxcpClientUser wUser = wxcpClientUserMapper.getCenterUserByUserName(mobile);
 		if(null == wUser){
 			ItcastUser iUser = userCenterApi.getUser(mobile);

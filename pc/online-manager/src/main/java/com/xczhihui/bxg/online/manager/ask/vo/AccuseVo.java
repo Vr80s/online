@@ -110,10 +110,12 @@ public class AccuseVo extends OnlineBaseVo {
 	public void setCreatePersonName(String createPersonName) {
 		this.createPersonName = createPersonName;
 	}
-	public Date getCreateTime() {
+	@Override
+    public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
+	@Override
+    public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 	public Date getStartTime() {
