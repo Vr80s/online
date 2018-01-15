@@ -188,6 +188,8 @@ public class ExcelPoiUtil {
 				temp = cellValue;
 			}
 			break;
+		default:
+			break;
 		}
 
 		if (temp == null || "".equals(temp.trim())) {

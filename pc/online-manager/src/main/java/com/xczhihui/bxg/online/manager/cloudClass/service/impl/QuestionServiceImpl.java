@@ -572,7 +572,8 @@ public class QuestionServiceImpl extends OnlineBaseServiceImpl implements Questi
 					break;
 				case "非常困难":question.setDifficulty("D");
 					break;
-				
+				default:
+					break;
 			}
 			/**
 			 * 导入后匹配编辑器回车和空格的格式 begin

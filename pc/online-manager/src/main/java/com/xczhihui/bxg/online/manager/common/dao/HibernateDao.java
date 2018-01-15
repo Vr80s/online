@@ -531,7 +531,6 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 	/**
 	 * 执行HQL进行批量修改/删除操作.
 	 * @param hql
-	 * @param list
 	 * @return 更新记录数.
 	 */
 	public int batchExecute(final String hql, final List<Object> parameter) {
@@ -793,6 +792,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				case NULL:
 					whereBufferHou.append(temName).append(" is null ");
 					break;
+				default:break;
 				}
 			} else {
 				System.out.println("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
@@ -875,6 +875,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		case NOTNULL:
 			whereBufferHou.append(temName).append(".").append(alisStr).append(" is not null ");
 			break;
+		default:break;
 		}
 	}
 	
@@ -1029,6 +1030,8 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				case NULL:
 					whereBufferHou.append(propertyName).append(" is null ");
 					break;
+				default:
+					break;
 				}
 			} else {
 				System.out.println("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
@@ -1118,7 +1121,6 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 	 * 
 	 * @param group
 	 * @param whereBufferHou
-	 * @param temName  别名
 	 * @param alisStr
 	 */
 	private void matchCase(Group group, StringBuffer whereBufferHou,String alisStr) {

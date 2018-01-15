@@ -474,6 +474,8 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 				ll.setAppInfo(info);
 				ll.setAppLastTime(lastTime);
 				break;
+			default:
+				break;
 		}
 		if(ll.getId()==null){
 			loginLimitDao.addLoginList(ll);

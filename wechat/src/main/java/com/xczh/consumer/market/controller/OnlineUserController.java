@@ -295,6 +295,8 @@ public class OnlineUserController {
 		    	break;
 		    case 1: randomCode = num1-num2;
 		    	break;
+			default:
+				break;
 //			    case 2: randomCode = num1*num2;
 //			    	break;  
 //			    case 3: randomCode = num1/num2;
