@@ -1,0 +1,34 @@
+package com.xczhihui.wechat.course.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.wechat.course.mapper.CourseMapper;
+import com.xczhihui.wechat.course.model.Course;
+import com.xczhihui.wechat.course.service.ICourseService;
+import com.xczhihui.wechat.course.vo.CourseLecturVo;
+
+/**
+ * <p>
+ *  服务实现类
+ * </p>
+ *
+ * @author yuxin
+ * @since 2017-12-09
+ */
+@Service
+public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implements ICourseService {
+
+	@Autowired
+	private CourseMapper iCourseMapper;
+	
+	public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page) {
+		// TODO Auto-generated method stub
+		List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
+		return   page.setRecords(records);
+	}
+}
