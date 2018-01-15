@@ -36,7 +36,7 @@ public class XCPageController {
 	@Value("${gift.im.host}")
 	private  String host;
 
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(XCPageController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XCPageController.class);
 	/**
 	 * 跳转到观看历史页面
 	 * @param req
@@ -78,7 +78,7 @@ public class XCPageController {
 		
 		String courseId = req.getParameter("courseId");
 		for (String key : params.keySet()) {
-			   log.info("key= "+ key + " and value= " + req.getParameter(key));
+			   LOGGER.info("key= "+ key + " and value= " + req.getParameter(key));
 	    }
 		req.setAttribute("course_id", courseId);
 

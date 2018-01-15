@@ -677,7 +677,7 @@ public class CourseDao extends SimpleHibernateDao {
         calendar.set(Calendar.SECOND, 0);//秒
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
         Date date = calendar.getTime();
-//        System.out.println("Christmas is:"+format.format(date));
+//        System.out.println("Christmas is:"+FORMAT.FORMAT(date));
         String now = format.format(Calendar.getInstance().getTime());
         Date nowd;
         try {

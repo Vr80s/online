@@ -33,20 +33,18 @@ public class PayFactory {
 	/**
 	 * 微信支付
 	 */
-	public static final String wx = "wx";
+	public static final String WX = "WX";
 	
 	/**
 	 * 支付宝支付
 	 */
-	public static final String zfb = "zfb";
+	public static final String ZFB = "ZFB";
 
 	/**
 	 * 支付宝、微信扫码支付
 	 * 
 	 * @author 周铭株 at 2016年5月7日 上午10:54:02
-	 * @param payType
 	 * @param orderId
-	 * @param shopId
 	 * @param money
 	 * @param payTitle
 	 * @return
@@ -92,9 +90,9 @@ public class PayFactory {
 			String extDatas)
 			throws Exception {
 		
-		if (wx.equals(pt)) {
+		if (WX.equals(pt)) {
 			return PayUtils.fromBizBean2PrePay4App(getWxPayBo(orderId, money, payTitle, extDatas));
-		} else if (zfb.equals(pt)) {
+		} else if (ZFB.equals(pt)) {
 //			// Map<String, String> map = AlipaySubmit.buildRequestPara(
 //			// getAliPreOrderParams(AlipayConfig.service4Mobile, orderId, money,
 //			// payTitle, extDatas));
@@ -299,9 +297,9 @@ public class PayFactory {
 		HttpsRequest request = new HttpsRequest();
 		ExecutorService executor=Executors.newFixedThreadPool(3);
 		//请求第一个微信账户
-		Future<String> firstask=executor.submit(()->request.sendPost(WxPayConst.query_url, new QueryInfo(orderid, true)));
+		Future<String> firstask=executor.submit(()->request.sendPost(WxPayConst.QUERY_URL, new QueryInfo(orderid, true)));
 		//请求第二个微信账户
-		Future<String> sectask=executor.submit(()->request.sendPost(WxPayConst.query_url, new QueryInfo(orderid, false)));
+		Future<String> sectask=executor.submit(()->request.sendPost(WxPayConst.QUERY_URL, new QueryInfo(orderid, false)));
 		//请求支付宝账户
 		Future<String> thdtask=executor.submit(()->getAliSingleQuery(orderid));
 		Map<String,String> mres=null;

@@ -461,7 +461,7 @@ public class WechatController {
 //					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
 //					if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null 
 //							&& !"".equals(transaction_id.trim())) {
-//						String s = "out_trade_no="+out_trade_no+"&result_code=SUCCESS"+"&transaction_id="+transaction_id+"&key="+OnlineConfig.API_KEY;
+//						String s = "out_trade_no="+out_trade_no+"&result_code=SUCCESS"+"&transaction_id="+transaction_id+"&KEY="+OnlineConfig.API_KEY;
 //						String mysign = CodeUtil.MD5Encode(s).toLowerCase();
 //						
 //						String resXml = 

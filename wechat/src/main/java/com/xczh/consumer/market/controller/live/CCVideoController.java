@@ -37,7 +37,7 @@ public class CCVideoController {
 	@Autowired
 	private OnlineCourseService onlineCourseService;
 
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(CCVideoController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CCVideoController.class);
 	
 	/**
 	 * 这个方法暂时先这样提供，能用到的就用呗
@@ -77,7 +77,7 @@ public class CCVideoController {
 		
 		String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 		String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-		log.info(responsestr);
+		LOGGER.info(responsestr);
 		if (responsestr.contains("\"error\":")) {
 			return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
 		}
@@ -85,7 +85,7 @@ public class CCVideoController {
 		if("2".equals(multimedia_type)){
 			responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
 		}
-		log.info(responsestr);
+		LOGGER.info(responsestr);
 		return ResponseObject.newSuccessResponseObject(responsestr);
 
 		/*<script src="https://p.bokecc.com/player?vid=9FFDF6EC272558969C33DC5901307461"
@@ -115,7 +115,7 @@ public class CCVideoController {
 //	    	Map<String, String> paramsMap = new HashMap<String, String>();
 //			paramsMap.put("userid", "B5E673E55C702C42");
 //			paramsMap.put("videoid", "A9067DA7F5AA34C39C33DC5901307461");
-//			paramsMap.put("format", "json");
+//			paramsMap.put("FORMAT", "json");
 //			long time = System.currentTimeMillis();
 //			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
 //			/**
@@ -123,7 +123,7 @@ public class CCVideoController {
 //			 */
 //			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video?" + requestURL);
 //			
-//			log.info(responsestr);
+//			LOGGER.info(responsestr);
 //			if (responsestr.contains("\"error\":")) {
 //				throw new RuntimeException("该课程有视频正在做转码处理<br>请过半小时之后再操作。");
 //			}
@@ -133,20 +133,20 @@ public class CCVideoController {
 //			paramsMap.put("autoplay", "true");
 //			paramsMap.put("playerwidth", "100");
 //			paramsMap.put("playerheight", "120");
-//			paramsMap.put("format", "json");
+//			paramsMap.put("FORMAT", "json");
 //			long time = System.currentTimeMillis();
 //			String requestURL = APIServiceFunction.createHashedQueryString(paramsMap, time,"K45btKhytR527yfTAjEp6z4fb3ajgu66");
-//			log.info(requestURL);
+//			LOGGER.info(requestURL);
 //			String responsestr = APIServiceFunction.HttpRetrieve("http://spark.bokecc.com/api/video/playcode?" + requestURL);
-//			log.info(responsestr);
+//			LOGGER.info(responsestr);
 		 
 //		    BigDecimal decimal = new BigDecimal("1.52345");
-//	        log.info(decimal);
+//	        LOGGER.info(decimal);
 //	        BigDecimal setScale = decimal.setScale(0,BigDecimal.ROUND_HALF_DOWN);
-//	        log.info(setScale);
+//	        LOGGER.info(setScale);
 //	        
 //	        BigDecimal setScale1 = decimal.setScale(0,BigDecimal.ROUND_HALF_UP);
-//	        log.info(setScale1.toString());
+//	        LOGGER.info(setScale1.toString());
 		 
 	 }
 }

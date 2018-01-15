@@ -2,8 +2,6 @@
 
 package com.xczhihui.bxg.online.manager.utils;
 
-import org.slf4j.Logger;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,9 +20,9 @@ public class TimeUtil {
 
 
 
-	private static final DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
-	private static final DateFormat format_hh_mm_ss=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	private static final DateFormat format_hh_mm=new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	private static final DateFormat FORMAT =new SimpleDateFormat("yyyy-MM-dd");
+	private static final DateFormat FORMAT_HH_MM_SS =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private static final DateFormat FORMAT_HH_MM =new SimpleDateFormat("yyyy-MM-dd hh:mm");
 
 	/**
 	 * 格式化成时期对象
@@ -33,7 +31,7 @@ public class TimeUtil {
 	 */
 	public static Date parseDate(String date){
 		try {
-			return format_hh_mm.parse(date);
+			return FORMAT_HH_MM.parse(date);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -47,7 +45,7 @@ public class TimeUtil {
 	 */
 	public static Date stringParseDate(String date){
 		try {
-			return format.parse(date);
+			return FORMAT.parse(date);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -61,7 +59,7 @@ public class TimeUtil {
 	 */
 	public static String formatDate(Date date){
 		try {
-			return format_hh_mm_ss.format(date);
+			return FORMAT_HH_MM_SS.format(date);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -85,7 +83,7 @@ public class TimeUtil {
 		if(day==1) {
 			return "昨天";
 		}else if(day>1){
-			return format.format(date);
+			return FORMAT.format(date);
 		}
 		if(hour > 0 ) {
 			return hour + "小时前";

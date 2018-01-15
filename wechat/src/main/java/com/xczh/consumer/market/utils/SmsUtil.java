@@ -21,13 +21,13 @@ import com.aliyuncs.profile.IClientProfile;
 public class SmsUtil {
 
     //产品名称:云通信短信API产品,开发者无需替换
-    static final String product = "Dysmsapi";
+    static final String PRODUCT = "Dysmsapi";
     //产品域名,开发者无需替换
-    static final String domain = "dysmsapi.aliyuncs.com";
+    static final String DOMAIN = "dysmsapi.aliyuncs.com";
 
     // TODO 此处需要替换成开发者自己的AK(在阿里云访问控制台寻找)
-    static final String accessKeyId = "LTAIwptezJl2QHcu";
-    static final String accessKeySecret = "0ndfvxDux1DHTVEgLUqoQI6FDasg3p";
+    static final String ACCESS_KEY_ID = "LTAIwptezJl2QHcu";
+    static final String ACCESS_KEY_SECRET = "0ndfvxDux1DHTVEgLUqoQI6FDasg3p";
 
     public static SendSmsResponse sendSms(String phoneNumber,String code) throws ClientException {
 
@@ -36,8 +36,8 @@ public class SmsUtil {
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 
         //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
-        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", PRODUCT, DOMAIN);
         IAcsClient acsClient = new DefaultAcsClient(profile);
 
         //组装请求对象-具体描述见控制台-文档部分内容
@@ -86,8 +86,8 @@ public class SmsUtil {
         System.setProperty("sun.net.client.defaultReadTimeout", "10000");
 
         //初始化acsClient,暂不支持region化
-        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
-        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", ACCESS_KEY_ID, ACCESS_KEY_SECRET);
+        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", PRODUCT, DOMAIN);
         IAcsClient acsClient = new DefaultAcsClient(profile);
 
         //组装请求对象-具体描述见控制台-文档部分内容

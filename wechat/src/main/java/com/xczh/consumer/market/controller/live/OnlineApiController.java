@@ -52,7 +52,7 @@ public class OnlineApiController {
 	@Autowired
 	private CommonApiService commonApiService;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(OnlineApiController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineApiController.class);
 	
 	/**
 	 * Description：得到用户充值列表
@@ -77,7 +77,7 @@ public class OnlineApiController {
 		
 		Page<RechargeRecord> page =  userCoinService.getUserCoinIncreaseRecord(ou.getId()
 				, pageNumber, pageSize);
-		log.info("page.getPageSize()"+page.getPageSize());
+		LOGGER.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	
@@ -93,7 +93,7 @@ public class OnlineApiController {
 		@SuppressWarnings("unchecked")
 		Page<ReceivedGift> page =  (Page<ReceivedGift>) giftService.getReceivedGift(ou.getId()
 				, pageNumber, pageSize);
-		log.info("page.getPageSize()"+page.getPageSize());
+		LOGGER.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	/**
@@ -118,7 +118,7 @@ public class OnlineApiController {
 		@SuppressWarnings("unchecked")
 		Page<ReceivedGift> page =  (Page<ReceivedGift>) giftService.getReceivedReward(ou.getId()
 				, pageNumber, pageSize);
-		log.info("page.getPageSize()"+page.getPageSize());
+		LOGGER.info("page.getPageSize()"+page.getPageSize());
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	/**
@@ -142,7 +142,7 @@ public class OnlineApiController {
 		Page<EnchashmentApplication> page =  (Page<EnchashmentApplication>) 
 				enchashmentService.enchashmentApplicationList(ou.getId()
 				, pageNumber, pageSize);
-		log.info("page.getPageSize()");
+		LOGGER.info("page.getPageSize()");
 		return ResponseObject.newSuccessResponseObject(page);
     }
 	

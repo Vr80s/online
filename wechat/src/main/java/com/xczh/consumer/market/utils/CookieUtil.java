@@ -112,7 +112,7 @@ public class CookieUtil {
 	public static void setCookie(HttpServletResponse response, String name,
 	        String value, String domain, String path, int maxAge) {
 		Cookie cookie = new Cookie(name, value);
-		//cookie.setDomain(domain);
+		//cookie.setDomain(DOMAIN);
 		cookie.setPath(path);
 		cookie.setMaxAge(maxAge);
 		response.addCookie(cookie);

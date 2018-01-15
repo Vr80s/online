@@ -9,7 +9,7 @@ import com.xczhihui.user.center.bean.Token;
  *
  */
 public class TokenHolder {
-	private static final ThreadLocal<Token> currentToken = new ThreadLocal<Token>();
+	private static final ThreadLocal<Token> CURRENT_TOKEN = new ThreadLocal<Token>();
 
 	/**
 	 * 修改当前登录用户Token(一般在登录或退出时调用)
@@ -17,7 +17,7 @@ public class TokenHolder {
 	 * @param token
 	 */
 	public static void setCurrentToken(Token token) {
-		currentToken.set(token);
+		CURRENT_TOKEN.set(token);
 	}
 
 	/**
@@ -26,7 +26,7 @@ public class TokenHolder {
 	 * @return 如果未登录返回null
 	 */
 	public static Token getCurrentToken() {
-		return currentToken.get();
+		return CURRENT_TOKEN.get();
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class TokenHolder {
 	 * @return
 	 */
 	public static Token getRequireCurrentToken() {
-		Token token = currentToken.get();
+		Token token = CURRENT_TOKEN.get();
 		if (token == null) {
 			throw new RuntimeException("Current token is null.");
 		}

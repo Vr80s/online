@@ -1970,7 +1970,7 @@ window.$ === undefined && (window.$ = Zepto)
       type = $.type(value)
       if (scope) key = traditional ? scope :
         scope + '[' + (hash || type == 'object' || type == 'array' ? key : '') + ']'
-      // handle data in serializeArray() format
+      // handle data in serializeArray() FORMAT
       if (!scope && array) params.add(value.name, value.value)
       // recurse into nested objects
       else if (type == "array" || (!traditional && type == "object"))

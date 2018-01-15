@@ -73,7 +73,7 @@ public class H5AppPayController {
 	@Value("${minimum_amount}")
 	private Double minimumAmount;
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(H5AppPayController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
 	
 	/**
 	 * 拉取微信访问用户信息；
@@ -102,7 +102,7 @@ public class H5AppPayController {
 		if(!ro.isSuccess()){//存在此订单哈，
 			return ro;
 		}
-		log.info("wxPay   user.getId()"+u.getId());
+		LOGGER.info("wxPay   user.getId()"+u.getId());
 		
 		String userId = u.getId();
 		if (null == orderId || null == userId || null == order_From) {
@@ -151,11 +151,11 @@ public class H5AppPayController {
 			}else{
 				openId = openId1;
 			}
-			tradeType= PayInfo.trade_type_jsapi;
+			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 4){
-			tradeType =PayInfo.trade_type_h5;
+			tradeType =PayInfo.TRADE_TYPE_H5;
 		}else if(orderFrom == 5){
-			tradeType =PayInfo.trade_type_app;
+			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
 		// TODO
 		OrderParamVo orderParamVo=new OrderParamVo();
@@ -166,7 +166,7 @@ public class H5AppPayController {
 		String extDatas ="order&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString(),7200);
-		log.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
+		LOGGER.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(newOrderNo, price,  "订单支付",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -176,11 +176,11 @@ public class H5AppPayController {
 				retpay = CommonUtil.getSignER(retpay);
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			log.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// log.info(jsonObject);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
@@ -246,11 +246,11 @@ public class H5AppPayController {
 			}else{
 				openId = openId1;
 			}
-			tradeType= PayInfo.trade_type_jsapi;
+			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 3){
-			tradeType =PayInfo.trade_type_h5;
+			tradeType =PayInfo.TRADE_TYPE_H5;
 		}else if(orderFrom == 2){
-			tradeType =PayInfo.trade_type_app;
+			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
 		// TODO
 		RewardParamVo rewardParamVo=new RewardParamVo();
@@ -298,7 +298,7 @@ public class H5AppPayController {
 		String extDatas ="reward&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(rewardParamVo).toString(),7200);
-		log.info("打赏参数："+extDatas.length());
+		LOGGER.info("打赏参数："+extDatas.length());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "打赏支付",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -311,11 +311,11 @@ public class H5AppPayController {
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
 			
-			log.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// log.info(jsonObject);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
@@ -387,11 +387,11 @@ public class H5AppPayController {
 			}else{
 				openId = openId1;
 			}
-			tradeType= PayInfo.trade_type_jsapi;
+			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 3){
-			tradeType =PayInfo.trade_type_h5;
+			tradeType =PayInfo.TRADE_TYPE_H5;
 		}else if(orderFrom == 2){
-			tradeType =PayInfo.trade_type_app;
+			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
 		// TODO
 
@@ -405,7 +405,7 @@ public class H5AppPayController {
 		String extDatas ="recharge&"+cacheKey;
 		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
 		cacheService.set(cacheKey,passbackParams,7200);
-		log.info("充值参数："+extDatas.length());
+		LOGGER.info("充值参数："+extDatas.length());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
 						extDatas, openId, spbill_create_ip, tradeType);
@@ -418,11 +418,11 @@ public class H5AppPayController {
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
 
-			log.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// log.info(jsonObject);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
-		log.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 

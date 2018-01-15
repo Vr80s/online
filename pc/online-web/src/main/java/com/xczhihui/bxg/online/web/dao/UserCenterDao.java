@@ -97,7 +97,7 @@ public class UserCenterDao extends SimpleHibernateDao {
 	public List<JobVo> getJob(String group){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT a.id,"//id
-					+ "a.`key`,"//key
+					+ "a.`KEY`,"//KEY
 					+ "a.val AS value "//value
 					+ "FROM oe_common a WHERE a.`group` = ? AND a.is_delete = 0 ORDER BY a.sort ");
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations().query
@@ -112,7 +112,7 @@ public class UserCenterDao extends SimpleHibernateDao {
 	public List<JobYearVo> getJobYear(){
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT a.id ,"//id
-					+ "a.`key`,"//key
+					+ "a.`KEY`,"//KEY
 					+ "a.val AS value "//value
 					+ "FROM oe_common a WHERE a.is_delete = 0 AND a.`group` = 'jobyears' ORDER BY a.sort ");
 		return this.getNamedParameterJdbcTemplate().getJdbcOperations().query

@@ -154,10 +154,10 @@ public class PayInfo extends SignAbledBean implements Serializable {
 
 
 
-	public static final String trade_type_native = "NATIVE";
-	public static final String trade_type_app = "APP";
-	public static final String trade_type_jsapi = "JSAPI";
-	public static final String trade_type_h5 = "MWEB";
+	public static final String TRADE_TYPE_NATIVE = "NATIVE";
+	public static final String TRADE_TYPE_APP = "APP";
+	public static final String TRADE_TYPE_JSAPI = "JSAPI";
+	public static final String TRADE_TYPE_H5 = "MWEB";
 
 	/**
 	 * 创建本类特定实例
@@ -170,10 +170,10 @@ public class PayInfo extends SignAbledBean implements Serializable {
 	public PayInfo createPayInfo(BizOrder bizOrder, String tradeType) throws Exception {
 		
 		PayInfo payInfo = new PayInfo();
-		if(trade_type_app.equals(tradeType)){
+		if(TRADE_TYPE_APP.equals(tradeType)){
 			payInfo.setAppid(WxPayConst.app_appid);
 			payInfo.setMch_id(WxPayConst.app_mchid);
-		}else if(trade_type_native.equals(tradeType) || tradeType.equals(trade_type_jsapi)){
+		}else if(TRADE_TYPE_NATIVE.equals(tradeType) || tradeType.equals(TRADE_TYPE_JSAPI)){
 			payInfo.setAppid(WxPayConst.gzh_ApiKey);
 			payInfo.setMch_id(WxPayConst.gzh_Secret);
 		}
@@ -286,7 +286,7 @@ public class PayInfo extends SignAbledBean implements Serializable {
 	 */
 	public PayInfo createPayInfoCommon(BizOrder bizOrder, String tradeType, String khdip) throws Exception {
 		PayInfo payInfo = new PayInfo();
-		if(PayInfo.trade_type_app.equals(tradeType)){
+		if(PayInfo.TRADE_TYPE_APP.equals(tradeType)){
 			payInfo.setAppid(WxPayConst.app_appid); 
 			payInfo.setMch_id(WxPayConst.app_mchid);
 		}else{
@@ -294,7 +294,7 @@ public class PayInfo extends SignAbledBean implements Serializable {
 			payInfo.setMch_id(WxPayConst.gzh_mchid);
 		}
 		payInfo.setBody(bizOrder.getPaytitle());
-		if(PayInfo.trade_type_h5.equals(tradeType)){
+		if(PayInfo.TRADE_TYPE_H5.equals(tradeType)){
 			Map<String,Object> m = new HashMap<String,Object>();
 			Map<String,String> m1 = new HashMap<String,String>();
 			m1.put("type", "Wap");
