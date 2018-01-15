@@ -142,7 +142,13 @@
             		<!--这是点击展开，点击隐藏文字。  结束-->
             		<div class="container_border"></div>
             		
-            		<!--这是点击展开，点击隐藏文字。  开始-->
+            		
+            		<div class="keynote_speaker_can">
+						<div class="keynote_speaker_left"></div>
+						<div class="keynote_speaker">简介</div>
+						<div class="keynote_speaker_right"></div>
+						<div class="both"></div>
+					</div>
             		<div class="container1">
 				        <div class="wrap1">
 				            <div>
@@ -155,13 +161,16 @@
 				            <span class="triangle-down-hovertree1"></span>
 				        </div>
 				    </div>
-            		<!--这是点击展开，点击隐藏文字。  结束-->
+            		
             	</div>
 			</div>
 		</div>
 	</div>
+	
+	
+	
 	<!--底部开始-->
-	<!--<div class="footer_perch"></div>
+	<div class="footer_perch"></div>
 	<div class="footer">
 		<ul>
 			<li>
@@ -172,17 +181,9 @@
 				<a href="" class="footer_two"></a>
 				<p>学习</p>
 			</li>
-			<li>
-				<a href="" class="footer_three"></a>
-				<p>发现</p>
-			</li>
-			<li>
-				<a href="" class="footer_four"></a>
-				<p>我</p>
-			</li>
 		</ul>
 	</div>
-	--><!--底部结束-->
+	<!--底部结束-->
 	
 </body>
 
@@ -361,13 +362,9 @@
 		    }
 		});
 		
-	};
-</script>
-
-<script type="text/javascript">
-	window.onload = function(){
+		
 		$(function(){
-		    var slideHeight1 = 100; 
+		    var slideHeight1 = 100; // px
 		    var defHeight1 = $('.wrap1').height();
 		    if(defHeight1 >= slideHeight1){
 		        $('.wrap1').css('height' , slideHeight1 + 'px');
@@ -399,6 +396,7 @@
 		});
 	};
 </script>
+
 
 
 <!--点击更多隐藏显示结束-->
