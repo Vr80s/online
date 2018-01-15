@@ -82,7 +82,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
      * @param pageSize 每页显示多少行，默认20
      * @return Example 分页列表
      */
-    public List<CourseLecturVo>  getCourseAndLecturerlist(Integer number, Integer courseType,Integer pageNumber, Integer pageSize) {
+    @Override
+	public List<CourseLecturVo>  getCourseAndLecturerlist(Integer number, Integer courseType, Integer pageNumber, Integer pageSize) {
 
          List<CourseLecturVo> courseLecturVos=null;
          //先根据菜单编号获取相关课程信息
@@ -630,7 +631,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		Course c = courseDao.findOneEntitiyByProperty(Course.class, "id", Integer.valueOf(courseId));
 
 		// zhuwenbao 2018-01-09 在课程详情页面已经移除调smallImgPath选项 不加判断的话会将之前的smallImgPath设置为null
-		if(smallImgPath != null && !smallImgPath.trim().equals("")){
+		if(smallImgPath != null && !"".equals(smallImgPath.trim())){
 			c.setSmallImgPath(smallImgPath);
 			c.setBigImgPath(smallImgPath);
 		}
@@ -872,6 +873,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	
+	@Override
 	public List<Course> findByName(String name){
 		List<Course> courses=dao.findEntitiesByProperty(Course.class, "gradeName", name);
 		/*if(course!=null&&!course.isDelete()){

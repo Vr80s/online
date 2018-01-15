@@ -255,4 +255,4 @@
 		</div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/mobile/course.js?v=11231231231"></script>
+<script type="text/javascript" src="${base}/js/mobile/course.js?v=ipandatcm_1.3"></script>

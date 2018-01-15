@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /*
- * wx js config 配置信息表；
+ * WX js config 配置信息表；
  */
 @SuppressWarnings("serial")
 public class WxcpWxJsconfig implements Serializable {

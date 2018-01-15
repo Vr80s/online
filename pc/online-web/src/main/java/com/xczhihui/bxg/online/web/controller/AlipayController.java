@@ -462,7 +462,7 @@ public class AlipayController {
             //交易状态
             String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
 
-            if (trade_status.equals("TRADE_SUCCESS")) {
+            if ("TRADE_SUCCESS".equals(trade_status)) {
                 //判断该笔订单是否在商户网站中已经做过处理
                 String notifyType=alipayPaymentRecord.getPassbackParams().split("&")[0];
                 if("order".equals(notifyType)){
@@ -555,7 +555,7 @@ public class AlipayController {
                     String transaction_id = String.valueOf(packageParams.get("transaction_id"));
                     if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null
                             && !"".equals(transaction_id.trim())) {
-//                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&key=" + OnlineConfig.API_KEY;
+//                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&KEY=" + OnlineConfig.API_KEY;
 //                        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
                         Integer orderStatus = orderService.getOrderStatus(out_trade_no);
                         if (orderStatus == 0) { //付款成功，如果order未完成

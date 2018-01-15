@@ -56,6 +56,10 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 				}
 			};
 		});
+
+
+
+
 $(".doctor_inf >img").attr('src',userPic)
 $(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
 		$(".mask").css("display", "block");
@@ -246,5 +250,13 @@ $(".btn-upload").click(function(evt) {
 			
 		$(".btn-upload").css("color", "white");
 	})
+
+
+
+
+//上传封面图片
+$('.fengmian_pic').click(function(){
+	$('#picIpt').click();
+})
 
 })

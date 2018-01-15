@@ -24,6 +24,7 @@ public class PlanServiceImpl extends OnlineBaseServiceImpl implements PlanServic
      * 获取用户此课程学习计划
      * @return
      */
+    @Override
     public List<Map<String,Object>> getUserLearPlan(Integer courseId, HttpServletRequest request){
         //获取当前登录用户
         OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);

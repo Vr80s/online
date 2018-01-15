@@ -189,6 +189,9 @@ window.onload=function(){
         "</div>";
     var mytitlelist = '<div class="bigpic-img">' +
         '<img src="{{item.bigImgPath}}"/>' +
+        '{{if item.recommend == true}}' +
+        '<img style="position:absolute;top:-2px;left:-2px;z-index:999;width: 70;width: 70px;height: 70px;" src="/web/images/recommend2.png">'+
+        '{{/if}}'+
         '</div>' +
         '<div class="bigpic-body">' +
         '<span class="bigpic-body-title">' +

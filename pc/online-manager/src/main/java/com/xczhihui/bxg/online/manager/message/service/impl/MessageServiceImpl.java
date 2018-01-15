@@ -146,7 +146,8 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl  implements Messag
 	 *
 	 * @param message
 	 */
-	public void save(Message message){
+	@Override
+    public void save(Message message){
 		dao.save(message);
 	}
 	
@@ -154,7 +155,8 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl  implements Messag
 	 *
 	 * @param message
 	 */
-	public void saveMessage(Message message){
+	@Override
+    public void saveMessage(Message message){
 		String sql="insert into oe_message (id,user_id,context,type,status,create_person,create_time,readstatus) values "
 				+ "(:id,:userId,:context,type,status,:createPerson,:createTime,:readstatus) ";
 	

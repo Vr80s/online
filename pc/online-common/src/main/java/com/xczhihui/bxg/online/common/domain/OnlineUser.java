@@ -297,11 +297,13 @@ public class OnlineUser extends BxgUser implements Serializable {
 	}
 
 
+	@Override
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	public Date getCreateTime() {
 		return super.getCreateTime();
 	}
 
+	@Override
 	public void setCreateTime(Date createTime) {
 		super.setCreateTime(createTime);
 	}

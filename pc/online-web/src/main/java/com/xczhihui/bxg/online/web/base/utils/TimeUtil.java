@@ -22,7 +22,7 @@ public class TimeUtil {
 
 
 
-	public static final DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+	public static final DateFormat FORMAT =new SimpleDateFormat("yyyy-MM-dd");
 
 	/**
 	 * 时间和当前时间对比
@@ -58,7 +58,7 @@ public class TimeUtil {
 		}else if( day >= 2 && day < 3) {
 			return "前天";
 		} else{
-			return format.format(date).toString();
+			return FORMAT.format(date).toString();
 		}
 	}
 

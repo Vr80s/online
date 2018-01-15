@@ -27,7 +27,8 @@ public class ReturnInfo extends SignAbledBean implements Serializable {
 	private String trade_type;
 	private String transaction_id;
 	
-	public Object getAttributeValue(String name) {
+	@Override
+    public Object getAttributeValue(String name) {
 		return BeanHelper.getProperty(this, name);
 	}
 	

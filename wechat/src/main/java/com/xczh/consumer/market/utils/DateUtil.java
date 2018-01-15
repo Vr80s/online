@@ -149,7 +149,7 @@ public class DateUtil {
 	  * @return 
 	  */  
 	 public static String convert2String(long time, String format) {  
-		  if (time > 0l) {  
+		  if (time > 0L) {
 		   if (BXGStringUtil.isNotBlank(format)){
 			   SimpleDateFormat sf = new SimpleDateFormat(format);  
 			   String hms = sf.format(time);

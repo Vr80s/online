@@ -8,7 +8,7 @@ import com.google.gson.Gson;
  * @date 2016-4-18
  */
 public class JsonUtil {
-    private static final Gson gson=new Gson();
+    private static final Gson GSON =new Gson();
 
     /**
      * 对象转JSON
@@ -17,7 +17,7 @@ public class JsonUtil {
      */
     public static String toJson(Object object){
         if(object!=null) {
-            return gson.toJson(object);
+            return GSON.toJson(object);
         }
         return "{}";
     }

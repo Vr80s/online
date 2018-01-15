@@ -34,6 +34,7 @@ public class RemindTask extends TimerTask {
 		this.courseService = courseService;
 	}
     
+    @Override
     public void run() {
         
 //        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

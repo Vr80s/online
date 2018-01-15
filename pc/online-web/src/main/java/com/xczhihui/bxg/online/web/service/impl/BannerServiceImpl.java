@@ -32,6 +32,7 @@ public class BannerServiceImpl extends OnlineBaseServiceImpl implements BannerSe
         return page.getItems();
     }
 
+    @Override
     public void updateClickCount(Integer id) {
             String sql = "update oe_banner2 set click_count=(if (click_count is null,1,click_count+1)) where id=?";
             dao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, id);

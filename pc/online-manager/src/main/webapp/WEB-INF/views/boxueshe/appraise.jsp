@@ -87,4 +87,4 @@
 		<div id="showDiv"></div>
 	</form>
 </div>
-<script type="text/javascript" src="${base}/js/boxueshe/appraise.js?v=1"></script>          	
+<script type="text/javascript" src="${base}/js/boxueshe/appraise.js?v=ipandatcm_1.3"></script>

@@ -27,6 +27,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private MedicalHospitalMapper medicalHospitalMapper;
 
 
+    @Override
     public Page<MedicalHospitalVo> selectHospitalPage(Page<MedicalHospitalVo> page, String name, String field) {
         List<String> mhIds = medicalHospitalMapper.selectHospitalIdList(page, name, field);
         if(mhIds.size()>0){

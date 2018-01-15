@@ -55,7 +55,7 @@ public class AppVersionManagerServiceImpl extends OnlineBaseServiceImpl implemen
 		DetachedCriteria dc1 = DetachedCriteria.forClass(AppVersionInfo.class);
 		dc1.add(Restrictions.eq("version", appVersionInfo.getVersion()));
 		AppVersionInfo appVersion1 = dao.findEntity(dc1);
-		if(appVersion1!=null&&!appVersion1.isDelete()&&appVersion1.getId()!=appVersion.getId()){
+		if(appVersion1!=null&&!appVersion1.isDelete()&&appVersion1.getId().intValue()!=appVersion.getId().intValue()){
 			throw new RuntimeException("版本号已存在！");
 		}
 		dao.update(appVersion);

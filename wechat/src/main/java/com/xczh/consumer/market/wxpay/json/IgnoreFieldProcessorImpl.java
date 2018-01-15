@@ -68,7 +68,8 @@ public class IgnoreFieldProcessorImpl implements PropertyFilter {
 		this.ignoreColl = ignoreColl;
 	}
 
-	public boolean apply(Object source, String name, Object value) {
+	@Override
+    public boolean apply(Object source, String name, Object value) {
 		Field declaredField = null;
 		try {
 			if (value!=null && source.getClass() == value.getClass()) {

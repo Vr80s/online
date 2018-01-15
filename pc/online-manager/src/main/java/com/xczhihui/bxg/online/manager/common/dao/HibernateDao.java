@@ -210,7 +210,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		String hql = "";
 		List<Order> orders = new ArrayList<Order>();
 		if ((groups.getOrderbys() == null || groups.getOrderbys().length <= 0) && 
-				groups.getOrderby()!=null && !groups.getOrderby().equals("")) {
+				groups.getOrderby()!=null && !"".equals(groups.getOrderby())) {
 			Order order = new Order();
 			order.setField(groups.getOrderby());
 			if (groups.isOrder()) {
@@ -242,11 +242,11 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		StringBuffer slectBuffer = new StringBuffer(" select ");
 		if (selectStr != null && selectStr.length != 0) {
 			appendSelect(selectStr, slectBuffer, tempclass, Alias1,fromBuffer, whereBufferQian);
-			if (!slectBuffer.toString().trim().equals("select")) {
+			if (!"select".equals(slectBuffer.toString().trim())) {
 				hql += slectBuffer.toString() + " ";
 			}
 		}
-		if (whereBufferQian.toString().trim().equals("where 1=1")) {
+		if ("where 1=1".equals(whereBufferQian.toString().trim())) {
 			hql += fromBuffer.append(whereBufferQian).append("  ")
 					.append(whereBufferHou).append(" ").toString();
 		} else {
@@ -257,7 +257,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 			StringBuffer groupBuffer = new StringBuffer(" group by  ");
 			appendGroup(groupStr, groupBuffer, tempclass, Alias1,
 					fromBuffer, whereBufferQian);
-			if (!groupBuffer.toString().trim().equals("groupby")) {
+			if (!"groupby".equals(groupBuffer.toString().trim())) {
 				hql += groupBuffer.toString() + " ";
 			}
 		}
@@ -531,7 +531,6 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 	/**
 	 * 执行HQL进行批量修改/删除操作.
 	 * @param hql
-	 * @param list
 	 * @return 更新记录数.
 	 */
 	public int batchExecute(final String hql, final List<Object> parameter) {
@@ -616,7 +615,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				}					
 			}
 			hql += sBuffer.deleteCharAt(sBuffer.length()-1).toString();
-		}else if (null != groups.getOrderby()	&& !groups.getOrderby().trim().equals("")) {
+		}else if (null != groups.getOrderby()	&& !"".equals(groups.getOrderby().trim())) {
 			// 处理order by的别名
 			temp = groups.getOrderby();			
 
@@ -664,7 +663,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 						appendGroup(group, fromBuffer, whereBufferQian,
 								tempclass, Alias1, whereAnd, values);
 					}else{
-						if(whereOr.toString().equals("")){
+						if("".equals(whereOr.toString())){
 							whereOr.append(" and ( ");
 						}						
 						appendGroup(group, fromBuffer, whereBufferQian,
@@ -674,7 +673,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					}
 					
 				}
-				if(!whereOr.toString().equals("")){
+				if(!"".equals(whereOr.toString())){
 					whereOr.append(" ) ");
 				}
 				for(Object temp : tempList){
@@ -766,7 +765,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				whereBufferHou.append(" ");
 				if (group.getRelation() == MatchType.AND) {
 					try {						
-						if (!matchCase.equals("(")) {
+						if (!"(".equals(matchCase)) {
 							whereBufferHou.append(" and ");
 						}
 					} catch (Exception e) {
@@ -774,7 +773,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					}
 				} else {
 					try {
-						if (!matchCase.equals("(")) {
+						if (!"(".equals(matchCase)) {
 							whereBufferHou.append(" or ");
 						}
 					} catch (Exception e) {
@@ -793,6 +792,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				case NULL:
 					whereBufferHou.append(temName).append(" is null ");
 					break;
+				default:break;
 				}
 			} else {
 				System.out.println("拼接处的name不能以对象结尾，统一要以基本类型结尾！");
@@ -812,11 +812,11 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					whereBufferHou.toString().trim().length()-1, whereBufferHou.toString().trim().length());
 		}
 		if (group.getRelation() == MatchType.AND) {
-			if (!matchCase.equals("(")) {
+			if (!"(".equals(matchCase)) {
 				whereBufferHou.append(" and ");
 			}
 		} else {
-			if (!matchCase.equals("(")) {
+			if (!"(".equals(matchCase)) {
 				whereBufferHou.append(" or ");
 			}	
 		}
@@ -875,6 +875,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		case NOTNULL:
 			whereBufferHou.append(temName).append(".").append(alisStr).append(" is not null ");
 			break;
+		default:break;
 		}
 	}
 	
@@ -965,7 +966,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					if(group.getRelation().equals(MatchType.AND)){
 						appendGroup2(group, fromBuffer, whereBufferQian, Alias1, whereBufferHou, values);
 					}else{
-						if(whereOr.toString().equals("")){
+						if("".equals(whereOr.toString())){
 							whereOr.append(" and ( ");
 						}
 						tempList.add(group.getPropertyValue1());
@@ -973,7 +974,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					}
 					
 				}
-				if(!whereOr.toString().equals("")){
+				if(!"".equals(whereOr.toString())){
 					whereOr.append(" ) ");
 				}
 				for(Object temp : tempList){
@@ -1003,7 +1004,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 				whereBufferHou.append(" ");
 				if (group.getRelation() == MatchType.AND) {
 					try {
-						if (!matchCase.equals("(")) {
+						if (!"(".equals(matchCase)) {
 							whereBufferHou.append(" and ");
 						}
 					} catch (Exception e) {
@@ -1011,7 +1012,7 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					}
 				} else {
 					try {
-						if (!matchCase.equals("(")) {
+						if (!"(".equals(matchCase)) {
 							whereBufferHou.append(" or ");
 						}
 					} catch (Exception e) {
@@ -1028,6 +1029,8 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					break;
 				case NULL:
 					whereBufferHou.append(propertyName).append(" is null ");
+					break;
+				default:
 					break;
 				}
 			} else {
@@ -1101,11 +1104,11 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 					whereBufferHou.toString().trim().length()-1, whereBufferHou.toString().trim().length());
 		}
 		if (group.getRelation() == MatchType.AND) {
-			if (!matchCase.equals("(")) {
+			if (!"(".equals(matchCase)) {
 				whereBufferHou.append(" and ");
 			}
 		} else {
-			if (!matchCase.equals("(")) {
+			if (!"(".equals(matchCase)) {
 				whereBufferHou.append(" or ");
 			}	
 		}
@@ -1118,7 +1121,6 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 	 * 
 	 * @param group
 	 * @param whereBufferHou
-	 * @param temName  别名
 	 * @param alisStr
 	 */
 	private void matchCase(Group group, StringBuffer whereBufferHou,String alisStr) {
@@ -1168,7 +1170,11 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		case NOTNULL:
 			whereBufferHou.append(alisStr).append(" is not null ");
 			break;
+		default:
+			break;
 		}
+
+
 	}
 
 }

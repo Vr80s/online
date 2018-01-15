@@ -39,7 +39,7 @@ public class CityController {
 	
 	//UserAddressManagerVo
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(CityController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CityController.class);
 	
 	/**
 	 * 得到用户的地址管理列表

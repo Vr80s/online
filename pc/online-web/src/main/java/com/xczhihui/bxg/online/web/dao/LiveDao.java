@@ -120,7 +120,7 @@ public class LiveDao extends SimpleHibernateDao {
         List<Map<String, Object>> openCourseVos=null;
         Map<String, Object> course=null;
         //查询直播课信息
-        if(planId ==null ||  planId.equals("") || "null".equals(planId)){
+        if(planId ==null || "".equals(planId) || "null".equals(planId)){
             sql="select id,menu_id,grade_name courseName,description, ifnull(type,0) type,user_lecturer_id userLecturerId, IF(ISNULL(c.`course_pwd`), 0, 1) coursePwd,"
             		+"c.live_status AS broadcastState, "
 //            		+"IF(c.live_status='1', 2, IF(c.live_status='2', 1, 3)) AS broadcastState, "

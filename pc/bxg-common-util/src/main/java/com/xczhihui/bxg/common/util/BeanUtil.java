@@ -31,7 +31,7 @@ public class BeanUtil {
 			if (m.getParameterTypes().length > 0) {
 				continue;
 			}
-			if (name.startsWith("get") && !name.equals("getClass")) {
+			if (name.startsWith("get") && !"getClass".equals(name)) {
 				try {
 					Object ret = m.invoke(bean);
 					String prop = name.substring(3, name.length());

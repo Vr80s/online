@@ -305,7 +305,8 @@ public class SimpleHibernateDao {
 		final int totalCount = this.getTotal(hql, paramList, valueList);
 
 		List<T> list = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback<List<T>>() {
-			public List<T> doInHibernate(Session session) throws HibernateException {
+			@Override
+            public List<T> doInHibernate(Session session) throws HibernateException {
 				Query query = session.createQuery(hql);
 
 				// 设置查询条件

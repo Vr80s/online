@@ -86,7 +86,8 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String createWebinar(Course entity) {
+	@Override
+    public String createWebinar(Course entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getGradeName());
 		webinar.setIntroduction(entity.getDescription());
@@ -152,7 +153,8 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public String reCreateWebinar(CourseVo entity) {
+	@Override
+    public String reCreateWebinar(CourseVo entity) {
 		Webinar webinar = new Webinar();
 		webinar.setSubject(entity.getCourseName());
 		webinar.setIntroduction(entity.getDescription());
@@ -272,7 +274,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		 * 查找是否已经存在这个直播申请了。如果存在那么需要查一下啦
 		 */
 		Course course =publicCourseService.findCourseVoByLiveExanmineId(le.getId());
-		if(course == null && le.getExamineStatus().equals("1")){ //保存课程，并且生成课程id
+		if(course == null && "1".equals(le.getExamineStatus())){ //保存课程，并且生成课程id
 			//保存了
 			Course entity = new Course();
 			
@@ -326,13 +328,13 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			//默认原价格都是0
 			entity.setOriginalCost(0d);
 			
-			if(le.getSeeMode().equals("0")){
+			if("0".equals(le.getSeeMode())){
 				entity.setIsFree(true); //免费
 				entity.setCurrentPrice(0d);
-			}else if(le.getSeeMode().equals("1")){
+			}else if("1".equals(le.getSeeMode())){
 				entity.setIsFree(false); //收费
 				entity.setCurrentPrice(le.getPrice().doubleValue());
-			}else if(le.getSeeMode().equals("2")){
+			}else if("2".equals(le.getSeeMode())){
 				entity.setIsFree(true); //密码
 				//新增课程密码
 				entity.setCoursePwd(le.getPassword());
@@ -363,7 +365,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 			dao.save(entity);
 			System.out.println("=============================");
 			
-		}else if(course != null && le.getExamineStatus().equals("2")){ //更新  直播课程状态变为0
+		}else if(course != null && "2".equals(le.getExamineStatus())){ //更新  直播课程状态变为0
 			//更新课程仅仅是把状态变为：0
 			course.setStatus("0");
 			dao.update(course);
@@ -427,9 +429,9 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		/**
 		 * 看状态啦。	 0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
 		 */
-		if(lei.getExamineStatus().equals("0")){
+		if("0".equals(lei.getExamineStatus())){
 			lei.setExamineStatus("2"); 		  //2 	审核未通过
-		}else if(lei.getExamineStatus().equals("3")){
+		}else if("3".equals(lei.getExamineStatus())){
 			lei.setExamineStatus("4"); 		  //4 	审核失败
 		}
 		lei.setAuditPerson(user.getId()); //审核人
@@ -452,7 +454,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
                 * 如果删除了未审核的
                 * 如果删除了审核未通过的那么就让此课程变为未审核的状态。对应的申诉中的信息也变成了无效的。
                 */
-               if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+               if(lei.getExamineStatus()!=null && "1".equals(lei.getExamineStatus())){
             	   lei.setIsDelete(true);
                     dao.update(lei);
             	   courseService.deleteCourseByExamineId(lei.getId(),true);
@@ -469,7 +471,7 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		for(String id : _ids){
 			LiveExamineInfo lei = findExamineById(id);
             if(lei !=null){
-                 if(lei.getExamineStatus()!=null && lei.getExamineStatus().equals("1")){
+                 if(lei.getExamineStatus()!=null && "1".equals(lei.getExamineStatus())){
                 	 lei.setIsDelete(false);
                      dao.update(lei);
               	    courseService.deleteCourseByExamineId(lei.getId(),false);
@@ -516,12 +518,12 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		 //0未审核  1 审核通过   2 审核未通过    3 申诉中   4 申诉失败
 		
 		LiveExamineInfo lei = findExamineById(id);
-		if(lei.getExamineStatus().equals("2")){//审核失败
+		if("2".equals(lei.getExamineStatus())){//审核失败
 			lei.setExamineStatus("0");
 	        dao.update(lei);
 		}
 		
-		if(lei.getExamineStatus().equals("4")){//审核失败
+		if("4".equals(lei.getExamineStatus())){//审核失败
 			lei.setExamineStatus("3");
 	        dao.update(lei);
 		}

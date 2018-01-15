@@ -68,7 +68,7 @@ public class BunchPlanController {
 	@Autowired
 	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(BunchPlanController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BunchPlanController.class);
 	
 	@Value("${gift.im.room.postfix}")
 	private String postfix;
@@ -96,7 +96,7 @@ public class BunchPlanController {
 		String menid = req.getParameter("menu_id");
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		log.info("pageNumber:"+s+"===========================pageSize:"+e);
+		LOGGER.info("pageNumber:"+s+"===========================pageSize:"+e);
 		String multimedia_type = req.getParameter("multimedia_type");
 		if ("".equals(menid) || menid == null || "null".equals(menid)) {
 			return ResponseObject.newErrorResponseObject("分类id不能为空");
@@ -115,7 +115,7 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.courseXCListByCategory(menid,number, pageSize,Integer.parseInt(multimedia_type));
-		log.info("list.size():"+list.size());
+		LOGGER.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 	/***
@@ -151,7 +151,7 @@ public class BunchPlanController {
 			}else{
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
-			       //log.info("同学,当前课程您已经报名了!");
+			       //LOGGER.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };
 			}
@@ -171,13 +171,13 @@ public class BunchPlanController {
 			flag = newflag;
 		}
 		String appUniqueId = req.getParameter("appUniqueId");
-		log.info("flag:"+flag);
-		log.info("appUniqueId:"+appUniqueId);
-		log.info("liveid:"+courseLecturVo.getDirectId());
+		LOGGER.info("flag:"+flag);
+		LOGGER.info("appUniqueId:"+appUniqueId);
+		LOGGER.info("liveid:"+courseLecturVo.getDirectId());
 		
 		if((!StringUtils.isNotBlank(flag) && StringUtils.isNotBlank(appUniqueId))){ //等于null的是以前的版本需要判断是否需要获取视频id
 			courseLecturVo = changeLiveId(courseLecturVo);
-			log.info("liveid:"+courseLecturVo.getDirectId());
+			LOGGER.info("liveid:"+courseLecturVo.getDirectId());
 		}
 		return ResponseObject.newSuccessResponseObject(courseLecturVo);
 	}
@@ -227,7 +227,7 @@ public class BunchPlanController {
 		String keyWord = req.getParameter("keyWord");
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		log.info("pageNumber:"+s+"===========================pageSize:"+e);
+		LOGGER.info("pageNumber:"+s+"===========================pageSize:"+e);
 		int number = 0;
 		if (!"".equals(s) && s != null && !"null".equals(s)) {
 			number = Integer.valueOf(s);
@@ -239,7 +239,7 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.offLineClass(keyWord,number, pageSize);
-		log.info("list.size():"+list.size());
+		LOGGER.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 
@@ -254,7 +254,7 @@ public class BunchPlanController {
 		//多媒体类型1视频2音频
 		String s = req.getParameter("pageNumber");
 		String e = req.getParameter("pageSize");
-		log.info("pageNumber:"+s+"===========================pageSize:"+e);
+		LOGGER.info("pageNumber:"+s+"===========================pageSize:"+e);
 		int number = 1;
 		if (!"".equals(s) && s != null && !"null".equals(s)) {
 			number = Integer.valueOf(s);
@@ -283,7 +283,7 @@ public class BunchPlanController {
 //				courseLecturVo.setCutoff(1);
 //			}
 		}
-		log.info("list.size():"+list.size());
+		LOGGER.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
 	
@@ -292,10 +292,10 @@ public class BunchPlanController {
         /** 
          * 获取 年 ，月 ，日 
          */  
-//        log.info(calendar.get(Calendar.YEAR));  
+//        LOGGER.info(calendar.get(Calendar.YEAR));
 //        //默认从0-11  
-//        log.info(calendar.get(Calendar.MONTH)+1);  
-//        log.info(calendar.get(Calendar.DATE));  
+//        LOGGER.info(calendar.get(Calendar.MONTH)+1);
+//        LOGGER.info(calendar.get(Calendar.DATE));
 		
 	}
 
@@ -488,7 +488,7 @@ public class BunchPlanController {
 	    
 		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,4,null,listmv);
 		
-		log.info(listAll.size()+"");
+		LOGGER.info(listAll.size()+"");
 		
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		

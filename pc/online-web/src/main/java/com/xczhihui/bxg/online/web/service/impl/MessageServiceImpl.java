@@ -88,6 +88,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements Message
      * @param id     消息id
      * @param userId
      */
+    @Override
     public void updateReadStatusById(String id, String userId) {
             messageDao.updateReadStatusById(id,userId);
     }
@@ -96,6 +97,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements Message
      * 获取未读消息总数
      * @return
      */
+    @Override
     public  Map<String, Object>  findMessageCount(String userId){
         return messageDao.findMessageCount(userId);
     }
@@ -103,6 +105,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements Message
     /**
      * 获取最新公告
      */
+    @Override
     public Map<String, Object> findNewestNotice(OnlineUser user){
         return  messageDao.findNewestNotice(user);
     }
@@ -111,6 +114,7 @@ public class MessageServiceImpl extends OnlineBaseServiceImpl implements Message
      * 发送消息
      * @param messageShortVo
      */
+    @Override
     public void saveMessage(MessageShortVo messageShortVo){
          messageDao.saveMessage(messageShortVo);
     }

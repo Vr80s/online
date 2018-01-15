@@ -311,6 +311,8 @@ a {
   width: 426px;
   height: 260px;
   float: left;
+  position: relative;
+  padding: 1px;
 }
 #course-list .bigpic .bigpic-title .bigpic-img img {
   width: 100%;
@@ -343,6 +345,7 @@ a {
 #course-list .bigpic .bigpic-title .bigpic-body .bigpic-body-title .jingpingCourse span {
   position: absolute;
   left: 5px;
+  top: 4px;
   color: #fff;
   font-size: 12px;
 }

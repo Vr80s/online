@@ -13,11 +13,13 @@ import com.xczhihui.bxg.common.web.listener.LogbackWebConfigurer;
  */
 public class LogbackConfigListener implements ServletContextListener {
 
-	public void contextInitialized(ServletContextEvent event) {
+	@Override
+    public void contextInitialized(ServletContextEvent event) {
 		LogbackWebConfigurer.initLogging(event.getServletContext());
 	}
 
-	public void contextDestroyed(ServletContextEvent event) {
+	@Override
+    public void contextDestroyed(ServletContextEvent event) {
 		LogbackWebConfigurer.shutdownLogging(event.getServletContext());
 	}
 }

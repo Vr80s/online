@@ -84,7 +84,7 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 		
 		//答题闯关
 //		String barrierSql = "select count(t1.id) from oe_video t1,oe_chapter t2,oe_barrier_user t3 "
-//				+ " where t1.chapter_id=t2.id and t2.barrier_id=t3.barrier_id and t1.id = '"+key.split("!")[2]+"' and t3.lock_status=0";
+//				+ " where t1.chapter_id=t2.id and t2.barrier_id=t3.barrier_id and t1.id = '"+KEY.split("!")[2]+"' and t3.lock_status=0";
 //		Integer barrierVideoSum = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
 //				.queryForObject(barrierSql,Integer.class);
 //		if (barrierVideoSum > 0) {
@@ -288,7 +288,7 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 //	public void uploadSuccessCallback(String duration,String image,String status,String videoid,String time,String hash) {
 //		if ("OK".equals(status)) {
 //			
-//			String url = String.format("duration=%s&image=%s&status=%s&videoid=%s&time=%s&salt=%s",
+//			String url = String.FORMAT("duration=%s&image=%s&status=%s&videoid=%s&time=%s&salt=%s",
 //					duration,image,status,videoid,time,OnlineConfig.CC_API_KEY);
 //			
 //			String md5 = Md5Encrypt.md5(url);
@@ -317,6 +317,7 @@ public class VedioServiceImpl extends OnlineBaseServiceImpl implements VedioServ
 //		}
 //	}
 
+	@Override
 	@Resource(name="simpleHibernateDao")
 	public void setDao(SimpleHibernateDao dao) {
 		this.dao = dao;

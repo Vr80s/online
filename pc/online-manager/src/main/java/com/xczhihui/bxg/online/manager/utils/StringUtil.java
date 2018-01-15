@@ -41,7 +41,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static String trim(String str){
-		if(str==null||str.equals("")){
+		if(str==null|| "".equals(str)){
 			return "";
 		}else{
 			return str.replaceAll(" ", "");
@@ -442,7 +442,7 @@ public class StringUtil {
 	public static boolean isExcelData(String input){
 		if(input.indexOf(".")!=-1){
 			String decimals = input.substring(input.indexOf(".")+1);
-			if(decimals.length()==1 && decimals.equals("0")){
+			if(decimals.length()==1 && "0".equals(decimals)){
 				String integers = input.substring(0,input.indexOf("."));
 				if(Integer.parseInt(integers)<0){
 					return false;
@@ -513,7 +513,7 @@ public class StringUtil {
 	 */
 	public static boolean isSortFloat(String input) {
 		
-		if (null == input || input.trim().equals("")) {
+		if (null == input || "".equals(input.trim())) {
             return false;
         }
 		
@@ -535,7 +535,7 @@ public class StringUtil {
 	 * @return
 	 */
 	public static boolean checkOnlyChar(String s) {
-		if (s == null || s.equals("")) {
+		if (s == null || "".equals(s)) {
             return false;
         }
 

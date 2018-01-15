@@ -53,7 +53,7 @@ public class ThirdSystemInterfaceController {
 		String url = params.get("thirdUrl");
 		String param = "";
 		for (Map.Entry<String, String> e : params.entrySet()) {
-			if (e.getKey() != null && !e.getKey().equals("thirdUrl")) {
+			if (e.getKey() != null && !"thirdUrl".equals(e.getKey())) {
 				param += ("&"+e.getKey()+"="+e.getValue());
 			}
 		}

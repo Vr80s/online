@@ -186,4 +186,4 @@
 		<div class="txtBox"><p id="room_number"></p></div>
     </form>
 </div>
-<script type="text/javascript" src="${base}/js/onlineuser/onlineuser.js?v=4.0"></script>
+<script type="text/javascript" src="${base}/js/onlineuser/onlineuser.js?v=ipandatcm_1.3"></script>

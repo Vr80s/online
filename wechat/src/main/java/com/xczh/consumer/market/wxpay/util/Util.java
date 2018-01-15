@@ -55,7 +55,7 @@ public class Util {
     		throws UnsupportedEncodingException {
     	
         ByteArrayInputStream tInputStringStream = null;
-        if (sInputString != null && !sInputString.trim().equals("")) {
+        if (sInputString != null && !"".equals(sInputString.trim())) {
             tInputStringStream = new ByteArrayInputStream(sInputString.getBytes("UTF-8"));
         }
         

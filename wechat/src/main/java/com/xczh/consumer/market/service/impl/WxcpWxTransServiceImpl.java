@@ -15,19 +15,23 @@ public class WxcpWxTransServiceImpl implements WxcpWxTransService {
 	@Autowired
 	private WxcpWxTransMapper wxcpWxTransMapper;
 	
-	public int insert( WxcpWxTrans record ) throws SQLException {
+	@Override
+    public int insert(WxcpWxTrans record ) throws SQLException {
 		return wxcpWxTransMapper.insert(record);
 	}
 	
-	public int delete( String id ) throws SQLException {
+	@Override
+    public int delete(String id ) throws SQLException {
 		return wxcpWxTransMapper.delete(id);
 	}
 	
-	public int update( WxcpWxTrans record ) throws SQLException {
+	@Override
+    public int update(WxcpWxTrans record ) throws SQLException {
 		return wxcpWxTransMapper.update(record);
 	}
 	
-	public List<WxcpWxTrans> select(WxcpWxTrans condition, String limit) throws SQLException {
+	@Override
+    public List<WxcpWxTrans> select(WxcpWxTrans condition, String limit) throws SQLException {
 		return wxcpWxTransMapper.select(condition, limit);
 	}
 		

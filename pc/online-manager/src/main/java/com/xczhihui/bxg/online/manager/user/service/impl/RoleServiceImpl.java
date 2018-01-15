@@ -21,7 +21,8 @@ public class RoleServiceImpl implements RoleService {
 
 	private RoleDao roleDao;
 
-	public List<Role> getAllValidRoles() {
+	@Override
+    public List<Role> getAllValidRoles() {
 		return this.roleDao.findEntitiesByProperty(Role.class, "isDelete", false);
 	}
 

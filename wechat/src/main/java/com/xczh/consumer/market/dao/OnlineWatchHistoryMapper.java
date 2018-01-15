@@ -29,7 +29,7 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer("");
 		//课程id一样，并且
-		if(type.equals("1")){
+		if("1".equals(type)){
 			sql.append("select owh.user_id as userId,owh.lecturer_id as lecturerId,owh.course_id as courseId,");
 			sql.append("oc.smallimg_path as smallimgPath,oc.grade_name as gradeName,");
 			sql.append("ou.name as lecturerName,ou.small_head_photo as teacherHeadImg,owh.watch_time as watchTime,");

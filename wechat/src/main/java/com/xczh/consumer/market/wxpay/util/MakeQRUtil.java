@@ -42,7 +42,7 @@ public final class MakeQRUtil {
 		
 		BufferedImage image = toBufferedImage(matrix);
 		if (!ImageIO.write(image, format, file)) {
-			throw new IOException("Could not write an image of format " + format + " to " + file);
+			throw new IOException("Could not write an image of FORMAT " + format + " to " + file);
 		}
 	}
 
@@ -53,7 +53,7 @@ public final class MakeQRUtil {
 		
 		BufferedImage image = toBufferedImage(matrix);
 		if (!ImageIO.write(image, format, stream)) {
-			throw new IOException("Could not write an image of format " + format);
+			throw new IOException("Could not write an image of FORMAT " + format);
 		}
 	}
 

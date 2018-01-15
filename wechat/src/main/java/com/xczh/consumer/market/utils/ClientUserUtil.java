@@ -152,8 +152,8 @@ public class ClientUserUtil {
 //			String openid = (String)jsonObject.get("openid");
 //			String scope = (String)jsonObject.get("scope");
 			
-//			wx get access_token:F4spz-qURMp8ymyHxxz93PcCm64VWjh6TfOmgIU7xRgkEO6a9K5HwO4d2Dium-SThBo3O35s8N-4zlqExcoJwQ
-//			wx get openid:oN9qS1bvUngZ_49YFIamssdhP9Co
+//			WX get access_token:F4spz-qURMp8ymyHxxz93PcCm64VWjh6TfOmgIU7xRgkEO6a9K5HwO4d2Dium-SThBo3O35s8N-4zlqExcoJwQ
+//			WX get openid:oN9qS1bvUngZ_49YFIamssdhP9Co
 			
 			String public_id = WxPayConst.gzh_appid ;
 			String public_name = WxPayConst.appid4name ;
@@ -232,9 +232,9 @@ public class ClientUserUtil {
 				u.setCreateTime(new Date());
 				u.setType(1);
 				String uuid = UUID.randomUUID().toString().replace("-", "");
-				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(), WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
+				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(), WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
 				u.setVhallId(weihouUserId);  //微吼id
-				u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码
+				u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
 				//u.setVhallName(u.getId());         //第三方id  
 				u.setVhallName(u.getName());
 				u.setPassword(unionid_);     
@@ -369,9 +369,9 @@ public class ClientUserUtil {
 				u.setCreateTime(new Date());
 				u.setType(1);
 				String uuid = UUID.randomUUID().toString().replace("-", "");
-				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(), WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
+				String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(), WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
 				u.setVhallId(weihouUserId);  //微吼id
-				u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码
+				u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
 				u.setVhallName(u.getName());         //第三方id  
 				u.setPassword(unionid_);     
 				u.setUserCenterId(iu.getId());

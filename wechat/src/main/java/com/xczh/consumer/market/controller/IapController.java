@@ -3,25 +3,18 @@ package com.xczh.consumer.market.controller;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.math.BigDecimal;
 import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.sql.SQLException;
-import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import com.google.gson.JsonObject;
-import com.xczh.consumer.market.dao.IphoneIpaMapper;
 import com.xczh.consumer.market.service.iphoneIpaService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.util.Base64;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -52,7 +45,7 @@ public class IapController {
     private iphoneIpaService iphoneIpaService;
 
     
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(H5AppPayController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
     
     /**
      * 重写X509TrustManager
@@ -86,8 +79,8 @@ public class IapController {
     public Object setIapCertificate( String receipt,String userId,String actualPrice) throws SQLException {
        // receipt=new String(Base64.decode(receipt));
     	
-    	log.info("111111111111111================================================");
-        log.info("receipt:"+receipt);
+    	LOGGER.info("111111111111111================================================");
+        LOGGER.info("receipt:"+receipt);
         
         String url = certificateUrl;
         final String certificateCode = receipt;
@@ -95,12 +88,12 @@ public class IapController {
         if(StringUtils.isNotEmpty(certificateCode)){
 
          String resp=   sendHttpsCoon(url, certificateCode);
-         log.info("苹果返回数据:"+resp);
+         LOGGER.info("苹果返回数据:"+resp);
 
          //把苹果返回的数据存到数据库
         String productId= JSONObject.parseObject(resp).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("product_id").toString();
        
-        log.info("productId:"+productId);
+        LOGGER.info("productId:"+productId);
         if(StringUtils.isBlank(productId)){
             return ResponseObject.newErrorResponseObject("操作失败！找不到productId");
         }
@@ -139,7 +132,7 @@ public class IapController {
         
         	int xmb=Integer.parseInt(actualPrice)*10;
             iphoneIpaService.increase(userId,xmb,resp,actualPrice);
-            log.info("22222222222222222222222222222====================");
+            LOGGER.info("22222222222222222222222222222====================");
             return ResponseObject.newSuccessResponseObject(null);
         }else{
             return null;
@@ -184,7 +177,7 @@ public class IapController {
             while((line = reader.readLine())!= null){
                 sb.append(line);
             }
-            log.info("要通过这个参数来得到这个用户的信息："+sb.toString());
+            LOGGER.info("要通过这个参数来得到这个用户的信息："+sb.toString());
             return sb.toString();
 
         } catch (Exception e) {

@@ -273,7 +273,8 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
      * @param courseId 课程id
      * @return
      */
-    public  String saveEntryVideo(Integer  courseId,String password,HttpServletRequest request){
+    @Override
+    public  String saveEntryVideo(Integer  courseId, String password, HttpServletRequest request){
            CourseApplyVo courseApplyVo= courseDao.getCourseApplyByCourseId(courseId);
 //           if (courseApplyVo !=null && Double.valueOf(courseApplyVo.getOriginalCost())==0 && Double.valueOf(courseApplyVo.getCurrentPrice())==0){
     	   if(courseApplyVo.getCoursePwd()!=null&&!"".equals(courseApplyVo.getCoursePwd().trim())){
@@ -288,6 +289,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
            throw new RuntimeException(String.format("课程下架或非法操作"));
     }
 
+    @Override
     public  String   findVideosByCourseId(Integer courseId){
     	/*20170810---yuruixin*/
     	CourseVo course = courseDao.findCourseOrderById(courseId);

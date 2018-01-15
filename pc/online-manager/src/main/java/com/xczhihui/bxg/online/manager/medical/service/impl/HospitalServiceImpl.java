@@ -214,7 +214,8 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 			return retn;
 	}
 
-	public List<MedicalHospital> findByName(String name){
+	@Override
+    public List<MedicalHospital> findByName(String name){
 		List<MedicalHospital> MedicalHospitals=dao.findEntitiesByProperty(MedicalHospital.class, "name", name);
 		return MedicalHospitals;
 	}

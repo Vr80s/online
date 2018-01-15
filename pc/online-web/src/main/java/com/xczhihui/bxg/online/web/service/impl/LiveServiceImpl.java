@@ -59,6 +59,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * @param  num:条数
      * @return
      */
+    @Override
     public List<OpenCourseVo> getOpenCourse(Integer num){
         return  dao.getOpenCourse(num);
     }
@@ -83,6 +84,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      *
      * @param courseId 鲜花数
      */
+    @Override
     public int updateBrowseSum(Integer courseId) {
         return dao.updateBrowseSum(courseId);
     }
@@ -91,7 +93,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * 修改鲜花数
      * @param courseId 课程ID号
      */
-    public Map<String,Object> updateFlowersNumber(Integer courseId,OnlineUser u) {
+    @Override
+    public Map<String,Object> updateFlowersNumber(Integer courseId, OnlineUser u) {
         Map<String,Object> returnMap = new HashMap<>();
         //只有当前用户登录才可以送花
         if(u == null){
@@ -130,7 +133,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * @param courseId
      * @return true:可以送花，false：不可以送花
      */
-    public Boolean checkTime(String courseId,OnlineUser u){
+    @Override
+    public Boolean checkTime(String courseId, OnlineUser u){
         //从缓存中取当前登录用户上次送花时间
         String key=courseId+u.getLoginName().trim();
         String value=cacheService.get(key);
@@ -149,7 +153,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * 获取直播课程信息，根据课程id查询课程
      * @param courseId 课程id号
      */
-    public Map<String, Object> getOpenCourseById(Integer courseId,String planId) {
+    @Override
+    public Map<String, Object> getOpenCourseById(Integer courseId, String planId) {
         return  dao.getOpenCourseById(courseId,planId);
     }
 
@@ -158,7 +163,8 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * @param courseId  课程id
      * @param personNumber 当前在线人数
      */
-    public void  saveOnUserCount(Integer courseId,Integer personNumber){
+    @Override
+    public void  saveOnUserCount(Integer courseId, Integer personNumber){
         dao.saveOnUserCount(courseId,personNumber);
     }
 
@@ -167,6 +173,7 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
      * 获取一周的课程表数据
      * @param currentTime 前端传过来的时间
      */
+    @Override
     public  List<List<OpenCourseVo>>   getCourseTimetable(long currentTime){
         //存放一周内每天课程集合
         List<List<OpenCourseVo>>  cours= new ArrayList<List<OpenCourseVo>>();

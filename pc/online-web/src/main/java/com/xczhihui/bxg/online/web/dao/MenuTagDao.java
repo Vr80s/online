@@ -82,7 +82,7 @@ public class MenuTagDao extends SimpleHibernateDao {
 
     public void updateAccuseStatus(String targetId,String targetType){
             //改变问题以及回答信息的投诉状态
-            String tableName =  targetType.equals("0") ? "oe_ask_question" :"oe_ask_answer";
+            String tableName = "0".equals(targetType) ? "oe_ask_question" :"oe_ask_answer";
             String seSql="select id  from "+tableName + " where id = ?";
             List<AskAnswerVo> check = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(seSql,
                 BeanPropertyRowMapper.newInstance(AskAnswerVo.class), targetId);

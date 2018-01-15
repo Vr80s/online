@@ -15,19 +15,23 @@ public class WxcpWxRedpackServiceImpl implements WxcpWxRedpackService {
 	@Autowired
 	private WxcpWxRedpackMapper wxcpWxRedpackMapper;
 	
-	public int insert( SendRedPack record ) throws SQLException {
+	@Override
+    public int insert(SendRedPack record ) throws SQLException {
 		return wxcpWxRedpackMapper.insert(record);
 	}
 	
-	public int delete( String id ) throws SQLException {
+	@Override
+    public int delete(String id ) throws SQLException {
 		return wxcpWxRedpackMapper.delete(id);
 	}
 	
-	public int update( SendRedPack record ) throws SQLException {
+	@Override
+    public int update(SendRedPack record ) throws SQLException {
 		return wxcpWxRedpackMapper.update(record);
 	}
 	
-	public List<SendRedPack> select(SendRedPack condition, String limit) throws SQLException {
+	@Override
+    public List<SendRedPack> select(SendRedPack condition, String limit) throws SQLException {
 		return wxcpWxRedpackMapper.select(condition, limit);
 	}
 

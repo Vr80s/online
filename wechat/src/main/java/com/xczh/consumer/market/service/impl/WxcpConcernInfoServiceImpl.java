@@ -16,19 +16,23 @@ public class WxcpConcernInfoServiceImpl implements WxcpConcernInfoService {
 	@Autowired
 	private WxcpConcernInfoMapper wxcpConcernInfoMapper;
 	
-	public int insert( WxcpConcernInfo record ) throws SQLException {
+	@Override
+    public int insert(WxcpConcernInfo record ) throws SQLException {
 		return wxcpConcernInfoMapper.insert(record);
 	}
 	
-	public int delete( WxcpConcernInfo condition ) throws SQLException {
+	@Override
+    public int delete(WxcpConcernInfo condition ) throws SQLException {
 		return wxcpConcernInfoMapper.delete(condition);
 	}
 	
-	public int update( WxcpWxJsconfig record ) throws SQLException {
+	@Override
+    public int update(WxcpWxJsconfig record ) throws SQLException {
 		return wxcpConcernInfoMapper.update(record);
 	}
 	
-	public List<WxcpConcernInfo> select(WxcpConcernInfo condition, String limit) throws SQLException {
+	@Override
+    public List<WxcpConcernInfo> select(WxcpConcernInfo condition, String limit) throws SQLException {
 		return wxcpConcernInfoMapper.select(condition,limit);
 	}
 	

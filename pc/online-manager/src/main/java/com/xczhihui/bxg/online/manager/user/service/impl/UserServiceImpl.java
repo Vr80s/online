@@ -118,7 +118,8 @@ public class UserServiceImpl implements UserService {
 		}
 		return page;
 	}
-	public List<UserVo> findAll(){
+	@Override
+    public List<UserVo> findAll(){
 		List<UserVo> userVos=new CopyOnWriteArrayList<UserVo>();
 		try {
 			DetachedCriteria dc = DetachedCriteria.forClass(OnlineUser.class);

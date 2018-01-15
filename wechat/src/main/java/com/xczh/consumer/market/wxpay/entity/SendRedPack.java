@@ -2,7 +2,7 @@ package com.xczh.consumer.market.wxpay.entity;
 
 import java.util.Date;
 
-//wx red pack definition；
+//WX red pack definition；
 public class SendRedPack {
 
 	private String rp_id; 

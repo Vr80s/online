@@ -75,16 +75,16 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 	 */
 	@Override
 	public void saveEnchashmentApplication(EnchashmentApplication ea) {
-		if(ea.getRealName()==null||ea.getRealName().trim().equals("")){
+		if(ea.getRealName()==null|| "".equals(ea.getRealName().trim())){
 			throw new RuntimeException("真实姓名不可为空！");
 		}
 		if(ea.getEnchashmentSum()==null||ea.getEnchashmentSum().compareTo(new BigDecimal("0.01"))==-1){
 			throw new RuntimeException("提现金额不低于0.01元");
 		}
-		if(ea.getPhone()==null||ea.getPhone().trim().equals("")){
+		if(ea.getPhone()==null|| "".equals(ea.getPhone().trim())){
 			throw new RuntimeException("手机号不可为空");
 		}
-		if(ea.getEnchashmentAccount()==null||ea.getEnchashmentAccount().trim().equals("")){
+		if(ea.getEnchashmentAccount()==null|| "".equals(ea.getEnchashmentAccount().trim())){
 			throw new RuntimeException("提现账号不可为空");
 		}
 		if(ea.getEnchashmentAccountType()==null||(ea.getEnchashmentAccountType()!=0&&ea.getEnchashmentAccountType()!=1&&ea.getEnchashmentAccountType()!=2)){

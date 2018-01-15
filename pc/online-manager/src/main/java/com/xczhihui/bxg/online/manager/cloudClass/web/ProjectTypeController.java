@@ -65,8 +65,9 @@ public class ProjectTypeController {
           if(page.getItems().size()>0){
                for(Project vo:page.getItems()){
                     User user=userService.getUserById(vo.getCreatePerson());
-                    if(user!=null)
-                         vo.setCreatePerson(user.getName());
+                    if(user!=null) {
+                        vo.setCreatePerson(user.getName());
+                    }
                }
           }
           int total = page.getTotalCount();
@@ -102,6 +103,16 @@ public class ProjectTypeController {
           Project existsEntity = service.findProjectTypeByNameAndByType(project.getName(),project.getType());
           if (existsEntity != null && existsEntity.isDelete()!=true) {
                throw new IllegalArgumentException("已经存在");
+          }else if(existsEntity != null && existsEntity.isDelete()==true){
+               existsEntity.setLinkType(project.getLinkType());
+               existsEntity.setLinkCondition(project.getLinkCondition());
+               existsEntity.setIcon(project.getIcon());
+               existsEntity.setStatus(0);
+               existsEntity.setDelete(false);
+               service.update(existsEntity);
+               responseObj.setSuccess(true);
+               responseObj.setErrorMessage("新增课程专题成功");
+               return responseObj;
           }
           project.setCreatePerson(UserHolder.getCurrentUser().getName());
           project.setCreateTime(new Date());
@@ -131,16 +142,20 @@ public class ProjectTypeController {
           ResponseObject responseObject=new ResponseObject();
           
           if(project==null || project.getName() == null || project.getIcon() ==null
-                  || project.getLinkType() == null || project.getLinkCondition() == null)
+                  || project.getLinkType() == null || project.getLinkCondition() == null) {
               throw new IllegalArgumentException("请输入必填项");
+          }
           Project existsEntity = service.findProjectTypeByNameAndByType(project.getName(),project.getType());
    
           if (existsEntity!=null && !existsEntity.getId().equals(project.getId())) {
                throw new IllegalArgumentException("已经存在了");
           }
-          existsEntity.setName(project.getName());
-          existsEntity.setIcon(project.getIcon());
-          service.update(existsEntity);
+          Project pj = service.findById(project.getId().toString());
+          pj.setName(project.getName());
+          pj.setIcon(project.getIcon());
+          pj.setLinkType(project.getLinkType());
+          pj.setLinkCondition(project.getLinkCondition());
+          service.update(pj);
           responseObject.setSuccess(true);
           responseObject.setErrorMessage("修改完成!");
           return responseObject;

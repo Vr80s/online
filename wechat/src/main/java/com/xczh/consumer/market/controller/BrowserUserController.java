@@ -83,7 +83,7 @@ public class BrowserUserController {
 	private String returnOpenidUri;
 	
 	
-	private static final org.slf4j.Logger log = LoggerFactory.getLogger(BrowserUserController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BrowserUserController.class);
 	
 	/**
 	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
@@ -328,10 +328,10 @@ public class BrowserUserController {
 			if (o != null) {
 				//判断是否存在微吼信息
 				if(o.getVhallId()==null || "".equals(o.getVhallId())){
-					String weihouId = WeihouInterfacesListUtil.createUser(o.getId(), WeihouInterfacesListUtil.moren, o.getName(),o.getSmallHeadPhoto());
-					onlineUserService.updateVhallIdOnlineUser(weihouId,WeihouInterfacesListUtil.moren,o.getName(),o.getId());
+					String weihouId = WeihouInterfacesListUtil.createUser(o.getId(), WeihouInterfacesListUtil.MOREN, o.getName(),o.getSmallHeadPhoto());
+					onlineUserService.updateVhallIdOnlineUser(weihouId,WeihouInterfacesListUtil.MOREN,o.getName(),o.getId());
 					o.setVhallId(weihouId);
-					o.setVhallPass(WeihouInterfacesListUtil.moren);
+					o.setVhallPass(WeihouInterfacesListUtil.MOREN);
 					o.setVhallName(o.getName());
 				}
 				ItcastUser user = userCenterAPI.getUser(username);
@@ -377,7 +377,7 @@ public class BrowserUserController {
 		
     	Cookie []	c = req.getCookies();
     	for (Cookie cookie : c) {
-    		log.info("cookieName+"+cookie.getName());
+    		LOGGER.info("cookieName+"+cookie.getName());
 		}
     	Cookie cookie = new Cookie("nihao", "nihao");
 		cookie.setDomain("localhost");
@@ -389,7 +389,7 @@ public class BrowserUserController {
 		cookie = CookieUtil.getCookie(req,"nihao");
 		if(cookie!=null)
 		{
-			log.info("cookie:"+cookie.getValue());
+			LOGGER.info("cookie:"+cookie.getValue());
 		}
     	
 //		req.setAttribute("access", "brower");
@@ -402,15 +402,15 @@ public class BrowserUserController {
 //		long time = System.currentTimeMillis() + 10 * 1000;
 //		token.setExpires(time);
 //		cacheService.set(ticket, token, 1*1000);
-//		log.info("存储成功");
+//		LOGGER.info("存储成功");
 //		token = cacheService.get(token.getTicket());
-//		log.info(token.getEmail());
+//		LOGGER.info(token.getEmail());
 //		
 //		String str = cacheService.get("123");
-//		log.info("str:"+str);
+//		LOGGER.info("str:"+str);
 //		
 //		
-//		log.info("取数据成功");
+//		LOGGER.info("取数据成功");
 //		req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}
 	
@@ -428,8 +428,8 @@ public class BrowserUserController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject addGetUserInfoByCode(HttpServletRequest req, HttpServletResponse res )throws Exception  {
-		log.info("wx get access_token:" + req.getParameter("access_token"));
-		log.info("wx get openid:" + req.getParameter("openid"));
+		LOGGER.info("WX get access_token:" + req.getParameter("access_token"));
+		LOGGER.info("WX get openid:" + req.getParameter("openid"));
 		
 //		String access_token = "i9X50V0RcmKT48n0l8HFO7R4R9mP7ue9Jg1Jm3Uo-ZmSaYDKS5dCu_BjpWusetygygGjQ9SXLWQhp-JaCFbzgg";
 //		String openid = "oN9qS1ShzGgzs5aovtk7i9TJqz2Y";
@@ -519,9 +519,9 @@ public class BrowserUserController {
 			u.setCreateTime(new Date());
 			u.setType(1);
 			
-			String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.moren, u.getName(), u.getSmallHeadPhoto());
+			String weihouUserId = WeihouInterfacesListUtil.createUser(u.getId(),WeihouInterfacesListUtil.MOREN, u.getName(), u.getSmallHeadPhoto());
 			u.setVhallId(weihouUserId);  //微吼id
-			u.setVhallPass(WeihouInterfacesListUtil.moren);        //微吼密码 
+			u.setVhallPass(WeihouInterfacesListUtil.MOREN);        //微吼密码
 			u.setVhallName(u.getName());
 			
 			u.setPassword(unionid_);     
@@ -583,8 +583,8 @@ public class BrowserUserController {
 	@Transactional
 	public ResponseObject addAppThirdparty(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
-		log.info("wx get access_token	:" + req.getParameter("access_token"));
-		log.info("wx get openid	:" + req.getParameter("openid"));
+		LOGGER.info("WX get access_token	:" + req.getParameter("access_token"));
+		LOGGER.info("WX get openid	:" + req.getParameter("openid"));
 		
 		String access_token = req.getParameter("access_token");
 		String openid = req.getParameter("openid");
@@ -734,7 +734,7 @@ public class BrowserUserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.info("获取错误信息啦"+e.getMessage());
+			LOGGER.info("获取错误信息啦"+e.getMessage());
 			return ResponseObject.newErrorResponseObject("发送失败");
 		}
 	}
@@ -880,7 +880,7 @@ public class BrowserUserController {
 		Map<String, Object> map = onlineUserService.getAppTouristRecord(appUniqueId);
 		if(map ==null){ //第一次进来
 			ou = onlineUserService.addYkUser(appUniqueId);
-			log.info("用户中心id:"+ou.getUserCenterId());
+			LOGGER.info("用户中心id:"+ou.getUserCenterId());
 			//也需要保存这个信息啦
 			onlineUserService.saveAppTouristRecord(ou, appUniqueId);
 		}else{
@@ -891,9 +891,9 @@ public class BrowserUserController {
 			 * 2、当登录的时候，在增加这个标识符为0:  
 			 */
 			Boolean regis =  (Boolean) map.get("isRegis");
-			log.info(""+map.get("userCenterId"));
+			LOGGER.info(""+map.get("userCenterId"));
 			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
-			if(!regis|| type.equals("1") ){ //返回用户基本信息   --主要是不返回loginName
+			if(!regis|| "1".equals(type)){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
 			}else{ //返回用户信息 -- 包括loginName
 				ou = onlineUserService.findUserById(map.get("userId").toString());
@@ -931,7 +931,7 @@ public class BrowserUserController {
 	public void onlogin(HttpServletRequest req, HttpServletResponse res,
                         Token token, OnlineUser user, String ticket) throws SQLException{
 		
-		log.info("用户普通登录----》ticket"+ticket);
+		LOGGER.info("用户普通登录----》ticket"+ticket);
 		/**
 		 * 存在两个票，两个票都可以得到用户信息。
 		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
@@ -1036,11 +1036,11 @@ public class BrowserUserController {
 		
 		int [] arr = {1,2,3,4};
 		//产生0-(arr.length-1)的整数值,也是数组的索引
-		log.info(Math.random() +"==="+Math.random()*arr.length);
+		LOGGER.info(Math.random() +"==="+Math.random()*arr.length);
 		int index=(int)(Math.random()*arr.length);
-		log.info(index+"");
+		LOGGER.info(index+"");
 		int rand = arr[index];
-		log.info(rand+"");
+		LOGGER.info(rand+"");
 	}
 	
 	

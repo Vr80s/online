@@ -42,7 +42,8 @@ public class WxcpOrderInfoServiceImpl implements WxcpOrderInfoService {
 	 * 取消（根据主键ID取消）
 	 * 
 	 **/
-	public int cancelByPrimaryKey ( String buyer_id,String order_id ) throws SQLException {
+	@Override
+    public int cancelByPrimaryKey (String buyer_id, String order_id ) throws SQLException {
 		return wxcpOrderInfoMapper.cancelByPrimaryKey(buyer_id,order_id);
 	}
 	
@@ -51,7 +52,8 @@ public class WxcpOrderInfoServiceImpl implements WxcpOrderInfoService {
 	 * 修改订单状态；
 	 * 
 	 **/
-	public int updateOrderStatus ( String id,String order_status ) throws SQLException {
+	@Override
+    public int updateOrderStatus (String id, String order_status ) throws SQLException {
 		return wxcpOrderInfoMapper.updateOrderStatus(id,order_status);
 	}
 
