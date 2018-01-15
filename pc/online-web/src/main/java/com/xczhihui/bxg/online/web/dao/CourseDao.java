@@ -75,19 +75,6 @@ public class CourseDao extends SimpleHibernateDao {
         sqlSb.append("  where  cou.is_delete=0  and  cou.status=1  ");
         sqlSb.append(" AND ISNULL(cou.type) ");
         sqlSb.append(" AND cou.`online_course`!=1 ");
-//        switch (menuId) {
-//            case 0:
-//                break;
-//            case 1:
-//                break;
-//            case 2:
-//                break;
-//            case 3:
-//                break;
-//            default:
-//                sqlSb.append(" and  menu_id = :menuId ");
-//                break;
-//        }
         if(menuType!=null){
         if(menuType==1||menuType==2||menuType==3){
             paramMap.put("type", menuType);

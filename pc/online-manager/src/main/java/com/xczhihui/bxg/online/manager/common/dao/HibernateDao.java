@@ -1170,7 +1170,11 @@ public class HibernateDao<T> extends SimpleHibernateDao{
 		case NOTNULL:
 			whereBufferHou.append(alisStr).append(" is not null ");
 			break;
+		default:
+			break;
 		}
+
+
 	}
 
 }
