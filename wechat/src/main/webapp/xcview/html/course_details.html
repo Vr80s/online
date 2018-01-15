@@ -141,6 +141,21 @@
 				    </div>
             		<!--这是点击展开，点击隐藏文字。  结束-->
             		<div class="container_border"></div>
+            		
+            		<!--这是点击展开，点击隐藏文字。  开始-->
+            		<div class="container1">
+				        <div class="wrap1">
+				            <div>
+				                我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试
+				            </div>
+				          <div class="gradient1"></div>
+				        </div>
+				        <div class="read-more1">
+				            <div class="hewenqiToggle1"></div>
+				            <span class="triangle-down-hovertree1"></span>
+				        </div>
+				    </div>
+            		<!--这是点击展开，点击隐藏文字。  结束-->
             	</div>
 			</div>
 		</div>
@@ -345,9 +360,45 @@
 		        });  
 		    }
 		});
+		
 	};
 </script>
 
+<script type="text/javascript">
+	window.onload = function(){
+		$(function(){
+		    var slideHeight1 = 100; 
+		    var defHeight1 = $('.wrap1').height();
+		    if(defHeight1 >= slideHeight1){
+		        $('.wrap1').css('height' , slideHeight1 + 'px');
+		        $('.read-more1').append('<a href="#">展开全部</a>');
+		        $('.read-more1 a').click(function(){
+		        var curHeight1 = $('.wrap1').height();
+		        if(curHeight1 == slideHeight1){
+		            $('.wrap1').animate({
+		            height: defHeight1
+		            }, "normal1");
+		            $('.read-more1 a').html('点击隐藏');
+		            $('.gradient1').fadeOut();
+		            $('.read-more1 span').addClass("triangle-down-hovertree1");
+		            $('.read-more1 span').removeClass("triangle-up-hovertree1");
+		            $('.hewenqiToggle1').css("height","0.2rem");
+		        }else{
+		            $('.wrap1').animate({
+		            height: slideHeight1
+		            }, "normal1");
+		            $('.read-more1 a').html('展开全部');
+		            $('.gradient1').fadeIn();
+		            $('.read-more1 span').removeClass("triangle-down-hovertree1");
+		            $('.read-more1 span').addClass("triangle-up-hovertree1");
+		            $('.hewenqiToggle1').css("height","2.5rem");
+		        }
+		        return false;
+		        });  
+		    }
+		});
+	};
+</script>
 
 
 <!--点击更多隐藏显示结束-->
