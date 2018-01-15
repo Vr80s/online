@@ -462,7 +462,7 @@ public class AlipayController {
             //交易状态
             String trade_status = new String(request.getParameter("trade_status").getBytes("ISO-8859-1"), "UTF-8");
 
-            if (trade_status.equals("TRADE_SUCCESS")) {
+            if ("TRADE_SUCCESS".equals(trade_status)) {
                 //判断该笔订单是否在商户网站中已经做过处理
                 String notifyType=alipayPaymentRecord.getPassbackParams().split("&")[0];
                 if("order".equals(notifyType)){

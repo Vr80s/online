@@ -381,7 +381,7 @@ public class HomeworServiceImpl extends OnlineBaseServiceImpl implements Homewor
         String opstr = "ABCDEFGH";
         ReadOverPaperQuestionTypeInfoVo typeVo = new ReadOverPaperQuestionTypeInfoVo();
         List<UserPaperQuestionVo> questionType;
-        if(sign.equalsIgnoreCase("user")) {
+        if("user".equalsIgnoreCase(sign)) {
             questionType = homeworkDao.findUserPaperQuestionsByUserPaperId(userPaperId, type);
         }else{
             questionType = homeworkDao.findPaperQuestionsByPaperId(userPaperId,type);

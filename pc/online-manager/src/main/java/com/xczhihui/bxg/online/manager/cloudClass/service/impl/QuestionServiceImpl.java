@@ -531,12 +531,12 @@ public class QuestionServiceImpl extends OnlineBaseServiceImpl implements Questi
 				question.setAnswerText(answer);
 			} else if (questionType == 6 && StringUtils.isNotBlank(answer)) {// 实操
 				String v = answer.substring(answer.lastIndexOf(".") + 1,answer.length()).toUpperCase();
-				if (v.equals("TXT") || v.equals("DOC") || v.equals("DOCX")
-				        || v.equals("XLS") || v.equals("XLSX")
-				        || v.equals("ZIP") || v.equals("RAR")
-				        || v.equals("BMP") || v.equals("GIF")
-				        || v.equals("JPEG") || v.equals("PNG")
-				        || v.equals("SVG") || v.equals("JPG")) {
+				if ("TXT".equals(v) || "DOC".equals(v) || "DOCX".equals(v)
+				        || "XLS".equals(v) || "XLSX".equals(v)
+				        || "ZIP".equals(v) || "RAR".equals(v)
+				        || "BMP".equals(v) || "GIF".equals(v)
+				        || "JPEG".equals(v) || "PNG".equals(v)
+				        || "SVG".equals(v) || "JPG".equals(v)) {
 					if (zipSet.contains(answer)) {
 						question.setAnswer(answer);
 					} else {
@@ -547,9 +547,9 @@ public class QuestionServiceImpl extends OnlineBaseServiceImpl implements Questi
 				}
 			} else if (questionType == 5 && StringUtils.isNotBlank(answer)) {// 代码
 				String v = answer.substring(answer.lastIndexOf(".") + 1,answer.length()).toUpperCase();
-				if (v.equals("TXT") || v.equals("DOC") || v.equals("DOCX")
-				        || v.equals("XLS") || v.equals("XLSX")
-				        || v.equals("ZIP") || v.equals("RAR")) {
+				if ("TXT".equals(v) || "DOC".equals(v) || "DOCX".equals(v)
+				        || "XLS".equals(v) || "XLSX".equals(v)
+				        || "ZIP".equals(v) || "RAR".equals(v)) {
 					if (zipSet.contains(answer)) {
 						question.setAnswer(answer);
 					} else {

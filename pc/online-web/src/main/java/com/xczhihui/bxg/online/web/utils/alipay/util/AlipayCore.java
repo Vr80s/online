@@ -39,8 +39,8 @@ public class AlipayCore {
 
         for (String key : sArray.keySet()) {
             String value = sArray.get(key);
-            if (value == null || value.equals("") || key.equalsIgnoreCase("sign")
-                || key.equalsIgnoreCase("sign_type")) {
+            if (value == null || "".equals(value) || "sign".equalsIgnoreCase(key)
+                || "sign_type".equalsIgnoreCase(key)) {
                 continue;
             }
             result.put(key, value);
@@ -105,10 +105,10 @@ public class AlipayCore {
      */
     public static String getAbstract(String strFilePath, String file_digest_type) throws IOException {
         PartSource file = new FilePartSource(new File(strFilePath));
-    	if(file_digest_type.equals("MD5")){
+    	if("MD5".equals(file_digest_type)){
     		return DigestUtils.md5Hex(file.createInputStream());
     	}
-    	else if(file_digest_type.equals("SHA")) {
+    	else if("SHA".equals(file_digest_type)) {
     		return DigestUtils.sha256Hex(file.createInputStream());
     	}
     	else {

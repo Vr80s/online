@@ -893,7 +893,7 @@ public class BrowserUserController {
 			Boolean regis =  (Boolean) map.get("isRegis");
 			log.info(""+map.get("userCenterId"));
 			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
-			if(!regis|| type.equals("1") ){ //返回用户基本信息   --主要是不返回loginName
+			if(!regis|| "1".equals(type)){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());
 			}else{ //返回用户信息 -- 包括loginName
 				ou = onlineUserService.findUserById(map.get("userId").toString());

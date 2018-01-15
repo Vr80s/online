@@ -84,8 +84,8 @@ public class WxJSController {
 		String cache_access_token =  cacheService.get("access_token");
 		String js_ticket_access_token = cacheService.get("js_ticket");
 		
-		if(cache_access_token ==null || js_ticket_access_token==null || 
-				js_ticket_access_token.equals("js_ticket")){
+		if(cache_access_token ==null || js_ticket_access_token==null ||
+                "js_ticket".equals(js_ticket_access_token)){
 			String strLinkHome 	= "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET"
 					.replace("appid=APPID", "appid="+ WxPayConst.gzh_appid).replace("secret=APPSECRET", "secret="+ WxPayConst.gzh_Secret);
 			

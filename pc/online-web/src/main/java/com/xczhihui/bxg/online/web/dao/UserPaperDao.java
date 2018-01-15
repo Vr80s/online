@@ -139,11 +139,11 @@ public class UserPaperDao extends SimpleHibernateDao {
             questionType.add(2);
 
             String attachmentSql=StringUtils.isNullOrEmpty(attachment) ? "" : ",answer_attachment_url=:attachment";
-            String readOverSql=questionType.contains(question.get("question_type")) && ((answer!=null &&  !answer.equals("")))  ?  ",read_over=1" : ",read_over=0";
+            String readOverSql=questionType.contains(question.get("question_type")) && ((answer!=null &&  !"".equals(answer)))  ?  ",read_over=1" : ",read_over=0";
             //更新结果
             int score = 0;
             int isRight=1; //答错
-            if( (answer==null || answer.equals("")) && StringUtils.isNullOrEmpty(attachment)){
+            if( (answer==null || "".equals(answer)) && StringUtils.isNullOrEmpty(attachment)){
                 isRight=0; //未答
             }else{
                 if (questionType.contains(question.get("question_type")) && question.get("answer").toString().equals(answer)) {

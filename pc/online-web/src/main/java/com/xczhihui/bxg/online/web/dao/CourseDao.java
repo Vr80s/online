@@ -242,12 +242,12 @@ public class CourseDao extends SimpleHibernateDao {
         	paramMap.put("type", type);
         	sqlSb.append(" AND om.type = :type ");
         	sqlSb.append(" AND om.yun_status = 1 ");
-        	sqlSb= couseTypeId.equals("0") ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
+        	sqlSb= "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
         	sqlSb.append(" AND cou.online_course = 0 ");
         }else if(type ==4){
         	sqlSb.append(" AND cou.online_course = 1 ");
         }else{
-        	sqlSb= couseTypeId.equals("0") ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
+        	sqlSb= "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
         	sqlSb.append(" AND cou.online_course = 0 ");
         }
         sqlSb.append(" order by  cou.sort desc ") ;
@@ -294,7 +294,7 @@ public class CourseDao extends SimpleHibernateDao {
                 
                 ApplyGradeCourse  applyGradeCourse = applyGradeCourseDao.findByCourseIdAndUserId(courseId, loginUser.getId());
                 if(applyGradeCourse != null) {
-                    courseVo.setIsApply(applyGradeCourse.getIsPayment().equals("1") ? false : true);
+                    courseVo.setIsApply("1".equals(applyGradeCourse.getIsPayment()) ? false : true);
                 }
                 
             }
@@ -522,7 +522,7 @@ public class CourseDao extends SimpleHibernateDao {
 //        String  querySql="select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0";
 //        List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
         /*20170810---yuruixin*/
-        if (course.getOnlineCourse()==0 && course.getType()==null && (course.getDirectId()==null || course.getDirectId().trim().equals("")))
+        if (course.getOnlineCourse()==0 && course.getType()==null && (course.getDirectId()==null || "".equals(course.getDirectId().trim())))
         {
             throw new RuntimeException("此课暂时没有视频,请稍后购买!");
         }

@@ -238,7 +238,7 @@ public class AskQuestionListServiceImpl extends OnlineBaseServiceImpl implements
      */
     @Override
     public List<AskQuestionVo> findSimilarProblemByTitle(String title) {
-        if (title.equals("")) {
+        if ("".equals(title)) {
             return null;
         }
         return questionListDao.findSimilarProblemByTitle(title);

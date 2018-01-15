@@ -223,7 +223,7 @@ public class AskAnswerDao extends SimpleHibernateDao {
 
 		AskQuestionVo question = questions.get(0);
 
-		if(question.getStatus().equals("0")){
+		if("0".equals(question.getStatus())){
 				this.getNamedParameterJdbcTemplate().getJdbcOperations().update(
 				"update oe_ask_question set answer_sum=(answer_sum+1),status = ? where id = ?", "1",an.getQuestion_id());
 		}else {
@@ -452,7 +452,7 @@ public class AskAnswerDao extends SimpleHibernateDao {
 	public void updateQuestionById(List<Map<String, Object>> check) {
 		//查看被删除的回答是否是被采纳的回答信息，如果被采纳，删除得改变问题的采纳状态
 		String querySql="";
-		if(check.get(0).get("accepted").toString().equals("true")){
+		if("true".equals(check.get(0).get("accepted").toString())){
 			 querySql = "update  oe_ask_question   set answer_sum = (answer_sum - 1), status=0  where id = ? ";
 		}else{
 			 querySql = "update  oe_ask_question   set answer_sum = (answer_sum - 1)  where id = ? ";

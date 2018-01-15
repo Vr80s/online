@@ -299,10 +299,8 @@ public class WxPayController {
 									.length() == 0) {
                         continue;
                     }
-					if (listWxcpPayFlow.get(i).getResult_code()
-							.equals("SUCCESS")
-							&& listWxcpPayFlow.get(i).getReturn_code()
-									.equals("SUCCESS")) {
+					if ("SUCCESS".equals(listWxcpPayFlow.get(i).getResult_code())
+							&& "SUCCESS".equals(listWxcpPayFlow.get(i).getReturn_code())) {
 						try {
 							paysed_sum = Integer.valueOf(listWxcpPayFlow.get(i)
 									.getTotal_fee());
@@ -335,7 +333,7 @@ public class WxPayController {
 					//if("1".equals(rpv.getT())){
 
 					if(attachs.length>0) {
-                        if (attachs[0].equals("reward")) {
+                        if ("reward".equals(attachs[0])) {
 
                             String json = cacheService.get(attachs[1]);
                             RewardParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RewardParamVo.class);
@@ -355,14 +353,14 @@ public class WxPayController {
                             res.getWriter().write(tell_ok);
                             log.info("打赏回调打印:" + json);
                             //	}
-                        } else if (attachs[0].equals("order")) {
+                        } else if ("order".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             OrderParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, OrderParamVo.class);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
                             log.info("order回调打印:" + json);
                             wxcpPayFlow.setSubject(rpv.getSubject());
                             wxcpPayFlowService.insert(wxcpPayFlow);
-                        } else if (attachs[0].equals("recharge")) {
+                        } else if ("recharge".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             RechargeParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RechargeParamVo.class);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
@@ -392,7 +390,7 @@ public class WxPayController {
 				} else {
 					log.info("WxPayController->wxNotify->bad");
 				}
-				if(attach.split("&")[0].equals("order")){
+				if("order".equals(attach.split("&")[0])){
 					
 					boolean onlinePaySuccess = httpOnline(out_trade_no, transaction_id);//普通订单
 				
@@ -704,7 +702,7 @@ public class WxPayController {
 				//这样直接跳转的话，怎样跳转呢，直接到直播页面啊，还是直接到
 				if(type == 1){ //直播或者预约详情页           
 					//1.直播中，2预告，3直播结束
-					if(null != mapCourseInfo.get("lineState") && mapCourseInfo.get("lineState").toString().equals("2")){  //预告
+					if(null != mapCourseInfo.get("lineState") && "2".equals(mapCourseInfo.get("lineState").toString())){  //预告
 						url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId)+"&openId="+openid;
 					}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
 						url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
@@ -712,7 +710,7 @@ public class WxPayController {
 				}else{ //视频音频详情页
 					//haiyao   multimediaType
 					Integer multimediaType = 1;
-					if(null != mapCourseInfo.get("multimediaType") && mapCourseInfo.get("multimediaType").toString().equals("2")){
+					if(null != mapCourseInfo.get("multimediaType") && "2".equals(mapCourseInfo.get("multimediaType").toString())){
 						multimediaType = 2;
 					}
 					url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid+"&multimedia_type="+multimediaType;

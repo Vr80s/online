@@ -190,7 +190,7 @@ public class ExcelPoiUtil {
 			break;
 		}
 
-		if (temp == null || temp.trim().equals("")) {
+		if (temp == null || "".equals(temp.trim())) {
             temp = null;
         } else {
             temp = temp.trim();
@@ -200,7 +200,7 @@ public class ExcelPoiUtil {
 	}
 
 	public static String trim(String str) {
-		if (str == null || str.equals("")) {
+		if (str == null || "".equals(str)) {
 			return "";
 		} else {
 			return str.replaceAll(" ", "");

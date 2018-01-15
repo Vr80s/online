@@ -39,7 +39,7 @@ public class AskAnswerServiceImpl implements AskAnswerService {
 	public Map<String,Object> findOfficialAnswer(String question_id,String menu_id,String userId) {
 		Map<String,Object> returnMap = new HashMap<>();
 		AskAnswerVo askAnswerVo = dao.findOfficialAnswer(question_id);
-		if(userId.equals("")){
+		if("".equals(userId)){
 			returnMap.put("hasRight",false);
 		}else{
 			List<Map<String, Object>> list = dao.findMenuIdByUser(userId);

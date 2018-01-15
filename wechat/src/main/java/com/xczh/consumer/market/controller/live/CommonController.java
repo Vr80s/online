@@ -206,7 +206,7 @@ public class CommonController {
 		//是否是讲师：0,用户，1既是用户也是讲师  is_lecturer
 	    Map<String,Object>  map =  onlineUserService.judgeUserIsTeacher(userId);
 	    log.info("map.get(is_lecturer)"+map.get("is_lecturer"));
-	    if(null !=map && map.get("is_lecturer").toString().equals("0")){
+	    if(null !=map && "0".equals(map.get("is_lecturer").toString())){
 	    	return ResponseObject.newErrorResponseObject(map.get("is_lecturer").toString());
 	    }else{
 	    	return ResponseObject.newSuccessResponseObject(map);

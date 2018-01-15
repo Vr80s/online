@@ -355,12 +355,12 @@ public class WechatController {
 					String[] attachs=attach.split("&");
 
 					if(attachs.length>0) {
-                        if (attachs[0].equals("order")) {
+                        if ("order".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             OrderParamVo orderParamVo = JSONObject.parseObject(json, OrderParamVo.class);
                             wxcpPayFlow.setSubject(orderParamVo.getSubject());
                             wxcpPayFlow.setUser_id(orderParamVo.getUserId());
-                        } else if (attachs[0].equals("reward")) {
+                        } else if ("reward".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             RewardParamVo rpv = JSONObject.parseObject(json, RewardParamVo.class);
                             RewardStatement rs = new RewardStatement();
@@ -373,7 +373,7 @@ public class WechatController {
                             userCoinService.updateBalanceForReward(rs);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
                             wxcpPayFlow.setSubject(rpv.getSubject());
-                        } else if (attachs[0].equals("recharge")) {
+                        } else if ("recharge".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             UserCoinIncrease uci = JSONObject.parseObject(json, UserCoinIncrease.class);
                             uci.setCreateTime(new Date());
@@ -388,7 +388,7 @@ public class WechatController {
 					wxcpPayFlowService.insert(wxcpPayFlow);
 
 
-					if(attachs[0].equals("order")) {
+					if("order".equals(attachs[0])) {
 					//新启线程，处理支付成功
 					new Thread(new Runnable() {
 						@Override

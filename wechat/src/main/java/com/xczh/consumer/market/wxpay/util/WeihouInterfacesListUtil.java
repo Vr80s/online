@@ -75,7 +75,7 @@ public class WeihouInterfacesListUtil {
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		JSONObject js = JSONObject.parseObject(json);
 		//System.out.println(js.toJSONString());
-		if(js.get("code").equals("200")){
+		if("200".equals(js.get("code"))){
 			//JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(js.toJSONString());
 			if(js.get("data")!=null){
@@ -133,7 +133,7 @@ public class WeihouInterfacesListUtil {
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		JSONObject js = JSONObject.parseObject(json);
 		//System.out.println(js.toJSONString());
-		if(js.get("code").equals("200")){
+		if("200".equals(js.get("code"))){
 			//JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(js.toJSONString());
 			if(js.get("data")!=null){
@@ -216,7 +216,7 @@ public class WeihouInterfacesListUtil {
 		}
 		String json = HttpUtil.sendPostRequest(whUrl, parameters);
 		Map<String, String> m =json2Map(json);
-		if(m.get("msg").equals("success")){
+		if("success".equals(m.get("msg"))){
 			Map<String, String> map =json2Map(m.get("data"));
 			String vhallId = map.get("user_id");
 			System.out.println(json+":"+userId);
@@ -260,7 +260,7 @@ public class WeihouInterfacesListUtil {
 		//Map<String, String> m =json2Map(json);
 		JSONObject js = JSONObject.parseObject(json);
 		System.out.println(js.toJSONString());
-		if(js.get("msg").equals("成功")){
+		if("成功".equals(js.get("msg"))){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(jsData.toJSONString());
 			return jsData;
@@ -292,7 +292,7 @@ public class WeihouInterfacesListUtil {
 		String json = HttpUtil.sendPostRequest(register, parameters);
 		
 		JSONObject js = JSONObject.parseObject(json);
-		if(js.get("msg").equals("success")){
+		if("success".equals(js.get("msg"))){
 			JSONObject jsData =JSONObject.parseObject(js.get("data").toString());
 			System.out.println(jsData.toJSONString());
 			String vhallId = jsData.get("user_id").toString();

@@ -141,8 +141,8 @@ public class ASKQuestionListDao extends SimpleHibernateDao {
             paramMap.put("menuId", menuId);
         }
         //根据问题状态搜索，拼接的sql
-        if(!"".equals(status) && status!=null && !status.equals("-1")){
-              if(status.equals("2")){
+        if(!"".equals(status) && status!=null && !"-1".equals(status)){
+              if("2".equals(status)){
                   statuSql= " and  q.status = :status " ;
                   paramMap.put("status", status);
               }else{

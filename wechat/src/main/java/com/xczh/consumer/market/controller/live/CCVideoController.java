@@ -82,7 +82,7 @@ public class CCVideoController {
 			return ResponseObject.newErrorResponseObject("视频走丢了，请试试其他视频。");
 		}
 		//如果是音频的话需要这样暂时替换下
-		if(multimedia_type.equals("2")){
+		if("2".equals(multimedia_type)){
 			responsestr = responsestr.replaceAll("playertype=1", "playertype=1&mediatype=2");
 		}
 		log.info(responsestr);

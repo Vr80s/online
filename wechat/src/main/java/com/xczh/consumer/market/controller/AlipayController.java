@@ -900,7 +900,7 @@ public class AlipayController {
 
 			
 			log.info("trade_status:"+trade_status);
-			if (trade_status.equals("TRADE_SUCCESS")) {
+			if ("TRADE_SUCCESS".equals(trade_status)) {
 				// 判断该笔订单是否在商户网站中已经做过处理
 				// 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 				// 请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
@@ -923,7 +923,7 @@ public class AlipayController {
 							.parseObject(
 									alipayPaymentRecordH5.getPassbackParams())
 							.get("t").toString();
-					if (ppbt.equals("1")) { // 打赏
+					if ("1".equals(ppbt)) { // 打赏
 						RewardParamVo rpv = JSONObject.parseObject(
 								alipayPaymentRecordH5.getPassbackParams(),
 								RewardParamVo.class);
@@ -944,7 +944,7 @@ public class AlipayController {
 						userCoinService.updateBalanceForReward(rs);
 						response.getWriter().println("success"); // 请不要修改或删除
 						return;
-					} else if (ppbt.equals("2")) { // 普通订单
+					} else if ("2".equals(ppbt)) { // 普通订单
 
 						
 						
@@ -970,7 +970,7 @@ public class AlipayController {
 						if (onlinePaySuccess) {
 							response.getWriter().println("success"); // 请不要修改或删除
 						}
-					} else if (ppbt.equals("3")) {
+					} else if ("3".equals(ppbt)) {
 						log.info("充值回调数据包："
 								+ alipayPaymentRecordH5.getPassbackParams());
 						alipayPaymentRecordH5.setUserId((JSONObject

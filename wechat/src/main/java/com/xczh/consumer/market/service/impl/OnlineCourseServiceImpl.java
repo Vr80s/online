@@ -657,7 +657,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		List<String> newlist = new ArrayList<String>();
 		for (int i = 0; i < list.size(); i++) {
 			String string = list.get(i);
-			if(string.equals("1") || string.equals("3") ||string.equals("5")){
+			if("1".equals(string) || "3".equals(string) || "5".equals(string)){
 				newlist.add(string);
 				list.remove(i);
 			}

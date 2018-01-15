@@ -106,7 +106,7 @@ public class UserPaperServiceImpl  extends OnlineBaseServiceImpl implements User
         List<Map<String,Object>> questions= paperDao.findMyPaper(paperId,user);
         resultMap.put("question",questions);
         List<Map<String,Object>>  scores=null;
-        if (paperInfos.size() > 0 && paperInfos.get(0).get("status").toString().equals("3")){
+        if (paperInfos.size() > 0 && "3".equals(paperInfos.get(0).get("status").toString())){
             scores = paperDao.findMyScore(paperId,user);
         }
         resultMap.put("score",scores);

@@ -406,7 +406,7 @@ public class OnlineUserController {
 	@ResponseBody
 	public ResponseObject getShareCode(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)throws Exception{
 		String id = req.getParameter("id");
-		if(StringUtils.isBlank(id) || id.equals("undefined")){
+		if(StringUtils.isBlank(id) || "undefined".equals(id)){
 			return ResponseObject.newSuccessResponseObject("");
 		}
 		OnlineUser user = onlineUserService.findUserById(id);
@@ -478,7 +478,7 @@ public class OnlineUserController {
              // 获得输入流：   
              //InputStream input = fileMul.getInputStream();   
              
-             if(filename!=null && !filename.trim().equals("")){
+             if(filename!=null && !"".equals(filename.trim())){
                  filename = filename.toLowerCase();
      			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
      					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {

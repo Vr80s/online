@@ -99,7 +99,7 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
         }
 
         //当课程是付费课程时，将班级中的剩余席位改变
-        if (status.equals("2")){
+        if ("2".equals(status)){
             Grade grade=gradeService.findGradeById(gradeId);
             if(grade != null){
                 int count =0;
@@ -161,7 +161,7 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
             sql = "update oe_apply  set is_old_user=1,id_card_no=:id_card_no,real_name=:real_name,"
             		+ "old_user_subject_id=:old_user_subject_id,old_user_class_name=:old_user_class_name"
             			+appendSql+"  where user_id=:user_id";
-            if(applys.get(0).get("is_old_user").toString().equals("0")) {
+            if("0".equals(applys.get(0).get("is_old_user").toString())) {
                 applyDao.getNamedParameterJdbcTemplate().update(sql,paramMap);
             }
         }
@@ -259,28 +259,28 @@ public class ApplyServiceImpl extends OnlineBaseServiceImpl implements ApplyServ
 			a.setIsOldUser(0);
 			a.setSex(apply.getSex());
 			a.setIsFirst(apply.getIsFirst());
-			if(apply.getRealName()!=null && !apply.getRealName().equals("")){
+			if(apply.getRealName()!=null && !"".equals(apply.getRealName())){
 				a.setRealName(apply.getRealName());
 			}
-			if(apply.getMobile()!=null && !apply.getMobile().equals("")){
+			if(apply.getMobile()!=null && !"".equals(apply.getMobile())){
 				a.setMobile(apply.getMobile());
 			}
-			if(apply.getIdCardNo()!=null && !apply.getIdCardNo().equals("")){
+			if(apply.getIdCardNo()!=null && !"".equals(apply.getIdCardNo())){
 				a.setIdCardNo(apply.getIdCardNo());
 			}
-			if(apply.getWechatNo()!=null && !apply.getWechatNo().equals("")){
+			if(apply.getWechatNo()!=null && !"".equals(apply.getWechatNo())){
 				a.setWechatNo(apply.getWechatNo());
 			}
-			if(apply.getEmail()!=null && !apply.getEmail().equals("")){
+			if(apply.getEmail()!=null && !"".equals(apply.getEmail())){
 				a.setEmail(apply.getEmail());
 			}
-			if(apply.getQq()!=null && !apply.getQq().equals("")){
+			if(apply.getQq()!=null && !"".equals(apply.getQq())){
 				a.setQq(apply.getQq());
 			}
-			if(apply.getReferee()!=null && !apply.getReferee().equals("")){
+			if(apply.getReferee()!=null && !"".equals(apply.getReferee())){
 				a.setReferee(apply.getReferee());
 			}
-			if(apply.getOccupation()!=null && !apply.getOccupation().equals("")){
+			if(apply.getOccupation()!=null && !"".equals(apply.getOccupation())){
 				a.setOccupation(apply.getOccupation());
 			}
 			applyDao.save(a);

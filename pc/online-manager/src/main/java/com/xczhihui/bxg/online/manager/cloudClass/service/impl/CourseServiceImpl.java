@@ -631,7 +631,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		Course c = courseDao.findOneEntitiyByProperty(Course.class, "id", Integer.valueOf(courseId));
 
 		// zhuwenbao 2018-01-09 在课程详情页面已经移除调smallImgPath选项 不加判断的话会将之前的smallImgPath设置为null
-		if(smallImgPath != null && !smallImgPath.trim().equals("")){
+		if(smallImgPath != null && !"".equals(smallImgPath.trim())){
 			c.setSmallImgPath(smallImgPath);
 			c.setBigImgPath(smallImgPath);
 		}

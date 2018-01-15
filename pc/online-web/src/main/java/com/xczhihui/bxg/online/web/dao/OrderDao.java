@@ -74,7 +74,7 @@ public class OrderDao extends SimpleHibernateDao {
                 sql = "select is_old_user from oe_apply where user_id=:userId";
                 List<Map<String,Object>>  applys= this.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
                 if(applys.size() > 0){
-                    isOldUser=applys.get(0).get("is_old_user").toString().equals("1") ? true : false;
+                    isOldUser= "1".equals(applys.get(0).get("is_old_user").toString()) ? true : false;
                 }
 
                 //查询购买的课程里面的课程信息
@@ -94,7 +94,7 @@ public class OrderDao extends SimpleHibernateDao {
                     Double price=Double.valueOf(course.get("current_price").toString());
                     if(ruleId==null){//非活动课程
                         //当前用户是老学员，并且课程是职业课,为其产生老学员优惠记录
-                        if(isOldUser && course.get("course_type").toString().equals("0")){
+                        if(isOldUser && "0".equals(course.get("course_type").toString())){
                             sql = " insert into oe_order_preferenty_record (id,order_detail_id,preferenty_money,preferenty_type,course_id) "  +
                                     " values ('"+ UUID.randomUUID().toString().replace("-", "")+"','"+orderDetailId+"',"+oldUserPreferentyMoney+",1,"+course.get("id")+")";
                             this.getNamedParameterJdbcTemplate().update(sql, paramMap);
@@ -326,7 +326,7 @@ public class OrderDao extends SimpleHibernateDao {
         paramMap.put("idArr", Arrays.asList(idArr));
         String sql=" select sum(c.current_price) current_price from oe_course c  where c.id in (:idArr) ";
         String current_price = this.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
-        if(current_price.equals("0.00")){
+        if("0.00".equals(current_price)){
             isFree=true;
         }
         return isFree;
@@ -667,7 +667,7 @@ public class OrderDao extends SimpleHibernateDao {
                 " left join oe_activity_rule_detail ard on c.id=ard.course_id " +
                 " where c.id in (:ids) and rule_id is null) a ";
         Double subTotal=this.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Double.class);*/
-        if(orderNo == null || orderNo.equals("")){
+        if(orderNo == null || "".equals(orderNo)){
             //活动后需要支付的金额存在session里面,key值为订单号
             orderNo=TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
         }else{

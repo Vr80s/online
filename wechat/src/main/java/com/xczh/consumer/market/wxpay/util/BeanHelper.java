@@ -253,7 +253,7 @@ public class BeanHelper {
 			if (method.getName().length() > 4) {
 				propname = new StringBuilder().append(propname).append(method.getName().substring(4)).toString();
 			}
-			if (propname.equals("class")) {
+			if ("class".equals(propname)) {
 				continue;
 			}
 			if (propsList.contains(propname)) {

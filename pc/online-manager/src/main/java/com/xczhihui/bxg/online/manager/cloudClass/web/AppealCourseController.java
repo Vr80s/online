@@ -99,7 +99,7 @@ public class AppealCourseController {
 		Group ssIsdelete = groups.findByName("ssIsdelete");
 		if (ssIsdelete != null) {
 			String falg = ssIsdelete.getPropertyValue1().toString();
-			liveExamineInfoVo.setSsisDelete(falg.equals("1") ? true : false);
+			liveExamineInfoVo.setSsisDelete("1".equals(falg) ? true : false);
 		}
 		
 		Page<LiveExamineInfoVo> page = examineCourseService.findAppealListPage(liveExamineInfoVo,currentPage, pageSize);
