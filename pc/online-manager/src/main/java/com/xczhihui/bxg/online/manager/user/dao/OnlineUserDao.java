@@ -110,7 +110,7 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
      */
 	public List<Map<String, Object>> getAllUserLecturer() {
 		// TODO Auto-generated method stub
-		String sql = "select id,name,login_name as logo from oe_user where is_lecturer = 1";
+		String sql = "select id,name,login_name as logo from oe_user where is_lecturer = 1  and status =0 ";
 //		String sql = "select id,name,ifnull(mobile,email) as logo from oe_user where is_lecturer = 1";
 		List<Map<String, Object>> list =this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql);
 		return list;
@@ -133,5 +133,10 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
 	}
 	public OnlineUser getOnlineUserByUserId(String userId) {
 		return this.find(userId);
+	}
+	public List<Map<String, Object>> getAllCourseName() {
+		String sql = "select c.id,c.grade_name as courseName,ou.name as name from oe_course as c,oe_user as ou  where c.user_lecturer_id = ou.id and c.is_delete=0 and c.status = 1  and ou.status =0";
+		List<Map<String, Object>> list =this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql);
+		return list;
 	}
 }

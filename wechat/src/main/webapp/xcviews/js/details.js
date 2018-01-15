@@ -589,6 +589,8 @@ if(isWeiXin()){
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
 	var domain = window.location.protocol+"//"+document.domain;
+	
+	
 	wx.ready(function () {
 		//发送到朋友
 		wx.onMenuShareAppMessage({

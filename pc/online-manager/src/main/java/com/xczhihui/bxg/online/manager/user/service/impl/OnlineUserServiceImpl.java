@@ -86,4 +86,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		OnlineUser ou = dao.getOnlineUserByUserId(userId);
 		return ou;
 	}
+
+	@Override
+	public List<Map<String, Object>> getAllCourseName() {
+		return dao.getAllCourseName();
+	}
 }

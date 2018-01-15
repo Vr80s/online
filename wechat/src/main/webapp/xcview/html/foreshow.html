@@ -1,0 +1,493 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="UTF-8">
+<!--<title>直播预告</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/xcviews/css/css.css">
+<link rel="stylesheet" href="/xcviews/css/vanish.css">
+<style>
+.guanzhu1,.guanzhu2{
+    display: none
+}
+.details_chat_attention{
+	margin-right: 0.8rem;
+}
+.footer_topk{
+	height: 13.1rem;
+}
+</style>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script type="text/javascript" src="/xcviews/js/common/js.js"></script>
+<script type="text/javascript"
+	src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".li1").click(function() {
+			$(this).addClass('details');
+			$(".li2").removeClass('details');
+			$(".li3").removeClass('details');
+			$(".li4").removeClass('details');
+			$(".coze").show();
+			$(".details1").hide();
+			$(".document").hide();
+			$(".leaderboard").hide();
+		});
+		$(".li2").click(function() {
+			$(this).addClass('details');
+			$(".li1").removeClass('details');
+			$(".li3").removeClass('details');
+			$(".li4").removeClass('details');
+			$(".details1").show();
+			$(".coze").hide();
+			$(".document").hide();
+			$(".leaderboard").hide();
+			$(".details_chat").hide();
+		});
+		$(".li3").click(function() {
+			$(this).addClass('details');
+			$(".li1").removeClass('details');
+			$(".li2").removeClass('details');
+			$(".li4").removeClass('details');
+			$(".leaderboard").show();
+			$(".coze").hide();
+			$(".details1").hide();
+			$(".document").hide();
+			$(".details_chat").hide();
+		});
+		$(".li4").click(function() {
+			$(this).addClass('details');
+			$(".li1").removeClass('details');
+			$(".li2").removeClass('details');
+			$(".li3").removeClass('details');
+			$(".document").show();
+			$(".coze").hide();
+			$(".details1").hide();
+			$(".leaderboard").hide();
+			$(".details_chat").hide();
+		});
+		$(".li1").click();
+
+		$(".close").click(function() {
+			$(".details_chat").hide();
+		});
+
+		$(".order01").click(function() {
+			$(".buy_bg").show();
+			$(".buy_center").show();
+		});
+		/* $(".order02").click(function() {
+			$(".buy_bg").show();
+			$(".buy_center1").show();
+			$(".buy_center").hide();
+			
+		}); */
+		$(".order03").click(function() {
+			$(".buy_bg").hide();
+			$(".buy_center1").hide();
+			
+			
+			$("#buy_right a").html("已预约");
+		});
+
+		$(".order_close").click(function() {
+			$(".buy_bg01").hide();
+			$(".buy_center").hide();
+		});
+
+		$(".close").click(function() {
+			$(".footer_topk").css("height", "10.4rem");
+		});
+		
+		  // 点击分享
+        $(".history_img_right").click(function() {
+            $(".share").show();
+        });
+
+        $(".share_footer_call").click(function() {
+            $(".share").hide();
+        });  
+        
+    	/*微信*/
+        $(".weixin_li").click(function() {
+            $(".weixin_ceng").show();
+        });
+        $(".weixin_ceng").click(function() {
+            $(this).hide();
+        }); 
+        
+        
+        
+        /* 点击关注 显示与隐藏*/
+        $(".guanzhu1").click(function() {
+        	$(this).hide();
+            $(".guanzhu2").show();
+        });
+        $(".guanzhu2").click(function() {
+        	
+            $(this).hide();
+            $(".guanzhu1").show();
+        }); 
+		  
+		  
+		  /* 点击黑色,预约隐藏yuyue*/
+        /*$(".buy_bg").click(function() {
+            $("#mobile_subscribe").hide();
+            $(".order_center").show();
+        });*/
+       
+       	 /*$(".yuyue").click(function() {
+            $("#buy_bg001").css("display","block");
+            $("#buy_center01").css("display","block");
+            
+        });*/
+        
+        
+	});
+</script>
+<style>
+	.weixin_ceng{
+		width:100%;
+		height:100%;
+    	display:none;
+		
+	}
+	.weixin_ceng_bg{
+		width: 100%;
+	    height: 100%;
+	    background: #000;
+	    opacity: 0.5;
+	    position: fixed;
+	    left: 0;
+	    top: 0;
+    	z-index: 99999999;
+	}
+	.weixin_img{
+		/* width:7rem;
+		height:7rem; */
+		background: red;
+	    background: red;
+	    position: fixed;
+	    z-index: 99999999999;
+	    top: 0rem;
+	    right: 0;
+	}
+	.weixin_img img{
+		position: absolute;
+		top:0rem;
+		right: 0.3rem;
+		width:6rem;
+		z-index: 99999999999;
+	}
+	.grabble_left {
+	    width: 1.8rem;
+	    height: 1.8rem;
+	    float: left;
+	}
+	.buy_bottom_p1{
+		font-size: 0.8rem !important;
+    	margin-left: 0.1rem;
+	}
+	.look_put button{
+		height: 1.45rem;
+		line-height: 1.45rem;
+	}
+	.buy_bottom_p2{
+		font-size: 0.5rem;
+	}
+	#mobile_subscribe{
+		/*height: 100%;*/
+		top: 0;
+	}
+	.buy_bg01{
+		height: 100%;
+	}
+	.order_put input{
+		border: 1px solid #d2d2d2;
+		margin-top: 1.5rem;
+	}
+	.buy_center01{
+	    position: absolute;
+	    top: 50%;
+	    background: #fff;
+	    margin-top: 5.5rem;
+	}
+	
+	.fx_bg {
+	    width: 0.65rem;
+	    height: 0.65rem;
+	    background: url(/xcviews/images/fx.png)no-repeat;
+	    background-size: 100% 100%;
+	    float: right;
+	    margin-right: 0.3rem;
+	    margin-top: 0.6rem;
+	}
+	.vanish{
+		display: none;
+		z-index: 999991;
+	}
+	.vanish0{
+		display: none;
+		z-index: 999991;
+	}
+	.vanish1{
+		display: none;
+		z-index: 999991;
+	}
+	.vanish3{
+		display: none;
+		z-index: 999991;
+	}
+	.vanish5{
+		display: none;
+		z-index: 999991;
+	}
+	.vanish5_bg{
+		width: 10rem;
+		margin-left: -5rem;
+	}
+	.vanish6{
+		display: none;
+		z-index: 999991;
+	}
+</style>
+</head>
+<body style="background: #efefef;">
+	<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>预约成功</div></div></div>
+	
+	<div class='vanish0'><div class='vanish0_bg'></div><div class='vanish0_cen'><div class='vanish0_size'>您已预约成功</div></div></div>
+	
+	<div class='vanish1'><div class='vanish1_bg'></div><div class='vanish1_cen'><div class='vanish1_size'>提交订单错误！请稍后再试！</div></div></div>
+	<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>网络异常</div></div></div>
+	<div class='vanish5'><div class='vanish5_bg'></div><div class='vanish5_cen'><div class='vanish5_size'>开始直播时,您可以直接观看</div></div></div>
+	<div class='vanish6'><div class='vanish6_bg'></div><div class='vanish6_cen'><div class='vanish6_size'>开始直播时,您可以直接观看</div></div></div>
+	<!--<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>预约成功</div></div></div>-->
+	
+	<!-- 头部开始 -->
+	<header>
+		<div class="grabble">
+			<div class="grabble_top">
+				<div class="grabble_left" onclick="isLoginJump()">
+					<div class="grabble_img"></div>
+				</div>
+				<span class="history_span" style="color: #666;font-size: 0.851rem;width: 76%;padding-top: 0.1rem;">直播预告</span>
+				<!--<div class="history_img_right"  id="share" style="width: 1.6rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.4rem;">分享</div>-->
+				<div class="history_img_right" id="share" style="width: 1.8rem;height: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
+			</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height: 1.8rem;"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class=""
+		style="position: fixed; width: 100%; background: #fff; padding-bottom: 0.1rem; border-bottom: 0.001rem solid #d2d2d2; z-index: 9999;">
+		<div class="details">
+			<div class="order" style="height: 10.1rem;">
+				<div class="order_center">
+					<p class="p1"></p>
+					<p class="p2"></p>
+					<p class="p3"></p>
+					<!-- <a href="javascript: ;" class="order01">我要预约</a> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="details_chat" style="top: 11.9rem;">
+		<div class="details_chat_center">
+			<img src="/xcviews/images/touxiang.png" id="head_img" alt="" class="details_chat1" />
+			<div class="details_chat_attention">
+				<p class="p1">针灸与艾</p>
+				<p class="p2">
+					播&nbsp;&nbsp;&nbsp;主：<span>朱小宝</span>
+				</p>
+				<!-- <p class="p3">房间号：<span>232200</span></p> -->
+			</div>
+			<div class="details_chat2" style="width: 0;padding: 0;background: none;margin-right: 3rem;float: left;margin-left: -0.2rem;margin-top: 1.6rem;">
+				<p class="guanzhu1" style="width: 3.025rem;height: 1.2rem;background: url(/xcviews/images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -1rem;"></p>
+				<p class="guanzhu2" style="background: url(/xcviews/images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -1rem;"></p>
+				<input id="teacherId" style="display:none;">
+			</div>
+			<div class="close">
+				<img src="/xcviews/images/x.png" alt="" />
+			</div>
+		</div>
+		<div class="both"></div>
+	</div>
+	<div class="footer_topk"></div>
+
+	<!-- 直播预告开始 -->
+	<div class="details1" style="display: block;">
+		<div class="anchor_center forshow" style="padding: 0.2rem 0 0.8rem;">
+			<div class="details_anchor_title"
+				style="padding: 0.4rem 0rem 0.6rem 0; background: none; font-size: 0.7rem; text-indent: 0.8rem;">&nbsp;&nbsp;直播内容</div>
+			
+		    <div class="forshow_size" id="content">
+			</div> 
+		</div>
+	</div>
+	<div class="footer_k" style="height: 3.2rem;"></div>
+	<div class="both"></div>
+	<div class="buy_bottom_bg">
+		<!-- <div class="buy_bg"></div> -->
+		<footer style="padding1: 0.4rem 0;">
+			<div class="base buy_bottom">
+				<ul>
+					<li class="buy_left" id="buy_foreshow">
+					    <p class="buy_bottom_p1" style="margin-left: 0.3rem;">
+								<!-- ￥<span>168.00</span> -->
+						</p>
+						<p class="buy_bottom_p2" style="margin-top: 0.5rem1;"></p></li>
+					<li class="buy_right" id="buy_right">
+					   <!-- 已经预约 -->
+					   <!-- <a href="javascript: ;">立即购买</a> -->
+					   <a href="javascript: ;" onclick="goPay()" class="yuyue" style="height: 2.15rem;line-height: 2.15rem;margin-top: -0.2rem;">立即预约</a>
+					</li>
+				</ul>
+			</div>
+		</footer>
+	</div>
+	
+		<!-- 密码开始 -->
+	<div class="buy_bottom_bg" id="passwordDiv" style="display:none;">
+		<div class="buy_bg"></div>
+		<div class="buy_center buy1_center">
+			<div class="look_main">
+				<p>该视频需要密码播放！</p>
+				<div class="look_put">
+					<input type="password" placeholder="请在此处输入密码" id="password" />
+					<button onclick="enterPassword()">观看</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 观看登录结束 -->
+
+	
+	<div class="buy_bottom_bg" id="mobile_subscribe">
+		<div class="buy_bg buy_bg01" id="buy_bg001"></div>  
+		<div class="buy_center buy_center01" id="buy_center01">
+			<div class="look_main order_main">
+				<div class="order_put">
+					<!--<div class="order_close">X</div>-->
+					<input type="tel" placeholder="请输入您的手机号" id="mobile" maxlength="11" />
+				</div>
+				<a href="javascript: ;" style="margin-top:1rem;"  onclick="subscribe()" class="order02">预约</a>
+
+			</div>
+		</div>
+		<div class="buy_center1" >    
+			<div class="look_main order_main">
+				<p class="p1">恭喜您,预约成功！</p>
+				<p class="p2">我们会在开播前10分钟手机短信通知您！</p>
+				<a href="javascript: ;" class="order03">好的</a>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 直播分享页开始 -->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_footer">
+			<ul>
+				<li style="margin-left: 2.8rem;" class="weixin_li"><a href="javascript: ;"><img src="/xcviews/images/share01.png" alt="" /><p>微信</p></a></li>
+				
+				<!-- <li><script type="text/javascript">document.write(['<a href="http://service.weibo.com/share/share.php?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank" ><img src="/xcviews/images/share03.png" alt="" /><p>新浪微博<\/p><\/a>'].join(''));</script></li>
+				<li><script type="text/javascript">document.write(['<a href="http://connect.qq.com/widget/shareqq/index.html?url=',encodeURIComponent(location.href),'&title=',encodeURIComponent(document.title),'" target="_blank" ><img src="/xcviews/images/share04.png" alt="" /><p>qq好友<\/p><\/a>'].join(''));</script></li>
+			 -->
+			 	<li id="weiboShare">
+			 	   <a href="javascript:;" target="_blank">
+			 	   <img src="/xcviews/images/share03.png" alt="" data-bd-imgshare-binded="1"><p>新浪微博</p></a>
+			 	 </li>
+				<li id="qqShare">
+				   <a href="javascript:;" target="_blank">
+				   <img src="/xcviews/images/share04.png" alt="" data-bd-imgshare-binded="1"><p>qq好友</p></a>
+				</li>
+			
+			
+			</ul>
+			<div class="both"></div>
+			<div class="share_footer_call">取消</div>
+		</div>
+	</div>
+
+	<!-- <script src="/xcviews/js/zepto.min.js"></script> -->
+	<script src="/xcviews/js/main.js"></script>
+	<!-- 直播预告结束 -->
+	
+	<!-- 点击微信-->
+	<div class="weixin_ceng">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" /></div>
+	</div>
+</body>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>	
+<script type="text/javascript">
+if(isWeiXin() && stringnull(getQueryString("openId"))){
+	localStorage.setItem("openid", getQueryString("openId"));	
+	var ccontrollerAddress = "/bxg/user/isLogined";
+	requestService(ccontrollerAddress, null, function(data) {
+		if (data.success) {
+			commonLocalStorageSetItem(data);
+		}else{
+			alert("网络异常");
+		}
+	},false)
+}
+
+</script>
+<script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+
+   //如果没有这个用户信息呢，就跳转到分享页面
+    var token = localStorage.getItem("token");
+    if(!stringnull(token)){
+	  location.href = "/xcviews/html/share.html?course_id=" + getQueryString("course_id");
+    }
+  
+  
+    var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
+	var urlparm = {
+		url: window.location.href
+	}
+	var signObj = "";
+	requestService(ccontrollerAddress, urlparm, function(data) {
+		if (data.success) {
+			signObj = data.resultObject;
+		    console.log(JSON.stringify(signObj));
+		}	
+	},false)	
+
+	wx.config({
+	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+	    appId: signObj.appId, // 必填，企业号的唯一标识，此处填写企业号corpid
+	    timestamp: signObj.timestamp, // 必填，生成签名的时间戳
+	    nonceStr:signObj.noncestr, // 必填，生成签名的随机串
+	    signature: signObj.sign,// 必填，签名，见附录1
+	    jsApiList: [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareWeibo',
+			'onMenuShareQZone',
+			'hideMenuItems',
+			'showMenuItems'         
+	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+	});
+  
+</script>
+<script src="/xcviews/js/foreshow.js" type="text/javascript"></script>
+</html>

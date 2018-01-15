@@ -1,0 +1,240 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>用户主页</title>-->
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="../js/js.js"></script>
+<link rel="stylesheet" href="../css/css.css">
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<style>
+.personage_bto_cen_one_put {
+    margin-right: 0.5rem;
+}
+#fansCount{
+	width: 4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.personage_top_cen01 span{
+	width: 6.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+</style>
+
+<script type="text/javascript">
+
+
+
+window.onload=function(){
+	  var aBtn=$('.personage_bto_ul ul li');
+      for(i=0;i<aBtn.length;i++){
+        $(aBtn[i]).click(function(){
+          for(i=0;i<aBtn.length;i++){
+            $(aBtn[i]).removeClass('personage_bto_li1');
+            $(aBtn[i]).addClass('personage_bto_li');
+          }
+          $(this).removeClass();
+          $(this).addClass('personage_bto_li1');
+          var type = $(this).attr("title");
+          //点击请求列表	
+          if(type!=0){
+        	  
+        	  userIndexCourseList(type,false);
+          }
+        })
+      }
+
+      $(".personage_bto_li01").click(function() {
+        	/* $(".personage_bto_cen").show();
+        	$(".personage_bto_cen1").hide();
+        	$(".personage_bto_cen2").hide();
+        	$(".personage_bto_cen3").hide(); */
+          $(".personage_bto_cen").show();
+    	  $(".personage_bto_cen1").hide();
+      });
+      $(".personage_bto_li02").click(function() {
+    	    $(".personage_bto_cen").hide()
+        	$(".personage_bto_cen1").show();
+        	/* $(".personage_bto_cen").hide();
+        	$(".personage_bto_cen2").hide();
+        	$(".personage_bto_cen3").hide(); */
+      });
+      $(".personage_bto_li03").click(function() {
+    	  $(".personage_bto_cen").hide()
+    	  $(".personage_bto_cen1").show();
+        	/* $(".personage_bto_cen2").show();
+        	$(".personage_bto_cen").hide();
+        	$(".personage_bto_cen1").hide();
+        	$(".personage_bto_cen3").hide(); */
+      });
+      $(".personage_bto_li04").click(function() {
+    	  $(".personage_bto_cen").hide()
+    	  $(".personage_bto_cen1").show();
+        	/* $(".personage_bto_cen3").show();
+        	$(".personage_bto_cen1").hide();
+        	$(".personage_bto_cen2").hide();
+        	$(".personage_bto_cen").hide(); */
+      });
+
+	  $(aBtn[0]).click();
+
+}
+</script>
+</head>
+
+<body style="background:#fff;">
+
+	
+
+	<!-- 个人主页开始 -->
+	<div class="personage">
+		<!-- 返回开始 -->
+		<div class="personage_return" onclick="history.go(-1)">
+			<div class="getback"></div>
+		</div>
+		<!-- 返回结束 -->
+	
+		<div class="personage_top">
+			<div class="personage_top_left">
+				<img src="../images/touxiang01.png" id="teacherHeadImg" alt="" >
+			</div>
+			<div class="personage_top_cen">
+				<div class="personage_top_cen01">
+					<span id="teacherName">韩小涵</span>
+					<div class="personage_top_cen_img">
+						<div class="personage_top_cen_img1"><img src="../images/gif.gif" alt="" /></div>
+						<div class="personage_top_cen_in" >正在直播</div>
+					</div>
+				</div>
+			</div>
+			<div class="personage_top_right" id="is_fours">
+				关注
+			</div>
+			<div class="both"></div>
+			<div class="personage_pay">
+				<div class="personage_pay_left">
+					<p class="p1" id="courseAll"></p>
+					<p class="p2">视频数</p>
+				</div>
+				<div class="personage_pay_cen">
+					<img src="../images/shu01.png" alt="" />
+				</div>
+				<div class="personage_pay_right">
+					<p class="p1" id="giftAll"></p>
+					<p class="p2">礼物数</p>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- 粉丝已关注开始 -->
+		<div class="personage_image">
+			<div class="personage_image0">
+				<div class="personage_image_left">
+					<p class="p1" id="fansCount"></p>
+					<p class="p2">粉丝已关注</p>
+				</div>
+				<div class="personage_image_right">
+					<div class="personage_image_right_cen"> 
+					    <div style="width:640px;" id="listFans">       
+					        <!-- <div class="personage_image_right_img"><img src="../images/touxiang.png" alt=""></div>          
+					        <div class="personage_image_right_img"><img src="../images/touxiang.png" alt=""></div>          
+					        <div class="personage_image_right_img"><img src="../images/touxiang.png" alt=""></div>          
+					        <div class="personage_image_right_img"><img src="../images/touxiang.png" alt=""></div>          
+					        <div class="personage_image_right_img"><img src="../images/touxiang.png" alt=""></div>          
+					        <div class="personage_image_right_img"><img src="../images/touxiang.png" alt=""></div>           -->
+					    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 粉丝已关注结束 -->
+
+		<!-- table开始 -->
+		<div class="personage_bto">
+			<div class="personage_bto_ul">
+				<ul>
+					<li class="personage_bto_li personage_bto_li01" title="0">资料</li>
+					<li class="personage_bto_li personage_bto_li02" title="1">直播</li>
+					<li class="personage_bto_li personage_bto_li03" title="2">视频</li>
+					<li class="personage_bto_li personage_bto_li04" title="3">音频</li>
+				</ul>
+			</div>
+
+
+			<!-- 资料 -->
+			<div class="personage_bto_cen">
+				<div class="personage_bto_cen_one">
+					<div class="personage_bto_cen_one_left">
+						<div class="personage_bto_cen_one_img"><img src="../images/zihi.png" alt="" /></div>
+						<div class="personage_bto_cen_one_size">地址</div>
+					</div>
+					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_address"/></div>
+				</div>
+				<div class="personage_bto_cen_one" style="border-top:0;">
+					<div class="personage_bto_cen_one_left">
+						<div class="personage_bto_cen_one_img"><img src="../images/sex.png" alt="" /></div>
+						<div class="personage_bto_cen_one_size">性别</div>
+					</div>
+					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_sex" /></div>
+				</div>
+				<div class="personage_bto_cen_one" style="border-top:0;">
+					<div class="personage_bto_cen_one_left" style="width: 4rem;">
+						<div class="personage_bto_cen_one_img"><img src="../images/bi.png" alt="" /></div>
+						<div class="personage_bto_cen_one_size">个性签名</div>
+					</div>
+					<div class="personage_bto_cen_one_put"><input type="text" disabled="disabled" id="index_individualitySignature" /></div>
+				</div>
+			</div>
+			<!-- 直播 -->
+			<div class="both"></div>
+			<div class="public1 personage_bto_cen1" >
+				<!-- <div class="public1_list">
+					<div class="public1_list_img">
+						<img src="../images/line_03.jpg" alt="">
+					</div>
+					<div class="public1_title">秋季养生7要诀秋季养生7要诀秋季养生7要诀秋季养生7要诀</div>
+					<div class="public1_cen">
+						<div class="public1_cen_left">主讲: 张晓晓&nbsp;22小时</div>
+						<div class="public1_cen_right">￥128.00</div>
+					</div>
+				</div> -->
+				<div id="personage_bto_cen1">
+				</div>
+				<div class="both"></div>
+				<div class="more_btm">更多</div>
+			</div>
+		<!-- table结束 -->
+		</div>
+
+	</div>
+	<!-- 个人主页结束 -->
+</body>
+<script type="text/javascript" src="/Views/h5/js/jquery.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<!-- 选项卡 -->
+<script type="text/javascript">
+</script>
+<script type="text/javascript" src="/xcviews/js/personage.js"></script>
+</html>

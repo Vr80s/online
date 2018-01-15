@@ -487,8 +487,12 @@
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">微课管理</a>
 		</li>--%>
         <li role="presentation">
-            <a href="#inbox" aria-controls="inbox" class="kctj_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程推荐</a>
+            <a href="#inbox" aria-controls="inbox" title="1" class="kctj_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">视频推荐</a>
+        </li>
+        <li role="presentation">
+            <a href="#inbox" aria-controls="inbox" title="2" class="kctj_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">音频推荐</a>
         </li>
 		<li role="presentation">
 			<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"
@@ -697,6 +701,32 @@
 		</div>
         <div role="tabpanel" class="tab-pane" id="inbox">
         	<div class="mainrighttab tabresourse bordernone" id="courseRecDiv" style="display:none">
+        			<!-- <div class="searchDivClass" id="searchBtn_TX">
+					<div class="profile-info-row" >
+						<table frame=void style="width: 100%">
+							<tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="courseTypeId" id="search_multimediaType" value="" class="propertyValue1" >
+											<option value="">媒体类型</option> 
+											<option value="1" selected = "selected">视频</option>
+											<option value="2">音频</option>
+										</select>
+										<input type="hidden" value="search_multimediaType" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<button id="searchBtn_T" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_T();">
+										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div> -->
+        		
+        		
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="courseRecTable"
