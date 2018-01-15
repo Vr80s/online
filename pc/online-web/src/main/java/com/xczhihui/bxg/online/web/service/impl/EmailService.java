@@ -24,7 +24,7 @@ public class EmailService {
 	
 	private String auth=null,host=null, user=null;
 
-	private static String password=null;
+	private String password=null;
 	public EmailService(String auth,String host,String user,String password){
 		this.auth = auth;
 		this.host = host;
@@ -82,10 +82,10 @@ public class EmailService {
 		email.password=Ixincheng1234*/
 		
 		String username = "system@ixincheng.com";
-		password = "Ixincheng1234";
+//		password = "Ixincheng1234";
 		String tousername = "yangxuan@ixincheng.com";
 		String smtp = "smtp.ixincheng.com";
-		sendMailBySSL(smtp, username, password, tousername, subject, content);
+//		sendMailBySSL(smtp, username, password, tousername, subject, content);
 	}
 	public String getAuth() {
 		return auth;
