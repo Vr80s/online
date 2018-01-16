@@ -140,11 +140,13 @@
 	<!-- 医馆招聘 -->
      <!-- <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"  timeout="5000" />  -->
 	<!--医师-->
-	<!-- <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="5000"/> -->
+	 <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="5000"/>
 	
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.ICourseService" id="courseServiceImpl" timeout="5000"/>
 
-
+	<!--学堂-->
+	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileBannerService" id="mobileBannerServiceImpl" timeout="5000"/>
+	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="5000"/>
 
 
 </beans>
