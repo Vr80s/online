@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyDepartmentMapper">
+
+	<insert id="batchAdd">
+		INSERT INTO medical_doctor_apply_department(
+			id, doctor_apply_id, department_id, create_time
+		)
+		VALUES
+		<foreach collection="departments" item="department" separator=",">
+			(
+				#{department.id},
+				#{department.doctorApplyId},
+				#{department.departmentId},
+				#{department.createTime}
+			)
+		</foreach>
+	</insert>
+
+
+</mapper>
