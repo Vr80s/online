@@ -142,3 +142,20 @@ letter-spacing: 0.02rem;
     text-align: center;
     line-height: 0.72rem;
 }
+/*错误提示*/
+.error-prompt{
+	    width: 4.5rem;
+    height: 1.56rem;
+    position: fixed;
+    /* border-bottom: 0.8rem; */
+    color: white;
+    left: 50%;
+    margin-left: -2.26rem;
+    bottom: 50%;
+    font-size: 0.28rem;
+    text-align: center;
+    line-height: 1.56rem;
+	border-radius: 8px;
+	background: rgba(0,0,0,.5);
+	display: none;
+}

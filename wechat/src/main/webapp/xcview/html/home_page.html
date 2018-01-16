@@ -15,8 +15,13 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 <script src="/xcviews/js/js.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 
-<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/home_page.js"></script>
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
@@ -62,14 +67,13 @@
 								<!--课程分类开始-->
 								<div class="classify_course">
 									<div class="classify_course_title">课程分类</div>
-									<div class="classify_course_type">
-										<div class="classify_course_type_one">针灸疗法</div>
-										<div class="classify_course_type_one">各式推拿</div>
-										<div class="classify_course_type_one">美容养生</div>
-										<div class="classify_course_type_one">药膳食疗</div>
-										<div class="classify_course_type_one">古籍经典</div>
-										<div class="classify_course_type_one">各家综合</div>
-										<div class="both"></div>
+									<div class="classify_course_type" id="classify_course_type">
+										<script type="text/html" id="my_data0">
+											{{each items as item i}}
+											<div class="classify_course_type_one">{{item.name}}</div>
+											{{/each}}
+											<div class="both"></div>
+										</script>
 									</div>
 								</div>
 								<!--课程分类结束-->
@@ -77,12 +81,15 @@
 								<!--专题课程开始-->
 								<div class="classify_special">
 									<div class="classify_special_title">专题课程</div>
-									<div class="classify_special_type">
-										<div class="classify_special_type_one">大师课程</div>
-										<div class="classify_special_type_one">经典课程</div>
-										<div class="classify_special_type_one">小白课程</div>
-										<div class="classify_special_type_one">免费课程</div>
+									<div class="classify_special_type" id="classify_special_type">
+										<script type="text/html" id="my_data1">
+											{{each items as item i}}
+											<div class="classify_special_type_one">{{item.name}}</div>
+											{{/each}}
+
 										<div class="both"></div>
+										</script>
+										
 									</div>
 								</div>
 								<!--专题课程结束-->
@@ -90,12 +97,15 @@
 								<!--课程类型开始-->
 								<div class="classify_mold">
 									<div class="classify_mold_title">课程类型</div>
-									<div class="classify_mold_type">
-										<div class="classify_mold_type_one">视频课程</div>
-										<div class="classify_mold_type_one">直播课程</div>
-										<div class="classify_mold_type_one">线下课程</div>
-										<div class="classify_mold_type_one">音频课程</div>
+									<div class="classify_mold_type" id="classify_mold_type">
+										<script type="text/html" id="my_data2">
+											{{each items as item i}}
+													<div class="classify_mold_type_one">{{item.name}}</div>
+											{{/each}}
+
 										<div class="both"></div>
+										</script>
+										
 									</div>
 								</div>
 								<!--课程类型结束-->
