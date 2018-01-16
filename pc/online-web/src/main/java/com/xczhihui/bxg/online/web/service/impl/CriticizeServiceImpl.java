@@ -4,13 +4,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
 
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.web.dao.VideoDao;
 import com.xczhihui.bxg.online.web.service.VideoService;
 
@@ -36,9 +40,16 @@ public class CriticizeServiceImpl implements CriticizeService {
 		BeanUtils.copyProperties(cv,criticize);
 		/**
 		 * 判断此用户是否购买过此课程
+		 *   如果这个课程是一个系列的话
 		 */
+		boolean isBuy =   false;
+		if(criticize.getCourseId()!=null){
+			if(videoDao.getUserCourse(criticize.getCourseId(), criticize.getUserId()).size()>0){
+				isBuy = true;
+			}
+		}
+		criticize.setIsBuy(isBuy);
 		videoDao.saveNewCriticize(cv);
-		
 	}
 
 	@Override
@@ -47,6 +58,14 @@ public class CriticizeServiceImpl implements CriticizeService {
 		return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize);
 	}
 
+	@Override
+	public Page<Criticize> getUserCriticize(String userId, String courseId,
+			Integer pageNumber, Integer pageSize) {
+		//return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize);
+		return videoDao.getUserCriticize(userId,courseId,pageNumber,pageSize);
+	}
+	
+	
 	@Override
 	public Map<String, Object> updatePraise(Boolean isPraise,
 			String criticizeId, String loginName) {

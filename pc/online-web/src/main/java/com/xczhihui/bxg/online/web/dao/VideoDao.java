@@ -20,6 +20,7 @@ import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
@@ -152,7 +153,7 @@ public class VideoDao extends SimpleHibernateDao {
      * @param videoId 视频ID
      * @return
      */
-    public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
+    public Page<CriticizeVo> getVideoCriticize(String videoId,String name, Integer pageNumber, Integer pageSize) {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 15 : pageSize;
         StringBuffer sql = new StringBuffer();
@@ -166,7 +167,6 @@ public class VideoDao extends SimpleHibernateDao {
         sql.append(" ORDER BY oc.create_time DESC");
         paramMap.put("userName", name);
         paramMap.put("videoId", videoId);
-        
         return this.findPageBySQL(sql.toString(), paramMap,CriticizeVo.class,pageNumber, pageSize);
     }
 
@@ -390,8 +390,6 @@ public class VideoDao extends SimpleHibernateDao {
         }
 
     }*/
-
-
     public  List<Map<String, Object>>  findVideosByCourseId(Integer courseId){
         //1、查询当前课程下所有视频
         String  querySql="select id as video_id  from oe_video where course_id=? and is_delete=0 and status=1";
@@ -412,6 +410,8 @@ public class VideoDao extends SimpleHibernateDao {
 		        + ":courseId,:contentLevel,:deductiveLevel,:criticizeLable,"
 		        + ":overallLevel)";
 		this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
+		
+		
 	}
 	public void saveReply(String content, String criticizeId, String userId) {
 		// TODO Auto-generated method stub
@@ -420,7 +420,7 @@ public class VideoDao extends SimpleHibernateDao {
 			throw new RuntimeException("参数错误！");
 		}
 		String replyId = UUID.randomUUID().toString().replaceAll("-", "");
-		String sql = "insert into oe_reply (id,create_person,content,"
+		String sql = "insert into oe_reply (id,create_person,reply_content,"
 		        + "reply_user,criticize_id) "
 		        + "values (:id,:createPerson,:content,:userId,"
 		        + ":criticizeId)";
@@ -428,27 +428,47 @@ public class VideoDao extends SimpleHibernateDao {
 		 params.put("id", replyId);
 		 params.put("createPerson", userId);
 		 params.put("content", content);
-		 params.put("reply_user", userId);
+		 params.put("userId", userId);
 		 params.put("criticizeId", criticizeId);
 		 this.getNamedParameterJdbcTemplate().update(sql,params);
 	}
 
-//    /**
-//     * 提交评论
-//     */
-//    public void saveCriticize(CriticizeVo criticizeVo) {
-//    	if (!StringUtils.hasText(criticizeVo.getUserId()) 
-//    			|| !StringUtils.hasText(criticizeVo.getVideoId()) || criticizeVo.getCourseId() == null) {
-//			throw new RuntimeException("参数错误！");
-//		}
-//        criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-//        String sql = "insert into oe_criticize (id,create_person,create_time,content,"
-//                + "user_id,chapter_id,video_id,star_level,course_id) "
-//                + "values (:id,:createPerson,:createTime,:content,:userId,"
-//                + ":chapterId,:videoId,:starLevel,:courseId)";
-//        this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
-//    }
-
+	 /**
+     * 获取主播的或者课程的评价数
+     * @param videoId 视频ID
+     * @return
+     */
+    public Page<Criticize> getUserCriticize(String userId,String courseId, Integer pageNumber, Integer pageSize) {
+        System.out.println("============");
+        
+        Map<String,Object> paramMap = new HashMap<>();
+        pageNumber = pageNumber == null ? 1 : pageNumber;
+        pageSize = pageSize == null ? 10 : pageSize;
+        
+        System.out.println(courseId + userId);
+        if(courseId !=null || userId!=null){
+        	
+           StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
+	       if(org.apache.commons.lang.StringUtils.isNotBlank(userId)){
+	       	  sql.append("  and c.userId =:userId ");
+	       	  paramMap.put("userId", userId);
+	       }else{
+	       	  sql.append("  and c.courseId =:courseId ");
+	       	  paramMap.put("courseId", courseId);
+	       }
+            //Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
+            Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
+            //System.out.println(criticizes.getItems().get(0).getReply().get(0).getId());
+            System.out.println(criticizes.getItems());
+            
+            return criticizes;
+        }
+        return  null;
+        
+        
+    }
+	
+	
 
 
 }

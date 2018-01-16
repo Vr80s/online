@@ -66,6 +66,14 @@ public class MedicalHospitalVo implements Serializable{
 	private List<MedicalHospitalPictureVO> medicalHospitalPictures;
 
 	private List<MedicalFieldVO> fields;
+	
+	//坐诊时间
+	private String visitTime;
+	
+	/**
+	 * 认证类别   1 医师认证   2 医馆认证
+	 */
+	private Integer certificationType;
 
 	public String getId() {
 		return id;
@@ -183,7 +191,26 @@ public class MedicalHospitalVo implements Serializable{
 		description = description.replace("\n","<br/>");
 		return description;
 	}
+	
+	public String getVisitTime() {
+		return visitTime;
+	}
 
+	public void setVisitTime(String visitTime) {
+		this.visitTime = visitTime;
+	}
+	/**
+	 * 认证类别   1 医师认证   2 医馆认证
+	 */
+	public Integer getCertificationType() {
+		return certificationType;
+	}
+	/**
+	 * 认证类别   1 医师认证   2 医馆认证
+	 */
+	public void setCertificationType(Integer certificationType) {
+		this.certificationType = certificationType;
+	}
 
 	@Override
 	public String toString() {

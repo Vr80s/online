@@ -185,7 +185,7 @@ public class CourseController {
      */
     @RequestMapping(value = "/findStudentCriticize")
     public ResponseObject findStudentCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
-        return  ResponseObject.newSuccessResponseObject(service.findStudentCriticize(courseId, pageNumber, pageSize));
+        return  ResponseObject.newSuccessResponseObject(service.findUserCriticize(courseId, pageNumber, pageSize));
     }
 
     /**
