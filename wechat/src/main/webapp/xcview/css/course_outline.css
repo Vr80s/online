@@ -25,6 +25,7 @@ header {
     top: 0;
     left: 0;
     z-index: 9;
+    border-bottom: 1px solid #d8dde6;
 }
 .header {
     width: 14.851rem;
@@ -96,7 +97,27 @@ header {
 	color: #666666;
 }
 .outline_cen_border{
-	width: 1005;
+	width: 100%;
+	border-bottom: 1px solid #D8DDE6;
+}
+.outline_list{
+	width: 15.45rem;
+	float: right;
+}
+.outline_list ul li{
+	width: 100%;
+	height: 1.489rem;
+	line-height: 1.489rem;
+	font-size: 0.553rem;
+	color: #333333;
+	border-bottom: 1px solid #d8dde8;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.outline_list ul li:last-child{
+	border: none;
+	border: 0;
 }
 /*中间内容结束*/
 
