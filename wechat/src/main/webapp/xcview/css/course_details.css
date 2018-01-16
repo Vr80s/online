@@ -612,7 +612,7 @@ header {
 .share{
 	width: 100%;
 	height: 100%;
-	/*position: relative;*/
+	display: none;
 }
 .share_bg{
 	width: 100%;
@@ -640,6 +640,14 @@ header {
 	background: rgba(255,255,255,0.60);
 	border-radius: 8px;
 }
+.share_to{
+	width: 100%;
+	text-align: center;
+	font-size: 0.681rem;
+	color: #333;
+	padding-top: 0.638rem;
+    margin-bottom: 0.5rem;
+}
 .share_cancel{
 	width: 100%;
 	height: 1.702rem;
@@ -653,6 +661,7 @@ header {
 }
 .share_main_bg ul li{
 	float: left;
+	margin-left: 1.78rem;
 }
 .share_main_bg ul li img{
 	width: 2.553rem;

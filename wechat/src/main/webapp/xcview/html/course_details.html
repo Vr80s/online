@@ -247,6 +247,7 @@
 		<div class="share_main">
 			<div class="share_main_bg">
 				<ul>
+					<div class="share_to">分享到</div>
 					<li>
 						<div class="">
 							<img src="../images/ShareSDK.png" />
@@ -255,13 +256,13 @@
 					</li>
 					<li>
 						<div class="">
-							<img src="../images/ShareSDK.png" />
+							<img src="../images/Qzone_share.png" />
 							<p>qq空间</p>
 						</div>
 					</li>
 					<li>
 						<div class="">
-							<img src="../images/ShareSDK.png" />
+							<img src="../images/RSS_links.png" />
 							<p>新浪微博</p>
 						</div>
 					</li>
@@ -488,7 +489,6 @@
 
 <script type="text/javascript">
 	window.onload = function(){
-		
 //		点击详情
 		$("#li0").click(function(){
 			$(".container_main").show();
@@ -505,10 +505,21 @@
 		});
 		$("#li0").click();
 		
-		
-//		点击分享
 	};
 </script>
 
 
+
+<script type="text/javascript">
+	window.onload = function(){
+		//		点击分享share
+		$(".header_share").click(function(){
+			$(".share").show();
+		});
+		
+		$(".share_cancel").click(function(){
+			$(".share").hide();
+		});
+	};
+</script>
 </html>
