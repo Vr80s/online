@@ -1,0 +1,368 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title>消费明细</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+<link rel="stylesheet" href="../css/hos_identification.css?v=ipandatcm_1.2.1" />
+<style>
+	/*身份证正面*/
+#preview{
+	width: 3.4rem;
+    height: 1.9rem;
+}
+#preview img{
+	width: 100%;
+	height: 100%;
+	margin-top: 0 !important;
+}
+#preview2{
+	width: 3.4rem;
+    height: 1.9rem;
+}
+#preview2 img{
+	width: 100%;
+	height: 100%;
+	margin-top: 0 !important;
+}
+#preview3{
+	width: 3.4rem;
+    height: 1.9rem;
+}
+#preview3 img{
+	width: 100%;
+	height: 100%;
+	margin-top: 0 !important;
+}
+#preview4{
+	width: 3.4rem;
+    height: 1.9rem;
+}
+#preview4 img{
+	width: 100%;
+	height: 100%;
+	margin-top: 0 !important;
+}
+</style>
+
+	
+</head>  
+<body style="background: #f8f8f8;">
+	<div class="wp">
+		<div class="wrap-header">
+			<div class="header">		
+				<p>医师认证</p>
+				<div class="arror_return z">
+					<a href="#" onClick="javascript :history.go(-1);"><img src="../images/back icon.png"/></a>
+				</div>
+			</div>
+		</div>
+		<div class="wrap-information">
+			<ul class="wrap-user-id">
+				<li>
+					<span>真实姓名</span>
+					<input type="text" placeholder="请填写您的真实姓名" />
+				</li>
+			</ul>
+			<ul class="wrap-user-id idcar">
+				<li>
+					<span>身份证号</span>
+					<input type="text" placeholder="请填写您的身份证号" />
+				</li>
+			</ul>
+			<p class="idcar-up">上传身份证明</p>
+			<!--身份证正面-->
+			 <div class="input-group z">
+                <div class="col-sm-9 big-photo">
+                	<div id="preview">
+                        <img id="imghead" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg').click();">
+                     </div>         
+                    <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg">
+                </div>
+                <div class="col-sm-3 idcar-face">
+                    <span>身份证正面</span>
+                </div>
+            </div>
+            <!--身份证反面-->
+			 <div class="input-group y" style="margin-right: 0.26rem;">
+                <div class="col-sm-9 big-photo">
+                	<div id="preview2">
+                        <img id="imghead2" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg2').click();">
+                     </div>         
+                    <input type="file" onchange="previewImage2(this)" style="display: none;" id="previewImg2">
+                </div>
+                <div class="col-sm-3 idcar-face">
+                    <span>身份证反面</span>
+                </div>
+            </div>
+		</div>
+	<!--医师资格证-->
+		<div class="wrap-qualification">
+			<p class="qualification-title">医师资格证</p>
+			<div class="input-group z">
+                <div class="col-sm-9 big-photo">
+                	<div id="preview3">
+                        <img id="imghead3" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg3').click();">
+                     </div>         
+                    <input type="file" onchange="previewImage3(this)" style="display: none;" id="previewImg3">
+                </div>
+                <div class="col-sm-3 idcar-face" style="padding-bottom: 0.3rem;">
+                    <span>医师资格证</span>
+                </div>
+            </div>
+	<!--职业资格证-->
+			<div class="line-long"></div>
+			<p class="qualification-title">职业资格证</p>
+			<div class="input-group z">
+                <div class="col-sm-9 big-photo">
+                	<div id="preview4">
+                        <img id="imghead4" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg4').click();">
+                     </div>         
+                    <input type="file" onchange="previewImage4(this)" style="display: none;" id="previewImg4">
+                </div>
+                <div class="col-sm-3 idcar-face">
+                    <span>医师资格证</span>
+                </div>
+            </div>
+		</div>
+	<!--提交认证-->
+		<div class="btn-qualification">
+			<a class="btn-up" href="javascript">提交认证</a>
+		</div>
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	</div>	
+
+</body>
+<script>
+	var kk=document.documentElement.clientWidth;
+		if(kk>750){
+			kk=750
+		}
+		document.documentElement.style.fontSize=kk/7.5+"px";
+//	身份证正面
+		 function previewImage(file)
+        {
+          var MAXWIDTH  = 320; 
+          var MAXHEIGHT = 170;
+          var div = document.getElementById('preview');
+          if (file.files && file.files[0])
+          {
+              div.innerHTML ='<img id=imghead onclick=$("#previewImg").click()>';
+              var img = document.getElementById('imghead');
+              img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+              }
+              var reader = new FileReader();
+              reader.onload = function(evt){img.src = evt.target.result;}
+              reader.readAsDataURL(file.files[0]);
+          }
+          else //兼容IE
+          {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imghead>';
+            var img = document.getElementById('imghead');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+          }
+        }
+        function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+            var param = {top:0, left:0, width:width, height:height};
+            if( width>maxWidth || height>maxHeight ){
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+                
+                if( rateWidth > rateHeight ){
+                    param.width =  maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                }else{
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
+        }
+//身份证反面
+
+        function previewImage2(file)
+        {
+          var MAXWIDTH  = 90; 
+          var MAXHEIGHT = 90;
+          var div = document.getElementById('preview2');
+          if (file.files && file.files[0])
+          {
+              div.innerHTML ='<img id=imghead2 onclick=$("#previewImg2").click()>';
+              var img = document.getElementById('imghead2');
+              img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+              }
+              var reader = new FileReader();
+              reader.onload = function(evt){img.src = evt.target.result;}
+              reader.readAsDataURL(file.files[0]);
+          }
+          else //兼容IE
+          {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imghead2>';
+            var img = document.getElementById('imghead2');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead2 style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+          }
+        }
+        function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+            var param = {top:0, left:0, width:width, height:height};
+            if( width>maxWidth || height>maxHeight ){
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+                
+                if( rateWidth > rateHeight ){
+                    param.width =  maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                }else{
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
+        }
+//医师资格上传
+        function previewImage3(file)
+        {
+          var MAXWIDTH  = 90; 
+          var MAXHEIGHT = 90;
+          var div = document.getElementById('preview3');
+          if (file.files && file.files[0])
+          {
+              div.innerHTML ='<img id=imghead3 onclick=$("#previewImg3").click()>';
+              var img = document.getElementById('imghead3');
+              img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+              }
+              var reader = new FileReader();
+              reader.onload = function(evt){img.src = evt.target.result;}
+              reader.readAsDataURL(file.files[0]);
+          }
+          else //兼容IE
+          {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imghead3>';
+            var img = document.getElementById('imghead3');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead3 style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+          }
+        }
+        function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+            var param = {top:0, left:0, width:width, height:height};
+            if( width>maxWidth || height>maxHeight ){
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+                
+                if( rateWidth > rateHeight ){
+                    param.width =  maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                }else{
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
+        }
+//职业资格上传
+function previewImage4(file)
+        {
+          var MAXWIDTH  = 90; 
+          var MAXHEIGHT = 90;
+          var div = document.getElementById('preview4');
+          if (file.files && file.files[0])
+          {
+              div.innerHTML ='<img id=imghead4 onclick=$("#previewImg4").click()>';
+              var img = document.getElementById('imghead4');
+              img.onload = function(){
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width  =  rect.width;
+                img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+                img.style.marginTop = rect.top+'px';
+              }
+              var reader = new FileReader();
+              reader.onload = function(evt){img.src = evt.target.result;}
+              reader.readAsDataURL(file.files[0]);
+          }
+          else //兼容IE
+          {
+            var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            div.innerHTML = '<img id=imghead4>';
+            var img = document.getElementById('imghead4');
+            img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+            div.innerHTML = "<div id=divhead4 style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+          }
+        }
+        function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+            var param = {top:0, left:0, width:width, height:height};
+            if( width>maxWidth || height>maxHeight ){
+                rateWidth = width / maxWidth;
+                rateHeight = height / maxHeight;
+                
+                if( rateWidth > rateHeight ){
+                    param.width =  maxWidth;
+                    param.height = Math.round(height / rateWidth);
+                }else{
+                    param.width = Math.round(width / rateHeight);
+                    param.height = maxHeight;
+                }
+            }
+            param.left = Math.round((maxWidth - param.width) / 2);
+            param.top = Math.round((maxHeight - param.height) / 2);
+            return param;
+        }
+</script>
+
+</html>
