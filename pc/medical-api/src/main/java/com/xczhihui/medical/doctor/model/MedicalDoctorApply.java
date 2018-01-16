@@ -3,6 +3,8 @@ package com.xczhihui.medical.doctor.model;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -124,7 +126,23 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
      * 备注
      */
 	private String remark;
+	/**
+	 * 身份证号
+	 */
+	@TableField("card_num")
+	private String cardNum;
 
+	/**
+	 * 医师入驻申请关联的科室列表
+	 */
+	@TableField(exist = false)
+	private List<MedicalDoctorApplyDepartment> departments;
+
+	/**
+	 * 医师入驻申请关联的领域
+	 */
+	@TableField(exist = false)
+	private List<MedicalDoctorApplyField> fields;
 
 	public String getId() {
 		return id;
@@ -308,6 +326,30 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public List<MedicalDoctorApplyDepartment> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<MedicalDoctorApplyDepartment> departments) {
+		this.departments = departments;
+	}
+
+	public List<MedicalDoctorApplyField> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<MedicalDoctorApplyField> fields) {
+		this.fields = fields;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
 	}
 
 	@Override

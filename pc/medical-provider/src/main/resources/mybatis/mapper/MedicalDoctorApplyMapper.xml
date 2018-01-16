@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper">
+
+	<select id="add" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctorApply">
+		INSERT INTO medical_doctor_apply
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="tel != null">
+				tel,
+			</if>
+			<if test="user_id != null">
+				user_id,
+			</if>
+			<if test="province != null">
+				province,
+			</if>
+			<if test="city != null">
+				city,
+			</if>
+			<if test="detailed_address != null">
+				detailed_address,
+			</if>
+			<if test="head_portrait != null">
+				head_portrait,
+			</if>
+			<if test="title_prove != null">
+				title_prove,
+			</if>
+			<if test="card_negative != null">
+				card_num,
+			</if>
+			<if test="card_positive != null">
+				card_positive,
+			</if>
+			<if test="card_negative != null">
+				card_negative,
+			</if>
+			<if test="qualification_certificate != null">
+				qualification_certificate,
+			</if>
+			<if test="professional_certificate != null">
+				professional_certificate,
+			</if>
+			<if test="deleted != null">
+				deleted,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="create_time != null">
+				create_time,
+			</if>
+			<if test="create_person != null">
+				create_person,
+			</if>
+			<if test="update_time != null">
+				update_time,
+			</if>
+			<if test="update_person != null">
+				update_person,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{target.id},
+			</if>
+			<if test="name != null">
+				#{target.name},
+			</if>
+			<if test="title != null">
+				#{target.title},
+			</if>
+			<if test="description != null">
+				#{target.description},
+			</if>
+			<if test="tel != null">
+				#{target.tel},
+			</if>
+			<if test="user_id != null">
+				#{target.userId},
+			</if>
+			<if test="province != null">
+				#{target.province},
+			</if>
+			<if test="city != null">
+				#{target.city},
+			</if>
+			<if test="detailed_address != null">
+				#{target.detailedAddress},
+			</if>
+			<if test="head_portrait != null">
+				#{target.headPortrait},
+			</if>
+			<if test="title_prove != null">
+				#{target.titleProve},
+			</if>
+			<if test="card_positive != null">
+				#{target.cardNum},
+			</if>
+			<if test="card_positive != null">
+				#{target.cardPositive},
+			</if>
+			<if test="card_negative != null">
+				#{target.cardNegative},
+			</if>
+			<if test="qualification_certificate != null">
+				#{target.qualificationCertificate},
+			</if>
+			<if test="professional_certificate != null">
+				#{target.professionalCertificate},
+			</if>
+			<if test="deleted != null">
+				#{target.deleted},
+			</if>
+			<if test="status != null">
+				#{target.status},
+			</if>
+			<if test="create_time != null">
+				#{target.createTime},
+			</if>
+			<if test="create_person != null">
+				#{target.createPerson},
+			</if>
+			<if test="update_time != null">
+				#{target.updateTime},
+			</if>
+			<if test="update_person != null">
+				#{target.updatePerson},
+			</if>
+			<if test="version != null">
+				#{target.version},
+			</if>
+			<if test="remark != null">
+				#{target.remark},
+			</if>
+		</trim>
+	</select>
+
+
+</mapper>
