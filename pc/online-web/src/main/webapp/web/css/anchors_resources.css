@@ -41,7 +41,7 @@
     display: block;
     float: right;
     vertical-align: top;
-    padding: 0 30px;
+    /*padding: 0 30px;*/
     min-height: 642px;
     background-color: #fff;
     padding-bottom: 50px;
@@ -147,4 +147,267 @@
 }
 .doctor_inf .picModal .icon-xiangji {
   font-size: 12px;
+}
+
+
+
+/*右侧专栏内容*/
+.contentWrap #zhuanlan .zhuanlan_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+.contentWrap #zhuanlan .zhuanlan_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+.contentWrap #zhuanlan .zhuanlan_bottom {
+	padding: 30px 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form > div {
+	margin-bottom: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child{
+	display: inline-block;
+	width: 89px;
+	text-align: right;
+	font-size: 14px;
+	color: #2A2A2A;
+	line-height: 19px;
+	margin-right: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form > div >span:first-child > em{
+	color: #f40;
+	display: inline;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	text-indent: 1em;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+	font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian{
+  	
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .fengmian_tip{
+	display: inline-block;
+	width: 159px;
+	height: 48px;
+	color: #999;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea{
+	vertical-align: text-top;
+	width: 540px;
+	height: 160px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	padding-top:10px;
+	text-indent: 1em;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-webkit-input-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-moz-placeholder,
+.contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-ms-input-placeholder{
+	font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #submit{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .baocun #save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.contentWrap #zhuanlan .zhuanlan_bottom form .baocun{
+	padding-left:120px ;
+}
+.warning{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+     margin-left: 120px;
+}
+
+
+/*右侧资源部分*/
+.wrap_box  #resource .zhuanlan_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+.wrap_box  #resource .zhuanlan_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+}
+.wrap_box  #resource .zhuanlan_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+.wrap_box  #resource .zhuanlan_bottom {
+	padding: 30px 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form > div {
+	margin-bottom: 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form > div >span:first-child{
+	display: inline-block;
+	width: 89px;
+	text-align: right;
+	font-size: 14px;
+	color: #2A2A2A;
+	line-height: 19px;
+	margin-right: 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form > div >span:first-child > em{
+	color: #f40;
+	display: inline;
+}
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	text-indent: 1em;
+}
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
+.wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+	font-size: 14px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .fengmian{
+  	
+}
+.wrap_box  #resource .zhuanlan_bottom form .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .fengmian_tip{
+	display: inline-block;
+	width: 159px;
+	height: 48px;
+	color: #999;
+}
+.wrap_box  #resource .zhuanlan_bottom form #resourceType {
+	font-size: 14px;
+	line-height: 24px;
+}
+.wrap_box  #resource .zhuanlan_bottom form #resourceType label{
+	margin-right: 30px;
+	font-weight: 400;
+}
+.wrap_box  #resource .zhuanlan_bottom form #resourceType label input{
+	vertical-align: sub;
+}
+.wrap_box  #resource .zhuanlan_bottom form .baocun #submit{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .baocun #save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.wrap_box  #resource .zhuanlan_bottom form .baocun{
+	padding-left:120px ;
+}
+.warning{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+     margin-left: 120px;
+}
+#resourceUrl input{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
 }

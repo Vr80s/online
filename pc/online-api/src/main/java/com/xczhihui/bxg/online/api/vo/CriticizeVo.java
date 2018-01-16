@@ -3,6 +3,8 @@ package com.xczhihui.bxg.online.api.vo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+
 /**
  * @Author Fudong.Sun【】
  * @Date 2016/11/2 19:52
@@ -42,12 +44,25 @@ public class CriticizeVo implements Serializable {
     private String response;
 
     private  Date  response_time;
-
     /**
      * 视频名称
      */
     private String videoName;
-
+    
+  /**
+   * 杨宣新增
+   */
+    //节目内容
+    private Float contentLevel;
+  	
+  	//主播演绎
+    private Float deductiveLevel;
+  	
+  	//评价标签  1.很赞 2 干货很多 3超值推荐 4喜欢 5买对了
+    private Integer criticizeLable;
+    
+    
+    
     public String getId() {
         return id;
     }
@@ -187,4 +202,31 @@ public class CriticizeVo implements Serializable {
     public void setResponse_time(Date response_time) {
         this.response_time = response_time;
     }
+
+	public Float getContentLevel() {
+		return contentLevel;
+	}
+
+	public void setContentLevel(Float contentLevel) {
+		this.contentLevel = contentLevel;
+	}
+
+	public Float getDeductiveLevel() {
+		return deductiveLevel;
+	}
+
+	public void setDeductiveLevel(Float deductiveLevel) {
+		this.deductiveLevel = deductiveLevel;
+	}
+
+	public Integer getCriticizeLable() {
+		return criticizeLable;
+	}
+
+	public void setCriticizeLable(Integer criticizeLable) {
+		this.criticizeLable = criticizeLable;
+	}
+    
+    
+    
 }

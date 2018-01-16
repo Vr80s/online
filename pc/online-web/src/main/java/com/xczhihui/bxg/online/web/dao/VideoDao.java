@@ -398,6 +398,56 @@ public class VideoDao extends SimpleHibernateDao {
         List<Map<String, Object>>  check = this.getNamedParameterJdbcTemplate().getJdbcOperations() .queryForList(querySql, courseId);
         return  check;
     }
+	public void saveNewCriticize(CriticizeVo criticizeVo) {
+		// TODO Auto-generated method stub
+    	if (!StringUtils.hasText(criticizeVo.getUserId()) && 
+    			criticizeVo.getCourseId() == null) {
+			throw new RuntimeException("参数错误！");
+		}
+		criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+		String sql = "insert into oe_criticize (id,create_person,content,"
+		        + "user_id,course_id,content_level,deductive_level,criticize_lable,"
+		        + "overall_level) "
+		        + "values (:id,:createPerson,:content,:userId,"
+		        + ":courseId,:contentLevel,:deductiveLevel,:criticizeLable,"
+		        + ":overallLevel)";
+		this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
+	}
+	public void saveReply(String content, String criticizeId, String userId) {
+		// TODO Auto-generated method stub
+		if (!StringUtils.hasText(criticizeId) ||
+				!StringUtils.hasText(criticizeId) || !StringUtils.hasText(userId)) {
+			throw new RuntimeException("参数错误！");
+		}
+		String replyId = UUID.randomUUID().toString().replaceAll("-", "");
+		String sql = "insert into oe_reply (id,create_person,content,"
+		        + "reply_user,criticize_id) "
+		        + "values (:id,:createPerson,:content,:userId,"
+		        + ":criticizeId)";
+		 Map<String,Object> params=new HashMap<String,Object>();
+		 params.put("id", replyId);
+		 params.put("createPerson", userId);
+		 params.put("content", content);
+		 params.put("reply_user", userId);
+		 params.put("criticizeId", criticizeId);
+		 this.getNamedParameterJdbcTemplate().update(sql,params);
+	}
+
+//    /**
+//     * 提交评论
+//     */
+//    public void saveCriticize(CriticizeVo criticizeVo) {
+//    	if (!StringUtils.hasText(criticizeVo.getUserId()) 
+//    			|| !StringUtils.hasText(criticizeVo.getVideoId()) || criticizeVo.getCourseId() == null) {
+//			throw new RuntimeException("参数错误！");
+//		}
+//        criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+//        String sql = "insert into oe_criticize (id,create_person,create_time,content,"
+//                + "user_id,chapter_id,video_id,star_level,course_id) "
+//                + "values (:id,:createPerson,:createTime,:content,:userId,"
+//                + ":chapterId,:videoId,:starLevel,:courseId)";
+//        this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
+//    }
 
 
 

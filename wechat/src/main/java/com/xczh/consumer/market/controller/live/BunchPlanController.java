@@ -65,8 +65,8 @@ public class BunchPlanController {
 	@Autowired
 	private MenuService menuService;
 	
-	@Autowired
-	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+//	@Autowired
+//	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(BunchPlanController.class);
 	
@@ -463,7 +463,7 @@ public class BunchPlanController {
 	    page.setCurrent(1);
 	    page.setSize(7);
 	    
-	    mapAll.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
+	    //mapAll.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
 		
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
@@ -534,7 +534,8 @@ public class BunchPlanController {
 	/*****************************************
 	 * 
 	 * 
-	 * 		新版app关于学堂的接口   -- 线下培训班接口
+	 * 	新版app关于学堂的接口   -- 线下培训班接口
+	 * 
 	 * 
 	 * **************************************
 	 */
@@ -647,14 +648,13 @@ public class BunchPlanController {
 	 */
 	@RequestMapping("queryAllCourse")
 	@ResponseBody
-	public ResponseObject queryAllCourse(Integer menuType,String multimediaType,String city,String isFree,String queryKey,
+	public ResponseObject queryAllCourse(Integer menuType,Integer courseType,String city,String isFree,String queryKey,
 			Integer pageNumber, Integer pageSize)
 			throws Exception {
 
-		//List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,multimediaType,isFree,city,queryKey,pageNumber,pageSize);
+		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,courseType,isFree,city,queryKey,pageNumber,pageSize);
 		
-		
-		return ResponseObject.newSuccessResponseObject(null);
+		return ResponseObject.newSuccessResponseObject(list);
 	}
 	
 	

@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/web/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/web/css/mylogin.css"/>
     <link rel="stylesheet" href="/web/css/componet.css"/>
-    <link rel="stylesheet" href="/web/css/index.css?v=ipandatcm_1.3"/>
+    <link rel="stylesheet" href="/web/css/index.css"/>
     <link rel="stylesheet" href="/web/css/header.css"/>
     <link rel="stylesheet" href="/web/css/footer.css"/>
 
@@ -40,7 +40,7 @@
     <!-----引用layer------>
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/web/js/header.js?v=ipandatcm_1.3" type="text/javascript" charset="utf-8"></script>
+    <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
 
    </head>
 	<body>
@@ -51,6 +51,7 @@
 					<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
     						<i class="iconfont icon-xiangji"></i>
     				</div>
+    				
 					 <img src="../images/5.jpg" alt="">
 					 <!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
 					 <h4>橘子柠檬可乐</h4>
@@ -87,7 +88,45 @@
 				<!--医馆-->
 				<div class="select_box">医馆</div>
 				<!--专栏-->
-				<div class="select_box">专栏</div>
+				<div class="select_box" id="zhuanlan">
+					<div class="zhuanlan_top">
+						<span class="title">新专栏</span>
+						<button>返回</button>
+					</div>
+					<div class="zhuanlan_bottom">
+						<form action="">
+						<div>
+							<span><em>*</em>专栏标题</span>
+							<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
+							<p class="warning hide">用户名不能为空</p>
+						</div>
+						<div class="fengmian">
+							
+							<span><em>*</em>封面图</span>
+							<span class="fengmian_pic">点击上传封面图片</span>
+							<span class="fengmian_tip">
+								<p>文件小于2M</p>
+								<p>支持JPG/PNG等格式图片</p>
+							</span>
+							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt"/>
+							<p class="warning hide">请上传封面图</p>
+						</div>
+						
+						<div class="neirong">
+							<span><em>*</em>内容</span>
+							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入专栏内容"></textarea>
+							<p class="warning hide">专栏内容不能为空</p>
+						</div>
+						
+						<div class="baocun">
+							<input type="submit" value="保存并发布" id="submit"/>
+							<button id="save">保存</button>
+						</div>
+						</form>
+						
+						
+					</div>
+				</div>
 				<!--著作-->
 				<div class="select_box">著作</div>
 				<!--媒体报道-->
@@ -106,53 +145,102 @@
 				<!--排课-->
 				<div class="little_box">排课33</div>
 				<!--资源-->
-				<div class="little_box">资源44</div>
+				<div class="little_box" id="resource">
+					<div class="zhuanlan_top">
+						<span class="title">新资源</span>
+						<button>返回</button>
+					</div>
+					<div class="zhuanlan_bottom">
+						<form action="">
+						<div>
+							<span><em>*</em>课程标题</span>
+							<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
+							<p class="warning hide">课程标题不能为空</p>
+						</div>
+						<div class="fengmian">
+							
+							<span><em>*</em>封面图</span>
+							<span class="fengmian_pic">点击上传封面图片</span>
+							<span class="fengmian_tip">
+								<p>文件小于2M</p>
+								<p>支持JPG/PNG等格式图片</p>
+							</span>
+							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt"/>
+							<p class="warning hide">请上传封面图</p>
+						</div>
+						
+						
+						
+						<div id="resourceType">
+							<span><em>*</em>资源类型</span>
+							<label>
+								<input type="radio" name="resourceType"/>视频
+							</label>
+							<label>
+								<input type="radio" name="resourceType"/>音频
+							</label>
+						</div>
+						<div id="resourceUrl">
+							<span><em>*</em> 资源URL</span>
+							<input type="text" />
+							<a href="javascript:;"><span>选择资源</span></a>
+						</div>
+						<div class="baocun">
+							<input type="submit" value="保存" id="submit"/>
+						</div>
+						</form>
+						
+						
+					</div>
+				</div>
 			</div>	
 		</div>
 		
 		
 	
-		<!--头像弹出框-->	
-		<div class="mask"></div>
-		<div id="headImg" class="clearfix">
-		    <div class="container clearfix">
-		        <div class="img-title"><p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
-		        <div class="img-box1">
-		            <a href="javascript:void(0)" class="upload-img">
-		                <p onclick="fileClick()" class="fileUpdata"><span>+</span>选择图片</p>
-		            </a>
-		
-		            <p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
-		        </div>
-		        <div class="imageBox">
-		            <div class="thumbBox"></div>
-		            <div class="spinner" style="display: none"></div>
-		        </div>
-		        <div class="action clearfix">
-		            <div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
-		            <div class="new-contentarea tc">
-		                <div class="bbox clearfix">
-		                	<span>滚动鼠标可调整头像大小</span>
-		                    <a href="javascript:void(0)" class="upload-img reclick">
-		                        <p onclick="fileClick()" class='fileUpdata'>重新上传</p>
-		                    </a>
-		                </div>
-		                <input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg"/>
-		            </div>
-		            <span class="btn-upload bbtn">确定</span>
-		            <a href="javascript:;" class="btn-quit bbtn">取消</a>
-		        </div>
-		        <div class="cropped">
-		            <div class="cropTitle">预览</div>
-		            <div class="cropped-con"></div>
-		        </div>
-		    </div>
-		</div>
+	
+<div class="mask"></div>
+<div id="headImg" class="clearfix">
+    <div class="container clearfix">
+        <div class="img-title"><p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+        <div class="img-box1">
+            <a href="javascript:void(0)" class="upload-img">
+                <p onclick="fileClick()" class="fileUpdata"><span>+</span>选择图片</p>
+            </a>
+
+            <p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+        </div>
+        <div class="imageBox">
+            <div class="thumbBox"></div>
+            <div class="spinner" style="display: none"></div>
+        </div>
+        <div class="action clearfix">
+            <div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+            <div class="new-contentarea tc">
+                <div class="bbox clearfix">
+                	<span>滚动鼠标可调整头像大小</span>
+                    <a href="javascript:void(0)" class="upload-img reclick">
+                        <p onclick="fileClick()" class='fileUpdata'>重新上传</p>
+                    </a>
+                </div>
+                <input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg"/>
+            </div>
+            <span class="btn-upload bbtn">确定</span>
+            <a href="javascript:;" class="btn-quit bbtn">取消</a>
+        </div>
+        <div class="cropped">
+            <div class="cropTitle">预览</div>
+            <div class="cropped-con"></div>
+        </div>
+    </div>
+</div>
 	
 	</body>
 	
-	<script type="text/javascript" src="/web/js/footer.js?v=ipandatcm_1.3"></script>
+	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
-	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script> 	
+	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
+  	
+
 </html>
