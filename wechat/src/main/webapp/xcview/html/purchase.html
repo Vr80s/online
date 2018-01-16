@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/js.js"></script>
+
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
+<!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
+<!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
+<!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
+<link rel="stylesheet" type="text/css" href="/xcview/css/purchase.css" />
+
+
+
+
+<style>
+
+</style>
+
+
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png">
+			</div>
+			<div class="header_title">购买</div>
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	
+	<!--中间内容开始-->
+	
+	<!--中间内容结束-->
+	
+	
+	<!--底部开始-->
+	<!--<div class="footer_perch"></div>-->
+	<div class="footer">
+		<ul>
+			<li class="footer_one">
+				<span>88</span>熊猫币
+			</li>
+			<li class="footer_two">
+				购买
+			</li>
+		</ul>
+	</div>
+	<!--底部结束-->
+	
+	
+</body>
+
+
+
+
+
+
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){
+//		点击详情
+		$("#li0").click(function(){
+			$(".container_main").show();
+			$(".course_detaiks_play").hide();
+			$(".li0").addClass("ul_li");
+			$(".li1").removeClass("ul_li");
+		});	
+	};
+</script>
+
+
+
+
+</html>
