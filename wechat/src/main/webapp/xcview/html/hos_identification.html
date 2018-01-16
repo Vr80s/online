@@ -13,24 +13,7 @@
 <link rel="stylesheet" href="../css/hos_identification.css?v=ipandatcm_1.2.1" />
 <style>
 	/*身份证正面*/
-#preview{
-	width: 3.4rem;
-    height: 1.9rem;
-}
-#preview img{
-	width: 100%;
-	height: 100%;
-	margin-top: 0 !important;
-}
-#preview2{
-	width: 3.4rem;
-    height: 1.9rem;
-}
-#preview2 img{
-	width: 100%;
-	height: 100%;
-	margin-top: 0 !important;
-}
+
 #preview3{
 	width: 3.4rem;
     height: 1.9rem;
@@ -57,7 +40,7 @@
 	<div class="wp">
 		<div class="wrap-header">
 			<div class="header">		
-				<p>医师认证</p>
+				<p>医馆认证</p>
 				<div class="arror_return z">
 					<a href="#" onClick="javascript :history.go(-1);"><img src="../images/back icon.png"/></a>
 				</div>
@@ -66,45 +49,26 @@
 		<div class="wrap-information">
 			<ul class="wrap-user-id">
 				<li>
-					<span>真实姓名</span>
-					<input type="text" placeholder="请填写您的真实姓名" />
+					<span>医馆名词</span>
+					<input type="text" placeholder="请填写医馆名称" />
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
-					<span>身份证号</span>
-					<input type="text" placeholder="请填写您的身份证号" />
+					<span>公司名称</span>
+					<input type="text" placeholder="请填写医馆所属的公司名称" />
 				</li>
 			</ul>
-			<p class="idcar-up">上传身份证明</p>
-			<!--身份证正面-->
-			 <div class="input-group z">
-                <div class="col-sm-9 big-photo">
-                	<div id="preview">
-                        <img id="imghead" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg').click();">
-                     </div>         
-                    <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg">
-                </div>
-                <div class="col-sm-3 idcar-face">
-                    <span>身份证正面</span>
-                </div>
-            </div>
-            <!--身份证反面-->
-			 <div class="input-group y" style="margin-right: 0.26rem;">
-                <div class="col-sm-9 big-photo">
-                	<div id="preview2">
-                        <img id="imghead2" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg2').click();">
-                     </div>         
-                    <input type="file" onchange="previewImage2(this)" style="display: none;" id="previewImg2">
-                </div>
-                <div class="col-sm-3 idcar-face">
-                    <span>身份证反面</span>
-                </div>
-            </div>
+			<ul class="wrap-user-id idcar">
+				<li>
+					<span>统一社会信用代码</span>
+					<input type="text" placeholder="请填写社会信用代码" />
+				</li>
+			</ul>
 		</div>
-	<!--医师资格证-->
+	<!--营业执照-->
 		<div class="wrap-qualification">
-			<p class="qualification-title">医师资格证</p>
+			<p class="qualification-title">营业执照</p>
 			<div class="input-group z">
                 <div class="col-sm-9 big-photo">
                 	<div id="preview3">
@@ -113,12 +77,12 @@
                     <input type="file" onchange="previewImage3(this)" style="display: none;" id="previewImg3">
                 </div>
                 <div class="col-sm-3 idcar-face" style="padding-bottom: 0.3rem;">
-                    <span>医师资格证</span>
+                    <span>营业执照</span>
                 </div>
             </div>
-	<!--职业资格证-->
+	<!--药品经营许可证-->
 			<div class="line-long"></div>
-			<p class="qualification-title">职业资格证</p>
+			<p class="qualification-title">药品经营许可证</p>
 			<div class="input-group z">
                 <div class="col-sm-9 big-photo">
                 	<div id="preview4">
@@ -127,7 +91,7 @@
                     <input type="file" onchange="previewImage4(this)" style="display: none;" id="previewImg4">
                 </div>
                 <div class="col-sm-3 idcar-face">
-                    <span>医师资格证</span>
+                    <span>药品经营许可证</span>
                 </div>
             </div>
 		</div>

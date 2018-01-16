@@ -8,9 +8,11 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../../xcviews/js/js/phy_identification.js?v=ipandatcm_1.2.1" ></script>
+
+
 <link rel="stylesheet" href="../css/phy_identification.css?v=ipandatcm_1.2.1" />
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../xcview/js/phy_identification.js?v=ipandatcm_1.2.1" ></script>
 <style>
 	/*身份证正面*/
 #preview{
@@ -67,7 +69,7 @@
 			<ul class="wrap-user-id">
 				<li>
 					<span>真实姓名</span>
-					<input type="text" placeholder="请填写您的真实姓名" />
+					<input class="userName" type="text" placeholder="请填写您的真实姓名" />
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
@@ -133,21 +135,15 @@
 		</div>
 	<!--提交认证-->
 		<div class="btn-qualification">
-			<a class="btn-up" href="javascript">提交认证</a>
+			<a class="btn-up" href="javascript:;" onclick="btn_up()">提交认证</a>
 		</div>
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	
+	<!--错误提示-->
+
+		<div class="error-prompt">姓名与身份证号码不匹配</div>
 	</div>	
 
 </body>
+
 <script>
 	var kk=document.documentElement.clientWidth;
 		if(kk>750){
