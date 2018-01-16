@@ -517,7 +517,7 @@ header {
 .footer_perch{
 	width: 100%;
 	height: 2.085rem;
-	background: red;
+	/*background: red;*/
 }
 .footer{
 	width: 100%;
@@ -675,7 +675,36 @@ header {
 }
 /*分享结束*/
 
-
+/*指示微信*/
+.weixin_ceng {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.weixin_ceng_bg {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+}
+.weixin_img {
+    /*background: red;*/
+    position: fixed;
+    z-index: 99999999999;
+    top: 0rem;
+    right: 0;
+}
+.weixin_img img {
+    position: absolute;
+    top: 0rem;
+    right: 0.3rem;
+    width: 6rem;
+    z-index: 99999999999;
+}
 
 /*试听结束*/
 /*底部结束*/

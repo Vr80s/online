@@ -23,6 +23,7 @@
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
 <!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/course_details.css" />
+<!--<link rel="stylesheet" type="text/css" href="/xcview/css/css.css" />-->
 
 
 
@@ -248,7 +249,7 @@
 			<div class="share_main_bg">
 				<ul>
 					<div class="share_to">分享到</div>
-					<li>
+					<li class="share_to_one">
 						<div class="">
 							<img src="../images/ShareSDK.png" />
 							<p>微信</p>
@@ -270,6 +271,10 @@
 			</div>
 			<div class="share_cancel">取消</div>
 		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
 	</div>
 	<!--分享结束-->
 </body>
@@ -485,8 +490,6 @@
 
 
 <!--点击更多隐藏显示结束-->
-
-
 <script type="text/javascript">
 	window.onload = function(){
 //		点击详情
@@ -505,14 +508,9 @@
 		});
 		$("#li0").click();
 		
-	};
-</script>
-
-
-
-<script type="text/javascript">
-	window.onload = function(){
-		//		点击分享share
+		
+		
+//		点击分享share
 		$(".header_share").click(function(){
 			$(".share").show();
 		});
@@ -520,6 +518,22 @@
 		$(".share_cancel").click(function(){
 			$(".share").hide();
 		});
+		
+		$(".share_cancel").click(function(){
+			$(".weixin_ceng").hide();
+		});
+		
+		
+		
+//		点击微信出现提示框
+		$(".share_to_one").click(function(){
+			$(".weixin_ceng").show();
+		});
+		
 	};
 </script>
+
+
+
+
 </html>
