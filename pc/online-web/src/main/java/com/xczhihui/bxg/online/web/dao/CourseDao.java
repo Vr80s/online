@@ -1,7 +1,12 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,12 +24,12 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.ApplyGradeCourse;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.CourseDescriptionVo;
 import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
-import com.xczhihui.bxg.online.web.vo.UserVideoVo;
 
 /**
  * 课程底层实现类
@@ -530,12 +535,18 @@ public class CourseDao extends SimpleHibernateDao {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
          if(courseId !=null){
-             String querySql=" select u.small_head_photo smallPhoto,u.`name` userName,c.id,c.content,c.star_level starLevel,c.create_time createTime,c.praise_sum praiseSum," +
+           /*  String querySql=" select u.small_head_photo smallPhoto,u.`name` userName,c.id,c.content,c.star_level starLevel,c.create_time createTime,c.praise_sum praiseSum," +
                              " c.response,c.response_time response_time from oe_criticize c ,oe_user u where c.user_id=u.id and c.is_delete=0 and c.`status`=1 and   c.course_id=:courseId";
              Map<String,Object> paramMap = new HashMap<>();
              paramMap.put("courseId",courseId);
              Page<CriticizeVo>  criticizes = this.findPageBySQL(querySql,paramMap,CriticizeVo.class,pageNumber,pageSize);
-             return  criticizes;
+             return  criticizes;*/
+        	 String querySql="select c from Criticize c  where c.status = 1 and c.onlineUser.id =:userId ";
+             Map<String,Object> paramMap = new HashMap<>();
+	       	  paramMap.put("userId", "ef823d8ef62b48d89459ac0871953282");
+             //  Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
+             Page<Criticize>  criticizes = this.findPageByHQL(querySql,paramMap,pageNumber,pageSize);
+             System.out.println(criticizes.getItems());
          }
          return  null;
     }
@@ -719,7 +730,22 @@ public class CourseDao extends SimpleHibernateDao {
          courseVos= this.findEntitiesByJdbc(CourseVo.class, sql.toString(), paramMap);
          return  courseVos.size()>0 ? courseVos.get(0) : null;
      }
-	
+     
+     
+     public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
+         pageNumber = pageNumber == null ? 1 : pageNumber;
+         pageSize = pageSize == null ? 10 : pageSize;
+          if(courseId !=null){
+         	 String querySql="select c from Criticize c  where c.status = 1 and c.onlineUser.id =:userId ";
+              Map<String,Object> paramMap = new HashMap<>();
+ 	       	  paramMap.put("userId", "ef823d8ef62b48d89459ac0871953282");
+              //  Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
+              Page<Criticize>  criticizes = this.findPageByHQL(querySql,paramMap,pageNumber,pageSize);
+              System.out.println(criticizes.getItems());
+              return criticizes;
+          }
+          return  null;
+     }
 	
 
 

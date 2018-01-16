@@ -16,6 +16,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
@@ -386,5 +387,10 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			}
 		}
 	}
+	
+	 @Override
+	 public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
+	      return  coursedao.findUserCriticize(courseId, pageNumber,  pageSize);
+	 }
 
 }
