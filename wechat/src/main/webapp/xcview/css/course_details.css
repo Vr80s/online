@@ -335,6 +335,7 @@ header {
 	width: 100%;
 	height: 100%;
 	background: #fff;
+	/*display: none;*/
 }
 .keynote_speaker_can{
 	width: 5.5rem;
@@ -478,7 +479,7 @@ header {
 	width: 100%;
 	height: 1.68rem;
 }
-.course_detaiks_ul ul{
+.course_detaiks_ul .ul{
 	height: 1.68rem;
 	line-height: 1.68rem;
 	border-bottom: 1px solid #D8DDE6;
@@ -513,10 +514,161 @@ header {
 
 
 /*底部开始*/
+.footer_perch{
+	width: 100%;
+	height: 2.085rem;
+	background: red;
+}
 .footer{
 	width: 100%;
-	height: ;
+	height: 2.085rem;
+	line-height: 2.085rem;
+	text-align: center;
+	font-size: 0.638rem;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: #fff;
+	border-top: 1px solid #D8DDE6;
 }
+.footer ul li{
+	width: 50%;
+	float: left;
+}
+.footer_one{
+	color: #333;
+}
+.footer_one span{
+	color: #F97B49;
+}
+.footer_two{
+	background: #00bc12;
+    color: #fff;
+}
+
+
+
+/*试听开始*/
+.course_detaiks_play{
+	width: 100%;
+    height: 100%;
+    background: #fff;
+    padding-top: 0.68rem;
+    display: none;
+}
+.course_detaiks_play_main{
+	margin-left: 0.553rem;
+}
+.course_play_main_one{
+	width: 100%;
+	height: 100%;
+}
+.course_detaiks_play_main ul li{
+	border-bottom: 1px solid #D8DDE6;
+	padding-bottom: 0.426rem;
+    margin-bottom: 0.426rem;
+}
+.course_detaiks_play_main ul li:last-child{
+	border-bottom: 0;
+	border-bottom: none;
+}
+.course_play_main_one .play_img{
+	width: 1.702rem;
+	height: 1.702rem;
+	float: left;
+	margin-right: 0.511rem;
+}
+.course_play_main_one_right .p{
+	font-size: 0.596rem;
+    color: #333;
+    width: 9rem;
+    /*height: 0.851rem;
+    line-height: 0.851rem;*/
+    height: 1rem;
+    line-height: 1rem;
+    /*background: yellow;*/
+    margin-left: 2.05rem;
+}
+.course_play_main_one_bottom{
+	height: 0.685rem;
+    /*background: blue;*/
+    line-height: 0.685rem;
+    position: relative;
+    width: 5rem;
+    margin-left: 2rem;
+}
+.course_play_main_one_bottom .img1{
+	width: 1.702rem;
+    height: 0.681rem;
+    position: absolute;
+}
+.course_play_main_one_bottom span{
+	margin-right: 0.34rem;
+	color: #999;
+}
+
+
+/*分享开始*/
+.share{
+	width: 100%;
+	height: 100%;
+	/*position: relative;*/
+}
+.share_bg{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+.share_main{
+	width: 14.851rem;
+	height: 8.426rem;
+	/*background: #fff;*/
+	margin: 0 auto;
+	position: fixed;
+    left: 0.56rem;
+	bottom: 1.744rem;
+	z-index: 11;
+}
+.share_main_bg{
+	width: 100%;
+	height: 6.085rem;
+	background: rgba(255,255,255,0.60);
+	border-radius: 8px;
+}
+.share_cancel{
+	width: 100%;
+	height: 1.702rem;
+	line-height: 1.702rem;
+	text-align: center;
+	color: #333;
+	font-size: 0.638rem;
+	background: #fff;
+	border-radius: 8px;
+	margin-top: 0.638rem;
+}
+.share_main_bg ul li{
+	float: left;
+}
+.share_main_bg ul li img{
+	width: 2.553rem;
+	height: 2.553rem;
+}
+.share_main_bg ul li p{
+	text-align: center;
+	width: 2.553rem;
+	font-size: 0.511rem;
+	color: #333333;
+}
+/*分享结束*/
+
+
+
+/*试听结束*/
 /*底部结束*/
 /*中间内容结束*/
 
