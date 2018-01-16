@@ -42,11 +42,11 @@ $(function(){
 		})
 
 
-//头像上传
+	//头像上传
 	var userPic = $('.userPic').css('background')
-console.log(userPic)
+	console.log(userPic)
 
-RequestService("/online/user/isAlive", "get", null, function(data) {
+	RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
 				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
@@ -60,8 +60,8 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 
 
 
-$(".doctor_inf >img").attr('src',userPic)
-$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
+	$(".doctor_inf >img").attr('src',userPic)
+	$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
 		$(".mask").css("display", "block");
 		$("#headImg").css("display", "block");
 		$("body").css("overflow", "hidden");
@@ -254,9 +254,59 @@ $(".btn-upload").click(function(evt) {
 
 
 
-//上传封面图片
-$('.fengmian_pic').click(function(){
-	$('#picIpt').click();
+	//上传封面图片
+	$('.fengmian_pic').click(function(){
+		$('#picIpt').click();
+	})
+	
+	
+//	专栏部分
+//	专栏部分点击发布效果
+var zhuanlanCount = 1;
+$('#zhuanlan .zhuanlan_top button').click(function(){
+	zhuanlanCount *= -1;
+	//发布
+	if(zhuanlanCount < 0){
+		//顶部变化
+		$(this).text('返回');
+		$(this).siblings('.title').text('新专栏');
+		//底部变化
+		$('#zhuanlan_bottom2').addClass('hide');
+		$('#zhuanlan_bottom').removeClass('hide');
+	}else{
+	//取消发布
+		$(this).text('发布');
+		$(this).siblings('.title').text('专栏');
+		//底部变化
+		$('#zhuanlan_bottom').addClass('hide');
+		$('#zhuanlan_bottom2').removeClass('hide');
+	}
+	
 })
 
+
+
+
+//资源部分
+//资源部分点击上传资源
+var ziyuanCount = 1;
+$('#resource .zhuanlan_top button').click(function(){
+	ziyuanCount *= -1;
+	//上传
+	if(ziyuanCount < 0){
+	//顶部变化
+	$(this).text('返回');
+	$(this).siblings('.title').text('新资源');
+	//底部变化
+	$('#ziyuan_bottom2').addClass('hide');
+	$('#ziyuan_bottom').removeClass('hide');
+	}else{
+		//取消上传
+		$(this).text('上传资源');
+		$(this).siblings('.title').text('资源');
+		//底部变化
+		$('#ziyuan_bottom').addClass('hide');
+		$('#ziyuan_bottom2').removeClass('hide');
+	}
+})
 })
