@@ -30,4 +30,8 @@
     <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" ref="medicalDoctorBusinessServiceImpl" timeout="${dubbo.consumer.timeout}" />
     <dubbo:service interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService" ref="medicalHospitalRecruitBusinessServiceImpl" timeout="${dubbo.consumer.timeout}" /> -->
 
+    <!--app学堂 -->
+    <dubbo:service interface="com.xczhihui.wechat.course.service.IMobileBannerService" ref="mobileBannerServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.wechat.course.service.IMobileProjectService" ref="mobileProjectServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
 </beans>

@@ -365,7 +365,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" '精品课程' as note ");
 		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1 order by learndCount desc,oc.create_time desc  limit 0,"+pageSize +")");
+		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1 order by recommend_sort desc  limit 0,6)");
 		
 		
 		all.append("  union all ");
@@ -381,7 +381,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" '最新课程' as note ");
 		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  order by  oc.create_time desc limit 0,"+pageSize +")");
+		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  order by  oc.create_time desc limit 0,6)");
 		
 		
 		all.append("  union all ");
@@ -402,7 +402,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou,oe_menu om  ");
 			all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 ");
 			all.append(" and om.id  = "+menuVo.getId());
-			all.append("  order by learndCount desc,oc.create_time desc limit 0,"+pageSize+" ) ");
+			all.append("  order by recommend_sort desc limit 0,4 ) ");
 			
 			if(i < listmv.size()){
 				all.append("  union all ");
@@ -414,7 +414,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	}
 
 	@Override
-	public List<CourseLecturVo> queryAllCourse(Integer menuType,
+	public List<CourseLecturVo> queryAllCourse(String menuType,
 			Integer courseType, String isFree,String city, String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException {
 
@@ -427,16 +427,24 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         StringBuffer  spSql =new StringBuffer();
         StringBuffer  condSql = new StringBuffer();
         StringBuffer  sortSql = new StringBuffer();
-        
-        sortSql.append(" order by  learndCount desc,oc.create_time desc ");
+
+		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
+			if(menuType.equals("goodCourse")){
+				sortSql.append(" order by  oc.recommend_sort desc ");
+			}else if(menuType.equals("newCourse")){
+				sortSql.append(" order by  oc.create_time desc ");
+			}else{
+				condSql.append(" AND oc.menu_id = '"+menuType+"'");
+			}
+		}else{
+			sortSql.append(" order by  oc.recommend_sort desc ");
+		}
         
         if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
         	condSql.append(" and oc.city= '"+city+"'");
         	condSql.append(" and oc.online_course =1 ");
         }
-        if(menuType!=null){
-        	condSql.append(" AND oc.menu_id = '"+menuType+"'");
-        }
+
         if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
         	condSql.append(" and oc.is_free = '"+isFree+"'");
         }
