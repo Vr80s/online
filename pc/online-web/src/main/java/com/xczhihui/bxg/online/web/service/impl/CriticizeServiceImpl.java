@@ -7,6 +7,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
@@ -33,7 +34,10 @@ public class CriticizeServiceImpl implements CriticizeService {
 		// TODO Auto-generated method stub
 		CriticizeVo cv = new CriticizeVo();
 		BeanUtils.copyProperties(cv,criticize);
-		videoDao.saveCriticize(cv);
+		/**
+		 * 判断此用户是否购买过此课程
+		 */
+		videoDao.saveNewCriticize(cv);
 		
 	}
 
@@ -48,5 +52,18 @@ public class CriticizeServiceImpl implements CriticizeService {
 			String criticizeId, String loginName) {
 		// TODO Auto-generated method stub
 		return videoService.updatePraise(isPraise, criticizeId, loginName);
+	}
+
+	@Override
+	public void saveNewCriticize(CriticizeVo criticizeVo)
+			throws IllegalAccessException, InvocationTargetException {
+		// TODO Auto-generated method stub
+		videoDao.saveNewCriticize(criticizeVo);
+	}
+
+	@Override
+	public void saveReply(String content, String criticizeId, String userId) {
+		// TODO Auto-generated method stub
+		videoDao.saveReply(content,criticizeId,userId);
 	}
 }

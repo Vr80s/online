@@ -222,6 +222,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
         /** 根据id查出当前评论 */
         CriticizeVo criticizeVo = videoDao.findCriticizeById(id);
         boolean praise = false;
+        
         int sum = 0;
         Map<String,Object> returnMap = new HashMap<>();
         /** 点赞排除排除已经点赞的，记录点赞人 */
@@ -248,7 +249,7 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
                 }
             }
         }
-        returnMap.put("praise",praise);
+        //returnMap.put("praise",praise);
         returnMap.put("praiseSum",sum);
         return returnMap;
     }

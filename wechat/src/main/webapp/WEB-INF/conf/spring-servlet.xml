@@ -131,10 +131,11 @@
 	<dubbo:reference id="enchashmentService" interface="com.xczhihui.bxg.online.api.service.EnchashmentService" timeout="5000" />
 	<dubbo:reference id="cityService" interface="com.xczhihui.bxg.online.api.service.CityService" timeout="5000" />
 	<dubbo:reference id="liveExamineInfoService" interface="com.xczhihui.bxg.online.api.service.LiveExamineInfoService" timeout="5000" />
-	<!-- 新增评论接口 -->
-	<!-- <dubbo:reference id="criticizeService"  interface="com.xczhihui.bxg.online.api.service.CriticizeService" timeout="5000" /> -->
 	<!-- 新增公共的接口 -->
 	<dubbo:reference id="commonApiService"  interface="com.xczhihui.bxg.online.api.service.CommonApiService" timeout="5000" />
+    <!-- 新增评论接口 -->
+	<dubbo:reference  interface="com.xczhihui.bxg.online.api.service.CriticizeService"  id="criticizeServiceImpl"  timeout="5000" />
+	
 	<!-- 医馆 -->
 	<!--  <dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"  timeout="5000" />  -->
 	<!-- 医馆招聘 -->
@@ -142,6 +143,7 @@
 	<!--医师-->
 	 <dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="5000"/>
 	
+
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.ICourseService" id="courseServiceImpl" timeout="5000"/>
 
 	<!--学堂-->

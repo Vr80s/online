@@ -2096,7 +2096,7 @@ footer{
 	font-size: 0.7rem;
 	width: 100%;
 	padding-bottom: 0.3rem;
-	border-bottom: 0.001rem solid #f9f8ee;
+	/*border-bottom: 0.001rem solid #f9f8ee;*/
 	margin-bottom: 0.3rem;
 }
 .order_center .p3{

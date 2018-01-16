@@ -47,4 +47,24 @@ public interface CriticizeService {
 	 */
 	public Map<String, Object> updatePraise(Boolean isPraise,String criticizeId, String loginName);
 	
+	
+	
+	 /**
+     * 提交新的评论
+     * Description：
+     * @param criticizeVo
+     * @return void
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	public void saveNewCriticize(CriticizeVo criticizeVo) throws IllegalAccessException, InvocationTargetException;
+
+	/**
+     * 提交回复
+     * Description：
+     * @param criticizeVo
+     * @return void
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	public void saveReply(String content, String criticizeId, String id);
+	
 }

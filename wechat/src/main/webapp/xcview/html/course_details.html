@@ -18,11 +18,14 @@
 
 
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script src="/xcview/js/starScore.js"></script>
+<!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
 <!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/course_details.css" />
+<!--<link rel="stylesheet" type="text/css" href="/xcview/css/css.css" />-->
+
+
 
 
 <style>
@@ -111,21 +114,20 @@
 	
 	<div class="course_detaiks_main">
 		<div class="course_detaiks_ul">
-			<ul>
-				<li class="li0">详情</li>
+			<ul class="ul">
+				<li class="li0" id="li0">详情</li>
 				<div class="ul_border"></div>
-				<li class="li1">免费试听</li>
+				<li class="li1" id="li1">免费试听</li>
 				<div class="both"></div>
 			</ul>
 			<div class="course_detaiks_one">
-				<div class="container_main">
+				<div class="container_main" style="display1: none;">
 					<div class="keynote_speaker_can">
 						<div class="keynote_speaker_left"></div>
 						<div class="keynote_speaker">主讲人</div>
 						<div class="keynote_speaker_right"></div>
 						<div class="both"></div>
 					</div>
-            		
             		<!--这是点击展开，点击隐藏文字。  开始-->
             		<div class="container">
 				        <div class="wrap">
@@ -138,10 +140,11 @@
 				            <div class="hewenqiToggle"></div>
 				            <span class="triangle-down-hovertree"></span>
 				        </div>
+				        <div class="both"></div>
 				    </div>
             		<!--这是点击展开，点击隐藏文字。  结束-->
             		<div class="container_border"></div>
-            		
+            		<div class="both"></div>
             		
             		<div class="keynote_speaker_can">
 						<div class="keynote_speaker_left"></div>
@@ -161,40 +164,128 @@
 				            <span class="triangle-down-hovertree1"></span>
 				        </div>
 				    </div>
-            		
             	</div>
+				<div class="course_detaiks_play">
+					<div class="course_detaiks_play_main">
+						<ul>
+							<li>
+								<div class="course_play_main_one">
+									<img src="../images/play_img.png" class="play_img" />
+									<div class="course_play_main_one_right">
+										<p class="p"><span>郝万山</span><span>《伤寒论》讲解</span></p>
+										<div class="course_play_main_one_bottom">
+											<img src="../images/time_bg0.png" class="img0" />
+											<span>9:59</span>
+											<img src="../images/audition.png" class="img1" />
+										</div>
+										<!--<div class="both"></div>-->
+									</div>
+								</div>
+								<!--<div class="both"></div>-->
+							</li>
+							<div class="both"></div>
+							<li>
+								<div class="course_play_main_one">
+									<img src="../images/play_img.png" class="play_img" />
+									<div class="course_play_main_one_right">
+										<p class="p"><span>郝万山</span><span>《伤寒论》讲解</span></p>
+										<div class="course_play_main_one_bottom">
+											<img src="../images/time_bg0.png" class="img0" />
+											<span>9:59</span>
+											<img src="../images/audition.png" class="img1" />
+										</div>
+										<!--<div class="both"></div>-->
+									</div>
+								</div>
+								
+							</li>
+							<div class="both"></div>
+							<li>
+								<div class="course_play_main_one">
+									<img src="../images/play_img.png" class="play_img" />
+									<div class="course_play_main_one_right">
+										<p class="p"><span>郝万山</span><span>《伤寒论》讲解</span></p>
+										<div class="course_play_main_one_bottom">
+											<img src="../images/time_bg0.png" class="img0" />
+											<span>9:59</span>
+											<img src="../images/audition.png" class="img1" />
+										</div>
+										<!--<div class="both"></div>-->
+									</div>
+								</div>
+								
+							</li>
+							<div class="both"></div>
+						</ul>
+					</div>
+					<div class="both"></div>
+				</div>
 			</div>
+			<div class="footer_perch"></div>
 		</div>
+		
 	</div>
 	
 	
-	
 	<!--底部开始-->
-	<div class="footer_perch"></div>
+	<!--<div class="footer_perch"></div>-->
 	<div class="footer">
 		<ul>
-			<li>
-				<a href="" class="footer_one" style="background: url(../images/school_ones.png) no-repeat center;background-size: 1.042rem 0.809rem;"></a>
-				<p style="color: #00BC12;">学堂</p>
+			<li class="footer_one">
+				<span>88</span>熊猫币
 			</li>
-			<li>
-				<a href="" class="footer_two"></a>
-				<p>学习</p>
+			<li class="footer_two">
+				购买
 			</li>
 		</ul>
 	</div>
 	<!--底部结束-->
 	
+	
+	<!--分享开始-->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_main">
+			<div class="share_main_bg">
+				<ul>
+					<div class="share_to">分享到</div>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/ShareSDK.png" />
+							<p>微信</p>
+						</div>
+					</li>
+					<li>
+						<div class="">
+							<img src="../images/Qzone_share.png" />
+							<p>qq空间</p>
+						</div>
+					</li>
+					<li>
+						<div class="">
+							<img src="../images/RSS_links.png" />
+							<p>新浪微博</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="share_cancel">取消</div>
+		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!--分享结束-->
 </body>
 
 
 
 
 
-<!--控制课程详情标题超出2行js-->
-<script>
+<!--控制课程详情标题超出2行js   星星js影响给注释了 -->
+<!--<script>
     window.onload = function(){
-      //根据class名称获取元素,此案例中之所以要用class获取元素名称,是为了可以控制多个元素( course_video_title )的字符串度.  注释：文字开头必须紧贴div
       function getByClass(oParent, sClass) {
       if (oParent.getElementsByClassName) {
       return oParent.getElementsByClassName(sClass);
@@ -215,7 +306,7 @@
       for (var i = 0; i < textName.length; i++) {
       var nowLeng = textName[i].innerHTML.length;
       if ( nowLeng > 80 ) {   //80 可以为0
-      var nowWord = textName[i].innerHTML.substr(0, 38) + '···';   //10是显示多少个字符以后出现...
+      var nowWord = textName[i].innerHTML.substr(0, 38) + '···';  
       textName[i].innerHTML = nowWord;
       }
       }
@@ -224,8 +315,7 @@
     };
 </script>
 
-
-
+-->
 <!--星星js-->
 <script type="text/javascript">
 	function scoreFun(object,opts){
@@ -329,7 +419,7 @@
 
 <!--点击更多隐藏心事开始-->
 <script type="text/javascript">
-	window.onload = function(){
+//	window.onload = function(){
 		$(function(){
 		    var slideHeight = 100; // px
 		    var defHeight = $('.wrap').height();
@@ -394,12 +484,56 @@
 		        });  
 		    }
 		});
-	};
+//	};
 </script>
 
 
 
 <!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){
+//		点击详情
+		$("#li0").click(function(){
+			$(".container_main").show();
+			$(".course_detaiks_play").hide();
+			$(".li0").addClass("ul_li");
+			$(".li1").removeClass("ul_li");
+		});
+//		点击免费试听
+		$("#li1").click(function(){
+			$(".course_detaiks_play").show();
+			$(".container_main").hide();
+			$(".li1").addClass("ul_li");
+			$(".li0").removeClass("ul_li");
+		});
+		$("#li0").click();
+		
+		
+		
+//		点击分享share
+		$(".header_share").click(function(){
+			$(".share").show();
+		});
+		
+		$(".share_cancel").click(function(){
+			$(".share").hide();
+		});
+		
+		$(".share_cancel").click(function(){
+			$(".weixin_ceng").hide();
+		});
+		
+		
+		
+//		点击微信出现提示框
+		$(".share_to_one").click(function(){
+			$(".weixin_ceng").show();
+		});
+		
+	};
+</script>
+
+
 
 
 </html>
