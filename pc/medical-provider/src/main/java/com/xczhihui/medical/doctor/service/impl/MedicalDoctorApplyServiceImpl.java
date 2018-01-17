@@ -1,6 +1,11 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.common.support.domain.Attachment;
+import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
+import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
@@ -35,6 +40,8 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private MedicalDoctorApplyDepartmentMapper applyDepartmentMapper;
     @Autowired
     private MedicalDepartmentMapper medicalDepartmentMapper;
+    @Autowired
+    private AttachmentCenterService attachmentCenterService;
 
     /**
      * 添加医师入驻申请信息
@@ -87,9 +94,38 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
                 }
                 List<MedicalDepartment> medicalDepartments =
                         medicalDepartmentMapper.selectBatchIds(ids);
-
+                target.setMedicalDepartments(medicalDepartments);
+                return target;
             }
         }
+        return null;
+    }
+
+    /**
+     * 获取科室列表
+     * @return 科室列表
+     */
+    @Override
+    public List<MedicalDepartment> listDepartment() {
+        Wrapper<MedicalDepartment> wrapper = new EntityWrapper(MedicalDepartment.class);
+        return medicalDepartmentMapper.selectList(wrapper);
+    }
+
+    /**
+     * 上传图片
+     * @param image 图片
+     * @return 图片路径
+     */
+    @Override
+    public String upload(byte[] image, String userId) {
+
+        Attachment attachment = attachmentCenterService.addAttachment(userId,
+                AttachmentType.ONLINE,
+                userId + "_medicalDoctorApply.png", image,
+                org.springframework.util.StringUtils.getFilenameExtension(userId+"_medicalDoctorApply.png"),
+                null);
+
+        return attachment.getUrl();
     }
 
     private void completeDepartmentField(MedicalDoctorApplyDepartment department, String id, Date now) {

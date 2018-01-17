@@ -10,11 +10,15 @@ import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Base64;
 
 /**
  *  医师入驻申请控制层
@@ -71,10 +75,41 @@ public class DoctorApplyController {
 //            return OnlineResponse.newErrorOnlineResponse("请登录！");
 //        }
 //        UserDataVo currentUser = userService.getUserData(loginUser);
-
 //        applyService.get(currentUser.getUid());
 
         return ResponseObject.newSuccessResponseObject(applyService.get("8a2c9bed59b5fd22015a122dfc420004"));
     }
+
+    /**
+     * 获取科室列表
+     */
+    @RequestMapping(value = "/listDepartment", method = RequestMethod.GET)
+    public ResponseObject listDepartment(){
+        return ResponseObject.newSuccessResponseObject(applyService.listDepartment());
+    }
+
+    /**
+     * 上传图片
+     */
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    public ResponseObject upload(HttpServletRequest request) throws ServletRequestBindingException, IOException {
+
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+
+        String content = ServletRequestUtils.getRequiredStringParameter(request, "image");
+        int i = content.indexOf(',');
+        if (i > 0) {
+            content = content.substring(i + 1);
+        }
+        byte[] image = Base64.getDecoder().decode(content);
+        return ResponseObject.newSuccessResponseObject(applyService.upload(image, currentUser.getUid()));
+
+    }
+
 
 }
