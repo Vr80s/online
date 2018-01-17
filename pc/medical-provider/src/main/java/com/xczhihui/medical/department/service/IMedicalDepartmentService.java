@@ -13,5 +13,5 @@ import com.xczhihui.medical.department.model.MedicalDepartment;
  * @since 2017-12-09
  */
 public interface IMedicalDepartmentService extends IService<MedicalDepartment> {
-	
+
 }

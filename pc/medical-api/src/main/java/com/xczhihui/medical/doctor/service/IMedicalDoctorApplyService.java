@@ -14,4 +14,12 @@ public interface IMedicalDoctorApplyService {
      * @param target 医师申请入驻申请信息
      */
     void add(MedicalDoctorApply target);
+
+    /**
+     * 根据userId获取医师入驻申请信息
+     * @param userId 用户id
+     * @return 医师入驻申请信息
+     */
+    MedicalDoctorApply get(String userId);
+
 }

@@ -1,30 +1,24 @@
-package com.xczhihui.medical.doctor.model;
+package com.xczhihui.bxg.online.common.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
-
 import java.util.Date;
-import java.util.List;
-
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author yuxin
- * @since 2018-01-15
+ * 医师入驻申请实体类
+ * @author zhuwenbao
  */
-@TableName("medical_doctor_apply")
-public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
+
+@Entity
+@Table(name = "medical_doctor_apply")
+public class MedicalDoctorApply implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 医师认证申请表
      */
+    @Id
 	private String id;
     /**
      * 姓名
@@ -45,7 +39,7 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
     /**
      * 用户表id
      */
-	@TableField("user_id")
+	@Column(name = "user_id")
 	private String userId;
     /**
      * 省
@@ -58,37 +52,37 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
     /**
      * 详细地址
      */
-	@TableField("detailed_address")
+	@Column(name = "detailed_address")
 	private String detailedAddress;
     /**
      * 真实头像
      */
-	@TableField("head_portrait")
+	@Column(name = "head_portrait")
 	private String headPortrait;
     /**
      * 职称证明
      */
-	@TableField("title_prove")
+	@Column(name = "title_prove")
 	private String titleProve;
     /**
      * 身份证正面
      */
-	@TableField("card_positive")
+	@Column(name = "card_positive")
 	private String cardPositive;
     /**
      * 身份证反面
      */
-	@TableField("card_negative")
+	@Column(name = "card_negative")
 	private String cardNegative;
     /**
      * 医师资格证
      */
-	@TableField("qualification_certificate")
+	@Column(name = "qualification_certificate")
 	private String qualificationCertificate;
     /**
      * 医师执业证书
      */
-	@TableField("professional_certificate")
+	@Column(name = "professional_certificate")
 	private String professionalCertificate;
     /**
      * 0拒绝1通过2未处理
@@ -101,22 +95,23 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
     /**
      * 创建时间
      */
-	@TableField("create_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_time")
 	private Date createTime;
     /**
      * 创建人id
      */
-	@TableField("create_person")
+	@Column(name = "create_person")
 	private String createPerson;
     /**
      * 更新时间
      */
-	@TableField("update_time")
+	@Column(name = "update_time")
 	private Date updateTime;
     /**
      * 更新人id
      */
-	@TableField("update_person")
+	@Column(name = "update_person")
 	private String updatePerson;
     /**
      * 版本
@@ -129,14 +124,8 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 	/**
 	 * 身份证号
 	 */
-	@TableField("card_num")
+	@Column(name = "card_num")
 	private String cardNum;
-
-	/**
-	 * 医师入驻申请关联的科室列表
-	 */
-	@TableField(exist = false)
-	private List<MedicalDoctorApplyDepartment> departments;
 
 	/**
 	 * 擅长领域
@@ -327,13 +316,6 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 		this.remark = remark;
 	}
 
-	public List<MedicalDoctorApplyDepartment> getDepartments() {
-		return departments;
-	}
-
-	public void setDepartments(List<MedicalDoctorApplyDepartment> departments) {
-		this.departments = departments;
-	}
 
 	public String getField() {
 		return field;
@@ -349,11 +331,6 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 
 	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
-	}
-
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
 	}
 
 	@Override

@@ -1,24 +1,18 @@
-package com.xczhihui.medical.doctor.model;
+package com.xczhihui.medical.doctor.vo;
+
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
 
 import java.io.Serializable;
-
 import java.util.Date;
 import java.util.List;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
-
 /**
- * <p>
- * 
- * </p>
- *
- * @author yuxin
+ * @author zhuwenbao
  * @since 2018-01-15
  */
-@TableName("medical_doctor_apply")
-public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
+public class MedicalDoctorApplyVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -45,7 +39,6 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
     /**
      * 用户表id
      */
-	@TableField("user_id")
 	private String userId;
     /**
      * 省
@@ -58,37 +51,30 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
     /**
      * 详细地址
      */
-	@TableField("detailed_address")
 	private String detailedAddress;
     /**
      * 真实头像
      */
-	@TableField("head_portrait")
 	private String headPortrait;
     /**
      * 职称证明
      */
-	@TableField("title_prove")
 	private String titleProve;
     /**
      * 身份证正面
      */
-	@TableField("card_positive")
 	private String cardPositive;
     /**
      * 身份证反面
      */
-	@TableField("card_negative")
 	private String cardNegative;
     /**
      * 医师资格证
      */
-	@TableField("qualification_certificate")
 	private String qualificationCertificate;
     /**
      * 医师执业证书
      */
-	@TableField("professional_certificate")
 	private String professionalCertificate;
     /**
      * 0拒绝1通过2未处理
@@ -135,8 +121,7 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 	/**
 	 * 医师入驻申请关联的科室列表
 	 */
-	@TableField(exist = false)
-	private List<MedicalDoctorApplyDepartment> departments;
+	private List<MedicalDepartment> departments;
 
 	/**
 	 * 擅长领域
@@ -327,11 +312,11 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 		this.remark = remark;
 	}
 
-	public List<MedicalDoctorApplyDepartment> getDepartments() {
+	public List<MedicalDepartment> getDepartments() {
 		return departments;
 	}
 
-	public void setDepartments(List<MedicalDoctorApplyDepartment> departments) {
+	public void setDepartments(List<MedicalDepartment> departments) {
 		this.departments = departments;
 	}
 
@@ -349,11 +334,6 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 
 	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
-	}
-
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
 	}
 
 	@Override
