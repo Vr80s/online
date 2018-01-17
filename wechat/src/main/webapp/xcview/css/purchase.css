@@ -219,6 +219,9 @@ header {
 .price .purchase_list_one_right{
 	margin-right: 1.2rem;
 }
+.price .purchase_list_one{
+	border-bottom: 0;
+}
 
 
 /*支付方式开始*/
@@ -274,10 +277,20 @@ header {
 }
 
 .payment_ul ul li img{
-	width: 1.277rem;
-	height: 1.277rem;
 	vertical-align: middle;
     margin-right: 0.5rem;
+}
+.BTCpanda{
+	width: 1.277rem;
+	height: 1.277rem;
+}
+.alipay_img{
+	width: 1.277rem;
+	height: 1.064rem;
+}
+.weixin_img{
+	width: 1.277rem;
+	height: 1.149rem;
 }
 .balance{
 	font-size: 0.511rem;
