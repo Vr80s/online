@@ -3,13 +3,13 @@
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper">
 
      <select id="getLastOne" parameterType="String" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorApply">
-         SELECT id, name, title, description, tel, user_id,
+        SELECT id, name, title, description, tel, user_id,
           province, city, detailed_address, head_portrait,
           title_prove, card_positive, card_negative, qualification_certificate,
           professional_certificate, status, create_time, remark
-          FROM medical_doctor_apply
-          WHERE user_id = #{userId} AND deleted = FALSE
-          ORDER BY create_time
-          limit 1
+        FROM medical_doctor_apply
+        WHERE user_id = #{userId}
+        ORDER BY create_time
+        limit 1
      </select>
 </mapper>

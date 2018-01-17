@@ -40,8 +40,6 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private MedicalDoctorApplyDepartmentMapper applyDepartmentMapper;
     @Autowired
     private MedicalDepartmentMapper medicalDepartmentMapper;
-    @Autowired
-    private AttachmentCenterService attachmentCenterService;
 
     /**
      * 添加医师入驻申请信息
@@ -52,6 +50,15 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
 
         // 参数校验
         this.validate(target);
+
+        // 如果该医师已申请 但状态未未处理或者已通过 则直接返回
+        MedicalDoctorApply oldApply = this.get(target.getUserId());
+        if(oldApply != null){
+            if(oldApply.getStatus().equals(MedicalDoctorApplyEnum.WAIT.getCode()) ||
+                    oldApply.getStatus().equals(MedicalDoctorApplyEnum.PASS.getCode())){
+                throw new RuntimeException("您已提交申请，请等待管理员审核");
+            }
+        }
 
         // 生成主键
         String id = UUID.randomUUID().toString().replace("-","");
@@ -82,12 +89,13 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     @Override
     public MedicalDoctorApply get(String userId) {
         MedicalDoctorApply target = medicalDoctorApplyMapper.getLastOne(userId);
+        System.out.println(target.toString());
         if(target != null){
             // 获取申请入驻时关联的科室
             List<MedicalDoctorApplyDepartment> departmentList =
                     applyDepartmentMapper.getByDoctorApplyId(target.getId());
             // 获取科室名称
-            if(departmentList != null && (!departmentList.isEmpty())){
+            if(departmentList != null){
                 List<String> ids = new ArrayList<>();
                 for(MedicalDoctorApplyDepartment department : departmentList){
                     ids.add(department.getDepartmentId());
@@ -95,10 +103,9 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
                 List<MedicalDepartment> medicalDepartments =
                         medicalDepartmentMapper.selectBatchIds(ids);
                 target.setMedicalDepartments(medicalDepartments);
-                return target;
             }
         }
-        return null;
+        return target;
     }
 
     /**
@@ -107,25 +114,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
      */
     @Override
     public List<MedicalDepartment> listDepartment() {
-        Wrapper<MedicalDepartment> wrapper = new EntityWrapper(MedicalDepartment.class);
-        return medicalDepartmentMapper.selectList(wrapper);
-    }
-
-    /**
-     * 上传图片
-     * @param image 图片
-     * @return 图片路径
-     */
-    @Override
-    public String upload(byte[] image, String userId) {
-
-        Attachment attachment = attachmentCenterService.addAttachment(userId,
-                AttachmentType.ONLINE,
-                userId + "_medicalDoctorApply.png", image,
-                org.springframework.util.StringUtils.getFilenameExtension(userId+"_medicalDoctorApply.png"),
-                null);
-
-        return attachment.getUrl();
+        return medicalDepartmentMapper.getAll();
     }
 
     private void completeDepartmentField(MedicalDoctorApplyDepartment department, String id, Date now) {

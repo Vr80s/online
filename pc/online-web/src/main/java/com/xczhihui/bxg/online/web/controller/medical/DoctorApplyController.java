@@ -1,6 +1,8 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
-import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.bxg.common.support.domain.Attachment;
+import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
+import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -32,6 +34,8 @@ public class DoctorApplyController {
     private IMedicalDoctorApplyService applyService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private AttachmentCenterService attachmentCenterService;
 
     /**
      * 添加医师入驻申请
@@ -70,14 +74,11 @@ public class DoctorApplyController {
     public ResponseObject get(HttpServletRequest request){
 
         // 获取当前用户
-//        OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
-//        if (loginUser == null) {
-//            return OnlineResponse.newErrorOnlineResponse("请登录！");
-//        }
-//        UserDataVo currentUser = userService.getUserData(loginUser);
-//        applyService.get(currentUser.getUid());
-
-        return ResponseObject.newSuccessResponseObject(applyService.get("8a2c9bed59b5fd22015a122dfc420004"));
+        OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        return ResponseObject.newSuccessResponseObject(applyService.get(userService.getUserData(loginUser).getUid()));
     }
 
     /**
@@ -107,7 +108,14 @@ public class DoctorApplyController {
             content = content.substring(i + 1);
         }
         byte[] image = Base64.getDecoder().decode(content);
-        return ResponseObject.newSuccessResponseObject(applyService.upload(image, currentUser.getUid()));
+
+        Attachment attachment = attachmentCenterService.addAttachment(currentUser.getUid(),
+                AttachmentType.ONLINE,
+                currentUser.getUid() + "_medicalDoctorApply.png", image,
+                org.springframework.util.StringUtils.getFilenameExtension(currentUser.getUid() + "_medicalDoctorApply.png"),
+                null);
+
+        return ResponseObject.newSuccessResponseObject(attachment.getUrl());
 
     }
 
