@@ -123,17 +123,28 @@
 									<article class="container">
 									    <section>
 									      <figure id="responsiveness" class="swipslider">
-									        <ul class="sw-slides">
-									           <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li> 
-									        </ul>
+									      	<div  ></div>
+
+
+
+									       	
+									       	<ul class="sw-slides" id="sw-slidesss">
+									       		
+									      	 <script type="text/html" id="data_banner">
+												{{each items as item i}}									       	 	
+										           <li class="sw-slide">
+										            	<img src="{{item.imgUrl}}" alt="Concept for children game">
+										          </li>
+
+									        	{{/each}}
+									        </script>
+									        	
+									       	 </ul>
+
+									       	 
+
+
+									      	
 									      </figure>
 									    </section>
 									</article>

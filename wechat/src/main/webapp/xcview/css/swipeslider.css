@@ -26,8 +26,9 @@
     display: inline-block;
     position: relative; }
     .swipslider .sw-slide > img {
-      /* width: 100%; */
-      height: 6.426rem;
+       width: 100%; 
+     
+      /*height: 6.426rem;*/
       position: absolute;
       top: 3.2rem;
       left: 50%;
