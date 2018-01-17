@@ -29,6 +29,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
+</head>
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 	<header>
@@ -123,79 +124,29 @@
 									<article class="container">
 									    <section>
 									      <figure id="responsiveness" class="swipslider">
-									      	<div  ></div>
+									       	<ul class="sw-slides" id="sw-slides">
 
-
-
-									       	
-									       	<ul class="sw-slides" id="sw-slidesss">
-									       		
-									      	 <script type="text/html" id="data_banner">
-												{{each items as item i}}									       	 	
-										           <li class="sw-slide">
-										            	<img src="{{item.imgUrl}}" alt="Concept for children game">
-										          </li>
-
-									        	{{/each}}
-									        </script>
-									        	
-									       	 </ul>
-
-									       	 
-
-
-									      	
+										            
+									       	</ul>
 									      </figure>
 									    </section>
 									</article>
 								</div>
 							</nav>
 							<!--轮播结束-->
-							<ul class="slide_one">
+							<ul class="slide_one" id="slide_one">
+								<script type="text/html" id="nav_list">
+									{{each items as item i}}
 								<li>
 									<div class="slide_one_div">
 										<div class="">
-											<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											<img src="{{item.icon}}" class="slide_one_artist" />
 										</div>
-										
-										<p>大师课</p>
+										<p>{{item.title}}</p>
 									</div>
 								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/sutra.png" class="slide_one_sutra" />
-										</div>
-										
-										<p>经典课</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/health.png" class="slide_one_health" />
-										</div>
-										
-										
-										<p>养生课</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/Macbook.png" class="slide_one_Macbook" />
-										</div>
-										<p>小白课</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/Gratis.png" class="slide_one_Gratis" />
-										</div>
-										<p>免费课</p>
-									</div>
-								</li>
+								{{/each}}
+								</script>
 							</ul>
 	
 							<!--推荐名师开始-->
@@ -203,68 +154,18 @@
 	                    		<div class="teacher_slider_main">
 	                    			<div class="teacher_slider_main_title">推荐名师</div>
 	                    			<div class="teacher_slider_ul">
-	                    				<ul>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<div class="both"></div>
+	                    				<ul id="phy_box">
+	                    					<script type="text/html" id="wrap_phy">
+		                    					{{each items as item i}}
+			                    				<li>
+			                    					<div class="teacher_slider_ul_div">
+			                    						<img src="{{item.headPortrait}}" />
+			                    						<div>{{item.name}}</div>
+			                    					</div>
+			                    				</li>
+			                    				{{/each}}
+			                    				<div class="both"></div>
+		                    				</script>
 		                    			</ul>
 	                    			</div>
 									
