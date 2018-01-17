@@ -648,7 +648,7 @@ public class BunchPlanController {
 	 */
 	@RequestMapping("queryAllCourse")
 	@ResponseBody
-	public ResponseObject queryAllCourse(Integer menuType,Integer courseType,String city,String isFree,String queryKey,
+	public ResponseObject queryAllCourse(String menuType,Integer courseType,String city,String isFree,String queryKey,
 			Integer pageNumber, Integer pageSize)
 			throws Exception {
 

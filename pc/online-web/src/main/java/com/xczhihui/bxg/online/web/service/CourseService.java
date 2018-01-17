@@ -9,6 +9,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
@@ -187,6 +188,19 @@ public interface CourseService {
 
 
 	public String getCoursesPage(Integer courseId);
+
+	
+	/**
+	 * Description：新的评论、回复、用户关系  并且查询
+	 * @param courseId
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 * @return Page<Criticize>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	Page<Criticize> findUserCriticize(Integer courseId, Integer pageNumber,
+			Integer pageSize);
 
 
 }

@@ -33,6 +33,7 @@ import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**
  * 通用控制器
@@ -95,11 +96,8 @@ public class CommonController {
 		 * 得到讲师   主要是房间号，缩略图的信息啦
 		 */
 		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
+	     	
 		
-		/**
-		 * 关注讲师的粉丝  显示六个
-		 */
-		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
 		/**
 		 * 粉丝总数 
 		 */
@@ -108,28 +106,47 @@ public class CommonController {
 		 * 关注总数 
 		 */
 		Integer focusCount  = focusService.findMyFocusCount(lecturerId);
+		
+		
+		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
+		mapAll.put("fansCount", fansCount);       		   //粉丝总数
+		mapAll.put("focusCount", focusCount);   	  	   //关注总数
+		
+		//讲师的精彩简介  
+		mapAll.put("videoId", "F89D83B02BCE744D9C33DC5901307461");  //
+		//坐诊医馆
+		MedicalHospitalVo   mh = new MedicalHospitalVo();
+		mh.setDetailedAddress("北京市丰台区开阳路一号瀚海花园大厦一层底商 北京海淀区中关村南大街19号院");
+		mh.setTel("010-68412758");
+		mh.setVisitTime("周一到周五");
+		mh.setCertificationType(1);
+		//认证的主播 还是 医馆
+		mapAll.put("hospital",mh);
+		/**
+		 * 关注讲师的粉丝  显示六个
+		 */
+		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
 		/**
 		 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
 		 */
-		Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
+		//Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
 		/**
 		 * 得到这个讲师的所有   礼物数
 		 */
 		//Integer giftAll = giftService.findByUserId(lecturerId);
-		   /**
+		/**
          * 得到判断这个主播有没有正在直播的课程啦	
          */
-		Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
+		//Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
 		
-		
-		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-		mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
-		mapAll.put("fansCount", fansCount);       //粉丝总数
-		mapAll.put("focusCount", focusCount);   	  // 关注总数
+//		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
+//		//mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
+//		mapAll.put("fansCount", fansCount);       //粉丝总数
+//		mapAll.put("focusCount", focusCount);   	  // 关注总数
 		//mapAll.put("giftAll", giftAll);           // 礼物数 
-		mapAll.put("courseAll", courseAll);       // 课程数 
+		//mapAll.put("courseAll", courseAll);       // 课程数 
 		//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
-		
+		//主播最近一次直播
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(null == lecturerId){  //讲师id

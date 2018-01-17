@@ -69,7 +69,7 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 		 */
 		$(".order_center p:eq(0)").html(h+":"+minute+"开播");
 		$(".order_center p:eq(1)").html(y+"."+m+"."+d);
-		$(".order_center p:eq(2)").html("已预约人数："+result.countSubscribe);
+//		$(".order_center p:eq(2)").html("已预约人数："+result.countSubscribe);
 
 		$("#content").html(result.description);
 		
@@ -122,7 +122,8 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 			}else if(result.watchState == 0){
 				pwdAndBuy = 0;
-				$(".buy_bottom_p2").html(result.learndCount+"人已预约");
+				$(".buy_bottom_p2").html(result.countSubscribe+"人已预约");
+//				$(".buy_bottom_p2").html(result.learndCount+"人已预约");
 				$(".buy_bottom_p2").css("margin-top","0.5rem");
 			}
 			$("#buy_right a").html("已预约");

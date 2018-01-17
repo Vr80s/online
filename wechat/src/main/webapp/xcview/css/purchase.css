@@ -75,6 +75,218 @@ header {
 
 
 /*中间内容开始*/
+.purchase_details{
+	width: 100%;
+	height: 1.915rem;
+	background: #fff;
+	padding: 0.638rem 0;
+	margin-top: 2.398rem;
+	margin-bottom: 0.426rem;
+}
+.purchase_details_main{
+	width: 15.45rem;
+	float: right;
+}
+.purchase_details_main_cen{
+	width: 100%;
+}
+.purchase_details_main_cen img{
+	width: 3.404rem;
+	height: 1.915rem;
+	float: left;
+	margin-right: 0.532rem;
+}
+.purchase_details_left{
+	float: left;
+	width: 10.968rem;
+	height: 1.915rem;
+	/*background: red;*/
+}
+.purchase_details_title{
+	font-size: 0.596rem;
+	color: #333;
+}
+.purchase_details_title .span0{
+	display: block;
+    float: left;
+}
+.purchase_details_title .span1{
+	width: 9rem;
+    display: block;
+    float: left;
+}
+.purchase_details_money{
+	font-size: 0.596rem;
+	color: #333333;
+	width: 100%;
+    height: 1.064rem;
+    line-height: 1.064rem;
+}
+.purchase_details_money span{
+	font-size: 0.766rem;
+	color: #F97B49;
+}
+
+
+/*优惠券开始*/
+.purchase_list{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	margin-bottom: 0.426rem;
+}
+.purchase_list_main{
+	width: 15.45rem;
+	height: 100%;
+    float: right;
+}
+.purchase_list_one{
+	width: 100%;
+	height: 1.702rem;
+	line-height: 1.702rem;
+	border-bottom: 1px solid #d8dde6;
+}
+.purchase_list_one_left{
+	font-size: 0.596rem;
+	color: #888;
+	float: left;
+}
+.purchase_list_one_left img{
+	width: 0.511rem;
+	height: 0.511rem;
+	margin-right: 0.212rem;
+}
+.purchase_list_one_right{
+	font-size: 0.596rem;
+	color: #888;
+	float: right;
+}
+.purchase_list_one_right span{
+	font-size: 0.766rem;
+	color: #F97B49;
+}
+.purchase_list_one_right img{
+	width: 0.319rem;
+	height: 0.532rem;
+	margin-left: 0.382rem;
+    margin-right: 0.553rem;
+}
+
+
+
+.purchase_list_two{
+	width: 100%;
+	height: 1.702rem;
+	line-height: 1.702rem;
+	border-bottom: 1px solid #d8dde6;
+}
+.purchase_list_two_left{
+	font-size: 0.596rem;
+	color: #888;
+	float: left;
+}
+.purchase_list_two_left img{
+	width: 0.511rem;
+	height: 0.511rem;
+	margin-right: 0.212rem;
+}
+.purchase_list_two_right{
+	font-size: 0.596rem;
+	color: #888;
+	float: right;
+}
+.purchase_list_two_right span{
+	font-size: 0.766rem;
+	color: #F97B49;
+}
+.purchase_list_two_right img{
+	width: 0.319rem;
+	height: 0.532rem;
+	margin-left: 0.382rem;
+    margin-right: 0.553rem;
+}
+.purchase_list_main .div:last-child{
+	border: 0;
+	border: none;
+}
+.price{
+	width: 100%;
+	height: 1.702rem;
+	line-height: 1.702rem;
+	background: #fff;
+}
+
+.price .purchase_list_one_right{
+	margin-right: 1.2rem;
+}
+
+
+/*支付方式开始*/
+.payment{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+    margin-top: 0.426rem;
+    padding: 0.638rem 0;
+}
+.payment_title{
+	width: 5rem;
+	font-size: 0.681rem;
+	color: #333333;
+	margin-bottom: 0.638rem;
+    margin-left: 0.5rem;
+}
+.payment_ul{
+	margin-bottom: 0.638rem;
+}
+.payment_ul ul li{
+	font-size: 0.596rem;
+	color: #666;
+	float: left;
+	width: 4.468rem;
+	height: 2.085rem;
+	line-height: 2.085rem;
+	/*border: 1px solid #DEDEDE;*/
+	border-radius: 4px;
+	margin-left: 0.55rem;
+	text-align: center;
+	position: relative;
+	/*background: url("/xcview/images/pitch.png") no-repeat;
+	background: 100% 100%;*/
+	/*position: absolute;*/
+	/*right: 0;*/
+	/*bottom: 0;*/
+}
+.ul_li{
+	border: 1px solid #DEDEDE;
+	
+	
+	/*background: url("");*/
+}
+.ul_li0{
+	border: 1px solid #F97B49;
+	background: url("/xcview/images/pitch.png") 3.61rem 1.18rem no-repeat;
+	background-size: 1.362rem 1.362rem;
+	/*position: absolute;
+	right: -0.5rem;
+    bottom: -0.5rem;*/
+	
+}
+
+.payment_ul ul li img{
+	width: 1.277rem;
+	height: 1.277rem;
+	vertical-align: middle;
+    margin-right: 0.5rem;
+}
+.balance{
+	font-size: 0.511rem;
+	color: #666;
+	margin-left: 0.5rem;
+}
+/*支付方式结束*/
+
+
 /*中间内容结束*/
 
 
@@ -83,7 +295,7 @@ header {
 .footer_perch{
 	width: 100%;
 	height: 2.085rem;
-	background: red;
+	margin-bottom: 0.426rem;
 }
 .footer{
 	width: 100%;
@@ -95,21 +307,20 @@ header {
 	bottom: 0;
 	left: 0;
 	background: #fff;
-	border-top: 1px solid #D8DDE6;
+	/*border-top: 1px solid #D8DDE6;*/
+	background: #00BC12;
 }
-.footer ul li{
-	width: 50%;
-	float: left;
+.footer_div{
+	width: 100%;
+	height: 2.085rem;
+	line-height: 2.085rem;
+	color: #fff;
 }
-.footer_one{
-	color: #333;
-}
-.footer_one span{
-	color: #F97B49;
-}
-.footer_two{
-	background: #00bc12;
-    color: #fff;
+.footer_div_btn{
+	width: 100%;
+	height: 2.085rem;
+	line-height: 2.085rem;
+	color: #fff;
 }
 /*底部结束*/
 /*中间内容结束*/

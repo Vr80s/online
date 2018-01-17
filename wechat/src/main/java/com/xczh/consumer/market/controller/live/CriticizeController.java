@@ -11,11 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 
 @Controller
 @RequestMapping(value = "/bxg/criticize")
@@ -25,24 +27,26 @@ public class CriticizeController {
 	@Autowired
 	private AppBrowserService appBrowserService; 
 	
+//	@Autowired
+//	private criticizeService criticizeService;
 	@Autowired
-	private com.xczhihui.bxg.online.api.service.CriticizeService criticizeService;
-	
+	private CriticizeService criticizeService; 
 	/**
 	 * 添加评论
 	 */
-	@RequestMapping("saveCriticize")
+	@RequestMapping(value="saveCriticize")
 	@ResponseBody
 	public ResponseObject saveCriticize(HttpServletRequest req,
 			HttpServletResponse res,CriticizeVo criticize)
 			throws Exception {
+		
 		OnlineUser  ou = appBrowserService.getOnlineUserByReq(req);
 		//criticize.setCreateTime(new Date());
 		criticize.setCreatePerson(ou.getId());
 		if(criticize.getContent().length()>5000){
 			return ResponseObject.newErrorResponseObject("抱歉评论内容过长");
 		}else{
-			criticizeService.saveCriticize(criticize);
+			criticizeService.saveNewCriticize(criticize);
 			return ResponseObject.newSuccessResponseObject("评论添加成功");
 		}
 	}
@@ -62,10 +66,9 @@ public class CriticizeController {
 		if(StringUtils.isNotBlank(pageSizeStr)){
 			pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		}
-		String videoId = req.getParameter("videoId");
-		String name = req.getParameter("name");
-		
-		Page<CriticizeVo> pageList  = criticizeService.getVideoCriticize(videoId, name, pageNumber, pageSize);
+		String userId = req.getParameter("userId");
+		String courseId = req.getParameter("courseId");
+		Page<Criticize> pageList  = criticizeService.getUserCriticize(userId,courseId,pageNumber, pageSize);
 		return ResponseObject.newSuccessResponseObject(pageList);
 	}
     /**
@@ -87,7 +90,15 @@ public class CriticizeController {
             return ResponseObject.newErrorResponseObject("用户未登录！");
         }
     }
-   
+    /**
+     * Description：增加回复
+     * @param request
+     * @param content
+     * @param criticizeId
+     * @return
+     * @return ResponseObject
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
     @RequestMapping("saveReply")
 	@ResponseBody
     public ResponseObject saveReply(HttpServletRequest request,String content, String criticizeId) {

@@ -61,7 +61,11 @@ public class CriticizeVo implements Serializable {
   	//评价标签  1.很赞 2 干货很多 3超值推荐 4喜欢 5买对了
     private Integer criticizeLable;
     
+    //总体印象
+    private Float overallLevel;
     
+    //是否购买
+    private Boolean isBuy;
     
     public String getId() {
         return id;
@@ -226,7 +230,21 @@ public class CriticizeVo implements Serializable {
 	public void setCriticizeLable(Integer criticizeLable) {
 		this.criticizeLable = criticizeLable;
 	}
-    
-    
-    
+
+	public Float getOverallLevel() {
+		return overallLevel;
+	}
+
+	public void setOverallLevel(Float overallLevel) {
+		this.overallLevel = overallLevel;
+	}
+
+	public Boolean getIsBuy() {
+		return isBuy;
+	}
+
+	public void setIsBuy(Boolean isBuy) {
+		this.isBuy = isBuy;
+	}
+	
 }

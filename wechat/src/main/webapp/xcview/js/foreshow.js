@@ -122,7 +122,8 @@ requestService("/bxg/common/userIsSubscribe",{  //判断是否购买或者是否
 				$(".buy_bottom_p2").html(result.learndCount+"人确认密码");
 			}else if(result.watchState == 0){
 				pwdAndBuy = 0;
-				$(".buy_bottom_p2").html(result.learndCount+"人已预约");
+				$(".buy_bottom_p2").html(result.countSubscribe+"人已预约");
+//				$(".buy_bottom_p2").html(result.learndCount+"人已预约");
 				$(".buy_bottom_p2").css("margin-top","0.5rem");
 			}
 			$("#buy_right a").html("已预约");

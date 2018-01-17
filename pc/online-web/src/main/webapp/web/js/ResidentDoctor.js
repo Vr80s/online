@@ -202,3 +202,33 @@ $(".btn-upload").click(function(evt) {
 			
 		$(".btn-upload").css("color", "white");
 	})
+
+
+//问答下拉列表功能
+$('.wenda').click(function(){
+	$('.wenda_list').slideToggle();
+})
+
+//论坛下拉列表功能
+$('.luntan').click(function(){
+	$('.luntan_list').slideToggle();
+})
+
+//左侧鼠标移动上去变色效果
+$('#doctor_in_inf .news_nav ul li a').mouseenter(function(){
+	$(this).children('span').css('color','#00bc12')
+})
+//鼠标移除
+$('#doctor_in_inf .news_nav ul li a').mouseout(function(){
+	$(this).children('span').css('color','#cacbcb')
+})
+//点击变色效果
+$('#doctor_in_inf .news_nav ul li a').click(function(){
+	$('#doctor_in_inf .news_nav ul li a').removeClass('color');
+	$('#doctor_in_inf .news_nav ul li a > span').removeClass('color');
+	$(this).addClass('color');
+	$(this).children('span').addClass('color');
+	
+})
+
+
