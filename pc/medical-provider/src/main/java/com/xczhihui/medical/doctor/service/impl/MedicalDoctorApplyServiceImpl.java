@@ -1,11 +1,6 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.common.support.domain.Attachment;
-import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
-import com.xczhihui.bxg.common.support.service.AttachmentType;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
@@ -51,12 +46,15 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 参数校验
         this.validate(target);
 
-        // 如果该医师已申请 但状态未未处理或者已通过 则直接返回
         MedicalDoctorApply oldApply = this.get(target.getUserId());
         if(oldApply != null){
-            if(oldApply.getStatus().equals(MedicalDoctorApplyEnum.WAIT.getCode()) ||
-                    oldApply.getStatus().equals(MedicalDoctorApplyEnum.PASS.getCode())){
+            // 如果该医师已申请 但状态为：未处理 则直接返回
+            if(oldApply.getStatus().equals(MedicalDoctorApplyEnum.WAIT.getCode()) ){
                 throw new RuntimeException("您已提交申请，请等待管理员审核");
+            }else {
+                // 如果为其他状态 则表示需要重新认证
+                // 删除之前的申请
+                medicalDoctorApplyMapper.delete(target.getUserId());
             }
         }
 
@@ -106,15 +104,6 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
             }
         }
         return target;
-    }
-
-    /**
-     * 获取科室列表
-     * @return 科室列表
-     */
-    @Override
-    public List<MedicalDepartment> listDepartment() {
-        return medicalDepartmentMapper.getAll();
     }
 
     private void completeDepartmentField(MedicalDoctorApplyDepartment department, String id, Date now) {

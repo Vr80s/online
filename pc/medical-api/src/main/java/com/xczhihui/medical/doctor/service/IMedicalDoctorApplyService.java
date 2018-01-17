@@ -1,10 +1,6 @@
 package com.xczhihui.medical.doctor.service;
 
-
-import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
-
-import java.util.List;
 
 /**
  *  医师入驻申请服务类
@@ -25,17 +21,4 @@ public interface IMedicalDoctorApplyService {
      */
     MedicalDoctorApply get(String userId);
 
-    /**
-     * 获取科室列表
-     * @return 科室列表
-     */
-    List<MedicalDepartment> listDepartment();
-
-    /**
-     * 上传图片
-     * @param image 图片
-     * @param userId 上传人id
-     * @return 图片路径
-     */
-    String upload(byte[] image, String userId);
 }

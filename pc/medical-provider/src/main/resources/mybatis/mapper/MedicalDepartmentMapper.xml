@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.department.mapper.MedicalDepartmentMapper">
 
-	<select id="getAll" resultType="com.xczhihui.medical.department.model.MedicalDepartment">
+	<select id="page" resultType="com.xczhihui.medical.department.model.MedicalDepartment">
 		SELECT id, name
 		FROM medical_department
 	</select>

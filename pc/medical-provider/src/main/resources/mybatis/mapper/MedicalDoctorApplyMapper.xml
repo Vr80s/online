@@ -8,8 +8,14 @@
           title_prove, card_positive, card_negative, qualification_certificate,
           professional_certificate, status, create_time, remark
         FROM medical_doctor_apply
-        WHERE user_id = #{userId}
+        WHERE user_id = #{userId} AND deleted = 0
         ORDER BY create_time
         limit 1
      </select>
+
+    <update id="delete" parameterType="String">
+        UPDATE medical_doctor_apply
+        SET deleted = 1
+        WHERE user_id = #{userId}
+    </update>
 </mapper>
