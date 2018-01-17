@@ -36,6 +36,30 @@ requestService("/bxg/bunch/recommendTop",null,
 			alert("网络异常");
 		};
 },false)
+//精品课程
+requestService("/bxg/bunch/recommendBunch",null,function(data) {
+	if(data.success==true){
+		console.log(data)
+    	$(".first_box").html(template('shipin',{items:data.resultObject}))
+	
+
+			var myHeight=$(".tjks").height();
+			console.log(myHeight)
+			$(".gieTa").height(myHeight);
+			
+	
+	}
+	
+})
+
+
+
+
+
+
+
+
+
 
 })
 
