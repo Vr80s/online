@@ -2,12 +2,8 @@ package com.xczhihui.bxg.online.api.service;
 
 
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.api.vo.JobVo;
 
 /**

@@ -19,6 +19,13 @@ import com.xczhihui.wechat.course.vo.CourseLecturVo;
  */
 public interface CourseMapper extends BaseMapper<Course> {
 
-
+     //关注数
 	 List<CourseLecturVo> selectCoursePage(@Param("page") Page<CourseLecturVo> page);
+
+	 //粉丝数
+	 CourseLecturVo selectCourseById(@Param("courseId") Integer  courseId);
+	 
+	 CourseLecturVo selectCourseDetailsById(@Param("courseId") Integer  courseId);
+	 
+	 List<CourseLecturVo> selectLearningCourseListByUserId(@Param("userId")String userId);
 }

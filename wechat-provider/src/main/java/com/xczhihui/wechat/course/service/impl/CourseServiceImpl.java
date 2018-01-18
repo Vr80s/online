@@ -32,4 +32,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		List<CourseLecturVo> records = iCourseMapper.selectCoursePage(page);
 		return   page.setRecords(records);
 	}
+
+	@Override
+	public CourseLecturVo selectCourseDetailsById(Integer courseId) {
+		// TODO Auto-generated method stub
+		return iCourseMapper.selectCourseDetailsById(courseId);
+	}
+
+	@Override
+	public List<CourseLecturVo> selectLearningCourseListByUserId(String id) {
+		// TODO Auto-generated method stub
+		List<CourseLecturVo> listAll = iCourseMapper.selectLearningCourseListByUserId(id);
+		return listAll;
+	}
 }

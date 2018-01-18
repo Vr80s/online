@@ -5,7 +5,9 @@ import com.xczh.consumer.market.dao.FocusMapper;
 import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.wxpay.entity.FocusVo;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
