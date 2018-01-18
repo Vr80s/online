@@ -90,6 +90,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
 
             }
         }
+        return null;
     }
 
     private void completeDepartmentField(MedicalDoctorApplyDepartment department, String id, Date now) {

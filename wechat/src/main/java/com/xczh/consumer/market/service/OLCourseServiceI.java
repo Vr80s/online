@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import com.xczh.consumer.market.vo.*;
+import com.xczhihui.wechat.course.model.OfflineCity;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -58,7 +59,7 @@ public interface OLCourseServiceI {
 	 *
 	 */
 	public List<CourseLecturVo> offLineClassList( int number,
-											 int pageSize)throws SQLException;
+											 int pageSize,List<OfflineCity> cityList)throws SQLException;
 
 	/**
 	 * 线下培训班详情

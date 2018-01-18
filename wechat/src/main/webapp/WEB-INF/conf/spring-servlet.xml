@@ -150,6 +150,7 @@
 	<!--学堂-->
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileBannerService" id="mobileBannerServiceImpl" timeout="5000"/>
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="5000"/>
+	<dubbo:reference interface="com.xczhihui.wechat.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="5000"/>
 
 
 </beans>

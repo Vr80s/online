@@ -3,6 +3,7 @@ package com.xczh.consumer.market.dao;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.springframework.stereotype.Repository;
 
@@ -17,30 +18,74 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 	public List<CourseLecturVo> findLiveListInfo(int pageNumber, int pageSize, String queryParam) throws SQLException {
 		// TODO Auto-generated method stub  
 		StringBuffer sql = new StringBuffer("");
-		sql.append("select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
 		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
 		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
-		//sql.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  // 观看状态  
-		sql.append(" if(c.course_pwd is not null,2,if(c.is_free = 0,1,0)) as watchState, ");  // 观看状态  
-		sql.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
 		//观看人数
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
-		
-		sql.append(" live_status as  lineState ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '正在直播' as note");
 		sql.append(" from oe_course c,oe_user ou ");
 		sql.append(" where  c.user_lecturer_id = ou.id and  c.is_delete=0 and c.status = 1 and ou.status =0 and c.type=1  ");
-		//房间编号/主播/课程
-		if(queryParam!=null && !"".equals(queryParam) && !"null".equals(queryParam)){
-			sql.append(" and ("); 
-			sql.append(" ou.room_number like '%"+ queryParam + "%'"); 
-			sql.append(" or "); 
-			sql.append(" ou.name like '%"+ queryParam + "%'"); 
-			sql.append(" or "); 
-			sql.append(" c.grade_name like '%"+ queryParam + "%')"); 
-		}
-		sql.append(" order by  c.live_status,c.start_time desc ");
-		return super.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(),pageNumber,pageSize,CourseLecturVo.class,null);
+		//直播中
+		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY) and c.start_time < now()");
+		sql.append(" order by  c.recommend_sort desc ,c.start_time desc  limit 0,12)");
+		sql.append("  union all ");
+
+		//即将直播
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
+		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '即将直播' as note");
+		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" where  c.user_lecturer_id = ou.id and  c.is_delete=0 and c.status = 1 and ou.status =0 and c.type=1  ");
+
+		sql.append(" and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now()");
+		sql.append(" order by  c.recommend_sort desc ,c.start_time asc  limit 0,4)");
+		sql.append("  union all ");
+
+		//直播课程
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
+		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '直播课程' as note");
+		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" where  c.user_lecturer_id = ou.id and  c.is_delete=0 and c.status = 1 and ou.status =0 and c.type=1  ");
+
+		sql.append(" and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
+		sql.append(" order by  c.recommend_sort desc ,c.start_time asc  limit 0,4)");
+		sql.append("  union all ");
+
+		//精彩回放课程
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
+		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '精彩直播回放' as note");
+		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" where  c.user_lecturer_id = ou.id and  c.is_delete=0 and c.status = 1 and ou.status =0 and c.type=1  ");
+
+		sql.append(" and c.live_status = 3 ");
+		sql.append(" order by  c.recommend_sort desc ,c.start_time desc  limit 0,4)");
+
+		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseLecturVo.class));
 	}
     
 	public CourseLecturVo liveDetailsByCourseId(int course_id) throws SQLException {
