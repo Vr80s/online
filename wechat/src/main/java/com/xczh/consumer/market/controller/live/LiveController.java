@@ -60,7 +60,7 @@ import com.xczhihui.bxg.online.api.service.LiveExamineInfoService;
  * Create Time: 2017年8月10日<br>
  */
 @Controller
-@RequestMapping("/bxg/live1")
+@RequestMapping("/bxg/live")
 public class LiveController {
 
 	@Autowired
@@ -213,14 +213,12 @@ public class LiveController {
 		int course_id =Integer.parseInt(req.getParameter("course_id"));
 		CourseLecturVo courseLecturVo  = null;
 		if(null == user){
-			
 			 courseLecturVo = onlineCourseService.
 					liveDetailsByCourseId(course_id,null); //课程简介
 			 if(null == courseLecturVo){
 					return ResponseObject.newErrorResponseObject("获取课程数据有误");
 			 }
 		}else{
-			
 			courseLecturVo = onlineCourseService.
 				liveDetailsByCourseId(course_id,user.getId()); //课程简介
 			

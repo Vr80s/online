@@ -37,7 +37,7 @@
 	</select>
 	
 	<!-- 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
-	<select id="selectCourseDetailsById" resultType="java.util.Map">
+	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
