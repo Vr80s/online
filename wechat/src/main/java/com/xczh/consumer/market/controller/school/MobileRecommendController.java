@@ -33,7 +33,7 @@ import java.util.Map;
  * Create Time: 2017年8月11日<br>
  */
 @Controller
-@RequestMapping("/bxg/bunch")
+@RequestMapping("/xczh/recommend")
 public class MobileRecommendController {
 
 	@Autowired
@@ -93,7 +93,7 @@ public class MobileRecommendController {
 	/**
 	 * 推荐      包含的下面的课程 :精品课程, 最新课程, 分类课程
 	 */
-	@RequestMapping("recommendBunch")
+	@RequestMapping("recommendCourse")
 	@ResponseBody
 	public ResponseObject recommendBunch(HttpServletRequest req,
 										   HttpServletResponse res, Integer id)
