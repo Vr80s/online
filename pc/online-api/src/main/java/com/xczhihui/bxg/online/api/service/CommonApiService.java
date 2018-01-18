@@ -24,6 +24,4 @@ public interface CommonApiService {
 	 * @return
 	 */
 	List<JobVo> getJob(String group);
-	
-
 }

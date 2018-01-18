@@ -8,6 +8,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.medical.department.model.MedicalDepartment;
 
 /**
  * <p>
@@ -137,6 +138,12 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 	 */
 	@TableField(exist = false)
 	private List<MedicalDoctorApplyDepartment> departments;
+
+	/**
+	 * 医师入驻申请关联的科室详情列表
+	 */
+	@TableField(exist = false)
+	private List<MedicalDepartment> medicalDepartments;
 
 	/**
 	 * 擅长领域
@@ -349,6 +356,14 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 
 	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
+	}
+
+	public List<MedicalDepartment> getMedicalDepartments() {
+		return medicalDepartments;
+	}
+
+	public void setMedicalDepartments(List<MedicalDepartment> medicalDepartments) {
+		this.medicalDepartments = medicalDepartments;
 	}
 
 	@Override

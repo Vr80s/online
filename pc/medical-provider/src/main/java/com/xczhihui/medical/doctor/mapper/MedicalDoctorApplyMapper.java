@@ -19,4 +19,10 @@ public interface MedicalDoctorApplyMapper extends BaseMapper<MedicalDoctorApply>
      * @return 入驻申请信息
      */
     MedicalDoctorApply getLastOne(String userId);
+
+    /**
+     * 删除入驻申请信息
+     * @param userId 用户id
+     */
+    void delete(String userId);
 }

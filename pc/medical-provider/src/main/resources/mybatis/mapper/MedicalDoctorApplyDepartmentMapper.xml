@@ -20,6 +20,6 @@
 	<select id="getByDoctorApplyId" parameterType="String" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment">
 		SELECT id, doctor_apply_id, department_id
 		FROM medical_doctor_apply_department
-		WHERE id = #{id}
+		WHERE doctor_apply_id = #{id}
 	</select>
 </mapper>

@@ -9,6 +9,9 @@
 				$(".btn-up").attr("onclick","btn_up()")
 			},2000)
 		}
+		else{
+			location.href="../html/phy_examine.html"
+		}
 	}
 		
 

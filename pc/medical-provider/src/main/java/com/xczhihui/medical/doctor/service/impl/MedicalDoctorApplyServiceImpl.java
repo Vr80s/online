@@ -46,6 +46,18 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 参数校验
         this.validate(target);
 
+        MedicalDoctorApply oldApply = this.get(target.getUserId());
+        if(oldApply != null){
+            // 如果该医师已申请 但状态为：未处理 则直接返回
+            if(oldApply.getStatus().equals(MedicalDoctorApplyEnum.WAIT.getCode()) ){
+                throw new RuntimeException("您已提交申请，请等待管理员审核");
+            }else {
+                // 如果为其他状态 则表示需要重新认证
+                // 删除之前的申请
+                medicalDoctorApplyMapper.delete(target.getUserId());
+            }
+        }
+
         // 生成主键
         String id = UUID.randomUUID().toString().replace("-","");
         target.setId(id);
@@ -68,29 +80,29 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     }
 
     /**
-     * 根据userId获取医师入驻申请信息
+     * 根据userId获取用户最后一条医师入驻申请信息
      * @param userId 用户id
      * @return 医师入驻申请信息
      */
     @Override
-    public MedicalDoctorApply get(String userId) {
+    public MedicalDoctorApply getLastOne(String userId) {
         MedicalDoctorApply target = medicalDoctorApplyMapper.getLastOne(userId);
         if(target != null){
             // 获取申请入驻时关联的科室
             List<MedicalDoctorApplyDepartment> departmentList =
                     applyDepartmentMapper.getByDoctorApplyId(target.getId());
             // 获取科室名称
-            if(departmentList != null && (!departmentList.isEmpty())){
+            if(departmentList != null){
                 List<String> ids = new ArrayList<>();
                 for(MedicalDoctorApplyDepartment department : departmentList){
                     ids.add(department.getDepartmentId());
                 }
                 List<MedicalDepartment> medicalDepartments =
                         medicalDepartmentMapper.selectBatchIds(ids);
-
+                target.setMedicalDepartments(medicalDepartments);
             }
         }
-        return null;
+        return target;
     }
 
     private void completeDepartmentField(MedicalDoctorApplyDepartment department, String id, Date now) {
