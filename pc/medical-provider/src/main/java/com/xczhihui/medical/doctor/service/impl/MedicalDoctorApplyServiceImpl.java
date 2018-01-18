@@ -46,7 +46,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 参数校验
         this.validate(target);
 
-        MedicalDoctorApply oldApply = this.get(target.getUserId());
+        MedicalDoctorApply oldApply = this.getLastOne(target.getUserId());
         if(oldApply != null){
             // 如果该医师已申请 但状态为：未处理 则直接返回
             if(oldApply.getStatus().equals(MedicalDoctorApplyEnum.WAIT.getCode()) ){
