@@ -44,7 +44,7 @@ requestService("/bxg/bunch/recommendBunch",null,function(data) {
 	
 
 			var myHeight=$(".tjks").height();
-			console.log(myHeight)
+
 			$(".gieTa").height(myHeight);
 			
 	
