@@ -27,7 +27,7 @@ import java.util.Map;
  * Create Time: 2017年8月11日<br>
  */
 @Controller
-@RequestMapping("/bxg/live")
+@RequestMapping("/xczh/live")
 public class MobileLiveController {
 
 	@Autowired

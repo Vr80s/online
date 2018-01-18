@@ -21,7 +21,7 @@ import java.util.Map;
  * Create Time: 2017年8月11日<br>
  */
 @Controller
-@RequestMapping("/bxg/bunch")
+@RequestMapping("/xczh/bunch")
 public class MobileHotSearchController {
 
 	@Autowired
