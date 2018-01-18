@@ -415,19 +415,25 @@ public class BunchPlanController {
 		List<Map<String, Object>> listTj = new ArrayList<Map<String, Object>>();
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		Map<String, Object> map2 = new HashMap<String, Object>();
+		Map<String, Object> map3 = new HashMap<String, Object>();
 		map1.put("tid", "1");
-		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
-		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
 		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
 		
-		
 		map2.put("tid", "2");
-		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
-		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
 		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
+		
+		map3.put("tid", "3");
+		map3.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map3.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map3.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
 		
 		listTj.add(map1);
 		listTj.add(map2);
+		listTj.add(map3);
 		
 		mapAll.put("banner", listTj);
 		
@@ -477,7 +483,6 @@ public class BunchPlanController {
 	public ResponseObject recommendBunch(HttpServletRequest req,
 										   HttpServletResponse res, Integer id)
 			throws Exception {
-		
 		/**
 		 * 精品课程 按照购买人数来排序。
 		 * 最新课程 课程的时间排序
@@ -508,8 +513,8 @@ public class BunchPlanController {
 		mapTj.put("title","精品课程");
 		mapTj.put("courseList",listTj);
 		
-		mapTj.put("title","最新课程");
-		mapTj.put("courseList",listNw);
+		mapNw.put("title","最新课程");
+		mapNw.put("courseList",listNw);
 		
 		mapCourseList.add(mapTj);
 		mapCourseList.add(mapNw);
@@ -555,14 +560,14 @@ public class BunchPlanController {
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map1.put("tid", "1");
-		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
-		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
 		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
 		
 		
 		map2.put("tid", "2");
-		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
-		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
 		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
 		
 		listTj.add(map1);
@@ -633,6 +638,7 @@ public class BunchPlanController {
 	
 	/*****************************************
 	 * 
+	 * 
 	 * 		检索管理
 	 * 
 	 * **************************************
@@ -677,14 +683,14 @@ public class BunchPlanController {
 		Map<String, Object> map1 = new HashMap<String, Object>();
 		Map<String, Object> map2 = new HashMap<String, Object>();
 		map1.put("tid", "1");
-		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2017/11/20/16/635c0d0086bb4260878588df27ac833a.jpg");
-		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map1.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map1.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
 		map1.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
 		
 		
 		map2.put("tid", "2");
-		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
-		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/online/2018/01/02/14/915ddfe29efa467e8a3726598d83c429.jpg");
+		map2.put("imgUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
+		map2.put("linkUrl", "http://attachment-center.ixincheng.com:38080/data/picture/other/2018/01/15/15/b314f3bd410f49d090ad058fd31da5c5.jpg");
 		map2.put("linkType", "1"); //活动页、专题页、课程、主播、课程列表（带筛选条件）；
 		
 		listTj.add(map1);

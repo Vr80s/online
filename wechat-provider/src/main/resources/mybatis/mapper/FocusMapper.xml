@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.FocusMapper">
+	
+	<!-- 返回的map 第一个是我的粉丝总数         第二个是我的关注总数 -->
+	<select id="selectFocusAndFansCount" resultType="java.lang.Integer">
+	    ( select count(*)  from oe_focus of
+	      inner join oe_user as ou on of.user_id = ou.id 
+	      where  of.lecturer_id =#{userId}  and 
+	      and ou.is_delete = 0  and ou.status = 0  group by of.user_id )
+	    	UNION ALL     
+	    ( select count(*) as Focus from oe_focus as of
+	      inner join oe_user as ou on of.lecturer_id = ou.id	
+		  where of.user_id = #{userId} and  ou.is_delete = 0  
+		   and ou.status = 0   group by  of.lecturer_id  )
+	</select>
+	
+	<!-- 我的关注列表  -->
+	<select id="selectFocusList" resultType="com.xczhihui.wechat.course.vo.FocusVo">
+	    select of.lecturer_id as lecturerId,user_id as userId,ou.name as lecturerName,ou.small_head_photo as lecturerHeadImg, 
+		from oe_focus as of
+		inner join oe_user as ou on of.lecturer_id = ou.id
+		where of.user_id =#{userId}  and ou.is_delete = 0  and ou.status = 0
+	
+	</select>
+    <!-- 我的粉丝列表  -->
+	<select id="selectFansList" resultType="com.xczhihui.wechat.course.vo.FocusVo">
+	    select  user_id as lecturerId,ou.name as lecturerName,ou.small_head_photo as lecturerHeadImg 
+		from oe_focus as of 
+		inner join oe_user as ou  of.user_id = ou.id
+		where of.lecturer_id =#{userId}   and ou.is_delete = 0  and ou.status = 0
+	</select>
+	
+	<!-- 是否关注  0 未关注 大于 关注 -->
+	<select id="isFoursLecturer" resultType="java.lang.Integer">
+	   select count(*) from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId} 
+	</select>
+	
+	<!-- 根据id和 -->
+	<select id="findFoursByUserIdAndlecturerId" resultType="com.xczhihui.wechat.course.model.Focus" >
+		select * from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId}
+	</select>
+</mapper>

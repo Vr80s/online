@@ -34,6 +34,7 @@
 		<module>../online-api</module>
 		<module>../online-common</module>
 		<module>../medical-api</module>
+		<module>../../wechat-api</module>
 	</modules>
 	
 	<dependencyManagement>

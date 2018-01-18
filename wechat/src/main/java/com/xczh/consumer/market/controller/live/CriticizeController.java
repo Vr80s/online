@@ -53,7 +53,7 @@ public class CriticizeController {
 	/**
 	 * 得到此视频下的所有评论
 	 */
-	@RequestMapping("getVideoCriticize")
+	@RequestMapping("getCriticizeList")
 	@ResponseBody
 	public ResponseObject getVideoCriticize(HttpServletRequest req,
 			HttpServletResponse res, Map<String, String> params)

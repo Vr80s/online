@@ -96,8 +96,6 @@ public class CommonController {
 		 * 得到讲师   主要是房间号，缩略图的信息啦
 		 */
 		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
-	     	
-		
 		/**
 		 * 粉丝总数 
 		 */
@@ -106,7 +104,6 @@ public class CommonController {
 		 * 关注总数 
 		 */
 		Integer focusCount  = focusService.findMyFocusCount(lecturerId);
-		
 		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		mapAll.put("fansCount", fansCount);       		   //粉丝总数
@@ -192,8 +189,6 @@ public class CommonController {
 		int pageSize = Integer.parseInt(pageSizeS);
 		try {
 			List<CourseLecturVo> list = onlineCourseService.liveAndBunchAndAudio(lecturerId,pageNumber,pageSize,type!=null ? Integer.parseInt(type):1);
-			
-			
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (Exception e) {
 			e.printStackTrace();

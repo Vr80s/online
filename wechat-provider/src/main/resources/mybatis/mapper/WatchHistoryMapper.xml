@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.WatchHistoryMapper">
+	<select id="selectWatchHistory" resultType="com.xczhihui.wechat.course.vo.WatchHistoryVO">
+		SELECT
+		  owh.*,oc.smallimg_path as smallImgPath,ou.name as lecturerName
+		FROM
+		  oe_watch_history1 owh,oe_course oc,oe_user ou 
+		where  owh.lecturer_id = ou.id and owh.course_id = oc.id
+	</select>		  
+	
+<!-- 	@Param("userId") Integer type, @Param("courseId") -->
+	<select id="findWatchHistoryByUserIdAndCourseId" resultType="com.xczhihui.wechat.course.model.WatchHistory" >
+		SELECT
+		  *
+		FROM
+		  oe_watch_history1 owh where owh.user_id = #{userId}
+		  and  owh.course_id = #{courseId}
+	</select>
+	
+    <select id="findWatchHistoryByUserId" resultType="com.xczhihui.wechat.course.model.WatchHistory" >
+		SELECT
+		  *
+		FROM
+		  oe_watch_history1 owh where owh.user_id = #{userId}
+	</select>
+	
+	<delete  id="deleteBatch">    
+        delete  from  oe_watch_history1  	
+       	  where id  
+        <foreach collection="list" item="model" open="(" separator="," close=")" >    
+            	#{model.id}
+        </foreach>  
+	</delete >
+	
+</mapper>
