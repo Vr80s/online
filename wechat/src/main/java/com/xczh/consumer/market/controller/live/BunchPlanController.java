@@ -41,7 +41,7 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
  * Create Time: 2017年8月11日<br>
  */
 @Controller
-@RequestMapping("/bxg/bunch")
+@RequestMapping("/bxg/bunch1")
 public class BunchPlanController {
 
 	@Autowired
@@ -246,7 +246,7 @@ public class BunchPlanController {
 	/**
 	 * 线下培训班列表
 	 */
-	@RequestMapping("offLineClassList")
+	/*@RequestMapping("offLineClassList")
 	@ResponseBody
 	public ResponseObject offLineClassList(HttpServletRequest req,
 									   HttpServletResponse res, Map<String, String> params)
@@ -266,16 +266,16 @@ public class BunchPlanController {
 			pageSize = Integer.valueOf(e);
 		}
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(number, pageSize);
-		/**
+		*//**
 		 * 循环把城市展示出来
-		 */
+		 *//*
 		for (CourseLecturVo courseLecturVo : list) {
 			String city = courseLecturVo.getAddress();
 			String [] citys = city.split("-");
 			courseLecturVo.setCity(citys[1]);
-			/*
+			*//*
 			 * 我感觉这里的发挥下后台的作用了
-			 */
+			 *//*
 //			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),1);
 //			if(falg){
 //				courseLecturVo.setCutoff(0);
@@ -285,7 +285,7 @@ public class BunchPlanController {
 		}
 		LOGGER.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
-	}
+	}*/
 	
 	public static void main(String[] args) {
 		Calendar calendar = Calendar.getInstance();
@@ -404,7 +404,7 @@ public class BunchPlanController {
 	/**
 	 * 推荐中 上不包含的信息
 	 */
-	@RequestMapping("recommendTop")
+	@RequestMapping("recommendTop1")
 	@ResponseBody
 	public ResponseObject recommendTop(HttpServletRequest req,
 										   HttpServletResponse res, Integer id)
@@ -478,7 +478,7 @@ public class BunchPlanController {
 	/**
 	 * 推荐中包含的下面的课程
 	 */
-	@RequestMapping("recommendBunch")
+	@RequestMapping("recommendBunch1")
 	@ResponseBody
 	public ResponseObject recommendBunch(HttpServletRequest req,
 										   HttpServletResponse res, Integer id)
@@ -617,16 +617,16 @@ public class BunchPlanController {
 		Map<String,Object> mapZz = new HashMap<String, Object>();
 		
 		
-		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5);
+		//List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5);
 		
 		mapTj.put("title","全国城市");
-		mapTj.put("courseList",list);
+		mapTj.put("courseList","");
 		
 		mapNw.put("title","上海城市");
-		mapNw.put("courseList",list);
+		mapNw.put("courseList","");
 		
 		mapZz.put("title","郑州城市");
-		mapZz.put("courseList",list);
+		mapZz.put("courseList","");
 		
 		mapCourseList.add(mapTj);
 		mapCourseList.add(mapNw);
@@ -702,10 +702,10 @@ public class BunchPlanController {
 	    List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		
 		Map<String,Object> mapTj = new HashMap<String, Object>();
-		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5);
+		//List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5);
 		
 		mapTj.put("title","听课推荐");
-		mapTj.put("courseList",list);
+		mapTj.put("courseList","");
 		mapCourseList.add(mapTj);
 		mapAll.put("allCourseList",mapCourseList);
 		

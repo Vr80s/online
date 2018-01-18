@@ -1084,6 +1084,7 @@ header{
 .boutique_main_one_size .p2{
 	height: 0.51rem;
     line-height: 0.51rem;
+    float: left;
 }
 .boutique_main_one_size .p2 img{
 	width: 0.404rem;
@@ -1098,8 +1099,30 @@ header{
     display: inline-block;
     max-width: 2rem;
 }
+.boutique_main_one_size .p3{
+	    float: right;
+    margin-right: 0.4rem;
+        margin-top: -0.1rem;
 
+}
+   
+ .boutique_main_one_size .p3 img{
+	 width: 0.45rem;
+    float: left;
 
+}
+.boutique_main_one_size .p3 span{
+	    float: right;
+		color: #999999;
+		margin-top: -0.1rem;
+
+}
+.boutique_main_one_size .p4{
+	margin-top: 0.01rem;
+}
+.boutique_main_one_size .p4 img{
+	width: 0.5rem;
+}
 /*直播*/
 .boutique_main_two{
 	width: 7.234rem;

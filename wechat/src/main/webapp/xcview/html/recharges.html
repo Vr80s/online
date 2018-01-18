@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+	<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<head>
+<meta charset="UTF-8">
+<title>熊猫中医</title>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/js.js"></script>
+
+
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
+<!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
+<!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
+<!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
+<link rel="stylesheet" type="text/css" href="/xcview/css/recharges.css" />
+
+
+
+
+<style>
+
+</style>
+
+
+<body style="background: #F8F8F8;">
+	<!--头部搜索开始-->
+	<header>
+		<div class="header">
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png">
+			</div>
+			<div class="header_title">充值</div>
+		</div>
+	</header>
+	<!--头部搜索结束-->
+	
+	<!--中间内容开始-->
+	<div class="recharges">
+		<div class="recharges_limit">
+			<div class="recharges_limit_title">选择充值的额度</div>
+			<div class="recharges_limit_list">
+				<ul id="ul">
+					<li class="li" id="one_li_bg">
+						<p class="p0"><span>50</span>熊猫币</p>
+						<p class="p1">￥<span>50</span>元</p>
+					</li>
+					<li class="li">
+						<p class="p0"><span>100</span>熊猫币</p>
+						<p class="p1">￥<span>100</span>元</p>
+					</li>
+					<li class="li">
+						<p class="p0"><span>200</span>熊猫币</p>
+						<p class="p1">￥<span>200</span>元</p>
+					</li>
+					<li class="li" id="one_li_bg">
+						<p class="p0"><span>500</span>熊猫币</p>
+						<p class="p1">￥<span>500</span>元</p>
+					</li>
+					<li class="li">
+						<p class="p0"><span>1000</span>熊猫币</p>
+						<p class="p1">￥<span>1000</span>元</p>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+		<div class="recharges_polite">
+			<div class="recharges_polite_title">充值有礼</div>
+			<div class="recharges_polite_gift">
+				<div class="recharges_polite_gift_img">
+					<img src="../images/" />
+				</div>
+				<div class="recharges_polite_gift_cen">
+					<p class="p0">首充礼包：送50熊猫币</p>
+					<p class="p1">内含：10熊猫币优惠券1张；20熊猫币优惠券2张</p>
+				</div>
+			</div>
+			<div class="recharges_polite_gift">
+				<div class="recharges_polite_gift_img">
+					<img src="../images/" />
+				</div>
+				<div class="recharges_polite_gift_cen">
+					<p class="p0">土豪礼包：充1000送500</p>
+					<p class="p1">内含：50熊猫币优惠券5张；25熊猫币优惠券10张</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--中间内容结束-->
+	<!--底部开始-->
+	<!--<div class="footer_perch"></div>-->
+	<div class="footer">
+		<div class="footer_div_btn">去充值</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
+	</div>
+	<!--底部结束-->
+	
+	<!--充值成功-->
+	<div class="success">
+		<div class="success_bg"></div>
+		<div class="success_main">
+			<div class="one">充值成功</div>
+			<div class="two">礼包已送到，可以在我的优惠券里找到</div>
+			<div class="three">确定</div>
+		</div>
+	</div>
+	
+	<!--充值失败-->
+	<div class="defeated">
+		<div class="defeated_bg"></div>
+		<div class="defeated_main">
+			<div class="one">充值失败</div>
+			<div class="two">对不起，支付没有成功，麻烦再试一次吧</div>
+			<div class="three">
+				<div class="three_btn0">取消</div>
+				<div class="three_btn1">确定</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</body>
+
+
+
+
+
+
+<!--点击更多隐藏显示结束-->
+<script type="text/javascript">
+	window.onload = function(){	
+		var aBtn=$('#ul li');
+      	for(i=0;i<aBtn.length;i++){
+	        $(aBtn[i]).click(function(){
+	          for(i=0;i<aBtn.length;i++){
+	            $(aBtn[i]).removeClass('li0');
+	            $(aBtn[i]).addClass('li');
+//	            $(aBtn[i]).find(".ul_li_bg").show();
+	        }
+	          	$(this).removeClass();
+	          	$(this).addClass('li0');
+//	           	$(aBtn[i]).find(".ul_li_bg").hide();
+	        })
+      	}
+      	$(aBtn[0]).click();
+	};
+</script>
+
+
+
+
+</html>

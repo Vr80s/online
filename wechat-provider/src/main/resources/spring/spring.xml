@@ -38,4 +38,6 @@
     <dubbo:service interface="com.xczhihui.wechat.course.service.IWatchHistoryService" ref="watchHistoryServiceImpl" timeout="${dubbo.consumer.timeout}" />
     <!-- 我的关注，我的粉丝service -->
     <dubbo:service interface="com.xczhihui.wechat.course.service.IFocusService" ref="focusServiceRemote" timeout="${dubbo.consumer.timeout}" />
+    
+    <dubbo:service interface="com.xczhihui.wechat.course.service.IOfflineCityService" ref="offlineCityServiceImpl" timeout="${dubbo.consumer.timeout}" />
 </beans>

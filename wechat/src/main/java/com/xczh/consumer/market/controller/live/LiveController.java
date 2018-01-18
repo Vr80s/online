@@ -60,7 +60,7 @@ import com.xczhihui.bxg.online.api.service.LiveExamineInfoService;
  * Create Time: 2017年8月10日<br>
  */
 @Controller
-@RequestMapping("/bxg/live")
+@RequestMapping("/bxg/live1")
 public class LiveController {
 
 	@Autowired
