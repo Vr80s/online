@@ -1,0 +1,214 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+body{color: #333333;font-size: 0.28rem;}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+p{font-size: 0.28rem;}
+img{display: block;}
+.wp{width: 7.5rem;margin: 0 auto;}
+/*医师认证*/
+.wrap-header{
+	width: 100%;
+	height: 0.88rem;	
+
+}
+.header{
+	width: 100%;
+	height: 0.88rem;	
+	text-align: center;
+	line-height: 0.88rem;
+	overflow: hidden;
+	position: fixed;
+	border-bottom: 1px solid #d8dde6;	
+	background: white;
+}
+.header p{
+	font-size: 0.36rem;
+	color: #333333;
+	
+}
+.header_news{
+	width: 0.42rem;
+	height:0.38rem;
+	position: absolute;
+	z-index: 10;
+	top: 0.25rem;
+	right:0.26rem;
+}
+.header_news img{
+	width: 0.42rem;
+	height:0.38rem;
+}
+.header_news_rudio{
+	    position: absolute;
+    top: -0.15rem;
+    right: -0.13rem;
+    width: 0.32rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    background: #F97B49;
+    font-size: 0.2rem;
+    text-align: center;
+    color: #fff;
+    border-radius: 60px;
+}
+/*播放历史*/
+.wrap-his-play{
+	width: 100%;
+	padding: 0.3rem 0 0 0.26rem;
+	margin-top: 0.2rem;
+	background: white;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.play-title span{
+	float: left;
+	font-size:0.32rem;
+
+}
+.play-title p{
+	float: right;
+	color:#00BC12;
+	margin-right: 0.26rem;
+}
+.play-title{
+	overflow: hidden;
+	margin-bottom: 0.1rem;
+}
+.play_list{
+	width: 100%;
+	
+}
+.play_list ul li{
+	padding: 0.2rem 0;
+	border-bottom: 1px solid #D8DDE6;
+	overflow: hidden;
+}
+.play_list ul li p{
+	width: 5.2rem;
+	float: left;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.play_list ul li span{
+	display: block;
+	float: right;
+	width: 1.5rem;
+	color: #999999;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+margin-right: 0.26rem;
+font-size: 0.24rem;
+text-align: right;
+}
+.play_list ul li:nth-last-child(1){
+	border-bottom: 0;
+}
+.wrap_class{
+	width: 100%;
+	padding: 0.25rem 0 0 0.26rem;
+	margin-top: 0.2rem;
+	background: white;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.my_class_title{
+	font-size: 0.32rem;
+	padding-bottom: 0.2rem;
+
+}
+.my_class_text{
+	    width: 100%;
+    padding: 0.1rem 0.26rem 0.3rem 0;
+    box-sizing: border-box;
+	border-bottom: 0.01rem solid #D8DDE6;
+	    overflow: hidden;
+    
+}
+.my_class_img{
+	width: 2.12rem;
+	height: 1.22rem;
+	margin-right: 0.2rem;
+	position: relative;
+}
+.my_class_img img{
+	width: 100%;
+	height: 100%;
+}
+.little_img{
+width: 0.32rem;
+height: 0.32rem;
+position: absolute;
+top: 0.13rem;
+left: 0.13rem;	
+}
+.text_more{
+display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 2;
+overflow: hidden;
+padding-bottom: 0.1rem;
+}
+.my_class_text:nth-last-child(1){
+	border-bottom: 0;
+}
+/*多少集*/
+.my_collection{
+	font-size: 0.22rem;
+color: #999999;
+}
+/*直播中*/
+.paly_ing{
+	width: 0.98rem;
+	height: 0.32rem;
+	font-size: 0.24rem;
+	text-align: center;
+	line-height: 0.32rem;
+	border: 1px solid #F97B49;
+	float: left;
+	color: #F97B49;
+}
+/*关注的主播*/
+.wrap-follow{
+	width: 100%;
+	padding: 0.3rem 0.26rem;
+	margin-top: 0.2rem;
+	background: white;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
+.follow_title{
+	font-size: 0.32rem;
+	color: #2F2F2F;
+}
+.follow_people ul li{
+	width: 1rem;
+	height: 1.39rem;
+	float: left;
+    margin-right: 0.49rem;
+    margin-top: 0.25rem;
+}
+.follow_people ul li:nth-child(5n){
+	margin-right: 0;
+}
+.follow_people ul li P{
+	text-align: center;
+	font-size: 0.22rem;
+	margin-top: 0.09rem;
+}
+.img_people{
+	width: 1rem;
+	height: 1rem;
+}
+.img_people img{
+	width: 100%;
+	height: 100%;
+}
