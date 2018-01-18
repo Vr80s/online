@@ -19,6 +19,6 @@ public interface IMedicalDoctorApplyService {
      * @param userId 用户id
      * @return 医师入驻申请信息
      */
-    MedicalDoctorApply get(String userId);
+    MedicalDoctorApply getLastOne(String userId);
 
 }

@@ -80,14 +80,13 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     }
 
     /**
-     * 根据userId获取医师入驻申请信息
+     * 根据userId获取用户最后一条医师入驻申请信息
      * @param userId 用户id
      * @return 医师入驻申请信息
      */
     @Override
-    public MedicalDoctorApply get(String userId) {
+    public MedicalDoctorApply getLastOne(String userId) {
         MedicalDoctorApply target = medicalDoctorApplyMapper.getLastOne(userId);
-        System.out.println(target.toString());
         if(target != null){
             // 获取申请入驻时关联的科室
             List<MedicalDoctorApplyDepartment> departmentList =

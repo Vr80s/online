@@ -85,15 +85,15 @@ public class DoctorApplyController {
     /**
      * 根据用户id获取医师入驻申请信息
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseObject get(HttpServletRequest request){
+    @RequestMapping(value = "getLastOne", method = RequestMethod.GET)
+    public ResponseObject getLastOne(HttpServletRequest request){
 
         // 获取当前用户
         OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
         if (loginUser == null) {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
-        return ResponseObject.newSuccessResponseObject(applyService.get(userService.getUserData(loginUser).getUid()));
+        return ResponseObject.newSuccessResponseObject(applyService.getLastOne(userService.getUserData(loginUser).getUid()));
     }
 
     /**
