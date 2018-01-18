@@ -205,6 +205,7 @@
 	border: 1px solid #F0F0F0;
 	outline: none;
 	text-indent: 1em;
+	font-size: 14px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
 .contentWrap #zhuanlan .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
@@ -237,6 +238,7 @@
 	outline: none;
 	padding-top:10px;
 	text-indent: 1em;
+	font-size: 14px;
 }
 .contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea::-webkit-input-placeholder,
 .contentWrap #zhuanlan .zhuanlan_bottom form .neirong textarea:-moz-placeholder,
@@ -384,6 +386,7 @@
 	border: 1px solid #F0F0F0;
 	outline: none;
 	text-indent: 1em;
+	font-size: 14px;
 }
 .wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
 .wrap_box  #resource .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
