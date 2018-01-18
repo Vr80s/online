@@ -41,7 +41,7 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
  * Create Time: 2017年8月11日<br>
  */
 @Controller
-@RequestMapping("/bxg/bunch1")
+@RequestMapping("/bxg/bunch")
 public class BunchPlanController {
 
 	@Autowired

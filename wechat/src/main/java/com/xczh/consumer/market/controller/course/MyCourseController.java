@@ -31,7 +31,7 @@ import com.xczhihui.wechat.course.vo.CourseLecturVo;
  * Create Time: 2017年8月11日<br>
  */
 @Controller
-@RequestMapping("/bxg/myinfo")
+@RequestMapping("/xczh/myinfo")
 public class MyCourseController {
 
 	@Autowired

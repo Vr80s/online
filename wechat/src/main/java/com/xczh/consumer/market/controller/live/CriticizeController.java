@@ -20,7 +20,7 @@ import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.domain.Criticize;
 
 @Controller
-@RequestMapping(value = "/bxg/criticize")
+@RequestMapping(value = "/xczh/criticize")
 public class CriticizeController {
 
 

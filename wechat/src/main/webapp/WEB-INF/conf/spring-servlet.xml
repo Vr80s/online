@@ -137,9 +137,9 @@
 	<dubbo:reference id="commonApiServiceImpl"  interface="com.xczhihui.bxg.online.api.service.CommonApiService" timeout="5000" />
 	<dubbo:reference  interface="com.xczhihui.bxg.online.api.service.CriticizeService"  id="criticizeServiceImpl"  timeout="5000" />
 	<!-- 医馆 --> <!-- 医馆招聘 --> <!--医师-->
-  <!--   <dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"  timeout="5000" />
+    <dubbo:reference id="medicalHospitalBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService"  timeout="5000" />
     <dubbo:reference id="medicalHospitalRecruitBusinessServiceImpl" interface="com.xczhihui.medical.hospital.service.IMedicalHospitalRecruitBusinessService"  timeout="5000" /> 
-	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="5000"/> -->
+	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService" id="medicalDoctorBusinessServiceImpl" timeout="5000"/>
 
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.ICourseService" id="courseServiceImpl" timeout="5000"/>
 	<!--学堂-->
@@ -147,7 +147,6 @@
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="5000"/> 
    <!--观看记录 -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IWatchHistoryService" id="watchHistoryServiceImpl" timeout="5000" />
-	<dubbo:reference interface="com.xczhihui.wechat.course.service.IMobileProjectService" id="mobileProjectServiceImpl" timeout="5000"/>
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="5000"/>
     <!-- 我的关注，我的粉丝service -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote" timeout="5000" />

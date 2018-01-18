@@ -20,7 +20,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
  * Create Time: 2017年8月11日<br>
  */
 @Controller
-@RequestMapping("/bxg/course")
+@RequestMapping("/xczh/course")
 public class CourseController {
 
 	@Autowired
