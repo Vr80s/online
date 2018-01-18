@@ -146,13 +146,13 @@ public class MobileRecommendController {
 					listMenu.add(courseLecturVo);
 				}
 			}
-			if(listMenu.size()>0){
-				mapMenu.put("menuType", menuVo.getId());
-				mapMenu.put("title", menuVo.getName());
-				mapMenu.put("courseList", listMenu);
-				mapCourseList.add(mapMenu);
-			}
+			if(listMenu.size()<0){
 
+			}
+			mapMenu.put("menuType", menuVo.getId());
+			mapMenu.put("title", menuVo.getName());
+			mapMenu.put("courseList", listMenu);
+			mapCourseList.add(mapMenu);
 		}
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}

@@ -7,6 +7,9 @@ var mobileBannerFormEdit;
 var _courseRecTable;//课程推荐列表
 
 $(function(){
+
+    $("#bannerType").val(1);
+    $("#upload_bannerType").val(1);
 	document.onkeydown=function(event){
 		if(event.keyCode == 13) {
             return false;

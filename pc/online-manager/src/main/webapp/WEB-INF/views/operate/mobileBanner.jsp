@@ -652,7 +652,7 @@
                </select>
              </div>
 		</div>
-		<!-- <input type="hidden" name="bannerType" id="upload_bannerType" > -->
+		 <input type="hidden" name="bannerType" id="upload_bannerType" >
 		
 		
 	</form>
