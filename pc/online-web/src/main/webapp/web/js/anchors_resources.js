@@ -310,3 +310,16 @@ $('#resource .zhuanlan_top button').click(function(){
 	}
 })
 })
+
+
+
+//医馆部分
+//点击变色效果
+$('.hospital_worktime ul li ').click(function(){
+if($(this).hasClass('color')){
+			$(this).removeClass('color')
+		}else{
+			$(this).addClass('color');
+		}
+	
+})

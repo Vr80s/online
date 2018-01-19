@@ -117,7 +117,7 @@ public class MobileRecommendController {
 		Map<String,Object> mapNw = new HashMap<String, Object>();
 		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
 		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
-		
+
 		for (CourseLecturVo courseLecturVo : listAll) {
 			if("精品课程".equals(courseLecturVo.getNote())){
 				listTj.add(courseLecturVo);
@@ -127,16 +127,20 @@ public class MobileRecommendController {
 			}
 		}
 
-		mapTj.put("menuType","goodCourse");
-		mapTj.put("title","精品课程");
-		mapTj.put("courseList",listTj);
+		if(listTj.size()>0){
+			mapTj.put("menuType","goodCourse");
+			mapTj.put("title","精品课程");
+			mapTj.put("courseList",listTj);
+			mapCourseList.add(mapTj);
+		}
+		if(listNw.size()>0){
+			mapNw.put("menuType","newCourse");
+			mapNw.put("title","最新课程");
+			mapNw.put("courseList",listNw);
+			mapCourseList.add(mapNw);
+		}
 
-		mapNw.put("menuType","newCourse");
-		mapNw.put("title","最新课程");
-		mapNw.put("courseList",listNw);
-		
-		mapCourseList.add(mapTj);
-		mapCourseList.add(mapNw);
+
 		//定义好这
 		for (MenuVo menuVo : listmv) {
 			Map<String,Object> mapMenu = new HashMap<String, Object>();
@@ -146,13 +150,13 @@ public class MobileRecommendController {
 					listMenu.add(courseLecturVo);
 				}
 			}
-			if(listMenu.size()<0){
-
+			if(listMenu.size()>0){
+				mapMenu.put("menuType", menuVo.getId());
+				mapMenu.put("title", menuVo.getName());
+				mapMenu.put("courseList", listMenu);
+				mapCourseList.add(mapMenu);
 			}
-			mapMenu.put("menuType", menuVo.getId());
-			mapMenu.put("title", menuVo.getName());
-			mapMenu.put("courseList", listMenu);
-			mapCourseList.add(mapMenu);
+
 		}
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
