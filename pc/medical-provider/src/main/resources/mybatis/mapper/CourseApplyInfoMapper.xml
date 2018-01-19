@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper">
+
+	<select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		  cai.id,
+		  cai.img_path imgPath,
+		  cai.title,
+		  cai.`price`,
+		  cai.`course_length` courseLength,
+		  cai.`course_form` courseForm,
+		  cai.`status` applyStatus,
+		  oc.`status`
+		FROM
+		  `course_apply_info` cai
+		  LEFT JOIN
+		  `oe_course` oc
+		  ON cai.`id` = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
+		AND cai.`collection` = 0
+		<if test="courseForm != null">
+			AND cai.`course_form` = #{courseForm}
+		</if>
+		<if test="multimediaType != null">
+			AND cai.`multimedia_type` = #{multimediaType}
+		</if>
+		<if test="title != null and title!=''">
+			AND cai.`title` concat('%',#{title},'%')
+		</if>
+		ORDER BY cai.`create_time` DESC
+	</select>
+
+	<select id="selectCollectionApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		  cai.id id,
+		  cai.img_path imgPath,
+		  cai.title,
+		  cai.`price`,
+		  cai.`course_number` courseNumber,
+		  oc.`is_recommend` recommend,
+		  cai.`multimedia_type` multimediaType,
+		  cai.`status` applyStatus,
+		  oc.`status` ,
+		  cai.`last_update_time` lastUpdateTime
+		FROM
+		  `course_apply_info` cai
+		  LEFT JOIN `oe_course` oc
+			ON cai.`id` = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
+		AND cai.`collection` = 1
+		AND cai.`course_form` = 2
+		<if test="multimediaType != null">
+			AND cai.`multimedia_type` = #{multimediaType}
+		</if>
+		<if test="title != null and title!=''">
+			AND cai.`title` concat('%',#{title},'%')
+		</if>
+		ORDER BY cai.`create_time` DESC
+
+	</select>
+
+	<select id="selectLiveApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		cai.id id,
+		cai.img_path imgPath,
+		cai.title,
+		cai.`course_length` courseLength,
+		cai.`start_time` startTime,
+		oc.live_status liveStatus
+		FROM
+		`course_apply_info` cai
+		LEFT JOIN `oe_course` oc
+		ON cai.`id` = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
+		AND cai.`collection` = 1
+		<if test="title != null and title!=''">
+			AND cai.`title` concat('%',#{title},'%')
+		</if>
+		ORDER BY cai.`create_time` DESC
+
+	</select>
+</mapper>

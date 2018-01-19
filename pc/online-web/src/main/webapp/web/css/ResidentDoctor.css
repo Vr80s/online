@@ -116,8 +116,8 @@ a {
 }
 #doctor_in_inf .text-center .tab-content #doc_doctor .bottomContent  .bottomContent_inf {
   margin-bottom: 20px;
-  height: 60px;
-  line-height: 60px;
+  height: 80px;
+  line-height: 80px;
   background-color: #f0f0f0;
   border-radius: 4px;
   padding: 0 20px;
@@ -128,6 +128,7 @@ a {
 }
 #doctor_in_inf .text-center .tab-content #doc_doctor .bottomContent  .bottomContent_inf button {
   width: 92px;
+  font-size: 14px;
   height: 36px;
   background: #00BC12;
   border-radius: 4px;
@@ -140,6 +141,7 @@ a {
 }
 #doctor_in_inf .text-center .tab-content #doc_doctor .bottomContent  .bottomContent_inf a {
   color: #188EEE;
+  font-size: 14px;
 }
 .news_nav .picModal {
   cursor: pointer;
@@ -185,7 +187,8 @@ a {
     font-size: 14px;
     color: #2A2A2A;
     line-height: 19px;
-    margin-right: 20px
+    margin-right: 20px;
+
 }
 #doc_Distinguish .bottomContent > div > span:first-child em{
 	  color: #f40;
@@ -214,6 +217,10 @@ a {
 	margin-right: 20px;
 	vertical-align: middle;
 }
+#doc_Distinguish .bottomContent >.idCard_pic .idFont_pic:hover,
+#doc_Distinguish .bottomContent >.idCard_pic .idBack_pic:hover{
+	cursor: pointer;
+}
 #doc_Distinguish .bottomContent >.idCard_pic .idCard_tip,
 #doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic_tip,
 #doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,
@@ -223,7 +230,12 @@ a {
     height: 48px;
     color: #999;
 }
-
+#doc_Distinguish .bottomContent >.idCard_pic .idCard_tip p,
+#doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic_tip p,
+#doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip p,
+#doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip p{
+	font-size: 14px;
+}
 #doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic,
 #doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiye_pic,
 #doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic{
@@ -234,6 +246,11 @@ a {
 	margin-right: 20px;
 	vertical-align: middle;
 } 
+#doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic:hover,
+#doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiye_pic:hover,
+#doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic:hover{
+	cursor: pointer;
+}
 #doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic{
 	width: 120px;
 	height: 120px;
@@ -242,9 +259,15 @@ a {
 	vertical-align: middle;
 	margin-right: 20px;
 }
+#doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
+	cursor: pointer;
+}
 #doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic_tip{
 	display: inline-block;
 	color: #999;
+}
+#doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic_tip p{
+	font-size: 14px;
 }
 #doc_Distinguish .bottomContent >.keshi ul{
 	width: 540px;
@@ -261,6 +284,7 @@ a {
 	margin-right: 20px;
 	float: left;
 	margin-bottom: 20px;
+	font-size: 14px;
 }
 #doc_Distinguish .bottomContent >.keshi ul li:hover{
 	cursor: pointer;

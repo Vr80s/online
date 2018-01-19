@@ -1,7 +1,12 @@
 package com.xczhihui.medical.anchor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
+import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,21 @@ import com.xczhihui.medical.anchor.model.CourseApplyInfo;
  */
 public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
 
+    /**
+     * Description：分页获取主播申请课程列表
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 11:30 2018/1/19 0019
+     **/
+    List<CourseApplyInfoVO> selectCourseApplyPage(@Param("page") Page<CourseApplyInfoVO> page, @Param("userId") String userId, @Param("courseForm") Integer courseForm, @Param("multimediaType") Integer multimediaType, @Param("title") String title);
+
+    /**
+     * Description：分页获取主播申请专辑列表
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 11:41 2018/1/19 0019
+     **/
+    List<CourseApplyInfoVO> selectCollectionApplyPage(@Param("page") Page<CourseApplyInfoVO> page, @Param("userId") String userId, @Param("multimediaType") Integer multimediaType, @Param("title") String title);
+
+    List<CourseApplyInfoVO> selectLiveApplyPage(Page<CourseApplyInfoVO> page, String userId, String title);
 }

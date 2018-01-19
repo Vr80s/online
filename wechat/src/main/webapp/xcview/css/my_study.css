@@ -203,6 +203,9 @@ color: #999999;
 	text-align: center;
 	font-size: 0.22rem;
 	margin-top: 0.09rem;
+	    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .img_people{
 	width: 1rem;
@@ -212,3 +215,86 @@ color: #999999;
 	width: 100%;
 	height: 100%;
 }
+/*底部开始*/
+.footer_perch{
+	width: 100%;
+	height:1rem;
+	/*background: red;*/
+}
+.footer{
+	width: 100%;
+	height: 1rem;
+	background: #fff;
+	/*background: red;*/
+	position: fixed;
+	bottom: 0;
+}
+.footer ul li{
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+.footer ul li a{
+	display: block;
+	width: 0.486rem;
+	height: 0.4rem;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 0.06rem;
+	margin-top: 0.14rem;
+}
+.footer ul li p{
+	width: 100%;
+	/*height: 0.468rem;
+	line-height: 0.468rem;*/
+	color: #999;
+	font-size: 0.2rem;
+	text-align: center;
+}
+.footer_one{
+	background: url(../images/school_one.png) no-repeat center;
+	background-size: 0.48rem 0.37rem;
+}
+.footer_two{
+	background: url(../images/learn_two.png) no-repeat center;
+	background-size: 0.38rem 0.38rem;
+	
+}
+.footer_three{
+	background: url(../images/discovery_three.png) no-repeat center;
+	background-size: 0.4rem 0.41rem;
+}
+.footer_four{
+	background: url(../images/my_four.png) no-repeat center;
+	background-size: 0.38rem 0.4rem;
+}
+/*底部结束*/
+/*底部旋转开始*/
+@-webkit-keyframes rotation{
+from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}
+}
+
+.rotation_bottom{
+	width: 0.8rem;
+	height: 0.8rem;
+	border-radius: 50px;
+	padding: 0.07rem;
+	background: #fff;
+	position: fixed;
+	right: 0.188rem;
+	bottom: 1.175rem;
+	box-shadow: 0px 0px 14px #F97B49;
+	
+	-webkit-transform: rotate(360deg);
+	animation: rotation 3s linear infinite;
+	-moz-animation: rotation 3s linear infinite;
+	-webkit-animation: rotation 3s linear infinite;
+	-o-animation: rotation 3s linear infinite;
+}
+.rotation_bottom img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50px;
+}
+/*底部旋转结束*/

@@ -12,5 +12,5 @@ import com.xczhihui.medical.anchor.model.CourseApplyInfo;
  * @since 2018-01-19
  */
 public interface ICourseApplyInfoService extends IService<CourseApplyInfo> {
-	
+
 }

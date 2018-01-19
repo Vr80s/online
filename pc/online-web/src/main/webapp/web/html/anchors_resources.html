@@ -60,7 +60,7 @@
 			<!--左边点击nav-->
 				<div class="select_list z">
 					<ul style="padding: 0;">
-						<li class="active select-ud">
+						<!--<li class="active select-ud">
 							<span class="glyphicon glyphicon-book left_range ino_color" aria-hidden="true"></span><span>课程<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 							<div class="littleBox">
 								<p class="activeP">课程</p>
@@ -68,21 +68,22 @@
 								<p>排课</p>
 								<p>资源</p>
 							</div>
-						</li>
-						<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
+						</li>-->
+						<li class="setTop active"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>
+						<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-check left_range" aria-hidden="true"></span><span>医师认证</span></li>
-						<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>个人中心</span></li>
+						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>个人中心</span></li>-->
 					</ul>
 				</div>
 			</div>			
 			<!--右边内容-->
 			<div class="contentWrap y">
 				<!--课程-->
-				<div class="select_box" style="display: block;">两个课程是一样的</div>	
+				<div class="select_box" style="display: block;">主播工作台</div>	
 				<!--收徒-->
 				<div class="select_box">收徒</div>	
 				<!--医馆-->
@@ -96,7 +97,7 @@
 						<form action="">
 						<div>
 							<span><em>*</em> 任职医馆</span>
-							<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title"/><a href="javascript:;"><span>选择平台已有医馆</span></a>
+							<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title"/><a href="javascript:;" class="chooseHospital"><span>选择平台已有医馆</span></a>
 							<p class="warning hide">任职医馆不能为空</p>
 						</div>
 						
@@ -275,7 +276,174 @@
 				<!--媒体报道-->
 				<div class="select_box">媒体报道</div>
 				<!--医师认证-->
-				<div class="select_box">医师认证</div>
+				<div class="select_box" id="doc_Distinguish">
+					
+						<div class="topTitle">
+							<h3>医师认证</h3>
+						</div>
+						<div class="bottomContent">
+							<div class="bottomContent_inf text-left">
+								<span>医师认证审核中，3个工作日完成</span><span style="color: red;margin-left: -20px;">（如提交信息有误可重新提交）</span>
+								<button>重新认证</button>
+							</div>
+
+							<div class="bottomContent_inf text-left">
+								<span>已于2017.12.12通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
+								<button>重新认证</button>
+							</div>
+							
+							<div>
+								<span>姓名</span>
+								<!--<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>-->
+								<span class="doc_name">施今墨</span>
+								<!--<span class="name_warn warning hide">申请人不能为空</span>-->
+							</div>
+							
+							<div>
+								<span>身份证号</span>
+								<!--<input type="text" placeholder="请输入正确的身份证号"  maxlength="18" class="doc_Idnum"/>-->
+								<span  class="doc_Idnum">130124199922335566</span>
+								<!--<span class="idCard_warn warning hide">身份证号不能为空</span>-->
+							</div>
+							
+							<div class="idCard_pic">
+								<span> 身份证</span>
+								<span class="idFont_pic">
+									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证正面图片</p>-->
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</span>
+								<span class="idBack_pic">
+									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证背面图片</p>-->
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</span>
+								<!--<span class="idCard_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>-->
+								<!--<span class="warning hide" style="margin-left:110px">请上传身份证图片</span>-->
+							</div>
+							
+							<div class="teacher_picUpdata">
+								<span> 医师资格证</span>
+								<span class="teacher_pic">
+									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医师资格证图片</p>-->
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</span>
+								<!--<span class="teacher_pic_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>-->
+								<!--<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传身份证图片</p>-->
+							</div>
+							
+							<div class="zhiye_picUpdata">
+								<span>执业资格证</span>
+								<span class="zhiye_pic">
+									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上执业资格证图片</p>-->
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</span>
+								<!--<span class="zhiiye_pic_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>-->
+								<!--<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传执业资格证图片</p>-->
+							</div>
+							
+							<div class="touxiang_picUpdata">
+								<span> 真实头像</span>
+								<span class="touxiang_pic">
+									<!--<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>-->
+										<img src="/web/images/doctor_detail/touxiang.png" alt="" />
+								</span>
+								<!--<span class="touxiang_pic_tip">
+									<p>请上传清晰头像</p>
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>-->
+								<!--<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>-->
+							</div>
+							
+							<div>
+								<span>职称</span>
+								<!--<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>-->
+								<span class="doc_zhicheng">主任医师</span>
+								<!--<span class="warning hide">职称不能为空</span>-->
+							</div>
+							
+							<div class="zhicheng_picUpdata">
+								<span>职称证明</span>
+								<span class="zhicheng_pic">
+									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>-->
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</span>
+								<!--<span class="zhicheng_pic_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>-->
+								<!--<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>-->
+							</div>
+							
+							<div class="keshi">
+								<span>科室</span>
+								<ul>
+									<li>中医内科</li>
+									<li>中医内科</li>
+									<li>妇科</li>
+								</ul>
+								<!--<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>-->
+							</div>
+							
+							<div>
+								<span>擅长</span>
+								<!--<input type="text" placeholder="请输入您的擅长领域"  maxlength="15" class="doc_shanchang"/>-->
+								<span class="doc_shanchang">胃病  温湿病  肠胃病</span>
+								<!--<span class="warning hide">擅长不能为空</span>-->
+							</div>
+							
+							<div class="personIntroduct">
+								<span>个人介绍</span>
+								<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>-->
+								<p class="introductInf" style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;">施今墨（1881.3.28～1969.8.22），原名毓黔，字奖生，祖籍浙江省杭州市萧山区，中国近代中医临床家、教育家、改革家，“北京四大名医”之一。
+施今墨毕生致力于中医事业的发展。提倡中西医结合，培养了许多中医人才。长期从事中医临床，治愈了许多疑难重症，创制了许多新成药，献出700个验方。为中医事业作出突出贡献，在国内外享有很高的声望。</p>
+							</div>
+							
+							<div>
+								<span>任职医馆</span>
+								<!--<input type="text" placeholder="请输入您所在医馆名称"  maxlength="15" class="doc_hospital"/>-->
+								<span class="doc_hospital">百草园国医馆</span>
+								<!--<span class="warning hide">任职医馆不能为空</span>-->
+							</div>
+							
+							<div class="doc_address">
+							<span>城市</span>
+							<span class="sheng" style="font-size: 14px;">海南省</span>
+							<span class="shi" style="font-size: 14px;">海口市</span>
+							<!--<select name="" id="">
+								<option value="">省份</option>
+								<option value="">111</option>
+								<option value="">111</option>
+							</select>
+							
+							<select name="" id="">
+								<option value="">市区</option>
+								<option value="">111</option>
+								<option value="">111</option>
+							</select>-->
+							<!--<p class="warning hide">所在城市地址不能为空</p>-->
+						</div>
+						
+						<div class="baocun">
+							<input type="submit" value="提交认证" id="submit"/>
+						</div>
+						</div>
+						
+				</div>
 				<!--个人中心-->
 				<div class="select_box">个人中心</div>				
 			</div>
@@ -294,7 +462,6 @@
 						<button>上传资源</button>
 					</div>
 					<div class="zhuanlan_bottom hide" id="ziyuan_bottom">
-						<form action="">
 						<div>
 							<span><em>*</em>课程标题</span>
 							<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
@@ -331,7 +498,6 @@
 						<div class="baocun">
 							<input type="submit" value="保存" id="submit"/>
 						</div>
-						</form>
 					</div>
 					
 					<div class="zhuanlan_bottom2" id="ziyuan_bottom2">

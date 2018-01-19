@@ -98,9 +98,11 @@ public class MobileOffLineController {
 				listqg.add(courseLecturVo);
 			}
 		}
-		mapTj.put("title","全国课程");
-		mapTj.put("courseList",listqg);
-		mapCourseList.add(mapTj);
+		if(listqg.size()>0){
+			mapTj.put("title","全国课程");
+			mapTj.put("courseList",listqg);
+			mapCourseList.add(mapTj);
+		}
 
 		for (OfflineCity oc : ocl.getRecords()) {
 			Map<String,Object> mapMenu = new HashMap<String, Object>();
