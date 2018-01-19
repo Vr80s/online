@@ -217,6 +217,10 @@ a {
 	margin-right: 20px;
 	vertical-align: middle;
 }
+#doc_Distinguish .bottomContent >.idCard_pic .idFont_pic:hover,
+#doc_Distinguish .bottomContent >.idCard_pic .idBack_pic:hover{
+	cursor: pointer;
+}
 #doc_Distinguish .bottomContent >.idCard_pic .idCard_tip,
 #doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic_tip,
 #doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,
@@ -242,6 +246,11 @@ a {
 	margin-right: 20px;
 	vertical-align: middle;
 } 
+#doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic:hover,
+#doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiye_pic:hover,
+#doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic:hover{
+	cursor: pointer;
+}
 #doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic{
 	width: 120px;
 	height: 120px;
@@ -249,6 +258,9 @@ a {
 	background-color: #f0f0f0;
 	vertical-align: middle;
 	margin-right: 20px;
+}
+#doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
+	cursor: pointer;
 }
 #doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic_tip{
 	display: inline-block;
