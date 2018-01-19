@@ -1,4 +1,4 @@
-package com.xczhihui.medical.model.service.impl;
+package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;

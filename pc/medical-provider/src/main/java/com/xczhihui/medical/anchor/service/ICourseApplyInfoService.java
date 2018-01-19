@@ -1,7 +1,7 @@
 package com.xczhihui.medical.anchor.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
+import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 
 /**
  * <p>
@@ -12,5 +12,5 @@ import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
  * @since 2018-01-19
  */
 public interface ICourseApplyInfoService extends IService<CourseApplyInfo> {
-	
+
 }

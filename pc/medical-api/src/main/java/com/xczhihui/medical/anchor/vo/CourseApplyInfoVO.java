@@ -1,15 +1,9 @@
-package com.xczhihui.medical.anchor.model;
+package com.xczhihui.medical.anchor.vo;
+
+
 
 import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * <p>
@@ -19,15 +13,13 @@ import java.util.List;
  * @author yuxin
  * @since 2018-01-19
  */
-@TableName("course_apply_info")
-public class CourseApplyInfo extends Model<CourseApplyInfo> {
+public class CourseApplyInfoVO implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     /**
      * 课程申请信息表
      */
-	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
     /**
      * 标题
@@ -40,12 +32,10 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
     /**
      * 上传人
      */
-	@TableField("user_id")
 	private String userId;
     /**
      * 封面
      */
-	@TableField("img_path")
 	private String imgPath;
     /**
      * 主播
@@ -54,27 +44,22 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
     /**
      * 主播介绍
      */
-	@TableField("lecturer_description")
 	private String lecturerDescription;
     /**
      * 课程类型：1.直播 2.点播 3.线下课
      */
-	@TableField("course_form")
 	private Integer courseForm;
     /**
      * 课程分类
      */
-	@TableField("course_menu")
 	private String courseMenu;
     /**
      * 课程开始时间
      */
-	@TableField("start_time")
 	private Date startTime;
     /**
      * 课程时长
      */
-	@TableField("course_length")
 	private String courseLength;
     /**
      * 课程单价
@@ -87,37 +72,30 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
     /**
      * 课程简介
      */
-	@TableField("course_description")
 	private String courseDescription;
     /**
      * 课程简介
      */
-	@TableField("course_detail")
 	private String courseDetail;
     /**
      * 课程大纲
      */
-	@TableField("course_outline")
 	private String courseOutline;
     /**
      * 课程资源
      */
-	@TableField("course_resource")
 	private String courseResource;
     /**
      * 合辑包含课程数
      */
-	@TableField("course_number")
 	private Integer courseNumber;
     /**
      * 合辑中课程的排序字段
      */
-	@TableField("collection_course_sort")
 	private Integer collectionCourseSort;
     /**
      * 多媒体类型:1视频2音频
      */
-	@TableField("multimedia_type")
 	private Integer multimediaType;
     /**
      * 是否为专辑
@@ -138,33 +116,20 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
     /**
      * 驳回备注
      */
-	@TableField("dismissal_remark")
 	private String dismissalRemark;
-    /**
-     * 审核人
-     */
-	@TableField("review_person")
-	private String reviewPerson;
     /**
      * 审核时间
      */
-	@TableField("review_time")
 	private Date reviewTime;
-    /**
-     * 是否删除：0 未删除 1 删除
-     */
-	@TableField("is_delete")
-	private Boolean isDelete;
     /**
      * 创建时间
      */
-	@TableField("create_time")
 	private Date createTime;
     /**
      * 更新时间
      */
-	@TableField("update_time")
 	private Date updateTime;
+	private Date lastUpdateTime;
     /**
      * 授课地址
      */
@@ -172,32 +137,34 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
     /**
      * 结课时间
      */
-	@TableField("end_time")
 	private Date endTime;
 
-	@TableField("resource_id")
-	private Integer resourceId;
+	private Integer recommend;
 
-	private List<CourseApplyInfo> courseApplyInfos;
+	private Integer applyStatus;
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
+	public Integer getRecommend() {
+		return recommend;
 	}
 
-	public List<CourseApplyInfo> getCourseApplyInfos() {
-		return courseApplyInfos;
+	public void setRecommend(Integer recommend) {
+		this.recommend = recommend;
 	}
 
-	public void setCourseApplyInfos(List<CourseApplyInfo> courseApplyInfos) {
-		this.courseApplyInfos = courseApplyInfos;
+	public Date getLastUpdateTime() {
+		return lastUpdateTime;
 	}
 
-	public Integer getResourceId() {
-		return resourceId;
+	public void setLastUpdateTime(Date lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 
-	public void setResourceId(Integer resourceId) {
-		this.resourceId = resourceId;
+	public Integer getApplyStatus() {
+		return applyStatus;
+	}
+
+	public void setApplyStatus(Integer applyStatus) {
+		this.applyStatus = applyStatus;
 	}
 
 	public Integer getId() {
@@ -400,12 +367,8 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 		this.dismissalRemark = dismissalRemark;
 	}
 
-	public String getReviewPerson() {
-		return reviewPerson;
-	}
-
-	public void setReviewPerson(String reviewPerson) {
-		this.reviewPerson = reviewPerson;
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
 	}
 
 	public Date getReviewTime() {
@@ -414,14 +377,6 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
 	public void setReviewTime(Date reviewTime) {
 		this.reviewTime = reviewTime;
-	}
-
-	public Boolean getDelete() {
-		return isDelete;
-	}
-
-	public void setDelete(Boolean isDelete) {
-		this.isDelete = isDelete;
 	}
 
 	public Date getCreateTime() {
@@ -457,11 +412,6 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 	}
 
 	@Override
-	protected Serializable pkVal() {
-		return this.id;
-	}
-
-	@Override
 	public String toString() {
 		return "CourseApplyInfo{" +
 			", id=" + id +
@@ -489,9 +439,7 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 			", status=" + status +
 			", dismissal=" + dismissal +
 			", dismissalRemark=" + dismissalRemark +
-			", reviewPerson=" + reviewPerson +
 			", reviewTime=" + reviewTime +
-			", isDelete=" + isDelete +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
 			", address=" + address +
