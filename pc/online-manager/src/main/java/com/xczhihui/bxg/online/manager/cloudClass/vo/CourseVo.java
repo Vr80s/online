@@ -318,7 +318,43 @@ public class CourseVo extends OnlineBaseVo{
     private String realCounty;
     
     private Integer liveStatus;
-    
+
+    private Boolean collection;
+    private Boolean singleSale;
+    private String lecturer;
+    private String lecturerDescription;
+
+	public String getLecturerDescription() {
+		return lecturerDescription;
+	}
+
+	public void setLecturerDescription(String lecturerDescription) {
+		this.lecturerDescription = lecturerDescription;
+	}
+
+	public String getLecturer() {
+		return lecturer;
+	}
+
+	public void setLecturer(String lecturer) {
+		this.lecturer = lecturer;
+	}
+
+	public Boolean getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Boolean collection) {
+		this.collection = collection;
+	}
+
+	public Boolean getSingleSale() {
+		return singleSale;
+	}
+
+	public void setSingleSale(Boolean singleSale) {
+		this.singleSale = singleSale;
+	}
 
 	public String getAddress() {
 		return address;

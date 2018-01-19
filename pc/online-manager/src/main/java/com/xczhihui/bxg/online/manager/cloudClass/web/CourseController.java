@@ -175,9 +175,9 @@ public class CourseController extends AbstractController{
           
           Group type = groups.findByName("type");
           if (type != null) {
-        	  searchVo.setType(Integer.valueOf(type.getPropertyValue1().toString()));
+        	  searchVo.setType(1);
           }
-          
+
           Page<CourseVo> page = courseService.findCoursePage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();
           tableVo.setAaData(page.getItems());
@@ -283,32 +283,10 @@ public class CourseController extends AbstractController{
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
 
-	/*	if(courseVo.getSmallimgPath() == null || "".equals(courseVo.getSmallimgPath().trim())){
-			responseObj.setErrorMessage("课程展示图不能为空");
-			return responseObj;
-		}*/
-
 		try{
 			courseService.addCourse(courseVo);
             responseObj.setSuccess(true);
             responseObj.setErrorMessage("新增成功");
-            
-//        	try {
-//        		//删除CC视频的分类
-//        		List<CategoryBean> allCategories = CCUtils.getAllCategories();
-//        		boolean b = false;
-//        		for (CategoryBean categoryBean : allCategories) {
-//        			if (categoryBean.getName().equals(courseVo.getCourseName())) {
-//        				b = true;
-//        				break;
-//        			}
-//        		}
-//        		if (!b) {
-//        			CCUtils.createCategory(courseVo.getCourseName(), null);
-//        		}
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
        }catch(Exception e){
     	   	e.printStackTrace();
             responseObj.setSuccess(false);
@@ -704,7 +682,6 @@ public class CourseController extends AbstractController{
         return ResponseObject.newSuccessResponseObject(null);
     }
 
-
 	/**
 	 * 同步课程视频信息（无章节知识点版）
 	 * @param id
@@ -718,7 +695,12 @@ public class CourseController extends AbstractController{
 		return ResponseObject.newSuccessResponseObject(courseService.updateCourseVideo(id));
 	}
 
-	
+	@RequestMapping(value = "courseInfoDetail")
+	public String courseInfoDetail(HttpServletRequest request,Integer id) {
+		Course course =courseService.findCourseInfoById(id);
+		request.setAttribute("course", course);
+		return CLOUD_CLASS_PATH_PREFIX + "/courseInfoDetail";
+	}
 	
 	
 }

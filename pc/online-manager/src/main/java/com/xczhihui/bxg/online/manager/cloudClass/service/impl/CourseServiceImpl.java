@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,14 +28,6 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.CoursePreview;
-import com.xczhihui.bxg.online.common.domain.Grade;
-import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.bxg.online.common.domain.OffLineCity;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
-import com.xczhihui.bxg.online.common.domain.TeachMethod;
-import com.xczhihui.bxg.online.common.domain.User;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseDao;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseSubscribeDao;
@@ -981,7 +976,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	@Override
-	public void deleteCourseByExamineId(String examineId, boolean falg) {
+	public void deleteCourseByExamineId(Integer examineId, boolean falg) {
 		String hqlPre="from Course where  examine_id = ?";
 		Course course= dao.findByHQLOne(hqlPre,new Object[] {examineId});
 		if(course !=null){
@@ -1390,6 +1385,47 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		String savesql=" update  oe_offline_city  set icon = '"+offLineCity.getIcon()+"' where id = '"+offLineCity.getId()+"' ";
 		Map<String,Object> params=new HashMap<String,Object>();
 		dao.getNamedParameterJdbcTemplate().update(savesql, params);
+	}
+
+	@Override
+	public Course findCourseInfoById(Integer id) {
+		Course course = dao.get(id, Course.class);
+		if(course.getCollection()==null || !course.getCollection()){
+			String audioStr="";
+			if(course.getMultimediaType()==2){
+				audioStr = "_2";
+			}
+			String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
+			String uuid = UUID.randomUUID().toString().replace("-", "");
+			String playCode = "";
+			playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
+			playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
+			playCode+="		width=\"600\" ";
+			playCode+="		height=\"490\" ";
+			playCode+="		id=\""+uuid+"\">";
+			playCode+="		<param name=\"movie\" value=\""+src+"\" />";
+			playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
+			playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
+			playCode+="		<param value=\"transparent\" name=\"wmode\" />";
+			playCode+="		<embed src=\""+src+"\" ";
+			playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
+			playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
+			playCode+="			type=\"application/x-shockwave-flash\"/> ";
+			playCode+="	</object>";
+			course.setPlayCode(playCode);
+		}
+
+		if(course.getCollection()!=null && course.getCollection()){
+			List<Course> courses = courseDao.getCourseByCollectionId(course.getId());
+			course.setCourseInfoList(courses);
+		}
+		DetachedCriteria menudc = DetachedCriteria.forClass(Menu.class);
+		menudc.add(Restrictions.eq("id", Integer.valueOf(course.getMenuId())));
+		Menu menu = dao.findEntity(menudc);
+		if(menu!=null){
+			course.setCourseMenu(menu.getName());
+		}
+		return course;
 	}
 
 }

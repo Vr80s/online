@@ -2647,7 +2647,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 		var keywords =	'auto break case catch class const decltype __finally __exception __try ' +
 						'const_cast continue private public protected __declspec ' +
 						'default delete deprecated dllexport dllimport do dynamic_cast ' +
-						'else enum explicit extern if for friend goto inline ' +
+						'else enums explicit extern if for friend goto inline ' +
 						'mutable naked namespace new noinline noreturn nothrow ' +
 						'register reinterpret_cast return selectany ' +
 						'sizeof static static_cast struct switch template this ' +
@@ -2699,7 +2699,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 	function Brush()
 	{
 		var keywords =	'abstract as base bool break byte case catch char checked class const ' +
-						'continue decimal default delegate do double else enum event explicit volatile ' +
+						'continue decimal default delegate do double else enums event explicit volatile ' +
 						'extern false finally fixed float for foreach get goto if implicit in int ' +
 						'interface internal is lock long namespace new null object operator out ' +
 						'override params private protected public readonly ref return sbyte sealed set ' +
@@ -2974,7 +2974,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 	function Brush()
 	{
 		var keywords =	'abstract assert boolean break byte case catch char class const ' +
-						'continue default do double else enum extends ' +
+						'continue default do double else enums extends ' +
 						'false final finally float for goto if implements import ' +
 						'instanceof int interface long native new null ' +
 						'package private protected public return ' +

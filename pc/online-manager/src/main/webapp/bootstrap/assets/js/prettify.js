@@ -94,7 +94,7 @@ var prettyPrint;
   // and to defeat aggressive optimizers that fold large string constants.
   var FLOW_CONTROL_KEYWORDS = ["break,continue,do,else,for,if,return,while"];
   var C_KEYWORDS = [FLOW_CONTROL_KEYWORDS,"auto,case,char,const,default," + 
-      "double,enum,extern,float,goto,inline,int,long,register,short,signed," +
+      "double,enums,extern,float,goto,inline,int,long,register,short,signed," +
       "sizeof,static,struct,switch,typedef,union,unsigned,void,volatile"];
   var COMMON_KEYWORDS = [C_KEYWORDS,"catch,class,delete,false,import," +
       "new,operator,private,protected,public,this,throw,true,try,typeof"];
@@ -131,7 +131,7 @@ var prettyPrint;
       "rescue,retry,self,super,then,true,undef,unless,until,when,yield," +
       "BEGIN,END"];
    var RUST_KEYWORDS = [FLOW_CONTROL_KEYWORDS, "as,assert,const,copy,drop," +
-      "enum,extern,fail,false,fn,impl,let,log,loop,match,mod,move,mut,priv," +
+      "enums,extern,fail,false,fn,impl,let,log,loop,match,mod,move,mut,priv," +
       "pub,pure,ref,self,static,struct,true,trait,type,unsafe,use"];
   var SH_KEYWORDS = [FLOW_CONTROL_KEYWORDS, "case,done,elif,esac,eval,fi," +
       "function,in,local,set,then,until"];

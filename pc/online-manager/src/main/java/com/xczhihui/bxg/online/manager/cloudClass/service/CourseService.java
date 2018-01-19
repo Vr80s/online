@@ -255,7 +255,7 @@ public interface CourseService {
 
 	public Course getPublicCourseById(Integer courseId);
 
-	public void deleteCourseByExamineId(String id, boolean b);
+	public void deleteCourseByExamineId(Integer id, boolean b);
 
 	/**
 	 * 同步课程视频信息（无章节知识点版）
@@ -303,4 +303,6 @@ public interface CourseService {
 	public void deleteCourseCityStatus(Integer id);
 
 	public void updateCourseCity(OffLineCity offLineCity);
+
+	Course findCourseInfoById(Integer id);
 }
