@@ -1,7 +1,7 @@
 package com.xczhihui.medical.anchor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xczhihui.medical.anchor.model.CourseApplyInfo;
+import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 
 /**
  * <p>

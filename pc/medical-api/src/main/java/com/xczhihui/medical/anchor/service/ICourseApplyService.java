@@ -1,7 +1,7 @@
 package com.xczhihui.medical.anchor.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.xczhihui.medical.anchor.model.CourseApplyInfo;
+import com.xczhihui.bxg.online.common.domain.CourseApplyInfo;
 
 /**
  * <p>
