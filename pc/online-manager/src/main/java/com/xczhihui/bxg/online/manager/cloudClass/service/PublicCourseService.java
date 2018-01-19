@@ -50,5 +50,5 @@ public interface PublicCourseService {
 	 * @return Course
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	Course findCourseVoByLiveExanmineId(String id);
+	Course findCourseVoByLiveExanmineId(Integer id);
 }

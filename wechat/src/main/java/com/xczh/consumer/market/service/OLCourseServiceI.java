@@ -51,15 +51,12 @@ public interface OLCourseServiceI {
 	/**
 	 * 线下培训班列表
 	 * Description：
-	 * @param number
-	 * @param pageSize
 	 * @return
 	 * @return List<CourseLecturVo>
 	 * @author name：liutao
 	 *
 	 */
-	public List<CourseLecturVo> offLineClassList( int number,
-											 int pageSize,List<OfflineCity> cityList)throws SQLException;
+	public List<CourseLecturVo> offLineClassList( List<OfflineCity> cityList)throws SQLException;
 
 	/**
 	 * 线下培训班详情
@@ -71,7 +68,7 @@ public interface OLCourseServiceI {
 	 */
 	CourseLecturVo offLineClassItem( Integer id,String userId)throws SQLException;
 	
-	public List<CourseLecturVo> recommendCourseList(int i, int j, String str,List<MenuVo> listmv) throws SQLException;
+	public List<CourseLecturVo> recommendCourseList(List<MenuVo> listmv) throws SQLException;
 	/**
 	 * 
 	 * Description：查询

@@ -56,7 +56,7 @@ public class MobileListenCourseController {
 		int bannerType = 4;
 		mapAll.put("banner",mobileBannerService.selectMobileBannerPage(MobileBannerPage,bannerType));
 
-		//城市  城市中的课程
+		//听课课程
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 
 		Map<String,Object> mapTj = new HashMap<String, Object>();

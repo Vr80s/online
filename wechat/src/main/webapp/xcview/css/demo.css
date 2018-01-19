@@ -32,44 +32,42 @@ body{
 }
 /*动态点赞开始*/
 .praise{
-    min-width: 0.65rem;
-	height: 0.65rem;
+    /*width: 1.5rem;*/
+    height: 0.74rem;
+    /*margin: 50px auto;*/
     cursor: pointer;
     font-size: 12px;
     text-align:center;
     position: relative;
-    float: right;
-    margin-right: 0.45rem;
 }
-#praise{
-    /*display:block;*/
-    width: 0.65rem;
-	height: 0.65rem;
-    margin:0 auto;
-    margin-right: 0.2rem;
+.praise{
+   /* display:block;
+    width:40px;
+    height:40px;
+    margin:0 auto;*/
 }
-#praise-txt{
-    height:25px;
+.praise-txt{
+   /* height:25px;
     line-height:25px;
-    float: left;
+    display: block;*/
+   margin-left: 0.3rem;
 }
 .praise img{
-    width: 0.65rem;
-	height: 0.65rem;
-    float: left;
-    margin-right: 0.2rem;
+    width:0.681rem;
+    height:0.66rem;
+    display:block;
+    margin: 0 auto;
 }
 .praise img.animation{
     animation: myfirst 0.5s;
     -moz-animation: myfirst 0.5s;	/* Firefox */
     -webkit-animation: myfirst 0.5s;	/* Safari 和 Chrome */
     -o-animation: myfirst 0.5s;	/* Opera */
-   background: none;
 }
-#add-num{
+.add-num{
     display:none;
 }
-#add-num .add-animation{
+.add-num .add-animation{
     color: #000;
     position:absolute;
     top:-15px;
@@ -84,72 +82,74 @@ body{
     -o-animation: mypraise 0.5s ;	/* Opera */
     font-style:normal;
 }
-.praise .hover , #add-num .add-animation.hover , #praise-txt.hover{
-    color: #EB4F38;
+.praise .hover , .add-num .add-animation.hover , .praise-txt.hover{
+    /*color: #EB4F38;*/
 }
-
+.praises{
+	float: left;
+}
 /*点赞图标放大动画开始*/
 @keyframes myfirst
 {
     0%{
-       	width: 0.65rem;
-		height: 0.65rem;
+        width:0.681rem;
+    	height:0.66rem;
     }
     50%{
-        width: 0.75rem;
-		height: 0.75rem;
+        width:0.787rem;
+        height:0.766rem;
     }
     100% {
-        width: 0.65rem;
-		height: 0.65rem;
+       width:0.681rem;
+    	height:0.66rem;
     }
 }
 
 @-moz-keyframes myfirst /* Firefox */
 {
     0%{
-        width: 0.65rem;
-		height: 0.65rem;
+        width:0.681rem;
+    height:0.66rem;
     }
     50%{
-        width: 0.75rem;
-		height: 0.75rem;
+        width:0.787rem;
+        height:0.766rem;
     }
     100% {
-        width: 0.65rem;
-		height: 0.65rem;
+        width:0.681rem;
+    height:0.66rem;
     }
 }
 
 @-webkit-keyframes myfirst /* Safari 和 Chrome */
 {
     0%{
-        width: 0.65rem;
-		height: 0.65rem;
+        width:0.681rem;
+    height:0.66rem;
     }
     50%{
-        width: 0.75rem;
-		height: 0.75rem;
+        width:0.787rem;
+        height:0.766rem;
     }
     100% {
-       width: 0.65rem;
-		height: 0.65rem;
+        width:0.681rem;
+    height:0.66rem;
     }
 }
 
 @-o-keyframes myfirst /* Opera */
 {
     0%{
-        width: 0.65rem;
-		height: 0.65rem;
+       width:0.681rem;
+    height:0.66rem;
     }
     50%{
-        width: 0.75rem;
-		height: 0.75rem;
+        width:0.787rem;
+        height:0.766rem;
     }
     100% {
-        width: 0.65rem;
-		height: 0.65rem;
+        width:0.681rem;
+    height:0.66rem;
     }
 }
 /*点赞图标放大动画结束*/
@@ -291,61 +291,3 @@ body{
 }
 /*点赞数量加减动画结束*/
 /*动态点赞结束*/
-
-
-/*评论添加*/
-.discuss_main{
-	padding-bottom: 2.4rem;
-}
-.discuss{
-	font-size: 0.6rem;
-	color: #999;
-	margin-left: 0.4rem;
-}
-.discuss_main_one{
-	width: 100%;
-	border-bottom: 1px solid #eaeaec;
-	padding-bottom: 0.3rem;
-}
-.discuss_img{
-	margin-right: 0.6rem;
-    float: left;
-    width: 1.65rem;
-    height: 1.65rem;
-    border-radius: 60px;
-    vertical-align: middle;
-}
-.discuss p{
-	font-size: 0.6rem;
-	color: #999;
-	margin-top: 0.8rem;
-	padding-top: 0.6rem;
-}
-.discuss_size{
-	font-size: 0.6rem;
-	color: #333;
-	width: 14.1rem;
-    margin-left: 1.85rem;
-    margin-top: 0.5rem;
-}
-.discuss_size_reply{
-	width: 13.7rem;
-    height: 1.35rem;
-    background: #ddd;
-    line-height: 1.35rem;
-    margin-left: 1.85rem;
-    border-radius: 8px;
-    text-indent: 0.5rem;
-    margin-top: 0.4rem;
-    font-size: 0.55rem;
-    margin-bottom: 0.95rem;
-}
-.discuss_time{
-	margin-left: 1.85rem;
-}
-.discuss_time_size{
-	font-size: 0.5rem;
-    color: #999;
-    width: 5.5rem;
-    float: left;
-}

@@ -25,7 +25,7 @@ public interface OnlineCourseService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	List<CourseLecturVo> findLiveListInfo(Integer start_page, Integer page_size, String queryParam) throws SQLException;
+	List<CourseLecturVo> findLiveListInfo() throws SQLException;
 	/**
 	 * 根据课程id得到直播详情
 	 * Description：

@@ -521,7 +521,8 @@ public class UserServiceImpl implements UserService {
 	public void updateHeadPhoto(String userId, byte[] image) throws IOException {
 
 		OnlineUser ou = dao.findOneEntitiyByProperty(OnlineUser.class, "id", userId);
-		String oldHeadImg=ou.getSmallHeadPhoto();  //旧的头像
+		//旧的头像
+		String oldHeadImg=ou.getSmallHeadPhoto();
 		Attachment bigattr = this.attachmentCenterService.addAttachment(userId, AttachmentType.ONLINE, userId+"_big.png", 
 				image,StringUtils.getFilenameExtension(userId+"_big.png"), null);
 		

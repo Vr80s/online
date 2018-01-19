@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  *  课程实体类
@@ -253,6 +254,8 @@ public class Course extends BasicEntity2 implements Serializable {
 	 */
 	@Column(name = "course_type")
 	private Integer serviceType;
+	@Column(name = "course_number")
+	private Integer courseNumber;
 
 	/**
 	 * 班级额定人数
@@ -295,14 +298,33 @@ public class Course extends BasicEntity2 implements Serializable {
 	private  int liveSource;  //直播来源  1、后台新增  2、app申请
 	
 	
-	@Column(name = "examine_id")
-	private String examineId;
+	@Column(name = "apply_id")
+	private Integer applyId;
 	
 	
 	@Column(name = "city")
 	private String city;
-	
-	
+	@Transient
+	private String playCode;
+	@Transient
+	private String courseMenu;
+
+	public String getCourseMenu() {
+		return courseMenu;
+	}
+
+	public void setCourseMenu(String courseMenu) {
+		this.courseMenu = courseMenu;
+	}
+
+	public String getPlayCode() {
+		return playCode;
+	}
+
+	public void setPlayCode(String playCode) {
+		this.playCode = playCode;
+	}
+
 	public int getMultimediaType() {
 		return multimediaType;
 	}
@@ -327,8 +349,78 @@ public class Course extends BasicEntity2 implements Serializable {
 	private  String coursePwd;
 
 	@Column(name = "online_course" )
-	private int onlineCourse;;
-	
+	private int onlineCourse;
+
+	@Column(name = "collection" )
+	private Boolean collection;
+	@Column(name = "lecturer" )
+	private String lecturer;
+	@Type(type="text")
+	@Column(name = "lecturer_description" )
+	private String lecturerDescription;
+	private String subtitle;
+	@Column(name = "collection_course_sort")
+	private Integer collectionCourseSort;
+
+	@Transient
+	private List<Course> courseInfoList;
+
+	public Integer getCourseNumber() {
+		return courseNumber;
+	}
+
+	public void setCourseNumber(Integer courseNumber) {
+		this.courseNumber = courseNumber;
+	}
+
+	public Integer getCollectionCourseSort() {
+		return collectionCourseSort;
+	}
+
+	public void setCollectionCourseSort(Integer collectionCourseSort) {
+		this.collectionCourseSort = collectionCourseSort;
+	}
+
+	public List<Course> getCourseInfoList() {
+		return courseInfoList;
+	}
+
+	public void setCourseInfoList(List<Course> courseInfoList) {
+		this.courseInfoList = courseInfoList;
+	}
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+	public String getLecturer() {
+		return lecturer;
+	}
+
+	public void setLecturer(String lecturer) {
+		this.lecturer = lecturer;
+	}
+
+	public String getLecturerDescription() {
+		return lecturerDescription;
+	}
+
+	public void setLecturerDescription(String lecturerDescription) {
+		this.lecturerDescription = lecturerDescription;
+	}
+
+	public Boolean getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Boolean collection) {
+		this.collection = collection;
+	}
+
 	public int getOnlineCourse() {
 		return onlineCourse;
 	}
@@ -746,12 +838,12 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.liveSource = liveSource;
 	}
 
-	public String getExamineId() {
-		return examineId;
+	public Integer getApplyId() {
+		return applyId;
 	}
 
-	public void setExamineId(String examineId) {
-		this.examineId = examineId;
+	public void setApplyId(Integer examineId) {
+		this.applyId = examineId;
 	}
 
 	public String getCity() {

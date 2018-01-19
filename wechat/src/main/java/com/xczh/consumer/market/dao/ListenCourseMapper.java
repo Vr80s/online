@@ -23,8 +23,8 @@ public class ListenCourseMapper extends BasicSimpleDao {
 	 */
 	public List<CourseLecturVo>  listenCourseList() throws SQLException{
 		StringBuffer sql = new StringBuffer(" ");
-		sql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
-				+ "ou.small_head_photo as headImg,ou.name as name,");
+		sql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+				+ "ou.small_head_photo as headImg,ou.name as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		sql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 		sql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费

@@ -908,17 +908,17 @@
              </div>
 		</div>
 	    <div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>课程类别: </label>
-            <div class="col-sm-6">
-               <select name="courseTypeId" id="menuNameSecond" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >
-               		 <option value="">请选择</option>
-               		<%--<c:forEach var="scoreTypes" items="${scoreTypeVo}">
-                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
-                    </c:forEach> --%>
-               </select>
-            </div>
-		</div>
+		<%--<div class="form-group"  style="margin-top: 18px;" >--%>
+			<%--<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>课程类别: </label>--%>
+            <%--<div class="col-sm-6">--%>
+               <%--<select name="courseTypeId" id="menuNameSecond" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >--%>
+               		 <%--<option value="">请选择</option>--%>
+               		<%--&lt;%&ndash;<c:forEach var="scoreTypes" items="${scoreTypeVo}">--%>
+                        <%--<option value="${scoreTypes.id}">${scoreTypes.name}</option>--%>
+                    <%--</c:forEach> &ndash;%&gt;--%>
+               <%--</select>--%>
+            <%--</div>--%>
+		<%--</div>--%>
 	    <%-- <div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>授课方式: </label>
@@ -1046,13 +1046,13 @@
 			 	<p id="show_menuName" class="paddingtop7px padding7"></p>
              </div>
 		</div>
-		
-		<div class="form-group">
-			<label class="col-sm-4 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font><b>课程类别:</b> </label>
-            <div class="col-sm-6">
-           	 	<p id=show_menuNameSecond class="paddingtop7px padding7"></p>
-            </div>
-		</div>
+		<%----%>
+		<%--<div class="form-group">--%>
+			<%--<label class="col-sm-4 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font><b>课程类别:</b> </label>--%>
+            <%--<div class="col-sm-6">--%>
+           	 	<%--<p id=show_menuNameSecond class="paddingtop7px padding7"></p>--%>
+            <%--</div>--%>
+		<%--</div>--%>
 		
 		<!-- <div class="form-group">
 			<label class="col-sm-4 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font><b>授课方式: </b></label>
@@ -1260,18 +1260,18 @@
                </select>
              </div>
 		</div>
-		
-		<div class="form-group" style="margin-top: 18px;">
-			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>课程类别: </label>
-            <div class="col-sm-6">
-               <select name="courseTypeId" id="edid_menuNameSecond" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >
-               		 <option value="">请选择</option>
-               		<%-- <c:forEach var="scoreTypes" items="${scoreTypeVo}">
-                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
-                    </c:forEach>  --%>
-               </select>
-            </div>
-		</div>
+		<%----%>
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			<%--<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>课程类别: </label>--%>
+            <%--<div class="col-sm-6">--%>
+               <%--<select name="courseTypeId" id="edid_menuNameSecond" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >--%>
+               		 <%--<option value="">请选择</option>--%>
+               		<%--&lt;%&ndash; <c:forEach var="scoreTypes" items="${scoreTypeVo}">--%>
+                        <%--<option value="${scoreTypes.id}">${scoreTypes.name}</option>--%>
+                    <%--</c:forEach>  &ndash;%&gt;--%>
+               <%--</select>--%>
+            <%--</div>--%>
+		<%--</div>--%>
 		
 		<%-- <div class="form-group" style="margin-top: 18px;">
 			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>授课方式: </label>

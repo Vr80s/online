@@ -727,7 +727,7 @@ var POINTER_INPUT_MAP = {
     pointerout: INPUT_CANCEL
 };
 
-// in IE10 the pointer types is defined as an enum
+// in IE10 the pointer types is defined as an enums
 var IE10_POINTER_TYPE_ENUM = {
     2: INPUT_TYPE_TOUCH,
     3: INPUT_TYPE_PEN,

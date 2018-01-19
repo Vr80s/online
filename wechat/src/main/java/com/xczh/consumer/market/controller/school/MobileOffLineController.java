@@ -38,18 +38,9 @@ public class MobileOffLineController {
 
 	@Autowired
 	private OLCourseServiceI wxcpCourseService;
-	
-	@Autowired
-	private MenuService menuService;
-	
-	@Autowired
-	private IMedicalDoctorBusinessService medicalDoctorBusinessService;
 
 	@Autowired
 	private IMobileBannerService mobileBannerService;
-
-	@Autowired
-	private IMobileProjectService mobileProjectService;
 
 	@Autowired
 	private IOfflineCityService offlineCityService;
@@ -94,7 +85,7 @@ public class MobileOffLineController {
 		Page<OfflineCity> ocl = offlineCityService.selectOfflineCityPage(OfflineCityPage);
 		//城市  城市中的课程
 
-		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(1,5,ocl.getRecords());
+		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
 
 
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();

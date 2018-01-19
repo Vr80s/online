@@ -96,7 +96,7 @@ public class MobileRecommendController {
 	@RequestMapping("recommendCourse")
 	@ResponseBody
 	public ResponseObject recommendBunch(HttpServletRequest req,
-										   HttpServletResponse res, Integer id)
+										   HttpServletResponse res)
 			throws Exception {
 		
 		/**
@@ -107,7 +107,7 @@ public class MobileRecommendController {
 		 */
 	    List<MenuVo> listmv = menuService.list();
 	    
-		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,4,null,listmv);
+		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(listmv);
 		
 		LOGGER.info(listAll.size()+"");
 		

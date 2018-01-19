@@ -288,7 +288,7 @@ public class Course extends Model<Course> {
 	private  int liveSource;  //直播来源  1、后台新增  2、app申请
 	
 	
-	@TableField("examine_id")
+	@TableField("apply_id")
 	private String examineId;
 	
 	

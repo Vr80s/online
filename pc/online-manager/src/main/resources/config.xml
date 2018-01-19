@@ -74,8 +74,8 @@
 			</props>
 		</property>
 	</bean>
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"/>
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>

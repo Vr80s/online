@@ -46,7 +46,7 @@ public class MobileLiveController {
 	@RequestMapping("onlineLive")
 	@ResponseBody
 	public ResponseObject onlineLive(HttpServletRequest req,
-									 HttpServletResponse res, Integer id)
+									 HttpServletResponse res)
 			throws Exception {
 		Integer current = 1;
 		Integer size = 100;
@@ -71,7 +71,7 @@ public class MobileLiveController {
 		List<CourseLecturVo> listHf = new ArrayList<CourseLecturVo>();
 
 
-		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(1,4,null);
+		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
 
 		for (CourseLecturVo courseLecturVo : list) {
 			if("正在直播".equals(courseLecturVo.getNote())){
