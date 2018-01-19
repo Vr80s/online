@@ -1,0 +1,269 @@
+﻿*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+
+/*头部开始*/
+header {
+    width: 100%;
+    height: 1.872rem;
+    line-height: 1.872rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+.header {
+    width: 14.851rem;
+    height: 100%;
+    margin-left: 0.553rem;
+}
+.header_return {
+    width: 2.15rem;
+    height: 1.8rem;
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_return img {
+    width: 0.511rem;
+    height: 0.915rem;
+}
+.header_title {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.766rem;
+    text-align: center;
+    color: #333;
+    z-index: 9;
+    border-bottom: 1px solid #D8DDE6;
+}
+.header_share{
+	width: 2.15rem;
+    height: 1.8rem;
+    margin-right: 0.362rem;
+    position: absolute;
+    z-index: 10;
+    right: 0.362rem;
+    text-align: right;
+}
+.header_share img {
+    width: 0.894rem;
+    height: 0.915rem;
+}
+/*头部结束*/
+
+
+/*中间内容开始*/
+.review{
+	width: 100%;
+	height: 100%;
+	margin-top: 2.398rem;
+	/*background: #fff;*/
+}
+.review_main{
+	width: 100%;
+	height: 100%;
+	background: #fff;
+}
+.review_main .review_main_cen:last-child{
+	border: 0;
+	border: none;
+}
+.review_main_cen{
+	width: 100%;
+	min-height: 1rem;
+	padding-top: 0.681rem;
+    padding-bottom: 0.383rem;
+    border-bottom: 1px solid #d8dde6;
+}
+.review_main_cen_left{
+	float: left;
+    margin-left: 0.353rem;
+    text-align: center;
+    margin-right: 0.511rem;
+}
+.review_main_cen_left .img{
+	width: 1.702rem;
+	height: 1.702rem;
+	border-radius: 60px;
+}
+.review_main_cen_left .img0{
+	width: 2.085rem;
+    height: 0.681rem;
+    /* margin-top: -1rem; */
+    display: inherit;
+}
+.review_right_title{
+	margin-bottom: 0.34rem;
+	
+}
+.review_main_cen_right{
+	float: left;
+}
+.review_right_title_name{
+	font-size: 0.596rem;
+	color: #666666;
+	float: left;
+	margin-right: 0.34rem;
+}
+.review_main_size{
+	font-size: 0.553rem;
+	color: #333;
+	width: 12.5rem;
+    /*background: red;*/
+    text-align:justify;
+    margin-bottom: 0.426rem;
+}
+.review_main_reply{
+	width: 11.875rem;
+	background: #F0F0F0;
+	border-radius: 8px;
+	padding: 0.426rem;
+	margin-bottom: 0.511rem;
+}
+.review_main_reply p{
+	font-size: 0.596rem;
+	color: #666;
+}
+.review_main_reply_div{
+	font-size: 0.553rem;
+	color: #333;
+	text-align: justify;
+}
+
+/*日期  点赞    回复开始*/
+.review_main_bottom{
+	
+}
+.review_main_bottom_left{
+	font-size: 0.468rem;
+    color: #999;
+    float: left;
+    width: 3rem;
+}
+.review_main_bottom_right{
+	float: right;
+    /*width: 2.5rem;*/
+}
+.div_left{
+	float: left;
+}
+.div_right{
+	float: right;
+	width: 0.681rem;
+	height: 0.638rem;
+	background: url(../images/praise.png) no-repeat;
+	background-size: 100% 100%;
+	margin-left: 0.4rem;
+}
+
+/*星星css开始*/
+
+.block{ 
+	width:118px; 
+	/*margin:0 0 20px 0; 
+	padding-top:10px; 
+	padding-left:50px; 
+	line-height:21px;*/
+	float: left;
+	margin-top: 2px;
+}
+.block .star_score{ 
+	float:left;
+}
+.star_list{
+	height:21px;
+	margin:50px; 
+	line-height:21px;
+}
+.block p,.block .attitude{ 
+	padding-left:20px; 
+	line-height:21px; 
+	display:inline-block;
+}
+.block p span{ 
+	color:#C00; 
+	font-size:16px; 
+}
+
+.star_score { 
+	background:url(../images/x1.png); 
+	width:160px; 
+	height:13px;  
+	position:relative; 
+	background-size: 24px 13px;
+}
+
+.star_score a{ 
+	height:13px; 
+	display:block; 
+	text-indent:-999em; 
+	position:absolute;
+	left:0;
+}
+
+.star_score a:hover{ 
+	background:url(../images/x0.png);
+	left:0;
+	background-size: 24px 13px;
+}
+
+.star_score a.clibg{ 
+	background:url(../images/x0.png);
+	left:0;
+	background-size: 24px 13px;
+}
+/*星星css结束*/
+/*中间内容结束*/
+
+
+/*底部开始*/
+footer{
+	width: 100%;
+	height: 2.085rem;
+	background: #fff;
+	position: fixed;
+    bottom: 0;
+}
+.footer{
+	width: 14.851rem;
+	height: 1.277rem;
+	line-height: 1.277rem;
+	background: #f0f0f0;
+	font-size: 0.5rem;
+	color: #666666;
+	margin: 0 auto;
+	border-radius: 24px;
+	margin-top: 0.43rem;
+}
+.footer img{
+	width: 0.511rem;
+	height: 0.511rem;
+    margin-left: 0.4rem;
+}
+/*.footer_div{
+	
+}*/
+/*底部结束*/
+
+
+
+
