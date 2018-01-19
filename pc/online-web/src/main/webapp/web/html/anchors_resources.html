@@ -86,7 +86,58 @@
 				<!--收徒-->
 				<div class="select_box">收徒</div>	
 				<!--医馆-->
-				<div class="select_box">医馆</div>
+				<div class="select_box" id="hospital">
+					<div class="zhuanlan_top">
+						<span class="title">医馆</span>
+						<button>返回</button>
+					</div>
+					
+					<div class="zhuanlan_bottom " id="hospital_bottom">
+						<form action="">
+						<div>
+							<span><em>*</em> 任职医馆</span>
+							<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title"/><a href="javascript:;"><span>选择平台已有医馆</span></a>
+							<p class="warning hide">任职医馆不能为空</p>
+						</div>
+						
+						<div class="hospital_address">
+							<span><em>*</em> 医馆地址</span>
+							<select name="" id="">
+								<option value="">111</option>
+								<option value="">111</option>
+								<option value="">111</option>
+							</select>
+							
+							<select name="" id="">
+								<option value="">222</option>
+								<option value="">111</option>
+								<option value="">111</option>
+							</select>
+							<textarea name="" id="" style="resize: none;display: block;" placeholder="请输入详细地址"></textarea>
+							<p class="warning hide">医馆地址不能为空</p>
+						</div>
+						
+						<div class="hospital_worktime">
+							<span><em>*</em>  每周坐诊</span>
+							<ul>
+								<li>一</li>
+								<li>二</li>
+								<li>三</li>
+								<li>四</li>
+								<li>五</li>
+								<li>六</li>
+								<li>七</li>
+							</ul>
+						</div>
+						
+						
+						
+						<div class="baocun">
+							<input type="submit" value="保存" id="submit"/>
+						</div>
+						</form>
+					</div>
+				</div>
 				<!--专栏-->
 				<div class="select_box" id="zhuanlan">
 					<div class="zhuanlan_top">

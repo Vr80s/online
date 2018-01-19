@@ -4,10 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xczhihui.bxg.common.support.domain.BasicEntity2;
 
 import java.io.Serializable;
 import java.lang.Integer;
+import java.util.Date;
 
 /**
  * 菜单实体类
@@ -64,6 +66,26 @@ public class Project extends BasicEntity2 implements Serializable {
 	@Column(name = "type")
 	private Integer type;
 
+	/**
+	 * 启用时间
+	 */
+	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+	@Column(name = "start_time")
+	private Date startTime;
+
+	/**
+	 * 关闭时间
+	 */
+	@JsonFormat(pattern = "yyyy-M-d", timezone = "GMT+8")
+	@Column(name = "end_time")
+	private Date endTime;
+
+	/**
+	 * 点击数
+	 */
+	@Column(name = "click_num")
+	private Integer clickNum;
+
 	public String getName() {
 		return name;
 	}
@@ -80,11 +102,6 @@ public class Project extends BasicEntity2 implements Serializable {
 	public void setSort(Integer sort) {
 		this.sort = sort;
 	}
-
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
-
 
 	public Integer getStatus() {
 		return status;
@@ -132,5 +149,29 @@ public class Project extends BasicEntity2 implements Serializable {
 
 	public void setLinkCondition(String linkCondition) {
 		this.linkCondition = linkCondition;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public Integer getClickNum() {
+		return clickNum;
+	}
+
+	public void setClickNum(Integer clickNum) {
+		this.clickNum = clickNum;
 	}
 }

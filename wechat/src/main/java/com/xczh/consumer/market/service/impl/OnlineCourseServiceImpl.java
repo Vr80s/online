@@ -53,8 +53,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	
 	
 	@Override
-	public List<CourseLecturVo> findLiveListInfo(Integer start_page,
-                                                 Integer page_size, String queryParam) throws SQLException {
+	public List<CourseLecturVo> findLiveListInfo() throws SQLException {
 		/*
 		 * 从teach_method表中获取直播方式 oe_course smallimg_path 缩略图 start_time end_time
 		 * 只有公开课有直播开始时间和结束时间。其余的都是直接播放的啊。点播才有章节这个部分呢，直播和公开课是没有了啊。 gradeName 课程名称
@@ -63,8 +62,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		 */
 		List<CourseLecturVo> newList = new ArrayList<CourseLecturVo>();
 		
-		List<CourseLecturVo> list = courseMapper.findLiveListInfo(start_page,
-				page_size, queryParam);
+		List<CourseLecturVo> list = courseMapper.findLiveListInfo();
 		//根据用户id和课程id
 		//这里紧紧是判断密码是否为null  -- 没有判断用户是否已经输入了
 		newList.addAll(list);

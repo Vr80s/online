@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import com.xczh.consumer.market.vo.*;
+import com.xczhihui.wechat.course.model.OfflineCity;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -50,15 +51,12 @@ public interface OLCourseServiceI {
 	/**
 	 * 线下培训班列表
 	 * Description：
-	 * @param number
-	 * @param pageSize
 	 * @return
 	 * @return List<CourseLecturVo>
 	 * @author name：liutao
 	 *
 	 */
-	public List<CourseLecturVo> offLineClassList( int number,
-											 int pageSize)throws SQLException;
+	public List<CourseLecturVo> offLineClassList( List<OfflineCity> cityList)throws SQLException;
 
 	/**
 	 * 线下培训班详情
@@ -70,7 +68,7 @@ public interface OLCourseServiceI {
 	 */
 	CourseLecturVo offLineClassItem( Integer id,String userId)throws SQLException;
 	
-	public List<CourseLecturVo> recommendCourseList(int i, int j, String str,List<MenuVo> listmv) throws SQLException;
+	public List<CourseLecturVo> recommendCourseList(List<MenuVo> listmv) throws SQLException;
 	/**
 	 * 
 	 * Description：查询
@@ -84,7 +82,7 @@ public interface OLCourseServiceI {
 	 * @return List<CourseLecturVo>
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public List<CourseLecturVo> queryAllCourse(Integer menuType,
+	public List<CourseLecturVo> queryAllCourse(String menuType,
 			Integer courseType, String isFree, String city,String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException;
 }

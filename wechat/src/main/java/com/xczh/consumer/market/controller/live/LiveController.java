@@ -173,7 +173,7 @@ public class LiveController {
 		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		try {
-			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(pageNumber,pageSize,null);
+			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
 			LOGGER.info("list.size():"+list.size());
 			if(list!=null && list.size()>0){
 				return ResponseObject.newSuccessResponseObject(list);
@@ -213,14 +213,12 @@ public class LiveController {
 		int course_id =Integer.parseInt(req.getParameter("course_id"));
 		CourseLecturVo courseLecturVo  = null;
 		if(null == user){
-			
 			 courseLecturVo = onlineCourseService.
 					liveDetailsByCourseId(course_id,null); //课程简介
 			 if(null == courseLecturVo){
 					return ResponseObject.newErrorResponseObject("获取课程数据有误");
 			 }
 		}else{
-			
 			courseLecturVo = onlineCourseService.
 				liveDetailsByCourseId(course_id,user.getId()); //课程简介
 			
@@ -360,7 +358,7 @@ public class LiveController {
 	/**
 	 * 取消审核
 	 * Description：
-	 * @param id
+	 * @param examineId
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
@@ -490,7 +488,7 @@ public class LiveController {
 		Map<String,Object> mapHf = new HashMap<String, Object>();
 		
 		
-		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo(1,4,null);
+		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
 		
 		mapTj.put("title","正在直播");
 		mapTj.put("courseList",list);

@@ -31,7 +31,7 @@ import java.util.Map;
  * Create Time: 2017年8月10日<br>
  */
 @Controller
-@RequestMapping("/bxg/live")
+@RequestMapping("/bxg/live1")
 public class H5AloneController {
 
 	@Autowired

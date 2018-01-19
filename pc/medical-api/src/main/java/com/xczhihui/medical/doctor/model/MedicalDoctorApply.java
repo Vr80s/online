@@ -3,9 +3,12 @@ package com.xczhihui.medical.doctor.model;
 import java.io.Serializable;
 
 import java.util.Date;
+import java.util.List;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.medical.department.model.MedicalDepartment;
 
 /**
  * <p>
@@ -124,7 +127,28 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
      * 备注
      */
 	private String remark;
+	/**
+	 * 身份证号
+	 */
+	@TableField("card_num")
+	private String cardNum;
 
+	/**
+	 * 医师入驻申请关联的科室列表
+	 */
+	@TableField(exist = false)
+	private List<MedicalDoctorApplyDepartment> departments;
+
+	/**
+	 * 医师入驻申请关联的科室详情列表
+	 */
+	@TableField(exist = false)
+	private List<MedicalDepartment> medicalDepartments;
+
+	/**
+	 * 擅长领域
+	 */
+	private String field;
 
 	public String getId() {
 		return id;
@@ -308,6 +332,38 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public List<MedicalDoctorApplyDepartment> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<MedicalDoctorApplyDepartment> departments) {
+		this.departments = departments;
+	}
+
+	public String getField() {
+		return field;
+	}
+
+	public void setField(String field) {
+		this.field = field;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+
+	public List<MedicalDepartment> getMedicalDepartments() {
+		return medicalDepartments;
+	}
+
+	public void setMedicalDepartments(List<MedicalDepartment> medicalDepartments) {
+		this.medicalDepartments = medicalDepartments;
 	}
 
 	@Override

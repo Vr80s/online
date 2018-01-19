@@ -15,8 +15,13 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 <script src="/xcviews/js/js.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 
-<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/home_page.js"></script>
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
@@ -24,6 +29,7 @@
 
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
+</head>
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 	<header>
@@ -52,7 +58,7 @@
 	                <li>听课</li>
 	           </ul>
 	           
-	            <div class="tabSlider-bd line" style="height: 124px;">     
+	            <div class="tabSlider-bd line gieTa" style="height: 124px;">     
 	            	
 	                <div class="tabSlider-wrap" style="transform: translate(-1883px, 0px);">
 	
@@ -62,14 +68,13 @@
 								<!--课程分类开始-->
 								<div class="classify_course">
 									<div class="classify_course_title">课程分类</div>
-									<div class="classify_course_type">
-										<div class="classify_course_type_one">针灸疗法</div>
-										<div class="classify_course_type_one">各式推拿</div>
-										<div class="classify_course_type_one">美容养生</div>
-										<div class="classify_course_type_one">药膳食疗</div>
-										<div class="classify_course_type_one">古籍经典</div>
-										<div class="classify_course_type_one">各家综合</div>
-										<div class="both"></div>
+									<div class="classify_course_type" id="classify_course_type">
+										<script type="text/html" id="my_data0">
+											{{each items as item i}}
+											<div class="classify_course_type_one">{{item.name}}</div>
+											{{/each}}
+											<div class="both"></div>
+										</script>
 									</div>
 								</div>
 								<!--课程分类结束-->
@@ -77,12 +82,15 @@
 								<!--专题课程开始-->
 								<div class="classify_special">
 									<div class="classify_special_title">专题课程</div>
-									<div class="classify_special_type">
-										<div class="classify_special_type_one">大师课程</div>
-										<div class="classify_special_type_one">经典课程</div>
-										<div class="classify_special_type_one">小白课程</div>
-										<div class="classify_special_type_one">免费课程</div>
+									<div class="classify_special_type" id="classify_special_type">
+										<script type="text/html" id="my_data1">
+											{{each items as item i}}
+											<div class="classify_special_type_one">{{item.name}}</div>
+											{{/each}}
+
 										<div class="both"></div>
+										</script>
+										
 									</div>
 								</div>
 								<!--专题课程结束-->
@@ -90,12 +98,15 @@
 								<!--课程类型开始-->
 								<div class="classify_mold">
 									<div class="classify_mold_title">课程类型</div>
-									<div class="classify_mold_type">
-										<div class="classify_mold_type_one">视频课程</div>
-										<div class="classify_mold_type_one">直播课程</div>
-										<div class="classify_mold_type_one">线下课程</div>
-										<div class="classify_mold_type_one">音频课程</div>
+									<div class="classify_mold_type" id="classify_mold_type">
+										<script type="text/html" id="my_data2">
+											{{each items as item i}}
+													<div class="classify_mold_type_one">{{item.name}}</div>
+											{{/each}}
+
 										<div class="both"></div>
+										</script>
+										
 									</div>
 								</div>
 								<!--课程类型结束-->
@@ -104,77 +115,38 @@
 	
 	                    </div>
 	                    <!--分类结束-->
-	                    
+	            
 						<!--推荐开始-->
-	                    <div class="tabSlider-box curr" style="transform: translate(1883px, 0px);">
+	                    <div class="tabSlider-box curr tjks" style="transform: translate(1883px, 0px);">
 							<!--轮播开始-->
 							<nav>
 								<div class="htmleaf-container">
 									<article class="container">
 									    <section>
 									      <figure id="responsiveness" class="swipslider">
-									        <ul class="sw-slides">
-									           <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li> 
-									        </ul>
+									       	<ul class="sw-slides" id="sw-slides">
+
+										            
+									       	</ul>
 									      </figure>
 									    </section>
 									</article>
 								</div>
 							</nav>
 							<!--轮播结束-->
-							<ul class="slide_one">
+							<ul class="slide_one" id="slide_one">
+								<script type="text/html" id="nav_list">
+									{{each items as item i}}
 								<li>
 									<div class="slide_one_div">
 										<div class="">
-											<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											<img src="{{item.icon}}" class="slide_one_artist" />
 										</div>
-										
-										<p>大师课</p>
+										<p>{{item.title}}</p>
 									</div>
 								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/sutra.png" class="slide_one_sutra" />
-										</div>
-										
-										<p>经典课</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/health.png" class="slide_one_health" />
-										</div>
-										
-										
-										<p>养生课</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/Macbook.png" class="slide_one_Macbook" />
-										</div>
-										<p>小白课</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/Gratis.png" class="slide_one_Gratis" />
-										</div>
-										<p>免费课</p>
-									</div>
-								</li>
+								{{/each}}
+								</script>
 							</ul>
 	
 							<!--推荐名师开始-->
@@ -182,68 +154,18 @@
 	                    		<div class="teacher_slider_main">
 	                    			<div class="teacher_slider_main_title">推荐名师</div>
 	                    			<div class="teacher_slider_ul">
-	                    				<ul>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<li>
-		                    					<div class="teacher_slider_ul_div">
-		                    						<img src="/xcview/images/120.jpg" />
-		                    						<div>小阿平</div>
-		                    					</div>
-		                    				</li>
-		                    				<div class="both"></div>
+	                    				<ul id="phy_box">
+	                    					<script type="text/html" id="wrap_phy">
+		                    					{{each items as item i}}
+			                    				<li>
+			                    					<div class="teacher_slider_ul_div">
+			                    						<img src="{{item.headPortrait}}" />
+			                    						<div>{{item.name}}</div>
+			                    					</div>
+			                    				</li>
+			                    				{{/each}}
+			                    				<div class="both"></div>
+		                    				</script>
 		                    			</ul>
 	                    			</div>
 									
@@ -252,289 +174,64 @@
 	                    	<!--推荐名师结束-->
 	                    	
 	                    	<!--精品课程开始-->
+	                    	<!--精品课程开始-->
+	                    	
+	                    	<div class="first_box"></div>
+	                    		
+	                    	
+	                    	<script type="text/html" id="shipin">
+									{{each items as item i}}
 	                    	<div class="acupuncture">
-	                    		<div class="boutique_title">精品课程</div>
+	                    		<div class="boutique_title">{{item.title}}</div>
 	                    		<div class="boutique_main">
 	                    			<ul>
 	                    				<!--视频-->
+	                    				{{each item.courseList as item i}}
 	                    				<li>
 	                    					<div class="boutique_main_one">
 	                    						<div class="boutique_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
+
+	                    							<img src="{{item.smallImgPath}}" alt="" />
+	                    							
 	                    						</div>
-	                    						<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
-	                    						<div class="boutique_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
+	                    							{{if item.type == 1}}
+	                    								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
+	                    							{{else if item.type == 2}}
+	                    								<img src="/xcview/images/frequency.png" alt="" class="boutique_main_one_img_type" />
+													{{else if item.type == 3}}
+	                    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
+													{{else if item.type == 4}}
+	                    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
+			
+	                    							{{/if}}
+	                    						<div class="boutique_main_one_title">{{item.gradeName}}</div>
 	                    						<div class="boutique_main_one_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
+	                    							{{if item.watchState == 1}}
+	                    							<p><span>免费</span></p>
+	                    							{{else}}
+	                    							<p><span>{{item.currentPrice}}</span>熊猫币</p>
+	                    							{{/if}}
+	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
+	                    							{{if item.type == 3}}
+	                    							<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startTime}}</span></p>
+	                    							{{else if item.type == 4}}
+	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+	                    							{{/if}}
 	                    						</div>
 	                    					</div>
 	                    				</li>
-	                    				<!--直播-->
-	                    				<li>
-	                    					<div class="boutique_main_two">
-	                    						<div class="boutique_two_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_two_img_type" />
-	                    						<div class="boutique_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="boutique_main_two_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>10.23</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--音频-->
-	                    				<li>
-	                    					<div class="boutique_main_three">
-	                    						<div class="boutique_three_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/frequency_auto.png" alt="" class="boutique_main_three_img_type" />
-	                    						<div class="boutique_main_three_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="boutique_main_three_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--线下-->
-	                    				<li>
-	                    					<div class="boutique_main_four">
-	                    						<div class="boutique_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/offline_auto.png" alt="" class="boutique_main_four_img_type" />
-	                    						<div class="boutique_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="boutique_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
+	                    				{{/each}}
 	                    				<div class="both"></div>
 	                    			</ul>
 	                    		</div>
 	                    	</div>
+	                    	{{/each}}
+	                    	</script>
 	                    	<!--精品课程结束-->
 	                    	
-	                    	<!--最新课程开始-->
-	                    	<div class="newest">
-	                    		<div class="newest_title">最新课程</div>
-	                    		<div class="newest_main">
-	                    			<ul>
-	                    				<!--视频-->
-	                    				<li>
-	                    					<div class="newest_main_one">
-	                    						<div class="newest_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_one_img_type" />
-	                    						<div class="newest_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_one_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--直播-->
-	                    				<li>
-	                    					<div class="newest_main_two">
-	                    						<div class="newest_two_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/Sinatv_auto.png" alt="" class="newest_main_two_img_type" />
-	                    						<div class="newest_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_two_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>10.23</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--音频-->
-	                    				<li>
-	                    					<div class="newest_main_three">
-	                    						<div class="newest_three_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/frequency_auto.png" alt="" class="newest_main_three_img_type" />
-	                    						<div class="newest_main_three_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_three_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--线下-->
-	                    				<li>
-	                    					<div class="newest_main_four">
-	                    						<div class="newest_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/offline_auto.png" alt="" class="newest_main_four_img_type" />
-	                    						<div class="newest_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<div class="both"></div>
-	                    			</ul>
-	                    		</div>
-	                    	</div>
-	                    	<!--最新课程结束-->
 	                    	
-	                    	<!--针灸课程开始-->
-	                    	<div class="acupuncture">
-	                    		<div class="acupuncture_title">针灸课程</div>
-	                    		<div class="acupuncture_main">
-	                    			<ul>
-	                    				<!--视频-->
-	                    				<li>
-	                    					<div class="acupuncture_main_one">
-	                    						<div class="acupuncture_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/tv_auto.png" alt="" class="acupuncture_main_one_img_type" />
-	                    						<div class="acupuncture_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="acupuncture_main_one_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--直播-->
-	                    				<li>
-	                    					<div class="acupuncture_main_two">
-	                    						<div class="acupuncture_two_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/Sinatv_auto.png" alt="" class="acupuncture_main_two_img_type" />
-	                    						<div class="acupuncture_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="acupuncture_main_two_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>10.23</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--音频-->
-	                    				<li>
-	                    					<div class="acupuncture_main_three">
-	                    						<div class="acupuncture_three_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/frequency_auto.png" alt="" class="acupuncture_main_three_img_type" />
-	                    						<div class="acupuncture_main_three_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="acupuncture_main_three_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--线下-->
-	                    				<li>
-	                    					<div class="acupuncture_main_four">
-	                    						<div class="acupuncture_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/offline_auto.png" alt="" class="acupuncture_main_four_img_type" />
-	                    						<div class="acupuncture_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="acupuncture_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<div class="both"></div>
-	                    			</ul>
-	                    		</div>
-	                    	</div>
-	                    	<!--针灸课程结束-->
-	                    	
-	                    	<!--古籍经典开始-->
-	                    	<div class="ancient">
-                    			<div class="ancient_title">古籍经典</div>
-                    			<div class="ancient_main">
-                    				<ul>
-                    					<!--视频-->
-                    					<li>
-                    						<div class="ancient_main_one">
-	                    						<div class="ancient_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/tv_auto.png" alt="" class="ancient_main_one_img_type" />
-	                    						<div class="ancient_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="ancient_main_one_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-                    					</li>
-                    					<!--直播-->
-	                    				<li>
-	                    					<div class="ancient_main_two">
-	                    						<div class="ancient_two_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/Sinatv_auto.png" alt="" class="ancient_main_two_img_type" />
-	                    						<div class="ancient_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="ancient_main_two_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>10.23</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--音频-->
-	                    				<li>
-	                    					<div class="ancient_main_three">
-	                    						<div class="ancient_three_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/frequency_auto.png" alt="" class="ancient_main_three_img_type" />
-	                    						<div class="ancient_main_three_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="ancient_main_three_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<!--线下-->
-	                    				<li>
-	                    					<div class="ancient_main_four">
-	                    						<div class="ancient_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<img src="/xcview/images/offline_auto.png" alt="" class="ancient_main_four_img_type" />
-	                    						<div class="ancient_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="ancient_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-                    					<div class="both"></div>
-                    				</ul>
-                    			</div>
-	                    	</div>
-	                    	<!--古籍经典结束-->
 	                    </div>
+
 						<!--推荐结束-->
 						
 						<!--线下课开始-->
@@ -1183,6 +880,8 @@
 
 <!--js滑动引入开始-->
 <script type="text/javascript">
+	 
+//	 $(".gieTa").height()==myHeight
 	/* Zepto 1.1.3 - zepto event ajax form ie detect fx assets data deferred callbacks selector touch gesture stack - zeptojs.com/license */
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
@@ -3841,4 +3540,25 @@ app.TabSlider = function(dom,options){
 	        	sliderHeight: '30%'});
 	    });
 	</script>
+	<script type="text/javascript">
+//		var objj=document.getElementsByClassName("teacher_slider")[0];
+//		console.log(objj.offsetHeight)
+//$(function(){
+//	var myHeight=$(".tjks").height();
+//	console.log(myHeight)
+//	 	$(".gieTa").height()==myHeight;
+//})
+//		$(function(){
+//function abc(){
+//
+////$(".teacher_slider_main_title").click()
+//console.log(1)
+//
+//}
+
+//abc();
+//})
+
+	
+</script>
 </html>

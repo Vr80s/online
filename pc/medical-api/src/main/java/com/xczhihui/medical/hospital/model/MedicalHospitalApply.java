@@ -6,7 +6,6 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -16,8 +15,8 @@ import java.io.Serializable;
  * @author yuxin
  * @since 2018-01-15
  */
-@TableName("medical_hospital_authentication_apply")
-public class MedicalHospitalAuthenticationApply extends Model<MedicalHospitalAuthenticationApply> {
+@TableName("medical_hospital_apply")
+public class MedicalHospitalApply extends Model<MedicalHospitalApply> {
 
     private static final long serialVersionUID = 1L;
 
@@ -217,24 +216,5 @@ public class MedicalHospitalAuthenticationApply extends Model<MedicalHospitalAut
 		return this.id;
 	}
 
-	@Override
-	public String toString() {
-		return "MedicalHospitalAuthenticationApply{" +
-			", id=" + id +
-			", company=" + company +
-			", businessLicenseNo=" + businessLicenseNo +
-			", businessLicensePicture=" + businessLicensePicture +
-			", licenseForPharmaceuticalTrading=" + licenseForPharmaceuticalTrading +
-			", licenseForPharmaceuticalTradingPicture=" + licenseForPharmaceuticalTradingPicture +
-			", status=" + status +
-			", userId=" + userId +
-			", deleted=" + deleted +
-			", createTime=" + createTime +
-			", createPerson=" + createPerson +
-			", updateTime=" + updateTime +
-			", updatePerson=" + updatePerson +
-			", version=" + version +
-			", remark=" + remark +
-			"}";
-	}
+
 }

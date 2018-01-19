@@ -158,8 +158,16 @@ public class CourseLecturVo implements Serializable {
 	
 	
 	private String  note; //
-	
-	
+	private String  startDateStr; //
+
+	public String getStartDateStr() {
+		return startDateStr;
+	}
+
+	public void setStartDateStr(String startDateStr) {
+		this.startDateStr = startDateStr;
+	}
+
 	public String getUdescription() {
 		return udescription;
 	}

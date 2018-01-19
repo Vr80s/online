@@ -52,15 +52,14 @@ public class TokenFilter implements Filter {
 	private static String str3 = "/bxg/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/bxg/alipay/pay,/bxg/alipay/rewardPay,/bxg/alipay/payXianXia,"
 			+ "/bxg/alipay/rechargePay,/bxg/common/h5ShareAfter,/bxg/wxjs/h5ShareGetWxOpenId,/bxg/wxpay/h5ShareGetWxUserInfo";
 
-	/**
-	 * apple手机  首页信息不拦截
-	 */
+	
 	private static String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/bs/appLogin,/bxg/focus/myHome,"
 			+ "/bxg/user/appleLogout";
 	
-	private static String str6 = "/bxg/bunch/queryAllCourse,/bxg/bunch/schoolClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse";
-	
+	private static String str6 = "/bxg/bunch/queryAllCourse,/bxg/bunch/schoolClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,"
+			+ "/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse,/bxg/criticize/saveCriticize,/bxg/criticize/updatePraise,"
+			+ "/bxg/criticize/saveReply,/bxg/criticize/getCriticizeList,/bxg/host/hostPageCourse,/bxg/host/hostPageInfo,/bxg/bunch/hotSearch";
 	
 //	/*
 //	 * 因为这些接口和h5无关
@@ -115,7 +114,7 @@ public class TokenFilter implements Filter {
 	    
 	    String appExcludedPageStr = str5+","+str6;
 		//String appExcludedPageStr =str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14+","+str15;
-		if (StringUtils.isNotEmpty(excludedPageStr)) {   
+		if (StringUtils.isNotEmpty(excludedPageStr) ) {   
 		    excludedPageArray = excludedPageStr.split(",");
 		    appExcludedPageArray  = appExcludedPageStr.split(",");
 		}     
@@ -135,10 +134,9 @@ public class TokenFilter implements Filter {
 		boolean isExcludedPage = false;   
 		String currentURL = request.getRequestURI(); // 取得根目录所对应的绝对路径:
 		
-		if(Arrays.asList(excludedPageArray).contains(currentURL)){
+		if(Arrays.asList(excludedPageArray).contains(currentURL) || currentURL.indexOf("xczh")!=-1){
 			     isExcludedPage = true;     
 		}
-		
 		boolean isAjax = false;
 		if (request.getHeader("x-requested-with") != null 
                  && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"))) {   

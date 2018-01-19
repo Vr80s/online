@@ -1,0 +1,284 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<!--<link rel="stylesheet" href="/xcviews/css/css.css">-->
+<link rel="stylesheet" href="/xcview/css/review.css">
+
+<!--点赞-->
+<link rel="stylesheet" href="/xcview/css/demo.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+
+<script src="/xcview/js/common/js.js"></script>
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+
+
+	
+<style type="text/css">
+
+</style>
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<!--这一段不起作用，不能删除，删除以后刷新就没作用了-->
+		<div class="home" style="display: none;">
+			<div class="home_top">
+				<div class="return"  id="home_img"></div>
+				<span>直播</span>
+			</div>
+		</div>
+		
+		
+		<div class="header">
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png">
+			</div>
+			<div class="header_title">主播评论</div>
+		</div>
+	</header>
+	<div class="footer_k" style="height:2rem;"></div>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<!-- <div class="a">标题</div> -->
+		<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+		  <div class="mui-scroll">
+		  	
+		  	
+		   	    <!--数据列表-->
+				<div class="review">
+					<div class="review_main">						
+						<div class="review_main_cen">
+							<div class="review_main_cen_left">
+								<img src="../images/120.jpg" class="img" />
+								<img src="../images/buyer.png" class="img0" />
+							</div>
+							<div class="review_main_cen_right">
+								<div class="review_right_title">
+									<div class="review_right_title_name">马可先生</div>
+									<!--星星开始-->
+					      			<div id="" class="block clearfix startone" >
+								        <div class="star_score"></div>
+								    </div>
+								    <!--星星结束-->
+								    <div class="both"></div>
+								</div>
+								<!--评论内容-->
+								<div class="review_main_size">姚春龄老师的课，解读通透，我非常喜欢，不愧是名医。一直在努力，从未放弃</div>
+								
+								<!--回复内容-->
+								<div class="review_main_reply">
+									<p>辣椒小姐;</p>
+									<div class="review_main_reply_div">我是回复文字我是回复文字我是回复文字我是回复文字我是回复文字</div>
+								</div>
+								
+								<!--日期  点赞    回复-->
+								<div class="review_main_bottom">
+									<div class="review_main_bottom_left">2017.12.24</div>
+									<div class="review_main_bottom_right">
+										<div class="div_left">
+											
+											<div class="praise">
+												<span class="praises"><img src="../images/zan00.png" class="praise-img" /></span>
+												<span class="praise-txt">0</span>
+												<span class="add-num"><em>+1</em></span>
+											</div>
+											
+										</div>
+										<div class="div_right"></div>
+									</div>
+								</div>
+							</div>
+							<div class="both"></div>
+						</div>
+						
+						<div class="review_main_cen">
+							<div class="review_main_cen_left">
+								<img src="../images/120.jpg" class="img" />
+								<img src="../images/buyer.png" class="img0" />
+							</div>
+							<div class="review_main_cen_right">
+								<div class="review_right_title">
+									<div class="review_right_title_name">马可先生</div>
+									<!--星星开始-->
+					      			<div id="" class="block clearfix startone" >
+								        <div class="star_score"></div>
+								    </div>
+								    <!--星星结束-->
+								    <div class="both"></div>
+								</div>
+								<!--评论内容-->
+								<div class="review_main_size">姚春龄老师的课，解读通透，我非常喜欢，不愧是名医。一直在努力，从未放弃</div>
+								
+								<!--回复内容-->
+								<div class="review_main_reply">
+									<p>辣椒小姐;</p>
+									<div class="review_main_reply_div">我是回复文字我是回复文字我是回复文字我是回复文字我是回复文字</div>
+								</div>
+								
+								<!--日期  点赞    回复-->
+								<div class="review_main_bottom">
+									<div class="review_main_bottom_left">2017.12.24</div>
+									<div class="review_main_bottom_right">
+										<div class="div_left">
+											
+											<div class="praise">
+												<span class="praises"><img src="../images/zan00.png" class="praise-img" /></span>
+												<span class="praise-txt">0</span>
+												<span class="add-num"><em>+1</em></span>
+											</div>
+											
+										</div>
+										<div class="div_right"></div>
+									</div>
+								</div>
+							</div>
+							<div class="both"></div>
+						</div>
+						
+						<div class="review_main_cen">
+							<div class="review_main_cen_left">
+								<img src="../images/120.jpg" class="img" />
+								<img src="../images/buyer.png" class="img0" />
+							</div>
+							<div class="review_main_cen_right">
+								<div class="review_right_title">
+									<div class="review_right_title_name">马可先生</div>
+									<!--星星开始-->
+					      			<div id="" class="block clearfix startone" >
+								        <div class="star_score"></div>
+								    </div>
+								    <!--星星结束-->
+								    <div class="both"></div>
+								</div>
+								<!--评论内容-->
+								<div class="review_main_size">姚春龄老师的课，解读通透，我非常喜欢，不愧是名医。一直在努力，从未放弃</div>
+								
+								<!--回复内容-->
+								<div class="review_main_reply">
+									<p>辣椒小姐;</p>
+									<div class="review_main_reply_div">我是回复文字我是回复文字我是回复文字我是回复文字我是回复文字</div>
+								</div>
+								
+								<!--日期  点赞    回复-->
+								<div class="review_main_bottom">
+									<div class="review_main_bottom_left">2017.12.24</div>
+									<div class="review_main_bottom_right">
+										<div class="div_left">
+											
+											<div class="praise">
+												<span class="praises"><img src="../images/zan00.png" class="praise-img" /></span>
+												<span class="praise-txt">0</span>
+												<span class="add-num"><em>+1</em></span>
+											</div>
+											
+										</div>
+										<div class="div_right"></div>
+									</div>
+								</div>
+							</div>
+							<div class="both"></div>
+						</div>
+						
+					</div>
+				</div>
+				
+				
+		  </div>
+		</div>
+	</div>
+	<!-- 中间内容结束 -->
+	
+	<!--底部开始-->
+	<footer>
+		<div class="footer">
+			<!--<div class="footer_div">-->
+				<img src="../images/footer_div.png" />
+				来点神聊
+			<!--</div>-->
+		</div>
+	</footer>
+	<!--底部结束-->
+	
+	<!--点击评论区开始-->
+	<div class="">
+		<div class=""></div>
+		<div class="">
+			
+		</div>
+	</div>
+	<!--点击评论区结束-->
+	
+	
+</body>
+<!--刷新引入开始-->
+<!--<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>-->
+<!--<script type="text/javascript" src="/Views/h5/js/common.js"></script>-->
+<!--<script src="/xcview/js/index.js" type="text/javascript"></script>  <!--删除以后刷新效果就没有了，3个都要-->
+<!--刷新引入结束-->
+
+
+<!--星星js-->
+<script type="text/javascript" src="../js/reviewxx.js"></script>
+
+<script>
+    scoreFun($(".startone"))
+    scoreFun($(".starttwo"),{
+       fen_d:18,//每一个a的宽度
+       ScoreGrade:5//a的个数5
+     });
+ //显示分数
+    $(".show_number li p").each(function(index, element) {
+    var num=$(this).attr("tip");
+    var www=num*2*12;//
+    $(this).css("width",www);
+    $(this).parent(".atar_Show").siblings("span").text(num+"分");
+	});
+</script>
+    
+<!--点赞-->
+<script>
+	/* @author:Romey
+	 * 动态点赞
+	 * 此效果包含css3，部分浏览器不兼容（如：IE10以下的版本）
+	*/
+	$(function(){
+		$(".praises").click(function(){
+			var praise_img = $(".praise-img");
+			var text_box = $(".add-num");
+			var praise_txt = $(".praise-txt");
+			var num=parseInt(praise_txt.text());
+			if(praise_img.attr("src") == ("../images/zan00.png")){
+				$(this).html("<img src='../images/zan001.png' class='animation praise-img' />");
+				praise_txt.removeClass("hover");
+				text_box.show().html("<em class='add-animation'>+1</em>");
+				$(".add-animation").removeClass("hover");
+				num +=1;
+				praise_txt.text(num)
+			}else{
+				$(this).html("<img src='../images/zan00.png' class='animation praise-img' />");
+				praise_txt.addClass("hover");
+				text_box.show().html("<em class='add-animation'>-1</em>");
+//				$(".add-animation").addClass("hover");
+				num -=1;
+				praise_txt.text(num)
+			}
+		});
+	})
+</script>
+    	
+
+</html>

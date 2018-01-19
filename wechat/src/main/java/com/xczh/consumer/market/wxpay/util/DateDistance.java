@@ -135,4 +135,53 @@ public class DateDistance {
 			return day + "天" + hour + "小时" + min + "分前";
 		}
 	}
+	
+	/**
+	 * 新的原型设计学习中心的多少天多少天前
+	 * return day + "天" + hour + "小时" + min + "分前";
+	 * 
+	 * @param str1
+	 *            时间参数 1 格式：1990-01-01 12:00:00
+	 * @param str2
+	 *            时间参数 2 格式：2009-01-01 12:00:00
+	 * @return String 返回值为：xx天xx小时xx分xx秒
+	 */
+	public static String getNewDistanceTime(String str1, String str2) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date one;
+		Date two;
+		long day = 0;
+		long hour = 0;
+		long min = 0;
+		long sec = 0;
+		try {
+			one = df.parse(str1);
+			two = df.parse(str2);
+			long time1 = one.getTime();
+			long time2 = two.getTime();
+			long diff;
+			if (time1 < time2) {
+				diff = time2 - time1;
+			} else {
+				diff = time1 - time2;
+			}
+			day = diff / (24 * 60 * 60 * 1000);
+			hour = (diff / (60 * 60 * 1000) - day * 24);
+			min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
+			sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if(day == 0){
+			if(hour == 0){
+				return min + "分钟前";
+			}else{
+				return hour + "小时前";
+			}
+		}else if(day>0 && day<=7){
+			return day + "天前";
+		}else{
+			return "很久很久以前";
+		}
+	}
 }

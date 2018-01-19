@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
+import com.xczhihui.bxg.online.common.domain.Criticize;
 
 /**
  * 评论接口：
@@ -66,5 +67,8 @@ public interface CriticizeService {
      * @author name：yangxuan <br>email: 15936216273@163.com
      */
 	public void saveReply(String content, String criticizeId, String id);
+
+	Page<Criticize> getUserCriticize(String userId, String courseId,
+			Integer pageNumber, Integer pageSize);
 	
 }

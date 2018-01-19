@@ -53,9 +53,9 @@ public class MobileBannerServiceImpl extends OnlineBaseServiceImpl implements Mo
 	@Override
 	public boolean updateStatus(MobileBannerVo mobileBannerVo) {
 		String sql = "select count(1) from oe_course_mobile_banner t where t.status = 1 ";
-		if(dao.queryForInt(sql) >= 5){
+		/*if(dao.queryForInt(sql) >= 5){
 			throw new RuntimeException("最多启用五个banner!");
-		}
+		}*/
 	    sql =" UPDATE oe_course_mobile_banner " +
 			" SET status = abs(status - 1) " +
 			" WHERE " +

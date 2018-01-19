@@ -9,7 +9,6 @@ import java.util.Date;
  * Created by admin on 2016/7/27.
  */
 public class CourseLecturVo implements Serializable {
-
     /**
      *课程ID
      */
@@ -151,6 +150,7 @@ public class CourseLecturVo implements Serializable {
 	
 	private Integer cutoff =0;	// 0 已截止  1 未截止
 	
+	private String userLecturerId;
 	
 	private String  note; //
 	
@@ -411,4 +411,14 @@ public class CourseLecturVo implements Serializable {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	public String getUserLecturerId() {
+		return userLecturerId;
+	}
+
+	public void setUserLecturerId(String userLecturerId) {
+		this.userLecturerId = userLecturerId;
+	}
+	
+	
 }

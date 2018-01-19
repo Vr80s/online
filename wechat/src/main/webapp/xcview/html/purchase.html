@@ -46,21 +46,104 @@
 	
 	
 	<!--中间内容开始-->
+	<div class="purchase_details">
+		<div class="purchase_details_main">
+			<div class="purchase_details_main_cen">
+				<img src="../images/geren.jpg" alt="" />
+				<div class="purchase_details_left">
+					<div class="purchase_details_title">
+						<span class="span0">郝万山</span>
+						<span class="span1">《伤寒论》讲解</span>
+					</div>
+					<div class="both"></div>
+					<div class="purchase_details_money"><span>88</span>熊猫币</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
+	<!--优惠券开始-->
+	<div class="purchase_list">
+		<div class="purchase_list_main">
+			<div class="purchase_list_one div">
+				<div class="purchase_list_one_left">
+					<img src="../images/discount_coupon.png" />优惠券
+				</div>
+				<div class="purchase_list_one_right">
+					<span>-88</span>熊猫币<img src="../images/video_review.png" />
+				</div>
+			</div>
+			<div class="both"></div>
+			<div class="purchase_list_two div">
+				<div class="purchase_list_two_left">
+					<img src="../images/member.png" />会员折扣
+				</div>
+				<div class="purchase_list_two_right">
+					<span>-88</span>熊猫币<img src="../images/video_review.png" />
+				</div>
+			</div>
+			<!--<div class="both"></div>-->
+		</div>
+		<div class="both"></div>
+	</div>
+	
+	<!--总价开始-->
+	<div class="price">
+		<div class="purchase_list_main">
+			<div class="purchase_list_one div">
+				<div class="purchase_list_one_left">
+					<img src="../images/total_prices.png" />总价
+				</div>
+				<div class="purchase_list_one_right">
+					<span>-88</span>熊猫币
+				</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
 	<!--中间内容结束-->
+	
+	<!--支付方式开始-->
+	<div class="payment">
+		<div class="payment_title">支付方式</div>
+		<div class="payment_ul">
+			<ul id="ul">
+				<li class="ul_li">
+					<img src="../images/BTCpanda.png" class="BTCpanda" />熊猫币
+					<div class="ul_li_bg"></div>
+				</li>
+				<li class="ul_li">
+					<img src="../images/Alipay_img.png" class="alipay_img" />支付宝
+					<div class="ul_li_bg"></div>
+				</li>
+				<li class="ul_li">
+					<img src="../images/weixin_img.png" class="weixin_img" />微信
+					<div class="ul_li_bg"></div>
+				</li>
+				<div class="ul_li_bg"></div>
+				<div class="both"></div>
+			</ul>
+		</div>
+		<div class="balance">余额：<span>20</span>熊猫币</div>
+	</div>
+	<!--支付方式结束-->
 	
 	
 	<!--底部开始-->
 	<!--<div class="footer_perch"></div>-->
 	<div class="footer">
-		<ul>
+		<div class="footer_div">去支付<span>72</span>熊猫币</div>
+		<div class="footer_div_btn">进入充值页面</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
+		<!--<ul>
 			<li class="footer_one">
 				<span>88</span>熊猫币
 			</li>
 			<li class="footer_two">
 				购买
 			</li>
-		</ul>
+		</ul>-->
 	</div>
 	<!--底部结束-->
 	
@@ -82,6 +165,22 @@
 			$(".li0").addClass("ul_li");
 			$(".li1").removeClass("ul_li");
 		});	
+		
+		
+		var aBtn=$('#ul li');
+      	for(i=0;i<aBtn.length;i++){
+	        $(aBtn[i]).click(function(){
+	          for(i=0;i<aBtn.length;i++){
+	            $(aBtn[i]).removeClass('ul_li0');
+	            $(aBtn[i]).addClass('ul_li');
+	            $(aBtn[i]).find(".ul_li_bg").show();
+	        }
+	          	$(this).removeClass();
+	          	$(this).addClass('ul_li0');
+	           	$(aBtn[i]).find(".ul_li_bg").hide();
+	        })
+      	}
+      	$(aBtn[0]).click();
 	};
 </script>
 
