@@ -6,7 +6,7 @@
 		  owh.*,oc.smallimg_path as smallImgPath,ou.name as lecturerName
 		FROM
 		  oe_watch_history1 owh,oe_course oc,oe_user ou 
-		where  owh.lecturer_id = ou.id and owh.course_id = oc.id
+		where  owh.lecturer_id = ou.id and owh.course_id = oc.id order by owh.create_time desc limit 0,5
 	</select>		  
 	
 <!-- 	@Param("userId") Integer type, @Param("courseId") -->

@@ -1,27 +1,23 @@
 package com.xczh.consumer.market.controller.live;
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineWatchHistoryService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.wechat.course.model.WatchHistory;
-import com.xczhihui.wechat.course.service.IWatchHistoryService;
-import com.xczhihui.wechat.course.vo.WatchHistoryVO;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineWatchHistoryService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.wxpay.entity.OeWatchHistory;
+import com.xczhihui.wechat.course.service.IWatchHistoryService;
 
 @Controller
 @RequestMapping("/bxg/history")

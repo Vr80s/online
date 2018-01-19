@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
  * Create Time: 2018年1月14日<br>
  */
-@TableName("oe_course")
+@TableName("oe_focus")
 public class Focus extends Model<Focus>{
 	
     private String id;

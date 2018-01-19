@@ -219,5 +219,13 @@ public interface OnlineCourseService {
 	String sumMoneyLive(String id);
 	String getlecturerIdByCourseId(Integer courseId)
 			throws SQLException;
+	/**
+	 * 
+	 * Description：修改直播源类型为app直播
+	 * @param courseId
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	void updateLiveSourceType(String courseId)throws SQLException ;
 	
 }
