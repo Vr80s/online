@@ -1,6 +1,10 @@
 .wp{width: 1200px; margin: 0 auto;}
 .z{float: left;}
 .y{float: right;}
+.color{
+	border: 1px solid #00BC12 !important;
+    color: #00BC12;
+}
 .left-listNav{
 	    width: 220px;
     display: block;
@@ -603,6 +607,10 @@
 	outline: none;
 	text-indent: 1em;
 	margin-right: 10px;
+	font-size: 14px;
+}
+.contentWrap #hospital .zhuanlan_bottom form .chooseHospital span{
+	font-size: 14px;
 }
 .contentWrap #hospital .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
 .contentWrap #hospital .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
@@ -616,6 +624,8 @@
 	height: 36px;
 	border: 1px solid #F0F0F0;
 	outline: none;
+	font-size: 14px;
+	color: #999;
 }
 .contentWrap #hospital .zhuanlan_bottom form  .hospital_address textarea{
 	display: block;
@@ -626,9 +636,12 @@
     margin-top: 10px;
     padding: 10px;
     outline: none;
+    font-size: 14px;
+	color: #999;
 }
 .contentWrap #hospital .zhuanlan_bottom form .hospital_worktime ul{
 	display: inline-block;
+	vertical-align: middle;
 }
 .contentWrap #hospital .zhuanlan_bottom form .hospital_worktime li {
 	float: left;
