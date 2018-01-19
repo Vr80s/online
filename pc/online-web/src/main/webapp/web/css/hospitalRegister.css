@@ -43,25 +43,40 @@ img {
 	font-size: 18px;
 }
 .practitioner_examine{
-	width: 494px;
+	/*width: 494px;*/
 	height: 36px;
 	overflow: hidden;
 	margin: 30px 0 0 20px;
-	background: url(../images/examine_01.png) no-repeat center;
+	/*background: url(../images/examine_01.png) no-repeat center;*/
 }
 .practitioner_examine  ul li{
 	list-style: none;
 	float: left;
 	color: #999999;
-	margin:7px 36px 0 33px;
+	/*margin:7px 36px 0 33px;*/
+	height: 36px;
+	line-height: 36px;
+	margin-right: -10px;
 }
 .practitioner_examine  ul li:nth-child(1){
+	width: 154px;
+	height: 36px;
 	color: white;
+	background: url(../images/firstStep.png) no-repeat center;
+	text-align: center;
 }
+.practitioner_examine  ul li:nth-child(2),
 .practitioner_examine  ul li:nth-child(3){
-	margin-right: 0;
-	margin-left: 21px;
+	width: 154px;
+	background: url(../images/secondStep.png) no-repeat center;
+	text-align: center;
 }
+.practitioner_examine  ul li:nth-child(4){
+	width: 210px;
+	background: url(../images/threeStep.png) no-repeat center;
+	text-align: center;
+}
+
 .practitioner_inf{
 	width: 115px;
 	height: 300px;
@@ -149,7 +164,7 @@ outline: none;
 }
 .practitioner_input .have_login a{
 	text-decoration: none;
-	color: #00BC12;	
+	color: #00BC12;
 }
 .practitioner_input .btn_checkbox{
 	font-size: 14px;
