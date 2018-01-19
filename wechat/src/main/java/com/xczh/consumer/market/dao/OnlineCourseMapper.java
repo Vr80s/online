@@ -15,12 +15,12 @@ import java.util.Map;
 @Repository
 public class OnlineCourseMapper extends BasicSimpleDao{
     
-	public List<CourseLecturVo> findLiveListInfo(int pageNumber, int pageSize, String queryParam) throws SQLException {
+	public List<CourseLecturVo> findLiveListInfo() throws SQLException {
 		// TODO Auto-generated method stub  
 		StringBuffer sql = new StringBuffer("");
 		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
-		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
-		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
 		//观看人数
@@ -37,8 +37,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 
 		//即将直播
 		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
-		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
-		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
@@ -54,8 +54,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 
 		//直播课程
 		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
-		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
-		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
@@ -71,8 +71,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 
 		//精彩回放课程
 		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
-		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
-		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");

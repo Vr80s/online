@@ -491,7 +491,7 @@ public class BunchPlanController {
 		 */
 	    List<MenuVo> listmv = menuService.list();
 	    
-		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(0,4,null,listmv);
+		List<CourseLecturVo> listAll =wxcpCourseService.recommendCourseList(listmv);
 		
 		LOGGER.info(listAll.size()+"");
 		

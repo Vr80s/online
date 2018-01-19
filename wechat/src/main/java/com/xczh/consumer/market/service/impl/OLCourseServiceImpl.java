@@ -264,36 +264,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	}
 
 	@Override
-	public List<CourseLecturVo> offLineClassList(int number, int pageSize,List<OfflineCity> cityList) throws SQLException {
+	public List<CourseLecturVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
 
-		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff ";//这个用来比较啦
-		
-		String dateWhereCutoff = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) ";//这个用来比较啦
-		
-		String sql="( select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
-				+ "IFNULL(default_student_count, 0) learndCount,ou.name,oc.grade_name gradeName,oc.description,oc.current_price currentPrice,"
-				+ "if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,4 as type,"
-				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime, "
-				+  dateWhere
-				+ "from"
-				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
-				+  dateWhereCutoff +" = 1 and"  //表示没有截止的
-				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time )";
-		
-		sql +="  UNION all  ";
-		
-		sql += "( select  ou.small_head_photo headImg,oc.address,IFNULL(( SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id ), 0 ) + "
-				+ "IFNULL(default_student_count, 0) learndCount,ou.name,oc.grade_name gradeName,oc.description,oc.current_price currentPrice,"
-				+ "if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,4.as type,"
-				+ "oc.is_free isFree,oc.smallimg_path as smallImgPath,oc.id,oc.start_time startTime,oc.end_time endTime, "
-				+  dateWhere
-				+ "from"
-				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
-				+  dateWhereCutoff +" = 0 and"  //表示没有截止的
-				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time desc)";	
 
-		String strsql="(select  oc.id,oc.grade_name as gradeName,ou.small_head_photo as headImg,oc.current_price as currentPrice, "
-				+"oc.smallimg_path as smallImgPath,ou.name as name,oc.address as address,oc.city as city,"
+
+		String strsql="(select  oc.id,oc.grade_name as gradeName,ou.small_head_photo as headImg,oc.current_price*10 as currentPrice, "
+				+"oc.smallimg_path as smallImgPath,ou.name as name,oc.address as address,oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
 				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
 				+"'全国课程' as note "
 				+" from oe_course oc, oe_user ou "
@@ -306,8 +282,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		int i = 0;
 		for (OfflineCity offlineCity : cityList) {
 				i++;
-				strsql+="(select  oc.id,oc.grade_name as gradeName,ou.small_head_photo as headImg,oc.current_price as currentPrice, "
-						+"oc.smallimg_path as smallImgPath,ou.name as name,oc.address as address,oc.city as city,"
+				strsql+="(select  oc.id,oc.grade_name as gradeName,ou.small_head_photo as headImg,oc.current_price*10 as currentPrice, "
+						+"oc.smallimg_path as smallImgPath,ou.name as name,oc.address as address,oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
 						+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
 						+" oc.city as note "
 						+" from oe_course oc, oe_user ou "
@@ -369,21 +345,20 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	
 	/***
 	 * 直播搜索页面的接口调整
-	 * @param number
-	 * @param pageSize
+	 * @param
+	 * @param
 	 * @return
 	 * @throws SQLException
 	 */
 	@Override
-    public List<CourseLecturVo> recommendCourseList(int number, int pageSize,
-                                                    String queryParam, List<MenuVo> listmv) throws SQLException{
+    public List<CourseLecturVo> recommendCourseList( List<MenuVo> listmv) throws SQLException{
 		
 		
 		//学习人数、当前价格、课程类型、课程图片、讲师名、课程名字
 		
 		StringBuffer all = new StringBuffer("");
-		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
-				+ "oc.smallimg_path as smallImgPath,ou.name as name,");
+		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+				+ "oc.smallimg_path as smallImgPath,ou.name as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
 		all.append(" oc.live_status as  lineState, "); 
 		
@@ -399,8 +374,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		
 		all.append("  union all ");
 		
-		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
-				+ "oc.smallimg_path as smallImgPath,ou.name as name,");
+		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+				+ "oc.smallimg_path as smallImgPath,ou.name as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
 		all.append(" oc.live_status as  lineState, ");    		//课程类型
 		
@@ -419,8 +394,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		int i = 0;
 		for (MenuVo menuVo : listmv) {
 			i++;
-			all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
-					+ "oc.smallimg_path as smallImgPath,ou.name as name,");
+			all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+					+ "oc.smallimg_path as smallImgPath,ou.name as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 			all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
 			all.append(" oc.live_status as  lineState, ");    		//课程类型
 			
@@ -439,7 +414,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		}
 		System.out.println(all.toString());
 		
-		return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),all.toString(),0,Integer.MAX_VALUE,CourseLecturVo.class);
+		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),all.toString(),new BeanListHandler<>(CourseLecturVo.class));
 	}
 
 	@Override
@@ -491,7 +466,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			}
 		}
         
-        commonSql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price as currentPrice,"
+        commonSql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
 				+ "ou.small_head_photo as headImg,ou.name as name,");
         commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
