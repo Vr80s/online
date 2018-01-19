@@ -88,22 +88,30 @@ public class MobileLiveController {
 			}
 		}
 
-		mapTj.put("title","正在直播");
-		mapTj.put("courseList",listTj);
+		if(listTj.size()>0){
+			mapTj.put("title","正在直播");
+			mapTj.put("courseList",listTj);
+			mapCourseList.add(mapTj);
+		}
 
-		mapNw.put("title","即将直播");
-		mapNw.put("courseList",listNw);
+		if(listNw.size()>0){
+			mapNw.put("title","即将直播");
+			mapNw.put("courseList",listNw);
+			mapCourseList.add(mapNw);
+		}
 
-		mapZz.put("title","直播课程");
-		mapZz.put("courseList",listZz);
+		if(listZz.size()>0){
+			mapZz.put("title","直播课程");
+			mapZz.put("courseList",listZz);
+			mapCourseList.add(mapZz);
+		}
 
-		mapHf.put("title","精彩直播回放");
-		mapHf.put("courseList",listHf);
+		if(listHf.size()>0){
+			mapHf.put("title","精彩直播回放");
+			mapHf.put("courseList",listHf);
+			mapCourseList.add(mapHf);
+		}
 
-		mapCourseList.add(mapTj);
-		mapCourseList.add(mapNw);
-		mapCourseList.add(mapZz);
-		mapCourseList.add(mapHf);
 		mapAll.put("allCourseList",mapCourseList);
 
 		return ResponseObject.newSuccessResponseObject(mapAll);
