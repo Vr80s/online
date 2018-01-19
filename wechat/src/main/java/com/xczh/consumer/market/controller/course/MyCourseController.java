@@ -16,13 +16,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.wechat.course.model.WatchHistory;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IFocusService;
 import com.xczhihui.wechat.course.vo.CourseLecturVo;
+import com.xczhihui.wechat.course.vo.WatchHistoryVO;
 /**
  * 点播控制器 ClassName: BunchPlanController.java <br>
  * Description: <br>

@@ -32,8 +32,9 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
  * Create Time: 2018年1月16日<br>
  */
 @Controller
-@RequestMapping("/bxg/host")
+@RequestMapping("/xczh/host")
 public class HostController {
+	
 	
 	@Autowired
 	private OnlineCourseService onlineCourseService;

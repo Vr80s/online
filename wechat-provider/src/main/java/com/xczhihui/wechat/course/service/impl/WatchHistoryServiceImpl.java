@@ -1,5 +1,7 @@
 package com.xczhihui.wechat.course.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,8 @@ import com.xczhihui.wechat.course.mapper.WatchHistoryMapper;
 import com.xczhihui.wechat.course.model.Course;
 import com.xczhihui.wechat.course.model.WatchHistory;
 import com.xczhihui.wechat.course.service.IWatchHistoryService;
+import com.xczhihui.wechat.course.util.DateDistance;
+import com.xczhihui.wechat.course.util.DateUtil;
 import com.xczhihui.wechat.course.vo.CourseLecturVo;
 import com.xczhihui.wechat.course.vo.WatchHistoryVO;
 
@@ -37,10 +41,13 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	@Override
 	public Page<WatchHistoryVO> selectWatchHistory(Page<WatchHistoryVO> page,
 			String userId) {
-		// TODO Auto-generated method stub
+		
 		List<WatchHistoryVO> records = watchHistoryMapper.selectWatchHistory(page);
 		for (WatchHistoryVO watchHistoryVO : records) {
-			
+			String watch = DateUtil.formatDate(new Date(), DateUtil.FORMAT_DAY_TIME);
+			String current = DateUtil.formatDate(new Date(),DateUtil.FORMAT_DAY_TIME);
+			String distance = DateDistance.getNewDistanceTime(watch,current);
+			watchHistoryVO.setTimeDifference(distance);
 		}
 		return   page.setRecords(records);
 	}
@@ -54,7 +61,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	   */
 	  WatchHistory watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(),
 			  target.getCourseId());
-	  System.out.println("==========={}{}{}{}{}{}{}{}{}{}{}{}");
 	  if(watchHistory!=null){
 		  watchHistory.setCreateTime(new Date());
 		  watchHistoryMapper.updateById(watchHistory);
@@ -63,8 +69,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	          throw new RuntimeException("请传递课程名字");
 	      }
 		  CourseLecturVo course =  courseMapper.selectCourseById(target.getCourseId());
-		  System.out.println("{}{}{}{}{}{}{}{}{}{}{}{}"+course.getId());
-		  System.out.println("{}{}{}{}{}{}{}{}{}{}{}{}"+course.getGradeName());
 		  target.setLecturerId(course.getUserLecturerId());
 		  //通过课程id查找讲师id
 		  watchHistoryMapper.insert(target);

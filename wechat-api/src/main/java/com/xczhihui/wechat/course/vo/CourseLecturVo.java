@@ -12,13 +12,18 @@ public class CourseLecturVo implements Serializable {
     /**
      *课程ID
      */
-    private int id;
+    private Integer id;
     
-    private int courseId;
+    private Integer courseId;
     /**
      *课程名
      */
     private String gradeName;
+    
+    /**
+     * 讲师简介
+     */
+    private String lecturerDescription;
 
     /**
      * 课程小图
@@ -65,7 +70,7 @@ public class CourseLecturVo implements Serializable {
     /**
      * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播 
      */
-    public int lineState;
+    public Integer lineState;
     
     //c.original_cost as originalCost,c.current_price as currentPrice,c.is_free as isFree
     /**
@@ -88,9 +93,13 @@ public class CourseLecturVo implements Serializable {
     /**
      * 观看人数
      */
-    public int  learndCount;
+    public Integer  learndCount;
 
-    public int giftCount;
+    public Integer giftCount;
+    
+    public Integer fansCount;
+    
+    
 
     //打赏数量
     private String rewardCount;
@@ -154,6 +163,11 @@ public class CourseLecturVo implements Serializable {
 	
 	private String  note; //
 	
+
+	private Boolean collection;
+	
+	private Integer courseNumber;
+	
 	
 	public String getUdescription() {
 		return udescription;
@@ -163,13 +177,6 @@ public class CourseLecturVo implements Serializable {
 		this.udescription = udescription;
 	}
 
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		setCourseId(id);
-		this.id = id;
-	}
 	public String getGradeName() {
 		return gradeName;
 	}
@@ -215,7 +222,7 @@ public class CourseLecturVo implements Serializable {
 	public int getLineState() {
 		return lineState;
 	}
-	public void setLineState(int lineState) {
+	public void setLineState(Integer lineState) {
 		this.lineState = lineState;
 	}
 	public double getOriginalCost() {
@@ -242,10 +249,10 @@ public class CourseLecturVo implements Serializable {
 	public void setCourseLength(double courseLength) {
 		this.courseLength = courseLength;
 	}
-	public int getLearndCount() {
+	public Integer getLearndCount() {
 		return learndCount;
 	}
-	public void setLearndCount(int learndCount) {
+	public void setLearndCount(Integer learndCount) {
 		this.learndCount = learndCount;
 	}
 	public Integer getIsApprove() {
@@ -273,10 +280,10 @@ public class CourseLecturVo implements Serializable {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-	public int getCourseId() {
+	public Integer getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(int courseId) {
+	public void setCourseId(Integer courseId) {
 		this.courseId = courseId;
 	}
 	public Integer getMultimediaType() {
@@ -334,13 +341,10 @@ public class CourseLecturVo implements Serializable {
 		this.watchState = watchState;
 	}
 
-	public int getGiftCount() {
+	public Integer getGiftCount() {
 		return giftCount;
 	}
 
-	public void setGiftCount(int giftCount) {
-		this.giftCount = giftCount;
-	}
 	public String getImRoomId() {
 		return imRoomId;
 	}
@@ -418,6 +422,51 @@ public class CourseLecturVo implements Serializable {
 
 	public void setUserLecturerId(String userLecturerId) {
 		this.userLecturerId = userLecturerId;
+	}
+
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getFansCount() {
+		return fansCount;
+	}
+
+	public void setFansCount(Integer fansCount) {
+		this.fansCount = fansCount;
+	}
+
+	public void setGiftCount(Integer giftCount) {
+		this.giftCount = giftCount;
+	}
+
+	public String getLecturerDescription() {
+		return lecturerDescription;
+	}
+
+	public void setLecturerDescription(String lecturerDescription) {
+		this.lecturerDescription = lecturerDescription;
+	}
+
+	public Boolean getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Boolean collection) {
+		this.collection = collection;
+	}
+
+	public Integer getCourseNumber() {
+		return courseNumber;
+	}
+
+	public void setCourseNumber(Integer courseNumber) {
+		this.courseNumber = courseNumber;
 	}
 	
 	

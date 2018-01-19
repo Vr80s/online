@@ -22,11 +22,50 @@
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 
 <script type="text/javascript" src="../js/home_page.js"></script>
+
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css"/>
 
+<style type="text/css">
+	.swiper-container {
+        width: 100%;
+	    height: 3.064rem;
+	    margin-bottom: 0.426rem;
+	    background: #fff;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .swiper-slide{
+        margin-right: 0rem !important;
+        width: 1.6rem !important;
+    	margin-left: 1.02rem;
+    }
+    .slide_one_div{
+    	/*height: 0.511rem;*/
+	    /*line-height: 0.511rem;*/
+	    color: #333;
+	    font-size: 0.468rem;
+    }
+</style>
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
 </head>
@@ -137,15 +176,15 @@
 							<ul class="slide_one" id="slide_one">
 								<script type="text/html" id="nav_list">
 									{{each items as item i}}
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="{{item.icon}}" class="slide_one_artist" />
+									<li>
+										<div class="slide_one_div">
+											<div class="">
+												<img src="{{item.icon}}" class="slide_one_artist" />
+											</div>
+											<p>{{item.title}}</p>
 										</div>
-										<p>{{item.title}}</p>
-									</div>
-								</li>
-								{{/each}}
+									</li>
+									{{/each}}
 								</script>
 							</ul>
 	
@@ -229,29 +268,20 @@
 	                    	</script>
 	                    	<!--精品课程结束-->
 	                    	
-	                    	
 	                    </div>
 
 						<!--推荐结束-->
 						
 						<!--线下课开始-->
-	                    <div class="tabSlider-box" style="transform: translate(3766px, 0px);">
+	                    <div class="tabSlider-box tjks" style="transform: translate(3766px, 0px);">
 							<!--轮播开始-->
 						    <nav>
 								<div class="htmleaf-container">
 									<article class="container">
 									    <section>
 									      <figure id="responsiveness0" class="swipslider">
-									        <ul class="sw-slides">
-									           <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li> 
+									        <ul class="sw-slides" id="xx-slides">
+									           
 									        </ul>
 									      </figure>
 									    </section>
@@ -261,199 +291,146 @@
 
 							<!--轮播结束-->
 							
+							<div class="swiper-container">
+						        <div class="swiper-wrapper">
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        	<div class="swiper-slide">
+						        		<div class="slide_one_div">
+											<div class="">
+												<img src="/xcview/images/artist.png" class="slide_one_artist" />
+											</div>
+											
+											<p>北京</p>
+										</div>
+						        	</div>
+						        </div>
+						        <!-- Add Pagination -->
+						         <!--<div class="swiper-pagination"></div>--> 
+						    </div>
 							
-							<ul class="slide_one">
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/artist.png" class="slide_one_artist" />
+							
+							<ul class="slide_one" id="xx_slide_one">
+								<script type="text/html" id="xx_nav_list">
+									{{each items as item i}}
+									<li>
+										<div class="slide_one_div">
+											<div class="">
+												<img src="{{item.icon}}" class="slide_one_artist" />
+											</div>
+											<p>{{item.title}}</p>
 										</div>
-										
-										<p>北京</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/sutra.png" class="slide_one_sutra" />
-										</div>
-										
-										<p>上海</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/health.png" class="slide_one_health" />
-										</div>
-										
-										
-										<p>广州</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/Macbook.png" class="slide_one_Macbook" />
-										</div>
-										<p>成都</p>
-									</div>
-								</li>
-								<li>
-									<div class="slide_one_div">
-										<div class="">
-											<img src="/xcview/images/Gratis.png" class="slide_one_Gratis" />
-										</div>
-										<p>重庆</p>
-									</div>
-								</li>
+									</li>
+									{{/each}}
+								</script>
 							</ul>
 	
 							
 	                    	<!--全国课程开始-->
-	                    	<div class="acupuncture">
-	                    		<div class="boutique_title">全国课程</div>
-	                    		<div class="boutique_main">
-	                    			<ul>
-	                    				<!--线下-->
-	                    				<li>
-	                    					<div class="boutique_main_four">
-	                    						<div class="boutique_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
-	                    						<div class="boutique_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="boutique_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="boutique_main_four">
-	                    						<div class="boutique_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
-	                    						<div class="boutique_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="boutique_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="boutique_main_four">
-	                    						<div class="boutique_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
-	                    						<div class="boutique_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="boutique_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="boutique_main_four">
-	                    						<div class="boutique_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
-	                    						<div class="boutique_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="boutique_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<div class="both"></div>
-	                    			</ul>
-	                    		</div>
-	                    	</div>
+	                    	<div class="acupunctures"></div>
+	                    	<script type="text/html" id="acupunctures">
+	                    		{{each items as item i}}
+	                    		<div class="acupuncture">
+		                    		<div class="boutique_title">{{item.title}}</div>
+		                    		<div class="boutique_main">
+		                    			<ul>
+		                    				<!--线下-->
+		                    				
+		                    				{{each item.courseList as item i}}
+		                    				<li>
+		                    					<div class="boutique_main_four">
+		                    						<div class="boutique_four_img">
+		                    							<img src="{{item.smallImgPath}}" alt="" />
+		                    						</div >
+   	                    							<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
+		                    						<div class="boutique_main_four_title">{{item.gradeName}}</div>
+		                    						<div class="boutique_main_four_size">
+		                    							{{if item.watchState == 1}}
+		                    							<p><span>免费</span></p>
+		                    							{{else}}
+		                    							<p><span>{{item.currentPrice}}</span>熊猫币</p>
+		                    							{{/if}}
+		                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
+		                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.note}}</span></p>
+		                    							
+		                    						</div>
+		                    					</div>
+		                    				</li>
+		                    				{{/each}}
+		                    				
+		                    				<div class="both"></div>
+		                    			</ul>
+		                    		</div>
+		                    	</div>
+	                    		{{/each}}
+	                    		
+	                    	</script>
+	                    	
+	                    		
 	                    	<!--全国课程结束-->
 	                    	
-	                    	<!--上海课程开始-->
-	                    	<div class="newest">
-	                    		<div class="newest_title">上海课程</div>
-	                    		<div class="newest_main">
-	                    			<ul>
-	                    				
-	                    				<!--线下-->
-	                    				<li>
-	                    					<div class="newest_main_four">
-	                    						<div class="newest_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_four_img_type" />-->
-	                    						<div class="newest_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="newest_main_four">
-	                    						<div class="newest_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_four_img_type" />-->
-	                    						<div class="newest_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="newest_main_four">
-	                    						<div class="newest_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_four_img_type" />-->
-	                    						<div class="newest_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="newest_main_four">
-	                    						<div class="newest_four_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_four_img_type" />-->
-	                    						<div class="newest_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="newest_main_four_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-	                    							
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<div class="both"></div>
-	                    			</ul>
-	                    		</div>
-	                    	</div>
-	                    	<!--上海课程结束-->
+	                    	
 	                        
 	
 	                    </div>
@@ -859,7 +836,7 @@
 				<p style="color: #00BC12;">学堂</p>
 			</li>
 			<li>
-				<a href="" class="footer_two"></a>
+				<a href="my_study.html" class="footer_two"></a>
 				<p>学习</p>
 			</li>
 			<li>
@@ -3560,5 +3537,18 @@ app.TabSlider = function(dom,options){
 //})
 
 	
+</script>
+
+
+<!--线下课那个省-->
+<script type="text/javascript" src="../js/common/swiper.min.js"></script>
+<script>
+var swiper = new Swiper('.swiper-container', {
+    pagination: '.swiper-pagination',
+    slidesPerView: 3,
+    paginationClickable: true,
+    spaceBetween: 100,   /*这是给的right值*/
+    freeMode: true
+});
 </script>
 </html>
