@@ -8,6 +8,8 @@
 		  cai.img_path imgPath,
 		  cai.title,
 		  cai.`price`,
+		  cai.`multimedia_type` multimediaType,
+
 		  cai.`course_length` courseLength,
 		  cai.`course_form` courseForm,
 		  cai.`status` applyStatus,
@@ -70,10 +72,11 @@
 		oc.live_status liveStatus
 		FROM
 		`course_apply_info` cai
-		LEFT JOIN `oe_course` oc
+	    JOIN `oe_course` oc
 		ON cai.`id` = oc.`apply_id`
 		WHERE cai.`user_id` = #{userId}
 		AND cai.`collection` = 1
+		AND cai.`course_form` = 1
 		<if test="title != null and title!=''">
 			AND cai.`title` concat('%',#{title},'%')
 		</if>
