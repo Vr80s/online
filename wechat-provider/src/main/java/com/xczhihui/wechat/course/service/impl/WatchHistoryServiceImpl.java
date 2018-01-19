@@ -63,8 +63,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	          throw new RuntimeException("请传递课程名字");
 	      }
 		  CourseLecturVo course =  courseMapper.selectCourseById(target.getCourseId());
-		  System.out.println("{}{}{}{}{}{}{}{}{}{}{}{}"+course.getId());
-		  System.out.println("{}{}{}{}{}{}{}{}{}{}{}{}"+course.getGradeName());
 		  target.setLecturerId(course.getUserLecturerId());
 		  //通过课程id查找讲师id
 		  watchHistoryMapper.insert(target);

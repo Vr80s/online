@@ -46,8 +46,13 @@
 		  oc.user_lecturer_id as userLecturerId,
 		  if(oc.online_course =1,4,IF(oc.type is not null,3,if(oc.multimedia_type=1,1,2))) as type,
 		  if(oc.is_free =0,0,1) as watchState,
+		  if(oc.type=1,select SUM(count) from oe_gift_statement where receiver = user_lecturer_id,0) as giftCount,
+		  if(oc.type=1,select count(*) from oe_focus of  
+		               inner join oe_user as ozu on of.user_id = ozu.id
+		               where  of.lecturer_id = user_lecturer_id 
+		               and ozu.is_delete = 0  and ozu.status = 0,0) as fansCount,
 		  oc.live_status as  lineState,
-		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)+IFNULL(oc.default_student_count, 0) as learndCount,
+		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		  oc.description as description,
 		  oc.address as address,
 		  oc.city as city,
@@ -113,5 +118,4 @@
 		  and argc.user_id=#{userId}
 		  and oc.is_delete=0 and oc.status=1 group by oc.id  order by oc.start_time desc  )
 	</select>	
-			  
 </mapper>
