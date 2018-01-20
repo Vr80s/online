@@ -78,7 +78,7 @@ public class LookHistoryController {
 		try {
 			Page<WatchHistoryVO> page = new Page<>();
 		    page.setCurrent(1);
-		    page.setSize(7);
+		    page.setSize(5);
 		    OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
 			if(ou==null){
 			   return ResponseObject.newErrorResponseObject("获取用户信息异常");

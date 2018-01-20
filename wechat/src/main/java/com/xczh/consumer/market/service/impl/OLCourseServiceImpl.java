@@ -271,7 +271,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
 				+"'全国课程' as note "
 				+" from oe_course oc, oe_user ou "
-				+"where oc.user_lecturer_id = ou.id  and oc.is_delete=0 and oc.status=1 and oc.online_course = 1 "
+				+"where oc.user_lecturer_id = ou.id  and oc.is_delete=0 and oc.status=1 and oc.type = 3 "
 				+" order by recommend_sort desc,start_time desc  limit 0,6)";
 		if(cityList.size()>0){
 			strsql+= " union all ";
@@ -284,7 +284,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 						+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
 						+" oc.city as note "
 						+" from oe_course oc, oe_user ou "
-						+"where oc.user_lecturer_id = ou.id  and oc.is_delete=0 and oc.status=1 and oc.online_course = 1 "
+						+"where oc.user_lecturer_id = ou.id  and oc.is_delete=0 and oc.status=1 and oc.type = 3 "
 						+" and oc.city = '"+offlineCity.getCityName()+"'"
 						+" order by recommend_sort desc,start_time desc  limit 0,4)";
 				if(i < cityList.size()){
@@ -310,7 +310,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "from"
 				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
 				+  dateWhereCutoff +" = 1 and"  //表示没有截止的
-				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time )";
+				+ " oc.is_delete=0 and oc.status=1 and oc.type = 3 ORDER BY oc.start_time )";
 		
 		sql +="  UNION all  ";
 		
@@ -322,7 +322,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "from"
 				+ " oe_course oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id) where  "
 				+  dateWhereCutoff +" = 0 and"  //表示没有截止的
-				+ " oc.is_delete=0 and oc.status=1 and oc.online_course =1 ORDER BY oc.start_time desc)";	
+				+ " oc.is_delete=0 and oc.status=1 and oc.type = 3 ORDER BY oc.start_time desc)";	
 		
 
 		return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),sql,number,pageSize,CourseLecturVo.class);
@@ -347,7 +347,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	    sql.append(dateWhere);
 		
 		sql.append(" from oe_course c,oe_user ou ");
-		sql.append(" where  c.user_lecturer_id = ou.id and c.id = ?  and c.is_delete=0 and c.status = 1  and  c.online_course=1  ");
+		sql.append(" where  c.user_lecturer_id = ou.id and c.id = ?  and c.is_delete=0 and c.status = 1  and  c.type=3  ");
 		Object[] params = {id};
 
 		CourseLecturVo courseLecturVo = wxcpCourseDao.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
@@ -473,7 +473,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         
         if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
         	condSql.append(" and oc.city= '"+city+"'");
-        	condSql.append(" and oc.online_course =1 ");
+        	condSql.append(" and oc.type =3 ");
         }
 
         if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
@@ -492,7 +492,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			if (courseType == 1 || courseType == 2) { //视频或者音频
 				condSql.append(" and oc.multimedia_type = '" + courseType + "'");  //多媒体类型1视频2音频
 			} else if (courseType == 3 || courseType == 4) { //直播  或者线下课程
-				condSql.append(" and " + (courseType == 3 ? " oc.type=1 " : " oc.online_course =1 "));
+				condSql.append(" and " + (courseType == 3 ? " oc.type=1 " : " oc.type =3 "));
 			}
 		}
         
@@ -503,7 +503,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
         commonSql.append(" oc.city as city, ");//是否免费
         //课程类型     音频、视频、直播、线下培训班   1 2 3 4
-        commonSql.append(" if(oc.online_course =1,4,IF(oc.type is not null,3,if(oc.multimedia_type=1,1,2))) as type, ");
+        commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 		commonSql.append(" oc.smallimg_path as smallImgPath");
 		commonSql.append(" from oe_course oc,oe_user ou,oe_menu as om ");
 		commonSql.append(" where  oc.user_lecturer_id = ou.id and om.id = oc.menu_id  and "

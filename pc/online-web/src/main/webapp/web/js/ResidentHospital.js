@@ -262,3 +262,34 @@ $('#Notice_Administration .Notice_top button').click(function(){
 	}
 	
 })
+
+
+//医师管理部分
+var newTeacehr = 1;
+$('#doc_Administration .add_newTeacher').click(function(){
+	newTeacehr *= -1;
+	//发布
+	if(newTeacehr < 0){
+		//顶部变化
+		$(this).text('返回');
+		$(this).siblings('.title').text('新医师');
+		//底部变化
+		$('#doc_Administration_bottom2').addClass('hide');
+		$('#doc_Administration_bottom').removeClass('hide');
+		//搜索部分隐藏
+		$('.search_teacher_ipt').addClass('hide');
+		$('.search_teacher_btn').addClass('hide');
+	}else{
+	//取消发布
+		$(this).text('新医师');
+		$(this).siblings('.title').text('医师管理');
+		//底部变化
+		$('#doc_Administration_bottom').addClass('hide');
+		$('#doc_Administration_bottom2').removeClass('hide');
+		//搜索部分显示
+		$('.search_teacher_ipt').removeClass('hide');
+		$('.search_teacher_btn').removeClass('hide');
+	}
+	
+})
+

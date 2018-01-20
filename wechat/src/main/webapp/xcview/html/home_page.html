@@ -73,7 +73,7 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			<div class="header_seek"> 
+			<div class="header_seek" onClick="location.href='../html/search.html'"> 
 				<div class="header_seek_main">
 					<img src="/xcview/images/sousuo0.png" alt="" />关键字
 				</div>
@@ -181,7 +181,7 @@
 											<div class="">
 												<img src="{{item.icon}}" class="slide_one_artist" />
 											</div>
-											<p>{{item.title}}</p>
+											<p>{{item.name}}</p>
 										</div>
 									</li>
 									{{/each}}
@@ -241,7 +241,6 @@
 	                    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
 													{{else if item.type == 4}}
 	                    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
-			
 	                    							{{/if}}
 	                    						<div class="boutique_main_one_title">{{item.gradeName}}</div>
 	                    						<div class="boutique_main_one_size">
@@ -250,6 +249,7 @@
 	                    							{{else}}
 	                    							<p><span>{{item.currentPrice}}</span>熊猫币</p>
 	                    							{{/if}}
+	                    							
 	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
 	                    							{{if item.type == 3}}
 	                    							<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startTime}}</span></p>
@@ -379,7 +379,7 @@
 											<div class="">
 												<img src="{{item.icon}}" class="slide_one_artist" />
 											</div>
-											<p>{{item.title}}</p>
+											<p>{{item.cityName}}</p>
 										</div>
 									</li>
 									{{/each}}
@@ -412,8 +412,7 @@
 		                    							<p><span>{{item.currentPrice}}</span>熊猫币</p>
 		                    							{{/if}}
 		                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
-		                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.note}}</span></p>
-		                    							
+		                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
 		                    						</div>
 		                    					</div>
 		                    				</li>
@@ -430,8 +429,6 @@
 	                    		
 	                    	<!--全国课程结束-->
 	                    	
-	                    	
-	                        
 	
 	                    </div>
 						<!--线下可结束-->
@@ -445,16 +442,8 @@
 									<article class="container">
 									    <section>
 									      <figure id="responsiveness1" class="swipslider">
-									        <ul class="sw-slides">
-									           <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li> 
+									        <ul class="sw-slides"  id="zb-slides">
+									           
 									        </ul>
 									      </figure>
 									    </section>
@@ -465,17 +454,15 @@
 							<!--轮播结束-->
 							
 	                    	<!--直播课程开始-->
-	                    	<div class="acupuncture">
+	                    	<!--<div class="acupuncture">
 	                    		<div class="boutique_title">正在直播</div>
 	                    		<div class="boutique_main">
 	                    			<ul>
-	                    				<!--视频-->
 	                    				<li>
 	                    					<div class="boutique_main_one">
 	                    						<div class="boutique_one_img">
 	                    							<img src="/xcview/images/line_03.jpg" alt="" />
 	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />-->
 	                    						<div class="boutique_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
 	                    						<div class="boutique_main_one_size">
 	                    							<p><span>免费</span></p>
@@ -483,29 +470,24 @@
 	                    						</div>
 	                    					</div>
 	                    				</li>
-	                    				<!--直播-->
 	                    				<li>
 	                    					<div class="boutique_main_two">
 	                    						<div class="boutique_two_img">
 	                    							<img src="/xcview/images/line_03.jpg" alt="" />
 	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_two_img_type" />-->
 	                    						<div class="boutique_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
 	                    						<div class="boutique_main_two_size">
 	                    							<p><span>1000</span>熊猫币</p>
 	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<!--<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>10.23</span></p>-->
 	                    							
 	                    						</div>
 	                    					</div>
 	                    				</li>
-	                    				<!--音频-->
 	                    				<li>
 	                    					<div class="boutique_main_three">
 	                    						<div class="boutique_three_img">
 	                    							<img src="/xcview/images/line_03.jpg" alt="" />
 	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_three_img_type" />-->
 	                    						<div class="boutique_main_three_title">郝万山《伤寒论》讲解讲解讲解</div>
 	                    						<div class="boutique_main_three_size">
 	                    							<p><span>1000</span>熊猫币</p>
@@ -513,18 +495,15 @@
 	                    						</div>
 	                    					</div>
 	                    				</li>
-	                    				<!--线下-->
 	                    				<li>
 	                    					<div class="boutique_main_four">
 	                    						<div class="boutique_four_img">
 	                    							<img src="/xcview/images/line_03.jpg" alt="" />
 	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_four_img_type" />-->
 	                    						<div class="boutique_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
 	                    						<div class="boutique_main_four_size">
 	                    							<p><span>1000</span>熊猫币</p>
 	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<!--<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>-->
 	                    							
 	                    						</div>
 	                    					</div>
@@ -533,36 +512,51 @@
 	                    			</ul>
 	                    		</div>
 	                    	</div>
-	                    	<!--直播课程结束-->
+	                    	--><!--直播课程结束-->
 	                    	
 	                    	<!--即将课程开始-->
+	                    	<div class="newests"></div>
+	                    	<script type="text/html" id="newests">
+	                    		{{each items as item i}}
+
 	                    	<div class="newest">
-	                    		<div class="newest_title">即将直播</div>
+	                    		<div class="newest_title">{{item.title}}</div>
 	                    		<div class="newest_main">
 	                    			<ul>
-	                    				
+	                    				{{each item.courseList as item i}}
 	                    				<!--即将直播-->
 	                    				<li>
 	                    					<div class="newest_main_two">
 	                    						<div class="newest_two_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
+	                    							<img src="{{item.smallImgPath}}" alt="" />
 	                    						</div>
 	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_two_img_type" />-->
-	                    						<div class="newest_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
+	                    						<div class="newest_main_two_title">{{item.gradeName}}</div>
 	                    						<div class="newest_main_two_size">
-	                    							<p><span>免费</span></p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    							<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span>10:23</span></p>
+	                    							{{if item.watchState == 1}}
+	                    								<p><span>免费</span></p>
+	                    							{{else}}
+	                    								<p><span>{{item.currentPrice}}</span>熊猫币</p>
+	                    							{{/if}}
+	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
+	                    							<!--<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>-->
 	                    							
+	                    							{{if item.allCourseList == 1}}
+														<p class="p3" style="display:none;"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
+													{{else if item.allCourseList == 2}}
+														<p class="p3"><img src="/xcview/images/Sinatv_time.png" alt="" /><span>{{item.startDateStr}}</span></p>
+													{{else if item.allCourseList == 3}}
+														<p class="p3" style="display: none;"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
+	                    							{{/if}}
 	                    						</div>
 	                    					</div>
 	                    				</li>
-	                    				<li>
+	                    				{{/each}}
+	                    				<!--<li>
 	                    					<div class="newest_main_two">
 	                    						<div class="newest_two_img">
 	                    							<img src="/xcview/images/line_03.jpg" alt="" />
 	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_two_img_type" />-->
 	                    						<div class="newest_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
 	                    						<div class="newest_main_two_size">
 	                    							<p><span>1000</span>熊猫币</p>
@@ -577,7 +571,6 @@
 	                    						<div class="newest_two_img">
 	                    							<img src="/xcview/images/line_03.jpg" alt="" />
 	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="newest_main_two_img_type" />-->
 	                    						<div class="newest_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
 	                    						<div class="newest_main_two_size">
 	                    							<p><span>1000</span>熊猫币</p>
@@ -586,12 +579,18 @@
 	                    							
 	                    						</div>
 	                    					</div>
-	                    				</li>
+	                    				</li>-->
 	                    				
 	                    				<div class="both"></div>
 	                    			</ul>
 	                    		</div>
 	                    	</div>
+	                    	{{/each}}
+	                    		
+	                    	</script>
+	                    	
+	                    	
+	                    	
 	                    	<!--即将课程结束-->
 	                    	
 	                    	<!--直播课程开始-->
@@ -726,16 +725,8 @@
 									<article class="container">
 									    <section>
 									      <figure id="responsiveness2" class="swipslider">
-									        <ul class="sw-slides">
-									           <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li>
-									          <li class="sw-slide">
-									            <img src="/xcview/images/zhibo1.jpg" alt="Another Concept for children game">
-									          </li> 
+									        <ul class="sw-slides" id="tk-slides">
+									           
 									        </ul>
 									      </figure>
 									    </section>
@@ -749,59 +740,29 @@
 	                    	<div class="lectures">
 	                    		<div class="lectures_title">听课推荐</div>
 	                    		<div class="lectures_main">
-	                    			<ul>
+	                    			<ul class="lecturess">
+	                    				<script type="text/html" id="lectures">
+	                    				{{each items as item i}}
 	                    				<li>
 	                    					<div class="lectures_main_one">
 	                    						<div class="lectures_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
+	                    							<img src="{{item.headImg}}" alt="" />
 	                    						</div>
 	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="lectures_main_one_img_type" />-->
-	                    						<div class="lectures_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
+	                    						<div class="lectures_main_one_title">{{item.gradeName}}</div>
 	                    						<div class="lectures_main_one_size">
+	                    							{{if item.watchState == 1}}
 	                    							<p><span>免费</span></p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
+	                    							{{else}}
+	                    							<p><span>{{item.currentPrice}}</span>熊猫币</p>
+	                    							{{/if}}
+	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
 	                    						</div>
 	                    					</div>
 	                    				</li>
-	                    				<li>
-	                    					<div class="lectures_main_one">
-	                    						<div class="lectures_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="lectures_main_one_img_type" />-->
-	                    						<div class="lectures_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="lectures_main_one_size">
-	                    							<p><span>免费</span></p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="lectures_main_one">
-	                    						<div class="lectures_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="lectures_main_one_img_type" />-->
-	                    						<div class="lectures_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="lectures_main_one_size">
-	                    							<p><span>免费</span></p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
-	                    				<li>
-	                    					<div class="lectures_main_one">
-	                    						<div class="lectures_one_img">
-	                    							<img src="/xcview/images/line_03.jpg" alt="" />
-	                    						</div>
-	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="lectures_main_one_img_type" />-->
-	                    						<div class="lectures_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
-	                    						<div class="lectures_main_one_size">
-	                    							<p><span>1000</span>熊猫币</p>
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1023052</span></p>
-	                    						</div>
-	                    					</div>
-	                    				</li>
+	                    				{{/each}}
+	                    				</script>
+	                    				
 	                    				<div class="both"></div>
 	                    			</ul>
 	                    		</div>
@@ -836,7 +797,7 @@
 				<p style="color: #00BC12;">学堂</p>
 			</li>
 			<li>
-				<a href="my_study.html" class="footer_two"></a>
+				<a href="" class="footer_two"></a>
 				<p>学习</p>
 			</li>
 			<li>

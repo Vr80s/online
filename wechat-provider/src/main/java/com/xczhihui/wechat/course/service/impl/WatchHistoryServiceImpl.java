@@ -42,7 +42,7 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	public Page<WatchHistoryVO> selectWatchHistory(Page<WatchHistoryVO> page,
 			String userId) {
 		
-		List<WatchHistoryVO> records = watchHistoryMapper.selectWatchHistory(page);
+		List<WatchHistoryVO> records = watchHistoryMapper.selectWatchHistory(page,userId);
 		for (WatchHistoryVO watchHistoryVO : records) {
 			String watch = DateUtil.formatDate(new Date(), DateUtil.FORMAT_DAY_TIME);
 			String current = DateUtil.formatDate(new Date(),DateUtil.FORMAT_DAY_TIME);

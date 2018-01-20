@@ -1339,7 +1339,7 @@ header{
 .boutique_main_four_size p:first-child{
 	margin-right: 0.213rem;
     float: left;
-    min-width: 2.936rem;
+    min-width: 1rem;
     max-width: 3.4rem;
     height: 0.51rem;
     line-height: 0.51rem;
@@ -1347,6 +1347,7 @@ header{
 }
 .boutique_main_four_size .p2{
     max-width: 2.5rem;
+    min-width: 1rem;
 	height: 0.51rem;
     line-height: 0.51rem;
     float: left;
@@ -1366,8 +1367,8 @@ header{
 }
 .boutique_main_four_size .p3{
 	height: 0.51rem;
-	width: 1.9rem;
-    float: right;
+	min-width: 1.9rem;
+    float: left;
     line-height: 0.51rem;
 }
 .boutique_main_four_size .p3 img{
@@ -1381,7 +1382,7 @@ header{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-    max-width: 1.5rem;
+    min-width: 0.5rem;
 }
 /*精品课程结束*/
 
@@ -1532,7 +1533,7 @@ header{
 .newest_main_two_size p:first-child{
 	margin-right: 0.213rem;
     float: left;
-    min-width: 2.936rem;
+    min-width: 1rem;
     max-width: 3.4rem;
     height: 0.51rem;
     line-height: 0.51rem;
@@ -1543,6 +1544,7 @@ header{
 	height: 0.51rem;
     line-height: 0.51rem;
     float: left;
+    margin-right: 0.2rem;
 }
 .newest_main_two_size .p2 img{
 	width: 0.404rem;
@@ -1560,7 +1562,7 @@ header{
 .newest_main_two_size .p3{
 	height: 0.51rem;
 	width: 1.9rem;
-    float: right;
+    float: left;
     line-height: 0.51rem;
 }
 .newest_main_two_size .p3 img{
