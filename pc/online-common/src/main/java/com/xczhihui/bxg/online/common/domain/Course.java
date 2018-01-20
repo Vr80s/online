@@ -361,6 +361,13 @@ public class Course extends BasicEntity2 implements Serializable {
 	private String subtitle;
 	@Column(name = "collection_course_sort")
 	private Integer collectionCourseSort;
+	
+	/**
+	 * 直播源类型  0:来自pc直播,1:来自app 直播
+	 */
+	@Column(name = "live_source_type")
+	private boolean  liveSourceType;
+	
 
 	@Transient
 	private List<Course> courseInfoList;
@@ -853,4 +860,14 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+	public boolean isLiveSourceType() {
+		return liveSourceType;
+	}
+
+	public void setLiveSourceType(boolean liveSourceType) {
+		this.liveSourceType = liveSourceType;
+	}
+
+	
 }

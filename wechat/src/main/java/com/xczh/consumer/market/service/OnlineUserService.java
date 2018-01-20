@@ -214,4 +214,13 @@ public interface OnlineUserService {
 	 *
 	 */
 	public void updateAppleTourisrecord(String appUniqueId,Integer isReigs)throws SQLException;
+	/**
+	 * Description：查找主播信息
+	 * @param lecturerId
+	 * @return
+	 * @throws SQLException
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	public Map<String, Object> findHostById(String lecturerId)throws SQLException;
 }

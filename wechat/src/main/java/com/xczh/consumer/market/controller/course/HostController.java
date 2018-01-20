@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.controller.live;
+package com.xczh.consumer.market.controller.course;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.FocusService;
-import com.xczh.consumer.market.service.GiftService;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
@@ -32,20 +32,33 @@ import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
  * Create Time: 2018年1月16日<br>
  */
 @Controller
-@RequestMapping("/bxg/host")
+@RequestMapping("/xczh/host")
 public class HostController {
+	
 	
 	@Autowired
 	private OnlineCourseService onlineCourseService;
 	@Autowired
 	private OnlineUserService onlineUserService;
-	@Autowired
-	private FocusService focusService;
+
 	@Autowired
 	private AppBrowserService appBrowserService;
 
+//	@Autowired
+//	@Qualifier("giftServiceImpl")
+//	private GiftService giftService;
+//	
+//	@Autowired()
+//	@Qualifier("giftServiceImpl")
+//	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
+	
 	@Autowired
-	private GiftService giftService;
+	@Qualifier("focusServiceImpl")
+	private FocusService focusService;
+	
+	@Autowired
+	@Qualifier("focusServiceRemote")
+	private com.xczhihui.wechat.course.service.IFocusService focusServiceRemote;
 	
 	@Autowired
 	private OnlineWebService onlineWebService;
@@ -81,18 +94,27 @@ public class HostController {
 		/**
 		 * 得到讲师   主要是房间号，缩略图的信息啦
 		 */
-		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
+//		Map<String,Object> lecturerInfo = onlineUserService.findUserRoomNumberById(lecturerId);
+	
+		Map<String,Object> lecturerInfo = onlineUserService.findHostById(lecturerId);	
 		/**
 		 * 粉丝总数 
 		 */
-		Integer fansCount  = focusService.findMyFansCount(lecturerId);
+		//Integer fansCount  = focusService.findMyFansCount(lecturerId);
 		/**
 		 * 关注总数 
 		 */
-		Integer focusCount  = focusService.findMyFocusCount(lecturerId);
+		//Integer focusCount  = focusService.findMyFocusCount(lecturerId);
+		//第一个粉丝总数         第二个是我的关注总数
+	
+		List<Integer> listff =   focusServiceRemote.selectFocusAndFansCount(lecturerId);
+//		listff.add(listff.get(0));
+//		listff.add(listff.get(1));
+		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-		mapAll.put("fansCount", fansCount);       		   //粉丝总数
-		mapAll.put("focusCount", focusCount);   	  	   //关注总数
+		
+		mapAll.put("fansCount", listff.get(0));       		   //粉丝总数
+		mapAll.put("focusCount", listff.get(1));   	  	   //关注总数
 		//讲师的精彩简介  
 		mapAll.put("videoId", "F89D83B02BCE744D9C33DC5901307461");  //
 		//坐诊医馆
@@ -119,31 +141,6 @@ public class HostController {
 	    }
 	    return ResponseObject.newSuccessResponseObject(mapAll);
 	
-	    /**
-		 * 关注讲师的粉丝  显示六个
-		 */
-		//List<FocusVo> listFans = focusService.findMyFans(lecturerId,0,6);
-		/**
-		 * 得到讲师下面的所有课程数  ---》如果是视频数的话客户会比较蒙
-		 */
-		//Integer courseAll = onlineCourseService.liveAndBunchAndAudioCount(lecturerId);
-		/**
-		 * 得到这个讲师的所有   礼物数
-		 */
-		//Integer giftAll = giftService.findByUserId(lecturerId);
-		/**
-         * 得到判断这个主播有没有正在直播的课程啦	
-         */
-		//Map<String,String> mapLiveState  =  onlineCourseService.teacherIsLive(lecturerId);
-		
-//		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-//		//mapAll.put("mapLiveState", mapLiveState); // 1 表示有直播  null表示没直播
-//		mapAll.put("fansCount", fansCount);       //粉丝总数
-//		mapAll.put("focusCount", focusCount);   	  // 关注总数
-		//mapAll.put("giftAll", giftAll);           // 礼物数 
-		//mapAll.put("courseAll", courseAll);       // 课程数 
-		//mapAll.put("listFans", listFans);   	  // 前六个的粉丝数
-		//主播最近一次直播
 	}
 	/**
 	 * Description：用户主页    -- 课程列表

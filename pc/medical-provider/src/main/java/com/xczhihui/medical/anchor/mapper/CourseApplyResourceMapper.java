@@ -1,7 +1,11 @@
 package com.xczhihui.medical.anchor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
+import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.xczhihui.medical.anchor.model.CourseApplyResource;
  */
 public interface CourseApplyResourceMapper extends BaseMapper<CourseApplyResource> {
 
+    List<CourseApplyResourceVO> selectAllCourseResources(String userId);
+
+    List<CourseApplyResourceVO> selectCourseResourceByPage(Page<CourseApplyResourceVO> page, String userId);
 }

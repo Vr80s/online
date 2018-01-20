@@ -645,5 +645,20 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		Object[] params = {isReigs,appUniqueId};
 		this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
 	}
+    /**
+     * 
+     * Description：
+     * @param lecturerId
+     * @return
+     * @return Map<String,Object>
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	public Map<String, Object> findHostById(String lecturerId) {
+		StringBuffer sql = new StringBuffer(); 
+//		sql.append(" select * from  oe_course  as oc INNER JOIN oe_user as ou on oc.user_lecturer_id = ou.id  left join 
+//			course_anchor as ca on oc.user_lecturer_id = ca.user_id where oc.user_lecturer_id ="23908ae85dad4541ba7ecf53fc52aab2"  ");
+		Object params[] = { lecturerId };
+		return null;
+	}
 	
 }

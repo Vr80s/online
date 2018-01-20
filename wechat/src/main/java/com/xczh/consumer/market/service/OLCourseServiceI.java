@@ -85,4 +85,6 @@ public interface OLCourseServiceI {
 	public List<CourseLecturVo> queryAllCourse(String menuType,
 			Integer courseType, String isFree, String city,String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException;
+	List<CourseLecturVo> offLineClassListOld(int number, int pageSize)
+			throws SQLException;
 }

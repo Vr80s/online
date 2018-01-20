@@ -141,6 +141,9 @@
 	<!--医馆入驻-->
 	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyService" timeout="${dubbo.consumer.timeout}" />
 
+	<!--医馆主播课程-->
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl" timeout="${dubbo.consumer.timeout}" />
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl" timeout="${dubbo.consumer.timeout}" />
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.EnchashmentService" ref="enchashmentServiceImpl" timeout="${dubbo.consumer.timeout}" />

@@ -295,6 +295,9 @@ public class Course extends Model<Course> {
 	@TableField("city")
 	private String city;
 	
+	@TableField("live_source_type")
+	private  boolean liveSourceType;
+	
     
 	@Override
 	protected Serializable pkVal() {
@@ -840,4 +843,17 @@ public class Course extends Model<Course> {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
+
+	public boolean isLiveSourceType() {
+		return liveSourceType;
+	}
+
+
+	public void setLiveSourceType(boolean liveSourceType) {
+		this.liveSourceType = liveSourceType;
+	}
+
+		
+
 }
