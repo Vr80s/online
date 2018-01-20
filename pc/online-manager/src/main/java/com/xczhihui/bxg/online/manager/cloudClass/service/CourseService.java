@@ -148,6 +148,20 @@ public interface CourseService {
       * @return
       */
      public void updateSortUpRec (Integer id);
+
+	/**
+	 * 上移
+	 * @param Integer id
+	 * @return
+	 */
+	public void updateCitySortUp (Integer id);
+
+	/**
+	 * 下移
+	 * @param Integer id
+	 * @return
+	 */
+	public void updateCitySortDown (Integer id);
      
      /**
       * 下移
@@ -168,6 +182,12 @@ public interface CourseService {
       * @return
       */
      public boolean updateRec(String[] ids,int isRecommend);
+	/**
+	 * 更新城市是否推荐
+	 * @param Integer id
+	 * @return
+	 */
+	public boolean updateCityRec(String[] ids,int isRecommend);
 
      /**
       * 查询出授课方式的下拉值

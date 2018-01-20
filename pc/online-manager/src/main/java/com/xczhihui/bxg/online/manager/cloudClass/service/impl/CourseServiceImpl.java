@@ -830,6 +830,24 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         }
 		return true;
 	}
+	@Override
+	public boolean updateCityRec(String[] ids,int isRecommend) {
+		// TODO Auto-generated method stub
+
+		for(String id:ids){
+			if(id == "" || id == null)
+			{
+				continue;
+			}
+			String hqlPre="from OffLineCity where  isDelete = 0 and id = ?";
+			OffLineCity course= dao.findByHQLOne(hqlPre,new Object[] {Integer.valueOf(id)});
+			if(course !=null){
+				course.setIsRecommend(isRecommend);
+				dao.update(course);
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public void updateSortUpRec(Integer id) {
@@ -838,7 +856,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getRecommendSort();
          
-         String hqlNext="from Course where recommendSort < (select recommendSort from Course where id= ? )  and isDelete=0 and isRecommend = 1 order by recommendSort desc";
+         String hqlNext="from Course where recommendSort > (select recommendSort from Course where id= ? )  and isDelete=0 and online_course=1 and isRecommend = 1 order by recommendSort asc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getRecommendSort();
          
@@ -851,12 +869,47 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	}
 
 	@Override
+	public void updateCitySortUp(Integer id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from OffLineCity where  isDelete=0 and id = ?";
+		OffLineCity coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		Integer coursePreSort=coursePre.getSort();
+
+		String hqlNext="from OffLineCity where sort > (select sort from OffLineCity where id= ? )  and isDelete=0  and isRecommend = 1 order by sort asc";
+		OffLineCity courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		Integer courseNextSort=courseNext.getSort();
+
+		coursePre.setSort(courseNextSort);
+		courseNext.setSort(coursePreSort);
+
+		dao.update(coursePre);
+		dao.update(courseNext);
+
+	}
+	@Override
+	public void updateCitySortDown(Integer id) {
+		// TODO Auto-generated method stub
+		String hqlPre="from OffLineCity where  isDelete=0 and id = ?";
+		OffLineCity coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		Integer coursePreSort=coursePre.getSort();
+		String hqlNext="from OffLineCity where sort < (select sort from OffLineCity where id= ? ) and isRecommend = 1 and isDelete=0 order by sort desc";
+		OffLineCity courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		Integer courseNextSort=courseNext.getSort();
+
+		coursePre.setSort(courseNextSort);
+		courseNext.setSort(coursePreSort);
+
+		dao.update(coursePre);
+		dao.update(courseNext);
+	}
+
+	@Override
 	public void updateSortDownRec(Integer id) {
 		// TODO Auto-generated method stub
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getRecommendSort();
-         String hqlNext="from Course where recommendSort > (select recommendSort from Course where id= ? ) and isRecommend = 1  and isDelete=0 order by recommendSort asc";
+         String hqlNext="from Course where recommendSort < (select recommendSort from Course where id= ? ) and isRecommend = 1 and online_course=1 and isDelete=0 order by recommendSort desc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getRecommendSort();
          
@@ -1289,9 +1342,18 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		 * 添加前，看存在此城市，如果存在那么就不添加
 		 */
 		if(!findCourseCityByName(city)){
+			Map<String,Object> params1=new HashMap<String,Object>();
+			String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_offline_city ";
+			List<OffLineCity> temp = dao.findEntitiesByJdbc(OffLineCity.class, sql, params1);
+			int sort;
+			if(temp.size()>0){
+				sort=temp.get(0).getSort().intValue()+1;
+			}else{
+				sort=1;
+			}
 			User user = (User) UserHolder.getRequireCurrentUser(); 
-			String savesql=" insert into oe_offline_city (create_person,create_time,city_name)"+
-					" values ('"+user.getCreatePerson()+"',now(),'"+city+"')";
+			String savesql=" insert into oe_offline_city (create_person,create_time,city_name,sort)"+
+					" values ('"+user.getCreatePerson()+"',now(),'"+city+"','"+sort+"')";
 			 Map<String,Object> params=new HashMap<String,Object>();
 			dao.getNamedParameterJdbcTemplate().update(savesql, params);
 		}
@@ -1330,6 +1392,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		 if(searchVo.getCityName()!=null && !"".equals(searchVo.getCityName())){
 			 sql+=" and city_name = '"+searchVo.getCityName()+"'";
 		 }
+		sql+=" order by is_recommend desc,sort desc ";
 		Map<String,Object> params=new HashMap<String,Object>();
 		Page<OffLineCity> courseVos = dao.findPageBySQL(sql, params, OffLineCity.class, pageNumber, pageSize);
 		return courseVos;

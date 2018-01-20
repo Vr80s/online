@@ -479,6 +479,8 @@ public class RealCourseController extends AbstractController{
     	}
     	return responseObject;
     }
+
+
     
     @RequestMapping(value = "getCourseDetail", method = RequestMethod.POST)
 	@ResponseBody

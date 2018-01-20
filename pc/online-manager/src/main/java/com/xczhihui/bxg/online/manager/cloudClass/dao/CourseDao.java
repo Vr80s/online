@@ -196,7 +196,7 @@ public class CourseDao extends HibernateDao<Course>{
 		 paramMap.put("isRecommend","1");//只查询已推荐的课程
 		 sql.append(" and oc.is_recommend = :isRecommend ");
 		 
-		 sql.append(" group by oc.id  order by oc.recommend_sort asc");
+		 sql.append(" group by oc.id  order by oc.recommend_sort desc");
 		 System.out.println(sql.toString());
 		 return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 
