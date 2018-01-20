@@ -21,9 +21,18 @@ $(function(){
     {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
 	{ "title": "直播id", "class":"center","width":"6%","sortable":false,"data": 'id' ,"mRender":function (data, display, row) {
 		return "<span name='courseNameList'>"+data+"</span>";
-	} }, { "title": "直播名称", "class":"center","width":"15%","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
+	} }, { "title": "直播名称", "class":"center","width":"10%","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
 		return "<span name='courseNameList'>"+data+"</span>";
 	} },
+	{ "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
+			if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
+				return "直播中";
+			}else if(data== 2){
+				return "预告";
+			}else if(data== 3){
+				return "结束";
+			}
+		} },
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
     { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName',"mRender":function (data, display, row) {
     		return "<span name='lecturerNameList'>"+data+"</span>";
@@ -325,8 +334,8 @@ $(function(){
     }},
     {"sortable": false,"class": "center","width":"10%","title":"排序","mRender":function (data, display, row) {
     	return '<div class="hidden-sm hidden-xs action-buttons">'+
-		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="liveUpa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="liveDowna"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
 	}},
 	
 /*	'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
@@ -348,13 +357,13 @@ $(function(){
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_liveStatus","propertyValue1":"1","tempType":"Integer"}');
     
 	zb_courseRecTable = initTables("courseZbRecTable",basePath+"/cloudclass/course/recList",objZbRecData,true,true,0,null,searchCase_P,function(data){
-		$("[name='upa']").each(function(index){
+		$("[name='liveUpa']").each(function(index){
 			if(index == 0){
 				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 			}
 		}); 
-		$("[name='downa']").each(function(index){
-			if(index == $("[name='downa']").size()-1){
+		$("[name='liveDowna']").each(function(index){
+			if(index == $("[name='liveDowna']").size()-1){
 				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 			}
 		});

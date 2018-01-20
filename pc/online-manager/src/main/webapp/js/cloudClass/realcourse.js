@@ -100,21 +100,32 @@ debugger;
 		var countNum = data._iRecordsTotal;//总条数
 		pageSize = data._iDisplayLength;//每页显示条数
 		currentPage = iDisplayStart / pageSize +1;//页码
-		if(currentPage == 1){//第一页的第一行隐藏向上箭头
+		/*if(currentPage == 1){//第一页的第一行隐藏向上箭头
 			$("#courseTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
 		}
 		if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
 			$("#courseTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}
+		}*/
 		var countPage;
 		if(countNum%pageSize == 0){
 			countPage = parseInt(countNum/pageSize);
 		}else{
 			countPage = parseInt(countNum/pageSize) + 1;
 		}
-		if(countPage == currentPage){//隐藏最后一条数据下移
+		/*if(countPage == currentPage){//隐藏最后一条数据下移
 			$("#courseTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}
+		}*/
+
+        $("[name='up_PX']").each(function(index){
+            if(index == 0){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
+        $("[name='down_PX']").each(function(index){
+            if(index == $("[name='down_PX']").size()-1){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
 	});
 	/** 线下培训班列表end */
 	
@@ -140,8 +151,8 @@ debugger;
     {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
     	var str;
     	if(row.status ==1){//如果是禁用
-    		str='<a class="blue" name="upa" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="blue" href="javascript:void(-1);" name="downa" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+    		str='<a class="blue" name="upa_a" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+        	'<a class="blue" href="javascript:void(-1);" name="downa_a" title="下移" onclick="downMoveRec(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
     	}else{//如果是不禁用
     		str='<a class="gray" href="javascript:void(-1);" title="上移"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
         	'<a class="gray" href="javascript:void(-1);" title="下移" ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
@@ -165,21 +176,31 @@ debugger;
 		var countNum = data._iRecordsTotal;//总条数
 		pageSize = data._iDisplayLength;//每页显示条数
 		currentPage = iDisplayStart / pageSize +1;//页码
-		if(currentPage == 1){//第一页的第一行隐藏向上箭头
+		/*if(currentPage == 1){//第一页的第一行隐藏向上箭头
 			$("#courseRecTable tbody tr:first td").eq(7).find('a').eq(0).css("pointer-events","none").removeClass("blue").addClass("gray");
 		}
 		if(countNum/pageSize < 1 || countNum/pageSize == 1){//数据不足一页隐藏下移箭头
 			$("#courseRecTable tbody tr:last td").eq(7).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}
+		}*/
 		var countPage;
 		if(countNum%pageSize == 0){
 			countPage = parseInt(countNum/pageSize);
 		}else{
 			countPage = parseInt(countNum/pageSize) + 1;
 		}
-		if(countPage == currentPage){//隐藏最后一条数据下移
+         $("[name='upa_a']").each(function(index){
+             if(index == 0){
+                 $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+             }
+         });
+         $("[name='downa_a']").each(function(index){
+             if(index == $("[name='downa_a']").size()-1){
+                 $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+             }
+         });
+		/*if(countPage == currentPage){//隐藏最后一条数据下移
 			$("#courseRecTable tbody tr:last td").eq(9).find('a').eq(1).css("pointer-events","none").removeClass("blue").addClass("gray");
-		}
+		}*/
 		
 		
 	});
@@ -204,14 +225,21 @@ debugger;
     {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
     	var str;
     	if(row.status ==1){//如果是禁用
-    		str='<a class="blue" name="upa" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-        	'<a class="blue" href="javascript:void(-1);" name="downa" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+    		str='<a class="blue" name="cityUpa" href="javascript:void(-1);" title="上移" onclick="cityUpMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+        	'<a class="blue" href="javascript:void(-1);" name="cityDowna" title="下移" onclick="cityDownMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
     	}else{//如果是不禁用
     		str='<a class="gray" href="javascript:void(-1);" title="上移"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
         	'<a class="gray" href="javascript:void(-1);" title="下移" ><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
     	}
     	return '<div class="hidden-sm hidden-xs action-buttons">'+str;
     }},
+	{ "title": "是否推荐", "class":"center","width":"8%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
+			if(data==1){
+				return "<span name='sftj'>已推荐</span>";
+			}else{
+				return "<span name='sftj'>未推荐</span>";
+			}
+		} },
 	{ "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 		return '<div class="hidden-sm hidden-xs action-buttons">'+
 		'<a class="blue" href="javascript:void(-1);" title="设置图片" onclick="updateRecImg(this);">设置图片</a> </div>';
@@ -220,7 +248,26 @@ debugger;
      debugger;
     // P_courseTable = initTables("courseTable",basePath+"/realClass/course/list",objData,true,true,0,null,searchCase_P,function(data){
 	_cityTable = initTables("courseCityTable",basePath+"/realClass/course/courseCityList",objCityData,true,true,0,null,searchCase_P,function(data){
-	
+        var iDisplayStart = data._iDisplayStart;
+        var countNum = data._iRecordsTotal;//总条数
+        pageSize = data._iDisplayLength;//每页显示条数
+        currentPage = iDisplayStart / pageSize +1;//页码
+        var countPage;
+        if(countNum%pageSize == 0){
+            countPage = parseInt(countNum/pageSize);
+        }else{
+            countPage = parseInt(countNum/pageSize) + 1;
+        }
+        $("[name='cityUpa']").each(function(index){
+            if(index == 0){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
+        $("[name='cityDowna']").each(function(index){
+            if(index == $("[name='cityDowna']").size()-1){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
 		
 	});
 	/** 城市管理结束 */
@@ -468,6 +515,21 @@ function upMoveRec(obj){
 		}
 	});
 };
+/**
+ * 城市列表上移
+ * @param obj
+ */
+function cityUpMove(obj){
+    var oo = $(obj).parent().parent().parent();
+    var aData = _cityTable.fnGetData(oo);
+    ajaxRequest(basePath+'/cloudclass/course/cityUpMove',{"id":aData.id},function(res){
+        if(res.success){
+            freshTable(_cityTable);
+        }else{
+            layer.msg(res.errorMessage);
+        }
+    });
+};
 
 function showDetailDialog(obj,status){
 	var oo = $(obj).parent().parent().parent();
@@ -554,15 +616,31 @@ function downMove(obj){
  * @param obj
  */
 function downMoveRec(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = _courseRecTable.fnGetData(oo);
-	ajaxRequest(basePath+'/cloudclass/course/downMoveRec',{"id":aData.id},function(res){
-		if(res.success){
-			freshTable(_courseRecTable);
-		}else{
-			layer.msg(res.errorMessage);
-		}
-	});
+    var oo = $(obj).parent().parent().parent();
+    var aData = _courseRecTable.fnGetData(oo);
+    ajaxRequest(basePath+'/cloudclass/course/downMoveRec',{"id":aData.id},function(res){
+        if(res.success){
+            freshTable(_courseRecTable);
+        }else{
+            layer.msg(res.errorMessage);
+        }
+    });
+};
+
+/**
+ * 城市列表下移
+ * @param obj
+ */
+function cityDownMove(obj){
+    var oo = $(obj).parent().parent().parent();
+    var aData = _cityTable.fnGetData(oo);
+    ajaxRequest(basePath+'/cloudclass/course/cityDownMove',{"id":aData.id},function(res){
+        if(res.success){
+            freshTable(_cityTable);
+        }else{
+            layer.msg(res.errorMessage);
+        }
+    });
 };
 
 /**
@@ -1604,6 +1682,68 @@ $(".rec_P").click(function(){
 	}else{
 		showDelDialog("","","请选择推荐课程！","");
 	}
+});
+
+/**
+ * 城市批量推荐
+ *
+ */
+$(".city_rec").click(function(){
+    var ids = new Array();
+    var trs = $(".dataTable tbody input[type='checkbox']:checked");
+    for(var i = 0;i<trs.size();i++){
+
+        if($(trs[i]).parent().parent().find("[name='sftj']").eq("0").text() == "已推荐")
+        {
+            showDelDialog("","","无法推荐已推荐城市！","");
+            return false;
+        }
+        ids.push($(trs[i]).val());
+    }
+    if(ids.length>0){
+        ajaxRequest(basePath+"/cloudclass/course/updateCityRec",{'ids':ids.join(","),"isRec":1},function(data){
+            if(!data.success){//如果失败
+                //alertInfo(data.errorMessage);
+                layer.msg(data.errorMessage);
+            }else{
+                if(!isnull(_cityTable)){
+                    layer.msg("推荐成功！");
+                    search_City();
+                }
+                layer.msg(data.errorMessage);
+            }
+        });
+    }else{
+        showDelDialog("","","请选择推荐城市！","");
+    }
+});
+/**
+ * 城市取消推荐
+ *
+ */
+$(".city_qx_rec").click(function(){
+    var ids = new Array();
+    var trs = $(".dataTable tbody input[type='checkbox']:checked");
+    for(var i = 0;i<trs.size();i++){
+
+        ids.push($(trs[i]).val());
+    }
+    if(ids.length>0){
+        ajaxRequest(basePath+"/cloudclass/course/updateCityRec",{'ids':ids.join(","),"isRec":0},function(data){
+            if(!data.success){//如果失败
+                //alertInfo(data.errorMessage);
+                layer.msg(data.errorMessage);
+            }else{
+                if(!isnull(_cityTable)){
+                    layer.msg("取消成功！");
+                    search_City();
+                }
+                layer.msg(data.errorMessage);
+            }
+        });
+    }else{
+        showDelDialog("","","请选择未推荐城市！","");
+    }
 });
 /**
  * 微课批量推荐
