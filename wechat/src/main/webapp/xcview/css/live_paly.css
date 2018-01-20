@@ -11,6 +11,21 @@ outline:none;
 p{font-size: 0.28rem;}
 img{display: block;}
 .wp{width: 7.5rem;margin: 0 auto;}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #bbb; opacity:1; 
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #bbb;opacity:1;
+}
+
+input:-ms-input-placeholder{
+    color: #bbb;opacity:1;
+}
+
+input::-webkit-input-placeholder{
+    color:#bbb;opacity:1;
+}
 /*医师认证*/
 .wrap-header{
 	width: 100%;
@@ -18,7 +33,7 @@ img{display: block;}
 
 }
 .header{
-	width: 100%;
+	width: 7.5rem;
 	height: 0.88rem;	
 	text-align: center;
 	line-height: 0.88rem;
@@ -444,14 +459,51 @@ color: #666666;
 .wrap_user_input{
 	width: 100%;
 	background: white;
-	padding: 0.2rem 0.26rem;
+	height: 0.98rem;
+	padding: 0.01rem 0.26rem 0 0.26rem;
 	margin-top: 0.4rem;
 	box-sizing: border-box;
 }
 .wrap_input{
-	width: 6.13rem;
+	width: 5.5rem;
 	height: 0.6rem;
 	background: #f0f0f0;
-	color: #bbb;
+	margin-top: 0.2rem;
 	border-radius: 0.3rem;
+}
+.wrap_input img{
+	width: 0.3rem;
+	    float: left;
+    margin: 0.15rem 0 0 0.2rem;
+}
+.wrap_input span{
+	 margin-top: 0.1rem;
+    float: left;
+    padding-left: 0.1rem;
+    color: #c1c1c1;
+}
+/*.wrap_input input{
+	width: 4.9rem;
+    height: 100%;
+	background: #f0f0f0;
+    border: 0;
+    outline: none;
+    float: left;
+    padding-left: 0.1rem;
+    box-sizing: border-box;
+}*/
+.all_returned_num{
+	width: 1.2rem;
+
+	text-align: center;
+	    margin-top: 0.18rem;
+}
+.all_returned_num img{
+	width: 0.4rem;
+	display: inline-block;
+}
+.all_returned_num p{
+	color: #ddd;
+	font-size: 0.12rem;
+	margin-top: -0.1rem;
 }
