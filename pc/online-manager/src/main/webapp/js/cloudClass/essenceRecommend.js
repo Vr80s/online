@@ -13,10 +13,9 @@ $(function(){
 	var objData = [{ "title": checkbox,"class":"center","width":"60px","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
 				        return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
 				    }},
-        { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
+        {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
+        { "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":'id' },
         { "title": "课程名称", "class":"center","width":"9%","sortable":false,"data": 'courseName' },
-        { "title": "所属学科", "class":"center","width":"6%","sortable":false,"data": 'xMenuName' },
-        // { "title": "课程类别", "class":"center","width":"6%","sortable":false,"data": 'scoreTypeName' },
         { "title": "资源类型", "class":"center","width":"6%","sortable":false,"data": 'multimediaType' ,"mRender":function (data, display, row) {
                 if(data == 1){
                     return "视频";
@@ -24,7 +23,7 @@ $(function(){
                 return "音频";
             }},
         { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
-		{ "title": "状态", "class":"center","sortable":false,"data": 'status',"mRender":function (data, display, row) {
+		{ "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			return row.status=="1"?"已启用":"已禁用";
 			}
 		},
@@ -41,7 +40,7 @@ $(function(){
 			}
 		}
 		      		];
-	scoreTypeTable = initTables("scoreTypeTable",basePath+"/cloudClass/scoreType/list",objData,true,true,2,null,searchCase,function(data){
+	scoreTypeTable = initTables("scoreTypeTable",basePath+"/essencerecommend/course/list",objData,true,true,2,null,searchCase,function(data){
 			var iDisplayStart = data._iDisplayStart;
 			var countNum = data._iRecordsTotal;//总条数
 			pageSize = data._iDisplayLength;//每页显示条数
@@ -66,11 +65,61 @@ $(function(){
 
 	//下线时间 时间控件
 	createDatetimePicker($('.datetime-picker'));
-	
-	
 
 });
 
+/**
+ * 批量精品推荐
+ *
+ */
+$(".add_jp").click(function(){
+    var ids = new Array();
+    var trs = $(".dataTable tbody input[type='checkbox']:checked");
+    for(var i = 0;i<trs.size();i++){
+        ids.push($(trs[i]).val());
+    }
+    if(ids.length>0){
+        ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":1},function(data){
+            if(!data.success){//如果失败
+                layer.msg(data.errorMessage);
+            }else{
+                if(!isnull(scoreTypeTable)){
+                    layer.msg("推荐成功！");
+                    search();
+                }
+                layer.msg(data.errorMessage);
+            }
+        });
+    }else{
+        showDelDialog("","","请选择推荐课程！","");
+    }
+});
+/**
+ * 取消精品推荐
+ *
+ */
+$(".deletes_jp").click(function(){
+    var ids = new Array();
+    var trs = $(".dataTable tbody input[type='checkbox']:checked");
+    for(var i = 0;i<trs.size();i++){
+        ids.push($(trs[i]).val());
+    }
+    if(ids.length>0){
+        ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":0},function(data){
+            if(!data.success){//如果失败
+                layer.msg(data.errorMessage);
+            }else{
+                if(!isnull(scoreTypeTable)){
+                    layer.msg("取消成功！");
+                    search();
+                }
+                layer.msg(data.errorMessage);
+            }
+        });
+    }else{
+        showDelDialog("","","请选择要取消课程！","");
+    }
+});
 
 
 /**
@@ -85,17 +134,6 @@ function updateStatus(obj){
 	});
 }
 
-/**
- * 状态修改
- * @param obj
- */
-function childrenMenusUpdateStatus(id,status){
-	ajaxRequest(basePath+"/cloudClass/menu/updateStatus",{"id":id,"status":status},function(){
-	});
-}
-
-
-
 
 /**
  * 上移
@@ -104,7 +142,7 @@ function childrenMenusUpdateStatus(id,status){
 function upMove(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = scoreTypeTable.fnGetData(oo);
-	ajaxRequest(basePath+"/cloudClass/menu/scoreTypeUp",{"id":aData.id},function(res){
+	ajaxRequest(basePath+"/essencerecommend/course/upMove",{"id":aData.id},function(res){
 		if(res.success){
 			freshTable(scoreTypeTable);
 		}
@@ -118,7 +156,7 @@ function upMove(obj){
 function downMove(obj){
 	var oo = $(obj).parent().parent().parent();
 	var aData = scoreTypeTable.fnGetData(oo);
-	ajaxRequest(basePath+"/cloudClass/menu/scoreTypeDown",{"id":aData.id},function(res){
+	ajaxRequest(basePath+"/essencerecommend/course/downMove",{"id":aData.id},function(res){
 		if(res.success){
 			freshTable(scoreTypeTable);
 		}
@@ -126,198 +164,15 @@ function downMove(obj){
 }
 
 
-function delDialog(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = scoreTypeTable.fnGetData(oo);
-	showDelDialog(function(){
-		mask();
-		var url = "user/role/delete";
-		ajaxRequest(url,{'id':aData.id},function(data){
-			unmask();
-			if(!data.success){
-				alertInfo(data.errorMessage);
-			}else{
-				freshTable(scoreTypeTable);
-			}
-		});
-	});
-}
-
-function editDialog(obj){
-	var oo = $(obj).parent().parent().parent();
-	var aData = scoreTypeTable.fnGetData(oo); // get datarow
-	$("#update_id").val(aData.id);
-	$("#update_name").val(aData.name);
-	$("#update_remark").val(aData.remark);
-	openDialog("updateDialog","updateDialogDiv","修改课程类别",500,330,true,"提交",function(){
-		if($("#update-form").valid()){
-			mask();
-			$("#update-form").attr("action", "cloudClass/scoreType/update");
-			$("#update-form").ajaxSubmit(function(data){
-				unmask();
-				if(data.success){
-					$("#updateDialog").dialog("close");
-					console.log(data);
-					layer.msg(data.errorMessage);
-					freshTable(scoreTypeTable);
-					
-				}else{
-					layer.msg(data.errorMessage);
-				}
-			});
-		}
-	});
-}
-
-function openShow(obj){
-	var oo = $(obj).parent().parent().parent();
-	var row = scoreTypeTable.fnGetData(oo); // get datarow
-	$("#show_menuName").text(row.name);
-	$("#show_createPerson").text(row.createPerson);
-	$("#show_createTime").text(row.createTime);
-	$("#show_status").text(row.status=="1"?"已启用":"已禁用");
-	$("#show_remark").text(row.remark);
-	var dialog = openDialogNoBtnName("previewCloudClasMenuDialog","previewCloudClasMenuDialogDiv","查看课程类别",555,350,false,"确定",null);
-}
-
-
-function openMenuManage(obj){
-	var oo = $(obj).parent().parent().parent();
-	var row = scoreTypeTable.fnGetData(oo); // get datarow
-	$("#parentId").val(row.id);
-	ajaxRequest(basePath+"/cloudClass/menu/childMenu",{'pid':row.id},function(data) {
-		drawMenusPage(data,row.id);
-		var dialog = openDialogNoBtnName("childMenuDialog", "childMenuDialogDiv", "设置", 555, 230, true, "确定", null);
-	});
-}
-
-
-
-function cancelRow(trId){
-	$(trId).hide();
-}
-function saveMenusRow(menus_name_id,pid){
-	var menuName=$("#"+menus_name_id).val();
-	if(menuName!=null&&menuName.length>0){
-		ajaxRequest(basePath+"/cloudClass/menu/addChildren",{'menuName':menuName,'parentId':pid},function(data) {
-			if(data.success){
-				ajaxRequest(basePath+"/cloudClass/menu/childMenu",{'pid':pid},function(data) {
-					drawMenusPage(data,pid);
-				})
-			}
-		});
-	}
-}
-function appendRow(pid){
-	$("#childMenus").append("<tr id='tr_"+seed+"'><td><input type='text' id='menus_name_"+seed+"' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='保存' onclick='saveMenusRow(\"menus_name_"+seed+"\",\""+pid+"\")'/>&nbsp;&nbsp;&nbsp;<input type='button' value='取消' onclick='cancelRow(tr_"+seed+")'/></td></tr>");
-	seed++;
-}
-
-function deleteRow(rowId,pid){
-	ajaxRequest(basePath+"/cloudClass/menu/deleteChildren",{'id':rowId},function(data) {
-		if(data.success){
-			ajaxRequest(basePath+"/cloudClass/menu/childMenu",{'pid':pid},function(data) {
-				drawMenusPage(data,pid);
-			})
-		}
-	});
-}
-
-function drawMenusPage(data,pid){
-	$("#childMenus").html("");
-	if(data.success){
-		for(var i=0;i<data.resultObject.length;i++){
-			var rowData="<tr id='childMenus_tr_"+data.resultObject[i].id+"'><td> ";
-			if(data.resultObject[i].status==1){
-				rowData+="<input type='checkbox' name='childMenuNames' onclick='childrenMenusUpdateStatus(\""+data.resultObject[i].id+"\",\""+data.resultObject[i].status+"\")' checked='checked' value='"+data.resultObject[i].name+"' />"+data.resultObject[i].name;
-			}else{
-				rowData+="<input type='checkbox' name='childMenuNames'  onclick='childrenMenusUpdateStatus(\""+data.resultObject[i].id+"\",\""+data.resultObject[i].status+"\")' value='"+data.resultObject[i].name+"' />"+data.resultObject[i].name;
-			}
-			rowData+="</td>";
-			rowData+="<td>";
-			rowData+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			if(i!=0){
-				rowData+="<a class='blue' href='javascript:void(-1);' title='上移' onclick='childrenMenusUpMove("+data.resultObject[i].id+","+pid+")'><i class='glyphicon glyphicon-arrow-up bigger-130'></i></a>";
-			}else{
-				rowData+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			}
-			if(i+1!=data.resultObject.length){
-				rowData+="<a class='blue' href='javascript:void(-1);' title='下移' onclick='childrenMenusDownMove("+data.resultObject[i].id+","+pid+")'><i class='glyphicon glyphicon-arrow-down bigger-130'></i></a>";
-			}else{
-				rowData+="&nbsp;&nbsp;&nbsp;&nbsp;";
-			}
-			rowData+="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class='blue' href='javascript:void(-1);' title='增加' onclick='appendRow("+pid+")'><i class='glyphicon glyphicon-plus bigger-130'></i></A>&nbsp;&nbsp;<a class='blue' href='javascript:void(-1);' title='删除' onclick='deleteRow("+data.resultObject[i].id+","+pid+")'><i class='glyphicon glyphicon-minus bigger-130'></i></A>"
-			rowData+="</td>";
-			rowData+="</tr>";
-			$("#childMenus").append(rowData);
-
-		}
-	}
-}
 
 function search(){
-	var name = $("#name").val();
-	var timeStart = $("#time_start").val();
-	var timeEnd = $("#time_end").val();
 
-	if(timeStart != "" || timeEnd != ""){
-		if(timeEnd != "" && timeStart == ""){
-			alertInfo("开始时间不能为空");
-			return;
-		}
-		if(timeStart != "" && timeEnd == ""){
-			alertInfo("结束时间不能为空");
-			return;
-		}
-		if(timeStart > timeEnd){
-			alertInfo("开始时间不能大于结束时间");
-			return;
-		}
-		searchCase.push('{"tempMatchType":"7","propertyName":"time_start","propertyValue1":"'+timeStart+'","tempType":"String"}');
-		searchCase.push('{"tempMatchType":"6","propertyName":"time_end","propertyValue1":"'+timeEnd+'","tempType":"String"}');
-		searchCase.push('{"tempMatchType":"5","propertyName":"name","propertyValue1":"'+name+'","tempType":"String"}');
-	}
+		searchCase.push('{"tempMatchType":"5","propertyName":"name","propertyValue1":null,"tempType":"String"}');
+
 	searchButton(scoreTypeTable,searchCase);
-	searchCase.pop();
-	searchCase.pop();
-}
 
-function deleteBatch(){
-	deleteAll(basePath+"/cloudClass/scoreType/deletes",scoreTypeTable);
 }
 
 
-//配置角色权限
-function configResource(obj){ 
-	var oo = $(obj).parent().parent().parent();
-	var aData = scoreTypeTable.fnGetData(oo); // get datarow
-	//alertInfo("配置" + aData.name + "权限");
-	//debugger;
-	var roleId = aData.id;
-	console.log("roleId:" + roleId);
-	initCommonZtrees("resource","resource2","user/resource/role/tree",{"roleId":roleId},"right",function(){//左右两边都加载
-			initCommonZtrees("resource","resource2","user/resource/tree",{},"left");
-	});
-	openDialog("configDialog","dialogConfigDiv","分配权限",560,480,true,"提交",function(){
-		var resourceIds = new Array();
-		if(!isnull(Tree2)){
-			var nodes = getAllNodes(Tree2);
-			if(nodes.length>0){
-				for(var i=0;i<nodes.length;i++){
-					var id = nodes[i].id;
-					var name = nodes[i].name;
-					resourceIds.push(id);
-				}
-			}
-		}
-		var url = "user/role/update/resources";
-		var data = {"roleId":roleId,"resourceIds":resourceIds.join(",")};
-		ajaxRequest(url,data,function(result){
-			if(result.success){
-					$("#configDialog").dialog("close");
-			}else{
-				alertInfo(result.errorMessage);
-			}
-		});
-	});
-}
+
+

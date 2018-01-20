@@ -397,11 +397,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
 		
 		all.append(" '精品课程' as note ");
-		
+
 		all.append(" from oe_course oc, oe_user ou ");
-		all.append(" where oc.user_lecturer_id = ou.id  and oc.is_delete=0 and oc.status=1 order by recommend_sort desc  limit 0,6)");
-		
-		
+		all.append(" where oc.user_lecturer_id = ou.id  and oc.is_delete=0 and oc.status=1 order by essence_sort desc  limit 0,6)");
+
+
 		all.append("  union all ");
 		
 		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"

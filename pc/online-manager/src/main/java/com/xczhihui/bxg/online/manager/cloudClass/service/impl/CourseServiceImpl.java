@@ -286,6 +286,15 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		}else{
 			 sort=1;
 		}
+		//设置精品推荐排序
+		String essenceSortsql="SELECT IFNULL(MAX(essence_sort),0) as essenceSort FROM oe_course ";
+		List<Course> essenceSorttemp = dao.findEntitiesByJdbc(Course.class, essenceSortsql, params);
+		int essenceSort;
+		if(essenceSorttemp.size()>0){
+			essenceSort=essenceSorttemp.get(0).getEssenceSort().intValue()+1;
+		}else{
+			essenceSort=1;
+		}
 		//当课程存在密码时，设置的当前价格失效，改为0.0
 		if(courseVo.getCoursePwd()!=null && !"".equals(courseVo.getCoursePwd().trim())){
 			courseVo.setCurrentPrice(0.0);
@@ -305,6 +314,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			course.setIsFree(false); //收费
 		}
 		course.setSort(sort); //排序
+		course.setEssenceSort(essenceSort); //精品推荐排序
 		//course.setType(1);
 		course.setLearndCount(courseVo.getLearndCount()); //请填写一个基数，统计的时候加上这个基数
 		course.setCreatePerson(UserHolder.getCurrentUser().getLoginName()); //当前登录人
