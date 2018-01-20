@@ -169,8 +169,8 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 			StringBuffer sql2 = new StringBuffer();
 			sql2.append(" select course.id as id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
 			sql2.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");  
-			sql2.append(" IF(course.type is not null,1,if(course.online_course = 1,4,if(course.multimedia_type=1,2,3))) as type, "); //type 1直播  2点播 3音频
-			sql2.append(" course.live_status as lineState,course.online_course as  onlineCourse, ");
+			sql2.append(" IF(course.type=1,1,if(course.type = 3,4,if(course.multimedia_type=1,2,3))) as type, ");//1 直播 2 视频 3 音频  4 线下
+			sql2.append(" course.live_status as lineState, ");
 			sql2.append(" course.smallimg_path as smallimgPath,course.start_time as startTime,course.end_time as endTime,"
 					+ "ou.name as teacherName,ou.id as userId");
 			sql2.append("  from oe_order_detail as de ");
@@ -189,40 +189,6 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 				lists.remove(i);
 			}
 		}
-		
-//		for(OnlineOrder order : lists){
-//			/**
-//			 * 该订单下的：课程有效时间
-//			 */
-//			//订单支付时间
-//			Date d = order.getCreateTime();
-//			String dStr = DateUtil.dateAddYear(d);
-//			order.setValidity(dStr);
-//			
-//			String id = order.getId();
-//			StringBuffer sql2 = new StringBuffer();
-//			sql2.append(" select course.id as id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
-//			sql2.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");  
-//			sql2.append(" if(course.type is not null,1,if(course.multimedia_type=1,2,3)) as type, "); //type 1直播  2点播 3音频
-//			sql2.append(" course.live_status as lineState,course.online_course as  onlineCourse, ");
-//			sql2.append(" course.smallimg_path as smallimgPath,course.start_time as startTime,course.end_time as endTime,"
-//					+ "ou.name as teacherName,ou.id as userId");
-//			sql2.append("  from oe_order_detail as de ");
-//			sql2.append(" ,oe_course as course,oe_user as ou where de.course_id = course.id and course.user_lecturer_id = ou.id "
-//					+ "  and de.order_id = ? and course.is_delete=0 and course.status = 1 ");
-//
-//			Object params2[] = {id};
-//			List<OnlineCourse> lists2 = this.query(JdbcUtil.getCurrentConnection(), sql2.toString(),
-//					new BeanListHandler<>(OnlineCourse.class),params2);
-//
-//			//课程已失效
-//			if(lists2.size()>0){
-//				//课程有效期 //支付状态 0:未支付 1:已支付 2:已关闭
-//				order.setAllCourse(lists2);
-//			}else{
-//				lists.remove(order);
-//			}
-//		}
 		return lists;
 	}
 
@@ -241,7 +207,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		String dateWhere = " if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff ";//这个用来比较啦
 			if(1==type){
 				//CourseVo
-				sql = " select oc.end_time endTime, oc.online_course onlineCourse,oc.current_price currentPrice,ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
+				sql = " select oc.end_time endTime,oc.current_price currentPrice,ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
 						" ( SELECT COUNT(id) from oe_video  where course_id=oc.id and is_delete=0 and  status=1  ) as count, " +
 						" ( SELECT COUNT(id) from user_r_video  where course_id=oc.id and study_status=1  and status=1 and is_delete=0 and  user_id=? ) as learndCount" +
 						" from  oe_course  oc  join  apply_r_grade_course argc  on oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id  where argc.user_id=? and  oc.type is null and oc.multimedia_type in (1,2) and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc ";
@@ -249,15 +215,15 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 					this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId,userId);
 					return list;
 			}else if(2==type){
-				sql = " select oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type,oc.live_status as lineState, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath, oc.`start_time` AS startTime, oc.`end_time` AS endTime,oc.direct_id" +
-						" from  oe_course  oc join `apply_r_grade_course` argc on oc.id = argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id    where oc.`online_course` = 0 and oc.type = 1 and  argc.user_id=? and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc";
+				sql = " select  oc.current_price currentPrice, ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type,oc.live_status as lineState, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath, oc.`start_time` AS startTime, oc.`end_time` AS endTime,oc.direct_id" +
+						" from  oe_course  oc join `apply_r_grade_course` argc on oc.id = argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id    where oc.type = 1 and  argc.user_id=? and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc";
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
 			}else if(3==type){
-				 sql = " select oc.address,oc.online_course onlineCourse, oc.current_price currentPrice,4 as type, ou.name as teacherName,oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,"
+				 sql = " select oc.address, oc.current_price currentPrice,4 as type, ou.name as teacherName,oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,"
 				 		+ "oc.start_time startTime,oc.end_time endTime, " 
 						+  dateWhere 
-						+ " from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id   where argc.user_id=?  AND oc.`online_course`=1 and oc.is_delete=0 and oc.status=1 group by oc.id order by argc.create_time desc ";
+						+ " from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id` inner join oe_user as ou on oc.user_lecturer_id = ou.id   where argc.user_id=?  AND oc.`type`=3 and oc.is_delete=0 and oc.status=1 group by oc.id order by argc.create_time desc ";
 				List<OnlineCourse> list =this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 				return list;
 				}
@@ -274,7 +240,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select course.id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
 		sql.append(" course.original_cost as originalCost,course.current_price as currentPrice, ");
-		sql.append(" IF(course.type is not null,1,if(course.online_course = 1,4,if(course.multimedia_type=1,2,3))) as type, ");
+		sql.append(" IF(course.type = 1,1,if(course.type =3,4,if(course.multimedia_type=1,2,3))) as type, ");
 		sql.append(" course.live_status as  lineState, ");
 		
 		sql.append(" course.start_time as startTime,course.end_time as endTime,ou.name as teacherName,ou.id as userId, ");
