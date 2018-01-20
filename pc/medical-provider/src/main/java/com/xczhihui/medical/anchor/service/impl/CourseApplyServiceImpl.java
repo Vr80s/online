@@ -3,15 +3,19 @@ package com.xczhihui.medical.anchor.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
+import com.xczhihui.medical.anchor.model.CollectionCourseApply;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
+import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +33,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private CourseApplyInfoMapper courseApplyInfoMapper;
     @Autowired
     private CourseApplyResourceMapper courseApplyResourceMapper;
+    @Autowired
+    private CollectionCourseApplyMapper collectionCourseApplyMapper;
 
     /**
      * Description：分页获取主播课程列表
@@ -69,6 +75,25 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         return page;
     }
 
+    /**
+     * Description：分页获取课程资源
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 6:33 2018/1/19 0019
+     **/
+    @Override
+    public Page<CourseApplyResourceVO> selectCourseResourcePage(Page<CourseApplyResourceVO> page, String userId) {
+        List<CourseApplyResourceVO> records = courseApplyResourceMapper.selectCourseResourceByPage(page,userId);
+        page.setRecords(records);
+        return page;
+    }
+
+    /**
+     * Description：添加课程
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 3:23 2018/1/19 0019
+     **/
     @Override
     public void saveCourseApply(CourseApplyInfo courseApplyInfo){
         if(courseApplyInfo.getUserId()==null){
@@ -103,7 +128,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 //        courseApplyInfoMapper.insertAllColumn(courseApplyInfo);
     }
 
-
+    /**
+     * Description：添加专辑
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 3:24 2018/1/19 0019
+     **/
     @Override
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo){
         if(courseApplyInfo.getUserId()==null){
@@ -114,10 +144,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         //当合辑为点播视频时
         if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
-            for(CourseApplyInfo course :courseApplyInfo.getCourseApplyInfos()){
-                CourseApplyResource courseApplyResource = new CourseApplyResource();
-
-                courseApplyResourceMapper.insert(courseApplyResource);
+            for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
+                CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
+                collectionCourseApply.setCourseApplyId(applyInfo.getId());
+                collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+                collectionCourseApplyMapper.insert(collectionCourseApply);
             }
         }else {
             throw new RuntimeException("暂不支持点播以外的专辑课程");
@@ -125,6 +156,30 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
         courseApplyInfoMapper.insert(courseApplyInfo);
 //        courseApplyInfoMapper.insertAllColumn(courseApplyInfo);
+    }
+
+    /**
+     * Description：获取所有资源列表
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 6:21 2018/1/19 0019
+     **/
+    @Override
+    public List<CourseApplyResourceVO> selectAllCourseResources(String userId) {
+        return courseApplyResourceMapper.selectAllCourseResources(userId);
+    }
+
+    /**
+     * Description：新增课程资源
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 6:34 2018/1/19 0019
+     **/
+    @Override
+    public void saveCourseApplyResource(CourseApplyResource courseApplyResource) {
+        courseApplyResource.setCreateTime(new Date());
+        courseApplyResource.setUpdateTime(new Date());
+        courseApplyResourceMapper.insert(courseApplyResource);
     }
 
 }

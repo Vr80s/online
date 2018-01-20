@@ -32,7 +32,11 @@ final public class UserLoginUtil {
 	 * @return
 	 */
 	public static BxgUser getLoginUser(HttpServletRequest request) {
-		return (BxgUser) (request.getSession().getAttribute(SESSION_USER));
+		BxgUser bxgUser = (BxgUser) (request.getSession().getAttribute(SESSION_USER));
+//		if(bxgUser==null){
+//			throw new RuntimeException("用户未登录");
+//		}
+		return bxgUser;
 	}
 
 	/**
