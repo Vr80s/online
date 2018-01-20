@@ -246,7 +246,7 @@ public class BunchPlanController {
 	/**
 	 * 线下培训班列表
 	 */
-	/*@RequestMapping("offLineClassList")
+	@RequestMapping("offLineClassList")
 	@ResponseBody
 	public ResponseObject offLineClassList(HttpServletRequest req,
 									   HttpServletResponse res, Map<String, String> params)
@@ -265,30 +265,18 @@ public class BunchPlanController {
 		} else {
 			pageSize = Integer.valueOf(e);
 		}
-		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(number, pageSize);
-		*//**
-		 * 循环把城市展示出来
-		 *//*
+		List<CourseLecturVo> list = wxcpCourseService.offLineClassListOld(number, pageSize);
 		for (CourseLecturVo courseLecturVo : list) {
 			String city = courseLecturVo.getAddress();
 			String [] citys = city.split("-");
 			courseLecturVo.setCity(citys[1]);
-			*//*
-			 * 我感觉这里的发挥下后台的作用了
-			 *//*
-//			boolean falg = TimeUtil.dateCompare(courseLecturVo.getEndTime(),Calendar.getInstance(),1);
-//			if(falg){
-//				courseLecturVo.setCutoff(0);
-//			}else{
-//				courseLecturVo.setCutoff(1);
-//			}
 		}
 		LOGGER.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
-	}*/
+	}
 	
 	public static void main(String[] args) {
-		Calendar calendar = Calendar.getInstance();
+		//Calendar calendar = Calendar.getInstance();
         /** 
          * 获取 年 ，月 ，日 
          */  

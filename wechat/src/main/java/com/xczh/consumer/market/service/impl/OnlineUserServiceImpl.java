@@ -695,5 +695,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		// TODO Auto-generated method stub
 		onlineUserDao.updateAppleTourisrecord(appUniqueId,isReigs);
 	}
+	@Override
+	public Map<String, Object> findHostById(String lecturerId)
+			throws SQLException {
+		return onlineUserDao.findHostById(lecturerId);
+	}
 	
 }

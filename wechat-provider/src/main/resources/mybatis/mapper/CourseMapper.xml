@@ -51,11 +51,9 @@
 		               inner join oe_user as ozu on of.user_id = ozu.id
 		               where  of.lecturer_id = oc.user_lecturer_id 
 		               and ozu.is_delete = 0  and ozu.status = 0),0),0) as fansCount,
-		    
 		  oc.collection as collection,            
 		  oc.course_number as courseNumber,             
 		  oc.description as description,
-		               
 		  oc.live_status as  lineState,
 		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		  oc.description as description,
@@ -71,7 +69,7 @@
 	</select>
 	
 	
-	<!-- 查找用户的学习中心数据    直播中，直播预告、课程  是我的课程，已结束课程是：直播结束和线下排序班-->
+	<!-- 查找用户的学习中心数据    直播中，直播预告、课程  是我的课程，已结束课程是：直播结束和线下排序班   -->
 	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		
 	 (	SELECT
@@ -109,7 +107,7 @@
 		  if(oc.online_course =1,4,IF(oc.type is not null,3,if(oc.multimedia_type=1,1,2))) as type,
 		  if(oc.is_free =0,0,1) as watchState,
 		  oc.live_status as  lineState,
-		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)+IFNULL(oc.default_student_count, 0) as learndCount,
+		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		  oc.description as description,
 		  oc.address as address,
 		  oc.city as city,
@@ -122,6 +120,6 @@
 		  inner join oe_user as ou on oc.user_lecturer_id = ou.id  where 
 		  ( (oc.online_course =1 ) or (oc.type = 1 and oc.live_status = 3 ) ) 
 		  and argc.user_id=#{userId}
-		  and oc.is_delete=0 and oc.status=1 group by oc.id  order by oc.start_time desc  )
+		  and oc.is_delete=0 and oc.status=1 group by oc.id  order by oc.end_time)
 	</select>	
 </mapper>
