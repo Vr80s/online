@@ -1,6 +1,8 @@
 package com.xczhihui.wechat.course.vo;
 
-public class FocusVo {
+import java.io.Serializable;
+
+public class FocusVo implements Serializable{
 
 	private String id; 				//主键id
 	private String lecturerId;  	//老师

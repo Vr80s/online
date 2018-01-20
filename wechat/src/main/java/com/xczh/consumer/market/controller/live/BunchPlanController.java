@@ -296,10 +296,8 @@ public class BunchPlanController {
 										   HttpServletResponse res, Integer id)
 			throws Exception {
 
-		
 		String userId=req.getParameter("userId");
 		CourseLecturVo courseLecturVo=wxcpCourseService.offLineClassItem(id,userId);
-		
 		if(userId!=null){
 			OnlineUser onlineUser=new OnlineUser();
 			onlineUser.setId(userId);
