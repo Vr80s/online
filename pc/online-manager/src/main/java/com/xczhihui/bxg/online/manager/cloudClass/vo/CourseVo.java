@@ -333,6 +333,16 @@ public class CourseVo extends OnlineBaseVo{
 		this.subtitle = subtitle;
 	}
 
+	private Integer essenceSort;
+
+	public Integer getEssenceSort() {
+		return essenceSort;
+	}
+
+	public void setEssenceSort(Integer essenceSort) {
+		this.essenceSort = essenceSort;
+	}
+
 	public String getLecturerDescription() {
 		return lecturerDescription;
 	}

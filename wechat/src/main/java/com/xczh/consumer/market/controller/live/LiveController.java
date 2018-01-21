@@ -167,13 +167,30 @@ public class LiveController {
 		
 		LOGGER.info("{}{}{}{}{}{}{}{}{}");
 		
+//		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
+//			return ResponseObject.newErrorResponseObject("缺少分页参数");
+//		}
+//		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
+//		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+//		try {
+//			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
+//			LOGGER.info("list.size():"+list.size());
+//			if(list!=null && list.size()>0){
+//				return ResponseObject.newSuccessResponseObject(list);
+//			}else{
+//				return ResponseObject.newErrorResponseObject("数据为空");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		LOGGER.info("{}{}{}{}{}{}{}{}{}");
 		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
 			return ResponseObject.newErrorResponseObject("缺少分页参数");
 		}
 		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
 		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
 		try {
-			List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
+			List<CourseLecturVo> list = onlineCourseService.findLiveListInfoOld(pageNumber,pageSize,null);
 			LOGGER.info("list.size():"+list.size());
 			if(list!=null && list.size()>0){
 				return ResponseObject.newSuccessResponseObject(list);

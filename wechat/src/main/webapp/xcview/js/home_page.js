@@ -14,21 +14,22 @@ requestService("/bxg/bunch/schoolClass",null,function(data){
 
 //推荐模块开始
 //轮播/大师课/名医渲染
-requestService("/bxg/bunch/recommendTop",null, 
+requestService("/xczh/recommend/recommendTop",null, 
     function(data) {
 		if(data.success){
 //大师课
-    	$("#slide_one").html(template('nav_list',{items:data.resultObject.project}))
+		console.log(data);
+    	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
 //名医
-    	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList.records}))
+    	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
 		
 //轮播
-			var result = data.resultObject.banner;
+			var result = data.resultObject.banner.records;
 			var str ="";
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgUrl+"' alt='Concept for children game'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
 		          "</li>";
 			}
 			$("#sw-slides").html(str);
@@ -37,7 +38,7 @@ requestService("/bxg/bunch/recommendTop",null,
 		};
 },false)
 //精品课程
-requestService("/bxg/bunch/recommendBunch",null,function(data) {
+requestService("/xczh/recommend/recommendCourse",null,function(data) {
 	if(data.success==true){
 		console.log(data)
     	$(".first_box").html(template('shipin',{items:data.resultObject}))
@@ -58,17 +59,17 @@ requestService("/xczh/bunch/offLine",null,
     function(data) {
 		if(data.success){
 //			各省城市                                                        											//跟参数
-    		$("#xx_slide_one").html(template('xx_nav_list',{items:data.resultObject.cityList}))
+    		$("#xx_slide_one").html(template('xx_nav_list',{items:data.resultObject.cityList.records}))
 	
 	
 	
 //轮播
-			var result = data.resultObject.banner;
+			var result = data.resultObject.banner.records;
 			var str ="";
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgUrl+"' alt='Concept for children game'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
 		          "</li>";
 			}
 			$("#xx-slides").html(str);
@@ -77,10 +78,8 @@ requestService("/xczh/bunch/offLine",null,
 		};
 		
 		if(data.success==true){
-			console.log(data)
 	    	$(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))
 		
-	
 				var myHeight=$(".tjks").height();
 	
 				$(".gieTa").height(myHeight);
@@ -94,7 +93,74 @@ requestService("/xczh/bunch/offLine",null,
 
 
 
+//直播开始
+requestService("/xczh/live/onlineLive",null, 
+    function(data) {
+		if(data.success){
+	
+//轮播
+			var result = data.resultObject.banner.records;
+			var str ="";
+			for (var int = 0; int < result.length; int++) {
+				var wb = result[int];
+				str+="<li class='sw-slide'>"+
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
+		          "</li>";
+			}
+			$("#zb-slides").html(str);
+		}else{
+			alert("网络异常");
+		};
+		
+		if(data.success==true){
+	    	$(".newests").html(template('newests',{items:data.resultObject.allCourseList}))
+				/*var myHeight=$(".tjks").height();
+	
+				$(".gieTa").height(myHeight);*/
+				
+		}
+		
+		
+		
+},false)
 
+//直播结束
+
+
+
+//听课开始
+
+requestService("/xczh/bunch/listenCourse",null, 
+    function(data) {
+		if(data.success){
+	
+//轮播
+			var result = data.resultObject.banner.records;
+			var str ="";
+			for (var int = 0; int < result.length; int++) {
+				var wb = result[int];
+				str+="<li class='sw-slide'>"+
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
+		          "</li>";
+			}
+			$("#tk-slides").html(str);
+		}else{
+			alert("网络异常");
+		};
+		
+		if(data.success==true){
+	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
+				/*var myHeight=$(".tjks").height();
+	
+				$(".gieTa").height(myHeight);*/
+				
+		}
+		
+		
+		
+},false)
+
+//听课结束
 
 
 

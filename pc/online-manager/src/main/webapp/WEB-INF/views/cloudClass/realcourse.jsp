@@ -598,6 +598,14 @@
 		<!-- 城市推荐管理 -->
 		<div role="tabpanel" class="tab-pane active" id="city_m">
 			<div class="mainrighttab tabresourse bordernone" id="courseCityDiv" style="display:none">
+				<p class="col-xs-4" style="padding: 0;">
+					<button class="btn btn-sm btn-success city_rec" title="设为推荐">
+						<i class="glyphicon glyphicon-cog"></i> 设为推荐
+					</button>
+					<button class="btn btn-sm btn-success city_qx_rec" title="设为推荐">
+						<i class="glyphicon glyphicon-cog"></i> 取消推荐
+					</button>
+				</p>
 				<div class="searchDivClass" id="searchCityDiv_PX">
 					<div class="profile-info-row" >
 						<table frame=void style="width: 100%">

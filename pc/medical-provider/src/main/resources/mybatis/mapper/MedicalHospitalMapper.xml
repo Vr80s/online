@@ -134,4 +134,18 @@
 		WHERE mh.deleted = 0
 		  AND mh.status = 1  and  mh.id = #{id}
 	</select>
+
+	<select id="getAuthenticationById" parameterType="string" resultType="boolean">
+		SELECT authentication
+		FROM medical_hospital
+		WHERE id = #{id}
+	</select>
+
+	<select id="getFieldsPage" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
+		SELECT
+		id, name
+		FROM
+		medical_field
+	</select>
+
 </mapper>

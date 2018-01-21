@@ -368,7 +368,7 @@ public class CourseController extends AbstractController{
     }
     
 	/**
-     * 上移
+     * 下移
      * @param id
      * @return
      */
@@ -396,7 +396,7 @@ public class CourseController extends AbstractController{
     }
     
     /**
-     * 上移
+     * 下移
      * @param id
      * @return
      */
@@ -408,6 +408,33 @@ public class CourseController extends AbstractController{
     	responseObj.setSuccess(true);
     	return responseObj;
     }
+	/**
+	 * 城市上移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "cityUpMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject cityUpMove(Integer id) {
+		ResponseObject responseObj = new ResponseObject();
+		courseService.updateCitySortUp(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
+
+	/**
+	 * 城市下移
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "cityDownMove", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject cityDownMove(Integer id) {
+		ResponseObject responseObj = new ResponseObject();
+		courseService.updateCitySortDown(id);
+		responseObj.setSuccess(true);
+		return responseObj;
+	}
 
     @RequestMapping(value = "deletes", method = RequestMethod.POST)
     @ResponseBody
@@ -439,6 +466,30 @@ public class CourseController extends AbstractController{
     	}
     	return responseObject;
     }
+
+	/**
+	 * 城市推荐
+	 * @param ids
+	 * @param isRec
+	 * @return
+	 */
+	@RequestMapping(value = "updateCityRec", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateCityRec(String ids,int isRec) {
+		ResponseObject responseObject=new ResponseObject();
+		if(ids!=null) {
+			String[] _ids = ids.split(",");
+			if(courseService.updateCityRec(_ids,isRec))
+			{
+				responseObject.setSuccess(true);
+				responseObject.setErrorMessage("操作成功!");
+			}else{
+				responseObject.setSuccess(false);
+				responseObject.setErrorMessage("推荐失败!");
+			}
+		}
+		return responseObject;
+	}
     
     @RequestMapping(value = "getCourseDetail", method = RequestMethod.POST)
 	@ResponseBody

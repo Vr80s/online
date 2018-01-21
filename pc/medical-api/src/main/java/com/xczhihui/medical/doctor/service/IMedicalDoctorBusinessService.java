@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
@@ -56,4 +57,11 @@ public interface IMedicalDoctorBusinessService {
     List<MedicalDoctorVO> getHotSpecialColumnAuthor();
 
     Page<MedicalWritingsVO> getWritingsByPage(Page<MedicalWritingsVO> page);
+
+    /**
+     * 加入医馆
+     * @author zhuwenbao
+     * @param medicalDoctor 加入医馆提交的信息
+     */
+    void joinHospital(MedicalDoctor medicalDoctor);
 }

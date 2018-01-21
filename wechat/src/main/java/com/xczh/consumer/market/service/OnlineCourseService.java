@@ -228,4 +228,7 @@ public interface OnlineCourseService {
 	 */
 	void updateLiveSourceType(String courseId)throws SQLException ;
 	
+	List<CourseLecturVo> findLiveListInfoOld(Integer start_page,
+			Integer page_size, String queryParam) throws SQLException;
+	
 }

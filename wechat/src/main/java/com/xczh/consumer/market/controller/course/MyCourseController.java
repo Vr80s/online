@@ -69,9 +69,7 @@ public class MyCourseController {
 	@ResponseBody
 	public ResponseObject categoryXCList(HttpServletRequest req,HttpServletResponse res)
 			throws Exception {
-		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		
 		List<CourseLecturVo>  listAll  = 
 				courseServiceImpl.selectLearningCourseListByUserId(user.getId());
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
@@ -79,7 +77,6 @@ public class MyCourseController {
 		Map<String,Object> mapNw = new HashMap<String, Object>();
 		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
 		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
-		
 		for (CourseLecturVo courseLecturVo : listAll) {
 			if("我的课程".equals(courseLecturVo.getNote())){
 				listTj.add(courseLecturVo);

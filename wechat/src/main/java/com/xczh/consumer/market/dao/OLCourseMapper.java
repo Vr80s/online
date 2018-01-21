@@ -585,12 +585,12 @@ public class OLCourseMapper extends BasicSimpleDao {
 		}
 		return map;
 	}
-	public List<CourseLecturVo> offLineClass(int number, int pageSize,
+	public List<CourseLecturVo> offLineClass(int number, int pageSize, 
 			String queryParam) throws SQLException {
 		StringBuffer all = new StringBuffer("");
 		all.append("select  oc.smallimg_path as smallImgPath,oc.id ");
 		all.append(" from oe_course as oc INNER JOIN oe_user ou on(ou.id=oc.user_lecturer_id)  ");
-		all.append(" where oc.is_delete=0 and oc.status=1 and oc.online_course =1 ");//and oc.is_free=0 oc.course_type=1 and
+		all.append(" where oc.is_delete=0 and oc.status=1 and oc.type = 3 ");//and oc.is_free=0 oc.course_type=1 and
 		//房间编号/主播/课程
 //		if(queryParam!=null && !"".equals(queryParam) && !"null".equals(queryParam)){
 //			all.append(" and ("); 

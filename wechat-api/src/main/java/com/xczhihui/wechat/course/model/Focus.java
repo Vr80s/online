@@ -42,6 +42,9 @@ public class Focus extends Model<Focus>{
 
 	@TableField("room_number")
     private Integer roomNumber;
+	
+	@TableField("create_time")
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -114,6 +117,14 @@ public class Focus extends Model<Focus>{
     public void setRoomNumber(Integer roomNumber) {
         this.roomNumber = roomNumber;
     }
+    
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 	@Override
 	protected Serializable pkVal() {

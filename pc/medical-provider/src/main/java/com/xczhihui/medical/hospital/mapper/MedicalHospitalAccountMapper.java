@@ -14,4 +14,9 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
  */
 public interface MedicalHospitalAccountMapper extends BaseMapper<MedicalHospitalAccount> {
 
+    /**
+     * 通过用户id获取对应的医馆id
+     * @param userId
+     */
+    MedicalHospitalAccount getByUserId(String userId);
 }

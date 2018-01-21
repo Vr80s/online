@@ -17,7 +17,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface WatchHistoryMapper extends BaseMapper<WatchHistory> {
 
-	List<WatchHistoryVO> selectWatchHistory(Page<WatchHistoryVO> page);
+	List<WatchHistoryVO> selectWatchHistory(@Param("page")Page<WatchHistoryVO> page,@Param("userId") String userId);
 
 	WatchHistory findWatchHistoryByUserIdAndCourseId(@Param("userId") String userId,
 			@Param("courseId")Integer courseId);
