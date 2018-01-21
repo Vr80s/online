@@ -202,7 +202,7 @@ public class OrderDao extends SimpleHibernateDao {
             for (OrderVo  orderVo : page.getItems()){
                 paramMap = new HashMap<>();
                 paramMap.put("order_id",orderVo.getId());
-                String sql = "select c.id,c.smallimg_path,c.grade_name,c.course_length,c.type,c.online_course onlineCourse,c.direct_id,c.course_type,od.price,od.actual_pay actualPay,ou.name lecturer "
+                String sql = "select c.id,c.smallimg_path,c.grade_name,c.course_length,c.type,c.direct_id,c.course_type,od.price,od.actual_pay actualPay,ou.name lecturer "
                 		+ " from oe_order_detail od join oe_course c on od.course_id=c.id left join oe_user ou on ou.id=c.user_lecturer_id where od.order_id=:order_id";
                 List<Map<String,Object>> courses = this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
                 orderVo.setOrderDetail(courses);
@@ -601,7 +601,7 @@ public class OrderDao extends SimpleHibernateDao {
             courseIds.add(cour.get("course_id").toString());
         }
         sql =" SELECT c.current_price priceCount,c.id ,c.course_type, c.grade_name as courseName ,c.smallimg_path as smallImgPath," +
-        		"c.online_course onlineCourse,c.type,direct_id,"+
+        		"c.type,direct_id,"+
                 " c.original_cost as originalCost, c.current_price as currentPrice,now() as create_time,0 as preferentyMoney " +
                 " from oe_course c where c.id in (:ids) ";
         if(courseIds.size()>0){

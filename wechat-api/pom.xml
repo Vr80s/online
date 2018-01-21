@@ -5,8 +5,8 @@
 		<groupId>com.xczhihui</groupId>
 		<artifactId>bxg-root-pom</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../parent-pom</relativePath>
- </parent>	
+		<relativePath>../pc/parent-pom</relativePath>
+ </parent>
 
   <artifactId>wechat-api</artifactId>
   <packaging>jar</packaging>

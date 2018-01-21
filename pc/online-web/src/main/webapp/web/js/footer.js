@@ -25,10 +25,10 @@ var footers={
 	'<div class="content-item footer-bodys">'+
 	'<div class="content-item content-footer-link about-us">'+
 	'<ul class="gate">'+
-	'<li data-id="first" data-url="../html/aboutUs.html">关于我们<span>|</span></li>'+
+	'<li data-id="first" data-url="/web/html/aboutUs.html">关于我们<span>|</span></li>'+
 //	'<li data-id="two" data-url="../html/aboutUs.html">人才招聘<span>|</span></li>'+
-	'<li data-id="three" data-url="../html/aboutUs.html">联系我们<span>|</span></li>'+
-	'<li data-id="four" data-url="../html/aboutUs.html" class="noline">常见问题<span>|</span></li>'+
+	'<li data-id="three" data-url="/web/html/aboutUs.html">联系我们<span>|</span></li>'+
+	'<li data-id="four" data-url="/web/html/aboutUs.html" class="noline">常见问题<span>|</span></li>'+
 	'<li data-id="five" data-url="/copyright.html" class="noline">版权声明</li>'+
 	'</ul>'+
 	'</div>'+

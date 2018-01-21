@@ -8,6 +8,7 @@ import com.xczhihui.bxg.online.common.enums.Dismissal;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseApplyDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
+import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 
     @Autowired
     private CourseApplyDao courseApplyDao;
+    @Autowired
+    private CourseService courseService;
 
     
     @Override
@@ -143,6 +146,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	}
 
 	private Course courseApply2course(CourseApplyInfo courseApply) {
+		courseService.checkName(null,courseApply.getTitle());
 		// TODO Auto-generated method stub
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";

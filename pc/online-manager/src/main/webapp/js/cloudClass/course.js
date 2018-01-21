@@ -39,9 +39,9 @@ $(function(){
         return data;
     }},
     { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
-    { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
-    { "title": "原价格/现价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
-    	data = row.originalCost+"/"+row.currentPrice; 
+    // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
+    { "title": "价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
+    	data = row.currentPrice;
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
@@ -78,22 +78,22 @@ $(function(){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 	    		/*'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
 	        	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a>'+*/
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="下架" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="详情" onclick="showCourseInfoDetail(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
+				// '<a class="blue" href="javascript:void(-1);" title="详情" onclick="showCourseInfoDetail(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="同步视频" onclick="updateCourseVideo('+row.id+');"><i class="ace-icon glyphicon glyphicon-cloud-download bigger-130"></i></a>'
 				// '<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 	    		/*'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
 	        	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a>'+*/
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="上架" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-                    '<a class="blue" href="javascript:void(-1);" title="详情" onclick="showCourseInfoDetail(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
+                    // '<a class="blue" href="javascript:void(-1);" title="详情" onclick="showCourseInfoDetail(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
                 '<a class="blue" href="javascript:void(-1);" title="同步视频" onclick="updateCourseVideo('+row.id+');"><i class="ace-icon glyphicon glyphicon-cloud-download bigger-130"></i></a>'
 				// '<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,1);"><i class="ace-icon fa fa-cog bigger-130"></i></a>'
 	    	}
@@ -110,85 +110,6 @@ $(function(){
 	});
 	/** 职业课列表end */
 
-// 	/** 微课列表begin */
-//     var searchCase_M = new Array();
-//     searchCase_M.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"1","tempType":"String"}');
-//     searchCase_M.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"'+$("#type").val()+'","tempType":undefined}');
-// 	var m_checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
-// 	var m_objData = [{ "title": m_checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
-// 		return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
-// 	}},
-// 	{ "title": "课程ID", "class": "center","width":"5%","sortable": false,"data":"id" },
-// 	{ "title": "课程名称", "class":"center","sortable":false,"data": 'courseName' },
-// 	{ "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
-// //	{ "title": "课程类别", "class":"center","width":"6%","sortable":false,"data": 'scoreTypeName' },
-// 	{ "title": "资源类型", "class":"center","width":"6%","sortable":false,"data": 'multimediaType' ,"mRender":function (data, display, row) {
-//     	if(data == 1){
-//     		return "视频";
-//     	}
-//         return "音频";
-//     }},
-// 	{ "title": "上传人", "class":"center","width":"6%","sortable":false,"data": 'lecturerName',"mRender":function (data, display, row) {
-// 		return "<span name='skfs'>"+data+"</span>";
-// 	} },
-// 	{ "title": "实际学习人数", "class":"center","width":"5%", "sortable":false,"data": 'actCount',"visible":true},
-//     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
-//         return data+"h";
-//     }},
-//     { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
-// 	{ "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
-// 	{ "title": "原价格/现价格", "class":"center","width":"9%","sortable":false,"mRender":function(data,display,row){
-// 		data = row.originalCost+"/"+row.currentPrice;
-// 		return "<span name='coursePrice'>"+data+"</span>"
-// 	}},
-// 	{ "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
-// 	{ "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
-// 	{ "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
-// 	{ "title": "实际报名人数", "class":"center","sortable":false,"data": 'actCount',"visible":false},
-// 	{ "title": "是否推荐", "class":"center","width":"8%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
-// 		if(data==1){
-// 			return "<span name='sftj'>已推荐</span>";
-// 		}else{
-// 			return "<span name='sftj'>未推荐</span>";
-// 		}
-// 	} },
-// 	{ "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
-// 		if(data==1){
-// 			return data="<span name='zt'>已上架</span>";
-// 		}else{
-// 			return data="<span name='zt'>未上架</span>";
-// 		}
-// 	} },
-// 	{ "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
-// 		if(row.status=="1"){
-// 			return '<div class="hidden-sm hidden-xs action-buttons">'+
-// 				'<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,2)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-// 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,2)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-// 				'<a class="blue" href="javascript:void(-1);" title="下架" onclick="updateStatus(this,2);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
-// 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,2);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-// 				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,2)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
-//                 '<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,2);"><i class="ace-icon fa fa-cog bigger-130"></i></a></div>';
-// 		}else{
-// 			return '<div class="hidden-sm hidden-xs action-buttons">'+
-// 				'<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,2)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-// 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,2)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-// 				'<a class="blue" href="javascript:void(-1);" title="上架" onclick="updateStatus(this,2);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
-// 				'<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,2);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
-// 				'<a class="blue" href="javascript:void(-1);" title="分配老师" onclick="gradeTeacherDialog(this,2)"><i class="glyphicon glyphicon-user bigger-130"></i></a>'+
-// 				'<a class="blue" href="javascript:void(-1);" title="资源管理" onclick="showVideoDialog(this,2);"><i class="ace-icon fa fa-cog bigger-130"></i></a></div>';
-// 		}
-// 	}
-// 	},
-// 	{ "title": "学科id", "class": "center","sortable": false,"data":"menuId","visible":false },
-// 	{ "title": "课程类别id", "class": "center","sortable": false,"data":"courseTypeId","visible":false },
-// 	{title: '讲师', "class": "center", "width": "7%","data": 'role_type1', "visible": false},
-//     {title: '班主任', "class": "center", "width": "7%","data": 'role_type2', "visible": false},
-//     {title: '助教', "class": "center", "width": "7%","data": 'role_type3', "visible": false},
-// 	{ "title": "授课方式id", "class": "center","sortable": false,"data":"courseType","visible":false }];
-//
-// 	M_courseTable = initTables("courseTable_M",basePath+"/cloudclass/course/list",m_objData,true,true,0,null,searchCase_M,function(data){
-// 	});
-// 	/** 微课列表end */
 
 	/** 课程推荐列表begin */
 	var searchCase_P = new Array();
@@ -341,57 +262,35 @@ $(function(){
 	});
 	courseForm = $("#addCourse-form").validate({
 		messages: {
-			courseName: {
-				required:"请输入课程名称！",
-				minlength:"课程名称过短，应大于2个字符！",
-				maxlength:"课程名称过长，应小于20个字符！"
-			},
-			classRatedNum: {
-				required:"请输入班级额定人数！"
-			},
-			defaultStudentCount: {
-				required:"请输入默认报名人数！"
-			},
+            courseName: {
+                required:"请输入课程名称！",
+                minlength:"课程名称过短，应大于2个字符！",
+                maxlength:"课程名称过长，应小于20个字符！"
+            },subtitle: {
+                required:"请输入副标题！",
+                minlength:"副标题过短，应大于2个字符！",
+                maxlength:"副标题过长，应小于20个字符！"
+            },
 			menuId: {
 				required:"请选择所属学科！"
-			},
-			courseTypeId: {
-				required:"请选择课程类别！"
-			},
-			courseType: {
-				required:"请选择授课方式！"
 			},
 			courseLength: {
 				required:"请输入课程时长！",
 				digits: "课程时长必须为整数！"
 			},
-			userLecturerId:{
-				required:"选择教师！"
-			},
+            userLecturerId:{
+                required:"选择上传人！"
+            },
+            lecturer:{
+                required:"选择主播！"
+            },
 			coursePwd: {
 				digits: "课程密码必须为整数！"
-			},
-			originalCost: {
-				required:"请输入原价格！",
-				number:"请输入合法的数字！",
-				range:"价格范围在0.01到99999.99！"
 			},
 			currentPrice: {
 				required:"请输入现价格！",
 				number:"请输入合法的数字！",
 				range:"价格范围在0.01到99999.99！"
-			},
-			learndCount: {
-				required:"请填写默认报名人数！",
-				digits: "请输入整数"
-			},
-			qqno: {
-				required:"请输入咨询QQ！",
-				digits: "请输入合法的QQ号",
-				minlength:"QQ号过短，应大于等于5个字符！"
-			},
-			descriptionHid : {
-				required : "请输入课程简介!"
 			},
 			cloudClassroom: {
 				required:"课程链接不能为空！"
@@ -571,13 +470,8 @@ function upMoveRec(obj){
 function showDetailDialog(obj,status){
 	var oo = $(obj).parent().parent().parent();
 	var aData,page;
-	if(status==1) {
 		aData = P_courseTable.fnGetData(oo); // get datarow
         page = getCurrentPageNo(P_courseTable);
-	}else{
-		// aData = M_courseTable.fnGetData(oo); // get datarow
-        // page = getCurrentPageNo(M_courseTable);
-	}
 	window.location.href=basePath+'/home#cloudclass/course/courseDetail?page='+page+'&courseId='+aData.id;
 }
 
@@ -585,15 +479,8 @@ function showVideoDialog(obj,status){
 	debugger;
 	var oo = $(obj).parent().parent().parent();
     var aData,page;
-    if(status==1) {
         aData = P_courseTable.fnGetData(oo); // get datarow
         page = getCurrentPageNo(P_courseTable);
-    }else{
-        // aData = M_courseTable.fnGetData(oo); // get datarow
-        // page = getCurrentPageNo(M_courseTable);
-    }
-//	window.location.href=basePath+'/home#cloudclass/course/videoRes?page='+
-//	 	page+'&courseId='+aData.id+'&courseName='+encodeURIComponent(aData.courseName);
     window.location.href=basePath+'/home#cloudclass/course/videoRes?page='+
  	page+'&courseId='+aData.id+'&courseName='+encodeURIComponent(aData.courseName);
 }
@@ -673,40 +560,14 @@ $(".add_P").click(function(){
     createImageUpload($('.uploadImg_add'));//'新增职业课'弹出框的生成图片编辑器
 
 	$("input[name='isFree']").eq(1).attr("checked","checked");
-	/*$("#add-originalCost").hide();
-	$("#add-currentPrice").hide();*/
-//	$("#originalCost").removeClass("col-xs-10 col-sm-12 {required:true,number:true,range:[0,999999.99]}");
-//	$("#currentPrice").removeClass("col-xs-10 col-sm-12 {required:true,number:true,range:[0,999999.99]}");
-//	$("#originalCost").addClass("col-xs-10 col-sm-12");
-//	$("#currentPrice").addClass("col-xs-10 col-sm-12");
-	
-	courseForm.resetForm();
-    $("#classRatedNum").attr("disabled",true);
-    $("#gradeStudentSum").hide();
-	$("#classQQ").hide();
-	$("#gradeQQ").attr("disabled",true);
-//	$("#defaultStudent").hide();
-//	$("#defaultStudentCount").attr("disabled",true);
 
+	courseForm.resetForm();
 
 	$("#addCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
-	/*$("#originalCost").val(0);
-	$("#currentPrice").val(0);*/
 	$("#add_serviceType").val(0);//职业课类型
 	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增职业课程",580,600,true,"确定",function(){
 		$("#descriptionHid").val($("#courseDescribe").val());
 		if($("#addCourse-form").valid()){
-			var selectRadio=$("input[name='isFree']:checked").val();
-			/*if(selectRadio==null){
-
-				layer.msg("请选择是否收费！");
-				return;
-			}*/
-			var courseDesc=$("#courseDescribe").val();
-			if(courseDesc==null||courseDesc==""){
-				layer.msg("请输入课程简介！");
-				return;
-			}
 			mask();
 			 $("#addCourse-form").attr("action", basePath+"/cloudclass/course/addCourse");
 	            $("#addCourse-form").ajaxSubmit(function(data){
@@ -729,62 +590,6 @@ $(".add_P").click(function(){
 		}
 	});
 });
-// /**
-//  * 添加微课
-//  */
-// $(".add_M").click(function(){
-// 	// $("input[name='isFree']").eq(1).attr("checked","checked");
-//     courseForm.resetForm();
-// 	$("#gradeStudentSum").show();
-// 	$("#classRatedNum").attr("disabled",false);
-// 	$("#classQQ").show();
-// 	$("#gradeQQ").attr("disabled",false);
-// 	$("#defaultStudent").show();
-// 	$("#defaultStudentCount").attr("disabled",false);
-//     $("#addCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
-//     /*$("#originalCost").val(0);
-//      $("#currentPrice").val(0);*/
-// 	$("#add_serviceType").val(1);//微课类型
-//     var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增微课程",580,600,true,"确定",function(){
-//         $("#descriptionHid").val($("#courseDescribe").val());
-//         $("#addCourse-form").valid({
-//             gradeStudentSum: {
-//                 required:"请输入班级额定人数！"
-//             }
-//         });
-//         if($("#addCourse-form").valid()){
-//             var selectRadio=$("input[name='isFree']:checked").val();
-//             /*if(selectRadio==null){
-//
-//              layer.msg("请选择是否收费！");
-//              return;
-//              }*/
-//             var courseDesc=$("#courseDescribe").val();
-//             if(courseDesc==null||courseDesc==""){
-//                 layer.msg("请输入课程简介！");
-//                 return;
-//             }
-//             mask();
-//             $("#addCourse-form").attr("action", basePath+"/cloudclass/course/addCourse");
-//             $("#addCourse-form").ajaxSubmit(function(data){
-//                 try{
-//                     data = jQuery.parseJSON(jQuery(data).text());
-//                 }catch(e) {
-//                     data = data;
-//                 }
-//                 unmask();
-//                 if(data.success){
-//                     $("#addCourseDialog").dialog("close");
-//                     layer.msg(data.errorMessage);
-//                     freshTable(M_courseTable);
-//                     $("html").css("overflow","auto");
-//                 }else{
-//                     layer.msg(data.errorMessage);
-//                 }
-//             });
-//         }
-//     });
-// });
 
 //新增 -- 当选择付费时，显示原价格和现价格
 $("#is_free").click(function(){
@@ -1080,28 +885,7 @@ function search_P(){
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
 	searchButton(P_courseTable,json);
 };
-/**
- * 微课列表搜索
- */
-// function search_M(){
-// 	var json = new Array();
-//     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"1","tempType":"String"}');
-// 	$("#searchDiv_M .searchTr").each(function() {
-// 		if (!isnull($(this).find('.propertyValue1').val())) {
-// 			var propertyValue2 = $(this).find('.propertyValue2').val();
-// 			if(!isnull(propertyValue2)){
-// 				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-// 					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()
-// 					+',"propertyValue2":"'+propertyValue2+'"}');
-// 			}else{
-// 				json.push('{"tempMatchType":'+$(this).find('.tempMatchType').val()+',"propertyName":'+$(this).find('.propertyName').val()
-// 					+',"propertyValue1":"'+$(this).find('.propertyValue1').val()+'","tempType":'+$(this).find('.tempType').val()+'}');
-// 			}
-// 		}
-// 	});
-// 	var str = "[" + json.join(",") + "]";
-// 	M_courseTable.fnFilter(str);
-// };
+
 /**
  * 课程排序列表搜索
  */
@@ -1243,44 +1027,14 @@ function previewDialog(obj,status){
  * @param status（1：职业课，2：微课）
  */
 function toEdit(obj,status){
-//	edit_imgSenBut();
-//	edit_imgSenBut1();
-//	edit_imgSenBut2();
-//	createImageUpload($('.uploadImg'));//生成图片编辑器
-	//直播时间
-//    jQuery('#edit_liveTime').datetimepicker({
-//        timeFormat: "HH:mm:ss",
-//        dateFormat: "yy-mm-dd"
-//    });
-    //结课时间
-//    jQuery('#edit_graduateTime').datetimepicker({
-//        timeFormat: "HH:mm:ss",
-//        dateFormat: "yy-mm-dd"
-//    });
-
     // zhuwenbao-2018-0109
     createImageUpload($('.uploadImg_edit'));//'修改'弹出框的生成图片编辑器
 
 	updateCourseForm.resetForm();
 	var oo = $(obj).parent().parent().parent();
-	var row;
-	if(status==1) {
-		row = P_courseTable.fnGetData(oo); // get datarow
-        $("#edid_gradeStudentSum").attr("disabled",false);
-        $("#edid_classRatedNum").hide();
-		$("#edid_gradeQQ").attr("disabled",true);
-		$("#edid_classQQ").hide();
-//		$("#edid_defaultStudentCount").attr("disabled",false);
-//		$("#edid_classDefaultStudent").hide();
-	}else{
-		// row = M_courseTable.fnGetData(oo); // get datarow
-        // $("#edid_gradeStudentSum").attr("disabled",false);
-        // $("#edid_classRatedNum").show();
-		// $("#edid_gradeQQ").attr("disabled",false);
-		// $("#edid_classQQ").show();
-		// $("#edid_defaultStudentCount").attr("disabled",false);
-		// $("#edid_classDefaultStudent").show();
-	}
+	var row = P_courseTable.fnGetData(oo); // get datarow
+	$("#edid_gradeStudentSum").attr("disabled",false);
+	$("#edid_classRatedNum").hide();
 	$("#updateCourse-form").resetForm();
 	$("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	//根据当前id查找对应的课程信息
@@ -1318,8 +1072,6 @@ function toEdit(obj,status){
 		                    	}
 			          }  
 			      }) ; 
-    	
-    
 //    	 debugger;
     	//授课方式
     	for(i=0;i<$("#edid_addCourseType option").length;i++){
@@ -1338,11 +1090,11 @@ function toEdit(obj,status){
     		}
     	}
     	$("#edid_courseName").val(result[0].courseName); //课程名称
-    	$("#edid_classTemplate").val(result[0].classTemplate); //班级名称模板
+		debugger
+    	$("#edit_subtitle").val(result[0].subtitle); //课程名称
+    	$("#edit_lecturer").val(result[0].lecturer); //主播
     	$("#edid_courseLength").val(result[0].courseLength); //课程时长
-    	$("#edid_coursePwd").val(result[0].coursePwd); //课程时长
-    	$("#edid_qqno").val(result[0].qqno); //咨询QQ
-		$("#edid_gradeQQ").val(result[0].gradeQQ); //班级QQ群
+    	$("#edid_coursePwd").val(result[0].coursePwd); //课程密码
 		$("#edid_defaultStudentCount").val(result[0].defaultStudentCount); //默认报名人数
 
         // zhuwenbao-2018-0109
@@ -1358,30 +1110,9 @@ function toEdit(obj,status){
 				$("#updateCourse-form #nihao").val($("#combobox1 option").eq(i).text());
 			}
 		}
-		
-    	/*//是否免费
-    	if(result[0].isFree == true){ //免费
-    		$("#edit_no_free").attr('checked',true);
-    		$("#edit_is_free").removeAttr('checked');
-    		$("#edit-originalCost").hide();
-    		$("#edit-currentPrice").hide();
-    		$("#edit_originalCost").val("0");
-    		$("#edit_currentPrice").val("0");
-    	}else if(result[0].isFree == false){
-    		$("#edit_is_free").attr('checked',true);
-    		$("#edit_no_free").removeAttr('checked');
-    		$("#edit-originalCost").show();
-    		$("#edit-currentPrice").show();
-    		$("#edid_originalCost").val("");
-    		$("#edid_currentPrice").val("");
-    	}*/
-    	$("#edid_originalCost").val(result[0].originalCost); //原价格
-    	$("#edid_currentPrice").val(result[0].currentPrice); //现价格
-    	$("#edid_courseDescribe").val(result[0].description); //课程简介
-    	$("#edid_cloudClassroom").val(result[0].cloudClassroom); //课程简介
-    	$("#edit_learndCount").val(result[0].learndCount); //课程简介
-        $("#edid_gradeStudentSum").val(result[0].classRatedNum);//班级额定人数
-    	
+
+    	$("#edid_currentPrice").val(result[0].currentPrice); //价格
+
     	var edit_title="修改课程";
     	if(status ==1){
 			edit_title="修改职业课程";
@@ -1398,17 +1129,7 @@ function toEdit(obj,status){
                 });
             }
     		if($("#updateCourse-form").valid()){
-				var selectRadio=$("input[name='isFree']:checked").val();
-				/*if(selectRadio==null){
-					layer.msg("请选择是否收费！");
-					return;
-				}*/
 				var courseDesc=$("#edid_courseDescribe").val();
-				//var courseDesc = document.getElementById("edid_courseDescribe").value;
-				if(courseDesc==null||courseDesc==""){
-					layer.msg("请输入课程简介！");
-					return;
-				}
                 mask();
                 $("#updateCourse-form").attr("action", basePath+"/cloudclass/course/updateCourseById");
                 $("#updateCourse-form").ajaxSubmit(function(data){

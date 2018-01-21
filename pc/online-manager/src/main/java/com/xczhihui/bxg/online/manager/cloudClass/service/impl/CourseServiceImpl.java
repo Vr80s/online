@@ -10,11 +10,17 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.cc.bean.CategoryBean;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 
+import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
+import com.xczhihui.bxg.online.manager.utils.subscribe.Subscribe;
+import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
+import com.xczhihui.bxg.online.manager.vhall.bean.Webinar;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +57,20 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
     private CourseDao courseDao;
     @Autowired
     private CourseSubscribeDao courseSubscribeDao;
-    @Value("${ENV_FLAG}")
+	//由后台配置的点播视频
+    private static String CNAME = "video-on-demand-background";
+
+	@Autowired
+	private OnlineUserService onlineUserService;
+
+	@Value("${ENV_FLAG}")
 	private String envFlag;
-    private static String CNAME = "video-on-demand-background";//由后台配置的点播视频
+	@Value("${LIVE_VHALL_USER_ID}")
+	private String liveVhallUserId;
+	@Value("${vhall_callback_url}")
+	String vhall_callback_url;
+	@Value("${vhall_private_key}")
+	String vhall_private_key;
     
     @Override
 	public Page<CourseVo> findCoursePage(CourseVo courseVo,  int pageNumber, int pageSize) {
@@ -275,8 +292,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void addCourse(CourseVo courseVo) {
+		checkName(courseVo.getId(),courseVo.getCourseName());
 		// TODO Auto-generated method stub
-		
 		Map<String,Object> params=new HashMap<String,Object>();
 		String sql="SELECT IFNULL(MAX(sort),0) as sort FROM oe_course ";
 		List<Course> temp = dao.findEntitiesByJdbc(Course.class, sql, params);
@@ -291,67 +308,90 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			courseVo.setCurrentPrice(0.0);
 		}
 		Course course = new Course();
-		course.setGradeName(courseVo.getCourseName()); //课程名称
-		course.setClassTemplate(courseVo.getCourseName()); //课程名称模板mv//20180109  yuxin 将课程名作为模板
-		course.setMenuId(courseVo.getMenuId()); //学科id
-		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
-		course.setCourseType(courseVo.getCourseType()); //授课方式
-		course.setCourseLength(courseVo.getCourseLength()); //课程时长
-		course.setOriginalCost(courseVo.getOriginalCost()); //原价格
-		course.setCurrentPrice(courseVo.getCurrentPrice()); //现价格
-		if(/*0==course.getOriginalCost()&&*/0==course.getCurrentPrice()){
-			course.setIsFree(true); //免费
+		//课程名称
+		course.setGradeName(courseVo.getCourseName());
+		//课程名称模板mv//20180109  yuxin 将课程名作为模板
+		course.setClassTemplate(courseVo.getCourseName());
+		//学科id
+		course.setMenuId(courseVo.getMenuId());
+//		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
+		//授课方式
+		course.setCourseType(courseVo.getCourseType());
+		//课程时长
+		course.setCourseLength(courseVo.getCourseLength());
+		//原价格
+		course.setOriginalCost(courseVo.getCurrentPrice());
+		//现价格
+		course.setCurrentPrice(courseVo.getCurrentPrice());
+		if(0==course.getCurrentPrice()){
+			//免费
+			course.setIsFree(true);
 		}else{
-			course.setIsFree(false); //收费
+			//收费
+			course.setIsFree(false);
 		}
-		course.setSort(sort); //排序
-		//course.setType(1);
-		course.setLearndCount(courseVo.getLearndCount()); //请填写一个基数，统计的时候加上这个基数
-		course.setCreatePerson(UserHolder.getCurrentUser().getLoginName()); //当前登录人
-		course.setCreateTime(new Date()); //当前时间
-		course.setStatus('0'+""); //状态
-		course.setDescription(courseVo.getDescription());//课程描述
-		course.setCloudClassroom(courseVo.getCloudClassroom());//云课堂连接
-		course.setIsRecommend(courseVo.getIsRecommend());//
-		course.setRecommendSort(courseVo.getRecommendSort());//
-		course.setQqno(courseVo.getQqno());
+		//排序
+		course.setSort(sort);
+		course.setType(courseVo.getType());
+
+		course.setLearndCount(0);
+		//当前登录人
+		course.setCreatePerson(courseVo.getCreatePerson());
+		//当前时间
+		course.setCreateTime(new Date());
+		//状态
+		course.setStatus("0");
+		//课程描述  2018-01-20 yuxin 暂时弃用描述
+//		course.setDescription(courseVo.getDescription());
+		course.setIsRecommend(0);
+		course.setRecommendSort(null);
 		course.setDescriptionShow(0);
-		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
+		//随机生成一个10-99数，统计的时候加上这个基数
+		java.util.Random random=new java.util.Random();
+		// 返回[0,100)集合中的整数，注意不包括10
+		int result=random.nextInt(100);
+		// +1后，[0,10)集合变为[52,152)集合，满足要求
+		int defaultStudentCount = result+52;
+		course.setDefaultStudentCount(defaultStudentCount);
 		//yuruixin-2017-08-16
 		course.setMultimediaType(courseVo.getMultimediaType());
-		if(courseVo.getServiceType()==1){//判断添加职业课/微课
-			course.setClassRatedNum(courseVo.getClassRatedNum());
-			course.setServiceType(1);
-			course.setGradeQQ(courseVo.getGradeQQ());
-			course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
-			if(!course.isFree()){
-				//添加微课，自动为微课创建一个报名中的班级
-				String savesql=" insert into oe_grade (create_person,create_time,is_delete,course_id,name,qqno,status,sort,grade_status,student_amount,default_student_count) " +
-						" values ('"+course.getCreatePerson()+"',now(),0,(select AUTO_INCREMENT courseId FROM information_schema.TABLES WHERE  TABLE_NAME ='oe_course' and TABLE_SCHEMA='online' ),'"+course.getClassTemplate()+"1期',"+course.getGradeQQ()+",1,1,1,"+course.getClassRatedNum()+"," + course.getDefaultStudentCount()+")";
-				dao.getNamedParameterJdbcTemplate().update(savesql, params);
-			}
-		}else{//添加职业课
-			course.setClassRatedNum(0);
-			course.setServiceType(0);
-		}
+		course.setClassRatedNum(0);
+		course.setServiceType(0);
 		//增加密码和老师
 		course.setCoursePwd(courseVo.getCoursePwd());
 		course.setUserLecturerId(courseVo.getUserLecturerId());
-		course.setOnlineCourse(courseVo.getOnlineCourse());
-		course.setAddress(courseVo.getAddress());
-		course.setCity(courseVo.getRealCitys());
-		
-		if(course.getOnlineCourse() == 1){
-			course.setStartTime(courseVo.getStartTime());
-			course.setEndTime(courseVo.getEndTime());
-		}
-
+		course.setLecturer(courseVo.getLecturer());
+//		course.setOnlineCourse(courseVo.getOnlineCourse());
+		course.setPv(0);
+		course.setApplyId(0);
 		// zhuwenbao-2018-01-09 设置课程的展示图
 		// findCourseById 是直接拿小图 getCourseDetail是从大图里拿 同时更新两个 防止两者数据不一样
 		course.setSmallImgPath(courseVo.getSmallimgPath());
 		course.setBigImgPath(courseVo.getSmallimgPath());
+		if(course.getType() == CourseForm.OFFLINE.getCode()){
+			course.setStartTime(courseVo.getStartTime());
+			course.setEndTime(courseVo.getEndTime());
+			course.setAddress(courseVo.getAddress());
+			course.setCity(courseVo.getRealCitys());
+		}else if(course.getType() == CourseForm.LIVE.getCode()){
+			course.setMultimediaType(Multimedia.VIDEO.getCode());
+			course.setStartTime(courseVo.getStartTime());
+			//直播布局
+			course.setDirectSeeding(courseVo.getDirectSeeding());
+			course.setVersion(UUID.randomUUID().toString().replace("-",""));
+			String webinarId = createWebinar(course);
+			course.setDirectId(webinarId);
+			//将直播状态设为2
+			course.setLiveStatus(2);
+		}
+
+		course.setCollection(false);
+		course.setSubtitle(courseVo.getSubtitle());
 
 		dao.save(course);
+		if(course.getType() == CourseForm.LIVE.getCode()){
+			Subscribe.setting(course.getId(), this, courseSubscribeDao);
+		}
 	}
 
     @Override
@@ -369,7 +409,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		// TODO Auto-generated method stub
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("courseId", id);
-		String sql = "SELECT oc.id as id,oc.grade_name as courseName,oc.class_template as classTemplate,om.name as xMenuName,st.name as scoreTypeName,oc.multimedia_type multimediaType,oc.start_time startTime,oc.end_time endTime,oc.address,"
+		String sql = "SELECT oc.id as id,oc.grade_name as courseName,oc.class_template as classTemplate,oc.subtitle,oc.lecturer,om.name as xMenuName,st.name as scoreTypeName,oc.multimedia_type multimediaType,oc.start_time startTime,oc.end_time endTime,oc.address,"
 				+ "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.course_pwd as coursePwd,oc.grade_qq gradeQQ,oc.default_student_count defaultStudentCount,"
 				+ "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
 				+ "oc.current_price as currentPrice,oc.description as description ,oc.cloud_classroom as cloudClassroom ,"
@@ -385,21 +425,26 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void updateCourse(CourseVo courseVo) {
+		checkName(courseVo.getId(),courseVo.getCourseName());
+
 		Course course = dao.findOneEntitiyByProperty(Course.class, "id", courseVo.getId());
 		//当课程存在密码时，设置的当前价格失效，改为0.0
 		if(courseVo.getCoursePwd()!=null && !"".equals(courseVo.getCoursePwd().trim())){
 			courseVo.setCurrentPrice(0.0);
 		}
 
-		course.setGradeName(courseVo.getCourseName()); //课程名称
-		course.setClassTemplate(courseVo.getClassTemplate()); //课程名称模板
-		course.setMenuId(courseVo.getMenuId()); //学科的id
-		course.setCourseTypeId(courseVo.getCourseTypeId()); //课程类别id
-		course.setCourseType(courseVo.getCourseType()); //授课方式id
-//		course.setCourseLength(courseVo.getCourseLength()); //课程时长
-		//course.setIsFree(courseVo.getIsFree()); //是否免费
-		course.setOriginalCost(courseVo.getOriginalCost()); //原价格
-		course.setCurrentPrice(courseVo.getCurrentPrice()); //现价格
+		//课程名称
+		course.setGradeName(courseVo.getCourseName());
+		//课程名称模板
+		course.setClassTemplate(courseVo.getCourseName());
+		//学科的id
+		course.setMenuId(courseVo.getMenuId());
+		//课程时长
+		course.setCourseLength(courseVo.getCourseLength());
+		//原价格
+		course.setOriginalCost(courseVo.getCurrentPrice());
+		//现价格
+		course.setCurrentPrice(courseVo.getCurrentPrice());
 		course.setMultimediaType(courseVo.getMultimediaType());
 		//增加密码和老师
 		course.setCoursePwd(courseVo.getCoursePwd());
@@ -413,45 +458,49 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setSmallImgPath(courseVo.getSmallimgPath());
 		course.setBigImgPath(courseVo.getSmallimgPath());
 
-//		if(0==course.getOriginalCost()&&0==course.getCurrentPrice()){
 		if(0==course.getCurrentPrice()){
-			course.setIsFree(true); //免费
+			course.setIsFree(true);
 		}else{
-			course.setIsFree(false); //收费
-			if(course.getServiceType()==1){ //微课自动建班级
-				Map<String,Object> paramMap = new HashMap<String,Object>();
-				paramMap.put("courseId",course.getId());
-				String sql="select id from oe_grade where is_delete=0 and grade_status = 1 and course_id =:courseId and curriculum_time is null  and "+
-						"  ifnull(student_count+default_student_count,0)< student_amount order by create_time  limit 1 ";
-				List<Map<String, Object>> grades = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
-				//存在报名未结束的班级
-				if (grades.size() <=0) {
-					//查看上一个班级是第几期，要在这期上面加1
-					sql="select count(id)+1 number,(select AUTO_INCREMENT gradeId FROM information_schema.TABLES WHERE  TABLE_NAME ='oe_grade' and TABLE_SCHEMA='online' ) id  from oe_grade  where course_id=:courseId";
-					List<Map<String, Object>> gradeInfos= dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-					Map<String, Object> gradeInfo=gradeInfos.get(0);
-					Integer default_count=Integer.valueOf(gradeInfo.get("number").toString())==1 ? course.getDefaultStudentCount() : 0;
-					//修改微课，自动为微课创建一个报名中的班级
-					String savesql=" insert into oe_grade (create_person,create_time,is_delete,course_id,name,qqno,status,sort,grade_status,student_amount,default_student_count) " +
-							" values ('"+course.getCreatePerson()+"',now(),0,"+course.getId()+",'"+course.getClassTemplate()+gradeInfo.get("number")+"期',"+courseVo.getGradeQQ()+",1,1,1,"+course.getClassRatedNum()+"," + default_count+")";
-					dao.getNamedParameterJdbcTemplate().update(savesql, paramMap);
-				}
+			course.setIsFree(false);
+		}
+//		course.setLearndCount(courseVo.getLearndCount());
+		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
+
+		course.setSubtitle(courseVo.getSubtitle());
+		course.setLecturer(courseVo.getLecturer());
+
+		if(course.getType()==CourseForm.LIVE.getCode()){
+			course.setStartTime(courseVo.getStartTime());
+			course.setVersion(UUID.randomUUID().toString().replace("-",""));
+		}else if(course.getType()==CourseForm.OFFLINE.getCode()){
+			course.setStartTime(courseVo.getStartTime());
+			course.setEndTime(courseVo.getEndTime());
+		}
+
+		dao.update(course);
+
+		if(course.getType()==CourseForm.LIVE.getCode()){
+			updateWebinar(course);
+			Subscribe.setting(courseVo.getId(), this, courseSubscribeDao);
+		}
+	}
+
+	/**
+	 * Description：校验是否重名
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 5:44 2018/1/21 0021
+	 **/
+	@Override
+	public void checkName(Integer id, String courseName) {
+		List<Course> entitys= findByName(courseName);
+		for(Course entity: entitys){
+			if(!entity.isDelete()&&entity.getId().intValue()!=id){
+				throw new RuntimeException("课程名称已存在！");
 			}
 		}
-		//course.setCourseDescribe(courseVo.getCourseDescribe()); //课程简介
-		course.setDescription(courseVo.getDescription());//课程描述
-		course.setCloudClassroom(courseVo.getCloudClassroom());//云课堂连接
-		course.setQqno(courseVo.getQqno());
-		course.setLearndCount(courseVo.getLearndCount());
-		course.setClassRatedNum(courseVo.getClassRatedNum());//班级额定人数
-		course.setGradeQQ(courseVo.getGradeQQ());
-		course.setDefaultStudentCount(courseVo.getDefaultStudentCount());
-		course.setOnlineCourse(courseVo.getOnlineCourse());
-		course.setStartTime(courseVo.getStartTime());
-		course.setEndTime(courseVo.getEndTime());
-		dao.update(course);
 	}
-	
+
 	@Override
 	public void updateRecImgPath(CourseVo courseVo) {
 		Course course = dao.findOneEntitiyByProperty(Course.class, "id", courseVo.getId());
@@ -529,7 +578,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
 		Integer coursePreSort=coursePre.getSort();
 		
-		String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type is null and online_course=1 and isDelete=0 order by sort asc";
+		String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type=3 and isDelete=0 order by sort asc";
 		Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
 		Integer courseNextSort=courseNext.getSort();
 		
@@ -567,7 +616,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		String hqlPre="from Course where  isDelete=0 and id = ?";
 		Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
 		Integer coursePreSort=coursePre.getSort();
-		String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type is null and online_course=1 and isDelete=0 order by sort desc";
+		String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type = 3 and isDelete=0 order by sort desc";
 		Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
 		Integer courseNextSort=courseNext.getSort();
 		
@@ -622,7 +671,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void updateCourseDetail(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
-			String courseOutline, String commonProblem) {
+								   String courseOutline, String commonProblem, String lecturerDescription) {
 		Course c = courseDao.findOneEntitiyByProperty(Course.class, "id", Integer.valueOf(courseId));
 
 		// zhuwenbao 2018-01-09 在课程详情页面已经移除调smallImgPath选项 不加判断的话会将之前的smallImgPath设置为null
@@ -634,6 +683,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		c.setCourseDetail(courseDetail);
 		c.setCourseOutline(courseOutline);
 		c.setCommonProblem(commonProblem);
+		c.setLecturerDescription(lecturerDescription);
 		courseDao.update(c);
 	}
 
@@ -647,6 +697,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			retn.put("courseDetail", c.getCourseDetail());
 			retn.put("courseOutline", c.getCourseOutline());
 			retn.put("commonProblem", c.getCommonProblem());
+			retn.put("lecturerDescription", c.getLecturerDescription());
 			retn.put("gradeName", c.getGradeName());
 			retn.put("descriptionShow", c.getDescriptionShow().toString());
 			/*2017-08-14---yuruixin*/
@@ -1390,7 +1441,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public Course findCourseInfoById(Integer id) {
 		Course course = dao.get(id, Course.class);
-		if(course.getCollection()==null || !course.getCollection()){
+		if((course.getCollection()==null || !course.getCollection())&&course.getDirectId()!=null){
 			String audioStr="";
 			if(course.getMultimediaType()==2){
 				audioStr = "_2";
@@ -1428,4 +1479,38 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		return course;
 	}
 
+	public String createWebinar(Course entity) {
+		Webinar webinar = new Webinar();
+		webinar.setSubject(entity.getGradeName());
+		webinar.setIntroduction(entity.getDescription());
+		Date start = entity.getStartTime();
+		String start_time = start.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		webinar.setStart_time(start_time);
+		webinar.setHost(entity.getLecturer());
+		webinar.setLayout(entity.getDirectSeeding().toString());
+		OnlineUser u = onlineUserService.getOnlineUserByUserId(entity.getUserLecturerId());
+		webinar.setUser_id(u.getVhallId());
+		String webinarId = VhallUtil.createWebinar(webinar);
+
+		VhallUtil.setActiveImage(webinarId, VhallUtil.downUrlImage(entity.getSmallImgPath(), "image"));
+		VhallUtil.setCallbackUrl(webinarId, vhall_callback_url, vhall_private_key);
+		return webinarId;
+	}
+
+	public String updateWebinar(Course entity) {
+		//更新封面
+		VhallUtil.setActiveImage(entity.getDirectId(), VhallUtil.downUrlImage(entity.getSmallImgPath(), "image"));
+		Webinar webinar = new Webinar();
+		webinar.setId(entity.getDirectId()+"");
+		webinar.setSubject(entity.getGradeName());
+		webinar.setIntroduction(entity.getDescription());
+		Date start = entity.getStartTime();
+		String start_time = start.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		webinar.setStart_time(start_time);
+		webinar.setHost(entity.getLecturer());
+		webinar.setLayout(entity.getDirectSeeding()+"");
+		return VhallUtil.updateWebinar(webinar);
+	}
 }

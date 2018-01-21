@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,18 +199,12 @@ public class CourseController extends AbstractController{
 		int currentPage = index / pageSize + 1;
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
-		
-//		 Integer offLine = courseVo.getOnlineCourse();
-//		 Integer courseType = courseVo.getOnlineCourse();
-//		 Integer multimediaType = courseVo.getMultimediaType();
-//		 Integer liveStatus = courseVo.getLiveStatus();//直播状态1.直播中，2预告，3直播结束
-		
 		CourseVo searchVo=new CourseVo();
 		Group onlineCourse = groups.findByName("search_onlineCourse");
-		
-		if (onlineCourse != null) {
-			searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
-		}
+//
+//		if (onlineCourse != null) {
+//			searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
+//		}
 		
 		Group city = groups.findByName("search_city");
 		
@@ -258,40 +253,17 @@ public class CourseController extends AbstractController{
 	@ResponseBody
 	 public ResponseObject add(CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
-		List<Course> entitys= courseService.findByName(courseVo.getCourseName());
-		for(Course entity:entitys){
-			if(entity!=null&&!entity.isDelete()&&null==entity.getType()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("课程名称已存在！");
-		         return responseObj;
-			}
-		}
-	
-		
-		if(courseVo.getOriginalCost()!=null&&courseVo.getCurrentPrice()!=null&&courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-			 responseObj.setSuccess(false);
-	         responseObj.setErrorMessage("现价必须小于等于原价!");
-	         return responseObj;
-		}
-		
-		if(courseVo.getOriginalCost() == null){
-			courseVo.setOriginalCost(0.0);
-		}
 		if(courseVo.getCurrentPrice() == null ){
+			courseVo.setOriginalCost(0.0);
 			courseVo.setCurrentPrice(0.0);
 		}
 		courseVo.setIsRecommend(0);
 		courseVo.setRecommendSort(0);
+		courseVo.setType(CourseForm.VOD.getCode());
 
-		try{
-			courseService.addCourse(courseVo);
-            responseObj.setSuccess(true);
-            responseObj.setErrorMessage("新增成功");
-       }catch(Exception e){
-    	   	e.printStackTrace();
-            responseObj.setSuccess(false);
-            responseObj.setErrorMessage("新增失败");
-       }
+		courseService.addCourse(courseVo);
+        responseObj.setSuccess(true);
+        responseObj.setErrorMessage("新增成功");
         return responseObj;
     }
 	
@@ -317,24 +289,7 @@ public class CourseController extends AbstractController{
 	@ResponseBody
 	public ResponseObject updateCourseById (CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
-		List<Course> entitys= courseService.findByName(courseVo.getCourseName());
-		for(Course entity: entitys){
-			if(entity!=null&&!entity.isDelete()&&entity.getId()!=courseVo.getId()&&null==entity.getType()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("课程名称已存在！");
-		         return responseObj;
-			}
-		}
-		
-		
-		if(courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-			 responseObj.setSuccess(false);
-	         responseObj.setErrorMessage("现价必须小于等于原价");
-	         return responseObj;
-		}
-		if(courseVo.getOriginalCost() == null){
-			courseVo.setOriginalCost(0.0);
-		}
+
 		if(courseVo.getCurrentPrice() == null){
 			courseVo.setCurrentPrice(0.0);
 		}
@@ -343,26 +298,10 @@ public class CourseController extends AbstractController{
 			responseObj.setErrorMessage("课程展示图不能为空");
 			return responseObj;
 		}
-
-		 try{
-//			 	CourseVo old = courseService.getCourseById(courseVo.getId());
-//			 	String oldName = old.getCourseName();
-			 	courseService.updateCourse(courseVo);
-	            responseObj.setSuccess(true);
-	            responseObj.setErrorMessage("修改成功");
-//	            try {
-//	            	if (!oldName.equals(courseVo.getCourseName())) {
-//	            		this.updateCCCategory(oldName,courseVo.getCourseName());
-//					}
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-	       }catch(Exception e){
-	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
-	            e.printStackTrace();
-	       }
-	        return responseObj;
+		courseService.updateCourse(courseVo);
+	    responseObj.setSuccess(true);
+	    responseObj.setErrorMessage("修改成功");
+	    return responseObj;
 	}
 	
 //	private void updateCCCategory(String oldName,String newName){
@@ -519,14 +458,14 @@ public class CourseController extends AbstractController{
 	@RequestMapping(value = "updateCourseDetail", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject updateCourseDetail(String courseId, String smallImgPath,String smallImgPath1,String smallImgPath2, String courseDetail,
-				String courseOutline, String commonProblem){
+				String courseOutline, String commonProblem, String lecturerDescription){
 		if(smallImgPath1!=null) {
             smallImgPath += "dxg" + smallImgPath1;
         }
 		if(smallImgPath2!=null) {
             smallImgPath += "dxg" + smallImgPath2;
         }
-		courseService.updateCourseDetail(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem);
+		courseService.updateCourseDetail(courseId, smallImgPath, null, courseDetail, courseOutline, commonProblem,lecturerDescription);
         return ResponseObject.newSuccessResponseObject("修改成功！");
     }
 	
@@ -699,6 +638,7 @@ public class CourseController extends AbstractController{
 	public String courseInfoDetail(HttpServletRequest request,Integer id) {
 		Course course =courseService.findCourseInfoById(id);
 		request.setAttribute("course", course);
+		request.setAttribute("courseForm", course.getType());
 		return CLOUD_CLASS_PATH_PREFIX + "/courseInfoDetail";
 	}
 	

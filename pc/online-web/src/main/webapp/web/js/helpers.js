@@ -25,7 +25,7 @@
 //        if(description_show==0){
             //不显示课程介绍页
             //freest:1为免费 0为付费   courseType1为点播，0为直播
-        	if(onlineCourse == 1)
+        	if(type == 3)
         		return '<a style="cursor:pointer"  href="/web/html/payRealCourseDetailPage.html?id='+id+'"  target="_blank">';
             if(freeSt==1 && encrypt == 1){
             	if(type == 1)

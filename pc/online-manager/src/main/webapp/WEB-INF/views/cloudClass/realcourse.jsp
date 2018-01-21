@@ -669,32 +669,13 @@
 			 		<input type="text" name="courseName"  id="courseName" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
              </div>
 		</div>
-		
-	    <div class="space-4"></div>
+		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="classTemplate"><font color="red">*</font>班级名称模板: </label>
-			 <div class="col-sm-6">
-			 		<input type="text" name="classTemplate"  id="classTemplate" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">
-             </div>
-		</div>
-        <div class="form-group"  style="margin-top: 18px;display: none" id="gradeStudentSum">
-            <label class="col-sm-3 control-label no-padding-right" for="classRatedNum"><font color="red">*</font>班级额定人数: </label>
-            <div class="col-sm-6" >
-                <input type="text" id="classRatedNum" name="classRatedNum" maxlength="10" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,range:[0,9999999]}">
-            </div>
-        </div>
-		<div class="form-group"  style="margin-top: 18px;display: none"  id="classQQ">
-			<label class="col-sm-3 control-label no-padding-right" for="gradeQQ"><font color="red">*</font>班级QQ群: </label>
-			<div class="col-sm-6" >
-				<input type="text" id="gradeQQ" name="gradeQQ" maxlength="15" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,minlength:5}">
+			<label class="col-sm-3 control-label no-padding-right" for="subtitle"><font color="red">*</font>副标题: </label>
+			<div class="col-sm-6">
+				<input type="text" name="subtitle"  id="subtitle" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
 			</div>
 		</div>
-		<!-- <div class="form-group"  style="margin-top: 18px;display: none" id="defaultStudent">
-			<label class="col-sm-3 control-label no-padding-right" for="defaultStudentCount"><font color="red">*</font>默认报名人数: </label>
-			<div class="col-sm-6" >
-				<input type="text" id="defaultStudentCount" name="defaultStudentCount" maxlength="10" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,range:[0,9999999]}">
-			</div>
-		</div> -->
 		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>所属学科: </label>
@@ -708,20 +689,6 @@
              </div>
 		</div>
 	    <div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>课程类别: </label>
-            <div class="col-sm-6">
-               <select name="courseTypeId" id="menuNameSecond" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >
-               		 <option value="">请选择</option>
-               		<%--<c:forEach var="scoreTypes" items="${scoreTypeVo}">
-                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
-                    </c:forEach> --%>
-               </select>
-            </div>
-		</div>
-	    <div class="space-4"></div>
-	    
-	    
 	    <div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
 			 
@@ -757,17 +724,6 @@
              </div> 
 		</div>
 	    
-		<%--<div class="form-group"  style="margin-top: 18px;" >
-			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>授课方式: </label>
-            <div class="col-sm-6">
-               <select name="courseType" id="addCourseType" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >
-               		<option value="">请选择</option>
-               		<c:forEach var="teachMethods" items="${teachMethodVo}">
-                        <option value="${teachMethods.id}">${teachMethods.name}</option>
-                    </c:forEach>
-               </select>
-            </div>
-		</div>--%>
 		<div class="space-4"></div>
 	        <div class="form-group" style="margin-top: 18px;">
 	            <label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 开始时间: </label>
@@ -782,8 +738,18 @@
 	                <input type="text" name="endTime" id="endTime"  maxlength="20" readonly="readonly" class="datetime-picker col-xs-10 col-sm-8 {required:true,date:true,rangelength:[10,19]}">
 	            </div>
 	        </div>
+		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
-            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>讲师：</label>
+			<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程时长: </label>
+			<div class="col-sm-3" style="width: 43%;">
+				<input type="text" name="courseLength"  id="courseLength" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+			</div>
+			<div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
+				小时
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>作者：</label>
 		    <div class="ui-widget col-sm-6">
 				  <select  name="userLecturerId" id="combobox" class="clearfix col-xs-10 col-sm-12 {required:true}">
 				    <option value="">请选择...</option>
@@ -792,66 +758,30 @@
 	                </c:forEach>
 	              </select>  
 		     </div>
-		</div>	
-		
-		<!-- 新增密码 -->
-		<!-- <div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="coursePwd">密码: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="coursePwd"  id="coursePwd" maxlength="10"  class="col-xs-10 col-sm-12">
-             </div>
-		</div> -->
-		
-		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>咨询QQ: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="qqno"  id="qqno" maxlength="15"  class="col-xs-10 col-sm-12 {required:true,digits:true,minlength:5}">
-             </div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName">课程链接: </label>
-			 <div class="col-sm-6" >
-			 	<input type="text" name="cloudClassroom"  id="cloudClassroom" maxlength="100" class="col-xs-10 col-sm-12">
-             </div>
+			<label class="col-sm-3 control-label no-padding-right" for="subtitle"><font color="red">*</font>主播: </label>
+			<div class="col-sm-6">
+				<input type="text" name="lecturer"  id="lecturer" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
+			</div>
 		</div>
-		<!-- <div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="learndCount"><font color="red">*</font>默认报名人数: </label>
-			 <div class="col-sm-6" >
-			 	<input type="text" placeholder="请填写一个基数，统计的时候加上这个基数" name="learndCount" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,digits:true,range:[0,9999999]}">
-             </div>
-		</div> -->
-		<!-- <div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>是否收费: </label>
-			 <div class="col-sm-3">
-			 	<p class="paddingtop7px padding7"><label for="is_free" style="cursor: pointer;">收费</label><input type="radio" style="cursor: pointer;vertical-align:text-top;margin-top:2px;margin-left:2px;margin-right:5px" name="isFree"  id="is_free" value="0"><label for="no_free" style="cursor: pointer;">免费</label><input type="radio" style="cursor: pointer;vertical-align:text-top;margin-top:2px;margin-left:2px" name="isFree"  id="no_free" value="1"></p>
-             </div>
-             <div class="col-sm-3">
-			 
-             </div>
-		</div> -->
 
-		<div class="form-group" id="add-originalCost"  style="margin-top: 15px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>原价格: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="originalCost" value="" id="originalCost" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.01,99999.99]}">
-             </div>
-		</div>
 		<div class="space-4"></div>
 		<div class="form-group" id="add-currentPrice"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>现价格: </label>
+			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>价格: </label>
 			 <div class="col-sm-6">
 			 	<input type="text" name="currentPrice" value="" id="currentPrice" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.01,99999.99]}">
              </div>
 		</div>
-		<div class="space-4"></div>
-		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>
-			 <div class="col-sm-6">
-			 	<!-- <input type="text" name="courseDescribe"  id="courseDescribe" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}"> -->
-			 	<textarea class="form-control" name="description" id="courseDescribe"  rows="3" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}"></textarea>
-			 	<input type="hidden" name="descriptionHid" id="descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">
-             </div>
-		</div>
+		<%--<div class="space-4"></div>--%>
+		<%--<div class="form-group"  style="margin-top: 18px;" >--%>
+			 <%--<label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>--%>
+			 <%--<div class="col-sm-6">--%>
+			 	<%--<!-- <input type="text" name="courseDescribe"  id="courseDescribe" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}"> -->--%>
+			 	<%--<textarea class="form-control" name="description" id="courseDescribe"  rows="3" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}"></textarea>--%>
+			 	<%--<input type="hidden" name="descriptionHid" id="descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
+             <%--</div>--%>
+		<%--</div>--%>
 		
 	</form>
 </div>
@@ -1074,12 +1004,12 @@
 			 	<input type="text" name="courseName"  id="edid_courseName" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
              </div>
 		</div>
-		
-		<div class="form-group" style="margin-top: 18px;">
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>班级名称模板: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="classTemplate"  id="edid_classTemplate" maxlength="50"  class="col-xs-10 col-sm-12 {required:true}">
-             </div>
+		<div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="subtitle"><font color="red">*</font>副标题: </label>
+			<div class="col-sm-6">
+				<input type="text" name="subtitle"  id="subtitle_edit" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
+			</div>
 		</div>
 		<div class="form-group" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>所属学科: </label>
@@ -1092,23 +1022,9 @@
                </select>
              </div>
 		</div>
-		
-		<div class="form-group" style="margin-top: 18px;">
-			<label class="col-sm-3 control-label no-padding-right" for="menuNameSecond"><font color="red">*</font>课程类别: </label>
-            <div class="col-sm-6">
-               <select name="courseTypeId" id="edid_menuNameSecond" value="" class="clearfix col-xs-10 col-sm-12 {required:true}" >
-               		 <option value="">请选择</option>
-               		<c:forEach var="scoreTypes" items="${scoreTypeVo}">
-                        <option value="${scoreTypes.id}">${scoreTypes.name}</option>
-                    </c:forEach> 
-               </select>
-            </div>
-		</div>
-		
+
 		
 	    <div class="space-4"></div>
-	    
-	    
 	    <div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="menuName"><font color="red">*</font>授课所在省市: </label>
 			 <div class="col-sm-3">
@@ -1154,9 +1070,18 @@
 	                <input type="text" name="endTime" id="edit_endTime"  maxlength="20" readonly="readonly" class="datetime-picker col-xs-10 col-sm-8 {required:true,date:true,rangelength:[10,19]}">
 	            </div>
 	        </div>
-	        
+		<div class="space-4"></div>
 		<div class="form-group"  style="margin-top: 18px;" >
-            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>讲师：</label>
+			<label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>课程时长: </label>
+			<div class="col-sm-3" style="width: 43%;">
+				<input type="text" name="courseLength"  id="courseLength_edit" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
+			</div>
+			<div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
+				小时
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+            <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>作者：</label>
 		    <div class="ui-widget col-sm-6">
 				  <select  name="userLecturerId" id="combobox1" class="clearfix col-xs-10 col-sm-12 {required:true}">
 				    <option value="">请选择...</option>
@@ -1165,38 +1090,27 @@
 	                </c:forEach>
 	              </select>  
 		     </div>
-		</div>	
-
-		
+		</div>
 		<div class="form-group"  style="margin-top: 18px;" >
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>咨询QQ: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="qqno"  id="edid_qqno" maxlength="15"  class="col-xs-10 col-sm-12 {required:true,digits:true,minlength:5}">
-             </div>
+			<label class="col-sm-3 control-label no-padding-right" for="subtitle"><font color="red">*</font>主播: </label>
+			<div class="col-sm-6">
+				<input type="text" name="lecturer"  id="lecturer_edit" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
+			</div>
 		</div>
-		
-				<div class="form-group" id="edit-originalCost" style="margin-top: 15px;">
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>原价格: </label>
-			 <div class="col-sm-6">
-			 	<input type="text" name="originalCost"  id="edid_originalCost" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.01,99999.99]}">
-             </div>
-		</div>
-		
+
 		<div class="form-group" id="edit-currentPrice" style="margin-top: 18px;">
-			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>现价格: </label>
+			 <label class="col-sm-3 control-label no-padding-right" for="courseName"><font color="red">*</font>价格: </label>
 			 <div class="col-sm-6">
 			 	<input type="text" name="currentPrice"  id="edid_currentPrice" maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.01,99999.99]}">
              </div>
 		</div>
-		
-		
-		<div class="form-group" style="margin-top: 18px;">
-			 <label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>
-			 <div class="col-sm-6">
-			 	<textarea class="form-control" name="description" id="edid_courseDescribe"  rows="3" class = "{required:true}"></textarea>
-			 	<input type="hidden" name="descriptionHid"  id="edid_descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">
-             </div>
-		</div>
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			 <%--<label class="col-sm-3 control-label no-padding-right" for="courseDescribe"><font color="red">*</font>课程简介: </label>--%>
+			 <%--<div class="col-sm-6">--%>
+			 	<%--<textarea class="form-control" name="description" id="edid_courseDescribe"  rows="3" class = "{required:true}"></textarea>--%>
+			 	<%--<input type="hidden" name="descriptionHid"  id="edid_descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
+             <%--</div>--%>
+		<%--</div>--%>
 	</form>
 </div>
 

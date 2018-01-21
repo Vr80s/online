@@ -323,6 +323,15 @@ public class CourseVo extends OnlineBaseVo{
     private Boolean singleSale;
     private String lecturer;
     private String lecturerDescription;
+	private String subtitle;
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
 
 	public String getLecturerDescription() {
 		return lecturerDescription;
