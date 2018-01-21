@@ -2,7 +2,12 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.web.vo.ArticleVo;
+import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.service.UserService;
+import com.xczhihui.bxg.online.web.vo.UserDataVo;
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/medical/doctor")
@@ -20,6 +26,8 @@ public class DoctorController {
 
     @Autowired
     private IMedicalDoctorBusinessService medicalDoctorBusinessService;
+    @Autowired
+    private UserService userService;
 
     /**
      * Description：获取医师分页信息
@@ -191,6 +199,23 @@ public class DoctorController {
     @ResponseBody
     public ResponseObject getHotSpecialColumnAuthor(){
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotSpecialColumnAuthor());
+    }
+
+    /**
+     * 加入医馆
+     */
+    @RequestMapping(value = "joinHospital", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject joinHospital(MedicalDoctor medicalDoctor,HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalDoctor.setUserId(currentUser.getUid());
+        medicalDoctorBusinessService.joinHospital(medicalDoctor);
+        return ResponseObject.newSuccessResponseObject("加入成功");
     }
 
 }

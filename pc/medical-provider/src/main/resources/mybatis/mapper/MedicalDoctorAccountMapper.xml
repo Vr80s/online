@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper">
+
+	<select id="getByUserId" parameterType="string" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorAccount">
+		SELECT id, doctor_id, account_id
+		FROM medical_doctor_account
+		WHERE account_id = #{userId}
+	</select>
+
+</mapper>
