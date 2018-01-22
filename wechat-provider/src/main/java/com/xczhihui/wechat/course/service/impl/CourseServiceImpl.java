@@ -45,4 +45,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		List<CourseLecturVo> listAll = iCourseMapper.selectLearningCourseListByUserId(id);
 		return listAll;
 	}
+
+	@Override
+	public List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId) {
+		List<CourseLecturVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
+		return courses;
+	}
 }

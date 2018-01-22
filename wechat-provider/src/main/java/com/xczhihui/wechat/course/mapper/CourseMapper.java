@@ -28,4 +28,6 @@ public interface CourseMapper extends BaseMapper<Course> {
 	 CourseLecturVo selectCourseDetailsById(@Param("courseId") Integer  courseId);
 	 
 	 List<CourseLecturVo> selectLearningCourseListByUserId(@Param("userId")String userId);
+
+	List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
 }

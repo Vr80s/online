@@ -220,7 +220,7 @@ public class CourseLecturVo implements Serializable {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public int getLineState() {
+	public Integer getLineState() {
 		return lineState;
 	}
 	public void setLineState(Integer lineState) {
