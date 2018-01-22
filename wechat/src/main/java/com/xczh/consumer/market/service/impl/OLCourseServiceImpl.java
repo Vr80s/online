@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.dao.OLCourseMapper;
 import com.xczh.consumer.market.dao.OnlineLecturerMapper;
 import com.xczh.consumer.market.service.MenuService;
@@ -10,6 +11,7 @@ import com.xczh.consumer.market.vo.*;
 import com.xczh.consumer.market.wxpay.typeutil.StringUtil;
 
 import com.xczhihui.wechat.course.model.OfflineCity;
+import com.xczhihui.wechat.course.service.IOfflineCityService;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	
 	@Autowired
 	private MenuService menuService;
+
+	@Autowired
+	private IOfflineCityService offlineCityService;
 	
 	/***
 	 * 学科分类列表
@@ -472,8 +477,24 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		}
         
         if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
-        	condSql.append(" and oc.city= '"+city+"'");
-        	condSql.append(" and oc.type =3 ");
+			if(city.equals("其他")){
+				Page<OfflineCity> OfflineCityPage = new Page<>();
+				OfflineCityPage.setCurrent(1);
+				OfflineCityPage.setSize(5);
+				List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
+				String citylist = " (";
+				for(OfflineCity c : oclist){
+					citylist+="'"+c.getCityName()+"',";
+				}
+				citylist = citylist.substring(0,citylist.length()-1);
+				citylist+=") ";
+				condSql.append(" and oc.type =3 ");
+				condSql.append(" and oc.city not in "+citylist+"");
+
+			}else{
+				condSql.append(" and oc.city= '"+city+"'");
+				condSql.append(" and oc.type =3 ");
+			}
         }
 
         if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
