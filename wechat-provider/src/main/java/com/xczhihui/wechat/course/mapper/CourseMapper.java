@@ -32,4 +32,6 @@ public interface CourseMapper extends BaseMapper<Course> {
 	Integer selectMyFreeCourseListCount(@Param("userId")String userId);
 
 	List<CourseLecturVo> selectMyFreeCourseList(@Param("page")Page<CourseLecturVo> page,@Param("userId")String id);
+	
+	List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
 }

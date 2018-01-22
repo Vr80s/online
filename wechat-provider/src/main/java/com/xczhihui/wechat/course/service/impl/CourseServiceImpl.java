@@ -46,7 +46,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		return listAll;
 	}
 	
-	
 	@Override
     public Integer selectMyFreeCourseListCount(String id) {
 		// TODO Auto-generated method stub
@@ -58,5 +57,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		// TODO Auto-generated method stub
 		List<CourseLecturVo> records = iCourseMapper.selectMyFreeCourseList(page,id);
 		return   page.setRecords(records);
+	}	
+	@Override
+	public List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId) {
+		List<CourseLecturVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
+		return courses;
 	}
 }

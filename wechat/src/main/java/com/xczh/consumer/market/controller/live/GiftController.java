@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit;
  * Create by: name：lituao <br>email: jvmtar@gmail.com <br>
  * Create Time: 2017年8月21日<br>
  */
-@Controller
+@Controller(value="giftController1")
 @RequestMapping(value = "/bxg/gift")
 public class GiftController {
 

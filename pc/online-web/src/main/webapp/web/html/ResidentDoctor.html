@@ -24,9 +24,12 @@
 
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
     <link rel="stylesheet" href="/web/css/ResidentDoctor.css">
-        <link rel="stylesheet" href="/web/css/style.css"/>
+    <link rel="stylesheet" href="/web/css/style.css"/>
     <link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
-
+	<link rel="stylesheet" href="/web/css/jquery.fileupload.css">
+	
+	
+	
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
     <script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
@@ -155,7 +158,7 @@
 							
 							<div class="idCard_pic">
 								<span style="vertical-align: top;"><em>*</em> 身份证</span>
-								<span class="idFont_pic">
+								<span class="idFont_pic" onclick="$('#idFont_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证正面图片</p>
 								</span>
@@ -167,6 +170,7 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="" id="idFont_pic_ipt" />
 								<span class="warning hide" style="margin-left:110px">请上传身份证图片</span>
 							</div>
 							
@@ -339,5 +343,7 @@
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript" src="/web/js/cropbox.js"></script>
+<script src="/web/js/jquery.ui.widget.js"></script>
+<script src="/web/js/jquery.fileupload.js"></script>
 <script src="/web/js/ResidentDoctor.js"></script>
 <script src="/web/js/doctorAuthentication.js"></script>

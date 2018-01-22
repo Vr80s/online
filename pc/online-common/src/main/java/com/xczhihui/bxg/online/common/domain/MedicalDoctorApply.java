@@ -9,7 +9,7 @@ import java.util.Date;
  * @author zhuwenbao
  */
 
-@Entity
+@Entity(name = "medical_doctor_apply")
 @Table(name = "medical_doctor_apply")
 public class MedicalDoctorApply implements Serializable {
 

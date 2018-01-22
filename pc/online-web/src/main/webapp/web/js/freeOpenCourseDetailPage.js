@@ -114,7 +114,7 @@ window.onload=function(){
         '确认报名' +
         '</a>' +
 //        '<a class="baomingSucces" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >' +
-        '<a class="baomingSucces" href="/web/livepage/'+courserId+'/'+direct_id+'/null" class="purchase" >' +
+        '<a class="baomingSucces" href="/web/livepage/'+courserId+'" class="purchase" >' +
         '立即学习' +
         '</a>' +
         '{{else}}' +
@@ -172,7 +172,7 @@ window.onload=function(){
         
         
         '{{if item.selfCourse == true}}' +
-        '<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/{{item.direct_id}}/null">立即查看</a>' +
+        '<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'">立即查看</a>' +
 		'{{else}}'+  
 	        '{{if item.free == true}}' +
 	        '<p class="bigpic-body-money">' +
@@ -181,7 +181,7 @@ window.onload=function(){
 	        '<div class="bigpic-body-btn">' +
 	        '{{if item.apply==true}}'+
 	//        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即学习</a>'+
-	        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/{{item.direct_id}}/null">立即学习</a>' +
+	        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'">立即学习</a>' +
 	//        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/{{direct_id}}/null" >立即学习</a>'+
 	        '{{else}}'+
 	        '<a class="sign-up purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" target="_blank">立即报名</a>'+
@@ -239,7 +239,7 @@ window.onload=function(){
         $(".sidebar-body-QQ-name").append("<p class='greend-QQnumber'><span>QQ号 : </span>"+
         "<a href='tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin="+data.resultObject.qqno+"' >"+ data.resultObject.qqno + "</a></p>")
         document.title=data.resultObject.courseName+" - 熊猫中医云课堂";
-        $(".baomingSucces").attr("href","/web/livepage/"+data.resultObject.id+"/"+data.resultObject.direct_id+"/null");
+        $(".baomingSucces").attr("href","/web/livepage/"+data.resultObject.id);
         $(".bigpic-title").html(template.compile(mytitlelist)({
             item: data.resultObject
         }));

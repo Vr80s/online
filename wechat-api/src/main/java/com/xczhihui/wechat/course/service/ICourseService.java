@@ -9,15 +9,17 @@ public interface ICourseService {
 	
 	  public Page<CourseLecturVo> selectCoursePage(Page<CourseLecturVo> page);
 	  
+
 	  /**
 	   * Description:通过课程id查找课程详细
-	   * @param page
+	   * @param courseId
 	   * @return
 	   * @return CourseLecturVo
 	   * @author name：yangxuan <br>email: 15936216273@163.com
 	   */
 	  public CourseLecturVo selectCourseDetailsById(Integer courseId);
 	  
+
 	  /**
 	   * Description：学习中心中的课程
 	   * @param id
@@ -36,7 +38,7 @@ public interface ICourseService {
 	   * @author name：yangxuan <br>email: 15936216273@163.com
 	   *
 	   */
-	  Integer selectMyFreeCourseListCount(String userId);
+	  public Integer selectMyFreeCourseListCount(String userId);
 
 	  /**
 	   * 
@@ -50,4 +52,7 @@ public interface ICourseService {
 	   */
 	  Page<CourseLecturVo> selectMyFreeCourseList(Page<CourseLecturVo> page,
 			String userId);
+	  
+
+	  List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
 }
