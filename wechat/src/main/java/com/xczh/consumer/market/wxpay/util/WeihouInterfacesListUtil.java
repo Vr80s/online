@@ -26,7 +26,7 @@ public class WeihouInterfacesListUtil {
 	public static final String CURRENT_USER_ID ="http://e.vhall.com/api/vhallapi/v2/user/get-user-id";
 	
 	//注册用户  http://e.vhall.com/api/vhallapi/v2/user/register
-	public static final String REGISTER = "http://e.vhall.com/api/vhallapi/v2/user/REGISTER";
+	public static final String REGISTER = "http://e.vhall.com/api/vhallapi/v2/user/register";
 	
 	//获取用户信息
 	public static final String GET_USER_INFO = "http://e.vhall.com/api/vhallapi/v2/user/get-user-info";
