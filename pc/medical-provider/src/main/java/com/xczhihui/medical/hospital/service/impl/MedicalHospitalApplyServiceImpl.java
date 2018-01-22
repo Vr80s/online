@@ -2,7 +2,10 @@ package com.xczhihui.medical.hospital.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.doctor.enums.MedicalHospitalApplyEnum;
+import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
+import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
+import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import org.apache.commons.lang3.StringUtils;
@@ -25,6 +28,10 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
     @Autowired
     private MedicalHospitalApplyMapper applyMapper;
+    @Autowired
+    private MedicalHospitalAccountMapper hospitalAccountMapper;
+    @Autowired
+    private MedicalHospitalMapper hospitalMapper;
 
     /**
      * 添加医馆入驻申请认证信息
@@ -35,6 +42,14 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
         // 参数校验
         this.validate(target);
+
+        // 判断用户是否已经拥有已认证的医馆
+        MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(target.getUserId());
+        if(hospitalAccount != null && StringUtils.isNotBlank(hospitalAccount.getDoctorId())){
+            if(hospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())){
+                throw new RuntimeException("您已经拥有已认证的医馆，不能再申请认证");
+            }
+        }
 
         // 获取用户最后一次申请认证信息
         MedicalHospitalApply lastApply = this.getLastOne(target.getUserId());
