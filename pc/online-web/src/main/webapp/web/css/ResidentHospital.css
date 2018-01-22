@@ -939,3 +939,211 @@ a {
 #Notice_Administration .Notice_bottom2 table tr,#Notice_Administration .Notice_bottom2 table td{
 	border: 1px solid #DEDEDE;
 }
+
+
+/*医师信息查看隐藏的模态框编辑*/
+#doc_Administration_bottom3,
+#doc_Administration_bottom4{
+	text-align: left;
+	padding-top: 30.5px;
+	padding-left: 20px;
+	background: #fff;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  padding-right: 40px;
+  transform: translateY(-50%) translateX(-50%);
+  z-index: 999;
+}
+#doc_Administration_bottom3{
+	top:43%;
+}
+#doc_Administration_bottom3 > div,
+#doc_Administration_bottom4 > div{
+	margin-bottom: 20px;
+}
+#doc_Administration_bottom4 .close_doc_inf,
+#doc_Administration_bottom3 .close_doc_inf {
+	position: absolute;
+	font-size: 18px;
+	color: #f40;
+	cursor: pointer;
+	top:0px;
+	right: 0px;
+}
+#doc_Administration_bottom3 > div > span:first-child,
+#doc_Administration_bottom4 > div > span:first-child{
+	  display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+
+}
+#doc_Administration_bottom3 > div > span:first-child em,
+#doc_Administration_bottom4 > div > span:first-child em{
+	  color: #f40;
+    display: inline;
+}
+
+#doc_Administration_bottom3 > div .doc_Idnum,
+#doc_Administration_bottom3 > div .doc_name,
+#doc_Administration_bottom3 > div .doc_zhicheng,
+#doc_Administration_bottom3 > div .doc_shanchang,
+#doc_Administration_bottom3 > div .doc_hospital,
+#doc_Administration_bottom4 > div .doc_Idnum,
+#doc_Administration_bottom4 > div .doc_name,
+#doc_Administration_bottom4 > div .doc_zhicheng,
+#doc_Administration_bottom4 > div .doc_shanchang,
+#doc_Administration_bottom4 > div .doc_hospital{
+	width: 280px;
+ 	height: 36px;
+ 	border: 1px solid #f0f0f0;
+ 	outline: none;
+ 	text-indent: 1em;
+ 	margin-right: 10px;
+ 	font-size: 14px;
+}
+#doc_Administration_bottom3 >.idCard_pic .idFont_pic,
+#doc_Administration_bottom3 >.idCard_pic .idBack_pic,
+#doc_Administration_bottom4 >.idCard_pic .idFont_pic,
+#doc_Administration_bottom4 >.idCard_pic .idBack_pic{
+	display: inline-block;
+	width: 260px;
+	height: 147px;
+	background-color: #f0f0f0;
+	margin-right: 20px;
+	vertical-align: middle;
+}
+#doc_Administration_bottom3 >.idCard_pic .idFont_pic:hover,
+#doc_Administration_bottom3 >.idCard_pic .idBack_pic:hover,
+#doc_Administration_bottom4 >.idCard_pic .idFont_pic:hover,
+#doc_Administration_bottom4 >.idCard_pic .idBack_pic:hover{
+	cursor: pointer;
+}
+#doc_Administration_bottom3 >.idCard_pic .idCard_tip,
+#doc_Administration_bottom3 >.zhiye_picUpdata .zhiiye_pic_tip,
+#doc_Administration_bottom3 >.zhicheng_picUpdata .zhicheng_pic_tip,
+#doc_Administration_bottom4 >.idCard_pic .idCard_tip,
+#doc_Administration_bottom4 >.zhiye_picUpdata .zhiiye_pic_tip,
+#doc_Administration_bottom4 >.zhicheng_picUpdata .zhicheng_pic_tip{
+    display: inline-block;
+    width: 159px;
+    height: 48px;
+    color: #999;
+}
+#doc_Administration_bottom3 >.idCard_pic .idCard_tip p,
+#doc_Administration_bottom3 >.zhiye_picUpdata .zhiiye_pic_tip p,
+#doc_Administration_bottom3 >.zhicheng_picUpdata .zhicheng_pic_tip p,
+#doc_Administration_bottom4 >.idCard_pic .idCard_tip p,
+#doc_Administration_bottom4 >.zhiye_picUpdata .zhiiye_pic_tip p,
+#doc_Administration_bottom4 >.zhicheng_picUpdata .zhicheng_pic_tip p{
+	font-size: 14px;
+}
+#doc_Administration_bottom3 >.teacher_picUpdata .teacher_pic,
+#doc_Administration_bottom3 >.zhiye_picUpdata .zhiye_pic,
+#doc_Administration_bottom3 >.zhicheng_picUpdata .zhicheng_pic,
+#doc_Administration_bottom4 >.teacher_picUpdata .teacher_pic,
+#doc_Administration_bottom4 >.zhiye_picUpdata .zhiye_pic,
+#doc_Administration_bottom4 >.zhicheng_picUpdata .zhicheng_pic{
+	display: inline-block;
+	width: 260px;
+	height: 147px;
+	background-color: #f0f0f0;
+	margin-right: 20px;
+	vertical-align: middle;
+} 
+#doc_Administration_bottom3 >.teacher_picUpdata .teacher_pic:hover,
+#doc_Administration_bottom3 >.zhiye_picUpdata .zhiye_pic:hover,
+#doc_Administration_bottom3 >.zhicheng_picUpdata .zhicheng_pic:hover,
+#doc_Administration_bottom4 >.teacher_picUpdata .teacher_pic:hover,
+#doc_Administration_bottom4 >.zhiye_picUpdata .zhiye_pic:hover,
+#doc_Administration_bottom4 >.zhicheng_picUpdata .zhicheng_pic:hover{
+	cursor: pointer;
+}
+#doc_Administration_bottom3 >.touxiang_picUpdata .touxiang_pic,
+#doc_Administration_bottom4 >.touxiang_picUpdata .touxiang_pic{
+	width: 120px;
+	height: 120px;
+	display: inline-block;
+	background-color: #f0f0f0;
+	vertical-align: middle;
+	margin-right: 20px;
+}
+#doc_Administration_bottom3 >.touxiang_picUpdata .touxiang_pic:hover,
+#doc_Administration_bottom4 >.touxiang_picUpdata .touxiang_pic:hover{
+	cursor: pointer;
+}
+#doc_Administration_bottom3 >.touxiang_picUpdata .touxiang_pic_tip,
+#doc_Administration_bottom4 >.touxiang_picUpdata .touxiang_pic_tip{
+	display: inline-block;
+	color: #999;
+}
+#doc_Administration_bottom3 >.touxiang_picUpdata .touxiang_pic_tip p,
+#doc_Administration_bottom4 >.touxiang_picUpdata .touxiang_pic_tip p{
+	font-size: 14px;
+}
+#doc_Administration_bottom3 >.keshi ul,
+#doc_Administration_bottom4 >.keshi ul{
+	width: 540px;
+	display: inline-block;
+  vertical-align: top;
+}
+#doc_Administration_bottom3 >.keshi ul li,
+#doc_Administration_bottom4 >.keshi ul li{
+	width: 92px;
+	height: 36px;
+	text-align: center;
+	line-height: 36px;
+	border: 1px solid #DEDEDE;
+	border-radius: 4px;
+	margin-right: 20px;
+	float: left;
+	margin-bottom: 20px;
+	font-size: 14px;
+}
+#doc_Administration_bottom3 >.keshi ul li:hover,
+#doc_Administration_bottom4 >.keshi ul li:hover{
+	cursor: pointer;
+}
+#doc_Administration_bottom3 >.keshi ul li:nth-child(5n),
+#doc_Administration_bottom4 >.keshi ul li:nth-child(5n){
+	margin-right: 0;
+}
+#doc_Administration_bottom3 .personIntroduct textarea,
+#doc_Administration_bottom4 .personIntroduct textarea {
+	width: 540px;
+	height: 160px;
+	padding: 10px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	vertical-align: top;
+	font-size: 14px;
+}
+#doc_Administration_bottom3 .doc_address select,
+#doc_Administration_bottom4 .doc_address select{
+	width: 240px;
+  height: 36px;
+  border: 1px solid #F0F0F0;
+  outline: none;
+  font-size: 14px;
+  color: #999;
+}
+#doc_Administration_bottom3 .baocun{
+	padding-left: 110px;
+	padding-bottom: 40px;
+}
+#doc_Administration_bottom3 .baocun #submit{
+	  display: inline-block;
+    width: 120px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}

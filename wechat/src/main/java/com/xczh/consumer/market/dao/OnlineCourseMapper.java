@@ -145,7 +145,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public Integer getIsCouseType(Integer courseId) throws SQLException{
-		String sql = "select IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type from oe_course as c where id = ?";
+		String sql = "select IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type from oe_course as c where id = ?";
 		//this.query(JdbcUtil.getCurrentConnection(), sql,MapHandler new Object()[courseId]);
 		Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,
 				new MapHandler(),courseId);
@@ -170,7 +170,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 	 */
 	public Map<String, Object> shareJump(Integer courseId) throws SQLException{
 		
-		String sql = "select c.direct_Id as directId,IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "
+		String sql = "select c.direct_Id as directId,IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "
 				+ "c.live_status as state,c.grade_name as gradeName,smallimg_path as smallImgPath   from oe_course as c where id = ?";
 		Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql,
 				new MapHandler(),courseId);
@@ -207,9 +207,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
 		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
 		sql.append("c.original_cost as originalCost,c.current_price as currentPrice,");
-		//sql.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  // 观看状态  
 		sql.append(" if(c.course_pwd is not null,2,if(c.is_free = 0,1,0)) as watchState, ");  // 观看状态  
-		sql.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
+		sql.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 		//观看人数
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");

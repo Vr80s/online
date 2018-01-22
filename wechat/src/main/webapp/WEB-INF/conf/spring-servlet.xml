@@ -123,8 +123,9 @@
 	<bean id="attachmentCenterController" class="com.xczhihui.bxg.common.web.controller.AttachmentCenterController" />-->
 
 	<dubbo:application name="wechat2"/>
+	<!--  -->
 	<dubbo:registry protocol="zookeeper" address="zookepper-server:2080"/>
-	<!-- <dubbo:registry protocol="zookeeper" address="47.92.97.239:2080"/> -->
+	<!--  <dubbo:registry protocol="zookeeper" address="47.92.97.239:2080"/> -->
 	
 	
 	<dubbo:reference id="userCenterAPI"  interface="com.xczhihui.bxg.user.center.service.UserCenterAPI" timeout="5000" />

@@ -83,7 +83,6 @@ public class CourseController {
 			target.setUserId(user.getId());
 			watchHistoryServiceImpl.add(target);
 			onlineWebService.saveEntryVideo(Integer.parseInt(courseId), user);
-			//加1
 			cv.setLearndCount(cv.getLearndCount()+1);
 	    }
 		return ResponseObject.newSuccessResponseObject(cv);
