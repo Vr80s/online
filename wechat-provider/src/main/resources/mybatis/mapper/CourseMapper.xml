@@ -65,7 +65,8 @@
 		  ou.description as as lecturerDescription
 		FROM
 		  oe_course as oc 
-		  inner join  oe_user as ou  on  oc.user_lecturer_id = ou.id and oc.id = #{courseId}
+		  inner join  oe_user as ou 
+		  left  join  on  oc.user_lecturer_id = ou.id and oc.id = #{courseId}
 	</select>
 	
 	

@@ -95,9 +95,9 @@ public class OLCourseMapper extends BasicSimpleDao {
 			all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");
 			all.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");//判断是否要输入密码
-			all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type ");
+			all.append(" IF(oc.type =1,1,if(oc.multimedia_type=1,2,3)) as type ");
 			all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-			all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1 and oc.type is null ");//and oc.is_free=0 oc.course_type=1 and
+			all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1  ");//and oc.is_free=0 oc.course_type=1 and
 			all.append(" and oc.multimedia_type =? ");
 			all.append(" order by oc.sort desc");
 
@@ -116,9 +116,9 @@ public class OLCourseMapper extends BasicSimpleDao {
 			sql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");
 			sql.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");//判断是否要输入密码
-			sql.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type ");
+			sql.append(" IF(oc.type = 1,1,if(oc.multimedia_type=1,2,3)) as type ");
 			sql.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-			sql.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  and oc.menu_id=?  and oc.type is null");//and oc.is_free=0 oc.course_type=1 and
+			sql.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1  and oc.menu_id=? ");//and oc.is_free=0 oc.course_type=1 and
 			sql.append(" and oc.multimedia_type =? ");
 			sql.append(" order by oc.sort desc");
 			//sql.append(" limit " + number+","+pageSize);
@@ -143,7 +143,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 				+ "ocm.img_url as smallImgPath,"
 				+ "ou.small_head_photo as headImg,ou.name as name,");
 		all.append(" if(oc.is_free = 0,1,if(oc.course_pwd is null,0,2)) as watchState, ");//观看状态
-		all.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, ");//观看状态
+		all.append(" IF(oc.type = 1,1,if(oc.multimedia_type=1,2,3)) as type, ");//观看状态
 		
 		all.append(" oc.course_length as courseLength, ");//课程时长 
 		
@@ -151,7 +151,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");
 		all.append(" oc.live_status as  lineState ");
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1 and oc.type is null ");//and oc.is_free=0 oc.course_type=1 and
+		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id  and oc.is_delete=0 and oc.status=1 ");//and oc.is_free=0 oc.course_type=1 and
 		//房间编号/主播/课程
 		if(queryParam!=null && !"".equals(queryParam) && !"null".equals(queryParam)){
 			all.append(" and ("); 
@@ -191,7 +191,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 		all.append(" ocm.description as courseDescription  ");
 		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.id =?  and oc.is_delete=0 and oc.status=1 and oc.type is null");
+		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.id =?  and oc.is_delete=0 and oc.status=1 ");
 		Object[] params = {course_id};
 		return  super.query(JdbcUtil.getCurrentConnection(), all.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 	}

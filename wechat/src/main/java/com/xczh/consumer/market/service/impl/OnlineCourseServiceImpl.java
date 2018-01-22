@@ -318,7 +318,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	 	    common.append("c.learnd_count as learndCount,(c.course_length*3600) as courseLength,");
 	 	    common.append("c.original_cost as originalCost,c.current_price as currentPrice,");
 	 	    common.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  // 观看状态  
-	 	    common.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
+	 	    common.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 	 	    common.append(" ou.small_head_photo as headImg,ou.name as name, ");
 	 	    common.append(" c.live_status as  lineState ");
 	    }else{
@@ -328,7 +328,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	 	    common.append(" (select sum(time_to_sec(CONCAT('00:',video_time))) from  oe_video where course_id = oc.id) as courseLength, ");
 	 	    common.append(" oc.original_cost as originalCost,oc.current_price as currentPrice, ");
 	 	    common.append(" if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState, ");  // 观看状态  
-	 	    common.append(" IF(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, "); //类型 
+	 	    common.append(" IF(oc.type = 1,1,if(oc.multimedia_type=1,2,3)) as type, "); //类型 
 	 	    common.append(" ou.small_head_photo as headImg,ou.name as name, ");
 	 	    common.append(" oc.live_status as  lineState ");
 	    }
@@ -378,7 +378,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		 *  点播课程
 		 */
 		sql.append("select count(*) as count from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-		sql.append(" where oc.user_lecturer_id = ou.id and oc.user_lecturer_id = ? and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1 and oc.type is null");//
+		sql.append(" where oc.user_lecturer_id = ou.id and oc.user_lecturer_id = ? and oc.id=ocm.course_id and oc.is_delete=0 and oc.status=1 and oc.type = 2 ");//
 		sql.append(") as all_course");
 		
 		Map<String, Object> map = super.query(JdbcUtil.getCurrentConnection(), sql.toString(), new MapHandler(),lecturerId,lecturerId);
@@ -453,7 +453,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append("select c.grade_name as gradeName,c.multimedia_type as multimediaType,");
 			sql.append("ocm.img_url as smallImgPath,c.description as description");
 			sql.append(" from oe_course c,oe_course_mobile as ocm ");
-			sql.append(" where c.id = ocm.course_id and c.id = ? and c.is_delete=0 and c.status = 1 ");
+			sql.append(" where c.id = ocm.course_id and c.id = ?  and  c.type=2  and c.is_delete=0 and c.status = 1 ");
 			map = super.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 					new MapHandler(),courseId);
 			
@@ -498,7 +498,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	@Override //TODO
 	public CourseLecturVo courseStatusList(int course_id, String userId) throws SQLException {
 		StringBuffer sql = new StringBuffer("");
-		sql.append("select c.start_time as startTime,c.end_time as endTime,IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type,");
+		sql.append("select c.start_time as startTime,c.end_time as endTime,IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type,");
 		sql.append("if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState,c.user_lecturer_id as userId ");  //课程简介
 		sql.append(" from oe_course c where  c.is_delete=0 and c.status = 1 ");
 		Object[] params = {course_id};
@@ -564,7 +564,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		sql1.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
 		sql1.append("c.original_cost as originalCost,c.current_price as currentPrice,");
 		sql1.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  // 观看状态  
-		sql1.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
+		sql1.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 		sql1.append(" c.live_status as  lineState ");
 		sql1.append(" from oe_course c,oe_user ou ");
 		sql1.append(" where  c.user_lecturer_id = ou.id  and  c.is_delete=0 and c.status = 1 and ou.status =0 and c.type=1  ");
@@ -579,7 +579,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		sql2.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime, ");
 		sql2.append("c.original_cost as originalCost,c.current_price as currentPrice,");
 		sql2.append(" if(c.course_pwd is not null,2,if(c.is_free =0,1,0)) as watchState, ");  // 观看状态  
-		sql2.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
+		sql2.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 		sql2.append(" c.live_status as  lineState  ");
 		sql2.append(" from oe_course c,oe_user ou ");
 		sql2.append(" where  c.user_lecturer_id = ou.id  and  c.is_delete=0 and c.status = 1 and ou.status =0 and c.type=1  ");
@@ -610,7 +610,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime,");
 			sql.append("c.description as description,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
 			
-			sql.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
+			sql.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 			
 			sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) "); //观看人数
 			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.live_status as  lineState  ");
@@ -637,7 +637,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 			sql.append("select c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,ou.id as userId,");
 			sql.append("ocm.img_url as smallImgPath,ocm.description as description,");
 			
-			sql.append(" IF(c.type is not null,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
+			sql.append(" IF(c.type = 1,1,if(c.multimedia_type=1,2,3)) as type, "); //类型 
 			
 			sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) "); //观看人数
 			sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount,c.description as courseDescription ");
