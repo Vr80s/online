@@ -13,7 +13,7 @@ import java.util.Map;
  * @author zhuwenbao
  */
 
-@Repository
+@Repository("doctorApplyDao")
 public class DoctorApplyDao extends HibernateDao<MedicalDoctorApply> {
 
     /**
@@ -26,9 +26,10 @@ public class DoctorApplyDao extends HibernateDao<MedicalDoctorApply> {
     public Page<MedicalDoctorApply> list(MedicalDoctorApply searchVo, int currentPage, int pageSize) {
 
         Map<String,Object> paramMap = new HashMap(3);
-        String hql = "SELECT * FROM `medical_doctor_apply` where order by create_time desc";
+        StringBuilder hql = new StringBuilder("select id,name,title,description from medical_doctor_apply where deleted = 0 ");
+        hql.append(" order by create_time desc ");
 
-        return this.findPageByHQL(hql, paramMap , currentPage, pageSize);
+        return this.findPageByHQL(hql.toString(), paramMap , currentPage, pageSize);
 
     }
 }

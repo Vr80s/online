@@ -57,7 +57,6 @@ public class HospitalApplyController {
 
         responseObj.setSuccess(true);
         responseObj.setErrorMessage("入驻申请信息提交成功");
-        responseObj.setResultObject(target);
         return responseObj;
     }
 

@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.manager.medical.web;
 
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorApply;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorApplyService;
@@ -52,7 +53,7 @@ public class DoctorApplyController extends AbstractController{
 	public TableVo list(TableVo tableVo) {
 		int pageSize = tableVo.getiDisplayLength();
 		int index = tableVo.getiDisplayStart();
-		int currentPage = index / pageSize + 1;
+		int currentPage = index / pageSize;
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
 
@@ -65,5 +66,21 @@ public class DoctorApplyController extends AbstractController{
 		tableVo.setiTotalRecords(total);
 		return tableVo;
 		
+	}
+
+	/**
+	 * 更新医师入驻申请状态
+	 */
+	@RequestMapping(value = "updateStatus")
+	@ResponseBody
+	public ResponseObject updateStatus(MedicalDoctorApply doctorApply) {
+
+		ResponseObject responseObj = new ResponseObject();
+
+		doctorApplyService.updateStatus(doctorApply);
+
+		responseObj.setSuccess(true);
+		responseObj.setErrorMessage("修改成功");
+		return responseObj;
 	}
 }
