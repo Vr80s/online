@@ -217,6 +217,11 @@ a {
 	margin-right: 20px;
 	vertical-align: middle;
 }
+#doc_Distinguish .bottomContent >.idCard_pic .idFont_pic img,
+#doc_Distinguish .bottomContent >.idCard_pic .idBack_pic img {
+	width: 100%;
+	height: 100%;
+}
 #doc_Distinguish .bottomContent >.idCard_pic .idFont_pic:hover,
 #doc_Distinguish .bottomContent >.idCard_pic .idBack_pic:hover{
 	cursor: pointer;

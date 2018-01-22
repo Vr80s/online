@@ -232,3 +232,17 @@ $('#doctor_in_inf .news_nav ul li a').click(function(){
 })
 
 
+
+
+//医师认证上传图片部分处理
+ $('#idFont_pic_ipt').fileupload({
+            /*上传接口*/
+            url:'/medical/common/upload',
+            /*返回json*/
+            dataType:'json',
+            /*上传成功回调*/
+            done:function (e,data) {
+                console.log(data.result);
+                $('#idFont_pic').html('<img src="'+data.result.url+'" >');
+            }
+        });
