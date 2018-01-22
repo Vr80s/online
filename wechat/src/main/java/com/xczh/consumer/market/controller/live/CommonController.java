@@ -536,17 +536,20 @@ public class CommonController {
 		 * 这里有个问题就是。如果去分享页面的话
 		 */
 		String courseId = req.getParameter("courseId");  //视频id
+		
+		System.out.println("========"+courseId);
 		/*
 		 * 这里需要判断下是不是微信浏览器
 		 */
 		String wxOrbrower = req.getParameter("wxOrbrower");  //视频id
-		if(StringUtils.isNotBlank(wxOrbrower) && "WX".equals(wxOrbrower)){
+		System.out.println();
+		if(StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)){
 			String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 			res.sendRedirect(strLinkHome);
 		}else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
 			res.sendRedirect(returnOpenidUri +"/bxg/wxpay/h5ShareGetWxUserInfo?courseId="+courseId+"&wxOrbrower=brower");//
 		}
-		
+		System.out.println("{}{}{}{}{}="+courseId);
 //		if(courseId == null ){
 //			LOGGER.info("参数异常啦");
 //		}
