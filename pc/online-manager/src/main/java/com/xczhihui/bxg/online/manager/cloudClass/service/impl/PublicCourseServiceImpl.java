@@ -89,6 +89,15 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		}else{
 			 sort=1;
 		}
+		//设置精品推荐排序
+		String essenceSortsql="SELECT IFNULL(MAX(essence_sort),0) as essenceSort FROM oe_course ";
+		List<Course> essenceSorttemp = dao.findEntitiesByJdbc(Course.class, essenceSortsql, params);
+		int essenceSort;
+		if(essenceSorttemp.size()>0){
+			essenceSort=essenceSorttemp.get(0).getEssenceSort().intValue()+1;
+		}else{
+			essenceSort=1;
+		}
 		//当课程存在密码时，设置的当前价格失效，改为0.0 yuruixin20170819
 		if(courseVo.getCoursePwd()!=null && !"".equals(courseVo.getCoursePwd().trim())){
 			courseVo.setCurrentPrice(0.0);
@@ -101,6 +110,7 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		entity.setCreateTime(new Date()); //当前时间
 		entity.setStatus('0' + ""); //状态
 		entity.setSort(sort); //排序
+		entity.setEssenceSort(essenceSort); //精品推荐排序
 		entity.setStartTime(courseVo.getStartTime());//直播开始时间
 		entity.setEndTime(courseVo.getEndTime());//直播结束时间
 		

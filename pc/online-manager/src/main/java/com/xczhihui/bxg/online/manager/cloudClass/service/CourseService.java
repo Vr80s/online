@@ -60,8 +60,10 @@ public interface CourseService {
 	 *@return void
 	 */
 	public void updateCourse(CourseVo courseVo);
-	
-	/**
+
+    void checkName(Integer id,String courseName);
+
+    /**
 	 * 修改课程
 	 * 
 	 *@return void
@@ -215,9 +217,10 @@ public interface CourseService {
 	 * @param courseDetail
 	 * @param courseOutline
 	 * @param commonProblem
+	 * @param lecturerDescription
 	 */
 	public void updateCourseDetail(String courseId, String smallImgPath, String detailImgPath, String courseDetail,
-			String courseOutline, String commonProblem);
+								   String courseOutline, String commonProblem, String lecturerDescription);
 	/**
 	 * 获得课程详情
 	 * @param courseId

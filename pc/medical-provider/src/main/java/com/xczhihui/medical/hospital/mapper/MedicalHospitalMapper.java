@@ -3,6 +3,7 @@ package com.xczhihui.medical.hospital.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
@@ -31,4 +32,12 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
     List<MedicalFieldVO> getHotField();
 
     List<MedicalFieldVO> selectMedicalFieldsByHospitalId(String hospitalId);
+
+    boolean getAuthenticationById(String id);
+
+    /**
+     * 获取医疗领域
+     * @return 医疗领域集合
+     */
+    List<MedicalFieldVO> getFieldsPage(Page page);
 }

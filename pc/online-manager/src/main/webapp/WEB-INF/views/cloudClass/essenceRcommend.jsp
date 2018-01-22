@@ -19,10 +19,12 @@
 </div>
 
 <div class="mainrighttab tabresourse bordernone">
-  <p class="col-xs-4" style="padding:0px">
-    <button class="btn btn-sm btn-success add_bx" id="add_button" title="新增课程类别"><i class="glyphicon glyphicon-plus"></i> 新增课程类别</button>
-    <button class="btn btn-sm btn-success deletes_bx"  onclick="deleteBatch();" title="批量删除"><i class="glyphicon glyphicon-trash"></i> 批量删除</button>
-  </p>
+  <%--<p class="col-xs-4" style="padding:0px">
+    <button class="btn btn-sm btn-success add_jp" id="add_button" title="设为精品课程">
+        <i class="glyphicon glyphicon-plus"></i> 设为精品课程</button>
+    <button class="btn btn-sm btn-success deletes_jp"  onclick="deleteBatch();" title="取消精品课程">
+        <i class="glyphicon glyphicon-trash"></i> 取消精品课程</button>
+  </p>--%>
     <div class="searchDivClass" id="searchDiv">
         <div class="profile-info-row" >
 
@@ -35,42 +37,7 @@
   </div>
 </div>
 
-<!-- 查看 -->
-<div id="previewCloudClasMenuDialogDiv"></div>
-<div id="previewCloudClasMenuDialog" class="hide" >
-    <form class="form-horizontal"  method="post" action="" style="width:500px;margin-top: 15px;" >
-        <div class="form-group row">
-            <label class="col-sm-5 control-label no-padding-right"><i class="text-danger">*</i><span style="font-weight: bold;"> 课程类别名称: </span></label>
-            <div class="col-sm-7">
-                <p id="show_menuName" class="paddingtop7px padding7"></p>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-5 control-label no-padding-right"><span style="font-weight: bold;"> 创建人:</span> </label>
-            <div class="col-sm-7">
-                <p id="show_createPerson" class="paddingtop7px padding7"></p>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-5 control-label no-padding-right"> <span style="font-weight: bold;">创建日期: </span></label>
-            <div class="col-sm-7">
-                <p id="show_createTime" class="paddingtop7px padding7"></p>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label class="col-sm-5 control-label no-padding-right"> <span style="font-weight: bold;">状态:</span> </label>
-            <div class="col-sm-7">
-                <p id="show_status" class="paddingtop7px padding7"></p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-5 control-label no-padding-right"><i class="text-danger"></i><span style="font-weight: bold;"> 备注:</span> </label>
-            <div class="col-sm-7">
-                <p id="show_remark" class="paddingtop7px padding7"></p>
-            </div>
-        </div>
-    </form>
-</div>
 
 
-<script type="text/javascript" src="${base}/js/cloudClass/essenceRecommend.js?ver=1.2"></script>
+
+<script type="text/javascript" src="${base}/js/cloudClass/essenceRecommend.js?ver=1.2 "></script>

@@ -3,6 +3,9 @@ package com.xczhihui.medical.doctor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorField;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +17,9 @@ import com.xczhihui.medical.doctor.model.MedicalDoctorField;
  */
 public interface MedicalDoctorFieldMapper extends BaseMapper<MedicalDoctorField> {
 
+    /**
+     * 批量新增
+     * @param fields 领域集合
+     */
+    void insertBatch(@Param("fields") List<MedicalDoctorField> fields);
 }

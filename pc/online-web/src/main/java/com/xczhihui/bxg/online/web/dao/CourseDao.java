@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,21 +73,19 @@ public class CourseDao extends SimpleHibernateDao {
 
         StringBuffer  sqlSb=new StringBuffer();
         sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.original_cost,cou.current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,cou.multimedia_type multimediaType,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,");
-//        sqlSb.append(" if(cou.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=cou.id),");
-//        sqlSb.append(" (select sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=cou.id  and is_delete=0 and status=1)) learnd_count,");
         sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0) + IFNULL(default_student_count, 0) learnd_count,");
         sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
                 + "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
         sqlSb.append("  where  cou.is_delete=0  and  cou.status=1  ");
-        sqlSb.append(" AND ISNULL(cou.type) ");
-        sqlSb.append(" AND cou.`online_course`!=1 ");
+
         if(menuType!=null){
-        if(menuType==1||menuType==2||menuType==3){
-            paramMap.put("type", menuType);
-            sqlSb.append(" AND om.type = :type ");
-        }else if(menuType ==4){
-            sqlSb.append(" AND cou.online_course = 1 ");
-        }
+            if(menuType==1||menuType==2||menuType==3){
+                sqlSb.append(" AND cou.type = 2 ");
+                paramMap.put("type", menuType);
+                sqlSb.append(" AND om.type = :type ");
+            }else if(menuType ==4){
+                sqlSb.append(" AND cou.type = 3 ");
+            }
         }
 
         if(org.apache.commons.lang.StringUtils.isNotBlank(couseTypeId)){
@@ -153,7 +152,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  ON oc.`id` = argc.`course_id`\n" +
                 "WHERE argc.`user_id` = :userId \n" +
                 "  AND oc.is_free = :courseStatus \n" +
-                "  AND argc.`is_payment` IN (0,2) AND oc.`type` IS NULL AND oc.`online_course`=0 \n" +
+                "  AND argc.`is_payment` IN (0,2) AND oc.`type`= 2 \n" +
                 "GROUP BY oc.id " ;
         Page<CourseVo> page = this.findPageBySQL(sql, paramMap, CourseVo.class, pageNumber, pageSize);
         return page;
@@ -171,7 +170,7 @@ public class CourseDao extends SimpleHibernateDao {
     	paramMap.put("userId", userId);
     	paramMap.put("courseStatus", courseStatus);
     	String sql = " select oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,oc.`start_time` AS start_time, oc.`start_time` AS startTime, oc.`end_time` AS endTime,oc.direct_id" +
-    			" from  oe_course  oc join `apply_r_grade_course` argc on oc.id = argc.`course_id`   where oc.`online_course` = 0 and oc.type = 1 and argc.user_id=:userId  and oc.is_free =:courseStatus  group by oc.id ";
+    			" from  oe_course  oc join `apply_r_grade_course` argc on oc.id = argc.`course_id`   where oc.type = 1 and argc.user_id=:userId  and oc.is_free =:courseStatus  group by oc.id ";
     	Page<CourseVo> page = this.findPageBySQL(sql, paramMap, CourseVo.class, pageNumber, pageSize);
     	return page;
     }
@@ -188,7 +187,7 @@ public class CourseDao extends SimpleHibernateDao {
     	paramMap.put("userId", userId);
     	paramMap.put("courseStatus", courseStatus);
     	String sql = " select oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath,oc.start_time startTime,oc.end_time endTime" +
-    			" from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id`  where argc.user_id=:userId  and oc.is_free =:courseStatus AND oc.`online_course`=1 group by oc.id ";
+    			" from  oe_course  oc JOIN `apply_r_grade_course` argc ON oc.`id`=argc.`course_id`  where argc.user_id=:userId  and oc.is_free =:courseStatus AND oc.type=3 group by oc.id ";
     	Page<CourseVo> page = this.findPageBySQL(sql, paramMap, CourseVo.class, pageNumber, pageSize);
     	return page;
     }
@@ -210,13 +209,10 @@ public class CourseDao extends SimpleHibernateDao {
         paramMap.put("couseTypeId", couseTypeId);
         StringBuffer  sqlSb=new StringBuffer();
         sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.is_recommend as isRecommend,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.original_cost,cou.multimedia_type multimediaType,cou.current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,");
-//        sqlSb.append(" if(cou.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=cou.id),");
-//        sqlSb.append(" (select sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=cou.id  and is_delete=0 and status=1)) learnd_count,");
         sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0)+IFNULL(default_student_count, 0) learnd_count, ");
         sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
         		+ "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
         sqlSb.append("  where  cou.is_delete=0  and  cou.status=1  ");
-        sqlSb.append(" AND ISNULL(cou.type) ");
         switch (menuId) {
         case 0:
         	break;
@@ -235,12 +231,12 @@ public class CourseDao extends SimpleHibernateDao {
         	sqlSb.append(" AND om.type = :type ");
         	sqlSb.append(" AND om.yun_status = 1 ");
         	sqlSb= "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
-        	sqlSb.append(" AND cou.online_course = 0 ");
+        	sqlSb.append(" AND cou.type = 2 ");
         }else if(type ==4){
-        	sqlSb.append(" AND cou.online_course = 1 ");
+            sqlSb.append(" AND cou.type = 3 ");
         }else{
         	sqlSb= "0".equals(couseTypeId) ? sqlSb.append("") : sqlSb.append(" and cou.course_type_id = :couseTypeId ");
-        	sqlSb.append(" AND cou.online_course = 0 ");
+        	sqlSb.append(" AND cou.type = 2 ");
         }
         sqlSb.append(" order by  cou.sort desc ") ;
         Page<CourseLecturVo> page = this.findPageBySQL(sqlSb.toString(), paramMap, CourseLecturVo.class, pageNumber, pageSize);
@@ -259,7 +255,7 @@ public class CourseDao extends SimpleHibernateDao {
         String courseTableName = "1".equals(ispreview) ? "oe_course_preview" : "oe_course";
         String course_type = "1".equals(ispreview) ? "" : "c.course_type,";
         if (courseId != null) {
-        	String sql = " select "+course_type+" c.id,c.direct_id, c.is_recommend,c.online_course as onlineCourse, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,"+
+        	String sql = " select "+course_type+" c.id,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,"+
 //                         " if(c.is_free=1,IFNULL((SELECT  COUNT(*)  FROM apply_r_grade_course WHERE course_id = c.id),0)+SUM(IFNULL(default_student_count, 0)),"+
 //                         " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,"+
                          " IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,"+
@@ -322,7 +318,7 @@ public class CourseDao extends SimpleHibernateDao {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("orderNo",orderId);
         if (StringUtils.hasText(orderId)) {
-            String sql = " select type,c.id,c.is_free,o.user_id as userId,c.direct_id directId,c.online_course onlineCourse from oe_order o,oe_order_detail od,oe_course c" +
+            String sql = " select type,c.id,c.is_free,o.user_id as userId,c.direct_id directId from oe_order o,oe_order_detail od,oe_course c" +
                     " where o.id=od.order_id and od.course_id=c.id and o.id=:orderNo and c.is_delete =0 and c.status=1  ";
             List<CourseApplyVo> courseVoList =   this.findEntitiesByJdbc(CourseApplyVo.class, sql, paramMap);
             return  courseVoList.size() > 0 ? courseVoList.get(0) : null;
@@ -475,7 +471,7 @@ public class CourseDao extends SimpleHibernateDao {
      * @return 返回对应的课程对象
      */
     public  CourseVo   findCourseOrderById(Integer  courseId){
-         String  sql =" select id ,is_free isFree, course_type,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,online_course onlineCourse,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
+         String  sql =" select id ,is_free isFree, course_type,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
                       " current_price as currentPrice, now() as create_time, type, FORMAT(original_cost - current_price,2) as preferentyMoney from oe_course  where id =:courseId";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId",courseId);
@@ -514,7 +510,7 @@ public class CourseDao extends SimpleHibernateDao {
 //        String  querySql="select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0";
 //        List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
         /*20170810---yuruixin*/
-        if (course.getOnlineCourse()==0 && course.getType()==null && (course.getDirectId()==null || "".equals(course.getDirectId().trim())))
+        if (course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null || "".equals(course.getDirectId().trim())))
         {
             throw new RuntimeException("此课暂时没有视频,请稍后购买!");
         }

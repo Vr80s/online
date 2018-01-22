@@ -149,6 +149,17 @@ a {
 #hos_Administration .hos_base_inf .bottomContent > div{
 	margin-bottom: 20px;
 }
+#hos_Administration .hos_base_inf .bottomContent > div .hos_detailAddress{
+	  display: block;
+    width: 500px;
+    height: 90px;
+    border: 1px solid #F0F0F0;
+    resize: none;
+    margin: 10px 0px 20px 112px;
+    padding: 10px;
+    font-size: 14px;
+    outline: none;
+}
 #hos_Administration .hos_base_inf .bottomContent > div > span:first-child{
 	  display: inline-block;
     width: 89px;
@@ -164,11 +175,10 @@ a {
     display: inline;
 }
 
-#hos_Administration .hos_base_inf .bottomContent > div .doc_Idnum,
-#hos_Administration .hos_base_inf .bottomContent > div .doc_name,
 #hos_Administration .hos_base_inf .bottomContent > div .doc_zhicheng,
 #hos_Administration .hos_base_inf .bottomContent > div .doc_shanchang,
-#hos_Administration .hos_base_inf .bottomContent > div .doc_hospital{
+#hos_Administration .hos_base_inf .bottomContent > div .doc_hospital,
+#hos_Administration .hos_base_inf .bottomContent > div .hos_weixin{
 	width: 280px;
  	height: 36px;
  	border: 1px solid #f0f0f0;
@@ -177,36 +187,19 @@ a {
  	margin-right: 10px;
  	font-size: 14px;
 }
-#hos_Administration .hos_base_inf .bottomContent >.idCard_pic .idFont_pic,
-#hos_Administration .hos_base_inf .bottomContent >.idCard_pic .idBack_pic{
-	display: inline-block;
-	width: 260px;
-	height: 147px;
-	background-color: #f0f0f0;
-	margin-right: 20px;
-	vertical-align: middle;
-}
-#hos_Administration .hos_base_inf .bottomContent >.idCard_pic .idFont_pic:hover,
-#hos_Administration .hos_base_inf .bottomContent >.idCard_pic .idBack_pic:hover{
-	cursor: pointer;
-}
-#hos_Administration .hos_base_inf .bottomContent >.idCard_pic .idCard_tip,
-#hos_Administration .hos_base_inf .bottomContent >.teacher_picUpdata .teacher_pic_tip,
-#hos_Administration .hos_base_inf .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,
+
+
 #hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip{
     display: inline-block;
     width: 159px;
     height: 48px;
     color: #999;
 }
-#hos_Administration .hos_base_inf .bottomContent >.idCard_pic .idCard_tip p,
-#hos_Administration .hos_base_inf .bottomContent >.teacher_picUpdata .teacher_pic_tip p,
-#hos_Administration .hos_base_inf .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip p,
+
 #hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip p{
 	font-size: 14px;
 }
-#hos_Administration .hos_base_inf .bottomContent >.teacher_picUpdata .teacher_pic,
-#hos_Administration .hos_base_inf .bottomContent >.zhiye_picUpdata .zhiye_pic,
+
 #hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic{
 	display: inline-block;
 	width: 260px;
@@ -215,8 +208,7 @@ a {
 	margin-right: 20px;
 	vertical-align: middle;
 } 
-#hos_Administration .hos_base_inf .bottomContent >.teacher_picUpdata .teacher_pic:hover,
-#hos_Administration .hos_base_inf .bottomContent >.zhiye_picUpdata .zhiye_pic:hover,
+
 #hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic:hover{
 	cursor: pointer;
 }
@@ -309,7 +301,7 @@ a {
 }
 #hos_Administration .hos_renzheng_inf .bottomContent > div > span:first-child{
 	  display: inline-block;
-    width: 89px;
+    width: 120px;
     text-align: right;
     font-size: 14px;
     color: #2A2A2A;
@@ -335,36 +327,20 @@ a {
  	margin-right: 10px;
  	font-size: 14px;
 }
-#hos_Administration .hos_renzheng_inf .bottomContent >.idCard_pic .idFont_pic,
-#hos_Administration .hos_renzheng_inf .bottomContent >.idCard_pic .idBack_pic{
-	display: inline-block;
-	width: 260px;
-	height: 147px;
-	background-color: #f0f0f0;
-	margin-right: 20px;
-	vertical-align: middle;
-}
-#hos_Administration .hos_renzheng_inf .bottomContent >.idCard_pic .idFont_pic:hover,
-#hos_Administration .hos_renzheng_inf .bottomContent >.idCard_pic .idBack_pic:hover{
-	cursor: pointer;
-}
-#hos_Administration .hos_renzheng_inf .bottomContent >.idCard_pic .idCard_tip,
+
 #hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic_tip,
-#hos_Administration .hos_renzheng_inf .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,
 #hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip{
     display: inline-block;
     width: 159px;
     height: 48px;
     color: #999;
 }
-#hos_Administration .hos_renzheng_inf .bottomContent >.idCard_pic .idCard_tip p,
+
 #hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic_tip p,
-#hos_Administration .hos_renzheng_inf .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip p,
 #hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip p{
 	font-size: 14px;
 }
 #hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic,
-#hos_Administration .hos_renzheng_inf .bottomContent >.zhiye_picUpdata .zhiye_pic,
 #hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic{
 	display: inline-block;
 	width: 260px;
@@ -374,7 +350,6 @@ a {
 	vertical-align: middle;
 } 
 #hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic:hover,
-#hos_Administration .hos_renzheng_inf .bottomContent >.zhiye_picUpdata .zhiye_pic:hover,
 #hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic:hover{
 	cursor: pointer;
 }
@@ -396,48 +371,8 @@ a {
 #hos_Administration .hos_renzheng_inf .bottomContent >.touxiang_picUpdata .touxiang_pic_tip p{
 	font-size: 14px;
 }
-#hos_Administration .hos_renzheng_inf .bottomContent >.keshi ul{
-	width: 540px;
-	display: inline-block;
-  vertical-align: top;
-}
-#hos_Administration .hos_renzheng_inf .bottomContent >.keshi ul li{
-	width: 92px;
-	height: 36px;
-	text-align: center;
-	line-height: 36px;
-	border: 1px solid #DEDEDE;
-	border-radius: 4px;
-	margin-right: 20px;
-	float: left;
-	margin-bottom: 20px;
-	font-size: 14px;
-}
-#hos_Administration .hos_renzheng_inf .bottomContent >.keshi ul li:hover{
-	cursor: pointer;
-}
-#hos_Administration .hos_renzheng_inf .bottomContent >.keshi ul li:nth-child(5n){
-	margin-right: 0;
-}
-#hos_Administration .hos_renzheng_inf .bottomContent .personIntroduct textarea {
-	width: 540px;
-	height: 160px;
-	padding: 10px;
-	border: 1px solid #F0F0F0;
-	outline: none;
-	vertical-align: top;
-	font-size: 14px;
-}
-#hos_Administration .hos_renzheng_inf .bottomContent .doc_address select{
-	width: 240px;
-  height: 36px;
-  border: 1px solid #F0F0F0;
-  outline: none;
-  font-size: 14px;
-  color: #999;
-}
 #hos_Administration .hos_renzheng_inf .bottomContent .baocun{
-	padding-left: 110px;
+	padding-left: 140px;
 	padding-bottom: 40px;
 }
 #hos_Administration .hos_renzheng_inf .bottomContent .baocun #submit{
@@ -456,8 +391,157 @@ a {
 
 
 
+/*医馆认证信息状态*/
+#hos_Administration .hos_renzheng_inf .bottomContent2  .bottomContent_inf{
+	margin-bottom: 20px;
+    height: 80px;
+    line-height: 80px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    padding: 0 20px;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2  .bottomContent_inf > span{
+	  font-size: 14px;
+    color: #333333;
+    display: inline !important;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2  .bottomContent_inf button{
+	  width: 92px;
+    font-size: 14px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    color: #ffffff;
+    outline: none;
+    vertical-align: middle;
+    line-height: 36px;
+    border: none;
+    margin: 0 20px;
+}
+
+#hos_Administration .hos_renzheng_inf .bottomContent2{
+	text-align: left;
+	padding-top: 30.5px;
+	padding-left: 20px;
+	padding-bottom: 60px;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 > div{
+	margin-bottom: 20px;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 > div > span:first-child{
+	  display: inline-block;
+    width: 120px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 > div > span:first-child em{
+	  color: #f40;
+    display: inline;
+}
+
+
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic_tip p,
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic_tip p{
+	font-size: 14px;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic,
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic{
+	display: inline-block;
+	width: 260px;
+	height: 147px;
+	background-color: #f0f0f0;
+	margin-right: 20px;
+	vertical-align: middle;
+} 
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic > img,
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic > img{
+	width: 100%;
+	height: 100%;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.teacher_picUpdata .teacher_pic:hover,
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.zhicheng_picUpdata .zhicheng_pic:hover{
+	cursor: pointer;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.touxiang_picUpdata .touxiang_pic{
+	width: 120px;
+	height: 120px;
+	display: inline-block;
+	background-color: #f0f0f0;
+	vertical-align: middle;
+	margin-right: 20px;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.touxiang_picUpdata .touxiang_pic:hover{
+	cursor: pointer;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.touxiang_picUpdata .touxiang_pic_tip{
+	display: inline-block;
+	color: #999;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 >.touxiang_picUpdata .touxiang_pic_tip p{
+	font-size: 14px;
+}
+#hos_Administration .hos_renzheng_inf .bottomContent2 > div .company_name,
+#hos_Administration .hos_renzheng_inf .bottomContent2 > div .license_num,
+#hos_Administration .hos_renzheng_inf .bottomContent2 > div .medicine_license_num{
+	font-size: 14px;
+	color: #333;
+}
+
+
+
+
+
 
 /*医师管理部分*/
+#doc_Administration .doc_Administration_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+#doc_Administration .doc_Administration_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+}
+#doc_Administration .doc_Administration_top .search_teacher_ipt{
+	  display: inline-block;
+    width: 220px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    position: absolute;
+    top: 12px;
+    text-indent: 2rem;
+    outline: none;
+   	border: 1px solid #F0F0F0;
+}
+#doc_Administration .doc_Administration_top .search_teacher_btn{
+	right: 169px;
+	border-radius: 0 4px 4px 0;
+}
+#doc_Administration .doc_Administration_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+
 #doc_Administration .bottomContent{
 	text-align: left;
 	padding-top: 30.5px;
@@ -508,7 +592,6 @@ a {
 	cursor: pointer;
 }
 #doc_Administration .bottomContent >.idCard_pic .idCard_tip,
-#doc_Administration .bottomContent >.teacher_picUpdata .teacher_pic_tip,
 #doc_Administration .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,
 #doc_Administration .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip{
     display: inline-block;
@@ -517,7 +600,6 @@ a {
     color: #999;
 }
 #doc_Administration .bottomContent >.idCard_pic .idCard_tip p,
-#doc_Administration .bottomContent >.teacher_picUpdata .teacher_pic_tip p,
 #doc_Administration .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip p,
 #doc_Administration .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip p{
 	font-size: 14px;
@@ -611,6 +693,69 @@ a {
     font-size: 14px;
     margin-right: 20px;
 }
+
+
+
+/*医师管理列表部分*/
+#doc_Administration .doc_Administration_bottom2{
+	padding: 31px 20px 59px;
+}
+#doc_Administration .doc_Administration_bottom2 table tr td {
+	text-align: center;
+}
+#doc_Administration .doc_Administration_bottom2 table thead {
+	height: 40px;line-height: 40px;
+	background: #F0F0F0;
+	font-size: 14px;
+	color: #666666;
+}
+#doc_Administration .doc_Administration_bottom2 table tbody{
+	font-size: 14px;
+	color: #333;
+}
+#doc_Administration .doc_Administration_bottom2 table tbody tr{
+	height: 80px;
+}
+#doc_Administration .doc_Administration_bottom2 table thead > tr > td:first-child,
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:first-child{
+	width: 126px;
+}
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:first-child{
+	padding: 10px;
+}
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:first-child img{
+	/*width: 100%;*/
+	width: 60px;
+	height: 60px;
+}
+#doc_Administration .doc_Administration_bottom2 table thead > tr > td:nth-child(2),
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:nth-child(2){
+	width: 120px;
+}
+#doc_Administration .doc_Administration_bottom2 table thead > tr > td:nth-child(3),
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:nth-child(3){
+	width: 148px;
+}
+#doc_Administration .doc_Administration_bottom2 table thead > tr > td:nth-child(4),
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:nth-child(4){
+	width: 260px;
+}
+#doc_Administration .doc_Administration_bottom2 table thead > tr > td:nth-child(5),
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:nth-child(5){
+	width: 60px;
+}
+#doc_Administration .doc_Administration_bottom2 table thead > tr > td:nth-child(6),
+#doc_Administration .doc_Administration_bottom2 table tbody > tr > td:nth-child(6){
+	width: 200px;
+}
+#doc_Administration .doc_Administration_bottom2 table tr,#doc_Administration .doc_Administration_bottom2 table td{
+	border: 1px solid #DEDEDE;
+}
+
+
+
+
+
 
 
 

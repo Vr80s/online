@@ -12,6 +12,8 @@
 	} catch (e) {
 		
 	}
+	debugger
+	var courseForm = "${courseForm}";
 </script>
 <script src="${base}/js/layer/layer.js"></script>
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
@@ -48,14 +50,14 @@
 			<label class="col-sm-1 control-label no-padding-right">主标题:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${course.gradeName}</label>
+					<label class=" control-label no-padding-right">${course.gradeName}</label>
 				</div>
 			</div>
 
 			<label class="col-sm-1 control-label no-padding-right">副标题:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${course.subtitle}</label>
+					<label class=" control-label no-padding-right">${course.subtitle}</label>
 				</div>
 			</div>
 
@@ -63,7 +65,7 @@
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
 					<c:choose>
-						<c:when test="${course.onlineCourse== '1'}">
+						<c:when test="${course.type== '3'}">
 							<label class="control-label no-padding-right">线下课</label>
 						</c:when>
 						<c:when test="${course.type== '1'}">
@@ -87,9 +89,11 @@
 			<label class="col-sm-1 control-label no-padding-right">主播:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${course.lecturer}</label>
+					<label class="control-label no-padding-right">${course.lecturer}</label>
 				</div>
 			</div>
+<c:choose>
+	<c:when test="${course.type== '2'}">
 			<label class="col-sm-1 control-label no-padding-right">多媒体类型:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
@@ -103,6 +107,8 @@
 					</c:choose>
 				</div>
 			</div>
+	</c:when>
+</c:choose>
 			<label class="col-sm-1 control-label no-padding-right">课程单价:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
@@ -119,11 +125,21 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${course.onlineCourse=='1' || course.type== '1'}">
+				<c:when test="${course.type!= '2'}">
 					<label class="col-sm-1 control-label no-padding-right">课程开始时间:</label>
 					<div class="col-sm-1" >
 						<div class="clearfix" style="width: 240px;">
 							<label class="control-label no-padding-right">${course.startTime}</label>
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
+			<c:choose>
+				<c:when test="${course.type== '3'}">
+					<label class="col-sm-1 control-label no-padding-right">课程结束时间:</label>
+					<div class="col-sm-1" >
+						<div class="clearfix" style="width: 240px;">
+							<label class="control-label no-padding-right">${course.endTime}</label>
 						</div>
 					</div>
 				</c:when>
@@ -161,6 +177,8 @@
 				</div>
 			</div>
 		</div>
+<c:choose>
+	<c:when test="${course.collection}">
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right">课程大纲:</label>
 			<div class="col-sm-1" >
@@ -169,6 +187,8 @@
 				</div>
 			</div>
 		</div>
+	</c:when>
+</c:choose>
 
 	
 	</form>

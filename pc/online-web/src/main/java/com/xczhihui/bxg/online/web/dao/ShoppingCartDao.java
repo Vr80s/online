@@ -59,7 +59,7 @@ public class ShoppingCartDao extends SimpleHibernateDao{
      */
     public List<Map<String,Object>> lists(String userId){
         String sql = "select p.id,p.course_id ,c.course_type, c.grade_name as courseName ,c.smallimg_path as smallImgPath,c.original_cost as originalCost," +
-        		"online_course onlineCourse,c.type,direct_id,c.id courseId,"+
+        		"c.type,direct_id,c.id courseId,"+
                 "c.current_price as currentPrice, now() as create_time from oe_shopping_cart p LEFT JOIN oe_course c on p.course_id=c.id " +
                 "where p.user_id =:user_id order by p.create_time desc";
         Map<String,Object> paramMap = new HashMap<>();

@@ -1059,6 +1059,15 @@ header{
     white-space: nowrap;
     margin-bottom: 0.34rem;
 }
+.boutique_main_one_title .span{
+	margin-right: 0.2rem;
+    max-width: 2.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    float: left;
+}
 .boutique_main_one_size P{
 	font-size: 0.468rem;
 	color: #999999;
@@ -1075,7 +1084,7 @@ header{
 .boutique_main_one_size p:first-child{
 	margin-right: 0.213rem;
     float: left;
-    min-width: 2.936rem;
+    min-width: 1rem;
     max-width: 3.4rem;
     height: 0.51rem;
     line-height: 0.51rem;
@@ -1085,6 +1094,7 @@ header{
 	height: 0.51rem;
     line-height: 0.51rem;
     float: left;
+    margin-right: 0.2rem;
 }
 .boutique_main_one_size .p2 img{
 	width: 0.404rem;
@@ -1100,7 +1110,7 @@ header{
     max-width: 2rem;
 }
 .boutique_main_one_size .p3{
-	    float: right;
+	    /*float: right;*/
     margin-right: 0.4rem;
         margin-top: -0.1rem;
 
@@ -1323,6 +1333,15 @@ header{
     white-space: nowrap;
     margin-bottom: 0.34rem;
 }
+.boutique_main_four_title .span{
+	margin-right: 0.2rem;
+    max-width: 2.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    float: left;
+}
 .boutique_main_four_size P{
 	font-size: 0.468rem;
 	color: #999999;
@@ -1516,6 +1535,15 @@ header{
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-bottom: 0.34rem;
+}
+.newest_main_two_title .span{
+	margin-right: 0.2rem;
+    max-width: 2.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    float: left;
 }
 .newest_main_two_size P{
 	font-size: 0.468rem;
@@ -1805,6 +1833,17 @@ header{
     white-space: nowrap;
     margin-bottom: 0.34rem;
 }
+.lectures_main_one_title .span{
+	margin-right: 0.2rem;
+    max-width: 2.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    float: left;
+}
+
+
 .lectures_main_one_size P{
 	font-size: 0.468rem;
 	color: #999999;
@@ -1821,7 +1860,7 @@ header{
 .lectures_main_one_size p:first-child{
 	margin-right: 0.213rem;
     float: left;
-    min-width: 2.936rem;
+    min-width: 1rem;
     max-width: 3.4rem;
     height: 0.51rem;
     line-height: 0.51rem;

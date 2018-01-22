@@ -2,13 +2,18 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.service.UserService;
+import com.xczhihui.bxg.online.web.vo.UserDataVo;
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @RestController
@@ -17,6 +22,8 @@ public class HospitalController {
 
     @Autowired
     private IMedicalHospitalBusinessService medicalHospitalBusinessServiceImpl;
+    @Autowired
+    private UserService userService;
 
     /**
      * Description：通过医馆分页信息
@@ -57,6 +64,43 @@ public class HospitalController {
     @ResponseBody
     public ResponseObject getHotField(){
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.getHotField());
+    }
+
+
+    /**
+     * 添加医师
+     */
+    @RequestMapping(value = "/addDoctor")
+    @ResponseBody
+    public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalDoctor.setUserId(currentUser.getUid());
+        medicalHospitalBusinessServiceImpl.addDoctor(medicalDoctor);
+        return ResponseObject.newSuccessResponseObject("添加成功");
+    }
+
+    /**
+     * 获取医疗领域（分页）
+     * @param currentPage 当前页（currentPage <= 0表示不分页）
+     * @return 医疗领域列表
+     */
+    @RequestMapping(value = "/getFields/{currentPage}")
+    @ResponseBody
+    public ResponseObject getFields(@PathVariable Integer currentPage){
+        Page<MedicalHospitalVo> page = new Page<>();
+        int size = 10;
+        if(currentPage <= 0){
+            currentPage = 1;
+            size = Integer.MAX_VALUE;
+        }
+        page.setCurrent(currentPage);
+        page.setSize(size);
+        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.getFieldsPage(page));
     }
 
 }

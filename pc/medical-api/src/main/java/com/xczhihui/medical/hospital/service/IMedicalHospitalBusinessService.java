@@ -2,6 +2,8 @@ package com.xczhihui.medical.hospital.service;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
@@ -43,4 +45,16 @@ public interface IMedicalHospitalBusinessService {
 
     List<MedicalFieldVO> getHotField();
 
+    /**
+     * 添加医师
+     * @author zhuwenbao
+     */
+    void addDoctor(MedicalDoctor medicalDoctor);
+
+    /**
+     * 获取医疗领域（分页）
+     * @param page 分页对象
+     * @return 医疗领域列表
+     */
+    Page<MedicalFieldVO> getFieldsPage(Page page);
 }

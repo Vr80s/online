@@ -19,10 +19,9 @@ $(function(){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
     }},
     {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
-	{ "title": "直播id", "class":"center","width":"6%","sortable":false,"data": 'id' ,"mRender":function (data, display, row) {
+	/*{ "title": "直播id", "class":"center","width":"6%","sortable":false,"data": 'id' ,"mRender":function (data, display, row) {
 		return "<span name='courseNameList'>"+data+"</span>";
-	} }, { "title": "直播名称", "class":"center","width":"10%","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
-		return "<span name='courseNameList'>"+data+"</span>";
+	} },*/ { "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
 	} },
 	{ "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
 			if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
@@ -34,10 +33,9 @@ $(function(){
 			}
 		} },
     { "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'menuName' },
-    { "title": "授课老师", "class":"center","width":"8%","sortable":false,"data": 'lecturerName',"mRender":function (data, display, row) {
-    		return "<span name='lecturerNameList'>"+data+"</span>";
-    } },
-    { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength' },
+    { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName' },
+    { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer' },
+    { "title": "课程时长", "class":"center","width":"7%", "sortable":false,"data": 'courseLength' },
     { "title": "开播时间", "class":"center","width":"10%", "sortable":false,"data": 'startTime' },
     //	private  int liveSource;  //直播来源  1、后台新增  2、app申请
     { "title": "直播来源", "class":"center","width":"10%","data":"liveSource","sortable":false,"mRender":function(data,display,row){
@@ -48,30 +46,30 @@ $(function(){
     	}
     }},
 
-    { "title": "原价格/现价格", "class":"center","width":"8%","sortable":false,"mRender":function(data,display,row){
-    	data = row.originalCost+"/"+row.currentPrice;
+    { "title": "价格", "class":"center","width":"5%","sortable":false,"mRender":function(data,display,row){
+    	data = row.currentPrice;
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
-    { "title": "是否推荐", "class":"center","width":"9%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
+    { "title": "是否推荐", "class":"center","width":"7%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
 		if(data==1){
 			return "<span name='sftj'>已推荐</span>";
 		}else{
 			return "<span name='sftj'>未推荐</span>";
 		}
 	} },
-    { "title": "是否加密", "class":"center","width":"8%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
+    { "title": "是否加密", "class":"center","width":"7%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
     	if(data != null)
     		return "是";
     	return "否";
     }},
-    { "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
+    { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
     	}else{
     		return data="<span name='zt'>已禁用</span>";
     	}
     } },
-    {"sortable": false,"class": "center","width":"8%","title":"排序","mRender":function (data, display, row) {
+    {"sortable": false,"class": "center","width":"6%","title":"排序","mRender":function (data, display, row) {
     	if(row.status ==1){//如果是禁用
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
     		'<a class="blue" name="upa" href="javascript:void(-1);" title="上移"  onclick="upMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
@@ -85,17 +83,21 @@ $(function(){
     { "sortable": false,"class": "center","width":"10%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		var str = '<div class="hidden-sm hidden-xs action-buttons">'+
+				'<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this);"><i class="ace-icon fa fa-ban bigger-130"></i></a> ';
 				if(row.directId == null || row.directId == ""){
 					str+='<a class="blue" href="javascript:void(-1);" title="生成直播间" onclick="createWebinar(this);"><i class="ace-icon fa fa-retweet bigger-130"></i></a> '
 				}else{
-					str+='<a class="blue" href="javascript:void(-1);" title="主播地址" onclick="getWebinarUrl(this);"><i class="ace-icon fa fa-search bigger-130"></i></a> '
+					str+='<a class="blue" href="javascript:void(-1);" title="主播地址" onclick="getWebinarUrl(this);"><i class="ace-icon glyphicon glyphicon-camera bigger-130"></i></a> '
 				}
 				return str;
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                    '<a class="blue" href="javascript:void(-1);" title="编辑详情" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>'+
+                    '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '
 	    	}
 	    }
@@ -156,11 +158,8 @@ $(function(){
 					menuId: {
 						required:"请选择所属学科！"
 					},
-					lecturerId:{
-						required:"选择教师！"
-					},
 					userLecturerId:{
-						required:"选择教师！"
+						required:"选择作者！"
 					},
 					courseLength: {
 						required:"请输入课程时长！",
@@ -177,12 +176,6 @@ $(function(){
 					},
 					directId: {
 						required:"直播间ID不能为空！",
-					},
-					externalLinks: {
-						required:"外部链接不能为空！"
-					},
-					teacherImgPath: {
-						required:"讲师头像不能为空！"
 					}
 		        }
 		    });
@@ -636,6 +629,9 @@ function toEdit(obj){
 	$("#edit-defaultStudentCount").val(row.defaultStudentCount); //课程名称
 	$("#courseName_edit").val(row.courseName); //课程名称
 	$("#courseLength_edit").val(row.courseLength); //课程时常
+	$("#subtitle_edit").val(row.subtitle);
+	$("#lecturer_edit").val(row.lecturer);
+	$("#courseLength_edit").val(row.courseLength);
 	$("#startTime_edit").val(row.startTime); //开播时间
 	$("#endTime_edit").val(row.endTime); //结束时间
 	//直播方式
@@ -1244,3 +1240,21 @@ function createWebinar(obj){
 		}
 	});
 };
+
+function showCourseInfoDetail(obj, status) {
+    debugger
+    var oo = $(obj).parent().parent().parent();
+    var aData;
+    if (status == 1) {
+        aData = _courseTable.fnGetData(oo); // get datarow
+    }
+    window.location.href = basePath + '/home#cloudclass/course/courseInfoDetail?id=' + aData.id;
+}
+
+
+function showDetailDialog(obj,status){
+    var oo = $(obj).parent().parent().parent();
+    var aData;
+    aData = _courseTable.fnGetData(oo); // get datarow
+    window.location.href=basePath+'/home#cloudclass/course/courseDetail?courseId='+aData.id;
+}

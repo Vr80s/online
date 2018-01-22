@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -105,8 +106,9 @@ public class PublicCourseController {
 		if (status != null) {
 			searchVo.setStatus(status.getPropertyValue1().toString());
 		}
-		Page<CourseVo> page = publicCourseService.findCoursePage(searchVo,
+		Page<CourseVo> coursePage = publicCourseService.findCoursePage(searchVo,
 				currentPage, pageSize);
+		Page<CourseVo> page = coursePage;
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
@@ -121,9 +123,7 @@ public class PublicCourseController {
 	public List<Lecturer> getTeacher(Integer menuId){
 		return publicCourseService.getTeacher(menuId);
 	}
-	
-	
-	
+
 	
 	/**
 	 * 添加
@@ -136,21 +136,11 @@ public class PublicCourseController {
 	 public ResponseObject add(CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
 		try{
-			if(courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-				 responseObj.setSuccess(false);
-		         responseObj.setErrorMessage("现价必须小于等于原价");
-		         return responseObj;
-			}
-			if(courseVo.getOriginalCost() == null){
-				courseVo.setOriginalCost(0.0);
-			}
 			if(courseVo.getCurrentPrice() == null){
 				courseVo.setCurrentPrice(0.0);
 			}
-			
-//			courseVo.setCourseType(courseType);
-//			courseVo.setCourseTypeId(courseTypeId);
-			publicCourseService.addCourse(courseVo);
+			courseVo.setType(CourseForm.LIVE.getCode());
+			courseService.addCourse(courseVo);
             responseObj.setSuccess(true);
             responseObj.setErrorMessage("新增成功");
        }catch(Exception e){
@@ -171,26 +161,13 @@ public class PublicCourseController {
 	@ResponseBody
 	public ResponseObject updateCourseById (CourseVo courseVo){
 		ResponseObject responseObj = new ResponseObject();
-		 try{
-			 	if(courseVo.getOriginalCost()<courseVo.getCurrentPrice()){
-					 responseObj.setSuccess(false);
-			         responseObj.setErrorMessage("现价必须小于等于原价");
-			         return responseObj;
-				}
-				if(courseVo.getOriginalCost() == null){
-					courseVo.setOriginalCost(0.0);
-				}
-				if(courseVo.getCurrentPrice() == null){
-					courseVo.setCurrentPrice(0.0);
-				}
-			    publicCourseService.updateCourse(courseVo);
-	            responseObj.setSuccess(true);
-	            responseObj.setErrorMessage("修改成功");
-	       }catch(Exception e){
-	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
-	       }
-	        return responseObj;
+		if(courseVo.getCurrentPrice() == null){
+			courseVo.setCurrentPrice(0.0);
+		}
+		courseService.updateCourse(courseVo);
+		responseObj.setSuccess(true);
+		responseObj.setErrorMessage("修改成功");
+		return responseObj;
 	}
 	
 	

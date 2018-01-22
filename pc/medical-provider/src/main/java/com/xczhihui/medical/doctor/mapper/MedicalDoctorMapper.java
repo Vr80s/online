@@ -40,4 +40,6 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     List<MedicalDoctorVO> getHotSpecialColumnAuthor(String specialColumn);
 
     List<MedicalWritingsVO> getWritingsByPage(Page<MedicalWritingsVO> page);
+
+    void insertSelective(@Param("medicalDoctor") MedicalDoctor medicalDoctor);
 }

@@ -82,68 +82,14 @@
 					<!--医馆管理部分-->
     				<div role="tabpanel" class="tab-pane active" id="hos_Administration">
 						<div class="hos_base_inf ">
-							<div class="topTitle">
+						<div class="topTitle">
 							<h3>医馆基础信息</h3>
 						</div>
+						
 						<div class="bottomContent">
-
-								<div>
-								<span><em>*</em>姓名</span>
-								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
-								<span class="name_warn warning hide">申请人不能为空</span>
-							</div>
-							
-							<div>
-								<span ><em>*</em> 身份证号</span>
-								<input type="text" placeholder="请输入正确的身份证号"  maxlength="18" class="doc_Idnum"/>
-								<span class="idCard_warn warning hide">身份证号不能为空</span>
-							</div>
-							
-							<div class="idCard_pic">
-								<span style="vertical-align: top;"><em>*</em> 身份证</span>
-								<span class="idFont_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证正面图片</p>
-								</span>
-								<span class="idBack_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证背面图片</p>
-								</span>
-								<span class="idCard_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<span class="warning hide" style="margin-left:110px">请上传身份证图片</span>
-							</div>
-							
-							<div class="teacher_picUpdata">
-								<span style="vertical-align: top;"><em>*</em>  医师资格证</span>
-								<span class="teacher_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医师资格证图片</p>
-								</span>
-								<span class="teacher_pic_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传身份证图片</p>
-							</div>
-							
-							<div class="zhiye_picUpdata">
-								<span style="vertical-align: top;"><em>*</em>执业资格证</span>
-								<span class="zhiye_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上执业资格证图片</p>
-								</span>
-								<span class="zhiiye_pic_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传执业资格证图片</p>
-							</div>
 							
 							<div class="touxiang_picUpdata">
-								<span style="vertical-align: top;"><em>*</em> 真实头像</span>
+								<span style="vertical-align: top;"><em>*</em>  医馆头像</span>
 								<span class="touxiang_pic">
 									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
@@ -157,26 +103,26 @@
 							</div>
 							
 							<div>
-								<span><em>*</em>职称</span>
-								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
-								<span class="warning hide">职称不能为空</span>
+								<span><em>*</em>医馆名称</span>
+								<input type="text" placeholder="请输入医馆名称"  maxlength="15" class="doc_zhicheng"/>
+								<span class="warning hide">医馆名称不能为空</span>
 							</div>
 							
 							<div class="zhicheng_picUpdata">
-								<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+								<span style="vertical-align: top;"><em>*</em>  医馆图片</span>
 								<span class="zhicheng_pic">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医馆图片</p>
 								</span>
 								<span class="zhicheng_pic_tip">
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传 医馆图片</p>
 							</div>
 							
 							<div class="keshi">
-								<span><em>*</em>科室</span>
+								<span><em>*</em> 医疗领域</span>
 								<ul>
 									<li>中医内科</li>
 									<li>中医内科</li>
@@ -191,37 +137,44 @@
 								</ul>
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
 							</div>
-							
-							<div>
-								<span><em>*</em>擅长</span>
-								<input type="text" placeholder="请输入您的擅长领域"  maxlength="15" class="doc_shanchang"/>
-								<span class="warning hide">擅长不能为空</span>
-							</div>
-							
+
 							<div class="personIntroduct">
-								<span><em>*</em> 个人介绍</span>
-								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>
+								<span><em>*</em>  医馆介绍</span>
+								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医馆简介" style="resize: none;"></textarea>
 							</div>
 							
 							<div>
-								<span><em>*</em>任职医馆</span>
-								<input type="text" placeholder="请输入您所在医馆名称"  maxlength="15" class="doc_hospital"/>
-								<span class="warning hide">任职医馆不能为空</span>
+								<span><em>*</em>联系人姓名</span>
+								<input type="text" placeholder="请输入医馆联系人姓名"  maxlength="15" class="doc_shanchang"/>
+								<span class="warning hide">联系人姓名不能为空</span>
+							</div>
+							
+							<div>
+								<span><em></em>邮箱</span>
+								<input type="text" placeholder="请输入医馆邮箱"  maxlength="15" class="doc_hospital"/>
+								<!--<span class="warning hide">任职医馆不能为空</span>-->
+							</div>
+							
+							<div>
+								<span><em></em>微信</span>
+								<input type="text" placeholder="请输入医馆微信"  maxlength="15" class="hos_weixin"/>
+								<!--<span class="warning hide">任职医馆不能为空</span>-->
 							</div>
 							
 							<div class="doc_address">
-							<span><em>*</em>城市</span>
+							<span><em>*</em>医馆位置</span>
 							<select name="" id="">
-								<option value="">省份</option>
+								<option value="">请输入所在省</option>
 								<option value="">111</option>
 								<option value="">111</option>
 							</select>
 							
 							<select name="" id="">
-								<option value="">市区</option>
+								<option value="">请输入所在市</option>
 								<option value="">111</option>
 								<option value="">111</option>
 							</select>
+							<textarea name="" rows="" cols="" class="hos_detailAddress" placeholder="请输入详细地址"></textarea>
 							<p class="warning hide">所在城市地址不能为空</p>
 						</div>
 						
@@ -233,45 +186,31 @@
 						
 						
 						<div class="hos_renzheng_inf hide">
-							<div class="topTitle">
+							
+						<div class="topTitle">
 							<h3>医馆认证</h3>
 						</div>
+						
 						<div class="bottomContent">
 
 								<div>
-								<span><em>*</em>姓名</span>
-								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
-								<span class="name_warn warning hide">申请人不能为空</span>
+								<span><em>*</em> 所属公司</span>
+								<input type="text" placeholder="请输入医馆所属公司名称"  maxlength="15" class="doc_name"/>
+								<span class="name_warn warning hide">所属公司不能为空</span>
 							</div>
 							
 							<div>
-								<span ><em>*</em> 身份证号</span>
-								<input type="text" placeholder="请输入正确的身份证号"  maxlength="18" class="doc_Idnum"/>
-								<span class="idCard_warn warning hide">身份证号不能为空</span>
+								<span ><em>*</em>  营业执照号</span>
+								<input type="text" placeholder="请输入正确的营业执照号"  maxlength="18" class="doc_Idnum"/>
+								<span class="idCard_warn warning hide"> 营业执照号不能为空</span>
 							</div>
 							
-							<div class="idCard_pic">
-								<span style="vertical-align: top;"><em>*</em> 身份证</span>
-								<span class="idFont_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证正面图片</p>
-								</span>
-								<span class="idBack_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证背面图片</p>
-								</span>
-								<span class="idCard_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<span class="warning hide" style="margin-left:110px">请上传身份证图片</span>
-							</div>
 							
 							<div class="teacher_picUpdata">
-								<span style="vertical-align: top;"><em>*</em>  医师资格证</span>
+								<span style="vertical-align: top;"><em>*</em>营业执照</span>
 								<span class="teacher_pic">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医师资格证图片</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传营业执照图片</p>
 								</span>
 								<span class="teacher_pic_tip">
 									<p>文件小于2M</p>
@@ -280,173 +219,112 @@
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传身份证图片</p>
 							</div>
 							
-							<div class="zhiye_picUpdata">
-								<span style="vertical-align: top;"><em>*</em>执业资格证</span>
-								<span class="zhiye_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上执业资格证图片</p>
-								</span>
-								<span class="zhiiye_pic_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传执业资格证图片</p>
-							</div>
 							
-							<div class="touxiang_picUpdata">
-								<span style="vertical-align: top;"><em>*</em> 真实头像</span>
-								<span class="touxiang_pic">
-									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
-								</span>
-								<span class="touxiang_pic_tip">
-									<p>请上传清晰头像</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
-							</div>
+							
+							
 							
 							<div>
-								<span><em>*</em>职称</span>
-								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
-								<span class="warning hide">职称不能为空</span>
+								<span><em>*</em>药品经营许可证号</span>
+								<input type="text" placeholder="请输入正确的药品经营许可证号"  maxlength="15" class="doc_zhicheng"/>
+								<span class="warning hide">请输入正确的药品经营许可证号不能为空</span>
 							</div>
 							
 							<div class="zhicheng_picUpdata">
-								<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+								<span style="vertical-align: top;"><em>*</em>药品经营许可证</span>
 								<span class="zhicheng_pic">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传药品经营许可证图片</p>
 								</span>
 								<span class="zhicheng_pic_tip">
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传药品经营许可证</p>
 							</div>
-							
-							<div class="keshi">
-								<span><em>*</em>科室</span>
-								<ul>
-									<li>中医内科</li>
-									<li>中医内科</li>
-									<li>妇科</li>
-									<li>儿科</li>
-									<li>小儿科</li>
-									<li>胃病</li>
-									<li>心脏病</li>
-									<li>癌症</li>
-									<li>绝症</li>
-									<li>肝病</li>
-								</ul>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
-							</div>
-							
-							<div>
-								<span><em>*</em>擅长</span>
-								<input type="text" placeholder="请输入您的擅长领域"  maxlength="15" class="doc_shanchang"/>
-								<span class="warning hide">擅长不能为空</span>
-							</div>
-							
-							<div class="personIntroduct">
-								<span><em>*</em> 个人介绍</span>
-								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>
-							</div>
-							
-							<div>
-								<span><em>*</em>任职医馆</span>
-								<input type="text" placeholder="请输入您所在医馆名称"  maxlength="15" class="doc_hospital"/>
-								<span class="warning hide">任职医馆不能为空</span>
-							</div>
-							
-							<div class="doc_address">
-							<span><em>*</em>城市</span>
-							<select name="" id="">
-								<option value="">省份</option>
-								<option value="">111</option>
-								<option value="">111</option>
-							</select>
-							
-							<select name="" id="">
-								<option value="">市区</option>
-								<option value="">111</option>
-								<option value="">111</option>
-							</select>
-							<p class="warning hide">所在城市地址不能为空</p>
-						</div>
 						
 						<div class="baocun">
 							<input type="submit" value="提交认证" id="submit"/>
 						</div>
 						</div>
+						
+						<div class="bottomContent2">
+							<div class="bottomContent_inf text-left">
+								<span>已于2017.12.10通过认证<em style="color: red;font-style: normal;">（如提交信息有误可重新提交）</em></span>
+								<button>重新认证</button>
+							</div>
+
+							<div class="bottomContent_inf text-left">
+								<span>医馆认证审核中，3个工作日内完成<em style="color: red;font-style: normal;">（如提交信息有误可重新提交）</em></span>
+								<button>重新认证</button>
+							</div>
+							
+							<div>
+								<span><em>*</em> 所属公司</span>
+								<span class="company_name">江苏国医馆有限公司</span>
+							</div>
+							
+							<div>
+								<span ><em>*</em>  营业执照号</span>
+								<span class="license_num">340111600148959</span>
+							</div>
+							
+							
+							<div class="teacher_picUpdata">
+								<span style="vertical-align: top;"><em>*</em>营业执照</span>
+								<span class="teacher_pic">
+									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传营业执照图片</p>-->
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</span>
+							</div>
+							
+							
+							
+							
+							
+							<div>
+								<span><em>*</em>药品经营许可证号</span>
+							
+								<span class="medicine_license_num">粤BA0200006</span>
+							</div>
+							
+							<div class="zhicheng_picUpdata">
+								<span style="vertical-align: top;"><em>*</em>药品经营许可证</span>
+								<span class="zhicheng_pic">
+									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传药品经营许可证图片</p>-->
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</span>
+							</div>
+						
+						
+						</div>
+						
 						</div>
 					</div>
 
 					<!--医师管理-->
     				<div role="tabpanel" class="tab-pane" id="doc_Administration">
-						<div class="topTitle">
+						<!--<div class="topTitle">
 							<h3>医师管理</h3>
+						</div>-->
+						<div class="doc_Administration_top">
+							<span class="title">医师管理</span>
+							<input type="text" name="" id="" placeholder="搜索医师名字添加" class="search_teacher_ipt"/><button class="search_teacher_btn">搜索</button>
+							<button class="add_newTeacher">新医师</button>
 						</div>
-						<div class="bottomContent">
+						
+						<div class="bottomContent hide" id="doc_Administration_bottom">
 
-								<div>
-								<span><em>*</em>姓名</span>
-								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
-								<span class="name_warn warning hide">申请人不能为空</span>
-							</div>
-							
 							<div>
-								<span ><em>*</em> 身份证号</span>
-								<input type="text" placeholder="请输入正确的身份证号"  maxlength="18" class="doc_Idnum"/>
-								<span class="idCard_warn warning hide">身份证号不能为空</span>
+								<span><em>*</em> 医师姓名</span>
+								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
+								<span class="name_warn warning hide"> 医师姓名不能为空</span>
 							</div>
 							
-							<div class="idCard_pic">
-								<span style="vertical-align: top;"><em>*</em> 身份证</span>
-								<span class="idFont_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证正面图片</p>
-								</span>
-								<span class="idBack_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证背面图片</p>
-								</span>
-								<span class="idCard_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<span class="warning hide" style="margin-left:110px">请上传身份证图片</span>
-							</div>
-							
-							<div class="teacher_picUpdata">
-								<span style="vertical-align: top;"><em>*</em>  医师资格证</span>
-								<span class="teacher_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医师资格证图片</p>
-								</span>
-								<span class="teacher_pic_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传身份证图片</p>
-							</div>
-							
-							<div class="zhiye_picUpdata">
-								<span style="vertical-align: top;"><em>*</em>执业资格证</span>
-								<span class="zhiye_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上执业资格证图片</p>
-								</span>
-								<span class="zhiiye_pic_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传执业资格证图片</p>
-							</div>
 							
 							<div class="touxiang_picUpdata">
-								<span style="vertical-align: top;"><em>*</em> 真实头像</span>
+								<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
 								<span class="touxiang_pic">
 									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
@@ -460,9 +338,9 @@
 							</div>
 							
 							<div>
-								<span><em>*</em>职称</span>
+								<span><em>*</em> 医师职称</span>
 								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
-								<span class="warning hide">职称不能为空</span>
+								<span class="warning hide"> 医师职称不能为空</span>
 							</div>
 							
 							<div class="zhicheng_picUpdata">
@@ -479,7 +357,7 @@
 							</div>
 							
 							<div class="keshi">
-								<span><em>*</em>科室</span>
+								<span><em>*</em> 擅长领域</span>
 								<ul>
 									<li>中医内科</li>
 									<li>中医内科</li>
@@ -492,46 +370,144 @@
 									<li>绝症</li>
 									<li>肝病</li>
 								</ul>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
 							</div>
 							
-							<div>
-								<span><em>*</em>擅长</span>
-								<input type="text" placeholder="请输入您的擅长领域"  maxlength="15" class="doc_shanchang"/>
-								<span class="warning hide">擅长不能为空</span>
-							</div>
 							
 							<div class="personIntroduct">
-								<span><em>*</em> 个人介绍</span>
-								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>
+								<span><em>*</em>  医师介绍</span>
+								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>
 							</div>
 							
-							<div>
-								<span><em>*</em>任职医馆</span>
-								<input type="text" placeholder="请输入您所在医馆名称"  maxlength="15" class="doc_hospital"/>
-								<span class="warning hide">任职医馆不能为空</span>
-							</div>
-							
-							<div class="doc_address">
-							<span><em>*</em>城市</span>
-							<select name="" id="">
-								<option value="">省份</option>
-								<option value="">111</option>
-								<option value="">111</option>
-							</select>
-							
-							<select name="" id="">
-								<option value="">市区</option>
-								<option value="">111</option>
-								<option value="">111</option>
-							</select>
-							<p class="warning hide">所在城市地址不能为空</p>
-						</div>
 						
 						<div class="baocun">
-							<input type="submit" value="提交认证" id="submit"/>
+							<input type="submit" value="保存" id="submit"/>
 						</div>
+						
 						</div>
+						
+						
+						
+						
+						<!--医师管理部分列表-->
+						<div class="doc_Administration_bottom2" id="doc_Administration_bottom2">
+						<table>
+							 <thead>
+							<tr>
+								<td>头像</td>
+								<td>姓名</td>
+								<td>职称</td>
+								<td>擅长领域</td>
+								<td>状态</td>
+								<td>操作</td>
+							</tr>
+							 </thead>
+							  <tbody>
+							<tr>
+								<td>
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</td>
+								<td>
+									施今墨
+								</td>
+								
+								<td>
+									主任医师
+								</td>
+								
+								<td>
+									胃病、针灸、养生食疗
+								</td>
+								
+								<td>
+									上线
+								</td>
+								
+								<td>
+									<a href="javascript:;">预览</a>
+									<a href="javascript:;">下线</a>
+									<a href="javascript:;">编辑</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</td>
+								<td>
+									施今墨
+								</td>
+								
+								<td>
+									主任医师
+								</td>
+								
+								<td>
+									胃病、针灸、养生食疗
+								</td>
+								
+								<td>
+									上线
+								</td>
+								
+								<td>
+									<a href="javascript:;">预览</a>
+									<a href="javascript:;">下线</a>
+									<a href="javascript:;">编辑</a>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+						
+					
 					</div>
 
 					<!--招聘管理-->
@@ -541,7 +517,7 @@
 					
 					<!--公告管理-->
     				<div role="tabpanel" class="tab-pane" id="Notice_Administration">
-						<div class="Notice_top">
+					<div class="Notice_top">
 						<span class="title">公告</span>
 						<button>新公告</button>
 					</div>

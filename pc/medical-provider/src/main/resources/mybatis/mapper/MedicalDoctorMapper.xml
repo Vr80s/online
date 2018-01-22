@@ -226,4 +226,66 @@
 			WHERE mw.id = #{writingsId}
 	</select>
 
+	<insert id="insertSelective" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		INSERT INTO medical_doctor
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="medicalDoctor.id != null">
+				id,
+			</if>
+			<if test="medicalDoctor.name != null">
+				name,
+			</if>
+			<if test="medicalDoctor.title != null">
+				title,
+			</if>
+			<if test="medicalDoctor.description != null">
+				description,
+			</if>
+			<if test="medicalDoctor.deleted != null">
+				deleted,
+			</if>
+			<if test="medicalDoctor.status != null">
+				status,
+			</if>
+			<if test="medicalDoctor.authenticationInformationId != null">
+				authentication_information_id,
+			</if>
+			<if test="medicalDoctor.createTime != null">
+				create_time,
+			</if>
+			<if test="medicalDoctor.createPerson != null">
+				create_person,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="medicalDoctor.id != null">
+				#{medicalDoctor.id},
+			</if>
+			<if test="medicalDoctor.name != null">
+				#{medicalDoctor.name},
+			</if>
+			<if test="medicalDoctor.title != null">
+				#{medicalDoctor.title},
+			</if>
+			<if test="medicalDoctor.description != null">
+				#{medicalDoctor.description},
+			</if>
+			<if test="medicalDoctor.deleted != null">
+				#{medicalDoctor.deleted},
+			</if>
+			<if test="medicalDoctor.status != null">
+				#{medicalDoctor.status},
+			</if>
+			<if test="medicalDoctor.authenticationInformationId != null">
+				#{medicalDoctor.authenticationInformationId},
+			</if>
+			<if test="medicalDoctor.createTime != null">
+				#{medicalDoctor.createTime},
+			</if>
+			<if test="medicalDoctor.createPerson != null">
+				#{medicalDoctor.createPerson},
+			</if>
+		</trim>
+	</insert>
+
 </mapper>

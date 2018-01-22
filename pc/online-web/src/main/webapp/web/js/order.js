@@ -588,7 +588,7 @@ window.onload = function() {
 //购物车列表点击事件
 template.helper('orderClick', function (order) {
 	var a = "";
-	if(order.onlineCourse == 1){
+	if(order.type == 3){
 		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;"  href="/web/html/payRealCourseDetailPage.html?id='+order.id+'"  target="_blank">';
 	}else if(order.type == 1){
 		a = '<a style="cursor:pointer;color=#333;display: block;width: 100%; height: 100%;" href="/web/html/payOpenCourseDetailPage.html?id='+order.id+'&direct_id='+order.direct_id+'"  target="_blank">';

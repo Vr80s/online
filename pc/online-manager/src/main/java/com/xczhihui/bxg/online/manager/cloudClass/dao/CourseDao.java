@@ -24,18 +24,6 @@ import java.util.Map;
 public class CourseDao extends HibernateDao<Course>{
 	 public Page<CourseVo> findCloudClassCoursePage(CourseVo courseVo, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
-//		 StringBuilder sql = new StringBuilder("SELECT oc.id as id ,oc.grade_name as courseName,oc.direct_id directId, oc.class_template as classTemplate, om.name as xMenuName,st.name as scoreTypeName, oc.multimedia_type multimediaType, oc.address, IF(ISNULL(oc.`course_pwd`),0,1) coursePwd,"
-//				 + "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.city as realCitys,"
-//				 + "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
-//				 + "oc.current_price as currentPrice,oc.description as description,oc.menu_id as menuId,oc.course_type_id as courseTypeId,"
-//				 + "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.qqno,oc.course_type as serviceType,oc.user_lecturer_id as userLecturerId, "//TODO 杨宣增加userLecturerId
-//				 + "(select group_concat(ol.name) from oe_lecturer ol where role_type=1 and is_delete=0 and ol.id in (select lecturer_id from course_r_lecturer where course_id=og.course_id and is_delete=0 )) AS role_type1, "
-//				 + "(select group_concat(ol.name) from oe_lecturer ol where role_type=2 and is_delete=0 and ol.id in (select lecturer_id from course_r_lecturer where course_id=og.course_id and is_delete=0 ))role_type2, "
-//				 + "(select group_concat(ol.name) from oe_lecturer ol where role_type=3 and is_delete=0 and ol.id in (select lecturer_id from course_r_lecturer where course_id=og.course_id and is_delete=0 ))role_type3 "
-//				 + "FROM oe_course oc "
-//				 + "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
-//				 + "LEFT JOIN teach_method tm ON tm.id = oc.courseType "
-//				 + "left join oe_grade og on og.course_id = oc.id where oc.is_delete = 0  and oc.type is null ");
 		 StringBuilder sql = new StringBuilder("SELECT \n" +
 				 "  oc.id AS id,\n" +
 				 "  oc.grade_name AS courseName,\n" +
@@ -76,7 +64,7 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  LEFT JOIN oe_grade og \n" +
 				 "    ON og.course_id = oc.id \n" +
 				 "  LEFT JOIN oe_user ou\n" +
-				 "    ON ou.id=oc.user_lecturer_id where oc.is_delete = 0  and oc.type is null ");
+				 "    ON ou.id=oc.user_lecturer_id where oc.is_delete = 0 ");
 		 if (courseVo.getCourseName() != null) {
 			 paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
 			 sql.append("and oc.grade_name like :courseName ");
@@ -114,12 +102,10 @@ public class CourseDao extends HibernateDao<Course>{
 			 paramMap.put("courseId", courseVo.getId());
 			 sql.append("and oc.id <> :courseId ");
 		 }
-		 
-		 if (courseVo.getOnlineCourse() == 1) {
-			 paramMap.put("onlineCourse", courseVo.getOnlineCourse());
-			 sql.append("and oc.online_course = :onlineCourse ");
+		 if(courseVo.getOnlineCourse()==0){
+			 sql.append(" AND oc.`type` = 2");
 		 }else{
-			 sql.append(" AND oc.`online_course` = 0");
+			 sql.append(" AND oc.`type` = 3");
 		 }
 
 		 sql.append(" group by oc.id  order by oc.status desc,oc.sort desc");
@@ -128,26 +114,8 @@ public class CourseDao extends HibernateDao<Course>{
 		 for (CourseVo entityVo : courseVos.getItems()) {
 			 List<ApplyGradeCourse> temps = this.findEntitiesByProperty(ApplyGradeCourse.class, "courseId", entityVo.getId());
 			 entityVo.setActCount(temps.size());
-//
-//			/*Map<String,Object> params=new HashMap<String,Object>();
-//	        params.put("courseId", entityVo.getId());
-//	        StringBuilder teacherSql=new StringBuilder();
-//	        teacherSql.append("SELECT group_concat(ol. name) as lecturerName from oe_lecturer ol ,course_r_lecturer grl where ol.id = grl.lecturer_id AND grl.course_id =:courseId AND ol.is_delete = 0 GROUP BY grl.course_id");
-//	        List<CourseVo> teacherNames = this.getNamedParameterJdbcTemplate().query(teacherSql.toString(),params,BeanPropertyRowMapper.newInstance(CourseVo.class));
-//	        entityVo.setLecturerName(teacherNames==null||teacherNames.size()==0?"":teacherNames.get(0).getLecturerName());*/
-//		    /**
-//		     * 杨宣修改   把班级信息去掉
-//		     */
-//		    Map<String,Object> params=new HashMap<String,Object>();
-//	        params.put("user_lecturer_id", entityVo.getUserLecturerId());
-//
-//	        StringBuilder teacherSql=new StringBuilder();  //// + "LEFT JOIN oe_user ou on oc.user_lecturer_id = ou.id and oe.is_lecturer = 1 and oe.status = 0");
-//	        teacherSql.append("SELECT ou.name as lecturerName from oe_user as ou where ou.id =:user_lecturer_id and ou.is_lecturer = 1 and ou.status = 0 ");
-//	        List<CourseVo> teacherNames = this.getNamedParameterJdbcTemplate().query(teacherSql.toString(),params,BeanPropertyRowMapper.newInstance(CourseVo.class));
-//	        entityVo.setLecturerName(teacherNames==null||teacherNames.size()==0?"":teacherNames.get(0).getLecturerName());
 		 }
 		 return courseVos;
-//		 }
 	 }
 	 
 	 public Page<CourseVo> findCloudClassCourseRecPage(CourseVo courseVo, int pageNumber, int pageSize){
@@ -180,7 +148,7 @@ public class CourseDao extends HibernateDao<Course>{
 		 
 		 
 		 if(offLine!=null && !"".equals(offLine) &&offLine.equals(1) ){
-			 sql.append(" and oc.online_course = 1 ");
+			 sql.append(" and oc.type = 3 ");
 			 if(city!=null && !"".equals(city)){
 				 sql.append(" and oc.city ='"+city+"'");
 			 }
