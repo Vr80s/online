@@ -71,13 +71,16 @@
 				<img src="${courseApplyInfo.imgPath}"  alt="课程封面" />
 			</div>
 		</div>
+<c:choose>
+	<c:when test="${!course.collection && course.courseForm==2}">
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right">视频:</label>
 			<div class="" >
 				${courseApplyInfo.playCode}
 			</div>
 		</div>
-
+	</c:when>
+</c:choose>
 
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right">主标题:</label>
@@ -98,10 +101,10 @@
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
 					<c:choose>
-						<c:when test="${courseApplyInfo.title== '1'}">
+						<c:when test="${courseApplyInfo.courseForm== '1'}">
 							<label class="control-label no-padding-right">直播</label>
 						</c:when>
-						<c:when test="${courseApplyInfo.title== '2'}">
+						<c:when test="${courseApplyInfo.courseForm== '2'}">
 							<label class="control-label no-padding-right">点播</label>
 						</c:when>
 						<c:otherwise>

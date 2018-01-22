@@ -63,6 +63,34 @@ $(function() {
             }
         },
         {
+            "title": "课程形式",
+            "class": "center",
+            "width": "8%",
+            "sortable": false,
+            "data": 'courseForm',
+            "mRender": function (data, display, row) {
+                if (data == 1) {
+                    return "直播";
+                } else if (data == 2) {
+                    return '点播';
+                }
+                return '线下课';
+            }
+        },
+        {
+            "title": "是否合辑",
+            "class": "center",
+            "width": "8%",
+            "sortable": false,
+            "data": 'collection',
+            "mRender": function (data, display, row) {
+                if (data) {
+                    return "是";
+                }
+                return '否';
+            }
+        },
+        {
             "sortable": false,
             "class": "center",
             "width": "12%",

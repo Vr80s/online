@@ -138,10 +138,10 @@
             <a href="#home" aria-controls="home" class="kcgl_bx" role="tab" style="padding: 10px 5px;"
                data-toggle="tab">直播管理</a>
         </li>
-        <li role="presentation">
-            <a href="#inbox" aria-controls="inbox" class="kctj_bx" role="tab" style="padding: 10px 5px;"
-               data-toggle="tab">直播统计</a>
-        </li>
+        <%--<li role="presentation">--%>
+            <%--<a href="#inbox" aria-controls="inbox" class="kctj_bx" role="tab" style="padding: 10px 5px;"--%>
+               <%--data-toggle="tab">直播统计</a>--%>
+        <%--</li>--%>
 
 		<li role="presentation">
             <a href="#liveremon" aria-controls="#liveremon" title="1" class="zbtj_bx" role="tab"
