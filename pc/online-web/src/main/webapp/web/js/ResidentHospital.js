@@ -205,7 +205,7 @@ $(".btn-upload").click(function(evt) {
 
 
 
-//论坛下拉列表功能
+//医馆管理下拉列表功能
 $('.luntan').click(function(){
 	$('.luntan_list').slideToggle();
 })
@@ -227,6 +227,16 @@ $('#doctor_in_inf .news_nav ul li a').click(function(){
 	
 })
 
+//点击其他的时候下拉的列表还原
+$('.hos_left_list > li:nth-child(n+3)').click(function(){
+	$('.luntan_list').slideUp();
+})
+
+
+
+
+
+//医馆管理部分
 //医馆管理部分下拉列表点击 右侧内容对应变化
 $('#hos_base_inf').click(function(){
 	$('.hos_renzheng_inf').addClass('hide');
@@ -238,6 +248,21 @@ $('#hos_renzhneg_inf').click(function(){
 	$('.hos_renzheng_inf').removeClass('hide');
 	
 })
+//内部医疗领域选择功能
+$('#hos_Administration .hos_base_inf .keshi ul li').click(function(){
+		if($(this).hasClass('keshiColor')){
+			$(this).removeClass('keshiColor')
+		}else{
+			$(this).addClass('keshiColor');
+		}
+	})
+
+
+
+
+
+
+
 
 //	公告部分
 //	公告部分点击发布效果
@@ -264,7 +289,11 @@ $('#Notice_Administration .Notice_top button').click(function(){
 })
 
 
+
+
+
 //医师管理部分
+//顶部点击切换底部内容功能
 var newTeacehr = 1;
 $('#doc_Administration .add_newTeacher').click(function(){
 	newTeacehr *= -1;
@@ -292,4 +321,14 @@ $('#doc_Administration .add_newTeacher').click(function(){
 	}
 	
 })
+
+
+//内部医疗领域选择功能
+$('#doc_Administration  .keshi ul li').click(function(){
+		if($(this).hasClass('keshiColor')){
+			$(this).removeClass('keshiColor')
+		}else{
+			$(this).addClass('keshiColor');
+		}
+	})
 
