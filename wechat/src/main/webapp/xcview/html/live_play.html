@@ -8,12 +8,15 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<link rel="stylesheet" href="../css/animate.css" />
+<link rel="stylesheet" href="../css/live_paly.css" />
+
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<link rel="stylesheet" href="../css/live_paly.css" />
+<script type="text/javascript" src="../js/live_play.js"></script>
 
 
 	
@@ -179,8 +182,58 @@
 			<p>评论999+</p>
 		</div>
 	</div>
+	<!--评论弹出框-->
+	<div class="bg_modal"></div>
 	
-	
+	<div class="wrapAll_comment">
+		<p class="set_title">发布评论</p>
+		<ul class="my_impression">
+			<li>总体印象</li>
+			<li>
+
+				<input type="radio" name="select_my"  value="" />
+				<label>非常好</label>
+				
+			</li>
+			<li>
+
+				<input type="radio" name="select_my"  value="" />
+				<label>好</label>
+				
+			</li>
+			<li>
+
+				<input type="radio" name="select_my"  value="" />
+				<label>一般</label>
+				
+			</li>
+			<li>
+
+				<input type="radio" name="select_my"  value="" />
+				<label>差</label>
+				
+			</li>
+		</ul>
+		<!--标签-->
+		<ul class="select_lable">
+			<li>很赞</li>
+			<li>干货很多</li>
+			<li>超值推荐</li>
+			<li>喜欢</li>
+			<li>买对了</li>
+		</ul>
+		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
+		<div class="text_write_box">
+			<textarea name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+		</div>
+		<!--表情/提交评论-->
+		<ul class="brow_btn">
+			<li>
+				<img src="../images/brow.png"/>
+			</li>
+			<li>发表评论</li>
+		</ul>
+	</div>
 	
 	
 	
