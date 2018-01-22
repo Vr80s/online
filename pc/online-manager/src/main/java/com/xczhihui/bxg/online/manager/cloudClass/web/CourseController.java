@@ -201,10 +201,10 @@ public class CourseController extends AbstractController{
 		Groups groups = Tools.filterGroup(params);
 		CourseVo searchVo=new CourseVo();
 		Group onlineCourse = groups.findByName("search_onlineCourse");
-//
-//		if (onlineCourse != null) {
-//			searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
-//		}
+
+		if (onlineCourse != null) {
+			searchVo.setOnlineCourse(Integer.valueOf(onlineCourse.getPropertyValue1().toString()));
+		}
 		
 		Group city = groups.findByName("search_city");
 		
