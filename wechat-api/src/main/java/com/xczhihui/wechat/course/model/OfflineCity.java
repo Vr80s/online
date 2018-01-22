@@ -75,6 +75,8 @@ public class OfflineCity extends Model<OfflineCity> {
 	@TableField("remark")
 	private String remark;
 
+	private String name;
+
 	@Override
 	protected Serializable pkVal() {
 		return null;
@@ -158,5 +160,13 @@ public class OfflineCity extends Model<OfflineCity> {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

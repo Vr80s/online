@@ -123,6 +123,7 @@
 		  and argc.user_id=#{userId}
 		  and oc.is_delete=0 and oc.status=1 group by oc.id  order by oc.end_time)
 	</select>
+
 	<select id="selectCoursesByCollectionId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		  oc.id,
@@ -134,4 +135,15 @@
 			ON oc.id = cc.`course_id`
 		WHERE cc.`collection_id` = #{collectionId}
 	</select>
+
+	<select id="selectLearningCourseListByUserId1" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	    SELECT
+		  count(*)
+		FROM
+		  oe_course as oc 
+		  inner join  apply_r_grade_course argc  on oc.`id`=argc.`course_id`
+		  inner join oe_user as ou on oc.user_lecturer_id = ou.id  where  and argc.user_id=#{userId}
+		  and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc  
+	</select>	
+
 </mapper>

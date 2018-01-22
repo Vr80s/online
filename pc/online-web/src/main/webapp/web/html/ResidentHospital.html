@@ -43,7 +43,9 @@
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
    </head>
 <body>
-<div></div>
+
+
+<div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
 <!-- 医馆入住 -->
 	<div id ="doctor_in_inf">
 	<div class="container">
@@ -424,9 +426,9 @@
 								</td>
 								
 								<td>
-									<a href="javascript:;">预览</a>
-									<a href="javascript:;">下线</a>
-									<a href="javascript:;">编辑</a>
+									<a href="javascript:;" class="preview">预览</a>
+									<a href="javascript:;" class="downLine">下线</a>
+									<a href="javascript:;" class="edit">编辑</a>
 								</td>
 							</tr>
 							<tr>
@@ -648,11 +650,162 @@
 					</div>
 						
 					</div>
+					
   				</div>
 			</div>
 
 
 		</div>
+		
+		
+		<!--医师隐藏的模态框部分-->
+		<div class="bottomContent hide" id="doc_Administration_bottom3">
+
+							<div style="position: relative;">
+								<span><em>*</em> 医师姓名</span>
+								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
+								<span class="name_warn warning hide"> 医师姓名不能为空</span>
+								<span class="close_doc_inf">关闭</span>
+							</div>
+							
+							
+							<div class="touxiang_picUpdata">
+								<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
+								<span class="touxiang_pic">
+									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
+								</span>
+								<span class="touxiang_pic_tip">
+									<p>请上传清晰头像</p>
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+							</div>
+							
+							<div>
+								<span><em>*</em> 医师职称</span>
+								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
+								<span class="warning hide"> 医师职称不能为空</span>
+							</div>
+							
+							<div class="zhicheng_picUpdata">
+								<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+								<span class="zhicheng_pic">
+									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
+								</span>
+								<span class="zhicheng_pic_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+							</div>
+							
+							<div class="keshi">
+								<span><em>*</em> 擅长领域</span>
+								<ul>
+									<li>中医内科</li>
+									<li>中医内科</li>
+									<li>妇科</li>
+									<li>儿科</li>
+									<li>小儿科</li>
+									<li>胃病</li>
+									<li>心脏病</li>
+									<li>癌症</li>
+									<li>绝症</li>
+									<li>肝病</li>
+								</ul>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
+							</div>
+							
+							
+							<div class="personIntroduct">
+								<span><em>*</em>  医师介绍</span>
+								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>
+							</div>
+							
+						
+						<div class="baocun">
+							<input type="submit" value="保存" id="submit"/>
+						</div>
+						
+						</div>
+						
+						
+						
+			<!--医师信息 预览效果-->			
+			<div class="bottomContent hide" id="doc_Administration_bottom4">
+
+							<div style="position: relative;">
+								<span><em>*</em> 医师姓名</span>
+								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
+								<span class="name_warn warning hide"> 医师姓名不能为空</span>
+								<span class="close_doc_inf">关闭</span>
+							</div>
+							
+							
+							<div class="touxiang_picUpdata">
+								<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
+								<span class="touxiang_pic">
+									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
+								</span>
+								<span class="touxiang_pic_tip">
+									<p>请上传清晰头像</p>
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+							</div>
+							
+							<div>
+								<span><em>*</em> 医师职称</span>
+								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
+								<span class="warning hide"> 医师职称不能为空</span>
+							</div>
+							
+							<div class="zhicheng_picUpdata">
+								<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+								<span class="zhicheng_pic">
+									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
+								</span>
+								<span class="zhicheng_pic_tip">
+									<p>文件小于2M</p>
+									<p>支持JPG/PNG等格式图片</p>
+								</span>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+							</div>
+							
+							<div class="keshi">
+								<span><em>*</em> 擅长领域</span>
+								<ul>
+									<li>中医内科</li>
+									<li>中医内科</li>
+									<li>妇科</li>
+									<li>儿科</li>
+									<li>小儿科</li>
+									<li>胃病</li>
+									<li>心脏病</li>
+									<li>癌症</li>
+									<li>绝症</li>
+									<li>肝病</li>
+								</ul>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
+							</div>
+							
+							
+							<div class="personIntroduct">
+								<span><em>*</em>  医师介绍</span>
+								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>
+							</div>
+							
+						
+						
+						
+						</div>
+		
 	</div>
 
 	</div>
