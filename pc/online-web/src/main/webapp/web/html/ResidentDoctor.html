@@ -162,7 +162,7 @@
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证正面图片</p>
 								</span>
-								<span class="idBack_pic">
+								<span class="idBack_pic" onclick="$('#idBack_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传身份证背面图片</p>
 								</span>
@@ -170,13 +170,14 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
-								<input type="file" name="" id="idFont_pic_ipt" />
+								<input type="file" name="pic" id="idFont_pic_ipt" style="position: absolute;visibility: hidden;"/>
+								<input type="file" name="pic" id="idBack_pic_ipt" style="position: absolute;visibility: hidden;"/>
 								<span class="warning hide" style="margin-left:110px">请上传身份证图片</span>
 							</div>
 							
 							<div class="teacher_picUpdata">
 								<span style="vertical-align: top;"><em>*</em>  医师资格证</span>
-								<span class="teacher_pic">
+								<span class="teacher_pic" onclick="$('#teacher_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医师资格证图片</p>
 								</span>
@@ -184,12 +185,13 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="teacher_pic_ipt" style="position: absolute;visibility: hidden;"/>
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传身份证图片</p>
 							</div>
 							
 							<div class="zhiye_picUpdata">
 								<span style="vertical-align: top;"><em>*</em>执业资格证</span>
-								<span class="zhiye_pic">
+								<span class="zhiye_pic"  onclick="$('#zhiiye_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上执业资格证图片</p>
 								</span>
@@ -197,12 +199,13 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="zhiiye_pic_ipt" style="position: absolute;visibility: hidden;"/>
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传执业资格证图片</p>
 							</div>
 							
 							<div class="touxiang_picUpdata">
 								<span style="vertical-align: top;"><em>*</em> 真实头像</span>
-								<span class="touxiang_pic">
+								<span class="touxiang_pic"  onclick="$('#touxiang_pic_ipt').click()">
 									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
 								</span>
@@ -211,6 +214,7 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;"/>
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 							</div>
 							
@@ -222,14 +226,15 @@
 							
 							<div class="zhicheng_picUpdata">
 								<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-								<span class="zhicheng_pic">
+								<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
 								</span>
-								<span class="zhicheng_pic_tip">
+								<span class="zhicheng_pic_tip"  >
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;"/>
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
 							</div>
 							

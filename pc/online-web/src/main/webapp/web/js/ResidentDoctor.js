@@ -231,18 +231,76 @@ $('#doctor_in_inf .news_nav ul li a').click(function(){
 	
 })
 
+//上传图片调用的接口
+function picUpdown(baseurl,imgname){
+	RequestService("/medical/common/upload", "post", {
+				image: baseurl,
+			}, function(data) {
+				console.log(data);
+				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			})
+
+}
 
 
 
-//医师认证上传图片部分处理
- $('#idFont_pic_ipt').fileupload({
-            /*上传接口*/
-            url:'/medical/common/upload',
-            /*返回json*/
-            dataType:'json',
-            /*上传成功回调*/
-            done:function (e,data) {
-                console.log(data.result);
-                $('#idFont_pic').html('<img src="'+data.result.url+'" >');
-            }
-        });
+//医师认证上传图片处理
+
+//身份证正面 idFont_pic
+	$('#idFont_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+  		console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
+//		$('#img').attr('src',reader.result)
+	picUpdown(reader.result,'idFont_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+//filses就是input[type=file]文件列表，files[0]就是第一个文件，这里就是将选择的第一个图片文件转化为base64的码
+//进行图片展示
+})
+
+
+//身份证反面
+	$('#idBack_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown(reader.result,'idBack_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+	
+//  医师资格证
+$('#teacher_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown(reader.result,'teacher_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+
+//  执业资格证
+$('#zhiiye_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown(reader.result,'zhiye_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+
+//   真实头像
+$('#touxiang_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown(reader.result,'touxiang_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+
+//  职称证明
+$('#zhicheng_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown(reader.result,'zhicheng_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
