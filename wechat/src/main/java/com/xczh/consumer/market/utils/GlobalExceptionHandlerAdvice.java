@@ -10,6 +10,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
  * 全局异常处理
@@ -30,13 +31,17 @@ public class GlobalExceptionHandlerAdvice {
         ex.printStackTrace(pw);
         pw.flush();
         sw.flush();
-        if(ex instanceof MissingServletRequestParameterException){
-            return  ResponseObject.newErrorResponseObject(BIZ_Parameter_EXCEPTION_MESSAGE);
-        }
         LOGGER.error("运行时异常.message:"+ex.getMessage());
         LOGGER.error("运行时异常.栈信息:"+sw.toString());
         return  ResponseObject.newErrorResponseObject(ex.getMessage()!=null?!isContainChinese(ex.getMessage().substring(0,1))?BIZ_RUNTIME_EXCEPTION_MESSAGE:ex.getMessage()==null?BIZ_RUNTIME_EXCEPTION_MESSAGE:ex.getMessage():BIZ_RUNTIME_EXCEPTION_MESSAGE);
     }
+
+    @ExceptionHandler({MissingServletRequestParameterException.class,MethodArgumentTypeMismatchException.class})
+    @ResponseBody
+    public ResponseObject processMissingServletRequestParameterException() {
+        return  ResponseObject.newErrorResponseObject(BIZ_Parameter_EXCEPTION_MESSAGE);
+    }
+
     public static boolean isContainChinese(String str) {
 
         Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
