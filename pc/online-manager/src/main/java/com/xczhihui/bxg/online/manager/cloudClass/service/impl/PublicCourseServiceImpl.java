@@ -426,6 +426,12 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
          Course course= dao.findByHQLOne(hql,new Object[] {id});
          return course;
 	}
+	@Override
+	public Course findCourseVoByLiveExanmineId(String id) {
+		 String hql="from Course where examine_id = ?";
+         Course course= dao.findByHQLOne(hql,new Object[] {id});
+         return course;
+	}
 	
 	
 	

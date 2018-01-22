@@ -62,11 +62,10 @@
 		  oc.direct_id as directId,
 		  ou.name as name,
 		  ou.small_head_photo as headImg,
-		  ou.description as as lecturerDescription
+		  ou.description as lecturerDescription
 		FROM
 		  oe_course as oc 
-		  inner join  oe_user as ou 
-		  left  join  on  oc.user_lecturer_id = ou.id and oc.id = #{courseId}
+		  inner join  oe_user as ou  on oc.user_lecturer_id = ou.id and oc.id = #{courseId}
 	</select>
 	
 	
@@ -124,16 +123,37 @@
 		  and oc.is_delete=0 and oc.status=1 group by oc.id  order by oc.end_time)
 	</select>
 	
-	
-	<select id="selectLearningCourseListByUserId1" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<!-- 得到已购买课程的数量 -->
+	<select id="selectMyFreeCourseListCount" resultType="java.lang.Integer">
 	    SELECT
 		  count(*)
 		FROM
 		  oe_course as oc 
 		  inner join  apply_r_grade_course argc  on oc.`id`=argc.`course_id`
 		  inner join oe_user as ou on oc.user_lecturer_id = ou.id  where  and argc.user_id=#{userId}
-		  and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc  
+		  and oc.is_delete=0 and oc.status=1  and oc.is_free = 0
 	</select>	
-	
-		
+	<!-- 得到已经购买的课程排序-->
+	<select id="selectMyFreeCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	    SELECT
+		  oc.grade_name as gradeName,
+		  oc.smallimg_path as smallImgPath,
+		  oc.start_time as sta,String idrtTime,
+		  oc.end_time as endTime,
+		  oc.user_lecturer_id as userLecturerId,
+		  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		  if(oc.is_free =0,0,1) as watchState,
+		  oc.live_status as  lineState,
+		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		  oc.description as description,
+		  oc.address as address,
+		  oc.city as city,
+		  ou.name as name,
+		  ou.small_head_photo as headImg,
+		FROM
+		  oe_course as oc 
+		  inner join  apply_r_grade_course argc  on oc.`id`=argc.`course_id`
+		  inner join oe_user as ou on oc.user_lecturer_id = ou.id  where  and argc.user_id=#{userId}
+		  and oc.is_delete=0 and oc.status=1  and oc.is_free = 0  group by oc.id  order by oc.end_time
+	</select>
 </mapper>

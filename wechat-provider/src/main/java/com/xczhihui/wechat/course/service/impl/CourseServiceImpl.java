@@ -45,4 +45,18 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		List<CourseLecturVo> listAll = iCourseMapper.selectLearningCourseListByUserId(id);
 		return listAll;
 	}
+	
+	
+	@Override
+    public Integer selectMyFreeCourseListCount(String id) {
+		// TODO Auto-generated method stub
+		return   iCourseMapper.selectMyFreeCourseListCount(id);
+	}
+	
+	@Override
+    public Page<CourseLecturVo> selectMyFreeCourseList(Page<CourseLecturVo> page,String id) {
+		// TODO Auto-generated method stub
+		List<CourseLecturVo> records = iCourseMapper.selectMyFreeCourseList(page,id);
+		return   page.setRecords(records);
+	}
 }

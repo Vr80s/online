@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.xczhihui.bxg.online.api.vo.LiveCourseUserVO;
 import com.xczhihui.bxg.online.api.vo.LiveCourseVO;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -97,6 +98,28 @@ public class GiftDao extends SimpleHibernateDao {
         Page<ReceivedGift> page = this.findPageBySQL(sql.toString(), paramMap, ReceivedGift.class, pageNumber, pageSize);
 		return page;
 	}
+	
+//  礼物	
+//	String sql="SELECT ogs.id orderNo,ogs.`gift_name` giftName,ogs.`count`,ogs.`create_time` createTime,ou.`name` ,ROUND(ifnull(uci.`value`,0),2) gain"
+//			+ " FROM `oe_gift_statement` ogs left join `user_coin_consumption` ucc on ucc.`order_no_gift`=ogs.`id` left join `user_coin_increase` uci on uci.`order_no_gift`=ucc.`order_no_gift` AND uci.change_type=3  LEFT JOIN oe_user ou ON ou.`id` = ogs.`giver`"
+//			+ "WHERE ogs.`receiver`=:userId ORDER BY ogs.`create_time` DESC ";
+
+// 充值
+//	String sql="select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,apr.`total_amount` total,uci.`balance` as balance"
+//			+ " from `user_coin_increase` uci ,`alipay_payment_record` apr where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = apr.`out_trade_no`"
+//			+ " union "
+//			+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'支付宝' as payType ,aprh.`total_amount` total,uci.`balance` as balance"
+//			+ " from `user_coin_increase` uci ,`alipay_payment_record_h5` aprh where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = aprh.`out_trade_no`"
+//			+ " union "
+//			+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'微信' as payType , CAST((wpf.`total_fee`/100) AS DECIMAL(18,2)) AS total,uci.`balance` as balance"
+//			+ " from `user_coin_increase` uci ,`wxcp_pay_flow` wpf where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = wpf.`out_trade_no`"
+//
+//			+ " union "
+//			+ "select uci.`order_no_recharge` orderNo,uci.`create_time`,ROUND(uci.`value`) value,'applePay' as payType , ii.actual_price AS total,uci.`balance` as balance"
+//			+ " from `user_coin_increase` uci ,`iphone_iap` ii where uci.`change_type`=1 and uci.`user_id`=:userId and uci.`order_no_recharge` = ii.`order_no`"
+//
+//			+ " ORDER BY `create_time` DESC";
+	
 
 	/** 
 	 * Description：获取收到的打赏

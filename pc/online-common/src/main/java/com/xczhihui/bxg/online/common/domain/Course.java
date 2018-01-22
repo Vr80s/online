@@ -300,6 +300,9 @@ public class Course extends BasicEntity2 implements Serializable {
 	
 	@Column(name = "apply_id")
 	private Integer applyId;
+
+	@Column(name = "examine_id")
+	private String examineId;
 	
 	
 	@Column(name = "city")
@@ -881,4 +884,14 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setEssenceSort(Integer essenceSort) {
 		this.essenceSort = essenceSort;
 	}
+
+	public String getExamineId() {
+		return examineId;
+	}
+
+	public void setExamineId(String examineId) {
+		this.examineId = examineId;
+	}
+	
+	
 }
