@@ -151,4 +151,6 @@
 	<dubbo:reference interface="com.xczhihui.wechat.course.service.IOfflineCityService" id="offlineCityServiceImpl" timeout="5000"/>
     <!-- 我的关注，我的粉丝service -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote" timeout="5000" />
+	<!--礼物相关-->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IGiftService" id="giftService" timeout="5000" />
 </beans>
