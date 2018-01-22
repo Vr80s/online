@@ -160,6 +160,10 @@ public class MobileClassifyController {
 			oc.setCityName("其他");
 			oclist.add(oc);
 		}
+		for(OfflineCity city : oclist){
+			String name = city.getCityName();
+			city.setName(name);
+		}
 		list11.add(oclist);
 		//直播状态
 		List<Map<String, Object>>  list2  = new ArrayList<Map<String,Object>>();

@@ -81,5 +81,7 @@ public interface LiveService {
      */
     public ModelAndView livepage(String courseId,String roomId,String planId,HttpServletRequest request,HttpServletResponse response);
 
+    public ModelAndView livepage(String courseId,HttpServletRequest request,HttpServletResponse response);
+
 	public List<OpenCourseVo> getOpenCourse(Integer num, String id);
 }

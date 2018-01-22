@@ -113,8 +113,7 @@ window.onload=function(){
         '<a class="gotengxun" href="javascript:;" id="gotengxun">' +
         '确认报名' +
         '</a>' +
-//        '<a class="baomingSucces" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >' +
-        '<a class="baomingSucces" href="/web/livepage/'+courserId+'/'+direct_id+'/null" class="purchase" >' +
+        '<a class="baomingSucces" href="/web/livepage/'+courserId+'" class="purchase" >' +
         '立即学习' +
         '</a>' +
         '{{else}}' +
@@ -171,7 +170,7 @@ window.onload=function(){
         '</p>' +
         
         '{{if item.selfCourse == true}}' +
-        	'<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/'+direct_id+'/null">立即查看</a>' +
+        	'<a class="purchase common_ljck" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'">立即查看</a>' +
 	    '{{else}}'+        
 	        '{{if item.free == true}}' +
 		        '<p class="bigpic-body-money">' +
@@ -179,9 +178,7 @@ window.onload=function(){
 		        '</p>' +
 		        '<div class="bigpic-body-btn">' +
 		        '{{if item.apply==true}}'+
-		//        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/CourseDetailZhiBo.html?courseId='+courserId+'" >立即学习</a>'+
-		        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/'+direct_id+'/null">立即学习</a>' +
-		//        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'/{{direct_id}}/null" >立即学习</a>'+
+		        '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/livepage/'+courserId+'">立即学习</a>' +
 		        '{{else}}'+
 		        '<a class="sign-up purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" target="_blank">立即报名</a>'+
 		        '{{/if}}'+
@@ -228,7 +225,7 @@ window.onload=function(){
         '</div>' +
         '</div>';
     var free;
-    $(".baomingSucces").attr("href","/web/html/CourseDetailZhiBo.html?courseId="+courserId);
+    $(".baomingSucces").attr("href","/web/livepage/"+courserId);
     RequestService("/course/getCourseById", "POST", {
         courserId:courserId
     }, function(data) {
@@ -332,9 +329,6 @@ window.onload=function(){
                                             $(".sign-up-body,.gotengxun").css("display","none");
                                             $(".sign-up-success,.baomingSucces").css("display","block");
                                             $(".bigpic-body-btn .sign-up").text("立即学习");
-//                                            $(".sign-up,.baomingSucces").attr("href","/web/html/CourseDetailZhiBo.html?courseId="+courserId);
-//                                            '<a href="/web/livepage/{{item.id}}/{{item.direct_id}}/null" class="purchase" >立即学习</a>' +	
-//                                            $(".sign-up,.baomingSucces").attr("href","/web/livepage/"+courserId+"/"+{{item.direct_id}}+"/null");
                                             $(".sign-up1").css("display","none");
                                             $("#payCourseSlider .baomingSucces").css("display","block");
                                             $(".sign-up").unbind("click");

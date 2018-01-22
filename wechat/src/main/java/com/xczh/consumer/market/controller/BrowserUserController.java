@@ -869,8 +869,13 @@ public class BrowserUserController {
 		 * 直接中缓存中得到这个token。如果这个token没有或者失效了。那么就中数据库中取下。
 		 * 在从数据库中去的时候
 		 */
+		//cacheService.delete("ba525056ebfa48dfb33974e7ab92d7a5");
+		
+		
+		
 		OnlineUser ou = new OnlineUser();
 		if(token!=null && cacheService.get(token)!=null){
+			LOGGER.info("没有缓存");
 			ou = cacheService.get(token);
 			return ResponseObject.newSuccessResponseObject(ou);
 		}
@@ -891,7 +896,7 @@ public class BrowserUserController {
 			 * 2、当登录的时候，在增加这个标识符为0:  
 			 */
 			Boolean regis =  (Boolean) map.get("isRegis");
-			LOGGER.info(""+map.get("userCenterId"));
+			LOGGER.info("userCenterId;"+map.get("userCenterId"));
 			ItcastUser iu = userCenterAPI.getUser(appUniqueId);
 			if(!regis|| "1".equals(type)){ //返回用户基本信息   --主要是不返回loginName
 				ou = onlineUserService.findUserByIdAndVhallNameInfo(map.get("userId").toString());

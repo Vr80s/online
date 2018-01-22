@@ -27,6 +27,14 @@ public enum UserStatus {
 		return value;
 	}
 	
+	public static void main(String[] args) {
+		
+		if (UserStatus.isValid(2) && 1==1) {
+			System.out.println("12345");
+		}
+	}
+	
+	
 	/**
 	 * 用户状态是否合法
 	 * @param status
