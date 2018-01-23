@@ -2,6 +2,7 @@ var P_courseTable;//职业课列表
 var courseForm;//添加课程表单
 
 $(function() {
+    createDatePicker($(".datetime-picker"),"yy-mm-dd");
     document.onkeydown = function (event) {
         if (event.keyCode == 13) {
             return false;
@@ -12,18 +13,21 @@ $(function() {
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     // searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"' + $("#type").val() + '","tempType":undefined}');
     var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
-    var objData = [{
+    var objData = [/*{
         "title": checkbox,
         "class": "center",
-        "width": "5%",
+        "width": "3%",
         "sortable": false,
         "data": 'id',
         "mRender": function (data, display, row) {
             return '<input type="checkbox" value=' + data + ' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>' + row.teachMethodName + '</span>';
         }
-    },
-        {"title": "封面图", "class": "center", "width": "6%", "sortable": false, "data": 'imgPath'},
+    },*/
+        {"title": "封面图", "class": "center", "width": "8%", "sortable": false, "data": 'imgPath',"mRender":function(data){
+            return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;'/>";
+        }},
         {"title": "课程名称", "class": "center", "width": "6%", "sortable": false, "data": 'title'},
+        {"title": "所属学科", "class": "center", "width": "6%", "sortable": false, "data": 'menuName'},
         {"title": "价格", "class": "center", "width": "8%", "sortable": false, "data": 'price'},
         {"title": "主播", "class": "center", "width": "8%", "sortable": false, "data": 'lecturer'},
         {"title": "上传人", "class": "center", "width": "8%", "sortable": false, "data": 'userName'},
@@ -180,6 +184,17 @@ $(function() {
      */
     function search_P() {
         var json = new Array();
+        var startTime = $("#startTime").val(); //开始时间
+        var stopTime = $("#stopTime").val(); //结束时间
+        if(startTime != "" || stopTime != "") {
+
+            if (startTime != "" && stopTime != "" && startTime > stopTime) {
+                alertInfo("开始日期不能大于结束日期");
+                return;
+            }
+            json.push('{"tempMatchType":"7","propertyName":"startTime","propertyValue1":"' + startTime + '","tempType":"String"}');
+            json.push('{"tempMatchType":"6","propertyName":"stopTime","propertyValue1":"' + stopTime + '","tempType":"String"}');
+        }
         json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
         searchButton(P_courseTable, json);
     };

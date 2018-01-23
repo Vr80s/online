@@ -54,7 +54,7 @@ public class CourseApplyInfo implements Serializable {
 	@Column(name="collection_course_sort")
 	private Integer collectionCourseSort;
 	@Column(name="multimedia_type")
-	private int multimediaType;
+	private Integer multimediaType;
 	private Boolean collection;
 	private Boolean sale;
 	private Integer status;
@@ -90,9 +90,29 @@ public class CourseApplyInfo implements Serializable {
 	@Transient
 	private String userName;
 	@Transient
+	private String menuName;
+	@Transient
 	private String dismissalText;
+	@Transient
+	private Boolean isFree;
 	private String address;
 	private String city;
+
+	public Boolean getFree() {
+		return isFree;
+	}
+
+	public void setIsFree(Boolean isFree) {
+		this.isFree = isFree;
+	}
+
+	public String getMenuName() {
+		return menuName;
+	}
+
+	public void setMenuName(String menuName) {
+		this.menuName = menuName;
+	}
 
 	public String getCity() {
 		return city;
@@ -298,11 +318,11 @@ public class CourseApplyInfo implements Serializable {
 		this.collectionCourseSort = collectionCourseSort;
 	}
 
-	public int getMultimediaType() {
+	public Integer getMultimediaType() {
 		return multimediaType;
 	}
 
-	public void setMultimediaType(int multimediaType) {
+	public void setMultimediaType(Integer multimediaType) {
 		this.multimediaType = multimediaType;
 	}
 

@@ -1,15 +1,17 @@
 package com.xczhihui.bxg.online.manager.cloudClass.web;
 
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
+import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Dismissal;
+import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LecturerVo;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.Group;
@@ -88,25 +90,55 @@ public class CourseApplyInfoController extends AbstractController{
           Groups groups = Tools.filterGroup(params);
           
           CourseApplyInfo searchVo=new CourseApplyInfo();
+
           Group courseName = groups.findByName("search_courseName");
-          
           if (courseName != null) {
         	  searchVo.setTitle(courseName.getPropertyValue1().toString());
           }
-//
-//          Group menuId = groups.findByName("search_menu");
-//          if (menuId != null) {
-//        	  searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
-//          }
-          
 
-          
+          Group searchLecturer = groups.findByName("search_lecturer");
+          if (searchLecturer != null) {
+        	  searchVo.setLecturer(searchLecturer.getPropertyValue1().toString());
+          }
+
+          Group menuId = groups.findByName("search_menu");
+          if (menuId != null) {
+        	  searchVo.setCourseMenu(menuId.getPropertyValue1().toString());
+          }
+
+          Group form = groups.findByName("search_form");
+          if (form != null) {
+          	  //音频
+			  if(form.getPropertyValue1().toString().equals("4")){
+				  searchVo.setCourseForm(CourseForm.VOD.getCode());
+				  searchVo.setMultimediaType(Multimedia.AUDIO.getCode());
+			  }else{
+				  searchVo.setCourseMenu(form.getPropertyValue1().toString());
+			  }
+          }
+
+		Group isFree = groups.findByName("search_isFree");
+		if (isFree != null) {
+			if(isFree.getPropertyValue1().equals("0")){
+				searchVo.setIsFree(true);
+			}else{
+				searchVo.setIsFree(false);
+			}
+		}
+
           Group status = groups.findByName("search_status");
           
           if (status != null) {
         	  searchVo.setStatus(Integer.valueOf(status.getPropertyValue1().toString()));
           }
-
+		Group startTime = groups.findByName("startTime");
+		if (startTime != null) {
+			searchVo.setStartTime(DateUtil.parseDate(startTime.getPropertyValue1().toString(),"yyyy-MM-dd"));
+		}
+		Group stopTime = groups.findByName("stopTime");
+		if (stopTime != null) {
+			searchVo.setEndTime(DateUtil.parseDate(stopTime.getPropertyValue1().toString(),"yyyy-MM-dd"));
+		}
 
           Page<CourseApplyInfo> page = courseApplyService.findCoursePage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();
