@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.controller;
+package com.xczh.consumer.market.controller.pay;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -7,30 +7,43 @@ import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.xczh.consumer.market.bean.OnlineOrder;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.iphoneIpaService;
+import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
+import com.xczh.consumer.market.vo.CodeUtil;
+import com.xczhihui.bxg.online.api.service.EnchashmentService;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/bxg/iap")
-public class IapController {
+@RequestMapping("/xczh/iap")
+public class XzIapController {
 
     //购买凭证验证地址
     @Value("${iphone.iap.url}")
@@ -43,34 +56,27 @@ public class IapController {
     //购买凭证验证地址
     @Value("${rate}")
     private  Integer rate;
+    
+	@Value("${onlinekey}")
+	private String onlinekey;
+	
+	@Value("${online.weburl}")
+	private String pcUrl;
+
 
     @Autowired
     private iphoneIpaService iphoneIpaService;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
-    /**
-     * 重写X509TrustManager
-     */
-    private static TrustManager myX509TrustManager = new X509TrustManager() {
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return null;
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-
-        }
-
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-
-        }
-    };
-
-
-
+    @Autowired
+	private OnlineOrderService onlineOrderService;
+    
+    @Autowired
+    private AppBrowserService appBrowserService;
+    
+	@Autowired
+	private EnchashmentService enchashmentService;
+    
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzIapController.class);
     /**
      * 接收iOS端发过来的购买凭证
      * @param receipt
@@ -146,6 +152,87 @@ public class IapController {
         }
     }
     /**
+	 * 苹果手机下单后扣减人民币
+	 */
+	@RequestMapping("appleIapPayOrder")
+	@ResponseBody
+	@Transactional
+	public ResponseObject appleInternalPurchaseOrder(HttpServletRequest req,
+			HttpServletResponse res, Map<String, String> params)
+			throws Exception {
+		try {
+			/*
+			 * 传递过来一个订单号
+			 */
+			String order_no = req.getParameter("order_no");
+			ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
+    		if(null == orderDetails.getResultObject()){
+    			return ResponseObject.newErrorResponseObject("未找到订单信息");
+    		}
+			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
+    		Double actualPrice = order.getActualPay();//订单金额
+    		double  xmb = actualPrice * rate;
+    		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+    		if(user == null) {
+    	         return ResponseObject.newErrorResponseObject("登录超时！");
+    	    }
+    		String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		double d = Double.valueOf(userYE);
+    		LOGGER.info("要消费余额:"+xmb);
+    		LOGGER.info("当前用户余额:"+d);
+    		if(xmb>d){
+    			return ResponseObject.newErrorResponseObject("余额不足,请到个人账户充值！");
+			}
+			/**
+			 * 然后你那边加下密
+			 */
+			String transaction_id = CodeUtil.getRandomUUID();
+			String s = "out_trade_no=" + order_no + "&result_code=SUCCESS"
+					+ "&transaction_id="+transaction_id+"&key=" + onlinekey;
+			
+			String mysign = CodeUtil.MD5Encode(s).toLowerCase();
+			String resXml = "<xml>" + "<out_trade_no><![CDATA[" + order_no
+					+ "]]></out_trade_no>"
+					+ "<result_code><![CDATA[SUCCESS]]></result_code>"
+					+ "<transaction_id>"+transaction_id+"<![CDATA[]]></transaction_id>"
+					+ "<sign><![CDATA[" + mysign
+					+ "]]></sign>" + " </xml> ";
+			
+			LOGGER.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
+			
+			String msg = HttpUtil.sendDataRequest(
+					pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml
+							.toString().getBytes());
+			
+			LOGGER.info("msg  >>>  " + msg);
+			Gson g = new GsonBuilder().create();
+			Map<String, Object> mp = g.fromJson(msg, Map.class);
+			boolean falg =  Boolean.valueOf(mp.get("success").toString());
+	        if(falg){
+	        	/**
+	    		 * 获取订单详情
+	    		 */
+	    		String courderName ="";
+	    		if(order.getAllCourse().size()>0){
+	    			courderName =order.getAllCourse().get(0).getGradeName();
+	    		}
+	    		/**
+	    		 * 记录下ios支付成功后的记录
+	    		 */
+	    		ResponseObject finalResult = iphoneIpaService.iapOrder(order.getUserId(), xmb, order_no, actualPrice+"",courderName);
+	    		return finalResult;
+	        }else{
+	        	return ResponseObject.newErrorResponseObject("签名有误");
+	        }
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("服务器有误");
+		}
+	}
+    
+    
+    /**
      * 发送请求
      * @param url
      * @return
@@ -158,7 +245,6 @@ public class IapController {
             //设置SSLContext
             SSLContext ssl = SSLContext.getInstance("SSL");
             ssl.init(null, new TrustManager[]{myX509TrustManager}, null);
-
             //打开连接
             HttpsURLConnection conn = (HttpsURLConnection) new URL(url).openConnection();
             //设置套接工厂
@@ -191,4 +277,25 @@ public class IapController {
             return null;
         }
     }
+    
+    /**
+     * 重写X509TrustManager
+     */
+    private static TrustManager myX509TrustManager = new X509TrustManager() {
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return null;
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+        }
+
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+        }
+    };
 }

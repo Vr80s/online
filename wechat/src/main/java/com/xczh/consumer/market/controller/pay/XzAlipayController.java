@@ -488,8 +488,7 @@ public class XzAlipayController {
 	}
 
 	/**
-	 * 充值代币(暂时禁用)
-	 *
+	 * h5充值代币
 	 * @return
 	 * @throws Exception
 	 */
@@ -497,27 +496,27 @@ public class XzAlipayController {
 	@ResponseBody
 	public void rechargePay(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		Map<String, String> params2 = new HashMap<>();
-		params2.put("token", request.getParameter("token"));
-		OnlineUser user = appBrowserService
-				.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		
+		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
 			throw new RuntimeException("登录超时！");
 		}
-
 		String ap = null;
+		Double count = Double.valueOf(ap) * rate;
 		ap = request.getParameter("actualPay");
 		if (ap.indexOf(".") >= 0
 				&& ap.substring(ap.lastIndexOf(".")).length() < 3) {
 			ap = ap + "0";
 		}
-		Double count = Double.valueOf(ap) * rate;
+	
 		if (!WebUtil.isIntegerForDouble(count)) {
 			throw new RuntimeException("充值金额" + ap + "兑换的熊猫币" + count + "不为整数");
 		}
 		if (minimumAmount > Double.valueOf(ap)) {
 			throw new RuntimeException("充值金额低于最低充值金额：" + minimumAmount);
 		}
+		
+		
 		// 订单号 支付的钱
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
 		String out_trade_no = TimeUtil.getSystemTime()
@@ -539,6 +538,7 @@ public class XzAlipayController {
 				alipayConfig.APPID, alipayConfig.RSA_PRIVATE_KEY,
 				alipayConfig.FORMAT, alipayConfig.CHARSET,
 				alipayConfig.ALIPAY_PUBLIC_KEY, alipayConfig.SIGNTYPE);
+		
 		AlipayTradeWapPayRequest alipay_request = new AlipayTradeWapPayRequest();
 
 		RechargeParamVo rechargeParamVo = new RechargeParamVo();
@@ -563,11 +563,7 @@ public class XzAlipayController {
 		// 设置同步地址
 		alipay_request.setReturnUrl(returnOpenidUri
 				+ "/xcviews/html/topup.html?xmbCount=" + count);
-
-		// if(StringUtils.isNotBlank(request.getParameter("formIsWechat"))){
-		// alipay_request.setReturnUrl(returnOpenidUri+"/xcviews/html/topup.html?xmbCount="+count);
-		// }
-
+		
 		// form表单生产
 		String form = "";
 		try {
@@ -994,6 +990,7 @@ public class XzAlipayController {
 									alipayPaymentRecordH5.getPassbackParams())
 							.get("t").toString();
 					if ("1".equals(ppbt)) { // 打赏
+						
 						RewardParamVo rpv = JSONObject.parseObject(
 								alipayPaymentRecordH5.getPassbackParams(),
 								RewardParamVo.class);
@@ -1017,28 +1014,16 @@ public class XzAlipayController {
 						response.getWriter().println("success"); // 请不要修改或删除
 						return;
 					} else if ("2".equals(ppbt)) { // 普通订单
-
-						
-						
-						LOG.info("回调数据包："
-								+ alipayPaymentRecordH5.getPassbackParams());
+						LOG.info("回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
 						alipayPaymentRecordH5.setUserId((JSONObject
 								.parseObject(
 										alipayPaymentRecordH5
 												.getPassbackParams()).get(
 										"userId").toString()));
-
-						alipayPaymentRecordH5Service
-								.insert(alipayPaymentRecordH5);
 						
-						
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 						LOG.info("普通订单=============================");
-						
-						boolean onlinePaySuccess = httpOnline(out_trade_no,
-								trade_no); // 普通订单
-
-						
-						LOG.info("普通订单=============================");
+						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no); // 普通订单
 						if (onlinePaySuccess) {
 							response.getWriter().println("success"); // 请不要修改或删除
 						}

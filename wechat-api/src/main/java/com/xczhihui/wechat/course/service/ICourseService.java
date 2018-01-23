@@ -55,4 +55,25 @@ public interface ICourseService {
 	  
 
 	  List<CourseLecturVo> selectCoursesByCollectionId(Integer collectionId);
+
+      /**
+       * 
+       * Description：查找此主播最近一次的课程
+       * @param lecturerId
+       * @return
+       * @return CourseLecturVo
+       * @author name：yangxuan <br>email: 15936216273@163.com
+       *
+       */
+	  public CourseLecturVo selectLecturerRecentCourse(String lecturerId);
+
+	  /**
+	   * Description：根据主播id得到主播的所有课程，按照发布时间排序
+	   * @param page
+	   * @param lecturerId
+	   * @return
+	   * @return Page<CourseLecturVo>
+	   * @author name：yangxuan <br>email: 15936216273@163.com
+	   */
+	  public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
 }

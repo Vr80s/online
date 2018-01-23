@@ -33,9 +33,7 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 
     @Override
     public void increase(String userId,int xmb,String json, String actualPrice) {
-
     	try {
-
     		UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
 	        userCoinIncrease.setUserId(userId);
 	        userCoinIncrease.setChangeType(1);
@@ -65,24 +63,20 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     		//判断这个订单号中是否已经存在了，如果存在不存了
     		Integer c = iphoneIpaMapper.findIap(orderNo);
     		if(c<=0){
-    			 iphoneIpaMapper.save(null,
-    		        		actualPrice,
-    		        		TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12),
-    		        		orderNo,
-    		        		userId,
-    		        		"购买课程："+courserName+"花费"+xmb+"个熊猫币",
-    		        		0);
-    		        /**
-    		         * 减去熊猫币
-    		         */
     			 
-    		        UserCoinConsumption ucc = new UserCoinConsumption();
-    		        ucc.setValue(new BigDecimal( -xmb));
-    		        ucc.setChangeType(10);//购买课程消耗的熊猫币
-    		        ucc.setUserId(userId);
-    		        userCoinService.updateBalanceForConsumption(ucc);
-    		        
-    		        return ResponseObject.newSuccessResponseObject("支付成功");
+    			 //保存这个购买的信息
+    			iphoneIpaMapper.save(null,
+    		        		actualPrice,TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12),
+    		        		orderNo,userId,"购买课程："+courserName+"花费"+xmb+"个熊猫币",0);
+		        /**
+		         * 减去熊猫币
+		         */
+		        UserCoinConsumption ucc = new UserCoinConsumption();
+		        ucc.setValue(new BigDecimal( -xmb));
+		        ucc.setChangeType(10);//购买课程消耗的熊猫币
+		        ucc.setUserId(userId);
+		        userCoinService.updateBalanceForConsumption(ucc);
+		        return ResponseObject.newSuccessResponseObject("支付成功");
     		}else{
     			return ResponseObject.newErrorResponseObject("此订单已支付过");
     		}

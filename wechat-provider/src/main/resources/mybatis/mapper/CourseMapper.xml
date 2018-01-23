@@ -53,25 +53,29 @@
 		               and ozu.is_delete = 0  and ozu.status = 0),0),0) as fansCount,
 		  oc.collection as collection,            
 		  oc.course_number as courseNumber,             
-		  oc.description as description,
+		  oc.course_detail as description,
+		  oc.course_outline as courseOutline,
 		  oc.live_status as  lineState,
 		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		  oc.description as description,
 		  oc.address as address,
 		  oc.city as city,
 		  oc.direct_id as directId,
+		  oc.subtitle as subtitle,
+		  IFNULL((select count(*) from oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
+		  IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as startLevel,
 		  ou.name as name,
 		  ou.small_head_photo as headImg,
-		  ou.description as lecturerDescription
+		  ca.detail as lecturerDescription
 		FROM
 		  oe_course as oc 
-		  inner join  oe_user as ou  on oc.user_lecturer_id = ou.id and oc.id = #{courseId}
+		  inner join  oe_user as ou  on oc.user_lecturer_id = ou.id 
+		  left  join  course_anchor as ca on oc.user_lecturer_id = ca.user_id 
+		  where oc.id = #{courseId}  
 	</select>
-	
 	
 	<!-- 查找用户的学习中心数据    直播中，直播预告、课程  是我的课程，已结束课程是：直播结束和线下排序班   -->
 	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
-		
 	 (	SELECT
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
@@ -130,7 +134,8 @@
 		FROM
 		  oe_course as oc 
 		  inner join  apply_r_grade_course argc  on oc.`id`=argc.`course_id`
-		  inner join oe_user as ou on oc.user_lecturer_id = ou.id  where  and argc.user_id=#{userId}
+		  inner join oe_user as ou on oc.user_lecturer_id = ou.id  
+		  where argc.user_id=#{userId}
 		  and oc.is_delete=0 and oc.status=1  and oc.is_free = 0
 	</select>	
 	<!-- 得到已经购买的课程排序-->
@@ -138,7 +143,7 @@
 	    SELECT
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
-		  oc.start_time as sta,String idrtTime,
+		  oc.start_time as startTime,
 		  oc.end_time as endTime,
 		  oc.user_lecturer_id as userLecturerId,
 		  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
@@ -149,11 +154,12 @@
 		  oc.address as address,
 		  oc.city as city,
 		  ou.name as name,
-		  ou.small_head_photo as headImg,
+		  ou.small_head_photo as headImg
 		FROM
 		  oe_course as oc 
 		  inner join  apply_r_grade_course argc  on oc.`id`=argc.`course_id`
-		  inner join oe_user as ou on oc.user_lecturer_id = ou.id  where  and argc.user_id=#{userId}
+		  inner join oe_user as ou on oc.user_lecturer_id = ou.id 
+		  where  argc.user_id=#{userId}
 		  and oc.is_delete=0 and oc.status=1  and oc.is_free = 0  group by oc.id  order by oc.end_time
 	</select>
 
@@ -169,14 +175,54 @@
 		WHERE cc.`collection_id` = #{collectionId}
 	</select>
 
-	<!--<select id="selectLearningCourseListByUserId1" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">-->
-	    <!--SELECT-->
-		  <!--count(*)-->
-		<!--FROM-->
-		  <!--oe_course as oc -->
-		  <!--inner join  apply_r_grade_course argc  on oc.`id`=argc.`course_id`-->
-		  <!--inner join oe_user as ou on oc.user_lecturer_id = ou.id  where  and argc.user_id=#{userId}-->
-		  <!--and oc.is_delete=0 and oc.status=1 group by oc.id  order by argc.create_time desc  -->
-	<!--</select>	-->
-
+	<!-- 查找讲师距离当前时间最近一次的课程   -->
+	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	 	SELECT
+		  oc.grade_name as gradeName,
+		  oc.smallimg_path as smallImgPath,
+		  oc.start_time as startTime,
+		  oc.end_time as endTime,
+		  oc.user_lecturer_id as userLecturerId,
+		  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		  if(oc.is_free =0,0,1) as watchState,
+		  oc.live_status as  lineState,
+		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		  oc.description as description,
+		  oc.address as address,
+		  oc.city as city,
+		  ou.name as name,
+		  ou.small_head_photo as headImg,
+		  ABS(timestampdiff(second,current_timestamp,oc.create_time)) as recent
+		FROM
+		 oe_course oc
+		   inner join oe_user ou  on oc.user_lecturer_id = ou.id
+		   where oc.user_lecturer_id = #{userId}
+		   order by recent limit 0,1  
+	</select>
+	
+	
+	<!-- 通过主播id得到主播的所有课程页面  -->
+	<select id="selectLecturerAllCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	 	SELECT
+		  oc.grade_name as gradeName,
+		  oc.smallimg_path as smallImgPath,
+		  oc.start_time as startTime,
+		  oc.end_time as endTime,
+		  oc.user_lecturer_id as userLecturerId,
+		  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		  if(oc.is_free =0,0,1) as watchState,
+		  oc.live_status as  lineState,
+		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+		  oc.description as description,
+		  oc.address as address,
+		  oc.city as city,
+		  ou.name as name,
+		  ou.small_head_photo as headImg
+		FROM
+		 oe_course oc
+		   inner join oe_user ou  on oc.user_lecturer_id = ou.id
+		   where oc.user_lecturer_id = #{userId} order by release_time desc
+	</select>
+	
+	
 </mapper>
