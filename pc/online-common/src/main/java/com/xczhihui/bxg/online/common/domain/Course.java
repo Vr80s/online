@@ -308,7 +308,7 @@ public class Course extends BasicEntity2 implements Serializable {
 	/**
 	 * 上架或者下架时间
 	 */
-	@Column(name = "releaseTime")
+	@Column(name = "release_time")
 	private Date releaseTime;
 	
 	
