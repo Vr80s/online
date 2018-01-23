@@ -121,25 +121,43 @@ $(function(){
 		
 		
 		//获取页面所有信息
-		var name = 
-		
+		var name = $('#doc_Distinguish .doc_name').val();
+		var cardNum = $('#doc_Distinguish .doc_Idnum').val();
+		var cardPositive = $('#doc_Distinguish .idFont_pic img').attr('src');
+		var cardNegative = $('#doc_Distinguish .idBack_pic img').attr('src');
+		var qualificationCertificate =  $('#doc_Distinguish .teacher_pic img').attr('src');
+		var professionalCertificate =  $('#doc_Distinguish .zhiye_pic img').attr('src');
+		var headPortrait =  $('#doc_Distinguish .touxiang_pic img').attr('src');
+		var title = $('#doc_Distinguish .doc_zhicheng').val();
+		var titleProve = $('#doc_Distinguish .zhicheng_pic img').attr('src');
+		var field = $('#doc_Distinguish .doc_shanchang').val();
+		var description = $('#doc_Distinguish .personIntroduct textarea').val();
+		var province = $('#choosePro option:selected').text();
+		var city = $('#citys option:selected').text();
 		//发送认证请求
 		RequestService("/medical/doctor/apply", "post", {
-				name:1,
-				cardNum:,
-				cardPositive:,
-				cardNegative:,
-				qualificationCertificate:,
-				professionalCertificate:,
-				headPortrait:,
-				title:,
-				titleProve:,
-				departments:,
-				field:,
-				description:
+				name:name,
+				cardNum:cardNum,
+				cardPositive:cardPositive,
+				cardNegative:cardNegative,
+				qualificationCertificate:qualificationCertificate,
+				professionalCertificate:professionalCertificate,
+				headPortrait:headPortrait,
+				title:title,
+				titleProve:titleProve,
+				departments:keshiStr,
+				field:field,
+				description:description,
+				province:province,
+				city:city
 			}, function(data) {
 				console.log(data);
-				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			if(data.success == false){
+				alert('认证失败');
+			}else if(data.success == true){
+				alert('认证成功');
+			}
+
 		})
 	
 	})
@@ -147,11 +165,28 @@ $(function(){
 
 	
 	//科室点击验证效果
+	var arr = [];
+	var keshiStr;
 	$('.keshi ul li').click(function(){
 		if($(this).hasClass('keshiColor')){
-			$(this).removeClass('keshiColor')
+		//删除第二次选中的
+			for(var i = 0 ;i < arr.length; i++){
+				if($(this).text() == arr[i]){
+					arr.splice(i,1)
+				}
+			}
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
+			$(this).removeClass('keshiColor');	
 		}else{
 			$(this).addClass('keshiColor');
+			arr.push($(this).text());
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
 		}
+//		console.log(keshiStr)
 	})
+	
+
+	
 })
