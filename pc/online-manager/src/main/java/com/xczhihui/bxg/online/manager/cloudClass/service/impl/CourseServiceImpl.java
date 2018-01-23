@@ -528,7 +528,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		// TODO Auto-generated method stub
 		
 		 String hql="from Course where 1=1 and isDelete=0 and id = ?";
-		 
          Course course= dao.findByHQLOne(hql, new Object[]{id});
          course.setReleaseTime(new Date());
          if(course.getStatus()!=null&&"1".equals(course.getStatus())){
@@ -546,8 +545,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
          
          dao.update(course);
 	}
-
-
 	@Override
 	public void deleteCourseById(Integer id) {
 		// TODO Auto-generated method stub

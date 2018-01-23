@@ -26,6 +26,7 @@ import com.xczhihui.bxg.online.web.service.ApplyService;
 import com.xczhihui.bxg.online.web.vo.ChapterLevelVo;
 import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import com.xczhihui.bxg.online.web.vo.UserVideoVo;
+import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
  * 视频相关功能数据访问层
@@ -440,32 +441,32 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public Page<Criticize> getUserCriticize(String userId,String courseId, Integer pageNumber, Integer pageSize) {
         System.out.println("============");
-        
         Map<String,Object> paramMap = new HashMap<>();
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
         
         System.out.println(courseId + userId);
         if(courseId !=null || userId!=null){
-        	
            StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(userId)){
 	       	  sql.append("  and c.userId =:userId ");
 	       	  paramMap.put("userId", userId);
 	       }else{
 	       	  sql.append("  and c.courseId =:courseId ");
-	       	  paramMap.put("courseId", courseId);
+	       	  paramMap.put("courseId", Integer.parseInt(courseId));
 	       }
+	       //sql.append(" limit "+pageNumber+","+pageSize);
+	       
+	       System.out.println(sql.toString());
             //Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
-            Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
+	        //List<Criticize> list =  this.findByHQL(sql.toString(),paramMap);
+		   	//Page<Criticize> page = new Page<Criticize>(list,0,pageSize, pageNumber);
+	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
             //System.out.println(criticizes.getItems().get(0).getReply().get(0).getId());
             System.out.println(criticizes.getItems());
-            
             return criticizes;
         }
         return  null;
-        
-        
     }
 	
 	
