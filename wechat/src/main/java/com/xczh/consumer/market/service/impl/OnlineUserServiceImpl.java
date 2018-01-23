@@ -580,13 +580,13 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		//手机
 		ItcastUser iu = userCenterAPI.getUser(mobile);
 		OnlineUser user = onlineUserDao.findUserByLoginName(mobile);
-		
 		ItcastUser iuApple = userCenterAPI.getUser(appUniqueId);
 		//如果此唯一id已经注册了，那么这个就是普通的注册
 		if(iu == null && iuApple==null){
 			//向用户中心注册
 			return addPhoneRegistByAppH5(req,password,mobile,vtype);
 		}
+		
 		if(iu == null){
 		   //向用户中心注册
 			userCenterAPI.update(appUniqueId,"",3, null, mobile,3, 3);

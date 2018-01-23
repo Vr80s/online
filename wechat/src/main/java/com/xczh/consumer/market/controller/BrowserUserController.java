@@ -870,12 +870,8 @@ public class BrowserUserController {
 		 * 在从数据库中去的时候
 		 */
 		//cacheService.delete("ba525056ebfa48dfb33974e7ab92d7a5");
-		
-		
-		
 		OnlineUser ou = new OnlineUser();
 		if(token!=null && cacheService.get(token)!=null){
-			LOGGER.info("没有缓存");
 			ou = cacheService.get(token);
 			return ResponseObject.newSuccessResponseObject(ou);
 		}
@@ -908,6 +904,9 @@ public class BrowserUserController {
 				ou.setPassword(iu.getPassword());
 			}
 		}
+		
+		
+		
 		/**
 		 * 游客身份进入后，存缓存到redis中。也就是这个票
 		 * 	 通过这个票进行各种身份通过，对出登录删除这个票就行了。

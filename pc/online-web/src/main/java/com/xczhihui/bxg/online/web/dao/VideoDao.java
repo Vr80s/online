@@ -440,12 +440,10 @@ public class VideoDao extends SimpleHibernateDao {
      * @return
      */
     public Page<Criticize> getUserCriticize(String userId,String courseId, Integer pageNumber, Integer pageSize) {
-        System.out.println("============");
         Map<String,Object> paramMap = new HashMap<>();
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
         
-        System.out.println(courseId + userId);
         if(courseId !=null || userId!=null){
            StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(userId)){
@@ -458,11 +456,7 @@ public class VideoDao extends SimpleHibernateDao {
 	       //sql.append(" limit "+pageNumber+","+pageSize);
 	       
 	       System.out.println(sql.toString());
-            //Page<BannerVo> page = dao.findPageByHQL("from Banner where 1=1 and isDelete=0 and type = :type and status=1 order by sort ", paramMap, pageNumber, pageSize);
-	        //List<Criticize> list =  this.findByHQL(sql.toString(),paramMap);
-		   	//Page<Criticize> page = new Page<Criticize>(list,0,pageSize, pageNumber);
 	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
-            //System.out.println(criticizes.getItems().get(0).getReply().get(0).getId());
             System.out.println(criticizes.getItems());
             return criticizes;
         }

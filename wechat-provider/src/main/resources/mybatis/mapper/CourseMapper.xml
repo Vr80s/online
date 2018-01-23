@@ -39,6 +39,7 @@
 	<!-- 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
 	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
+		  oc.id as id,
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
 		  oc.start_time as startTime,
@@ -62,10 +63,13 @@
 		  oc.city as city,
 		  oc.direct_id as directId,
 		  oc.subtitle as subtitle,
+		  oc.current_price as currentPrice,
+		   
 		  IFNULL((select count(*) from oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
 		  IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as startLevel,
 		  ou.name as name,
 		  ou.small_head_photo as headImg,
+		 
 		  ca.detail as lecturerDescription
 		FROM
 		  oe_course as oc 
@@ -77,6 +81,7 @@
 	<!-- 查找用户的学习中心数据    直播中，直播预告、课程  是我的课程，已结束课程是：直播结束和线下排序班   -->
 	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 	 (	SELECT
+	 	   oc.id as id,
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
 		  oc.start_time as startTime,
@@ -89,6 +94,7 @@
 		  oc.description as description,
 		  oc.address as address,
 		  oc.city as city,
+		  oc.current_price as currentPrice,
 		  ou.name as name,
 		  ou.small_head_photo as headImg,
 		  '我的课程' as note
@@ -103,6 +109,7 @@
 		UNION ALL 
 		
 	 	( SELECT
+	 	oc.id as id,
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
 		  oc.start_time as startTime,
@@ -115,6 +122,7 @@
 		  oc.description as description,
 		  oc.address as address,
 		  oc.city as city,
+		  oc.current_price as currentPrice,
 		  ou.name as name,
 		  ou.small_head_photo as headImg,
 		  '已结束课程' as note
@@ -141,6 +149,7 @@
 	<!-- 得到已经购买的课程排序-->
 	<select id="selectMyFreeCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 	    SELECT
+	    oc.id as id,
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
 		  oc.start_time as startTime,
@@ -152,6 +161,7 @@
 		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		  oc.description as description,
 		  oc.address as address,
+		  oc.current_price as currentPrice,
 		  oc.city as city,
 		  ou.name as name,
 		  ou.small_head_photo as headImg
@@ -178,6 +188,7 @@
 	<!-- 查找讲师距离当前时间最近一次的课程   -->
 	<select id="selectLecturerRecentCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 	 	SELECT
+	 	oc.id as id,
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
 		  oc.start_time as startTime,
@@ -189,6 +200,7 @@
 		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		  oc.description as description,
 		  oc.address as address,
+		  oc.current_price as currentPrice,
 		  oc.city as city,
 		  ou.name as name,
 		  ou.small_head_photo as headImg,
@@ -204,6 +216,7 @@
 	<!-- 通过主播id得到主播的所有课程页面  -->
 	<select id="selectLecturerAllCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 	 	SELECT
+	 	oc.id as id,
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
 		  oc.start_time as startTime,
@@ -215,6 +228,7 @@
 		  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		  oc.description as description,
 		  oc.address as address,
+		  oc.current_price as currentPrice,
 		  oc.city as city,
 		  ou.name as name,
 		  ou.small_head_photo as headImg

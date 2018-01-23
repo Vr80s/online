@@ -506,8 +506,20 @@
 					<button class="btn btn-sm btn-success dele_bx" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
-				</p>
-			
+					
+					 <a href="/link/word/download?filename=链接地址添加文档.docx">文档说明</a>
+					 <!--   -->
+					 <form action="/link/word/upload" enctype="multipart/form-data" method="post">
+				        <table>
+				            <tr>
+				                <td>请选择文件:</td>
+				                <td><input type="file" name="file"></td>
+				            </tr>
+				            <tr>
+				                <td><input type="submit" value="上传"></td>
+				            </tr>
+				        </table>
+				    </form>
 			
 				<div class="row">
 					<div class="col-xs-12">
