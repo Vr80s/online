@@ -4,14 +4,19 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Dismissal;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseApplyDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
+import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
+import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
+import com.xczhihui.bxg.online.manager.vhall.bean.Webinar;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -27,6 +32,14 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
     private CourseApplyDao courseApplyDao;
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private OnlineUserService onlineUserService;
+	@Value("${LIVE_VHALL_USER_ID}")
+	private String liveVhallUserId;
+	@Value("${vhall_callback_url}")
+	String vhall_callback_url;
+	@Value("${vhall_private_key}")
+	String vhall_private_key;
 
     
     @Override
@@ -201,15 +214,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		//增加密码和老师
 		course.setCoursePwd(courseApply.getPassword());
 		course.setUserLecturerId(courseApply.getUserId()+"");
-		if(courseApply.getCourseForm()==3){
-			//线下课程
-			course.setOnlineCourse(1);
-			course.setAddress(courseApply.getAddress());
-			course.setStartTime(courseApply.getStartTime());
-			course.setEndTime(courseApply.getEndTime());
-		}else{
-			course.setOnlineCourse(0);
-		}
+		course.setType(courseApply.getCourseForm());
 
 		// zhuwenbao-2018-01-09 设置课程的展示图
 		// findCourseById 是直接拿小图 getCourseDetail是从大图里拿 同时更新两个 防止两者数据不一样
@@ -225,6 +230,20 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		}else{
 			course.setStatus("0");
 		}
+		if(course.getType()== CourseForm.OFFLINE.getCode()){
+			//线下课程
+			course.setAddress(courseApply.getAddress());
+			course.setStartTime(courseApply.getStartTime());
+			course.setEndTime(courseApply.getEndTime());
+			course.setCity(courseApply.getCity());
+		}else if(course.getType()== CourseForm.LIVE.getCode()){
+			course.setStartTime(courseApply.getStartTime());
+			String webinarId = createWebinar(course);
+			course.setDirectId(webinarId);
+			//将直播课设置未预告
+			course.setLiveStatus(2);
+			course.setDirectSeeding(1);
+		}
 		course.setIsRecommend(0);
 		course.setClassRatedNum(0);
 		course.setServiceType(0);
@@ -238,5 +257,32 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		return course;
 	}
 
+	/**
+	 * Description：创建一个直播活动
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 8:52 2018/1/22 0022
+	 **/
+	public String createWebinar(Course entity) {
+		Webinar webinar = new Webinar();
+		webinar.setSubject(entity.getGradeName());
+		webinar.setIntroduction(entity.getDescription());
+		Date start = entity.getStartTime();
+		String start_time = start.getTime() + "";
+		start_time = start_time.substring(0, start_time.length() - 3);
+		webinar.setStart_time(start_time);
+		webinar.setHost(entity.getLecturer());
+		Integer directSeeding = entity.getDirectSeeding();
+		if(directSeeding==null){
+			directSeeding = 1;
+		}
+		webinar.setLayout(directSeeding.toString());
+		OnlineUser u = onlineUserService.getOnlineUserByUserId(entity.getUserLecturerId());
+		webinar.setUser_id(u.getVhallId());
+		String webinarId = VhallUtil.createWebinar(webinar);
 
+		VhallUtil.setActiveImage(webinarId, VhallUtil.downUrlImage(entity.getSmallImgPath(), "image"));
+		VhallUtil.setCallbackUrl(webinarId, vhall_callback_url, vhall_private_key);
+		return webinarId;
+	}
 }

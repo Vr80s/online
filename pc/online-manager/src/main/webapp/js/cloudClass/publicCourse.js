@@ -19,11 +19,9 @@ $(function(){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
     }},
     {title: '序号', "class": "center", "width": "5%","data": 'id',datafield: 'xuhao', "sortable": false},
-	/*{ "title": "直播id", "class":"center","width":"6%","sortable":false,"data": 'id' ,"mRender":function (data, display, row) {
-		return "<span name='courseNameList'>"+data+"</span>";
-	} },*/ { "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' ,"mRender":function (data, display, row) {
-	} },
+	{ "title": "直播名称", "class":"center","width":"8%","sortable":false,"data": 'courseName' },
 	{ "title": "直播状态", "class":"center","width":"6%","sortable":false,"data": 'liveStatus' ,"mRender":function (data, display, row) {
+		debugger
 			if(data==1 ){  //直播状态1.直播中，2预告，3直播结束
 				return "直播中";
 			}else if(data== 2){

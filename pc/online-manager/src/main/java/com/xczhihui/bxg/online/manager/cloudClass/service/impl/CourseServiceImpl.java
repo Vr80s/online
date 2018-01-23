@@ -506,8 +506,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	public void checkName(Integer id, String courseName) {
 		List<Course> entitys= findByName(courseName);
 		for(Course entity: entitys){
+			if(id==null) {
+				id = 0;
+			}
 			if(!entity.isDelete()&&entity.getId().intValue()!=id){
-				throw new RuntimeException("课程名称已存在！");
+				throw new RuntimeException(courseName+":课程名称已存在！");
 			}
 		}
 	}

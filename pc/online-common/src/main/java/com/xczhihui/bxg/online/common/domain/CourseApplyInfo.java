@@ -92,6 +92,15 @@ public class CourseApplyInfo implements Serializable {
 	@Transient
 	private String dismissalText;
 	private String address;
+	private String city;
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	public String getDismissalText() {
 		return dismissalText;
