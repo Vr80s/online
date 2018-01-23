@@ -305,6 +305,13 @@ public class Course extends BasicEntity2 implements Serializable {
 	private String examineId;
 	
 	
+	/**
+	 * 上架或者下架时间
+	 */
+	@Column(name = "releaseTime")
+	private Date releaseTime;
+	
+	
 	@Column(name = "city")
 	private String city;
 	@Transient
@@ -891,6 +898,14 @@ public class Course extends BasicEntity2 implements Serializable {
 
 	public void setExamineId(String examineId) {
 		this.examineId = examineId;
+	}
+
+	public Date getReleaseTime() {
+		return releaseTime;
+	}
+
+	public void setReleaseTime(Date releaseTime) {
+		this.releaseTime = releaseTime;
 	}
 	
 	

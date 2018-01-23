@@ -528,8 +528,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		// TODO Auto-generated method stub
 		
 		 String hql="from Course where 1=1 and isDelete=0 and id = ?";
+		 
          Course course= dao.findByHQLOne(hql, new Object[]{id});
-         
+         course.setReleaseTime(new Date());
          if(course.getStatus()!=null&&"1".equals(course.getStatus())){
         	 course.setStatus("0");
          }else{
@@ -540,7 +541,6 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         				throw new RuntimeException ("只能启用4条数据！");
         		 }
         	 }*/
-        	 
         	 course.setStatus("1");
          }
          
