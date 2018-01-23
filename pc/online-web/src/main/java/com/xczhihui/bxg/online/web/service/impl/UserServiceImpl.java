@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		/*初始化用户账户--20170911--yuruixin*/
-		u.getId();
+//		u.getId();
 		//向用户中心注册
 		if (userCenterAPI.getUser(u.getLoginName()) == null) {
 			userCenterAPI.regist(u.getLoginName(), password, u.getName(), UserSex.UNKNOWN, null,
