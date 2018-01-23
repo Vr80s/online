@@ -537,12 +537,23 @@
 			                    </td>
 								<td>
 									<div class="profile-info-value searchTr">
-										<select name="search_isFreee" id="search_isFreee" value="" class="propertyValue1" >
+										<select name="search_isFree" id="search_isFree" value="" class="propertyValue1" >
 											<option value="">是否收费</option>
 											<option value="1">收费</option>
 											<option value="0">免费</option>
 										</select>
-										<input type="hidden" value="search_isFreee" class="propertyName"/>
+										<input type="hidden" value="search_isFree" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_status" id="search_status" value="" class="propertyValue1" >
+											<option value="">审核状态</option>
+											<option value="0">未审核</option>
+											<option value="1">已通过</option>
+											<option value="2">未通过</option>
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
 									</div>
 								</td>
 								<td>

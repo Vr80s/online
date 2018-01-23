@@ -76,7 +76,11 @@ $(function() {
                 if (data == 1) {
                     return "直播";
                 } else if (data == 2) {
-                    return '点播';
+                    if(row.multimediaType==1){
+                        return '点播-视频';
+                    }else{
+                        return '点播-音频';
+                    }
                 }
                 return '线下课';
             }

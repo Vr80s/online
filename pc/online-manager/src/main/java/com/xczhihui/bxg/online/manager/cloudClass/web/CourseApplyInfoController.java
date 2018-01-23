@@ -113,7 +113,7 @@ public class CourseApplyInfoController extends AbstractController{
 				  searchVo.setCourseForm(CourseForm.VOD.getCode());
 				  searchVo.setMultimediaType(Multimedia.AUDIO.getCode());
 			  }else{
-				  searchVo.setCourseMenu(form.getPropertyValue1().toString());
+				  searchVo.setCourseForm(Integer.valueOf(form.getPropertyValue1().toString()));
 			  }
           }
 
@@ -126,11 +126,11 @@ public class CourseApplyInfoController extends AbstractController{
 			}
 		}
 
-          Group status = groups.findByName("search_status");
-          
-          if (status != null) {
-        	  searchVo.setStatus(Integer.valueOf(status.getPropertyValue1().toString()));
-          }
+        Group status = groups.findByName("search_status");
+        if (status != null) {
+        	searchVo.setStatus(Integer.valueOf(status.getPropertyValue1().toString()));
+        }
+
 		Group startTime = groups.findByName("startTime");
 		if (startTime != null) {
 			searchVo.setStartTime(DateUtil.parseDate(startTime.getPropertyValue1().toString(),"yyyy-MM-dd"));
