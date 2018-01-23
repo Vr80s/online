@@ -141,6 +141,46 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 //		}
 	}
 
+	@Override
+	public Page<CourseApplyResource> findCourseApplyResourcePage(CourseApplyResource courseApplyResource, int currentPage, int pageSize) {
+		Page<CourseApplyResource> page = courseApplyDao.findCourseApplyResourcePage(courseApplyResource, currentPage, pageSize);
+		for (CourseApplyResource car:page.getItems() ) {
+			String audioStr="";
+			if(car.getMultimediaType()==2){
+				audioStr = "_2";
+			}
+			String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+car.getResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
+			String uuid = UUID.randomUUID().toString().replace("-", "");
+			String playCode = "";
+			playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
+			playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
+			playCode+="		width=\"600\" ";
+			playCode+="		height=\"490\" ";
+			playCode+="		id=\""+uuid+"\">";
+			playCode+="		<param name=\"movie\" value=\""+src+"\" />";
+			playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
+			playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
+			playCode+="		<param value=\"transparent\" name=\"wmode\" />";
+			playCode+="		<embed src=\""+src+"\" ";
+			playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
+			playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
+			playCode+="			type=\"application/x-shockwave-flash\"/> ";
+			playCode+="	</object>";
+			car.setPlayCode(playCode);
+		}
+		return page;
+	}
+
+	@Override
+	public void deleteOrRecoveryCourseApplyResource(Integer courseApplyResourceId,Boolean delete) {
+		UserHolder.getCurrentUser().getId();
+		DetachedCriteria dc = DetachedCriteria.forClass(CourseApplyResource.class);
+		dc.add(Restrictions.eq("id", courseApplyResourceId));
+		CourseApplyResource courseApplyResource = dao.findEntity(dc);
+		courseApplyResource.setDeleted(delete);
+		dao.update(courseApplyResource);
+	}
+
 	private void notPassCourse(CourseApplyInfo courseApply, String userId) {
 		courseApply.setStatus(2);
 		courseApply.setReviewPerson(userId);

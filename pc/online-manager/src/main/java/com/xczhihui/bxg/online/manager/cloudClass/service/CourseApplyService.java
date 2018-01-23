@@ -18,4 +18,9 @@ public interface CourseApplyService {
     void savePass(Integer courseApplyId, String id);
 
 	void saveNotPass(CourseApplyInfo courseApply, String id);
+
+    Page<CourseApplyResource> findCourseApplyResourcePage(CourseApplyResource searchVo, int currentPage, int pageSize);
+
+	void deleteOrRecoveryCourseApplyResource(Integer courseApplyId,Boolean delete);
+
 }

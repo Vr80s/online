@@ -125,4 +125,38 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 		params.put("cid",id);
 		return this.getNamedParameterJdbcTemplate().query(sql,params, BeanPropertyRowMapper.newInstance(CourseApplyInfo.class));
 	}
+
+	public Page<CourseApplyResource> findCourseApplyResourcePage(CourseApplyResource courseApplyResource, int currentPage, int pageSize) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder("SELECT \n" +
+				"  car.`id`,\n" +
+				"  car.`title`,\n" +
+				"  car.`resource`,\n" +
+				"  car.`multimedia_type` multimediaType,\n" +
+				"  car.`create_time` createTime, " +
+				"  ou.`login_name` loginName,\n" +
+				"  ou.`name` userName,\n" +
+				"  car.`is_delete` deleted \n" +
+				"FROM\n" +
+				"  `course_apply_resource` car LEFT JOIN `oe_user` ou ON car.`user_id`=ou.`id` \n" +
+				"WHERE 1=1 ");
+		if (courseApplyResource.getTitle() != null) {
+			paramMap.put("title", "%" + courseApplyResource.getTitle() + "%");
+			sql.append("and car.title like :title ");
+		}
+		if (courseApplyResource.getUserName() != null) {
+			paramMap.put("name", "%" + courseApplyResource.getUserName()+ "%");
+			sql.append("and ou.`name` like :name ");
+		}
+		if (courseApplyResource.getDeleted() != null) {
+			paramMap.put("is_delete", courseApplyResource.getDeleted());
+			sql.append("and car.is_delete = :is_delete ");
+		}
+		//car.`is_delete` = 0
+		sql.append(" ORDER BY car.`create_time` DESC");
+
+		Page<CourseApplyResource> courseApplyResources = this.findPageBySQL(sql.toString(), paramMap, CourseApplyResource.class, currentPage, pageSize);
+
+		return courseApplyResources;
+	}
 }
