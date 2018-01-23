@@ -18,7 +18,7 @@ requestService("/xczh/recommend/recommendTop",null,
     function(data) {
 		if(data.success){
 //大师课
-		console.log(data);
+//		console.log(data);
     	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
 //名医
     	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
@@ -40,7 +40,7 @@ requestService("/xczh/recommend/recommendTop",null,
 //精品课程
 requestService("/xczh/recommend/recommendCourse",null,function(data) {
 	if(data.success==true){
-		console.log(data)
+//		console.log(data)
     	$(".first_box").html(template('shipin',{items:data.resultObject}))
 	
 
@@ -149,7 +149,7 @@ requestService("/xczh/bunch/listenCourse",null,
 		};
 		
 		if(data.success==true){
-	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
+ 	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
 				/*var myHeight=$(".tjks").height();
 	
 				$(".gieTa").height(myHeight);*/
@@ -161,7 +161,6 @@ requestService("/xczh/bunch/listenCourse",null,
 },false)
 
 //听课结束
-
 
 
 

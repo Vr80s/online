@@ -1,7 +1,6 @@
 *{margin: 0; padding: 0;}
 .z{float: left;}
 .y{float: right;}
-.cl{clear: both;}
 body{color: #333333;font-size: 0.28rem;}
 ul li{list-style: none;}
 a{
@@ -101,6 +100,7 @@ margin-top: -0.28rem;
 	padding: 0.3rem 0.26rem;
 	background: white;
 	box-sizing: border-box;
+	position: relative;
 }
 .speak_title{
 	font-size: 0.32rem;
@@ -141,6 +141,19 @@ color: #999999;
     margin-left: 0.05rem;
     margin-top: 0.04rem;
 }
+.select_icon{
+	width: 0.72rem;
+	height: 0.72rem;
+	overflow: hidden;
+	position: absolute;
+	top: 0.98rem;
+	right: 0.26rem;
+}
+.select_icon img{
+	width: 100%;
+	height: 100%;
+}
+/*主播时间*/
 .wrap_playTime{
 	width: 100%;
 	background: white;
@@ -148,12 +161,13 @@ color: #999999;
 	padding: 0 0 0 0.26rem;
     box-sizing: border-box;
     overflow: hidden;
+    
 }
 .playTime{
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-	border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 0.01rem solid #D8DDE6;
 }
 .playTime img{
 	display: inline-block;
@@ -168,7 +182,7 @@ color: #999999;
 	margin-top: -0.02rem;
 	margin-left: 0.1rem;
 }
-.playTime li p{
+/*.playTime li p{
 	width: 0.98rem;
 	height: 0.32rem;
 	border: 1px solid #F97B49;
@@ -177,7 +191,7 @@ color: #999999;
 	float: left;
 	color: #F97B49;
 	font-size: 0.26rem;
-}
+}*/
 .playTime li:nth-last-child(1){
 	float: right;
 }
@@ -212,6 +226,12 @@ color: #999999;
 	height: 0.01rem;
 	background: #D8DDE6;
 	margin-top: 0.23rem;
+}
+.my_synopsis ul li:nth-child(odd){
+	height: 0.01rem;
+	background: #D8DDE6;
+	margin-top: 0.2rem;
+	
 }
 .my_synopsis ul li:nth-child(2){
 	margin: 0 0.3rem;
@@ -428,7 +448,6 @@ margin-top: 0.1rem;
 	background: #F0F0F0;
 	border-radius: 0.04rem;
 	margin-top: 0.2rem;
-	box-sizing: border-box;
 }
 .returned_id{
 color: #666666;
@@ -532,19 +551,15 @@ color: #666666;
 	bottom: 0;
 	left: 0;
 	z-index: 5;
-	padding: 0rem 0.26rem 0.6rem;
+	padding: 0 0.26rem 0.6rem;
 	
 }
-
-
-
-
 /*评论主播弹出框*/
 .bg_modal{
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	/*display: none;*/
+	display: none;
     top: 0;
     left: 0;
 	background: rgba(0,0,0,.1);
@@ -552,8 +567,8 @@ color: #666666;
 .wrapAll_comment{
 	width: 7.5rem;
     position: absolute;
-	height: 8.5rem;
-	/*display: none;*/
+	height: 7.1rem;
+	display: none;
 	background:white;
 	box-sizing: border-box;
 	bottom: 0;
@@ -565,57 +580,19 @@ color: #666666;
 .set_title{
 	font-size: 0.32rem;
 	padding-bottom: 0.3rem;
-
 }
-/*星星好评*/
-.mar_bot{
-	padding-bottom: 0.2rem;
-	overflow: hidden;
-}
-.my_impression1 p{
+.my_impression li{
 	float: left;
-	font-size: 0.28rem;
-	color: #888888;
-	margin-right: 0.46rem;
-	
+	font-size: 0.25rem;
+	margin-left: 0.5rem;
 }
-.my_impression1 img{
-	float: left;
-    width: 0.4rem;
-    margin-right: 0.2rem;
+.my_impression li:nth-child(1){
+	margin-left: 0;
+	font-size: 0.26rem;
+color: #888888;
 }
-.my_impression1 span{
-	font-size: 0.28rem;
-}
-/*主播演绎好评*/
-.my_impression2 p{
-	margin-right: 0.46rem;
-	float: left;
-	font-size: 0.28rem;
-	color: #888888;
-}
-.my_impression2 img{
-	float: left;
-    width: 0.4rem;
-   	margin-right: 0.2rem;
-}
-.my_impression2 span{
-	font-size: 0.28rem;
-}
-/*节目内容好评*/
-.my_impression3 p{
-	margin-right: 0.46rem;
-	float: left;
-	font-size: 0.28rem;
-	color: #888888;
-}
-.my_impression3 img{
-	float: left;
-    width: 0.4rem;
-    margin-right: 0.2rem;
-}
-.my_impression3 span{
-	font-size: 0.28rem;
+.my_impression input{
+	vertical-align: bottom;
 }
 /*标签*/
 .select_lable{
@@ -696,6 +673,66 @@ color: #888888;
 	background: #00BC12;
 	color: white;
 	font-size: 0.28rem;
+}
+/*选集弹出框*/
+.bg_modal02{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	display: none;
+    top: 0;
+    left: 0;
+	background: rgba(0,0,0,.1);
+}
+.wrap_select_list{
+	width: 100%;
+	padding-top: 0.19rem;
+	box-sizing: border-box;
+	background-color: white;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	display: none;
+	z-index: 99;
+}
+.list_box{
+	overflow: hidden;
+	padding: 0 0.26rem 0.19rem;
+	box-sizing: border-box;
+	font-size: 0.18rem;
+	border-bottom: 1px solid #D8DDE6;
+}
+.list_box p{
+	float: left;
+}
+.list_box span{
+	float: right;
+}
+.line-xu{
+	width: 100%;
+	height: 0.01rem;
+	background: #D8DDE6;
+}
+.all_list{
+	width: 100%;
+	padding: 0 0 0 0.26rem;
+	box-sizing: border-box;
+	
+}
+.all_list ul li{
+	padding: 0.19rem 0;
+	border-bottom: 0.01rem solid #D8DDE6;
+	
+}
+.all_list ul li:nth-last-child(1){
+	border-bottom: 0;
+}
+.all_list ul li p{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+	padding-right: 0.26rem;
+	box-sizing: border-box;
 }
 .little_comment{
 	padding-bottom: 0.2rem;

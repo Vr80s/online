@@ -44,6 +44,7 @@ header{
 	left: 0;
 	font-size: 0.553rem;
 	color: #999999;
+	pointer-events: none;
 }
 .header_seek_main img{
 	width: 0.766rem;
@@ -78,10 +79,12 @@ header{
 /*热门搜索开始*/
 .search_hot{
 	width: 100%;
-	min-height: 3.83rem;
+	min-height: 1.83rem;
 	background: #fff;
 	margin-top: 0.426rem;
 	margin-bottom: 0.426rem;
+	/*padding-bottom: 0.638rem;*/
+	overflow: hidden;
 }
 .search_hot_title{
 	font-size: 0.596rem;
@@ -89,6 +92,7 @@ header{
 	margin-left: 0.553rem;
     margin-bottom: 0.638rem;
     padding-top: 0.638rem;
+    /*padding-bottom: 0.638rem;*/
 }
 .search_hot_main{
 	width: 100%;

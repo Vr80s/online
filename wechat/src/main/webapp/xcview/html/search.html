@@ -19,62 +19,14 @@
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 
+<script type="text/javascript" src="../js/template.js"></script>  <!--模板引入-->
 
-<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>-->
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+<script src="/xcview/js/search.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/search.css" />
- <script type="text/javascript">
-	window.onload = function(){
-		
-//		头部input搜索框开始
-		document.onkeydown=function(event){
-	        var e = event || window.event || arguments.callee.caller.arguments[0];
-	          /*if(e && e.keyCode==27){ // 按 Esc 
-	              //要做的事情
-	            }
-	          if(e && e.keyCode==113){ // 按 F2 
-	               //要做的事情
-	             }*/            
-	        if(e && e.keyCode==13){ // enter 键
-	              //要做的事情
-//	            $(".history_img_right").click();
-	            $("#header_input").blur();
-	            $("#header_input").blur(function(){
-				$("body").trigger("click");	
-			});
-	              
-	        } 
-	    }; 
-		
-		$("#header_input").blur(function(){
-			if($("#header_input").val() != ""){
-				
-				$(".header_seek_main").css("display","none");
-			}else{
-				$(".header_seek_main").css("display","block");
-			};
-		});
-		$("#header_input").click(function(){
-			$(".header_seek_main").css("display","none");
-		});
-//		头部input搜索框结束
-
-
-		/*清除历史开始*/
-		$(".search_history_title .div1").click(function(){
-			$(".search_history_list_one").remove();
-		});
-		/*清除历史结束*/
-		
-//		点击X开始
-		$(".search_history_list_one .div1").click(function(){
-			$(this).parent().remove();
-		});
-//		点击X结束
-		
-	};
-</script>
-
 
 </head>
 
@@ -86,7 +38,18 @@
 			<div class="header_seek"> 
 				<input type="text" name="" value="" id="header_input" />
 				<div class="header_seek_main">
-					<img src="/xcview/images/sousuo0.png" alt="" />针灸疗法
+					<img src="/xcview/images/sousuo0.png" alt="" /><!--针灸疗法-->
+	           	 	
+	 
+					<span class="div_span_input">
+						<!--给inpiu默认值-->
+						<script type="text/html" id="shipin">
+						{{each items as item i}}
+						<span>{{item.name}}</span>
+						{{/each}}
+	           	 		</script>
+					</span>
+					
 				</div>
 			</div>
 			<div class="header_cancel">取消</div>
@@ -98,12 +61,18 @@
 	<div class="search_hot">
 		<div class="search_hot_title">热门搜索</div>
 		<div class="search_hot_main">
-			<div class="search_hot_main_one">针灸疗法</div>
-			<div class="search_hot_main_one">各式推拿</div>
+			<script type="text/html" id="search1">
+	        {{each items as item i}}
+			<div class="search_hot_main_one">{{item.name}}</div>
+			<!--<div class="both"></div>-->
+			{{/each}}
+	        </script>
+			
+			<!--<div class="search_hot_main_one">各式推拿</div>
 			<div class="search_hot_main_one">美容养生</div>
 			<div class="search_hot_main_one">药膳食疗</div>
 			<div class="search_hot_main_one">古籍经典</div>
-			<div class="search_hot_main_one">各家综合</div>
+			<div class="search_hot_main_one">各家综合</div>-->
 			<div class="both"></div>  <!--both清除浮动-->
 		</div>
 	</div>
@@ -144,5 +113,86 @@
 	
 
 </body>
+ <script type="text/javascript">
+	window.onload = function(){
+		
+
+		
+
+	};
+</script>
+
+<script type="text/javascript">
+	window.onload = function(){
+		
+//		循环点击热门搜索
+		var aBtn6=$('.search_hot_main_one');
+        for(i=0;i<aBtn6.length;i++){
+            
+            $(aBtn6[i]).click(function(){
+            	$('#header_input').val($(this).text());
+            	$(".header_seek_main").css("display","none");
+            });
+        };
+        
+//      点击yinput  失去焦点隐藏默认值
+        $("#header_input").blur(function(){
+			if($("#header_input").val() != ""){
+				
+				$(".header_seek_main").css("display","none");
+				
+//				2
+				//		头部input搜索框开始
+		document.onkeydown=function(event){
+	        var e = event || window.event || arguments.callee.caller.arguments[0];
+	          /*if(e && e.keyCode==27){ // 按 Esc 
+	              //要做的事情
+	            }
+	          if(e && e.keyCode==113){ // 按 F2 
+	               //要做的事情
+	             }*/            
+	        if(e && e.keyCode==13){ // enter 键
+	              //要做的事情
+//	            $(".history_img_right").click();
+	            /*$("#header_input").blur();
+	            $("#header_input").blur(function(){
+					$("body").trigger("click");	
+				});*/
+//				alert(54654);
+				
+				window.location.href="../html/curriculums_table.html";
+	              
+	        } 
+	    }; 
+				
+				
+//				1
+			}else{
+				$(".header_seek_main").css("display","block");
+			};
+		});
+		$("#header_input").click(function(){
+			$(".header_seek_main").css("display","none");
+		});
+		
+			
+		/*清除历史开始*/
+		$(".search_history_title .div1").click(function(){
+			$(".search_history_list_one").remove();
+		});
+		/*清除历史结束*/
+		
+//		点击X开始
+		$(".search_history_list_one .div1").click(function(){
+			$(this).parent().remove();
+		});
+//		点击X结束
+        
+        
+	};
+</script>
+
+
+
 
 </html>

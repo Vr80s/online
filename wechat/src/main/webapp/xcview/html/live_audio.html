@@ -9,14 +9,14 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
-<link rel="stylesheet" href="../css/live_paly.css" />
+<link rel="stylesheet" href="../css/live_audio.css" />
 
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../js/live_play.js"></script>
+<script type="text/javascript" src="../js/live_audio.js"></script>
 
 
 	
@@ -26,7 +26,7 @@
 <div class="wp">
 	<div class="wrap-header">
 		<div class="header">		
-			<p>直播</p>
+			<p>课程</p>
 			<div class="arror_return z">
 				<img src="../images/back icon.png"/>
 			</div>
@@ -37,9 +37,9 @@
 	</div>
 	<!--视频-->
 	<div class="play_video">
-		<div class="video_prompt">
+		<!--<div class="video_prompt">
 			暂未开播
-		</div>
+		</div>-->
 	</div>
 	<!--主讲人-->
 	<div class="speak_people">
@@ -65,13 +65,13 @@
 			<li><img src="../images/population.png"/><span>姚春玲</span></li>
 			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  /></li>
 		</ul>
-		<ul class="playTime z" style="border-bottom: 0;">
+		<!--<ul class="playTime z" style="border-bottom: 0;">
 			<li style="float: left;">
 				<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
 				<span>直播时间：2017.12.30&nbsp;&nbsp;12:00&nbsp;&nbsp;</span>
 				<p>直播中</p>
 			</li>
-		</ul>
+		</ul>-->
 	</div>
 	
 	<p class="my_details">详情</p>
@@ -103,6 +103,7 @@
         </div>
     </div>
     <!--主讲人-->
+    
     <p class="wrap_sayPeople">主讲人</p>
 	<!--内容-->
 	<div class="container1">
@@ -200,41 +201,41 @@
 			<li>发表评论</li>
 		</ul>
 	</div>	
-	
-	<!--评论主播弹出框-->
+	<!--评论弹出框-->
 	<div class="bg_modal"></div>
+	
 	<div class="wrapAll_comment">
 		<p class="set_title">发布评论</p>
-	<!--星星五星好评-->
-		<div class="my_impression1 cl mar_bot">
-			<p>总体印象</p>
-			<img src="../images/xing1.png"/>
-			<img src="../images/xing1.png"/>
-			<img src="../images/xing1.png"/>
-			<img src="../images/xing1.png"/>
-			<img src="../images/xing1.png"/>
-			<span></span>
-		</div>
-	<!--主播演绎好评-->
-		<div class="my_impression2 cl mar_bot">
-			<p>主播演绎</p>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<span></span>
-		</div>
-	<!--节目内容好评-->
-		<div class="my_impression3 cl">
-			<p>节目内容</p>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<img src="../images/face0.png"/>
-			<span></span>
-		</div>
+		<ul class="my_impression">
+			<li>总体印象</li>
+			<li>
+				<label>
+					<input type="radio" name="select_my"  value="" />
+					非常好	
+				</label>
+				
+			</li>
+			<li>
+				<label>	
+					<input type="radio" name="select_my"  value="" />
+					好
+				</label>
+				
+			</li>
+			<li>
+				<label>				
+				<input type="radio" name="select_my"  value="" />
+				一般
+				</label>
+				
+			</li>
+			<li>
+				<label>	
+				<input type="radio" name="select_my"  value="" />
+				差	
+				</label>				
+			</li>
+		</ul>
 		<!--标签-->
 		<ul class="select_lable">
 			<li>很赞</li>
