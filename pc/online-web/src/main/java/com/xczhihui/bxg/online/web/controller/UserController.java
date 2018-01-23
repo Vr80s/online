@@ -101,31 +101,6 @@ public class UserController extends OnlineBaseController {
 				}
 			} else {
 				return ResponseObject.newErrorResponseObject("用户不存在");
-//				//本系统没有此用户，说明此用户来自熊猫中医其他系统，新增此用户
-//				boolean ism = Pattern.matches("^((1[0-9]))\\d{9}$", username);
-//				boolean ise = Pattern.matches("^([a-z0-9A-Z]+[-_|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$",username);
-//				if (!ism && !ise) {
-//					return ResponseObject.newErrorResponseObject("请用手机或邮箱登陆");
-//				}
-//
-//				ItcastUser u = this.userCenterAPI.getUser(username);
-//    			o = new OnlineUser();
-//    			o.setLoginName(u.getLoginName());
-//    			o.setName(u.getNikeName());
-//    			o.setEmail(u.getEmail());
-//    			o.setMobile(u.getMobile());
-//    			o.setCreateTime(new Date());
-//    			o.setDelete(false);
-//    			o.setStatus(0);
-//    			o.setVisitSum(0);
-//    			o.setStayTime(0);
-//				o.setSmallHeadPhoto("/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-//    			o.setUserType(0);
-//    			o.setMenuId(-1);
-//    			o.setOrigin(u.getOrigin());
-//    			o.setType(u.getType());
-//    			service.addUser(o);
-
 			}
 			
 			UserUtil.setSessionCookie(request, response, o, t);
@@ -136,7 +111,7 @@ public class UserController extends OnlineBaseController {
 			return ResponseObject.newErrorResponseObject("用户名密码错误");
 		}
 	}
-	
+
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public ResponseObject logout(HttpServletRequest request,HttpServletResponse response) {
 		callback.onLogout(request, response);
@@ -153,15 +128,42 @@ public class UserController extends OnlineBaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "phoneRegist", method = RequestMethod.POST)
-	public ResponseObject phoneRegist(String username, String password, String code, String nikeName, HttpServletRequest req) {
+	public ResponseObject phoneRegist(String username, String password, String code, String nikeName, HttpServletRequest req, HttpServletResponse resp) {
 		String regmsg = service.addPhoneRegist(req,username, password, code,nikeName);
 		//活动统计
 		String cok = CookieUtil.getCookieValue(req, "act_code_from");
 		if (cok != null && !"".equals(cok)) {
 			totalService.addTotalDetail4Reg(cok,username,nikeName);
 		}
+		try {
+			autoLogin(req,resp,username,password);
+		}catch (Exception e){
+			return ResponseObject.newErrorResponseObject("用户已禁用或不存在");
+		}
 		return ResponseObject.newSuccessResponseObject(regmsg);
 	}
+
+	private void autoLogin(HttpServletRequest req, HttpServletResponse resp, String loginname, String password) {
+		OnlineUser o = service.findUserByLoginName(loginname);
+		Token t = null;
+		if(o!=null) {
+			t = userCenterAPI.login4BBS(loginname, password, o.getSmallHeadPhoto(), o.getId(), TokenExpires.Year);
+		}
+		if (t != null) {
+			if (o != null) {
+				t.setHeadPhoto(o.getSmallHeadPhoto());
+				t.setUuid(o.getId());
+				if (o.isDelete() || o.getStatus() == -1) {
+					throw new RuntimeException("用户已禁用");
+				}
+			} else {
+				throw new RuntimeException("用户不存在");
+			}
+		}
+		UserUtil.setSessionCookie(req, resp, o, t);
+		callback.onLogin(req, resp);
+	}
+
 	/**
 	 * 邮箱提交注册
 	 * @param username

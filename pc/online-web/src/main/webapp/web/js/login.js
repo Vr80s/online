@@ -337,14 +337,15 @@ $(function () {
                     } else {
                         RequestService("/online/user/phoneRegist", "POST", data, function (result) {
                             if (result.success === true) {
-                                rTips("注册成功，立即登录");
+                                rTips("注册成功");
                                 setTimeout(function () {
-                                    $(".login-button").trigger("click");
-                                    $(".usernameBox .userName").css("border", "");
-                                    $(".usernameBox .userNameHit").css("display", "none");
-                                    $(".passwordBox .password").css("border", "");
-                                    $(".passwordBox .passwordHit").css("display", "none");
-                                    $(".userName").val(data.username);
+                                    // $(".login-button").trigger("click");
+                                    // $(".usernameBox .userName").css("border", "");
+                                    // $(".usernameBox .userNameHit").css("display", "none");
+                                    // $(".passwordBox .password").css("border", "");
+                                    // $(".passwordBox .passwordHit").css("display", "none");
+                                    // $(".userName").val(data.username);
+                                    window.location.href = "/";
                                 }, 1000);
                             } else {
                                 errorMessage(result.errorMessage);
