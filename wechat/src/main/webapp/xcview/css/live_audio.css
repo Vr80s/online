@@ -152,7 +152,7 @@ color: #999999;
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-	border-bottom: 0.01rem solid #D8DDE6;
+
 }
 .playTime img{
 	display: inline-block;
@@ -211,6 +211,12 @@ color: #999999;
 	height: 0.01rem;
 	background: #D8DDE6;
 	margin-top: 0.23rem;
+}
+.my_synopsis ul li:nth-child(odd){
+	height: 0.01rem;
+	background: #D8DDE6;
+	margin-top: 0.2rem;
+	
 }
 .my_synopsis ul li:nth-child(2){
 	margin: 0 0.3rem;
@@ -531,13 +537,9 @@ color: #666666;
 	bottom: 0;
 	left: 0;
 	z-index: 5;
-	padding: 0rem 0.26rem 0.6rem;
+	padding: 0 0.26rem 0.6rem;
 	
 }
-
-
-
-
 /*评论主播弹出框*/
 .bg_modal{
 	width: 100%;

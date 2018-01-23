@@ -250,7 +250,7 @@ function picUpdown(baseurl,imgname){
 	$('#idFont_pic_ipt').on('change',function(){
 	var reader=new FileReader();
   	reader.onload=function(e){
-  		console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
+//		console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
 //		$('#img').attr('src',reader.result)
 	picUpdown(reader.result,'idFont_pic');
 	}  
@@ -304,3 +304,4 @@ $('#zhicheng_pic_ipt').on('change',function(){
 	}  
 	reader.readAsDataURL(this.files[0])
 })
+

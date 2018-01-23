@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.controller;
+package com.xczh.consumer.market.controller.pay;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -51,8 +51,8 @@ import com.xczh.consumer.market.wxpay.util.CommonUtil;
  * @author yanghui
  **/
 @Controller
-@RequestMapping("/bxg/pay")
-public class H5AppPayController {
+@RequestMapping("/xczh/pay")
+public class XzWxPayController {
 
 	@Autowired
 	private OnlineOrderService onlineOrderService;
@@ -73,10 +73,10 @@ public class H5AppPayController {
 	@Value("${minimum_amount}")
 	private Double minimumAmount;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzWxPayController.class);
 	
 	/**
-	 * 拉取微信访问用户信息；
+	 * 微信统一购买课程接口
 	 * @param req
 	 * @param res
 	 * @return
@@ -88,12 +88,11 @@ public class H5AppPayController {
 	@Transactional
 	public ResponseObject appOrderPay(HttpServletRequest req,HttpServletResponse res)
 			throws Exception {
-		Map<String, String> params=new HashMap<>();
-		params.put("token",req.getParameter("token"));
+		
 		Map<String, String> retobj = new HashMap<String, String>();
 		String orderId = req.getParameter("orderId");
 		String order_From = req.getParameter("orderFrom");
-		OnlineUser u = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser u = appBrowserService.getOnlineUserByReq(req);
 		/**
 		 * 根据订单id得到这个订单中已经存在的课程。
 		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
@@ -108,8 +107,16 @@ public class H5AppPayController {
 		if (null == orderId || null == userId || null == order_From) {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
+		/**
+		 * 获取订单信息
+		 */
 		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
+		/**
+		 * 更改订单号，购买失败后，再次购买微信提示订单号一样的信息
+		 */
 		String newOrderNo=onlineOrderService.updateOrderNo(onlineOrder.getOrderNo());
+		
+		
 		retobj.put("ok", "false");
 		if (null == onlineOrder) {
 			return ResponseObject.newSuccessResponseObject(retobj);
@@ -117,15 +124,12 @@ public class H5AppPayController {
 		if(onlineOrder.getActualPay() < (0.01d)){
 			return ResponseObject.newErrorResponseObject("金额必须大于等于0.01");
 		}
-		
 		Double actualPay = onlineOrder.getActualPay() * 100;
 		int price = actualPay.intValue();
-
 		//订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app  
 		/**
 		 * 判断此请求来时h5呢，还是微信公众号，还是app
 		 */
-		//int orderFrom = onlineOrder.getOrderFrom();
 		int orderFrom = Integer.parseInt(order_From);
 		String spbill_create_ip =WxPayConst.server_ip;
 		if(orderFrom == 4 || orderFrom == 5){
@@ -134,23 +138,7 @@ public class H5AppPayController {
 		String tradeType = null; //公众号
 		String openId = null;
 		if(orderFrom == 3){
-			String openId1 = req.getParameter("openId");
-			if(null == openId1){
-				WxcpClientUserWxMapping wxUser = wxService.getWxcpClientUserWxMappingByUserId(userId);
-				if(wxUser == null){
-					wxUser = wxService.getWxMappingByUserIdOrUnionId(userId);
-				}
-				if(wxUser!=null){
-					openId = wxUser.getOpenid();
-				}else{
-					/*
-					 * 如果以上两种情况都获取不到微信的信息，重定向的登录页面。
-					 */
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
-				}
-			}else{
-				openId = openId1;
-			}
+			openId = req.getParameter("openId");
 			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 4){
 			tradeType =PayInfo.TRADE_TYPE_H5;
@@ -170,6 +158,7 @@ public class H5AppPayController {
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(newOrderNo, price,  "订单支付",
 						extDatas, openId, spbill_create_ip, tradeType);
+		
 		if (retpay != null) {
 			retpay.put("ok", "true");
 			if(orderFrom == 5){
@@ -184,6 +173,97 @@ public class H5AppPayController {
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
 
+	/**
+	 * 微信统一充值入口
+	 * @param req
+	 * @param res
+	 * @param params
+	 * 1pc,2app,3h5 4微信
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("rechargePay")
+	@ResponseBody
+	public ResponseObject rechargePay(HttpServletRequest req,
+									HttpServletResponse res, Map<String, String> params)
+			throws Exception {
+		
+		Map<String, String> retobj = new HashMap<String, String>();
+
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		if ( user== null) {
+			throw new RuntimeException("登录超时！");
+		}
+		String userId = user.getId();
+		String clientType=req.getParameter("clientType");
+		if ( null == userId) {
+			return ResponseObject.newErrorResponseObject("参数异常");
+		}
+
+		//订单号  支付的钱
+		Double actualPay = new Double(req.getParameter("actualPay")) * 100;
+
+		Double count = Double.valueOf(req.getParameter("actualPay"))*rate;
+		if(!WebUtil.isIntegerForDouble(count)){
+			throw new RuntimeException("充值金额"+req.getParameter("actualPay")+"兑换的熊猫币"+count+"不为整数");
+		}
+		if(minimumAmount > Double.valueOf(req.getParameter("actualPay"))){
+			throw new RuntimeException("充值金额低于最低充值金额："+minimumAmount);
+		}
+
+		int price = actualPay.intValue();
+		retobj.put("ok", "false");
+		//订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app
+		/**
+		 * 判断此请求来时h5呢，还是微信公众号，还是app
+		 */
+		int orderFrom = new Integer(clientType);
+		String spbill_create_ip =WxPayConst.server_ip;;
+		if(orderFrom == 2 || orderFrom == 3){
+			spbill_create_ip =getIpAddress(req);
+		}
+		String tradeType = null; //公众号
+		String openId = null;
+		if(orderFrom == 4){
+			openId = req.getParameter("openId");
+			tradeType= PayInfo.TRADE_TYPE_JSAPI;
+		}else if(orderFrom == 3){
+			tradeType =PayInfo.TRADE_TYPE_H5;
+		}else if(orderFrom == 2){
+			tradeType =PayInfo.TRADE_TYPE_APP;
+		}
+		// TODO
+
+		RechargeParamVo rechargeParamVo=new RechargeParamVo();
+		rechargeParamVo.setT("2");
+		rechargeParamVo.setClientType("2");
+		rechargeParamVo.setUserId(user.getId());
+		rechargeParamVo.setSubject("充值");
+
+		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
+		String extDatas ="recharge&"+cacheKey;
+		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
+		cacheService.set(cacheKey,passbackParams,7200);
+		LOGGER.info("充值参数："+extDatas.length());
+		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
+				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
+						extDatas, openId, spbill_create_ip, tradeType);
+
+		if (retpay != null) {
+			retpay.put("ok", "true");
+			if(orderFrom == 2){
+				retpay = CommonUtil.getSignER(retpay);
+			}
+			JSONObject jsonObject = JSONObject.fromObject(retpay);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
+					+ jsonObject.toString());// LOGGER.info(jsonObject);
+			return ResponseObject.newSuccessResponseObject(retpay);
+		}
+		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
+		return ResponseObject.newSuccessResponseObject(retobj);
+	}
+	
+	
 	/**
 	 * 微信统一打赏入口
 	 * @param req
@@ -200,12 +280,6 @@ public class H5AppPayController {
 			throws Exception {
 		Map<String, String> retobj = new HashMap<String, String>();
 
-/*		Map<String, String> params2=new HashMap<>();
-		params2.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
-		if (user == null) {
-			throw new RuntimeException("登录超时！");
-		}*/
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String userId = user.getId();
 		
@@ -292,12 +366,8 @@ public class H5AppPayController {
 //		if(rewardParamVo.getGiftId()==null){
 //			rewardParamVo.setGiftId(nullId+"");
 //		}
-
-		
 		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
-		
 		String extDatas ="reward&"+cacheKey;
-
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(rewardParamVo).toString(),7200);
 		LOGGER.info("打赏参数："+extDatas.length());
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
@@ -319,100 +389,6 @@ public class H5AppPayController {
 		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
 		return ResponseObject.newSuccessResponseObject(retobj);
 	}
-
-
-	/**
-	 * 微信统一充值入口
-	 * @param req
-	 * @param res
-	 * @param params
-	 * 1pc,2app,3h5 4微信
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("rechargePay")
-	@ResponseBody
-	public ResponseObject rechargePay(HttpServletRequest req,
-									HttpServletResponse res, Map<String, String> params)
-			throws Exception {
-		Map<String, String> retobj = new HashMap<String, String>();
-
-		Map<String, String> params2=new HashMap<>();
-		params2.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
-		if ( user== null) {
-			throw new RuntimeException("登录超时！");
-		}
-		String userId = user.getId();
-		String clientType=req.getParameter("clientType");
-		if ( null == userId) {
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-
-		//订单号  支付的钱
-		Double actualPay = new Double(req.getParameter("actualPay")) * 100;
-
-		Double count = Double.valueOf(req.getParameter("actualPay"))*rate;
-		if(!WebUtil.isIntegerForDouble(count)){
-			throw new RuntimeException("充值金额"+req.getParameter("actualPay")+"兑换的熊猫币"+count+"不为整数");
-		}
-		if(minimumAmount > Double.valueOf(req.getParameter("actualPay"))){
-			throw new RuntimeException("充值金额低于最低充值金额："+minimumAmount);
-		}
-
-		int price = actualPay.intValue();
-		retobj.put("ok", "false");
-		//订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app
-		/**
-		 * 判断此请求来时h5呢，还是微信公众号，还是app
-		 */
-		int orderFrom = new Integer(clientType);
-		String spbill_create_ip =WxPayConst.server_ip;;
-		if(orderFrom == 2 || orderFrom == 3){
-			spbill_create_ip =getIpAddress(req);
-		}
-		String tradeType = null; //公众号
-		String openId = null;
-		if(orderFrom == 4){
-			openId = req.getParameter("openId");
-			tradeType= PayInfo.TRADE_TYPE_JSAPI;
-		}else if(orderFrom == 3){
-			tradeType =PayInfo.TRADE_TYPE_H5;
-		}else if(orderFrom == 2){
-			tradeType =PayInfo.TRADE_TYPE_APP;
-		}
-		// TODO
-
-		RechargeParamVo rechargeParamVo=new RechargeParamVo();
-		rechargeParamVo.setT("2");
-		rechargeParamVo.setClientType("2");
-		rechargeParamVo.setUserId(user.getId());
-		rechargeParamVo.setSubject("充值熊猫币:"+count+"个");
-
-		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
-		String extDatas ="recharge&"+cacheKey;
-		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
-		cacheService.set(cacheKey,passbackParams,7200);
-		LOGGER.info("充值参数："+extDatas.length());
-		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
-				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
-						extDatas, openId, spbill_create_ip, tradeType);
-
-		if (retpay != null) {
-			retpay.put("ok", "true");
-			
-			if(orderFrom == 2){
-				retpay = CommonUtil.getSignER(retpay);
-			}
-			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// LOGGER.info(jsonObject);
-			return ResponseObject.newSuccessResponseObject(retpay);
-		}
-		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
-		return ResponseObject.newSuccessResponseObject(retobj);
-	}
-
 
 	public static String getIpAddress(HttpServletRequest request) {
 

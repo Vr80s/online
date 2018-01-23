@@ -90,10 +90,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		if(null == course){
 			return ResponseObject.newErrorResponseObject("查询不到课程信息！");
 		}
-//		boolean falg = oLCourseMapper.queryOrderIsShop(course.getId(),user.getId());
-//		if(falg){
-//			return ResponseObject.newErrorResponseObject("已经购买了此课程！");
-//		}
 		Map<String,Object> returnMap = new HashMap<String,Object>();
 		/*
 		 * 查找订单详情
@@ -178,7 +174,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		order.setPayTime(new Date());
 		orderMapper.addOrder(order);
 		orderMapper.addOrderDetail(order.getId(), course.getCourseId(),course.getCurrentPrice());
-		
 		return orderNo;
 	}
 	/**
