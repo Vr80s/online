@@ -54,8 +54,9 @@ import com.xczh.consumer.market.vo.OrderParamVo;
 import com.xczh.consumer.market.vo.RechargeParamVo;
 import com.xczh.consumer.market.vo.RewardParamVo;
 
+
 @Controller
-@RequestMapping("/bxg/alipay")
+@RequestMapping("/xczh/alipay")
 public class XzAlipayController {
 
 	/*
