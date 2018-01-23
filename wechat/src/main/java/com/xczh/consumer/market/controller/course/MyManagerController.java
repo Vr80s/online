@@ -56,7 +56,6 @@ public class MyManagerController {
 	private UserCoinService userCoinService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyManagerController.class);
-	
 	/**
 	 * Description：进入我的页面显示几个初始化数据
 	 * @param req

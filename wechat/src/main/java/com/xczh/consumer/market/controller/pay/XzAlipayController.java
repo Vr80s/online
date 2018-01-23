@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.controller;
+package com.xczh.consumer.market.controller.pay;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -56,7 +56,7 @@ import com.xczh.consumer.market.vo.RewardParamVo;
 
 @Controller
 @RequestMapping("/bxg/alipay")
-public class AlipayController {
+public class XzAlipayController {
 
 	/*
 	 * @Autowired private UserCenterAPI userCenterAPI;
@@ -97,7 +97,7 @@ public class AlipayController {
 	private String returnOpenidUri;
 
 	
-	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(AlipayController.class);
+	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(XzAlipayController.class);
 	/**
 	 * 订单支付
 	 *
@@ -506,22 +506,17 @@ public class AlipayController {
 
 		String ap = null;
 		ap = request.getParameter("actualPay");
-
-		
 		if (ap.indexOf(".") >= 0
 				&& ap.substring(ap.lastIndexOf(".")).length() < 3) {
 			ap = ap + "0";
 		}
-
 		Double count = Double.valueOf(ap) * rate;
-
 		if (!WebUtil.isIntegerForDouble(count)) {
 			throw new RuntimeException("充值金额" + ap + "兑换的熊猫币" + count + "不为整数");
 		}
 		if (minimumAmount > Double.valueOf(ap)) {
 			throw new RuntimeException("充值金额低于最低充值金额：" + minimumAmount);
 		}
-
 		// 订单号 支付的钱
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
 		String out_trade_no = TimeUtil.getSystemTime()
@@ -664,10 +659,87 @@ public class AlipayController {
 		}
 		return ResponseObject.newErrorResponseObject("操作失败！");
 	}
-
+	
+	
 	/**
 	 * app打赏支付获取订单str
-	 *
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "rechargeAppPay")
+	@ResponseBody
+	public ResponseObject rechargeAppPay(HttpServletRequest req,
+			HttpServletResponse res) throws SQLException {
+
+		
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		if (user == null) {
+			throw new RuntimeException("登录超时！");
+		}
+		
+		// 订单号 支付的钱
+		String ap = null;
+		ap = req.getParameter("actualPay");
+		
+		if (ap.indexOf(".") >= 0 && ap.substring(ap.lastIndexOf(".")).length() < 3) {
+			ap = ap + "0";
+		}
+		Double count = Double.valueOf(ap) * rate;
+		
+		if (!WebUtil.isIntegerForDouble(count)) {
+			throw new RuntimeException("充值金额" + ap + "兑换的熊猫币" + count + "不为整数");
+		}
+		if (minimumAmount > Double.valueOf(ap)) {
+			throw new RuntimeException("充值金额低于最低充值金额：" + minimumAmount);
+		}
+
+
+		// 实例化客户端
+		AlipayClient alipayClient = new DefaultAlipayClient(alipayConfig.URL,
+				alipayConfig.APPID, alipayConfig.RSA_PRIVATE_KEY,
+				alipayConfig.FORMAT, alipayConfig.CHARSET,
+				alipayConfig.ALIPAY_PUBLIC_KEY, alipayConfig.SIGNTYPE);
+		
+		// 实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称：alipay.trade.app.pay
+		AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
+		// SDK已经封装掉了公共参数，这里只需要传入业务参数。以下方法为sdk的model入参方式(model和biz_content同时存在的情况下取biz_content)。
+
+		//回调的时候用到这个从那时候数据
+    	UserCoinIncrease uci = new  UserCoinIncrease();
+    	uci.setChangeType(1);
+    	uci.setValue(new BigDecimal(count));
+		uci.setUserId(user.getId());
+		String passbackParams = JSONObject.toJSON(uci).toString();
+		LOG.info("充值参数：" + passbackParams);
+
+		AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
+		// model.setBody("");
+		model.setSubject("充值");
+		model.setOutTradeNo(TimeUtil.getSystemTime()
+				+ RandomUtil.getCharAndNumr(12));
+		model.setTimeoutExpress("24h");
+		model.setTotalAmount(String.valueOf(ap));
+		model.setProductCode("QUICK_MSECURITY_PAY");
+		model.setPassbackParams(passbackParams);
+		request.setBizModel(model);
+		request.setNotifyUrl(alipayConfig.notify_url);
+		try {
+			// 这里和普通的接口调用不同，使用的是sdkExecute
+			AlipayTradeAppPayResponse response = alipayClient
+					.sdkExecute(request);
+			LOG.info(response.getBody());// 就是orderString
+													// 可以直接给客户端请求，无需再做处理。
+			return ResponseObject.newSuccessResponseObject(response.getBody());
+		} catch (AlipayApiException e) {
+			e.printStackTrace();
+		}
+		return ResponseObject.newErrorResponseObject("操作失败！");
+	}
+	
+	
+	
+	/**
+	 * app打赏支付获取订单str
 	 * @return
 	 * @throws Exception
 	 */
@@ -971,33 +1043,25 @@ public class AlipayController {
 						}
 					} else if ("3".equals(ppbt)) {
 						
-						LOG.info("充值回调数据包："
-								+ alipayPaymentRecordH5.getPassbackParams());
-						alipayPaymentRecordH5.setUserId((JSONObject
-								.parseObject(
-										alipayPaymentRecordH5
-												.getPassbackParams()).get(
+						LOG.info("充值回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
+						
+						alipayPaymentRecordH5.setUserId((JSONObject.parseObject(
+										alipayPaymentRecordH5.getPassbackParams()).get(
 										"userId").toString()));
-						alipayPaymentRecordH5Service
-								.insert(alipayPaymentRecordH5);
+						
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 
 						// 执行代币充值工作
 						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(alipayPaymentRecordH5
-								.getUserId());
+						userCoinIncrease.setUserId(alipayPaymentRecordH5.getUserId());
 						userCoinIncrease.setChangeType(1);
-						userCoinIncrease
-								.setValue(new BigDecimal(new Double(
-										alipayPaymentRecordH5.getTotalAmount())
-										* rate));
+						userCoinIncrease.setValue(new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount())* rate));
 						userCoinIncrease.setCreateTime(new Date());
 						userCoinIncrease.setPayType(0);
-						// userCoinIncrease.setChangeType(0);
-						userCoinIncrease
-								.setOrderNoRecharge(alipayPaymentRecordH5
-										.getTradeNo());
-						userCoinService
-								.updateBalanceForIncrease(userCoinIncrease);
+						userCoinIncrease.setOrderFrom(1);
+						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
+						
+						userCoinService.updateBalanceForIncrease(userCoinIncrease);
 						response.getWriter().println("success"); // 请不要修改或删除
 					}
 				}
@@ -1103,7 +1167,7 @@ public class AlipayController {
 //			LOG.info("请输入正确的金额");
 //		}
 ////		
-		AlipayController ali = new AlipayController();
+		XzAlipayController ali = new XzAlipayController();
 		try {
 			ali.pay1();
 		} catch (AlipayApiException e) {
