@@ -73,11 +73,11 @@ public class CourseController {
 		 * 这里需要判断是否购买过了
 		 */
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		if(cv.getUserLecturerId().equals(user.getId())){
+		if(user!=null && cv.getUserLecturerId().equals(user.getId())){
 		    cv.setWatchState(0);
 	    }else if((user!=null && cv.getWatchState()==0) || 
-	    		(user!=null && cv.getWatchState()==1 && onlineWebService.getLiveUserCourse(Integer.parseInt(courseId),user.getId()).size()>0) ){  //增加播放记录
-	    	
+	    		(user!=null && cv.getWatchState()==1 && 
+	    		  onlineWebService.getLiveUserCourse(Integer.parseInt(courseId),user.getId()).size()>0) ){  //增加播放记录
 	    	WatchHistory target = new WatchHistory();
 	    	target.setCourseId(Integer.parseInt(courseId));
 			target.setUserId(user.getId());

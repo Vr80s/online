@@ -559,6 +559,7 @@ public class AlipayController {
 		model.setTotalAmount(total_amount);
 		model.setBody(body);
 		model.setTimeoutExpress(timeout_express);
+		
 		model.setProductCode(product_code);
 		model.setPassbackParams(passbackParams);
 		alipay_request.setBizModel(model);

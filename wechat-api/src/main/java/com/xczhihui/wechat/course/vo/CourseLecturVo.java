@@ -164,10 +164,23 @@ public class CourseLecturVo implements Serializable {
 	
 	private String  note; //
 	
-
+	
 	private Boolean collection;
 	
 	private Integer courseNumber;
+	
+//	  oc.subtitle as subtitle,
+//	  IFNULL((select count(*) from oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
+//	  '2' as startLevel,
+	
+	private String subtitle; //副标题
+	
+	private Integer criticizeCount; //课程评论数
+	
+	private Integer startLevel; //星级
+	
+	
+	private String courseOutline; //星级
 	
 	
 	public String getUdescription() {
@@ -468,6 +481,38 @@ public class CourseLecturVo implements Serializable {
 
 	public void setCourseNumber(Integer courseNumber) {
 		this.courseNumber = courseNumber;
+	}
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+	public Integer getCriticizeCount() {
+		return criticizeCount;
+	}
+
+	public void setCriticizeCount(Integer criticizeCount) {
+		this.criticizeCount = criticizeCount;
+	}
+
+	public Integer getStartLevel() {
+		return startLevel;
+	}
+
+	public void setStartLevel(Integer startLevel) {
+		this.startLevel = startLevel;
+	}
+
+	public String getCourseOutline() {
+		return courseOutline;
+	}
+
+	public void setCourseOutline(String courseOutline) {
+		this.courseOutline = courseOutline;
 	}
 	
 	

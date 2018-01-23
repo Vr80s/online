@@ -32,7 +32,7 @@ import com.xczhihui.wechat.course.vo.CourseLecturVo;
  * Create Time: 2018年1月22日<br>
  */
 @Controller
-@RequestMapping("/xczh/myinfo")
+@RequestMapping("/xczh/manager")
 public class MyManagerController {
 
 	@Autowired
@@ -65,7 +65,7 @@ public class MyManagerController {
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	@RequestMapping("freeCourseNumber")
+	@RequestMapping("home")
 	@ResponseBody
 	public ResponseObject freeCourseNumber(HttpServletRequest req)
 			throws Exception {
@@ -78,7 +78,8 @@ public class MyManagerController {
 		 * 判断这个用户有没有主播权限
 		 */
 		Map<String,Object> map = new HashMap<String,Object>();
-		if(user == null){
+		if(user != null){
+			System.out.println("================");
 			//熊猫币
 			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
 			//更新下用户信息
@@ -86,11 +87,12 @@ public class MyManagerController {
 			//查找购买的课程数
 			map.put("courseCount",courseServiceImpl.selectMyFreeCourseListCount(user.getId()));
 		}else{
+			System.out.println("================1111111111");
 			map.put("xmbCount",0);
 			map.put("user","");
 			map.put("courseCount",0); //这里存在列表存在总数
 		}
-		return ResponseObject.newSuccessResponseObject("操作成功");
+		return ResponseObject.newSuccessResponseObject(map);
 	}
 
 	/**
@@ -103,6 +105,7 @@ public class MyManagerController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("freeCourseList")
+	@ResponseBody
 	public ResponseObject freeCourseList(HttpServletRequest req,
 			@RequestParam("pageNumber")Integer pageNumber,
 			@RequestParam("pageSize")Integer pageSize)
@@ -115,6 +118,7 @@ public class MyManagerController {
 		Page<CourseLecturVo> page = new Page<>();
 	    page.setCurrent(pageNumber);
 	    page.setSize(pageSize);
+	    System.out.println("===========");
 		return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectMyFreeCourseList(page, user.getUserId()));
 	}
 }

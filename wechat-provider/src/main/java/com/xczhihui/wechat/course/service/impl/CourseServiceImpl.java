@@ -63,4 +63,17 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		List<CourseLecturVo> courses = iCourseMapper.selectCoursesByCollectionId(collectionId);
 		return courses;
 	}
+
+	@Override
+	public CourseLecturVo selectLecturerRecentCourse(String lecturerId) {
+		return iCourseMapper.selectLecturerRecentCourse(lecturerId);
+	}
+
+	@Override
+	public Page<CourseLecturVo> selectLecturerAllCourse(
+			Page<CourseLecturVo> page, String lecturerId) {
+		
+		List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page,lecturerId);
+		return   page.setRecords(records);
+	}
 }
