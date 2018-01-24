@@ -187,13 +187,23 @@ a {
  	margin-right: 10px;
  	font-size: 14px;
 }
-
-
+#hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic > img{
+	width: 260px;
+	height: 147px;
+	margin-right: 15px;
+  margin-bottom: 20px;
+}
+#hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic > img:nth-child(3n){
+	margin-right: 0px;
+}
 #hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip{
-    display: inline-block;
+   display: inline-block;
     width: 159px;
     height: 48px;
     color: #999;
+    position: absolute;
+    top: 50px;
+    right: -179px;
 }
 
 #hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip p{
@@ -202,9 +212,9 @@ a {
 
 #hos_Administration .hos_base_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic{
 	display: inline-block;
-	width: 260px;
-	height: 147px;
-	background-color: #f0f0f0;
+	min-width: 260px;
+	min-height: 147px;
+	/*background-color: #f0f0f0;*/
 	margin-right: 20px;
 	vertical-align: middle;
 } 
@@ -219,6 +229,10 @@ a {
 	background-color: #f0f0f0;
 	vertical-align: middle;
 	margin-right: 20px;
+}
+#hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic > img{
+	width: 100%;
+	height: 100%;
 }
 #hos_Administration .hos_base_inf .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
 	cursor: pointer;
@@ -316,6 +330,7 @@ a {
 
 #hos_Administration .hos_renzheng_inf .bottomContent > div .doc_Idnum,
 #hos_Administration .hos_renzheng_inf .bottomContent > div .doc_name,
+#hos_Administration .hos_renzheng_inf .bottomContent > div .hos_name,
 #hos_Administration .hos_renzheng_inf .bottomContent > div .doc_zhicheng,
 #hos_Administration .hos_renzheng_inf .bottomContent > div .doc_shanchang,
 #hos_Administration .hos_renzheng_inf .bottomContent > div .doc_hospital{
@@ -349,6 +364,11 @@ a {
 	margin-right: 20px;
 	vertical-align: middle;
 } 
+#hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic img,
+#hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic img{
+	width: 100%;
+	height: 100%;
+}
 #hos_Administration .hos_renzheng_inf .bottomContent >.teacher_picUpdata .teacher_pic:hover,
 #hos_Administration .hos_renzheng_inf .bottomContent >.zhicheng_picUpdata .zhicheng_pic:hover{
 	cursor: pointer;
