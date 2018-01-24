@@ -3,6 +3,7 @@ package com.xczh.consumer.market.dao;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 
+import com.xczh.consumer.market.vo.LecturVo;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
@@ -227,5 +228,28 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		}
 		sql.append(" order by  c.live_status,c.start_time desc ");
 		return super.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(),pageNumber,pageSize,CourseLecturVo.class,null);
+	}
+
+	public CourseLecturVo courseShare(Integer courseId) throws SQLException {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer("");
+		sql.append("select c.id,c.direct_Id as directId,c.grade_name as gradeName,ou.small_head_photo as headImg,ou.name as name,");
+		sql.append("c.smallimg_path as smallImgPath,c.start_time as startTime,c.end_time as endTime,");
+		sql.append("c.description as description,ou.id as userId");  //课程简介
+		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" where  c.user_lecturer_id = ou.id and c.id = ?  and c.is_delete=0 and c.status = 1   ");
+		Object[] params = {courseId};
+		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(CourseLecturVo.class),params);
+	}
+
+	public LecturVo lectureShare(String lecturerId) throws SQLException {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer("");
+		sql.append("select ou.name as name,ou.small_head_photo as headImg ,");
+		sql.append("ca.detail as description ");  //课程简介
+		sql.append(" from oe_user ou,course_anchor ca ");
+		sql.append(" where  ou.id = ca.user_id and ou.id = ?  and ou.is_delete=0 and ou.status = 0   ");
+		Object[] params = {lecturerId};
+		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(), new BeanHandler<>(LecturVo.class),params);
 	}
 }	

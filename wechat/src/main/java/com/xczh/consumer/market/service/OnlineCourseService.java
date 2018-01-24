@@ -3,6 +3,7 @@ package com.xczh.consumer.market.service;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.LecturVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
 import java.sql.SQLException;
@@ -230,5 +231,24 @@ public interface OnlineCourseService {
 	
 	List<CourseLecturVo> findLiveListInfoOld(Integer start_page,
 			Integer page_size, String queryParam) throws SQLException;
+
+	/**
+	 *
+	 * Description：课程分享
+	 * @param courseId
+	 * @return CourseLecturVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	CourseLecturVo courseShare(Integer courseId)
+			throws SQLException;
+	/**
+	 *
+	 * Description：主播分享
+	 * @param lecturerId
+	 * @return LecturVo
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	LecturVo lectureShare(String lecturerId)
+			throws SQLException;
 	
 }

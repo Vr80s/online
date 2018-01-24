@@ -11,6 +11,7 @@ import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.LecturVo;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 
@@ -750,6 +751,16 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	public void updateLiveSourceType(String courseId) throws SQLException {
 	    String sql = " update oe_course  set live_source_type = 1  where id = ? and is_delete = 0 and status=1 ";
         super.update(JdbcUtil.getCurrentConnection(),sql, courseId);
-	}	
+	}
+
+	@Override
+	public CourseLecturVo courseShare(Integer courseId) throws SQLException {
+		return courseMapper.courseShare(courseId);
+	}
+
+	@Override
+	public LecturVo lectureShare(String lecturerId) throws SQLException {
+		return courseMapper.lectureShare(lecturerId);
+	}
 
 }
