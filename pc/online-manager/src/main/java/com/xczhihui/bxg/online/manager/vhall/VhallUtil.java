@@ -228,8 +228,6 @@ public class VhallUtil {
 	
 	/** 
 	 * Description：获取主播的直播地址
-	 * @param u
-	 * @param password
 	 * @return
 	 * @return String
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com

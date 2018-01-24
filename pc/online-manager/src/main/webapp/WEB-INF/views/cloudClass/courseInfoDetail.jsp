@@ -36,7 +36,7 @@
 			</div>
 		</div>
 		<c:choose>
-			<c:when test="${!course.collection}">
+			<c:when test="${!course.collection && course.type==2}">
 				<div class="form-group" style="margin-top:18px;">
 					<label class="col-sm-1 control-label no-padding-right">视频:</label>
 					<div class="" >

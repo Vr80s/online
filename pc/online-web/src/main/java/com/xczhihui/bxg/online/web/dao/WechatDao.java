@@ -1,5 +1,14 @@
 package com.xczhihui.bxg.online.web.dao;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
 import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.online.common.domain.Apply;
@@ -14,12 +23,11 @@ import com.xczhihui.bxg.online.web.vo.GradeVo;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
 import com.xczhihui.bxg.online.web.vo.WechatVo;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
-import com.xczhihui.user.center.bean.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
-import java.util.*;
+import com.xczhihui.user.center.bean.ItcastUser;
+import com.xczhihui.user.center.bean.UserOrigin;
+import com.xczhihui.user.center.bean.UserSex;
+import com.xczhihui.user.center.bean.UserStatus;
+import com.xczhihui.user.center.bean.UserType;
 
 /**
  * 微信分销业务层对接接口类

@@ -34,4 +34,6 @@
     <!-- 我的关注，我的粉丝service -->
     <dubbo:service interface="com.xczhihui.wechat.course.service.IFocusService" ref="focusServiceRemote" timeout="${dubbo.consumer.timeout}" />
     <dubbo:service interface="com.xczhihui.wechat.course.service.IOfflineCityService" ref="offlineCityServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <!--礼物相关-->
+    <dubbo:service interface="com.xczhihui.wechat.course.service.IGiftService" ref="giftServiceImpl" timeout="${dubbo.consumer.timeout}" />
 </beans>

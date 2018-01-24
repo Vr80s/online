@@ -456,7 +456,6 @@ public class BunchPlanController {
 	    page.setSize(7);
 	    
 	    //mapAll.put("doctorList",medicalDoctorBusinessService.selectDoctorPage(page,null,null,null,null));
-		
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 	

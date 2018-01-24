@@ -420,16 +420,11 @@ public class WxPayController {
 	public ResponseObject appleInternalPurchaseOrder(HttpServletRequest req,
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
-		
 		try {
-			LOGGER.info("======================================");
 			/*
 			 * 传递过来一个订单号
 			 */
 			String order_no = req.getParameter("order_no");
-			//String courderName = req.getParameter("courderName");
-			LOGGER.info("======================================"+order_no);
-			
 			ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
     		if(null == orderDetails.getResultObject()){
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
@@ -437,7 +432,6 @@ public class WxPayController {
 			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
     		Double actualPrice = order.getActualPay();//订单金额
     		double  xmb = actualPrice * rate;
-    		
     		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {
     	         return ResponseObject.newErrorResponseObject("登录超时！");
@@ -452,9 +446,7 @@ public class WxPayController {
 			/**
 			 * 然后你那边加下密
 			 */
-			//得到更多的参数。然后
 			String transaction_id = CodeUtil.getRandomUUID();
-			
 			String s = "out_trade_no=" + order_no + "&result_code=SUCCESS"
 					+ "&transaction_id="+transaction_id+"&key=" + onlinekey;
 			
@@ -467,6 +459,7 @@ public class WxPayController {
 					+ "]]></sign>" + " </xml> ";
 			
 			LOGGER.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
+			
 			String msg = HttpUtil.sendDataRequest(
 					pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml
 							.toString().getBytes());

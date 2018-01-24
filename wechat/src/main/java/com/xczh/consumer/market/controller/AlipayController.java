@@ -559,6 +559,7 @@ public class AlipayController {
 		model.setTotalAmount(total_amount);
 		model.setBody(body);
 		model.setTimeoutExpress(timeout_express);
+		
 		model.setProductCode(product_code);
 		model.setPassbackParams(passbackParams);
 		alipay_request.setBizModel(model);
@@ -936,6 +937,8 @@ public class AlipayController {
 						rs.setChannel(1);
 						// rewardService.insert(rs);1
 						alipayPaymentRecordH5.setUserId(rpv.getUserId());
+						
+						
 						alipayPaymentRecordH5Service
 								.insert(alipayPaymentRecordH5);
 						userCoinService.updateBalanceForReward(rs);
@@ -968,6 +971,7 @@ public class AlipayController {
 							response.getWriter().println("success"); // 请不要修改或删除
 						}
 					} else if ("3".equals(ppbt)) {
+						
 						LOG.info("充值回调数据包："
 								+ alipayPaymentRecordH5.getPassbackParams());
 						alipayPaymentRecordH5.setUserId((JSONObject

@@ -295,6 +295,7 @@ public class H5AppPayController {
 
 		
 		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
+		
 		String extDatas ="reward&"+cacheKey;
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(rewardParamVo).toString(),7200);
@@ -373,20 +374,7 @@ public class H5AppPayController {
 		String tradeType = null; //公众号
 		String openId = null;
 		if(orderFrom == 4){
-			String openId1 = req.getParameter("openId");
-			if(null == openId1){
-				WxcpClientUserWxMapping wxUser = wxService.getWxcpClientUserWxMappingByUserId(userId);
-				if(wxUser == null){
-					wxUser = wxService.getWxMappingByUserIdOrUnionId(userId);
-				}
-				if(wxUser!=null){
-					openId = wxUser.getOpenid();
-				}else{
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
-				}
-			}else{
-				openId = openId1;
-			}
+			openId = req.getParameter("openId");
 			tradeType= PayInfo.TRADE_TYPE_JSAPI;
 		}else if(orderFrom == 3){
 			tradeType =PayInfo.TRADE_TYPE_H5;
@@ -412,12 +400,11 @@ public class H5AppPayController {
 
 		if (retpay != null) {
 			retpay.put("ok", "true");
-
+			
 			if(orderFrom == 2){
 				retpay = CommonUtil.getSignER(retpay);
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
-
 			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
 					+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);

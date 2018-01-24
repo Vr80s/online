@@ -90,6 +90,9 @@ header {
 	float: left;
 	font-size: 0.553rem;
 	color: #666666;
+    margin: 0 auto;
+    width: 10rem;
+    text-align: center;
 }
 .outline_cen_right{
 	float: right;

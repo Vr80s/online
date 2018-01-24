@@ -506,8 +506,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	public void checkName(Integer id, String courseName) {
 		List<Course> entitys= findByName(courseName);
 		for(Course entity: entitys){
+			if(id==null) {
+				id = 0;
+			}
 			if(!entity.isDelete()&&entity.getId().intValue()!=id){
-				throw new RuntimeException("课程名称已存在！");
+				throw new RuntimeException(courseName+":课程名称已存在！");
 			}
 		}
 	}
@@ -526,7 +529,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		
 		 String hql="from Course where 1=1 and isDelete=0 and id = ?";
          Course course= dao.findByHQLOne(hql, new Object[]{id});
-         
+         course.setReleaseTime(new Date());
          if(course.getStatus()!=null&&"1".equals(course.getStatus())){
         	 course.setStatus("0");
          }else{
@@ -537,14 +540,11 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         				throw new RuntimeException ("只能启用4条数据！");
         		 }
         	 }*/
-        	 
         	 course.setStatus("1");
          }
          
          dao.update(course);
 	}
-
-
 	@Override
 	public void deleteCourseById(Integer id) {
 		// TODO Auto-generated method stub

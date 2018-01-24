@@ -270,103 +270,102 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		/**
 		 * 查找是否已经存在这个直播申请了。如果存在那么需要查一下啦
 		 */
-//		Course course =publicCourseService.findCourseVoByLiveExanmineId(le.getId());
-//		if(course == null && "1".equals(le.getExamineStatus())){ //保存课程，并且生成课程id
-//			//保存了
-//			Course entity = new Course();
-//
-//			entity.setApplyId(le.getId());
-//			entity.setLiveSource(2);//设置直播源
-//
-//			entity.setGradeName(le.getTitle()); //课程名称
-//			entity.setMenuId(Integer.parseInt(le.getType())); //学科的id
-//
-//		    //时间转换
-//	        long l = Long.parseLong(le.getWhenLong()) / (1000*60*60);
-//
-//
-//	      /*  double f = Double.parseDouble(l+"");
-//			BigDecimal b = new BigDecimal(f);
-//			double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();*/
-//
-////			BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
-////			//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
-////			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
-//			//System.out.println(bd_half_even);
-//
-//	        double bd_half_up =  com.xczhihui.bxg.online.manager.utils.CountUtils.div(
-//	        		Double.parseDouble(le.getWhenLong()), 3600000d,2);
-//			System.out.println(bd_half_up);
-//			entity.setCourseLength(bd_half_up+""); //课程时长
-//			entity.setCreateTime(new Date()); //当前时间
-//			entity.setStatus('1' + ""); //状态
-//			entity.setStartTime(le.getStartTime());//直播开始时间
-//
-//			l= Long.parseLong(le.getWhenLong()) +  le.getStartTime().getTime();
-//			Date dend = new Date(l);
-//			entity.setEndTime(dend);//直播结束时间
-//
-//			entity.setType(1);//课程分类 1:公开直播课
-//			entity.setSmallImgPath(le.getLogo());//课程展示图
-//			entity.setBigImgPath(le.getLogo());
-//			entity.setDescriptionShow(0);//'不展示(0)，展示（1）'
-//			//entity.setDirectSeeding(courseVo.getDirectSeeding());//直播布局
-//			entity.setEndLineNumber(0);//结束时在线人数
-//			entity.setFlowersNumber(0);//鲜花数
-//			entity.setHighestNumberLine(0);//最高在线人数
-//			entity.setPv(0);//浏览数
-//			entity.setIsRecommend(0);//不推荐(0)，推荐（1）
-//			entity.setLearndCount(0);//已学人数
-//			entity.setDelete(false);//不删除
-//			entity.setDefaultStudentCount(0);
-//			/*2017.08.10  yuruixin*/
-//			//观看方式 0公开 1 收费 2 密码
-//
-//			//默认原价格都是0
-//			entity.setOriginalCost(0d);
-//
-//			if("0".equals(le.getSeeMode())){
-//				entity.setIsFree(true); //免费
-//				entity.setCurrentPrice(0d);
-//			}else if("1".equals(le.getSeeMode())){
-//				entity.setIsFree(false); //收费
-//				entity.setCurrentPrice(le.getPrice().doubleValue());
-//			}else if("2".equals(le.getSeeMode())){
-//				entity.setIsFree(true); //密码
-//				//新增课程密码
-//				entity.setCoursePwd(le.getPassword());
-//				entity.setCurrentPrice(0d);
-//			}
-//			entity.setDescription(le.getContent());
-//			/*2017.08.10  yuruixin*/
-//			if (entity.getClassRatedNum() == null) {
-//				entity.setClassRatedNum(0);
-//			}
-//			if (entity.getServiceType() == null) {
-//				entity.setServiceType(0);
-//			}
-//			entity.setUserLecturerId(le.getUserId());
-//			entity.setVersion(UUID.randomUUID().toString().replace("-",""));
-//			entity.setDirectSeeding(1);//视频类型，默认单视频
-//			//创建直播间
-//			entity.setDefaultStudentCount(0);
-//			entity.setClassRatedNum(0);
-//			entity.setLiveStatus(2);//将直播状态预告
-//
-//			entity.setVersion(UUID.randomUUID().toString().replace("-",""));
-//			String webinarId = createWebinar(entity);
-//			entity.setDirectId(webinarId);
-//
-//			System.out.println("=============================");
-//			System.out.println(entity.toString());
-//			dao.save(entity);
-//			System.out.println("=============================");
-//
-//		}else if(course != null && "2".equals(le.getExamineStatus())){ //更新  直播课程状态变为0
-//			//更新课程仅仅是把状态变为：0
-//			course.setStatus("0");
-//			dao.update(course);
-//		}
+		Course course =publicCourseService.findCourseVoByLiveExanmineId(le.getId());
+		if(course == null && "1".equals(le.getExamineStatus())){ //保存课程，并且生成课程id
+			//保存了
+			Course entity = new Course();
+
+			//entity.setApplyId(le.getId());
+			entity.setLiveSource(2);//设置直播源
+
+			entity.setGradeName(le.getTitle()); //课程名称
+			entity.setMenuId(Integer.parseInt(le.getType())); //学科的id
+
+		    //时间转换
+	        long l = Long.parseLong(le.getWhenLong()) / (1000*60*60);
+
+
+	      /*  double f = Double.parseDouble(l+"");
+			BigDecimal b = new BigDecimal(f);
+			double f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();*/
+//			BigDecimal bd=new BigDecimal(l+"");//建议使用String参数
+//			//BigDecimal bd_half_even = bd.setScale(2,RoundingMode.HALF_EVEN);
+//			BigDecimal bd_half_up = bd.setScale(2,RoundingMode.HALF_UP);
+			//System.out.println(bd_half_even);
+
+	        double bd_half_up =  com.xczhihui.bxg.online.manager.utils.CountUtils.div(
+	        		Double.parseDouble(le.getWhenLong()), 3600000d,2);
+			System.out.println(bd_half_up);
+			entity.setCourseLength(bd_half_up+""); //课程时长
+			entity.setCreateTime(new Date()); //当前时间
+			entity.setStatus('1' + ""); //状态
+			entity.setStartTime(le.getStartTime());//直播开始时间
+
+			l= Long.parseLong(le.getWhenLong()) +  le.getStartTime().getTime();
+			Date dend = new Date(l);
+			entity.setEndTime(dend);//直播结束时间
+
+			entity.setType(1);//课程分类 1:公开直播课
+			entity.setSmallImgPath(le.getLogo());//课程展示图
+			entity.setBigImgPath(le.getLogo());
+			entity.setDescriptionShow(0);//'不展示(0)，展示（1）'
+			//entity.setDirectSeeding(courseVo.getDirectSeeding());//直播布局
+			entity.setEndLineNumber(0);//结束时在线人数
+			entity.setFlowersNumber(0);//鲜花数
+			entity.setHighestNumberLine(0);//最高在线人数
+			entity.setPv(0);//浏览数
+			entity.setIsRecommend(0);//不推荐(0)，推荐（1）
+			entity.setLearndCount(0);//已学人数
+			entity.setDelete(false);//不删除
+			entity.setDefaultStudentCount(0);
+			/*2017.08.10  yuruixin*/
+			//观看方式 0公开 1 收费 2 密码
+
+			//默认原价格都是0
+			entity.setOriginalCost(0d);
+
+			if("0".equals(le.getSeeMode())){
+				entity.setIsFree(true); //免费
+				entity.setCurrentPrice(0d);
+			}else if("1".equals(le.getSeeMode())){
+				entity.setIsFree(false); //收费
+				entity.setCurrentPrice(le.getPrice().doubleValue());
+			}else if("2".equals(le.getSeeMode())){
+				entity.setIsFree(true); //密码
+				//新增课程密码
+				entity.setCoursePwd(le.getPassword());
+				entity.setCurrentPrice(0d);
+			}
+			entity.setDescription(le.getContent());
+			/*2017.08.10  yuruixin*/
+			if (entity.getClassRatedNum() == null) {
+				entity.setClassRatedNum(0);
+			}
+			if (entity.getServiceType() == null) {
+				entity.setServiceType(0);
+			}
+			entity.setUserLecturerId(le.getUserId());
+			entity.setVersion(UUID.randomUUID().toString().replace("-",""));
+			entity.setDirectSeeding(1);//视频类型，默认单视频
+			//创建直播间
+			entity.setDefaultStudentCount(0);
+			entity.setClassRatedNum(0);
+			entity.setLiveStatus(2);//将直播状态预告
+
+			entity.setVersion(UUID.randomUUID().toString().replace("-",""));
+			String webinarId = createWebinar(entity);
+			entity.setDirectId(webinarId);
+			entity.setExamineId(le.getId()+""); 
+			System.out.println("=============================");
+			System.out.println(entity.toString());
+			dao.save(entity);
+			System.out.println("=============================");
+
+		}else if(course != null && "2".equals(le.getExamineStatus())){ //更新  直播课程状态变为0
+			//更新课程仅仅是把状态变为：0
+			course.setStatus("0");
+			dao.update(course);
+		}
 	}
 	
 	
@@ -386,7 +385,6 @@ public class ExamineCourseServiceImpl extends OnlineBaseServiceImpl implements E
 		if(ou.getIsLecturer() !=1){
 			return "申请人不具备讲师权限";
 		}
-		
 		lei.setExamineStatus("1"); //通过啦
 		User user = (User) UserHolder.getRequireCurrentUser(); 
 		lei.setAuditPerson(user.getId()); //审核人id

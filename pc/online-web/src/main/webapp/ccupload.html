@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>upload demo</title>
+    <style type="text/css">
+        .fla_btn {
+            position: relative;
+        }
+        .fla_btn embed {
+            position: absolute;
+            z-index: 1;
+        }
+        #swfDiv{*position:absolute; z-index:2;}
+    </style>
+    <script type="text/javascript" src="/web/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="/web/js/swfobject.js"></script>
+</head>
+<body>
+<h1>API java demo 上传视频</h1>
+<hr />
+<a href='index.jsp'>返回首页</a>
+<hr />
+<form id="addvform" name="addvform" action="" method="get">
+    <div class="fla_btn">
+			<span style="float: left;">
+				选择视频：<input id="videofile" name="videofile" type="text" />
+			</span>
+        <div id="swfDiv"></div>
+        <input type="button" value="upload" id="btn_width" style="width: 80px; height: 25px" />
+    </div>
+    <div>
+        <input type="button" value="提交" onclick="submitvideo();">
+    </div>
+    <div>
+        上传进度：<span id="uploadProgress"></span>
+    </div>
+</form>
+<script type="text/javascript">
+
+    // 加载上传flash ------------- start
+    var swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '80', '25', '8');
+    swfobj.addVariable( "progress_interval" , 1);	//	上传进度通知间隔时长（单位：s）
+    swfobj.addParam('allowFullscreen','true');
+    swfobj.addParam('allowScriptAccess','always');
+    swfobj.addParam('wmode','transparent');
+    swfobj.write('swfDiv');
+
+    function on_spark_selected_file(filename) {
+        document.getElementById("videofile").value = filename;
+    }
+
+    function on_spark_upload_validated(status, videoid) {
+        if (status == "OK") {
+            alert("上传正常,videoid:" + videoid);
+        } else if (status == "NETWORK_ERROR") {
+            alert("网络错误");
+        } else {
+            alert("api错误码：" + status);
+        }
+    }
+
+    function on_spark_upload_progress(progress) {
+        var uploadProgress = document.getElementById("uploadProgress");
+        if (progress == -1) {
+            uploadProgress.innerHTML = "上传出错：" + progress;
+        } else if (progress == 100) {
+            uploadProgress.innerHTML = "进度：100% 上传完成";
+        } else {
+            uploadProgress.innerHTML = "进度：" + progress + "%";
+        }
+    }
+
+    //控制上传
+    function submitvideo() {
+        var url = "";
+        $.ajax({
+            url:'/videoRes/getUploadUrl',
+            async: false,
+            data:{title:'测试',description:'测试描述',tag:'测试tag',categoryid:'DBBA248F23807F22'},
+            success:function(data){
+                debugger
+                url = data;
+            }
+        });
+        url = url + "&categoryid=DBBA248F23807F22";
+        document.getElementById("uploadswf").start_upload(url); //	调用flash上传函数
+    }
+</script>
+</body>
+</html>

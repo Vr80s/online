@@ -66,7 +66,11 @@
 			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  /></li>
 		</ul>
 		<ul class="playTime z" style="border-bottom: 0;">
-			<li style="float: left;"><img src="../images/Sinatv_time.png"/><span>直播时间：2017.12.30&nbsp;&nbsp;12:00</span></li>
+			<li style="float: left;">
+				<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
+				<span>直播时间：2017.12.30&nbsp;&nbsp;12:00&nbsp;&nbsp;</span>
+				<p>直播中</p>
+			</li>
 		</ul>
 	</div>
 	
@@ -153,7 +157,7 @@
 					<div class="wrap_returned_btn">
 						<ul>
 							<li>2017.12.24</li>
-							<li style="margin-left: 0.3rem;">
+							<li class="btn_littleReturn" style="margin-left: 0.3rem;">
 								<img src="../images/returned.png"/>
 							</li>
 							<li>
@@ -175,45 +179,62 @@
 		<div class="wrap_input z">
 			<img src="../images/inp_retured.png"/>
 			<span>来点儿神聊</span>
-			<!--<input type="text" name="" id="" value="" placeholder="来点儿神聊" />-->
 		</div>
 		<div class="all_returned_num y">
 			<img src="../images/returned.png"/>
 			<p>评论999+</p>
 		</div>
 	</div>
-	<!--评论弹出框-->
-	<div class="bg_modal"></div>
+	<!--评论用户弹出框-->
+	<div class="bg_userModal"></div>
+	<div class="wrapLittle_comment">
+		<p class="detailed_comments little_comment">详细评论<span>（至少10字）</span></p>
+		<div class="text_write_box">
+			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+		</div>
+		<!--表情/提交评论-->
+		<ul class="brow_btn">
+			<li>
+				<img src="../images/brow.png"/>
+			</li>
+			<li>发表评论</li>
+		</ul>
+	</div>	
 	
+	<!--评论主播弹出框-->
+	<div class="bg_modal"></div>
 	<div class="wrapAll_comment">
 		<p class="set_title">发布评论</p>
-		<ul class="my_impression">
-			<li>总体印象</li>
-			<li>
-
-				<input type="radio" name="select_my"  value="" />
-				<label>非常好</label>
-				
-			</li>
-			<li>
-
-				<input type="radio" name="select_my"  value="" />
-				<label>好</label>
-				
-			</li>
-			<li>
-
-				<input type="radio" name="select_my"  value="" />
-				<label>一般</label>
-				
-			</li>
-			<li>
-
-				<input type="radio" name="select_my"  value="" />
-				<label>差</label>
-				
-			</li>
-		</ul>
+	<!--星星五星好评-->
+		<div class="my_impression1 cl mar_bot">
+			<p>总体印象</p>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<img src="../images/xing1.png"/>
+			<span></span>
+		</div>
+	<!--主播演绎好评-->
+		<div class="my_impression2 cl mar_bot">
+			<p>主播演绎</p>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<span></span>
+		</div>
+	<!--节目内容好评-->
+		<div class="my_impression3 cl">
+			<p>节目内容</p>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<img src="../images/face0.png"/>
+			<span></span>
+		</div>
 		<!--标签-->
 		<ul class="select_lable">
 			<li>很赞</li>

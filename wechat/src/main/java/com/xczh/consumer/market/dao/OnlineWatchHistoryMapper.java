@@ -39,7 +39,7 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 			sql.append("oc.is_free as isFree,oc.start_time as startTime,oc.end_time as endTime, owh.type as type  ");
 			sql.append("from oe_watch_history as owh,oe_user as ou,oe_course as oc  ");
 			sql.append("where owh.lecturer_id = ou.id and owh.course_id = oc.id  ");
-			sql.append("and owh.user_id = ? and owh.type = ? order by owh.watch_time desc");
+			sql.append("and owh.user_id = ? and owh.type = ? and oc.is_delete=0 and oc.status=1  order by owh.watch_time desc");
 		}else{
 			sql.append("select owh.user_id as userId,owh.lecturer_id as lecturerId,owh.course_id as courseId,");
 			sql.append("ocm.img_url as smallimgPath,oc.grade_name as gradeName,");
@@ -47,7 +47,7 @@ public class OnlineWatchHistoryMapper extends BasicSimpleDao{
 			sql.append("oc.is_free as isFree,oc.start_time as startTime,oc.end_time as endTime, owh.type as type  ");
 			sql.append("from oe_watch_history as owh,oe_user as ou,oe_course as oc,oe_course_mobile as ocm  ");
 			sql.append("where owh.lecturer_id = ou.id and owh.course_id = oc.id and ocm.course_id =oc.id  ");
-			sql.append("and owh.user_id = ? and owh.type = ? order by owh.watch_time desc");
+			sql.append("and owh.user_id = ? and owh.type = ? and oc.is_delete=0 and oc.status=1   order by owh.watch_time desc");
 		}
 		Object[] params = {userId,type};
 		return super.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(),pageNumber,pageSize,OeWatchHistory.class,params);

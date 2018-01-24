@@ -200,7 +200,7 @@ window.onload = function() {
 		'</p>' +
 		
 		'{{if item.selfCourse == true}}' +
-			'<a href="/web/livepage/{{item.id}}/{{item.direct_id}}/null" class="purchase common_ljck" >立即查看</a>' +
+			'<a href="/web/livepage/{{item.id}}" class="purchase common_ljck" >立即查看</a>' +
     	'{{else}}'+   
 			'{{if item.free == true}}' +
 			'<p class="bigpic-body-money">' +
@@ -221,7 +221,7 @@ window.onload = function() {
 	//		'{{/if}}' +
 			'{{else}}' +
 			//'<a style="cursor:pointer"  data-url="/web/livepage/{{$value.id}}/{{$value.direct_id}}/null">'+
-			'<a href="/web/livepage/{{item.id}}/{{item.direct_id}}/null" class="purchase" >立即学习</a>' +
+			'<a href="/web/livepage/{{item.id}}" class="purchase" >立即学习</a>' +
 	//		'<a href="/web/html/CourseDetailZhiBo.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
 			'{{/if}}' +
 			'</div>' +

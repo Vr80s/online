@@ -17,4 +17,10 @@ public interface DoctorApplyService {
      * @return 医师入驻申请分页列表
      */
     Page<MedicalDoctorApply> list(MedicalDoctorApply searchVo, int currentPage, int pageSize);
+
+    /**
+     * 更新医师入驻申请状态
+     * @param doctorApply 更新的数据封装类
+     */
+    void updateStatus(MedicalDoctorApply doctorApply);
 }

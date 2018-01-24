@@ -103,7 +103,7 @@ $.getUrlParam = function(name) {
 	var mycourse_live = '<div class="box clearfix">' +
 	'{{each items as $value i }}' +
 	'<div class="course" data-url="{{#zhibohref($value.id)}}">' +
-	'<a href="/web/livepage/{{$value.id}}/{{$value.direct_id}}/null"   data-videoId="{{$value.id}}">' +
+	'<a href="/web/livepage/{{$value.id}}"   data-videoId="{{$value.id}}">' +
 	'{{#hasImg($value.smallImgPath)}}' +
 	'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +
 	'<div class="name" title="{{$value.courseName}}">开始时间：{{$value.start_time}}</div>' +

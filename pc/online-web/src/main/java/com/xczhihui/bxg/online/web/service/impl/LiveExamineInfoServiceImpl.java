@@ -82,7 +82,6 @@ public class LiveExamineInfoServiceImpl implements LiveExamineInfoService {
     @Override
     public List<LiveExamineInfoVo> liseByExamineStatus(String userId, String examineStatus, int pageNumber, int pageSize) {
 
-    	
     		/*
     		 * 在审核中这块
     		 * 

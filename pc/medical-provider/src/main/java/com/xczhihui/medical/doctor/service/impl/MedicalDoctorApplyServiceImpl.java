@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyDepartmentMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
@@ -35,6 +36,8 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private MedicalDoctorApplyDepartmentMapper applyDepartmentMapper;
     @Autowired
     private MedicalDepartmentMapper medicalDepartmentMapper;
+    @Autowired
+    private MedicalDoctorAccountMapper doctorAccountMapper;
 
     /**
      * 添加医师入驻申请信息
@@ -45,6 +48,11 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
 
         // 参数校验
         this.validate(target);
+
+        // 如果该用户已经是医师
+        if(doctorAccountMapper.getByUserId(target.getUserId()) != null){
+            throw new RuntimeException("您已经是医师，不能再申请认证");
+        }
 
         MedicalDoctorApply oldApply = this.getLastOne(target.getUserId());
         if(oldApply != null){

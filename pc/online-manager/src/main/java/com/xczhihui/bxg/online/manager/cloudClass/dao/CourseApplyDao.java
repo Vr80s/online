@@ -22,23 +22,54 @@ import java.util.Map;
 public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 	 public Page<CourseApplyInfo> findCloudClassCoursePage(CourseApplyInfo courseApplyInfo, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
-		 StringBuilder sql = new StringBuilder("SELECT cai.*,IF(cai.`status`=2,1,cai.`status`) ostatus,ou.name userName FROM `course_apply_info` cai LEFT JOIN `oe_user` ou ON cai.`user_id`=ou.`id` WHERE cai.`is_delete`=0 ");
+		 StringBuilder sql = new StringBuilder("SELECT cai.*,IF(cai.`status`=2,1,cai.`status`) ostatus,om.`name` menuName,ou.name userName FROM `course_apply_info` cai JOIN `oe_menu` om ON om.id=cai.`course_menu` LEFT JOIN `oe_user` ou ON cai.`user_id`=ou.`id` WHERE cai.`is_delete`=0 ");
 		 if (courseApplyInfo.getTitle() != null) {
 			 paramMap.put("title", "%" + courseApplyInfo.getTitle() + "%");
 			 sql.append("and cai.title like :title ");
 		 }
+		 if (courseApplyInfo.getLecturer() != null) {
+			 paramMap.put("lecturer", "%" + courseApplyInfo.getLecturer() + "%");
+			 sql.append("and cai.lecturer like :lecturer ");
+		 }
+		 if (courseApplyInfo.getCourseMenu() != null) {
+			 paramMap.put("course_menu", courseApplyInfo.getCourseMenu());
+			 sql.append("and cai.course_menu = :course_menu ");
+		 }
+		 if (courseApplyInfo.getCourseForm() != null) {
+			 paramMap.put("course_form", courseApplyInfo.getCourseForm());
+			 sql.append("and cai.course_form = :course_form ");
+		 }
+		 if (courseApplyInfo.getMultimediaType() != null) {
+			 paramMap.put("multimedia_type", courseApplyInfo.getMultimediaType());
+			 sql.append("and cai.multimedia_type = :multimedia_type ");
+		 }
 
+		 if (courseApplyInfo.getFree() != null) {
+		 	if(courseApplyInfo.getFree()){
+				sql.append("and cai.price = 0 ");
+			}else{
+				sql.append("and cai.price != 0 ");
+			}
+		 }
 		 if (courseApplyInfo.getStatus() != null) {
 			 paramMap.put("status", courseApplyInfo.getStatus());
 			 sql.append("and cai.status = :status ");
 		 }
 
+		 if(courseApplyInfo.getStartTime() !=null){
+			 sql.append(" and cai.create_time >=:startTime");
+			 paramMap.put("startTime", courseApplyInfo.getStartTime());
+		 }
+
+		 if(courseApplyInfo.getEndTime() !=null){
+			 sql.append(" and cai.create_time <=:stopTime");
+			 paramMap.put("stopTime", courseApplyInfo.getEndTime());
+		 }
 		 sql.append(" ORDER BY ostatus ASC,cai.`create_time` DESC");
 
 		 Page<CourseApplyInfo> courseApplyInfos = this.findPageBySQL(sql.toString(), paramMap, CourseApplyInfo.class, pageNumber, pageSize);
 
 		 return courseApplyInfos;
-//		 }
 	 }
 
     public CourseApplyInfo findCourseApplyAndMenuById(Integer id) {
@@ -93,5 +124,39 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("cid",id);
 		return this.getNamedParameterJdbcTemplate().query(sql,params, BeanPropertyRowMapper.newInstance(CourseApplyInfo.class));
+	}
+
+	public Page<CourseApplyResource> findCourseApplyResourcePage(CourseApplyResource courseApplyResource, int currentPage, int pageSize) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		StringBuilder sql = new StringBuilder("SELECT \n" +
+				"  car.`id`,\n" +
+				"  car.`title`,\n" +
+				"  car.`resource`,\n" +
+				"  car.`multimedia_type` multimediaType,\n" +
+				"  car.`create_time` createTime, " +
+				"  ou.`login_name` loginName,\n" +
+				"  ou.`name` userName,\n" +
+				"  car.`is_delete` deleted \n" +
+				"FROM\n" +
+				"  `course_apply_resource` car LEFT JOIN `oe_user` ou ON car.`user_id`=ou.`id` \n" +
+				"WHERE 1=1 ");
+		if (courseApplyResource.getTitle() != null) {
+			paramMap.put("title", "%" + courseApplyResource.getTitle() + "%");
+			sql.append("and car.title like :title ");
+		}
+		if (courseApplyResource.getUserName() != null) {
+			paramMap.put("name", "%" + courseApplyResource.getUserName()+ "%");
+			sql.append("and ou.`name` like :name ");
+		}
+		if (courseApplyResource.getDeleted() != null) {
+			paramMap.put("is_delete", courseApplyResource.getDeleted());
+			sql.append("and car.is_delete = :is_delete ");
+		}
+		//car.`is_delete` = 0
+		sql.append(" ORDER BY car.`create_time` DESC");
+
+		Page<CourseApplyResource> courseApplyResources = this.findPageBySQL(sql.toString(), paramMap, CourseApplyResource.class, currentPage, pageSize);
+
+		return courseApplyResources;
 	}
 }

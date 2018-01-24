@@ -44,14 +44,10 @@ public class IapController {
     @Value("${rate}")
     private  Integer rate;
 
-
-
     @Autowired
     private iphoneIpaService iphoneIpaService;
 
-    
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(H5AppPayController.class);
-    
     /**
      * 重写X509TrustManager
      */

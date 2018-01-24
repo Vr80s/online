@@ -285,14 +285,68 @@ public class LiveServiceImpl  extends OnlineBaseServiceImpl implements LiveServi
 		
 		return mv;
 	}
-//	
-//	private void jump(HttpServletResponse response,String page,String courseId,String is_free){
-//		try {
-//			response.sendRedirect("/web/html/"+page+".html?id="+courseId+"&courseType=1&free="+is_free);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
+
+    @Override
+    public ModelAndView livepage
+            (String courseId, HttpServletRequest request,HttpServletResponse response) {
+
+        BxgUser user = UserLoginUtil.getLoginUser(request);
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("course_id", courseId);
+        List<Map<String, Object>> courses = dao.getNamedParameterJdbcTemplate()
+                .queryForList("select type,is_free,description, IF(ISNULL(`course_pwd`), 0, 1) coursePwd,direct_id,live_status liveStatus from oe_course where id=:course_id", paramMap);
+        Map<String, Object> course =  courses.get(0);
+        Object is_free = course.get("is_free");
+        String description = (String) course.get("description");
+        Integer liveStatus = (Integer) course.get("liveStatus");
+        long coursePwd =  (long) course.get("coursePwd");
+        if(description==null) {
+            description = "";
+        }
+        description=description.replaceAll("\n", "");
+        String page="";
+        if(coursePwd==1){
+            page="encryptOpenCourseDetailPage";
+        }else{
+            is_free = (is_free != null && Boolean.valueOf(is_free.toString())) ? "1" : "0";
+            page = "1".equals(is_free) ? "freeOpenCourseDetailPage" : "payOpenCourseDetailPage";
+        }
+        OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        ModelAndView mv = null;
+        if(liveStatus==1){
+            mv = new ModelAndView("live_success_page");
+        }else{
+            mv = new ModelAndView("live_success_other_page");
+        }
+        if(user!=null){
+            mv.addObject("userId",u.getId());
+            mv.addObject("courseId",courseId);
+            mv.addObject("liveStatus",liveStatus);
+            mv.addObject("roomId",course.get("direct_id"));
+            mv.addObject("roomJId",courseId+postfix);
+            mv.addObject("boshService",boshService);
+//            mv.addObject("planId",planId);
+            mv.addObject("page",page);
+            mv.addObject("now",new Date().getTime());
+            mv.addObject("description",description);
+            mv.addObject("email", user == null ? null : user.getId()+"@xczh.com");
+            mv.addObject("name", user == null ? null : user.getName());
+            mv.addObject("k", "yrxk");//TODO 此处暂时写死
+            ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
+            mv.addObject("guId", iu.getId());
+            mv.addObject("guPwd", iu.getPassword());
+
+            mv.addObject("env", env);
+            mv.addObject("host", host);
+            mv.addObject("rate", rate);
+        }else{
+            mv = new ModelAndView("redirect:/");
+        }
+//		mv.addObject("cc_live_user_id",OnlineConfig.CC_LIVE_USER_ID);
+
+        return mv;
+    }
 
 	@Override
 	public List<OpenCourseVo> getOpenCourse(Integer num, String id) {

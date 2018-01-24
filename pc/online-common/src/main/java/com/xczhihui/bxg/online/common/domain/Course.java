@@ -300,6 +300,16 @@ public class Course extends BasicEntity2 implements Serializable {
 	
 	@Column(name = "apply_id")
 	private Integer applyId;
+
+	@Column(name = "examine_id")
+	private String examineId;
+	
+	
+	/**
+	 * 上架或者下架时间
+	 */
+	@Column(name = "release_time")
+	private Date releaseTime;
 	
 	
 	@Column(name = "city")
@@ -881,4 +891,22 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setEssenceSort(Integer essenceSort) {
 		this.essenceSort = essenceSort;
 	}
+
+	public String getExamineId() {
+		return examineId;
+	}
+
+	public void setExamineId(String examineId) {
+		this.examineId = examineId;
+	}
+
+	public Date getReleaseTime() {
+		return releaseTime;
+	}
+
+	public void setReleaseTime(Date releaseTime) {
+		this.releaseTime = releaseTime;
+	}
+	
+	
 }

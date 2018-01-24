@@ -42,62 +42,63 @@ public class CourseLecturVo implements Serializable {
     /**
      * 讲师头像
      */
-    public String headImg;
+    private String headImg;
 
     /**
      * 直播间id 
      */
-    public String  directId;
+    private String  directId;
     
     /**
      * 章节id 
      */
-    public String  chapterId;
+    private String  chapterId;
     
     /**
      * 视频 的 主键id 
      */
-    public String  vId;
+    private String  vId;
     
     /**
      * 直播开始时间
      */
-    public Date startTime;
+    private Date startTime;
     /**
      * 直播结束时间
      */
-    public Date endTime;
+    private Date endTime;
     /**
      * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播 
      */
-    public Integer lineState;
+    private Integer lineState;
     
     //c.original_cost as originalCost,c.current_price as currentPrice,c.is_free as isFree
     /**
      * 原价
      */
-    public double originalCost;
+    private double originalCost;
     /**
      * 现价
      */
-    public double currentPrice;
+    private double currentPrice;
     /**
      * 是否收费  true 免费  false 收费
      */
-    public Integer isFree;
+    private Integer isFree;
+
     /**
      * 课程时长
      */
-    public double courseLength = 0;
+    private double courseLength;
     
     /**
      * 观看人数
      */
-    public Integer  learndCount;
+    private Integer  learndCount;
 
-    public Integer giftCount;
+    private Integer giftCount;
     
-    public Integer fansCount;
+    private Integer fansCount;
     
     
 
@@ -107,47 +108,47 @@ public class CourseLecturVo implements Serializable {
     /**
      * 是否需要密码认证
      */
-    public Integer isApprove;  //0 需要认证，1，不需要认证
+    private Integer isApprove;  //0 需要认证，1，不需要认证
     
     /**
      * 课程详情
      */
-    public String description;    //来自oe_course_mobile的详情   富文本的课程详情
+    private String description;    //来自oe_course_mobile的详情   富文本的课程详情
     
     
-    public String courseDescription; //课程简介
+    private String courseDescription; //课程简介
     
     /**
      * 多媒体类型   1 点播  2 音频
      */
-    public Integer multimediaType;
+    private Integer multimediaType;
     
     /**
      * 房间号
      */
-    public Integer roomNumber;
+    private Integer roomNumber;
     /**
      *直播方式 
      */
-    public Integer type; //课程分类 1:公开直播课     is null ：点播
+    private Integer type; //课程分类 1:公开直播课     is null ：点播
     
     /**
      * 是否关注了这个主播
      */
-    public Integer isfocus = 0; //课程分类   0 未关注     1 关注
+    private Integer isfocus; //课程分类   0 未关注     1 关注
     
-    public Integer countFans =0; //粉丝数
+    private Integer countFans; //粉丝数
     
-    public Integer countGift = 0; //礼物数
+    private Integer countGift; //礼物数
     
-    public Integer countSubscribe =0; //预约的人数
+    private Integer countSubscribe; //预约的人数
     
-    public Integer isSubscribe = 0; //0 未预约  1预约
+    private Integer isSubscribe; //0 未预约  1预约
     
     
-    public Integer watchState = 0; //观看状态 0免费  1收费  2 需要密码验证
+    private Integer watchState; //观看状态 0免费  1收费  2 需要密码验证
     
-    public String imRoomId; //im房间号
+    private String imRoomId; //im房间号
 
 	private String address;
 
@@ -157,16 +158,29 @@ public class CourseLecturVo implements Serializable {
 
 	private String courseTimeConver; //课程时间转换为: 00:00:00
 	
-	private Integer cutoff =0;	// 0 已截止  1 未截止
+	private Integer cutoff;	// 0 已截止  1 未截止
 	
 	private String userLecturerId;
 	
 	private String  note; //
 	
-
+	
 	private Boolean collection;
 	
 	private Integer courseNumber;
+	
+//	  oc.subtitle as subtitle,
+//	  IFNULL((select count(*) from oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
+//	  '2' as startLevel,
+	
+	private String subtitle; //副标题
+	
+	private Integer criticizeCount; //课程评论数
+	
+	private Integer startLevel; //星级
+	
+	
+	private String courseOutline; //星级
 	
 	
 	public String getUdescription() {
@@ -219,7 +233,7 @@ public class CourseLecturVo implements Serializable {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	public int getLineState() {
+	public Integer getLineState() {
 		return lineState;
 	}
 	public void setLineState(Integer lineState) {
@@ -467,6 +481,38 @@ public class CourseLecturVo implements Serializable {
 
 	public void setCourseNumber(Integer courseNumber) {
 		this.courseNumber = courseNumber;
+	}
+
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+	public Integer getCriticizeCount() {
+		return criticizeCount;
+	}
+
+	public void setCriticizeCount(Integer criticizeCount) {
+		this.criticizeCount = criticizeCount;
+	}
+
+	public Integer getStartLevel() {
+		return startLevel;
+	}
+
+	public void setStartLevel(Integer startLevel) {
+		this.startLevel = startLevel;
+	}
+
+	public String getCourseOutline() {
+		return courseOutline;
+	}
+
+	public void setCourseOutline(String courseOutline) {
+		this.courseOutline = courseOutline;
 	}
 	
 	

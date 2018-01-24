@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
@@ -147,4 +148,18 @@ public class CourseApplyController {
         return ResponseObject.newSuccessResponseObject("课程新增申请发起成功！");
     }
 
+    /**
+     * Description：获取微吼直播路径
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 9:18 2018/1/23 0023
+     **/
+    @RequestMapping(value = "getWebinarUrl", method = RequestMethod.POST)
+    public ResponseObject getWebinarUrl(String webinarId) {
+        ResponseObject responseObj = new ResponseObject();
+        String url = VhallUtil.getWebinarUrl(webinarId);
+        responseObj.setSuccess(true);
+        responseObj.setResultObject(url);
+        return responseObj;
+    }
 }
