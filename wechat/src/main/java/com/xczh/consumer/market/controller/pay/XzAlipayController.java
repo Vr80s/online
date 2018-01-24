@@ -809,8 +809,7 @@ public class XzAlipayController {
 			throw new RuntimeException("订单号不能为空！");
 		}
 		// 通过订单号得到订单信息
-		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(request
-				.getParameter("orderId"));// onlineOrderService.getOnlineOrderByOrderNo(orderNo);
+		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(request.getParameter("orderId"));// onlineOrderService.getOnlineOrderByOrderNo(orderNo);
 		retobj.put("ok", "false");
 		if (null == onlineOrder) {
 			throw new RuntimeException("找不到订单 ！");

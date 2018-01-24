@@ -59,13 +59,12 @@ public class CourseController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("details")
-	public ResponseObject categoryXCList(HttpServletRequest req,HttpServletResponse res)
+	public ResponseObject categoryXCList(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam("courseId")Integer courseId)
 			throws Exception {
-		String courseId = req.getParameter("courseId");
-		if(courseId==null){
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		com.xczhihui.wechat.course.vo.CourseLecturVo  cv= courseServiceImpl.selectCourseDetailsById(Integer.parseInt(courseId));
+		
+		CourseLecturVo  cv= courseServiceImpl.selectCourseDetailsById(courseId);
 		if(cv==null){
 			return ResponseObject.newErrorResponseObject("获取课程有误");
 		}
@@ -73,21 +72,30 @@ public class CourseController {
 		 * 这里需要判断是否购买过了
 		 */
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		if(user!=null && cv.getUserLecturerId().equals(user.getId())){
-		    cv.setWatchState(0);
-	    }else if((user!=null && cv.getWatchState()==0) || 
-	    		(user!=null && cv.getWatchState()==1 && 
-	    		  onlineWebService.getLiveUserCourse(Integer.parseInt(courseId),user.getId()).size()>0) ){  //增加播放记录
+		if(user!=null){
+			/**
+			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
+			 */
+			if(cv.getUserLecturerId().equals(user.getId())){
+			    cv.setWatchState(0);
+			    return ResponseObject.newSuccessResponseObject(cv);
+		    }
+			
 	    	WatchHistory target = new WatchHistory();
-	    	target.setCourseId(Integer.parseInt(courseId));
+	    	target.setCourseId(courseId);
 			target.setUserId(user.getId());
-			watchHistoryServiceImpl.add(target);
-			onlineWebService.saveEntryVideo(Integer.parseInt(courseId), user);
-			cv.setLearndCount(cv.getLearndCount()+1);
-	    }
+			if(cv.getWatchState()==0){
+				onlineWebService.saveEntryVideo(courseId, user);
+				watchHistoryServiceImpl.addOrUpdate(target);
+			}else if(cv.getWatchState()==1 
+					&& onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){
+				watchHistoryServiceImpl.addOrUpdate(target);
+			}
+			watchHistoryServiceImpl.addOrUpdate(target);
+		}
 		return ResponseObject.newSuccessResponseObject(cv);
 	}
-
+	
 	/**
 	 * Description：通过合辑id获取合辑中的课程
 	 * creed: Talk is cheap,show me the code

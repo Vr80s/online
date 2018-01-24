@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -23,10 +24,11 @@ import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.wechat.course.vo.CourseLecturVo;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import com.xczhihui.wechat.course.service.ICourseService;
+import com.xczhihui.wechat.course.service.IFocusService;
+import com.xczhihui.wechat.course.vo.CourseLecturVo;
 /**
  * 
  * ClassName: HostController.java <br>
@@ -61,10 +63,13 @@ public class HostController {
 	
 	@Autowired
 	@Qualifier("focusServiceRemote")
-	private com.xczhihui.wechat.course.service.IFocusService focusServiceRemote;
+	private IFocusService focusServiceRemote;
 	
 	@Autowired
 	private OnlineWebService onlineWebService;
+	
+	@Autowired
+	private IMedicalHospitalApplyService medicalHospitalApplyService;
 	
 	
 	@Autowired
@@ -92,51 +97,53 @@ public class HostController {
 	@RequestMapping("hostPageInfo")
 	@ResponseBody
 	public ResponseObject userHomePage(HttpServletRequest req,
-									   HttpServletResponse res, Map<String,String> params)throws Exception {
-		//用户主页   -- 》接口
-		//关注人数         用户头像
-		//直播的课程     传递一个讲师id 就ok了... 得到讲师下的所有课程，得到讲师下的所有粉丝，得到讲师的
-		String lecturerId = req.getParameter("lecturerId");
+			HttpServletResponse res,
+			@RequestParam("lecturerId")String lecturerId)throws Exception {
 		
 		Map<String,Object> mapAll = new HashMap<String,Object>();
 		/**
 		 * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介  
+		 * 
+		 * 这个主播可能认证的是医馆，也可能认证的是医师
 		 */
-		Map<String,Object> lecturerInfo = onlineUserService.findHostById(lecturerId);	
-		List<Integer> listff =   focusServiceRemote.selectFocusAndFansCount(lecturerId);
+		Map<String,Object> lecturerInfo = onlineUserService.findHostById(lecturerId);
+		if(lecturerInfo == null){
+			return ResponseObject.newErrorResponseObject("获取医师信息有误");
+		}
+		System.out.println(lecturerInfo.toString());
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
-		mapAll.put("fansCount", listff.get(0));       		   //粉丝总数
+		MedicalHospital mha = null;
+		//1.医师2.医馆
+		if(lecturerInfo.get("type").toString().equals("1")){
+			 System.out.println("======="+1234);
+			 mha = 	medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);	
+		}else if(lecturerInfo.get("type").toString().equals("2")){
+			 mha =  medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);	
+		}
+		System.out.println(1234);
+		//认证的主播 还是 医馆
+		mapAll.put("hospital",mha);
+		List<Integer> listff =   focusServiceRemote.selectFocusAndFansCount(lecturerId);
+		mapAll.put("fansCount", listff.get(0));       	   //粉丝总数
 		mapAll.put("focusCount", listff.get(1));   	  	   //关注总数
 		
 		/**
-		 * 此主播最近一次的直播
+		 * 判断用户是否已经关注了这个主播
 		 */
-		CourseLecturVo vlv = courseService.selectLecturerRecentCourse(lecturerId);
-		mapAll.put("recentCourse", vlv);
-		/*
-		 * 根据主播得到医馆
-		 */
-		//坐诊医馆
-		MedicalHospitalVo   mh = new MedicalHospitalVo();
-		mh.setDetailedAddress("北京市丰台区开阳路一号瀚海花园大厦一层底商 北京海淀区中关村南大街19号院");
-		mh.setTel("010-68412758");
-		mh.setVisitTime("周一到周五");
-		mh.setCertificationType(1);
-		//认证的主播 还是 医馆
-		mapAll.put("hospital",mh);
-		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		if(null == lecturerId){  //讲师id
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
 	    if(user==null){
 	    	mapAll.put("isFours", 0); 
 	    }else{
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 	    }
+		/**
+		 * 此主播最近一次的直播
+		 */
+		CourseLecturVo vlv = courseService.selectLecturerRecentCourse(lecturerId);
+		mapAll.put("recentCourse", vlv);
+
 	    return ResponseObject.newSuccessResponseObject(mapAll);
-	
 	}
 	/**
 	 * Description：用户主页    -- 课程列表
@@ -151,25 +158,15 @@ public class HostController {
 	@RequestMapping("hostPageCourse")
 	@ResponseBody
 	public ResponseObject userHomePageCourseList(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
-		
-		String lecturerId = req.getParameter("lecturerId");
-		String pageNumberS = req.getParameter("pageNumber");
-		String pageSizeS = req.getParameter("pageSize");
-		//String type = req.getParameter("type"); 
-		if(null == lecturerId || null == pageNumberS || null == pageSizeS){  //讲师id
-			return ResponseObject.newErrorResponseObject("缺少参数");
-		}
-		//根据讲师id得到下面的所有课程啊，包括点播，包括直播....... 直播的在前面
-		//后期音频增加上的话，还需要增加音频了
-		int pageNumber =Integer.parseInt(pageNumberS);
-		int pageSize = Integer.parseInt(pageSizeS);
+			HttpServletResponse res,
+			@RequestParam("lecturerId")String lecturerId,
+			@RequestParam("pageNumber")Integer pageNumber,
+			@RequestParam("pageSize")Integer pageSize)throws Exception {
 		
 		Page<CourseLecturVo> page = new Page<>();
 	    page.setCurrent(pageNumber);
 	    page.setSize(pageSize);
 		try {
-			//这个需要写在新接口中
 			Page<CourseLecturVo> list = courseService.selectLecturerAllCourse(page,lecturerId);
 			return ResponseObject.newSuccessResponseObject(list);
 		} catch (Exception e) {
@@ -177,5 +174,4 @@ public class HostController {
 			return ResponseObject.newErrorResponseObject("后台数据异常");
 		}
 	}
-
 }

@@ -62,7 +62,7 @@ public class LookHistoryController {
 			WatchHistory target = new WatchHistory();
 			target.setCourseId(Integer.parseInt(courseId));
 			target.setUserId(ou.getId());
-			watchHistoryServiceImpl.add(target);
+			watchHistoryServiceImpl.addOrUpdate(target);
 			return ResponseObject.newSuccessResponseObject("保存成功");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

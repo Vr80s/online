@@ -65,8 +65,7 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     		if(c<=0){
     			 
     			 //保存这个购买的信息
-    			iphoneIpaMapper.save(null,
-    		        		actualPrice,TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12),
+    			iphoneIpaMapper.save(null,actualPrice,TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12),
     		        		orderNo,userId,"购买课程："+courserName+"花费"+xmb+"个熊猫币",0);
 		        /**
 		         * 减去熊猫币

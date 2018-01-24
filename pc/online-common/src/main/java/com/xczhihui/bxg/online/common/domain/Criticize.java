@@ -110,6 +110,12 @@ public class Criticize implements Serializable{
 	//是否购买
 	@Column(name = "is_buy")
     private Boolean isBuy;
+	
+	/*
+	 * 是否点过赞了
+	 */
+	@Column(name = "is_praise")
+	private boolean isPraise;
 
 	
 	public String getResponse() {
@@ -249,6 +255,12 @@ public class Criticize implements Serializable{
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	public boolean isPraise() {
+		return isPraise;
+	}
+	public void setPraise(boolean isPraise) {
+		this.isPraise = isPraise;
 	}
 	
 	
