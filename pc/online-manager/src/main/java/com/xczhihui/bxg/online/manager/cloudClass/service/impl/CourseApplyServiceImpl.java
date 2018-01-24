@@ -265,11 +265,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		course.setCourseOutline(courseApply.getCourseOutline());
 		course.setLecturer(courseApply.getLecturer());
 		course.setLecturerDescription(courseApply.getLecturerDescription());
-		if(courseApply.getSale()){
-			course.setStatus("1");
-		}else{
-			course.setStatus("0");
-		}
+//		if(courseApply.getSale()){
+//			course.setStatus("1");
+//		}else{
+//			course.setStatus("0");
+//		}
+		course.setStatus("0");
 		if(course.getType()== CourseForm.OFFLINE.getCode()){
 			//线下课程
 			course.setAddress(courseApply.getAddress());
@@ -280,7 +281,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 			course.setStartTime(courseApply.getStartTime());
 			String webinarId = createWebinar(course);
 			course.setDirectId(webinarId);
-			//将直播课设置未预告
+			//将直播课设置为预告
 			course.setLiveStatus(2);
 			course.setDirectSeeding(1);
 		}

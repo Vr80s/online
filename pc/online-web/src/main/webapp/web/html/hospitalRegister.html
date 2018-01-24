@@ -76,6 +76,7 @@ var _hmt = _hmt || [];
 					<ul>
 						<li><span>*</span> 手机号</li>
 						<li><span>*</span> 昵称</li>
+						<li><span>*</span> 图形动态码</li>
 						<li><span>*</span> 短信验证码</li>
 						<li><span>*</span> 密码</li>
 						<li><span>*</span> 确认密码</li>
@@ -85,14 +86,15 @@ var _hmt = _hmt || [];
 					<ul>
 						<form action="" method="post">
 							<li><input type="text" name="" id="" value="" class="phoneNum" /><span class="phone_warn warning" style="margin-left: 0;">请输入手机号</span></li>
-							<li><input type="text" name="" id="" value="" /></li>
-							<li class="my_code"><input type="text" name="" id="" value="" /><button type="button" onclick="btn_cade()">获取验证码</button></li>
+							<li><input type="text" name="" id="" value="" class="nikeName"/><span class="nikeName_warn warning" style="margin-left: 0px;">请输昵称</span></li>
+							<li class="imgVertifyCode"><input type="text" name="" id="" value="" class="imgCode"/><img src="/online/verificationCode/vcode?t=" style="height: 36px;margin-left: 20px;"><span class="imgVertifyCode_warn warning" style="margin-left: 0;">请输入手机号</span></li>
+							<li class="my_code"><input type="text" name="" id="" value="" class="code"/><button type="button" onclick="btn_cade()">获取验证码</button><span class="my_code_warn warning" style="margin-left: 0;">请输入手机号</span></li>
 							<li><input  class="my_password" type="password" name="" id="" value="" /></li>
 							<li><input type="password" name="" id="" value="" class="sure_password" /><span class="my_different warning" style="margin-left: 0;">您输入的密码不一致</span></li>
 						</form>
 					</ul>
 					<input class="register" type="button" value="注册" />
-					<span class="have_login">已有账号<a href="">&nbsp;登陆进入医师认证</a></span>
+					<span class="have_login">已有账号<a href="">&nbsp;登陆进入医馆认证</a></span>
 					<p class="btn_checkbox">
 						<label>
 							<input type="checkbox" name="" id="" value="" />
@@ -133,37 +135,62 @@ var _hmt = _hmt || [];
 <!--<script src='../js/PersonAsset.js?v=1.0.3'></script>-->
 <!--<script src="/web/js/chongZhi.js" type="text/javascript" charset="utf-8"></script>-->
 <!--<script src="/web/js/usualAddress.js?v=1.0.4" type="text/javascript" charset="utf-8"></script>-->
-<script src="/web/js/hospitalRegister.js"></script>
+<script src="/web/js/practitionerRegister.js"></script>
 	
-				<script>				
-//				获取验证码
-					function btn_cade(){
-						var myTime=60;
-						var timer=null;
-						timer=setInterval(auto,1000);						
-						function auto(){
-							myTime--;
-							$(".practitioner_input .my_code button").html(myTime+ 's');
-							$(".practitioner_input .my_code button").removeAttr('onclick');
-							$(".practitioner_input .my_code button").css({"background":"#dedede","color":"#999999"})
-							if(myTime==0){
-								setTimeout(function(){
-									clearInterval(timer)
-									$(".practitioner_input .my_code button").html('获取验证码');
-									$(".practitioner_input .my_code button").attr('onclick','btn_cade()');
-									$(".practitioner_input .my_code button").css({"background":"#00bd12","color":"white"})
-								},1000)								
-							}
-						}
-						
-
-
-						
-					}
-				</script>
-	
-
-	
+<script>				
+	//点击获取动态码的时候
+	function btn_cade(){
+		//验证图形动态码
+		var tel = $.trim($('.phoneNum').val());
+		var imgVertify=$(".imgVertifyCode input").val();
+		var data = {phone: tel, vtype: 1,vcode:imgVertify};
+		RequestService("/online/verificationCode/sendmessage", "POST", data,function(data){
+			console.log(data);
+			if(data.success == false){
+//				alert(data.)
+				if(data.errorMessage == '该手机号已注册，请直接登录！'){
+					$('.phone_warn').text(data.errorMessage);
+					$('.my_code .my_code_warn').css('display','none');
+					$('.phone_warn').css('display','block');
+						return false;
+				}else{
+					$('.my_code .my_code_warn').text(data.errorMessage);
+					$('.phone_warn').css('display','none');
+					$('.my_code .my_code_warn').css('display','block');
+						return false;
+				}
+				
+			}else if(data.success == true){
+				$('.my_code .my_code_warn').css('display','none');
+				//倒计时部分
+		var myTime=60;
+		var timer=null;
+		timer=setInterval(auto,1000);						
+		function auto(){
+			myTime--;
+			$(".practitioner_input .my_code button").html(myTime+ 's');
+			$(".practitioner_input .my_code button").removeAttr('onclick');
+			$(".practitioner_input .my_code button").css({"background":"#dedede","color":"#999999"})
+				if(myTime==0){
+					setTimeout(function(){
+					clearInterval(timer)
+					$(".practitioner_input .my_code button").html('获取验证码');
+					$(".practitioner_input .my_code button").attr('onclick','btn_cade()');
+					$(".practitioner_input .my_code button").css({"background":"#00bd12","color":"white"})
+					},1000)								
+				}
+		}		
+				
+				
+			}
+		})
+		
+		
+		
+		
+			
+	}
+</script>
 	
 	</body>
 </html>

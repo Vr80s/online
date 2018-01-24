@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery bootstrap-select可搜索多选下拉列表插件</title>
+    <script src="/web/js/jquery-1.12.1.js"></script>
+    <script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
+
+    <!-- 3.0 -->
+
+    <link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
+    <script src="/web/bootstrap-select/bootstrap.min.js"></script>
+
+    <!-- 2.3.2
+      <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+
+   <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.js"></script>
+      -->
+
+    <script type="text/javascript">
+
+
+        $(window).on('load', function () {
+
+            $("#id_select").html('<option value="1">习近平</option>\n' +
+                '    <option value="2">马云</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="3">马化腾</option>\n' +
+                '    <option value="4">于瑞鑫</option>\n' +
+                '    <option value="5">你懂得</option>');
+            $('.selectpicker').selectpicker({
+                'selectedText': 'cat',size:10
+            });
+
+
+            // $('.selectpicker').selectpicker('hide');
+        });
+
+    </script>
+</head>
+<body>
+<label for="id_select"></label>
+<select id="id_select" class="selectpicker bla bla bli" multiple data-live-search="true">
+
+    </optgroup>
+</select>
+<button onclick="al()">alert</button>
+</div>
+</body>
+</html>
+<script>
+    function al(){
+        var a = $("#id_select").val();
+        alert(a);
+    }
+</script>

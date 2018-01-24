@@ -3,7 +3,9 @@ package com.xczhihui.bxg.online.web.controller;
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
@@ -35,6 +37,8 @@ public class OrderController {
 
     @Autowired
     private OrderService  orderService;
+    @Autowired
+    private OrderPayService orderPayService;
     @Autowired
     private CourseService courseService;
     private Object lock = new Object();
@@ -71,7 +75,8 @@ public class OrderController {
                    if(orderService.findCourseIsFree(ids) || Double.valueOf(mapValues.get("actualPay").toString()) <= 0){
                        synchronized (lock) {
                            String transaction_id="activity"+ UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
-                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
+                           orderPayService.addPaySuccess(mapValues.get("orderNo").toString(), Payment.OTHERPAY.getCode(), transaction_id);
+//                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
                            //为购买用户发送购买成功的消息通知
                            String path = request.getContextPath();
                            String basePath =weburl;

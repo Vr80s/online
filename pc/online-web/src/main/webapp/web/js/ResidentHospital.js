@@ -249,13 +249,139 @@ $('#hos_renzhneg_inf').click(function(){
 	
 })
 //内部医疗领域选择功能
-$('#hos_Administration .hos_base_inf .keshi ul li').click(function(){
+//$('#hos_Administration .hos_base_inf .keshi ul li').click(function(){
+//		if($(this).hasClass('keshiColor')){
+//			$(this).removeClass('keshiColor')
+//		}else{
+//			$(this).addClass('keshiColor');
+//		}
+//	})
+
+
+
+//医馆基础信息上传图片调用的接口
+function picUpdown(baseurl,imgname){
+	RequestService("/medical/common/upload", "post", {
+				image: baseurl,
+			}, function(data) {
+				console.log(data);
+				 $('#hos_Administration .hos_base_inf  .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			})
+}
+
+
+//医馆认证上传图片调用的接口
+function picUpdown3(baseurl,imgname){
+	RequestService("/medical/common/upload", "post", {
+				image: baseurl,
+			}, function(data) {
+				console.log(data);
+				 $('#hos_Administration .hos_renzheng_inf  .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			})
+}
+
+
+
+
+//上传图片调用的接口
+function picUpdown2(baseurl,imgname){
+	RequestService("/medical/common/upload", "post", {
+				image: baseurl,
+			}, function(data) {
+				console.log(data);
+				if($('#hos_Administration .hos_base_inf  .'+imgname+' img').length > 1){
+					$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
+					 $('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
+				}else{
+					$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','none');
+				}
+				if($('#hos_Administration .hos_base_inf  .'+imgname+' img').length == 9){
+					alert('最多上传9张');
+					return false;
+				}
+				 $('#hos_Administration .hos_base_inf  .'+imgname+'').append('<img src="'+data.resultObject+'" >');
+			})
+}
+
+
+
+//医馆头像上传
+	$('#touxiang_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown(reader.result,'touxiang_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+	
+//医馆图片上传
+	$('#zhicheng_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown2(reader.result,'zhicheng_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+	
+	
+//医馆科室选择生成对应的数组
+	var arr = [];
+	var keshiStr;
+	$('.hos_base_inf .keshi ul li').click(function(){
 		if($(this).hasClass('keshiColor')){
-			$(this).removeClass('keshiColor')
+		//删除第二次选中的
+			for(var i = 0 ;i < arr.length; i++){
+				if($(this).text() == arr[i]){
+					arr.splice(i,1)
+				}
+			}
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
+			$(this).removeClass('keshiColor');	
 		}else{
 			$(this).addClass('keshiColor');
+			arr.push($(this).text());
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
 		}
-	})
+		console.log(keshiStr)
+	})	
+	
+	
+	
+//此处是医馆管理 里面的医馆认证部分的功能
+
+//营业执照图片上传
+	$('#zhizhao_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown3(reader.result,'teacher_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+
+//药品经营许可证上传
+	$('#xuke_pic_ipt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown3(reader.result,'zhicheng_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -364,3 +490,5 @@ $('#doc_Administration  .keshi ul li').click(function(){
 		}
 	})
 
+
+	

@@ -139,15 +139,15 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }else if(courseApplyInfo.getLecturer().length()>32){
             throw new RuntimeException("主播名称长度不可超过32");
         }
-        if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
-            throw new RuntimeException("主播介绍不可为空");
-        }
+//        if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
+//            throw new RuntimeException("主播介绍不可为空");
+//        }
         if(StringUtils.isBlank(courseApplyInfo.getCourseMenu())){
             throw new RuntimeException("课程分类不可为空");
         }
-        if(StringUtils.isBlank(courseApplyInfo.getCourseLength())){
-            throw new RuntimeException("时长不可为空");
-        }
+//        if(StringUtils.isBlank(courseApplyInfo.getCourseLength())){
+//            throw new RuntimeException("时长不可为空");
+//        }
         if(courseApplyInfo.getCourseForm()==null){
             throw new RuntimeException("课程形式不可为空");
         }
