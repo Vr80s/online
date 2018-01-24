@@ -169,6 +169,40 @@ $(function(){
 });
 
 
+
+/**
+ * 点击上传弹出框
+ */
+$(".upload_bx").click(function(){
+ 	var dialog = openDialog("addwordDialog","dialogAddWordDiv","新增",580,500,true,"确定",function(){
+ 		 $("#addwordDialog").dialog("close");
+ 	});
+});
+
+/**
+ * 上word
+ */
+$("#addword-form").on("change","#imgPath_file",function(){
+ 	var id = $(this).attr("id");
+ 	debugger
+    mask();
+ 	ajaxFileUpload(this.id,basePath+"/link/word/upload", function(data){
+ 		unmask();
+ 		//alert(data.success);
+ 		if (data.error == 0) {
+ 			debugger
+ 			alert("上传成功");
+ 		}else {
+ 			alert(data.message);
+ 		}
+ 	})
+ });
+
+
+
+
+
+
 //条件搜索
 function search(){
     searchButton(mobileBannerTable,searchJson);
