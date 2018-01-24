@@ -12,6 +12,7 @@ import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,36 +97,98 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCourseApply(CourseApplyInfo courseApplyInfo){
-        if(courseApplyInfo.getUserId()==null){
-            throw new RuntimeException("未发现用户id");
-        }
-        //当课程未点播视频时
+        validateCourseApply(courseApplyInfo);
+        //当课程为点播视频时
         if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
             Integer resourceId = courseApplyInfo.getResourceId();
+            CourseApplyResource resource = new CourseApplyResource();
+            resource.setId(resourceId);
+            resource.setDelete(false);
+            resource.setUserId(courseApplyInfo.getUserId());
+            CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(resource);
+            //将资源放入课程
+            courseApplyInfo.setResourceId(courseApplyResource.getId());
+            courseApplyInfo.setCourseResource(courseApplyResource.getResource());
+        }
+
+        courseApplyInfoMapper.insert(courseApplyInfo);
+    }
+
+    /**
+     * Description：新增课程校验
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 10:37 2018/1/24 0024
+     **/
+    private void validateCourseApply(CourseApplyInfo courseApplyInfo) {
+        if(StringUtils.isBlank(courseApplyInfo.getUserId())){
+            throw new RuntimeException("用户id不可为空");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getTitle())){
+            throw new RuntimeException("课程标题不可为空");
+        }else if(courseApplyInfo.getTitle().length()>32){
+            throw new RuntimeException("课程标题长度不可超过32");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getSubtitle())){
+            throw new RuntimeException("课程副标题不可为空");
+        }else if(courseApplyInfo.getSubtitle().length()>32){
+            throw new RuntimeException("课程副标题长度不可超过32");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
+            throw new RuntimeException("主播不可为空");
+        }else if(courseApplyInfo.getLecturer().length()>32){
+            throw new RuntimeException("主播名称长度不可超过32");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
+            throw new RuntimeException("主播介绍不可为空");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getCourseMenu())){
+            throw new RuntimeException("课程分类不可为空");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getCourseLength())){
+            throw new RuntimeException("时长不可为空");
+        }
+        if(courseApplyInfo.getCourseForm()==null){
+            throw new RuntimeException("课程形式不可为空");
+        }
+        if(courseApplyInfo.getCourseForm()==null){
+            throw new RuntimeException("课程单价不可为空");
+        }
+
+        //当课程为点播视频时
+        if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
+            if(courseApplyInfo.getMultimediaType()==null){
+                throw new RuntimeException("媒体类型不为空");
+            }
+            Integer resourceId = courseApplyInfo.getResourceId();
             if(resourceId == null){
-                throw new RuntimeException("点播课程不存在！");
+                throw new RuntimeException("课程资源不存在");
             }
             CourseApplyResource resource = new CourseApplyResource();
             resource.setId(resourceId);
             resource.setDelete(false);
             resource.setUserId(courseApplyInfo.getUserId());
             CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(resource);
-            if(courseApplyResource==null || courseApplyResource.getResource()==null){
-                throw new RuntimeException("点播课程未发现视频资源！");
+            if(courseApplyResource==null || StringUtils.isBlank(courseApplyResource.getResource())){
+                throw new RuntimeException("课程未发现视频资源");
             }
-            //将资源放入课程
-            courseApplyInfo.setResourceId(courseApplyResource.getId());
-            courseApplyInfo.setCourseResource(courseApplyResource.getResource());
+        }else if(courseApplyInfo.getCourseForm()== CourseForm.OFFLINE.getCode()){
+            if(StringUtils.isBlank(courseApplyInfo.getAddress())){
+                throw new RuntimeException("授课地址不为空");
+            }
+            if(courseApplyInfo.getStartTime()==null){
+                throw new RuntimeException("开课时间不为空");
+            }
+            if(courseApplyInfo.getEndTime()==null){
+                throw new RuntimeException("结课时间不为空");
+            }
         }else if(courseApplyInfo.getCourseForm()== CourseForm.LIVE.getCode()){
-            //TODO 参数校验待补充
-            if(courseApplyInfo.getAddress()==null){
-                throw new RuntimeException("课程信息不完整");
+            if(courseApplyInfo.getStartTime()==null){
+                throw new RuntimeException("开课时间不为空");
             }
-
+        }else{
+            throw new RuntimeException("课程形式有误");
         }
-
-        courseApplyInfoMapper.insert(courseApplyInfo);
-//        courseApplyInfoMapper.insertAllColumn(courseApplyInfo);
     }
 
     /**
@@ -136,27 +199,64 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo){
-        if(courseApplyInfo.getUserId()==null){
-            throw new RuntimeException("未发现用户id");
+        validateCollectionApply(courseApplyInfo);
+        //当合辑为点播视频时
+        for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
+            CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
+            collectionCourseApply.setCourseApplyId(applyInfo.getId());
+            collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+            collectionCourseApplyMapper.insert(collectionCourseApply);
         }
+    }
+
+    /**
+     * Description：新增专辑校验
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 10:37 2018/1/24 0024
+     **/
+    private void validateCollectionApply(CourseApplyInfo courseApplyInfo) {
         if(!courseApplyInfo.getCollection()){
             throw new RuntimeException("该方法仅支持专辑课程");
         }
-        //当合辑为点播视频时
-        if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
-            for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
-                CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
-                collectionCourseApply.setCourseApplyId(applyInfo.getId());
-                collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
-                collectionCourseApplyMapper.insert(collectionCourseApply);
-            }
-        }else {
-            throw new RuntimeException("暂不支持点播以外的专辑课程");
+        if(StringUtils.isBlank(courseApplyInfo.getTitle())){
+            throw new RuntimeException("合辑标题不可为空");
+        }else if(courseApplyInfo.getTitle().length()>32){
+            throw new RuntimeException("合辑标题长度不可超过32");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getSubtitle())){
+            throw new RuntimeException("合辑副标题不可为空");
+        }else if(courseApplyInfo.getSubtitle().length()>32){
+            throw new RuntimeException("合辑副标题长度不可超过32");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
+            throw new RuntimeException("主播不可为空");
+        }else if(courseApplyInfo.getLecturer().length()>32){
+            throw new RuntimeException("主播名称长度不可超过32");
+        }
+        if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
+            throw new RuntimeException("主播介绍不可为空");
         }
 
-        courseApplyInfoMapper.insert(courseApplyInfo);
-//        courseApplyInfoMapper.insertAllColumn(courseApplyInfo);
+        if(StringUtils.isBlank(courseApplyInfo.getCourseMenu())){
+            throw new RuntimeException("课程分类不可为空");
+        }
+        if(courseApplyInfo.getCourseNumber()==null){
+            throw new RuntimeException("总集数不可为空");
+        }
+        if(courseApplyInfo.getCourseForm()==null){
+            throw new RuntimeException("课程形式不可为空");
+        }
+        if(courseApplyInfo.getPrice()==null){
+            throw new RuntimeException("合辑总价不可为空");
+        }
+
+        //当合辑为点播视频时
+        if(courseApplyInfo.getCourseForm() != CourseForm.VOD.getCode()){
+            throw new RuntimeException("暂不支持点播以外的专辑课程");
+        }
     }
+
 
     /**
      * Description：获取所有资源列表
@@ -177,9 +277,29 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCourseApplyResource(CourseApplyResource courseApplyResource) {
+        validateCourseApplyResource(courseApplyResource);
         courseApplyResource.setCreateTime(new Date());
         courseApplyResource.setUpdateTime(new Date());
         courseApplyResourceMapper.insert(courseApplyResource);
     }
 
+    /**
+     * Description：新增资源校验
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 10:54 2018/1/24 0024
+     **/
+    private void validateCourseApplyResource(CourseApplyResource courseApplyResource) {
+        if(StringUtils.isBlank(courseApplyResource.getTitle())){
+            throw new RuntimeException("资源标题不可为空");
+        }else if(courseApplyResource.getTitle().length()>32){
+            throw new RuntimeException("资源标题长度不可超过32个字");
+        }
+        if(StringUtils.isBlank(courseApplyResource.getResource())){
+            throw new RuntimeException("资源不可为空");
+        }
+        if(courseApplyResource.getMultimediaType()==null || (courseApplyResource.getMultimediaType()!=1 && courseApplyResource.getMultimediaType()!=2)){
+            throw new RuntimeException("媒体类型参数有误");
+        }
+    }
 }

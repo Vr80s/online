@@ -31,9 +31,7 @@ var ueEditccpe_lecturer =  UE.getEditor('lecturerDescription_content',{
 	           'unlink', //取消链接
 	           'simpleupload', //单图上传
 	           'insertimage', //多图上传
-	           'insertvideo', //视频
 	           'emotion', //表情
-	           'map', //Baidu地图
 	           ] ],
 	           autoHeightEnabled: false,
 	           autoFloatEnabled: true,
@@ -69,9 +67,7 @@ var ueEditccpe_content =  UE.getEditor('courseDetail_content',{
 	           'unlink', //取消链接
 	           'simpleupload', //单图上传
 	           'insertimage', //多图上传
-	           'insertvideo', //视频
 	           'emotion', //表情
-	           'map', //Baidu地图
 	           ] ],
 	           autoHeightEnabled: false,
 	           autoFloatEnabled: true,
@@ -107,9 +103,7 @@ var ueEditccpe_commonProblem_content =  UE.getEditor('commonProblem_content',{
 	           'unlink', //取消链接
 	           'simpleupload', //单图上传
 	           'insertimage', //多图上传
-	           'insertvideo', //视频
 	           'emotion', //表情
-	           'map', //Baidu地图
 	           ] ],
 	           autoHeightEnabled: false,
 	           autoFloatEnabled: true,
