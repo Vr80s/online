@@ -50,7 +50,6 @@ public class EnchashMentController {
     @RequestMapping("getEnchashmentBalance")
     @ResponseBody
     public ResponseObject getEnchashmentBalance(HttpServletRequest request, HttpServletResponse res) throws Exception{
-
         Map<String, String> params2=new HashMap<>();
         params2.put("token",request.getParameter("token"));
         OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
@@ -59,9 +58,7 @@ public class EnchashMentController {
         }else{
         	return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentBalance(user.getId()));	
         }
-       
     }
-
     @RequestMapping("getEnchashmentRmbBalance")
     @ResponseBody
     public ResponseObject getEnchashmentRmbBalance(HttpServletRequest request, HttpServletResponse res) throws Exception{

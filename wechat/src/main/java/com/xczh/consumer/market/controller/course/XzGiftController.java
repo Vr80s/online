@@ -22,12 +22,12 @@ import java.sql.SQLException;
  **/
 @Controller
 @RequestMapping(value = "/xczh/gift")
-public class GiftController {
+public class XzGiftController {
 
 	@Autowired
 	private IGiftService giftService;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(GiftController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
 
 	/**
 	 * 礼物榜单（直播间）

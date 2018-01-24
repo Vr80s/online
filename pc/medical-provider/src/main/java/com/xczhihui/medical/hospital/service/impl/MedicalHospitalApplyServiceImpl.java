@@ -1,19 +1,21 @@
 package com.xczhihui.medical.hospital.service.impl;
 
+import java.util.Date;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.doctor.enums.MedicalHospitalApplyEnum;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.UUID;
 
 /**
  * <p>
@@ -130,4 +132,22 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         }
 
     }
+
+	@Override
+	public MedicalHospital getMedicalHospitalByMiddleUserId(String userId) {
+		// TODO Auto-generated method stub
+		return hospitalAccountMapper.getMedicalHospitalByMiddleUserId(userId);
+	}
+	
+	@Override
+	public MedicalHospital getMedicalHospitalByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return hospitalAccountMapper.getMedicalHospitalByUserId(userId);
+	}
+
+	@Override
+	public MedicalHospitalAccount getByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return hospitalAccountMapper.getByUserId(userId);
+	}
 }

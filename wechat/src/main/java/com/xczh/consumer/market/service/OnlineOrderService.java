@@ -141,4 +141,16 @@ public interface OnlineOrderService {
 	 *
 	 */
 	String getCourseIdByOrderId(String orderId) throws SQLException;
+	/**
+	 * 
+	 * Description：新版本的消费记录
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param id
+	 * @return
+	 * @return Object
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public List<PayRecordVo> findUserWallet(Integer pageNumber, Integer pageSize, String id);
 }

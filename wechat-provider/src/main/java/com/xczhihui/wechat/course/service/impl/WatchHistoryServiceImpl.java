@@ -53,14 +53,13 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	}
 
 	@Override
-	public void add(WatchHistory target) {
+	public void addOrUpdate(WatchHistory target) {
 		// TODO Auto-generated method stub
 	  //根据课程Id查找讲师id
 	  /**
 	   * 判断这个记录有没有添加进去，如果有添加进去，需要做更新操作	
 	   */
-	  WatchHistory watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(),
-			  target.getCourseId());
+	  WatchHistory watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(), target.getCourseId());
 	  if(watchHistory!=null){
 		  watchHistory.setCreateTime(new Date());
 		  watchHistoryMapper.updateById(watchHistory);

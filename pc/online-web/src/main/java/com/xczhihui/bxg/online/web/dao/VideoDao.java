@@ -44,6 +44,7 @@ public class VideoDao extends SimpleHibernateDao {
     private UserCenterDao userCenter;//DAO
     @Autowired
     private  OrderDao  orderDao;
+    
 
     /**
      * 获取章级别菜单(章节知识点信息)
@@ -454,10 +455,27 @@ public class VideoDao extends SimpleHibernateDao {
 	       	  paramMap.put("courseId", Integer.parseInt(courseId));
 	       }
 	       //sql.append(" limit "+pageNumber+","+pageSize);
+	       //IFNULL((FIND_IN_SET(:userName,oc.praise_login_names)>0),0) isPraise
 	       
-	       System.out.println(sql.toString());
+	        System.out.println(sql.toString());
 	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
-            System.out.println(criticizes.getItems());
+            
+	        if(criticizes.getTotalCount()>0){
+	        	OnlineUser u = this.get(userId,OnlineUser.class);
+	        	 for (Criticize c : criticizes.getItems()) {
+	 	        	String loginNames =  c.getPraiseLoginNames();
+	 	        	boolean isPraise = false;
+	 	        	if(org.apache.commons.lang.StringUtils.isNotBlank(loginNames)){
+	 	        		for (String loginName : loginNames.split(",")) {
+	 						if(u.getLoginName().equals(loginName)){
+	 							isPraise =  true;
+	 						}
+	 					}
+	 	        	}
+	 	        	c.setPraise(isPraise);
+	 			}
+	        }
+	        System.out.println(criticizes.getItems());
             return criticizes;
         }
         return  null;
