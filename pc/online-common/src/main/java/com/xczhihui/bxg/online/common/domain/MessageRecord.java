@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.Type;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 学员消息
@@ -73,6 +75,39 @@ public class MessageRecord  implements Serializable{
 	 */
 	@Column(name = "user_count")
 	private Integer userCount;
+
+
+	/**
+	 * 推送时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	@Column(name = "push_time")
+	private Date pushTime;
+
+	/**
+	 * 推送次数
+	 */
+	@Column(name = "push_count")
+	private Integer pushCount;
+
+	/**
+	 * 推送类型
+	 */
+	@Column(name = "push_Type")
+	private Integer pushType;
+
+	/**
+	 * 后续动作
+	 */
+	@Column(name = "push_action")
+	private Integer pushAction;
+
+	/**
+	 * url地址
+	 */
+	@Column(name = "url")
+	private String url;
 	
 	public String getContext() {
 		return context;
@@ -142,6 +177,43 @@ public class MessageRecord  implements Serializable{
 		this.userCount = userCount;
 	}
 
-	
+	public Date getPushTime() {
+		return pushTime;
+	}
 
+	public void setPushTime(Date pushTime) {
+		this.pushTime = pushTime;
+	}
+
+	public Integer getPushCount() {
+		return pushCount;
+	}
+
+	public void setPushCount(Integer pushCount) {
+		this.pushCount = pushCount;
+	}
+
+	public Integer getPushType() {
+		return pushType;
+	}
+
+	public void setPushType(Integer pushType) {
+		this.pushType = pushType;
+	}
+
+	public Integer getPushAction() {
+		return pushAction;
+	}
+
+	public void setPushAction(Integer pushAction) {
+		this.pushAction = pushAction;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

@@ -1,6 +1,8 @@
 package com.xczhihui.bxg.online.manager.message.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xczhihui.bxg.common.util.DateUtil;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -128,6 +130,40 @@ public class MessageVo {
 	 * 发送用户数
 	 */
 	private Integer userCount;
+
+    /**
+     * 推送时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date pushTime;
+
+    /**
+     * 推送次数
+     */
+    private Integer pushCount;
+
+    /**
+     * 指定用户id
+     */
+    private String userIdList;
+
+    /**
+     * 推送类型
+     */
+    private Integer pushType;
+
+    /**
+     * 后续动作
+     */
+    private Integer pushAction;
+
+    /**
+     * url地址
+     */
+    private String url;
+
+
 		
     public String getLoginName() {
         return loginName;
@@ -360,7 +396,52 @@ public class MessageVo {
 	public void setUserCount(Integer userCount) {
 		this.userCount = userCount;
 	}
-    
-	
-    
+
+    public Date getPushTime() {
+        return pushTime;
+    }
+
+    public void setPushTime(Date pushTime) {
+        this.pushTime = pushTime;
+    }
+
+    public Integer getPushCount() {
+        return pushCount;
+    }
+
+    public void setPushCount(Integer pushCount) {
+        this.pushCount = pushCount;
+    }
+
+    public String getUserIdList() {
+        return userIdList;
+    }
+
+    public void setUserIdList(String userIdList) {
+        this.userIdList = userIdList;
+    }
+
+    public Integer getPushType() {
+        return pushType;
+    }
+
+    public void setPushType(Integer pushType) {
+        this.pushType = pushType;
+    }
+
+    public Integer getPushAction() {
+        return pushAction;
+    }
+
+    public void setPushAction(Integer pushAction) {
+        this.pushAction = pushAction;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
