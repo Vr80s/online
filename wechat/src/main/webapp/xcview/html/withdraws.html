@@ -13,7 +13,7 @@
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<link rel="stylesheet" href="../css/clearing.css" />
+<link rel="stylesheet" href="../css/withdraws.css" />
 
 
 	
@@ -28,25 +28,37 @@
 			<img src="../images/back icon.png" />
 		</div>
 		<div class="header">
-			结算
+			提现
 		</div>
 	</header>
 	<!--头部结束-->
 	
 	<!--中间内容开始-->
+	<div class="account">
+		<div class="account_one">到账银行卡</div>
+		<div class="account_two">张三丰</div>
+		<div class="account_three">
+			<span>招商银行（2476）</span>
+			<img src="../images/account05.png" />
+		</div>
+		<div class="both"></div>
+	</div>
+	
+	
 	<div class="clearing">
-		<div class="clearing_title">结算熊猫币金额</div>
+		<div class="clearing_title">提现金额</div>
 		<div class="clearing_main">
+			<span class="span">￥</span>
 			<input type="number" name="" id="" value="" class="input" />
 			<div class="clearing_main_hint">
 				本次最多可结算<span>888</span>熊猫币
 			</div>
 		</div>
 		<div class="clearing_border"></div>
-		<div class="clearing_size">熊猫币和人民币兑换比例为1:1</div>
+		<div class="clearing_size">提现会在1-7个工作日内到账</div>
 	</div>
 	
-	<div class="clearing_btn">确认结算</div>
+	<div class="clearing_btn">确认提现</div>
 	<!--中间内容结束-->
 	
 </body>
@@ -64,6 +76,7 @@
 <script type="text/javascript">
 	window.onload = function(){
 		$(".input").focus(function(){
+		 	
 		 	$(".clearing_main_hint").hide();
 		});
 		 
