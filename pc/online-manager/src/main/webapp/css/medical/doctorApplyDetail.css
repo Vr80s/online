@@ -1,0 +1,170 @@
+.page-main{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.page-main div{
+    font-size: 16px;
+}
+
+.page-main img{
+    width: 300px;
+    height: 200px;
+}
+
+.doctor-name-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+/*.doctor-name, .doctor-name-text{*/
+    /*font-size: 16px;*/
+/*}*/
+
+.doctor-cardnum-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-cardPicture-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-cardPositive-img{
+    /*width: 300px;*/
+    /*height: 200px;*/
+    margin-right: 60px;
+    margin-left: 30px;
+}
+
+.doctor-cardNegative-img{
+    /*width: 300px;*/
+    /*height: 200px;*/
+}
+
+.doctor-qualification-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-qualification-img{
+    /*width: 300px;*/
+    /*height: 200px;*/
+}
+
+.doctor-professional-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-professional-img{
+    /*width: 300px;*/
+    /*height: 200px;*/
+}
+
+.doctor-headPortrait-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-headPortrait-img{
+    /*width: 300px;*/
+    /*height: 200px;*/
+}
+
+.doctor-title-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-titleProve-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-titleProve-img{
+    /*width: 300px;*/
+    /*height: 200px;*/
+}
+
+.doctor-departments-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-cardnum-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-field-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-description-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-hospital-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.doctor-address-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.procince{
+    font-size: 16px;
+    margin-right: 10px;
+
+}
+
+.city{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.address-detail{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.pass{
+    width: 90px;
+    height: 36px;
+    background-color: #2db84b;
+    margin-right: 40px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.reject{
+    width: 90px;
+    height: 36px;
+    background-color: #de3535;
+    margin-right: 40px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.action{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.doctor-departments-text{
+    margin-right: 10px;
+}

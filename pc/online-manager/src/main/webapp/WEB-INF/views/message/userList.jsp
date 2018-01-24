@@ -11,7 +11,7 @@
 		<div class="form-group">
 			<label for="message_user_select" class="col-lg-2 control-label">用户搜索:</label>
 			<div class="col-lg-10">
-				<select id="message_user_select" class="selectpicker form-control"  data-live-search="true" multiple>
+				<select id="message_user_select" class="selectpicker form-control"  data-live-search="true" >
 					<option value="-1">全部</option>
 				</select>
 			</div>
@@ -29,19 +29,19 @@
 			var userName=$(this).find("option:selected").text();
 			if(userId!="-1"&&userName!="全部"){
 				$(this).selectpicker('val', userId);
-				$('#message_questionTable').DataTable().ajax.url(basePath+"/message/load/user/"+userId+"/messages");
-				$('#message_questionTable').DataTable().ajax.reload();
+				/*$('#message_questionTable').DataTable().ajax.url(basePath+"/message/load/user/"+userId+"/messages");
+				$('#message_questionTable').DataTable().ajax.reload();*/
 				message_user_select_id=userId;
 				message_user_select_text=userName;
 			}else{
-				$('#message_questionTable').DataTable().ajax.url(basePath+"/message/load/messages");
-				$('#message_questionTable').DataTable().ajax.reload();
+				/*$('#message_questionTable').DataTable().ajax.url(basePath+"/message/load/messages");
+				$('#message_questionTable').DataTable().ajax.reload();*/
 				message_user_select_id=userId;
 				message_user_select_text=userName;
 			}
 		});
 
-		ajaxRequest(basePath+"/message/users",{},function(res) {
+		ajaxRequest(basePath+"/message/userlist",{},function(res) {
 			if(res.resultObject.length>0){
 				for(var i=0;i<res.resultObject.length;i++){
 					var user=res.resultObject[i];

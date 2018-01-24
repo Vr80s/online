@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,18 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
     @Autowired
     private DoctorApplyDao doctorApplyDao;
+    @Autowired
+    private DoctorDao doctorDao;
+    @Autowired
+    private DoctorAccountDao doctorAccountDao;
+    @Autowired
+    private DoctorApplyDepartmentDao doctorApplyDepartmentDao;
+    @Autowired
+    private DoctorDepartmentDao doctorDepartmentDao;
+    @Autowired
+    private DoctorAuthenticationInformationDao doctorAuthenticationInformationDao;
+    @Autowired
+    private DepartmentDao departmentDao;
 
     /**
      * 获取医师入驻申请列表
@@ -82,16 +95,36 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         }
     }
 
-    @Autowired
-    private DoctorDao doctorDao;
-    @Autowired
-    private DoctorAccountDao doctorAccountDao;
-    @Autowired
-    private DoctorApplyDepartmentDao doctorApplyDepartmentDao;
-    @Autowired
-    private DoctorDepartmentDao doctorDepartmentDao;
-    @Autowired
-    private DoctorAuthenticationInformationDao doctorAuthenticationInformationDao;
+    @Override
+    public MedicalDoctorApply findById(String id) {
+
+        MedicalDoctorApply medicalDoctorApply =  doctorApplyDao.find(id);
+
+        if(medicalDoctorApply == null ){
+            throw new RuntimeException("该条记录不存在");
+        }
+
+        List<MedicalDepartment> departments = new ArrayList<>();
+
+        List<MedicalDoctorApplyDepartment> applyDepartments =
+            doctorApplyDepartmentDao.findByApplyId(medicalDoctorApply.getId());
+
+        if(applyDepartments != null && !applyDepartments.isEmpty()){
+            for (MedicalDoctorApplyDepartment applyDepartment : applyDepartments){
+                MedicalDepartment department =
+                        departmentDao.findById(applyDepartment.getDepartmentId());
+                if(department != null){
+                    departments.add(department);
+                }
+            }
+        }
+
+        if(departments != null && !departments.isEmpty()){
+            medicalDoctorApply.setDepartments(departments);
+        }
+
+        return medicalDoctorApply;
+    }
 
     /**
      * 处理认证通过逻辑
