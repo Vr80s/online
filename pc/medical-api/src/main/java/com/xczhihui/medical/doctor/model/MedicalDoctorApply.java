@@ -27,106 +27,129 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
      * 医师认证申请表
      */
 	private String id;
+
     /**
      * 姓名
      */
 	private String name;
+
     /**
      * 职称
      */
 	private String title;
+
     /**
      * 医师简介
      */
 	private String description;
+
     /**
      * 联系电话
      */
 	private String tel;
+
     /**
      * 用户表id
      */
 	@TableField("user_id")
 	private String userId;
+
     /**
      * 省
      */
 	private String province;
+
     /**
      * 市
      */
 	private String city;
+
     /**
      * 详细地址
      */
 	@TableField("detailed_address")
 	private String detailedAddress;
+
     /**
      * 真实头像
      */
 	@TableField("head_portrait")
 	private String headPortrait;
+
     /**
      * 职称证明
      */
 	@TableField("title_prove")
 	private String titleProve;
+
     /**
      * 身份证正面
      */
 	@TableField("card_positive")
 	private String cardPositive;
+
     /**
      * 身份证反面
      */
 	@TableField("card_negative")
 	private String cardNegative;
+
     /**
      * 医师资格证
      */
 	@TableField("qualification_certificate")
 	private String qualificationCertificate;
+
     /**
      * 医师执业证书
      */
 	@TableField("professional_certificate")
 	private String professionalCertificate;
+
     /**
      * 0拒绝1通过2未处理
      */
 	private Integer status;
+
     /**
      * 1已删除0未删除
      */
 	private Boolean deleted;
+
     /**
      * 创建时间
      */
 	@TableField("create_time")
 	private Date createTime;
+
     /**
      * 创建人id
      */
 	@TableField("create_person")
 	private String createPerson;
+
     /**
      * 更新时间
      */
 	@TableField("update_time")
 	private Date updateTime;
+
     /**
      * 更新人id
      */
 	@TableField("update_person")
 	private String updatePerson;
+
     /**
      * 版本
      */
 	private String version;
+
     /**
      * 备注
      */
 	private String remark;
+
 	/**
 	 * 身份证号
 	 */
@@ -149,6 +172,11 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 	 * 擅长领域
 	 */
 	private String field;
+
+	/**
+	 * 任职医馆
+	 */
+	private String hospital;
 
 	public String getId() {
 		return id;
@@ -364,6 +392,14 @@ public class MedicalDoctorApply extends Model<MedicalDoctorApply> {
 
 	public void setMedicalDepartments(List<MedicalDepartment> medicalDepartments) {
 		this.medicalDepartments = medicalDepartments;
+	}
+
+	public String getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(String hospital) {
+		this.hospital = hospital;
 	}
 
 	@Override

@@ -21,6 +21,8 @@ public class LecturVo {
      */
     private String headImg;
 
+    private String link;
+
     public String getDescription() {
         return description;
     }
@@ -43,5 +45,13 @@ public class LecturVo {
 
     public void setHeadImg(String headImg) {
         this.headImg = headImg;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

@@ -117,7 +117,7 @@
 		<constructor-arg name="password" value="${redis.password}" />
 		 -->
 	</bean>
-	
+	<!-- 附件中心 -->
 	<bean id="attachmentCenterService" class="com.xczhihui.bxg.common.support.service.impl.AttachmentCenterServiceImpl" />
 	<bean id="systemVariateService" class="com.xczhihui.bxg.common.support.service.impl.SystemVariateServiceImpl" />
 

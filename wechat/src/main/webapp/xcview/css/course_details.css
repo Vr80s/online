@@ -106,10 +106,12 @@ header {
     color: #333;
     margin: 0 auto;
     margin-bottom: 0.34rem;
+    text-align: center;
 
 }
 .course_video_cen{
-	width: 14.851rem;
+	/*width: 14.851rem;*/
+	width: 8rem;
 	text-align: center;
 	font-size: 0.553rem;
 	color: #666;
@@ -485,6 +487,7 @@ header {
 	line-height: 1.68rem;
 	border-bottom: 1px solid #D8DDE6;
 	position: relative;
+	display: flex;
 }
 .course_detaiks_ul ul li{
 	font-size: 0.596rem;
@@ -497,8 +500,9 @@ header {
 	border-bottom: 2px solid #00BC12;
 }
 .course_detaiks_ul ul .li0{
-	margin-left: 3.8rem;
+	/*margin-left: 3.8rem;*/
 	float: left;
+    margin: 0 auto;
 }
 .course_detaiks_ul ul .li1{
 	margin-right: 2.5rem;
