@@ -61,4 +61,17 @@ $(".bg_userModal").click(function(){
             $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
         });
     });
+//获取课程ID跳转相应页面页面
+//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
+var courseId = getQueryString('course_id');
+//传ID courseId为接口的课程ID
+requestService("/xczh/course/details",{
+	courseId : courseId	
+},function(data) {
+	$("#speak_people").html(template('data_people',data.resultObject))
+});
+
+
+
+
 })
