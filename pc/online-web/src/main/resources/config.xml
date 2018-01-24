@@ -153,4 +153,5 @@
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.CriticizeService" ref="criticizeServiceImpl" timeout="${dubbo.consumer.timeout}" />
 	<!-- 公共的使用 -->
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.CommonApiService" ref="commonApiServiceImpl" timeout="${dubbo.consumer.timeout}" />
+	<dubbo:service interface="com.xczhihui.bxg.online.api.service.OrderPayService" ref="orderPayServiceImpl" timeout="${dubbo.consumer.timeout}" />
 </beans>
