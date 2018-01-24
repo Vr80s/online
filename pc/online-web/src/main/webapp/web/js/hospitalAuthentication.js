@@ -179,6 +179,30 @@ $(function(){
 		
 		
 		alert('提交成功了')
+		var name = $('.hos_renzheng_inf .bottomContent .hos_name').val();
+		var company = $('.hos_renzheng_inf .bottomContent .doc_name').val();
+		var businessLicenseNo = $('.hos_renzheng_inf .bottomContent .doc_Idnum').val();
+		var businessLicensePicture =  $('.hos_renzheng_inf .bottomContent .teacher_pic img').attr('src');
+		var licenseForPharmaceuticalTrading = $('.hos_renzheng_inf .bottomContent .doc_zhicheng').val();
+		var licenseForPharmaceuticalTradingPicture = $('.hos_renzheng_inf .bottomContent .zhicheng_pic img').attr('src');
+		
+		//提交医馆认证数据
+		RequestService("/medical/hospital/apply", "post", {
+				name:name,
+				company:company,
+				businessLicenseNo:businessLicenseNo,
+				businessLicensePicture:businessLicensePicture,
+				licenseForPharmaceuticalTrading:licenseForPharmaceuticalTrading,
+				licenseForPharmaceuticalTradingPicture:licenseForPharmaceuticalTradingPicture
+			}, function(data) {
+				console.log(data);
+			if(data.success == false){
+				alert('认证失败');
+			}else if(data.success == true){
+				alert('认证成功');
+			}
+
+		})
 		
 	})
 	

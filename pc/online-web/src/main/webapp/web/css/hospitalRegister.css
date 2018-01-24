@@ -30,11 +30,11 @@ img {
   margin: 0 auto;
 }
 .practitioner_settled{
-	float: left;
-	width: 860px;
-	height: 580px;
-	background: white;
-	margin-top: 20px;
+    float: left;
+    width: 860px;
+    height: 630px;
+    background: white;
+    margin-top: 20px;
 }
 .practitioner_title{
 	padding: 20px;
@@ -135,7 +135,8 @@ outline: none;
 	font-size: 12px;
 	display: none;
 }
-.practitioner_input .my_code input{
+.practitioner_input .my_code input,
+.practitioner_input .imgVertifyCode input{
 	width: 182px;
 }
 .practitioner_input .my_code button{

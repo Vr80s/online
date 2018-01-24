@@ -5,22 +5,57 @@ $(function(){
 	//此处进行验证
 	var phoneNum = $.trim($('.phoneNum').val());
 	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
-	
+	var nikename = $.trim($('.nikeName').val());
+	var imgCode = $.trim($('.imgCode').val());
+	var msgCode = $.trim($('.code').val());
 	//手机号码验证
 	if($.trim(phoneNum) == ""){
 				$(".phone_warn").text('手机号不能为空');
 				$(".phone_warn").css('display','block');
 				return false;
-			}
-	if(!phonePass.test(phoneNum)){
+		}else if(!phonePass.test(phoneNum)){
 		$(".phone_warn").text('手机号格式不正确')
 		$(".phone_warn").css('display','block');
 		return false;
+			}else{
+				$(".phone_warn").css('display','none');
 			}
 
+	//昵称验证
+	if(nikename == ''){
+		$(".nikeName_warn").css('display','block');
+		return false;
+	}else{
+		$(".nikeName_warn").css('display','none');
+	}
+	
+	//图形验证码
+	if(imgCode == ''){
+		$(".imgVertifyCode_warn").text('请输入动态码')
+		$(".imgVertifyCode_warn").css('display','block');
+		return false;
+	}else{
+		$(".imgVertifyCode_warn").css('display','none');
+	}
+	
+	
+	//短信验证码
+	if(msgCode == ''){
+		$(".my_code_warn").text('请输入短信验证码')
+		$(".my_code_warn").css('display','block');
+		return false;
+	}else{
+		$(".my_code_warn").css('display','none');
+	}
+	
+	
+	
+	//密码验证
 	if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
 		$(".my_different").css('display','block');
 		return false;
+	}else{
+		$(".my_different").css('display','none');
 	}
 	
 	var data = {
