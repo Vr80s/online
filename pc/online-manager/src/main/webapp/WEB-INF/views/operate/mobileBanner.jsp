@@ -507,8 +507,12 @@
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
 					
-					 <a href="/link/word/download?filename=链接地址添加文档.docx">文档说明</a>
-					 <!--   -->
+						<button class="btn btn-sm btn-success upload_bx" title="上传文档">
+						<i class="glyphicon glyphicon-trash"></i> 上传文档
+					</button>
+					
+					<!--  <a href="/link/word/download?filename=链接地址添加文档.docx">文档说明</a>
+					  
 					 <form action="/link/word/upload" enctype="multipart/form-data" method="post">
 				        <table>
 				            <tr>
@@ -519,7 +523,7 @@
 				                <td><input type="submit" value="上传"></td>
 				            </tr>
 				        </table>
-				    </form>
+				    </form> -->
 			
 				<div class="row">
 					<div class="col-xs-12">
@@ -569,6 +573,36 @@
     </div>
 </div>
 
+
+
+<!-- 增加form -->
+<div id="dialogAddWordDiv"></div>
+<div id="addwordDialog" class="hide">
+	<form id="addword-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	    <div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
+			 <div class="col-sm-6">
+					 <input type="file" name="file" id="imgPath_file"/>
+					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
+<!-- 					 <div id="kewudeie" style="padding-top:20px;">
+					 <p><span>原始文件名：</span><span id="ys_filename"></span></p>
+					 <p><span>下载地址：</span><p id="xz_fileurl" style="word-wrap: break-word;word-break: normal;"></p></p>
+					 </div>
+ -->					 <input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
+             </div>
+		</div>
+	</form>
+</div>
+
+
+
+
+
+
+
+
+
 <!-- 增加form -->
 <div id="dialogAddMobileBannerDiv"></div>
 <div id="addMobileBannerDialog" class="hide">
@@ -613,10 +647,7 @@
                		<input type="text" name="url"  id="add_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
              </div>
 		</div>
-		
-	
 		<input type="hidden" name="bannerType" id="bannerType" >
-		
 	</form>
 </div>
 

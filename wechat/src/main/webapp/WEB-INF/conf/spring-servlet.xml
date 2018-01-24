@@ -153,4 +153,8 @@
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IFocusService" id="focusServiceRemote" timeout="5000" />
 	<!--礼物相关-->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IGiftService" id="giftService" timeout="5000" />
+	<!--医师入驻-->
+	<dubbo:reference interface="com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService" id="medicalDoctorApplyServiceImpl"  timeout="5000" />
+	<!--医馆入驻-->
+	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyServiceImpl"  timeout="5000" />
 </beans>
