@@ -443,6 +443,7 @@ margin-top: 0.1rem;
 }
 /*被恢复的内容-灰色部分*/
 .uesr_returned{
+	box-sizing: border-box;
 	width: 100%;
 	padding: 0.2rem;
 	background: #F0F0F0;
@@ -567,7 +568,7 @@ color: #666666;
 .wrapAll_comment{
 	width: 7.5rem;
     position: absolute;
-	height: 7.1rem;
+	height: 8.5rem;
 	display: none;
 	background:white;
 	box-sizing: border-box;
@@ -581,18 +582,55 @@ color: #666666;
 	font-size: 0.32rem;
 	padding-bottom: 0.3rem;
 }
-.my_impression li{
+/*星星好评*/
+.mar_bot{
+	padding-bottom: 0.3rem;
+	overflow: hidden;
+}
+.my_impression1 p{
 	float: left;
-	font-size: 0.25rem;
-	margin-left: 0.5rem;
+	font-size: 0.28rem;
+	color: #888888;
+	margin-right: 0.46rem;
+	
 }
-.my_impression li:nth-child(1){
-	margin-left: 0;
-	font-size: 0.26rem;
-color: #888888;
+.my_impression1 img{
+	float: left;
+    width: 0.4rem;
+    margin-right: 0.2rem;
 }
-.my_impression input{
-	vertical-align: bottom;
+.my_impression1 span{
+	font-size: 0.28rem;
+}
+/*主播演绎好评*/
+.my_impression2 p{
+	margin-right: 0.46rem;
+	float: left;
+	font-size: 0.28rem;
+	color: #888888;
+}
+.my_impression2 img{
+	float: left;
+    width: 0.4rem;
+   	margin-right: 0.2rem;
+}
+.my_impression2 span{
+	font-size: 0.28rem;
+}
+/*节目内容好评*/
+.my_impression3 p{
+	margin-right: 0.46rem;
+	float: left;
+	font-size: 0.28rem;
+	color: #888888;
+}
+.my_impression3 img{
+	float: left;
+    width: 0.4rem;
+    margin-right: 0.2rem;
+}
+.my_impression3 span{
+	font-size: 0.28rem;
 }
 /*标签*/
 .select_lable{
