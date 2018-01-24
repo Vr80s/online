@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.common.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 医师入驻申请实体类
@@ -20,117 +21,148 @@ public class MedicalDoctorApply implements Serializable {
      */
     @Id
 	private String id;
+
     /**
      * 姓名
      */
 	private String name;
+
     /**
      * 职称
      */
 	private String title;
+
     /**
      * 医师简介
      */
 	private String description;
+
     /**
      * 联系电话
      */
 	private String tel;
+
     /**
      * 用户表id
      */
 	@Column(name = "user_id")
 	private String userId;
+
     /**
      * 省
      */
 	private String province;
+
     /**
      * 市
      */
 	private String city;
+
     /**
      * 详细地址
      */
 	@Column(name = "detailed_address")
 	private String detailedAddress;
+
     /**
      * 真实头像
      */
 	@Column(name = "head_portrait")
 	private String headPortrait;
+
     /**
      * 职称证明
      */
 	@Column(name = "title_prove")
 	private String titleProve;
+
     /**
      * 身份证正面
      */
 	@Column(name = "card_positive")
 	private String cardPositive;
+
     /**
      * 身份证反面
      */
 	@Column(name = "card_negative")
 	private String cardNegative;
+
     /**
      * 医师资格证
      */
 	@Column(name = "qualification_certificate")
 	private String qualificationCertificate;
+
     /**
      * 医师执业证书
      */
 	@Column(name = "professional_certificate")
 	private String professionalCertificate;
+
     /**
      * 0拒绝1通过2未处理
      */
 	private Integer status;
+
     /**
      * 1已删除0未删除
      */
 	private Boolean deleted;
+
     /**
      * 创建时间
      */
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_time")
 	private Date createTime;
+
     /**
      * 创建人id
      */
 	@Column(name = "create_person")
 	private String createPerson;
+
     /**
      * 更新时间
      */
 	@Column(name = "update_time")
 	private Date updateTime;
+
     /**
      * 更新人id
      */
 	@Column(name = "update_person")
 	private String updatePerson;
+
     /**
      * 版本
      */
 	private String version;
+
     /**
      * 备注
      */
 	private String remark;
+
 	/**
 	 * 身份证号
 	 */
 	@Column(name = "card_num")
 	private String cardNum;
 
+	@Transient
+	private List<MedicalDepartment> departments;
+
 	/**
 	 * 擅长领域
 	 */
 	private String field;
+
+	/**
+	 * 任职医馆
+	 */
+	private String hospital;
 
 	public String getId() {
 		return id;
@@ -331,6 +363,22 @@ public class MedicalDoctorApply implements Serializable {
 
 	public void setCardNum(String cardNum) {
 		this.cardNum = cardNum;
+	}
+
+	public List<MedicalDepartment> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<MedicalDepartment> departments) {
+		this.departments = departments;
+	}
+
+	public String getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(String hospital) {
+		this.hospital = hospital;
 	}
 
 	@Override

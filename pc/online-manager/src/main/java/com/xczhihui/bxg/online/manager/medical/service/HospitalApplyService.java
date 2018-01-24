@@ -1,13 +1,13 @@
 package com.xczhihui.bxg.online.manager.medical.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorApply;
+import com.xczhihui.bxg.online.common.domain.MedicalHospitalApply;
 
 /**
- * 医师入驻申请服务层
+ * 医馆入驻申请服务层
  * @author zhuwenbao
  */
-public interface DoctorApplyService {
+public interface HospitalApplyService {
 
     /**
      * 获取医师入驻申请列表
@@ -16,17 +16,17 @@ public interface DoctorApplyService {
      * @param pageSize 每页显示的列数
      * @return 医师入驻申请分页列表
      */
-    Page<MedicalDoctorApply> list(MedicalDoctorApply searchVo, int currentPage, int pageSize);
+    Page<MedicalHospitalApply> list(MedicalHospitalApply searchVo, int currentPage, int pageSize);
 
     /**
      * 更新医师入驻申请状态
      * @param doctorApply 更新的数据封装类
      */
-    void updateStatus(MedicalDoctorApply doctorApply);
+    void updateStatus(MedicalHospitalApply doctorApply);
 
     /**
-     * 根据id查询医师入驻申请状态
-     * @param id
+     * 根据id查询详情
+     * @param applyId
      */
-    MedicalDoctorApply findById(String id);
+    MedicalHospitalApply findById(String applyId);
 }
