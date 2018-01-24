@@ -16,8 +16,19 @@
 <!-- 网页自适应JS代码引入 -->
 <script src="/xcviews/js/js.js"></script>
 
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script><!--滑动引入js-->
 
-<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+
+<script type="text/javascript" src="../js/template.js"></script>
+
+<script type="text/javascript" src="../js/course_outline.js"></script>
+
+
+
+
+<script src="/xcview/js/course_outline.js"></script>
 <!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
@@ -45,28 +56,38 @@
 	<!--头部搜索结束-->
 	
 	
+	
+	
 	<!--中间内容开始-->
 	<div class="outline">
 		<div class="outline_main">
-			<div class="outline_title">姚春龄中医脉诊</div>
+			<script type="text/html" id="outline_main">
+			<div class="outline_title">{{subtitle}}</div>
 			<div class="outline_cen">
 				<div class="outline_cen_left">
 					<img src="../images/outline_bg.png" />
-					共<span>20</span>集，已更新<span>16</span>集
+					共<span>{{courseNumber}}</span>集。<!--已更新<span>16</span>集-->
 				</div>
-				<div class="outline_cen_right">
+				<!--<div class="outline_cen_right">
 					<img src="../images/time_bg0.png" />
 					每周<span>一三五</span>更新
-				</div>
+				</div>-->
 				<div class="both"></div>
-			</div>	
+			</div>
+			</script>
+			
+			
 			<div class="outline_cen_border"></div>
 			<div class="outline_list">
-				<ul>
-					<li>
-						<span>01</span>《秋郊饮马图》&《浴马图》：关于画马的一段小八卦
-					</li>
-					<li>
+				<ul class="outline_list_ul">
+					
+					<script type="text/html" id="outline_list_ul">
+						<li>
+							<span>01</span>《秋郊饮马图》&《浴马图》：关于画马的一段小八卦
+						</li>
+					</script>
+					
+					<!--<li>
 						<span>02</span>《秋郊饮马图》&《浴马图》：关于画马的一段小八卦
 					</li>
 					<li>
@@ -77,7 +98,7 @@
 					</li>
 					<li>
 						<span>05</span>《秋郊饮马图》&《浴马图》：关于画马的一段小八卦
-					</li>
+					</li>-->
 				</ul>
 			</div>
 			<div class="both"></div>
@@ -86,6 +107,16 @@
 	</div>
 	<!--中间内容结束-->
 	
+	
+	<!--<div class="div0">
+		
+		<script type="text/html" id="div0">
+	    {{each items as item i}}	
+		<div class="">{{item.gradeName}}</div>
+		{{/each}}
+	    </script>
+	
+	</div>-->
 	
 </body>
 
