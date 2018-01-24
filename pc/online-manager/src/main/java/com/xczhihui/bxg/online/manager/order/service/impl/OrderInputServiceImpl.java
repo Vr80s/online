@@ -10,10 +10,14 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.online.manager.order.vo.OrderPayVo;
+import com.xczhihui.bxg.online.manager.order.vo.OrderVo;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -154,7 +158,6 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 
 	@Override
 	public String addOrder(OrderInputVo vo) {
-//		String order_no = UUID.randomUUID().toString().replace("-", "");
 		String order_no = TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
 		//查询条件
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -223,13 +226,16 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		}
 
 		//写入记录
+		String uuid = UUID.randomUUID().toString().replace("-", "");
 		sql = "insert into oe_order_input (id,login_name,course_id,course_name,actual_pay,create_person,user_id,order_from) "
-				+ " values ('"+UUID.randomUUID().toString().replace("-", "")+"','"+vo.getLogin_name()+"','"
+				+ " values ('"+ uuid +"','"+vo.getLogin_name()+"','"
 				+ vo.getCourse_id()+"','"+cmap.get("grade_name")+"',"+cmap.get("current_price")+",'"
 				+ vo.getCreate_person()+"','"+umap.get("id")+"',"+vo.getOrder_from()+") ";
 		dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 //		subscribe(vo);将预约注释掉
 		logger.info("用户"+vo.getLogin_name()+"购买"+vo.getCourse_id()+"加入"+vo.getClass_id()+"成功");
+		//执行支付成功方法
+		addPaySuccess(order_no, Payment.OFFLINE.getCode(),uuid);
 		return order_no;
 	}
 
@@ -283,10 +289,69 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		}
 	}
 
+	@Override
+	public void addOrders(List<OrderInputVo> lv) {
+		for (OrderInputVo orderInputVo:lv){
+			addOrder(orderInputVo);
+		}
+	}
+
 	public void subscribe(OrderInputVo vo){
 		Course c = courseDao.getCourseById(Integer.valueOf(vo.getCourse_id()));
 		if(c.getType()!=null&&c.getType()==1 && !isSubscribe(vo.getUser_id(),Integer.valueOf(vo.getCourse_id()))){
 			insertSubscribe(vo.getUser_id(), vo.getLogin_name(), Integer.valueOf(vo.getClass_id()));
+		}
+	}
+
+	/**
+	 * Description：订单支付成功后业务处理
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 10:02 2018/1/24 0024
+	 **/
+	public void addPaySuccess(String orderNo,Integer payType,String transactionId) {
+		String sql = "";
+		String id = "";
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+
+		//查未支付的订单
+		sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id from oe_order o,oe_order_detail od "
+				+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
+		List<OrderPayVo> orders = dao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderPayVo>(OrderPayVo.class));
+		if (orders.size() > 0) {
+			//更新订单表
+			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+ transactionId +"' where order_no='"+orderNo+"' ";
+			dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+
+			//写用户报名信息表，如果有就不写了
+			String apply_id = UUID.randomUUID().toString().replace("-", "");
+			sql = "select a.id from oe_apply a where  a.user_id='"+orders.get(0).getUser_id()+"' ";
+			List<Map<String, Object>> applies = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+			if (applies.size() > 0) {
+				apply_id = applies.get(0).get("id").toString();
+			} else {
+				sql = "insert into oe_apply(id,user_id,create_time,is_delete,create_person) "
+						+ " values ('"+apply_id+"','"+orders.get(0).getUser_id()+"',now(),0,'"+orders.get(0).getCreate_person()+"')";
+				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+			}
+
+			//更新用户is_apply为true（报过课）
+			sql = "update oe_user set is_apply=1 where id='"+orders.get(0).getUser_id()+"' and is_apply=0";
+			dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+
+			for (OrderPayVo order : orders){
+				int  gradeId = 0;
+
+				//写用户、报名、课程中间表
+				id = UUID.randomUUID().toString().replace("-", "");
+				sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id="+gradeId;
+				Integer no = dao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
+				String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
+				sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number,order_no)"
+						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
+						+ " '"+sno+"',"+"'"+orderNo+"')";
+				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+			}
 		}
 	}
 
