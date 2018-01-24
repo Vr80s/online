@@ -126,6 +126,7 @@ public class OrderInputController{
 				row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
 				v.setOrder_from(Integer.valueOf(row.getCell(3).getStringCellValue()));
 				service.checkOrderInput(v);
+				v.setCreate_person(UserLoginUtil.getLoginUser(req).getId());
 				lv.add(v);
 			}
 			for(OrderInputVo ov : lv){
