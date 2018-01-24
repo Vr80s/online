@@ -1,0 +1,120 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+body{color: #333333;font-size: 0.28rem;}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+/*p{font-size: 0.28rem;}*/
+img{display: block;}
+.both{
+	clear: both;
+}
+
+/*头部开始*/
+header{
+	width: 100%;
+	height: 0.88rem;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.header_img{
+	width: 2.15rem;
+    height: 0.88rem;
+    /*background: red;*/ 
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_img img{
+	width: 0.24rem;
+    height: 0.43rem;
+    margin-top: 0.22rem;
+    margin-left: 0.26rem;
+}
+.header{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	font-size: 0.36rem;
+	color: #333333;
+}
+/*头部结束*/
+
+/*中间内容开始*/
+.clearing{
+	width: 100%;
+	height: 2.87rem;
+	background: #fff;
+	margin-top: 1.08rem;
+	border-top: 1px solid #F0F0F0;
+	border-bottom: 1px solid #F0F0F0;
+}
+.clearing_title{
+	font-size: 0.28rem;
+	color: #666666;
+	padding-top: 0.4rem;
+	padding-bottom: 0.3rem;
+	margin-left: 0.26rem;
+}
+.clearing_main{
+	position: relative;	
+}
+.clearing_main input{
+	width: 8rem;
+	height: 0.66rem;
+	margin-left: 0.26rem;
+	border: 0;
+	font-size: 0.32rem;
+	color: #CCCCCC;
+	outline: none;
+	outline: none;
+}
+.clearing_main_hint{
+	height: 0.66rem;
+	line-height: 0.66rem;
+	position: absolute;
+	top: 0rem;
+    left: 0.25rem;
+	font-size: 0.32rem;
+	color: #CCCCCC;
+	pointer-events:none;
+	border-left: 2px solid #666;
+	text-indent: 0.2rem;
+}
+.clearing_border{
+	width: 100%;
+	border-bottom: 1px solid #F0F0F0;
+	margin-top: 0.3rem;
+}
+.clearing_size{
+	font-size: 0.26rem;
+	color: #999999;
+	height: 0.81rem;
+    line-height: 0.81rem;
+    margin-left: 0.26rem;
+}
+.clearing_btn{
+	width: 6.98rem;
+	height: 0.72rem;
+	line-height: 0.72rem;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 0.3rem;
+	color: #FFFFFF;
+	opacity: 0.3;
+	margin-top: 0.6rem;
+	background: #00BC12;
+	border-radius: 8px;
+}
+/*中间内容结束*/

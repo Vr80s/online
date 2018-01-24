@@ -51,7 +51,6 @@
                 /logout = logout
                 /test = anon
                 /publiccloudclass/course/changeCallback* = anon
-				/medical/doctor/apply/** = anon
                 /** = authc
             </value>
         </property>

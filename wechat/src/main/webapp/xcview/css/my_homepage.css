@@ -1,0 +1,319 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+body{color: #333333;font-size: 0.28rem;}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+/*p{font-size: 0.28rem;}*/
+img{display: block;}
+.both{
+	clear: both;
+}
+
+/*头部开始*/
+header{
+	width: 100%;
+	height: 4.39rem;
+	background: #fff;
+}
+.header{
+	width: 100%;
+	height: 100%;
+	background: url(../images/geren.jpg) top no-repeat;
+	background-size: 100% 2.3rem;
+}
+/*.header_bg{
+	width: 100%;
+	height: 2.3rem;
+	background: url(../images/geren.jpg) no-repeat;
+	background-size: 100% 100%;
+}*/
+.header_img{
+	padding-top: 0.8rem;
+}
+.header_img_right{
+	width: 2.09rem;
+	height: 0.6rem;
+	line-height: 0.6rem;
+	background: #00BC12;
+	border-radius: 60px 0 0 60px ;
+	font-size: 0.28rem;
+	color: #FFFFFF;
+	text-indent: 0.2rem;
+}
+.header_img .img0{
+	width: 1.6rem;
+	height: 1.6rem;
+	border-radius: 60px;
+	border: 1px solid #fff;
+	margin: 0 auto;
+}
+.header_img .p{
+	width: 100%;
+	text-align: center;
+	font-size: 0.32rem;
+	color: #333333;
+	margin-top: 0.24rem;
+}
+/*头部结束*/
+
+/*中间模块开始*/
+
+.my_main{
+	width: 100%;
+	height: 1.56rem;
+	background: #fff;
+	margin: 0.2rem 0;
+}
+.my_main ul li{
+	width: 1.87rem;
+	height: 1.56rem;
+	float: left;
+	text-align: center;
+}
+.my_main ul li .p0{
+	font-size: 0.32rem;
+	color: #F97B49;
+	margin-top: 0.39rem;
+	margin-bottom: 0.05rem;
+}
+.my_main ul li .p1{
+	font-size: 0.22rem;
+}
+.my_main ul li .p0 img{
+	width: 0.43rem;
+	height: 0.42rem;
+	margin: 0 auto;
+}
+
+/*我要当主播*/
+.my_anchor{
+	width: 100%;
+	height: 0.98rem;
+	background: #fff;
+	margin: 0.2rem 0;
+}
+.anchor_main{
+	width: 7.24rem;
+	height: 0.98rem;
+	line-height: 0.98rem;
+	float: right;
+	font-size: 0.28rem;
+	color: #333333;
+	/*border-bottom: 1px solid #D8DDE6;*/
+}
+.anchor_main .img0{
+	width: 0.36rem;
+	height: 0.36rem;
+    margin-top: 0.3rem;
+    margin-right: 0.2rem;
+}
+.anchor_main .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+
+/*我的消息*/
+.my_news{
+	width: 100%;
+	height: 2.94rem;
+	background: #fff;
+	margin: 0.2rem 0;
+}
+.my_news_main{
+	width: 7.24rem;
+	float: right;
+	font-size: 0.28rem;
+	color: #333333;
+}
+.my_news_main div:last-child{
+	border: none;
+}
+
+.news{
+	height: 0.98rem;
+	line-height: 0.98rem;
+	border-bottom: 1px solid #D8DDE6;
+	
+}
+.news .img0{
+	width: 0.36rem;
+	margin-top: 0.35rem;
+    margin-right: 0.2rem;
+}
+.news .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+
+/*我的成就*/
+.achievement{
+	height: 0.98rem;
+	line-height: 0.98rem;
+	border-bottom: 1px solid #D8DDE6;
+}
+.achievement .img0{
+	width: 0.36rem;
+	margin-top: 0.35rem;
+    margin-right: 0.2rem;
+}
+.achievement .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+
+/*我的积分*/
+.integral{
+	height: 0.98rem;
+	line-height: 0.98rem;
+	border-bottom: 1px solid #D8DDE6;
+}
+.integral .img0{
+	width: 0.36rem;
+	margin-top: 0.3rem;
+    margin-right: 0.2rem;
+}
+.integral .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+
+
+/*帮助*/
+.my_help{
+	width: 100%;
+	height: 2.94rem;
+	background: #fff;
+	margin: 0.2rem 0;
+}
+.my_help_main{
+	width: 7.24rem;
+	float: right;
+	font-size: 0.28rem;
+	color: #333333;
+}
+
+.help{
+	height: 0.98rem;
+	line-height: 0.98rem;
+	border-bottom: 1px solid #D8DDE6;
+	
+}
+.help .img0{
+	width: 0.36rem;
+	margin-top: 0.35rem;
+    margin-right: 0.2rem;
+}
+.help .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+
+/*反馈*/
+.tickling{
+	height: 0.98rem;
+	line-height: 0.98rem;
+	border-bottom: 1px solid #D8DDE6;
+	
+}
+.tickling .img0{
+	width: 0.36rem;
+	margin-top: 0.35rem;
+    margin-right: 0.2rem;
+}
+.tickling .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+
+/*设置*/
+.set{
+	height: 0.98rem;
+	line-height: 0.98rem;
+}
+.set .img0{
+	width: 0.36rem;
+	margin-top: 0.35rem;
+    margin-right: 0.2rem;
+}
+.set .img1{
+	width: 0.15rem;
+	height: 0.25rem;
+	margin-right: 0.2rem;
+    margin-top: 0.38rem;
+}
+/*中间模块结束*/
+
+
+
+
+/*底部开始*/
+.footer_perch{
+	width: 100%;
+	height:1rem;
+	/*background: red;*/
+}
+.footer{
+	width: 100%;
+	height: 1rem;
+	background: #fff;
+	/*background: red;*/
+	position: fixed;
+	bottom: 0;
+}
+.footer ul li{
+	width: 25%;
+	float: left;
+	text-align: center;
+}
+.footer ul li a{
+	display: block;
+	width: 0.486rem;
+	height: 0.4rem;
+	text-align: center;
+	margin: 0 auto;
+	margin-bottom: 0.06rem;
+	margin-top: 0.14rem;
+}
+.footer ul li p{
+	width: 100%;
+	/*height: 0.468rem;
+	line-height: 0.468rem;*/
+	color: #999;
+	font-size: 0.2rem;
+	text-align: center;
+}
+.footer_one{
+	background: url(../images/school_one.png) no-repeat center;
+	background-size: 0.48rem 0.37rem;
+}
+.footer_two{
+	background: url(../images/learn_two.png) no-repeat center;
+	background-size: 0.38rem 0.38rem;
+	
+}
+.footer_three{
+	background: url(../images/discovery_three.png) no-repeat center;
+	background-size: 0.4rem 0.41rem;
+}
+.footer_four{
+	background: url(../images/my_fours.png) no-repeat center;
+	background-size: 0.38rem 0.4rem;
+}
+/*底部结束*/

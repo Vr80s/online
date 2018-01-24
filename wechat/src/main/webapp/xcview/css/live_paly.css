@@ -75,6 +75,7 @@ textarea::-webkit-input-placeholder {
 	height: 100%;
 	display: block;
 }
+/*视频暂未开播*/
 .play_video{
 	width: 100%;
 	height: 4.24rem;
@@ -95,6 +96,22 @@ left: 50%;
 top: 50%;
 margin-left: -0.88rem;
 margin-top: -0.28rem;
+}
+/*视频开播*/
+.video_prompt_open{
+	width: 1.2rem;
+	height: 1.2rem;	
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	border-radius: 50%;
+	margin-left: -0.6rem;
+	margin-top: -0.6rem;
+	overflow: hidden;
+}
+.video_prompt_open img{
+	width: 100%;
+	height: 100%;
 }
 .speak_people{
 	width: 100%;
@@ -544,7 +561,7 @@ color: #666666;
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	/*display: none;*/
+	display: none;
     top: 0;
     left: 0;
 	background: rgba(0,0,0,.1);
@@ -553,7 +570,7 @@ color: #666666;
 	width: 7.5rem;
     position: absolute;
 	height: 8.5rem;
-	/*display: none;*/
+	display: none;
 	background:white;
 	box-sizing: border-box;
 	bottom: 0;
@@ -569,7 +586,7 @@ color: #666666;
 }
 /*星星好评*/
 .mar_bot{
-	padding-bottom: 0.2rem;
+	padding-bottom: 0.3rem;
 	overflow: hidden;
 }
 .my_impression1 p{

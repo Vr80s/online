@@ -23,4 +23,10 @@ public interface DoctorApplyService {
      * @param doctorApply 更新的数据封装类
      */
     void updateStatus(MedicalDoctorApply doctorApply);
+
+    /**
+     * 根据id查询医师入驻申请状态
+     * @param id
+     */
+    MedicalDoctorApply findById(String id);
 }

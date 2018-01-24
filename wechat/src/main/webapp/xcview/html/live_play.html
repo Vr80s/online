@@ -10,12 +10,12 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
 <link rel="stylesheet" href="../css/live_paly.css" />
-
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
 <script type="text/javascript" src="../js/live_play.js"></script>
 
 
@@ -35,29 +35,39 @@
 			</div>
 		</div>
 	</div>
-	<!--视频-->
+	<!--视频暂未开播-->
 	<div class="play_video">
-		<div class="video_prompt">
+		<!--<div class="video_prompt">
 			暂未开播
+		</div>-->
+		<!--视频开播-->
+		<div class="video_prompt_open">
+			<img src="../images/play_btn.png"/>
 		</div>
 	</div>
+	
+	
 	<!--主讲人-->
-	<div class="speak_people">
-		<p class="speak_title">姚春龄中医脉诊</p>
-		<p class="speak-text">国医大师姚春龄主讲中医脉诊</p>
-		<div class="wrap_grade">
-			<ul class="grade_pic z">
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x1.png"/></li>
-			</ul>
-			<ul class="grade_num y">
-				<li>99评论</li>
-				<li><img src="../images/video_review.png"/></li>
-			</ul>
-		</div>
+	<div class="speak_people" id="speak_people">
+		<script type="text/html" id="data_people">
+		
+			<p class="speak_title">{{gradeName}}</p>
+			<p class="speak-text">国医大师姚春龄主讲中医脉诊</p>
+			<div class="wrap_grade">
+				<ul class="grade_pic z">
+					<li><img src="../images/x0.png"/></li>
+					<li><img src="../images/x0.png"/></li>
+					<li><img src="../images/x0.png"/></li>
+					<li><img src="../images/x0.png"/></li>
+					<li><img src="../images/x1.png"/></li>
+				</ul>
+				<ul class="grade_num y">
+					<li>99评论</li>
+					<li><img src="../images/video_review.png"/></li>
+				</ul>
+			</div>
+	
+		</script>
 	</div>
 	<!--主播/时间-->
 	<div class="wrap_playTime">

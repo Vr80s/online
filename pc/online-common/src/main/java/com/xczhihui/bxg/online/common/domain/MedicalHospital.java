@@ -86,6 +86,8 @@ public class MedicalHospital implements Serializable {
 	@Column(name="recommend_sort")
 	private Integer recommendSort;
 
+	@Column(name="authentication_id")
+	private String authenticationId;
 
 	public MedicalHospital() {
 	}
@@ -290,4 +292,11 @@ public class MedicalHospital implements Serializable {
 		this.version = version;
 	}
 
+	public String getAuthenticationId() {
+		return authenticationId;
+	}
+
+	public void setAuthenticationId(String authenticationId) {
+		this.authenticationId = authenticationId;
+	}
 }

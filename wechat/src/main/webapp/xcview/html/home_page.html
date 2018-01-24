@@ -226,39 +226,39 @@
 	                    			<ul>
 	                    				<!--视频-->
 	                    				{{each item.courseList as item i}}
-	                    				<li>
-	                    					<div class="boutique_main_one">
-	                    						<div class="boutique_one_img">
-
-	                    							<img src="{{item.smallImgPath}}" alt="" />
-	                    							
-	                    						</div>
-	                    							{{if item.type == 1}}
-	                    								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
-	                    							{{else if item.type == 2}}
-	                    								<img src="/xcview/images/frequency.png" alt="" class="boutique_main_one_img_type" />
-													{{else if item.type == 3}}
-	                    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
-													{{else if item.type == 4}}
-	                    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
-	                    							{{/if}}
-	                    						<div class="boutique_main_one_title"><span class="span">{{item.name}}</span><span>{{item.gradeName}}</span></div>
-	                    						<div class="boutique_main_one_size">
-	                    							{{if item.watchState == 1}}
-	                    							<p><span>免费</span></p>
-	                    							{{else}}
-	                    							<p><span>{{item.currentPrice}}</span>熊猫币</p>
-	                    							{{/if}}
-	                    							
-	                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
-	                    							{{if item.type == 3}}
-	                    							<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startTime}}</span></p>
-	                    							{{else if item.type == 4}}
-	                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
-	                    							{{/if}}
-	                    						</div>
-	                    					</div>
-	                    				</li>
+	                    				<a href="live_play.html?course_id={{item.id}}">
+		                    				<li>
+		                    					<div class="boutique_main_one">
+		                    						<div class="boutique_one_img">
+		                    							<img src="{{item.smallImgPath}}" alt="" />
+		                    						</div>
+		                    							{{if item.type == 1}}
+		                    								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
+		                    							{{else if item.type == 2}}
+		                    								<img src="/xcview/images/frequency.png" alt="" class="boutique_main_one_img_type" />
+														{{else if item.type == 3}}
+		                    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
+														{{else if item.type == 4}}
+		                    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
+		                    							{{/if}}
+		                    						<div class="boutique_main_one_title"><span>{{item.name}}&nbsp;{{item.gradeName}}</span></div>
+		                    						<div class="boutique_main_one_size">
+		                    							{{if item.watchState == 1}}
+		                    							<p><span>免费</span></p>
+		                    							{{else}}
+		                    							<p><span>{{item.currentPrice}}</span>熊猫币</p>
+		                    							{{/if}}
+		                    							
+		                    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>                 						
+		                    							{{if item.type == 3}}
+		                    							<p class="p3 p4"><img src="/xcview/images/learn.png" alt="" /><span style="float: left;">{{item.startTime}}</span></p>
+		                    							{{else if item.type == 4}}
+		                    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+		                    							{{/if}}
+		                    						</div>
+		                    					</div>
+		                    				</li>
+	                    				</a>
 	                    				{{/each}}
 	                    				<div class="both"></div>
 	                    			</ul>
@@ -798,7 +798,7 @@
 				<p style="color: #00BC12;">学堂</p>
 			</li>
 			<li>
-				<a href="" class="footer_two"></a>
+				<a href="my_study.html" class="footer_two"></a>
 				<p>学习</p>
 			</li>
 			<li>

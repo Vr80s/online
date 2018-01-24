@@ -9,16 +9,16 @@ import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 医师管理控制层实现类
- * @author yxd
+ * 医师入驻管理控制层
+ * @author zhuwenbao
  */
 
 @Controller
@@ -30,19 +30,9 @@ public class DoctorApplyController extends AbstractController{
 
 	protected final static String CLOUD_CLASS_PATH_PREFIX = "/medical/";
 
-	@Value("${online.web.url:http://www.ixincheng.com}")
-	private String weburl;
-
-
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
-		return CLOUD_CLASS_PATH_PREFIX + "/doctor/apply";
-	}
-	
-	@RequestMapping(value = "MedicalDoctorAppllyDetail")
-	public String MedicalDoctorDetail(HttpServletRequest request) {
-		request.setAttribute("weburl", weburl);
-		return CLOUD_CLASS_PATH_PREFIX + "/doctorApplyDetail";
+		return CLOUD_CLASS_PATH_PREFIX + "/doctorApply";
 	}
 
 	/**
@@ -82,5 +72,14 @@ public class DoctorApplyController extends AbstractController{
 		responseObj.setSuccess(true);
 		responseObj.setErrorMessage("修改成功");
 		return responseObj;
+	}
+
+	@RequestMapping(value = "/{appId}")
+	public String MedicalDoctorDetail(HttpServletRequest request, @PathVariable String appId) {
+
+		MedicalDoctorApply medicalDoctorApply = doctorApplyService.findById(appId);
+		request.setAttribute("medicalDoctorApply", medicalDoctorApply);
+
+		return CLOUD_CLASS_PATH_PREFIX + "/doctorApplyDetail";
 	}
 }

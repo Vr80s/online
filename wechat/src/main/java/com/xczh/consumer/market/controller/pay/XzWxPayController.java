@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineOrder;
@@ -76,7 +77,7 @@ public class XzWxPayController {
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzWxPayController.class);
 	
 	/**
-	 * 微信统一购买课程接口
+	 * 微信统一购买课程接口   订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app  
 	 * @param req
 	 * @param res
 	 * @return
@@ -86,63 +87,62 @@ public class XzWxPayController {
 	@RequestMapping("wxPay")
 	@ResponseBody
 	@Transactional
-	public ResponseObject appOrderPay(HttpServletRequest req,HttpServletResponse res)
+	public ResponseObject appOrderPay(HttpServletRequest req,
+			@RequestParam("orderId")String orderId,
+			@RequestParam("orderFrom")String orderFrom)
 			throws Exception {
 		
 		Map<String, String> retobj = new HashMap<String, String>();
-		String orderId = req.getParameter("orderId");
-		String order_From = req.getParameter("orderFrom");
-		OnlineUser u = appBrowserService.getOnlineUserByReq(req);
+		retobj.put("ok", "false");
+		
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+		if (null == ou ) {
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		String userId = ou.getId();
 		/**
 		 * 根据订单id得到这个订单中已经存在的课程。
 		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
 		 */
-		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(orderId,u.getId(),1);
+		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(orderId,userId,1);
 		if(!ro.isSuccess()){//存在此订单哈，
 			return ro;
 		}
-		LOGGER.info("wxPay   user.getId()"+u.getId());
-		
-		String userId = u.getId();
-		if (null == orderId || null == userId || null == order_From) {
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
+		LOGGER.info(" 登录的用户id "+userId);
 		/**
-		 * 获取订单信息
+		 * 通过订单id得到订单信息，因为每次微信支付时都把这个订单好变了下，因为如果订单号不变，取消订单后在重复支付会有问题
+		 * 更改订单号，购买失败后，再次购买微信提示订单号一样的信息
+		 *
 		 */
 		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
-		/**
-		 * 更改订单号，购买失败后，再次购买微信提示订单号一样的信息
-		 */
 		String newOrderNo=onlineOrderService.updateOrderNo(onlineOrder.getOrderNo());
 		
-		
-		retobj.put("ok", "false");
 		if (null == onlineOrder) {
 			return ResponseObject.newSuccessResponseObject(retobj);
 		}
 		if(onlineOrder.getActualPay() < (0.01d)){
 			return ResponseObject.newErrorResponseObject("金额必须大于等于0.01");
 		}
+		
 		Double actualPay = onlineOrder.getActualPay() * 100;
 		int price = actualPay.intValue();
-		//订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app  
+		
 		/**
 		 * 判断此请求来时h5呢，还是微信公众号，还是app
 		 */
-		int orderFrom = Integer.parseInt(order_From);
+		int orderFromI = Integer.parseInt(orderFrom);
 		String spbill_create_ip =WxPayConst.server_ip;
-		if(orderFrom == 4 || orderFrom == 5){
+		if(orderFromI == 4 || orderFromI == 5){
 			spbill_create_ip =getIpAddress(req);
 		}
 		String tradeType = null; //公众号
 		String openId = null;
-		if(orderFrom == 3){
+		if(orderFromI == 3){
 			openId = req.getParameter("openId");
 			tradeType= PayInfo.TRADE_TYPE_JSAPI;
-		}else if(orderFrom == 4){
+		}else if(orderFromI == 4){
 			tradeType =PayInfo.TRADE_TYPE_H5;
-		}else if(orderFrom == 5){
+		}else if(orderFromI == 5){
 			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
 		// TODO
@@ -155,18 +155,20 @@ public class XzWxPayController {
 
 		cacheService.set(cacheKey,com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString(),7200);
 		LOGGER.info("附加参数："+com.alibaba.fastjson.JSONObject.toJSON(orderParamVo).toString());
+		
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
-				(newOrderNo, price,  "订单支付",
-						extDatas, openId, spbill_create_ip, tradeType);
+				(newOrderNo, price,  "订单支付",extDatas, openId, spbill_create_ip, tradeType);
 		
 		if (retpay != null) {
 			retpay.put("ok", "true");
-			if(orderFrom == 5){
+			/**
+			 * app支付需要进行二次签名
+			 */
+			if(orderFromI == 5){
 				retpay = CommonUtil.getSignER(retpay);
 			}
 			JSONObject jsonObject = JSONObject.fromObject(retpay);
-			LOGGER.info("h5Prepay->jsonObject->\r\n\t"
-					+ jsonObject.toString());// LOGGER.info(jsonObject);
+			LOGGER.info("h5Prepay->jsonObject->\r\n\t"+ jsonObject.toString());// LOGGER.info(jsonObject);
 			return ResponseObject.newSuccessResponseObject(retpay);
 		}
 		LOGGER.info("h5Prepay->retobj->\r\n\t" + retobj.toString());
@@ -184,36 +186,33 @@ public class XzWxPayController {
 	 */
 	@RequestMapping("rechargePay")
 	@ResponseBody
-	public ResponseObject rechargePay(HttpServletRequest req,
-									HttpServletResponse res, Map<String, String> params)
+	public ResponseObject rechargePay(HttpServletRequest req,HttpServletResponse res,
+			@RequestParam("clientType")String clientType,
+			@RequestParam("actualPay")String actualPay)
 			throws Exception {
 		
 		Map<String, String> retobj = new HashMap<String, String>();
-
+		retobj.put("ok", "false");
+		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if ( user== null) {
 			throw new RuntimeException("登录超时！");
 		}
-		String userId = user.getId();
-		String clientType=req.getParameter("clientType");
-		if ( null == userId) {
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-
+		
 		//订单号  支付的钱
-		Double actualPay = new Double(req.getParameter("actualPay")) * 100;
-
-		Double count = Double.valueOf(req.getParameter("actualPay"))*rate;
+		Double pay = new Double(actualPay) * 100;
+		//需要充值的熊猫币
+		Double count = Double.valueOf(pay)*rate;
+		
+		//传递给微信的价格，int类型
+		int price = pay.intValue();
+		
 		if(!WebUtil.isIntegerForDouble(count)){
 			throw new RuntimeException("充值金额"+req.getParameter("actualPay")+"兑换的熊猫币"+count+"不为整数");
 		}
 		if(minimumAmount > Double.valueOf(req.getParameter("actualPay"))){
 			throw new RuntimeException("充值金额低于最低充值金额："+minimumAmount);
 		}
-
-		int price = actualPay.intValue();
-		retobj.put("ok", "false");
-		//订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销    4：来自h5   5 来自app
 		/**
 		 * 判断此请求来时h5呢，还是微信公众号，还是app
 		 */
@@ -232,19 +231,25 @@ public class XzWxPayController {
 		}else if(orderFrom == 2){
 			tradeType =PayInfo.TRADE_TYPE_APP;
 		}
+		
 		// TODO
-
+		/*
+		 * 
+		 */
 		RechargeParamVo rechargeParamVo=new RechargeParamVo();
 		rechargeParamVo.setT("2");
-		rechargeParamVo.setClientType("2");
-		rechargeParamVo.setUserId(user.getId());
-		rechargeParamVo.setSubject("充值");
-
+		rechargeParamVo.setClientType(orderFrom+"");  //订单来源
+		rechargeParamVo.setUserId(user.getId());  //充值的用户id
+		rechargeParamVo.setSubject("充值");         
+		
 		String cacheKey=UUID.randomUUID().toString().replaceAll("-","");
 		String extDatas ="recharge&"+cacheKey;
 		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
 		cacheService.set(cacheKey,passbackParams,7200);
 		LOGGER.info("充值参数："+extDatas.length());
+		
+		
+		
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
 						extDatas, openId, spbill_create_ip, tradeType);
