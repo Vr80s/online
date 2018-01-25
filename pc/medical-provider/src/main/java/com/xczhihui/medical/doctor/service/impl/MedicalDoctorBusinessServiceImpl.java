@@ -209,6 +209,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             medicalHospital.setDeleted(false);
             medicalHospital.setStatus(false);
             medicalHospital.setCreateTime(new Date());
+            medicalHospital.setFrontImg(medicalDoctor.getHeadPortrait());
 //            medicalHospitalMapper.insert(medicalHospital);
 
         }else{
@@ -250,8 +251,24 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             throw new RuntimeException("医馆名字不能为空");
         }
 
+        if(StringUtils.isBlank(medicalDoctor.getProvince())){
+            throw new RuntimeException("请选择医馆所在省份");
+        }
+
+        if(StringUtils.isBlank(medicalDoctor.getCity())){
+            throw new RuntimeException("请选择医馆所在城市");
+        }
+
+        if(StringUtils.isBlank(medicalDoctor.getTel())){
+            throw new RuntimeException("请填写医馆联系电话");
+        }
+
         if(StringUtils.isBlank(medicalDoctor.getWorkTime())){
-            medicalDoctor.setWorkTime("暂无");
+            throw new RuntimeException("请选择坐诊时间");
+        }
+
+        if(StringUtils.isBlank(medicalDoctor.getHeadPortrait())){
+            throw new RuntimeException("请上传封面图");
         }
 
     }

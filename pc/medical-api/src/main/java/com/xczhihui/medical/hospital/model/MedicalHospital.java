@@ -26,82 +26,104 @@ public class MedicalHospital extends Model<MedicalHospital> {
      * 医馆表
      */
 	private String id;
-    /**
+
+	/**
      * 经纬度
      */
 	private String lal;
-    /**
+
+	/**
      * 医馆名称
      */
 	private String name;
-    /**
+
+	/**
      * 医馆简介
      */
 	private String description;
-    /**
+
+	/**
      * 联系电话
      */
 	private String tel;
+
+	/**
+	 * 联系邮箱
+	 */
 	private String email;
-    /**
+
+	/**
      * 邮编
      */
 	@TableField("post_code")
 	private Integer postCode;
+
     /**
      * 省
      */
 	private String province;
-    /**
+
+	/**
      * 市
      */
 	private String city;
-    /**
+
+	/**
      * 详细地址
      */
 	@TableField("detailed_address")
 	private String detailedAddress;
-    /**
+
+	/**
      * 1已删除0未删除
      */
 	private Boolean deleted;
-    /**
+
+	/**
      * 启用状态
      */
 	private Boolean status;
-    /**
+
+	/**
      * 创建时间
      */
 	@TableField("create_time")
 	private Date createTime;
-    /**
+
+	/**
      * 创建人id
      */
 	@TableField("create_person")
 	private String createPerson;
-    /**
+
+	/**
      * 更新时间
      */
 	@TableField("update_time")
 	private Date updateTime;
-    /**
+
+	/**
      * 更新人id
      */
 	@TableField("update_person")
 	private String updatePerson;
-    /**
+
+	/**
      * 版本
      */
 	private String version;
-    /**
+
+	/**
      * 备注
      */
 	private String remark;
+
 	/**
 	 * 是否已认证
 	 */
 	@TableField("authentication")
 	private Boolean authentication;
+
 	/**
 	 * 分值
 	 */
@@ -111,9 +133,31 @@ public class MedicalHospital extends Model<MedicalHospital> {
 
 	private List<MedicalField> fields;
 
+	/**
+	 * 头像
+	 */
+	@TableField("head_portrait")
+	private String headPortrait;
+
+	/**
+	 * 联系人名称
+	 */
+	private String contactor;
+
+	/**
+	 * 微信
+	 */
+	private String wechat;
+
 	public List<MedicalField> getFields() {
 		return fields;
 	}
+
+	/**
+	 * 封面图
+	 */
+	@TableField("front_img")
+	private String frontImg;
 
 	public void setFields(List<MedicalField> fields) {
 		this.fields = fields;
@@ -290,6 +334,38 @@ public class MedicalHospital extends Model<MedicalHospital> {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
+
+	public String getContactor() {
+		return contactor;
+	}
+
+	public void setContactor(String contactor) {
+		this.contactor = contactor;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
+
+	public String getFrontImg() {
+		return frontImg;
+	}
+
+	public void setFrontImg(String frontImg) {
+		this.frontImg = frontImg;
 	}
 
 	@Override

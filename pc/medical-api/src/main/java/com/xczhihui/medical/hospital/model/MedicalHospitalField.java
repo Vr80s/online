@@ -24,22 +24,30 @@ public class MedicalHospitalField extends Model<MedicalHospitalField> {
      * 医馆医疗领域关系表
      */
 	private String id;
+
     /**
      * 医馆id
      */
 	@TableField("hospital_id")
 	private String hospitalId;
+
     /**
      * 医疗领域id
      */
 	@TableField("field_id")
 	private String fieldId;
+
     /**
      * 创建时间
      */
 	@TableField("create_time")
 	private Date createTime;
 
+	/**
+	 * 是否删除（1：是 0：否）
+	 */
+	@TableField("deleted")
+	private Boolean deleted;
 
 	public String getId() {
 		return id;
@@ -71,6 +79,14 @@ public class MedicalHospitalField extends Model<MedicalHospitalField> {
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	@Override

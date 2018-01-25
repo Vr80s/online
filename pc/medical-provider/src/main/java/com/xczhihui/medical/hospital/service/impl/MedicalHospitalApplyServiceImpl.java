@@ -5,6 +5,7 @@ import com.xczhihui.medical.doctor.enums.MedicalHospitalApplyEnum;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
@@ -42,6 +43,17 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
         // 参数校验
         this.validate(target);
+
+        // 判断医馆名字是否已被占用
+        MedicalHospital hospital = hospitalMapper.findByName(target.getName());
+        if(hospital != null){
+            throw new RuntimeException("医馆名称已经被占用");
+        }
+
+        MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(target.getName());
+        if(medicalHospitalApply != null){
+            throw new RuntimeException("医馆名称已经在认证中");
+        }
 
         // 判断用户是否已经拥有已认证的医馆
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(target.getUserId());
@@ -93,9 +105,17 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
     /**
      * 参数校验
-     * @param target 医师入驻申请信息
+     * @param target 医馆入驻申请信息
      */
     private void validate(MedicalHospitalApply target) {
+
+        if(StringUtils.isBlank(target.getName())){
+            throw new RuntimeException("医馆名称不能为空");
+        }else{
+            if(target.getName().length() > 32){
+                throw new RuntimeException("医馆名称应保持在32字以内");
+            }
+        }
 
         if(StringUtils.isBlank(target.getCompany())){
             throw new RuntimeException("医馆所属公司不能为空");

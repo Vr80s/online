@@ -26,6 +26,8 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
     private HospitalAccountDao hospitalAccountDao;
     @Autowired
     private HospitalAuthenticationDao hospitalAuthenticationDao;
+    @Autowired
+    private DoctorAccountDao doctorAccountDao;
 
     /**
      * 获取医师入驻申请列表
@@ -70,10 +72,6 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
             return;
         }
 
-        // 更新认证状态
-        apply.setStatus(status);
-        hospitalApplyDao.update(apply);
-
         switch (status){
             // 当status = 0 即认证被拒
             case 0:
@@ -86,6 +84,10 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
             default:
                 break;
         }
+
+        // 更新认证状态
+        apply.setStatus(status);
+        hospitalApplyDao.update(apply);
     }
 
     /**
@@ -107,6 +109,12 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         Date now = new Date();
 
         String hospitalId = UUID.randomUUID().toString().replace("-","");
+
+        // 判断用户是否已经是认证医师（医师 医馆只能认证一个）
+        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(apply.getUserId());
+        if(doctorAccount != null){
+            throw new RuntimeException("该用户已是医师，不能再进行认证医馆");
+        }
 
         // 判断用户是否已经已拥有验证医馆
         MedicalHospitalAccount hospitalAccount = hospitalAccountDao.findByAccountId(apply.getUserId());
@@ -134,7 +142,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         hospital.setCreateTime(now);
         hospital.setAuthentication(true);
         hospital.setDeleted(false);
-        hospital.setStatus(true);
+        hospital.setStatus(false);
         String authenticationInformationId = UUID.randomUUID().toString().replace("-","");
         hospital.setAuthenticationId(authenticationInformationId);
         hospitalDao.save(hospital);

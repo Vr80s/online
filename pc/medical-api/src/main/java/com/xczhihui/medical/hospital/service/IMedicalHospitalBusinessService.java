@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 import java.util.List;
@@ -57,4 +58,10 @@ public interface IMedicalHospitalBusinessService {
      * @return 医疗领域列表
      */
     Page<MedicalFieldVO> getFieldsPage(Page page);
+
+    /**
+     * 修改医馆信息
+     * @author zhuwenbao
+     */
+    void update(MedicalHospital medicalHospital);
 }

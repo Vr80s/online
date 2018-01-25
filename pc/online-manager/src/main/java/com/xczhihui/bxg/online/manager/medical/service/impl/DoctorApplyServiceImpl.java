@@ -34,6 +34,10 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     private DoctorAuthenticationInformationDao doctorAuthenticationInformationDao;
     @Autowired
     private DepartmentDao departmentDao;
+    @Autowired
+    private HospitalAccountDao hospitalAccountDao;
+    @Autowired
+    private HospitalDao hospitalDao;
 
     /**
      * 获取医师入驻申请列表
@@ -77,10 +81,6 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             return;
         }
 
-        // 更新认证状态
-        apply.setStatus(status);
-        doctorApplyDao.update(apply);
-
         switch (status){
             // 当status = 1 即认证通过
             case 1:
@@ -93,6 +93,11 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             default:
                 break;
         }
+
+        // 更新认证状态
+        apply.setStatus(status);
+        doctorApplyDao.update(apply);
+
     }
 
     @Override
@@ -130,6 +135,16 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      * 处理认证通过逻辑
      */
     private void authenticationPassHandle(MedicalDoctorApply apply) {
+
+        // 判断用户是否已经认证医馆（医师 医馆只能认证一个）
+        MedicalHospitalAccount hospitalAccount = hospitalAccountDao.findByAccountId(apply.getUserId());
+        if(hospitalAccountDao.findByAccountId(apply.getUserId()) != null &&
+                StringUtils.isNotBlank(hospitalAccount.getDoctorId())){
+            MedicalHospital hospital = hospitalDao.find(hospitalAccount.getDoctorId());
+            if(hospital != null && hospital.isAuthentication() == true){
+                throw new RuntimeException("该用户已拥有已认证医馆，不能再进行认证医师");
+            }
+        }
 
         Date now = new Date();
 

@@ -9,11 +9,16 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.model.MedicalDoctorField;
+import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
+import com.xczhihui.medical.hospital.mapper.MedicalHospitalFieldMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
+import com.xczhihui.medical.hospital.mapper.MedicalHospitalPictureMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
+import com.xczhihui.medical.hospital.model.MedicalHospitalField;
+import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +27,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -47,6 +54,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private MedicalDoctorFieldMapper doctorFieldMapper;
     @Autowired
     private MedicalDoctorAuthenticationInformationMapper doctorAuthenticationInformationMapper;
+    @Autowired
+    private MedicalHospitalPictureMapper hospitalPictureMapper;
+    @Autowired
+    private MedicalHospitalFieldMapper hospitalFieldMapper;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -139,6 +150,104 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     public Page<MedicalFieldVO> getFieldsPage(Page page) {
 
         return page.setRecords(medicalHospitalMapper.getFieldsPage(page));
+    }
+
+    /**
+     * 修改医馆信息
+     * @author zhuwenbao
+     */
+    @Override
+    public void update(MedicalHospital medicalHospital) {
+
+        this.validate(medicalHospital);
+
+        Date now = new Date();
+        medicalHospital.setUpdateTime(now);
+
+        if(CollectionUtils.isNotEmpty(medicalHospital.getMedicalHospitalPictures())){
+
+            // 删除之前的医馆照片
+            hospitalPictureMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
+
+            List<MedicalHospitalPicture> hospitalPictures = medicalHospital.getMedicalHospitalPictures();
+            hospitalPictures.stream()
+                    .filter(hospitalPicture -> StringUtils.isNotBlank(hospitalPicture.getPicture()))
+                    .forEach(hospitalPicture -> {
+                        hospitalPicture.setId(UUID.randomUUID().toString().replace("-",""));
+                        hospitalPicture.setHospitalId(medicalHospital.getId());
+                        hospitalPicture.setDeleted(false);
+                        hospitalPicture.setStatus(true);
+                        hospitalPicture.setCreateTime(now);
+                    });
+
+            hospitalPictureMapper.insertBatch(hospitalPictures);
+        }
+
+        if(CollectionUtils.isNotEmpty(medicalHospital.getFields())){
+
+            // 删除之前的医馆领域
+            hospitalFieldMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
+
+            // 新增-新的领域
+            List<MedicalField> fields = medicalHospital.getFields();
+            List<MedicalHospitalField> hospitalFields = new ArrayList<>();
+
+            for (MedicalField field : fields){
+
+                MedicalHospitalField hospitalField = new MedicalHospitalField();
+                hospitalField.setId(UUID.randomUUID().toString().replace("-",""));
+                hospitalField.setHospitalId(medicalHospital.getId());
+                hospitalField.setFieldId(field.getId());
+                hospitalField.setDeleted(false);
+                hospitalField.setCreateTime(now);
+
+                hospitalFields.add(hospitalField);
+            }
+
+            hospitalFieldMapper.insertBatch(hospitalFields);
+        }
+
+        medicalHospitalMapper.updateSelective(medicalHospital);
+    }
+
+    /**
+     * 参数校验
+     * @param medicalHospital 被校验的参数
+     */
+    private void validate(MedicalHospital medicalHospital) {
+
+        if(medicalHospital == null || StringUtils.isBlank(medicalHospital.getId())){
+            throw new RuntimeException("请选择要修改的医馆");
+        }
+
+        if(StringUtils.isBlank(medicalHospital.getHeadPortrait())){
+            throw new RuntimeException("请上传医馆头像");
+        }
+
+        if(CollectionUtils.isEmpty(medicalHospital.getMedicalHospitalPictures())){
+            throw new RuntimeException("请上传医馆图片");
+        }
+
+        if(CollectionUtils.isEmpty(medicalHospital.getFields())){
+            throw new RuntimeException("请选择医疗领域");
+        }
+
+        if(StringUtils.isBlank(medicalHospital.getDescription())){
+            throw new RuntimeException("请填写医馆介绍");
+        }
+
+        if(StringUtils.isBlank(medicalHospital.getContactor())){
+            throw new RuntimeException("请填写医馆联系人");
+        }
+
+        if(StringUtils.isBlank(medicalHospital.getProvince())){
+            throw new RuntimeException("请选择医馆所在省份");
+        }
+
+        if(StringUtils.isBlank(medicalHospital.getCity())){
+            throw new RuntimeException("请填写医馆所在城市");
+        }
+
     }
 
     /**

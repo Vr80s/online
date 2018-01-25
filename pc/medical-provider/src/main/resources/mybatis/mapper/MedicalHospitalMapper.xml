@@ -148,4 +148,47 @@
 		medical_field
 	</select>
 
+	<update id="updateSelective" parameterType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		UPDATE medical_hospital
+		<set>
+			<if test="medicalHospital.headPortrait != null">
+				head_portrait = #{medicalHospital.headPortrait},
+			</if>
+			<if test="medicalHospital.description != null">
+				description = #{medicalHospital.description},
+			</if>
+			<if test="medicalHospital.contactor != null">
+				contactor = #{medicalHospital.contactor},
+			</if>
+			<if test="medicalHospital.tel != null">
+				tel = #{medicalHospital.tel},
+			</if>
+			<if test="medicalHospital.email != null">
+				email = #{medicalHospital.email},
+			</if>
+			<if test="medicalHospital.wechat != null">
+				wechat = #{medicalHospital.wechat},
+			</if>
+			<if test="medicalHospital.province != null">
+				province = #{medicalHospital.province},
+			</if>
+			<if test="medicalHospital.city != null">
+				city = #{medicalHospital.city},
+			</if>
+			<if test="medicalHospital.detailedAddress != null">
+				detailed_address = #{medicalHospital.detailedAddress},
+			</if>
+			<if test="medicalHospital.updateTime != null">
+				update_time = #{medicalHospital.updateTime},
+			</if>
+		</set>
+		WHERE id = #{medicalHospital.id}
+	</update>
+
+	<select id="findByName" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
+		SELECT id
+	  	FROM medical_hospital
+	  	WHERE name = #{name}
+	</select>
+
 </mapper>
