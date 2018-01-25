@@ -24,4 +24,26 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements An
     	return page;
 	}
 
+	@Override
+	public CourseAnchor findCourseAnchorById(Integer id) {
+		return anchorDao.findCourseAnchorById(id);
+	}
+
+	@Override
+	public void updateCourseAnchor(CourseAnchor courseAnchor) {
+		CourseAnchor ca = dao.findOneEntitiyByProperty(CourseAnchor.class, "id", courseAnchor.getId());
+		ca.setLiveDivide(courseAnchor.getLiveDivide());
+		ca.setVodDivide(courseAnchor.getVodDivide());
+		ca.setOfflineDivide(courseAnchor.getOfflineDivide());
+		ca.setGiftDivide(courseAnchor.getGiftDivide());
+		dao.update(ca);
+	}
+
+	@Override
+	public void updatePermissions(Integer id) {
+		CourseAnchor ca = dao.findOneEntitiyByProperty(CourseAnchor.class, "id", id);
+		ca.setStatus(!ca.getStatus());
+		dao.update(ca);
+	}
+
 }

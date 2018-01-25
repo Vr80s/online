@@ -25,14 +25,14 @@ import java.util.Map;
 public class AnchorDao extends HibernateDao<CourseAnchor>{
 	 public Page<CourseAnchor> findCourseAnchorPage(CourseAnchor courseAnchor, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
-		 StringBuilder sql = new StringBuilder("SELECT \n" +
+		 StringBuilder sql = new StringBuilder("SELECT ca.id,\n" +
 				 "  ou.`name`,\n" +
 				 "  ca.`type`,\n" +
 				 "  ca.`vod_divide`,\n" +
 				 "  ca.`live_divide`,\n" +
 				 "  ca.`offline_divide`,\n" +
 				 "  ca.`gift_divide`,\n" +
-				 "  ou.`is_lecturer` isLecturer \n" +
+				 "  ca.`status`  \n" +
 				 "FROM\n" +
 				 "  `course_anchor` ca \n" +
 				 "  JOIN `oe_user` ou \n" +
@@ -62,5 +62,27 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 		CourseApplyInfo courseApplyInfo = this.findEntity(dc);
 
 		return courseApplyInfo;
+	}
+
+	public CourseAnchor findCourseAnchorById(Integer id) {
+	 	String sql = "SELECT \n" +
+				"  ou.`name`,\n" +
+				"  ca.`type`,\n" +
+				"  ca.`vod_divide` vodDivide,\n" +
+				"  ca.`live_divide` liveDivide,\n" +
+				"  ca.`offline_divide` offlineDivide,\n" +
+				"  ca.`gift_divide` giftDivide,\n" +
+				"  ca.`status` \n" +
+				"FROM\n" +
+				"  `course_anchor` ca \n" +
+				"  JOIN `oe_user` ou \n" +
+				"    ON ca.`user_id` = ou.`id` \n" +
+				"WHERE ca.`deleted` = 0 \n" +
+				"  AND ou.`is_delete` = 0 \n" +
+				"  AND ca.id=:id  \n" +
+				"  ORDER BY ca.`create_time`\n" ;
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("id",id);
+		return this.findEntityByJdbc(CourseAnchor.class,sql,m);
 	}
 }

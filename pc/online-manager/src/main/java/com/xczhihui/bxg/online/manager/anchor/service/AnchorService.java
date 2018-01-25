@@ -12,4 +12,9 @@ public interface AnchorService {
 	 */
     public Page<CourseAnchor> findCourseAnchorPage(CourseAnchor courseAnchor, int pageNumber, int pageSize);
 
+    CourseAnchor findCourseAnchorById(Integer id);
+
+    void updateCourseAnchor(CourseAnchor courseAnchor);
+
+	void updatePermissions(Integer id);
 }
