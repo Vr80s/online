@@ -1,13 +1,26 @@
 package com.xczh.consumer.market.controller.medical;
 
+import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * 直播课程控制器 ClassName: MedicalDoctorApplyController.java <br>
@@ -37,11 +50,11 @@ public class CourseApplyController {
 	/**
 	 * 创建直播
 	 */
-	/**
+
 	@RequestMapping("addCourseApply")
 	@ResponseBody
 	public ResponseObject addCourseApply(HttpServletRequest req,
-										 HttpServletResponse res,CourseApplyInfo courseApplyInfo, @RequestParam("file")MultipartFile file)
+										 HttpServletResponse res, CourseApplyInfo courseApplyInfo, @RequestParam("file")MultipartFile file)
 			throws Exception {
 
 		try {
@@ -73,5 +86,5 @@ public class CourseApplyController {
 		}
 	}
 
-	
+
 }
