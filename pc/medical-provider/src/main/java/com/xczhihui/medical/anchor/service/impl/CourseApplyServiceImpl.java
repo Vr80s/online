@@ -151,7 +151,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(courseApplyInfo.getCourseForm()==null){
             throw new RuntimeException("课程形式不可为空");
         }
-        if(courseApplyInfo.getCourseForm()==null){
+        if(courseApplyInfo.getPrice()==null){
             throw new RuntimeException("课程单价不可为空");
         }
 

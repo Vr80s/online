@@ -21,11 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 热门搜索控制器 ClassName: MedicalDoctorApplyController.java <br>
+ * 医师控制器 ClassName: MedicalDoctorApplyController.java <br>
  * Description: <br>医师认证
- * Create by: name：yangxuan <br>
- * email: 15936216273@163.com <br>
- * Create Time: 2017年8月11日<br>
+ * Create by: name：wangyishuai <br>
+ * email: 15210815880@163.com <br>
+ * Create Time: 2018年1月16日<br>
  */
 @Controller
 @RequestMapping("/xczh/medical")

@@ -17,11 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 热门搜索控制器 ClassName: MedicalHopitalApplyController.java <br>
+ * 医馆控制器 ClassName: MedicalHopitalApplyController.java <br>
  * Description: <br>医馆认证
- * Create by: name：yangxuan <br>
- * email: 15936216273@163.com <br>
- * Create Time: 2017年8月11日<br>
+ * Create by: name：wangyishuai <br>
+ * email: 15210815880@163.com <br>
+ * Create Time: 2018年1月16日<br>
  */
 @Controller
 @RequestMapping("/xczh/medical")
