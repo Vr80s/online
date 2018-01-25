@@ -9,5 +9,22 @@
 	<select id="getMedicalHospitalPictureByHospitalId" resultType="com.xczhihui.medical.hospital.vo.MedicalHospitalPictureVO">
 		select id,hospital_id hospitalId, picture from medical_hospital_picture where hospital_id = #{hospitalId}
 		 order by version
+
 	</select>
+
+	<update id="insertBatch">
+		INSERT INTO medical_hospital_picture(
+			id, hospital_id, picture, deleted, status,create_time
+		) VALUES
+		<foreach collection="pictures" item="picture" separator=",">
+			(#{picture.id},
+			 #{picture.hospitalId},
+			 #{picture.picture},
+			 #{picture.deleted},
+			 #{picture.status},
+			 #{picture.createTime})
+		</foreach>
+	</update>
+
+
 </mapper>

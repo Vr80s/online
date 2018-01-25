@@ -26,4 +26,11 @@ public interface MedicalHospitalApplyMapper extends BaseMapper<MedicalHospitalAp
      * @param userId 用户id
      */
     void delete(String userId);
+
+    /**
+     * 根据医馆名称获取医馆认证信息
+     * @param name 医馆名称
+     * @return 医馆认证信息
+     */
+    MedicalHospitalApply findByName(String name);
 }

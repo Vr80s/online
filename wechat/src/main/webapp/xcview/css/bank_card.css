@@ -111,6 +111,7 @@ header{
 	border-bottom: 1px solid #D8DDE6;
 }
 .cardholders span{
+	display: inline-block;
 	width: 5rem;
 	margin-left: 0.4rem;
 	font-size: 0.28rem;
@@ -207,3 +208,17 @@ header{
 }
 /*是否放弃添加银行卡结束*/
 /*中间内容结束*/
+
+
+/*改变选择银行卡按钮*/
+.mui-poppicker-header .mui-btn{
+	border: 0;
+	background: none;
+	font-size: 0.3rem;
+}
+.mui-poppicker-header .mui-btn{
+	background: none;
+    border: 0;
+    color: #333;
+	font-size: 0.3rem;
+}
