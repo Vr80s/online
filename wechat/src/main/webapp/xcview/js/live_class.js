@@ -61,5 +61,52 @@ $(".bg_userModal").click(function(){
             $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
         });
     });
+	//获取课程ID跳转相应页面页面
+	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
+	var courseId = getQueryString('course_id');
+	//传ID courseId为接口的课程ID
+	requestService("/xczh/course/details",{
+		courseId : courseId	
+	},function(data) {
+		
+	//	课程名称/等级/评论
+		$("#speak_people").html(template('data_people',data.resultObject));
+	//	直播时间/主播名字
+		data.resultObject.startTime= data.resultObject.startTime.substring(0,10); //截取日期
+		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期
+//		var changeTime=data.resultObject.startTime;
+//		var finishTime = changeTime.replace(/-/g,'.');
+//		console.log(finishTime)
+//		
+//		
+//		var changestratTime=data.resultObject.endtTime;
+//		var finishendTime = changeTime.replace(/-/g,'.');
+//		console.log(finishendTime)
+//
+//			$(".playTime .class_time").html(finishTime)
+		
+
+//		data.resultObject.endTime= data.resultObject.endTime.substring(0,10);
+		$("#wrap_playTime").html(template('data_name',data.resultObject));
+		
+
+		
+	//	简介/内容
+		if(data.resultObject.description == null || data.resultObject.description == ''){
+			$(".no_data").show();
+			$(".btn").hide()
+			$(".zhezhao").hide()
+		}else{
+			$(".wrap p").html(data.resultObject.description)
+		}
+	//	主讲人
+		if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
+			$(".no_data1").show();
+			$(".btn1").hide();
+			$(".zhezhao1").hide();
+		}else{
+			$(".wrap1 p").html(data.resultObject.lecturerDescription)
+		}
+	});
 
 })

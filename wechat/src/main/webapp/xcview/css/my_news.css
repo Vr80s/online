@@ -1,0 +1,149 @@
+﻿*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+header {
+    width: 100%;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+.header{
+	/*width: 14.851rem;*/
+    height: 100%;
+    /*margin-left: 0.26rem;*/
+    /*padding-top: 0.298rem;*/
+}
+#home_img{
+	display: none;
+}
+.header_return{
+	width: 1.24rem;
+    height: 0.88rem;
+    /* background: red; */
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_return img{
+	width: 0.24rem;
+    height: 0.43rem;
+    margin-top: 0.22rem;
+    display: block;
+    margin-left: 0.26rem;
+}
+.header_title{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	font-size: 0.36rem;
+	text-align: center;
+	color: #333;
+}
+
+/*头部结束*/
+
+/*中间内容开始*/
+.my_news{
+	width: 100%;
+	height: 100%;
+	margin-top: 0.88rem;
+}
+.my_news_one{
+	width: 100%;
+	/*height: 500px;*/
+	/*background: darkgoldenrod;*/
+}
+.my_news_one .time{
+	width: 100%;
+	text-align: center;
+	font-size: 0.22rem;
+	color: #999999;
+	padding-top: 0.3rem;
+	margin-bottom: 0.3rem;
+}
+.my_news_left{
+	width: 0.72rem;
+	height: 0.72rem;
+	line-height: 0.3rem;
+	background: #F97B49;
+	border-radius: 60px;
+	text-align: center;
+	margin-left: 0.26rem;
+	margin-right: 0.2rem;
+    float: left;
+}
+.my_news_left img{
+	width: 0.38rem;
+	height: 0.34rem;
+}
+
+.my_news_right{
+	width: 5.34rem;
+	/*min-height: 1rem;*/
+	position: relative;
+    float: left;
+}
+.my_news_right .img{
+	width: 0.15rem;
+	/*height: 1.01rem;*/
+	position: absolute;
+    top: 0.25rem;
+    left: 0;
+    z-index: 1;
+}
+.my_news_right .div{
+	padding: 0.2rem 0.3rem;
+	background: #fff;
+	border: 1px solid #F0F0F0;
+	margin-left: 0.13rem;
+    border-radius: 16px;
+}
+.div_title{
+	font-size: 0.28rem;
+	color: #333333;
+}
+.div_cen{
+	font-size: 0.28rem;
+	color: #666666;
+}
+.div_cen span{
+	color: #00BC12;
+}
+/*中间内容结束*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

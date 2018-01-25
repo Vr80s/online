@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../js/live_audio.js"></script>
 
 
@@ -40,40 +40,66 @@
 		<!--<div class="video_prompt">
 			暂未开播
 		</div>-->
-	</div>
-	<!--主讲人-->
-	<div class="speak_people">
-		<p class="speak_title">姚春龄中医脉诊</p>
-		<p class="speak-text">国医大师姚春龄主讲中医脉诊</p>
-		<div class="wrap_grade">
-			<ul class="grade_pic z">
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x0.png"/></li>
-				<li><img src="../images/x1.png"/></li>
-			</ul>
-			<ul class="grade_num y">
-				<li>99评论</li>
-				<li><img src="../images/video_review.png"/></li>
-			</ul>
+		<div class="video_prompt_open">
+			<img src="../images/play_btn.png"/>
 		</div>
 	</div>
-	<!--主播/时间-->
-	<div class="wrap_playTime">
-		<ul class="playTime z">
-			<li><img src="../images/population.png"/><span>姚春玲</span></li>
-			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  /></li>
-		</ul>
-		<!--<ul class="playTime z" style="border-bottom: 0;">
-			<li style="float: left;">
-				<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
-				<span>直播时间：2017.12.30&nbsp;&nbsp;12:00&nbsp;&nbsp;</span>
-				<p>直播中</p>
-			</li>
-		</ul>-->
+	<!--主讲人-->
+	<div class="speak_people" id="speak_people">
+		<script type="text/html" id="data_people">	
+			<p class="speak_title">{{gradeName}}</p>
+			<p class="speak-text">{{subtitle}}</p>
+			<div class="wrap_grade">
+				<ul class="grade_pic z">
+					<li>
+						{{if startLevel == 0.5}}
+						<img src="../images/xing0_5.png"/>
+						{{else if startLevel == 1}}
+						<img src="../images/xing1_0.png"/>
+						{{else if startLevel == 1.5}}
+						<img src="../images/xing1_5.png"/>
+						{{else if startLevel == 2}}
+						<img src="../images/xing2.png"/>
+						{{else if startLevel == 2.5}}
+						<img src="../images/xing2_5.png"/>
+						{{else if startLevel == 3}}
+						<img src="../images/xing3.png"/>
+						{{else if startLevel == 3.5}}
+						<img src="../images/xing3_5.png"/>
+						{{else if startLevel == 4}}
+						<img src="../images/xing4_0.ppng"/>
+						{{else if startLevel == 4.5}}
+						<img src="../images/xing4_5.png"/>
+						{{else if startLevel == 5}}
+						<img src="../images/xing5.png"/>
+					
+						{{/if}}
+					</li>
+				</ul>
+				<ul class="grade_num y">
+					<li><a href="javascript:;">{{criticizeCount}}评论</a></li>
+					<li><img src="../images/video_review.png"/></li>
+				</ul>
+			</div>
+		</script>
 	</div>
-	
+	<!--主播/时间-->
+	<div class="wrap_playTime" id="wrap_playTime">
+		<script type="text/html" id="data_name">
+			<ul class="playTime z">
+				<li><img src="../images/population.png"/><span>{{name}}</span></li>
+				<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  /></li>
+			</ul>
+			<!--<ul class="playTime z" style="border-bottom: 0;">
+				<li style="float: left;">
+					<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
+					<span>直播时间：2017.12.30&nbsp;&nbsp;12:00&nbsp;&nbsp;</span>
+					<p>直播中</p>
+				</li>
+			</ul>-->
+		</script>	
+	</div>
+<!--详情开始-->
 	<p class="my_details">详情</p>
 	<!--简介-->
 	<div class="wrap_synopsis">	
@@ -90,34 +116,37 @@
 		</div>		
 	</div>
 	<!--内容-->
-	<div class="container">
-        <div class="wrap">
-            <div class="all_content">
-                我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试
-            </div>
-          <div class="gradient"></div>
-        </div>
-        <div class="read-more">
-            <div class="hewenqiToggle"></div>
-            <span class="triangle-down-hovertree"></span>
-        </div>
-    </div>
-    <!--主讲人-->
-    
-    <p class="wrap_sayPeople">主讲人</p>
+		<div class="wrap pp" style="height: 2rem;">
+			<p></p>
+			<p class="no_data">暂无数据...</p>
+			<div class="zhezhao">
+				<img src="../images/op_bg.png"/>	
+			</div>     
+			
+		</div>
+		<div class="btn">
+			<img src="../images/top.png"/>
+		</div>
+	<!--主讲人-->
+		<div class="wrap_speak">		
+			<div class="main_speak">
+				<p></p>
+				<p>主讲人</p>
+				<p></p>
+			</div>		
+		</div>
 	<!--内容-->
-	<div class="container1">
-        <div class="wrap1">
-            <div class="all_content1">
-                我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试我是测试
-            </div>
-          <div class="gradient1"></div>
-        </div>
-        <div class="read-more1">
-            <div class="hewenqiToggle1"></div>
-            <span class="triangle-down-hovertree1"></span>
-        </div>
-    </div>
+		<div class="wrap1 pp1" style="height: 2rem;">
+			<p></p> 
+			<p class="no_data1">暂无数据...</p>
+			<div class="zhezhao1">
+				<img src="../images/op_bg.png"/>	
+			</div>     
+		</div>
+		<div class="btn1">
+			<img src="../images/top.png"/>
+		</div>
+<!--详情结束-->
 	<!--评论-->
 	<div class="wrap_comment_title">
 		<p>评论</p>
@@ -281,71 +310,37 @@
 </script>
 <!--详情点击隐藏和显示-->
 <script>
-
-    var slideHeight = 150; // px
-    var defHeight = $('.wrap').height();
-    if(defHeight >= slideHeight){
-        $('.wrap').css('height' , slideHeight + 'px');
-        $('.read-more').append('<a href="#">展开全部</a>');
-        $('.read-more a').click(function(){
-        var curHeight = $('.wrap').height();
-        if(curHeight == slideHeight){
-            $('.wrap').animate({
-            height: defHeight
-            }, "normal");
-            $('.read-more a').html('点击隐藏');
-            $('.gradient').fadeOut();
-
-            $('.read-more span').removeClass("triangle-down-hovertree");
-            $('.read-more span').addClass("triangle-up-hovertree");
-            
-            $('.hewenqiToggle').css("height","0rem");
-        }else{
-            $('.wrap').animate({
-            height: slideHeight
-            }, "normal");
-            $('.read-more a').html('展开全部');
-            $('.gradient').fadeIn();
-            $('.read-more span').removeClass("triangle-up-hovertree");
-            $('.read-more span').addClass("triangle-down-hovertree");
-            $('.hewenqiToggle').css("height","2.5rem");
-        }
-        return false;
-        });  
-    }
-</script>
-<script>
-	   var slideHeight = 150; // px
-    var defHeight = $('.wrap1').height();
-    if(defHeight >= slideHeight){
-        $('.wrap1').css('height' , slideHeight + 'px');
-        $('.read-more1').append('<a href="#">展开全部</a>');
-        $('.read-more1 a').click(function(){
-        var curHeight = $('.wrap1').height();
-        if(curHeight == slideHeight){
-            $('.wrap1').animate({
-            height: defHeight
-            }, "normal1");
-            $('.read-more1 a').html('点击隐藏');
-            $('.gradient1').fadeOut();
-
-            $('.read-more1 span').removeClass("triangle-down-hovertree1");
-            $('.read-more1 span').addClass("triangle-up-hovertree1");
-            
-            $('.hewenqiToggle1').css("height","0rem");
-        }else{
-            $('.wrap1').animate({
-            height: slideHeight
-            }, "normal1");
-            $('.read-more1 a').html('展开全部');
-            $('.gradient1').fadeIn();
-            $('.read-more1 span').removeClass("triangle-up-hovertree1");
-            $('.read-more1 span').addClass("triangle-down-hovertree1");
-            $('.hewenqiToggle1').css("height","2.5rem");
-        }
-        return false;
-        });  
-    }
-</script>
-
+		$(function(){
+//			简介内容
+			$('.btn').prepend('<a href="#">展开全部</a>');
+			  $(".btn").toggle(function(){
+			    $(".btn a").html('点击隐藏');
+			    $(".wrap").removeClass("pp");
+			    $(".wrap").removeAttr("style");
+			    $(".zhezhao").hide();
+			    $(".btn img").attr("src","../images/bot0.png")
+			  },function(){
+			  	$(".zhezhao").show();
+			    $(".btn img").attr("src","../images/top.png")  
+			    $(".btn a").html('展开全部');
+			     $(".wrap").addClass("pp");
+//			     $(".wrap").attr("style");
+			 })
+//			主讲人内容
+		  $('.btn1').prepend('<a href="#">展开全部</a>');
+			  $(".btn1").toggle(function(){
+			    $(".btn1 a").html('点击隐藏');
+			    $(".wrap1").removeClass("pp1");
+			    $(".wrap1").removeAttr("style");
+			    $(".zhezhao1").hide();
+			    $(".btn1 img").attr("src","../images/bot0.png")
+			  },function(){
+			  	$(".zhezhao1").show();
+			    $(".btn1 img").attr("src","../images/top.png")  
+			    $(".btn1 a").html('展开全部');
+			     $(".wrap1").addClass("pp1");
+//			     $(".wrap1").attr("style");
+			 })
+		 })
+	</script>
 </html>
