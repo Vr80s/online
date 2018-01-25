@@ -83,6 +83,7 @@ $(function(){
 	  	}else if(data.success == true){
 	  		alert('注册成功!');
 	  		
+	  		window.location.href = '/web/html/ResidentDoctor.html';
 	  	}
 	  })
 	
