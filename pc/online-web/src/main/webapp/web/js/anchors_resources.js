@@ -254,10 +254,7 @@ $(".btn-upload").click(function(evt) {
 
 
 
-	//上传封面图片
-	$('.fengmian_pic').click(function(){
-		$('#picIpt').click();
-	})
+	
 	
 	
 //	专栏部分
@@ -323,3 +320,162 @@ if($(this).hasClass('color')){
 		}
 	
 })
+
+//医师认证状态和认证信息显示
+RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
+			//头像预览
+			console.log(data);
+			//列表渲染
+			$('#id_select').html(template('hosListTpl', {item:data.resultObject.records}));
+			//渲染之后在此调用插件
+			 $('.selectpicker').selectpicker({
+                'selectedText': 'cat',size:10
+            });
+
+		});
+		
+//选择平台已有医馆
+$('#hospital_bottom .chooseHospital').click(function(){
+	$('.mask').css('display','block');
+	$('#hosChoose').removeClass('hide');
+})
+
+//点击选择医馆的确认按钮
+$('#hosChoose .sureChoosehos').click(function(){
+	$('#hospital_bottom .zhuanlan_title').val($("#id_select option:selected").text())
+	$('.mask').css('display','none');
+	$('#hosChoose').addClass('hide');
+})
+
+
+
+//医师-医馆封面上传图片调用的接口
+function picUpdown(baseurl,imgname){
+	RequestService("/medical/common/upload", "post", {
+				image: baseurl,
+			}, function(data) {
+				console.log(data);
+				 $('#hospital_bottom .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			})
+}
+
+
+//医馆封面上传
+	$('#fengmian_picIpt').on('change',function(){
+	var reader=new FileReader();
+  	reader.onload=function(e){
+	picUpdown(reader.result,'fengmian_pic');
+	}  
+	reader.readAsDataURL(this.files[0])
+})
+
+	//每周坐诊点击生成数组数据
+	var arr = [];
+	var workTime;
+	$('.hospital_worktime  ul li').click(function(){
+		if($(this).hasClass('keshiColor')){
+		//删除第二次选中的
+			for(var i = 0 ;i < arr.length; i++){
+				if($(this).text() == arr[i]){
+					arr.splice(i,1)
+				}
+			}
+//			console.log(arr.toString())
+			workTime = arr.toString();
+			$(this).removeClass('keshiColor');	
+		}else{
+			$(this).addClass('keshiColor');
+			arr.push($(this).text());
+//			console.log(arr.toString())
+			workTime = arr.toString();
+		}
+		console.log(workTime)
+	})
+
+
+
+//医师入住医馆信息上传
+$('#hospital_bottom #submit').click(function(){
+	//任职医馆的验证
+	var workhosName = $.trim($('#hospital_bottom .zhuanlan_title').val());
+	var province = $.trim($('#hospital_bottom #choosePro option:selected').text());
+	var city = $.trim($('#hospital_bottom #citys option:selected').text());
+	var detailedAddress = $.trim($('#hospital_bottom #hos_detail_address').text());
+	var hosTel = $.trim($('#hospital_bottom .hosTel').val());
+	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
+	var headPortrait  =  $('#hospital_bottom .fengmian_pic img').attr('src');
+	
+	
+	//任职医馆验证
+	if(workhosName == ''){
+		$('#hospital_bottom .work_hos_warn').removeClass('hide');
+		return false;
+	}else{
+		$('#hospital_bottom .work_hos_warn').addClass('hide');
+	}
+	
+	//封面图是否上传
+		if($('#hospital_bottom .fengmian_pic:has(img)').length < 1){
+			$('#hospital_bottom .fengmian_pic_warn').removeClass('hide');
+			return false;
+		}else{
+			$('#hospital_bottom .fengmian_pic_warn').addClass('hide');
+		}
+	
+	//医馆电话
+	if(hosTel == ''){
+		$('#hospital_bottom .hosTel_warn').text('手机号不能为空');
+		$('#hospital_bottom .hosTel_warn').removeClass('hide');
+		return false;
+	}else if(!phonePass.test(hosTel)){
+		$('#hospital_bottom .hosTel_warn').text('手机号格式不正确');
+		$('#hospital_bottom .hosTel_warn').removeClass('hide');
+		return false;
+	}else{
+		$('#hospital_bottom .hosTel_warn').addClass('hide');
+	}
+	
+	//坐诊时间验证
+	if($('#hospital_bottom .hospital_worktime .keshiColor').length == 0){
+			$('#hospital_bottom .hospital_worktime_warn  ').removeClass('hide');
+			return false;
+		}else{
+			$('#hospital_bottom .hospital_worktime_warn  ').addClass('hide');
+		}
+	
+	RequestService("/medical/doctor/joinHospital", "post", {
+		name:workhosName,
+		province:province,
+		city:city,
+		detailedAddress:detailedAddress,
+		tel:hosTel,
+		workTime:workTime,
+		headPortrait:headPortrait
+	}, function(data) {
+			if(data.success == true){
+				alert('上传成功')
+			}else{
+				alert('您不是医师，不能加入医馆')
+			}
+		});
+	alert(111)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+//医师认证状态和认证信息显示
+RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+			//头像预览
+			console.log(data);
+			$('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
+		});

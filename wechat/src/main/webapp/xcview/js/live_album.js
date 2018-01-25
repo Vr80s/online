@@ -23,8 +23,8 @@ $(".bg_userModal").click(function(){
   		 $(this).toggleClass("active_color"); 
  	 });
 //选集弹窗
+
  	 $(".select_icon").click(function(){
- 	 	alert(1)
   		$(".bg_modal02").show();
 		$(".wrap_select_list").show();
  	 });
