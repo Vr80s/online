@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineCourseService;
+import com.xczh.consumer.market.service.OnlineOrderService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.wechat.course.service.ICourseService;
@@ -50,6 +53,12 @@ public class MyManagerController {
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
+	
+	@Autowired
+	private OnlineOrderService onlineOrderService;
+	
+	@Autowired
+	private EnchashmentService enchashmentService;
 	
 	
 	@Autowired
@@ -121,4 +130,87 @@ public class MyManagerController {
 	    System.out.println("===========");
 		return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectMyFreeCourseList(page, user.getUserId()));
 	}
+	
+	
+    @RequestMapping("getEnchashmentBalance")
+    @ResponseBody
+    public ResponseObject getEnchashmentBalance(HttpServletRequest request, HttpServletResponse res) throws Exception{
+      
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+        if (user == null) {
+        	return ResponseObject.newSuccessResponseObject(0);	
+        }else{
+        	return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentBalance(user.getId()));	
+        }
+    }
+    @RequestMapping("getEnchashmentRmbBalance")
+    @ResponseBody
+    public ResponseObject getEnchashmentRmbBalance(HttpServletRequest request, HttpServletResponse res) throws Exception{
+
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+        if (user == null) {
+            throw new RuntimeException("登录超时！");
+        }
+        return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentRmbBalance(user.getId()));
+    }
+	
+	
+	/**
+	 * Description：我的钱包接口
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("wallet")
+	@ResponseBody
+	public ResponseObject wallet(HttpServletRequest req,
+			@RequestParam("pageNumber")Integer pageNumber,
+			@RequestParam("pageSize")Integer pageSize)
+			throws Exception {
+	
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user == null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber,pageSize,user.getId()));
+	}
+	
+	
+	/**
+	 * Description：主播控制台
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("anchorConsole")
+	@ResponseBody
+	public ResponseObject anchorConsole(HttpServletRequest req,
+			@RequestParam("pageNumber")Integer pageNumber,
+			@RequestParam("pageSize")Integer pageSize)
+			throws Exception {
+	
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user == null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		
+		
+		
+		
+		
+		
+		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber,pageSize,user.getId()));
+	}
+	
+	
+	
+	
+	
+	
 }

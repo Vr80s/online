@@ -36,10 +36,8 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        paramMap.put("loginName",u.getLoginName());
 
 	       if(this.getLiveUserCourse(courseId,u.getId()).size()>0){
-	           System.out.println("同学,当前课程您已经报名了!");
 	           return;
 	       };
-	       System.out.println("=============================");
 	       String sql="";
 	       //写用户报名信息表，如果有就不写了
 	       String apply_id = UUID.randomUUID().toString().replace("-", "");
@@ -74,13 +72,6 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	       Object [] ops = {id,courseId,apply_id,u.getName(),u.getId(),sno};
 	       this.update(JdbcUtil.getCurrentConnection(), sql,ops);
 
-	       //写用户视频表
-//	       sql = "insert into user_r_video (id,create_person,sort,video_id,user_id,course_id) "
-//	               + " select replace(uuid(),'-',''),?,sort,id,?,course_id "
-//	               + "from oe_video where course_id=? and is_delete=0 and status=1 ";
-//	       //orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-//	       Object [] params3 ={u.getLoginName(),u.getId(),courseId};
-//	       this.update(JdbcUtil.getCurrentConnection(), sql,params3);
 	   }
 	
 	   /**

@@ -197,6 +197,7 @@ public class UserController extends OnlineBaseController {
 			if ("ok".equals(msg)) {
 				Token token = this.createToken(userCenterAPI.getUser(vcode.split("!@!")[0]), TokenExpires.Day.getExpires());
 				OnlineUser user = this.userCenterService.getUserByLoginName(vcode.split("!@!")[0]);
+				
 				if(user.getVhallId()==null){
 					String password = "123456";//邮箱注册用户密码默认123456
 					String vhallId = VhallUtil.createUser(user,password );

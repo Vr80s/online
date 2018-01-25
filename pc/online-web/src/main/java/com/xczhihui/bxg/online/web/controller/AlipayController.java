@@ -15,6 +15,8 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +72,8 @@ public class AlipayController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderPayService orderPayService;
 
     @Autowired
     private AliPayPaymentRecordService aliPayPaymentRecordService;
@@ -467,12 +471,14 @@ public class AlipayController {
                 String notifyType=alipayPaymentRecord.getPassbackParams().split("&")[0];
                 if("order".equals(notifyType)){
                     Integer orderStatus = orderService.getOrderStatus(out_trade_no);
-                    if (orderStatus == 0) { //付款成功，如果order未完成
+                    //付款成功，如果order未完成
+                    if (orderStatus == 0) {
                         try {
                             //计时
                             long current = System.currentTimeMillis();
                             //处理订单业务
-                            orderService.addPaySuccess(out_trade_no, 0, trade_no);
+                            orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY.getCode(),trade_no);
+//                            orderService.addPaySuccess(out_trade_no, 0, trade_no);
                             logger.info("订单支付成功，订单号:{},用时{}",
                                     out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
                             //为购买用户发送购买成功的消息通知
@@ -563,7 +569,8 @@ public class AlipayController {
                                 //计时
                                 long current = System.currentTimeMillis();
                                 //处理订单业务
-                                orderService.addPaySuccess(out_trade_no, 0, transaction_id);
+                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY.getCode(), transaction_id);
+//                                orderService.addPaySuccess(out_trade_no, 0, transaction_id);
                                 logger.info("订单支付成功，订单号:{},用时{}",
                                         out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
                                 //为购买用户发送购买成功的消息通知

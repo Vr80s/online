@@ -64,18 +64,28 @@
 <script type="text/javascript">
 	window.onload = function(){
 		$(".input").focus(function(){
-		 	
 		 	$(".clearing_main_hint").hide();
 		});
 		 
 		$(".input").blur(function(){
 		 	
 		 	if(!($('.input').val()=='')){
-               	$(".clearing_main_hint").hide();
-            }else{
-            	$(".clearing_main_hint").show();
-            }
+             	$(".clearing_main_hint").hide();
+ 	        }else{
+	          	$(".clearing_main_hint").show();
+	        }
+			
 		});
+		
+		$(".input").keyup(function(){
+			if($('.input').val().length<=0){
+	           	$(".clearing_btn").css("opacity","0.3");
+	           	
+	       }else{
+	        	$(".clearing_btn").css("opacity","1");
+	        }
+		});
+		
 	};
 </script>
 

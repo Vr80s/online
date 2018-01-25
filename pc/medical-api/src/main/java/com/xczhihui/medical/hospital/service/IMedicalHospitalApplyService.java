@@ -1,5 +1,7 @@
 package com.xczhihui.medical.hospital.service;
 
+import com.xczhihui.medical.hospital.model.MedicalHospital;
+import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 
 /**
@@ -24,4 +26,31 @@ public interface IMedicalHospitalApplyService {
      * @return 医师入驻申请信息
      */
     MedicalHospitalApply getLastOne(String userId);
+    
+    /**
+     * Description：根据用户信息得到医师信息在得到医馆信息
+     * @param userId
+     * @return
+     * @return MedicalHospitalAccount
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    MedicalHospital getMedicalHospitalByMiddleUserId(String userId);
+    
+    /**
+     * Description：根据用户信息直接得到医馆信息
+     * @param userId
+     * @return
+     * @return MedicalHospitalAccount
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    MedicalHospital getMedicalHospitalByUserId(String userId);
+    
+    /**
+     * Description：通过用户信息直接得到医馆信息
+     * @param userId
+     * @return
+     * @return MedicalHospitalAccount
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+    MedicalHospitalAccount getByUserId(String userId);
 }

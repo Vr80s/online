@@ -16,6 +16,7 @@ import com.xczh.consumer.market.utils.*;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;

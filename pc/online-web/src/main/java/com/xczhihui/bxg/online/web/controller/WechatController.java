@@ -14,6 +14,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +63,8 @@ public class WechatController {
 
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private OrderPayService orderPayService;
 	@Autowired
 	private WechatService wechatService;
 	@Autowired
@@ -397,7 +401,8 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderService.addPaySuccess(out_trade_no,1,transaction_id);
+								orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY.getCode(),transaction_id);
+//								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
 								//为购买用户发送购买成功的消息通知
@@ -457,36 +462,6 @@ public class WechatController {
 					}
 				}
 				if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
-//					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
-//					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
-//					if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null 
-//							&& !"".equals(transaction_id.trim())) {
-//						String s = "out_trade_no="+out_trade_no+"&result_code=SUCCESS"+"&transaction_id="+transaction_id+"&KEY="+OnlineConfig.API_KEY;
-//						String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-//						
-//						String resXml = 
-//								"<xml>"
-//										+ "<out_trade_no><![CDATA["+out_trade_no+"]]></out_trade_no>"
-//										+ "<result_code><![CDATA[SUCCESS]]></result_code>"
-//										+ "<transaction_id><![CDATA["+transaction_id+"]]></transaction_id>"
-//										+ "<sign><![CDATA["+mysign+"]]></sign>"
-//										+ " </xml> ";
-//						
-//						URL url = new URL(weburl+"/web/weixin_pay_notify");
-//						HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-//						urlConn.setRequestProperty("Content-type", "application/xml");
-//						urlConn.setRequestMethod("POST");
-//						urlConn.setConnectTimeout(15000);// （单位：毫秒）jdk
-//						urlConn.setReadTimeout(15000);// （单位：毫秒）jdk 1.5换成这个,读操作超时
-//						urlConn.setDoOutput(true);
-//						byte[] b = resXml.toString().getBytes();
-//						urlConn.getOutputStream().write(b, 0, b.length);
-//						urlConn.getOutputStream().flush();
-//						urlConn.getOutputStream().close();
-//						urlConn.getInputStream();
-//					} else {
-//						logger.error("微信分销系统回调接口，参数错误！！！");
-//					}
 					String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
 					String transaction_id = String.valueOf(packageParams.get("transaction_id"));
 					//新启线程，处理支付成功
@@ -497,7 +472,8 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderService.addPaySuccess(out_trade_no,1,transaction_id);
+								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY.getCode(),transaction_id);
+//								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
 								//为购买用户发送购买成功的消息通知
@@ -561,7 +537,8 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderService.addPaySuccess(out_trade_no,1,transaction_id);
+								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY.getCode(),transaction_id);
+//								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
 								//为购买用户发送购买成功的消息通知

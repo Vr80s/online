@@ -159,4 +159,5 @@
 	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyServiceImpl"  timeout="5000" />
 	<!--主播课程-->
 	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"  timeout="5000" />
+
 </beans>
