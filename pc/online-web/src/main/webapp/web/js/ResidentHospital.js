@@ -258,6 +258,16 @@ $('#hos_renzhneg_inf').click(function(){
 //	})
 
 
+//获取医疗领域数据
+RequestService("/medical/hospital/getFields/0", "get", null, function(data) {
+				console.log(data);
+//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			$('#areaList').html(template('areaTpl', {item:data.resultObject.records}));
+			})
+
+
+
+
 
 //医馆基础信息上传图片调用的接口
 function picUpdown(baseurl,imgname){
@@ -327,7 +337,7 @@ function picUpdown2(baseurl,imgname){
 //医馆科室选择生成对应的数组
 	var arr = [];
 	var keshiStr;
-	$('.hos_base_inf .keshi ul li').click(function(){
+	$('#hos_Administration .hos_base_inf ').on('click','#areaList>li',function(){
 		if($(this).hasClass('keshiColor')){
 		//删除第二次选中的
 			for(var i = 0 ;i < arr.length; i++){

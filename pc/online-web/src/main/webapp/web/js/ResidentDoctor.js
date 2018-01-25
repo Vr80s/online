@@ -204,6 +204,12 @@ $(".btn-upload").click(function(evt) {
 	})
 
 
+
+
+
+
+
+
 //问答下拉列表功能
 $('.wenda').click(function(){
 	$('.wenda_list').slideToggle();
@@ -230,6 +236,17 @@ $('#doctor_in_inf .news_nav ul li a').click(function(){
 	$(this).children('span').addClass('color');
 	
 })
+
+
+//获取科室内容渲染页面
+RequestService("/medical/doctor/apply/listDepartment/0", "get", null, function(data) {
+				console.log(data);
+//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			$('#keshiList').html(template('keshiTpl', {item:data.resultObject.records}));
+			})
+
+
+
 
 //上传图片调用的接口
 function picUpdown(baseurl,imgname){
