@@ -34,9 +34,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 	@Value("${rate}")
     private int rate;
 	
-	/* (non-Javadoc)
-	 * @see com.xczhihui.bxg.online.web.service.EnchashmentService#enchashmentApplicationList(java.lang.Integer, java.lang.Integer)
-	 */
+
 	@Override
 	public Page<EnchashmentApplication> enchashmentApplicationList(String userId,Integer pageNumber, Integer pageSize) {
 		
@@ -70,9 +68,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		return pageList;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.xczhihui.bxg.online.web.service.EnchashmentService#saveEnchashmentApplication(com.xczhihui.bxg.online.web.po.EnchashmentApplication)
-	 */
+
 	@Override
 	public void saveEnchashmentApplication(EnchashmentApplication ea) {
 		if(ea.getRealName()==null|| "".equals(ea.getRealName().trim())){
@@ -107,17 +103,13 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		userCoinService.updateBalanceForEnchashment(ucc);//此处为暂时扣除，若申请被驳回则余额再加回
 	}
 
-	/* (non-Javadoc)
-	 * @see com.xczhihui.bxg.online.web.service.EnchashmentService#enableEnchashmentBalance(java.lang.String)
-	 */
+
 	@Override
 	public String enableEnchashmentBalance(String userId) {
 		return userCoinService.getEnableEnchashmentBalance(userId).setScale(0, RoundingMode.DOWN).toString();//可提现熊猫币取整
 	}
 	
-	/* (non-Javadoc)
-	 * @see com.xczhihui.bxg.online.web.service.EnchashmentService#enableEnchashmentBalance(java.lang.String)
-	 */
+
 	@Override
 	public Double enableEnchashmentRmbBalance(String userId) {
 		BigDecimal eeb = userCoinService.getEnableEnchashmentBalance(userId);
@@ -125,9 +117,7 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		return eeb.doubleValue();
 	}
 
-	/* (non-Javadoc)
-	 * @see com.xczhihui.bxg.online.api.service.EnchashmentService#getEnableEnchashmentData(java.lang.String)
-	 */
+
 	@Override
 	public Map<String, Object> getEnableEnchashmentData(String userId) {
 		Apply apply = dao.findOneEntitiyByProperty(Apply.class, "userId", userId);
@@ -137,7 +127,6 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 			name = apply.getRealName();
 		}
 		Double eeb = enableEnchashmentRmbBalance(userId);
-//		eeb = eeb.divide(new BigDecimal(rate), 2,RoundingMode.DOWN);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", name);
 		map.put("phone", ou.getLoginName());

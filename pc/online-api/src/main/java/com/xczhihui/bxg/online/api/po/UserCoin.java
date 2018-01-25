@@ -20,7 +20,7 @@ import javax.persistence.Table;
  * Create Time: 2017年9月11日<br>
  */
 @Entity
-@Table(name = "user_coin", catalog = "online")
+@Table(name = "user_coin")
 public class UserCoin implements java.io.Serializable {
 	
 	/**
@@ -34,6 +34,7 @@ public class UserCoin implements java.io.Serializable {
 	private BigDecimal balance;
 	private BigDecimal balanceGive;
 	private BigDecimal balanceRewardGift;
+	private BigDecimal rmb;
 	private String version;
 	private Date createTime;
 	private Date updateTime;
@@ -71,6 +72,14 @@ public class UserCoin implements java.io.Serializable {
 		this.status = status;
 		this.deleted = deleted;
 		this.remark = remark;
+	}
+
+	public BigDecimal getRmb() {
+		return rmb;
+	}
+
+	public void setRmb(BigDecimal rmb) {
+		this.rmb = rmb;
 	}
 
 	// Property accessors

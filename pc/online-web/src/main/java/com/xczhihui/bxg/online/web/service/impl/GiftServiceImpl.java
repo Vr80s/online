@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +32,15 @@ public class GiftServiceImpl implements GiftService {
 	@Autowired
 	private OnlineUserCenterService onlineUserCenterService;
 
-	/* (non-Javadoc)
-	 * @see com.xczhihui.bxg.online.web.service.GiftService#addGiftStatement(com.xczhihui.bxg.online.common.domain.GiftStatement)
-	 */
 	@Override
 	public Map<String,Object> addGiftStatement(GiftStatement giftStatement){
 		if(giftStatement.getCount()<1){
 			throw new RuntimeException("送礼物数量最少为1！");
 		}
-		
+		if(StringUtils.isBlank(giftStatement.getGiftId())){
+			throw new RuntimeException("礼物id不为空！");
+		}
+
 		DetachedCriteria dc = DetachedCriteria.forClass(Gift.class);
 		dc.add(Restrictions.eq("isDelete", false));
 		dc.add(Restrictions.eq("id", Integer.valueOf(giftStatement.getGiftId())));
@@ -55,14 +56,13 @@ public class GiftServiceImpl implements GiftService {
 		giftStatement.setGiftImg(gift.getSmallimgPath());
 		giftDao.addGiftStatement(giftStatement);
 		
-		if(gift.getPrice()>0)
-//			throw new RuntimeException("");
-        {
-            userCoinService.updateBalanceForGift(giftStatement, gift);//扣除用户相应的代币数量,主播增加相应代币
+		if(gift.getPrice()>0){
+			//扣除用户相应的代币数量,主播增加相应代币
+            userCoinService.updateBalanceForGift(giftStatement, gift);
         }
 		OnlineUser u = onlineUserCenterService.getUser(giftStatement.getGiver());
 		if(u==null) {
-            throw new RuntimeException(giftStatement.getGiver() + "--用户不存在");//20171227-yuxin
+            throw new RuntimeException(giftStatement.getGiver() + "--用户不存在");
         }
 		GiftStatement gs = new GiftStatement();
 		try {
@@ -100,17 +100,11 @@ public class GiftServiceImpl implements GiftService {
 		return map;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.xczhihui.bxg.online.web.service.GiftService#getGift()
-	 */
 	@Override
 	public List<Gift> getGift() {
 		return giftDao.getGift();
 	}
 
-    /* (non-Javadoc)
-     * @see com.xczhihui.bxg.online.web.service.GiftService#findByUserId(java.lang.String)
-     */
     @Override
     public int findByUserId(String userId) {
         return giftDao.findByUserId(userId);
