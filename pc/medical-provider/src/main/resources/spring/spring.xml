@@ -41,4 +41,8 @@
     <dubbo:service interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" ref="medicalHospitalApplyServiceImpl" timeout="${dubbo.consumer.timeout}" />
     <!--主播课程-->
     <dubbo:service interface="com.xczhihui.medical.anchor.service.ICourseApplyService" ref="courseApplyServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
+    <!--医师医馆公共服务-->
+    <dubbo:service interface="com.xczhihui.medical.common.service.ICommonService" ref="commonServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
 </beans>

@@ -10,6 +10,9 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
+import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
+import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
+import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,10 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private MedicalDepartmentMapper medicalDepartmentMapper;
     @Autowired
     private MedicalDoctorAccountMapper doctorAccountMapper;
+    @Autowired
+    private MedicalHospitalAccountMapper hospitalAccountMapper;
+    @Autowired
+    private MedicalHospitalMapper medicalHospitalMapper;
 
     /**
      * 添加医师入驻申请信息
@@ -49,9 +56,19 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 参数校验
         this.validate(target);
 
-        // 如果该用户已经是医师
+        // 如果该用户已经是认证医师
         if(doctorAccountMapper.getByUserId(target.getUserId()) != null){
             throw new RuntimeException("您已经是医师，不能再申请认证");
+        }
+
+        // 如果该用户已经有认证医馆
+        MedicalHospitalAccount hospitalAccount =
+                hospitalAccountMapper.getByUserId(target.getUserId());
+        if(hospitalAccount != null){
+            // 判断医馆是否认证
+            if(medicalHospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())){
+                throw new RuntimeException("您已经有认证医馆, 不能再申请认证");
+            }
         }
 
         MedicalDoctorApply oldApply = this.getLastOne(target.getUserId());

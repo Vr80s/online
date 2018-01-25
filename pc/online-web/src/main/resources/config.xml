@@ -140,6 +140,8 @@
 	<dubbo:reference interface="com.xczhihui.medical.department.service.IMedicalDepartmentService" id="medicalDepartmentService" timeout="${dubbo.consumer.timeout}" />
 	<!--医馆入驻-->
 	<dubbo:reference interface="com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService" id="medicalHospitalApplyService" timeout="${dubbo.consumer.timeout}" />
+	<!--医师医馆公共服务-->
+	<dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonService" timeout="${dubbo.consumer.timeout}" />
 
 	<!--医馆主播课程-->
 	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl" timeout="${dubbo.consumer.timeout}" />
