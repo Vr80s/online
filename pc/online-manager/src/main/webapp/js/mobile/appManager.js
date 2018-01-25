@@ -214,6 +214,7 @@ function updateStatus(obj,status){
 	});
 };
 
+
 //图片上传统一上传到附件中心---- 修改  列表页
 $("#addMobileBanner-form").on("change","#imgPath_file",function(){
 	var ys_name = "";

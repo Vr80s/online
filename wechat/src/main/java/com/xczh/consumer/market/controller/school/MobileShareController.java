@@ -17,9 +17,9 @@ import java.util.Map;
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
  * Description: <br>默认关键字与热门搜索
- * Create by: name：yangxuan <br>
- * email: 15936216273@163.com <br>
- * Create Time: 2017年8月11日<br>
+ * Create by: name：wangyishuai <br>
+ * email: 15210815880@163.com <br>
+ * Create Time: 2018年1月16日<br>
  */
 @Controller
 @RequestMapping("/xczh/share")
@@ -37,17 +37,27 @@ public class MobileShareController {
 	 */
 	@RequestMapping("courseShare")
 	@ResponseBody
-	public ResponseObject courseShare(@RequestParam(value="courseId")Integer courseId)throws Exception{
+	public ResponseObject courseShare(@RequestParam(value="shareId")String shareId,@RequestParam(value="shareType")Integer shareType)throws Exception{
 		try {
-			CourseLecturVo courseLectur = onlineCourseService.courseShare(courseId);
-			if(courseLectur.getDescription()!=null){
-				String description = courseLectur.getDescription();
-				description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
-				courseLectur.setDescription(description);
+			if(shareType==1){
+				CourseLecturVo courseLectur = onlineCourseService.courseShare(Integer.parseInt(shareId));
+				if(courseLectur.getDescription()!=null){
+					String description = courseLectur.getDescription();
+					description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+					courseLectur.setDescription(description);
+				}
+				courseLectur.setLink(returnOpenidUri+"/course_details.html?courseId="+Integer.parseInt(shareId));
+				return ResponseObject.newSuccessResponseObject(courseLectur);
+			}else {
+				LecturVo lectur = onlineCourseService.lectureShare(shareId);
+				if(lectur.getDescription()!=null){
+					String description = lectur.getDescription();
+					description = com.xczh.consumer.market.utils.StringUtils.delHTMLTag(description);
+					lectur.setDescription(description);
+				}
+				lectur.setLink(returnOpenidUri+"/speaker.html?lecturerId="+shareId);
+				return ResponseObject.newSuccessResponseObject(lectur);
 			}
-			courseLectur.setLink(returnOpenidUri+"/course_details.html?courseId="+courseId);
-
-			return ResponseObject.newSuccessResponseObject(courseLectur);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("请求有误");

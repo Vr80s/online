@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,8 +51,11 @@ public class LinkAddressController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "upload")
-	public void upload(HttpServletRequest request,HttpServletResponse res,
+	@ResponseBody
+	public Map<String,Object> upload(HttpServletRequest request,HttpServletResponse res,
 			@RequestParam("file") MultipartFile file) throws Exception {
+		
+		Map<String,Object> map = new HashMap<String,Object>();
 		
 		System.out.println("request.getServletContext().getRealPath"+request.getServletContext().getRealPath("/template/"));
 	    ///WEB-INF/template
@@ -73,11 +77,16 @@ public class LinkAddressController {
             }
             //将上传文件保存到一个目标文件当中
             file.transferTo(new File(filePath + File.separator + filename));
-            //return ResponseObject.newSuccessResponseObject("上传成功");
+            
+            map.put("error", "0");
+            
+            return map;
         } else {
-        	//return ResponseObject.newErrorResponseObject("上传失败");
+        	map.put("error", "1");
+        	map.put("error", "上传失败");
+        	return map;
         }
-        res.sendRedirect("http://localhost:28080/home#/operate/mobileBanner/index");
+        //res.sendRedirect("http://localhost:28080/home#/operate/mobileBanner/index");
 	}
 	
 	@RequestMapping(value="/download")

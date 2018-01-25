@@ -14,4 +14,5 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
  */
 public interface IMedicalHospitalAccountService extends IService<MedicalHospitalAccount> {
 	
+	
 }

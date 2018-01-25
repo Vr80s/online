@@ -515,4 +515,16 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		//System.out.println(list.size());
 
 	}
+
+
+	@Override
+	public List<PayRecordVo> findUserWallet(Integer pageNumber,
+			Integer pageSize, String userId) {
+		try {
+			return payRecordMapper.findUserWallet(userId,pageNumber,pageSize);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
 }

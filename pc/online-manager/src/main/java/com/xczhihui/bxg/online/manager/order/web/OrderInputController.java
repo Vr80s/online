@@ -96,8 +96,8 @@ public class OrderInputController{
 		//生成用户
 		service.addUser(vo.getLogin_name());
 		//生成订单
-		String order_no = service.addOrder(vo);
-		this.docallback(order_no);
+		service.addOrder(vo);
+//		this.docallback(order_no);
 		return ResponseObject.newSuccessResponseObject(null);
 	}
 	
@@ -126,12 +126,15 @@ public class OrderInputController{
 				row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
 				v.setOrder_from(Integer.valueOf(row.getCell(3).getStringCellValue()));
 				service.checkOrderInput(v);
+				v.setCreate_person(UserLoginUtil.getLoginUser(req).getId());
 				lv.add(v);
 			}
 			for(OrderInputVo ov : lv){
-				this.add(ov, req);
+//				this.add(ov, req);
+				service.addUser(ov.getLogin_name());
 				Thread.sleep(100);
 			}
+			service.addOrders(lv);
 			book.close();
 			Gson g = new GsonBuilder().create();
 			res.setCharacterEncoding("utf-8");
@@ -148,7 +151,6 @@ public class OrderInputController{
 	
 	private void docallback(String order_no) throws Exception{
 		//生成课程
-//		String s = "out_trade_no="+order_no+"&result_code=SUCCESS&key="+OnlineConfig.API_KEY;
 		String s = "out_trade_no="+order_no+"&result_code=SUCCESS&key="+OnlineConfig.WECHAT_API_KEY;
 		String mysign = CodeUtil.MD5Encode(s).toLowerCase();
 		

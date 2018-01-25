@@ -75,6 +75,7 @@ textarea::-webkit-input-placeholder {
 	height: 100%;
 	display: block;
 }
+/*视频暂未开播*/
 .play_video{
 	width: 100%;
 	height: 4.24rem;
@@ -95,6 +96,22 @@ left: 50%;
 top: 50%;
 margin-left: -0.88rem;
 margin-top: -0.28rem;
+}
+/*视频开播*/
+.video_prompt_open{
+	width: 1.2rem;
+	height: 1.2rem;	
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	border-radius: 50%;
+	margin-left: -0.6rem;
+	margin-top: -0.6rem;
+	overflow: hidden;
+}
+.video_prompt_open img{
+	width: 100%;
+	height: 100%;
 }
 .speak_people{
 	width: 100%;
@@ -128,13 +145,17 @@ padding-bottom: 0.17rem;
 	float: left;
 }
 .grade_pic li img{
-	width: 0.1rem;
-	width: 0.31rem;
+
+	width: 1.6rem;
 }
 .grade_num li{
 	float: left;
 	font-size: 0.24rem;
 color: #999999;
+}
+.grade_num li a{
+color: #999999;
+	
 }
 .grade_num img{
 	width: 0.15rem;
@@ -181,7 +202,7 @@ color: #999999;
 .playTime li:nth-last-child(1){
 	float: right;
 }
-/*详情*/
+/*详情开始*/
 .my_details{
 	margin-top: 0.2rem;
 	padding: 0.2rem 0;
@@ -195,7 +216,7 @@ color: #999999;
 	width: 100%;
 	background: white;
 	overflow: hidden;
-	padding-top: 0.4rem;
+	padding-top: 0.2rem;
 }
 .my_synopsis{
 	width: 2.36rem;
@@ -217,121 +238,142 @@ color: #999999;
 	margin: 0 0.3rem;
 }
 /*内容*/
-.container{margin: 0 auto;width: 100%;}
-.wrap{position: relative;padding: 0.26rem;overflow: hidden; background: white;}
-.gradient{width: 100%;height: 0.35rem;background: url() repeat-x;position: absolute;bottom: 0;left: 0;}
-.read-more{padding: 5px;background: #fff;color: #333;position: relative;}
-.read-more a{
-	padding-right: 0.22rem;background: url() no-repeat 100% 50%;
-
-	text-decoration: none;
+.wrap{
+	width: 100%;
+	background: white;
+	clear: both;
+	padding: 0 0.26rem;
+	box-sizing: border-box;
+	position: relative;
+	text-align: justify;
+	padding-top: 0.1rem;
+}
+.zhezhao{
+	width: 100%;
+	height: 1rem;
 	position: absolute;
-	font-size: 0.26rem; 
+	bottom: 0;
+	left: 0;
+}
+.zhezhao img{
+	width: 100%;
+	height: 100%;
+}
+.pp{
+	overflow: hidden;
+	height: 2rem;
+}
+.btn{
+	    text-align: center;
+    background: white;
+	padding-bottom: 0.2rem;
+	border-bottom: 0.01rem solid #D8DDE6;
+}
+.btn a{
+	display:inline-block;
+	margin: 0 auto;
 	color: #666666;
-	    left: 50%;
-    margin-left: -0.6rem;
-    top: -0.3rem;
-	}
-.read-more a: hover{color: #000;}
-.all_content{
-	color: #575757;
-	letter-spacing: 0.02rem;
 }
-.triangle-down-hovertree {
-    width: 0.25rem;
-    height: 0.15rem;
-    background: url(../images/top0.png) center no-repeat;
-    background-size: 100% 100%;
-    position: absolute;
-   top: -0.2rem;
-    left: 50%;
-    margin: 0;
-    margin-left: 0.6rem;
+.btn img{
+	width: 0.3rem;
+	display: inline-block;
+	margin-left: 0.1rem;
 }
-.triangle-up-hovertree {
-    width: 0.25rem;
-    height: 0.15rem;
-    background: url(../images/bot0.png) center no-repeat;
-    background-size: 100% 100%;
-    position: absolute;
-     top: -0.2rem;
-    left: 50%;
-    margin: 0;
-    margin-left: 0.6rem;
+.no_data{
+	display: none;
+	text-align: center;
+    line-height: 1.8rem;
+    border-bottom: 0.01rem solid #D8DDE6;
+    color: #a5a5a5;
+	
 }
-.hewenqiToggle {
-    height: 2.5rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: url(../images/op_bg.png);
-    background-size: 100% 100%;
+.no_data1{
+	display: none;
+	text-align: center;
+    line-height: 1.8rem;
+    border-bottom: 0.01rem solid #D8DDE6;
+    color: #a5a5a5;
 }
 /*主讲人*/
-.wrap_sayPeople{
+.wrap_speak{
+	width: 100%;
 	background: white;
-	text-align: center;
-	padding-top: 0.3rem;
-	border-top: 1px solid #D8DDE6;
+	overflow: hidden;
 }
-
-/*主讲人内容*/
-.container1{margin: 0 auto;width: 100%;}
-.wrap1{position: relative;padding: 0.26rem;overflow: hidden; background: white;}
-.gradient1{width: 100%;height: 0.35rem;background: url() repeat-x;position: absolute;bottom: 0;left: 0;}
-.read-more1{padding: 5px;background: #fff;color: #333;position: relative;}
-.read-more1 a{
-	padding-right: 0.22rem;
-	background: url() no-repeat 100% 50%;
-
-	text-decoration: none;
+.main_speak{
+	width: 2.64rem;
+	margin: 0 auto;
+	overflow: hidden;
+	padding-top: 0.2rem;
+}
+.main_speak p:nth-child(1){
+	float: left;
+	width: 0.6rem;
+	height: 0.03rem;
+	background: #D8DDE6;
+	margin-top: 0.2rem;
+}
+.main_speak p:nth-child(2){
+	float: left;
+	margin: 0 0.3rem;
+}
+.main_speak p:nth-child(3){
+	float: right;
+	width: 0.6rem;
+	height: 0.03rem;
+	background: #D8DDE6;
+	margin-top: 0.2rem;
+}
+/*内容*/
+.wrap1{
+	width: 100%;
+	background: white;
+	clear: both;
+	padding: 0 0.26rem;
+	box-sizing: border-box;
+	position: relative;
+	text-align: justify;
+	padding-top: 0.1rem;
+}
+.zhezhao1{
+	width: 100%;
+	height: 1rem;
 	position: absolute;
-	font-size: 0.26rem; 
+	bottom: 0;
+	left: 0;
+}
+.zhezhao1 img{
+	width: 100%;
+	height: 100%;
+}
+.pp1{
+	overflow: hidden;
+	height: 2rem;
+}
+.btn1{
+	    text-align: center;
+    background: white;
+	padding-bottom: 0.2rem;
+	border-bottom: 0.01rem solid #D8DDE6;
+}
+.btn1 a{
+	display:inline-block;
+	margin: 0 auto;
 	color: #666666;
-	    left: 50%;
-    margin-left: -0.6rem;
-    top: -0.3rem;
-	}
-.read-more1 a: hover{color: #000;}
-.all_content1{
-	color: #575757;
-	letter-spacing: 0.02rem;
 }
-.triangle-down-hovertree1 {
-    width: 0.25rem;
-    height: 0.15rem;
-    background: url(../images/top0.png) center no-repeat;
-    background-size: 100% 100%;
-    position: absolute;
-   top: -0.2rem;
-    left: 50%;
-    margin: 0;
-    margin-left: 0.6rem;
+.btn1 img{
+	width: 0.3rem;
+	display: inline-block;
+	margin-left: 0.1rem;
 }
-.triangle-up-hovertree1 {
-    width: 0.25rem;
-    height: 0.15rem;
-    background: url(../images/bot0.png) center no-repeat;
-    background-size: 100% 100%;
-    position: absolute;
-     top: -0.2rem;
-    left: 50%;
-    margin: 0;
-    margin-left: 0.6rem;
-}
-.hewenqiToggle1 {
-    height: 2.5rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: url(../images/op_bg.png);
-    background-size: 100% 100%;
-}
+/*详情结束*/
+
+
+
+
+
+
 /*评论*/
-
-
 .wrap_comment_title{
 	width: 100%;
 	background: white;

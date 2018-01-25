@@ -28,9 +28,9 @@ import java.util.Map;
 /**
  * 线下课控制器 ClassName: MobileRecommendController.java <br>
  * Description: <br>
- * Create by: name：yangxuan <br>
- * email: 15936216273@163.com <br>
- * Create Time: 2017年8月11日<br>
+ * Create by: name：wangyishuai <br>
+ * email: 15210815880@163.com <br>
+ * Create Time: 2018年1月16日<br>
  */
 @Controller
 @RequestMapping("/xczh/bunch")
