@@ -110,6 +110,10 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	private List<MedicalHospitalPicture> medicalHospitalPictures;
 
 	private List<MedicalField> fields;
+	
+	
+	private String versionPictures;
+	
 
 	public List<MedicalField> getFields() {
 		return fields;
@@ -295,6 +299,16 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
+	}
+
+	
+	
+	public String getVersionPictures() {
+		return versionPictures;
+	}
+
+	public void setVersionPictures(String versionPictures) {
+		this.versionPictures = versionPictures;
 	}
 
 	@Override

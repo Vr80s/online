@@ -199,18 +199,7 @@ public class MyManagerController {
 		if(user == null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		
-		
-		
-		
-		
-		
 		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber,pageSize,user.getId()));
 	}
-	
-	
-	
-	
-	
 	
 }

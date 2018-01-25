@@ -4,14 +4,16 @@ import java.io.Serializable;
 
 public class FocusVo implements Serializable{
 
+	
+	
 	private String id; 				//主键id
 	private String lecturerId;  	//老师
 	private String userId;      	//用户id 
 	private Integer courseId;   	//课程id
 	private String lecturerName;	//老师名字
 	private String userName;        //用户名字
-	private String userHeadImg;     //用户头像
-	private String lecturerHeadImg; //老师头像
+	private String smallHeadPhoto;     //用户头像
+	private String headImg; 		//老师头像  //headImg
 	
 	private String fansCount;       //粉丝数
 	private Integer isFocus;	    //是否关注  0：未关注  1:已关注
@@ -52,17 +54,18 @@ public class FocusVo implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getUserHeadImg() {
-		return userHeadImg;
+	
+	public String getSmallHeadPhoto() {
+		return smallHeadPhoto;
 	}
-	public void setUserHeadImg(String userHeadImg) {
-		this.userHeadImg = userHeadImg;
+	public void setSmallHeadPhoto(String smallHeadPhoto) {
+		this.smallHeadPhoto = smallHeadPhoto;
 	}
-	public String getLecturerHeadImg() {
-		return lecturerHeadImg;
+	public String getHeadImg() {
+		return headImg;
 	}
-	public void setLecturerHeadImg(String lecturerHeadImg) {
-		this.lecturerHeadImg = lecturerHeadImg;
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 	public String getFansCount() {
 		return fansCount;

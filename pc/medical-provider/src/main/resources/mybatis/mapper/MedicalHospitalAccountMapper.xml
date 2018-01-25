@@ -11,8 +11,8 @@
      
      <!-- 通过用户id查找得到医师id根据医师id查找医馆信息  -->
      <select id="getMedicalHospitalByMiddleUserId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
-       select * from 
-         medical_hospital where id =
+       select mh.*,(select picture from medical_hospital_picture where hospital_id = mh.id order by version limit 0,1 ) as versionPictures
+        from  medical_hospital mh where mh.id =
   			 ( select hospital_id from medical_hospital_doctor 
    	   			 where doctor_id = 
    	   			   (select doctor_id from medical_doctor_account where account_id =#{userId} ))

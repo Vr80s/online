@@ -59,7 +59,7 @@ public class CriticizeVo implements Serializable {
     private Float deductiveLevel;
   	
   	//评价标签  1.很赞 2 干货很多 3超值推荐 4喜欢 5买对了
-    private Integer criticizeLable;
+    private String criticizeLable;
     
     //总体印象
     private Float overallLevel;
@@ -223,11 +223,11 @@ public class CriticizeVo implements Serializable {
 		this.deductiveLevel = deductiveLevel;
 	}
 
-	public Integer getCriticizeLable() {
+	public String getCriticizeLable() {
 		return criticizeLable;
 	}
 
-	public void setCriticizeLable(Integer criticizeLable) {
+	public void setCriticizeLable(String criticizeLable) {
 		this.criticizeLable = criticizeLable;
 	}
 

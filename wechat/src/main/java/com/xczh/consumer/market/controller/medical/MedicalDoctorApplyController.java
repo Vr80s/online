@@ -82,5 +82,24 @@ public class MedicalDoctorApplyController {
 		}
 	}
 
+	/**
+	 * 医师认证
+	 */
+	@RequestMapping("applyStatus")
+	@ResponseBody
+	public ResponseObject addDoctorApply(HttpServletRequest req,
+					@RequestParam("userId") String userId)
+			throws Exception {
+
+		//1：医师认证 2：医馆认证 3：医师认证中 4：医馆认证中 5:医师认证被拒 6：医馆认证被拒 7：即不是医师也不是医馆
+		
+		System.out.println("userId"+userId);
+		
+		return ResponseObject.newSuccessResponseObject(1);
+	}
+	
+	
+	
+	
 	
 }
