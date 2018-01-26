@@ -1,12 +1,16 @@
 package com.xczh.consumer.market.controller.medical;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.HotSearchService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorApplyVO;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +41,12 @@ public class MedicalDoctorApplyController {
 
 	@Autowired
 	private OLAttachmentCenterService service;
+	
+	@Autowired
+	private ICommonService commonServiceImpl;
+
+	@Autowired
+	private AppBrowserService appBrowserService;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalDoctorApplyController.class);
 
@@ -45,35 +56,42 @@ public class MedicalDoctorApplyController {
 	@RequestMapping("addDoctorApply")
 	@ResponseBody
 	public ResponseObject addDoctorApply(HttpServletRequest req,
-									 HttpServletResponse res,MedicalDoctorApply medicalDoctorApply, @RequestParam("files")MultipartFile[] files)
+									 HttpServletResponse res,MedicalDoctorApply medicalDoctorApply, @RequestParam("cardPositiveFile")MultipartFile cardPositiveFile
+			, @RequestParam("cardNegativeFile")MultipartFile cardNegativeFile, @RequestParam("qualificationCertificateFile")MultipartFile qualificationCertificateFile
+			, @RequestParam("professionalCertificateFile")MultipartFile professionalCertificateFile)
 			throws Exception {
 
 		try {
-			if(files!=null&&files.length>0){
+			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+			if(user==null){
+				return ResponseObject.newErrorResponseObject("登录失效");
+			}
+			medicalDoctorApply.setUserId(user.getId());
+
 				//循环获取file数组中得文件
 				String projectName="other";
 				String fileType="1"; //图片类型了
 				//身份证正面
 				String cardPositive = service.upload(null,
-						projectName, files[0].getOriginalFilename(),files[0].getContentType(), files[0].getBytes(),fileType,null);
+						projectName, cardPositiveFile.getOriginalFilename(),cardPositiveFile.getContentType(), cardPositiveFile.getBytes(),fileType,null);
 				JSONObject cardPositiveJson = JSONObject.parseObject(cardPositive);
 				medicalDoctorApply.setCardPositive(cardPositiveJson.get("url").toString());
 				//身份证反面
 				String cardNegative = service.upload(null,
-						projectName, files[1].getOriginalFilename(),files[1].getContentType(), files[1].getBytes(),fileType,null);
+						projectName, cardNegativeFile.getOriginalFilename(),cardNegativeFile.getContentType(), cardNegativeFile.getBytes(),fileType,null);
 				JSONObject cardNegativeJson = JSONObject.parseObject(cardNegative);
 				medicalDoctorApply.setCardNegative(cardNegativeJson.get("url").toString());
 				//医师资格证
 				String qualificationCertificate = service.upload(null,
-						projectName, files[2].getOriginalFilename(),files[2].getContentType(), files[2].getBytes(),fileType,null);
+						projectName, qualificationCertificateFile.getOriginalFilename(),qualificationCertificateFile.getContentType(), qualificationCertificateFile.getBytes(),fileType,null);
 				JSONObject qualificationCertificateJson = JSONObject.parseObject(qualificationCertificate);
 				medicalDoctorApply.setQualificationCertificate(qualificationCertificateJson.get("url").toString());
 				//医师执业证书
 				String professionalCertificate = service.upload(null,
-						projectName, files[3].getOriginalFilename(),files[3].getContentType(), files[3].getBytes(),fileType,null);
+						projectName, professionalCertificateFile.getOriginalFilename(),professionalCertificateFile.getContentType(), professionalCertificateFile.getBytes(),fileType,null);
 				JSONObject professionalCertificateJson = JSONObject.parseObject(professionalCertificate);
 				medicalDoctorApply.setProfessionalCertificate(professionalCertificateJson.get("url").toString());
-			}
+
 			medicalDoctorApplyService.add(medicalDoctorApply);
 			return  ResponseObject.newSuccessResponseObject("提交成功");
 		} catch (Exception e) {
@@ -87,19 +105,14 @@ public class MedicalDoctorApplyController {
 	 */
 	@RequestMapping("applyStatus")
 	@ResponseBody
-	public ResponseObject addDoctorApply(HttpServletRequest req,
-					@RequestParam("userId") String userId)
+	public ResponseObject addDoctorApply(HttpServletRequest req)
 			throws Exception {
-
 		//1：医师认证 2：医馆认证 3：医师认证中 4：医馆认证中 5:医师认证被拒 6：医馆认证被拒 7：即不是医师也不是医馆
-		
-		System.out.println("userId"+userId);
-		
-		return ResponseObject.newSuccessResponseObject(1);
+		//System.out.println("userId"+userId);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+	    if(user==null){
+	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    }
+		return ResponseObject.newSuccessResponseObject(commonServiceImpl.isDoctorOrHospital(user.getId()));
 	}
-	
-	
-	
-	
-	
 }

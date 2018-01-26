@@ -162,7 +162,9 @@ public class CourseLecturVo implements Serializable {
 	
 	private String userLecturerId;
 	
-	private String  note; //
+	private String  note; //课程分类列表中的title
+	
+	private Integer  isLive; // 是否在一小时以内的数据
 	
 	
 	private Boolean collection;
@@ -179,8 +181,9 @@ public class CourseLecturVo implements Serializable {
 	
 	private Double startLevel; //星级
 	
-	
 	private String courseOutline; //大纲
+	
+	private String liveSourceType; //直播源类型  0:来自pc直播,1:来自app 直播
 	
 	
 	public String getUdescription() {
@@ -516,6 +519,22 @@ public class CourseLecturVo implements Serializable {
 
 	public void setCourseOutline(String courseOutline) {
 		this.courseOutline = courseOutline;
+	}
+
+	public Integer getIsLive() {
+		return isLive;
+	}
+
+	public void setIsLive(Integer isLive) {
+		this.isLive = isLive;
+	}
+
+	public String getLiveSourceType() {
+		return liveSourceType;
+	}
+
+	public void setLiveSourceType(String liveSourceType) {
+		this.liveSourceType = liveSourceType;
 	}
 	
 	

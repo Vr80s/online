@@ -1,5 +1,8 @@
 package com.xczhihui.wechat.course.mapper;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 
@@ -13,5 +16,6 @@ import com.xczhihui.wechat.course.model.OnlineUser;
  */
 public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 
-	
+
+	List<BigDecimal> selectCollegeCourseXmbNumber(String userId);
 }

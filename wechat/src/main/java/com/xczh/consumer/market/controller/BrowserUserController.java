@@ -942,10 +942,8 @@ public class BrowserUserController {
 		 */
 		String appUniqueId = req.getParameter("appUniqueId");
 		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
-			
 			//设置登录标识
 			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
-			
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
 			cacheService.set(user.getId(),ticket,TokenExpires.TenDay.getExpires());
 			//Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);

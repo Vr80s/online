@@ -59,7 +59,7 @@ public class CourseController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("details")
-	public ResponseObject categoryXCList(HttpServletRequest req,
+	public ResponseObject details(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("courseId")Integer courseId)
 			throws Exception {
@@ -80,7 +80,6 @@ public class CourseController {
 			    cv.setWatchState(0);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
-			
 	    	WatchHistory target = new WatchHistory();
 	    	target.setCourseId(courseId);
 			target.setUserId(user.getId());
