@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.UserBankMapper">
+	<resultMap type="com.xczhihui.wechat.course.model.UserBank" id="UserBankBaseResult">
+		<id column="id" property="id" />
+		<id column="user_id" property="userId" />
+		<id column="acct_name" property="acctName" />
+		<id column="cert_id" property="certId" />
+		<id column="acct_pan" property="acctPan" />
+		<id column="cert_type" property="certType" />
+		<id column="create_time" property="createTime" />
+		<id column="is_delete" property="isDelete" />
+	</resultMap>
+	<select id="selectUserBankByUserIdAndAcctPan" resultMap="UserBankBaseResult">
+		SELECT
+		  oub.*
+		FROM
+		  oe_user_bank oub
+		WHERE oub.is_delete = 0
+		<if test="userId != null and userId != ''">
+			AND oub.user_id = #{userId}
+		</if>
+		<if test="acctPan != null and acctPan != ''">
+			AND oub.acct_pan = #{acctPan}
+		</if>
+		<if test="certId != null and certId != ''">
+			AND oub.cert_id = #{certId}
+		</if>
+	</select>
+	<insert id="add">
+		INSERT INTO
+		oe_user_bank
+		(user_id, acct_name, cert_id, acct_pan, cert_type, create_time)
+		VALUES
+		(#{userBank.userId}, #{userBank.acctName}, #{userBank.certId},
+		 #{userBank.acctPan}, #{userBank.certType}, #{userBank.createTime})
+	</insert>
+</mapper>

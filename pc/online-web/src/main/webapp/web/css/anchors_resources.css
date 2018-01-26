@@ -521,6 +521,46 @@
 
 
 /*医馆页面*/
+#hosChoose{
+	width: 400px;
+	height: 300px;
+	padding-left: 50px;
+	padding-top: 80px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: 9999;
+	background-color: #fff;
+	
+}
+#hosChoose .hosChooseTip{
+	font-size: 16px;
+	font-weight: 700;
+	text-align: left;
+}
+#hospital_bottom  #hosChoose .sureChoosehos{
+	display: inline-block;
+    width: 80px;
+    height: 34px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+    vertical-align: top;
+}
+#hospital_bottom .hosContantTel .hosTel{
+	 width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+    font-size: 14px;
+}
 .contentWrap #hospital .zhuanlan_top{
 	height: 60px;
 	line-height: 60px;
@@ -584,10 +624,28 @@
 .contentWrap #hospital .zhuanlan_bottom {
 	padding: 30px 20px;
 }
-.contentWrap #hospital .zhuanlan_bottom form > div {
+.contentWrap #hospital .zhuanlan_bottom  > div {
 	margin-bottom: 20px;
 }
-.contentWrap #hospital .zhuanlan_bottom form > div >span:first-child{
+.contentWrap #hospital .zhuanlan_bottom .hos_fengmian .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    background-color: #f0f0f0;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+.contentWrap #hospital .zhuanlan_bottom .hos_fengmian .fengmian_pic img{
+	width: 100%;
+	height: 100%;
+}
+.contentWrap #hospital .zhuanlan_bottom .hos_fengmian .fengmian_tip{
+	display: inline-block;
+    width: 159px;
+    height: 48px;
+    color: #999;
+}
+.contentWrap #hospital .zhuanlan_bottom  > div >span:first-child{
 	display: inline-block;
 	width: 89px;
 	text-align: right;
@@ -596,11 +654,11 @@
 	line-height: 19px;
 	margin-right: 20px;
 }
-.contentWrap #hospital .zhuanlan_bottom form > div >span:first-child > em{
+.contentWrap #hospital .zhuanlan_bottom  > div >span:first-child > em{
 	color: #f40;
 	display: inline;
 }
-.contentWrap #hospital .zhuanlan_bottom form .zhuanlan_title{
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title{
 	width: 280px;
 	height: 36px;
 	border: 1px solid #F0F0F0;
@@ -609,17 +667,17 @@
 	margin-right: 10px;
 	font-size: 14px;
 }
-.contentWrap #hospital .zhuanlan_bottom form .chooseHospital span{
+.contentWrap #hospital .zhuanlan_bottom  .chooseHospital span{
 	font-size: 14px;
 }
-.contentWrap #hospital .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
-.contentWrap #hospital .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
-.contentWrap #hospital.zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
-.contentWrap #hospital .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title::-webkit-input-placeholder,
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title:-moz-placeholder,
+.contentWrap #hospital.zhuanlan_bottom  .zhuanlan_title::-moz-placeholder,
+.contentWrap #hospital .zhuanlan_bottom  .zhuanlan_title:-ms-input-placeholder {
 	font-size: 14px;
 }
 
-.contentWrap #hospital .zhuanlan_bottom form  .hospital_address select{
+.contentWrap #hospital .zhuanlan_bottom   .hospital_address select{
 	width: 240px;
 	height: 36px;
 	border: 1px solid #F0F0F0;
@@ -627,7 +685,7 @@
 	font-size: 14px;
 	color: #999;
 }
-.contentWrap #hospital .zhuanlan_bottom form  .hospital_address textarea{
+.contentWrap #hospital .zhuanlan_bottom   .hospital_address textarea{
 	display: block;
 	width: 499px;
 	height: 90px;
@@ -639,11 +697,11 @@
     font-size: 14px;
 	color: #999;
 }
-.contentWrap #hospital .zhuanlan_bottom form .hospital_worktime ul{
+.contentWrap #hospital .zhuanlan_bottom  .hospital_worktime ul{
 	display: inline-block;
 	vertical-align: middle;
 }
-.contentWrap #hospital .zhuanlan_bottom form .hospital_worktime li {
+.contentWrap #hospital .zhuanlan_bottom  .hospital_worktime li {
 	float: left;
 	width: 92px;
 	height: 36px;
@@ -653,13 +711,13 @@
 	text-align: center;
 	line-height: 36px;
 }
-.contentWrap #hospital .zhuanlan_bottom form .hospital_worktime li:hover{
+.contentWrap #hospital .zhuanlan_bottom  .hospital_worktime li:hover{
 	cursor: pointer;
 }
 /*.contentWrap #hospital .zhuanlan_bottom form #resourceType label input{
 	vertical-align: sub;
 }*/
-.contentWrap #hospital .zhuanlan_bottom form .baocun #submit{
+.contentWrap #hospital .zhuanlan_bottom  .baocun #submit{
 	display: inline-block;
 	width: 120px;
 	height: 36px;
@@ -671,7 +729,7 @@
     font-size: 14px;
     margin-right: 20px;
 }
-.contentWrap #hospital .zhuanlan_bottom form .baocun #save{
+.contentWrap #hospital .zhuanlan_bottom  .baocun #save{
 	display: inline-block;
 	width: 120px;
 	height: 36px;
@@ -682,7 +740,7 @@
 	color: #00BC12;
     font-size: 14px;
 }
-.contentWrap #hospital .zhuanlan_bottom form .baocun{
+.contentWrap #hospital .zhuanlan_bottom  .baocun{
 	padding-left:120px ;
 }
 .warning{

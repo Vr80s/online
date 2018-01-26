@@ -545,5 +545,43 @@
     </div>
 </div>
 
+<div id="dialogEditCourseDiv"></div>
+<div id="EditCourseDialog" class="hide">
+	<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
+		<input type="hidden" id="id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
+		<div class="form-group" style="margin-top: 18px;">
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>主播: </label>
+			<div class="col-sm-6">
+				<input type="text" name="courseName"  id="name" maxlength="20" readonly="readonly" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
+			</div>
+		</div>
+
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>点播课: </label>
+			<div class="col-sm-6">
+				<input type="text" name="vodDivide"  id="vod" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right"><font color="red">*</font>直播课: </label>
+			<div class="col-sm-6">
+				<input type="text" name="liveDivide"  id="live" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>线下课: </label>
+			<div class="col-sm-6">
+				<input type="text" name="offlineDivide"  id="offline" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>礼物: </label>
+			<div class="col-sm-6">
+				<input type="text" name="giftDivide"  id="gift" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0.00,100.00]}">
+			</div>
+		</div>
+
+	</form>
+</div>
 
 <script type="text/javascript" src="${base}/js/anchor/courseAnchor.js?v=ipandatcm_1.3"></script>
