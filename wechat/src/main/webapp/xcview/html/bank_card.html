@@ -13,6 +13,15 @@
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+
+<script type="text/javascript" src="../js/common/data.city.js"></script> <!--银行卡选择-->
+<script type="text/javascript" src="../js/common/mui.picker.min.js"></script><!--银行卡选择-->
+
+<link rel="stylesheet" href="../css/mui.css" /><!--银行卡选择-->
+<link rel="stylesheet" href="../css/choice.css" /><!--银行卡选择-->
+
+
 <link rel="stylesheet" href="../css/bank_card.css" />
 
 
@@ -38,19 +47,19 @@
 		<div class="bank_card_hint">请绑定持卡人本人的银行卡</div>
 		<div class="bank_card_one">
 			<div class="cardholder">
-				持卡人<input type="text"  />
+				持卡人<input type="text" class="input0" />
 			</div>
 			<div class="cardholder">
-				卡号<input type="number" style="margin-left: 0.68rem;" />
+				卡号<input type="number" style="margin-left: 0.68rem;" class="input1" />
 			</div>
 		</div>
 		
 		<div class="bank_card_two">
-			<div class="cardholders">
-				卡类型<span>请选择银行卡类型</span>
+			<div class="cardholders cardholders_one">
+				卡类型<span class="r-tx-txt2 r-tx-txt2s fl" id="city_text2">请选择银行卡类型</span>
 			</div>
 			<div class="cardholders">
-				身份证号<input type="number" style="margin-left: 0.14rem;" />
+				身份证号<input type="number" style="margin-left: 0.14rem;" class="input2" />
 			</div>
 		</div>
 		
@@ -70,7 +79,6 @@
 		</div>
 	</div>
 	<!--是否放弃添加银行卡结束-->
-	
 </body>
 
 <script>
@@ -86,22 +94,59 @@
 <script type="text/javascript">
 	window.onload = function(){
 //		input有值时改变按钮透明度
-		$(".cardholder input").keyup(function(){
+		$('.input0').keyup(function(){
+			
+			if($('.input0').val().length<=0){
+	           	$(".next_step").css("opacity","0.3");
+	           	
+	       }else{
+	        	$(".next_step").css("opacity","1");
+	        }
+		});
+		
+		$('.input1').keyup(function(){
+			
+			if($('.input1').val().length<=0){
+	           	$(".next_step").css("opacity","0.3");
+	           	
+	       }else{
+	        	$(".next_step").css("opacity","1");
+	        }
+		});
+		
+		$('.input2').keyup(function(){
+			
+			if($('.input2').val().length<=0){
+	           	$(".next_step").css("opacity","0.3");
+	           	
+	       }else{
+	        	$(".next_step").css("opacity","1");
+	        }
+		});
+		
+		
+		/*$('.cardholder').keyup('input propertychange', function(){
+			
 			if($('.cardholder input').val().length<=0){
 	           	$(".next_step").css("opacity","0.3");
 	           	
 	       }else{
 	        	$(".next_step").css("opacity","1");
 	        }
+	
 		});
-		$(".cardholders input").keyup(function(){
+		
+		$('.cardholders').keyup('input propertychange', function(){
+			
 			if($('.cardholders input').val().length<=0){
 	           	$(".next_step").css("opacity","0.3");
 	           	
-	       }else{
+	       	}else{
 	        	$(".next_step").css("opacity","1");
-	        }
-		});
+	       	}
+	
+		});*/
+		
 		
 //		点击头部返回按钮
 		$(".header_img").click(function(){
@@ -110,18 +155,34 @@
 		
 //		点击添加银行卡选择是否
 		$(".yes_bank_card_main_btn .no").click(function(){
-		 	
-		});
-		$(".yes_bank_card_main_btn .yes").click(function(){
 		 	$(".yes_bank_card").hide();
 		});
+		$(".yes_bank_card_main_btn .yes").click(function(){
+//		 	$(".yes_bank_card").hide();
+		});
 		
 		
-		$(".cardholders").click(function(){
+		$(".cardholders_one").click(function(){
 		 	$(".cardholders span").html("请选择银行卡");
 		});
 		
 	};
+</script>
+
+
+<script>
+	
+	//选择省
+	var city_picker2 = new mui.PopPicker({layer:1});
+	city_picker2.setData(init_city_picker);
+	$("#city_text2").on("tap", function(){
+		setTimeout(function(){
+			city_picker2.show(function(items){
+				$("#city_id2").val((items[0] || {}).value);
+				$("#city_text2").html((items[0] || {}).text);
+			});
+		},200);
+	});
 </script>
 
 </html>

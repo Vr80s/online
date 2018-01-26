@@ -9,6 +9,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
+import com.xczhihui.medical.common.service.ICommonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
@@ -24,6 +25,8 @@ import java.util.Base64;
 @RequestMapping("/medical/common")
 public class CommonController {
 
+    @Autowired
+    private ICommonService commonService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -56,6 +59,25 @@ public class CommonController {
                 null);
 
         return ResponseObject.newSuccessResponseObject(attachment.getUrl());
+
+    }
+
+    /**
+     * 判断用户是医师还是医馆
+     */
+    @RequestMapping(value = "/isDoctorOrHospital", method = RequestMethod.POST)
+    public ResponseObject isDoctorOrHospital(HttpServletRequest request, String userId) throws ServletRequestBindingException, IOException {
+
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+
+        Integer result = commonService.isDoctorOrHospital(currentUser.getUid());
+
+        return ResponseObject.newSuccessResponseObject(result);
 
     }
 

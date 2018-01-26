@@ -240,8 +240,8 @@
 							
 							<div class="keshi">
 								<span><em>*</em>科室</span>
-								<ul>
-									<li>中医内科</li>
+								<ul id="keshiList">
+									<!--<li>中医内科</li>
 									<li>中医内科</li>
 									<li>妇科</li>
 									<li>儿科</li>
@@ -250,7 +250,7 @@
 									<li>心脏病</li>
 									<li>癌症</li>
 									<li>绝症</li>
-									<li>肝病</li>
+									<li>肝病</li>-->
 								</ul>
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
 							</div>
@@ -342,6 +342,16 @@
 
 </body>
 </html>
+
+
+<!--科室模板-->
+<script type="text/template" id="keshiTpl">
+	{{each item as item i}}
+		<li>{{item.name}}</li>
+	{{/each}}
+</script>
+
+
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
 <script type="text/javascript" src="/web/js/cropbox.js"></script>

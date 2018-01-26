@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 
+
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
@@ -52,17 +53,12 @@ public class CriticizeServiceImpl implements CriticizeService {
 		videoDao.saveNewCriticize(cv);
 	}
 
-	@Override
-	public Page<CriticizeVo> getVideoCriticize(String videoId, String name,
-			Integer pageNumber, Integer pageSize) {
-		return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize);
-	}
 
 	@Override
-	public Page<Criticize> getUserCriticize(String userId, String courseId,
-			Integer pageNumber, Integer pageSize) {
+	public Page<Criticize> getUserCriticize(String teacherId, String courseId,
+			Integer pageNumber, Integer pageSize,String userId) {
 		//return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize);
-		return videoDao.getUserCriticize(userId,courseId,pageNumber,pageSize);
+		return videoDao.getUserCriticize(teacherId,courseId,pageNumber,pageSize,userId);
 	}
 	
 	
@@ -84,5 +80,13 @@ public class CriticizeServiceImpl implements CriticizeService {
 	public void saveReply(String content, String criticizeId, String userId) {
 		// TODO Auto-generated method stub
 		videoDao.saveReply(content,criticizeId,userId);
+	}
+
+
+	@Override
+	public Page<CriticizeVo> getVideoCriticize(String teacherId,
+			String courseId, Integer pageNumber, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

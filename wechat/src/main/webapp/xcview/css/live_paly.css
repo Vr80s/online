@@ -162,6 +162,7 @@ color: #999999;
     margin-left: 0.05rem;
     margin-top: 0.04rem;
 }
+/*主播时间*/
 .wrap_playTime{
 	width: 100%;
 	background: white;
@@ -291,7 +292,7 @@ color: #999999;
 	display: none;
 	text-align: center;
     line-height: 1.8rem;
-    border-bottom: 0.01rem solid #D8DDE6;
+
     color: #a5a5a5;
 }
 /*主讲人*/

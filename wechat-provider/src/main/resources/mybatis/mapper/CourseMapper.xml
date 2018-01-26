@@ -64,10 +64,8 @@
 		  oc.direct_id as directId,
 		  oc.subtitle as subtitle,
 		  oc.current_price as currentPrice,
-		   
 		  IFNULL((select count(*) from oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
 		  IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc  where cc.status = 1 and cc.course_id = oc.id ),0) as startLevel,
-		  
 		  ou.id as userId,
 		  ou.name as name,
 		  ou.small_head_photo as headImg,

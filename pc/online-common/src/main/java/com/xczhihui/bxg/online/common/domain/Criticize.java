@@ -101,7 +101,7 @@ public class Criticize implements Serializable{
 	
 	//评价标签  1.很赞 2 干货很多 3超值推荐 4喜欢 5买对了
 	@Column(name = "criticize_lable")
-    private Integer criticizeLable;
+    private String criticizeLable;
 	
 	//总体印象
 	@Column(name = "overall_level")
@@ -110,12 +110,11 @@ public class Criticize implements Serializable{
 	//是否购买
 	@Column(name = "is_buy")
     private Boolean isBuy;
-	
 	/*
 	 * 是否点过赞了
 	 */
 	@Column(name = "is_praise")
-	private boolean isPraise;
+	private Boolean isPraise;
 
 	
 	public String getResponse() {
@@ -208,10 +207,13 @@ public class Criticize implements Serializable{
 	public void setDeductiveLevel(Float deductiveLevel) {
 		this.deductiveLevel = deductiveLevel;
 	}
-	public Integer getCriticizeLable() {
+	
+	
+	
+	public String getCriticizeLable() {
 		return criticizeLable;
 	}
-	public void setCriticizeLable(Integer criticizeLable) {
+	public void setCriticizeLable(String criticizeLable) {
 		this.criticizeLable = criticizeLable;
 	}
 	public Float getOverallLevel() {
@@ -256,13 +258,12 @@ public class Criticize implements Serializable{
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public boolean isPraise() {
+	public Boolean getIsPraise() {
 		return isPraise;
 	}
-	public void setPraise(boolean isPraise) {
+	public void setIsPraise(Boolean isPraise) {
 		this.isPraise = isPraise;
 	}
-	
-	
+
 	
 }

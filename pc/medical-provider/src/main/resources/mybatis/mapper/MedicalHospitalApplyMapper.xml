@@ -18,4 +18,10 @@
         SET deleted = 1
         WHERE user_id = #{userId} AND deleted != 1
     </update>
+
+    <select id="findByName" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospitalApply">
+        SELECT id
+        FROM medical_hospital_apply
+        WHERE name = #{name} AND status = 2 and deleted = 0
+    </select>
 </mapper>

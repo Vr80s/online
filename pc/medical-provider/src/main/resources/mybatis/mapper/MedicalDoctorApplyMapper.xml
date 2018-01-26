@@ -6,7 +6,7 @@
         SELECT id, name, title, description, tel, user_id,
           province, city, detailed_address, head_portrait,
           title_prove, card_positive, card_negative, qualification_certificate,
-          professional_certificate, status, create_time, remark
+          professional_certificate, status, create_time, remark, hospital
         FROM medical_doctor_apply
         WHERE user_id = #{userId} AND deleted != 1
         ORDER BY create_time

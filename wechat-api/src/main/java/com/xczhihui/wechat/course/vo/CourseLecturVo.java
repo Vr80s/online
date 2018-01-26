@@ -177,10 +177,10 @@ public class CourseLecturVo implements Serializable {
 	
 	private Integer criticizeCount; //课程评论数
 	
-	private Integer startLevel; //星级
+	private Double startLevel; //星级
 	
 	
-	private String courseOutline; //星级
+	private String courseOutline; //大纲
 	
 	
 	public String getUdescription() {
@@ -499,11 +499,14 @@ public class CourseLecturVo implements Serializable {
 		this.criticizeCount = criticizeCount;
 	}
 
-	public Integer getStartLevel() {
+	public Double getStartLevel() {
+		
 		return startLevel;
 	}
 
-	public void setStartLevel(Integer startLevel) {
+	public void setStartLevel(Double startLevel) {
+		
+		
 		this.startLevel = startLevel;
 	}
 

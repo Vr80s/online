@@ -12,5 +12,19 @@
 
 	</select>
 
+	<update id="insertBatch">
+		INSERT INTO medical_hospital_picture(
+			id, hospital_id, picture, deleted, status,create_time
+		) VALUES
+		<foreach collection="pictures" item="picture" separator=",">
+			(#{picture.id},
+			 #{picture.hospitalId},
+			 #{picture.picture},
+			 #{picture.deleted},
+			 #{picture.status},
+			 #{picture.createTime})
+		</foreach>
+	</update>
+
 
 </mapper>

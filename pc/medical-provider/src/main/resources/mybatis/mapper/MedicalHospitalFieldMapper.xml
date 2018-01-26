@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.medical.hospital.mapper.MedicalHospitalFieldMapper">
+
+	<update id="insertBatch">
+		INSERT INTO medical_hospital_field(
+			id, hospital_id, field_id, deleted, create_time
+		) VALUES
+		<foreach collection="fields" item="field" separator=",">
+			(#{field.id},
+			 #{field.hospitalId},
+			 #{field.fieldId},
+			 #{field.deleted},
+			 #{field.createTime})
+		</foreach>
+	</update>
+
+
+</mapper>

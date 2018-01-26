@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.web.dao;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -439,40 +441,61 @@ public class VideoDao extends SimpleHibernateDao {
      * 获取主播的或者课程的评价数
      * @param videoId 视频ID
      * @return
+	 * @throws IllegalAccessException 
      */
-    public Page<Criticize> getUserCriticize(String userId,String courseId, Integer pageNumber, Integer pageSize) {
+    public Page<Criticize> getUserCriticize(String teacherId,String courseId, Integer pageNumber, Integer pageSize,String userId){
         Map<String,Object> paramMap = new HashMap<>();
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
         
-        if(courseId !=null || userId!=null){
+        if(courseId !=null || teacherId!=null){
            StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
-	       if(org.apache.commons.lang.StringUtils.isNotBlank(userId)){
+	       if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.userId =:userId ");
-	       	  paramMap.put("userId", userId);
+	       	  paramMap.put("userId", teacherId);
 	       }else{
 	       	  sql.append("  and c.courseId =:courseId ");
 	       	  paramMap.put("courseId", Integer.parseInt(courseId));
 	       }
 	       //sql.append(" limit "+pageNumber+","+pageSize);
 	       //IFNULL((FIND_IN_SET(:userName,oc.praise_login_names)>0),0) isPraise
-	       
-	        System.out.println(sql.toString());
+	        System.out.println("sql:"+sql.toString());
 	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
-            
 	        if(criticizes.getTotalCount()>0){
-	        	OnlineUser u = this.get(userId,OnlineUser.class);
+	        	String loginName = "";
+	        	if(userId!=null){
+	        		OnlineUser u = this.get(userId,OnlineUser.class);
+	        		System.out.println("u.getLoginName()"+u.getLoginName());
+	        		loginName = u.getLoginName();
+	        	}
 	        	 for (Criticize c : criticizes.getItems()) {
-	 	        	String loginNames =  c.getPraiseLoginNames();
-	 	        	boolean isPraise = false;
+	        		/**
+	        		 * 判断会否点过赞 
+	        		 */
+	        		String loginNames =  c.getPraiseLoginNames();
+	 	        	System.out.println("loginNames"+loginNames);
+	 	        	Boolean isPraise = false;
 	 	        	if(org.apache.commons.lang.StringUtils.isNotBlank(loginNames)){
-	 	        		for (String loginName : loginNames.split(",")) {
-	 						if(u.getLoginName().equals(loginName)){
+	 	        		for (String loginName1 : loginNames.split(",")) {
+	 						if(loginName.equals(loginName1)){
 	 							isPraise =  true;
 	 						}
 	 					}
 	 	        	}
-	 	        	c.setPraise(isPraise);
+	 	        	c.setIsPraise(isPraise);
+	 	        	/**
+	        		 * 就星级的平均数
+	        		 */
+	 	        	BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());  
+	 	            totalAmount.add(new BigDecimal(c.getContentLevel()));
+	 	            totalAmount.add(new BigDecimal(c.getDeductiveLevel()));
+	 	            String startLevel = "0";
+					try {
+						startLevel = divCount(totalAmount.doubleValue(),3d,1);
+						c.setStarLevel(Float.valueOf(startLevel));
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+					}
 	 			}
 	        }
 	        System.out.println(criticizes.getItems());
@@ -480,8 +503,54 @@ public class VideoDao extends SimpleHibernateDao {
         }
         return  null;
     }
+    
+	/**
+	 * Description：求平均值，并且把小数点的都截取到5，或者大于5的
+	 * @param value1
+	 * @param value2
+	 * @param scale
+	 * @return
+	 * @throws IllegalAccessException
+	 * @return String
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+    public static String divCount(double value1,double value2,int scale) throws IllegalAccessException{  
+        //如果精确范围小于0，抛出异常信息  
+        if(scale<0){           
+            throw new IllegalAccessException("精确度不能小于0");  
+        }  
+        
+        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));  
+        BigDecimal b2 = new BigDecimal(Double.valueOf(value2)); 
+        /**
+         * 得到平均数，保留以为小数
+         */
+        BigDecimal b3 =  b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP);
+          
+        String bigDecimalStr = b3.toString();
+        String startStr = bigDecimalStr.substring(0, 1);
+        String lastStr = bigDecimalStr.substring(bigDecimalStr.length()-1,bigDecimalStr.length());
+        int lastInt = Integer.parseInt(lastStr);
+        if(lastInt<5){ //认为是5
+        	bigDecimalStr = startStr+".5"; 
+        }else{         //+1 
+        	bigDecimalStr = (Integer.parseInt(startStr)+1)+".0"; 
+        }
+        return bigDecimalStr;
+    }  
 	
-	
+    public static void main(String[] args) throws IllegalAccessException {
+		
+   	 BigDecimal totalAmount = new BigDecimal(1);  
+   	 totalAmount =totalAmount.add(new BigDecimal(1));
+   	 totalAmount =totalAmount.add(new BigDecimal(1));
+//   	 System.out.println(totalAmount.toString());
+   	 System.out.print(divCount(6d,3d,1));
+   	 BigDecimal b1 = new BigDecimal("6");  
+   	 BigDecimal b2 = new BigDecimal("3");  
+   	 //rslt = b1.divide(b2, scale, BigDecimal.ROUND_HALF_UP).doubleValue();
+   	// System.out.println(b1.divide(b2, 1, BigDecimal.ROUND_HALF_UP).doubleValue());
+	}
 
 
 }

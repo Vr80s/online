@@ -105,7 +105,7 @@
 	<!--底部结束-->
 	
 	<!--充值成功-->
-	<div class="success">
+	<div class="success" style="display: block;">
 		<div class="success_bg"></div>
 		<div class="success_main">
 			<div class="one">充值成功</div>
@@ -115,25 +115,20 @@
 	</div>
 	
 	<!--充值失败-->
-	<div class="defeated">
+	<div class="defeated" style="display: block;">
 		<div class="defeated_bg"></div>
 		<div class="defeated_main">
 			<div class="one">充值失败</div>
 			<div class="two">对不起，支付没有成功，麻烦再试一次吧</div>
 			<div class="three">
 				<div class="three_btn0">取消</div>
-				<div class="three_btn1">确定</div>
+				<div class="three_btn1">再试一次</div>
 			</div>
 		</div>
 	</div>
 	
 	
 </body>
-
-
-
-
-
 
 <!--点击更多隐藏显示结束-->
 <script type="text/javascript">
@@ -152,6 +147,12 @@
 	        })
       	}
       	$(aBtn[0]).click();
+      	
+      	
+//    	点击支付失败中--再试一次
+		$(".three_btn1").click(function(){
+			$(".defeated").hide();
+		});
 	};
 </script>
 

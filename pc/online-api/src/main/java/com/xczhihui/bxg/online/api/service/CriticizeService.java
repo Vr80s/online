@@ -36,7 +36,8 @@ public interface CriticizeService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize);
+	public Page<CriticizeVo> getVideoCriticize(String teacherId, String courseId,
+			Integer pageNumber, Integer pageSize);
 	/**
 	 * Description：点赞和取消点赞
 	 * @param isPraise
@@ -68,7 +69,7 @@ public interface CriticizeService {
      */
 	public void saveReply(String content, String criticizeId, String id);
 
-	Page<Criticize> getUserCriticize(String userId, String courseId,
-			Integer pageNumber, Integer pageSize);
+	Page<Criticize> getUserCriticize(String teacherId, String courseId,
+			Integer pageNumber, Integer pageSize,String userId);
 	
 }

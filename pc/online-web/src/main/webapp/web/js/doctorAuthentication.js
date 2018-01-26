@@ -167,7 +167,7 @@ $(function(){
 	//科室点击验证效果
 	var arr = [];
 	var keshiStr;
-	$('.keshi ul li').click(function(){
+	$('#doc_Distinguish .keshi ').on('click','#keshiList>li',function(){
 		if($(this).hasClass('keshiColor')){
 		//删除第二次选中的
 			for(var i = 0 ;i < arr.length; i++){

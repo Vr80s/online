@@ -242,7 +242,7 @@ public class SimpleHibernateDao {
 
 	/**
 	 * 将sql查询的结果转成一个整数。
-	 * 
+	 *
 	 * @param sql
 	 * @param args
 	 * @return
@@ -251,6 +251,7 @@ public class SimpleHibernateDao {
 		Number number = this.namedParameterJdbcTemplate.getJdbcOperations().queryForObject(sql, args, Integer.class);
 		return (number != null ? number.intValue() : 0);
 	}
+
 
 	/**
 	 * 分页查询
@@ -428,6 +429,9 @@ public class SimpleHibernateDao {
 	 */
 	public <T> List<T> findEntitiesByJdbc(Class<T> clazz, String sql, Map<String, ?> paramMap) {
 		return this.namedParameterJdbcTemplate.query(sql, paramMap, BeanPropertyRowMapper.newInstance(clazz));
+	}
+	public <T> T findEntityByJdbc(Class<T> clazz, String sql, Map<String, ?> paramMap) {
+		return this.namedParameterJdbcTemplate.queryForObject(sql, paramMap, BeanPropertyRowMapper.newInstance(clazz));
 	}
 
 	public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {

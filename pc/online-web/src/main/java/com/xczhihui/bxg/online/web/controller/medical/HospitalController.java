@@ -8,6 +8,7 @@ import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +102,17 @@ public class HospitalController {
         page.setCurrent(currentPage);
         page.setSize(size);
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.getFieldsPage(page));
+    }
+
+    /**
+     * 修改(完善)医馆信息
+     * @author zhuwenbao
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject update(MedicalHospital medicalHospital, HttpServletRequest request){
+        medicalHospitalBusinessServiceImpl.update(medicalHospital);
+        return ResponseObject.newSuccessResponseObject("修改成功");
     }
 
 }
