@@ -1,6 +1,8 @@
 package com.xczh.consumer.market.controller.medical;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.HotSearchService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
@@ -37,6 +39,9 @@ public class MedicalDoctorApplyController {
 	@Autowired
 	private OLAttachmentCenterService service;
 
+	@Autowired
+	private AppBrowserService appBrowserService;
+
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalDoctorApplyController.class);
 
 	/**
@@ -49,6 +54,11 @@ public class MedicalDoctorApplyController {
 			throws Exception {
 
 		try {
+			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+			if(user==null){
+				return ResponseObject.newErrorResponseObject("登录失效");
+			}
+			medicalDoctorApply.setUserId(user.getId());
 			if(files!=null&&files.length>0){
 				//循环获取file数组中得文件
 				String projectName="other";
