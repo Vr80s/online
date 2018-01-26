@@ -77,7 +77,7 @@ public class MyTask extends SimpleHibernateDao{
     public void dealDueCourseTask(){
         //查询所有普通课程开始时间
         MapSqlParameterSource params = new MapSqlParameterSource();
-        String sql = "select id,create_time,grade_name from oe_course where type is null and is_delete=0";
+        String sql = "select id,create_time,grade_name from oe_course where type=2 and is_delete=0";
         List<Map<String,Object>> courses = this.getNamedParameterJdbcTemplate().queryForList(sql,params);
         for (Map<String, Object> course : courses) {
             String courseId = (String) course.get("id");

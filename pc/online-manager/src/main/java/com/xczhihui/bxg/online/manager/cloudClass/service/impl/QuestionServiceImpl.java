@@ -281,7 +281,7 @@ public class QuestionServiceImpl extends OnlineBaseServiceImpl implements Questi
 				break;
 			}
 			
-			List<Course> s = dao.findEntitiesByJdbc(Course.class, "select * from oe_course c where c.is_delete=0 and c.type is NULL and c.grade_name = '"+name+"'", new HashMap<String,Object>());
+			List<Course> s = dao.findEntitiesByJdbc(Course.class, "select * from oe_course c where c.is_delete=0 and c.type=2 and c.grade_name = '"+name+"'", new HashMap<String,Object>());
 			if(!courseName.equals(name)){
 				content.append(" {\"第" + rowIndex + "行 课程名称 " +  name+version+ " 不符合当前课程！\"}");
 				

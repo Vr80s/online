@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.enums.Payment;
-import com.xczhihui.bxg.online.manager.order.vo.OrderPayVo;
-import com.xczhihui.bxg.online.manager.order.vo.OrderVo;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +55,8 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 	private UserCenterAPI userCenterAPI;
 	@Autowired
 	private CourseDao courseDao;
+	@Autowired
+	UserCoinService userCoinService;
 
 
 	@Override
@@ -317,7 +319,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		//查未支付的订单
 		sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id from oe_order o,oe_order_detail od "
 				+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
-		List<OrderPayVo> orders = dao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderPayVo>(OrderPayVo.class));
+		List<OrderVo> orders = dao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
 		if (orders.size() > 0) {
 			//更新订单表
 			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+ transactionId +"' where order_no='"+orderNo+"' ";
@@ -339,9 +341,8 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 			sql = "update oe_user set is_apply=1 where id='"+orders.get(0).getUser_id()+"' and is_apply=0";
 			dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
-			for (OrderPayVo order : orders){
+			for (OrderVo order : orders){
 				int  gradeId = 0;
-
 				//写用户、报名、课程中间表
 				id = UUID.randomUUID().toString().replace("-", "");
 				sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id="+gradeId;
@@ -351,6 +352,8 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
 						+ " '"+sno+"',"+"'"+orderNo+"')";
 				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+				//给主播分成
+				userCoinService.updateBalanceForCourse(order);
 			}
 		}
 	}

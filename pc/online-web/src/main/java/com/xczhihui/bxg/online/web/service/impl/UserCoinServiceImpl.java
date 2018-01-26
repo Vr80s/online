@@ -1,13 +1,17 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.xczhihui.bxg.common.util.BeanUtil;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.api.po.*;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.api.vo.OrderVo;
+import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
 import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.web.dao.CourseDao;
+import com.xczhihui.bxg.online.web.dao.RewardDao;
+import com.xczhihui.bxg.online.web.dao.UserCoinDao;
+import com.xczhihui.bxg.online.web.service.RewardService;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.jivesoftware.smack.SmackException;
@@ -16,20 +20,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.xczhihui.bxg.common.util.BeanUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
-import com.xczhihui.bxg.online.api.po.UserCoin;
-import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
-import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.bxg.online.api.vo.RechargeRecord;
-import com.xczhihui.bxg.online.common.domain.Reward;
-import com.xczhihui.bxg.online.web.dao.RewardDao;
-import com.xczhihui.bxg.online.web.dao.UserCoinDao;
-import com.xczhihui.bxg.online.web.service.RewardService;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ClassName: UserCoinServiceImpl.java <br>
@@ -43,16 +38,14 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Autowired
     private UserCoinDao userCoinDao;
     @Autowired
+    private CourseDao courseDao;
+    @Autowired
     private RewardDao rewardDao;
     @Autowired
     private RewardService rewardService;
     @Value("${rate}")
     private int rate;
 
-
-    /* (non-Javadoc)
-     * @see com.xczhihui.bxg.online.web.service.UserCoinService#getBalanceByUserId(java.lang.String)
-     */
     @Override
     public Map<String, String> getBalanceByUserId(String userId) {
     	
@@ -72,14 +65,18 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Override
     public void updateBalanceForIncrease(UserCoinIncrease uci) {
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
-        if (IncreaseChangeType.CONSUME.getCode() == uci.getChangeType()) {
+        if (IncreaseChangeType.GIVE.getCode() == uci.getChangeType()) {
             //若为赠送，则赠送余额增加
             sql.append(" uc.`balance_give`=uc.`balance_give`+" + uci.getValue());
-        } else if (3 == uci.getChangeType() || 4 == uci.getChangeType()) {
-            //若为礼物打赏，则礼物打赏余额增加
+        } else if (IncreaseChangeType.GIFT.getCode() == uci.getChangeType() || IncreaseChangeType.REWARD.getCode() == uci.getChangeType() || IncreaseChangeType.COURSE.getCode() == uci.getChangeType()) {
+            //若为礼物打赏或课程分成，则礼物打赏余额增加
             sql.append(" uc.`balance_reward_gift`=uc.`balance_reward_gift`+" + uci.getValue());
-        } else {//若为充值  则充值余额增加
+        } else if (IncreaseChangeType.RECHARGE.getCode() == uci.getChangeType()){
+            //若为充值  则充值余额增加
             sql.append(" uc.`balance`=uc.`balance`+" + uci.getValue());
+        } else if (IncreaseChangeType.SETTLEMENT.getCode() == uci.getChangeType()){
+            //若为结算  则人民币余额增加
+            sql.append(" uc.`rmb`=uc.`rmb`+" + uci.getValue());
         }
         sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
         sql.append(", uc.`update_time` = now() ");
@@ -99,6 +96,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setBalance(uc.getBalance());
         uci.setBalanceGive(uc.getBalanceGive());
         uci.setBalanceRewardGift(uc.getBalanceRewardGift());
+        uci.setRmb(uc.getRmb());
         uci.setCreateTime(new Date());
         uci.setDeleted(false);
         uci.setStatus(true);
@@ -198,14 +196,15 @@ public class UserCoinServiceImpl implements UserCoinService {
         //扣除用户熊猫币余额
         ucc = updateBalanceForConsumption(ucc);
 
-        //根据打赏比例获取主播实际获得的熊猫币   总数量*（1-平台抽成比例）
-        BigDecimal addTotal = total.multiply(BigDecimal.ONE.subtract(new BigDecimal(gift.getBrokerage()).divide(new BigDecimal(100))));
+        CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
+        //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
+        BigDecimal addTotal = total.multiply(BigDecimal.ONE.subtract(courseAnchor.getGiftDivide().divide(new BigDecimal(100))));
         UserCoinIncrease uci = new UserCoinIncrease();
 
         uci.setChangeType(IncreaseChangeType.GIFT.getCode());
         uci.setUserId(giftStatement.getReceiver());
         uci.setValue(addTotal);
-        //平台本笔交易抽成金额
+        //平台本笔交易抽成金额 总金额-主播分得
         uci.setBrokerageValue(total.subtract(addTotal));
         //记录礼物流水id
         uci.setOrderNoGift(giftStatement.getId().toString());
@@ -218,13 +217,34 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     }
 
+    @Override
+    public void updateBalanceForCourse(OrderVo orderVo) {
+        BigDecimal total = new BigDecimal(orderVo.getActual_pay());
+        String anchorId = courseDao.getCourseLecturerId(orderVo.getCourse_id());
+        CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(anchorId);
+        //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
+        BigDecimal addTotal = total.multiply(BigDecimal.ONE.subtract(courseAnchor.getGiftDivide().divide(new BigDecimal(100))));
+        UserCoinIncrease uci = new UserCoinIncrease();
 
-    /* (non-Javadoc)
-     * @see com.xczhihui.bxg.online.web.service.UserCoinService#updateBalanceForReward(com.xczhihui.bxg.online.web.po.RewardStatement)
-     */
+        uci.setChangeType(IncreaseChangeType.COURSE.getCode());
+        uci.setUserId(anchorId);
+        uci.setValue(addTotal);
+        //平台本笔交易抽成金额 总金额-主播分得
+        uci.setBrokerageValue(total.subtract(addTotal));
+        //记录订单
+        uci.setOrderNoCourse(orderVo.getId());
+        //支付方式为空
+        uci.setPayType(null);
+        //订单来源:1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
+        uci.setOrderFrom(orderVo.getOrder_from());
+        //更新主播的数量
+        updateBalanceForIncrease(uci);
+    }
+
     @Override
     public void updateBalanceForReward(RewardStatement rs) throws XMPPException, SmackException, IOException {
-        rewardService.insert(rs);
+        throw new RuntimeException("打赏功能暂时关闭，请通过送礼物方式为主播加油！");
+        /*rewardService.insert(rs);
         Reward reward = rewardDao.getReward(Integer.valueOf(rs.getRewardId()));
         //根据打赏比例获取主播实际获得的熊猫币: 打赏金额*兑换比例*(1-平台抽成比例)
         BigDecimal total = new BigDecimal(rs.getPrice()).multiply(new BigDecimal(rate));
@@ -233,17 +253,22 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setChangeType(4);
         uci.setUserId(rs.getReceiver());
         uci.setValue(addTotal);
-        uci.setBrokerageValue(total.subtract(addTotal));//平台本笔交易抽成金额
-        uci.setOrderNoReward(rs.getId().toString());//存入打赏流水id
-        uci.setOrderFrom(rs.getClientType());//订单来源:1.pc 2.h5 3.app 4.其他
+        //平台本笔交易抽成金额
+        uci.setBrokerageValue(total.subtract(addTotal));
+        //存入打赏流水id
+        uci.setOrderNoReward(rs.getId().toString());
+        //订单来源:1.pc 2.h5 3.app 4.其他
+        uci.setOrderFrom(rs.getClientType());
         uci.setPayType(rs.getPayType());
-        updateBalanceForIncrease(uci);//更新主播的数量
+        //更新主播的数量
+        updateBalanceForIncrease(uci);*/
     }
 
     @Override
     public BigDecimal getEnableEnchashmentBalance(String userId) {
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
-        return uc.getBalanceRewardGift().add(uc.getBalance());//可提现熊猫币=充值+打赏获得
+        //可提现熊猫币=打赏+卖课获得
+        return uc.getBalanceRewardGift();
     }
 
     @Override
@@ -261,10 +286,12 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         //用户收到的礼物打赏余额-提现金额  是否大于0
-        if (uc.getBalanceRewardGift().add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {//判断余额是否充足（ucc的value为负值）
+        //判断余额是否充足（ucc的value为负值）
+        if (uc.getBalanceRewardGift().add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
             sql.append(" uc.`balance_reward_gift`=uc.balance_reward_gift" + ucc.getValue());
             balanceRewardGift = ucc.getValue();
-        } else if (uc.getBalanceRewardGift().add(uc.getBalance()).add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {//判断余额是否充足（ucc的value为负值）
+        } else if (uc.getBalanceRewardGift().add(uc.getBalance()).add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
+            //判断余额是否充足（ucc的value为负值）
             sql.append(" uc.`balance`=uc.balance + uc.balance_reward_gift +" + ucc.getValue() + ",");
             sql.append(" uc.`balance_reward_gift`= 0 ");
             balanceRewardGift = uc.getBalanceRewardGift().negate();
@@ -285,7 +312,8 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setUserCoinId(uc.getId());
         ucc.setBalanceValue(balance);
         ucc.setBalanceGiveValue(BigDecimal.ZERO);
-        ucc.setBalanceRewardGift(balanceRewardGift);//提现代币金额
+        //提现代币金额
+        ucc.setBalanceRewardGift(balanceRewardGift);
         ucc.setCreateTime(new Date());
         ucc.setDeleted(false);
         ucc.setStatus(true);

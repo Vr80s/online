@@ -277,7 +277,7 @@ public class ArticleServiceImpl extends OnlineBaseServiceImpl implements Article
          String  sql=" SELECT c.id,c.grade_name courseName,c.original_cost as original_cost,c.current_price as current_price, c.smallimg_path, tm.`name`,c.description_show,c.is_free," +
                      " if(c.is_free=1,(SELECT count(*) FROM apply_r_grade_course where course_id=c.id),"+
                      " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=c.id  and is_delete=0 and status=1)) learnd_count"+
-                     " from oe_course c,teach_method tm  where c.courseType=tm.id and c.is_delete=0 and c.`status`=1 and type is null  order by learnd_count desc limit 5";
+                     " from oe_course c,teach_method tm  where c.courseType=tm.id and c.is_delete=0 and c.`status`=1 and type=2  order by learnd_count desc limit 5";
          return   dao.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
     }
 

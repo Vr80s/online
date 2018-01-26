@@ -10,6 +10,7 @@ import com.xczhihui.bxg.online.api.po.GiftStatement;
 import com.xczhihui.bxg.online.api.po.RewardStatement;
 import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 
 
@@ -99,4 +100,6 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public Object getUserCoinConsumptionRecord(String userId, Integer pageNumber, Integer pageSize);
+
+	public void updateBalanceForCourse(OrderVo orderVo);
 }

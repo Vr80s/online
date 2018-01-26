@@ -1,22 +1,10 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
-import com.xczhihui.bxg.online.web.dao.CourseDao;
-import com.xczhihui.bxg.online.web.dao.MessageDao;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
-import com.xczhihui.bxg.online.web.service.OrderService;
-import com.xczhihui.bxg.online.web.utils.*;
-import com.xczhihui.bxg.online.web.vo.MessageShortVo;
-import com.xczhihui.bxg.online.web.vo.OrderVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +12,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 订单业务层接口实现类
@@ -49,7 +33,8 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 
 	@Value("${share.course.id:191}")
 	private String shareCourseId;
-
+	@Autowired
+	UserCoinService userCoinService;
 
    /**
     * Description：购买课程支付成功接口
@@ -100,8 +85,10 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
 						+ " '"+sno+"',"+"'"+orderNo+"')";
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+				//给主播分成
+				userCoinService.updateBalanceForCourse(order);
 
-				//如果是限时免费课程，不参与分销，业务到此结束
+				/*//如果是限时免费课程，不参与分销，业务到此结束
 				if(Double.valueOf(order.getActual_pay())==0){
 					continue;
 				}
@@ -116,7 +103,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 				//如果是微课参与分销，如果购买人有上级，此订单更新为分销订单
 				sql = "update oe_order o set o.order_from=1 where o.order_no='"+orderNo+"' "
 						+ " and o.user_id=(select id from oe_user where parent_id is not null and parent_id != '' and id = o.user_id);";
-				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
+				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);*/
 			}
 		}
 	}

@@ -9,12 +9,13 @@ package com.xczhihui.bxg.online.common.enums;
 public enum IncreaseChangeType {
 
 //1.充值2.平台赠送3.礼物4.打赏5.平台提现驳回退回
-    COURSE(1, "充值"),
-    CONSUME(2, "平台赠送"),
+    RECHARGE(1, "充值"),
+    GIVE(2, "平台赠送"),
     GIFT(3, "礼物"),
-    OVERDUE(4, "打赏"),
+    REWARD(4, "打赏"),
     ENCHASHMENT(5, "平台提现驳回退回"),
-    SETTLEMENT(6, "结算");
+    SETTLEMENT(6, "结算(rmb新增)"),
+    COURSE(7, "卖课所得");
 
     /**
      * 描述

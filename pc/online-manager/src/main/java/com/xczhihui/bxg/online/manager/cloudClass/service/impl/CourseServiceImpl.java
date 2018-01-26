@@ -569,7 +569,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getSort();
          
-         String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type is null  and isDelete=0 order by sort asc";
+         String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type=2  and isDelete=0 order by sort asc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getSort();
          
@@ -609,7 +609,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getSort();
-         String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type is null  and isDelete=0 order by sort desc";
+         String hqlNext="from Course where sort < (select sort from Course where id= ? ) and type=2  and isDelete=0 order by sort desc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getSort();
          
@@ -1225,7 +1225,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	public void createCourseCategories(String courseId,List<CategoryBean> cs) throws Exception{
 		String name = null;
 		List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
-				.queryForList("select o.grade_name from oe_course o where o.is_delete=0 and (o.type is null or o.type=0) and id="+courseId);
+				.queryForList("select o.grade_name from oe_course o where o.is_delete=0 and (o.type=2 or o.type=0) and id="+courseId);
 		if (lst != null && lst.size() > 0) {
 			name = lst.get(0).get("grade_name").toString();
 		}
@@ -1258,7 +1258,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 		List<Map<String, Object>> lst = dao.getNamedParameterJdbcTemplate().getJdbcOperations()
 				.queryForList("select o.grade_name,z.`name` from oe_course o,oe_chapter z "
-						+ "where z.parent_id=o.id and z.`level`=2 and o.is_delete=0 and z.is_delete=0 and (o.type is null or o.type=0) and o.id="+courseId);
+						+ "where z.parent_id=o.id and z.`level`=2 and o.is_delete=0 and z.is_delete=0 and (o.type=2 or o.type=0) and o.id="+courseId);
 
 		for (Map<String, Object> map : lst) {
 			String grade_name = map.get("grade_name").toString();
