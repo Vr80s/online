@@ -1,15 +1,7 @@
 package com.xczh.consumer.market.controller.medical;
 
-import com.alibaba.fastjson.JSONObject;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.HotSearchService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.medical.common.service.ICommonService;
-import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorApplyVO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OLAttachmentCenterService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.common.service.ICommonService;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 
 /**
  * 医师控制器 ClassName: MedicalDoctorApplyController.java <br>
@@ -105,8 +100,8 @@ public class MedicalDoctorApplyController {
 	 */
 	@RequestMapping("applyStatus")
 	@ResponseBody
-	public ResponseObject addDoctorApply(HttpServletRequest req)
-			throws Exception {
+	public ResponseObject addDoctorApply(HttpServletRequest req)throws Exception {
+
 		//1：医师认证 2：医馆认证 3：医师认证中 4：医馆认证中 5:医师认证被拒 6：医馆认证被拒 7：即不是医师也不是医馆
 		//System.out.println("userId"+userId);
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);

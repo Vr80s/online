@@ -360,7 +360,6 @@ public class BrowserUserController {
 					//把用户中心的数据给他
 					newUser.setUserCenterId(user.getId());
 					newUser.setPassword(user.getPassword());
-					
 					this.onlogin(req, res, t, newUser,t.getTicket());
 					return ResponseObject.newSuccessResponseObject(newUser);
 				}
@@ -405,11 +404,8 @@ public class BrowserUserController {
 //		LOGGER.info("存储成功");
 //		token = cacheService.get(token.getTicket());
 //		LOGGER.info(token.getEmail());
-//		
 //		String str = cacheService.get("123");
 //		LOGGER.info("str:"+str);
-//		
-//		
 //		LOGGER.info("取数据成功");
 //		req.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(req, res);
 	}
@@ -941,7 +937,12 @@ public class BrowserUserController {
 		 * 然后根据用户信息得到新的票和这个旧的票进行比较就ok了
 		 */
 		String appUniqueId = req.getParameter("appUniqueId");
-		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
+		
+		/*
+		 * 这个地方是可以了。目前都支持吧
+		 */
+		
+		//if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
 			//设置登录标识
 			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
@@ -953,7 +954,7 @@ public class BrowserUserController {
 			}else if(user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
 			}
-		}else{
+		//}else{
 			// 用户登录成功
 			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
 			req.getSession().invalidate();
@@ -982,7 +983,7 @@ public class BrowserUserController {
 			 * 这是cookie 
 			 */
 			UCCookieUtil.writeTokenCookie(res, token);
-		}
+		//}
 	}
 	
 	@RequestMapping(value="checkToken")

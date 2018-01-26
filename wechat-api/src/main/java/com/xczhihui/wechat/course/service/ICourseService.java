@@ -85,4 +85,15 @@ public interface ICourseService {
 	   * @author name：yangxuan <br>email: 15936216273@163.com
 	   */
 	  public  List<CourseLecturVo> selectUserConsoleCourse(String id);
+
+	  /**
+	   * Description：猜你喜欢接口，传递一个分页参数，随机取出这些数据
+	   * @param page
+	   * @param menuId
+	   * @return
+	   * @return Page<CourseLecturVo>
+	   * @author name：yangxuan <br>email: 15936216273@163.com
+	   */
+	  Page<CourseLecturVo> selectMenuTypeAndRandCourse(Page<CourseLecturVo> page,
+			Integer menuId);
 }

@@ -1463,6 +1463,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public void updateCourseCityStatus(Integer courseId) {
 		// TODO Auto-generated method stub
+
 		
 		String hql="from Course where 1=1 and isDelete=0 and id = ?";
         Course course= dao.findByHQLOne(hql, new Object[]{courseId});

@@ -73,7 +73,8 @@ function login(){
 	}
 	var urlparm = {
 		username : number,
-		password : password
+		password : password,
+		appUniqueId:"1234"
 	};
 	
 	//是浏览器登录呢，还是微信登录呢
