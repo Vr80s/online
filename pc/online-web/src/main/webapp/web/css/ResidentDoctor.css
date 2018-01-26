@@ -176,6 +176,7 @@ a {
 	text-align: left;
 	padding-top: 30.5px;
 	padding-left: 20px;
+	padding-right: 20px;
 }
 #doc_Distinguish .bottomContent > div{
 	margin-bottom: 20px;
@@ -190,6 +191,8 @@ a {
     margin-right: 20px;
 
 }
+
+
 #doc_Distinguish .bottomContent > div > span:first-child em{
 	  color: #f40;
     display: inline;
@@ -207,6 +210,14 @@ a {
  	text-indent: 1em;
  	margin-right: 10px;
  	font-size: 14px;
+}
+
+#AutStatus  > div .doc_name,
+#AutStatus  > div .doc_Idnum,
+#AutStatus  > div .doc_zhicheng,
+#AutStatus  > div .doc_shanchang,
+#AutStatus  > div .doc_hospital{
+	 border: none !important;
 }
 #doc_Distinguish .bottomContent >.idCard_pic .idFont_pic,
 #doc_Distinguish .bottomContent >.idCard_pic .idBack_pic{
@@ -338,3 +349,32 @@ a {
     font-size: 14px;
     margin-right: 20px;
 }
+
+/*医师认证状态*/
+#AutStatus .bottomContent_inf{
+	  margin-bottom: 20px;
+    height: 80px;
+    line-height: 80px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    padding: 0 20px;
+}
+#AutStatus .bottomContent_inf span{
+		font-size: 14px;
+    color: #333333;
+    display: inline !important;
+}
+#AutStatus .bottomContent_inf button{
+	    width: 92px;
+    font-size: 14px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    color: #ffffff;
+    outline: none;
+    vertical-align: middle;
+    line-height: 36px;
+    border: none;
+    margin: 0 20px;
+}
+
