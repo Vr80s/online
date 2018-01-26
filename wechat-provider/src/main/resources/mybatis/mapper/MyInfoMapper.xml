@@ -3,7 +3,7 @@
 <mapper namespace="com.xczhihui.wechat.course.mapper.MyInfoMapper">
 
 	<!-- 查找主播的学员、课程数、熊猫币、人民币  -->
-	<select id="selectCollegeCourseXmbNumber" resultType="java.util.List">
+	<select id="selectCollegeCourseXmbNumber" resultType="java.math.BigDecimal">
 		( select count(*) as number from apply_r_grade_course where course_id in 
 		  (select id from oe_course where user_lecturer_id = #{userId} ) )
 		UNION ALL 

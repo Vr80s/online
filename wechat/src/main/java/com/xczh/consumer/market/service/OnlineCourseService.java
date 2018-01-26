@@ -227,7 +227,7 @@ public interface OnlineCourseService {
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	void updateLiveSourceType(String courseId)throws SQLException ;
+	void updateLiveSourceType(Integer courseId)throws SQLException ;
 	
 	List<CourseLecturVo> findLiveListInfoOld(Integer start_page,
 			Integer page_size, String queryParam) throws SQLException;
