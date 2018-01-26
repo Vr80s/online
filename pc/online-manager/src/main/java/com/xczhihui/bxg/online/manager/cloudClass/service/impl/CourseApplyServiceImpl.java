@@ -6,6 +6,7 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Dismissal;
+import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseApplyDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
@@ -51,9 +52,9 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	@Override
 	public CourseApplyInfo findCourseApplyById(Integer id) {
 		CourseApplyInfo courseApply = courseApplyDao.findCourseApplyAndMenuById(id);
-		if(!courseApply.getCollection()){
+		if(!courseApply.getCollection()&&courseApply.getCourseForm()==CourseForm.VOD.getCode()){
 			String audioStr="";
-			if(courseApply.getMultimediaType()==2){
+			if(courseApply.getMultimediaType()== Multimedia.AUDIO.getCode()){
 				audioStr = "_2";
 			}
 			String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+courseApply.getCourseResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";

@@ -28,7 +28,7 @@ public class HospitalApplyDao extends HibernateDao<MedicalHospitalApply> {
         Map<String,Object> paramMap = new HashMap(3);
 
         StringBuilder hql = new StringBuilder("select id,company,business_license_no," +
-                "business_license_picture,status," +
+                "business_license_picture,status,name," +
                 "license_for_pharmaceutical_trading,license_for_pharmaceutical_trading_picture," +
                 "create_time from medical_hospital_apply where deleted = 0 ");
 
