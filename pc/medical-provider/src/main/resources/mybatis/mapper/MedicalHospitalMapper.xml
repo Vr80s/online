@@ -14,6 +14,7 @@
 		<id column="detailed_address" property="detailedAddress" />
 		<id column="score" property="score" />
 		<id column="authentication" property="authentication" />
+		<id column="front_img" property="frontImg" />
 	</resultMap>
 
 	<resultMap type="com.xczhihui.medical.hospital.vo.MedicalHospitalVo" id="MedicalHospitalListResult" extends="MedicalHospitalBaseResult">
@@ -125,6 +126,7 @@
 		  mh.score,
 		  mh.authentication,
 		  mh.recommend,
+		  mh.front_img,
 		  mhp.`picture`,
 		  mf.`name` fieldName
 		FROM
