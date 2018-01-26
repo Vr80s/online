@@ -243,7 +243,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Override
     public BigDecimal getEnableEnchashmentBalance(String userId) {
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
-        return uc.getBalanceRewardGift().add(uc.getBalance());//可提现熊猫币=充值+打赏获得
+        return uc.getBalanceRewardGift().add(uc.getBalance());//可提现熊猫币=充值+礼物打赏获得
     }
 
     @Override

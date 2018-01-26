@@ -76,4 +76,13 @@ public interface ICourseService {
 	   * @author name：yangxuan <br>email: 15936216273@163.com
 	   */
 	  public Page<CourseLecturVo> selectLecturerAllCourse(Page<CourseLecturVo> page, String lecturerId);
+
+	  /**
+	   * Description：查找用户控制台的课程数据
+	   * @param id
+	   * @return
+	   * @return List<CourseLecturVo>
+	   * @author name：yangxuan <br>email: 15936216273@163.com
+	   */
+	  public  List<CourseLecturVo> selectUserConsoleCourse(String id);
 }

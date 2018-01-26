@@ -2,11 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.wechat.course.mapper.MyInfoMapper">
 
-	<!-- 查找主播的学员、课程数、  -->
-	<select id="selectCoursePage" resultType="java.util.List">
-		
-		
-		
-		
-	</select>		
+	<!-- 查找主播的学员、课程数、熊猫币、人民币  -->
+	<select id="selectCollegeCourseXmbNumber" resultType="java.util.List">
+		( select count(*) as number from apply_r_grade_course where course_id in 
+		  (select id from oe_course where user_lecturer_id = #{userId} ) )
+		UNION ALL 
+        ( select count(*) as number from oe_course  where user_lecturer_id =#{userId} )
+		UNION ALL 
+		( select (balance_reward_gift + balance) as number from user_coin  where user_id =#{userId}  )
+	</select>	
+	
 </mapper>

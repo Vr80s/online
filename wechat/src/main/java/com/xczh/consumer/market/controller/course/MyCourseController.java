@@ -70,8 +70,10 @@ public class MyCourseController {
 	public ResponseObject categoryXCList(HttpServletRequest req,HttpServletResponse res)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		List<CourseLecturVo>  listAll  = 
-				courseServiceImpl.selectLearningCourseListByUserId(user.getId());
+		if(user == null){
+			ResponseObject.newErrorResponseObject("登录失效");
+		}
+		List<CourseLecturVo>  listAll  = courseServiceImpl.selectLearningCourseListByUserId(user.getId());
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mapTj = new HashMap<String, Object>();
 		Map<String,Object> mapNw = new HashMap<String, Object>();
