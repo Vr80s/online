@@ -45,6 +45,9 @@ public class MedicalDoctorApplyController {
 	@Autowired
 	private ICommonService commonServiceImpl;
 
+	@Autowired
+	private AppBrowserService appBrowserService;
+
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalDoctorApplyController.class);
 
 	@Autowired
@@ -59,6 +62,11 @@ public class MedicalDoctorApplyController {
 			throws Exception {
 
 		try {
+			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+			if(user==null){
+				return ResponseObject.newErrorResponseObject("登录失效");
+			}
+			medicalDoctorApply.setUserId(user.getId());
 			if(files!=null&&files.length>0){
 				//循环获取file数组中得文件
 				String projectName="other";

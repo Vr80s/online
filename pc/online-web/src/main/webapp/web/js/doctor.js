@@ -479,6 +479,16 @@ $(function () {
     
     
     
+    //医师入驻跳转页面
+//  $('#toDocJoin').click(function(){
+//  	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+//	       if(data.success == true || ){
+//	       	
+//	       }
+//	    });
+//  })
+    
+    
 });
 
 function addSelectedMenu(){
