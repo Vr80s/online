@@ -70,66 +70,30 @@ header {
 	margin-top: 1.08rem;
 	background: #fff;
 }
-.help_main{
-	width: 7.24rem;
-	float: right;
-	margin-top: 0.3rem;
+.problem{
+	width: 100%;
+	min-height: 1rem;
 }
-.help_main_title{
-	font-size: 0.32rem;
-	color: #333333;
-	margin-bottom: 0.04rem;
-}
-.help_main_one{
+.problem_title{
 	width: 100%;
 	height: 0.97rem;
 	line-height: 0.97rem;
+	/*margin-left: 0.26rem;*/
 	font-size: 0.32rem;
 	color: #333333;
-	border-bottom: 1px solid #D8DDE6; 
-	
-	overflow: hidden;
+	border-bottom: 1px solid #D8DDE6;
+	text-indent: 0.26rem;
+    margin-bottom: 0.28rem;
 }
-.help_main_one img{
-	width: 0.15rem;
-    height: 0.25rem;
-    margin-right: 0.2rem;
-    margin-top: 0.38rem;
-    float: right;
-    
+.problem_main{
+	width: 6.98rem;
+	margin: 0 auto;
+	font-size: 0.28rem;
+	color: #575757;
+	padding-bottom: 0.4rem;
 }
-.help_main .help_main_one:last-child{
-	border: none;
-}
+
+
+
 /*中间内容结束*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
