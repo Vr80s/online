@@ -64,8 +64,8 @@
 						 <p>说点什么来彰显你的个性...</p>
 					 </li>
 					 
-    				<li>
-    					<a href="#doc_doctor" aria-controls="doc_doctor" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>我是医师</a>
+    				<li class="ImDoc_btn" onclick="goDocPage()">
+    					<a  aria-controls="doc_doctor" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>我是医师</a>
     				</li>
     				<!--<li><a href="#doc_study" aria-controls="doc_study" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>学习</a></li>
     				<li><a href="#doc_ask" aria-controls="doc_ask" role="tab" data-toggle="tab" class="wenda"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>问答</a>
@@ -84,7 +84,7 @@
    					</li>
    					<li><a href="#doc_money" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-yen" aria-hidden="true"></span>资产</a></li>
    					<li><a href="#doc_idCard" aria-controls="doc_idCard" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>账号</a></li>-->
-   					<li><a href="#doc_Distinguish" aria-controls="doc_Distinguish" role="tab" data-toggle="tab" class="color"><span class="glyphicon glyphicon-check left_range ino_color" aria-hidden="true"></span>医师认证</a></li>
+   					<li class="DocAut_btn"><a href="#doc_Distinguish" aria-controls="doc_Distinguish" role="tab" data-toggle="tab" ><span class="glyphicon glyphicon-check left_range ino_color" aria-hidden="true"></span>医师认证</a></li>
   				</ul>
 			</div>
 
@@ -93,20 +93,25 @@
 			<div class=" text-center">
 				<div class="tab-content">
 					<!--我是医师部分-->
-    				<div role="tabpanel" class="tab-pane" id="doc_doctor">
+    				<div role="tabpanel" class="tab-pane active" id="doc_doctor">
 						<div class="topTitle">
 							<h3>欢迎进入熊猫中医</h3>
 						</div>
 						<div class="bottomContent">
-							<div class="bottomContent_inf text-left">
+							<div class="bottomContent_inf text-left hide" id="docNoPass_tip">
 								<span>认证成为医师，可以在线开课</span>
-								<button>医师认证</button>
+								<button onclick="gotToAut()">医师认证</button>
 								<a href="javascript:;">我不是医师，不再提示此消息</a>
 							</div>
+							
+							<div class="bottomContent_inf text-left hide" id="docAut_tip">
+								<span>医师认证审核中，3个工作日完成</span>
+								<button onclick="seeAutStatus()">查看状态</button>
+							</div>
 
-							<div class="bottomContent_inf text-left">
+							<div class="bottomContent_inf text-left hide" id="docpass_tip">
 								<span>医师认证通过啦，你可以享受医师的权利了</span>
-								<button>去看看</button>
+								<button onclick="goDocPage()">去看看</button>
 							</div>
 						</div>
 
@@ -138,11 +143,11 @@
 					</div>
 					
 					<!--医师认证-->
-    				<div role="tabpanel" class="tab-pane active" id="doc_Distinguish">
+    				<div role="tabpanel" class="tab-pane" id="doc_Distinguish">
 						<div class="topTitle">
 							<h3>医师认证</h3>
 						</div>
-						<div class="bottomContent">
+						<div class="bottomContent" id="AutList">
 
 								<div>
 								<span><em>*</em>姓名</span>
@@ -290,6 +295,13 @@
 						</div>
 						</div>
 						
+						
+						<!--认证状态展示的样子重复代码-->
+						<div class="bottomContent" id="AutStatus">
+							<!--TODO-->
+						
+						</div>
+						
 					</div>
   				</div>
 			</div>
@@ -351,6 +363,108 @@
 	{{/each}}
 </script>
 
+
+<!--医师认证状态查看模板-->
+<script type="text/template" id="docAutStatus_Tpl">
+		{{if status == 2}}
+		<div class="bottomContent_inf text-left">
+			<span>医师认证审核中，3个工作日完成</span><span style="color: red;margin-left: -20px;">（如提交信息有误可重新提交）</span>
+			<button class="renzhengAgain" onclick="Autagain()">重新认证</button>
+		</div>
+		{{else if status == 1}}
+		<div class="bottomContent_inf text-left">
+			<span>已于2017.12.12通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
+			<button class="renzhengAgain" onclick="Autagain()">重新认证</button>
+		</div>
+		{{else if status == 0}}
+		<div class="bottomContent_inf text-left">
+			<span>审核未通过</span><span style="color: red;margin-left: -20px;">（提交审核信息有误）</span>
+			<button class="renzhengAgain" onclick="Autagain()">重新认证</button>
+		</div>
+		{{/if}}
+		<div>
+			<span><em>*</em>姓名</span>
+			<span class="doc_name">{{name}}</span>
+		</div>
+		
+		<div>
+			<span ><em>*</em> 身份证号</span>
+			<span class="doc_Idnum">{{cardNum}}</span>
+		</div>
+		
+		<div class="idCard_pic">
+			<span style="vertical-align: top;"><em>*</em> 身份证</span>
+			<span class="idFont_pic" >
+				<img src={{cardPositive}} alt="">
+			</span>
+			<span class="idBack_pic" >
+				<img src={{cardNegative}} alt="" />
+			</span>
+		</div>
+		
+		<div class="teacher_picUpdata">
+			<span style="vertical-align: top;"><em>*</em>  医师资格证</span>
+			<span class="teacher_pic" >
+				<img src={{qualificationCertificate}} alt="" />
+			</span>
+		</div>
+		
+		<div class="zhiye_picUpdata">
+			<span style="vertical-align: top;"><em>*</em>执业资格证</span>
+			<span class="zhiye_pic"  >
+				<img src={{professionalCertificate}} alt="" />
+		</div>
+		
+		<div class="touxiang_picUpdata">
+			<span style="vertical-align: top;"><em>*</em> 真实头像</span>
+			<span class="touxiang_pic"  >
+				<img src={{headPortrait}} alt="" />
+			</span>
+		</div>
+		
+		<div class="zhicheng_name">
+			<span><em>*</em>职称</span>
+			<span class="doc_zhicheng">{{title}}</span>
+		</div>
+		
+		<div class="zhicheng_picUpdata">
+			<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+			<span class="zhicheng_pic" >
+				<img src={{titleProve}} alt="" />
+			</span>
+		</div>
+		
+		<div class="keshi">
+			<span><em>*</em>科室</span>
+			<ul id="keshiList">
+				<li>心脏病</li>
+				<li>癌症</li>
+				<li>绝症</li>
+				<li>肝病</li>
+			</ul>
+		</div>
+		
+		<div class="shanchang">
+			<span><em>*</em>擅长</span>
+			<span class="doc_shanchang">{{field}}</span>
+		</div>
+		
+		<div class="personIntroduct">
+			<span><em>*</em> 个人介绍</span>
+			<p  style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;">{{description}}</p>
+		</div>
+		
+		<div class="work_hos">
+			<span><em>*</em>任职医馆</span>
+			<span class="doc_hospital">{{hospital}}</span>
+		</div>
+		
+		<div class="doc_address">
+		<span><em>*</em>城市</span>
+		<span style="font-size: 14px;">{{province}}</span>
+		<span style="font-size: 14px;">{{city}}</span>
+	</div>
+</script>
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
