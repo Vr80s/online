@@ -160,4 +160,7 @@
 	<!--主播课程-->
 	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl"  timeout="5000" />
 
+	 <!--医师医馆公共服务-->
+     <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonServiceImpl" timeout="5000"  />
+
 </beans>
