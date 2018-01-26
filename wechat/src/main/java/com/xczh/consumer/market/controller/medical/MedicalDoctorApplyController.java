@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -114,5 +115,25 @@ public class MedicalDoctorApplyController {
 	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
 	    }
 		return ResponseObject.newSuccessResponseObject(commonServiceImpl.isDoctorOrHospital(user.getId()));
+	}
+
+	/**
+	 * 医师入驻申请信息
+	 */
+	@RequestMapping("doctorInfo")
+	@ResponseBody
+	public ResponseObject getLastOne(HttpServletRequest req)
+			throws Exception {
+
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		MedicalDoctorApply mda = medicalDoctorApplyService.getLastOne(user.getId());
+		List<Integer> status = commonServiceImpl.isDoctorOrHospital(user.getId());
+		mapAll.put("medicalDoctor",mda);
+		mapAll.put("status",status);
+		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 }

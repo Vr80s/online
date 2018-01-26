@@ -117,7 +117,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
             List<MedicalDoctorApplyDepartment> departmentList =
                     applyDepartmentMapper.getByDoctorApplyId(target.getId());
             // 获取科室名称
-            if(departmentList != null){
+            if(departmentList != null && departmentList.size()>0){
                 List<String> ids = new ArrayList<>();
                 for(MedicalDoctorApplyDepartment department : departmentList){
                     ids.add(department.getDepartmentId());
