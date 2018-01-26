@@ -52,7 +52,9 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  oc.course_type AS serviceType,\n" +
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
 				 "  ou.`name` lecturerName,\n" +
-				 "  oc.`lecturer`\n" +
+				 "  oc.`lecturer`,\n" +
+				 "  oc.`essence_sort` as essenceSort \n" +
+
 				 "FROM\n" +
 				 "  oe_course oc \n" +
 				 "  LEFT JOIN oe_menu om \n" +

@@ -129,7 +129,7 @@ public class RealCourseController extends AbstractController{
 	@RequiresPermissions("RealClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
-	public TableVo courses(TableVo tableVo) {
+	public TableVo courses(TableVo tableVo,HttpServletRequest request) {
 		 
 		 
 	      int pageSize = tableVo.getiDisplayLength();
@@ -157,6 +157,12 @@ public class RealCourseController extends AbstractController{
           tableVo.setAaData(page.getItems());
           tableVo.setiTotalDisplayRecords(total);
           tableVo.setiTotalRecords(total);
+          
+          
+          //得到所有有效的城市信息
+	  	  Page<OffLineCity> page1 = courseService.getCourseCityList(new OffLineCity(),0,Integer.MAX_VALUE);
+	  	  request.setAttribute("cityVo", page1.getItems());
+          
           return tableVo;
 		
 	}

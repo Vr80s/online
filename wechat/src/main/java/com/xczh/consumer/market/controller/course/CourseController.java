@@ -113,13 +113,13 @@ public class CourseController {
 	
 	@RequestMapping("guessYouLike")
 	public ResponseObject selectMenuTypeAndRandCourse(
-			@RequestParam(value="menuId")Integer menuId)
+			@RequestParam(value="courseId")Integer courseId)
 			throws Exception {
 		
 		Page<CourseLecturVo> page = new Page<CourseLecturVo>();
 		page.setCurrent(0);
 		page.setSize(2);
-		Page<CourseLecturVo> courses= courseServiceImpl.selectMenuTypeAndRandCourse(page,menuId);
+		Page<CourseLecturVo> courses= courseServiceImpl.selectMenuTypeAndRandCourse(page,courseId);
 		return ResponseObject.newSuccessResponseObject(courses);
 	}
 

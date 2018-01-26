@@ -62,7 +62,7 @@ function h5PcConversions(falg,courserId){
 	if(!(browser.versions.mobile || browser.versions.ios || browser.versions.android ||   
 			browser.versions.iPhone || browser.versions.iPad)){    
 		
-		 var nihao   = getServerHost();
+		var nihao   = getServerHost();
 		if(falg ){//ture
 			window.location = nihao+"/course/courses?courseId="+courserId
 		}else{

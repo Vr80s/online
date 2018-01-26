@@ -22,6 +22,7 @@ import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.subscribe.Subscribe;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import com.xczhihui.bxg.online.manager.vhall.bean.Webinar;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,18 +56,63 @@ public class EssenceRecommendServiceImpl extends OnlineBaseServiceImpl implement
 
 	@Override
 	public boolean updateEssenceRec(String[] ids, int isEssence) {
-		for(String id:ids){
+		// TODO Auto-generated method stub
+		List<String> ids2 = new ArrayList();
+		if(isEssence == 1)//如果是推荐
+		{
+			//校验是否被引用
+			String hqlPre="from Course where isDelete=0 and essenceSort = 1";
+			List<Course> list= dao.findByHQL(hqlPre);
+			if(list.size() > 0){//只有原来大于0才执行
+				for(int i = 0;i<ids.length;i++)
+				{
+					int j = 0;
+					Iterator<Course> iterator = list.iterator();
+					while(iterator.hasNext()){//剔除本次推荐的与已经推荐的重复的
+						
+						Course course = iterator.next();
+						if(course.getId() == Integer.parseInt(ids[i])){//如果存在就把他剔除掉从list中
+							j =1;
+						}
+					}
+					if(j == 0){
+						ids2.add(ids[i]);
+					}
+				}
+			}else{
+				for(int i=0;i<ids.length;i++)
+				{
+					ids2.add(ids[i]);
+				}
+			}
+			//已经存在的数量 +  即将添加的数量
+            if((list.size()+ids2.size()) > 12){
+            	return false;
+            }
+		}else{//如果是取消推荐
+			for(int i=0;i<ids.length;i++)
+			{
+				ids2.add(ids[i]);
+			}
+		}
+		
+		String sql="select ifnull(min(essence_sort),0) from oe_course where  is_delete=0 and essence_sort = 1";
+		int i = dao.queryForInt(sql,null);//最小的排序
+		
+		for(String id:ids2){
 			if(id == "" || id == null)
 			{
 				continue;
 			}
-			/*String hqlPre="from Course where  isDelete = 0 and id = ?";
-			Course course= dao.findByHQLOne(hqlPre,new Object[] {Integer.valueOf(id)});
-			if(course !=null){
-				course.setIsRecommend(isEssence);
-				dao.update(course);
-			}*/
-		}
+			i = i -1;
+			String hqlPre="from Course where  isDelete = 0 and id = ?";
+	        Course course= dao.findByHQLOne(hqlPre,new Object[] {Integer.valueOf(id)});
+            if(course !=null){
+            	 course.setEssenceSort(isEssence);
+            	 course.setSort(i);
+                 dao.update(course);
+            }
+        }
 		return true;
 	}
 

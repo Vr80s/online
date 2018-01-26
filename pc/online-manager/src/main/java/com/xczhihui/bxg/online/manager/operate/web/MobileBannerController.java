@@ -68,8 +68,6 @@ public class MobileBannerController{
  		 if (bannerType != null) {
  			searchVo.setBannerType(Integer.parseInt(bannerType.getPropertyValue1().toString()));
  		 }
-         
-         
 
          Page<MobileBannerVo> page = mobileBannerService.findMobileBannerPage(searchVo, currentPage, pageSize);
 
