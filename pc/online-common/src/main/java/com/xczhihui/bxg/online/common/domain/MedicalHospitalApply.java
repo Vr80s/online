@@ -102,6 +102,11 @@ public class MedicalHospitalApply implements Serializable {
      */
 	private String remark;
 
+	/**
+	 * 医馆名称
+	 */
+	private String name;
+
 	public String getId() {
 		return id;
 	}
@@ -220,5 +225,13 @@ public class MedicalHospitalApply implements Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

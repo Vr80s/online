@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 
 @RestController
 @RequestMapping("/medical/common")
@@ -65,8 +66,8 @@ public class CommonController {
     /**
      * 判断用户是医师还是医馆
      */
-    @RequestMapping(value = "/isDoctorOrHospital", method = RequestMethod.POST)
-    public ResponseObject isDoctorOrHospital(HttpServletRequest request, String userId) throws ServletRequestBindingException, IOException {
+    @RequestMapping(value = "/isDoctorOrHospital", method = RequestMethod.GET)
+    public ResponseObject isDoctorOrHospital(HttpServletRequest request) throws ServletRequestBindingException, IOException {
 
         // 获取当前用户
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
@@ -75,7 +76,7 @@ public class CommonController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
 
-        Integer result = commonService.isDoctorOrHospital(currentUser.getUid());
+        List<Integer> result = commonService.isDoctorOrHospital(currentUser.getUid());
 
         return ResponseObject.newSuccessResponseObject(result);
 

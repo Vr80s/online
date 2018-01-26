@@ -148,4 +148,13 @@ public class UserDao extends HibernateDao<User> {
 		page = super.findPageByGroups(groups, page, sql);
 		return page;
 	}
+
+	/**
+	 * 根据userId修改isLecturer
+	 * @author zhuwenbao
+	 */
+	public void updateIsLecturerById(int isLecturer, String userId) {
+		String sql = "UPDATE oe_user set is_lecturer = ? where id = ?";
+		this.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql, isLecturer, userId);
+	}
 }
