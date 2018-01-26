@@ -210,7 +210,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             medicalHospital.setStatus(false);
             medicalHospital.setCreateTime(new Date());
             medicalHospital.setFrontImg(medicalDoctor.getHeadPortrait());
-//            medicalHospitalMapper.insert(medicalHospital);
+            medicalHospitalMapper.insert(medicalHospital);
 
         }else{
 
@@ -239,6 +239,54 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             return null;
         });
 
+    }
+
+    /**
+     * 获取医师的坐诊时间
+     * @author zhuwenbao
+     */
+    @Override
+    public String getWorkTimeById(String userId, Integer type) {
+
+        if(type == null){
+            type = 1;
+        }
+
+        MedicalDoctorAccount doctorAccount =
+                medicalDoctorAccountMapper.getByUserId(userId);
+
+        if(doctorAccount != null){
+            StringBuffer sb = new StringBuffer();
+            String workTime = medicalDoctorMapper.getWorkTimeById(doctorAccount.getDoctorId());
+            if(type == 1){
+                if(StringUtils.isNotBlank(workTime)){
+                    if(workTime.contains("一")){
+                        sb.append("一");
+                    }
+                    if(workTime.contains("二")){
+                        sb.append("，二");
+                    }
+                    if(workTime.contains("三")){
+                        sb.append("，三");
+                    }
+                    if(workTime.contains("四")){
+                        sb.append("，四");
+                    }
+                    if(workTime.contains("五")){
+                        sb.append("，五");
+                    }
+                    if(workTime.contains("六")){
+                        sb.append("，六");
+                    }
+                    if(workTime.contains("日")){
+                        sb.append("，日");
+                    }
+                }
+                return sb.toString();
+            }
+        }
+
+        return null;
     }
 
     /**

@@ -218,4 +218,21 @@ public class DoctorController {
         return ResponseObject.newSuccessResponseObject("加入成功");
     }
 
+    /**
+     * 获取医师的坐诊时间
+     * @author zhuwenbao
+     */
+    @RequestMapping(value = "getWorkTime", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getWorkTime(Integer type, HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        String workTime = medicalDoctorBusinessService.getWorkTimeById(currentUser.getUid(), type);
+        return ResponseObject.newSuccessResponseObject(workTime);
+    }
+
 }

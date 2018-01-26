@@ -42,4 +42,10 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
     List<MedicalWritingsVO> getWritingsByPage(Page<MedicalWritingsVO> page);
 
     void insertSelective(@Param("medicalDoctor") MedicalDoctor medicalDoctor);
+
+    /**
+     * 获取医师的坐诊时间
+     * @author zhuwenbao
+     */
+    String getWorkTimeById(String doctorId);
 }

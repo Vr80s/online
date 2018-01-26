@@ -64,4 +64,12 @@ public interface IMedicalDoctorBusinessService {
      * @param medicalDoctor 加入医馆提交的信息
      */
     void joinHospital(MedicalDoctor medicalDoctor);
+
+    /**
+     * 获取医师的坐诊时间
+     * @param userId 医师id
+     * @param type 坐诊时间的类型
+     * @author zhuwenbao
+     */
+    String getWorkTimeById(String userId, Integer type);
 }

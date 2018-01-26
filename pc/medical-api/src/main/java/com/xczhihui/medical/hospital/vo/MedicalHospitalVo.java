@@ -75,6 +75,11 @@ public class MedicalHospitalVo implements Serializable{
 	 */
 	private Integer certificationType;
 
+	/**
+	 * 医馆封面图
+	 */
+	private String frontImg;
+
 	public String getId() {
 		return id;
 	}
@@ -210,6 +215,14 @@ public class MedicalHospitalVo implements Serializable{
 	 */
 	public void setCertificationType(Integer certificationType) {
 		this.certificationType = certificationType;
+	}
+
+	public String getFrontImg() {
+		return frontImg;
+	}
+
+	public void setFrontImg(String frontImg) {
+		this.frontImg = frontImg;
 	}
 
 	@Override
