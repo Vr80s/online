@@ -50,7 +50,9 @@ public class MedicalDoctorApplyController {
 	@RequestMapping("addDoctorApply")
 	@ResponseBody
 	public ResponseObject addDoctorApply(HttpServletRequest req,
-									 HttpServletResponse res,MedicalDoctorApply medicalDoctorApply, @RequestParam("files")MultipartFile[] files)
+									 HttpServletResponse res,MedicalDoctorApply medicalDoctorApply, @RequestParam("cardPositiveFile")MultipartFile cardPositiveFile
+			, @RequestParam("cardNegativeFile")MultipartFile cardNegativeFile, @RequestParam("qualificationCertificateFile")MultipartFile qualificationCertificateFile
+			, @RequestParam("professionalCertificateFile")MultipartFile professionalCertificateFile)
 			throws Exception {
 
 		try {
@@ -59,31 +61,31 @@ public class MedicalDoctorApplyController {
 				return ResponseObject.newErrorResponseObject("登录失效");
 			}
 			medicalDoctorApply.setUserId(user.getId());
-			if(files!=null&&files.length>0){
+
 				//循环获取file数组中得文件
 				String projectName="other";
 				String fileType="1"; //图片类型了
 				//身份证正面
 				String cardPositive = service.upload(null,
-						projectName, files[0].getOriginalFilename(),files[0].getContentType(), files[0].getBytes(),fileType,null);
+						projectName, cardPositiveFile.getOriginalFilename(),cardPositiveFile.getContentType(), cardPositiveFile.getBytes(),fileType,null);
 				JSONObject cardPositiveJson = JSONObject.parseObject(cardPositive);
 				medicalDoctorApply.setCardPositive(cardPositiveJson.get("url").toString());
 				//身份证反面
 				String cardNegative = service.upload(null,
-						projectName, files[1].getOriginalFilename(),files[1].getContentType(), files[1].getBytes(),fileType,null);
+						projectName, cardNegativeFile.getOriginalFilename(),cardNegativeFile.getContentType(), cardNegativeFile.getBytes(),fileType,null);
 				JSONObject cardNegativeJson = JSONObject.parseObject(cardNegative);
 				medicalDoctorApply.setCardNegative(cardNegativeJson.get("url").toString());
 				//医师资格证
 				String qualificationCertificate = service.upload(null,
-						projectName, files[2].getOriginalFilename(),files[2].getContentType(), files[2].getBytes(),fileType,null);
+						projectName, qualificationCertificateFile.getOriginalFilename(),qualificationCertificateFile.getContentType(), qualificationCertificateFile.getBytes(),fileType,null);
 				JSONObject qualificationCertificateJson = JSONObject.parseObject(qualificationCertificate);
 				medicalDoctorApply.setQualificationCertificate(qualificationCertificateJson.get("url").toString());
 				//医师执业证书
 				String professionalCertificate = service.upload(null,
-						projectName, files[3].getOriginalFilename(),files[3].getContentType(), files[3].getBytes(),fileType,null);
+						projectName, professionalCertificateFile.getOriginalFilename(),professionalCertificateFile.getContentType(), professionalCertificateFile.getBytes(),fileType,null);
 				JSONObject professionalCertificateJson = JSONObject.parseObject(professionalCertificate);
 				medicalDoctorApply.setProfessionalCertificate(professionalCertificateJson.get("url").toString());
-			}
+
 			medicalDoctorApplyService.add(medicalDoctorApply);
 			return  ResponseObject.newSuccessResponseObject("提交成功");
 		} catch (Exception e) {

@@ -46,7 +46,9 @@ public class MedicalHopitalApplyController {
 	@RequestMapping("addHospitalApply")
 	@ResponseBody
 	public ResponseObject addDoctorApply(HttpServletRequest req,
-										 HttpServletResponse res, MedicalHospitalApply medicalHospitalApply, @RequestParam("files")MultipartFile[] files)
+										 HttpServletResponse res, MedicalHospitalApply medicalHospitalApply,
+										 @RequestParam("businessLicensePictureFile")MultipartFile businessLicensePictureFile
+										 , @RequestParam("licenseForPharmaceuticalTradingPictureFile")MultipartFile licenseForPharmaceuticalTradingPictureFile)
 			throws Exception {
 
 		try {
@@ -55,21 +57,20 @@ public class MedicalHopitalApplyController {
 				return ResponseObject.newErrorResponseObject("登录失效");
 			}
 			medicalHospitalApply.setUserId(user.getId());
-			if(files!=null&&files.length>0){
 				//循环获取file数组中得文件
 				String projectName="other";
 				String fileType="1"; //图片类型了
 				//营业执照
 				String businessLicensePicture = service.upload(null,
-						projectName, files[0].getOriginalFilename(),files[0].getContentType(), files[0].getBytes(),fileType,null);
+						projectName, businessLicensePictureFile.getOriginalFilename(),businessLicensePictureFile.getContentType(), businessLicensePictureFile.getBytes(),fileType,null);
 				JSONObject businessLicensePictureJson = JSONObject.parseObject(businessLicensePicture);
 				medicalHospitalApply.setBusinessLicensePicture(businessLicensePictureJson.get("url").toString());
 				//药品经营许可证
 				String licenseForPharmaceuticalTradingPicture = service.upload(null,
-						projectName, files[1].getOriginalFilename(),files[1].getContentType(), files[1].getBytes(),fileType,null);
+						projectName, licenseForPharmaceuticalTradingPictureFile.getOriginalFilename(),licenseForPharmaceuticalTradingPictureFile.getContentType(), licenseForPharmaceuticalTradingPictureFile.getBytes(),fileType,null);
 				JSONObject licenseForPharmaceuticalTradingPictureJson = JSONObject.parseObject(licenseForPharmaceuticalTradingPicture);
 				medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPictureJson.get("url").toString());
-			}
+
 			medicalHospitalApplyService.add(medicalHospitalApply);
 			return ResponseObject.newSuccessResponseObject("提交成功");
 		} catch (Exception e) {
