@@ -1,6 +1,11 @@
 $(function(){
 	
 	
+
+	
+	
+	
+	
 	$('.register').click(function(){
 	//此处进行验证
 	var phoneNum = $.trim($('.phoneNum').val());
@@ -99,6 +104,9 @@ $(function(){
 		var a=Math.random();
         $(this).attr("src","/online/verificationCode/vcode?t="+a+"");
 	});
+	
+	
+	
 	
 	
 	//点击获取动态码的时候
