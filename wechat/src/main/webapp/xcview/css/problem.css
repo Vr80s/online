@@ -84,6 +84,9 @@ header {
 	border-bottom: 1px solid #D8DDE6;
 	text-indent: 0.26rem;
     margin-bottom: 0.28rem;
+    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .problem_main{
 	width: 6.98rem;
