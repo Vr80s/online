@@ -5,6 +5,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 医馆控制器 ClassName: MedicalHopitalApplyController.java <br>
@@ -37,6 +41,9 @@ public class MedicalHopitalApplyController {
 
 	@Autowired
 	private AppBrowserService appBrowserService;
+
+	@Autowired
+	private ICommonService commonServiceImpl;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalHopitalApplyController.class);
 
@@ -77,6 +84,27 @@ public class MedicalHopitalApplyController {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("提交失败");
 		}
+	}
+
+	/**
+	 * 医师入驻申请信息
+	 */
+	@RequestMapping("hospitalInfo")
+	@ResponseBody
+	public ResponseObject getLastOne(HttpServletRequest req)
+			throws Exception {
+
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		/*if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}*/
+		String userId = "2c9aec35605a5bab01605a632d350000";
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(userId);
+		List<Integer> status = commonServiceImpl.isDoctorOrHospital(userId);
+		mapAll.put("medicalHospital",mda);
+		mapAll.put("status",status);
+		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 
 	

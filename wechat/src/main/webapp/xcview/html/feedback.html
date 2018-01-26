@@ -1,0 +1,75 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="/xcview/css/feedback.css">
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+
+
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">反馈</div>
+		</div>
+	</header>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="feedback">
+		<textarea name="" rows="" cols="" placeholder="输入反馈内容" class="textarea"></textarea>
+	</div>
+	<div class="btn">提交</div>
+	
+	<!-- 中间内容结束 -->
+	
+	<!-- 刷新引入js -->
+	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+    <script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<script src="/xcviews/js/index.js" type="text/javascript"></script>
+</body>
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+<script type="text/javascript">
+	window.onload = function(){
+	
+		$('.textarea').keyup(function(){
+			
+			if($('.textarea').val().length<=0){
+	           	$(".btn").css("opacity","0.3");
+	           	
+	       }else{
+	        	$(".btn").css("opacity","1");
+	        }
+		});
+	};
+</script>
+</html>

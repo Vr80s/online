@@ -1,16 +1,5 @@
 package com.xczh.consumer.market.controller.medical;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
@@ -19,6 +8,20 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * 医师控制器 ClassName: MedicalDoctorApplyController.java <br>
@@ -109,5 +112,25 @@ public class MedicalDoctorApplyController {
 	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
 	    }
 		return ResponseObject.newSuccessResponseObject(commonServiceImpl.isDoctorOrHospital(user.getId()));
+	}
+
+	/**
+	 * 医师入驻申请信息
+	 */
+	@RequestMapping("doctorInfo")
+	@ResponseBody
+	public ResponseObject getLastOne(HttpServletRequest req)
+			throws Exception {
+
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		MedicalDoctorApply mda = medicalDoctorApplyService.getLastOne(user.getId());
+		List<Integer> status = commonServiceImpl.isDoctorOrHospital(user.getId());
+		mapAll.put("medicalDoctor",mda);
+		mapAll.put("status",status);
+		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 }

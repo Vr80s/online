@@ -1,6 +1,7 @@
 var userPic = $('.userPic').css('background')
 console.log(userPic)
 
+//请求头像
 RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
@@ -11,6 +12,31 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 				}
 			};
 		});
+
+
+//获取医师认证状态控制左侧tab栏
+ RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+	       if(data.success == true ){
+	       	if(data.resultObject.indexOf(1) == -1){
+	       		//医师认证未成功
+	       		$('.DocAut_btn').removeClass('hide');
+	       		$('.ImDoc_btn').addClass('hide');
+	       		if(data.resultObject.indexOf(3) != -1){
+	       			//认证中
+	       			$('#docAut_tip').removeClass('hide');
+	       		}else if(data.resultObject.indexOf(7) != -1){
+	       			//未认证
+	       			$('#docNoPass_tip').removeClass('hide');
+	       		}
+	       	}else if(data.resultObject.indexOf(1) != -1){
+	       		//医师认证成功
+	       		$('#docpass_tip').removeClass('hide');
+	       		$('.ImDoc_btn').removeClass('hide');
+	       		$('.DocAut_btn').addClass('hide');
+	       	}
+	       }
+
+	    });
 
 
 
@@ -236,6 +262,40 @@ $('#doctor_in_inf .news_nav ul li a').click(function(){
 	$(this).children('span').addClass('color');
 	
 })
+
+
+//点击我是医师
+function goDocPage(){
+	window.location.href = "/web/html/anchors_resources.html";
+}
+
+//点击首页状态提示中的查看认证状态
+function seeAutStatus(){
+	$('.DocAut_btn > a ').click();
+	$('#AutList').addClass('hide');
+	$('#AutStatus').removeClass('hide');
+	
+}
+//点击去认证
+function gotToAut(){
+	$('.DocAut_btn > a ').click();
+	$('#AutList').removeClass('hide');
+	$('#AutStatus').addClass('hide');
+}
+
+//查看状态之后的重新认证
+function Autagain(){
+	$('#AutList').removeClass('hide');
+	$('#AutStatus').addClass('hide');
+}
+
+//医师认证状态和认证信息显示
+RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+			//头像预览
+			console.log(data);
+			$('#AutStatus').html(template('docAutStatus_Tpl', data.resultObject));
+		});
+
 
 
 //获取科室内容渲染页面
