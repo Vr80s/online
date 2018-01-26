@@ -3,7 +3,9 @@ package com.xczh.consumer.market.controller.course;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.wechat.course.vo.CourseLecturVo;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +18,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -105,6 +108,18 @@ public class CourseController {
 	public ResponseObject getCoursesByCollectionId(@RequestParam(value="collectionId")Integer collectionId )
 			throws Exception {
 		List<CourseLecturVo> courses= courseServiceImpl.selectCoursesByCollectionId(collectionId);
+		return ResponseObject.newSuccessResponseObject(courses);
+	}
+	
+	@RequestMapping("guessYouLike")
+	public ResponseObject selectMenuTypeAndRandCourse(
+			@RequestParam(value="menuId")Integer menuId)
+			throws Exception {
+		
+		Page<CourseLecturVo> page = new Page<CourseLecturVo>();
+		page.setCurrent(0);
+		page.setSize(2);
+		Page<CourseLecturVo> courses= courseServiceImpl.selectMenuTypeAndRandCourse(page,menuId);
 		return ResponseObject.newSuccessResponseObject(courses);
 	}
 

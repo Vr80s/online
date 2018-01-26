@@ -97,7 +97,11 @@ public class CourseDao extends HibernateDao<Course>{
 			 paramMap.put("type", courseVo.getType());
 			 sql.append("and om.type = :type ");
 		 }
-
+		 if (courseVo.getRealCitys() != null) {
+			 paramMap.put("city", courseVo.getRealCitys());
+			 sql.append("and oc.city = :city ");
+		 }
+		 
 		 if (courseVo.getId() > 0) {
 			 paramMap.put("courseId", courseVo.getId());
 			 sql.append("and oc.id <> :courseId ");

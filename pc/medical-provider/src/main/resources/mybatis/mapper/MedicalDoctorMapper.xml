@@ -288,4 +288,10 @@
 		</trim>
 	</insert>
 
+	<select id="getWorkTimeById" parameterType="string" resultType="string">
+		SELECT work_time
+		FROM medical_doctor
+		WHERE id = #{doctorId}
+	</select>
+
 </mapper>

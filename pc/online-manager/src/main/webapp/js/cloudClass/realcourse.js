@@ -916,6 +916,8 @@ $('#dialogEditCourseDiv').on("click",".edit_P_cancel", function () {
 function search_P(){
     var json = new Array();
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    
+    
 	searchButton(P_courseTable,json);
 };
 //TODO

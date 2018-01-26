@@ -76,13 +76,13 @@
 								<p>资源</p>
 							</div>
 						</li>-->
-						<li class="setTop active"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>
+						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>-->
 						<!--<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>-->
-						<li class="setTop"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
+						<li class="setTop docSuccessBtn hide"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
 						<!--<li class="setTop"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>-->
-						<li class="setTop"><span class="glyphicon glyphicon-check left_range" aria-hidden="true"></span><span>医师认证</span></li>
+						<li class="setTop active"><span class="glyphicon glyphicon-check left_range" aria-hidden="true"></span><span>医师认证</span></li>
 						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>个人中心</span></li>-->
 					</ul>
 				</div>
@@ -90,14 +90,14 @@
 			<!--右边内容-->
 			<div class="contentWrap y">
 				<!--课程-->
-				<div class="select_box" style="display: block;">主播工作台</div>
+				<!--<div class="select_box">主播工作台</div>-->
 				<!--收徒-->
 				<!--<div class="select_box">收徒</div>-->
 				<!--医馆-->
-				<div class="select_box" id="hospital">
+				<div class="select_box docSuccessBox hide" id="hospital">
 					<div class="zhuanlan_top">
 						<span class="title">医馆</span>
-						<button>返回</button>
+						<!--<button>返回</button>-->
 					</div>
 
 					<div class="zhuanlan_bottom " id="hospital_bottom">
@@ -140,7 +140,7 @@
 								<span style="vertical-align: top;"><em>*</em> 医馆封面图</span>
 								<span class="fengmian_pic" onclick="$('#fengmian_picIpt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医师资格证图片</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医馆封面图资图片</p>
 								</span>
 								<span class="fengmian_tip">
 								<p>文件小于2M</p>
@@ -313,7 +313,7 @@
 				<!--媒体报道-->
 				<!--<div class="select_box">媒体报道</div>-->
 				<!--医师认证-->
-				<div class="select_box" id="doc_Distinguish">
+				<div class="select_box" id="doc_Distinguish" style="display: block;">
 
 					<div class="topTitle">
 						<h3>医师认证</h3>
@@ -615,17 +615,17 @@
 		{{if status == 2}}
 		<div class="bottomContent_inf text-left">
 			<span>医师认证审核中，3个工作日完成</span><span style="color: red;margin-left: -20px;">（如提交信息有误可重新提交）</span>
-			<button>重新认证</button>
+			<button class="renzhengAgain">重新认证</button>
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
 			<span>已于2017.12.12通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
-			<button>重新认证</button>
+			<button class="renzhengAgain">重新认证</button>
 		</div>
 		{{else if status == 0}}
 		<div class="bottomContent_inf text-left">
 			<span>审核未通过</span><span style="color: red;margin-left: -20px;">（提交审核信息有误）</span>
-			<button>重新认证</button>
+			<button class="renzhengAgain">重新认证</button>
 		</div>
 		{{/if}}
 		<div>

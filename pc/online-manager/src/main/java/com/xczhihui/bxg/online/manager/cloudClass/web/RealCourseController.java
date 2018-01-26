@@ -82,7 +82,7 @@ public class RealCourseController extends AbstractController{
 		List<LecturerVo> lecturers = courseService.getLecturers();
 		request.setAttribute("lecturerVo", lecturers);
 		
-		//得到所有的讲师
+		//得到所有有效的城市信息
 		Page<OffLineCity> page = courseService.getCourseCityList(new OffLineCity(),0,Integer.MAX_VALUE);
 		request.setAttribute("cityVo", page.getItems());
 		
@@ -139,11 +139,19 @@ public class RealCourseController extends AbstractController{
           Groups groups = Tools.filterGroup(params);
           
           CourseVo searchVo=new CourseVo();
+          
           Group courseName = groups.findByName("search_courseName");
           searchVo.setOnlineCourse(1);
           if (courseName != null) {
         	  searchVo.setCourseName(courseName.getPropertyValue1().toString());
           }
+          
+          
+          Group city = groups.findByName("search_city");
+          if (city != null) {
+        	  searchVo.setRealCitys(city.getPropertyValue1().toString());
+          }
+          
           Page<CourseVo> page = courseService.findCoursePage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();
           tableVo.setAaData(page.getItems());
@@ -264,7 +272,7 @@ public class RealCourseController extends AbstractController{
 		courseService.updateStatus(id);
 		/*
 		 * 更改了线下培训班的状态，如果此城市的线下培训班都是禁用状态--那么就禁用这个城市
-		 * 				如果此城市的线下培训班都是禁用状态--那么就启用这个城市					   	
+		 * 				         如果此城市的线下培训班都是禁用状态--那么就启用这个城市					   	
 		 */
 		courseService.updateCourseCityStatus(id);
 		
