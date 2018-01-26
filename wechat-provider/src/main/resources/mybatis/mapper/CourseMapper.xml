@@ -248,9 +248,10 @@
 	</select>
 	
 	
-	<!-- 未来一周内要直播的课程  -->
+	<!-- 未来一周内要直播的课程、最近发布的五个课程  -->
 	<select id="selectUserConsoleCourse" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
-	 	SELECT
+	 	(
+	 	 SELECT
 	 	 oc.id as id,
 		  oc.grade_name as gradeName,
 		  oc.smallimg_path as smallImgPath,
@@ -267,18 +268,42 @@
 		  oc.city as city,
 		  ou.id as userId,
 		  ou.name as name,
-		  ou.small_head_photo as headImg
+		  ou.small_head_photo as headImg,
+		  '直播间' as note
 		FROM
 		 oe_course oc
 		   inner join oe_user ou  on oc.user_lecturer_id = ou.id
 		   where
 		   oc.user_lecturer_id = #{userId}  
 		   and 
-		   DATE_SUB(CURDATE(), INTERVAL 4 DAY) <= date(oc.create_time)
+		   DATE_SUB(CURDATE(), INTERVAL 4 DAY) &lt;= date(oc.create_time)
 		   and oc.type =1 and oc.live_status = 1 
-		   order by create_time desc
+		   order by create_time desc  )
+		  UNION ALL 
+		(
+			SELECT
+			 	oc.id as id,
+				  oc.grade_name as gradeName,
+				  oc.smallimg_path as smallImgPath,
+				  oc.start_time as startTime,
+				  oc.end_time as endTime,
+				  oc.user_lecturer_id as userLecturerId,
+				  if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+				  if(oc.is_free =0,0,1) as watchState,
+				  oc.live_status as  lineState,
+				  IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
+				  oc.description as description,
+				  oc.address as address,
+				  oc.current_price as currentPrice,
+				  oc.city as city,
+				  ou.id as userId,
+				  ou.name as name,
+				  ou.small_head_photo as headImg,
+				   '我的课程' as note
+				FROM
+				 oe_course oc
+				   inner join oe_user ou  on oc.user_lecturer_id = ou.id
+				   where oc.user_lecturer_id = #{userId} order by release_time desc limit 0,5
+		)	   
 	</select>
-	
-	
-	
 </mapper>

@@ -33,17 +33,10 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	@Autowired
 	private MyInfoMapper myInfoMapper;
 	
-	@Value("${rate}")
-    private int rate;
-	
 	@Override
 	public List<BigDecimal> selectCollegeCourseXmbNumber(String userId) {
 		// TODO Auto-generated method stub
 		List<BigDecimal>  list= myInfoMapper.selectCollegeCourseXmbNumber(userId);
-		BigDecimal bd = list.get(2);//获取熊猫币数量
-		//转换为人民币数量
-		bd = bd.divide(new BigDecimal(rate), 2,RoundingMode.DOWN);
-		list.add(bd);
 		return list; 
 	}
 

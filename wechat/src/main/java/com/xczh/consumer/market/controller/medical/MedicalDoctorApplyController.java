@@ -50,8 +50,6 @@ public class MedicalDoctorApplyController {
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalDoctorApplyController.class);
 
-	@Autowired
-	private AppBrowserService appBrowserService;
 	/**
 	 * 医师认证
 	 */

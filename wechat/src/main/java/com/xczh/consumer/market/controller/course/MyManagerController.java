@@ -1,6 +1,10 @@
 package com.xczh.consumer.market.controller.course;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +31,7 @@ import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IFocusService;
+import com.xczhihui.wechat.course.service.IMyInfoService;
 import com.xczhihui.wechat.course.vo.CourseLecturVo;
 /**
  * 我的信息管理页面
@@ -60,10 +66,15 @@ public class MyManagerController {
 	@Autowired
 	private EnchashmentService enchashmentService;
 	
-	
 	@Autowired
 	private UserCoinService userCoinService;
 	
+	@Autowired
+	private IMyInfoService myInfoService;
+	
+	@Value("${rate}")
+    private int rate;
+ 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyManagerController.class);
 	/**
 	 * Description：进入我的页面显示几个初始化数据
@@ -180,7 +191,7 @@ public class MyManagerController {
 	
 	
 	/**
-	 * Description：主播控制台
+	 * Description：主播控制台 -- 显示上面的数量级
 	 * @param req
 	 * @param res
 	 * @return
@@ -188,18 +199,69 @@ public class MyManagerController {
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	@RequestMapping("anchorConsole")
+	@RequestMapping("anchorConsoleNumber")
 	@ResponseBody
-	public ResponseObject anchorConsole(HttpServletRequest req,
-			@RequestParam("pageNumber")Integer pageNumber,
-			@RequestParam("pageSize")Integer pageSize)
+	public ResponseObject anchorConsoleNumber(HttpServletRequest req)
 			throws Exception {
 	
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user == null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber,pageSize,user.getId()));
+		Map<String,Object> map = new HashMap<String, Object>();
+		List<BigDecimal> list = myInfoService.selectCollegeCourseXmbNumber(user.getId());
+		map.put("collegeNumber", list.get(0).intValue()); //学员数量
+		map.put("courseNumber", list.get(1).intValue());//课程数量
+		map.put("xmbNumber", list.get(2).intValue());//熊猫币数量
+		BigDecimal bd = list.get(2);//获取熊猫币数量
+		//转换为人民币数量
+		bd = bd.divide(new BigDecimal(rate), 2,RoundingMode.DOWN);
+		map.put("rmbNumber", bd);
+		return ResponseObject.newSuccessResponseObject(map);
+	}
+	
+	
+	/**
+	 * Description：主播控制台 -- 显示上面的数量级
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("anchorConsoleCourse")
+	@ResponseBody
+	public ResponseObject anchorConsoleCourse(HttpServletRequest req)
+			throws Exception {
+	
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user == null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
+		List<CourseLecturVo>  list = courseServiceImpl.selectUserConsoleCourse(user.getId());
+		
+		Map<String,Object> mapTj = new HashMap<String, Object>();
+		Map<String,Object> mapNw = new HashMap<String, Object>();
+		List<CourseLecturVo> listTj = new ArrayList<CourseLecturVo>();
+		List<CourseLecturVo> listNw = new ArrayList<CourseLecturVo>();
+		for (CourseLecturVo courseLecturVo : list) {
+			if("直播间".equals(courseLecturVo.getNote())){
+				listTj.add(courseLecturVo);
+			}
+			if("我的课程".equals(courseLecturVo.getNote())){
+				listNw.add(courseLecturVo);
+			}
+		}
+		mapTj.put("title","直播间");
+		mapTj.put("courseList",listTj);
+		mapNw.put("title","我的课程");
+		mapNw.put("courseList",listNw);
+		
+		mapCourseList.add(mapTj);
+		mapCourseList.add(mapNw);
+		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
 	
 }

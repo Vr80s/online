@@ -38,4 +38,6 @@
     <dubbo:service interface="com.xczhihui.wechat.course.service.IGiftService" ref="giftServiceImpl" timeout="${dubbo.consumer.timeout}" />
     <!--用户银行卡-->
     <dubbo:service interface="com.xczhihui.wechat.course.service.IUserBankService" ref="userBankServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <!-- 我的信息管理类 -->
+    <dubbo:service interface="com.xczhihui.wechat.course.service.IMyInfoService" ref="myInfoServiceImpl" timeout="${dubbo.consumer.timeout}"  />	
 </beans>

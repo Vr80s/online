@@ -72,8 +72,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public Page<CourseLecturVo> selectLecturerAllCourse(
 			Page<CourseLecturVo> page, String lecturerId) {
-		
 		List<CourseLecturVo> records = iCourseMapper.selectLecturerAllCourse(page,lecturerId);
 		return   page.setRecords(records);
+	}
+
+	@Override
+	public List<CourseLecturVo> selectUserConsoleCourse(String id) {
+		return iCourseMapper.selectUserConsoleCourse(id);
 	}
 }
