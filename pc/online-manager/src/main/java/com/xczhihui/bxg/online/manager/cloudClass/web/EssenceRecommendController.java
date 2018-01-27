@@ -1,22 +1,9 @@
 package com.xczhihui.bxg.online.manager.cloudClass.web;
 
-import com.xczhihui.bxg.common.util.DateUtil;
-import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.Lecturer;
-import com.xczhihui.bxg.online.common.domain.Menu;
-import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
-import com.xczhihui.bxg.online.manager.cloudClass.service.EssenceRecommendService;
-import com.xczhihui.bxg.online.manager.cloudClass.service.PublicCourseService;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.ChangeCallbackVo;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
-import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
-import com.xczhihui.bxg.online.manager.utils.Group;
-import com.xczhihui.bxg.online.manager.utils.Groups;
-import com.xczhihui.bxg.online.manager.utils.TableVo;
-import com.xczhihui.bxg.online.manager.utils.Tools;
-import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,10 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Map;
+import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
+import com.xczhihui.bxg.online.manager.cloudClass.service.EssenceRecommendService;
+import com.xczhihui.bxg.online.manager.cloudClass.service.PublicCourseService;
+import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
+import com.xczhihui.bxg.online.manager.utils.Group;
+import com.xczhihui.bxg.online.manager.utils.Groups;
+import com.xczhihui.bxg.online.manager.utils.TableVo;
+import com.xczhihui.bxg.online.manager.utils.Tools;
 
 /**
  * 精品课程管理控制层实现类
@@ -58,6 +52,9 @@ public class EssenceRecommendController {
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 
+		List<Menu> menuVos= courseService.getfirstMenus(null);
+		request.setAttribute("menuVo", menuVos);
+		
 		return PUBLIC_CLASS_PATH_PREFIX + "/essenceRcommend";
 	
 	}
@@ -72,9 +69,27 @@ public class EssenceRecommendController {
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
 
-		CourseVo searchVo = new CourseVo();
+		
+        CourseVo searchVo=new CourseVo();
+        //课程名查找
+//        Group courseName = groups.findByName("search_courseName");
+//        if (courseName != null) {
+//      	  searchVo.setCourseName(courseName.getPropertyValue1().toString());
+//        }
 
-
+		//查询学科
+        Group menuId = groups.findByName("menu_id");
+        if (menuId != null) {
+      	  searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
+        }
+        
+		//是否为精品推荐   
+        Group essenceSort = groups.findByName("essence_sort");
+        if (essenceSort != null) {
+      	  searchVo.setEssenceSort(Integer.valueOf(essenceSort.getPropertyValue1().toString()));
+        }
+        
+        
 		Page<CourseVo> page = ssenceRecommenedService.findCoursePage(searchVo,
 				currentPage, pageSize);
 		int total = page.getTotalCount();
@@ -84,7 +99,6 @@ public class EssenceRecommendController {
 		return tableVo;
 		
 	}
-
 	/**
 	 * 精品推荐
 	 * @param ids

@@ -49,6 +49,16 @@ $(function(){
 			return "<span name='sftj'>未推荐</span>";
 		}
 	} },
+	
+    { "title": "是否精品推荐", "class":"center","width":"8%","sortable":false,"data": 'essenceSort',"mRender":function (data, display, row) {
+		if(data==1){
+			return "<span name='jptj'>已推荐</span>";
+		}else{
+			return "<span name='jptj'>未推荐</span>";
+		}
+	} },
+	
+	
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -223,7 +233,7 @@ debugger;
 	//TODO
     {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
     	var str;
-    	if(row.status ==1){//如果是禁用
+    	if(row.status ==1 || row.isRecommend == 0){//如果是禁用
     		str='<a class="blue" name="cityUpa" href="javascript:void(-1);" title="上移" onclick="cityUpMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
         	'<a class="blue" href="javascript:void(-1);" name="cityDowna" title="下移" onclick="cityDownMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
     	}else{//如果是不禁用
@@ -1136,25 +1146,8 @@ function toEdit(obj,status){
         			break;
         		}
         	}
-    		
     		$("#edit_citys").empty();
     		$("#edit_county").empty();
-    		
-    		
-    		var street = p_c_a[0];
-//    		$('#edit_province option:contains(' + street + ')').each(function(){
-//    		  if ($(this).text() == street) {
-//    		     $(this).attr('selected', true);
-//    		  }
-//    		});
-    		
-    		//市
-//    		for(i=0;i<$("#edit_citys option").length;i++){
-//        		if($("#edit_citys option").eq(i).text()==p_c_a[1]){
-//        			$("#edit_citys option").eq(i).attr("select","selected"); 
-//        			//$("#edid_multimediaType").val($("#edid_multimediaType option").eq(i).val());
-//        		}
-//        	}
     		
     		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
     		$("#edit_citys").append(city);
@@ -1180,6 +1173,7 @@ function toEdit(obj,status){
     	$("#edid_courseName").val(result[0].courseName); //课程名称
     	$("#edid_classTemplate").val(result[0].classTemplate); //班级名称模板
     	$("#edid_courseLength").val(result[0].courseLength); //课程时长
+    	$("#edit_userLecturerId").val(result[0].userLecturerId); //作者
     	$("#edid_coursePwd").val(result[0].coursePwd); //课程时长
     	$("#edid_qqno").val(result[0].qqno); //咨询QQ
 		$("#edid_gradeQQ").val(result[0].gradeQQ); //班级QQ群
@@ -1513,6 +1507,48 @@ $(".rec_P").click(function(){
 });
 
 /**
+ * 设置为精品推荐
+ */
+$(".rec_jp").click(function(){
+	var ids = new Array();
+	var trs = $(".dataTable tbody input[type='checkbox']:checked");
+	
+	for(var i = 0;i<trs.size();i++){
+		
+		if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用")
+		{
+			showDelDialog("","","无法推荐禁用课程！","");
+			return false;
+		}
+		
+		if($(trs[i]).parent().parent().find("[name='jptj']").eq("0").text() == "已推荐")
+		{
+			showDelDialog("","","无法推荐已推荐精品课程！","");
+			return false;
+		}
+		ids.push($(trs[i]).val());
+	}
+	
+	if(ids.length>0){ 
+		ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":1},function(data){
+			if(!data.success){//如果失败
+				layer.msg(data.errorMessage);
+			}else{
+				if(!isnull(P_courseTable)){
+                    layer.msg("精品推荐成功,请到精品课程推荐管理中查看排序！");
+                    //freshDelTable(P_courseTable);
+                    search_menu();
+				}
+				layer.msg(data.errorMessage);
+			}
+		});
+	}else{
+		showDelDialog("","","请选择要推荐精品课程！","");
+	}
+})	
+
+
+/**
  * 城市批量推荐
  *
  */
@@ -1654,6 +1690,12 @@ $(".city_bx").click(function(){
 	$("#courseDiv").hide();
 	$("#courseRecDiv").hide();
 	$("#courseCityDiv").show();
+	
+	/*
+	 * 点击这个地方时，就要把对应的城市刷新下
+	 */
+	
+	
 	freshTable(_cityTable);
 });
 

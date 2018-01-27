@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -742,7 +743,15 @@ public class CourseDao extends SimpleHibernateDao {
           }
           return  null;
      }
-	
 
 
+    public String getCourseLecturerId(Integer courseId) {
+        DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
+        dc.add(Restrictions.eq("id", courseId));
+        Course course = this.findEntity(dc);
+        if(course == null){
+            return null;
+        }
+        return course.getUserLecturerId();
+    }
 }

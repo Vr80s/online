@@ -378,7 +378,7 @@ public class Course extends BasicEntity2 implements Serializable {
 	@Column(name = "live_source_type")
 	private boolean  liveSourceType;
 	/**
-	 * 直播源类型  0:来自pc直播,1:来自app 直播
+	 * 直播源类型
 	 */
 	@Column(name = "essence_sort")
 	private Integer  essenceSort;

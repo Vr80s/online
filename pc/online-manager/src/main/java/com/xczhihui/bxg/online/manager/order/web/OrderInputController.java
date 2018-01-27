@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.enums.OrderForm;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.order.service.OrderInputService;
 import com.xczhihui.bxg.online.manager.order.vo.OrderInputVo;
@@ -124,6 +125,9 @@ public class OrderInputController{
 				v.setClass_id(row.getCell(2).getStringCellValue());
 				
 				row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
+				if(Integer.valueOf(row.getCell(3).getStringCellValue())!= OrderForm.OFFLINE.getCode()&&Integer.valueOf(row.getCell(3).getStringCellValue())!= OrderForm.WORKER.getCode()){
+					throw new RuntimeException("订单类型必须为5(下线订单)或6(工作人员)");
+				}
 				v.setOrder_from(Integer.valueOf(row.getCell(3).getStringCellValue()));
 				service.checkOrderInput(v);
 				v.setCreate_person(UserLoginUtil.getLoginUser(req).getId());
@@ -141,6 +145,7 @@ public class OrderInputController{
 			res.setContentType("text/html;charset=utf-8");
 			res.getWriter().print(g.toJson(ResponseObject.newSuccessResponseObject(null)));
 		} catch ( Exception e) {
+			e.printStackTrace();
 			Gson g = new GsonBuilder().create();
 			res.setCharacterEncoding("utf-8");
 			res.setContentType("text/html;charset=utf-8");

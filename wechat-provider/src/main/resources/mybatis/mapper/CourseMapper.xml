@@ -358,7 +358,7 @@
 		oe_course oc
 		inner join oe_user ou on oc.user_lecturer_id = ou.id 
 		where
-		oc.menu_id= #{menuId}  order by rand()
+		oc.menu_id= (select menu_id from oe_course where id =#{courseId} limit 1)  order by rand()
 	</select>
 	
 </mapper>

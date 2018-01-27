@@ -32,7 +32,7 @@ $(function(){
     	}
         return "音频";
     }},
-    { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+    { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":true,"mRender":function (data, display, row) {
@@ -45,11 +45,18 @@ $(function(){
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
     { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
-    { "title": "是否加密", "class":"center","width":"8%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
-    	if(data == 1)
-    		return "是";
-    	return "否";
-    }},
+//    { "title": "是否加密", "class":"center","width":"8%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
+//    	if(data == 1)
+//    		return "是";
+//    	return "否";
+//    }},
+    { "title": "是否精品推荐", "class":"center","width":"8%","sortable":false,"data": 'essenceSort',"mRender":function (data, display, row) {
+		if(data==1){
+			return "<span name='jptj'>已推荐</span>";
+		}else{
+			return "<span name='jptj'>未推荐</span>";
+		}
+	} },
     { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
     { "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
     { "title": "实际报名人数", "class":"center","sortable":false,"data": 'actCount',"visible":false},
@@ -119,7 +126,7 @@ $(function(){
     var objRecData = [
     { "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"20%","sortable":false,"data": 'courseName' },
-	{ "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+	{ "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
 	{ "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
     // { "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'recImgPath' ,"mRender":function (data, display, row) {
     	// if(data != "" && data != null){
@@ -183,7 +190,7 @@ $(function(){
             return "音频";
         }},
 		{ "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
-        { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+        { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
 		// { "title": "授课方式", "class":"center","width":"10%","sortable":false,"data": 'teachMethodName' },
 		// { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"mRender":function(data,display,row){
@@ -193,11 +200,20 @@ $(function(){
 			data = row.originalCost+"/"+row.currentPrice;
 			return "<span name='coursePrice'>"+data+"</span>"
 		}},
-        { "title": "是否加密", "class":"center","width":"8%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
-            if(data == 1)
-                return "是";
-            return "否";
-        }},
+//        { "title": "是否加密", "class":"center","width":"8%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
+//            if(data == 1)
+//                return "是";
+//            return "否";
+//        }},
+		
+	    { "title": "是否精品推荐", "class":"center","width":"8%","sortable":false,"data": 'essenceSort',"mRender":function (data, display, row) {
+			if(data==1){
+				return "<span name='jptj'>已推荐</span>";
+			}else{
+				return "<span name='jptj'>未推荐</span>";
+			}
+		} },
+		
         { "title": "课程状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function(data,display,row){
             if(data==1){
                 return "已上架";
@@ -279,7 +295,7 @@ $(function(){
 				digits: "课程时长必须为整数！"
 			},
             userLecturerId:{
-                required:"选择上传人！"
+                required:"选择作者！"
             },
             lecturer:{
                 required:"选择主播！"
@@ -455,7 +471,7 @@ function upMove(obj){
  * 课程推荐列表上移
  * @param obj
  */
-function upMoveRec(obj){
+function upMoveRec(obj){ 
 	var oo = $(obj).parent().parent().parent();
 	var aData = _courseRecTable.fnGetData(oo);
 	ajaxRequest(basePath+'/cloudclass/course/upMoveRec',{"id":aData.id},function(res){
@@ -1093,6 +1109,7 @@ function toEdit(obj,status){
 		debugger
     	$("#edit_subtitle").val(result[0].subtitle); //课程名称
     	$("#edit_lecturer").val(result[0].lecturer); //主播
+    	$("#edit_userLecturerId").val(result[0].userLecturerId); //主播
     	$("#edid_courseLength").val(result[0].courseLength); //课程时长
     	$("#edid_coursePwd").val(result[0].coursePwd); //课程密码
 		$("#edid_defaultStudentCount").val(result[0].defaultStudentCount); //默认报名人数
@@ -1419,6 +1436,50 @@ $(".rec_P").click(function(){
 		showDelDialog("","","请选择推荐课程！","");
 	}
 });
+
+/**
+ * 设置为精品推荐
+ */
+$(".rec_jp").click(function(){
+	var ids = new Array();
+	var trs = $(".dataTable tbody input[type='checkbox']:checked");
+	
+	for(var i = 0;i<trs.size();i++){
+		
+		if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用")
+		{
+			showDelDialog("","","无法推荐禁用课程！","");
+			return false;
+		}
+		
+		if($(trs[i]).parent().parent().find("[name='jptj']").eq("0").text() == "已推荐")
+		{
+			showDelDialog("","","无法推荐已推荐课程！","");
+			return false;
+		}
+		ids.push($(trs[i]).val());
+	}
+	
+	if(ids.length>0){ 
+		ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":1},function(data){
+			if(!data.success){//如果失败
+				layer.msg(data.errorMessage);
+			}else{
+				if(!isnull(P_courseTable)){
+                    layer.msg("精品推荐成功,请到精品课程推荐管理中查看排序！");
+                    //freshDelTable(P_courseTable);
+                    freshTable(P_courseTable);
+				}
+				layer.msg(data.errorMessage);
+			}
+		});
+	}else{
+		showDelDialog("","","请选择要推荐精品课程！","");
+	}
+})	
+
+
+
 // /**
 //  * 微课批量推荐
 //  *

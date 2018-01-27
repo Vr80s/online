@@ -324,6 +324,8 @@ public class CourseVo extends OnlineBaseVo{
     private String lecturer;
     private String lecturerDescription;
 	private String subtitle;
+	
+	private Integer essenceSort; //不推荐(0)，推荐（1）
 
 	public String getSubtitle() {
 		return subtitle;
@@ -333,7 +335,7 @@ public class CourseVo extends OnlineBaseVo{
 		this.subtitle = subtitle;
 	}
 
-	private Integer essenceSort;
+
 
 	public Integer getEssenceSort() {
 		return essenceSort;

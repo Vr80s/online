@@ -30,7 +30,7 @@ public class PayCommonUtil {
             }
         }
 
-        sb.append("KEY=" + API_KEY);
+        sb.append("key=" + API_KEY);
 
         //算出摘要
         String mysign = MD5Util.MD5Encode(sb.toString(), characterEncoding).toLowerCase();
@@ -55,11 +55,11 @@ public class PayCommonUtil {
             Map.Entry entry = (Map.Entry) it.next();
             String k = String.valueOf(entry.getKey());
             String v = String.valueOf(entry.getValue());
-            if (null != v && !"".equals(v) && !"sign".equals(k) && !"KEY".equals(k)) {
+            if (null != v && !"".equals(v) && !"sign".equals(k) && !"key".equals(k)) {
                 sb.append(k + "=" + v + "&");
             }
         }
-        sb.append("KEY=" + API_KEY);
+        sb.append("key=" + API_KEY);
         System.out.println(sb.toString());
         String sign = MD5Util.MD5Encode(sb.toString(), characterEncoding).toUpperCase();
         return sign;

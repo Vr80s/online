@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.api.service;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import com.xczhihui.bxg.common.util.bean.Page;
@@ -10,6 +11,7 @@ import com.xczhihui.bxg.online.api.po.GiftStatement;
 import com.xczhihui.bxg.online.api.po.RewardStatement;
 import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 
 
@@ -70,8 +72,10 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public void updateBalanceForGift(GiftStatement giftStatement,Gift gift);
-	
-	/** 
+
+    void updateBalanceForCourses(List<OrderVo> orderVos);
+
+    /**
 	 * Description：打赏主播余额增加
 	 * @param giftStatement
 	 * @param gift
@@ -99,4 +103,6 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public Object getUserCoinConsumptionRecord(String userId, Integer pageNumber, Integer pageSize);
+
+	public void updateBalanceForCourse(OrderVo orderVo);
 }

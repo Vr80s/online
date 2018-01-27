@@ -44,8 +44,7 @@ public class GiftController {
 
 	@Autowired
 	private GiftService giftService;
-//	@Autowired
-//	private Broadcast broadcast;
+
 	private RedissonClient redisson;
 
 	public GiftController(){
@@ -91,11 +90,12 @@ public class GiftController {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(1);
         	giftStatement.setPayType(3);
-//			System.out.println(giftStatement.getLiveId());
-			RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId()); // 1.获得锁对象实例
+			// 1.获得锁对象实例
+			RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId());
 			boolean res = false;
 			try {
-				res = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);//等待十秒。有效期五秒
+				//等待十秒。有效期五秒
+				res = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);
 				map = giftService.addGiftStatement(giftStatement);
 			}catch (Exception e){
 				e.printStackTrace();

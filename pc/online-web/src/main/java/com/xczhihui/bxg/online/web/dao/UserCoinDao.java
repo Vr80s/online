@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.web.dao;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.api.vo.MyConsumptionCoinRecords;
 import com.xczhihui.bxg.online.web.vo.MyConsumptionRecords;
 import org.hibernate.criterion.DetachedCriteria;
@@ -87,4 +88,17 @@ public class UserCoinDao extends SimpleHibernateDao {
 		Page<MyConsumptionCoinRecords> page = this.findPageBySQL(sql.toString(), paramMap, MyConsumptionCoinRecords.class, pageNumber, pageSize);
 		return page;
 	}
+
+	/**
+	 * Description：获取主播分成比例信息
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 9:35 2018/1/25 0025
+	 **/
+    public CourseAnchor getCourseAnchor(String receiverId) {
+		DetachedCriteria dc = DetachedCriteria.forClass(CourseAnchor.class);
+		dc.add(Restrictions.eq("userId", receiverId));
+		CourseAnchor uc = this.findEntity(dc);
+		return uc;
+    }
 }

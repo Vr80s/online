@@ -94,35 +94,76 @@
 <script type="text/javascript">
 	window.onload = function(){
 //		input有值时改变按钮透明度
+//		$('.input0').keyup(function(){
+//			
+//			if($('.input0').val().length<=0){
+//	           	$(".next_step").css("opacity","0.3");
+//	           	
+//	       }else{
+//	        	$(".next_step").css("opacity","1");
+//	        }
+//		});
+//		
+//		$('.input1').keyup(function(){
+//			
+//			if($('.input1').val().length<=0){
+//	           	$(".next_step").css("opacity","0.3");
+//	           	
+//	       }else{
+//	        	$(".next_step").css("opacity","1");
+//	        }
+//		});
+//		
+//		$('.input2').keyup(function(){
+//			
+//			if($('.input2').val().length<=0){
+//	           	$(".next_step").css("opacity","0.3");
+//	           	
+//	       }else{
+//	        	$(".next_step").css("opacity","1");
+//	        }
+//		});
+		var Ipt0,Ipt1,Ipt2;
+		 
+		
 		$('.input0').keyup(function(){
-			
-			if($('.input0').val().length<=0){
-	           	$(".next_step").css("opacity","0.3");
-	           	
-	       }else{
-	        	$(".next_step").css("opacity","1");
-	        }
-		});
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".next_step").css("opacity","1");
+			}else{
+				$(".next_step").css("opacity","0.3");      	
+			}
+		})
 		
 		$('.input1').keyup(function(){
-			
-			if($('.input1').val().length<=0){
-	           	$(".next_step").css("opacity","0.3");
-	           	
-	       }else{
-	        	$(".next_step").css("opacity","1");
-	        }
-		});
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".next_step").css("opacity","1");
+			}else{
+				$(".next_step").css("opacity","0.3");      	
+			}
+		})
+		
 		
 		$('.input2').keyup(function(){
-			
-			if($('.input2').val().length<=0){
-	           	$(".next_step").css("opacity","0.3");
-	           	
-	       }else{
-	        	$(".next_step").css("opacity","1");
-	        }
-		});
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".next_step").css("opacity","1");
+			}else{
+				$(".next_step").css("opacity","0.3");      	
+			}
+		})
+		
+		
 		
 		
 		/*$('.cardholder').keyup('input propertychange', function(){

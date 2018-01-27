@@ -111,7 +111,7 @@ public class CriticizeDao extends SimpleHibernateDao {
 					+ "oc.courseType as courseType,count(og.id) as countGradeNum,oc.is_recommend,oc.qqno FROM oe_course oc "
 					+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st on st.id = oc.course_type_id "
 					+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType "
-					+ "left join oe_grade og on og.course_id = oc.id where oc.is_delete = 0  and oc.type is null ");
+					+ "left join oe_grade og on og.course_id = oc.id where oc.is_delete = 0  and oc.type=2 ");
 
 		 	if(courseVo.getCourseName() != null){
 		 		paramMap.put("courseName", "%"+courseVo.getCourseName()+"%");
