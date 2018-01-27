@@ -50,13 +50,7 @@ $(function(){
 //    		return "是";
 //    	return "否";
 //    }},
-    { "title": "是否精品推荐", "class":"center","width":"8%","sortable":false,"data": 'essenceSort',"mRender":function (data, display, row) {
-		if(data==1){
-			return "<span name='jptj'>已推荐</span>";
-		}else{
-			return "<span name='jptj'>未推荐</span>";
-		}
-	} },
+
     { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
     { "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
     { "title": "实际报名人数", "class":"center","sortable":false,"data": 'actCount',"visible":false},
