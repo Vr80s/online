@@ -20,7 +20,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
  * Create by: name：yuxin <br>email: yuruixin@ixincheng.com <br>
  * Create Time: 2017年9月17日<br>
  */
-@RestController
+@RestController("EnchashmentController1")
 @RequestMapping(value = "/enchashment")
 public class EnchashmentController {
 
