@@ -10,10 +10,13 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+
+import com.xczhihui.bxg.online.api.service.UserCoinService;
 //import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +58,8 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 	private UserCenterAPI userCenterAPI;
 	@Autowired
 	private CourseDao courseDao;
-//	@Autowired
-//	UserCoinService userCoinService;
+	@Autowired
+	UserCoinService userCoinService;
 
 
 	@Override
