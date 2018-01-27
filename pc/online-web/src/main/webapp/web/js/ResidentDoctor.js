@@ -38,6 +38,12 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 
 	    });
 
+	//在医师认证通过的页面设置了一个localStorage 在这个取出来判断 执行重新认证 并且清楚localStorage的值
+	if(localStorage.AutStatus == "AutAgain"){
+		seeAutStatus();
+		Autagain();
+		localStorage.clear();
+	}
 
 
 
@@ -293,7 +299,13 @@ function Autagain(){
 RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//头像预览
 			console.log(data);
+			//首页部分状态提示部分
+			$('#shouyeStatus').html(template('shouyeTipTpl', data.resultObject));
+			
+			
+			//内部状态模板
 			$('#AutStatus').html(template('docAutStatus_Tpl', data.resultObject));
+			
 		});
 
 

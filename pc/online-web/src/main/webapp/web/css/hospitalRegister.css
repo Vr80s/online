@@ -160,6 +160,16 @@ outline: none;
     margin: 27px 17px 0 0;
     outline: none;
 }
+
+.practitioner_input .notregister{
+	width: 95px;
+	height: 35px;
+	background: #ccc;
+    border: 0;
+    color: white;
+    margin: 27px 17px 0 0;
+    outline: none;
+}
 .practitioner_input .have_login{
 	font-size: 14px;
 }

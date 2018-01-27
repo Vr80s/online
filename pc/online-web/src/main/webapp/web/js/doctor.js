@@ -483,12 +483,19 @@ $(function () {
     $('#toDocJoin').click(function(){
     	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
-	       	if(data.resultObject.indexOf(1) != -1||data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
+	       	if(data.resultObject.indexOf(1) != -1){
 	       		//医师认证成功 医师认证中 医师认证拒绝 跳转到认证状态页面
 	       		window.location.href = "/web/html/anchors_resources.html";
+	       	}else if(data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
+	       		window.location.href = "/web/html/ResidentDoctor.html";
 	       	}else if(data.resultObject.indexOf(2) != -1){
 	       		//医馆认证成功 提示不能进行医师认证
-	       		alert('您已完成了医馆注册，不能进行医师注册！')
+//	       		alert('您已完成了医馆注册，不能进行医师注册！')
+				$('#tip').text('您已完成了医馆注册，不能进行医师注册！');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
 	       	}else if(data.resultObject.indexOf(7) != -1){
 	       		//都没有注册过 进入注册页面
 	       		window.location.href = "/web/html/practitionerRegister.html";
@@ -499,14 +506,21 @@ $(function () {
 	       	
 	       }else{
 	       	
-	       	alert('服务器繁忙！');
-	       	
+	       	$('#tip').text('服务器繁忙');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
 	       }
 	       
 		
 	    });
     })
-    
+//
+//$('#toDocJoin').click(function(){
+//	alert(222)
+//})
+//  
     
 });
 

@@ -314,6 +314,20 @@ public class Course extends BasicEntity2 implements Serializable {
 	
 	@Column(name = "city")
 	private String city;
+	
+	@Column(name = "type_sort")
+	private Integer typeSort;
+	
+	@Column(name = "is_essence")
+	private Integer isEssence;
+	
+	@Column(name = "is_type_recommend")
+	private Integer isTypeRecommend;
+	
+	
+	
+	
+	
 	@Transient
 	private String playCode;
 	@Transient
@@ -907,6 +921,31 @@ public class Course extends BasicEntity2 implements Serializable {
 	public void setReleaseTime(Date releaseTime) {
 		this.releaseTime = releaseTime;
 	}
+
+	public Integer getTypeSort() {
+		return typeSort;
+	}
+
+	public void setTypeSort(Integer typeSort) {
+		this.typeSort = typeSort;
+	}
+
+	public Integer getIsEssence() {
+		return isEssence;
+	}
+
+	public void setIsEssence(Integer isEssence) {
+		this.isEssence = isEssence;
+	}
+
+	public Integer getIsTypeRecommend() {
+		return isTypeRecommend;
+	}
+
+	public void setIsTypeRecommend(Integer isTypeRecommend) {
+		this.isTypeRecommend = isTypeRecommend;
+	}
+	
 	
 	
 }

@@ -61,10 +61,10 @@ public class MedicalDoctorApplyController {
 
 		try {
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-			if(user==null){
+			/*if(user==null){
 				return ResponseObject.newErrorResponseObject("登录失效");
 			}
-			medicalDoctorApply.setUserId(user.getId());
+			medicalDoctorApply.setUserId(user.getId());*/
 
 				//循环获取file数组中得文件
 				String projectName="other";

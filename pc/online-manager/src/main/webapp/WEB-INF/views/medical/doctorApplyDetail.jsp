@@ -108,10 +108,24 @@
 		<fmt:formatDate value="${medicalDoctorApply.createTime}"  type="both" />
 	</div>
 
-	<div class="action">
-		<div class="pass" id="pass">通过</div>
-		<div class="reject" id="reject">拒绝</div>
-	</div>
+	<c:choose>
+		<c:when test="${medicalDoctorApply.status == 2}">
+			<div class="action">
+				<div class="pass" id="pass">通过</div>
+				<div class="reject" id="reject">拒绝</div>
+			</div>
+		</c:when>
+		<c:when test="${medicalDoctorApply.status == 1}">
+			<div class="action">
+				<div class="pass" id="passed">已通过</div>
+			</div>
+		</c:when>
+		<c:when test="${medicalDoctorApply.status == 0}">
+			<div class="action">
+				<div class="reject" id="rejected">已拒绝</div>
+			</div>
+		</c:when>
+	</c:choose>
 </div>
 
 

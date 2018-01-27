@@ -1,18 +1,19 @@
 $(function(){
 	
 	//进行认证状态的验证 控制左侧tab的显示隐藏
-	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-	       if(data.success == true ){
-	       	if(data.resultObject.indexOf(1) != -1){
-	       		//医师认证成功 
-	       		$('.docSuccessBtn').removeClass('hide');
-	       		$('.docSuccessBox').removeClass('hide');
-	       	}
-	       }
-	    });
+//	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+//	       if(data.success == true ){
+//	       	if(data.resultObject.indexOf(1) != -1){
+//	       		//医师认证成功 
+//	       		$('.docSuccessBtn').removeClass('hide');
+//	       		$('.docSuccessBox').removeClass('hide');
+//	       	}
+//	       }
+//	    });
 	    
 	 //重新认证按钮
 	 $('#doc_Distinguish ').on("click",".renzhengAgain",function(){
+	 	localStorage.AutStatus = "AutAgain";
 	 	window.location.href = "/web/html/ResidentDoctor.html";
 	 })
 	    

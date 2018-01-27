@@ -3,8 +3,8 @@
 <mapper namespace="com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper">
 
      <select id="getLastOne" parameterType="string" resultType="com.xczhihui.medical.doctor.model.MedicalDoctorApply">
-        SELECT id, name, title, description, tel, user_id,
-          province, city, detailed_address, head_portrait,
+        SELECT id, name, title, description, tel, user_id, card_num,
+          province, city, detailed_address, head_portrait, field,
           title_prove, card_positive, card_negative, qualification_certificate,
           professional_certificate, status, create_time, remark, hospital
         FROM medical_doctor_apply
