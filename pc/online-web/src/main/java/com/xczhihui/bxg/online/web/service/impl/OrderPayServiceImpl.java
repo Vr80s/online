@@ -49,8 +49,8 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
     	Map<String, Object> paramMap = new HashMap<String, Object>();
     	
     	//查未支付的订单
-    	sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id from oe_order o,oe_order_detail od "
-    			+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
+    	sql = "select od.id orderDetailId ,o.id orderId ,od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id,o.`order_from` from oe_order o,oe_order_detail od "
+    			+ " where o.id = od.order_id  and  o.order_no='"+orderNo+"' and order_status=0 ";
     	List<OrderVo> orders = orderDao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
     	if (orders.size() > 0) {
     		//更新订单表
@@ -83,7 +83,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 				String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
 				sql = "insert into apply_r_grade_course (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number,order_no)"
 						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
-						+ " '"+sno+"',"+"'"+orderNo+"')";
+						+ " '"+sno+"',"+"'"+order.getOrderDetailId()+"')";
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
 				/*//如果是限时免费课程，不参与分销，业务到此结束
@@ -105,7 +105,13 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 			}
 
 			//给主播分成
-//			userCoinService.updateBalanceForCourses(orders);
+			try {
+				userCoinService.updateBalanceForCourses(orders);
+			}catch (Exception e){
+				logger.info("订单分成失败，订单id:{}",orders.get(0).getOrderId());
+				e.printStackTrace();
+			}
+
 		}
 	}
 
