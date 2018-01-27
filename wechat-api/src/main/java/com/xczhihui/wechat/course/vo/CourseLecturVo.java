@@ -185,6 +185,7 @@ public class CourseLecturVo implements Serializable {
 	
 	private String liveSourceType; //直播源类型  0:来自pc直播,1:来自app 直播
 	
+	private Integer applyStatus; //审核状态  0未审核 1 审核通过 2 审核未通过
 	
 	public String getUdescription() {
 		return udescription;
@@ -535,6 +536,14 @@ public class CourseLecturVo implements Serializable {
 
 	public void setLiveSourceType(String liveSourceType) {
 		this.liveSourceType = liveSourceType;
+	}
+
+	public Integer getApplyStatus() {
+		return applyStatus;
+	}
+
+	public void setApplyStatus(Integer applyStatus) {
+		this.applyStatus = applyStatus;
 	}
 	
 	
