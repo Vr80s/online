@@ -22,8 +22,8 @@ $(function(){
 	
 	
 	
-	
-	$('.register').click(function(){
+	//点击注册按钮
+	$('.practitioner_settled').on('click','.register',function(){
 	//此处进行验证
 	var phoneNum = $.trim($('.phoneNum').val());
 	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
@@ -123,6 +123,21 @@ $(function(){
 	});
 	
 	
+	//同意协议可以注册
+	var agreeNum = 1;
+	$('#agreeAgreement>input').click(function(){
+		agreeNum *= -1;
+		if(agreeNum < 0){
+			$('#zhuceBtn').removeClass('register');
+			$('#zhuceBtn').addClass('notregister');
+			alert(1)
+		}else if(agreeNum > 0){
+			$('#zhuceBtn').removeClass('notregister');
+			$('#zhuceBtn').addClass('register');
+			alert(2)
+		}
+	})
+
 	
 	
 	

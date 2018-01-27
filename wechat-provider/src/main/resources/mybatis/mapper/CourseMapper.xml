@@ -37,7 +37,7 @@
 		oe_course oc where oc.id = #{courseId}
 	</select>
 
-	<!-- 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
+	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
 	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
@@ -71,19 +71,25 @@
 		oc.id ),0) as criticizeCount,
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc where cc.status
 		= 1 and cc.course_id = oc.id ),0) as startLevel,
-		ou.id as userId,
+ 		
+ 		<!-- ou.id as userId,
 		ou.name as name,
 		ou.small_head_photo as headImg,
-		ca.detail as lecturerDescription,
+		ca.detail as lecturerDescription, -->
+		
+		oc.lecturer as name,
+		oc.lecturer_description as lecturerDescription,
+		ou.small_head_photo as headImg,
+		
 		oc.live_source_type as liveSourceType
 		FROM
 		oe_course as oc
 		inner join oe_user as ou on oc.user_lecturer_id = ou.id
-		left join course_anchor as ca on oc.user_lecturer_id = ca.user_id
+		
 		where oc.id = #{courseId}
 	</select>
 
-	<!-- 查找用户的学习中心数据 直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
+	<!-- 查找用户的 学习中心 数据 直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
 	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		( SELECT
 		oc.id as id,

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,6 +63,9 @@ public class bankCardController {
 										 @RequestParam("certId")String certId)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}
 		String userId="2c9aec35605a5bab01605a632d350000";
 		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(userId,acctPan,certId);
 		if(ub!=null){
@@ -83,9 +87,18 @@ public class bankCardController {
 		querys.put("needBelongArea", "true");
 
 		try {
-			/*HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
+			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
 			System.out.println(response.toString());
-			System.out.println(EntityUtils.toString(response.getEntity()));*/
+			System.out.println(EntityUtils.toString(response.getEntity()));
+			String s = EntityUtils.toString(response.getEntity());
+			JSONObject cardNegativeJson = JSONObject.parseObject(s);
+			String code = cardNegativeJson.get("showapi_res_code").toString();
+			if(!"0".equals(code)){
+				return ResponseObject.newErrorResponseObject("银行卡信息有误");
+			}
+			String showapi_res_body = cardNegativeJson.get("showapi_res_body").toString();
+			JSONObject srb = JSONObject.parseObject(showapi_res_body);
+			String bankname = srb.get("bankName").toString();
 
 			UserBank userBank = new UserBank();
 			userBank.setUserId(userId);
@@ -100,6 +113,19 @@ public class bankCardController {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("添加失败");
 		}
+	}
+
+	@RequestMapping(value = "userBankList")
+	@ResponseBody
+	public ResponseObject selectUserBankbyUserId(HttpServletRequest req) throws Exception{
+
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		/*if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}*/
+		String userId="2c9aec35605a5bab01605a632d350000";
+		List<UserBank> userBankList = userBankService.selectUserBankByUserId(userId);
+		return  ResponseObject.newSuccessResponseObject(userBankList);
 	}
 
 

@@ -48,6 +48,25 @@ $(function(){
     		} },    
         { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
+        
+        
+        { "title": "是否精品推荐", "class":"center","width":"6%","sortable":false,"data": 'isEssence',"mRender":function (data, display, row) {
+        	if(data==1){
+        		return "<span name='jptj'>已推荐</span>";
+        	}else{
+        		return "<span name='sftj'>未推荐</span>";
+        	}
+        } },
+        
+        { "title": "是否分类推荐", "class":"center","width":"6%","sortable":false,"data": 'isTypeRecommend',"mRender":function (data, display, row) {
+        	if(data==1){
+        		return "<span name='fltj'>已推荐</span>";
+        	}else{
+        		return "<span name='sftj'>未推荐</span>";
+        	}
+        } },
+        
+        
         { "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			return row.status=="1"?"已启用":"已禁用";
 			}
@@ -66,7 +85,7 @@ $(function(){
 		}
 		      		];
 	
-	  searchCase.push('{"tempMatchType":"9","propertyName":"essence_sort","propertyValue1":"1","tempType":"Integer"}');
+	searchCase.push('{"tempMatchType":"9","propertyName":"essence_sort","propertyValue1":"1","tempType":"Integer"}');
 	
 	//课程分类
 	scoreTypeTable = initTables("scoreTypeTable",basePath+"/essencerecommend/course/list",objData,true,true,2,null,searchCase,function(data){
@@ -96,21 +115,59 @@ $(function(){
 	createDatetimePicker($('.datetime-picker'));
 
 	
-	$(".jp_course").show();
+	$(".all_recommend_course").show();
+	$(".jp_course").hide();
 	$(".course_menu_id").hide();
 });
 
+
+
+/**
+ * 点击课程推荐管理  -- 查询出所有的没有被禁用的课程
+ */
+$(".all_bx").click(function(){
+	
+	$("#moveType").val(3);
+	
+	$(".all_recommend_course").show();
+	$(".jp_course").hide();
+	$(".course_menu_id").hide();
+	
+    var json = new Array();
+    
+    //essenceSort
+    
+    // 课程名 
+    json.push('{"tempMatchType":"9","propertyName":"course_name","propertyValue1":"'+$("#search_courseName").val()+'","tempType":"String"}');
+    
+    // 直播大类型
+    json.push('{"tempMatchType":"8","propertyName":"course_type","propertyValue1":"'+$("#search_type").val()+'","tempType":"String"}');
+    
+    // 直播状态 
+    json.push('{"tempMatchType":"7","propertyName":"course_liveStatus","propertyValue1":"'+$("#search_liveStatus").val()+'","tempType":"String"}');
+    
+    // 媒体类型
+    json.push('{"tempMatchType":"6","propertyName":"course_multimediaType","propertyValue1":"'+$("#search_multimediaType").val()+'","tempType":"String"}');
+    
+    searchButton(scoreTypeTable,json);
+});
 
 /**
  * 点击精品课程 
  */
 $(".jpktj_bx").click(function(){
 	
+	$("#moveType").val(1);
+	
 	$(".jp_course").show();
 	$(".course_menu_id").hide();
+	$(".all_recommend_course").hide();
 	
     var json = new Array();
-    json.push('{"tempMatchType":"9","propertyName":"essence_sort","propertyValue1":"1","tempType":"Integer"}');
+    
+    //精品推荐
+    json.push('{"tempMatchType":"9","propertyName":"is_essence","propertyValue1":"1","tempType":"Integer"}');
+    //json.push('{"tempMatchType":"9","propertyName":"essence_sort","propertyValue1":"1","tempType":"Integer"}');
 	
     searchButton(scoreTypeTable,json);
 });
@@ -120,38 +177,57 @@ $(".jpktj_bx").click(function(){
  */
 $(".flkc_bx").click(function(){
 	
+	$("#moveType").val(2);
+	
 	$(".course_menu_id").show();
 	$(".jp_course").hide();
+	$(".all_recommend_course").hide();
 	
 	var menuId = $("#search_menu").val();
 	if(menuId==""){
 		menuId = -1;
 	}
     var json = new Array();
+    //分类推荐
+    json.push('{"tempMatchType":"5","propertyName":"is_type_recommend","propertyValue1":"1","tempType":"Integer"}');
     json.push('{"tempMatchType":"5","propertyName":"menu_id","propertyValue1":"'+menuId+'","tempType":"Integer"}');
 	searchButton(scoreTypeTable,json);
 });
 
 
 /**
- * 取消普通的推荐
+ * 取消或设置 分类的推荐
  */
-$(".rec_P").click(function(){
+$(".rec_fl").click(function(){
 	var ids = new Array();
 	var trs = $(".dataTable tbody input[type='checkbox']:checked");
+	
+	var title = $(this).attr("data-type");
+	var isRec = 0;
+	var tip ="取消分类推荐成功";
+	if(title == "set"){
+		isRec = 1;
+		tip ="设置分类推荐成功";
+	}
+	
 	for(var i = 0;i<trs.size();i++){
+		
+		if($(trs[i]).parent().parent().find("[name='fltj']").eq("0").text() == "已推荐" && isRec==1)
+		{
+			showDelDialog("","","无法推荐已推荐课程！","");
+			return false;
+		}
+		
 		ids.push($(trs[i]).val());
 	}
 	if(ids.length>0){ 
-		ajaxRequest(basePath+"/cloudclass/course/updateRec",{'ids':ids.join(","),"isRec":0},function(data){
+		ajaxRequest(basePath+"/essencerecommend/course/updateTypeRec",{'ids':ids.join(","),"isRec":isRec},function(data){
 			if(!data.success){//如果失败
-				//alertInfo(data.errorMessage);
 				layer.msg(data.errorMessage);
 			}else{
 				if(!isnull(scoreTypeTable)){
-                    layer.msg("取消推荐成功！");
-                    //freshDelTable(P_courseTable);
-                    search_menu();
+                    layer.msg(tip);
+                    freshDelTable(scoreTypeTable);
 				}
 				layer.msg(data.errorMessage);
 			}
@@ -160,7 +236,6 @@ $(".rec_P").click(function(){
 		showDelDialog("","","请选择要取消推荐课程！","");
 	}
 })
-
 /**
  * 取消精品推荐
  */
@@ -168,16 +243,30 @@ $(".rec_jp").click(function(){
 	var ids = new Array();
 	var trs = $(".dataTable tbody input[type='checkbox']:checked");
 	
+	var title = $(this).attr("data-type");
+	var isRec = 0;
+	var tip ="取消精品推荐成功";
+	if(title == "set"){
+		isRec = 1;
+		tip ="设置精品推荐成功";
+	}
 	for(var i = 0;i<trs.size();i++){
+		
+		if($(trs[i]).parent().parent().find("[name='jptj']").eq("0").text() == "已推荐" && isRec==1)
+		{
+			showDelDialog("","","无法推荐已推荐课程！","");
+			return false;
+		}
+		
 		ids.push($(trs[i]).val());
 	}
 	if(ids.length>0){ 
-		ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":0},function(data){
+		ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":isRec},function(data){
 			if(!data.success){//如果失败
 				layer.msg(data.errorMessage);
 			}else{
 				if(!isnull(scoreTypeTable)){
-                    layer.msg("取消精品推荐成功！");
+                    layer.msg(tip);
                     //freshDelTable(P_courseTable);
                     //search_menu();
                     freshDelTable(scoreTypeTable);
@@ -199,6 +288,7 @@ function search_menu(){
 		menuId = -1;
 	}
     var json = new Array();
+    json.push('{"tempMatchType":"5","propertyName":"is_type_recommend","propertyValue1":"1","tempType":"Integer"}');
     json.push('{"tempMatchType":"5","propertyName":"menu_id","propertyValue1":"'+menuId+'","tempType":"Integer"}');
 	searchButton(scoreTypeTable,json);
 	
@@ -311,14 +401,20 @@ function updateStatus(obj){
  */
 function upMove(obj){
 	var oo = $(obj).parent().parent().parent();
-	var aData = P_courseTable.fnGetData(oo);
-	ajaxRequest(basePath+'/realClass/course/upMove',{"id":aData.id},function(res){
+	var aData = scoreTypeTable.fnGetData(oo);
+	
+	var moveType =  $("#moveType").val();
+	if(moveType == 3){
+		return;
+	}
+	ajaxRequest(basePath+'/essencerecommend/course/upMove',{"id":aData.id,'moveType':moveType},function(res){
 		if(res.success){
-			freshTable(P_courseTable);
+			freshTable(scoreTypeTable);
 		}else{
 			layer.msg(res.errorMessage);
 		}
 	});
+	
 };
 
 /**
@@ -327,10 +423,14 @@ function upMove(obj){
  */
 function downMove(obj){
 	var oo = $(obj).parent().parent().parent();
-	var aData = P_courseTable.fnGetData(oo);
-	ajaxRequest(basePath+'/realClass/course/downMove',{"id":aData.id},function(res){
+	var aData = scoreTypeTable.fnGetData(oo);
+	var moveType =  $("#moveType").val();
+	if(moveType == 3){
+		return;
+	}
+	ajaxRequest(basePath+'/essencerecommend/course/downMove',{"id":aData.id,'moveType':moveType},function(res){
 		if(res.success){
-			freshTable(P_courseTable);
+			freshTable(scoreTypeTable);
 		}else{
 			layer.msg(res.errorMessage);
 		}

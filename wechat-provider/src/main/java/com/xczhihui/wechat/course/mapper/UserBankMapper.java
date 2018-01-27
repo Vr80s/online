@@ -23,4 +23,6 @@ public interface UserBankMapper extends BaseMapper<UserBank> {
 
 	 void add(@Param("userBank") UserBank userBank);
 
+	List<UserBank> selectUserBankByUserId(@Param("userId") String userId);
+
 }
