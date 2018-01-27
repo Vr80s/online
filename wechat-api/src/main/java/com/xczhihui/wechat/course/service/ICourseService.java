@@ -96,4 +96,8 @@ public interface ICourseService {
 	   */
 	  Page<CourseLecturVo> selectMenuTypeAndRandCourse(Page<CourseLecturVo> page,
 			Integer menuId);
+
+
+	 public Page<CourseLecturVo>  selectAppCourseApplyPage(Page<CourseLecturVo> page,
+			String id, Integer courseFrom, Integer multimediaType);
 }

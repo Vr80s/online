@@ -2,7 +2,6 @@ package com.xczhihui.wechat.course.service.impl;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +84,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public Page<CourseLecturVo> selectMenuTypeAndRandCourse(Page<CourseLecturVo> page,Integer menuId){
 		List<CourseLecturVo> records = iCourseMapper.selectMenuTypeAndRandCourse(page,menuId);
+		return   page.setRecords(records);
+	}
+
+	@Override
+	public Page<CourseLecturVo> selectAppCourseApplyPage(Page<CourseLecturVo> page, String userId, Integer courseForm,Integer multimediaType) {
+		List<CourseLecturVo> records = iCourseMapper.selectAppCourseApplyPage(page, userId,courseForm,multimediaType);
+		page.setRecords(records);
 		return   page.setRecords(records);
 	};
 
