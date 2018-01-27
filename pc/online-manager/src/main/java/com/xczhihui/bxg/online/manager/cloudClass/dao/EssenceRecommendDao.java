@@ -4,6 +4,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
 import com.xczhihui.bxg.online.manager.common.dao.HibernateDao;
+import com.xczhihui.bxg.online.manager.utils.Group;
 
 import org.springframework.stereotype.Repository;
 
@@ -50,33 +51,48 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 "  LEFT JOIN oe_user ou\n" +
 				 "    ON ou.id=oc.user_lecturer_id where oc.is_delete = 0 ");
 	
-		 
-		 if(courseVo.getMenuId()!=null && courseVo.getMenuId() == -1){ //查询所有推荐的课程
+		 //is_essence
+		 if(courseVo.getIsEssence()!=null){ //精品推荐排序
 			 
-			 paramMap.put("isRecommend",1);
-			 sql.append("and oc.is_recommend = :isRecommend ");
-		 
-		 }else{
+			 paramMap.put("isEssence", 1);
+			 sql.append("and oc.is_essence = :isEssence ");
+			 
+			 sql.append(" order by oc.status desc,oc.essence_sort desc");
+			 
+		 }else if(courseVo.getIsTypeRecommend()!=null){ //分类推荐排序
 			 //学科分类
 			 if (courseVo.getMenuId() != null) {
 				 paramMap.put("menuId", courseVo.getMenuId());
 				 sql.append("and oc.menu_id = :menuId ");
 				 
-				 paramMap.put("isRecommend",1);
-				 sql.append("and oc.is_recommend = :isRecommend ");
 			 }
+			 paramMap.put("isTypeRecommend",1);
+			 sql.append("and oc.is_type_recommend = :isTypeRecommend ");
 			 
-			 //精品推荐
-			 if (courseVo.getEssenceSort() != null) { //查询所有精品推荐的课程
-				 paramMap.put("essenceSort", courseVo.getEssenceSort());
-				 sql.append("and oc.essence_sort = :essenceSort ");
+			 sql.append(" order by oc.status desc,oc.type_sort desc");
+		 }else{
+			 
+			 if (courseVo.getCourseName() != null) {
+				 paramMap.put("courseName", "%" + courseVo.getCourseName() + "%");
+				 sql.append("and oc.grade_name like :courseName ");
 			 }
+			 if (courseVo.getType() != null) {
+				 paramMap.put("type", courseVo.getType());
+				 sql.append("and oc.type = :type ");
+			 }
+			 if (courseVo.getLiveStatus() != null) {
+				 paramMap.put("liveStatus", courseVo.getLiveStatus());
+				 sql.append("and oc.live_status = :courseTypeId ");
+			 }
+			 if (courseVo.getMultimediaType() != 0) {
+				 paramMap.put("multimediaType", courseVo.getMultimediaType());
+				 sql.append("and oc.multimedia_type = :multimediaType ");
+			 }
+			 sql.append(" order by oc.status desc,oc.sort desc");
 		 }
-		 
-		 sql.append(" order by oc.status desc,oc.sort desc");
-
 		 System.out.println(sql);
-		return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
+		 Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
+		 return courseVos;
 	}
 
 	public void updateCourseDirectId(Course course) {

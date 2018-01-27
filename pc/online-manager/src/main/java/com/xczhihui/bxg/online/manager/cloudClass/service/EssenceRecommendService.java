@@ -30,6 +30,18 @@ public interface EssenceRecommendService {
 
 	public void updateSortDown(Integer id);
 
+	/**
+	 * 
+	 * Description：设置或者取消分类推荐
+	 * @param _ids
+	 * @param isRec
+	 * @return
+	 * @return boolean
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public boolean updateTypeRec(String[] _ids, int isRec);
+
 
 
 

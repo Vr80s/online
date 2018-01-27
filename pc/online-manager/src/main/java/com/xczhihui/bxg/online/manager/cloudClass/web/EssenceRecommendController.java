@@ -70,24 +70,53 @@ public class EssenceRecommendController {
 		Groups groups = Tools.filterGroup(params);
 
 		
+		
         CourseVo searchVo=new CourseVo();
         //课程名查找
-//        Group courseName = groups.findByName("search_courseName");
-//        if (courseName != null) {
-//      	  searchVo.setCourseName(courseName.getPropertyValue1().toString());
-//        }
-
+        Group courseName = groups.findByName("course_name");
+        if (courseName != null) {
+      	  searchVo.setCourseName(courseName.getPropertyValue1().toString());
+        }
+        
+        // 直播大类型
+        Group course_type = groups.findByName("course_type");
+        if (course_type != null) {
+      	  searchVo.setType(Integer.valueOf(course_type.getPropertyValue1().toString()));
+        }
+        
+        // 直播状态 
+        Group course_liveStatus = groups.findByName("course_liveStatus");
+        if (course_liveStatus != null) {
+      	  searchVo.setLiveStatus(Integer.valueOf(course_liveStatus.getPropertyValue1().toString()));
+        }
+        
+        // 媒体类型 
+        Group course_multimediaType = groups.findByName("course_multimediaType");
+        if (course_multimediaType != null) {
+      	  searchVo.setMultimediaType(Integer.valueOf(course_multimediaType.getPropertyValue1().toString()));
+        }
+        
+        
+        
 		//查询学科
         Group menuId = groups.findByName("menu_id");
         if (menuId != null) {
       	  searchVo.setMenuId(Integer.valueOf(menuId.getPropertyValue1().toString()));
         }
         
-		//是否为精品推荐   
-        Group essenceSort = groups.findByName("essence_sort");
-        if (essenceSort != null) {
-      	  searchVo.setEssenceSort(Integer.valueOf(essenceSort.getPropertyValue1().toString()));
+        
+        //课程名查找
+        Group is_essence = groups.findByName("is_essence");
+        if (is_essence != null) {
+      	  searchVo.setIsEssence(Integer.valueOf(is_essence.getPropertyValue1().toString()));
         }
+        
+        //课程名查找
+        Group is_type_recommend = groups.findByName("is_type_recommend");
+        if (is_type_recommend != null) {
+      	  searchVo.setIsTypeRecommend(Integer.valueOf(is_type_recommend.getPropertyValue1().toString()));
+        }
+        
         
         
 		Page<CourseVo> page = ssenceRecommenedService.findCoursePage(searchVo,
@@ -100,7 +129,7 @@ public class EssenceRecommendController {
 		
 	}
 	/**
-	 * 精品推荐
+	 * 设置或者取消精品推荐
 	 * @param ids
 	 * @param isRec
 	 * @return
@@ -112,6 +141,30 @@ public class EssenceRecommendController {
 		if(ids!=null) {
 			String[] _ids = ids.split(",");
 			if(ssenceRecommenedService.updateEssenceRec(_ids,isRec))
+			{
+				responseObject.setSuccess(true);
+				responseObject.setErrorMessage("操作成功!");
+			}else{
+				responseObject.setSuccess(false);
+				responseObject.setErrorMessage("推荐失败!");
+			}
+		}
+		return responseObject;
+	}
+	
+	/**
+	 * 设置或者取消分类推荐
+	 * @param ids
+	 * @param isRec
+	 * @return
+	 */
+	@RequestMapping(value = "updateTypeRec", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject updateTypeRec(String ids,int isRec) {
+		ResponseObject responseObject=new ResponseObject();
+		if(ids!=null) {
+			String[] _ids = ids.split(",");
+			if(ssenceRecommenedService.updateTypeRec(_ids,isRec))
 			{
 				responseObject.setSuccess(true);
 				responseObject.setErrorMessage("操作成功!");

@@ -1470,7 +1470,7 @@ $(".rec_jp").click(function(){
                     //freshDelTable(P_courseTable);
                     freshTable(P_courseTable);
 				}
-				layer.msg(data.errorMessage);
+				layer.msg("精品推荐成功,请到精品课程推荐管理中查看排序");
 			}
 		});
 	}else{

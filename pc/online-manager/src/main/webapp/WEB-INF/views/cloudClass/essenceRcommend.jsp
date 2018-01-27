@@ -478,10 +478,17 @@
 <div style="height: 100%;" class="clearfix">
     <!-- Nav tabs -->
      <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
-        <li role="presentation" class="active">
+     	
+     	<li role="presentation" class="active">
+            <a href="#home" aria-controls="home" class="all_bx" role="tab"
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程推荐管理</a>
+        </li>
+        
+        <li role="presentation">
             <a href="#home" aria-controls="home" class="jpktj_bx" role="tab"
                data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">精品推荐管理</a>
         </li>
+		
 		<li role="presentation">
 			<a href="#home" aria-controls="home" class="flkc_bx" role="tab"
 			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程分类推荐管理</a>
@@ -491,6 +498,20 @@
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
+        	
+        	
+        		<p class="col-xs-4 all_recommend_course" style="padding: 0;">
+					<button class="btn btn-sm btn-success rec_jp" title="设为精品推荐">
+						<i class="glyphicon glyphicon-trash"></i>设为精品推荐
+					</button>
+				</p>
+				
+				<p class="col-xs-4 all_recommend_course" style="padding: 0;" >
+					<button class="btn btn-sm btn-success rec_P" title="设为分类推荐">
+						<i class="glyphicon glyphicon-trash"></i> 设为分类推荐
+					</button>
+				</p>
+        	
         	
 				<p class="col-xs-4 jp_course" style="padding: 0;">
 					<button class="btn btn-sm btn-success rec_jp" title="取消精品推荐">
@@ -503,6 +524,67 @@
 						<i class="glyphicon glyphicon-trash"></i> 取消推荐
 					</button>
 				</p>
+				
+				
+				
+					<div class="searchDivClass all_recommend_course" id="search_all">
+					<div class="profile-info-row" >
+						<table frame=void >
+							<tr>
+								<!-- 课程名 -->
+								<td>
+			                        <div class="profile-info-value searchTr">
+			                            <input type="text" placeholder = "课程名称" class="propertyValue1" id="search_courseName" style="width: 150px;">
+			                            <input type="hidden" value="search_courseName" class="propertyName"/>
+			                        </div>
+			                    </td>
+							
+								<!-- 直播大类型 -->
+								<td>
+			                       <div class="profile-info-value searchTr">
+			                            <select name="courseType" id="search_type" value="" class="propertyValue1"  >
+						               		<option value=""> 直播类型</option>
+						               		<option value="1">直播</option>
+						               		<option value="2">视频</option>
+						               		<option value="3">线下课</option>
+						               </select>
+			                            <input type="hidden" value="search_type" class="propertyName"/>
+			                        </div>
+								</td>
+								<!-- 直播状态 -->
+								<td>
+			                       <div class="profile-info-value searchTr">
+			                            <select name="liveStatus" id="search_liveStatus" value="" class="propertyValue1"  >
+						               		<option value="">直播状态</option>
+						               		<option value="1">直播中</option>
+						               		<option value="2">预告</option>
+						               		<option value="3">直播结束</option>
+						               </select>
+			                            <input type="hidden" value="search_liveStatus" class="propertyName"/>
+			                        </div>
+								</td>
+								<!-- 媒体类型-->
+								<td>
+			                       <div class="profile-info-value searchTr">
+			                            <select name="multimediaType" id="search_multimediaType" value="" class="propertyValue1"  >
+						               		<option value="">媒体类型</option>
+						               		<option value="1">视频</option>
+						               		<option value="2">音频</option>
+						               </select>
+			                            <input type="hidden" value="search_multimediaType" class="propertyName"/>
+			                        </div>
+								</td>
+								<td>
+									<button id="search_all" type="button" class="btn btn-sm  btn-primary "
+											onclick="searchAll();">
+										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
 				
 				<!-- 分类时显示啦 -->
 				<div class="searchDivClass course_menu_id" id="search_P">

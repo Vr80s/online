@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
-import com.xczhihui.bxg.online.api.service.UserCoinService;
+//import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
@@ -55,8 +55,8 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 	private UserCenterAPI userCenterAPI;
 	@Autowired
 	private CourseDao courseDao;
-	@Autowired
-	UserCoinService userCoinService;
+//	@Autowired
+//	UserCoinService userCoinService;
 
 
 	@Override
@@ -354,7 +354,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 			}
 			//给主播分成
-			userCoinService.updateBalanceForCourses(orders);
+			//userCoinService.updateBalanceForCourses(orders);
 		}
 	}
 
