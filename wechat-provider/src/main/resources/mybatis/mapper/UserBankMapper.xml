@@ -35,4 +35,15 @@
 		(#{userBank.userId}, #{userBank.acctName}, #{userBank.certId},
 		 #{userBank.acctPan}, #{userBank.certType}, #{userBank.createTime})
 	</insert>
+	<select id="selectUserBankebyUserId" resultMap="UserBankBaseResult">
+		SELECT
+		oub.*
+		FROM
+		oe_user_bank oub
+		WHERE oub.is_delete = 0
+		<if test="userId != null and userId != ''">
+			AND oub.user_id = #{userId}
+		</if>
+		ORDER BY oub.create_time DESC
+	</select>
 </mapper>
