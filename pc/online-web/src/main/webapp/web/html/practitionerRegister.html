@@ -157,7 +157,7 @@ var _hmt = _hmt || [];
 			if(data.success == false){
 //				alert(data.)
 				if(data.errorMessage == '该手机号已注册，请直接登录！'){
-					$('.phone_warn').text(data.errorMessage);
+					$('.phone_warn').text('该手机号已注册，请直接登陆进入医师认证！');
 					$('.my_code .my_code_warn').css('display','none');
 					$('.phone_warn').css('display','block');
 						return false;

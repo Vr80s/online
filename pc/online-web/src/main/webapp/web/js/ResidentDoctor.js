@@ -26,7 +26,9 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 	       			$('#docAut_tip').removeClass('hide');
 	       		}else if(data.resultObject.indexOf(7) != -1){
 	       			//未认证
-	       			$('#docNoPass_tip').removeClass('hide');
+//	       			$('#docNoPass_tip').removeClass('hide');
+					$('#AutList').removeClass('hide');
+					$('#AutStatus').addClass('hide');
 	       		}
 	       	}else if(data.resultObject.indexOf(1) != -1){
 	       		//医师认证成功
