@@ -404,7 +404,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" '精品课程' as note ");
 
 		all.append(" from oe_course oc ");
-		all.append(" where  oc.is_delete=0 and oc.status=1 order by essence_sort desc  limit 0,6)");
+		all.append(" where  oc.is_delete=0 and oc.status=1 and oc.is_essence=1 order by oc.essence_sort desc  limit 0,6)");
 
 
 		all.append("  union all ");
@@ -420,7 +420,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		all.append(" '最新课程' as note ");
 		
 		all.append(" from oe_course oc ");
-		all.append(" where  oc.is_delete=0 and oc.status=1  order by  oc.create_time desc limit 0,6)");
+		all.append(" where  oc.is_delete=0 and oc.status=1  order by  oc.release_time desc limit 0,6)");
 		
 		
 		all.append("  union all ");
@@ -439,9 +439,9 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			
 			all.append(" om.name as note ");
 			all.append(" from oe_course oc, oe_menu om  ");
-			all.append(" where  om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 ");
+			all.append(" where  om.id = oc.menu_id	and oc.is_delete=0 and oc.status=1 and oc.is_type_recommend=1 ");
 			all.append(" and om.id  = "+menuVo.getId());
-			all.append("  order by recommend_sort desc limit 0,4 ) ");
+			all.append("  order by oc.type_sort desc limit 0,4 ) ");
 			
 			if(i < listmv.size()){
 				all.append("  union all ");
