@@ -1,0 +1,119 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+
+<link rel="stylesheet" href="/xcview/css/bought.css">
+
+</head>
+<body style="background:#efefef;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">已购</div>
+		</div>
+	</header>
+	<!--<div class="footer_k" style="height:2rem;"></div>-->
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="bought">
+		<div class="bought_main">
+			
+			<!--视频-->
+			<div class="bought_main_list">
+				<div class="bought_list_left">
+					<img src="../images/zhibo1.jpg" class="img0" />
+					<img src="../images/tv_auto.png" class="img1" />
+				</div>
+				<div class="bought_list_right">
+					<div class="bought_list_title">郝万山：郝万山《伤寒论》讲解讲解讲解讲解讲解</div>
+					<div class="bought_list_size">共<sapn>20</span>集  已更新<sapn>20</span>集</div>
+				</div>
+			</div>
+			
+			<!--音频-->
+			<div class="bought_main_list">
+				<div class="bought_list_left">
+					<img src="../images/zhibo1.jpg" class="img0" />
+					<img src="../images/frequency.png" class="img1" />
+				</div>
+				<div class="bought_list_right">
+					<div class="bought_list_title">郝万山：郝万山《伤寒论》讲解讲解讲解讲解讲解</div>
+					<div class="bought_list_size">共<sapn>20</span>集  已更新<sapn>20</span>集</div>
+				</div>
+			</div>
+			
+			<!--线下-->
+			<div class="bought_main_list">
+				<div class="bought_list_left">
+					<img src="../images/zhibo1.jpg" class="img0" />
+					<img src="../images/offline.png" class="img1" />
+				</div>
+				<div class="bought_list_right">
+					<div class="bought_list_title">郝万山：郝万山《伤寒论》讲解讲解讲解讲解讲解</div>
+					<div class="bought_list_size">上课时间：<sapn>2017.12.29</span></div>
+				</div>
+			</div>
+			
+			<!--直播中-->
+			<div class="bought_main_list">
+				<div class="bought_list_left">
+					<img src="../images/zhibo1.jpg" class="img0" />
+					<img src="../images/Sinatv.png" class="img1" />
+				</div>
+				<div class="bought_list_right">
+					<div class="bought_list_title">郝万山：郝万山《伤寒论》讲解讲解讲解讲解讲解</div>
+					<div class="bought_list_size">直播时间：<sapn>2017.12.29  14:20 </span></div>
+				</div>
+			</div>
+			
+			<!--直播中-->
+			<div class="bought_main_list">
+				<div class="bought_list_left">
+					<img src="../images/zhibo1.jpg" class="img0" />
+					<img src="../images/Sinatv.png" class="img1" />
+				</div>
+				<div class="bought_list_right">
+					<div class="bought_list_title">郝万山：郝万山《伤寒论》讲解讲解讲解讲解讲解</div>
+					<div class="bought_list_size_one">直播中</span></div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class="both"></div>
+	</div>
+		
+	<!-- 中间内容结束 -->
+	
+
+</body>
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+</html>
