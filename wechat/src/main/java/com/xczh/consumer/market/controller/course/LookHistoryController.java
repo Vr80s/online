@@ -74,18 +74,21 @@ public class LookHistoryController {
 	@RequestMapping("list")
 	@ResponseBody
 	public ResponseObject list(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params) {
+			HttpServletResponse res) {
 		try {
+			/*
+			 * 取五条记录
+			 */
 			Page<WatchHistoryVO> page = new Page<>();
 		    page.setCurrent(1);
 		    page.setSize(5);
-		    OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+		    
+		    OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
-			   return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			   return ResponseObject.newErrorResponseObject("登录失效");
 			}
 			return ResponseObject.newSuccessResponseObject(watchHistoryServiceImpl.selectWatchHistory(page, ou.getId()));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("保存失败");
 		}
@@ -93,14 +96,12 @@ public class LookHistoryController {
 	
 	@RequestMapping("empty")
 	@ResponseBody
-	public ResponseObject empty(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params) {
+	public ResponseObject empty(HttpServletRequest req,HttpServletResponse res) {
 		try {
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
 			   return ResponseObject.newErrorResponseObject("获取用户信息异常");
 			}
-			
 			watchHistoryServiceImpl.deleteBatch(ou.getUserId());
 			return ResponseObject.newSuccessResponseObject("清空成功");
 		} catch (Exception e) {

@@ -43,7 +43,7 @@ $(function() {
             "data": 'status',
             "mRender": function (data, display, row) {
                 if (data == 2) {
-                    return "dai审核";
+                    return "待审核";
                 } else if (data == 1) {
                     return '<span style="color: #13da08;">已通过</span>';
                 }

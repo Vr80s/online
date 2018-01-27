@@ -16,6 +16,9 @@ import com.xczh.consumer.market.utils.*;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
+import com.xczhihui.bxg.online.common.enums.BalanceType;
+import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.OrderForm;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -856,8 +859,9 @@ public class AlipayController {
 				alipayConfig.ALIPAY_PUBLIC_KEY, alipayConfig.CHARSET, "RSA2");
 
 		LOG.info("verify_result:"+verify_result);
-		
-		if (verify_result) {// 验证成功
+
+		// 验证成功
+		if (verify_result) {
 			if ("TRADE_CLOSED".equals(para.get("trade_status"))) {
 				return;
 			}
@@ -910,19 +914,13 @@ public class AlipayController {
 				// 如果没有签约可退款协议，那么付款完成后，支付宝系统发送该交易状态通知。
 				
 				
-				LOG.info("alipayPaymentRecordH5:"+alipayPaymentRecordH5
-						.getPassbackParams());
-				if (StringUtils.isNotBlank(alipayPaymentRecordH5
-						.getPassbackParams())) {
-					
-					
+				LOG.info("alipayPaymentRecordH5:"+alipayPaymentRecordH5.getPassbackParams());
+				if (StringUtils.isNotBlank(alipayPaymentRecordH5.getPassbackParams())) {
 					LOG.info("trade_status:"+trade_status);
 					
-					String ppbt = JSONObject
-							.parseObject(
-									alipayPaymentRecordH5.getPassbackParams())
-							.get("t").toString();
-					if ("1".equals(ppbt)) { // 打赏
+					String ppbt = JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams()).get("t").toString();
+					if ("1".equals(ppbt)) {
+						// 打赏
 						RewardParamVo rpv = JSONObject.parseObject(
 								alipayPaymentRecordH5.getPassbackParams(),
 								RewardParamVo.class);
@@ -930,7 +928,8 @@ public class AlipayController {
 						com.xczhihui.bxg.online.api.po.RewardStatement rs = new com.xczhihui.bxg.online.api.po.RewardStatement();
 						BeanUtils.copyProperties(rs, rpv);
 						rs.setCreateTime(new Date());
-						rs.setPayType(0);//
+						//支付宝支付
+						rs.setPayType(Payment.ALIPAY.getCode());
 						rs.setStatus(1);
 						rs.setOrderNo(out_trade_no);
 						rs.setPrice(new Double(alipayPaymentRecordH5
@@ -943,64 +942,40 @@ public class AlipayController {
 						alipayPaymentRecordH5Service
 								.insert(alipayPaymentRecordH5);
 						userCoinService.updateBalanceForReward(rs);
-						response.getWriter().println("success"); // 请不要修改或删除
+						// 请不要修改或删除
+						response.getWriter().println("success");
 						return;
-					} else if ("2".equals(ppbt)) { // 普通订单
+					} else if ("2".equals(ppbt)) {
+						// 普通订单
+						LOG.info("回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
+						alipayPaymentRecordH5.setUserId((JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams()).get("userId").toString()));
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 
-						
-						
-						LOG.info("回调数据包："
-								+ alipayPaymentRecordH5.getPassbackParams());
-						alipayPaymentRecordH5.setUserId((JSONObject
-								.parseObject(
-										alipayPaymentRecordH5
-												.getPassbackParams()).get(
-										"userId").toString()));
-
-						alipayPaymentRecordH5Service
-								.insert(alipayPaymentRecordH5);
-						
-						
-						LOG.info("普通订单=============================");
-						
-						boolean onlinePaySuccess = httpOnline(out_trade_no,
-								trade_no); // 普通订单
-
-						
-						LOG.info("普通订单=============================");
+						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no);
 						if (onlinePaySuccess) {
-							response.getWriter().println("success"); // 请不要修改或删除
+							// 请不要修改或删除
+							response.getWriter().println("success");
 						}
 					} else if ("3".equals(ppbt)) {
-						
 						LOG.info("充值回调数据包："
 								+ alipayPaymentRecordH5.getPassbackParams());
-						alipayPaymentRecordH5.setUserId((JSONObject
-								.parseObject(
-										alipayPaymentRecordH5
-												.getPassbackParams()).get(
-										"userId").toString()));
-						alipayPaymentRecordH5Service
-								.insert(alipayPaymentRecordH5);
+						alipayPaymentRecordH5.setUserId((JSONObject.parseObject(alipayPaymentRecordH5
+												.getPassbackParams()).get("userId").toString()));
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 
 						// 执行代币充值工作
 						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(alipayPaymentRecordH5
-								.getUserId());
-						userCoinIncrease.setChangeType(1);
-						userCoinIncrease
-								.setValue(new BigDecimal(new Double(
-										alipayPaymentRecordH5.getTotalAmount())
-										* rate));
+						userCoinIncrease.setUserId(alipayPaymentRecordH5.getUserId());
+						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+						userCoinIncrease.setValue(new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount())* rate));
 						userCoinIncrease.setCreateTime(new Date());
-						userCoinIncrease.setPayType(0);
+						userCoinIncrease.setPayType(Payment.ALIPAY.getCode());
+						userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
 						// userCoinIncrease.setChangeType(0);
-						userCoinIncrease
-								.setOrderNoRecharge(alipayPaymentRecordH5
-										.getTradeNo());
-						userCoinService
-								.updateBalanceForIncrease(userCoinIncrease);
-						response.getWriter().println("success"); // 请不要修改或删除
+						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
+						userCoinService.updateBalanceForIncrease(userCoinIncrease);
+						// 请不要修改或删除
+						response.getWriter().println("success");
 					}
 				}
 			}

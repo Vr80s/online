@@ -37,7 +37,7 @@
 		oe_course oc where oc.id = #{courseId}
 	</select>
 
-	<!-- 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
+	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
 	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
@@ -71,19 +71,25 @@
 		oc.id ),0) as criticizeCount,
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc where cc.status
 		= 1 and cc.course_id = oc.id ),0) as startLevel,
-		ou.id as userId,
+ 		
+ 		<!--  ou.id as userId,
 		ou.name as name,
 		ou.small_head_photo as headImg,
-		ca.detail as lecturerDescription,
+		ca.detail as lecturerDescription, -->
+		
+		oc.lecturer as name,
+		oc.lecturer_description as lecturerDescription,
+		ou.small_head_photo as headImg,
+		
 		oc.live_source_type as liveSourceType
 		FROM
 		oe_course as oc
 		inner join oe_user as ou on oc.user_lecturer_id = ou.id
-		left join course_anchor as ca on oc.user_lecturer_id = ca.user_id
+		
 		where oc.id = #{courseId}
 	</select>
 
-	<!-- 查找用户的学习中心数据 直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
+	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
 	<select id="selectLearningCourseListByUserId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		( SELECT
 		oc.id as id,
@@ -95,21 +101,18 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
-		oc.address as address,
-		oc.city as city,
 		oc.current_price as currentPrice,
 		oc.live_source_type as liveSourceType,
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg,
+		
+		oc.user_lecturer_id as userLecturerId,
+		oc.lecturer as name,
+		
 		'我的课程' as note
+		
 		FROM
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
-		inner join oe_user as ou on oc.user_lecturer_id = ou.id where
+		where
 		( (oc.type = 1 and oc.live_status in (1,2) ) or (oc.type is null and
 		oc.multimedia_type in (1,2)) )
 		and argc.user_id=#{userId}
@@ -128,38 +131,33 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
-		oc.address as address,
-		oc.city as city,
 		oc.current_price as currentPrice,
 		oc.live_source_type as liveSourceType,
 
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg,
+		oc.user_lecturer_id as userLecturerId,
+		oc.lecturer as name,
+		
 		'已结束课程' as note
 		FROM
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
-		inner join oe_user as ou on oc.user_lecturer_id = ou.id where
-		( (oc.type = 3 ) or (oc.type = 1 and oc.live_status = 3 ) )
+		where ( (oc.type = 3 ) or (oc.type = 1 and oc.live_status = 3 ) )
 		and argc.user_id=#{userId}
 		and oc.is_delete=0 and oc.status=1 group by oc.id order by oc.end_time)
 	</select>
 
-	<!-- 得到已购买课程的数量 -->
+	<!-- 得到已购买课程的数量 （不包括免费的课程） -->
 	<select id="selectMyFreeCourseListCount" resultType="java.lang.Integer">
 		SELECT
 		count(*)
 		FROM
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
-		inner join oe_user as ou on oc.user_lecturer_id = ou.id
 		where argc.user_id=#{userId}
 		and oc.is_delete=0 and oc.status=1 and oc.is_free = 0
 	</select>
+	
+	
 	<!-- 得到已经购买的课程排序 -->
 	<select id="selectMyFreeCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
@@ -172,21 +170,16 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.city as city,
 		oc.live_source_type as liveSourceType,
-
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg
+		oc.user_lecturer_id as userLecturerId,
+		oc.lecturer as name,
+		
 		FROM
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
-		inner join oe_user as ou on oc.user_lecturer_id = ou.id
 		where argc.user_id=#{userId}
 		and oc.is_delete=0 and oc.status=1 and oc.is_free = 0 group by oc.id
 		order by oc.end_time
@@ -216,22 +209,16 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg,
+		oc.lecturer as name,
 		ABS(timestampdiff(second,current_timestamp,oc.create_time)) as recent
 		FROM
 		oe_course oc
-		inner join oe_user ou on oc.user_lecturer_id = ou.id
 		where oc.user_lecturer_id = #{userId}
-		order by recent limit 0,1
+		order by oc.recent limit 0,1
 	</select>
 
 
@@ -247,20 +234,13 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
-
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg
+		oc.lecturer as name,
 		FROM
 		oe_course oc
-		inner join oe_user ou on oc.user_lecturer_id = ou.id
 		where oc.user_lecturer_id = #{userId} order by release_time desc
 	</select>
 
@@ -279,20 +259,16 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg,
+		
+		oc.lecturer as name,
+		
 		'直播间' as note
 		FROM
 		oe_course oc
-		inner join oe_user ou on oc.user_lecturer_id = ou.id
 		where
 		oc.user_lecturer_id = #{userId}
 		and
@@ -311,20 +287,14 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg,
+		oc.lecturer as name,
 		'我的课程' as note
 		FROM
 		oe_course oc
-		inner join oe_user ou on oc.user_lecturer_id = ou.id
 		where oc.user_lecturer_id = #{userId} order by oc.release_time
 		desc,oc.start_time desc limit 0,5
 		)
@@ -344,21 +314,52 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		oc.live_status as lineState,
-		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as
-		learndCount,
-		oc.description as description,
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
-		ou.id as userId,
-		ou.name as name,
-		ou.small_head_photo as headImg
+		oc.lecturer as name
+		
 		FROM
 		oe_course oc
-		inner join oe_user ou on oc.user_lecturer_id = ou.id 
 		where
 		oc.menu_id= (select menu_id from oe_course where id =#{courseId} limit 1)  order by rand()
 	</select>
+	
+	
+	
+	<!--  app端我的课程   全部、直播、视频、线下课、音频  -->
+    <select id="selectAppCourseApplyPage" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		select 
+			cai.img_path as  smallImgPath,
+			cai.title as gradeName,
+			cai.user_id as userLecturerId,
+			cai.`price` as currentPrice,
+		    cai.lecturer as name,
+			if(cai.course_form=1,3,if(cai.course_form=3,4,if(cai.multimedia_type=1,1,2))) as type,
+		    cai.start_time as startTime,
+			cai.end_time as endTime,
+		    cai.course_number as courseNumber,
+		    cai.address as address,
+		    cai.city as city,
+			cai.`status` as applyStatus,
+			cai.collection as collection,
+			oc.id as id,
+		    oc.live_status as liveStatus,
+			if(cai.`status`=1,(SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as  learndCount
+		 from 
+		    course_apply_info cai  
+		    LEFT JOIN  oe_course as oc on cai.id = oc.apply_id
+		    where cai.user_id = #{userId}
+		<if test="courseForm != null">
+			AND cai.`course_form` = #{courseForm}
+		</if>
+		<if test="multimediaType != null">
+			AND cai.`multimedia_type` = #{multimediaType}
+		</if>
+		 order by oc.release_time desc
+	</select>
+	
+	
 	
 </mapper>

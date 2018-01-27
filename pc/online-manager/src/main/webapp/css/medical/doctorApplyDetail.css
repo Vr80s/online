@@ -109,6 +109,10 @@
     margin-bottom: 20px;
 }
 
+.doctor-description{
+    width: 16%;
+}
+
 .doctor-hospital-container{
     display: flex;
     margin-bottom: 20px;

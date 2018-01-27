@@ -71,6 +71,8 @@ public class UserCoinConsumption implements Serializable {
 
 	@Column(name="user_coin_id")
 	private Integer userCoinId;
+	@Column(name="balance_type")
+	private Integer balanceType;
 
 	@Column(name="user_id")
 	private String userId;
@@ -84,6 +86,14 @@ public class UserCoinConsumption implements Serializable {
 
 	public Integer getId() {
 		return this.id;
+	}
+
+	public Integer getBalanceType() {
+		return balanceType;
+	}
+
+	public void setBalanceType(Integer balanceType) {
+		this.balanceType = balanceType;
 	}
 
 	public void setId(Integer id) {
