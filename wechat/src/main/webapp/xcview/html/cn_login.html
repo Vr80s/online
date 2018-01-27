@@ -1,0 +1,156 @@
+<!doctype html>
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>直播</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<!--<link rel="stylesheet" href="/xcview/css/mui.min.css">-->
+
+<!--<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+    <script type="text/javascript" src="/Views/h5/js/common.js"></script>
+	<script src="/xcview/js/index.js" type="text/javascript"></script>-->
+<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+
+<link rel="stylesheet" href="/xcview/css/cn_login.css">
+
+
+</head>
+<body style="background:#fff;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">注册</div>
+			<div class="enroll">登录</div>
+		</div>
+	</header>
+	<!-- 头部结束 -->
+
+	<!-- 中间内容开始 -->
+	<div class="enter">
+		<div class="enter_one">
+			<img src="../images/population.png" class="img0" />
+			<input type="text" name="" id="" value="" placeholder="邮箱" class="input0 put" />
+		</div>
+		<div class="enter_one">
+			<img src="../images/auth_code.png" class="img1" />
+			<input type="password" name="" id="" value="" placeholder="验证码" class="input2 put" style="width: 4rem;float: left;" />
+			<input type="button" id="btn" value="获取验证码" onclick="sendemail()" /> 
+		</div>
+		<div class="enter_one">
+			<img src="../images/suo.png" class="img1" style="margin-top: 0.37rem;" />
+			<input type="password" name="" id="" value="" placeholder="密码" class="input1 put" />
+			
+		</div>
+		<div class="enter_btn">注册</div>
+		<div class="forget_password"><a href="javascript: ;">海外用户注册</a></div>
+		<div class="other_means">
+			<div class="other_means_ru">√</div>
+			同意<span>《熊猫中医用户协议》</span>和<span>《隐私条款》</span>
+		</div>
+		
+	</div>
+	
+	<!-- 中间内容结束 -->
+	
+	<!-- 刷新引入js -->
+	<!--<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+	
+</body>
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+
+<script type="text/javascript">
+	window.onload = function(){
+		var Ipt0,Ipt1,Ipt2;
+
+		$('.input0').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt1 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+			}else{
+				$(".enter_btn").css("opacity","0.3");      	
+			}
+		})
+		
+		$('.input1').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt1 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+			}else{
+				$(".enter_btn").css("opacity","0.3");      	
+			}
+		})
+		
+		$('.input2').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt1 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+			}else{
+				$(".enter_btn").css("opacity","0.3");      	
+			}
+		})
+		
+	};
+</script>
+
+<!--获取验证码-->
+<script type="text/javascript"> 
+	var countdown=60; 
+	function sendemail(){
+	    var obj = $("#btn");
+	    settime(obj);
+	    
+	    }
+	function settime(obj) { //发送验证码倒计时
+	    if (countdown == 0) { 
+	        obj.attr('disabled',false); 
+	        //obj.removeattr("disabled"); 
+	        obj.val("获取验证码");
+	        $("#btn").css("background","#00bc12")
+	        countdown = 60; 
+	        return;
+	    } else { 
+	        obj.attr('disabled',true);
+	        obj.val("(" + countdown + ")S");
+	        countdown--; 
+	        $("#btn").css("background","#ccc")
+	    } 
+	setTimeout(function() { 
+	    settime(obj) }
+	    ,1000) 
+	}
+</script>
+</html>
