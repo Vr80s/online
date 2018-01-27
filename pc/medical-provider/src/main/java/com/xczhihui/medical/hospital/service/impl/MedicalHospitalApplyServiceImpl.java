@@ -66,16 +66,9 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
         // 获取用户最后一次申请认证信息
         MedicalHospitalApply lastApply = this.getLastOne(target.getUserId());
-
+        // 不为空则表示用户重新认证
         if(lastApply != null){
-            // 如果该医师已申请 但状态为：未处理 则直接返回
-            if(lastApply.getStatus().equals(MedicalHospitalApplyEnum.WAIT.getCode()) ){
-                throw new RuntimeException("您已提交申请，请等待管理员审核");
-            }else {
-                // 如果为其他状态 则表示需要重新认证
-                // 删除之前的申请
-                applyMapper.delete(target.getUserId());
-            }
+            applyMapper.delete(target.getUserId());
         }
 
         // 生成主键

@@ -72,15 +72,9 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         }
 
         MedicalDoctorApply oldApply = this.getLastOne(target.getUserId());
+        // 不为空则表示用户重新认证
         if(oldApply != null){
-            // 如果该医师已申请 但状态为：未处理 则直接返回
-            if(oldApply.getStatus().equals(MedicalDoctorApplyEnum.WAIT.getCode()) ){
-                throw new RuntimeException("您已提交申请，请等待管理员审核");
-            }else {
-                // 如果为其他状态 则表示需要重新认证
-                // 删除之前的申请
-                medicalDoctorApplyMapper.delete(target.getUserId());
-            }
+            medicalDoctorApplyMapper.delete(target.getUserId());
         }
 
         // 生成主键
