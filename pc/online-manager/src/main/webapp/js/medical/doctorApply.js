@@ -83,7 +83,10 @@ function showDetailDialog(obj, status) {
     window.location.href = basePath + '/home#medical/doctor/apply/' + aData.id;
 }
 
-
+function search_P() {
+    var status = $('#search_status').val();
+    console.log(status);
+}
 
 function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');

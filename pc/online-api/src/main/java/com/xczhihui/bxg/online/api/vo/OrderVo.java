@@ -74,6 +74,24 @@ public class OrderVo implements Serializable {
      * 当前登录用户
      */
     private String  user_id;
+    private String  orderDetailId;
+    private String  orderId;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderDetailId() {
+        return orderDetailId;
+    }
+
+    public void setOrderDetailId(String orderDetailId) {
+        this.orderDetailId = orderDetailId;
+    }
 
     /**
      * 创建时间
@@ -83,7 +101,7 @@ public class OrderVo implements Serializable {
     private Date create_time;
     
     /**
-	 * 订单来源，0官网（本系统），1分销系统，2线下（刷数据）
+	 * 订单来源 1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
 	 */
     private Integer order_from;
 
@@ -239,4 +257,28 @@ public class OrderVo implements Serializable {
 	public void setClass_id(String class_id) {
 		this.class_id = class_id;
 	}
+
+    @Override
+    public String toString() {
+        return "OrderVo{" +
+                "id='" + id + '\'' +
+                ", order_no='" + order_no + '\'' +
+                ", preferenty_way='" + preferenty_way + '\'' +
+                ", preferenty_money='" + preferenty_money + '\'' +
+                ", course_id=" + course_id +
+                ", actual_pay='" + actual_pay + '\'' +
+                ", purchaser='" + purchaser + '\'' +
+                ", course_name='" + course_name + '\'' +
+                ", create_person='" + create_person + '\'' +
+                ", order_status=" + order_status +
+                ", original_cost='" + original_cost + '\'' +
+                ", smallimg_path='" + smallimg_path + '\'' +
+                ", pay_account='" + pay_account + '\'' +
+                ", user_id='" + user_id + '\'' +
+                ", create_time=" + create_time +
+                ", order_from=" + order_from +
+                ", orderDetail=" + orderDetail +
+                ", class_id='" + class_id + '\'' +
+                '}';
+    }
 }

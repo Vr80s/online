@@ -6,7 +6,10 @@ import com.xczhihui.bxg.online.api.po.*;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
+import com.xczhihui.bxg.online.common.domain.Course;
+import com.xczhihui.bxg.online.common.enums.BalanceType;
 import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.RewardDao;
@@ -16,6 +19,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,14 +41,11 @@ import java.util.Map;
 @Service
 public class UserCoinServiceImpl implements UserCoinService {
 
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private UserCoinDao userCoinDao;
     @Autowired
     private CourseDao courseDao;
-    @Autowired
-    private RewardDao rewardDao;
-    @Autowired
-    private RewardService rewardService;
     @Value("${rate}")
     private int rate;
 
@@ -195,12 +197,13 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setUserId(giftStatement.getGiver());
         //记录礼物流水id
         ucc.setOrderNoGift(giftStatement.getId().toString());
+        ucc.setBalanceType(BalanceType.BALANCE.getCode());
         //扣除用户熊猫币余额
         ucc = updateBalanceForConsumption(ucc);
 
         CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
         //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
-        BigDecimal addTotal = total.multiply(BigDecimal.ONE.subtract(courseAnchor.getGiftDivide().divide(new BigDecimal(100))));
+        BigDecimal addTotal = total.multiply(courseAnchor.getGiftDivide().divide(new BigDecimal(100)));
         UserCoinIncrease uci = new UserCoinIncrease();
 
         uci.setChangeType(IncreaseChangeType.GIFT.getCode());
@@ -214,6 +217,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setPayType(null);
         //订单来源:1.pc 2.h5 3.app 4.其他
         uci.setOrderFrom(giftStatement.getClientType());
+        uci.setBalanceType(BalanceType.ANCHOR_BALANCE.getCode());
         //更新主播的数量
         updateBalanceForIncrease(uci);
 
@@ -223,11 +227,20 @@ public class UserCoinServiceImpl implements UserCoinService {
     public void updateBalanceForCourse(OrderVo orderVo) {
         //课程单价换算为熊猫币
         BigDecimal total = new BigDecimal(orderVo.getActual_pay()).multiply(new BigDecimal(rate));
-        String anchorId = courseDao.getCourseLecturerId(orderVo.getCourse_id());
+        Course course = courseDao.getCourse(orderVo.getCourse_id());
+        String anchorId = course.getUserLecturerId();
         CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(anchorId);
         //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
-        BigDecimal addTotal = total.multiply(courseAnchor.getVodDivide().divide(new BigDecimal(100)));
-        System.out.println("总金额"+total+"====获得分成"+courseAnchor.getVodDivide()+"="+addTotal);
+        BigDecimal ratio = BigDecimal.ZERO;
+        if(course.getType()== CourseForm.LIVE.getCode()){
+            ratio = courseAnchor.getLiveDivide();
+        }else if(course.getType()== CourseForm.VOD.getCode()){
+            ratio = courseAnchor.getVodDivide();
+        }else if(course.getType()== CourseForm.OFFLINE.getCode()){
+            ratio = courseAnchor.getOfflineDivide();
+        }
+        BigDecimal addTotal = total.multiply(ratio.divide(new BigDecimal(100)));
+        logger.info("订单："+orderVo.getOrderId()+"总金额"+total+"====获得分成"+ratio+"="+addTotal);
         UserCoinIncrease uci = new UserCoinIncrease();
 
         uci.setChangeType(IncreaseChangeType.COURSE.getCode());
@@ -236,9 +249,10 @@ public class UserCoinServiceImpl implements UserCoinService {
         //平台本笔交易抽成金额 总金额-主播分得
         uci.setBrokerageValue(total.subtract(addTotal));
         //记录订单
-        uci.setOrderNoCourse(orderVo.getId());
+        uci.setOrderNoCourse(orderVo.getOrderDetailId());
         //支付方式为空
         uci.setPayType(null);
+        uci.setBalanceType(BalanceType.ANCHOR_BALANCE.getCode());
         //订单来源:1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
         uci.setOrderFrom(orderVo.getOrder_from());
         //更新主播的数量
@@ -248,7 +262,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Override
     public void updateBalanceForCourses(List<OrderVo> orderVos) {
         for (OrderVo orderVo:orderVos){
-            updateBalanceForCourse(orderVo);
+             updateBalanceForCourse(orderVo);
         }
     }
 

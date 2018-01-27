@@ -100,7 +100,17 @@ public class UserCoinIncrease implements Serializable {
 	private String version;
 	
 	@Transient
-	private String subject;;
+	private String subject;
+	@Column(name="balance_type")
+	private Integer balanceType;
+
+	public Integer getBalanceType() {
+		return balanceType;
+	}
+
+	public void setBalanceType(Integer balanceType) {
+		this.balanceType = balanceType;
+	}
 
 	@Transient
     private java.util.Date startTime;

@@ -16,6 +16,8 @@ import com.xczh.consumer.market.utils.*;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
+import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -716,8 +718,8 @@ public class XzAlipayController {
 					 */
 					String ppbt = JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams()).get("t").toString();
 					
-					if ("1".equals(ppbt)) { // 打赏
-						
+					if ("1".equals(ppbt)) {
+						// 打赏
 						LOG.info("充值回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
 						
 						RewardParamVo rpv = JSONObject.parseObject(
@@ -727,7 +729,7 @@ public class XzAlipayController {
 						com.xczhihui.bxg.online.api.po.RewardStatement rs = new com.xczhihui.bxg.online.api.po.RewardStatement();
 						BeanUtils.copyProperties(rs, rpv);
 						rs.setCreateTime(new Date());
-						rs.setPayType(0);//
+						rs.setPayType(Payment.ALIPAY.getCode());
 						rs.setStatus(1);
 						rs.setOrderNo(out_trade_no);
 						rs.setPrice(new Double(alipayPaymentRecordH5
@@ -736,11 +738,11 @@ public class XzAlipayController {
 						// rewardService.insert(rs);1
 						alipayPaymentRecordH5.setUserId(rpv.getUserId());
 						
-						
 						alipayPaymentRecordH5Service
 								.insert(alipayPaymentRecordH5);
 						userCoinService.updateBalanceForReward(rs);
-						response.getWriter().println("success"); // 请不要修改或删除
+						// 请不要修改或删除
+						response.getWriter().println("success");
 						return;
 					} else if ("2".equals(ppbt)) { // 普通订单
 						
@@ -750,9 +752,11 @@ public class XzAlipayController {
 						 * 记录支付宝购买课程的消费记录
 						 */
 						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
-						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no); // 普通订单
+						// 普通订单
+						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no);
 						if (onlinePaySuccess) {
-							response.getWriter().println("success"); // 请不要修改或删除
+							// 请不要修改或删除
+							response.getWriter().println("success");
 						}
 					} else if ("3".equals(ppbt)) {
 						
@@ -770,16 +774,21 @@ public class XzAlipayController {
 						 *  充值后记录增加，代币系统的余额执行代币充值工作
 						 */
 						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(rechargeParamVo.getUserId());  
-						userCoinIncrease.setChangeType(1);  //1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回
-						userCoinIncrease.setValue(rechargeParamVo.getValue());   //熊猫币
+						userCoinIncrease.setUserId(rechargeParamVo.getUserId());
+						//1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回
+						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+						//熊猫币
+						userCoinIncrease.setValue(rechargeParamVo.getValue());
 						userCoinIncrease.setCreateTime(new Date());
-						userCoinIncrease.setPayType(rechargeParamVo.getPayType());  //0:支付宝 1:微信 2:网银
-						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());   //0:支付宝 1:微信 2:网银
+						//0:支付宝 1:微信 2:网银
+						userCoinIncrease.setPayType(rechargeParamVo.getPayType());
+						//0:支付宝 1:微信 2:网银
+						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());
 						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
 						
 						userCoinService.updateBalanceForIncrease(userCoinIncrease);
-						response.getWriter().println("success"); // 请不要修改或删除
+						// 请不要修改或删除
+						response.getWriter().println("success");
 					}
 				}
 			}
@@ -809,7 +818,8 @@ public class XzAlipayController {
 			throw new RuntimeException("订单号不能为空！");
 		}
 		// 通过订单号得到订单信息
-		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(request.getParameter("orderId"));// onlineOrderService.getOnlineOrderByOrderNo(orderNo);
+		// onlineOrderService.getOnlineOrderByOrderNo(orderNo);
+		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(request.getParameter("orderId"));
 		retobj.put("ok", "false");
 		if (null == onlineOrder) {
 			throw new RuntimeException("找不到订单 ！");
@@ -830,8 +840,7 @@ public class XzAlipayController {
 
 		// if (request.getParameter("WIDout_trade_no") != null) {
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
-		String out_trade_no = new String(orderNo.getBytes("ISO-8859-1"),
-				"UTF-8");
+		String out_trade_no = new String(orderNo.getBytes("ISO-8859-1"),"UTF-8");
 		// 订单名称，必填
 		String subject = onlineOrderService.getCourseNames(orderNo);// new
 																	// String("订单支付".getBytes("ISO-8859-1"),

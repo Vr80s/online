@@ -3,6 +3,9 @@ package com.xczh.consumer.market.service.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,11 +39,13 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     	try {
     		UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
 	        userCoinIncrease.setUserId(userId);
-	        userCoinIncrease.setChangeType(1);
-	        userCoinIncrease.setPayType(3);
+	        //充值
+	        userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+	        //苹果支付
+	        userCoinIncrease.setPayType(Payment.APPLYPAY.getCode());
 	        userCoinIncrease.setValue(new BigDecimal(xmb));
 	        userCoinIncrease.setCreateTime(new Date());
-	        userCoinIncrease.setOrderFrom(3);
+	        userCoinIncrease.setOrderFrom(OrderForm.IOS.getCode());
 	        userCoinIncrease.setOrderNoRecharge(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
 	        
 	        iphoneIpaMapper.save(json,
