@@ -43,6 +43,10 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 "  ou.`name` lecturerName,\n" +
 				 "  oc.`lecturer`,\n" +
 				 "  oc.live_status as liveStatus, \n" +
+				 
+				 "  oc.`is_essence` as isEssence,\n" +
+				 "  oc.is_type_recommend as isTypeRecommend, \n" +
+				 
 				 "  oc.type as type \n" +
 				 "FROM\n" +
 				 "  oe_course oc \n" +
@@ -51,7 +55,6 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 "  LEFT JOIN oe_user ou\n" +
 				 "    ON ou.id=oc.user_lecturer_id where oc.is_delete = 0 ");
 	
-		 //is_essence
 		 if(courseVo.getIsEssence()!=null){ //精品推荐排序
 			 
 			 paramMap.put("isEssence", 1);
@@ -61,7 +64,7 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 			 
 		 }else if(courseVo.getIsTypeRecommend()!=null){ //分类推荐排序
 			 //学科分类
-			 if (courseVo.getMenuId() != null) {
+			 if (courseVo.getMenuId() != null && courseVo.getMenuId()!=-1) {
 				 paramMap.put("menuId", courseVo.getMenuId());
 				 sql.append("and oc.menu_id = :menuId ");
 				 
@@ -82,7 +85,7 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 			 }
 			 if (courseVo.getLiveStatus() != null) {
 				 paramMap.put("liveStatus", courseVo.getLiveStatus());
-				 sql.append("and oc.live_status = :courseTypeId ");
+				 sql.append("and oc.live_status = :liveStatus ");
 			 }
 			 if (courseVo.getMultimediaType() != 0) {
 				 paramMap.put("multimediaType", courseVo.getMultimediaType());

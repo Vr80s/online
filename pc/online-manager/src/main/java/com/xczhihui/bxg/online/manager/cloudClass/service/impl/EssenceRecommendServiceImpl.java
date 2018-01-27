@@ -185,12 +185,14 @@ public class EssenceRecommendServiceImpl extends OnlineBaseServiceImpl implement
 	
 	
 	@Override
-	public void updateSortUp(Integer id) {
+	public void updateJpSortUp(Integer id) {
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getEssenceSort();
          
-         String hqlNext="from Course where essenceSort > (select essenceSort from Course where id= ? )  and isDelete=0 and status=1  order by essenceSort asc";
+         //String hqlNext="from Course where sort > (select sort from Course where id= ? ) and type=2  and isDelete=0 order by sort asc";
+         
+         String hqlNext="from Course where essenceSort > (select essenceSort from Course where id= ? ) and isEssence=1 and isDelete=0 and status=1  order by essenceSort asc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getEssenceSort();
          
@@ -202,16 +204,54 @@ public class EssenceRecommendServiceImpl extends OnlineBaseServiceImpl implement
 		
 	}
 	@Override
-	public void updateSortDown(Integer id) {
+	public void updateJpSortDown(Integer id) {
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getEssenceSort();
-         String hqlNext="from Course where essenceSort < (select essenceSort from Course where id= ? )  and isDelete=0 and status=1  order by essenceSort desc";
+         
+         String hqlNext="from Course where essenceSort < (select essenceSort from Course where id= ? )  and isEssence=1 and isDelete=0 and status=1  order by essenceSort desc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getEssenceSort();
          
          coursePre.setEssenceSort(courseNextSort);
          courseNext.setEssenceSort(coursePreSort);
+         
+         dao.update(coursePre);
+         dao.update(courseNext);
+	}
+
+	@Override
+	public void updateFlSortUp(Integer id) {
+		 String hqlPre="from Course where  isDelete=0 and id = ?";
+         Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+         Integer coursePreSort=coursePre.getEssenceSort();
+         
+         
+         String hqlNext="from Course where typeSort > (select typeSort from Course where id= ? ) and isTypeRecommend =1 and isDelete=0 and status=1  order by typeSort asc";
+         Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+         Integer courseNextSort=courseNext.getEssenceSort();
+         
+         coursePre.setTypeSort(courseNextSort);
+         courseNext.setTypeSort(coursePreSort);
+         
+         dao.update(coursePre);
+         dao.update(courseNext);
+		
+	}
+
+	@Override
+	public void updateFlSortDown(Integer id) {
+		
+		 String hqlPre="from Course where  isDelete=0 and id = ?";
+         Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+         Integer coursePreSort=coursePre.getEssenceSort();
+         
+         String hqlNext="from Course where typeSort < (select typeSort from Course where id= ? )  and isTypeRecommend =1 and isDelete=0 and status=1  order by typeSort desc";
+         Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+         Integer courseNextSort=courseNext.getEssenceSort();
+         
+         coursePre.setTypeSort(courseNextSort);
+         courseNext.setTypeSort(coursePreSort);
          
          dao.update(coursePre);
          dao.update(courseNext);

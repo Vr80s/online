@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -70,7 +71,6 @@ public class EssenceRecommendController {
 		Groups groups = Tools.filterGroup(params);
 
 		
-		
         CourseVo searchVo=new CourseVo();
         //课程名查找
         Group courseName = groups.findByName("course_name");
@@ -80,19 +80,19 @@ public class EssenceRecommendController {
         
         // 直播大类型
         Group course_type = groups.findByName("course_type");
-        if (course_type != null) {
-      	  searchVo.setType(Integer.valueOf(course_type.getPropertyValue1().toString()));
+        if (course_type!=null && StringUtils.isNotBlank(course_type.getPropertyValue1().toString())) {
+      	   searchVo.setType(Integer.valueOf(course_type.getPropertyValue1().toString()));
         }
         
         // 直播状态 
         Group course_liveStatus = groups.findByName("course_liveStatus");
-        if (course_liveStatus != null) {
+        if (course_liveStatus!=null && StringUtils.isNotBlank(course_liveStatus.getPropertyValue1().toString())) {
       	  searchVo.setLiveStatus(Integer.valueOf(course_liveStatus.getPropertyValue1().toString()));
         }
         
         // 媒体类型 
         Group course_multimediaType = groups.findByName("course_multimediaType");
-        if (course_multimediaType != null) {
+        if (course_multimediaType!=null &&StringUtils.isNotBlank(course_multimediaType.getPropertyValue1().toString())) {
       	  searchVo.setMultimediaType(Integer.valueOf(course_multimediaType.getPropertyValue1().toString()));
         }
         
@@ -117,10 +117,9 @@ public class EssenceRecommendController {
       	  searchVo.setIsTypeRecommend(Integer.valueOf(is_type_recommend.getPropertyValue1().toString()));
         }
         
-        
-        
-		Page<CourseVo> page = ssenceRecommenedService.findCoursePage(searchVo,
-				currentPage, pageSize);
+		Page<CourseVo> page = ssenceRecommenedService.findCoursePage(searchVo,currentPage, pageSize);
+		
+		
 		int total = page.getTotalCount();
 		tableVo.setAaData(page.getItems());
 		tableVo.setiTotalDisplayRecords(total);
@@ -176,30 +175,43 @@ public class EssenceRecommendController {
 		return responseObject;
 	}
 
+	
 	/**
-     * 上移
+     * 上移   分类推荐或精品推荐的
      * @param id
      * @return
      */
     @RequestMapping(value = "upMove", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject upMove(Integer id) {
+    public ResponseObject upMove(Integer id,Integer moveType) {
          ResponseObject responseObj = new ResponseObject();
-		ssenceRecommenedService.updateSortUp(id);
+         
+         if(moveType == 1){ //精品
+        	 ssenceRecommenedService.updateJpSortUp(id);
+         }else if(moveType == 2){ //分类
+        	 ssenceRecommenedService.updateFlSortUp(id);
+         }
          responseObj.setSuccess(true);
          return responseObj;
     }
     
+    
 	/**
-     * 下移
+     * 下移   分类推荐或精品推荐的
      * @param id
      * @return
      */
     @RequestMapping(value = "downMove", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject downMove(Integer id) {
+    public ResponseObject downMove(Integer id,Integer moveType) {
          ResponseObject responseObj = new ResponseObject();
-		ssenceRecommenedService.updateSortDown(id);
+         
+         if(moveType == 1){ //精品
+        	 ssenceRecommenedService.updateJpSortDown(id);
+         }else if(moveType == 2){ //分类
+        	 ssenceRecommenedService.updateFlSortDown(id);
+         }
+         
          responseObj.setSuccess(true);
          return responseObj;
     }

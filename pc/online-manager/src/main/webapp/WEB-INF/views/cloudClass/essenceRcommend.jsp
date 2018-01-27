@@ -500,28 +500,28 @@
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
         	
         	
-        		<p class="col-xs-4 all_recommend_course" style="padding: 0;">
-					<button class="btn btn-sm btn-success rec_jp" title="设为精品推荐">
-						<i class="glyphicon glyphicon-trash"></i>设为精品推荐
+        		<p class="col-xs-1 all_recommend_course" style="padding: 0;">
+					<button class="btn btn-sm btn-success rec_jp" title="设为精品推荐" data-type="set">
+						<i class="glyphicon glyphicon-cog"></i>设为精品推荐
 					</button>
 				</p>
 				
-				<p class="col-xs-4 all_recommend_course" style="padding: 0;" >
-					<button class="btn btn-sm btn-success rec_P" title="设为分类推荐">
-						<i class="glyphicon glyphicon-trash"></i> 设为分类推荐
+				<p class="col-xs-1 all_recommend_course" style="padding: 0;" >
+					<button class="btn btn-sm btn-success rec_fl" title="设为分类推荐" data-type="set">
+						<i class="glyphicon glyphicon-cog"></i> 设为分类推荐
 					</button>
 				</p>
         	
         	
-				<p class="col-xs-4 jp_course" style="padding: 0;">
-					<button class="btn btn-sm btn-success rec_jp" title="取消精品推荐">
+				<p class="col-xs-1 jp_course" style="padding: 0;">
+					<button class="btn btn-sm btn-success rec_jp" title="取消精品推荐" >
 						<i class="glyphicon glyphicon-trash"></i> 取消精品推荐
 					</button>
 				</p>
 				
-				<p class="col-xs-4 course_menu_id" style="padding: 0;" >
-					<button class="btn btn-sm btn-success rec_P" title="取消推荐">
-						<i class="glyphicon glyphicon-trash"></i> 取消推荐
+				<p class="col-xs-1 course_menu_id" style="padding: 0;" >
+					<button class="btn btn-sm btn-success rec_fl" title="取消推荐">
+						<i class="glyphicon glyphicon-trash"></i> 取消分类推荐
 					</button>
 				</p>
 				
@@ -575,8 +575,7 @@
 			                        </div>
 								</td>
 								<td>
-									<button id="search_all" type="button" class="btn btn-sm  btn-primary "
-											onclick="searchAll();">
+									<button id="all_bx" type="button" class="btn btn-sm  btn-primary all_bx">
 										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
 									</button>
 								</td>
@@ -623,4 +622,7 @@
         </div>
     </div>
 </div>
+
+ <input type="hidden" id="moveType" />
+
 <script type="text/javascript" src="${base}/js/cloudClass/essenceRecommend.js?ver=1.2 "></script>
