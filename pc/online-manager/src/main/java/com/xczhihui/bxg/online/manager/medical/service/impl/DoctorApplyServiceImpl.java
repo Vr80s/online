@@ -105,7 +105,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         switch (status){
             // 当status = 1 即认证通过
             case 1:
-//                this.authenticationPassHandle(apply);
+                this.authenticationPassHandle(apply);
                 break;
             // 当status = 0 即认证被拒
             case 0:
@@ -177,6 +177,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             throw new RuntimeException("该用户已是医师，不能在进行认证");
         }
 
+        // 新增医师与用户的对应关系：medical_doctor_account
         MedicalDoctorAccount doctorAccount =
                 new MedicalDoctorAccount();
         doctorAccount.setId(UUID.randomUUID().toString().replace("-",""));

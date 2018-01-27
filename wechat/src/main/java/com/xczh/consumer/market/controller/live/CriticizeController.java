@@ -42,6 +42,9 @@ public class CriticizeController {
 			throws Exception {
 		
 		OnlineUser  ou = appBrowserService.getOnlineUserByReq(req);
+		if(ou == null){
+			return ResponseObject.newSuccessResponseObject("登录失效");
+		}
 		criticize.setCreatePerson(ou.getId());
 		if(criticize.getContent().length()>5000){
 			return ResponseObject.newErrorResponseObject("抱歉评论内容过长");

@@ -572,6 +572,7 @@
     color: #333333;
     position: absolute;
     left: 20px;
+    font-weight: 700;
 }
 .contentWrap #hospital .zhuanlan_top button{
 	display: inline-block;

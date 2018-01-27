@@ -1,8 +1,11 @@
 package com.xczh.consumer.market.controller.medical;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import org.slf4j.LoggerFactory;
@@ -15,6 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 医馆控制器 ClassName: MedicalHopitalApplyController.java <br>
@@ -33,6 +39,12 @@ public class MedicalHopitalApplyController {
 	@Autowired
 	private OLAttachmentCenterService service;
 
+	@Autowired
+	private AppBrowserService appBrowserService;
+
+	@Autowired
+	private ICommonService commonServiceImpl;
+
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MedicalHopitalApplyController.class);
 
 	/**
@@ -41,31 +53,58 @@ public class MedicalHopitalApplyController {
 	@RequestMapping("addHospitalApply")
 	@ResponseBody
 	public ResponseObject addDoctorApply(HttpServletRequest req,
-										 HttpServletResponse res, MedicalHospitalApply medicalHospitalApply, @RequestParam("files")MultipartFile[] files)
+										 HttpServletResponse res, MedicalHospitalApply medicalHospitalApply,
+										 @RequestParam("businessLicensePictureFile")MultipartFile businessLicensePictureFile
+										 , @RequestParam("licenseForPharmaceuticalTradingPictureFile")MultipartFile licenseForPharmaceuticalTradingPictureFile)
 			throws Exception {
 
 		try {
-			if(files!=null&&files.length>0){
+			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+			if(user==null){
+				return ResponseObject.newErrorResponseObject("登录失效");
+			}
+			medicalHospitalApply.setUserId(user.getId());
 				//循环获取file数组中得文件
 				String projectName="other";
 				String fileType="1"; //图片类型了
 				//营业执照
 				String businessLicensePicture = service.upload(null,
-						projectName, files[0].getOriginalFilename(),files[0].getContentType(), files[0].getBytes(),fileType,null);
+						projectName, businessLicensePictureFile.getOriginalFilename(),businessLicensePictureFile.getContentType(), businessLicensePictureFile.getBytes(),fileType,null);
 				JSONObject businessLicensePictureJson = JSONObject.parseObject(businessLicensePicture);
 				medicalHospitalApply.setBusinessLicensePicture(businessLicensePictureJson.get("url").toString());
 				//药品经营许可证
 				String licenseForPharmaceuticalTradingPicture = service.upload(null,
-						projectName, files[1].getOriginalFilename(),files[1].getContentType(), files[1].getBytes(),fileType,null);
+						projectName, licenseForPharmaceuticalTradingPictureFile.getOriginalFilename(),licenseForPharmaceuticalTradingPictureFile.getContentType(), licenseForPharmaceuticalTradingPictureFile.getBytes(),fileType,null);
 				JSONObject licenseForPharmaceuticalTradingPictureJson = JSONObject.parseObject(licenseForPharmaceuticalTradingPicture);
 				medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPictureJson.get("url").toString());
-			}
+
 			medicalHospitalApplyService.add(medicalHospitalApply);
 			return ResponseObject.newSuccessResponseObject("提交成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("提交失败");
 		}
+	}
+
+	/**
+	 * 医师入驻申请信息
+	 */
+	@RequestMapping("hospitalInfo")
+	@ResponseBody
+	public ResponseObject getLastOne(HttpServletRequest req)
+			throws Exception {
+
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		/*if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}*/
+		String userId = "2c9aec35605a5bab01605a632d350000";
+		Map<String, Object> mapAll = new HashMap<String, Object>();
+		MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(userId);
+		List<Integer> status = commonServiceImpl.isDoctorOrHospital(userId);
+		mapAll.put("medicalHospital",mda);
+		mapAll.put("status",status);
+		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 
 	

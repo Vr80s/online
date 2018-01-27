@@ -748,7 +748,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	}
 
 	@Override
-	public void updateLiveSourceType(String courseId) throws SQLException {
+	public void updateLiveSourceType(Integer courseId) throws SQLException {
 	    String sql = " update oe_course  set live_source_type = 1  where id = ? and is_delete = 0 and status=1 ";
         super.update(JdbcUtil.getCurrentConnection(),sql, courseId);
 	}

@@ -55,11 +55,18 @@ $(function(){
 			return "<span name='sftj'>未推荐</span>";
 		}
 	} },
-    { "title": "是否加密", "class":"center","width":"7%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
-    	if(data != null)
-    		return "是";
-    	return "否";
-    }},
+//    { "title": "是否加密", "class":"center","width":"7%","data":"coursePwd","sortable":false,"mRender":function(data,display,row){
+//    	if(data != null)
+//    		return "是";
+//    	return "否";
+//    }},
+    { "title": "是否精品推荐", "class":"center","width":"8%","sortable":false,"data": 'essenceSort',"mRender":function (data, display, row) {
+		if(data==1){
+			return "<span name='jptj'>已推荐</span>";
+		}else{
+			return "<span name='jptj'>未推荐</span>";
+		}
+	} },
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -1028,6 +1035,49 @@ $(".rec_P").click(function(){
 		showDelDialog("","","请选择推荐课程！","");
 	}
 });
+
+/**
+ * 设置为精品推荐
+ */
+$(".rec_jp").click(function(){
+	var ids = new Array();
+	var trs = $(".dataTable tbody input[type='checkbox']:checked");
+	
+	for(var i = 0;i<trs.size();i++){
+		
+		if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用")
+		{
+			showDelDialog("","","无法推荐禁用课程！","");
+			return false;
+		}
+		
+		if($(trs[i]).parent().parent().find("[name='jptj']").eq("0").text() == "已推荐")
+		{
+			showDelDialog("","","无法推荐已推荐课程！","");
+			return false;
+		}
+		ids.push($(trs[i]).val());
+	}
+	
+	if(ids.length>0){ 
+		ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":1},function(data){
+			if(!data.success){//如果失败
+				layer.msg(data.errorMessage);
+			}else{
+				if(!isnull(P_courseTable)){
+                    layer.msg("精品推荐成功,请到精品课程推荐管理中查看排序！");
+                    //freshDelTable(P_courseTable);
+                    search_menu();
+				}
+				layer.msg(data.errorMessage);
+			}
+		});
+	}else{
+		showDelDialog("","","请选择要推荐精品课程！","");
+	}
+})	
+
+
 
 /**
  * 公开课管理显示

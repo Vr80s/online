@@ -1,0 +1,193 @@
+*{margin: 0; padding: 0;}
+.z{float: left;}
+.y{float: right;}
+body{color: #333333;font-size: 0.28rem;}
+ul li{list-style: none;}
+a{
+text-decoration: none;
+outline:none;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+/*p{font-size: 0.28rem;}*/
+img{display: block;}
+.both{
+	clear: both;
+}
+
+/*头部开始*/
+header{
+	width: 100%;
+	height: 0.88rem;
+	background: #fff;
+	position: fixed;
+	top: 0;
+	left: 0;
+	border-bottom: 1px solid #D8DDE6;
+	z-index: 1;
+}
+.header_img{
+	width: 2.15rem;
+    height: 0.88rem;
+    /*background: red;*/ 
+    margin-right: 0.362rem;
+    float: left;
+    position: absolute;
+    z-index: 10;
+}
+.header_img img{
+	width: 0.24rem;
+    height: 0.43rem;
+    margin-top: 0.22rem;
+    margin-left: 0.26rem;
+}
+.header{
+	width: 100%;
+	height: 0.88rem;
+	line-height: 0.88rem;
+	position: absolute;
+	top: 0;
+	left: 0;
+	text-align: center;
+	font-size: 0.36rem;
+	color: #333333;
+}
+
+/*头部结束*/
+
+/*修改滑动开始*/
+.tabSlider .tabSlider-hd.line{
+	height: 0.8rem;
+	top: 0.89rem;
+	position: fixed;
+    z-index: 1;
+}
+.tabSlider .tabSlider-hd.line li{
+	font-size: 0.28rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    margin-left: 0.73rem;
+}
+.tabSlider .tabSlider-bd{
+    top: 1.9rem;
+    /*background: #fff;*/
+}
+/*修改滑动结束*/
+
+
+/*中间内容开始*/
+.courses_my{
+	width: 100%;
+	/*height: 100%;*/
+	background: #fff;
+}
+.courses{
+	width: 7.24rem;
+	height: 100%;
+	float: right;
+}
+.courses .courses_one:last-child{
+	border: none;
+}
+.courses_one{
+	width: 100%;
+	height: 1rem;
+	border-bottom: 1px solid #D8DDE6;
+}
+.course_one_title{
+	font-size: 0.28rem;
+	color: #333333;
+	margin-bottom: 0.16rem;
+    margin-top: 0.3rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+.courses_one_main div{
+	font-size: 0.22rem;
+	color: #999999;
+	float: left;
+	height: 0.24rem;
+    line-height: 0.24rem;
+    margin-right: 0.1rem;
+}
+.courses_one_main .one span{
+	color: #F97B49;
+	max-width: 0.8rem;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.courses_one_main .two img{
+    width: 0.139rem;
+    height: 0.18rem;
+    float: left;
+    margin-top: 0.03rem;
+    margin-right: 0.05rem;
+}
+.courses_one_main .two span{
+	max-width: 1rem;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.courses_one_main .three {
+	margin-right: 0;
+}
+.courses_one_main .three span{
+	color: #F97B49;
+	
+}
+.courses_one_main .three img{
+	width: 0.21rem;
+	height: 0.2rem;
+	float: left;
+	margin-top: 0.03rem;
+	margin-right: 0.05rem;
+}
+
+.courses_one_main .three_img img{
+	width: 0.14rem;
+    height: 0.17rem;
+    float: left;
+    margin-top: 0.05rem;
+    margin-right: 0.05rem;
+}
+.courses_one_main .four img{
+	float: left;
+	width: 0.21rem;
+    float: left;
+    margin-top: 0.02rem;
+    margin-right: 0.05rem;
+}
+.four_img img{
+	width: 0.22rem;
+	/*height: 0.16rem;*/
+	float: left;
+	margin-top: 0.02rem;
+    margin-right: 0.05rem;
+}
+
+/*底部提示*/
+.courses_bottom{
+	width: 6.38rem;
+	height: 1.22rem;
+	background: #F0F0F0;
+	padding: 0.3rem;
+	border-radius: 16px;
+	margin: 0 auto;
+}
+.courses_bottom .div0{
+	font-size: 0.28rem;
+	color: #333333;
+	margin-bottom: 0.08rem;
+}
+.courses_bottom .div1{
+	font-size: 0.26rem;
+	color: #666666;
+}
+/*中间内容结束*/
+
+

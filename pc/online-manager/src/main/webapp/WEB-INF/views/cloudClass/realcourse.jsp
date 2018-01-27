@@ -506,12 +506,30 @@
 					 <button class="btn btn-sm btn-success rec_P" title="设为推荐">
 						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
 					</button>
+					<button class="btn btn-sm btn-success rec_jp" title="设为精品推荐">
+						<i class="glyphicon glyphicon-cog"></i> 设为精品推荐 
+					</button>
 				</p>
 			
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
 			            <table frame=void >
 			                <tr>
+			                	<td>
+			                		<div class="profile-info-value searchTr">
+										<select name="search_city" id="search_city" value="" class="propertyValue1" >
+											<option value="">所在城市</option>
+						               		<c:forEach var="city" items="${cityVo}">
+						                        <option value="${city.cityName}">${city.cityName}</option>
+						                    </c:forEach>
+										</select>
+										<input type="hidden" value="search_city" class="propertyName"/>
+									</div>
+			                	</td>
+			                	
+			                	<!-- "tempMatchType":undefined,"propertyName":search_courseName,"propertyValue1":"年后中国","tempType":undefined},
+			                	{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"} -->
+			                	
 			                    <td>
 			                        <div class="profile-info-value searchTr">
 			                            <input type="text" placeholder = "培训班名称" class="propertyValue1" id="search_courseName" style="width: 150px;">
@@ -606,7 +624,7 @@
 						<i class="glyphicon glyphicon-cog"></i> 取消推荐
 					</button>
 				</p>
-				<div class="searchDivClass" id="searchCityDiv_PX">
+				<%-- <div class="searchDivClass" id="searchCityDiv_PX">
 					<div class="profile-info-row" >
 						<table frame=void style="width: 100%">
 							<tr>
@@ -630,7 +648,7 @@
 							</tr>
 						</table>
 					</div>
-				</div>
+				</div> --%>
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="courseCityTable"

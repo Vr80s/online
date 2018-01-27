@@ -976,8 +976,12 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		// TODO Auto-generated method stub
 		String hqlPre="from OffLineCity where  isDelete=0 and id = ?";
 		OffLineCity coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		
+		if(coursePre.getIsRecommend() == 0){
+			throw new RuntimeException("排序只能选择推荐的线下课");
+		}
+		
 		Integer coursePreSort=coursePre.getSort();
-
 		String hqlNext="from OffLineCity where sort > (select sort from OffLineCity where id= ? )  and isDelete=0  and isRecommend = 1 order by sort asc";
 		OffLineCity courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
 		Integer courseNextSort=courseNext.getSort();
@@ -994,9 +998,19 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		// TODO Auto-generated method stub
 		String hqlPre="from OffLineCity where  isDelete=0 and id = ?";
 		OffLineCity coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
+		
+		if(coursePre.getIsRecommend() == 0){
+			throw new RuntimeException("排序只能选择推荐的线下课");
+		}
+		
 		Integer coursePreSort=coursePre.getSort();
+		
 		String hqlNext="from OffLineCity where sort < (select sort from OffLineCity where id= ? ) and isRecommend = 1 and isDelete=0 order by sort desc";
 		OffLineCity courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
+		
+		if(courseNext == null){
+			throw new RuntimeException("此排序已是最小值了");
+		}
 		Integer courseNextSort=courseNext.getSort();
 
 		coursePre.setSort(courseNextSort);
@@ -1012,6 +1026,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getRecommendSort();
+       
          String hqlNext="from Course where recommendSort < (select recommendSort from Course where id= ? ) and isRecommend = 1 and online_course=1 and isDelete=0 order by recommendSort desc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getRecommendSort();
@@ -1504,6 +1519,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public void updateCourseCityStatus(Integer courseId) {
 		// TODO Auto-generated method stub
+
 		
 		String hql="from Course where 1=1 and isDelete=0 and id = ?";
         Course course= dao.findByHQLOne(hql, new Object[]{courseId});

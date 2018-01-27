@@ -39,4 +39,8 @@ public interface CourseMapper extends BaseMapper<Course> {
 
 	List<CourseLecturVo> selectLecturerAllCourse(@Param("page")Page<CourseLecturVo> page,@Param("userId")String id);
 	
+	List<CourseLecturVo>   selectUserConsoleCourse(@Param("userId")String userId);
+	
+	List<CourseLecturVo>   selectMenuTypeAndRandCourse(@Param("page") Page<CourseLecturVo> page,@Param("courseId")Integer courseId);
+	
 }

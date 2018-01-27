@@ -59,6 +59,9 @@ public class CourseApplyController {
 
 		try {
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+			if(user==null){
+				return ResponseObject.newErrorResponseObject("登录失效");
+			}
 
 			courseApplyInfo.setCreateTime(new Date());
 

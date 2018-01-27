@@ -49,6 +49,16 @@ $(function(){
 			return "<span name='sftj'>未推荐</span>";
 		}
 	} },
+	
+    { "title": "是否精品推荐", "class":"center","width":"8%","sortable":false,"data": 'essenceSort',"mRender":function (data, display, row) {
+		if(data==1){
+			return "<span name='jptj'>已推荐</span>";
+		}else{
+			return "<span name='jptj'>未推荐</span>";
+		}
+	} },
+	
+	
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return data="<span name='zt'>已启用</span>";
@@ -223,7 +233,7 @@ debugger;
 	//TODO
     {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
     	var str;
-    	if(row.status ==1){//如果是禁用
+    	if(row.status ==1 || row.isRecommend == 0){//如果是禁用
     		str='<a class="blue" name="cityUpa" href="javascript:void(-1);" title="上移" onclick="cityUpMove(this)"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
         	'<a class="blue" href="javascript:void(-1);" name="cityDowna" title="下移" onclick="cityDownMove(this)"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
     	}else{//如果是不禁用
@@ -916,6 +926,8 @@ $('#dialogEditCourseDiv').on("click",".edit_P_cancel", function () {
 function search_P(){
     var json = new Array();
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    
+    
 	searchButton(P_courseTable,json);
 };
 //TODO
@@ -1495,6 +1507,48 @@ $(".rec_P").click(function(){
 });
 
 /**
+ * 设置为精品推荐
+ */
+$(".rec_jp").click(function(){
+	var ids = new Array();
+	var trs = $(".dataTable tbody input[type='checkbox']:checked");
+	
+	for(var i = 0;i<trs.size();i++){
+		
+		if($(trs[i]).parent().parent().find("[name='zt']").eq("0").text() == "已禁用")
+		{
+			showDelDialog("","","无法推荐禁用课程！","");
+			return false;
+		}
+		
+		if($(trs[i]).parent().parent().find("[name='jptj']").eq("0").text() == "已推荐")
+		{
+			showDelDialog("","","无法推荐已推荐精品课程！","");
+			return false;
+		}
+		ids.push($(trs[i]).val());
+	}
+	
+	if(ids.length>0){ 
+		ajaxRequest(basePath+"/essencerecommend/course/updateEssenceRec",{'ids':ids.join(","),"isRec":1},function(data){
+			if(!data.success){//如果失败
+				layer.msg(data.errorMessage);
+			}else{
+				if(!isnull(P_courseTable)){
+                    layer.msg("精品推荐成功,请到精品课程推荐管理中查看排序！");
+                    //freshDelTable(P_courseTable);
+                    search_menu();
+				}
+				layer.msg(data.errorMessage);
+			}
+		});
+	}else{
+		showDelDialog("","","请选择要推荐精品课程！","");
+	}
+})	
+
+
+/**
  * 城市批量推荐
  *
  */
@@ -1636,6 +1690,12 @@ $(".city_bx").click(function(){
 	$("#courseDiv").hide();
 	$("#courseRecDiv").hide();
 	$("#courseCityDiv").show();
+	
+	/*
+	 * 点击这个地方时，就要把对应的城市刷新下
+	 */
+	
+	
 	freshTable(_cityTable);
 });
 

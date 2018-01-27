@@ -52,7 +52,9 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  oc.course_type AS serviceType,\n" +
 				 "  oc.user_lecturer_id AS userLecturerId,\n" +
 				 "  ou.`name` lecturerName,\n" +
-				 "  oc.`lecturer`\n" +
+				 "  oc.`lecturer`,\n" +
+				 "  oc.`essence_sort` as essenceSort \n" +
+
 				 "FROM\n" +
 				 "  oe_course oc \n" +
 				 "  LEFT JOIN oe_menu om \n" +
@@ -97,7 +99,11 @@ public class CourseDao extends HibernateDao<Course>{
 			 paramMap.put("type", courseVo.getType());
 			 sql.append("and om.type = :type ");
 		 }
-
+		 if (courseVo.getRealCitys() != null) {
+			 paramMap.put("city", courseVo.getRealCitys());
+			 sql.append("and oc.city = :city ");
+		 }
+		 
 		 if (courseVo.getId() > 0) {
 			 paramMap.put("courseId", courseVo.getId());
 			 sql.append("and oc.id <> :courseId ");

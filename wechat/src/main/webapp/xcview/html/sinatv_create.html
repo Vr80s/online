@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>熊猫中医</title>
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+<link rel="stylesheet" href="../css/sinatv_create.css" />
+
+
+	
+</head>
+<!--公用-->
+<!--y--float:right;  z--float:left;  both--clear:both;-->
+<body style="background:#F8F8F8;">
+	
+	<!--头部开始-->
+	<header>
+		<div class="header_img">
+			<img src="../images/back icon.png" />
+		</div>
+		<div class="header">
+			新直播
+		</div>
+	</header>
+	<!--头部结束-->
+	
+	<!--中间内容开始-->
+	<div class="create">
+		<div class="uploading">
+			<!--上传图片开始-->
+			<div class="input-group row">
+                <div class="col-sm-9 big-photo">
+                	<div id="preview">
+                        <img id="imghead" border="0" src="../images/idcar_bg.png" width="90" height="90" onclick="$('#previewImg').click();">
+                     </div>         
+                    <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg">
+                </div>
+            </div>
+            <!--上传图片结束-->
+		</div>
+		
+		<div class="sinatv_main">
+			<div class="sinatv_title">
+				直播主题<input type="text" maxlength="20" />
+			</div>
+			<div class="sinatv_cen">
+				<div class="sinatv_cen_title">直播内容介绍</div>
+				<textarea name="" rows="" cols="" placeholder="请输入10~500字之间的内容介绍" maxlength="500"></textarea>
+			</div>
+		</div>
+	</div>
+	<!--中间内容结束-->
+	
+	
+	
+	
+</body>
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+
+<!--上传图片开始-->
+ <script>
+  //图片上传预览    IE是用了滤镜。
+    function previewImage(file)
+    {
+      var MAXWIDTH  = 90; 
+      var MAXHEIGHT = 90;
+      var div = document.getElementById('preview');
+      if (file.files && file.files[0])
+      {
+          div.innerHTML ='<img id=imghead onclick=$("#previewImg").click()>';
+          var img = document.getElementById('imghead');
+          img.onload = function(){
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            img.width  =  rect.width;
+            img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+            img.style.marginTop = rect.top+'px';
+          }
+          var reader = new FileReader();
+          reader.onload = function(evt){img.src = evt.target.result;}
+          reader.readAsDataURL(file.files[0]);
+      }
+      else //兼容IE
+      {
+        var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+        file.select();
+        var src = document.selection.createRange().text;
+        div.innerHTML = '<img id=imghead>';
+        var img = document.getElementById('imghead');
+        img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+        div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+      }
+    }
+    function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+        var param = {top:0, left:0, width:width, height:height};
+        if( width>maxWidth || height>maxHeight ){
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+            
+            if( rateWidth > rateHeight ){
+                param.width =  maxWidth;
+                param.height = Math.round(height / rateWidth);
+            }else{
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+</script>
+<!--上传图片结束-->
+
+</html>
