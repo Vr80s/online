@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="/web/css/ResidentDoctor.css">
     <link rel="stylesheet" href="/web/css/style.css"/>
     <link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
-	<link rel="stylesheet" href="/web/css/jquery.fileupload.css">
 	
 	
 	
@@ -64,7 +63,7 @@
 						 <p>说点什么来彰显你的个性...</p>
 					 </li>
 					 
-    				<li class="ImDoc_btn" onclick="goDocPage()">
+    				<li class="ImDoc_btn hide" onclick="goDocPage()">
     					<a  aria-controls="doc_doctor" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-print" aria-hidden="true"></span>我是医师</a>
     				</li>
     				<!--<li><a href="#doc_study" aria-controls="doc_study" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>学习</a></li>
@@ -84,7 +83,7 @@
    					</li>
    					<li><a href="#doc_money" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-yen" aria-hidden="true"></span>资产</a></li>
    					<li><a href="#doc_idCard" aria-controls="doc_idCard" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>账号</a></li>-->
-   					<li class="DocAut_btn"><a href="#doc_Distinguish" aria-controls="doc_Distinguish" role="tab" data-toggle="tab" ><span class="glyphicon glyphicon-check left_range ino_color" aria-hidden="true"></span>医师认证</a></li>
+   					<li class="DocAut_btn hide"><a href="#doc_Distinguish" aria-controls="doc_Distinguish" role="tab" data-toggle="tab" ><span class="glyphicon glyphicon-check left_range ino_color" aria-hidden="true"></span>医师认证</a></li>
   				</ul>
 			</div>
 
@@ -97,8 +96,9 @@
 						<div class="topTitle">
 							<h3>欢迎进入熊猫中医</h3>
 						</div>
-						<div class="bottomContent">
-							<div class="bottomContent_inf text-left hide" id="docNoPass_tip">
+						<div class="bottomContent" id="shouyeStatus">
+							<!--TODO-->
+							<!--<div class="bottomContent_inf text-left hide" id="docNoPass_tip">
 								<span>认证成为医师，可以在线开课</span>
 								<button onclick="gotToAut()">医师认证</button>
 								<a href="javascript:;">我不是医师，不再提示此消息</a>
@@ -112,7 +112,7 @@
 							<div class="bottomContent_inf text-left hide" id="docpass_tip">
 								<span>医师认证通过啦，你可以享受医师的权利了</span>
 								<button onclick="goDocPage()">去看看</button>
-							</div>
+							</div>-->
 						</div>
 
 					</div>
@@ -147,7 +147,7 @@
 						<div class="topTitle">
 							<h3>医师认证</h3>
 						</div>
-						<div class="bottomContent" id="AutList">
+						<div class="bottomContent hide" id="AutList">
 
 								<div>
 								<span><em>*</em>姓名</span>
@@ -191,7 +191,7 @@
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
 								<input type="file" name="pic" id="teacher_pic_ipt" style="position: absolute;visibility: hidden;"/>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传身份证图片</p>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传医师资格证</p>
 							</div>
 							
 							<div class="zhiye_picUpdata">
@@ -354,6 +354,27 @@
 
 </body>
 </html>
+
+<!--首页状态码判断显示内容-->
+<script type="text/template" id="shouyeTipTpl">
+	{{if status == 0}}
+	<div class="bottomContent_inf text-left " id="docNoPass_tip">
+		<span>认证成为医师，可以在线开课</span>
+		<button onclick="seeAutStatus()">查看状态</button>
+		<!--<a href="javascript:;">我不是医师，不再提示此消息</a>-->
+	</div>
+	{{else if status == 2}}
+	<div class="bottomContent_inf text-left " id="docAut_tip">
+		<span>医师认证审核中，3个工作日完成</span>
+		<button onclick="seeAutStatus()">查看状态</button>
+	</div>
+	{{else if status == 1}}
+	<div class="bottomContent_inf text-left " id="docpass_tip">
+		<span>医师认证通过啦，你可以享受医师的权利了</span>
+		<button onclick="goDocPage()">去看看</button>
+	</div>
+	{{/if}}
+</script>
 
 
 <!--科室模板-->

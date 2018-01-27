@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -33,6 +35,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	public void addUserBank(UserBank userBank) {
 		validateUserBank(userBank);
 		userBankMapper.add(userBank);
+	}
+
+	@Override
+	public List<UserBank> selectUserBankByUserId(String userId) {
+		return userBankMapper.selectUserBankByUserId(userId);
 	}
 
 

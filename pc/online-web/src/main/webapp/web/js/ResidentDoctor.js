@@ -293,7 +293,13 @@ function Autagain(){
 RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//头像预览
 			console.log(data);
+			//首页部分状态提示部分
+			$('#shouyeStatus').html(template('shouyeTipTpl', data.resultObject));
+			
+			
+			//内部状态模板
 			$('#AutStatus').html(template('docAutStatus_Tpl', data.resultObject));
+			
 		});
 
 
