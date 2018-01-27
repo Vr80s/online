@@ -88,8 +88,8 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	}
 
 	@Override
-	public Page<CourseLecturVo> selectAppCourseApplyPage(Page<CourseLecturVo> page, String userId, Integer courseFrom,Integer multimediaType) {
-		List<CourseLecturVo> records = iCourseMapper.selectAppCourseApplyPage(page, userId,courseFrom,multimediaType);
+	public Page<CourseLecturVo> selectAppCourseApplyPage(Page<CourseLecturVo> page, String userId, Integer courseForm,Integer multimediaType) {
+		List<CourseLecturVo> records = iCourseMapper.selectAppCourseApplyPage(page, userId,courseForm,multimediaType);
 		page.setRecords(records);
 		return   page.setRecords(records);
 	};

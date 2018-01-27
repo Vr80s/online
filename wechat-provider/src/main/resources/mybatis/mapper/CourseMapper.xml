@@ -345,7 +345,7 @@
 			cai.`status` as applyStatus,
 			cai.collection as collection,
 			oc.id as id,
-		    oc.live_status as liveStatus,
+		    oc.live_status as lineState,
 			if(cai.`status`=1,(SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as  learndCount
 		 from 
 		    course_apply_info cai  

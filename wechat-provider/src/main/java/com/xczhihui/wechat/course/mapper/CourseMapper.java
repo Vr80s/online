@@ -53,6 +53,7 @@ public interface CourseMapper extends BaseMapper<Course> {
 	 * @return List<CourseLecturVo>
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	List<CourseLecturVo> selectAppCourseApplyPage(Page<CourseLecturVo> page,String userId, Integer courseFrom, Integer multimediaType);
+	List<CourseLecturVo> selectAppCourseApplyPage(@Param("page") Page<CourseLecturVo> page,
+			@Param("userId") String userId, @Param("courseForm") Integer courseForm,@Param("multimediaType") Integer multimediaType);
 	
 }

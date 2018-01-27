@@ -68,7 +68,7 @@ public class CourseLecturVo implements Serializable {
      */
     private Date endTime;
     /**
-     * 当前直播状态:  0 直播已结束   1 直播还未开始   2 点播 
+     * 当前直播状态: 
      */
     private Integer lineState;
     
