@@ -85,8 +85,6 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
 						+ " '"+sno+"',"+"'"+orderNo+"')";
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-				//给主播分成
-				userCoinService.updateBalanceForCourse(order);
 
 				/*//如果是限时免费课程，不参与分销，业务到此结束
 				if(Double.valueOf(order.getActual_pay())==0){
@@ -105,6 +103,9 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 						+ " and o.user_id=(select id from oe_user where parent_id is not null and parent_id != '' and id = o.user_id);";
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);*/
 			}
+
+			//给主播分成
+//			userCoinService.updateBalanceForCourses(orders);
 		}
 	}
 

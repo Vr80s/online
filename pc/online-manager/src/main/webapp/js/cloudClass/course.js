@@ -32,7 +32,7 @@ $(function(){
     	}
         return "音频";
     }},
-    { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+    { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
     { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":true,"mRender":function (data, display, row) {
@@ -119,7 +119,7 @@ $(function(){
     var objRecData = [
     { "title": "序号", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "课程名称", "class":"center","width":"20%","sortable":false,"data": 'courseName' },
-	{ "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+	{ "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
 	{ "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
     // { "title": "课程展示图", "class":"center","width":"13%","sortable":false,"data": 'recImgPath' ,"mRender":function (data, display, row) {
     	// if(data != "" && data != null){
@@ -183,7 +183,7 @@ $(function(){
             return "音频";
         }},
 		{ "title": "所属学科", "class":"center","width":"8%","sortable":false,"data": 'xMenuName' },
-        { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+        { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
         { "title": "主播", "class":"center","width":"8%","sortable":false,"data": 'lecturer'},
 		// { "title": "授课方式", "class":"center","width":"10%","sortable":false,"data": 'teachMethodName' },
 		// { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"mRender":function(data,display,row){
@@ -279,7 +279,7 @@ $(function(){
 				digits: "课程时长必须为整数！"
 			},
             userLecturerId:{
-                required:"选择上传人！"
+                required:"选择作者！"
             },
             lecturer:{
                 required:"选择主播！"
@@ -1093,6 +1093,7 @@ function toEdit(obj,status){
 		debugger
     	$("#edit_subtitle").val(result[0].subtitle); //课程名称
     	$("#edit_lecturer").val(result[0].lecturer); //主播
+    	$("#edit_userLecturerId").val(result[0].userLecturerId); //主播
     	$("#edid_courseLength").val(result[0].courseLength); //课程时长
     	$("#edid_coursePwd").val(result[0].coursePwd); //课程密码
 		$("#edid_defaultStudentCount").val(result[0].defaultStudentCount); //默认报名人数

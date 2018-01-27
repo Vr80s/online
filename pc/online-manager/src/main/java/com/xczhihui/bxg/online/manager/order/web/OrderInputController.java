@@ -145,6 +145,7 @@ public class OrderInputController{
 			res.setContentType("text/html;charset=utf-8");
 			res.getWriter().print(g.toJson(ResponseObject.newSuccessResponseObject(null)));
 		} catch ( Exception e) {
+			e.printStackTrace();
 			Gson g = new GsonBuilder().create();
 			res.setCharacterEncoding("utf-8");
 			res.setContentType("text/html;charset=utf-8");

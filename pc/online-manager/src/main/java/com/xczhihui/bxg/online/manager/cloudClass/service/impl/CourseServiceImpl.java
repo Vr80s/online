@@ -420,13 +420,53 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		// TODO Auto-generated method stub
 		Map<String,Object> paramMap=new HashMap<String,Object>();
 		paramMap.put("courseId", id);
-		String sql = "SELECT oc.id as id,oc.grade_name as courseName,oc.class_template as classTemplate,oc.subtitle,oc.lecturer,om.name as xMenuName,st.name as scoreTypeName,oc.multimedia_type multimediaType,oc.start_time startTime,oc.end_time endTime,oc.address,"
-				+ "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.course_pwd as coursePwd,oc.grade_qq gradeQQ,oc.default_student_count defaultStudentCount,"
-				+ "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
-				+ "oc.current_price as currentPrice,oc.description as description ,oc.cloud_classroom as cloudClassroom ,"
-				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId,oc.smallimg_path as smallimgPath FROM oe_course oc "
-				+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
-				+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType WHERE oc.id = :courseId";
+//		String sql = "SELECT oc.id as id,oc.grade_name as courseName,oc.class_template as classTemplate,oc.subtitle,oc.lecturer,om.name as xMenuName,st.name as scoreTypeName,oc.multimedia_type multimediaType,oc.start_time startTime,oc.end_time endTime,oc.address,"
+//				+ "tm.name as teachMethodName,oc.course_length as courseLength,oc.learnd_count as learndCount,oc.course_pwd as coursePwd,oc.grade_qq gradeQQ,oc.default_student_count defaultStudentCount,"
+//				+ "oc.create_time as createTime,oc.status as status ,oc.is_free as isFree,oc.original_cost as originalCost,"
+//				+ "oc.current_price as currentPrice,oc.description as description ,oc.cloud_classroom as cloudClassroom ,"
+//				+ "oc.menu_id as menuId,oc.course_type_id as courseTypeId,oc.courseType as courseType,oc.qqno,oc.grade_student_sum as classRatedNum,oc.user_lecturer_id as userLecturerId,oc.smallimg_path as smallimgPath FROM oe_course oc "
+//				+ "LEFT JOIN oe_menu om ON om.id = oc.menu_id LEFT JOIN score_type st ON st.id = oc.course_type_id "
+//				+ "LEFT JOIN teach_method tm ON tm.id = oc.courseType WHERE oc.id = :courseId";
+		String sql = "SELECT \n" +
+				"  oc.id AS id,\n" +
+				"  oc.grade_name AS courseName,\n" +
+				"  oc.class_template AS classTemplate,\n" +
+				"  oc.subtitle,\n" +
+				"  oc.lecturer,\n" +
+				"  om.name AS xMenuName,\n" +
+				"  st.name AS scoreTypeName,\n" +
+				"  oc.multimedia_type multimediaType,\n" +
+				"  oc.start_time startTime,\n" +
+				"  oc.end_time endTime,\n" +
+				"  oc.address,\n" +
+				"  oc.course_length AS courseLength,\n" +
+				"  oc.learnd_count AS learndCount,\n" +
+				"  oc.course_pwd AS coursePwd,\n" +
+				"  oc.grade_qq gradeQQ,\n" +
+				"  oc.default_student_count defaultStudentCount,\n" +
+				"  oc.create_time AS createTime,\n" +
+				"  oc.status AS STATUS,\n" +
+				"  oc.is_free AS isFree,\n" +
+				"  oc.original_cost AS originalCost,\n" +
+				"  oc.current_price AS currentPrice,\n" +
+				"  oc.description AS description,\n" +
+				"  oc.cloud_classroom AS cloudClassroom,\n" +
+				"  oc.menu_id AS menuId,\n" +
+				"  oc.course_type_id AS courseTypeId,\n" +
+				"  oc.courseType AS courseType,\n" +
+				"  oc.qqno,\n" +
+				"  oc.grade_student_sum AS classRatedNum,\n" +
+				"  ou.name AS userLecturerId,\n" +
+				"  oc.smallimg_path AS smallimgPath \n" +
+				"FROM\n" +
+				"  oe_course oc \n" +
+				"  LEFT JOIN `oe_user` ou \n" +
+				"  ON ou.id=oc.`user_lecturer_id`\n" +
+				"  LEFT JOIN oe_menu om \n" +
+				"    ON om.id = oc.menu_id \n" +
+				"  LEFT JOIN score_type st \n" +
+				"    ON st.id = oc.course_type_id \n" +
+				"WHERE oc.id = :courseId ";
 		List<CourseVo> courseVoList=dao.findEntitiesByJdbc(CourseVo.class, sql, paramMap);
 		sql = "select sum(IFNULL(t.default_student_count,0)) from oe_grade t where t.course_id = ?";
 		courseVoList.get(0).setLearndCount(courseDao.queryForInt(sql, new Object[]{id}));//累计默认报名人数
@@ -459,7 +499,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		course.setMultimediaType(courseVo.getMultimediaType());
 		//增加密码和老师
 		course.setCoursePwd(courseVo.getCoursePwd());
-		course.setUserLecturerId(courseVo.getUserLecturerId());
+		//作者禁止修改
+//		course.setUserLecturerId(courseVo.getUserLecturerId());
 		course.setAddress(courseVo.getAddress());
 		course.setCity(courseVo.getRealCitys());
 		

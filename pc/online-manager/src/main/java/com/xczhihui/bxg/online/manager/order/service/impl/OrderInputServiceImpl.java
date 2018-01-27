@@ -315,9 +315,9 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		String sql = "";
 		String id = "";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-
+//TODO 订单类型
 		//查未支付的订单
-		sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id from oe_order o,oe_order_detail od "
+		sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id,o.order_from from oe_order o,oe_order_detail od "
 				+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
 		List<OrderVo> orders = dao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
 		if (orders.size() > 0) {
@@ -352,9 +352,9 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
 						+ " '"+sno+"',"+"'"+orderNo+"')";
 				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
-				//给主播分成
-				userCoinService.updateBalanceForCourse(order);
 			}
+			//给主播分成
+			userCoinService.updateBalanceForCourses(orders);
 		}
 	}
 

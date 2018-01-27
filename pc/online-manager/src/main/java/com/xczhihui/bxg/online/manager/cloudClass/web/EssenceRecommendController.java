@@ -1,22 +1,14 @@
 package com.xczhihui.bxg.online.manager.cloudClass.web;
 
-import com.xczhihui.bxg.common.util.DateUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.domain.Lecturer;
-import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.EssenceRecommendService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.PublicCourseService;
-import com.xczhihui.bxg.online.manager.cloudClass.vo.ChangeCallbackVo;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.CourseVo;
-import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
-import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
-import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,9 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 精品课程管理控制层实现类
@@ -38,18 +27,16 @@ import java.util.Map;
 @Controller
 @RequestMapping("essencerecommend/course")
 public class EssenceRecommendController {
+
 	protected final static String PUBLIC_CLASS_PATH_PREFIX = "/cloudClass/";
 	@Autowired
 	private PublicCourseService publicCourseService;
 	@Autowired
 	private CourseService courseService;
 
-
-
 	@Autowired
 	private EssenceRecommendService ssenceRecommenedService;
-	
-	
+
 	@Value("${online.web.publiccloud.courseType}")
 	private String courseType;
 	@Value("${online.web.publiccloud.courseTypeId}")
@@ -57,9 +44,7 @@ public class EssenceRecommendController {
 	
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
-
 		return PUBLIC_CLASS_PATH_PREFIX + "/essenceRcommend";
-	
 	}
 	
 	@RequiresPermissions("cloudClass:menu:essenceRecommend")

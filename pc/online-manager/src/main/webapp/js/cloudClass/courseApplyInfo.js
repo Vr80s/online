@@ -30,7 +30,7 @@ $(function() {
         {"title": "所属学科", "class": "center", "width": "6%", "sortable": false, "data": 'menuName'},
         {"title": "价格", "class": "center", "width": "8%", "sortable": false, "data": 'price'},
         {"title": "主播", "class": "center", "width": "8%", "sortable": false, "data": 'lecturer'},
-        {"title": "上传人", "class": "center", "width": "8%", "sortable": false, "data": 'userName'},
+        {"title": "作者", "class": "center", "width": "8%", "sortable": false, "data": 'userName'},
         {
             "title": "提交时间",
             "class": "center",

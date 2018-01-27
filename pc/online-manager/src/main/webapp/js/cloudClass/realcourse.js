@@ -1134,25 +1134,8 @@ function toEdit(obj,status){
         			break;
         		}
         	}
-    		
     		$("#edit_citys").empty();
     		$("#edit_county").empty();
-    		
-    		
-    		var street = p_c_a[0];
-//    		$('#edit_province option:contains(' + street + ')').each(function(){
-//    		  if ($(this).text() == street) {
-//    		     $(this).attr('selected', true);
-//    		  }
-//    		});
-    		
-    		//市
-//    		for(i=0;i<$("#edit_citys option").length;i++){
-//        		if($("#edit_citys option").eq(i).text()==p_c_a[1]){
-//        			$("#edit_citys option").eq(i).attr("select","selected"); 
-//        			//$("#edid_multimediaType").val($("#edid_multimediaType option").eq(i).val());
-//        		}
-//        	}
     		
     		var city = "<option id='10086'>"+p_c_a[1]+"</option>";
     		$("#edit_citys").append(city);
@@ -1178,6 +1161,7 @@ function toEdit(obj,status){
     	$("#edid_courseName").val(result[0].courseName); //课程名称
     	$("#edid_classTemplate").val(result[0].classTemplate); //班级名称模板
     	$("#edid_courseLength").val(result[0].courseLength); //课程时长
+    	$("#edit_userLecturerId").val(result[0].userLecturerId); //作者
     	$("#edid_coursePwd").val(result[0].coursePwd); //课程时长
     	$("#edid_qqno").val(result[0].qqno); //咨询QQ
 		$("#edid_gradeQQ").val(result[0].gradeQQ); //班级QQ群

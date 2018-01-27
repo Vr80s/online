@@ -626,6 +626,7 @@ function toEdit(obj){
 	
 	$("#edit-defaultStudentCount").val(row.defaultStudentCount); //课程名称
 	$("#courseName_edit").val(row.courseName); //课程名称
+    $("#edit_userLecturerId").val(row.lecturerName); //主播
 	$("#courseLength_edit").val(row.courseLength); //课程时常
 	$("#subtitle_edit").val(row.subtitle);
 	$("#lecturer_edit").val(row.lecturer);

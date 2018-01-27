@@ -97,7 +97,7 @@ public class UserCoinDao extends SimpleHibernateDao {
 	 **/
     public CourseAnchor getCourseAnchor(String receiverId) {
 		DetachedCriteria dc = DetachedCriteria.forClass(CourseAnchor.class);
-		dc.add(Restrictions.eq("id", Integer.valueOf(receiverId)));
+		dc.add(Restrictions.eq("userId", receiverId));
 		CourseAnchor uc = this.findEntity(dc);
 		return uc;
     }

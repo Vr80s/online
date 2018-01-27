@@ -22,7 +22,7 @@ $(function(){
                 }
                 return "音频";
             }},
-        { "title": "上传人", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
+        { "title": "作者", "class":"center","width":"8%","sortable":false,"data": 'lecturerName'},
 		{ "title": "状态", "class":"center","width":"8%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
 			return row.status=="1"?"已启用":"已禁用";
 			}

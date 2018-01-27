@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.api.service;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 import com.xczhihui.bxg.common.util.bean.Page;
@@ -71,8 +72,10 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public void updateBalanceForGift(GiftStatement giftStatement,Gift gift);
-	
-	/** 
+
+    void updateBalanceForCourses(List<OrderVo> orderVos);
+
+    /**
 	 * Description：打赏主播余额增加
 	 * @param giftStatement
 	 * @param gift

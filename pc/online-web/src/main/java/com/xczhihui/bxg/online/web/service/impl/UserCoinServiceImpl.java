@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -170,6 +171,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         userCoin.setBalance(BigDecimal.ZERO);
         userCoin.setBalanceGive(BigDecimal.ZERO);
         userCoin.setBalanceRewardGift(BigDecimal.ZERO);
+        userCoin.setRmb(BigDecimal.ZERO);
         userCoin.setDeleted(false);
         userCoin.setCreateTime(new Date());
         userCoin.setStatus(true);
@@ -219,11 +221,13 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public void updateBalanceForCourse(OrderVo orderVo) {
-        BigDecimal total = new BigDecimal(orderVo.getActual_pay());
+        //课程单价换算为熊猫币
+        BigDecimal total = new BigDecimal(orderVo.getActual_pay()).multiply(new BigDecimal(rate));
         String anchorId = courseDao.getCourseLecturerId(orderVo.getCourse_id());
         CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(anchorId);
         //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
-        BigDecimal addTotal = total.multiply(BigDecimal.ONE.subtract(courseAnchor.getGiftDivide().divide(new BigDecimal(100))));
+        BigDecimal addTotal = total.multiply(courseAnchor.getVodDivide().divide(new BigDecimal(100)));
+        System.out.println("总金额"+total+"====获得分成"+courseAnchor.getVodDivide()+"="+addTotal);
         UserCoinIncrease uci = new UserCoinIncrease();
 
         uci.setChangeType(IncreaseChangeType.COURSE.getCode());
@@ -239,6 +243,13 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setOrderFrom(orderVo.getOrder_from());
         //更新主播的数量
         updateBalanceForIncrease(uci);
+    }
+
+    @Override
+    public void updateBalanceForCourses(List<OrderVo> orderVos) {
+        for (OrderVo orderVo:orderVos){
+            updateBalanceForCourse(orderVo);
+        }
     }
 
     @Override

@@ -1091,13 +1091,14 @@
 		<div class="form-group"  style="margin-top: 18px;" >
             <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>作者：</label>
 		    <div class="ui-widget col-sm-6">
-				  <select  name="userLecturerId" id="combobox1" class="clearfix col-xs-10 col-sm-12 {required:true}">
+				  <%--<select  name="userLecturerId" id="combobox1" class="clearfix col-xs-10 col-sm-12 {required:true}">
 				    <option value="">请选择...</option>
 				    <c:forEach var="map" items="${mapList}">
 	                        <option  value="${map.id}">${map.name}</option>
 	                </c:forEach>
-	              </select>  
-		     </div>
+	              </select>  --%>
+					  <input type="text" id="edit_userLecturerId" class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}" readonly="readonly">
+			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="subtitle"><font color="red">*</font>主播: </label>

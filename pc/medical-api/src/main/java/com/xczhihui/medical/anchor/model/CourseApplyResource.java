@@ -37,7 +37,7 @@ public class CourseApplyResource extends Model<CourseApplyResource> {
      */
 	private String resource;
     /**
-     * 上传人id
+     * 作者id
      */
 	@TableField("user_id")
 	private String userId;

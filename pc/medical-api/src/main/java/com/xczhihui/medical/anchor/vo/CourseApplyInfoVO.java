@@ -30,7 +30,7 @@ public class CourseApplyInfoVO implements Serializable{
      */
 	private String subtitle;
     /**
-     * 上传人
+     * 作者
      */
 	private String userId;
     /**

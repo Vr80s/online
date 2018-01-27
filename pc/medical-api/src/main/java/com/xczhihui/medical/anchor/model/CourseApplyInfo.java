@@ -38,7 +38,7 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      */
 	private String subtitle;
     /**
-     * 上传人
+     * 作者
      */
 	@TableField("user_id")
 	private String userId;

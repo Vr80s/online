@@ -32,7 +32,7 @@ public class CourseApplyResourceVO implements Serializable{
 	 */
 	private String resource;
 	/**
-	 * 上传人id
+	 * 作者id
 	 */
 	private String userId;
 	/**
