@@ -745,13 +745,13 @@ public class CourseDao extends SimpleHibernateDao {
      }
 
 
-    public String getCourseLecturerId(Integer courseId) {
+    public Course getCourse(Integer courseId) {
         DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
         dc.add(Restrictions.eq("id", courseId));
         Course course = this.findEntity(dc);
         if(course == null){
             return null;
         }
-        return course.getUserLecturerId();
+        return course;
     }
 }

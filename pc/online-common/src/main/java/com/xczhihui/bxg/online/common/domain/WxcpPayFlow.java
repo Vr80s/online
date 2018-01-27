@@ -186,4 +186,32 @@ public class WxcpPayFlow {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
+
+	@Override
+	public String toString() {
+		return "WxcpPayFlow{" +
+				"flow_id='" + flow_id + '\'' +
+				", appid='" + appid + '\'' +
+				", attach='" + attach + '\'' +
+				", bank_type='" + bank_type + '\'' +
+				", fee_type='" + fee_type + '\'' +
+				", is_subscribe='" + is_subscribe + '\'' +
+				", mch_id='" + mch_id + '\'' +
+				", nonce_str='" + nonce_str + '\'' +
+				", openid='" + openid + '\'' +
+				", out_trade_no='" + out_trade_no + '\'' +
+				", result_code='" + result_code + '\'' +
+				", return_code='" + return_code + '\'' +
+				", sign='" + sign + '\'' +
+				", sub_mch_id='" + sub_mch_id + '\'' +
+				", time_end='" + time_end + '\'' +
+				", total_fee='" + total_fee + '\'' +
+				", trade_type='" + trade_type + '\'' +
+				", transaction_id='" + transaction_id + '\'' +
+				", return_msg='" + return_msg + '\'' +
+				", payment_type='" + payment_type + '\'' +
+				", user_id='" + user_id + '\'' +
+				", subject='" + subject + '\'' +
+				'}';
+	}
 }

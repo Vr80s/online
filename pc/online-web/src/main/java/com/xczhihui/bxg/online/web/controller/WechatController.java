@@ -14,7 +14,11 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.common.enums.BalanceType;
+import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.OrderForm;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -169,7 +173,7 @@ public class WechatController {
 
 			RewardParamVo rewardParamVo=new RewardParamVo();
 			rewardParamVo.setUserId(loginUser.getId());
-			rewardParamVo.setClientType("1");
+			rewardParamVo.setClientType(OrderForm.PC.getCode()+"");
 			rewardParamVo.setLiveId(req.getParameter("liveId"));
 			rewardParamVo.setGiver(loginUser.getId());
 			rewardParamVo.setReceiver(req.getParameter("receiver"));
@@ -235,8 +239,8 @@ public class WechatController {
 			}
 			
 			UserCoinIncrease uci = new  UserCoinIncrease();
-	    	uci.setPayType(0);
-	    	uci.setChangeType(1);
+	    	uci.setPayType(Payment.WECHATPAY.getCode());
+	    	uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
 	    	uci.setValue(new BigDecimal(count));
 	    	uci.setUserId(loginUser.getId());
 	    	
@@ -370,9 +374,9 @@ public class WechatController {
                             RewardStatement rs = new RewardStatement();
                             BeanUtils.copyProperties(rs, rpv);
                             rs.setCreateTime(new Date());
-                            rs.setPayType(1);//
+                            rs.setPayType(Payment.WECHATPAY.getCode());
                             rs.setOrderNo(out_trade_no);
-                            rs.setChannel(1);
+                            rs.setChannel(OrderForm.PC.getCode());
                             rs.setStatus(1);
                             userCoinService.updateBalanceForReward(rs);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
@@ -381,15 +385,20 @@ public class WechatController {
                             String json = cacheService.get(attachs[1]);
                             UserCoinIncrease uci = JSONObject.parseObject(json, UserCoinIncrease.class);
                             uci.setCreateTime(new Date());
-                            uci.setPayType(1);//
+                            uci.setPayType(Payment.WECHATPAY.getCode());
                             uci.setOrderNoRecharge(out_trade_no);
-                            uci.setOrderFrom(1);
+                            uci.setOrderFrom(OrderForm.PC.getCode());
+                            uci.setBalanceType(BalanceType.BALANCE.getCode());
                             userCoinService.updateBalanceForIncrease(uci);
                             wxcpPayFlow.setUser_id(uci.getUserId());
                             wxcpPayFlow.setSubject(uci.getSubject());
                         }
                     }
-					wxcpPayFlowService.insert(wxcpPayFlow);
+                    try{
+						wxcpPayFlowService.insert(wxcpPayFlow);
+					}catch (Exception exception){
+						logger.error("以下订单重复插入:"+wxcpPayFlow.toString());
+					}
 
 
 					if("order".equals(attachs[0])) {

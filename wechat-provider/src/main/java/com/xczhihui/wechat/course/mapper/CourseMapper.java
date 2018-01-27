@@ -42,5 +42,18 @@ public interface CourseMapper extends BaseMapper<Course> {
 	List<CourseLecturVo>   selectUserConsoleCourse(@Param("userId")String userId);
 	
 	List<CourseLecturVo>   selectMenuTypeAndRandCourse(@Param("page") Page<CourseLecturVo> page,@Param("courseId")Integer courseId);
+
+	/**
+	 * Description：我的课程  包含审批未审批的
+	 * @param page
+	 * @param userId
+	 * @param courseFrom
+	 * @param multimediaType
+	 * @return
+	 * @return List<CourseLecturVo>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	List<CourseLecturVo> selectAppCourseApplyPage(@Param("page") Page<CourseLecturVo> page,
+			@Param("userId") String userId, @Param("courseForm") Integer courseForm,@Param("multimediaType") Integer multimediaType);
 	
 }
