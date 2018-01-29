@@ -45,6 +45,9 @@
    </head>
 <body>
 <div></div>
+	<div id="tip" style="display: none;">
+		入驻申请信息提交成功！
+	</div>
 <!-- 医馆入住 -->
 	<div id ="doctor_in_inf">
 	<div class="container">
@@ -373,6 +376,12 @@
 		<span>医师认证通过啦，你可以享受医师的权利了</span>
 		<button onclick="goDocPage()">去看看</button>
 	</div>
+	{{else}}
+	<div class="bottomContent_inf text-left " id="docNoPass_tip">
+		<span>认证成为医师，可以在线开课</span>
+		<button onclick="gotToAut()">医师认证</button>
+		<!--<a href="javascript:;">我不是医师，不再提示此消息</a>-->
+	</div>
 	{{/if}}
 </script>
 
@@ -380,7 +389,7 @@
 <!--科室模板-->
 <script type="text/template" id="keshiTpl">
 	{{each item as item i}}
-		<li>{{item.name}}</li>
+		<li data-id={{item.id}}>{{item.name}}</li>
 	{{/each}}
 </script>
 
@@ -457,11 +466,10 @@
 		
 		<div class="keshi">
 			<span><em>*</em>科室</span>
-			<ul id="keshiList">
-				<li>心脏病</li>
-				<li>癌症</li>
-				<li>绝症</li>
-				<li>肝病</li>
+			<ul id="keshiList2">
+				{{if medicalDepartments.length > 0}}
+				  {{include 'adaptTpl' }}  
+				 {{/if}}
 			</ul>
 		</div>
 		
@@ -485,6 +493,14 @@
 		<span style="font-size: 14px;">{{province}}</span>
 		<span style="font-size: 14px;">{{city}}</span>
 	</div>
+</script>
+
+
+<!--科室部分的小模板-->
+<script type="text/template" id="adaptTpl">
+{{each medicalDepartments}}
+	<li data-id={{$value.id}}>{{$value.name}}</li>
+{{/each}}
 </script>
 
 <script type="text/javascript" src="/web/js/footer.js"></script>

@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.bxg.online.common.enums.BalanceType;
+import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -340,7 +343,7 @@ public class WxPayController {
                             RewardStatement rs = new RewardStatement();
                             BeanUtils.copyProperties(rs, rpv);
                             rs.setCreateTime(new Date());
-                            rs.setPayType(1);//
+                            rs.setPayType(Payment.WECHATPAY.getCode());//
                             rs.setOrderNo(out_trade_no);
                             rs.setPrice((new Double(wxcpPayFlow.getTotal_fee()) / 100));
                             rs.setChannel(1);
@@ -370,9 +373,11 @@ public class WxPayController {
 
                             UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
                             userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
-                            userCoinIncrease.setChangeType(1);
-                            userCoinIncrease.setPayType(1);
-                            userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate));//熊猫币
+                            userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+                            userCoinIncrease.setPayType(Payment.WECHATPAY.getCode());
+							userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
+							//熊猫币
+                            userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate));
                             userCoinIncrease.setCreateTime(new Date());
 //						userCoinIncrease.setChangeType(0);
                             userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));

@@ -28,7 +28,8 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
+import com.xczhihui.medical.anchor.service.ICourseApplyService;
+import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IFocusService;
 import com.xczhihui.wechat.course.service.IMyInfoService;
@@ -45,7 +46,7 @@ import com.xczhihui.wechat.course.vo.CourseLecturVo;
 public class MyManagerController {
 
 	@Autowired
-	private ICourseService courseServiceImpl;
+	private ICourseService courseService;
 
 	@Autowired
 	@Qualifier("focusServiceRemote")
@@ -71,6 +72,7 @@ public class MyManagerController {
 	
 	@Autowired
 	private IMyInfoService myInfoService;
+	
 	
 	@Value("${rate}")
     private int rate;
@@ -105,7 +107,7 @@ public class MyManagerController {
 			//更新下用户信息
 			map.put("user",onlineUserService.findUserById(user.getId()));
 			//查找购买的课程数
-			map.put("courseCount",courseServiceImpl.selectMyFreeCourseListCount(user.getId()));
+			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
 		}else{
 			System.out.println("================1111111111");
 			map.put("xmbCount",0);
@@ -138,8 +140,7 @@ public class MyManagerController {
 		Page<CourseLecturVo> page = new Page<>();
 	    page.setCurrent(pageNumber);
 	    page.setSize(pageSize);
-	    System.out.println("===========");
-		return ResponseObject.newSuccessResponseObject(courseServiceImpl.selectMyFreeCourseList(page, user.getUserId()));
+		return ResponseObject.newSuccessResponseObject(courseService.selectMyFreeCourseList(page, user.getUserId()));
 	}
 	
 	
@@ -240,7 +241,7 @@ public class MyManagerController {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-		List<CourseLecturVo>  list = courseServiceImpl.selectUserConsoleCourse(user.getId());
+		List<CourseLecturVo>  list = courseService.selectUserConsoleCourse(user.getId());
 		
 		Map<String,Object> mapTj = new HashMap<String, Object>();
 		Map<String,Object> mapNw = new HashMap<String, Object>();
@@ -263,5 +264,51 @@ public class MyManagerController {
 		mapCourseList.add(mapNw);
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
+	
+	
+	/**
+	 * Description：主播控制台 我的课程（app端我的课程   全部、直播、视频、线下课、音频） 包括审批的包括没有审批的
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("anchorConsoleApplyCourse")
+	@ResponseBody
+	public ResponseObject anchorConsoleApplyCourse(HttpServletRequest req,
+			@RequestParam("pageNumber")Integer pageNumber,@RequestParam("pageSize")Integer pageSize,
+			@RequestParam("type")Integer type)
+			throws Exception {
+	
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user == null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		Integer courseFrom = null;  //课程类型：1.直播 2.点播 3.线下课
+		Integer multimediaType = null; //多媒体类型:1视频2音频
+		
+	    if(type == 1){    
+	    	courseFrom = 1;
+	    }else if(type == 2){
+	    	courseFrom = 2;
+	    	multimediaType = 1;
+	    }else if(type == 3){
+	    	courseFrom = 3;
+	    }else if(type == 4){
+	    	courseFrom = 2;
+	    	multimediaType = 2;
+	    }
+	    
+	    Page<CourseLecturVo> page = new Page<>();
+	    page.setCurrent(pageNumber);
+	    page.setSize(pageSize);
+	    
+		return ResponseObject.newSuccessResponseObject(courseService.selectAppCourseApplyPage(page, user.getId(),courseFrom, multimediaType));
+		
+		
+	}
+	
 	
 }

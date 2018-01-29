@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.bxg.online.common.enums.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,15 +33,17 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 	private OnlineUserCenterService onlineUserCenterService;
 	@Value("${rate}")
     private int rate;
-	
+
+
+	@Override
+	public void saveSettlement(String userId, int amount,OrderForm orderForm) {
+		userCoinService.updateBalanceForSettlement(userId,amount, orderForm);
+	}
 
 	@Override
 	public Page<EnchashmentApplication> enchashmentApplicationList(String userId,Integer pageNumber, Integer pageSize) {
 		
-		
 		Page<EnchashmentApplication> pageList =  enchashmentDao.enchashmentApplicationList(userId,pageNumber,pageSize);
-		//List<EnchashmentApplication> list =pageList.getItems();
-		//enchashment_account_type
 		for (EnchashmentApplication enchashmentApplication : pageList.getItems()) {
 			Integer enchashmentAccountType  = enchashmentApplication.getEnchashmentAccountType();
 			String enchashmentAccount = enchashmentApplication.getEnchashmentAccount();
@@ -106,7 +108,8 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 
 	@Override
 	public String enableEnchashmentBalance(String userId) {
-		return userCoinService.getEnableEnchashmentBalance(userId).setScale(0, RoundingMode.DOWN).toString();//可提现熊猫币取整
+		//可提现熊猫币取整
+		return userCoinService.getEnableEnchashmentBalance(userId).toString();
 	}
 	
 

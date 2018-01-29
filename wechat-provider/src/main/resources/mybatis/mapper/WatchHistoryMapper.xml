@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.wechat.course.mapper.WatchHistoryMapper">
+
 	<select id="selectWatchHistory" resultType="com.xczhihui.wechat.course.vo.WatchHistoryVO">
 		SELECT
 		  owh.course_id as courseId,
-		  owh.lecturer_id as lecturerId,oc.grade_name as gradeName,ou.name as lecturerName
+		  owh.lecturer_id as lecturerId,oc.grade_name as gradeName,oc.lecturer as lecturerName
 		FROM
 		  oe_watch_history1 owh 
 		  inner join oe_course oc on owh.course_id = oc.id
-		  inner join oe_user ou on  owh.lecturer_id = ou.id
-		where owh.user_id =#{userId}   order by owh.create_time desc
+		  where owh.user_id =#{userId}   order by owh.create_time desc 
 	</select>		  
 	
 <!-- 	@Param("userId") Integer type, @Param("courseId") -->

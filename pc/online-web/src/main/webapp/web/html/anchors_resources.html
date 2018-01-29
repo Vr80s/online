@@ -78,7 +78,7 @@
 						</li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>-->
 						<!--<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>-->
-						<li class="setTop docSuccessBtn hide"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
+						<li class="setTop docSuccessBtn"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
 						<!--<li class="setTop"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>-->
@@ -94,7 +94,7 @@
 				<!--收徒-->
 				<!--<div class="select_box">收徒</div>-->
 				<!--医馆-->
-				<div class="select_box docSuccessBox hide" id="hospital">
+				<div class="select_box docSuccessBox" id="hospital">
 					<div class="zhuanlan_top">
 						<span class="title">医馆</span>
 						<!--<button>返回</button>-->
@@ -684,9 +684,10 @@
 		<div class="keshi">
 			<span>科室</span>
 			<ul>
-				<li>中医内科</li>
-				<li>中医内科</li>
-				<li>妇科</li>
+				{{if medicalDepartments.length > 0}}
+				  {{include 'adaptTpl' }}  
+				 {{/if}}
+			
 			</ul>
 		</div>
 
@@ -713,11 +714,26 @@
 	</script>
 	
 	
+	<!--科室部分的小模板-->
+<script type="text/template" id="adaptTpl">
+{{each medicalDepartments}}
+	<li data-id={{$value.id}}>{{$value.name}}</li>
+{{/each}}
+</script>
+
+	
+	
+	<!--医馆列表-->
 	<script type="text/template" id="hosListTpl">
 		{{each item as item i}}
 			 <option value={{item.id}}>{{item.name}}</option>
 		{{/each}}
 	</script>
+	
+	
+	
+	
+	
 
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
