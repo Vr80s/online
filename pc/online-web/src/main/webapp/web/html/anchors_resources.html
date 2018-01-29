@@ -51,6 +51,10 @@
 	</head>
 
 	<body>
+		<!--提示弹窗-->
+		<div id="tip" style="display: none;">
+			您已完成了医馆注册，不能进行医师注册!
+		</div>
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -619,7 +623,7 @@
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
-			<span>已于2017.12.12通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
+			<span>已于{{updateTime}}通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
 			<button class="renzhengAgain">重新认证</button>
 		</div>
 		{{else if status == 0}}
