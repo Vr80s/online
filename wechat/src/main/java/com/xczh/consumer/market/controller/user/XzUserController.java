@@ -6,11 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
@@ -18,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import nl.bitwalker.useragentutils.Browser;
 import nl.bitwalker.useragentutils.OperatingSystem;
 import nl.bitwalker.useragentutils.UserAgent;
 
@@ -27,28 +23,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
-import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
@@ -56,10 +45,6 @@ import com.xczhihui.bxg.online.common.enums.RegisterForm;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.user.center.bean.UserOrigin;
-import com.xczhihui.user.center.bean.UserSex;
-import com.xczhihui.user.center.bean.UserStatus;
-import com.xczhihui.user.center.bean.UserType;
 
 /**
  * 用户controller
@@ -68,7 +53,7 @@ import com.xczhihui.user.center.bean.UserType;
  */
 @Controller
 @RequestMapping(value = "/xczh/user")
-public class OnlineUserController {
+public class XzUserController {
 	@Autowired
 	private OnlineUserService onlineUserService;
 	@Autowired
@@ -90,10 +75,30 @@ public class OnlineUserController {
 	@Autowired
 	private CityService cityService;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OnlineUserController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
 	
 	
 	
+	
+	
+	@RequestMapping(value="getUserInfo")
+	@ResponseBody
+	public ResponseObject getUserInfo(HttpServletRequest req,
+			@RequestParam("userId")String userId){
+		try {
+			OnlineUser ou = onlineUserService.findUserById(userId);
+			if(ou == null){
+				return ResponseObject.newSuccessResponseObject(ou);
+			}else{
+				return ResponseObject.newErrorResponseObject("获取用户信息有误");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LOGGER.info("获取错误信息啦"+e.getMessage());
+			return ResponseObject.newErrorResponseObject("信息有误");
+		}
+	}
 	/**
 	 * 
 	 * Description：发送短信验证码
@@ -171,7 +176,6 @@ public class OnlineUserController {
 	public ResponseObject login(HttpServletRequest req, HttpServletResponse res,
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) throws Exception {
-		
 		
 		Token t = null;
 		try {

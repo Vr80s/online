@@ -950,7 +950,7 @@ public class BrowserUserController {
 		 * 这个地方是可以了。目前都支持吧
 		 */
 		
-		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
+		//if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
 			//设置登录标识
 			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
@@ -962,7 +962,7 @@ public class BrowserUserController {
 			}else if(user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
 			}
-		}else{
+		//}else{
 			// 用户登录成功
 			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
 			req.getSession().invalidate();
@@ -991,7 +991,7 @@ public class BrowserUserController {
 			 * 这是cookie 
 			 */
 			UCCookieUtil.writeTokenCookie(res, token);
-		}
+		//}
 	}
 	
 	@RequestMapping(value="checkToken")
