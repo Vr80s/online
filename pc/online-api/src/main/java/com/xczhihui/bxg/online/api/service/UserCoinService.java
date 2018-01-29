@@ -58,7 +58,13 @@ public interface UserCoinService {
 	 **/
 	public UserCoinConsumption updateBalanceForConsumption(UserCoinConsumption ucc);
 
-	void updateBalanceForByCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
+	/**
+	 * Description：用户使用熊猫币买课
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 5:04 2018/1/29 0029
+	 **/
+	void updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
 
 	/**
 	 * Description：添加用户熊猫
