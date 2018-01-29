@@ -6,6 +6,7 @@ import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
+import com.xczhihui.bxg.online.web.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,16 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	private OrderDao   orderDao;
+	private OrderDao orderDao;
 
 	@Value("${share.course.id:191}")
 	private String shareCourseId;
 	@Autowired
 	UserCoinService userCoinService;
+	@Value("${online.web.url}")
+	private String weburl;
+	@Autowired
+	private OrderService orderService;
 
    /**
     * Description：购买课程支付成功接口
@@ -117,6 +122,8 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 				logger.info("订单分成失败，订单id:{}",orders.get(0).getOrderId());
 				e.printStackTrace();
 			}
+			//为购买用户发送购买成功的消息通知
+			orderService.savePurchaseNotice(weburl, orders.get(0).getOrderId());
 
 		}
 	}

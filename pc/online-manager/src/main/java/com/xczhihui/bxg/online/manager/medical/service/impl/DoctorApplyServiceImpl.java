@@ -131,20 +131,16 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     public MedicalDoctorApply findById(String id) {
 
         MedicalDoctorApply medicalDoctorApply =  doctorApplyDao.find(id);
-
         if(medicalDoctorApply == null ){
             throw new RuntimeException("该条记录不存在");
         }
 
         List<MedicalDepartment> departments = new ArrayList<>();
 
-        List<MedicalDoctorApplyDepartment> applyDepartments =
-            doctorApplyDepartmentDao.findByApplyId(medicalDoctorApply.getId());
-
+        List<MedicalDoctorApplyDepartment> applyDepartments = doctorApplyDepartmentDao.findByApplyId(medicalDoctorApply.getId());
         if(applyDepartments != null && !applyDepartments.isEmpty()){
             for (MedicalDoctorApplyDepartment applyDepartment : applyDepartments){
-                MedicalDepartment department =
-                        departmentDao.findById(applyDepartment.getDepartmentId());
+                MedicalDepartment department = departmentDao.findById(applyDepartment.getDepartmentId());
                 if(department != null){
                     departments.add(department);
                 }
@@ -211,7 +207,6 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         }
 
         Date now = new Date();
-
         String doctorId = UUID.randomUUID().toString().replace("-","");
 
         // 新增医师与用户的对应关系：medical_doctor_account
@@ -286,12 +281,13 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         doctorApply.setUserId(userId);
         doctorApply.setName(userId);
         doctorApply.setCardNum(RandomUtil.getCharAndNumr(18));
-        doctorApply.setHeadPortrait("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-        doctorApply.setCardNegative("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-        doctorApply.setCardPositive("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-        doctorApply.setProfessionalCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-        doctorApply.setTitleProve("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-        doctorApply.setQualificationCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+        String picture = "http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg";
+        doctorApply.setHeadPortrait(picture);
+        doctorApply.setCardNegative(picture);
+        doctorApply.setCardPositive(picture);
+        doctorApply.setProfessionalCertificate(picture);
+        doctorApply.setTitleProve(picture);
+        doctorApply.setQualificationCertificate(picture);
         doctorApply.setTitle("主治医师");
         doctorApply.setField("妇科疾病");
         doctorApply.setDescription("你是什么样的人，就得什么样的病");
@@ -319,12 +315,13 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         if(type == 1){
             authenticationInformation.setId(authenticationInformationId);
-            authenticationInformation.setHeadPortrait("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-            authenticationInformation.setCardNegative("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-            authenticationInformation.setCardPositive("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-            authenticationInformation.setProfessionalCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-            authenticationInformation.setTitleProve("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
-            authenticationInformation.setQualificationCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+            String picture = "http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg";
+            authenticationInformation.setHeadPortrait(picture);
+            authenticationInformation.setCardNegative(picture);
+            authenticationInformation.setCardPositive(picture);
+            authenticationInformation.setProfessionalCertificate(picture);
+            authenticationInformation.setTitleProve(picture);
+            authenticationInformation.setQualificationCertificate(picture);
             authenticationInformation.setDeleted(false);
             authenticationInformation.setStatus(true);
             authenticationInformation.setCreateTime(createTime);

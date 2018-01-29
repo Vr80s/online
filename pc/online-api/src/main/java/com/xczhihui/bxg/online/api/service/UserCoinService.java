@@ -1,20 +1,15 @@
 package com.xczhihui.bxg.online.api.service;
 
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Map;
-
 import com.xczhihui.bxg.common.util.bean.Page;
-import com.xczhihui.bxg.online.api.po.Gift;
-import com.xczhihui.bxg.online.api.po.GiftStatement;
-import com.xczhihui.bxg.online.api.po.RewardStatement;
-import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
+import com.xczhihui.bxg.online.api.po.*;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 
 /** 
@@ -26,7 +21,7 @@ import com.xczhihui.bxg.online.common.enums.Payment;
 public interface UserCoinService {
 
 	/** 
-	 * Description：获取用户熊猫币余额
+	 * Description：获取用户熊猫币余额（平台赠送+充值）
 	 * @param userId
 	 * @return
 	 * @return Map<String,String>
@@ -113,7 +108,7 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 8:19 2018/1/29 0029
 	 **/
-    void updateBalanceForCourses(List<OrderVo> orderVos);
+    public void updateBalanceForCourses(List<OrderVo> orderVos);
 
     /**
 	 * Description：打赏主播余额增加
@@ -154,6 +149,6 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 2:04 2018/1/29 0029
 	 **/
-    void updateBalanceForSettlement(String userId, int amount, OrderFrom orderFrom);
+	public void updateBalanceForSettlement(String userId, int amount, OrderFrom orderFrom);
 
 }

@@ -483,7 +483,7 @@ public class AlipayController {
                             logger.info("订单支付成功，订单号:{},用时{}",
                                     out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
                             //为购买用户发送购买成功的消息通知
-                            orderService.savePurchaseNotice(weburl, out_trade_no);
+//                            orderService.savePurchaseNotice(weburl, out_trade_no);
                         } catch (Exception e) {
                             logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
                         }
@@ -575,7 +575,7 @@ public class AlipayController {
                                 logger.info("订单支付成功，订单号:{},用时{}",
                                         out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
                                 //为购买用户发送购买成功的消息通知
-                                orderService.savePurchaseNotice(weburl, out_trade_no);
+//                                orderService.savePurchaseNotice(weburl, out_trade_no);
                             } catch (Exception e) {
                                 logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
                             }
