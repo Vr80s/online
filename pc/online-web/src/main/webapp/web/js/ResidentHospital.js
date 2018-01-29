@@ -541,3 +541,5 @@ function hosAgainAut(){
 	$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
 	
 }
+
+
