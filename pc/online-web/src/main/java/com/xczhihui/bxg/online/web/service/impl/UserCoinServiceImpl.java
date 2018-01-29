@@ -171,7 +171,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
 
     @Override
-    public void updateBalanceForByCourse(String userId,OrderFrom orderFrom,BigDecimal coin,String orderNo) {
+    public void updateBalanceForBuyCourse(String userId,OrderFrom orderFrom,BigDecimal coin,String orderNo) {
         if(coin.compareTo(BigDecimal.ZERO) != 1){
             throw new RuntimeException("课程熊猫币价格必须大于0");
         }
