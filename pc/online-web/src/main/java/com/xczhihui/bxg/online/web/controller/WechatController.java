@@ -14,11 +14,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.common.enums.BalanceType;
 import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -173,7 +171,7 @@ public class WechatController {
 
 			RewardParamVo rewardParamVo=new RewardParamVo();
 			rewardParamVo.setUserId(loginUser.getId());
-			rewardParamVo.setClientType(OrderForm.PC.getCode()+"");
+			rewardParamVo.setClientType(OrderFrom.PC.getCode()+"");
 			rewardParamVo.setLiveId(req.getParameter("liveId"));
 			rewardParamVo.setGiver(loginUser.getId());
 			rewardParamVo.setReceiver(req.getParameter("receiver"));
@@ -376,7 +374,7 @@ public class WechatController {
                             rs.setCreateTime(new Date());
                             rs.setPayType(Payment.WECHATPAY.getCode());
                             rs.setOrderNo(out_trade_no);
-                            rs.setChannel(OrderForm.PC.getCode());
+                            rs.setChannel(OrderFrom.PC.getCode());
                             rs.setStatus(1);
                             userCoinService.updateBalanceForReward(rs);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
@@ -387,9 +385,9 @@ public class WechatController {
 //                            uci.setCreateTime(new Date());
 //                            uci.setPayType(Payment.WECHATPAY.getCode());
 //                            uci.setOrderNoRecharge(out_trade_no);
-//                            uci.setOrderFrom(OrderForm.PC.getCode());
+//                            uci.setOrderFrom(OrderFrom.PC.getCode());
 //                            uci.setBalanceType(BalanceType.BALANCE.getCode());
-                            userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.WECHATPAY,uci.getValue(),OrderForm.PC,out_trade_no);
+                            userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.WECHATPAY,uci.getValue(), OrderFrom.PC,out_trade_no);
                             wxcpPayFlow.setUser_id(uci.getUserId());
                             wxcpPayFlow.setSubject(uci.getSubject());
                         }

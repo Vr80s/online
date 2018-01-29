@@ -13,7 +13,7 @@ import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 
 
@@ -40,7 +40,7 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 2:42 2018/1/29 0029
 	 **/
-	void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderForm orderForm, String orderNo);
+	void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderFrom orderFrom, String orderNo);
 
 	/**
 	 * Description：用户熊猫币新增
@@ -120,6 +120,6 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 2:04 2018/1/29 0029
 	 **/
-    void updateBalanceForSettlement(String userId, int amount, OrderForm orderForm);
+    void updateBalanceForSettlement(String userId, int amount, OrderFrom orderFrom);
 
 }

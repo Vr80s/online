@@ -9,9 +9,7 @@ import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.enums.*;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
-import com.xczhihui.bxg.online.web.dao.RewardDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;
-import com.xczhihui.bxg.online.web.service.RewardService;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.jivesoftware.smack.SmackException;
@@ -63,7 +61,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderForm orderForm, String orderNo) {
+    public void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderFrom orderFrom, String orderNo) {
         UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
         userCoinIncrease.setUserId(userId);
         //充值
@@ -73,7 +71,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         userCoinIncrease.setPayType(payment.getCode());
         userCoinIncrease.setValue(coin);
         userCoinIncrease.setCreateTime(new Date());
-        userCoinIncrease.setOrderFrom(orderForm.getCode());
+        userCoinIncrease.setOrderFrom(orderFrom.getCode());
         userCoinIncrease.setOrderNoRecharge(orderNo);
 
         updateBalanceForIncrease(userCoinIncrease);
@@ -211,7 +209,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         BigDecimal ratio = courseAnchor.getGiftDivide();
         BigDecimal iOSBrokerageValue = BigDecimal.ZERO;
         //若为ios订单，计算苹果分成
-        if(giftStatement.getClientType()==OrderForm.IOS.getCode()){
+        if(giftStatement.getClientType()== OrderFrom.IOS.getCode()){
             iOSBrokerageValue = total.multiply(iosRatio);
         }
         //主播获益=(总金额-ios抽成)*主播分成比例
@@ -260,7 +258,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         }
         BigDecimal iOSBrokerageValue = BigDecimal.ZERO;
         //若为ios订单，计算苹果分成
-        if(orderVo.getOrder_from()==OrderForm.IOS.getCode()){
+        if(orderVo.getOrder_from()== OrderFrom.IOS.getCode()){
             iOSBrokerageValue = total.multiply(iosRatio);
         }
         //主播获益=(总金额-ios抽成)*主播分成比例
@@ -291,7 +289,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Override
     public void updateBalanceForCourses(List<OrderVo> orderVos) {
         for (OrderVo orderVo:orderVos){
-            if(orderVo.getOrder_from()!=OrderForm.WORKER.getCode()){
+            if(orderVo.getOrder_from()!= OrderFrom.WORKER.getCode()){
                 updateBalanceForCourse(orderVo);
             }else{
                 logger.info("订单{}为工作人员订单，不计入主播分成",orderVo.getOrderDetail());
@@ -394,7 +392,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public void updateBalanceForSettlement(String userId, int amount, OrderForm orderForm) {
+    public void updateBalanceForSettlement(String userId, int amount, OrderFrom orderFrom) {
 
         BigDecimal value = new BigDecimal(amount).negate();
 
@@ -405,7 +403,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         UserCoinConsumption ucc = new UserCoinConsumption();
         ucc.setUserId(userId);
-        ucc.setOrderFrom(orderForm.getCode());
+        ucc.setOrderFrom(orderFrom.getCode());
         ucc.setValue(value);
 
         String version = BeanUtil.getUUID();
@@ -435,7 +433,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         UserCoinIncrease uci = new UserCoinIncrease();
         uci.setUserId(userId);
-        uci.setOrderFrom(orderForm.getCode());
+        uci.setOrderFrom(orderFrom.getCode());
         //结算扣币的流水id
         uci.setOrderNoSettlement(ucc.getId().toString());
         //人民币余额变动 = 结算熊猫币/兑换比例

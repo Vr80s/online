@@ -1,11 +1,9 @@
 package com.xczh.consumer.market.service.impl;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,6 @@ import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.TimeUtil;
 import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
 /**
@@ -49,7 +46,7 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 	        		"充值熊猫币："+xmb+"个",
 	        		1);
 
-	        userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,new BigDecimal(xmb),OrderForm.IOS,orderNoRecharge);
+	        userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,new BigDecimal(xmb), OrderFrom.IOS,orderNoRecharge);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

@@ -16,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.xczhihui.bxg.online.common.enums.BalanceType;
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import net.sf.json.JSONObject;
 
@@ -76,7 +74,6 @@ import com.xczh.consumer.market.wxpay.entity.SendRedPack;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
 import com.xczhihui.bxg.online.api.po.RewardStatement;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
@@ -384,7 +381,7 @@ public class WxPayController {
 //                            userCoinIncrease.setCreateTime(new Date());
 //                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
 //                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
-                            userCoinService.updateBalanceForRecharge(wxcpPayFlow.getUser_id(),Payment.WECHATPAY,coin, OrderForm.ANDROID,wxcpPayFlow.getOut_trade_no());
+                            userCoinService.updateBalanceForRecharge(wxcpPayFlow.getUser_id(),Payment.WECHATPAY,coin, OrderFrom.ANDROID,wxcpPayFlow.getOut_trade_no());
                         }
                     }
 				}

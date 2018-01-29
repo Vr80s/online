@@ -16,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.common.enums.BalanceType;
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -498,7 +496,7 @@ public class AlipayController {
                     BeanUtils.copyProperties(rs,rpv);
                     rs.setCreateTime(new Date());
                     rs.setPayType(Payment.ALIPAY.getCode());//
-                    rs.setChannel(OrderForm.PC.getCode());
+                    rs.setChannel(OrderFrom.PC.getCode());
                     rs.setOrderNo(out_trade_no);
                     rs.setStatus(1);
 //                    rs.setPrice(price);
@@ -512,10 +510,10 @@ public class AlipayController {
 //                    uci.setCreateTime(new Date());
 //                    uci.setOrderNoRecharge(out_trade_no);
 //                    uci.setPayType(Payment.ALIPAY.getCode());
-//                    uci.setOrderFrom(OrderForm.PC.getCode());
+//                    uci.setOrderFrom(OrderFrom.PC.getCode());
 //                    uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
 //                    uci.setBalanceType(BalanceType.BALANCE.getCode());
-                    userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.ALIPAY,uci.getValue(),OrderForm.PC,out_trade_no);
+                    userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.ALIPAY,uci.getValue(), OrderFrom.PC,out_trade_no);
                 }
 
             }

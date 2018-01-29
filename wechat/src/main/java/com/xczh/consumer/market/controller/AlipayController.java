@@ -13,12 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczh.consumer.market.utils.*;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
-import com.xczhihui.bxg.online.common.enums.BalanceType;
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -966,7 +963,7 @@ public class AlipayController {
 						BigDecimal coin = new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount()) * rate);
 						// 执行代币充值工作
 
-						userCoinService.updateBalanceForRecharge(alipayPaymentRecordH5.getUserId(),Payment.ALIPAY,coin,OrderForm.H5,alipayPaymentRecordH5.getTradeNo());
+						userCoinService.updateBalanceForRecharge(alipayPaymentRecordH5.getUserId(),Payment.ALIPAY,coin, OrderFrom.H5,alipayPaymentRecordH5.getTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}

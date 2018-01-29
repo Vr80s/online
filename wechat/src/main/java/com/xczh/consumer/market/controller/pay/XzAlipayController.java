@@ -13,11 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczh.consumer.market.utils.*;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -796,7 +794,7 @@ public class XzAlipayController {
 //						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());
 //						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
 
-						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),Payment.ALIPAY,rechargeParamVo.getValue(), OrderForm.ANDROID,alipayPaymentRecordH5.getTradeNo());
+						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),Payment.ALIPAY,rechargeParamVo.getValue(), OrderFrom.ANDROID,alipayPaymentRecordH5.getTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}
