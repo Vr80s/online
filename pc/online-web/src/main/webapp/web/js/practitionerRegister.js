@@ -140,11 +140,11 @@ $(function(){
 		if(agreeNum < 0){
 			$('#zhuceBtn').removeClass('register');
 			$('#zhuceBtn').addClass('notregister');
-			alert(1)
+//			alert(1)
 		}else if(agreeNum > 0){
 			$('#zhuceBtn').removeClass('notregister');
 			$('#zhuceBtn').addClass('register');
-			alert(2)
+//			alert(2)
 		}
 	})
 
