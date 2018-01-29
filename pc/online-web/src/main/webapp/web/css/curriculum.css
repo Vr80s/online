@@ -1002,6 +1002,9 @@
 .citys p{
     line-height: 28px;
 }
+.citys p select{
+	outline: none;
+}
 .warning{
     color: #c00;
 }
@@ -1078,6 +1081,15 @@ pre {
     color: #999999 !important;
     font-size: 14px;
 }
+.sheng_textarea{
+	width: 499px;
+	height: 90px;
+	padding: 10px;
+    margin-left: 112px;
+    outline: none;
+    resize: none;
+}
+
 
 
 /*点击选择资源弹框开始*/
@@ -1128,3 +1140,217 @@ pre {
 }
 /*点击选择资源弹框结束*/
 /*学堂课程结束*/
+
+
+
+/*专辑开始*/
+
+.wrap_box  #zhuanji .zhuanlan_top{
+	height: 60px;
+	line-height: 60px;
+	border-bottom: 1px solid #F0F0F0;
+	position: relative;
+}
+.wrap_box  #zhuanji .zhuanlan_top .title{
+	font-size: 16px;
+    color: #333333;
+    position: absolute;
+    left: 20px;
+}
+.wrap_box  #zhuanji .zhuanlan_top button{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px; 
+}
+.wrap_box  #zhuanji #zhuanji_bottom2{
+	padding: 31px 20px 59px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table tr td {
+	text-align: center;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead {
+	height: 40px;line-height: 40px;
+	background: #F0F0F0;
+	font-size: 14px;
+	color: #666666;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody{
+	font-size: 14px;
+	color: #333;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody tr{
+	height: 80px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:first-child,
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:first-child{
+	width: 126px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:first-child{
+	padding: 10px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:first-child img{
+	width: 100%;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(2),
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(2){
+	width: 213px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(3),
+.wrap_box  #zhuanji .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
+	width: 80px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(4),
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(4){
+	width: 75px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(5),
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(5){
+	width: 75px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(6),
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(6){
+	width: 80px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(7),
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(7){
+	width: 80px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(8),
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(8){
+	width: 120px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table tr,.wrap_box  #zhuanji #zhuanji_bottom2 table td{
+	border: 1px solid #DEDEDE;
+}
+
+
+
+/*第二页*/
+
+.wrap_box  #zhuanji .zhuanlan_bottom {
+	padding: 30px 20px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form > div {
+	margin-bottom: 20px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form > div >span:first-child{
+	display: inline-block;
+	width: 89px;
+	text-align: right;
+	font-size: 14px;
+	color: #2A2A2A;
+	line-height: 19px;
+	margin-right: 20px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form > div >span:first-child > em{
+	color: #f40;
+	display: inline;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .zhuanlan_title{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	text-indent: 1em;
+	font-size: 14px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .zhuanlan_title::-webkit-input-placeholder,
+.wrap_box  #zhuanji .zhuanlan_bottom form .zhuanlan_title:-moz-placeholder,
+.wrap_box  #zhuanji .zhuanlan_bottom form .zhuanlan_title::-moz-placeholder,
+.wrap_box  #zhuanji .zhuanlan_bottom form .zhuanlan_title:-ms-input-placeholder {
+	font-size: 14px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .fengmian{
+  	
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .fengmian_tip{
+	display: inline-block;
+	width: 159px;
+	height: 48px;
+	color: #999;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form #zhuanjiType {
+	font-size: 14px;
+	line-height: 24px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form #zhuanjiType label{
+	margin-right: 30px;
+	font-weight: 400;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form #zhuanjiType label input{
+	vertical-align: sub;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #submit{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #submit0{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: none;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #fff;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+}
+.wrap_box  #zhuanji .zhuanlan_bottom form .baocun{
+	padding-left:120px ;
+}
+.warning{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+     margin-left: 120px;
+}
+#zhuanjiUrl input{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+}
+/*专辑结束*/
