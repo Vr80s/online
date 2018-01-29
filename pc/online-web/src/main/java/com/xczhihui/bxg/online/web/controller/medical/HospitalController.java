@@ -67,7 +67,6 @@ public class HospitalController {
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.getHotField());
     }
 
-
     /**
      * 添加医师
      */
@@ -113,6 +112,23 @@ public class HospitalController {
     public ResponseObject update(MedicalHospital medicalHospital, HttpServletRequest request){
         medicalHospitalBusinessServiceImpl.update(medicalHospital);
         return ResponseObject.newSuccessResponseObject("修改成功");
+    }
+
+    /**
+     * 获取医馆的医师列表
+     * @param current 当前页
+     * @param size 每页显示的条数
+     * @param doctorName 医师名字
+     * @param hospitalId 医馆id
+     * @author zhuwenbao
+     */
+    @RequestMapping(value = "/getDoctors", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject getDoctors(Integer current,Integer size,String doctorName, String hospitalId){
+        Page page = new Page<>();
+        page.setCurrent(current);
+        page.setSize(size);
+        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectDoctorPage(page, doctorName, hospitalId));
     }
 
 }
