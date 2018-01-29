@@ -10,8 +10,6 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.enums.*;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.Logger;
@@ -51,13 +49,32 @@ public class UserCoinServiceImpl implements UserCoinService {
         if (uc == null) {
             throw new RuntimeException(userId + "--用户账户不存在！");
         }
-        BigDecimal balanceTotal = uc.getBalance().add(uc.getBalanceGive()).add(uc.getBalanceRewardGift());
         Map<String, String> balance = new HashMap<String, String>();
-        balance.put("balance_reward_gift", uc.getBalanceRewardGift().setScale(0, BigDecimal.ROUND_DOWN).toString());
         balance.put("balance_give", uc.getBalanceGive().setScale(0, BigDecimal.ROUND_DOWN).toString());
         balance.put("balance", uc.getBalance().setScale(0, BigDecimal.ROUND_DOWN).toString());
+        BigDecimal balanceTotal = uc.getBalance().add(uc.getBalanceGive());
         balance.put("balanceTotal", balanceTotal.setScale(0, BigDecimal.ROUND_DOWN).toString());
         return balance;
+    }
+
+    @Override
+    public String getSettlementBalanceByUserId(String userId) {
+        UserCoin uc = userCoinDao.getBalanceByUserId(userId);
+        if (uc == null) {
+            throw new RuntimeException(userId + "--用户账户不存在！");
+        }
+        String settlementBalance = uc.getBalanceRewardGift().setScale(0, BigDecimal.ROUND_DOWN).toString();
+        return settlementBalance;
+    }
+
+    @Override
+    public String getEnchashmentBalanceByUserId(String userId) {
+        UserCoin uc = userCoinDao.getBalanceByUserId(userId);
+        if (uc == null) {
+            throw new RuntimeException(userId + "--用户账户不存在！");
+        }
+        String enchashmentBalance = uc.getRmb().setScale(0, BigDecimal.ROUND_DOWN).toString();
+        return enchashmentBalance;
     }
 
     @Override
@@ -171,7 +188,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
 
     @Override
-    public void updateBalanceForBuyCourse(String userId,OrderFrom orderFrom,BigDecimal coin,String orderNo) {
+    public void updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo) {
         if(coin.compareTo(BigDecimal.ZERO) != 1){
             throw new RuntimeException("课程熊猫币价格必须大于0");
         }
@@ -355,7 +372,6 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setValue(enchashmentSum.negate());
 
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
-        //用户收到的礼物打赏余额-提现金额  是否大于0
         //判断余额是否充足（ucc的value为负值）
         if (uc.getRmb().add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
             sql.append(" uc.`rmb`=uc.rmb" + ucc.getValue());
@@ -370,7 +386,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
         if (updateCount < 1) {
-            throw new RuntimeException("系统繁忙,请稍后再试！");
+            throw new RuntimeException("网络异常,请稍后再试！");
         }
         ucc.setUserCoinId(uc.getId());
         ucc.setBalanceValue(BigDecimal.ZERO);

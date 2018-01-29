@@ -35,6 +35,22 @@ public interface UserCoinService {
 	public Map<String,String> getBalanceByUserId(String userId);
 
 	/**
+	 * Description：可结算熊猫币金额
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 5:50 2018/1/29 0029
+	 **/
+	String getSettlementBalanceByUserId(String userId);
+
+	/**
+	 * Description：可提现人民币余额
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 5:50 2018/1/29 0029
+	 **/
+	String getEnchashmentBalanceByUserId(String userId);
+
+	/**
 	 * Description：熊猫币充值方法
 	 * creed: Talk is cheap,show me the code
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -89,7 +105,7 @@ public interface UserCoinService {
 	 * @return void
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public void updateBalanceForGift(GiftStatement giftStatement,Gift gift);
+	public void updateBalanceForGift(GiftStatement giftStatement, Gift gift);
 
     void updateBalanceForCourses(List<OrderVo> orderVos);
 
