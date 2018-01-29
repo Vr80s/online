@@ -313,7 +313,7 @@ $('#resource .zhuanlan_top button').click(function(){
 
 //开始js
 //课程部分
-//课程部分点击上传资源
+//课程部分点击
 var kechengCount = 1;
 $('#curriculum .zhuanlan_top button').click(function(){
 	kechengCount *= -1;
@@ -323,15 +323,15 @@ $('#curriculum .zhuanlan_top button').click(function(){
 	$(this).text('返回');
 	$(this).siblings('.title').text('新课程');
 	//底部变化
-	$('#kecheng_bottom2').addClass('hide');
-	$('#kecheng_bottom').removeClass('hide');
+	$('#curriculum #kecheng_bottom2').addClass('hide');
+	$('#curriculum #kecheng_bottom').removeClass('hide');
 	}else{
 		//取消上传
 		$(this).text('新课程');
 		$(this).siblings('.title').text('课程');
 		//底部变化
-		$('#kecheng_bottom').addClass('hide');
-		$('#kecheng_bottom2').removeClass('hide');
+		$('#curriculum  #kecheng_bottom').addClass('hide');
+		$('#curriculum  #kecheng_bottom2').removeClass('hide');
 	}
 })
 
@@ -353,6 +353,251 @@ $('#a').click(function(){
 $('.a_resource_close').click(function(){
 	$('.a_resource').hide();
 });
+
+
+
+//判断为空
+
+//课程
+$('#kecheng_bottom .baocun #submit').click(function(){
+	//任职医馆的验证
+	var workhosName = $.trim($('#kecheng_bottom .zhuanlan_title').val());
+	var workhosNames = $.trim($('#kecheng_bottom .zhuanlan_title0').val());
+	var workhosNamess = $.trim($('#kecheng_bottom #picIpt').val());
+	var nameNames = $.trim($('#kecheng_bottom .zhuanlan_title1 ').val());
+	var textArea = $.trim($('#kecheng_bottom #textarea1').val());
+	var selectTime = $.trim($('#kecheng_bottom .select_time').val());
+	var selectTimes = $.trim($('#kecheng_bottom .zhuanlan_title2').val());
+	var price = $.trim($('#kecheng_bottom .zhuanlan_title3').val());
+	var resourceUrl = $.trim($('#kecheng_bottom .resourceUrl').val());
+
+	var headPortrait  =  $('#kecheng_bottom .fengmian_pic img').attr('src');
+	
+	
+	//课程标题
+	if(workhosName == ''){
+		$('#kecheng_bottom .warning0').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning0').addClass('hide');
+	}
+	
+//	副标题
+	if(workhosNames == ''){
+		$('#kecheng_bottom .warning1').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning1').addClass('hide');
+	}
+	
+//	封面图
+	if(workhosNamess == ''){
+		$('#kecheng_bottom .warning2').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning2').addClass('hide');
+	}
+	
+//	主播姓名
+	if(nameNames == ''){
+		$('#kecheng_bottom .warning3').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning3').addClass('hide');
+	}
+	
+//	主播介绍
+	if(textArea == ''){
+		$('#kecheng_bottom .warning4').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning4').addClass('hide');
+	}
+	
+//	请选择开课时间
+	if(selectTime == ''){
+		$('#kecheng_bottom .warning5').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning5').addClass('hide');
+	}
+	
+//	时长
+	if(selectTimes == ''){
+		$('#kecheng_bottom .warning6').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning6').addClass('hide');
+	}
+	
+//	价格
+	if(price == ''){
+		$('#kecheng_bottom .warning7').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning7').addClass('hide');
+	}
+	
+//	资源
+	if(resourceUrl == ''){
+		$('#kecheng_bottom .warning8').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning8').addClass('hide');
+	}
+	
+	
+	//封面图是否上传
+		if($('#kecheng_bottom .fengmian_pic:has(img)').length < 1){
+			$('#kecheng_bottom .fengmian_pic_warn').removeClass('hide');
+			return false;
+		}else{
+			$('#kecheng_bottom .fengmian_pic_warn').addClass('hide');
+		}
+	
+	
+//	alert(111)
+})
+
+//保存
+$('#kecheng_bottom .baocun #submit0').click(function(){
+	//任职医馆的验证
+	var workhosName = $.trim($('#kecheng_bottom .zhuanlan_title').val());
+	var workhosNames = $.trim($('#kecheng_bottom .zhuanlan_title0').val());
+	var workhosNamess = $.trim($('#kecheng_bottom #picIpt').val());
+	var nameNames = $.trim($('#kecheng_bottom .zhuanlan_title1 ').val());
+	var textArea = $.trim($('#kecheng_bottom #textarea1').val());
+	var selectTime = $.trim($('#kecheng_bottom .select_time').val());
+	var selectTimes = $.trim($('#kecheng_bottom .zhuanlan_title2').val());
+	var price = $.trim($('#kecheng_bottom .zhuanlan_title3').val());
+	var resourceUrl = $.trim($('#kecheng_bottom .resourceUrl').val());
+
+	var headPortrait  =  $('#kecheng_bottom .fengmian_pic img').attr('src');
+	
+	
+	//课程标题
+	if(workhosName == ''){
+		$('#kecheng_bottom .warning0').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning0').addClass('hide');
+	}
+	
+//	副标题
+	if(workhosNames == ''){
+		$('#kecheng_bottom .warning1').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning1').addClass('hide');
+	}
+	
+//	封面图
+	if(workhosNamess == ''){
+		$('#kecheng_bottom .warning2').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning2').addClass('hide');
+	}
+	
+//	主播姓名
+	if(nameNames == ''){
+		$('#kecheng_bottom .warning3').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning3').addClass('hide');
+	}
+	
+//	主播介绍
+	if(textArea == ''){
+		$('#kecheng_bottom .warning4').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning4').addClass('hide');
+	}
+	
+//	请选择开课时间
+	if(selectTime == ''){
+		$('#kecheng_bottom .warning5').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning5').addClass('hide');
+	}
+	
+//	时长
+	if(selectTimes == ''){
+		$('#kecheng_bottom .warning6').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning6').addClass('hide');
+	}
+	
+	//	价格
+	if(price == ''){
+		$('#kecheng_bottom .warning7').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning7').addClass('hide');
+	}
+	
+//	资源
+	if(resourceUrl == ''){
+		$('#kecheng_bottom .warning8').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .warning8').addClass('hide');
+	}
+	
+	
+	
+	//封面图是否上传
+		if($('#kecheng_bottom .fengmian_pic:has(img)').length < 1){
+			$('#kecheng_bottom .fengmian_pic_warn').removeClass('hide');
+			return false;
+		}else{
+			$('#kecheng_bottom .fengmian_pic_warn').addClass('hide');
+		}
+	
+	
+//	alert(111)
+})
+
+
+//专辑开始
+var zhuanjiCount = 1;
+$('#zhuanji .zhuanlan_top button').click(function(){
+	zhuanjiCount *= -1;
+	//上传
+	if(zhuanjiCount < 0){
+	//顶部变化
+	$(this).text('返回');
+	$(this).siblings('.title').text('新专辑');
+	//底部变化
+	$('#zhuanji #zhuanji_bottom2').addClass('hide');
+	$('#zhuanji #zhuanji_bottom').removeClass('hide');
+	}else{
+		//取消上传
+		$(this).text('新专辑');
+		$(this).siblings('.title').text('专辑');
+		//底部变化
+		$('#zhuanji  #zhuanji_bottom').addClass('hide');
+		$('#zhuanji  #zhuanji_bottom2').removeClass('hide');
+	}
+})
+
+
+$('#demo3').citys({
+    required:false,
+    nodata:'disabled',
+    onChange:function(data){
+        var text = data['direct']?'(直辖市)':'';
+        $('#place').text('当前选中地区：'+data['province']);
+        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+    }
+});
+
+
+//专辑结束
+
 
 
 
