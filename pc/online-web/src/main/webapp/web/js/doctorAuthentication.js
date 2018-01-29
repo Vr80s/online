@@ -36,7 +36,7 @@ $(function(){
 		
 		
 		//判断身份证图片是否上传
-		if($('#doc_Distinguish #AutList .idFont_pic:has(img)').length < 1 && $('#doc_Distinguish .idBack_pic:has(img)').length < 1 ){
+		if($('#doc_Distinguish #AutList .idFont_pic:has(img)').length < 1 || $('#doc_Distinguish #AutList .idBack_pic:has(img)').length < 1 ){
 			$('#doc_Distinguish #AutList .idCard_pic .warning ').removeClass('hide');
 			return false;
 		}else{
@@ -153,9 +153,17 @@ $(function(){
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				alert('认证失败');
+				$('#tip').text('入驻申请信息提交失败！');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1500)
 			}else if(data.success == true){
-				alert('认证成功');
+				$('#tip').text('入驻申请信息提交失败！');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1500)
 			}
 
 		})
@@ -171,7 +179,7 @@ $(function(){
 		if($(this).hasClass('keshiColor')){
 		//删除第二次选中的
 			for(var i = 0 ;i < arr.length; i++){
-				if($(this).text() == arr[i]){
+				if($(this).attr('data-id') == arr[i]){
 					arr.splice(i,1)
 				}
 			}
@@ -180,11 +188,11 @@ $(function(){
 			$(this).removeClass('keshiColor');	
 		}else{
 			$(this).addClass('keshiColor');
-			arr.push($(this).text());
+			arr.push($(this).attr('data-id'));
 //			console.log(arr.toString())
 			keshiStr = arr.toString();
 		}
-//		console.log(keshiStr)
+		console.log(keshiStr)
 	})
 	
 

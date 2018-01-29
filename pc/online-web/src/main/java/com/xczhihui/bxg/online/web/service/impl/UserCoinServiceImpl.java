@@ -7,10 +7,7 @@ import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.domain.Course;
-import com.xczhihui.bxg.online.common.enums.BalanceType;
-import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.*;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.RewardDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;
@@ -51,7 +48,6 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public Map<String, String> getBalanceByUserId(String userId) {
-    	
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
         if (uc == null) {
             throw new RuntimeException(userId + "--用户账户不存在！");
@@ -67,6 +63,9 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public void updateBalanceForIncrease(UserCoinIncrease uci) {
+
+        UserCoin uc = userCoinDao.getBalanceByUserId(uci.getUserId());
+
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         if (IncreaseChangeType.GIVE.getCode() == uci.getChangeType()) {
             //若为赠送，则赠送余额增加
@@ -77,9 +76,6 @@ public class UserCoinServiceImpl implements UserCoinService {
         } else if (IncreaseChangeType.RECHARGE.getCode() == uci.getChangeType()){
             //若为充值  则充值余额增加
             sql.append(" uc.`balance`=uc.`balance`+" + uci.getValue());
-        } else if (IncreaseChangeType.SETTLEMENT.getCode() == uci.getChangeType()){
-            //若为结算  则人民币余额增加
-            sql.append(" uc.`rmb`=uc.`rmb`+" + uci.getValue());
         }
         sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
         sql.append(", uc.`update_time` = now() ");
@@ -88,12 +84,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         if (updateCount < 1) {
             //若更新失败，则继续回调该方法
             throw new RuntimeException("网络异常,请稍后再试！");
-//			updateBalanceForIncrease(uci);
         }
-
-        DetachedCriteria dc = DetachedCriteria.forClass(UserCoin.class);
-        dc.add(Restrictions.eq("userId", uci.getUserId()));
-        UserCoin uc = userCoinDao.findEntity(dc);
 
         uci.setUserCoinId(uc.getId());
         uci.setBalance(uc.getBalance());
@@ -147,7 +138,6 @@ public class UserCoinServiceImpl implements UserCoinService {
             //若更新失败
             if (updateCount < 1) {
                 throw new RuntimeException("网络异常,请稍后再试！");
-//				updateBalanceForConsumption(ucc);
             }
         } else {
             //余额不足异常
@@ -182,8 +172,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public Page<RechargeRecord> getUserCoinIncreaseRecord(String userId,
-                                                          Integer pageNumber, Integer pageSize) {
+    public Page<RechargeRecord> getUserCoinIncreaseRecord(String userId,Integer pageNumber, Integer pageSize) {
         return userCoinDao.getUserCoinIncreaseRecord(userId, pageNumber, pageSize);
     }
 
@@ -199,7 +188,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setOrderNoGift(giftStatement.getId().toString());
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
         //扣除用户熊猫币余额
-        ucc = updateBalanceForConsumption(ucc);
+        updateBalanceForConsumption(ucc);
 
         CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
         //根据打赏比例获取主播实际获得的熊猫币   总数量*分得熊猫币比例
@@ -327,12 +316,12 @@ public class UserCoinServiceImpl implements UserCoinService {
         }
         sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
         sql.append(", uc.`update_time`=now()");
-        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + uc.getVersion() + "\"");//乐观锁机制 ，version判断用于防止并发数据出错
+        //乐观锁机制 ，version判断用于防止并发数据出错
+        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + uc.getVersion() + "\"");
 
         int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
         if (updateCount < 1) {
             throw new RuntimeException("系统繁忙,请稍后再试！");
-//			updateBalanceForEnchashment(ucc);
         }
         ucc.setUserCoinId(uc.getId());
         ucc.setBalanceValue(balance);
@@ -359,4 +348,79 @@ public class UserCoinServiceImpl implements UserCoinService {
     public Object getUserCoinConsumptionRecord(String userId, Integer pageNumber, Integer pageSize) {
         return userCoinDao.consumptionCoinList(userId, pageNumber, pageSize);
     }
+
+    @Override
+    public void updateBalanceForSettlement(String userId, int amount, OrderForm orderForm) {
+
+        BigDecimal value = new BigDecimal(amount).negate();
+
+        UserCoin uc = userCoinDao.getBalanceByUserId(userId);
+        if(uc.getBalanceRewardGift().add(value).compareTo(BigDecimal.ZERO) == -1){
+            throw new RuntimeException("结算金额超出熊猫币余额");
+        }
+
+        UserCoinConsumption ucc = new UserCoinConsumption();
+        ucc.setUserId(userId);
+        ucc.setOrderFrom(orderForm.getCode());
+        ucc.setValue(value);
+
+        String version = BeanUtil.getUUID();
+        StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
+        sql.append(" uc.`balance_reward_gift`=uc.`balance_reward_gift`+" + ucc.getValue());
+        sql.append(", uc.`version`=\"" + version + "\"");
+        sql.append(", uc.`update_time`=now()");
+        //乐观锁机制 ，version判断用于防止并发数据出错
+        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + uc.getVersion() + "\"");
+        int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
+        //若更新失败
+        if (updateCount < 1) {
+            throw new RuntimeException("网络异常,请稍后再试！");
+        }
+
+        ucc.setUserCoinId(uc.getId());
+        ucc.setBalanceValue(BigDecimal.ZERO);
+        ucc.setBalanceGiveValue(BigDecimal.ZERO);
+        ucc.setBalanceRewardGift(ucc.getValue());
+        ucc.setRmb(BigDecimal.ZERO);
+        ucc.setCreateTime(new Date());
+        ucc.setDeleted(false);
+        ucc.setStatus(true);
+        ucc.setChangeType(ConsumptionChangeType.SETTLEMENT.getCode());
+        ucc.setBalanceType(BalanceType.ANCHOR_BALANCE.getCode());
+        userCoinDao.save(ucc);
+
+        UserCoinIncrease uci = new UserCoinIncrease();
+        uci.setUserId(userId);
+        uci.setOrderFrom(orderForm.getCode());
+        //结算扣币的流水id
+        uci.setOrderNoSettlement(ucc.getId().toString());
+        //人民币余额变动 = 结算熊猫币/兑换比例
+        uci.setValue(value.negate().divide(new BigDecimal(rate)));
+
+        sql = new StringBuffer("UPDATE user_coin uc SET");
+        sql.append(" uc.`rmb`=uc.`rmb`+" + uci.getValue());
+        sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
+        sql.append(", uc.`update_time`=now()");
+        //乐观锁机制 ，version判断用于防止并发数据出错
+        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + version + "\"");
+        updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
+        //若更新失败
+        if (updateCount < 1) {
+            throw new RuntimeException("网络异常,请稍后再试！");
+        }
+
+        uci.setUserCoinId(uc.getId());
+        uci.setBalance(uc.getBalance());
+        uci.setBalanceGive(uc.getBalanceGive());
+        uci.setBalanceRewardGift(uc.getBalanceRewardGift());
+        uci.setRmb(uc.getRmb());
+        uci.setBalanceType(BalanceType.ANCHOR_RMB.getCode());
+        uci.setChangeType(IncreaseChangeType.SETTLEMENT.getCode());
+        uci.setBrokerageValue(BigDecimal.ZERO);
+        uci.setCreateTime(new Date());
+        uci.setDeleted(false);
+        uci.setStatus(true);
+        userCoinDao.save(uci);
+    }
+
 }

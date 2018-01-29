@@ -6,7 +6,7 @@
         SELECT id, company, business_license_no, business_license_picture,
           license_for_pharmaceutical_trading,
           license_for_pharmaceutical_trading_picture, user_id,
-          status, create_time, remark
+          status, create_time, remark, update_time
         FROM medical_hospital_apply
         WHERE user_id = #{userId} AND deleted != 1
         ORDER BY create_time

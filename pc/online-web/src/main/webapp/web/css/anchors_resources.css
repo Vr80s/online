@@ -1,6 +1,18 @@
 .wp{width: 1200px; margin: 0 auto;}
 .z{float: left;}
 .y{float: right;}
+#tip{
+	    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    padding: 20px;
+    background-color: #000;
+    color: #fff;
+    opacity: .5;
+    border-radius: 4px;
+    z-index: 999;
+}
 .color{
 	border: 1px solid #00BC12 !important;
     color: #00BC12;
