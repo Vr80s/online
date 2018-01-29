@@ -1,7 +1,7 @@
-package com.xczhihui.medical.pay.mapper;
+package com.xczhihui.medical.anchor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.xczhihui.medical.pay.model.UserBank;
+import com.xczhihui.medical.anchor.vo.UserBank;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

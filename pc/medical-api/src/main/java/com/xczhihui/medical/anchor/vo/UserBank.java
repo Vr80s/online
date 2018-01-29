@@ -1,4 +1,4 @@
-package com.xczhihui.medical.pay.model;
+package com.xczhihui.medical.anchor.vo;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;

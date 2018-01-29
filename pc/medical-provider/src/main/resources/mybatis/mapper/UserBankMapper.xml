@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xczhihui.medical.pay.mapper.UserBankMapper">
-	<resultMap type="com.xczhihui.medical.pay.model.UserBank" id="UserBankBaseResult">
+<mapper namespace="com.xczhihui.medical.anchor.mapper.UserBankMapper">
+	<resultMap type="com.xczhihui.medical.anchor.vo.UserBank" id="UserBankBaseResult">
 		<id column="id" property="id" />
 		<id column="user_id" property="userId" />
 		<id column="acct_name" property="acctName" />

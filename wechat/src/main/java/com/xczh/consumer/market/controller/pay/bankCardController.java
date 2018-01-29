@@ -4,31 +4,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 
 import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OLAttachmentCenterService;
-import com.xczh.consumer.market.service.OnlineUserService;
-import com.xczh.consumer.market.utils.HttpUtils;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
-import com.xczhihui.medical.pay.model.UserBank;
-import com.xczhihui.medical.pay.service.IUserBankService;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
+import com.xczhihui.medical.anchor.vo.UserBank;
+import com.xczhihui.medical.anchor.service.IUserBankService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 资产控制器 ClassName: bankCardController.java <br>

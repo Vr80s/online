@@ -1,6 +1,6 @@
-package com.xczhihui.medical.pay.service;
+package com.xczhihui.medical.anchor.service;
 
-import com.xczhihui.medical.pay.model.UserBank;
+import com.xczhihui.medical.anchor.vo.UserBank;
 
 import java.util.List;
 

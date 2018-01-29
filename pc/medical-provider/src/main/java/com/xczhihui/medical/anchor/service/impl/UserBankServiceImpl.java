@@ -1,10 +1,10 @@
-package com.xczhihui.medical.pay.service.impl;
+package com.xczhihui.medical.anchor.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.medical.pay.mapper.UserBankMapper;
-import com.xczhihui.medical.pay.model.UserBank;
-import com.xczhihui.medical.pay.service.IUserBankService;
+import com.xczhihui.medical.anchor.mapper.UserBankMapper;
+import com.xczhihui.medical.anchor.vo.UserBank;
+import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
