@@ -207,6 +207,55 @@ $(function(){
 	})
 	
 	
+	
+	//医馆信息的回显数据渲染
+	RequestService("/medical/hospital/apply/getLastOne", "get", {			
+			}, function(data) {
+				console.log(data);
+			if(data.success == false){
+				alert('获取认证状态数据失败');
+			}else if(data.success == true){
+//				alert('认证成功');
+				//医馆数据渲染
+				$('#hosAutStatus').html(template('hosAutStatusTpl',data.resultObject))
+			}
+
+		})
+	
+	//上传图片调用的接口
+	function picUpdown(baseurl,imgname){
+	RequestService("/medical/common/upload", "post", {
+				image: baseurl,
+			}, function(data) {
+				console.log(data);
+				 $('#doc_Administration_bottom .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+			})
+
+}
+	
+	
+	
+	
+	//医馆管理图片上传部分
+	//  医师真实头像
+	$('#touxiang_pic_ipt').on('change',function(){
+		var reader=new FileReader();
+	  	reader.onload=function(e){
+		picUpdown(reader.result,'touxiang_pic');
+		}  
+		reader.readAsDataURL(this.files[0])
+	})
+		
+	//   职称证明
+	$('#zhicheng_pic_ipt').on('change',function(){
+		var reader=new FileReader();
+	  	reader.onload=function(e){
+		picUpdown(reader.result,'zhicheng_pic');
+		}  
+		reader.readAsDataURL(this.files[0])
+	})
+	
+	
 })
 
 
