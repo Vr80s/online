@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -23,7 +23,6 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
-import com.xczhihui.bxg.online.web.vo.CourseLecturVo;
 import com.xczhihui.bxg.online.web.vo.CourseVo;
 import com.xczhihui.bxg.online.web.vo.MyConsumptionRecords;
 import com.xczhihui.bxg.online.web.vo.OrderVo;
@@ -132,7 +131,7 @@ public class OrderDao extends SimpleHibernateDao {
                 orderVo.setUser_id(u.getId());
                 //订单来源，暂时为官网，以后做了分销根据情况来判断
                 //订单来源改为pc   2018-01-27
-                orderVo.setOrder_from(OrderForm.PC.getCode());
+                orderVo.setOrder_from(OrderFrom.PC.getCode());
                 sql = " insert into oe_order (id,order_no,actual_pay,purchaser,create_person,user_id,order_from) "  +
                         " values (:id,:order_no,:actual_pay,:purchaser,:create_person,:user_id,:order_from) ";
                 this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(orderVo));

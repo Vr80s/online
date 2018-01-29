@@ -7,7 +7,7 @@ package com.xczhihui.bxg.online.common.enums;
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 上午 10:55 2018/1/25 0025
  **/
-public enum OrderForm {
+public enum OrderFrom {
 
     PC(1, "pc"),
     H5(2, "h5"),
@@ -22,7 +22,7 @@ public enum OrderForm {
     private String text;
     private int code;
 
-    private OrderForm(int code, String text) {
+    private OrderFrom(int code, String text) {
         this.text = text;
         this.code = code;
     }

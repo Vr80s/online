@@ -8,7 +8,7 @@ package com.xczhihui.bxg.online.common.enums;
  **/
 public enum IncreaseChangeType {
 
-//1.充值2.平台赠送3.礼物4.打赏5.平台提现驳回退回
+    //1.充值2.平台赠送3.礼物4.打赏5.平台提现驳回退回
     RECHARGE(1, "充值"),
     GIVE(2, "平台赠送"),
     GIFT(3, "礼物"),

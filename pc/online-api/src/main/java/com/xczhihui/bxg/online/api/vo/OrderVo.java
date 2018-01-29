@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.api.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.xczhihui.bxg.online.common.enums.Payment;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -76,6 +77,16 @@ public class OrderVo implements Serializable {
     private String  user_id;
     private String  orderDetailId;
     private String  orderId;
+
+    private Payment payment;
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
 
     public String getOrderId() {
         return orderId;

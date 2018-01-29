@@ -13,12 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczh.consumer.market.utils.*;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
-import com.xczhihui.bxg.online.common.enums.BalanceType;
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -963,17 +960,10 @@ public class AlipayController {
 												.getPassbackParams()).get("userId").toString()));
 						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 
+						BigDecimal coin = new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount()) * rate);
 						// 执行代币充值工作
-						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(alipayPaymentRecordH5.getUserId());
-						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-						userCoinIncrease.setValue(new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount())* rate));
-						userCoinIncrease.setCreateTime(new Date());
-						userCoinIncrease.setPayType(Payment.ALIPAY.getCode());
-						userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
-						// userCoinIncrease.setChangeType(0);
-						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
-						userCoinService.updateBalanceForIncrease(userCoinIncrease);
+
+						userCoinService.updateBalanceForRecharge(alipayPaymentRecordH5.getUserId(),Payment.ALIPAY,coin, OrderFrom.H5,alipayPaymentRecordH5.getTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}

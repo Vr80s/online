@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface GiftService {
 
-    public GiftStatement addGiftStatement(GiftStatement giftStatement);
+//    public GiftStatement addGiftStatement(GiftStatement giftStatement);
 
     List<Gift> listAll(Integer pageNumber, Integer pageSize);
 

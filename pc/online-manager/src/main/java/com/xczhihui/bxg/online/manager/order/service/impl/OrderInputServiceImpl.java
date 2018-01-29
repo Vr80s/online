@@ -240,7 +240,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 //		subscribe(vo);将预约注释掉
 		logger.info("用户"+vo.getLogin_name()+"购买"+vo.getCourse_id()+"加入"+vo.getClass_id()+"成功");
 		//执行支付成功方法
-		addPaySuccess(order_no, Payment.OFFLINE.getCode(),uuid);
+		addPaySuccess(order_no, Payment.OFFLINE,uuid);
 		return order_no;
 	}
 
@@ -314,18 +314,18 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 10:02 2018/1/24 0024
 	 **/
-	public void addPaySuccess(String orderNo,Integer payType,String transactionId) {
+	public void addPaySuccess(String orderNo,Payment payment,String transactionId) {
 		String sql = "";
 		String id = "";
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-//TODO 订单类型
+		//TODO 订单类型
 		//查未支付的订单
 		sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id,o.order_from from oe_order o,oe_order_detail od "
 				+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
 		List<OrderVo> orders = dao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
 		if (orders.size() > 0) {
 			//更新订单表
-			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+ transactionId +"' where order_no='"+orderNo+"' ";
+			sql = "update oe_order set order_status=1,pay_type="+payment.getCode()+",pay_time=now(),pay_account='"+ transactionId +"' where order_no='"+orderNo+"' ";
 			dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
 			//写用户报名信息表，如果有就不写了
@@ -345,6 +345,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 			dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 
 			for (OrderVo order : orders){
+				order.setPayment(payment);
 				int  gradeId = 0;
 				//写用户、报名、课程中间表
 				id = UUID.randomUUID().toString().replace("-", "");
@@ -357,7 +358,7 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 			}
 			//给主播分成
-			//userCoinService.updateBalanceForCourses(orders);
+			userCoinService.updateBalanceForCourses(orders);
 		}
 	}
 
