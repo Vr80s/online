@@ -37,6 +37,7 @@ import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CodeUtil;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.enums.Payment;
 
 @Controller
@@ -74,9 +75,11 @@ public class XzIapController {
 	@Autowired
 	private EnchashmentService enchashmentService;
 	
-	
 	@Autowired
 	private OrderPayService orderPayService;
+	
+	@Autowired
+	private UserCoinService userCoinService;
 	
 	
     
@@ -160,8 +163,8 @@ public class XzIapController {
     		Double actualPrice = order.getActualPay();
     		BigDecimal  xmb = BigDecimal.valueOf(actualPrice * rate);
     		
-    	
-    		String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		String userYE = userCoinService.getBalanceByUserId(user.getId());
+    		
     		BigDecimal ye = new BigDecimal(userYE);
 
     		LOGGER.info("要消费余额:"+xmb);

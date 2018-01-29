@@ -325,6 +325,7 @@ public class WxPayController {
 				//打赏支付
 				if(StringUtils.isNotBlank(wxcpPayFlow.getAttach())){
 					String[] attachs=attach.split("&");
+					
 					if(attachs.length>0) {
 						
 						//第二版本考虑打赏
@@ -438,13 +439,16 @@ public class WxPayController {
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
     		}
 			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
-    		Double actualPrice = order.getActualPay();//订单金额
+			//订单金额
+    		Double actualPrice = order.getActualPay();
     		double  xmb = actualPrice * rate;
     		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {
     	         return ResponseObject.newErrorResponseObject("登录超时！");
     	    }
-    		String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		
+    		//String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		String userYE = userCoinService.getBalanceByUserId(user.getId());
     		double d = Double.valueOf(userYE);
     		LOGGER.info("要消费余额:"+xmb);
     		LOGGER.info("当前用户余额:"+d);
@@ -468,9 +472,7 @@ public class WxPayController {
 			
 			LOGGER.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
 			
-			String msg = HttpUtil.sendDataRequest(
-					pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml
-							.toString().getBytes());
+			String msg = HttpUtil.sendDataRequest(pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml.toString().getBytes());
 			
 			LOGGER.info("msg  >>>  " + msg);
 			Gson g = new GsonBuilder().create();

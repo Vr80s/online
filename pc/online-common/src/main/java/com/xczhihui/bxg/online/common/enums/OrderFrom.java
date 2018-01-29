@@ -1,5 +1,8 @@
 package com.xczhihui.bxg.online.common.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Description：订单来源
  * 1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
@@ -15,6 +18,15 @@ public enum OrderFrom {
     IOS(4, "ios"),
     OFFLINE(5, "线下"),
     WORKER(6, "工作人员");
+
+    public static OrderFrom getOrderFrom(int code){
+        for (OrderFrom orderFrom : OrderFrom.values()) {
+            if(orderFrom.getCode() == code){
+                return orderFrom;
+            }
+        }
+        return null;
+    }
 
     /**
      * 描述

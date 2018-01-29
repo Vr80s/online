@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.xczhihui.bxg.online.api.po.Gift;
 import com.xczhihui.bxg.online.api.po.GiftStatement;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 
 
 /** 
@@ -18,12 +19,11 @@ public interface GiftService {
 	
 	/** 
 	 * Description：送礼物
-	 * @param giftStatement
 	 * @return
 	 * @return GiftStatement
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public Map<String,Object> addGiftStatement(GiftStatement giftStatement);
+	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
 
 	/** 
 	 * Description：获取所有礼物

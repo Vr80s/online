@@ -1,56 +1,67 @@
-var userPic = $('.userPic').css('background')
-console.log(userPic)
+$(function(){
+//	左右两边tab切换
+		$(".select_list li").click(function(){
+				$(".select_list li").removeClass("active");
+				$(this).addClass("active");
+				$(".wrap_box .little_box").hide()
+				$(".select_box").hide().eq($(this).index()).show();
+//				图标颜色变化
+				$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color")
+			})
+			$(".select_list .select-ud").bind('click',function(event){
+            	event.stopPropagation();			
+				$(".select_list .littleBox").stop().slideToggle();
 
-//请求头像
-RequestService("/online/user/isAlive", "get", null, function(data) {
-			//头像预览
-			if(data.resultObject.smallHeadPhoto) {
-				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
-				} else {
-					
-				}
-			};
-		});
-
-
-//获取医师认证状态控制左侧tab栏
- RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-	       if(data.success == true ){
-	       	if(data.resultObject.indexOf(1) == -1){
-	       		//医师认证未成功
-	       		$('.DocAut_btn').removeClass('hide');
-	       		$('.ImDoc_btn').addClass('hide');
-	       		if(data.resultObject.indexOf(3) != -1){
-	       			//认证中
-	       			$('#docAut_tip').removeClass('hide');
-	       		}else if(data.resultObject.indexOf(7) != -1){
-	       			//未认证
-//	       			$('#docNoPass_tip').removeClass('hide');
-					$('#AutList').removeClass('hide');
-					$('#AutStatus').addClass('hide');
-	       		}
-	       	}else if(data.resultObject.indexOf(1) != -1){
-	       		//医师认证成功
-	       		$('#docpass_tip').removeClass('hide');
-	       		$('.ImDoc_btn').removeClass('hide');
-	       		$('.DocAut_btn').addClass('hide');
-	       	}
-	       }
-
-	    });
-
-	//在医师认证通过的页面设置了一个localStorage 在这个取出来判断 执行重新认证 并且清楚localStorage的值
-	if(localStorage.AutStatus == "AutAgain"){
-		seeAutStatus();
-		Autagain();
-		localStorage.clear();
-	}
+			})
+			$(".setTop").click(function(){
+				$(".select_list .littleBox").slideUp()
+				$(".select-ud").removeAttr("id")
+				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
+				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")		
+			})
+//			对课程目录下小的下拉div进行操作		
+			$(".select_list .littleBox p").bind('click',function(event){
+            	event.stopPropagation();
+				$(".select_list .littleBox p").removeClass("activeP");
+				$(this).addClass("activeP");
+				$(".wrap_box .little_box").hide().eq($(this).index()).show();
+				$(".select_box").hide()
+			})
+//		下拉小箭头设置	
+		$(".select-ud").click(function(){
+			if($(this).attr("id")=="open_list"){
+				$(this).removeAttr("id")
+				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")
+				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
+			}
+			else{
+				$(this).attr("id","open_list")
+				$(".select_list .arrow_jt").addClass("glyphicon-triangle-bottom")
+				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-left")
+			}
+		})
 
 
+	//头像上传
+	var userPic = $('.userPic').css('background')
+	console.log(userPic)
 
-$(".doctor_inf >img").attr('src',userPic)
-$(".doctor_inf > img,.news_nav .picModal").on("click", function() {
+	RequestService("/online/user/isAlive", "get", null, function(data) {
+		//头像预览
+		if(data.resultObject.smallHeadPhoto) {
+			if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+				$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
+			} else {
+				
+			}
+		};
+	});
+
+
+
+
+	$(".doctor_inf >img").attr('src',userPic)
+	$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
 		$(".mask").css("display", "block");
 		$("#headImg").css("display", "block");
 		$("body").css("overflow", "hidden");
@@ -170,9 +181,12 @@ $(".doctor_inf > img,.news_nav .picModal").on("click", function() {
 
 
 
-function fileClick() {
+//function fileClick() {
+//	return $("#upload-file").click();
+//}
+$('.fileUpdata').click(function(){
 	return $("#upload-file").click();
-}
+})
 $(".btn-upload").click(function(evt) {
 		evt.preventDefault();
 		if($(".btn-upload").attr("data-img")!=undefined&&$(".btn-upload").attr("data-img")!=""){			
@@ -240,164 +254,108 @@ $(".btn-upload").click(function(evt) {
 
 
 
-
-
-
-
-//问答下拉列表功能
-$('.wenda').click(function(){
-	$('.wenda_list').slideToggle();
-})
-
-//论坛下拉列表功能
-$('.luntan').click(function(){
-	$('.luntan_list').slideToggle();
-})
-
-//左侧鼠标移动上去变色效果
-$('#doctor_in_inf .news_nav ul li a').mouseenter(function(){
-	$(this).children('span').css('color','#00bc12')
-})
-//鼠标移除
-$('#doctor_in_inf .news_nav ul li a').mouseout(function(){
-	$(this).children('span').css('color','#cacbcb')
-})
-//点击变色效果
-$('#doctor_in_inf .news_nav ul li a').click(function(){
-	$('#doctor_in_inf .news_nav ul li a').removeClass('color');
-	$('#doctor_in_inf .news_nav ul li a > span').removeClass('color');
-	$(this).addClass('color');
-	$(this).children('span').addClass('color');
+	//上传封面图片
+	$('.fengmian_pic').click(function(){
+		$('#picIpt').click();
+	})
+	
+	
+//	专栏部分
+//	专栏部分点击发布效果
+var zhuanlanCount = 1;
+$('#zhuanlan .zhuanlan_top button').click(function(){
+	zhuanlanCount *= -1;
+	//发布
+	if(zhuanlanCount < 0){
+		//顶部变化
+		$(this).text('返回');
+		$(this).siblings('.title').text('新专栏');
+		//底部变化
+		$('#zhuanlan_bottom2').addClass('hide');
+		$('#zhuanlan_bottom').removeClass('hide');
+	}else{
+	//取消发布
+		$(this).text('发布');
+		$(this).siblings('.title').text('专栏');
+		//底部变化
+		$('#zhuanlan_bottom').addClass('hide');
+		$('#zhuanlan_bottom2').removeClass('hide');
+	}
 	
 })
 
 
-//点击我是医师
-function goDocPage(){
-	window.location.href = "/web/html/anchors_resources.html";
-}
-
-//点击首页状态提示中的查看认证状态
-function seeAutStatus(){
-	$('.DocAut_btn > a ').click();
-	$('#AutList').addClass('hide');
-	$('#AutStatus').removeClass('hide');
-	
-}
-//点击去认证
-function gotToAut(){
-	$('.DocAut_btn > a ').click();
-	$('#AutList').removeClass('hide');
-	$('#AutStatus').addClass('hide');
-}
-
-//查看状态之后的重新认证
-function Autagain(){
-	$('#AutList').removeClass('hide');
-	$('#AutStatus').addClass('hide');
-}
-
-//医师认证状态和认证信息显示
-RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
-			//头像预览
-			console.log(data);
-			//首页部分状态提示部分
-			$('#shouyeStatus').html(template('shouyeTipTpl', data.resultObject));
-			
-			
-			//内部状态模板
-			$('#AutStatus').html(template('docAutStatus_Tpl', data.resultObject));
-			
-			
-
-			
-		});
 
 
-
-//获取科室内容渲染页面
-RequestService("/medical/doctor/apply/listDepartment/0", "get", null, function(data) {
-				console.log(data);
-//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
-			$('#keshiList').html(template('keshiTpl', {item:data.resultObject.records}));
-			})
-
-
-
-
-//上传图片调用的接口
-function picUpdown(baseurl,imgname){
-	RequestService("/medical/common/upload", "post", {
-				image: baseurl,
-			}, function(data) {
-				console.log(data);
-				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
-			})
-
-}
-
-
-
-//医师认证上传图片处理
-
-//身份证正面 idFont_pic
-	$('#idFont_pic_ipt').on('change',function(){
-	var reader=new FileReader();
-  	reader.onload=function(e){
-//		console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
-//		$('#img').attr('src',reader.result)
-	picUpdown(reader.result,'idFont_pic');
-	}  
-	reader.readAsDataURL(this.files[0])
-//filses就是input[type=file]文件列表，files[0]就是第一个文件，这里就是将选择的第一个图片文件转化为base64的码
-//进行图片展示
+//资源部分
+//资源部分点击上传资源
+var ziyuanCount = 1;
+$('#resource .zhuanlan_top button').click(function(){
+	ziyuanCount *= -1;
+	//上传
+	if(ziyuanCount < 0){
+	//顶部变化
+	$(this).text('返回');
+	$(this).siblings('.title').text('新资源');
+	//底部变化
+	$('#ziyuan_bottom2').addClass('hide');
+	$('#ziyuan_bottom').removeClass('hide');
+	}else{
+		//取消上传
+		$(this).text('上传资源');
+		$(this).siblings('.title').text('资源');
+		//底部变化
+		$('#ziyuan_bottom').addClass('hide');
+		$('#ziyuan_bottom2').removeClass('hide');
+	}
 })
 
 
-//身份证反面
-	$('#idBack_pic_ipt').on('change',function(){
-	var reader=new FileReader();
-  	reader.onload=function(e){
-	picUpdown(reader.result,'idBack_pic');
-	}  
-	reader.readAsDataURL(this.files[0])
-})
-	
-//  医师资格证
-$('#teacher_pic_ipt').on('change',function(){
-	var reader=new FileReader();
-  	reader.onload=function(e){
-	picUpdown(reader.result,'teacher_pic');
-	}  
-	reader.readAsDataURL(this.files[0])
-})
-
-//  执业资格证
-$('#zhiiye_pic_ipt').on('change',function(){
-	var reader=new FileReader();
-  	reader.onload=function(e){
-	picUpdown(reader.result,'zhiye_pic');
-	}  
-	reader.readAsDataURL(this.files[0])
-})
-
-//   真实头像
-$('#touxiang_pic_ipt').on('change',function(){
-	var reader=new FileReader();
-  	reader.onload=function(e){
-	picUpdown(reader.result,'touxiang_pic');
-	}  
-	reader.readAsDataURL(this.files[0])
-})
-
-//  职称证明
-$('#zhicheng_pic_ipt').on('change',function(){
-	var reader=new FileReader();
-  	reader.onload=function(e){
-	picUpdown(reader.result,'zhicheng_pic');
-	}  
-	reader.readAsDataURL(this.files[0])
+//开始js
+//课程部分
+//课程部分点击上传资源
+var kechengCount = 1;
+$('#curriculum .zhuanlan_top button').click(function(){
+	kechengCount *= -1;
+	//上传
+	if(kechengCount < 0){
+	//顶部变化
+	$(this).text('返回');
+	$(this).siblings('.title').text('新课程');
+	//底部变化
+	$('#kecheng_bottom2').addClass('hide');
+	$('#kecheng_bottom').removeClass('hide');
+	}else{
+		//取消上传
+		$(this).text('新课程');
+		$(this).siblings('.title').text('课程');
+		//底部变化
+		$('#kecheng_bottom').addClass('hide');
+		$('#kecheng_bottom2').removeClass('hide');
+	}
 })
 
 
+$('#demo2').citys({
+    required:false,
+    nodata:'disabled',
+    onChange:function(data){
+        var text = data['direct']?'(直辖市)':'';
+        $('#place').text('当前选中地区：'+data['province']);
+        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+    }
+});
 
+//点击选择资源
+$('#a').click(function(){
+	$('.a_resource').show();
+});
+$('.a_resource_close').click(function(){
+	$('.a_resource').hide();
+});
+
+
+
+
+
+})

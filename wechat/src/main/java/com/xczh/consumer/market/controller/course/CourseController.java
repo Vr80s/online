@@ -57,7 +57,7 @@ public class CourseController {
 	private String postfix;
 
 	/**
-	 * Description：课程详情
+	 * Description：课程详情（视频、音频、回放、预告）页面
 	 * @param req
 	 * @param res
 	 * @return
@@ -67,6 +67,57 @@ public class CourseController {
 	 */
 	@RequestMapping("details")
 	public ResponseObject details(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam("courseId")Integer courseId)
+			throws Exception {
+		
+		CourseLecturVo  cv= courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+		if(cv==null){
+			return ResponseObject.newErrorResponseObject("获取课程有误");
+		}
+		/**
+		 * 这里需要判断是否购买过了
+		 */
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user!=null){
+			/**
+			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
+			 */
+			if(cv.getUserLecturerId().equals(user.getId())){
+			    cv.setWatchState(0);
+			    return ResponseObject.newSuccessResponseObject(cv);
+		    }
+	    	WatchHistory target = new WatchHistory();
+	    	target.setCourseId(courseId);
+			target.setUserId(user.getId());
+			if(cv.getWatchState()==0){
+				onlineWebService.saveEntryVideo(courseId, user);
+				watchHistoryServiceImpl.addOrUpdate(target);
+			}else if(cv.getWatchState()==1 	&& onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){
+				watchHistoryServiceImpl.addOrUpdate(target);
+			}
+			watchHistoryServiceImpl.addOrUpdate(target);
+			//是否关注
+			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
+			if(isFours != 0){  
+				cv.setIsFocus(1);
+			}
+		}
+		return ResponseObject.newSuccessResponseObject(cv);
+	}
+	
+	
+	/**
+	 * Description：课程详情（视频、音频、回放、预告）页面
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("liveDetails")
+	public ResponseObject liveDetails(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("courseId")Integer courseId)
 			throws Exception {
@@ -93,8 +144,7 @@ public class CourseController {
 			if(cv.getWatchState()==0){
 				onlineWebService.saveEntryVideo(courseId, user);
 				watchHistoryServiceImpl.addOrUpdate(target);
-			}else if(cv.getWatchState()==1 
-					&& onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){
+			}else if(cv.getWatchState()==1 	&& onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){
 				watchHistoryServiceImpl.addOrUpdate(target);
 			}
 			watchHistoryServiceImpl.addOrUpdate(target);
@@ -106,6 +156,8 @@ public class CourseController {
 		}
 		return ResponseObject.newSuccessResponseObject(cv);
 	}
+	
+	
 	
 	/**
 	 * Description：通过合辑id获取合辑中的课程
@@ -120,6 +172,16 @@ public class CourseController {
 		return ResponseObject.newSuccessResponseObject(courses);
 	}
 	
+	/**
+	 * 
+	 * Description：猜你喜欢
+	 * @param courseId
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping("guessYouLike")
 	public ResponseObject selectMenuTypeAndRandCourse(
 			@RequestParam(value="courseId")Integer courseId)

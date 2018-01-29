@@ -55,5 +55,8 @@ public interface CourseMapper extends BaseMapper<Course> {
 	 */
 	List<CourseLecturVo> selectAppCourseApplyPage(@Param("page") Page<CourseLecturVo> page,
 			@Param("userId") String userId, @Param("courseForm") Integer courseForm,@Param("multimediaType") Integer multimediaType);
+
+	
+	CourseLecturVo selectCourseMiddleDetailsById(Integer courseId);
 	
 }

@@ -10,6 +10,8 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.redisson.Redisson;
@@ -88,15 +90,15 @@ public class GiftController {
 		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
         if(u!=null) {
         	giftStatement.setGiver(u.getId());
-        	giftStatement.setClientType(1);
-        	giftStatement.setPayType(3);
+        	giftStatement.setClientType(OrderFrom.PC.getCode());
+        	giftStatement.setPayType(Payment.COINPAY.getCode());
 			// 1.获得锁对象实例
 			RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId());
 			boolean res = false;
 			try {
 				//等待十秒。有效期五秒
 				res = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);
-				map = giftService.addGiftStatement(giftStatement);
+				map = giftService.addGiftStatement(u.getId()+"",giftStatement.getReceiver(),giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
 			}catch (Exception e){
 				e.printStackTrace();
 			}finally {
