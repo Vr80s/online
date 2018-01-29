@@ -3,6 +3,7 @@ package com.xczh.consumer.market.service.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
 import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
 import com.xczhihui.bxg.online.common.enums.OrderForm;
 import com.xczhihui.bxg.online.common.enums.Payment;
@@ -60,7 +61,6 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     		//判断这个订单号中是否已经存在了，如果存在不存了
     		Integer c = iphoneIpaMapper.findIap(orderNo);
     		if(c<=0){
-    			 
     			 //保存这个购买的信息
     			iphoneIpaMapper.save(null,actualPrice,TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12),
     		        		orderNo,userId,"购买课程："+courserName+"花费"+xmb+"个熊猫币",0);
@@ -69,7 +69,9 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 		         */
 		        UserCoinConsumption ucc = new UserCoinConsumption();
 		        ucc.setValue(new BigDecimal( -xmb));
-		        ucc.setChangeType(10);//购买课程消耗的熊猫币
+				//购买课程消耗的熊猫币
+		        ucc.setChangeType(ConsumptionChangeType.COURSE.getCode());
+				ucc.setOrderFrom(Payment);
 		        ucc.setUserId(userId);
 		        userCoinService.updateBalanceForConsumption(ucc);
 		        return ResponseObject.newSuccessResponseObject("支付成功");
@@ -79,7 +81,6 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			
 			return ResponseObject.newErrorResponseObject("服务器异常");
 		}
     }
