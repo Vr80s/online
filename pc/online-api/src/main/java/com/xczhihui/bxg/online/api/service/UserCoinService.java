@@ -13,6 +13,7 @@ import com.xczhihui.bxg.online.api.po.UserCoinConsumption;
 import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
+import com.xczhihui.bxg.online.common.enums.OrderForm;
 
 
 /** 
@@ -105,4 +106,7 @@ public interface UserCoinService {
 	public Object getUserCoinConsumptionRecord(String userId, Integer pageNumber, Integer pageSize);
 
 	public void updateBalanceForCourse(OrderVo orderVo);
+
+    void updateBalanceForSettlement(String userId, int amount, OrderForm orderForm);
+
 }

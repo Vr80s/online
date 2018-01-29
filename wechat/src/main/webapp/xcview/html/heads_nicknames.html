@@ -1,0 +1,425 @@
+<!doctype html>
+
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+<html lang="en" style="font-size: 84.3125px;">
+<!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
+
+<head>
+<meta charset="utf-8">
+<!--<title>资料设置</title>-->
+<title>熊猫中医</title>
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<!--<link rel="stylesheet" href="/xcviews/css/css.css">-->
+<link rel="stylesheet" href="/xcviews/css/tailor.css">
+<link rel="stylesheet" href="/xcview/css/heads_nicknames.css">
+
+
+<script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
+
+
+
+<style>
+	
+	
+	
+</style>
+</head>
+<body style="background:#fff;">
+	<!-- 头部开始 -->
+	<header>
+		<div class="header">
+			<div class="return" id="home_img"></div>
+			<div class="header_return">
+				<img src="/xcview/images/back icon.png" />
+			</div>
+			<div class="header_title">头像和昵称</div>
+			<!--<div class="enroll">注册</div>-->
+		</div>
+	</header>
+	<!-- 头部结束 -->
+	<div class="both"></div>
+	<!-- 中间内容开始 -->
+	
+	<div class="img_top">
+			
+			<div style="position: relative;">
+				<div class="htmleaf-container">
+				<div id="clipArea"></div>
+				<div id="view"></div>
+				</div>
+			</div>
+	
+	
+		 	<div id="dpage">
+				 <a href="javascript:void(0);" class="choice">
+				     <input type="button" name="file" class="button" value="选择图片">
+					  <input id="file" type="file" onchange="javascript:setImagePreview();" accept="image/*" multiple  />
+				      </a>
+				<!--  <a href="javascript:void(0);"><input type="button" name="file" class="button" value="选取照片">
+					  <input id="file" type="file" onchange="javascript:setImagePreview();" accept="image/*" multiple  /></a> -->
+				 <a href="javascript:void(0);" class="qx" style="display: none;"><button id="clipBtn">截取图片</button></a>
+				 
+				 <a href="javascript: ;" class="return_img">退出</a>
+			</div>
+	
+	
+		
+			<form method="post" enctype="multipart/form-data" id="form1">
+				<!-- 头像。别删亲 -->
+			   	<!--   <input id="file" type="file" name="file" onchange="checkUser()" style="width:14.5rem;height:2rem;position: absolute;right:0.38rem;top:0.4rem;opacity: 0;" />
+			 <div class="person_img" style="margin-top: 0.2rem;">
+					<img src="../images/touxiang.png" id="headImg" alt="">
+				 </div> -->
+				 <!-- 图像区域 -->
+			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" onchange="checkUser()">
+				    <img  src="../images/120.jpg" width="100%" id="headImg" />
+				</a>
+				
+			</form>
+			
+			
+		</div>
+		
+		<div class="forget">
+			<input type="" name="" id="" value="" placeholder="设置昵称" class="input0" />
+		</div>
+		<div class="forget_btn">提交</div>
+	
+	<!-- 中间内容结束 -->
+</body>
+
+
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/xcviews/js/common/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+
+
+
+<script src="/xcviews/js/iscroll-zoom.js"></script>
+<script src="/xcviews/js/hammer.js"></script>
+<script src="/xcviews/js/jquery.photoClip.js"></script>
+<script>
+var obUrl = ''
+//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+$("#clipArea").photoClip({
+	width: 280,
+	height: 280,
+	file: "#file",
+	view: "#view",
+	ok: "#clipBtn",
+	loadStart: function() {
+		console.log("照片读取中");
+	},
+	loadComplete: function() {
+		console.log("照片读取完成");
+	},
+	clipFinish: function(dataURL) { //
+		var file  = $("#file");
+		//console.log(dataURL);
+		var imageName = file[0].value;//文件名
+		var index = imageName .lastIndexOf("\\");  
+		imageName  = imageName.substring(index + 1, imageName.length);
+		
+		var params ={
+			base64Data:dataURL,
+			imageName:imageName
+		}
+		ajaxUploadBase64File(params);
+	}
+});
+function ajaxUploadBase64File(params){
+    //var url = window.location.protocol + '//' + window.location.host + "/REGISTER/uploadBase64";
+    
+    requestService("/bxg/user/userCenterFormSub2",params, function(data) {
+    	 if(data.success == true){
+         	var result = data.resultObject;
+ 			if(stringnull(result.smallHeadPhoto)){
+ 				/*alert("result.smallHeadPhoto"+result.smallHeadPhoto);*/
+ 				$("#headImg").attr("src",result.smallHeadPhoto);
+ 				//同时我们也要变化token中的头像值。
+ 				localStorage.setItem("smallHeadPhoto",result.smallHeadPhoto);
+ 			}
+         }else{
+             console.log("上传失败");
+         }
+  	})
+}; 
+</script>
+<script>
+$(function(){
+$("#logoBox,#s_dpage").click(function(){
+$(".htmleaf-container").fadeIn(300);
+$("#dpage").addClass("show");
+})
+	$("#clipBtn").click(function(){
+		$("#logoBox").empty();
+		$('#logoBox').append('<img src="' + imgsource + '" align="absmiddle" style=" width:100%;">');
+		$(".htmleaf-container").hide();
+		$("#dpage").removeClass("show");
+	})
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	jQuery.divselect = function(divselectid,inputselectid) {
+		var inputselect = $(inputselectid);
+		$(divselectid+" small").click(function(){
+			$("#divselect ul").toggle();
+			$(".mask").show();
+		});
+		$(divselectid+" ul li a").click(function(){
+			var txt = $(this).text();
+			$(divselectid+" small").html(txt);
+			var value = $(this).attr("selectid");
+			inputselect.val(value);
+			$(divselectid+" ul").hide();
+			$(".mask").hide();
+			$("#divselect small").css("color","#333")
+		});
+	};
+	$.divselect("#divselect","#inputselect");
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	jQuery.divselectx = function(divselectxid,inputselectxid) {
+		var inputselectx = $(inputselectxid);
+		$(divselectxid+" small").click(function(){
+			$("#divselectx ul").toggle();
+			$(".mask").show();
+		});
+		$(divselectxid+" ul li a").click(function(){
+			var txt = $(this).text();
+			$(divselectxid+" small").html(txt);
+			var value = $(this).attr("selectidx");
+			inputselectx.val(value);
+			$(divselectxid+" ul").hide();
+			$(".mask").hide();
+			$("#divselectx small").css("color","#333")
+		});
+	};
+	$.divselectx("#divselectx","#inputselectx");
+});
+</script>
+<script type="text/javascript">
+$(function(){
+	jQuery.divselecty = function(divselectyid,inputselectyid) {
+		var inputselecty = $(inputselectyid);
+		$(divselectyid+" small").click(function(){
+			$("#divselecty ul").toggle();
+			$(".mask").show();
+		});
+		$(divselectyid+" ul li a").click(function(){
+			var txt = $(this).text();
+			$(divselectyid+" small").html(txt);
+			var value = $(this).attr("selectyid");
+			inputselecty.val(value);
+			$(divselectyid+" ul").hide();
+			$(".mask").hide();
+			$("#divselecty small").css("color","#333")
+		});
+	};
+	$.divselecty("#divselecty","#inputselecty");
+});
+</script>
+<script type="text/javascript">
+$(function(){
+   $(".mask").click(function(){
+	   $(".mask").hide();
+	   $(".all").hide();
+   })
+	$(".right input").blur(function () {
+		if ($.trim($(this).val()) == '') {
+			$(this).addClass("place").html();
+		}
+		else {
+			$(this).removeClass("place");
+		}
+	})
+});
+</script>
+<script>
+$("#file0").change(function(){
+	var objUrl = getObjectURL(this.files[0]) ;
+	 obUrl = objUrl;
+	console.log("objUrl = "+objUrl) ;
+	if (objUrl) {
+		$("#img0").attr("src", objUrl).show();
+	}
+	else{
+		$("#img0").hide();
+	}
+}) ;
+function qd(){
+   var objUrl = getObjectURL(this.files[0]) ;
+   obUrl = objUrl;
+   console.log("objUrl = "+objUrl) ;
+   if (objUrl) {
+	   $("#img0").attr("src", objUrl).show();
+   }
+   else{
+	   $("#img0").hide();
+   }
+}
+function getObjectURL(file) {
+	var url = null ;
+	if (window.createObjectURL!=undefined) { // basic
+		url = window.createObjectURL(file) ;
+	} else if (window.URL!=undefined) { // mozilla(firefox)
+		url = window.URL.createObjectURL(file) ;
+	} else if (window.webkitURL!=undefined) { // webkit or chrome
+		url = window.webkitURL.createObjectURL(file) ;
+	}
+	return url ;
+}
+</script>
+<script type="text/javascript">
+var subUrl = "";
+$(function (){
+	$(".file-3").bind('change',function(){
+		subUrl = $(this).val()
+		$(".yulan").show();
+		$(".file-3").val("");
+	});
+
+	$(".file-3").each(function(){
+		if($(this).val()==""){
+			$(this).parents(".uploader").find(".filename").val("营业执照");
+		}
+	});
+$(".btn-3").click(function(){
+$("#img-1").attr("src", obUrl);
+$(".yulan").hide();
+$(".file-3").parents(".uploader").find(".filename").val(subUrl);
+})
+	$(".btn-2").click(function(){
+		$(".yulan").hide();
+	})
+
+});
+</script>
+<script type="text/javascript">
+function setImagePreview() {
+	var preview, img_txt, localImag, file_head = document.getElementById("file_head"),
+			picture = file_head.value;
+	if (!picture.match(/.jpg|.gif|.png|.bmp/i)) return alert("您上传的图片格式不正确，请重新选择！"),
+			!1;
+	if (preview = document.getElementById("preview"), file_head.files && file_head.files[0]) preview.style.display = "block",
+			preview.style.width = "100px",
+			preview.style.height = "100px",
+			preview.src = window.navigator.userAgent.indexOf("Chrome") >= 1 || window.navigator.userAgent.indexOf("Safari") >= 1 ? window.webkitURL.createObjectURL(file_head.files[0]) : window.URL.createObjectURL(file_head.files[0]);
+	else {
+		file_head.select(),
+				file_head.blur(),
+				img_txt = document.selection.createRange().text,
+				localImag = document.getElementById("localImag"),
+				localImag.style.width = "100px",
+				localImag.style.height = "100px";
+		try {
+			localImag.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)",
+					localImag.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = img_txt
+		} catch(f) {
+			return alert("您上传的图片格式不正确，请重新选择！"),
+					!1
+		}
+		preview.style.display = "none",
+				document.selection.empty()
+	}
+	return document.getElementById("DivUp").style.display = "block",
+			!0
+}
+</script>
+
+<script type="text/javascript">
+	window.onload = function(){
+		//		上传图片
+		$(".choice").click(function(){
+  			$(".qx").show();
+  			$(".qx").css("display","block");
+  			$(".choice").hide();
+  		});
+  		$(".qx").click(function(){
+  			$(".choice").show();
+  			$(".qx").hide();
+  		});
+  		$(".return_img").click(function(){
+  			$(".choice").show();
+  			$(".qx").hide();
+  			$(".htmleaf-container").hide();
+  			$("#dpage").hide();
+  		});
+  		$("#logoBox").click(function(){
+  			$("#dpage").show();
+  		});
+	};
+</script>
+
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+<script type="text/javascript">
+	window.onload = function(){
+		
+		/*var Ipt0,Ipt1,Ipt2;
+		 
+		
+		$('.input0').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".forget_btn").css("opacity","1");
+			}else{
+				$(".forget_btn").css("opacity","0.3");      	
+			}
+		})*/
+		$('#file').click(function(){
+			$('.qx').css("display","block");
+			$('.choice').css("display","none");
+		});
+		$('.qx').click(function(){
+			$('.qx').css("display","none");
+			$('.choice').css("display","block");
+		});
+		$('.return_img').click(function(){
+			$('.htmleaf-container').css("display","none");
+			$('#dpage').css("display","none");
+		});
+		$('#logoBox').click(function(){
+			$('#dpage').css("display","block");
+		});
+		
+		
+		
+//		设置昵称
+		$('.input0').keyup(function(){
+			
+			if($('.input0').val().length<=0){
+	           	$(".forget_btn").css("opacity","0.3");
+	           	
+	       }else{
+	        	$(".forget_btn").css("opacity","1");
+	        }
+		});
+
+	};
+</script>
+
+
+</html>
