@@ -10,13 +10,15 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
 <link rel="stylesheet" href="../css/live_personal.css" />
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/live_personal.js"></script>
+
+<script type="text/javascript" src="../js/template.js"></script>
+
 
 
 	
@@ -36,75 +38,96 @@
 		</div>
 	</div>
 	<!--头像背景-->
-	<div class="personal_bg">
-		<div class="personal_header">
-			<img src="../images/120.jpg"/>
-		</div>
-		<div class="grade">
-			<p>LV9</p>
-		</div>
+	<div class="personal_bg" id="personal_bg">
+		<script type="text/html" id="personal_header">
+			<div class="personal_header">
+				<img src="{{lecturerInfo.small_head_photo}}"/>
+			</div>
+			<!--主播等级-->
+			<!--<div class="grade">
+				<p>LV9</p>
+			</div>-->
+		</script>
 	</div>
 	<!--主播名字/粉丝数量-->
-	<div class="wrap_wrapPersonal">	
-		<div class="wrapPersonal_id">
-			<p class="personal_name">黄飞鸿</p>
-			<div class="person_follow">
-				<div class="left_personal z">
-					<p>关注&nbsp;19</p>
+	<div class="wrap_wrapPersonal" id="wrap_wrapPersonal">
+		<script type="text/html" id="data_number">
+				<div class="wrapPersonal_id">
+					<p class="personal_name">{{lecturerInfo.name}}</p>
+					<div class="person_follow">
+						<div class="left_personal z">
+							<p>关注&nbsp;{{focusCount}}</p>
+						</div>
+						<div class="separate"></div>			
+						<div class="right_personal y">
+							<p>粉丝&nbsp;{{fansCount}}</p>				
+						</div>
+					</div>
+					<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.id}}" onclick="my_follow()">
+						<!--<img src="../images/append1_icon.png"/>
+						<p style="margin-left: 0.6rem;">加关注</p>-->
+					</div>
 				</div>
-				<div class="separate"></div>			
-				<div class="right_personal y">
-					<p>粉丝&nbsp;200</p>				
-				</div>
-			</div>
-			<div class="add_follow">
-				<img src="../images/append1_icon.png"/>
-				<p style="margin-left: 0.6rem;">加关注</p>
-			</div>
-		</div>		
+		</script>
 	</div>
 	<!--主播状态-->	
-	<div class="personal_status">
-		<div class="wrap_img z">
-			<img src="../images/list_img.png"/>
-		</div>
-		<span class="personal_title">标幽赋标幽赋的前世今生前世今生的前世今生前世今生</span>
-		<div class="personal_time cl">
-			<span>直播时间&nbsp;12:25:31</span>
-			<p>直播中</p>
-		</div>
+	<div class="personal_status" id="personal_status">
+		<script type="text/html" id="data_status">
+			<a href="live_play.html?course_id={{id}}" style="overflow: hidden;display: block;color: #333333;">
+				<div class="wrap_img z">
+					<img src="{{smallImgPath}}"/>
+				</div>
+				<span class="personal_title">{{gradeName}}</span>
+				<div class="personal_time cl">
+					<span>直播时间&nbsp;{{startTime}}</span>
+					{{if lineState == 1}}
+					<p>直播中</p>
+					{{else if lineState == 3}}
+					<p>直播回放</p>			
+					{{/if}}
+				</div>
+			</a>
+		</script>
 	</div>
-	<div class="wrap_vedio">
-		<span style="font-size: 0.32rem;">医师精彩致辞</span>
-		<div class="vedio_play">
-			<img src="../images/play_btn.png"/>
-		</div>
-	</div>
-	
-	<div class="wrap_vedio">
+
+	<div class="wrap_vedio" id="wrap_vedio">
+		<script type="text/html" id="data_vedio">
+			<span style="font-size: 0.32rem;">医师精彩致辞</span>
+			<div class="vedio_play01">
+				<img src="../images/play_btn.png"/>
+			</div>
+		</script>
+	</div>	
+
+	<div class="wrap_vedio" id="jieshao">
 		<span style="font-size: 0.32rem;">介绍</span>
-		<div class="vedio_play"></div>
-		<p class="more_text">沈施德，毕业于河北医科大学，从医40余年，曾任北京市广外医院院长，北京市回民医院院长，现任北京同仁堂王府
-			井中医医院特聘医学顾问。师从全国著名老中医，原中国中医院研究院副院长赵金铎。熟练运用中医基础理论和中医病机
-			学说，力倡中西医结合，强调中医整体观念和辨证论治。擅长运用中医理论，重脾固肾为本，标本同治，以“疑病多郁、难病
-			多毒、怪病多痰、久病多淤”为切入点。以脏腑辨证为主线，辅以八纲辨 证和气血津液辨证，结合自己多年的临证实践经验，审
-			证求因，擅长使用对药，并运用现代药理研究进展，遣方用药于精微。上溯岐黄之道，下迨 诸家之说，师古而不泥古，博采众长，学
-			验俱丰，形成了独特的经验，并取得良好的治疗效果。
-		</p>	
+		<div class="user_mywrite"></div>	
 	</div>
-	<!--地址-->
-	<div class="wrap_vedio">
-		<span style="font-size: 0.32rem;">坐诊医馆及时间</span>
-		<ul class="address_all">
-			<li>坐诊医馆：北京同仁堂王府井中医院</li>
-			<li>坐诊时间：周四下午、周六上午</li>
-			<li>预约电话：010-92837657</li>
-			<li>医馆地址：北京市东城区长安街168号</li>
-		</ul>
+	<!--认证医师/医馆地址-->
+	<div class="wrap_vedio" id="sure_address">
+		<script type="text/html" id="data_address">
+			{{if lecturerInfo.type == 1}}
+				<span style="font-size: 0.32rem;">坐诊医馆及时间</span>
+					<ul class="address_all">
+						<li>坐诊医馆：{{hospital.name}}</li>
+						<li>坐诊时间：{{name}}</li>
+						<li>预约电话：010-92837657</li>
+						<li>医馆地址：北京市东城区长安街168号</li>
+					</ul>
+				{{else if lecturerInfo.type == 2}}
+				<span style="font-size: 0.32rem;">医馆</span>
+				<ul class="address_all">
+					<li>坐诊医馆：北京同仁堂王府井中医院</li>
+					<li>预约电话：010-92837657</li>
+					<li>医馆地址：北京市东城区长安街168号</li>
+				</ul>
+			{{/if}}
+				
+		</script>
 	</div>
 	<!--课程-->
 	<div class="wrap_vedio" style="padding-bottom: 0;">
-		<span style="font-size: 0.32rem;">坐诊医馆及时间</span>
+		<span style="font-size: 0.32rem;">课程</span>
 		<p class="more_right"><img src="../images/rightj.png"/></p>
 		<ul class="wrap_vedio_btn">
 			<li>
@@ -135,8 +158,10 @@
 						<span>北京</span>
 					</p>
 				</div>
-			</li>					
+			</li>
+			
 		</ul>
+		
 	</div>
    <!--评论-->	
 	<!--评论-->
@@ -291,7 +316,4 @@
 	
 	document.documentElement.style.fontSize=kk/7.5+"px"		
 </script>
-
-
-
 </html>

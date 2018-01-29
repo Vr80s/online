@@ -595,14 +595,14 @@ color: #666666;
 .wrapAll_comment{
 	width: 7.5rem;
     position: absolute;
-	height: 8.5rem;
+
 	display: none;
 	background:white;
 	box-sizing: border-box;
 	bottom: 0;
 	left: 0;
 	z-index: 5;
-	padding: 0.3rem 0.26rem 0.6rem;
+	padding: 0.3rem 0.26rem 0.3rem;
 	
 }
 .set_title{
