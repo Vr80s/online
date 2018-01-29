@@ -19,7 +19,7 @@ $(function(){
 	       		
 	       	}else if(data.resultObject.indexOf(7) != -1){
 	       		//都没有注册过 进入注册页面
-	       		window.location.href = "/web/html/practitionerRegister.html";
+	       		window.location.href = "/web/html/ResidentDoctor.html";
 	       	}else{
 	       		//医师认证中 医师认证拒绝 跳转到认证状态页面
 	       		window.location.href = "/web/html/ResidentDoctor.html";

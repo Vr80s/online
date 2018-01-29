@@ -51,6 +51,10 @@
 	</head>
 
 	<body>
+		<!--提示弹窗-->
+		<div id="tip" style="display: none;">
+			您已完成了医馆注册，不能进行医师注册!
+		</div>
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -619,7 +623,7 @@
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
-			<span>已于2017.12.12通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
+			<span>已于{{updateTime}}通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
 			<button class="renzhengAgain">重新认证</button>
 		</div>
 		{{else if status == 0}}
@@ -684,9 +688,10 @@
 		<div class="keshi">
 			<span>科室</span>
 			<ul>
-				<li>中医内科</li>
-				<li>中医内科</li>
-				<li>妇科</li>
+				{{if medicalDepartments.length > 0}}
+				  {{include 'adaptTpl' }}  
+				 {{/if}}
+			
 			</ul>
 		</div>
 
@@ -713,11 +718,26 @@
 	</script>
 	
 	
+	<!--科室部分的小模板-->
+<script type="text/template" id="adaptTpl">
+{{each medicalDepartments}}
+	<li data-id={{$value.id}}>{{$value.name}}</li>
+{{/each}}
+</script>
+
+	
+	
+	<!--医馆列表-->
 	<script type="text/template" id="hosListTpl">
 		{{each item as item i}}
 			 <option value={{item.id}}>{{item.name}}</option>
 		{{/each}}
 	</script>
+	
+	
+	
+	
+	
 
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
