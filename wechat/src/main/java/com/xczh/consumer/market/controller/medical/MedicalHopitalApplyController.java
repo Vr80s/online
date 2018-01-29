@@ -95,13 +95,13 @@ public class MedicalHopitalApplyController {
 			throws Exception {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		/*if(user==null){
+		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}*/
-		String userId = "2c9aec35605a5bab01605a632d350000";
+		}
+
 		Map<String, Object> mapAll = new HashMap<String, Object>();
-		MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(userId);
-		List<Integer> status = commonServiceImpl.isDoctorOrHospital(userId);
+		MedicalHospitalApply mda = medicalHospitalApplyService.getLastOne(user.getId());
+		List<Integer> status = commonServiceImpl.isDoctorOrHospital(user.getId());
 		mapAll.put("medicalHospital",mda);
 		mapAll.put("status",status);
 		return ResponseObject.newSuccessResponseObject(mapAll);
