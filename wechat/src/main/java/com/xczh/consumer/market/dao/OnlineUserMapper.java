@@ -146,7 +146,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	}
 
 	public List<VerificationCode> getListVerificationCode(String username,
-                                                          String vType) throws SQLException {
+                                                          Integer vType) throws SQLException {
 		StringBuilder sql = new StringBuilder();
 		sql.append(" select id ,phone,vcode,vtype,is_delete as isDelete,create_person as createPerson,create_time as createTime ");
 		sql.append(" from oe_verification_code where phone=? and vtype=? ");

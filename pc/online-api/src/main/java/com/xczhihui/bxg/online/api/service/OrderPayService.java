@@ -1,5 +1,7 @@
 package com.xczhihui.bxg.online.api.service;
 
+import com.xczhihui.bxg.online.common.enums.Payment;
+
 /**
  * Description：订单支付处理业务类
  * creed: Talk is cheap,show me the code
@@ -13,6 +15,6 @@ public interface OrderPayService {
      * @param orderNo 订单号
      * @param transactionId 微信支付订单号
      */
-    public void addPaySuccess(String orderNo, Integer payType, String transactionId);
+    public void addPaySuccess(String orderNo, Payment payment, String transactionId);
 
 }

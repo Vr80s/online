@@ -152,7 +152,7 @@ public class XzIapController {
         }
     }
     /**
-	 * 苹果手机下单后扣减人民币
+	 * 苹果手机下单后扣减熊猫币
 	 */
 	@RequestMapping("appleIapPayOrder")
 	@ResponseBody
@@ -170,7 +170,8 @@ public class XzIapController {
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
     		}
 			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
-    		Double actualPrice = order.getActualPay();//订单金额
+			//订单金额
+    		Double actualPrice = order.getActualPay();
     		double  xmb = actualPrice * rate;
     		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {

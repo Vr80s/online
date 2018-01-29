@@ -16,6 +16,7 @@ import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IWatchHistoryService;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 
@@ -46,6 +47,9 @@ public class CourseController {
 	
 	@Autowired
 	private IWatchHistoryService watchHistoryServiceImpl;
+	
+	@Autowired
+	private FocusService focusService;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseController.class);
 	
@@ -94,6 +98,11 @@ public class CourseController {
 				watchHistoryServiceImpl.addOrUpdate(target);
 			}
 			watchHistoryServiceImpl.addOrUpdate(target);
+			//是否关注
+			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
+			if(isFours != 0){  
+				cv.setIsFocus(1);
+			}
 		}
 		return ResponseObject.newSuccessResponseObject(cv);
 	}

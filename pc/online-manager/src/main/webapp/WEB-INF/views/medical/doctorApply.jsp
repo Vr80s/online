@@ -487,28 +487,11 @@
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-				<%--<p class="col-xs-4" style="padding: 0;">--%>
-					<%--<button class="btn btn-sm btn-success add_P" title="新增">--%>
-						<%--<i class="glyphicon glyphicon-plus"></i> 新增-------%>
-					<%--</button>--%>
-					<%--<button class="btn btn-sm btn-success dele_P" title="批量删除">--%>
-						<%--<i class="glyphicon glyphicon-trash"></i> 批量删除-------%>
-					<%--</button>--%>
-					<%--<button class="btn btn-sm btn-success rec_P" title="设为推荐">--%>
-						<%--<i class="glyphicon glyphicon-cog"></i> 设为推荐 --%>
-					<%--</button>--%>
-				<%--</p>--%>
 			
 				<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
 			            <table frame=void >
 			                <tr>
-			                    <%--<td>--%>
-			                        <%--<div class="profile-info-value searchTr">--%>
-			                            <%--<input type="text" placeholder = "医师姓名" class="propertyValue1" id="search_courseName" style="width: 150px;">--%>
-			                            <%--<input type="hidden" value="search_courseName" class="propertyName"/>--%>
-			                        <%--</div>--%>
-			                    <%--</td>--%>
 			                    <td>
 			                       <div class="profile-info-value searchTr">
 									   <select name="status" id="search_status" value="" class="propertyValue1" >

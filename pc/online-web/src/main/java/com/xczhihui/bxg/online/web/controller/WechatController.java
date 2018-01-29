@@ -14,11 +14,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.common.enums.BalanceType;
 import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -173,7 +171,7 @@ public class WechatController {
 
 			RewardParamVo rewardParamVo=new RewardParamVo();
 			rewardParamVo.setUserId(loginUser.getId());
-			rewardParamVo.setClientType(OrderForm.PC.getCode()+"");
+			rewardParamVo.setClientType(OrderFrom.PC.getCode()+"");
 			rewardParamVo.setLiveId(req.getParameter("liveId"));
 			rewardParamVo.setGiver(loginUser.getId());
 			rewardParamVo.setReceiver(req.getParameter("receiver"));
@@ -376,7 +374,7 @@ public class WechatController {
                             rs.setCreateTime(new Date());
                             rs.setPayType(Payment.WECHATPAY.getCode());
                             rs.setOrderNo(out_trade_no);
-                            rs.setChannel(OrderForm.PC.getCode());
+                            rs.setChannel(OrderFrom.PC.getCode());
                             rs.setStatus(1);
                             userCoinService.updateBalanceForReward(rs);
                             wxcpPayFlow.setUser_id(rpv.getUserId());
@@ -384,12 +382,12 @@ public class WechatController {
                         } else if ("recharge".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             UserCoinIncrease uci = JSONObject.parseObject(json, UserCoinIncrease.class);
-                            uci.setCreateTime(new Date());
-                            uci.setPayType(Payment.WECHATPAY.getCode());
-                            uci.setOrderNoRecharge(out_trade_no);
-                            uci.setOrderFrom(OrderForm.PC.getCode());
-                            uci.setBalanceType(BalanceType.BALANCE.getCode());
-                            userCoinService.updateBalanceForIncrease(uci);
+//                            uci.setCreateTime(new Date());
+//                            uci.setPayType(Payment.WECHATPAY.getCode());
+//                            uci.setOrderNoRecharge(out_trade_no);
+//                            uci.setOrderFrom(OrderFrom.PC.getCode());
+//                            uci.setBalanceType(BalanceType.BALANCE.getCode());
+                            userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.WECHATPAY,uci.getValue(), OrderFrom.PC,out_trade_no);
                             wxcpPayFlow.setUser_id(uci.getUserId());
                             wxcpPayFlow.setSubject(uci.getSubject());
                         }
@@ -410,7 +408,7 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY.getCode(),transaction_id);
+								orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY,transaction_id);
 //								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
@@ -481,7 +479,7 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY.getCode(),transaction_id);
+								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY,transaction_id);
 //								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
@@ -546,7 +544,7 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY.getCode(),transaction_id);
+								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY,transaction_id);
 //								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");

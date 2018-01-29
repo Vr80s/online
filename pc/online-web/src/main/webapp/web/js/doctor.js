@@ -496,7 +496,7 @@ $(function () {
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1000)
-	       	}else if(data.resultObject.indexOf(7) != -1){
+	       	}else if(data.resultObject.indexOf(7) != -1 || data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
 	       		//都没有注册过 进入注册页面
 	       		window.location.href = "/web/html/practitionerRegister.html";
 	       	}

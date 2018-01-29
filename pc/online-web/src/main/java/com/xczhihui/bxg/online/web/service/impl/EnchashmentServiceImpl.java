@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -36,8 +36,8 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 
 
 	@Override
-	public void saveSettlement(String userId, int amount,OrderForm orderForm) {
-		userCoinService.updateBalanceForSettlement(userId,amount, orderForm);
+	public void saveSettlement(String userId, int amount,OrderFrom orderFrom) {
+		userCoinService.updateBalanceForSettlement(userId,amount, orderFrom);
 	}
 
 	@Override

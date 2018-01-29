@@ -87,6 +87,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
 
         // 更新认证状态
         apply.setStatus(status);
+        apply.setUpdateTime(new Date());
         hospitalApplyDao.update(apply);
     }
 
