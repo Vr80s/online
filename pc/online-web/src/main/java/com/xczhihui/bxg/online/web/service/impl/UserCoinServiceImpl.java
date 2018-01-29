@@ -63,10 +63,26 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
+    public void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderForm orderForm, String orderNo) {
+        UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
+        userCoinIncrease.setUserId(userId);
+        //充值
+        userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+        userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
+        //支付类型
+        userCoinIncrease.setPayType(payment.getCode());
+        userCoinIncrease.setValue(coin);
+        userCoinIncrease.setCreateTime(new Date());
+        userCoinIncrease.setOrderFrom(orderForm.getCode());
+        userCoinIncrease.setOrderNoRecharge(orderNo);
+
+        updateBalanceForIncrease(userCoinIncrease);
+    }
+
+    @Override
     public void updateBalanceForIncrease(UserCoinIncrease uci) {
 
         UserCoin uc = userCoinDao.getBalanceByUserId(uci.getUserId());
-
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         if (IncreaseChangeType.GIVE.getCode() == uci.getChangeType()) {
             //若为赠送，则赠送余额增加
@@ -102,7 +118,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public  UserCoinConsumption updateBalanceForConsumption(UserCoinConsumption ucc) {
+    public UserCoinConsumption updateBalanceForConsumption(UserCoinConsumption ucc) {
         DetachedCriteria dc = DetachedCriteria.forClass(UserCoin.class);
         dc.add(Restrictions.eq("userId", ucc.getUserId()));
         UserCoin uc = userCoinDao.findEntity(dc);

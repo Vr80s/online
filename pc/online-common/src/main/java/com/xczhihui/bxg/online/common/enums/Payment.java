@@ -1,5 +1,11 @@
 package com.xczhihui.bxg.online.common.enums;
 
+/**
+ * Description：0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: yuruixin@ixincheng.com
+ * @Date: 下午 2:28 2018/1/29 0029
+ **/
 public enum Payment {
 
     ALIPAY(0, "支付宝"),

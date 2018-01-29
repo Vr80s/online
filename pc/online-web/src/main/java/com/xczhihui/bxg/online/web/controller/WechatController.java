@@ -384,12 +384,12 @@ public class WechatController {
                         } else if ("recharge".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             UserCoinIncrease uci = JSONObject.parseObject(json, UserCoinIncrease.class);
-                            uci.setCreateTime(new Date());
-                            uci.setPayType(Payment.WECHATPAY.getCode());
-                            uci.setOrderNoRecharge(out_trade_no);
-                            uci.setOrderFrom(OrderForm.PC.getCode());
-                            uci.setBalanceType(BalanceType.BALANCE.getCode());
-                            userCoinService.updateBalanceForIncrease(uci);
+//                            uci.setCreateTime(new Date());
+//                            uci.setPayType(Payment.WECHATPAY.getCode());
+//                            uci.setOrderNoRecharge(out_trade_no);
+//                            uci.setOrderFrom(OrderForm.PC.getCode());
+//                            uci.setBalanceType(BalanceType.BALANCE.getCode());
+                            userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.WECHATPAY,uci.getValue(),OrderForm.PC,out_trade_no);
                             wxcpPayFlow.setUser_id(uci.getUserId());
                             wxcpPayFlow.setSubject(uci.getSubject());
                         }

@@ -963,17 +963,10 @@ public class AlipayController {
 												.getPassbackParams()).get("userId").toString()));
 						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 
+						BigDecimal coin = new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount()) * rate);
 						// 执行代币充值工作
-						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(alipayPaymentRecordH5.getUserId());
-						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-						userCoinIncrease.setValue(new BigDecimal(new Double(alipayPaymentRecordH5.getTotalAmount())* rate));
-						userCoinIncrease.setCreateTime(new Date());
-						userCoinIncrease.setPayType(Payment.ALIPAY.getCode());
-						userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
-						// userCoinIncrease.setChangeType(0);
-						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
-						userCoinService.updateBalanceForIncrease(userCoinIncrease);
+
+						userCoinService.updateBalanceForRecharge(alipayPaymentRecordH5.getUserId(),Payment.ALIPAY,coin,OrderForm.H5,alipayPaymentRecordH5.getTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}

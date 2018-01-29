@@ -14,6 +14,7 @@ import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.Payment;
 
 
 /** 
@@ -32,8 +33,16 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public Map<String,String> getBalanceByUserId(String userId);
-	
-	/** 
+
+	/**
+	 * Description：熊猫币充值方法
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 2:42 2018/1/29 0029
+	 **/
+	void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderForm orderForm, String orderNo);
+
+	/**
 	 * Description：用户熊猫币新增
 	 * @param uci
 	 * @return void
@@ -78,8 +87,6 @@ public interface UserCoinService {
 
     /**
 	 * Description：打赏主播余额增加
-	 * @param giftStatement
-	 * @param gift
 	 * @return void
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
@@ -107,6 +114,12 @@ public interface UserCoinService {
 
 	public void updateBalanceForCourse(OrderVo orderVo);
 
+	/**
+	 * Description：结算熊猫币
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 2:04 2018/1/29 0029
+	 **/
     void updateBalanceForSettlement(String userId, int amount, OrderForm orderForm);
 
 }

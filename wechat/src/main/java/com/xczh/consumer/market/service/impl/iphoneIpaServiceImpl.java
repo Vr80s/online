@@ -37,26 +37,18 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     @Override
     public void increase(String userId,int xmb,String json, String actualPrice) {
     	try {
-    		UserCoinIncrease userCoinIncrease=new UserCoinIncrease();
-	        userCoinIncrease.setUserId(userId);
-	        //充值
-	        userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-	        //苹果支付
-	        userCoinIncrease.setPayType(Payment.APPLYPAY.getCode());
-	        userCoinIncrease.setValue(new BigDecimal(xmb));
-	        userCoinIncrease.setCreateTime(new Date());
-	        userCoinIncrease.setOrderFrom(OrderForm.IOS.getCode());
-	        userCoinIncrease.setOrderNoRecharge(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12));
-	        
+
+			String orderNoRecharge = TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
+
 	        iphoneIpaMapper.save(json,
 	        		actualPrice,
 	        		JSONObject.parseObject(json).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("transaction_id").toString(),
-	        		userCoinIncrease.getOrderNoRecharge(),
+					orderNoRecharge,
 	        		userId,
 	        		"充值熊猫币："+xmb+"个",
 	        		1);
 
-	        userCoinService.updateBalanceForIncrease(userCoinIncrease);
+	        userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,new BigDecimal(xmb),OrderForm.IOS,orderNoRecharge);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

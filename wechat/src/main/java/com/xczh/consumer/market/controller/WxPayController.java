@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.xczhihui.bxg.online.common.enums.BalanceType;
 import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.OrderForm;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import net.sf.json.JSONObject;
 
@@ -371,18 +372,19 @@ public class WxPayController {
                             wxcpPayFlow.setSubject(rpv.getSubject());
                             wxcpPayFlowService.insert(wxcpPayFlow);
 
-                            UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-                            userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
-                            userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-                            userCoinIncrease.setPayType(Payment.WECHATPAY.getCode());
-							userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
-							//熊猫币
-                            userCoinIncrease.setValue(new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate));
-                            userCoinIncrease.setCreateTime(new Date());
-//						userCoinIncrease.setChangeType(0);
-                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
-                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
-                            userCoinService.updateBalanceForIncrease(userCoinIncrease);
+							BigDecimal coin = new BigDecimal(new Double(wxcpPayFlow.getTotal_fee()) / 100 * rate);
+//
+//							UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
+//							userCoinIncrease.setUserId(wxcpPayFlow.getUser_id());
+//							userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+//							userCoinIncrease.setPayType(Payment.WECHATPAY.getCode());
+//							userCoinIncrease.setBalanceType(BalanceType.BALANCE.getCode());
+//							//熊猫币
+//							userCoinIncrease.setValue(coin);
+//                            userCoinIncrease.setCreateTime(new Date());
+//                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
+//                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
+                            userCoinService.updateBalanceForRecharge(wxcpPayFlow.getUser_id(),Payment.WECHATPAY,coin, OrderForm.ANDROID,wxcpPayFlow.getOut_trade_no());
                         }
                     }
 				}

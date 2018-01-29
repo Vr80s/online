@@ -17,6 +17,7 @@ import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
 import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.OrderForm;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -773,20 +774,20 @@ public class XzAlipayController {
 						/*
 						 *  充值后记录增加，代币系统的余额执行代币充值工作
 						 */
-						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(rechargeParamVo.getUserId());
-						//1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回
-						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-						//熊猫币
-						userCoinIncrease.setValue(rechargeParamVo.getValue());
-						userCoinIncrease.setCreateTime(new Date());
-						//0:支付宝 1:微信 2:网银
-						userCoinIncrease.setPayType(rechargeParamVo.getPayType());
-						//0:支付宝 1:微信 2:网银
-						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());
-						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
-						
-						userCoinService.updateBalanceForIncrease(userCoinIncrease);
+//						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
+//						userCoinIncrease.setUserId(rechargeParamVo.getUserId());
+//						//1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回
+//						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+//						//熊猫币
+//						userCoinIncrease.setValue(rechargeParamVo.getValue());
+//						userCoinIncrease.setCreateTime(new Date());
+//						//0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付
+//						userCoinIncrease.setPayType(rechargeParamVo.getPayType());
+//						//1.pc 2.h5 3.android 4.ios
+//						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());
+//						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
+
+						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),Payment.ALIPAY,rechargeParamVo.getValue(), OrderForm.ANDROID,alipayPaymentRecordH5.getTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}

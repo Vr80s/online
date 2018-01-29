@@ -509,13 +509,13 @@ public class AlipayController {
                 }else if("recharge".equals(notifyType)){
                 	System.out.println("即将插入数据recharge");
                     UserCoinIncrease uci = JSONObject.parseObject(alipayPaymentRecord.getPassbackParams().split("&")[1].replace("|", "\""),UserCoinIncrease.class);
-                    uci.setCreateTime(new Date());
-                    uci.setOrderNoRecharge(out_trade_no);
-                    uci.setPayType(Payment.ALIPAY.getCode());
-                    uci.setOrderFrom(OrderForm.PC.getCode());
-                    uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-                    uci.setBalanceType(BalanceType.BALANCE.getCode());
-                    userCoinService.updateBalanceForIncrease(uci);
+//                    uci.setCreateTime(new Date());
+//                    uci.setOrderNoRecharge(out_trade_no);
+//                    uci.setPayType(Payment.ALIPAY.getCode());
+//                    uci.setOrderFrom(OrderForm.PC.getCode());
+//                    uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+//                    uci.setBalanceType(BalanceType.BALANCE.getCode());
+                    userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.ALIPAY,uci.getValue(),OrderForm.PC,out_trade_no);
                 }
 
             }
