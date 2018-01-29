@@ -44,6 +44,10 @@ public class UserCoinIncrease implements Serializable {
 
 	@Column(name="brokerage_value")
 	private BigDecimal brokerageValue;
+	@Column(name="ios_brokerage_value")
+	private BigDecimal iosBrokerageValue;
+	@Column(name="ratio")
+	private BigDecimal ratio;
 
 	@Column(name="change_type")
 	private Integer changeType;
@@ -118,6 +122,22 @@ public class UserCoinIncrease implements Serializable {
     private java.util.Date stopTime;
 
 	public UserCoinIncrease() {
+	}
+
+	public BigDecimal getIosBrokerageValue() {
+		return iosBrokerageValue;
+	}
+
+	public void setIosBrokerageValue(BigDecimal iosBrokerageValue) {
+		this.iosBrokerageValue = iosBrokerageValue;
+	}
+
+	public BigDecimal getRatio() {
+		return ratio;
+	}
+
+	public void setRatio(BigDecimal ratio) {
+		this.ratio = ratio;
 	}
 
 	public BigDecimal getRmb() {

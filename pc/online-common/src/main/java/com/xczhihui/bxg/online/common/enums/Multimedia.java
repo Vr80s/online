@@ -5,11 +5,9 @@ public enum Multimedia {
     VIDEO(1, "视频"),
     AUDIO(2, "音频");
 
-    // 成员变量
     private String text;
     private int code;
 
-    // 构造方法
     private Multimedia(int code, String text) {
         this.text = text;
         this.code = code;
