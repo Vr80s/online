@@ -590,7 +590,8 @@ a {
 #doc_Administration .bottomContent > div .doc_name,
 #doc_Administration .bottomContent > div .doc_zhicheng,
 #doc_Administration .bottomContent > div .doc_shanchang,
-#doc_Administration .bottomContent > div .doc_hospital{
+#doc_Administration .bottomContent > div .doc_hospital,
+#doc_Administration_bottom .doc_shanchangIpt{
 	width: 280px;
  	height: 36px;
  	border: 1px solid #f0f0f0;

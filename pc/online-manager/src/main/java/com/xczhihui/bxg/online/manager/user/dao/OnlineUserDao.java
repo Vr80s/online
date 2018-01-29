@@ -124,7 +124,8 @@ public class OnlineUserDao extends HibernateDao<OnlineUser> {
 	public int getCurrent(){
 		String sql = "select max(room_number) from oe_user";
 		int count = super.queryForInt(sql,null);
-		if(count==0){//说明存在
+		if(count==0){
+			//说明存在
 			count = 10000;
 		}else{
 			count = count+1;

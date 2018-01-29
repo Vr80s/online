@@ -25,6 +25,7 @@ public class EnchashmentController {
 
 	@Autowired
 	private EnchashmentService enchashmentService;
+
 	@Autowired
 	private UserCoinService userCoinService;
 
