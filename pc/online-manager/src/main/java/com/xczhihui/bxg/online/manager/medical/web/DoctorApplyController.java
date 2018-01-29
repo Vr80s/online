@@ -100,5 +100,21 @@ public class DoctorApplyController extends AbstractController{
 		return responseObj;
 	}
 
+	/**
+	 * 兼容之前主播没有进行医师认证所缺少的数据
+	 */
+	@RequestMapping(value = "/afterApplyAll")
+	@ResponseBody
+	public ResponseObject afterApplyAll(String userId) {
+
+		ResponseObject responseObj = new ResponseObject();
+
+		doctorApplyService.afterApplyAll();
+
+		responseObj.setSuccess(true);
+		responseObj.setErrorMessage("修改成功");
+		return responseObj;
+	}
+
 
 }

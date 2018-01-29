@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.medical.dao.*;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorApplyService;
 import com.xczhihui.bxg.online.manager.user.dao.UserDao;
+import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.RandomUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 医师入驻申请服务实现层
@@ -48,6 +46,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     private UserDao userDao;
     @Autowired
     private AnchorDao anchorDao;
+    @Autowired
+    private OnlineUserService onlineUserService;
 
     @Value("${course.anchor.vod_divide}")
     private BigDecimal vodDivide;
@@ -161,8 +161,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     public void afterApply(String userId) {
 
         // 判断之前的主播是否没有进行过医师认证
-        Integer medicalDoctorApplyId =
-            doctorApplyDao.findByHQLOne("select id from medical_doctor_apply where user_id = ?", userId);
+        String medicalDoctorApplyId = doctorApplyDao.findByHQLOne("select id from medical_doctor_apply where user_id = ?", userId);
 
         String authenticationInformationId = UUID.randomUUID().toString().replace("-","");
         Date now = new Date();
@@ -188,6 +187,14 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
             // 新增一条主播和认证医师的关联关系 medical_doctor_account
             this.addMedicalDoctorAccount(userId, doctorId, now);
+        }
+    }
+
+    @Override
+    public void afterApplyAll() {
+        List<Map<String, Object>> userIds=onlineUserService.getAllUserLecturer();
+        for(Map<String,Object > userId:userIds){
+            afterApply((String) userId.get("id"));
         }
     }
 

@@ -91,4 +91,5 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	public List<Map<String, Object>> getAllCourseName() {
 		return dao.getAllCourseName();
 	}
+
 }
