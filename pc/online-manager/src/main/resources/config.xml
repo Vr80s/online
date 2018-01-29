@@ -91,6 +91,7 @@
 			<tx:method name="process*" propagation="REQUIRED" />
 			<tx:method name="batchProcess" propagation="REQUIRED" />
 			<tx:method name="uploadSuccessCallback" propagation="REQUIRED" />
+			<tx:method name="after*" propagation="REQUIRED" />
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>

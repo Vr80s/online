@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.medical.dao.*;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorApplyService;
 import com.xczhihui.bxg.online.manager.user.dao.UserDao;
+import com.xczhihui.bxg.online.manager.utils.RandomUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -121,6 +122,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         // 更新认证状态
         apply.setStatus(status);
+        apply.setUpdateTime(new Date());
         doctorApplyDao.update(apply);
 
     }
@@ -157,6 +159,43 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     }
 
     /**
+     * 兼容之前主播没有进行医师认证所缺少的数据
+     */
+    @Override
+    public void afterApply(String userId) {
+
+        // 判断之前的主播是否没有进行过医师认证
+        Integer medicalDoctorApplyId =
+            doctorApplyDao.findByHQLOne("select id from medical_doctor_apply where user_id = ?", userId);
+
+        String authenticationInformationId = UUID.randomUUID().toString().replace("-","");
+        Date now = new Date();
+
+        // 若没有
+        if(medicalDoctorApplyId == null){
+
+            // 新增一条医师认证申请通过的消息 ： medical_doctor_apply
+            String doctorApplyId = UUID.randomUUID().toString().replace("-","");
+            this.addMedicalDoctorApply(doctorApplyId, userId, now);
+
+            // 新增一条认证成功信息：medical_doctor_authentication_information
+            this.addMedicalDoctorAuthenticationInformation(authenticationInformationId, null, 1, now);
+
+        }
+
+        // 若该主播和认证医师没有关联
+        if(doctorAccountDao.findByAccountId(userId) == null){
+
+            // 新增医师信息：medical_doctor
+            String doctorId = UUID.randomUUID().toString().replace("-","");
+            this.addMedicalDoctor(doctorId, authenticationInformationId, null,1, now);
+
+            // 新增一条主播和认证医师的关联关系 medical_doctor_account
+            this.addMedicalDoctorAccount(userId, doctorId, now);
+        }
+    }
+
+    /**
      * 处理认证通过逻辑
      */
     private void authenticationPassHandle(MedicalDoctorApply apply) {
@@ -182,37 +221,11 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         }
 
         // 新增医师与用户的对应关系：medical_doctor_account
-        MedicalDoctorAccount doctorAccount =
-                new MedicalDoctorAccount();
-        doctorAccount.setId(UUID.randomUUID().toString().replace("-",""));
-        doctorAccount.setAccountId(apply.getUserId());
-        doctorAccount.setDoctorId(doctorId);
-        doctorAccount.setCreateTime(now);
-        doctorAccountDao.save(doctorAccount);
+        this.addMedicalDoctorAccount(apply.getUserId(), doctorId, now);
 
         // 新增医师信息：medical_doctor
-        MedicalDoctor doctor = new MedicalDoctor();
-        doctor.setId(doctorId);
-        doctor.setName(apply.getName());
-        if(StringUtils.isNotBlank(apply.getTitle())){
-            doctor.setTitle(apply.getTitle());
-        }
-        if(StringUtils.isNotBlank(apply.getDescription())){
-            doctor.setDescription(apply.getDescription());
-        }
-        if(StringUtils.isNotBlank(apply.getProvince())){
-            doctor.setProvince(apply.getProvince());
-        }
-        if(StringUtils.isNotBlank(apply.getCity())){
-            doctor.setCity(apply.getCity());
-        }
-        if(StringUtils.isNotBlank(apply.getDetailedAddress())){
-            doctor.setDetailedAddress(apply.getDetailedAddress());
-        }
-        doctor.setCreateTime(now);
         String authenticationInformationId = UUID.randomUUID().toString().replace("-","");
-        doctor.setAuthenticationInformationId(authenticationInformationId);
-        doctorDao.save(doctor);
+        this.addMedicalDoctor(doctorId, authenticationInformationId, apply, 2, now);
 
         // 新增医师与科室的对应关系：medical_doctor_department
         List<MedicalDoctorApplyDepartment> medicalDoctorApplyDepartments =
@@ -222,31 +235,11 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         if(medicalDoctorApplyDepartments != null && !medicalDoctorApplyDepartments.isEmpty()){
             medicalDoctorApplyDepartments
                     .stream()
-                    .forEach(department -> this.saveMedicalDepartment(department, doctorId, now));
+                    .forEach(department -> this.addMedicalDepartment(department, doctorId, now));
         }
 
         // 新增认证成功信息：medical_doctor_authentication_information
-        MedicalDoctorAuthenticationInformation authenticationInformation =
-                new MedicalDoctorAuthenticationInformation();
-        authenticationInformation.setId(authenticationInformationId);
-        authenticationInformation.setCardPositive(apply.getCardPositive());
-        authenticationInformation.setCardNegative(apply.getCardNegative());
-        authenticationInformation.setQualificationCertificate(apply.getQualificationCertificate());
-
-        if(StringUtils.isNotBlank(apply.getTitleProve())){
-            authenticationInformation.setTitleProve(apply.getTitleProve());
-        }
-        if(StringUtils.isNotBlank(apply.getProfessionalCertificate())){
-            authenticationInformation.setProfessionalCertificate(apply.getProfessionalCertificate());
-        }
-        if(StringUtils.isNotBlank(apply.getHeadPortrait())){
-            authenticationInformation.setHeadPortrait(apply.getHeadPortrait());
-        }
-
-        authenticationInformation.setDeleted(false);
-        authenticationInformation.setStatus(true);
-        authenticationInformation.setCreateTime(now);
-        doctorAuthenticationInformationDao.save(authenticationInformation);
+        this.addMedicalDoctorAuthenticationInformation(authenticationInformationId, apply, 2, now);
 
         // 设置oe_user表中的is_lecturer为1
         userDao.updateIsLecturerById(1, apply.getUserId());
@@ -265,7 +258,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         anchorDao.save(courseAnchor);
     }
 
-    private void saveMedicalDepartment(MedicalDoctorApplyDepartment department, String doctorId, Date createTime){
+    private void addMedicalDepartment(MedicalDoctorApplyDepartment department, String doctorId, Date createTime){
         MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
         doctorDepartment.setId(UUID.randomUUID().toString().replace("-",""));
         doctorDepartment.setDoctorId(doctorId);
@@ -279,5 +272,159 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
      */
     private void authenticationRejectHandle(){
 
+    }
+
+    /**
+     * 新增医师认证申请信息（往medical_doctor_apply表插入一条数据）
+     * @param doctorApplyId medical_doctor_apply表主键
+     * @param userId    用户id
+     * @param createTime 创建时间
+     */
+    private void addMedicalDoctorApply(String doctorApplyId, String userId, Date createTime) {
+        MedicalDoctorApply doctorApply = new MedicalDoctorApply();
+        doctorApply.setId(doctorApplyId);
+        doctorApply.setUserId(userId);
+        doctorApply.setName(userId);
+        doctorApply.setCardNum(RandomUtil.getCharAndNumr(18));
+        doctorApply.setHeadPortrait("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+        doctorApply.setCardNegative("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+        doctorApply.setCardPositive("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+        doctorApply.setProfessionalCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+        doctorApply.setTitleProve("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+        doctorApply.setQualificationCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+        doctorApply.setTitle("主治医师");
+        doctorApply.setField("妇科疾病");
+        doctorApply.setDescription("你是什么样的人，就得什么样的病");
+        doctorApply.setHospital("仟草堂");
+        doctorApply.setStatus(1);
+        doctorApply.setDeleted(false);
+        doctorApply.setCreateTime(createTime);
+        doctorApply.setUpdateTime(createTime);
+        doctorApply.setRemark("系统生成,仅供测试");
+        doctorApplyDao.save(doctorApply);
+    }
+
+    /**
+     * 新增一条认证成功信息(往medical_doctor_authentication_information表插入一条信息）
+     * @param authenticationInformationId medical_doctor_authentication_information表主键
+     * @param apply  认证信息的封装
+     * @param type 新增数据的类型（1：系统生成 2:管理员认证）
+     * @param createTime 创建时间
+     */
+    private void addMedicalDoctorAuthenticationInformation(String authenticationInformationId,
+                                                           MedicalDoctorApply apply,
+                                                           int type, Date createTime) {
+        MedicalDoctorAuthenticationInformation authenticationInformation =
+                new MedicalDoctorAuthenticationInformation();
+
+        if(type == 1){
+            authenticationInformation.setId(authenticationInformationId);
+            authenticationInformation.setHeadPortrait("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+            authenticationInformation.setCardNegative("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+            authenticationInformation.setCardPositive("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+            authenticationInformation.setProfessionalCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+            authenticationInformation.setTitleProve("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+            authenticationInformation.setQualificationCertificate("http://test-www.ixincheng.com:38080/data/picture/online/2017/12/16/00/50d34185ef86451e9d13651b4591031e.jpg");
+            authenticationInformation.setDeleted(false);
+            authenticationInformation.setStatus(true);
+            authenticationInformation.setCreateTime(createTime);
+            authenticationInformation.setRemark("系统生成,仅供测试");
+            doctorAuthenticationInformationDao.save(authenticationInformation);
+        }
+        if(type == 2){
+            authenticationInformation.setId(authenticationInformationId);
+            if(StringUtils.isNotBlank(apply.getCardPositive())){
+                authenticationInformation.setCardPositive(apply.getCardPositive());
+            }
+            if(StringUtils.isNotBlank(apply.getCardNegative())){
+                authenticationInformation.setCardNegative(apply.getCardNegative());
+            }
+            if(StringUtils.isNotBlank(apply.getQualificationCertificate())){
+                authenticationInformation.setQualificationCertificate(apply.getQualificationCertificate());
+            }
+            if(StringUtils.isNotBlank(apply.getTitleProve())){
+                authenticationInformation.setTitleProve(apply.getTitleProve());
+            }
+            if(StringUtils.isNotBlank(apply.getProfessionalCertificate())){
+                authenticationInformation.setProfessionalCertificate(apply.getProfessionalCertificate());
+            }
+            if(StringUtils.isNotBlank(apply.getHeadPortrait())){
+                authenticationInformation.setHeadPortrait(apply.getHeadPortrait());
+            }
+
+            authenticationInformation.setDeleted(false);
+            authenticationInformation.setStatus(true);
+            authenticationInformation.setCreateTime(createTime);
+            doctorAuthenticationInformationDao.save(authenticationInformation);
+        }
+    }
+
+    /**
+     * 新增医师信息(往medical_doctor表插入一条信息）
+     * @param doctorId medical_doctor表的主键
+     * @param authenticationInformationId medical_doctor_authentication_information表的主键
+     * @param apply 用户提交的认证信息封装
+     * @param type 新增类型（1：系统生成 2:管理员认证）
+     * @param createTime 创建时间
+     */
+    private void addMedicalDoctor(String doctorId, String authenticationInformationId,
+                                  MedicalDoctorApply apply, int type, Date createTime) {
+
+        MedicalDoctor doctor = new MedicalDoctor();
+
+        if(type == 1){
+            doctor.setId(doctorId);
+            doctor.setAuthenticationInformationId(authenticationInformationId);
+            doctor.setName(doctorId);
+            doctor.setTitle("主治医师");
+            doctor.setDescription("你是什么样的人，就得什么样的病");
+            doctor.setCreateTime(createTime);
+            doctor.setRemark("系统生成,仅供测试");
+            doctor.setDeleted(false);
+            doctor.setType("2");
+            doctor.setProvince("北京省");
+            doctor.setCity("北京市");
+            doctor.setWorkTime("周一下午、周四上午");
+            doctor.setStatus(true);
+            doctorDao.save(doctor);
+        }
+        if(type == 2){
+            doctor.setId(doctorId);
+            doctor.setAuthenticationInformationId(authenticationInformationId);
+            doctor.setName(apply.getName());
+            if(StringUtils.isNotBlank(apply.getTitle())){
+                doctor.setTitle(apply.getTitle());
+            }
+            if(StringUtils.isNotBlank(apply.getDescription())){
+                doctor.setDescription(apply.getDescription());
+            }
+            if(StringUtils.isNotBlank(apply.getProvince())){
+                doctor.setProvince(apply.getProvince());
+            }
+            if(StringUtils.isNotBlank(apply.getCity())){
+                doctor.setCity(apply.getCity());
+            }
+            if(StringUtils.isNotBlank(apply.getDetailedAddress())){
+                doctor.setDetailedAddress(apply.getDetailedAddress());
+            }
+            doctor.setCreateTime(createTime);
+            doctorDao.save(doctor);
+        }
+    }
+
+    /**
+     * 新增一条用户和认证医师的关联关系 medical_doctor_account
+     * @param userId 用户id
+     * @param doctorId 医师id
+     * @param createTime 创建时间
+     */
+    private void addMedicalDoctorAccount(String userId, String doctorId, Date createTime) {
+        MedicalDoctorAccount doctorAccount =
+                new MedicalDoctorAccount();
+        doctorAccount.setId(UUID.randomUUID().toString().replace("-",""));
+        doctorAccount.setAccountId(userId);
+        doctorAccount.setDoctorId(doctorId);
+        doctorAccount.setCreateTime(createTime);
+        doctorAccountDao.save(doctorAccount);
     }
 }
