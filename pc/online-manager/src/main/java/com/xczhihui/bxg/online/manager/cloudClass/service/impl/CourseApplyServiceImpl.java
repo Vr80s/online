@@ -5,7 +5,7 @@ import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Dismissal;
+import com.xczhihui.bxg.online.common.enums.CourseDismissal;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseApplyDao;
@@ -82,7 +82,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 			courseApply.setCourseApplyInfoList(courseApplyInfos);
 		}
 		if(courseApply.getStatus()==2){
-			courseApply.setDismissalText(Dismissal.getDismissal(courseApply.getDismissal()));
+			courseApply.setDismissalText(CourseDismissal.getDismissal(courseApply.getDismissal()));
 		}
 		return courseApply;
 	}
