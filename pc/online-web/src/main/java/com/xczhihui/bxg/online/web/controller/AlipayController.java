@@ -308,7 +308,7 @@ public class AlipayController {
     	uci.setValue(new BigDecimal(count));
 		uci.setUserId(loginUser.getId());
     	
-       	String passbackParams="recharge&"+JSONObject.toJSON(uci).toString().replaceAll("\"", "|");// JSONObject.toJSON(orderParamVo).toString();
+       	String passbackParams="recharge&"+JSONObject.toJSON(uci).toString().replaceAll("\"", "|");
     	String timeoutExpress="24h";
     	alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
     			+ "\"total_amount\":\"" + total_amount + "\","
@@ -358,7 +358,6 @@ public class AlipayController {
             }
             //乱码解决，这段代码在出现乱码时使用
             valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
-//            System.out.println(name+"========"+valueStr);
             params.put(name, valueStr);
         }
 
@@ -386,8 +385,6 @@ public class AlipayController {
 
     }
 
-
-
     /**
      * 异步回调
      *
@@ -414,10 +411,10 @@ public class AlipayController {
             //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
-
-        boolean signVerified = AlipaySignature.rsaCheckV1(params, alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type); //调用SDK验证签名
-        if (signVerified) {//验证成功
-
+        //调用SDK验证签名
+        boolean signVerified = AlipaySignature.rsaCheckV1(params, alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type);
+        if (signVerified) {
+            //验证成功
             AlipayPaymentRecord alipayPaymentRecord = new AlipayPaymentRecord();
             alipayPaymentRecord.setTradeNo(params.get("trade_no"));
             alipayPaymentRecord.setAppId(params.get("app_id"));
@@ -495,13 +492,11 @@ public class AlipayController {
                     RewardStatement rs=new RewardStatement();
                     BeanUtils.copyProperties(rs,rpv);
                     rs.setCreateTime(new Date());
-                    rs.setPayType(Payment.ALIPAY.getCode());//
+                    rs.setPayType(Payment.ALIPAY.getCode());
                     rs.setChannel(OrderFrom.PC.getCode());
                     rs.setOrderNo(out_trade_no);
                     rs.setStatus(1);
-//                    rs.setPrice(price);
                     System.out.println("channel"+rs.toString());
-//                    rewardService.insert(rs);
                     userCoinService.updateBalanceForReward(rs);
 
                 }else if("recharge".equals(notifyType)){
@@ -565,13 +560,13 @@ public class AlipayController {
 //                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&KEY=" + OnlineConfig.API_KEY;
 //                        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
                         Integer orderStatus = orderService.getOrderStatus(out_trade_no);
-                        if (orderStatus == 0) { //付款成功，如果order未完成
+                        if (orderStatus == 0) {
+                            //付款成功，如果order未完成
                             try {
                                 //计时
                                 long current = System.currentTimeMillis();
                                 //处理订单业务
                                 orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, transaction_id);
-//                                orderService.addPaySuccess(out_trade_no, 0, transaction_id);
                                 logger.info("订单支付成功，订单号:{},用时{}",
                                         out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
                                 //为购买用户发送购买成功的消息通知
