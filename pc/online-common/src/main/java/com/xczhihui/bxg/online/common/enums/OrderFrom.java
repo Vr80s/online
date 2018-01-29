@@ -21,7 +21,7 @@ public enum OrderFrom {
      **/
     private String text;
     private int code;
-
+    
     private OrderFrom(int code, String text) {
         this.text = text;
         this.code = code;
@@ -44,5 +44,24 @@ public enum OrderFrom {
         this.code = code;
     }
 
+    public static OrderFrom valueOf(int value) {
+    	
+        switch (value) {
+        case 1:
+            return OrderFrom.PC;
+        case 2:
+            return OrderFrom.H5;
+        case 3:
+            return OrderFrom.ANDROID;
+        case 4:
+            return OrderFrom.IOS;
+        case 5:
+            return OrderFrom.OFFLINE;
+        case 6:
+            return OrderFrom.WORKER;
+        default:
+            return null;
+        }
+    }
 
 }

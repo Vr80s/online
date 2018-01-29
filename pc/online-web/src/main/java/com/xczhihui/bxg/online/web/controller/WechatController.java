@@ -481,8 +481,7 @@ public class WechatController {
 								//处理订单业务
 								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY,transaction_id);
 //								orderService.addPaySuccess(out_trade_no,1,transaction_id);
-								logger.info("订单支付成功，订单号:{},用时{}",
-										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
+								logger.info("订单支付成功，订单号:{},用时{}",out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
 								//为购买用户发送购买成功的消息通知
 								orderService.savePurchaseNotice(weburl, out_trade_no);
 							} catch (Exception e) {

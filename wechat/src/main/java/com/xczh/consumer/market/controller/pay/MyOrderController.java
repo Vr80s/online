@@ -22,6 +22,7 @@ import com.xczh.consumer.market.service.WxcpWxRedpackService;
 import com.xczh.consumer.market.service.WxcpWxTransService;
 import com.xczh.consumer.market.utils.CookieUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 
 @Controller
 @RequestMapping("/xczh/order")
@@ -41,7 +42,7 @@ public class MyOrderController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 	/**
-	 * 生成订单
+	 * 生成订单  	订单来源，1：pc 2：h5 3:android 4 ios 5 线下 6 工作人员
 	 * @param req
 	 * @param res
 	 * @param params  
@@ -52,23 +53,13 @@ public class MyOrderController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject saveOnlineOrder(HttpServletRequest req,
-										  HttpServletResponse res, Map<String, String> params)throws Exception{
-		//orderFrom订单来源  //订单来源，0直销（本系统），1分销系统，2线下（刷数据） 3:微信分销' 4:h5网页    5：手机app
-		//分销，设置上下级管理
-		String code = CookieUtil.getCookieValue(req, "_usercode_");
-		if (code != null && !"".equals(code.trim())) {
-			OnlineUser u = (OnlineUser)req.getSession().getAttribute("_user_");
-			onlineOrderService.updateUserParentId(u.getId(), code);
-		}
+			@RequestParam("courseId")Integer courseId,@RequestParam("orderFrom")Integer orderFrom
+			)throws Exception{
+		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
 	    }
-		if(null == req.getParameter("courseId") || null == req.getParameter("orderFrom")){
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		Integer orderFrom = Integer.valueOf(req.getParameter("orderFrom"));
-		Integer courseId = Integer.valueOf(req.getParameter("courseId"));
 		return onlineOrderService.addOrder(courseId,user.getId(),orderFrom);
 	}
 	/**
