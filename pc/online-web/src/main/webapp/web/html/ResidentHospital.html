@@ -351,7 +351,7 @@
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 							</div>
 							
-							<div>
+							<div class="zhicheng_name">
 								<span><em>*</em> 医师职称</span>
 								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
 								<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
@@ -372,9 +372,9 @@
 							</div>
 							
 							<div class="keshi">
-								<span><em>*</em> 擅长领域</span>
-								<ul>
-									<li>中医内科</li>
+								<span><em>*</em> 科室</span>
+								<ul id="shanChangList">
+									<!--<li>中医内科</li>
 									<li>中医内科</li>
 									<li>妇科</li>
 									<li>儿科</li>
@@ -383,16 +383,22 @@
 									<li>心脏病</li>
 									<li>癌症</li>
 									<li>绝症</li>
-									<li>肝病</li>
+									<li>肝病</li>-->
 								</ul>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+							</div>
+							
+							<div class="shanchang_name">
+								<span><em>*</em> 擅长</span>
+								<input type="text" placeholder="请输入您的擅长领域"  maxlength="15" class="doc_shanchangIpt"/>
+								<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
 							</div>
 							
 							
 							<div class="personIntroduct">
 								<span><em>*</em>  医师介绍</span>
-								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>
-								<p class="warning " style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
+								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
 							</div>
 							
 						
@@ -932,6 +938,14 @@
 	</div>
 </script>
 
+
+
+<!--医馆添加医师中的擅长领域部分模板-->
+<script type="text/template" id="shanChangTpl">
+	{{each item as item i}}
+		<li data-id={{item.id}}>{{item.name}}</li>
+	{{/each}}
+</script>
 
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
