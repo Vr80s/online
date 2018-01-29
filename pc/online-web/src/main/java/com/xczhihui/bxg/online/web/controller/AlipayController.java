@@ -50,7 +50,6 @@ import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.base.utils.WebUtil;
 import com.xczhihui.bxg.online.web.exception.XcApiException;
 import com.xczhihui.bxg.online.web.service.AliPayPaymentRecordService;
-import com.xczhihui.bxg.online.web.service.CourseService;
 import com.xczhihui.bxg.online.web.service.OrderService;
 import com.xczhihui.bxg.online.web.service.RewardService;
 import com.xczhihui.bxg.online.web.utils.PayCommonUtil;
@@ -78,8 +77,6 @@ public class AlipayController {
 
     @Autowired
     private AliPayPaymentRecordService aliPayPaymentRecordService;
-    @Autowired
-    private CourseService courseService;
     @Autowired
     private RewardService rewardService;
     @Autowired
@@ -151,7 +148,7 @@ public class AlipayController {
 
         OrderParamVo orderParamVo=new OrderParamVo();
         orderParamVo.setUserId(payInfo.get("user_id").toString());
-        String passbackParams="order&"+orderParamVo.getUserId();// JSONObject.toJSON(orderParamVo).toString();
+        String passbackParams="order&"+orderParamVo.getUserId();
         String timeoutExpress="24h";
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
                 + "\"total_amount\":\"" + total_amount + "\","
@@ -173,8 +170,6 @@ public class AlipayController {
             ex.printStackTrace();
             throw  new XcApiException("未知错误！");
         }
-
-
     }
 
     /**
@@ -236,7 +231,7 @@ public class AlipayController {
         }
         rewardParamVo.setPrice(Double.valueOf(ap));
         rewardParamVo.setRewardId(rewardId);
-        String passbackParams="reward&"+JSONObject.toJSON(rewardParamVo).toString().replaceAll("\"", "|");// JSONObject.toJSON(orderParamVo).toString();
+        String passbackParams="reward&"+JSONObject.toJSON(rewardParamVo).toString().replaceAll("\"", "|");
         String timeoutExpress="24h";
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
                 + "\"total_amount\":\"" + total_amount + "\","
@@ -329,8 +324,7 @@ public class AlipayController {
     		ex.printStackTrace();
     		throw  new XcApiException("未知错误！");
     	}
-    	
-    	
+
     }
 
     /**
@@ -378,7 +372,6 @@ public class AlipayController {
         //同步回调返回的页面
         if (signVerified) {
             response.getWriter().println("<script>window.open('" + weburl + page+"','_self')</script>");
-
         } else {
             response.getWriter().println("验签失败");
         }
@@ -514,7 +507,8 @@ public class AlipayController {
             }
             response.getWriter().println("success");
 
-        } else {//验证失败
+        } else {
+            //验证失败
             response.getWriter().println("fail");
 
         }
