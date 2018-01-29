@@ -135,6 +135,10 @@ public class OnlineUserController {
 			return ResponseObject.newErrorResponseObject("用户名密码错误");
 		}
 	}
+	
+	
+	
+	
 	/**
 	 * 登陆成功处理
 	 * @param req
@@ -353,7 +357,7 @@ public class OnlineUserController {
 		String username = req.getParameter("username");
 		
 		try {
-			String str = onlineUserService.addMessage(username, vtype);
+			String str = onlineUserService.addMessage(username, Integer.parseInt(vtype));
 			if("发送成功！".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
@@ -390,7 +394,7 @@ public class OnlineUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(mobile, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(mobile, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -806,7 +810,7 @@ public class OnlineUserController {
 		}
 		String vtype = "2";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) { //如果动态验证码不正确
 			return checkCode;
 		}
@@ -884,7 +888,7 @@ public class OnlineUserController {
 		}
 		String vtype = "1";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) { //如果动态验证码不正确
 			return checkCode;
 		}

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,7 @@ public class DoctorApplyController extends AbstractController{
 	/**
 	 * 获取医师入驻申请列表
 	 */
-	@RequestMapping(value = "list")
+	@RequestMapping(value = "list", method = RequestMethod.GET)
 	@ResponseBody
 	public TableVo list(TableVo tableVo) {
 		int pageSize = tableVo.getiDisplayLength();
@@ -61,7 +62,7 @@ public class DoctorApplyController extends AbstractController{
 	/**
 	 * 更新医师入驻申请状态
 	 */
-	@RequestMapping(value = "updateStatus")
+	@RequestMapping(value = "updateStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateStatus(MedicalDoctorApply doctorApply) {
 
@@ -82,4 +83,22 @@ public class DoctorApplyController extends AbstractController{
 
 		return CLOUD_CLASS_PATH_PREFIX + "/doctorApplyDetail";
 	}
+
+	/**
+	 * 兼容之前主播没有进行医师认证所缺少的数据
+	 */
+	@RequestMapping(value = "/after", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseObject afterApply(String userId) {
+
+		ResponseObject responseObj = new ResponseObject();
+
+		doctorApplyService.afterApply(userId);
+
+		responseObj.setSuccess(true);
+		responseObj.setErrorMessage("修改成功");
+		return responseObj;
+	}
+
+
 }

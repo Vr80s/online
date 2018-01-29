@@ -11,8 +11,8 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
-import com.xczhihui.wechat.course.model.UserBank;
-import com.xczhihui.wechat.course.service.IUserBankService;
+import com.xczhihui.medical.pay.model.UserBank;
+import com.xczhihui.medical.pay.service.IUserBankService;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.LoggerFactory;
@@ -58,16 +58,18 @@ public class bankCardController {
 
 	@RequestMapping("addBankCard")
 	@ResponseBody
-	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,
+	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,UserBank userBank,
 										 @RequestParam("acctName")String acctName,@RequestParam("acctPan")String acctPan,
 										 @RequestParam("certId")String certId)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		if(user==null){
+		UserBank i = new UserBank();
+		/*if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}
+		}*/
 		String userId="2c9aec35605a5bab01605a632d350000";
-		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(userId,acctPan,certId);
+		userBank.setUserId(userId);
+		/*UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(userId,acctPan,certId);
 		if(ub!=null){
 			return ResponseObject.newErrorResponseObject("此卡已添加");
 		}
@@ -106,13 +108,13 @@ public class bankCardController {
 			userBank.setAcctPan(acctPan);
 			userBank.setCertId(certId);
 			userBank.setCertType("01");
-			userBank.setCreateTime(new Date());
+			userBank.setCreateTime(new Date());*/
 			userBankService.addUserBank(userBank);
 			return  ResponseObject.newSuccessResponseObject("添加成功");
-		} catch (Exception e) {
+		/*} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("添加失败");
-		}
+		}*/
 	}
 
 	@RequestMapping(value = "userBankList")
@@ -128,5 +130,17 @@ public class bankCardController {
 		return  ResponseObject.newSuccessResponseObject(userBankList);
 	}
 
+	public static void main(String[] args) {
+		String str = "{\"showapi_res_code\":0,\"showapi_res_error\":\"\",\"showapi_res_body\":\n" +
+				"{\"ret_code\":0,\"belong\":{\"area\":\"北京市 - 北京\",\"tel\":\"95599\",\"brand\":\"金穗通宝卡(银联卡)\",\"bankName\":\"中国农业银行-农业银行\",\n" +
+				"\"cardType\":\"借记卡\",\"url\":\"www.abchina.com\",\"cardNum\":\"6228480018573118777\"},\"code\":0,\"msg\":\"认证通过\"}}";
 
+		JSONObject businessLicensePictureJson = JSONObject.parseObject(str);
+		String s = businessLicensePictureJson.get("showapi_res_body").toString();
+		JSONObject showapi_res_body = JSONObject.parseObject(s);
+		String belong = showapi_res_body.get("belong").toString();
+		JSONObject b = JSONObject.parseObject(belong);
+		String bankName = b.get("bankName").toString();
+		System.out.println(bankName);
+	}
 }
