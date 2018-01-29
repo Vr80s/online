@@ -52,7 +52,7 @@ public class EnchashMentController {
     public ResponseObject getEnchashmentBalance(HttpServletRequest request, HttpServletResponse res) throws Exception{
         Map<String, String> params2=new HashMap<>();
         params2.put("token",request.getParameter("token"));
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2);
         if (user == null) {
         	return ResponseObject.newSuccessResponseObject(0);	
         }else{
@@ -65,7 +65,7 @@ public class EnchashMentController {
 
         Map<String, String> params2=new HashMap<>();
         params2.put("token",request.getParameter("token"));
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2);
         if (user == null) {
             throw new RuntimeException("登录超时！");
         }

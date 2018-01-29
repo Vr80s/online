@@ -328,11 +328,6 @@ public class WxPayController {
 				if(StringUtils.isNotBlank(wxcpPayFlow.getAttach())){
 					String[] attachs=attach.split("&");
 
-					//String ppbt= (String) com.alibaba.fastjson.JSONObject.parseObject(attach).get("passbackParamBizType");
-					//if(ppbt.equals("1")) {
-					//RewardParamVo rpv= com.alibaba.fastjson.JSONObject.parseObject(wxcpPayFlow.getAttach(),RewardParamVo.class);
-					//if("1".equals(rpv.getT())){
-
 					if(attachs.length>0) {
                         if ("reward".equals(attachs[0])) {
 
@@ -434,7 +429,8 @@ public class WxPayController {
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
     		}
 			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
-    		Double actualPrice = order.getActualPay();//订单金额
+			//订单金额
+    		Double actualPrice = order.getActualPay();
     		double  xmb = actualPrice * rate;
     		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {
@@ -464,9 +460,7 @@ public class WxPayController {
 			
 			LOGGER.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
 			
-			String msg = HttpUtil.sendDataRequest(
-					pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml
-							.toString().getBytes());
+			String msg = HttpUtil.sendDataRequest(pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml.toString().getBytes());
 			
 			LOGGER.info("msg  >>>  " + msg);
 			Gson g = new GsonBuilder().create();

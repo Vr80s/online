@@ -32,7 +32,7 @@ public interface UserCoinService {
 	 * @return Map<String,String>
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public Map<String,String> getBalanceByUserId(String userId);
+	public String getBalanceByUserId(String userId);
 
 	/**
 	 * Description：可结算熊猫币金额
@@ -40,7 +40,7 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 5:50 2018/1/29 0029
 	 **/
-	String getSettlementBalanceByUserId(String userId);
+	public String getSettlementBalanceByUserId(String userId);
 
 	/**
 	 * Description：可提现人民币余额
@@ -48,7 +48,7 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 5:50 2018/1/29 0029
 	 **/
-	String getEnchashmentBalanceByUserId(String userId);
+	public String getEnchashmentBalanceByUserId(String userId);
 
 	/**
 	 * Description：熊猫币充值方法
@@ -56,7 +56,7 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 2:42 2018/1/29 0029
 	 **/
-	void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderFrom orderFrom, String orderNo);
+	public void updateBalanceForRecharge(String userId, Payment payment, BigDecimal coin, OrderFrom orderFrom, String orderNo);
 
 	/**
 	 * Description：用户熊猫币新增
@@ -80,7 +80,7 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 5:04 2018/1/29 0029
 	 **/
-	void updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
+	public void updateBalanceForBuyCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
 
 	/**
 	 * Description：添加用户熊猫
@@ -107,6 +107,12 @@ public interface UserCoinService {
 	 **/
 	public void updateBalanceForGift(GiftStatement giftStatement, Gift gift);
 
+	/**
+	 * Description：多订单课程主播分成
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 8:19 2018/1/29 0029
+	 **/
     void updateBalanceForCourses(List<OrderVo> orderVos);
 
     /**
@@ -115,14 +121,6 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	public void updateBalanceForReward(RewardStatement rs)throws Exception;
-
-	/** 
-	 * Description：获取可提现余额（熊猫币）
-	 * @param userId
-	 * @return void
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	public BigDecimal getEnableEnchashmentBalance(String userId);
 
 	/**
 	 * Description：提现-更改用户的人民币余额
@@ -142,6 +140,12 @@ public interface UserCoinService {
 	 **/
 	public Object getUserCoinConsumptionRecord(String userId, Integer pageNumber, Integer pageSize);
 
+	/**
+	 * Description：买课后，给主播分成
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 8:19 2018/1/29 0029
+	 **/
 	public void updateBalanceForCourse(OrderVo orderVo);
 
 	/**

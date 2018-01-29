@@ -44,17 +44,13 @@ public class UserCoinServiceImpl implements UserCoinService {
     public static BigDecimal iosRatio = new BigDecimal("0.3");
 
     @Override
-    public Map<String, String> getBalanceByUserId(String userId) {
+    public String getBalanceByUserId(String userId) {
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
         if (uc == null) {
             throw new RuntimeException(userId + "--用户账户不存在！");
         }
-        Map<String, String> balance = new HashMap<String, String>();
-        balance.put("balance_give", uc.getBalanceGive().setScale(0, BigDecimal.ROUND_DOWN).toString());
-        balance.put("balance", uc.getBalance().setScale(0, BigDecimal.ROUND_DOWN).toString());
         BigDecimal balanceTotal = uc.getBalance().add(uc.getBalanceGive());
-        balance.put("balanceTotal", balanceTotal.setScale(0, BigDecimal.ROUND_DOWN).toString());
-        return balance;
+        return balanceTotal.setScale(0, BigDecimal.ROUND_DOWN).toString();
     }
 
     @Override
@@ -348,13 +344,6 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setPayType(rs.getPayType());
         //更新主播的数量
         updateBalanceForIncrease(uci);*/
-    }
-
-    @Override
-    public BigDecimal getEnableEnchashmentBalance(String userId) {
-        UserCoin uc = userCoinDao.getBalanceByUserId(userId);
-        //可提现熊猫币=打赏+卖课获得
-        return uc.getBalanceRewardGift();
     }
 
     @Override

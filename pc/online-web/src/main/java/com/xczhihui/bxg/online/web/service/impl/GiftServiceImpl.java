@@ -102,7 +102,7 @@ public class GiftServiceImpl implements GiftService {
     	map.put("giftInfo", mapGiftInfo);
     	map.put("giftCount",findByUserId(gs.getReceiver()));
     	map.put("messageType",1);
-    	map.put("balanceTotal",userCoinService.getBalanceByUserId(u.getId()).get("balanceTotal"));
+    	map.put("balanceTotal",userCoinService.getBalanceByUserId(u.getId()));
 		return map;
 	}
 
