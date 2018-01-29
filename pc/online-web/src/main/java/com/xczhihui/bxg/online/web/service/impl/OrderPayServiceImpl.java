@@ -4,6 +4,7 @@ import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,10 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
     * @Date: 下午 9:10 2018/1/24 0024
     **/
     @Override
-    public void addPaySuccess(String orderNo,Integer payType,String transactionId) {
+    public void addPaySuccess(String orderNo, Payment payment, String transactionId) {
+    	if(payment==null){
+    		throw new RuntimeException("支付类型不可为空");
+		}
     	String sql = "";
     	String id = "";
     	Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -54,7 +58,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
     	List<OrderVo> orders = orderDao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
     	if (orders.size() > 0) {
     		//更新订单表
-			sql = "update oe_order set order_status=1,pay_type="+payType+",pay_time=now(),pay_account='"+ transactionId +"' where order_no='"+orderNo+"' ";
+			sql = "update oe_order set order_status=1,pay_type="+payment.getCode()+",pay_time=now(),pay_account='"+ transactionId +"' where order_no='"+orderNo+"' ";
 			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
     		
     		//写用户报名信息表，如果有就不写了
@@ -74,6 +78,8 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 			orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
     		
 			for (OrderVo order : orders){
+				//插入支付类型
+				order.setPayment(payment);
 				int  gradeId = 0;
 
 				//写用户、报名、课程中间表

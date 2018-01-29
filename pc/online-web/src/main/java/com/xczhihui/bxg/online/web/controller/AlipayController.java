@@ -480,7 +480,7 @@ public class AlipayController {
                             //计时
                             long current = System.currentTimeMillis();
                             //处理订单业务
-                            orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY.getCode(),trade_no);
+                            orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY,trade_no);
 //                            orderService.addPaySuccess(out_trade_no, 0, trade_no);
                             logger.info("订单支付成功，订单号:{},用时{}",
                                     out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
@@ -572,7 +572,7 @@ public class AlipayController {
                                 //计时
                                 long current = System.currentTimeMillis();
                                 //处理订单业务
-                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY.getCode(), transaction_id);
+                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, transaction_id);
 //                                orderService.addPaySuccess(out_trade_no, 0, transaction_id);
                                 logger.info("订单支付成功，订单号:{},用时{}",
                                         out_trade_no, (System.currentTimeMillis() - current) + "毫秒");

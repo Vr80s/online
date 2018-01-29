@@ -75,7 +75,7 @@ public class OrderController {
                    if(orderService.findCourseIsFree(ids) || Double.valueOf(mapValues.get("actualPay").toString()) <= 0){
                        synchronized (lock) {
                            String transaction_id="activity"+ UUID.randomUUID().toString().replaceAll("-", "").substring(0,22);
-                           orderPayService.addPaySuccess(mapValues.get("orderNo").toString(), Payment.OTHERPAY.getCode(), transaction_id);
+                           orderPayService.addPaySuccess(mapValues.get("orderNo").toString(), Payment.OTHERPAY, transaction_id);
 //                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
                            //为购买用户发送购买成功的消息通知
                            String path = request.getContextPath();

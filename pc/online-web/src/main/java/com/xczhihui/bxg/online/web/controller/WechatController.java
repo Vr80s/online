@@ -410,7 +410,7 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY.getCode(),transaction_id);
+								orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY,transaction_id);
 //								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
@@ -481,7 +481,7 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY.getCode(),transaction_id);
+								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY,transaction_id);
 //								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
@@ -546,7 +546,7 @@ public class WechatController {
 								//计时
 								long current = System.currentTimeMillis();
 								//处理订单业务
-								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY.getCode(),transaction_id);
+								orderPayService.addPaySuccess(out_trade_no,Payment.WECHATPAY,transaction_id);
 //								orderService.addPaySuccess(out_trade_no,1,transaction_id);
 								logger.info("订单支付成功，订单号:{},用时{}",
 										out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
