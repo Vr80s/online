@@ -473,12 +473,22 @@ $('#hospital_bottom #submit').click(function(){
 		headPortrait:headPortrait
 	}, function(data) {
 			if(data.success == true){
-				alert('上传成功')
+//				alert('上传成功')
+				$('#tip').text('加入成功！');
+				$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
 			}else{
-				alert('您不是医师，不能加入医馆')
+//				alert('您不是医师，不能加入医馆')
+				$('#tip').text('您不是医师，不能加入医馆');
+				$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
 			}
 		});
-	alert(111)
+//	alert(111)
 })
 
 
