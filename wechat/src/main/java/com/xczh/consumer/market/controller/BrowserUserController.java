@@ -102,11 +102,11 @@ public class BrowserUserController {
 		}
 		String vtype = "1";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
-		return onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
+		return onlineUserService.addPhoneRegistByAppH5(req, password,username,Integer.parseInt(vtype));
 	}
 	/**
 	 * 忘记密码
@@ -124,7 +124,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -153,7 +153,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -166,6 +166,14 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("修改密码失败");
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 修改密码
 	 * @param req
@@ -721,7 +729,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		String str = onlineUserService.changeMobileSendCode(username,vtype);
+		String str = onlineUserService.changeMobileSendCode(username,Integer.parseInt(vtype));
 		try {
 			if("发送成功！".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
@@ -754,7 +762,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,Integer.parseInt(vtype));
 		
 		return checkCode;
 	}
@@ -779,7 +787,7 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(newUsername, code,vtype);
+		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(newUsername, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
@@ -942,7 +950,7 @@ public class BrowserUserController {
 		 * 这个地方是可以了。目前都支持吧
 		 */
 		
-		//if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
+		if(StringUtils.isNotBlank(appUniqueId)){   //表示是app登录
 			//设置登录标识
 			onlineUserService.updateAppleTourisrecord(appUniqueId,1);
 			cacheService.set(ticket, user,TokenExpires.TenDay.getExpires());
@@ -954,7 +962,7 @@ public class BrowserUserController {
 			}else if(user.getLoginName()!=null){
 				cacheService.set(user.getLoginName(),"其他设备",TokenExpires.TenDay.getExpires());
 			}
-		//}else{
+		}else{
 			// 用户登录成功
 			// 第一个BUG的解决:第二个用户登录后将之前的session销毁!
 			req.getSession().invalidate();
@@ -983,7 +991,7 @@ public class BrowserUserController {
 			 * 这是cookie 
 			 */
 			UCCookieUtil.writeTokenCookie(res, token);
-		//}
+		}
 	}
 	
 	@RequestMapping(value="checkToken")
@@ -1027,11 +1035,11 @@ public class BrowserUserController {
 		}
 		String vtype = "1";
 		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
-		return onlineUserService.updateIPhoneRegist(req, password,username,vtype,appUniqueId);
+		return onlineUserService.updateIPhoneRegist(req, password,username,Integer.parseInt(vtype),appUniqueId);
 	}
 	
 	public static void main(String[] args) {
