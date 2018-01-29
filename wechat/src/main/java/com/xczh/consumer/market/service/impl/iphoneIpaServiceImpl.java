@@ -71,7 +71,7 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 		        ucc.setValue(new BigDecimal( -xmb));
 				//购买课程消耗的熊猫币
 		        ucc.setChangeType(ConsumptionChangeType.COURSE.getCode());
-				ucc.setOrderFrom(Payment);
+//				ucc.setOrderFrom(Payment);
 		        ucc.setUserId(userId);
 		        userCoinService.updateBalanceForConsumption(ucc);
 		        return ResponseObject.newSuccessResponseObject("支付成功");
