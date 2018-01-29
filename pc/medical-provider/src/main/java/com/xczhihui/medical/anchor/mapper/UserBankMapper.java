@@ -1,9 +1,7 @@
-package com.xczhihui.wechat.course.mapper;
+package com.xczhihui.medical.anchor.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.wechat.course.model.OfflineCity;
-import com.xczhihui.wechat.course.model.UserBank;
+import com.xczhihui.medical.anchor.vo.UserBank;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,8 +16,8 @@ import java.util.List;
  */
 public interface UserBankMapper extends BaseMapper<UserBank> {
 
-	 UserBank selectUserBankByUserIdAndAcctPan(@Param("userId") String userId,@Param("acctPan") String acctPan
-			 ,@Param("certId") String certId);
+	 UserBank selectUserBankByUserIdAndAcctPan(@Param("userId") String userId, @Param("acctPan") String acctPan
+             , @Param("certId") String certId);
 
 	 void add(@Param("userBank") UserBank userBank);
 

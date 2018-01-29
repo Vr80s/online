@@ -100,4 +100,7 @@ public interface ICourseService {
 
 	 public Page<CourseLecturVo>  selectAppCourseApplyPage(Page<CourseLecturVo> page,
 			String id, Integer courseFrom, Integer multimediaType);
+
+
+   	public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId);
 }

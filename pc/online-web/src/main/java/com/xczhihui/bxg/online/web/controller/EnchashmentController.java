@@ -1,18 +1,17 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import java.math.BigDecimal;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
-import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 
 /** 
  * ClassName: EnchashmentController.java <br>
@@ -27,22 +26,10 @@ public class EnchashmentController {
 	@Autowired
 	private EnchashmentService enchashmentService;
 
-	/** 
-	 * Description：提现列表
-	 * @param pageNumber
-	 * @param pageSize
-	 * @return
-	 * @return ResponseObject
-	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
-	 **/
-	@RequestMapping(value = "/enchashmentList")
-	public ResponseObject enchashmentList(HttpServletRequest request,Integer pageNumber, Integer pageSize) {
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		
-		return ResponseObject.newSuccessResponseObject(enchashmentService.enchashmentApplicationList(user.getId(),pageNumber, pageSize));
-	}
-	
-	/** 
+	@Autowired
+	private UserCoinService userCoinService;
+
+	/**
 	 * Description：可提现余额
 	 * @param request
 	 * @return
@@ -52,49 +39,45 @@ public class EnchashmentController {
 	@RequestMapping(value = "/enableEnchashmentBalance")
 	public ResponseObject enableEnchashmentBalance(HttpServletRequest request) {
 		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentBalance(user.getId()));
+		return ResponseObject.newSuccessResponseObject(userCoinService.getEnchashmentBalanceByUserId(user.getId()));
 	}
 	
 	/** 
 	 * Description：发起提现申请
 	 * @param request
-	 * @param ea
 	 * @return
 	 * @return ResponseObject
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	@RequestMapping(value = "/enchashment")
-	public ResponseObject saveEnchashment(HttpServletRequest request,EnchashmentApplication ea) {
+	public ResponseObject saveEnchashment(HttpServletRequest request,BigDecimal enchashmentSum,int bankCardId) {
 		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		ea.setClientType(1);
-		ea.setEnchashmentStatus(0);
-		ea.setUserId(user.getId());
-		enchashmentService.saveEnchashmentApplication(ea);
+		enchashmentService.saveEnchashmentApplyInfo(user.getId(),enchashmentSum,bankCardId, OrderFrom.PC);
 		return ResponseObject.newSuccessResponseObject("提现申请发起成功！");
 	}
-	
-	@RequestMapping(value = "/test")
-	public ResponseObject test(HttpServletRequest request) {
-		EnchashmentApplication ea = new EnchashmentApplication();
-		ea.setEnchashmentAccount("18611762456");
-		ea.setPhone("18611762456");
-		ea.setEnchashmentAccountType(0);
-		ea.setEnchashmentSum(new BigDecimal("0.01"));
-		ea.setRealName("testa[o");
-		
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		ea.setClientType(1);
-		ea.setEnchashmentStatus(0);
-		ea.setUserId(user.getId());
-		enchashmentService.saveEnchashmentApplication(ea);
-		return ResponseObject.newSuccessResponseObject("提现申请发起成功！");
-	}
-	
-	@RequestMapping(value = "/enchashmentData")
-	public ResponseObject getEnableEnchashmentData(HttpServletRequest request,EnchashmentApplication ea) {
-		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-		return ResponseObject.newSuccessResponseObject(enchashmentService.getEnableEnchashmentData(user.getId()));
-	}
+//
+//	@RequestMapping(value = "/test")
+//	public ResponseObject test(HttpServletRequest request) {
+//		EnchashmentApplication ea = new EnchashmentApplication();
+//		ea.setEnchashmentAccount("18611762456");
+//		ea.setPhone("18611762456");
+//		ea.setEnchashmentAccountType(0);
+//		ea.setEnchashmentSum(new BigDecimal("0.01"));
+//		ea.setRealName("testa[o");
+//
+//		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+//		ea.setClientType(1);
+//		ea.setEnchashmentStatus(0);
+//		ea.setUserId(user.getId());
+//		enchashmentService.saveEnchashmentApplication(ea);
+//		return ResponseObject.newSuccessResponseObject("提现申请发起成功！");
+//	}
+//
+//	@RequestMapping(value = "/enchashmentData")
+//	public ResponseObject getEnableEnchashmentData(HttpServletRequest request,EnchashmentApplication ea) {
+//		OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+//		return ResponseObject.newSuccessResponseObject(enchashmentService.getEnableEnchashmentData(user.getId()));
+//	}
 
 }
 

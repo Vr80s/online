@@ -444,6 +444,7 @@ a {
 	padding-top: 30.5px;
 	padding-left: 20px;
 	padding-bottom: 60px;
+	padding-right: 20px;
 }
 #hos_Administration .hos_renzheng_inf .bottomContent2 > div{
 	margin-bottom: 20px;
@@ -572,7 +573,7 @@ a {
 }
 #doc_Administration .bottomContent > div > span:first-child{
 	  display: inline-block;
-    width: 89px;
+    width: 96px;
     text-align: right;
     font-size: 14px;
     color: #2A2A2A;
@@ -589,7 +590,8 @@ a {
 #doc_Administration .bottomContent > div .doc_name,
 #doc_Administration .bottomContent > div .doc_zhicheng,
 #doc_Administration .bottomContent > div .doc_shanchang,
-#doc_Administration .bottomContent > div .doc_hospital{
+#doc_Administration .bottomContent > div .doc_hospital,
+#doc_Administration_bottom .doc_shanchangIpt{
 	width: 280px;
  	height: 36px;
  	border: 1px solid #f0f0f0;
@@ -647,6 +649,12 @@ a {
 	vertical-align: middle;
 	margin-right: 20px;
 }
+#doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic > img,
+#doc_Administration .bottomContent >.zhicheng_picUpdata .zhicheng_pic > img{
+	width: 100%;
+	height: 100%;
+}
+
 #doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
 	cursor: pointer;
 }

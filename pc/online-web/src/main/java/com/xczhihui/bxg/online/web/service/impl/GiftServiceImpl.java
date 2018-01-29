@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
@@ -33,27 +34,32 @@ public class GiftServiceImpl implements GiftService {
 	private OnlineUserCenterService onlineUserCenterService;
 
 	@Override
-	public Map<String,Object> addGiftStatement(GiftStatement giftStatement){
-		if(giftStatement.getCount()<1){
+	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom,int count,String liveId){
+		if(count<1){
 			throw new RuntimeException("送礼物数量最少为1！");
 		}
-		if(StringUtils.isBlank(giftStatement.getGiftId())){
+		if(StringUtils.isBlank(giftId)){
 			throw new RuntimeException("礼物id不为空！");
 		}
+
+		GiftStatement giftStatement = new GiftStatement();
+		giftStatement.setGiftId(giftId);
+		giftStatement.setGiver(giverId);
+		giftStatement.setReceiver(receiverId);
+		giftStatement.setLiveId(liveId);
 
 		DetachedCriteria dc = DetachedCriteria.forClass(Gift.class);
 		dc.add(Restrictions.eq("isDelete", false));
 		dc.add(Restrictions.eq("id", Integer.valueOf(giftStatement.getGiftId())));
 		Gift gift = giftDao.findEntity(dc);
 		if(gift == null) {
-            throw new NotSuchGiftException();
-        }
-		giftStatement.setCreateTime(new Date());
-		giftStatement.setGiftId(gift.getId()+"");
+			throw new RuntimeException("无对应礼物");
+		}
 		giftStatement.setGiftName(gift.getName());
 		giftStatement.setPrice(gift.getPrice());
 		giftStatement.setCreateTime(new Date());
 		giftStatement.setGiftImg(gift.getSmallimgPath());
+		giftStatement.setClientType(orderFrom.getCode());
 		giftDao.addGiftStatement(giftStatement);
 		
 		if(gift.getPrice()>0){
@@ -96,7 +102,7 @@ public class GiftServiceImpl implements GiftService {
     	map.put("giftInfo", mapGiftInfo);
     	map.put("giftCount",findByUserId(gs.getReceiver()));
     	map.put("messageType",1);
-    	map.put("balanceTotal",userCoinService.getBalanceByUserId(u.getId()).get("balanceTotal"));
+    	map.put("balanceTotal",userCoinService.getBalanceByUserId(u.getId()));
 		return map;
 	}
 

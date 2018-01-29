@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczh.consumer.market.utils.*;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
-
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -95,6 +96,9 @@ public class XzAlipayController {
 
 	@Autowired
 	private AlipayConfig alipayConfig;
+	
+	@Autowired
+	private OrderPayService orderPayService;
 
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -231,7 +235,7 @@ public class XzAlipayController {
 		}
 	}
 	/**
-	 * h5充值代币
+	 * h5 支付宝充值代币
 	 * @return
 	 * @throws Exception
 	 */
@@ -315,9 +319,7 @@ public class XzAlipayController {
 		// 设置异步通知地址
 		alipay_request.setNotifyUrl(alipayConfig.notify_url);
 		// 设置同步地址
-		alipay_request.setReturnUrl(returnOpenidUri
-				+ "/xcviews/html/topup.html?xmbCount=" + count);
-		
+		alipay_request.setReturnUrl(returnOpenidUri+ "/xcviews/html/topup.html?xmbCount=" + count);
 		// form表单生产
 		String form = "";
 		try {
@@ -673,40 +675,36 @@ public class XzAlipayController {
 			AlipayPaymentRecordH5 alipayPaymentRecordH5 = new AlipayPaymentRecordH5();
 			alipayPaymentRecordH5.setNotifyTime(para.get("notify_time"));
 			alipayPaymentRecordH5.setNotifyType(para.get("notify_type"));
-			alipayPaymentRecordH5.setNotifyId(para.get("notify_id"));
-			alipayPaymentRecordH5.setAppId(para.get("app_id"));
+			alipayPaymentRecordH5.setNotifyId(para.get("notify_id")); //通知校验ID
+			alipayPaymentRecordH5.setAppId(para.get("app_id"));		  //开发者的app_id
 			alipayPaymentRecordH5.setCharset(para.get("charset"));
 			alipayPaymentRecordH5.setVersion(para.get("version"));
-			alipayPaymentRecordH5.setSignType(para.get("sign_type"));
-			alipayPaymentRecordH5.setSign(para.get("sign"));
-			alipayPaymentRecordH5.setTradeNo(para.get("trade_no"));
-			alipayPaymentRecordH5.setOutTradeNo(para.get("out_trade_no"));
-			alipayPaymentRecordH5.setOutBizNo(para.get("out_biz_no"));
-			alipayPaymentRecordH5.setBuyerId(para.get("buyer_id"));
-			alipayPaymentRecordH5.setBuyerLogonId(para.get("buyer_logon_id"));
-			alipayPaymentRecordH5.setSellerId(para.get("seller_id"));
-			alipayPaymentRecordH5.setSellerEmail(para.get("seller_email"));
-			alipayPaymentRecordH5.setTradeStatus(para.get("trade_status"));
-			alipayPaymentRecordH5.setTotalAmount(para.get("total_amount"));
-			alipayPaymentRecordH5.setReceiptAmount(para.get("receipt_amount"));
-			alipayPaymentRecordH5.setInvoiceAmount(para.get("invoice_amount"));
-			alipayPaymentRecordH5.setBuyerPayAmount(para
-					.get("buyer_pay_amount"));
-			alipayPaymentRecordH5.setPointAmount(para.get("point_amount"));
-			alipayPaymentRecordH5.setRefundFee(para.get("refund_fee"));
-			alipayPaymentRecordH5.setSubject(para.get("subject"));
-			alipayPaymentRecordH5.setBody(para.get("body"));
-			alipayPaymentRecordH5.setGmtCreate(para.get("gmt_create"));
-			alipayPaymentRecordH5.setGmtPayment(para.get("gmt_payment"));
-			alipayPaymentRecordH5.setGmtRefund(para.get("gmt_refund"));
-			alipayPaymentRecordH5.setGmtClose(para.get("gmt_close"));
-			alipayPaymentRecordH5.setFundBillList(para.get("fund_bill_list"));
-			alipayPaymentRecordH5
-					.setPassbackParams(para.get("passback_params"));
-			alipayPaymentRecordH5.setVoucherDetailList(para
-					.get("voucher_detail_list"));
+			alipayPaymentRecordH5.setSignType(para.get("sign_type"));   //签名类型
+			alipayPaymentRecordH5.setSign(para.get("sign")); 			//签名
+			alipayPaymentRecordH5.setTradeNo(para.get("trade_no"));      //支付宝交易号
+			alipayPaymentRecordH5.setOutTradeNo(para.get("out_trade_no"));//商户订单号
+			alipayPaymentRecordH5.setOutBizNo(para.get("out_biz_no"));  //商户业务号
+			alipayPaymentRecordH5.setBuyerId(para.get("buyer_id"));     //买家支付宝用户号
+			alipayPaymentRecordH5.setBuyerLogonId(para.get("buyer_logon_id")); //买家支付宝账号
+			alipayPaymentRecordH5.setSellerId(para.get("seller_id")); //卖家支付宝用户号
+			alipayPaymentRecordH5.setSellerEmail(para.get("seller_email")); //卖家支付宝账号
+			alipayPaymentRecordH5.setTradeStatus(para.get("trade_status")); //交易状态
+			alipayPaymentRecordH5.setTotalAmount(para.get("total_amount"));// 订单金额
+			alipayPaymentRecordH5.setReceiptAmount(para.get("receipt_amount"));//实收金额
+			alipayPaymentRecordH5.setInvoiceAmount(para.get("invoice_amount")); //	开票金额
+			alipayPaymentRecordH5.setBuyerPayAmount(para.get("buyer_pay_amount"));//付款金额
+			alipayPaymentRecordH5.setPointAmount(para.get("point_amount"));//集分宝金额
+			alipayPaymentRecordH5.setRefundFee(para.get("refund_fee"));//总退款金额
+			alipayPaymentRecordH5.setSubject(para.get("subject"));//订单标题
+			alipayPaymentRecordH5.setBody(para.get("body"));//商品描述
+			alipayPaymentRecordH5.setGmtCreate(para.get("gmt_create")); //交易创建时间
+			alipayPaymentRecordH5.setGmtPayment(para.get("gmt_payment")); //交易付款时间
+			alipayPaymentRecordH5.setGmtRefund(para.get("gmt_refund")); //交易退款时间	
+			alipayPaymentRecordH5.setGmtClose(para.get("gmt_close"));//交易结束时间
+			alipayPaymentRecordH5.setFundBillList(para.get("fund_bill_list"));//支付金额信息
+			alipayPaymentRecordH5.setPassbackParams(para.get("passback_params"));//
+			alipayPaymentRecordH5.setVoucherDetailList(para.get("voucher_detail_list"));//
 
-			
 			LOG.info("trade_status:"+trade_status);
 			
 			if ("TRADE_SUCCESS".equals(trade_status)) {
@@ -761,11 +759,17 @@ public class XzAlipayController {
 						 */
 						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
 						// 普通订单
-						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no);
-						if (onlinePaySuccess) {
-							// 请不要修改或删除
-							response.getWriter().println("success");
-						}
+						//alipayPaymentRecordH5.getTradeNo() 支付宝交易号
+						
+						orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, alipayPaymentRecordH5.getTradeNo());		
+						
+//						boolean onlinePaySuccess = httpOnline(out_trade_no,trade_no);
+//						if (onlinePaySuccess) {
+//							// 请不要修改或删除
+//							response.getWriter().println("success");
+//						}
+						response.getWriter().println("success");
+						
 					} else if ("3".equals(ppbt)) {
 						
 						LOG.info("充值回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
@@ -777,7 +781,6 @@ public class XzAlipayController {
 						 * 将数据包转为用户代币对象，便于插入
 						 */
 						RechargeParamVo rechargeParamVo  = JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams(),RechargeParamVo.class);
-						
 						/*
 						 *  充值后记录增加，代币系统的余额执行代币充值工作
 						 */

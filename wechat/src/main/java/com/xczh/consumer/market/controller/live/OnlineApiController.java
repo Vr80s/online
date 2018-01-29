@@ -133,17 +133,22 @@ public class OnlineApiController {
 	@RequestMapping(value="cashList")
 	@ResponseBody
 	public ResponseObject cashList(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
-			return ResponseObject.newErrorResponseObject("缺少分页参数");
-		}
-		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
-		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
-		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
-		Page<EnchashmentApplication> page =  (Page<EnchashmentApplication>) 
-				enchashmentService.enchashmentApplicationList(ou.getId()
-				, pageNumber, pageSize);
-		LOGGER.info("page.getPageSize()");
-		return ResponseObject.newSuccessResponseObject(page);
+		
+		throw new RuntimeException("请更新最新版本！");
+		
+//		if(null == req.getParameter("pageNumber") && null == req.getParameter("pageSize")){
+//			return ResponseObject.newErrorResponseObject("缺少分页参数");
+//		}
+//		int pageNumber =Integer.parseInt(req.getParameter("pageNumber"));
+//		int pageSize = Integer.parseInt(req.getParameter("pageSize"));
+//		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+//		
+//		//Page<EnchashmentApplication> page =  (Page<EnchashmentApplication>)enchashmentService.enchashmentApplicationList(ou.getId(), pageNumber, pageSize);
+//		
+//		throw new RuntimeException("请更新最新版本！");
+//		
+//		LOGGER.info("page.getPageSize()");
+//		return ResponseObject.newSuccessResponseObject(page);
     }
 	
 	/**

@@ -1,4 +1,4 @@
-package com.xczhihui.wechat.course.model;
+package com.xczhihui.medical.anchor.vo;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -62,6 +62,26 @@ public class UserBank extends Model<UserBank> {
 	 */
 	@TableField("cert_type")
 	private String certType;
+	/**
+	 * 所属银行
+	 */
+	@TableField("bank_name")
+	private String bankName;
+	/**
+	 *是否默认
+	 */
+	@TableField("is_default")
+	private boolean isDefault;
+	/**
+	 * 排序
+	 */
+	@TableField("sort")
+	private Integer sort;
+	/**
+	 * 电话号码
+	 */
+	@TableField("tel")
+	private String tel;
 
 
 	@Override
@@ -131,5 +151,37 @@ public class UserBank extends Model<UserBank> {
 
 	public void setCertType(String certType) {
 		this.certType = certType;
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+
+	public void setDefault(boolean aDefault) {
+		isDefault = aDefault;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
 }

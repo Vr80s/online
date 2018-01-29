@@ -103,7 +103,7 @@ public class MyManagerController {
 		if(user != null){
 			System.out.println("================");
 			//熊猫币
-			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
+			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()));
 			//更新下用户信息
 			map.put("user",onlineUserService.findUserById(user.getId()));
 			//查找购买的课程数
@@ -148,22 +148,21 @@ public class MyManagerController {
     @ResponseBody
     public ResponseObject getEnchashmentBalance(HttpServletRequest request, HttpServletResponse res) throws Exception{
       
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if (user == null) {
         	return ResponseObject.newSuccessResponseObject(0);	
         }else{
-        	return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentBalance(user.getId()));	
+        	return ResponseObject.newSuccessResponseObject(userCoinService.getSettlementBalanceByUserId(user.getId()));	
         }
     }
     @RequestMapping("getEnchashmentRmbBalance")
     @ResponseBody
     public ResponseObject getEnchashmentRmbBalance(HttpServletRequest request, HttpServletResponse res) throws Exception{
-
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if (user == null) {
             throw new RuntimeException("登录超时！");
         }
-        return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentRmbBalance(user.getId()));
+        return ResponseObject.newSuccessResponseObject(userCoinService.getEnchashmentBalanceByUserId(user.getId()));
     }
 	
 	
