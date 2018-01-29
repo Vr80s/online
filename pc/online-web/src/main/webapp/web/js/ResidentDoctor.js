@@ -308,6 +308,9 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//内部状态模板
 			$('#AutStatus').html(template('docAutStatus_Tpl', data.resultObject));
 			
+			
+
+			
 		});
 
 

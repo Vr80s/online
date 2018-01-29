@@ -684,9 +684,9 @@
 		<div class="keshi">
 			<span>科室</span>
 			<ul>
-				<li>中医内科</li>
-				<li>中医内科</li>
-				<li>妇科</li>
+				{{if medicalDepartments.length > 0}}
+				  {{include 'adaptTpl' }}  
+				 {{/if}}
 			
 			</ul>
 		</div>
@@ -713,6 +713,14 @@
 		</div>
 	</script>
 	
+	
+	<!--科室部分的小模板-->
+<script type="text/template" id="adaptTpl">
+{{each medicalDepartments}}
+	<li data-id={{$value.id}}>{{$value.name}}</li>
+{{/each}}
+</script>
+
 	
 	
 	<!--医馆列表-->

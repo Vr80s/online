@@ -466,11 +466,10 @@
 		
 		<div class="keshi">
 			<span><em>*</em>科室</span>
-			<ul id="keshiList">
-				<li>心脏病</li>
-				<li>癌症</li>
-				<li>绝症</li>
-				<li>肝病</li>
+			<ul id="keshiList2">
+				{{if medicalDepartments.length > 0}}
+				  {{include 'adaptTpl' }}  
+				 {{/if}}
 			</ul>
 		</div>
 		
@@ -494,6 +493,14 @@
 		<span style="font-size: 14px;">{{province}}</span>
 		<span style="font-size: 14px;">{{city}}</span>
 	</div>
+</script>
+
+
+<!--科室部分的小模板-->
+<script type="text/template" id="adaptTpl">
+{{each medicalDepartments}}
+	<li data-id={{$value.id}}>{{$value.name}}</li>
+{{/each}}
 </script>
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
