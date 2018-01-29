@@ -332,13 +332,13 @@
 							<div>
 								<span><em>*</em> 医师姓名</span>
 								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
-								<span class="name_warn warning hide"> 医师姓名不能为空</span>
+								<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
 							</div>
 							
 							
-							<div class="touxiang_picUpdata">
+							<div class="touxiang_picUpdata"  >
 								<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
-								<span class="touxiang_pic">
+								<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
 									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
 								</span>
@@ -347,18 +347,19 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;">
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 							</div>
 							
 							<div>
 								<span><em>*</em> 医师职称</span>
 								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
-								<span class="warning hide"> 医师职称不能为空</span>
+								<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
 							</div>
 							
-							<div class="zhicheng_picUpdata">
+							<div class="zhicheng_picUpdata" >
 								<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-								<span class="zhicheng_pic">
+								<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
 								</span>
@@ -366,6 +367,7 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;">
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
 							</div>
 							
@@ -390,6 +392,7 @@
 							<div class="personIntroduct">
 								<span><em>*</em>  医师介绍</span>
 								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>
+								<p class="warning " style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
 							</div>
 							
 						

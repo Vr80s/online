@@ -648,6 +648,12 @@ a {
 	vertical-align: middle;
 	margin-right: 20px;
 }
+#doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic > img,
+#doc_Administration .bottomContent >.zhicheng_picUpdata .zhicheng_pic > img{
+	width: 100%;
+	height: 100%;
+}
+
 #doc_Administration .bottomContent >.touxiang_picUpdata .touxiang_pic:hover{
 	cursor: pointer;
 }
