@@ -1353,4 +1353,102 @@ pre {
     text-indent: 1em;
     margin-right: 10px;
 }
+
+#zhuanji_bottom .textarea textarea {
+    width: 540px;
+    height: 160px;
+    outline: none;
+    resize: none;
+    border: 1px solid #F0F0F0;
+    padding: 10px;
+}
+#zhuanji_bottom .textarea .span {
+    height: 160px;
+    float: left;
+    line-height: 160px !important;
+}
+#zhuanji_bottom .select select {
+    width: 280px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    color: #999999 !important;
+}
+
+
+/*更新时间开始*/
+.times{
+	width: 100%;
+}
+.times span{
+	float: left;
+	margin-top: 7px;
+}
+.times .div{
+	float: left;
+	
+}
+.times .div .div_one{
+	width: 82px;
+	height: 36px;
+	line-height: 36px;
+	border: 1px solid #DEDEDE;
+	font-size: 14px;
+	color: #333333;
+	margin-left: 20px;
+	float: left;
+	text-align: center;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.times .div .div_two{
+	width: 82px;
+	height: 36px;
+	line-height: 36px;
+	/*border: 1px solid #DEDEDE;*/
+	background: #00BC12;
+	font-size: 14px;
+	color: #fff;
+	margin-left: 20px;
+	float: left;
+	text-align: center;
+	border-radius: 4px;
+	float: left;
+	cursor: pointer;
+}
+.div_one0{
+	width: 82px;
+	height: 36px;
+	line-height: 36px;
+	border: 1px solid #00BC12;
+	font-size: 14px;
+	color: #00BC12;
+	text-align: center;
+	border-radius: 4px;
+	float: left;
+	margin-left: 20px;
+	cursor: pointer;
+}
+.times .div div:first-child{
+	margin-left: 3px;
+}
+/*.table_div table tr{
+	border: 1px solid #ccc;
+}
+.table_div table tr td{
+	border: 1px solid #ccc;
+}*/
+.table_div table thead {
+    height: 40px;
+    line-height: 40px;
+    background: #F0F0F0;
+    font-size: 14px;
+    color: #666666;
+}
+.table_div table tbody tr{
+	border: 1px solid #DEDEDE !important;
+}
+
+/*更新时间结束*/
+
 /*专辑结束*/

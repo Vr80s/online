@@ -337,7 +337,7 @@
 						</div>
 						
 						
-						<div id="resourceType">
+						<div id="resourceTypes">
 							<span><em>*</em>课程类型</span>
 							<label>
 								<input type="radio" name="resourceType" checked="checked" />线上课
@@ -597,6 +597,7 @@
 					
 	
 				</div>	
+				
 				<!--专辑-->
 				<div class="little_box" id="zhuanji">
 					<div class="zhuanlan_top">
@@ -767,7 +768,7 @@
 					<div class="zhuanlan_bottom hide" id="zhuanji_bottom">
 						<form action="">
 						<div>
-							<span><em>*</em>课程标题</span>
+							<span><em>*</em>专辑标题</span>
 							<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title"/>
 							<p class="warning warning0 hide">课程标题不能为空</p>
 						</div>
@@ -803,76 +804,34 @@
 						<div class="textarea">
 							<span class="span"><em>*</em>主播介绍</span>
 							<div class="">
-								<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textarea1"></textarea>
+								<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textarea2"></textarea>
 								
 							</div>
 							<p class="warning warning4 hide">主播介绍不能为空</p>
 						</div>
 						
-						
-						<div id="resourceType">
-							<span><em>*</em>课程类型</span>
-							<label>
-								<input type="radio" name="resourceType" checked="checked" />线上课
-							</label>
-							<label>
-								<input type="radio" name="resourceType" />直播课
-							</label>
-							<label>
-								<input type="radio" name="resourceType" />线下课
-							</label>
-						</div>
-						
-						
-						<div class="select">
-							<span><em>*</em>课程分类</span>
-							<select name="">
-								<option value="">请选择课程分类</option>
-								<option value="">我是分类1</option>
-								<option value="">我是分类2</option>
-								<option value="">我是分类3</option>
-							</select>
-							<p class="warning hide">课程分类不能为空</p>
-						</div>
-						<div class="select">
-							<span><em>*</em>开课时间</span>
-							
-							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time" />
-							<p class="warning warning5 hide">开课时间不能为空</p>
-						</div>
-						
-						
-						<div class="sheng">
-							<span style="float: left;margin-top: 5px;margin-right: 23px;"><em>*</em>上课地址</span>
-							<div id="demo3" class="citys">
-				                <p>
-				                    <select name="province"></select>
-				                    <select name="city"></select>
-				                    <!-- <select name="area"></select> -->
-				                </p>
-				            </div>
-				            <textarea name="" rows="" cols="" class="sheng_textarea" placeholder="请输入详细地址"></textarea>
-						</div>
-						
-						
 						<div>
-							<span><em>*</em>时长</span>
-							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2" style="width: 120px;" />
-							<span>分钟</span>
-							<p class="warning warning6 hide">时长不能为空</p>
-						</div>
-						<div>
-							<span><em>*</em>价格</span>
+							<span><em>*</em>总价</span>
 							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3" style="width: 120px;" />
 							<span>元</span>
-							<p class="warning warning7 hide">价格不能为空</p>
+							<p class="warning warning7 hide">总价不能为空</p>
 						</div>
+						
 						<div class="textarea">
-							<span class="span"><em>*</em>课程介绍</span>
+							<span class="span"><em>*</em>专辑介绍</span>
 							<div class="">
-								<textarea name="" rows="" cols="" placeholder="请输入内容介绍"></textarea>
+								<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textarea3"></textarea>
 								
 							</div>
+							<p class="warning warning9 hide">专辑介绍不能为空</p>
+						</div>
+						<div class="textarea">
+							<span class="span"><em>*</em>专辑大纲</span>
+							<div class="">
+								<textarea name="" rows="" cols="" placeholder="请输入大纲内容" id="textarea4"></textarea>
+								
+							</div>
+							<p class="warning warning01 hide">专辑大纲不能为空</p>
 						</div>
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
@@ -884,20 +843,127 @@
 							</label>
 						</div>
 						
+						<div>
+							<span><em>*</em>总集数</span>
+							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title03" style="width: 120px;" />
+							<span>集</span>
+							<p class="warning warning02 hide">总集数不能为空</p>
+						</div>
 						
-						<div id="zhuanjiUrl">
-							<span><em>*</em> 选择资源</span>
-							<input type="text" class="resourceUrl" />
-							<a href="javascript:;" id="a"><span>选择资源</span></a>
-							<p class="warning warning8 hide">选择资源不能为空</p>
+						
+						<div class="times">
+							<span><em>*</em>更新时间</span>
+							<div class="div" id="times_div">
+								<div class="div_one" style="">一</div>
+								<div class="div_one">二</div>
+								<div class="div_one">三</div>
+								<div class="div_one">四</div>
+								<div class="div_one">五</div>
+								<div class="div_one">六</div>
+								<div class="div_two">重置</div>
+								
+							</div>
+							<div class="both"></div>
+							<p class="warning warning002 hide">更新时间不能为空</p>
 						</div>
-						<div class="baocun">
-							<input type="submit" value="提交课程" id="submit"/>
-							<input type="submit" value="保存" id="submit0"/>
+						
+						
+						<div class="table_div">
+							<span><em>*</em>选集</span>
+							<!--<table>
+								<tr>
+									<td>序号</td>
+									<td>课程名称</td>
+									<td>主播</td>
+									<td>价格</td>
+									<td>操作</td>
+								</tr>
+							</table>-->
+							
+							<table>
+							 <thead>
+							<tr>
+								<td>封面图</td>
+								<td>课程名称</td>
+								<td>资源类型</td>
+								<td>状态</td>
+								<td>操作</td>
+							</tr>
+							 </thead>
+							  <tbody>
+							<tr>
+								<td>
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</td>
+								<td>
+									中医药席卷全球成独特风景，发展热情被彻底点燃
+								</td>
+								<td>
+									￥200.00
+								</td>
+								<td>
+									80’
+								</td>
+								<td>
+									<a href="javascript:;">下架</a>
+									<a href="javascript:;">编辑</a>
+								</td>
+							</tr>
+							
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</tbody>
+						</table>
+							
+							
+							<!--<p class="warning warning02 hide">总集数不能为空</p>-->
 						</div>
-						</form>
-					</div>
-					
+						
+						
+						
+						
+						
+						
 					
 					
 					
