@@ -117,9 +117,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public UserCoinConsumption updateBalanceForConsumption(UserCoinConsumption ucc) {
-        DetachedCriteria dc = DetachedCriteria.forClass(UserCoin.class);
-        dc.add(Restrictions.eq("userId", ucc.getUserId()));
-        UserCoin uc = userCoinDao.findEntity(dc);
+        UserCoin uc = userCoinDao.getBalanceByUserId(ucc.getUserId());
 
         if (uc == null) {
             throw new RuntimeException("用户账户不存在，请联系管理员！");
@@ -169,6 +167,21 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setStatus(true);
         userCoinDao.save(ucc);
         return ucc;
+    }
+
+
+    @Override
+    public void updateBalanceForByCourse(String userId,OrderFrom orderFrom,BigDecimal coin,String orderNo) {
+        if(coin.compareTo(BigDecimal.ZERO) != 1){
+            throw new RuntimeException("课程熊猫币价格必须大于0");
+        }
+        UserCoinConsumption ucc = new UserCoinConsumption();
+        ucc.setUserId(userId);
+        ucc.setOrderFrom(orderFrom.getCode());
+        ucc.setValue(coin.negate());
+        ucc.setOrderNoConsume(orderNo);
+        ucc.setBalanceType(BalanceType.BALANCE.getCode());
+        updateBalanceForConsumption(ucc);
     }
 
     @Override
@@ -328,30 +341,24 @@ public class UserCoinServiceImpl implements UserCoinService {
     }
 
     @Override
-    public UserCoinConsumption updateBalanceForEnchashment(UserCoinConsumption ucc) {
-        DetachedCriteria dc = DetachedCriteria.forClass(UserCoin.class);
-        dc.add(Restrictions.eq("userId", ucc.getUserId()));
-        UserCoin uc = userCoinDao.findEntity(dc);
+    public UserCoinConsumption updateBalanceForEnchashment(String userId, BigDecimal enchashmentSum, OrderFrom orderFrom,String enchashmentApplyId) {
+        UserCoin uc = userCoinDao.getBalanceByUserId(userId);
 
         if (uc == null) {
             throw new RuntimeException("用户账户不存在！");
         }
+        if(enchashmentSum.compareTo(BigDecimal.ZERO)!=1){
+            throw new RuntimeException("提现金额必须大于0");
+        }
 
-        BigDecimal balanceRewardGift = BigDecimal.ZERO;
-        BigDecimal balance = BigDecimal.ZERO;
+        UserCoinConsumption ucc = new UserCoinConsumption();
+        ucc.setValue(enchashmentSum.negate());
 
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         //用户收到的礼物打赏余额-提现金额  是否大于0
         //判断余额是否充足（ucc的value为负值）
-        if (uc.getBalanceRewardGift().add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
-            sql.append(" uc.`balance_reward_gift`=uc.balance_reward_gift" + ucc.getValue());
-            balanceRewardGift = ucc.getValue();
-        } else if (uc.getBalanceRewardGift().add(uc.getBalance()).add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
-            //判断余额是否充足（ucc的value为负值）
-            sql.append(" uc.`balance`=uc.balance + uc.balance_reward_gift +" + ucc.getValue() + ",");
-            sql.append(" uc.`balance_reward_gift`= 0 ");
-            balanceRewardGift = uc.getBalanceRewardGift().negate();
-            balance = ucc.getValue().subtract(balanceRewardGift);
+        if (uc.getRmb().add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
+            sql.append(" uc.`rmb`=uc.rmb" + ucc.getValue());
         } else {
             //余额不足异常
             throw new RuntimeException("用户账户可提现余额不足！");
@@ -366,10 +373,13 @@ public class UserCoinServiceImpl implements UserCoinService {
             throw new RuntimeException("系统繁忙,请稍后再试！");
         }
         ucc.setUserCoinId(uc.getId());
-        ucc.setBalanceValue(balance);
+        ucc.setBalanceValue(BigDecimal.ZERO);
         ucc.setBalanceGiveValue(BigDecimal.ZERO);
-        //提现代币金额
-        ucc.setBalanceRewardGift(balanceRewardGift);
+        ucc.setBalanceRewardGift(BigDecimal.ZERO);
+        ucc.setBalanceType(BalanceType.ANCHOR_RMB.getCode());
+        ucc.setOrderFrom(orderFrom.getCode());
+        ucc.setRmb(ucc.getValue());
+        ucc.setOrderNoEnchashment(enchashmentApplyId);
         ucc.setCreateTime(new Date());
         ucc.setDeleted(false);
         ucc.setStatus(true);

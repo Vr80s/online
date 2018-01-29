@@ -163,7 +163,7 @@
 	 <!--医师医馆公共服务-->
      <dubbo:reference interface="com.xczhihui.medical.common.service.ICommonService" id="commonServiceImpl" timeout="5000"  />
 	<!--用户银行卡-->
-	<dubbo:reference interface="com.xczhihui.medical.pay.service.IUserBankService" id="userBankServiceImpl"  timeout="5000" />
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl" timeout="5000" />
 	
 	<!-- 我的信息管理类 -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl" timeout="5000"  />

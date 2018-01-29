@@ -4,8 +4,9 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
-import com.xczhihui.medical.pay.model.UserBank;
-import com.xczhihui.medical.pay.service.IUserBankService;
+
+import com.xczhihui.medical.anchor.service.IUserBankService;
+import com.xczhihui.medical.anchor.vo.UserBank;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

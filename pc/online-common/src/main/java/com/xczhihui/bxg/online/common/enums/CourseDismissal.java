@@ -3,7 +3,13 @@ package com.xczhihui.bxg.online.common.enums;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Dismissal {
+/**
+ * Description：主播课程驳回理由
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: yuruixin@ixincheng.com
+ * @Date: 下午 3:41 2018/1/29 0029
+ **/
+public enum CourseDismissal {
 
     D1(1, "课程中含有不符合要求的内容，请修改"),
     D2(2, "课程未发现可播放视频"),
@@ -14,21 +20,21 @@ public enum Dismissal {
     private int code;
 
     // 构造方法
-    private Dismissal(int code, String text) {
+    private CourseDismissal(int code, String text) {
         this.text = text;
         this.code = code;
     }
 
-    public static List<Dismissal> getDismissalList(){
-        List<Dismissal> dismissalList = new ArrayList<Dismissal>();
-        for (Dismissal e : Dismissal.values()) {
+    public static List<CourseDismissal> getDismissalList(){
+        List<CourseDismissal> dismissalList = new ArrayList<CourseDismissal>();
+        for (CourseDismissal e : CourseDismissal.values()) {
             dismissalList.add(e);
         }
         return dismissalList;
     }
 
     public static String getDismissal(int code){
-        for (Dismissal e : Dismissal.values()) {
+        for (CourseDismissal e : CourseDismissal.values()) {
             if(e.getCode() == code){
                 return e.getText();
             }
@@ -57,7 +63,7 @@ public enum Dismissal {
 //        System.err.println(Dismissal.D1.code+"==="+Dismissal.D1.text);
 //        System.err.println(Dismissal.D2.code+"==="+Dismissal.D2.text);
 //        System.err.println(Dismissal.D3.code+"==="+Dismissal.D3.text);
-        for (Dismissal e : Dismissal.values()) {
+        for (CourseDismissal e : CourseDismissal.values()) {
             System.out.println(e.getCode());
         }
     }

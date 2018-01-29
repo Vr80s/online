@@ -58,7 +58,9 @@ public interface UserCoinService {
 	 **/
 	public UserCoinConsumption updateBalanceForConsumption(UserCoinConsumption ucc);
 
-	/** 
+	void updateBalanceForByCourse(String userId, OrderFrom orderFrom, BigDecimal coin, String orderNo);
+
+	/**
 	 * Description：添加用户熊猫
 	 * @param userId
 	 * @return void
@@ -100,7 +102,13 @@ public interface UserCoinService {
 	 **/
 	public BigDecimal getEnableEnchashmentBalance(String userId);
 
-	public UserCoinConsumption updateBalanceForEnchashment(UserCoinConsumption ucc);
+	/**
+	 * Description：提现-更改用户的人民币余额
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 4:34 2018/1/29 0029
+	 **/
+	public UserCoinConsumption updateBalanceForEnchashment(String userId, BigDecimal enchashmentSum, OrderFrom orderFrom,String enchashmentApplyId);
 
 	public boolean checkRechargeOrder(String orderNo);
 

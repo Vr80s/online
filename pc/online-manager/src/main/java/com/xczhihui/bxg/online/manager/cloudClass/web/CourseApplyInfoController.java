@@ -8,7 +8,7 @@ import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
-import com.xczhihui.bxg.online.common.enums.Dismissal;
+import com.xczhihui.bxg.online.common.enums.CourseDismissal;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
@@ -153,7 +153,7 @@ public class CourseApplyInfoController extends AbstractController{
 	public String courseDetail(HttpServletRequest request,Integer id) {
 		CourseApplyInfo courseApplyInfo=courseApplyService.findCourseApplyById(id);
 		request.setAttribute("courseApplyInfo", courseApplyInfo);
-		List<Dismissal> dismissalList = Dismissal.getDismissalList();
+		List<CourseDismissal> dismissalList = CourseDismissal.getDismissalList();
 		request.setAttribute("dismissalList", dismissalList);
 		return CLOUD_CLASS_PATH_PREFIX + "/courseApplyDetail";
 	}
