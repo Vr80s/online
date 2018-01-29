@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczh.consumer.market.utils.*;
-import com.xczhihui.bxg.online.api.po.UserCoinIncrease;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -200,16 +199,18 @@ public class XzAlipayController {
 			cList = ((OnlineOrder) onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject()).getAllCourse();
 			
 			int cCount = cList.size();
-			if (cCount > 1) { // 多个课程 跳到订单列表
-				
+			if (cCount > 1) {
+				// 多个课程 跳到订单列表
 				alipay_request.setReturnUrl(alipayConfig.return_url);
-				
-			} else { // 单个课程 直接跳到播放页
+			} else {
+				// 单个课程 直接跳到播放页
 				OnlineCourse payCourse = cList.get(0);
-				if (payCourse.getType() == 1) { // 直播
+				if (payCourse.getType() == 1) {
+					// 直播
 					alipay_request.setReturnUrl(returnOpenidUri+ "/bxg/xcpage/courseDetails?courseId="
 							+ payCourse.getId());
-				} else { // 视频 音频
+				} else {
+					// 视频 音频
 					alipay_request.setReturnUrl(returnOpenidUri+ "/xcviews/html/particulars.html?courseId="+ payCourse.getId());
 				}
 			}
@@ -220,7 +221,8 @@ public class XzAlipayController {
 			// 调用SDK生成表单
 			form = client.pageExecute(alipay_request).getBody();
 			response.setContentType("text/html;charset=" + alipayConfig.CHARSET);
-			response.getWriter().write(form);// 直接将完整的表单html输出到页面
+			// 直接将完整的表单html输出到页面
+			response.getWriter().write(form);
 			response.getWriter().flush();
 			response.getWriter().close();
 		} catch (AlipayApiException e) {
@@ -246,8 +248,7 @@ public class XzAlipayController {
 		}
 		String ap = null;
 		ap = actualPay;
-		if (ap.indexOf(".") >= 0
-				&& ap.substring(ap.lastIndexOf(".")).length() < 3) {
+		if (ap.indexOf(".") >= 0 && ap.substring(ap.lastIndexOf(".")).length() < 3) {
 			ap = ap + "0";
 		}
 		Double count = Double.valueOf(ap) * rate;
@@ -288,12 +289,15 @@ public class XzAlipayController {
 		 * 封装充值数据包
 		 */
 		RechargeParamVo rechargeParamVo = new RechargeParamVo();
-		rechargeParamVo.setT("3"); //1:打赏 2 普通订单 3 充值代币
+		//1:打赏 2 普通订单 3 充值代币
+		rechargeParamVo.setT("3");
 		rechargeParamVo.setClientType(1+"");
 		rechargeParamVo.setUserId(user.getId() );
-		rechargeParamVo.setPayType(1); //0:支付宝 1:微信 2:网银
-		rechargeParamVo.setValue(new BigDecimal(count)); //熊猫币
-		rechargeParamVo.setOrderForm(Integer.parseInt(clientType)); //订单来源
+//		rechargeParamVo.setPayType(1); //0:支付宝 1:微信 2:网银
+		//熊猫币
+		rechargeParamVo.setValue(new BigDecimal(count));
+		//订单来源
+		rechargeParamVo.setOrderForm(Integer.parseInt(clientType));
 		
 
 		String passbackParams = JSONObject.toJSON(rechargeParamVo).toString();
@@ -320,7 +324,8 @@ public class XzAlipayController {
 			// 调用SDK生成表单
 			form = client.pageExecute(alipay_request).getBody();
 			response.setContentType("text/html;charset=" + alipayConfig.CHARSET);
-			response.getWriter().write(form);// 直接将完整的表单html输出到页面
+			// 直接将完整的表单html输出到页面
+			response.getWriter().write(form);
 			response.getWriter().flush();
 			response.getWriter().close();
 		} catch (AlipayApiException e) {
@@ -353,7 +358,8 @@ public class XzAlipayController {
 		 * 根据订单id得到这个订单中已经存在的课程。 如果这个课程已经存在，提示用户这个订单你已经购买过了。
 		 */
 		ResponseObject ro = onlineOrderService.orderIsExitCourseIsBuy(onlineOrder.getId(), onlineOrder.getUserId());
-		if (!ro.isSuccess()) {// 存在此订单哈
+		if (!ro.isSuccess()) {
+			// 存在此订单哈
 			return ro;
 		}
 		// 订单号 支付的钱
@@ -388,7 +394,7 @@ public class XzAlipayController {
 			AlipayTradeAppPayResponse response = alipayClient
 					.sdkExecute(request);
 			LOG.info(response.getBody());// 就是orderString
-													// 可以直接给客户端请求，无需再做处理。
+			// 可以直接给客户端请求，无需再做处理。
 			return ResponseObject.newSuccessResponseObject(response.getBody());
 		} catch (AlipayApiException e) {
 			e.printStackTrace();
@@ -440,10 +446,12 @@ public class XzAlipayController {
 		 * 封装充值数据包  回调的时候用到这个从那时候数据
 		 */
 		RechargeParamVo rechargeParamVo = new RechargeParamVo();
-		rechargeParamVo.setT("3"); //1:打赏 2 普通订单 3 充值代币
+		//1:打赏 2 普通订单 3 充值代币
+		rechargeParamVo.setT("3");
 		rechargeParamVo.setUserId(user.getId());
-		rechargeParamVo.setPayType(0); //0:支付宝 1:微信 2:网银
-		rechargeParamVo.setValue(new BigDecimal(count)); //熊猫币
+//		rechargeParamVo.setPayType(0); //0:支付宝 1:微信 2:网银
+		//熊猫币
+		rechargeParamVo.setValue(new BigDecimal(count));
 		rechargeParamVo.setOrderForm(5); //订单来源
 		
 		String passbackParams = JSONObject.toJSON(rechargeParamVo).toString();
@@ -452,8 +460,7 @@ public class XzAlipayController {
 		AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
 		// model.setBody("");
 		model.setSubject("充值");
-		model.setOutTradeNo(TimeUtil.getSystemTime()
-				+ RandomUtil.getCharAndNumr(12));
+		model.setOutTradeNo(TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12));
 		model.setTimeoutExpress("24h");
 		model.setTotalAmount(String.valueOf(ap));
 		model.setProductCode("QUICK_MSECURITY_PAY");
@@ -465,7 +472,7 @@ public class XzAlipayController {
 			AlipayTradeAppPayResponse response = alipayClient
 					.sdkExecute(request);
 			LOG.info(response.getBody());// 就是orderString
-													// 可以直接给客户端请求，无需再做处理。
+			// 可以直接给客户端请求，无需再做处理。
 			return ResponseObject.newSuccessResponseObject(response.getBody());
 		} catch (AlipayApiException e) {
 			e.printStackTrace();
@@ -658,7 +665,8 @@ public class XzAlipayController {
 
 		LOG.info("阿里支付回调是否成功  verify_result:"+verify_result);
 		
-		if (verify_result) {// 验证成功
+		if (verify_result) {
+			// 验证成功
 			if ("TRADE_CLOSED".equals(para.get("trade_status"))) {
 				return;
 			}
@@ -773,20 +781,20 @@ public class XzAlipayController {
 						/*
 						 *  充值后记录增加，代币系统的余额执行代币充值工作
 						 */
-						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-						userCoinIncrease.setUserId(rechargeParamVo.getUserId());
-						//1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回
-						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-						//熊猫币
-						userCoinIncrease.setValue(rechargeParamVo.getValue());
-						userCoinIncrease.setCreateTime(new Date());
-						//0:支付宝 1:微信 2:网银
-						userCoinIncrease.setPayType(rechargeParamVo.getPayType());
-						//0:支付宝 1:微信 2:网银
-						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());
-						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
-						
-						userCoinService.updateBalanceForIncrease(userCoinIncrease);
+//						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
+//						userCoinIncrease.setUserId(rechargeParamVo.getUserId());
+//						//1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回
+//						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+//						//熊猫币
+//						userCoinIncrease.setValue(rechargeParamVo.getValue());
+//						userCoinIncrease.setCreateTime(new Date());
+//						//0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付
+//						userCoinIncrease.setPayType(rechargeParamVo.getPayType());
+//						//1.pc 2.h5 3.android 4.ios
+//						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());
+//						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
+
+						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),Payment.ALIPAY,rechargeParamVo.getValue(), OrderFrom.ANDROID,alipayPaymentRecordH5.getTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}

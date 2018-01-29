@@ -2,7 +2,7 @@ package com.xczhihui.bxg.online.api.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 
 import java.util.Map;
 
@@ -21,7 +21,7 @@ public interface EnchashmentService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 7:04 2018/1/27 0027
 	 **/
-	public void saveSettlement(String userId, int amount,OrderForm orderForm);
+	public void saveSettlement(String userId, int amount,OrderFrom orderFrom);
 
     /** 
      * Description：提现申请表

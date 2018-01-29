@@ -16,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xczhihui.bxg.online.api.service.OrderPayService;
-import com.xczhihui.bxg.online.common.enums.BalanceType;
-import com.xczhihui.bxg.online.common.enums.IncreaseChangeType;
-import com.xczhihui.bxg.online.common.enums.OrderForm;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
@@ -480,7 +478,7 @@ public class AlipayController {
                             //计时
                             long current = System.currentTimeMillis();
                             //处理订单业务
-                            orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY.getCode(),trade_no);
+                            orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY,trade_no);
 //                            orderService.addPaySuccess(out_trade_no, 0, trade_no);
                             logger.info("订单支付成功，订单号:{},用时{}",
                                     out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
@@ -498,7 +496,7 @@ public class AlipayController {
                     BeanUtils.copyProperties(rs,rpv);
                     rs.setCreateTime(new Date());
                     rs.setPayType(Payment.ALIPAY.getCode());//
-                    rs.setChannel(OrderForm.PC.getCode());
+                    rs.setChannel(OrderFrom.PC.getCode());
                     rs.setOrderNo(out_trade_no);
                     rs.setStatus(1);
 //                    rs.setPrice(price);
@@ -509,13 +507,13 @@ public class AlipayController {
                 }else if("recharge".equals(notifyType)){
                 	System.out.println("即将插入数据recharge");
                     UserCoinIncrease uci = JSONObject.parseObject(alipayPaymentRecord.getPassbackParams().split("&")[1].replace("|", "\""),UserCoinIncrease.class);
-                    uci.setCreateTime(new Date());
-                    uci.setOrderNoRecharge(out_trade_no);
-                    uci.setPayType(Payment.ALIPAY.getCode());
-                    uci.setOrderFrom(OrderForm.PC.getCode());
-                    uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-                    uci.setBalanceType(BalanceType.BALANCE.getCode());
-                    userCoinService.updateBalanceForIncrease(uci);
+//                    uci.setCreateTime(new Date());
+//                    uci.setOrderNoRecharge(out_trade_no);
+//                    uci.setPayType(Payment.ALIPAY.getCode());
+//                    uci.setOrderFrom(OrderFrom.PC.getCode());
+//                    uci.setChangeType(IncreaseChangeType.RECHARGE.getCode());
+//                    uci.setBalanceType(BalanceType.BALANCE.getCode());
+                    userCoinService.updateBalanceForRecharge(uci.getUserId(),Payment.ALIPAY,uci.getValue(), OrderFrom.PC,out_trade_no);
                 }
 
             }
@@ -572,7 +570,7 @@ public class AlipayController {
                                 //计时
                                 long current = System.currentTimeMillis();
                                 //处理订单业务
-                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY.getCode(), transaction_id);
+                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, transaction_id);
 //                                orderService.addPaySuccess(out_trade_no, 0, transaction_id);
                                 logger.info("订单支付成功，订单号:{},用时{}",
                                         out_trade_no, (System.currentTimeMillis() - current) + "毫秒");

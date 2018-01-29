@@ -72,11 +72,6 @@ public class CourseLecturVo implements Serializable {
      */
     private Integer lineState;
     
-    //c.original_cost as originalCost,c.current_price as currentPrice,c.is_free as isFree
-    /**
-     * 原价
-     */
-    private double originalCost;
     /**
      * 现价
      */
@@ -94,14 +89,14 @@ public class CourseLecturVo implements Serializable {
     /**
      * 观看人数
      */
-    private Integer  learndCount;
+    private Integer  learndCount;  //学习人数
 
-    private Integer giftCount;
+    private Integer giftCount; //礼物数
     
-    private Integer fansCount;
+    private Integer fansCount; //粉丝数
     
+    private Integer focusCount; //关注数
     
-
     //打赏数量
     private String rewardCount;
 
@@ -135,16 +130,9 @@ public class CourseLecturVo implements Serializable {
     /**
      * 是否关注了这个主播
      */
-    private Integer isfocus; //课程分类   0 未关注     1 关注
-    
-    private Integer countFans; //粉丝数
-    
-    private Integer countGift; //礼物数
-    
-    private Integer countSubscribe; //预约的人数
+    private Integer isFocus; //课程分类   0 未关注     1 关注
     
     private Integer isSubscribe; //0 未预约  1预约
-    
     
     private Integer watchState; //观看状态 0免费  1收费  2 需要密码验证
     
@@ -243,12 +231,16 @@ public class CourseLecturVo implements Serializable {
 	public void setLineState(Integer lineState) {
 		this.lineState = lineState;
 	}
-	public double getOriginalCost() {
-		return originalCost;
+
+	
+	public Integer getFocusCount() {
+		return focusCount;
 	}
-	public void setOriginalCost(double originalCost) {
-		this.originalCost = originalCost;
+
+	public void setFocusCount(Integer focusCount) {
+		this.focusCount = focusCount;
 	}
+
 	public double getCurrentPrice() {
 		return currentPrice;
 	}
@@ -316,36 +308,14 @@ public class CourseLecturVo implements Serializable {
 	public void setRoomNumber(Integer roomNumber) {
 		this.roomNumber = roomNumber;
 	}
-	public Integer getIsfocus() {
-		return isfocus;
-	}
-	public void setIsfocus(Integer isfocus) {
-		this.isfocus = isfocus;
-	}
+
 	public String getCourseDescription() {
 		return courseDescription;
 	}
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 	}
-	public Integer getCountFans() {
-		return countFans;
-	}
-	public void setCountFans(Integer countFans) {
-		this.countFans = countFans;
-	}
-	public Integer getCountGift() {
-		return countGift;
-	}
-	public void setCountGift(Integer countGift) {
-		this.countGift = countGift;
-	}
-	public Integer getCountSubscribe() {
-		return countSubscribe;
-	}
-	public void setCountSubscribe(Integer countSubscribe) {
-		this.countSubscribe = countSubscribe;
-	}
+	
 	public Integer getIsSubscribe() {
 		return isSubscribe;
 	}
@@ -544,6 +514,14 @@ public class CourseLecturVo implements Serializable {
 
 	public void setApplyStatus(Integer applyStatus) {
 		this.applyStatus = applyStatus;
+	}
+
+	public Integer getIsFocus() {
+		return isFocus;
+	}
+
+	public void setIsFocus(Integer isFocus) {
+		this.isFocus = isFocus;
 	}
 	
 	

@@ -173,7 +173,6 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 		} else {
 			logger.warn("重置密码");
 		}
-
 		user.setPassword(newPassword);
 		this.proccessPassword(user, false);
 		this.itcastUserDao.updatePassword(user.getId(), user.getPassword());

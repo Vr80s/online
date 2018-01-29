@@ -1,13 +1,13 @@
 package com.xczhihui.bxg.online.common.enums;
 
 /**
- * Description：订单来源
- * 1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
- * creed: Talk is cheap,show me the code
- * @author name：yuxin <br>email: yuruixin@ixincheng.com
- * @Date: 上午 10:55 2018/1/25 0025
- **/
-public enum OrderForm {
+ * 注册来源  
+ * ClassName: RegisterForm.java <br>
+ * Description: <br>
+ * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
+ * Create Time: 2018年1月29日<br>
+ */
+public enum RegisterForm {
 
     PC(1, "pc"),
     H5(2, "h5"),
@@ -22,7 +22,7 @@ public enum OrderForm {
     private String text;
     private int code;
 
-    private OrderForm(int code, String text) {
+    private RegisterForm(int code, String text) {
         this.text = text;
         this.code = code;
     }
