@@ -399,3 +399,5 @@ $('#zhicheng_pic_ipt').on('change',function(){
 	reader.readAsDataURL(this.files[0])
 })
 
+
+

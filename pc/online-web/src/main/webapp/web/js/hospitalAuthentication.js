@@ -207,6 +207,24 @@ $(function(){
 	})
 	
 	
+	
+	//医馆信息的回显数据渲染
+	RequestService("/medical/hospital/apply/getLastOne", "get", {			
+			}, function(data) {
+				console.log(data);
+			if(data.success == false){
+				alert('获取认证状态数据失败');
+			}else if(data.success == true){
+//				alert('认证成功');
+				//医馆数据渲染
+				$('#hosAutStatus').html(template('hosAutStatusTpl',data.resultObject))
+			}
+
+		})
+	
+	
+	
+	
 })
 
 

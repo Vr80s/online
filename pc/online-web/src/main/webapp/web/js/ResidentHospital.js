@@ -13,6 +13,40 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 		});
 
 
+//获取医馆认证状态控制左侧tab栏
+ RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+	       if(data.success == true ){
+	       	if(data.resultObject.indexOf(2) == -1){
+	       		//医馆认证未成功显示出来认证失败的页面
+	       		
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
+	       		
+	       		if(data.resultObject.indexOf(3) != -1){
+	       			//认证中
+	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
+	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
+
+	       		}else if(data.resultObject.indexOf(7) != -1){
+	       			//未认证
+//	       			$('#docNoPass_tip').removeClass('hide');	
+	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
+	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
+	       		}
+	       	}else if(data.resultObject.indexOf(2) != -1){
+	       		//医馆认证成功 左侧tab显示出来 医馆基础信息显示出来
+	       		$('#doc_Administration_tabBtn').removeClass('hide');
+	       		$('#hos_base_inf').removeClass('hide');
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
+	       	}
+	       }
+
+	    });
+
+
+
+
 
 
 $(".doctor_inf >img").attr('src',userPic)
@@ -500,5 +534,10 @@ $('#doc_Administration  .keshi ul li').click(function(){
 		}
 	})
 
+//点击重新认证按钮的效果
+function hosAgainAut(){
 
+	$('#hos_Administration .hos_renzheng_inf .bottomContent2 ').addClass('hide');
+	$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
 	
+}
