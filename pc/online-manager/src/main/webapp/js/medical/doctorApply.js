@@ -80,7 +80,7 @@ function showDetailDialog(obj, status) {
         aData = P_courseTable.fnGetData(oo); // get datarow
         // page = getCurrentPageNo(P_courseTable);
     }
-    window.location.href = basePath + '/home#medical/doctor/apply/' + aData.id;
+    window.location.href = basePath + '/home#medical/doctor/apply/info/' + aData.id;
 }
 
 function search_P() {

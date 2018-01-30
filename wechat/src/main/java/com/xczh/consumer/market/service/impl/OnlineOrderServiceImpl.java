@@ -99,15 +99,17 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		/**
 		 * 原来只判断了一种情况，单个订单。如果是多个订单呢？
 		 */
-		//OnlineOrder order_query = orderMapper.getCourseInfoByCourseId(courseId,userId);
 		OnlineOrder order_query = orderMapper.getOrderCourseInfoByUserId(courseId,userId);
 		String orderId =UUID.randomUUID().toString().replace("-", "");
 		if(null != order_query){
 	        long createTime = order_query.getCreateTime().getTime();//订单创建时间
 	        long now = new Date().getTime();
-	        if((now - createTime)/1000 > 60 * 60 * 24){  //也就是这个未支付的订单，并且很长时间了，就直接取消了，在生成一个新订单
-	        	orderMapper.updateOnlineOrderStatus(1, order_query.getOrderNo()); //取消这个订单
-	        	
+	         //也就是这个未支付的订单，超过一天就失效了，就直接取消。在生成一个新订单
+	        
+	        if((now - createTime)/1000 > 60 * 60 * 24){  
+	        	//取消这个订单
+	        	orderMapper.updateOnlineOrderStatus(1, order_query.getOrderNo()); 
+	        	//创建一个新订单
 	        	String orderNo = createOrder1(course, user,orderFrom,orderId);
 	        	returnMap.put("orderNo", orderNo);
 	        	returnMap.put("orderId", orderId);

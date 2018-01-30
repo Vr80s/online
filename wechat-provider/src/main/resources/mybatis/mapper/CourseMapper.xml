@@ -37,6 +37,41 @@
 		oe_course oc where oc.id = #{courseId}
 	</select>
 
+	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息   selectCourseDetailsById -->
+	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		oc.collection as collection,
+		oc.course_number as courseNumber,
+		oc.course_detail as description,
+		oc.course_outline as courseOutline,
+		oc.live_status as lineState,
+		oc.description as description,
+		oc.address as address,
+		oc.city as city,
+		oc.direct_id as directId,
+		oc.subtitle as subtitle,
+		oc.current_price as currentPrice,
+		IFNULL((select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
+		IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as startLevel,
+		oc.lecturer as name,
+		oc.lecturer_description as lecturerDescription,
+		ou.small_head_photo as headImg,
+		oc.live_source_type as liveSourceType
+			FROM
+		oe_course as oc
+		inner join oe_user as ou on oc.user_lecturer_id = ou.id
+		where oc.id = #{courseId}
+	</select>
+
+
 	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
 	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
@@ -48,18 +83,13 @@
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
-		if(oc.type=1,ifnull((select SUM(count) from oe_gift_statement where receiver =
-		user_lecturer_id),0),0) as giftCount,
+		if(oc.type=1,ifnull((select SUM(count) from oe_gift_statement where receiver = user_lecturer_id),0),0) as giftCount,
 		
-		if(oc.type=1,ifnull(( select count(*) from oe_focus of
-		inner join oe_user as ozu on of.user_id = ozu.id
-		where of.lecturer_id = oc.user_lecturer_id
-		and ozu.is_delete = 0 and ozu.status = 0),0),0) as fansCount,
+		if(oc.type=1,ifnull(( select count(*) from oe_focus of inner join oe_user as ozu on of.user_id = ozu.id
+		     where of.lecturer_id = oc.user_lecturer_id and ozu.is_delete = 0 and ozu.status = 0),0),0) as fansCount,
 		
-	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of
-		inner join oe_user as ou on of.lecturer_id = ou.id
-		where of.user_id =oc.user_lecturer_id
-		and ou.is_delete = 0  and ou.status = 0),0),0) as focusCount,
+	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of inner join oe_user as ou on of.lecturer_id = ou.id
+			 where of.user_id =oc.user_lecturer_id and ou.is_delete = 0  and ou.status = 0),0),0) as focusCount,
 		
 		oc.collection as collection,
 		oc.course_number as courseNumber,
@@ -73,17 +103,15 @@
 		oc.direct_id as directId,
 		oc.subtitle as subtitle,
 		oc.current_price as currentPrice,
-		IFNULL((select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id =
-		oc.id ),0) as criticizeCount,
-		IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc where cc.status
-		= 1 and cc.course_id = oc.id ),0) as startLevel,
- 		
+		IFNULL((select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
+
+		IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as startLevel,
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.small_head_photo as headImg,
 		
 		oc.live_source_type as liveSourceType
-		FROM
+			FROM
 		oe_course as oc
 		inner join oe_user as ou on oc.user_lecturer_id = ou.id
 		where oc.id = #{courseId}

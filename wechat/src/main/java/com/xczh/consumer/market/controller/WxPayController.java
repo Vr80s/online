@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
+
 import net.sf.json.JSONObject;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -76,6 +77,7 @@ import com.xczh.consumer.market.wxpay.util.MD5SignUtil;
 import com.xczhihui.bxg.online.api.po.RewardStatement;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -124,6 +126,17 @@ public class WxPayController {
 
     @Autowired
     private AppBrowserService appBrowserService;
+    
+	@Autowired
+	private UserCenterAPI userCenterAPI;
+	@Autowired
+	private OnlineUserMapper onlineUserMapper;
+	
+	@Autowired
+	private iphoneIpaService iIpaService;
+	
+	@Autowired
+	private  OrderPayService  orderPayService;
 	
 	@Value("${online.weburl}")
 	private String pcUrl;
@@ -143,14 +156,6 @@ public class WxPayController {
 	private final String tell_ok = "success";
 	private final String tell_failer = "signError";
 	private final String key_sign = "sign";
-
-	@Autowired
-	private UserCenterAPI userCenterAPI;
-	@Autowired
-	private OnlineUserMapper onlineUserMapper;
-	
-	@Autowired
-	private iphoneIpaService iIpaService;
 	
 	/**
 	 * 订单支付
@@ -216,9 +221,9 @@ public class WxPayController {
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 		try {
-
-			LOGGER.info("进入回调函数方法中啦");
-
+			
+			LOGGER.info("----进入微信回调函数方法中  ");
+			
 			req.setCharacterEncoding("utf-8");
 			ServletInputStream is = req.getInputStream();
 			String content = IOUtils.toString(is);
@@ -226,15 +231,10 @@ public class WxPayController {
                 content = "";
             }
 			content = content.trim();
-			System.out
-					.println("wxNotify->content->\r\n\t" + content.toString());// LOGGER.info("wxNotify=\r\n"
-																				// +
-																				// content.toString());
+			
+			LOGGER.info("wxNotify->content->\r\n\t" + content.toString());
 			Map<String, String> map = CommonUtil.parseXml(content);
-			LOGGER.info("wxNotify->map->\r\n\t"
-					+ JSONObject.fromObject(map).toString());// LOGGER.info("map:"
-																// +
-																// map.toString());
+			LOGGER.info("wxNotify->map->\r\n\t"+ JSONObject.fromObject(map).toString());
 			String flow_id = UUID.randomUUID().toString().replace("-", "");
 			String appid = map.get("appid"); // 应用ID
 			String attach = map.get("attach"); // 商户数据包
@@ -282,55 +282,54 @@ public class WxPayController {
 			wxcpPayFlow.setReturn_msg(return_msg);
 			wxcpPayFlow.setPayment_type(payment_type);
 			//wxcpPayFlow.setSubject(((String) com.alibaba.fastjson.JSONObject.parseObject(attach).get("subject")));
-
-
 			WxcpPayFlow condPayFlow = new WxcpPayFlow();
-			condPayFlow.setOut_trade_no(out_trade_no);// 商户订单号
+			condPayFlow.setOut_trade_no(out_trade_no);//商户订单号
 
-			List<WxcpPayFlow> listWxcpPayFlow = wxcpPayFlowService
-					.select(condPayFlow);
+			List<WxcpPayFlow> listWxcpPayFlow = wxcpPayFlowService.select(condPayFlow);
+			
 			int paysed_sum = 0;
+	
 			if (listWxcpPayFlow != null && listWxcpPayFlow.size() > 0) {
 				for (int i = 0; i < listWxcpPayFlow.size(); i++) {
-					if (listWxcpPayFlow.get(i).getResult_code() == null
-							|| listWxcpPayFlow.get(i).getResult_code().trim()
-									.length() == 0
-							|| listWxcpPayFlow.get(i).getReturn_code() == null
-							|| listWxcpPayFlow.get(i).getReturn_code().trim()
-									.length() == 0) {
+					if (listWxcpPayFlow.get(i).getResult_code() == null|| listWxcpPayFlow.get(i).getResult_code().trim().length() == 0
+							|| listWxcpPayFlow.get(i).getReturn_code() == null || listWxcpPayFlow.get(i).getReturn_code().trim().length() == 0) {
                         continue;
                     }
-					if ("SUCCESS".equals(listWxcpPayFlow.get(i).getResult_code())
-							&& "SUCCESS".equals(listWxcpPayFlow.get(i).getReturn_code())) {
+					if ("SUCCESS".equals(listWxcpPayFlow.get(i).getResult_code()) && "SUCCESS".equals(listWxcpPayFlow.get(i).getReturn_code())) {
 						try {
-							paysed_sum = Integer.valueOf(listWxcpPayFlow.get(i)
-									.getTotal_fee());
+							paysed_sum = Integer.valueOf(listWxcpPayFlow.get(i).getTotal_fee());
 						} catch (Exception e) {
-							System.out
-									.println("WxPayController->wxNotify->paysed_sum->\r\n\t"
-											+ e.getMessage());
+							LOGGER.info("WxPayController->wxNotify->paysed_sum->\r\n\t"+ e.getMessage());
 						}
 						break;
 					}
 				}
 			}
-			/** 放到在线更新 **/
+			/** 放到在线更新     **/
+
+			/**
+			 * 根据支付类型判断得到--》回调验证签名的key
+			 *  h5和公众号用的是一样了。
+			 *  app用的是另一个
+			 */
 			String key ="";
 			if(PayInfo.TRADE_TYPE_APP.equals(trade_type)){
 				key = WxPayConst.app_ApiKey;
 			}else{
 				key = WxPayConst.gzh_ApiKey;
 			}
+			//签名对比
 			if (MD5SignUtil.VerifySignature(map, map.get(key_sign),key)) {
 				
 				LOGGER.info("回调后签名对比是否成功");
 				//打赏支付
 				if(StringUtils.isNotBlank(wxcpPayFlow.getAttach())){
 					String[] attachs=attach.split("&");
-
+					
 					if(attachs.length>0) {
+						
+						//第二版本考虑打赏
                         if ("reward".equals(attachs[0])) {
-
                             String json = cacheService.get(attachs[1]);
                             RewardParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RewardParamVo.class);
                             RewardStatement rs = new RewardStatement();
@@ -356,6 +355,7 @@ public class WxPayController {
                             LOGGER.info("order回调打印:" + json);
                             wxcpPayFlow.setSubject(rpv.getSubject());
                             wxcpPayFlowService.insert(wxcpPayFlow);
+                            
                         } else if ("recharge".equals(attachs[0])) {
                             String json = cacheService.get(attachs[1]);
                             RechargeParamVo rpv = com.alibaba.fastjson.JSONObject.parseObject(json, RechargeParamVo.class);
@@ -376,25 +376,35 @@ public class WxPayController {
 //                            userCoinIncrease.setCreateTime(new Date());
 //                            userCoinIncrease.setOrderFrom(Integer.valueOf(rpv.getClientType()));
 //                            userCoinIncrease.setOrderNoRecharge(wxcpPayFlow.getOut_trade_no());
-                            userCoinService.updateBalanceForRecharge(wxcpPayFlow.getUser_id(),Payment.WECHATPAY,coin, OrderFrom.ANDROID,wxcpPayFlow.getOut_trade_no());
+							
+                            userCoinService.updateBalanceForRecharge(wxcpPayFlow.getUser_id(),Payment.WECHATPAY,coin,
+                            		OrderFrom.ANDROID,wxcpPayFlow.getOut_trade_no());
                         }
                     }
 				}
 
 				LOGGER.info("WxPayController->wxNotify->sign success");
-				if (map != null
-						&& WxPayConst.recode_success.equals(map
-								.get(WxPayConst.return_code))) {
+				
+				if (map != null && WxPayConst.recode_success.equals(map.get(WxPayConst.return_code))) {
+					
 					LOGGER.info("WxPayController->wxNotify->good");
+				
 				} else {
 					LOGGER.info("WxPayController->wxNotify->bad");
 				}
 				if("order".equals(attach.split("&")[0])){
 					
-					boolean onlinePaySuccess = httpOnline(out_trade_no, transaction_id);//普通订单
-				
+//					boolean onlinePaySuccess = httpOnline(out_trade_no, transaction_id);//普通订单
+					//这里使用doubo服务
+					
+					orderPayService.addPaySuccess(out_trade_no, Payment.WECHATPAY, transaction_id);
+					
+					LOGGER.info("订单支付成功，订单号:{},用时{}"+out_trade_no);
+					/*
+					 * 为购买用户发送购买成功的消息通知
+					 */
+					//orderService.savePurchaseNotice(weburl, out_trade_no);
 				}
-
 				res.getWriter().write(tell_ok);
 			} else {
 				LOGGER.info("wxNotify->sign failure");
@@ -436,7 +446,9 @@ public class WxPayController {
     		if(user == null) {
     	         return ResponseObject.newErrorResponseObject("登录超时！");
     	    }
-    		String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		
+    		//String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
+    		String userYE = userCoinService.getBalanceByUserId(user.getId());
     		double d = Double.valueOf(userYE);
     		LOGGER.info("要消费余额:"+xmb);
     		LOGGER.info("当前用户余额:"+d);

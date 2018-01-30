@@ -6,6 +6,8 @@ $(function(){
 	var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;;
 	var doc_Idnum = $.trim($('#AutList .doc_Idnum').val());
 	var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
+	var personInt = UE.getEditor('editor').getContent();
+
 		//姓名验证
 		if(name == ''){
 			$('#AutList .doc_name').siblings('.name_warn').removeClass('hide');
@@ -103,7 +105,7 @@ $(function(){
 		}
 		
 		// 个人介绍
-		if($('#AutList .personIntroduct textarea').val() == ''){
+		if(personInt == ''){
 			$('#AutList .personIntroduct .warning').removeClass('hide');
 			return false;
 		}else {
@@ -131,7 +133,7 @@ $(function(){
 		var title = $('#doc_Distinguish #AutList .doc_zhicheng').val();
 		var titleProve = $('#doc_Distinguish #AutList .zhicheng_pic img').attr('src');
 		var field = $('#doc_Distinguish #AutList .doc_shanchang').val();
-		var description = $('#doc_Distinguish #AutList .personIntroduct textarea').val();
+		var description = UE.getEditor('editor').getContent();
 		var province = $('#AutList #choosePro option:selected').text();
 		var city = $('#AutList #citys option:selected').text();
 		//发送认证请求
@@ -159,11 +161,12 @@ $(function(){
 	       			$('#tip').toggle();
 	       		},1500)
 			}else if(data.success == true){
-				$('#tip').text('入驻申请信息提交失败！');
+				$('#tip').text('入驻申请信息提交成功！');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1500)
+	       		window.location.reload();
 			}
 
 		})

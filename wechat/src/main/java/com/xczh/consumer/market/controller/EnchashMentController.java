@@ -16,6 +16,7 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
 
 /**
  * 提现
@@ -29,6 +30,8 @@ public class EnchashMentController {
     @Autowired
     private EnchashmentService enchashmentService;
 
+    @Autowired
+    private  UserCoinService userCoinService;
 
     @Autowired
     private AppBrowserService appBrowserService;
@@ -36,15 +39,18 @@ public class EnchashMentController {
     @RequestMapping("add")
     @ResponseBody
     public ResponseObject list(HttpServletRequest request, HttpServletResponse res,EnchashmentApplication enchashmentApplication) throws Exception{
-        Map<String, String> params2=new HashMap<>();
-        params2.put("token",request.getParameter("token"));
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
-        if (user == null) {
-            throw new RuntimeException("登录超时！");
-        }
-        enchashmentApplication.setUserId(user.getId());
-        enchashmentService.saveEnchashmentApplication(enchashmentApplication);
-        return ResponseObject.newSuccessResponseObject(null);
+
+    	
+       throw new RuntimeException("请更新最新版本！"); 	
+//        Map<String, String> params2=new HashMap<>();
+//        params2.put("token",request.getParameter("token"));
+//        OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+//        if (user == null) {
+//            throw new RuntimeException("登录超时！");
+//        }
+//      enchashmentApplication.setUserId(user.getId());
+//      enchashmentService.saveEnchashmentApplyInfo(userId, enchashmentSum, bankCardId, orderFrom);
+//       return ResponseObject.newSuccessResponseObject(null);
     }
 
     @RequestMapping("getEnchashmentBalance")
@@ -56,7 +62,7 @@ public class EnchashMentController {
         if (user == null) {
         	return ResponseObject.newSuccessResponseObject(0);	
         }else{
-        	return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentBalance(user.getId()));	
+        	return ResponseObject.newSuccessResponseObject(userCoinService.getBalanceByUserId(user.getId()));	
         }
     }
     @RequestMapping("getEnchashmentRmbBalance")
@@ -69,10 +75,7 @@ public class EnchashMentController {
         if (user == null) {
             throw new RuntimeException("登录超时！");
         }
-        return ResponseObject.newSuccessResponseObject(enchashmentService.enableEnchashmentRmbBalance(user.getId()));
+        return ResponseObject.newSuccessResponseObject(userCoinService.getEnchashmentBalanceByUserId(user.getId()));
     }
 
-    
-    
-    
 }

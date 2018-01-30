@@ -248,8 +248,6 @@ public class XzWxPayController {
 		cacheService.set(cacheKey,passbackParams,7200);
 		LOGGER.info("充值参数："+extDatas.length());
 		
-		
-		
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon
 				(TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12), price,  "充值",
 						extDatas, openId, spbill_create_ip, tradeType);
