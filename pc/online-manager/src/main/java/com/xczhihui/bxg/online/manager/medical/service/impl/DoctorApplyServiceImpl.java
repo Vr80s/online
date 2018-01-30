@@ -10,6 +10,8 @@ import com.xczhihui.bxg.online.manager.user.dao.UserDao;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.RandomUtil;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ import java.util.*;
  */
 @Service
 public class DoctorApplyServiceImpl implements DoctorApplyService {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private DoctorApplyDao doctorApplyDao;
@@ -160,10 +164,11 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     @Override
     public void afterApply(String userId) {
 
-        // 判断之前的主播是否没有进行过医师认证
+        // 判断之前的主播是否进行过医师认证
         String medicalDoctorApplyId = doctorApplyDao.findByHQLOne("select id from medical_doctor_apply where user_id = ?", userId);
 
         String authenticationInformationId = UUID.randomUUID().toString().replace("-","");
+        String doctorId = UUID.randomUUID().toString().replace("-","");
         Date now = new Date();
 
         // 若没有
@@ -173,20 +178,34 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             String doctorApplyId = UUID.randomUUID().toString().replace("-","");
             this.addMedicalDoctorApply(doctorApplyId, userId, now);
 
+            // 新增一条医师申请时对应的科室信息:medical_doctor_apply_department
+            // 同时新增一条认证医师与科室的对应关系：medical_doctor_department
+            this.addMedicalDoctorApplyDepartment(doctorApplyId, doctorId, now);
+
             // 新增一条认证成功信息：medical_doctor_authentication_information
             this.addMedicalDoctorAuthenticationInformation(authenticationInformationId, null, 1, now);
 
         }
 
         // 若该主播和认证医师没有关联
-        if(doctorAccountDao.findByAccountId(userId) == null){
+        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(userId) == null
+        if(doctorAccount == null){
 
             // 新增医师信息：medical_doctor
-            String doctorId = UUID.randomUUID().toString().replace("-","");
             this.addMedicalDoctor(doctorId, authenticationInformationId, null,1, now);
 
             // 新增一条主播和认证医师的关联关系 medical_doctor_account
             this.addMedicalDoctorAccount(userId, doctorId, now);
+
+        }else{
+
+            logger.error("用户id：{} 已经存在已认证医师：{}" , doctorAccount.getAccountId() , doctorAccount.getDoctorId());
+
+        }
+
+        // 若该用户没有主播信息
+        if(anchorDao.findByHQLOne("select id from CourseAnchor where userId = ?", userId) == null){
+            this.addCourseAnchor(userId, now);
         }
     }
 
@@ -303,7 +322,11 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         doctorApply.setDeleted(false);
         doctorApply.setCreateTime(createTime);
         doctorApply.setUpdateTime(createTime);
+        doctorApply.setProvince("海南");
+        doctorApply.setCity("海口");
+        doctorApply.setDetailedAddress("演丰熊猫基地");
         doctorApply.setRemark("系统生成,仅供测试");
+
         doctorApplyDao.save(doctorApply);
     }
 
@@ -430,5 +453,56 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         doctorAccount.setDoctorId(doctorId);
         doctorAccount.setCreateTime(createTime);
         doctorAccountDao.save(doctorAccount);
+    }
+
+    /**
+     * 新增一条主播信息
+     * @param userId 用户id
+     * @param createTime 创建时间
+     */
+    private void addCourseAnchor(String userId, Date createTime) {
+
+        CourseAnchor courseAnchor = new CourseAnchor();
+        courseAnchor.setUserId(userId);
+        courseAnchor.setVideo("点击右上角的订阅，今年就会长长18cm");
+        courseAnchor.setDetail("我于杀戮中绽放，亦如黎明中的花朵");
+        courseAnchor.setType(1);
+        courseAnchor.setDeleted(false);
+        courseAnchor.setStatus(true);
+        courseAnchor.setCreateTime(createTime);
+        courseAnchor.setRemark("系统生成，仅供测试");
+        courseAnchor.setVodDivide(vodDivide);
+        courseAnchor.setLiveDivide(liveDivide);
+        courseAnchor.setOfflineDivide(offlineDivide);
+        courseAnchor.setGiftDivide(giftDivide);
+        anchorDao.save(courseAnchor);
+
+    }
+
+    /**
+     * 新增一条医师申请时对应的科室信息
+     * @param doctorApplyId medical_doctor_apply表id
+     * @param doctorId 医师id
+     * @param createTime 创建时间
+     */
+    private void addMedicalDoctorApplyDepartment(String doctorApplyId, String doctorId, Date createTime) {
+        String departmentId = departmentDao.findByHQLOne("select id from MedicalDepartment where createTime = (select max(createTime) from MedicalDepartment)");
+        if(StringUtils.isNotBlank(departmentId)){
+            MedicalDoctorApplyDepartment applyDepartment = new MedicalDoctorApplyDepartment();
+            applyDepartment.setId(UUID.randomUUID().toString().replace("-",""));
+            applyDepartment.setCreateTime(createTime);
+            applyDepartment.setDepartmentId(departmentId);
+            applyDepartment.setDoctorApplyId(doctorApplyId);
+            doctorApplyDepartmentDao.save(applyDepartment);
+
+            MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
+            doctorDepartment.setId(UUID.randomUUID().toString().replace("-",""));
+            doctorDepartment.setDoctorId(doctorId);
+            doctorDepartment.setDepartmentId(departmentId);
+            doctorDepartmentDao.save(doctorDepartment);
+
+        }else{
+            throw new RuntimeException("medical_department表没有数据");
+        }
     }
 }

@@ -167,5 +167,8 @@
 	
 	<!-- 我的信息管理类 -->
     <dubbo:reference interface="com.xczhihui.wechat.course.service.IMyInfoService" id="myInfoServiceImpl" timeout="5000"  />
+    
+    <!-- 支付服务后回调服务 -->
+    <dubbo:reference interface="com.xczhihui.bxg.online.api.service.OrderPayService" id="orderPayServiceImpl" timeout="5000"  />
 	
 </beans>
