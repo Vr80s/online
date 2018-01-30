@@ -14,6 +14,7 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
+<!--<link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>-->
 <script src="/xcviews/js/js.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
@@ -22,6 +23,7 @@
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 
 <script type="text/javascript" src="../js/home_page.js"></script>
+<!--<script type="text/javascript" src="../js/swiper-2.1.min.js"></script>-->
 
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
@@ -31,9 +33,11 @@
 <style type="text/css">
 	.swiper-container {
         width: 100%;
-	    height: 3.064rem;
+	    /*height: 3.064rem;*/
 	    margin-bottom: 0.426rem;
 	    background: #fff;
+	    padding-bottom: 0.3rem;
+
     }
     .swiper-slide {
         text-align: center;
@@ -55,9 +59,9 @@
         align-items: center;
     }
     .swiper-slide{
-        margin-right: 0rem !important;
-        width: 1.6rem !important;
-    	margin-left: 1.02rem;
+        /*margin-right: 0rem !important;*/
+        /*width: 1.6rem !important;*/
+    	/*margin-left: 1.02rem;*/
     }
     .slide_one_div{
     	/*height: 0.511rem;*/
@@ -65,6 +69,23 @@
 	    color: #333;
 	    font-size: 0.468rem;
     }
+    
+    .swiper-slide ul li{
+    	float: left;
+    }
+    .swiper_box p{
+    	    font-size: 0.681rem;
+    color: #333;
+    margin-left: 0.553rem;
+    margin-bottom: 0.426rem;
+    padding-top: 0.638rem;
+
+    }
+    .swiper_box {
+   	 	    background: white;
+    	
+    }
+    
 </style>
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
@@ -188,27 +209,26 @@
 								</script>
 							</ul>
 	
-							<!--推荐名师开始-->
-	                    	<div class="teacher_slider">
-	                    		<div class="teacher_slider_main">
-	                    			<div class="teacher_slider_main_title">推荐名师</div>
-	                    			<div class="teacher_slider_ul">
-	                    				<ul id="phy_box">
-	                    					<script type="text/html" id="wrap_phy">
-		                    					{{each items as item i}}
-			                    				<li>
-			                    					<div class="teacher_slider_ul_div">
-			                    						<img src="{{item.headPortrait}}" />
-			                    						<div>{{item.name}}</div>
-			                    					</div>
-			                    				</li>
-			                    				{{/each}}
-			                    				<div class="both"></div>
-		                    				</script>
-		                    			</ul>
-	                    			</div>
-									
-	                    		</div>
+							<!--推荐名师开始-->	                    	
+	                    	<div class="swiper_box">
+	                    		<p>名师推荐</p>
+	                    	 <div class="swiper-container">
+						        <div class="swiper-wrapper" id="phy_box">
+						        	<script type="text/html" id="wrap_phy">
+		                    			{{each items as item i}}
+							            <div class="swiper-slide">
+							            	<div class="teacher_slider_ul_div">
+							            		<a style="color: #333;" href="live_personal.html?userLecturerId={{item.id}}">
+		                    						<img src="{{item.headPortrait}}" />
+		                    						<span style="font-size: 0.468rem;">{{item.name}}</span>
+		                    					</a>
+		                    				</div>
+							            </div>
+			                    		{{/each}}
+			                  		</script>						          
+						        </div>
+						    </div>
+	                    		
 	                    	</div>
 	                    	<!--推荐名师结束-->
 	                    	
@@ -3515,12 +3535,10 @@ app.TabSlider = function(dom,options){
 <!--线下课那个省-->
 <script type="text/javascript" src="../js/common/swiper.min.js"></script>
 <script>
-var swiper = new Swiper('.swiper-container', {
-    pagination: '.swiper-pagination',
-    slidesPerView: 3,
-    paginationClickable: true,
-    spaceBetween: 100,   /*这是给的right值*/
-    freeMode: true
-});
+//var swiper = new Swiper('.swiper-container', {
+//  slidesPerView: 6,
+//  paginationClickable: true,
+//  spaceBetween: 10
+//});
 </script>
 </html>
