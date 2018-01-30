@@ -643,9 +643,9 @@ public class BunchPlanController {
 			Integer pageNumber, Integer pageSize)
 			throws Exception {
 
-		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize);
+		//List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize);
 		
-		return ResponseObject.newSuccessResponseObject(list);
+		return ResponseObject.newSuccessResponseObject(null);
 	}
 	
 	

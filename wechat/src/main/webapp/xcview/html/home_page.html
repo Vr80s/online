@@ -85,7 +85,10 @@
    	 	    background: white;
     	
     }
-    
+   /*先下课*/
+  #swiper1{
+  	padding-top: 0.4rem;
+  }
 </style>
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
@@ -316,87 +319,7 @@
 
 							<!--轮播结束-->
 							
-							<div class="swiper-container">
-						        <div class="swiper-wrapper">
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        	<div class="swiper-slide">
-						        		<div class="slide_one_div">
-											<div class="">
-												<img src="/xcview/images/artist.png" class="slide_one_artist" />
-											</div>
-											
-											<p>北京</p>
-										</div>
-						        	</div>
-						        </div>
-						        <!-- Add Pagination -->
-						         <!--<div class="swiper-pagination"></div>--> 
-						    </div>
-							
-							
-							<ul class="slide_one" id="xx_slide_one">
+							<!--<ul class="slide_one" id="xx_slide_one">
 								<script type="text/html" id="xx_nav_list">
 									{{each items as item i}}
 									<li>
@@ -409,8 +332,29 @@
 									</li>
 									{{/each}}
 								</script>
-							</ul>
+							</ul>-->
 	
+							
+							
+		                    	 <div class="swiper-container" id="swiper1">
+							        <div class="swiper-wrapper" id="xx_slide_one">
+							        	<script type="text/html" id="xx_nav_list">
+			                    			{{each items as item i}}
+								            <div class="swiper-slide">
+								            	<div class="teacher_slider_ul_div">
+			                    						<img src="{{item.icon}}" />
+			                    						<span style="font-size: 0.468rem;">{{item.cityName}}</span>
+			                    				</div>
+								            </div>
+				                    		{{/each}}
+				                  		</script>						          
+							        </div>
+							    </div>	
+	                   
+							
+							
+							
+							
 							
 	                    	<!--全国课程开始-->
 	                    	<div class="acupunctures"></div>

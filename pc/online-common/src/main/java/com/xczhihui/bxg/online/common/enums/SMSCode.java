@@ -15,7 +15,10 @@ public enum SMSCode {
 	
 	//更换手机号使用
 	OLD_PHONE(3, "原来手机号获取验证码"),
-	NEW_PHONE(4, "新的手机号获取验证码");
+	NEW_PHONE(4, "新的手机号获取验证码"),
+	
+	//提现 短信验证
+	WITHDRAWAL(5, "提现短信验证");
 	
 	/**
      * 描述
