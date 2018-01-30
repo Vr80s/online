@@ -688,7 +688,8 @@
 		<div class="keshi">
 			<span>科室</span>
 			<ul>
-				{{if medicalDepartments.length > 0}}
+				{{if medicalDepartments && medicalDepartments.length}}
+		
 				  {{include 'adaptTpl' }}  
 				 {{/if}}
 			
