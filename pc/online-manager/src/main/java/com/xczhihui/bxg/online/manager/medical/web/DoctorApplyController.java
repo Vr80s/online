@@ -105,7 +105,7 @@ public class DoctorApplyController extends AbstractController{
 	 */
 	@RequestMapping(value = "/afterApplyAll")
 	@ResponseBody
-	public ResponseObject afterApplyAll(String userId) {
+	public ResponseObject afterApplyAll() {
 
 		ResponseObject responseObj = new ResponseObject();
 
