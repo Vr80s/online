@@ -179,11 +179,11 @@ public class MobileRecommendController {
 	 */
 	@RequestMapping("queryAllCourse")
 	@ResponseBody
-	public ResponseObject queryAllCourse(String menuType,Integer courseType,String city,String isFree,String queryKey,
+	public ResponseObject queryAllCourse(String menuType,Integer lineState,Integer courseType,String city,String isFree,String queryKey,
 			Integer pageNumber, Integer pageSize)
 			throws Exception {
 
-		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,courseType,isFree,city,queryKey,pageNumber,pageSize);
+		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize);
 		
 		return ResponseObject.newSuccessResponseObject(list);
 	}
