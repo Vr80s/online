@@ -116,6 +116,11 @@
 								<span>医师认证通过啦，你可以享受医师的权利了</span>
 								<button onclick="goDocPage()">去看看</button>
 							</div>-->
+							<div class="bottomContent_inf text-left hide" id="docNoPass_tip">
+								<span>认证成为医师，可以在线开课</span>
+								<button onclick="gotToAut()">医师认证</button>
+								<!--<a href="javascript:;">我不是医师，不再提示此消息</a>-->
+							</div>
 						</div>
 
 					</div>
@@ -376,12 +381,6 @@
 		<span>医师认证通过啦，你可以享受医师的权利了</span>
 		<button onclick="goDocPage()">去看看</button>
 	</div>
-	{{else}}
-	<div class="bottomContent_inf text-left " id="docNoPass_tip">
-		<span>认证成为医师，可以在线开课</span>
-		<button onclick="gotToAut()">医师认证</button>
-		<!--<a href="javascript:;">我不是医师，不再提示此消息</a>-->
-	</div>
 	{{/if}}
 </script>
 
@@ -467,7 +466,7 @@
 		<div class="keshi">
 			<span><em>*</em>科室</span>
 			<ul id="keshiList2">
-				{{if medicalDepartments.length > 0}}
+				{{if medicalDepartments && medicalDepartments.length > 0}}
 				  {{include 'adaptTpl' }}  
 				 {{/if}}
 			</ul>

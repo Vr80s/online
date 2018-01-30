@@ -404,6 +404,10 @@
 		                    				
 		                    				{{each item.courseList as item i}}
 		                    				<li>
+
+
+												<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_class.html?course_id={{item.id}}"></a>
+
 		                    					<div class="boutique_main_four">
 		                    						<div class="boutique_four_img">
 		                    							<img src="{{item.smallImgPath}}" alt="" />
@@ -531,7 +535,9 @@
 	                    				{{each item.courseList as item i}}
 	                    				<!--即将直播-->
 	                    				<li>
-	                    					<div class="newest_main_two">
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_play.html?course_id={{item.id}}"></a>
+
+											<div class="newest_main_two">
 	                    						<div class="newest_two_img">
 	                    							<img src="{{item.smallImgPath}}" alt="" />
 	                    						</div>
@@ -606,6 +612,7 @@
 	                    				
 	                    				<!--直播-->
 	                    				<li>
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_play.html?course_id={{item.id}}"></a>
 	                    					<div class="acupuncture_main_two">
 	                    						<div class="acupuncture_two_img">
 	                    							<img src="/xcview/images/line_03.jpg" alt="" />

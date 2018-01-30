@@ -9,6 +9,7 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.model.MedicalDoctorField;
+import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
@@ -27,10 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -58,6 +56,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private MedicalHospitalPictureMapper hospitalPictureMapper;
     @Autowired
     private MedicalHospitalFieldMapper hospitalFieldMapper;
+    @Autowired
+    private MedicalFieldMapper fieldMapper;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -80,6 +80,43 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     @Override
     public List<MedicalHospitalVo> selectRecHospital() {
         return medicalHospitalMapper.selectRecHospital();
+    }
+
+    /**
+     * 获取医馆的医师列表
+     * @param page 分页封装
+     * @param doctorName 医师名字
+     * @param hospitalId 医馆id
+     * @author zhuwenbao
+     */
+    @Override
+    public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String hospitalId) {
+
+        List<MedicalDoctor> medicalDoctorList =
+                medicalHospitalMapper.selectDoctorList(page, doctorName, hospitalId);
+        if(CollectionUtils.isNotEmpty(medicalDoctorList)){
+            for(MedicalDoctor doctor : medicalDoctorList){
+                // 根据id获取医师头像
+                MedicalDoctorAuthenticationInformation authenticationInformation =
+                        doctorAuthenticationInformationMapper.selectById(doctor.getAuthenticationInformationId());
+                if(authenticationInformation != null){
+                    doctor.setHeadPortrait(authenticationInformation.getHeadPortrait());
+                }
+                // 获取医师的领域
+                Map<String, Object> columnMap = new HashMap<>();
+                columnMap.put("doctor_id", doctor.getId());
+                List<MedicalDoctorField> doctorFields = doctorFieldMapper.selectByMap(columnMap);
+                if(CollectionUtils.isNotEmpty(doctorFields)){
+                    List<String> idList = new ArrayList<>();
+                    for(MedicalDoctorField doctorField : doctorFields){
+                        idList.add(doctorField.getFieldId());
+                    }
+                    List<MedicalField> medicalFields = fieldMapper.selectBatchIds(idList);
+                    doctor.setFields(medicalFields);
+                }
+            }
+        }
+        return page.setRecords(medicalDoctorList);
     }
 
     @Override
