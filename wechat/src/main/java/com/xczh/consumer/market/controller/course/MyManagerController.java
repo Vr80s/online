@@ -44,7 +44,8 @@ import com.xczhihui.wechat.course.vo.CourseLecturVo;
 @Controller
 @RequestMapping("/xczh/manager")
 public class MyManagerController {
-
+	
+	
 	@Autowired
 	private ICourseService courseService;
 
@@ -186,6 +187,8 @@ public class MyManagerController {
 		if(user == null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		
 		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber,pageSize,user.getId()));
 	}
 	
@@ -208,21 +211,27 @@ public class MyManagerController {
 		if(user == null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
+		String userId = user.getId();
 		Map<String,Object> map = new HashMap<String, Object>();
-		List<BigDecimal> list = myInfoService.selectCollegeCourseXmbNumber(user.getId());
+		List<BigDecimal> list = myInfoService.selectCollegeCourseXmbNumber(userId);
+		
 		map.put("collegeNumber", list.get(0).intValue()); //学员数量
 		map.put("courseNumber", list.get(1).intValue());//课程数量
-		map.put("xmbNumber", list.get(2).intValue());//熊猫币数量
-		BigDecimal bd = list.get(2);//获取熊猫币数量
-		//转换为人民币数量
-		bd = bd.divide(new BigDecimal(rate), 2,RoundingMode.DOWN);
-		map.put("rmbNumber", bd);
+		/*
+		 * 熊猫币数量和人民币数量，
+		 */
+		map.put("xmbNumber", userCoinService.getSettlementBalanceByUserId(userId));//熊猫币数量
+		map.put("rmbNumber", userCoinService.getEnchashmentBalanceByUserId(userId));
+		
+//		BigDecimal bd = list.get(2);//获取熊猫币数量
+//		//转换为人民币数量
+//		bd = bd.divide(new BigDecimal(rate), 2,RoundingMode.DOWN);
+		
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 	
-	
 	/**
-	 * Description：主播控制台 -- 显示上面的数量级
+	 * Description：主播控制台  -- 显示主播的课程
 	 * @param req
 	 * @param res
 	 * @return
@@ -299,15 +308,54 @@ public class MyManagerController {
 	    	courseFrom = 2;
 	    	multimediaType = 2;
 	    }
-	    
 	    Page<CourseLecturVo> page = new Page<>();
 	    page.setCurrent(pageNumber);
 	    page.setSize(pageSize);
 	    
 		return ResponseObject.newSuccessResponseObject(courseService.selectAppCourseApplyPage(page, user.getId(),courseFrom, multimediaType));
-		
-		
 	}
+	
+	
+	
+	
+	/**
+	 * Description：资产结算页面
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("settlement")
+	@ResponseBody
+	public ResponseObject settlement(HttpServletRequest req,
+			@RequestParam("pageNumber")Integer pageNumber,
+			@RequestParam("pageSize")Integer pageSize)
+			throws Exception {
+	
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user == null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		//map.put("", value);
+
+		/**
+		 * 查找出这个主播被购买的课程  --
+		 */
+		
+		
+		/**
+		 * 通过课程id查找这个课程送的礼物总额 --
+		 */
+		
+		
+		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber,pageSize,user.getId()));
+	}
+	
 	
 	
 }

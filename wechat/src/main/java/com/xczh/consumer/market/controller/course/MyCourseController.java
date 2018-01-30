@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -98,7 +99,7 @@ public class MyCourseController {
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
 	/**
-	 * Description： 关注的人（我的关注）
+	 * Description： 关注的主播（我的关注）
 	 * @param req
 	 * @param res
 	 * @param params
@@ -131,11 +132,12 @@ public class MyCourseController {
 	@RequestMapping("updateFocus")
 	@ResponseBody
 	public ResponseObject updateFocus(HttpServletRequest req,
-			HttpServletResponse res)
+			@RequestParam("lecturerId") String lecturerId,
+			@RequestParam("type") Integer type)
 			throws Exception {
-		String lecturerId = req.getParameter("lecturerId");
+		//String lecturerId = req.getParameter("lecturerId");
 		//type 1 增加关注   2 取消关注
-		String type = req.getParameter("type");
+		//String type = req.getParameter("type");
 		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req);
 	    if(onlineUser==null){
 	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
@@ -144,7 +146,7 @@ public class MyCourseController {
 		if(null == onlineLecturer){	
 			return ResponseObject.newErrorResponseObject("获取讲师信息异常");
 		}
-		String result = ifocusService.updateFocus(lecturerId,onlineUser.getId(),Integer.parseInt(type));
+		String result = ifocusService.updateFocus(lecturerId,onlineUser.getId(),type);
 		return ResponseObject.newSuccessResponseObject(result);
 	}
 }
