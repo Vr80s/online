@@ -42,6 +42,13 @@
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
+    
+    
+    <!--富文本需要的js-->
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
    </head>
 <body>
 <div></div>
@@ -155,9 +162,11 @@
 						<div class="topTitle">
 							<h3>医师认证</h3>
 						</div>
-						<div class="bottomContent hide" id="AutList">
-
-								<div>
+						
+						
+						<div class="bottomContent " id="AutList">
+							
+							<div>
 								<span><em>*</em>姓名</span>
 								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
 								<span class="name_warn warning hide">申请人不能为空</span>
@@ -276,8 +285,14 @@
 							
 							<div class="personIntroduct">
 								<span><em>*</em> 个人介绍</span>
-								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>
-								<span class="warning hide">个人介绍不能为空</span>
+								<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内个人简介" style="resize: none;"></textarea>-->
+							<div style="display: inline-block;vertical-align: top;">
+								<script id="editor" type="text/plain" style="width:540px;height:160px;"></script>
+							</div>
+							
+								
+								
+								<p class="warning hide" style="padding-left: 0px;margin-left: 110px;">个人介绍不能为空</p>
 							</div>
 							
 							<!--<div class="work_hos">
@@ -357,7 +372,7 @@
         </div>
     </div>
 </div>
-
+<!--<script id="editor" type="text/plain" style="width:540px;height:160px;"></script>-->
 
 
 </body>
@@ -467,13 +482,11 @@
 			<span><em>*</em>科室</span>
 			<ul id="keshiList2">
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-					{{each medicalDepartments}}
-					<li data-id={{$value.id}}>{{$value.name}}</li>
-					{{/each}}
-				{{/if}}
+				  {{include 'adaptTpl' }}  
+				 {{/if}}
 			</ul>
 		</div>
-
+		
 		<div class="shanchang">
 			<span><em>*</em>擅长</span>
 			<span class="doc_shanchang">{{field}}</span>
@@ -498,11 +511,81 @@
 
 
 <!--科室部分的小模板-->
-<!--<script type="text/template" id="adaptTpl">-->
-<!--{{each medicalDepartments}}-->
-	<!--<li data-id={{$value.id}}>{{$value.name}}</li>-->
-<!--{{/each}}-->
-<!--</script>-->
+<script type="text/template" id="adaptTpl">
+{{each medicalDepartments}}
+	<li data-id={{$value.id}}>{{$value.name}}</li>
+{{/each}}
+</script>
+
+<script>
+	
+	
+	
+	
+	
+	 //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor',{
+        toolbars:[['source', //源代码
+            'undo', //撤销
+            'redo', //重做
+            'bold', //加粗
+            'forecolor', //字体颜色
+            'backcolor', //背景色
+            'indent', //首行缩进
+            'removeformat',//清除格式
+            'formatmatch', //格式刷
+            'blockquote', //引用
+            'fontfamily', //字体
+            'fontsize', //字号
+            'paragraph', //段落格式
+            'italic', //斜体
+            'underline', //下划线
+            'strikethrough', //删除线
+            'superscript', //上标
+            'subscript', //下标
+            'touppercase', //字母大写
+            'tolowercase', //字母小写
+            'justifyleft', //居左对齐
+            'justifyright', //居右对齐
+            'justifycenter', //居中对齐
+            'justifyjustify',//两端对齐
+            'link', //超链接
+            'unlink', //取消链接
+            'simpleupload', //单图上传
+            // 'insertimage', //多图上传
+            'emotion', //表情
+        ] ],
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+            enableAutoSave:false,
+            imagePopup:false
+    });
+
+    function getContent() {
+        var arr = [];
+        arr.push("使用editor.getContent()方法可以获得编辑器的内容");
+        arr.push("内容为：");
+        arr.push(UE.getEditor('editor').getContent());
+        alert(arr.join("\n"));
+    }
+
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        var url = '/ueditor/upload'
+        if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+            return url;
+        } else if (action == 'uploadvideo') {//视频上传：
+            return url;
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+    
+</script>
+
+
+
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
