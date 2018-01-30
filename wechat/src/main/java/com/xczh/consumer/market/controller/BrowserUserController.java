@@ -927,6 +927,7 @@ public class BrowserUserController {
 		cacheService.set(ticket, user,TokenExpires.Day.getExpires());
 		cacheService.set(user.getId(),ticket,TokenExpires.Day.getExpires());
 	}
+	
 	/**
 	 * 登陆成功处理
 	 * @param req
@@ -1002,17 +1003,19 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("token不能为空", 1001);
 		}
 		OnlineUser ou = cacheService.get(token);
-		
 		if(null == ou){
 			return ResponseObject.newErrorResponseObject("已过期", 1002);
 		}else if(null !=ou && cacheService.get(ou.getId())!=null && cacheService.get(ou.getId()).equals(token)){
 			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}else if(ou.getLoginName()!=null){
-			String model = cacheService.get(ou.getLoginName());
-		    if(model!=null){
-		       return ResponseObject.newErrorResponseObject(model,1003);
-		    }
-			return ResponseObject.newErrorResponseObject("其他设备",1004);
+//			String model = cacheService.get(ou.getLoginName());
+//		    if(model!=null){
+//		       return ResponseObject.newErrorResponseObject(model,1003);
+//		    }
+//			return ResponseObject.newErrorResponseObject("其他设备",1004);
+			
+			//暂时有效，为了方便测试使用
+			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}else{
 			return ResponseObject.newSuccessResponseObject("有效",1000);
 		}

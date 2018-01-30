@@ -1778,4 +1778,80 @@ pre {
 /*课程添加结束*/
 
 
+/*直播开始*/
+.live_streaming{
+	width: 100%;
+	height: 100%;
+}
+
+.live_streaming_title{
+	width: 100%;
+	height: 70px;
+	line-height: 60px;
+	font-size: 16px;
+	color: #333333;
+    border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 20px;
+}
+.live_streaming_main{
+	width: 100%;
+	height: 70px;
+	padding: 17px 20px;
+	background: #F0F0F0;
+	border-radius: 4px;
+}
+.live_streaming_main_left{
+	width: 710px;
+	font-size: 14px;
+	color: #333333;
+	float: left;
+}
+.live_streaming_main_right{
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #FFFFFF;
+	text-align: center;
+	float: right;
+	margin-bottom: 20px;
+}
+.live_streaming_table{
+	width: 100%;
+	height: 100%;
+	margin-top: 20px;
+	margin-bottom: 36px;
+}
+.live_streaming_table table thead{
+	height: 40px;
+    line-height: 40px;
+    background: #F0F0F0;
+    font-size: 14px;
+    color: #666666;
+}
+.live_streaming_table table td{
+	border: 1px solid #DEDEDE;
+	padding: 10px;
+	text-align: center;
+	height: 80px;
+}
+.live_streaming_table table tbody{
+	font-size: 14px;
+    color: #333;
+}
+.live_streaming_table table tbody > tr > td:first-child img{
+	width: 100%;
+}
+.live_streaming_table table tbody > tr > td:first-child{
+	width: 126px;
+}
+.live_streaming_table table tbody > tr > td:nth-child(2){
+	width: 270px;
+}
+.live_streaming_table table tbody > tr > td:nth-child(4){
+	width: 140px;
+}
+/*直播结束*/
 /*专辑结束*/

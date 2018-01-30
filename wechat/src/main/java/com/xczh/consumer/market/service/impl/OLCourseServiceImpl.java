@@ -453,7 +453,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	}
 
 	@Override
-	public List<CourseLecturVo> queryAllCourse(String menuType,
+	public List<CourseLecturVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree,String city, String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException {
 
@@ -500,6 +500,13 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
         	condSql.append(" and oc.is_free = '"+isFree+"'");
         }
+
+		/**
+		 * 直播中的状态
+		 */
+		if(lineState!=null){
+			condSql.append(" and oc.live_status = '"+lineState+"'");
+		}
         /**
          * 目前检索的是讲师名和课程id
          */

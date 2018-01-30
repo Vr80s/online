@@ -30,11 +30,13 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	   public  void saveEntryVideo(Integer  courseId, OnlineUser u) throws SQLException{
 	        //OnlineUser u =  (OnlineUser) request.getSession().getAttribute("_user_");
 
+		   
 		    Map<String,Object> paramMap = new HashMap<>();
 	        paramMap.put("courseId",courseId);
 	        paramMap.put("userId",u.getId());
 	        paramMap.put("loginName",u.getLoginName());
 
+	        System.out.println("this.getLiveUserCourse(courseId,u.getId()).size()"+this.getLiveUserCourse(courseId,u.getId()).size());
 	       if(this.getLiveUserCourse(courseId,u.getId()).size()>0){
 	           return;
 	       };
