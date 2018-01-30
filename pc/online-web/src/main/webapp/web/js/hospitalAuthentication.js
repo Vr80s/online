@@ -178,7 +178,7 @@ $(function(){
 		}
 		
 		
-		alert('提交成功了')
+
 		var name = $('.hos_renzheng_inf .bottomContent .hos_name').val();
 		var company = $('.hos_renzheng_inf .bottomContent .doc_name').val();
 		var businessLicenseNo = $('.hos_renzheng_inf .bottomContent .doc_Idnum').val();
@@ -197,9 +197,19 @@ $(function(){
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				alert('认证失败');
+				$('#tip').text('认证数据提交失败');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
+	       		window.location.reload();
 			}else if(data.success == true){
-				alert('认证成功');
+				$('#tip').text('认证数据提交成功');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
+	       		window.location.reload();
 			}
 
 		})

@@ -15,9 +15,10 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
+<!--下拉刷新引入的css-->
 <link rel="stylesheet" href="/xcviews/css/mui.min.css">
-
-<script src="/xcviews/js/common/js.js"></script>
+<!--rem引入的JS-->
+<script src="/xcview/js/js.js"></script>
 
 
 </head>
@@ -150,4 +151,13 @@
     <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 	<script src="/xcviews/js/index.js" type="text/javascript"></script>
 </body>
+<script>
+	var userLecturerId = getQueryString('userLecturerId');
+		requestService("/xczh/host/hostPageCourse",{
+			lecturerId: '23908ae85dad4541ba7ecf53fc52aab2',
+			pageNumber:1,
+			pageSize:6
+		},function(data){
+});
+</script>
 </html>

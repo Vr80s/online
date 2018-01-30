@@ -873,9 +873,235 @@ $('#zhuanji_bottom .baocun #submit0').click(function(){
 })
 
 
-//专辑结束
+
+//添加课程为空开始     提交课程
+$('#zhuanjis_bottom .baocun #submits').click(function(){
+//	添加课程为空
+	var LectureTitles = $.trim($('#zhuanjis_bottom .zhuanlan_title').val());
+	var LectureTitless = $.trim($('#zhuanjis_bottom .zhuanlan_title0').val());
+	var AddpicIpt = $.trim($('#zhuanjis_bottom #picIpt2').val());
+	var HostName = $.trim($('#zhuanjis_bottom .zhuanlan_titles1').val());
+	var HostIntroduced = $.trim($('#zhuanjis_bottom #textareas1').val());
+	var Select = $.trim($('#zhuanjis_bottom #Select').val());
+	var Time = $.trim($('#zhuanjis_bottom .zhuanlan_titles2').val());
+	var Price = $.trim($('#zhuanjis_bottom .zhuanlan_titles3').val());
+	var CourseDescriptions = $.trim($('#zhuanjis_bottom .a_textarea').val());
+	var Ainput = $.trim($('#zhuanjis_bottom .a_input').val());
+	
+	
+	
+	//课程标题
+	if(LectureTitles == ''){
+		$('#zhuanjis_bottom .warnings0').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings0').addClass('hide');
+	}
+	
+	
+	//	副标题
+	if(LectureTitless == ''){
+		$('#zhuanjis_bottom .warnings1').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings1').addClass('hide');
+	}
+	
+//	上传图片
+	if(AddpicIpt == ''){
+		$('#zhuanjis_bottom .warnings2').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings2').addClass('hide');
+	}
+	
+//	主播姓名
+	if(HostName == ''){
+		$('#zhuanjis_bottom .warnings3').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings3').addClass('hide');
+	}
+	
+//	主播介绍
+	if(HostIntroduced == ''){
+		$('#zhuanjis_bottom .warnings4').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings4').addClass('hide');
+	}
+	
+//	主播分类
+	if(Select == ''){
+		$('#zhuanjis_bottom .warnings5').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings5').addClass('hide');
+	}
+	
+//	时长
+	if(Time == ''){
+		$('#zhuanjis_bottom .warnings6').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings6').addClass('hide');
+	}
+	
+//  价格
+	if(Price == ''){
+		$('#zhuanjis_bottom .warnings7').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings7').addClass('hide');
+	}
+	
+//  课程介绍
+	if(CourseDescriptions == ''){
+		$('#zhuanjis_bottom .warnings8').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings8').addClass('hide');
+	}
+	
+//  选择资源
+	if(Ainput == ''){
+		$('#zhuanjis_bottom .warnings9').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings9').addClass('hide');
+	}
+	
+	
+	
+	
+	
+	
+	
+//	alert(111)
+})
 
 
+
+
+//添加课程为空开始     保存
+$('#zhuanjis_bottom .baocun #submits0').click(function(){
+//	添加课程为空
+	var LectureTitles = $.trim($('#zhuanjis_bottom .zhuanlan_title').val());
+	var LectureTitless = $.trim($('#zhuanjis_bottom .zhuanlan_title0').val());
+	var AddpicIpt = $.trim($('#zhuanjis_bottom #picIpt2').val());
+	var HostName = $.trim($('#zhuanjis_bottom .zhuanlan_titles1').val());
+	var HostIntroduced = $.trim($('#zhuanjis_bottom #textareas1').val());
+	var Select = $.trim($('#zhuanjis_bottom #Select').val());
+	var Time = $.trim($('#zhuanjis_bottom .zhuanlan_titles2').val());
+	var Price = $.trim($('#zhuanjis_bottom .zhuanlan_titles3').val());
+	var CourseDescriptions = $.trim($('#zhuanjis_bottom .a_textarea').val());
+	var Ainput = $.trim($('#zhuanjis_bottom .a_input').val());
+	
+	
+	
+	//课程标题
+	if(LectureTitles == ''){
+		$('#zhuanjis_bottom .warnings0').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings0').addClass('hide');
+	}
+	
+	
+	//	副标题
+	if(LectureTitless == ''){
+		$('#zhuanjis_bottom .warnings1').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings1').addClass('hide');
+	}
+	
+//	上传图片
+	if(AddpicIpt == ''){
+		$('#zhuanjis_bottom .warnings2').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings2').addClass('hide');
+	}
+	
+//	主播姓名
+	if(HostName == ''){
+		$('#zhuanjis_bottom .warnings3').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings3').addClass('hide');
+	}
+	
+//	主播介绍
+	if(HostIntroduced == ''){
+		$('#zhuanjis_bottom .warnings4').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings4').addClass('hide');
+	}
+	
+//	主播分类
+	if(Select == ''){
+		$('#zhuanjis_bottom .warnings5').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings5').addClass('hide');
+	}
+	
+//	时长
+	if(Time == ''){
+		$('#zhuanjis_bottom .warnings6').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings6').addClass('hide');
+	}
+	
+//  价格
+	if(Price == ''){
+		$('#zhuanjis_bottom .warnings7').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings7').addClass('hide');
+	}
+	
+//  课程介绍
+	if(CourseDescriptions == ''){
+		$('#zhuanjis_bottom .warnings8').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings8').addClass('hide');
+	}
+	
+//  选择资源
+	if(Ainput == ''){
+		$('#zhuanjis_bottom .warnings9').removeClass('hide');
+		return false;
+	}else{
+		$('#zhuanjis_bottom .warnings9').addClass('hide');
+	}
+	
+	
+	
+	
+	
+	
+	
+//	alert(111)
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+//更新时间
 $("#times_div .div_one").click(function(){
 	$(this).removeClass("div_one");
 	$(this).addClass("div_one0");
@@ -885,6 +1111,40 @@ $("#times_div .div_two").click(function(){
 	$("#times_div div").removeClass("div_one0");
 	$("#times_div div").addClass("div_one");
 });
+
+//删除当前行
+$(".tbody_tbody tr td:last-child").click(function() {
+    $(this).parent().remove();
+});
+
+//点击新专辑添加课程开始
+
+//点击添加课程
+$(".add_course").click(function() {
+    $(".new_box").show();
+});
+
+//关闭添加课程弹框
+$(".new_box_main p").click(function() {
+    $(".new_box").hide();
+});
+//点击新专辑添加课程结束
+
+
+
+
+//添加课程开始
+$(".new_box_main .size").click(function() {
+    $(".adds_course").show();
+});
+//添加课程结束
+
+//专辑结束
+
+
+
+
+
 
 
 

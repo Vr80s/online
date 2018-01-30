@@ -1,3 +1,4 @@
+	var userLecturerId = getQueryString('userLecturerId');
 $(function(){
 //	回复弹窗
 $(".wrap_returned_btn .btn_littleReturn").click(function(){
@@ -65,7 +66,6 @@ $(".bg_userModal").click(function(){
     //获取ID跳转相应页面页面
 //引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var userLecturerId = getQueryString('userLecturerId');
-
 //传ID courseId为接口ID
 requestService("/xczh/host/hostPageInfo",{
 	lecturerId : '23908ae85dad4541ba7ecf53fc52aab2'
@@ -101,7 +101,36 @@ requestService("/xczh/host/hostPageInfo",{
 		}
 //坐诊医馆及时间
 		$("#sure_address").html(template('data_address',data.resultObject));
+
+
+});
 		
+//主播课程
+//var userLecturerId = getQueryString('userLecturerId');
+requestService("/xczh/host/hostPageCourse",{
+	lecturerId: '23908ae85dad4541ba7ecf53fc52aab2',
+	pageNumber:1,
+	pageSize:6
+},function(data){
+	$("#wrap_vedio_btn").html(template('wrap_class',{items:data.resultObject.records}));
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -110,11 +139,9 @@ requestService("/xczh/host/hostPageInfo",{
 
 
 });
-
-})
 	
 //	点击关注判断
-	var btn_follow='<img src="../images/append1_icon.png"/>'+
+	var btn_follow='<img src="../images/append2_icon.png"/>'+
 					'<p class="aaa" style="margin-left: 0.6rem;">已关注</p>'	
 	var not_follow='<img src="../images/append1_icon.png"/>'+
 					'<p class="aaa"  style="margin-left: 0.6rem;">加关注</p>'	
@@ -139,3 +166,8 @@ requestService("/xczh/host/hostPageInfo",{
 		
 				}			
 			}
+	
+	function btn_class(){
+	
+	location.href="course_list.html?userLecturerId="+userLecturerId;
+}

@@ -110,16 +110,16 @@
 				<span style="font-size: 0.32rem;">坐诊医馆及时间</span>
 					<ul class="address_all">
 						<li>坐诊医馆：{{hospital.name}}</li>
-						<li>坐诊时间：{{name}}</li>
-						<li>预约电话：010-92837657</li>
-						<li>医馆地址：北京市东城区长安街168号</li>
+						<li>坐诊时间：{{lecturerInfo.workTime}}</li>
+						<li>预约电话：{{hospital.tel}}</li>
+						<li>医馆地址：{{hospital.detailedAddress}}</li>
 					</ul>
 				{{else if lecturerInfo.type == 2}}
 				<span style="font-size: 0.32rem;">医馆</span>
 				<ul class="address_all">
-					<li>坐诊医馆：北京同仁堂王府井中医院</li>
-					<li>预约电话：010-92837657</li>
-					<li>医馆地址：北京市东城区长安街168号</li>
+					<li>坐诊医馆：{{hospital.name}}</li>
+					<li>预约电话：{{lecturerInfo.workTime}}</li>
+					<li>医馆地址：{{hospital.detailedAddress}}</li>
 				</ul>
 			{{/if}}
 				
@@ -128,38 +128,66 @@
 	<!--课程-->
 	<div class="wrap_vedio" style="padding-bottom: 0;">
 		<span style="font-size: 0.32rem;">课程</span>
-		<p class="more_right"><img src="../images/rightj.png"/></p>
-		<ul class="wrap_vedio_btn">
-			<li>
-				<p class="wrap_img_pic">
-					<img src="../images/banner01.png"/>  <!--大背景图-->
-					<img class="img_little" src="../images/frequency_auto.png"/> <!--小图-->
-				</p>
-				<span class="speak_text">郝万山《伤寒论》讲解</span>
-				<div class="on_line_status">
-					<!--价格-->
-					<p class="money_status z">
-						<span>900</span>
-						熊猫币
-					</p>
-					<!--人数-->
-					<p class="more_people z">
-						<img src="../images/population.png"/>
-						<span>26545</span>
-					</p>
-					<!--日历-->
-					<!--<p class="more_people">
-						<img src="../images/learn.png"/>
-						<span>12:56</span>
-					</p>-->
-					<!--地址-->
-					<p class="more_people z">
-						<img style="width: 0.24rem; height: 0.24rem;" src="../images/location_four.png"/>
-						<span>北京</span>
-					</p>
-				</div>
-			</li>
-			
+		<p class="more_right"><a href="javascript:;" onclick="btn_class()"><img src="../images/rightj.png"/></a></p>
+		<ul class="wrap_vedio_btn" id="wrap_vedio_btn">
+			<script type="text/html" id="wrap_class">
+				{{each items as item i}}				
+					<li style="position: relative;">
+						{{if item.type == 1 || item.type == 2}}
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_audio.html?course_id={{item.id}}"></a>
+	        				{{else if item.type == 3}}
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_play.html?course_id={{item.id}}"></a>
+	            			{{else if item.type == 4}}
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_class.html?course_id={{item.id}}}"></a>
+						{{/if}}
+						<p class="wrap_img_pic">
+							<img src="{{item.smallImgPath}}"/>  <!--大背景图-->
+							
+							{{if item.type == 1}}
+								<img src="/xcview/images/tv_auto.png" alt="" class="img_little" />
+							{{else if item.type == 2}}
+								<img src="/xcview/images/frequency.png" alt="" class="img_little" />
+							{{else if item.type == 3}}
+								<img src="/xcview/images/Sinatv_auto.png" alt="" class="img_little" />
+							{{else if item.type == 4}}
+								<img src="/xcview/images/offline.png" alt="" class="img_little" />
+							{{/if}}
+						</p>
+						<span class="speak_text">{{item.gradeName}}</span>
+						<div class="on_line_status">
+							<!--价格-->
+							{{if item.watchState == 1}}
+							<p class="money_status z">
+								<span>免费</span>
+							</p>
+							{{else}}
+							<p class="money_status z">
+								<span>{{item.currentPrice}}</span>
+								熊猫币
+							</p>
+							{{/if}}
+							<!--人数-->
+							<p class="more_people z">
+								<img src="../images/population.png"/>
+								<span>{{item.learndCount}}</span>
+							</p>
+							<!--日历-->
+							{{if item.type == 3}}
+								<p class="more_people">
+									<img src="../images/learn.png"/>
+									<span>12:56</span>
+								</p>
+							{{else if item.type == 4}}
+							<!--地址-->
+								<p class="more_people">
+									<img style="width: 0.24rem; height: 0.24rem;" src="../images/location_four.png"/>
+									<span>北京</span>
+								</p>
+							{{/if}}
+						</div>
+					</li>
+				{{/each}}
+			</script>
 		</ul>
 		
 	</div>

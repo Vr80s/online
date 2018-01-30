@@ -43,7 +43,6 @@ public class FieldController {
           return mav;
      }
 
-     @RequiresPermissions("cloudClass:menu:MedicalField")
      @RequestMapping(value = "list")
      @ResponseBody
      public TableVo list(TableVo tableVo) {
@@ -85,7 +84,6 @@ public class FieldController {
           return tableVo;
      }
 
-     @RequiresPermissions("cloudClass:menu:MedicalField")
      @RequestMapping(value = "alllist")
      @ResponseBody
      public List<MedicalField> alllist(String id,Integer type) {
