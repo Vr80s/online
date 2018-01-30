@@ -277,6 +277,8 @@ color: #999999;
 .wrap_vedio_btn li{
 	overflow: hidden;
 	margin-bottom: 0.4rem;
+	width: 3.39rem;
+	height: 2.85rem;
 }
 .wrap_vedio_btn li .wrap_img_pic{
 	width: 3.39rem;
@@ -313,7 +315,7 @@ color:  #999999;
 	color: #F97B49;
 }
 .more_people{
-	 overflow: hidden;
+overflow: hidden;
  text-overflow: ellipsis;
  white-space: nowrap;
 }
@@ -325,7 +327,8 @@ color:  #999999;
 }
 .more_people span{
 	font-size: 0.24rem;
-	float: left;
+	/*float: left;*/
+	    vertical-align: text-top;
 }
 .wrap_vedio_btn li:nth-child(odd){
 	float: left;
