@@ -467,11 +467,13 @@
 			<span><em>*</em>科室</span>
 			<ul id="keshiList2">
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-				  {{include 'adaptTpl' }}  
-				 {{/if}}
+					{{each medicalDepartments}}
+					<li data-id={{$value.id}}>{{$value.name}}</li>
+					{{/each}}
+				{{/if}}
 			</ul>
 		</div>
-		
+
 		<div class="shanchang">
 			<span><em>*</em>擅长</span>
 			<span class="doc_shanchang">{{field}}</span>
@@ -496,11 +498,11 @@
 
 
 <!--科室部分的小模板-->
-<script type="text/template" id="adaptTpl">
-{{each medicalDepartments}}
-	<li data-id={{$value.id}}>{{$value.name}}</li>
-{{/each}}
-</script>
+<!--<script type="text/template" id="adaptTpl">-->
+<!--{{each medicalDepartments}}-->
+	<!--<li data-id={{$value.id}}>{{$value.name}}</li>-->
+<!--{{/each}}-->
+<!--</script>-->
 
 <script type="text/javascript" src="/web/js/footer.js"></script>
 <script src="/web/js/placeHolder.js"></script>
