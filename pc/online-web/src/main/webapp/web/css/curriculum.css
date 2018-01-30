@@ -1853,5 +1853,25 @@ pre {
 .live_streaming_table table tbody > tr > td:nth-child(4){
 	width: 140px;
 }
+
 /*直播结束*/
 /*专辑结束*/
+
+
+/*处理账户*/
+.select_list .littleBoxs {
+    background: #e2e2e2;
+    margin-top: 16px;
+    display: none;
+}
+.select_list .littleBoxs .activeP {
+    color: #00bc12;
+}
+.select_list .littleBoxs p {
+    color: #666666;
+    margin: 0;
+    padding: 16px 0;
+    margin-left: 65px;
+    font-size: 16px;
+}
+/*处理账户*/

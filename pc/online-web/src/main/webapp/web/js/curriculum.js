@@ -1,6 +1,6 @@
 $(function(){
 //	左右两边tab切换
-		$(".select_list li").click(function(){
+			$(".select_list li").click(function(){
 				$(".select_list li").removeClass("active");
 				$(this).addClass("active");
 				$(".wrap_box .little_box").hide()
@@ -13,8 +13,19 @@ $(function(){
 				$(".select_list .littleBox").stop().slideToggle();
 
 			})
+			
+			
+			$(".select_list .select-uds").bind('click',function(event){
+            	event.stopPropagation();			
+				$(".select_list .littleBoxs").stop().slideToggle();
+
+			})
+			
+			
 			$(".setTop").click(function(){
 				$(".select_list .littleBox").slideUp()
+				$(".select_list .littleBoxs").slideUp()
+				
 				$(".select-ud").removeAttr("id")
 				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
 				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")		
@@ -27,19 +38,43 @@ $(function(){
 				$(".wrap_box .little_box").hide().eq($(this).index()).show();
 				$(".select_box").hide()
 			})
+			
+			$(".select_list .littleBoxs p").bind('click',function(event){
+            	event.stopPropagation();
+				$(".select_list .littleBoxs p").removeClass("activeP");
+				$(this).addClass("activeP");
+				$(".wrap_box .little_box").hide().eq($(this).index()).show();
+				$(".select_box").hide()
+			})
 //		下拉小箭头设置	
 		$(".select-ud").click(function(){
 			if($(this).attr("id")=="open_list"){
 				$(this).removeAttr("id")
-				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")
-				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
+				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-left")
+				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-bottom")
 			}
 			else{
 				$(this).attr("id","open_list")
-				$(".select_list .arrow_jt").addClass("glyphicon-triangle-bottom")
-				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-left")
+				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-bottom")
+				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-left")
 			}
 		})
+		
+		$(".select-uds").click(function(){
+			if($(this).attr("id")=="open_list"){
+				$(this).removeAttr("id")
+				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-left")
+				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-bottom")
+			}
+			else{
+				$(this).attr("id","open_list")
+				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-bottom")
+				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-left")
+			}
+		})
+
+
+
 
 
 	//头像上传
