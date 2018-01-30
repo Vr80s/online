@@ -188,7 +188,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         }
 
         // 若该主播和认证医师没有关联
-        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(userId) == null
+        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(userId);
         if(doctorAccount == null){
 
             // 新增医师信息：medical_doctor

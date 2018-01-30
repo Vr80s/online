@@ -39,7 +39,7 @@ public class DoctorApplyController extends AbstractController{
 	/**
 	 * 获取医师入驻申请列表
 	 */
-	@RequestMapping(value = "list", method = RequestMethod.GET)
+	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo list(TableVo tableVo) {
 		int pageSize = tableVo.getiDisplayLength();
@@ -75,7 +75,7 @@ public class DoctorApplyController extends AbstractController{
 		return responseObj;
 	}
 
-	@RequestMapping(value = "/{appId}")
+	@RequestMapping(value = "info/{appId}")
 	public String MedicalDoctorDetail(HttpServletRequest request, @PathVariable String appId) {
 
 		MedicalDoctorApply medicalDoctorApply = doctorApplyService.findById(appId);
@@ -105,7 +105,7 @@ public class DoctorApplyController extends AbstractController{
 	 */
 	@RequestMapping(value = "/afterApplyAll")
 	@ResponseBody
-	public ResponseObject afterApplyAll(String userId) {
+	public ResponseObject afterApplyAll() {
 
 		ResponseObject responseObj = new ResponseObject();
 
