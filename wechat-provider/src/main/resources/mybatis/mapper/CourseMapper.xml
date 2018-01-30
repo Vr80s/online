@@ -73,7 +73,7 @@
 
 
 	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
-	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
 		oc.grade_name as gradeName,

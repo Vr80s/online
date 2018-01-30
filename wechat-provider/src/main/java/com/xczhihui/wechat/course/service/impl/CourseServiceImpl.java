@@ -97,7 +97,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	@Override
 	public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
 		
-		return iCourseMapper.selectCourseMiddleDetailsById(courseId);
+		return iCourseMapper.selectCourseMidileDetailsById(courseId);
 	};
 
 }
