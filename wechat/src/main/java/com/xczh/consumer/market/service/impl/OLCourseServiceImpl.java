@@ -505,7 +505,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
          */
         if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
         	condSql.append(" and ("); 
-        	condSql.append(" ou.name like '%"+ queryKey + "%'"); 
+        	condSql.append(" oc.lecturer like '%"+ queryKey + "%'");
         	condSql.append(" or "); 
         	condSql.append(" oc.grade_name like '%"+ queryKey + "%')"); 
         }
