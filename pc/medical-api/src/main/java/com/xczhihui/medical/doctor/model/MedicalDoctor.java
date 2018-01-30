@@ -3,6 +3,7 @@ package com.xczhihui.medical.doctor.model;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 
@@ -27,95 +28,113 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
      * 医师表
      */
 	private String id;
-    /**
+
+	/**
      * 姓名
      */
 	private String name;
-    /**
+
+	/**
      * 职称
      */
 	private String title;
-    /**
+
+	/**
      * 医师简介
      */
 	private String description;
-    /**
+
+	/**
      * 联系电话
      */
 	private String tel;
-    /**
+
+	/**
      * 用户表id
      */
 	@TableField("user_id")
 	private String userId;
-    /**
+
+	/**
      * 医师类别：1.名青年中医2.名老中医3.少数民族中医4.国医大师5.古中医
      */
 	private String type;
-    /**
+
+	/**
      * 省
      */
 	private String province;
-    /**
+
+	/**
      * 市
      */
 	private String city;
-    /**
+
+	/**
      * 详细地址
      */
 	@TableField("detailed_address")
 	private String detailedAddress;
-
 
 	/**
      * 坐诊时间
      */
 	@TableField("work_time")
 	private String workTime;
-    /**
+
+	/**
      * 认证信息id
      */
 	@TableField("authentication_information_id")
 	private String authenticationInformationId;
-    /**
+
+	/**
      * 1已删除0未删除
      */
 	private Boolean deleted;
-    /**
+
+	/**
      * 启用状态
      */
 	private Boolean status;
-    /**
+
+	/**
      * 创建时间
      */
 	@TableField("create_time")
 	private Date createTime;
-    /**
+
+	/**
      * 创建人id
      */
 	@TableField("create_person")
 	private String createPerson;
-    /**
+
+	/**
      * 更新时间
      */
 	@TableField("update_time")
 	private Date updateTime;
-    /**
+
+	/**
      * 更新人id
      */
 	@TableField("update_person")
 	private String updatePerson;
-    /**
+
+	/**
      * 版本
      */
 	private String version;
-    /**
+
+	/**
      * 备注
      */
 	private String remark;
 
 	//头像
 	private String headPortrait;
+
 	//医馆名
 	private String hospitalId;
 	private String hospitalName;
@@ -125,6 +144,41 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 	private MedicalHospital medicalHospital;
 
 	private MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation;
+
+	/**
+	 * 擅长
+	 */
+	@TableField("field_text")
+	private String fieldText;
+
+	/**
+	 * 身份证号
+	 */
+	@TableField("card_num")
+	private String cardNum;
+
+	/**
+	 * 医师所在的科室
+	 * false：不映射到数据库表字段
+	 */
+	@TableField(exist = false)
+	private List<MedicalDepartment> departments;
+
+	public List<MedicalDepartment> getDepartments() {
+		return departments;
+	}
+
+	public void setDepartments(List<MedicalDepartment> departments) {
+		this.departments = departments;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
 
 	public MedicalDoctorAuthenticationInformation getMedicalDoctorAuthenticationInformation() {
 		return medicalDoctorAuthenticationInformation;
@@ -337,6 +391,14 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	public String getFieldText() {
+		return fieldText;
+	}
+
+	public void setFieldText(String fieldText) {
+		this.fieldText = fieldText;
 	}
 
 	@Override

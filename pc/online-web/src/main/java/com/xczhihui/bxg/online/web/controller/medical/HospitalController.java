@@ -70,7 +70,7 @@ public class HospitalController {
     /**
      * 添加医师
      */
-    @RequestMapping(value = "/addDoctor")
+    @RequestMapping(value = "/addDoctor", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
         // 获取当前用户
@@ -80,6 +80,7 @@ public class HospitalController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctor.setUserId(currentUser.getUid());
+//        medicalDoctor.setUserId("ff80808161313c570161359826ea0000");
         medicalHospitalBusinessServiceImpl.addDoctor(medicalDoctor);
         return ResponseObject.newSuccessResponseObject("添加成功");
     }
@@ -109,7 +110,7 @@ public class HospitalController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject update(MedicalHospital medicalHospital, HttpServletRequest request){
+    public ResponseObject update(MedicalHospital medicalHospital){
         medicalHospitalBusinessServiceImpl.update(medicalHospital);
         return ResponseObject.newSuccessResponseObject("修改成功");
     }
@@ -119,16 +120,26 @@ public class HospitalController {
      * @param current 当前页
      * @param size 每页显示的条数
      * @param doctorName 医师名字
-     * @param hospitalId 医馆id
      * @author zhuwenbao
      */
-    @RequestMapping(value = "/getDoctors", method = RequestMethod.POST)
+    @RequestMapping(value = "/getDoctors", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseObject getDoctors(Integer current,Integer size,String doctorName, String hospitalId){
+    public ResponseObject getDoctors(Integer current,Integer size,String doctorName, HttpServletRequest request){
+
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+
+        // 分页信息
         Page page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectDoctorPage(page, doctorName, hospitalId));
+
+        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectDoctorPage(page, doctorName, currentUser.getUid()));
+//        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectDoctorPage(page, doctorName, "ff80808161313c570161359826ea0000"));
     }
 
 }
