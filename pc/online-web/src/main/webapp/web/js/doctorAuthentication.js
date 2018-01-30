@@ -164,6 +164,7 @@ $(function(){
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1500)
+	       		window.location.reload();
 			}
 
 		})
