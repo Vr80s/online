@@ -21,7 +21,6 @@ public class MyServletContextListener implements ServletContextListener{
 	@Override
     public void contextInitialized(ServletContextEvent sce) {
 		Map<OnlineUser,HttpSession> userMap = new HashMap<OnlineUser,HttpSession>();
-		System.out.println("你好啊");
 		sce.getServletContext().setAttribute("userMap", userMap);
 	}
 	@Override

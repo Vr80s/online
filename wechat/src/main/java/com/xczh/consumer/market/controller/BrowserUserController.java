@@ -357,7 +357,7 @@ public class BrowserUserController {
 				//这个也存放在redis中吧
 				return ResponseObject.newSuccessResponseObject(o);
 			} else {
-				boolean ise = Pattern.matches("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$",username);
+				boolean ise = Pattern.matches("^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$",username);
 				if (ise) {
 					ItcastUser user = userCenterAPI.getUser(username);
 					//这个地方会返回这个用户的微吼id和名字

@@ -44,6 +44,26 @@ public class StringUtils {
 	            }
 	        return flag;
 	    }
+	    
+		/**
+	     * 验证手机号
+	     * @param phone 手机号
+	     * @return
+	     */
+	    public static boolean checkPhone(String phone){
+	        boolean flag = false;
+	        try{
+                String check = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$";
+                Pattern regex = Pattern.compile(check);
+                Matcher matcher = regex.matcher(phone);
+                flag = matcher.matches();
+            }catch(Exception e){
+                flag = false;
+            }
+	        return flag;
+	    }
+	    
+	    
 	 
 	    
 	    public static String formatDuring(long mss) {  
@@ -84,9 +104,10 @@ public class StringUtils {
 //			double   f   =   111231.5585;  
 //			BigDecimal   b   =   new   BigDecimal(f);  
 //			double   f1   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  
-			
-			
-			 System.out.println(div(500000d,3600000d,6));
-		 }
+			 //System.out.println(div(500000d,3600000d,6));
+		 
+		   System.out.println(checkPhone("13723160793"));
+		
+		}
 	
 }
