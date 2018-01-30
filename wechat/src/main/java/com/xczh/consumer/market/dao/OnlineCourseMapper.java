@@ -30,7 +30,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" live_status as  lineState ,");
 		sql.append(" '正在直播' as note");
-		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1  ");
 		//直播中
 		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY) and c.start_time < now()");
@@ -47,7 +47,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" live_status as  lineState ,");
 		sql.append(" '即将直播' as note");
-		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1  ");
 
 		sql.append(" and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now()");
@@ -64,7 +64,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" live_status as  lineState ,");
 		sql.append(" '直播课程' as note");
-		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1  ");
 
 		sql.append(" and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
@@ -81,7 +81,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" live_status as  lineState ,");
 		sql.append(" '精彩直播回放' as note");
-		sql.append(" from oe_course c,oe_user ou ");
+		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1  ");
 
 		sql.append(" and c.live_status = 3 ");

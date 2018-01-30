@@ -345,6 +345,7 @@ if($(this).hasClass('color')){
 RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
 			//头像预览
 			console.log(data);
+			
 			//列表渲染
 			$('#id_select').html(template('hosListTpl', {item:data.resultObject.records}));
 			//渲染之后在此调用插件

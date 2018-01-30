@@ -275,7 +275,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+"oc.smallimg_path as smallImgPath,oc.lecturer as name,oc.address as address,oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
 				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
 				+"'全国课程' as note "
-				+" from oe_course oc, oe_user ou "
+				+" from oe_course oc "
 				+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
 				+" order by recommend_sort desc,start_time desc  limit 0,6)";
 		if(cityList.size()>0){
@@ -288,7 +288,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 						+"oc.smallimg_path as smallImgPath,oc.lecturer as name,oc.address as address,oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
 						+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
 						+" oc.city as note "
-						+" from oe_course oc, oe_user ou "
+						+" from oe_course oc "
 						+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
 						+" and oc.city = '"+offlineCity.getCityName()+"'"
 						+" order by recommend_sort desc,start_time desc  limit 0,4)";
@@ -505,7 +505,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
          */
         if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
         	condSql.append(" and ("); 
-        	condSql.append(" ou.name like '%"+ queryKey + "%'"); 
+        	condSql.append(" oc.lecturer like '%"+ queryKey + "%'");
         	condSql.append(" or "); 
         	condSql.append(" oc.grade_name like '%"+ queryKey + "%')"); 
         }
