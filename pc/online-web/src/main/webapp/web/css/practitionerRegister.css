@@ -59,6 +59,7 @@ img {
 	height: 36px;
 	overflow: hidden;
 	margin: 30px 0 0 20px;
+	margin-left: 20%;
 	background: url(../images/examine_01.png) no-repeat center;
 }
 .practitioner_examine  ul li{
@@ -75,9 +76,9 @@ img {
 	margin-left: 21px;
 }
 .practitioner_inf{
-	width: 115px;
+	width: 35%;
 	height: 300px;
-
+	
 	float: left;
 }
 .practitioner_inf ul li{

@@ -11,7 +11,12 @@ requestService("/bxg/bunch/schoolClass",null,function(data){
 		$("#classify_mold_type").html(template.compile(noNumber))
 	}
 })
-
+//swiper医师滑动
+var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 5,
+    paginationClickable: true,
+    spaceBetween: 10
+});
 //推荐模块开始
 //轮播/大师课/名医渲染
 requestService("/xczh/recommend/recommendTop",null, 
@@ -22,6 +27,8 @@ requestService("/xczh/recommend/recommendTop",null,
     	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
 //名医
     	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
+    	
+    	
 		
 //轮播
 			var result = data.resultObject.banner.records;
@@ -161,7 +168,6 @@ requestService("/xczh/bunch/listenCourse",null,
 },false)
 
 //听课结束
-
 
 
 

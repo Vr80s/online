@@ -1,10 +1,11 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
-import com.xczhihui.medical.doctor.mapper.OeBxsArticleMapper;
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
+import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
+import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.doctor.mapper.*;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
@@ -29,9 +30,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * ClassName: MedicalDoctorBusinessServiceImpl.java <br>
@@ -50,7 +49,6 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalDoctorAuthenticationInformationMapper medicalDoctorAuthenticationInformationMapper;
     @Autowired
     private OeBxsArticleMapper oeBxsArticleMapper;
-
     @Autowired
     private MedicalHospitalMapper medicalHospitalMapper;
     @Autowired
@@ -61,6 +59,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalHospitalDoctorMapper hospitalDoctorMapper;
     @Autowired
     private ThreadPoolTaskExecutor commonThreadPoolTaskExecutor;
+    @Autowired
+    private MedicalDoctorDepartmentMapper doctorDepartmentMapper;
+    @Autowired
+    private MedicalDepartmentMapper departmentMapper;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -287,6 +289,75 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
 
         return null;
+    }
+
+    /**
+     * 修改医师信息
+     * @param doctorId 医师id
+     * @param uid 修改人id
+     * @param doctor 修改的内容
+     */
+    @Override
+    public void update(String doctorId, String uid, MedicalDoctor doctor) {
+
+        if(doctor == null){
+            throw new RuntimeException("参数不能为空");
+        }
+
+        doctor.setId(doctorId);
+
+        // 判断uid和doctorId的关系,是否有权限修改
+        try {
+            MedicalDoctorAccount doctorAccount = medicalDoctorAccountMapper.getByUserId(uid);
+            if(doctorAccount != null && StringUtils.equals(doctorAccount.getDoctorId(), doctorId)){
+                medicalDoctorMapper.updateById(doctor);
+                return;
+            }else{
+                MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(uid);
+                if(hospitalAccount != null){
+                    Map<String, Object> columnMap = new HashMap<>();
+                    columnMap.put("doctor_id", doctorId);
+                    columnMap.put("hospital_id", hospitalAccount.getDoctorId());
+                    List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
+                    if(CollectionUtils.isNotEmpty(hospitalDoctors)){
+                        medicalDoctorMapper.updateById(doctor);
+                        return;
+                    }
+                }
+            }
+        }catch (Exception e){
+            throw new RuntimeException("参数不能为空");
+        }
+    }
+
+    /**
+     * 根据doctorId获取医师详情
+     */
+    @Override
+    public MedicalDoctorVO selectDoctorByIdV2(String doctorId) {
+        MedicalDoctorVO medicalDoctorVO = medicalDoctorMapper.selectDoctorById(doctorId);
+        if(medicalDoctorVO != null){
+
+            // 获取医师的认证信息（头像，身份证，职称证明）
+            if(medicalDoctorVO.getAuthenticationInformationId() != null){
+                MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformationMapper.selectByDoctorId(medicalDoctorVO.getAuthenticationInformationId());
+                medicalDoctorVO.setMedicalDoctorAuthenticationInformation(medicalDoctorAuthenticationInformation);
+            }
+
+            // 获取医师所在的科室
+            Map<String,Object> columnMap = new HashMap<>();
+            columnMap.put("doctor_id", medicalDoctorVO.getId());
+            List<MedicalDoctorDepartment> doctorDepartments =  doctorDepartmentMapper.selectByMap(columnMap);
+            if(CollectionUtils.isNotEmpty(doctorDepartments)){
+                List<String> ids = new ArrayList<>();
+                for (MedicalDoctorDepartment doctorDepartment : doctorDepartments){
+                    ids.add(doctorDepartment.getDepartmentId());
+                }
+                List<MedicalDepartment> departments = departmentMapper.selectBatchIds(ids);
+                medicalDoctorVO.setDepartments(departments);
+            }
+        }
+        return medicalDoctorVO;
     }
 
     /**

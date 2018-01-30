@@ -72,4 +72,17 @@ public interface IMedicalDoctorBusinessService {
      * @author zhuwenbao
      */
     String getWorkTimeById(String userId, Integer type);
+
+    /**
+     * 修改医师信息
+     * @param doctorId 医师id
+     * @param uid 修改人id
+     * @param doctor 修改的内容
+     */
+    void update(String doctorId, String uid, MedicalDoctor doctor);
+
+    /**
+     * 根据doctorId获取医师详情
+     */
+    MedicalDoctorVO selectDoctorByIdV2(String doctorId);
 }
