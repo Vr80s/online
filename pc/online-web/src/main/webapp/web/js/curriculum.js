@@ -982,6 +982,49 @@ $('#zhuanjis_bottom .baocun #submits').click(function(){
 
 
 
+//资源为空开始
+
+//添加课程为空开始     提交课程
+$('#ziyuan_bottom .baocun #submit').click(function(){
+//	添加课程为空
+	var ResourceTitle = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
+	var ResourceUploading = $.trim($('#ziyuan_bottom #picIpt3').val());
+	var resourcePut = $.trim($('#ziyuan_bottom .resource_put').val());
+	
+	
+	
+	//课程标题
+	if(ResourceTitle == ''){
+		$('#ziyuan_bottom .warning0').removeClass('hide');
+		return false;
+	}else{
+		$('#ziyuan_bottom .warning0').addClass('hide');
+	}
+	
+	
+	//封面图
+	if(ResourceUploading == ''){
+		$('#ziyuan_bottom .warning1').removeClass('hide');
+		return false;
+	}else{
+		$('#ziyuan_bottom .warning1').addClass('hide');
+	}
+	
+	//上传资源
+	if(resourcePut == ''){
+		$('#ziyuan_bottom .warning2').removeClass('hide');
+		return false;
+	}else{
+		$('#ziyuan_bottom .warning2').addClass('hide');
+	}
+	
+	
+
+//	alert(111)
+})
+//资源为空结束
+
+
 
 //添加课程为空开始     保存
 $('#zhuanjis_bottom .baocun #submits0').click(function(){
