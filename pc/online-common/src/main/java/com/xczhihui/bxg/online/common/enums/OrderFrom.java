@@ -1,5 +1,8 @@
 package com.xczhihui.bxg.online.common.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Description：订单来源
  * 1.pc 2.h5 3.android 4.ios 5.线下 6.工作人员
@@ -16,12 +19,21 @@ public enum OrderFrom {
     OFFLINE(5, "线下"),
     WORKER(6, "工作人员");
 
+    public static OrderFrom getOrderFrom(int code){
+        for (OrderFrom orderFrom : OrderFrom.values()) {
+            if(orderFrom.getCode() == code){
+                return orderFrom;
+            }
+        }
+        return null;
+    }
+
     /**
      * 描述
      **/
     private String text;
     private int code;
-
+    
     private OrderFrom(int code, String text) {
         this.text = text;
         this.code = code;
@@ -44,5 +56,24 @@ public enum OrderFrom {
         this.code = code;
     }
 
+    public static OrderFrom valueOf(int value) {
+    	
+        switch (value) {
+        case 1:
+            return OrderFrom.PC;
+        case 2:
+            return OrderFrom.H5;
+        case 3:
+            return OrderFrom.ANDROID;
+        case 4:
+            return OrderFrom.IOS;
+        case 5:
+            return OrderFrom.OFFLINE;
+        case 6:
+            return OrderFrom.WORKER;
+        default:
+            return null;
+        }
+    }
 
 }

@@ -65,14 +65,14 @@
 					 </li>
    					<li  class="active"><a href="#hos_Administration" aria-controls="doc_talk" role="tab" data-toggle="tab" class="luntan"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>医馆管理
    					<div class="luntan_list" style="display: none;">
-    						<div><a href="javascript:;" id="hos_base_inf">医馆基础信息</a></div>
+    						<div><a href="javascript:;" id="hos_base_inf" class="hide">医馆基础信息</a></div>
     						<div><a href="javascript:;" id="hos_renzhneg_inf">医馆认证信息</a></div>
     					</div>
    						</a>
    					</li>
-   					<li><a href="#doc_Administration" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>医师管理</a></li>
+   					<li class="hide" id="doc_Administration_tabBtn"><a href="#doc_Administration" aria-controls="doc_money" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>医师管理</a></li>
    					<li class="hide"><a href="#recruit_Administration" aria-controls="doc_idCard" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>招聘管理</a></li>
-   					<li><a href="#Notice_Administration" aria-controls="doc_Distinguish" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>公告管理</a></li>
+   					<li class="hide"><a href="#Notice_Administration" aria-controls="doc_Distinguish" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>公告管理</a></li>
   				</ul>
 			</div>
 
@@ -83,7 +83,7 @@
 					
 					<!--医馆管理部分-->
     				<div role="tabpanel" class="tab-pane active" id="hos_Administration">
-						<div class="hos_base_inf ">
+						<div class="hos_base_inf hide">
 						<div class="topTitle">
 							<h3>医馆基础信息</h3>
 						</div>
@@ -191,13 +191,13 @@
 						</div>
 						
 						
-						<div class="hos_renzheng_inf hide">
+						<div class="hos_renzheng_inf ">
 							
 						<div class="topTitle">
 							<h3>医馆认证</h3>
 						</div>
 						
-						<div class="bottomContent">
+						<div class="bottomContent hide">
 							
 							<div>
 								<span><em>*</em>医馆名称</span>
@@ -261,14 +261,20 @@
 						</div>
 						</div>
 						
-						<div class="bottomContent2">
-							<div class="bottomContent_inf text-left">
-								<span>已于2017.12.10通过认证<em style="color: red;font-style: normal;">（如提交信息有误可重新提交）</em></span>
-								<button>重新认证</button>
+						<div class="bottomContent2 hide" id="hosAutStatus">
+							
+							<!--<div class="bottomContent_inf text-left">
+								<span>已于2017.12.10通过认证,享有入驻医馆的功能<em style="color: red;font-style: normal;"></em></span>
+								<button>去看看</button>
 							</div>
 
 							<div class="bottomContent_inf text-left">
 								<span>医馆认证审核中，3个工作日内完成<em style="color: red;font-style: normal;">（如提交信息有误可重新提交）</em></span>
+								<button>重新认证</button>
+							</div>
+							
+							<div class="bottomContent_inf text-left">
+								<span>医馆认证失败<em style="color: red;font-style: normal;">（提交信息有误）</em></span>
 								<button>重新认证</button>
 							</div>
 							
@@ -286,16 +292,11 @@
 							<div class="teacher_picUpdata">
 								<span style="vertical-align: top;"><em>*</em>营业执照</span>
 								<span class="teacher_pic">
-									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传营业执照图片</p>-->
 									<img src="/web/images/hospital/hospital_pic.png" alt="" />
 								</span>
 							</div>
 							
-							
-							
-							
-							
+														
 							<div>
 								<span><em>*</em>药品经营许可证号</span>
 							
@@ -305,11 +306,9 @@
 							<div class="zhicheng_picUpdata">
 								<span style="vertical-align: top;"><em>*</em>药品经营许可证</span>
 								<span class="zhicheng_pic">
-									<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传药品经营许可证图片</p>-->
 									<img src="/web/images/hospital/hospital_pic.png" alt="" />
 								</span>
-							</div>
+							</div>-->
 						
 						
 						</div>
@@ -333,13 +332,13 @@
 							<div>
 								<span><em>*</em> 医师姓名</span>
 								<input type="text" placeholder="真实姓名，需与身份证一致"  maxlength="15" class="doc_name"/>
-								<span class="name_warn warning hide"> 医师姓名不能为空</span>
+								<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
 							</div>
 							
 							
-							<div class="touxiang_picUpdata">
+							<div class="touxiang_picUpdata"  >
 								<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
-								<span class="touxiang_pic">
+								<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
 									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
 								</span>
@@ -348,18 +347,19 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;">
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 							</div>
 							
-							<div>
+							<div class="zhicheng_name">
 								<span><em>*</em> 医师职称</span>
 								<input type="text" placeholder="请输入您的职称"  maxlength="15" class="doc_zhicheng"/>
-								<span class="warning hide"> 医师职称不能为空</span>
+								<span class="warning hide" style="margin-left: 0px;"> 医师职称不能为空</span>
 							</div>
 							
-							<div class="zhicheng_picUpdata">
+							<div class="zhicheng_picUpdata" >
 								<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-								<span class="zhicheng_pic">
+								<span class="zhicheng_pic" onclick="$('#zhicheng_pic_ipt').click()">
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
 								</span>
@@ -367,13 +367,14 @@
 									<p>文件小于2M</p>
 									<p>支持JPG/PNG等格式图片</p>
 								</span>
+								<input type="file" name="pic" id="zhicheng_pic_ipt" style="position: absolute;visibility: hidden;">
 								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
 							</div>
 							
 							<div class="keshi">
-								<span><em>*</em> 擅长领域</span>
-								<ul>
-									<li>中医内科</li>
+								<span><em>*</em> 科室</span>
+								<ul id="shanChangList">
+									<!--<li>中医内科</li>
 									<li>中医内科</li>
 									<li>妇科</li>
 									<li>儿科</li>
@@ -382,15 +383,22 @@
 									<li>心脏病</li>
 									<li>癌症</li>
 									<li>绝症</li>
-									<li>肝病</li>
+									<li>肝病</li>-->
 								</ul>
-								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+							</div>
+							
+							<div class="shanchang_name">
+								<span><em>*</em> 擅长</span>
+								<input type="text" placeholder="请输入您的擅长领域"  maxlength="15" class="doc_shanchangIpt"/>
+								<span class="warning hide" style="margin-left: 0px;"> 擅长领域不能为空</span>
 							</div>
 							
 							
 							<div class="personIntroduct">
 								<span><em>*</em>  医师介绍</span>
-								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>
+								<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;" class="doc_introduct"></textarea>
+								<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请输入医师介绍</p>
 							</div>
 							
 						
@@ -865,10 +873,77 @@
 </body>
 </html>
 
+
+
 <!--医疗领域模板-->
 <script type="text/template" id="areaTpl">
 	{{each item as item i}}
 		<li>{{item.name}}</li>
+	{{/each}}
+</script>
+
+<script type="text/template" id="hosAutStatusTpl">
+	{{if status == 1}}
+	<div class="bottomContent_inf text-left">
+		<span>已于{{updateTime}}通过认证,享有入驻医馆的功能<em style="color: red;font-style: normal;"></em></span>
+		<button>去看看</button>
+	</div>
+	{{else if status == 2}}
+	<div class="bottomContent_inf text-left">
+		<span>医馆认证审核中，3个工作日内完成<em style="color: red;font-style: normal;">（如提交信息有误可重新提交）</em></span>
+		<button onclick="hosAgainAut()">重新认证</button>
+	</div>
+	{{else if status == 0}}
+	<div class="bottomContent_inf text-left">
+		<span>医馆认证失败<em style="color: red;font-style: normal;">（提交信息有误）</em></span>
+		<button onclick="hosAgainAut()">重新认证</button>
+	</div>
+	{{/if}}
+	<div>
+		<span><em>*</em> 公司名称</span>
+		<span class="company_name">{{name}}</span>
+	</div>
+	
+	<div>
+		<span><em>*</em> 所属公司</span>
+		<span class="company_name">{{company}}</span>
+	</div>
+	
+	<div>
+		<span ><em>*</em>  统一社会信用代码</span>
+		<span class="license_num">{{businessLicenseNo}}</span>
+	</div>
+	
+	
+	<div class="teacher_picUpdata">
+		<span style="vertical-align: top;"><em>*</em>营业执照</span>
+		<span class="teacher_pic">
+	
+			<img src={{businessLicensePicture}} alt="" />
+		</span>
+	</div>
+	
+	<div>
+		<span><em>*</em>药品经营许可证号</span>
+	
+		<span class="medicine_license_num">{{licenseForPharmaceuticalTrading}}</span>
+	</div>
+	
+	<div class="zhicheng_picUpdata">
+		<span style="vertical-align: top;"><em>*</em>药品经营许可证</span>
+		<span class="zhicheng_pic">
+		
+			<img src={{licenseForPharmaceuticalTradingPicture}} alt="" />
+		</span>
+	</div>
+</script>
+
+
+
+<!--医馆添加医师中的擅长领域部分模板-->
+<script type="text/template" id="shanChangTpl">
+	{{each item as item i}}
+		<li data-id={{item.id}}>{{item.name}}</li>
 	{{/each}}
 </script>
 

@@ -65,38 +65,11 @@ public class UserCoinController {
         if(loginUser==null) {
             return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
         }
-		Map<String,String> balance = userCoinService.getBalanceByUserId(loginUser.getId());
-		balance.put("account", loginUser.getLoginName());
+		String balance = userCoinService.getBalanceByUserId(loginUser.getId());
+//		balance.put("account", loginUser.getLoginName());
 		return ResponseObject.newSuccessResponseObject(balance);
 	}
-	
-	@RequestMapping(value = "/cztest")
-	@ResponseBody
-	public ResponseObject cztest(HttpServletRequest request) throws Exception {
-		//获取登录用户
-//		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-//		UserCoinIncrease uci =new UserCoinIncrease();
-//		uci.setChangeType(1);
-//		uci.setUserId(loginUser.getId());
-////		uci.setValue(100d);
-//		userCoinService.updateBalanceForIncrease(uci);
-		return ResponseObject.newSuccessResponseObject(true);
-	}
-	
-	
-	@RequestMapping(value = "/zstest")
-	@ResponseBody
-	public ResponseObject zstest(HttpServletRequest request) throws Exception {
-		//获取登录用户
-//		BxgUser loginUser = UserLoginUtil.getLoginUser(request);
-//		UserCoinIncrease uci =new UserCoinIncrease();
-//		uci.setChangeType(2);
-//		uci.setUserId(loginUser.getId());
-////		uci.setValue(100d);
-//		userCoinService.updateBalanceForIncrease(uci);
-		return ResponseObject.newSuccessResponseObject(true);
-	}
-	
+
 	@RequestMapping(value = "/userCoinIncreaseRecord")
 	@ResponseBody
 	public ResponseObject userCoinIncreaseRecord(HttpServletRequest request,Integer pageNumber,Integer pageSize) throws Exception {
@@ -159,7 +132,7 @@ public class UserCoinController {
             return ResponseObject.newErrorResponseObject("用户未登录");//20171227-yuxin
         }
 		Map<String, Object> m = new HashMap<String, Object>();
-		m.put("balanceTotal", userCoinService.getBalanceByUserId(u.getId()).get("balanceTotal"));
+		m.put("balanceTotal", userCoinService.getBalanceByUserId(u.getId()));
 		m.put("account", u.getLoginName());
 		m.put("rate", rate);
 		m.put("env", env);

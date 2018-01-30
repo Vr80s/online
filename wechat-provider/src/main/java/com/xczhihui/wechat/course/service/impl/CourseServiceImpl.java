@@ -92,6 +92,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		List<CourseLecturVo> records = iCourseMapper.selectAppCourseApplyPage(page, userId,courseForm,multimediaType);
 		page.setRecords(records);
 		return   page.setRecords(records);
+	}
+
+	@Override
+	public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
+		
+		return iCourseMapper.selectCourseMiddleDetailsById(courseId);
 	};
 
 }

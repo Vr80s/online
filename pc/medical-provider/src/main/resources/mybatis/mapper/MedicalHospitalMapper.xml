@@ -193,4 +193,15 @@
 	  	WHERE name = #{name}
 	</select>
 
+	<select id="selectDoctorList" resultType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		SELECT md.id, md.name, md.title,md.status, md.authentication_information_id
+		FROM medical_doctor md
+		where md.id IN(
+			SELECT mhd.doctor_id FROM medical_hospital_doctor mhd WHERE hospital_id = #{hospitalId}
+		)
+		<if test="doctorName != null">
+			AND md.name LIKE concat('%',#{doctorName},'%')
+		</if>
+	</select>
+
 </mapper>

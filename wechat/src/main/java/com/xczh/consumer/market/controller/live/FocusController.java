@@ -99,7 +99,7 @@ public class FocusController {
 			Integer countFocus =focusService.findMyFocusCount(user.getId());
 			map.put("countFans", countFans);
 			map.put("countFocus", countFocus);
-			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()).get("balanceTotal"));
+			map.put("xmbCount", userCoinService.getBalanceByUserId(user.getId()));
 			/**
 			 * 查下房间号
 			 *  是否是讲师：0,用户，1既是用户也是讲师

@@ -78,9 +78,9 @@ public class OrderController {
                            orderPayService.addPaySuccess(mapValues.get("orderNo").toString(), Payment.OTHERPAY, transaction_id);
 //                           orderService.addPaySuccess(mapValues.get("orderNo").toString(), 0, transaction_id);
                            //为购买用户发送购买成功的消息通知
-                           String path = request.getContextPath();
-                           String basePath =weburl;
-                           orderService.savePurchaseNotice(basePath, mapValues.get("orderNo").toString());
+//                           String path = request.getContextPath();
+//                           String basePath =weburl;
+//                           orderService.savePurchaseNotice(basePath, mapValues.get("orderNo").toString());
                        }
                        mav.setViewName("redirect:/web/html/myStudyCenter.html");
                    } else { //付费课程只是成成

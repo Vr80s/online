@@ -64,4 +64,13 @@ public interface IMedicalHospitalBusinessService {
      * @author zhuwenbao
      */
     void update(MedicalHospital medicalHospital);
+
+    /**
+     * 获取医馆的医师列表
+     * @param page 分页封装
+     * @param doctorName 医师名字
+     * @param hospitalId 医馆id
+     * @author zhuwenbao
+     */
+    Page selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String hospitalId);
 }

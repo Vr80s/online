@@ -71,5 +71,4 @@ public interface OnlineUserService {
 
 	public List<Map<String, Object>> getAllCourseName();
 
-	
 }

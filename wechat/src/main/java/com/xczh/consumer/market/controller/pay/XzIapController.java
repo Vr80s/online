@@ -3,11 +3,11 @@ package com.xczh.consumer.market.controller.pay;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.sql.SQLException;
-import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -16,17 +16,6 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xczh.consumer.market.bean.OnlineOrder;
-import com.xczh.consumer.market.bean.OnlineUser;
-import com.xczh.consumer.market.service.AppBrowserService;
-import com.xczh.consumer.market.service.OnlineOrderService;
-import com.xczh.consumer.market.service.iphoneIpaService;
-import com.xczh.consumer.market.utils.HttpUtil;
-import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.VersionCompareUtil;
-import com.xczh.consumer.market.vo.CodeUtil;
-import com.xczhihui.bxg.online.api.service.EnchashmentService;
-
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +23,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.xczh.consumer.market.bean.OnlineOrder;
+import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineOrderService;
+import com.xczh.consumer.market.service.iphoneIpaService;
+import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.VersionCompareUtil;
+import com.xczh.consumer.market.vo.CodeUtil;
+import com.xczhihui.bxg.online.api.service.EnchashmentService;
+import com.xczhihui.bxg.online.api.service.OrderPayService;
+import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.common.enums.Payment;
 
 @Controller
 @RequestMapping("/xczh/iap")
@@ -75,6 +74,14 @@ public class XzIapController {
     
 	@Autowired
 	private EnchashmentService enchashmentService;
+	
+	@Autowired
+	private OrderPayService orderPayService;
+	
+	@Autowired
+	private UserCoinService userCoinService;
+	
+	
     
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzIapController.class);
     /**
@@ -83,10 +90,13 @@ public class XzIapController {
      */
     @ResponseBody
     @RequestMapping("/setIapCertificate")
-    public Object setIapCertificate(String receipt,String userId,String actualPrice,String version) throws SQLException {
-       // receipt=new String(Base64.decode(receipt));
-    	LOGGER.info("111111111111111================================================");
-        LOGGER.info("receipt:"+receipt);
+    public Object setIapCertificate(
+    		@RequestParam("receipt")String receipt,
+    		@RequestParam("userId")String userId,
+    		@RequestParam("actualPrice")BigDecimal actualPrice,
+    		@RequestParam("version")String version) throws SQLException {
+    	
+        LOGGER.info("苹果充值   封装的数据  receipt:"+receipt);
         
         String url = certificateUrl;
         String newVersion = iphoneVersion;
@@ -97,13 +107,13 @@ public class XzIapController {
         //iphone.iap.url=https://sandbox.itunes.apple.com/verifyReceipt
         //iphone.iap.url=https://buy.itunes.apple.com/verifyReceipt
         if (diff < 0) {  //当前版本小于最新版本，说明是老版本，需要用--生产环境
-            //return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
         	url = "https://buy.itunes.apple.com/verifyReceipt";
-        }else{//当前版本等于最新版本，说明是正在审核的版本，用沙箱环境
+        }else{			//当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境
         	url = "https://sandbox.itunes.apple.com/verifyReceipt";
         }
         final String certificateCode = receipt;
         if(StringUtils.isNotEmpty(certificateCode)){
+        	
         	String resp=   sendHttpsCoon(url, certificateCode);
 	        LOGGER.info("苹果返回数据:"+resp);
 	         //把苹果返回的数据存到数据库
@@ -112,119 +122,83 @@ public class XzIapController {
 	        if(StringUtils.isBlank(productId)){
 	            return ResponseObject.newErrorResponseObject("操作失败！找不到productId");
 	        }
-	        //记录数据 增加熊猫币
-	//            10熊猫币 	消耗型项目	com.bj.healthlive.coin_01
-	//            60熊猫币 	消耗型项目	com.bj.healthlive.coin_02
-	//            120熊猫币 	消耗型项目	com.bj.healthlive.coin_03
-	//            500熊猫币 	消耗型项目	com.bj.healthlive.coin_04
-	//            980熊猫币 	消耗型项目	com.bj.healthlive.coin_05
-	//            4880熊猫币 	消耗型项目	com.bj.healthlive.coin_06
-	//            int xmb=Integer.parseInt(actualPrice)*rate;
-	//            switch (productId){
-	//
-	//                case "com.bj.healthlive.coin_01":
-	//                    xmb=10;
-	//                    break;
-	//                case "com.bj.healthlive.coin_02":
-	//                    xmb=60;
-	//                    break;
-	//                case "com.bj.healthlive.coin_03":
-	//                    xmb=120;
-	//                    break;
-	//                case "com.bj.healthlive.coin_04":
-	//                    xmb=500;
-	//                    break;
-	//                case "com.bj.healthlive.coin_05":
-	//                    xmb=980;
-	//                    break;
-	//                case "com.bj.healthlive.coin_06":
-	//                    xmb=4880;
-	//                    break;
-	//                    default:
-	//                        throw new RuntimeException("productId不正确");
-	//            }
-	        	int xmb=Integer.parseInt(actualPrice)*10;
-	            iphoneIpaService.increase(userId,xmb,resp,actualPrice);
-	            LOGGER.info("22222222222222222222222222222====================");
-	            return ResponseObject.newSuccessResponseObject(null);
+	        /*
+             * 保存消费信息，并且做对应的熊猫币扣减
+             */
+            iphoneIpaService.increaseNew(userId,actualPrice.multiply(BigDecimal.valueOf(rate)),resp,actualPrice);
+           
+            LOGGER.info("{}{}{}{}{}{}{}{}------------苹果充值成功");
+            return ResponseObject.newSuccessResponseObject(null);
         }else{
             return null;
         }
     }
+    
     /**
-	 * 苹果手机下单后扣减熊猫币
+	 * 安卓、ios、h5   扣减熊猫币,购买课程
 	 */
 	@RequestMapping("appleIapPayOrder")
 	@ResponseBody
 	@Transactional
 	public ResponseObject appleInternalPurchaseOrder(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res,@RequestParam("order_no") String order_no)
 			throws Exception {
 		try {
+		
+			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+    		if(user == null) {
+    	         return ResponseObject.newErrorResponseObject("登录超时！");
+    	    }
 			/*
 			 * 传递过来一个订单号
 			 */
-			String order_no = req.getParameter("order_no");
 			ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
     		if(null == orderDetails.getResultObject()){
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
     		}
-			OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
-			//订单金额
+			/**
+			 * 要消费的熊猫币
+			 */
+    		OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
     		Double actualPrice = order.getActualPay();
-    		double  xmb = actualPrice * rate;
-    		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-    		if(user == null) {
-    	         return ResponseObject.newErrorResponseObject("登录超时！");
-    	    }
-    		String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());
-    		double d = Double.valueOf(userYE);
+    		BigDecimal  xmb = BigDecimal.valueOf(actualPrice * rate);
+    		
+    		String userYE = userCoinService.getBalanceByUserId(user.getId());
+    		
+    		BigDecimal ye = new BigDecimal(userYE);
+
     		LOGGER.info("要消费余额:"+xmb);
-    		LOGGER.info("当前用户余额:"+d);
-    		if(xmb>d){
+    		LOGGER.info("当前用户余额:"+ye);
+
+    		//比较大小
+    		if(xmb.compareTo(ye)==-1){
     			return ResponseObject.newErrorResponseObject("余额不足,请到个人账户充值！");
 			}
 			/**
 			 * 然后你那边加下密
 			 */
-			String transaction_id = CodeUtil.getRandomUUID();
-			String s = "out_trade_no=" + order_no + "&result_code=SUCCESS"
-					+ "&transaction_id="+transaction_id+"&key=" + onlinekey;
-			
-			String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-			String resXml = "<xml>" + "<out_trade_no><![CDATA[" + order_no
-					+ "]]></out_trade_no>"
-					+ "<result_code><![CDATA[SUCCESS]]></result_code>"
-					+ "<transaction_id>"+transaction_id+"<![CDATA[]]></transaction_id>"
-					+ "<sign><![CDATA[" + mysign
-					+ "]]></sign>" + " </xml> ";
-			
-			LOGGER.info("请求web端的  ios   内购成功回调  pay_notify_iosiap");
-			
-			String msg = HttpUtil.sendDataRequest(
-					pcUrl  + "/web/pay_notify_iosiap", "application/xml", resXml
-							.toString().getBytes());
-			
-			LOGGER.info("msg  >>>  " + msg);
-			Gson g = new GsonBuilder().create();
-			Map<String, Object> mp = g.fromJson(msg, Map.class);
-			boolean falg =  Boolean.valueOf(mp.get("success").toString());
-	        if(falg){
-	        	/**
-	    		 * 获取订单详情
-	    		 */
-	    		String courderName ="";
-	    		if(order.getAllCourse().size()>0){
-	    			courderName =order.getAllCourse().get(0).getGradeName();
-	    		}
-	    		/**
-	    		 * 记录下ios支付成功后的记录
-	    		 */
-	    		ResponseObject finalResult = iphoneIpaService.iapOrder(order.getUserId(), xmb, order_no, actualPrice+"",courderName);
-	    		return finalResult;
-	        }else{
-	        	return ResponseObject.newErrorResponseObject("签名有误");
-	        }
+    		String transactionId = CodeUtil.getRandomUUID();
+    
+        	/**
+    		 * 课程名字
+    		 */
+    		String courderName ="";
+    		if(order.getAllCourse().size()>0){
+    			courderName =order.getAllCourse().get(0).getGradeName();
+    		}
+    		/**
+    		 * 记录下ios支付成功后的记录
+    		 */
+    		int orderFrom = order.getOrderFrom();
+    		
+    		ResponseObject finalResult = iphoneIpaService.iapNewOrder(order.getUserId(), xmb, order_no, 
+    				actualPrice+"",courderName,orderFrom);
+    		/*
+    		 * 更改订单状态，增加课程学习人数
+    		 */
+    		orderPayService.addPaySuccess(order_no,Payment.COINPAY,transactionId);
+    		
+    		return finalResult;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

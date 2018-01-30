@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import com.xczhihui.bxg.online.common.enums.ConsumptionChangeType;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -71,6 +72,7 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 //				ucc.setOrderFrom(Payment);
 		        ucc.setUserId(userId);
 		        userCoinService.updateBalanceForConsumption(ucc);
+		        
 		        return ResponseObject.newSuccessResponseObject("支付成功");
     		}else{
     			return ResponseObject.newErrorResponseObject("此订单已支付过");
@@ -81,5 +83,63 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
 			return ResponseObject.newErrorResponseObject("服务器异常");
 		}
     }
+
+	@Override
+	public ResponseObject iapNewOrder(String userId, BigDecimal xmb,
+			String orderNo, String actualPrice, String courderName,Integer orderForm) {
+	  	try {
+    		//判断这个订单号中是否已经存在了，如果存在不存了
+    		Integer c = iphoneIpaMapper.findIap(orderNo);
+    		if(c<=0){
+    			//保存这个购买的信息
+    			iphoneIpaMapper.save(null,actualPrice,TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12),
+    		        		orderNo,userId,"购买课程："+courderName+"花费"+xmb+"个熊猫币",0);
+    			//扣减熊猫币
+    			userCoinService.updateBalanceForBuyCourse(userId,OrderFrom.valueOf(orderForm) 
+    					,xmb, orderNo);
+		        return ResponseObject.newSuccessResponseObject("支付成功");
+    		}else{
+    			return ResponseObject.newErrorResponseObject("此订单已支付过");
+    		}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("服务器异常");
+		}
+	}
+	
+	@Override
+	public void increaseNew(String userId, BigDecimal xmb, String json,
+			BigDecimal actualPrice) {
+		try {
+			String orderNoRecharge = TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
+	        iphoneIpaMapper.save(json,
+	        		actualPrice+"",
+	        		JSONObject.parseObject(json).getJSONObject("receipt").getJSONArray("in_app").getJSONObject(0).get("transaction_id").toString(),
+					orderNoRecharge,
+	        		userId,
+	        		"充值熊猫币："+xmb.doubleValue()+"个",
+	        		1);
+	        userCoinService.updateBalanceForRecharge(userId,Payment.APPLYPAY,xmb, OrderFrom.IOS,orderNoRecharge);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
     
+	
+	
+	public static void main(String[] args) {
+	      // create 2 BigDecimal objects
+	      BigDecimal bg1, bg2;
+	      // assign value to bg1
+	      bg1 = new BigDecimal("40");
+	      // value before applying abs
+	      System.out.println("Value is " + bg1);
+	      // assign absolute value of bg1 to bg2
+	      bg2 = bg1.abs();
+	      // print bg2 value
+	      System.out.println("Absolute value is " + bg2);
+	      BigDecimal  decimal = bg1.multiply(new BigDecimal(-1));
+	      System.out.println( decimal);
+	}
 }

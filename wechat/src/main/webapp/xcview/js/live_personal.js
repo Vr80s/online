@@ -62,4 +62,80 @@ $(".bg_userModal").click(function(){
             $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
         });
     });
+    //获取ID跳转相应页面页面
+//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
+	var userLecturerId = getQueryString('userLecturerId');
+
+//传ID courseId为接口ID
+requestService("/xczh/host/hostPageInfo",{
+	lecturerId : '23908ae85dad4541ba7ecf53fc52aab2'
+},function(data) {
+//	直播头像/主播名字
+	$(".personal_bg").html(template('personal_header',data.resultObject));
+//<!--主播名字/粉丝数量-->
+	$("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
+// 打开页面判断是否已关注
+	if(data.resultObject.isFocus == 1){
+		$(".add_follow").html(btn_follow);
+		
+	}else{
+			$(".add_follow").html(not_follow);
+	}		
+			
+//直播时间截取	
+		data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10); //截取日期
+		$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
+//医师精彩致辞
+	if(data.resultObject.lecturerInfo.video==''||data.resultObject.lecturerInfo.video==null){
+		$("#wrap_vedio").hide()
+	}else{
+		$("#wrap_vedio").html(template('data_vedio',data.resultObject.lecturerInfo));
+	
+	}
+
+//介绍
+		if(data.resultObject.lecturerInfo.detail==''||data.resultObject.lecturerInfo.detail==null){
+			$("#jieshao").hide()			
+		}else{
+			$(".user_mywrite").html(data.resultObject.lecturerInfo.detail);
+		}
+//坐诊医馆及时间
+		$("#sure_address").html(template('data_address',data.resultObject));
+		
+
+
+
+
+
+
+
+});
+
 })
+	
+//	点击关注判断
+	var btn_follow='<img src="../images/append1_icon.png"/>'+
+					'<p class="aaa" style="margin-left: 0.6rem;">已关注</p>'	
+	var not_follow='<img src="../images/append1_icon.png"/>'+
+					'<p class="aaa"  style="margin-left: 0.6rem;">加关注</p>'	
+	function my_follow(){
+				var bbb = $(".aaa").text();
+				var adfol=document.getElementById('add_follow')
+				var followed = adfol.getAttribute("data-lecturerId");
+				if(bbb=="已关注"){
+					requestService("/xczh/myinfo/updateFocus",{
+						lecturerId : followed,
+						type:2
+					},function(data){
+							$(".add_follow").html(not_follow);
+					})
+				}else{			
+					requestService("/xczh/myinfo/updateFocus",{
+						lecturerId : followed,
+						type:1
+					},function(data){
+							$(".add_follow").html(btn_follow);
+					})
+		
+				}			
+			}
