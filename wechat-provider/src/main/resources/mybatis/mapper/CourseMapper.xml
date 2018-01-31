@@ -96,6 +96,7 @@
 		oc.course_detail as description,
 		oc.course_outline as courseOutline,
 		oc.live_status as lineState,
+		
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		oc.description as description,
 		oc.address as address,

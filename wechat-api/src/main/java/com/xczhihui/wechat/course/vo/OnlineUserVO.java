@@ -46,12 +46,6 @@ public class OnlineUserVO implements Serializable{
 
     private Integer occupation;
 
-    private String regionId;
-
-    private String regionAreaId;
-
-    private String regionCityId;
-
     private String occupationOther;
 
     private String target;
@@ -87,10 +81,18 @@ public class OnlineUserVO implements Serializable{
     private String vhallPass;
 
     private String vhallName;
+    
+    private String regionId;
+
+    private String regionAreaId;
+
+    private String regionCityId;
 
     private String provinceName;
 
     private String cityName;
+    
+    private String countyName;
 
     private String individualitySignature;
 
@@ -98,7 +100,7 @@ public class OnlineUserVO implements Serializable{
 
     private String gag;
 
-    private String countyName;
+  
 
     private String description;
 

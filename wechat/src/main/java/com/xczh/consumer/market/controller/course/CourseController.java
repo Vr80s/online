@@ -23,6 +23,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,7 +56,10 @@ public class CourseController {
 	
 	@Value("${gift.im.room.postfix}")
 	private String postfix;
-
+	
+	@Value("${live.preheating}")
+	private Integer livePreheating;
+	
 	/**
 	 * Description：课程详情（视频、音频、回放、预告）页面
 	 * @param req
@@ -103,6 +107,22 @@ public class CourseController {
 			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
 			if(isFours != 0){  
 				cv.setIsFocus(1);
+			}
+		}
+		/*
+		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
+		 */
+		if(cv.getType()==1 && cv.getLineState() ==2 ){
+			LOGGER.info("========修改状态");
+			long currentTime = System.currentTimeMillis();
+			currentTime += 1*livePreheating*60*60*1000;
+			long startTimeLong = cv.getStartTime().getTime();
+			// 30 +1 > 30.5
+			LOGGER.info("========currentTime："+startTimeLong);
+			LOGGER.info("========startTimeLong："+startTimeLong);
+			LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
+			if(currentTime>=startTimeLong){
+				cv.setLineState(4);
 			}
 		}
 		return ResponseObject.newSuccessResponseObject(cv);
@@ -154,6 +174,22 @@ public class CourseController {
 			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
 			if(isFours != 0){  
 				cv.setIsFocus(1);
+			}
+		}
+		/*
+		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
+		 */
+		if(cv.getType()==1 && cv.getLineState() ==2 ){
+			LOGGER.info("========修改状态");
+			long currentTime = System.currentTimeMillis();
+			currentTime += 1*livePreheating*60*60*1000;
+			long startTimeLong = cv.getStartTime().getTime();
+			// 30 +1 > 30.5
+			LOGGER.info("========currentTime："+startTimeLong);
+			LOGGER.info("========startTimeLong："+startTimeLong);
+			LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
+			if(currentTime>=startTimeLong){
+				cv.setLineState(4);
 			}
 		}
 		return ResponseObject.newSuccessResponseObject(cv);

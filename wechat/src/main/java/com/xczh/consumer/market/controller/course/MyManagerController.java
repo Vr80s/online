@@ -341,7 +341,7 @@ public class MyManagerController {
 	}
 
 	/**
-	 * Description：资产--->结算tab记录 ---> 提现tab记录
+	 * Description：资产--->结算tab记录 
 	 * @param req
 	 * @param res
 	 * @return
@@ -395,7 +395,6 @@ public class MyManagerController {
 	
 	/**
 	 * Description：结算 --- 扣减熊猫币增加人民币
-	 * 
 	 * @param req
 	 * @param res
 	 * @return
@@ -418,19 +417,17 @@ public class MyManagerController {
 			 * 结算服务
 			 */
 			enchashmentService.saveSettlement(user.getId(), xbmNumber,OrderFrom.valueOf(orderFrom));
-			
 			return ResponseObject.newSuccessResponseObject("结算成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return ResponseObject.newSuccessResponseObject("结算失败");
+			return ResponseObject.newSuccessResponseObject(e.getMessage());
 		}
 	}
 
 
 	/**
 	 * Description：提现前-- 验证银行卡信息时候正确
-	 * 
 	 * @param req
 	 * @param res
 	 * @return
@@ -447,13 +444,11 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(
-				user.getId(), bankCard, null);
+		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(user.getId(), bankCard, null);
 		if (ub == null) {
-			return ResponseObject.newErrorResponseObject("请输入有效银行卡信息");
+			return ResponseObject.newErrorResponseObject("请输入有效的银行卡信息");
 		}
-		return ResponseObject
-				.newSuccessResponseObject("银行卡信息正确,点击获取验证码,验证短信信息");
+		return ResponseObject.newSuccessResponseObject("银行卡信息正确,点击获取验证码,验证短信信息");
 	}
 
 	/**
@@ -478,7 +473,7 @@ public class MyManagerController {
 		/**
 		 * 验证手机号
 		 */
-		String userName = req.getParameter("userName");
+		String userName = req.getParameter("mobile");
 		if(!StringUtils.isNotBlank(userName)){
 			userName = user.getLoginName();
 		}
@@ -555,8 +550,14 @@ public class MyManagerController {
 		ResponseObject rob = onlineUserService.changeMobileCheckCode(userName, smsCode, SMSCode.WITHDRAWAL.getCode());
 		//短信验证码成功
 		if(rob.isSuccess()){
-			enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber, ub.getId(), OrderFrom.valueOf(orderFrom));
-			return ResponseObject.newSuccessResponseObject("提现成功");
+			try {
+				enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber, ub.getId(), OrderFrom.valueOf(orderFrom));
+				return ResponseObject.newSuccessResponseObject("提现成功");
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return ResponseObject.newErrorResponseObject(e.getMessage());
+			}
 		}else{
 			return rob;
 		}

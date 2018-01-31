@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.wechat.course.vo.OnlineUserVO;
+
 
 public interface IMyInfoService {
 	
@@ -21,4 +23,7 @@ public interface IMyInfoService {
 
 
 	List<Map<String,Object>> selectWithdrawalList(String id);
+
+
+	void updateUserSetInfo(OnlineUserVO user);
 }

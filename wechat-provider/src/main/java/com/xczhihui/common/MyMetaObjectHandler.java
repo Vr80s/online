@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class MyMetaObjectHandler extends MetaObjectHandler {
 
+	
     @Override
     public void insertFill(MetaObject metaObject) {
         this.setFieldValByName("ctime", new Date(), metaObject);
@@ -19,9 +20,11 @@ public class MyMetaObjectHandler extends MetaObjectHandler {
     public boolean openUpdateFill() {
         return false;
     }
-
+    
+    
     @Override
     public void updateFill(MetaObject metaObject) {
         // 关闭更新填充、这里不执行
+    	
     }
 }

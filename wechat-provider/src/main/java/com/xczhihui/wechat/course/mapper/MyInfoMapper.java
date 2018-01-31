@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
+import com.xczhihui.wechat.course.vo.OnlineUserVO;
 
 /**
  * <p>
@@ -47,4 +48,13 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	 *
 	 */
 	List<Map<String, Object>> selectWithdrawalList(String userId);
+	/**
+	 * 
+	 * Description：更改用户信息
+	 * @param user
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	void updateUserSetInfo(OnlineUserVO user);
 }
