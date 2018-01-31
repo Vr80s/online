@@ -211,7 +211,6 @@
 					</p>
 					<!--被回复的内容灰色部分-->
 					{{if item.reply.length > 0}}
-
 					<div class="uesr_returned">
 						<p class="returned_id z">{{item.reply[0].onlineUser.name}}</p>
 						<p class="returned_text">{{item.reply[0].replyContent}}</p>
@@ -221,11 +220,15 @@
 					<div class="wrap_returned_btn">
 						<ul>
 							<li>{{item.createTime}}</li>
-							<li class="btn_littleReturn " style="margin-left: 0.3rem;">
+							<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
 								<img src="../images/returned.png"/>
 							</li>
-							<li>
-								<img src="../images/zan01.png"/>&nbsp;23
+							<li class="btn_click_zan"  data-id ="{{item.id}}"  >
+								{{if item.isPraise }}
+								<img src="../images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseSum}}</span>
+								{{else}}
+								<img src="../images/zan01.png"/>&nbsp;<span id="zan01">{{item.praiseSum}}</span>
+								{{/if}}
 							</li>
 
 						</ul>
@@ -285,7 +288,7 @@
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li>发表评论</li>
+			<li onclick="replyComment()">发表评论</li>
 		</ul>
 	</div>	
 	<!--评论弹出框-->
