@@ -85,7 +85,7 @@ public class HostController {
 	
 	
 	/**
-	 * Description：用户主页    -- 讲师基本信息、是否已经关注了这个主播、关注该主播的粉丝数、主播关注的主播数、关注该主播的前六个人的头像
+	 * Description：用户主页
 	 * @param req
 	 * @param res
 	 * @param params

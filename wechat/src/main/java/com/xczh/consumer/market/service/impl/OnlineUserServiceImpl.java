@@ -205,10 +205,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			e.printStackTrace();
 		}
 		
-		if (SMSCode.RETISTERED.getCode()!=1 && SMSCode.FORGOT_PASSWORD.getCode()!=2) {
-			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码");
+		if (SMSCode.RETISTERED.getCode() !=vtype && SMSCode.FORGOT_PASSWORD.getCode()!=vtype &&
+				SMSCode.WITHDRAWAL.getCode() != vtype ) {
+			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码  5 为提现使用");
 		}
-		
 		ItcastUser iu = null;
 		try {
 			iu = userCenterAPI.getUser(username);
@@ -233,13 +233,13 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		/**
 		 * 重置密码，根据本地库判断用户是否存在
 		 */
-		if (SMSCode.FORGOT_PASSWORD.getCode() == vtype && (o == null || iu == null)) {
+		if ((SMSCode.FORGOT_PASSWORD.getCode() == vtype || SMSCode.WITHDRAWAL.getCode() == vtype)  && (o == null || iu == null)) {
 			return  "用户不存在！";
 		}
 		/**
 		 * 重置密码，根据用户中心判断用户是否被禁用
 		 */
-		if (SMSCode.FORGOT_PASSWORD.getCode() == vtype && iu.getStatus() == -1) {
+		if ((SMSCode.FORGOT_PASSWORD.getCode() == vtype || SMSCode.WITHDRAWAL.getCode() == vtype) && iu.getStatus() == -1) {
 			return "用户已禁用！";
 		}
 		
@@ -380,7 +380,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		onlineUserDao.updateUserUnionidByid(ou1);
 	}
 	/**
-	 * 验证3 和 4 的动态码
+	 * 短信验证码验证
 	 */
 	@Override
 	public ResponseObject changeMobileCheckCode(String mobile, String code, Integer vtype) throws Exception {
@@ -391,14 +391,9 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			return ResponseObject.newErrorResponseObject("验证码不能为空! ");
 		}
 		initSystemVariate();
-		/**
-		 * 如果vtype类型等于1 的话，证明是注册，用户肯定是不存在了
-		 * 如果vtype等于1 的话,就需要判断用户是否存在啦
-		 * 
-		 * 如果vtype类型等于3 的话，证明是注册，用户肯定是不存在了
-		 * 如果vtype等于3的话,就需要判断用户是否存在啦
-		 */
-		if(vtype!=null && SMSCode.OLD_PHONE.getCode() ==3){
+		
+		//已经存在的手机号需要验证时候有效
+		if(vtype!=null && SMSCode.OLD_PHONE.getCode() ==vtype &&  SMSCode.WITHDRAWAL.getCode() == vtype){
 			
 			//在用户重新获取登陆对象
 			ItcastUser iu = userCenterAPI.getUser(mobile);
@@ -431,7 +426,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	 */
 	@Override
 	public String changeMobileSendCode(String username, Integer vtype) throws Exception{
-		
 		try {
 			initSystemVariate();
 		} catch (Exception e) {
@@ -441,7 +435,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		if (SMSCode.OLD_PHONE.getCode()!=vtype && SMSCode.NEW_PHONE.getCode()!=vtype ) {
 			throw new RuntimeException ("动态码类型错误！3为本手机，4为要更换的手机");
 		}
-		
 		if(vtype!=null && SMSCode.OLD_PHONE.getCode()==vtype){
 			//在用户重新获取登陆对象
 			ItcastUser iu = userCenterAPI.getUser(username);

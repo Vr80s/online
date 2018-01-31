@@ -2,14 +2,65 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.wechat.course.mapper.MyInfoMapper">
 
-	<!-- 查找主播的学员、课程数、熊猫币、人民币  -->
+	<!-- 查找主播的学员、课程数  -->
 	<select id="selectCollegeCourseXmbNumber" resultType="java.math.BigDecimal">
 		( select count(*) as number from apply_r_grade_course where course_id in 
 		  (select id from oe_course where user_lecturer_id = #{userId} ) )
 		UNION ALL 
-        ( select count(*) as number from oe_course  where user_lecturer_id =#{userId} )
-		UNION ALL 
-		( select (balance_reward_gift + balance) as number from user_coin  where user_id =#{userId}  )
+        ( select count(*) as number from oe_course  where user_lecturer_id =#{userId} ) )
 	</select>	
+	
+	
+   <!-- 结算页面记录信息  -->
+   <select id="selectSettlementList" resultType="java.util.Map">
+		
+	select	* from  (	
+	  (	select (select course.grade_name from oe_course course where course.id = ood.course_id) as gradeName,
+       		uci.value,uci.create_time as createTime,'课程' as label 
+   	    from user_coin_increase uci 
+    	   inner join oe_order_detail ood on uci.order_no_course = ood.id
+   				 where ood.course_id in (select id from oe_course as oc where oc.user_lecturer_id ="23908ae85dad4541ba7ecf53fc52aab2")  )
+   				 
+		UNION ALL
+		
+	  (	select  (select course.grade_name from oe_course course where course.id = ogs.live_id) as gradeName,
+	      	 sum(uci.value) as value,max(ogs.create_time) as createTime,'直播礼物' as label  
+	    from user_coin_increase uci
+	    	inner join oe_gift_statement ogs on uci.order_no_gift = ogs.id
+	   			 where ogs.receiver =  "23908ae85dad4541ba7ecf53fc52aab2" group by ogs.live_id  )
+		
+		UNION ALL
+		
+	  ( select '' as gradeName,ucc.value,ucc.create_time as createTime,'结算' as label  from  user_coin_consumption as ucc  where 
+	         ucc.change_type = 5  and ucc.user_id = "23908ae85dad4541ba7ecf53fc52aab2"	 )
+		
+		UNION ALL
+		
+	  ( select '' as gradeName,uci.value,uci.create_time as createTime,'提现驳回' as label  from  user_coin_increase as uci  where  
+	  		uci.change_type = 5 	and uci.user_id = "23908ae85dad4541ba7ecf53fc52aab2" )
+	  		
+	  ) as  jiesuan order by jiesuan.createTime desc		
+	  		
+	</select>	
+	
+	
+	 <!-- 提现页面记录信息  -->
+   <select id="selectWithdrawalList" resultType="java.util.Map">
+		
+   select	* from  (			
+	  ( select '提现' as lable,ucc.value,ucc.create_time as createTime from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id="23908ae85dad4541ba7ecf53fc52aab2"	 )
+		
+		UNION ALL
+		
+	  ( select '结算' as lable,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 6 and user_id="23908ae85dad4541ba7ecf53fc52aab2" )
+	  
+	  	UNION ALL
+	  
+	  ( select '提现驳回' as lable,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 5 and user_id="23908ae85dad4541ba7ecf53fc52aab2" )
+		
+	 ) as tixian  order by tixian.createTime desc
+	 
+	</select>	
+	
 	
 </mapper>

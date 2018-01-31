@@ -82,7 +82,7 @@ public interface OLCourseServiceI {
 	 * @return List<CourseLecturVo>
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public List<CourseLecturVo> queryAllCourse(String menuType,
+	public List<CourseLecturVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree, String city,String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException;
 	List<CourseLecturVo> offLineClassListOld(int number, int pageSize)

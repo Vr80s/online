@@ -720,6 +720,8 @@
     right: 20px;
     top: 12px; 
 }
+
+/*第二页*/
 .wrap_box  #curriculum .zhuanlan_bottom {
 	padding: 30px 20px;
 }
@@ -735,6 +737,11 @@
 	line-height: 19px;
 	margin-right: 20px;
 }
+#resourceTypes label{
+	margin-right: 30px;
+	margin-top: 0 !important;
+}
+
 .wrap_box  #curriculum .zhuanlan_bottom form > div >span:first-child > em{
 	color: #f40;
 	display: inline;
@@ -1505,7 +1512,366 @@ pre {
 	color: #FFFFFF;
     float: right;
     cursor: pointer;
+    /*display: none;*/
 }
 /*更新时间结束*/
 
+/*点击添加课程出现的弹框开始*/
+.new_box{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	display: none;
+}
+.new_box_bg{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background: #000;
+	opacity: 0.3;
+}
+.new_box_main{
+	width: 570px;
+	height: 270px;
+	background: #fff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 1;
+	margin-top: -135px;
+	margin-left: -285px;
+	border-radius: 4px;
+	padding: 10px;
+}
+.new_box_main p{
+	width: 100%;
+	height: 31px;
+    line-height: 27px;
+	text-align: right;
+	font-size: 28px;
+	color: #666;
+	margin-bottom: 46px;
+	cursor: pointer;
+}
+.new_box_main .input{
+	width: 390px;
+	height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #666666;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+.new_box_main .input input{
+	width: 280px;
+	height: 36px;
+	border: 1px solid #F0F0F0;
+	outline: none;
+	margin-left: 20px;
+}
+.new_box_main .add{
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	font-size: 14px;
+	color: #FFFFFF;
+	margin-bottom: 20px;
+	background: #00BC12;
+	border-radius: 4px;
+	margin-left: 184px;
+	cursor: pointer;
+}
+.new_box_main .size{
+	font-size: 14px;
+	color: #188EEE;
+	margin-left: 184px;
+	cursor: pointer;
+}
+/*点击添加课程出现的弹框结束*/
+
+
+/*课程添加开始*/
+.adds_course{
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: #ccc;
+	/*position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9;*/
+}
+.adds_course_bg{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9;
+	background: #000;
+	opacity: 0.3;
+}
+
+
+/*第二页*/
+/*第二页*/
+#zhuanji .zhuanlan_bottoms{
+	width: 100%;
+	height: 100%;
+	background: blanchedalmond;
+	padding: 30px 20px;
+}
+#zhuanji .zhuanlan_bottoms div {
+	margin-bottom: 20px;
+}
+#zhuanji .zhuanlan_bottoms div >span:first-child{
+	display: inline-block;
+	width: 89px;
+	text-align: right;
+	font-size: 14px;
+	color: #2A2A2A;
+	line-height: 19px;
+	margin-right: 20px;
+}
+#zhuanji .zhuanlan_bottoms div >span:first-child > em{
+	color: #f40;
+	display: inline;
+}
+#zhuanji .zhuanlan_bottoms div .zhuanlan_title{
+	width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    font-size: 14px;
+}
+
+
+.wrap_box #zhuanji .zhuanlan_bottoms .zhuanlan_title::-webkit-input-placeholder,
+.wrap_box #zhuanji .zhuanlan_bottoms .zhuanlan_title:-moz-placeholder,
+.wrap_box #zhuanji .zhuanlan_bottoms .zhuanlan_title::-moz-placeholder,
+.wrap_box #zhuanji .zhuanlan_bottoms .zhuanlan_title:-ms-input-placeholder {
+	font-size: 14px;
+}
+.wrap_box #zhuanji .zhuanlan_bottoms .fengmian{
+  	
+}
+.wrap_box #zhuanji .zhuanlan_bottoms .fengmian_pic{
+	display: inline-block;
+    width: 260px;
+    height: 147px;
+    border: 1px solid #f0f0f0;
+    vertical-align: middle;
+    margin-right: 30px;
+}
+.wrap_box #zhuanji .zhuanlan_bottoms .fengmian_tip{
+	display: inline-block;
+	width: 159px;
+	height: 48px;
+	color: #999;
+}
+.wrap_box #zhuanji .zhuanlan_bottoms #curriculumType {
+	font-size: 14px;
+	line-height: 24px;
+}
+.wrap_box #zhuanji .zhuanlan_bottoms #curriculumType label{
+	margin-right: 30px;
+	font-weight: 400;
+}
+.wrap_box #zhuanji .zhuanlan_bottoms #curriculumType label input{
+	vertical-align: sub;
+}
+.wrap_box #zhuanji .zhuanlan_bottoms .baocun #submits{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+    font-size: 14px;
+    margin-right: 20px;
+}
+.wrap_box #zhuanji .zhuanlan_bottoms .baocun #submits0{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: none;
+	border-radius: 4px;
+	border: 1px solid #00BC12;
+	outline: none;
+	color: #00BC12;
+    font-size: 14px;
+    margin-right: 20px;
+}
+
+.wrap_box #zhuanji .zhuanlan_bottoms .baocun{
+	padding-left:120px ;
+}
+.warning{
+	font-size: 14px;
+    color: #FF4012;
+    line-height: 30px;
+    text-indent: 20px;
+    background: url(../images/icons/tanhao.png) no-repeat left center;
+     margin-left: 120px;
+}
+.resourceUrls .input{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+}
+.resourceUrlss .input{
+	    width: 280px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    text-indent: 1em;
+    margin-right: 10px;
+}
+.resourceTypes label{
+	margin-right: 30px;
+}
+.resourceTypes input{
+	margin-top: 0 !important;
+}
+.resourceTypess input{
+	margin-top: 0 !important;
+}
+.resourceTypess label{
+	margin-right: 30px;
+}
+#resourceTypess input{
+	margin-top: 0 !important;
+}
+#resourceTypess label{
+	margin-right: 30px;
+}
+
+
+#zhuanji .textarea textarea {
+    width: 540px;
+    height: 160px;
+    outline: none;
+    resize: none;
+    border: 1px solid #F0F0F0;
+    padding: 10px;
+}
+#zhuanji .select select {
+    width: 280px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    color: #999999 !important;
+}
+/*课程添加结束*/
+
+
+/*直播开始*/
+.live_streaming{
+	width: 100%;
+	height: 100%;
+}
+
+.live_streaming_title{
+	width: 100%;
+	height: 70px;
+	line-height: 60px;
+	font-size: 16px;
+	color: #333333;
+    border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 20px;
+}
+.live_streaming_main{
+	width: 100%;
+	height: 70px;
+	padding: 17px 20px;
+	background: #F0F0F0;
+	border-radius: 4px;
+}
+.live_streaming_main_left{
+	width: 710px;
+	font-size: 14px;
+	color: #333333;
+	float: left;
+}
+.live_streaming_main_right{
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #FFFFFF;
+	text-align: center;
+	float: right;
+	margin-bottom: 20px;
+}
+.live_streaming_table{
+	width: 100%;
+	height: 100%;
+	margin-top: 20px;
+	margin-bottom: 36px;
+}
+.live_streaming_table table thead{
+	height: 40px;
+    line-height: 40px;
+    background: #F0F0F0;
+    font-size: 14px;
+    color: #666666;
+}
+.live_streaming_table table td{
+	border: 1px solid #DEDEDE;
+	padding: 10px;
+	text-align: center;
+	height: 80px;
+}
+.live_streaming_table table tbody{
+	font-size: 14px;
+    color: #333;
+}
+.live_streaming_table table tbody > tr > td:first-child img{
+	width: 100%;
+}
+.live_streaming_table table tbody > tr > td:first-child{
+	width: 126px;
+}
+.live_streaming_table table tbody > tr > td:nth-child(2){
+	width: 270px;
+}
+.live_streaming_table table tbody > tr > td:nth-child(4){
+	width: 140px;
+}
+
+/*直播结束*/
 /*专辑结束*/
+
+
+/*处理账户*/
+.select_list .littleBoxs {
+    background: #e2e2e2;
+    margin-top: 16px;
+    display: none;
+}
+.select_list .littleBoxs .activeP {
+    color: #00bc12;
+}
+.select_list .littleBoxs p {
+    color: #666666;
+    margin: 0;
+    padding: 16px 0;
+    margin-left: 65px;
+    font-size: 16px;
+}
+/*处理账户*/

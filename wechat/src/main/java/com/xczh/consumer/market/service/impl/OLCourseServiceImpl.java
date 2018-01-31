@@ -453,7 +453,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	}
 
 	@Override
-	public List<CourseLecturVo> queryAllCourse(String menuType,
+	public List<CourseLecturVo> queryAllCourse(String menuType,Integer lineState,
 			Integer courseType, String isFree,String city, String queryKey,
 			Integer pageNumber, Integer pageSize) throws SQLException {
 
@@ -500,6 +500,13 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
         	condSql.append(" and oc.is_free = '"+isFree+"'");
         }
+
+		/**
+		 * 直播中的状态
+		 */
+		if(lineState!=null){
+			condSql.append(" and oc.live_status = '"+lineState+"'");
+		}
         /**
          * 目前检索的是讲师名和课程id
          */
@@ -528,7 +535,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" oc.smallimg_path as smallImgPath");
 		commonSql.append(" from oe_course oc,oe_menu as om ");
 		commonSql.append(" where   om.id = oc.menu_id  and "
-    			+ "oc.is_delete=0 and oc.status = 1   ");
+    			+ " oc.is_delete=0 and oc.status = 1   ");
 
 		commonSql.append(condSql).append(sortSql);
     	System.out.println("commonSql:"+commonSql.toString());
