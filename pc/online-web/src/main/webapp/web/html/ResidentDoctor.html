@@ -438,30 +438,30 @@
 		
 		<div class="idCard_pic">
 			<span style="vertical-align: top;"><em>*</em> 身份证</span>
-			<span class="idFont_pic" >
+			<span class="idFont_pic" style="cursor: default;">
 				<img src={{cardPositive}} alt="">
 			</span>
-			<span class="idBack_pic" >
+			<span class="idBack_pic" style="cursor: default;">
 				<img src={{cardNegative}} alt="" />
 			</span>
 		</div>
 		
 		<div class="teacher_picUpdata">
 			<span style="vertical-align: top;"><em>*</em>  医师资格证</span>
-			<span class="teacher_pic" >
+			<span class="teacher_pic" style="cursor: default;">
 				<img src={{qualificationCertificate}} alt="" />
 			</span>
 		</div>
 		
 		<div class="zhiye_picUpdata">
 			<span style="vertical-align: top;"><em>*</em>执业资格证</span>
-			<span class="zhiye_pic"  >
+			<span class="zhiye_pic"  style="cursor: default;">
 				<img src={{professionalCertificate}} alt="" />
 		</div>
 		
 		<div class="touxiang_picUpdata">
 			<span style="vertical-align: top;"><em>*</em> 真实头像</span>
-			<span class="touxiang_pic"  >
+			<span class="touxiang_pic"  style="cursor: default;">
 				<img src={{headPortrait}} alt="" />
 			</span>
 		</div>
@@ -473,7 +473,7 @@
 		
 		<div class="zhicheng_picUpdata">
 			<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-			<span class="zhicheng_pic" >
+			<span class="zhicheng_pic" style="cursor: default;">
 				<img src={{titleProve}} alt="" />
 			</span>
 		</div>
@@ -513,7 +513,7 @@
 <!--科室部分的小模板-->
 <script type="text/template" id="adaptTpl">
 {{each medicalDepartments}}
-	<li data-id={{$value.id}}>{{$value.name}}</li>
+	<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
 {{/each}}
 </script>
 
