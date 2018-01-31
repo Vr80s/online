@@ -47,6 +47,8 @@
     <!--添加银行卡-->
     <dubbo:service interface="com.xczhihui.medical.anchor.service.IUserBankService" ref="userBankServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
+    <!--医馆科室-->
+    <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService" ref="medicalDoctorDepartmentServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
     <!--引入用户熊猫币相关逻辑业务-->
     <dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}" />

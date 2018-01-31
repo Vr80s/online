@@ -110,7 +110,7 @@
 								<div>
 									<p class="hosChooseTip">请选择任职的医馆</p>
 									<label for="id_select"></label>
-									<select id="id_select" class="selectpicker bla bla bli"  data-live-search="true"></select>
+									<select id="id_select" class="selectpicker bla bla bli" multiple data-live-search="true"></select>
 									<button class="sureChoosehos">确认</button>
 								</div>
 							</div>
@@ -623,8 +623,8 @@
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
-			<span>已于{{updateTime}}通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
-			<button class="renzhengAgain">重新认证</button>
+			<span>已于{{updateTime}}通过认证</span><span style="color: red;margin-left: -20px;"></span>
+			<!--<button class="renzhengAgain">重新认证</button> （如信息有更新可重新认证）-->
 		</div>
 		{{else if status == 0}}
 		<div class="bottomContent_inf text-left">
@@ -644,31 +644,31 @@
 
 		<div class="idCard_pic">
 			<span> 身份证</span>
-			<span class="idFont_pic">
+			<span class="idFont_pic" style="cursor: default;">
 				<img src={{cardPositive}} alt="" />
 			</span>
-			<span class="idBack_pic">
+			<span class="idBack_pic" style="cursor: default;">
 				<img src={{cardNegative}} alt="" />
 			</span>
 		</div>
 
 		<div class="teacher_picUpdata">
 			<span> 医师资格证</span>
-			<span class="teacher_pic">
+			<span class="teacher_pic" style="cursor: default;">
 				<img src={{qualificationCertificate}} alt="" />
 			</span>
 		</div>
 
 		<div class="zhiye_picUpdata">
 			<span>执业资格证</span>
-			<span class="zhiye_pic">
+			<span class="zhiye_pic" style="cursor: default;">
 				<img src={{professionalCertificate}} alt="" />
 			</span>
 		</div>
 
 		<div class="touxiang_picUpdata">
 			<span> 真实头像</span>
-			<span class="touxiang_pic">
+			<span class="touxiang_pic" style="cursor: default;">
 					<img src={{headPortrait}} alt="" />
 			</span>
 		</div>
@@ -680,7 +680,7 @@
 
 		<div class="zhicheng_picUpdata">
 			<span>职称证明</span>
-			<span class="zhicheng_pic">
+			<span class="zhicheng_pic" style="cursor: default;">
 				<img src={{titleProve}} alt="" />
 			</span>
 		</div>
@@ -689,10 +689,8 @@
 			<span>科室</span>
 			<ul>
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-
-				{{each medicalDepartments}}
-				<li data-id={{$value.id}}>{{$value.name}}</li>
-				{{/each}}
+		
+				  {{include 'adaptTpl' }}  
 				 {{/if}}
 			
 			</ul>
@@ -724,7 +722,7 @@
 	<!--科室部分的小模板-->
 <script type="text/template" id="adaptTpl">
 {{each medicalDepartments}}
-	<li data-id={{$value.id}}>{{$value.name}}</li>
+	<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
 {{/each}}
 </script>
 
