@@ -518,6 +518,8 @@ getData(1,1);
 function fenye(currentPage,numberOfPages,totalPages){
 			if(numberOfPages>5){
 				numberOfPages = 5;
+			}else if(numberOfPages <= 1){
+				$('.zhongyi').addClass('hide');
 			}
 			//分页结构结合数据渲染部分
 			$('.zhongyi .pagination').bootstrapPaginator({
@@ -569,6 +571,8 @@ getData2(pageNum2)
 function fenye2(currentPage,numberOfPages,totalPages){
 			if(numberOfPages>5){
 				numberOfPages = 5;
+			}else if(numberOfPages <= 1){
+				$('.peixun').addClass('hide');
 			}
 			//分页结构结合数据渲染部分
 			$('.peixun .pagination').bootstrapPaginator({
