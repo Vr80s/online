@@ -483,7 +483,9 @@ $(function () {
     $('#toDocJoin').click(function(){
     	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
-	       	if(data.resultObject.indexOf(1) != -1){
+	       	if($('.login').css('display') == 'block'){
+	       		window.location.href = "/web/html/ResidentDoctor.html";
+	       	}else if(data.resultObject.indexOf(1) != -1){
 	       		//医师认证成功 医师认证中 医师认证拒绝 跳转到认证状态页面
 	       		window.location.href = "/web/html/anchors_resources.html";
 	       	}else if(data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){

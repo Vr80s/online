@@ -1,5 +1,7 @@
 $(function(){
-	
+	//医师按钮变色效果
+	$('.forum').css('color','#000');
+	$('.path .doctor').addClass('select');
 	//进行认证状态的验证 控制左侧tab的显示隐藏
 //	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 //	       if(data.success == true ){
