@@ -417,8 +417,8 @@
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
-			<span>已于{{updateTime}}通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
-			<button class="renzhengAgain" onclick="Autagain()">重新认证</button>
+			<span>已于{{updateTime}}通过认证</span><span style="color: red;margin-left: -20px;"></span>
+			<button class="renzhengAgain" onclick="goDocPage()">去看看</button>
 		</div>
 		{{else if status == 0}}
 		<div class="bottomContent_inf text-left">
@@ -494,7 +494,7 @@
 		
 		<div class="personIntroduct">
 			<span><em>*</em> 个人介绍</span>
-			<p  style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;">{{description}}</p>
+			<p  style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;">{{change(description)}}</p>
 		</div>
 		
 		<!--<div class="work_hos">
