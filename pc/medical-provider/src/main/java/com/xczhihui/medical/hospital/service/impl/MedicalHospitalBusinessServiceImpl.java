@@ -113,18 +113,6 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
                 if(authenticationInformation != null){
                     doctor.setHeadPortrait(authenticationInformation.getHeadPortrait());
                 }
-                // 获取医师的领域
-                Map<String, Object> columnMap = new HashMap<>();
-                columnMap.put("doctor_id", doctor.getId());
-                List<MedicalDoctorField> doctorFields = doctorFieldMapper.selectByMap(columnMap);
-                if(CollectionUtils.isNotEmpty(doctorFields)){
-                    List<String> idList = new ArrayList<>();
-                    for(MedicalDoctorField doctorField : doctorFields){
-                        idList.add(doctorField.getFieldId());
-                    }
-                    List<MedicalField> medicalFields = fieldMapper.selectBatchIds(idList);
-                    doctor.setFields(medicalFields);
-                }
             }
         }
         return page.setRecords(medicalDoctorList);

@@ -132,17 +132,40 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
      */
 	private String remark;
 
-	//头像
+	/**
+	 * 头像
+	 */
+	@TableField(exist = false)
 	private String headPortrait;
 
-	//医馆名
+	/**
+	 * 医馆id
+	 */
+	@TableField(exist = false)
 	private String hospitalId;
+
+	/**
+	 * 医馆名
+	 */
+	@TableField(exist = false)
 	private String hospitalName;
 
+	/**
+	 * 医师擅长领域
+	 */
+	@TableField(exist = false)
 	private List<MedicalField> fields;
 
+	/**
+	 * 医师所在医馆
+	 */
+	@TableField(exist = false)
 	private MedicalHospital medicalHospital;
 
+	/**
+	 * 医师认证信息
+	 */
+	@TableField(exist = false)
 	private MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation;
 
 	/**
