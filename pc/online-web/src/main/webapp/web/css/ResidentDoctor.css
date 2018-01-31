@@ -256,6 +256,7 @@ a {
 #doc_Distinguish .bottomContent >.idCard_pic .idBack_pic:hover{
 	cursor: pointer;
 }
+
 #doc_Distinguish .bottomContent >.idCard_pic .idCard_tip,
 #doc_Distinguish .bottomContent >.teacher_picUpdata .teacher_pic_tip,
 #doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,

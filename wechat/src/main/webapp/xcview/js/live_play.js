@@ -1,3 +1,4 @@
+
 $(function(){
 //	回复弹窗
 $(".wrap_returned_btn .btn_littleReturn").click(function(){
@@ -64,6 +65,7 @@ $(".bg_userModal").click(function(){
 //获取课程ID跳转相应页面页面
 //引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 var courseId = getQueryString('course_id');
+
 //传ID courseId为接口的课程ID
 requestService("/xczh/course/details",{
 	courseId : courseId	
@@ -99,7 +101,10 @@ requestService("/xczh/course/details",{
 
 
 
+
+
 })
+
 var courseId = getQueryString('course_id');
 //点击购买后的接口
 function btn_buy(){
@@ -107,7 +112,8 @@ function btn_buy(){
 		courseId:courseId,
 		orderFrom:2
 	},function(data){
-		window.location.href=""purchase.html?courseId="+orderId+""
+
+		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
 	});
 	
 }

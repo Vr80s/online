@@ -1,6 +1,4 @@
 var userPic = $('.userPic').css('background')
-$('.forum').css('color','#000');
-$('.path .doctor').addClass('select');
 
 //请求头像 名字 个性签名
 RequestService("/online/user/isAlive", "get", null, function(data) {

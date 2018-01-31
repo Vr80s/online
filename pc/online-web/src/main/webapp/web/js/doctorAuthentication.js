@@ -1,4 +1,8 @@
 $(function(){
+	
+	$('.forum').css('color','#000');
+	$('.path .doctor').addClass('select');
+
 	//医师认证信息前台验证
 	$('#doc_Distinguish #AutList #submit').click(function(){
 	//姓名
@@ -123,13 +127,14 @@ $(function(){
 		}
 		
 		
-		//任职医馆
-		if($('#AutList .work_hos input').val() == ''){
-			$('#AutList .work_hos .warning').removeClass('hide');
+		//城市判断
+		if($('#AutList #choosePro option:selected').text()== '请选择所在省' ||$('#AutList #citys option:selected').text() == '请选择所在市'){
+			$('#AutList .doc_address .warning').removeClass('hide');
 			return false;
 		}else{
-			$('#AutList .work_hos .warning').addClass('hide');
+			$('#AutList .doc_address .warning').addClass('hide');
 		}
+		
 		
 		
 		//获取页面所有信息

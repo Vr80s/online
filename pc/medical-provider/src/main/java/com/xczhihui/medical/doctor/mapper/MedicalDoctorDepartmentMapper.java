@@ -15,6 +15,6 @@ public interface MedicalDoctorDepartmentMapper extends BaseMapper<MedicalDoctorD
      * 根据医师id删除之前的科室信息
      * @param doctorId 医师id
      */
-    @Update("update medical_doctor_department set deleted = 1 where doctor_id = #{doctorId} and delete = 0")
+    @Update("update medical_doctor_department set deleted = 1 where doctor_id = #{doctorId} and deleted = 0")
     void deleteByDoctorId(String doctorId);
 }

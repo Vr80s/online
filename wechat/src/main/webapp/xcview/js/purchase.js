@@ -5,8 +5,8 @@ $(function(){
 	requestService("/xczh/order/getByOrderId",{
 		orderId : courseId	
 	},function(data) {
-	$("#purchase_details").html(template('data_details',data.resultObject[0].allCourse));
-		
+	$("#purchase_details").html(template('data_details',data.resultObject.allCourse[0]));
+		$(".purchase_list_one_right .give_price").html(data.resultObject.allCourse[0].actualPay)
 		
 	})
 })
