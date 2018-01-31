@@ -2,8 +2,10 @@ $(function(){
 
 
 //搜索历史开始
-
-requestService("/xczh/course/details",{courseId:748}, 
+var courseId = getQueryString('courseId');
+requestService("/xczh/course/details",{
+	courseId:courseId
+},
     function(data) {
 		
 		if(data.success==true){
