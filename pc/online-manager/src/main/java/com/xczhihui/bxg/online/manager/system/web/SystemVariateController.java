@@ -51,14 +51,14 @@ public class SystemVariateController extends AbstractController{
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
 	
-	@RequiresPermissions("system:menu:variate")
+	//@RequiresPermissions("system:menu:variate")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		
 		return BOXUESHE_PATH_PREFIX + "/variateList";
 	}
 	
-	@RequiresPermissions("system:menu:variate")
+	//@RequiresPermissions("system:menu:variate")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo articles(TableVo tableVo) {
@@ -100,7 +100,7 @@ public class SystemVariateController extends AbstractController{
 	 * @param vo
 	 * @return
 	 *//*
-	@RequiresPermissions("system:menu:variate")
+	//@RequiresPermissions("system:menu:variate")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(HttpServletRequest request,variateVo variateVo){
@@ -121,7 +121,7 @@ public class SystemVariateController extends AbstractController{
 	 * @param vo
 	 * @return
 	 *//*
-	@RequiresPermissions("system:menu:variate")
+	//@RequiresPermissions("system:menu:variate")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject update(HttpServletRequest request,variateVo variateVo){
@@ -140,7 +140,7 @@ public class SystemVariateController extends AbstractController{
 	 * 删除
 	 * 
 	 *//*
-	@RequiresPermissions("system:menu:variate")
+	//@RequiresPermissions("system:menu:variate")
 	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject deletes(String ids){

@@ -46,6 +46,9 @@ public class CourseApplyController {
         page.setCurrent(current);
         page.setSize(size);
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if(user==null){
+            return ResponseObject.newErrorResponseObject("未登录");
+        }
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyPage(page,user.getId(),courseForm,multimediaType,title));
     }
 

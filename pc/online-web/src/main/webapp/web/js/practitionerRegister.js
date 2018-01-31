@@ -1,6 +1,10 @@
 $(function(){
 	
 	
+		
+	$('.forum').css('color','#000');
+	$('.path .doctor').addClass('select');
+	
 		//已有账号登陆之后进行的页面跳转
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
@@ -100,22 +104,34 @@ $(function(){
 	  RequestService("/online/user/phoneRegist", "POST", data, function (data) {
 	  	console.log(data);
 	  	if(data.success == false){
-	  		if(data.errorMessage == '动态码不正确!'){
-					
-					$('.my_code .my_code_warn').text(data.errorMessage);
-					$('.phone_warn').css('display','none');
-					$('.my_code .my_code_warn').css('display','block');
-						return false;
-				}else{
-					$('.phone_warn').text(data.errorMessage);
-					$('.my_code .my_code_warn').css('display','none');
-					$('.phone_warn').css('display','block');
-						return false;
-				}
+//	  		if(data.errorMessage == '动态码不正确!'){
+//					
+//					$('.my_code .my_code_warn').text(data.errorMessage);
+//					$('.phone_warn').css('display','none');
+//					$('.my_code .my_code_warn').css('display','block');
+//						return false;
+//				}else{
+//					$('.phone_warn').text(data.errorMessage);
+//					$('.my_code .my_code_warn').css('display','none');
+//					$('.phone_warn').css('display','block');
+//						return false;
+//				}
+
+				//错误的提示
+				$('#tip').text(data.errorMessage);
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1500)
 	  	}else if(data.success == true){
-	  		alert('注册成功!');
 	  		
-	  		window.location.href = '/web/html/ResidentDoctor.html';
+	  		$('#tip').text('注册成功！');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+				window.location.href = '/web/html/ResidentDoctor.html';
+	       		},1500)
+	  			
 	  	}
 	  })
 	

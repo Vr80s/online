@@ -41,7 +41,7 @@ public class Banner2Controller{
          return mav;
     }
 
-	@RequiresPermissions("operate:menu:banner2")
+	//@RequiresPermissions("operate:menu:banner2")
     @RequestMapping(value = "/findBanner2List", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findQuestionList(TableVo tableVo) {
@@ -81,7 +81,7 @@ public class Banner2Controller{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("operate:menu:banner2")
+	//@RequiresPermissions("operate:menu:banner2")
 	@RequestMapping(value = "/addBanner2", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject add(Banner2Vo banner2Vo,HttpServletRequest request){
@@ -104,7 +104,7 @@ public class Banner2Controller{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("operate:menu:banner2")
+	//@RequiresPermissions("operate:menu:banner2")
 	@RequestMapping(value = "updateBanner2ById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateBanner2ById (Banner2Vo banner2Vo){

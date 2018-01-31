@@ -67,13 +67,13 @@ public class GradeController {
         return mav;
     }
 
-    @RequiresPermissions("cloudClass:menu:grade:teachmethod:list")
+    //@RequiresPermissions("cloudClass:menu:grade:teachmethod:list")
     @RequestMapping(value = "/teachMethod",method= RequestMethod.POST)
     public ResponseObject teachMethod(HttpServletRequest request,String courseId){
         return ResponseObject.newSuccessResponseObject(teachMethodService.findByCourseId(courseId));
     }
 
-    @RequiresPermissions("cloudClass:menu:grade:course:list")
+    //@RequiresPermissions("cloudClass:menu:grade:course:list")
     @RequestMapping(value = "/courseList",method= RequestMethod.POST)
     public ResponseObject courseList(HttpServletRequest request,String menuId,String courseTypeId ){
         return ResponseObject.newSuccessResponseObject(courseService.findByMenuId(menuId, courseTypeId));
@@ -82,7 +82,7 @@ public class GradeController {
      * 获取班级列表信息，根据课程ID号查找
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/findGradeList")
     public TableVo findGradeList(TableVo tableVo){
         int pageSize = tableVo.getiDisplayLength();
@@ -167,7 +167,7 @@ public class GradeController {
      * 获取班级列表信息，根据课程ID号查找
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/findMicroGradeList")
     public TableVo findMicroGradeList(TableVo tableVo){
     	int pageSize = tableVo.getiDisplayLength();
@@ -257,7 +257,7 @@ public class GradeController {
      * @param grade 班级对象
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/addGrade",method= RequestMethod.POST)
     public ResponseObject add(Grade grade){
         service.addGrade(grade);
@@ -267,7 +267,7 @@ public class GradeController {
      * 老师列表
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade:teachers")
+    //@RequiresPermissions("cloudClass:menu:grade:teachers")
     @RequestMapping(value = "/teachers",method= RequestMethod.GET)
     public ResponseObject teachers(String gradeId,String courseId){
         Map<String,Object> result=new HashMap<String,Object>();
@@ -282,7 +282,7 @@ public class GradeController {
      * 增加班级信息
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade:teachers:save")
+    //@RequiresPermissions("cloudClass:menu:grade:teachers:save")
     @RequestMapping(value = "/teachers/save",method= RequestMethod.POST)
     public ResponseObject saveTeachers(HttpServletRequest request,String gradeId,String courseId,String[] roleType1,String[] roleType2,String[] roleType3){
         List<String> roleTypes=new ArrayList<String>();
@@ -312,7 +312,7 @@ public class GradeController {
     }
 
 
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/deleteGrades", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject deletes(HttpServletRequest request) throws ServletRequestBindingException {
@@ -333,7 +333,7 @@ public class GradeController {
      * @param gradeId 班级id号
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/findById",method= RequestMethod.GET)
     public List<GradeDetailVo> getGradeById(Integer gradeId) {
         return service.getGradeById(gradeId);
@@ -349,7 +349,7 @@ public class GradeController {
      * @param gradeId 班级id号
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/updateGradeStatus",method= RequestMethod.POST)
     public int updateGradeStatus( Integer gradeId,Integer isGradeStatus){
        return service.updateGradeStatus(gradeId, isGradeStatus);
@@ -365,7 +365,7 @@ public class GradeController {
      * 根据班级ID号  禁用班级信息
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade:new:save")
+    //@RequiresPermissions("cloudClass:menu:grade:new:save")
     @RequestMapping(value = "/saveGrade",method= RequestMethod.POST)
     public ResponseObject saveGrade(HttpServletRequest request){
     	ResponseObject responseObj = new ResponseObject();
@@ -434,7 +434,7 @@ public class GradeController {
      * 根据班级ID号  禁用班级信息
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade:new:update")
+    //@RequiresPermissions("cloudClass:menu:grade:new:update")
     @RequestMapping(value = "/updateGrade",method= RequestMethod.POST)
     public ResponseObject updateGrade(HttpServletRequest request){
     	ResponseObject responseObj = new ResponseObject();
@@ -508,7 +508,7 @@ public class GradeController {
      * @param
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/moveUp",method= RequestMethod.POST)
     public ResponseObject moveUp(Integer id){
         ResponseObject responseObject= new ResponseObject();
@@ -529,7 +529,7 @@ public class GradeController {
      * @param
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/moveDown",method= RequestMethod.POST)
     public ResponseObject moveDown(Integer id){
         ResponseObject responseObject= new ResponseObject();
@@ -549,7 +549,7 @@ public class GradeController {
      * @param
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade")
+    //@RequiresPermissions("cloudClass:menu:grade")
     @RequestMapping(value = "/checkBuildPlan",method= RequestMethod.POST)
     public ResponseObject checkBuildPlan(String courseId){
     	ResponseObject responseObject = new ResponseObject();

@@ -93,7 +93,7 @@ public class DoctorController extends AbstractController{
 	 * @param medicalDoctor
 	 * @return
 	 */
-//	@RequiresPermissions("RealClass:menu:MedicalDoctor")
+//	//@RequiresPermissions("RealClass:menu:MedicalDoctor")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(MedicalDoctor medicalDoctor){

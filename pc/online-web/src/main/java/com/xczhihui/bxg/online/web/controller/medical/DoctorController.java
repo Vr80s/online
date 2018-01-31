@@ -248,15 +248,15 @@ public class DoctorController {
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctorBusinessService.update(doctorId, currentUser.getUid(), doctor);
 //        medicalDoctorBusinessService.update(doctorId, "ff80808161313c570161359826ea0000", doctor);
-        return ResponseObject.newSuccessResponseObject(null);
+        return ResponseObject.newSuccessResponseObject("修改成功");
     }
 
     /**
      * Description：通过医师id获取详细信息
      */
-    @RequestMapping(value = "/v2/getDoctorById",method= RequestMethod.GET)
-    public ResponseObject getDoctorByIdV2(String id) {
-        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorByIdV2(id));
+    @RequestMapping(value = "/{doctorId}",method= RequestMethod.GET)
+    public ResponseObject getDoctorByIdV2(@PathVariable String doctorId) {
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorByIdV2(doctorId));
     }
 
 }

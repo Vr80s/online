@@ -1,5 +1,7 @@
 $(function(){
 	
+	$('.forum').css('color','#000');
+	$('.path .hospital').addClass('select');
 	
 		//已有账号登陆之后进行的页面跳转
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){

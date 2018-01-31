@@ -42,7 +42,7 @@ public class TeachMethodController {
           return mav;
      }
 
-     @RequiresPermissions("cloudClass:menu:teachMethod")
+     //@RequiresPermissions("cloudClass:menu:teachMethod")
      @RequestMapping(value = "list")
      @ResponseBody
      public TableVo list(TableVo tableVo) {

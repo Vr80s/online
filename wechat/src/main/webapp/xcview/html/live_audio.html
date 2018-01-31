@@ -171,55 +171,92 @@
 			<img src="../images/video_review.png"/>
 		</span>
 	</div>
-	<div class="wrap_all_returned">  <!--渲染存放盒子-->		
+	<div class="wrap_all_returned">  <!--渲染存放盒子-->
+		<script type="text/html" id="wrap_people_comment">
+			{{each items as item i}}
 		<div class="wrap_people_comment">
 			<div class="wrap_comment_text">
 				<!--头像-->
 				<div class="user_header">
-					<img src="../images/physician_pic.png"/>
+					<img src="{{item.onlineUser.smallHeadPhoto}}"/>
 				</div>
 				<!--右边评论-->
 				<div class="user_text">
 					<div class="wrap_userName">
-						<p class="z">马克先生</p>
+						<p class="z">{{item.onlineUser.name}}</p>
+						{{if item.overallLevel == 1}}
+						<img class="z" src="../images/xing1_0.png"/>
+						{{else if item.overallLevel == 2}}
+						<img class="z" src="../images/xing2.png"/>
+						{{else if item.overallLevel == 3}}
+						<img class="z" src="../images/xing3.png"/>
+						{{else if item.overallLevel == 4}}
 						<img class="z" src="../images/xing4_0.png"/>
+						{{else if item.overallLevel == 5}}
+						<img class="z" src="../images/xing5.png"/>
+						{{/if}}
+
 					</div>
 					<!--很赞/干货很多-->
 					<div class="uesr_lable">
 						<ul>
-							<li>很赞</li>
-							<li>干货很多</li>
+							<li >很赞</li>
+							<li >干货很多</li>
+
 						</ul>
 					</div>
 					<!--回复的内容-->
 					<p class="write_text">
-						马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生
+						{{item.content}}
 					</p>
 					<!--被回复的内容灰色部分-->
+					{{if item.reply.length > 0}}
+
 					<div class="uesr_returned">
-						<p class="returned_id z">辣椒小姐：</p>
-						<p class="returned_text">辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐</p>
+						<p class="returned_id z">{{item.reply[0].onlineUser.name}}</p>
+						<p class="returned_text">{{item.reply[0].replyContent}}</p>
 					</div>
 					<!--回复时间/点赞/评论按钮-->
-					<div class="wrap_returned_btn">
+					<!--<div class="wrap_returned_btn">
 						<ul>
-							<li>2017.12.24</li>
-							<li class="btn_littleReturn" style="margin-left: 0.3rem;">
+							<li>{{item.reply[0].createTime}}</li>
+							<li class="btn_littleReturn " style="margin-left: 0.3rem;">
 								<img src="../images/returned.png"/>
 							</li>
 							<li>
 								<img src="../images/zan01.png"/>&nbsp;23
 							</li>
-							
+
 						</ul>
-					</div>
+					</div>-->
+				</div>
+
+				{{/if}}
+
+				<!--回复时间/点赞/评论按钮-->
+				<div class="wrap_returned_btn">
+					<ul>
+						<li>{{item.createTime}}</li>
+						<li class="btn_littleReturn " style="margin-left: 0.3rem;">
+							<img src="../images/returned.png"/>
+						</li>
+						<li>
+							<img src="../images/zan01.png"/>&nbsp;23
+						</li>
+
+					</ul>
 				</div>
 				<!--购买者显示-->
+				{{if item.isBuy  }}
 				<div class="wrap_purchaser">
 					<p>购买者</p>
 				</div>
+				{{/if}}
 			</div>
+
 		</div>
+			{{/each}}
+		</script>
 	</div>
 	
 	<div id="sure_isBuy">	
@@ -302,22 +339,22 @@
 		</div>
 		<!--标签-->
 		<ul class="select_lable">
-			<li>很赞</li>
-			<li>干货很多</li>
-			<li>超值推荐</li>
-			<li>喜欢</li>
-			<li>买对了</li>
+			<li value="1">很赞</li>
+			<li value="2">干货很多</li>
+			<li value="3">超值推荐</li>
+			<li value="4">喜欢</li>
+			<li value="5">买对了</li>
 		</ul>
 		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
-			<textarea name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
 		<!--表情/提交评论-->
 		<ul class="brow_btn">
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li>发表评论</li>
+			<li onclick="reportComment()">发表评论</li>
 		</ul>
 	</div>
 	

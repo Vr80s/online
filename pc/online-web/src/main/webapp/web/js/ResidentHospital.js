@@ -1,5 +1,6 @@
 var userPic = $('.userPic').css('background')
-console.log(userPic)
+$('.forum').css('color','#000');
+$('.path .hospital').addClass('select');
 
 RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览

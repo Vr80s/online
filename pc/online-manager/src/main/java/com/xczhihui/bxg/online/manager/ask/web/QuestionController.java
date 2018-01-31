@@ -66,7 +66,7 @@ public class QuestionController {
          return mav;
     }
     
-    @RequiresPermissions("ask:question")
+    //@RequiresPermissions("ask:question")
     @RequestMapping(value = "/findQuestionList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findQuestionList(TableVo tableVo) {
@@ -135,7 +135,7 @@ public class QuestionController {
          return tableVo;
     }
 
-    @RequiresPermissions("ask:question")
+    //@RequiresPermissions("ask:question")
     @RequestMapping(value = "/getMenuList", method = RequestMethod.GET)
     @ResponseBody
     public List<MenuVo> getMenuList(){
@@ -148,7 +148,7 @@ public class QuestionController {
     	return list;
     }
     
-    @RequiresPermissions("ask:question")
+    //@RequiresPermissions("ask:question")
     @RequestMapping(value = "/checkQuestionStatus", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject checkQuestionStatus(QuestionVo questionVo){

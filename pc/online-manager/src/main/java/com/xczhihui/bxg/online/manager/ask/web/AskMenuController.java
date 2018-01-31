@@ -101,7 +101,7 @@ public class AskMenuController {
      
      
      
-     @RequiresPermissions("ask:menu")
+     //@RequiresPermissions("ask:menu")
      @RequestMapping(value = "list")
      @ResponseBody
      public TableVo list(TableVo tableVo) {

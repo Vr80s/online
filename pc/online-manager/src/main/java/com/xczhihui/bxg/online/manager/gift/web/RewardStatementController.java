@@ -46,7 +46,7 @@ public class RewardStatementController extends AbstractController {
 		return GIFT_PATH_PREFIX + "/rewardStatement";
 	}
 
-	@RequiresPermissions("gift:menu:rewardStatement")
+	//@RequiresPermissions("gift:menu:rewardStatement")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo gifts(TableVo tableVo) {

@@ -49,7 +49,7 @@ public class ScoreTypeController {
           return mav;
      }
 
-     @RequiresPermissions("cloudClass:menu:scoreType")
+     //@RequiresPermissions("cloudClass:menu:scoreType")
      @RequestMapping(value = "list")
      @ResponseBody
      public TableVo list(TableVo tableVo) {

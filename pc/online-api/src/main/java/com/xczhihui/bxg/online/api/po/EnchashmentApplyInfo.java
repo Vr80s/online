@@ -22,6 +22,8 @@ public class EnchashmentApplyInfo implements Serializable {
 
 	@Column(name = "user_id")
 	private String userId;
+	@Column(name = "operator")
+	private String operator;
 
 	@Column(name = "bank_card_id")
 	private Integer bankCardId;
@@ -33,7 +35,12 @@ public class EnchashmentApplyInfo implements Serializable {
 	private Integer orderFrom;
 
 	private Integer dismissal;
-	private String dismissal_remark;
+	@Transient
+	private String dismissalText;
+	@Column(name = "dismissal_remark")
+	private String dismissalRemark;
+	@Column(name = "order_no")
+	private String orderNo;
 
 	@Column(name = "tickling_time")
 	private Date ticklingTime;
@@ -47,6 +54,118 @@ public class EnchashmentApplyInfo implements Serializable {
 	 */
 	@Column(name = "is_deleted")
 	private boolean isDeleted;
+	@Transient
+	private java.util.Date startTime;
+	@Transient
+	private java.util.Date stopTime;
+	@Transient
+	private String loginName;
+	@Transient
+	private String acctName;
+	@Transient
+	private String certId;
+	@Transient
+	private String acctPan;
+	@Transient
+	private String bankName;
+	@Transient
+	private Integer anthorType;
+
+	public Integer getAnthorType() {
+		return anthorType;
+	}
+
+	public void setAnthorType(Integer anthorType) {
+		this.anthorType = anthorType;
+	}
+
+	public String getAcctName() {
+		return acctName;
+	}
+
+	public void setAcctName(String acctName) {
+		this.acctName = acctName;
+	}
+
+	public String getCertId() {
+		return certId;
+	}
+
+	public void setCertId(String certId) {
+		this.certId = certId;
+	}
+
+	public String getAcctPan() {
+		return acctPan;
+	}
+
+	public void setAcctPan(String acctPan) {
+		this.acctPan = acctPan;
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+
+	public String getDismissalText() {
+		return dismissalText;
+	}
+
+	public void setDismissalText(String dismissalText) {
+		this.dismissalText = dismissalText;
+	}
+
+	public String getDismissalRemark() {
+		return dismissalRemark;
+	}
+
+	public String getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
+
+	public void setDismissalRemark(String dismissalRemark) {
+		this.dismissalRemark = dismissalRemark;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getStopTime() {
+		return stopTime;
+	}
+
+	public String getOperator() {
+		return operator;
+	}
+
+	public void setOperator(String operator) {
+		this.operator = operator;
+	}
+
+	public void setStopTime(Date stopTime) {
+		this.stopTime = stopTime;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 
 	public String getId() {
 		return id;
@@ -96,13 +215,6 @@ public class EnchashmentApplyInfo implements Serializable {
 		this.dismissal = dismissal;
 	}
 
-	public String getDismissal_remark() {
-		return dismissal_remark;
-	}
-
-	public void setDismissal_remark(String dismissal_remark) {
-		this.dismissal_remark = dismissal_remark;
-	}
 
 	public Date getTicklingTime() {
 		return ticklingTime;
