@@ -9,6 +9,7 @@ import com.xczhihui.medical.doctor.mapper.*;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
@@ -64,6 +65,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalDoctorDepartmentMapper doctorDepartmentMapper;
     @Autowired
     private MedicalDepartmentMapper departmentMapper;
+    @Autowired
+    private IMedicalDoctorDepartmentService medicalDoctorDepartmentService;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -342,6 +345,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
                 if(flag){
 
+                    doctor.setUpdatePerson(uid);
                     medicalDoctorMapper.updateById(doctor);
 
                     // 如果参数中有头像信息
@@ -367,7 +371,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
                         // 新增新的医师与科室对应关系：medical_doctor_department
                         doctor.getDepartments().stream()
-                                .forEach(department -> this.addMedicalDepartment(department, doctorId, now));
+                                .forEach(department -> medicalDoctorDepartmentService.add(department, doctorId, now));
                     }
                 }
             }
@@ -380,19 +384,26 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
      * 根据doctorId获取医师详情
      */
     @Override
-    public MedicalDoctorVO selectDoctorByIdV2(String doctorId) {
-        MedicalDoctorVO medicalDoctorVO = medicalDoctorMapper.selectDoctorById(doctorId);
-        if(medicalDoctorVO != null){
+    public MedicalDoctor selectDoctorByIdV2(String doctorId) {
+
+        MedicalDoctor medicalDoctor = medicalDoctorMapper.selectById(doctorId);
+
+        if(medicalDoctor != null){
 
             // 获取医师的认证信息（头像，身份证，职称证明）
-            if(medicalDoctorVO.getAuthenticationInformationId() != null){
-                MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformationMapper.selectByDoctorId(medicalDoctorVO.getAuthenticationInformationId());
-                medicalDoctorVO.setMedicalDoctorAuthenticationInformation(medicalDoctorAuthenticationInformation);
+            if(medicalDoctor.getAuthenticationInformationId() != null){
+
+                MedicalDoctorAuthenticationInformation medicalDoctorAuthenticationInformation
+                        = medicalDoctorAuthenticationInformationMapper.selectById(medicalDoctor.getAuthenticationInformationId());
+
+                medicalDoctor.setMedicalDoctorAuthenticationInformation(medicalDoctorAuthenticationInformation);
+
             }
 
             // 获取医师所在的科室
             Map<String,Object> columnMap = new HashMap<>();
-            columnMap.put("doctor_id", medicalDoctorVO.getId());
+            columnMap.put("doctor_id", medicalDoctor.getId());
+            columnMap.put("deleted", 0);
             List<MedicalDoctorDepartment> doctorDepartments =  doctorDepartmentMapper.selectByMap(columnMap);
             if(CollectionUtils.isNotEmpty(doctorDepartments)){
                 List<String> ids = new ArrayList<>();
@@ -400,10 +411,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                     ids.add(doctorDepartment.getDepartmentId());
                 }
                 List<MedicalDepartment> departments = departmentMapper.selectBatchIds(ids);
-                medicalDoctorVO.setDepartments(departments);
+                medicalDoctor.setDepartments(departments);
             }
         }
-        return medicalDoctorVO;
+        return medicalDoctor;
     }
 
     /**
@@ -453,14 +464,5 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 throw new RuntimeException("医师简介不能超过1000个字");
             }
         }
-    }
-
-    private void addMedicalDepartment(MedicalDepartment department, String doctorId, Date createTime){
-        MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
-        doctorDepartment.setDepartmentId(department.getId());
-        doctorDepartment.setCreateTime(createTime);
-        doctorDepartment.setId(UUID.randomUUID().toString().replace("-",""));
-        doctorDepartment.setDoctorId(doctorId);
-        doctorDepartmentMapper.insert(doctorDepartment);
     }
 }

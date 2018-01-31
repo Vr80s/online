@@ -3,17 +3,12 @@ package com.xczhihui.medical.hospital.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorApplyDepartment;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorDepartmentMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorFieldMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
-import com.xczhihui.medical.doctor.model.MedicalDoctorField;
-import com.xczhihui.medical.field.mapper.MedicalFieldMapper;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
 import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
@@ -52,17 +47,13 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     @Autowired
     private MedicalDoctorMapper medicalDoctorMapper;
     @Autowired
-    private MedicalDoctorFieldMapper doctorFieldMapper;
-    @Autowired
     private MedicalDoctorAuthenticationInformationMapper doctorAuthenticationInformationMapper;
     @Autowired
     private MedicalHospitalPictureMapper hospitalPictureMapper;
     @Autowired
     private MedicalHospitalFieldMapper hospitalFieldMapper;
     @Autowired
-    private MedicalFieldMapper fieldMapper;
-    @Autowired
-    private MedicalDoctorDepartmentMapper doctorDepartmentMapper;
+    private IMedicalDoctorDepartmentService doctorDepartmentService;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -171,20 +162,11 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         if(CollectionUtils.isNotEmpty(departments)){
             departments.stream()
-                    .forEach(department -> this.addMedicalDepartment(department, doctorId, now));
+                    .forEach(department -> doctorDepartmentService.add(department, doctorId, now));
         }
 
         logger.info("user : {} add doctor successfully, doctorId : {}",
                 medicalDoctor.getUserId(), doctorId);
-    }
-
-    private void addMedicalDepartment(MedicalDepartment department, String doctorId, Date createTime){
-        MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
-        doctorDepartment.setId(UUID.randomUUID().toString().replace("-",""));
-        doctorDepartment.setDoctorId(doctorId);
-        doctorDepartment.setDepartmentId(department.getId());
-        doctorDepartment.setCreateTime(createTime);
-        doctorDepartmentMapper.insert(doctorDepartment);
     }
 
     /**
