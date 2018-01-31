@@ -93,17 +93,25 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Override
     public void updateBalanceForIncrease(UserCoinIncrease uci) {
 
+        BigDecimal balance = BigDecimal.ZERO;
+        BigDecimal balanceGive = BigDecimal.ZERO;
+        BigDecimal balanceRewardGift = BigDecimal.ZERO;
+        BigDecimal rmb = BigDecimal.ZERO;
+
         UserCoin uc = userCoinDao.getBalanceByUserId(uci.getUserId());
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         if (IncreaseChangeType.GIVE.getCode() == uci.getChangeType()) {
             //若为赠送，则赠送余额增加
             sql.append(" uc.`balance_give`=uc.`balance_give`+" + uci.getValue());
+            balanceGive = uci.getValue();
         } else if (IncreaseChangeType.GIFT.getCode() == uci.getChangeType() || IncreaseChangeType.REWARD.getCode() == uci.getChangeType() || IncreaseChangeType.COURSE.getCode() == uci.getChangeType()) {
             //若为礼物打赏或课程分成，则礼物打赏余额增加
             sql.append(" uc.`balance_reward_gift`=uc.`balance_reward_gift`+" + uci.getValue());
+            balanceRewardGift = uci.getValue();
         } else if (IncreaseChangeType.RECHARGE.getCode() == uci.getChangeType()){
             //若为充值  则充值余额增加
             sql.append(" uc.`balance`=uc.`balance`+" + uci.getValue());
+            balance = uci.getValue();
         }
         sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
         sql.append(", uc.`update_time` = now() ");
@@ -115,10 +123,10 @@ public class UserCoinServiceImpl implements UserCoinService {
         }
 
         uci.setUserCoinId(uc.getId());
-        uci.setBalance(uc.getBalance());
-        uci.setBalanceGive(uc.getBalanceGive());
-        uci.setBalanceRewardGift(uc.getBalanceRewardGift());
-        uci.setRmb(uc.getRmb());
+        uci.setBalance(balance);
+        uci.setBalanceGive(balanceGive);
+        uci.setBalanceRewardGift(balanceRewardGift);
+        uci.setRmb(rmb);
         uci.setCreateTime(new Date());
         uci.setDeleted(false);
         uci.setStatus(true);
@@ -359,7 +367,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         UserCoinConsumption ucc = new UserCoinConsumption();
         ucc.setValue(enchashmentSum.negate());
-
+        ucc.setUserId(userId);
         StringBuffer sql = new StringBuffer("UPDATE user_coin uc SET");
         //判断余额是否充足（ucc的value为负值）
         if (uc.getRmb().add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
@@ -381,13 +389,14 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setBalanceValue(BigDecimal.ZERO);
         ucc.setBalanceGiveValue(BigDecimal.ZERO);
         ucc.setBalanceRewardGift(BigDecimal.ZERO);
-        ucc.setBalanceType(BalanceType.ANCHOR_RMB.getCode());
         ucc.setOrderFrom(orderFrom.getCode());
         ucc.setRmb(ucc.getValue());
         ucc.setOrderNoEnchashment(enchashmentApplyId);
         ucc.setCreateTime(new Date());
         ucc.setDeleted(false);
         ucc.setStatus(true);
+        ucc.setBalanceType(BalanceType.ANCHOR_RMB.getCode());
+        ucc.setChangeType(ConsumptionChangeType.ENCHASHMENT.getCode());
         userCoinDao.save(ucc);
         return ucc;
     }
@@ -411,6 +420,9 @@ public class UserCoinServiceImpl implements UserCoinService {
 
         BigDecimal value = new BigDecimal(amount).negate();
 
+        if(value.compareTo(BigDecimal.ZERO) != -1){
+            throw new RuntimeException("结算金额必须大于0");
+        }
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
         if(uc.getBalanceRewardGift().add(value).compareTo(BigDecimal.ZERO) == -1){
             throw new RuntimeException("结算金额超出熊猫币余额");
@@ -467,10 +479,10 @@ public class UserCoinServiceImpl implements UserCoinService {
         }
 
         uci.setUserCoinId(uc.getId());
-        uci.setBalance(uc.getBalance());
-        uci.setBalanceGive(uc.getBalanceGive());
-        uci.setBalanceRewardGift(uc.getBalanceRewardGift());
-        uci.setRmb(uc.getRmb());
+        uci.setBalance(BigDecimal.ZERO);
+        uci.setBalanceGive(BigDecimal.ZERO);
+        uci.setBalanceRewardGift(BigDecimal.ZERO);
+        uci.setRmb(uci.getValue());
         uci.setBalanceType(BalanceType.ANCHOR_RMB.getCode());
         uci.setChangeType(IncreaseChangeType.SETTLEMENT.getCode());
         uci.setBrokerageValue(BigDecimal.ZERO);

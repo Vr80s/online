@@ -29,5 +29,4 @@ public interface EnchashmentService {
 	 **/
 	void saveEnchashmentApplyInfo(String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom);
 
-
 }
