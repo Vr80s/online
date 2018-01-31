@@ -27,6 +27,29 @@ public class MedicalDoctorDepartment implements Serializable {
 	@Column(name="department_id")
 	private String departmentId;
 
+	@Column(name="deleted")
+	private boolean deleted;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="update_time")
+	private Date updateTime;
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+
 	public MedicalDoctorDepartment() {
 	}
 

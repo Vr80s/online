@@ -3,7 +3,11 @@ package com.xczhihui.medical.hospital.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorApplyDepartment;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
+import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorDepartmentMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorFieldMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
@@ -29,7 +33,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -58,6 +61,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private MedicalHospitalFieldMapper hospitalFieldMapper;
     @Autowired
     private MedicalFieldMapper fieldMapper;
+    @Autowired
+    private MedicalDoctorDepartmentMapper doctorDepartmentMapper;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -86,14 +91,20 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
      * 获取医馆的医师列表
      * @param page 分页封装
      * @param doctorName 医师名字
-     * @param hospitalId 医馆id
+     * @param userId 医馆id
      * @author zhuwenbao
      */
     @Override
-    public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String hospitalId) {
+    public Page<MedicalDoctor> selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String userId) {
+
+        // 根据userId获取他的认证医馆信息
+        MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(userId);
+        if(hospitalAccount == null){
+            throw new RuntimeException("您没有认证医馆");
+        }
 
         List<MedicalDoctor> medicalDoctorList =
-                medicalHospitalMapper.selectDoctorList(page, doctorName, hospitalId);
+                medicalHospitalMapper.selectDoctorList(page, doctorName, hospitalAccount.getDoctorId());
         if(CollectionUtils.isNotEmpty(medicalDoctorList)){
             for(MedicalDoctor doctor : medicalDoctorList){
                 // 根据id获取医师头像
@@ -101,18 +112,6 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
                         doctorAuthenticationInformationMapper.selectById(doctor.getAuthenticationInformationId());
                 if(authenticationInformation != null){
                     doctor.setHeadPortrait(authenticationInformation.getHeadPortrait());
-                }
-                // 获取医师的领域
-                Map<String, Object> columnMap = new HashMap<>();
-                columnMap.put("doctor_id", doctor.getId());
-                List<MedicalDoctorField> doctorFields = doctorFieldMapper.selectByMap(columnMap);
-                if(CollectionUtils.isNotEmpty(doctorFields)){
-                    List<String> idList = new ArrayList<>();
-                    for(MedicalDoctorField doctorField : doctorFields){
-                        idList.add(doctorField.getFieldId());
-                    }
-                    List<MedicalField> medicalFields = fieldMapper.selectBatchIds(idList);
-                    doctor.setFields(medicalFields);
                 }
             }
         }
@@ -147,6 +146,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         String doctorId = UUID.randomUUID().toString().replace("-","");
         String doctorAuthenticationId = UUID.randomUUID().toString().replace("-","");
+        Date now = new Date();
 
         // 保存医师信息
         medicalDoctor.setId(doctorId);
@@ -154,17 +154,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         medicalDoctor.setStatus(true);
         medicalDoctor.setCreatePerson(medicalDoctor.getUserId());
         medicalDoctor.setAuthenticationInformationId(doctorAuthenticationId);
+        medicalDoctor.setCreateTime(now);
         medicalDoctorMapper.insertSelective(medicalDoctor);
-
-        // 保存医师的领域信息
-        List<MedicalDoctorField> fields = medicalDoctor.getFields().stream()
-                .filter(medicalField -> StringUtils.isNotBlank(medicalField.getId()))
-                .map(medicalField -> this.mapMedicalDoctorField(medicalField.getId(), doctorId))
-                .collect(Collectors.toList());
-        if(CollectionUtils.isEmpty(fields)){
-            throw new RuntimeException("请选择擅长领域");
-        }
-        doctorFieldMapper.insertBatch(fields);
 
         // 将医师的头像,职称证明添加到认证表上：medical_doctor_authentication_information
         MedicalDoctorAuthenticationInformation authenticationInformation =
@@ -174,8 +165,26 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         authenticationInformation.setCreatePerson(medicalDoctor.getUserId());
         doctorAuthenticationInformationMapper.insert(authenticationInformation);
 
+        // 保存医师的科室：medical_doctor_department
+        // 将MedicalDoctorApplyDepartment数据格式转化成：MedicalDoctorDepartment
+        List<MedicalDepartment> departments = medicalDoctor.getDepartments();
+
+        if(CollectionUtils.isNotEmpty(departments)){
+            departments.stream()
+                    .forEach(department -> this.addMedicalDepartment(department, doctorId, now));
+        }
+
         logger.info("user : {} add doctor successfully, doctorId : {}",
                 medicalDoctor.getUserId(), doctorId);
+    }
+
+    private void addMedicalDepartment(MedicalDepartment department, String doctorId, Date createTime){
+        MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
+        doctorDepartment.setId(UUID.randomUUID().toString().replace("-",""));
+        doctorDepartment.setDoctorId(doctorId);
+        doctorDepartment.setDepartmentId(department.getId());
+        doctorDepartment.setCreateTime(createTime);
+        doctorDepartmentMapper.insert(doctorDepartment);
     }
 
     /**
@@ -288,20 +297,6 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     }
 
     /**
-     * 封装MedicalDoctorField对象
-     * @param fieldId 领域id
-     * @param doctorId 医师id
-     * @return MedicalDoctorField对象
-     */
-    private MedicalDoctorField mapMedicalDoctorField(String fieldId, String doctorId) {
-        MedicalDoctorField doctorField = new MedicalDoctorField();
-        doctorField.setId(UUID.randomUUID().toString().replace("-",""));
-        doctorField.setDoctorId(doctorId);
-        doctorField.setFieldId(fieldId);
-        return doctorField;
-    }
-
-    /**
      * 参数校验
      * @param medicalDoctor 被校验的参数
      */
@@ -327,8 +322,12 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             }
         }
 
-        if(CollectionUtils.isEmpty(medicalDoctor.getFields())){
-            throw new RuntimeException("请选择擅长领域");
+        if(StringUtils.isBlank(medicalDoctor.getFieldText())){
+            throw new RuntimeException("擅长不能为空");
+        }
+
+        if(CollectionUtils.isEmpty(medicalDoctor.getDepartments())){
+            throw new RuntimeException("请选择科室");
         }
 
         if(StringUtils.isBlank(medicalDoctor.getDescription())){

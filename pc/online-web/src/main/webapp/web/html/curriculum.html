@@ -42,11 +42,63 @@
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-    
-    <script src="/web/js/jquery.citys.js" type="text/javascript" charset="utf-8"></script>  <!--省市-->
+    <script src="/web/js/anchor/course_vod.js" type="text/javascript" charset="utf-8"></script>
 
+    <script src="/web/js/jquery.citys.js" type="text/javascript" charset="utf-8"></script>  <!--省市-->
+	<script src="/web/js/jquery.pagination.js"></script>
    </head>
 	<body>
+	<script type="text/template" id="course_vod_list_tpl">
+		{{each records as courseVod i}}
+		<tr>
+			<td>
+				<img src="{{courseVod.imgPath}}" alt="" />
+			</td>
+			<td>
+				{{courseVod.title}}
+			</td>
+			<td>
+				{{courseVod.price}}
+			</td>
+			<td>
+				{{courseVod.courseLength}}
+			</td>
+			<td>
+				{{if courseVod.courseForm==1}}
+				<span>直播</span>
+					{{else if courseVod.courseForm==2}}
+				<span>点播</span>
+					{{else if courseVod.courseForm==3}}
+				<span>线下课</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if courseVod.multimediaType==1}}
+				<span>视频</span>
+					{{else if courseVod.multimediaType==2}}
+				<span>音频</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if courseVod.applyStatus==1}}
+				<span>已通过</span>
+				{{else if courseVod.applyStatus==2}}
+				<span>审核中</span>
+				{{else if courseVod.applyStatus==0}}
+				<span>未通过</span>
+				{{/if}}
+			</td>
+			<td>
+				{{courseVod.title}}
+			</td>
+			<td>
+				<a href="javascript:;">下架</a>
+				<a href="javascript:;">编辑</a>
+			</td>
+		</tr>
+		{{/each}}
+	</script>
+
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -73,13 +125,22 @@
 								<p>资源</p>
 							</div>
 						</li>
+						
 						<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
-						<li class="setTop"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>
-						<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>
-						<li class="setTop"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>
-						<li class="setTop"><span class="glyphicon glyphicon-check left_range" aria-hidden="true"></span><span>医师认证</span></li>
-						<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>个人中心</span></li>
+						
+						
+						<li class="select-uds">
+							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span>账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
+							<div class="littleBoxs">
+								<p class="activeP">认证信息</p>
+								<p>个人信息</p>
+							</div>
+						</li>
+						
+						
+						
+					
 					</ul>
 				</div>
 			</div>			
@@ -143,146 +204,26 @@
 					</div>
 				</div>
 				<!--专栏-->
-				<div class="select_box" id="zhuanlan">
-					<div class="zhuanlan_top">
-						<span class="title">专栏</span>
-						<button>发布</button>
-					</div>
-					<div class="zhuanlan_bottom hide" id="zhuanlan_bottom">
-						<form action="">
-						<div>
-							<span><em>*</em>专栏标题</span>
-							<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
-							<p class="warning hide">用户名不能为空</p>
-						</div>
-						<div class="fengmian">
-							
-							<span><em>*</em>封面图</span>
-							<span class="fengmian_pic">点击上传封面图片</span>
-							<span class="fengmian_tip">
-								<p>文件小于2M</p>
-								<p>支持JPG/PNG等格式图片</p>
-							</span>
-							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt"/>
-							<p class="warning hide">请上传封面图</p>
-						</div>
-						
-						<div class="neirong">
-							<span><em>*</em>内容</span>
-							<textarea name="" id="" cols="30" rows="10" style="resize: none;" placeholder="请输入专栏内容"></textarea>
-							<p class="warning hide">专栏内容不能为空</p>
-						</div>
-						
-						<div class="baocun">
-							<input type="submit" value="保存并发布" id="submit"/>
-							<button id="save">保存</button>
-						</div>
-						</form>
-					</div>
-					<div class="zhuanlan_bottom2" id="kecheng_bottom2">
-						<table>
-							 <thead>
-							<tr>
-								<td>封面图</td>
-								<td>标题</td>
-								<td>状态</td>
-								<td>编辑时间</td>
-								<td>操作</td>
-							</tr>
-							 </thead>
-							  <tbody>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									已发布
-								</td>
-								<td>
-									2017.11.12
-								</td>
-								<td>
-									<a href="javascript:;">预览</a>
-									<a href="javascript:;">下线</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									已发布
-								</td>
-								<td>
-									2017.11.12
-								</td>
-								<td>
-									<a href="javascript:;">预览</a>
-									<a href="javascript:;">删除</a>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							</tbody>
-						</table>
-					</div>
+				<div class="select_box" id="ceshi">
+					<div class="">我是测试</div>
 				</div>
+				
+				<div class="select_box">测试</div>	
+				
+				
+				
 				<!--著作-->
-				<div class="select_box">著作</div>
+				<!--<div class="select_box">著作</div>-->
 				<!--媒体报道-->
-				<div class="select_box">媒体报道</div>
+				<!--<div class="select_box">媒体报道</div>-->
 				<!--医师认证-->
-				<div class="select_box">医师认证</div>
+				<!--<div class="select_box">医师认证</div>-->
 				<!--个人中心-->
-				<div class="select_box">个人中心</div>				
+				<!--<div class="select_box">个人中心</div>-->				
 			</div>
+			
+			
+			
 			<!--右边课程/直播/资源/div内容-->
 			<div class="wrap_box y">
 				<!--课程-->
@@ -425,7 +366,7 @@
 						</form>
 					</div>
 					
-					<div class="zhuanlan_bottom2" id="kecheng_bottom2">
+					<div class="zhuanlan_bottom2 course_vod_content" id="kecheng_bottom2">
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
 							<select name="">
@@ -461,130 +402,52 @@
 								<td>时长</td>
 								<td>类型</td>
 								<td>资源类型</td>
-								<td>状态</td>
+								<td>审核状态</td>
+								<td>课程状态</td>
 								<td>操作</td>
 							</tr>
 							 </thead>
-							  <tbody>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;">下架</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;">下架</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							  <tbody id="course_vod_list">
+							<!--<tr>-->
+								<!--<td>-->
+									<!--<img src="/web/images/hospital/hospital_pic.png" alt="" />-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--中医药席卷全球成独特风景，发展热情被彻底点燃-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--￥200.00-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--80’-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--直播-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--视频-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--上架-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--<a href="javascript:;">下架</a>-->
+									<!--<a href="javascript:;">编辑</a>-->
+								<!--</td>-->
+							<!--</tr>-->
+
 							</tbody>
 						</table>
 					</div>
-					
+					<div class="pages">
+						<div id="Pagination"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
+					</div>
+
 					
 					<!--点击选择资源弹框开始-->
 					<div class="a_resource">
@@ -1127,7 +990,136 @@
 				
 				</div>
 				<!--直播-->
-				<div class="little_box">直播</div>
+				<div class="little_box">
+					<div class="live_streaming">
+						<div class="live_streaming_title">直播</div>
+						<div class="live_streaming_main">
+							<div class="live_streaming_main_left">
+								<div class="">您的直播账户：V299229930  密码：878996</div>
+								<div class="">直播方式：1.下载直播客户端，在pc上直播  2.点击下面列表中的直播可直接进入直播</div>
+							</div>
+							<div class="live_streaming_main_right">下载客户端</div>
+						</div>
+						
+						<div class="live_streaming_table">
+							
+							<table>
+								 <thead>
+								<tr>
+									<td>封面图</td>
+									<td>课程名称</td>
+									<td>时长</td>
+									<td>直播时间</td>
+									<td>直播状态</td>
+									<td>操作</td>
+								</tr>
+								 </thead>
+								  <tbody>
+								<tr>
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="">
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										80’
+									</td>
+									<td>
+										2018-12-29 23:59
+									</td>
+									<td>
+										准备直播
+									</td>
+									<td>
+										<a href="javascript: ;">进入直播</a>
+										<a href="javascript: ;">直播预览</a>
+										<a href="javascript: ;">设置加密</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="">
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										80’
+									</td>
+									<td>
+										2018-12-29 23:59
+									</td>
+									<td>
+										准备直播
+									</td>
+									<td>
+										<a href="javascript: ;">进入直播</a>
+										<a href="javascript: ;">直播预览</a>
+										<a href="javascript: ;">设置加密</a>
+									</td>
+								</tr>
+								
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+						
+						
+						
+						
+					</div>
+				</div>
+				
+
+				
 				<!--排课-->
 				<div class="little_box">排课</div>
 				<!--资源-->
@@ -1141,7 +1133,7 @@
 						<div>
 							<span><em>*</em>课程标题</span>
 							<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
-							<p class="warning hide">课程标题不能为空</p>
+							<p class="warning warning0 hide">课程标题不能为空</p>
 						</div>
 						<div class="fengmian">
 							
@@ -1152,7 +1144,7 @@
 								<p>支持JPG/PNG等格式图片</p>
 							</span>
 							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt3"/>
-							<p class="warning hide">请上传封面图</p>
+							<p class="warning warning1 hide">请上传封面图</p>
 						</div>
 						
 						
@@ -1160,16 +1152,18 @@
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
 							<label>
-								<input type="radio" name="resourceType"/>视频
+								<input type="radio" name="resourceType" checked="checked" />视频
 							</label>
 							<label>
-								<input type="radio" name="resourceType"/>音频
+								<input type="radio" name="resourceType" />音频
 							</label>
 						</div>
 						<div id="resourceUrl">
 							<span><em>*</em> 资源URL</span>
-							<input type="text" />
+							<input type="text" class="resource_put" />
 							<a href="javascript:;"><span>选择资源</span></a>
+							
+							<p class="warning warning2 hide">请上传资源</p>
 						</div>
 						<div class="baocun">
 							<input type="submit" value="保存" id="submit"/>
@@ -1275,12 +1269,14 @@
 					
 				</div>
 			</div>	
+		
+		
 		</div>
 		
 		
 	
 	
-<div class="mask"></div>
+<!--<div class="mask"></div>
 <div id="headImg" class="clearfix">
     <div class="container clearfix">
         <div class="img-title"><p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
@@ -1315,7 +1311,7 @@
         </div>
     </div>
 </div>
-	
+	-->
 	</body>
 	
 	<script type="text/javascript" src="/web/js/footer.js"></script>

@@ -1,12 +1,14 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
-import com.xczhihui.medical.doctor.mapper.OeBxsArticleMapper;
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
+import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
+import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.doctor.mapper.*;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
@@ -29,9 +31,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * ClassName: MedicalDoctorBusinessServiceImpl.java <br>
@@ -50,7 +50,6 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalDoctorAuthenticationInformationMapper medicalDoctorAuthenticationInformationMapper;
     @Autowired
     private OeBxsArticleMapper oeBxsArticleMapper;
-
     @Autowired
     private MedicalHospitalMapper medicalHospitalMapper;
     @Autowired
@@ -61,6 +60,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private MedicalHospitalDoctorMapper hospitalDoctorMapper;
     @Autowired
     private ThreadPoolTaskExecutor commonThreadPoolTaskExecutor;
+    @Autowired
+    private MedicalDoctorDepartmentMapper doctorDepartmentMapper;
+    @Autowired
+    private MedicalDepartmentMapper departmentMapper;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -195,7 +198,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             hospitalId = UUID.randomUUID().toString().replace("-","");
 
             // 参数校验
-            this.validate(medicalDoctor);
+            this.validate(medicalDoctor, 1);
 
             // 保存医馆信息
             MedicalHospital medicalHospital = new MedicalHospital();
@@ -290,34 +293,174 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     }
 
     /**
+     * 修改医师信息
+     * @param doctorId 医师id
+     * @param uid 修改人id
+     * @param doctor 修改的内容
+     */
+    @Override
+    public void update(String doctorId, String uid, MedicalDoctor doctor) {
+
+        // 参数为空 直接返回
+        if(doctor == null){
+            return;
+        }
+
+        // 参数校验
+        this.validate(doctor, 2);
+
+        doctor.setId(doctorId);
+
+        try {
+
+            boolean flag = false;
+
+            MedicalDoctor medicalDoctor = medicalDoctorMapper.selectById(doctorId);
+
+            // 修改的对象存在
+            if(medicalDoctor != null){
+                // 判断uid和doctorId的关系,是否有权限修改
+                // 医师本人去修改
+                MedicalDoctorAccount doctorAccount = medicalDoctorAccountMapper.getByUserId(uid);
+                if(doctorAccount != null && StringUtils.equals(doctorAccount.getDoctorId(), doctorId)){
+                    flag = true;
+                }else{
+                    // 医馆去修改
+                    MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(uid);
+                    if(hospitalAccount != null){
+                        Map<String, Object> columnMap = new HashMap<>();
+                        columnMap.put("doctor_id", doctorId);
+                        columnMap.put("hospital_id", hospitalAccount.getDoctorId());
+                        List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
+                        if(CollectionUtils.isNotEmpty(hospitalDoctors)){
+                            flag = true;
+                        }else{
+                            // throw new RuntimeException("您没有权限修改该医师信息");
+                        }
+                    }
+                }
+
+                if(flag){
+
+                    medicalDoctorMapper.updateById(doctor);
+
+                    // 如果参数中有头像信息
+                    if(StringUtils.isNotBlank(doctor.getHeadPortrait())){
+
+                        // 获取 authentication_information_id
+                        if(medicalDoctor != null && StringUtils.isNotBlank(medicalDoctor.getAuthenticationInformationId())){
+                            MedicalDoctorAuthenticationInformation authenticationInformation =
+                                    new MedicalDoctorAuthenticationInformation();
+                            authenticationInformation.setId(medicalDoctor.getAuthenticationInformationId());
+                            authenticationInformation.setHeadPortrait(doctor.getHeadPortrait());
+                            medicalDoctorAuthenticationInformationMapper.updateById(authenticationInformation);
+                        }
+                    }
+
+                    // 如果参数中有科室信息
+                    if(CollectionUtils.isNotEmpty(doctor.getDepartments())){
+
+                        Date now = new Date();
+
+                        // 根据医师id删除之前的科室信息
+                        doctorDepartmentMapper.deleteByDoctorId(doctorId);
+
+                        // 新增新的医师与科室对应关系：medical_doctor_department
+                        doctor.getDepartments().stream()
+                                .forEach(department -> this.addMedicalDepartment(department, doctorId, now));
+                    }
+                }
+            }
+        }catch (Exception e){
+            throw new RuntimeException("修改失败");
+        }
+    }
+
+    /**
+     * 根据doctorId获取医师详情
+     */
+    @Override
+    public MedicalDoctorVO selectDoctorByIdV2(String doctorId) {
+        MedicalDoctorVO medicalDoctorVO = medicalDoctorMapper.selectDoctorById(doctorId);
+        if(medicalDoctorVO != null){
+
+            // 获取医师的认证信息（头像，身份证，职称证明）
+            if(medicalDoctorVO.getAuthenticationInformationId() != null){
+                MedicalDoctorAuthenticationInformationVO medicalDoctorAuthenticationInformation = medicalDoctorAuthenticationInformationMapper.selectByDoctorId(medicalDoctorVO.getAuthenticationInformationId());
+                medicalDoctorVO.setMedicalDoctorAuthenticationInformation(medicalDoctorAuthenticationInformation);
+            }
+
+            // 获取医师所在的科室
+            Map<String,Object> columnMap = new HashMap<>();
+            columnMap.put("doctor_id", medicalDoctorVO.getId());
+            List<MedicalDoctorDepartment> doctorDepartments =  doctorDepartmentMapper.selectByMap(columnMap);
+            if(CollectionUtils.isNotEmpty(doctorDepartments)){
+                List<String> ids = new ArrayList<>();
+                for (MedicalDoctorDepartment doctorDepartment : doctorDepartments){
+                    ids.add(doctorDepartment.getDepartmentId());
+                }
+                List<MedicalDepartment> departments = departmentMapper.selectBatchIds(ids);
+                medicalDoctorVO.setDepartments(departments);
+            }
+        }
+        return medicalDoctorVO;
+    }
+
+    /**
      * 参数校验
      * @param medicalDoctor 被校验的参数
+     * @param type 校验方式
      */
-    private void validate(MedicalDoctor medicalDoctor) {
+    private void validate(MedicalDoctor medicalDoctor, int type) {
 
-        if(StringUtils.isBlank(medicalDoctor.getName())){
-            throw new RuntimeException("医馆名字不能为空");
+        if(type == 1){
+            if(StringUtils.isBlank(medicalDoctor.getName())){
+                throw new RuntimeException("医馆名字不能为空");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getProvince())){
+                throw new RuntimeException("请选择医馆所在省份");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getCity())){
+                throw new RuntimeException("请选择医馆所在城市");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getTel())){
+                throw new RuntimeException("请填写医馆联系电话");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getWorkTime())){
+                throw new RuntimeException("请选择坐诊时间");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getHeadPortrait())){
+                throw new RuntimeException("请上传封面图");
+            }
         }
 
-        if(StringUtils.isBlank(medicalDoctor.getProvince())){
-            throw new RuntimeException("请选择医馆所在省份");
+        if(type == 2){
+            if(StringUtils.isNotBlank(medicalDoctor.getName()) && medicalDoctor.getName().length() > 32){
+                throw new RuntimeException("医师名字不能超过32个字");
+            }
+            if(StringUtils.isNotBlank(medicalDoctor.getTitle()) && medicalDoctor.getTitle().length() > 100){
+                throw new RuntimeException("职称不能超过100个字");
+            }
+            if(StringUtils.isNotBlank(medicalDoctor.getFieldText()) && medicalDoctor.getFieldText().length() > 32){
+                throw new RuntimeException("擅长领域不能超过32个字");
+            }
+            if(StringUtils.isNotBlank(medicalDoctor.getDescription()) && medicalDoctor.getDescription().length() > 1000){
+                throw new RuntimeException("医师简介不能超过1000个字");
+            }
         }
+    }
 
-        if(StringUtils.isBlank(medicalDoctor.getCity())){
-            throw new RuntimeException("请选择医馆所在城市");
-        }
-
-        if(StringUtils.isBlank(medicalDoctor.getTel())){
-            throw new RuntimeException("请填写医馆联系电话");
-        }
-
-        if(StringUtils.isBlank(medicalDoctor.getWorkTime())){
-            throw new RuntimeException("请选择坐诊时间");
-        }
-
-        if(StringUtils.isBlank(medicalDoctor.getHeadPortrait())){
-            throw new RuntimeException("请上传封面图");
-        }
-
+    private void addMedicalDepartment(MedicalDepartment department, String doctorId, Date createTime){
+        MedicalDoctorDepartment doctorDepartment = new MedicalDoctorDepartment();
+        doctorDepartment.setDepartmentId(department.getId());
+        doctorDepartment.setCreateTime(createTime);
+        doctorDepartment.setId(UUID.randomUUID().toString().replace("-",""));
+        doctorDepartment.setDoctorId(doctorId);
+        doctorDepartmentMapper.insert(doctorDepartment);
     }
 }

@@ -94,7 +94,7 @@ public class BarrierController{
     	return mav;
     }
 
-	@RequiresPermissions("menu:barrier:barrier")
+	//@RequiresPermissions("menu:barrier:barrier")
     @RequestMapping(value = "/findBarrierList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findBarrierList(TableVo tableVo) {
@@ -125,7 +125,7 @@ public class BarrierController{
          return tableVo;
     }
 	
-	@RequiresPermissions("menu:barrier:barrier")
+	//@RequiresPermissions("menu:barrier:barrier")
 	@RequestMapping(value = "findCourseList")
 	@ResponseBody
 	public TableVo findCourseList(TableVo tableVo) {
@@ -193,7 +193,7 @@ public class BarrierController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("menu:barrier:barrier")
+	//@RequiresPermissions("menu:barrier:barrier")
 	@RequestMapping(value = "/addBarrier", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addBarrier(BarrierVo barrierVo,HttpServletRequest request){
@@ -218,7 +218,7 @@ public class BarrierController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("menu:barrier:barrier")
+	//@RequiresPermissions("menu:barrier:barrier")
 	@RequestMapping(value = "getBarrierById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject getBarrierById (BarrierVo barrierVo){
@@ -234,7 +234,7 @@ public class BarrierController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("menu:barrier:barrier")
+	//@RequiresPermissions("menu:barrier:barrier")
 	@RequestMapping(value = "updateBarrierById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateBarrierById (BarrierVo barrierVo){

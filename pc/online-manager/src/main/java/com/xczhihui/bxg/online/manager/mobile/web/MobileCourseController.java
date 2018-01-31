@@ -72,7 +72,7 @@ public class MobileCourseController extends AbstractController{
 	}
 
 
-	@RequiresPermissions("mobile:menu:course")
+	//@RequiresPermissions("mobile:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -124,7 +124,7 @@ public class MobileCourseController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequiresPermissions("mobile:menu:course")
+	//@RequiresPermissions("mobile:menu:course")
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	  public List<CourseVo> findCourseById(Integer id) {

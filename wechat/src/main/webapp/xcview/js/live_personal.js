@@ -132,12 +132,6 @@ requestService("/xczh/host/hostPageCourse",{
 
 
 
-
-
-
-
-
-
 });
 	
 //	点击关注判断

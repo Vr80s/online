@@ -36,7 +36,7 @@ public class ShareOrderController{
          return mav;
     }
 
-	@RequiresPermissions("order:menu:share")
+	//@RequiresPermissions("order:menu:share")
     @RequestMapping(value = "/findShareOrderList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findShareOrderList(TableVo tableVo) {
@@ -91,7 +91,7 @@ public class ShareOrderController{
          return mav;
     }
 
-	@RequiresPermissions("order:menu:share")
+	//@RequiresPermissions("order:menu:share")
     @RequestMapping(value = "/findShareOrderListDeatil", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findShareOrderListDeatil(TableVo tableVo) {
@@ -140,7 +140,7 @@ public class ShareOrderController{
          return tableVo;
     }
 	
-	@RequiresPermissions("order:menu:share")
+	//@RequiresPermissions("order:menu:share")
     @RequestMapping(value = "/getOrderDetailList", method = RequestMethod.GET)
     @ResponseBody
     public ResponseObject getOrderDetailList(ShareOrderVo shareOrderVo) {
@@ -150,7 +150,7 @@ public class ShareOrderController{
         return responseObj;
     }
 
-	@RequiresPermissions("order:menu:share")
+	//@RequiresPermissions("order:menu:share")
 	@RequestMapping(value = "/getShareOrderDetail", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseObject getShareOrderDetail(ShareOrderVo shareOrderVo) {

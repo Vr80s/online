@@ -7,6 +7,9 @@ import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.enums.ApplyStatus;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.utils.OrderNoUtil;
+import com.xczhihui.bxg.online.web.base.utils.RandomUtil;
+import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.dao.EnchashmentApplyDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Service
 public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements EnchashmentService {
@@ -40,7 +44,10 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		enchashmentApplyInfo.setBankCardId(bankCardId);
 		enchashmentApplyInfo.setOrderFrom(orderFrom.getCode());
 		enchashmentApplyInfo.setDeleted(false);
+		enchashmentApplyInfo.setTime(new Date());
 		enchashmentApplyInfo.setStatus(ApplyStatus.UNTREATED.getCode());
+		String enchashmentOrderNo = OrderNoUtil.getEnchashmentOrderNo();
+		enchashmentApplyInfo.setOrderNo(enchashmentOrderNo);
 		validateEnchashmentApplyInfo(enchashmentApplyInfo);
 		//更新用户人民币余额
 		userCoinService.updateBalanceForEnchashment(userId,enchashmentSum,orderFrom,enchashmentApplyId);

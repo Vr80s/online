@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,18 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 		// TODO Auto-generated method stub
 		List<BigDecimal>  list= myInfoMapper.selectCollegeCourseXmbNumber(userId);
 		return list; 
+	}
+
+	@Override
+	public List<Map<String, Object>> selectSettlementList(String userId) {
+		// TODO Auto-generated method stub
+		return myInfoMapper.selectSettlementList(userId);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectWithdrawalList(String userId) {
+		// TODO Auto-generated method stub
+		return myInfoMapper.selectWithdrawalList(userId);
 	}
 
 

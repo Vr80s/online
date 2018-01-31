@@ -37,7 +37,7 @@ public class AppManagerController{
          return mav;
     }
 
-	@RequiresPermissions("mobile:appManager")
+	//@RequiresPermissions("mobile:appManager")
     @RequestMapping(value = "/findAppManagerList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findAppManagerList(TableVo tableVo) {
@@ -73,7 +73,7 @@ public class AppManagerController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:appManager")
+	//@RequiresPermissions("mobile:appManager")
 	@RequestMapping(value = "/addAppManager", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addAppManager(AppVersionInfo appVersionInfo,HttpServletRequest request){
@@ -87,7 +87,7 @@ public class AppManagerController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:appManager")
+	//@RequiresPermissions("mobile:appManager")
 	@RequestMapping(value = "updateAppVersionInfoById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateAppVersionInfoById (AppVersionInfo appVersionInfo){

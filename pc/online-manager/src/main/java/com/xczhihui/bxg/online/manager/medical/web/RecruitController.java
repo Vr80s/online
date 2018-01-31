@@ -80,7 +80,7 @@ public class RecruitController extends AbstractController{
 	 * 添加
 	 * @return
 	 */
-//	@RequiresPermissions("RealClass:menu:MedicalHospital")
+//	//@RequiresPermissions("RealClass:menu:MedicalHospital")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(MedicalHospitalRecruit medicalHospitalRecruit){

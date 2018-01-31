@@ -535,7 +535,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" oc.smallimg_path as smallImgPath");
 		commonSql.append(" from oe_course oc,oe_menu as om ");
 		commonSql.append(" where   om.id = oc.menu_id  and "
-    			+ "oc.is_delete=0 and oc.status = 1   ");
+    			+ " oc.is_delete=0 and oc.status = 1   ");
 
 		commonSql.append(condSql).append(sortSql);
     	System.out.println("commonSql:"+commonSql.toString());

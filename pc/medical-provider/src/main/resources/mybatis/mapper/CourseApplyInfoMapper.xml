@@ -20,6 +20,7 @@
 		  `oe_course` oc
 		  ON cai.`id` = oc.`apply_id`
 		WHERE cai.`user_id` = #{userId}
+		AND cai.is_delete=0
 		AND cai.`collection` = 0
 		<if test="courseForm != null">
 			AND cai.`course_form` = #{courseForm}

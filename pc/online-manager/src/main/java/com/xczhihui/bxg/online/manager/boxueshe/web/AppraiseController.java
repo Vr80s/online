@@ -36,14 +36,14 @@ public class AppraiseController extends AbstractController{
 	@Autowired
 	private AppraiseService appraiseService;
 
-	@RequiresPermissions("boxueshe:menu:appraise")
+	//@RequiresPermissions("boxueshe:menu:appraise")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		
 		return BOXUESHE_PATH_PREFIX + "/appraise";
 	}
 	
-    @RequiresPermissions("boxueshe:menu:appraise")
+    //@RequiresPermissions("boxueshe:menu:appraise")
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
     public TableVo Appraise(TableVo tableVo) {

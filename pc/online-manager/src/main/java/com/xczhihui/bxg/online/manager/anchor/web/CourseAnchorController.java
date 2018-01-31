@@ -36,7 +36,7 @@ public class CourseAnchorController extends AbstractController{
 		return CLOUD_CLASS_PATH_PREFIX + "/courseAnchor";
 	}
 	
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -72,7 +72,7 @@ public class CourseAnchorController extends AbstractController{
      * @param id
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("cloudClass:menu:course")
     @RequestMapping(value = "findCourseAnchorById", method = RequestMethod.GET)
     @ResponseBody
     public CourseAnchor findCourseAnchorById(Integer id) {
@@ -83,7 +83,7 @@ public class CourseAnchorController extends AbstractController{
      * 编辑
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("cloudClass:menu:course")
     @RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject updateCourseById (CourseAnchor courseAnchor){
@@ -99,7 +99,7 @@ public class CourseAnchorController extends AbstractController{
      * 编辑
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("cloudClass:menu:course")
     @RequestMapping(value = "editPermissions")
     @ResponseBody
     public ResponseObject editPermissions (Integer id){

@@ -56,7 +56,7 @@ public class GiftStatementController extends AbstractController {
 		return GIFT_PATH_PREFIX + "/giftStatement";
 	}
 
-	@RequiresPermissions("gift:menu:giftStatement")
+	//@RequiresPermissions("gift:menu:giftStatement")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo gifts(TableVo tableVo) {

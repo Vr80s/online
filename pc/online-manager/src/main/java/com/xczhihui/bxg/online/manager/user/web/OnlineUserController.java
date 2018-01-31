@@ -50,7 +50,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param request
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "index")
 	public ModelAndView index(HttpServletRequest request) {
 		 List<MenuVo> menuVos=menuService.list();
@@ -65,7 +65,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param tableVo
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo list(TableVo tableVo) {
@@ -110,7 +110,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param loginName
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "updateUserStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateUserStatus(String loginName, int status) {
@@ -123,7 +123,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param OnlineUser
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "setMenu", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject setMenu(OnlineUser entity) {
@@ -136,7 +136,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param loginName
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "updateUserLecturer", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateUserLecturer(String userId, int lecturerStatus,String description) {
@@ -151,7 +151,7 @@ public class OnlineUserController extends AbstractController {
 	 * @param request
 	 * @return
 	 */
-	@RequiresPermissions("onlineuser:manager")
+	//@RequiresPermissions("onlineuser:manager")
 	@RequestMapping(value = "editUserDescription")
 	public ModelAndView editUserDescription(HttpServletRequest request,String userId) {
 		 List<MenuVo> menuVos=menuService.list();

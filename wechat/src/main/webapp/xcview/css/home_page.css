@@ -1024,6 +1024,7 @@ header{
 	float: left;
 	margin-left: 0.456rem;
 	margin-bottom: 0.851rem;
+	position: relative;
 }
 
 /*视频*/

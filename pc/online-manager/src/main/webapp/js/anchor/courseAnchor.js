@@ -12,9 +12,8 @@ $(function() {
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     var objData = [
-
-        {"title": "主播", "class": "center", "width": "6%", "sortable": false, "data": 'name'},
-        {"title": "类型", "class": "center", "width": "8%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+        {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+        {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){
                 return "医师";
             }else if(row.type==2){
@@ -25,7 +24,7 @@ $(function() {
         {"title": "直播分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'liveDivide'},
         {"title": "线下课分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'offlineDivide'},
         {"title": "礼物分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'giftDivide'},
-        {"title": "主播权限", "class": "center", "width": "8%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+        {"title": "主播权限", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.status){
                 return "已开启";
             }

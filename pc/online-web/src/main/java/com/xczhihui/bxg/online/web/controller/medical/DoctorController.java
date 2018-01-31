@@ -13,10 +13,7 @@ import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -233,6 +230,33 @@ public class DoctorController {
         UserDataVo currentUser = userService.getUserData(loginUser);
         String workTime = medicalDoctorBusinessService.getWorkTimeById(currentUser.getUid(), type);
         return ResponseObject.newSuccessResponseObject(workTime);
+    }
+
+    /**
+     * 修改医师信息
+     * @author zhuwenbao
+     */
+    @RequestMapping(value = "/{doctorId}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseObject update(@PathVariable String doctorId, MedicalDoctor doctor, HttpServletRequest request){
+
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalDoctorBusinessService.update(doctorId, currentUser.getUid(), doctor);
+//        medicalDoctorBusinessService.update(doctorId, "ff80808161313c570161359826ea0000", doctor);
+        return ResponseObject.newSuccessResponseObject("修改成功");
+    }
+
+    /**
+     * Description：通过医师id获取详细信息
+     */
+    @RequestMapping(value = "/{doctorId}",method= RequestMethod.GET)
+    public ResponseObject getDoctorByIdV2(@PathVariable String doctorId) {
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorByIdV2(doctorId));
     }
 
 }

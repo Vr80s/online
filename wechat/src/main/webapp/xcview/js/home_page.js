@@ -12,6 +12,7 @@ requestService("/bxg/bunch/schoolClass",null,function(data){
 	}
 })
 
+
 //推荐模块开始
 //轮播/大师课/名医渲染
 requestService("/xczh/recommend/recommendTop",null, 
@@ -22,6 +23,8 @@ requestService("/xczh/recommend/recommendTop",null,
     	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
 //名医
     	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
+    	
+    	
 		
 //轮播
 			var result = data.resultObject.banner.records;
@@ -60,9 +63,6 @@ requestService("/xczh/bunch/offLine",null,
 		if(data.success){
 //			各省城市                                                        											//跟参数
     		$("#xx_slide_one").html(template('xx_nav_list',{items:data.resultObject.cityList.records}))
-	
-	
-	
 //轮播
 			var result = data.resultObject.banner.records;
 			var str ="";
@@ -164,9 +164,18 @@ requestService("/xczh/bunch/listenCourse",null,
 
 
 
-
-
-
+//swiper医师滑动
+var swiper = new Swiper('.swiper-container', {
+    slidesPerView: 5,
+    paginationClickable: true,
+    spaceBetween: 10
+});
+//swiper线下课省滑动
+var swiper = new Swiper('#swiper1', {
+    slidesPerView: 5,
+    paginationClickable: true,
+    spaceBetween: 10
+});
 
 
 

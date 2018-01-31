@@ -120,6 +120,11 @@ public class XzUserController {
 		//类型，1注册，2重置密码
 		vtype = vtype == null ? SMSCode.RETISTERED.getCode() : vtype;
 		try {
+			
+			if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+				return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+			}
+			
 			String str = onlineUserService.addMessage(username, vtype);
 			if("发送成功！".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
@@ -146,11 +151,15 @@ public class XzUserController {
 			@RequestParam("password")String password,
 			@RequestParam("username")String username,
 			@RequestParam("code")String code) throws Exception {
+		
+		
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
 		/*
 		 * 验证短信验证码
 		 */
 		Integer vtype = SMSCode.RETISTERED.getCode();		//短信验证码类型
-		
 		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
 		if (!checkCode.isSuccess()) {
 			return checkCode;
@@ -177,6 +186,9 @@ public class XzUserController {
 			@RequestParam("username") String username,
 			@RequestParam("password") String password) throws Exception {
 		
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
 		Token t = null;
 		try {
 			//存储在redis中了，有效期为10天。
@@ -250,6 +262,13 @@ public class XzUserController {
 			@RequestParam("password") String password,
 		    @RequestParam("code") String code) throws Exception {
 		
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		
 		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
 		
 		//短信验证码
@@ -301,6 +320,12 @@ public class XzUserController {
 			@RequestParam("password") String password,
 		    @RequestParam("code") String code) throws Exception {
 
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
 		
 		String vtype = "2";
 		
@@ -335,6 +360,13 @@ public class XzUserController {
 	public ResponseObject phoneCheck(HttpServletRequest req,
 			@RequestParam("username")String username,@RequestParam("vtype")Integer vtype)throws Exception {
 	
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		
 		//短信验证码
 		String str = onlineUserService.changeMobileSendCode(username,vtype);
 		try {
@@ -366,6 +398,13 @@ public class XzUserController {
 			@RequestParam("code")String code,
 			@RequestParam("vtype")Integer vtype) throws Exception {
 		
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		
 		//短信验证码
 		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,vtype);
 		return checkCode;
@@ -387,6 +426,14 @@ public class XzUserController {
 			@RequestParam("newUsername")String newUsername,
 			@RequestParam("code")String code,
 			@RequestParam("vtype")Integer vtype) throws Exception {
+		
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(oldUsername)
+				|| !com.xczh.consumer.market.utils.StringUtils.checkPhone(newUsername)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
 		
 		//短信验证码
 		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(newUsername, code,vtype);

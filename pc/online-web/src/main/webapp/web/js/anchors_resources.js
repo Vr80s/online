@@ -1,5 +1,7 @@
 $(function(){
-	
+	//医师按钮变色效果
+	$('.forum').css('color','#000');
+	$('.path .doctor').addClass('select');
 	//进行认证状态的验证 控制左侧tab的显示隐藏
 //	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 //	       if(data.success == true ){
@@ -69,8 +71,17 @@ $(function(){
 	RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
-				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
+					if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+						//头像
+						$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);
+						//名字
+						$('.doctor_inf>h4').text(data.resultObject.name);
+						
+					if(data.resultObject.info){
+						//个性签名
+						$('.doctor_inf>p').text(data.resultObject.info)
+					}
+					$('.')
 				} else {
 					
 				}

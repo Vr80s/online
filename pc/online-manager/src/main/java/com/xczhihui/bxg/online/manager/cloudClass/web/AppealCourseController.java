@@ -69,7 +69,7 @@ public class AppealCourseController {
 		return PUBLIC_CLASS_PATH_PREFIX + "/appealCourse";
 	}
 	
-	@RequiresPermissions("cloudClass:menu:appeal")
+	//@RequiresPermissions("cloudClass:menu:appeal")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -115,7 +115,7 @@ public class AppealCourseController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseById (LiveExamineInfoVo liveExamineInfoVo){
@@ -140,7 +140,7 @@ public class AppealCourseController {
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "passCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateApply(String id){

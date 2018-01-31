@@ -4,10 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.EnchashmentApplication;
+import com.xczhihui.bxg.online.api.po.EnchashmentApplyInfo;
 
 public interface EnchashmentService {
 
-	public Page<EnchashmentApplication> findEnchashmentPage(EnchashmentApplication orderVo, Integer pageNumber, Integer pageSize);
+	public Page<EnchashmentApplyInfo> findEnchashmentPage(EnchashmentApplyInfo orderVo, Integer pageNumber, Integer pageSize);
 
 	/** 
 	 * Description：处理提现申请
@@ -17,6 +18,6 @@ public interface EnchashmentService {
 	 * @return void
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
-	public void updateHandleEnchashment(EnchashmentApplication ea) throws IllegalAccessException, InvocationTargetException;
+	public void updateHandleEnchashment(EnchashmentApplyInfo ea) ;
 
 }

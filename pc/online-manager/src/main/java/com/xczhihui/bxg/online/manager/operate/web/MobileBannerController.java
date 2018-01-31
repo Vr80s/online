@@ -42,7 +42,7 @@ public class MobileBannerController{
          return mav;
     }
 
-	@RequiresPermissions("mobile:menu:banner")
+	//@RequiresPermissions("mobile:menu:banner")
     @RequestMapping(value = "/findMobileBannerList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findMobileBannerList(TableVo tableVo) {
@@ -83,7 +83,7 @@ public class MobileBannerController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:menu:banner")
+	//@RequiresPermissions("mobile:menu:banner")
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addMobileBanner(MobileBannerVo mobileBannerVo,HttpServletRequest request){
@@ -97,7 +97,7 @@ public class MobileBannerController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("mobile:menu:banner")
+	//@RequiresPermissions("mobile:menu:banner")
 	@RequestMapping(value = "updateMobileBannerById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateMobileBannerById (MobileBannerVo mobileBannerVo){
