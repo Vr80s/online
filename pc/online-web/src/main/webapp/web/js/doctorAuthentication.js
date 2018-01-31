@@ -1,4 +1,8 @@
 $(function(){
+	
+	$('.forum').css('color','#000');
+	$('.path .doctor').addClass('select');
+
 	//医师认证信息前台验证
 	$('#doc_Distinguish #AutList #submit').click(function(){
 	//姓名
