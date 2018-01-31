@@ -31,7 +31,7 @@ public class NotesCommentController{
 	@Autowired
 	private NotesCommentService notesCommentService;
 	
-	@RequiresPermissions("cloudClass:menu:notes")
+	//@RequiresPermissions("cloudClass:menu:notes")
     @RequestMapping(value = "/findNotesCommentList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findNotesCommentList(TableVo tableVo) {

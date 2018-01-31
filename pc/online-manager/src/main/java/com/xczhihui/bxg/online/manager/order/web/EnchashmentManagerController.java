@@ -44,7 +44,7 @@ public class EnchashmentManagerController{
         return "/order/enchashmentManager";
     }
 
-	@RequiresPermissions("order:menu:enchashment")
+	//@RequiresPermissions("order:menu:enchashment")
     @RequestMapping(value = "/findEnchashmentList")
     @ResponseBody
     public TableVo findEnchashmentList(TableVo tableVo) {

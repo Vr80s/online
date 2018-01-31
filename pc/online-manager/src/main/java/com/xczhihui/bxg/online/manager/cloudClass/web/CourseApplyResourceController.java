@@ -42,7 +42,7 @@ public class CourseApplyResourceController extends AbstractController{
 		return CLOUD_CLASS_PATH_PREFIX + "/courseApplyResource";
 	}
 	
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -82,7 +82,7 @@ public class CourseApplyResourceController extends AbstractController{
 	 * 删除资源
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject delete(Integer courseApplyResourceId){
@@ -97,7 +97,7 @@ public class CourseApplyResourceController extends AbstractController{
 	 * 恢复资源
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "recovery", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject recovery(Integer courseApplyResourceId){

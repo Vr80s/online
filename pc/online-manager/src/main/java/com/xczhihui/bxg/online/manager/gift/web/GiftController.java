@@ -52,7 +52,7 @@ public class GiftController extends AbstractController {
 		return GIFT_PATH_PREFIX + "/gift";
 	}
 
-	@RequiresPermissions("gift:menu")
+	//@RequiresPermissions("gift:menu")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo gifts(TableVo tableVo) {
@@ -90,7 +90,7 @@ public class GiftController extends AbstractController {
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("gift:menu")
+	//@RequiresPermissions("gift:menu")
 	@RequestMapping(value = "addGift", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject add(GiftVo giftVo) {
@@ -113,7 +113,7 @@ public class GiftController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	@RequiresPermissions("gift:menu")
+	//@RequiresPermissions("gift:menu")
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	public GiftVo findGiftById(Integer id) {
@@ -126,7 +126,7 @@ public class GiftController extends AbstractController {
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("gift:menu")
+	//@RequiresPermissions("gift:menu")
 	@RequestMapping(value = "updateGiftById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateGiftById(GiftVo giftVo) {

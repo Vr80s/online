@@ -75,7 +75,7 @@ public class PublicCourseController {
 	
 	}
 	
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -117,7 +117,7 @@ public class PublicCourseController {
 		
 	}
 	
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "getTeacher")
 	@ResponseBody
 	public List<Lecturer> getTeacher(Integer menuId){
@@ -130,7 +130,7 @@ public class PublicCourseController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "addCourse", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(CourseVo courseVo){
@@ -156,7 +156,7 @@ public class PublicCourseController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseById (CourseVo courseVo){
@@ -172,7 +172,7 @@ public class PublicCourseController {
 	
 	
 	
-	@RequiresPermissions("cloudClass:menu：publicClass")
+	//@RequiresPermissions("cloudClass:menu：publicClass")
 	@RequestMapping(value = "coursesReclist")
 	@ResponseBody
 	public TableVo coursesRec(TableVo tableVo) {

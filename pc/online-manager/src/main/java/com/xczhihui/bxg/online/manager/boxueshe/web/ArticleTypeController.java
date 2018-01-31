@@ -33,7 +33,7 @@ public class ArticleTypeController  extends AbstractController {
     @Autowired
     ArticleTypeService service;
 
-    @RequiresPermissions("boxueshe:menu:articletype")
+    //@RequiresPermissions("boxueshe:menu:articletype")
     @RequestMapping(value = "index")
     public String index() {
         return BOXUESHE_PATH_PREFIX + "/articletype";

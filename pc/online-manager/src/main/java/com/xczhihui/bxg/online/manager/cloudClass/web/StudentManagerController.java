@@ -27,7 +27,7 @@ public class StudentManagerController {
 		return CLOUD_CLASS_PATH_PREFIX + "/studentManager";
 	}
 	
-	@RequiresPermissions("cloudClass:menu：student")
+	//@RequiresPermissions("cloudClass:menu：student")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo studentmanagers(TableVo tableVo) {

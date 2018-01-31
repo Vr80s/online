@@ -32,7 +32,7 @@ public class CourseRecommendController{
 	@Autowired
 	private CourseRecommendService courseRecommendService;
 	
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "recList")
 	@ResponseBody
 	public TableVo recList(TableVo tableVo) {

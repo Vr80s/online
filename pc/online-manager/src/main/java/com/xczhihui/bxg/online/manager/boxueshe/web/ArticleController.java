@@ -52,7 +52,7 @@ public class ArticleController extends AbstractController{
 	@Value("${online.web.url:http://www.ixincheng.com}")
 	private String weburl;
 	
-	@RequiresPermissions("boxueshe:menu:article")
+	//@RequiresPermissions("boxueshe:menu:article")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
@@ -62,7 +62,7 @@ public class ArticleController extends AbstractController{
 		return BOXUESHE_PATH_PREFIX + "/articleList";
 	}
 	
-	@RequiresPermissions("boxueshe:menu:article")
+	//@RequiresPermissions("boxueshe:menu:article")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo articles(TableVo tableVo) {
@@ -122,7 +122,7 @@ public class ArticleController extends AbstractController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	//@RequiresPermissions("boxueshe:menu:article")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(HttpServletRequest request,ArticleVo articleVo){
@@ -140,7 +140,7 @@ public class ArticleController extends AbstractController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	//@RequiresPermissions("boxueshe:menu:article")
 	@RequestMapping(value = "addPre", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject addPre(HttpServletRequest request,ArticleVo articleVo){
@@ -158,7 +158,7 @@ public class ArticleController extends AbstractController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	//@RequiresPermissions("boxueshe:menu:article")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject update(HttpServletRequest request,ArticleVo articleVo){
@@ -213,7 +213,7 @@ public class ArticleController extends AbstractController{
 	 * 删除
 	 * 
 	 */
-	@RequiresPermissions("boxueshe:menu:article")
+	//@RequiresPermissions("boxueshe:menu:article")
 	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject deletes(String ids){

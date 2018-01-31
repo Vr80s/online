@@ -22,7 +22,7 @@ public class VersionManagerController {
 	 * @param request
 	 * @return
 	 */
-	@RequiresPermissions("version:manager")
+	//@RequiresPermissions("version:manager")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		return VERSION_PATH_PREFIX + "index";

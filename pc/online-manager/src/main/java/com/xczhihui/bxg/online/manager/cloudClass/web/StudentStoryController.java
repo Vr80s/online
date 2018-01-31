@@ -67,7 +67,7 @@ public class StudentStoryController {
 		return CLOUD_CLASS_PATH_PREFIX + "/studentStory";
 	}
 	
-	@RequiresPermissions("cloudClass:menu:studentStory")
+	//@RequiresPermissions("cloudClass:menu:studentStory")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo studentStorys(TableVo tableVo) {
@@ -146,7 +146,7 @@ public class StudentStoryController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:studentStory")
+	//@RequiresPermissions("cloudClass:menu:studentStory")
 	@RequestMapping(value = "addStudentStory", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(StudentStory studentStory){
@@ -207,7 +207,7 @@ public class StudentStoryController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:studentStory")
+	//@RequiresPermissions("cloudClass:menu:studentStory")
 	@RequestMapping(value = "findStudentStoryById", method = RequestMethod.GET)
 	@ResponseBody
 	 public StudentStory findStudentStoryById(String id) {
@@ -220,7 +220,7 @@ public class StudentStoryController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:studentStory")
+	//@RequiresPermissions("cloudClass:menu:studentStory")
 	@RequestMapping(value = "updateStudentStoryById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateStudentStoryById (StudentStory studentStory){

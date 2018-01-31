@@ -79,7 +79,7 @@ public class CourseApplyInfoController extends AbstractController{
 		return CLOUD_CLASS_PATH_PREFIX + "/courseApplyInfo";
 	}
 	
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -164,7 +164,7 @@ public class CourseApplyInfoController extends AbstractController{
 	 * @param courseApplyId
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "pass", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject pass(Integer courseApplyId){
@@ -180,7 +180,7 @@ public class CourseApplyInfoController extends AbstractController{
 	 * @param courseApplyInfo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "notPass", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject notPass(@RequestBody CourseApplyInfo courseApplyInfo){

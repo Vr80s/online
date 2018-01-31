@@ -48,14 +48,14 @@ public class OrderInputController{
 	@Autowired
 	private OrderInputService service;
 	
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/index")
     public ModelAndView index(){
          ModelAndView mav=new ModelAndView("/order/input");
          return mav;
     }
 
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/find")
     @ResponseBody
     public TableVo find(TableVo tableVo) {
@@ -89,7 +89,7 @@ public class OrderInputController{
         return tableVo;
    }
 	
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject add(OrderInputVo vo,HttpServletRequest req) throws Exception {
@@ -102,7 +102,7 @@ public class OrderInputController{
 		return ResponseObject.newSuccessResponseObject(null);
 	}
 	
-	@RequiresPermissions("input:order")
+	//@RequiresPermissions("input:order")
     @RequestMapping(value = "/importOrder",method = RequestMethod.POST)
     @ResponseBody
     public void importOrder(OrderInputVo vo,HttpServletRequest req,HttpServletResponse res) throws Exception {
