@@ -134,7 +134,9 @@
 									<div class="classify_course_type" id="classify_course_type">
 										<script type="text/html" id="my_data0">
 											{{each items as item i}}
-											<div class="classify_course_type_one">{{item.name}}</div>
+											<div class="classify_course_type_one">
+												<a href="screen.html?myselectBtn={{item.id}}">{{item.name}}</a>
+											</div>
 											{{/each}}
 											<div class="both"></div>
 										</script>
@@ -164,7 +166,9 @@
 									<div class="classify_mold_type" id="classify_mold_type">
 										<script type="text/html" id="my_data2">
 											{{each items as item i}}
-													<div class="classify_mold_type_one">{{item.name}}</div>
+													<div class="classify_mold_type_one">
+														<a href="screen.html?classStyle={{item.id}}">{{item.name}}</a>
+													</div>
 											{{/each}}
 
 										<div class="both"></div>

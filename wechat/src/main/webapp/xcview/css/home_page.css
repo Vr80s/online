@@ -113,6 +113,9 @@ header{
     margin-left: 0.58rem;
     margin-bottom: 0.638rem;
 }
+.classify_course_type_one a{
+	color: #333;
+}
 /*课程分类结束*/
 
 /*专题课程开始*/
@@ -174,6 +177,9 @@ header{
 	color: #333333;
     margin-left: 0.58rem;
     margin-bottom: 0.638rem;
+}
+.classify_mold_type_one a{
+	color: #333;
 }
 /*课程类型结束*/
 
