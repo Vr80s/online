@@ -815,7 +815,6 @@ if (myBrowser() == "IE55") {
                                 $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
                                 localStorage.username = data.resultObject.loginName;
                                 localStorage.userid = data.resultObject.id;
-//                              localStorage.username = data.resultObject.;
                                 if ($(btn.parent().hasClass('selected'))) {
 
                                 } else {
