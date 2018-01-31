@@ -10,6 +10,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<link rel="stylesheet" type="text/css" href="/xcview/css/purchase.css" />
 
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
@@ -18,11 +19,16 @@
 
 
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
 <!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
 <!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
-<link rel="stylesheet" type="text/css" href="/xcview/css/purchase.css" />
+<script type="text/javascript" src="../js/purchase.js"></script>
+
 
 
 
@@ -46,20 +52,22 @@
 	
 	
 	<!--中间内容开始-->
-	<div class="purchase_details">
-		<div class="purchase_details_main">
-			<div class="purchase_details_main_cen">
-				<img src="../images/geren.jpg" alt="" />
-				<div class="purchase_details_left">
-					<div class="purchase_details_title">
-						<span class="span0">郝万山</span>
-						<span class="span1">《伤寒论》讲解</span>
+	<div class="purchase_details" id="purchase_details">
+		<script type="text/html" id="data_details">
+			<div class="purchase_details_main">
+				<div class="purchase_details_main_cen">
+					<img src="../images/geren.jpg" alt="" />
+					<div class="purchase_details_left">
+						<div class="purchase_details_title">
+							<span class="span0">{{teacherName}}</span>
+							<span class="span1">《伤寒论》讲解</span>
+						</div>
+						<div class="both"></div>
+						<div class="purchase_details_money"><span>88</span>熊猫币</div>
 					</div>
-					<div class="both"></div>
-					<div class="purchase_details_money"><span>88</span>熊猫币</div>
 				</div>
 			</div>
-		</div>
+		</script>
 	</div>
 	
 	<!--优惠券开始-->

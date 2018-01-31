@@ -272,6 +272,9 @@ color: #999999;
 	text-align: justify;
 	padding-top: 0.1rem;
 }
+.wrap p img{
+	width: 100%;
+}
 .zhezhao{
 	width: 100%;
 	height: 1rem;
@@ -358,6 +361,9 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
+}
+.wrap1 p img{
+	width: 100%;
 }
 .zhezhao1{
 	width: 100%;

@@ -68,22 +68,19 @@ $(".bg_userModal").click(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-		
+	//	若是免费则输入框显现
+	if(data.resultObject.watchState==1){
+		$(".wrap_all_returned").css({"margin-bottom":"0"})
+	}
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
 		data.resultObject.startTime= data.resultObject.startTime.substring(0,10); //截取日期
 		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期
-//		var changeTime=data.resultObject.startTime;
-//		var finishTime = changeTime.replace(/-/g,'.');
-//		console.log(finishTime)
-//		
-//		
-//		var changestratTime=data.resultObject.endtTime;
-//		var finishendTime = changeTime.replace(/-/g,'.');
-//		console.log(finishendTime)
-//
-//			$(".playTime .class_time").html(finishTime)
+	//	是否购买
+	$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
+
+
 		
 
 //		data.resultObject.endTime= data.resultObject.endTime.substring(0,10);
