@@ -210,17 +210,38 @@
 			</div>
 		</div>
 	</div>
-	<!--底下评论输入框-->	
-	<div class="wrap_user_input">
-		<div class="wrap_input z">
-			<img src="../images/inp_retured.png"/>
-			<span>来点儿神聊</span>
+	
+	
+	
+	<div id="sure_isBuy">	
+		<script type="text/html" id="data_isBuy">
+			{{if watchState==0}}
+				
+			<!--底部购买价格-->
+			<div class="bot_price">
+				<a class="left_price z">
+					<p><span>{{currentPrice}}</span>熊猫币</p>
+				</a>
+				<a class="right_priceBtn y">
+					购买
+				</a>
+			</div>
+			{{else if watchState==1}}
+		<!--底下评论输入框-->	
+		<div class="wrap_user_input">
+			<div class="wrap_input z">
+				<img src="../images/inp_retured.png"/>
+				<span>来点儿神聊</span>
+			</div>
+			<div class="all_returned_num y">
+				<img src="../images/returned.png"/>
+				<p>评论999+</p>
+			</div>
 		</div>
-		<div class="all_returned_num y">
-			<img src="../images/returned.png"/>
-			<p>评论999+</p>
-		</div>
+		{{/if}}
+		</script>
 	</div>
+	
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">

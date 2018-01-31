@@ -2,12 +2,21 @@ var userPic = $('.userPic').css('background')
 $('.forum').css('color','#000');
 $('.path .doctor').addClass('select');
 
-//请求头像
+//请求头像 名字 个性签名
 RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
 				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
+						//头像
+						$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);
+						//名字
+						$('.doctor_inf>h4').text(data.resultObject.name);
+						
+					if(data.resultObject.info){
+						//个性签名
+						$('.doctor_inf>p').text(data.resultObject.info)
+					}
+					$('.')
 				} else {
 					
 				}

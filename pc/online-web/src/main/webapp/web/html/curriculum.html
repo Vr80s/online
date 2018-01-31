@@ -42,11 +42,63 @@
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-    
-    <script src="/web/js/jquery.citys.js" type="text/javascript" charset="utf-8"></script>  <!--省市-->
+    <script src="/web/js/anchor/course_vod.js" type="text/javascript" charset="utf-8"></script>
 
+    <script src="/web/js/jquery.citys.js" type="text/javascript" charset="utf-8"></script>  <!--省市-->
+	<script src="/web/js/jquery.pagination.js"></script>
    </head>
 	<body>
+	<script type="text/template" id="course_vod_list_tpl">
+		{{each records as courseVod i}}
+		<tr>
+			<td>
+				<img src="{{courseVod.imgPath}}" alt="" />
+			</td>
+			<td>
+				{{courseVod.title}}
+			</td>
+			<td>
+				{{courseVod.price}}
+			</td>
+			<td>
+				{{courseVod.courseLength}}
+			</td>
+			<td>
+				{{if courseVod.courseForm==1}}
+				<span>直播</span>
+					{{else if courseVod.courseForm==2}}
+				<span>点播</span>
+					{{else if courseVod.courseForm==3}}
+				<span>线下课</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if courseVod.multimediaType==1}}
+				<span>视频</span>
+					{{else if courseVod.multimediaType==2}}
+				<span>音频</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if courseVod.applyStatus==1}}
+				<span>已通过</span>
+				{{else if courseVod.applyStatus==2}}
+				<span>审核中</span>
+				{{else if courseVod.applyStatus==0}}
+				<span>未通过</span>
+				{{/if}}
+			</td>
+			<td>
+				{{courseVod.title}}
+			</td>
+			<td>
+				<a href="javascript:;">下架</a>
+				<a href="javascript:;">编辑</a>
+			</td>
+		</tr>
+		{{/each}}
+	</script>
+
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -314,7 +366,7 @@
 						</form>
 					</div>
 					
-					<div class="zhuanlan_bottom2" id="kecheng_bottom2">
+					<div class="zhuanlan_bottom2 course_vod_content" id="kecheng_bottom2">
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
 							<select name="">
@@ -350,130 +402,52 @@
 								<td>时长</td>
 								<td>类型</td>
 								<td>资源类型</td>
-								<td>状态</td>
+								<td>审核状态</td>
+								<td>课程状态</td>
 								<td>操作</td>
 							</tr>
 							 </thead>
-							  <tbody>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;">下架</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;">下架</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							  <tbody id="course_vod_list">
+							<!--<tr>-->
+								<!--<td>-->
+									<!--<img src="/web/images/hospital/hospital_pic.png" alt="" />-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--中医药席卷全球成独特风景，发展热情被彻底点燃-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--￥200.00-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--80’-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--直播-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--视频-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--上架-->
+								<!--</td>-->
+								<!--<td>-->
+									<!--<a href="javascript:;">下架</a>-->
+									<!--<a href="javascript:;">编辑</a>-->
+								<!--</td>-->
+							<!--</tr>-->
+
 							</tbody>
 						</table>
 					</div>
-					
+					<div class="pages">
+						<div id="Pagination"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
+					</div>
+
 					
 					<!--点击选择资源弹框开始-->
 					<div class="a_resource">

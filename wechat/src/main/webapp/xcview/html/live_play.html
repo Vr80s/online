@@ -215,17 +215,36 @@
 			</div>
 		</div>
 	</div>
-	<!--底下评论输入框-->	
-	<div class="wrap_user_input">
-		<div class="wrap_input z">
-			<img src="../images/inp_retured.png"/>
-			<span>来点儿神聊</span>
+	
+	<div id="sure_isBuy">	
+		<script type="text/html" id="data_isBuy">
+			{{if watchState==0}}
+				
+			<!--底部购买价格-->
+			<div class="bot_price">
+				<a class="left_price z" href="javascript:;">
+					<p><span>{{currentPrice}}</span>熊猫币</p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_buy()">
+					购买
+				</a>
+			</div>
+			{{else if watchState==1}}
+		<!--底下评论输入框-->	
+		<div class="wrap_user_input">
+			<div class="wrap_input z">
+				<img src="../images/inp_retured.png"/>
+				<span>来点儿神聊</span>
+			</div>
+			<div class="all_returned_num y">
+				<img src="../images/returned.png"/>
+				<p>评论999+</p>
+			</div>
 		</div>
-		<div class="all_returned_num y">
-			<img src="../images/returned.png"/>
-			<p>评论999+</p>
-		</div>
+		{{/if}}
+		</script>
 	</div>
+	
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
@@ -354,73 +373,7 @@
 			 })
 		 })
 	</script>
-<!--<script>
 
-    var slideHeight = 150; // px
-    var defHeight = $('.wrap').height();
-    if(defHeight >= slideHeight){
-        $('.wrap').css('height' , slideHeight + 'px');
-        $('.read-more').append('<a href="#">展开全部</a>');
-        $('.read-more a').click(function(){
-        var curHeight = $('.wrap').height();
-        if(curHeight == slideHeight){
-            $('.wrap').animate({
-            height: defHeight
-            }, "normal");
-            $('.read-more a').html('点击隐藏');
-            $('.gradient').fadeOut();
-
-            $('.read-more span').removeClass("triangle-down-hovertree");
-            $('.read-more span').addClass("triangle-up-hovertree");
-            
-            $('.hewenqiToggle').css("height","0rem");
-        }else{
-            $('.wrap').animate({
-            height: slideHeight
-            }, "normal");
-            $('.read-more a').html('展开全部');
-            $('.gradient').fadeIn();
-            $('.read-more span').removeClass("triangle-up-hovertree");
-            $('.read-more span').addClass("triangle-down-hovertree");
-            $('.hewenqiToggle').css("height","2.5rem");
-        }
-        return false;
-        });  
-    }
-</script>
-<script>
-	   var slideHeight = 150; // px
-    var defHeight = $('.wrap1').height();
-    if(defHeight >= slideHeight){
-        $('.wrap1').css('height' , slideHeight + 'px');
-        $('.read-more1').append('<a href="#">展开全部</a>');
-        $('.read-more1 a').click(function(){
-        var curHeight = $('.wrap1').height();
-        if(curHeight == slideHeight){
-            $('.wrap1').animate({
-            height: defHeight
-            }, "normal1");
-            $('.read-more1 a').html('点击隐藏');
-            $('.gradient1').fadeOut();
-
-            $('.read-more1 span').removeClass("triangle-down-hovertree1");
-            $('.read-more1 span').addClass("triangle-up-hovertree1");
-            
-            $('.hewenqiToggle1').css("height","0rem");
-        }else{
-            $('.wrap1').animate({
-            height: slideHeight
-            }, "normal1");
-            $('.read-more1 a').html('展开全部');
-            $('.gradient1').fadeIn();
-            $('.read-more1 span').removeClass("triangle-up-hovertree1");
-            $('.read-more1 span').addClass("triangle-down-hovertree1");
-            $('.hewenqiToggle1').css("height","2.5rem");
-        }
-        return false;
-        });  
-    }
-</script>-->
 
 
 </html>
