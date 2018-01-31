@@ -3,10 +3,10 @@ $(function(){
 			$(".select_list li").click(function(){
 				$(".select_list li").removeClass("active");
 				$(this).addClass("active");
-				$(".wrap_box .little_box").hide()
+				$(".wrap_box .little_box").hide();
 				$(".select_box").hide().eq($(this).index()).show();
 //				图标颜色变化
-				$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color")
+				$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
 			})
 			$(".select_list .select-ud").bind('click',function(event){
             	event.stopPropagation();			
@@ -23,15 +23,15 @@ $(function(){
 			
 			
 			$(".setTop").click(function(){
-				$(".select_list .littleBox").slideUp()
-				$(".select_list .littleBoxs").slideUp()
+				$(".select_list .littleBox").slideUp();
+				$(".select_list .littleBoxs").slideUp();
 				
-				$(".select-ud").removeAttr("id")
-				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom")
-				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")		
+				$(".select-ud").removeAttr("id");
+				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom");
+				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")	;	
 			})
 //			对课程目录下小的下拉div进行操作		
-			$(".select_list .littleBox p").bind('click',function(event){
+			$(".select_list .select-ud .littleBox p").bind('click',function(event){
             	event.stopPropagation();
 				$(".select_list .littleBox p").removeClass("activeP");
 				$(this).addClass("activeP");
@@ -39,37 +39,37 @@ $(function(){
 				$(".select_box").hide()
 			})
 			
-			$(".select_list .littleBoxs p").bind('click',function(event){
+			$(".select_list .select-uds .littleBoxs p").bind('click',function(event){
             	event.stopPropagation();
-				$(".select_list .littleBoxs p").removeClass("activeP");
+				$(".select_list1 .littleBoxs p").removeClass("activeP");
 				$(this).addClass("activeP");
-				$(".wrap_box .little_box").hide().eq($(this).index()).show();
-				$(".select_box").hide()
+				$(".wrap_box1 .little_box").hide().eq($(this).index()).show();
+				$(".select_box1").hide();
 			})
 //		下拉小箭头设置	
 		$(".select-ud").click(function(){
 			if($(this).attr("id")=="open_list"){
 				$(this).removeAttr("id")
-				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-left")
-				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-bottom")
+				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-left");
+				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-bottom");
 			}
 			else{
 				$(this).attr("id","open_list")
-				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-bottom")
-				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-left")
+				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-bottom");
+				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-left");
 			}
 		})
 		
 		$(".select-uds").click(function(){
 			if($(this).attr("id")=="open_list"){
 				$(this).removeAttr("id")
-				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-left")
-				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-bottom")
+				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-left");
+				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-bottom");
 			}
 			else{
 				$(this).attr("id","open_list")
-				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-bottom")
-				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-left")
+				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-bottom");
+				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-left");
 			}
 		})
 
@@ -904,7 +904,6 @@ $('#zhuanji_bottom .baocun #submit0').click(function(){
 		}
 	
 	
-//	alert(111)
 })
 
 
@@ -1006,13 +1005,6 @@ $('#zhuanjis_bottom .baocun #submits').click(function(){
 		$('#zhuanjis_bottom .warnings9').addClass('hide');
 	}
 	
-	
-	
-	
-	
-	
-	
-//	alert(111)
 })
 
 
@@ -1053,9 +1045,6 @@ $('#ziyuan_bottom .baocun #submit').click(function(){
 		$('#ziyuan_bottom .warning2').addClass('hide');
 	}
 	
-	
-
-//	alert(111)
 })
 //资源为空结束
 
@@ -1158,25 +1147,7 @@ $('#zhuanjis_bottom .baocun #submits0').click(function(){
 		$('#zhuanjis_bottom .warnings9').addClass('hide');
 	}
 	
-	
-	
-	
-	
-	
-	
-//	alert(111)
 })
-
-
-
-
-
-
-
-
-
-
-
 
 
 //更新时间
@@ -1209,8 +1180,6 @@ $(".new_box_main p").click(function() {
 //点击新专辑添加课程结束
 
 
-
-
 //添加课程开始
 $(".new_box_main .size").click(function() {
     $(".adds_course").show();
@@ -1218,13 +1187,6 @@ $(".new_box_main .size").click(function() {
 //添加课程结束
 
 //专辑结束
-
-
-
-
-
-
-
 
 
 
