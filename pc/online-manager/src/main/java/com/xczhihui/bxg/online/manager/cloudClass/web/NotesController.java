@@ -68,7 +68,7 @@ public class NotesController{
          return mav;
     }
 
-	@RequiresPermissions("cloudClass:menu:notes")
+	//@RequiresPermissions("cloudClass:menu:notes")
     @RequestMapping(value = "/findNotesList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findNotesList(TableVo tableVo) {
@@ -135,7 +135,7 @@ public class NotesController{
          return tableVo;
     }
 	
-	@RequiresPermissions("cloudClass:menu:notes")
+	//@RequiresPermissions("cloudClass:menu:notes")
 	@RequestMapping(value = "findCourseList")
 	@ResponseBody
 	public TableVo findCourseList(TableVo tableVo) {

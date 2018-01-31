@@ -37,7 +37,7 @@ public class OrderController{
          return mav;
     }
 
-	@RequiresPermissions("order:menu:order")
+	//@RequiresPermissions("order:menu:order")
     @RequestMapping(value = "/findOrderList")
     @ResponseBody
     public TableVo findQuestionList(TableVo tableVo) {

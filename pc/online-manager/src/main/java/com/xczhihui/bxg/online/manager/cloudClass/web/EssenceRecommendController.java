@@ -60,7 +60,7 @@ public class EssenceRecommendController {
 	
 	}
 	
-	@RequiresPermissions("cloudClass:menu:essenceRecommend")
+	//@RequiresPermissions("cloudClass:menu:essenceRecommend")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {

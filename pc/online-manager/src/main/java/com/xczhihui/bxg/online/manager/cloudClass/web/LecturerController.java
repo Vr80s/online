@@ -37,7 +37,7 @@ public class LecturerController {
 	@Autowired
 	SystemVariateService systemVariateService;
 	
-	@RequiresPermissions("cloudClass:menu:lecturer")
+	//@RequiresPermissions("cloudClass:menu:lecturer")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		List<Menu> menuVos= lecturerService.getfirstMenus();
@@ -47,7 +47,7 @@ public class LecturerController {
 		return CLOUD_CLASS_PATH_PREFIX + "/lecturer";
 	}
 	
-	@RequiresPermissions("cloudClass:menu:lecturer")
+	//@RequiresPermissions("cloudClass:menu:lecturer")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo Lecturers(TableVo tableVo) {
@@ -88,7 +88,7 @@ public class LecturerController {
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:lecturer")
+	//@RequiresPermissions("cloudClass:menu:lecturer")
 	@RequestMapping(value = "addLecturer", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(Lecturer lecturer){

@@ -47,7 +47,7 @@ public class RewardController extends AbstractController {
 		return GIFT_PATH_PREFIX + "/reward";
 	}
 
-	@RequiresPermissions("gift:menu:reward")
+	//@RequiresPermissions("gift:menu:reward")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo gifts(TableVo tableVo) {
@@ -80,7 +80,7 @@ public class RewardController extends AbstractController {
 	 * @param id
 	 * @return
 	 */
-	@RequiresPermissions("gift:menu:reward")
+	//@RequiresPermissions("gift:menu:reward")
 	@RequestMapping(value = "findRewardById", method = RequestMethod.GET)
 	@ResponseBody
 	public RewardVo findRewardById(Integer id) {
@@ -93,7 +93,7 @@ public class RewardController extends AbstractController {
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("gift:menu:reward")
+	//@RequiresPermissions("gift:menu:reward")
 	@RequestMapping(value = "updateRewardById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateRewardById(RewardVo giftVo) {

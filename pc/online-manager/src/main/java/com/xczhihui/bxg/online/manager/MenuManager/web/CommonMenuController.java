@@ -82,7 +82,7 @@ public class CommonMenuController {
 	    	
 	     }
 	     
-	     @RequiresPermissions("common:menu:manage")
+	     //@RequiresPermissions("common:menu:manage")
 	     @RequestMapping(value = "list")
 	     @ResponseBody
 	     public TableVo list(TableVo tableVo) {

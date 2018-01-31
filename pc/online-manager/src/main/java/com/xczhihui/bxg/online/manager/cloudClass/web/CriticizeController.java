@@ -67,7 +67,7 @@ public class CriticizeController{
          return mav;
     }
 
-	@RequiresPermissions("cloudClass:menu:criticize")
+	//@RequiresPermissions("cloudClass:menu:criticize")
     @RequestMapping(value = "/findCriticizeList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findCriticizeList(TableVo tableVo) {
@@ -137,7 +137,7 @@ public class CriticizeController{
          return tableVo;
     }
 	
-	@RequiresPermissions("cloudClass:menu:criticize")
+	//@RequiresPermissions("cloudClass:menu:criticize")
 	@RequestMapping(value = "findCourseList")
 	@ResponseBody
 	public TableVo findCourseList(TableVo tableVo) {

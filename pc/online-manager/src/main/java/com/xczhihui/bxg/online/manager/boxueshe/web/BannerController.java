@@ -36,13 +36,13 @@ public class BannerController {
      * 
      * @return
      */
-	@RequiresPermissions("boxueshe:menu:banner")
+	//@RequiresPermissions("boxueshe:menu:banner")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		
 		return BOXUESHE_PATH_PREFIX + "/banner";
 	}
-	@RequiresPermissions("boxueshe:menu:banner")
+	//@RequiresPermissions("boxueshe:menu:banner")
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ResponseBody
     public TableVo banner(TableVo tableVo) {

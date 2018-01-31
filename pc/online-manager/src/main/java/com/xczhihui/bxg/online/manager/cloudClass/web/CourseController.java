@@ -119,7 +119,7 @@ public class CourseController extends AbstractController{
 	     return mav;
 	}
 
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo courses(TableVo tableVo) {
@@ -188,7 +188,7 @@ public class CourseController extends AbstractController{
 		
 	}
 	
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "recList")
 	@ResponseBody
 	public TableVo recList(TableVo tableVo) {
@@ -248,7 +248,7 @@ public class CourseController extends AbstractController{
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "addCourse", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(CourseVo courseVo){
@@ -272,7 +272,7 @@ public class CourseController extends AbstractController{
 	 * @param id
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "findCourseById", method = RequestMethod.GET)
 	@ResponseBody
 	  public List<CourseVo> findCourseById(Integer id) {
@@ -284,7 +284,7 @@ public class CourseController extends AbstractController{
 	 * @param courseVo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "updateCourseById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseById (CourseVo courseVo){
@@ -620,7 +620,7 @@ public class CourseController extends AbstractController{
      * 老师列表
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:course")
+    //@RequiresPermissions("cloudClass:menu:course")
     @RequestMapping(value = "/teachers",method= RequestMethod.GET)
     @ResponseBody
     public ResponseObject teachers(String courseId){
@@ -635,7 +635,7 @@ public class CourseController extends AbstractController{
      * 增加班级信息
      * @return
      */
-    @RequiresPermissions("cloudClass:menu:grade:teachers:save")
+    //@RequiresPermissions("cloudClass:menu:grade:teachers:save")
     @RequestMapping(value = "/teachers/save",method= RequestMethod.POST)
     @ResponseBody
     public ResponseObject saveTeachers(HttpServletRequest request,String gradeId,String courseId,String[] roleType1,String[] roleType2,String[] roleType3){

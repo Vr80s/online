@@ -61,7 +61,7 @@ public class UserController extends AbstractController {
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		List<Role> roles = this.roleService.getAllValidRoles();
@@ -71,7 +71,7 @@ public class UserController extends AbstractController {
 		return USER_PATH_PREFIX + "users";
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public TableVo list(TableVo tableVo) {
@@ -108,7 +108,7 @@ public class UserController extends AbstractController {
 		return tableVo;
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "list1")
 	@ResponseBody
 	public TableVo list1(TableVo tableVo) {
@@ -128,7 +128,7 @@ public class UserController extends AbstractController {
 		return tableVo;
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject add(User user) {
@@ -151,7 +151,7 @@ public class UserController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject delete(HttpServletRequest request) throws ServletRequestBindingException {
@@ -163,7 +163,7 @@ public class UserController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject deletes(HttpServletRequest request) throws ServletRequestBindingException {
@@ -176,7 +176,7 @@ public class UserController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject update(HttpServletRequest request, User user) {
@@ -191,7 +191,7 @@ public class UserController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "reset/password", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject resetPassword(HttpServletRequest request) throws ServletRequestBindingException {
@@ -204,7 +204,7 @@ public class UserController extends AbstractController {
 		return responseObject;
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "edit/role", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateRole(HttpServletRequest request) throws ServletRequestBindingException {
@@ -219,7 +219,7 @@ public class UserController extends AbstractController {
 		return ResponseObject.newSuccessResponseObject("修改成功");
 	}
 
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "check/login_name")
 	@ResponseBody
 	public String checkLoginName(HttpServletRequest request) throws ServletRequestBindingException {
@@ -231,7 +231,7 @@ public class UserController extends AbstractController {
 		return "true";
 	}
 	
-	@RequiresPermissions("user:manager")
+	//@RequiresPermissions("user:manager")
 	@RequestMapping(value = "get/userRoleIds", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseObject getUserRoleIds(String userId) throws ServletRequestBindingException {

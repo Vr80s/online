@@ -120,7 +120,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 				userCoinService.updateBalanceForCourses(orders);
 			}catch (Exception e){
 				logger.info("订单分成失败，订单id:{}",orders.get(0).getOrderId());
-				e.printStackTrace();
+//				e.printStackTrace();
 			}
 			//为购买用户发送购买成功的消息通知
 			orderService.savePurchaseNotice(weburl, orders.get(0).getOrderId());

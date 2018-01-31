@@ -19,6 +19,9 @@ a {
     border-radius: 4px;
     z-index: 999;
 }
+.borderColor{
+	border-color: red !important;
+}
 .color{
 	color: #00bc12 !important;
 }

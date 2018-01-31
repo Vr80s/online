@@ -50,7 +50,7 @@ public class InformationController{
          return mav;
     }
 
-	@RequiresPermissions("operate:menu:information")
+	//@RequiresPermissions("operate:menu:information")
     @RequestMapping(value = "/findinformationList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findQuestionList(TableVo tableVo) {
@@ -96,7 +96,7 @@ public class InformationController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("operate:menu:information")
+	//@RequiresPermissions("operate:menu:information")
 	@RequestMapping(value = "addInfo", method = RequestMethod.POST)
 	@ResponseBody
 	 public ResponseObject add(InformationVo info){
@@ -121,7 +121,7 @@ public class InformationController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("cloudClass:menu:course")
+	//@RequiresPermissions("cloudClass:menu:course")
 	@RequestMapping(value = "updateInfoById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateCourseById (InformationVo info){

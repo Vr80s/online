@@ -47,7 +47,7 @@ public class MarkExamPapersContorller {
      * 获取班级列表信息，根据课程ID，班级名查找
      * @return
      */
-    @RequiresPermissions("markexam:grade")
+    //@RequiresPermissions("markexam:grade")
     @RequestMapping(value = "/findGradeList")
     public TableVo findGradeList(TableVo tableVo){
         int pageSize = tableVo.getiDisplayLength();

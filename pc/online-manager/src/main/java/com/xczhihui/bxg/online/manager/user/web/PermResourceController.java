@@ -38,7 +38,7 @@ public class PermResourceController extends AbstractController {
 	@Autowired
 	private PermResourceService resourceService;
 
-	@RequiresPermissions("resource:manager")
+	//@RequiresPermissions("resource:manager")
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
 		List<SystemVariate> resourceTypes = this.resourceService.getResourceTypes();// 权限资源类型
@@ -46,7 +46,7 @@ public class PermResourceController extends AbstractController {
 		return USER_PATH_PREFIX + "/resources";
 	}
 
-	@RequiresPermissions("resource:manager")
+	//@RequiresPermissions("resource:manager")
 	@RequestMapping(value = "list")
 	@ResponseBody
 	public List<Resource> list(HttpServletRequest request) throws ServletRequestBindingException {
@@ -60,7 +60,7 @@ public class PermResourceController extends AbstractController {
 		return resources;
 	}
 
-	@RequiresPermissions("resource:manager")
+	//@RequiresPermissions("resource:manager")
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject add(Resource resource) {
@@ -69,7 +69,7 @@ public class PermResourceController extends AbstractController {
 		return ResponseObject.newSuccessResponseObject(resource);
 	}
 
-	@RequiresPermissions("resource:manager")
+	//@RequiresPermissions("resource:manager")
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject delete(HttpServletRequest request) throws ServletRequestBindingException {
@@ -78,7 +78,7 @@ public class PermResourceController extends AbstractController {
 		return ResponseObject.newSuccessResponseObject("删除成功");
 	}
 
-	@RequiresPermissions("resource:manager")
+	//@RequiresPermissions("resource:manager")
 	@RequestMapping(value = "deletes", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject deletes(HttpServletRequest request) throws ServletRequestBindingException {
@@ -88,7 +88,7 @@ public class PermResourceController extends AbstractController {
 		return ResponseObject.newSuccessResponseObject("删除成功");
 	}
 
-	@RequiresPermissions("resource:manager")
+	//@RequiresPermissions("resource:manager")
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject update(Resource resource) {
@@ -111,7 +111,7 @@ public class PermResourceController extends AbstractController {
 		return ztreeVos;
 	}
 	
-	@RequiresPermissions("resource:manager")
+	//@RequiresPermissions("resource:manager")
 	@RequestMapping(value = "using")
 	@ResponseBody
 	public String isUsing(HttpServletRequest request) throws ServletRequestBindingException {

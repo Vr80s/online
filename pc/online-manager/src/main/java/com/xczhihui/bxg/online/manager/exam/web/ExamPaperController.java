@@ -45,7 +45,7 @@ public class ExamPaperController{
         return mav;
     }
 
-    @RequiresPermissions("exam:menu:paper")
+    //@RequiresPermissions("exam:menu:paper")
 	@RequestMapping(value = "findCourseList")
 	@ResponseBody
 	public TableVo findCourseList(TableVo tableVo) {
@@ -86,14 +86,14 @@ public class ExamPaperController{
           return tableVo;
 	}
 
-    @RequiresPermissions("exam:menu:paper")
+    //@RequiresPermissions("exam:menu:paper")
     @RequestMapping(value = "/examPaper")
     public ModelAndView examPaper(HttpServletRequest request){
         ModelAndView mav=new ModelAndView("/exam/examPaper");
         return mav;
     }
     
-	@RequiresPermissions("exam:menu:paper")
+	//@RequiresPermissions("exam:menu:paper")
     @RequestMapping(value = "/findExamPaperList", method = RequestMethod.POST)
     @ResponseBody
     public TableVo findExamPaperList(TableVo tableVo) {
@@ -154,7 +154,7 @@ public class ExamPaperController{
 	 * @return
      * @throws Exception 
 	 */
-	@RequiresPermissions("exam:menu:paper")
+	//@RequiresPermissions("exam:menu:paper")
 	@RequestMapping(value = "/bulidExamPaper", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject bulidExamPaper(ExamPaperVo examPaperVo,HttpServletRequest request) throws Exception{
@@ -167,7 +167,7 @@ public class ExamPaperController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("exam:menu:paper")
+	//@RequiresPermissions("exam:menu:paper")
 	@RequestMapping(value = "/saveExamPaper", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject saveExamPaper(ExamPaperVo examPaperVo,HttpServletRequest request){
@@ -200,7 +200,7 @@ public class ExamPaperController{
     	return ResponseObject.newSuccessResponseObject(examPaperService.getQuestionsCnt(kpointIds,questionType)) ;
     }
 
-    @RequiresPermissions("exam:menu:paper")
+    //@RequiresPermissions("exam:menu:paper")
 	@RequestMapping(value = "findQuestionList")
 	@ResponseBody
 	public TableVo findQuestionList(TableVo tableVo) {
@@ -255,7 +255,7 @@ public class ExamPaperController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("exam:menu:paper")
+	//@RequiresPermissions("exam:menu:paper")
 	@RequestMapping(value = "refreshDifficulty", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject refreshDifficulty (ExamPaperVo examPaperVo){
@@ -277,7 +277,7 @@ public class ExamPaperController{
      * @return
      * @throws Exception 
      */
-    @RequiresPermissions("exam:menu:paper")
+    //@RequiresPermissions("exam:menu:paper")
     @RequestMapping(value = "/getExamPaper")
     @ResponseBody
     public ResponseObject getExamPaper(ExamPaperVo examPaperVo,HttpServletRequest request) throws Exception{
@@ -289,7 +289,7 @@ public class ExamPaperController{
 	 * @param vo
 	 * @return
 	 */
-	@RequiresPermissions("exam:menu:paper")
+	//@RequiresPermissions("exam:menu:paper")
 	@RequestMapping(value = "updateExamPaperById", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject updateExamPaperById (ExamPaperVo examPaperVo,HttpServletRequest request){
