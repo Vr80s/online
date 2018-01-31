@@ -12,12 +12,15 @@ $(function(){
 		if(name == ''){
 			$('#AutList .doc_name').siblings('.name_warn').removeClass('hide');
 			$('#AutList .doc_name').siblings('.name_warn').text('姓名不能为空');
+			$('#AutList .doc_name').addClass('borderColor');
 			return false;
 		}else if(!name_pass.test(name)){
 			$('#AutList .doc_name').siblings('.name_warn').removeClass('hide');
 			$('#AutList .doc_name').siblings('.name_warn').text('姓名格式不正确');
+			$('#AutList .doc_name').addClass('borderColor');
 			return false;
 		}else {
+			$('#AutList .doc_name').removeClass('borderColor');
 			$('#AutList .doc_name').siblings('.name_warn').addClass('hide');
 		}
 	
@@ -25,12 +28,15 @@ $(function(){
 		if(doc_Idnum == ''){
 			$('#AutList .doc_Idnum').siblings('.idCard_warn').removeClass('hide');
 			$('#AutList .doc_Idnum').siblings('.idCard_warn').text('身份证号不能为空');
+			$('#AutList .doc_Idnum').addClass('borderColor');
 			return false;
 		}else if(!doc_Idnum_pass.test(doc_Idnum)){
 			$('#AutList .doc_Idnum').siblings('.idCard_warn').removeClass('hide');
 			$('#AutList .doc_Idnum').siblings('.idCard_warn').text('身份证号格式不正确');
+			$('#AutList .doc_Idnum').addClass('borderColor');
 			return false;
 		}else{
+			$('#AutList .doc_Idnum').removeClass('borderColor');
 			$('#AutList .doc_Idnum').siblings('.idCard_warn').addClass('hide');
 		}
 		
@@ -72,9 +78,11 @@ $(function(){
 		
 		//职称验证
 		if($('#AutList .zhicheng_name input').val() == ''){
+			$('#AutList .doc_zhicheng').addClass('borderColor');
 			$('#AutList .zhicheng_name .warning').removeClass('hide');
 			return false;
 		}else{
+			$('#AutList .doc_zhicheng').removeClass('borderColor');
 			$('#AutList .zhicheng_name .warning').addClass('hide');
 		}
 		
@@ -98,9 +106,11 @@ $(function(){
 		
 		//擅长
 		if($('#AutList .shanchang input').val() == ''){
+			$('#AutList .shanchang').addClass('borderColor');
 			$('#AutList .shanchang .warning').removeClass('hide');
 			return false;
 		}else{
+			$('#AutList .shanchang').removeClass('borderColor');
 			$('#AutList .shanchang .warning').addClass('hide');
 		}
 		
@@ -166,7 +176,11 @@ $(function(){
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1500)
+	       		localStorage.AutStatus = 1;
 	       		window.location.reload();
+//	       		$('#doc_Distinguish #AutList').addClass('hide');
+//	       		$('#doc_Distinguish #AutStatus').removeClass('hide');
+	       		
 			}
 
 		})
