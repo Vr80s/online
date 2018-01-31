@@ -203,10 +203,11 @@
 						<p class="returned_id z">{{item.reply[0].onlineUser.name}}</p>
 						<p class="returned_text">{{item.reply[0].replyContent}}</p>
 					</div>
+                    {{/if}}
 					<!--回复时间/点赞/评论按钮-->
-					<!--<div class="wrap_returned_btn">
+					<div class="wrap_returned_btn">
 						<ul>
-							<li>{{item.reply[0].createTime}}</li>
+							<li>{{item.createTime}}</li>
 							<li class="btn_littleReturn " style="margin-left: 0.3rem;">
 								<img src="../images/returned.png"/>
 							</li>
@@ -215,24 +216,9 @@
 							</li>
 
 						</ul>
-					</div>-->
+					</div>
 				</div>
 
-				{{/if}}
-
-				<!--回复时间/点赞/评论按钮-->
-				<div class="wrap_returned_btn">
-					<ul>
-						<li>{{item.createTime}}</li>
-						<li class="btn_littleReturn " style="margin-left: 0.3rem;">
-							<img src="../images/returned.png"/>
-						</li>
-						<li>
-							<img src="../images/zan01.png"/>&nbsp;23
-						</li>
-
-					</ul>
-				</div>
 				<!--购买者显示-->
 				{{if item.isBuy  }}
 				<div class="wrap_purchaser">
