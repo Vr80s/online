@@ -24,6 +24,10 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 	       		$('.ImDoc_btn').addClass('hide');
 	       		if(data.resultObject.indexOf(3) != -1){
 	       			//认证中
+	       			if(localStorage.AutStatus == 1){
+	       				seeAutStatus();
+	       				localStorage.AutStatus = '';
+	       			}
 	       			$('#docAut_tip').removeClass('hide');
 	       		}else if(data.resultObject.indexOf(7) != -1){
 	       			//未认证
@@ -298,7 +302,10 @@ function Autagain(){
 	$('#AutStatus').addClass('hide');
 }
 
-//医师认证状态和认证信息显示
+//医师认证状态信息显示
+showAutStatus();
+function showAutStatus(){
+	//医师认证状态和认证信息显示
 RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//头像预览
 			console.log(data);
@@ -315,6 +322,8 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			
 			
 		});
+}
+
 
 
 

@@ -176,7 +176,11 @@ $(function(){
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1500)
+	       		localStorage.AutStatus = 1;
 	       		window.location.reload();
+//	       		$('#doc_Distinguish #AutList').addClass('hide');
+//	       		$('#doc_Distinguish #AutStatus').removeClass('hide');
+	       		
 			}
 
 		})
