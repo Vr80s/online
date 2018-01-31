@@ -124,7 +124,7 @@ header {
     line-height: 1.064rem;
 }
 .purchase_details_money span{
-	font-size: 0.766rem;
+	font-size: 0.666rem;
 	color: #F97B49;
 }
 
@@ -163,7 +163,7 @@ header {
 	float: right;
 }
 .purchase_list_one_right span{
-	font-size: 0.766rem;
+	font-size: 0.666rem;
 	color: #F97B49;
 }
 .purchase_list_one_right img{

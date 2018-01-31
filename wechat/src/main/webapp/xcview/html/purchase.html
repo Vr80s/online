@@ -56,14 +56,14 @@
 		<script type="text/html" id="data_details">
 			<div class="purchase_details_main">
 				<div class="purchase_details_main_cen">
-					<img src="../images/geren.jpg" alt="" />
+					<img src="{{smallImgPath}}" alt="" />
 					<div class="purchase_details_left">
 						<div class="purchase_details_title">
 							<span class="span0">{{teacherName}}</span>
-							<span class="span1">《伤寒论》讲解</span>
+							<span class="span1">{{gradeName}}</span>
 						</div>
 						<div class="both"></div>
-						<div class="purchase_details_money"><span>88</span>熊猫币</div>
+						<div class="purchase_details_money"><span>{{currentPrice}}</span>&nbsp;熊猫币</div>
 					</div>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 	</div>
 	
 	<!--优惠券开始-->
-	<div class="purchase_list">
+	<!--<div class="purchase_list">
 		<div class="purchase_list_main">
 			<div class="purchase_list_one div">
 				<div class="purchase_list_one_left">
@@ -90,10 +90,10 @@
 					<span>-88</span>熊猫币<img src="../images/video_review.png" />
 				</div>
 			</div>
-			<!--<div class="both"></div>-->
+			<div class="both"></div>
 		</div>
 		<div class="both"></div>
-	</div>
+	</div>-->
 	
 	<!--总价开始-->
 	<div class="price">
@@ -103,7 +103,7 @@
 					<img src="../images/total_prices.png" />总价
 				</div>
 				<div class="purchase_list_one_right">
-					<span>-88</span>熊猫币
+					<span class="give_price"></span>&nbsp;熊猫币
 				</div>
 				<div class="both"></div>
 			</div>

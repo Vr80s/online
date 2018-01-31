@@ -85,9 +85,9 @@ $(".bg_userModal").click(function(){
 		courseId : courseId	
 	},function(data) {
 		//	若是免费则输入框显现
-	if(data.resultObject.watchState==1){
-		$(".wrap_all_returned").css({"margin-bottom":"0"})
-	}
+//	if(data.resultObject.watchState==1){
+//		$(".wrap_all_returned").css({"margin-bottom":"0"})
+//	}
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
@@ -166,4 +166,16 @@ function reportComment() {
 
         });
     });
+}
+//点击购买后的接口
+var courseId = getQueryString('course_id');
+function btn_buy(){
+	requestService("/xczh/order/save",{
+		courseId:courseId,
+		orderFrom:2
+	},function(data){
+
+		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+	});
+	
 }

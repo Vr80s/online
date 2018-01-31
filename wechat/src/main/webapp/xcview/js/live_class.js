@@ -106,4 +106,16 @@ $(".bg_userModal").click(function(){
 		}
 	});
 
-})
+});
+var courseId = getQueryString('course_id');
+//点击购买后的接口
+function btn_buy(){
+	requestService("/xczh/order/save",{
+		courseId:courseId,
+		orderFrom:2
+	},function(data){
+
+		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+	});
+	
+}
