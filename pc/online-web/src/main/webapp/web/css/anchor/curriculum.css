@@ -1786,7 +1786,7 @@ pre {
 
 .live_streaming_title{
 	width: 100%;
-	height: 70px;
+	height: 60px;
 	line-height: 60px;
 	font-size: 16px;
 	color: #333333;
@@ -1795,7 +1795,7 @@ pre {
 }
 .live_streaming_main{
 	width: 100%;
-	height: 70px;
+	height: 60px;
 	padding: 17px 20px;
 	background: #F0F0F0;
 	border-radius: 4px;
@@ -1875,3 +1875,63 @@ pre {
     font-size: 16px;
 }
 /*处理账户*/
+
+
+
+/*课程点击下架*/
+.yes_no{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	display: none;
+}
+.yes_no_bg{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: #000;
+	opacity: 0.3;
+}
+.yes_no_main{
+	width: 300px;
+    height: 150px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-top: -75px;
+	margin-left: -150px;
+	background: #fff;
+	border-radius: 4px;
+	
+}
+.yes_no_main div{
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+}
+.yes_no_main .top{
+	margin-top: 40px;
+}
+.yes_no_main .bottom{
+	width: 100%;
+	height: 40px;
+	line-height: 39px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #F0F0F0;
+	cursor: pointer;
+}
+.yes_no_main .bottom div{
+	width: 49%;
+	float: left;
+	text-align: center;
+}
+.yes_no_main .bottom .right{
+	border-left: 1px solid #F0F0F0;
+	color: #00BC12;
+}
