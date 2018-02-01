@@ -56,6 +56,8 @@
 
    </head>
 	<body>
+		
+	<!--课程渲染开始-->
 	<script type="text/template" id="course_list_tpl">
 		{{each records as course i}}
 		<tr>
@@ -100,19 +102,16 @@
 				{{course.title}}
 			</td>
 			<td>
-				{{if course.applyStatus==1}}
-				{{if course.status==1}}
+				
 				<a href="javascript:;">下架</a>
-				{{else}}
-				<a href="javascript:;">上架</a>
-				{{/if}}
-				{{else if course.applyStatus==2}}
 				<a href="javascript:;">编辑</a>
-				{{/if}}
 			</td>
 		</tr>
 		{{/each}}
 	</script>
+	<!--课程渲染结束-->
+	
+	<!--专辑渲染开始-->
 	<script type="text/template" id="course_collection_list_tpl">
 		{{each records as collection i}}
 		<tr>
@@ -168,6 +167,8 @@
 		</tr>
 		{{/each}}
 	</script>
+	<!--专辑渲染结束-->
+	
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
