@@ -236,9 +236,9 @@ public class DoctorController {
      * 修改医师信息
      * @author zhuwenbao
      */
-    @RequestMapping(value = "/{doctorId}", method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject update(@PathVariable String doctorId, MedicalDoctor doctor, HttpServletRequest request){
+    public ResponseObject update(MedicalDoctor doctor, HttpServletRequest request){
 
         // 获取当前用户
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
@@ -246,23 +246,23 @@ public class DoctorController {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
-        medicalDoctorBusinessService.update(doctorId, currentUser.getUid(), doctor);
-//        medicalDoctorBusinessService.update(doctorId, "ff80808161313c570161359826ea0000", doctor);
+        medicalDoctorBusinessService.update(currentUser.getUid(), doctor);
+//        medicalDoctorBusinessService.update("ff8080816142af54016149e069080000", doctor);
         return ResponseObject.newSuccessResponseObject("修改成功");
     }
 
     /**
      * 通过医师id获取详细信息
      */
-    @RequestMapping(value = "/{doctorId}",method= RequestMethod.GET)
-    public ResponseObject getDoctorByIdV2(@PathVariable String doctorId) {
+    @RequestMapping(value = "get",method= RequestMethod.GET)
+    public ResponseObject getDoctorByIdV2(String doctorId) {
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorByIdV2(doctorId));
     }
 
     /**
      * 添加医师
      */
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
         // 获取当前用户
@@ -272,7 +272,7 @@ public class DoctorController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctor.setUserId(currentUser.getUid());
-//        medicalDoctor.setUserId("ff80808161313c570161359826ea0000");
+//        medicalDoctor.setUserId("ff8080816142af54016149e069080000");
         medicalDoctorBusinessService.add(medicalDoctor);
         return ResponseObject.newSuccessResponseObject("添加成功");
     }

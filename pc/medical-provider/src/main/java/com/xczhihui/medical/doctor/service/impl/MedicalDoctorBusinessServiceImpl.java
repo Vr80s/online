@@ -298,12 +298,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
     /**
      * 修改医师信息
-     * @param doctorId 医师id
      * @param uid 修改人id
      * @param doctor 修改的内容
      */
     @Override
-    public void update(String doctorId, String uid, MedicalDoctor doctor) {
+    public void update(String uid, MedicalDoctor doctor) {
 
         // 参数为空 直接返回
         if(doctor == null){
@@ -312,9 +311,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
         // 参数校验
         this.validate(doctor, 2);
-
-        doctor.setId(doctorId);
-
+        String doctorId = doctor.getId();
         try {
 
             boolean flag = false;
@@ -389,6 +386,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
      */
     @Override
     public MedicalDoctor selectDoctorByIdV2(String doctorId) {
+
+        if(StringUtils.isBlank(doctorId)){
+            throw new RuntimeException("请选择你要查看的医师");
+        }
 
         MedicalDoctor medicalDoctor = medicalDoctorMapper.selectById(doctorId);
 
@@ -467,6 +468,14 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             departmentIds.forEach(departmentId -> medicalDoctorDepartmentService.add(departmentId , doctorId, now));
         }
 
+        // 保存新增的医师与医馆的对应关系
+        MedicalHospitalDoctor hospitalDoctor = new MedicalHospitalDoctor();
+        hospitalDoctor.setId(UUID.randomUUID().toString().replace("-",""));
+        hospitalDoctor.setHospitalId(hospitalAccount.getDoctorId());
+        hospitalDoctor.setDoctorId(doctorId);
+        hospitalDoctor.setCreateTime(now);
+        hospitalDoctorMapper.insert(hospitalDoctor);
+
         logger.info("user : {} add doctor successfully, doctorId : {}",
                 medicalDoctor.getUserId(), doctorId);
     }
@@ -505,6 +514,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         }
 
         if(type == 2){
+            if(StringUtils.isBlank(medicalDoctor.getId())){
+                throw new RuntimeException("请选择要修改的医师");
+            }
+
             if(StringUtils.isNotBlank(medicalDoctor.getName()) && medicalDoctor.getName().length() > 32){
                 throw new RuntimeException("医师名字不能超过32个字");
             }

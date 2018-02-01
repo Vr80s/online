@@ -4,6 +4,7 @@ $(function(){
 	
 //	$('#doc_Administration #doc_Administration_bottom').addClass('hide');
 	//点击医馆信息提交
+
 	
 	
 	$('#hos_Administration .hos_base_inf #submit').click(function(){
@@ -376,15 +377,14 @@ $(function(){
 	var description = $('#doc_Administration_bottom .doc_introduct').val();
 	var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
 	//医师数据上传
-	RequestService("/medical/hospital/addDoctor", "post", {
+	RequestService("/medical/doctor", "put", {
 				name: name,
 				headPortrait:headPortrait,
 				title:title,
-				medicalDoctorAuthenticationInformation:medicalDoctorAuthenticationInformation,
+				"medicalDoctorAuthenticationInformation.titleProve":medicalDoctorAuthenticationInformation,
 				description:description,
 				fieldText:field,
-				"departments[0].id":'0f4df242c3294902a87b8bc0a0ffe4d8'
-//				departments:keshiStr
+				departmentIds:keshiStr
 			}, function(data) {
 				console.log(data);
 
