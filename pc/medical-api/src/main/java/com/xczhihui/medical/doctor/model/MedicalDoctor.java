@@ -187,6 +187,21 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 	@TableField(exist = false)
 	private List<MedicalDepartment> departments;
 
+	/**
+	 * 科室id数组
+	 * false：不映射到数据库表字段
+	 */
+	@TableField(exist = false)
+	private List<String> departmentIds;
+
+	public List<String> getDepartmentIds() {
+		return departmentIds;
+	}
+
+	public void setDepartmentIds(List<String> departmentIds) {
+		this.departmentIds = departmentIds;
+	}
+
 	public List<MedicalDepartment> getDepartments() {
 		return departments;
 	}

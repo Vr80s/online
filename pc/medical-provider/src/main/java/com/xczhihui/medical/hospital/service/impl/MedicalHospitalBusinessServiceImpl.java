@@ -3,7 +3,6 @@ package com.xczhihui.medical.hospital.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
@@ -157,12 +156,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         doctorAuthenticationInformationMapper.insert(authenticationInformation);
 
         // 保存医师的科室：medical_doctor_department
-        // 将MedicalDoctorApplyDepartment数据格式转化成：MedicalDoctorDepartment
-        List<MedicalDepartment> departments = medicalDoctor.getDepartments();
+        List<String> departmentIds = medicalDoctor.getDepartmentIds();
 
-        if(CollectionUtils.isNotEmpty(departments)){
-            departments.stream()
-                    .forEach(department -> doctorDepartmentService.add(department, doctorId, now));
+        if(CollectionUtils.isNotEmpty(departmentIds)){
+            departmentIds.forEach(departmentId -> doctorDepartmentService.add(departmentId , doctorId, now));
         }
 
         logger.info("user : {} add doctor successfully, doctorId : {}",
@@ -308,7 +305,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             throw new RuntimeException("擅长不能为空");
         }
 
-        if(CollectionUtils.isEmpty(medicalDoctor.getDepartments())){
+        if(CollectionUtils.isEmpty(medicalDoctor.getDepartmentIds())){
             throw new RuntimeException("请选择科室");
         }
 
