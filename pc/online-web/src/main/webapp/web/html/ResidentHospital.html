@@ -39,9 +39,9 @@
 		<script type="text/javascript" src="/web/js/helpers.js"></script>
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-	
+
 		<script src="/web/js/jquery.pagination.js"></script>
-		
+
 		<!--富文本需要的js-->
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js">
@@ -431,7 +431,7 @@
 											<td>操作</td>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="hosDocList">
 										<tr>
 											<td>
 												<img src="/web/images/hospital/hospital_pic.png" alt="" />
@@ -698,7 +698,7 @@
 				<div style="position: relative;">
 					<span><em>*</em> 医师姓名</span>
 					<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name">
-					<span class="name_warn warning hide"> 医师姓名不能为空</span>
+					<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
 					<span class="close_doc_inf">关闭</span>
 				</div>
 
@@ -955,6 +955,42 @@
 <script type="text/template" id="shanChangTpl2">
 	{{each item as item i}}
 	<li data-id={{item.id}}>{{item.name}}</li>
+	{{/each}}
+</script>
+
+<!--医师的对应的医馆列表模板-->
+<script type="text/template" id="hosDocListTpl">
+	{{each item as item i}}
+	<tr>
+		<td>
+			<img src={{item.headPortrait}} alt="" />
+		</td>
+		<td>
+			{{item.name}}
+		</td>
+
+		<td>
+			{{item.title}}
+		</td>
+
+		<td>
+			胃病、针灸、养生食疗
+		</td>
+		{{if item.status == true}}
+		<td>
+			上线
+		</td>
+		{{else}}
+		<td>
+			上线
+		</td>
+		{{/if}}
+		<td>
+			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
+			<a href="javascript:;" class="downLine" data-id={{item.id}}>下线</a>
+			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>
+		</td>
+	</tr>
 	{{/each}}
 </script>
 

@@ -414,9 +414,7 @@ margin-top: 0.1rem;
 	    border-bottom: 0.01rem solid #D8DDE6;
 	    padding-top: 0.2rem;
 }
-.wrap_all_returned{
-	margin-bottom: 1.2rem;
-}
+
 .wrap_all_returned .wrap_people_comment:nth-last-child(1){
 	border: 0;
 }
@@ -575,7 +573,7 @@ color: white;
 	padding: 0.01rem 0.26rem 0 0.26rem;
 	margin-top: 0.4rem;
 	box-sizing: border-box;
-	display: none;
+
 }
 .wrap_input{
 	width: 5.7rem;
