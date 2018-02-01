@@ -1453,9 +1453,9 @@ pre {
 	width: 82px;
 	height: 36px;
 	line-height: 36px;
-	border: 1px solid #00BC12;
+	border: 1px solid #00BC12 !important;
 	font-size: 14px;
-	color: #00BC12;
+	color: #00BC12 !important;
 	text-align: center;
 	border-radius: 4px;
 	float: left;
@@ -1647,7 +1647,7 @@ pre {
 #zhuanji .zhuanlan_bottoms{
 	width: 100%;
 	height: 100%;
-	background: blanchedalmond;
+	/*background: blanchedalmond;*/
 	padding: 30px 20px;
 }
 #zhuanji .zhuanlan_bottoms div {
@@ -1796,6 +1796,7 @@ pre {
     line-height: 36px;
     font-size: 14px;
     color: #999999 !important;
+    border: 1px solid #F0F0F0;
 }
 /*课程添加结束*/
 
@@ -1957,3 +1958,192 @@ pre {
 	border-left: 1px solid #F0F0F0;
 	color: #00BC12;
 }
+
+
+
+
+
+
+/*新专辑添加css*/
+#zhuanjis_bottom{
+	display: none;
+}
+#zhuanjis_bottom .physician_span{
+	margin-bottom: 0 !important;
+}
+#zhuanjis_bottom .physician_span .row_size{
+	margin-bottom: 0;
+}
+#zhuanjis_bottom .physician_span .input-group{
+	margin-bottom: 0;
+}
+#zhuanjis_bottom .physician_span .big-photo{
+	margin-bottom: 0;
+}
+#zhuanjis_bottom .physician_span span{
+	margin-right: 35px !important;
+}
+#zhuanjis_bottom .physician_span .row_size .one{
+	font-size: 57px;
+}
+
+#zhuanjis_bottom .zhuanlan_top{
+	height: 60px;
+    line-height: 60px !important;
+    border-bottom: 1px solid #F0F0F0;
+    /*margin-top: 10px;*/
+    /*position: relative;*/
+}
+#zhuanjis_bottom .zhuanlan_top .title{
+	margin-top: 24px;
+	text-align: left !important;
+}
+#zhuanjis_bottom .zhuanlan_top .returns{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    cursor: pointer;
+}
+
+/*专辑下架*/
+.no_yes{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	display: none;
+}
+.no_yes_bg{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: #000;
+	opacity: 0.3;
+}
+.no_yes_main{
+	width: 300px;
+    height: 150px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	margin-top: -75px;
+	margin-left: -150px;
+	background: #fff;
+	border-radius: 4px;
+	
+}
+.no_yes_main div{
+	font-size: 16px;
+	color: #333;
+	text-align: center;
+}
+.no_yes_main .top{
+	margin-top: 40px;
+}
+.no_yes_main .bottom{
+	width: 100%;
+	height: 40px;
+	line-height: 39px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	border-top: 1px solid #F0F0F0;
+	cursor: pointer;
+}
+.no_yes_main .bottom div{
+	width: 49%;
+	float: left;
+	text-align: center;
+}
+.no_yes_main .bottom .right{
+	border-left: 1px solid #F0F0F0;
+	color: #00BC12;
+}
+/*专辑修改头部*/
+#zhuanji #zhuanji_bottom2{
+	padding-top: 0 !important;
+}
+
+#zhuanji #zhuanji_bottom2 .zhuanlan_top{
+	height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #F0F0F0;
+    position: relative;
+}
+#zhuanji #zhuanji_bottom2 .zhuanlan_top title{
+	
+}
+#zhuanji #zhuanji_bottom2 .zhuanlan_top .returns{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    cursor: pointer;
+}
+#zhuanji_bottom2 .curriculum_top{
+	margin-top: 30px;
+}
+
+
+
+#zhuanji #zhuanji_bottom{
+	padding-top: 0 !important;
+}
+
+#zhuanji #zhuanji_bottom .zhuanlan_top{
+	height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #F0F0F0;
+    position: relative;
+    margin-bottom: 30px;
+}
+#zhuanji #zhuanji_bottom .zhuanlan_top .title{
+	
+}
+#zhuanji #zhuanji_bottom .zhuanlan_top .returns{
+	display: inline-block;
+    width: 92px;
+    height: 36px;
+    background: #00BC12;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #fff;
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    cursor: pointer;
+}
+#zhuanji_bottom .curriculum_top{
+	margin-top: 30px;
+}
+
+
+
