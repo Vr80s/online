@@ -1366,5 +1366,46 @@ $('.account_two .approve').click(function(){
 
 
 
+//判断医馆认证开始
+$('.account_two .approve').click(function(){
+//	添加医馆名称为空
+	var NameWarning = $.trim($('.account_two .zhuanlan_title').val());
+	
+//	添加公司名称为空
+	var CompanyWarning = $.trim($('.account_two .zhuanlan_title').val());
+	
+//	添加公司名称为空
+	var CreditWarning = $.trim($('.account_two .zhuanlan_title').val());
+	
+	//医馆名称
+	if(NameWarning == ''){
+		$('.account_two .two_warning0').removeClass('hide');
+		return false;
+	}else{
+		$('.account_two .two_warning0').addClass('hide');
+	}
+	
+	//公司名称
+	if(CompanyWarning == ''){
+		$('.account_two .two_warning1').removeClass('hide');
+		return false;
+	}else{
+		$('.account_two .two_warning1').addClass('hide');
+	}
+	
+//统一社会信用代码不能为空
+	if(CreditWarning == ''){
+		$('.account_two .two_warning2').removeClass('hide');
+		return false;
+	}else{
+		$('.account_two .two_warning2').addClass('hide');
+	}
+	
+	
+})
+//判断医馆认证结束
+
+
+
 
 })

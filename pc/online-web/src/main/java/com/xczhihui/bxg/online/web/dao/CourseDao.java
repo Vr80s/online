@@ -618,10 +618,23 @@ public class CourseDao extends SimpleHibernateDao {
       /*  String  sql =" select o.course_id,o.course_name,o.user_id,a.grade_id,ifnull(g.qqno,0) qqno from  apply_r_grade_course a,oe_apply ap," +
                      " oe_order o,oe_grade g where   a.apply_id= ap.id and o.course_id = a.course_id and a.grade_id=g.id " +
                      " and ap.user_id=o.user_id  and  o.order_no=:orderNo";*/
-        String sql=" select o.user_id,a.grade_id,od.course_id, c.grade_name course_name, ifnull(g.qqno,0) qqno from " +
-                   " oe_order o,oe_order_detail od,oe_apply ap,apply_r_grade_course a,oe_course c,oe_grade g " +
-                   " where o.id = od.order_id  and o.user_id=ap.user_id and ap.id = a.apply_id  and od.course_id = c.id and a.grade_id=g.id " +
-                   " and o.order_no=:orderNo and a.course_id=od.course_id ";
+//        String sql=" select o.user_id,a.grade_id,od.course_id, c.grade_name course_name, ifnull(g.qqno,0) qqno from " +
+//                   " oe_order o,oe_order_detail od,oe_apply ap,apply_r_grade_course a,oe_course c,oe_grade g " +
+//                   " where o.id = od.order_id  and o.user_id=ap.user_id and ap.id = a.apply_id  and od.course_id = c.id and a.grade_id=g.id " +
+//                   " and o.order_no=:orderNo and a.course_id=od.course_id ";
+        String sql = "SELECT \n" +
+                "  o.user_id,\n" +
+                "  od.course_id,\n" +
+                "  c.grade_name course_name\n" +
+                "FROM\n" +
+                "  oe_order o,\n" +
+                "  oe_order_detail od,\n" +
+                "  apply_r_grade_course a,\n" +
+                "  oe_course c\n" +
+                "WHERE o.id = od.order_id \n" +
+                "  AND od.course_id = c.id \n" +
+                "  AND o.order_no = :orderNo \n" +
+                "  AND a.course_id = od.course_id ";
         List<Map<String, Object>> courses= this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
         return  courses;
     }

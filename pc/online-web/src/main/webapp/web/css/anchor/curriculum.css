@@ -890,7 +890,7 @@
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(2),
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(2){
-	width: 213px;
+	width: 153px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(3),
 .wrap_box  #curriculum .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
@@ -898,11 +898,11 @@
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(4),
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(4){
-	width: 75px;
+	width: 80px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(5),
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(5){
-	width: 75px;
+	width: 80px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(6),
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(6){
@@ -914,7 +914,11 @@
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(8),
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(8){
-	width: 120px;
+	width: 90px;
+}
+.wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(9),
+.wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(9){
+	width: 80px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table tr,.wrap_box  #curriculum #kecheng_bottom2 table td{
 	border: 1px solid #DEDEDE;
@@ -1234,7 +1238,7 @@ pre {
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(2),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(2){
-	width: 213px;
+	width: 153px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(3),
 .wrap_box  #zhuanji .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
@@ -1242,11 +1246,11 @@ pre {
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(4),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(4){
-	width: 75px;
+	width: 80px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(5),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(5){
-	width: 75px;
+	width: 80px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(6),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(6){
@@ -1258,7 +1262,11 @@ pre {
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(8),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(8){
-	width: 120px;
+	width: 90px;
+}
+.wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(9),
+.wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(9){
+	width: 80px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table tr,.wrap_box  #zhuanji #zhuanji_bottom2 table td{
 	border: 1px solid #DEDEDE;
@@ -1840,6 +1848,7 @@ pre {
 	text-align: center;
 	float: right;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
 .live_streaming_table{
 	width: 100%;
@@ -2112,6 +2121,7 @@ pre {
 
 #zhuanji #zhuanji_bottom{
 	padding-top: 0 !important;
+	display: none;
 }
 
 #zhuanji #zhuanji_bottom .zhuanlan_top{
