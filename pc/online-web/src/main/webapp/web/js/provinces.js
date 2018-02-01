@@ -3251,11 +3251,12 @@ $(function() {
   var sb = new StringBuffer();
   $.each(cityJson,
     function(i, val) {
+//  	var defaultstr ="<option id='chooseCity2' value='-1'>请选择您所在生活</option>";
       if (val.item_code.substr(2, 4) == '0000') {
         sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
       }
     });
-  $("#choosePro").html(sb.toString());
+  $("#choosePro").html("<option id='chooseCity2' value='-1'>请选择您所在省</option>"+sb.toString());
   doProvAndCityRelation();
   //$("#view_choosePro").after(sb.toString());
   // $("#edit_choosePro").after(sb.toString());
@@ -3272,7 +3273,7 @@ function doProvAndCityRelation() {
   // }
   
   if ($("#chooseCity").length === 0) {
-    // city.append("<option id='chooseCity' value='-1'>请选择您所在城市</option>");
+       city.append("<option id='chooseCity' value='-1'>请选择您所在市</option>");
   }
   var sb = new StringBuffer();
   var cityVal = "";

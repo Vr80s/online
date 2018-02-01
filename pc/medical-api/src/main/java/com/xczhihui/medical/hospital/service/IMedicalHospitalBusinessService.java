@@ -47,12 +47,6 @@ public interface IMedicalHospitalBusinessService {
     List<MedicalFieldVO> getHotField();
 
     /**
-     * 添加医师
-     * @author zhuwenbao
-     */
-    void addDoctor(MedicalDoctor medicalDoctor);
-
-    /**
      * 获取医疗领域（分页）
      * @param page 分页对象
      * @return 医疗领域列表
@@ -69,8 +63,8 @@ public interface IMedicalHospitalBusinessService {
      * 获取医馆的医师列表
      * @param page 分页封装
      * @param doctorName 医师名字
-     * @param hospitalId 医馆id
+     * @param userId 医馆id
      * @author zhuwenbao
      */
-    Page selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String hospitalId);
+    Page selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String userId);
 }

@@ -235,3 +235,10 @@ function btn_buy(){
 	});
 
 }
+
+//点击免费购买后的
+function btn_mianfei(){
+	$(".wrap_user_input").show();
+	$(".bot_price").hide();	
+	
+}

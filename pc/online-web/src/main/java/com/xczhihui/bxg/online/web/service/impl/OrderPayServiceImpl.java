@@ -123,7 +123,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 //				e.printStackTrace();
 			}
 			//为购买用户发送购买成功的消息通知
-			orderService.savePurchaseNotice(weburl, orders.get(0).getOrderId());
+			orderService.savePurchaseNotice(weburl, orderNo);
 
 		}
 	}

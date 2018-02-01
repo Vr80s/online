@@ -49,8 +49,6 @@ function courseList(current){
                 num_edge_entries: 1, //边缘页数
                 num_display_entries: 4, //主体页数
                 current_page:current-1,
-                prev_show_always:false,
-                next_show_always:false,
                 callback: function (page) {
                     //翻页功能
                     courseList(page+1);
@@ -86,8 +84,6 @@ function courseCollectionList(current){
                 num_edge_entries: 1, //边缘页数
                 num_display_entries: 4, //主体页数
                 current_page:current-1,
-                prev_show_always:false,
-                next_show_always:false,
                 callback: function (page) {
                     //翻页功能
                     courseCollectionList(page+1);

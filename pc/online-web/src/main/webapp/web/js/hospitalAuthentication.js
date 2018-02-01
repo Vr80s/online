@@ -1,6 +1,10 @@
 //此处是医馆入住点击提交信息时候进行验证的部分
 $(function(){
+	
+	
+//	$('#doc_Administration #doc_Administration_bottom').addClass('hide');
 	//点击医馆信息提交
+
 	
 	
 	$('#hos_Administration .hos_base_inf #submit').click(function(){
@@ -226,6 +230,7 @@ $(function(){
 //				alert('认证成功');
 				//医馆数据渲染
 				$('#shanChangList').html(template('shanChangTpl',{item:data.resultObject.records}))
+				$('#shanChangList2').html(template('shanChangTpl2',{item:data.resultObject.records}))
 			}
 
 		})
@@ -372,14 +377,14 @@ $(function(){
 	var description = $('#doc_Administration_bottom .doc_introduct').val();
 	var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
 	//医师数据上传
-	RequestService("/medical/hospital/addDoctor", "post", {
+	RequestService("/medical/doctor", "put", {
 				name: name,
 				headPortrait:headPortrait,
 				title:title,
-				medicalDoctorAuthenticationInformation:medicalDoctorAuthenticationInformation,
+				"medicalDoctorAuthenticationInformation.titleProve":medicalDoctorAuthenticationInformation,
 				description:description,
-				field:field,
-				departments:keshiStr
+				fieldText:field,
+				departmentIds:keshiStr
 			}, function(data) {
 				console.log(data);
 
