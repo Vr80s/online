@@ -76,11 +76,11 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		messageShortVo.setType(1);
 		//若为打款
 		if(e.getStatus()== ApplyStatus.PASS.getCode()){
-			content="编号："+eai.getOrderNo()+"提现申请已通过审核并打款，72小时内到账，请注意查收！";
+			content="编号："+e.getOrderNo()+"提现申请已通过审核并打款，72小时内到账，请注意查收！";
 		}else if(e.getStatus()==ApplyStatus.NOT_PASS.getCode()){
 			//驳回---将提现金额重回打入用户账户
 			updateUserCoinForEnchashment(e);
-			content="编号："+eai.getOrderNo()+"提现申请已被驳回，驳回原因："+ EnchashmentDismissal.getDismissal(e.getDismissal().intValue())+"--"+e.getDismissalRemark();
+			content="编号："+e.getOrderNo()+"提现申请已被驳回，驳回原因："+ EnchashmentDismissal.getDismissal(e.getDismissal().intValue())+"--"+e.getDismissalRemark();
 		}
 		messageShortVo.setContext(content);
 		messageDao.saveMessage(messageShortVo);

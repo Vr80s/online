@@ -230,6 +230,7 @@ public class OrderServiceImpl  extends OnlineBaseServiceImpl implements OrderSer
 				messageDao.saveMessage(messageShortVo);
 			}
 		}
+		logger.info("发送课程消息通知"+orderNo);
 	}
     
     @Override
