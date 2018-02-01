@@ -424,7 +424,6 @@ function clacImgZoomParam( maxWidth, maxHeight, width, height ){
 
 
 //课程第二页   新课程
-//药品经营许可证
 function previewImage6(file){
     var MAXWIDTH  = 90; 
     var MAXHEIGHT = 90;
@@ -454,6 +453,164 @@ function previewImage6(file){
 	    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
 	    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
 	    div.innerHTML = "<div id=divhead6 style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+	  }
+	}
+function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+    var param = {top:0, left:0, width:width, height:height};
+    if( width>maxWidth || height>maxHeight ){
+        rateWidth = width / maxWidth;
+        rateHeight = height / maxHeight;
+        
+        if( rateWidth > rateHeight ){
+            param.width =  maxWidth;
+            param.height = Math.round(height / rateWidth);
+        }else{
+            param.width = Math.round(width / rateHeight);
+            param.height = maxHeight;
+        }
+    }
+    param.left = Math.round((maxWidth - param.width) / 2);
+    param.top = Math.round((maxHeight - param.height) / 2);
+    return param;
+}
+
+
+
+//专辑第二页   新专辑
+function previewImage7(file){
+    var MAXWIDTH  = 90; 
+    var MAXHEIGHT = 90;
+    var div = document.getElementById('preview7');
+    if (file.files && file.files[0]){
+        div.innerHTML ='<img id=imghead7 class=img_imghead onclick=$("#previewImg7").click()>';
+        var img = document.getElementById('imghead7');
+        img.onload = function(){
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        img.width  =  rect.width;
+        img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+        img.style.marginTop = rect.top+'px';
+    }
+    	var reader = new FileReader();
+      	reader.onload = function(evt){img.src = evt.target.result;}
+      	reader.readAsDataURL(file.files[0]);
+  	}
+  		else //兼容IE
+  	{
+	    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+	    file.select();
+	    var src = document.selection.createRange().text;
+	    div.innerHTML = '<img id=imghead7 class=img_imghead >';
+	    var img = document.getElementById('imghead7');
+	    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+	    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+	    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+	    div.innerHTML = "<div id=divhead7 style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+	  }
+	}
+function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+    var param = {top:0, left:0, width:width, height:height};
+    if( width>maxWidth || height>maxHeight ){
+        rateWidth = width / maxWidth;
+        rateHeight = height / maxHeight;
+        
+        if( rateWidth > rateHeight ){
+            param.width =  maxWidth;
+            param.height = Math.round(height / rateWidth);
+        }else{
+            param.width = Math.round(width / rateHeight);
+            param.height = maxHeight;
+        }
+    }
+    param.left = Math.round((maxWidth - param.width) / 2);
+    param.top = Math.round((maxHeight - param.height) / 2);
+    return param;
+}
+
+
+//专辑第三页   专辑--课程添加
+function previewImage8(file){
+    var MAXWIDTH  = 90; 
+    var MAXHEIGHT = 90;
+    var div = document.getElementById('preview8');
+    if (file.files && file.files[0]){
+        div.innerHTML ='<img id=imghead8 class=img_imghead onclick=$("#previewImg8").click()>';
+        var img = document.getElementById('imghead8');
+        img.onload = function(){
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        img.width  =  rect.width;
+        img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+        img.style.marginTop = rect.top+'px';
+    }
+    	var reader = new FileReader();
+      	reader.onload = function(evt){img.src = evt.target.result;}
+      	reader.readAsDataURL(file.files[0]);
+  	}
+  		else //兼容IE
+  	{
+	    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+	    file.select();
+	    var src = document.selection.createRange().text;
+	    div.innerHTML = '<img id=imghead8 class=img_imghead >';
+	    var img = document.getElementById('imghead8');
+	    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+	    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+	    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+	    div.innerHTML = "<div id=divhead8 style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+	  }
+	}
+function clacImgZoomParam( maxWidth, maxHeight, width, height ){
+    var param = {top:0, left:0, width:width, height:height};
+    if( width>maxWidth || height>maxHeight ){
+        rateWidth = width / maxWidth;
+        rateHeight = height / maxHeight;
+        
+        if( rateWidth > rateHeight ){
+            param.width =  maxWidth;
+            param.height = Math.round(height / rateWidth);
+        }else{
+            param.width = Math.round(width / rateHeight);
+            param.height = maxHeight;
+        }
+    }
+    param.left = Math.round((maxWidth - param.width) / 2);
+    param.top = Math.round((maxHeight - param.height) / 2);
+    return param;
+}
+
+
+
+//资源
+function previewImage9(file){
+    var MAXWIDTH  = 90; 
+    var MAXHEIGHT = 90;
+    var div = document.getElementById('preview9');
+    if (file.files && file.files[0]){
+        div.innerHTML ='<img id=imghead9 class=img_imghead onclick=$("#previewImg9").click()>';
+        var img = document.getElementById('imghead9');
+        img.onload = function(){
+        var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+        img.width  =  rect.width;
+        img.height =  rect.height;
+//                 img.style.marginLeft = rect.left+'px';
+        img.style.marginTop = rect.top+'px';
+    }
+    	var reader = new FileReader();
+      	reader.onload = function(evt){img.src = evt.target.result;}
+      	reader.readAsDataURL(file.files[0]);
+  	}
+  		else //兼容IE
+  	{
+	    var sFilter='filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+	    file.select();
+	    var src = document.selection.createRange().text;
+	    div.innerHTML = '<img id=imghead9 class=img_imghead >';
+	    var img = document.getElementById('imghead9');
+	    img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+	    var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+	    status =('rect:'+rect.top+','+rect.left+','+rect.width+','+rect.height);
+	    div.innerHTML = "<div id=divhead9 style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
 	  }
 	}
 function clacImgZoomParam( maxWidth, maxHeight, width, height ){

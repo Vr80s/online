@@ -612,11 +612,11 @@
 						
 						
 						<div class="certification physician_span">
-							<span><em>*</em>医师资格证</span>
+							<span><em>*</em>封面图</span>
 				            <div class="input-group row">
 				            	<div class="row_size">
 									<div class="one">+</div>
-									<div class="two">点击上传医师资格证图片</div>
+									<div class="two">点击上传封面图</div>
 								</div>
 				                <div class="col-sm-9 big-photo">
 				                    <div class="preview" id="preview6">
@@ -929,11 +929,15 @@
 				
 				<!--专辑-->
 				<div class="little_box" id="zhuanji">
-					<div class="zhuanlan_top">
+					<!--<div class="zhuanlan_top zhuanlan_top_one">
 						<span class="title">专辑</span>
 						<button>新专辑</button>
-					</div>
+					</div>-->
 					<div class="zhuanlan_bottom2" id="zhuanji_bottom2">
+						<div class="zhuanlan_top">
+							<span class="title">专辑</span>
+							<div class="returns">新专辑</div>
+						</div>
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
 							<select name="">
@@ -974,7 +978,7 @@
 							</tr>
 							 </thead>
 							  <tbody>
-							<tr>
+							<tr class="zhaunji_tr">
 								<td>
 									<img src="/web/images/hospital/hospital_pic.png" alt="" />
 								</td>
@@ -997,16 +1001,17 @@
 									上架
 								</td>
 								<td>
-									<a href="javascript:;">下架</a>
+									<a href="javascript:;" class="out">下架</a>
 									<a href="javascript:;">编辑</a>
+									<a href="javascript:;" class="add">添加</a>
 								</td>
 							</tr>
-							<tr>
+							<tr class="zhaunji_tr">
 								<td>
 									<img src="/web/images/hospital/hospital_pic.png" alt="" />
 								</td>
 								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
+									中医药席卷全球成独特风景，发展热情被彻底点燃111
 								</td>
 								<td>
 									￥200.00
@@ -1024,8 +1029,9 @@
 									上架
 								</td>
 								<td>
-									<a href="javascript:;">下架</a>
+									<a href="javascript:;" class="out">下架</a>
 									<a href="javascript:;">编辑</a>
+									<a href="javascript:;" class="add">添加</a>
 								</td>
 							</tr>
 							
@@ -1091,10 +1097,26 @@
 							</tr>
 							</tbody>
 						</table>
+						
+						<div class="no_yes">
+							<div class="no_yes_bg"></div>
+							<div class="no_yes_main">
+								<div class="top">是否下架</div>
+								<div class="bottom">
+									<div class="left">否</div>
+									<div class="right">是</div>
+								</div>
+							</div>
+						</div>
+						
 					</div>
 					
 					
-					<div class="zhuanlan_bottom hide" id="zhuanji_bottom">
+					<div class="zhuanlan_bottom" id="zhuanji_bottom">
+						<div class="zhuanlan_top">
+							<span class="title">新专辑</span>
+							<div class="returns">返回</div>
+						</div>
 						<form action="">
 						<div>
 							<span><em>*</em>专辑标题</span>
@@ -1109,17 +1131,25 @@
 						</div>
 						
 						
-						<div class="fengmian">
-							
-							<span><em>*</em>封面图</span>
-							<span class="fengmian_pic">点击上传封面图片</span>
-							<span class="fengmian_tip">
-								<p>文件小于2M</p>
-								<p>支持JPG/PNG等格式图片</p>
-							</span>
-							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt1"/>
-							<p class="warning warning2 hide">请上传封面图</p>
-							
+						<div class="certification physician_span">
+							<span style="margin-right: 35px !important;"><em>*</em>封面图</span>
+				            <div class="input-group row">
+				            	<div class="row_size">
+									<div class="one">+</div>
+									<div class="two">点击上传封面图</div>
+								</div>
+				                <div class="col-sm-9 big-photo">
+				                    <div class="preview" id="preview7">
+				                        <!--<img id="imghead7" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg7').click();">-->
+				                    </div>         
+				                    <input type="file" onchange="previewImage7(this)" id="previewImg7">
+				                </div>
+				            </div>
+				            <div class="hint">
+			                	<div class="">文件小于2M</div>
+			                	<div class="">支持JPG/PNG等格式图片</div>
+			                </div>
+			                <div class="both"></div>
 						</div>
 						
 						
@@ -1190,7 +1220,7 @@
 								<div class="div_one">五</div>
 								<div class="div_one">六</div>
 								<div class="div_one">日</div>
-								<div class="div_two">重置</div>
+								<!--<div class="div_two">重置</div>-->
 								
 							</div>
 							<div class="both"></div>
@@ -1311,160 +1341,179 @@
 						</div>
 						
 					</div>
-					
-					
+				
 					<!--课程添加开始-->
 					<!--<div class="adds_course">-->
 						<!--<div class="adds_course_bg"></div>-->
-						<div class="zhuanlan_bottoms" id="zhuanjis_bottom">
-							<form action="">
-								
-							<div>
-								<span><em>*</em>课程标题</span>
-								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title">
-								<p class="warning warnings0 hide">课程标题不能为空</p>
-							</div>
-							
-							<div>
-								<span><em>*</em>副标题</span>
-								<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0">
-								<p class="warning warnings1 hide">副标题不能为空</p>
-							</div>
-							
-							
-							<div class="fengmian">
-								<span><em>*</em>封面图</span>
-								<span class="fengmian_pic">点击上传封面图片</span>
-								<span class="fengmian_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt2">
-								<p class="warning warnings2 hide">请上传封面图</p>
-								
-							</div>
-							
-							
-							<div>
-								<span><em>*</em>主播姓名</span>
-								<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_titles1 ">
-								<p class="warning warnings3 hide">主播不能为空</p>
-							</div>
-							
-							
-							<div class="textarea">
-								<span class="span" style="float: left;"><em>*</em>主播介绍</span>
-								<div class="">
-									<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textareas1"></textarea>
-									
-								</div>
-								<p class="warning warnings4 hide">主播介绍不能为空</p>
-							</div>
-							
-							
-							<div id="resourceTypess">
-								<span><em>*</em>课程类型</span>
-								<label>
-									<input type="radio" name="resourceType" checked="checked">线上课
-								</label>
-								<label>
-									<input type="radio" name="resourceType">直播课
-								</label>
-								<label>
-									<input type="radio" name="resourceType">线下课
-								</label>
-							</div>
-							
-							
-							<div class="select">
-								<span><em>*</em>课程分类</span>
-								<select name="" id="select">
-									<option value="">请选择课程分类</option>
-									<option value="">我是分类1</option>
-									<option value="">我是分类2</option>
-									<option value="">我是分类3</option>
-								</select>
-								<p class="warning warnings5 hide">课程分类不能为空</p>
-							</div>
-							<!--<div class="select">
-								<span><em>*</em>开课时间</span>
-								
-								<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time">
-								<p class="warning warning5 hide">开课时间不能为空</p>
-							</div>-->
-							
-							
-							<div>
-								<span><em>*</em>时长</span>
-								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2" style="width: 120px;">
-								<span>分钟</span>
-								<p class="warning warnings6 hide">时长不能为空</p>
-							</div>
-							<div>
-								<span><em>*</em>价格</span>
-								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3" style="width: 120px;">
-								<span>元</span>
-								<p class="warning warnings7 hide">价格不能为空</p>
-							</div>
-							<div class="textarea">
-								<span class="span" style="float: left;"><em>*</em>课程介绍</span>
-								<div class="">
-									<textarea name="" rows="" cols="" placeholder="请输入内容介绍" class="a_textarea"></textarea>
-								</div>
-								<p class="warning warnings8 hide">课程介绍不能为空</p>
-							</div>
-							<div class="resourceTypes">
-								<span><em>*</em>资源类型</span>
-								<label>
-									<input type="radio" name="resourceTypes0" checked="checked">视频
-								</label>
-								<label>
-									<input type="radio" name="resourceTypes0">音频
-								</label>
-							</div>
-							
-							
-							<div class="resourceUrls">
-								<span><em>*</em> 选择资源</span>
-								<input type="text" class="input a_input">
-								<a href="javascript:;" id="a"><span style="cursor: pointer;">选择资源</span></a>
-								<p class="warning warnings9 hide">选择资源不能为空</p>
-							</div>
-							
-							<div class="resourceTypess">
-								<span><em>*</em> 课程不单卖</span>
-								<label>
-									<input type="radio" name="resourceTypes01" checked="checked">是
-								</label>
-								<label>
-									<input type="radio" name="resourceTypes01">否
-								</label>
-							</div>
-							
-							
-							<div class="baocun">
-								<input type="submit" value="提交课程" id="submits">
-								<input type="submit" value="保存" id="submits0">
-							</div>
-							</form>
+					<div class="zhuanlan_bottoms" style="padding: 0 !important;" id="zhuanjis_bottom">
+						<div class="zhuanlan_top">
+							<span class="title">课程添加</span>
+							<div class="returns">返回</div>
 						</div>
-
+						<form action="">
+							
+						<div>
+							<span><em>*</em>课程标题</span>
+							<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title">
+							<p class="warning warnings0 hide">课程标题不能为空</p>
+						</div>
 						
+						<div>
+							<span><em>*</em>副标题</span>
+							<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0">
+							<p class="warning warnings1 hide">副标题不能为空</p>
+						</div>
+						
+						
+						<div class="certification physician_span">
+							<span><em>*</em>封面图</span>
+				            <div class="input-group row">
+				            	<div class="row_size">
+									<div class="one">+</div>
+									<div class="two">点击上传封面图</div>
+								</div>
+				                <div class="col-sm-9 big-photo">
+				                    <div class="preview" id="preview8">
+				                        <!--<img id="imghead7" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg7').click();">-->
+				                    </div>         
+				                    <input type="file" onchange="previewImage8(this)" id="previewImg8">
+				                </div>
+				            </div>
+				            <div class="hint">
+			                	<div class="">文件小于2M</div>
+			                	<div class="">支持JPG/PNG等格式图片</div>
+			                </div>
+			                <div class="both"></div>
+						</div>
+						
+						
+						<div>
+							<span><em>*</em>主播姓名</span>
+							<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_titles1 ">
+							<p class="warning warnings3 hide">主播不能为空</p>
+						</div>
+						
+						
+						<div class="textarea">
+							<span class="span" style="float: left;"><em>*</em>主播介绍</span>
+							<div class="">
+								<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textareas1"></textarea>
+								
+							</div>
+							<p class="warning warnings4 hide">主播介绍不能为空</p>
+						</div>
+						
+						
+						<div id="resourceTypess">
+							<span><em>*</em>课程类型</span>
+							<label>
+								<input type="radio" name="resourceType" checked="checked">线上课
+							</label>
+							<label>
+								<input type="radio" name="resourceType">直播课
+							</label>
+							<label>
+								<input type="radio" name="resourceType">线下课
+							</label>
+						</div>
+						
+						
+						<div class="select">
+							<span><em>*</em>课程分类</span>
+							<select name="" id="select">
+								<option value="">请选择课程分类</option>
+								<option value="">我是分类1</option>
+								<option value="">我是分类2</option>
+								<option value="">我是分类3</option>
+							</select>
+							<p class="warning warnings5 hide">课程分类不能为空</p>
+						</div>
+						<!--<div class="select">
+							<span><em>*</em>开课时间</span>
+							
+							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time">
+							<p class="warning warning5 hide">开课时间不能为空</p>
+						</div>-->
+						
+						
+						<div>
+							<span><em>*</em>时长</span>
+							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2" style="width: 120px;">
+							<span>分钟</span>
+							<p class="warning warnings6 hide">时长不能为空</p>
+						</div>
+						<div>
+							<span><em>*</em>价格</span>
+							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3" style="width: 120px;">
+							<span>元</span>
+							<p class="warning warnings7 hide">价格不能为空</p>
+						</div>
+						<div class="textarea">
+							<span class="span" style="float: left;"><em>*</em>课程介绍</span>
+							<div class="">
+								<textarea name="" rows="" cols="" placeholder="请输入内容介绍" class="a_textarea"></textarea>
+							</div>
+							<p class="warning warnings8 hide">课程介绍不能为空</p>
+						</div>
+						<div class="resourceTypes">
+							<span><em>*</em>资源类型</span>
+							<label>
+								<input type="radio" name="resourceTypes0" checked="checked">视频
+							</label>
+							<label>
+								<input type="radio" name="resourceTypes0">音频
+							</label>
+						</div>
+						
+						
+						<div class="resourceUrls">
+							<span><em>*</em> 选择资源</span>
+							<input type="text" class="input a_input">
+							<a href="javascript:;" id="a"><span style="cursor: pointer;">选择资源</span></a>
+							<p class="warning warnings9 hide">选择资源不能为空</p>
+						</div>
+						
+						<div class="resourceTypess">
+							<span><em>*</em> 课程不单卖</span>
+							<label>
+								<input type="radio" name="resourceTypes01" checked="checked">是
+							</label>
+							<label>
+								<input type="radio" name="resourceTypes01">否
+							</label>
+						</div>
+						
+						
+						<div class="baocun">
+							<input type="submit" value="提交课程" id="submits">
+							<input type="submit" value="保存" id="submits0">
+						</div>
+						</form>
+					</div>
+
 					<!--</div>-->
 					<!--课程添加结束-->
-						
-				
+					
+					
+					
+					
+					
 				</div>
+				
+				
+				
+				
+				
 				<!--直播-->
 				<div class="little_box">
 					<div class="live_streaming">
 						<div class="live_streaming_title">直播</div>
 						<div class="live_streaming_main">
-							<div class="live_streaming_main_left">
+							<div class="live_streaming_main_left" style="margin-top: -3px;">
 								<div class="">您的直播账户：V299229930  密码：878996</div>
 								<div class="">直播方式：1.下载直播客户端，在pc上直播  2.点击下面列表中的直播可直接进入直播</div>
 							</div>
-							<div class="live_streaming_main_right">下载客户端</div>
+							<div class="live_streaming_main_right" style="margin-top: -4px;">下载客户端</div>
 						</div>
 						
 						<div class="live_streaming_table">
@@ -1601,6 +1650,9 @@
 							<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
 							<p class="warning warning0 hide">课程标题不能为空</p>
 						</div>
+						
+						
+						
 						<div class="fengmian">
 							
 							<span><em>*</em>封面图</span>
