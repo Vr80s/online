@@ -989,14 +989,14 @@ a {
 	padding-left: 20px;
 	background: #fff;
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   padding-right: 40px;
   transform: translateY(-50%) translateX(-50%);
   z-index: 999;
 }
 #doc_Administration_bottom3{
-	top:43%;
+	top:57%;
 }
 #doc_Administration_bottom3 > div,
 #doc_Administration_bottom4 > div{

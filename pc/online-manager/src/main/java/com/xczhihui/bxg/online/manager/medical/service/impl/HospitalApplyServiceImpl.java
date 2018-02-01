@@ -1,13 +1,19 @@
 package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
+import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.AnchorType;
+import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.medical.dao.*;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalApplyService;
+import com.xczhihui.bxg.online.manager.user.dao.UserDao;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -28,6 +34,22 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
     private HospitalAuthenticationDao hospitalAuthenticationDao;
     @Autowired
     private DoctorAccountDao doctorAccountDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private AnchorDao anchorDao;
+
+    @Value("${course.anchor.vod_divide}")
+    private BigDecimal vodDivide;
+
+    @Value("${course.anchor.live_divide}")
+    private BigDecimal liveDivide;
+
+    @Value("${course.anchor.offline_divide}")
+    private BigDecimal offlineDivide;
+
+    @Value("${course.anchor.gift_divide}")
+    private BigDecimal giftDivide;
 
     /**
      * 获取医师入驻申请列表
@@ -161,6 +183,22 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         authenticationInformation.setDeleted(false);
         authenticationInformation.setCreateTime(now);
         hospitalAuthenticationDao.save(authenticationInformation);
+
+        // 设置oe_user表中的is_lecturer为1
+        userDao.updateIsLecturerById(1, apply.getUserId());
+
+        // course_anchor` 表中新增一条信息
+        CourseAnchor courseAnchor = new CourseAnchor();
+        courseAnchor.setUserId(apply.getUserId());
+        courseAnchor.setType(AnchorType.HOSPITAL.getCode());
+        courseAnchor.setCreateTime(new Date());
+        courseAnchor.setLiveDivide(liveDivide);
+        courseAnchor.setOfflineDivide(offlineDivide);
+        courseAnchor.setVodDivide(vodDivide);
+        courseAnchor.setGiftDivide(giftDivide);
+        courseAnchor.setDeleted(false);
+        courseAnchor.setStatus(true);
+        anchorDao.save(courseAnchor);
     }
 
     /**
