@@ -568,6 +568,7 @@
 .message_return form .name .span{
 	font-size: 14px;
 	color: #188EEE;
+	cursor: pointer;
 }
 .message_return form .name .textarea{
 	width: 540px;

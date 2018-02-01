@@ -1,4 +1,7 @@
 $(function() {
+	$('.forum').css('color','#000');
+	$('.path .hospital').addClass('select');
+	
 	//初始化页面和每页多少条数据
 	window.currentPage = 1;
 	window.size = 8;;
@@ -28,6 +31,7 @@ $(function() {
 		$('#mask').removeClass('hide');
 		$('#doc_Administration_bottom4').addClass('hide');
 		$('#doc_Administration_bottom3').removeClass('hide');
+		$('#doc_Administration_bottom3').css('visibility','visible');
 	})
 
 	//医师编辑关闭按钮
@@ -159,15 +163,14 @@ $(function() {
 		var description =  UE.getEditor('editor').getContent();
 		var field = $('#doc_Administration_bottom3 .doc_shanchangIpt').val();
 		//医师数据上传
-		RequestService("/medical/hospital/addDoctor", "post", {
+		RequestService("/medical/doctor", "post", {
 			name: name,
 			headPortrait: headPortrait,
 			title: title,
-			medicalDoctorAuthenticationInformation: medicalDoctorAuthenticationInformation,
+			"medicalDoctorAuthenticationInformation.titleProve": medicalDoctorAuthenticationInformation,
 			description: description,
 			fieldText: field,
-			"departments[0].id": '0f4df242c3294902a87b8bc0a0ffe4d8'
-			//				departments:keshiStr
+			departmentIds:keshiStr
 		}, function(data) {
 			console.log(data);
 
