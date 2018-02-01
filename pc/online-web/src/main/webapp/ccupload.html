@@ -77,13 +77,13 @@
         $.ajax({
             url:'/videoRes/getUploadUrl',
             async: false,
-            data:{title:'测试',description:'测试描述',tag:'测试tag',categoryid:'DBBA248F23807F22'},
+//            data:{title:'测试',description:'测试描述',tag:'测试tag',categoryid:'DBBA248F23807F22'},
             success:function(data){
                 debugger
                 url = data;
             }
         });
-        url = url + "&categoryid=DBBA248F23807F22";
+//        url = url + "&categoryid=DBBA248F23807F22";
         document.getElementById("uploadswf").start_upload(url); //	调用flash上传函数
     }
 </script>

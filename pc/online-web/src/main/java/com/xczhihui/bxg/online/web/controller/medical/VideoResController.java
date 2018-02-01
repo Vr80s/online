@@ -1,8 +1,12 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import com.xczhihui.bxg.common.web.util.UserLoginUtil;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
 import com.xczhihui.bxg.online.web.service.VideoResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,27 +33,29 @@ public class VideoResController {
 
     @Autowired
     private VideoResService videoResService;
+    private static String categoryid = "7C85F5F633435474";
 
     /**
      * 获得上传地址
      * @param req
-     * @param title
-     * @param description
-     * @param tag
-     * @param categoryid
      * @return
      */
     @RequestMapping(value = "getUploadUrl", method = RequestMethod.GET)
-    public String getUploadUrl(HttpServletRequest req, String title, String description, String tag,
-                               String categoryid) {
+    public String getUploadUrl(HttpServletRequest req,String title) {
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(req);
+        if (loginUser == null) {
+            return null;
+        }
         Map<String,String> paramsMap = new HashMap<String,String>();
         paramsMap.put("userid", OnlineConfig.CC_USER_ID);
         paramsMap.put("title", title);
-        paramsMap.put("description", description);
-        paramsMap.put("tag", tag);
+        paramsMap.put("description", TimeUtil.getCCtitleTimeStr());
+        paramsMap.put("tag", loginUser.getLoginName());
         paramsMap.put("categoryid", categoryid);
         long time = System.currentTimeMillis();
-        return  Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
+        String url = Config.api_updateVideo + "?" + APIServiceFunction.createHashedQueryString(paramsMap, time, OnlineConfig.CC_API_KEY);
+        url += "&categoryid="+categoryid;
+        return url;
     }
 
     /**
@@ -67,5 +75,6 @@ public class VideoResController {
         res.setContentType("text/xml; charset=utf-8");
         res.getWriter().write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><video>OK</video>");
     }
+
 
 }

@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
@@ -147,8 +148,15 @@ public class CourseApplyController {
     public ResponseObject saveCourseResource(HttpServletRequest request, @RequestBody CourseApplyResource courseApplyResource){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyResource.setUserId(user.getId());
+//        try {
+//            String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
+//            courseApplyResource.setLength(duration);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseObject.newErrorResponseObject("网络异常,请重试");
+//        }
         courseApplyService.saveCourseApplyResource(courseApplyResource);
-        return ResponseObject.newSuccessResponseObject("课程新增申请发起成功！");
+        return ResponseObject.newSuccessResponseObject("资源新增成功！");
     }
 
     /**
@@ -163,6 +171,24 @@ public class CourseApplyController {
         String url = VhallUtil.getWebinarUrl(webinarId);
         responseObj.setSuccess(true);
         responseObj.setResultObject(url);
+        return responseObj;
+    }
+
+    /**
+     * Description：
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 9:45 2018/2/1 0001
+     **/
+    @RequestMapping(value = "getVhallInfo", method = RequestMethod.POST)
+    public ResponseObject getVhallInfo(HttpServletRequest request,String webinarId) {
+        ResponseObject responseObj = new ResponseObject();
+        Map vhallInfo = new HashMap();
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        vhallInfo.put("vhallAccount","v"+user.getVhallId());
+        vhallInfo.put("password",user.getVhallPass());
+        responseObj.setSuccess(true);
+        responseObj.setResultObject(vhallInfo);
         return responseObj;
     }
 }
