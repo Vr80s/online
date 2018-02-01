@@ -1840,6 +1840,7 @@ pre {
 	text-align: center;
 	float: right;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
 .live_streaming_table{
 	width: 100%;
@@ -2112,6 +2113,7 @@ pre {
 
 #zhuanji #zhuanji_bottom{
 	padding-top: 0 !important;
+	display: none;
 }
 
 #zhuanji #zhuanji_bottom .zhuanlan_top{
