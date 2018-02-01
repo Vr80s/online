@@ -575,7 +575,7 @@ color: white;
 	padding: 0.01rem 0.26rem 0 0.26rem;
 	margin-top: 0.4rem;
 	box-sizing: border-box;
-
+	display: none;
 }
 .wrap_input{
 	width: 5.7rem;
