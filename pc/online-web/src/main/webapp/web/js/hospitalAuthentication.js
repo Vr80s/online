@@ -296,7 +296,7 @@ $(function(){
 	var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;;
 	var doc_zhicheng = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
 	var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
-	var description = $('#doc_Administration_bottom .doc_introduct').val();
+	var description = UE.getEditor('editor').getContent();
 	var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
 	
 	
@@ -374,10 +374,10 @@ $(function(){
 	var headPortrait = $('#doc_Administration_bottom  .touxiang_pic img').attr('src');
 	var title = $.trim($('#doc_Administration_bottom .doc_zhicheng').val());
 	var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom  .zhicheng_pic img').attr('src');
-	var description = $('#doc_Administration_bottom .doc_introduct').val();
+	var description = UE.getEditor('editor').getContent();
 	var field = $('#doc_Administration_bottom .doc_shanchangIpt').val();
 	//医师数据上传
-	RequestService("/medical/doctor", "put", {
+	RequestService("/medical/doctor/add", "post", {
 				name: name,
 				headPortrait:headPortrait,
 				title:title,

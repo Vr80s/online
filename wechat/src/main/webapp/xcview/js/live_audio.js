@@ -6,15 +6,7 @@ var course_id ="";
 var criticize_id = "";
 $(function(){
 
-//	评论弹窗
-	$(".wrap_input").on('click',function(){
-		$(".bg_modal").show();
-		$(".wrapAll_comment").show();
-	})
-	$(".bg_modal").on('click',function(){
-		$(".bg_modal").hide();
-		$(".wrapAll_comment").hide();
-	})
+
 //	标签选中变色
 	
 	 $(".select_lable li").click(function(){
@@ -72,10 +64,7 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-		//	若是免费则输入框显现
-	if(data.resultObject.watchState==1){
-		$(".wrap_all_returned").css({"margin-bottom":"0"})
-	}
+
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
@@ -174,13 +163,8 @@ function reportComment() {
         //$("#wrap_playTime").html(template('data_name',data.resultObject));
         $(".wrapAll_comment").hide();
         $(".bg_modal").hide();
-        requestService("/xczh/criticize/getCriticizeList",{
-            courseId : course_id
-        },function(data) {
-            //	课程名称/等级/评论
-            $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-
-        });
+        document.getElementById("comment_detailed").value="";
+        refresh();
     });
 }
 
@@ -215,11 +199,7 @@ function updatePraise(id,isPraise) {
 }
 //点击所有评论跳转
 function btn_allComment(){
-
-
 	window.location.href="all_comment.html?courseId="+course_id+"";
-
-
 }
 
 
@@ -238,7 +218,33 @@ function btn_buy(){
 
 //点击免费购买后的
 function btn_mianfei(){
-	$(".wrap_user_input").show();
-	$(".bot_price").hide();	
-	
+
+	$(".bot_price").hide();
+    //	评论弹窗
+    $(".wrap_input").on('click',function(){
+        del()
+        $(".bg_modal").show();
+        $(".wrapAll_comment").show();
+    })
+    $(".bg_modal").on('click',function(){
+        $(".bg_modal").hide();
+        $(".wrapAll_comment").hide();
+    })
+}
+//删除评论状态
+function del(){
+    //星星
+    var star='../images/xing1.png';
+    $('.my_impression1 img').attr('src',star);
+    //主播演绎
+    var star1='../images/face0.png';
+    $('.my_impression2 img').attr('src',star1);
+    //节目内容
+    var star2='../images/face0.png';
+    $('.my_impression3 img').attr('src',star2);
+    //很赞
+    $(".select_lable li").removeClass("active_color");
+    my_impression1="";
+    my_impression2="";
+    my_impression3=""
 }

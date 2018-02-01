@@ -15,6 +15,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -152,9 +153,10 @@ public class UserServiceImpl implements UserService {
 		/*初始化用户账户--20170911--yuruixin*/
 		userCoinService.saveUserCoin(u.getId());
 		if(u.getVhallId()==null){
-			String vhallId = VhallUtil.createUser(u,password);
+			String vhallPassword = RandomUtil.getCharAndNumr(6);
+			String vhallId = VhallUtil.createUser(u,vhallPassword);
 			u.setVhallId(vhallId);
-			u.setVhallPass(password);
+			u.setVhallPass(vhallPassword);
 			u.setVhallName(u.getId());
 			updateVhallInfo(u);
 		}

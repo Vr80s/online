@@ -39,9 +39,9 @@
 		<script type="text/javascript" src="/web/js/helpers.js"></script>
 		<script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
 		<script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-	
+
 		<script src="/web/js/jquery.pagination.js"></script>
-		
+
 		<!--富文本需要的js-->
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
 		<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js">
@@ -431,8 +431,8 @@
 											<td>操作</td>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
+									<tbody id="hosDocList">
+										<!--<tr>
 											<td>
 												<img src="/web/images/hospital/hospital_pic.png" alt="" />
 											</td>
@@ -531,7 +531,7 @@
 											<td></td>
 											<td></td>
 											<td></td>
-										</tr>
+										</tr>-->
 									</tbody>
 								</table>
 								<!--分页部分-->
@@ -698,7 +698,7 @@
 				<div style="position: relative;">
 					<span><em>*</em> 医师姓名</span>
 					<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name">
-					<span class="name_warn warning hide"> 医师姓名不能为空</span>
+					<span class="name_warn warning hide" style="margin-left: 0px;"> 医师姓名不能为空</span>
 					<span class="close_doc_inf">关闭</span>
 				</div>
 
@@ -772,69 +772,8 @@
 
 			<!--医师信息 预览效果-->
 			<div class="bottomContent hide" id="doc_Administration_bottom4">
-
-				<div style="position: relative;">
-					<span><em>*</em> 医师姓名</span>
-					<input type="text" placeholder="真实姓名，需与身份证一致" maxlength="15" class="doc_name" />
-					<span class="name_warn warning hide"> 医师姓名不能为空</span>
-					<span class="close_doc_inf">关闭</span>
-				</div>
-
-				<div class="touxiang_picUpdata">
-					<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
-					<span class="touxiang_pic">
-									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
-								</span>
-					<span class="touxiang_pic_tip">
-									<p>请上传清晰头像</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
-				</div>
-
-				<div>
-					<span><em>*</em> 医师职称</span>
-					<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
-					<span class="warning hide"> 医师职称不能为空</span>
-				</div>
-
-				<div class="zhicheng_picUpdata">
-					<span style="vertical-align: top;"><em>*</em> 职称证明</span>
-					<span class="zhicheng_pic">
-									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>
-								</span>
-					<span class="zhicheng_pic_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
-				</div>
-
-				<div class="keshi">
-					<span><em>*</em> 擅长领域</span>
-					<ul>
-						<li>中医内科</li>
-						<li>中医内科</li>
-						<li>妇科</li>
-						<li>儿科</li>
-						<li>小儿科</li>
-						<li>胃病</li>
-						<li>心脏病</li>
-						<li>癌症</li>
-						<li>绝症</li>
-						<li>肝病</li>
-					</ul>
-					<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
-				</div>
-
-				<div class="personIntroduct">
-					<span><em>*</em>  医师介绍</span>
-					<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>
-				</div>
-
+						<!--TODO-->
+				
 			</div>
 
 		</div>
@@ -889,6 +828,8 @@
 	{{/each}}
 </script>
 
+
+<!--医馆认证状态模板-->
 <script type="text/template" id="hosAutStatusTpl">
 	{{if status == 1}}
 	<div class="bottomContent_inf text-left">
@@ -944,6 +885,7 @@
 	</div>
 </script>
 
+
 <!--医馆添加医师中的擅长领域部分模板-->
 <script type="text/template" id="shanChangTpl">
 	{{each item as item i}}
@@ -951,11 +893,115 @@
 	{{/each}}
 </script>
 
+
 <!--医馆添加医师中的擅长领域部分模板-->
 <script type="text/template" id="shanChangTpl2">
 	{{each item as item i}}
 	<li data-id={{item.id}}>{{item.name}}</li>
 	{{/each}}
+</script>
+
+
+<!--医师的对应的医馆列表模板-->
+<script type="text/template" id="hosDocListTpl">
+	{{each item as item i}}
+	<tr>
+		<td>
+			<img src={{item.headPortrait}} alt="" />
+		</td>
+		<td>
+			{{item.name}}
+		</td>
+
+		<td>
+			{{item.title}}
+		</td>
+
+		<td>
+			胃病、针灸、养生食疗
+		</td>
+		{{if item.status == true}}
+		<td>
+			上线
+		</td>
+		{{else}}
+		<td>
+			上线
+		</td>
+		{{/if}}
+		<td>
+			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
+			<a href="javascript:;" class="downLine" data-id={{item.id}} data-status={{item.status}}>下线</a>
+			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>
+		</td>
+	</tr>
+	{{/each}}
+</script>
+
+
+<!--医馆内部的医师状态模板-->
+<script type="text/template" id="docStatusTpl">
+	
+	<div style="position: relative;">
+		<span><em>*</em> 医师姓名</span>
+		<span class="docName" style="font-size: 14px;">{{name}}</span>
+		<span class="close_doc_inf">关闭</span>
+	</div>
+
+	<div class="touxiang_picUpdata">
+		<span style="vertical-align: top;"><em>*</em>  医师真实头像</span>
+		<span class="touxiang_pic">
+						<!--<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+						<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>-->
+						<img src={{headPortrait}} alt="" >
+					</span>
+		<!--<span class="touxiang_pic_tip">
+						<p>请上传清晰头像</p>
+						<p>文件小于2M</p>
+						<p>支持JPG/PNG等格式图片</p>
+					</span>-->
+		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
+	</div>
+
+	<div>
+		<span><em>*</em> 医师职称</span>
+		<!--<input type="text" placeholder="请输入您的职称" maxlength="15" class="doc_zhicheng" />
+		<span class="warning hide"> 医师职称不能为空</span>-->
+		<span style="font-size: 14px;">{{title}}</span>
+	</div>
+
+	<div class="zhicheng_picUpdata">
+		<span style="vertical-align: top;"><em>*</em> 职称证明</span>
+		<span class="zhicheng_pic">
+						<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
+						<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>-->
+						<img src={{titleProve}} alt="" >
+		</span>
+		<!--<span class="zhicheng_pic_tip">
+						<p>文件小于2M</p>
+						<p>支持JPG/PNG等格式图片</p>
+					</span>-->
+		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传职称证明</p>
+	</div>
+
+	<div class="keshi">
+		<span><em>*</em> 科室</span>
+		<ul>
+			{{if departments!=''}}
+			{{each departments as item i}}
+			<li>{{item.name}}</li>
+			{{/each}}
+			{{/if}}
+		</ul>
+		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
+	</div>
+
+	<div class="personIntroduct">
+		<span><em>*</em>  医师介绍</span>
+		<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>-->
+		<p  style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;">{{change(description)}}</p>
+	</div>
+
 </script>
 
 <script>
@@ -1061,7 +1107,7 @@
 
 	//	分页部分
 	function courseVodList(current) {
-		RequestService("/anchor/course/getCourseApplyList?size=10&current=" + current, "get", null, function(data) {
+		RequestService("/medical/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
 			$("#course_vod_list").html(template('course_vod_list_tpl', data.resultObject));
 			debugger
 			//每次请求完数据就去渲染分页部分

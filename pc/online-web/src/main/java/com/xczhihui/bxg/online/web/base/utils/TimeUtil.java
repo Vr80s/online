@@ -331,4 +331,10 @@ public class TimeUtil {
 		return list;
 	}
 
+	public static String getCCtitleTimeStr() {
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HHmmss");
+		String dateNowStr = sdf.format(d);
+		return dateNowStr;
+	}
 }

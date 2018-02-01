@@ -5,42 +5,72 @@ $(function() {
 	//初始化页面和每页多少条数据
 	window.currentPage = 1;
 	window.size = 8;;
-
+	var changeDocId;
 	//点击左侧医师管理按钮进行对应数据请求
 	$('#doc_Administration_tabBtn').click(function() {
 		//		alert(1)
 		//添加医师信息部分隐藏
 		$('#doc_Administration #doc_Administration_bottom').addClass('hide');
 		RequestService("/medical/hospital/getDoctors", "get", {
-			currentPage: currentPage,
+			current: currentPage,
 			size: size,
 		}, function(data) {
-			console.log(data)
+			if(data.success == true){
+				//医馆列表渲染
+				$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
+			}
 		})
 	})
 
 	//医师预览功能
-	$('.doc_Administration_bottom2 .preview').click(function() {
-		$('#mask').removeClass('hide');
+	$('.doc_Administration_bottom2').on('click','.preview',function() {
+		changeDocId = $(this).attr('data-id');
+		//获取预览的数据渲染
+		RequestService("/medical/doctor/get", "get", {
+			doctorId: changeDocId,
+		}, function(data) {
+			console.log(data)
+			$('#doc_Administration_bottom4').html(template('docStatusTpl',data.resultObject))
+			
+			$('#mask').removeClass('hide');
 		$('#doc_Administration_bottom3').addClass('hide');
 		$('#doc_Administration_bottom4').removeClass('hide');
+
+		})	
 	})
+	
+	//下线功能
+	$('#doc_Administration_bottom2').on('click','.downLine',function(){
+		if($(this).attr('data-status') == true){
+			alert(111)
+		}
+		//医师数据上传
+//		RequestService("/medical/doctor/update", "post", {
+//			id:
+//			status:
+//		}, function(data) {
+//			console.log(data);
+//
+//		})
+	})
+	
 
 	//医师编辑功能
-	$('#doc_Administration_bottom2 .edit').click(function() {
+	$('#doc_Administration_bottom2').on('click','.edit',function() {
+		changeDocId = $(this).attr('data-id');
 		$('#mask').removeClass('hide');
 		$('#doc_Administration_bottom4').addClass('hide');
 		$('#doc_Administration_bottom3').removeClass('hide');
 		$('#doc_Administration_bottom3').css('visibility','visible');
 	})
 
-	//医师编辑关闭按钮
-	$('#doc_Administration_bottom4 .close_doc_inf').click(function() {
+	//医师预览关闭按钮
+	$('#doc_Administration_bottom4').on('click','.close_doc_inf',function() {
 		$('#mask').addClass('hide');
 		$('#doc_Administration_bottom4').addClass('hide');
 	})
 
-	//医师预览关闭按钮
+	//医师编辑关闭按钮
 	$('#doc_Administration_bottom3 .close_doc_inf').click(function() {
 		$('#mask').addClass('hide');
 		$('#doc_Administration_bottom3').addClass('hide');
@@ -92,7 +122,7 @@ $(function() {
 		var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
 //		var description = $('#doc_Administration_bottom3 .doc_introduct').val();
 		var field = $('#doc_Administration_bottom3 .doc_shanchangIpt').val();
-		var description = UE.getEditor('editor').getContent();
+		var description = UE.getEditor('editor1').getContent();
 		
 		//姓名验证
 		if(name == '') {
@@ -160,13 +190,15 @@ $(function() {
 		var headPortrait = $('#doc_Administration_bottom3  .touxiang_pic img').attr('src');
 		var title = $.trim($('#doc_Administration_bottom3 .doc_zhicheng').val());
 		var medicalDoctorAuthenticationInformation = $('#doc_Administration_bottom3  .zhicheng_pic img').attr('src');
-		var description =  UE.getEditor('editor').getContent();
+		var description =  UE.getEditor('editor1').getContent();
 		var field = $('#doc_Administration_bottom3 .doc_shanchangIpt').val();
 		//医师数据上传
-		RequestService("/medical/doctor", "post", {
+		RequestService("/medical/doctor/update", "post", {
+			id:changeDocId,
 			name: name,
 			headPortrait: headPortrait,
 			title: title,
+			fieldText:field,
 			"medicalDoctorAuthenticationInformation.titleProve": medicalDoctorAuthenticationInformation,
 			description: description,
 			fieldText: field,
