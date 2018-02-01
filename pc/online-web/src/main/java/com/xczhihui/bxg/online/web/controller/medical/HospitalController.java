@@ -68,24 +68,6 @@ public class HospitalController {
     }
 
     /**
-     * 添加医师
-     */
-    @RequestMapping(value = "/addDoctor", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
-        // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
-        UserDataVo currentUser = userService.getUserData(loginUser);
-        medicalDoctor.setUserId(currentUser.getUid());
-//        medicalDoctor.setUserId("ff80808161313c570161359826ea0000");
-        medicalHospitalBusinessServiceImpl.addDoctor(medicalDoctor);
-        return ResponseObject.newSuccessResponseObject("添加成功");
-    }
-
-    /**
      * 获取医疗领域（分页）
      * @param currentPage 当前页（currentPage <= 0表示不分页）
      * @return 医疗领域列表

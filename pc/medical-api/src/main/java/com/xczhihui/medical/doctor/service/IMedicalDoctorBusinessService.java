@@ -78,11 +78,19 @@ public interface IMedicalDoctorBusinessService {
      * @param doctorId 医师id
      * @param uid 修改人id
      * @param doctor 修改的内容
+     * @author zhuwenbao
      */
     void update(String doctorId, String uid, MedicalDoctor doctor);
 
     /**
      * 根据doctorId获取医师详情
+     * @author zhuwenbao
      */
     MedicalDoctor selectDoctorByIdV2(String doctorId);
+
+    /**
+     * 添加医师
+     * @author zhuwenbao
+     */
+    void add(MedicalDoctor medicalDoctor);
 }

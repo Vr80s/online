@@ -47,12 +47,6 @@ public interface IMedicalHospitalBusinessService {
     List<MedicalFieldVO> getHotField();
 
     /**
-     * 添加医师
-     * @author zhuwenbao
-     */
-    void addDoctor(MedicalDoctor medicalDoctor);
-
-    /**
      * 获取医疗领域（分页）
      * @param page 分页对象
      * @return 医疗领域列表
