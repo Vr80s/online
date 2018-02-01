@@ -1031,13 +1031,15 @@ a {
 #doc_Administration_bottom3 > div .doc_Idnum,
 #doc_Administration_bottom3 > div .doc_name,
 #doc_Administration_bottom3 > div .doc_zhicheng,
+#doc_Administration_bottom3 > div .doc_shanchangIpt,
 #doc_Administration_bottom3 > div .doc_shanchang,
 #doc_Administration_bottom3 > div .doc_hospital,
 #doc_Administration_bottom4 > div .doc_Idnum,
 #doc_Administration_bottom4 > div .doc_name,
 #doc_Administration_bottom4 > div .doc_zhicheng,
 #doc_Administration_bottom4 > div .doc_shanchang,
-#doc_Administration_bottom4 > div .doc_hospital{
+#doc_Administration_bottom4 > div .doc_hospital,
+#doc_Administration_bottom4 > div .doc_shanchangIpt{
 	width: 280px;
  	height: 36px;
  	border: 1px solid #f0f0f0;
@@ -1113,7 +1115,7 @@ a {
 	margin-right: 20px;
 }
 #doc_Administration_bottom3 >.touxiang_picUpdata .touxiang_pic > img,
-#doc_Administration_bottom3 >.zhicheng_picUpdata .touxiang_pic > img,
+#doc_Administration_bottom3 >.zhicheng_picUpdata .zhicheng_pic > img,
 #doc_Administration_bottom4 >.zhicheng_picUpdata .zhicheng_pic > img,
 #doc_Administration_bottom4 >.touxiang_picUpdata .touxiang_pic > img {
 	width: 100%;
