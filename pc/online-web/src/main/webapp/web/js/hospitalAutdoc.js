@@ -1,4 +1,7 @@
 $(function() {
+	$('.forum').css('color','#000');
+	$('.path .hospital').addClass('select');
+	
 	//初始化页面和每页多少条数据
 	window.currentPage = 1;
 	window.size = 8;;
