@@ -274,25 +274,24 @@
 				</a>
 				{{/if}}
 			</div>
-			
-		<!--底下评论输入框-->	
-		<div class="wrap_user_input">
-			<div class="wrap_input z">
-				<img src="../images/inp_retured.png"/>
-				<span>来点儿神聊</span>
+
+			<!--底下评论输入框-->
+			<div class="wrap_user_input">
+				<div class="wrap_input z">
+					<img src="../images/inp_retured.png"/>
+					<span>来点儿神聊</span>
+				</div>
+				<div class="all_returned_num y">
+					<img src="../images/returned.png"/>
+					<p>评论999+</p>
+				</div>
 			</div>
-			<div class="all_returned_num y">
-				<img src="../images/returned.png"/>
-				<p>评论999+</p>
-			</div>
-		</div>
 		</script>
 	</div>
-	
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
-		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
+		<p class="detailed_comments little_comment">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
 			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
@@ -301,11 +300,12 @@
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li>发表评论</li>
+			<li onclick="replyComment()">发表评论</li>
 		</ul>
-	</div>	
+	</div>
 	<!--评论弹出框-->
 	<div class="bg_modal"></div>
+
 	<div class="wrapAll_comment">
 		<p class="set_title">发布评论</p>
 		<!--星星五星好评-->
@@ -318,7 +318,7 @@
 			<img src="../images/xing1.png"/>
 			<span></span>
 		</div>
-	<!--主播演绎好评-->
+		<!--主播演绎好评-->
 		<div class="my_impression2 cl mar_bot">
 			<p>主播演绎</p>
 			<img src="../images/face0.png"/>
@@ -328,7 +328,7 @@
 			<img src="../images/face0.png"/>
 			<span></span>
 		</div>
-	<!--节目内容好评-->
+		<!--节目内容好评-->
 		<div class="my_impression3 cl">
 			<p>节目内容</p>
 			<img src="../images/face0.png"/>
@@ -340,22 +340,22 @@
 		</div>
 		<!--标签-->
 		<ul class="select_lable">
-			<li>很赞</li>
-			<li>干货很多</li>
-			<li>超值推荐</li>
-			<li>喜欢</li>
-			<li>买对了</li>
+			<li value="1">很赞</li>
+			<li value="2">干货很多</li>
+			<li value="3">超值推荐</li>
+			<li value="4">喜欢</li>
+			<li value="5">买对了</li>
 		</ul>
 		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
-			<textarea name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
 		<!--表情/提交评论-->
 		<ul class="brow_btn">
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li>发表评论</li>
+			<li onclick="reportComment()">发表评论</li>
 		</ul>
 	</div>
 	
