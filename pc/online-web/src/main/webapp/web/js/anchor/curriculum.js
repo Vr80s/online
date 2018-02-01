@@ -1164,14 +1164,20 @@ $('#zhuanjis_bottom .baocun #submits0').click(function(){
 
 //更新时间
 $("#times_div .div_one").click(function(){
-	$(this).removeClass("div_one");
-	$(this).addClass("div_one0");
+	if(!$("#times_div div").hasClass("div_one")){
+	   	$(this).addClass("div_one");
+		}else{
+		    $(this).removeClass("div_one");
+	}
 });
 
 $("#times_div .div_two").click(function(){
 	$("#times_div div").removeClass("div_one0");
 	$("#times_div div").addClass("div_one");
 });
+
+
+
 
 //删除当前行
 $(".tbody_tbody tr td:last-child").click(function() {
