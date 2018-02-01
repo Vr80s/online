@@ -737,6 +737,9 @@
 	line-height: 19px;
 	margin-right: 20px;
 }
+#resourceTypes input{
+	margin-top: 0;
+}
 #resourceTypes label{
 	margin-right: 30px;
 	margin-top: 0 !important;
@@ -835,13 +838,25 @@
      margin-left: 120px;
 }
 #curriculumUrl input{
-	    width: 280px;
+	width: 280px;
     height: 36px;
     border: 1px solid #F0F0F0;
     outline: none;
     text-indent: 1em;
     margin-right: 10px;
 }
+.physician_span span{
+	float: left;
+    margin-right: 39px !important;
+}
+.physician_span .input-group{
+	float: left;
+    margin-right: 25px;
+    background: #F0F0F0;
+}
+
+
+
 
 /*右侧资源列表内容*/
 .wrap_box  #curriculum #kecheng_bottom2{
@@ -905,6 +920,12 @@
 	border: 1px solid #DEDEDE;
 }
 
+#kecheng_bottom .select_time{
+	border: 1px solid #F0F0F0;
+}
+#demo2 select{
+	border: 1px solid #F0F0F0;
+}
 /*头部搜索开始*/
 .curriculum_top{
 	width: 100%;
@@ -1000,7 +1021,7 @@
 	line-height: 36px;
 	font-size: 14px;
 	color: #999999 !important;
-	
+	border: 1px solid #F0F0F0;
 }
 
 /*三级联动*/
@@ -1096,6 +1117,7 @@ pre {
     margin-left: 112px;
     outline: none;
     resize: none;
+    border: 1px solid #F0F0F0;
 }
 
 
@@ -1353,7 +1375,7 @@ pre {
     color: #FF4012;
     line-height: 30px;
     text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    background: url(../../images/icons/tanhao.png) no-repeat left center;
      margin-left: 120px;
 }
 #zhuanjiUrl input{
@@ -1721,7 +1743,7 @@ pre {
     color: #FF4012;
     line-height: 30px;
     text-indent: 20px;
-    background: url(../images/icons/tanhao.png) no-repeat left center;
+    background: url(../../images/icons/tanhao.png) no-repeat left center;
      margin-left: 120px;
 }
 .resourceUrls .input{
