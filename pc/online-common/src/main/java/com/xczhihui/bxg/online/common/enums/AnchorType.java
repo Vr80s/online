@@ -1,7 +1,7 @@
 package com.xczhihui.bxg.online.common.enums;
 
 /**
- * Description：申请状态
+ * Description：主播类型
  * 1医师2医馆
  * creed: Talk is cheap,show me the code
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -9,8 +9,8 @@ package com.xczhihui.bxg.online.common.enums;
  **/
 public enum AnchorType {
 
-    PASS(1, "医师"),
-    UNTREATED(2, "医馆");
+    DOCTOR(1, "医师"),
+    HOSPITAL(2, "医馆");
 
     private String text;
     private int code;

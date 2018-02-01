@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.AnchorType;
 import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.medical.dao.*;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorApplyService;
@@ -268,7 +269,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         // course_anchor` 表中新增一条信息
         CourseAnchor courseAnchor = new CourseAnchor();
         courseAnchor.setUserId(apply.getUserId());
-        courseAnchor.setType(1);
+        courseAnchor.setType(AnchorType.DOCTOR.getCode());
         courseAnchor.setCreateTime(new Date());
         courseAnchor.setLiveDivide(liveDivide);
         courseAnchor.setOfflineDivide(offlineDivide);
@@ -466,7 +467,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         courseAnchor.setUserId(userId);
         courseAnchor.setVideo("点击右上角的订阅，今年就会长长18cm");
         courseAnchor.setDetail("我于杀戮中绽放，亦如黎明中的花朵");
-        courseAnchor.setType(1);
+        courseAnchor.setType(AnchorType.DOCTOR.getCode());
         courseAnchor.setDeleted(false);
         courseAnchor.setStatus(true);
         courseAnchor.setCreateTime(createTime);
