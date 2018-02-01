@@ -396,7 +396,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		all.append(" IF(oc.type = 1,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
 		all.append(" oc.live_status as  lineState, ");
-		
+		all.append(" if(oc.is_free =0,0,1) as watchState, ");		
 		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
@@ -413,6 +413,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		all.append(" IF(oc.type = 1,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
 		all.append(" oc.live_status as  lineState, ");    		//课程类型
+		all.append(" if(oc.is_free =0,0,1) as watchState, ");
 		
 		all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
@@ -433,6 +434,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 			all.append(" IF(oc.type = 1,1,if(oc.multimedia_type=1,2,3)) as type, ");    		//课程类型
 			all.append(" oc.live_status as  lineState, ");    		//课程类型
+			all.append(" if(oc.is_free =0,0,1) as watchState, ");
 			
 			all.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 					+ "+IFNULL(oc.default_student_count, 0) learndCount,");								//学习人数
