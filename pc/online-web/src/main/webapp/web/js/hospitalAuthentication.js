@@ -1,5 +1,8 @@
 //此处是医馆入住点击提交信息时候进行验证的部分
 $(function(){
+	
+	
+//	$('#doc_Administration #doc_Administration_bottom').addClass('hide');
 	//点击医馆信息提交
 	
 	
@@ -226,6 +229,7 @@ $(function(){
 //				alert('认证成功');
 				//医馆数据渲染
 				$('#shanChangList').html(template('shanChangTpl',{item:data.resultObject.records}))
+				$('#shanChangList2').html(template('shanChangTpl2',{item:data.resultObject.records}))
 			}
 
 		})
@@ -378,8 +382,9 @@ $(function(){
 				title:title,
 				medicalDoctorAuthenticationInformation:medicalDoctorAuthenticationInformation,
 				description:description,
-				field:field,
-				departments:keshiStr
+				fieldText:field,
+				"departments[0].id":'0f4df242c3294902a87b8bc0a0ffe4d8'
+//				departments:keshiStr
 			}, function(data) {
 				console.log(data);
 
