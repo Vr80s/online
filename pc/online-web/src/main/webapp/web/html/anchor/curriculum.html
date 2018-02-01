@@ -30,7 +30,7 @@
     
     <!--账户css-->
     <link rel="stylesheet" href="/web/css/anchor/account.css?v=ipandatcm_1.2.1">
-    
+	<link rel="stylesheet" href="/web/css/componet-pages.css"/>
     
     <link rel="stylesheet" href="/web/css/style.css"/>
     <link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
@@ -51,9 +51,123 @@
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
     
     <script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script>  <!--省市-->
+	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
+	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
 
    </head>
 	<body>
+	<script type="text/template" id="course_list_tpl">
+		{{each records as course i}}
+		<tr>
+			<td>
+				<img src="{{course.imgPath}}" alt="" />
+			</td>
+			<td>
+				{{course.title}}
+			</td>
+			<td>
+				{{course.price}}
+			</td>
+			<td>
+				{{course.courseLength}}
+			</td>
+			<td>
+				{{if course.courseForm==1}}
+				<span>直播</span>
+				{{else if course.courseForm==2}}
+				<span>点播</span>
+				{{else if course.courseForm==3}}
+				<span>线下课</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if course.multimediaType==1}}
+				<span>视频</span>
+				{{else if course.multimediaType==2}}
+				<span>音频</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if course.applyStatus==1}}
+				<span>已通过</span>
+				{{else if course.applyStatus==2}}
+				<span>审核中</span>
+				{{else if course.applyStatus==0}}
+				<span>未通过</span>
+				{{/if}}
+			</td>
+			<td>
+				{{course.title}}
+			</td>
+			<td>
+				{{if course.applyStatus==1}}
+				{{if course.status==1}}
+				<a href="javascript:;">下架</a>
+				{{else}}
+				<a href="javascript:;">上架</a>
+				{{/if}}
+				{{else if course.applyStatus==2}}
+				<a href="javascript:;">编辑</a>
+				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</script>
+	<script type="text/template" id="course_collection_list_tpl">
+		{{each records as collection i}}
+		<tr>
+			<td>
+				<img src="{{collection.imgPath}}" alt="" />
+			</td>
+			<td>
+				{{collection.title}}
+			</td>
+			<td>
+				{{collection.price}}
+			</td>
+			<td>
+				{{collection.courseNumber}}
+			</td>
+			<td>
+				{{if collection.recommend==1}}
+				<span>是</span>
+				{{else}}
+				<span>否</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if collection.multimediaType==1}}
+				<span>视频</span>
+				{{else if collection.multimediaType==2}}
+				<span>音频</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if collection.applyStatus==1}}
+				<span>已通过</span>
+				{{else if collection.applyStatus==2}}
+				<span>审核中</span>
+				{{else if collection.applyStatus==0}}
+				<span>未通过</span>
+				{{/if}}
+			</td>
+			<td>
+				{{collection.title}}
+			</td>
+			<td>
+				{{if collection.applyStatus==1}}
+				{{if collection.status==1}}
+				<a href="javascript:;">下架</a>
+				{{else}}
+				<a href="javascript:;">上架</a>
+				{{/if}}
+				{{else if collection.applyStatus==2}}
+				<a href="javascript:;">编辑</a>
+				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</script>
 		<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
@@ -742,29 +856,22 @@
 						</form>
 					</div>
 					
-					<div class="zhuanlan_bottom2" id="kecheng_bottom2">
+					<div class="zhuanlan_bottom2 course_content" id="kecheng_bottom2">
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
-							<select name="">
+							<select id="course_type">
 								<option value="">全部</option>
-								<option value="">测试1</option>
-								<option value="">测试2</option>
-								<option value="">测试3</option>
+								<option value="1">直播</option>
+								<option value="2">视频</option>
+								<option value="4">音频</option>
+								<option value="3">线下</option>
 							</select>
 							<div class="div">
-								
+
 								<div class="search_hos_box clearfix">
-				                	<button class="search_hos_btn">搜索</button>
-				                 	<input class="search_hos" type="text" placeholder="请输入名字搜索医师">
-				                </div>
-								
-								
-								<!--<div class="img">
-									<img src="../images/" />
-									课程名称
+									<button class="search_hos_btn course_search">搜索</button>
+									<input class="search_hos" type="text" id="course_name" placeholder="课程名称">
 								</div>
-								<input type="text"  />
-								<button>搜索</button>-->
 							</div>
 						</div>
 						<!--头部搜索结束-->
@@ -778,131 +885,23 @@
 								<td>时长</td>
 								<td>类型</td>
 								<td>资源类型</td>
-								<td>状态</td>
+								<td>审核状态</td>
+								<td>课程状态</td>
 								<td>操作</td>
 							</tr>
 							</thead>
-							<tbody>
-							<tr class="tr_sold_out">
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;" class="sold_out">下架</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							
-							<tr class="tr_sold_out">
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;" class="sold_out">下架</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							<tbody id="course_list">
 							</tbody>
 						</table>
 					</div>
-					
+					<div class="pages course_pages">
+						<div id="Pagination"  class="pagination-pages"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
+					</div>
 					<div class="yes_no">
 						<div class="yes_no_bg"></div>
 						<div class="yes_no_main">
@@ -940,161 +939,35 @@
 						</div>
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
-							<select name="">
+							<select id="course_collection_type">
 								<option value="">全部</option>
-								<option value="">测试1</option>
-								<option value="">测试2</option>
-								<option value="">测试3</option>
+								<option value="1">视频</option>
+								<option value="2">音频</option>
 							</select>
 							<div class="div">
-								
 								<div class="search_hos_box clearfix">
-				                	<button class="search_hos_btn">搜索</button>
-				                 	<input class="search_hos" type="text" placeholder="请输入名字搜索医师">
-				                </div>
-								
-								
-								<!--<div class="img">
-									<img src="../images/" />
-									课程名称
+									<button class="search_hos_btn course_collection_search">搜索</button>
+									<input class="search_hos" type="text" id="course_collection_name" placeholder="专辑名称">
 								</div>
-								<input type="text"  />
-								<button>搜索</button>-->
 							</div>
 						</div>
 						<!--头部搜索结束-->
-						
+
 						<table>
-							 <thead>
+							<thead>
 							<tr>
 								<td>封面图</td>
 								<td>课程名称</td>
 								<td>价格</td>
-								<td>时长</td>
+								<td>总集数</td>
+								<td>推荐</td>
 								<td>类型</td>
-								<td>资源类型</td>
-								<td>状态</td>
+								<td>审核状态</td>
+								<td>课程状态</td>
 								<td>操作</td>
 							</tr>
-							 </thead>
-							  <tbody>
-							<tr class="zhaunji_tr">
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;" class="out">下架</a>
-									<a href="javascript:;">编辑</a>
-									<a href="javascript:;" class="add">添加</a>
-								</td>
-							</tr>
-							<tr class="zhaunji_tr">
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃111
-								</td>
-								<td>
-									￥200.00
-								</td>
-								<td>
-									80’
-								</td>
-								<td>
-									直播
-								</td>
-								<td>
-									视频
-								</td>
-								<td>
-									上架
-								</td>
-								<td>
-									<a href="javascript:;" class="out">下架</a>
-									<a href="javascript:;">编辑</a>
-									<a href="javascript:;" class="add">添加</a>
-								</td>
-							</tr>
-							
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							</thead>
+							<tbody id="collection_list">
 							</tbody>
 						</table>
 						
@@ -1110,7 +983,14 @@
 						</div>
 						
 					</div>
-					
+					<div class="pages collection_pages">
+						<div id="Pagination_collection" class="pagination-pages"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
+					</div>
 					
 					<div class="zhuanlan_bottom" id="zhuanji_bottom">
 						<div class="zhuanlan_top">
