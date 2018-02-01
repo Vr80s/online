@@ -4,15 +4,16 @@ var courseId = getQueryString('myselectBtn');
 //传ID courseId为接口的课程ID
 //课程分类
 requestService("/xczh/recommend/queryAllCourse",{
-	menuType : courseId	
+//	课程分类ID
+	menuType : courseId,
 },function(data) {
 	
 });
 
 //课程类型
-var courseId = getQueryString('classStyle');
+var classStyle = getQueryString('classStyle');
 requestService("/xczh/recommend/queryAllCourse",{
-	courseType:courseId
+	courseType:classStyle
 },function(data) {
 	
 });
