@@ -29,7 +29,7 @@
 			AND cai.`multimedia_type` = #{multimediaType}
 		</if>
 		<if test="title != null and title!=''">
-			AND cai.`title` concat('%',#{title},'%')
+			AND cai.`title` like concat('%',#{title},'%')
 		</if>
 		ORDER BY convert(cai.`title` using gbk) ASC
 	</select>
@@ -51,6 +51,7 @@
 		  LEFT JOIN `oe_course` oc
 			ON cai.`id` = oc.`apply_id`
 		WHERE cai.`user_id` = #{userId}
+		AND cai.is_delete=0
 		AND cai.`collection` = 1
 		AND cai.`course_form` = 2
 		<if test="multimediaType != null">

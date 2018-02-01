@@ -849,7 +849,7 @@ $.getUrlParam = function(name) {
 //										course(1, 1, 12);
 										console.log(param.pageNumber,param.pageSize);
 //										pageSize = param.pageSize;
-//										course(courseStatus, pageNumber, pageSize);
+										course(courseStatus, param.pageNumber, pageSize);
 									}
 								});
 							}

@@ -1,0 +1,222 @@
+.pages .pagination-pages,
+.pages1 .pagination-pages,
+.pages .pagination-pagess,
+.pages1 .pagination-pagess {
+  display: inline-block;
+  margin: 0 auto;
+  overflow: hidden;
+  vertical-align: top;
+  height: 32px;
+}
+.pages .pagination-pages .pagination,
+.pages1 .pagination-pages .pagination,
+.pages .pagination-pagess .pagination,
+.pages1 .pagination-pagess .pagination {
+  margin: 0;
+  text-align: right;
+  font-family: \u5b8b\u4f53, Arial;
+}
+.pages .pagination-pages .pagination a,
+.pages1 .pagination-pages .pagination a,
+.pages .pagination-pagess .pagination a,
+.pages1 .pagination-pagess .pagination a,
+.pages .pagination-pages .pagination span,
+.pages1 .pagination-pages .pagination span,
+.pages .pagination-pagess .pagination span,
+.pages1 .pagination-pagess .pagination span {
+  float: left;
+  display: inline;
+  padding: 8px 13px;
+  border: 1px solid #e6e6e6;
+  background: #f6f6f6;
+  color: #666666;
+  font-family: \u5b8b\u4f53, Arial;
+  font-size: 14px;
+  cursor: pointer;
+}
+.pages .pagination-pages .pagination a,
+.pages1 .pagination-pages .pagination a,
+.pages .pagination-pagess .pagination a,
+.pages1 .pagination-pagess .pagination a {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  width: 29px;
+  height: 29px;
+  line-height: 29px;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  background-color: #fff;
+  border: 1px solid #dddddd;
+  color: #999;
+  margin-left: 5px;
+}
+.pages .pagination-pages .pagination .current,
+.pages1 .pagination-pages .pagination .current,
+.pages .pagination-pagess .pagination .current,
+.pages1 .pagination-pagess .pagination .current {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  width: 29px;
+  height: 29px;
+  line-height: 32px;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  background: #2cb82c;
+  border: none;
+  color: #fff;
+}
+.pages .pagination-pages .pagination .prev,
+.pages1 .pagination-pages .pagination .prev,
+.pages .pagination-pagess .pagination .prev,
+.pages1 .pagination-pagess .pagination .prev,
+.pages .pagination-pages .pagination .next,
+.pages1 .pagination-pages .pagination .next,
+.pages .pagination-pagess .pagination .next,
+.pages1 .pagination-pagess .pagination .next {
+  margin: 0 10px;
+  float: left;
+  font-size: 20px;
+  height: 29px;
+  line-height: 32px;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  color: #999;
+  cursor: pointer;
+}
+.pages .pagination-pages .pagination .prev i,
+.pages1 .pagination-pages .pagination .prev i,
+.pages .pagination-pagess .pagination .prev i,
+.pages1 .pagination-pagess .pagination .prev i,
+.pages .pagination-pages .pagination .next i,
+.pages1 .pagination-pages .pagination .next i,
+.pages .pagination-pagess .pagination .next i,
+.pages1 .pagination-pagess .pagination .next i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.pages .pagination-pages .pagination .prev,
+.pages1 .pagination-pages .pagination .prev,
+.pages .pagination-pagess .pagination .prev,
+.pages1 .pagination-pagess .pagination .prev {
+  margin-right: 5px;
+  margin-left: 0;
+}
+.pages .pagination-pages .pagination .prev i,
+.pages1 .pagination-pages .pagination .prev i,
+.pages .pagination-pagess .pagination .prev i,
+.pages1 .pagination-pagess .pagination .prev i {
+  background-image: url("../images/personcenter/page_left_normal.png");
+  background-size: 10px;
+}
+.pages .pagination-pages .pagination .next i,
+.pages1 .pagination-pages .pagination .next i,
+.pages .pagination-pagess .pagination .next i,
+.pages1 .pagination-pagess .pagination .next i {
+  background-image: url("../images/personcenter/page_right_normal.png");
+  background-size: 10px;
+}
+.pages .pagination-pages .pagination .pagination-break,
+.pages1 .pagination-pages .pagination .pagination-break,
+.pages .pagination-pagess .pagination .pagination-break,
+.pages1 .pagination-pagess .pagination .pagination-break {
+  padding: 8px 5px;
+  border: none;
+  border-left: 1px solid #e6e6e6;
+  background: none;
+  cursor: default;
+}
+.pages .searchPage,
+.pages1 .searchPage {
+  display: inline-block;
+  vertical-align: middle;
+}
+.pages .searchPage .page-sum,
+.pages1 .searchPage .page-sum {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  height: 29px;
+  line-height: 29px;
+  color: #999999;
+  font-family: \u5b8b\u4f53, Arial;
+  font-size: 12px;
+  margin-left: 10px;
+  margin-right: 40px;
+}
+.pages .searchPage .page-go,
+.pages1 .searchPage .page-go {
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  height: 29px;
+  line-height: 29px;
+  color: #999999;
+  font-family: \u5b8b\u4f53, Arial;
+  font-size: 12px;
+  padding: 10px 0 \9;
+  *padding: 6px 0;
+}
+.pages .searchPage .page-go input,
+.pages1 .searchPage .page-go input {
+  width: 29px;
+  height: 29px;
+  margin: 0 5px;
+  padding-left: 5px;
+  border: 1px solid #dddddd;
+  font-size: 12px;
+}
+.pages .searchPage .page-btn,
+.pages1 .searchPage .page-btn,
+.pages .searchPage .page-btn1,
+.pages1 .searchPage .page-btn1 {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  width: 40px;
+  height: 29px;
+  line-height: 29px;
+  text-align: center;
+  background: #fff;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+  color: #999;
+  font-family: Arial, 'Microsoft YaHei';
+  font-size: 12px;
+  text-decoration: none;
+  margin-left: 10px;
+}
+.cyResetPasswordhint1 {
+  margin-top: 10px;
+  width: 200px;
+  height: 23px;
+  color: red;
+  text-indent: 21px;
+  background: url("../images/alter.png") no-repeat left center;
+  background-position: 1px 2px;
+  visibility: hidden;
+}
+/* 视频页面弹幕关闭层*/
+.click-hi-modal {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+#rqj-myanswer {
+  display: none;
+}

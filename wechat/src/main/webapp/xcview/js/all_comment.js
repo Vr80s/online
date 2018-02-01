@@ -1,4 +1,3 @@
-
 var my_impression1="";
 var my_impression2="";
 var my_impression3="";
@@ -66,43 +65,12 @@ $(function(){
     });
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
-	var courseId = getQueryString('course_id');
+	var courseId = getQueryString('courseId');
     course_id = courseId;
-	//传ID courseId为接口的课程ID
-	requestService("/xczh/course/details",{
-		courseId : courseId	
-	},function(data) {
-		//	若是免费则输入框显现
-	if(data.resultObject.watchState==1){
-		$(".wrap_all_returned").css({"margin-bottom":"0"})
-	}
-	//	课程名称/等级/评论
-		$("#speak_people").html(template('data_people',data.resultObject));
-	//	直播时间/主播名字
-		$("#wrap_playTime").html(template('data_name',data.resultObject));
-	//	是否购买
-		$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
-	//	简介/内容
-		if(data.resultObject.description == null || data.resultObject.description == ''){
-			$(".no_data").show();
-			$(".btn").hide()
-			$(".zhezhao").hide()
-		}else{
-			$(".wrap p").html(data.resultObject.description)
-		}
-	//	主讲人
-		if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
-			$(".no_data1").show();
-			$(".btn1").hide();
-			$(".zhezhao1").hide();
-		}else{
-			$(".wrap1 p").html(data.resultObject.lecturerDescription)
-		}
-	});
+    
+	refresh()
+});
 
-    //传ID courseId为接口的课程ID，评论列表
-    refresh();
-})
 //刷新评论列表
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
@@ -171,7 +139,7 @@ function reportComment() {
         //	直播时间/主播名字
         //$("#wrap_playTime").html(template('data_name',data.resultObject));
         $(".wrapAll_comment").hide();
-
+		$(".bg_modal").hide();
         requestService("/xczh/criticize/getCriticizeList",{
             courseId : course_id
         },function(data) {
@@ -210,26 +178,4 @@ function updatePraise(id,isPraise) {
     }, function (data) {
         //	课程名称/等级/评论
     });
-}
-//点击所有评论跳转
-function btn_allComment(){
-
-
-	window.location.href="all_comment.html?courseId="+course_id+"";
-
-
-}
-
-
-//点击购买后的接口
-var courseId = getQueryString('course_id');
-function btn_buy(){
-	requestService("/xczh/order/save",{
-		courseId:courseId,
-		orderFrom:2
-	},function(data){
-
-		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
-	});
-
 }
