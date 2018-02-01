@@ -362,7 +362,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                     }
 
                     // 如果参数中有科室信息
-                    if(CollectionUtils.isNotEmpty(doctor.getDepartments())){
+                    if(CollectionUtils.isNotEmpty(doctor.getDepartmentIds())){
 
                         Date now = new Date();
 
@@ -370,8 +370,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                         doctorDepartmentMapper.deleteByDoctorId(doctorId);
 
                         // 新增新的医师与科室对应关系：medical_doctor_department
-                        doctor.getDepartments().stream()
-                                .forEach(department -> medicalDoctorDepartmentService.add(department, doctorId, now));
+                        List<String> departmentIds = doctor.getDepartmentIds();
+
+                        if(CollectionUtils.isNotEmpty(departmentIds)){
+                            departmentIds.forEach(departmentId -> medicalDoctorDepartmentService.add(departmentId , doctorId, now));
+                        }
                     }
                 }
             }
@@ -401,10 +404,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             }
 
             // 获取医师所在的科室
-            Map<String,Object> columnMap = new HashMap<>();
-            columnMap.put("doctor_id", medicalDoctor.getId());
-            columnMap.put("deleted", 0);
-            List<MedicalDoctorDepartment> doctorDepartments =  doctorDepartmentMapper.selectByMap(columnMap);
+            List<MedicalDoctorDepartment> doctorDepartments =
+                    medicalDoctorDepartmentService.selectByDoctorId(medicalDoctor.getId());
+
             if(CollectionUtils.isNotEmpty(doctorDepartments)){
                 List<String> ids = new ArrayList<>();
                 for (MedicalDoctorDepartment doctorDepartment : doctorDepartments){
