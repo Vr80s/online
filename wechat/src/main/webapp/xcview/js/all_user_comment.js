@@ -1,12 +1,19 @@
-
 var my_impression1="";
 var my_impression2="";
 var my_impression3="";
-var course_id ="";
+var userLecturerId ="";
 var criticize_id = "";
 $(function(){
 
-
+//	评论弹窗
+	$(".wrap_input").on('click',function(){
+		$(".bg_modal").show();
+		$(".wrapAll_comment").show();
+	})
+	$(".bg_modal").on('click',function(){
+		$(".bg_modal").hide();
+		$(".wrapAll_comment").hide();
+	})
 //	标签选中变色
 	
 	 $(".select_lable li").click(function(){
@@ -58,46 +65,16 @@ $(function(){
     });
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
-	var courseId = getQueryString('course_id');
-    course_id = courseId;
-	//传ID courseId为接口的课程ID
-	requestService("/xczh/course/details",{
-		courseId : courseId	
-	},function(data) {
+	var courseId = getQueryString('userLecturerId');
+    userLecturerId = courseId;
+    
+	refresh()
+});
 
-	//	课程名称/等级/评论
-		$("#speak_people").html(template('data_people',data.resultObject));
-	//	直播时间/主播名字
-		$("#wrap_playTime").html(template('data_name',data.resultObject));
-	//	是否购买
-		$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
-	//	简介/内容
-		if(data.resultObject.description == null || data.resultObject.description == ''){
-			$(".no_data").show();
-			$(".btn").hide()
-			$(".zhezhao").hide()
-		}else{
-			$(".wrap p").html(data.resultObject.description)
-		}
-	//	主讲人
-		if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
-			$(".no_data1").show();
-			$(".btn1").hide();
-			$(".zhezhao1").hide();
-		}else{
-			$(".wrap1 p").html(data.resultObject.lecturerDescription)
-		}
-	});
-
-    //传ID courseId为接口的课程ID，评论列表
-    refresh();
-})
 //刷新评论列表
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
-        courseId : course_id,
-        pageNumber:1,
-        pageSize:3
+        userId : userLecturerId
     },function(data) {
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
@@ -137,24 +114,11 @@ function refresh(){
 //评论
 function reportComment() {
 
-    var arr=new Array();
-
-    var list=document.getElementsByClassName("active_color");
-    for (var i = 0; i < list.length; i++) {
-        arr.push(list[i].value);
-    }
-    var str=arr.join(",");
-
-    //var s = $('.active_color').val();
     var comment_detailed = $('#comment_detailed').val();
 
     requestService("/xczh/criticize/saveCriticize",{
-        overallLevel:parseInt(my_impression1)+1,
-        contentLevel:parseInt(my_impression3)+1,
-        deductiveLevel:parseInt(my_impression2)+1,
-        criticizeLable:str,
         content:comment_detailed,
-        courseId : course_id
+        userId : userLecturerId
     },function(data) {
         //	课程名称/等级/评论
 
@@ -162,9 +126,14 @@ function reportComment() {
         //	直播时间/主播名字
         //$("#wrap_playTime").html(template('data_name',data.resultObject));
         $(".wrapAll_comment").hide();
-        $(".bg_modal").hide();
-        document.getElementById("comment_detailed").value="";
-        refresh();
+		$(".bg_modal").hide();
+        requestService("/xczh/criticize/getCriticizeList",{
+            userId : userLecturerId
+        },function(data) {
+            //	课程名称/等级/评论
+            $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+
+        });
     });
 }
 
@@ -196,55 +165,4 @@ function updatePraise(id,isPraise) {
     }, function (data) {
         //	课程名称/等级/评论
     });
-}
-//点击所有评论跳转
-function btn_allComment(){
-	window.location.href="all_comment.html?courseId="+course_id+"";
-}
-
-
-//点击购买后的接口
-var courseId = getQueryString('course_id');
-function btn_buy(){
-	requestService("/xczh/order/save",{
-		courseId:courseId,
-		orderFrom:2
-	},function(data){
-
-		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
-	});
-
-}
-
-//点击免费购买后的
-function btn_mianfei(){
-
-	$(".bot_price").hide();
-    //	评论弹窗
-    $(".wrap_input").on('click',function(){
-        del()
-        $(".bg_modal").show();
-        $(".wrapAll_comment").show();
-    })
-    $(".bg_modal").on('click',function(){
-        $(".bg_modal").hide();
-        $(".wrapAll_comment").hide();
-    })
-}
-//删除评论状态
-function del(){
-    //星星
-    var star='../images/xing1.png';
-    $('.my_impression1 img').attr('src',star);
-    //主播演绎
-    var star1='../images/face0.png';
-    $('.my_impression2 img').attr('src',star1);
-    //节目内容
-    var star2='../images/face0.png';
-    $('.my_impression3 img').attr('src',star2);
-    //很赞
-    $(".select_lable li").removeClass("active_color");
-    my_impression1="";
-    my_impression2="";
-    my_impression3=""
 }

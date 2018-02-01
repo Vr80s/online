@@ -46,17 +46,14 @@ public class bankCardController {
 
 	@RequestMapping("addBankCard")
 	@ResponseBody
-	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,UserBank userBank,
-										 @RequestParam("acctName")String acctName,@RequestParam("acctPan")String acctPan,
-										 @RequestParam("certId")String certId)
+	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,UserBank userBank)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		UserBank i = new UserBank();
-		/*if(user==null){
+		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}*/
-		String userId="2c9aec35605a5bab01605a632d350000";
-		userBank.setUserId(userId);
+		}
+
+		userBank.setUserId(user.getId());
 
 			userBankService.addUserBank(userBank);
 			return  ResponseObject.newSuccessResponseObject("添加成功");
@@ -68,11 +65,11 @@ public class bankCardController {
 	public ResponseObject selectUserBankbyUserId(HttpServletRequest req) throws Exception{
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		/*if(user==null){
+		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
-		}*/
-		String userId="2c9aec35605a5bab01605a632d350000";
-		List<UserBank> userBankList = userBankService.selectUserBankByUserId(userId);
+		}
+
+		List<UserBank> userBankList = userBankService.selectUserBankByUserId(user.getId());
 		return  ResponseObject.newSuccessResponseObject(userBankList);
 	}
 

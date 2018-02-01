@@ -264,18 +264,26 @@
 <!--评论结束-->	
 	<div id="sure_isBuy">	
 		<script type="text/html" id="data_isBuy">
-			{{if watchState==0}}
-				
+					
 			<!--底部购买价格-->
 			<div class="bot_price">
+				{{if watchState==0}}
 				<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币</p>
 				</a>
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_buy()">
 					购买
 				</a>
+				{{else if watchState==1}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>免费</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_mianfei()">
+					购买
+				</a>
+				{{/if}}
 			</div>
-			{{else if watchState==1}}
+			
 		<!--底下评论输入框-->	
 		<div class="wrap_user_input">
 			<div class="wrap_input z">
@@ -287,7 +295,6 @@
 				<p>评论999+</p>
 			</div>
 		</div>
-		{{/if}}
 		</script>
 	</div>
 	<!--评论用户弹出框-->

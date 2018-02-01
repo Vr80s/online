@@ -157,95 +157,141 @@
 	<div class="wrap_comment_title">
 		<p>评论</p>
 		<span>
-			<img src="../images/video_review.png"/>
+			<img src="../images/video_review.png"  onclick="btn_allComment()"/>
 		</span>
 	</div>
-	<div class="wrap_all_returned">  <!--渲染存放盒子-->		
-		<div class="wrap_people_comment">
-			<div class="wrap_comment_text">
-				<!--头像-->
-				<div class="user_header">
-					<img src="../images/physician_pic.png"/>
+	<div class="wrap_all_returned">  <!--渲染存放盒子-->
+		<script type="text/html" id="wrap_people_comment">
+			{{each items as item i}}
+			<div class="wrap_people_comment">
+				<div class="wrap_comment_text">
+					<!--头像-->
+					<div class="user_header">
+						<img src="{{item.onlineUser.smallHeadPhoto}}"/>
+					</div>
+					<!--右边评论-->
+					<div class="user_text">
+						<div class="wrap_userName">
+							<p class="z">{{item.onlineUser.name}}</p>
+							{{if item.overallLevel == 1}}
+							<img class="z" src="../images/xing1_0.png"/>
+							{{else if item.overallLevel == 2}}
+							<img class="z" src="../images/xing2.png"/>
+							{{else if item.overallLevel == 3}}
+							<img class="z" src="../images/xing3.png"/>
+							{{else if item.overallLevel == 4}}
+							<img class="z" src="../images/xing4_0.png"/>
+							{{else if item.overallLevel == 5}}
+							<img class="z" src="../images/xing5.png"/>
+							{{/if}}
+
+						</div>
+						<!--很赞/干货很多-->
+						<div class="uesr_lable">
+							{{if item.criticizeLable !=null}}
+							<ul>
+								{{if item.criticizeLable.indexOf('1')>-1}}
+								<li>很赞</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('2')>-1}}
+								<li>干货很多</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('3')>-1}}
+								<li>超值推荐</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('4')>-1}}
+								<li>喜欢</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('5')>-1}}
+								<li>买对了</li>
+								{{/if}}
+							</ul>
+							{{/if}}
+						</div>
+						<!--回复的内容-->
+						<p class="write_text">
+							{{item.content}}
+						</p>
+						<!--被回复的内容灰色部分-->
+						{{if item.reply.length > 0}}
+						<div class="uesr_returned">
+							<p class="returned_id z">{{item.reply[0].onlineUser.name}}</p>
+							<p class="returned_text">{{item.reply[0].replyContent}}</p>
+						</div>
+						{{/if}}
+						<!--回复时间/点赞/评论按钮-->
+						<div class="wrap_returned_btn">
+							<ul>
+								<li>{{item.createTime}}</li>
+								<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
+									<img src="../images/returned.png"/>
+								</li>
+								<li class="btn_click_zan"  data-id ="{{item.id}}"  >
+									{{if item.isPraise }}
+									<img src="../images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseSum}}</span>
+									{{else}}
+									<img src="../images/zan01.png"/>&nbsp;<span id="zan01">{{item.praiseSum}}</span>
+									{{/if}}
+								</li>
+
+							</ul>
+						</div>
+					</div>
+
+					<!--购买者显示-->
+					{{if item.isBuy  }}
+					<div class="wrap_purchaser">
+						<p>购买者</p>
+					</div>
+					{{/if}}
 				</div>
-				<!--右边评论-->
-				<div class="user_text">
-					<div class="wrap_userName">
-						<p class="z">马克先生</p>
-						<img class="z" src="../images/xing4_0.png"/>
-					</div>
-					<!--很赞/干货很多-->
-					<div class="uesr_lable">
-						<ul>
-							<li>很赞</li>
-							<li>干货很多</li>
-						</ul>
-					</div>
-					<!--回复的内容-->
-					<p class="write_text">
-						马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生马克先生
-					</p>
-					<!--被回复的内容灰色部分-->
-					<div class="uesr_returned">
-						<p class="returned_id z">辣椒小姐：</p>
-						<p class="returned_text">辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐辣椒小姐</p>
-					</div>
-					<!--回复时间/点赞/评论按钮-->
-					<div class="wrap_returned_btn">
-						<ul>
-							<li>2017.12.24</li>
-							<li class="btn_littleReturn" style="margin-left: 0.3rem;">
-								<img src="../images/returned.png"/>
-							</li>
-							<li>
-								<img src="../images/zan01.png"/>&nbsp;23
-							</li>
-							
-						</ul>
-					</div>
-				</div>
-				<!--购买者显示-->
-				<div class="wrap_purchaser">
-					<p>购买者</p>
-				</div>
+
 			</div>
-		</div>
+			{{/each}}
+		</script>
 	</div>
 	
 	
 	
 	<div id="sure_isBuy">	
 		<script type="text/html" id="data_isBuy">
-			{{if watchState==0}}
-				
+					
 			<!--底部购买价格-->
 			<div class="bot_price">
+				{{if watchState==0}}
 				<a class="left_price z" href="javascript:;">
 					<p><span>{{currentPrice}}</span>熊猫币</p>
 				</a>
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_buy()">
 					购买
 				</a>
+				{{else if watchState==1}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>免费</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_mianfei()">
+					购买
+				</a>
+				{{/if}}
 			</div>
-			{{else if watchState==1}}
-		<!--底下评论输入框-->	
-		<div class="wrap_user_input">
-			<div class="wrap_input z">
-				<img src="../images/inp_retured.png"/>
-				<span>来点儿神聊</span>
+
+			<!--底下评论输入框-->
+			<div class="wrap_user_input">
+				<div class="wrap_input z">
+					<img src="../images/inp_retured.png"/>
+					<span>来点儿神聊</span>
+				</div>
+				<div class="all_returned_num y">
+					<img src="../images/returned.png"/>
+					<p>评论999+</p>
+				</div>
 			</div>
-			<div class="all_returned_num y">
-				<img src="../images/returned.png"/>
-				<p>评论999+</p>
-			</div>
-		</div>
-		{{/if}}
 		</script>
 	</div>
-	
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
-		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
+		<p class="detailed_comments little_comment">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
 			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
@@ -254,11 +300,12 @@
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li>发表评论</li>
+			<li onclick="replyComment()">发表评论</li>
 		</ul>
-	</div>	
+	</div>
 	<!--评论弹出框-->
 	<div class="bg_modal"></div>
+
 	<div class="wrapAll_comment">
 		<p class="set_title">发布评论</p>
 		<!--星星五星好评-->
@@ -271,7 +318,7 @@
 			<img src="../images/xing1.png"/>
 			<span></span>
 		</div>
-	<!--主播演绎好评-->
+		<!--主播演绎好评-->
 		<div class="my_impression2 cl mar_bot">
 			<p>主播演绎</p>
 			<img src="../images/face0.png"/>
@@ -281,7 +328,7 @@
 			<img src="../images/face0.png"/>
 			<span></span>
 		</div>
-	<!--节目内容好评-->
+		<!--节目内容好评-->
 		<div class="my_impression3 cl">
 			<p>节目内容</p>
 			<img src="../images/face0.png"/>
@@ -293,22 +340,22 @@
 		</div>
 		<!--标签-->
 		<ul class="select_lable">
-			<li>很赞</li>
-			<li>干货很多</li>
-			<li>超值推荐</li>
-			<li>喜欢</li>
-			<li>买对了</li>
+			<li value="1">很赞</li>
+			<li value="2">干货很多</li>
+			<li value="3">超值推荐</li>
+			<li value="4">喜欢</li>
+			<li value="5">买对了</li>
 		</ul>
 		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
-			<textarea name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
+			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
 		<!--表情/提交评论-->
 		<ul class="brow_btn">
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li>发表评论</li>
+			<li onclick="reportComment()">发表评论</li>
 		</ul>
 	</div>
 	

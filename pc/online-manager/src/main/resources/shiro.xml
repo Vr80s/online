@@ -51,7 +51,7 @@
                 /logout = logout
                 /test = anon
                 /publiccloudclass/course/changeCallback* = anon
-                /** = authc
+                /** = anon
             </value>
         </property>
 	</bean>

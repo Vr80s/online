@@ -414,9 +414,7 @@ margin-top: 0.1rem;
 	    border-bottom: 0.01rem solid #D8DDE6;
 	    padding-top: 0.2rem;
 }
-.wrap_all_returned{
-	margin-bottom: 1.2rem;
-}
+
 .wrap_all_returned .wrap_people_comment:nth-last-child(1){
 	border: 0;
 }
