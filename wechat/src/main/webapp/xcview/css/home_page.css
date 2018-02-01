@@ -1031,6 +1031,7 @@ header{
 	margin-left: 0.456rem;
 	margin-bottom: 0.851rem;
 	position: relative;
+	max-height: 6rem;
 }
 
 /*视频*/
