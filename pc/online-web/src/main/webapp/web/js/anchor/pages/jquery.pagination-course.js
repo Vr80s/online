@@ -192,10 +192,11 @@
         //goto
         $(".pages .page-btn").unbind("click");
         $(".pages .page-btn").on("click", function() {
-            var allPage = $(".pages .allPage").text();
+            var allPage = parseInt($(this).parent().find(".allPage").text());
             //console.log(allPage);
-            var goPage = $(".pages .page-go input").val() - 1; //跳转页数
-            if($(".pages .page-go input").val()==""||$(".pages .page-go input").val()==0){
+            var a=$(this).parent();
+            var goPage = $(this).parent().find(" input").val() - 1; //跳转页数
+            if($(this).parent().find(" input").val()==""||$(this).parent().find(" input").val()==0){
                 return false;
             }
 //				if(goPage == -1) {
@@ -234,7 +235,8 @@
                         }
                     }else{
                         var links,
-                            new_current_page = parseInt($("#Pagination .pagination .current").text())-2,
+                            // new_current_page = parseInt($("#Pagination .pagination .current").text())-2,
+                            new_current_page = parseInt($(evt.target).parent().parent().find(".current").text())-2,
                             continuePropagation = selectPage(new_current_page);
                         if(!continuePropagation) {
                             evt.stopPropagation();
@@ -244,7 +246,8 @@
                 }else{
                     $("body, html").scrollTop(0);
                     var links,
-                        new_current_page = parseInt($("#Pagination .pagination .current").text()),
+                        // new_current_page = parseInt($("#Pagination .pagination .current").text()),
+                        new_current_page = parseInt($(evt.target).parent().parent().find(".current").text()),
                         continuePropagation = selectPage(new_current_page);
                     if(!continuePropagation) {
                         evt.stopPropagation();
@@ -278,7 +281,7 @@
             links.appendTo(containers);
             // call the callback and propagate the event if it does not return false
             var continuePropagation = opts.callback(new_current_page, containers);
-            $("#Pagination .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
+            $(".pagination-pages .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
                 $(this).css({
                     "color": "#fff",
                     "border": "none",
@@ -291,7 +294,7 @@
                     "background-color": "#fff"
                 });
             });
-            $(".pages #Pagination .pagination .prev").hover(function() {
+            $(".pages .pagination-pages .pagination .prev").hover(function() {
                 $(this).css("border", "1px solid #2cb82c");
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_hover.png')");
             }, function() {
@@ -299,7 +302,7 @@
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_normal.png')");
             });
 
-            $(".pages #Pagination .pagination .next").hover(function() {
+            $(".pages .pagination-pages .pagination .next").hover(function() {
                 $(this).css("border", "1px solid #2cb82c");
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_right_hover.png')");
             }, function() {
@@ -336,7 +339,7 @@
         }, function(evt, page_id) {
             if(page_id >= 0 && page_id < evt.data.numPages) {
                 selectPage(page_id);
-                $("#Pagination .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
+                $(".pagination-pages .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
                     $(this).css({
                         "color": "#fff",
                         "border": "none",
@@ -349,7 +352,7 @@
                         "background-color": "#fff"
                     });
                 });
-                $(".pages #Pagination .pagination .prev").hover(function() {
+                $(".pages .pagination-pages .pagination .prev").hover(function() {
                     $(this).css("border", "1px solid #2cb82c");
                     $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_hover.png')");
                 }, function() {
@@ -357,7 +360,7 @@
                     $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_normal.png')");
                 });
 
-                $(".pages #Pagination .pagination .next").hover(function() {
+                $(".pages .pagination-pages .pagination .next").hover(function() {
                     $(this).css("border", "1px solid #2cb82c");
                     $(this).find("i").css("background-image", "url('/web/images/personcenter/page_right_hover.png')");
                 }, function() {
@@ -377,7 +380,7 @@
             if(current_page > 0) {
                 selectPage(current_page - 1);
             }
-            $("#Pagination .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
+            $(".pagination-pages .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
                 $(this).css({
                     "color": "#fff",
                     "border": "none",
@@ -390,7 +393,7 @@
                     "background-color": "#fff"
                 });
             });
-            $(".pages #Pagination .pagination .prev").hover(function() {
+            $(".pages .pagination-pages .pagination .prev").hover(function() {
                 $(this).css("border", "1px solid #2cb82c");
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_hover.png')");
             }, function() {
@@ -398,7 +401,7 @@
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_normal.png')");
             });
 
-            $(".pages #Pagination .pagination .next").hover(function() {
+            $(".pages .pagination-pages .pagination .next").hover(function() {
                 $(this).css("border", "1px solid #2cb82c");
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_right_hover.png')");
             }, function() {
@@ -419,7 +422,7 @@
             if(current_page < evt.data.numPages - 1) {
                 selectPage(current_page + 1);
             }
-            $("#Pagination .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
+            $(".pagination-pages .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
                 $(this).css({
                     "color": "#fff",
                     "border": "none",
@@ -432,7 +435,7 @@
                     "background-color": "#fff"
                 });
             });
-            $(".pages #Pagination .pagination .prev").hover(function() {
+            $(".pages .pagination-pages .pagination .prev").hover(function() {
                 $(this).css("border", "1px solid #2cb82c");
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_hover.png')");
             }, function() {
@@ -440,7 +443,7 @@
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_normal.png')");
             });
 
-            $(".pages #Pagination .pagination .next").hover(function() {
+            $(".pages .pagination-pages .pagination .next").hover(function() {
                 $(this).css("border", "1px solid #2cb82c");
                 $(this).find("i").css("background-image", "url('/web/images/personcenter/page_right_hover.png')");
             }, function() {
@@ -465,7 +468,7 @@
         if(opts.load_first_page) {
             opts.callback(current_page, containers);
         }
-        $("#Pagination .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
+        $(".pagination-pages .pagination a:not([class='current']):not([class='next']):not([class='prev'])").hover(function() {
             $(this).css({
                 "color": "#fff",
                 "border": "none",
@@ -478,7 +481,7 @@
                 "background-color": "#fff"
             });
         });
-        $(".pages #Pagination .pagination .prev").hover(function() {
+        $(".pages .pagination-pages .pagination .prev").hover(function() {
             $(this).css("border", "1px solid #2cb82c");
             $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_hover.png')");
         }, function() {
@@ -486,7 +489,7 @@
             $(this).find("i").css("background-image", "url('/web/images/personcenter/page_left_normal.png')");
         });
 
-        $(".pages #Pagination .pagination .next").hover(function() {
+        $(".pages .pagination-pages .pagination .next").hover(function() {
             $(this).css("border", "1px solid #2cb82c");
             $(this).find("i").css("background-image", "url('/web/images/personcenter/page_right_hover.png')");
         }, function() {
