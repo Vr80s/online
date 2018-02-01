@@ -1,14 +1,11 @@
+
+var my_impression1="";
+var my_impression2="";
+var my_impression3="";
+var course_id ="";
+var criticize_id = "";
 $(function(){
-//	回复弹窗
-$(".wrap_returned_btn .btn_littleReturn").click(function(){
-	$(".bg_userModal").show();
-	$(".wrapLittle_comment").show();
-	$("#littlt_return").focus()
-});
-$(".bg_userModal").click(function(){
-	$(".bg_userModal").hide();
-	$(".wrapLittle_comment").hide();
-});
+
 //	评论弹窗
 	$(".wrap_input").on('click',function(){
 		$(".bg_modal").show();
@@ -33,7 +30,9 @@ $(".bg_userModal").click(function(){
             $('.my_impression1 img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  
             $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
             $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
-            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
+            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值
+
+            my_impression1=this.id;
         });
     });  
 //主播演绎好评
@@ -46,7 +45,9 @@ $(".bg_userModal").click(function(){
             $('.my_impression2 img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  
             $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
             $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
-            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
+            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值
+            my_impression2=this.id;
+
         });
     });
 //节目内容好评
@@ -59,20 +60,28 @@ $(".bg_userModal").click(function(){
             $('.my_impression3 img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  
             $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
             $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
-            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
+            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值
+            my_impression3=this.id;
         });
     });
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('course_id');
+    course_id = courseId;
 	//传ID courseId为接口的课程ID
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
+		//	若是免费则输入框显现
+//	if(data.resultObject.watchState==1){
+//		$(".wrap_all_returned").css({"margin-bottom":"0"})
+//	}
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
+	//	是否购买
+		$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){
 			$(".no_data").show();
@@ -90,4 +99,128 @@ $(".bg_userModal").click(function(){
 			$(".wrap1 p").html(data.resultObject.lecturerDescription)
 		}
 	});
+
+    //传ID courseId为接口的课程ID，评论列表
+    refresh();
 })
+//刷新评论列表
+function refresh(){
+    requestService("/xczh/criticize/getCriticizeList",{
+        courseId : course_id
+    },function(data) {
+        //	课程名称/等级/评论
+        $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+        //	回复弹窗
+        $(".wrap_returned_btn .btn_littleReturn").click(function(){
+            //评论id
+            criticize_id=this.id;
+            $(".bg_userModal").show();
+            $(".wrapLittle_comment").show();
+            $("#littlt_return").focus()
+        });
+        $(".bg_userModal").click(function(){
+            $(".bg_userModal").hide();
+            $(".wrapLittle_comment").hide();
+        });
+        //点赞
+        $(".btn_click_zan").click(function(){
+            //评论id
+            criticize_id=$(this).attr("data-id");
+            var p = $(this).find('span').html();
+
+            var src = $(this).find('img').attr('src');
+            if(src.indexOf("zan001")>-1){
+                $(this).find('img').attr('src','../images/zan01.png');
+
+                $(this).find('span').html(parseInt(p)-1);
+                updatePraise(criticize_id,false);
+            }else{
+                $(this).find('img').attr('src','../images/zan001.png');
+                $(this).find('span').html(parseInt(p)+1);
+                updatePraise(criticize_id,true);
+            }
+        });
+
+    });
+}
+//评论
+function reportComment() {
+
+    var arr=new Array();
+
+    var list=document.getElementsByClassName("active_color");
+    for (var i = 0; i < list.length; i++) {
+        arr.push(list[i].value);
+    }
+    var str=arr.join(",");
+
+    //var s = $('.active_color').val();
+    var comment_detailed = $('#comment_detailed').val();
+
+    requestService("/xczh/criticize/saveCriticize",{
+        overallLevel:parseInt(my_impression1)+1,
+        contentLevel:parseInt(my_impression3)+1,
+        deductiveLevel:parseInt(my_impression2)+1,
+        criticizeLable:str,
+        content:comment_detailed,
+        courseId : course_id
+    },function(data) {
+        //	课程名称/等级/评论
+
+        alert(data.resultObject);
+        //	直播时间/主播名字
+        //$("#wrap_playTime").html(template('data_name',data.resultObject));
+        $(".wrapAll_comment").hide();
+
+        requestService("/xczh/criticize/getCriticizeList",{
+            courseId : course_id
+        },function(data) {
+            //	课程名称/等级/评论
+            $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+
+        });
+    });
+}
+
+//回复评论
+function replyComment() {
+    var comment_detailed = $('#littlt_return').val();
+
+    requestService("/xczh/criticize/saveReply",{
+
+        content:comment_detailed,
+        criticizeId : criticize_id
+    },function(data) {
+        //	课程名称/等级/评论
+
+        alert(data.resultObject);
+        //	直播时间/主播名字
+        $(".bg_userModal").hide();
+        $(".wrapLittle_comment").hide();
+        document.getElementById("littlt_return").value="";
+        refresh();
+    });
+}
+
+//点赞、取消点赞
+function updatePraise(id,isPraise) {
+    requestService("/xczh/criticize/updatePraise", {
+        praise: isPraise,
+        criticizeId: id
+    }, function (data) {
+        //	课程名称/等级/评论
+    });
+}
+
+//点击购买后的接口
+var courseId = getQueryString('course_id');
+function btn_buy(){
+	requestService("/xczh/order/save",{
+		courseId:courseId,
+		orderFrom:2
+	},function(data){
+
+		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+	});
+
+}

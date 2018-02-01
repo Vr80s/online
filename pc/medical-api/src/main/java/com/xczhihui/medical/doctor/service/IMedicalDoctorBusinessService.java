@@ -84,5 +84,5 @@ public interface IMedicalDoctorBusinessService {
     /**
      * 根据doctorId获取医师详情
      */
-    MedicalDoctorVO selectDoctorByIdV2(String doctorId);
+    MedicalDoctor selectDoctorByIdV2(String doctorId);
 }

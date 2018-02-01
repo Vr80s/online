@@ -24,7 +24,14 @@
     <link rel="stylesheet" href="/web/css/anchor/cssreset-min.css"/>  <!--省市-->
 
     <link rel="stylesheet" href="/web/font/iconfont.css"/>
+    
+    <!--学堂css-->
     <link rel="stylesheet" href="/web/css/anchor/curriculum.css?v=ipandatcm_1.2.1">
+    
+    <!--账户css-->
+    <link rel="stylesheet" href="/web/css/anchor/account.css?v=ipandatcm_1.2.1">
+    
+    
     <link rel="stylesheet" href="/web/css/style.css"/>
     <link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
 
@@ -179,7 +186,7 @@
 				<div class="select_list z">
 					<ul style="padding: 0;">
 						<li class="active select-ud">
-							<span class="glyphicon glyphicon-book left_range ino_color" aria-hidden="true"></span><span>学堂<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
+							<span class="glyphicon glyphicon-book left_range ino_color" aria-hidden="true"></span><span class="school">学堂<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 							<div class="littleBox">
 								<p class="activeP">课程</p>
 								<p>专辑</p>
@@ -196,8 +203,8 @@
 						<li class="select-uds">
 							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span>账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 							<div class="littleBoxs">
-								<p class="activeP">认证信息</p>
-								<p>个人信息</p>
+								<p class="activeP name_news">认证信息</p>
+								<p class="name_personage">个人信息</p>
 							</div>
 						</li>
 						
@@ -273,8 +280,6 @@
 				
 				<div class="select_box">测试</div>	
 				
-				
-				
 				<!--著作-->
 				<!--<div class="select_box">著作</div>-->
 				<!--媒体报道-->
@@ -286,6 +291,402 @@
 			</div>
 			
 			
+			<!--账号开始  账户有单独的css -->
+			<div class="account">   <!--account_mains  这是点击选择右侧div-->
+				<!--医师认证开始-->
+				<div class="account_main account_mains account_main_message">
+					<!--医师认证开始-->
+					<div class="" style="display: none;">
+						<div class="account_main_title">认证信息</div>
+							<div class="reauthentication">
+								<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
+								<div class="right_btn">重新认证</div>
+							</div>
+							<div class="name">
+								<div class="one" style="margin-top: 0;">姓名</div>
+								<div class="two">我是姓名</div>
+							</div>
+							<div class="name">
+								<div class="one" style="margin-top: 0;">身份证号</div>
+								<div class="two">372901199304226111</div>
+							</div>
+							<div class="name">
+								<div class="one">身份证</div>
+								<div class="two two_img">
+									<img src="../../images/3.jpg" />
+								</div>
+								<div class="three">
+									<img src="../../images/3.jpg" />
+								</div>
+							</div>
+							<div class="name">
+								<div class="one">医师资格证</div>
+								<div class="two two_img">
+									<img src="../../images/3.jpg" />
+								</div>
+							</div>
+							<div class="name">
+								<div class="one">执业资格证</div>
+								<div class="two two_img">
+									<img src="../../images/3.jpg" />
+								</div>
+							</div>
+					</div>
+					<!--医师认证结束-->
+					
+					
+					<!--医馆认证开始-->
+					<div class="">
+						<div class="account_main_title">认证信息</div>
+						<div class="reauthentication">
+							<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
+							<div class="right_btn">重新认证</div>
+						</div>
+						<div class="name">
+							<div class="one one_name">医馆名称</div>
+							<div class="two">百草堂国医馆</div>
+						</div>
+						<div class="name">
+							<div class="one one_name">所属公司</div>
+							<div class="two">江苏国医馆有限公司</div>
+						</div>
+						<div class="name">
+							<div class="one one_name" style="margin-left: 1px;">统一社会信用代码</div>
+							<div class="two">511000123998223666</div>
+						</div>
+						<div class="name">
+							<div class="one one_name">营业执照</div>
+							<div class="two two_img">
+								<img src="../../images/3.jpg" />
+							</div>
+						</div>
+						<div class="name">
+							<div class="one one_name">药品经营许可证</div>
+							<div class="two two_img">
+								<img src="../../images/3.jpg" />
+							</div>
+						</div>
+						
+					</div>
+					<!--医馆认证结束-->
+				</div>
+				<div class="account_main account_main_alter">
+					<!--医师认证开始-->
+					<div class="account_one" style="display: none !important;">
+						<div class="account_main_alter_title">
+							<div class="one">重新认证</div>
+							<div class="two">返回</div>
+						</div>
+						<form action="">
+							<div class="div_title">
+								<span><em>*</em>姓名</span>
+								<input type="text" placeholder="真实姓名，需与身份证一致" class="">
+								<p class="warning hide">申请人不能为空</p>
+							</div>
+							
+							<div class="div_title">
+								<span><em>*</em>身份证号</span>
+								<input type="text" placeholder="请输入正确的身份证号" class="">
+								<p class="warning hide">身份证号不能为空</p>
+							</div>
+							
+							<!--身份证上传-->
+							<div class="uploading">
+								<span><em>*</em>身份证</span>
+								<!--正-->
+								<div class="input-group row">
+									<div class="row_size">
+										<div class="one">+</div>
+										<div class="two">点击上传身份证正面图片</div>
+									</div>
+					                <div class="col-sm-9 big-photo">
+					                	<div class="preview" id="preview">
+					                        <!--<img id="imghead" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg').click();">-->
+					                     </div>         
+					                    <input type="file" onchange="previewImage(this)" id="previewImg">
+					                </div>
+					            </div>
+	
+					            <!--反-->
+					            <div class="input-group row">
+					            	<div class="row_size">
+										<div class="one">+</div>
+										<div class="two">点击上传身份证背面图片</div>
+									</div>
+					                <div class="col-sm-9 big-photo">
+					                    <div class="preview" id="preview0">
+					                        <!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
+					                    </div>         
+					                    <input type="file" onchange="previewImage0(this)" id="previewImg0">
+					                </div>
+					            </div>
+					            <div class="hint">
+				                	<div class="">文件小于2M</div>
+				                	<div class="">支持JPG/PNG等格式图片</div>
+				                </div>
+				                <div class="both"></div>
+							</div>
+							
+							
+							<!--医师资格证-->
+							<div class="certification">
+								<span><em>*</em>医师资格证</span>
+					            <div class="input-group row">
+					            	<div class="row_size">
+										<div class="one">+</div>
+										<div class="two">点击上传医师资格证图片</div>
+									</div>
+					                <div class="col-sm-9 big-photo">
+					                    <div class="preview" id="preview1">
+					                        <!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
+					                    </div>         
+					                    <input type="file" onchange="previewImage1(this)" id="previewImg1">
+					                </div>
+					            </div>
+					            <div class="hint">
+				                	<div class="">文件小于2M</div>
+				                	<div class="">支持JPG/PNG等格式图片</div>
+				                </div>
+				                <div class="both"></div>
+							</div>
+							
+							<!--执业资格证-->
+							<div class="profession">
+								<span><em>*</em>执业资格证</span>
+					            <div class="input-group row">
+					            	<div class="row_size">
+										<div class="one">+</div>
+										<div class="two">点击上传执业医师资格证图片</div>
+									</div>
+					                <div class="col-sm-9 big-photo">
+					                    <div class="preview" id="preview2">
+					                        <!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
+					                    </div>         
+					                    <input type="file" onchange="previewImage2(this)" id="previewImg2">
+					                </div>
+					            </div>
+					            <div class="hint">
+				                	<div class="">文件小于2M</div>
+				                	<div class="">支持JPG/PNG等格式图片</div>
+				                </div>
+				                <div class="both"></div>
+							</div>
+							<div class="approve">提交认证</div>
+							<div class="deal">
+								<lable>
+									<input type="checkbox" name="" id="" value="" />
+								</lable>
+								<span>我已阅读并同意<a href="javascript: ;">平台协议</a></span>
+							</div>
+						</form>
+						
+					</div>
+					<!--医师认证结束-->
+					
+					<!--医馆认证开始-->
+					<div class="account_two">
+						<div class="account_main_alter_title">
+							<div class="one">重新认证</div>
+							<div class="two">返回</div>
+						</div>
+						<div class="div_title">
+							<span class="one_names"><em>*</em>医馆名称</span>
+							<input type="text" placeholder="" class="name_put2" id="name_put2">
+							<p class="warning warning2 hide">医馆名称不能为空</p>
+						</div>
+						<div class="div_title">
+							<span class="one_names"><em>*</em>公司名称</span>
+							<input type="text" placeholder="" class="name_put0">
+							<p class="warning warning0 hide">公司名称不能为空</p>
+						</div>
+						<div class="div_title">
+							<span class="one_names"><em>*</em>统一社会信用代码</span>
+							<input type="text" placeholder="" class="name_put1">
+							<p class="warning warning1 hide">统一社会信用代码不能为空</p>
+						</div>
+						
+						<!--添加营业执照-->
+						<div class="certification">
+							<span class="one_names"><em>*</em>医师资格证</span>
+				            <div class="input-group row">
+				            	<div class="row_size">
+									<div class="one">+</div>
+									<div class="two">点击上传营业执照</div>
+								</div>
+				                <div class="col-sm-9 big-photo">
+				                    <div class="preview" id="preview4">
+				                        <!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
+				                    </div>         
+				                    <input type="file" onchange="previewImage4(this)" id="previewImg4">
+				                </div>
+				            </div>
+				            <div class="hint">
+			                	<div class="">文件小于2M</div>
+			                	<div class="">支持JPG/PNG等格式图片</div>
+			                </div>
+			                <div class="both"></div>
+						</div>
+						
+						<!--药品经营许可证-->
+						<div class="certification">
+							<span class="one_names"><em>*</em>药品经营许可证</span>
+				            <div class="input-group row">
+				            	<div class="row_size">
+									<div class="one">+</div>
+									<div class="two">点击上传药品经营许可证</div>
+								</div>
+				                <div class="col-sm-9 big-photo">
+				                    <div class="preview" id="preview5">
+				                        <!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
+				                    </div>         
+				                    <input type="file" onchange="previewImage5(this)" id="previewImg5">
+				                </div>
+				            </div>
+				            <div class="hint">
+			                	<div class="">文件小于2M</div>
+			                	<div class="">支持JPG/PNG等格式图片</div>
+			                </div>
+			                <div class="both"></div>
+						</div>
+						
+						<div class="approve" style="margin-left: 144px;">提交认证</div>
+						<div class="deal" style="margin-left: 144px;">
+							<lable>
+								<input type="checkbox" name="" id="" value="" />
+							</lable>
+							<span>我已阅读并同意<a href="javascript: ;">平台协议</a></span>
+						</div>
+						
+					</div>
+					<!--医馆认证结束-->
+				</div>
+				<!--医师认证结束-->
+				
+				
+				
+				<div class="account_main account_mains personal_details">
+					<div class="personal_details_title">个人信息</div>
+					<div class="account_modification">
+						<div class="left_size">信息如有变动请及时修改</div>
+						<div class="right_modification">修改信息</div>
+					</div>
+					<div class="name">
+						<div class="one" style="margin-top: 0;">姓名</div>
+						<div class="two">我是姓名</div>
+					</div>
+					<div class="name">
+						<div class="one">真实头像</div>
+						<div class="two two_img">
+							<img src="../../images/3.jpg">
+						</div>
+					</div>
+					<div class="name">
+						<div class="one">医师精彩致辞</div>
+						<div class="two two_video">
+							<video src="" controls="controls"></video>
+						</div>
+					</div>
+					<div class="name">
+						<div class="one">个人介绍</div>
+						<div class="two two_size">
+							施今墨（1881.3.28～1969.8.22），原名毓黔，字奖生，祖籍浙江省杭州市萧山区，中国近代中医临床家、教育家、改革家，“北京四大名医”之一。施今墨毕生致力于中医事业的发展。提倡中西医结合，培养了许多中医人才。长期从事中医临床，治愈了许多疑难重症，创制了许多新成药，献出700个验方。为中医事业作出突出贡献，在国内外享有很高的声望。
+						</div>
+					</div>
+					<div class="name">
+						<div class="one" style="margin-top: 0;">任职医馆</div>
+						<div class="two">百草园国医馆</div>
+					</div>
+					<div class="name">
+						<div class="one" style="margin-top: 0;">坐诊时间</div>
+						<div class="two">每周<span>一、三、五下午</span></div>
+					</div>
+					<div class="name">
+						<div class="one" style="margin-top: 0;">预约电话</div>
+						<div class="two">010-36576543</div>
+					</div>
+					<div class="name">
+						<div class="one" style="margin-top: 0;">城市</div>
+						<div class="two"><sapn>海南</sapn> &nbsp;&nbsp; <span>海口</span></div>
+					</div>
+					<div class="name">
+						<div class="one" style="margin-top: 0;">详细地址</div>
+						<div class="two">美兰区演丰镇瑶城一路</div>
+					</div>
+				</div>
+				<div class="account_main message_return">
+					<div class="message_title">
+						<div class="one">个人信息修改</div>
+						<div class="two">返回</div>
+					</div>
+					<form action="" method="post">
+						<div class="name">
+							<span><em>*</em>昵称</span>
+							<input type="text" placeholder="请填写您的昵称" class="">
+							<p class="warning hide">昵称不能为空</p>
+						</div>
+						<div class="name">
+							<span><em>*</em>真实头像</span>
+							<div class="input-group row">
+							    <div class="row_size">
+							      	<div class="one">+</div>
+							      	<div class="two">求真相</div>
+							    </div>
+					            <div class="col-sm-9 big-photo">
+					              <div class="preview" id="preview3">
+					                    <!--<img id="imghead" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg').click();">-->
+					                 </div>         
+					                <input type="file" onchange="previewImage3(this)" id="previewImg3">
+					            </div>
+					        </div>
+					        <div class="name_hint" style="margin-top: 27px;">
+					        	请上传清晰头像<br />
+								文件小于2M<br />
+								支持JPG/PNG等格式图片<br />
+					        </div>
+							<p class="warning hide">昵称不能为空</p>
+						</div>
+						<div class="name">
+							<span>精彩致辞</span>
+							<input type="text" placeholder="请填写您的精彩致辞" class="">
+							<span class="span">选择资源</span>
+						</div>
+						<div class="name">
+							<span><em>*</em>个人介绍</span>
+							<textarea name="" rows="" cols="" placeholder="请输入500字以内个人简介" class="textarea"></textarea>
+							<p class="warning hide">个人介绍不能为空</p>
+						</div>
+						<div class="name">
+							<span><em>*</em>任职医馆</span>
+							<input type="text" placeholder="请填写您的任职医馆" class="">
+							<p class="warning hide">任职医馆不能为空</p>
+						</div>
+						<div class="name">
+							<span>坐诊时间</span>
+							<input type="text" placeholder="" class="">
+						</div>
+						<div class="name">
+							<span>预约电话</span>
+							<input type="text" placeholder="" class="">
+						</div>
+						
+						<div class="name">
+							<span><em>*</em>城市</span>
+							<div id="demo1" class="citys">
+				                <p>
+				                    <select name="province"></select>
+				                    <select name="city"></select>
+				                    <!-- <select name="area"></select> -->
+				                </p>
+				                <textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
+				            </div>
+						</div>
+						<div class="name_btn">提交</div>
+					</form>
+				</div>
+				
+				
+			</div>
+			<!--账号结束-->
 			
 			<!--右边课程/直播/资源/div内容-->
 			<div class="wrap_box y">
@@ -310,7 +711,7 @@
 						</div>
 						
 						
-						<div class="fengmian">
+						<!--<div class="fengmian">
 							
 							<span><em>*</em>封面图</span>
 							<span class="fengmian_pic">点击上传封面图片</span>
@@ -321,7 +722,34 @@
 							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt0"/>
 							<p class="warning warning2 hide">请上传封面图</p>
 							
+						</div>-->
+						
+						
+						
+						<div class="certification physician_span">
+							<span><em>*</em>医师资格证</span>
+				            <div class="input-group row">
+				            	<div class="row_size">
+									<div class="one">+</div>
+									<div class="two">点击上传医师资格证图片</div>
+								</div>
+				                <div class="col-sm-9 big-photo">
+				                    <div class="preview" id="preview6">
+				                        <!--<img id="imghead6" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg6').click();">-->
+				                    </div>         
+				                    <input type="file" onchange="previewImage6(this)" id="previewImg6">
+				                </div>
+				            </div>
+				            <div class="hint">
+			                	<div class="">文件小于2M</div>
+			                	<div class="">支持JPG/PNG等格式图片</div>
+			                </div>
+			                <div class="both"></div>
 						</div>
+						
+						
+						
+						
 						
 						
 						<div>
@@ -419,7 +847,7 @@
 						<div id="resourceUrl">
 							<span><em>*</em> 选择资源</span>
 							<input type="text" class="resourceUrl" />
-							<a href="javascript:;" id="a"><span>选择资源</span></a>
+							<a href="javascript:;" id="a"><span style="cursor: pointer;">选择资源</span></a>
 							<p class="warning warning8 hide">选择资源不能为空</p>
 						</div>
 						<div class="baocun">
@@ -450,7 +878,7 @@
 						<!--头部搜索结束-->
 						
 						<table>
-							 <thead>
+							<thead>
 							<tr>
 								<td>封面图</td>
 								<td>课程名称</td>
@@ -462,6 +890,7 @@
 								<td>课程状态</td>
 								<td>操作</td>
 							</tr>
+<<<<<<< HEAD
 							 </thead>
 							<tbody id="course_list">
 							</tbody>
@@ -475,6 +904,142 @@
 							<a href="javascript:;" class="page-btn">确定</a>
 						</div>
 					</div>
+=======
+							</thead>
+							<tbody>
+							<tr class="tr_sold_out">
+								<td>
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</td>
+								<td>
+									中医药席卷全球成独特风景，发展热情被彻底点燃
+								</td>
+								<td>
+									￥200.00
+								</td>
+								<td>
+									80’
+								</td>
+								<td>
+									直播
+								</td>
+								<td>
+									视频
+								</td>
+								<td>
+									上架
+								</td>
+								<td>
+									<a href="javascript:;" class="sold_out">下架</a>
+									<a href="javascript:;">编辑</a>
+								</td>
+							</tr>
+							
+							<tr class="tr_sold_out">
+								<td>
+									<img src="/web/images/hospital/hospital_pic.png" alt="" />
+								</td>
+								<td>
+									中医药席卷全球成独特风景，发展热情被彻底点燃
+								</td>
+								<td>
+									￥200.00
+								</td>
+								<td>
+									80’
+								</td>
+								<td>
+									直播
+								</td>
+								<td>
+									视频
+								</td>
+								<td>
+									上架
+								</td>
+								<td>
+									<a href="javascript:;" class="sold_out">下架</a>
+									<a href="javascript:;">编辑</a>
+								</td>
+							</tr>
+							
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="yes_no">
+						<div class="yes_no_bg"></div>
+						<div class="yes_no_main">
+							<div class="top">是否下架</div>
+							<div class="bottom">
+								<div class="left">否</div>
+								<div class="right">是</div>
+							</div>
+						</div>
+					</div>
+					
+					
+>>>>>>> de570785dacb3617f931ce80bfa02ce86b789e3e
 					<!--点击选择资源弹框开始-->
 					<div class="a_resource">
 						<div class="a_resource_bg"></div>
@@ -867,7 +1432,7 @@
 							<div class="resourceUrls">
 								<span><em>*</em> 选择资源</span>
 								<input type="text" class="input a_input">
-								<a href="javascript:;" id="a"><span>选择资源</span></a>
+								<a href="javascript:;" id="a"><span style="cursor: pointer;">选择资源</span></a>
 								<p class="warning warnings9 hide">选择资源不能为空</p>
 							</div>
 							
@@ -1223,7 +1788,8 @@
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
-	<script src="/web/js/curriculum.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
+	<script src="/web/js/anchor/curriculum.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--主播工作台控制左侧点击事件和判断input为空-->
+	<script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 	<script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
   	
 

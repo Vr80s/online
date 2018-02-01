@@ -35,16 +35,18 @@ $(function(){
             	event.stopPropagation();
 				$(".select_list .littleBox p").removeClass("activeP");
 				$(this).addClass("activeP");
-				$(".wrap_box .little_box").hide().eq($(this).index()).show();
-				$(".select_box").hide()
+				$(".wrap_box .little_box").hide().eq($(this).index()).show();  /*课程显示*/
+				$(".account .account_mains").hide();   /*账号隐藏*/
+				$(".select_box").hide();
 			})
 			
 			$(".select_list .select-uds .littleBoxs p").bind('click',function(event){
             	event.stopPropagation();
-				$(".select_list1 .littleBoxs p").removeClass("activeP");
+				$(".select_list .littleBoxs p").removeClass("activeP");
 				$(this).addClass("activeP");
-				$(".wrap_box1 .little_box").hide().eq($(this).index()).show();
-				$(".select_box1").hide();
+				$(".account .account_mains").hide().eq($(this).index()).show();  /*账户显示*/
+				$(".wrap_box .little_box").hide();   /*课程隐藏*/
+				$(".select_box").hide();
 			})
 //		下拉小箭头设置	
 		$(".select-ud").click(function(){
@@ -119,8 +121,6 @@ $(function(){
 				//新插件
 		});
 	})
-
-
 
 
 
@@ -370,13 +370,25 @@ $('#curriculum .zhuanlan_top button').click(function(){
 	}
 })
 
-
+//课程新课程
 $('#demo2').citys({
     required:false,
     nodata:'disabled',
     onChange:function(data){
         var text = data['direct']?'(直辖市)':'';
         $('#place').text('当前选中地区：'+data['province']);
+        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+    }
+});
+
+
+//账户个人信息
+$('#demo1').citys({
+    required:false,
+    nodata:'disabled',
+    onChange:function(data){
+        var text = data['direct']?'(直辖市)':'';
+        $('#places').text('当前选中地区：'+data['province']);
         // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
     }
 });
@@ -483,12 +495,12 @@ $('#kecheng_bottom .baocun #submit').click(function(){
 	
 	
 	//封面图是否上传
-		if($('#kecheng_bottom .fengmian_pic:has(img)').length < 1){
-			$('#kecheng_bottom .fengmian_pic_warn').removeClass('hide');
-			return false;
-		}else{
-			$('#kecheng_bottom .fengmian_pic_warn').addClass('hide');
-		}
+	if($('#kecheng_bottom .fengmian_pic:has(img)').length < 1){
+		$('#kecheng_bottom .fengmian_pic_warn').removeClass('hide');
+		return false;
+	}else{
+		$('#kecheng_bottom .fengmian_pic_warn').addClass('hide');
+	}
 	
 	
 //	alert(111)
@@ -1166,6 +1178,23 @@ $(".tbody_tbody tr td:last-child").click(function() {
     $(this).parent().remove();
 });
 
+$(".tr_sold_out td .sold_out").click(function() {
+    $(".yes_no").show();
+});
+
+
+
+//点击是否隐藏
+$(".yes_no .bottom .left").click(function() {
+    $(".yes_no").hide();
+});
+$(".yes_no .bottom .right").click(function() {
+    $(".yes_no").hide();
+});
+
+
+
+
 //点击新专辑添加课程开始
 
 //点击添加课程
@@ -1187,6 +1216,84 @@ $(".new_box_main .size").click(function() {
 //添加课程结束
 
 //专辑结束
+
+
+//账户重新认证点击开始
+$(".reauthentication .right_btn").click(function() {
+    $(".account_main_message").hide();
+    $(".account_main_alter").show();
+});
+
+
+
+$(".account_main_alter_title .two").click(function() {
+    $(".account_main_alter").hide();
+    $(".account_main_message").show();
+});
+
+
+//账户个人信息  
+$(".right_modification").click(function() {
+    $(".personal_details").hide();
+    $(".message_return").show();
+});
+$(".message_return .message_title .two").click(function() {
+    $(".message_return").hide();
+    $(".personal_details").show();
+});
+
+//点击认证消息   name_news
+$(".name_news").click(function() {
+//	隐藏认证信息第二页  
+	$(".account_main_alter").hide();
+	
+//	隐藏个人信息内容
+    $(".message_return").hide();
+    $(".personal_details").hide();
+});
+
+//点击个人信息  
+$(".name_personage").click(function() {
+    $(".account_main_alter").hide();
+//  $(".personal_details").show();
+});
+
+
+//点击学堂隐藏  
+$(".school").click(function() {
+    $(".account_main_alter").hide();
+    $(".account_main_message").hide();
+    $(".personal_details").hide();
+    $(".message_return").hide();
+});
+
+$(".littleBox p").click(function() {
+    $(".account_main_alter").hide();
+    $(".account_main_message").hide();
+    $(".personal_details").hide();
+    $(".message_return").hide();
+});
+
+//账户认证信息为空
+$('.account_two .approve').click(function(){
+	//医馆认证
+	
+//	医馆名称
+	var namePut = $.trim($('.account_two .name_put').val());
+	
+	//医馆名称
+	if(namePut == ''){
+//		$('.account_two .warning2').removeClass('hide');
+//		$('.account_two #name_put').removeClass('hide_pop_up');
+		return false;
+	}else{
+//		$('.account_two .warning2').addClass('hide');
+//		$('.account_two #name_put').addClass('show_pop_up');
+	}
+	
+})
+
+
 
 
 

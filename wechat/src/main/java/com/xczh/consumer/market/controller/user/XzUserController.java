@@ -79,8 +79,14 @@ public class XzUserController {
 	
 	
 	
-	
-	
+	/**
+	 * Description：根据 id 获取用户信息
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
 	@RequestMapping(value="getUserInfo")
 	@ResponseBody
 	public ResponseObject getUserInfo(HttpServletRequest req,
@@ -99,6 +105,7 @@ public class XzUserController {
 			return ResponseObject.newErrorResponseObject("信息有误");
 		}
 	}
+	
 	/**
 	 * 
 	 * Description：发送短信验证码
@@ -124,7 +131,7 @@ public class XzUserController {
 			if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
 				return ResponseObject.newErrorResponseObject("请输入正确的手机号");
 			}
-			
+			LOGGER.info("vtype"+vtype);
 			String str = onlineUserService.addMessage(username, vtype);
 			if("发送成功！".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
@@ -306,44 +313,6 @@ public class XzUserController {
 		}
 		return ResponseObject.newSuccessResponseObject("退出成功");
 	}
-	
-
-	/**
-	 * 修改密码
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping(value="editPassword")
-	@ResponseBody
-	public ResponseObject editPassword(HttpServletRequest req,
-			@RequestParam("username") String username,
-			@RequestParam("password") String password,
-		    @RequestParam("code") String code) throws Exception {
-
-		/**
-		 * 验证手机号
-		 */
-		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
-			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
-		}
-		
-		String vtype = "2";
-		
-		//短信验证码
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
-		if (!checkCode.isSuccess()) {
-			return checkCode;
-		}
-		//更新用户密码
-		try {
-			userCenterAPI.updatePassword(username, null, password);
-			return ResponseObject.newSuccessResponseObject("修改密码成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("修改密码失败");
-		}
-	}
-	
     /**
      * Description：给  vtype 包含 3 和   4  发送短信。
      *          如果是3的话，需要判断此手机号是否绑定，在发短信。
@@ -617,7 +586,6 @@ public class XzUserController {
 			UCCookieUtil.writeTokenCookie(res, token);
 		}
 	}
-	
 	/**
 	 * 判断注册来源
 	 */
@@ -634,4 +602,64 @@ public class XzUserController {
         	return RegisterForm.IOS.getText();
         }
     }
+    
+    /**
+	 * 修改密码
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="editPassword")
+	@ResponseBody
+	public ResponseObject editPassword(HttpServletRequest req, HttpServletResponse res,
+			@RequestParam("oldPassword")String oldPassword,
+			@RequestParam("newPassword")String newPassword,
+			@RequestParam("username")String username
+			) throws Exception {
+
+		try {
+			//更新用户密码
+			userCenterAPI.updatePassword(username, oldPassword, newPassword);
+			return ResponseObject.newSuccessResponseObject("修改密码成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+	}
+	
+//	/**
+//	 * 修改密码
+//	 * @param req
+//	 * @return
+//	 */
+//	@RequestMapping(value="editPassword")
+//	@ResponseBody
+//	public ResponseObject editPassword(HttpServletRequest req,
+//			@RequestParam("username") String username,
+//			@RequestParam("password") String password,
+//		    @RequestParam("code") String code) throws Exception {
+//
+//		/**
+//		 * 验证手机号
+//		 */
+//		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+//			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+//		}
+//		
+//		String vtype = "2";
+//		
+//		//短信验证码
+//		ResponseObject checkCode = onlineUserService.checkCode(username, code,Integer.parseInt(vtype));
+//		if (!checkCode.isSuccess()) {
+//			return checkCode;
+//		}
+//		//更新用户密码
+//		try {
+//			userCenterAPI.updatePassword(username, null, password);
+//			return ResponseObject.newSuccessResponseObject("修改密码成功");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return ResponseObject.newErrorResponseObject("修改密码失败");
+//		}
+//	}
+    
 }

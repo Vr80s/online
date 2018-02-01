@@ -48,19 +48,72 @@
    <select id="selectWithdrawalList" resultType="java.util.Map">
 		
    select	* from  (			
-	  ( select '提现' as lable,ucc.value,ucc.create_time as createTime from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id="23908ae85dad4541ba7ecf53fc52aab2"	 )
+	  ( select '提现' as label,ucc.value,ucc.create_time as createTime from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id="23908ae85dad4541ba7ecf53fc52aab2"	 )
 		
 		UNION ALL
 		
-	  ( select '结算' as lable,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 6 and user_id="23908ae85dad4541ba7ecf53fc52aab2" )
+	  ( select '结算' as label,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 6 and user_id="23908ae85dad4541ba7ecf53fc52aab2" )
 	  
 	  	UNION ALL
 	  
-	  ( select '提现驳回' as lable,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 5 and user_id="23908ae85dad4541ba7ecf53fc52aab2" )
+	  ( select '提现驳回' as label,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 5 and user_id="23908ae85dad4541ba7ecf53fc52aab2" )
 		
 	 ) as tixian  order by tixian.createTime desc
 	 
 	</select>	
+	
+	<!-- 修改用户信息  个人资料信息  -->
+	<update id="updateUserSetInfo" parameterType="com.xczhihui.wechat.course.vo.OnlineUserVO">
+		UPDATE oe_user
+		<set>
+			<if test="user.sex != null">
+				sex = #{user.sex},
+			</if>
+			<if test="user.email != null">
+				email = #{user.email},
+			</if>
+			<if test="user.smallHeadPhoto != null">
+				small_head_photo = #{user.smallHeadPhoto},
+			</if>
+			<if test="user.name != null">
+				name = #{user.name},
+			</if>
+			<if test="user.info != null">
+				info = #{user.info},
+			</if>
+			
+			<!-- 省 -->
+			<if test="user.regionAreaId != null">
+				region_area_id = #{user.regionAreaId},
+			</if>
+			<if test="user.provinceName != null">
+				province_name = #{user.provinceName},
+			</if>
+			<!-- 市-->
+			<if test="user.regionCityId != null">
+				region_city_id = #{user.regionCityId},
+			</if>
+			<if test="user.cityName != null">
+				city_name = #{user.cityName},
+			</if>
+			<!-- 区 -->
+			<if test="user.regionId != null">
+				region_id = #{user.regionId},
+			</if>
+			<if test="user.countyName != null">
+				county_name = #{user.countyName},
+			</if>
+			
+			<if test="user.occupation != null">
+				occupation = #{user.occupation},
+			</if>
+			
+			<if test="user.occupationOther != null">
+				occupation_other = #{user.occupationOther},
+			</if>
+		</set>
+		WHERE id = #{user.id}
+	</update>
 	
 	
 </mapper>

@@ -100,20 +100,26 @@ public class XzIapController {
         
         String url = certificateUrl;
         String newVersion = iphoneVersion;
+        
+        LOGGER.info("certificateUrl:"+url);
+        LOGGER.info("newVersion:"+iphoneVersion);
+        LOGGER.info("version:"+version);
+        
         int diff = VersionCompareUtil.compareVersion(newVersion, version);
         /*
          * 非最新版本
          */
         //iphone.iap.url=https://sandbox.itunes.apple.com/verifyReceipt
         //iphone.iap.url=https://buy.itunes.apple.com/verifyReceipt
-        if (diff < 0) {  //当前版本小于最新版本，说明是老版本，需要用--生产环境
+        if (diff > 0) {  //当前版本小于最新版本，说明是老版本，需要用--生产环境
         	url = "https://buy.itunes.apple.com/verifyReceipt";
         }else{			//当前版本等于最新版本，说明是正在审核的版本或者调试的版本，用沙箱环境
         	url = "https://sandbox.itunes.apple.com/verifyReceipt";
         }
+        
+        LOGGER.info("苹果地址:"+url);
         final String certificateCode = receipt;
         if(StringUtils.isNotEmpty(certificateCode)){
-        	
         	String resp=   sendHttpsCoon(url, certificateCode);
 	        LOGGER.info("苹果返回数据:"+resp);
 	         //把苹果返回的数据存到数据库
@@ -126,7 +132,6 @@ public class XzIapController {
              * 保存消费信息，并且做对应的熊猫币扣减
              */
             iphoneIpaService.increaseNew(userId,actualPrice.multiply(BigDecimal.valueOf(rate)),resp,actualPrice);
-           
             LOGGER.info("{}{}{}{}{}{}{}{}------------苹果充值成功");
             return ResponseObject.newSuccessResponseObject(null);
         }else{

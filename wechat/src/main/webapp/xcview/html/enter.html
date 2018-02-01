@@ -12,18 +12,9 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 
-<!--这段meta代码需要加上，移动端自适应缩放用-->
-<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
-<!-- 网页自适应JS代码引入 -->
-<!--<link rel="stylesheet" href="/xcview/css/mui.min.css">-->
-
-<!--<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-    <script type="text/javascript" src="/Views/h5/js/common.js"></script>
-	<script src="/xcview/js/index.js" type="text/javascript"></script>-->
-<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-
+<!-- 公共的  -->
 <link rel="stylesheet" href="/xcview/css/enter.css">
-
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 
 </head>
 <body style="background:#fff;">
@@ -44,14 +35,14 @@
 	<div class="enter">
 		<div class="enter_one">
 			<img src="../images/population.png" class="img0"/>
-			<input type="text" name="" id="" value="" placeholder="手机号/邮箱" class="input0" />
+			<input type="text" name="account" id="account" value="" placeholder="手机号/邮箱" class="input0" />
 		</div>
 		<div class="enter_one">
 			<img src="../images/suo.png" class="img1"/>
-			<input type="password" name="" id="" value="" placeholder="密码" class="input1" />
+			<input type="password" name="password" id="password" value="" placeholder="密码" class="input1" />
 		</div>
-		<div class="enter_btn">登录</div>
-		<div class="forget_password"><a href="javascript: ;">忘记密码</a></div>
+		<div class="enter_btn" onclick="login()">登录</div>
+		<div class="forget_password"><a href="/xcview/html/forget_password.html">忘记密码</a></div>
 		<div class="other_means">
 			<div class="div0"></div>
 			<div class="div1">其他方式登录</div>
@@ -71,12 +62,18 @@
 	</div>
 	
 	<!-- 中间内容结束 -->
-	
-	<!-- 刷新引入js -->
-	<!--<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>-->
-	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
-	
 </body>
+
+<!-- 公共的 js  -->
+<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>
+
+<script type="text/javascript" src="/xcview/js/login/login.js"></script>
+
+
+
 
 <script>
 	var kk=document.documentElement.clientWidth;

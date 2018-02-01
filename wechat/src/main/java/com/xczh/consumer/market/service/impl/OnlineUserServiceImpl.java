@@ -204,7 +204,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		if (SMSCode.RETISTERED.getCode() !=vtype && SMSCode.FORGOT_PASSWORD.getCode()!=vtype &&
 				SMSCode.WITHDRAWAL.getCode() != vtype ) {
 			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码  5 为提现使用");
@@ -299,8 +298,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	}
 	
 	private void sendPhone(String phone, String vcode,Integer vtype){
-		if (!"1".equals(vtype) && !"2".equals(vtype)) {
-			throw new RuntimeException("动态码类型错误！1为注册，2为找回密码");
+		
+		if (SMSCode.RETISTERED.getCode() !=vtype && SMSCode.FORGOT_PASSWORD.getCode()!=vtype &&
+				SMSCode.WITHDRAWAL.getCode() != vtype ) {
+			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码  5 为提现使用");
 		}
 		//判断发送结果
 		SendSmsResponse response = null;
@@ -520,7 +521,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	private void sendPhoneCheck(String phone, String vcode,Integer vtype){
-		if (!"3".equals(vtype) && !"4".equals(vtype)) {
+		if (SMSCode.OLD_PHONE.getCode()!=vtype && SMSCode.NEW_PHONE.getCode()!=vtype ) {
 			throw new RuntimeException ("动态码类型错误！3为本手机，4为要更换的手机");
 		}
 		//判断发送结果

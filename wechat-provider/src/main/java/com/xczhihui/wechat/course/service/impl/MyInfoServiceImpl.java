@@ -1,25 +1,19 @@
 package com.xczhihui.wechat.course.service.impl;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.wechat.course.mapper.CourseMapper;
-import com.xczhihui.wechat.course.mapper.FocusMapper;
+import com.xczhihui.user.center.bean.UserSex;
 import com.xczhihui.wechat.course.mapper.MyInfoMapper;
-import com.xczhihui.wechat.course.model.Focus;
 import com.xczhihui.wechat.course.model.OnlineUser;
-import com.xczhihui.wechat.course.service.IFocusService;
 import com.xczhihui.wechat.course.service.IMyInfoService;
-import com.xczhihui.wechat.course.vo.FocusVo;
+import com.xczhihui.wechat.course.vo.OnlineUserVO;
 
 /**
  * <p>
@@ -53,7 +47,29 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 		return myInfoMapper.selectWithdrawalList(userId);
 	}
 
-
-	
-	
+	@Override
+	public void updateUserSetInfo(OnlineUserVO user) {
+		// TODO Auto-generated method stub
+		
+		//验证信息长度
+		if(user.getSex()!=null && !UserSex.isValid(user.getSex())){
+			throw new RuntimeException("性别不合法,0 女  1男   2 未知");
+		}
+		
+		if(StringUtils.isNotBlank(user.getName()) 
+				&&(user.getName().length()>20 ||user.getName().length()<4)){
+			throw new RuntimeException("用户昵称长度在4-20之间");
+		}
+		if(StringUtils.isNotBlank(user.getEmail()) && 
+				 (user.getEmail().length()>32 || user.getName().length()<5)){
+			throw new RuntimeException("邮件长度在5-32之间");
+        }
+        if(!com.xczhihui.bxg.online.common.utils.StringUtils.checkEmail(user.getEmail())){
+        	 throw new RuntimeException("邮箱格式有误");
+        }
+		
+        myInfoMapper.updateUserSetInfo(user);
+		
+		
+	}
 }
