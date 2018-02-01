@@ -168,7 +168,7 @@
 	<div class="wrap_comment_title">
 		<p>评论</p>
 		<span>
-			<img src="../images/video_review.png"/>
+			<img src="../images/video_review.png"  onclick="btn_allComment()"/>
 		</span>
 	</div>
 	<div class="wrap_all_returned">  <!--渲染存放盒子-->
@@ -199,11 +199,25 @@
 					</div>
 					<!--很赞/干货很多-->
 					<div class="uesr_lable">
+						{{if item.criticizeLable !=null}}
 						<ul>
-							<li >很赞</li>
-							<li >干货很多</li>
-
+							{{if item.criticizeLable.indexOf('1')>-1}}
+							<li>很赞</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('2')>-1}}
+							<li>干货很多</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('3')>-1}}
+							<li>超值推荐</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('4')>-1}}
+							<li>喜欢</li>
+							{{/if}}
+							{{if item.criticizeLable.indexOf('5')>-1}}
+							<li>买对了</li>
+							{{/if}}
 						</ul>
+						{{/if}}
 					</div>
 					<!--回复的内容-->
 					<p class="write_text">
@@ -247,7 +261,7 @@
 			{{/each}}
 		</script>
 	</div>
-	
+<!--评论结束-->	
 	<div id="sure_isBuy">	
 		<script type="text/html" id="data_isBuy">
 			{{if watchState==0}}

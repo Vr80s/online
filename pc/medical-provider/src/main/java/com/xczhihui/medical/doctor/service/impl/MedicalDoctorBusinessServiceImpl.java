@@ -68,6 +68,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Autowired
     private IMedicalDoctorDepartmentService medicalDoctorDepartmentService;
 
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Value("${specialColumn}")
@@ -362,7 +363,7 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                     }
 
                     // 如果参数中有科室信息
-                    if(CollectionUtils.isNotEmpty(doctor.getDepartments())){
+                    if(CollectionUtils.isNotEmpty(doctor.getDepartmentIds())){
 
                         Date now = new Date();
 
@@ -370,8 +371,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                         doctorDepartmentMapper.deleteByDoctorId(doctorId);
 
                         // 新增新的医师与科室对应关系：medical_doctor_department
-                        doctor.getDepartments().stream()
-                                .forEach(department -> medicalDoctorDepartmentService.add(department, doctorId, now));
+                        List<String> departmentIds = doctor.getDepartmentIds();
+
+                        if(CollectionUtils.isNotEmpty(departmentIds)){
+                            departmentIds.forEach(departmentId -> medicalDoctorDepartmentService.add(departmentId , doctorId, now));
+                        }
                     }
                 }
             }
@@ -401,10 +405,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             }
 
             // 获取医师所在的科室
-            Map<String,Object> columnMap = new HashMap<>();
-            columnMap.put("doctor_id", medicalDoctor.getId());
-            columnMap.put("deleted", 0);
-            List<MedicalDoctorDepartment> doctorDepartments =  doctorDepartmentMapper.selectByMap(columnMap);
+            List<MedicalDoctorDepartment> doctorDepartments =
+                    medicalDoctorDepartmentService.selectByDoctorId(medicalDoctor.getId());
+
             if(CollectionUtils.isNotEmpty(doctorDepartments)){
                 List<String> ids = new ArrayList<>();
                 for (MedicalDoctorDepartment doctorDepartment : doctorDepartments){
@@ -415,6 +418,57 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             }
         }
         return medicalDoctor;
+    }
+
+    /**
+     * 添加医师
+     */
+    @Override
+    public void add(MedicalDoctor medicalDoctor) {
+        // 参数校验
+        this.validate(medicalDoctor, 3);
+
+        // 获取用户的医馆
+        MedicalHospitalAccount hospitalAccount =
+                hospitalAccountMapper.getByUserId(medicalDoctor.getUserId());
+        if(hospitalAccount == null){
+            throw new RuntimeException("您尚为认证医馆，请认证后再添加");
+        }
+        // 判断医馆是否认证
+        if(!medicalHospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())){
+            throw new RuntimeException("医馆尚未认证，请认证后再添加");
+        }
+
+        String doctorId = UUID.randomUUID().toString().replace("-","");
+        String doctorAuthenticationId = UUID.randomUUID().toString().replace("-","");
+        Date now = new Date();
+
+        // 保存医师信息
+        medicalDoctor.setId(doctorId);
+        medicalDoctor.setDeleted(false);
+        medicalDoctor.setStatus(true);
+        medicalDoctor.setCreatePerson(medicalDoctor.getUserId());
+        medicalDoctor.setAuthenticationInformationId(doctorAuthenticationId);
+        medicalDoctor.setCreateTime(now);
+        medicalDoctorMapper.insertSelective(medicalDoctor);
+
+        // 将医师的头像,职称证明添加到认证表上：medical_doctor_authentication_information
+        MedicalDoctorAuthenticationInformation authenticationInformation =
+                medicalDoctor.getMedicalDoctorAuthenticationInformation();
+        authenticationInformation.setId(doctorAuthenticationId);
+        authenticationInformation.setHeadPortrait(medicalDoctor.getHeadPortrait());
+        authenticationInformation.setCreatePerson(medicalDoctor.getUserId());
+        medicalDoctorAuthenticationInformationMapper.insert(authenticationInformation);
+
+        // 保存医师的科室：medical_doctor_department
+        List<String> departmentIds = medicalDoctor.getDepartmentIds();
+
+        if(CollectionUtils.isNotEmpty(departmentIds)){
+            departmentIds.forEach(departmentId -> medicalDoctorDepartmentService.add(departmentId , doctorId, now));
+        }
+
+        logger.info("user : {} add doctor successfully, doctorId : {}",
+                medicalDoctor.getUserId(), doctorId);
     }
 
     /**
@@ -462,6 +516,44 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             }
             if(StringUtils.isNotBlank(medicalDoctor.getDescription()) && medicalDoctor.getDescription().length() > 1000){
                 throw new RuntimeException("医师简介不能超过1000个字");
+            }
+        }
+
+        if(type == 3){
+            if(StringUtils.isBlank(medicalDoctor.getName())){
+                throw new RuntimeException("医师名字不能为空");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getHeadPortrait())){
+                throw new RuntimeException("医师头像不能为空");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getTitle())){
+                throw new RuntimeException("医师职称不能为空");
+            }
+
+            if(medicalDoctor.getMedicalDoctorAuthenticationInformation() == null){
+                throw new RuntimeException("请上传职称证明");
+            }else{
+                if(StringUtils.isBlank(medicalDoctor.getMedicalDoctorAuthenticationInformation().getTitleProve())){
+                    throw new RuntimeException("请上传职称证明");
+                }
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getFieldText())){
+                throw new RuntimeException("擅长不能为空");
+            }
+
+            if(CollectionUtils.isEmpty(medicalDoctor.getDepartmentIds())){
+                throw new RuntimeException("请选择科室");
+            }
+
+            if(StringUtils.isBlank(medicalDoctor.getDescription())){
+                throw new RuntimeException("医师介绍不能为空");
+            }else{
+                if(medicalDoctor.getDescription().length() > 500){
+                    throw new RuntimeException("医师介绍字数应在500字以内");
+                }
             }
         }
     }

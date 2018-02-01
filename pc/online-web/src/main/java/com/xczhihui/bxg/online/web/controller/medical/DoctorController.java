@@ -252,11 +252,29 @@ public class DoctorController {
     }
 
     /**
-     * Description：通过医师id获取详细信息
+     * 通过医师id获取详细信息
      */
     @RequestMapping(value = "/{doctorId}",method= RequestMethod.GET)
     public ResponseObject getDoctorByIdV2(@PathVariable String doctorId) {
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorByIdV2(doctorId));
+    }
+
+    /**
+     * 添加医师
+     */
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalDoctor.setUserId(currentUser.getUid());
+//        medicalDoctor.setUserId("ff80808161313c570161359826ea0000");
+        medicalDoctorBusinessService.add(medicalDoctor);
+        return ResponseObject.newSuccessResponseObject("添加成功");
     }
 
 }
