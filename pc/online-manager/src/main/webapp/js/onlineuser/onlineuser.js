@@ -194,7 +194,7 @@ $(function() {
 				str+='<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,0);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a>';
 			}
 			debugger;
-			str += '<a class="blue" href="javascript:void(-1);" title="编辑个人简介" onclick="showDetailDialog(\''+row.id+'\');"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>';
+			// str += '<a class="blue" href="javascript:void(-1);" title="编辑个人简介" onclick="showDetailDialog(\''+row.id+'\');"><i class="ace-icon glyphicon glyphicon-list-alt bigger-130"></i></a>';
 //			str+='<a class="blue" href="javascript:void(-1);" title="设置学科权限" onclick="OpenMenuDailg(this);"><i class="glyphicon glyphicon-wrench"></i></a></div>';
 			return str;
 		}
