@@ -106,7 +106,9 @@ $(function(){
 //刷新评论列表
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
-        courseId : course_id
+        courseId : course_id,
+        pageNumber:1,
+        pageSize:3
     },function(data) {
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
@@ -171,7 +173,7 @@ function reportComment() {
         //	直播时间/主播名字
         //$("#wrap_playTime").html(template('data_name',data.resultObject));
         $(".wrapAll_comment").hide();
-
+        $(".bg_modal").hide();
         requestService("/xczh/criticize/getCriticizeList",{
             courseId : course_id
         },function(data) {
