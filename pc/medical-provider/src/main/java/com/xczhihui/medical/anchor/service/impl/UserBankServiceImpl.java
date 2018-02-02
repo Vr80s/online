@@ -73,16 +73,15 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			String bankInfo = EntityUtils.toString(response.getEntity());
 			JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
 			String code = bankInfoJson.get("showapi_res_code").toString();
+			if(!"0".equals(code)){
+				throw new RuntimeException("银行卡信息有误");
+			}
 			String srb = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject srbJson = JSONObject.parseObject(srb);
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
 			String Telephone = belong.get("tel").toString();
 			String cardType = belong.get("cardType").toString();
 			userBank.setCertType(cardType);
-
-		if(!"0".equals(code)){
-			throw new RuntimeException("银行卡信息有误");
-		}
 		if(!Telephone.equals(userBank.getTel())){
 			throw new RuntimeException("银行卡号与银行不匹配");
 		}
