@@ -24,11 +24,24 @@ $(function(){
 	    $(".account_main_message").hide();
 	    $(".personal_details").hide();
 	    $(".message_return").hide();
+	    $("#zhuanji").hide();
+	    $("#resource").hide();
+	    $(".curriculum_one").hide();
+	    $(".curriculum_two").show();
+	    
+	    $(".courseP").addClass("activeP");
+	    $(".specialP").removeClass("activeP");
+	    $(".liveP").removeClass("activeP");
+	    $(".schedulingP").removeClass("activeP");
+	    $(".resourceP").removeClass("activeP");
+	    
+	    
 	    
 //	    alert(135214);
 	    
 	    $("#curriculum").show();
 	    $(".wrap_box").show();
+	    $(".littleBoxs").slideUp("slow");
 	    
 	});
 	
@@ -112,10 +125,23 @@ $(function(){
 //这是点击资源结束
 	
 
-//点击账号列表   
+//点击账号列表    
 $(".account_number").click(function() {
     $("#curriculum").hide();
     $(".begin_approve").show();
+    $(".school").show();
+    $(".physician_one").show();
+    $(".physician_two_two").hide();
+    $(".message_return").hide();
+    $("#resource").hide();
+    
+    
+//  处理学堂关闭
+    $(".littleBox").slideUp("slow");
+    
+    
+    $(".name_news").addClass("activeP");
+	$(".name_personage").removeClass("activeP");
 });
 
 
@@ -162,6 +188,119 @@ $(".message_return .message_title .two").click(function() {
 
 
 
+//判断医师认证为空 
+$('.physician_two .approve').click(function(){
+//	姓名为空
+	var NameWarnings = $.trim($('.physician_two .name_put0').val());
+	
+//身份证号为空
+	var NameCard = $.trim($('.physician_two .name_put1').val());
+	
+	//姓名为空
+	if(NameWarnings == ''){
+		$('.physician_two .two_warning0').removeClass('hide');
+		return false;
+	}else{
+		$('.physician_two .two_warning0').addClass('hide');
+	}
+	
+	//身份证号为空
+	if(NameCard == ''){
+		$('.physician_two .two_warning1').removeClass('hide');
+		return false;
+	}else{
+		$('.physician_two .two_warning1').addClass('hide');
+	}
+	
+})
+
+
+
+//判断个人信息为空 
+$('.message_return .name_btn').click(function(){
+//	昵称为空
+	var NicknameNull = $.trim($('.message_return .put0').val());
+	
+	//个人介绍
+	var ReferralNull = $.trim($('.message_return .textarea').val());
+	
+	//任职医馆
+	var OfficelNull = $.trim($('.message_return .put1').val());
+	
+//	详细地址
+	var AddressNull = $.trim($('.message_return .name_textarea').val());
+	
+	
+	//昵称为空
+	if(NicknameNull == ''){
+		$('.message_return .return_warning0').removeClass('hide');
+		return false;
+	}else{
+		$('.message_return .return_warning0').addClass('hide');
+	}
+	
+//	个人时间
+	if(ReferralNull == ''){
+		$('.message_return .return_warning3').removeClass('hide');
+		return false;
+	}else{
+		$('.message_return .return_warning3').addClass('hide');
+	}
+	
+//	任职医馆
+	if(OfficelNull == ''){
+		$('.message_return .return_warning4').removeClass('hide');
+		return false;
+	}else{
+		$('.message_return .return_warning4').addClass('hide');
+	}
+	
+	//	城市-详细地址
+	if(AddressNull == ''){
+		$('.message_return .return_warning5').removeClass('hide');
+		return false;
+	}else{
+		$('.message_return .return_warning5').addClass('hide');
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+})
+
+
+
+
+
+
+
+//账户个人信息城市
+$('#demo1').citys({
+    required:false,
+    nodata:'disabled',
+    onChange:function(data){
+        var text = data['direct']?'(直辖市)':'';
+        $('#places').text('当前选中地区：'+data['province']);
+        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+    }
+});
+
+
+
+//课程新课程  城市
+$('#demo2').citys({
+    required:false,
+    nodata:'disabled',
+    onChange:function(data){
+        var text = data['direct']?'(直辖市)':'';
+        $('#place').text('当前选中地区：'+data['province']);
+        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+    }
+});
 	
 	
 	

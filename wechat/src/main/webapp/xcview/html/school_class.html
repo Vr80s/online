@@ -9,14 +9,15 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
-<link rel="stylesheet" href="../css/live_audio.css" />
+<link rel="stylesheet" href="../css/school_class.css" />
 
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../js/live_audio.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+
+<script type="text/javascript" src="../js/school_class.js"></script>
 
 
 	
@@ -26,7 +27,7 @@
 <div class="wp">
 	<div class="wrap-header">
 		<div class="header">		
-			<p>课程</p>
+			<p>线下课</p>
 			<div class="arror_return z">
 				<img src="../images/back icon.png"/>
 			</div>
@@ -40,9 +41,6 @@
 		<!--<div class="video_prompt">
 			暂未开播
 		</div>-->
-		<div class="video_prompt_open">
-			<img src="../images/play_btn.png"/>
-		</div>
 	</div>
 	<!--主讲人-->
 	<div class="speak_people" id="speak_people">
@@ -86,35 +84,26 @@
 	<!--主播/时间-->
 	<div class="wrap_playTime" id="wrap_playTime">
 		<script type="text/html" id="data_name">
-			<ul class="playTime z">
-				<li><img src="../images/population.png"/><span>{{name}}</span></li>
-				<li>
-					<a href="live_personal.html?userLecturerId={{userLecturerId}}">
-						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  />
-					</a>
-				</li>
-			</ul>
-			
-			{{if collection == true}}
-			<ul class="playTime z" style="border-top: 0.01rem solid #D8DDE6;">
-				<li><img src="../images/population.png"/><span>共{{courseNumber}}集</span></li>
-				<li>
-					<a href="course_outline.html?courseId={{id}}">
+		<ul class="playTime z">
+			<li><img src="../images/population.png"/><span>{{name}}</span></li>
+			<li>
+				<a href="live_personal.html?userLecturerId={{userLecturerId}}">
+					<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  />
+				</a>
+			</li>
+		</ul>
+		<ul class="playTime z">
+			<li style="float: left;">
+				<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
+				<span class="">开课时间：{{startTime}} - {{endTime}}</span>
 
-						<img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem; float: right;"  />
-						<span class="look_text">查看大纲</span>
-					</a>
-				</li>
-			</ul>
-			{{/if}}
-			<!--<ul class="playTime z" style="border-bottom: 0;">
-				<li style="float: left;">
-					<img style="margin-top: 0.03rem;" src="../images/Sinatv_time.png"/>
-					<span>直播时间：2017.12.30&nbsp;&nbsp;12:00&nbsp;&nbsp;</span>
-					<p>直播中</p>
-				</li>
-			</ul>-->
-		</script>	
+			</li>
+		</ul>
+		<ul class="playTime z" style="border-bottom: 0;">
+			<li><img src="../images/population.png"/><span>上课地址：{{city}}</span></li>
+			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  /></li>
+		</ul>
+		</script>
 	</div>
 <!--详情开始-->
 	<p class="my_details">详情</p>
@@ -174,110 +163,120 @@
 	<div class="wrap_all_returned">  <!--渲染存放盒子-->
 		<script type="text/html" id="wrap_people_comment">
 			{{each items as item i}}
-		<div class="wrap_people_comment">
-			<div class="wrap_comment_text">
-				<!--头像-->
-				<div class="user_header">
-					<img src="{{item.onlineUser.smallHeadPhoto}}"/>
-				</div>
-				<!--右边评论-->
-				<div class="user_text">
-					<div class="wrap_userName">
-						<p class="z">{{item.onlineUser.name}}</p>
-						{{if item.overallLevel == 1}}
-						<img class="z" src="../images/xing1_0.png"/>
-						{{else if item.overallLevel == 2}}
-						<img class="z" src="../images/xing2.png"/>
-						{{else if item.overallLevel == 3}}
-						<img class="z" src="../images/xing3.png"/>
-						{{else if item.overallLevel == 4}}
-						<img class="z" src="../images/xing4_0.png"/>
-						{{else if item.overallLevel == 5}}
-						<img class="z" src="../images/xing5.png"/>
-						{{/if}}
+			<div class="wrap_people_comment">
+				<div class="wrap_comment_text">
+					<!--头像-->
+					<div class="user_header">
+						<img src="{{item.onlineUser.smallHeadPhoto}}"/>
+					</div>
+					<!--右边评论-->
+					<div class="user_text">
+						<div class="wrap_userName">
+							<p class="z">{{item.onlineUser.name}}</p>
+							{{if item.overallLevel == 1}}
+							<img class="z" src="../images/xing1_0.png"/>
+							{{else if item.overallLevel == 2}}
+							<img class="z" src="../images/xing2.png"/>
+							{{else if item.overallLevel == 3}}
+							<img class="z" src="../images/xing3.png"/>
+							{{else if item.overallLevel == 4}}
+							<img class="z" src="../images/xing4_0.png"/>
+							{{else if item.overallLevel == 5}}
+							<img class="z" src="../images/xing5.png"/>
+							{{/if}}
 
-					</div>
-					<!--很赞/干货很多-->
-					<div class="uesr_lable">
-						{{if item.criticizeLable !=null}}
-						<ul>
-							{{if item.criticizeLable.indexOf('1')>-1}}
-							<li>很赞</li>
-							{{/if}}
-							{{if item.criticizeLable.indexOf('2')>-1}}
-							<li>干货很多</li>
-							{{/if}}
-							{{if item.criticizeLable.indexOf('3')>-1}}
-							<li>超值推荐</li>
-							{{/if}}
-							{{if item.criticizeLable.indexOf('4')>-1}}
-							<li>喜欢</li>
-							{{/if}}
-							{{if item.criticizeLable.indexOf('5')>-1}}
-							<li>买对了</li>
-							{{/if}}
-						</ul>
-						{{/if}}
-					</div>
-					<!--回复的内容-->
-					<p class="write_text">
-						{{item.content}}
-					</p>
-					<!--被回复的内容灰色部分-->
-					{{if item.reply.length > 0}}
-					<div class="uesr_returned">
-						<p class="returned_id z">{{item.reply[0].onlineUser.name}}</p>
-						<p class="returned_text">{{item.reply[0].replyContent}}</p>
-					</div>
-                    {{/if}}
-					<!--回复时间/点赞/评论按钮-->
-					<div class="wrap_returned_btn">
-						<ul>
-							<li>{{item.createTime}}</li>
-							<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
-								<img src="../images/returned.png"/>
-							</li>
-							<li class="btn_click_zan"  data-id ="{{item.id}}"  >
-								{{if item.isPraise }}
-								<img src="../images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseSum}}</span>
-								{{else}}
-								<img src="../images/zan01.png"/>&nbsp;<span id="zan01">{{item.praiseSum}}</span>
+						</div>
+						<!--很赞/干货很多-->
+						<div class="uesr_lable">
+							{{if item.criticizeLable !=null}}
+							<ul>
+								{{if item.criticizeLable.indexOf('1')>-1}}
+								<li>很赞</li>
 								{{/if}}
-							</li>
+								{{if item.criticizeLable.indexOf('2')>-1}}
+								<li>干货很多</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('3')>-1}}
+								<li>超值推荐</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('4')>-1}}
+								<li>喜欢</li>
+								{{/if}}
+								{{if item.criticizeLable.indexOf('5')>-1}}
+								<li>买对了</li>
+								{{/if}}
+							</ul>
+							{{/if}}
+						</div>
+						<!--回复的内容-->
+						<p class="write_text">
+							{{item.content}}
+						</p>
+						<!--被回复的内容灰色部分-->
+						{{if item.reply.length > 0}}
+						<div class="uesr_returned">
+							<p class="returned_id z">{{item.reply[0].onlineUser.name}}</p>
+							<p class="returned_text">{{item.reply[0].replyContent}}</p>
+						</div>
+						{{/if}}
+						<!--回复时间/点赞/评论按钮-->
+						<div class="wrap_returned_btn">
+							<ul>
+								<li>{{item.createTime}}</li>
+								<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
+									<img src="../images/returned.png"/>
+								</li>
+								<li class="btn_click_zan"  data-id ="{{item.id}}"  >
+									{{if item.isPraise }}
+									<img src="../images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseSum}}</span>
+									{{else}}
+									<img src="../images/zan01.png"/>&nbsp;<span id="zan01">{{item.praiseSum}}</span>
+									{{/if}}
+								</li>
 
-						</ul>
+							</ul>
+						</div>
 					</div>
+
+					<!--购买者显示-->
+					{{if item.isBuy  }}
+					<div class="wrap_purchaser">
+						<p>购买者</p>
+					</div>
+					{{/if}}
 				</div>
 
-				<!--购买者显示-->
-				{{if item.isBuy  }}
-				<div class="wrap_purchaser">
-					<p>购买者</p>
-				</div>
-				{{/if}}
 			</div>
-
-		</div>
 			{{/each}}
 		</script>
 	</div>
-<!--评论结束-->	
-
+	
+	
+	
+	<div id="sure_isBuy">	
+		<script type="text/html" id="data_isBuy">
 					
-			
-			
-		<!--底下评论输入框-->	
-		<div class="wrap_user_input">
-			<div class="wrap_input z">
-				<img src="../images/inp_retured.png"/>
-				<span>来点儿神聊</span>
+			<!--底部购买价格-->
+			<div class="bot_price">
+				{{if watchState==0}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>{{currentPrice}}</span>熊猫币</p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_buy()">
+					购买
+				</a>
+				{{else if watchState==1}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>免费</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_mianfei()">
+					立即报名
+				</a>
+				{{/if}}
 			</div>
-			<div class="all_returned_num y">
-				<img src="../images/returned.png"/>
-				<p>评论999+</p>
-			</div>
-		</div>
 
+		</script>
+	</div>
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
@@ -292,10 +291,10 @@
 			</li>
 			<li onclick="replyComment()">发表评论</li>
 		</ul>
-	</div>	
+	</div>
 	<!--评论弹出框-->
 	<div class="bg_modal"></div>
-	
+
 	<div class="wrapAll_comment">
 		<p class="set_title">发布评论</p>
 		<!--星星五星好评-->
@@ -308,7 +307,7 @@
 			<img src="../images/xing1.png"/>
 			<span></span>
 		</div>
-	<!--主播演绎好评-->
+		<!--主播演绎好评-->
 		<div class="my_impression2 cl mar_bot">
 			<p>主播演绎</p>
 			<img src="../images/face0.png"/>
@@ -318,7 +317,7 @@
 			<img src="../images/face0.png"/>
 			<span></span>
 		</div>
-	<!--节目内容好评-->
+		<!--节目内容好评-->
 		<div class="my_impression3 cl">
 			<p>节目内容</p>
 			<img src="../images/face0.png"/>
@@ -359,6 +358,7 @@
 	
 	
 	
+	
 </div>
 	
 
@@ -373,7 +373,7 @@
 </script>
 <!--详情点击隐藏和显示-->
 <script>
-		$(function(){
+		
 //			简介内容
 			$('.btn').prepend('<a href="#">展开全部</a>');
 			  $(".btn").toggle(function(){
@@ -404,6 +404,7 @@
 			     $(".wrap1").addClass("pp1");
 //			     $(".wrap1").attr("style");
 			 })
-		 })
+
 	</script>
+
 </html>

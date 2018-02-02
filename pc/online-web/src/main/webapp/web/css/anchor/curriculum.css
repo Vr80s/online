@@ -779,6 +779,8 @@
 /*第二页*/
 .wrap_box  #curriculum .zhuanlan_bottom {
 	padding: 30px 20px;
+	padding: 0;
+	margin-top: 30px;
 }
 .wrap_box  #curriculum .zhuanlan_bottom form > div {
 	margin-bottom: 20px;

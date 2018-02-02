@@ -8,6 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Resource;
 
+import com.xczhihui.bxg.online.common.enums.VCodeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +48,15 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 	public String addMessage(String username, String vtype) {
 		
 		initSystemVariate();
-		if (!"1".equals(vtype) && !"2".equals(vtype)) {
-			throw new RuntimeException ("动态码类型错误！1为注册，2为找回密码");
+		if (VCodeType.getType(Integer.valueOf(vtype)) == null) {
+			throw new RuntimeException ("动态码类型错误！1注册2.重置密码3.提现");
 		}
 		
 		ItcastUser iu = userCenterAPI.getUser(username);
 		/**
 		 * 新注册，根据用户中心判断用户是否存在
 		 */
-		if ("1".equals(vtype) && iu != null) {
+		if (VCodeType.REGISTER.getCode() == Integer.valueOf(vtype) && iu != null) {
 			throw new RuntimeException (String.format("该%s已注册，请直接登录！",username.contains("@") ? "邮箱" : "手机号"));
 		}
 
@@ -63,16 +64,16 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 		/**
 		 * 重置密码，根据本地库判断用户是否存在
 		 */
-		if ("2".equals(vtype) && (o == null || iu == null)) {
+		if (VCodeType.RESET.getCode() == Integer.valueOf(vtype) && (o == null || iu == null)) {
 			throw new RuntimeException ("用户不存在！");
 		}
 		/**
 		 * 重置密码，根据用户中心判断用户是否被禁用
 		 */
-		if ("2".equals(vtype) && iu.getStatus() == -1) {
+		if (VCodeType.RESET.getCode() == Integer.valueOf(vtype) && iu.getStatus() == -1) {
 			throw new RuntimeException ("用户已禁用！");
 		}
-		
+
 		// 产生随机4位动态码
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
 		List<VerificationCode> codes = dao.findByHQL("from VerificationCode where phone=? and vtype=? ", username,vtype);

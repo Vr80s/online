@@ -22,4 +22,14 @@
 		ORDER BY car.`create_time` DESC
 	</select>
 
+	<select id="selectAllCourseResourcesForUpdateDuration" resultType="com.xczhihui.medical.anchor.model.CourseApplyResource">
+		SELECT
+		  car.id,car.`resource`
+		FROM
+		  `course_apply_resource` car
+		WHERE car.`is_delete` = 0
+		AND car.`length` IS NULL
+		ORDER BY car.`create_time` ASC
+	</select>
+
 </mapper>
