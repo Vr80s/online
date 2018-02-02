@@ -2,8 +2,23 @@
  * Created by admin on 2017/1/3.
  */
 $(function () {
+	
+	
+	//顶部医师字体变色
 	$('.forum').css('color','#000');
 	$('.path .doctor').addClass('select');
+	
+	//登入之后进行判断 右侧医师入驻入口是否有
+	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+	  	if(data.success == true){
+	  		//判断
+	  		if(data.resultObject.indexOf(1) != -1){
+	  			//医师认证成功
+	  			$('.forum-hosJoin').addClass('hide');
+	  		}
+	  	}
+	  });
+	
 	
 	
     /*相关课程*/
