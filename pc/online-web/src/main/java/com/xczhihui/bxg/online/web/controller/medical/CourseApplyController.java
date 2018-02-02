@@ -111,6 +111,18 @@ public class CourseApplyController {
     }
 
     /**
+     * Description：获取资源播放代码
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 10:18 2018/2/1 0001
+     **/
+    @RequestMapping(value = "/getCourseResourcePlayer",method= RequestMethod.GET)
+    public ResponseObject getCourseResource(HttpServletRequest request,Integer resourceId){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseResourcePlayerById(user.getId(),resourceId));
+    }
+
+    /**
      * Description：新增课程申请
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -165,7 +177,7 @@ public class CourseApplyController {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 上午 9:18 2018/1/23 0023
      **/
-    @RequestMapping(value = "getWebinarUrl", method = RequestMethod.POST)
+    @RequestMapping(value = "getWebinarUrl")
     public ResponseObject getWebinarUrl(String webinarId) {
         ResponseObject responseObj = new ResponseObject();
         String url = VhallUtil.getWebinarUrl(webinarId);
@@ -180,7 +192,7 @@ public class CourseApplyController {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 9:45 2018/2/1 0001
      **/
-    @RequestMapping(value = "getVhallInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "getVhallInfo")
     public ResponseObject getVhallInfo(HttpServletRequest request,String webinarId) {
         ResponseObject responseObj = new ResponseObject();
         Map vhallInfo = new HashMap();
@@ -189,6 +201,26 @@ public class CourseApplyController {
         vhallInfo.put("password",user.getVhallPass());
         responseObj.setSuccess(true);
         responseObj.setResultObject(vhallInfo);
+        return responseObj;
+    }
+
+    /**
+     * Description：上/下架课程
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 9:18 2018/1/23 0023
+     **/
+    @RequestMapping(value = "changeSaleState", method = RequestMethod.POST)
+    public ResponseObject changeSaleState(HttpServletRequest request,String courseApplyId,Integer state) {
+        ResponseObject responseObj = new ResponseObject();
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        courseApplyService.updateSaleState(user.getId(),courseApplyId,state);
+        responseObj.setSuccess(true);
+        if(state==1){
+            responseObj.setResultObject("上架成功");
+        }else{
+            responseObj.setResultObject("下架成功");
+        }
         return responseObj;
     }
 }
