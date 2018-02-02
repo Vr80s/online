@@ -174,7 +174,7 @@ public class MyManagerController {
 			HttpServletResponse res) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		return ResponseObject.newSuccessResponseObject(userCoinService
 				.getEnchashmentBalanceByUserId(user.getId()));
@@ -406,7 +406,7 @@ public class MyManagerController {
 	@RequestMapping("settlement")
 	@ResponseBody
 	public ResponseObject settlement(HttpServletRequest req,
-			@RequestParam("xbmNumber") Integer xbmNumber,
+			@RequestParam("xmbNumber") Integer xmbNumber,
 			@RequestParam("orderFrom") Integer orderFrom) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
@@ -416,7 +416,7 @@ public class MyManagerController {
 			/**
 			 * 结算服务
 			 */
-			enchashmentService.saveSettlement(user.getId(), xbmNumber,OrderFrom.valueOf(orderFrom));
+			enchashmentService.saveSettlement(user.getId(), xmbNumber,OrderFrom.valueOf(orderFrom));
 			return ResponseObject.newSuccessResponseObject("结算成功");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -424,7 +424,6 @@ public class MyManagerController {
 			return ResponseObject.newSuccessResponseObject(e.getMessage());
 		}
 	}
-
 
 	/**
 	 * Description：提现前-- 验证银行卡信息时候正确
@@ -492,7 +491,7 @@ public class MyManagerController {
 			 * 发送短信验证码
 			 */
 			String str =onlineUserService.addMessage(userName, SMSCode.WITHDRAWAL.getCode());
-			if("发送成功！".equals(str)){
+			if("发送成功".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
 				return ResponseObject.newErrorResponseObject(str);

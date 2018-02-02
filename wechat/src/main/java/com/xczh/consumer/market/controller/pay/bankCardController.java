@@ -50,13 +50,11 @@ public class bankCardController {
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-
 		userBank.setUserId(user.getId());
-
-			userBankService.addUserBank(userBank);
-			return  ResponseObject.newSuccessResponseObject("添加成功");
+		userBankService.addUserBank(userBank);
+		return  ResponseObject.newSuccessResponseObject("创建成功");
 
 	}
 
@@ -66,7 +64,7 @@ public class bankCardController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 
 		List<UserBank> userBankList = userBankService.selectUserBankByUserId(user.getId());

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xczhihui.wechat.course.mapper.QQClientUserMappingMapper">
+
+     <!-- qq用户唯一标识获取 -->
+	<select id="selectQQClientUserMappingByOpenId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+		SELECT
+			*
+		FROM
+		  qq_client_user_mapping qcum
+				WHERE qcum.open_id = #{openId}  limit 1
+	</select>
+	
+	<!-- 通过熊猫中医用户id获取  -->
+	<select id="selectQQClientUserMappingByUserId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+		SELECT
+			*
+		FROM
+		  qq_client_user_mapping qcum
+				WHERE qcum.user_id = #{userId} and qcum.open_id = #{openId} limit 1
+	</select>
+	
+</mapper>

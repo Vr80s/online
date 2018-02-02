@@ -56,7 +56,7 @@ public class LookHistoryController {
 			}
 			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
 			if(ou==null){
-			   return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			   return ResponseObject.newErrorResponseObject("登录失效");
 			}
 			//params.put("user_id", ou.getId());
 			WatchHistory target = new WatchHistory();
@@ -90,7 +90,7 @@ public class LookHistoryController {
 			return ResponseObject.newSuccessResponseObject(watchHistoryServiceImpl.selectWatchHistory(page, ou.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("保存失败");
+			return ResponseObject.newErrorResponseObject("数据有误");
 		}
 	}
 	
@@ -100,14 +100,14 @@ public class LookHistoryController {
 		try {
 			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
-			   return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			   return ResponseObject.newErrorResponseObject("登录失效");
 			}
 			watchHistoryServiceImpl.deleteBatch(ou.getUserId());
 			return ResponseObject.newSuccessResponseObject("清空成功");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("保存失败");
+			return ResponseObject.newErrorResponseObject("清空失败");
 		}
 	}
 	

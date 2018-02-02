@@ -242,7 +242,7 @@ public class CommonController {
 		
 	    OnlineUser ou =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(ou==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
@@ -269,7 +269,7 @@ public class CommonController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
@@ -305,7 +305,7 @@ public class CommonController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
@@ -337,7 +337,7 @@ public class CommonController {
 		String course_pwd =req.getParameter("course_pwd");
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		return onlineCourseService.saveCoursePwdAndConfirm(user,course_id,course_pwd);
 	}
@@ -364,7 +364,7 @@ public class CommonController {
 		//获取用户信息
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 	    int isSubscribeInfo =  onlineCourseService.selectSubscribeInfoIs(Integer.parseInt(course_id),user.getId());
 	    if(isSubscribeInfo>0){
@@ -401,7 +401,7 @@ public class CommonController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");

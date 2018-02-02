@@ -453,7 +453,7 @@ public class VideoDao extends SimpleHibernateDao {
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.userId =:userId ");
 	       	  paramMap.put("userId", teacherId);
-	       }else{
+	       }else if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.courseId =:courseId ");
 	       	  paramMap.put("courseId", Integer.parseInt(courseId));
 	       }

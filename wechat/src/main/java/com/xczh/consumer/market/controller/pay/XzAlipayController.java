@@ -148,7 +148,6 @@ public class XzAlipayController {
 		AlipayTradeWapPayRequest alipay_request = new AlipayTradeWapPayRequest();
 		
 		
-		
 		/***********************************/
 		
 		
@@ -248,7 +247,7 @@ public class XzAlipayController {
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		String ap = null;
 		ap = actualPay;
@@ -418,7 +417,7 @@ public class XzAlipayController {
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		// 订单号 支付的钱
 		String ap = actualPay;
@@ -965,7 +964,7 @@ public class XzAlipayController {
 		 * params2.put("token",request.getParameter("token")); OnlineUser user =
 		 * appBrowserService.getOnlineUserByReq(request, params2); //
 		 * onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000"); if
-		 * (user == null) { throw new RuntimeException("登录超时！"); }
+		 * (user == null) { throw new RuntimeException("登录失效"); }
 		 */
 
 		String ap = null;

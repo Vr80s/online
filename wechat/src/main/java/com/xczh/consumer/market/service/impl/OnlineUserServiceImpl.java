@@ -294,7 +294,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			}
 		}
 		sendPhone(username, vcode, vtype);
-		return "发送成功！";
+		return "发送成功";
 	}
 	
 	private void sendPhone(String phone, String vcode,Integer vtype){
@@ -509,7 +509,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		//为了方便测试战时不做这个测试了
 		sendPhoneCheck(username, vcode, vtype);
-		return "发送成功！";
+		return "发送成功";
 	}
 	/**
 	 * 
@@ -532,7 +532,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			e.printStackTrace();
 		}
 		if (response==null || !"OK".equals(response.getCode())) {
-			throw new RuntimeException ("发送动态码失败！");
+			throw new RuntimeException ("发送失败");
 		}
 	}
 	

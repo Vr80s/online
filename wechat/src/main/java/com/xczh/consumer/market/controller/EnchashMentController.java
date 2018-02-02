@@ -46,7 +46,7 @@ public class EnchashMentController {
 //        params2.put("token",request.getParameter("token"));
 //        OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 //        if (user == null) {
-//            throw new RuntimeException("登录超时！");
+//            throw new RuntimeException("登录失效");
 //        }
 //      enchashmentApplication.setUserId(user.getId());
 //      enchashmentService.saveEnchashmentApplyInfo(userId, enchashmentSum, bankCardId, orderFrom);
@@ -73,7 +73,7 @@ public class EnchashMentController {
         params2.put("token",request.getParameter("token"));
         OnlineUser user = appBrowserService.getOnlineUserByReq(request, params2);
         if (user == null) {
-            throw new RuntimeException("登录超时！");
+            throw new RuntimeException("登录失效");
         }
         return ResponseObject.newSuccessResponseObject(userCoinService.getEnchashmentBalanceByUserId(user.getId()));
     }

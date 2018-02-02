@@ -133,7 +133,7 @@ public class XzUserController {
 			}
 			LOGGER.info("vtype"+vtype);
 			String str = onlineUserService.addMessage(username, vtype);
-			if("发送成功！".equals(str)){
+			if("发送成功".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
 				return ResponseObject.newErrorResponseObject(str);
@@ -339,7 +339,7 @@ public class XzUserController {
 		//短信验证码
 		String str = onlineUserService.changeMobileSendCode(username,vtype);
 		try {
-			if("发送成功！".equals(str)){
+			if("发送成功".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
 				return ResponseObject.newErrorResponseObject(str);

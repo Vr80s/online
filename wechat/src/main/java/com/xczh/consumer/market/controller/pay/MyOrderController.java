@@ -58,7 +58,7 @@ public class MyOrderController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		return onlineOrderService.addOrder(courseId,user.getId(),orderFrom);
 	}
@@ -77,7 +77,7 @@ public class MyOrderController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		return onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo);
 	}
@@ -97,7 +97,7 @@ public class MyOrderController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		return onlineOrderService.getOnlineOrderByOrderId(orderId);
 	}
@@ -117,7 +117,7 @@ public class MyOrderController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		int pageNumber = 0;
 		if(null != req.getParameter("pageNumber")){
@@ -155,7 +155,7 @@ public class MyOrderController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		return ResponseObject.newSuccessResponseObject(onlineOrderService.listPayRecordItem(req.getParameter("orderNo").toString()));
 	}

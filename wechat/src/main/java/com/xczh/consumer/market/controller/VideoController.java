@@ -68,7 +68,7 @@ public class VideoController {
 //		//获取当前登陆用户信息
 //        OnlineUser user = cacheService.get(userId);
 //        if(user ==null){
-//        	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+//        	return ResponseObject.newErrorResponseObject("登录失效");
 //        }
         //isTryLearn 是否试学
         boolean isTryLearn= true;
