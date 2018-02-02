@@ -77,6 +77,8 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			JSONObject srbJson = JSONObject.parseObject(srb);
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
 			String Telephone = belong.get("tel").toString();
+			String cardType = belong.get("cardType").toString();
+			userBank.setCertType(cardType);
 
 		if(!"0".equals(code)){
 			throw new RuntimeException("银行卡信息有误");
@@ -102,6 +104,12 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	@Override
 	public List<UserBank> selectUserBankByUserId(String userId) {
 		return userBankMapper.selectUserBankByUserId(userId);
+	}
+
+	@Override
+	public void deleteBankCard(String userId, String acctName, String acctPan, String certId) {
+		userBankMapper.deleteBankCard(userId,acctName,acctPan,certId);
+
 	}
 
 
