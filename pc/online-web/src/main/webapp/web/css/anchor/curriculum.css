@@ -861,6 +861,11 @@
 /*右侧资源列表内容*/
 .wrap_box  #curriculum #kecheng_bottom2{
 	padding: 31px 20px 59px;
+    padding-top: 30px;
+    padding: 0;
+}
+.wrap_box  #curriculum #kecheng_bottom2 .zhuanlan_top{
+	margin-bottom: 30px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table tr td {
 	text-align: center;
@@ -890,7 +895,7 @@
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(2),
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(2){
-	width: 153px;
+	width: 193px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(3),
 .wrap_box  #curriculum .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
@@ -1209,6 +1214,7 @@ pre {
 }
 .wrap_box  #zhuanji #zhuanji_bottom2{
 	padding: 31px 20px 59px;
+	padding: 0;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table tr td {
 	text-align: center;
@@ -1238,7 +1244,7 @@ pre {
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(2),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(2){
-	width: 153px;
+	width: 193px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(3),
 .wrap_box  #zhuanji .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
@@ -2156,4 +2162,86 @@ pre {
 }
 
 
+/*资源上传*/
+/*#ziyuan_bottom .name
+
+
+#ziyuan_bottom .name span:first-child{
+	display: inline-block;
+    width: 89px;
+    text-align: right;
+    font-size: 14px;
+    color: #2A2A2A;
+    line-height: 19px;
+    margin-right: 20px;
+    float: left;
+    margin-top: 18px;
+    margin-right: 24px;
+}
+#ziyuan_bottom .name span:first-child > em{
+	color: #f40;
+    display: inline;
+}
+
+#ziyuan_bottom .name .input-group{
+	width: 260px;
+    height: 147px;
+    float: left;
+    background: #F0F0F0;
+    border: 1px solid #F0F0F0;
+    margin-right: 20px;
+    margin-left: 0;
+    position: relative;
+}
+
+#ziyuan_bottom .name .input-group .row_size{
+	position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+#ziyuan_bottom .name .input-group .row_size .one{
+	font-size: 74px;
+    color: #D8D8D8;
+    width: 260px;
+}
+#ziyuan_bottom .name .input-group .row_size .two{
+	font-size: 14px;
+    color: #999999;
+    width: 260px;
+}
+#ziyuan_bottom .name .input-group .big-photo{
+	padding: 0;
+    width: 260px;
+}
+#ziyuan_bottom .name .input-group .big-photo .preview{
+	position: absolute;
+    top: 0;
+    left: 0;	
+}
+#ziyuan_bottom .name .input-group .big-photo input{
+	display: block !important;
+    width: 262px;
+    height: 147px;
+    outline: none;
+    opacity: 0;
+}
+#ziyuan_bottom .name .hint{
+	font-size: 14px;
+    color: #999999;
+    line-height: 24px;
+    float: left;
+    margin-top: 48px;
+}
+
+#ziyuan_bottom .name .hint div{
+	font-size: 14px;
+    color: #999999;
+}*/
+
+
+/*处理课程  补加*/
+#curriculum .curriculum_one{
+	display: none;
+}
 

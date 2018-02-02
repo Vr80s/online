@@ -19,6 +19,7 @@ public class Config {
 	public static String api_video = "http://spark.bokecc.com/api/video";
 	// api_video api获取指定视频接口，第二版
 	public static String api_video_v2 = "http://spark.bokecc.com/api/video/v2";
+	public static String api_video_v3 = "http://spark.bokecc.com/api/video/v3";
 	// api_category api获取用户全部分类接口
 	public static String api_category = "http://spark.bokecc.com/api/video/category";
 	// 创建分类

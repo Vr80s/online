@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
+import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
@@ -110,6 +111,18 @@ public class CourseApplyController {
     }
 
     /**
+     * Description：获取资源播放代码
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 10:18 2018/2/1 0001
+     **/
+    @RequestMapping(value = "/getCourseResourcePlayer",method= RequestMethod.GET)
+    public ResponseObject getCourseResource(HttpServletRequest request,Integer resourceId){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseResourcePlayerById(user.getId(),resourceId));
+    }
+
+    /**
      * Description：新增课程申请
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
@@ -147,8 +160,15 @@ public class CourseApplyController {
     public ResponseObject saveCourseResource(HttpServletRequest request, @RequestBody CourseApplyResource courseApplyResource){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyResource.setUserId(user.getId());
+//        try {
+//            String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
+//            courseApplyResource.setLength(duration);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseObject.newErrorResponseObject("网络异常,请重试");
+//        }
         courseApplyService.saveCourseApplyResource(courseApplyResource);
-        return ResponseObject.newSuccessResponseObject("课程新增申请发起成功！");
+        return ResponseObject.newSuccessResponseObject("资源新增成功！");
     }
 
     /**
@@ -157,12 +177,50 @@ public class CourseApplyController {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 上午 9:18 2018/1/23 0023
      **/
-    @RequestMapping(value = "getWebinarUrl", method = RequestMethod.POST)
+    @RequestMapping(value = "getWebinarUrl")
     public ResponseObject getWebinarUrl(String webinarId) {
         ResponseObject responseObj = new ResponseObject();
         String url = VhallUtil.getWebinarUrl(webinarId);
         responseObj.setSuccess(true);
         responseObj.setResultObject(url);
+        return responseObj;
+    }
+
+    /**
+     * Description：
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 9:45 2018/2/1 0001
+     **/
+    @RequestMapping(value = "getVhallInfo")
+    public ResponseObject getVhallInfo(HttpServletRequest request,String webinarId) {
+        ResponseObject responseObj = new ResponseObject();
+        Map vhallInfo = new HashMap();
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        vhallInfo.put("vhallAccount","v"+user.getVhallId());
+        vhallInfo.put("password",user.getVhallPass());
+        responseObj.setSuccess(true);
+        responseObj.setResultObject(vhallInfo);
+        return responseObj;
+    }
+
+    /**
+     * Description：上/下架课程
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 上午 9:18 2018/1/23 0023
+     **/
+    @RequestMapping(value = "changeSaleState", method = RequestMethod.POST)
+    public ResponseObject changeSaleState(HttpServletRequest request,String courseApplyId,Integer state) {
+        ResponseObject responseObj = new ResponseObject();
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        courseApplyService.updateSaleState(user.getId(),courseApplyId,state);
+        responseObj.setSuccess(true);
+        if(state==1){
+            responseObj.setResultObject("上架成功");
+        }else{
+            responseObj.setResultObject("下架成功");
+        }
         return responseObj;
     }
 }

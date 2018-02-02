@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper">
+    <update id="updateSaleState">
+		UPDATE
+		  `oe_course` oc
+		  JOIN `course_apply_info` cai
+			ON oc.`apply_id` = cai.`id` SET oc.`status` = #{state}
+		WHERE cai.id = #{courseApplyId}
+		  AND cai.`user_id` = #{userId}
+	</update>
 
-	<select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+    <select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
 		SELECT
 		  cai.id,
 		  cai.img_path imgPath,

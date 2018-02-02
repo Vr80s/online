@@ -6,6 +6,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.base.controller.OnlineBaseController;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.utils.RandomUtil;
 import com.xczhihui.bxg.online.web.base.common.Constant;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.UserUtil;
@@ -97,9 +98,10 @@ public class BBSUserController extends OnlineBaseController {
 						return ResponseObject.newErrorResponseObject("用户已禁用");
 					}
 					if(o.getVhallId()==null){
-						String vhallId = VhallUtil.createUser(o,password);
+						String vhallPassword = RandomUtil.getCharAndNumr(6);
+						String vhallId = VhallUtil.createUser(o,vhallPassword);
 						o.setVhallId(vhallId);
-						o.setVhallPass(password);
+						o.setVhallPass(vhallPassword);
 						o.setVhallName(o.getId());
 						service.updateVhallInfo(o);
 					}
@@ -202,10 +204,10 @@ public class BBSUserController extends OnlineBaseController {
 				Token token = this.createToken(userCenterAPI.getUser(vcode.split("!@!")[0]), TokenExpires.Day.getExpires());
 				OnlineUser user = this.userCenterService.getUserByLoginName(vcode.split("!@!")[0]);
 				if(user.getVhallId()==null){
-					String password = "123456";//邮箱注册用户密码默认123456
-					String vhallId = VhallUtil.createUser(user,password );
+					String vhallPassword = RandomUtil.getCharAndNumr(6);
+					String vhallId = VhallUtil.createUser(user,vhallPassword );
 					user.setVhallId(vhallId);
-					user.setVhallPass(password);
+					user.setVhallPass(vhallPassword);
 					user.setVhallName(user.getId());
 					service.updateVhallInfo(user);
 				}
