@@ -71,10 +71,11 @@ header{
 .bank_card_one{
 	width: 6.98rem;
 	height: 2rem;
-	background: #C2404F;
+	/*background: #C2404F;*/
 	margin: 0 auto;
     border-radius: 16px;
     margin-bottom: 0.2rem;
+	background-size: 100% 100%;
 }
 .bank_card_logo{
 	width: 0.6rem;

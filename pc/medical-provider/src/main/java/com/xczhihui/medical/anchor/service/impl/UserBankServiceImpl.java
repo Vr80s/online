@@ -67,6 +67,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		querys.put("cert_id", userBank.getCertId());
 		querys.put("cert_type", "01");
 		querys.put("needBelongArea", "true");
+		String Telephone="";
 		try {
 			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
 
@@ -79,15 +80,16 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			String srb = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject srbJson = JSONObject.parseObject(srb);
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
-			String Telephone = belong.get("tel").toString();
+			Telephone = belong.get("tel").toString();
 			String cardType = belong.get("cardType").toString();
 			userBank.setCertType(cardType);
-		if(!Telephone.equals(userBank.getTel())){
-			throw new RuntimeException("银行卡号与银行不匹配");
-		}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("添加失败");
+		}
+		if(!Telephone.equals(userBank.getTel())){
+			throw new RuntimeException("银行卡号与银行不匹配");
 		}
 		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
 		if(userBankList!=null&&userBankList.size()>0){
@@ -110,11 +112,10 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	}
 
 	@Override
-	public void deleteBankCard(String userId, String acctName, String acctPan, String certId) {
-		userBankMapper.deleteBankCard(userId,acctName,acctPan,certId);
+	public void deleteBankCard(Integer id) {
+		userBankMapper.deleteBankCard(id);
 
 	}
-
 
 	private void validateUserBank(UserBank userBank) {
 		if(StringUtils.isBlank(userBank.getUserId())){
