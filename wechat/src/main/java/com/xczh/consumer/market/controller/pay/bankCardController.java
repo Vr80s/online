@@ -81,9 +81,23 @@ public class bankCardController {
 	public ResponseObject getBankCardList(HttpServletRequest req) throws Exception{
 
         List<Map>  getBankCardList = BankCardType.getBankCardList();
-
-
 		return  ResponseObject.newSuccessResponseObject(getBankCardList);
+	}
+
+	@RequestMapping(value = "deleteBankCard")
+	@ResponseBody
+	public ResponseObject deleteBankCard(HttpServletRequest req,
+										 @RequestParam("acctName")String acctName,
+										 @RequestParam("acctPan")String acctPan,
+										 @RequestParam("certId")String certId) throws Exception{
+
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}
+
+		userBankService.deleteBankCard(user.getId(),acctName,acctPan,certId);
+		return  ResponseObject.newSuccessResponseObject("删除成功");
 	}
 
 }
