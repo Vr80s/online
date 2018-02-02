@@ -82,7 +82,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
 			Telephone = belong.get("tel").toString();
 			String cardType = belong.get("cardType").toString();
-			userBank.setCertType(cardType);
+			userBank.setCardType(cardType);
 
 		} catch (Exception e) {
 			e.printStackTrace();
