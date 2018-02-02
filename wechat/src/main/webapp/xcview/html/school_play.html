@@ -9,14 +9,14 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <!--<link rel="stylesheet" href="../css/animate.css" />-->
-<link rel="stylesheet" href="../css/live_paly.css" />
+<link rel="stylesheet" href="../css/school_play.css" />
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 
 
 <script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/live_play.js"></script>
+<script type="text/javascript" src="../js/school_play.js"></script>
 
 
 
@@ -36,15 +36,9 @@
 			</div>
 		</div>
 	</div>
-	<!--视频暂未开播-->
+	<!--视频封面-->
 	<div class="play_video">
-		<!--<div class="video_prompt">
-			暂未开播
-		</div>-->
-		<!--视频开播-->
-		<div class="video_prompt_open">
-			<img src="../images/play_btn.png"/>
-		</div>
+	
 	</div>
 	
 	
@@ -257,19 +251,42 @@
 	</div>
 	<!--评论结束-->
 
+	<div id="sure_isBuy">	
+		<script type="text/html" id="data_isBuy">
+			
+				
+			<!--底部购买价格-->
+			<div class="bot_price">
+				{{if watchState==0}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>{{currentPrice}}</span>熊猫币</p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_buy()">
+					购买
+				</a>
+				{{else if watchState==1}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>免费</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_mianfei()">
+					立即观看
+				</a>
+				{{/if}}
+			</div>
 
-	<!--底下评论输入框-->
-	<div class="wrap_user_input">
-		<div class="wrap_input z">
-			<img src="../images/inp_retured.png"/>
-			<span>来点儿神聊</span>
-		</div>
-		<div class="all_returned_num y">
-			<img src="../images/returned.png"/>
-			<p>评论999+</p>
-		</div>
+			<!--底下评论输入框-->
+			<div class="wrap_user_input">
+				<div class="wrap_input z">
+					<img src="../images/inp_retured.png"/>
+					<span>来点儿神聊</span>
+				</div>
+				<div class="all_returned_num y">
+					<img src="../images/returned.png"/>
+					<p>评论999+</p>
+				</div>
+			</div>
+		</script>
 	</div>
-
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
