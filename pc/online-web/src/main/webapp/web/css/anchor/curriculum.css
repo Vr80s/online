@@ -1356,6 +1356,9 @@ pre {
 	float: left;
 	margin-top: 10px;
 }
+#resourceType span{
+	margin-top: 0 !important;
+}
 .wrap_box  #zhuanji .zhuanlan_bottom form > div >span:first-child > em{
 	color: #f40;
 	display: inline;
