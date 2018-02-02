@@ -110,29 +110,43 @@ $(function(){
 		var email = $.trim($('.hos_base_inf .doc_hospital').val());
 		var province = $('#hos_Administration .hos_base_inf #choosePro  option:selected').text();
 		var city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
-		
+		var wechat =  $('#hos_Administration .hos_base_inf  .hos_weixin').val();
+		var headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
+		var hoslist = [];
+		for(var i = 0;i < $('#hos_pic img').length ; i++){
+			    hoslist.push($('#hos_pic img').eq(i).attr('src'));
+		}
+
 		//通过验证进行医馆基础信息的数据上传
 		//发送认证请求
-//		RequestService("/medical/hospital/update", "post", {
-//				headPortrait:,
-//				description:,
-//				contactor:name,
-//				email:email,
-//				wechat:,
-//				province:province,
-//				city:city,
-//				pictures:,
-				//此处的areaList 实在ResidentHospitals中定义的
-//				fieldIds:areaList	
-//			}, function(data) {
-//				console.log(data);
-//			if(data.success == false){
-//				alert('认证失败');
-//			}else if(data.success == true){
-//				alert('认证成功');
-//			}
-//
-//		})
+		RequestService("/medical/hospital/update", "post", {
+				headPortrait:headPortrait,
+				description:hosIntroduct,
+				contactor:name,
+				email:email,
+				wechat:wechat,
+				province:province,
+				city:city,
+				pictures:hoslist,
+//				此处的areaList 实在ResidentHospitals中定义的
+				fieldIds:areaList	
+			}, function(data) {
+				console.log(data);
+			if(data.success == false){
+				$('#tip').text('基础信息提交失败');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
+			}else if(data.success == true){
+				$('#tip').text('基础信息提交成功');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
+			}
+
+		})
 	})
 	
 	
