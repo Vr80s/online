@@ -203,4 +203,5 @@ public interface CourseService {
 			Integer pageSize);
 
 
+    void updateCourseException();
 }

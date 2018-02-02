@@ -92,6 +92,13 @@ $(function(){
     //传ID courseId为接口的课程ID，评论列表
     refresh();
 })
+
+
+
+//JQ预加载分界线----------------------------------------------------------------------------------
+
+
+
 //刷新评论列表
 function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{

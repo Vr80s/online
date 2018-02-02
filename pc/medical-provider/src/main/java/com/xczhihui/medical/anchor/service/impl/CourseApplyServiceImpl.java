@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -321,6 +322,20 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         int i = courseApplyInfoMapper.updateSaleState(userId,courseApplyId,state);
         if(i<1){
             throw new RuntimeException("更新课程上架状态失败");
+        }
+    }
+
+    @Override
+    public void updateCourseApplyResource() {
+        List<CourseApplyResource> CourseApplyResources = courseApplyResourceMapper.selectAllCourseResourcesForUpdateDuration();
+        for (CourseApplyResource courseApplyResource : CourseApplyResources) {
+            try {
+                String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
+                courseApplyResource.setLength(duration);
+                courseApplyResourceMapper.updateById(courseApplyResource);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

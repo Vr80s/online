@@ -1,11 +1,15 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.domain.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -16,9 +20,6 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.Criticize;
-import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.CourseSubscribeDao;
 import com.xczhihui.bxg.online.web.dao.ScoreTypeDao;
@@ -49,6 +50,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
     @Autowired
     private ScoreTypeDao scoreTypeDao;
+
+    private static Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
     @Override
     public List<ScoreType> findAllScoreType() {
@@ -392,5 +395,25 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	 public  Page<Criticize>  findUserCriticize(Integer courseId, Integer pageNumber, Integer pageSize){
 	      return  coursedao.findUserCriticize(courseId, pageNumber,  pageSize);
 	 }
+
+    @Override
+    public void updateCourseException() {
+        List<Course> liveCourse = coursedao.getLiveCourse();
+        for (Course course : liveCourse) {
+            Date startTime = course.getStartTime();
+            Date now = new Date();
+            if((now.getTime()-startTime.getTime())>1000*60*30){
+                course.setStatus("0");
+                dao.update(course);
+                CourseException courseException = new CourseException();
+                courseException.setCourseId(course.getId());
+                courseException.setDeleted(false);
+                courseException.setType(1);
+                courseException.setCreateTime(new Date());
+                dao.save(courseException);
+                logger.info("课程id{}的直播课程由于超时未发起直播，被下架并插入课程异常表中");
+            }
+        }
+    }
 
 }

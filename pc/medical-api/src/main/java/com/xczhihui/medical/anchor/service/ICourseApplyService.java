@@ -74,4 +74,12 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      * @Date: 下午 10:25 2018/2/1 0001
      **/
     void updateSaleState(String id, String courseApplyId, Integer state);
+
+    /**
+     * Description：定时更新课程时间
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 2:19 2018/2/2 0002
+     **/
+    void updateCourseApplyResource();
 }

@@ -48,16 +48,17 @@ public class bankCardController {
 
 	@RequestMapping("addBankCard")
 	@ResponseBody
-	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,UserBank userBank)
+	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,
+										 @RequestParam("acctName")String acctName,
+										 @RequestParam("acctPan")String acctPan,
+										 @RequestParam("certId")String certId,
+										 @RequestParam("tel")String tel)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-
-		userBank.setUserId(user.getId());
-
-			userBankService.addUserBank(userBank);
+			userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
 			return  ResponseObject.newSuccessResponseObject("添加成功");
 
 	}

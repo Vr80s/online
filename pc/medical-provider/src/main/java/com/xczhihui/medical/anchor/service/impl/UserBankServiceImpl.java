@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.online.common.enums.BankCardType;
 import com.xczhihui.medical.anchor.mapper.UserBankMapper;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
@@ -40,7 +41,14 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	}
 
 	@Override
-	public void addUserBank(UserBank userBank) {
+	public void addUserBank(String userId,String acctName, String acctPan,String certId,String tel) {
+        UserBank userBank = new UserBank();
+        userBank.setUserId(userId);
+        userBank.setAcctName(acctName);
+        userBank.setAcctPan(acctPan);
+        userBank.setCertId(certId);
+        userBank.setBankName(BankCardType.getBankCard(Integer.parseInt(tel)));
+        userBank.setTel(tel);
 		validateUserBank(userBank);
 		UserBank ub = selectUserBankByUserIdAndAcctPan(userBank.getUserId(),userBank.getAcctPan(),userBank.getCertId());
 		if(ub!=null){
@@ -68,13 +76,12 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			String srb = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject srbJson = JSONObject.parseObject(srb);
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
-			String tel = belong.get("tel").toString();
-			String bankName = belong.get("bankName").toString();
-			userBank.setBankName(bankName);
+			String Telephone = belong.get("tel").toString();
+
 		if(!"0".equals(code)){
 			throw new RuntimeException("银行卡信息有误");
 		}
-		if(!tel.equals(userBank.getTel())){
+		if(!Telephone.equals(userBank.getTel())){
 			throw new RuntimeException("银行卡号与银行不匹配");
 		}
 		} catch (Exception e) {
