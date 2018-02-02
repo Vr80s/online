@@ -434,7 +434,7 @@ $(function () {
     $('#toHosJoin').click(function(){
     	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
-	       	if($('.login').css('display') == 'block'){
+	       	if($('.logout').css('display') == 'block' && data.resultObject.indexOf(2) == -1 && data.resultObject.indexOf(3) == -1 && data.resultObject.indexOf(5) == -1){
 	       		window.location.href = "/web/html/ResidentHospital.html";
 	       	}else if(data.resultObject.indexOf(2) != -1){
 	       		//医馆认证成功
