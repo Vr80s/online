@@ -197,7 +197,7 @@
 		SELECT md.id, md.name, md.title,md.status,
 			md.authentication_information_id, md.field_text
 		FROM medical_doctor md
-		where md.status = 1 AND md.id IN(
+		where md.deleted = 0 AND md.id IN(
 			SELECT mhd.doctor_id FROM medical_hospital_doctor mhd WHERE hospital_id = #{hospitalId}
 		)
 		<if test="doctorName != null">
