@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -126,40 +127,48 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         Date now = new Date();
         medicalHospital.setUpdateTime(now);
 
-        if(CollectionUtils.isNotEmpty(medicalHospital.getMedicalHospitalPictures())){
+        // 如果用户修改医馆照片
+        if(CollectionUtils.isNotEmpty(medicalHospital.getPictures())){
 
             // 删除之前的医馆照片
             hospitalPictureMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
 
-            List<MedicalHospitalPicture> hospitalPictures = medicalHospital.getMedicalHospitalPictures();
-            hospitalPictures.stream()
-                    .filter(hospitalPicture -> StringUtils.isNotBlank(hospitalPicture.getPicture()))
-                    .forEach(hospitalPicture -> {
+            // 新增-新的医馆照片
+            List<String> hospitalPictureUrlList = medicalHospital.getPictures();
+            List<MedicalHospitalPicture> hospitalPictures = hospitalPictureUrlList.stream()
+                    .filter(hospitalPictureUrl -> StringUtils.isNotBlank(hospitalPictureUrl))
+                    .map(hospitalPictureUrl -> {
+                        MedicalHospitalPicture hospitalPicture = new MedicalHospitalPicture();
                         hospitalPicture.setId(UUID.randomUUID().toString().replace("-",""));
                         hospitalPicture.setHospitalId(medicalHospital.getId());
+                        hospitalPicture.setPicture(hospitalPictureUrl);
                         hospitalPicture.setDeleted(false);
                         hospitalPicture.setStatus(true);
                         hospitalPicture.setCreateTime(now);
-                    });
+                        return hospitalPicture;
+                    }).collect(Collectors.toList());
 
-            hospitalPictureMapper.insertBatch(hospitalPictures);
+            if(CollectionUtils.isNotEmpty(hospitalPictures)){
+                hospitalPictureMapper.insertBatch(hospitalPictures);
+            }
         }
 
-        if(CollectionUtils.isNotEmpty(medicalHospital.getFields())){
+        // 如果用户修改医馆领域
+        if(CollectionUtils.isNotEmpty(medicalHospital.getFieldIds())){
 
             // 删除之前的医馆领域
             hospitalFieldMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
 
             // 新增-新的领域
-            List<MedicalField> fields = medicalHospital.getFields();
+            List<String> fieldIds = medicalHospital.getFieldIds();
             List<MedicalHospitalField> hospitalFields = new ArrayList<>();
 
-            for (MedicalField field : fields){
+            for (String fieldId : fieldIds){
 
                 MedicalHospitalField hospitalField = new MedicalHospitalField();
                 hospitalField.setId(UUID.randomUUID().toString().replace("-",""));
                 hospitalField.setHospitalId(medicalHospital.getId());
-                hospitalField.setFieldId(field.getId());
+                hospitalField.setFieldId(fieldId);
                 hospitalField.setDeleted(false);
                 hospitalField.setCreateTime(now);
 

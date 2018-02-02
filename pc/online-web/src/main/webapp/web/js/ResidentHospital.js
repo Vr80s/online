@@ -1,6 +1,9 @@
 var userPic = $('.userPic').css('background')
+//顶部的医馆按钮变色效果
 $('.forum').css('color','#000');
 $('.path .hospital').addClass('select');
+
+
 
 RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
@@ -12,6 +15,26 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 				}
 			};
 		});
+
+//上线下线的按钮点击事件
+$('#doc_Administration_bottom2').on('click','.downLine',function(){
+	var id = $(this).attr('data-id');
+	var status = $(this).attr('data-status');
+	RequestService("/medical/doctor/update", "post", {
+		id:id,
+		status:status
+	}, function(data) {
+		if(data.success == true){
+			//重新渲染列表
+			$('.doc_Administration_tabBtn').click();
+		}
+			
+	});
+})
+	
+
+
+
 
 
 //获取医馆认证状态控制左侧tab栏
@@ -79,94 +102,94 @@ $(".doctor_inf > img,.news_nav .picModal").on("click", function() {
 
 
 
-		function img() {
-		//清空文件
-		function clearFileInput(file) {
-			var form = document.createElement('form');
-			document.body.appendChild(form);
-			//记住file在旧表单中的的位置
-			var pos = file.nextSibling;
-			form.appendChild(file);
-			form.reset();
-			pos.parentNode.insertBefore(file, pos);
-			document.body.removeChild(form);
+	function img() {
+	//清空文件
+	function clearFileInput(file) {
+		var form = document.createElement('form');
+		document.body.appendChild(form);
+		//记住file在旧表单中的的位置
+		var pos = file.nextSibling;
+		form.appendChild(file);
+		form.reset();
+		pos.parentNode.insertBefore(file, pos);
+		document.body.removeChild(form);
+	}
+	$(".imgClose,.btn-quit").click(function() {
+		$('.cropped-con').html('');
+		$(".img-box1").css("display", "block");
+		$(".imageBox").css("display", "none");
+		$(".tc").css("display", "none");
+		$(".mask").css("display", "none");
+		$("#headImg").css("display", "none");
+		$("body").css("overflow", "auto");
+		var file = document.getElementById("upload-file");
+		clearFileInput(file);
+		$(".btn-upload").attr("data-img","");
+		$(".imageBox").css("background-image", "");
+	})
+	var options = {
+		thumbBox: '.thumbBox',
+		spinner: '.spinner',
+		imgSrc: ""
+	}
+	var cropper = $('.imageBox').cropbox(options);
+	var img = "";
+	$('#upload-file').on('change', function() {
+		var filepath = $(this).val();
+		if(filepath==""){
+			return false;
 		}
-		$(".imgClose,.btn-quit").click(function() {
-			$('.cropped-con').html('');
-			$(".img-box1").css("display", "block");
-			$(".imageBox").css("display", "none");
-			$(".tc").css("display", "none");
-			$(".mask").css("display", "none");
-			$("#headImg").css("display", "none");
-			$("body").css("overflow", "auto");
+		var extStart = filepath.lastIndexOf(".");
+		var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+		if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
+			//							layer.msg("图片限于bmp,png,gif,jpeg,jpg格式", {
+			//								icon: 2
+			//							});
+			$(".rrrrTips").text("图片限于bmp,png,gif,jpeg,jpg格式").css("display", "block");
 			var file = document.getElementById("upload-file");
 			clearFileInput(file);
-			$(".btn-upload").attr("data-img","");
-			$(".imageBox").css("background-image", "");
-		})
-		var options = {
-			thumbBox: '.thumbBox',
-			spinner: '.spinner',
-			imgSrc: ""
-		}
-		var cropper = $('.imageBox').cropbox(options);
-		var img = "";
-		$('#upload-file').on('change', function() {
-			var filepath = $(this).val();
-			if(filepath==""){
-				return false;
-			}
-			var extStart = filepath.lastIndexOf(".");
-			var ext = filepath.substring(extStart, filepath.length).toUpperCase();
-			if(ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG" && ext != ".JPEG") {
-				//							layer.msg("图片限于bmp,png,gif,jpeg,jpg格式", {
-				//								icon: 2
-				//							});
-				$(".rrrrTips").text("图片限于bmp,png,gif,jpeg,jpg格式").css("display", "block");
-				var file = document.getElementById("upload-file");
-				clearFileInput(file);
-				setTimeout(function() {
-					$(".rrrrTips").css("display", "none");
-				}, 1500);
-			} else if(($("#upload-file").get(0).files[0].size / 1024 / 1024) > 1) {
-				$(".rrrrTips").text("图片大小不超过1M").css("display", "block");
-				var file = document.getElementById("upload-file")
-				clearFileInput(file);
-				setTimeout(function() {
-					$(".rrrrTips").css("display", "none");
-				}, 1500);
-			} else {
-				if(filepath) {
-					$(".img-box1").css("display", "none");
-					$(".imageBox").css("display", "block");
-					$(".tc").css("display", "block");
-					var reader = new FileReader();
-					reader.onload = function(e) {
-						options.imgSrc = e.target.result;
-						cropper = $('.imageBox').cropbox(options);
-						getImg();
-					}
-					reader.readAsDataURL(this.files[0]);
-					this.files = [];
+			setTimeout(function() {
+				$(".rrrrTips").css("display", "none");
+			}, 1500);
+		} else if(($("#upload-file").get(0).files[0].size / 1024 / 1024) > 1) {
+			$(".rrrrTips").text("图片大小不超过1M").css("display", "block");
+			var file = document.getElementById("upload-file")
+			clearFileInput(file);
+			setTimeout(function() {
+				$(".rrrrTips").css("display", "none");
+			}, 1500);
+		} else {
+			if(filepath) {
+				$(".img-box1").css("display", "none");
+				$(".imageBox").css("display", "block");
+				$(".tc").css("display", "block");
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					options.imgSrc = e.target.result;
+					cropper = $('.imageBox').cropbox(options);
 					getImg();
-					//								return $(".imageBox").click(function() {
-					//									getImg();
-					//								});
 				}
+				reader.readAsDataURL(this.files[0]);
+				this.files = [];
+				getImg();
+				//								return $(".imageBox").click(function() {
+				//									getImg();
+				//								});
 			}
-		})
-
-		function getImg() {
-			img = cropper.getDataURL();
-			$('.cropped-con').html('');
-			$('.cropped-con').append('<img src="' + img + '" align="absmiddle" style="width:80px;height:80px;margin-top:28px;border-radius:80px;" class="img01"><p style="font-size:12px;color:#666;margin-top:6px;">80px*80px</p>');
-			$('.cropped-con').append('<img src="' + img + '" align="absmiddle" style="width:40px;height:40px;margin-top:28px;border-radius:40px;"><p style="font-size:12px;color:#666;margin-top:6px;">40px*40px</p>');
-			$(".btn-upload").attr("data-img",img);
 		}
-		$(".imageBox").on("mousemove mouseup", function() {
-			getImg()
-		})
+	})
+
+	function getImg() {
+		img = cropper.getDataURL();
+		$('.cropped-con').html('');
+		$('.cropped-con').append('<img src="' + img + '" align="absmiddle" style="width:80px;height:80px;margin-top:28px;border-radius:80px;" class="img01"><p style="font-size:12px;color:#666;margin-top:6px;">80px*80px</p>');
+		$('.cropped-con').append('<img src="' + img + '" align="absmiddle" style="width:40px;height:40px;margin-top:28px;border-radius:40px;"><p style="font-size:12px;color:#666;margin-top:6px;">40px*40px</p>');
+		$(".btn-upload").attr("data-img",img);
 	}
+	$(".imageBox").on("mousemove mouseup", function() {
+		getImg()
+	})
+}
 
 
 

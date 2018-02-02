@@ -199,13 +199,19 @@ $(function() {
 			headPortrait: headPortrait,
 			title: title,
 			fieldText:field,
-			"medicalDoctorAuthenticationInformation.titleProve": medicalDoctorAuthenticationInformation,
+			titleProve: medicalDoctorAuthenticationInformation,
 			description: description,
 			fieldText: field,
 			departmentIds:keshiStr
 		}, function(data) {
-			console.log(data);
-
+			
+			$('#tip').text('修改数据提交成功');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
+	       	$('#doc_Administration_bottom3').addClass('hide');
+	       	$('#mask').addClass('hide');
 		})
 
 	})

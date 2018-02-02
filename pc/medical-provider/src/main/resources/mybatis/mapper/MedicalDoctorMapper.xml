@@ -256,6 +256,9 @@
 			<if test="medicalDoctor.createPerson != null">
 				create_person,
 			</if>
+			<if test="medicalDoctor.fieldText != null">
+				field_text,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="medicalDoctor.id != null">
@@ -284,6 +287,9 @@
 			</if>
 			<if test="medicalDoctor.createPerson != null">
 				#{medicalDoctor.createPerson},
+			</if>
+			<if test="medicalDoctor.fieldText != null">
+				#{medicalDoctor.fieldText},
 			</if>
 		</trim>
 	</insert>
