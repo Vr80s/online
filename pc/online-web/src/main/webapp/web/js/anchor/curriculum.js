@@ -318,53 +318,8 @@ $('#zhuanlan .zhuanlan_top button').click(function(){
 
 
 
-//资源部分
-//资源部分点击上传资源
-var ziyuanCount = 1;
-$('#resource .zhuanlan_top button').click11(function(){
-	ziyuanCount *= -1;
-	//上传
-	if(ziyuanCount < 0){
-	//顶部变化
-	$(this).text('返回');
-	$(this).siblings('.title').text('新资源');
-	//底部变化
-	$('#ziyuan_bottom2').addClass('hide');
-	$('#ziyuan_bottom').removeClass('hide');
-	}else{
-		//取消上传
-		$(this).text('上传资源');
-		$(this).siblings('.title').text('资源');
-		//底部变化
-		$('#ziyuan_bottom').addClass('hide');
-		$('#ziyuan_bottom2').removeClass('hide');
-	}
-})
 
 
-//开始js
-//课程部分
-//课程部分点击
-var kechengCount = 1;
-$('#curriculum .zhuanlan_top button').click111(function(){
-	kechengCount *= -1;
-	//上传
-	if(kechengCount < 0){
-	//顶部变化
-	$(this).text('返回');
-	$(this).siblings('.title').text('新课程');
-	//底部变化
-	$('#curriculum #kecheng_bottom2').addClass('hide');
-	$('#curriculum #kecheng_bottom').removeClass('hide');
-	}else{
-		//取消上传
-		$(this).text('新课程');
-		$(this).siblings('.title').text('课程');
-		//底部变化
-		$('#curriculum  #kecheng_bottom').addClass('hide');
-		$('#curriculum  #kecheng_bottom2').removeClass('hide');
-	}
-})
 
 
 //处理点击--课程显示隐藏第一第二页
