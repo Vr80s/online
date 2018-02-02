@@ -5,6 +5,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
+import com.xczhihui.bxg.online.web.service.VerificationCodeService;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.IAssetService;
@@ -95,4 +96,5 @@ public class AssetController {
 //        userBankService.addUserBank(userBankCard);
         return ResponseObject.newSuccessResponseObject("结算成功！");
     }
+
 }
