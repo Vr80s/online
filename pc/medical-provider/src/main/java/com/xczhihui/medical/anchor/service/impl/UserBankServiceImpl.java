@@ -101,7 +101,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Override
 	public List<UserBank> selectUserBankByUserId(String userId) {
-		return userBankMapper.selectUserBankByUserId(userId);
+		List<UserBank> userBankCards = userBankMapper.selectUserBankByUserId(userId);
+		for (UserBank userBankCard : userBankCards) {
+			userBankCard.setAcctPan(dealBankCard(userBankCard.getAcctPan()));
+		}
+		return userBankCards;
 	}
 
 
@@ -118,5 +122,16 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		if(StringUtils.isBlank(userBank.getCertId())){
 			throw new RuntimeException("身份证号不可为空");
 		}
+	}
+
+	/**
+	 * Description：处理银行卡显示
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 4:05 2018/2/2 0002
+	 **/
+	public static String dealBankCard(String acctPan){
+		int length=acctPan.length();
+		return "***** ***** **** "+acctPan.substring(length-4);
 	}
 }

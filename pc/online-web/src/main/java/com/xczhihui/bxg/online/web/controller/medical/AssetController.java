@@ -92,9 +92,13 @@ public class AssetController {
      * @Date: 上午 11:54 2018/2/2 0002
      **/
     @RequestMapping(value = "/saveBankCard")
-    public ResponseObject saveBankCard(HttpServletRequest request,String name,String cardNo,Integer  bank,String IdCard){
-//        userBankService.addUserBank(userBankCard);
-        return ResponseObject.newSuccessResponseObject("结算成功！");
+    public ResponseObject saveBankCard(HttpServletRequest request,String acctName,String acctPan,String certId,String tel){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if(user==null){
+            return ResponseObject.newErrorResponseObject("未登录");
+        }
+        userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+        return ResponseObject.newSuccessResponseObject("新增银行卡成功！");
     }
 
 }
