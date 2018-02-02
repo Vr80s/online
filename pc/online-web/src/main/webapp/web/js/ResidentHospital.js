@@ -394,25 +394,25 @@ function picUpdown2(baseurl,imgname){
 	
 //医馆科室选择生成对应的数组
 	var arr = [];
-	var keshiStr;
+	var areaList;
 	$('#hos_Administration .hos_base_inf ').on('click','#areaList>li',function(){
 		if($(this).hasClass('keshiColor')){
 		//删除第二次选中的
 			for(var i = 0 ;i < arr.length; i++){
-				if($(this).text() == arr[i]){
+				if($(this).attr('data-id') == arr[i]){
 					arr.splice(i,1)
 				}
 			}
 //			console.log(arr.toString())
-			keshiStr = arr.toString();
+			areaList = arr.toString();
 			$(this).removeClass('keshiColor');	
 		}else{
 			$(this).addClass('keshiColor');
-			arr.push($(this).text());
+			arr.push($(this).attr('data-id'));
 //			console.log(arr.toString())
-			keshiStr = arr.toString();
+			areaList = arr.toString();
 		}
-		console.log(keshiStr)
+		console.log(areaList)
 	})	
 	
 	

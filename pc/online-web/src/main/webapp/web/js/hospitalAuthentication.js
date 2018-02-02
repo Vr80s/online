@@ -8,6 +8,7 @@ $(function(){
 	
 	
 	$('#hos_Administration .hos_base_inf #submit').click(function(){
+
 		var hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
 		var hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
 		var name = $.trim($('.hos_base_inf .doc_shanchang').val());
@@ -91,12 +92,38 @@ $(function(){
 			$('.hos_base_inf .WeChat_warn').addClass('hide');
 		}
 		
+			
+		//城市判断
+		if($('#hos_Administration .hos_base_inf #choosePro  option:selected').text()== '请选择所在省' ||$('#hos_Administration .hos_base_inf  #citys option:selected').text() == '请选择所在市'){
+			$('#hos_Administration .hos_base_inf .doc_address .warning').removeClass('hide');
+			return false;
+		}else{
+			$('#hos_Administration .hos_base_inf .doc_address .warning').addClass('hide');
+		}
 		
+		
+		
+		var hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
+		var hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
+		var name = $.trim($('.hos_base_inf .doc_shanchang').val());
+		var WeChat =  $.trim($('.hos_base_inf .hos_weixin').val());
+		var email = $.trim($('.hos_base_inf .doc_hospital').val());
+		var province = $('#hos_Administration .hos_base_inf #choosePro  option:selected').text();
+		var city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
 		
 		//通过验证进行医馆基础信息的数据上传
 		//发送认证请求
-//		RequestService("/medical/doctor/apply", "post", {
-//				
+//		RequestService("/medical/hospital/update", "post", {
+//				headPortrait:,
+//				description:,
+//				contactor:name,
+//				email:email,
+//				wechat:,
+//				province:province,
+//				city:city,
+//				pictures:,
+				//此处的areaList 实在ResidentHospitals中定义的
+//				fieldIds:areaList	
 //			}, function(data) {
 //				console.log(data);
 //			if(data.success == false){

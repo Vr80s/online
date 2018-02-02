@@ -11,6 +11,10 @@ $(function() {
 		//		alert(1)
 		//添加医师信息部分隐藏
 		$('#doc_Administration #doc_Administration_bottom').addClass('hide');
+		$('#doc_Administration #doc_Administration_bottom2').removeClass('hide');
+		if($('.add_newTeacher').text() == '返回'){
+			$('.add_newTeacher').click()
+		}
 		RequestService("/medical/hospital/getDoctors", "get", {
 			current: currentPage,
 			size: size,
