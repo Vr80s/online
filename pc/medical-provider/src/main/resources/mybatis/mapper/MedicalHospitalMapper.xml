@@ -15,6 +15,9 @@
 		<id column="score" property="score" />
 		<id column="authentication" property="authentication" />
 		<id column="front_img" property="frontImg" />
+		<id column="wechat" property="wechat" />
+		<id column="head_portrait" property="headPortrait" />
+		<id column="contactor" property="contactor" />
 	</resultMap>
 
 	<resultMap type="com.xczhihui.medical.hospital.vo.MedicalHospitalVo" id="MedicalHospitalListResult" extends="MedicalHospitalBaseResult">
@@ -127,10 +130,13 @@
 		  mh.authentication,
 		  mh.recommend,
 		  mh.front_img,
+		  mh.wechat,
+		  mh.head_portrait,
+		  mh.contactor,
 		  mhp.`picture`,
 		  mf.`name` fieldName
 		FROM
-		  medical_hospital mh LEFT JOIN `medical_hospital_picture` mhp ON mh.`id`=mhp.`hospital_id`
+		  medical_hospital mh LEFT JOIN `medical_hospital_picture` mhp ON mh.`id`=mhp.`hospital_id` AND mhp.deleted = 0
 		  LEFT JOIN `medical_hospital_field` mhf ON mh.id = mhf.`hospital_id`
 		  LEFT JOIN `medical_field` mf ON mf.`id`=mhf.`field_id`
 		WHERE mh.deleted = 0

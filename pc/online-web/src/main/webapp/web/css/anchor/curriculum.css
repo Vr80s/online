@@ -515,6 +515,61 @@
 	border: 1px solid #DEDEDE;
 }
 
+/*资源后加*/
+.resource_one{
+	display: none;
+}
+
+.resource_one #ziyuan_bottom{
+	padding: 0 !important;
+	margin-top: 30px;
+}
+.resource_two #ziyuan_bottom2{
+	padding: 0 !important;
+	margin-top: 30px;
+}
+/*点击资源出现弹框开始*/
+.resource_popout{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	display: none;
+}
+.resource_popout_bg{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: #000;
+	opacity: 0.3;
+}
+.resource_popout_main{
+	width: 1090px;
+	height: 580px;
+	background: #fff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -550px;
+	margin-top: -300px;
+	padding: 10px;
+	border-radius: 4px;
+}
+.resource_popout_main .close{
+	width: 100%;
+    height: 31px;
+    line-height: 27px;
+    text-align: right;
+    font-size: 28px;
+    color: #666;
+    margin-bottom: 46px;
+    cursor: pointer;
+}
+/*点击资源出现弹框结束*/
+
 
 /*医馆页面*/
 .contentWrap #hospital .zhuanlan_top{
@@ -724,6 +779,8 @@
 /*第二页*/
 .wrap_box  #curriculum .zhuanlan_bottom {
 	padding: 30px 20px;
+	padding: 0;
+	margin-top: 30px;
 }
 .wrap_box  #curriculum .zhuanlan_bottom form > div {
 	margin-bottom: 20px;
@@ -1297,6 +1354,7 @@ pre {
 	line-height: 19px;
 	margin-right: 20px;
 	float: left;
+	margin-top: 10px;
 }
 .wrap_box  #zhuanji .zhuanlan_bottom form > div >span:first-child > em{
 	color: #f40;
@@ -1518,20 +1576,20 @@ pre {
 /*.table_div table tbody tr td:first-child img{
 	width: 100%;
 }*/
-.table_div table tbody tr td:first-child {
+.table_div table thead tr td:first-child {
 	width: 126px;
 }
-.table_div table tbody > tr > td:nth-child(2){
+.table_div table thead > tr > td:nth-child(2){
 	width: 213px;
 }
 
-.table_div table tbody > tr > td:nth-child(3){
+.table_div table thead > tr > td:nth-child(3){
 	width: 80px;
 }
-.table_div table tbody > tr > td:nth-child(4){
+.table_div table thead > tr > td:nth-child(4){
 	width: 80px;
 }
-.table_div table tbody > tr > td:nth-child(5){
+.table_div table thead > tr > td:nth-child(5){
 	width: 100px;
 }
 
@@ -2093,6 +2151,10 @@ pre {
 	padding-top: 0 !important;
 }
 
+#zhuanji #zhuanji_bottom2 table{
+	margin-bottom: 30px;
+}
+
 #zhuanji #zhuanji_bottom2 .zhuanlan_top{
 	height: 60px;
     line-height: 60px;
@@ -2126,7 +2188,7 @@ pre {
 
 
 #zhuanji #zhuanji_bottom{
-	padding-top: 0 !important;
+	padding: 0 !important;
 	display: none;
 }
 

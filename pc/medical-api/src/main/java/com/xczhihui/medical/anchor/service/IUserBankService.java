@@ -8,7 +8,7 @@ public interface IUserBankService {
 
 	  public UserBank selectUserBankByUserIdAndAcctPan(String userId, String acctPan, String certId);
 
-	  void addUserBank(UserBank userBank);
+	  void addUserBank(String userId,String acctName, String acctPan,String certId,String tel);
 
 	  public List<UserBank> selectUserBankByUserId(String userId);
 

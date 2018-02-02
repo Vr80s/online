@@ -92,7 +92,20 @@ public class HospitalController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject update(MedicalHospital medicalHospital){
+    public ResponseObject update(MedicalHospital medicalHospital, HttpServletRequest request){
+
+        if(medicalHospital == null){
+            throw new RuntimeException("请选择要修改的医馆");
+        }
+
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalHospital.setUpdatePerson(currentUser.getUid());
+//        medicalHospital.setUpdatePerson("ff8080816142af54016149e069080000");
         medicalHospitalBusinessServiceImpl.update(medicalHospital);
         return ResponseObject.newSuccessResponseObject("修改成功");
     }

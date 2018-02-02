@@ -55,7 +55,8 @@
 	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
 	
 	<!--修改点击切换隐藏第一二页-->
-	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>	
+	
 
    </head>
 	<body>
@@ -63,7 +64,7 @@
 	<!--课程渲染开始-->
 	<script type="text/template" id="course_list_tpl">
 		{{each records as course i}}
-		<tr>
+		<tr class="tr_sold_out">
 			<td>
 				<img src="{{course.imgPath}}" alt="" />
 			</td>
@@ -106,7 +107,7 @@
 			</td>
 			<td>
 				
-				<a href="javascript:;">下架</a>
+				<a href="javascript:;" class="sold_out">下架</a>
 				<a href="javascript:;">编辑</a>
 			</td>
 		</tr>
@@ -117,7 +118,7 @@
 	<!--专辑渲染开始-->
 	<script type="text/template" id="course_collection_list_tpl">
 		{{each records as collection i}}
-		<tr>
+		<tr class="zhaunji_tr">
 			<td>
 				<img src="{{collection.imgPath}}" alt="" />
 			</td>
@@ -161,7 +162,7 @@
 				{{if collection.status==1}}
 				<a href="javascript:;">下架</a>
 				{{else}}
-				<a href="javascript:;">上架</a>
+				<a href="javascript:;" class="out">上架</a>
 				{{/if}}
 				{{else if collection.applyStatus==2}}
 				<a href="javascript:;">编辑</a>
@@ -204,7 +205,7 @@
 						
 						
 						<li class="select-uds">
-							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span>账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
+							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 							<div class="littleBoxs">
 								<p class="activeP name_news">认证信息</p>
 								<p class="name_personage">个人信息</p>
@@ -220,11 +221,11 @@
 			<!--右边内容-->
 			<div class="contentWrap y">
 				<!--课程-->
-				<div class="select_box" style="display: block;">两个课程是一样的</div>	
+				<!--<div class="select_box" style="display: block;">两个课程是一样的</div>-->	
 				<!--收徒-->
-				<div class="select_box">收徒</div>	
+				<!--<div class="select_box">收徒</div>-->	
 				<!--医馆-->
-				<div class="select_box" id="hospital">
+				<!--<div class="select_box" id="hospital" style="display: none;">
 					<div class="zhuanlan_top">
 						<span class="title">医馆</span>
 						<button>返回</button>
@@ -275,13 +276,13 @@
 						</div>
 						</form>
 					</div>
-				</div>
+				</div>-->
 				<!--专栏-->
-				<div class="select_box" id="ceshi">
+				<!--<div class="select_box" id="ceshi">
 					<div class="">我是测试</div>
-				</div>
+				</div>-->
 				
-				<div class="select_box">测试</div>	
+				<!--<div class="select_box">测试</div>-->	
 				
 				<!--著作-->
 				<!--<div class="select_box">著作</div>-->
@@ -297,9 +298,9 @@
 			<!--账号开始  账户有单独的css -->
 			<div class="account">   <!--account_mains  这是点击选择右侧div-->
 				<!--医师认证开始-->
-				<div class="account_main account_mains account_main_message">
+				<div class="begin_approve account_main account_mains account_main_message">
 					<!--医师认证开始-->
-					<div class="" style="display: none;">
+					<div class="physician_one">
 						<div class="account_main_title">认证信息</div>
 							<div class="reauthentication">
 								<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
@@ -339,7 +340,7 @@
 					
 					
 					<!--医馆认证开始-->
-					<div class="">
+					<div class="clinic_two account_one" style="display: none;">
 						<div class="account_main_title">认证信息</div>
 						<div class="reauthentication">
 							<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
@@ -373,9 +374,9 @@
 					</div>
 					<!--医馆认证结束-->
 				</div>
-				<div class="account_main account_main_alter">
+				<div class="account_main account_main_alter physician_two_two">
 					<!--医师认证开始-->
-					<div class="account_one" style="display: none !important;">
+					<div class="physician_two">
 						<div class="account_main_alter_title">
 							<div class="one">重新认证</div>
 							<div class="two">返回</div>
@@ -487,7 +488,7 @@
 					<!--医师认证结束-->
 					
 					<!--医馆认证开始-->
-					<div class="account_two">
+					<div class="account_two"  style="display: none !important;">
 						<div class="account_main_alter_title">
 							<div class="one">重新认证</div>
 							<div class="two">返回</div>
@@ -924,21 +925,21 @@
 						</div>
 					</div>
 						
-						
-						
-					</div>
-					
-					
-					<div class="yes_no">
-						<div class="yes_no_bg"></div>
-						<div class="yes_no_main">
-							<div class="top">是否下架</div>
-							<div class="bottom">
-								<div class="left">否</div>
-								<div class="right">是</div>
+						<div class="yes_no" style="display: block1;">
+							<div class="yes_no_bg"></div>
+							<div class="yes_no_main">
+								<div class="top">是否下架</div>
+								<div class="bottom">
+									<div class="left">否</div>
+									<div class="right">是</div>
+								</div>
 							</div>
 						</div>
+						
 					</div>
+					
+					
+					
 					
 					
 					<!--点击选择资源弹框开始-->
@@ -1009,15 +1010,19 @@
 							</div>
 						</div>
 						
-					</div>
-					<div class="pages collection_pages">
-						<div id="Pagination_collection" class="pagination-pages"></div>
-						<div class="searchPage">
-							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
-							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
-							<a href="javascript:;" class="page-btn">确定</a>
+						
+						<!--这是分页-->
+						<div class="pages collection_pages">
+							<div id="Pagination_collection" class="pagination-pages"></div>
+							<div class="searchPage">
+								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+								<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+								<a href="javascript:;" class="page-btn">确定</a>
+							</div>
 						</div>
+						
 					</div>
+					
 					
 					<div class="zhuanlan_bottom" id="zhuanji_bottom">
 						<div class="zhuanlan_top">
@@ -1212,11 +1217,21 @@
 										</td>
 									</tr>
 									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
+										<td>
+											
+										</td>
+										<td>
+											中医药席卷全
+										</td>
+										<td>
+											测试
+										</td>
+										<td>
+											￥200.00
+										</td>
+										<td>
+											<a href="javascript:;">移除</a>
+										</td>
 									</tr>
 								</tbody>
 							</table>
@@ -1546,136 +1561,165 @@
 				<div class="little_box">排课</div>
 				<!--资源-->
 				<div class="little_box" id="resource">
-					<div class="zhuanlan_top">
-						<span class="title">资源</span>
-						<button>上传资源</button>
-					</div>
-					<div class="zhuanlan_bottom hide" id="ziyuan_bottom">
-						<form action="">
-						<div>
-							<span><em>*</em>课程标题</span>
-							<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
-							<p class="warning warning0 hide">课程标题不能为空</p>
+					<div class="resource_one">
+						<div class="zhuanlan_top">
+							<span class="title">新资源</span>
+							<button>返回</button>
 						</div>
-						
-						
-						
-						<div id="resourceType">
-							<span><em>*</em>资源类型</span>
-							<label>
-								<input type="radio" name="resourceType" checked="checked" />视频
-							</label>
-							<label>
-								<input type="radio" name="resourceType" />音频
-							</label>
-						</div>
-						<div id="resourceUrl">
-							<span><em>*</em> 资源URL</span>
-							<input type="text" class="resource_put" />
-							<a href="javascript:;"><span>选择资源</span></a>
+						<div class="zhuanlan_bottom" id="ziyuan_bottom">
+							<form action="">
+							<div>
+								<span><em>*</em>课程标题</span>
+								<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
+								<p class="warning warning0 hide">课程标题不能为空</p>
+							</div>
 							
-							<p class="warning warning2 hide">请上传资源</p>
+							
+							
+							<div id="resourceType">
+								<span><em>*</em>资源类型</span>
+								<label>
+									<input type="radio" name="resourceType" checked="checked" />视频
+								</label>
+								<label>
+									<input type="radio" name="resourceType" />音频
+								</label>
+							</div>
+							<div id="resourceUrl">
+								<span><em>*</em> 资源URL</span>
+								<input type="text" class="resource_put" />
+								<a href="javascript:;"><span>选择资源</span></a>
+								
+								<p class="warning warning2 hide">请上传资源</p>
+							</div>
+							<div class="baocun">
+								<input type="submit" value="保存" id="submit"/>
+							</div>
+							</form>
 						</div>
-						<div class="baocun">
-							<input type="submit" value="保存" id="submit"/>
+					</div>
+					<div class="resource_two">
+						<div class="zhuanlan_top">
+							<span class="title">资源</span>
+							<button class="">上传资源</button>
 						</div>
-						</form>
+						<div class="zhuanlan_bottom2" id="ziyuan_bottom2">
+							<table>
+								 <thead>
+								<tr>
+									<td>封面图</td>
+									<td>标题</td>
+									<td>状态</td>
+									<td>编辑时间</td>
+									<td>操作</td>
+								</tr>
+								 </thead>
+								  <tbody>
+								<tr class="tr_preview">
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="" />
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										已发布
+									</td>
+									<td>
+										2017.11.12
+									</td>
+									<td>
+										<a href="javascript:;" class="preview">预览</a>
+										<a href="javascript:;">下线</a>
+										<a href="javascript:;">编辑</a>
+									</td>
+								</tr>
+								<tr class="tr_preview">
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="" />
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										已发布
+									</td>
+									<td>
+										2017.11.12
+									</td>
+									<td>
+										<a href="javascript:;" class="preview">预览</a>
+										<a href="javascript:;">删除</a>
+									</td>
+								</tr>
+								<tr class="tr_preview">
+									<td>
+										<img src="/web/images/hospital/hospital_pic.png" alt="" />
+									</td>
+									<td>
+										中医药席卷全球成独特风景，发展热情被彻底点燃
+									</td>
+									<td>
+										已发布
+									</td>
+									<td>
+										2017.11.12
+									</td>
+									<td>
+										<a href="javascript:;" class="preview">预览</a>
+										<a href="javascript:;">删除</a>
+									</td>
+								</tr>
+								<tr class="tr_preview">
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr class="tr_preview">
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr class="tr_preview">
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr class="tr_preview">
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					
 					</div>
 					
-					<div class="zhuanlan_bottom2" id="ziyuan_bottom2">
-						<table>
-							 <thead>
-							<tr>
-								<td>封面图</td>
-								<td>标题</td>
-								<td>状态</td>
-								<td>编辑时间</td>
-								<td>操作</td>
-							</tr>
-							 </thead>
-							  <tbody>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									已发布
-								</td>
-								<td>
-									2017.11.12
-								</td>
-								<td>
-									<a href="javascript:;">预览</a>
-									<a href="javascript:;">下线</a>
-									<a href="javascript:;">编辑</a>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="/web/images/hospital/hospital_pic.png" alt="" />
-								</td>
-								<td>
-									中医药席卷全球成独特风景，发展热情被彻底点燃
-								</td>
-								<td>
-									已发布
-								</td>
-								<td>
-									2017.11.12
-								</td>
-								<td>
-									<a href="javascript:;">预览</a>
-									<a href="javascript:;">删除</a>
-								</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							</tbody>
-						</table>
+					<!--点击资源出现弹框开始-->
+					<div class="resource_popout">
+						<div class="resource_popout_bg"></div>
+						<div class="resource_popout_main">
+							<div class="close">×</div>
+						</div>
 					</div>
+					<!--点击资源出现弹框结束-->
+					
 					
 					
 				</div>
@@ -1725,6 +1769,8 @@
 	-->
 	</body>
 	
+	
+	
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
@@ -1732,7 +1778,76 @@
 	<script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 	<script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
   	
-
+  	
+  	<script type="text/javascript">
+  		window.onload = function(){
+//			点击课程--下架
+			$(".tr_sold_out .sold_out").click(function() {
+				
+				alert(1242);
+			    $(".yes_no").show();
+			});
+			
+			
+			//点击是否隐藏
+			$(".yes_no .bottom .left").click(function() {
+			    $(".yes_no").hide();
+			});
+			$(".yes_no .bottom .right").click(function() {
+			    $(".yes_no").hide();
+			});
+			
+//          点击专辑里--移除和更新时间
+			//更新时间
+			$("#times_div div").click(function(){
+				
+				if(!$(this).hasClass("div_one0")){
+					   	$(this).addClass("div_one0");
+					}else{
+					    $(this).removeClass("div_one0");
+				}
+				
+			});
+			
+			//删除当前行
+			$(".tbody_tbody tr td:last-child").click(function() {
+			    $(this).parent().remove();
+			});
+			
+			
+			//专辑下架
+			$(".zhaunji_tr td .out").click(function() {
+			    $(".no_yes").show();
+			});
+			
+			//点击是否隐藏
+			$(".no_yes .bottom .left").click(function() {
+			    $(".no_yes").hide();
+			});
+			$(".no_yes .bottom .right").click(function() {
+			    $(".no_yes").hide();
+			});
+			
+			
+//			点击资源预览	
+			$(".tr_preview .preview").click(function() {
+			    $(".resource_popout").show();
+			});
+			//点击是否隐藏
+			$(".resource_popout .close").click(function() {
+			    $(".resource_popout").hide();
+			});
+			
+			
+			$(".courseP").click();
+			$(".school").click();
+			
+			
+			
+			
+  		};
+  	</script>
+	
 
 
 </html>
