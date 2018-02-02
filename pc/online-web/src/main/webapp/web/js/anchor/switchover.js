@@ -133,7 +133,7 @@ $(".account_number").click(function() {
     $(".physician_one").show();
     $(".physician_two_two").hide();
     $(".message_return").hide();
-    
+    $("#resource").hide();
     
     
 //  处理学堂关闭
