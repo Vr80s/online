@@ -44,12 +44,13 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 	       		}
 	       	}else if(data.resultObject.indexOf(1) != -1){
 	       		//医师认证成功
-	       		$('#docpass_tip').removeClass('hide');
+//	       		$('#docpass_tip').removeClass('hide');
 	       		$('.ImDoc_btn').removeClass('hide');
 	       		$('.DocAut_btn').addClass('hide');
+	       		$('#AutList').addClass('hide');
+	       		$('#AutStatus').removeClass('hide');
 	       	}
-	       }
-
+	     }
 	    });
 
 	//在医师认证通过的页面设置了一个localStorage 在这个取出来判断 执行重新认证 并且清楚localStorage的值

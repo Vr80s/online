@@ -7,7 +7,7 @@ $(function(){
 	
 		//已有账号登陆之后进行的页面跳转
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-	       if(data.success == true ){
+	       if(data.success == true && $('.login').css('display') == 'block'){
 	       	if(data.resultObject.indexOf(1) != -1){
 	       		//医师认证成功 医师认证中 医师认证拒绝 跳转到认证状态页面
 	       		window.location.href = "/web/html/anchors_resources.html";
