@@ -112,6 +112,12 @@ $(function(){
 //这是点击资源结束
 	
 
+//点击账号列表   
+$(".account_number").click(function() {
+    $("#curriculum").hide();
+    $(".begin_approve").show();
+});
+
 
 //点击认证消息   name_news
 $(".name_news").click(function() {
@@ -153,6 +159,7 @@ $(".message_return .message_title .two").click(function() {
     $(".message_return").hide();
     $(".personal_details").show();
 });
+
 
 
 	
