@@ -1,19 +1,13 @@
 package com.xczh.consumer.market.controller.weibo;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +18,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import weibo4j.Oauth;
-import weibo4j.Users;
-import weibo4j.http.AccessToken;
 import weibo4j.http.HttpClient;
-import weibo4j.model.PostParameter;
-import weibo4j.model.User;
-import weibo4j.model.WeiboException;
 import weibo4j.util.WeiboConfig;
 
-import com.alibaba.dubbo.rpc.protocol.thrift.ThriftType;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczh.consumer.market.wxpay.util.Base64;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
@@ -58,7 +43,6 @@ import com.xczhihui.user.center.bean.UserType;
 import com.xczhihui.wechat.course.model.QQClientUserMapping;
 import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
 import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
-import com.xczhihui.wechat.course.vo.WeiboClientUserMappingVO;
 
 /**
  * 
@@ -85,8 +69,7 @@ public class ThirdPartyCertificationController {
 	@Autowired
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 	
-	@Autowired
-	private WeiboConfig weiboConfig;
+	
 	
 	@Autowired
 	private CacheService cacheService;

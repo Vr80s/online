@@ -67,9 +67,6 @@ public class WeiBoThirdPartyController {
 	
 	
 	@Autowired
-	private WeiboConfig weiboConfig;
-	
-	@Autowired
 	private CacheService cacheService;
 	
 	@Autowired
