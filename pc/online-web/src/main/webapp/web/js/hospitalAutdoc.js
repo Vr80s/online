@@ -36,6 +36,7 @@ $(function() {
 			debugger
 			//每次请求完数据就去渲染分页部分
 			if(data.resultObject.pages > 1) { //分页判断
+				$(".pages").removeClass("hide");
 				$(".not-data").remove();
 				$(" .pages").css("display", "block");
 				$(" .pages .searchPage .allPage").text(data.resultObject.pages);
@@ -49,7 +50,7 @@ $(function() {
 					}
 				});
 			} else {
-				$(".pages").css("display", "none");
+//				$(".pages").addClass("display", "none");
 			}
 		});
 	}
