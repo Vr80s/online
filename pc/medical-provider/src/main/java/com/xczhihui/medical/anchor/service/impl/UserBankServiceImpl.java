@@ -32,6 +32,9 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	@Autowired
 	private UserBankMapper userBankMapper;
 
+	@Autowired
+	private IUserBankService userBankService;
+
 	@Override
 	public UserBank selectUserBankByUserIdAndAcctPan(String userId, String acctPan,String certId) {
 		return userBankMapper.selectUserBankByUserIdAndAcctPan(userId,acctPan,certId);
@@ -70,15 +73,16 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			String bankInfo = EntityUtils.toString(response.getEntity());
 			JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
 			String code = bankInfoJson.get("showapi_res_code").toString();
+			if(!"0".equals(code)){
+				throw new RuntimeException("银行卡信息有误");
+			}
 			String srb = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject srbJson = JSONObject.parseObject(srb);
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
-			String t = belong.get("tel").toString();
-
-		if(!"0".equals(code)){
-			throw new RuntimeException("银行卡信息有误");
-		}
-		if(!t.equals(userBank.getTel())){
+			String Telephone = belong.get("tel").toString();
+			String cardType = belong.get("cardType").toString();
+			userBank.setCertType(cardType);
+		if(!Telephone.equals(userBank.getTel())){
 			throw new RuntimeException("银行卡号与银行不匹配");
 		}
 		} catch (Exception e) {
@@ -103,6 +107,12 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			userBankCard.setAcctPan(dealBankCard(userBankCard.getAcctPan()));
 		}
 		return userBankCards;
+	}
+
+	@Override
+	public void deleteBankCard(String userId, String acctName, String acctPan, String certId) {
+		userBankMapper.deleteBankCard(userId,acctName,acctPan,certId);
+
 	}
 
 

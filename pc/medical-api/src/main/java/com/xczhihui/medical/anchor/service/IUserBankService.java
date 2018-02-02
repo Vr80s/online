@@ -12,4 +12,6 @@ public interface IUserBankService {
 
 	  public List<UserBank> selectUserBankByUserId(String userId);
 
+	  void deleteBankCard(String userId,String acctName, String acctPan,String certId);
+
 }

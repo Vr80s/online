@@ -34,11 +34,11 @@
 	<insert id="add">
 		INSERT INTO
 		oe_user_bank_card
-		(user_id, acct_name, cert_id, acct_pan, cert_type, create_time,is_default,sort,bank_name,tel)
+		(user_id, acct_name, cert_id, acct_pan, cert_type, create_time,is_default,sort,bank_name,tel,card_type)
 		VALUES
 		(#{userBank.userId}, #{userBank.acctName}, #{userBank.certId},
 		 #{userBank.acctPan}, #{userBank.certType}, #{userBank.createTime},
-		 #{userBank.isDefault}, #{userBank.sort}, #{userBank.bankName}, #{userBank.tel})
+		 #{userBank.isDefault}, #{userBank.sort}, #{userBank.bankName}, #{userBank.tel}, #{userBank.cardType})
 	</insert>
 	<select id="selectUserBankByUserId" resultMap="UserBankBaseResult">
 		SELECT
@@ -51,4 +51,15 @@
 		</if>
 		ORDER BY oub.create_time DESC
 	</select>
+
+
+	<update id="deleteBankCard">
+		UPDATE
+		`oe_user_bank_card` oub
+		SET oub.`is_delete` = 1
+		WHERE oub.user_id = #{userId}
+		AND oub.`acct_name` = #{acctName}
+		AND oub.`acct_pan` = #{acctPan}
+		AND oub.`cert_id` = #{certId}
+	</update>
 </mapper>
