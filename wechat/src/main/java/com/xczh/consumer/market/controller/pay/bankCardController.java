@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.pay;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.bxg.online.common.enums.BankCardType;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
 import com.xczhihui.medical.anchor.service.IUserBankService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 资产控制器 ClassName: bankCardController.java <br>
@@ -71,6 +73,16 @@ public class bankCardController {
 
 		List<UserBank> userBankList = userBankService.selectUserBankByUserId(user.getId());
 		return  ResponseObject.newSuccessResponseObject(userBankList);
+	}
+
+	@RequestMapping(value = "getBankCardList")
+	@ResponseBody
+	public ResponseObject getBankCardList(HttpServletRequest req) throws Exception{
+
+		Map<Integer,String>  getBankCardList = BankCardType.getBankCardList();
+
+
+		return  ResponseObject.newSuccessResponseObject(getBankCardList);
 	}
 
 }
