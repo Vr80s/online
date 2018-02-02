@@ -199,7 +199,7 @@ $(function() {
 			headPortrait: headPortrait,
 			title: title,
 			fieldText:field,
-			"medicalDoctorAuthenticationInformation.titleProve": medicalDoctorAuthenticationInformation,
+			titleProve: medicalDoctorAuthenticationInformation,
 			description: description,
 			fieldText: field,
 			departmentIds:keshiStr
