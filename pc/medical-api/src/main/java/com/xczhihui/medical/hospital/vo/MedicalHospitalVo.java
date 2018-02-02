@@ -80,6 +80,45 @@ public class MedicalHospitalVo implements Serializable{
 	 */
 	private String frontImg;
 
+	/**
+	 * 微信
+	 */
+	private String wechat;
+
+	/**
+	 * 头像
+	 */
+	private String headPortrait;
+
+	/**
+	 * 联系人名称
+	 */
+	private String contactor;
+
+	public String getContactor() {
+		return contactor;
+	}
+
+	public void setContactor(String contactor) {
+		this.contactor = contactor;
+	}
+
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
+
 	public String getId() {
 		return id;
 	}

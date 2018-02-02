@@ -124,6 +124,15 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         this.validate(medicalHospital);
 
+        // 根据用户获取其医馆
+        MedicalHospitalAccount hospitalAccount =
+                hospitalAccountMapper.getByUserId(medicalHospital.getUpdatePerson());
+
+        if(hospitalAccount == null){
+            throw new RuntimeException("您尚未拥有医馆");
+        }
+
+        medicalHospital.setId(hospitalAccount.getDoctorId());
         Date now = new Date();
         medicalHospital.setUpdateTime(now);
 
@@ -187,7 +196,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
      */
     private void validate(MedicalHospital medicalHospital) {
 
-        if(medicalHospital == null || StringUtils.isBlank(medicalHospital.getId())){
+        if(medicalHospital == null){
             throw new RuntimeException("请选择要修改的医馆");
         }
 
@@ -195,11 +204,11 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             throw new RuntimeException("请上传医馆头像");
         }
 
-        if(CollectionUtils.isEmpty(medicalHospital.getMedicalHospitalPictures())){
+        if(CollectionUtils.isEmpty(medicalHospital.getPictures())){
             throw new RuntimeException("请上传医馆图片");
         }
 
-        if(CollectionUtils.isEmpty(medicalHospital.getFields())){
+        if(CollectionUtils.isEmpty(medicalHospital.getFieldIds())){
             throw new RuntimeException("请选择医疗领域");
         }
 
