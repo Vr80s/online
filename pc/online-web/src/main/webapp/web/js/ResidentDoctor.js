@@ -29,12 +29,12 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 	       		//医师认证未成功
 	       		$('.DocAut_btn').removeClass('hide');
 	       		$('.ImDoc_btn').addClass('hide');
-	       		if(data.resultObject.indexOf(3) != -1){
+	       		if(data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
 	       			//认证中
-	       			if(localStorage.AutStatus == 1){
+//	       			if(localStorage.AutStatus == 1){
 	       				seeAutStatus();
-	       				localStorage.AutStatus = '';
-	       			}
+//	       				localStorage.AutStatus = '';
+//	       			}
 	       			$('#docAut_tip').removeClass('hide');
 	       		}else if(data.resultObject.indexOf(7) != -1){
 	       			//未认证

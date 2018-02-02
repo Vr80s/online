@@ -767,4 +767,16 @@ public class CourseDao extends SimpleHibernateDao {
         }
         return course;
     }
+
+    public List<Course> getLiveCourse() {
+        DetachedCriteria dc = DetachedCriteria.forClass(Course.class);
+        //上架中
+        dc.add(Restrictions.eq("status", "1"));
+        //直播状态为预告
+        dc.add(Restrictions.eq("liveStatus", 2));
+        //未删除的课程
+        dc.add(Restrictions.eq("isDelete", false));
+        List<Course> courses = this.findEntities(dc);
+        return courses;
+    }
 }

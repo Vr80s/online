@@ -67,7 +67,7 @@
 						{{else if startLevel == 3.5}}
 						<img src="../images/xing3_5.png"/>
 						{{else if startLevel == 4}}
-						<img src="../images/xing4_0.ppng"/>
+						<img src="../images/xing4_0.png"/>
 						{{else if startLevel == 4.5}}
 						<img src="../images/xing4_5.png"/>
 						{{else if startLevel == 5}}
@@ -262,27 +262,9 @@
 		</script>
 	</div>
 <!--评论结束-->	
-	<div id="sure_isBuy">	
-		<script type="text/html" id="data_isBuy">
+
 					
-			<!--底部购买价格-->
-			<div class="bot_price">
-				{{if watchState==0}}
-				<a class="left_price z" href="javascript:;">
-					<p><span>{{currentPrice}}</span>熊猫币</p>
-				</a>
-				<a class="right_priceBtn y" href="javascript:;" onclick="btn_buy()">
-					购买
-				</a>
-				{{else if watchState==1}}
-				<a class="left_price z" href="javascript:;">
-					<p><span>免费</span></p>
-				</a>
-				<a class="right_priceBtn y" href="javascript:;" onclick="btn_mianfei()">
-					购买
-				</a>
-				{{/if}}
-			</div>
+			
 			
 		<!--底下评论输入框-->	
 		<div class="wrap_user_input">
@@ -295,8 +277,7 @@
 				<p>评论999+</p>
 			</div>
 		</div>
-		</script>
-	</div>
+
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">

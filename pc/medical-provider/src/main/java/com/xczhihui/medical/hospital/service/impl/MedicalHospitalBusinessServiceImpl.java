@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -98,6 +99,23 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         return page.setRecords(medicalDoctorList);
     }
 
+    /**
+     * 根据用户id获取其医馆详情
+     * @author zhuwenbao
+     */
+    @Override
+    public MedicalHospitalVo selectHospitalByUserId(String uid) {
+
+        // 根据用户id获取其医馆id
+        MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(uid);
+
+        if(hospitalAccount == null){
+            throw new RuntimeException("您尚未拥有医馆");
+        }
+
+        return this.selectHospitalById(hospitalAccount.getDoctorId());
+    }
+
     @Override
     public List<MedicalFieldVO> getHotField() {
         return medicalHospitalMapper.getHotField();
@@ -123,43 +141,60 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         this.validate(medicalHospital);
 
+        // 根据用户获取其医馆
+        MedicalHospitalAccount hospitalAccount =
+                hospitalAccountMapper.getByUserId(medicalHospital.getUpdatePerson());
+
+        if(hospitalAccount == null){
+            throw new RuntimeException("您尚未拥有医馆");
+        }
+
+        medicalHospital.setId(hospitalAccount.getDoctorId());
         Date now = new Date();
         medicalHospital.setUpdateTime(now);
 
-        if(CollectionUtils.isNotEmpty(medicalHospital.getMedicalHospitalPictures())){
+        // 如果用户修改医馆照片
+        if(CollectionUtils.isNotEmpty(medicalHospital.getPictures())){
 
             // 删除之前的医馆照片
             hospitalPictureMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
 
-            List<MedicalHospitalPicture> hospitalPictures = medicalHospital.getMedicalHospitalPictures();
-            hospitalPictures.stream()
-                    .filter(hospitalPicture -> StringUtils.isNotBlank(hospitalPicture.getPicture()))
-                    .forEach(hospitalPicture -> {
+            // 新增-新的医馆照片
+            List<String> hospitalPictureUrlList = medicalHospital.getPictures();
+            List<MedicalHospitalPicture> hospitalPictures = hospitalPictureUrlList.stream()
+                    .filter(hospitalPictureUrl -> StringUtils.isNotBlank(hospitalPictureUrl))
+                    .map(hospitalPictureUrl -> {
+                        MedicalHospitalPicture hospitalPicture = new MedicalHospitalPicture();
                         hospitalPicture.setId(UUID.randomUUID().toString().replace("-",""));
                         hospitalPicture.setHospitalId(medicalHospital.getId());
+                        hospitalPicture.setPicture(hospitalPictureUrl);
                         hospitalPicture.setDeleted(false);
                         hospitalPicture.setStatus(true);
                         hospitalPicture.setCreateTime(now);
-                    });
+                        return hospitalPicture;
+                    }).collect(Collectors.toList());
 
-            hospitalPictureMapper.insertBatch(hospitalPictures);
+            if(CollectionUtils.isNotEmpty(hospitalPictures)){
+                hospitalPictureMapper.insertBatch(hospitalPictures);
+            }
         }
 
-        if(CollectionUtils.isNotEmpty(medicalHospital.getFields())){
+        // 如果用户修改医馆领域
+        if(CollectionUtils.isNotEmpty(medicalHospital.getFieldIds())){
 
             // 删除之前的医馆领域
             hospitalFieldMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
 
             // 新增-新的领域
-            List<MedicalField> fields = medicalHospital.getFields();
+            List<String> fieldIds = medicalHospital.getFieldIds();
             List<MedicalHospitalField> hospitalFields = new ArrayList<>();
 
-            for (MedicalField field : fields){
+            for (String fieldId : fieldIds){
 
                 MedicalHospitalField hospitalField = new MedicalHospitalField();
                 hospitalField.setId(UUID.randomUUID().toString().replace("-",""));
                 hospitalField.setHospitalId(medicalHospital.getId());
-                hospitalField.setFieldId(field.getId());
+                hospitalField.setFieldId(fieldId);
                 hospitalField.setDeleted(false);
                 hospitalField.setCreateTime(now);
 
@@ -178,7 +213,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
      */
     private void validate(MedicalHospital medicalHospital) {
 
-        if(medicalHospital == null || StringUtils.isBlank(medicalHospital.getId())){
+        if(medicalHospital == null){
             throw new RuntimeException("请选择要修改的医馆");
         }
 
@@ -186,11 +221,11 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             throw new RuntimeException("请上传医馆头像");
         }
 
-        if(CollectionUtils.isEmpty(medicalHospital.getMedicalHospitalPictures())){
+        if(CollectionUtils.isEmpty(medicalHospital.getPictures())){
             throw new RuntimeException("请上传医馆图片");
         }
 
-        if(CollectionUtils.isEmpty(medicalHospital.getFields())){
+        if(CollectionUtils.isEmpty(medicalHospital.getFieldIds())){
             throw new RuntimeException("请选择医疗领域");
         }
 

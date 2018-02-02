@@ -3,6 +3,7 @@ package com.xczh.consumer.market.controller.pay;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczhihui.bxg.online.common.enums.BankCardType;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
 import com.xczhihui.medical.anchor.service.IUserBankService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 资产控制器 ClassName: bankCardController.java <br>
@@ -46,15 +48,18 @@ public class bankCardController {
 
 	@RequestMapping("addBankCard")
 	@ResponseBody
-	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,UserBank userBank)
+	public ResponseObject addCourseApply(HttpServletRequest req,HttpServletResponse res,
+										 @RequestParam("acctName")String acctName,
+										 @RequestParam("acctPan")String acctPan,
+										 @RequestParam("certId")String certId,
+										 @RequestParam("tel")String tel)
 			throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("登录失效");
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-		userBank.setUserId(user.getId());
-		userBankService.addUserBank(userBank);
-		return  ResponseObject.newSuccessResponseObject("创建成功");
+			userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+			return  ResponseObject.newSuccessResponseObject("添加成功");
 
 	}
 
@@ -64,11 +69,35 @@ public class bankCardController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("登录失效");
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
 
 		List<UserBank> userBankList = userBankService.selectUserBankByUserId(user.getId());
 		return  ResponseObject.newSuccessResponseObject(userBankList);
+	}
+
+	@RequestMapping(value = "getBankCardList")
+	@ResponseBody
+	public ResponseObject getBankCardList(HttpServletRequest req) throws Exception{
+
+        List<Map>  getBankCardList = BankCardType.getBankCardList();
+		return  ResponseObject.newSuccessResponseObject(getBankCardList);
+	}
+
+	@RequestMapping(value = "deleteBankCard")
+	@ResponseBody
+	public ResponseObject deleteBankCard(HttpServletRequest req,
+										 @RequestParam("acctName")String acctName,
+										 @RequestParam("acctPan")String acctPan,
+										 @RequestParam("certId")String certId) throws Exception{
+
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}
+
+		userBankService.deleteBankCard(user.getId(),acctName,acctPan,certId);
+		return  ResponseObject.newSuccessResponseObject("删除成功");
 	}
 
 }

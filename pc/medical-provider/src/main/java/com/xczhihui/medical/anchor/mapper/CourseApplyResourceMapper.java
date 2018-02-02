@@ -20,4 +20,6 @@ public interface CourseApplyResourceMapper extends BaseMapper<CourseApplyResourc
     List<CourseApplyResourceVO> selectAllCourseResources(String userId);
 
     List<CourseApplyResourceVO> selectCourseResourceByPage(Page<CourseApplyResourceVO> page, String userId);
+
+    List<CourseApplyResource> selectAllCourseResourcesForUpdateDuration();
 }

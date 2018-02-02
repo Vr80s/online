@@ -2,8 +2,23 @@
  * Created by admin on 2017/1/3.
  */
 $(function () {
+	
+	
+	//顶部医师字体变色
 	$('.forum').css('color','#000');
 	$('.path .doctor').addClass('select');
+	
+	//登入之后进行判断 右侧医师入驻入口是否有
+	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+	  	if(data.success == true){
+	  		//判断
+	  		if(data.resultObject.indexOf(1) != -1){
+	  			//医师认证成功
+	  			$('.forum-hosJoin').addClass('hide');
+	  		}
+	  	}
+	  });
+	
 	
 	
     /*相关课程*/
@@ -483,7 +498,7 @@ $(function () {
     $('#toDocJoin').click(function(){
     	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
-	       	if($('.login').css('display') == 'block'){
+	       	if($('.logout').css('display') == 'block' && data.resultObject.indexOf(1) == -1&&data.resultObject.indexOf(4) == -1 && data.resultObject.indexOf(6) == -1){
 	       		window.location.href = "/web/html/ResidentDoctor.html";
 	       	}else if(data.resultObject.indexOf(1) != -1){
 	       		//医师认证成功 医师认证中 医师认证拒绝 跳转到认证状态页面

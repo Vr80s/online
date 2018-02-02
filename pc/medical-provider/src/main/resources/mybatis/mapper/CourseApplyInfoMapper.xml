@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper">
+    <update id="updateSaleState">
+		UPDATE
+		  `oe_course` oc
+		  JOIN `course_apply_info` cai
+			ON oc.`apply_id` = cai.`id` SET oc.`status` = #{state}
+		WHERE cai.id = #{courseApplyId}
+		  AND cai.`user_id` = #{userId}
+	</update>
 
-	<select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+    <select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
 		SELECT
 		  cai.id,
 		  cai.img_path imgPath,
@@ -84,5 +92,98 @@
 		</if>
 		ORDER BY cai.`create_time` DESC
 
+	</select>
+	<select id="selectCoinTransactionPage" resultType="java.util.Map">
+		SELECT
+		  *
+		FROM
+		  (SELECT
+			'礼物' AS changeType,
+			oc.`grade_name` AS goods,
+			TRUNCATE(uci.value, 2) AS VALUE,
+			uci.`create_time`
+		  FROM
+			`user_coin_increase` uci
+			JOIN `oe_gift_statement` ogs
+			  ON ogs.id = uci.order_no_gift
+			JOIN `oe_course` oc
+			  ON ogs.`live_id` = oc.`id`
+		  WHERE uci.`change_type` = 3
+			AND uci.`user_id` = #{userId}
+		  UNION
+		  SELECT
+			'课程销售' AS changeType,
+			oc.`grade_name` AS goods,
+			TRUNCATE(uci.value, 2) AS VALUE,
+			uci.`create_time`
+		  FROM
+			`user_coin_increase` uci
+			JOIN `oe_order_detail` ood
+			  ON ood.`id` = uci.`order_no_course`
+			JOIN `oe_course` oc
+			  ON ood.`course_id` = oc.`id`
+		  WHERE uci.`change_type` = 7
+			AND uci.`user_id` = #{userId}
+		  UNION
+		  SELECT
+			'结算' AS changeType,
+			'结算' AS goods,
+			TRUNCATE(ucc.value, 2) AS VALUE,
+			ucc.`create_time`
+		  FROM
+			`user_coin_consumption` ucc
+		  WHERE ucc.`change_type` = 5
+			AND ucc.`user_id` = #{userId}
+		  ) uccuci
+		ORDER BY uccuci.create_time DESC
+	</select>
+	<select id="selectRmbTransactionPage" resultType="java.util.Map">
+		SELECT
+		  *
+		FROM
+		  (SELECT
+		  ucc.`value`,
+		  '提现' AS changeType,
+		  ucc.`create_time` createTime,
+		  '银行卡' AS form,
+		  oubc.`acct_pan` acctPan,
+		  eai.`status`,
+		  eai.`dismissal`,
+		  eai.`dismissal_remark` dismissalRemark
+		FROM
+		  `user_coin_consumption` ucc
+		  JOIN `enchashment_apply_info` eai
+			ON ucc.`order_no_enchashment` = eai.`id`
+		  JOIN `oe_user_bank_card` oubc
+			ON eai.`bank_card_id` = oubc.`id`
+		WHERE ucc.`change_type` = 6 AND ucc.`user_id`=#{userId}
+		UNION
+		SELECT
+		  uci.`value`,
+		  '提现驳回' AS changeType,
+		  uci.`create_time` createTime,
+		  NULL AS form,
+		  NULL AS acctPan,
+		  NULL AS `status`,
+		  NULL AS `dismissal`,
+		  NULL AS dismissalRemark
+		FROM
+		  `user_coin_increase` uci
+		WHERE uci.`change_type` = 5 AND uci.`user_id`=#{userId}
+		UNION
+		SELECT
+		  uci.`value`,
+		  '结算' AS changeType,
+		  uci.`create_time` createTime,
+		  NULL AS form,
+		  NULL AS acctPan,
+		  NULL AS `status`,
+		  NULL AS `dismissal`,
+		  NULL AS dismissalRemark
+		FROM
+		  `user_coin_increase` uci
+		WHERE uci.`change_type` = 6 AND uci.`user_id`=#{userId}
+		) uccuci
+		ORDER BY uccuci.createTime DESC
 	</select>
 </mapper>

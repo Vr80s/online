@@ -153,15 +153,43 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	 */
 	private String wechat;
 
-	public List<MedicalField> getFields() {
-		return fields;
-	}
-
 	/**
 	 * 封面图
 	 */
 	@TableField("front_img")
 	private String frontImg;
+
+	/**
+	 * 医馆图片id数组
+	 */
+	@TableField(exist = false)
+	private List<String> pictures;
+
+	/**
+	 * 医馆领域id数组
+	 */
+	@TableField(exist = false)
+	private List<String> fieldIds;
+
+	public List<String> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<String> pictures) {
+		this.pictures = pictures;
+	}
+
+	public List<String> getFieldIds() {
+		return fieldIds;
+	}
+
+	public void setFieldIds(List<String> fieldIds) {
+		this.fieldIds = fieldIds;
+	}
+
+	public List<MedicalField> getFields() {
+		return fields;
+	}
 
 	public void setFields(List<MedicalField> fields) {
 		this.fields = fields;

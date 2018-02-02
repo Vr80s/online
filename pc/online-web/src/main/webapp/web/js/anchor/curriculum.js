@@ -3,7 +3,7 @@ $(function(){
 			$(".select_list li").click(function(){
 				$(".select_list li").removeClass("active");
 				$(this).addClass("active");
-				$(".wrap_box .little_box").hide();
+//				$(".wrap_box .little_box").hide();
 				$(".select_box").hide().eq($(this).index()).show();
 //				图标颜色变化
 				$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
@@ -76,9 +76,6 @@ $(function(){
 		})
 
 
-
-
-
 	//头像上传
 	var userPic = $('.userPic').css('background')
 	console.log(userPic)
@@ -93,7 +90,6 @@ $(function(){
 			}
 		};
 	});
-
 
 
 
@@ -322,53 +318,8 @@ $('#zhuanlan .zhuanlan_top button').click(function(){
 
 
 
-//资源部分
-//资源部分点击上传资源
-var ziyuanCount = 1;
-$('#resource .zhuanlan_top button').click(function(){
-	ziyuanCount *= -1;
-	//上传
-	if(ziyuanCount < 0){
-	//顶部变化
-	$(this).text('返回');
-	$(this).siblings('.title').text('新资源');
-	//底部变化
-	$('#ziyuan_bottom2').addClass('hide');
-	$('#ziyuan_bottom').removeClass('hide');
-	}else{
-		//取消上传
-		$(this).text('上传资源');
-		$(this).siblings('.title').text('资源');
-		//底部变化
-		$('#ziyuan_bottom').addClass('hide');
-		$('#ziyuan_bottom2').removeClass('hide');
-	}
-})
 
 
-//开始js
-//课程部分
-//课程部分点击
-var kechengCount = 1;
-$('#curriculum .zhuanlan_top button').click111(function(){
-	kechengCount *= -1;
-	//上传
-	if(kechengCount < 0){
-	//顶部变化
-	$(this).text('返回');
-	$(this).siblings('.title').text('新课程');
-	//底部变化
-	$('#curriculum #kecheng_bottom2').addClass('hide');
-	$('#curriculum #kecheng_bottom').removeClass('hide');
-	}else{
-		//取消上传
-		$(this).text('新课程');
-		$(this).siblings('.title').text('课程');
-		//底部变化
-		$('#curriculum  #kecheng_bottom').addClass('hide');
-		$('#curriculum  #kecheng_bottom2').removeClass('hide');
-	}
-})
 
 
 //处理点击--课程显示隐藏第一第二页
@@ -378,39 +329,11 @@ $(".select_list .courseP").click(function() {
     /*$("#zhuanji_bottom2").show();*/
 });
 
-//点击新课程 
-/*$("#kecheng_bottom2 .zhuanlan_top .button").click(function() {
-    $(".curriculum_two").hide();
-    $(".curriculum_one").show();
-    
-    alert(1354165456);
-    $("#zhuanjis_bottom").hide();
-    $("#zhuanji_bottom2").show();
-});*/
 
 
-//课程新课程
-$('#demo2').citys({
-    required:false,
-    nodata:'disabled',
-    onChange:function(data){
-        var text = data['direct']?'(直辖市)':'';
-        $('#place').text('当前选中地区：'+data['province']);
-        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
-    }
-});
 
 
 //账户个人信息
-$('#demo1').citys({
-    required:false,
-    nodata:'disabled',
-    onChange:function(data){
-        var text = data['direct']?'(直辖市)':'';
-        $('#places').text('当前选中地区：'+data['province']);
-        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
-    }
-});
 
 //点击选择资源
 $('#a').click(function(){
@@ -1181,59 +1104,6 @@ $('#zhuanjis_bottom .baocun #submits0').click(function(){
 })
 
 
-//更新时间
-$("#times_div div").click(function(){
-	
-	if(!$(this).hasClass("div_one0")){
-		   	$(this).addClass("div_one0");
-		}else{
-		    $(this).removeClass("div_one0");
-	}
-	
-});
-
-/*$("#times_div .div_two").click(function(){
-	$("#times_div div").removeClass("div_one0");
-	$("#times_div div").addClass("div_one");
-});*/
-
-
-
-
-//删除当前行
-$(".tbody_tbody tr td:last-child").click(function() {
-    $(this).parent().remove();
-});
-
-$(".tr_sold_out td .sold_out").click(function() {
-    $(".yes_no").show();
-});
-
-
-
-//点击是否隐藏
-$(".yes_no .bottom .left").click(function() {
-    $(".yes_no").hide();
-});
-$(".yes_no .bottom .right").click(function() {
-    $(".yes_no").hide();
-});
-
-
-
-
-//专辑下架
-$(".zhaunji_tr td .out").click(function() {
-    $(".no_yes").show();
-});
-//点击是否隐藏
-$(".no_yes .bottom .left").click(function() {
-    $(".no_yes").hide();
-});
-$(".no_yes .bottom .right").click(function() {
-    $(".no_yes").hide();
-});
-
 //点击添加
 $(".zhaunji_tr td .add").click(function() {
     $("#zhuanjis_bottom").show();
@@ -1242,24 +1112,6 @@ $(".zhaunji_tr td .add").click(function() {
 });
 
 
-//点击新专辑添加课程开始
-//点击添加课程
-$(".add_course").click(function() {
-    $(".new_box").show();
-});
-
-//关闭添加课程弹框
-$(".new_box_main p").click(function() {
-    $(".new_box").hide();
-});
-//点击新专辑添加课程结束
-
-
-//添加课程开始
-$(".new_box_main .size").click(function() {
-    $(".adds_course").show();
-});
-//添加课程结束
 
 
 //新专辑,新增课程 
@@ -1307,61 +1159,8 @@ $("#zhuanji_bottom2 .zhuanlan_top .returns").click(function() {
 //专辑结束
 
 
-//账户重新认证点击开始
-$(".reauthentication .right_btn").click(function() {
-    $(".account_main_message").hide();
-    $(".account_main_alter").show();
-});
 
 
-
-$(".account_main_alter_title .two").click(function() {
-    $(".account_main_alter").hide();
-    $(".account_main_message").show();
-});
-
-
-//账户个人信息  
-$(".right_modification").click(function() {
-    $(".personal_details").hide();
-    $(".message_return").show();
-});
-$(".message_return .message_title .two").click(function() {
-    $(".message_return").hide();
-    $(".personal_details").show();
-});
-
-//点击认证消息   name_news
-$(".name_news").click(function() {
-//	隐藏认证信息第二页  
-	$(".account_main_alter").hide();
-	
-//	隐藏个人信息内容
-    $(".message_return").hide();
-    $(".personal_details").hide();
-});
-
-//点击个人信息  
-$(".name_personage").click(function() {
-    $(".account_main_alter").hide();
-//  $(".personal_details").show();
-});
-
-
-//点击学堂隐藏  
-$(".school").click(function() {
-    $(".account_main_alter").hide();
-    $(".account_main_message").hide();
-    $(".personal_details").hide();
-    $(".message_return").hide();
-});
-
-$(".littleBox p").click(function() {
-    $(".account_main_alter").hide();
-    $(".account_main_message").hide();
-    $(".personal_details").hide();
-    $(".message_return").hide();
-});
 
 //账户认证信息为空
 $('.account_two .approve').click(function(){
@@ -1446,6 +1245,7 @@ $('.account_two .approve').click(function(){
 	
 })
 //判断医馆认证结束
+
 
 
 

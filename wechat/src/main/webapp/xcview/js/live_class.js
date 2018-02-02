@@ -56,7 +56,7 @@ $(function(){
     });
 	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
-	var courseId = getQueryString('course_id');
+	var courseId = getQueryString('my_study');
     course_id = courseId;
 	//传ID courseId为接口的课程ID
 	requestService("/xczh/course/details",{
@@ -68,8 +68,7 @@ $(function(){
 	//	直播时间/主播名字
 		data.resultObject.startTime= data.resultObject.startTime.substring(0,10); //截取日期
 		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期
-	//	是否购买
-	$("#sure_isBuy").html(template('data_isBuy',data.resultObject));
+	
 
 
 		
@@ -215,33 +214,7 @@ function btn_allComment(){
 
 
 
-var courseId = getQueryString('course_id');
-//点击购买后的接口
-function btn_buy(){
-	requestService("/xczh/order/save",{
-		courseId:courseId,
-		orderFrom:2
-	},function(data){
 
-		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
-	});
-	
-}
-//点击免费购买后的
-function btn_mianfei(){
-
-	$(".bot_price").hide();
-    //	评论弹窗
-    $(".wrap_input").on('click',function(){
-        del();
-        $(".bg_modal").show();
-        $(".wrapAll_comment").show();
-    })
-    $(".bg_modal").on('click',function(){
-        $(".bg_modal").hide();
-        $(".wrapAll_comment").hide();
-    })
-}
 
 //删除评论状态
 function del(){

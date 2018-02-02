@@ -194,6 +194,21 @@ public class MedicalDoctor extends Model<MedicalDoctor> {
 	@TableField(exist = false)
 	private List<String> departmentIds;
 
+	/**
+	 * 职称证明
+	 * false：不映射到数据库表字段
+	 */
+	@TableField(exist = false)
+	private String titleProve;
+
+	public String getTitleProve() {
+		return titleProve;
+	}
+
+	public void setTitleProve(String titleProve) {
+		this.titleProve = titleProve;
+	}
+
 	public List<String> getDepartmentIds() {
 		return departmentIds;
 	}

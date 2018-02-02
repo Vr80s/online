@@ -11,16 +11,66 @@ $(function() {
 		//		alert(1)
 		//添加医师信息部分隐藏
 		$('#doc_Administration #doc_Administration_bottom').addClass('hide');
-		RequestService("/medical/hospital/getDoctors", "get", {
-			current: currentPage,
-			size: size,
-		}, function(data) {
-			if(data.success == true){
+		$('#doc_Administration #doc_Administration_bottom2').removeClass('hide');
+		if($('.add_newTeacher').text() == '返回'){
+			$('.add_newTeacher').click()
+		}
+//		RequestService("/medical/hospital/getDoctors", "get", {
+//			current: currentPage,
+//			size: size,
+//		}, function(data) {
+//			if(data.success == true){
+				//调用分页部分
+				courseVodList(1)
 				//医馆列表渲染
-				$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
-			}
-		})
+//				$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
+//			}
+//		})
 	})
+	
+	
+	//	分页部分
+	function courseVodList(current) {
+		RequestService("/medical/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
+			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
+			debugger
+			//每次请求完数据就去渲染分页部分
+			if(data.resultObject.pages > 1) { //分页判断
+				$(".pages").removeClass("hide");
+				$(".not-data").remove();
+				$(" .pages").css("display", "block");
+				$(" .pages .searchPage .allPage").text(data.resultObject.pages);
+				$("#Pagination").pagination(data.resultObject.pages, {
+					num_edge_entries: 1, //边缘页数
+					num_display_entries: 4, //主体页数
+					current_page: current - 1,
+					callback: function(page) { //翻页功能
+						courseVodList(page + 1);
+						// alert(page);
+					}
+				});
+			} else {
+//				$(".pages").addClass("display", "none");
+			}
+		});
+	}
+	
+	//医师搜索功能
+	$('.doc_Administration_top .search_teacher_btn').click(function(){
+
+		var docName = $('.doc_Administration_top .search_teacher_ipt').val();
+//		alert(docName)
+		RequestService("/medical/hospital/getDoctors", "get", {
+			current:1,
+			size:8,
+			doctorName: docName
+		},function(data){
+			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
+		})
+		
+	})
+	
+	
 
 	//医师预览功能
 	$('.doc_Administration_bottom2').on('click','.preview',function() {
@@ -199,13 +249,19 @@ $(function() {
 			headPortrait: headPortrait,
 			title: title,
 			fieldText:field,
-			"medicalDoctorAuthenticationInformation.titleProve": medicalDoctorAuthenticationInformation,
+			titleProve: medicalDoctorAuthenticationInformation,
 			description: description,
 			fieldText: field,
 			departmentIds:keshiStr
 		}, function(data) {
-			console.log(data);
-
+			
+			$('#tip').text('修改数据提交成功');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},1000)
+	       	$('#doc_Administration_bottom3').addClass('hide');
+	       	$('#mask').addClass('hide');
 		})
 
 	})

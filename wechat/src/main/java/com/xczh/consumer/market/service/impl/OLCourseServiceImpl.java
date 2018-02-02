@@ -460,7 +460,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			Integer pageNumber, Integer pageSize) throws SQLException {
 
 	    pageNumber = pageNumber == null ? 1 : pageNumber;
-        pageSize =12;
+		pageSize = pageSize == null ? 12 : pageSize;
 
         StringBuffer  commonSql =new StringBuffer();
         StringBuffer  condSql = new StringBuffer();

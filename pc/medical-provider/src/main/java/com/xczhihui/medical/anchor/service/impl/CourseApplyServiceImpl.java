@@ -3,6 +3,9 @@ package com.xczhihui.medical.anchor.service.impl;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.online.common.enums.Multimedia;
+import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>
@@ -283,6 +287,58 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         courseApplyResourceMapper.insert(courseApplyResource);
     }
 
+    @Override
+    public String selectCourseResourcePlayerById(String userId, Integer resourceId) {
+        CourseApplyResource car = new CourseApplyResource();
+        car.setUserId(userId);
+        car.setId(resourceId);
+        CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(car);
+        String audioStr="";
+        if(courseApplyResource.getMultimediaType()==2){
+            audioStr = "_2";
+        }
+        String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+courseApplyResource.getResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        String playCode = "";
+        playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
+        playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
+        playCode+="		width=\"600\" ";
+        playCode+="		height=\"490\" ";
+        playCode+="		id=\""+uuid+"\">";
+        playCode+="		<param name=\"movie\" value=\""+src+"\" />";
+        playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
+        playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
+        playCode+="		<param value=\"transparent\" name=\"wmode\" />";
+        playCode+="		<embed src=\""+src+"\" ";
+        playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
+        playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
+        playCode+="			type=\"application/x-shockwave-flash\"/> ";
+        playCode+="	</object>";
+        return playCode;
+    }
+
+    @Override
+    public void updateSaleState(String userId, String courseApplyId, Integer state) {
+        int i = courseApplyInfoMapper.updateSaleState(userId,courseApplyId,state);
+        if(i<1){
+            throw new RuntimeException("更新课程上架状态失败");
+        }
+    }
+
+    @Override
+    public void updateCourseApplyResource() {
+        List<CourseApplyResource> CourseApplyResources = courseApplyResourceMapper.selectAllCourseResourcesForUpdateDuration();
+        for (CourseApplyResource courseApplyResource : CourseApplyResources) {
+            try {
+                String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
+                courseApplyResource.setLength(duration);
+                courseApplyResourceMapper.updateById(courseApplyResource);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     /**
      * Description：新增资源校验
      * creed: Talk is cheap,show me the code
@@ -298,7 +354,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(StringUtils.isBlank(courseApplyResource.getResource())){
             throw new RuntimeException("资源不可为空");
         }
-        if(courseApplyResource.getMultimediaType()==null || (courseApplyResource.getMultimediaType()!=1 && courseApplyResource.getMultimediaType()!=2)){
+        if(courseApplyResource.getMultimediaType()==null || (courseApplyResource.getMultimediaType()!= Multimedia.AUDIO.getCode() && courseApplyResource.getMultimediaType()!=Multimedia.VIDEO.getCode())){
             throw new RuntimeException("媒体类型参数有误");
         }
     }
