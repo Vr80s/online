@@ -350,7 +350,7 @@ $('#resource .zhuanlan_top button').click(function(){
 //课程部分
 //课程部分点击
 var kechengCount = 1;
-$('#curriculum .zhuanlan_top button').click(function(){
+$('#curriculum .zhuanlan_top button').click111(function(){
 	kechengCount *= -1;
 	//上传
 	if(kechengCount < 0){
@@ -369,6 +369,25 @@ $('#curriculum .zhuanlan_top button').click(function(){
 		$('#curriculum  #kecheng_bottom2').removeClass('hide');
 	}
 })
+
+
+//处理点击--课程显示隐藏第一第二页
+$(".select_list .courseP").click(function() {
+    $(".curriculum_two").hide();
+    $(".curriculum_one").show();
+    /*$("#zhuanji_bottom2").show();*/
+});
+
+//点击新课程 
+/*$("#kecheng_bottom2 .zhuanlan_top .button").click(function() {
+    $(".curriculum_two").hide();
+    $(".curriculum_one").show();
+    
+    alert(1354165456);
+    $("#zhuanjis_bottom").hide();
+    $("#zhuanji_bottom2").show();
+});*/
+
 
 //课程新课程
 $('#demo2').citys({
@@ -1369,13 +1388,19 @@ $('.account_two .approve').click(function(){
 //判断医馆认证开始
 $('.account_two .approve').click(function(){
 //	添加医馆名称为空
-	var NameWarning = $.trim($('.account_two .zhuanlan_title').val());
+	var NameWarning = $.trim($('.account_two .name_put2').val());
 	
 //	添加公司名称为空
-	var CompanyWarning = $.trim($('.account_two .zhuanlan_title').val());
+	var CompanyWarning = $.trim($('.account_two .name_put0').val());
 	
 //	添加公司名称为空
-	var CreditWarning = $.trim($('.account_two .zhuanlan_title').val());
+	var CreditWarning = $.trim($('.account_two .name_put1').val());
+	
+//营业执照
+	var ImgWarning = $.trim($('.account_two #previewImg4').val());
+	
+//药品经营许可证
+	var DrugWarning = $.trim($('.account_two #previewImg5').val());
 	
 	//医馆名称
 	if(NameWarning == ''){
@@ -1401,6 +1426,23 @@ $('.account_two .approve').click(function(){
 		$('.account_two .two_warning2').addClass('hide');
 	}
 	
+//营业执照	
+	if(ImgWarning == ''){
+		$('.account_two .two_warning3').removeClass('hide');
+		return false;
+	}else{
+		$('.account_two .two_warning3').addClass('hide');
+	}
+
+//药品经营许可证
+	if(DrugWarning == ''){
+		$('.account_two .two_warning3').removeClass('hide');
+		return false;
+	}else{
+		$('.account_two .two_warning3').addClass('hide');
+	}
+	
+	
 	
 })
 //判断医馆认证结束
@@ -1408,4 +1450,11 @@ $('.account_two .approve').click(function(){
 
 
 
+
+
+
+
+
 })
+
+
