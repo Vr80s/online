@@ -24,11 +24,24 @@ $(function(){
 	    $(".account_main_message").hide();
 	    $(".personal_details").hide();
 	    $(".message_return").hide();
+	    $("#zhuanji").hide();
+	    $("#resource").hide();
+	    $(".curriculum_one").hide();
+	    $(".curriculum_two").show();
+	    
+	    $(".courseP").addClass("activeP");
+	    $(".specialP").removeClass("activeP");
+	    $(".liveP").removeClass("activeP");
+	    $(".schedulingP").removeClass("activeP");
+	    $(".resourceP").removeClass("activeP");
+	    
+	    
 	    
 //	    alert(135214);
 	    
 	    $("#curriculum").show();
 	    $(".wrap_box").show();
+	    $(".littleBoxs").slideUp("slow");
 	    
 	});
 	
@@ -112,10 +125,23 @@ $(function(){
 //这是点击资源结束
 	
 
-//点击账号列表   
+//点击账号列表    
 $(".account_number").click(function() {
     $("#curriculum").hide();
     $(".begin_approve").show();
+    $(".school").show();
+    $(".physician_one").show();
+    $(".physician_two_two").hide();
+    $(".message_return").hide();
+    
+    
+    
+//  处理学堂关闭
+    $(".littleBox").slideUp("slow");
+    
+    
+    $(".name_news").addClass("activeP");
+	$(".name_personage").removeClass("activeP");
 });
 
 
@@ -162,6 +188,7 @@ $(".message_return .message_title .two").click(function() {
 
 
 
+			
 	
 	
 	

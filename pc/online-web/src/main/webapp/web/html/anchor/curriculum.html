@@ -374,7 +374,7 @@
 					</div>
 					<!--医馆认证结束-->
 				</div>
-				<div class="account_main account_main_alter">
+				<div class="account_main account_main_alter physician_two_two">
 					<!--医师认证开始-->
 					<div class="physician_two">
 						<div class="account_main_alter_title">
@@ -925,21 +925,21 @@
 						</div>
 					</div>
 						
-						
-						
-					</div>
-					
-					
-					<div class="yes_no">
-						<div class="yes_no_bg"></div>
-						<div class="yes_no_main">
-							<div class="top">是否下架</div>
-							<div class="bottom">
-								<div class="left">否</div>
-								<div class="right">是</div>
+						<div class="yes_no" style="display: block1;">
+							<div class="yes_no_bg"></div>
+							<div class="yes_no_main">
+								<div class="top">是否下架</div>
+								<div class="bottom">
+									<div class="left">否</div>
+									<div class="right">是</div>
+								</div>
 							</div>
 						</div>
+						
 					</div>
+					
+					
+					
 					
 					
 					<!--点击选择资源弹框开始-->
@@ -1782,9 +1782,12 @@
   	<script type="text/javascript">
   		window.onload = function(){
 //			点击课程--下架
-			$("#course_list .sold_out").click(function() {
+			$(".tr_sold_out .sold_out").click(function() {
+				
+				alert(1242);
 			    $(".yes_no").show();
 			});
+			
 			
 			//点击是否隐藏
 			$(".yes_no .bottom .left").click(function() {
@@ -1793,7 +1796,6 @@
 			$(".yes_no .bottom .right").click(function() {
 			    $(".yes_no").hide();
 			});
-			
 			
 //          点击专辑里--移除和更新时间
 			//更新时间
@@ -1837,7 +1839,8 @@
 			});
 			
 			
-			
+			$(".courseP").click();
+			$(".courseP").click();
 			
 			
 			
