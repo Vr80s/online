@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 
 
 /**
- * 主播工作台课程控制层
+ * 主播工作台结算控制层
  * @author yuruixin
  */
 @RestController

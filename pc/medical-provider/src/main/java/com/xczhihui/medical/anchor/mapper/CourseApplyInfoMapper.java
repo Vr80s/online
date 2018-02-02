@@ -7,6 +7,7 @@ import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,4 +44,8 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
      * @Date: 下午 10:29 2018/2/1 0001
      **/
     int updateSaleState(@Param("userId") String userId, @Param("courseApplyId") String courseApplyId, @Param("state") Integer state);
+
+    List<Map> selectCoinTransactionPage(@Param("page") Page<Map> page, @Param("userId") String userId);
+
+    List<Map> selectRmbTransactionPage(@Param("page") Page<Map> page, @Param("userId") String userId);
 }

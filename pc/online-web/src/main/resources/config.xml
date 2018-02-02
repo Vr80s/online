@@ -145,6 +145,9 @@
 
 	<!--医馆主播课程-->
 	<dubbo:reference interface="com.xczhihui.medical.anchor.service.ICourseApplyService" id="courseApplyServiceImpl" timeout="${dubbo.consumer.timeout}" />
+	<!--主播资产管理-->
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IAssetService" id="assetServiceImpl" timeout="${dubbo.consumer.timeout}" />
+	<dubbo:reference interface="com.xczhihui.medical.anchor.service.IUserBankService" id="userBankServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.UserCoinService" ref="userCoinServiceImpl" timeout="${dubbo.consumer.timeout}" />
 	<dubbo:service interface="com.xczhihui.bxg.online.api.service.GiftService" ref="giftServiceImpl" timeout="${dubbo.consumer.timeout}" />
