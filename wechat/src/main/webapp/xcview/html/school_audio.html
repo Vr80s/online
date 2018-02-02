@@ -9,14 +9,14 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
-<link rel="stylesheet" href="../css/live_audio.css" />
+<link rel="stylesheet" href="../css/school_audio.css" />
 
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../js/live_audio.js"></script>
+<script type="text/javascript" src="../js/school_audio.js"></script>
 
 
 	
@@ -40,9 +40,7 @@
 		<!--<div class="video_prompt">
 			暂未开播
 		</div>-->
-		<div class="video_prompt_open">
-			<img src="../images/play_btn.png"/>
-		</div>
+
 	</div>
 	<!--主讲人-->
 	<div class="speak_people" id="speak_people">
@@ -262,22 +260,29 @@
 		</script>
 	</div>
 <!--评论结束-->	
-
+	<div id="sure_isBuy">	
+		<script type="text/html" id="data_isBuy">
 					
-			
-			
-		<!--底下评论输入框-->	
-		<div class="wrap_user_input">
-			<div class="wrap_input z">
-				<img src="../images/inp_retured.png"/>
-				<span>来点儿神聊</span>
-			</div>
-			<div class="all_returned_num y">
-				<img src="../images/returned.png"/>
-				<p>评论999+</p>
-			</div>
-		</div>
-
+			<!--底部购买价格-->
+			<div class="bot_price">
+				{{if watchState==0}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>{{currentPrice}}</span>熊猫币</p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_buy()">
+					购买
+				</a>
+				{{else if watchState==1}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>免费</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_mianfei()">
+					立即观看
+				</a>
+				{{/if}}
+			</div>		
+		</script>
+	</div>
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">

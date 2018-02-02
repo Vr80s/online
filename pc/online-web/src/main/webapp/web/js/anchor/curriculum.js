@@ -76,9 +76,6 @@ $(function(){
 		})
 
 
-
-
-
 	//头像上传
 	var userPic = $('.userPic').css('background')
 	console.log(userPic)
@@ -93,7 +90,6 @@ $(function(){
 			}
 		};
 	});
-
 
 
 
@@ -378,39 +374,11 @@ $(".select_list .courseP").click(function() {
     /*$("#zhuanji_bottom2").show();*/
 });
 
-//点击新课程 
-/*$("#kecheng_bottom2 .zhuanlan_top .button").click(function() {
-    $(".curriculum_two").hide();
-    $(".curriculum_one").show();
-    
-    alert(1354165456);
-    $("#zhuanjis_bottom").hide();
-    $("#zhuanji_bottom2").show();
-});*/
 
 
-//课程新课程
-$('#demo2').citys({
-    required:false,
-    nodata:'disabled',
-    onChange:function(data){
-        var text = data['direct']?'(直辖市)':'';
-        $('#place').text('当前选中地区：'+data['province']);
-        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
-    }
-});
 
 
 //账户个人信息
-$('#demo1').citys({
-    required:false,
-    nodata:'disabled',
-    onChange:function(data){
-        var text = data['direct']?'(直辖市)':'';
-        $('#places').text('当前选中地区：'+data['province']);
-        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
-    }
-});
 
 //点击选择资源
 $('#a').click(function(){
@@ -1181,25 +1149,12 @@ $('#zhuanjis_bottom .baocun #submits0').click(function(){
 })
 
 
-
-
-/*$("#times_div .div_two").click(function(){
-	$("#times_div div").removeClass("div_one0");
-	$("#times_div div").addClass("div_one");
-});*/
-
-
-
-
 //点击添加
 $(".zhaunji_tr td .add").click(function() {
     $("#zhuanjis_bottom").show();
     $("#zhuanji_bottom2").hide();
     $("#zhuanji .zhuanlan_top_one").hide();
 });
-
-
-
 
 
 
@@ -1247,8 +1202,6 @@ $("#zhuanji_bottom2 .zhuanlan_top .returns").click(function() {
 });
 
 //专辑结束
-
-
 
 
 
@@ -1337,6 +1290,7 @@ $('.account_two .approve').click(function(){
 	
 })
 //判断医馆认证结束
+
 
 
 
