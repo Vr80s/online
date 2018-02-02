@@ -227,6 +227,9 @@ $('.message_return .name_btn').click(function(){
 	//任职医馆
 	var OfficelNull = $.trim($('.message_return .put1').val());
 	
+//	详细地址
+	var AddressNull = $.trim($('.message_return .name_textarea').val());
+	
 	
 	//昵称为空
 	if(NicknameNull == ''){
@@ -251,6 +254,16 @@ $('.message_return .name_btn').click(function(){
 	}else{
 		$('.message_return .return_warning4').addClass('hide');
 	}
+	
+	//	城市-详细地址
+	if(AddressNull == ''){
+		$('.message_return .return_warning5').removeClass('hide');
+		return false;
+	}else{
+		$('.message_return .return_warning5').addClass('hide');
+	}
+	
+	
 	
 	
 	
