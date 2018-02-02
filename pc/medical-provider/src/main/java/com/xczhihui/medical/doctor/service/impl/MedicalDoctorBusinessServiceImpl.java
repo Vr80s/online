@@ -343,33 +343,36 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
                 if(flag){
 
+                    Date now = new Date();
                     doctor.setUpdatePerson(uid);
                     medicalDoctorMapper.updateById(doctor);
 
-                    // 如果参数中有头像信息
-                    if(StringUtils.isNotBlank(doctor.getHeadPortrait())){
-
+                    // 如果参数中有头像信息或者职称证明
+                    if(StringUtils.isNotBlank(doctor.getHeadPortrait()) || StringUtils.isNotBlank(doctor.getTitleProve())){
                         // 获取 authentication_information_id
-                        if(medicalDoctor != null && StringUtils.isNotBlank(medicalDoctor.getAuthenticationInformationId())){
+                        if(StringUtils.isNotBlank(medicalDoctor.getAuthenticationInformationId())){
                             MedicalDoctorAuthenticationInformation authenticationInformation =
                                     new MedicalDoctorAuthenticationInformation();
                             authenticationInformation.setId(medicalDoctor.getAuthenticationInformationId());
-                            authenticationInformation.setHeadPortrait(doctor.getHeadPortrait());
+                            if(StringUtils.isNotBlank(doctor.getHeadPortrait())){
+                                authenticationInformation.setHeadPortrait(doctor.getHeadPortrait());
+                            }
+                            if(StringUtils.isNotBlank(doctor.getTitleProve())){
+                                authenticationInformation.setTitleProve(doctor.getTitleProve());
+                            }
                             medicalDoctorAuthenticationInformationMapper.updateById(authenticationInformation);
+                            authenticationInformation.setUpdateTime(now);
+                        }else{
+                            throw new RuntimeException("该医师没有认证信息，不能修改其头像，职称证明等信息");
                         }
                     }
 
                     // 如果参数中有科室信息
                     if(CollectionUtils.isNotEmpty(doctor.getDepartmentIds())){
-
-                        Date now = new Date();
-
                         // 根据医师id删除之前的科室信息
                         doctorDepartmentMapper.deleteByDoctorId(doctorId);
-
                         // 新增新的医师与科室对应关系：medical_doctor_department
                         List<String> departmentIds = doctor.getDepartmentIds();
-
                         if(CollectionUtils.isNotEmpty(departmentIds)){
                             departmentIds.forEach(departmentId -> medicalDoctorDepartmentService.add(departmentId , doctorId, now));
                         }
@@ -455,8 +458,9 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
         // 将医师的头像,职称证明添加到认证表上：medical_doctor_authentication_information
         MedicalDoctorAuthenticationInformation authenticationInformation =
-                medicalDoctor.getMedicalDoctorAuthenticationInformation();
+                new MedicalDoctorAuthenticationInformation();
         authenticationInformation.setId(doctorAuthenticationId);
+        authenticationInformation.setTitleProve(medicalDoctor.getTitleProve());
         authenticationInformation.setHeadPortrait(medicalDoctor.getHeadPortrait());
         authenticationInformation.setCreatePerson(medicalDoctor.getUserId());
         medicalDoctorAuthenticationInformationMapper.insert(authenticationInformation);
@@ -545,12 +549,8 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
                 throw new RuntimeException("医师职称不能为空");
             }
 
-            if(medicalDoctor.getMedicalDoctorAuthenticationInformation() == null){
+            if(medicalDoctor.getTitleProve() == null){
                 throw new RuntimeException("请上传职称证明");
-            }else{
-                if(StringUtils.isBlank(medicalDoctor.getMedicalDoctorAuthenticationInformation().getTitleProve())){
-                    throw new RuntimeException("请上传职称证明");
-                }
             }
 
             if(StringUtils.isBlank(medicalDoctor.getFieldText())){

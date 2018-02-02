@@ -127,7 +127,7 @@
 										<div>
 											<span><em>*</em>医馆名称</span>
 											<input type="text" placeholder="请输入医馆名称" maxlength="15" class="doc_zhicheng" />
-											<span class="hosName_warn warning hide">医馆名称不能为空</span>
+											<span class="hosName_warn warning hide" style="margin-left: 0px;">医馆名称不能为空</span>
 										</div>
 
 										<div class="zhicheng_picUpdata clearfix">
@@ -179,7 +179,7 @@
 
 									<div>
 										<span><em></em>邮箱</span>
-										<input type="text" placeholder="请输入医馆邮箱" maxlength="15" class="doc_hospital" />
+										<input type="text" placeholder="请输入医馆邮箱" maxlength="20" class="doc_hospital" />
 										<span class="email_warn warning hide" style="margin-left: 0px;">邮箱格式不正确</span>
 									</div>
 
@@ -824,7 +824,7 @@
 <!--医疗领域模板-->
 <script type="text/template" id="areaTpl">
 	{{each item as item i}}
-	<li>{{item.name}}</li>
+	<li data-id={{item.id}}>{{item.name}}</li>
 	{{/each}}
 </script>
 
@@ -911,6 +911,7 @@
 		</td>
 		<td>
 			{{item.name}}
+			{{item.status}}
 		</td>
 
 		<td>
@@ -931,7 +932,11 @@
 		{{/if}}
 		<td>
 			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
-			<a href="javascript:;" class="downLine" data-id={{item.id}} data-status={{item.status}}>下线</a>
+			{{if item.status == true}}
+			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=0 class="upRoDown">下线</a>
+			{{else if item.status == false}}
+			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=1 class="upRoDown">上线</a>
+			{{/if}}
 			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>
 		</td>
 	</tr>
@@ -953,7 +958,7 @@
 		<span class="touxiang_pic">
 						<!--<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
 						<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>-->
-						<img src={{headPortrait}} alt="" >
+						<img src={{medicalDoctorAuthenticationInformation.headPortrait}} alt="" >
 					</span>
 		<!--<span class="touxiang_pic_tip">
 						<p>请上传清晰头像</p>
@@ -975,7 +980,7 @@
 		<span class="zhicheng_pic">
 						<!--<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
 						<p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>-->
-						<img src={{titleProve}} alt="" >
+						<img src={{medicalDoctorAuthenticationInformation.titleProve}} alt="" >
 		</span>
 		<!--<span class="zhicheng_pic_tip">
 						<p>文件小于2M</p>
@@ -993,7 +998,13 @@
 			{{/each}}
 			{{/if}}
 		</ul>
-		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请请选擅长领域</p>
+		<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请选择科室</p>
+	</div>
+	
+	<div>
+		<span><em>*</em> 擅长</span>
+	
+		<span style="font-size: 14px;">{{fieldText}}</span>
 	</div>
 
 	<div class="personIntroduct">

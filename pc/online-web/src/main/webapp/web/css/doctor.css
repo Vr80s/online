@@ -31,6 +31,7 @@ input,button{
 	opacity: .5;
 	border-radius: 4px;
 	z-index: 999;
+	font-size: 14px;
 }
 .clearfix:after {
   content: "";

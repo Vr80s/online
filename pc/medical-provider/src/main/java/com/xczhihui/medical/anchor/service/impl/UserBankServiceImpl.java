@@ -70,10 +70,12 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
 			String tel = belong.get("tel").toString();
 			String bankName = belong.get("bankName").toString();
-			userBank.setTel(tel);
 			userBank.setBankName(bankName);
 		if(!"0".equals(code)){
 			throw new RuntimeException("银行卡信息有误");
+		}
+		if(!tel.equals(userBank.getTel())){
+			throw new RuntimeException("银行卡号与银行不匹配");
 		}
 		} catch (Exception e) {
 			e.printStackTrace();
