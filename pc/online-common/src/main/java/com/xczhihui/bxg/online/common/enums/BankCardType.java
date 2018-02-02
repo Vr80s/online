@@ -45,12 +45,17 @@ public enum BankCardType {
         this.code = code;
     }
 
-    public static Map<Integer,String> getBankCardList(){
-        Map<Integer,String> m = new HashMap();
+    public static List<Map> getBankCardList(){
+        List<Map> list = new ArrayList<Map>();
+
         for (BankCardType e : BankCardType.values()) {
-            m.put(e.getCode(),e.getText());
+            Map m = new HashMap();
+            m.put("code",e.getCode());
+            m.put("value",e.getText());
+            list.add(m);
         }
-        return m;
+
+        return list;
     }
 
     public static String getBankCard(int code){

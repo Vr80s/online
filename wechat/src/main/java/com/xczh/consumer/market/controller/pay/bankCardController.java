@@ -79,7 +79,7 @@ public class bankCardController {
 	@ResponseBody
 	public ResponseObject getBankCardList(HttpServletRequest req) throws Exception{
 
-		Map<Integer,String>  getBankCardList = BankCardType.getBankCardList();
+        List<Map>  getBankCardList = BankCardType.getBankCardList();
 
 
 		return  ResponseObject.newSuccessResponseObject(getBankCardList);
