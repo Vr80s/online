@@ -67,4 +67,10 @@ public interface IMedicalHospitalBusinessService {
      * @author zhuwenbao
      */
     Page selectDoctorPage(Page<MedicalDoctor> page, String doctorName, String userId);
+
+    /**
+     * 根据用户id获取其医馆详情
+     * @author zhuwenbao
+     */
+    MedicalHospitalVo selectHospitalByUserId(String uid);
 }

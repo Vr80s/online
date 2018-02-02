@@ -99,6 +99,23 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         return page.setRecords(medicalDoctorList);
     }
 
+    /**
+     * 根据用户id获取其医馆详情
+     * @author zhuwenbao
+     */
+    @Override
+    public MedicalHospitalVo selectHospitalByUserId(String uid) {
+
+        // 根据用户id获取其医馆id
+        MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(uid);
+
+        if(hospitalAccount == null){
+            throw new RuntimeException("您尚未拥有医馆");
+        }
+
+        return this.selectHospitalById(hospitalAccount.getDoctorId());
+    }
+
     @Override
     public List<MedicalFieldVO> getHotField() {
         return medicalHospitalMapper.getHotField();

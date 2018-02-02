@@ -137,4 +137,22 @@ public class HospitalController {
 //        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectDoctorPage(page, doctorName, "ff80808161313c570161359826ea0000"));
     }
 
+    /**
+     * 根据用户id获取其医馆详情
+     * @author zhuwenbao
+     */
+    @RequestMapping(value = "/getHospitalByUserId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseObject getHospitalByUserId(Integer current,Integer size,String doctorName, HttpServletRequest request){
+
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalByUserId(currentUser.getUid()));
+//        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalByUserId("ff8080816142af54016149e069080000"));
+    }
+
 }
