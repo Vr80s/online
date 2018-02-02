@@ -350,7 +350,7 @@ $('#resource .zhuanlan_top button').click(function(){
 //课程部分
 //课程部分点击
 var kechengCount = 1;
-$('#curriculum .zhuanlan_top button').click111(function(){
+$('#curriculum .zhuanlan_top button').click(function(){
 	kechengCount *= -1;
 	//上传
 	if(kechengCount < 0){
@@ -369,25 +369,6 @@ $('#curriculum .zhuanlan_top button').click111(function(){
 		$('#curriculum  #kecheng_bottom2').removeClass('hide');
 	}
 })
-
-
-//处理点击--课程显示隐藏第一第二页
-$(".select_list .courseP").click(function() {
-    $(".curriculum_two").hide();
-    $(".curriculum_one").show();
-    /*$("#zhuanji_bottom2").show();*/
-});
-
-//点击新课程 
-/*$("#kecheng_bottom2 .zhuanlan_top .button").click(function() {
-    $(".curriculum_two").hide();
-    $(".curriculum_one").show();
-    
-    alert(1354165456);
-    $("#zhuanjis_bottom").hide();
-    $("#zhuanji_bottom2").show();
-});*/
-
 
 //课程新课程
 $('#demo2').citys({
@@ -1043,40 +1024,40 @@ $('#zhuanjis_bottom .baocun #submits').click(function(){
 //资源为空开始
 
 //添加课程为空开始     提交课程
-$('#ziyuan_bottom .baocun #submit').click(function(){
-//	添加课程为空
-	var ResourceTitle = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
-	var ResourceUploading = $.trim($('#ziyuan_bottom #picIpt3').val());
-	var resourcePut = $.trim($('#ziyuan_bottom .resource_put').val());
-	
-	
-	
-	//课程标题
-	if(ResourceTitle == ''){
-		$('#ziyuan_bottom .warning0').removeClass('hide');
-		return false;
-	}else{
-		$('#ziyuan_bottom .warning0').addClass('hide');
-	}
-	
-	
-	//封面图
-	if(ResourceUploading == ''){
-		$('#ziyuan_bottom .warning1').removeClass('hide');
-		return false;
-	}else{
-		$('#ziyuan_bottom .warning1').addClass('hide');
-	}
-	
-	//上传资源
-	if(resourcePut == ''){
-		$('#ziyuan_bottom .warning2').removeClass('hide');
-		return false;
-	}else{
-		$('#ziyuan_bottom .warning2').addClass('hide');
-	}
-	
-})
+// $('#ziyuan_bottom .baocun #submit').click(function(){
+// //	添加课程为空
+// 	var ResourceTitle = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
+// 	var ResourceUploading = $.trim($('#ziyuan_bottom #picIpt3').val());
+// 	var resourcePut = $.trim($('#ziyuan_bottom .resource_put').val());
+//
+//
+//
+// 	//课程标题
+// 	if(ResourceTitle == ''){
+// 		$('#ziyuan_bottom .warning0').removeClass('hide');
+// 		return false;
+// 	}else{
+// 		$('#ziyuan_bottom .warning0').addClass('hide');
+// 	}
+//
+//
+// 	//封面图
+// 	if(ResourceUploading == ''){
+// 		$('#ziyuan_bottom .warning1').removeClass('hide');
+// 		return false;
+// 	}else{
+// 		$('#ziyuan_bottom .warning1').addClass('hide');
+// 	}
+//
+// 	//上传资源
+// 	if(resourcePut == ''){
+// 		$('#ziyuan_bottom .warning2').removeClass('hide');
+// 		return false;
+// 	}else{
+// 		$('#ziyuan_bottom .warning2').addClass('hide');
+// 	}
+//
+// })
 //资源为空结束
 
 
@@ -1388,19 +1369,13 @@ $('.account_two .approve').click(function(){
 //判断医馆认证开始
 $('.account_two .approve').click(function(){
 //	添加医馆名称为空
-	var NameWarning = $.trim($('.account_two .name_put2').val());
+	var NameWarning = $.trim($('.account_two .zhuanlan_title').val());
 	
 //	添加公司名称为空
-	var CompanyWarning = $.trim($('.account_two .name_put0').val());
+	var CompanyWarning = $.trim($('.account_two .zhuanlan_title').val());
 	
 //	添加公司名称为空
-	var CreditWarning = $.trim($('.account_two .name_put1').val());
-	
-//营业执照
-	var ImgWarning = $.trim($('.account_two #previewImg4').val());
-	
-//药品经营许可证
-	var DrugWarning = $.trim($('.account_two #previewImg5').val());
+	var CreditWarning = $.trim($('.account_two .zhuanlan_title').val());
 	
 	//医馆名称
 	if(NameWarning == ''){
@@ -1426,23 +1401,6 @@ $('.account_two .approve').click(function(){
 		$('.account_two .two_warning2').addClass('hide');
 	}
 	
-//营业执照	
-	if(ImgWarning == ''){
-		$('.account_two .two_warning3').removeClass('hide');
-		return false;
-	}else{
-		$('.account_two .two_warning3').addClass('hide');
-	}
-
-//药品经营许可证
-	if(DrugWarning == ''){
-		$('.account_two .two_warning3').removeClass('hide');
-		return false;
-	}else{
-		$('.account_two .two_warning3').addClass('hide');
-	}
-	
-	
 	
 })
 //判断医馆认证结束
@@ -1450,11 +1408,4 @@ $('.account_two .approve').click(function(){
 
 
 
-
-
-
-
-
 })
-
-

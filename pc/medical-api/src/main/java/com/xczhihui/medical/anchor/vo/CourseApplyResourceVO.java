@@ -52,6 +52,16 @@ public class CourseApplyResourceVO implements Serializable{
 	 */
 	private Date updateTime;
 
+	private String length;
+
+	public String getLength() {
+		return length;
+	}
+
+	public void setLength(String length) {
+		this.length = length;
+	}
+
 	public Integer getId() {
 		return id;
 	}

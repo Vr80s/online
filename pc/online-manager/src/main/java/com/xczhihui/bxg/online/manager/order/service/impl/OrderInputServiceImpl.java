@@ -152,9 +152,10 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 			dao.save(userCoin);
 			Thread.sleep(1000);
 			if(u.getVhallId()==null){
-				String vhallId = VhallUtil.createUser(u,"123456");
+				String vhallPassword = RandomUtil.getCharAndNumr(6);
+				String vhallId = VhallUtil.createUser(u,vhallPassword);
 				u.setVhallId(vhallId);
-				u.setVhallPass("123456");
+				u.setVhallPass(vhallPassword);
 				u.setVhallName(u.getId());
 				dao.update(u);
 			}

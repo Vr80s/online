@@ -112,7 +112,7 @@ public class CourseController {
 		/*
 		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
 		 */
-		if(cv.getType()==1 && cv.getLineState() ==2 ){
+		if(cv.getType()!=null && cv.getType()==1 && cv.getLineState() ==2 ){
 			LOGGER.info("========修改状态");
 			long currentTime = System.currentTimeMillis();
 			currentTime += 1*livePreheating*60*60*1000;
@@ -179,7 +179,7 @@ public class CourseController {
 		/*
 		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
 		 */
-		if(cv.getType()==1 && cv.getLineState() ==2 ){
+		if(cv.getType()!=null && cv.getType()==1 && cv.getLineState() ==2 ){
 			LOGGER.info("========修改状态");
 			long currentTime = System.currentTimeMillis();
 			currentTime += 1*livePreheating*60*60*1000;

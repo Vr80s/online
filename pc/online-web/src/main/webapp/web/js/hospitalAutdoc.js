@@ -25,19 +25,35 @@ $(function() {
 	//医师预览功能
 	$('.doc_Administration_bottom2').on('click','.preview',function() {
 		changeDocId = $(this).attr('data-id');
-		console.log(changeDocId)
-		$('#mask').removeClass('hide');
-		$('#doc_Administration_bottom3').addClass('hide');
-		$('#doc_Administration_bottom4').removeClass('hide');
-		
 		//获取预览的数据渲染
-			RequestService("/medical/doctor/get", "get", {
+		RequestService("/medical/doctor/get", "get", {
 			doctorId: changeDocId,
 		}, function(data) {
 			console.log(data)
-//			$('#doc_Administration_bottom4').html(template('hosDocViewTpl',data))
-		})
+			$('#doc_Administration_bottom4').html(template('docStatusTpl',data.resultObject))
+			
+			$('#mask').removeClass('hide');
+		$('#doc_Administration_bottom3').addClass('hide');
+		$('#doc_Administration_bottom4').removeClass('hide');
+
+		})	
 	})
+	
+	//下线功能
+	$('#doc_Administration_bottom2').on('click','.downLine',function(){
+		if($(this).attr('data-status') == true){
+			alert(111)
+		}
+		//医师数据上传
+//		RequestService("/medical/doctor/update", "post", {
+//			id:
+//			status:
+//		}, function(data) {
+//			console.log(data);
+//
+//		})
+	})
+	
 
 	//医师编辑功能
 	$('#doc_Administration_bottom2').on('click','.edit',function() {
@@ -48,13 +64,13 @@ $(function() {
 		$('#doc_Administration_bottom3').css('visibility','visible');
 	})
 
-	//医师编辑关闭按钮
-	$('#doc_Administration_bottom4 .close_doc_inf').click(function() {
+	//医师预览关闭按钮
+	$('#doc_Administration_bottom4').on('click','.close_doc_inf',function() {
 		$('#mask').addClass('hide');
 		$('#doc_Administration_bottom4').addClass('hide');
 	})
 
-	//医师预览关闭按钮
+	//医师编辑关闭按钮
 	$('#doc_Administration_bottom3 .close_doc_inf').click(function() {
 		$('#mask').addClass('hide');
 		$('#doc_Administration_bottom3').addClass('hide');
