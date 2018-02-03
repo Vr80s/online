@@ -101,7 +101,7 @@ header {
 	margin-right: 0.142rem;
 }
 .enter_one .put{
-	width: 5.55rem;
+	width: 5.4rem;
     height: 0.98rem;
     padding: 0 !important;
     margin: 0 !important;
@@ -113,6 +113,17 @@ header {
 	background: none !important;
 	outline: none;
 }
+.enter_one .input1{
+	float: left;
+}
+.enter_one .div{
+	width: 0.3rem;
+	height: 0.18rem;
+	background: url(../images/hide.png) no-repeat;
+	background-size: 100% 100%;
+	float: left;
+	margin-top: 0.4rem;
+	}
 .enter_btn{
 	width: 6.1rem;
 	height: 0.72rem;
@@ -181,4 +192,19 @@ header {
 	color: #fff;
 }
 /*中间内容结束*/
+
+/*熊猫中医用户协议开始*/
+.deal_show{
+	font-size: 0.26rem;
+	display: none;
+}
+.deal_show p{
+	margin-bottom: 0.2rem;
+	padding: 0 0.26rem;
+}
+.deal_show b{
+	padding: 0 0.26rem;
+}
+
+/*熊猫中医用户协议结束*/
 
