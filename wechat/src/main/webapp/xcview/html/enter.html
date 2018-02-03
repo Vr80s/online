@@ -15,7 +15,6 @@
 <!-- 公共的  -->
 <link rel="stylesheet" href="/xcview/css/enter.css">
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
-
 </head>
 <body style="background:#fff;">
 	<!-- 头部开始 -->
@@ -40,6 +39,7 @@
 		<div class="enter_one">
 			<img src="../images/suo.png" class="img1"/>
 			<input type="password" name="password" id="password" value="" placeholder="密码" class="input1" />
+			<div class="div open"></div>
 		</div>
 		<div class="enter_btn" onclick="login()">登录</div>
 		<div class="forget_password"><a href="/xcview/html/forget_password.html">忘记密码</a></div>
@@ -111,6 +111,23 @@
 			}
 		})
 		
+	};
+</script>
+
+<!--点击小眼睛-->
+<script>
+	window.onload = function(){
+		$('.open').on('click',function(){
+		  	if($("#password").prop('type')=='password'){
+		    	$("#password").prop('type','text');
+		    	$(".div").css("background","url(../images/show.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}else{
+		    	$("#password").prop('type','password');   /*看不到小眼睛,最初默认的时候*/
+		    	$(".div").css("background","url(../images/hide.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}
+		});
 	};
 </script>
 
