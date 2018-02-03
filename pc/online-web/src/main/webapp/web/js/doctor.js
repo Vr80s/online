@@ -15,6 +15,8 @@ $(function () {
 	  		if(data.resultObject.indexOf(1) != -1){
 	  			//医师认证成功
 	  			$('.forum-hosJoin').addClass('hide');
+	  		}else{
+	  			$('.forum-hosJoin').removeClass('hide');
 	  		}
 	  	}
 	  });

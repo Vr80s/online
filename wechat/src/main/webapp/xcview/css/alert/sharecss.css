@@ -70,7 +70,7 @@ a,button,input,label{-webkit-tap-highlight-color:rgba(0,0,0,0);}
     /* android4.0+ ios4+ 恢复按钮被点击时产生的效果 */
     a,button,input,label{-webkit-tap-highlight-color:rgba(130,130,130,.52);outline: none;}
 }
-html,body{height:100%;margin: 0 auto;max-width: 640px;background-color: #eaeaee;}
+/*html,body{height:100%;margin: 0 auto;max-width: 640px;background-color: #eaeaee;}*/
 a{text-decoration:none;}
 .clear{clear:both;}
 .clearleft{float:left;display: inline;}

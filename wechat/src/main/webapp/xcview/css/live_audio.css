@@ -94,6 +94,7 @@ left: 50%;
 top: 50%;
 margin-left: -0.88rem;
 margin-top: -0.28rem;
+display: none;
 }
 /*视频开播*/
 .video_prompt_open{
