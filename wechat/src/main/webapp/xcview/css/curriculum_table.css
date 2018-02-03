@@ -104,6 +104,9 @@ img{
 a{
 	text-decoration: none;
 }
+.both{
+	clear: both;
+}
 
 /*头部开始*/
 header{
@@ -352,7 +355,7 @@ header{
 	top: 0;
 	left: 0;
 	opacity: 0.5;
-	z-index: 11;
+	z-index: 99;
 }
 .btn_show_main{
 	width: 5.06rem;
@@ -362,7 +365,7 @@ header{
 	top: 0;
 	right: -10.766rem;
 	overflow: auto;
-	z-index: 11;
+	z-index: 99;
 }
 @keyframes myfirst{
 	/*100% {background:red; right:0px; top:0px;}*/
@@ -414,7 +417,7 @@ header{
 	font-size: 0.32rem;
 	color: #333;
 	margin-left: 0.553rem;
-	margin-bottom: 0.638rem;
+	margin-bottom: 0.3rem;
 }
 .all_right_type_one{
 	width: 2.12rem;
@@ -426,23 +429,23 @@ header{
 	border: 1px solid #DEDEDE;
 	border-radius: 8px;
 	float: left;
-    margin-left: 0.57rem;
-    margin-bottom: 0.638rem;
+    margin-left: 0.27rem;
+    margin-bottom: 0.38rem;
 }
 .all_right_type_one_add{
 	color: #00BC12;
 	border: 1px solid #00BC12;
 }
 .all_mold{
-	margin-bottom: 0.638rem;
+	/*margin-bottom: 0.638rem;*/
 }
 .all_bottom{
 	width: 100%;
-	height: 2.085rem;
-	line-height: 2.085rem;
-	    /*background: red;*/
-	position: fixed;
-	bottom: 0;
+    height: 0.98rem;
+    line-height: 0.98rem;
+    /* background: red; */
+    position: fixed;
+    bottom: 0;
 }
 .all_bottom div{
 	width: 34%;
@@ -452,12 +455,12 @@ header{
 }
 .all_bottom_btn0{
 	background: #F8F8F8;
-	font-size: 0.638rem;
+	font-size: 0.3rem;
 	color: #00BC12;
 }
 .all_bottom_btn1{
 	background: #00BC12;
-	font-size: 0.638rem;
+	font-size: 0.3rem;
 	color: #fff;
 }
 /*筛选滑动结束*/
