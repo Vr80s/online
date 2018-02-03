@@ -23,6 +23,7 @@ public class CourseApplyResourceVO implements Serializable{
 	 */
 	@TableId(value="id", type= IdType.AUTO)
 	private Integer id;
+	private Integer caiId;
 	/**
 	 * 标题
 	 */
@@ -124,5 +125,13 @@ public class CourseApplyResourceVO implements Serializable{
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Integer getCaiId() {
+		return caiId;
+	}
+
+	public void setCaiId(Integer caiId) {
+		this.caiId = caiId;
 	}
 }

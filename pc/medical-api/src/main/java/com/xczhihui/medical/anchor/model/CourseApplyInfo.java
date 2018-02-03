@@ -1,14 +1,14 @@
 package com.xczhihui.medical.anchor.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,6 +70,7 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      * 课程开始时间
      */
 	@TableField("start_time")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date startTime;
     /**
      * 课程时长
@@ -173,6 +174,7 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      * 结课时间
      */
 	@TableField("end_time")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date endTime;
 
 	@TableField("resource_id")

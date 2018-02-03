@@ -47,7 +47,7 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 10:26 2018/2/1 0001
      **/
-    List<CourseApplyResourceVO> selectAllCourseResources(String id);
+    List<CourseApplyResourceVO> selectAllCourseResources(String id, Integer multimediaType);
 
     Page<CourseApplyResourceVO> selectCourseResourcePage(Page<CourseApplyResourceVO> page, String id);
 
@@ -82,4 +82,6 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      * @Date: 下午 2:19 2018/2/2 0002
      **/
     void updateCourseApplyResource();
+
+    void deleteCourseApplyResource(String id, String resourceId);
 }
