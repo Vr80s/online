@@ -420,7 +420,6 @@ public class VideoDao extends SimpleHibernateDao {
 		if (!StringUtils.hasText(content) || !StringUtils.hasText(userId)) {
 			throw new RuntimeException("参数错误！");
 		}
-		
 		/*
 		 * 回复此评论的人
 		 */
@@ -437,6 +436,8 @@ public class VideoDao extends SimpleHibernateDao {
 		criticizeVo.setUserId(cvo.getUserId());
 		criticizeVo.setCourseId(cvo.getCourseId());
 		this.saveNewCriticize(criticizeVo);
+		
+		System.out.println("评论id"+criticizeVo.getId());
 		/**
 		 * 然后在这个评论中增加一个回复
 		 */
@@ -447,9 +448,9 @@ public class VideoDao extends SimpleHibernateDao {
 		        + ":criticizeId)";
 		 Map<String,Object> params=new HashMap<String,Object>();
 		 params.put("id", replyId);
-		 params.put("createPerson", userId);  //创建人
-		 params.put("content", content);      //内容
-		 params.put("userId", cvo.getCreatePerson());     //回复的用户
+		 params.put("createPerson", cvo.getUserId());     //当前被回复的评论id是这个回复创建人
+		 params.put("content", cvo.getContent());         //内容
+		 params.put("userId", cvo.getUserId());     	  //回复的讲师id
 		 params.put("criticizeId", criticizeVo.getId());  //此条评论的人	
 		 this.getNamedParameterJdbcTemplate().update(sql,params);
 	}
@@ -568,24 +569,24 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public Integer findUserFirstStars(Integer courseId,String userId) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select (SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId' "); 
+        sql.append("select (SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
         sql.append(" and argc.user_id=:userId ) as isBuy,count(*) as isStats ");
         sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson ");
         Map<String,Object> paramMap = new HashMap<>();
+//        paramMap.put("courseId", courseId);
         paramMap.put("courseId", courseId);
         paramMap.put("userId", userId);
         paramMap.put("createPerson", userId);
-        
-        //this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, rse)(querySql, courseId);
-        List<Map<String, Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql.toString(),paramMap);
+        List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
+        //List<Map<String, Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql.toString(),paramMap);
         Integer isViewStars = 0;
         if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
-        	 String isBuy = (String) list.get(0).get("isBuy");
-             String isStats = (String) list.get(0).get("isStats");
-             if(isBuy!=null && Integer.parseInt(isBuy)>0){ //表示购买过了
+        	Long isBuy =  (Long) list.get(0).get("isBuy");
+        	Long isStats = (Long) list.get(0).get("isStats");
+             if(isBuy!=null && isBuy>0){ //表示购买过了
             	 isViewStars = 1;
              }
-             if(isBuy!=null && isStats!=null && Integer.parseInt(isBuy)>0 &&  Integer.parseInt(isStats)>0){
+             if(isBuy!=null && isStats!=null && isBuy>0 && isStats>0){
             	 isViewStars = 2;
              }
         }
