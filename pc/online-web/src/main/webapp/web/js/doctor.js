@@ -18,6 +18,8 @@ $(function () {
 	  		}else{
 	  			$('.forum-hosJoin').removeClass('hide');
 	  		}
+	  	}else if(data.success == false && data.errorMessage == "请登录！" ){
+	  		$('.forum-hosJoin').removeClass('hide');
 	  	}
 	  });
 	
