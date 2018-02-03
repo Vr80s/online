@@ -64,7 +64,11 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-
+//	CC视频ID
+	var	videoId = data.resultObject.directId;
+		console.log(videoId)
+		chZJ(videoId)
+		
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
@@ -86,10 +90,54 @@ $(function(){
 		}else{
 			$(".wrap1 p").html(data.resultObject.lecturerDescription)
 		}
+
 	});
 
     //传ID courseId为接口的课程ID，评论列表
     refresh();
+    
+    
+
+//  CC视频
+//视频id
+function chZJ(videoId){
+	/**
+	 * 请求代码啦
+	 */
+//	屏幕分辨率的高：window.screen.height 
+//	屏幕分辨率的宽：window.screen.width 
+	var playerwidth = window.screen.width;
+	var playerheight = 8.95*21.8;
+//	var playerwidth = 300;
+//	var playerheight = 300;
+	console.log(playerwidth);
+	var dataParams = {
+		playerwidth:playerwidth,	
+		playerheight:playerheight,
+		videoId:videoId,
+//		multimedia_type:multimediaType
+		multimedia_type:1
+	}
+	requestService("/bxg/ccvideo/commonCourseStatus", 
+			dataParams, function(data) {
+		if(data.success){
+			var playCodeStr = data.resultObject;
+			var playCodeObj = JSON.parse(playCodeStr);
+			console.log(playCodeObj.video.playcode);
+//			$("#video_v").html(playCodeObj.video.playcode)
+			$("#video_v").html(playCodeObj.video.playcode)
+			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
+		 	/**
+	    	 * 初始化评论区
+	    	 */
+	    	//getVideoCriticize(1,vid);
+		}else{
+    		$(".video_prompt").show();
+		}
+	},false);
+}
+
+
 })
 
 
@@ -228,3 +276,4 @@ function del(){
     my_impression2="";
     my_impression3=""
 }
+
