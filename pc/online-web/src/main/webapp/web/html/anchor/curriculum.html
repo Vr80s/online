@@ -38,33 +38,51 @@
     <script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="/web/js/artTemplate.js"></script>
     <script type="text/javascript" src="/web/js/jquery.SuperSlide.2.1.1.js"></script>
-    <script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <!--<script src="/web/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>-->
     <script src="/web/js/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/md5.js" type="text/javascript" charset="UTF-8"></script>
     <script src="/web/js/html5.js" type="text/javascript" charset="utf-8"></script>
-   
+
     <!-----引用layer------>
     <script type="text/javascript" src="/web/layer-v2.1/layer/layer.js"></script>
     <!-----引用layer------>
     <script type="text/javascript" src="/web/js/helpers.js"></script>
     <script src="/web/js/ajax.js" type="text/javascript" charset="utf-8"></script>
     <script src="/web/js/header.js" type="text/javascript" charset="utf-8"></script>
-    
-    <script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script>  <!--省市-->
+
+	<link rel="stylesheet" type="text/css" href="/web/bootstrap-select/bootstrap-select.css">
+	<link href="/web/bootstrap-select/bootstrap.min.css" rel="stylesheet">
+	<script src="/web/bootstrap-select/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
+
+    <!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="/web/js/provinces.js"></script>
 	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
-	
+
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+	<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 	<!--修改点击切换隐藏第一二页-->
-	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>	
-	
+	<script src="/web/js/anchor/switchover.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="/web/js/swfobject.js"></script>
+	<style type="text/css">
+		.fla_btn {
+			position: relative;
+		}
+		.fla_btn embed {
+			position: absolute;
+			z-index: 1;
+		}
+		#swfDiv{*position:absolute; z-index:2;}
+	</style>
 
    </head>
 	<body>
-		
-	<!--课程渲染开始-->
 	<script type="text/template" id="course_list_tpl">
 		{{each records as course i}}
-		<tr class="tr_sold_out">
+		<tr>
 			<td>
 				<img src="{{course.imgPath}}" alt="" />
 			</td>
@@ -103,22 +121,68 @@
 				{{/if}}
 			</td>
 			<td>
-				{{course.title}}
+				{{if course.applyStatus==1}}
+					{{if course.status==1}}
+					<span>已上架</span>
+					{{else}}
+					<span>未上架</span>
+					{{/if}}
+				{{/if}}
 			</td>
 			<td>
-				
-				<a href="javascript:;" class="sold_out">下架</a>
+				{{if course.applyStatus==1}}
+				{{if course.status==1}}
+				<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
+				{{else}}
+				<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
+				{{/if}}
+				{{else if course.applyStatus==2}}
 				<a href="javascript:;">编辑</a>
+				{{/if}}
 			</td>
 		</tr>
 		{{/each}}
 	</script>
-	<!--课程渲染结束-->
-	
-	<!--专辑渲染开始-->
+	<script type="text/template" id="course_live_tpl">
+		{{each records as course i}}
+		<tr>
+			<td>
+				<img src="{{course.imgPath}}" alt="" />
+			</td>
+			<td>
+				{{course.title}}
+			</td>
+			<td>
+				{{course.courseLength}}
+			</td>
+			<td>
+				{{course.startTime}}
+			</td>
+			<td>
+				{{if course.liveStatus==1}}
+				<span>直播中</span>
+				{{else if course.liveStatus==2}}
+				<span>准备直播</span>
+				{{else if course.liveStatus==0}}
+				<span>直播完成</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if course.liveStatus==1}}
+				<span>直播中</span>
+				{{else if course.liveStatus==2}}
+				<a href="javascript:;" onclick="startLive({{course.webinarId}})">进入直播</a>
+				<a href="javascript:;" onclick="previewLive({{course.webinarId}})">直播预览</a>
+				{{else if course.liveStatus==0}}
+				<span>直播完成</span>
+				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</script>
 	<script type="text/template" id="course_collection_list_tpl">
 		{{each records as collection i}}
-		<tr class="zhaunji_tr">
+		<tr>
 			<td>
 				<img src="{{collection.imgPath}}" alt="" />
 			</td>
@@ -160,9 +224,9 @@
 			<td>
 				{{if collection.applyStatus==1}}
 				{{if collection.status==1}}
-				<a href="javascript:;">下架</a>
+				<a href="javascript:;" onclick="confirmCollectionSale(0)">下架</a>
 				{{else}}
-				<a href="javascript:;" class="out">上架</a>
+				<a href="javascript:;" onclick="confirmCollectionSale(1)">上架</a>
 				{{/if}}
 				{{else if collection.applyStatus==2}}
 				<a href="javascript:;">编辑</a>
@@ -171,9 +235,41 @@
 		</tr>
 		{{/each}}
 	</script>
-	<!--专辑渲染结束-->
-	
-		<div class="wp">
+	<script type="text/template" id="course_resource_list_tpl">
+		{{each records as resource i}}
+		<tr>
+			<td>
+				{{resource.title}}
+			</td>
+			<td>
+				{{resource.length}}
+			</td>
+			<td>
+				{{resource.createTime}}
+			</td>
+			<td>
+				{{if resource.caiId!=null}}
+				<span>使用中</span>
+				{{else}}
+				<span>未使用</span>
+				{{/if}}
+			</td>
+			<td>
+				{{if resource.multimediaType==1}}
+				<span>视频</span>
+				{{else if resource.multimediaType==2}}
+				<span>音频</span>
+				{{/if}}
+			</td>
+			<td>
+				<a href="javascript:;"  onclick="deleteResource({{resource.id}})">删除</a>
+				<!--<a href="javascript:;" class="preview" onclick="resourcePre()">预览</a>-->
+			</td>
+		</tr>
+		{{/each}}
+	</script>
+
+	<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
 				<div class="doctor_inf">
@@ -195,15 +291,14 @@
 								<p class="activeP courseP">课程</p>
 								<p class="specialP">专辑</p>
 								<p class="liveP">直播</p>
-								<p class="schedulingP">排课</p>
+								<p class="schedulingP" style="display: none;">排课</p>
 								<p class="resourceP">资源</p>
 							</div>
 						</li>
 						
 						<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
 						<li class="setTop"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
-						
-						
+
 						<li class="select-uds">
 							<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 							<div class="littleBoxs">
@@ -211,90 +306,14 @@
 								<p class="name_personage">个人信息</p>
 							</div>
 						</li>
-						
-						
-						
-					
+
 					</ul>
 				</div>
 			</div>			
 			<!--右边内容-->
 			<div class="contentWrap y">
-				<!--课程-->
-				<!--<div class="select_box" style="display: block;">两个课程是一样的</div>-->	
-				<!--收徒-->
-				<!--<div class="select_box">收徒</div>-->	
-				<!--医馆-->
-				<!--<div class="select_box" id="hospital" style="display: none;">
-					<div class="zhuanlan_top">
-						<span class="title">医馆</span>
-						<button>返回</button>
-					</div>
-					
-					<div class="zhuanlan_bottom " id="hospital_bottom">
-						<form action="">
-						<div>
-							<span><em>*</em> 任职医馆</span>
-							<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title"/><a href="javascript:;"><span>选择平台已有医馆</span></a>
-							<p class="warning hide">任职医馆不能为空</p>
-						</div>
-						
-						<div class="hospital_address">
-							<span><em>*</em> 医馆地址</span>
-							<select name="" id="">
-								<option value="">111</option>
-								<option value="">111</option>
-								<option value="">111</option>
-							</select>
-							
-							<select name="" id="">
-								<option value="">222</option>
-								<option value="">111</option>
-								<option value="">111</option>
-							</select>
-							<textarea name="" id="" style="resize: none;display: block;" placeholder="请输入详细地址"></textarea>
-							<p class="warning hide">医馆地址不能为空</p>
-						</div>
-						
-						<div class="hospital_worktime">
-							<span><em>*</em>  每周坐诊</span>
-							<ul>
-								<li>一</li>
-								<li>二</li>
-								<li>三</li>
-								<li>四</li>
-								<li>五</li>
-								<li>六</li>
-								<li>七</li>
-							</ul>
-						</div>
-						
-						
-						
-						<div class="baocun">
-							<input type="submit" value="保存" id="submit"/>
-						</div>
-						</form>
-					</div>
-				</div>-->
-				<!--专栏-->
-				<!--<div class="select_box" id="ceshi">
-					<div class="">我是测试</div>
-				</div>-->
-				
-				<!--<div class="select_box">测试</div>-->	
-				
-				<!--著作-->
-				<!--<div class="select_box">著作</div>-->
-				<!--媒体报道-->
-				<!--<div class="select_box">媒体报道</div>-->
-				<!--医师认证-->
-				<!--<div class="select_box">医师认证</div>-->
-				<!--个人中心-->
-				<!--<div class="select_box">个人中心</div>-->				
 			</div>
-			
-			
+
 			<!--账号开始  账户有单独的css -->
 			<div class="account">   <!--account_mains  这是点击选择右侧div-->
 				<!--医师认证开始-->
@@ -707,35 +726,19 @@
 							<button class="button">返回</button>
 						</div>
 						<div class="zhuanlan_bottom" id="kecheng_bottom">
-							<form action="">
+							<form id="courseForm">
 							<div>
 								<span><em>*</em>课程标题</span>
-								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title"/>
-								<p class="warning warning0 hide">课程标题不能为空</p>
+								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title course_title"/>
+								<p class="warning warning_course_title hide">课程标题不能为空</p>
 							</div>
 							
 							<div>
 								<span><em>*</em>副标题</span>
-								<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0"/>
-								<p class="warning warning1 hide">副标题不能为空</p>
+								<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 course_subtitle"/>
+								<p class="warning warning_course_subtitle hide">副标题不能为空</p>
 							</div>
-							
-							
-							<!--<div class="fengmian">
-								
-								<span><em>*</em>封面图</span>
-								<span class="fengmian_pic">点击上传封面图片</span>
-								<span class="fengmian_tip">
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
-								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt0"/>
-								<p class="warning warning2 hide">请上传封面图</p>
-								
-							</div>-->
-							
-							
-							
+
 							<div class="certification physician_span">
 								<span><em>*</em>封面图</span>
 					            <div class="input-group row">
@@ -744,134 +747,126 @@
 										<div class="two">点击上传封面图</div>
 									</div>
 					                <div class="col-sm-9 big-photo">
-					                    <div class="preview" id="preview6">
+					                    <div class="preview" id="courseImg" style="width: 100%;height: 100%">
 					                        <!--<img id="imghead6" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg6').click();">-->
 					                    </div>         
-					                    <input type="file" onchange="previewImage6(this)" id="previewImg6">
+					                    <input type="file" id="courseImgPath">
 					                </div>
 					            </div>
-					            <div class="hint">
-				                	<div class="">文件小于2M</div>
-				                	<div class="">支持JPG/PNG等格式图片</div>
-				                </div>
-				                <div class="both"></div>
+								<div class="hint">
+									<div class="">文件小于2M</div>
+									<div class="">支持JPG/PNG等格式图片</div>
+								</div>
+								<div class="both"></div>
+								<p class="warning_course_imgPath warning hide">请上传封面图</p>
 							</div>
-							
-							
-							
-							
-							
-							
+
 							<div>
 								<span><em>*</em>主播姓名</span>
-								<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_title1 "/>
-								<p class="warning warning3 hide">主播不能为空</p>
+								<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_title1 course_lecturer "/>
+								<p class="warning warning_course_lecturer hide">主播不能为空</p>
 							</div>
-							
-							
-							<div class="textarea">
-								<span class="span"><em>*</em>主播介绍</span>
-								<div class="">
-									<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textarea1"></textarea>
-									
-								</div>
-								<p class="warning warning4 hide">主播介绍不能为空</p>
+
+							<div class="">
+								<span class="span" style="vertical-align: top;"><em>*</em>主播介绍</span>
+								<div class="" style="display: inline-block">
+									<script id="editor" type="text/plain" style="width:540px;height:160px;"></script></div>
+								<p class="warning warning_course_lecturer_description hide">主播介绍不能为空</p>
 							</div>
-							
-							
+
 							<div id="resourceTypes">
 								<span><em>*</em>课程类型</span>
 								<label>
-									<input type="radio" name="resourceType" checked="checked" />线上课
+									<input type="radio" value="1" name="course_form" checked="checked" onclick="showCourseAttribute(1)"/>直播课
 								</label>
 								<label>
-									<input type="radio" name="resourceType" />直播课
+									<input type="radio" value="2" name="course_form" onclick="showCourseAttribute(2)" />点播课
 								</label>
 								<label>
-									<input type="radio" name="resourceType" />线下课
+									<input type="radio" value="3" name="course_form" onclick="showCourseAttribute(3)" />线下课
 								</label>
 							</div>
-							
-							
+
 							<div class="select">
 								<span><em>*</em>课程分类</span>
-								<select name="">
-									<option value="">请选择课程分类</option>
-									<option value="">我是分类1</option>
-									<option value="">我是分类2</option>
-									<option value="">我是分类3</option>
+								<select id="menu_select" >
 								</select>
 								<p class="warning hide">课程分类不能为空</p>
 							</div>
-							<div class="select">
+							<div class="select live offline special">
 								<span><em>*</em>开课时间</span>
-								
-								<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time" />
-								<p class="warning warning5 hide">开课时间不能为空</p>
+								<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time" />
+								<p class="warning warning_course_start_time hide">开课时间不能为空</p>
+								<p class="warning warning_course_time1 hide">开课时间应大于当前时间</p>
 							</div>
-							
-							
-							<div class="sheng">
+
+							<div class="select offline special">
+								<span><em>*</em>结课时间</span>
+								<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_end_time" />
+								<p class="warning warning_course_end_time hide">结课时间不能为空</p>
+								<p class="warning warning_course_time hide">结课时间应大于开课时间</p>
+							</div>
+
+							<div class="sheng offline special">
 								<span style="float: left;margin-top: 5px;margin-right: 23px;"><em>*</em>上课地址</span>
 								<div id="demo2" class="citys">
 					                <p>
-					                    <select name="province"></select>
-					                    <select name="city"></select>
-					                    <!-- <select name="area"></select> -->
+					                    <select name="province" onchange="doProvAndCityRelation()" id="choosePro" class="course_province"></select>
+					                    <select name="city" id="citys" class="course_city"></select>
 					                </p>
 					            </div>
-					            <textarea name="" rows="" cols="" class="sheng_textarea" placeholder="请输入详细地址"></textarea>
+					            <textarea name="" rows="" cols="" class="sheng_textarea course_address" placeholder="请输入详细地址"></textarea>
+								<p class="warning warning_course_address hide">请填写完整地址</p>
 							</div>
 							
-							
-							<div>
+							<div class="">
 								<span><em>*</em>时长</span>
-								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2" style="width: 120px;" />
+								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2 course_length" style="width: 120px;" />
 								<span>分钟</span>
-								<p class="warning warning6 hide">时长不能为空</p>
+								<p class="warning warning_course_length hide">时长不能为空</p>
 							</div>
 							<div>
 								<span><em>*</em>价格</span>
-								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3" style="width: 120px;" />
+								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3 course_price" style="width: 120px;" />
 								<span>元</span>
-								<p class="warning warning7 hide">价格不能为空</p>
+								<p class="warning warning_course_price hide">价格不能为空</p>
 							</div>
-							<div class="textarea">
-								<span class="span"><em>*</em>课程介绍</span>
-								<div class="">
-									<textarea name="" rows="" cols="" placeholder="请输入内容介绍"></textarea>
-									
-								</div>
+							<div class="">
+								<span class="span" style="vertical-align: top;"><em>*</em>课程介绍</span>
+								<div class="" style="display: inline-block">
+									<script id="editor_cd" type="text/plain" style="width:540px;height:260px;"></script></div>
+								<p class="warning warning_course_details hide">课程介绍不能为空</p>
 							</div>
-							<div id="resourceType">
+							<div id="resourceType" class="sheng vod special">
 								<span><em>*</em>资源类型</span>
 								<label>
-									<input type="radio" name="resourceType0" checked="checked" />视频
+									<input type="radio" name="course_multimedia_type" value="1" onclick="initResource(1)" checked="checked" />视频
 								</label>
 								<label>
-									<input type="radio" name="resourceType0" />音频
+									<input type="radio" name="course_multimedia_type" value="2" onclick="initResource(2)"/>音频
 								</label>
 							</div>
 							
 							
-							<div id="resourceUrl">
+							<div id="resourceUrl"  class="vod special">
 								<span><em>*</em> 选择资源</span>
-								<input type="text" class="resourceUrl" />
-								<a href="javascript:;" id="a"><span style="cursor: pointer;">选择资源</span></a>
-								<p class="warning warning8 hide">选择资源不能为空</p>
+								<label for="id_select"></label>
+								<select id="id_select" class="selectpicker bla bla bli course_resource" data-live-search="true">
+									</optgroup>
+								</select>
+								<!--<input type="text" class="resourceUrl" />-->
+								<!--<a href="javascript:;" id="a"><span style="cursor: pointer;">选择资源</span></a>-->
+								<p class="warning warning_course_resource hide">选择资源不能为空</p>
 							</div>
 							<div class="baocun">
-								<input type="submit" value="提交课程" id="submit"/>
-								<input type="submit" value="保存" id="submit0"/>
+								<input type="button" class="addCourse" value="提交课程" id="submit"/>
+								<!--<input type="submit" value="保存" id="submit0"/>-->
 							</div>
 							</form>
 						</div>
-					
-						
-						
+
 					</div>
-					
-					
+
 					<!--第一页-->
 					<div class="curriculum_two">
 						<div class="zhuanlan_bottom2 course_content" id="kecheng_bottom2" style="margin-bottom: 30px;">
@@ -926,23 +921,19 @@
 						</div>
 					</div>
 						
-						<div class="yes_no" style="display: block1;">
-							<div class="yes_no_bg"></div>
-							<div class="yes_no_main">
-								<div class="top">是否下架</div>
-								<div class="bottom">
-									<div class="left">否</div>
-									<div class="right">是</div>
-								</div>
+					<div class="yes_no" style="display: block1;">
+						<div class="yes_no_bg"></div>
+						<div class="yes_no_main">
+							<div class="top saleText"></div>
+							<input type="hidden" id="saleState">
+							<input type="hidden" id="saleCourseId">
+							<div class="bottom">
+								<div class="left">否</div>
+								<div class="right" onclick="changeSaleState()">是</div>
 							</div>
 						</div>
-						
 					</div>
-					
-					
-					
-					
-					
+					</div>
 					<!--点击选择资源弹框开始-->
 					<div class="a_resource">
 						<div class="a_resource_bg"></div>
@@ -951,16 +942,11 @@
 						</div>
 					</div>
 					<!--点击选择资源弹框结束-->
-					
-	
+
 				</div>	
 				
 				<!--专辑-->
 				<div class="little_box" id="zhuanji">
-					<!--<div class="zhuanlan_top zhuanlan_top_one">
-						<span class="title">专辑</span>
-						<button>新专辑</button>
-					</div>-->
 					<div class="zhuanlan_bottom2" id="zhuanji_bottom2">
 						<div class="zhuanlan_top">
 							<span class="title">专辑</span>
@@ -1263,7 +1249,7 @@
 							
 						</div>
 						
-					</div>
+						</form></div>
 				
 					<!--课程添加开始-->
 					<!--<div class="adds_course">-->
@@ -1416,31 +1402,21 @@
 
 					<!--</div>-->
 					<!--课程添加结束-->
-					
-					
-					
-					
-					
 				</div>
-				
-				
-				
-				
-				
+
 				<!--直播-->
 				<div class="little_box">
 					<div class="live_streaming">
 						<div class="live_streaming_title">直播</div>
 						<div class="live_streaming_main">
 							<div class="live_streaming_main_left" style="margin-top: -3px;">
-								<div class="">您的直播账户：V299229930  密码：878996</div>
+								<div class="">您的直播账户：<span id="vhallAccount"></span>  密码：<span id="vhallPassword"></span></div>
 								<div class="">直播方式：1.下载直播客户端，在pc上直播  2.点击下面列表中的直播可直接进入直播</div>
 							</div>
-							<div class="live_streaming_main_right" style="margin-top: -4px;">下载客户端</div>
+							<a href="http://cnstatic01.e.vhall.com/upload/assistant/file_url/67/17/VhallTool.exe"><div class="live_streaming_main_right" style="margin-top: -4px;">下载客户端</div></a>
 						</div>
 						
 						<div class="live_streaming_table">
-							
 							<table>
 								 <thead>
 								<tr>
@@ -1452,112 +1428,21 @@
 									<td>操作</td>
 								</tr>
 								 </thead>
-								  <tbody>
-								<tr>
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="">
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										80’
-									</td>
-									<td>
-										2018-12-29 23:59
-									</td>
-									<td>
-										准备直播
-									</td>
-									<td>
-										<a href="javascript: ;">进入直播</a>
-										<a href="javascript: ;">直播预览</a>
-										<a href="javascript: ;">设置加密</a>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="">
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										80’
-									</td>
-									<td>
-										2018-12-29 23:59
-									</td>
-									<td>
-										准备直播
-									</td>
-									<td>
-										<a href="javascript: ;">进入直播</a>
-										<a href="javascript: ;">直播预览</a>
-										<a href="javascript: ;">设置加密</a>
-									</td>
-								</tr>
-								
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								</tbody>
+								 <tbody id="course_live_list">
+									</tbody>
 							</table>
 						</div>
-						
-						
-						
-						
+					</div>
+					<div class="pages course_live_pages">
+						<div id="Pagination_live"  class="pagination-pages"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
 					</div>
 				</div>
-				
 
-				
 				<!--排课-->
 				<div class="little_box">排课</div>
 				<!--资源-->
@@ -1604,112 +1489,31 @@
 							<span class="title">资源</span>
 							<button class="">上传资源</button>
 						</div>
-						<div class="zhuanlan_bottom2" id="ziyuan_bottom2">
+						<div class="zhuanlan_bottom2" id="ziyuan_bottom2" style="margin-bottom: 30px;">
 							<table>
-								 <thead>
+								<thead>
 								<tr>
-									<td>封面图</td>
 									<td>标题</td>
+									<td>时长</td>
+									<td>创建时间</td>
 									<td>状态</td>
-									<td>编辑时间</td>
+									<td>类型</td>
 									<td>操作</td>
 								</tr>
-								 </thead>
-								  <tbody>
-								<tr class="tr_preview">
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="" />
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										已发布
-									</td>
-									<td>
-										2017.11.12
-									</td>
-									<td>
-										<a href="javascript:;" class="preview">预览</a>
-										<a href="javascript:;">下线</a>
-										<a href="javascript:;">编辑</a>
-									</td>
-								</tr>
-								<tr class="tr_preview">
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="" />
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										已发布
-									</td>
-									<td>
-										2017.11.12
-									</td>
-									<td>
-										<a href="javascript:;" class="preview">预览</a>
-										<a href="javascript:;">删除</a>
-									</td>
-								</tr>
-								<tr class="tr_preview">
-									<td>
-										<img src="/web/images/hospital/hospital_pic.png" alt="" />
-									</td>
-									<td>
-										中医药席卷全球成独特风景，发展热情被彻底点燃
-									</td>
-									<td>
-										已发布
-									</td>
-									<td>
-										2017.11.12
-									</td>
-									<td>
-										<a href="javascript:;" class="preview">预览</a>
-										<a href="javascript:;">删除</a>
-									</td>
-								</tr>
-								<tr class="tr_preview">
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="tr_preview">
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="tr_preview">
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr class="tr_preview">
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
+								</thead>
+								<tbody id="resource_list">
+
 								</tbody>
 							</table>
 						</div>
-					
+						<div class="pages resource_pages">
+							<div id="Pagination_resource" class="pagination-pages"></div>
+							<div class="searchPage">
+								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+								<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+								<a href="javascript:;" class="page-btn">确定</a>
+							</div>
+						</div>
 					</div>
 					
 					<!--点击资源出现弹框开始-->
@@ -1720,135 +1524,182 @@
 						</div>
 					</div>
 					<!--点击资源出现弹框结束-->
-					
-					
-					
 				</div>
 			</div>	
-		
-		
-		</div>
-		
-		
-	
-	
-<!--<div class="mask"></div>
-<div id="headImg" class="clearfix">
-    <div class="container clearfix">
-        <div class="img-title"><p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
-        <div class="img-box1">
-            <a href="javascript:void(0)" class="upload-img">
-                <p onclick="fileClick()" class="fileUpdata"><span>+</span>选择图片</p>
-            </a>
 
-            <p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
-        </div>
-        <div class="imageBox">
-            <div class="thumbBox"></div>
-            <div class="spinner" style="display: none"></div>
-        </div>
-        <div class="action clearfix">
-            <div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
-            <div class="new-contentarea tc">
-                <div class="bbox clearfix">
-                	<span>滚动鼠标可调整头像大小</span>
-                    <a href="javascript:void(0)" class="upload-img reclick">
-                        <p onclick="fileClick()" class='fileUpdata'>重新上传</p>
-                    </a>
-                </div>
-                <input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg"/>
-            </div>
-            <span class="btn-upload bbtn">确定</span>
-            <a href="javascript:;" class="btn-quit bbtn">取消</a>
-        </div>
-        <div class="cropped">
-            <div class="cropTitle">预览</div>
-            <div class="cropped-con"></div>
-        </div>
-    </div>
-</div>
-	-->
-	</body>
-	
-	
-	
+		</div>
+
 	<script type="text/javascript" src="/web/js/footer.js"></script>
-	<script src="/web/js/placeHolder.js"></script>
+    <script type="text/javascript" src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
 	<script src="/web/js/anchor/curriculum.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--主播工作台控制左侧点击事件和判断input为空-->
 	<script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 	<script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
-  	
-  	
-  	<script type="text/javascript">
-  		window.onload = function(){
-//			点击课程--下架
-			$(".tr_sold_out .sold_out").click(function() {
-				
-				alert(1242);
-			    $(".yes_no").show();
-			});
-			
-			
-			//点击是否隐藏
-			$(".yes_no .bottom .left").click(function() {
-			    $(".yes_no").hide();
-			});
-			$(".yes_no .bottom .right").click(function() {
-			    $(".yes_no").hide();
-			});
-			
-//          点击专辑里--移除和更新时间
-			//更新时间
-			$("#times_div div").click(function(){
-				
-				if(!$(this).hasClass("div_one0")){
-					   	$(this).addClass("div_one0");
-					}else{
-					    $(this).removeClass("div_one0");
-				}
-				
-			});
-			
-			//删除当前行
-			$(".tbody_tbody tr td:last-child").click(function() {
-			    $(this).parent().remove();
-			});
-			
-			
-			//专辑下架
-			$(".zhaunji_tr td .out").click(function() {
-			    $(".no_yes").show();
-			});
-			
-			//点击是否隐藏
-			$(".no_yes .bottom .left").click(function() {
-			    $(".no_yes").hide();
-			});
-			$(".no_yes .bottom .right").click(function() {
-			    $(".no_yes").hide();
-			});
-			
-			
-//			点击资源预览	
-			$(".tr_preview .preview").click(function() {
-			    $(".resource_popout").show();
-			});
-			//点击是否隐藏
-			$(".resource_popout .close").click(function() {
-			    $(".resource_popout").hide();
-			});
-			
-			
-//			默认点击学堂
-			$(".courseP").click();
-			$(".school").click();
-			
+	<script type="text/javascript">
+        function confirmCollectionSale(){
+            $(".no_yes").show();
+        }
+        window.onload = function(){
+            //			$(".tr_sold_out td .sold_out").click(function() {
+            //			    $(".yes_no").show();
+            //			});
 
-			
-  		};
-  	</script>
-	
+            //点击是否隐藏
+            $(".yes_no .bottom .left").click(function() {
+                $(".yes_no").hide();
+            });
+            $(".yes_no .bottom .right").click(function() {
+                $(".yes_no").hide();
+            });
 
+            //          点击专辑里--移除和更新时间
+            //更新时间
+            $("#times_div div").click(function(){
+
+                if(!$(this).hasClass("div_one0")){
+                    $(this).addClass("div_one0");
+                }else{
+                    $(this).removeClass("div_one0");
+                }
+
+            });
+
+            //删除当前行
+            $(".tbody_tbody tr td:last-child").click(function() {
+                $(this).parent().remove();
+            });
+
+
+            //专辑下架
+            //			$(".zhaunji_tr td .out").click(function() {
+            //			    $(".no_yes").show();
+            //			});
+
+            //点击是否隐藏
+            $(".no_yes .bottom .left").click(function() {
+                $(".no_yes").hide();
+            });
+            $(".no_yes .bottom .right").click(function() {
+                $(".no_yes").hide();
+            });
+
+
+            //			点击资源预览
+            $(".tr_preview .preview").click(function() {
+                $(".resource_popout").show();
+            });
+            //点击是否隐藏
+            $(".resource_popout .close").click(function() {
+                $(".resource_popout").hide();
+            });
+
+
+            //			默认点击学堂
+            $(".courseP").click();
+            $(".school").click();
+        };
+	</script>
+	<script type="text/javascript">
+        //实例化编辑器
+        //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+        var ue = UE.getEditor('editor',{
+            toolbars:[['source', //源代码
+                'undo', //撤销
+                'redo', //重做
+                'bold', //加粗
+                'forecolor', //字体颜色
+                'backcolor', //背景色
+                'indent', //首行缩进
+                'removeformat',//清除格式
+                'formatmatch', //格式刷
+                'blockquote', //引用
+                'fontfamily', //字体
+                'fontsize', //字号
+                'paragraph', //段落格式
+                'italic', //斜体
+                'underline', //下划线
+                'strikethrough', //删除线
+                'superscript', //上标
+                'subscript', //下标
+                'touppercase', //字母大写
+                'tolowercase', //字母小写
+                'justifyleft', //居左对齐
+                'justifyright', //居右对齐
+                'justifycenter', //居中对齐
+                'justifyjustify',//两端对齐
+                'link', //超链接
+                'unlink', //取消链接
+                'simpleupload', //单图上传
+                // 'insertimage', //多图上传
+                'emotion', //表情
+                'fullscreen'
+            ] ],
+            elementPathEnabled:false,
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+            enableAutoSave:false,
+            imagePopup:false,
+            maximumWords:10000       //允许的最大字符数
+        });
+        var ue_cd = UE.getEditor('editor_cd',{
+            toolbars:[['source', //源代码
+                'undo', //撤销
+                'redo', //重做
+                'bold', //加粗
+                'forecolor', //字体颜色
+                'backcolor', //背景色
+                'indent', //首行缩进
+                'removeformat',//清除格式
+                'formatmatch', //格式刷
+                'blockquote', //引用
+                'fontfamily', //字体
+                'fontsize', //字号
+                'paragraph', //段落格式
+                'italic', //斜体
+                'underline', //下划线
+                'strikethrough', //删除线
+                'superscript', //上标
+                'subscript', //下标
+                'touppercase', //字母大写
+                'tolowercase', //字母小写
+                'justifyleft', //居左对齐
+                'justifyright', //居右对齐
+                'justifycenter', //居中对齐
+                'justifyjustify',//两端对齐
+                'link', //超链接
+                'unlink', //取消链接
+                'simpleupload', //单图上传
+                // 'insertimage', //多图上传
+                'emotion', //表情
+                'fullscreen'
+            ] ],
+            elementPathEnabled:false,
+            autoHeightEnabled: false,
+            autoFloatEnabled: true,
+            enableAutoSave:false,
+            imagePopup:false,
+            maximumWords:10000       //允许的最大字符数
+        });
+
+        function getLDContent() {
+            return UE.getEditor('editor').getContent();
+        }
+        function getCDContent() {
+			return UE.getEditor('editor_cd').getContent();
+        }
+
+        UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+        UE.Editor.prototype.getActionUrl = function(action) {
+            var url = '/ueditor/upload'
+            if (action == 'uploadimage' || action == 'uploadscrawl' || action == 'uploadimage') {
+                return url;
+            } else if (action == 'uploadvideo') {//视频上传：
+                return url;
+            } else {
+                return this._bkGetActionUrl.call(this, action);
+            }
+        }
+	</script>
+	</body>
 
 </html>

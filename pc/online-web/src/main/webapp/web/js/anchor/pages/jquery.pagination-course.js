@@ -204,8 +204,9 @@
 //				}
             if(goPage > -1 && goPage < allPage) {
                 opts.current_page = goPage;
-                $("#Pagination").pagination(allPage, opts);
-                $("#Paginations").pagination(allPage, opts);
+                // $("#Pagination").pagination(allPage, opts);
+                // $("#Paginations").pagination(allPage, opts);
+                $(this).parent().prev().pagination(allPage, opts);
                 selectPage(goPage);
                 $("body, html").scrollTop(0);
             } else {

@@ -381,10 +381,7 @@ $('#demo2').citys({
     }
 });
 
-//点击选择资源
-$('#a').click(function(){
-	$('.a_resource').show();
-});
+
 $('.a_resource_close').click(function(){
 	$('.a_resource').hide();
 });

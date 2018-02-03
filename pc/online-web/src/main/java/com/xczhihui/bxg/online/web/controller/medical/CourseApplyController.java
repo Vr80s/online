@@ -90,9 +90,9 @@ public class CourseApplyController {
      * @Date: 下午 3:51 2018/1/19 0019
      **/
     @RequestMapping(value = "/getAllCourseResources",method= RequestMethod.GET)
-    public ResponseObject getAllCourseResources(HttpServletRequest request){
+    public ResponseObject getAllCourseResources(HttpServletRequest request,Integer multimediaType){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourseResources(user.getId()));
+        return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourseResources(user.getId(),multimediaType));
     }
 
     /**
@@ -160,15 +160,21 @@ public class CourseApplyController {
     public ResponseObject saveCourseResource(HttpServletRequest request, @RequestBody CourseApplyResource courseApplyResource){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyResource.setUserId(user.getId());
-//        try {
-//            String duration = CCUtils.getVideoLength(courseApplyResource.getResource());
-//            courseApplyResource.setLength(duration);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseObject.newErrorResponseObject("网络异常,请重试");
-//        }
         courseApplyService.saveCourseApplyResource(courseApplyResource);
         return ResponseObject.newSuccessResponseObject("资源新增成功！");
+    }
+
+    /**
+     * Description：删除资源
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/2/3 0003 下午 9:12
+     **/
+    @RequestMapping(value = "/deleteCourseResource",method= RequestMethod.POST)
+    public ResponseObject deleteCourseResource(HttpServletRequest request, String resourceId){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        courseApplyService.deleteCourseApplyResource(user.getId(),resourceId);
+        return ResponseObject.newSuccessResponseObject("资源删除成功！");
     }
 
     /**

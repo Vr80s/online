@@ -4,6 +4,7 @@ import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.web.auth.UserHolder;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.ApplyStatus;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.CourseDismissal;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
@@ -81,7 +82,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 			List<CourseApplyInfo> courseApplyInfos = courseApplyDao.getCourseByCollectionId(courseApply.getId());
 			courseApply.setCourseApplyInfoList(courseApplyInfos);
 		}
-		if(courseApply.getStatus()==2){
+		if((courseApply.getStatus()== ApplyStatus.NOT_PASS.getCode())&&courseApply.getDismissal()!=null){
 			courseApply.setDismissalText(CourseDismissal.getDismissal(courseApply.getDismissal()));
 		}
 		return courseApply;
@@ -183,14 +184,14 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	}
 
 	private void notPassCourse(CourseApplyInfo courseApply, String userId) {
-		courseApply.setStatus(2);
+		courseApply.setStatus(ApplyStatus.NOT_PASS.getCode());
 		courseApply.setReviewPerson(userId);
 		courseApply.setReviewTime(new Date());
 		dao.update(courseApply);
 	}
 
 	public Course passCourse(CourseApplyInfo courseApply, String userId){
-		courseApply.setStatus(1);
+		courseApply.setStatus(ApplyStatus.PASS.getCode());
 		courseApply.setReviewPerson(userId);
 		courseApply.setReviewTime(new Date());
 		dao.update(courseApply);
@@ -246,11 +247,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		course.setCreateTime(new Date());
 		//状态
 		course.setStatus('0'+"");
-		//课程描述
-//		course.setDescription(courseApply.getCourseDescription());
+		//课程介绍
 		course.setCourseDetail(courseApply.getCourseDetail());
-		//yuruixin-2017-08-16
-		course.setMultimediaType(courseApply.getMultimediaType());
 
 		//增加密码和老师
 		course.setCoursePwd(courseApply.getPassword());
@@ -261,16 +259,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		// findCourseById 是直接拿小图 getCourseDetail是从大图里拿 同时更新两个 防止两者数据不一样
 		course.setSmallImgPath(courseApply.getImgPath());
 		course.setBigImgPath(courseApply.getImgPath());
-		//课程资源
-		course.setDirectId(courseApply.getCourseResource());
+
 		course.setCourseOutline(courseApply.getCourseOutline());
 		course.setLecturer(courseApply.getLecturer());
 		course.setLecturerDescription(courseApply.getLecturerDescription());
-//		if(courseApply.getSale()){
-//			course.setStatus("1");
-//		}else{
-//			course.setStatus("0");
-//		}
+
 		course.setStatus("0");
 		if(course.getType()== CourseForm.OFFLINE.getCode()){
 			//线下课程
@@ -285,6 +278,11 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 			//将直播课设置为预告
 			course.setLiveStatus(2);
 			course.setDirectSeeding(1);
+		}else if(course.getType()==CourseForm.VOD.getCode()){
+			//yuruixin-2017-08-16
+			//课程资源
+			course.setMultimediaType(courseApply.getMultimediaType());
+			course.setDirectId(courseApply.getCourseResource());
 		}
 		course.setIsRecommend(0);
 		course.setClassRatedNum(0);
