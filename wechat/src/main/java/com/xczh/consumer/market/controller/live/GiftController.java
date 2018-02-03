@@ -90,7 +90,7 @@ public class GiftController {
 		params.put("token",req.getParameter("token"));
 		OnlineUser user =appBrowserService.getOnlineUserByReq(req, params);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		LOGGER.info("====================="+user.getId());
 		
@@ -135,7 +135,7 @@ public class GiftController {
 
 //		OnlineUser user =appBrowserService.getOnlineUserByReq(req, params); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 //		if(user==null){
-//			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+//			return ResponseObject.newErrorResponseObject("登录失效");
 //		}
 		int pageNumber = 0;
 		if(null != req.getParameter("pageNumber")){

@@ -99,21 +99,14 @@ public class XzCommonController {
 	@RequestMapping("checkUpdate")
 	@ResponseBody
 	public ResponseObject checkUpdate(HttpServletRequest req,
-			HttpServletResponse res,@RequestParam("version") String version)
+			HttpServletResponse res,@RequestParam("version") String userVersion)
 			throws Exception {
-
-		String userVersion = req.getParameter("version");
-
-		if (StringUtils.isBlank(userVersion)) {
-			return ResponseObject.newErrorResponseObject("参数[version]不能为空");
-		}
 
 		VersionInfoVo newVer = versionService.getNewVersion();
 		VersionInfoVo defaultNoUpdateResult = new VersionInfoVo();
 		defaultNoUpdateResult.setIsUpdate(false);
 		if (newVer == null) {
-			return ResponseObject
-					.newSuccessResponseObject(defaultNoUpdateResult);
+			return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
 		}
 		LOGGER.info("version:" + userVersion);
 		LOGGER.info("newVer.getVersion():" + newVer.getVersion());
@@ -121,8 +114,7 @@ public class XzCommonController {
 		String newVersion = newVer.getVersion();
 		int diff = VersionCompareUtil.compareVersion(newVersion, userVersion);
 		if (diff <= 0) {
-			return ResponseObject
-					.newSuccessResponseObject(defaultNoUpdateResult);
+			return ResponseObject.newSuccessResponseObject(defaultNoUpdateResult);
 		}
 		newVer.setIsUpdate(true);
 
@@ -178,26 +170,18 @@ public class XzCommonController {
 	@RequestMapping("h5ShareAfter")
 	@ResponseBody
 	public ResponseObject h5ShareLink(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res,@RequestParam("courseId")Integer courseId)
 			throws Exception {
-
-		String courseId = req.getParameter("course_id"); // 视频id
-		if (courseId == null) {
-			return ResponseObject.newErrorResponseObject("获取参数异常");
-		}
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课 因为他们的文案不在一个地方存
 		 */
 		try {
-			Integer type = onlineCourseService.getIsCouseType(Integer
-					.parseInt(courseId));
+			Integer type = onlineCourseService.getIsCouseType(courseId);
 			LOGGER.info("type:" + type);
-			CourseLecturVo courseLecturVo = onlineCourseService.h5ShareAfter(
-					Integer.parseInt(courseId), type);
+			CourseLecturVo courseLecturVo = onlineCourseService.h5ShareAfter(courseId, type);
 			if (type == 1) {
 				// 礼物数：
-				courseLecturVo.setGiftCount(giftService
-						.findByUserId(courseLecturVo.getUserId()));
+				courseLecturVo.setGiftCount(giftService.findByUserId(courseLecturVo.getUserId()));
 			}
 			return ResponseObject.newSuccessResponseObject(courseLecturVo);
 		} catch (Exception e) {
@@ -209,21 +193,15 @@ public class XzCommonController {
 	@RequestMapping("shareLink")
 	@ResponseBody
 	public ResponseObject shareLink(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res,@RequestParam("courseId")Integer courseId)
 			throws Exception {
-		String courseId = req.getParameter("courseId"); // 视频id
-		if (courseId == null) {
-			return ResponseObject.newErrorResponseObject("获取参数异常");
-		}
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
 		 */
 		try {
-			Integer type = onlineCourseService.getIsCouseType(Integer
-					.parseInt(courseId));
+			Integer type = onlineCourseService.getIsCouseType(courseId);
 			LOGGER.info("type:" + type);
-			Map<String, Object> mapCourseInfo = onlineCourseService.shareLink(
-					Integer.parseInt(courseId), type);
+			Map<String, Object> mapCourseInfo = onlineCourseService.shareLink(courseId, type);
 			if (mapCourseInfo.get("description") != null) {
 				String description = mapCourseInfo.get("description")
 						.toString();
@@ -235,8 +213,7 @@ public class XzCommonController {
 			}
 			// mapCourseInfo.put("link",returnOpenidUri+"/bxg/common/pcShareLink?courseId="+Integer.parseInt(courseId));
 			// wx_share.html
-			mapCourseInfo.put("link", returnOpenidUri
-					+ "/wx_share.html?courseId=" + Integer.parseInt(courseId));
+			mapCourseInfo.put("link", returnOpenidUri+ "/wx_share.html?courseId=" +courseId);
 			return ResponseObject.newSuccessResponseObject(mapCourseInfo);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -258,22 +235,11 @@ public class XzCommonController {
 	 */
 	@RequestMapping("pcShareLink")
 	public void pcShareLink(HttpServletRequest req, HttpServletResponse res,
-			Map<String, String> params) throws Exception {
-		/*
-		 * 难道这里就需要搞下吗。
-		 */
-		// 判断这个用户是否已经存在了。
-		/**
-		 * 这里有个问题就是。如果去分享页面的话
-		 */
-		String courseId = req.getParameter("courseId"); // 视频id
-
-		System.out.println("========" + courseId);
+			@RequestParam("courseId")Integer courseId) throws Exception {
 		/*
 		 * 这里需要判断下是不是微信浏览器
 		 */
 		String wxOrbrower = req.getParameter("wxOrbrower"); // 视频id
-		System.out.println();
 		if (StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)) {
 			String strLinkHome = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="
 					+ WxPayConst.gzh_appid
@@ -291,7 +257,6 @@ public class XzCommonController {
 					+ "/bxg/wxpay/h5ShareGetWxUserInfo?courseId=" + courseId
 					+ "&wxOrbrower=brower");//
 		}
-		System.out.println("{}{}{}{}{}=" + courseId);
 	}
 
 	/**
@@ -309,17 +274,12 @@ public class XzCommonController {
 	@RequestMapping("shareJump")
 	@ResponseBody
 	public ResponseObject shareJump(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res,@RequestParam("courseId")Integer courseId)
 			throws Exception {
-		String courseId = req.getParameter("courseId"); // 视频id
-		if (courseId == null) {
-			return ResponseObject.newErrorResponseObject("获取参数异常");
-		}
 		// type 1 直播 2其他
 		// state 0 直播已结束 1 直播还未开始 2 正在直播
 		try {
-			Map<String, Object> map = onlineCourseService.shareJump(Integer
-					.parseInt(courseId));
+			Map<String, Object> map = onlineCourseService.shareJump(courseId);
 			return ResponseObject.newSuccessResponseObject(map);
 		} catch (Exception e) {
 			e.printStackTrace();

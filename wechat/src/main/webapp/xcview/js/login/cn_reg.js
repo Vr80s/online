@@ -77,7 +77,7 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 	var userpassword = document.getElementById("password").value; // 密码
 	
 	if (!stringnull(number)) {
-		webToast("手机号不能为","middle",1500);
+		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	
@@ -103,7 +103,8 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
     
     var yanLength = yanzhengma.trim().length;
     if(yanLength > 4 || yanLength < 0) {
-          webToast("请输入4位数验证码","middle",1500);
+//        webToast("请输入4位数验证码","middle",1500);
+          webToast("验证码有误，请重新输入","middle",1500);
           return false;
     }
     var urlparm = {

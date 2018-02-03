@@ -1,4 +1,27 @@
 $(function(){
+	
+	//请求判断顶部是否具有我是医师、医馆的入口
+	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+	  	if(data.success == true){
+	  		//判断
+	  		if(data.resultObject.indexOf(1) != -1){
+	  			//医师认证成功
+	  			$('#docOrHos').text('我是医师');
+	  			$('#docOrHos').attr('href','/web/html/anchors_resources.html')
+	  			$('#docOrHos').removeClass('hide');
+	  		}else if(data.resultObject.indexOf(2) != -1){
+	  			//医馆认证成功
+	  			$('#docOrHos').text('我是医馆');
+	  			$('#docOrHos').attr('href','/web/html/ResidentHospital.html')
+	  			$('#docOrHos').removeClass('hide');
+	  		}
+	  	}else if(data.success == false && data.errorMessage == "请登录！" ){
+	  		$('#docOrHos').addClass('hide');
+	  	}
+	  });
+	
+	
+	
     //解析url地址
     var ourl = document.location.search;
     var url = document.location.host;
@@ -161,7 +184,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
 //    	'<a href="javascript:;">语言选择</a>'+
     	
     	'</li>'+
-    	'<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li>'+
+    	'<li><div class="messageBox"><a href="javascript:;" data-id="mynews" class="message">消息</a><span class="messageCount" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><div class="shoppingBox"><a href="javascript:;" data-id="" class="shoppingCar">购物车</a><span class="shopping" style="display: none;"><em style="background-color: #2cb82c;padding: 0 2px;border-radius: 5px;position: absolute;color:white;font-style:normal"></em></span></div></li><li><a href="javascript:;" class="studentCenterBox">学习中心</a></li><li><a href="javascript:;" class="hide" id="docOrHos">我是医师</a></li>'+
     	'</ul></div></div>',
         nav:
         	
@@ -739,7 +762,7 @@ if (myBrowser() == "IE55") {
                      * 获取当前页面
                      */
                     var current = location.href;
-                    debugger;
+//                  debugger;
                     if(current.indexOf("otherDevice.html")!=-1){
                     	
                     	window.location.href="/index.html";

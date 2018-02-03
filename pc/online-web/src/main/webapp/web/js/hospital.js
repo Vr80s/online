@@ -11,9 +11,13 @@ $(function () {
 	  	if(data.success == true){
 	  		//判断
 	  		if(data.resultObject.indexOf(2) != -1){
-	  			//医师认证成功
+	  			//医馆认证成功
 	  			$('.forum-hosJoin').addClass('hide');
+	  		}else{
+	  			$('.forum-hosJoin').removeClass('hide');
 	  		}
+	  	}else if(data.success == false && data.errorMessage == "请登录！" ){
+	  		$('.forum-hosJoin').removeClass('hide');
 	  	}
 	  });
 	
@@ -431,41 +435,78 @@ $(function () {
 	    
 	    
 	    //医师入驻跳转页面
+//  $('#toHosJoin').click(function(){
+//  	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+//	       if(data.success == true ){
+//	       	if($('.logout').css('display') == 'block' && data.resultObject.indexOf(2) == -1 && data.resultObject.indexOf(3) == -1 && data.resultObject.indexOf(5) == -1){
+//	       		window.location.href = "/web/html/ResidentHospital.html";
+//	       	}else if(data.resultObject.indexOf(2) != -1){
+//	       		//医馆认证成功
+//	       		window.location.href = "/web/html/ResidentHospital.html";
+//	       	}else if(data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
+//	       		window.location.href = "/web/html/ResidentHospital.html";
+//	       	}else if(data.resultObject.indexOf(1) != -1){
+//	       		//医馆认证成功 提示不能进行医师认证
+////	       		alert('您已完成了医馆注册，不能进行医师注册！')
+//				$('#tip').text('您已完成了医师注册，不能进行医馆注册！');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},1000)
+//	       	}else if(data.resultObject.indexOf(7) != -1 || data.resultObject.indexOf(4) != -1 || data.resultObject.indexOf(6) != -1){
+//	       		//都没有注册过 进入注册页面
+//	       		window.location.href = "/web/html/hospitalRegister.html";
+//	       	}
+//	       }else if(data.errorMessage == "请登录！"){
+//	       	
+//	       	window.location.href = "/web/html/hospitalRegister.html";
+//	       	
+//	       }else{
+//	       	
+//	       	$('#tip').text('服务器繁忙');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},1000)
+//	       }
+//	    });
+//  })
+//  
+    
+    
+     //医师页面的医师入驻入口点击跳转效果
     $('#toHosJoin').click(function(){
-    	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-	       if(data.success == true ){
-	       	if($('.logout').css('display') == 'block' && data.resultObject.indexOf(2) == -1 && data.resultObject.indexOf(3) == -1 && data.resultObject.indexOf(5) == -1){
-	       		window.location.href = "/web/html/ResidentHospital.html";
-	       	}else if(data.resultObject.indexOf(2) != -1){
-	       		//医馆认证成功
-	       		window.location.href = "/web/html/ResidentHospital.html";
-	       	}else if(data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
-	       		window.location.href = "/web/html/ResidentHospital.html";
-	       	}else if(data.resultObject.indexOf(1) != -1){
-	       		//医馆认证成功 提示不能进行医师认证
-//	       		alert('您已完成了医馆注册，不能进行医师注册！')
-				$('#tip').text('您已完成了医师注册，不能进行医馆注册！');
+    	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+    	 	if(data.success == true){
+    	 		//请求数据成功进行判断 
+    	 		if($('.login').css('display') == 'block' && data.resultObject.indexOf(1) != -1){
+    	 			//登录并且入驻了医师了
+    	 			$('#tip').text('您已完成了医师注册，不能进行医馆注册！');
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1000)
+    	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(2) != -1){
+    	 			//注册医馆成功
+    	 			window.location.href = "/web/html/ResidentHospital.html";
+    	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(7) != -1){
+    	 			//登录了并且都没有注册过
+    	 			window.location.href = "/web/html/ResidentHospital.html";
+    	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(4) != -1 || data.resultObject.indexOf(5) != -1 || data.resultObject.indexOf(6) != -1 ){
+    	 			//登录了 并且注册了没有通过的
+    	 			window.location.href = "/web/html/ResidentHospital.html";
+    	 		}
+    	 	}else if(data.success == false && data.errorMessage == "请登录！"){
+    	 		window.location.href = "/web/html/hospitalRegister.html";
+    	 	}else{
+    	 		//请求数据有误
+    	 		$('#tip').text('服务器繁忙');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1000)
-	       	}else if(data.resultObject.indexOf(7) != -1 || data.resultObject.indexOf(4) != -1 || data.resultObject.indexOf(6) != -1){
-	       		//都没有注册过 进入注册页面
-	       		window.location.href = "/web/html/hospitalRegister.html";
-	       	}
-	       }else if(data.errorMessage == "请登录！"){
-	       	
-	       	window.location.href = "/web/html/hospitalRegister.html";
-	       	
-	       }else{
-	       	
-	       	$('#tip').text('服务器繁忙');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},1000)
-	       }
-	    });
+    	 	}
+    	 });
     })
     
 	    

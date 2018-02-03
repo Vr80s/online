@@ -57,9 +57,6 @@
 		UPDATE
 		`oe_user_bank_card` oub
 		SET oub.`is_delete` = 1
-		WHERE oub.user_id = #{userId}
-		AND oub.`acct_name` = #{acctName}
-		AND oub.`acct_pan` = #{acctPan}
-		AND oub.`cert_id` = #{certId}
+		WHERE oub.id = #{id}
 	</update>
 </mapper>

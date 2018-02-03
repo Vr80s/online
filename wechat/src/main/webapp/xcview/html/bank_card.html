@@ -15,7 +15,8 @@
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 
 
-<script type="text/javascript" src="../js/common/data.city.js"></script> <!--银行卡选择-->
+<script type="text/javascript" src="../js/bank_card.js"></script> <!--银行卡选择-->
+	<script type="text/javascript" src="../js/common/data.city.js"></script>
 <script type="text/javascript" src="../js/common/mui.picker.min.js"></script><!--银行卡选择-->
 
 <link rel="stylesheet" href="../css/mui.css" /><!--银行卡选择-->
@@ -47,23 +48,24 @@
 		<div class="bank_card_hint">请绑定持卡人本人的银行卡</div>
 		<div class="bank_card_one">
 			<div class="cardholder">
-				持卡人<input type="text" class="input0" />
+				持卡人<input type="text" class="input0" id="acct_name"/>
 			</div>
 			<div class="cardholder">
-				卡号<input type="number" style="margin-left: 0.68rem;" class="input1" />
+				卡号<input type="number" style="margin-left: 0.68rem;" class="input1" id="acct_pan"/>
 			</div>
 		</div>
 		
 		<div class="bank_card_two">
 			<div class="cardholders cardholders_one">
-				卡类型<span class="r-tx-txt2 r-tx-txt2s fl" id="city_text2">请选择银行卡类型</span>
+				卡类型<span class="r-tx-txt2 r-tx-txt2s fl" id="bankCard_text">请选择银行卡类型</span>
+				<input type="hidden" id="bankCard_id" />
 			</div>
 			<div class="cardholders">
-				身份证号<input type="number" style="margin-left: 0.14rem;" class="input2" />
+				身份证号<input type="number" style="margin-left: 0.14rem;" class="input2" id="cert_id" />
 			</div>
 		</div>
 		
-		<div class="next_step">下一步</div>
+		<div class="next_step" onclick="clickNext()">下一步</div>
 	</div>
 	<!--中间内容结束-->
 	
@@ -211,19 +213,5 @@
 </script>
 
 
-<script>
-	
-	//选择省
-	var city_picker2 = new mui.PopPicker({layer:1});
-	city_picker2.setData(init_city_picker);
-	$("#city_text2").on("tap", function(){
-		setTimeout(function(){
-			city_picker2.show(function(items){
-				$("#city_id2").val((items[0] || {}).value);
-				$("#city_text2").html((items[0] || {}).text);
-			});
-		},200);
-	});
-</script>
 
 </html>

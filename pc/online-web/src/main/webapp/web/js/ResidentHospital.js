@@ -43,10 +43,10 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	       	if(data.resultObject.indexOf(2) == -1){
 	       		//医馆认证未成功显示出来认证失败的页面
 	       		
-	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
-	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
 	       		
-	       		if(data.resultObject.indexOf(3) != -1){
+	       		if(data.resultObject.indexOf(3) != -1||data.resultObject.indexOf(4) != -1||data.resultObject.indexOf(5) != -1||data.resultObject.indexOf(5) != -1){
 	       			//认证中
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
@@ -54,8 +54,8 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	       		}else if(data.resultObject.indexOf(7) != -1){
 	       			//未认证
 //	       			$('#docNoPass_tip').removeClass('hide');	
-	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
+	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
 	       		}
 	       	}else if(data.resultObject.indexOf(2) != -1){
 	       		//医馆认证成功 左侧tab显示出来 医馆基础信息显示出来

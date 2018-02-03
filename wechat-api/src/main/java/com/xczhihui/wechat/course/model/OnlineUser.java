@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
  * @author Haicheng Jiang
  */
 @TableName("oe_user")
-public class OnlineUser extends  Model<Course> {
+public class OnlineUser extends  Model<OnlineUser> {
 	private static final long serialVersionUID = 1L;
 
 	

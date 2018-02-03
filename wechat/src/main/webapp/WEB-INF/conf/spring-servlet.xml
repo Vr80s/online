@@ -171,4 +171,7 @@
     <!-- 支付服务后回调服务 -->
     <dubbo:reference interface="com.xczhihui.bxg.online.api.service.OrderPayService" id="orderPayServiceImpl" timeout="5000"  />
 	
+	<!-- 微博、qq第三方登录数据存储接口 -->
+    <dubbo:reference interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService" id="threePartiesLoginServiceImpl" timeout="5000"  />	
+	
 </beans>
