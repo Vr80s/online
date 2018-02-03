@@ -49,7 +49,7 @@ public class FocusController {
 
         OnlineUser u =  (OnlineUser)req.getSession().getAttribute("_user_");
         if(u ==null){
-            return ResponseObject.newErrorResponseObject("获取用户信息异常");
+            return ResponseObject.newErrorResponseObject("登录失效");
         }
 
         OnlineUser lu =  userCenterService.getUser(focus.getLecturerId());
@@ -77,7 +77,7 @@ public class FocusController {
             throws Exception {
         OnlineUser u =  (OnlineUser)req.getSession().getAttribute("_user_");
         if(u ==null){
-            return ResponseObject.newErrorResponseObject("获取用户信息异常");
+            return ResponseObject.newErrorResponseObject("登录失效");
         }
 
         OnlineUser lu =  userCenterService.getUser(focus.getLecturerId());
@@ -108,7 +108,7 @@ public class FocusController {
 
         OnlineUser u = (OnlineUser) req.getSession().getAttribute("_user_");
         if (u == null) {
-            return ResponseObject.newErrorResponseObject("获取用户信息异常");
+            return ResponseObject.newErrorResponseObject("登录失效");
         }
         int pageNumber = Integer.parseInt(pageNumberS);
         int pageSize = Integer.parseInt(pageSizeS);
@@ -136,7 +136,7 @@ public class FocusController {
         }
         OnlineUser u = (OnlineUser) req.getSession().getAttribute("_user_");
         if (u == null) {
-            return ResponseObject.newErrorResponseObject("获取用户信息异常");
+            return ResponseObject.newErrorResponseObject("登录失效");
         }
         int pageNumber =Integer.parseInt(pageNumberS);
         int pageSize = Integer.parseInt(pageSizeS);

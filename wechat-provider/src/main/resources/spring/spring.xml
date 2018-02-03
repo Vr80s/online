@@ -39,4 +39,7 @@
 
     <!-- 我的信息管理类 -->
     <dubbo:service interface="com.xczhihui.wechat.course.service.IMyInfoService" ref="myInfoServiceImpl" timeout="${dubbo.consumer.timeout}"  />	
+    
+    <!-- 微博、qq第三方登录数据存储接口 -->
+    <dubbo:service interface="com.xczhihui.wechat.course.service.IThreePartiesLoginService" ref="threePartiesLoginServiceImpl" timeout="${dubbo.consumer.timeout}"  />	
 </beans>

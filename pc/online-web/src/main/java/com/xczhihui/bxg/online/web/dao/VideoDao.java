@@ -413,6 +413,14 @@ public class VideoDao extends SimpleHibernateDao {
 		        + "values (:id,:createPerson,:content,:userId,"
 		        + ":courseId,:contentLevel,:deductiveLevel,:criticizeLable,"
 		        + ":overallLevel)";
+		
+		/**
+		 * 这里保存的时候需要改一下：
+		 */
+		
+		
+		
+		
 		this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
 		
 		
@@ -453,18 +461,18 @@ public class VideoDao extends SimpleHibernateDao {
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.userId =:userId ");
 	       	  paramMap.put("userId", teacherId);
-	       }else{
+	       }else if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.courseId =:courseId ");
 	       	  paramMap.put("courseId", Integer.parseInt(courseId));
 	       }
-	       //sql.append(" limit "+pageNumber+","+pageSize);
-	       //IFNULL((FIND_IN_SET(:userName,oc.praise_login_names)>0),0) isPraise
+
 	        System.out.println("sql:"+sql.toString());
 	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
+	        
 	        if(criticizes.getTotalCount()>0){
 	        	String loginName = "";
 	        	if(userId!=null){
-	        		OnlineUser u = this.get(userId,OnlineUser.class);
+	        		OnlineUser u = this.get(userId,OnlineUser.class);       //这里就查询了一次，所是ok的。这是不是需要查询下。
 	        		System.out.println("u.getLoginName()"+u.getLoginName());
 	        		loginName = u.getLoginName();
 	        	}

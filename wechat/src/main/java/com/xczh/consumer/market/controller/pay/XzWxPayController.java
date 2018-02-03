@@ -196,7 +196,7 @@ public class XzWxPayController {
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if ( user== null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		
 		//订单号  支付的钱
@@ -318,7 +318,7 @@ public class XzWxPayController {
 				if(wxUser!=null){
 					openId = wxUser.getOpenid();
 				}else{
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
+					return ResponseObject.newErrorResponseObject("登录失效");
 				}
 			}else{
 				openId = openId1;

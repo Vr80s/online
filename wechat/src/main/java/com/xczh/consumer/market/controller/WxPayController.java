@@ -444,7 +444,7 @@ public class WxPayController {
     		double  xmb = actualPrice * rate;
     		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {
-    	         return ResponseObject.newErrorResponseObject("登录超时！");
+    	         return ResponseObject.newErrorResponseObject("登录失效");
     	    }
     		
     		//String userYE =  enchashmentService.enableEnchashmentBalance(user.getId());

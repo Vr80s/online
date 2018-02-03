@@ -135,7 +135,7 @@ public class AlipayController {
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
         alipayRequest.setReturnUrl(weburl+AlipayConfig.return_url);
         alipayRequest.setNotifyUrl(weburl+AlipayConfig.notify_url);
-
+        
         //商户订单号，商户网站订单系统中唯一订单号，必填
         String out_trade_no = new String(orderNo);
         //付款金额，必填
@@ -144,8 +144,6 @@ public class AlipayController {
         String subject =new String("购买课程【"+payInfo.get("course_name").toString()+"】");
         //商品描述，可空
         String body = new String("");
-
-
         OrderParamVo orderParamVo=new OrderParamVo();
         orderParamVo.setUserId(payInfo.get("user_id").toString());
         String passbackParams="order&"+orderParamVo.getUserId();

@@ -87,7 +87,7 @@ public class WatchHistoryController {
 			String ouStrId = "";
 			if(ou==null){
 				ouStrId = appUniqueId;
-			   //return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			   //return ResponseObject.newErrorResponseObject("登录失效");
 			}else{
 				ouStrId = ou.getId();
 			}

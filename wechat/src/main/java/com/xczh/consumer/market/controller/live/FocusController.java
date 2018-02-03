@@ -83,7 +83,7 @@ public class FocusController {
 		}
 		Map<String,Object> map =new HashMap<String, Object>();
 		if(null == user){	
-			//return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			//return ResponseObject.newErrorResponseObject("登录失效");
 			map.put("countFans", 0);
 			map.put("countFocus", 0);
 			map.put("xmbCount", 0);
@@ -131,7 +131,7 @@ public class FocusController {
 		}
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		int pageNumber =Integer.parseInt(pageNumberS);
 		int pageSize = Integer.parseInt(pageSizeS);
@@ -163,7 +163,7 @@ public class FocusController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		int pageNumber =Integer.parseInt(pageNumberS);
 		int pageSize = Integer.parseInt(pageSizeS);
@@ -187,7 +187,7 @@ public class FocusController {
 		String lecturerId = req.getParameter("lecturerId");
 		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(onlineUser==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		OnlineUser onlineLecturer= onlineUserService.findUserById(lecturerId);
 		if(null == onlineLecturer){	
@@ -217,7 +217,7 @@ public class FocusController {
 		String courseId = req.getParameter("courseId");
 		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(onlineUser==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		int course_id =0;
 		if(null != courseId){

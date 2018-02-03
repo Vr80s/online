@@ -91,10 +91,10 @@ public class MedicalDoctorApplyController {
 				medicalDoctorApply.setProfessionalCertificate(professionalCertificateJson.get("url").toString());
 
 			medicalDoctorApplyService.add(medicalDoctorApply);
-			return  ResponseObject.newSuccessResponseObject("提交成功");
+			return  ResponseObject.newSuccessResponseObject("创建成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("提交失败");
+			return ResponseObject.newErrorResponseObject("创建失败");
 		}
 	}
 
@@ -109,7 +109,7 @@ public class MedicalDoctorApplyController {
 		//System.out.println("userId"+userId);
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		return ResponseObject.newSuccessResponseObject(commonServiceImpl.isDoctorOrHospital(user.getId()));
 	}
@@ -124,7 +124,7 @@ public class MedicalDoctorApplyController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		Map<String, Object> mapAll = new HashMap<String, Object>();
 		MedicalDoctorApply mda = medicalDoctorApplyService.getLastOne(user.getId());

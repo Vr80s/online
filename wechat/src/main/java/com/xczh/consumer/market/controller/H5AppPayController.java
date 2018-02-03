@@ -146,7 +146,7 @@ public class H5AppPayController {
 					/*
 					 * 如果以上两种情况都获取不到微信的信息，重定向的登录页面。
 					 */
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
+					return ResponseObject.newErrorResponseObject("登录失效");
 				}
 			}else{
 				openId = openId1;
@@ -204,7 +204,7 @@ public class H5AppPayController {
 		params2.put("token",req.getParameter("token"));
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}*/
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String userId = user.getId();
@@ -241,7 +241,7 @@ public class H5AppPayController {
 				if(wxUser!=null){
 					openId = wxUser.getOpenid();
 				}else{
-					return ResponseObject.newErrorResponseObject("获取用户信息异常");
+					return ResponseObject.newErrorResponseObject("登录失效");
 				}
 			}else{
 				openId = openId1;
@@ -341,7 +341,7 @@ public class H5AppPayController {
 		params2.put("token",req.getParameter("token"));
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if ( user== null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		String userId = user.getId();
 		String clientType=req.getParameter("clientType");

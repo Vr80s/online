@@ -152,7 +152,7 @@ public class XzIapController {
 		
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
     		if(user == null) {
-    	         return ResponseObject.newErrorResponseObject("登录超时！");
+    	         return ResponseObject.newErrorResponseObject("登录失效");
     	    }
 			/*
 			 * 传递过来一个订单号

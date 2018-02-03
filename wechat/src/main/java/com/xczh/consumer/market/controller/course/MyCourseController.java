@@ -115,7 +115,7 @@ public class MyCourseController {
 			throws Exception {
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		return ResponseObject.newSuccessResponseObject(ifocusService.selectFocusList(user.getId()));
 	}
@@ -140,11 +140,11 @@ public class MyCourseController {
 		//String type = req.getParameter("type");
 		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req);
 	    if(onlineUser==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		OnlineUser onlineLecturer= onlineUserService.findUserById(lecturerId);
 		if(null == onlineLecturer){	
-			return ResponseObject.newErrorResponseObject("获取讲师信息异常");
+			return ResponseObject.newErrorResponseObject("操作失败");
 		}
 		String result = ifocusService.updateFocus(lecturerId,onlineUser.getId(),type);
 		return ResponseObject.newSuccessResponseObject(result);

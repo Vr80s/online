@@ -219,6 +219,9 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
     result = data.resultObject;
     //视频id
     videoId = result.directId;
+    
+    chZJ(videoId);
+    
     //章节id
     chapterId = result.chapterId;
     //视频的主键id

@@ -166,14 +166,6 @@ public class BrowserUserController {
 			return ResponseObject.newErrorResponseObject("修改密码失败");
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 修改密码
 	 * @param req
@@ -673,9 +665,8 @@ public class BrowserUserController {
 				//把用户中心的数据给他  --这些数据是IM的
 				ou.setUserCenterId(iu.getId());
 				ou.setPassword(iu.getPassword());
-				
-				
 				ou.setTicket(t.getTicket());
+				
 				onlogin(req,res,t,ou,t.getTicket());
 				
 				ou.setCode(code);
@@ -704,7 +695,7 @@ public class BrowserUserController {
 		params2.put("token",req.getParameter("token"));
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
          return ResponseObject.newSuccessResponseObject(userCoinService.getBalanceByUserId(user.getId()));
 	}
@@ -731,7 +722,7 @@ public class BrowserUserController {
 		//短信验证码
 		String str = onlineUserService.changeMobileSendCode(username,Integer.parseInt(vtype));
 		try {
-			if("发送成功！".equals(str)){
+			if("发送成功".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
 				return ResponseObject.newErrorResponseObject(str);
@@ -815,7 +806,7 @@ public class BrowserUserController {
 	public ResponseObject isLecturer(HttpServletRequest request){
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		try {
 			String userId = request.getParameter("userId");
@@ -1056,8 +1047,4 @@ public class BrowserUserController {
 		int rand = arr[index];
 		LOGGER.info(rand+"");
 	}
-	
-	
-	
-	
 }
