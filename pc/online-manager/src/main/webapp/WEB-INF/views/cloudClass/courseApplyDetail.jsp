@@ -36,10 +36,10 @@
 						<c:when test="${courseApplyInfo.status== '1'}">
 							<label class="control-label no-padding-right">已通过</label>
 						</c:when>
-						<c:when test="${courseApplyInfo.status== '2'}">
+						<c:when test="${courseApplyInfo.status== '0'}">
 							<label class="control-label no-padding-right">已拒绝</label>
 						</c:when>
-						<c:when test="${courseApplyInfo.status== '0'}">
+						<c:when test="${courseApplyInfo.status== '2'}">
 							<label class="control-label no-padding-right">未审核</label>
 						</c:when>
 					</c:choose>
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 			<c:choose>
-				<c:when test="${courseApplyInfo.status== '2'}">
+				<c:when test="${courseApplyInfo.status== '0'}">
 					<div class="form-group" style="margin-top:18px;">
 						<label class="col-sm-1 control-label no-padding-right">拒绝理由:</label>
 						<div  >
@@ -71,29 +71,29 @@
 				<img src="${courseApplyInfo.imgPath}"  alt="课程封面" />
 			</div>
 		</div>
-<c:choose>
-	<c:when test="${!course.collection && course.courseForm==2}">
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">视频:</label>
-			<div class="" >
-				${courseApplyInfo.playCode}
-			</div>
-		</div>
-	</c:when>
-</c:choose>
+		<c:choose>
+			<c:when test="${!courseApplyInfo.collection && courseApplyInfo.courseForm=='2'}">
+				<div class="form-group" style="margin-top:18px;">
+					<label class="col-sm-1 control-label no-padding-right">视频:</label>
+					<div class="" >
+						${courseApplyInfo.playCode}
+					</div>
+				</div>
+			</c:when>
+		</c:choose>
 
 		<div class="form-group" style="margin-top:18px;">
 			<label class="col-sm-1 control-label no-padding-right">主标题:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${courseApplyInfo.title}</label>
+					<label class=" control-label no-padding-right">${courseApplyInfo.title}</label>
 				</div>
 			</div>
 
 			<label class="col-sm-1 control-label no-padding-right">副标题:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${courseApplyInfo.subtitle}</label>
+					<label class=" control-label no-padding-right">${courseApplyInfo.subtitle}</label>
 				</div>
 			</div>
 
@@ -125,9 +125,11 @@
 			<label class="col-sm-1 control-label no-padding-right">主播:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${courseApplyInfo.lecturer}</label>
+					<label class=" control-label no-padding-right">${courseApplyInfo.lecturer}</label>
 				</div>
 			</div>
+<c:choose>
+	<c:when test="${courseApplyInfo.courseForm== '2'}">
 			<label class="col-sm-1 control-label no-padding-right">多媒体类型:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
@@ -141,33 +143,59 @@
 					</c:choose>
 				</div>
 			</div>
+	</c:when>
+</c:choose>
+			<c:choose>
+				<c:when test="${courseApplyInfo.courseForm== '3'}">
+					<label class="col-sm-1 control-label no-padding-right">授课地址:</label>
+					<div class="col-sm-1" >
+						<div class="clearfix" style="width: 240px;">
+							<label class="control-label no-padding-right">${courseApplyInfo.address}</label>
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
 			<label class="col-sm-1 control-label no-padding-right">课程单价:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
 					<label class="col-sm-1 control-label no-padding-right">${courseApplyInfo.price}</label>
 				</div>
 			</div>
-			<label class="col-sm-1 control-label no-padding-right">是否上架:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
-					<c:choose>
-						<c:when test="${courseApplyInfo.sale}">
-							<label class="control-label no-padding-right">是</label>
-						</c:when>
-						<c:otherwise>
-							<label class="control-label no-padding-right">否</label>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
+			<%--<label class="col-sm-1 control-label no-padding-right">是否上架:</label>--%>
+			<%--<div class="col-sm-1" >--%>
+				<%--<div class="clearfix" style="width: 240px;">--%>
+					<%--<c:choose>--%>
+						<%--<c:when test="${courseApplyInfo.sale}">--%>
+							<%--<label class="control-label no-padding-right">是</label>--%>
+						<%--</c:when>--%>
+						<%--<c:otherwise>--%>
+							<%--<label class="control-label no-padding-right">否</label>--%>
+						<%--</c:otherwise>--%>
+					<%--</c:choose>--%>
+				<%--</div>--%>
+			<%--</div>--%>
 		</div>
 		<div class="form-group" style="margin-top:18px;">
+<c:choose>
+	<c:when test="${courseApplyInfo.courseForm!= '2'}">
 			<label class="col-sm-1 control-label no-padding-right">课程开始时间:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
 					<label class="control-label no-padding-right">${courseApplyInfo.startTime}</label>
 				</div>
 			</div>
+	</c:when>
+</c:choose>
+			<c:choose>
+	<c:when test="${courseApplyInfo.courseForm== '3'}">
+			<label class="col-sm-1 control-label no-padding-right">课程结束时间:</label>
+			<div class="col-sm-1" >
+				<div class="clearfix" style="width: 240px;">
+					<label class="control-label no-padding-right">${courseApplyInfo.endTime}</label>
+				</div>
+			</div>
+	</c:when>
+</c:choose>
 			<label class="col-sm-1 control-label no-padding-right">课程时长:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
@@ -199,19 +227,19 @@
 			</div>
 		</div>
 
+		<%--<div class="form-group" style="margin-top:18px;">--%>
+			<%--<label class="col-sm-1 control-label no-padding-right">课程简介:</label>--%>
+			<%--<div class="col-lg-10 " >--%>
+				<%--<div class="clearfix" style="width: 1000px;">--%>
+					<%--<p>${courseApplyInfo.courseDescription}</p>--%>
+				<%--</div>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">课程简介:</label>
-			<div class="col-lg-10 " >
-				<div class="clearfix" style="width: 1000px;">
-					<p>${courseApplyInfo.courseDescription}</p>
-				</div>
-			</div>
-		</div>
-		<div class="form-group" style="margin-top:18px;">
-			<label class="col-sm-1 control-label no-padding-right">课程大纲:</label>
+			<label class="col-sm-1 control-label no-padding-right">课程详情:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 1000px;">
-					<p >${courseApplyInfo.courseOutline}</p>
+					<p >${courseApplyInfo.courseDetail}</p>
 				</div>
 			</div>
 		</div>
@@ -257,14 +285,14 @@
 
 	<div class="col-xs-7" style="text-align: right;margin-top:50px;">
 		<c:choose>
-			<c:when test="${courseApplyInfo.status== '0'}">
+			<c:when test="${courseApplyInfo.status== '2'}">
 				<button class="btn btn-success" id="previewSaveBtn" onclick="pass()">通过 </button>
 				<button class="btn btn-warning" id="saveBtn" onclick="confirmNotPass()">不通过</button>
 			</c:when>
 			<c:when test="${courseApplyInfo.status== '1'}">
 				<button class="btn btn-info  " id="previewSaveBtn">已通过 </button>
 			</c:when>
-			<c:when test="${courseApplyInfo.status== '2'}">
+			<c:when test="${courseApplyInfo.status== '0'}">
 				<button class="btn btn-danger" id="previewSaveBtn">已拒绝 </button>
 			</c:when>
 		</c:choose>

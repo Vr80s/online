@@ -48,8 +48,8 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	       		
 	       		if(data.resultObject.indexOf(3) != -1||data.resultObject.indexOf(4) != -1||data.resultObject.indexOf(5) != -1||data.resultObject.indexOf(5) != -1){
 	       			//认证中
-	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
-	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
+	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
+	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 
 	       		}else if(data.resultObject.indexOf(7) != -1){
 	       			//未认证
@@ -61,8 +61,8 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	       		//医馆认证成功 左侧tab显示出来 医馆基础信息显示出来
 	       		$('#doc_Administration_tabBtn').removeClass('hide');
 	       		$('#hos_base_inf').removeClass('hide');
-	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
-	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
+	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 	       	}
 	       }
 

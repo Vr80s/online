@@ -72,20 +72,33 @@
 					{{each items.courseList as item i}}
 					<div class="my_class_text">
 					<div class="my_class_img z">
-						<img src="../images/xianxia_03.jpg"/>
+						<img src="{{item.smallImgPath}}"/>
 						<div class="little_img">
-							<img src="../images/tv_auto.png"/>
+							{{if item.type == 1}}
+								<img src="/xcview/images/tv_auto.png" alt="" />
+							{{else if item.type == 2}}
+								<img src="/xcview/images/frequency.png" alt=""/>
+							{{else if item.type == 3}}
+								<img src="/xcview/images/Sinatv_auto.png" alt=""/>
+							{{else if item.type == 4}}
+								<img src="/xcview/images/offline.png" alt=""/>
+							{{/if}}
 						</div>
 					</div>
 					<p class="text_more">{{item.gradeName}}</p>
-					<!--多少集-->
-					<!--<p class="my_collection">共20集&nbsp;&nbsp;<span>已更新16集</span></p>-->
-					<!--直播中-->
-					<!--<p class="paly_ing">直播中</p>-->
-					<!--上课时间-->
-					<!--<p class="my_collection">上课时间：&nbsp;<span>2017.12.29</span></p>-->
-					<!--直播时间-->
-					<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>	
+					{{if item.type==1 || item.type==2 && item.type==true}}
+						<!--多少集-->
+						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<span>已更新16集</span></p>
+						{{else if item.lineState==1}}	
+						<!--直播中-->				
+						<p class="paly_ing">直播中</p>
+						{{else if item.type==4}}
+						<!--上课时间-->
+						<p class="my_collection">上课时间：&nbsp;<span>2017.12.29</span></p>
+						<!--直播时间-->
+						{{else if item.type==3}}
+						<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>	
+					{{/if}}
 					</div>
 					{{/each}}
 				

@@ -114,7 +114,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             courseApplyInfo.setResourceId(courseApplyResource.getId());
             courseApplyInfo.setCourseResource(courseApplyResource.getResource());
         }
-
+        courseApplyInfo.setCreateTime(new Date());
         courseApplyInfoMapper.insert(courseApplyInfo);
     }
 
@@ -269,8 +269,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      * @Date: 下午 6:21 2018/1/19 0019
      **/
     @Override
-    public List<CourseApplyResourceVO> selectAllCourseResources(String userId) {
-        return courseApplyResourceMapper.selectAllCourseResources(userId);
+    public List<CourseApplyResourceVO> selectAllCourseResources(String userId,Integer multimediaType) {
+        return courseApplyResourceMapper.selectAllCourseResources(userId,multimediaType);
     }
 
     /**
@@ -337,6 +337,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void deleteCourseApplyResource(String userId, String resourceId) {
+        courseApplyResourceMapper.deleteCourseApplyResource(userId,resourceId);
     }
 
     /**

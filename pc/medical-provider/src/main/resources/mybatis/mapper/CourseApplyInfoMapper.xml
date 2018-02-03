@@ -79,13 +79,13 @@
 		cai.title,
 		cai.`course_length` courseLength,
 		cai.`start_time` startTime,
-		oc.live_status liveStatus
+		oc.live_status liveStatus,
+		oc.direct_id webinarId
 		FROM
 		`course_apply_info` cai
 	    JOIN `oe_course` oc
 		ON cai.`id` = oc.`apply_id`
 		WHERE cai.`user_id` = #{userId}
-		AND cai.`collection` = 1
 		AND cai.`course_form` = 1
 		<if test="title != null and title!=''">
 			AND cai.`title` concat('%',#{title},'%')

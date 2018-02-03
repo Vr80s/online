@@ -279,29 +279,29 @@ $('.message_return .name_btn').click(function(){
 
 
 //账户个人信息城市
-$('#demo1').citys({
-    required:false,
-    nodata:'disabled',
-    onChange:function(data){
-        var text = data['direct']?'(直辖市)':'';
-        $('#places').text('当前选中地区：'+data['province']);
-        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
-    }
-});
+// $('#demo1').citys({
+//     required:false,
+//     nodata:'disabled',
+//     onChange:function(data){
+//         var text = data['direct']?'(直辖市)':'';
+//         $('#places').text('当前选中地区：'+data['province']);
+//         // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+//     }
+// });
 
 
 
 //课程新课程  城市
-$('#demo2').citys({
-    required:false,
-    nodata:'disabled',
-    onChange:function(data){
-        var text = data['direct']?'(直辖市)':'';
-        $('#place').text('当前选中地区：'+data['province']);
-        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
-    }
-});
-	
+// $('#demo2').citys({
+//     required:false,
+//     nodata:'disabled',
+//     onChange:function(data){
+//         var text = data['direct']?'(直辖市)':'';
+//         $('#place').text('当前选中地区：'+data['province']);
+//         // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+//     }
+// });
+//
 	
 	
 	
