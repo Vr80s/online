@@ -271,9 +271,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	@Override
 	public List<CourseLecturVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
 
-		String strsql="(select  oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice, "
-				+"oc.smallimg_path as smallImgPath,oc.lecturer as name,oc.address as address,oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
+		String strsql="(select  oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,4 as type, "
+				+" oc.smallimg_path as smallImgPath,oc.lecturer as name,oc.address as address,"
+				+" oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
 				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
+				+"if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 				+"'全国课程' as note "
 				+" from oe_course oc "
 				+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
@@ -284,9 +286,10 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		int i = 0;
 		for (OfflineCity offlineCity : cityList) {
 				i++;
-				strsql+="(select  oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice, "
+				strsql+="(select  oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,4 as type, "
 						+"oc.smallimg_path as smallImgPath,oc.lecturer as name,oc.address as address,oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
 						+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
+						+"if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 						+" oc.city as note "
 						+" from oe_course oc "
 						+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "

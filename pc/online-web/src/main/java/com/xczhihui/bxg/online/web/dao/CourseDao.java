@@ -636,6 +636,7 @@ public class CourseDao extends SimpleHibernateDao {
                 "  AND o.order_no = :orderNo \n" +
                 "  AND a.course_id = od.course_id ";
         List<Map<String, Object>> courses= this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
+        
         return  courses;
     }
 

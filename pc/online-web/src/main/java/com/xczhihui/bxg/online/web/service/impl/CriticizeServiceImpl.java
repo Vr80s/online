@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 
 
 
+
+
+
+
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
 import com.xczhihui.bxg.online.api.vo.CriticizeVo;
@@ -55,10 +59,17 @@ public class CriticizeServiceImpl implements CriticizeService {
 
 
 	@Override
-	public Page<Criticize> getUserCriticize(String teacherId, String courseId,
+	public Page<Criticize> getUserOrCourseCriticize(String teacherId, Integer courseId,
 			Integer pageNumber, Integer pageSize,String userId) {
 		//return videoDao.getVideoCriticize(videoId,name,pageNumber,pageSize);
-		return videoDao.getUserCriticize(teacherId,courseId,pageNumber,pageSize,userId);
+		
+		if(null ==teacherId && null == courseId){
+			throw new RuntimeException("课程id和讲师id只能传递一个！");
+		}
+		if(StringUtils.isNotBlank(teacherId) && courseId!=null){
+			throw new RuntimeException("课程id和讲师id只能存在一个！");
+		}
+		return videoDao.getUserOrCourseCriticize(teacherId,courseId,pageNumber,pageSize,userId);
 	}
 	
 	
@@ -77,9 +88,9 @@ public class CriticizeServiceImpl implements CriticizeService {
 	}
 
 	@Override
-	public void saveReply(String content, String criticizeId, String userId) {
+	public void saveReply(String content, String userId,String criticizeId) {
 		// TODO Auto-generated method stub
-		videoDao.saveReply(content,criticizeId,userId);
+		videoDao.saveReply(content,userId,criticizeId);
 	}
 
 
@@ -88,5 +99,12 @@ public class CriticizeServiceImpl implements CriticizeService {
 			String courseId, Integer pageNumber, Integer pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public Integer findUserFirstStars(Integer courseId, String userId) {
+		// TODO Auto-generated method stub
+		return videoDao.findUserFirstStars(courseId,userId);
 	}
 }
