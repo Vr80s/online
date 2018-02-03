@@ -64,5 +64,5 @@ function deleteBankCardById(bankCardId) {
 }
 
 function addBankCard() {
-    window.location.href="bank_card.html";
+    window.location.href="../html/bank_card.html";
 }

@@ -49,6 +49,16 @@ header{
 	font-size: 0.36rem;
 	color: #333333;
 }
+.add{
+	float: right;
+	width: 2rem;
+	height: 0.88rem;
+	color: #00BC12;
+	text-align: right;
+	margin-right: 0.1rem;
+	line-height: 0.8rem;
+	font-size: 0.3rem;
+}
 /*头部结束*/
 
 /*余额开始*/
