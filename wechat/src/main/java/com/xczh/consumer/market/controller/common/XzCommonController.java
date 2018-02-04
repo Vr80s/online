@@ -35,9 +35,11 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
+import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 /**
@@ -71,6 +73,9 @@ public class XzCommonController {
 	
     @Autowired
     private MessageService messageService;
+    
+    @Autowired
+    private UserCenterAPI userCenterAPI;
 
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
@@ -78,9 +83,47 @@ public class XzCommonController {
 	@Value("${webdomain}")
 	private String webdomain;
 	
+	@Value("${gift.im.room.postfix}")
+	private String postfix;
+	@Value("${gift.im.boshService}")
+	private String boshService;//im服务地址
+	@Value("${gift.im.host}")
+	private  String host;
+	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory
 			.getLogger(XzCommonController.class);
-
+	
+//	newUser.setUserCenterId(user.getId());
+//	newUser.setPassword(user.getPassword());
+	
+   /**
+    * Description：获取IM服务连接配置信息
+    * @param req
+    * @return
+    * @throws Exception
+    * @return ResponseObject
+    * @author name：yangxuan <br>email: 15936216273@163.com
+    */
+   @RequestMapping("getImServerConfig")
+   @ResponseBody
+   public ResponseObject getImServerConfig(
+		   HttpServletRequest req,
+		   Integer courseId) throws Exception{
+	    Map<String,Object> map = new HashMap<String, Object>();
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user!=null){
+			ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
+			map.put("guId", iu.getId());
+			map.put("guPwd",iu.getPassword());
+			map.put("host", host);
+			map.put("boshService", boshService);
+			map.put("roomJId", courseId+postfix);
+	        return ResponseObject.newSuccessResponseObject(map);
+		}else{
+			 return ResponseObject.newErrorResponseObject("登录失效");
+		}
+   }
+		
 	
    @RequestMapping("addOpinion")
    @ResponseBody

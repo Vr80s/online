@@ -46,7 +46,7 @@ public class CCVideoController {
 	 * watchState 观看状态  0 免费观看  1 需要收费  2 需要密码
 	 * lineState: 0 直播已结束 1 直播还未开始 2 正在直播
 	 * type: 1直播  2点播 3音频 
-	 * 
+	 * multimedia_type：1 视频 2 音频
 	 */
 	@RequestMapping("commonCourseStatus")
 	@ResponseBody

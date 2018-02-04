@@ -1,9 +1,7 @@
-<%@page pageEncoding="UTF-8"%>
 <!doctype html>
 <!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
 <html lang="en" style="font-size: 84.3125px;">
 <!--html标签中需要先设定font-size的值，后面改变窗口尺寸大小的时候，JS会动态改变这个值，实现rem相对值的改变。-->
-
 <head>
 <meta charset="utf-8">
 <!--<title></title>-->
@@ -829,6 +827,13 @@ $(function(){
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 <script type="text/javascript">
 
+/**
+ * 
+ * 如果这个页面被分享
+ */
+h5PcConversions(true,course_id);
+
+
 if(isWeiXin() && stringnull(getQueryString("openId"))){
 	localStorage.setItem("openid", getQueryString("openId"));	
 	var ccontrollerAddress = "/bxg/user/isLogined";
@@ -840,8 +845,6 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 		}
 	},false)
 }
-
-
 </script>
 <script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
 <script type="text/javascript" src="/xcviews/js/strophe.js"></script>

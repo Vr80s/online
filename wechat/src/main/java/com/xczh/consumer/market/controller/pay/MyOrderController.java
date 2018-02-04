@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.xczh.consumer.market.bean.OnlineOrder;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.OnlineOrderService;
@@ -158,5 +159,26 @@ public class MyOrderController {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		return ResponseObject.newSuccessResponseObject(onlineOrderService.listPayRecordItem(req.getParameter("orderNo").toString()));
+	}
+	
+	/**
+	 * 判断此用户在下单的时候是否已经购买过这个订单中的课程
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "orderIsExitCourseIsBuy")
+	@ResponseBody
+	public ResponseObject orderIsExitCourseIsBuy(HttpServletRequest req,
+                                          HttpServletResponse res, Map<String, String> params) throws Exception{
+		String orderId = req.getParameter("orderId");
+		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
+		if (null == orderId || null == onlineOrder) {
+			return ResponseObject.newErrorResponseObject("参数异常");
+		}
+		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(orderId,onlineOrder.getUserId());
+		return ro;
 	}
 }

@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.live;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -74,7 +75,10 @@ public class CriticizeController {
 		 * 		并且判断这个用户有没有购买过这个课程
 		 */
 		Integer cv = criticizeService.findUserFirstStars(courseId,user.getId());
-		return ResponseObject.newSuccessResponseObject(pageList,cv);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("items", pageList.getItems());
+		map.put("commentCode", cv);
+		return ResponseObject.newSuccessResponseObject(map);
 	}
     /**
      * 点赞、取消点赞
