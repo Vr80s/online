@@ -228,7 +228,6 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 				return list;
 				}
 		return null;
-
 	}
 	/**
 	 * 根据订单号查询信息
@@ -253,6 +252,32 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		
 		return list;
 	}
+	
+	
+	/**
+	 * 根据订单号查询信息
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<OnlineCourse> getNewCourseByOrderId(String id) throws SQLException {
+		StringBuffer sql = new StringBuffer();
+		sql.append(" select course.id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
+		sql.append(" course.collection as collection,course.current_price as currentPrice, ");
+		sql.append(" IF(course.type = 1,1,if(course.type =3,4,if(course.multimedia_type=1,2,3))) as type, ");
+		sql.append(" course.live_status as  lineState, ");
+		
+		sql.append(" course.start_time as startTime,course.end_time as endTime,ou.name as teacherName,ou.id as userId, ");
+		sql.append(" course.smallimg_path as smallimgPath from oe_order_detail as de, ");
+		sql.append(" oe_course as course,oe_user as ou  where "
+				+ "  de.course_id = course.id and course.user_lecturer_id = ou.id and de.order_id = ? ");
+		Object params[] = {id};
+		List<OnlineCourse> list = this.query(JdbcUtil.getCurrentConnection(),
+				sql.toString(),new BeanListHandler<>(OnlineCourse.class),params);
+		
+		return list;
+	}
+	
 	/**
 	 * 根据商品id查询订单信息
 	 * @param courseId

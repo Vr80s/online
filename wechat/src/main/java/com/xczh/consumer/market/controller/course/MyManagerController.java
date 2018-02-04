@@ -201,7 +201,6 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
 		return ResponseObject.newSuccessResponseObject(onlineOrderService
 				.findUserWallet(pageNumber, pageSize, user.getId()));

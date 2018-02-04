@@ -1,59 +1,6 @@
 
-function is_weixn(){
-    var ua = navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i)=="micromessenger") {
-        return true;
-    } else {
-        return false;
-    }
-}
-/*if(is_weixn()){
-    $("#zfbDiv").remove();
-}*/
 
 
-function getQueryString(name) {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
-    if (r != null) return unescape(r[2]); return null;
-}
-
-var allCourse;
-requestService("/bxg/order/getByOrderId", {orderId : getQueryString("orderId")}, function(data) {
-    if (data.success) { //去详情页面
-        var result = data.resultObject;
-        allCourse=data.resultObject.allCourse;
-        var html="";
-        for(var i=0;i<allCourse.length;i++) {
-            html+="<div class='zhibo_list1'>\n" +
-                "<img src='"+allCourse[i].smallImgPath+"' alt='' id='cimg' />\n" +
-                "<div class='zhibo_right1'>\n" +
-                "<div class='zhibo_list_title1'><a href='javascript: ;'><span id='guanzhu2'>"+allCourse[i].gradeName+"</span></a></div>\n" +
-                "<div class='zhibo_list_size1 buy_size'>￥<span  id='buyPirce2'>"+allCourse[i].currentPrice+"</span></div>\n" +
-                "</div>\n" +
-                "</div>";
-        }
-
-        $("#clist").html(html);
-        $("#buyPirce").html(result.actualPay);
-
-      /*  $("#guanzhu2").html(result.gradeName);
-
-        $("#buyPirce2").html(result.currentPrice);
-        $("#cimg").attr("src",result.smallImgPath);*/
-    }
-});
-
-//从url得到课程id
-/*requestService("/bxg/live/liveDetails", {course_id : getQueryString("courseId")}, function(data) {
-    if (data.success) { //去详情页面
-        var result = data.resultObject;
-        $("#guanzhu2").html(result.gradeName);
-        $("#buyPirce").html(result.currentPrice);
-        $("#buyPirce2").html(result.currentPrice);
-        $("#cimg").attr("src",result.smallImgPath);
-    }
-});*/
 
 function  goPay() {
     var xiradio = document.getElementsByName("xi");

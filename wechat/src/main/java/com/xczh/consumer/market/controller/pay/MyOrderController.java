@@ -95,12 +95,11 @@ public class MyOrderController {
 	@ResponseBody
 	public ResponseObject getOnlineOrderByOrderId(HttpServletRequest req,
 			@RequestParam("orderId") String orderId)throws Exception{
-		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		return onlineOrderService.getOnlineOrderByOrderId(orderId);
+		return onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId);
 	}
 	
 	/**
