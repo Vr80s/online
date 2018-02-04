@@ -60,12 +60,17 @@
 						</div>
 						<div class="separate"></div>			
 						<div class="right_personal y">
-							<p>粉丝&nbsp;{{fansCount}}</p>				
+							粉丝&nbsp;<span>{{fansCount}}</span>
 						</div>
 					</div>
-					<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.id}}" onclick="my_follow()">
-						<!--<img src="../images/append1_icon.png"/>
-						<p style="margin-left: 0.6rem;">加关注</p>-->
+					<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.id}}" >
+						{{if isPraise==0 }}
+						<img src="../images/append1_icon.png"/>
+						<p style="margin-left: 0.6rem;">加关注</p>
+						{{else}}
+						<img src="../images/append2_icon.png"/>
+						<p class="aaa" style="margin-left: 0.6rem;">已关注</p>
+						{{/if}}
 					</div>
 				</div>
 		</script>

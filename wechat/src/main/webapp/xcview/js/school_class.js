@@ -111,7 +111,7 @@ function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
         pageNumber:1,
-        pageSize:3
+        pageSize:6
     },function(data) {
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
@@ -119,9 +119,11 @@ function refresh(){
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
             criticize_id=this.id;
-            $(".bg_userModal").show();
+            /*$(".bg_userModal").show();
             $(".wrapLittle_comment").show();
-            $("#littlt_return").focus()
+            $("#littlt_return").focus()*/
+            //跳转到评论列表页
+            btn_allComment();
         });
         $(".bg_userModal").click(function(){
             $(".bg_userModal").hide();
@@ -131,7 +133,7 @@ function refresh(){
         $(".btn_click_zan").click(function(){
             //评论id
             criticize_id=$(this).attr("data-id");
-            var p = $(this).find('span').html();
+            /*var p = $(this).find('span').html();
 
             var src = $(this).find('img').attr('src');
             if(src.indexOf("zan001")>-1){
@@ -143,7 +145,9 @@ function refresh(){
                 $(this).find('img').attr('src','../images/zan001.png');
                 $(this).find('span').html(parseInt(p)+1);
                 updatePraise(criticize_id,true);
-            }
+            }*/
+            //跳转到评论列表页
+            btn_allComment();
         });
 
     });
