@@ -83,12 +83,26 @@ requestService("/xczh/host/hostPageInfo",{
 //<!--主播名字/粉丝数量-->
 	$("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
 // 打开页面判断是否已关注
-	if(data.resultObject.isFocus == 1){
-		$(".add_follow").html(btn_follow);
-		
-	}else{
-			$(".add_follow").html(not_follow);
-	}		
+    $(".add_follow").click(function(){
+        //评论id
+        lecturerId = $(this).attr("data-lecturerId");
+        var p = $(".right_personal").find('span').html();
+
+        var src = $(this).find('img').attr('src');
+        if(src.indexOf("append1_icon")>-1){
+            $(".add_follow").find('img').attr('src','../images/append2_icon.png');
+            $(".add_follow").find('p').html("已关注");
+
+            $(".right_personal").find('span').html(parseInt(p)+1);
+            my_follow(lecturerId,1);
+        }else{
+            $(".add_follow").find('img').attr('src','../images/append1_icon.png');
+            $(".add_follow").find('p').html("加关注");
+            $(".right_personal").find('span').html(parseInt(p)-1);
+            my_follow(lecturerId,2);
+        }
+    });
+
 			
 //直播时间截取	
 		data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10); //截取日期
@@ -134,40 +148,17 @@ requestService("/xczh/host/hostPageCourse",{
 
 
 
-
-
-
-
-
-
-
 });
 	
 //	点击关注判断
-	var btn_follow='<img src="../images/append2_icon.png"/>'+
-					'<p class="aaa" style="margin-left: 0.6rem;">已关注</p>'	
-	var not_follow='<img src="../images/append1_icon.png"/>'+
-					'<p class="aaa"  style="margin-left: 0.6rem;">加关注</p>'	
-	function my_follow(){
-				var bbb = $(".aaa").text();
-				var adfol=document.getElementById('add_follow')
-				var followed = adfol.getAttribute("data-lecturerId");
-				if(bbb=="已关注"){
+
+	function my_follow(followed,type){
 					requestService("/xczh/myinfo/updateFocus",{
 						lecturerId : followed,
-						type:2
+						type:type
 					},function(data){
-							$(".add_follow").html(not_follow);
+                        alert(data.resultObject);
 					})
-				}else{			
-					requestService("/xczh/myinfo/updateFocus",{
-						lecturerId : followed,
-						type:1
-					},function(data){
-							$(".add_follow").html(btn_follow);
-					})
-		
-				}			
 			}
 	
 	function btn_class(){
