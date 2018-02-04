@@ -204,6 +204,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo){
         validateCollectionApply(courseApplyInfo);
+        courseApplyInfo.setCreateTime(new Date());
+        courseApplyInfoMapper.insert(courseApplyInfo);
         //当合辑为点播视频时
         for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
@@ -342,6 +344,26 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public void deleteCourseApplyResource(String userId, String resourceId) {
         courseApplyResourceMapper.deleteCourseApplyResource(userId,resourceId);
+    }
+
+    @Override
+    public List<CourseApplyInfoVO> selectAllCourses(String userId, Integer multimediaType) {
+        return courseApplyInfoMapper.selectAllCourses(userId,multimediaType);
+    }
+
+    @Override
+    public CourseApplyInfo selectCourseApplyById(String userId, Integer caiId) {
+        return courseApplyInfoMapper.selectCourseApplyById(userId,caiId);
+    }
+
+    @Override
+    public void updateCourseApply(CourseApplyInfo courseApplyInfo) {
+        //删除之前申请
+        courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
+        //记录原申请id
+        courseApplyInfo.setOldApplyInfoId(courseApplyInfo.getId());
+        courseApplyInfo.setId(null);
+        saveCourseApply(courseApplyInfo);
     }
 
     /**

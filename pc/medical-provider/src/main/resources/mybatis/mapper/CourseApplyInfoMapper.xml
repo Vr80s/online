@@ -9,8 +9,15 @@
 		WHERE cai.id = #{courseApplyId}
 		  AND cai.`user_id` = #{userId}
 	</update>
+	<update id="deleteCourseApplyById">
+		UPDATE
+		  `course_apply_info` cai
+		SET
+		  cai.`is_delete` = 1
+		WHERE cai.id = #{id}
+	</update>
 
-    <select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+	<select id="selectCourseApplyPage" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
 		SELECT
 		  cai.id,
 		  cai.img_path imgPath,
@@ -185,5 +192,28 @@
 		WHERE uci.`change_type` = 6 AND uci.`user_id`=#{userId}
 		) uccuci
 		ORDER BY uccuci.createTime DESC
+	</select>
+	<select id="selectAllCourses" resultType="com.xczhihui.medical.anchor.vo.CourseApplyInfoVO">
+		SELECT
+		  cai.`id`,
+		  cai.`title`,
+		  cai.lecturer,
+		  cai.price
+		FROM
+		  `course_apply_info` cai
+		WHERE cai.`collection` = 0
+		  AND cai.`is_delete` = 0
+		  AND cai.`user_id` = #{userId}
+		  AND cai.`multimedia_type` =#{multimediaType}
+	</select>
+	<select id="selectCourseApplyById" resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
+		SELECT
+		  cai.*
+		  FROM
+		  `course_apply_info` cai
+		WHERE cai.`collection` = 0
+		  AND cai.`is_delete` = 0
+		  AND cai.`user_id` = #{userId}
+		  AND cai.`id`=#{caiId}
 	</select>
 </mapper>

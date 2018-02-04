@@ -179,8 +179,18 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 
 	@TableField("resource_id")
 	private Integer resourceId;
-
+	@TableField("old_apply_info_id")
+	private Integer oldApplyInfoId;
+	@TableField(exist = false)
 	private List<CourseApplyInfo> courseApplyInfos;
+
+	public Integer getOldApplyInfoId() {
+		return oldApplyInfoId;
+	}
+
+	public void setOldApplyInfoId(Integer oldApplyInfoId) {
+		this.oldApplyInfoId = oldApplyInfoId;
+	}
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;

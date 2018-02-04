@@ -137,7 +137,7 @@
 				<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
 				{{/if}}
 				{{else if course.applyStatus==2}}
-				<a href="javascript:;">编辑</a>
+				<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
 				{{/if}}
 			</td>
 		</tr>
@@ -231,6 +231,33 @@
 				{{else if collection.applyStatus==2}}
 				<a href="javascript:;">编辑</a>
 				{{/if}}
+			</td>
+		</tr>
+		{{/each}}
+	</script>
+	<script type="text/template" id="collection_course_list_tpl">
+		{{each courseArr as course i}}
+		<tr>
+			<td>
+				{{course.collectionCourseSort}}
+			</td>
+			<td>
+				{{course.title}}
+			</td>
+			<td>
+				{{course.lecturer}}
+			</td>
+			<td>
+				{{course.price}}
+			</td>
+			<td>
+				{{if !course.first}}
+				<a href="javascript:;" onclick="upCourse2Collection({{course.collectionCourseSort}})">上移</a>
+				{{/if}}
+				{{if !course.last}}
+				<a href="javascript:;" onclick="downCourse2Collection({{course.collectionCourseSort}})">下移</a>
+				{{/if}}
+				<a href="javascript:;" onclick="deleteCourse2Collection({{course.id}})">移除</a>
 			</td>
 		</tr>
 		{{/each}}
@@ -727,6 +754,7 @@
 						</div>
 						<div class="zhuanlan_bottom" id="kecheng_bottom">
 							<form id="courseForm">
+								<input type="text" id="caiId">
 							<div>
 								<span><em>*</em>课程标题</span>
 								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title course_title"/>
@@ -824,12 +852,14 @@
 								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2 course_length" style="width: 120px;" />
 								<span>分钟</span>
 								<p class="warning warning_course_length hide">时长不能为空</p>
+								<p class="warning warning_course_length_Illegal hide">时长数值不符合规范</p>
 							</div>
 							<div>
 								<span><em>*</em>价格</span>
 								<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3 course_price" style="width: 120px;" />
 								<span>元</span>
 								<p class="warning warning_course_price hide">价格不能为空</p>
+								<p class="warning warning_course_price_Illegal hide">价格数值不符合规范</p>
 							</div>
 							<div class="">
 								<span class="span" style="vertical-align: top;"><em>*</em>课程介绍</span>
@@ -846,8 +876,7 @@
 									<input type="radio" name="course_multimedia_type" value="2" onclick="initResource(2)"/>音频
 								</label>
 							</div>
-							
-							
+
 							<div id="resourceUrl"  class="vod special">
 								<span><em>*</em> 选择资源</span>
 								<label for="id_select"></label>
@@ -872,7 +901,7 @@
 						<div class="zhuanlan_bottom2 course_content" id="kecheng_bottom2" style="margin-bottom: 30px;">
 							<div class="zhuanlan_top">
 								<span class="title">课程</span>
-								<button class="button">新课程</button>
+								<button class="button" onclick="resetCourseForm()">新课程</button>
 							</div>
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
@@ -1013,20 +1042,20 @@
 					
 					<div class="zhuanlan_bottom" id="zhuanji_bottom">
 						<div class="zhuanlan_top">
-							<span class="title">新专辑</span>
+							<span class="title" onclick="resetCollectionForm()">新专辑</span>
 							<div class="returns">返回</div>
 						</div>
-						<form action="">
+						<form id="collectionForm">
 						<div>
 							<span><em>*</em>专辑标题</span>
-							<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title"/>
-							<p class="warning warning0 hide">课程标题不能为空</p>
+							<input type="text" placeholder="请填写您的专题标题" class="zhuanlan_title collection_title"/>
+							<p class="warning warning0 hide warning_collection_title">专题标题不能为空</p>
 						</div>
 						
 						<div>
 							<span><em>*</em>副标题</span>
-							<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0"/>
-							<p class="warning warning1 hide">副标题不能为空</p>
+							<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 collection_subtitle"/>
+							<p class="warning warning1 hide warning_collection_subtitle">副标题不能为空</p>
 						</div>
 						
 						
@@ -1038,78 +1067,77 @@
 									<div class="two">点击上传封面图</div>
 								</div>
 				                <div class="col-sm-9 big-photo">
-				                    <div class="preview" id="preview7">
+				                    <div class="preview" id="collectionImg">
 				                        <!--<img id="imghead7" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg7').click();">-->
 				                    </div>         
-				                    <input type="file" onchange="previewImage7(this)" id="previewImg7">
+				                    <input type="file" id="collectionImgPath">
 				                </div>
 				            </div>
-				            <div class="hint">
-			                	<div class="">文件小于2M</div>
-			                	<div class="">支持JPG/PNG等格式图片</div>
-			                </div>
-			                <div class="both"></div>
+							<div class="hint">
+								<div class="">文件小于2M</div>
+								<div class="">支持JPG/PNG等格式图片</div>
+							</div>
+							<div class="both"></div>
+							<p class="warning_collection_imgPath warning hide">请上传封面图</p>
 						</div>
-						
 						
 						<div>
 							<span><em>*</em>主播姓名</span>
-							<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_title1 "/>
-							<p class="warning warning3 hide">主播不能为空</p>
+							<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_title1 collection_lecturer"/>
+							<p class="warning warning_collection_lecturer hide">主播姓名不能为空</p>
 						</div>
-						
 						
 						<div class="textarea">
-							<span class="span"><em>*</em>主播介绍</span>
-							<div class="">
-								<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textarea2"></textarea>
-								
-							</div>
-							<p class="warning warning4 hide">主播介绍不能为空</p>
+							<span class="span" style="vertical-align: top;"><em>*</em>主播介绍</span>
+							<div class="" style="display: inline-block">
+								<script id="editor_collection_lecturer_description" type="text/plain" style="width:540px;height:260px;"></script></div>
+							<p class="warning warning_collection_lecturer_description hide">主播介绍不能为空</p>
 						</div>
-						
+						<div class="select">
+							<span><em>*</em>专辑分类</span>
+							<select id="menu_select_collection" >
+							</select>
+							<p class="warning hide">专辑分类不能为空</p>
+						</div>
 						<div>
 							<span><em>*</em>总价</span>
-							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3" style="width: 120px;" />
+							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3 collection_price" style="width: 120px;" />
 							<span>元</span>
-							<p class="warning warning7 hide">总价不能为空</p>
+							<p class="warning warning_collection_price hide">总价不能为空</p>
+							<p class="warning warning_collection_price_Illegal hide">总价数值不符合规范</p>
 						</div>
-						
+
 						<div class="textarea">
-							<span class="span"><em>*</em>专辑介绍</span>
-							<div class="">
-								<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textarea3"></textarea>
-								
-							</div>
-							<p class="warning warning9 hide">专辑介绍不能为空</p>
+							<span class="span" style="vertical-align: top;"><em>*</em>专辑介绍</span>
+							<div class="" style="display: inline-block">
+								<script id="editor_collection_details" type="text/plain" style="width:540px;height:260px;"></script></div>
+							<p class="warning warning_collection_details hide">专辑介绍不能为空</p>
 						</div>
 						<div class="textarea">
-							<span class="span"><em>*</em>专辑大纲</span>
-							<div class="">
-								<textarea name="" rows="" cols="" placeholder="请输入大纲内容" id="textarea4"></textarea>
-								
-							</div>
-							<p class="warning warning01 hide">专辑大纲不能为空</p>
+							<span class="span" style="vertical-align: top;"><em>*</em>专辑大纲</span>
+							<div class="" style="display: inline-block">
+								<script id="editor_collection_outline" type="text/plain" style="width:540px;height:260px;"></script></div>
+							<p class="warning warning_collection_outline hide">专辑大纲不能为空</p>
 						</div>
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
 							<label>
-								<input type="radio" name="resourceType0" checked="checked" />视频
+								<input type="radio" name="collection_multimedia_type" value="1" checked="checked" />视频
 							</label>
 							<label>
-								<input type="radio" name="resourceType0" />音频
+								<input type="radio" name="collection_multimedia_type" value="2"/>音频
 							</label>
 						</div>
-						
+
 						<div>
 							<span><em>*</em>总集数</span>
-							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title03" style="width: 120px;" />
+							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title03 course_number" onkeyup="value=value.replace(/[^\d]/g,'') " style="width: 120px;" />
 							<span>集</span>
-							<p class="warning warning02 hide">总集数不能为空</p>
+							<p class="warning warning_coursenumber hide">总集数不能为空</p>
 						</div>
-						
-						
-						<div class="times">
+
+
+						<!--<div class="times">
 							<span><em>*</em>更新时间</span>
 							<div class="div" id="times_div">
 								<div class="div_one" style="">一</div>
@@ -1119,14 +1147,14 @@
 								<div class="div_one">五</div>
 								<div class="div_one">六</div>
 								<div class="div_one">日</div>
-								<!--<div class="div_two">重置</div>-->
-								
+								&lt;!&ndash;<div class="div_two">重置</div>&ndash;&gt;
+
 							</div>
 							<div class="both"></div>
 							<p class="warning warning002 hide">更新时间不能为空</p>
-						</div>
-						
-						
+						</div>-->
+
+
 						<div class="table_div">
 							<span><em>*</em>选集</span>
 							<!--<table>
@@ -1138,7 +1166,7 @@
 									<td>操作</td>
 								</tr>
 							</table>-->
-							
+
 							<!--序号列表开始-->
 							<table style="float: left;">
 								<thead>
@@ -1150,107 +1178,43 @@
 										<td>操作</td>
 									</tr>
 								</thead>
-								<tbody class="tbody_tbody">
-									<tr>
-										<td>
-											
-										</td>
-										<td>
-											中医药席卷全
-										</td>
-										<td>
-											测试
-										</td>
-										<td>
-											￥200.00
-										</td>
-										<td>
-											<a href="javascript:;">移除</a>
-										</td>
-									</tr>
-									
-									<tr>
-										<td>
-											
-										</td>
-										<td>
-											中医药席卷全
-										</td>
-										<td>
-											测试
-										</td>
-										<td>
-											￥200.00
-										</td>
-										<td>
-											<a href="javascript:;">移除</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											
-										</td>
-										<td>
-											中医药席卷全
-										</td>
-										<td>
-											测试
-										</td>
-										<td>
-											￥200.00
-										</td>
-										<td>
-											<a href="javascript:;">移除</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											
-										</td>
-										<td>
-											中医药席卷全
-										</td>
-										<td>
-											测试
-										</td>
-										<td>
-											￥200.00
-										</td>
-										<td>
-											<a href="javascript:;">移除</a>
-										</td>
-									</tr>
+								<tbody class="tbody_tbody collection_courses">
+
 								</tbody>
 							</table>
+
 							<!--序号列表结束-->
 							<div class="add_course">添加课程</div>
 							<div class="both"></div>
+							<p class="warning warning_course hide">课程不可为空</p>
 							<div class="baocun">
-								<input type="submit" value="提交课程" id="submit"/>
-								<input type="submit" value="保存" id="submit0"/>
+								<!--专辑提交-->
+								<input type="submit" value="提交" id="submit0" onclick="saveCollection()"/>
+								<!--<input type="submit" value="保存" id="submit0"/>-->
 							</div>
-							
+
 							<!--点击添加课程出现的弹框开始-->
 							<div class="new_box">
 								<div class="new_box_bg"></div>
 								<div class="new_box_main">
 									<p>×</p>
 									<div class="input">
-										添加已有课程<input type="text" class="" />
+										添加已有课程
+										<label for="course_select"></label>
+										<select id="course_select" class="selectpicker selectpicker_collection bla bla bli collection_course" multiple data-live-search="true">
+											</optgroup>
+										</select>
 									</div>
-									<div class="add">确认添加</div>
+									<div class="add" onclick="addCourse2Collection()">确认添加</div>
 									<div class="size">没有找到课程，新增课程</div>
 								</div>
 							</div>
 							<!--点击添加课程出现的弹框结束-->
-							
-							
-							
-							
+
 						</div>
-						
+
 						</form></div>
-				
+
 					<!--课程添加开始-->
 					<!--<div class="adds_course">-->
 						<!--<div class="adds_course_bg"></div>-->
@@ -1260,20 +1224,20 @@
 							<div class="returns">返回</div>
 						</div>
 						<form action="">
-							
+
 						<div>
 							<span><em>*</em>课程标题</span>
 							<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title">
 							<p class="warning warnings0 hide">课程标题不能为空</p>
 						</div>
-						
+
 						<div>
 							<span><em>*</em>副标题</span>
 							<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0">
 							<p class="warning warnings1 hide">副标题不能为空</p>
 						</div>
-						
-						
+
+
 						<div class="certification physician_span">
 							<span><em>*</em>封面图</span>
 				            <div class="input-group row">
@@ -1284,7 +1248,7 @@
 				                <div class="col-sm-9 big-photo">
 				                    <div class="preview" id="preview8">
 				                        <!--<img id="imghead7" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg7').click();">-->
-				                    </div>         
+				                    </div>
 				                    <input type="file" onchange="previewImage8(this)" id="previewImg8">
 				                </div>
 				            </div>
@@ -1294,25 +1258,25 @@
 			                </div>
 			                <div class="both"></div>
 						</div>
-						
-						
+
+
 						<div>
 							<span><em>*</em>主播姓名</span>
 							<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_titles1 ">
 							<p class="warning warnings3 hide">主播不能为空</p>
 						</div>
-						
-						
+
+
 						<div class="textarea">
 							<span class="span" style="float: left;"><em>*</em>主播介绍</span>
 							<div class="">
 								<textarea name="" rows="" cols="" placeholder="请输入介绍内容" id="textareas1"></textarea>
-								
+
 							</div>
 							<p class="warning warnings4 hide">主播介绍不能为空</p>
 						</div>
-						
-						
+
+
 						<div id="resourceTypess">
 							<span><em>*</em>课程类型</span>
 							<label>
@@ -1325,8 +1289,8 @@
 								<input type="radio" name="resourceType">线下课
 							</label>
 						</div>
-						
-						
+
+
 						<div class="select">
 							<span><em>*</em>课程分类</span>
 							<select name="" id="select">
@@ -1339,12 +1303,12 @@
 						</div>
 						<!--<div class="select">
 							<span><em>*</em>开课时间</span>
-							
+
 							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="请选择开课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time">
 							<p class="warning warning5 hide">开课时间不能为空</p>
 						</div>-->
-						
-						
+
+
 						<div>
 							<span><em>*</em>时长</span>
 							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2" style="width: 120px;">
@@ -1373,15 +1337,15 @@
 								<input type="radio" name="resourceTypes0">音频
 							</label>
 						</div>
-						
-						
+
+
 						<div class="resourceUrls">
 							<span><em>*</em> 选择资源</span>
 							<input type="text" class="input a_input">
 							<a href="javascript:;" id="a"><span style="cursor: pointer;">选择资源</span></a>
 							<p class="warning warnings9 hide">选择资源不能为空</p>
 						</div>
-						
+
 						<div class="resourceTypess">
 							<span><em>*</em> 课程不单卖</span>
 							<label>
@@ -1391,8 +1355,8 @@
 								<input type="radio" name="resourceTypes01">否
 							</label>
 						</div>
-						
-						
+
+
 						<div class="baocun">
 							<input type="submit" value="提交课程" id="submits">
 							<input type="submit" value="保存" id="submits0">
@@ -1415,7 +1379,7 @@
 							</div>
 							<a href="http://cnstatic01.e.vhall.com/upload/assistant/file_url/67/17/VhallTool.exe"><div class="live_streaming_main_right" style="margin-top: -4px;">下载客户端</div></a>
 						</div>
-						
+
 						<div class="live_streaming_table">
 							<table>
 								 <thead>
@@ -1459,9 +1423,9 @@
 								<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
 								<p class="warning warning0 hide">课程标题不能为空</p>
 							</div>
-							
-							
-							
+
+
+
 							<div id="resourceType">
 								<span><em>*</em>资源类型</span>
 								<label>
@@ -1475,7 +1439,7 @@
 								<span><em>*</em> 资源URL</span>
 								<input type="text" class="resource_put" />
 								<a href="javascript:;"><span>选择资源</span></a>
-								
+
 								<p class="warning warning2 hide">请上传资源</p>
 							</div>
 							<div class="baocun">
@@ -1515,7 +1479,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<!--点击资源出现弹框开始-->
 					<div class="resource_popout">
 						<div class="resource_popout_bg"></div>
@@ -1525,7 +1489,7 @@
 					</div>
 					<!--点击资源出现弹框结束-->
 				</div>
-			</div>	
+			</div>
 
 		</div>
 
@@ -1536,6 +1500,13 @@
 	<script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 	<script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 	<script type="text/javascript">
+        function numberCk(data) {
+            var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
+            if (!reg.test(data)) {
+                return false;
+            }
+            return true;
+        }
         function confirmCollectionSale(){
             $(".no_yes").show();
         }
@@ -1602,90 +1573,22 @@
 	<script type="text/javascript">
         //实例化编辑器
         //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-        var ue = UE.getEditor('editor',{
-            toolbars:[['source', //源代码
-                'undo', //撤销
-                'redo', //重做
-                'bold', //加粗
-                'forecolor', //字体颜色
-                'backcolor', //背景色
-                'indent', //首行缩进
-                'removeformat',//清除格式
-                'formatmatch', //格式刷
-                'blockquote', //引用
-                'fontfamily', //字体
-                'fontsize', //字号
-                'paragraph', //段落格式
-                'italic', //斜体
-                'underline', //下划线
-                'strikethrough', //删除线
-                'superscript', //上标
-                'subscript', //下标
-                'touppercase', //字母大写
-                'tolowercase', //字母小写
-                'justifyleft', //居左对齐
-                'justifyright', //居右对齐
-                'justifycenter', //居中对齐
-                'justifyjustify',//两端对齐
-                'link', //超链接
-                'unlink', //取消链接
-                'simpleupload', //单图上传
-                // 'insertimage', //多图上传
-                'emotion', //表情
-                'fullscreen'
-            ] ],
-            elementPathEnabled:false,
-            autoHeightEnabled: false,
-            autoFloatEnabled: true,
-            enableAutoSave:false,
-            imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
-        });
-        var ue_cd = UE.getEditor('editor_cd',{
-            toolbars:[['source', //源代码
-                'undo', //撤销
-                'redo', //重做
-                'bold', //加粗
-                'forecolor', //字体颜色
-                'backcolor', //背景色
-                'indent', //首行缩进
-                'removeformat',//清除格式
-                'formatmatch', //格式刷
-                'blockquote', //引用
-                'fontfamily', //字体
-                'fontsize', //字号
-                'paragraph', //段落格式
-                'italic', //斜体
-                'underline', //下划线
-                'strikethrough', //删除线
-                'superscript', //上标
-                'subscript', //下标
-                'touppercase', //字母大写
-                'tolowercase', //字母小写
-                'justifyleft', //居左对齐
-                'justifyright', //居右对齐
-                'justifycenter', //居中对齐
-                'justifyjustify',//两端对齐
-                'link', //超链接
-                'unlink', //取消链接
-                'simpleupload', //单图上传
-                // 'insertimage', //多图上传
-                'emotion', //表情
-                'fullscreen'
-            ] ],
-            elementPathEnabled:false,
-            autoHeightEnabled: false,
-            autoFloatEnabled: true,
-            enableAutoSave:false,
-            imagePopup:false,
-            maximumWords:10000       //允许的最大字符数
-        });
+
 
         function getLDContent() {
             return UE.getEditor('editor').getContent();
         }
         function getCDContent() {
-			return UE.getEditor('editor_cd').getContent();
+            return UE.getEditor('editor_cd').getContent();
+        }
+        function getCollectionDetails() {
+            return UE.getEditor('editor_collection_details').getContent();
+        }
+        function getCollectionOutline() {
+            return UE.getEditor('editor_collection_outline').getContent();
+        }
+        function getCollectionLecturerDescription() {
+            return UE.getEditor('editor_collection_lecturer_description').getContent();
         }
 
         UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;

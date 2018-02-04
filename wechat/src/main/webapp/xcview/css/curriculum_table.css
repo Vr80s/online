@@ -336,9 +336,23 @@ header{
 }
 
 
-
-
-
+/*筛选条件*/
+.hint{
+	font-size: 0.24rem;
+    color: #000000;
+    text-align: center;
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    top: 1.8rem;
+    left: 0;
+    height: 0.8rem;
+    line-height: 0.8rem;
+}
+.hint span{
+	font-size: 0.24rem;
+	color: #00BC12;
+}
 
 /*筛选滑动开始*/
 .btn_show{
