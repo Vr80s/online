@@ -361,6 +361,39 @@ function getUrlParam(name) {
 	return null; // 返回参数值
 }
 
+
+//获取url中的参数，并返回一个对象
+function getUrlParamsReturnJson() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = {};
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+};
+
+/*
+ * 传递一个json返回对象瓶装为ur请求地址，待参数的
+ */
+function createUrl(obj){
+    var length = obj && obj.length,
+        idx = 0,
+        url = obj.url + '?';
+    for (var key in obj) {
+        if (key != 'url' && obj[key] !== null) {
+            url += (key + '=' + encodeURIComponent(obj[key]) + '&');
+        }
+    }
+    return url.substring(0, url.lastIndexOf('&'));
+}
+
+
+
+
 // 钱的转换
 function money(pay) {
 	return pay / 100;
