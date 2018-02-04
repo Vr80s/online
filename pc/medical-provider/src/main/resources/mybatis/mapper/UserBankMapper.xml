@@ -49,7 +49,7 @@
 		<if test="userId != null and userId != ''">
 			AND oub.user_id = #{userId}
 		</if>
-		ORDER BY oub.create_time DESC
+		ORDER BY oub.is_default ASC ,oub.create_time DESC
 	</select>
 
 
