@@ -422,15 +422,20 @@ $(function(){
 				name: name,
 				headPortrait:headPortrait,
 				title:title,
-				"medicalDoctorAuthenticationInformation.titleProve":medicalDoctorAuthenticationInformation,
+				titleProve:medicalDoctorAuthenticationInformation,
 				description:description,
 				fieldText:field,
 				departmentIds:keshiStr
 			}, function(data) {
-				console.log(data);
-
+				if(data.success == true){
+				$('#tip').text('添加医师信息提交成功');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       			$('#doc_Administration_tabBtn').click();
+	       		},1500)
+				}
 			})
-
 	})
 	
 	

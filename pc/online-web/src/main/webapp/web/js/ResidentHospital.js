@@ -16,21 +16,22 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 			};
 		});
 
-//上线下线的按钮点击事件
-$('#doc_Administration_bottom2').on('click','.downLine',function(){
-	var id = $(this).attr('data-id');
-	var status = $(this).attr('data-status');
-	RequestService("/medical/doctor/update", "post", {
-		id:id,
-		status:status
-	}, function(data) {
-		if(data.success == true){
-			//重新渲染列表
-			$('.doc_Administration_tabBtn').click();
-		}
-			
-	});
-})
+////上线下线的按钮点击事件
+//$('#doc_Administration_bottom2').on('click','.downLine',function(){
+//	var id = $(this).attr('data-id');
+//	var status = $(this).attr('data-status');
+//	RequestService("/medical/doctor/update", "post", {
+//		id:id,
+//		status:status
+//	}, function(data) {
+//		if(data.success == true){
+//			//重新渲染列表
+//			$('.doc_Administration_tabBtn').click();
+//			 courseVodList(1);
+//		}
+//			
+//	});
+//})
 	
 
 
@@ -46,12 +47,12 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
 	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
 	       		
-	       		if(data.resultObject.indexOf(3) != -1||data.resultObject.indexOf(4) != -1||data.resultObject.indexOf(5) != -1||data.resultObject.indexOf(5) != -1){
+	       		if(data.resultObject.indexOf(4) != -1||data.resultObject.indexOf(6) != -1){
 	       			//认证中
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 
-	       		}else if(data.resultObject.indexOf(7) != -1){
+	       		}else if(data.resultObject.indexOf(7) != -1 || data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
 	       			//未认证
 //	       			$('#docNoPass_tip').removeClass('hide');	
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');

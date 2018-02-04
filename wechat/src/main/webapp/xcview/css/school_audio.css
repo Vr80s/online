@@ -593,7 +593,7 @@ color: white;
 }
 .wrapLittle_comment{
 	width: 7.5rem;
-    position: absolute;
+
 	height: 4.45rem;
 	display: none;
 	background:white;
@@ -602,7 +602,7 @@ color: white;
 	left: 0;
 	z-index: 5;
 	padding: 0 0.26rem 0.6rem;
-	
+	position: fixed;
 }
 /*评论主播弹出框*/
 .bg_modal{
