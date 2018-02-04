@@ -36,7 +36,9 @@ public class XzGiftController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/rankingList")
-	public ResponseObject rankingList(@RequestParam(value="liveId")String liveId, @RequestParam(value="current")Integer current, @RequestParam(value="size")Integer size) throws SQLException {
+	public ResponseObject rankingList(@RequestParam(value="liveId")String liveId, 
+			@RequestParam(value="pageNumber")Integer current,
+			@RequestParam(value="pageSize")Integer size) throws SQLException {
 		Page<RankingUserVO> page = new Page<>();
 		page.setCurrent(current);
 		page.setSize(size);
