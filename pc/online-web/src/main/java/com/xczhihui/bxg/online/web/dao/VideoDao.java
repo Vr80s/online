@@ -195,7 +195,7 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public CriticizeVo findCriticizeById(String id) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select id,create_person createPerson,create_time createTime,content,user_id userId,");
+        sql.append("select id,create_person createPerson,create_time createTime,content,user_id userId,course_id courseId,");
         sql.append("chapter_id chapterId,video_id videoId,star_level starLevel,praise_sum praiseSum,praise_login_names praiseLoginNames ");
         sql.append("from oe_criticize where id=:id");
         Map<String,Object> paramMap = new HashMap<>();
@@ -444,20 +444,20 @@ public class VideoDao extends SimpleHibernateDao {
 		String replyId = UUID.randomUUID().toString().replaceAll("-", "");
 		String sql = "insert into oe_reply (id,create_person,reply_content,"
 		        + "reply_user,criticize_id) "
-		        + "values (:id,:createPerson,:content,:userId,"
+		        + "values (:id,:createPerson,:content,:reply_user,"
 		        + ":criticizeId)";
 		 Map<String,Object> params=new HashMap<String,Object>();
 		 params.put("id", replyId);
-		 params.put("createPerson", cvo.getUserId());     //当前被回复的评论id是这个回复创建人
+
+		 params.put("createPerson", userId);     //
 		 params.put("content", cvo.getContent());         //内容
-		 params.put("userId", cvo.getUserId());     	  //回复的讲师id
-		 params.put("criticizeId", criticizeVo.getId());  //此条评论的人	
+		 params.put("reply_user", cvo.getCreatePerson());     //当前被回复的评论id是这个回复创建人
+		 params.put("criticizeId", criticizeVo.getId());  //此条评论的人
 		 this.getNamedParameterJdbcTemplate().update(sql,params);
 	}
 
 	 /**
      * 获取主播的或者课程的评价数
-     * @param videoId 视频ID
      * @return
 	 * @throws IllegalAccessException 
      */
@@ -504,16 +504,19 @@ public class VideoDao extends SimpleHibernateDao {
 	 	        	/**
 	        		 * 就星级的平均数
 	        		 */
- 	        		BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());  
-	 	            totalAmount.add(new BigDecimal(c.getContentLevel()));
-	 	            totalAmount.add(new BigDecimal(c.getDeductiveLevel()));
-	 	            String startLevel = "0";
-					try {
-						startLevel = divCount(totalAmount.doubleValue(),3d,1);
-						c.setStarLevel(Float.valueOf(startLevel));
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
+	 	        	if(c.getOverallLevel()!=null&&!"".equals(c.getOverallLevel())){
+                        BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());
+                        totalAmount.add(new BigDecimal(c.getContentLevel()));
+                        totalAmount.add(new BigDecimal(c.getDeductiveLevel()));
+                        String startLevel = "0";
+                        try {
+                            startLevel = divCount(totalAmount.doubleValue(),3d,1);
+                            c.setStarLevel(Float.valueOf(startLevel));
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
 	 			}
 	        }
 	        System.out.println(criticizes.getItems());

@@ -57,7 +57,7 @@ requestService("/xczh/recommend/recommendCourse",null,function(data) {
 })
 //推荐模块结束
 
-//线下课开始
+//线下课开始-------------------------------------------------------------------
 requestService("/xczh/bunch/offLine",null, 
     function(data) {
 		if(data.success){
@@ -88,12 +88,17 @@ requestService("/xczh/bunch/offLine",null,
 		}
 		
 },false)
+//线下课城市点击
+$(".go_search").click(function(){
+	var city_class=$(this).find("span").text();
+	window.location.href="curriculum_table.html?search="+city_class+"";
+})
 
-//线下课结束
+//线下课结束------------------------------------------------------
 
 
 
-//直播开始
+//直播开始-----------------------------------------------------------
 requestService("/xczh/live/onlineLive",null, 
     function(data) {
 		if(data.success){
@@ -124,7 +129,7 @@ requestService("/xczh/live/onlineLive",null,
 		
 },false)
 
-//直播结束
+//直播结束---------------------------------------------------------------
 
 
 

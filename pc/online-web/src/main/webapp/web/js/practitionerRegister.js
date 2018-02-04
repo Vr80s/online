@@ -67,7 +67,7 @@ $(function(){
 	
 	//图形验证码
 	if(imgCode == ''){
-		$(".imgVertifyCode_warn").text('请输入动态码')
+		$(".imgVertifyCode_warn").text('请输入图形动态码')
 		$(".imgVertifyCode_warn").css('display','block');
 		return false;
 	}else{
@@ -87,7 +87,12 @@ $(function(){
 	
 	
 	//密码验证
-	if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+	if($.trim($('.my_password').val()).length < 6){
+		$(".my_different").text('请输入6-18位数密码')
+		$(".my_different").css('display','block');
+		return false;
+	}else if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+		$(".my_different").text('您两次输入的密码不一致')
 		$(".my_different").css('display','block');
 		return false;
 	}else{
@@ -118,11 +123,20 @@ $(function(){
 //				}
 
 				//错误的提示
-				$('#tip').text(data.errorMessage);
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
+				if(data.errorMessage == '动态码不正确!'){
+					$('#tip').text('短信验证码不正确！');
 	       			$('#tip').toggle();
-	       		},1500)
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)
+				}else{
+					$('#tip').text(data.errorMessage);
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)
+				}
+				
 	  	}else if(data.success == true){
 	  		
 	  		$('#tip').text('注册成功！');

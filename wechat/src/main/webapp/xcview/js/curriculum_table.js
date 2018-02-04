@@ -55,27 +55,45 @@ function queryDataByParams(params,data_type){
 				var item = data.resultObject[int];
 				
 				
+				var statusImg="";  //视频、音频不同的图片
 				if(item.type == 1){
-					
+					statusImg+="/xcview/images/tv_auto.png";
 				}else if(item.type == 2){
-					
+					statusImg+="xcview/images/frequency.png";
+				}else if(item.type == 3){
+					statusImg+="/xcview/images/Sinatv_auto.png";
+				}else if(item.type == 4){
+					statusImg+="/xcview/images/offline.png";
 				}
 				
+				var statusImg1="<img src="+statusImg+"  class='two'  />";
+				
+				var isFreeStr ="";
+				if(item.watchState == 0){
+					isFreeStr+="<p class='p0'><span>免费</span></p>";
+				}else if(item.watchState == 2){
+					isFreeStr+="<p class='p0'><span>"+item.currentPrice+"</span>熊猫币</p>";
+				}
+				var typeStr="";
+				if(type ==3){
+					typeStr +="<p class='p2'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p>";
+				}else if(type ==4){
+					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png'><span>" +item.city+"</span></p>";
+				}
 				data1+="<div class='li_list_div'>"+
 					   "<div class='li_list_one'>"+
 						   "<div class='li_list_one_left'>" +
 						  "<img src='"+item.smallImgPath+"' class='one' />" +
-						  
-						   "<img src='/xcview/images/tv_auto.png' class='two' />" +
-						  
+						      statusImg1 +
 						   "</div>" +
 					   "<div class='li_list_one_right'>" +
 						   "<p class='p00'>" +
 						   "<span>"+item.name+"</span>:" +
 						   "<span>"+item.gradeName+"</span></p>" +
 						   "<div class='div'>" +
-						  "<p class='p0'><span>免费</span></p>" +
-						  "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>12345</span></p>" +
+						       isFreeStr +
+						  "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>"+item.learndCount+"</span></p>" +
+						       typeStr+
 						    "</div>" +
 					  "</div>" +
 					  "</div><div>";

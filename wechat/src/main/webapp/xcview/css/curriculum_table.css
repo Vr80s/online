@@ -69,7 +69,7 @@ body,td,th,ul,li{
  .li_list{
     overflow-y:auto;
     display:table;
-    padding-top: 0.6rem !important;
+    padding-top: 1.4rem !important;
     box-sizing: border-box;
 }
 /*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
@@ -86,6 +86,23 @@ body,td,th,ul,li{
 }
  .swipe{
      padding:70px 0 0 0;
+}
+
+.hint{
+	width: 100%;
+    height: 0.8rem;
+    background: #fff;
+    position: fixed;
+    left: 0;
+    top: 1.8rem;
+    z-index: 1;
+	font-size: 0.24rem;
+	color: #000000;
+	line-height: 0.8rem;
+	text-align: center;
+}
+.hint span{
+	color: #00BC12;
 }
 
 /*滑动结束*/

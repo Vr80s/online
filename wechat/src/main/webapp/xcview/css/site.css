@@ -28,6 +28,8 @@ a{
     top: 0.45rem;
     left: 0.3rem;
     z-index: 9;
+    height: 0.6rem;
+    line-height: 0.68rem;
 }
 .site .return{
 	width: 0.86rem;

@@ -1018,7 +1018,7 @@ a {
 #doc_Administration_bottom3 .close_doc_inf {
 	position: absolute;
 	font-size: 18px;
-	color: #f40;
+	color: #000;
 	cursor: pointer;
 	top:0px;
 	right: 0px;
