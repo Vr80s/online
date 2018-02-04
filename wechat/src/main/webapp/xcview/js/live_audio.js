@@ -17,6 +17,10 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
+		//详情页的banner
+		var school_img = document.createElement("img");
+		school_img.src = data.resultObject.smallImgPath;
+		$(".play_video").append(school_img)
 //	CC视频ID
 	    var	videoId = data.resultObject.directId;
 	    var	type = data.resultObject.type;
