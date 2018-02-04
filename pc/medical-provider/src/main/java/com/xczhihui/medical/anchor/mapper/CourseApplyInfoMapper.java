@@ -48,4 +48,10 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
     List<Map> selectCoinTransactionPage(@Param("page") Page<Map> page, @Param("userId") String userId);
 
     List<Map> selectRmbTransactionPage(@Param("page") Page<Map> page, @Param("userId") String userId);
+
+    List<CourseApplyInfoVO> selectAllCourses(@Param("userId") String userId, @Param("multimediaType") Integer multimediaType);
+
+    CourseApplyInfo selectCourseApplyById(@Param("userId") String userId, @Param("caiId") Integer caiId);
+
+    void deleteCourseApplyById(Integer id);
 }

@@ -84,4 +84,10 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     void updateCourseApplyResource();
 
     void deleteCourseApplyResource(String id, String resourceId);
+
+    List<CourseApplyInfoVO> selectAllCourses(String id, Integer multimediaType);
+
+    CourseApplyInfo selectCourseApplyById(String id, Integer caiId);
+
+    void updateCourseApply(CourseApplyInfo courseApplyInfo);
 }
