@@ -75,9 +75,12 @@ public class CourseController {
 			@RequestParam("courseId")Integer courseId)
 			throws Exception {
 		
+		
+		LOGGER.info("========"+courseId);
+		
 		CourseLecturVo  cv= courseServiceImpl.selectCourseMiddleDetailsById(courseId);
 		if(cv==null){
-			return ResponseObject.newErrorResponseObject("获取课程有误");
+			return ResponseObject.newErrorResponseObject("课程信息有误");
 		}
 		/**
 		 * 这里需要判断是否购买过了
@@ -88,14 +91,13 @@ public class CourseController {
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
 			if(cv.getUserLecturerId().equals(user.getId())){
-			    cv.setWatchState(0);
+			    cv.setWatchState(1);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
 			
 	    	WatchHistory target = new WatchHistory();
 	    	target.setCourseId(courseId);
 			target.setUserId(user.getId());
-			System.out.println("cv.getWatchState():"+cv.getWatchState());
 			if(cv.getWatchState()==1){
 				onlineWebService.saveEntryVideo(courseId, user);
 				watchHistoryServiceImpl.addOrUpdate(target);
@@ -109,11 +111,12 @@ public class CourseController {
 				cv.setIsFocus(1);
 			}
 		}
+		
+		System.out.println("========修改状态:"+cv.getType()+cv.getLineState());
 		/*
 		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
 		 */
-		if(cv.getType()!=null && cv.getType()==1 && cv.getLineState() ==2 ){
-			LOGGER.info("========修改状态");
+		if(null!=cv.getType() && cv.getType()==3 && cv.getLineState() ==2 ){
 			long currentTime = System.currentTimeMillis();
 			currentTime += 1*livePreheating*60*60*1000;
 			long startTimeLong = cv.getStartTime().getTime();
@@ -157,7 +160,7 @@ public class CourseController {
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
 			if(cv.getUserLecturerId().equals(user.getId())){
-			    cv.setWatchState(0);
+				cv.setWatchState(1);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
 	    	WatchHistory target = new WatchHistory();
@@ -179,7 +182,7 @@ public class CourseController {
 		/*
 		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
 		 */
-		if(cv.getType()!=null && cv.getType()==1 && cv.getLineState() ==2 ){
+		if(cv.getType()!=null && cv.getType()==3 && cv.getLineState() ==2 ){
 			LOGGER.info("========修改状态");
 			long currentTime = System.currentTimeMillis();
 			currentTime += 1*livePreheating*60*60*1000;

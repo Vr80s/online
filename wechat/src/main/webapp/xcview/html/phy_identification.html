@@ -10,9 +10,13 @@
 <meta name="description" content="" />
 
 
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <link rel="stylesheet" href="../css/phy_identification.css?v=ipandatcm_1.2.1" />
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="../../xcview/js/phy_identification.js?v=ipandatcm_1.2.1" ></script>
+
 <style>
 	/*身份证正面*/
 #preview{
@@ -65,17 +69,18 @@
 				</div>
 			</div>
 		</div>
+<form id="docAutInf">
 		<div class="wrap-information">
 			<ul class="wrap-user-id">
 				<li>
 					<span>真实姓名</span>
-					<input class="userName" type="text" placeholder="请填写您的真实姓名" />
+					<input class="userName" name="name" type="text" id="userName" placeholder="请填写您的真实姓名" />
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>身份证号</span>
-					<input type="text" placeholder="请填写您的身份证号" />
+					<input type="text" name="cardNum" id="cardNum" placeholder="请填写您的身份证号" />
 				</li>
 			</ul>
 			<p class="idcar-up">上传身份证明</p>
@@ -85,7 +90,7 @@
                 	<div id="preview">
                         <img id="imghead" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg').click();">
                      </div>         
-                    <input type="file" onchange="previewImage(this)" style="display: none;" id="previewImg">
+                    <input type="file" name="cardPositiveFile" onchange="previewImage(this)" style="display: none;" id="previewImg">
                 </div>
                 <div class="col-sm-3 idcar-face">
                     <span>身份证正面</span>
@@ -97,7 +102,7 @@
                 	<div id="preview2">
                         <img id="imghead2" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg2').click();">
                      </div>         
-                    <input type="file" onchange="previewImage2(this)" style="display: none;" id="previewImg2">
+                    <input type="file" name="cardNegativeFile" onchange="previewImage2(this)" style="display: none;" id="previewImg2">
                 </div>
                 <div class="col-sm-3 idcar-face">
                     <span>身份证反面</span>
@@ -112,7 +117,7 @@
                 	<div id="preview3">
                         <img id="imghead3" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg3').click();">
                      </div>         
-                    <input type="file" onchange="previewImage3(this)" style="display: none;" id="previewImg3">
+                    <input type="file" name="qualificationCertificateFile" onchange="previewImage3(this)" style="display: none;" id="previewImg3">
                 </div>
                 <div class="col-sm-3 idcar-face" style="padding-bottom: 0.3rem;">
                     <span>医师资格证</span>
@@ -126,7 +131,7 @@
                 	<div id="preview4">
                         <img id="imghead4" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg4').click();">
                      </div>         
-                    <input type="file" onchange="previewImage4(this)" style="display: none;" id="previewImg4">
+                    <input type="file" name="professionalCertificateFile" onchange="previewImage4(this)" style="display: none;" id="previewImg4">
                 </div>
                 <div class="col-sm-3 idcar-face">
                     <span>职业资格证</span>
@@ -137,6 +142,7 @@
 		<div class="btn-qualification">
 			<a class="btn-up" href="javascript:;" onclick="btn_up()">提交认证</a>
 		</div>
+</form>
 	<!--错误提示-->
 
 		<div class="error-prompt">姓名与身份证号码不匹配</div>

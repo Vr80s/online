@@ -358,7 +358,7 @@ public class OnlineUserController {
 		
 		try {
 			String str = onlineUserService.addMessage(username, Integer.parseInt(vtype));
-			if("发送成功！".equals(str)){
+			if("发送成功".equals(str)){
 				return ResponseObject.newSuccessResponseObject(str);
 			}else{
 				return ResponseObject.newErrorResponseObject(str);

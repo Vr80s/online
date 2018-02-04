@@ -223,8 +223,8 @@
 									</div>
 
 									<div>
-										<span><em>*</em> 所属医馆</span>
-										<input type="text" placeholder="请输入医馆所属医馆名称" maxlength="15" class="doc_name" />
+										<span><em>*</em> 所属公司</span>
+										<input type="text" placeholder="请输入医馆所属公司名称" maxlength="15" class="doc_name" />
 										<span class="company_warn warning hide" style="margin-left: 0px;">所属公司不能为空</span>
 									</div>
 
@@ -920,22 +920,22 @@
 		</td>
 
 		<td>
-			胃病、针灸、养生食疗
+			{{item.fieldText}}
 		</td>
-		{{if item.status == true}}
+		{{if item.status}}
 		<td>
 			上线
 		</td>
 		{{else}}
 		<td>
-			上线
+			下线
 		</td>
 		{{/if}}
 		<td>
 			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
-			{{if item.status == true}}
+			{{if item.status}}
 			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=0 class="upRoDown">下线</a>
-			{{else if item.status == false}}
+			{{else}}
 			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=1 class="upRoDown">上线</a>
 			{{/if}}
 			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>
@@ -1011,7 +1011,8 @@
 	<div class="personIntroduct">
 		<span><em>*</em>  医师介绍</span>
 		<!--<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医师介绍" style="resize: none;"></textarea>-->
-		<p  style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;">{{change(description)}}</p>
+		<!--<p  style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 14px;">{{change(description)}}</p>-->
+		<p id="myinf" style="max-width: 540px;max-height: 160;overflow: hidden;display: inline-block;vertical-align: top;font-size: 16px;">{{description}}</p>
 	</div>
 
 </script>
@@ -1021,7 +1022,7 @@
 	//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
 	var ue = UE.getEditor('editor', {
 		toolbars: [
-			['source', //源代码
+			[
 				'undo', //撤销
 				'redo', //重做
 				'bold', //加粗
@@ -1060,7 +1061,7 @@
 
 	var ue = UE.getEditor('editor1', {
 		toolbars: [
-			['source', //源代码
+			[
 				'undo', //撤销
 				'redo', //重做
 				'bold', //加粗

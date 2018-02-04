@@ -35,7 +35,7 @@ public interface CourseApplyInfoMapper extends BaseMapper<CourseApplyInfo> {
      **/
     List<CourseApplyInfoVO> selectCollectionApplyPage(@Param("page") Page<CourseApplyInfoVO> page, @Param("userId") String userId, @Param("multimediaType") Integer multimediaType, @Param("title") String title);
 
-    List<CourseApplyInfoVO> selectLiveApplyPage(Page<CourseApplyInfoVO> page, String userId, String title);
+    List<CourseApplyInfoVO> selectLiveApplyPage(Page<CourseApplyInfoVO> page, @Param("userId") String userId, @Param("title") String title);
 
     /**
      * Description：上/下架课程

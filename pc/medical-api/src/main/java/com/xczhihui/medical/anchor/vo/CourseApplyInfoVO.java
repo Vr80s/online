@@ -49,10 +49,12 @@ public class CourseApplyInfoVO implements Serializable{
      * 课程类型：1.直播 2.点播 3.线下课
      */
 	private Integer courseForm;
+	private Integer liveStatus;
     /**
      * 课程分类
      */
 	private String courseMenu;
+	private String webinarId;
     /**
      * 课程开始时间
      */
@@ -142,6 +144,14 @@ public class CourseApplyInfoVO implements Serializable{
 	private Integer recommend;
 
 	private Integer applyStatus;
+
+	public String getWebinarId() {
+		return webinarId;
+	}
+
+	public void setWebinarId(String webinarId) {
+		this.webinarId = webinarId;
+	}
 
 	public Integer getRecommend() {
 		return recommend;
@@ -409,6 +419,14 @@ public class CourseApplyInfoVO implements Serializable{
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public Integer getLiveStatus() {
+		return liveStatus;
+	}
+
+	public void setLiveStatus(Integer liveStatus) {
+		this.liveStatus = liveStatus;
 	}
 
 	@Override

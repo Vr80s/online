@@ -77,9 +77,13 @@ textarea::-webkit-input-placeholder {
 .play_video{
 	width: 100%;
 	height: 4.24rem;
-	background: url(../images/xianxia_03.jpg) no-repeat center;
-	background-size:cover;
+	/*background: url(../images/xianxia_03.jpg) no-repeat center;
+	background-size:cover;*/
 	position: relative;
+}
+.play_video img{
+	width: 100%;
+	height: 100%;
 }
 .video_prompt{
 	width: 1.76rem;
@@ -94,6 +98,7 @@ left: 50%;
 top: 50%;
 margin-left: -0.88rem;
 margin-top: -0.28rem;
+display: none;
 }
 /*视频开播*/
 .video_prompt_open{

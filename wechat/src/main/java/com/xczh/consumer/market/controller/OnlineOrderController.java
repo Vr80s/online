@@ -52,7 +52,7 @@ public class OnlineOrderController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("orderFrom")
 				|| null == req.getParameter("orderId")){
@@ -119,7 +119,7 @@ public class OnlineOrderController {
 		
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("获取用户信息异常");
+	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
 		if(null == req.getParameter("courseId") || null == req.getParameter("orderFrom")){
 			return ResponseObject.newErrorResponseObject("参数异常");
@@ -241,7 +241,7 @@ public class OnlineOrderController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		int pageNumber = 0;
 		if(null != req.getParameter("pageNumber")){
@@ -279,29 +279,8 @@ public class OnlineOrderController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		return ResponseObject.newSuccessResponseObject(onlineOrderService.listPayRecordItem(req.getParameter("orderNo").toString()));
-	}
-	
-	/**
-	 * 判断此用户在下单的时候是否已经购买过这个订单中的课程
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "orderIsExitCourseIsBuy")
-	@ResponseBody
-	public ResponseObject orderIsExitCourseIsBuy(HttpServletRequest req,
-                                          HttpServletResponse res, Map<String, String> params) throws Exception{
-		String orderId = req.getParameter("orderId");
-		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
-		if (null == orderId || null == onlineOrder) {
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(orderId,onlineOrder.getUserId());
-		return ro;
 	}
 }

@@ -65,7 +65,7 @@
 						{{else if startLevel == 3.5}}
 						<img src="../images/xing3_5.png"/>
 						{{else if startLevel == 4}}
-						<img src="../images/xing4_0.ppng"/>
+						<img src="../images/xing4_0.png"/>
 						{{else if startLevel == 4.5}}
 						<img src="../images/xing4_5.png"/>
 						{{else if startLevel == 5}}
@@ -101,7 +101,7 @@
 		</ul>
 		<ul class="playTime z" style="border-bottom: 0;">
 			<li><img src="../images/population.png"/><span>上课地址：{{city}}</span></li>
-			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  /></li>
+			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;" onclick="baiduMap('{{address}}','{{gradeName}}')" /></li>
 		</ul>
 		</script>
 	</div>
@@ -286,7 +286,10 @@
 	<div class="bg_modal"></div>
 
 	<div class="wrapAll_comment">
+		<script type="text/html" id="id_show_xingxing">
+
 		<p class="set_title">发布评论</p>
+		{{if items==1}}
 		<!--星星五星好评-->
 		<div class="my_impression1 cl mar_bot">
 			<p>总体印象</p>
@@ -325,6 +328,7 @@
 			<li value="4">喜欢</li>
 			<li value="5">买对了</li>
 		</ul>
+			{{/if}}
 		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
 			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
@@ -336,6 +340,7 @@
 			</li>
 			<li onclick="reportComment()">发表评论</li>
 		</ul>
+		</script>
 	</div>
 	
 	

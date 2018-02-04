@@ -77,7 +77,7 @@ public class H5AloneController {
 		params.put("token",req.getParameter("token"));
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
 		if(null == user){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 		
 		int course_id =Integer.parseInt(req.getParameter("course_id"));

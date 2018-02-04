@@ -359,6 +359,10 @@ RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(dat
 			
 			//列表渲染
 			$('#id_select').html(template('hosListTpl', {item:data.resultObject.records}));
+			
+			//医馆ID的获取
+			hosID = $('#id_select').val()
+			
 			//渲染之后在此调用插件
 			 $('.selectpicker').selectpicker({
                 'selectedText': 'cat',size:10
@@ -377,6 +381,29 @@ $('#hosChoose .sureChoosehos').click(function(){
 	$('#hospital_bottom .zhuanlan_title').val($("#id_select option:selected").text())
 	$('.mask').css('display','none');
 	$('#hosChoose').addClass('hide');
+//	alert(hosID);
+	//获取对应的医馆信息渲染到页面上
+	RequestService("/medical/hospital/getHospitalById", "get", {
+				id: hosID,
+			}, function(data) {
+				console.log(data);
+				//省
+				if(data.resultObject.province){
+					$('#choosePro option:selected').text(data.resultObject.province)
+				}
+				//市
+				if(data.resultObject.province){
+					$('#citys option:selected').text(data.resultObject.city)
+				}
+				//详细地址
+				if(data.resultObject.detailedAddress){
+					$('#detail_address').text(data.resultObject.detailedAddress)
+				}
+				//电话号码
+				if(data.resultObject.tel){
+					$('.hosContantTel .hosTel').val(data.resultObject.tel);
+				}
+			})
 })
 
 
@@ -520,4 +547,6 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//头像预览
 			console.log(data);
 			$('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
+			//个人信息渲染
+			$('.personIntroduct').html(data.resultObject.description);
 		});

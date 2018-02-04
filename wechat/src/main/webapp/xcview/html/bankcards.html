@@ -13,7 +13,7 @@
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-
+<script type="text/javascript" src="../js/bankcards.js"></script>
 
 
 <link rel="stylesheet" href="../css/bankcards.css" />
@@ -33,7 +33,7 @@
 		<div class="header">
 			银行卡
 		</div>
-		<div class="add">
+		<div class="add" onclick="addBankCard()">
 			＋
 		</div>
 	</header>
@@ -41,18 +41,21 @@
 	
 	<!--中间内容开始-->
 	<div class="bank_card">
+		<script type="text/html" id="bank_card_id">
+			{{each items as item i}}
 		<div class="show">
-			<div class="bank_card_one">
+			<div class="bank_card_one" style="background-image:url(../images/bankCardBig/{{item.tel}}.png)">
 				<div class="bank_card_logo">
-					<img src="../images/account06.png" alt="" class="logo" />
+					<img src="../images/bankCardSmall/{{item.tel}}.png" alt="" class="logo" />
 				</div>
 				<div class="bank_card_rigth">
-					<div class="div0">中国工商银行</div>
-					<div class="div1">储蓄卡</div>
-					<div class="div2">**** **** **** 5678</div>
+					<div class="div0">{{item.bankName}}</div>
+					<div class="div1">{{item.cardType}}</div>
+					<div class="div2">{{item.acctPan}}</div>
+					<div id="bankCardId" style="display: none;">{{item.id}}</div>
 				</div>
 				<div class="div_position">
-					<img src="../images/ka.png" class="img"/>
+					<!--<img src="../images/ka.png" class="img"/>-->
 				</div>
 			</div>
 			<!--解绑弹框开始-->
@@ -65,90 +68,8 @@
 			</div>
 			<!--解绑弹结束-->
 		</div>
-		
-		<div class="show">
-			<div class="bank_card_one" style="background: #408784;">
-				<div class="bank_card_logo">
-					<img src="../images/account06.png" alt="" class="logo" />
-				</div>
-				<div class="bank_card_rigth">
-					<div class="div0">中国农业银行</div>
-					<div class="div1">储蓄卡</div>
-					<div class="div2">**** **** **** 5678</div>
-				</div>
-				<div class="div_position">
-					<img src="../images/ka.png" class="img"/>
-				</div>
-				
-			</div>
-			<!--解绑弹框开始-->
-			<div class="untie">
-				<div class="untie_bg"></div>
-				<div class="untie_main">
-					<div class="div0">解除绑定</div>
-					<div class="div1">取消</div>
-				</div>
-			</div>
-			<!--解绑弹结束-->
-			
-		</div>
-		<div class="show">
-			<div class="bank_card_one" style="background: #4F72AB;">
-				<div class="bank_card_logo">
-					<img src="../images/account06.png" alt="" class="logo" />
-				</div>
-				<div class="bank_card_rigth">
-					<div class="div0">建设银行</div>
-					<div class="div1">储蓄卡</div>
-					<div class="div2">**** **** **** 5678</div>
-				</div>
-				<div class="div_position">
-					<img src="../images/ka.png" class="img"/>
-				</div>
-				
-			</div>
-			
-			<!--解绑弹框开始-->
-			<div class="untie">
-				<div class="untie_bg"></div>
-				<div class="untie_main">
-					<div class="div0">解除绑定</div>
-					<div class="div1">取消</div>
-				</div>
-			</div>
-			<!--解绑弹结束-->
-			
-		</div>
-		<div class="show">
-			<div class="bank_card_one" style="background: #D34557;">
-				<div class="bank_card_logo">
-					<img src="../images/account06.png" alt="" class="logo" />
-				</div>
-				<div class="bank_card_rigth">
-					<div class="div0">招商银行</div>
-					<div class="div1">储蓄卡</div>
-					<div class="div2">**** **** **** 5678</div>
-				</div>
-				<div class="div_position">
-					<img src="../images/ka.png" class="img"/>
-				</div>
-				
-			</div>
-			<!--解绑弹框开始-->
-			<div class="untie">
-				<div class="untie_bg"></div>
-				<div class="untie_main">
-					<div class="div0">解除绑定</div>
-					<div class="div1">取消</div>
-				</div>
-			</div>
-			<!--解绑弹结束-->
-				
-		</div>
-		
-		
-		
-		
+			{{/each}}
+		</script>
 	</div>
 	<!--中间内容结束-->
 	
@@ -168,9 +89,7 @@
 
 <!--点击可提现金额-->
 <script type="text/javascript">
-	window.onload = function(){
-        
-        
+	/*window.onload = function(){
         var aBtn1=$('.show');
 	  	for(i=0;i<aBtn1.length;i++){
 	        $(aBtn1[i]).find(".bank_card_one").click(function(){
@@ -184,10 +103,8 @@
 			$(aBtn1[i]).find(".div0").click(function(){
 				$(this).parent().parent().parent(".show").remove();
 			});
-	     } 
-       
-		
-	};
+	     }
+	};*/
 </script>
 
 

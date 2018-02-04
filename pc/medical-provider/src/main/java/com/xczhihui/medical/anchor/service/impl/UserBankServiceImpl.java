@@ -67,26 +67,29 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		querys.put("cert_id", userBank.getCertId());
 		querys.put("cert_type", "01");
 		querys.put("needBelongArea", "true");
+		String Telephone="";
 		try {
 			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
 
 			String bankInfo = EntityUtils.toString(response.getEntity());
 			JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
 			String code = bankInfoJson.get("showapi_res_code").toString();
+			if(!"0".equals(code)){
+				throw new RuntimeException("银行卡信息有误");
+			}
 			String srb = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject srbJson = JSONObject.parseObject(srb);
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
-			String Telephone = belong.get("tel").toString();
+			Telephone = belong.get("tel").toString();
+			String cardType = belong.get("cardType").toString();
+			userBank.setCardType(cardType);
 
-		if(!"0".equals(code)){
-			throw new RuntimeException("银行卡信息有误");
-		}
-		if(!Telephone.equals(userBank.getTel())){
-			throw new RuntimeException("银行卡号与银行不匹配");
-		}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("添加失败");
+		}
+		if(!Telephone.equals(userBank.getTel())){
+			throw new RuntimeException("银行卡号与银行不匹配");
 		}
 		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
 		if(userBankList!=null&&userBankList.size()>0){
@@ -101,9 +104,18 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Override
 	public List<UserBank> selectUserBankByUserId(String userId) {
-		return userBankMapper.selectUserBankByUserId(userId);
+		List<UserBank> userBankCards = userBankMapper.selectUserBankByUserId(userId);
+		for (UserBank userBankCard : userBankCards) {
+			userBankCard.setAcctPan(dealBankCard(userBankCard.getAcctPan()));
+		}
+		return userBankCards;
 	}
 
+	@Override
+	public void deleteBankCard(Integer id) {
+		userBankMapper.deleteBankCard(id);
+
+	}
 
 	private void validateUserBank(UserBank userBank) {
 		if(StringUtils.isBlank(userBank.getUserId())){
@@ -118,5 +130,16 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		if(StringUtils.isBlank(userBank.getCertId())){
 			throw new RuntimeException("身份证号不可为空");
 		}
+	}
+
+	/**
+	 * Description：处理银行卡显示
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 下午 4:05 2018/2/2 0002
+	 **/
+	public static String dealBankCard(String acctPan){
+		int length=acctPan.length();
+		return "***** ***** **** "+acctPan.substring(length-4);
 	}
 }

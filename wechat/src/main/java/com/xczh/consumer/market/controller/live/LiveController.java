@@ -119,6 +119,7 @@ public class LiveController {
 			 HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 		
+		
 		try {
 			String queryParam = req.getParameter("keyword");
 			Map<String,Object> allMap = new HashMap<String, Object>();

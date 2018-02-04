@@ -195,7 +195,7 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public CriticizeVo findCriticizeById(String id) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select id,create_person createPerson,create_time createTime,content,user_id userId,");
+        sql.append("select id,create_person createPerson,create_time createTime,content,user_id userId,course_id courseId,");
         sql.append("chapter_id chapterId,video_id videoId,star_level starLevel,praise_sum praiseSum,praise_login_names praiseLoginNames ");
         sql.append("from oe_criticize where id=:id");
         Map<String,Object> paramMap = new HashMap<>();
@@ -406,7 +406,6 @@ public class VideoDao extends SimpleHibernateDao {
     			criticizeVo.getCourseId() == null) {
 			throw new RuntimeException("参数错误！");
 		}
-		criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 		String sql = "insert into oe_criticize (id,create_person,content,"
 		        + "user_id,course_id,content_level,deductive_level,criticize_lable,"
 		        + "overall_level) "
@@ -415,35 +414,54 @@ public class VideoDao extends SimpleHibernateDao {
 		        + ":overallLevel)";
 		this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
 		
-		
 	}
-	public void saveReply(String content, String criticizeId, String userId) {
-		// TODO Auto-generated method stub
-		if (!StringUtils.hasText(criticizeId) ||
-				!StringUtils.hasText(criticizeId) || !StringUtils.hasText(userId)) {
+	public void saveReply(String content, String userId,String criticizeId) {
+		
+		if (!StringUtils.hasText(content) || !StringUtils.hasText(userId)) {
 			throw new RuntimeException("参数错误！");
 		}
+		/*
+		 * 回复此评论的人
+		 */
+		CriticizeVo cvo = this.findCriticizeById(criticizeId);
+		/**
+		 * 回复其实也是一个评论
+		 *   插入一个评论
+		 *   插入一个回复
+		 */
+		CriticizeVo criticizeVo = new CriticizeVo();
+		criticizeVo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+		criticizeVo.setContent(content);
+		criticizeVo.setCreatePerson(userId);
+		criticizeVo.setUserId(cvo.getUserId());
+		criticizeVo.setCourseId(cvo.getCourseId());
+		this.saveNewCriticize(criticizeVo);
+		
+		System.out.println("评论id"+criticizeVo.getId());
+		/**
+		 * 然后在这个评论中增加一个回复
+		 */
 		String replyId = UUID.randomUUID().toString().replaceAll("-", "");
 		String sql = "insert into oe_reply (id,create_person,reply_content,"
 		        + "reply_user,criticize_id) "
-		        + "values (:id,:createPerson,:content,:userId,"
+		        + "values (:id,:createPerson,:content,:reply_user,"
 		        + ":criticizeId)";
 		 Map<String,Object> params=new HashMap<String,Object>();
 		 params.put("id", replyId);
-		 params.put("createPerson", userId);
-		 params.put("content", content);
-		 params.put("userId", userId);
-		 params.put("criticizeId", criticizeId);
+
+		 params.put("createPerson", userId);     //
+		 params.put("content", cvo.getContent());         //内容
+		 params.put("reply_user", cvo.getCreatePerson());     //当前被回复的评论id是这个回复创建人
+		 params.put("criticizeId", criticizeVo.getId());  //此条评论的人
 		 this.getNamedParameterJdbcTemplate().update(sql,params);
 	}
 
 	 /**
      * 获取主播的或者课程的评价数
-     * @param videoId 视频ID
      * @return
 	 * @throws IllegalAccessException 
      */
-    public Page<Criticize> getUserCriticize(String teacherId,String courseId, Integer pageNumber, Integer pageSize,String userId){
+    public Page<Criticize> getUserOrCourseCriticize(String teacherId,Integer courseId, Integer pageNumber, Integer pageSize,String userId){
         Map<String,Object> paramMap = new HashMap<>();
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
@@ -453,18 +471,18 @@ public class VideoDao extends SimpleHibernateDao {
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.userId =:userId ");
 	       	  paramMap.put("userId", teacherId);
-	       }else{
+	       }else if(courseId!=null && courseId!=0){
 	       	  sql.append("  and c.courseId =:courseId ");
-	       	  paramMap.put("courseId", Integer.parseInt(courseId));
+	       	  paramMap.put("courseId",courseId);
 	       }
-	       //sql.append(" limit "+pageNumber+","+pageSize);
-	       //IFNULL((FIND_IN_SET(:userName,oc.praise_login_names)>0),0) isPraise
+
 	        System.out.println("sql:"+sql.toString());
 	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
+	        
 	        if(criticizes.getTotalCount()>0){
 	        	String loginName = "";
 	        	if(userId!=null){
-	        		OnlineUser u = this.get(userId,OnlineUser.class);
+	        		OnlineUser u = this.get(userId,OnlineUser.class);       //这里就查询了一次，所是ok的。这是不是需要查询下。
 	        		System.out.println("u.getLoginName()"+u.getLoginName());
 	        		loginName = u.getLoginName();
 	        	}
@@ -486,16 +504,19 @@ public class VideoDao extends SimpleHibernateDao {
 	 	        	/**
 	        		 * 就星级的平均数
 	        		 */
-	 	        	BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());  
-	 	            totalAmount.add(new BigDecimal(c.getContentLevel()));
-	 	            totalAmount.add(new BigDecimal(c.getDeductiveLevel()));
-	 	            String startLevel = "0";
-					try {
-						startLevel = divCount(totalAmount.doubleValue(),3d,1);
-						c.setStarLevel(Float.valueOf(startLevel));
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-					}
+	 	        	if(c.getOverallLevel()!=null&&!"".equals(c.getOverallLevel())){
+                        BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());
+                        totalAmount.add(new BigDecimal(c.getContentLevel()));
+                        totalAmount.add(new BigDecimal(c.getDeductiveLevel()));
+                        String startLevel = "0";
+                        try {
+                            startLevel = divCount(totalAmount.doubleValue(),3d,1);
+                            c.setStarLevel(Float.valueOf(startLevel));
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
 	 			}
 	        }
 	        System.out.println(criticizes.getItems());
@@ -539,6 +560,43 @@ public class VideoDao extends SimpleHibernateDao {
         return bigDecimalStr;
     }  
 	
+    
+    /**
+     * Description：判断这个星级用户是否购买过这个课程以及判断是否已经星级评论了一次此课程
+     * @param courseId
+     * @param userId
+     * @return
+     * @return Integer  返回参数： 0 未购买     1 购买了，但是没有星级评论过     2 购买了，也星级评论了
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public Integer findUserFirstStars(Integer courseId,String userId) {
+        StringBuffer sql = new StringBuffer();
+        sql.append("select (SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
+        sql.append(" and argc.user_id=:userId ) as isBuy,count(*) as isStats ");
+        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson ");
+        Map<String,Object> paramMap = new HashMap<>();
+//        paramMap.put("courseId", courseId);
+        paramMap.put("courseId", courseId);
+        paramMap.put("userId", userId);
+        paramMap.put("createPerson", userId);
+        List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
+        //List<Map<String, Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql.toString(),paramMap);
+        Integer isViewStars = 0;
+        if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
+        	Long isBuy =  (Long) list.get(0).get("isBuy");
+        	Long isStats = (Long) list.get(0).get("isStats");
+             if(isBuy!=null && isBuy>0){ //表示购买过了
+            	 isViewStars = 1;
+             }
+             if(isBuy!=null && isStats!=null && isBuy>0 && isStats>0){
+            	 isViewStars = 2;
+             }
+        }
+        return isViewStars;
+    }
+    
+    
     public static void main(String[] args) throws IllegalAccessException {
 		
    	 BigDecimal totalAmount = new BigDecimal(1);  

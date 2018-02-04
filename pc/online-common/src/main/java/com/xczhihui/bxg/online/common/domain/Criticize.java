@@ -111,6 +111,8 @@ public class Criticize implements Serializable{
 	@Column(name = "is_buy")
     private Boolean isBuy;
 	/*
+	 * 
+	 * 
 	 * 是否点过赞了
 	 */
 	@Column(name = "is_praise")

@@ -4,13 +4,40 @@ $(function(){
 	$('.path .hospital').addClass('select');
 	
 		//已有账号登陆之后进行的页面跳转
+//	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
+//	       if(data.success == true ){
+//	       	if(data.resultObject.indexOf(2) != -1){
+//	       		//医师认证成功 
+//	       		window.location.href = "/web/html/ResidentHospital.html";
+//	       	}else if(data.resultObject.indexOf(1) != -1){
+//	       		//医馆认证成功 提示不能进行医师认证
+////	       		alert('您已完成了医馆注册，不能进行医师注册!');
+//	       		$('#tip').text('您已完成了医师注册，不能进行医馆注册！');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       			window.location.href = "/web/html/clinics.html";
+//	       		},1500)
+//	       		
+//	       	}else if(data.resultObject.indexOf(7) != -1){
+//	       		//都没有注册过 进入注册页面
+//	       		window.location.href = "/web/html/ResidentHospital.html";
+//	       	}else{
+//	       		//医师认证中 医师认证拒绝 跳转到认证状态页面
+//	       		window.location.href = "/web/html/ResidentHospital.html";
+//	       	}
+//	       }
+//	    });
+	    
+	    
+	    //已有账号登陆之后进行的页面跳转
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
-	       if(data.success == true ){
+	       if(data.success == true && $('.login').css('display') == 'block'){
 	       	if(data.resultObject.indexOf(2) != -1){
-	       		//医师认证成功 
+	       		//医馆认证成功
 	       		window.location.href = "/web/html/ResidentHospital.html";
 	       	}else if(data.resultObject.indexOf(1) != -1){
-	       		//医馆认证成功 提示不能进行医师认证
+	       		//医师认证成功 提示不能进行医馆认证
 //	       		alert('您已完成了医馆注册，不能进行医师注册!');
 	       		$('#tip').text('您已完成了医师注册，不能进行医馆注册！');
 	       		$('#tip').toggle();
@@ -85,12 +112,18 @@ $(function(){
 	
 	
 	//密码验证
-	if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+	if($.trim($('.my_password').val()).length < 6){
+		$(".my_different").text('请输入6-18位数密码')
+		$(".my_different").css('display','block');
+		return false;
+	}else if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+		$(".my_different").text('您两次输入的密码不一致')
 		$(".my_different").css('display','block');
 		return false;
 	}else{
 		$(".my_different").css('display','none');
 	}
+	
 	
 	var data = {
                 nikeName: $('.nikeName').val().trim(),
@@ -104,22 +137,40 @@ $(function(){
 	  RequestService("/online/user/phoneRegist", "POST", data, function (data) {
 	  	console.log(data);
 	  	if(data.success == false){
-	  		if(data.errorMessage == '动态码不正确!'){
-					
-					$('.my_code .my_code_warn').text(data.errorMessage);
-					$('.phone_warn').css('display','none');
-					$('.my_code .my_code_warn').css('display','block');
-						return false;
+//	  		if(data.errorMessage == '动态码不正确!'){
+//					
+//					$('.my_code .my_code_warn').text(data.errorMessage);
+//					$('.phone_warn').css('display','none');
+//					$('.my_code .my_code_warn').css('display','block');
+//						return false;
+//				}else{
+//					$('.phone_warn').text(data.errorMessage);
+//					$('.my_code .my_code_warn').css('display','none');
+//					$('.phone_warn').css('display','block');
+//						return false;
+//				}
+				
+				//错误的提示
+				if(data.errorMessage == '动态码不正确!'){
+					$('#tip').text('短信验证码不正确！');
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)
 				}else{
-					$('.phone_warn').text(data.errorMessage);
-					$('.my_code .my_code_warn').css('display','none');
-					$('.phone_warn').css('display','block');
-						return false;
+					$('#tip').text(data.errorMessage);
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)
 				}
 	  	}else if(data.success == true){
-	  		alert('注册成功!');
-	  		
-	  		window.location.href = '/web/html/ResidentDoctor.html';
+	  		$('#tip').text('注册成功！');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+				window.location.href = '/web/html/ResidentHospital.html';
+	       		},1500)
 	  	}
 	  })
 	

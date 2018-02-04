@@ -23,4 +23,6 @@ public interface UserBankMapper extends BaseMapper<UserBank> {
 
 	List<UserBank> selectUserBankByUserId(@Param("userId") String userId);
 
+	void deleteBankCard(@Param("id") Integer id);
+
 }

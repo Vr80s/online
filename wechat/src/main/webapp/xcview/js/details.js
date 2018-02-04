@@ -1,21 +1,12 @@
-function is_weixn(){
-    var ua = navigator.userAgent.toLowerCase();
-    if(ua.match(/MicroMessenger/i)=="micromessenger") {
-        return true;
-    } else {
-        return false;
-    }
-}
+
+/**
+ * 如果来自微信浏览器，隐藏微信分享
+ */
 if(!is_weixn()){
     $(".weixin_li").remove();
 }
-/**
- * 判断是否需要跳转到pc网页
- */
-h5PcConversions(true,course_id);
-if(localStorage.getItem("userId")==null){
-    location.href ="/xcviews/html/share.html?course_id="+course_id;
-}
+
+var course_id = getQueryString("courseId");
 /**
   * 视频id
   */
@@ -25,23 +16,10 @@ var result="";
 //统一提交的方法
 	requestService("/bxg/live/liveDetails", {course_id : course_id}, function(data) {
 		if (data.success) {
-
             result = data.resultObject;
             //视频id
             videoId = result.directId;
             watchState = result.watchState;
-            
-            //判断是否可预约
-            if(result.watchState == 1){  //goto 付费页面
-            	var b_smallImgPath ="url("+result.smallImgPath+") no-repeat";
-             	$("#bug_bg").css("background",b_smallImgPath);
-            	
-            	$("#buyDiv").show();
-                $("#buyPirce").html(result.currentPrice);
-                
-            }else if(result.watchState == 2){  //goto 需要密码页面
-                $("#passwordDiv").show();
-            }
             
             teacherId=result.userId;
             teacherName=name;
@@ -51,7 +29,6 @@ var result="";
             $("#userId").val(result.userId);
 
             $("#teacherId").val(result.userId);
-            roomNumber=result.roomNumber;
             courseHead = result.smallImgPath;
             
             $(".details_size span:eq(1)").html(result.giftCount);
@@ -79,30 +56,21 @@ var result="";
             	
             	$(".give_a1").hide();
             	$(".give_a1_img").hide();
-//          	$("#mywords").css('width','10.1rem;');
-            	/*$("#face").css('margin-left','0.3rem');*/
             	$(".give_a1_span02").hide();
             	$(".poson").css('right','-1.4rem');
             	
-            	/*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
                 $(".send_img").css('background-size','100% 100%');
                
-                /*点击input  发送往右跑动了，给0.4rem没起作用*/
             	$("#mywords").click(function() {
             		$(".give_a1").hide();
             		$(".give_a1_img").hide();
-//          		$(".send_img").css('right','-2.4rem');
-                });//CryptoKeyPair车人都是次日递,侧欧佛为空//、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、z
+                });
             	$(".details_size").hide();
             	$(".poson").css('right','-2.1rem');
             	$(".div_input").css('width','13.2rem');
             	$(".coze_bottom_input").css('margin-left','0rem');
-            	/*$(".div_input").css('margin-left','2.3rem');*/
-            	/*$("face").css('margin-top','2rem;');*/
-//          	$(".give_a01").css('margin-top','0.2rem');
             	$(".give_a01").css('margin-left','0.5rem');
             	$("#face").click(function() {
-            		
             		$(".coze_bottom").css('bottom','7.1rem');
             	});
             	
@@ -125,7 +93,6 @@ var result="";
             	$("#sendChat").click(function() {
         		    $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
                     $(".face_img01").css('background-size','100% 100%');
-            		/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
                     $(".send_img").css('background-size','100% 100%');
                     $(".give_a1").hide();
                     $(".give_a1").css("display","none");
@@ -134,25 +101,13 @@ var result="";
                     $(".give_a1_span02 img").hide();
                     $(".coze_bottom").css("bottom","0");
                 });	
-                
-                /*点击表情包  facebox-mobile  margin-top: -2rem;*/
-//              $(".face_img01").click(function() {  //
-               		/*$(".face").css("top","-1.5rem");
-               		$(".facebox").css("margin-top","-2rem");*/
-//              });
-              
-            	
             }else{
-            	
             	//正在直播
             	$("title").text("直播中");
             	$(".history_span").text("直播中");
-            	
-            	
                 $("#mywords").click(function() {
-//                  $(".give_a1_img").hide();
-                });
 
+                });
                 // 点击送礼开始  --显示送礼列表
                 $(".give_a1").click(function() {
 
@@ -202,15 +157,6 @@ var result="";
 		}
 	},false)
 
-      
-    /*测试图片放大*/
-    /*$("#doc").click(function(){
-  		alert(456);
-    	$("#bdSharePopup_selectshare1507810956922box").hide();
-  		$(".wendang_none").show();
-	});*/
-    
-
     /**
      * 调转到用户主页啦
      */
@@ -218,36 +164,7 @@ var result="";
     	
     	location.href = "/xcviews/html/personage.html?lecturerId="+teacherId;
     }
-    
-/**
- * input获取焦点隐藏错误提示
- */
-$("#password").focus(function(){
-	$('#password').css('border','1px solid #d2d2d2')
-	$("#password").removeClass("input02");
-	$("#password").addClass("input01");
-	$('#password').attr('placeholder','请在此处输入密码');
-});
             
-
-function enterPassword(){
-    requestService("/bxg/common/coursePwdConfirm", {course_id : course_id,course_pwd:$("#password").val()}, function(data) {
-        if (data.success) {
-        	
-            watchState = 0;
-        	chZJ(videoId,watchState);
-        	
-            $("#passwordDiv").hide();
-		}else{
-			$('#password').val('');
-			$('#password').css('border','1px solid red')
-			$("#password").removeClass("input01");
-			$("#password").addClass("input02");
-	        $('#password').attr('placeholder','密码有误，请重新输入');
-		}
-        });
-}
-
 function  goPay() {
 
     var btype=   localStorage.getItem("access")
@@ -327,13 +244,10 @@ function ckProPrice() {
         }
     }
 }
-
-
 /*
  * 得到焦点失去焦点
  */
 $('#searchKey').focus(function() { 
-	
 	$('#lbSearch').text(''); 
 }); 
 
@@ -498,7 +412,7 @@ requestService("/bxg/live/getMoneySum", {id: course_id}, function(data) {
 //微博分享 
 document.getElementById('weiboShare').onclick = function(e){
 	    var  p = {
-	        url: getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 	        title :result.gradeName,/*分享标题(可选)*/
 	        pic : result.smallImgPath /*分享图片(可选)*/
 	    };
@@ -513,7 +427,7 @@ document.getElementById('weiboShare').onclick = function(e){
 //qq分享 
 document.getElementById('qqShare').onclick = function(e){
 	    var  p = {
-	        url: getServerHost()+"/bxg/common/pcShareLink?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
 	        desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
 	        title : result.gradeName,/*分享标题(可选)*/
 	        summary : result.description.stripHTML(),/*分享描述(可选)*/
@@ -527,10 +441,22 @@ document.getElementById('qqShare').onclick = function(e){
 	    window.open(_src);
 };
 
-
-
-
-
+//qq空间分享 
+document.getElementById('qqShare0').onclick = function(e){
+	    var  p = {
+	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+	        desc: '中医传承', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+	        title : result.gradeName,/*分享标题(可选)*/
+	        summary : result.description.stripHTML(),/*分享描述(可选)*/
+	        pics : result.smallImgPath  /*分享图片(可选)*/
+	    };
+	    var s = [];
+	    for (var i in p) {
+	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
+	    }
+	    var _src = "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?" + s.join('&') ;
+	    window.open(_src);
+};
 /**************** 微信分享 *************************/
 /*
  * 注意：
@@ -577,6 +503,8 @@ if(isWeiXin()){
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
 	var domain = window.location.protocol+"//"+document.domain;
+	
+	
 	wx.ready(function () {
 		//发送到朋友
 		wx.onMenuShareAppMessage({
@@ -636,8 +564,3 @@ if(isWeiXin()){
 		});
 	})    
 }
-
-
-// setInterval("getMoneySum()",5000);
-
-//refreshGiftRanking();

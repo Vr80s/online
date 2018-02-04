@@ -83,6 +83,12 @@ public class UserBank extends Model<UserBank> {
 	@TableField("tel")
 	private String tel;
 
+	/**
+	 * 卡类型
+	 */
+	@TableField("card_type")
+	private String cardType;
+
 
 	@Override
 	protected Serializable pkVal() {
@@ -183,5 +189,13 @@ public class UserBank extends Model<UserBank> {
 
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+
+	public String getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
 	}
 }

@@ -106,16 +106,22 @@ public class XzAlipayController {
 	
 	private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(XzAlipayController.class);
 	/**
-	 * 订单支付
-	 * @return
+	 * 
+	 * Description：
+	 * @param response
+	 * @param orderId		订单id
+	 * @param formIsWechat  是否来自微信浏览器  
 	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
 	 */
 	@RequestMapping(value = "pay")
 	@ResponseBody
-	public void OnlineOrderPay(HttpServletRequest request1,
+	public void OnlineOrderPay(HttpServletRequest request,
 			HttpServletResponse response,
 			@RequestParam("orderId")String orderId,
-			@RequestParam("formIsWechat")String formIsWechat) throws Exception {
+			@RequestParam(required=false)String formIsWechat) throws Exception {
 
 		Map<String, String> retobj = new HashMap<String, String>();
 		retobj.put("ok", "false");
@@ -135,7 +141,6 @@ public class XzAlipayController {
 		} else {
 		}
 
-		
 		/*********  支付宝  h5 支付  sdk封装   *************/
 		
 		
@@ -146,7 +151,6 @@ public class XzAlipayController {
 				alipayConfig.FORMAT, alipayConfig.CHARSET,
 				alipayConfig.ALIPAY_PUBLIC_KEY, alipayConfig.SIGNTYPE);
 		AlipayTradeWapPayRequest alipay_request = new AlipayTradeWapPayRequest();
-		
 		
 		
 		/***********************************/
@@ -198,7 +202,7 @@ public class XzAlipayController {
 		
 		if (StringUtils.isNotBlank(formIsWechat)) {
 			
-			alipay_request.setReturnUrl(returnOpenidUri+"/xcviews/html/goWechat.html");
+			alipay_request.setReturnUrl(returnOpenidUri+"/xcview/html/goWechat.html");
 		} else {
 			cList = ((OnlineOrder) onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject()).getAllCourse();
 			
@@ -211,11 +215,10 @@ public class XzAlipayController {
 				OnlineCourse payCourse = cList.get(0);
 				if (payCourse.getType() == 1) {
 					// 直播
-					alipay_request.setReturnUrl(returnOpenidUri+ "/bxg/xcpage/courseDetails?courseId="
-							+ payCourse.getId());
+					alipay_request.setReturnUrl(returnOpenidUri+ "/bxg/xcpage/courseDetails?courseId="+ payCourse.getId());
 				} else {
 					// 视频 音频
-					alipay_request.setReturnUrl(returnOpenidUri+ "/xcviews/html/particulars.html?courseId="+ payCourse.getId());
+					alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/particulars.html?courseId="+ payCourse.getId());
 				}
 			}
 		}
@@ -248,7 +251,7 @@ public class XzAlipayController {
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		String ap = null;
 		ap = actualPay;
@@ -319,7 +322,7 @@ public class XzAlipayController {
 		// 设置异步通知地址
 		alipay_request.setNotifyUrl(alipayConfig.notify_url);
 		// 设置同步地址
-		alipay_request.setReturnUrl(returnOpenidUri+ "/xcviews/html/topup.html?xmbCount=" + count);
+		alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/topup.html?xmbCount=" + count);
 		// form表单生产
 		String form = "";
 		try {
@@ -337,7 +340,7 @@ public class XzAlipayController {
 
 	}
 	/**
-	 * app支付获取订单str
+	 * app支付获取订单
 	 * @return
 	 * @throws Exception
 	 */
@@ -418,7 +421,7 @@ public class XzAlipayController {
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
-			throw new RuntimeException("登录超时！");
+			throw new RuntimeException("登录失效");
 		}
 		// 订单号 支付的钱
 		String ap = actualPay;
@@ -916,7 +919,7 @@ public class XzAlipayController {
 			} else { // 单个课程 直接跳到播放页
 				OnlineCourse payCourse = cList.get(0);
 				alipay_request.setReturnUrl(returnOpenidUri
-						+ "/xcviews/html/personalfor.html?userId="
+						+ "/xcview/html/personalfor.html?userId="
 						+ onlineOrder.getUserId() + "&id=" + payCourse.getId());
 			}
 		} else {
@@ -929,7 +932,7 @@ public class XzAlipayController {
 			} else { // 单个课程 直接跳到播放页
 				OnlineCourse payCourse = cList.get(0);
 				alipay_request.setReturnUrl(returnOpenidUri
-						+ "/xcviews/html/personalfor.html?userId="
+						+ "/xcview/html/personalfor.html?userId="
 						+ onlineOrder.getUserId() + "&id=" + payCourse.getId());// 调到填写报名信息页
 			}
 		}
@@ -965,7 +968,7 @@ public class XzAlipayController {
 		 * params2.put("token",request.getParameter("token")); OnlineUser user =
 		 * appBrowserService.getOnlineUserByReq(request, params2); //
 		 * onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000"); if
-		 * (user == null) { throw new RuntimeException("登录超时！"); }
+		 * (user == null) { throw new RuntimeException("登录失效"); }
 		 */
 
 		String ap = null;
@@ -1049,7 +1052,7 @@ public class XzAlipayController {
 
 		if (StringUtils.isNotBlank(request.getParameter("formIsWechat"))) {
 			alipay_request.setReturnUrl(returnOpenidUri
-					+ "/xcviews/html/goWechat.html");
+					+ "/xcview/html/goWechat.html");
 		}
 		// form表单生产
 		String form = "";
@@ -1120,7 +1123,7 @@ public class XzAlipayController {
 //		alipay.appid=2017072807932656
 //				alipay.rsaprivate_key=MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQChsJLO96VFCaRCLozFDbk+w1X0te3s3I7bJ8c3igZsstFAbm8WDb5Y/h41BOGeVC2LOSsjZQC2awcs/fso2QpFPGTBlk5kcMgT4ezMijCSKKM2pK9Cvh97/02YO0g/VkjX6AZFVd77t+XwrkPOiygb9PyEDq/jIvO8WcIucdP771r/ZvE89NRypa9kAcr41twDYPWY62mNs2YyjYmTLQd5mFsi/4BBatdPz0XvtXA1kmSRUhvUcvzmCm6jk0RwXVy6Ea7Z0Ceu+4pfnc/aJFfcKJv6UJQQ3rmipmwinhYi2nJ4bVtIgx+ASNlXINWt3bTJmGMZqFVtCZ3l49yCOzfBAgMBAAECggEAMuyrAFaNDfZgbpu8qF+PJY5eJymZmw1ITQv1Oa/WICwdrZ5ajGadueenWemEqdo3Ue8agBZSqCGDbA8+KHpbOr0vuqz9WbMPwPtaGn23mIEGDrLFpE6/Gc2qAbVCJvilDqM8PmAyT7N2z1wDbSz04AFD+s+pY+9hNsRKXVhqfKFA71nJ4rT8EUBYGbhJLh7Gme8nS583umoWVwjHrvPLqfZe9QB576kbWwCJOBqXKStpTYea9bNZUWbtw20hGrDfCMyyzjUL3K0ecezL4vxTaSGR6unpcG9TdJfBq6KmIKJG/cyejI2R9NjhXfLHOCCqLc6BHe0qkNbC+fitLTCtVQKBgQDYfD9W7AX/jpCy3RvgF+vpB7c3uUS771lTtQ07nMn90Yavx/1mk2UodYymL2LRubCH1M9SHltdk9lBxe70YiPlhIJJZeCOs1CUErtfDoYnKERhwpGx/1s44qjs9ooPcSdNAKoRDjFXNIQPnw6+k1UzQ0dvrGXp/7/r0pnblJWviwKBgQC/M+Gf/YcZkrQ+GSGWUDS5AUWjZadbIlRCLSTW8GDMMVbmrzc+7DuMAA1QuhyHS1HDnz38NeJBEK3Uqs4qIYXn2lF5u2z/l6eAFEOd1OFFPE6NrjqUy+nslAuoO2QvuwJQ8AjjcjdPJKc66zRRrovNHLAkGextT+Ci5eNIxxOfYwKBgQC/XFz07d+DfjcEFJVOanbbXzmipT9PzQwuBS20UyzuE2c2PNcO9B2IPRhd0idM8hJMj13P3guvVUDHdjp6hcHrYU11qftsyK7ipQhBx2nodRy1ObNmHy44w4rFJEz3x3MRCxRJzTzqM/7EfDohVcULcl5UJZVU2gCBaYEda2NBbwKBgBuVsZRycD5JQwW+fHECK0kRnOlg7g8g2cUeXDVCQsTSzXXEi5ThYgnlrAYcg6clP6uYWsn7QCQg8uM+rTW41mfHwH9ugeAyEfFRexvXLZTeiXq5SyxSavI9vZzMzLxyH3hr2OxvevlJEXNXoZmzM+oonGTo9IokvwThY7QJPJR/AoGBAMpoH2mmmIpNZnAkJw82YS0PfUy3bF7nBUU5mEnZiEVnrMY10uqgohSDt+wslbpx2dL7NoRrSx3K5l5sEV4QNv/u1FZMF0cUSlXY78LTiLiPLZtmvXLmbZhmNag/irMXJ0pZ8Q5xOrO0Na4nuLPOfDrtXK1q2FIKeYDIUDgzvVli
 //				alipay.notify_url=http://m.ipandatcm.com/bxg/alipay/alipayNotifyUrl
-//				alipay.return_url=http://m.ipandatcm.com/xcviews/html/indent.html
+//				alipay.return_url=http://m.ipandatcm.com/xcview/html/indent.html
 //				alipay.url=https://openapi.alipay.com/gateway.do
 //				alipay.alipay_public_key=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuzLNkQQ41cDv/azbuctIziPqUVDbpaT3r5NT5d6mhaDQ8m1v3UtFa0rM7oV4XiLhM8O0uBH6Dx0U0eb9izOjE2yIDWT8FJaraOKf6ncscpfawZX79TDg+L+531uBUFExsrhNaCZDNpmmREyXkPkpXHIlYDTpuUzwdJpXtaQPE9B8yeVsrixdEAT5XnSfyhqP/KJeo8P8Axj7w3aTY5vjduLXVfBOyOTVw/5bx2LfqFPkUl12xIr3L0KE1tSVAzdGrTEReWQDPkOU5Q7FdLsck+FCquadcZtg/Kj5d07dD/i++VeThK8yB6DaQ/dUloMTmwvYxclFnkGfGjR8qFXjYQIDAQAB
 

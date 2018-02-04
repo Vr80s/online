@@ -10,26 +10,13 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
 <link rel="stylesheet" href="../css/live_personal.css" />
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
-
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/live_personal.js"></script>
-
-<script type="text/javascript" src="../js/template.js"></script>
-
-
-
-	
 </head>
-    
 <body style="background:#F8F8F8;">
 <div class="wp">
 	<div class="wrap-header">
 		<div class="header">		
 			<p>主播</p>
-			<div class="arror_return z">
+			<div class="arror_return z"  onClick="javascript :history.back(-1);">
 				<img src="../images/back icon.png"/>
 			</div>
 			<div class="header_news">
@@ -60,12 +47,17 @@
 						</div>
 						<div class="separate"></div>			
 						<div class="right_personal y">
-							<p>粉丝&nbsp;{{fansCount}}</p>				
+							粉丝&nbsp;<span>{{fansCount}}</span>
 						</div>
 					</div>
-					<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.id}}" onclick="my_follow()">
-						<!--<img src="../images/append1_icon.png"/>
-						<p style="margin-left: 0.6rem;">加关注</p>-->
+					<div class="add_follow" id="add_follow" data-lecturerId="{{lecturerInfo.id}}" >
+						{{if isPraise==0 }}
+						<img src="../images/append1_icon.png"/>
+						<p style="margin-left: 0.6rem;">加关注</p>
+						{{else}}
+						<img src="../images/append2_icon.png"/>
+						<p class="aaa" style="margin-left: 0.6rem;">已关注</p>
+						{{/if}}
 					</div>
 				</div>
 		</script>
@@ -73,7 +65,7 @@
 	<!--主播状态-->	
 	<div class="personal_status" id="personal_status">
 		<script type="text/html" id="data_status">
-			<a href="live_play.html?course_id={{id}}" style="overflow: hidden;display: block;color: #333333;">
+			<a href="school_play.html?course_id={{id}}" style="overflow: hidden;display: block;color: #333333;">
 				<div class="wrap_img z">
 					<img src="{{smallImgPath}}"/>
 				</div>
@@ -91,12 +83,15 @@
 	</div>
 
 	<div class="wrap_vedio" id="wrap_vedio">
-		<script type="text/html" id="data_vedio">
+		<span style="font-size: 0.32rem;">医师精彩致辞</span>
+		<div id="ccvideo">
+		</div>
+		<!-- <script type="text/html" id="data_vedio">
 			<span style="font-size: 0.32rem;">医师精彩致辞</span>
 			<div class="vedio_play01">
 				<img src="../images/play_btn.png"/>
 			</div>
-		</script>
+		</script> -->
 	</div>	
 
 	<div class="wrap_vedio" id="jieshao">
@@ -134,11 +129,11 @@
 				{{each items as item i}}				
 					<li style="position: relative;">
 						{{if item.type == 1 || item.type == 2}}
-	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_audio.html?course_id={{item.id}}"></a>
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
 	        				{{else if item.type == 3}}
-	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_play.html?course_id={{item.id}}"></a>
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
 	            			{{else if item.type == 4}}
-	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_class.html?course_id={{item.id}}}"></a>
+	            			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
 						{{/if}}
 						<p class="wrap_img_pic">
 							<img src="{{item.smallImgPath}}"/>  <!--大背景图-->
@@ -384,4 +379,10 @@
 	
 	document.documentElement.style.fontSize=kk/7.5+"px"		
 </script>
+<script src="/xcviews/weihoujs/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script> -->
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/live_personal.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
 </html>

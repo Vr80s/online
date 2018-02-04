@@ -1,0 +1,73 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.both{
+	clear: both;
+}
+
+/*中间内容开始*/
+.site{
+	width: 100%;
+	height: 100%;
+	/*background:#0062CC;*/
+}
+.site .div{
+	font-size: 0.5rem;
+    color: #fff;
+    position: fixed;
+    top: 0.45rem;
+    left: 0.3rem;
+    z-index: 9;
+    height: 0.6rem;
+    line-height: 0.68rem;
+}
+.site .return{
+	width: 0.86rem;
+	height: 0.6rem;
+	position: fixed;
+	top: 0.52rem;
+	left: 0;
+	z-index: 999;
+}
+.return_bg{
+	width: 0.86rem;
+	height: 0.6rem;
+	background: #000;
+	opacity: 0.5;
+	border-radius: 0 20px 20px 0;
+}
+.site_bottom{
+	width: 100%;
+	height: 1.69rem;
+	background: #Fff;
+	position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.site_bottom .div0{
+	font-size: 0.28rem;
+	color: #333333;
+	margin-top: 0.4rem;
+    margin-bottom: 0.16rem;
+    text-indent: 0.26rem;
+}
+.site_bottom .div1{
+	font-size: 0.24rem;
+	color: #999999;
+	text-indent: 0.26rem;
+}
+
+/*处理地图开始*/
+#allmap{width:100%;height: 11.64rem;}
+/*处理地图结束*/
+/*中间内容结束*/

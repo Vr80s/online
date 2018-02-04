@@ -8,19 +8,21 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
+<link rel="stylesheet" href="../css/my_study.css" />
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<link rel="stylesheet" href="../css/my_study.css" />
+<script type="text/javascript" src="../js/my_study.js"></script>
+
 
 
 	
 </head>
     
 <body style="background:#F8F8F8;">
-<div class="wp">
+<div class="wp" style="position: relative;">
 	<div class="wrap-header">
 		<div class="header">		
 			<p>学习</p>
@@ -37,43 +39,76 @@
 			<p>清除历史</p>
 		</div>
 		<div class="play_list">
-			<ul>
-				<li>
-					<p>姚春龄：名字太长一行放不下怎么办，那这是什么，那这是什么</p>
-					<span>59分钟前</span>
-				</li>
-				<li>
-					<p>张三丰：标幽赋的前世今生</p>
-					<span>一个月前</span>
-				</li>
-				<li>
-					<p>姚春龄：名字太长一行放不下怎么办，那这是什么，那这是什么</p>
-					<span>很久很久以前</span>
-				</li>
+			<ul id="paly_history">
+				<script type="text/html" id="data_history">
+					{{each items as item i}}
+					<li>
+						<p>{{item.lecturerName}}{{item.gradeName}}</p>
+						<span>{{item.timeDifference}}</span>
+					</li>
+					{{/each}}
+				</script>
 			</ul>
 		</div>
 	</div>
-<!--我的课程-->
-	<div class="wrap_class">
-		<p class="my_class_title">我的课程</p>
-		<div class="my_class_text">
-			<div class="my_class_img z">
-				<img src="../images/xianxia_03.jpg"/>
-				<div class="little_img">
-					<img src="../images/tv_auto.png"/>
-				</div>
-			</div>
-			<p class="text_more">王光宇：假如标题很长就换行吧，这里最多两行这里最多两行</p>
-			<!--多少集-->
-			<!--<p class="my_collection">共20集&nbsp;&nbsp;<span>已更新16集</span></p>-->
-			<!--直播中-->
-			<!--<p class="paly_ing">直播中</p>-->
-			<!--上课时间-->
-			<!--<p class="my_collection">上课时间：&nbsp;<span>2017.12.29</span></p>-->
-			<!--直播时间-->
-			<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>	
-		</div>
+	<!--是否清除历史-->
+	<div class="history_bg">
+		
 	</div>
+	<div class="history_modal">
+		<p>确定清除历史?</p>
+		<ul>
+			<li>取消</li>
+			<li>确定</li>
+		</ul>
+	</div>
+<!--我的课程-->
+<div id="my_class_box">
+	<script type="text/html" id="data_my_class">
+		
+			<div class="wrap_class">
+				<p class="my_class_title">{{items.title}}</p>
+								
+					{{each items.courseList as item i}}
+					<div class="my_class_text">
+					<div class="my_class_img z">
+						<img src="{{item.smallImgPath}}"/>
+						<div class="little_img">
+							{{if item.type == 1}}
+								<img src="/xcview/images/tv_auto.png" alt="" />
+							{{else if item.type == 2}}
+								<img src="/xcview/images/frequency.png" alt=""/>
+							{{else if item.type == 3}}
+								<img src="/xcview/images/Sinatv_auto.png" alt=""/>
+							{{else if item.type == 4}}
+								<img src="/xcview/images/offline.png" alt=""/>
+							{{/if}}
+						</div>
+					</div>
+					<p class="text_more">{{item.gradeName}}</p>
+					{{if item.type==1 || item.type==2 && item.type==true}}
+						<!--多少集-->
+						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<span>已更新16集</span></p>
+						{{else if item.lineState==1}}	
+						<!--直播中-->				
+						<p class="paly_ing">直播中</p>
+						{{else if item.type==4}}
+						<!--上课时间-->
+						<p class="my_collection">上课时间：&nbsp;<span>2017.12.29</span></p>
+						<!--直播时间-->
+						{{else if item.type==3}}
+						<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>	
+					{{/if}}
+					</div>
+					{{/each}}
+				
+			</div>
+		
+	</script>
+</div>	
+	
+	
+	
 <!--关注的主播-->
 	<div class="wrap-follow">
 		<p class="follow_title">关注的主播</p>

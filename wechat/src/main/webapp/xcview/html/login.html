@@ -35,7 +35,7 @@
 				<img src="/xcview/images/back icon.png" />
 			</div>
 			<div class="header_title">注册</div>
-			<div class="enroll">登录</div>
+			<div class="enroll" onclick="location.href ='/xcview/html/enter.html'">登录</div>
 		</div>
 	</header>
 	<!-- 头部结束 -->
@@ -48,10 +48,11 @@
 		</div>
 		<div class="enter_one">
 			<img src="../images/suo.png" class="img1"/>
-			<input type="password" name="" id="" value="" placeholder="密码" class="input1" />
+			<input type="password" name="" id="password" value="" placeholder="密码" class="input1" />
+			<div class="div open"></div>
 		</div>
 		<div class="enter_btn">注册</div>
-		<div class="forget_password"><a href="javascript: ;">国内用户注册</a></div>
+		<div class="forget_password"><a href="/xcview/html/cn_login.html">国内用户注册</a></div>
 		<div class="other_means">
 			<div class="other_means_ru">√</div>
 			同意<span>《熊猫中医用户协议》</span>和<span>《隐私条款》</span>
@@ -102,6 +103,20 @@
 				$(".enter_btn").css("opacity","0.3");      	
 			}
 		})
+		
+		
+		//		点击小眼睛
+		$('.open').on('click',function(){
+		  	if($("#password").prop('type')=='password'){
+		    	$("#password").prop('type','text');
+		    	$(".div").css("background","url(../images/show.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}else{
+		    	$("#password").prop('type','password');   /*看不到小眼睛,最初默认的时候*/
+		    	$(".div").css("background","url(../images/hide.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}
+		});
 		
 	};
 </script>

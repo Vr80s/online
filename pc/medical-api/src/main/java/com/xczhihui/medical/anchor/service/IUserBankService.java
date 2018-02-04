@@ -6,10 +6,36 @@ import java.util.List;
 
 public interface IUserBankService {
 
+	/**
+	 * Description：通过登录人id，银行卡号，身份证号查询银行卡信息
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/2/2 20:55
+	 **/
 	  public UserBank selectUserBankByUserIdAndAcctPan(String userId, String acctPan, String certId);
 
+	  /**
+	   * Description：添加银行卡
+	   * creed: Talk is cheap,show me the code
+	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	   * @Date: 2018/2/2 20:57
+	   **/
 	  void addUserBank(String userId,String acctName, String acctPan,String certId,String tel);
 
+	  /**
+	   * Description：获取用户所有绑定的银行卡
+	   * creed: Talk is cheap,show me the code
+	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	   * @Date: 2018/2/2 20:57
+	   **/
 	  public List<UserBank> selectUserBankByUserId(String userId);
+
+	  /**
+	   * Description：
+	   * creed: Talk is cheap,show me the code
+	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	   * @Date: 2018/2/2 20:58
+	   **/
+	  void deleteBankCard(Integer id);
 
 }

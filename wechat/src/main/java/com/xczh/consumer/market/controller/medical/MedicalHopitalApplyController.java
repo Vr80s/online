@@ -79,10 +79,10 @@ public class MedicalHopitalApplyController {
 				medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPictureJson.get("url").toString());
 
 			medicalHospitalApplyService.add(medicalHospitalApply);
-			return ResponseObject.newSuccessResponseObject("提交成功");
+			return ResponseObject.newSuccessResponseObject("创建成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("提交失败");
+			return ResponseObject.newErrorResponseObject("创建失败");
 		}
 	}
 
@@ -96,7 +96,7 @@ public class MedicalHopitalApplyController {
 
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
-			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+			return ResponseObject.newErrorResponseObject("登录失效");
 		}
 
 		Map<String, Object> mapAll = new HashMap<String, Object>();

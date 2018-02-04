@@ -1,79 +1,78 @@
 $(function(){
+    showCourseAttribute(1);
 //	左右两边tab切换
-			$(".select_list li").click(function(){
-				$(".select_list li").removeClass("active");
-				$(this).addClass("active");
+	$(".select_list li").click(function(){
+		$(".select_list li").removeClass("active");
+		$(this).addClass("active");
 //				$(".wrap_box .little_box").hide();
-				$(".select_box").hide().eq($(this).index()).show();
+		$(".select_box").hide().eq($(this).index()).show();
 //				图标颜色变化
-				$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
-			})
-			$(".select_list .select-ud").bind('click',function(event){
-            	event.stopPropagation();			
-				$(".select_list .littleBox").stop().slideToggle();
+		$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
+	})
+	$(".select_list .select-ud").bind('click',function(event){
+		event.stopPropagation();
+		$(".select_list .littleBox").stop().slideToggle();
 
-			})
-			
-			
-			$(".select_list .select-uds").bind('click',function(event){
-            	event.stopPropagation();			
-				$(".select_list .littleBoxs").stop().slideToggle();
+	})
 
-			})
-			
-			
-			$(".setTop").click(function(){
-				$(".select_list .littleBox").slideUp();
-				$(".select_list .littleBoxs").slideUp();
-				
-				$(".select-ud").removeAttr("id");
-				$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom");
-				$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")	;	
-			})
+	$(".select_list .select-uds").bind('click',function(event){
+		event.stopPropagation();
+		$(".select_list .littleBoxs").stop().slideToggle();
+
+	})
+
+	$(".setTop").click(function(){
+		$(".select_list .littleBox").slideUp();
+		$(".select_list .littleBoxs").slideUp();
+
+		$(".select-ud").removeAttr("id");
+		$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")	;
+	})
 //			对课程目录下小的下拉div进行操作		
-			$(".select_list .select-ud .littleBox p").bind('click',function(event){
-            	event.stopPropagation();
-				$(".select_list .littleBox p").removeClass("activeP");
-				$(this).addClass("activeP");
-				$(".wrap_box .little_box").hide().eq($(this).index()).show();  /*课程显示*/
-				$(".account .account_mains").hide();   /*账号隐藏*/
-				$(".select_box").hide();
-			})
-			
-			$(".select_list .select-uds .littleBoxs p").bind('click',function(event){
-            	event.stopPropagation();
-				$(".select_list .littleBoxs p").removeClass("activeP");
-				$(this).addClass("activeP");
-				$(".account .account_mains").hide().eq($(this).index()).show();  /*账户显示*/
-				$(".wrap_box .little_box").hide();   /*课程隐藏*/
-				$(".select_box").hide();
-			})
+	$(".select_list .select-ud .littleBox p").bind('click',function(event){
+		event.stopPropagation();
+		$(".select_list .littleBox p").removeClass("activeP");
+		$(this).addClass("activeP");
+		$(".wrap_box .little_box").hide().eq($(this).index()).show();  /*课程显示*/
+		$(".account .account_mains").hide();   /*账号隐藏*/
+		$(".select_box").hide();
+	})
+
+	$(".select_list .select-uds .littleBoxs p").bind('click',function(event){
+		event.stopPropagation();
+		$(".select_list .littleBoxs p").removeClass("activeP");
+		$(this).addClass("activeP");
+		$(".account .account_mains").hide().eq($(this).index()).show();  /*账户显示*/
+		$(".wrap_box .little_box").hide();   /*课程隐藏*/
+		$(".select_box").hide();
+	})
 //		下拉小箭头设置	
-		$(".select-ud").click(function(){
-			if($(this).attr("id")=="open_list"){
-				$(this).removeAttr("id")
-				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-left");
-				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-bottom");
-			}
-			else{
-				$(this).attr("id","open_list")
-				$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-bottom");
-				$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-left");
-			}
-		})
-		
-		$(".select-uds").click(function(){
-			if($(this).attr("id")=="open_list"){
-				$(this).removeAttr("id")
-				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-left");
-				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-bottom");
-			}
-			else{
-				$(this).attr("id","open_list")
-				$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-bottom");
-				$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-left");
-			}
-		})
+	$(".select-ud").click(function(){
+		if($(this).attr("id")=="open_list"){
+			$(this).removeAttr("id")
+			$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-left");
+			$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		}
+		else{
+			$(this).attr("id","open_list")
+			$(".select_list .select-ud .arrow_jt").addClass("glyphicon-triangle-bottom");
+			$(".select_list .select-ud .arrow_jt").removeClass("glyphicon-triangle-left");
+		}
+	})
+
+	$(".select-uds").click(function(){
+		if($(this).attr("id")=="open_list"){
+			$(this).removeAttr("id")
+			$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-left");
+			$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		}
+		else{
+			$(this).attr("id","open_list")
+			$(".select_list .select-uds .arrow_jt").addClass("glyphicon-triangle-bottom");
+			$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-left");
+		}
+	})
 
 
 	//头像上传
@@ -90,8 +89,6 @@ $(function(){
 			}
 		};
 	});
-
-
 
 	$(".doctor_inf >img").attr('src',userPic)
 	$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
@@ -118,9 +115,7 @@ $(function(){
 		});
 	})
 
-
-
-		function img() {
+	function img() {
 		//清空文件
 		function clearFileInput(file) {
 			var form = document.createElement('form');
@@ -190,9 +185,6 @@ $(function(){
 					reader.readAsDataURL(this.files[0]);
 					this.files = [];
 					getImg();
-					//								return $(".imageBox").click(function() {
-					//									getImg();
-					//								});
 				}
 			}
 		})
@@ -209,12 +201,6 @@ $(function(){
 		})
 	}
 
-
-
-
-//function fileClick() {
-//	return $("#upload-file").click();
-//}
 $('.fileUpdata').click(function(){
 	return $("#upload-file").click();
 })
@@ -229,7 +215,6 @@ $(".btn-upload").click(function(evt) {
 			return false;
 		}
 		$(".btn-upload").css("color", "white");
-		//	if($(".upload_pictures_bottom_upload").attr("data-id") && $(".upload_pictures_bottom_upload").attr("data-id") != '/webview/images/usershow/defaultHeadImg.jpg') {
 		RequestService("/online/user/updateHeadPhoto", "post", {
 				image: $(".btn-upload").attr("data-img"),
 			}, function(data) {
@@ -246,10 +231,6 @@ $(".btn-upload").click(function(evt) {
 								background: "url(" + path + ") no-repeat",
 								backgroundSize: "100% 100%"
 							});
-//							$("doctor_inf >img").css({
-//								background: "url(" + path + ") no-repeat",
-//								backgroundSize: "100% 100%"
-//							});
 							$(".doctor_inf >img").attr('src',path)
 							
 							var file = document.getElementById("upload-file")
@@ -282,15 +263,11 @@ $(".btn-upload").click(function(evt) {
 		$(".btn-upload").css("color", "white");
 	})
 
-
-
-
 	//上传封面图片
 	$('.fengmian_pic').click(function(){
 		$('#picIpt').click();
 	})
-	
-	
+
 //	专栏部分
 //	专栏部分点击发布效果
 var zhuanlanCount = 1;
@@ -315,70 +292,12 @@ $('#zhuanlan .zhuanlan_top button').click(function(){
 	
 })
 
-
-
-
-//资源部分
-//资源部分点击上传资源
-var ziyuanCount = 1;
-$('#resource .zhuanlan_top button').click11(function(){
-	ziyuanCount *= -1;
-	//上传
-	if(ziyuanCount < 0){
-	//顶部变化
-	$(this).text('返回');
-	$(this).siblings('.title').text('新资源');
-	//底部变化
-	$('#ziyuan_bottom2').addClass('hide');
-	$('#ziyuan_bottom').removeClass('hide');
-	}else{
-		//取消上传
-		$(this).text('上传资源');
-		$(this).siblings('.title').text('资源');
-		//底部变化
-		$('#ziyuan_bottom').addClass('hide');
-		$('#ziyuan_bottom2').removeClass('hide');
-	}
-})
-
-
-//开始js
-//课程部分
-//课程部分点击
-var kechengCount = 1;
-$('#curriculum .zhuanlan_top button').click111(function(){
-	kechengCount *= -1;
-	//上传
-	if(kechengCount < 0){
-	//顶部变化
-	$(this).text('返回');
-	$(this).siblings('.title').text('新课程');
-	//底部变化
-	$('#curriculum #kecheng_bottom2').addClass('hide');
-	$('#curriculum #kecheng_bottom').removeClass('hide');
-	}else{
-		//取消上传
-		$(this).text('新课程');
-		$(this).siblings('.title').text('课程');
-		//底部变化
-		$('#curriculum  #kecheng_bottom').addClass('hide');
-		$('#curriculum  #kecheng_bottom2').removeClass('hide');
-	}
-})
-
-
 //处理点击--课程显示隐藏第一第二页
 $(".select_list .courseP").click(function() {
-    $(".curriculum_two").hide();
-    $(".curriculum_one").show();
-    /*$("#zhuanji_bottom2").show();*/
+    courseList(1);
+    $(".curriculum_two").show();
+    $(".curriculum_one").hide();
 });
-
-
-
-
-
-//账户个人信息
 
 //点击选择资源
 $('#a').click(function(){
@@ -387,213 +306,6 @@ $('#a').click(function(){
 $('.a_resource_close').click(function(){
 	$('.a_resource').hide();
 });
-
-
-
-//判断为空
-
-//课程
-$('#kecheng_bottom .baocun #submit').click(function(){
-	//任职医馆的验证
-	var workhosName = $.trim($('#kecheng_bottom .zhuanlan_title').val());
-	var workhosNames = $.trim($('#kecheng_bottom .zhuanlan_title0').val());
-	var workhosNamess = $.trim($('#kecheng_bottom #picIpt').val());
-	var nameNames = $.trim($('#kecheng_bottom .zhuanlan_title1 ').val());
-	var textArea = $.trim($('#kecheng_bottom #textarea1').val());
-	var selectTime = $.trim($('#kecheng_bottom .select_time').val());
-	var selectTimes = $.trim($('#kecheng_bottom .zhuanlan_title2').val());
-	var price = $.trim($('#kecheng_bottom .zhuanlan_title3').val());
-	var resourceUrl = $.trim($('#kecheng_bottom .resourceUrl').val());
-
-	var headPortrait  =  $('#kecheng_bottom .fengmian_pic img').attr('src');
-	
-	
-	//课程标题
-	if(workhosName == ''){
-		$('#kecheng_bottom .warning0').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning0').addClass('hide');
-	}
-	
-//	副标题
-	if(workhosNames == ''){
-		$('#kecheng_bottom .warning1').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning1').addClass('hide');
-	}
-	
-//	封面图
-	if(workhosNamess == ''){
-		$('#kecheng_bottom .warning2').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning2').addClass('hide');
-	}
-	
-//	主播姓名
-	if(nameNames == ''){
-		$('#kecheng_bottom .warning3').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning3').addClass('hide');
-	}
-	
-//	主播介绍
-	if(textArea == ''){
-		$('#kecheng_bottom .warning4').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning4').addClass('hide');
-	}
-	
-//	请选择开课时间
-	if(selectTime == ''){
-		$('#kecheng_bottom .warning5').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning5').addClass('hide');
-	}
-	
-//	时长
-	if(selectTimes == ''){
-		$('#kecheng_bottom .warning6').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning6').addClass('hide');
-	}
-	
-//	价格
-	if(price == ''){
-		$('#kecheng_bottom .warning7').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning7').addClass('hide');
-	}
-	
-//	资源
-	if(resourceUrl == ''){
-		$('#kecheng_bottom .warning8').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning8').addClass('hide');
-	}
-	
-	
-	//封面图是否上传
-	if($('#kecheng_bottom .fengmian_pic:has(img)').length < 1){
-		$('#kecheng_bottom .fengmian_pic_warn').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .fengmian_pic_warn').addClass('hide');
-	}
-	
-	
-//	alert(111)
-})
-
-//保存
-$('#kecheng_bottom .baocun #submit0').click(function(){
-	//任职医馆的验证
-	var workhosName = $.trim($('#kecheng_bottom .zhuanlan_title').val());
-	var workhosNames = $.trim($('#kecheng_bottom .zhuanlan_title0').val());
-	var workhosNamess = $.trim($('#kecheng_bottom #picIpt').val());
-	var nameNames = $.trim($('#kecheng_bottom .zhuanlan_title1 ').val());
-	var textArea = $.trim($('#kecheng_bottom #textarea1').val());
-	var selectTime = $.trim($('#kecheng_bottom .select_time').val());
-	var selectTimes = $.trim($('#kecheng_bottom .zhuanlan_title2').val());
-	var price = $.trim($('#kecheng_bottom .zhuanlan_title3').val());
-	var resourceUrl = $.trim($('#kecheng_bottom .resourceUrl').val());
-
-	var headPortrait  =  $('#kecheng_bottom .fengmian_pic img').attr('src');
-	
-	
-	//课程标题
-	if(workhosName == ''){
-		$('#kecheng_bottom .warning0').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning0').addClass('hide');
-	}
-	
-//	副标题
-	if(workhosNames == ''){
-		$('#kecheng_bottom .warning1').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning1').addClass('hide');
-	}
-	
-//	封面图
-	if(workhosNamess == ''){
-		$('#kecheng_bottom .warning2').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning2').addClass('hide');
-	}
-	
-//	主播姓名
-	if(nameNames == ''){
-		$('#kecheng_bottom .warning3').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning3').addClass('hide');
-	}
-	
-//	主播介绍
-	if(textArea == ''){
-		$('#kecheng_bottom .warning4').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning4').addClass('hide');
-	}
-	
-//	请选择开课时间
-	if(selectTime == ''){
-		$('#kecheng_bottom .warning5').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning5').addClass('hide');
-	}
-	
-//	时长
-	if(selectTimes == ''){
-		$('#kecheng_bottom .warning6').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning6').addClass('hide');
-	}
-	
-	//	价格
-	if(price == ''){
-		$('#kecheng_bottom .warning7').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning7').addClass('hide');
-	}
-	
-//	资源
-	if(resourceUrl == ''){
-		$('#kecheng_bottom .warning8').removeClass('hide');
-		return false;
-	}else{
-		$('#kecheng_bottom .warning8').addClass('hide');
-	}
-	
-	
-	
-	//封面图是否上传
-		if($('#kecheng_bottom .fengmian_pic:has(img)').length < 1){
-			$('#kecheng_bottom .fengmian_pic_warn').removeClass('hide');
-			return false;
-		}else{
-			$('#kecheng_bottom .fengmian_pic_warn').addClass('hide');
-		}
-	
-	
-//	alert(111)
-})
 
 
 //专辑开始
@@ -618,18 +330,15 @@ $('#zhuanji .zhuanlan_top button').click(function(){
 	}
 })
 
-
-$('#demo3').citys({
-    required:false,
-    nodata:'disabled',
-    onChange:function(data){
-        var text = data['direct']?'(直辖市)':'';
-        $('#place').text('当前选中地区：'+data['province']);
-        // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
-    }
-});
-
-
+// $('#demo3').citys({
+//     required:false,
+//     nodata:'disabled',
+//     onChange:function(data){
+//         var text = data['direct']?'(直辖市)':'';
+//         $('#place').text('当前选中地区：'+data['province']);
+//         // $('#place').text('当前选中地区：'+data['province']+text+' '+data['city']+' '+data['area']);
+//     }
+// });
 
 //专辑
 $('#zhuanji_bottom .baocun #submit').click(function(){
@@ -905,8 +614,6 @@ $('#zhuanji_bottom .baocun #submit0').click(function(){
 	
 })
 
-
-
 //添加课程为空开始     提交课程
 $('#zhuanjis_bottom .baocun #submits').click(function(){
 //	添加课程为空
@@ -1006,19 +713,13 @@ $('#zhuanjis_bottom .baocun #submits').click(function(){
 	
 })
 
-
-
-//资源为空开始
-
 //添加课程为空开始     提交课程
 $('#ziyuan_bottom .baocun #submit').click(function(){
 //	添加课程为空
 	var ResourceTitle = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
 	var ResourceUploading = $.trim($('#ziyuan_bottom #picIpt3').val());
 	var resourcePut = $.trim($('#ziyuan_bottom .resource_put').val());
-	
-	
-	
+
 	//课程标题
 	if(ResourceTitle == ''){
 		$('#ziyuan_bottom .warning0').removeClass('hide');
@@ -1026,7 +727,6 @@ $('#ziyuan_bottom .baocun #submit').click(function(){
 	}else{
 		$('#ziyuan_bottom .warning0').addClass('hide');
 	}
-	
 	
 	//封面图
 	if(ResourceUploading == ''){
@@ -1047,8 +747,6 @@ $('#ziyuan_bottom .baocun #submit').click(function(){
 })
 //资源为空结束
 
-
-
 //添加课程为空开始     保存
 $('#zhuanjis_bottom .baocun #submits0').click(function(){
 //	添加课程为空
@@ -1062,8 +760,7 @@ $('#zhuanjis_bottom .baocun #submits0').click(function(){
 	var Price = $.trim($('#zhuanjis_bottom .zhuanlan_titles3').val());
 	var CourseDescriptions = $.trim($('#zhuanjis_bottom .a_textarea').val());
 	var Ainput = $.trim($('#zhuanjis_bottom .a_input').val());
-	
-	
+
 	
 	//课程标题
 	if(LectureTitles == ''){
@@ -1148,7 +845,6 @@ $('#zhuanjis_bottom .baocun #submits0').click(function(){
 	
 })
 
-
 //点击添加
 $(".zhaunji_tr td .add").click(function() {
     $("#zhuanjis_bottom").show();
@@ -1156,17 +852,13 @@ $(".zhaunji_tr td .add").click(function() {
     $("#zhuanji .zhuanlan_top_one").hide();
 });
 
-
-
-
 //新专辑,新增课程 
 $(".new_box .size").click(function() {
 	$(".new_box").hide();
 	$("#zhuanji_bottom").hide();
 	$(".zhuanlan_top_one").hide();
     $("#zhuanjis_bottom").show();
-    
-});
+    });
 
 //专辑
 $("#zhuanji_bottom2 .returns").click(function() {
@@ -1190,10 +882,6 @@ $("#zhuanjis_bottom .returns").click(function() {
 //  $("#zhuanji_bottom").show();
 });
 
-
-
-
-
 //点击专辑--专辑-新专辑
 $("#zhuanji_bottom2 .zhuanlan_top .returns").click(function() {
 //  $("#zhuanjis_bottom").hide();
@@ -1202,10 +890,6 @@ $("#zhuanji_bottom2 .zhuanlan_top .returns").click(function() {
 });
 
 //专辑结束
-
-
-
-
 
 //账户认证信息为空
 $('.account_two .approve').click(function(){
@@ -1225,9 +909,6 @@ $('.account_two .approve').click(function(){
 	}
 	
 })
-
-
-
 
 //判断医馆认证开始
 $('.account_two .approve').click(function(){
@@ -1290,16 +971,15 @@ $('.account_two .approve').click(function(){
 	
 })
 //判断医馆认证结束
-
-
-
-
-
-
-
-
-
-
 })
 
-
+function showCourseAttribute(type){
+    $(".special").hide();
+    if(type==1){
+        $(".live").show();
+    }else if(type==2){
+        $(".vod").show();
+    }else{
+    	$(".offline").show();
+	}
+}

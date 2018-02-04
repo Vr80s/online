@@ -10,16 +10,6 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
 <link rel="stylesheet" href="../css/live_audio.css" />
-
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../js/live_audio.js"></script>
-
-
-	
 </head>
     
 <body style="background:#F8F8F8;">
@@ -36,14 +26,20 @@
 		</div>
 	</div>
 	<!--视频-->
-	<div class="play_video">
+	<div class="play_video" id="video_v">
 		<!--<div class="video_prompt">
 			暂未开播
 		</div>-->
-		<div class="video_prompt_open">
+		<!--<script src="https://p.bokecc.com/player?vid=E0D4ADCB85DEBEE79C33DC5901307461&siteid=B5E673E55C702C42&autoStart=false&width=600&height=490&playerid=E92940E0788E2DAE&playertype=1" type="text/javascript"></script>-->
+		<!--<div class="video_prompt_open">
 			<img src="../images/play_btn.png"/>
-		</div>
+		</div>-->
 	</div>
+	
+	<div id="cc">
+	
+	</div>
+	
 	<!--主讲人-->
 	<div class="speak_people" id="speak_people">
 		<script type="text/html" id="data_people">	
@@ -67,7 +63,7 @@
 						{{else if startLevel == 3.5}}
 						<img src="../images/xing3_5.png"/>
 						{{else if startLevel == 4}}
-						<img src="../images/xing4_0.ppng"/>
+						<img src="../images/xing4_0.png"/>
 						{{else if startLevel == 4.5}}
 						<img src="../images/xing4_5.png"/>
 						{{else if startLevel == 5}}
@@ -297,7 +293,9 @@
 	<div class="bg_modal"></div>
 	
 	<div class="wrapAll_comment">
-		<p class="set_title">发布评论</p>
+		<script type="text/html" id="id_show_xingxing">
+			<p class="set_title">发布评论</p>
+			{{if items==1}}
 		<!--星星五星好评-->
 		<div class="my_impression1 cl mar_bot">
 			<p>总体印象</p>
@@ -336,6 +334,7 @@
 			<li value="4">喜欢</li>
 			<li value="5">买对了</li>
 		</ul>
+		{{/if}}
 		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
 			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
@@ -347,29 +346,39 @@
 			</li>
 			<li onclick="reportComment()">发表评论</li>
 		</ul>
+        </script>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </div>
-	
-
 </body>
+<script src="/xcviews/weihoujs/jquery.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/live_audio.js"></script>
+
 <script>
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
 		kk=750
 	}
-	
 	document.documentElement.style.fontSize=kk/7.5+"px"		
+	
+//由于jq  1.9  以上版本删除了toggle ,加以下代码兼容	
+$.fn.toggle = function( fn, fn2 ) {
+    var args = arguments,guid = fn.guid || $.guid++,i=0,
+    toggle = function( event ) {
+      var lastToggle = ( $._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+      $._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+      event.preventDefault();
+      return args[ lastToggle ].apply( this, arguments ) || false;
+    };
+    toggle.guid = guid;
+    while ( i < args.length ) {
+      args[ i++ ].guid = guid;
+    }
+    return this.click( toggle );
+  };
 </script>
 <!--详情点击隐藏和显示-->
 <script>

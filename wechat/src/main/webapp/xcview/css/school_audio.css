@@ -77,9 +77,11 @@ textarea::-webkit-input-placeholder {
 .play_video{
 	width: 100%;
 	height: 4.24rem;
-	background: url(../images/xianxia_03.jpg) no-repeat center;
-	background-size:cover;
 	position: relative;
+}
+.play_video img{
+	width: 100%;
+	height: 100%;
 }
 .video_prompt{
 	width: 1.76rem;
@@ -593,7 +595,7 @@ color: white;
 }
 .wrapLittle_comment{
 	width: 7.5rem;
-    position: absolute;
+
 	height: 4.45rem;
 	display: none;
 	background:white;
@@ -602,7 +604,7 @@ color: white;
 	left: 0;
 	z-index: 5;
 	padding: 0 0.26rem 0.6rem;
-	
+	position: fixed;
 }
 /*评论主播弹出框*/
 .bg_modal{

@@ -29,16 +29,37 @@ $(function() {
 	})
 	
 	
+	
+	//上线下线的按钮点击事件
+$('#doc_Administration_bottom2').on('click','.downLine',function(){
+	var id = $(this).attr('data-id');
+	var status = $(this).attr('data-status');
+	RequestService("/medical/doctor/update", "post", {
+		id:id,
+		status:status
+	}, function(data) {
+		if(data.success == true){
+			//重新渲染列表
+			$('.doc_Administration_tabBtn').click();
+			 courseVodList(1);
+		}
+			
+	});
+})
+	
+	
+	
+	
+	
 	//	分页部分
 	function courseVodList(current) {
 		RequestService("/medical/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
 			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
-			debugger
+//			debugger
 			//每次请求完数据就去渲染分页部分
 			if(data.resultObject.pages > 1) { //分页判断
-				$(".pages").removeClass("hide");
 				$(".not-data").remove();
-				$(" .pages").css("display", "block");
+				$(" .pages").removeClass("hide");
 				$(" .pages .searchPage .allPage").text(data.resultObject.pages);
 				$("#Pagination").pagination(data.resultObject.pages, {
 					num_edge_entries: 1, //边缘页数
@@ -50,7 +71,7 @@ $(function() {
 					}
 				});
 			} else {
-//				$(".pages").addClass("display", "none");
+				$(".pages").addClass("hide");
 			}
 		});
 	}
@@ -80,8 +101,9 @@ $(function() {
 			doctorId: changeDocId,
 		}, function(data) {
 			console.log(data)
-			$('#doc_Administration_bottom4').html(template('docStatusTpl',data.resultObject))
-			
+			$('#doc_Administration_bottom4').html(template('docStatusTpl',data.resultObject));
+			$('#myinf').html(data.resultObject.description);
+//			$('#myinf>p').style.fontSize = '16px';
 			$('#mask').removeClass('hide');
 		$('#doc_Administration_bottom3').addClass('hide');
 		$('#doc_Administration_bottom4').removeClass('hide');
@@ -90,11 +112,11 @@ $(function() {
 	})
 	
 	//下线功能
-	$('#doc_Administration_bottom2').on('click','.downLine',function(){
-		if($(this).attr('data-status') == true){
-			alert(111)
-		}
-		//医师数据上传
+//	$('#doc_Administration_bottom2').on('click','.downLine',function(){
+//		if($(this).attr('data-status') == true){
+//			alert(111)
+//		}
+//		医师数据上传
 //		RequestService("/medical/doctor/update", "post", {
 //			id:
 //			status:
@@ -102,7 +124,7 @@ $(function() {
 //			console.log(data);
 //
 //		})
-	})
+//	})
 	
 
 	//医师编辑功能

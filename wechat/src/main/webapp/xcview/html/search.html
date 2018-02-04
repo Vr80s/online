@@ -66,13 +66,7 @@
 			<div class="search_hot_main_one">{{item.name}}</div>
 			<!--<div class="both"></div>-->
 			{{/each}}
-	        </script>
-			
-			<!--<div class="search_hot_main_one">各式推拿</div>
-			<div class="search_hot_main_one">美容养生</div>
-			<div class="search_hot_main_one">药膳食疗</div>
-			<div class="search_hot_main_one">古籍经典</div>
-			<div class="search_hot_main_one">各家综合</div>-->
+	       </script>
 			<div class="both"></div>  <!--both清除浮动-->
 		</div>
 	</div>
@@ -126,44 +120,46 @@
 	window.onload = function(){
 		
 //		循环点击热门搜索
-		var aBtn6=$('.search_hot_main_one');
-        for(i=0;i<aBtn6.length;i++){
-            
-            $(aBtn6[i]).click(function(){
-            	$('#header_input').val($(this).text());
-            	$(".header_seek_main").css("display","none");
-            });
-        };
+//		var aBtn6=$('.search_hot_main_one');
+//      for(i=0;i<aBtn6.length;i++){
+//          
+//          $(aBtn6[i]).click(function(){
+//          	$('#header_input').val($(this).text());
+//          	$(".header_seek_main").css("display","none");
+//          });
+//      };
         
 //      点击yinput  失去焦点隐藏默认值
-        $("#header_input").blur(function(){
+        $("#header_input").keyup(function(){
+						var search_val=$(this).val()
+        	
 			if($("#header_input").val() != ""){
 				
 				$(".header_seek_main").css("display","none");
 				
 //				2
 				//		头部input搜索框开始
-		document.onkeydown=function(event){
-	        var e = event || window.event || arguments.callee.caller.arguments[0];
-	          /*if(e && e.keyCode==27){ // 按 Esc 
-	              //要做的事情
-	            }
-	          if(e && e.keyCode==113){ // 按 F2 
-	               //要做的事情
-	             }*/            
-	        if(e && e.keyCode==13){ // enter 键
-	              //要做的事情
-//	            $(".history_img_right").click();
-	            /*$("#header_input").blur();
-	            $("#header_input").blur(function(){
-					$("body").trigger("click");	
-				});*/
-//				alert(54654);
-				
-				window.location.href="../html/curriculums_table.html";
-	              
-	        } 
-	    }; 
+				document.onkeydown=function(event){
+			        var e = event || window.event || arguments.callee.caller.arguments[0];
+			          /*if(e && e.keyCode==27){ // 按 Esc 
+			              //要做的事情
+			            }
+			          if(e && e.keyCode==113){ // 按 F2 
+			               //要做的事情
+			             }*/            
+			        if(e && e.keyCode==13){ // enter 键
+			              //要做的事情
+		//	            $(".history_img_right").click();
+			            /*$("#header_input").blur();
+			            $("#header_input").blur(function(){
+							$("body").trigger("click");	
+						});*/
+		//				alert(54654);
+
+						window.location.href="../html/curriculum_table.html?search="+search_val+"";
+			              
+			        } 
+			    }; 
 				
 				
 //				1

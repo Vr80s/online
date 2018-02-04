@@ -4,12 +4,21 @@
 	})
 })(mui);
 
-
+/**
+ * 判断是不是来自微信浏览器
+ */
+function is_weixn(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 var accessCommon = localStorage.access;
 var current = location.href;
 var domain = window.location.host;
-
 /**
  * 得到  online-web 的测试或者生成域名 
  * @returns
@@ -35,8 +44,8 @@ function getServerHost(){
 
 /**
  * courseId 课程id
- * falg： false 官网   ture课程页面
- *  
+ * 如果页面访问是pc浏览器访问跳转到官网浏览器  falg： false 跳到官网首页   ture 跳到课程页面
+ * 
  */ 
 function h5PcConversions(falg,courserId){
 	var browser={
@@ -73,13 +82,11 @@ function h5PcConversions(falg,courserId){
 		return true;
 	}
 }
-
-
 /**
- * 分享的页面可能被来自pc端浏览器的访问
+ *  如果页面来自课程的访问就不跳到官网
  */
 if(current.indexOf("/xcviews/html/share.html")==-1
-		&& current.indexOf("/xcviews/html/foreshow.html")==-1
+	 && current.indexOf("/xcviews/html/foreshow.html")==-1
 		&& current.indexOf("/bxg/xcpage/courseDetails")==-1
 		&& current.indexOf("/xcviews/html/particulars.html")==-1){
 	
@@ -196,7 +203,6 @@ function isWeiXin() {
 		return false;
 	}
 }
-
 
 
 /**
@@ -354,6 +360,39 @@ function getUrlParam(name) {
 		return decodeURI(r[2]);
 	return null; // 返回参数值
 }
+
+
+//获取url中的参数，并返回一个对象
+function getUrlParamsReturnJson() {
+    var url = location.search; //获取url中"?"符后的字串
+    var theRequest = {};
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+};
+
+/*
+ * 传递一个json返回对象瓶装为ur请求地址，待参数的
+ */
+function createUrl(obj){
+    var length = obj && obj.length,
+        idx = 0,
+        url = obj.url + '?';
+    for (var key in obj) {
+        if (key != 'url' && obj[key] !== null) {
+            url += (key + '=' + encodeURIComponent(obj[key]) + '&');
+        }
+    }
+    return url.substring(0, url.lastIndexOf('&'));
+}
+
+
+
 
 // 钱的转换
 function money(pay) {
@@ -535,6 +574,10 @@ function commonLocalStorageSetItem(data){
 	localStorage.setItem("occupation",configresult.occupation);
 	localStorage.setItem("occupationOther",configresult.occupationOther);
 	localStorage.setItem("occupationText",configresult.occupationText);
+	
+	
+	
+	
 }
 
 /** * 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)

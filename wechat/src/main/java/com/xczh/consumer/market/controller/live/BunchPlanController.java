@@ -274,19 +274,6 @@ public class BunchPlanController {
 		LOGGER.info("list.size():"+list.size());
 		return ResponseObject.newSuccessResponseObject(list);
 	}
-	
-	public static void main(String[] args) {
-		//Calendar calendar = Calendar.getInstance();
-        /** 
-         * 获取 年 ，月 ，日 
-         */  
-//        LOGGER.info(calendar.get(Calendar.YEAR));
-//        //默认从0-11  
-//        LOGGER.info(calendar.get(Calendar.MONTH)+1);
-//        LOGGER.info(calendar.get(Calendar.DATE));
-		
-	}
-
 	/**
 	 * 线下培训班详情
 	 */
