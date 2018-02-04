@@ -132,8 +132,11 @@ function submit(){
 		}
 	}
 	//将查询条件更改
-	saisuanstr = saisuanstr.substring(0, saisuanstr.length-1);
-    
+	if(saisuanstr.length>0){
+		saisuanstr = saisuanstr.substring(0, saisuanstr.length-1);
+	}else{
+		saisuanstr = "无";
+	}
 	$("#sxtj").text(saisuanstr);
 	//默认搜索全部
 	queryDataByParams(paramsObj);

@@ -94,12 +94,12 @@ requestService("/xczh/bunch/offLine",null,
 //线下课banner下的城市点击
 $(".go_search").click(function(){
 	var city_class=$(this).find("span").text();
-	window.location.href="curriculum_table.html?search="+city_class+"";
+	window.location.href="curriculum_table.html?city="+city_class+"";
 })
 //线下课标题点击
 $(".all_class").click(function(){
 	var all_class=$(this).text();
-	window.location.href="curriculum_table.html?search="+all_class+"";
+	window.location.href="curriculum_table.html?city="+all_class+"";
 })
 //线下课结束------------------------------------------------------
 

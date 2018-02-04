@@ -1,7 +1,38 @@
-	var userLecturerId = getQueryString('userLecturerId');
-    var my_impression1="";
-    var my_impression2="";
-    var my_impression3="";
+var userLecturerId = getQueryString('userLecturerId');
+var my_impression1="";
+var my_impression2="";
+var my_impression3="";
+
+
+
+/**
+ * videoId : 视频播放id
+ * multimediaType:媒体类型  视频 1 音频 2  
+ */
+function chZJ(videoId,multimediaType){
+	var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width 
+	var playerheight = 8.95*21.8; //	屏幕分辨率的高：window.screen.height 
+	console.log(playerwidth);
+	var dataParams = {
+		playerwidth:playerwidth,	
+		playerheight:playerheight,
+		videoId:videoId,
+		multimedia_type:multimediaType
+	}
+	requestService("/bxg/ccvideo/commonCourseStatus", 
+			dataParams, function(data) {
+		if(data.success){
+			var playCodeStr = data.resultObject;
+			var playCodeObj = JSON.parse(playCodeStr);
+			console.log(playCodeObj.video.playcode);
+			$("#ccvideo").html(playCodeObj.video.playcode)
+			
+		}else{
+		}
+	},false);
+}    
+
+
 $(function(){
 //	回复弹窗
 $(".wrap_returned_btn .btn_littleReturn").click(function(){
@@ -111,8 +142,9 @@ requestService("/xczh/host/hostPageInfo",{
 	if(data.resultObject.lecturerInfo.video==''||data.resultObject.lecturerInfo.video==null){
 		$("#wrap_vedio").hide()
 	}else{
-		$("#wrap_vedio").html(template('data_vedio',data.resultObject.lecturerInfo));
-	
+		//$("#wrap_vedio").html(template('data_vedio',data.resultObject.lecturerInfo));
+		
+		chZJ(data.resultObject.lecturerInfo.video,1);
 	}
 
 //介绍
@@ -124,6 +156,10 @@ requestService("/xczh/host/hostPageInfo",{
 //坐诊医馆及时间
 		$("#sure_address").html(template('data_address',data.resultObject));
 
+		
+		
+		
+		
 
 });
 		
