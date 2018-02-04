@@ -16,21 +16,22 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 			};
 		});
 
-//上线下线的按钮点击事件
-$('#doc_Administration_bottom2').on('click','.downLine',function(){
-	var id = $(this).attr('data-id');
-	var status = $(this).attr('data-status');
-	RequestService("/medical/doctor/update", "post", {
-		id:id,
-		status:status
-	}, function(data) {
-		if(data.success == true){
-			//重新渲染列表
-			$('.doc_Administration_tabBtn').click();
-		}
-			
-	});
-})
+////上线下线的按钮点击事件
+//$('#doc_Administration_bottom2').on('click','.downLine',function(){
+//	var id = $(this).attr('data-id');
+//	var status = $(this).attr('data-status');
+//	RequestService("/medical/doctor/update", "post", {
+//		id:id,
+//		status:status
+//	}, function(data) {
+//		if(data.success == true){
+//			//重新渲染列表
+//			$('.doc_Administration_tabBtn').click();
+//			 courseVodList(1);
+//		}
+//			
+//	});
+//})
 	
 
 
