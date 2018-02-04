@@ -65,7 +65,6 @@ public class XzAlipayController {
 	/*
 	 * @Autowired private UserCenterAPI userCenterAPI;
 	 */
-
 	@Autowired
 	private OnlineUserService onlineUserService;
 
@@ -189,8 +188,6 @@ public class XzAlipayController {
 
 		alipay_request.setBizModel(model);
 		// 设置异步通知地址
-		
-		
 		alipay_request.setNotifyUrl(alipayConfig.notify_url);
 		/**
 		 * 设置同步地址(支付成功后的返回地址)
@@ -199,13 +196,11 @@ public class XzAlipayController {
 		 *  3、如果是从微信出来的,就跳到返回微信的页面
 		 */
 		List<OnlineCourse> cList = null;
-		
 		if (StringUtils.isNotBlank(formIsWechat)) {
-			
 			alipay_request.setReturnUrl(returnOpenidUri+"/xcview/html/goWechat.html");
 		} else {
-			cList = ((OnlineOrder) onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject()).getAllCourse();
 			
+			cList = ((OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject()).getAllCourse();
 			int cCount = cList.size();
 			if (cCount > 1) {
 				// 多个课程 跳到订单列表
@@ -213,12 +208,23 @@ public class XzAlipayController {
 			} else {
 				// 单个课程 直接跳到播放页
 				OnlineCourse payCourse = cList.get(0);
-				if (payCourse.getType() == 1) {
-					// 直播
-					alipay_request.setReturnUrl(returnOpenidUri+ "/bxg/xcpage/courseDetails?courseId="+ payCourse.getId());
-				} else {
-					// 视频 音频
-					alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/particulars.html?courseId="+ payCourse.getId());
+				
+				if(!payCourse.getCollection()){
+					if (payCourse.getType() == 1 || payCourse.getType() == 2) {
+						// 视频音频
+						alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/live_audio.html?courseId="+ payCourse.getId());
+					
+					} else if(payCourse.getType() == 3){
+						// 直播
+						alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/live_play.html?courseId="+ payCourse.getId());
+						
+					}else if(payCourse.getType() == 4){
+						// 下线班
+						alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/live_class.html?courseId="+ payCourse.getId());
+					}
+				}else{
+					//专辑
+					alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/live_album.html?courseId="+ payCourse.getId());
 				}
 			}
 		}

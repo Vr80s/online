@@ -226,24 +226,20 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 
 	@Override
 	public ResponseObject getOrderAndCourseInfoByOrderNo(String orderNo) throws SQLException {
+		
 		OnlineOrder order = orderMapper.getOnlineOrderByOrderNo(orderNo);
 		Map<String,Object> returnMap = new HashMap<String,Object>();
 		if(null == order){
 			return ResponseObject.newErrorResponseObject("查询不到订单信息！");
 		}
 		returnMap.put("orderNo", order.getOrderNo());
-		List<OnlineCourse> lists = orderMapper.getCourseByOrderId(order.getId());
-		if(null != lists && lists.size() > 0){
-			/*OnlineCourse course = lists.get(0);
-			returnMap.put("courseName", course.getGradeName());
-			returnMap.put("currentPrice", course.getCurrentPrice());
-			returnMap.put("orderId",order.getId());
-			returnMap.put("courseId",course.getId());
-			returnMap.put("smallimgPath",course.getSmallImgPath());*/
-		}
+		List<OnlineCourse> lists = orderMapper.getNewCourseByOrderId(order.getId());
 		order.setAllCourse(lists);
 		return ResponseObject.newSuccessResponseObject(order);
 	}
+	
+	
+	
 	@Override
 	public void updateUserParentId(String id, String shareCode) throws Exception {
 		Connection conn = JdbcUtil.getCurrentConnection();
@@ -305,7 +301,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 	}
 	@Override
 	public ResponseObject getOnlineOrderByOrderId(String orderId) throws SQLException {
-		
 		
 		OnlineOrder order = orderMapper.getOnlineOrderByOrderId(orderId);
 		Map<String,Object> returnMap = new HashMap<String,Object>();
@@ -462,6 +457,27 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		return  str;
 	}
 
+	@Override
+	public ResponseObject getNewOrderAndCourseInfoByOrderId(String orderId) throws SQLException {
+		OnlineOrder order =  orderMapper.getOnlineOrderByOrderId(orderId);
+		Map<String,Object> returnMap = new HashMap<String,Object>();
+		if(null == order){
+			return ResponseObject.newErrorResponseObject("查询不到订单信息！");
+		}
+		returnMap.put("orderNo", order.getOrderNo());
+		List<OnlineCourse> lists = orderMapper.getNewCourseByOrderId(order.getId());
+		if(null != lists && lists.size() > 0){
+			/*OnlineCourse course = lists.get(0);
+			returnMap.put("courseName", course.getGradeName());
+			returnMap.put("currentPrice", course.getCurrentPrice());
+			returnMap.put("orderId",order.getId());
+			returnMap.put("courseId",course.getId());
+			returnMap.put("smallimgPath",course.getSmallImgPath());*/
+		}
+		order.setAllCourse(lists);
+		return ResponseObject.newSuccessResponseObject(order);
+	}
+	
 
 	public static void main(String[] args) {
 
@@ -517,6 +533,8 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		//System.out.println(list.size());
 
 	}
+	
+	
 
 
 	@Override

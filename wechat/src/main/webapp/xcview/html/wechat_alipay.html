@@ -8,7 +8,7 @@
 
     <!-- input背景切换 -->
     <script type="text/javascript" src="../js/common/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="/xcviews/js/XCh5Pay.js"></script>
+    <script type="text/javascript" src="/xcview/js/XCh5Pay.js"></script>
 	
 	<style>
 		*{
@@ -70,12 +70,11 @@
         //轮循查看订单是否已支付 跳转 redirectUrl
         setInterval("whileSelectOrderStatus()","2000");
     }else {
-   	    jmpPayPage("/bxg/alipay/pay",0,"formIsWechat=1&orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo"),null);
+   	    jmpPayPage("/xczh/alipay/pay",2,"formIsWechat=1&orderId="+getQueryString("orderId"),null);
     }
 
 function whileSelectOrderStatus(){
-
-	requestService("/bxg/order/getByOrderId",{orderId:getQueryString("orderId")}, function(data) {
+	requestService("/xczh/order/getByOrderId",{orderId:getQueryString("orderId")}, function(data) {
 		 if (data.success) {
              var result = data.resultObject;
              if(result.orderStatus==1){

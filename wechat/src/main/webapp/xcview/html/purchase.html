@@ -12,27 +12,6 @@
 <meta name="description" content="" />
 <link rel="stylesheet" type="text/css" href="/xcview/css/purchase.css" />
 
-<!--这段meta代码需要加上，移动端自适应缩放用-->
-<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
-<!-- 网页自适应JS代码引入 -->
-<script src="/xcviews/js/js.js"></script>
-
-
-<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../js/template.js"></script>
-<!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
-<!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
-<!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
-<!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
-<script type="text/javascript" src="../js/purchase.js"></script>
-<style>
-
-</style>
-
-
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 	<header>
@@ -58,7 +37,7 @@
 							<span class="span1">{{gradeName}}</span>
 						</div>
 						<div class="both"></div>
-						<div class="purchase_details_money"><span>{{currentPrice}}</span>&nbsp;熊猫币</div>
+						<div class="purchase_details_money"><span>{{currentPrice*10}}</span>&nbsp;熊猫币</div>
 					</div>
 				</div>
 			</div>
@@ -98,7 +77,7 @@
 					<img src="../images/total_prices.png" />总价
 				</div>
 				<div class="purchase_list_one_right">
-					<span class="give_price"></span>&nbsp;熊猫币
+					<span class="give_price pay_xmb"></span>&nbsp;熊猫币
 				</div>
 				<div class="both"></div>
 			</div>
@@ -129,7 +108,7 @@
 				<div class="both"></div>
 			</ul>
 		</div>
-		<div class="balance">余额：<span>20</span>熊猫币</div>
+		<div class="balance">余额：<span id="xmb_ye">20</span>熊猫币</div>
 	</div>
 	<!--支付方式结束-->
 	
@@ -137,7 +116,7 @@
 	<!--底部开始-->
 	<!--<div class="footer_perch"></div>-->
 	<div class="footer">
-		<div class="footer_div">去支付<span>72</span>熊猫币</div>
+		<div class="footer_div" onclick="goPay()">去支付<span class="pay_xmb"></span><span  id="currency"></span></div>
 		<div class="footer_div_btn">进入充值页面</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
 		<!--<ul>
 			<li class="footer_one">
@@ -149,15 +128,16 @@
 		</ul>-->
 	</div>
 	<!--底部结束-->
-	
-	
 </body>
 
-
-
-
-
-
+<script src="/xcviews/js/js.js"></script>
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+  <script type="text/javascript" src="/xcview/js/XCh5Pay.js"></script>
+<script type="text/javascript" src="../js/purchase.js?v=1.2"></script>
 <!--点击更多隐藏显示结束-->
 <script type="text/javascript">
 	window.onload = function(){
@@ -168,16 +148,24 @@
 			$(".li0").addClass("ul_li");
 			$(".li1").removeClass("ul_li");
 		});	
-		
-		
+
+
+
 		var aBtn=$('#ul li');
       	for(i=0;i<aBtn.length;i++){
 	        $(aBtn[i]).click(function(){
-	          for(i=0;i<aBtn.length;i++){
-	            $(aBtn[i]).removeClass('ul_li0');
-	            $(aBtn[i]).addClass('ul_li');
-	            $(aBtn[i]).find(".ul_li_bg").show();
-	        }
+		        for(i=0;i<aBtn.length;i++){
+			        $(aBtn[i]).removeClass('ul_li0');
+			        $(aBtn[i]).addClass('ul_li');
+			        $(aBtn[i]).find(".ul_li_bg").show();
+		        }
+		        var imgClass = $(this).find("img").attr("class");
+		        if(imgClass == "BTCpanda"){
+		        	$("#currency").html("熊猫币");
+		        }else{
+		        	$("#currency").html("元");
+		        }
+		        
 	          	$(this).removeClass();
 	          	$(this).addClass('ul_li0');
 	           	$(aBtn[i]).find(".ul_li_bg").hide();
@@ -186,8 +174,4 @@
       	$(aBtn[0]).click();
 	};
 </script>
-
-
-
-
 </html>

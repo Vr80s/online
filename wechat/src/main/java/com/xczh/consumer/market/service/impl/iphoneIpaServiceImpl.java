@@ -91,12 +91,9 @@ public class iphoneIpaServiceImpl implements iphoneIpaService {
     		//判断这个订单号中是否已经存在了，如果存在不存了
     		Integer c = iphoneIpaMapper.findIap(orderNo);
     		if(c<=0){
-    			//保存这个购买的信息
-    			iphoneIpaMapper.save(null,actualPrice,TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12),
-    		        		orderNo,userId,"购买课程："+courderName+"花费"+xmb+"个熊猫币",0);
+    			
     			//扣减熊猫币
-    			userCoinService.updateBalanceForBuyCourse(userId,OrderFrom.valueOf(orderForm) 
-    					,xmb, orderNo);
+    			userCoinService.updateBalanceForBuyCourse(userId,OrderFrom.valueOf(orderForm),xmb, orderNo);
 		        return ResponseObject.newSuccessResponseObject("支付成功");
     		}else{
     			return ResponseObject.newErrorResponseObject("此订单已支付过");
