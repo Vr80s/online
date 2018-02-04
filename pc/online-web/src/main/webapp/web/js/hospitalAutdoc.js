@@ -36,7 +36,6 @@ $(function() {
 			debugger
 			//每次请求完数据就去渲染分页部分
 			if(data.resultObject.pages > 1) { //分页判断
-				$(".pages").removeClass("hide");
 				$(".not-data").remove();
 				$(" .pages").css("display", "block");
 				$(" .pages .searchPage .allPage").text(data.resultObject.pages);
@@ -50,7 +49,7 @@ $(function() {
 					}
 				});
 			} else {
-//				$(".pages").addClass("display", "none");
+				$(".pages").css("display", "none");
 			}
 		});
 	}
@@ -90,11 +89,11 @@ $(function() {
 	})
 	
 	//下线功能
-	$('#doc_Administration_bottom2').on('click','.downLine',function(){
-		if($(this).attr('data-status') == true){
-			alert(111)
-		}
-		//医师数据上传
+//	$('#doc_Administration_bottom2').on('click','.downLine',function(){
+//		if($(this).attr('data-status') == true){
+//			alert(111)
+//		}
+//		医师数据上传
 //		RequestService("/medical/doctor/update", "post", {
 //			id:
 //			status:
@@ -102,7 +101,7 @@ $(function() {
 //			console.log(data);
 //
 //		})
-	})
+//	})
 	
 
 	//医师编辑功能

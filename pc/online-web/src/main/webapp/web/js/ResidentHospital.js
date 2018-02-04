@@ -46,12 +46,12 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
 	       		$('#hos_Administration .hos_renzheng_inf .bottomContent2').addClass('hide');
 	       		
-	       		if(data.resultObject.indexOf(3) != -1||data.resultObject.indexOf(4) != -1||data.resultObject.indexOf(5) != -1||data.resultObject.indexOf(5) != -1){
+	       		if(data.resultObject.indexOf(4) != -1||data.resultObject.indexOf(6) != -1){
 	       			//认证中
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').addClass('hide');
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent2').removeClass('hide');
 
-	       		}else if(data.resultObject.indexOf(7) != -1){
+	       		}else if(data.resultObject.indexOf(7) != -1 || data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
 	       			//未认证
 //	       			$('#docNoPass_tip').removeClass('hide');	
 	       			$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');

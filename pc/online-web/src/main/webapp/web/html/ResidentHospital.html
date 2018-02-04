@@ -922,7 +922,7 @@
 		<td>
 			胃病、针灸、养生食疗
 		</td>
-		{{if item.status == true}}
+		{{if item.status}}
 		<td>
 			上线
 		</td>
@@ -933,9 +933,9 @@
 		{{/if}}
 		<td>
 			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
-			{{if item.status == true}}
+			{{if item.status}}
 			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=0 class="upRoDown">下线</a>
-			{{else if item.status == false}}
+			{{else}}
 			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=1 class="upRoDown">上线</a>
 			{{/if}}
 			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>
