@@ -3,6 +3,7 @@ var my_impression2="";
 var my_impression3="";
 var course_id ="";
 var criticize_id = "";
+var LecturerId="";
 $(function(){
 
 
@@ -62,7 +63,8 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-
+        //获取讲师id
+        LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
@@ -173,14 +175,30 @@ function reportComment() {
 
     //var s = $('.active_color').val();
     var comment_detailed = $('#comment_detailed').val();
-
+    if(comment_detailed==""){
+        alert("内容不能为空")
+        return
+    }
+    var overallLevel=0;
+    if(my_impression1!=""){
+        overallLevel = parseInt(my_impression1)+1
+    }
+    var deductiveLevel=0;
+    if(my_impression2!=""){
+        deductiveLevel = parseInt(my_impression2)+1
+    }
+    var contentLevel=0;
+    if(my_impression3!=""){
+        contentLevel = parseInt(my_impression3)+1
+    }
     requestService("/xczh/criticize/saveCriticize",{
-        overallLevel:parseInt(my_impression1)+1,
-        contentLevel:parseInt(my_impression3)+1,
-        deductiveLevel:parseInt(my_impression2)+1,
+        overallLevel:overallLevel,
+        deductiveLevel:deductiveLevel,
+        contentLevel:contentLevel,
         criticizeLable:str,
         content:comment_detailed,
-        courseId : course_id
+        courseId : course_id,
+        userId:LecturerId
     },function(data) {
         //	课程名称/等级/评论
 
@@ -190,6 +208,7 @@ function reportComment() {
         $(".wrapAll_comment").hide();
         $(".bg_modal").hide();
         document.getElementById("comment_detailed").value="";
+        del();
         refresh();
     });
 }
@@ -197,7 +216,10 @@ function reportComment() {
 //回复评论
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
-
+    if(comment_detailed==""){
+        alert("内容不能为空")
+        return
+    }
     requestService("/xczh/criticize/saveReply",{
 
         content:comment_detailed,
@@ -210,6 +232,7 @@ function replyComment() {
         $(".bg_userModal").hide();
         $(".wrapLittle_comment").hide();
         document.getElementById("littlt_return").value="";
+        del();
         refresh();
     });
 }
@@ -225,14 +248,14 @@ function updatePraise(id,isPraise) {
 }
 //点击所有评论跳转
 function btn_allComment(){
-    window.location.href="all_comment.html?courseId="+course_id+"";
+    window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
 }
 
 
 
 
 
-//删除评论状态
+//清空评论状态
 function del(){
     //星星
     var star='../images/xing1.png';
