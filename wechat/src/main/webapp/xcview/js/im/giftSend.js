@@ -1,7 +1,6 @@
 
 // 房间JID
 //var ROOM_JID = course_id+'xczh@conference.47.92.39.21';
-
 // XMPP连接
 var connection = null;
 
@@ -14,6 +13,33 @@ var jid = "";
 var giftList;
 // 初始化没有参数的队列
 var queue = new Queue();
+
+/*
+ * 获取im配置信息
+ */
+var guId = "";
+var guPwd = "";
+var room_id="";
+var host = "";
+var BOSH_SERVICE="";
+var ROOM_JID="";
+/**
+ * 这个
+ * @param status
+ * @returns
+ */
+var course_id = getQueryString("courseId");
+requestService("/xczh/common/getImServerConfig", {courseId : courseId}, function(data) {
+	if (data.success) {
+		guId = data.resultObject.guId;
+		guPwd = data.resultObject.guPwd;
+		room_id=data.resultObject.roomId;
+		host = data.resultObject.host;
+		BOSH_SERVICE=data.resultObject.boshService;
+		ROOM_JID=data.resultObject.roomJId;
+	}
+},false);
+
 
 // 连接状态改变的事件
 function onConnect(status) {

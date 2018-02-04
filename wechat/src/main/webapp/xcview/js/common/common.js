@@ -45,7 +45,6 @@ function getServerHost(){
 /**
  * courseId 课程id
  * 如果页面访问是pc浏览器访问跳转到官网浏览器  falg： false 跳到官网首页   ture 跳到课程页面
- * 
  */ 
 function h5PcConversions(falg,courserId){
 	var browser={
@@ -189,22 +188,6 @@ function requestService(url, param, callback, ac) {
 		}
 	});
 }
-
-/**
- * 判断是否是
- */
-
-function isWeiXin() {
-	var ua = window.navigator.userAgent.toLowerCase();
-	console.log(ua);//mozilla/5.0 (iphone; cpu iphone os 9_1 like mac os x) applewebkit/601.1.46 (khtml, like gecko)version/9.0 mobile/13b143 safari/601.1
-	if (ua.match(/MicroMessenger/i) == 'micromessenger') {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-
 /**
  * 截取url传递的参数
  * @param name 传递 key  得到value 
@@ -247,109 +230,13 @@ function isLoginJump(){
   }
 }
 
-/**
- * 取消关注 /bxg/focus/add
- * 讲师id
- */
-$(".guanzhu1").click(function(){
-	console.log($("#teacherId").val());
-	var teacherId = $("#teacherId").val();
-	if(teacherId == ""){
-		alert("获取讲师信息有误");
-		return;
-	}
-	requestService("/bxg/focus/add", {
-		lecturerId : teacherId
-	}, function(data) {
-		if(data.success){
-			//alert("关注成功");
-			$(".guanzhu1").hide();
-			$(".guanzhu2").show();
-		};
-	})
-});
-/**
- * 取消关注 /bxg/focus/cancel
- * 讲师id
- */
-$(".guanzhu2").click(function(){
-	console.log($("#teacherId").val());
-	var teacherId = $("#teacherId").val();
-	if(teacherId == ""){
-		alert("获取讲师信息有误");
-		return;
-	}
-	requestService("/bxg/focus/cancel", {
-		lecturerId : teacherId
-	}, function(data) {
-		if(data.success){
-			//alert("取消关注成功");
-			//var a = this;
-			$(".guanzhu2").hide();
-			$(".guanzhu1").show();
-		};
-	})
-});
+
 /**
  * 公共点击事件
  */
 
 /**************************************  直播课程点击事件,因为只有直播有预约  *************************88**************************/
 
-/**
- * courseId 课程id
- * type : 去直播详情页还是点播详情页
- * page : 记录历史用于返回页面使用   page：1 返回列表页  2 返回历史记录页 3 返回搜索结果页  4 返回用户中小心页面
- */
-
-mui(".nav-content").on('click', '.gotodetails', function() {
-	window.location.href = "/bxg/page/my_course";
-})
-
-/**
- * 增加观看记录
- * 课程id
- */
-function addHistory(courseId,type){
-	requestService("/bxg/history/add", {
-		course_id : courseId,
-		type:type
-	},function(data) {
-		if (data.success) { //去详情页面
-			console.log("增加观看记录成功");
-		}else{
-			console.log("增加观看记录失败");
-		}
-	})
-}
-/**
- * 验证密码
- * 课程id
- */
-function courseIsPwd(courseId){
-	var falg = true;
-	requestService("/bxg/common/courseIsPwd", {
-		course_id : courseId
-	}, function(data) {
-		
-		falg =  data.success;
-	},false)
-	return  falg;
-}
-
-/**
- * 验证是否付费
- * 课程id
- */
-function courseIsBuy(courseId){
-	var falg = true;
-	requestService("/bxg/common/courseIsBuy", {
-		course_id : courseId
-	}, function(data) {
-		falg =  data.success;
-	},false)
-	return  falg;
-}
 
 // 获取url中的参数
 function getUrlParam(name) {
@@ -391,38 +278,6 @@ function returnstring(zifu) {
 	}
 	return zifu;
 }
-// 浏览器端h5支付
-function browserPay(userId, orderNo) {
-
-	var payc = {
-		userId : userId,
-		orderNo : orderNo
-	}
-
-	requestService(
-			"/bxg/test/h5pay",
-			payc,
-			function(data) {
-				// if(data.success) {
-				var params = data.resultObject;
-				console.log(params.mweb_url);
-				/*
-				 * 正常流程用户支付完成后会返回到指定页面，可以在MWEB_URL后凭借redirect_url参数，来指定回调页面。
-				 * 如：您希望用户支付完成后跳转至https://www.wechatpay.com.cn，则可以做如下处理
-				 * 假设您通过统一下单接口获到的MWEB_URL=
-				 * https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx20161110163838f231619da20804912345&package=1037687096
-				 * 则拼接后的地址为MWEB_URL= https://wx.tenpay.com/cgi-bin/mmpayweb-bin/
-				 * checkmweb?prepay_id=wx20161110163838f231619da20804912345
-				 * &package=1037687096&
-				 * redirect_url=https%3A%2F%2Fwww.wechatpay.com.cn
-				 */
-				var redirect_url = encodeURIComponent(getServerHost()+"/bxg/page/wait_money");
-				// 查看订单页面
-				// window.location.href = params.mweb_url
-				// +"&redirect_url="+redirect_url;
-				window.location.href = params.mweb_url + "&redirect_url="+getServerHost()+"/bxg/page/wait_money";
-			});
-}
 
 //  公众号付款
 function qupay(userId, orderNo) {
@@ -430,7 +285,6 @@ function qupay(userId, orderNo) {
 		userId : userId,
 		orderNo : orderNo
 	}
-
 	requestService("/bxg/wxpay/h5Prepay", payc, function(data) {
 		if (data.success) {
 			var resultpay = data.resultObject;
@@ -587,9 +441,4 @@ Date.prototype.pattern=function(fmt) {
 	    }         
 	}         
 	return fmt;         
-}       
- 
-var date = new Date();      
-//window.alert(date.pattern("yyyy-MM-dd hh:mm:ss"));
-
-
+}

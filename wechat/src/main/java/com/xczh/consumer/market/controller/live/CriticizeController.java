@@ -1,6 +1,8 @@
 package com.xczh.consumer.market.controller.live;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,6 +47,7 @@ public class CriticizeController {
 		if(ou == null){
 			return ResponseObject.newSuccessResponseObject("登录失效");
 		}
+		criticize.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 		criticize.setCreatePerson(ou.getId());
 		if(criticize.getContent().length()>5000){
 			return ResponseObject.newErrorResponseObject("抱歉评论内容过长");
@@ -59,27 +62,23 @@ public class CriticizeController {
 	@RequestMapping("getCriticizeList")
 	@ResponseBody
 	public ResponseObject getVideoCriticize(HttpServletRequest req,
-			HttpServletResponse res)
-			throws Exception {
-		
-		String userId = req.getParameter("userId");
-		String courseId = req.getParameter("courseId");
-		if(null ==userId && null == courseId){
-			return ResponseObject.newErrorResponseObject("课程id和讲师id至少存在一个");
-		}
-		String pageSizeStr = req.getParameter("pageSize");
-		String pageNumberStr = req.getParameter("pageNumber");
-		int pageSize = 20;
-		int pageNumber = 0;
-		if(StringUtils.isNotBlank(pageSizeStr)){
-			pageSize = Integer.parseInt(req.getParameter("pageSize"));
-		}
-		if(StringUtils.isNotBlank(pageNumberStr)){
-			pageNumber = Integer.parseInt(req.getParameter("pageNumber"));;
-		}
+			HttpServletResponse res,@RequestParam(required=false)String userId,
+			@RequestParam(required=false)Integer courseId,
+			@RequestParam(required=false)Integer pageSize,
+			@RequestParam(required=false)Integer pageNumber
+			)throws Exception {
+	
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		Page<Criticize> pageList  = criticizeService.getUserCriticize(userId,courseId,pageNumber, pageSize,user!= null ? user.getUserId() :null);
-		return ResponseObject.newSuccessResponseObject(pageList);
+		Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, pageSize,user!= null ? user.getUserId() :null);
+		/**
+		 * 这里判断用户发表的评论中是否包含发表心心了，什么的如果包含的话就不返回了
+		 * 		并且判断这个用户有没有购买过这个课程
+		 */
+		Integer cv = criticizeService.findUserFirstStars(courseId,user.getId());
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("items", pageList.getItems());
+		map.put("commentCode", cv);
+		return ResponseObject.newSuccessResponseObject(map);
 	}
     /**
      * 点赞、取消点赞
@@ -113,11 +112,15 @@ public class CriticizeController {
      */
     @RequestMapping("saveReply")
 	@ResponseBody
-    public ResponseObject saveReply(HttpServletRequest request,String content, String criticizeId) {
+    public ResponseObject saveReply(HttpServletRequest request,String content, 
+    		String criticizeId) {
         //获取当前登陆用户信息
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if(user!=null) {
-            criticizeService.saveReply(content, criticizeId, user.getId());
+        	
+        	//这个是讲师id
+            criticizeService.saveReply(content,user.getId(),criticizeId);
+            
             return ResponseObject.newSuccessResponseObject("回复成功！");
         }else{
             return ResponseObject.newErrorResponseObject("用户未登录！");

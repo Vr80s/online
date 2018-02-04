@@ -37,6 +37,6 @@
 	</select>
 	<!-- 根据id和 -->
 	<select id="findFoursByUserIdAndlecturerId" resultType="com.xczhihui.wechat.course.model.Focus" >
-		select * from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId}
+		select * from oe_focus where user_id =#{userId}  and  lecturer_id =#{lecturerId} limit 1
 	</select>
 </mapper>

@@ -283,25 +283,4 @@ public class OnlineOrderController {
 		}
 		return ResponseObject.newSuccessResponseObject(onlineOrderService.listPayRecordItem(req.getParameter("orderNo").toString()));
 	}
-	
-	/**
-	 * 判断此用户在下单的时候是否已经购买过这个订单中的课程
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "orderIsExitCourseIsBuy")
-	@ResponseBody
-	public ResponseObject orderIsExitCourseIsBuy(HttpServletRequest req,
-                                          HttpServletResponse res, Map<String, String> params) throws Exception{
-		String orderId = req.getParameter("orderId");
-		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
-		if (null == orderId || null == onlineOrder) {
-			return ResponseObject.newErrorResponseObject("参数异常");
-		}
-		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(orderId,onlineOrder.getUserId());
-		return ro;
-	}
 }

@@ -70,7 +70,7 @@
         //轮循查看订单是否已支付 跳转 redirectUrl
         setInterval("whileSelectOrderStatus()","2000");
     }else {
-    jmpPayPage("/bxg/alipay/pay",0,"formIsWechat=1&orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo"),null);
+   	    jmpPayPage("/bxg/alipay/pay",0,"formIsWechat=1&orderId="+getQueryString("orderId")+"&orderNo="+getQueryString("orderNo"),null);
     }
 
 function whileSelectOrderStatus(){

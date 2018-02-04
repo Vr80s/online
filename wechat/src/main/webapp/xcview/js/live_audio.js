@@ -65,9 +65,13 @@ $(function(){
 		courseId : courseId	
 	},function(data) {
 //	CC视频ID
-	var	videoId = data.resultObject.directId;
+	    var	videoId = data.resultObject.directId;
+	    var	type = data.resultObject.type;
+	
 		console.log(videoId)
-		chZJ(videoId)
+		
+		//初始化视频资源
+		chZJ(videoId,type);
 		
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
@@ -97,26 +101,23 @@ $(function(){
     refresh();
     
     
-
-//  CC视频
-//视频id
-function chZJ(videoId){
+/**
+ * videoId : 视频播放id
+ * multimediaType:媒体类型  1
+ */
+function chZJ(videoId,multimediaType){
 	/**
 	 * 请求代码啦
 	 */
-//	屏幕分辨率的高：window.screen.height 
-//	屏幕分辨率的宽：window.screen.width 
-	var playerwidth = window.screen.width;
-	var playerheight = 8.95*21.8;
-//	var playerwidth = 300;
-//	var playerheight = 300;
+	var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width 
+	var playerheight = 8.95*21.8; //	屏幕分辨率的高：window.screen.height 
 	console.log(playerwidth);
 	var dataParams = {
 		playerwidth:playerwidth,	
 		playerheight:playerheight,
 		videoId:videoId,
-//		multimedia_type:multimediaType
-		multimedia_type:1
+		multimedia_type:multimediaType
+//		multimedia_type:1
 	}
 	requestService("/bxg/ccvideo/commonCourseStatus", 
 			dataParams, function(data) {
@@ -127,7 +128,7 @@ function chZJ(videoId){
 //			$("#video_v").html(playCodeObj.video.playcode)
 			$("#video_v").html(playCodeObj.video.playcode)
 			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
-		 	/**
+			/**
 	    	 * 初始化评论区
 	    	 */
 	    	//getVideoCriticize(1,vid);
