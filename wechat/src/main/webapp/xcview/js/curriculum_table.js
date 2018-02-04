@@ -11,6 +11,16 @@ if(stringnull(defaultKey)){
 	$(".header_seek_main img").html(defaultKey);
 }
 /*
+ * 点击进入搜索页面
+ */
+$(".header_seek").click(function(){
+	
+	location.href='/xcview/html/search.html';
+})
+
+
+
+/*
  * 条件渲染
  */
 requestService("/xczh/classify/listScreen",null,function(data){
@@ -101,8 +111,6 @@ function submit(){
 			}
 		}
 	}
-	
-	cityTypeArray = data.resultObject[3];
 	if(stringnull(city)){
 		paramsObj.city = city;
 		for (var int = 0; int < cityTypeArray.length; int++) {
