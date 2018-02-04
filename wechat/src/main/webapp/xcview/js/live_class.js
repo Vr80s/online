@@ -275,3 +275,9 @@ function del(){
     my_impression3=""
 
 }
+
+//点击地址查看地图
+function baiduMap(address,gradeName){
+    text = address.replace(/\s/ig,'');
+    window.location.href="site.html?address="+text+"&gradeName="+gradeName+"";
+}
