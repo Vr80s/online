@@ -112,14 +112,14 @@
 										<div class="touxiang_picUpdata">
 											<span style="vertical-align: top;"><em>*</em> 医馆头像</span>
 											<span class="touxiang_pic" onclick="$('#touxiang_pic_ipt').click()">
-									<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
-								</span>
+												<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p>
+												<p style="text-align: center;color: #999;font-size: 14px;">求真相</p>
+											</span>
 											<span class="touxiang_pic_tip">
-									<p>请上传清晰头像</p>
-									<p>文件小于2M</p>
-									<p>支持JPG/PNG等格式图片</p>
-								</span>
+												<p>请上传清晰头像</p>
+												<p>文件小于2M</p>
+												<p>支持JPG/PNG等格式图片</p>
+											</span>
 											<input type="file" name="pic" id="touxiang_pic_ipt" style="position: absolute;visibility: hidden;" />
 											<p class="warning hide" style="margin-left:110px;padding-left: 0px;">请上传真实头像</p>
 										</div>
@@ -169,6 +169,9 @@
 									<div class="personIntroduct">
 										<span><em>*</em>  医馆介绍</span>
 										<textarea name="" rows="" cols="" maxlength="500" placeholder="请输入500字以内医馆简介" style="resize: none;"></textarea>
+										<!--<div style="display: inline-block;vertical-align: top;">
+											<script id="editor2" type="text/plain" style="width:540px;height:160px;"></script>
+										</div>-->
 										<p class="warning hide" style="padding-left: 0px;">医馆介绍不能为空</p>
 									</div>
 
@@ -1049,7 +1052,7 @@
 				'unlink', //取消链接
 				'simpleupload', //单图上传
 				// 'insertimage', //多图上传
-				'emotion', //表情
+//				'emotion', //表情
 			]
 		],
 		autoHeightEnabled: false,
@@ -1088,7 +1091,7 @@
 				'unlink', //取消链接
 				'simpleupload', //单图上传
 				// 'insertimage', //多图上传
-				'emotion', //表情
+//				'emotion', //表情
 			]
 		],
 		autoHeightEnabled: false,
@@ -1096,6 +1099,46 @@
 		enableAutoSave: false,
 		imagePopup: false
 	});
+	
+	
+//		var ue = UE.getEditor('editor2', {
+//		toolbars: [
+//			[
+//				'undo', //撤销
+//				'redo', //重做
+//				'bold', //加粗
+//				'forecolor', //字体颜色
+//				'backcolor', //背景色
+//				'indent', //首行缩进
+//				'removeformat', //清除格式
+//				'formatmatch', //格式刷
+//				'blockquote', //引用
+//				'fontfamily', //字体
+//				'fontsize', //字号
+//				'paragraph', //段落格式
+//				'italic', //斜体
+//				'underline', //下划线
+//				'strikethrough', //删除线
+//				'superscript', //上标
+//				'subscript', //下标
+//				'touppercase', //字母大写
+//				'tolowercase', //字母小写
+//				'justifyleft', //居左对齐
+//				'justifyright', //居右对齐
+//				'justifycenter', //居中对齐
+//				'justifyjustify', //两端对齐
+//				'link', //超链接
+//				'unlink', //取消链接
+//				'simpleupload', //单图上传
+//				// 'insertimage', //多图上传
+////				'emotion', //表情
+//			]
+//		],
+//		autoHeightEnabled: false,
+//		autoFloatEnabled: true,
+//		enableAutoSave: false,
+//		imagePopup: false
+//	});
 
 	function getContent() {
 		var arr = [];
