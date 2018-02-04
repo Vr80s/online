@@ -87,7 +87,7 @@
 					<!--被回复的内容灰色部分-->
 					{{if item.reply.length > 0}}
 					<div class="uesr_returned">
-						<p class="returned_id z">{{item.reply[0].onlineUser.name}}</p>
+						<p class="returned_id z">{{item.reply[0].onlineUser.name}}：</p>
 						<p class="returned_text">{{item.reply[0].replyContent}}</p>
 					</div>
                     {{/if}}
@@ -129,10 +129,10 @@
 			<img src="../images/inp_retured.png"/>
 			<span>来点儿神聊</span>
 		</div>
-		<div class="all_returned_num y">
+		<!--<div class="all_returned_num y">
 			<img src="../images/returned.png"/>
 			<p>评论999+</p>
-		</div>
+		</div>-->
 	</div>
 
 
@@ -156,8 +156,8 @@
 	
 	<div class="wrapAll_comment">
 		<script type="text/html" id="id_show_xingxing">
-		<p class="set_title">发布评论</p>
-		{{if items==1&&items!=2}}}
+			<p class="set_title">发布评论</p>
+			{{if items==1}}
 		<!--星星五星好评-->
 		<div class="my_impression1 cl mar_bot">
 			<p>总体印象</p>

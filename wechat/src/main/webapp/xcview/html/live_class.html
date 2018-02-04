@@ -28,7 +28,7 @@
 	<div class="wrap-header">
 		<div class="header">		
 			<p>线下课</p>
-			<div class="arror_return z">
+			<div class="arror_return z" onclick="javascript:history.go(-1);">
 				<img src="../images/back icon.png"/>
 			</div>
 			<div class="header_news">
@@ -101,7 +101,7 @@
 		</ul>
 		<ul class="playTime z" style="border-bottom: 0;">
 			<li><img src="../images/population.png"/><span>上课地址：{{city}}</span></li>
-			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;"  /></li>
+			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;" onclick="baiduMap('{{address}}','{{gradeName}}')" /></li>
 		</ul>
 		</script>
 	</div>
@@ -289,7 +289,7 @@
 		<script type="text/html" id="id_show_xingxing">
 
 		<p class="set_title">发布评论</p>
-		{{if items==1&&items!=2}}}
+		{{if items==1}}
 		<!--星星五星好评-->
 		<div class="my_impression1 cl mar_bot">
 			<p>总体印象</p>

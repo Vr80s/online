@@ -3253,12 +3253,12 @@ $(function() {
         sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
       }
     });
-  $("#choosePro").html("<option id='chooseCity' value='-1'>请选择省</option>"+sb.toString());
+$("#choosePro").html("<option id='choose' value='-1'>请选择省</option>"+sb.toString());
   doProvAndCityRelation();
 });
 // 省值变化时 处理市
 function doProvAndCityRelation() {
-	debugger;
+
   var city = $("#citys");
      city.empty();
 

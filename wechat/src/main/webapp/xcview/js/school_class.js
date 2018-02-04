@@ -3,6 +3,7 @@ var my_impression2="";
 var my_impression3="";
 var course_id ="";
 var criticize_id = "";
+var LecturerId="";
 $(function(){
 
 
@@ -62,7 +63,12 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-
+		//详情页的banner
+		var school_img = document.createElement("img");
+		school_img.src = data.resultObject.smallImgPath;
+		$(".play_video").append(school_img)
+        //获取讲师id
+        LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
@@ -108,7 +114,7 @@ function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
         pageNumber:1,
-        pageSize:3
+        pageSize:6
     },function(data) {
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
@@ -116,9 +122,11 @@ function refresh(){
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
             criticize_id=this.id;
-            $(".bg_userModal").show();
+            /*$(".bg_userModal").show();
             $(".wrapLittle_comment").show();
-            $("#littlt_return").focus()
+            $("#littlt_return").focus()*/
+            //跳转到评论列表页
+            btn_allComment();
         });
         $(".bg_userModal").click(function(){
             $(".bg_userModal").hide();
@@ -128,7 +136,7 @@ function refresh(){
         $(".btn_click_zan").click(function(){
             //评论id
             criticize_id=$(this).attr("data-id");
-            var p = $(this).find('span').html();
+            /*var p = $(this).find('span').html();
 
             var src = $(this).find('img').attr('src');
             if(src.indexOf("zan001")>-1){
@@ -140,7 +148,9 @@ function refresh(){
                 $(this).find('img').attr('src','../images/zan001.png');
                 $(this).find('span').html(parseInt(p)+1);
                 updatePraise(criticize_id,true);
-            }
+            }*/
+            //跳转到评论列表页
+            btn_allComment();
         });
 
     });
@@ -158,14 +168,18 @@ function reportComment() {
 
     //var s = $('.active_color').val();
     var comment_detailed = $('#comment_detailed').val();
-
+    if(comment_detailed==""){
+        alert("内容不能为空")
+        return
+    }
     requestService("/xczh/criticize/saveCriticize",{
         overallLevel:parseInt(my_impression1)+1,
         contentLevel:parseInt(my_impression3)+1,
         deductiveLevel:parseInt(my_impression2)+1,
         criticizeLable:str,
         content:comment_detailed,
-        courseId : course_id
+        courseId : course_id,
+        userId:LecturerId
     },function(data) {
         //	课程名称/等级/评论
 
@@ -182,7 +196,10 @@ function reportComment() {
 //回复评论
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
-
+    if(comment_detailed==""){
+        alert("内容不能为空")
+        return
+    }
     requestService("/xczh/criticize/saveReply",{
 
         content:comment_detailed,
@@ -210,7 +227,7 @@ function updatePraise(id,isPraise) {
 }
 //点击所有评论跳转
 function btn_allComment(){
-    window.location.href="all_comment.html?courseId="+course_id+"";
+    window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
 }
 
 
@@ -262,4 +279,11 @@ function del(){
     my_impression2="";
     my_impression3=""
 
+}
+
+
+//点击地址查看地图
+function baiduMap(address,gradeName){
+    text = address.replace(/\s/ig,'');
+    window.location.href="site.html?address="+text+"&gradeName="+gradeName+"";
 }

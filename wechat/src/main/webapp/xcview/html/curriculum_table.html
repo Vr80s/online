@@ -8,15 +8,7 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <link rel="stylesheet" href="../css/curriculum_table.css" />
-
-
-	
 </head>
 <body style="background: #F8F8F8;">
 	
@@ -28,7 +20,7 @@
 			</div>
 			<div class="header_seek"> 
 				<div class="header_seek_main">
-					<img src="/xcview/images/sousuo0.png" alt="">针灸疗法
+					<img src="/xcview/images/sousuo0.png" alt="" onclick="queryByKey()">
 				</div>
 			</div>
 		</div>
@@ -47,725 +39,52 @@
 			    <div class="find_nav_left">
 			        <div class="find_nav_list" style="left: 0px;">
 			            <ul id="pagenavi1">
-			        
-			                <li class="find_nav_cur"><a href="javascript: ;" class="">全部</a></li>
-			                <li><a href="javascript: ;">各式推拿</a></li>
+			                <!-- <li class="find_nav_cur"><a href="javascript: ;" class="">全部</a></li> -->
+			                <!-- <li><a href="javascript: ;">各式推拿</a></li>
 			                <li><a href="javascript: ;">针灸疗法</a></li>
 			                <li><a href="javascript: ;">美容养生</a></li>
 			                <li><a href="javascript: ;">按摩按摩</a></li>
-			                <li><a href="javascript: ;">推拿推拿</a></li>
-			                <li class="sideline" style="left: 0px; width: 96px;"></li>
+			                <li><a href="javascript: ;">推拿推拿</a></li> -->
+			                <!-- <li class="sideline" style="left: 0px; width: 96px;"></li> -->
 			            </ul>
-			
 			        </div>
 			    </div>
 			</div>
 		</div>
-		
-		
+	</div>
+	 <div class="hint">
+		筛选：<span id="sxtj">针灸疗法·免费·线下课程·北京</span>
 	</div>
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
 		<ul class="box01_list" style="position: relative; transition: left 0ms ease-out; width: 19200px; left: 0px;">
+			
 			<li class="li_list">
 				<div class="li_list_main">
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/frequency.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/offline.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>海口市</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!--24小时以外的显示日期-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/learn.png" alt=""><span>12月21日</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!--24小时以内显示具体时间-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/time_bg0.png" alt=""><span>12:21</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-					
 			</li>
 			<li class="li_list">
 				<div class="li_list_main">
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>9999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/frequency.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/offline.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>海口市</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!--24小时以外的显示日期-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/learn.png" alt=""><span>12月21日</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!--24小时以内显示具体时间-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/time_bg0.png" alt=""><span>12:21</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-					
 			</li>
 			<li class="li_list">
 				<div class="li_list_main">
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/frequency.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/offline.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>海口市</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!--24小时以外的显示日期-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/learn.png" alt=""><span>12月21日</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!--24小时以内显示具体时间-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/time_bg0.png" alt=""><span>12:21</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-					
 			</li>
 			<li class="li_list">
 				<div class="li_list_main">
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/frequency.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/offline.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>海口市</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!--24小时以外的显示日期-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/learn.png" alt=""><span>12月21日</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!--24小时以内显示具体时间-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/time_bg0.png" alt=""><span>12:21</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-					
 			</li>
 			<li class="li_list">
 				<div class="li_list_main">
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/frequency.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/offline.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>海口市</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!--24小时以外的显示日期-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/learn.png" alt=""><span>12月21日</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!--24小时以内显示具体时间-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/time_bg0.png" alt=""><span>12:21</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-					
 			</li>
 			<li class="li_list">
 				<div class="li_list_main">
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/tv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/frequency.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>免费</span></p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/offline.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/location_four.png" alt=""><span>海口市</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					
-					<!--24小时以外的显示日期-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/learn.png" alt=""><span>12月21日</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<!--24小时以内显示具体时间-->
-					<div class="li_list_div">
-						<div class="li_list_one">
-							<div class="li_list_one_left">
-								<img src="../images/line_03.jpg" class="one" />
-								<img src="/xcview/images/Sinatv_auto.png" class="two" />
-							</div>
-							<div class="li_list_one_right">
-								<p class="p00">
-									<span>梁冬</span>:
-									<span>梁冬,徐文兵梁冬,徐文兵梁冬,徐文兵梁冬,徐文</span>
-								</p>
-								<div class="div">
-	    							<p class="p0"><span>999</span>熊猫币</p>
-									<p class="p1"><img src="/xcview/images/population.png" alt=""><span>12345</span></p>
-									<p class="p2"><img src="/xcview/images/time_bg0.png" alt=""><span>12:21</span></p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
-					
 			</li>
 		</ul>
 
 	</div>
-	
-	
 	
 	
 	<!--点击筛选内容开始-->
@@ -773,58 +92,82 @@
 		<div class="btn_show_bg btn_show_main_close" style="display: block1;"></div>
 		<div class="btn_show_main div_right0">
 			<div class="all_classify_right">筛选</div>
-			
 			<div class="all_mold all_mold0">
 				<div class="all_classify_right_type">分类</div>
-				<div class="all_right_type all_right_type_ones ">
-					<div class="all_right_type_one">针灸疗法</div>
+				<div class="all_right_type all_right_type_ones" id="draw_type_list">
+					<script type="text/html" id="type_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>	
+<!-- 					<div class="all_right_type_one">针灸疗法</div>
 					<div class="all_right_type_one">各式推拿</div>
 					<div class="all_right_type_one">美容养生</div>
 					<div class="all_right_type_one">药膳食疗</div>
 					<div class="all_right_type_one">古籍经典</div>
 					<div class="all_right_type_one">各家综合</div>
-					<div class="all_right_type_one">脉诊大全</div>
+					<div class="all_right_type_one">脉诊大全</div> -->
 				</div>
 				<div class="both"></div>
 			</div>
 			<div class="all_mold all_mold1">
 				<div class="all_classify_right_type">收费</div>
-				<div class="all_right_type">
-					<div class="all_right_type_one">免费</div>
-					<div class="all_right_type_one">收费</div>
+				<div class="all_right_type" id="draw_isfree_list">
+					<script type="text/html" id="isfree_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
+<!-- 					<div class="all_right_type_one">免费</div>
+					<div class="all_right_type_one">收费</div> -->
 					<div class="both"></div>
 				</div>
 			</div>
 			<div class="all_mold all_mold2">
 				<div class="all_classify_right_type">类型</div>
-				<div class="all_right_type">
-					<div class="all_right_type_one">视频课程</div>
+				<div class="all_right_type" id="draw_course_big_list">
+					<!-- <div class="all_right_type_one">视频课程</div>
 					<div class="all_right_type_one">直播课程</div>
 					<div class="all_right_type_one">音频课程</div>
-					<div class="all_right_type_one">线下课程</div>
+					<div class="all_right_type_one">线下课程</div> -->
+					
+					<script type="text/html" id="course_big_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
+					
 					<div class="both"></div>
 				</div>
 			</div>
 			<div class="all_mold all_mold3">
 				<div class="all_classify_right_type">城市</div>
-				<div class="all_right_type all_right_type_twos">
-					<div class="all_right_type_one">上海</div>
+				<div class="all_right_type all_right_type_twos" id="draw_city_list">
+				<!-- 	<div class="all_right_type_one">上海</div>
 					<div class="all_right_type_one">广州</div>
 					<div class="all_right_type_one">成都</div>
 					<div class="all_right_type_one">上海</div>
 					<div class="all_right_type_one">广州</div>
-					<div class="all_right_type_one">成都</div>
-					
-					
+					<div class="all_right_type_one">成都</div> -->
+					<script type="text/html" id="city_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
 				</div>
 				<div class="both"></div>
 			</div>
 			<div class="all_mold all_mold4">
 				<div class="all_classify_right_type">直播状态</div>
-				<div class="all_right_type">
-					<div class="all_right_type_one">直播中</div>
+				<div class="all_right_type" id="draw_live_status_list">
+			<!-- 		<div class="all_right_type_one">直播中</div>
 					<div class="all_right_type_one">待直播</div>
-					<div class="all_right_type_one">精彩回放</div>
+					<div class="all_right_type_one">精彩回放</div> -->
+					<script type="text/html" id="live_status_list">
+						{{each items as item i}}
+							<div class="all_right_type_one" title="{{item.id}}">{{item.name}}</div>
+						{{/each}}		
+				    </script>
 					<div class="both"></div>
 				</div>
 			</div>
@@ -848,10 +191,15 @@
 </script>
 
 
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
 
 <script src="../js/table/jquery-1.10.2.js"></script>
 <script src="../js/table/jquery.min.js"></script>
 <script type="text/javascript" src="../js/table/touchslider.js"></script>
+<script type="text/javascript" src="/xcview/js/curriculum_table.js"></script>
 <script type="text/javascript">
 
 // 给li定义高度，配合css使li独立滚动
@@ -880,6 +228,7 @@ $(".find_nav_list li").each(function(){
 var nav_w=$(".find_nav_list li").first().width();
 $(".sideline").width(nav_w);
 $(".find_nav_list li").on('click', function(){
+	alert("-------------");
 	nav_w=$(this).width();
 	$(".sideline").stop(true);
 	$(".sideline").animate({left:$(this).position().left},300);
@@ -942,7 +291,15 @@ for(n=1;n<9;n++){
 		$(".sideline").stop(true);
 		$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
 		$(".sideline").animate({width:nav_w},100);
+		
+		//alert("js 底部");
 		$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+		
+		//滑动完了后调用的是这个防范
+		
+		typeQuery();
+		
+		
 		var fn_w = ($(".find_nav").width() - nav_w) / 2;
 		var fnl_l;
 		if (fnl_x <= fn_w) {
@@ -985,8 +342,6 @@ for(n=1;n<9;n++){
 				$(".btn_show_main").addClass('div_right0');
 				$(".btn_show_main").removeClass('div_right')
 			});
-	
-	
 			$(".btn_show_main_close").click(function(){
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
@@ -998,24 +353,52 @@ for(n=1;n<9;n++){
 				$(".btn_show_bg").hide(2000);
 			});*/
 			$(".all_bottom_btn1").click(function(){
+				
+				
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
 				$(".btn_show_bg").hide(2000);
+				
+				submit();
 			});
-			
 			
 //			点击筛选下面的内容框
 			$(".all_mold0 .all_right_type_one").click(function(){
 				$(".all_mold0 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
+				
 			});
+			//收费
 			$(".all_mold1 .all_right_type_one").click(function(){
 				$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
+				
+				//如果是免费的话
+/* 				var text = $(this).text();
+				if(text=="免费"){
+					$(".all_mold3").hide();
+					//$(".all_mold2 .all_right_type_one:eq(3) ").hide();
+				}else{
+					$(".all_mold3").show(); 
+					//$(".all_mold2 .all_right_type_one:eq(3) ").show();
+				} */
 			});
 			$(".all_mold2 .all_right_type_one").click(function(){
 				$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
+				
+/* 				var text = $(this).text();
+				if(text=="线下培训班"){
+					$(".all_mold3").show(); //显示城市 
+					$(".all_mold4").hide();  //隐藏直播中状态
+				}else if(text=="视频课程" || text=="音频课程"){
+					$(".all_mold3").hide();  //隐藏城市 
+					$(".all_mold4").hide();  //隐藏直播中状态
+				}else{
+					$(".all_mold3").hide(); //隐藏城市 
+					$(".all_mold4").show();  //显示直播中状态
+				} */
+				
 			});
 			$(".all_mold3 .all_right_type_one").click(function(){
 				$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");

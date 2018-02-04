@@ -11,7 +11,7 @@ $(function(){
             map.text=cardList[i].value;
             listres[i]=map;
         }
-        //选择银行卡
+        //选择银行
         var city_picker2 = new mui.PopPicker({layer:1});
         city_picker2.setData(listres);
         $("#bankCard_text").on("tap", function(){
@@ -32,7 +32,8 @@ function clickNext() {
     var bankCard_id = $("#bankCard_id").val();//所属银行code
     var cert_id = $("#cert_id").val();//身份证号
     if(bankCard_id==null||bankCard_id==""){
-        return ""
+        alert("请选择银行")
+        return
     }
     requestService("/xczh/medical/addBankCard",{
         acctName:acct_name,
