@@ -43,16 +43,19 @@ requestService("/xczh/recommend/recommendTop",null,
 //精品课程
 requestService("/xczh/recommend/recommendCourse",null,function(data) {
 	if(data.success==true){
+			
 //		console.log(data)
     	$(".first_box").html(template('shipin',{items:data.resultObject}))
-	
-
+    	$(".careful_class").click(function(){
+    		var data_num=$(this).attr("menuType");
+			window.location.href="curriculum_table.html?menuType="+data_num+"";
+		})
+    	
 			var myHeight=$(".tjks").height();
-
 			$(".gieTa").height(myHeight);
-			
 	
 	}
+		
 	
 })
 //推荐模块结束
@@ -80,20 +83,24 @@ requestService("/xczh/bunch/offLine",null,
 		if(data.success==true){
 	    	$(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))
 		
-				var myHeight=$(".tjks").height();
-	
-				$(".gieTa").height(myHeight);
+//				var myHeight=$(".tjks").height();
+//	
+//				$(".gieTa").height(myHeight);
 				
 		
 		}
 		
 },false)
-//线下课城市点击
+//线下课banner下的城市点击
 $(".go_search").click(function(){
 	var city_class=$(this).find("span").text();
 	window.location.href="curriculum_table.html?search="+city_class+"";
 })
-
+//线下课标题点击
+$(".all_class").click(function(){
+	var all_class=$(this).text();
+	window.location.href="curriculum_table.html?search="+all_class+"";
+})
 //线下课结束------------------------------------------------------
 
 
@@ -120,8 +127,12 @@ requestService("/xczh/live/onlineLive",null,
 		if(data.success==true){
 	    	$(".newests").html(template('newests',{items:data.resultObject.allCourseList}))
 				/*var myHeight=$(".tjks").height();
-	
 				$(".gieTa").height(myHeight);*/
+				var lineState=$(this).attr("lineState")
+			$(".newest_title").click(function(){
+				window.location.href="curriculum_table.html?menuType="+lineState+"";				
+			})
+			
 				
 		}
 		

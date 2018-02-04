@@ -20,7 +20,7 @@
 			</div>
 			<div class="header_seek"> 
 				<div class="header_seek_main">
-					<img src="/xcview/images/sousuo0.png" alt="">针灸疗法
+					<img src="/xcview/images/sousuo0.png" alt="" onclick="queryByKey()">
 				</div>
 			</div>
 		</div>
@@ -52,9 +52,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- <div class="hint">
-		筛选：<span>针灸疗法·免费·线下课程·北京</span>
-	</div> -->
+	 <div class="hint">
+		筛选：<span id="sxtj">针灸疗法·免费·线下课程·北京</span>
+	</div>
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
 		<ul class="box01_list" style="position: relative; transition: left 0ms ease-out; width: 19200px; left: 0px;">
 			
@@ -342,8 +342,6 @@ for(n=1;n<9;n++){
 				$(".btn_show_main").addClass('div_right0');
 				$(".btn_show_main").removeClass('div_right')
 			});
-	
-	
 			$(".btn_show_main_close").click(function(){
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
@@ -355,24 +353,52 @@ for(n=1;n<9;n++){
 				$(".btn_show_bg").hide(2000);
 			});*/
 			$(".all_bottom_btn1").click(function(){
+				
+				
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
 				$(".btn_show_bg").hide(2000);
+				
+				submit();
 			});
-			
 			
 //			点击筛选下面的内容框
 			$(".all_mold0 .all_right_type_one").click(function(){
 				$(".all_mold0 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
+				
 			});
+			//收费
 			$(".all_mold1 .all_right_type_one").click(function(){
 				$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
+				
+				//如果是免费的话
+/* 				var text = $(this).text();
+				if(text=="免费"){
+					$(".all_mold3").hide();
+					//$(".all_mold2 .all_right_type_one:eq(3) ").hide();
+				}else{
+					$(".all_mold3").show(); 
+					//$(".all_mold2 .all_right_type_one:eq(3) ").show();
+				} */
 			});
 			$(".all_mold2 .all_right_type_one").click(function(){
 				$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
+				
+/* 				var text = $(this).text();
+				if(text=="线下培训班"){
+					$(".all_mold3").show(); //显示城市 
+					$(".all_mold4").hide();  //隐藏直播中状态
+				}else if(text=="视频课程" || text=="音频课程"){
+					$(".all_mold3").hide();  //隐藏城市 
+					$(".all_mold4").hide();  //隐藏直播中状态
+				}else{
+					$(".all_mold3").hide(); //隐藏城市 
+					$(".all_mold4").show();  //显示直播中状态
+				} */
+				
 			});
 			$(".all_mold3 .all_right_type_one").click(function(){
 				$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");

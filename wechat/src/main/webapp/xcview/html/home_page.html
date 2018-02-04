@@ -248,7 +248,7 @@
 	                    	<script type="text/html" id="shipin">
 									{{each items as item i}}
 	                    	<div class="acupuncture">
-	                    		<div class="boutique_title">{{item.title}}</div>
+	                    		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}</div>
 	                    		<div class="boutique_main">
 	                    			<ul>
 	                    				<!--视频-->
@@ -366,7 +366,7 @@
 	                    	<script type="text/html" id="acupunctures">
 	                    		{{each items as item i}}
 	                    		<div class="acupuncture">
-		                    		<div class="boutique_title">{{item.title}}</div>
+		                    		<div class="boutique_title all_class">{{item.title}}</div>
 		                    		<div class="boutique_main">
 		                    			<ul>
 		                    				{{each item.courseList as item i}}
@@ -496,7 +496,7 @@
 	                    		{{each items as item i}}
 
 	                    	<div class="newest">
-	                    		<div class="newest_title">{{item.title}}</div>
+	                    		<div class="newest_title" lineState="{{item.lineState}}">{{item.title}}</div>
 	                    		<div class="newest_main">
 	                    			<ul>
 	                    				{{each item.courseList as item i}}
