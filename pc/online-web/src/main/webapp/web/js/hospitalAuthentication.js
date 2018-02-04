@@ -209,6 +209,7 @@ $(function(){
 		}else if(!Number.test(xukeNum)){
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('营业执照号格式错误');
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').removeClass('hide');
+			return false;
 		}else{
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').addClass('hide');
 		}

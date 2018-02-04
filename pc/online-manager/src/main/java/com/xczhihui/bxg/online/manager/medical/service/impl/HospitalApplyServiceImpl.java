@@ -89,9 +89,20 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         if(apply == null){
             throw new RuntimeException("操作失败：该条信息不存在");
         }
+        // 如果该条记录已经被通过或者被拒绝 不能再修改
+        if(apply.getStatus().equals(0)){
+            throw new RuntimeException("该条认证已经被拒，不能再修改");
+        }
+        if(apply.getStatus().equals(1)){
+            throw new RuntimeException("该条认证已经认证成功，不能再修改");
+        }
         // 前台传来的状态和数据库的状态一致 不予处理
         if(apply.getStatus().equals(status)){
             return;
+        }
+        // 如果该条信息被删除 不能再修改
+        if(apply.getDeleted()){
+            throw new RuntimeException("该条认证已经被删除，用户已重新认证");
         }
 
         switch (status){
