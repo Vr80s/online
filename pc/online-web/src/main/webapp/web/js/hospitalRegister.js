@@ -112,12 +112,18 @@ $(function(){
 	
 	
 	//密码验证
-	if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+	if($.trim($('.my_password').val()).length < 6){
+		$(".my_different").text('请输入6-18位数密码')
+		$(".my_different").css('display','block');
+		return false;
+	}else if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+		$(".my_different").text('您两次输入的密码不一致')
 		$(".my_different").css('display','block');
 		return false;
 	}else{
 		$(".my_different").css('display','none');
 	}
+	
 	
 	var data = {
                 nikeName: $('.nikeName').val().trim(),
@@ -131,22 +137,40 @@ $(function(){
 	  RequestService("/online/user/phoneRegist", "POST", data, function (data) {
 	  	console.log(data);
 	  	if(data.success == false){
-	  		if(data.errorMessage == '动态码不正确!'){
-					
-					$('.my_code .my_code_warn').text(data.errorMessage);
-					$('.phone_warn').css('display','none');
-					$('.my_code .my_code_warn').css('display','block');
-						return false;
+//	  		if(data.errorMessage == '动态码不正确!'){
+//					
+//					$('.my_code .my_code_warn').text(data.errorMessage);
+//					$('.phone_warn').css('display','none');
+//					$('.my_code .my_code_warn').css('display','block');
+//						return false;
+//				}else{
+//					$('.phone_warn').text(data.errorMessage);
+//					$('.my_code .my_code_warn').css('display','none');
+//					$('.phone_warn').css('display','block');
+//						return false;
+//				}
+				
+				//错误的提示
+				if(data.errorMessage == '动态码不正确!'){
+					$('#tip').text('短信验证码不正确！');
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)
 				}else{
-					$('.phone_warn').text(data.errorMessage);
-					$('.my_code .my_code_warn').css('display','none');
-					$('.phone_warn').css('display','block');
-						return false;
+					$('#tip').text(data.errorMessage);
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)
 				}
 	  	}else if(data.success == true){
-	  		alert('注册成功!');
-	  		
-	  		window.location.href = '/web/html/ResidentDoctor.html';
+	  		$('#tip').text('注册成功！');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+				window.location.href = '/web/html/ResidentHospital.html';
+	       		},1500)
 	  	}
 	  })
 	

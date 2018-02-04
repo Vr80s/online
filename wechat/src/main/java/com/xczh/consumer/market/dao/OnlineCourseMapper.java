@@ -25,6 +25,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
 		//观看人数
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
@@ -43,6 +44,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
+		
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" live_status as  lineState ,");
@@ -60,6 +63,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
+		
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" live_status as  lineState ,");
@@ -77,6 +82,8 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
+		
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" live_status as  lineState ,");
