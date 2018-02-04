@@ -148,7 +148,7 @@ public class CommonServiceImpl implements ICommonService {
                     if(doctorApply != null){
                         Integer status = doctorApply.getStatus();
                         if(status == 0){
-                            result = CommonEnum.HOSPITAL_APPLY_REJECT.getCode();
+                            result = CommonEnum.DOCTOR_APPLY_REJECT.getCode();
                         }else if(status == 2){
                             result = CommonEnum.DOCTOR_APPLYING.getCode();
                         }
@@ -171,7 +171,7 @@ public class CommonServiceImpl implements ICommonService {
                     if(hospitalApply != null){
                         Integer status = hospitalApply.getStatus();
                         if(status == 0){
-                            result = CommonEnum.DOCTOR_APPLY_REJECT.getCode();
+                            result = CommonEnum.HOSPITAL_APPLY_REJECT.getCode();
                         }else if(status == 2){
                             result = CommonEnum.HOSPITAL_APPLYING.getCode();
                         }

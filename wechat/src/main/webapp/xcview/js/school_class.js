@@ -282,7 +282,8 @@ function del(){
 }
 
 
-//点击地址
-function baiduMap(address){
-    window.location.href="site.html?address="+address+"";
+//点击地址查看地图
+function baiduMap(address,gradeName){
+    text = address.replace(/\s/ig,'');
+    window.location.href="site.html?address="+text+"&gradeName="+gradeName+"";
 }
