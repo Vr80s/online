@@ -14,7 +14,7 @@ requestService("/xczh/bunch/hotSearch",null,
 				/*var myHeight=$(".tjks").height();
 				$(".gieTa").height(myHeight);*/
  	    	
- 	    	localStorage.setItem("defaultKey", defaultKey);
+ 	    	localStorage.setItem("defaultKey", data.resultObject.defaultSearch);
 		}
 },false) 
 //搜索历史结束
@@ -22,7 +22,7 @@ requestService("/xczh/bunch/hotSearch",null,
 //点击热门搜索跳转
 $(".search_hot_main_one").click(function(){
 	var btn_write=$(this).text()
-	window.location.href="curriculum_table.html?search="+btn_write+""
+	window.location.href="curriculum_table.html?queryKey="+btn_write+""
 })
 
 
