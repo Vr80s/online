@@ -504,7 +504,7 @@ public class VideoDao extends SimpleHibernateDao {
 	 	        	/**
 	        		 * 就星级的平均数
 	        		 */
-	 	        	BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());  
+ 	        		BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());  
 	 	            totalAmount.add(new BigDecimal(c.getContentLevel()));
 	 	            totalAmount.add(new BigDecimal(c.getDeductiveLevel()));
 	 	            String startLevel = "0";
