@@ -223,6 +223,7 @@ header{
     background: #ffffff;
     padding-top: 0.2rem;
     padding-bottom: 0.05rem;
+    overflow: hidden;
 }
 .li_list_div{
 	width: 100%;
@@ -237,7 +238,7 @@ header{
 	height: 1.2rem;
 	padding-bottom: 0.2rem;
 	border-bottom: 1px solid #D8DDE6;
-    /*margin-bottom: 0.2rem;*/
+    margin-bottom: 0.2rem;
     float: right;
 }
 .li_list_one_left{
@@ -331,7 +332,7 @@ header{
 	color: #999999;
 	float: left;
 }
-.li_list_main .li_list_div:last-child .li_list_one:last-child{
+.li_list_one:last-child{
 	border: none;
 }
 
