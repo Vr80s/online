@@ -95,6 +95,18 @@ public class CourseApplyController {
         return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourseResources(user.getId(),multimediaType));
     }
 
+    @RequestMapping(value = "/getAllCourses",method= RequestMethod.GET)
+    public ResponseObject getAllCourses(HttpServletRequest request,Integer multimediaType){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        return ResponseObject.newSuccessResponseObject(courseApplyService.selectAllCourses(user.getId(),multimediaType));
+    }
+
+    @RequestMapping(value = "/getCourseApplyById",method= RequestMethod.GET)
+    public ResponseObject getCourseApplyById(HttpServletRequest request,Integer caiId){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        return ResponseObject.newSuccessResponseObject(courseApplyService.selectCourseApplyById(user.getId(),caiId));
+    }
+
     /**
      * Description：分页获取资源列表
      * creed: Talk is cheap,show me the code
@@ -134,6 +146,20 @@ public class CourseApplyController {
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.saveCourseApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("课程新增申请发起成功！");
+    }
+
+    /**
+     * Description：更新课程申请信息
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/2/4 0004 下午 7:35
+     **/
+    @RequestMapping(value = "/updateCourseApply",method= RequestMethod.POST)
+    public ResponseObject updateCourseApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        courseApplyInfo.setUserId(user.getId());
+        courseApplyService.updateCourseApply(courseApplyInfo);
+        return ResponseObject.newSuccessResponseObject("课程申请更新成功！");
     }
 
     /**

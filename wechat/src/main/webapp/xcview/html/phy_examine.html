@@ -9,13 +9,18 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/phy_examine.css" />
-
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/phy_examine.js" ></script>
 
 	
 </head>
     
 <body style="background:#F8F8F8;">
 <div class="wp">
+	<script type="text/html" id="doctorInfo">
 		<div class="wrap-header">
 			<div class="header">		
 				<p>主播认证</p>
@@ -38,25 +43,25 @@
 			<ul class="wrap-user-id">
 				<li>
 					<span>真实姓名</span>
-					<p>苏察哈尔攃</p>
+					<p>{{name}}</p>
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>身份证号</span>
-					<p>46666958845659875X</p>
+					<p>{{cardNum}}</p>
 				</li>
 			</ul>
 			<p class="idcar-up">上传身份证明</p>
 			<div class="wrap-images z">
 				<div class="box-images">
-					<img src="../images/userico.jpg"/>
+					<img src="{{cardPositive}}"/>
 				</div>
 				<span>身份证正面</span>
 			</div>
 			<div class="wrap-images y" style="margin-right: 0.26rem;">
 				<div class="box-images">
-					<img src="../images/list_img.png"/>
+					<img src="{{cardNegative}}"/>
 				</div>
 				<span>身份证反面</span>
 			</div>
@@ -66,7 +71,7 @@
 			<p class="qualification-title">医师资格证</p>
 			<div class="input-group z">
                 	<div class="preview3">
-						<img src="../images/list_img.png"/>
+						<img src="{{qualificationCertificate}}"/>
                     </div>         
                     <span style="margin-bottom: 0.3rem;">医师资格证</span>
             </div>
@@ -75,14 +80,14 @@
 			<p class="qualification-title">执业资格证</p>
 			<div class="input-group z">
                 	<div class="preview3">
-						<img src="../images/list_img.png"/>
+						<img src="{{professionalCertificate}}"/>
                      </div>         
                     <span>执业资格证</span>
             </div>
 		</div>
-	
-	
-	
+
+
+	</script>
 	</div>
 </body>
 <script>
