@@ -9,6 +9,11 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/hos_examine.css" />
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/hos_examine.js" ></script>
 
 
 	
@@ -16,6 +21,7 @@
     
 <body style="background:#F8F8F8;">
 <div class="wp">
+	<script type="text/html" id="hospitalInfo">
 		<div class="wrap-header">
 			<div class="header">		
 				<p>主播认证</p>
@@ -38,19 +44,19 @@
 			<ul class="wrap-user-id">
 				<li>
 					<span>医馆名称</span>
-					<p>百草堂中医馆</p>
+					<p>{{name}}</p>
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>公司名称</span>
-					<p>心承智慧（海口）健康科技有限公司</p>
+					<p>{{company}}</p>
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>统一社会信用代码</span>
-					<p>5966584236598745218</p>
+					<p>{{businessLicenseNo}}</p>
 				</li>
 			</ul>
 		
@@ -60,7 +66,7 @@
 			<p class="qualification-title">营业执照</p>
 			<div class="input-group z">
                 	<div class="preview3">
-						<img src="../images/list_img.png"/>
+						<img src="{{businessLicensePicture}}"/>
                     </div>         
                     <span style="margin-bottom: 0.3rem;">营业执照</span>
             </div>
@@ -69,14 +75,14 @@
 			<p class="qualification-title">药品经营许可证</p>
 			<div class="input-group z">
                 	<div class="preview3">
-						<img src="../images/list_img.png"/>
+						<img src="{{licenseForPharmaceuticalTradingPicture}}"/>
                      </div>         
                     <span>药品经营许可证</span>
             </div>
 		</div>
 	
 	
-	
+	</script>
 	</div>
 </body>
 <script>

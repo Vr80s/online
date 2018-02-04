@@ -10,17 +10,17 @@ function btn_up(){
     }
     else{
         //form提交
-        var form=document.getElementById("docAutInf");
+        var form=document.getElementById("HospitalInfo");
         var fd =new FormData(form);
         $.ajax({
-            url: "/xczh/medical/addDoctorApply",
+            url: "/xczh/medical/addHospitalApply",
             type: "POST",
             data: fd,
             processData: false,  // 告诉jQuery不要去处理发送的数据
             contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
             success: function(data){
                 console.log(data.resultObject);
-                window.location.href="../html/phy_examine.html";
+                window.location.href="../html/hos_examine.html";
             }
         });
 
