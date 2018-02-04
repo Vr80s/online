@@ -55,11 +55,11 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	function courseVodList(current) {
 		RequestService("/medical/hospital/getDoctors?size=8&current=" + current, "get", null, function(data) {
 			$('#hosDocList').html(template('hosDocListTpl',{item:data.resultObject.records}))
-			debugger
+//			debugger
 			//每次请求完数据就去渲染分页部分
 			if(data.resultObject.pages > 1) { //分页判断
 				$(".not-data").remove();
-				$(" .pages").css("display", "block");
+				$(" .pages").removeClass("hide");
 				$(" .pages .searchPage .allPage").text(data.resultObject.pages);
 				$("#Pagination").pagination(data.resultObject.pages, {
 					num_edge_entries: 1, //边缘页数
@@ -71,7 +71,7 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 					}
 				});
 			} else {
-				$(".pages").css("display", "none");
+				$(".pages").addClass("hide");
 			}
 		});
 	}

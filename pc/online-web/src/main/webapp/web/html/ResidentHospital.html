@@ -536,7 +536,7 @@
 									</tbody>
 								</table>
 								<!--分页部分-->
-								<div class="pages" style="margin-top: 20px;">
+								<div class="pages hide" style="margin-top: 20px;">
 									<div id="Pagination"></div>
 									<div class="searchPage">
 										<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1021,7 +1021,7 @@
 	//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
 	var ue = UE.getEditor('editor', {
 		toolbars: [
-			['source', //源代码
+			[
 				'undo', //撤销
 				'redo', //重做
 				'bold', //加粗
@@ -1060,7 +1060,7 @@
 
 	var ue = UE.getEditor('editor1', {
 		toolbars: [
-			['source', //源代码
+			[
 				'undo', //撤销
 				'redo', //重做
 				'bold', //加粗
