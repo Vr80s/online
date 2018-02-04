@@ -291,11 +291,11 @@ public class Course extends BasicEntity2 implements Serializable {
 	private  Integer liveStatus;
 	
 	@Column(name = "multimedia_type" )
-	private  int multimediaType;
+	private Integer multimediaType;
 	
 	
 	@Column(name = "live_source" )
-	private  int liveSource;  //直播来源  1、后台新增  2、app申请
+	private  Integer liveSource;  //直播来源  1、后台新增  2、app申请
 	
 	
 	@Column(name = "apply_id")
@@ -349,11 +349,11 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.playCode = playCode;
 	}
 
-	public int getMultimediaType() {
+	public Integer getMultimediaType() {
 		return multimediaType;
 	}
 
-	public void setMultimediaType(int multimediaType) {
+	public void setMultimediaType(Integer multimediaType) {
 		this.multimediaType = multimediaType;
 	}
 
@@ -866,11 +866,11 @@ public class Course extends BasicEntity2 implements Serializable {
 		this.liveStatus = liveStatus;
 	}
 
-	public int getLiveSource() {
+	public Integer getLiveSource() {
 		return liveSource;
 	}
 
-	public void setLiveSource(int liveSource) {
+	public void setLiveSource(Integer liveSource) {
 		this.liveSource = liveSource;
 	}
 

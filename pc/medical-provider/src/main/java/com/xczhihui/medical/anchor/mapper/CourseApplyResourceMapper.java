@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,9 +18,11 @@ import java.util.List;
  */
 public interface CourseApplyResourceMapper extends BaseMapper<CourseApplyResource> {
 
-    List<CourseApplyResourceVO> selectAllCourseResources(String userId);
+    List<CourseApplyResourceVO> selectAllCourseResources(@Param("userId") String userId, @Param("multimediaType") Integer multimediaType);
 
-    List<CourseApplyResourceVO> selectCourseResourceByPage(Page<CourseApplyResourceVO> page, String userId);
+    List<CourseApplyResourceVO> selectCourseResourceByPage(@Param("page") Page<CourseApplyResourceVO> page, @Param("userId") String userId);
 
     List<CourseApplyResource> selectAllCourseResourcesForUpdateDuration();
+
+    void deleteCourseApplyResource(@Param("userId")String userId, @Param("resourceId")String resourceId);
 }

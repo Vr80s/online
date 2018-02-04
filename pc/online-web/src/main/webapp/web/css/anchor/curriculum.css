@@ -487,21 +487,21 @@
 }
 .wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:first-child,
 .wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:first-child{
-	width: 126px;
+	width: 180px;
 }
 .wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:first-child{
 	padding: 10px;
 }
 .wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:first-child img{
-	width: 100%;
+	width: 150%;
 }
 .wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(2),
 .wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:nth-child(2){
-	width: 364px;
+	width: 164px;
 }
 .wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(3),
 .wrap_box  #resource .zhuanlan_bottom2 table tbody > tr > td:nth-child(3){
-	width: 105px;
+	width: 170px;
 }
 .wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(4),
 .wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:nth-child(4){
@@ -509,7 +509,11 @@
 }
 .wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(5),
 .wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:nth-child(5){
-	width: 200px;
+	width: 80px;
+}
+.wrap_box  #resource #ziyuan_bottom2 table thead > tr > td:nth-child(6),
+.wrap_box  #resource #ziyuan_bottom2 table tbody > tr > td:nth-child(6){
+	width: 100px;
 }
 .wrap_box  #resource #ziyuan_bottom2 table tr,.wrap_box  #resource #ziyuan_bottom2 table td{
 	border: 1px solid #DEDEDE;
@@ -1951,6 +1955,9 @@ pre {
 }
 .live_streaming_table table tbody > tr > td:nth-child(4){
 	width: 140px;
+}
+.live_streaming_table table tbody > tr > td:nth-child(6){
+	width: 200px;
 }
 
 /*直播结束*/
