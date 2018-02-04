@@ -280,3 +280,9 @@ function del(){
     my_impression3=""
 
 }
+
+
+//点击地址
+function baiduMap(address){
+    window.location.href="site.html?address="+address+"";
+}

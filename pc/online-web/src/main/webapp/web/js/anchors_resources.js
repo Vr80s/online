@@ -547,4 +547,6 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//头像预览
 			console.log(data);
 			$('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
+			//个人信息渲染
+			$('.personIntroduct').html(data.resultObject.description);
 		});

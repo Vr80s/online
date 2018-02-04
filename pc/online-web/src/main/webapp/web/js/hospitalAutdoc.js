@@ -101,8 +101,9 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 			doctorId: changeDocId,
 		}, function(data) {
 			console.log(data)
-			$('#doc_Administration_bottom4').html(template('docStatusTpl',data.resultObject))
-			
+			$('#doc_Administration_bottom4').html(template('docStatusTpl',data.resultObject));
+			$('#myinf').html(data.resultObject.description);
+//			$('#myinf>p').style.fontSize = '16px';
 			$('#mask').removeClass('hide');
 		$('#doc_Administration_bottom3').addClass('hide');
 		$('#doc_Administration_bottom4').removeClass('hide');

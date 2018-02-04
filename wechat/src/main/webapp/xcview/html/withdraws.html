@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <link rel="stylesheet" href="../css/withdraws.css" />
-
+<script type="text/javascript" src="../js/withdraws.js"></script>
 
 	
 </head>
@@ -35,13 +35,15 @@
 	
 	<!--中间内容开始-->
 	<div class="account">
+		<script type="text/html" id="data_bank_card">
 		<div class="account_one">到账银行卡</div>
-		<div class="account_two">张三丰</div>
+		<div class="account_two">{{acctName}}</div>
 		<div class="account_three">
-			<span>招商银行（2476）</span>
-			<img src="../images/account05.png" />
+			<span>{{bankName}}（{{acctPan}}）</span>
+			<img src="../images/account05.png" onclick="BankCardList()"/>
 		</div>
 		<div class="both"></div>
+		</script>
 	</div>
 	
 	
