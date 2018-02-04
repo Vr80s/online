@@ -63,7 +63,10 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-
+		//详情页的banner
+		var school_img = document.createElement("img");
+		school_img.src = data.resultObject.smallImgPath;
+		$(".play_video").append(school_img)
         //获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
