@@ -11,6 +11,10 @@
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 
 <link rel="stylesheet" href="../css/hos_identification.css?v=ipandatcm_1.2.1" />
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/hos_identification.js?v=ipandatcm_1.2.1" ></script>
 <style>
 	/*身份证正面*/
 
@@ -46,23 +50,24 @@
 				</div>
 			</div>
 		</div>
+		<form id="HospitalInfo">
 		<div class="wrap-information">
 			<ul class="wrap-user-id">
 				<li>
-					<span>医馆名词</span>
-					<input type="text" placeholder="请填写医馆名称" />
+					<span>医馆名称</span>
+					<input type="text" name="name" placeholder="请填写医馆名称" />
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>公司名称</span>
-					<input type="text" placeholder="请填写医馆所属的公司名称" />
+					<input type="text" name="company" placeholder="请填写医馆所属的公司名称" />
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>统一社会信用代码</span>
-					<input type="text" placeholder="请填写社会信用代码" />
+					<input type="text" name="businessLicenseNo" placeholder="请填写社会信用代码" />
 				</li>
 			</ul>
 		</div>
@@ -74,7 +79,7 @@
                 	<div id="preview3">
                         <img id="imghead3" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg3').click();">
                      </div>         
-                    <input type="file" onchange="previewImage3(this)" style="display: none;" id="previewImg3">
+                    <input type="file" name="businessLicensePictureFile" onchange="previewImage3(this)" style="display: none;" id="previewImg3">
                 </div>
                 <div class="col-sm-3 idcar-face" style="padding-bottom: 0.3rem;">
                     <span>营业执照</span>
@@ -87,7 +92,7 @@
 			<ul class="wrap-user-id">
 				<li>
 					<span>药品经营许可证号</span>
-					<input type="text" placeholder="请填写经营许可证号" />
+					<input type="text" name="licenseForPharmaceuticalTrading" placeholder="请填写经营许可证号" />
 				</li>
 			</ul>
 			<p class="qualification-title">药品经营许可证</p>
@@ -96,7 +101,7 @@
                 	<div id="preview4">
                         <img id="imghead4" border="0" src="../images/idcar_bg.png" onclick="$('#previewImg4').click();">
                      </div>         
-                    <input type="file" onchange="previewImage4(this)" style="display: none;" id="previewImg4">
+                    <input type="file" name="licenseForPharmaceuticalTradingPictureFile" onchange="previewImage4(this)" style="display: none;" id="previewImg4">
                 </div>
                 <div class="col-sm-3 idcar-face">
                     <span>药品经营许可证</span>
@@ -105,17 +110,11 @@
 		</div>
 	<!--提交认证-->
 		<div class="btn-qualification">
-			<a class="btn-up" href="../html/hos_examine.html">提交认证</a>
+			<a class="btn-up" href="../html/hos_examine.html" onclick="btn_up()" >提交认证</a>
 		</div>
-	
+		</form>
 		
-	
-	
-	
-	
-	
-	
-	
+
 	
 	</div>	
 
