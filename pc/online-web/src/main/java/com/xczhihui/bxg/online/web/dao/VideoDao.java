@@ -447,7 +447,6 @@ public class VideoDao extends SimpleHibernateDao {
 
 	 /**
      * 获取主播的或者课程的评价数
-     * @param videoId 视频ID
      * @return
 	 * @throws IllegalAccessException 
      */
@@ -494,6 +493,11 @@ public class VideoDao extends SimpleHibernateDao {
 	 	        	/**
 	        		 * 就星级的平均数
 	        		 */
+	 	        	if(c.getOverallLevel()==null||"".equals(c.getOverallLevel())){
+                        c.setOverallLevel(0f);
+                        c.setContentLevel(0f);
+                        c.setDeductiveLevel(0f);
+                    }
 	 	        	BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());  
 	 	            totalAmount.add(new BigDecimal(c.getContentLevel()));
 	 	            totalAmount.add(new BigDecimal(c.getDeductiveLevel()));

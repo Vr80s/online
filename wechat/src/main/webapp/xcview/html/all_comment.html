@@ -155,7 +155,9 @@
 	<div class="bg_modal"></div>
 	
 	<div class="wrapAll_comment">
+		<script type="text/html" id="id_show_xingxing">
 		<p class="set_title">发布评论</p>
+		{{if items==1&&items!=2}}}
 		<!--星星五星好评-->
 		<div class="my_impression1 cl mar_bot">
 			<p>总体印象</p>
@@ -194,6 +196,7 @@
 			<li value="4">喜欢</li>
 			<li value="5">买对了</li>
 		</ul>
+		{{/if}}
 		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
 		<div class="text_write_box">
 			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
@@ -205,6 +208,7 @@
 			</li>
 			<li onclick="reportComment()">发表评论</li>
 		</ul>
+		</script>
 	</div>
 			
 			

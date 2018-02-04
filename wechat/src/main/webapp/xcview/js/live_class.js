@@ -110,7 +110,12 @@ function refresh(){
         pageSize:3
     },function(data) {
         //	课程名称/等级/评论
+        if(data.resultObject){
+
+        }
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+        //判断是否是第一次评论
+        $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
         //	回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
@@ -123,6 +128,17 @@ function refresh(){
             $(".bg_userModal").hide();
             $(".wrapLittle_comment").hide();
         });
+
+        //	评论弹窗
+        $(".wrap_input").on('click',function(){
+            $(".bg_modal").show();
+            $(".wrapAll_comment").show();
+        })
+        $(".bg_modal").on('click',function(){
+            $(".bg_modal").hide();
+            $(".wrapAll_comment").hide();
+        })
+
         //点赞
         $(".btn_click_zan").click(function(){
             //评论id
