@@ -92,7 +92,7 @@ public class HospitalController {
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseObject update(MedicalHospital medicalHospital, HttpServletRequest request){
+    public ResponseObject update(@RequestBody MedicalHospital medicalHospital, HttpServletRequest request){
 
         if(medicalHospital == null){
             throw new RuntimeException("请选择要修改的医馆");

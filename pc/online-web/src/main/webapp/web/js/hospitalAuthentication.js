@@ -102,51 +102,51 @@ $(function(){
 		}
 		
 		
-		
-		var hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
-		var hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
-		var name = $.trim($('.hos_base_inf .doc_shanchang').val());
-		var WeChat =  $.trim($('.hos_base_inf .hos_weixin').val());
-		var email = $.trim($('.hos_base_inf .doc_hospital').val());
-		var province = $('#hos_Administration .hos_base_inf #choosePro  option:selected').text();
-		var city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
-		var wechat =  $('#hos_Administration .hos_base_inf  .hos_weixin').val();
-		var headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
+		var data={};
+		data.hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
+		data.hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
+		data.contactor = $.trim($('.hos_base_inf .doc_shanchang').val());
+		data.WeChat =  $.trim($('.hos_base_inf .hos_weixin').val());
+		data.email = $.trim($('.hos_base_inf .doc_hospital').val());
+		data.province = $('#hos_Administration .hos_base_inf #choosePro  option:selected').text();
+		data.city = $('#hos_Administration .hos_base_inf  #citys option:selected').text();
+		data.wechat =  $('#hos_Administration .hos_base_inf  .hos_weixin').val();
+		data.headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
+        data.description = UE.getEditor('editor2').getContent();
 		var hoslist = [];
 		for(var i = 0;i < $('#hos_pic img').length ; i++){
 			    hoslist.push($('#hos_pic img').eq(i).attr('src'));
 		}
-
+		var fieldIds = [];
+		for(var i=0;i<$('.hos_base_inf .keshi .keshiColor').length;i++){
+            fieldIds.push($('.hos_base_inf .keshi .keshiColor').attr("data-id"))
+		}
+		data.pictures = hoslist;
+		data.fieldIds = fieldIds;
 		//通过验证进行医馆基础信息的数据上传
 		//发送认证请求
-		RequestService("/medical/hospital/update", "post", {
-				headPortrait:headPortrait,
-				description:hosIntroduct,
-				contactor:name,
-				email:email,
-				wechat:wechat,
-				province:province,
-				city:city,
-				pictures:hoslist,
-//				此处的areaList 实在ResidentHospitals中定义的
-				fieldIds:areaList	
-			}, function(data) {
-				console.log(data);
-			if(data.success == false){
-				$('#tip').text('基础信息提交失败');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},1000)
-			}else if(data.success == true){
-				$('#tip').text('基础信息提交成功');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},1000)
-			}
-
-		})
+        $.ajax({
+            type: "post",
+            url: "/medical/hospital/update",
+            data:JSON.stringify(data),
+            contentType:"application/json",
+            async: false,
+            success: function(data) {
+                if(data.success == false){
+                    $('#tip').text('基础信息提交失败');
+                    $('#tip').toggle();
+                    setTimeout(function(){
+                        $('#tip').toggle();
+                    },1000)
+                }else if(data.success == true){
+                    $('#tip').text('基础信息提交成功');
+                    $('#tip').toggle();
+                    setTimeout(function(){
+                        $('#tip').toggle();
+                    },1000)
+                }
+            }
+        });
 	})
 	
 	
