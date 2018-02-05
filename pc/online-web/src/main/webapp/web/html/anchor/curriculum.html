@@ -131,13 +131,16 @@
 			</td>
 			<td>
 				{{if course.applyStatus==1}}
-				{{if course.status==1}}
-				<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
-				{{else}}
-				<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
-				{{/if}}
+					{{if course.status==1}}
+					<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
+					{{else}}
+					<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
+					{{/if}}
 				{{else if course.applyStatus==2}}
-				<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+					<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+				{{else if course.applyStatus==0}}
+					<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+					<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 				{{/if}}
 			</td>
 		</tr>
@@ -1573,8 +1576,6 @@
 	<script type="text/javascript">
         //实例化编辑器
         //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-
-
         function getLDContent() {
             return UE.getEditor('editor').getContent();
         }

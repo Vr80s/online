@@ -204,6 +204,19 @@ public class CourseApplyController {
     }
 
     /**
+     * Description：删除课程申请
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/2/5 0005 下午 2:15
+     **/
+    @RequestMapping(value = "/deleteCourseApplyById")
+    public ResponseObject deleteCourseApplyById(HttpServletRequest request, Integer caiId){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        courseApplyService.deleteCourseApplyById(user.getId(),caiId);
+        return ResponseObject.newSuccessResponseObject("课程申请删除成功！");
+    }
+
+    /**
      * Description：获取微吼直播路径
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com

@@ -290,7 +290,7 @@ function saveCourse(){
     var course = getCourseData();
     debugger
     if(verifyCourse(course)) {
-        if(course.id==null) {
+        if(course.id==null||course.id=='') {
             addCourse(course);
         }else {
             updateCourse(course);
@@ -340,6 +340,16 @@ function editCourse(caiId){
     echoCourse(caiId);
     $(".curriculum_two").hide();
     $(".curriculum_one").show();
+}
+
+function deleteCourse(caiId){
+    var r=confirm("确认删除？");
+    if(r){
+        RequestService("/anchor/course/deleteCourseApplyById?caiId="+caiId, "get", null, function(data) {
+            alert(data.resultObject);
+            courseList(1);
+        });
+    }
 }
 function echoCourse(caiId){
     RequestService("/anchor/course/getCourseApplyById?caiId="+caiId, "get", null, function(data) {

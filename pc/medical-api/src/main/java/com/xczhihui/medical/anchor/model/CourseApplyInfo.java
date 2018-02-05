@@ -184,6 +184,16 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
 	@TableField(exist = false)
 	private List<CourseApplyInfo> courseApplyInfos;
 
+	private String city;
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public Integer getOldApplyInfoId() {
 		return oldApplyInfoId;
 	}
