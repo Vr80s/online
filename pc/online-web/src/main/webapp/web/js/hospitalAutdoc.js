@@ -100,7 +100,7 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 		RequestService("/medical/doctor/get", "get", {
 			doctorId: changeDocId,
 		}, function(data) {
-			console.log(data)
+//			console.log(data)
 			$('#doc_Administration_bottom4').html(template('docStatusTpl',data.resultObject));
 			$('#myinf').html(data.resultObject.description);
 //			$('#myinf>p').style.fontSize = '16px';
@@ -134,7 +134,46 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 		$('#doc_Administration_bottom4').addClass('hide');
 		$('#doc_Administration_bottom3').removeClass('hide');
 		$('#doc_Administration_bottom3').css('visibility','visible');
+		//数据回显
+		RequestService("/medical/doctor/get", "get", {
+			doctorId: changeDocId,
+		}, function(data) {
+//			console.log(data);
+//			$('#doc_Administration_bottom3 .' + imgname + '').html('<img src="' + data.resultObject + '" >');
+			ediotrInf(data.resultObject.name,data.resultObject.medicalDoctorAuthenticationInformation.headPortrait,data.resultObject.title,
+				data.resultObject.medicalDoctorAuthenticationInformation.titleProve,data.resultObject.departments,data.resultObject.fieldText,data.resultObject.description);
+		})
+		
 	})
+	
+	//编辑的时候数据回显
+	function ediotrInf(name,headPortrait,title,titleProve,departments,fieldText,description){
+		//姓名
+		$('#doc_Administration_bottom3 .doc_name').val(name);
+		//医师头像
+		var headPic = '<img src='+headPortrait+'>';
+		$('#doc_Administration_bottom3 .touxiang_pic').html(headPic);
+		//医师职称
+		$('#doc_Administration_bottom3 .doc_zhicheng').val(title);
+		//职称证明
+		var zhichengStr = '<img src='+titleProve+'>';
+		$('#doc_Administration_bottom3 .zhicheng_pic').html(zhichengStr)
+		//科室不回显
+		var j;
+		for(var i =0 ;i < $('#shanChangList2 li').length ;i++){
+			for(j = 0;j < departments.length ;j++ ){
+				if($('#shanChangList2 li').eq(i).text() == departments[j].name){
+					$('#shanChangList2 li').eq(i).addClass('keshiColor');
+				}
+			}
+		}
+		//擅长
+		$('#doc_Administration_bottom3 .doc_shanchangIpt').val(fieldText);
+		//医师介绍
+		UE.getEditor('editor1').setContent(description);
+
+	}
+
 
 	//医师预览关闭按钮
 	$('#doc_Administration_bottom4').on('click','.close_doc_inf',function() {
@@ -159,7 +198,7 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 		RequestService("/medical/common/upload", "post", {
 			image: baseurl,
 		}, function(data) {
-			console.log(data);
+//			console.log(data);
 			$('#doc_Administration_bottom3 .' + imgname + '').html('<img src="' + data.resultObject + '" >');
 		})
 
@@ -308,7 +347,7 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 			//			console.log(arr.toString())
 			keshiStr = arr.toString();
 		}
-		console.log(keshiStr)
+//		console.log(keshiStr)
 	})
 
 })
