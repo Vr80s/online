@@ -511,18 +511,19 @@
 			        <div class="profile-info-row" >
 			            <table frame=void >
 			                <tr>
-			                    <td>
-			                        <div class="profile-info-value searchTr">
-			                            <input type="text" placeholder = "医馆名" class="propertyValue1" id="search_courseName" style="width: 150px;">
-			                            <input type="hidden" value="search_courseName" class="propertyName"/>
-			                        </div>
-			                    </td>
+			                    <%--<td>--%>
+			                        <%--<div class="profile-info-value searchTr">--%>
+			                            <%--<input type="text" placeholder = "医馆名" class="propertyValue1" id="search_courseName" style="width: 150px;">--%>
+			                            <%--<input type="hidden" value="search_courseName" class="propertyName"/>--%>
+			                        <%--</div>--%>
+			                    <%--</td>--%>
 			                    <td>
 			                       <div class="profile-info-value searchTr">
 			                            <select name="search_status" id="search_status" value="" class="propertyValue1" >
-						               		<option value="">是否启用</option>
-						                        <option value="1">已启用</option>
-						                        <option value="0">未启用</option>
+						               		<option value="">认证状态</option>
+											<option value="1">已通过</option>
+											<option value="0">已拒绝</option>
+											<option value="2">待审核</option>
 						               </select>
 			                            <input type="hidden" value="search_status" class="propertyName"/>
 			                        </div>
