@@ -482,8 +482,10 @@
 			<span><em>*</em>科室</span>
 			<ul id="keshiList2">
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-				  {{include 'adaptTpl' }}  
-				 {{/if}}
+					{{each medicalDepartments}}
+					<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
+					{{/each}}
+				{{/if}}
 			</ul>
 		</div>
 		
@@ -511,11 +513,11 @@
 
 
 <!--科室部分的小模板-->
-<script type="text/template" id="adaptTpl">
-{{each medicalDepartments}}
-	<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
-{{/each}}
-</script>
+<!--<script type="text/template" id="adaptTpl">-->
+<!--{{each medicalDepartments}}-->
+	<!--<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>-->
+<!--{{/each}}-->
+<!--</script>-->
 
 <script>
 	
