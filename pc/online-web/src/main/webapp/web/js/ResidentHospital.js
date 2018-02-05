@@ -395,7 +395,9 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 	var headPic = '<img src='+headPortrait+'>';
 	$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
 	//医馆名称
-	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').val('name');
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').attr('disabled','disabled');
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').css('background','#f0f0f0')
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').val(name);
 	//医馆图片
 	var hosPicStr = '';
 	medicalHospitalPictures.forEach(function(v,i){

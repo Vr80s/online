@@ -301,28 +301,14 @@
 		</div>
 		<div class="line-xu"></div>
 		<div class="all_list">
-			<ul>
-				<li>
-					<p>01&nbsp;《秋郊饮马图》&《浴马图》：关于画马的一段小八卦</p>
-				</li>
-				<li>
-					<p>02&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>03&nbsp;赵雍《挟弹游骑图》：唐代气息扑面而来</p>
-				</li>
-				<li>
-					<p>04&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>05&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>06&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>07&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
+			<ul class="all_list_ul">
+				<script type="text/html" id="all_list_ul">
+				{{each items as item i}}
+					<li>
+						<p>{{item.gradeName}}</p>
+					</li>
+				{{/each}}
+	            </script>
 			</ul>
 		</div>
 	</div>	

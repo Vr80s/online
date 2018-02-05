@@ -88,12 +88,14 @@ header{
     float: right;
 }
 
+/*提现金额开始*/
 .clearing{
 	width: 100%;
 	height: 2.87rem;
 	background: #fff;
 	border-top: 1px solid #F0F0F0;
 	border-bottom: 1px solid #F0F0F0;
+	margin-bottom: 0.2rem;	
 }
 .clearing_title{
 	font-size: 0.28rem;
@@ -110,6 +112,7 @@ header{
 	color: #333333;
 	float: left;
     line-height: 0.7rem;
+    margin-left: 0.1rem;
 }
 .clearing_main input{
 	width: 5rem;
@@ -118,8 +121,8 @@ header{
 	border: 0;
 	font-size: 0.32rem;
 	color: #CCCCCC;
-	outline: none;
-	outline: none;
+	outline : none;
+	/*margin-left: 0.3rem;*/
 }
 .clearing_main_hint{
 	height: 0.66rem;
@@ -132,6 +135,7 @@ header{
 	pointer-events:none;
 	border-left: 2px solid #666;
 	text-indent: 0.2rem;
+	margin-left: 0.2rem;
 }
 .clearing_border{
 	width: 100%;
@@ -145,6 +149,57 @@ header{
     line-height: 0.81rem;
     margin-left: 0.26rem;
 }
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #ccc;
+}
+/*提现金额结束*/
+/*发送验证码开始*/
+.auth_code{
+	width: 100%;
+	height: 1.78rem;
+	background: #fff;
+}
+.auth_code .div0{
+	width: 100%;
+	height: 0.97rem;
+	border-bottom: 1px solid #D8DDE6;
+}
+.auth_code .div0 .input0{
+	width: 5rem;
+    height: 0.97rem;
+    line-height: 0.97rem;
+    border: 0;
+    outline: none;
+    margin-left: 0.26rem;
+    margin-right: 0.28rem;
+    font-size: 0.28rem;
+	color: #CCCCCC;
+}
+
+#btn{
+    width: 1.6rem;
+    height: 0.56rem;
+    line-height: 0.56rem;
+    text-align: center;
+    background: #00BC12;
+    border-radius: 8px;
+    font-size: 0.24rem;
+    border: 0;
+    background: #00bc12;
+    color: #fff;
+}
+/*发送验证码结束*/
+
+
 .clearing_btn{
 	width: 6.98rem;
 	height: 0.72rem;
@@ -158,4 +213,5 @@ header{
 	background: #00BC12;
 	border-radius: 8px;
 }
+
 /*中间内容结束*/
