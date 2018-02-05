@@ -91,6 +91,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	@Override
 	public void savePass(Integer courseApplyId, String userId) {
 		CourseApplyInfo courseApply = courseApplyDao.findCourseApplyById(courseApplyId);
+		if(courseApply.getStatus()!=ApplyStatus.UNTREATED.getCode()){
+			throw new RuntimeException("课程已被他人审核");
+		}
+		if(courseApply.getIsDelete()){
+			throw new RuntimeException("该课程申请被主播重新发起");
+		}
 		Course collection = passCourse(courseApply,userId);
 		//对于专辑，通过时，所有课程都通过
 		if(courseApply.getCollection()){
@@ -128,6 +134,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	@Override
 	public void saveNotPass(CourseApplyInfo courseApplyInfo, String userId) {
 		CourseApplyInfo courseApply = courseApplyDao.findCourseApplyById(courseApplyInfo.getId());
+		if(courseApply.getStatus()!=ApplyStatus.UNTREATED.getCode()){
+			throw new RuntimeException("课程已被他人审核");
+		}
+		if(courseApply.getIsDelete()){
+			throw new RuntimeException("该课程申请被主播重新发起");
+		}
 		courseApply.setDismissal(courseApplyInfo.getDismissal());
 		courseApply.setDismissalRemark(courseApplyInfo.getDismissalRemark());
 		notPassCourse(courseApply,userId);

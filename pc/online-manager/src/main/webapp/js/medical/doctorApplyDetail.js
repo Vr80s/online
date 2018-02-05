@@ -2,7 +2,7 @@ $(document).ready(function($){
 
     $('#pass').click(function () {
 
-        if(confirm("确定认证成功？")){
+        // if(confirm("确定认证成功？")){
             var applyId = $('#applyId').val();
 
             $.ajax({
@@ -18,17 +18,17 @@ $(document).ready(function($){
                         window.location.href = "/home#medical/doctor/apply/index"
                     }
                     else {
-                        alert('修改失败,请稍后再试');
+                        alertInfo(result.errorMessage);
                     }
                 },
                 complete: function( result ) {}
             });
-        }
+        // }
     });
 
     $('#reject').click(function () {
 
-        if(confirm("拒绝该认证？")){
+        // if(confirm("拒绝该认证？")){
             var applyId = $('#applyId').val();
 
             $.ajax({
@@ -44,12 +44,12 @@ $(document).ready(function($){
                         window.location.href = "/home#medical/doctor/apply/index"
                     }
                     else {
-                        alert('修改失败,请稍后再试');
+                        alertInfo(result.errorMessage);
                     }
                 },
                 complete: function( result ) {}
             });
-        }
+        // }
     });
 
 });
