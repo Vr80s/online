@@ -383,7 +383,7 @@ public class Course extends BasicEntity2 implements Serializable {
 	@Column(name = "lecturer_description" )
 	private String lecturerDescription;
 	private String subtitle;
-	@Column(name = "collection_course_sort")
+	@Transient
 	private Integer collectionCourseSort;
 	
 	/**

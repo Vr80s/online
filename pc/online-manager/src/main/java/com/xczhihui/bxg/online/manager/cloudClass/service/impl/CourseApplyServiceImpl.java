@@ -143,11 +143,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	}
 
 	private void saveCollectionCourse(Course collection, Course course) {
-		String sql = "insert into collection_course(collection_id,course_id,create_time) "
-				+ " values (:cId,:courseId,now())";
+		String sql = "insert into collection_course(collection_id,course_id,create_time,collection_course_sort) "
+				+ " values (:cId,:courseId,now(),:collectionCourseSort)";
 		Map<String, Integer> paramMap = new HashMap<String, Integer>();
 		paramMap.put("cId",collection.getId());
 		paramMap.put("courseId",course.getId());
+		paramMap.put("collectionCourseSort",course.getCollectionCourseSort());
 		dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 	}
 

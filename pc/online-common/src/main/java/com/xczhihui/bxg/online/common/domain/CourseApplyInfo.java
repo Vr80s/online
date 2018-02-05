@@ -51,7 +51,7 @@ public class CourseApplyInfo implements Serializable {
 	private String courseResource;
 	@Column(name="course_number")
 	private Integer courseNumber;
-	@Column(name="collection_course_sort")
+	@Transient
 	private Integer collectionCourseSort;
 	@Column(name="multimedia_type")
 	private Integer multimediaType;

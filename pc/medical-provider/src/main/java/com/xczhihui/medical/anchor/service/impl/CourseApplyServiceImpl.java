@@ -234,6 +234,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
             collectionCourseApply.setCourseApplyId(applyInfo.getId());
             collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+            collectionCourseApply.setCollectionCourseSort(courseApplyInfo.getCollectionCourseSort());
             collectionCourseApplyMapper.insert(collectionCourseApply);
         }
     }
@@ -320,7 +321,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         car.setId(resourceId);
         CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(car);
         String audioStr="";
-        if(courseApplyResource.getMultimediaType()==2){
+        if(courseApplyResource.getMultimediaType()==Multimedia.AUDIO.getCode()){
             audioStr = "_2";
         }
         String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+courseApplyResource.getResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
@@ -377,7 +378,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
     @Override
     public CourseApplyInfo selectCourseApplyById(String userId, Integer caiId) {
-        return courseApplyInfoMapper.selectCourseApplyById(userId,caiId);
+        CourseApplyInfo courseApplyInfo = courseApplyInfoMapper.selectCourseApplyById(userId, caiId);
+        if(courseApplyInfo.getCollection()){
+            List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(courseApplyInfo.getId());
+            courseApplyInfo.setCourseApplyInfos(courseApplyInfos);
+        }
+        return courseApplyInfo;
     }
 
     @Override

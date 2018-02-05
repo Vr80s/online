@@ -232,7 +232,7 @@
 				<a href="javascript:;" onclick="confirmCollectionSale(1)">上架</a>
 				{{/if}}
 				{{else if collection.applyStatus==2}}
-				<a href="javascript:;">编辑</a>
+				<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 				{{/if}}
 			</td>
 		</tr>
@@ -982,7 +982,7 @@
 					<div class="zhuanlan_bottom2" id="zhuanji_bottom2">
 						<div class="zhuanlan_top">
 							<span class="title">专辑</span>
-							<div class="returns">新专辑</div>
+							<div class="returns" onclick="resetCollectionForm()">新专辑</div>
 						</div>
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
@@ -1049,6 +1049,7 @@
 							<div class="returns">返回</div>
 						</div>
 						<form id="collectionForm">
+							<input id="collectionId" type="text">
 						<div>
 							<span><em>*</em>专辑标题</span>
 							<input type="text" placeholder="请填写您的专题标题" class="zhuanlan_title collection_title"/>
@@ -1125,10 +1126,10 @@
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
 							<label>
-								<input type="radio" name="collection_multimedia_type" value="1" checked="checked" />视频
+								<input type="radio" name="collection_multimedia_type" value="1" checked="checked" onclick="initCourse(1)"/>视频
 							</label>
 							<label>
-								<input type="radio" name="collection_multimedia_type" value="2"/>音频
+								<input type="radio" name="collection_multimedia_type" value="2" onclick="initCourse(2)"/>音频
 							</label>
 						</div>
 
@@ -1187,7 +1188,7 @@
 							</table>
 
 							<!--序号列表结束-->
-							<div class="add_course">添加课程</div>
+							<div class="add_course" onclick="initCourseSelect()">添加课程</div>
 							<div class="both"></div>
 							<p class="warning warning_course hide">课程不可为空</p>
 							<div class="baocun">

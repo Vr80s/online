@@ -113,7 +113,7 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
     /**
      * 合辑中课程的排序字段
      */
-	@TableField("collection_course_sort")
+	@TableField(exist = false)
 	private Integer collectionCourseSort;
     /**
      * 多媒体类型:1视频2音频
