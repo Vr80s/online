@@ -126,15 +126,13 @@ public class WeiBoThirdPartyController {
 				 * 其实如果存在的话可以做更新操作了啊
 				 */
 				WeiboClientUserMapping wcum = threePartiesLoginService.selectWeiboClientUserMappingByUid(at.getUid());
+				LOGGER.info("是否存在此微博号--------:"+wcum);
 				if(wcum==null){
-					
 					JSONObject job = um.client.get(WeiboConfig.getValue("baseURL") + "users/show.json",
 					        new PostParameter[] {new PostParameter("uid", at.getUid())}).asJSONObject();
 					
 					wbuser = new WeiboClientUserMapping(job);
-					
 					wbuser.setId(UUID.randomUUID().toString().replace("-", ""));
-					
 					//用户昵称
 					String screenName =wbuser.getScreenName();
 					screenName= SLEmojiFilter.filterEmoji(screenName);
@@ -150,6 +148,9 @@ public class WeiBoThirdPartyController {
 					
 					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
 				}else if(wcum.getUserId()!=null){ //绑定了用户信息了
+					
+					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
+					
 					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
 					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
@@ -163,6 +164,8 @@ public class WeiBoThirdPartyController {
 					this.onlogin(req,res,t,ou,t.getTicket());
 					return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
 				}else if(wcum.getUserId()==null){
+					
+					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
 					
 					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 					mapRequest.put("openId",at.getUid()+"");
