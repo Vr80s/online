@@ -17,6 +17,7 @@ function jmpPayPage(orderUrl,payMode,params,returnUrl){
     if(payMode==0){
         location.href = orderUrl+"?"+params;
     }else if(payMode==1){
+    	
         weixin(orderUrl,params,returnUrl);
     }
 }

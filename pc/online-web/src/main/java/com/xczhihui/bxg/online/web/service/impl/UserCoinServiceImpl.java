@@ -202,6 +202,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setValue(coin.negate());
         ucc.setOrderNoConsume(orderNo);
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
+        ucc.setChangeType(ConsumptionChangeType.COURSE.getCode());
         updateBalanceForConsumption(ucc);
     }
 

@@ -115,6 +115,9 @@ public class XzWxPayController {
 		 *
 		 */
 		OnlineOrder onlineOrder = onlineOrderService.getOrderByOrderId(orderId);
+		
+		LOGGER.info(" onlineOrder "+onlineOrder);
+		LOGGER.info(" getOrderNo "+onlineOrder.getOrderNo());
 		String newOrderNo=onlineOrderService.updateOrderNo(onlineOrder.getOrderNo());
 		
 		if (null == onlineOrder) {

@@ -153,4 +153,16 @@ public interface OnlineOrderService {
 	 *
 	 */
 	public List<PayRecordVo> findUserWallet(Integer pageNumber, Integer pageSize, String id);
+	/**
+	 * 
+	 * Description：新的版本的通过订单号获取多个课程
+	 * @param orderNo
+	 * @return
+	 * @throws SQLException
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	ResponseObject getNewOrderAndCourseInfoByOrderId(String orderId)
+			throws SQLException;
 }

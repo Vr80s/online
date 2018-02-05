@@ -479,12 +479,12 @@
 	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
 		<li role="presentation" class="active">
 			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆管理</a>
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆审核</a>
 		</li>
-		<li role="presentation">
-			<a href="#box_px" aria-controls="box_px" class="kctj_bx" role="tab" onclick="updateRec(null,1)"
-			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆推荐</a>
-		</li>
+		<%--<li role="presentation">--%>
+			<%--<a href="#box_px" aria-controls="box_px" class="kctj_bx" role="tab" onclick="updateRec(null,1)"--%>
+			   <%--data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">医馆推荐</a>--%>
+		<%--</li>--%>
 		<%--<li role="presentation">--%>
 			<%--<a href="#box_px" aria-controls="box_px" class="kcpx_bx" role="tab"--%>
 			   <%--data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">课程排序</a>--%>
@@ -495,19 +495,19 @@
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-				<p class="col-xs-4" style="padding: 0;">
-					<button class="btn btn-sm btn-success add_P" title="新增">
-						<i class="glyphicon glyphicon-plus"></i> 新增医师
-					</button>
-					<button class="btn btn-sm btn-success dele_P" title="批量删除">
-						<i class="glyphicon glyphicon-trash"></i> 批量删除
-					</button>
-					<button class="btn btn-sm btn-success rec_P" title="设为推荐">
-						<i class="glyphicon glyphicon-cog"></i> 设为推荐 
-					</button>
-				</p>
+				<%--<p class="col-xs-4" style="padding: 0;">--%>
+					<%--<button class="btn btn-sm btn-success add_P" title="新增">--%>
+						<%--<i class="glyphicon glyphicon-plus"></i> 新增医师--%>
+					<%--</button>--%>
+					<%--<button class="btn btn-sm btn-success dele_P" title="批量删除">--%>
+						<%--<i class="glyphicon glyphicon-trash"></i> 批量删除--%>
+					<%--</button>--%>
+					<%--<button class="btn btn-sm btn-success rec_P" title="设为推荐">--%>
+						<%--<i class="glyphicon glyphicon-cog"></i> 设为推荐 --%>
+					<%--</button>--%>
+				<%--</p>--%>
 			
-			<div class="searchDivClass" id="searchDiv">
+				<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
 			            <table frame=void >
 			                <tr>

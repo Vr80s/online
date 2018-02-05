@@ -53,7 +53,18 @@ public class PayRecordMapper extends BasicSimpleDao {
        }
         return null;
     }
-
+     /**
+      * 
+      * Description：我的钱包接口
+      * @param userId
+      * @param pageNumber
+      * @param pageSize
+      * @return
+      * @throws SQLException
+      * @return List<PayRecordVo>
+      * @author name：yangxuan <br>email: 15936216273@163.com
+      *
+      */
 	 public List<PayRecordVo> findUserWallet(String userId,
 	            Integer pageNumber, Integer pageSize) throws SQLException {
 
@@ -73,9 +84,9 @@ public class PayRecordMapper extends BasicSimpleDao {
 			+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.time_end gmtCreate,  truncate((apr.total_fee/100),2)  totalAmount "
     		+ " FROM wxcp_pay_flow apr WHERE user_id =?"
 			
-			//苹果用户产生的购买、充值记录        ii.type 内购类型：1 充值 0 购买课程
-			+ " union select ii.order_no as outTradeNo,ii.`subject`,ii.create_time gmtCreate,ii.actual_price totalAmount "
-			+ "from iphone_iap ii where ii.user_id=? "
+			// 所有熊猫币购买课程的记录
+			+ " union select ucc.order_no_course as outTradeNo,'购买' as `subject`,ucc.create_time gmtCreate,ucc.value totalAmount "
+			+ "from user_coin_consumption ucc where ucc.user_id=? "
 			
 			//用户送礼产生的的记录   这就就全部都是礼物了
 			+ " union select ogs.id as outTradeNo,'赠送礼物' as subject,ogs.create_time as gmtCreate,(ogs.price*ogs.price) as totalAmount "

@@ -29,17 +29,18 @@ $(function(){
 					
 	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
 	requestService("/xczh/myinfo/list",null,function(data) {
-
-			debugger
 			$(template("data_my_class",{items:data.resultObject[0]})).appendTo("#my_class_box");
 			$(template("data_my_class",{items:data.resultObject[1]})).appendTo("#my_class_box");
-//			$("#my_class_box").html(template("data_my_class",{items:data.resultObject[1]}));
-
 
 	})	
 	
-	
-	
+//我关注的主播
+//		requestService("/xczh/myinfo/myFocus",null,function(data) {
+//
+//		$("#all_follow_people").html(template("data_follow",{items:data.resultObject}))
+//		
+//		
+//		})	
 	
 	
 	

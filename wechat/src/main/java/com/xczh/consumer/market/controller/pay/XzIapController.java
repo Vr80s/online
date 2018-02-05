@@ -38,6 +38,7 @@ import com.xczh.consumer.market.vo.CodeUtil;
 import com.xczhihui.bxg.online.api.service.EnchashmentService;
 import com.xczhihui.bxg.online.api.service.OrderPayService;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.Payment;
 
 @Controller
@@ -146,7 +147,8 @@ public class XzIapController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject appleInternalPurchaseOrder(HttpServletRequest req,
-			HttpServletResponse res,@RequestParam("order_no") String order_no)
+			HttpServletResponse res,
+			@RequestParam("order_no") String order_no)
 			throws Exception {
 		try {
 		
@@ -183,27 +185,20 @@ public class XzIapController {
 			 * 然后你那边加下密
 			 */
     		String transactionId = CodeUtil.getRandomUUID();
-    
-        	/**
-    		 * 课程名字
-    		 */
-    		String courderName ="";
-    		if(order.getAllCourse().size()>0){
-    			courderName =order.getAllCourse().get(0).getGradeName();
-    		}
     		/**
     		 * 记录下ios支付成功后的记录
     		 */
     		int orderFrom = order.getOrderFrom();
+    	/*	ResponseObject finalResult = iphoneIpaService.iapNewOrder(order.getUserId(), xmb, order_no, 
+    				actualPrice+"",courderName,orderFrom);*/
     		
-    		ResponseObject finalResult = iphoneIpaService.iapNewOrder(order.getUserId(), xmb, order_no, 
-    				actualPrice+"",courderName,orderFrom);
+    		userCoinService.updateBalanceForBuyCourse(order.getUserId(),OrderFrom.valueOf(orderFrom),xmb, order_no);
     		/*
     		 * 更改订单状态，增加课程学习人数
     		 */
     		orderPayService.addPaySuccess(order_no,Payment.COINPAY,transactionId);
     		
-    		return finalResult;
+    		return ResponseObject.newSuccessResponseObject("购买成功");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

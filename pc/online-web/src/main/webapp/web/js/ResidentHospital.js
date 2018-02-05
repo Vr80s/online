@@ -341,8 +341,96 @@ $('#hos_base_inf').click(function(){
             imagePopup:false,
             maximumWords:10000       //允许的最大字符数
 	});
+	
+	//调用医馆详细信息借口数据
+	RequestService("/medical/hospital/getHospitalByUserId", "get", null, function(data) {
+//				console.log(data);
+				if(data.success == true && data.resultObject == null){
+					//清空
+					baseInfrese();
+				}else if(data.success == true && data.resultObject != null){
+					//回显数据
+					
+				baseInfrese1(data.resultObject.headPortrait,data.resultObject.name,data.resultObject.medicalHospitalPictures,data.resultObject.fields,data.resultObject.description,
+					data.resultObject.contactor,data.resultObject.email,data.resultObject.wechat,data.resultObject.province,data.resultObject.city)
+				}
+//				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
+//			$('#areaList').html(template('areaTpl', {item:data.resultObject.records}));
+			})
 })
 
+
+//医馆基础信息清空
+function baseInfrese(){
+	//头像
+	var headPic = '<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p><p style="text-align: center;color: #999;font-size: 14px;">求真相</p>';
+	$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
+	//医馆名称
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').val('');
+	//医馆图片
+	var hosPic = '<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;">点击上传医馆图片</p>';
+	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').html('');
+	//领域
+	$('#hos_Administration .hos_base_inf .bottomContent #areaList li').removeClass('keshiColor');
+	//富文本
+	UE.getEditor('editor2').setContent("");
+	//联系人姓名
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_shanchang').val('');
+	//邮箱
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_hospital').val('');
+	//微信
+	$('#hos_Administration .hos_base_inf .bottomContent .hos_weixin').val('');
+	//城市
+	$('#hos_Administration .hos_base_inf .bottomContent #choosePro').val('-1');
+	$('#hos_Administration .hos_base_inf .bottomContent #citys').val('-1');
+}
+
+
+//医馆基础信息回显
+function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,description,contactor,email,wechat,province,city){
+	//头像
+	var headPic = '<img src='+headPortrait+'>';
+	$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
+	//医馆名称
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').val('name');
+	//医馆图片
+	var hosPicStr = '';
+	medicalHospitalPictures.forEach(function(v,i){
+		hosPicStr += '<img src='+v.picture+'>';
+	})
+	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
+	//领域遍历生成
+//	var areaStr = '<li data-id=""></li>' ;
+//	fields.forEach(function(v,i){
+//		areaStr += '<li data-id='+v.id+'>'+v.name+'</li>'
+//	})
+//	$('#hos_Administration .hos_base_inf .bottomContent #areaList ').html(areaStr);
+		var j;
+		for(var i =0 ;i < $('#areaList li').length ;i++){
+			for(j = 0;j < fields.length ;j++ ){
+				if($('#areaList li').eq(i).text() == fields[j].name){
+					$('#areaList li').eq(i).addClass('keshiColor');
+				}
+			}
+		}
+	//富文本
+	UE.getEditor('editor2').setContent(description);
+	//联系人姓名
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_shanchang').val(contactor);
+	//邮箱
+	$('#hos_Administration .hos_base_inf .bottomContent .doc_hospital').val(email);
+	//微信
+	$('#hos_Administration .hos_base_inf .bottomContent .hos_weixin').val(wechat);
+	//城市
+	$('#hos_Administration .hos_base_inf .bottomContent #choosePro option:selected').text(province);
+	$('#hos_Administration .hos_base_inf .bottomContent #citys option:selected').text(city);
+}
+
+
+
+
+
+//认证信息
 $('#hos_renzhneg_inf').click(function(){
 	$('.hos_base_inf ').addClass('hide');
 	$('.hos_renzheng_inf').removeClass('hide');
@@ -360,7 +448,7 @@ $('#hos_renzhneg_inf').click(function(){
 
 //获取医疗领域数据
 RequestService("/medical/hospital/getFields/0", "get", null, function(data) {
-				console.log(data);
+//				console.log(data);
 //				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 			$('#areaList').html(template('areaTpl', {item:data.resultObject.records}));
 			})
@@ -374,7 +462,7 @@ function picUpdown(baseurl,imgname){
 	RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				console.log(data);
+//				console.log(data);
 				 $('#hos_Administration .hos_base_inf  .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 			})
 }
@@ -385,7 +473,7 @@ function picUpdown3(baseurl,imgname){
 	RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				console.log(data);
+//				console.log(data);
 				 $('#hos_Administration .hos_renzheng_inf  .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 			})
 }
@@ -398,7 +486,7 @@ function picUpdown2(baseurl,imgname){
 	RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				console.log(data);
+//				console.log(data);
 				if($('#hos_Administration .hos_base_inf  .'+imgname+' img').length > 1){
 					$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
 					 $('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
@@ -460,7 +548,7 @@ function picUpdown2(baseurl,imgname){
 //			console.log(arr.toString())
 			areaList = arr.toString();
 		}
-		console.log(areaList)
+//		console.log(areaList)
 	})	
 	
 	
@@ -550,6 +638,8 @@ $('#doc_Administration .add_newTeacher').click(function(){
 		//搜索部分隐藏
 		$('.search_teacher_ipt').addClass('hide');
 		$('.search_teacher_btn').addClass('hide');
+		//内容制空功能
+		reset();
 	}else{
 	//取消发布
 		$(this).text('新医师');
@@ -563,6 +653,28 @@ $('#doc_Administration .add_newTeacher').click(function(){
 	}
 	
 })
+
+
+function reset(){
+	//姓名
+	$('#doc_Administration_bottom .doc_name').val('');
+	//职称
+	$('#doc_Administration_bottom .doc_zhicheng').val('');
+	//擅长
+	$('#doc_Administration_bottom .doc_shanchangIpt').val('');
+
+	//
+	$('#doc_Administration_bottom #shanChangList li').removeClass('keshiColor');
+	//头像
+	var headIpt = '<p style="font-size: 90px;height: 80px;font-weight: 300;color: #d8d8d8;text-align: center;line-height: 80px;">+</p><p style="text-align: center;color: #999;font-size: 14px;">求真相</p>';
+	$('#doc_Administration_bottom .touxiang_pic').html(headIpt);
+	//职称证明
+	var zhicheng_pic = '<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;">点击上传职称证明图片</p>';
+	$('#doc_Administration_bottom .zhicheng_pic').html(zhicheng_pic);
+		//富文本框
+	UE.getEditor('editor').setContent("")
+}
+
 
 ////医师预览功能
 //$('.doc_Administration_bottom2 .preview').click(function(){
