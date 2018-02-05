@@ -77,7 +77,7 @@ public class WeChatThirdPartyController {
 	@RequestMapping("wxGetCodeUrl")
 	public void getOpenId(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception{
 		
-		String strLinkHome 	= WxPayConst.authorizeURL+"?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+		String strLinkHome 	= WxPayConst.CODE_URL_3+"?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 		LOGGER.info("strLinkHome:"+strLinkHome);
 		//存到session中，如果用户回调成功
 		res.sendRedirect(strLinkHome);

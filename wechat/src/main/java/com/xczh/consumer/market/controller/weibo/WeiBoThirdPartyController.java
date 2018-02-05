@@ -207,6 +207,7 @@ public class WeiBoThirdPartyController {
 			 * 通过code获取认证 微博唯一票据
 			 */
 			AccessToken at = oauth.getAccessTokenByCode(code);
+			
 			LOGGER.info("微博唯一票据--------》认证AccessToken成功:"+at.getAccessToken());
 			LOGGER.info("微博用户唯一uid--------:"+at.getUid());
 			/**
