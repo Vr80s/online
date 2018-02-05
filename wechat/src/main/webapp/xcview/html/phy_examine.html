@@ -30,19 +30,21 @@
 			</div>
 		</div>
 		<div class="wrap_examine">
-			{{if }}
+			{{if status==2}}
 			<div class="box-content">
 				<div class="examine-pic z">
 					<img src="../images/examine.png"/>
 				</div>
 				<p class="z">提交认证成功，请等待审核</p>
 			</div>
+			{{else if status==0}}
 			<div class="box-content">
 				<div class="examine-pic z">
 					<img src="../images/examine.png"/>
 				</div>
-				<p class="z">提交认证成功，请等待审核</p>
+				<p class="z">主播申请认证失败</p>
 			</div>
+			{{/if}}
 		</div>
 
 <!--验证信息-->	
