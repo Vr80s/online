@@ -6,16 +6,9 @@ import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
-import com.xczhihui.medical.field.model.MedicalField;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
-import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
-import com.xczhihui.medical.hospital.mapper.MedicalHospitalFieldMapper;
-import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
-import com.xczhihui.medical.hospital.mapper.MedicalHospitalPictureMapper;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
-import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
-import com.xczhihui.medical.hospital.model.MedicalHospitalField;
-import com.xczhihui.medical.hospital.model.MedicalHospitalPicture;
+import com.xczhihui.medical.hospital.mapper.*;
+import com.xczhihui.medical.hospital.model.*;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.apache.commons.lang3.StringUtils;
@@ -113,7 +106,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             throw new RuntimeException("您尚未拥有医馆");
         }
 
-        return medicalHospitalMapper.selectHospitalByIdAndStatus(hospitalAccount.getDoctorId(), 0);
+        return medicalHospitalMapper.selectHospitalByIdAndStatus(hospitalAccount.getDoctorId(), null);
     }
 
     @Override

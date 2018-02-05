@@ -236,7 +236,10 @@
 		LEFT JOIN `medical_hospital_field` mhf ON mh.id = mhf.`hospital_id`
 		LEFT JOIN `medical_field` mf ON mf.`id`=mhf.`field_id`
 		WHERE mh.deleted = 0
-		AND mh.id = #{id} AND mh.status = #{status}
+		AND mh.id = #{id}
+		<if test="status != null">
+			AND md.status = #{status}
+		</if>
 	</select>
 
 </mapper>

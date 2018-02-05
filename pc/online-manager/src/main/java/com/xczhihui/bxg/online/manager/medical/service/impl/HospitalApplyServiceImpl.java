@@ -172,7 +172,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         // 新增医馆信息：medical_hospital
         MedicalHospital hospital = new MedicalHospital();
         hospital.setId(hospitalId);
-        hospital.setName(hospitalId);
+        hospital.setName(apply.getName());
         hospital.setCreateTime(now);
         hospital.setAuthentication(true);
         hospital.setDeleted(false);
