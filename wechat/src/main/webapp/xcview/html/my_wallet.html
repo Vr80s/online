@@ -26,7 +26,7 @@
 	
 	<!--头部开始-->
 	<header>
-		<div class="header_img">
+		<div class="header_img" onclick="window.history.go(-1);">
 			<img src="../images/back icon.png" />
 		</div>
 		<div class="header">
@@ -57,7 +57,7 @@
 							<div class="balance">
 								<div class="div0">熊猫币余额(熊猫币)</div>
 								<div class="div1">88</div>
-								<div class="div2">去充值</div>
+								<div class="div2" onclick="location.href ='recharges.html'">去充值</div>
 							</div>
 							<!--余额结束-->
 							
@@ -125,7 +125,7 @@
 								<div class="balance" style="margin-left1: -0.1rem;">
 									<div class="div0">人民币余额(元)</div>
 									<div class="div1">88</div>
-									<div class="div2">提现</div>
+									<div class="div2 div02">提现</div>
 								</div>
 								<!--余额结束-->
 								
@@ -166,7 +166,7 @@
 											</div>
 											<div class="record_course">
 												<div class="record_course_left z">
-													<span class="span0">提现</span>
+													<span class="span0" >提现</span>
 												</div>
 												<div class="record_course_right y">
 													<span class="span0">-<span>100</span></span>
@@ -204,7 +204,7 @@
 			<div class="bank_card_main_size">使用提现功能需添加一张支持提现的储蓄卡</div>
 			<div class="bank_card_main_fixed">
 				<div class="div0">取消</div>
-				<div class="div1">添加储蓄卡</div>
+				<div class="div1" onclick="location.href ='bank_card.html'">添加储蓄卡</div>
 			</div>
 		</div>
 	</div>
@@ -2862,8 +2862,8 @@ app.TabSlider = function(dom,options){
 
 <script type="text/javascript">
 	window.onload = function(){
-//		点击人民币提现   出现添加银行卡提示
-		$(".balance .div2").click(function(){
+//		点击人民币提现   出现添加银行卡提示             withdraws.html--提现页   点击提现之前已经添加过银行卡直接到提现页
+		$(".balance .div02").click(function(){
 			$(".bank_card").show();
 		});
 		

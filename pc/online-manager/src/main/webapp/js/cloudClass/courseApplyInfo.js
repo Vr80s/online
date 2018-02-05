@@ -48,6 +48,7 @@ $(function() {
             "sortable": false,
             "data": 'reviewTime',
             "mRender": function (data) {
+                if(data==null)return "";
                 return getLocalTime(data);
             }
         },
@@ -58,7 +59,7 @@ $(function() {
             "sortable": false,
             "data": 'status',
             "mRender": function (data, display, row) {
-                if (data == 0) {
+                if (data == 2) {
                     return "未审核";
                 } else if (data == 1) {
                     return '<span style="color: #13da08;">已通过</span>';

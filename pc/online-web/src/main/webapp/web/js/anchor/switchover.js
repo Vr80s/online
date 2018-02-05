@@ -76,11 +76,11 @@ $(function(){
 	});
 	
 	
-	//点击新专辑添加课程开始
-	//点击添加课程
-	$(".add_course").click(function() {
-	    $(".new_box").show();
-	});
+	// //点击新专辑添加课程开始
+	// //点击添加课程
+	// $(".add_course").click(function() {
+	//     $(".new_box").show();
+	// });
 	
 	//关闭添加课程弹框
 	$(".new_box_main p").click(function() {

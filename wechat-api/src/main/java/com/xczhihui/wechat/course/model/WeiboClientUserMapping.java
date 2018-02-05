@@ -3,6 +3,9 @@ package com.xczhihui.wechat.course.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -88,8 +91,44 @@ public class WeiboClientUserMapping extends  Model<WeiboClientUserMapping>{
 	@TableField("create_time")
     private Date createTime;
     
-    
-    public String getId() {
+	public WeiboClientUserMapping(){
+		
+	}
+	
+	public WeiboClientUserMapping(JSONObject json) {
+		 if (json != null) {
+			 try {
+				uid = json.getString("id");
+		        screenName = json.getString("screen_name");
+		        name = json.getString("name");
+		        province = json.getInt("province");
+		        city = json.getInt("city");
+		        location = json.getString("location");
+		        description = json.getString("description");
+		        url = json.getString("url");
+		        profileImageUrl = json.getString("profile_image_url");
+		        userDomain = json.getString("domain");
+		        gender = json.getString("gender");
+		        followersCount = json.getInt("followers_count");
+		        friendsCount = json.getInt("friends_count");
+		        favouritesCount = json.getInt("favourites_count");
+		        statusesCount = json.getInt("statuses_count");
+		        createdAt = json.getString("created_at");
+		        verified = json.getString("verified");
+		        if (!json.getString("remark").isEmpty()) {
+		          remark = json.getString("remark");
+		        }
+		        lang = json.getString("lang");
+		        weihao = json.getString("weihao");
+			} catch (Exception jsone) {
+				jsone.printStackTrace();
+			}
+	        
+		}
+	}
+
+
+	public String getId() {
         return id;
     }
     
@@ -286,6 +325,7 @@ public class WeiboClientUserMapping extends  Model<WeiboClientUserMapping>{
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+	
 
 	@Override
 	protected Serializable pkVal() {

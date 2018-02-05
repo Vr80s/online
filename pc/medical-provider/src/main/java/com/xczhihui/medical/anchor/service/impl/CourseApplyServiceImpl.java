@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.online.common.enums.ApplyStatus;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
@@ -180,6 +181,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             if(StringUtils.isBlank(courseApplyInfo.getAddress())){
                 throw new RuntimeException("授课地址不为空");
             }
+            if(StringUtils.isBlank(courseApplyInfo.getCity())){
+                throw new RuntimeException("授课地址不为空");
+            }
             if(courseApplyInfo.getStartTime()==null){
                 throw new RuntimeException("开课时间不为空");
             }
@@ -192,6 +196,25 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             }
         }else{
             throw new RuntimeException("课程形式有误");
+        }
+        validateCourseName(courseApplyInfo);
+    }
+
+    /**
+     * Description：校验课程名称
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/2/5 0005 上午 11:13
+     **/
+    private void validateCourseName(CourseApplyInfo courseApplyInfo) {
+        Integer caiCount = courseApplyInfoMapper.selectCourseApplyForValidate(courseApplyInfo.getTitle(),courseApplyInfo.getOldApplyInfoId());
+        if(caiCount>0){
+            throw new RuntimeException("课程名称被占用");
+        }else{
+            Integer cCount = courseApplyInfoMapper.selectCourseForValidate(courseApplyInfo.getTitle());
+            if(cCount>0){
+                throw new RuntimeException("课程名称被占用");
+            }
         }
     }
 
@@ -211,6 +234,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
             collectionCourseApply.setCourseApplyId(applyInfo.getId());
             collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+            collectionCourseApply.setCollectionCourseSort(courseApplyInfo.getCollectionCourseSort());
             collectionCourseApplyMapper.insert(collectionCourseApply);
         }
     }
@@ -261,6 +285,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(courseApplyInfo.getCourseForm() != CourseForm.VOD.getCode()){
             throw new RuntimeException("暂不支持点播以外的专辑课程");
         }
+        validateCourseName(courseApplyInfo);
     }
 
 
@@ -296,7 +321,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         car.setId(resourceId);
         CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(car);
         String audioStr="";
-        if(courseApplyResource.getMultimediaType()==2){
+        if(courseApplyResource.getMultimediaType()==Multimedia.AUDIO.getCode()){
             audioStr = "_2";
         }
         String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+courseApplyResource.getResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
@@ -353,17 +378,43 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
     @Override
     public CourseApplyInfo selectCourseApplyById(String userId, Integer caiId) {
-        return courseApplyInfoMapper.selectCourseApplyById(userId,caiId);
+        CourseApplyInfo courseApplyInfo = courseApplyInfoMapper.selectCourseApplyById(userId, caiId);
+        if(courseApplyInfo.getCollection()){
+            List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(courseApplyInfo.getId());
+            courseApplyInfo.setCourseApplyInfos(courseApplyInfos);
+        }
+        return courseApplyInfo;
     }
 
     @Override
     public void updateCourseApply(CourseApplyInfo courseApplyInfo) {
+        CourseApplyInfo cai = selectCourseApplyById(courseApplyInfo.getUserId(), courseApplyInfo.getId());
+        if(cai==null){
+            throw new RuntimeException("课程不存在");
+        }
+        /*else if(cai.getStatus()!= ApplyStatus.UNTREATED.getCode()){
+            //防止后台管理操作与主播同时操作该课程出现问题
+            throw new RuntimeException("课程审核状态已经发生变化");
+        }*/
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
         //记录原申请id
         courseApplyInfo.setOldApplyInfoId(courseApplyInfo.getId());
         courseApplyInfo.setId(null);
         saveCourseApply(courseApplyInfo);
+    }
+
+    @Override
+    public void deleteCourseApplyById(String userId, Integer caiId) {
+        CourseApplyInfo cai = selectCourseApplyById(userId, caiId);
+        if(cai==null){
+            throw new RuntimeException("操作的申请记录不存在");
+        }
+        //仅未通过的申请可删除
+        if(cai.getStatus()!=ApplyStatus.NOT_PASS.getCode()){
+            throw new RuntimeException("该条申请记录暂不允许删除");
+        }
+        courseApplyInfoMapper.deleteCourseApplyById(caiId);
     }
 
     /**

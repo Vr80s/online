@@ -44,6 +44,16 @@ public class CollectionCourseApply extends Model<CollectionCourseApply> {
 	@TableField("create_time")
 	private Date createTime;
 
+	@TableField("collection_course_sort")
+	private Integer collectionCourseSort;
+
+	public Integer getCollectionCourseSort() {
+		return collectionCourseSort;
+	}
+
+	public void setCollectionCourseSort(Integer collectionCourseSort) {
+		this.collectionCourseSort = collectionCourseSort;
+	}
 
 	public Integer getId() {
 		return id;

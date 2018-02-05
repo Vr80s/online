@@ -321,6 +321,7 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			
 			//内部状态模板
 			$('#AutStatus').html(template('docAutStatus_Tpl', data.resultObject));
+			$('#AutStatus .personIntroduct > p').html(data.resultObject.description)
 			}else{
 				$('#doc_doctor #docNoPass_tip').removeClass('hide');
 			}

@@ -9,12 +9,15 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
 				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
+					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);
+					$('.doctor_inf>h4').text(data.resultObject.name);
+					$('.doctor_inf>p').text(data.resultObject.info)
 				} else {
 					
 				}
 			};
 		});
+
 
 ////上线下线的按钮点击事件
 //$('#doc_Administration_bottom2').on('click','.downLine',function(){
@@ -344,7 +347,7 @@ $('#hos_base_inf').click(function(){
 	
 	//调用医馆详细信息借口数据
 	RequestService("/medical/hospital/getHospitalByUserId", "get", null, function(data) {
-				console.log(data);
+//				console.log(data);
 				if(data.success == true && data.resultObject == null){
 					//清空
 					baseInfrese();
@@ -398,13 +401,21 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 	medicalHospitalPictures.forEach(function(v,i){
 		hosPicStr += '<img src='+v.picture+'>';
 	})
-	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').html(hosPicStr);
+	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
 	//领域遍历生成
-	var areaStr = '<li data-id=""></li>' ;
-	fields.forEach(function(v,i){
-		areaStr += '<li data-id='+v.id+'>'+v.name+'</li>'
-	})
-	$('#hos_Administration .hos_base_inf .bottomContent #areaList ').html(areaStr);
+//	var areaStr = '<li data-id=""></li>' ;
+//	fields.forEach(function(v,i){
+//		areaStr += '<li data-id='+v.id+'>'+v.name+'</li>'
+//	})
+//	$('#hos_Administration .hos_base_inf .bottomContent #areaList ').html(areaStr);
+		var j;
+		for(var i =0 ;i < $('#areaList li').length ;i++){
+			for(j = 0;j < fields.length ;j++ ){
+				if($('#areaList li').eq(i).text() == fields[j].name){
+					$('#areaList li').eq(i).addClass('keshiColor');
+				}
+			}
+		}
 	//富文本
 	UE.getEditor('editor2').setContent(description);
 	//联系人姓名
@@ -440,7 +451,7 @@ $('#hos_renzhneg_inf').click(function(){
 
 //获取医疗领域数据
 RequestService("/medical/hospital/getFields/0", "get", null, function(data) {
-				console.log(data);
+//				console.log(data);
 //				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 			$('#areaList').html(template('areaTpl', {item:data.resultObject.records}));
 			})
@@ -454,7 +465,7 @@ function picUpdown(baseurl,imgname){
 	RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				console.log(data);
+//				console.log(data);
 				 $('#hos_Administration .hos_base_inf  .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 			})
 }
@@ -465,7 +476,7 @@ function picUpdown3(baseurl,imgname){
 	RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				console.log(data);
+//				console.log(data);
 				 $('#hos_Administration .hos_renzheng_inf  .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 			})
 }
@@ -478,7 +489,7 @@ function picUpdown2(baseurl,imgname){
 	RequestService("/medical/common/upload", "post", {
 				image: baseurl,
 			}, function(data) {
-				console.log(data);
+//				console.log(data);
 				if($('#hos_Administration .hos_base_inf  .'+imgname+' img').length > 1){
 					$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
 					 $('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
@@ -540,7 +551,7 @@ function picUpdown2(baseurl,imgname){
 //			console.log(arr.toString())
 			areaList = arr.toString();
 		}
-		console.log(areaList)
+//		console.log(areaList)
 	})	
 	
 	

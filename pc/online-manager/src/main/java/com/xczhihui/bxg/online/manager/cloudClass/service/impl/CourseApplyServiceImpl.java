@@ -12,6 +12,8 @@ import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.manager.cloudClass.dao.CourseApplyDao;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
+import com.xczhihui.bxg.online.manager.message.dao.MessageDao;
+import com.xczhihui.bxg.online.manager.order.vo.MessageShortVo;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import com.xczhihui.bxg.online.manager.vhall.bean.Webinar;
@@ -32,6 +34,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 
     @Autowired
     private CourseApplyDao courseApplyDao;
+    @Autowired
+    private MessageDao messageDao;
     @Autowired
     private CourseService courseService;
     @Autowired
@@ -91,6 +95,12 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	@Override
 	public void savePass(Integer courseApplyId, String userId) {
 		CourseApplyInfo courseApply = courseApplyDao.findCourseApplyById(courseApplyId);
+		if(courseApply.getStatus()!=ApplyStatus.UNTREATED.getCode()){
+			throw new RuntimeException("课程已被他人审核");
+		}
+		if(courseApply.getIsDelete()){
+			throw new RuntimeException("该课程申请被主播重新发起");
+		}
 		Course collection = passCourse(courseApply,userId);
 		//对于专辑，通过时，所有课程都通过
 		if(courseApply.getCollection()){
@@ -107,6 +117,22 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 				}
 			}
 		}
+		String msgId = UUID.randomUUID().toString().replaceAll("-", "");
+		MessageShortVo messageShortVo = new MessageShortVo();
+		messageShortVo.setUser_id(courseApply.getUserId());
+		messageShortVo.setId(msgId);
+		messageShortVo.setCreate_person(userId);
+		messageShortVo.setType(1);
+		String n;
+		//若为打款
+		if(courseApply.getCollection()){
+			n="专辑";
+		}else{
+			n="课程";
+		}
+		String content = n+"《"+courseApply.getTitle()+"》通过系统审核，可以上架啦！";
+		messageShortVo.setContext(content);
+		messageDao.saveMessage(messageShortVo);
 	}
 
 	private Course getCourseByApplyId(CourseApplyInfo courseApplyInfo) {
@@ -117,30 +143,44 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	}
 
 	private void saveCollectionCourse(Course collection, Course course) {
-		String sql = "insert into collection_course(collection_id,course_id,create_time) "
-				+ " values (:cId,:courseId,now())";
+		String sql = "insert into collection_course(collection_id,course_id,create_time,collection_course_sort) "
+				+ " values (:cId,:courseId,now(),:collectionCourseSort)";
 		Map<String, Integer> paramMap = new HashMap<String, Integer>();
 		paramMap.put("cId",collection.getId());
 		paramMap.put("courseId",course.getId());
+		paramMap.put("collectionCourseSort",course.getCollectionCourseSort());
 		dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 	}
 
 	@Override
 	public void saveNotPass(CourseApplyInfo courseApplyInfo, String userId) {
 		CourseApplyInfo courseApply = courseApplyDao.findCourseApplyById(courseApplyInfo.getId());
+		if(courseApply.getStatus()!=ApplyStatus.UNTREATED.getCode()){
+			throw new RuntimeException("课程已被他人审核");
+		}
+		if(courseApply.getIsDelete()){
+			throw new RuntimeException("该课程申请被主播重新发起");
+		}
 		courseApply.setDismissal(courseApplyInfo.getDismissal());
 		courseApply.setDismissalRemark(courseApplyInfo.getDismissalRemark());
 		notPassCourse(courseApply,userId);
-		//对于专辑，拒绝时，仅拒绝专辑，不拒绝课程
-//		if(courseApply.getCollection()){
-//			List<CourseApplyInfo> courseApplyInfos = courseApplyDao.getCourseByCollectionId(courseApply.getId());
-//			for (int i = 0; i < courseApplyInfos.size(); i++) {
-//				//若该申请未被审核通过
-//				if (courseApplyInfos.get(i).getStatus()!=1){
-//					notPassCourse(courseApplyInfos.get(i),userId);
-//				}
-//			}
-//		}
+		//发送消息通知
+		String msgId = UUID.randomUUID().toString().replaceAll("-", "");
+		MessageShortVo messageShortVo = new MessageShortVo();
+		messageShortVo.setUser_id(courseApply.getUserId());
+		messageShortVo.setId(msgId);
+		messageShortVo.setCreate_person(userId);
+		messageShortVo.setType(1);
+		String n;
+		//若为打款
+		if(courseApply.getCollection()){
+			n = "专辑";
+		}else{
+			n="课程";
+		}
+		String content = n+"《"+courseApply.getTitle()+"》未通过系统审核，请重新编辑后提交！原因："+CourseDismissal.getDismissal(courseApply.getDismissal())+" "+courseApply.getDismissalRemark();
+		messageShortVo.setContext(content);
+		messageDao.saveMessage(messageShortVo);
 	}
 
 	@Override
