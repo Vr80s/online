@@ -12,6 +12,7 @@ var course_id = getQueryString("courseId");
   */
 var videoId = "";var teacherId;var teacherName;
 var courseHead ="";var roomNumber="";var lineState =1;
+//var result="{gradeName:"fdsfdsfds",description:"1231"}";
 var result="";
 //统一提交的方法
 	requestService("/bxg/live/liveDetails", {course_id : course_id}, function(data) {
