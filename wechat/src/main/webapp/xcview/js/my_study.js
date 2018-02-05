@@ -35,12 +35,10 @@ $(function(){
 	})	
 	
 //我关注的主播
-//		requestService("/xczh/myinfo/myFocus",null,function(data) {
-//
-//		$("#all_follow_people").html(template("data_follow",{items:data.resultObject}))
-//		
-//		
-//		})	
+		requestService("/xczh/myinfo/myFocus",null,function(data) {
+			$("#all_follow_people").html(template("data_follow",data))
+		
+		})	
 	
 	
 	
