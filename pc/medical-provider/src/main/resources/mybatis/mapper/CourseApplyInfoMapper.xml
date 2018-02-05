@@ -238,11 +238,16 @@
 	<select id="selectCourseApplyByCollectionId"
 			resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
 		SELECT
-		  cai.*
+		  cai.`id`,
+		  cai.`title`,
+		  cai.`lecturer`,
+		  cai.`price`,
+		  cca.collection_course_sort
 		FROM
 		  `course_apply_info` cai
 		  JOIN `collection_course_apply` cca
 			ON cai.id = cca.`course_apply_id`
 		WHERE cca.`collection_apply_id` = #{id}
+    	ORDER BY cca.`collection_course_sort`
 	</select>
 </mapper>

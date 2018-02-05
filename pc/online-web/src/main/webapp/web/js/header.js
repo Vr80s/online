@@ -608,6 +608,10 @@ if (myBrowser() == "IE55") {
                 $(".loginGroup .logout").css("display", "none");
                 $(".loginGroup .login").css("display", "block");
                 $(".dropdown .name").text(data.resultObject.name).attr("title", data.resultObject.name);
+                //20180205主播信息
+                $(".nickname").text(data.resultObject.name).attr("title", data.resultObject.name);
+                $(".anchor_info").show();
+
                 //首页未读消息总数
                 RequestService("/online/message/findMessageCount","GET",null,function(data){
                     if(data.success==true && data.resultObject.count!=0){

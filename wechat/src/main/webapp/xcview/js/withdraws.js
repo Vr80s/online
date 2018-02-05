@@ -18,7 +18,10 @@ function getBankCardList() {
         }
     });
 }
-
+//点击提现
+function withdraw() {
+    
+}
 
 function BankCardList() {
     window.location.href="../html/select.html";
