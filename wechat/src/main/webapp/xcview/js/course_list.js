@@ -8,5 +8,15 @@ $(function(){
 		},function(data){
 		$("#course_list_main").html(template('data_course_list',{items:data.resultObject.records}))
 });
-
+  
+  
+  $(".course_list_main_one").click(function(){
+  	alert(1)
+  })
+  
+  
+  
+  
+  
+  
 })
