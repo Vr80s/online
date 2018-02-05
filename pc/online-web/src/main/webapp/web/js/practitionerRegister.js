@@ -61,7 +61,11 @@ $(function(){
 	if(nikename == ''){
 		$(".nikeName_warn").css('display','block');
 		return false;
-	}else{
+	}else if(nikename.length < 4 ){
+		$(".nikeName_warn").text('长度只能在4-20个字符之间');
+		$(".nikeName_warn").css('display','block');
+		return false;
+	}{
 		$(".nikeName_warn").css('display','none');
 	}
 	
