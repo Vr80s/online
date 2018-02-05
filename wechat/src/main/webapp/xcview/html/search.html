@@ -109,16 +109,11 @@
 </body>
 <script type="text/javascript">
 
-//历史记录删除事件
-function del(i){
-//	localStorage.hisArr.split(',').splice(i,0);
-
-//	localStorage.setItem("hisArr",aaa);
-	console.log(i)
-	console.log(arr)
-
-}
-
+		//历史记录删除事件
+		function del(i){
+		
+		
+		}
 
 		//判断历史记录
 		if(localStorage.hisArr){
@@ -132,7 +127,7 @@ function del(i){
 		}else{
 			arr = [];
 		}
-   
+   		initHistoryList();
 //      点击yinput  失去焦点隐藏默认值
         $("#header_input").keyup(function(){
 			var search_val=$(this).val()
@@ -140,12 +135,13 @@ function del(i){
 			if($("#header_input").val() != ""){
 				$(".header_seek_main").css("display","none");
 				
-				//		头部input搜索框开始
-				document.onkeydown=function(event){
+				//头部input搜索框开始
+				document.onkeyup=function(event){
 					initHistoryList();
 			        var e = event || window.event || arguments.callee.caller.arguments[0];          
 			        if(e && e.keyCode==13){ // enter 键
 						arr.unshift($('#header_input').val())
+						localStorage.hisArr = arr;
 					  window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";						
 			        } 
 			   }; 
@@ -158,7 +154,6 @@ function del(i){
 			if(arr.length >= 10){
 				arr.splice(9,1);
 			}
-			localStorage.hisArr = arr;
 
 			var historyInf = '';
 			localStorage.hisArr.split(',').forEach(function(v,i){
@@ -175,9 +170,9 @@ function del(i){
 		});
 
 		/*清除历史开始*/
-		$(".search_history_title .div1").click(function(){
-			$(".search_history_list_one").remove();
-		});
+//		$(".search_history_title .div1").click(function(){
+//			$(".search_history_list_one").remove();
+//		});
 		/*清除历史结束*/
 </script>
 
