@@ -350,13 +350,13 @@ public class CommonUtil {
 	 */
 	public static String getOpenId(String code) throws Exception {
 		
+		
+		
 		String out = ""; //?? openid获取URL : WxPayConst.OAUTH_URL；
 		String in=WxPayConst.OAUTH_URL.replace("appid=APPID","appid="+WxPayConst.gzh_appid)
 				.replace("secret=SECRET","secret="+WxPayConst.gzh_Secret).
 				replace("code=CODE", "code="+code);
-		System.out.println("openidtest"+in);
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
-		System.out.println("openidtest"+buffer);
 		return buffer.toString();
 	}
 	

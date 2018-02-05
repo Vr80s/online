@@ -111,8 +111,14 @@
 
 		//历史记录删除事件
 		function del(i){
-		
-		
+			var arrList = localStorage.hisArr.split(',');
+			arrList.splice(i,1); 
+			localStorage.setItem("hisArr", arrList);
+			var historyInf = '';
+ 			localStorage.hisArr.split(',').forEach(function(v,i){
+				historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+			})
+			$('.search_history_list').html(historyInf);  
 		}
 
 		//判断历史记录

@@ -46,7 +46,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
 		
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
-		sql.append(" from oe_user where login_name = ?  ");
+		sql.append(" from oe_user where login_name = ? and status = 0  and is_delete =0  ");
 		Object params[] = { loginName };
 		OnlineUser o=this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 				new BeanHandler<>(OnlineUser.class), params);
@@ -74,7 +74,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName, ");
 		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
-		sql.append(" from oe_user where id = ?  ");
+		sql.append(" from oe_user where id = ? and status = 0  and is_delete =0  ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 				new BeanHandler<>(OnlineUser.class), params);
@@ -99,7 +99,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" province_name as provinceName,city_name as cityName,is_lecturer as isLecturer,info as info,");
 		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
-		sql.append(" from oe_user where name = ?  ");
+		sql.append(" from oe_user where name = ?  and status = 0  and is_delete =0 ");
 		Object params[] = { name };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 				new BeanHandler<>(OnlineUser.class), params);
@@ -313,7 +313,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		sql.append(" small_head_photo as smallHeadPhoto,city_name as cityName,info as info,is_lecturer as isLecturer,");
 		sql.append(" county_name as countyName, ");
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
-		sql.append(" from oe_user where id = ?  ");
+		sql.append(" from oe_user where id = ?  and status = 0  and is_delete =0 ");
 		Object params[] = { userId };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 				new MapHandler(), params);
@@ -406,7 +406,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		
 		sql.append(" (select val from oe_common as common where common.id = occupation) as occupationText ");
 
-		sql.append(" from oe_user where union_id = ?  ");
+		sql.append(" from oe_user where union_id = ? and status = 0  and is_delete =0 ");
 		Object params[] = { unionid_ };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),
 				new BeanHandler<>(OnlineUser.class), params);
@@ -435,7 +435,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	 * @throws SQLException
 	 */
 	public Map<String, Object> getUserIsTeacher(String id) throws SQLException {
-		String sql = " select is_lecturer,room_number from oe_user where id = ?";
+		String sql = " select is_lecturer,room_number from oe_user where id = ? and status = 0  and is_delete =0 ";
 		Map<String, Object> map = this.query(JdbcUtil.getCurrentConnection(),
 				sql, new MapHandler(), id);
 		return map;
@@ -632,7 +632,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	public OnlineUser findUserByIdAndVhallNameInfo(String id) throws SQLException {
 		StringBuffer sql = new StringBuffer(); 
 		sql.append(" select id as id,name as name,small_head_photo as smallHeadPhoto,vhall_id as vhallId,vhall_pass as vhallPass,vhall_name as vhallName ");
-		sql.append(" from oe_user where id = ?  ");
+		sql.append(" from oe_user where id = ?  and status = 0  and is_delete =0 ");
 		Object params[] = { id };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(OnlineUser.class), params);
 	}
@@ -647,7 +647,7 @@ public class OnlineUserMapper extends BasicSimpleDao {
 	}
     /**
      * 
-     * Description：
+     * Description：查找主播的详情    主播详细信息和精彩致辞在course_anchor表中
      * @param lecturerId
      * @return
      * @return Map<String,Object>

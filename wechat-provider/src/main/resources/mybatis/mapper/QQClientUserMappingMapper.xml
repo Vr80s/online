@@ -5,7 +5,19 @@
      <!-- qq用户唯一标识获取 -->
 	<select id="selectQQClientUserMappingByOpenId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
 		SELECT
-			*
+		    qcum.id as id,
+            qcum.user_id as userId,
+            qcum.open_id as openId,
+            qcum.nickname as nickname,
+            qcum.figureurl as figureurl,
+            qcum.figureurl_1 as figureurl1,
+            qcum.figureurl_2 as figureurl2,
+            qcum.gender as gender,
+            qcum.vip as vip,
+            qcum.level as level,
+            qcum.is_yellow_year_vip as yellowYearVip,
+            qcum.remark as remark, 
+            qcum.create_time as createTime
 		FROM
 		  qq_client_user_mapping qcum
 				WHERE qcum.open_id = #{openId}  limit 1
@@ -14,7 +26,19 @@
 	<!-- 通过熊猫中医用户id获取  -->
 	<select id="selectQQClientUserMappingByUserId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
 		SELECT
-			*
+			qcum.id as id,
+            qcum.user_id as userId,
+            qcum.open_id as openId,
+            qcum.nickname as nickname,
+            qcum.figureurl as figureurl,
+            qcum.figureurl_1 as figureurl1,
+            qcum.figureurl_2 as figureurl2,
+            qcum.gender as gender,
+            qcum.vip as vip,
+            qcum.level as level,
+            qcum.is_yellow_year_vip as yellowYearVip,
+            qcum.remark as remark, 
+            qcum.create_time as createTime
 		FROM
 		  qq_client_user_mapping qcum
 				WHERE qcum.user_id = #{userId} and qcum.open_id = #{openId} limit 1
