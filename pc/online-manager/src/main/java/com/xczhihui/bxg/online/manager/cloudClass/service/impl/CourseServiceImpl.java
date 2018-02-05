@@ -1404,30 +1404,26 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 					Map<String, Object> video = (Map<String, Object>) object;
 
 					String duration = video.get("duration").toString();
-					double d = Double.valueOf(duration);
-					int totalM = (int)d/(60);
-					int h = totalM/60;
-					double m = Double.valueOf(totalM-h*60) / 60;
-					DecimalFormat df   = new DecimalFormat("######0.00");
-					m = Double.valueOf(df.format(m));
-//					String s = String.valueOf((int) d % 60);
-//					h = h.length() == 1 ? "0" + h : h;
-//					m = m.length() == 1 ? "0" + m : m;
-//					s = s.length() == 1 ? "0" + s : s;
-					String hm = String.valueOf(h + m);
-//					String ms = m + ":" + s;
+//					double d = Double.valueOf(duration);
+//					int totalM = (int)d/(60);
+//					int h = totalM/60;
+//					double m = Double.valueOf(totalM-h*60) / 60;
+//					DecimalFormat df   = new DecimalFormat("######0.00");
+//					m = Double.valueOf(df.format(m));
+					String hm = String.valueOf(Double.valueOf(duration)/60);
+//					String hm = String.valueOf(h + m);
 
 					String vid = video.get("id").toString();
 					String title = video.get("title").toString();
 
-					if (cs.containsKey(title)) {
-						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
-						if (d > oldduration) {
-							cs.put(title, vid + "_#_" + hm + "_#_" + duration);
-						}
-					} else {
+//					if (cs.containsKey(title)) {
+//						double oldduration = Double.valueOf(cs.get(title).split("_#_")[2]);
+//						if (d > oldduration) {
+//							cs.put(title, vid + "_#_" + hm + "_#_" + duration);
+//						}
+//					} else {
 						cs.put(title, vid + "_#_" + hm + "_#_" + duration);
-					}
+//					}
 				}
 
 				try {
