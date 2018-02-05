@@ -114,42 +114,16 @@
 		<p class="follow_title">关注的主播</p>
 		<div class="follow_people">
 			<ul id="all_follow_people">
-				<!--<script type="text/html" id="data_follow">
-					{{each items as item i}}-->
+				<script type="text/html" id="data_follow">
+					{{each resultObject}}
 						<li>
 							<div class="img_people">
-								<img src="{{item.smallHeadPhoto}}"/>
+								<img src="{{$value.smallHeadPhoto}}"/>
 							</div>
-							<p>{{item.name}}</p>
+							<p>{{$value.name}}</p>
 						</li>
-						<li>
-							<div class="img_people">
-								<img src="../images/120.jpg"/>
-							</div>
-							<p>朱小宝</p>
-						</li><li>
-							<div class="img_people">
-								<img src="../images/120.jpg"/>
-							</div>
-							<p>朱小宝</p>
-						</li><li>
-							<div class="img_people">
-								<img src="../images/120.jpg"/>
-							</div>
-							<p>朱小宝</p>
-						</li><li>
-							<div class="img_people">
-								<img src="../images/120.jpg"/>
-							</div>
-							<p>朱小宝</p>
-						</li><li>
-							<div class="img_people">
-								<img src="../images/120.jpg"/>
-							</div>
-							<p>朱小宝</p>
-						</li>	
-					<!--{{/each}}
-				</script>-->
+					{{/each}}
+				</script>
 			</ul>
 		</div>
 	</div>
