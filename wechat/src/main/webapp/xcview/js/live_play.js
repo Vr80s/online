@@ -58,7 +58,7 @@ function refresh(){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
         pageNumber:1,
-        pageSize:3
+        pageSize:6
     },function(data) {
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));

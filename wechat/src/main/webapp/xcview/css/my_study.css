@@ -126,7 +126,7 @@ text-align: right;
 	width: 5rem;
        height: 2.25rem;
     background: white;
-    position: absolute;
+    position: fixed;
     margin-left: -2.5rem;
     margin-top: -1.3rem;
     left: 50%;

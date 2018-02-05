@@ -14,9 +14,10 @@
  *
  */
 function jmpPayPage(orderUrl,payMode,params,returnUrl){
-    if(payMode==0){
+    if(payMode==2){
         location.href = orderUrl+"?"+params;
-    }else if(payMode==1){
+    }else if(payMode==3){
+    	alert(orderUrl+"{}{}{}"+params+"{}{}{}"+returnUrl);
         weixin(orderUrl,params,returnUrl);
     }
 }

@@ -187,6 +187,8 @@ public class OnlineCourse {
     private String city; //所在城市 
     
     private Integer cutoff =0;	// 0 已截止  1 未截止
+    
+    private Boolean collection; 	//是否为专辑 false不是 true 是
 
     
     public String getActualPay() {
@@ -546,5 +548,14 @@ public class OnlineCourse {
 	public void setCutoff(Integer cutoff) {
 		this.cutoff = cutoff;
 	}
+
+	public Boolean getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Boolean collection) {
+		this.collection = collection;
+	}
+	
     
 }
