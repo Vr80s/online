@@ -92,12 +92,13 @@ $(function(){
 	
 	//图形验证码
 	if(imgCode == ''){
-		$(".imgVertifyCode_warn").text('请输入动态码')
+		$(".imgVertifyCode_warn").text('请输入图形动态码')
 		$(".imgVertifyCode_warn").css('display','block');
 		return false;
 	}else{
 		$(".imgVertifyCode_warn").css('display','none');
 	}
+	
 	
 	
 	//短信验证码
@@ -137,22 +138,9 @@ $(function(){
 	  RequestService("/online/user/phoneRegist", "POST", data, function (data) {
 	  	console.log(data);
 	  	if(data.success == false){
-//	  		if(data.errorMessage == '动态码不正确!'){
-//					
-//					$('.my_code .my_code_warn').text(data.errorMessage);
-//					$('.phone_warn').css('display','none');
-//					$('.my_code .my_code_warn').css('display','block');
-//						return false;
-//				}else{
-//					$('.phone_warn').text(data.errorMessage);
-//					$('.my_code .my_code_warn').css('display','none');
-//					$('.phone_warn').css('display','block');
-//						return false;
-//				}
-				
 				//错误的提示
-				if(data.errorMessage == '动态码不正确!'){
-					$('#tip').text('短信验证码不正确！');
+				if(data.errorMessage == '动态码错误'){
+					$('#tip').text('短信验证码错误');
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
@@ -165,7 +153,7 @@ $(function(){
 	       			},1500)
 				}
 	  	}else if(data.success == true){
-	  		$('#tip').text('注册成功！');
+	  		$('#tip').text('注册成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();

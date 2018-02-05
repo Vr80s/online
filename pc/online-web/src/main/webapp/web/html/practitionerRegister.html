@@ -98,7 +98,7 @@ var _hmt = _hmt || [];
 						</form>
 					</ul>
 					<input class="register" type="button" value="注册" id="zhuceBtn"/>
-					<span class="have_login">已有账号<a href="javascript:;" onclick="$('.btn-login').click()">&nbsp;登陆进入医师认证</a></span>
+					<span class="have_login">已有账号<a href="javascript:;" onclick="$('.btn-login').click()">&nbsp;登录进入医师认证</a></span>
 					<p class="btn_checkbox">
 						<label id="agreeAgreement">
 							<input type="checkbox" name=""  value=""  checked="checked"/>
@@ -181,7 +181,7 @@ var _hmt = _hmt || [];
 	
 	//图形验证码
 	if(imgCode == ''){
-		$(".imgVertifyCode_warn").text('请输入动态码')
+		$(".imgVertifyCode_warn").text('请输入图形动态码')
 		$(".imgVertifyCode_warn").css('display','block');
 		return false;
 	}else{
@@ -202,15 +202,27 @@ var _hmt = _hmt || [];
 			if(data.success == false){
 //				alert(data.)
 				if(data.errorMessage == '该手机号已注册，请直接登录！'){
-					$('.phone_warn').text('该手机号已注册，请直接登陆进入医师认证！');
+					$('.phone_warn').text('该手机号已注册，请直接登录进入医师认证！');
 					$('.my_code .my_code_warn').css('display','none');
 					$('.phone_warn').css('display','block');
 						return false;
+				}else if(data.errorMessage == "验证码错误"){
+					$('#tip').text('动态码错误');
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)
 				}else{
-					$('.my_code .my_code_warn').text(data.errorMessage);
-					$('.phone_warn').css('display','none');
-					$('.my_code .my_code_warn').css('display','block');
-						return false;
+//					$('.my_code .my_code_warn').text(data.errorMessage);
+//					$('.phone_warn').css('display','none');
+//					$('.my_code .my_code_warn').css('display','block');
+//						return false;
+					$('#tip').text(data.errorMessage);
+	       			$('#tip').toggle();
+	       			setTimeout(function(){
+	       				$('#tip').toggle();
+	       			},1500)	
+
 				}
 				
 			}else if(data.success == true){
