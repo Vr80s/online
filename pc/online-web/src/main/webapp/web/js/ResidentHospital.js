@@ -9,12 +9,15 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
 				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
+					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);
+					$('.doctor_inf>h4').text(data.resultObject.name);
+					$('.doctor_inf>p').text(data.resultObject.info)
 				} else {
 					
 				}
 			};
 		});
+
 
 ////上线下线的按钮点击事件
 //$('#doc_Administration_bottom2').on('click','.downLine',function(){

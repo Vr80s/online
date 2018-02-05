@@ -80,7 +80,7 @@
 			<div class="both"></div>
 		</div>
 		<div class="search_history_list">
-			<div class="search_history_list_one">
+			<!--<div class="search_history_list_one">
 				<div class="div0">针灸疗法</div>
 				<div class="div1">×</div>
 				<div class="both"></div>
@@ -99,7 +99,7 @@
 				<div class="div0">各式推拿</div>
 				<div class="div1">×</div>
 				<div class="both"></div>
-			</div>
+			</div>-->
 		</div>
 		<div class="both"></div>
 	</div>
@@ -107,29 +107,19 @@
 	
 
 </body>
- <script type="text/javascript">
-	window.onload = function(){
-		
-
-		
-
-	};
-</script>
-
 <script type="text/javascript">
 
 //历史记录删除事件
 function del(i){
-	var aaa = localStorage.hisArr.split(',').splice(i);
-	localStorage.setItem("hisArr",aaa);
-	
-	localStorage.hisArr.split(',').forEach(function(v,i){
-		historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
-	})
-	$('.search_history_list').html(historyInf);
+//	localStorage.hisArr.split(',').splice(i,0);
+
+//	localStorage.setItem("hisArr",aaa);
+	console.log(i)
+	console.log(arr)
+
 }
 
-	window.onload = function(){
+
 		//判断历史记录
 		if(localStorage.hisArr){
 			//渲染上
@@ -142,92 +132,53 @@ function del(i){
 		}else{
 			arr = [];
 		}
-		
-		
-		
-//		循环点击热门搜索
-//		var aBtn6=$('.search_hot_main_one');
-//      for(i=0;i<aBtn6.length;i++){
-//          
-//          $(aBtn6[i]).click(function(){
-//          	$('#header_input').val($(this).text());
-//          	$(".header_seek_main").css("display","none");
-//          });
-//      };
    
-//      var arr = [];
 //      点击yinput  失去焦点隐藏默认值
         $("#header_input").keyup(function(){
-						var search_val=$(this).val()
+			var search_val=$(this).val()
         	
 			if($("#header_input").val() != ""){
 				$(".header_seek_main").css("display","none");
 				
-//				2
 				//		头部input搜索框开始
 				document.onkeydown=function(event){
-			        var e = event || window.event || arguments.callee.caller.arguments[0];
-			          /*if(e && e.keyCode==27){ // 按 Esc 
-			              //要做的事情
-			            }
-			          if(e && e.keyCode==113){ // 按 F2 
-			               //要做的事情
-			             }*/            
+					initHistoryList();
+			        var e = event || window.event || arguments.callee.caller.arguments[0];          
 			        if(e && e.keyCode==13){ // enter 键
-			              //要做的事情
-		//	            $(".history_img_right").click();
-			            /*$("#header_input").blur();
-			            $("#header_input").blur(function(){
-							$("body").trigger("click");	
-						});*/
-		//				alert(54654);
-		
-						//索搜记录处理
 						arr.unshift($('#header_input').val())
-						if(arr.length >= 5){
-							arr.splice(4,1);
-							arr[0] = $('#header_input').val();
-						}
-						localStorage.hisArr = arr;
-//						console.log(arr);
-
-						var historyInf = '';
-						localStorage.hisArr.split(',').forEach(function(v,i){
-							historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
-						})
-						$('.search_history_list').html(historyInf);
-						
-//						window.location.href="../html/curriculum_table.html?search="+search_val+"";
-
-
+					  window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";						
 			        } 
-			    }; 
-				
-				
-//				1
+			   }; 
 			}else{
 				$(".header_seek_main").css("display","block");
 			};
 		});
+		
+		function initHistoryList(){		
+			if(arr.length >= 10){
+				arr.splice(9,1);
+			}
+			localStorage.hisArr = arr;
+
+			var historyInf = '';
+			localStorage.hisArr.split(',').forEach(function(v,i){
+				if(v.split($("#header_input").val()).length>1){
+					historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+				}
+			})
+			$('.search_history_list').html(historyInf);
+		//
+		}
+		
 		$("#header_input").click(function(){
 			$(".header_seek_main").css("display","none");
 		});
-		
-			
+
 		/*清除历史开始*/
 		$(".search_history_title .div1").click(function(){
 			$(".search_history_list_one").remove();
 		});
 		/*清除历史结束*/
-		
-//		点击X开始
-//		$(".search_history_list_one .div1").click(function(){
-//			$(this).parent().remove();
-//		});
-//		点击X结束
-        
-        
-	};
 </script>
 
 

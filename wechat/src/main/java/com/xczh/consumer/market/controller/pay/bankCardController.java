@@ -62,7 +62,9 @@ public class bankCardController {
 			return  ResponseObject.newSuccessResponseObject("添加成功");
 
 	}
-
+	/**
+	 * 获取银行卡列表
+	 */
 	@RequestMapping(value = "userBankList")
 	@ResponseBody
 	public ResponseObject selectUserBankbyUserId(HttpServletRequest req) throws Exception{
@@ -75,7 +77,9 @@ public class bankCardController {
 		List<UserBank> userBankList = userBankService.selectUserBankByUserId(user.getId());
 		return  ResponseObject.newSuccessResponseObject(userBankList);
 	}
-
+	/**
+	 * 获取银行列表
+	 */
 	@RequestMapping(value = "getBankCardList")
 	@ResponseBody
 	public ResponseObject getBankCardList(HttpServletRequest req) throws Exception{
@@ -83,7 +87,9 @@ public class bankCardController {
         List<Map>  getBankCardList = BankCardType.getBankCardList();
 		return  ResponseObject.newSuccessResponseObject(getBankCardList);
 	}
-
+	/**
+	 * 删除银行卡
+	 */
 	@RequestMapping(value = "deleteBankCard")
 	@ResponseBody
 	public ResponseObject deleteBankCard(HttpServletRequest req,
@@ -92,8 +98,35 @@ public class bankCardController {
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-		userBankService.deleteBankCard(id);
+		userBankService.deleteBankCard(user.getId(),id);
 		return  ResponseObject.newSuccessResponseObject("删除成功");
+	}
+	/**
+	 * 设置默认银行卡
+	 */
+	@RequestMapping(value = "updateDefault")
+	@ResponseBody
+	public ResponseObject updateDefault(HttpServletRequest req,
+										 @RequestParam("id")Integer id) throws Exception{
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}
+		userBankService.updateDefault(user.getId(),id);
+		return  ResponseObject.newSuccessResponseObject("设置成功");
+	}
+	/**
+	 * 获取默认银行卡
+	 */
+	@RequestMapping(value = "getDefault")
+	@ResponseBody
+	public ResponseObject getDefault(HttpServletRequest req) throws Exception{
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
+		if(user==null){
+			return ResponseObject.newErrorResponseObject("获取用户信息异常");
+		}
+		UserBank ub = userBankService.getDefault(user.getId());
+		return  ResponseObject.newSuccessResponseObject(ub);
 	}
 
 }

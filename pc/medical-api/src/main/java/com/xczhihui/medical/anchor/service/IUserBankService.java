@@ -36,6 +36,21 @@ public interface IUserBankService {
 	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
 	   * @Date: 2018/2/2 20:58
 	   **/
-	  void deleteBankCard(Integer id);
+	  void deleteBankCard(String userId,Integer id);
+	  /**
+	   * Description：设置为默认
+	   * creed: Talk is cheap,show me the code
+	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	   * @Date: 2018/2/5 13:53
+	   **/
+	  void  updateDefault(String userId,Integer id);
+	  /**
+	   * Description：获取默认银行卡卡
+	   * creed: Talk is cheap,show me the code
+	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	   * @Date: 2018/2/5 14:07
+	   **/
+	  UserBank getDefault(String userId);
+
 
 }

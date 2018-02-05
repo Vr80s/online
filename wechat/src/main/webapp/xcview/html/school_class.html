@@ -19,8 +19,6 @@
 
 <script type="text/javascript" src="../js/school_class.js"></script>
 
-
-	
 </head>
     
 <body style="background:#F8F8F8;">
@@ -251,8 +249,6 @@
 		</script>
 	</div>
 	
-	
-	
 	<div id="sure_isBuy">	
 		<script type="text/html" id="data_isBuy">
 					
@@ -348,16 +344,41 @@
 		</ul>
 	</div>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!--分享开始-->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_main">
+			<div class="share_main_bg">
+				<ul>
+					<div class="share_to">分享到</div>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/ShareSDK.png" />
+							<p>微信</p>
+						</div>
+					</li>
+					<li>
+						<div class="" id="qqShare">
+							<img src="../images/Qzone_share.png" />
+							<p>qq空间</p>
+						</div>
+					</li>
+					<li>
+						<div class="" id="qqShare0">
+							<img src="../images/RSS_links.png" />
+							<p>新浪微博</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="share_cancel">取消</div>
+		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!--分享结束-->
 	
 </div>
 	
@@ -406,5 +427,35 @@
 			 })
 
 	</script>
+	
+	
+	<!--点击分享开始-->
+	<script type="text/javascript">
+		window.onload = function(){
+			//		点击分享share
+			$(".header_news").click(function(){
+				$(".share").show();
+			});
+			
+			$(".share_cancel").click(function(){
+				$(".share").hide();
+			});
+			
+			$(".share_cancel").click(function(){
+				$(".weixin_ceng").hide();
+			});
+			
+			
+	//		点击微信出现提示框
+			$(".share_to_one").click(function(){
+				$(".weixin_ceng").show();
+			});
+			
+			$(".weixin_ceng").click(function(){
+				$(".weixin_ceng").hide();
+			});
+		};
+	</script>
+	<!--点击分享结束-->
 
 </html>

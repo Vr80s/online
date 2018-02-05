@@ -181,6 +181,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             if(StringUtils.isBlank(courseApplyInfo.getAddress())){
                 throw new RuntimeException("授课地址不为空");
             }
+            if(StringUtils.isBlank(courseApplyInfo.getCity())){
+                throw new RuntimeException("授课地址不为空");
+            }
             if(courseApplyInfo.getStartTime()==null){
                 throw new RuntimeException("开课时间不为空");
             }
@@ -231,6 +234,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
             collectionCourseApply.setCourseApplyId(applyInfo.getId());
             collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+            collectionCourseApply.setCollectionCourseSort(courseApplyInfo.getCollectionCourseSort());
             collectionCourseApplyMapper.insert(collectionCourseApply);
         }
     }
@@ -317,7 +321,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         car.setId(resourceId);
         CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(car);
         String audioStr="";
-        if(courseApplyResource.getMultimediaType()==2){
+        if(courseApplyResource.getMultimediaType()==Multimedia.AUDIO.getCode()){
             audioStr = "_2";
         }
         String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+courseApplyResource.getResource()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";
@@ -374,7 +378,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
     @Override
     public CourseApplyInfo selectCourseApplyById(String userId, Integer caiId) {
-        return courseApplyInfoMapper.selectCourseApplyById(userId,caiId);
+        CourseApplyInfo courseApplyInfo = courseApplyInfoMapper.selectCourseApplyById(userId, caiId);
+        if(courseApplyInfo.getCollection()){
+            List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(courseApplyInfo.getId());
+            courseApplyInfo.setCourseApplyInfos(courseApplyInfos);
+        }
+        return courseApplyInfo;
     }
 
     @Override
@@ -382,16 +391,30 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         CourseApplyInfo cai = selectCourseApplyById(courseApplyInfo.getUserId(), courseApplyInfo.getId());
         if(cai==null){
             throw new RuntimeException("课程不存在");
-        }else if(cai.getStatus()!= ApplyStatus.UNTREATED.getCode()){
+        }
+        /*else if(cai.getStatus()!= ApplyStatus.UNTREATED.getCode()){
             //防止后台管理操作与主播同时操作该课程出现问题
             throw new RuntimeException("课程审核状态已经发生变化");
-        }
+        }*/
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
         //记录原申请id
         courseApplyInfo.setOldApplyInfoId(courseApplyInfo.getId());
         courseApplyInfo.setId(null);
         saveCourseApply(courseApplyInfo);
+    }
+
+    @Override
+    public void deleteCourseApplyById(String userId, Integer caiId) {
+        CourseApplyInfo cai = selectCourseApplyById(userId, caiId);
+        if(cai==null){
+            throw new RuntimeException("操作的申请记录不存在");
+        }
+        //仅未通过的申请可删除
+        if(cai.getStatus()!=ApplyStatus.NOT_PASS.getCode()){
+            throw new RuntimeException("该条申请记录暂不允许删除");
+        }
+        courseApplyInfoMapper.deleteCourseApplyById(caiId);
     }
 
     /**

@@ -10,6 +10,8 @@
 		<meta name="description" content="" />
 		
 		<link rel="stylesheet" href="../css/all_comment.css" />
+		<link rel="stylesheet" href="../css/minirefresh.css" />
+		<link rel="stylesheet" href="../css/common.css" />
 		
 		<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 		<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
@@ -18,6 +20,7 @@
 		<script type="text/javascript" src="../js/template.js"></script>
 		
 		<script type="text/javascript" src="../js/all_comment.js"></script>
+		<script type="text/javascript" src="../js/minirefresh.js"></script>
 	</head>
 	<body style="background:#F8F8F8;">
 		<div class="wp">
@@ -31,7 +34,7 @@
 				</div>
 			</div>
 			
-		<!--评论开始-->	
+		<!--评论开始-->
 			<div class="wrap_all_returned" style="margin-bottom: 1.3rem;">  <!--渲染存放盒子-->
 		<script type="text/html" id="wrap_people_comment">
 			{{each items as item i}}
@@ -122,7 +125,7 @@
 			{{/each}}
 		</script>
 	</div>
-			
+
 	<!--底下评论输入框-->	
 	<div class="wrap_user_input">
 		<div class="wrap_input z">
@@ -210,29 +213,9 @@
 		</ul>
 		</script>
 	</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -245,5 +228,46 @@
 		}
 		
 		document.documentElement.style.fontSize=kk/7.5+"px"		
+	</script>
+
+
+
+	<script>
+       /* var appendTestData = Common.appendTestData,
+            // 记录一个最新
+            maxDataSize = 30,
+            listDom = document.querySelector('.wrap_all_returned'),
+            requestDelayTime = 600;
+
+        var miniRefresh = new MiniRefresh({
+            container: '.wrap_all_returned',
+            down: {
+                successAnim: {
+                    // 下拉刷新结束后是否有成功动画，默认为false，如果想要有成功刷新xxx条数据这种操作，请设为true，并实现对应hook函数
+                    isEnable: true,
+                    duration: 300
+                },
+                // 可选，刷新成功的提示，当开启successAnim时才有效
+                contentsuccess: '刷新成功',
+                // 可选，刷新失败的提示，错误回调用到，当开启successAnim时才有效
+                contenterror: '刷新失败',
+                callback: function() {
+                    setTimeout(function() {
+                        // 每次下拉刷新后，上拉的状态会被自动重置
+                        appendTestData(listDom, 10, true);
+                        miniRefresh.endDownLoading(true, '成功更新10条数据');
+                    }, requestDelayTime);
+                }
+            },
+            up: {
+                isAuto: true,
+                callback: function() {
+                    setTimeout(function() {
+                        appendTestData(listDom, 10);
+                        miniRefresh.endUpLoading(listDom.children.length >= maxDataSize ? true : false);
+                    }, requestDelayTime);
+                }
+            }
+        });*/
 	</script>
 </html>

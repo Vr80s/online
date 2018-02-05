@@ -131,13 +131,16 @@
 			</td>
 			<td>
 				{{if course.applyStatus==1}}
-				{{if course.status==1}}
-				<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
-				{{else}}
-				<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
-				{{/if}}
+					{{if course.status==1}}
+					<a href="javascript:;" onclick="confirmCourseSale(0,{{course.id}})">下架</a>
+					{{else}}
+					<a href="javascript:;" onclick="confirmCourseSale(1,{{course.id}})">上架</a>
+					{{/if}}
 				{{else if course.applyStatus==2}}
-				<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+					<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+				{{else if course.applyStatus==0}}
+					<a href="javascript:;" onclick="editCourse({{course.id}})">编辑</a>
+					<a href="javascript:;" onclick="deleteCourse({{course.id}})">删除</a>
 				{{/if}}
 			</td>
 		</tr>
@@ -229,7 +232,7 @@
 				<a href="javascript:;" onclick="confirmCollectionSale(1)">上架</a>
 				{{/if}}
 				{{else if collection.applyStatus==2}}
-				<a href="javascript:;">编辑</a>
+				<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
 				{{/if}}
 			</td>
 		</tr>
@@ -979,7 +982,7 @@
 					<div class="zhuanlan_bottom2" id="zhuanji_bottom2">
 						<div class="zhuanlan_top">
 							<span class="title">专辑</span>
-							<div class="returns">新专辑</div>
+							<div class="returns" onclick="resetCollectionForm()">新专辑</div>
 						</div>
 						<!--头部搜索开始-->
 						<div class="curriculum_top">
@@ -1046,6 +1049,7 @@
 							<div class="returns">返回</div>
 						</div>
 						<form id="collectionForm">
+							<input id="collectionId" type="text">
 						<div>
 							<span><em>*</em>专辑标题</span>
 							<input type="text" placeholder="请填写您的专题标题" class="zhuanlan_title collection_title"/>
@@ -1122,10 +1126,10 @@
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
 							<label>
-								<input type="radio" name="collection_multimedia_type" value="1" checked="checked" />视频
+								<input type="radio" name="collection_multimedia_type" value="1" checked="checked" onclick="initCourse(1)"/>视频
 							</label>
 							<label>
-								<input type="radio" name="collection_multimedia_type" value="2"/>音频
+								<input type="radio" name="collection_multimedia_type" value="2" onclick="initCourse(2)"/>音频
 							</label>
 						</div>
 
@@ -1184,7 +1188,7 @@
 							</table>
 
 							<!--序号列表结束-->
-							<div class="add_course">添加课程</div>
+							<div class="add_course" onclick="initCourseSelect()">添加课程</div>
 							<div class="both"></div>
 							<p class="warning warning_course hide">课程不可为空</p>
 							<div class="baocun">
@@ -1573,8 +1577,6 @@
 	<script type="text/javascript">
         //实例化编辑器
         //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
-
-
         function getLDContent() {
             return UE.getEditor('editor').getContent();
         }

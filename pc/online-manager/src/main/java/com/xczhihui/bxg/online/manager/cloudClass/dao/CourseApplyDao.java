@@ -105,7 +105,7 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 				"  on cai.id = cc.`course_apply_id`\n" +
 				"where cai.`is_delete` = 0\n" +
 				"and cc.`collection_apply_id`=:cid \n" +
-				"order by cai.`collection_course_sort`";
+				"order by cc.`collection_course_sort`";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("cid",cid);
 		return this.getNamedParameterJdbcTemplate().query(sql,params, BeanPropertyRowMapper.newInstance(CourseApplyInfo.class));
@@ -113,14 +113,14 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 
 	public List<CourseApplyInfo> getCourseDeatilsByCollectionId(Integer id) {
 		String sql = "select \n" +
-				"  cai.* \n" +
+				"  cai.*,cc.collection_course_sort collectionCourseSort \n" +
 				"from\n" +
 				"  `course_apply_info` cai \n" +
 				"  left join `collection_course_apply` cc\n" +
 				"  on cai.id = cc.`course_apply_id`\n" +
 				"where cai.`is_delete` = 0\n" +
 				"and cc.`collection_apply_id`=:cid \n" +
-				"order by cai.`collection_course_sort`";
+				"order by cc.`collection_course_sort`";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("cid",id);
 		return this.getNamedParameterJdbcTemplate().query(sql,params, BeanPropertyRowMapper.newInstance(CourseApplyInfo.class));

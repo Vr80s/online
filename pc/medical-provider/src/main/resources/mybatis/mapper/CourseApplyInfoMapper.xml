@@ -13,7 +13,8 @@
 		UPDATE
 		  `course_apply_info` cai
 		SET
-		  cai.`is_delete` = 1
+		  cai.`is_delete` = 1,
+		  cai.`update_time` = NOW()
 		WHERE cai.id = #{id}
 	</update>
 
@@ -211,19 +212,17 @@
 		  cai.*
 		  FROM
 		  `course_apply_info` cai
-		WHERE cai.`collection` = 0
-		  AND cai.`is_delete` = 0
+		WHERE  cai.`is_delete` = 0
 		  AND cai.`user_id` = #{userId}
 		  AND cai.`id`=#{caiId}
 	</select>
 	<select id="selectCourseApplyForValidate" resultType="java.lang.Integer">
 		SELECT
-		cournt(*)
+		COUNT(*)
 		FROM
 		`course_apply_info` cai
 		WHERE cai.`is_delete` = 0
-		AND cai.`user_id` = #{userId}
-		AND cai.`title`=#{title}
+		AND  cai.`title`=#{title}
 		<if test="oldApplyInfoId != null">
 			AND cai.`old_apply_info_id` != #{oldApplyInfoId}
 		</if>
@@ -235,5 +234,15 @@
 		  `oe_course` oc
 		WHERE oc.`is_delete` = 0
 		  AND oc.`grade_name` =  #{title}
+	</select>
+	<select id="selectCourseApplyByCollectionId"
+			resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
+		SELECT
+		  cai.*
+		FROM
+		  `course_apply_info` cai
+		  JOIN `collection_course_apply` cca
+			ON cai.id = cca.`course_apply_id`
+		WHERE cca.`collection_apply_id` = #{id}
 	</select>
 </mapper>

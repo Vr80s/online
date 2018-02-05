@@ -90,4 +90,6 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     CourseApplyInfo selectCourseApplyById(String id, Integer caiId);
 
     void updateCourseApply(CourseApplyInfo courseApplyInfo);
+
+    void deleteCourseApplyById(String userId, Integer caiId);
 }
