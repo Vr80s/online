@@ -15,7 +15,7 @@ import javax.persistence.UniqueConstraint;
  * OeRewardStatement entity. @author MyEclipse Persistence Tools
  */
 @Entity
-@Table(name = "oe_reward_statement", catalog = "online", uniqueConstraints = @UniqueConstraint(columnNames = "order_no"))
+@Table(name = "oe_reward_statement", uniqueConstraints = @UniqueConstraint(columnNames = "order_no"))
 public class RewardStatement implements java.io.Serializable {
 
 	// Fields

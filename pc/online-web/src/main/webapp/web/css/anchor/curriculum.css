@@ -1410,41 +1410,41 @@ pre {
 .wrap_box  #zhuanji .zhuanlan_bottom form #zhuanjiType label input{
 	vertical-align: sub;
 }
-.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #submit{
-	display: inline-block;
-	width: 120px;
-	height: 36px;
-	background: #00BC12;
-	border-radius: 4px;
-	border: none;
-	outline: none;
-	color: #fff;
-    font-size: 14px;
-    margin-right: 20px;
-}
-.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #submit0{
-	display: inline-block;
-	width: 120px;
-	height: 36px;
-	background: none;
-	border-radius: 4px;
-	border: 1px solid #00BC12;
-	outline: none;
-	color: #00BC12;
-    font-size: 14px;
-    margin-right: 20px;
-}
-.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #save{
-	display: inline-block;
-	width: 120px;
-	height: 36px;
-	background: #fff;
-	border-radius: 4px;
-	border: 1px solid #00BC12;
-	outline: none;
-	color: #00BC12;
-    font-size: 14px;
-}
+/*.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #submit{*/
+	/*display: inline-block;*/
+	/*width: 120px;*/
+	/*height: 36px;*/
+	/*background: #00BC12;*/
+	/*border-radius: 4px;*/
+	/*border: none;*/
+	/*outline: none;*/
+	/*color: #fff;*/
+    /*font-size: 14px;*/
+    /*margin-right: 20px;*/
+/*}*/
+/*.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #submit0{*/
+	/*display: inline-block;*/
+	/*width: 120px;*/
+	/*height: 36px;*/
+	/*background: none;*/
+	/*border-radius: 4px;*/
+	/*border: 1px solid #00BC12;*/
+	/*outline: none;*/
+	/*color: #00BC12;*/
+    /*font-size: 14px;*/
+    /*margin-right: 20px;*/
+/*}*/
+/*.wrap_box  #zhuanji .zhuanlan_bottom form .baocun #save{*/
+	/*display: inline-block;*/
+	/*width: 120px;*/
+	/*height: 36px;*/
+	/*background: #fff;*/
+	/*border-radius: 4px;*/
+	/*border: 1px solid #00BC12;*/
+	/*outline: none;*/
+	/*color: #00BC12;*/
+    /*font-size: 14px;*/
+/*}*/
 .wrap_box  #zhuanji .zhuanlan_bottom form .baocun{
 	padding-left:120px ;
 	margin-top: 30px;
@@ -2317,3 +2317,16 @@ pre {
 	display: none;
 }
 
+
+.save{
+	display: inline-block;
+	width: 120px;
+	height: 36px;
+	background: #00BC12;
+	border-radius: 4px;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	margin-right: 20px;
+}

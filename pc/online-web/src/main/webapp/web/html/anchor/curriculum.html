@@ -93,7 +93,7 @@
 				{{course.price}}
 			</td>
 			<td>
-				{{course.courseLength}}
+				{{course.courseLength}}'
 			</td>
 			<td>
 				{{if course.courseForm==1}}
@@ -156,7 +156,7 @@
 				{{course.title}}
 			</td>
 			<td>
-				{{course.courseLength}}
+				{{course.courseLength}}'
 			</td>
 			<td>
 				{{course.startTime}}
@@ -227,12 +227,15 @@
 			<td>
 				{{if collection.applyStatus==1}}
 				{{if collection.status==1}}
-				<a href="javascript:;" onclick="confirmCollectionSale(0)">下架</a>
+				<a href="javascript:;" onclick="confirmCollection(0,{{collection.id}})">下架</a>
 				{{else}}
-				<a href="javascript:;" onclick="confirmCollectionSale(1)">上架</a>
+				<a href="javascript:;" onclick="confirmCollection(1,{{collection.id}})">上架</a>
 				{{/if}}
 				{{else if collection.applyStatus==2}}
 				<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
+				{{else if collection.applyStatus==0}}
+				<a href="javascript:;" onclick="editCollection({{collection.id}})">编辑</a>
+				<a href="javascript:;" onclick="deleteCourse({{collection.id}},1)">删除</a>
 				{{/if}}
 			</td>
 		</tr>
@@ -272,7 +275,11 @@
 				{{resource.title}}
 			</td>
 			<td>
-				{{resource.length}}
+				{{if resource.length!=null}}
+				<span>{{resource.length}}'</span>
+				{{else}}
+				<span>转码中</span>
+				{{/if}}
 			</td>
 			<td>
 				{{resource.createTime}}
@@ -302,15 +309,11 @@
 	<div class="wp">
 			<!--左边点击-->
 			<div class="left-listNav">
-				<div class="doctor_inf">
-					<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
-    						<i class="iconfont icon-xiangji"></i>
-    				</div>
-    				
+				<div class="doctor_inf anchor_info" style="display: none">
 					 <img src="../images/5.jpg" alt="">
 					 <!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
-					 <h4>橘子柠檬可乐</h4>
-					 <p>说点什么来彰显你的个性...</p>
+					 <h4 class="nickname"></h4>
+					 <!--<p>说点什么来彰显你的个性...</p>-->
 				 </div>
 			<!--左边点击nav-->
 				<div class="select_list z">
@@ -350,38 +353,38 @@
 				<div class="begin_approve account_main account_mains account_main_message">
 					<!--医师认证开始-->
 					<div class="physician_one">
-						<div class="account_main_title">认证信息</div>
+							<div class="account_main_title">认证信息</div>
 							<div class="reauthentication">
 								<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
 								<div class="right_btn">重新认证</div>
 							</div>
 							<div class="name">
 								<div class="one" style="margin-top: 0;">姓名</div>
-								<div class="two">我是姓名</div>
+								<div class="two anchor_name"></div>
 							</div>
 							<div class="name">
 								<div class="one" style="margin-top: 0;">身份证号</div>
-								<div class="two">372901199304226111</div>
+								<div class="two anchor_idCard"></div>
 							</div>
 							<div class="name">
 								<div class="one">身份证</div>
 								<div class="two two_img">
-									<img src="../../images/3.jpg" />
+									<img src="" class="anchor_idCard_a" />
 								</div>
 								<div class="three">
-									<img src="../../images/3.jpg" />
+									<img src=""  class="anchor_idCard_b" />
 								</div>
 							</div>
 							<div class="name">
 								<div class="one">医师资格证</div>
 								<div class="two two_img">
-									<img src="../../images/3.jpg" />
+									<img src="" class="anchor_qualification_certificate"/>
 								</div>
 							</div>
 							<div class="name">
 								<div class="one">执业资格证</div>
 								<div class="two two_img">
-									<img src="../../images/3.jpg" />
+									<img src="" class="anchor_professional_certificate"/>
 								</div>
 							</div>
 					</div>
@@ -891,7 +894,7 @@
 								<p class="warning warning_course_resource hide">选择资源不能为空</p>
 							</div>
 							<div class="baocun">
-								<input type="button" class="addCourse" value="提交课程" id="submit"/>
+								<input type="button" class="addCourse save" value="提交" id="submit"/>
 								<!--<input type="submit" value="保存" id="submit0"/>-->
 							</div>
 							</form>
@@ -1021,10 +1024,12 @@
 						<div class="no_yes">
 							<div class="no_yes_bg"></div>
 							<div class="no_yes_main">
-								<div class="top">是否下架</div>
+								<input id="saleStateCollection" type="hidden">
+								<input id="saleCollectionId" type="hidden">
+								<div class="top saleText">是否下架</div>
 								<div class="bottom">
 									<div class="left">否</div>
-									<div class="right">是</div>
+									<div class="right" onclick="changeSaleState(1)">是</div>
 								</div>
 							</div>
 						</div>
@@ -1049,11 +1054,11 @@
 							<div class="returns">返回</div>
 						</div>
 						<form id="collectionForm">
-							<input id="collectionId" type="text">
+							<input id="collectionId" type="hidden">
 						<div>
 							<span><em>*</em>专辑标题</span>
 							<input type="text" placeholder="请填写您的专题标题" class="zhuanlan_title collection_title"/>
-							<p class="warning warning0 hide warning_collection_title">专题标题不能为空</p>
+							<p class="warning hide warning_collection_title">专题标题不能为空</p>
 						</div>
 						
 						<div>
@@ -1193,7 +1198,7 @@
 							<p class="warning warning_course hide">课程不可为空</p>
 							<div class="baocun">
 								<!--专辑提交-->
-								<input type="submit" value="提交" id="submit0" onclick="saveCollection()"/>
+								<input type="submit" class="save" value="提交" id="submit0" onclick="saveCollection()"/>
 								<!--<input type="submit" value="保存" id="submit0"/>-->
 							</div>
 
@@ -1362,8 +1367,8 @@
 
 
 						<div class="baocun">
-							<input type="submit" value="提交课程" id="submits">
-							<input type="submit" value="保存" id="submits0">
+							<input type="submit" class="save" value="提交" id="submits">
+							<!--<input type="submit" value="保存" id="submits0">-->
 						</div>
 						</form>
 					</div>
@@ -1422,33 +1427,38 @@
 						</div>
 						<div class="zhuanlan_bottom" id="ziyuan_bottom">
 							<form action="">
-							<div>
-								<span><em>*</em>课程标题</span>
-								<input type="text" placeholder="请填写您的专栏标题" class="zhuanlan_title"/>
-								<p class="warning warning0 hide">课程标题不能为空</p>
-							</div>
-
-
-
-							<div id="resourceType">
-								<span><em>*</em>资源类型</span>
-								<label>
-									<input type="radio" name="resourceType" checked="checked" />视频
-								</label>
-								<label>
-									<input type="radio" name="resourceType" />音频
-								</label>
-							</div>
-							<div id="resourceUrl">
-								<span><em>*</em> 资源URL</span>
-								<input type="text" class="resource_put" />
-								<a href="javascript:;"><span>选择资源</span></a>
-
-								<p class="warning warning2 hide">请上传资源</p>
-							</div>
-							<div class="baocun">
-								<input type="submit" value="保存" id="submit"/>
-							</div>
+								<div>
+									<span><em>*</em>标题</span>
+									<input type="text" placeholder="请填写您的标题" class="zhuanlan_title"/>
+									<p class="warning warning0 hide">标题不能为空</p>
+								</div>
+								<div id="resourceType">
+									<span><em>*</em>资源类型</span>
+									<label>
+										<input type="radio" name="resource_multimediaType" checked="checked" value="1"/>视频
+									</label>
+									<label>
+										<input type="radio" name="resource_multimediaType" value="2"/>音频
+									</label>
+								</div>
+								<div class="fla_btn">
+									<p class="warning warning1 hide">请先上传资源文件</p>
+									<input id="ccId" name="ccId" type="text" style="display: none"/>
+									<span style="float: left;display: none">
+							选择视频：<input id="videofile" name="videofile" type="text" />
+						</span>
+									<div id="swfDiv"></div>
+									<input type="button" value="点击上传视频" id="btn_width" style="width: 80px; height: 25px" />
+								</div>
+								<div class="uploading" style="display:none;">
+									上传中,请勿刷新页面<span id="uploadProgress"></span>
+								</div>
+								<div class="uploadfinish" style="display:none;">
+									上传完成！
+								</div>
+								<div class="baocun">
+									<input type="button" value="保存" id="submit" />
+								</div>
 							</form>
 						</div>
 					</div>
@@ -1603,6 +1613,66 @@
             } else {
                 return this._bkGetActionUrl.call(this, action);
             }
+        }
+	</script>
+	<script type="text/javascript">
+        var uploadfinished = false;
+        // 加载上传flash ------------- start
+        var swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '80', '25', '8');
+        swfobj.addVariable( "progress_interval" , 1);	//	上传进度通知间隔时长（单位：s）
+        swfobj.addParam('allowFullscreen','true');
+        swfobj.addParam('allowScriptAccess','always');
+        swfobj.addParam('wmode','transparent');
+        swfobj.write('swfDiv');
+
+        function on_spark_selected_file(filename) {
+            document.getElementById("videofile").value = filename;
+            submitvideo(filename);
+        }
+
+        function on_spark_upload_validated(status, videoid) {
+            if (status == "OK") {
+                document.getElementById("ccId").value = videoid;
+//            alert("上传正常,videoid:" + videoid);
+            } else if (status == "NETWORK_ERROR") {
+                alert("网络错误");
+            } else {
+                alert("api错误码：" + status);
+            }
+        }
+
+        function on_spark_upload_progress(progress) {
+            var uploadProgress = document.getElementById("uploadProgress");
+            if (progress == -1) {
+                uploadProgress.innerHTML = "上传出错：" + progress;
+            } else if (progress == 100) {
+                uploadProgress.innerHTML = "进度：100%";
+                $(".uploading").hide();
+                $("#btn_width").hide();
+                $(".uploadfinish").show();
+                uploadfinished = true;
+            } else {
+                $(".uploading").show();
+                $(".uploadfinish").hide();
+                uploadfinished = false;
+                uploadProgress.innerHTML = "进度：" + progress + "%";
+            }
+        }
+
+        //控制上传
+        function submitvideo(filename) {
+            var url = "";
+            $.ajax({
+                url:'/videoRes/getUploadUrl',
+                async: false,
+                data:{title:filename},
+                success:function(data){
+                    debugger
+                    url = data;
+                }
+            });
+//        url = url + "&categoryid=DBBA248F23807F22";
+            document.getElementById("uploadswf").start_upload(url); //	调用flash上传函数
         }
 	</script>
 	</body>
