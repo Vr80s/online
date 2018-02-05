@@ -13,7 +13,7 @@
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../js/bankcards.js"></script>
+<script type="text/javascript" src="../js/select.js"></script>
 
 
 <link rel="stylesheet" href="../css/select.css" />
@@ -28,7 +28,7 @@
 	<!--头部开始-->
 	<header>
 		<div class="header_img">
-			<img src="../images/back icon.png" />
+			<img src="../images/back icon.png" onclick="back()"/>
 		</div>
 		<div class="header">
 			选择银行卡
@@ -42,69 +42,19 @@
 	<!--中间内容开始-->
 	<div class="select">
 		<div class="select_main">
+			<script type="text/html" id="select_bank_card">
+				{{each items as item i}}
 			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰1</div>
-					<div class="div1">招商银行（2476）</div>
+				<div class="main_one_left" onclick="deleteBankCardById('{{item.id}}')">
+					<div class="itemId" style="display: none">{{item.id}}</div>
+					<div class="div0">{{item.acctName}}</div>
+					<div class="div1">{{item.bankName}}（{{item.acctPan}}）</div>
 				</div>
 				<div class="main_one_right0"></div>
 			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰2</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰3</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰4</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰5</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰6</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰7</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰8</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
-			<div class="main_one">
-				<div class="main_one_left">
-					<div class="div0">张三丰9</div>
-					<div class="div1">招商银行（2476）</div>
-				</div>
-				<div class="main_one_right0"></div>
-			</div>
+				{{/each}}
+			</script>
+
 		</div>
 		<div class="both"></div>
 	</div>

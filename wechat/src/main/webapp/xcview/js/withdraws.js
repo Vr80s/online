@@ -5,13 +5,13 @@ $(function(){
 
 //获取默认银行卡
 function getBankCardList() {
-    requestService("/xczh/medical/userBankList",{
+    requestService("/xczh/medical/getDefault",{
     },function(data) {
         if(data.success==true){
-            var acctp = data.resultObject[0].acctPan;
-            acctp = acctp.slice(17);
-            data.resultObject[0].acctPan = acctp;
-            $(".account").html(template('data_bank_card',data.resultObject[0]));
+            var acctp = data.resultObject.acctPan;
+            acctp = acctp.slice(15);
+            data.resultObject.acctPan = acctp;
+            $(".account").html(template('data_bank_card',data.resultObject));
 
         }else{
             alert(data.errorMessage);
@@ -21,5 +21,5 @@ function getBankCardList() {
 
 
 function BankCardList() {
-    window.location.href="../html/bankcards.html";
+    window.location.href="../html/select.html";
 }

@@ -25,4 +25,10 @@ public interface UserBankMapper extends BaseMapper<UserBank> {
 
 	void deleteBankCard(@Param("id") Integer id);
 
+	void updateDefault(@Param("id") Integer id);
+
+	void cancelDefault(@Param("userId") String userId);
+
+	UserBank getDefault(@Param("userId") String userId);
+	UserBank getCardById(@Param("id") Integer id);
 }

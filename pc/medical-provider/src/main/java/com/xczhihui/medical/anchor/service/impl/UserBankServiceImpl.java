@@ -93,9 +93,9 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		}
 		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
 		if(userBankList!=null&&userBankList.size()>0){
-			userBank.setDefault(true);
-		}else {
 			userBank.setDefault(false);
+		}else {
+			userBank.setDefault(true);
 		}
 		userBank.setCertType("01");
 		userBank.setCreateTime(new Date());
@@ -112,9 +112,30 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	}
 
 	@Override
-	public void deleteBankCard(Integer id) {
-		userBankMapper.deleteBankCard(id);
+	public void deleteBankCard(String userId,Integer id) {
+		UserBank ub = userBankMapper.getCardById(id);
+		//判断删除的是否是默认的
+		if (ub.isDefault()){
+			userBankMapper.deleteBankCard(id);
+			List<UserBank> list = userBankMapper.selectUserBankByUserId(userId);
+			UserBank u = list.get(0);
+			updateDefault(userId,u.getId());
+		}else {
+			userBankMapper.deleteBankCard(id);
+		}
 
+
+	}
+
+	@Override
+	public void updateDefault(String userId,Integer id) {
+		userBankMapper.cancelDefault(userId);
+		userBankMapper.updateDefault(id);
+	}
+
+	@Override
+	public UserBank getDefault(String userId) {
+		return userBankMapper.getDefault(userId);
 	}
 
 	private void validateUserBank(UserBank userBank) {

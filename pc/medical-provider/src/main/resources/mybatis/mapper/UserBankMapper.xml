@@ -49,14 +49,41 @@
 		<if test="userId != null and userId != ''">
 			AND oub.user_id = #{userId}
 		</if>
-		ORDER BY oub.is_default ASC ,oub.create_time DESC
+		ORDER BY oub.is_default DESC ,oub.create_time DESC
 	</select>
-
-
+	<select id="getDefault" resultMap="UserBankBaseResult">
+		SELECT
+		oub.*
+		FROM
+		oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+			AND  oub.`is_default` = 1
+			AND oub.user_id = #{userId}
+	</select>
+	<select id="getCardById" resultMap="UserBankBaseResult">
+		SELECT
+		oub.*
+		FROM
+		oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+		AND  oub.id = #{id}
+	</select>
 	<update id="deleteBankCard">
 		UPDATE
 		`oe_user_bank_card` oub
 		SET oub.`is_delete` = 1
 		WHERE oub.id = #{id}
+	</update>
+	<update id="updateDefault">
+		UPDATE
+		`oe_user_bank_card` oub
+		SET oub.`is_default` = 1
+		WHERE oub.id = #{id}
+	</update>
+	<update id="cancelDefault">
+		UPDATE
+		`oe_user_bank_card` oub
+		SET oub.`is_default` = 0
+		WHERE oub.user_id = #{userId}
 	</update>
 </mapper>
