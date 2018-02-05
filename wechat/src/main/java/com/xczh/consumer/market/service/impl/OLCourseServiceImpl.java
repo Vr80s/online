@@ -515,8 +515,12 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		/**
 		 * 直播中的状态
 		 */
-		if(lineState!=null){
+		if(lineState!=null&&lineState!=4){
 			condSql.append(" and oc.live_status = '"+lineState+"'");
+		}
+		if(lineState!=null&&lineState==4){
+			condSql.append(" and oc.live_status = 2 ");
+			condSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
 		}
         /**
          * 目前检索的是讲师名和课程id

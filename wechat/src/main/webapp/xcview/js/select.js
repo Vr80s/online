@@ -70,6 +70,7 @@ function back() {
         },function(data) {
             if(data.success==true){
                 alert(data.resultObject);
+                window.history.go(-1);
             }else{
                 alert(data.errorMessage);
             }
