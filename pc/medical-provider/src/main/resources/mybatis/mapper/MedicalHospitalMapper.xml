@@ -211,4 +211,32 @@
 		</if>
 	</select>
 
+	<select id="selectHospitalByIdAndStatus"  resultMap="MedicalHospitalResult">
+		SELECT
+		mh.id,
+		mh.name,
+		mh.lal,
+		mh.description,
+		mh.tel,
+		mh.email,
+		mh.province,
+		mh.city,
+		mh.detailed_address,
+		mh.score,
+		mh.authentication,
+		mh.recommend,
+		mh.front_img,
+		mh.wechat,
+		mh.head_portrait,
+		mh.contactor,
+		mhp.`picture`,
+		mf.`name` fieldName
+		FROM
+		medical_hospital mh LEFT JOIN `medical_hospital_picture` mhp ON mh.`id`=mhp.`hospital_id` AND mhp.deleted = 0
+		LEFT JOIN `medical_hospital_field` mhf ON mh.id = mhf.`hospital_id`
+		LEFT JOIN `medical_field` mf ON mf.`id`=mhf.`field_id`
+		WHERE mh.deleted = 0
+		AND mh.id = #{id} AND mh.status = #{status}
+	</select>
+
 </mapper>

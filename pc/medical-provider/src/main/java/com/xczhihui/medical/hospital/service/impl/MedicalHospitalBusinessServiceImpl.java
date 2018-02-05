@@ -113,7 +113,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             throw new RuntimeException("您尚未拥有医馆");
         }
 
-        return this.selectHospitalById(hospitalAccount.getDoctorId());
+        return medicalHospitalMapper.selectHospitalByIdAndStatus(hospitalAccount.getDoctorId(), 0);
     }
 
     @Override

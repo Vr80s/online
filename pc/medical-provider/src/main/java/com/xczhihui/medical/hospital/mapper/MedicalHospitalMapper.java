@@ -57,4 +57,13 @@ public interface MedicalHospitalMapper extends BaseMapper<MedicalHospital> {
     List<MedicalDoctor> selectDoctorList(@Param("page") Page<MedicalDoctor> page,
                                          @Param("doctorName") String doctorName,
                                          @Param("hospitalId") String hospitalId);
+
+    /**
+     * 根据用户id和启用状态获取医馆信息
+     * @param userId 用户id
+     * @param status 医馆启用状态（1：启用 0：未启用）
+     * @return 医馆详情
+     */
+    MedicalHospitalVo selectHospitalByIdAndStatus(@Param("id") String userId,
+                                                  @Param("status") Integer status);
 }
