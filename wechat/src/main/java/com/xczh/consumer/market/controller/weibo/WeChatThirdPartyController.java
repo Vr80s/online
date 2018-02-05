@@ -1,6 +1,5 @@
 package com.xczh.consumer.market.controller.weibo;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,19 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.qq.connect.QQConnectException;
-import com.qq.connect.api.OpenID;
-import com.qq.connect.api.qzone.UserInfo;
-import com.qq.connect.javabeans.AccessToken;
-import com.qq.connect.javabeans.qzone.UserInfoBean;
-import com.qq.connect.oauth.Oauth;
-import com.qq.connect.utils.QQConnectConfig;
-import com.qq.connect.utils.RandomStatusGenerator;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
+import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
@@ -40,11 +33,10 @@ import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
+import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
 import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
-import com.xczhihui.wechat.course.model.QQClientUserMapping;
-import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
 
 /**
  * 用户controller
@@ -70,6 +62,79 @@ public class WeChatThirdPartyController {
 	@Autowired
 	private CacheService cacheService;
 	
+	@Value("${returnOpenidUri}")
+	private String returnOpenidUri;
+	
+	/**
+	 * Description：微信 oauth2 获取code
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("wxGetCodeUrl")
+	public void getOpenId(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception{
+		
+		String strLinkHome 	= WxPayConst.authorizeURL+"?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+		LOGGER.info("strLinkHome:"+strLinkHome);
+		//存到session中，如果用户回调成功
+		res.sendRedirect(strLinkHome);
+	}
+
+	/**
+	 * 点击在线课堂
+	 * 微信授权获取用户信息后的回调
+	 * Description：
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("wxThirdGetAccessToken")
+	public void h5GetOpenid1(HttpServletRequest req, HttpServletResponse res,
+			Map<String, String> params) throws Exception {
+		
+		LOGGER.info("WX return code:" + req.getParameter("code"));
+		try {
+			/**
+			 * 通过code获取微信信息
+			 */
+			String code = req.getParameter("code");
+			
+			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+			if(wxw==null){
+				LOGGER.info("微信第三方认证失败 ");
+			}
+			String openId = wxw.getOpenid();
+			/**
+			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
+			 */
+			if(wxw.getClient_id() != null){
+				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
+			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+				ou.setTicket(t.getTicket());
+				onlogin(req,res,t,ou,t.getTicket());
+				
+				if (openId != null && !openId.isEmpty()) {
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId"+ openId);
+				} else{
+					res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
+				}	
+			}else{
+				/*
+				 * 跳转到绑定手机号页面。也就是完善信息页面。  --》绑定类型微信
+				 */
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openId+"&type="+ThirdPartyType.WECHAT.getCode());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Description：app端第三方登录  ---绑定手机号使用
 	 * @param req
@@ -86,11 +151,11 @@ public class WeChatThirdPartyController {
 	public ResponseObject addAppThirdparty(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("accessToken")String accessToken,
-			@RequestParam("openId")String openId) throws Exception {
+			@RequestParam("openId")String openId,
+			@RequestParam("model")String model) throws Exception {
 		
 		LOGGER.info("WX get access_token	:" + accessToken);
 		LOGGER.info("WX get openid	:" + openId);
-		
 		String public_id = WxPayConst.app_appid ;
 		String public_name = WxPayConst.appid4name ;
 		/**
@@ -141,7 +206,8 @@ public class WeChatThirdPartyController {
 				
 				mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 				mapRequest.put("openId",wxcpClientUserWxMapping.getOpenid()+"");
-				
+				mapRequest.put("type",ThirdPartyType.WECHAT.getCode()+"");
+
 				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
 			}else if(m.getClient_id()!=null){ //绑定了用户信息
 				OnlineUser ou =  onlineUserService.findUserById(m.getClient_id());
@@ -161,12 +227,13 @@ public class WeChatThirdPartyController {
 			}else if(m.getClient_id()==null){
 				mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 				mapRequest.put("openId",openid_+"");
+				mapRequest.put("type",ThirdPartyType.WECHAT.getCode()+"");
+				
 				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
 			}
 			return ResponseObject.newSuccessResponseObject("");
 		} catch (Exception e) {
 			e.printStackTrace();
-			
 			throw new RuntimeException(e.getMessage());
 		}
 		

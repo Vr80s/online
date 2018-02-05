@@ -37,6 +37,7 @@ import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
 import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -74,8 +75,12 @@ public class WeiBoThirdPartyController {
 	@Value("${mobile.authorizeURL}")
 	public  String weiboMobileAuthorizeURL;
 
+	@Value("${returnOpenidUri}")
+	private String returnOpenidUri;
+	
+	
 	/**
-	 * Description：微博回调接口  -- 回调了接口后需要请求  
+	 * Description：h5 --》微博回调接口  -- 回调了接口后需要请求  
 	 * @param req
 	 * @param userId
 	 * @return
@@ -83,23 +88,119 @@ public class WeiBoThirdPartyController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping(value="evokeWeiBoRedirect")
+	public void evokeWeiBoRedirect(HttpServletRequest req,
+			HttpServletResponse res){
+		
+		String code = req.getParameter("code");
+		LOGGER.info("微博用户授权登录成功code"+code);
+		String state = (String)((HttpServletRequest)req).getSession().getAttribute("weibo_connect_state");
+		Oauth oauth = new Oauth();
+		try {
+			/**
+			 * 通过code获取认证 微博唯一票据
+			 */
+			AccessToken at = oauth.getAccessTokenByCode(code);
+			String uId = at.getUid();
+			LOGGER.info("微博唯一票据--------》认证AccessToken成功:"+at.getAccessToken());
+			LOGGER.info("微博用户唯一uid--------:"+at.getUid());
+			if ((state == null) || (state.equals(""))) {
+				LOGGER.info("获取accessToken信息有误：");
+			    res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
+			}
+			/**
+			 * 将用户信息保存到数据库中。
+			 */
+			//封装实体bean
+			WeiboClientUserMapping wbuser = new WeiboClientUserMapping();
+			try {
+				/**
+				 * 根据票据和用户id得到用户信息
+				 */
+				Users um = new Users();
+				um.client.setToken(at.getAccessToken());
+				
+				/**
+				 * 其实如果存在的话可以做更新操作了啊
+				 */
+				WeiboClientUserMapping wcum = threePartiesLoginService.selectWeiboClientUserMappingByUid(at.getUid());
+				LOGGER.info("是否存在此微博号--------:"+wcum);
+				if(wcum==null){
+					JSONObject job = um.client.get(WeiboConfig.getValue("baseURL") + "users/show.json",
+					        new PostParameter[] {new PostParameter("uid", at.getUid())}).asJSONObject();
+					
+					wbuser = new WeiboClientUserMapping(job);
+					wbuser.setId(UUID.randomUUID().toString().replace("-", ""));
+					//用户昵称
+					String screenName =wbuser.getScreenName();
+					screenName= SLEmojiFilter.filterEmoji(screenName);
+					wbuser.setScreenName(screenName);
+					//友好显示名称
+					String name =wbuser.getName();
+					name= SLEmojiFilter.filterEmoji(name);
+					wbuser.setName(name);
+					threePartiesLoginService.saveWeiboClientUserMapping(wbuser);
+					
+				
+					 //直接重定向到完善信息
+		             res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?uId="+uId+"&type="+ThirdPartyType.WEIBO.getCode());
+				
+				}else if(wcum.getUserId()!=null){ //绑定了用户信息了
+					
+					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
+					
+					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
+					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+					//把用户中心的数据给他  --这些数据是IM的
+					ou.setUserCenterId(iu.getId());
+					ou.setPassword(iu.getPassword());
+					ou.setTicket(t.getTicket());
+					/**
+					 *	 直接让登录了  返回状态值：200
+					 */
+					this.onlogin(req,res,t,ou,t.getTicket());
+					
+					//重定向到推荐首页
+					 res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
+					
+				}else if(wcum.getUserId()==null){
+					
+					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
+					
+					 //直接重定向到完善信息
+		            res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?uId="+uId+"&type="+ThirdPartyType.WEIBO.getCode());
+				}
+			} catch (Exception  e) {
+				e.printStackTrace();
+				LOGGER.info("==============");
+				//return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.DATA_IS_WRONG.getCode());
+			}  
+		} catch (WeiboException | IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}	
+	}
+
+	
+	
+	/**
+	 * Description：APP ---> 微博回调接口  -- 回调了接口后需要请求  
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="appEvokeWeiBoRedirect")
 	@ResponseBody
-	public ResponseObject evokeWeiBoRedirect(HttpServletRequest req,
+	public ResponseObject appEvokeWeiBoRedirect(HttpServletRequest req,
 			HttpServletResponse res){
 		
 		String code = req.getParameter("code");
 		LOGGER.info("微博用户授权登录成功code"+code);
 		
-		String appUniqueId = req.getParameter("appUniqueId");
-		LOGGER.info("app唯一标识符appUniqueId"+appUniqueId);
 		Map<String,String> mapRequest = new HashMap<String,String>();
 		
-		if(appUniqueId==null){
-			String state = (String)((HttpServletRequest)req).getSession().getAttribute("weibo_connect_state");
-			if ((state == null) || (state.equals(""))) {
-				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.DATA_IS_WRONG.getCode());
-			}
-		}
 		Oauth oauth = new Oauth();
 		try {
 			/**
@@ -186,7 +287,7 @@ public class WeiBoThirdPartyController {
 		}	
 		//response.sendRedirect(authorize("code",state,"mobile"));
 	}
-
+	
 	
 	/**
 	 * 登陆成功处理

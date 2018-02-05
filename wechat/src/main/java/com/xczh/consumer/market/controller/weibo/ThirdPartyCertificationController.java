@@ -93,37 +93,36 @@ public class ThirdPartyCertificationController {
 	 * @param username 手机号
 	 * @param openId   第三方唯一标识（微信的、微博的、qq的）	
 	 * @param code	         短信验证码	
-	 * @param type	       绑定类型  1 微信  2qq 3微博  		
+	 * @param type	        绑定类型  1 微信  2qq 3微博  		
 	 * @return
 	 * @throws Exception
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	@RequestMapping("thirdPartyBindThereAreMobile")
+	@RequestMapping("thirdPartyBindIsNoMobile")
 	@ResponseBody
 	@Transactional
 	public ResponseObject thirdPartyBindThereAreMobile(HttpServletRequest req,
                     HttpServletResponse res,
-                    @RequestParam("username")String username, @RequestParam("openId")String openId,
+                    @RequestParam("userName")String userName, @RequestParam("openId")String openId,
                     @RequestParam("code")String code, @RequestParam("type")Integer type)
 			throws Exception {
 		
 		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
-		
 		LOGGER.info("三方绑定已注册手机认证参数信息："
-				+ "username:"+username+",openId:"+openId+",code:"+code+",type:"+type);
+				+ "username:"+userName+",openId:"+openId+",code:"+code+",type:"+type);
 		/*
 		 * 验证短信验证码
 		 */
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(userName, code,vtype);
 		if (!checkCode.isSuccess()) { //如果动态验证码不正确
 			return checkCode;
 		}
 		
 		LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
 		
-		OnlineUser ou = onlineUserService.findUserByLoginName(username);
+		OnlineUser ou = onlineUserService.findUserByLoginName(userName);
 		/*
 		 * 一个人可能有多个qq号，获取多个微博号。
 		 *  所以要改下了
@@ -158,9 +157,8 @@ public class ThirdPartyCertificationController {
         
         LOGGER.info(">>>>>>>>>>>>>>>>>>第三方信息注入用户信息成功");
         
-        
-        ItcastUser iu = userCenterAPI.getUser(username);
-		Token t = userCenterAPI.loginThirdPart(username,iu.getPassword(), TokenExpires.TenDay);
+        ItcastUser iu = userCenterAPI.getUser(userName);
+		Token t = userCenterAPI.loginThirdPart(userName,iu.getPassword(), TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		//把用户中心的数据给他  --这些数据是IM的
 		ou.setUserCenterId(iu.getId());
@@ -188,20 +186,20 @@ public class ThirdPartyCertificationController {
 	@Transactional
 	public ResponseObject thirdPartyBindMobile(HttpServletRequest req,
                     HttpServletResponse res,
-                    @RequestParam("username")String username,@RequestParam("password")String password,
+                    @RequestParam("userName")String userName,@RequestParam("passWord")String passWord,
                     @RequestParam("openId")String openId,
                     @RequestParam("code")String code, @RequestParam("type")Integer type)
 			throws Exception {
 		
 		LOGGER.info("三方绑定未注册手机认证参数信息："
-				+ "username:"+username+",openId:"+openId+",code:"+code+",type:"+type
-				+ "password:"+password);
+				+ "username:"+userName+",openId:"+openId+",code:"+code+",type:"+type
+				+ "password:"+passWord);
 		
 		/*
 		 * 验证短信验证码
 		 */
 		Integer vtype = SMSCode.RETISTERED.getCode();
-		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		ResponseObject checkCode = onlineUserService.checkCode(userName, code,vtype);
 		if (!checkCode.isSuccess()) { //如果动态验证码不正确
 			return checkCode;
 		}
@@ -211,7 +209,7 @@ public class ThirdPartyCertificationController {
 	    /**
          * 在线用户数据
          */
-		OnlineUser ou = onlineUserService.findUserByLoginName(username);
+		OnlineUser ou = onlineUserService.findUserByLoginName(userName);
         if(ou==null){
         	ou = new OnlineUser();
         	ou.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -293,12 +291,12 @@ public class ThirdPartyCertificationController {
         /*
          * 用户中心的
          */
-		ItcastUser iu = userCenterAPI.getUser(username);
+		ItcastUser iu = userCenterAPI.getUser(userName);
 		if(iu == null){
-			userCenterAPI.regist(username, password,nickName, 
+			userCenterAPI.regist(userName, passWord,nickName, 
 					UserSex.parse(sex), null,
 					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
-			iu =  userCenterAPI.getUser(username);
+			iu =  userCenterAPI.getUser(userName);
 		}
 		onlineUserService.addOnlineUser(ou);
 		
@@ -307,7 +305,7 @@ public class ThirdPartyCertificationController {
 		 */
 		userCoinService.saveUserCoin(ou.getId());
 
-		Token t = userCenterAPI.loginThirdPart(username,iu.getPassword(), TokenExpires.TenDay);
+		Token t = userCenterAPI.loginThirdPart(userName,iu.getPassword(), TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		//把用户中心的数据给他  --这些数据是IM的
 		ou.setUserCenterId(iu.getId());
@@ -333,6 +331,7 @@ public class ThirdPartyCertificationController {
 	@RequestMapping(value="thirdCertificationMobile")
 	public ResponseObject thirdCertificationMobile(HttpServletRequest req,
 			HttpServletResponse res,@RequestParam("userName")String userName,
+			@RequestParam("openId")String openId,
 			@RequestParam("type")Integer type ){
 		
 		try {
@@ -349,14 +348,14 @@ public class ThirdPartyCertificationController {
 				if(type == ThirdPartyType.WECHAT.getCode()){ //微信
 					obj = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(ou.getId());
 				}else if(type == ThirdPartyType.WEIBO.getCode()){//微博
-					obj = threePartiesLoginService.selectWeiboClientUserMappingByUid(ou.getId());
+					obj = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(),openId);
 				}else if(type == ThirdPartyType.QQ.getCode()){//QQ
-					obj = threePartiesLoginService.selectQQClientUserMappingByOpenId(ou.getId());
+					obj = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(),openId);
 				}
 				if(obj == null){ //已注册手机号,但是未绑定,可进行判断操作
 					code = UserUnitedStateType.PNHONE_IS_WRONG.getCode();
 				}else{
-					code =  UserUnitedStateType.PNHONE_BINDING.getCode();
+					code = UserUnitedStateType.PNHONE_BINDING.getCode();
 				}
 			}
 			return ResponseObject.newSuccessResponseObject(UserUnitedStateType.valueOf(code), code);
