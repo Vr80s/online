@@ -135,9 +135,6 @@ public class MyCourseController {
 			@RequestParam("lecturerId") String lecturerId,
 			@RequestParam("type") Integer type)
 			throws Exception {
-		//String lecturerId = req.getParameter("lecturerId");
-		//type 1 增加关注   2 取消关注
-		//String type = req.getParameter("type");
 		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req);
 	    if(onlineUser==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");

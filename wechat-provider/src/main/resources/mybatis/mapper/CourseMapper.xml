@@ -206,8 +206,7 @@
 		oc.city as city,
 		oc.live_source_type as liveSourceType,
 		oc.user_lecturer_id as userLecturerId,
-		oc.lecturer as name,
-		
+		oc.lecturer as name
 		FROM
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`

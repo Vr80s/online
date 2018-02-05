@@ -43,7 +43,7 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
     private Integer level;
 
 	@TableField("is_yellow_year_vip")
-    private Boolean isYellowYearVip;
+    private Boolean yellowYearVip;
 
 	@TableField("remark")
     private String remark;
@@ -126,12 +126,13 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
 		this.vip = vip;
 	}
 
-	public Boolean getIsYellowYearVip() {
-		return isYellowYearVip;
+
+	public Boolean getYellowYearVip() {
+		return yellowYearVip;
 	}
 
-	public void setIsYellowYearVip(Boolean isYellowYearVip) {
-		this.isYellowYearVip = isYellowYearVip;
+	public void setYellowYearVip(Boolean yellowYearVip) {
+		this.yellowYearVip = yellowYearVip;
 	}
 
 	public String getRemark() {
@@ -159,6 +160,8 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
 		this.userId = userId;
 	}
 
+	
+	
 	@Override
 	protected Serializable pkVal() {
 		// TODO Auto-generated method stub

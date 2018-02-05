@@ -123,8 +123,8 @@ $(function(){
 //				}
 
 				//错误的提示
-				if(data.errorMessage == '动态码不正确!'){
-					$('#tip').text('短信验证码不正确！');
+				if(data.errorMessage == '动态码错误'){
+					$('#tip').text('短信验证码错误');
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
@@ -139,7 +139,7 @@ $(function(){
 				
 	  	}else if(data.success == true){
 	  		
-	  		$('#tip').text('注册成功！');
+	  		$('#tip').text('注册成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();

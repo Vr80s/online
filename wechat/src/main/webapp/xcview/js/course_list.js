@@ -1,6 +1,6 @@
 $(function(){
 
-	var userLecturerId = getQueryString('userLecturerId');
+	var lecturerId = getQueryString('lecturerId');
 		requestService("/xczh/host/hostPageCourse",{
 			lecturerId: '23908ae85dad4541ba7ecf53fc52aab2',
 			pageNumber:1,
@@ -10,9 +10,7 @@ $(function(){
 });
   
   
-  $(".course_list_main_one").click(function(){
-  	alert(1)
-  })
+ 
   
   
   

@@ -21,15 +21,15 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="/xcviews/js/common/js.js"></script>
-<link rel="stylesheet" href="/xcviews/css/css.css">
-<link rel="stylesheet" href="/xcviews/css/tailor.css">
-<link href="/xcviews/css/mui.picker.css" rel="stylesheet" />
-<link href="/xcviews/css/mui.poppicker.css" rel="stylesheet" />
+<script src="/xcview/js/common/js.js"></script>
+<link rel="stylesheet" href="/xcview/css/css.css">
+<link rel="stylesheet" href="/xcview/css/tailor.css">
+<link href="/xcview/css/mui.picker.css" rel="stylesheet" />
+<link href="/xcview/css/mui.poppicker.css" rel="stylesheet" />
 
 
 <script type="text/javascript"
-	src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
+	src="/xcview/js/common/jquery-1.8.3.min.js"></script>
 <style>
 body {
 	font-size: 0.3rem;
@@ -151,6 +151,13 @@ pre:after {
     outline: none;
     color: #00bc12;
     background: none;
+}
+.return {
+    background: url(../images/backicon.png) no-repeat;
+    background-size: 100% 100%;
+    margin-left: 0.54rem;
+    height: 0.9rem;
+    margin-top: 0.48rem;
 }
 </style>
 <link href="../css/picker.css" rel="stylesheet" />
@@ -555,6 +562,10 @@ pre:after {
   			$(".mui-zx_mask").hide();
   		});
   		
+  		
+  		
+
+  		
 	});
 </script>
 <style>
@@ -602,6 +613,8 @@ pre:after {
 	#logoBox img{
 		width: 100%;
 		height: 100%;
+		width: 2.25rem !important;
+    	height: 2.25rem;
 	}
 	.person_cen{
 		padding: 0;
@@ -637,6 +650,13 @@ pre:after {
 	    white-space: nowrap;
 	    text-align: right;
 	}
+	
+	#dpage .qx{
+		display: none;
+	}
+	.return_img{
+		margin: 0 !important;
+	}
 </style>
 </head>
 
@@ -647,16 +667,13 @@ pre:after {
 		<div class="camera_bg"></div>
 		<div class="camera_cen">
 			<div class="camera_main">
-				<div class="camera_img1"><img src="/xcviews/images/camera.png" /></div>
-				<div class="camera_img2"><img src="/xcviews/images/shu0.png" /></div>	
-				<div class="camera_img3" id="s_dpage"><img src="/xcviews/images/custom.png" /></div>
+				<div class="camera_img1"><img src="/xcview/images/camera.png" /></div>
+				<div class="camera_img2"><img src="/xcview/images/shu0.png" /></div>	
+				<div class="camera_img3" id="s_dpage"><img src="/xcview/images/custom.png" /></div>
 			</div>
 		</div>
 	</div>
 	<!-- 点击头像出现框结束 -->
-	
-	
-	
 	
 	<div style="position: relative;">
 	
@@ -685,13 +702,15 @@ pre:after {
 	
 	
  	<div id="dpage">
-		 <a href="javascript:void(0);">
+		 <a href="javascript:void(0);" class="choice">
 		     <input type="button" name="file" class="button" value="选择图片">
 			  <input id="file" type="file" onchange="javascript:setImagePreview();" accept="image/*" multiple  />
 		      </a>
 		<!--  <a href="javascript:void(0);"><input type="button" name="file" class="button" value="选取照片">
 			  <input id="file" type="file" onchange="javascript:setImagePreview();" accept="image/*" multiple  /></a> -->
 		 <a href="javascript:void(0);" class="qx"><button id="clipBtn">截取图片</button></a>
+		 
+		 <a href="javascript: ;" class="return_img">退出</a>
 	</div>
 	
 	
@@ -699,7 +718,7 @@ pre:after {
 		<!-- 资料设置开始 -->
 	<div class="attention" style="margin-top:2rem;">
 		<div class="attention_top">
-			<div class="attention_left" id="grabble_img"><div class="return"></div></div>
+			<div class="attention_left" id="grabble_img" onclick="location.href ='my_homepage.html'"><div class="return"></div></div>
 			
 			<div class="dl" style="padding-top1: 0.2rem;">资料设置</div>
 		</div>
@@ -718,7 +737,7 @@ pre:after {
 				    <img  src="" width="100%" id="headImg" />
 				</a>
 				
-				<div class="my_right_img" style="position: absolute;right: -0.25rem;"><img src="/xcviews/images/right_jian.png"></div>
+				<div class="my_right_img" style="position: absolute;right: -0.25rem;"><img src="/xcview/images/right_jian.png"></div>
 			</form>
 			</div>
 			<div class="both"></div>
@@ -729,7 +748,7 @@ pre:after {
 				<p class="person_p1">昵称</p>
 				<div class="person_cen_right">
 					<p id="person_one"></p>  
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -738,7 +757,7 @@ pre:after {
 				<p class="person_p1">性别</p>
 				<div class="person_cen_right">
 					<p id="person_two"></p>   
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -747,7 +766,7 @@ pre:after {
 				<p class="person_p1">邮箱</p>
 				<div class="person_cen_right">
 					<p id="person_five">立即绑定</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -756,7 +775,7 @@ pre:after {
 				<p class="person_p1">所在地</p>
 				<div class="person_cen_right" style="margin-top:0.05rem;">
 					<p id="szd_cityP">请选择</p>   
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div> -->
@@ -767,7 +786,7 @@ pre:after {
 				<p class="person_p1">选择地址</p>
 				<div class="person_cen_right">
 					<p id="xzdz">河南郑州新郑</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -776,7 +795,7 @@ pre:after {
 				<p class="person_p1">个性签名</p>
 				<div class="person_cen_right">
 					<p id="person_sign"></p>  
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -792,7 +811,7 @@ pre:after {
 				<p class="person_p1">身份信息</p>
 				<div class="person_cen_right">
 					<p id="sfxx">中医爱好者</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -802,7 +821,7 @@ pre:after {
 				<p class="person_p1">职业信息</p>
 				<div class="person_cen_right">
 					<p id="zyxx">学生</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -817,7 +836,7 @@ pre:after {
 				<p class="person_p1">密码</p>
 				<div class="person_cen_right">
 					<p>修改密码</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -826,7 +845,7 @@ pre:after {
 				<p class="person_p1">手机号</p>
 				<div class="person_cen_right">
 					<p id="person_five">更换手机号</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div> 
@@ -835,7 +854,7 @@ pre:after {
 				<p class="person_p1">邮箱</p>
 				<div class="person_cen_right">
 					<p id="person_five">立即绑定</p>
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -845,7 +864,7 @@ pre:after {
 				<p class="person_p1">地址管理</p>
 				<div class="person_cen_right">
 					<!-- <p id="person_five">添加地址</p> -->
-					<div class="my_right_img"><img src="/xcviews/images/right_jian.png"></div>
+					<div class="my_right_img"><img src="/xcview/images/right_jian.png"></div>
 				</div>
 				<div class="both"></div>
 			</div>
@@ -858,10 +877,10 @@ pre:after {
 	
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 	<script type="text/javascript"
-		src="/xcviews/js/common/ajaxfileupload.js"></script>
+		src="/xcview/js/common/ajaxfileupload.js"></script>
 	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
-	<script type="text/javascript" src="/xcviews/js/person.js"></script>
-	<script type="text/javascript" src="/xcviews/js/address.js"></script>
+	<script type="text/javascript" src="/xcview/js/person.js"></script>
+	<script type="text/javascript" src="/xcview/js/address.js"></script>
 	
 	<!-- 修改密码结束 -->
 	<div style="text-align: center;color: red;margin-top: 20px;font-size: 14px;" id="errorMsg"></div>
@@ -938,11 +957,11 @@ pre:after {
 </script>
 
 
-<script src="/xcviews/js/jquery.min.js" type="text/javascript"></script>
-<script>window.jQuery || document.write('<script src="/xcviews/js/jquery-2.1.1.min.js"><\/script>')</script>
-<script src="/xcviews/js/iscroll-zoom.js"></script>
-<script src="/xcviews/js/hammer.js"></script>
-<script src="/xcviews/js/jquery.photoClip.js"></script>
+<script src="/xcview/js/jquery.min.js" type="text/javascript"></script>
+<script>window.jQuery || document.write('<script src="/xcview/js/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="/xcview/js/iscroll-zoom.js"></script>
+<script src="/xcview/js/hammer.js"></script>
+<script src="/xcview/js/jquery.photoClip.js"></script>
 <script>
 var obUrl = ''
 //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
@@ -1173,5 +1192,29 @@ function setImagePreview() {
 	return document.getElementById("DivUp").style.display = "block",
 			!0
 }
+</script>
+
+<script type="text/javascript">
+	window.onload = function(){
+		//		上传图片
+		$(".choice").click(function(){
+  			$(".qx").show();
+  			$(".qx").css("display","block");
+  			$(".choice").hide();
+  		});
+  		$(".qx").click(function(){
+  			$(".choice").show();
+  			$(".qx").hide();
+  		});
+  		$(".return_img").click(function(){
+  			$(".choice").show();
+  			$(".qx").hide();
+  			$(".htmleaf-container").hide();
+  			$("#dpage").hide();
+  		});
+  		$("#logoBox").click(function(){
+  			$("#dpage").show();
+  		});
+	};
 </script>
 </html>

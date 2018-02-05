@@ -316,7 +316,7 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 			departmentIds:keshiStr
 		}, function(data) {
 			
-			$('#tip').text('修改数据提交成功');
+			$('#tip').text('修改成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();

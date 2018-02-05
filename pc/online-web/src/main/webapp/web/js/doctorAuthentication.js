@@ -170,13 +170,13 @@ $(function(){
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				$('#tip').text('入驻申请信息提交失败！');
+				$('#tip').text('保存失败，请重试');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1500)
 			}else if(data.success == true){
-				$('#tip').text('入驻申请信息提交成功！');
+				$('#tip').text('保存成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();

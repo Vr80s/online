@@ -1,8 +1,6 @@
 package com.xczh.consumer.market.controller.weibo;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import weibo4j.Oauth;
 import weibo4j.Users;
@@ -37,13 +37,11 @@ import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczh.consumer.market.wxpay.util.Base64;
 import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
 import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
-import com.xczhihui.wechat.course.vo.WeiboClientUserMappingVO;
 
 /**
  * 用户controller
@@ -85,6 +83,7 @@ public class WeiBoThirdPartyController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping(value="evokeWeiBoRedirect")
+	@ResponseBody
 	public ResponseObject evokeWeiBoRedirect(HttpServletRequest req,
 			HttpServletResponse res){
 		
@@ -120,16 +119,20 @@ public class WeiBoThirdPartyController {
 				 */
 				Users um = new Users();
 				um.client.setToken(at.getAccessToken());
-				User user = um.showUserById(at.getUid());
+				//User user = um.showUserById(at.getUid());
+				//User user = new User(job);
 				
 				/**
 				 * 其实如果存在的话可以做更新操作了啊
 				 */
 				WeiboClientUserMapping wcum = threePartiesLoginService.selectWeiboClientUserMappingByUid(at.getUid());
+				LOGGER.info("是否存在此微博号--------:"+wcum);
 				if(wcum==null){
-					BeanUtils.copyProperties(wbuser, user);
-					wbuser.setId(UUID.randomUUID().toString().replace("-", ""));
+					JSONObject job = um.client.get(WeiboConfig.getValue("baseURL") + "users/show.json",
+					        new PostParameter[] {new PostParameter("uid", at.getUid())}).asJSONObject();
 					
+					wbuser = new WeiboClientUserMapping(job);
+					wbuser.setId(UUID.randomUUID().toString().replace("-", ""));
 					//用户昵称
 					String screenName =wbuser.getScreenName();
 					screenName= SLEmojiFilter.filterEmoji(screenName);
@@ -145,6 +148,9 @@ public class WeiBoThirdPartyController {
 					
 					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
 				}else if(wcum.getUserId()!=null){ //绑定了用户信息了
+					
+					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
+					
 					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
 					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
@@ -158,6 +164,8 @@ public class WeiBoThirdPartyController {
 					this.onlogin(req,res,t,ou,t.getTicket());
 					return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
 				}else if(wcum.getUserId()==null){
+					
+					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
 					
 					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 					mapRequest.put("openId",at.getUid()+"");
