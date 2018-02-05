@@ -103,4 +103,20 @@ $(".bg_userModal").click(function(){
 			$(".wrap1 p").html(data.resultObject.lecturerDescription)
 		}
 	});
+	
+	
+	requestService("/xczh/course/getCoursesByCollectionId",{collectionId:823},function(data) {
+	if(data.success==true){
+			
+//		console.log(data)
+    	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}))
+
+	}
+		
+	
+})
+	
+	
+	
+	
 })
