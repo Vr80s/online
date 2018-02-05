@@ -5,7 +5,30 @@
 	<!-- 微博用户唯一标识获取  -->
 	<select id="selectWeiboClientUserMappingByUid" resultType="com.xczhihui.wechat.course.model.WeiboClientUserMapping">
 		SELECT
-			*
+			wcum.id as id,
+            wcum.user_id as userId,
+            wcum.uid as uid,
+            wcum.screen_name as screenName,
+            wcum.name as name,
+            wcum.province as province,
+            wcum.city as city,
+            wcum.location as location,
+            wcum.description as description,
+            wcum.url as url,
+            wcum.profile_image_url as profileImageUrl,
+            wcum.profile_url as profileUrl, 
+            wcum.user_domain as userDomain,
+            wcum.gender as gender,
+            wcum.followers_count as followersCount,
+            wcum.friends_count as friendsCount,
+            wcum.statuses_count as statusesCount,
+		    wcum.favourites_count as favouritesCount,
+            wcum.created_at as createdAt,
+            wcum.verified as verified,
+            wcum.remark as remark,
+            wcum.lang as lang,
+            wcum.weihao as weihao,
+            wcum.create_time as createTime
 		FROM
 		  weibo_client_user_mapping wcum
 				WHERE wcum.uid = #{uid}  limit 1
@@ -14,7 +37,30 @@
 	<!-- 通过熊猫中医用户id获取  -->
 	<select id="selectWeiboClientUserMappingByUserId" resultType="com.xczhihui.wechat.course.model.WeiboClientUserMapping">
 		SELECT
-			*
+		    wcum.id as id,
+            wcum.user_id as userId,
+            wcum.uid as uid,
+            wcum.screen_name as screenName,
+            wcum.name as name,
+            wcum.province as province,
+            wcum.city as city,
+            wcum.location as location,
+            wcum.description as description,
+            wcum.url as url,
+            wcum.profile_image_url as profileImageUrl,
+            wcum.profile_url as profileUrl, 
+            wcum.user_domain as userDomain,
+            wcum.gender as gender,
+            wcum.followers_count as followersCount,
+            wcum.friends_count as friendsCount,
+            wcum.statuses_count as statusesCount,
+		    wcum.favourites_count as favouritesCount,
+            wcum.created_at as createdAt,
+            wcum.verified as verified,
+            wcum.remark as remark,
+            wcum.lang as lang,
+            wcum.weihao as weihao,
+            wcum.create_time as createTime
 		FROM
 		  weibo_client_user_mapping wcum
 				WHERE wcum.user_id = #{userId} and wcum.uid = #{uid} limit 1

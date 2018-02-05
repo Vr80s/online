@@ -703,3 +703,104 @@ color: #888888;
 .little_comment{
 	padding-bottom: 0.2rem;
 }
+
+
+
+/*分享开始*/
+.share{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.share_bg{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+.share_main{
+	width: 6.98rem;
+    height: 2.86rem;
+    /* background: #fff; */
+    margin: 0 auto;
+    position: fixed;
+    left: 0.25rem;
+    bottom: 1.3rem;
+    z-index: 11;
+}
+.share_main_bg{
+	width: 100%;
+	height: 2.86rem;
+	background: rgba(255,255,255,0.60);
+	border-radius: 8px;
+}
+.share_to{
+	width: 100%;
+	text-align: center;
+	font-size: 0.32rem;
+	color: #333;
+	padding-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+.share_cancel{
+	width: 100%;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    text-align: center;
+    color: #333;
+    font-size: 0.3rem;
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 0.2rem;
+}
+.share_main_bg ul li{
+	float: left;
+	margin-left: 0.858rem;
+}
+.share_main_bg ul li img{
+	width: 1.2rem;
+	height: 1.2rem;
+	margin-bottom: 0.1rem;
+}
+.share_main_bg ul li p{
+	text-align: center;
+	width: 1.2rem;
+	font-size: 0.24rem;
+	color: #333333;
+}
+/*分享结束*/
+
+/*指示微信*/
+.weixin_ceng {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.weixin_ceng_bg {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 20;
+}
+.weixin_img {
+    /*background: red;*/
+    position: fixed;
+    z-index: 99999999999;
+    top: 0rem;
+    right: 0;
+}
+.weixin_img img {
+    position: absolute;
+    top: 0rem;
+    right: 0.26rem;
+    width: 3rem;
+    z-index: 99999999999;
+}

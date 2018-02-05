@@ -129,13 +129,14 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	 */
 	private Double score;
 
+	@TableField(exist = false)
 	private List<MedicalHospitalPicture> medicalHospitalPictures;
 
+	@TableField(exist = false)
 	private List<MedicalField> fields;
-	
-	
+
+	@TableField(exist = false)
 	private String versionPictures;
-	
 
 	/**
 	 * 头像
@@ -170,6 +171,21 @@ public class MedicalHospital extends Model<MedicalHospital> {
 	 */
 	@TableField(exist = false)
 	private List<String> fieldIds;
+
+	/**
+	 * authentication_id 医馆认证信息id
+	 * @return
+	 */
+	@TableField("authentication_id")
+	private String authenticationId;
+
+	public String getAuthenticationId() {
+		return authenticationId;
+	}
+
+	public void setAuthenticationId(String authenticationId) {
+		this.authenticationId = authenticationId;
+	}
 
 	public List<String> getPictures() {
 		return pictures;

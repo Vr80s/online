@@ -25,68 +25,94 @@ public class MedicalHospitalAuthentication extends Model<MedicalHospitalAuthenti
      * 医馆认证信息表
      */
 	private String id;
-    /**
+
+	/**
      * 所属公司
      */
 	private String company;
-    /**
+
+	/**
      * 营业执照号码
      */
 	@TableField("business_license_no")
 	private String businessLicenseNo;
-    /**
+
+	/**
      * 营业执照照片
      */
 	@TableField("business_license_picture")
 	private String businessLicensePicture;
-    /**
+
+	/**
      * 药品经营许可证号码
      */
 	@TableField("license_for_pharmaceutical_trading")
 	private String licenseForPharmaceuticalTrading;
-    /**
+
+	/**
      * 药品经营许可证照片
      */
 	@TableField("license_for_pharmaceutical_trading_picture")
 	private String licenseForPharmaceuticalTradingPicture;
-    /**
+
+	/**
      * 用户id
      */
 	@TableField("user_id")
 	private String userId;
-    /**
+
+	/**
      * 1已删除0未删除
      */
 	private Boolean deleted;
-    /**
+
+	/**
      * 创建时间
      */
 	@TableField("create_time")
 	private Date createTime;
-    /**
+
+	/**
      * 创建人id
      */
 	@TableField("create_person")
 	private String createPerson;
-    /**
+
+	/**
      * 更新时间
      */
 	@TableField("update_time")
 	private Date updateTime;
-    /**
+
+	/**
      * 更新人id
      */
 	@TableField("update_person")
 	private String updatePerson;
-    /**
+
+	/**
      * 版本
      */
 	private String version;
-    /**
+
+	/**
      * 备注
      */
 	private String remark;
 
+	/**
+	 * 认证的医馆名字
+	 */
+	@TableField(exist = false)
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getId() {
 		return id;

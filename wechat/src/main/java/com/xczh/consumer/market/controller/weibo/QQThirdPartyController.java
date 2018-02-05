@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,6 +33,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
 import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -44,7 +46,7 @@ import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
  * @date 2017-02-22
  */
 @Controller
-@RequestMapping(value = "/xczh/user")
+@RequestMapping(value = "/xczh/qq")
 public class QQThirdPartyController {
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(QQThirdPartyController.class);
@@ -62,8 +64,11 @@ public class QQThirdPartyController {
 	@Autowired
 	private UserCenterAPI userCenterAPI;
 	
+	@Value("${returnOpenidUri}")
+	private String returnOpenidUri;
+	
 	/**
-	 * Description：QQ回调接口  -- 回调了接口后需要请求  
+	 * Description：h5 -- > 回调接口  -- 回调了接口后需要请求  
 	 * @param req
 	 * @param userId
 	 * @return
@@ -72,8 +77,105 @@ public class QQThirdPartyController {
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value="evokeQQRedirect")
+	public void evokeWeiBoRedirect(HttpServletRequest request,
+			HttpServletResponse res){
+		try {
+			LOGGER.info("进入	qq回调函数   ============：qq_connect_state");
+			AccessToken accessTokenObj = (new Oauth()).getAccessTokenByRequest(request);
+		    String accessToken   = null,openID        = null;
+	        long tokenExpireIn = 0L;
+	        Map<String,String> mapRequest = new HashMap<String,String>();
+	        LOGGER.info("accessTokenObj"+accessTokenObj.toString());
+			if (accessTokenObj.getAccessToken().equals("")) {
+				
+				LOGGER.info("获取accessToken信息有误：");
+				
+				res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
+			}else{
+				 LOGGER.info("获取到票据  accessToken   ============：");
+				 accessToken = accessTokenObj.getAccessToken();
+	             tokenExpireIn = accessTokenObj.getExpireIn();
+	             // 利用获取到的accessToken 去获取当前用的openid -------- start
+	             OpenID openIDObj =  new OpenID(accessToken);
+	             openID = openIDObj.getUserOpenID();
+	             LOGGER.info("qq用户openid   ============"+openID);
+	             QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByOpenId(openID);
+	            
+	             if(qqUser==null){   //保存qq用户
+	            	 
+	            	 LOGGER.info("第一次存入qq用户信息");
+	            	 
+	            	 // 利用获取到的accessToken 去获取当前用户的openid --------- end
+		             UserInfo qzoneUserInfo = new UserInfo(accessToken, openID); 		
+		             UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();   
+		             QQClientUserMapping qq = new QQClientUserMapping();
+		             
+		             qq.setId(UUID.randomUUID().toString().replace("-", ""));
+		             qq.setOpenId(openID);
+		             qq.setNickname(userInfoBean.getNickname());
+		             qq.setGender(userInfoBean.getGender());
+		             qq.setLevel(userInfoBean.getLevel());
+		             qq.setVip(userInfoBean.isVip());
+		             qq.setYellowYearVip(userInfoBean.isYellowYearVip());
+		             qq.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
+		             qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
+		             qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
+		             
+		             threePartiesLoginService.saveQQClientUserMapping(qq);
+		             
+		             //直接重定向到完善信息
+		             res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openID+"&type="+ThirdPartyType.QQ.getCode());
+		             
+				}else if(qqUser.getUserId()!=null){ //绑定了用户信息
+					
+				    LOGGER.info("熊猫中医用户id   ============已绑定用户信息"+qqUser.getUserId());
+					
+					OnlineUser ou =  onlineUserService.findUserById(qqUser.getUserId());
+					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
+					
+					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+					//把用户中心的数据给他  --这些数据是IM的
+					ou.setUserCenterId(iu.getId());
+					ou.setPassword(iu.getPassword());
+					ou.setTicket(t.getTicket());
+					/**
+					 *	 直接让登录了  返回状态值：200
+					 */
+					this.onlogin(request,res,t,ou,t.getTicket());
+					
+					//重定向到推荐首页
+					 res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
+					//return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
+				}else if(qqUser.getUserId()==null){
+					
+				    LOGGER.info("熊猫中医用户id 没有绑定用户信息"+qqUser.getUserId());
+					
+					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+					mapRequest.put("openId",openID);
+					 //直接重定向到完善信息
+		            res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openID+"&type="+ThirdPartyType.QQ.getCode());
+				}
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+	
+	
+	/**
+	 * Description：app -- QQ回调接口  -- 回调了接口后需要请求  
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@SuppressWarnings("unused")
+	@RequestMapping(value="appEvokeQQRedirect")
 	@ResponseBody
-	public ResponseObject evokeWeiBoRedirect(HttpServletRequest request,
+	public ResponseObject appEvokeQQRedirect(HttpServletRequest request,
 			HttpServletResponse res){
 		try {
 			LOGGER.info("进入	qq回调函数   ============：qq_connect_state");
@@ -103,8 +205,7 @@ public class QQThirdPartyController {
 	            	 
 	            	 LOGGER.info("第一次存入qq用户信息");
 	            	 
-	            	 
-	            	  // 利用获取到的accessToken 去获取当前用户的openid --------- end
+	            	 // 利用获取到的accessToken 去获取当前用户的openid --------- end
 		             UserInfo qzoneUserInfo = new UserInfo(accessToken, openID); 		
 		             UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();   
 		             QQClientUserMapping qq = new QQClientUserMapping();
@@ -144,8 +245,7 @@ public class QQThirdPartyController {
 					return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
 				}else if(qqUser.getUserId()==null){
 					
-					
-				   LOGGER.info("熊猫中医用户id 没有绑定用户信息"+qqUser.getUserId());
+				    LOGGER.info("熊猫中医用户id 没有绑定用户信息"+qqUser.getUserId());
 					
 					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 					mapRequest.put("openId",openID);
@@ -159,6 +259,8 @@ public class QQThirdPartyController {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	
+	
 	
 	
 	/**

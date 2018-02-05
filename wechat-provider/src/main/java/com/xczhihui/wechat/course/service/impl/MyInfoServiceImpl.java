@@ -72,4 +72,9 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 		
 		
 	}
+
+	@Override
+	public Integer getUserHostPermissions(String userId) {
+		return myInfoMapper.getUserHostPermissions(userId);
+	}
 }

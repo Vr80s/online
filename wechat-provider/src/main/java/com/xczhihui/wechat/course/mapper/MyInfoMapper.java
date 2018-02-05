@@ -57,4 +57,15 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	 *
 	 */
 	void updateUserSetInfo(OnlineUserVO user);
+	
+	/**
+	 * 
+	 * Description：获取用户权限：0 普通用户  1 主播
+	 * @param userId
+	 * @return
+	 * @return Integer
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	Integer getUserHostPermissions(String userId);
 }
