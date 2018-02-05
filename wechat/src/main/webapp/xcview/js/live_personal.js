@@ -173,16 +173,7 @@ requestService("/xczh/host/hostPageCourse",{
 	$("#wrap_vedio_btn").html(template('wrap_class',{items:data.resultObject.records}));
 });
 
-
-
-    //传ID userLecturerId为接口的讲师ID，评论列表
     refresh();
-
-
-
-
-
-
 
 });
 	
@@ -196,10 +187,11 @@ requestService("/xczh/host/hostPageCourse",{
                         alert(data.resultObject);
 					})
 			}
-	
+
+
 	function btn_class(){
 	
-	location.href="course_list.html?userLecturerId="+userLecturerId;
+	location.href="course_list.html?lecturerId="+userLecturerId;
 }
 
 

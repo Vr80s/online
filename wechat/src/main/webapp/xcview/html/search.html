@@ -175,12 +175,12 @@
 							$("body").trigger("click");	
 						});*/
 		//				alert(54654);
-		
+		window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";
 						//索搜记录处理
 						arr.unshift($('#header_input').val())
 						if(arr.length >= 5){
 							arr.splice(4,1);
-							arr[0] = $('#header_input').val();
+//							arr[0] = $('#header_input').val();
 						}
 						localStorage.hisArr = arr;
 //						console.log(arr);
@@ -191,7 +191,7 @@
 						})
 						$('.search_history_list').html(historyInf);
 						
-//						window.location.href="../html/curriculum_table.html?search="+search_val+"";
+						
 
 
 			        } 
