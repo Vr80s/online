@@ -118,6 +118,26 @@
 
 <script type="text/javascript">
 	window.onload = function(){
+		//判断历史记录
+		if(localStorage.hisArr){
+			//渲染上
+			var historyInf = '';
+			localStorage.hisArr.split(',').forEach(function(v,i){
+				historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+			})
+			$('.search_history_list').html(historyInf);
+			arr = localStorage.hisArr.split(',');
+		}else{
+			arr = [];
+		}
+		
+		
+		//历史记录删除事件
+		function del(i){
+//			localStorage.hisArr.split(',').splice(i,1);
+			alert(444)
+		}
+		
 		
 //		循环点击热门搜索
 //		var aBtn6=$('.search_hot_main_one');
@@ -128,13 +148,13 @@
 //          	$(".header_seek_main").css("display","none");
 //          });
 //      };
-        
+   
+//      var arr = [];
 //      点击yinput  失去焦点隐藏默认值
         $("#header_input").keyup(function(){
 						var search_val=$(this).val()
         	
 			if($("#header_input").val() != ""){
-				
 				$(".header_seek_main").css("display","none");
 				
 //				2
@@ -155,9 +175,25 @@
 							$("body").trigger("click");	
 						});*/
 		//				alert(54654);
+		
+						//索搜记录处理
+						arr.unshift($('#header_input').val())
+						if(arr.length >= 5){
+							arr.splice(4,1);
+							arr[0] = $('#header_input').val();
+						}
+						localStorage.hisArr = arr;
+//						console.log(arr);
 
-						window.location.href="../html/curriculum_table.html?search="+search_val+"";
-			              
+						var historyInf = '';
+						localStorage.hisArr.split(',').forEach(function(v,i){
+							historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+						})
+						$('.search_history_list').html(historyInf);
+						
+//						window.location.href="../html/curriculum_table.html?search="+search_val+"";
+
+
 			        } 
 			    }; 
 				
@@ -179,9 +215,9 @@
 		/*清除历史结束*/
 		
 //		点击X开始
-		$(".search_history_list_one .div1").click(function(){
-			$(this).parent().remove();
-		});
+//		$(".search_history_list_one .div1").click(function(){
+//			$(this).parent().remove();
+//		});
 //		点击X结束
         
         

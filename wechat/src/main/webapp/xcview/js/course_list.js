@@ -10,9 +10,7 @@ $(function(){
 });
   
   
-  $(".course_list_main_one").click(function(){
-  	alert(1)
-  })
+ 
   
   
   
