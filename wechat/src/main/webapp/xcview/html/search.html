@@ -117,6 +117,18 @@
 </script>
 
 <script type="text/javascript">
+
+//历史记录删除事件
+function del(i){
+	var aaa = localStorage.hisArr.split(',').splice(i);
+	localStorage.setItem("hisArr",aaa);
+	
+	localStorage.hisArr.split(',').forEach(function(v,i){
+		historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+	})
+	$('.search_history_list').html(historyInf);
+}
+
 	window.onload = function(){
 		//判断历史记录
 		if(localStorage.hisArr){
@@ -131,12 +143,6 @@
 			arr = [];
 		}
 		
-		
-		//历史记录删除事件
-		function del(i){
-//			localStorage.hisArr.split(',').splice(i,1);
-			alert(444)
-		}
 		
 		
 //		循环点击热门搜索
