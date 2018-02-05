@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.online.common.enums.ApplyStatus;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
@@ -193,6 +194,25 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }else{
             throw new RuntimeException("课程形式有误");
         }
+        validateCourseName(courseApplyInfo);
+    }
+
+    /**
+     * Description：校验课程名称
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/2/5 0005 上午 11:13
+     **/
+    private void validateCourseName(CourseApplyInfo courseApplyInfo) {
+        Integer caiCount = courseApplyInfoMapper.selectCourseApplyForValidate(courseApplyInfo.getTitle(),courseApplyInfo.getOldApplyInfoId());
+        if(caiCount>0){
+            throw new RuntimeException("课程名称被占用");
+        }else{
+            Integer cCount = courseApplyInfoMapper.selectCourseForValidate(courseApplyInfo.getTitle());
+            if(cCount>0){
+                throw new RuntimeException("课程名称被占用");
+            }
+        }
     }
 
     /**
@@ -261,6 +281,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(courseApplyInfo.getCourseForm() != CourseForm.VOD.getCode()){
             throw new RuntimeException("暂不支持点播以外的专辑课程");
         }
+        validateCourseName(courseApplyInfo);
     }
 
 
@@ -358,6 +379,13 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
 
     @Override
     public void updateCourseApply(CourseApplyInfo courseApplyInfo) {
+        CourseApplyInfo cai = selectCourseApplyById(courseApplyInfo.getUserId(), courseApplyInfo.getId());
+        if(cai==null){
+            throw new RuntimeException("课程不存在");
+        }else if(cai.getStatus()!= ApplyStatus.UNTREATED.getCode()){
+            //防止后台管理操作与主播同时操作该课程出现问题
+            throw new RuntimeException("课程审核状态已经发生变化");
+        }
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
         //记录原申请id

@@ -133,13 +133,13 @@ $(function(){
             async: false,
             success: function(data) {
                 if(data.success == false){
-                    $('#tip').text('基础信息提交失败');
+                    $('#tip').text('保存失败，请重试');
                     $('#tip').toggle();
                     setTimeout(function(){
                         $('#tip').toggle();
                     },1000)
                 }else if(data.success == true){
-                    $('#tip').text('基础信息提交成功');
+                    $('#tip').text('保存成功');
                     $('#tip').toggle();
                     setTimeout(function(){
                         $('#tip').toggle();
@@ -243,14 +243,14 @@ $(function(){
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				$('#tip').text('认证数据提交失败');
+				$('#tip').text('保存失败，请重试');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},1000)
 	       		window.location.reload();
 			}else if(data.success == true){
-				$('#tip').text('认证数据提交成功');
+				$('#tip').text('保存成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
@@ -429,7 +429,7 @@ $(function(){
 				departmentIds:keshiStr
 			}, function(data) {
 				if(data.success == true){
-				$('#tip').text('添加医师信息提交成功');
+				$('#tip').text('保存成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();

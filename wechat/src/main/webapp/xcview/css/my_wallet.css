@@ -52,13 +52,16 @@ header{
 }
 /*头部结束*/
 
+#wrapper{
+	margin-top: 1.08rem;
+}
+
 /*余额开始*/
 .balance{
 	width: 6.98rem;
 	height: 3.02rem;
 	margin: 0 auto;
 	background: #fff;
-	margin-top: 1.08rem;
 	border: 1px solid #F0F0F0;
 	border-radius: 16px;
 }

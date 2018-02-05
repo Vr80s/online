@@ -76,6 +76,7 @@ header {
     margin-right: 0.26rem;
     float: left;
     margin-bottom: 0.638rem;
+    position: relative;
 }
 /*第一块*/
 .course_list_main_one{

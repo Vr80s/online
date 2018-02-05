@@ -303,7 +303,7 @@ public class CourseVo extends OnlineBaseVo{
     
     private  String coursePwd;
     
-    private int multimediaType;
+    private Integer multimediaType;
     
     private int onlineCourse;
 
@@ -410,11 +410,11 @@ public class CourseVo extends OnlineBaseVo{
     private Integer isCourseDetails; //TODO 0 表示不展示 1 表示展示
 
 	
-    public int getMultimediaType() {
+    public Integer getMultimediaType() {
 		return multimediaType;
 	}
 
-	public void setMultimediaType(int multimediaType) {
+	public void setMultimediaType(Integer multimediaType) {
 		this.multimediaType = multimediaType;
 	}
 

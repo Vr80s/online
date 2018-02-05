@@ -495,9 +495,10 @@
 			                    <td>
 			                       <div class="profile-info-value searchTr">
 									   <select name="status" id="search_status" value="" class="propertyValue1" >
-						               		<option value="">认证状态</option>
-											<option value="1">认证成功</option>
-											<option value="0">认证失败</option>
+										   <option value="">认证状态</option>
+										   <option value="1">已通过</option>
+										   <option value="0">未通过</option>
+										   <option value="2">待审核</option>
 						               </select>
 									   <input type="hidden" value="search_status" class="propertyName"/>
 			                        </div>

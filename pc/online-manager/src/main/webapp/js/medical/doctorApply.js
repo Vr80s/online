@@ -25,7 +25,6 @@ $(function() {
         {"title": "医师名字", "class": "center", "width": "6%", "sortable": false, "data": 'name'},
         {"title": "职称", "class": "center", "width": "6%", "sortable": false, "data": 'title'},
         {"title": "身份证号", "class": "center", "width": "8%", "sortable": false, "data": 'cardNum'},
-        // {"title": "科室", "class": "center", "width": "12%", "sortable": false, "data": 'departments'},
         {"title": "擅长", "class": "center", "width": "8%", "sortable": false, "data": 'field'},
         {
             "title": "申请时间",
@@ -84,8 +83,12 @@ function showDetailDialog(obj, status) {
 }
 
 function search_P() {
+    var json = new Array();
     var status = $('#search_status').val();
-    console.log(status);
+    json.push('{"tempMatchType":"7","propertyName":"status","propertyValue1":"' + status + '","tempType":"int"}');
+    json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    searchButton(P_courseTable, json);
+
 }
 
 function getLocalTime(nS) {
