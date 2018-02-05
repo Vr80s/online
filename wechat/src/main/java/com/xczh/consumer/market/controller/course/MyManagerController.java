@@ -129,7 +129,6 @@ public class MyManagerController {
 
 	/**
 	 * Description：我已购买课程的不包含免费的接口
-	 * 
 	 * @param req
 	 * @param res
 	 * @return
@@ -461,8 +460,7 @@ public class MyManagerController {
 	 */
 	@RequestMapping("sendSMSCode")
 	@ResponseBody
-	public ResponseObject withdrawalSendSMSCode(HttpServletRequest req,
-			@RequestParam("bankCard") String bankCard) throws Exception {
+	public ResponseObject withdrawalSendSMSCode(HttpServletRequest req) throws Exception {
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
@@ -481,10 +479,10 @@ public class MyManagerController {
 		/**
 		 * 验证银行卡号
 		 */
-		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(user.getId(), bankCard, null);
-		if (ub == null) {
-			return ResponseObject.newErrorResponseObject("请输入有效银行卡信息");
-		}
+//		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(user.getId(), bankCard, null);
+//		if (ub == null) {
+//			return ResponseObject.newErrorResponseObject("请输入有效银行卡信息");
+//		}
 		try {
 			/*
 			 * 发送短信验证码
@@ -518,8 +516,8 @@ public class MyManagerController {
 	@ResponseBody
 	public ResponseObject withdrawal(HttpServletRequest req,
 			@RequestParam("rmbNumber") BigDecimal rmbNumber,
-			@RequestParam("bankCard") String bankCard,
 			@RequestParam("smsCode") String smsCode,
+			@RequestParam("bankCardId") Integer bankCardId,
 			@RequestParam("orderFrom") Integer orderFrom) throws Exception {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if (user == null) {
@@ -538,10 +536,10 @@ public class MyManagerController {
 		/**
 		 * 验证银行卡信息
 		 */
-		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(user.getId(), bankCard, null);
-		if (ub == null) {
-			return ResponseObject.newErrorResponseObject("请输入有效银行卡信息");
-		}
+//		UserBank ub = userBankService.selectUserBankByUserIdAndAcctPan(user.getId(), bankCard, null);
+//		if (ub == null) {
+//			return ResponseObject.newErrorResponseObject("请输入有效银行卡信息");
+//		}
 		/**
 		 * 验证短信信息
 		 */
@@ -549,7 +547,7 @@ public class MyManagerController {
 		//短信验证码成功
 		if(rob.isSuccess()){
 			try {
-				enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber, ub.getId(), OrderFrom.valueOf(orderFrom));
+				enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
 				return ResponseObject.newSuccessResponseObject("提现成功");
 			} catch (Exception e) {
 				// TODO: handle exception
