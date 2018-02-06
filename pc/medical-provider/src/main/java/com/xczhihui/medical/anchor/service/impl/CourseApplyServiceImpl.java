@@ -131,17 +131,17 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         if(StringUtils.isBlank(courseApplyInfo.getTitle())){
             throw new RuntimeException("课程标题不可为空");
-        }else if(courseApplyInfo.getTitle().length()>32){
+        }else if(courseApplyInfo.getTitle().length()>30){
             throw new RuntimeException("课程标题长度不可超过32");
         }
         if(StringUtils.isBlank(courseApplyInfo.getSubtitle())){
             throw new RuntimeException("课程副标题不可为空");
-        }else if(courseApplyInfo.getSubtitle().length()>32){
+        }else if(courseApplyInfo.getSubtitle().length()>30){
             throw new RuntimeException("课程副标题长度不可超过32");
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
             throw new RuntimeException("主播不可为空");
-        }else if(courseApplyInfo.getLecturer().length()>32){
+        }else if(courseApplyInfo.getLecturer().length()>20||courseApplyInfo.getLecturer().length()<4){
             throw new RuntimeException("主播名称长度不可超过32");
         }
 //        if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
@@ -209,11 +209,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private void validateCourseName(CourseApplyInfo courseApplyInfo) {
         Integer caiCount = courseApplyInfoMapper.selectCourseApplyForValidate(courseApplyInfo.getTitle(),courseApplyInfo.getOldApplyInfoId());
         if(caiCount>0){
-            throw new RuntimeException("课程名称被占用");
+            throw new RuntimeException("课程标题被占用");
         }else{
             Integer cCount = courseApplyInfoMapper.selectCourseForValidate(courseApplyInfo.getTitle());
             if(cCount>0){
-                throw new RuntimeException("课程名称被占用");
+                throw new RuntimeException("课程标题被占用");
             }
         }
     }

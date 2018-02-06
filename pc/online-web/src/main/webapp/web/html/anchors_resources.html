@@ -107,25 +107,33 @@
 					<div class="zhuanlan_bottom " id="hospital_bottom">
 						
 							<div id="hosChoose" class="hide">
-								<div>
+								<!--<div>
 									<span id="close_hosChoose" style="position: absolute;top: 10px;right: 15px;font-weight: 700">关闭</span>
 									<p class="hosChooseTip">请选择任职的医馆</p>
 									<label for="id_select"></label>
 									<select id="id_select" class="selectpicker bla bla bli"  data-live-search="true"></select>
 									<button class="sureChoosehos">确认</button>
-								</div>
+								</div>-->
 							</div>
 							
 							<div>
 								<span><em>*</em> 任职医馆</span>
-								<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title" />
-								<a href="javascript:;" class="chooseHospital"><span>选择平台已有医馆</span></a>
+								<input type="text" placeholder="请填写您所在医馆或医院" class="zhuanlan_title hide" />
+								<div style="display: inline-block;vertical-align: sub;">
+									<!--<span id="close_hosChoose" style="position: absolute;top: 10px;right: 15px;font-weight: 700">关闭</span>-->
+									<!--<p class="hosChooseTip">请选择任职的医馆</p>-->
+									<label for="id_select"></label>
+									<select id="id_select" class="selectpicker bla bla bli"  data-live-search="true"></select>
+									<a href="javascript:;"><span>选择平台已有医馆</span></a>
+									<!--<button class="sureChoosehos">确认</button>-->
+								</div>
+								<!--<a href="javascript:;" class="chooseHospital"><span>选择平台已有医馆</span></a>-->
 								<p class="work_hos_warn warning hide">任职医馆不能为空</p>
 							</div>
 
 							<div class="hospital_address">
 								<span><em>*</em> 医馆地址</span>
-								<select name="" id="choosePro" onchange="doProvAndCityRelation()">
+								<!--<select name="" id="choosePro" onchange="doProvAndCityRelation()">
 									<option value="">111</option>
 									<option value="">111</option>
 									<option value="">111</option>
@@ -135,17 +143,20 @@
 									<option value="">222</option>
 									<option value="">111</option>
 									<option value="">111</option>
-								</select>
-								<textarea name="" id="detail_address" style="resize: none;display: block;" placeholder="请输入详细地址"></textarea>
+								</select>-->
+								<input type="text" id="hosPro" placeholder="医馆所在省份" disabled="disabled"/>
+								<input type="text" id="hosCity" placeholder="医馆所在市区"/>
+								<textarea readonly name="" id="detail_address" style="resize: none;display: block;" placeholder="医馆详细地址"></textarea>
 								<p class="warning hide">医馆地址不能为空</p>
 							</div>
 							
 							<div class="hos_fengmian">
 
 								<span style="vertical-align: top;"><em>*</em> 医馆封面图</span>
-								<span class="fengmian_pic" onclick="$('#fengmian_picIpt').click()">
+								<!--<span class="fengmian_pic" onclick="$('#fengmian_picIpt').click()">-->
+								<span class="fengmian_pic" >
 									<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p>
-									<p style="text-align: center;color: #999;font-size: 14px;">点击上传医馆封面图资图片</p>
+									<p style="text-align: center;color: #999;font-size: 14px;">暂无医馆封面图片</p>
 								</span>
 								<span class="fengmian_tip">
 								<p>文件小于2M</p>
@@ -158,7 +169,7 @@
 							
 							<div class="hosContantTel">
 								<span><em>*</em>医馆电话</span>
-								<input type="text" placeholder="请输入医馆电话" class="hosTel" />
+								<input type="text" placeholder="医馆电话" class="hosTel" />
 								<p class="hosTel_warn warning hide">医馆电话不能为空</p>
 							</div>
 
@@ -690,8 +701,9 @@
 			<span>科室</span>
 			<ul>
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-		
-				  {{include 'adaptTpl' }}  
+					{{each medicalDepartments}}
+					<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
+					{{/each}}
 				 {{/if}}
 			
 			</ul>
@@ -721,11 +733,11 @@
 	
 	
 	<!--科室部分的小模板-->
-<script type="text/template" id="adaptTpl">
-{{each medicalDepartments}}
-	<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
-{{/each}}
-</script>
+<!--<script type="text/template" id="adaptTpl">-->
+<!--{{each medicalDepartments}}-->
+	<!--<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>-->
+<!--{{/each}}-->
+<!--</script>-->
 
 	
 	
@@ -744,7 +756,7 @@
 	<script type="text/javascript" src="/web/js/footer.js"></script>
 	<script src="/web/js/placeHolder.js"></script>
 	<script type="text/javascript" src="/web/js/cropbox.js"></script>
-	<script src="/web/js/provinces.js"></script>
+	<!--<script src="/web/js/provinces.js"></script>-->
 	<script src="/web/js/anchors_resources.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>
 
 </html>

@@ -70,7 +70,7 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      * 课程开始时间
      */
 	@TableField("start_time")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	private Date startTime;
     /**
      * 课程时长
@@ -174,7 +174,7 @@ public class CourseApplyInfo extends Model<CourseApplyInfo> {
      * 结课时间
      */
 	@TableField("end_time")
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	private Date endTime;
 
 	@TableField("resource_id")
