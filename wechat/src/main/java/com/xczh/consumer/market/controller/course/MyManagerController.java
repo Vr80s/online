@@ -346,6 +346,38 @@ public class MyManagerController {
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
 
+	
+	
+	/**
+	 * Description：主播控制台 -- 直播间的课程
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 */
+	@RequestMapping("anchorConsoleLiveCourse")
+	@ResponseBody
+	public ResponseObject anchorConsoleCourse(HttpServletRequest req,
+			@RequestParam("pageNumber") Integer pageNumber,
+			@RequestParam("pageSize") Integer pageSize)
+			throws Exception {
+
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if (user == null) {
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		Page<CourseLecturVo> page = new Page<>();
+		page.setCurrent(pageNumber);
+		page.setSize(pageSize);
+		List<CourseLecturVo> list = courseService.selectUserConsoleCourseLiveByPage(page,user.getId());
+		return ResponseObject.newSuccessResponseObject(list);
+	}
+	
+	
+	
 	/**
 	 * Description：主播控制台 我的课程（app端我的课程 全部、直播、视频、线下课、音频） 包括审批的包括没有审批的
 	 * 

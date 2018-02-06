@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.web.service.impl;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -29,15 +30,17 @@ public class CommonApiServiceImpl implements CommonApiService {
 	}
 
 	@Override
-	public List<SystemVariate> getProblems(String group) {
+	public List<Map<String,Object>> getProblems(String group) {
 		// TODO Auto-generated method stub
-		return systemVariateService.getSystemVariatesByName(group);
+		//return systemVariateService.getSystemVariatesByName(group);
+		return userCenterDao.getProblems(group);
 	}
 
 	@Override
-	public SystemVariate getProblemAnswer(String id) {
+	public Map<String,Object> getProblemAnswer(String id) {
 		// TODO Auto-generated method stub
-		return systemVariateService.getSystemVariateById(id);
+		//return systemVariateService.getSystemVariateById(id);
+		return userCenterDao.getProblemAnswer(id);
 	}
 
 }

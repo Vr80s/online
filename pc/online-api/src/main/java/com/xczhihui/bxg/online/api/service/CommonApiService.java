@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.api.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import com.xczhihui.bxg.common.support.domain.SystemVariate;
 import com.xczhihui.bxg.online.api.vo.JobVo;
@@ -27,13 +28,13 @@ public interface CommonApiService {
 	 * @param
 	 * @return
 	 */
-	List<SystemVariate> getProblems(String group);
+	List<Map<String,Object>> getProblems(String group);
 	
 	/**
 	 * 获取单个常见问题和答案
 	 * @param
 	 * @return
 	 */
-	SystemVariate getProblemAnswer(String id);
+	Map<String,Object> getProblemAnswer(String id);
 
 }

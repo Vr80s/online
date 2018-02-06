@@ -25,10 +25,7 @@ function chZJ(videoId,watchState){
             username: map.username,// 用户昵称
             docContent: "#doc"
     }
-    if(watchState == 0){
-    	weihouSignInfo.videoContent="#video";
-    }
-    //weihouSignInfo.videoContent="#video";
+    weihouSignInfo.videoContent="#video";
     VHALL_SDK.init(weihouSignInfo);
 }
 

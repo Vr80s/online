@@ -259,22 +259,19 @@ function refreshGiftRanking(){
 }
 
 
-
-
-
 //微博分享 
 document.getElementById('weiboShare').onclick = function(e){
-	    var  p = {
-	        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
-	        title :result.gradeName,/*分享标题(可选)*/
-	        pic : result.smallImgPath /*分享图片(可选)*/
-	    };
-	    var s = [];
-	    for (var i in p) {
-	        s.push(i + '=' + encodeURIComponent(p[i] || ''));
-	    }
-	    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
-	    window.open(_src);
+    var  p = {
+        url: getServerHost()+"/wx_share.html?courseId="+course_id,/*获取URL，可加上来自分享到QQ标识，方便统计*/
+        title :result.gradeName,/*分享标题(可选)*/
+        pic : result.smallImgPath /*分享图片(可选)*/
+    };
+    var s = [];
+    for (var i in p) {
+        s.push(i + '=' + encodeURIComponent(p[i] || ''));
+    }
+    var _src = "http://service.weibo.com/share/share.php?" + s.join('&') ;
+    window.open(_src);
 };
 
 //qq分享 
