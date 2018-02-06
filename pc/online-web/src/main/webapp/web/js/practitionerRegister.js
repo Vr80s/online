@@ -19,7 +19,7 @@ $(function(){
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       			window.location.href = "/web/html/bestPractitioners.html";
-	       		},1500)
+	       		},2000)
 	       		
 	       	}else if(data.resultObject.indexOf(7) != -1){
 	       		//都没有注册过 进入注册页面
@@ -132,13 +132,13 @@ $(function(){
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
-	       			},1500)
+	       			},2000)
 				}else{
 					$('#tip').text(data.errorMessage);
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
-	       			},1500)
+	       			},2000)
 				}
 				
 	  	}else if(data.success == true){
@@ -148,7 +148,7 @@ $(function(){
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 				window.location.href = '/web/html/ResidentDoctor.html';
-	       		},1500)
+	       		},2000)
 	  			
 	  	}
 	  })

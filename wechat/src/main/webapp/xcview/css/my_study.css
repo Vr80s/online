@@ -199,7 +199,7 @@ display: -webkit-box;
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 2;
 overflow: hidden;
-padding-bottom: 0.1rem;
+margin-bottom: 0.1rem;
 }
 .my_class_text:nth-last-child(1){
 	border-bottom: 0;

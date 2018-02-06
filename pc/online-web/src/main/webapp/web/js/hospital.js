@@ -485,7 +485,7 @@ $(function () {
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
-	       			},1000)
+	       			},2000)
     	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(2) != -1){
     	 			//注册医馆成功
     	 			window.location.href = "/web/html/ResidentHospital.html";
@@ -504,7 +504,7 @@ $(function () {
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       		},1000)
+	       		},2000)
     	 	}
     	 });
     })

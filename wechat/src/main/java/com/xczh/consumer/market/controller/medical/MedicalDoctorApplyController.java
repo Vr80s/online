@@ -128,7 +128,7 @@ public class MedicalDoctorApplyController {
 		}
 		Map<String, Object> mapAll = new HashMap<String, Object>();
 		MedicalDoctorApply mda = medicalDoctorApplyService.getLastOne(user.getId());
-		List<Integer> status = commonServiceImpl.isDoctorOrHospital(user.getId());
+		Integer status = commonServiceImpl.isDoctorOrHospital(user.getId());
 		mapAll.put("medicalDoctor",mda);
 		mapAll.put("status",status);
 		return ResponseObject.newSuccessResponseObject(mapAll);
