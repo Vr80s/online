@@ -84,7 +84,7 @@ public class MyTask extends SimpleHibernateDao{
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 12:17 2018/2/2 0002
      **/
-    @Scheduled(cron = "0 0/30 * * * ?")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void dealCourseApplyResourceTask(){
         courseApplyService.updateCourseApplyResource();
     }

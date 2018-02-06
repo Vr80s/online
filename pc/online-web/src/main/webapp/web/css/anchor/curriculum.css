@@ -1102,7 +1102,7 @@ table{
     border: 1px solid #F0F0F0;
     outline: none;
     width: 220px;
-    background-image: url(../images/hospital/hos_search.png);
+    background-image: url(../../images/hospital/hos_search.png);
     background-repeat: no-repeat;
     background-position: 9px 11px;
     float: left;
@@ -1988,8 +1988,7 @@ height: 60px;
 	margin-bottom: 36px;
 }
 .live_streaming_table table thead{
-	height: 40px;
-    line-height: 40px;
+
     background: #F0F0F0;
     font-size: 14px;
     color: #666666;
@@ -1998,7 +1997,7 @@ height: 60px;
 	border: 1px solid #DEDEDE;
 	padding: 10px;
 	text-align: center;
-	height: 80px;
+
 }
 .live_streaming_table table tbody{
 	font-size: 14px;
@@ -2390,4 +2389,49 @@ height: 60px;
 	color: #fff;
 	font-size: 14px;
 	margin-right: 20px;
+}
+
+/*资源上传中进度条样式*/
+.uploading{
+	width: 580px;
+	height: 246px;
+	text-align: center;
+	padding: 40px 90px;
+	border-radius: 4px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 999;
+	background-color: #fff;
+}
+.uploading p {
+	font-size: 20px;
+	color: #333333;
+	margin-bottom: 40px;
+}
+.uploading #uploadProgress .progress{
+	width: 400px;
+	height: 24px;
+}
+.uploading #cancalUpdata{
+	width: 120px;
+	height: 36px;
+	border-radius: 4px;
+	background: #00BC12;
+	color: #fff;
+	border: none;
+} 
+.uploadfinish{
+	padding-left: 15px;
+	position: relative;
+}
+.updataSuccess{
+background: url("../../images/login/user-right.png") no-repeat center center;
+display: none;
+width: 14px;
+height: 14px;
+position: absolute;
+top: 3px;
+left: 0px;
 }

@@ -573,7 +573,31 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 		});
 		
 		
-		$("#face").click(function() {
+		$(".give_a01").click(function(){
+//			$(".give_a01").();
+//			alert(2132);
+		});
+		
+		
+		
+//		coze   点击其他区域，聊天区域
+		$(".coze").click(function(){
+//			$(".give_a01").hide();   /*表情隐藏*/
+			$(".send_gifts").hide();   /*礼物区域隐藏*/
+			/*$(".give_a1").show();*/    /*礼物显示*/
+		});
+		
+		
+		/*$("button").toggle(function(){
+		    $("body").css("background-color","green");},
+		    function(){
+		    $("body").css("background-color","red");},
+		    function(){
+		    $("body").css("background-color","yellow");}
+	  	);*/
+		
+		
+		/*$("#face").click(function() {
 			$(".coze_bottom").css("bottom","7.3rem");
 			$(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
 			$(".face_img01").css('background-size','100% 100%');
@@ -595,7 +619,7 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 					$(".facebox-mobile").show();
 				}, 10);
 			}
-		});
+		});*/
 		
 	};
 </script>

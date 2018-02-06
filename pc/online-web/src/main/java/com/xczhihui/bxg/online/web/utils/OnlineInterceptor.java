@@ -52,7 +52,8 @@ public class OnlineInterceptor implements HandlerInterceptor {
 	private UserService userService;
 	
 	private List<String> checkuris = new ArrayList<String>();
-	
+	private List<String> checkanchoruris = new ArrayList<String>();
+
 	public OnlineInterceptor(){
 		try {
 			URL controller = this.getClass().getClassLoader().getResource("auth.xml");
@@ -60,6 +61,12 @@ public class OnlineInterceptor implements HandlerInterceptor {
 			List<Element> uris = doc.selectNodes("//checkuris/uri");
 			for (Element e : uris) {
 				checkuris.add(e.getStringValue());
+			}
+			//新增主播校验2018-02-06
+			List<Element> anchoruris = doc.selectNodes("//checkuris/anchoruri");
+			for (Element e : anchoruris) {
+				checkuris.add(e.getStringValue());
+				checkanchoruris.add(e.getStringValue());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -97,13 +104,29 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		}
 		
 		//没登陆，但是调用了必须登陆才可以调的接口
-		if ((UserLoginUtil.getLoginUser(request) == null || UCCookieUtil.readTokenCookie(request) == null)
-				&& checkuris.contains(request.getRequestURI())) {
+		if ((UserLoginUtil.getLoginUser(request) == null || UCCookieUtil.readTokenCookie(request) == null) && checkuris.contains(request.getRequestURI())) {
 			Gson gson = new GsonBuilder().create();
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/json");
 			response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("请登陆！")));
 			return false;
+		}
+
+		//已经登录，但是调用了主播角色才可以调的接口
+		if (checkanchoruris.contains(request.getRequestURI())) {
+			BxgUser user = UserLoginUtil.getLoginUser(request);
+			if(user.getAnchor()==null){
+				Boolean anchor = userService.isAnchor(user.getLoginName());
+				user.setAnchor(anchor);
+				UserLoginUtil.setLoginUser(request,user);
+			}
+			if(!user.getAnchor()){
+				Gson gson = new GsonBuilder().create();
+				response.setCharacterEncoding("utf-8");
+				response.setContentType("application/json");
+				response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("不具有主播权限！")));
+				return false;
+			}
 		}
 		
 		return true;

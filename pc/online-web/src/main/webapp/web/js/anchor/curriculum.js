@@ -294,7 +294,6 @@ $('#zhuanlan .zhuanlan_top button').click(function(){
 
 //处理点击--课程显示隐藏第一第二页
 $(".select_list .courseP").click(function() {
-    courseList(1);
     $(".curriculum_two").show();
     $(".curriculum_one").hide();
 });
@@ -984,20 +983,13 @@ function showCourseAttribute(type){
 	}
 }
 
-function confirmBox(title,content,fn){
-	$(".confirm-title").html(title);
-	$(".confirm-content").html(content);
-	$(".confirm-sure").click(function(){
-        fn(hideDel);
-        $(".confirm-sure").unbind("click")
-    })
-    showDel();
-}
+
 //删除提示框出现方法
 function showDel(){
 	$('#deleteTip').removeClass('hide');
 	$('#mask').removeClass('hide');
 }
+
 
 //删除提示消失方法
 function hideDel(){
@@ -1007,11 +999,10 @@ function hideDel(){
 
 
 //出现黑色提示弹窗方法
-function showTip(contant,fn){
+function showTip(contant){
 	$('#blackTip').text(contant).show()
 	setTimeout(function(){
-		$('#blackTip').text(contant).hide();
-		if(fn!=null)fn();
+		$('#blackTip').text(contant).hide()
 	},2000)
 	
 }

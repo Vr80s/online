@@ -2,6 +2,7 @@ package com.xczhihui.medical.hospital.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
@@ -24,22 +25,38 @@ public class MedicalHospitalDoctor extends Model<MedicalHospitalDoctor> {
      * 医馆医师关系表
      */
 	private String id;
-    /**
+
+	/**
      * 医师id
      */
 	@TableField("doctor_id")
 	private String doctorId;
-    /**
+
+	/**
      * 医馆id
      */
 	@TableField("hospital_id")
 	private String hospitalId;
-    /**
+
+	/**
      * 创建时间
      */
 	@TableField("create_time")
 	private Date createTime;
 
+	/**
+	 * 删除状态
+	 */
+	@TableLogic
+	private String deleted;
+
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
 
 	public String getId() {
 		return id;
