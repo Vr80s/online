@@ -280,7 +280,7 @@ $(function(){
 	
 	
 	//医馆信息的回显数据渲染
-	RequestService("/medical/hospital/apply/getLastOne", "get", {			
+	RequestService("/medical/hospital/getHospitalByUserId", "get", {			
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){

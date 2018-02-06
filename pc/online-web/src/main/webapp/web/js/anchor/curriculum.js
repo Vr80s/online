@@ -983,3 +983,29 @@ function showCourseAttribute(type){
     	$(".offline").show();
 	}
 }
+
+
+//删除提示框出现方法
+function showDel(){
+	$('#deleteTip').removeClass('hide');
+	$('#mask').removeClass('hide');
+}
+
+
+//删除提示消失方法
+function hideDel(){
+	$('#deleteTip').addClass('hide');
+	$('#mask').addClass('hide');
+}
+
+
+//出现黑色提示弹窗方法
+function showTip(contant){
+	$('#blackTip').text(contant).show()
+	setTimeout(function(){
+		$('#blackTip').text(contant).hide()
+	},2000)
+	
+}
+
+

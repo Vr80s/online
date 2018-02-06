@@ -1,6 +1,8 @@
 
 function btn_up(){
-    if($(".wrap-user-id .userName").val()==''){
+    if($(".wrap-user-id .userName").val()==''||$(" #cardNum").val()==''
+        ||$("#previewImg").val()==''||$("#previewImg2").val()==''
+        ||$("#previewImg3").val()==''||$("#previewImg4").val()==''){
         $(".error-prompt").show();
         $(".btn-up").removeAttr("onclick")
         setTimeout(function(){

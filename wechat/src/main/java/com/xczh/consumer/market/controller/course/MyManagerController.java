@@ -114,7 +114,8 @@ public class MyManagerController {
 			map.put("user", onlineUserService.findUserById(user.getId()));
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
-			// 查看主播权限  
+			
+			// 查看主播权限   -- 并且把主播信息给返回过去
 			map.put("hostPermissions", myInfoService.getUserHostPermissions(user.getId()));
 			
 		} else {
