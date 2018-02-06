@@ -43,7 +43,7 @@ function balance() {
 }
 //交易记录
 function transactionRecord() {
-    requestService("/xczh/manager/withdrawalList",{
+    requestService("/xczh/manager/wallet",{
         pageNumber:1,
         pageSize:10
     },function(data) {
