@@ -24,7 +24,7 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 //获取医师认证状态控制左侧tab栏
  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
-	       	if(data.resultObject == 1){
+	       	if(data.resultObject != 1){
 	       		//医师认证未成功
 	       		$('.DocAut_btn').removeClass('hide');
 	       		$('.ImDoc_btn').addClass('hide');
