@@ -169,7 +169,7 @@
 							
 							<div class="hosContantTel">
 								<span><em>*</em>医馆电话</span>
-								<input type="text" placeholder="医馆电话" class="hosTel" />
+								<input type="text" placeholder="医馆电话" class="hosTel" disabled="disabled"/>
 								<p class="hosTel_warn warning hide">医馆电话不能为空</p>
 							</div>
 
@@ -701,9 +701,8 @@
 			<span>科室</span>
 			<ul>
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-					{{each medicalDepartments}}
-					<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
-					{{/each}}
+		
+				  {{include 'adaptTpl' }}  
 				 {{/if}}
 			
 			</ul>
@@ -733,11 +732,11 @@
 	
 	
 	<!--科室部分的小模板-->
-<!--<script type="text/template" id="adaptTpl">-->
-<!--{{each medicalDepartments}}-->
-	<!--<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>-->
-<!--{{/each}}-->
-<!--</script>-->
+<script type="text/template" id="adaptTpl">
+{{each medicalDepartments}}
+	<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
+{{/each}}
+</script>
 
 	
 	

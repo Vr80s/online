@@ -285,6 +285,8 @@ $(".btn-upload").click(function(evt) {
 
 
 
+
+
 	
 	
 	
@@ -503,9 +505,9 @@ function picUpdown(baseurl,imgname){
 $('#hospital_bottom #submit').click(function(){
 	//任职医馆的验证
 	var workhosName = $.trim($('#hospital_bottom .zhuanlan_title').val());
-	var province = $.trim($('#hospital_bottom #choosePro option:selected').text());
-	var city = $.trim($('#hospital_bottom #citys option:selected').text());
-	var detailedAddress = $.trim($('#hospital_bottom #hos_detail_address').text());
+	var province = $.trim($('#hosPro').val());
+	var city = $.trim($('#hosCity').val());
+	var detailedAddress = $.trim($('#hospital_bottom #hos_detail_address').val());
 	var hosTel = $.trim($('#hospital_bottom .hosTel').val());
 	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
 	var headPortrait  =  $('#hospital_bottom .fengmian_pic img').attr('src');
@@ -596,3 +598,6 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//个人信息渲染
 			$('.personIntroduct .introductInf').html(data.resultObject.description);
 		});
+		
+
+
