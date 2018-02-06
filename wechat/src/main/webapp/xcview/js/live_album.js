@@ -75,6 +75,9 @@ $(".bg_userModal").click(function(){
             $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值  
         });
     });
+    
+    
+    
         	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('course_id');
@@ -88,6 +91,8 @@ $(".bg_userModal").click(function(){
 		var school_img = document.createElement("img");
 		school_img.src = data.resultObject.smallImgPath;
 		$(".play_video").append(school_img)
+		
+
 		
 		//	CC视频ID
 //	    var	videoId = data.resultObject.directId;
@@ -125,10 +130,21 @@ $(".bg_userModal").click(function(){
 	requestService("/xczh/course/getCoursesByCollectionId",{collectionId:823},function(data) {
 	if(data.success==true){
     	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}))
+    //		点击选集获取视频ID		
+	$(".all_list_ul li").click(function(){
+		var directId=$(this).attr("data-myvideo");
+		var courseId=$(this).attr("data-courseId");
+		//初始化视频资源
+		chZJ(directId,1);
+		window.location="/xcview/html/live_album.html?course_id="+courseId+"&directId="+directId;
+	})
 	}
 })
 	
 	
+	
+	
+//	请求视频代码
 	function chZJ(videoId,multimediaType){
 	/**
 	 * 请求代码啦
