@@ -3,12 +3,14 @@ package com.xczhihui.bxg.online.manager.common.web;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
+import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.manager.common.service.CommonService;
 /**
  * 
@@ -41,6 +45,15 @@ public class LinkAddressController {
 
 	@Autowired
 	private CommonService commonService;
+	
+	
+	protected final static String MOBILE_PATH_PREFIX = "/mobile/";
+	
+	@RequestMapping(value = "/index")
+	public String index(HttpServletRequest request) {
+		
+		return MOBILE_PATH_PREFIX + "/link";
+	}
 	
 	
 	/**
@@ -148,15 +161,19 @@ public class LinkAddressController {
 	 */
 	@ResponseBody
     @RequestMapping("/importExcel")
-    public ResponseObject importExcel( @RequestParam("file")MultipartFile file){
-		Map<String,Object> map =null;
+    public Map<String,Object> importExcel( @RequestParam("file")MultipartFile file){
+		Map<String,Object> map = new HashMap<String, Object>();
         try {
-        	
-           map = commonService.updateImportExcel(file.getInputStream(),file.getOriginalFilename());
+            map = commonService.updateImportExcel(file.getInputStream(),file.getOriginalFilename());
+            map.put("error", "0");
+            System.out.println("=========="+map.toString());
+            return map;
         } catch (IOException e) {
             e.printStackTrace();
+        	map.put("error", "1");
+        	return map;
         }
-        return ResponseObject.newSuccessResponseObject(map);
+        
     }
     
     

@@ -65,6 +65,7 @@
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.small_head_photo as headImg,
+		ou.id as userId,
 		oc.live_source_type as liveSourceType
 			FROM
 		oe_course as oc
@@ -112,6 +113,7 @@
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.small_head_photo as headImg,
+		oe_user as userId,
 		
 		oc.live_source_type as liveSourceType
 			FROM
@@ -204,6 +206,8 @@
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.city as city,
+	    oc.collection as collection,
+		oc.course_number as courseNumber,
 		oc.live_source_type as liveSourceType,
 		oc.user_lecturer_id as userLecturerId,
 		oc.lecturer as name

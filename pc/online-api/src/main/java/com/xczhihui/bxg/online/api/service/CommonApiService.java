@@ -4,6 +4,7 @@ package com.xczhihui.bxg.online.api.service;
 
 import java.util.List;
 
+import com.xczhihui.bxg.common.support.domain.SystemVariate;
 import com.xczhihui.bxg.online.api.vo.JobVo;
 
 /**
@@ -20,4 +21,19 @@ public interface CommonApiService {
 	 * @return
 	 */
 	List<JobVo> getJob(String group);
+
+	/**
+	 * 获取所有的常见问题
+	 * @param
+	 * @return
+	 */
+	List<SystemVariate> getProblems(String group);
+	
+	/**
+	 * 获取单个常见问题和答案
+	 * @param
+	 * @return
+	 */
+	SystemVariate getProblemAnswer(String id);
+
 }

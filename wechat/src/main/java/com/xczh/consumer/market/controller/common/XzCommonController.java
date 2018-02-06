@@ -39,6 +39,7 @@ import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.vo.VersionInfoVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
+import com.xczhihui.bxg.online.api.service.CommonApiService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
@@ -77,6 +78,10 @@ public class XzCommonController {
     @Autowired
     private UserCenterAPI userCenterAPI;
 
+    
+    @Autowired
+    private CommonApiService commonApiService;
+    
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 
@@ -350,7 +355,37 @@ public class XzCommonController {
 		Long l = System.currentTimeMillis();
 		return l.toString();
 	}
-
+	/**
+	 * Description：获取问题
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="getProblems")
+	@ResponseBody
+	public ResponseObject JobVo(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		return ResponseObject.newSuccessResponseObject(commonApiService.getProblems("common_problems"));
+    }
+	
+	/**
+	 * Description：获取单个问题和答案
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="getProblemAnswer")
+	@ResponseBody
+	public ResponseObject JobVo(HttpServletRequest req, HttpServletResponse res,
+			@RequestParam("id")String id) throws Exception {
+		return ResponseObject.newSuccessResponseObject(commonApiService.getProblemAnswer(id));
+    }
+	
 	public String getSign(Map<String, String> signkv) {
 		Set<String> keySet = signkv.keySet();
 		Iterator<String> iter = keySet.iterator();

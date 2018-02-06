@@ -134,6 +134,7 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements CommonSe
 	public Map<String, Object> updateImportExcel(InputStream inputStream,
 			String originalFilename) {
 		
+		
 		ImportExcelUtil excelUtil = new ImportExcelUtil();
 		List<List<Object>> listob = null;
 		try {
@@ -141,46 +142,90 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements CommonSe
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-//		for (List<Object> obj : listob) {
-//			System.out.println(obj.toString());
-//		}
-		List<Map<String,Object>> allList = new ArrayList<Map<String,Object>>();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(listob!=null && listob.size()<=0){
+			map.put("excel_error", "未获取到excel文件中内容");
+			return map;
+		}
 		System.out.println("listob.size():"+listob.size());
+		
+		Integer falg  = 0;
+		String  errorFalg ="";
 		for (int i = 0; i < listob.size(); i++) {
 			if(i == listob.size()-1){
 				break;
 			}
 			List<Object> obj = listob.get(i);
 			List<Object> obj1 = listob.get(i+1);
-			Map<String,Object> map= new HashMap<String, Object>();
 			String problemIndexK= obj.get(0).toString();
 			String answerIndexK= obj1.get(0).toString();
 			if(problemIndexK.contains("问题") && answerIndexK.contains("答")){   //如果包含这个问题，先一个就是问题名称
-				//problemList.add(strIndex1);
+				if(obj.size()<2){
+					map.put("excel_error", "问答的   excel 格式有问题！");
+					break;
+				}
+				if(obj1.size()<2){
+					map.put("excel_error", "问答的   excel 格式有问题！");
+					break;
+				}
 				String problemIndexV= obj.get(1).toString();
-				map.put("problem", problemIndexV);
-				
 				String answerIndexV= obj1.get(1).toString();
-				map.put("answer", answerIndexV);
+				System.out.println(problemIndexV+"========="+answerIndexV);
+				if(!org.apache.commons.lang.StringUtils.isNotBlank(problemIndexV)
+						|| problemIndexV.length()>500){
+					map.put("excel_error", "第:"+i+"个问题问题字符在0---500字");
+					
+					falg++;
+				}
+				if(!org.apache.commons.lang.StringUtils.isNotBlank(answerIndexV)
+						|| answerIndexV.length()>500){
+					map.put("excel_error", "第:"+i+"个答案答案字符在0---500字");
+					
+					falg++;
+				}
 			}
-			allList.add(map);
 		}
-		SystemVariate systemVariate =systemVariateService.getSystemVariateByName("common_problems");
-		if(systemVariate!=null){
-			systemVariate.setDescription("============");
-			dao.update(systemVariate);
-		}else{
-			 systemVariate = new SystemVariate();
-			 BxgUser bu = UserHolder.getCurrentUser();
-			 systemVariate.setCreatePerson(bu.getId());
-			 systemVariate.setCreateTime(new Date());
-			 systemVariate.setValue("common_problems");
-			 systemVariate.setName("common_problems");
-			 systemVariate.setDescription("+++++++++++");
-		     systemVariateService.addSystemVariate(systemVariate);
+        if(falg>0 && errorFalg.length()>0){
+        	map.put("excel_error", errorFalg);
+			return map;
+        }
+		System.out.println("falg:"+falg);
+		
+		List<SystemVariate> listOld = systemVariateService.getSystemVariatesByName("common_problems");
+		/*
+		 * 删除原来的
+		 */
+		for (SystemVariate systemVariate : listOld) {
+			systemVariateService.deleteSystemVariate(systemVariate.getId());
 		}
-		System.out.println("{}{}{}{}"+listob.toString());
-		System.out.println("{}{}{}{}"+allList.toString());
-		return null;
+		/**
+		 * 添加新的
+		 */
+		for (int i = 0; i < listob.size(); i++) {
+			if(i == listob.size()-1){
+				break;
+			}
+			List<Object> obj = listob.get(i);
+			List<Object> obj1 = listob.get(i+1);
+			String problemIndexK= obj.get(0).toString();
+			String answerIndexK= obj1.get(0).toString();
+			if(problemIndexK.contains("问题") && answerIndexK.contains("答")){   //如果包含这个问题，先一个就是问题名称
+				String problemIndexV= obj.get(1).toString();
+				String answerIndexV= obj1.get(1).toString();
+				//保存一个
+				SystemVariate systemVariate =new SystemVariate();
+				BxgUser bu = UserHolder.getCurrentUser();
+				systemVariate.setCreatePerson(bu.getId());
+				systemVariate.setCreateTime(new Date());
+				systemVariate.setName("common_problems");
+				systemVariate.setValue(problemIndexV);     //这个存问题 
+				systemVariate.setDescription(answerIndexV);//这个存答案
+				systemVariateService.addSystemVariate(systemVariate);
+			}
+		}
+		map.put("excel_error", "更新成功");
+		return map;
 	}
 }

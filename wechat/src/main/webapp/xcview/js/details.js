@@ -1,55 +1,71 @@
-
-/**
- * 如果来自微信浏览器，隐藏微信分享
- */
+function is_weixn(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
 if(!is_weixn()){
     $(".weixin_li").remove();
 }
-
-var course_id = getQueryString("courseId");
+/**
+ * 判断是否需要跳转到pc网页
+ */
+h5PcConversions(true,course_id);
+if(localStorage.getItem("userId")==null){
+    location.href ="/xcviews/html/share.html?course_id="+course_id;
+}
 /**
   * 视频id
   */
 var videoId = "";var teacherId;var teacherName;
 var courseHead ="";var roomNumber="";var lineState =1;
-//var result="{gradeName:"fdsfdsfds",description:"1231"}";
 var result="";
 //统一提交的方法
-	requestService("/bxg/live/liveDetails", {course_id : course_id}, function(data) {
+	requestService("/xczh/course/details", {courseId : course_id}, function(data) {
 		if (data.success) {
             result = data.resultObject;
             //视频id
             videoId = result.directId;
-            watchState = result.watchState;
+            watchState = result.watchState;  
+            teacherId=result.userLecturerId; //讲师Id
+            teacherName=result.name; //讲师名
             
-            teacherId=result.userId;
-            teacherName=name;
-            /**
-             * 这里判断是否需要密码确认和是否付费
-             */
             $("#userId").val(result.userId);
-
             $("#teacherId").val(result.userId);
             courseHead = result.smallImgPath;
             
             $(".details_size span:eq(1)").html(result.giftCount);
             $(".details_size span:eq(0)").html(result.learndCount);
+   
             /**
-             * 关注
+             * 为详情页面添加数据
              */
-            if(result.isfocus == 1){
+            $("#headImg").attr("src",result.headImg);
+             $(".details_chat1").attr("src",result.headImg);
+            var children = $("#zhiboxiangqing [class='p1']").text(result.gradeName);
+            var children = $("#zhiboxiangqing [class='p2'] span").text(teacherName);
+            var children = $("#zhibopinglun [class='p1']").text(result.gradeName);
+            var children = $("#zhibopinglun [class='p2']").text(result.name);
+            
+            $(".anchor_center").text(result.description);
+            
+            /**
+             * 关注  	0 未关注 1 关注
+             */
+            if(result.isFocus == 1){
                 $(".guanzhu2").show();
-            }else if(result.isfocus == 0){
+            }else if(result.isFocus == 0){
                 $(".guanzhu1").show();
             }
             lineState =result.lineState;
             /**
-             * 判断是直播呢，还是回放呢
-             *  显示正在直播和直播回放
+             * 直播状态1.直播中，2预告，3直播结束 4 即将直播
              */
-            if(result.lineState == 3){  //隐藏送礼
-            	//直播回放
-            	$("title").text("直播回放");mywords
+            if(lineState == 3){  //隐藏送礼  //直播回放
+            	
+            	$("title").text("直播回放");
             	$(".history_span").text("直播回放");
             	$("#mywords").css("width","11.4rem");
             	$("#face").css("top","1.45rem");
@@ -71,6 +87,7 @@ var result="";
             	$(".div_input").css('width','13.2rem');
             	$(".coze_bottom_input").css('margin-left','0rem');
             	$(".give_a01").css('margin-left','0.5rem');
+            	
             	$("#face").click(function() {
             		$(".coze_bottom").css('bottom','7.1rem');
             	});
@@ -94,6 +111,7 @@ var result="";
             	$("#sendChat").click(function() {
         		    $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
                     $(".face_img01").css('background-size','100% 100%');
+            		/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
                     $(".send_img").css('background-size','100% 100%');
                     $(".give_a1").hide();
                     $(".give_a1").css("display","none");
@@ -102,20 +120,25 @@ var result="";
                     $(".give_a1_span02 img").hide();
                     $(".coze_bottom").css("bottom","0");
                 });	
+                
             }else{
+            	
             	//正在直播
             	$("title").text("直播中");
             	$(".history_span").text("直播中");
+            	
+            	
                 $("#mywords").click(function() {
-
+//                  $(".give_a1_img").hide();
                 });
+
                 // 点击送礼开始  --显示送礼列表
                 $(".give_a1").click(function() {
 
                     requestService("/bxg/bs/getBalanceTotal", {test:1}, function(data) {
                         if (data.success) {
-                            var result = data.resultObject;
-                            $("#xmbShowSpan").html(result.balanceTotal);
+                            //var result = data.resultObject;
+                            $("#xmbShowSpan").html(data.resultObject);
                         }else{
 //                          alert("熊猫币余额获取失败！请稍后再试");
 							$(".vanish2").show();
@@ -138,19 +161,6 @@ var result="";
                     $(".send_img").css("background-size","100% 100%");
             });
           
-            /**
-             * 为详情页面添加数据
-             */
-            $("#headImg").attr("src",result.headImg);
-             $(".details_chat1").attr("src",result.headImg);
-            var children = $("#zhiboxiangqing [class='p1']").text(result.gradeName);
-            var children = $("#zhiboxiangqing [class='p2'] span").text(result.name);
-            var children = $("#zhiboxiangqing [class='p3'] span").text(result.roomNumber);
-            var children = $("#zhibopinglun [class='p1']").text(result.gradeName);
-            var children = $("#zhibopinglun [class='p2']").text(result.name);
-            
-            $(".anchor_center").text(result.description);
-            
           //视频id不等于null的时候
           if(stringnull(videoId)){
              chZJ(videoId,watchState);
@@ -158,165 +168,18 @@ var result="";
 		}
 	},false)
 
-    /**
-     * 调转到用户主页啦
-     */
-    function userIndex(){
-    	
-    	location.href = "/xcviews/html/personage.html?lecturerId="+teacherId;
-    }
-            
-function  goPay() {
 
-    var btype=   localStorage.getItem("access")
-    var orderFrom;
-    if(btype=='wx'){
-        orderFrom=3;
-    }else if(btype=='brower'){
-        orderFrom=4;
-    }
-    requestService("/bxg/order/save", {courseId : course_id,orderFrom:orderFrom}, function(data) {
-        if (data.success) {
-            var result = data.resultObject;
-            location.href = "/xcviews/html/pay.html?courseId="+course_id+"&orderNo="+result.orderNo+"&orderId="+result.orderId+"&page=1";
-        }else{
-//          alert("提交订单错误！请稍后再试！");
-			$(".vanish4").show();
-			setTimeout(function(){$(".vanish4").hide();},1500);
-        }
-
-    });
-}
-
-
-function subscribe(){
-
-    var regPhone = /^1[3-578]\d{9}$/;
-    var flag=true;
-    if ($("#mobile").val().trim().length === 0) {
-       alert("请输入手机号！");
-        flag= false;
-    } else if (!(regPhone.test($("#mobile").val().trim()))) {
-        alert("手机号格式错误！");
-        flag= false;
-    }
-    if(!flag){
-    	return false;
-	}
-    requestService("/bxg/common/subscribe", {course_id : course_id,mobile:$("#mobile").val()}, function(data) {
-        if (data.success) {
-            var result = data.resultObject;
-            $(".buy_center1").show();
-            $("#subscribeA").html("您已预约");
-
-        }else{
-            alert("预约失败！"+data.msg);
-        }
-
-    });
-}
-
-
-function ckProPrice() {
-    //判断商品价格
-    var reg = /(^[-+]?[1-9]\d*(\.\d{1,2})?$)|(^[-+]?[0]{1}(\.\d{1,2})?$)/;
-    if ($("#actualPay").val() == ""&&$("#actualPayHide").val() == "") {
-        alert("请输入赠送金额！");
-        return false;
-    } else {
-    	
-    	
-    	if ($("#actualPay").val() != ""){
-            if (!reg.test($("#actualPay").val())) {
-                alert("价格不合法！");
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        if ($("#actualPayHide").val() != ""){
-            if (!reg.test($("#actualPayHide").val())) {
-                alert("价格不合法！");
-                return false;
-            } else {
-                return true;
-            }
-        }
-    }
-}
-/*
- * 得到焦点失去焦点
+/**
+ * 点击主播头像跳转主播页面
  */
-$('#searchKey').focus(function() { 
-	$('#lbSearch').text(''); 
-}); 
-
-$('#searchKey').blur(function() { 
-	var str = $(this).val(); 
-	str = $.trim(str); 
-	if(str == '') 
-	$('#lbSearch').text('搜神马？'); 
-}); 
-
-/*
- * 当这个值发生变化了，进行。
- */
-$('#searchKey').change(function() { 
-	var str = $(this).val(); 
-	str = $.trim(str); 
-	if(str == '') 
-	$('#lbSearch').text('搜神马？'); 
-}); 
-
-
-
-/*function ds(payType){*/
-function ds(){
-    if(!ckProPrice()){
-        return;
-    }
-    var actualPay;
-    if ($("#actualPay").val() != ""){
-        actualPay=$("#actualPay").val();
-    }else{
-        actualPay=$("#actualPayHide").val();
-    }
-    var giftId=$("#sid").val();
-    location.href="/xcviews/html/exceptionalpay.html?"+"receiver="+$("#userId").val()+"&rewardId="+giftId+"&liveId="+course_id+"&actualPay="+actualPay+"&returnUrl="+document.URL;
+function userIndex(){
+	location.href = "/xcview/html/live_personal.html?userLecturerId="+teacherId;
 }
-
-function cdPrice(price,sid){
-    $("#actualPay").val("")
-    $("#actualPayHide").val(price);
-    $("#sid").val(sid);
-}
-
-//初始化打赏价格列表
-
-requestService("/bxg/reward/list", {pageNumber:1,pageSize:100}, function(data) {
-	  if (data.success) {
-	         var result = data.resultObject;
-	         var html = "";
-	         for (var i = 0; i < result.length; i++) {
-	             if(result[i].price>0){
-	                 html += "<div class='give_lable1' onclick='cdPrice(" + result[i].price + "," + result[i].id + ")'> <label for=''  class='lable1_put'> <input name='give' type='radio' /> </label> <span class='give_money1'>￥<span>" + result[i].price + "</span></span> </div>";
-	             }else{
-	                 $("#sid").val(result[i].id);
-	                 sid=result[i].id;
-	             }
-
-	         }
-	         $("#cdPrices").html(html);
-	         $(".give_lable1:eq(2)").click();
-	     }
-},false)
 
 
 /**
  * 初始化礼物列表1
  */
-
 requestService("/bxg/gift/list",{pageNumber:1,pageSize:100},function(data) {
 	if (data.success) {
         var result = data.resultObject;
@@ -337,9 +200,10 @@ requestService("/bxg/gift/list",{pageNumber:1,pageSize:100},function(data) {
  */
 function refreshGiftRanking(){
 	
-	requestService("/bxg/gift/rankingList",{pageNumber:1,pageSize:10,liveId:course_id,type:0},function(data) {
+	requestService("/xczh/gift/rankingList",{pageNumber:1,pageSize:10,liveId:course_id},
+			function(data) {
 		if (data.success) {
-			   var list=data.resultObject;
+			   var list=data.resultObject.records;
 	            var html="";
 	            for (var i=0;i<list.length;i++){
 
@@ -353,7 +217,6 @@ function refreshGiftRanking(){
 	                }else{
 	                	pName="第"+(i+1)+"名";
 	                }
-
 	                var pLogo="";
 	                if(i==0){
 	                    pLogo="/xcviews/images/01_03.png";
@@ -389,25 +252,14 @@ function refreshGiftRanking(){
 	                    "</div>";
 
 	            }
-	            /*html+="<div style="height:5rem;"></div>";*/
 	            $("#phbList").html(html);
-	            
-	            /**
-	             * 点击查看
-	             */
-	            $(".leaderboard_center").click(function(){
-	            	var teacherId = $(this).attr("title");
-	            	location.href = "/xcviews/html/personage.html?lecturerId="+teacherId;
-	            })
 	    }
 	},false);
 	
 }
 
-requestService("/bxg/live/getMoneySum", {id: course_id}, function(data) {
-	 var data = data.resultObject;
-     $("#moneySum").html(data);
-},false)
+
+
 
 
 //微博分享 

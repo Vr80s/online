@@ -227,6 +227,7 @@ $("#addword-form").on("change","#imgPath_file",function(){
  * 点击上传弹出框
  */
 $(".upload_excel").click(function(){
+	$("#excel_file").val("");
  	var dialog = openDialog("addExcelDialog","dialogAddExcelDiv","新增",580,500,true,"确定",function(){
  		 $("#addExcelDialog").dialog("close");
  	});
@@ -250,7 +251,7 @@ $("#addExcel-form").on("change","#excel_file",function(){
  		//alert(data.success);
  		if (data.error == 0) {
  			debugger
- 			alert("上传成功");
+ 			layer.alert(data.excel_error);
  		}else {
  			alert(data.message);
  		}

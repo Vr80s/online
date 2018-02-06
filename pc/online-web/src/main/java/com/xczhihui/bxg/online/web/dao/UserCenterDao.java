@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.bxg.common.support.domain.SystemVariate;
 import com.xczhihui.bxg.online.api.vo.*;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CityVo;
@@ -24,6 +25,8 @@ import javax.persistence.Column;
  */
 @Repository
 public class UserCenterDao extends SimpleHibernateDao {
+	
+	
 	
 	/**
 	 * 顶部用户展示信息

@@ -579,7 +579,7 @@
 
 
 
-<!-- 增加form -->
+<!-- 增加wordform -->
 <div id="dialogAddWordDiv"></div>
 <div id="addwordDialog" class="hide">
 	<form id="addword-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">

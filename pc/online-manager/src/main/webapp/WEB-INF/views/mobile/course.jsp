@@ -20,6 +20,7 @@
 	</small> <span> 课程详情 </span>
 </div>
 <div class="mainrighttab tabresourse bordernone">
+
 	<div class="searchDivClass" id="searchDiv_M">
 		<div class="profile-info-row" >
 			<table frame=void >
