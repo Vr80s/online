@@ -26,6 +26,7 @@ img{display: block;}
 	position: fixed;
 	border-bottom: 1px solid #d8dde6;	
 	background: white;
+	z-index: 10;
 }
 .header p{
 	font-size: 0.36rem;
@@ -211,14 +212,19 @@ color: #999999;
 }
 /*直播中*/
 .paly_ing{
-	width: 0.98rem;
-	height: 0.32rem;
-	font-size: 0.24rem;
-	text-align: center;
-	line-height: 0.32rem;
-	border: 1px solid #F97B49;
-	float: left;
-	color: #F97B49;
+	/*width: 0.98rem;
+	height: 0.32rem;*/
+	padding: 0.08rem 0.2rem;
+	font-size: 0.28rem;
+	/*text-align: center;
+	line-height: 0.32rem;*/
+
+	float: right;
+background: #00bc12;
+border-radius: 0.1rem;
+}
+.paly_ing a{
+	color: white;
 }
 /*关注的主播*/
 .wrap-follow{
@@ -330,6 +336,7 @@ to {-webkit-transform: rotate(360deg);}
 	right: 0.188rem;
 	bottom: 1.175rem;
 	box-shadow: 0px 0px 14px #F97B49;
+	z-index: 99;
 	
 	-webkit-transform: rotate(360deg);
 	animation: rotation 3s linear infinite;
