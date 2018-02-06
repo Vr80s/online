@@ -306,6 +306,20 @@
 		</tr>
 		{{/each}}
 	</script>
+	
+	<!--删除提示弹窗-->
+	<div id="deleteTip" class="hide">
+		<h4>删除资源</h4>
+		<p>确定删除这条资源？</p>
+		<button id="sureDel">确定</button><button id="cancalDel">取消</button>
+	</div>
+	
+	<!--全局遮罩层-->
+	<div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
+
+	<div id="blackTip" style="display: none;">
+		你好
+	</div>
 
 	<div class="wp">
 			<!--左边点击-->
@@ -762,6 +776,7 @@
 						<div class="zhuanlan_bottom" id="kecheng_bottom">
 							<form id="courseForm">
 								<input type="hidden" id="caiId">
+								<input type="hidden" name="version" id="course_version">
 							<div>
 								<span><em>*</em>课程标题</span>
 								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title course_title"/>
@@ -782,7 +797,7 @@
 										<div class="two">点击上传封面图</div>
 									</div>
 					                <div class="col-sm-9 big-photo">
-					                    <div class="preview" id="courseImg" style="width: 100%;height: 100%">
+					                    <div class="preview" id="courseImg" style="width: 100%;height: 147px">
 					                        <!--<img id="imghead6" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg6').click();">-->
 					                    </div>         
 					                    <input type="file" id="courseImgPath">
@@ -1056,6 +1071,7 @@
 						</div>
 						<form id="collectionForm">
 							<input id="collectionId" type="hidden">
+							<input type="hidden" name="version" id="collection_version">
 						<div>
 							<span><em>*</em>专辑标题</span>
 							<input type="text" placeholder="请填写您的专题标题" class="zhuanlan_title collection_title"/>
@@ -1452,7 +1468,16 @@
 									<input type="button" value="点击上传视频" id="btn_width" style="width: 80px; height: 25px" />
 								</div>
 								<div class="uploading" style="display:none;">
-									上传中,请勿刷新页面<span id="uploadProgress"></span>
+									上传中,请勿刷新页面
+									<span id="uploadProgress">
+										<div class="progress">
+							<div class="progress-bar progress-bar-success" role="progressbar"
+								 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+								 style="width: 90%;">
+								<span class="sr-only">90% 完成（成功）</span>
+							</div>
+						</div>
+									</span>
 								</div>
 								<div class="uploadfinish" style="display:none;">
 									上传完成！
@@ -1647,7 +1672,14 @@
             if (progress == -1) {
                 uploadProgress.innerHTML = "上传出错：" + progress;
             } else if (progress == 100) {
-                uploadProgress.innerHTML = "进度：100%";
+                var progressStr = '<div class="progress">\n' +
+                    '\t<div class="progress-bar progress-bar-success" role="progressbar"\n' +
+                    '\t\t aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
+                    '\t\t style="width: 100%;">\n' +
+                    '\t\t<span class="sr-only">100% 完成（成功）</span>\n' +
+                    '\t</div>\n' +
+                    '\t</div>';
+                uploadProgress.innerHTML = progressStr;
                 $(".uploading").hide();
                 $("#btn_width").hide();
                 $(".uploadfinish").show();
@@ -1656,7 +1688,14 @@
                 $(".uploading").show();
                 $(".uploadfinish").hide();
                 uploadfinished = false;
-                uploadProgress.innerHTML = "进度：" + progress + "%";
+                var progressStr = '<div class="progress">\n' +
+                    '\t<div class="progress-bar progress-bar-info" role="progressbar"\n' +
+                    '\t\t aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
+                    '\t\t style="width: '+progress+'%;">\n' +
+                    '\t\t<span class="sr-only">'+progress+'% 完成（成功）</span>\n' +
+                    '\t</div>\n' +
+                    '</div>';
+                uploadProgress.innerHTML = progressStr;
             }
         }
 
