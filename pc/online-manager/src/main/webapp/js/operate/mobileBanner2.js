@@ -26,6 +26,25 @@ $(function(){
 	    		}},
 	            {title: '序号', "class": "center", "width": "5%","height":"68px","data": 'id',datafield: 'xuhao', "sortable": false},
 	            {title: 'banner名称', "class": "center","height":"68px","data": 'name', "sortable": false},
+	          
+	            {title: '连接类型', "class": "center","height":"68px","data": 'linkType', "sortable": false,"mRender":function(data,display,row){
+	            	var linkType ;
+	            	/* 连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->*/
+	            	//alert(data);
+	            	if(data == 1){
+	            		linkType = "活动页";
+	                }else if(data == 2){
+	                	linkType = "专题页";
+	                }else if(data == 3){
+	                	linkType = "课程";
+	                }else if(data == 4){
+	                	linkType = "主播";
+	                }else if(data == 5){
+	                	linkType = "课程列表";
+	                }
+	            	return linkType;
+	            }},
+	            
 	            {title: '缩略图', "class": "center", "width": "144px","height":"38px","data": 'imgPath', "sortable": false,"mRender":function(data,display,row){
 	            	return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;' onclick='showImg(\""+row.id+"\",\""+row.description+"\",\""+row.imgPath+"\")'/>";
 	            }},
@@ -180,10 +199,16 @@ $(".upload_bx").click(function(){
 });
 
 /**
- * 上word
+ * 上传word
  */
 $("#addword-form").on("change","#imgPath_file",function(){
  	var id = $(this).attr("id");
+	var v = this.value.split(".")[1].toUpperCase();
+	if(v!='DOCX'){
+		layer.alert("文件格式错误,请重新选择.docx 结尾的文档");
+		this.value="";
+		return;
+	}
  	debugger
     mask();
  	ajaxFileUpload(this.id,basePath+"/link/word/upload", function(data){
@@ -198,8 +223,39 @@ $("#addword-form").on("change","#imgPath_file",function(){
  	})
  });
 
+/**
+ * 点击上传弹出框
+ */
+$(".upload_excel").click(function(){
+ 	var dialog = openDialog("addExcelDialog","dialogAddExcelDiv","新增",580,500,true,"确定",function(){
+ 		 $("#addExcelDialog").dialog("close");
+ 	});
+});
 
-
+/**
+ * 上传excel
+ */
+$("#addExcel-form").on("change","#excel_file",function(){
+ 	var id = $(this).attr("id");
+	var v = this.value.split(".")[1].toUpperCase();
+//	if(v!=''){
+//		layer.alert("文件格式错误,请重新选择.docx 结尾的文档");
+//		this.value="";
+//		return;
+//	}
+ 	debugger
+    mask();
+ 	ajaxFileUpload(this.id,basePath+"/link/word/importExcel", function(data){
+ 		unmask();
+ 		//alert(data.success);
+ 		if (data.error == 0) {
+ 			debugger
+ 			alert("上传成功");
+ 		}else {
+ 			alert(data.message);
+ 		}
+ 	})
+ });
 
 
 
@@ -250,6 +306,18 @@ function updateMobileBanner(obj){
 	$("#update_imgPath").val(row.imgPath);
 	$("#update_id").val(row.id);
 
+	var linkType = row.linkType;
+	/**
+	 *  跳转
+	 */
+	for(i=0;i<$("#update_linkType option").length;i++){
+		if($("#update_linkType option").eq(i).val()==linkType){
+			//$("#show_userLecturerId").text($("#view_mapList option").eq(i).text());
+		
+			$("#update_linkType option").eq(i).attr("select","selected"); 
+			$("#update_linkType").val(linkType);
+		}
+    }
 	reviewImage("update_imgPath_file",row.imgPath);
 	
 	var dialog = openDialog("updateMobileBannerDialog","dialogUpdateMobileBannerDiv","修改",580,500,true,"确定",function(){

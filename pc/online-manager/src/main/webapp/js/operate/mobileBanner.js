@@ -18,6 +18,22 @@ function loadMobileBannerList(){
 		}},
         {title: '序号', "class": "center", "width": "5%","height":"68px","data": 'id',datafield: 'xuhao', "sortable": false},
         {title: 'banner名称', "class": "center","height":"68px","data": 'name', "sortable": false},
+        {title: '连接类型', "class": "center","height":"68px","data": 'linkType', "sortable": false,"mRender":function(data,display,row){
+        	var linkType ;
+        	/* 连接类型：1：活动页、2：专题页、3：课程:4：主播:5：课程列表（带筛选条件） -->*/
+        	if(data == 1){
+        		linkType = "活动页";
+            }else if(data == 2){
+            	linkType = "专题页";
+            }else if(data == 3){
+            	linkType = "课程";
+            }else if(data == 4){
+            	linkType = "主播";
+            }else if(data == 5){
+            	linkType = "课程列表";
+            }
+        	return linkType;
+        }},
         {title: '缩略图', "class": "center", "width": "144px","height":"38px","data": 'imgPath', "sortable": false,"mRender":function(data,display,row){
         	return "<img src='"+data+"' style='width:128px;height:68px;cursor:pointer;' onclick='showImg(\""+row.id+"\",\""+row.description+"\",\""+row.imgPath+"\")'/>";
         }},
@@ -167,6 +183,15 @@ function updateMobileBanner(obj){
 	$("#update_id").val(row.id);
 
 	reviewImage("update_imgPath_file",row.imgPath);
+	
+	
+/*	<option value="1">活动页</option>
+		<option value="2">专题页</option>
+		<option value="3">课程</option>
+		<option value="4">主播</option>
+		<option value="5">课程列表</option>*/
+	
+	
 	
  	var dialog = openDialog("updateMobileBannerDialog","dialogUpdateMobileBannerDiv","修改",580,500,true,"确定",function(){
  		if($("#updateMobileBanner-form").valid()){

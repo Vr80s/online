@@ -71,6 +71,7 @@ public class MobileBannerController{
 
          Page<MobileBannerVo> page = mobileBannerService.findMobileBannerPage(searchVo, currentPage, pageSize);
 
+         
          int total = page.getTotalCount();
          tableVo.setAaData(page.getItems());
          tableVo.setiTotalDisplayRecords(total);

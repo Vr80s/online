@@ -131,13 +131,13 @@ public class HostController {
 		 * 判断用户是否已经关注了这个主播
 		 */
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-//	    if(user==null){
-//	    	mapAll.put("isFours", 0); 
-//	    }else{
-		Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
-		System.out.println(isFours);
-		mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
-	    //}
+	    if(user==null){
+	    	mapAll.put("isFours", 0); 
+	    }else{
+			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
+			System.out.println(isFours);
+			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
+	    }
 		/**
 		 * 此主播最近一次的直播
 		 */
