@@ -1,6 +1,61 @@
 .wp{width: 1200px; margin: 0 auto;}
 .z{float: left;}
 .y{float: right;}
+#deleteTip{
+	width: 400px;
+	height: 200px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 9999;
+	text-align: center;
+	padding: 30px 65px;
+	background-color: #fff;
+}
+#deleteTip h4{
+	font-size: 20px;
+	color: #333333;
+	margin-bottom: 20px;
+}
+#deleteTip p{
+	font-size: 14px;
+	color: #666666;
+	margin-bottom: 40px;
+}
+#deleteTip button{
+	border: 1px solid #DEDEDE;
+	border-radius: 4px;
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	outline: none;
+	background-color: #fff;
+	color: #000;
+}
+#deleteTip button:hover{
+	background-color: #00BC12 ;
+	color: #fff;
+}
+#deleteTip #sureDel{
+	float: left;
+}
+#deleteTip #cancalDel{
+	float: right;
+}
+#blackTip{
+	padding: 8px 32px;
+	background-color: #fff;
+	border-radius: 4px;
+	background-color: #000;
+	opacity: .5;
+	position: fixed;
+	color: #fff;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 666;
+}
 .left-listNav{
 	    width: 220px;
     display: block;
@@ -92,7 +147,7 @@
 	color: #666666;
 	margin: 0;
 	padding: 16px 0;
-	margin-left: 65px;
+	padding-left: 65px;
 	font-size: 16px;
 }
 .select_list .littleBox p:hover{

@@ -99,6 +99,9 @@ $(".go_search").click(function(){
 //线下课标题点击
 $(".all_class").click(function(){
 	var all_class=$(this).text();
+//	if(all_class=='全国课程'){
+//		all_class='';
+//	}
 	window.location.href="curriculum_table.html?city="+all_class+"";
 })
 //线下课结束------------------------------------------------------

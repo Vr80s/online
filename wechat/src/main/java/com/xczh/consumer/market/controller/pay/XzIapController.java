@@ -169,16 +169,14 @@ public class XzIapController {
     		OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
     		Double actualPrice = order.getActualPay();
     		BigDecimal  xmb = BigDecimal.valueOf(actualPrice * rate);
-    		
     		String userYE = userCoinService.getBalanceByUserId(user.getId());
-    		
     		BigDecimal ye = new BigDecimal(userYE);
 
     		LOGGER.info("要消费余额:"+xmb);
     		LOGGER.info("当前用户余额:"+ye);
 
     		//比较大小
-    		if(xmb.compareTo(ye)==-1){
+    		if(ye.compareTo(xmb)==-1){
     			return ResponseObject.newErrorResponseObject("余额不足,请到个人账户充值！");
 			}
 			/**

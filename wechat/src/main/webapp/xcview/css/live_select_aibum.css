@@ -78,7 +78,6 @@ textarea::-webkit-input-placeholder {
 	width: 100%;
 	height: 4.24rem;
 
-
 	position: relative;
 }
 .play_video img{
@@ -177,17 +176,7 @@ color: #999999;
     margin-left: 0.05rem;
     margin-top: 0.04rem;
 }
-.select_icon{
-	position: absolute;
-	width: 0.72rem;
-	height: 0.72rem;
-	top: 6.1rem;
-	right: 0.26rem;
-}
-.select_icon img{
-	width: 100%;
-	height: 100%;
-}
+
 /*主播时间*/
 .wrap_playTime{
 	width: 100%;
@@ -232,13 +221,98 @@ color: #999999;
 }
 /*详情开始*/
 .my_details{
+	width: 100%;
 	margin-top: 0.2rem;
-	padding: 0.2rem 0;
+	padding: 0.2rem 0 0rem;
 	background: white;
-	text-align: center;
+	/*text-align: center;*/
 	font-size: 0.28rem;
 	border-bottom: 0.01rem solid #D8DDE6;
+	overflow: hidden;
 }
+.my_details li{
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+.my_details li p{
+	float: right;
+	width: 0.01rem;
+	height: 0.4rem;
+	background: #D8DDE6;
+}
+.my_details li span{
+	display: inline-block;
+	padding-bottom: 0.2rem;
+}
+
+.my_details li .spanActive{
+	border-bottom: 0.03rem solid #00BC12 ;
+	color: #00BC12 ;
+}
+
+.my_details_content{
+	width: 100%;
+	clear: both;
+	display: none;
+}
+/*专辑选集*/
+.limit_height .limit_play_img{
+	width: 0.8rem;
+	height: 0.8rem;
+}
+.limit_height .limit_play_img img{
+	width: 100%;
+	height: 100%;
+}
+.limit_height{
+	min-height: 1.3rem;
+	max-height: 8rem;
+	background: white;
+	overflow-x: auto;
+	overflow-y: 0;
+	padding-left: 0.26rem;
+
+	box-sizing: border-box;
+}
+.limit_height ul li{
+	overflow: hidden;
+    padding: 0.2rem 0 0.3rem;
+    border-bottom: 0.01rem solid #D8DDE6;
+    position: relative;
+}
+.limit_height ul li:nth-last-child(1){
+	border-bottom: 0;
+}
+.limit_height ul li a{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+}
+.limit_inf{
+	width: 6.2rem;
+}
+.limit_inf p:nth-child(1){
+	 overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+}
+.limit_inf .limit_time img{
+	width: 0.3rem;
+	float: left;
+	display: inline-block;
+	margin-top: 0.1rem;
+	margin-right: 0.1rem;
+}
+.limit_inf span{
+	margin-top: 0.07rem;
+    display: inline-block;
+    color: #999999;
+}
+    
+
 /*简介*/
 .wrap_synopsis{
 	width: 100%;
@@ -773,7 +847,6 @@ color: #888888;
     top: 0;
     left: 0;
 	background: rgba(0,0,0,.1);
-	
 }
 .wrap_select_list{
 	width: 100%;
@@ -785,9 +858,6 @@ color: #888888;
 	left: 0;
 	display: none;
 	z-index: 99;
-	height: 7rem;
-    max-height: 8rem;
-    overflow: scroll;
 }
 .list_box{
 	overflow: hidden;
@@ -795,12 +865,6 @@ color: #888888;
 	box-sizing: border-box;
 	font-size: 0.18rem;
 	border-bottom: 1px solid #D8DDE6;
-	position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 0.6rem;
-    margin-top: 0.2rem;
 }
 .list_box p{
 	float: left;
@@ -817,7 +881,7 @@ color: #888888;
 	width: 100%;
 	padding: 0 0 0 0.26rem;
 	box-sizing: border-box;
-    margin-top: 0.6rem;
+	
 }
 .all_list ul li{
 	padding: 0.19rem 0;
@@ -836,107 +900,4 @@ color: #888888;
 }
 .little_comment{
 	padding-bottom: 0.2rem;
-}
-
-
-
-
-
-	/*分享开始*/
-.share{
-	width: 100%;
-	height: 100%;
-	display: none;
-}
-.share_bg{
-	width: 100%;
-	height: 100%;
-	background: #000;
-	opacity: 0.5;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 10;
-}
-.share_main{
-	width: 6.98rem;
-    height: 2.86rem;
-    /* background: #fff; */
-    margin: 0 auto;
-    position: fixed;
-    left: 0.25rem;
-    bottom: 1.3rem;
-    z-index: 11;
-}
-.share_main_bg{
-	width: 100%;
-	height: 2.86rem;
-	background: rgba(255,255,255,0.60);
-	border-radius: 8px;
-}
-.share_to{
-	width: 100%;
-	text-align: center;
-	font-size: 0.32rem;
-	color: #333;
-	padding-top: 0.3rem;
-    margin-bottom: 0.3rem;
-}
-.share_cancel{
-	width: 100%;
-    height: 0.8rem;
-    line-height: 0.8rem;
-    text-align: center;
-    color: #333;
-    font-size: 0.3rem;
-    background: #fff;
-    border-radius: 8px;
-    margin-top: 0.2rem;
-}
-.share_main_bg ul li{
-	float: left;
-	margin-left: 0.858rem;
-}
-.share_main_bg ul li img{
-	width: 1.2rem;
-	height: 1.2rem;
-	margin-bottom: 0.1rem;
-}
-.share_main_bg ul li p{
-	text-align: center;
-	width: 1.2rem;
-	font-size: 0.24rem;
-	color: #333333;
-}
-/*分享结束*/
-
-/*指示微信*/
-.weixin_ceng {
-    width: 100%;
-    height: 100%;
-    display: none;
-}
-.weixin_ceng_bg {
-    width: 100%;
-    height: 100%;
-    background: #000;
-    opacity: 0.5;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 20;
-}
-.weixin_img {
-    /*background: red;*/
-    position: fixed;
-    z-index: 99999999999;
-    top: 0rem;
-    right: 0;
-}
-.weixin_img img {
-    position: absolute;
-    top: 0rem;
-    right: 0.26rem;
-    width: 3rem;
-    z-index: 99999999999;
 }

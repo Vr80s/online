@@ -21,21 +21,7 @@ $(".bg_userModal").click(function(){
 //	标签选中变色
 	 $(".select_lable li").click(function(){
   		 $(this).toggleClass("active_color"); 
- 	 });
-//选集弹窗
-
- 	 $(".select_icon").click(function(){
-  		$(".bg_modal02").show();
-		$(".wrap_select_list").show();
- 	 });
-  	$(".bg_modal02").on('click',function(){
-		$(".bg_modal02").hide();
-		$(".wrap_select_list").hide();
-	})
-	$(".list_box span").on('click',function(){
-		$(".bg_modal02").hide();
-		$(".wrap_select_list").hide();
-	})
+ 	});
  //星星五星好评
     $('.my_impression1 img').each(function(index){  
         var star='../images/xing1.png';    //普通灰色星星图片的存储路径  
@@ -78,30 +64,18 @@ $(".bg_userModal").click(function(){
         	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('course_id');
-//	获取默认第一个视频ID
-	var directId = getQueryString('directId');
 	//传ID courseId为接口的课程ID
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-		//详情页的banner
-		var school_img = document.createElement("img");
-		school_img.src = data.resultObject.smallImgPath;
-		$(".play_video").append(school_img)
-		
-		//	CC视频ID
-//	    var	videoId = data.resultObject.directId;
-	    var	type = data.resultObject.type;
-		
-		//初始化视频资源
-		chZJ(directId,type);
-		
+	//详情页的banner
+	var school_img = document.createElement("img");
+	school_img.src = data.resultObject.smallImgPath;
+	$(".play_video").append(school_img);
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
-		
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
-		
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){
 			$(".no_data").show();
@@ -110,7 +84,6 @@ $(".bg_userModal").click(function(){
 		}else{
 			$(".wrap p").html(data.resultObject.description)
 		}
-		
 	//	主讲人
 		if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
 			$(".no_data1").show();
@@ -120,46 +93,29 @@ $(".bg_userModal").click(function(){
 			$(".wrap1 p").html(data.resultObject.lecturerDescription)
 		}
 	});
-	
-	
-	requestService("/xczh/course/getCoursesByCollectionId",{collectionId:823},function(data) {
-	if(data.success==true){
-    	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}))
-	}
-})
-	
-	
-	function chZJ(videoId,multimediaType){
-	/**
-	 * 请求代码啦
-	 */
-	var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width 
-	var playerheight = 8.95*21.8; //	屏幕分辨率的高：window.screen.height 
-	console.log(playerwidth);
-	var dataParams = {
-		playerwidth:playerwidth,	
-		playerheight:playerheight,
-		videoId:videoId,
-		multimedia_type:multimediaType
-//		multimedia_type:1
-	}
-	requestService("/bxg/ccvideo/commonCourseStatus", 
-			dataParams, function(data) {
-		if(data.success){
-			var playCodeStr = data.resultObject;
-			var playCodeObj = JSON.parse(playCodeStr);
-			console.log(playCodeObj.video.playcode);
-//			$("#video_v").html(playCodeObj.video.playcode)
-			$("#video_box").html(playCodeObj.video.playcode)
-			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
-			/**
-	    	 * 初始化评论区
-	    	 */
-	    	//getVideoCriticize(1,vid);
-		}else{
-    		$(".video_prompt").show();
-		}
-	},false);
-}
+//详情以及选集选项卡
+$(".my_details li").click(function(){
+	$(".my_details li span").removeClass("spanActive");
+	$(this).find("span").addClass("spanActive");
+	$(".my_details_content").hide().eq($(this).index()).show()
 	
 })
+
+
+	
+	
+})
+//JQ预加载分界线
+
+var courseId = getQueryString('course_id');
+var video_Id='';
+	requestService("/xczh/course/getCoursesByCollectionId",{
+		collectionId : courseId	
+	},function(data) {
+		video_Id=data.resultObject[0]		
+		$("#select_album").html(template('data_select_album',{items:data.resultObject}));
+	})
+//点击视频默认第一个视频ID
+	function btn_album_page(){
+		window.location.href="live_album.html?course_id="+courseId+"&directId="+video_Id.directId+"";
+	}
