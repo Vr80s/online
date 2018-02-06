@@ -7,6 +7,7 @@ import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 import com.xczhihui.medical.doctor.vo.MedicalWritingsVO;
 import com.xczhihui.medical.doctor.vo.OeBxsArticleVO;
 import com.xczhihui.medical.field.vo.MedicalFieldVO;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 
 import java.util.List;
 
@@ -92,4 +93,9 @@ public interface IMedicalDoctorBusinessService {
      * @author zhuwenbao
      */
     void add(MedicalDoctor medicalDoctor);
+
+    /**
+     * 根据用户id获取其所在的医馆信息
+     */
+    MedicalHospitalVo getHospital(String uid);
 }

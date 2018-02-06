@@ -25,7 +25,7 @@ $(function(){
     });
 
     balance();
-    //transactionRecord();
+    transactionRecord();
 
 });
 

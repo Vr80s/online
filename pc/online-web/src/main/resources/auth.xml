@@ -209,5 +209,6 @@
 	<!-- 保存我的回答 -->
 	<uri>/paper/updateQuestionById</uri>
 
+	<anchoruri>/web/html/anchor/curriculum.html</anchoruri>
 
 </checkuris>

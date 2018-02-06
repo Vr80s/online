@@ -202,7 +202,6 @@ public class DoctorController {
      * 加入医馆
      */
     @RequestMapping(value = "joinHospital", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseObject joinHospital(MedicalDoctor medicalDoctor,HttpServletRequest request){
         // 获取当前用户
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
@@ -220,7 +219,6 @@ public class DoctorController {
      * @author zhuwenbao
      */
     @RequestMapping(value = "getWorkTime", method = RequestMethod.GET)
-    @ResponseBody
     public ResponseObject getWorkTime(Integer type, HttpServletRequest request){
         // 获取当前用户
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
@@ -237,7 +235,6 @@ public class DoctorController {
      * @author zhuwenbao
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseObject update(MedicalDoctor doctor, HttpServletRequest request){
 
         // 获取当前用户
@@ -263,7 +260,6 @@ public class DoctorController {
      * 添加医师
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    @ResponseBody
     public ResponseObject addDoctor(MedicalDoctor medicalDoctor, HttpServletRequest request){
         // 获取当前用户
         OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
@@ -275,6 +271,21 @@ public class DoctorController {
 //        medicalDoctor.setUserId("ff8080816142af54016149e069080000");
         medicalDoctorBusinessService.add(medicalDoctor);
         return ResponseObject.newSuccessResponseObject("添加成功");
+    }
+
+    /**
+     * 获取医师所在的医馆信息
+     */
+    @RequestMapping(value = "getHospital", method = RequestMethod.GET)
+    public ResponseObject getHospital(HttpServletRequest request){
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital(currentUser.getUid()));
+//        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital("23908ae85dad4541ba7ecf53fc52aab2"));
     }
 
 }

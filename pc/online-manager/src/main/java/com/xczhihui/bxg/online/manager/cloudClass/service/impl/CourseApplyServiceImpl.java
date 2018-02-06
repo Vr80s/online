@@ -101,17 +101,18 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		if(courseApply.getIsDelete()){
 			throw new RuntimeException("该课程申请被主播重新发起");
 		}
-		Course collection = passCourse(courseApply,userId);
+		Course collection = savePassCourse(courseApply,userId);
 		//对于专辑，通过时，所有课程都通过
 		if(courseApply.getCollection()){
 			List<CourseApplyInfo> courseApplyInfos = courseApplyDao.getCourseDeatilsByCollectionId(courseApply.getId());
 			for (int i = 0; i < courseApplyInfos.size(); i++) {
 				if (courseApplyInfos.get(i).getStatus()!=1){
-					Course course = passCourse(courseApplyInfos.get(i),userId);
+					Course course = savePassCourse(courseApplyInfos.get(i),userId);
 					//保存专辑-课程关系
 					saveCollectionCourse(collection,course);
 				}else{
 					Course course = getCourseByApplyId(courseApplyInfos.get(i));
+					course.setCollectionCourseSort(courseApplyInfos.get(i).getCollectionCourseSort());
 					//保存专辑-课程关系
 					saveCollectionCourse(collection,course);
 				}
@@ -149,6 +150,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		paramMap.put("cId",collection.getId());
 		paramMap.put("courseId",course.getId());
 		paramMap.put("collectionCourseSort",course.getCollectionCourseSort());
+
 		dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 	}
 
@@ -163,7 +165,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		}
 		courseApply.setDismissal(courseApplyInfo.getDismissal());
 		courseApply.setDismissalRemark(courseApplyInfo.getDismissalRemark());
-		notPassCourse(courseApply,userId);
+		saveNotPassCourse(courseApply,userId);
 		//发送消息通知
 		String msgId = UUID.randomUUID().toString().replaceAll("-", "");
 		MessageShortVo messageShortVo = new MessageShortVo();
@@ -223,24 +225,24 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		dao.update(courseApplyResource);
 	}
 
-	private void notPassCourse(CourseApplyInfo courseApply, String userId) {
+	private void saveNotPassCourse(CourseApplyInfo courseApply, String userId) {
 		courseApply.setStatus(ApplyStatus.NOT_PASS.getCode());
 		courseApply.setReviewPerson(userId);
 		courseApply.setReviewTime(new Date());
 		dao.update(courseApply);
 	}
 
-	public Course passCourse(CourseApplyInfo courseApply, String userId){
+	public Course savePassCourse(CourseApplyInfo courseApply, String userId){
 		courseApply.setStatus(ApplyStatus.PASS.getCode());
 		courseApply.setReviewPerson(userId);
 		courseApply.setReviewTime(new Date());
 		dao.update(courseApply);
 
-		return courseApply2course(courseApply);
+		return saveCourseApply2course(courseApply);
 
 	}
 
-	private Course courseApply2course(CourseApplyInfo courseApply) {
+	private Course saveCourseApply2course(CourseApplyInfo courseApply) {
 		courseService.checkName(null,courseApply.getTitle());
 		// TODO Auto-generated method stub
 		Map<String,Object> params=new HashMap<String,Object>();

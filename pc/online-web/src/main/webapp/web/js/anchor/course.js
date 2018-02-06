@@ -384,7 +384,8 @@ function echoCourse(caiId){
             initResource(course.multimediaType);
             $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
             // $('.course_resource').val(course.resourceId);
-            $('.selectpicker').selectpicker('val',(course.resourceId));
+            debugger
+            $('.course_resource').selectpicker('val',(course.resourceId));
         }else{
             $('.course_start_time').val(course.startTime);
             $('.course_end_time').val(course.endTime);
@@ -913,6 +914,7 @@ function echoCollection(collectionId){
         $("input:radio[name=collection_multimedia_type][value="+collection.multimediaType+"]").prop("checked",true);
         initCourse(collection.multimediaType);
         courseArr = collection.courseApplyInfos;
+        courseArr = upDownShowInit(courseArr);
         var arr={};
         arr.courseArr=courseArr;
         $(".collection_courses").html(template('collection_course_list_tpl', arr));
@@ -1038,9 +1040,12 @@ function resetCollectionForm(){
 
 function initCourseSelect(){
     var csArr=[];
-    for(var i=0;i < courseArr.length;i++){
-        csArr.push(courseArr[i].id);
+    if(courseArr!=null){
+        for(var i=0;i < courseArr.length;i++){
+            csArr.push(courseArr[i].id);
+        }
     }
+    $('.selectpicker_collection').val(csArr);
     $('.selectpicker_collection').selectpicker('refresh');
     $('.selectpicker_collection').selectpicker('val',(csArr));
     $(".new_box").show();
@@ -1073,7 +1078,7 @@ function courseResourceList(current){
                 }
             });
         } else {
-            $(".collection_pages").css("display", "none");
+            $(".resource_pages").css("display", "none");
         }
     });
 }
