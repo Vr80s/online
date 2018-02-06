@@ -572,6 +572,31 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 			$(".give_a01").show();
 		});
 		
+		
+		$("#face").click(function() {
+			$(".coze_bottom").css("bottom","7.3rem");
+			$(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
+			$(".face_img01").css('background-size','100% 100%');
+			var a = $(".facebox-mobile").css("display");
+			if (a == "block") {
+
+				setTimeout(
+						function() {
+							$(".facebox-mobile").hide();
+							$(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
+							$(".face_img01").css('background-size','100% 100%');
+						}, 10);
+
+				$(".coze_bottom").css("bottom","0rem");
+			} else {
+				$(".coze_bottom").css("bottom","7.3rem");
+
+				setTimeout(function() {
+					$(".facebox-mobile").show();
+				}, 10);
+			}
+		});
+		
 	};
 </script>
 </html>
