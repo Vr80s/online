@@ -256,3 +256,52 @@ function updatePraise(id,isPraise) {
 function btn_allComment(){
     window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
 }
+
+var courseId = getQueryString('course_id');
+//点击购买后的接口
+function btn_buy(){
+    requestService("/xczh/order/save",{
+        courseId:courseId,
+        orderFrom:2
+    },function(data){
+
+        window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+    });
+
+
+}
+//点击免费报名后
+function btn_mianfei(){
+
+
+    //	评论弹窗
+//  $(".wrap_input").on('click',function(){
+//      del();
+//      $(".bg_modal").show();
+//      $(".wrapAll_comment").show();
+//  })
+//  $(".bg_modal").on('click',function(){
+//      $(".bg_modal").hide();
+//      $(".wrapAll_comment").hide();
+//  })
+    window.location.href="live_class.html?my_study="+course_id+"";
+}
+
+//删除评论状态
+function del(){
+    //星星
+    var star='../images/xing1.png';
+    $('.my_impression1 img').attr('src',star);
+    //主播演绎
+    var star1='../images/face0.png';
+    $('.my_impression2 img').attr('src',star1);
+    //节目内容
+    var star2='../images/face0.png';
+    $('.my_impression3 img').attr('src',star2);
+    //很赞
+    $(".select_lable li").removeClass("active_color");
+    my_impression1="";
+    my_impression2="";
+    my_impression3=""
+
+}
