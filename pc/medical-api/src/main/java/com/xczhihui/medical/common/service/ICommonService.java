@@ -1,7 +1,5 @@
 package com.xczhihui.medical.common.service;
 
-import java.util.List;
-
 /**
  * 医师医馆公共服务接口
  */

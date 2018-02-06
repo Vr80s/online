@@ -48,4 +48,6 @@ public interface MedicalDoctorMapper extends BaseMapper<MedicalDoctor> {
      * @author zhuwenbao
      */
     String getWorkTimeById(String doctorId);
+
+    void updateSelective(@Param("medicalDoctor") MedicalDoctor medicalDoctor);
 }

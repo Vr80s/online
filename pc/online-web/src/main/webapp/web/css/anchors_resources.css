@@ -568,7 +568,9 @@
     margin-right: 20px;
     vertical-align: top;
 }
-#hospital_bottom .hosContantTel .hosTel{
+#hospital_bottom .hosContantTel .hosTel,
+#hosPro,
+#hosCity{
 	 width: 280px;
     height: 36px;
     border: 1px solid #F0F0F0;
@@ -576,6 +578,13 @@
     text-indent: 1em;
     margin-right: 10px;
     font-size: 14px;
+    background-color: #f0f0f0;
+}
+#hosPro,
+#hosCity{
+	width: 242px;
+	color: #999;
+	
 }
 .contentWrap #hospital .zhuanlan_top{
 	height: 60px;

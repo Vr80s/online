@@ -27,14 +27,15 @@
 		<div class="header">
 			<!--<div class="header_bg"></div>-->
 			<div class="header_img">
+				<script type="text/html" id="userInfo">
 				<div class="header_img_right y">
 					主播工作台 &nbsp;>
 				</div>
 				<div class="both"></div>
-				<img src="../images/userico.jpg" alt="" class="img0" onclick="location.href ='persons.html'" id="smallHeadPhoto" />
-				<p class="p">沈施德</p>
+				<img src="{{smallHeadPhoto}}" alt="" class="img0" onclick="location.href ='persons.html'" id="smallHeadPhoto" />
+				<p class="p">{{name}}</p>
+				</script>
 			</div>
-			
 		</div>
 	</header>
 	<!--头部结束-->
@@ -65,14 +66,14 @@
 	</div>
 	
 	<!--我要当主播-->
-	<div class="my_anchor" onclick="location.href ='my_anchor.html'">
+	<div class="my_anchor" onclick="myAnchor()">
 		<div class="anchor_main">
 			<img src="../images/my_anchor.png" class="img0 z" />
 			我要当主播
 			<img src="../images/account05.png" class="img1 y" />
 		</div>
 	</div>
-	
+
 	
 	<!--我的消息-->
 	<div class="my_news">

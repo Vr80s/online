@@ -164,7 +164,7 @@ public class CommonServiceImpl implements ICommonService {
             // 当查询到该用户即是认证医师，又认证医馆
             if(authDoctorResult != null && authHospitalResult != null){
                 log.warn("userId = {} is auth doctor , also auth hospital" , userId);
-                throw new RuntimeException("账号异常，请联系管理员");
+//                throw new RuntimeException("账号异常，请联系管理员");
             }
 
             return null;

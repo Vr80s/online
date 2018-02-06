@@ -285,6 +285,8 @@ $(".btn-upload").click(function(evt) {
 
 
 
+
+
 	
 	
 	
@@ -358,10 +360,10 @@ RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(dat
 			console.log(data);
 			
 			//列表渲染
-			$('#id_select').html(template('hosListTpl', {item:data.resultObject.records}));
+			$('#id_select').append('<option value="-1">请选择医馆</option>')
+			$('#id_select').append(template('hosListTpl', {item:data.resultObject.records}));
 			
-			//医馆ID的获取
-			hosID = $('#id_select').val()
+			
 			
 			//渲染之后在此调用插件
 			 $('.selectpicker').selectpicker({
@@ -385,11 +387,21 @@ $('#close_hosChoose').click(function(){
 
 
 
-//点击选择医馆的确认按钮
-$('#hosChoose .sureChoosehos').click(function(){
+//选择医馆列表选中之后出发的事件
+$('#id_select').change(function(){
 	$('#hospital_bottom .zhuanlan_title').val($("#id_select option:selected").text())
 	$('.mask').css('display','none');
 	$('#hosChoose').addClass('hide');
+	
+	//医馆ID的获取
+	hosID = $('#id_select').val()
+	if(hosID == -1){
+		//清空信息
+		clearHosList()
+		return false;
+	}
+	
+	
 //	alert(hosID);
 	//获取对应的医馆信息渲染到页面上
 	RequestService("/medical/hospital/getHospitalById", "get", {
@@ -398,15 +410,20 @@ $('#hosChoose .sureChoosehos').click(function(){
 				console.log(data);
 				//省
 				if(data.resultObject.province){
-					$('#choosePro option:selected').text(data.resultObject.province)
+					$('#hosPro').val(data.resultObject.province)
 				}
 				//市
-				if(data.resultObject.province){
-					$('#citys option:selected').text(data.resultObject.city)
+				if(data.resultObject.city){
+					$('#hosCity').val(data.resultObject.city)
 				}
 				//详细地址
 				if(data.resultObject.detailedAddress){
-					$('#detail_address').text(data.resultObject.detailedAddress)
+//					$('#detail_address').text('');
+					$('#detail_address').val(data.resultObject.detailedAddress)
+				}
+				//医馆封面
+				if(data.frontImg){
+					$('#hospital .fengmian_pic').html('<img src='+frontImg+' alt="">')
 				}
 				//电话号码
 				if(data.resultObject.tel){
@@ -414,6 +431,28 @@ $('#hosChoose .sureChoosehos').click(function(){
 				}
 			})
 })
+
+
+
+
+//清空医师入驻医馆信息列表
+function clearHosList(){
+	//省分
+	$('#hosPro').val('医馆所在省份');
+	//市区
+	$('#hosCity').val('医馆所在市区')
+	//详细地址清空
+	$('#detail_address').val('')
+	//封面清空
+	$('#hospital .fengmian_pic').html('	<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;">点击上传医馆封面图资图片</p>');
+	//电话清空
+	$('#hospital .hosTel').val('');
+	//坐诊时间
+	$('#hospital .hospital_worktime ul li').removeClass('color keshiColor');
+	
+}
+
+
 
 
 
@@ -466,9 +505,9 @@ function picUpdown(baseurl,imgname){
 $('#hospital_bottom #submit').click(function(){
 	//任职医馆的验证
 	var workhosName = $.trim($('#hospital_bottom .zhuanlan_title').val());
-	var province = $.trim($('#hospital_bottom #choosePro option:selected').text());
-	var city = $.trim($('#hospital_bottom #citys option:selected').text());
-	var detailedAddress = $.trim($('#hospital_bottom #hos_detail_address').text());
+	var province = $.trim($('#hosPro').val());
+	var city = $.trim($('#hosCity').val());
+	var detailedAddress = $.trim($('#hospital_bottom #hos_detail_address').val());
 	var hosTel = $.trim($('#hospital_bottom .hosTel').val());
 	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
 	var headPortrait  =  $('#hospital_bottom .fengmian_pic img').attr('src');
@@ -483,25 +522,25 @@ $('#hospital_bottom #submit').click(function(){
 	}
 	
 	//封面图是否上传
-		if($('#hospital_bottom .fengmian_pic:has(img)').length < 1){
-			$('#hospital_bottom .fengmian_pic_warn').removeClass('hide');
-			return false;
-		}else{
-			$('#hospital_bottom .fengmian_pic_warn').addClass('hide');
-		}
-	
+//		if($('#hospital_bottom .fengmian_pic:has(img)').length < 1){
+//			$('#hospital_bottom .fengmian_pic_warn').removeClass('hide');
+//			return false;
+//		}else{
+//			$('#hospital_bottom .fengmian_pic_warn').addClass('hide');
+//		}
+//	
 	//医馆电话
-	if(hosTel == ''){
-		$('#hospital_bottom .hosTel_warn').text('手机号不能为空');
-		$('#hospital_bottom .hosTel_warn').removeClass('hide');
-		return false;
-	}else if(!phonePass.test(hosTel)){
-		$('#hospital_bottom .hosTel_warn').text('手机号格式不正确');
-		$('#hospital_bottom .hosTel_warn').removeClass('hide');
-		return false;
-	}else{
-		$('#hospital_bottom .hosTel_warn').addClass('hide');
-	}
+//	if(hosTel == ''){
+//		$('#hospital_bottom .hosTel_warn').text('手机号不能为空');
+//		$('#hospital_bottom .hosTel_warn').removeClass('hide');
+//		return false;
+//	}else if(!phonePass.test(hosTel)){
+//		$('#hospital_bottom .hosTel_warn').text('手机号格式不正确');
+//		$('#hospital_bottom .hosTel_warn').removeClass('hide');
+//		return false;
+//	}else{
+//		$('#hospital_bottom .hosTel_warn').addClass('hide');
+//	}
 	
 	//坐诊时间验证
 	if($('#hospital_bottom .hospital_worktime .keshiColor').length == 0){
@@ -559,3 +598,6 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 			//个人信息渲染
 			$('.personIntroduct .introductInf').html(data.resultObject.description);
 		});
+		
+
+
