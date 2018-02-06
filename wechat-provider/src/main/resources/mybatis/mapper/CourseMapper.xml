@@ -220,7 +220,7 @@
 		oc.id,
 		oc.`grade_name` gradeName,
 		oc.`course_length` courseLength,
-		oc.direct_id directId
+		oc.`direct_id`  directId
 		FROM
 		`oe_course` oc
 		JOIN `collection_course` cc
