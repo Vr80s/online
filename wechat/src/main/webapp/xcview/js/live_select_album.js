@@ -88,6 +88,8 @@ $(".bg_userModal").click(function(){
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
+	//	直播时间/主播名字
+		$("#wrap_playTime").html(template('data_name',data.resultObject));
 
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){
@@ -118,7 +120,7 @@ $(".my_details li").click(function(){
 	
 	
 })
-//JQ预加载分界线----------------------------------------------------------------
+//JQ预加载分界线
 
 var courseId = getQueryString('course_id');
 var video_Id='';
@@ -142,6 +144,8 @@ function refresh(){
     },function(data) {
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+        //判断是否是第一次评论
+        $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
         //	回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
