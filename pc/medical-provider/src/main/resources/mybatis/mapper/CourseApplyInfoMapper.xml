@@ -74,7 +74,7 @@
 			AND cai.`multimedia_type` = #{multimediaType}
 		</if>
 		<if test="title != null and title!=''">
-			AND cai.`title` concat('%',#{title},'%')
+			AND cai.`title` like concat('%',#{title},'%')
 		</if>
 		ORDER BY cai.`create_time` DESC
 

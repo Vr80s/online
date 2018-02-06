@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import com.xczhihui.user.center.bean.UserSex;
 
@@ -60,6 +61,17 @@ public abstract class BxgUser extends BasicEntity implements Serializable {
 	 * 电话号码
 	 */
 	private String mobile;
+
+	@Transient
+	private Boolean anchor;
+
+	public Boolean getAnchor() {
+		return anchor;
+	}
+
+	public void setAnchor(Boolean anchor) {
+		this.anchor = anchor;
+	}
 
 	public String getLoginName() {
 		return loginName;

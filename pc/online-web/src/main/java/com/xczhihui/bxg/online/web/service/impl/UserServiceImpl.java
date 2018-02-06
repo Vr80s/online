@@ -829,5 +829,25 @@ public class UserServiceImpl implements UserService {
 		dao.update(u);
 		return "修改成功！";
 	}
+
+	@Override
+	public Boolean isAnchor(String loginName) {
+		StringBuffer sql = new StringBuffer();
+		List<OnlineUser> users;
+		Map<String,Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("loginName",loginName);
+		sql.append( "SELECT \n" +
+				"  ou.`name`"+
+				"FROM\n" +
+				"  `course_anchor` ca \n" +
+				"  JOIN `oe_user` ou \n" +
+				"    ON ca.`user_id` = ou.id \n" +
+				"WHERE ou.`login_name` = :loginName ");
+		users= dao.findEntitiesByJdbc(OnlineUser.class, sql.toString(), paramMap);
+		if(users.size()!=1){
+			return false;
+		}
+		return true;
+	}
 }
 

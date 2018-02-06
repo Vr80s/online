@@ -294,7 +294,6 @@ $('#zhuanlan .zhuanlan_top button').click(function(){
 
 //处理点击--课程显示隐藏第一第二页
 $(".select_list .courseP").click(function() {
-    courseList(1);
     $(".curriculum_two").show();
     $(".curriculum_one").hide();
 });
