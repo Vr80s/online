@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * 医馆认证信息服务实现类
- *
- * @author yuxin
- * @since 2018-01-15
+ * @author zhuwenbao
  */
 @Service
 public class MedicalHospitalAuthenticationServiceImpl extends ServiceImpl<MedicalHospitalAuthenticationMapper, MedicalHospitalAuthentication> implements IMedicalHospitalAuthenticationService {

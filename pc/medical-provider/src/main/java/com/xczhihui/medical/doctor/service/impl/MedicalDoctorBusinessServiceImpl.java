@@ -19,6 +19,7 @@ import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalDoctorMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
+import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
@@ -26,6 +27,7 @@ import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -463,6 +465,41 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
 
         logger.info("user : {} add doctor successfully, doctorId : {}",
                 medicalDoctor.getUserId(), doctorId);
+    }
+
+    /**
+     * 根据用户id获取其所在的医馆信息
+     */
+    @Override
+    public MedicalHospitalVo getHospital(String uid) {
+
+        // 根据用户id获取其医师id
+        MedicalDoctorAccount doctorAccount = medicalDoctorAccountMapper.getByUserId(uid);
+        if(doctorAccount == null){
+            throw new RuntimeException("您不是医师，无法获取医馆信息");
+        }
+
+        // 根据医师id获取其所在的医馆
+        Map<String, Object> columnMap = new HashMap<>();
+        columnMap.put("doctor_id", doctorAccount.getDoctorId());
+        List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
+        if(CollectionUtils.isEmpty(hospitalDoctors)){
+            return null;
+        }
+
+        // 根据医馆id获取医馆信息
+        MedicalHospital hospital = medicalHospitalMapper.selectById(hospitalDoctors.get(0).getHospitalId());
+        MedicalHospitalVo hospitalVo = new MedicalHospitalVo();
+        if(hospital != null){
+            BeanUtils.copyProperties(hospital,hospitalVo);
+            // 根据医馆信息获取其坐诊时间
+            MedicalDoctor doctor = medicalDoctorMapper.selectById(doctorAccount.getDoctorId());
+            if(doctor != null){
+                hospitalVo.setVisitTime(doctor.getWorkTime());
+            }
+        }
+
+        return hospitalVo;
     }
 
     /**
