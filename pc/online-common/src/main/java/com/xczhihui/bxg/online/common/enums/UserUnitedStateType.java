@@ -29,7 +29,7 @@ public enum UserUnitedStateType {
 	//认证手机号是否绑定过了  
 	PNHONE_NOT_THERE_ARE(400, "未注册手机号,可进行判断操作"),
 	PNHONE_IS_WRONG(401, "已注册手机号,但是未绑定,可进行判断操作"),
-	PNHONE_BINDING(402, " 已经绑定过了,直接使用");
+	PNHONE_BINDING(402, "已经绑定过了,直接使用");
 	
 	
 	/**

@@ -14,7 +14,6 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 						//个性签名
 						$('.doctor_inf>p').text(data.resultObject.info)
 					}
-					$('.')
 				} else {
 					
 				}

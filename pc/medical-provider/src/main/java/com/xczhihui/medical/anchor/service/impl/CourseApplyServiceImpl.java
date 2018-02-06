@@ -234,7 +234,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
             collectionCourseApply.setCourseApplyId(applyInfo.getId());
             collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
-            collectionCourseApply.setCollectionCourseSort(courseApplyInfo.getCollectionCourseSort());
+            collectionCourseApply.setCollectionCourseSort(applyInfo.getCollectionCourseSort());
             collectionCourseApplyMapper.insert(collectionCourseApply);
         }
     }
@@ -415,6 +415,24 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             throw new RuntimeException("该条申请记录暂不允许删除");
         }
         courseApplyInfoMapper.deleteCourseApplyById(caiId);
+    }
+
+    @Override
+    public void updateCollectionApply(CourseApplyInfo collectionApplyInfo) {
+        CourseApplyInfo collection = selectCourseApplyById(collectionApplyInfo.getUserId(), collectionApplyInfo.getId());
+        if(collection==null){
+            throw new RuntimeException("专辑不存在");
+        }
+        /*else if(cai.getStatus()!= ApplyStatus.UNTREATED.getCode()){
+            //防止后台管理操作与主播同时操作该课程出现问题
+            throw new RuntimeException("课程审核状态已经发生变化");
+        }*/
+        //删除之前申请
+        courseApplyInfoMapper.deleteCourseApplyById(collectionApplyInfo.getId());
+        //记录原申请id
+        collectionApplyInfo.setOldApplyInfoId(collectionApplyInfo.getId());
+        collectionApplyInfo.setId(null);
+        saveCollectionApply(collectionApplyInfo);
     }
 
     /**

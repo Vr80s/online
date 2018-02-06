@@ -92,4 +92,6 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
     void updateCourseApply(CourseApplyInfo courseApplyInfo);
 
     void deleteCourseApplyById(String userId, Integer caiId);
+
+    void updateCollectionApply(CourseApplyInfo courseApplyInfo);
 }

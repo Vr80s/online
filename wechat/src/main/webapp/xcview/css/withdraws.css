@@ -149,9 +149,6 @@ header{
     line-height: 0.81rem;
     margin-left: 0.26rem;
 }
-/*::-webkit-input-placeholder{
-	color: #ccc;
-}*/
 ::-webkit-input-placeholder { /* WebKit browsers */
     color: #ccc;
 }
