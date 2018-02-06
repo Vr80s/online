@@ -194,7 +194,8 @@ header{
 }
 .slide_one li{
 	float: left;
-	width: 1.6rem;
+	/*width: 1.6rem;*/
+	width: 2.5rem;
 	text-align: center;
 	margin-top: 0.745rem;
 	margin-left: 1.3rem;
@@ -1088,6 +1089,9 @@ header{
     white-space: nowrap;
     display: inline-block;
     max-width: 1.8rem;
+    height: 0.51rem;
+    line-height: 0.51rem;
+    display: inline-flex;
 }
 .boutique_main_one_size p:first-child{
 	margin-right: 0.213rem;
@@ -1102,11 +1106,12 @@ header{
 	height: 0.51rem;
     line-height: 0.51rem;
     float: left;
-    margin-right: 0.2rem;
+    margin-right: 0.25rem;
 }
 .boutique_main_one_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
+	margin-left: 0.15rem;
 }
 .boutique_main_one_size .p2 span{
 	font-size: 0.511rem;
@@ -1118,28 +1123,32 @@ header{
     max-width: 2rem;
 }
 .boutique_main_one_size .p3{
-	    /*float: right;*/
+	/*float: right;*/
     margin-right: 0.4rem;
-        margin-top: -0.1rem;
+    margin-top: -0.1rem;
 
 }
    
  .boutique_main_one_size .p3 img{
 	 width: 0.45rem;
-    float: left;
+    /*float: left;*/
 
 }
 .boutique_main_one_size .p3 span{
-	    float: right;
+	    /*float: right;*/
 		color: #999999;
 		margin-top: -0.1rem;
 
 }
 .boutique_main_one_size .p4{
 	margin-top: 0.01rem;
+    height: 0.51rem;
+    line-height: 0.51rem;
 }
 .boutique_main_one_size .p4 img{
 	width: 0.5rem;
+	vertical-align: middle;
+	margin-right: 0.15rem;
 }
 /*直播*/
 .boutique_main_two{
@@ -1374,14 +1383,16 @@ header{
 }
 .boutique_main_four_size .p2{
     max-width: 2.5rem;
-    min-width: 1rem;
+    min-width: 0.8rem;
 	height: 0.51rem;
     line-height: 0.51rem;
     float: left;
+    margin-right: 0.25rem;
 }
 .boutique_main_four_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
+	margin-right: 0.1rem;
 }
 .boutique_main_four_size .p2 span{
 	font-size: 0.511rem;
@@ -1401,6 +1412,7 @@ header{
 .boutique_main_four_size .p3 img{
 	width: 0.404rem;
 	height: 0.511rem;
+	margin-right: 0.15rem;
 }
 .boutique_main_four_size .p3 span{
 	font-size: 0.511rem;
@@ -1585,6 +1597,7 @@ header{
 .newest_main_two_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
+	margin-right: 0.1rem;
 }
 .newest_main_two_size .p2 span{
 	font-size: 0.511rem;
@@ -1604,6 +1617,7 @@ header{
 .newest_main_two_size .p3 img{
 	width: 0.468rem;
 	height: 0.468rem;
+	margin-right: 0.1rem;
 }
 .newest_main_two_size .p3 span{
 	font-size: 0.511rem;
@@ -1677,6 +1691,7 @@ header{
 .newest_main_three_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
+	margin-right: 0.1rem;
 }
 .newest_main_three_size .p2 span{
 	font-size: 0.511rem;
@@ -1752,6 +1767,7 @@ header{
 .newest_main_four_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
+	margin-right: 0.1rem;
 }
 .newest_main_four_size .p2 span{
 	font-size: 0.511rem;
@@ -1771,6 +1787,7 @@ header{
 .newest_main_four_size .p3 img{
 	width: 0.404rem;
 	height: 0.511rem;
+	margin-right: 0.1rem;
 }
 .newest_main_four_size .p3 span{
 	font-size: 0.511rem;
@@ -1882,6 +1899,7 @@ header{
 .lectures_main_one_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
+	margin-right: 0.1rem;
 }
 .lectures_main_one_size .p2 span{
 	font-size: 0.511rem;

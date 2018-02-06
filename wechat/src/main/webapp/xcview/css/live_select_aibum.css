@@ -678,7 +678,7 @@ color: #666666;
 	bottom: 0;
 	left: 0;
 	z-index: 5;
-	padding: 0 0.26rem 0.6rem;
+	padding: 0.3rem 0.26rem 0.6rem;
 	
 }
 /*评论主播弹出框*/
@@ -762,6 +762,8 @@ color: #666666;
 .select_lable{
 	clear: both;
 	padding-top: 0.4rem;
+	overflow: hidden;
+    margin-bottom: 0.3rem;
 }
 .select_lable .active_color{
 	background: #00BC12;
@@ -803,7 +805,6 @@ color: #666666;
 	font-size: 0.26rem;
 color: #888888;
     clear: both;
-    padding-top: 0.4rem;
 }
 .text_write_box{
 	width: 100%;
