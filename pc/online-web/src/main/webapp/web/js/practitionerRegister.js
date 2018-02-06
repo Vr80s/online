@@ -8,10 +8,10 @@ $(function(){
 		//已有账号登陆之后进行的页面跳转
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true && $('.login').css('display') == 'block'){
-	       	if(data.resultObject.indexOf(1) != -1){
+	       	if(data.resultObject == 1 ){
 	       		//医师认证成功 医师认证中 医师认证拒绝 跳转到认证状态页面
 	       		window.location.href = "/web/html/anchors_resources.html";
-	       	}else if(data.resultObject.indexOf(2) != -1){
+	       	}else if(data.resultObject == 2 ){
 	       		//医馆认证成功 提示不能进行医师认证
 //	       		alert('您已完成了医馆注册，不能进行医师注册!');
 	       		$('#tip').text('您已完成了医馆注册，不能进行医师注册！');
@@ -21,7 +21,7 @@ $(function(){
 	       			window.location.href = "/web/html/bestPractitioners.html";
 	       		},2000)
 	       		
-	       	}else if(data.resultObject.indexOf(7) != -1){
+	       	}else if(data.resultObject == 7 ){
 	       		//都没有注册过 进入注册页面
 	       		window.location.href = "/web/html/ResidentDoctor.html";
 	       	}else{

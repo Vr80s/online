@@ -6,7 +6,9 @@ $(function(){
         if(data.success==true){
             status = data.resultObject;
             //	是否显示我要当主播
-            $(".my_anchor").attr("style","display:none;");
+            if(status==1||status==2){
+                $(".my_anchor").attr("style","display:none;");
+            }
 
         }else{
             alert(data.errorMessage);
@@ -24,6 +26,8 @@ function balance() {
         if(data.success==true){
             $("#xmbNumber").text(data.resultObject.xmbCount);
             $("#courseNumber").text(data.resultObject.courseCount);
+            //用户头像
+            $(".header_img").html(template('userInfo',data.resultObject.user));
         }else{
             alert(data.errorMessage);
         }
