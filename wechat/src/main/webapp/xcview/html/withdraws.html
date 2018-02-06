@@ -24,7 +24,7 @@
 	
 	<!--头部开始-->
 	<header>
-		<div class="header_img">
+		<div class="header_img" onclick="window.history.go(-1);">
 			<img src="../images/back icon.png" />
 		</div>
 		<div class="header">
@@ -51,7 +51,7 @@
 		<div class="clearing_title">提现金额</div>
 		<div class="clearing_main">
 			<span class="span">￥</span>
-			<input type="number" name="" id="" value="" class="input" />
+			<input type="number" name="" id="money" value="" class="input" />
 			<div class="clearing_main_hint">
 				本次最多可结算<span>888</span>熊猫币
 			</div>
@@ -124,7 +124,7 @@
 </script>
 
 <script type="text/javascript"> 
-var countdown=60; 
+/*var countdown=60;
 function send(){
     var obj = $("#btn");
     settime(obj);
@@ -146,7 +146,7 @@ function settime(obj) { //发送验证码倒计时
 setTimeout(function() { 
     settime(obj) }
     ,1000) 
-}
+}*/
 </script>
 
 </html>

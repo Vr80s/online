@@ -118,8 +118,10 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		if (ub.isDefault()){
 			userBankMapper.deleteBankCard(id);
 			List<UserBank> list = userBankMapper.selectUserBankByUserId(userId);
-			UserBank u = list.get(0);
-			updateDefault(userId,u.getId());
+			if(list.size()>0){
+				UserBank u = list.get(0);
+				updateDefault(userId,u.getId());
+			}
 		}else {
 			userBankMapper.deleteBankCard(id);
 		}

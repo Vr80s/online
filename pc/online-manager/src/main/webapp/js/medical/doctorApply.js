@@ -7,7 +7,7 @@ $(function() {
             return false;
         }
     }
-    /** 职业课列表begin */
+    /** 列表begin */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     // searchCase_P.push('{"tempMatchType":undefined,"propertyName":"type","propertyValue1":"' + $("#type").val() + '","tempType":undefined}');
@@ -70,7 +70,7 @@ $(function() {
     P_courseTable = initTables("courseTable", basePath + "/medical/doctor/apply/list", objData, true, true, 0, null, searchCase_P, function (data) {
     });
 });
-/** 职业课列表end */
+/** 列表end */
 
 function showDetailDialog(obj, status) {
     var oo = $(obj).parent().parent().parent();
@@ -85,7 +85,7 @@ function showDetailDialog(obj, status) {
 function search_P() {
     var json = new Array();
     var status = $('#search_status').val();
-    json.push('{"tempMatchType":"7","propertyName":"status","propertyValue1":"' + status + '","tempType":"int"}');
+    json.push('{"tempMatchType":"0","propertyName":"status","propertyValue1":"' + status + '","tempType":"String"}');
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     searchButton(P_courseTable, json);
 

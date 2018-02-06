@@ -24,5 +24,33 @@ $(function(){
         $(".bank_card").hide();
     });
 
+    balance();
+    //transactionRecord();
+
 });
 
+//人民币/熊猫币余额
+function balance() {
+    requestService("/xczh/manager/anchorConsoleNumber",{
+    },function(data) {
+        if(data.success==true){
+            $("#rmbNumber").text(data.resultObject.rmbNumber);
+            $("#xmbNumber").text(data.resultObject.xmbNumber);
+        }else{
+            alert(data.errorMessage);
+        }
+    });
+}
+//交易记录
+function transactionRecord() {
+    requestService("/xczh/manager/withdrawalList",{
+        pageNumber:1,
+        pageSize:10
+    },function(data) {
+        if(data.success==true){
+            $(".record_main_div").html(template('record_main_div',{items:data.resultObject}));
+        }else{
+            alert(data.errorMessage);
+        }
+    });
+}
