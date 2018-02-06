@@ -226,6 +226,10 @@ $(function(){
         $(".collection_courses").html("");
         courseArr=[];
     });
+    $(".select_time").change(function(){
+        debugger
+        $(this).val($(this).val());
+    });
 });
 
 /**
