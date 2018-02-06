@@ -246,6 +246,10 @@ function btn_buy(){
 function btn_mianfei(){
 	window.location.href="live_audio.html?my_study="+course_id+"";
 }
+//有专辑并且免费的
+function btn_mianfei(){
+	window.location.href="live_select_album.html?course_id="+course_id+"";
+}
 //删除评论状态
 function del(){
     //星星

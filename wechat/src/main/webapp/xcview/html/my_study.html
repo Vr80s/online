@@ -115,12 +115,12 @@
 		<div class="follow_people">
 			<ul id="all_follow_people">
 				<script type="text/html" id="data_follow">
-					{{each resultObject}}
+					{{each resultObject as p}}
 						<li>
 							<div class="img_people">
-								<img src="{{$value.smallHeadPhoto}}"/>
+								<img src="{{p.smallHeadPhoto}}"/>
 							</div>
-							<p>{{$value.name}}</p>
+							<p>{{p.name}}</p>
 						</li>
 					{{/each}}
 				</script>
