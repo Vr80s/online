@@ -137,13 +137,13 @@ $(function(){
                     $('#tip').toggle();
                     setTimeout(function(){
                         $('#tip').toggle();
-                    },1000)
+                    },2000)
                 }else if(data.success == true){
                     $('#tip').text('保存成功');
                     $('#tip').toggle();
                     setTimeout(function(){
                         $('#tip').toggle();
-                    },1000)
+                    },2000)
                 }
             }
         });
@@ -247,14 +247,14 @@ $(function(){
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       		},1000)
+	       		},2000)
 	       		window.location.reload();
 			}else if(data.success == true){
 				$('#tip').text('保存成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       		},1000)
+	       		},2000)
 	       		window.location.reload();
 			}
 
@@ -280,11 +280,16 @@ $(function(){
 	
 	
 	//医馆信息的回显数据渲染
-	RequestService("/medical/hospital/getHospitalByUserId", "get", {			
+	RequestService("/medical/hospital/authentication/get", "get", {			
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				alert('获取认证状态数据失败');
+//				alert('获取认证状态数据失败');
+				$('#tip').text('获取认证状态数据失败');
+	       		$('#tip').toggle();
+	       		setTimeout(function(){
+	       			$('#tip').toggle();
+	       		},2000)
 			}else if(data.success == true){
 //				alert('认证成功');
 				//医馆数据渲染
@@ -434,7 +439,7 @@ $(function(){
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       			$('#doc_Administration_tabBtn').click();
-	       		},1500)
+	       		},2000)
 				}
 			})
 	})

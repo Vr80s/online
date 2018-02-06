@@ -13,9 +13,12 @@
         limit 1
      </select>
 
-    <update id="delete" parameterType="string">
+    <update id="deleteByUserIdAndStatus" parameterType="string">
         UPDATE medical_doctor_apply
         SET deleted = 1
         WHERE user_id = #{userId} AND deleted != 1
+        <if test="status != null">
+            AND status = #{status}
+        </if>
     </update>
 </mapper>

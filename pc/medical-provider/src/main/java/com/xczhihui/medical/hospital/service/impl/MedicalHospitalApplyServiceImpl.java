@@ -3,12 +3,15 @@ package com.xczhihui.medical.hospital.service.impl;
 import java.util.Date;
 import java.util.UUID;
 
+import com.xczhihui.medical.common.enums.CommonEnum;
+import com.xczhihui.medical.common.service.ICommonService;
+import com.xczhihui.utils.RedisShardLockUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.medical.doctor.enums.MedicalHospitalApplyEnum;
+import com.xczhihui.medical.hospital.enums.MedicalHospitalApplyEnum;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
@@ -34,6 +37,15 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     private MedicalHospitalAccountMapper hospitalAccountMapper;
     @Autowired
     private MedicalHospitalMapper hospitalMapper;
+    @Autowired
+    private ICommonService commonService;
+    @Autowired
+    private RedisShardLockUtils redisShardLockUtils;
+
+    // 锁超时时间
+    private final static int TIMEOUT = 3 * 1000;
+
+    private final String LOCK_PREFIX = "hospital_apply_";
 
     /**
      * 添加医馆入驻申请认证信息
@@ -56,20 +68,71 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
             throw new RuntimeException("医馆名称已经在认证中");
         }
 
-        // 判断用户是否已经拥有已认证的医馆
-        MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(target.getUserId());
-        if(hospitalAccount != null && StringUtils.isNotBlank(hospitalAccount.getDoctorId())){
-            if(hospitalMapper.getAuthenticationById(hospitalAccount.getDoctorId())){
-                throw new RuntimeException("您已经拥有已认证的医馆，不能再申请认证");
+        // 判断用户是否是认证医师或者认证医馆
+        Integer result = commonService.isDoctorOrHospital(target.getUserId());
+
+        // 如果用户是认证医师或者医师认证中 不让其认证医馆
+        if(result.equals(CommonEnum.AUTH_DOCTOR.getCode()) ||
+                result.equals(CommonEnum.DOCTOR_APPLYING .getCode())){
+
+            throw new RuntimeException("您已经认证了医师，不能再认证医馆");
+
+        }
+
+        // 如果用户已是认证医馆 表示其更新认证信息
+        if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
+
+            // 如果用户已是认证医馆 表示其更新认证信息
+            this.applyAgain(target);
+            return;
+
+        }
+
+        // 如果用户认证医馆中
+        if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
+
+            // 获取用户最后一次申请认证信息
+            MedicalHospitalApply hospitalApply = this.getLastOne(target.getUserId());
+
+            Long currentTime = System.currentTimeMillis() + TIMEOUT;
+
+            // 尝试获得锁
+            if(redisShardLockUtils.lock(LOCK_PREFIX + hospitalApply.getId(), String.valueOf(currentTime))){
+
+                // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
+                applyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalHospitalApplyEnum.WAIT.getCode());
+
+                // 新增新的认证信息
+                this.addMedicalHospitalApply(target);
+
+                // 解锁
+                redisShardLockUtils.unlock(LOCK_PREFIX + hospitalApply.getId(), String.valueOf(currentTime));
+
+                return;
+            }else {
+
+                throw new RuntimeException("网络打了小差，请再试一次");
+
             }
         }
 
-        // 获取用户最后一次申请认证信息
-        MedicalHospitalApply lastApply = this.getLastOne(target.getUserId());
-        // 不为空则表示用户重新认证
-        if(lastApply != null){
-            applyMapper.delete(target.getUserId());
+        // 如果用户医馆认证失败，医师认证失败，或者从没申请
+        if(result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode()) ||
+                result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
+                result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())){
+
+            this.addMedicalHospitalApply(target);
+
         }
+    }
+
+    private void addMedicalHospitalApply(MedicalHospitalApply target) {
+
+        throw new RuntimeException("您已经认证了医馆，不能再认证重新认证");
+
+    }
+
+    private void applyAgain(MedicalHospitalApply target) {
 
         // 生成主键
         String id = UUID.randomUUID().toString().replace("-","");
@@ -81,6 +144,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         target.setCreateTime(new Date());
 
         applyMapper.insert(target);
+
     }
 
     /**

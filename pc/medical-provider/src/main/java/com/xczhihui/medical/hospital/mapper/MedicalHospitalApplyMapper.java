@@ -3,6 +3,7 @@ package com.xczhihui.medical.hospital.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -22,10 +23,12 @@ public interface MedicalHospitalApplyMapper extends BaseMapper<MedicalHospitalAp
     MedicalHospitalApply getLastOne(String userId);
 
     /**
-     * 删除入驻申请信息
+     * 根据用户id和审核状态删除入驻申请信息
      * @param userId 用户id
+     * @param status 审核状态
      */
-    void delete(String userId);
+    void deleteByUserIdAndStatus(@Param("userId") String userId,
+                                 @Param("status") Integer status);
 
     /**
      * 根据医馆名称获取医馆认证信息
