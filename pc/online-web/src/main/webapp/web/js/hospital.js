@@ -10,7 +10,7 @@ $(function () {
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	  	if(data.success == true){
 	  		//判断
-	  		if(data.resultObject.indexOf(2) != -1){
+	  		if(data.resultObject == 2 ){
 	  			//医馆认证成功
 	  			$('.forum-hosJoin').addClass('hide');
 	  		}else{
@@ -479,20 +479,20 @@ $(function () {
     	 RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
     	 	if(data.success == true){
     	 		//请求数据成功进行判断 
-    	 		if($('.login').css('display') == 'block' && data.resultObject.indexOf(1) != -1){
+    	 		if($('.login').css('display') == 'block' && data.resultObject == 1 ){
     	 			//登录并且入驻了医师了
     	 			$('#tip').text('您已完成了医师注册，不能进行医馆注册！');
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
 	       			},2000)
-    	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(2) != -1){
+    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 2 ){
     	 			//注册医馆成功
     	 			window.location.href = "/web/html/ResidentHospital.html";
-    	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(7) != -1){
+    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 7 ){
     	 			//登录了并且都没有注册过
     	 			window.location.href = "/web/html/ResidentHospital.html";
-    	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(4) != -1 || data.resultObject.indexOf(5) != -1 || data.resultObject.indexOf(6) != -1 ){
+    	 		}else if($('.login').css('display') == 'block' && data.resultObject == 3 || data.resultObject == 4  || data.resultObject == 5  || data.resultObject == 6 ){
     	 			//登录了 并且注册了没有通过的
     	 			window.location.href = "/web/html/ResidentHospital.html";
     	 		}
