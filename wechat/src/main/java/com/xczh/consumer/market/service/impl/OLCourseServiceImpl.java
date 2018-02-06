@@ -529,8 +529,20 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         	condSql.append(" and ("); 
         	condSql.append(" oc.lecturer like '%"+ queryKey + "%'");
         	condSql.append(" or "); 
-        	condSql.append(" oc.grade_name like '%"+ queryKey + "%')"); 
-        }
+        	condSql.append(" oc.grade_name like '%"+ queryKey + "%'");
+			condSql.append(" or ");
+			condSql.append(" oc.description like '%"+ queryKey + "%'");
+			condSql.append(" or ");
+			condSql.append(" oc.course_detail like '%"+ queryKey + "%'");
+			condSql.append(" or ");
+			condSql.append(" oc.course_outline like '%"+ queryKey + "%'");
+			condSql.append(" or ");
+			condSql.append(" oc.address like '%"+ queryKey + "%'");
+			condSql.append(" or ");
+			condSql.append(" oc.lecturer_description like '%"+ queryKey + "%'");
+			condSql.append(" or ");
+			condSql.append(" oc.subtitle like '%"+ queryKey + "%')");
+		}
 		if(courseType!=null) {
 			if (courseType == 1 || courseType == 2) { //视频或者音频
 				condSql.append(" and oc.multimedia_type = '" + courseType + "'");  //多媒体类型1视频2音频

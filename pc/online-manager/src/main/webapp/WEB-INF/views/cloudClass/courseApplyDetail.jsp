@@ -265,13 +265,13 @@
 						<td align = "center">${cai.lecturer}</td>
 						<td align = "center">${cai.price}</td>
 						<c:choose>
-							<c:when test="${cai.status== '0'}">
+							<c:when test="${cai.status== '2'}">
 								<td align = "center"><span style="color: #257e77;">未审核</span></td>
 							</c:when>
 							<c:when test="${cai.status== '1'}">
 								<td align = "center"><span style="color: #13da08;">已通过</span></td>
 							</c:when>
-							<c:when test="${cai.status== '2'}">
+							<c:when test="${cai.status== '0'}">
 								<td align = "center"><span style="color: #da3346;">未通过</span></td>
 							</c:when>
 						</c:choose>

@@ -425,7 +425,8 @@ margin-top: 0.1rem;
 }
 .user_header img{
 	width: 100%;
-	height: 100%
+	height: 100%;
+	border-radius: 50px;
 }
 .user_text{
 	width: 5.85rem;
@@ -603,7 +604,7 @@ color: white;
 	bottom: 0;
 	left: 0;
 	z-index: 5;
-	padding: 0 0.26rem 0.6rem;
+	padding: 0.3rem 0.26rem 0.6rem;
 	position: fixed;
 }
 /*评论主播弹出框*/
@@ -687,6 +688,8 @@ color: white;
 .select_lable{
 	clear: both;
 	padding-top: 0.4rem;
+	overflow: hidden;
+    margin-bottom: 0.3rem;
 }
 .select_lable .active_color{
 	background: #00BC12;
@@ -728,7 +731,7 @@ color: white;
 	font-size: 0.26rem;
 color: #888888;
     clear: both;
-    padding-top: 0.4rem;
+    /*padding-top: 0.4rem;*/
 }
 .text_write_box{
 	width: 100%;

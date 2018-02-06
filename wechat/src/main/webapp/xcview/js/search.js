@@ -32,3 +32,12 @@ $(".search_hot_main_one").click(function(){
 
 })
 
+//清空历史
+function clearAll() {
+	if(localStorage.hisArr!=undefined){
+        localStorage.hisArr="";
+        $(".search_history_list").empty();
+	}
+
+
+}

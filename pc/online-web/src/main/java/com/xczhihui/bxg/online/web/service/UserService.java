@@ -166,4 +166,6 @@ public interface UserService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 **/
 	String updateVhallInfo(OnlineUser u);
+
+	Boolean isAnchor(String loginName);
 }

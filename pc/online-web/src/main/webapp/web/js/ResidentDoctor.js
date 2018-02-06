@@ -24,21 +24,21 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 //获取医师认证状态控制左侧tab栏
  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
-	       	if(data.resultObject.indexOf(1) == -1){
+	       	if(data.resultObject != 1){
 	       		//医师认证未成功
 	       		$('.DocAut_btn').removeClass('hide');
 	       		$('.ImDoc_btn').addClass('hide');
-	       		if(data.resultObject.indexOf(3) != -1 || data.resultObject.indexOf(5) != -1){
+	       		if(data.resultObject == 3  || data.resultObject == 5 ){
 	       			//认证中
 	       			seeAutStatus();
 	       			$('#docAut_tip').removeClass('hide');
-	       		}else if(data.resultObject.indexOf(7) != -1){
+	       		}else if(data.resultObject == 7 ){
 	       			//未认证
 //	       			$('#docNoPass_tip').removeClass('hide');
 					$('#AutList').removeClass('hide');
 					$('#AutStatus').addClass('hide');
 	       		}
-	       	}else if(data.resultObject.indexOf(1) != -1){
+	       	}else if(data.resultObject == 1 ){
 	       		//医师认证成功
 //	       		$('#docpass_tip').removeClass('hide');
 	       		$('.ImDoc_btn').removeClass('hide');

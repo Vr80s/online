@@ -4,12 +4,12 @@ $(function(){
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	  	if(data.success == true){
 	  		//判断
-	  		if(data.resultObject.indexOf(1) != -1){
+	  		if(data.resultObject == 1 ){
 	  			//医师认证成功
 	  			$('#docOrHos').text('我是医师');
 	  			$('#docOrHos').attr('href','/web/html/anchors_resources.html')
 	  			$('#docOrHos').removeClass('hide');
-	  		}else if(data.resultObject.indexOf(2) != -1){
+	  		}else if(data.resultObject == 2 ){
 	  			//医馆认证成功
 	  			$('#docOrHos').text('我是医馆');
 	  			$('#docOrHos').attr('href','/web/html/ResidentHospital.html')

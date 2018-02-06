@@ -250,7 +250,7 @@ function courseList(current){
         courseForm = 2;
         multimediaType = 2;
     }
-    var url ="/anchor/course/getCourseApplyList?size=10&current="+current;
+    var url ="/anchor/course/getCourseApplyList?size=8&current="+current;
     if(courseForm!=null){
         url += "&courseForm="+courseForm;
     }
@@ -384,7 +384,8 @@ function echoCourse(caiId){
             initResource(course.multimediaType);
             $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
             // $('.course_resource').val(course.resourceId);
-            $('.selectpicker').selectpicker('val',(course.resourceId));
+            debugger
+            $('.course_resource').selectpicker('val',(course.resourceId));
         }else{
             $('.course_start_time').val(course.startTime);
             $('.course_end_time').val(course.endTime);
@@ -660,7 +661,7 @@ function changeSaleState(collection){
  * @Date: 2018/2/3 0003 下午 4:31
  **/
 function courseLiveList(current){
-    var url ="/anchor/course/getLiveApplyList?size=10&current="+current;
+    var url ="/anchor/course/getLiveApplyList?size=8&current="+current;
     debugger
     RequestService(url, "get", null, function(data) {
         $("#course_live_list").html(template('course_live_tpl', data.resultObject));
@@ -709,7 +710,7 @@ function previewLive(id) {
 function courseCollectionList(current){
     var multimediaType = $("#course_collection_type").val();
     var courseName = $("#course_collection_name").val();
-    var url ="/anchor/course/getCollectionApplyList?size=10&current="+current;
+    var url ="/anchor/course/getCollectionApplyList?size=8&current="+current;
     if(multimediaType!=null && multimediaType!=""){
         url += "&multimediaType="+multimediaType;
     }
@@ -913,6 +914,7 @@ function echoCollection(collectionId){
         $("input:radio[name=collection_multimedia_type][value="+collection.multimediaType+"]").prop("checked",true);
         initCourse(collection.multimediaType);
         courseArr = collection.courseApplyInfos;
+        courseArr = upDownShowInit(courseArr);
         var arr={};
         arr.courseArr=courseArr;
         $(".collection_courses").html(template('collection_course_list_tpl', arr));
@@ -1038,9 +1040,12 @@ function resetCollectionForm(){
 
 function initCourseSelect(){
     var csArr=[];
-    for(var i=0;i < courseArr.length;i++){
-        csArr.push(courseArr[i].id);
+    if(courseArr!=null){
+        for(var i=0;i < courseArr.length;i++){
+            csArr.push(courseArr[i].id);
+        }
     }
+    $('.selectpicker_collection').val(csArr);
     $('.selectpicker_collection').selectpicker('refresh');
     $('.selectpicker_collection').selectpicker('val',(csArr));
     $(".new_box").show();
@@ -1052,7 +1057,7 @@ function initCourseSelect(){
  * @Date: 2018/2/2 0002 下午 9:09
  **/
 function courseResourceList(current){
-    var url ="/anchor/course/getCourseResourceList?size=10&current="+current;
+    var url ="/anchor/course/getCourseResourceList?size=8&current="+current;
     debugger
     RequestService(url, "get", null, function(data) {
         $("#resource_list").html(template('course_resource_list_tpl', data.resultObject));
@@ -1073,7 +1078,7 @@ function courseResourceList(current){
                 }
             });
         } else {
-            $(".collection_pages").css("display", "none");
+            $(".resource_pages").css("display", "none");
         }
     });
 }
