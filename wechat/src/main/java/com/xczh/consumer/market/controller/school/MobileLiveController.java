@@ -97,21 +97,21 @@ public class MobileLiveController {
 
 		if(listNw.size()>0){
 			mapNw.put("title","即将直播");
-			mapTj.put("lineState","2");
+			mapNw.put("lineState","2");
 			mapNw.put("courseList",listNw);
 			mapCourseList.add(mapNw);
 		}
 
 		if(listZz.size()>0){
 			mapZz.put("title","直播课程");
-			mapTj.put("lineState","4");
+			mapZz.put("lineState","4");
 			mapZz.put("courseList",listZz);
 			mapCourseList.add(mapZz);
 		}
 
 		if(listHf.size()>0){
 			mapHf.put("title","精彩直播回放");
-			mapTj.put("lineState","3");
+			mapHf.put("lineState","3");
 			mapHf.put("courseList",listHf);
 			mapCourseList.add(mapHf);
 		}
