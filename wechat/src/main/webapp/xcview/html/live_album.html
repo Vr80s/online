@@ -10,12 +10,11 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
 <link rel="stylesheet" href="../css/live_album.css" />
-
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../js/live_album.js"></script>
 
 
@@ -301,46 +300,62 @@
 		</div>
 		<div class="line-xu"></div>
 		<div class="all_list">
-			<ul>
-				<li>
-					<p>01&nbsp;《秋郊饮马图》&《浴马图》：关于画马的一段小八卦</p>
-				</li>
-				<li>
-					<p>02&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>03&nbsp;赵雍《挟弹游骑图》：唐代气息扑面而来</p>
-				</li>
-				<li>
-					<p>04&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>05&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>06&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
-				<li>
-					<p>07&nbsp;赵氏一门《墨竹图》：艺术之家，相濡以沫</p>
-				</li>
+			<ul class="all_list_ul">
+				<script type="text/html" id="all_list_ul">
+				{{each items as item i}}
+					<li>
+						<p>{{item.gradeName}}</p>
+					</li>
+				{{/each}}
+	            </script>
 			</ul>
 		</div>
 	</div>	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
 </div>
 	
+	<!--分享开始-->
+	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_main">
+			<div class="share_main_bg">
+				<ul>
+					<div class="share_to">分享到</div>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/ShareSDK.png" />
+							<p>微信</p>
+						</div>
+					</li>
+					<li id="qqShare0">
+						<div class="" id="qqShare">
+							<img src="../images/Qzone_share.png" />
+							<p>qq空间</p>
+						</div>
+					</li>
+					<li id="weiboShare">
+						<div class="" id="qqShare0">
+							<img src="../images/RSS_links.png" />
+							<p>新浪微博</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="share_cancel">取消</div>
+		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!--分享结束-->
 
 </body>
+<!--分享-->
+<script type="text/javascript" src="/xcview/js/details.js"></script>
+
 <script>
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
@@ -384,5 +399,35 @@
 			 })
 		 })
 	</script>
+	
+	
+	<!--点击分享开始-->
+	<script type="text/javascript">
+		window.onload = function(){
+			//		点击分享share
+			$(".header_news").click(function(){
+				$(".share").show();
+			});
+			
+			$(".share_cancel").click(function(){
+				$(".share").hide();
+			});
+			
+			$(".share_cancel").click(function(){
+				$(".weixin_ceng").hide();
+			});
+			
+			
+	//		点击微信出现提示框
+			$(".share_to_one").click(function(){
+				$(".weixin_ceng").show();
+			});
+			
+			$(".weixin_ceng").click(function(){
+				$(".weixin_ceng").hide();
+			});
+		};
+	</script>
+	<!--点击分享结束-->
 
 </html>

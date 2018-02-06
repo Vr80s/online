@@ -82,8 +82,7 @@ public class MyManagerController {
 	@Value("${rate}")
 	private int rate;
 
-	private static final org.slf4j.Logger LOGGER = LoggerFactory
-			.getLogger(MyManagerController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyManagerController.class);
 
 	/**
 	 * Description：进入我的页面显示几个初始化数据
@@ -109,20 +108,21 @@ public class MyManagerController {
 		 */
 		Map<String, Object> map = new HashMap<String, Object>();
 		if (user != null) {
-			System.out.println("================");
-			// 熊猫币
-			map.put("xmbCount",
-					userCoinService.getBalanceByUserId(user.getId()));
+			// 熊猫币-- 普通用户的平台
+			map.put("xmbCount",userCoinService.getBalanceByUserId(user.getId()));
 			// 更新下用户信息
 			map.put("user", onlineUserService.findUserById(user.getId()));
 			// 查找购买的课程数
-			map.put("courseCount",
-					courseService.selectMyFreeCourseListCount(user.getId()));
+			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
+			
+			// 查看主播权限   -- 并且把主播信息给返回过去
+			map.put("hostPermissions", myInfoService.getUserHostPermissions(user.getId()));
+			
 		} else {
-			System.out.println("================1111111111");
 			map.put("xmbCount", 0);
 			map.put("user", "");
-			map.put("courseCount", 0); // 这里存在列表存在总数
+			map.put("courseCount", 0); 
+			map.put("hostPermissions",0);
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
@@ -149,10 +149,44 @@ public class MyManagerController {
 		Page<CourseLecturVo> page = new Page<>();
 		page.setCurrent(pageNumber);
 		page.setSize(pageSize);
-		return ResponseObject.newSuccessResponseObject(courseService
-				.selectMyFreeCourseList(page, user.getUserId()));
+		return ResponseObject.newSuccessResponseObject(courseService.selectMyFreeCourseList(page, user.getUserId()));
 	}
-
+	
+	
+	/**
+	 * 
+	 * Description：获取 我的钱包  熊猫币余额
+	 * @param request
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	@RequestMapping("getWalletEnchashmentBalance")
+	@ResponseBody
+	public ResponseObject getWalletEnchashmentBalance(HttpServletRequest request,
+			HttpServletResponse res) throws Exception {
+		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
+		if (user == null) {
+			return ResponseObject.newSuccessResponseObject(0);
+		} else {
+			return ResponseObject.newSuccessResponseObject(userCoinService.getBalanceByUserId(user.getId()));
+		}
+	}
+	
+	/**
+	 * 
+	 * Description：获取 主播控制台  熊猫币余额
+	 * @param request
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	@RequestMapping("getEnchashmentBalance")
 	@ResponseBody
 	public ResponseObject getEnchashmentBalance(HttpServletRequest request,
@@ -162,11 +196,20 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newSuccessResponseObject(0);
 		} else {
-			return ResponseObject.newSuccessResponseObject(userCoinService
-					.getSettlementBalanceByUserId(user.getId()));
+			return ResponseObject.newSuccessResponseObject(userCoinService.getSettlementBalanceByUserId(user.getId()));
 		}
 	}
-
+    /**
+     * 
+     * Description：获取 主播控制台  人民币
+     * @param request
+     * @param res
+     * @return
+     * @throws Exception
+     * @return ResponseObject
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
 	@RequestMapping("getEnchashmentRmbBalance")
 	@ResponseBody
 	public ResponseObject getEnchashmentRmbBalance(HttpServletRequest request,
@@ -175,8 +218,7 @@ public class MyManagerController {
 		if (user == null) {
 			throw new RuntimeException("登录失效");
 		}
-		return ResponseObject.newSuccessResponseObject(userCoinService
-				.getEnchashmentBalanceByUserId(user.getId()));
+		return ResponseObject.newSuccessResponseObject(userCoinService.getEnchashmentBalanceByUserId(user.getId()));
 	}
 
 	/**

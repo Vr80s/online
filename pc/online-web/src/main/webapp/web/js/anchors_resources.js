@@ -376,6 +376,15 @@ $('#hospital_bottom .chooseHospital').click(function(){
 	$('#hosChoose').removeClass('hide');
 })
 
+
+//点击关闭选择医馆列表
+$('#close_hosChoose').click(function(){
+	$('.mask').css('display','none');
+	$('#hosChoose').addClass('hide');
+})
+
+
+
 //点击选择医馆的确认按钮
 $('#hosChoose .sureChoosehos').click(function(){
 	$('#hospital_bottom .zhuanlan_title').val($("#id_select option:selected").text())

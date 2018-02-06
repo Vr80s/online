@@ -24,7 +24,7 @@
 	
 	<!--头部开始-->
 	<header>
-		<div class="header_img">
+		<div class="header_img" onclick="window.history.go(-1);">
 			<img src="../images/back icon.png" />
 		</div>
 		<div class="header">
@@ -46,12 +46,12 @@
 		</script>
 	</div>
 	
-	
+	<!--提现金额开始-->
 	<div class="clearing">
 		<div class="clearing_title">提现金额</div>
 		<div class="clearing_main">
 			<span class="span">￥</span>
-			<input type="number" name="" id="" value="" class="input" />
+			<input type="number" name="" id="money" value="" class="input" />
 			<div class="clearing_main_hint">
 				本次最多可结算<span>888</span>熊猫币
 			</div>
@@ -59,8 +59,19 @@
 		<div class="clearing_border"></div>
 		<div class="clearing_size">提现会在1-7个工作日内到账</div>
 	</div>
+	<!--提现金额结束-->
 	
-	<div class="clearing_btn">确认提现</div>
+	<!--发送验证码开始-->
+	<div class="auth_code">
+		<div class="div0">
+			<input type="text" name="" id="" value="" class="input0" placeholder="提现验证码" />
+			<input type="button" id="btn" value="获取验证码" onclick="send()" /> 
+		</div>
+		<div class="clearing_size">验证码将发送到您注册用的<span>18902238374</span>手机号上</div>
+	</div>
+	<!--发送验证码结束-->
+	
+	<div class="clearing_btn" onclick="withdraw()">确认提现</div>
 	<!--中间内容结束-->
 	
 </body>
@@ -76,32 +87,66 @@
 
 <!--点击可提现金额-->
 <script type="text/javascript">
+	
 	window.onload = function(){
+		var Ipt0,Ipt1;
+
+		$('.input').keyup(function(){
+			Ipt0 = $.trim($('.input').val());
+		 	Ipt1 = $.trim($('.input0').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != ''){
+				$(".clearing_btn").css("opacity","1");
+			}else{
+				$(".clearing_btn").css("opacity","0.3");      	
+			}
+		})
+		
+		$('.input0').keyup(function(){
+			Ipt0 = $.trim($('.input').val());
+		 	Ipt1 = $.trim($('.input0').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != ''){
+				$(".clearing_btn").css("opacity","1");
+			}else{
+				$(".clearing_btn").css("opacity","0.3");      	
+			}
+		})
+
+		
+	};
+	
 		$(".input").focus(function(){
 		 	
 		 	$(".clearing_main_hint").hide();
 		});
-		 
-		$(".input").blur(function(){
-		 	
-		 	if(!($('.input').val()=='')){
-             	$(".clearing_main_hint").hide();
- 	        }else{
-	          	$(".clearing_main_hint").show();
-	        }
-			
-		});
-		
-		$(".input").keyup(function(){
-			if($('.input').val().length<=0){
-	           	$(".clearing_btn").css("opacity","0.3");
-	           	
-	       }else{
-	        	$(".clearing_btn").css("opacity","1");
-	        }
-		});
-		
-	};
+	
+</script>
+
+<script type="text/javascript"> 
+/*var countdown=60;
+function send(){
+    var obj = $("#btn");
+    settime(obj);
+    
+    }
+function settime(obj) { //发送验证码倒计时
+    if (countdown == 0) { 
+        obj.attr('disabled',false);  
+        obj.val("获取验证码");
+        $("#btn").css("background","#00bc12")
+        countdown = 60; 
+        return;
+    } else { 
+        obj.attr('disabled',true);
+        obj.val("(" + countdown + ")S");
+        countdown--; 
+        $("#btn").css("background","#ccc")
+    } 
+setTimeout(function() { 
+    settime(obj) }
+    ,1000) 
+}*/
 </script>
 
 </html>

@@ -54,14 +54,12 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 	}
 
 	@Override
-	public WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId,
-			String uid) {
+	public WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId,String uid) {
 		return weiboClientUserMappingMapper.selectWeiboClientUserMappingByUserId(userId, uid);
 	}
 
 	@Override
-	public QQClientUserMapping selectQQClientUserMappingByUserId(String userId,
-			String openId) {
+	public QQClientUserMapping selectQQClientUserMappingByUserId(String userId,String openId) {
 		return qqClientUserMappingMapper.selectQQClientUserMappingByUserId(userId, openId);
 	}
 

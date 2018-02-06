@@ -346,12 +346,16 @@ function editCourse(caiId){
     $(".curriculum_one").show();
 }
 
-function deleteCourse(caiId){
+function deleteCourse(caiId,collection){
     var r=confirm("确认删除？");
     if(r){
         RequestService("/anchor/course/deleteCourseApplyById?caiId="+caiId, "get", null, function(data) {
             alert(data.resultObject);
-            courseList(1);
+            if(collection==1){
+                courseCollectionList(1);
+            }else{
+                courseList(1);
+            }
         });
     }
 }
@@ -599,6 +603,16 @@ function confirmCourseSale(state,id){
     $("#saleCourseId").val(id);
     $(".yes_no").show();
 }
+function confirmCollection(state,id){
+    if(state==1){
+        $(".saleText").html("确认上架该专辑？");
+    }else{
+        $(".saleText").html("确认下架该专辑？");
+    }
+    $("#saleStateCollection").val(state);
+    $("#saleCollectionId").val(id);
+    $(".no_yes").show();
+}
 
 /**
  * Description：更改上下架状态
@@ -606,9 +620,17 @@ function confirmCourseSale(state,id){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/3 0003 下午 7:09
  **/
-function changeSaleState(){
-    var state = $("#saleState").val();
-    var courseId = $("#saleCourseId").val();
+function changeSaleState(collection){
+    var state = null;
+    var courseId = null;
+    if(collection==1){
+        state = $("#saleStateCollection").val();
+        courseId = $("#saleCollectionId").val();
+    }else{
+        state = $("#saleState").val();
+        courseId = $("#saleCourseId").val();
+    }
+
     $.ajax({
         type: "post",
         url: bath + "/anchor/course/changeSaleState",
@@ -617,8 +639,11 @@ function changeSaleState(){
         success: function(data) {
             console.log(data);
             if(data.success === true) {
-                $(".select_list .courseP").click();
-                resetCourseForm();
+                if(collection==1){
+                    courseCollectionList(1);
+                }else{
+                    courseList(1);
+                }
             } else {
                 alert(data.errorMessage)
             }
@@ -811,27 +836,56 @@ function saveCollection(){
     var collection = getCollectionData();
     debugger
     if(verifyCollection(collection)){
-        collection.collection=true;
-        collection.courseForm=2;
-        $.ajax({
-            type: "post",
-            url: bath + "/anchor/course/saveCollectionApply",
-            data:JSON.stringify(collection),
-            contentType:"application/json",
-            async: false,
-            success: function(data) {
-                console.log(data);
-                if(data.success === true) {
-                    $("#zhuanji_bottom2").show();
-                    $("#zhuanji_bottom").hide();
-                    resetCollectionForm();
-                    courseCollectionList(1);
-                } else {
-                    alert(data.errorMessage)
-                }
-            }
-        });
+        if($("#collectionId").val()==null||$("#collectionId").val()==''){
+            addCollection(collection);
+        }else{
+            updateCollection(collection);
+        }
     }
+}
+function addCollection(collection){
+    collection.collection=true;
+    collection.courseForm=2;
+    $.ajax({
+        type: "post",
+        url: bath + "/anchor/course/saveCollectionApply",
+        data:JSON.stringify(collection),
+        contentType:"application/json",
+        async: false,
+        success: function(data) {
+            console.log(data);
+            if(data.success === true) {
+                $("#zhuanji_bottom2").show();
+                $("#zhuanji_bottom").hide();
+                resetCollectionForm();
+                courseCollectionList(1);
+            } else {
+                alert(data.errorMessage)
+            }
+        }
+    });
+}
+function updateCollection(collection){
+    collection.collection=true;
+    collection.courseForm=2;
+    $.ajax({
+        type: "post",
+        url: bath + "/anchor/course/updateCollectionApply",
+        data:JSON.stringify(collection),
+        contentType:"application/json",
+        async: false,
+        success: function(data) {
+            console.log(data);
+            if(data.success === true) {
+                $("#zhuanji_bottom2").show();
+                $("#zhuanji_bottom").hide();
+                resetCollectionForm();
+                courseCollectionList(1);
+            } else {
+                alert(data.errorMessage)
+            }
+        }
+    });
 }
 function editCollection(collectionId){
     resetCollectionForm();
@@ -864,6 +918,7 @@ function echoCollection(collectionId){
 }
 function getCollectionData(){
     var collection = {};
+    collection.id = $.trim($('#collectionId').val());
     collection.title = $.trim($('.collection_title').val());
     collection.subtitle = $.trim($('.collection_subtitle').val());
     collection.imgPath = $.trim($('#collectionImg img').attr('src'));
@@ -1020,60 +1075,66 @@ function courseResourceList(current){
 }
 
 function deleteResource(resourceId){
-    $.ajax({
-        type: "post",
-        url: bath + "/anchor/course/deleteCourseResource",
-        data:"resourceId="+resourceId,
-        async: false,
-        success: function(data) {
-            console.log(data);
-            if(data.success === true) {
-                alert(data.resultObject);
-                courseResourceList(1);
-            } else {
-                alert(data.errorMessage)
+    var r=confirm("确认删除该资源？");
+    if(r){
+        $.ajax({
+            type: "post",
+            url: bath + "/anchor/course/deleteCourseResource",
+            data:"resourceId="+resourceId,
+            async: false,
+            success: function(data) {
+                console.log(data);
+                if(data.success === true) {
+                    alert(data.resultObject);
+                    courseResourceList(1);
+                } else {
+                    alert(data.errorMessage)
+                }
             }
-        }
-    });
+        });
+    }
 }
 //点击选择资源
 function resourcePre(){
     $('.a_resource').show();
 }
 function showResourceList(){
-    //底部变化
-    $('#ziyuan_bottom').addClass('hide');
-    $('#ziyuan_bottom2').removeClass('hide');
+    courseResourceList(1);
+    $(".resource_one").hide();
+    $(".resource_two").show();
 }
 
 $(function () {
     //添加资源
     $('#ziyuan_bottom .baocun #submit').click(function(){
-        if(validateResource()){
-            debugger
-            var data = {};
-            data.title = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
-            data.resource = $.trim($('#ccId').val());
-            data.multimediaType = $("input[name='resource_multimediaType']:checked").val();
-            $.ajax({
-                type: "post",
-                url: bath + "/anchor/course/saveCourseResource",
-                data:JSON.stringify(data),
-                contentType:"application/json",
-                async: false,
-                success: function(data) {
-                    console.log(data);
-                    if(data.success === true) {
-                        showResourceList();
-                    } else {
-                        alert(data.errorMessage())
-                    }
-                }
-            });
-        }
+        saveResource();
     })
 });
 
+function saveResource(){
+    if(validateResource()){
+        debugger
+        var data = {};
+        data.title = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
+        data.resource = $.trim($('#ccId').val());
+        data.multimediaType = $("input[name='resource_multimediaType']:checked").val();
+        $.ajax({
+            type: "post",
+            url: bath + "/anchor/course/saveCourseResource",
+            data:JSON.stringify(data),
+            contentType:"application/json",
+            async: false,
+            success: function(data) {
+                console.log(data);
+                if(data.success === true) {
+                    showResourceList();
+                } else {
+                    alert(data.errorMessage())
+                }
+            }
+        });
+    }
+}
 function validateResource(){
     var title = $.trim($('#ziyuan_bottom .zhuanlan_title').val());
     var resource = $.trim($('#ccId').val());

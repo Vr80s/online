@@ -1,6 +1,8 @@
 
 function btn_up(){
-    if($(".wrap-user-id .userName").val()==''){
+    if($("#name").val()==''||$("#company").val()==''||$("#businessLicenseNo").val()==''
+        ||$("#previewImg3").val()==''||$("#licenseForPharmaceuticalTrading").val()==''
+        ||$("#previewImg4").val()==''){
         $(".error-prompt").show();
         $(".btn-up").removeAttr("onclick")
         setTimeout(function(){

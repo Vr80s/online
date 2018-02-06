@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <link rel="stylesheet" href="../css/my_wallet.css" />
-
+<script type="text/javascript" src="../js/my_wallet.js"></script>
 
 <link href="/xcview/css/slide.css" rel="stylesheet"> <!--滑动引入-->
 
@@ -35,12 +35,70 @@
 	</header>
 	<!--头部结束-->
 	
-	
+		<!--余额开始-->
+			<div class="balance">
+				<div class="div0">熊猫币余额(熊猫币)</div>
+				<div class="div1" id="xmbNumber">88</div>
+				<div class="div2" onclick="location.href ='recharges.html'">去充值</div>
+			</div>
+			<!--余额结束-->
+			
+			<!--交易记录开始-->
+			<div class="record">
+				<div class="record_main">
+					<div class="record_title">
+						交易记录
+					</div>
+					<div class="record_main_div">
+						<div class="record_course">
+							<div class="record_course_left z">
+								<span class="span0">充值</span>
+							</div>
+							<div class="record_course_right y">
+								<span class="span0">+<span>100</span></span>
+								<span class="span1">熊猫币</span>
+							</div>
+						</div>
+						<div class="both"></div>
+						<div class="record_course">
+							<div class="record_course_left z">
+								<span class="span0">充值</span>
+							</div>
+							<div class="record_course_right y">
+								<span class="span0">+<span>100</span></span>
+								<span class="span1">熊猫币</span>
+							</div>
+						</div>
+						<div class="record_course">
+							<div class="record_course_left z">
+								<span class="span0">购买课程</span>
+							</div>
+							<div class="record_course_right y">
+								<span class="span0">-<span>100</span></span>
+								<span class="span1">熊猫币</span>
+							</div>
+						</div>
+						<div class="record_course">
+							<div class="record_course_left z">
+								<span class="span0">赠送</span>
+							</div>
+							<div class="record_course_right y">
+								<span class="span0">-<span>100</span></span>
+								<span class="span1">熊猫币</span>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="both"></div>
+			</div>
+			<!--交易记录结束-->
 	
 	
 
 	
-	<div id="wrapper">
+	<div id="wrapper" style="display: none;">
 		<div id="scroller">
 	        <div id="tabSlider2" class="tabSlider"> 
 	        	
@@ -53,78 +111,15 @@
 						<!--熊猫币开始--> 
 	                    <div class="tabSlider-box curr" style="transform: translate(0px, 0px);">
 							
-								<!--余额开始-->
-							<div class="balance">
-								<div class="div0">熊猫币余额(熊猫币)</div>
-								<div class="div1">88</div>
-								<div class="div2" onclick="location.href ='recharges.html'">去充值</div>
-							</div>
-							<!--余额结束-->
-							
-							<!--交易记录开始-->
-							<div class="record">
-								<div class="record_main">
-									<div class="record_title">
-										交易记录
-									</div>
-									<div class="record_main_div">
-										<div class="record_course">
-											<div class="record_course_left z">
-												<span class="span0">充值</span>
-											</div>
-											<div class="record_course_right y">
-												<span class="span0">+<span>100</span></span>
-												<span class="span1">熊猫币</span>
-											</div>
-										</div>
-										<div class="both"></div>
-										<div class="record_course">
-											<div class="record_course_left z">
-												<span class="span0">充值</span>
-											</div>
-											<div class="record_course_right y">
-												<span class="span0">+<span>100</span></span>
-												<span class="span1">熊猫币</span>
-											</div>
-										</div>
-										<div class="record_course">
-											<div class="record_course_left z">
-												<span class="span0">购买课程</span>
-											</div>
-											<div class="record_course_right y">
-												<span class="span0">-<span>100</span></span>
-												<span class="span1">熊猫币</span>
-											</div>
-										</div>
-										<div class="record_course">
-											<div class="record_course_left z">
-												<span class="span0">赠送</span>
-											</div>
-											<div class="record_course_right y">
-												<span class="span0">-<span>100</span></span>
-												<span class="span1">熊猫币</span>
-											</div>
-										</div>
-										
-									</div>
-									
-								</div>
-								<div class="both"></div>
-							</div>
-							<!--交易记录结束-->
-							
-							
-							
-							
 	                    </div>
 	                    <!--熊猫币结束-->
 	            
 						<!--人民币开始-->
-	                    <div class="tabSlider-box tjks" style="transform: translate(1883px, 0px);">
+	                    <div class="tabSlider-box tjks" style="transform: translate(1883px, 0px); display: none;">
 								<!--余额开始-->
 								<div class="balance" style="margin-left1: -0.1rem;">
 									<div class="div0">人民币余额(元)</div>
-									<div class="div1">88</div>
+									<div class="div1" id="rmbNumber"></div>
 									<div class="div2 div02">提现</div>
 								</div>
 								<!--余额结束-->
@@ -2861,7 +2856,7 @@ app.TabSlider = function(dom,options){
 
 
 <script type="text/javascript">
-	window.onload = function(){
+/*	window.onload = function(){
 //		点击人民币提现   出现添加银行卡提示             withdraws.html--提现页   点击提现之前已经添加过银行卡直接到提现页
 		$(".balance .div02").click(function(){
 			$(".bank_card").show();
@@ -2873,7 +2868,7 @@ app.TabSlider = function(dom,options){
 		$(".bank_card_main_fixed .div1").click(function(){
 			$(".bank_card").hide();
 		});
-	};
+	};*/
 </script>
 
 

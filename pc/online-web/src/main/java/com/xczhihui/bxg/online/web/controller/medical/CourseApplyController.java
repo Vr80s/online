@@ -162,6 +162,14 @@ public class CourseApplyController {
         return ResponseObject.newSuccessResponseObject("课程申请更新成功！");
     }
 
+    @RequestMapping(value = "/updateCollectionApply",method= RequestMethod.POST)
+    public ResponseObject updateCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        courseApplyInfo.setUserId(user.getId());
+        courseApplyService.updateCollectionApply(courseApplyInfo);
+        return ResponseObject.newSuccessResponseObject("专辑申请更新成功！");
+    }
+
     /**
      * Description：新增课程专辑申请
      * creed: Talk is cheap,show me the code
@@ -213,7 +221,7 @@ public class CourseApplyController {
     public ResponseObject deleteCourseApplyById(HttpServletRequest request, Integer caiId){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyService.deleteCourseApplyById(user.getId(),caiId);
-        return ResponseObject.newSuccessResponseObject("课程申请删除成功！");
+        return ResponseObject.newSuccessResponseObject("申请删除成功！");
     }
 
     /**

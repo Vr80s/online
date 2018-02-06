@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <link rel="stylesheet" href="../css/my_homepage.css" />
-
+<script type="text/javascript" src="../js/my_homepage.js"></script>
 
 	
 </head>
@@ -42,8 +42,10 @@
 	<!--中间模块开始-->
 	<div class="my_main">
 		<ul>
-			<li onclick="window.location='/xcview/html/my_asset.html'">
-				<p class="p0">80</p>
+
+			<li>
+				<p class="p0" id="xmbNumber"></p>
+
 				<p class="p1">熊猫币</p>
 			</li>
 			<li>
@@ -51,7 +53,7 @@
 				<p class="p1">优惠券</p>
 			</li>
 			<li onclick="window.location='/xcview/html/bought.html'">
-				<p class="p0">5</p>
+				<p class="p0" id="courseNumber"></p>
 				<p class="p1">已购</p>
 			</li>
 			<li style="border-left: 1px solid #D8DDE6;" onclick="window.location='/xcview/html/my_wallet.html'">
@@ -63,7 +65,7 @@
 	</div>
 	
 	<!--我要当主播-->
-	<div class="my_anchor">
+	<div class="my_anchor" onclick="location.href ='my_anchor.html'">
 		<div class="anchor_main">
 			<img src="../images/my_anchor.png" class="img0 z" />
 			我要当主播
@@ -132,7 +134,7 @@
 				<p>学习</p>
 			</li>
 			<li>
-				<a href="" class="footer_three"></a>
+				<a href="discovery.html" class="footer_three"></a>
 				<p>发现</p>
 			</li>
 			<li>
