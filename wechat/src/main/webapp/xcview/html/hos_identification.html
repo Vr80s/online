@@ -55,19 +55,19 @@
 			<ul class="wrap-user-id">
 				<li>
 					<span>医馆名称</span>
-					<input type="text" name="name" placeholder="请填写医馆名称" />
+					<input type="text" name="name" id="name" placeholder="请填写医馆名称" />
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>公司名称</span>
-					<input type="text" name="company" placeholder="请填写医馆所属的公司名称" />
+					<input type="text" name="company" id="company" placeholder="请填写医馆所属的公司名称" />
 				</li>
 			</ul>
 			<ul class="wrap-user-id idcar">
 				<li>
 					<span>统一社会信用代码</span>
-					<input type="text" name="businessLicenseNo" placeholder="请填写社会信用代码" />
+					<input type="text" name="businessLicenseNo" id="businessLicenseNo" placeholder="请填写社会信用代码" />
 				</li>
 			</ul>
 		</div>
@@ -92,7 +92,7 @@
 			<ul class="wrap-user-id">
 				<li>
 					<span>药品经营许可证号</span>
-					<input type="text" name="licenseForPharmaceuticalTrading" placeholder="请填写经营许可证号" />
+					<input type="text" name="licenseForPharmaceuticalTrading" id="licenseForPharmaceuticalTrading" placeholder="请填写经营许可证号" />
 				</li>
 			</ul>
 			<p class="qualification-title">药品经营许可证</p>
@@ -110,11 +110,13 @@
 		</div>
 	<!--提交认证-->
 		<div class="btn-qualification">
-			<a class="btn-up" href="../html/hos_examine.html" onclick="btn_up()" >提交认证</a>
+			<a class="btn-up" href="javascript:;" onclick="btn_up()" >提交认证</a>
 		</div>
 		</form>
-		
 
+		<!--错误提示-->
+
+		<div class="error-prompt">请完善信息</div>
 	
 	</div>	
 

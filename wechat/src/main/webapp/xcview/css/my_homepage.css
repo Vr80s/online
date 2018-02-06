@@ -33,7 +33,7 @@ header{
 	background-size: 100% 100%;
 }*/
 .header_img{
-	padding-top: 0.8rem;
+	padding-top: 1.4rem;
 }
 .header_img_right{
 	width: 2.09rem;
@@ -44,6 +44,7 @@ header{
 	font-size: 0.28rem;
 	color: #FFFFFF;
 	text-indent: 0.2rem;
+	display: none;
 }
 .header_img .img0{
 	width: 1.6rem;
@@ -80,6 +81,7 @@ header{
 	color: #F97B49;
 	margin-top: 0.39rem;
 	margin-bottom: 0.05rem;
+	height: 0.36rem;
 }
 .my_main ul li .p1{
 	font-size: 0.22rem;

@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <link rel="stylesheet" href="../css/my_asset.css" />
-
+<script type="text/javascript" src="../js/my_asset.js"></script>
 
 	
 </head>
@@ -39,7 +39,7 @@
 	<!--余额开始-->
 	<div class="balance">
 		<div class="div0">熊猫币余额(熊猫币)</div>
-		<div class="div1">88</div>
+		<div class="div1" id="xmbNumber"></div>
 		<div class="div2">结算</div>
 	</div>
 	<!--余额结束-->
@@ -51,18 +51,21 @@
 				交易记录
 			</div>
 			<div class="record_course_div">
+				<script type="text/html" id="record_course_div">
+					{{each items as item i}}
 				<div class="record_course">
 					<div class="record_course_left z">
-						<span class="span0">课程</span>
-						<span class="span1">砒霜的价值</span>
+						<span class="span0">{{item.label}}课程</span>
+						<span class="span1">{{itme.gradeName}}砒霜的价值</span>
 					</div>
 					<div class="record_course_right y">
-						<span class="span0">+<span>100</span></span>
+						<span class="span0">+<span>{{itme.value}}100</span></span>
 						<span class="span1">熊猫币</span>
 					</div>
 				</div>
-				
-				<div class="record_course">
+					{{/each}}
+				</script>
+			<!--	<div class="record_course">
 					<div class="record_course_left z">
 						<span class="span0">直播礼物</span>
 						<span class="span1">砒霜的价值</span>
@@ -71,9 +74,9 @@
 						<span class="span0">+<span>100</span></span>
 						<span class="span1">熊猫币</span>
 					</div>
-				</div>
+				</div>-->
 				
-				<div class="record_course">
+				<!--<div class="record_course">
 					<div class="record_course_left z">
 						<span class="span0">结算</span>
 					</div>
@@ -92,7 +95,7 @@
 						<span class="span0">+<span>100</span></span>
 						<span class="span1">熊猫币</span>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<div class="both"></div>
