@@ -556,7 +556,7 @@ a {
     left: 20px;
 }
 #doc_Administration .doc_Administration_top .search_teacher_ipt{
-	  display: inline-block;
+	 display: inline-block;
     width: 220px;
     height: 36px;
     line-height: 36px;
@@ -565,7 +565,10 @@ a {
     top: 12px;
     text-indent: 2rem;
     outline: none;
-   	border: 1px solid #F0F0F0;
+    border: 1px solid #F0F0F0;
+    background-image: url(../images/hospital/hos_search.png);
+    background-repeat: no-repeat;
+    background-position: 9px 11px;
 }
 #doc_Administration .doc_Administration_top .search_teacher_btn{
 	right: 169px;

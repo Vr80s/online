@@ -320,7 +320,7 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       		},1000)
+	       		},2000)
 	       	$('#doc_Administration_bottom3').addClass('hide');
 	       	$('#mask').addClass('hide');
 		})
