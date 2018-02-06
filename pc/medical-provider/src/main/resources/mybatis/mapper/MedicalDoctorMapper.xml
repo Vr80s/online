@@ -259,6 +259,9 @@
 			<if test="medicalDoctor.fieldText != null">
 				field_text,
 			</if>
+			<if test="medicalDoctor.workTime != null">
+				work_time,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="medicalDoctor.id != null">
@@ -291,6 +294,9 @@
 			<if test="medicalDoctor.fieldText != null">
 				#{medicalDoctor.fieldText},
 			</if>
+			<if test="medicalDoctor.workTime != null">
+				#{medicalDoctor.workTime},
+			</if>
 		</trim>
 	</insert>
 
@@ -299,5 +305,45 @@
 		FROM medical_doctor
 		WHERE id = #{doctorId}
 	</select>
+
+	<update id="updateSelective" parameterType="com.xczhihui.medical.doctor.model.MedicalDoctor">
+		UPDATE medical_doctor
+		<set>
+			<if test="medicalDoctor.name != null">
+				name = #{medicalDoctor.name},
+			</if>
+			<if test="medicalDoctor.title != null">
+				title = #{medicalDoctor.title},
+			</if>
+			<if test="medicalDoctor.description != null">
+				description = #{medicalDoctor.description},
+			</if>
+			<if test="medicalDoctor.deleted != null">
+				deleted = #{medicalDoctor.deleted},
+			</if>
+			<if test="medicalDoctor.status != null">
+				status = #{medicalDoctor.status},
+			</if>
+			<if test="medicalDoctor.authenticationInformationId != null">
+				authenticationInformationId = #{medicalDoctor.authenticationInformationId},
+			</if>
+			<if test="medicalDoctor.createTime != null">
+				createTime = #{medicalDoctor.createTime},
+			</if>
+			<if test="medicalDoctor.createPerson != null">
+				createPerson = #{medicalDoctor.createPerson},
+			</if>
+			<if test="medicalDoctor.fieldText != null">
+				fieldText = #{medicalDoctor.fieldText},
+			</if>
+			<if test="medicalDoctor.fieldText != null">
+				fieldText = #{medicalDoctor.fieldText},
+			</if>
+			<if test="medicalDoctor.workTime != null">
+				work_time = #{medicalDoctor.workTime}
+			</if>
+			where id = #{medicalDoctor.id}
+		</set>
+	</update>
 
 </mapper>

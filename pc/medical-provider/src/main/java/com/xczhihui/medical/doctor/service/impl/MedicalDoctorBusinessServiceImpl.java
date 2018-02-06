@@ -19,7 +19,6 @@ import com.xczhihui.medical.field.vo.MedicalFieldVO;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalDoctorMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
-import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
@@ -194,58 +193,40 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             throw new RuntimeException("您不是医师，不能加入医馆");
         }
 
-        String hospitalId;
+        String doctorId = medicalDoctorAccount.getDoctorId();
 
-        // 如果医馆id为空 则表示用户手动填写医馆信息
-        if(StringUtils.isBlank(medicalDoctor.getHospitalId())){
-
-            hospitalId = UUID.randomUUID().toString().replace("-","");
-
-            // 参数校验
-            this.validate(medicalDoctor, 1);
-
-            // 保存医馆信息
-            MedicalHospital medicalHospital = new MedicalHospital();
-
-            // 该医馆没有被校验 只是用来数据展示
-            medicalHospital.setId(hospitalId);
-            medicalHospital.setName(medicalDoctor.getName());
-            medicalHospital.setAuthentication(false);
-            medicalHospital.setProvince(medicalDoctor.getProvince());
-            medicalHospital.setCity(medicalDoctor.getCity());
-            medicalHospital.setDeleted(false);
-            medicalHospital.setStatus(false);
-            medicalHospital.setCreateTime(new Date());
-            medicalHospital.setFrontImg(medicalDoctor.getHeadPortrait());
-            medicalHospitalMapper.insert(medicalHospital);
-
-        }else{
-
-            hospitalId = medicalDoctor.getHospitalId();
-
-        }
+        // 参数校验
+        this.validate(medicalDoctor, 1);
 
         commonThreadPoolTaskExecutor.submit(() -> {
 
-            // 添加医馆和用户的对应关系 ：medical_hospital_account
-            MedicalHospitalAccount hospitalAccount = new MedicalHospitalAccount();
-            hospitalAccount.setId(UUID.randomUUID().toString().replace("-",""));
-            hospitalAccount.setDoctorId(hospitalId);
-            hospitalAccount.setAccountId(medicalDoctor.getUserId());
-            hospitalAccountMapper.insert(hospitalAccount);
+            // 如果之前已经加入医馆了
+            Map<String, Object> columnMap = new HashMap<>();
+            columnMap.put("doctor_id" ,doctorId);
+            List<MedicalHospitalDoctor> medicalHospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
+            if(CollectionUtils.isNotEmpty(medicalHospitalDoctors)){
+
+                // 删除之前医师对应医馆的关联关系
+                hospitalDoctorMapper.deleteByMap(columnMap);
+
+            }
 
             // 添加医馆和医师的对应关系：medical_hospital_doctor
             MedicalHospitalDoctor hospitalDoctor = new MedicalHospitalDoctor();
             hospitalDoctor.setId(UUID.randomUUID().toString().replace("-",""));
-            hospitalDoctor.setDoctorId(medicalDoctorAccount.getDoctorId());
-            hospitalDoctor.setHospitalId(hospitalId);
+            hospitalDoctor.setDoctorId(doctorId);
+            hospitalDoctor.setHospitalId(medicalDoctor.getHospitalId());
             hospitalDoctorMapper.insert(hospitalDoctor);
 
-            logger.info("hospitalId：{} and accountId：{}，doctorId：{} build relation Successfully",hospitalId,medicalDoctor.getUserId(),medicalDoctorAccount.getDoctorId());
+            // 添加医师的坐诊时间
+            medicalDoctor.setUpdateTime(new Date());
+            medicalDoctor.setId(doctorId);
+            medicalDoctorMapper.updateSelective(medicalDoctor);
 
-            return null;
+            logger.info("hospitalId：{} and accountId：{}，doctorId：{} build relation Successfully", medicalDoctor.getHospitalId(),
+                    medicalDoctor.getUserId(), doctorId);
+
         });
-
     }
 
     /**
@@ -492,28 +473,17 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private void validate(MedicalDoctor medicalDoctor, int type) {
 
         if(type == 1){
-            if(StringUtils.isBlank(medicalDoctor.getName())){
-                throw new RuntimeException("医馆名字不能为空");
+
+            if(medicalDoctor == null){
+                throw new RuntimeException("请求参数不能为空");
             }
 
-            if(StringUtils.isBlank(medicalDoctor.getProvince())){
-                throw new RuntimeException("请选择医馆所在省份");
-            }
-
-            if(StringUtils.isBlank(medicalDoctor.getCity())){
-                throw new RuntimeException("请选择医馆所在城市");
-            }
-
-            if(StringUtils.isBlank(medicalDoctor.getTel())){
-                throw new RuntimeException("请填写医馆联系电话");
+            if(StringUtils.isBlank(medicalDoctor.getHospitalId())){
+                throw new RuntimeException("请选择医馆");
             }
 
             if(StringUtils.isBlank(medicalDoctor.getWorkTime())){
                 throw new RuntimeException("请选择坐诊时间");
-            }
-
-            if(StringUtils.isBlank(medicalDoctor.getHeadPortrait())){
-                throw new RuntimeException("请上传封面图");
             }
         }
 

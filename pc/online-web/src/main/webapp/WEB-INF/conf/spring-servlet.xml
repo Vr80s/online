@@ -68,10 +68,10 @@
 	<mvc:default-servlet-handler />
 	
 	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.utils.OnlineInterceptor" />
-		</mvc:interceptor>
+		<!--<mvc:interceptor>-->
+			<!--<mvc:mapping path="/**" />-->
+			<!--<bean id="onlineInterceptor" class="com.xczhihui.bxg.online.web.utils.OnlineInterceptor" />-->
+		<!--</mvc:interceptor>-->
 
 		<!--发送系统消息拦截器-->
 		<mvc:interceptor>
