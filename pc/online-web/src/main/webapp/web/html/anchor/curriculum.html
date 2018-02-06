@@ -110,6 +110,8 @@
 				<span>视频</span>
 				{{else if course.multimediaType==2}}
 				<span>音频</span>
+				{{else}}
+				<span>—</span>
 				{{/if}}
 			</td>
 			<td>
@@ -128,6 +130,8 @@
 					{{else}}
 					<span>未上架</span>
 					{{/if}}
+					{{else}}
+					<span>—</span>
 				{{/if}}
 			</td>
 			<td>
@@ -223,7 +227,15 @@
 				{{/if}}
 			</td>
 			<td>
-				{{collection.title}}
+				{{if collection.applyStatus==1}}
+				{{if collection.status==1}}
+					<span>已上架</span>
+				{{else}}
+					<span>未上架</span>
+				{{/if}}
+				{{else}}
+					<span>—</span>
+				{{/if}}
 			</td>
 			<td>
 				{{if collection.applyStatus==1}}
@@ -1455,7 +1467,7 @@
 							<form action="">
 								<div>
 									<span><em>*</em>标题</span>
-									<input type="text" placeholder="请填写您的标题" class="zhuanlan_title"/>
+									<input type="text" placeholder="请填写您的标题" class="zhuanlan_title" />
 									<p class="warning warning0 hide">标题不能为空</p>
 								</div>
 								<div id="resourceType">
@@ -1468,29 +1480,29 @@
 									</label>
 								</div>
 								<div class="fla_btn">
+									<span><em>*</em>资源上传</span>
+
+									<input id="ccId" name="ccId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+									<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成</span>
+									<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
+									<div id="swfDiv" style="display: inline-block;"></div>
+									<input type="button" value="点击上传资源" id="btn_width" style="width: 128px; height: 32px;line-height: 32px;font-size: 14px;color: #00BC12;border-radius: 4px;border: 1px solid #00BC12;background: #fff;outline: none;" />
 									<p class="warning warning1 hide">请先上传资源文件</p>
-									<input id="ccId" name="ccId" type="text" style="display: none"/>
-									<span style="float: left;display: none">
-							选择视频：<input id="videofile" name="videofile" type="text" />
-						</span>
-									<div id="swfDiv"></div>
-									<input type="button" value="点击上传视频" id="btn_width" style="width: 80px; height: 25px" />
 								</div>
-								<div class="uploading" style="display:none;">
-									上传中,请勿刷新页面
+
+								<div class="uploading" style="display:block;">
+									<p>资源上传中,请稍后...</p>
 									<span id="uploadProgress">
 										<div class="progress">
-							<div class="progress-bar progress-bar-success" role="progressbar"
-								 aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-								 style="width: 90%;">
-								<span class="sr-only">90% 完成（成功）</span>
-							</div>
-						</div>
+											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+												<span class="sr-only">90% 完成（成功）</span>
+											</div>
+										</div>
 									</span>
+									<button id="cancalUpdata">取消上传</button>
 								</div>
-								<div class="uploadfinish" style="display:none;">
-									上传完成！
-								</div>
+
+
 								<div class="baocun">
 									<input type="button" value="保存" id="submit" />
 								</div>

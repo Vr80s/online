@@ -121,7 +121,7 @@ public class CCUtils {
 		Map<String, Object> fromJson = g.fromJson(responsestr, Map.class);
 		Map<String, Object> obj = (Map<String, Object>) fromJson.get("video");
 		String duration = obj.get("duration").toString();
-		return String.valueOf(Double.valueOf(duration)/60);
+		return String.valueOf(Double.valueOf(duration).intValue()/60);
 	}
 
 	public static void main(String[] args) {

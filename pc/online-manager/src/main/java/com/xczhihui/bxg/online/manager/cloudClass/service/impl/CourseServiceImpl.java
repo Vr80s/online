@@ -1410,7 +1410,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 //					double m = Double.valueOf(totalM-h*60) / 60;
 //					DecimalFormat df   = new DecimalFormat("######0.00");
 //					m = Double.valueOf(df.format(m));
-					String hm = String.valueOf(Double.valueOf(duration)/60);
+					String hm = String.valueOf(Integer.valueOf(duration)/60);
 //					String hm = String.valueOf(h + m);
 
 					String vid = video.get("id").toString();
