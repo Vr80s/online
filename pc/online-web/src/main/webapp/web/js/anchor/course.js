@@ -353,10 +353,10 @@ function editCourse(caiId){
 }
 
 function deleteCourse(caiId,collection){
-    var title="课程删除";
+    var title="删除";
     var content="确认删除该课程？";
     if(collection){
-        title="专辑删除";
+        title="删除";
         content="确认删除该专辑？";
     }
     confirmBox(title,content,function(closefn){
@@ -1089,7 +1089,7 @@ function courseResourceList(current){
 }
 
 function deleteResource(resourceId){
-    var title="资源删除";
+    var title="删除";
     var content="确认删除该资源？";
     confirmBox(title,content,function(closefn){
         $.ajax({

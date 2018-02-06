@@ -209,11 +209,11 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private void validateCourseName(CourseApplyInfo courseApplyInfo) {
         Integer caiCount = courseApplyInfoMapper.selectCourseApplyForValidate(courseApplyInfo.getTitle(),courseApplyInfo.getOldApplyInfoId());
         if(caiCount>0){
-            throw new RuntimeException("课程名称被占用");
+            throw new RuntimeException("课程标题被占用");
         }else{
             Integer cCount = courseApplyInfoMapper.selectCourseForValidate(courseApplyInfo.getTitle());
             if(cCount>0){
-                throw new RuntimeException("课程名称被占用");
+                throw new RuntimeException("课程标题被占用");
             }
         }
     }

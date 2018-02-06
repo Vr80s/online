@@ -145,7 +145,7 @@ public class CourseApplyController {
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.saveCourseApply(courseApplyInfo);
-        return ResponseObject.newSuccessResponseObject("课程新增申请发起成功！");
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     /**
@@ -159,7 +159,7 @@ public class CourseApplyController {
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.updateCourseApply(courseApplyInfo);
-        return ResponseObject.newSuccessResponseObject("课程申请更新成功！");
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     @RequestMapping(value = "/updateCollectionApply",method= RequestMethod.POST)
@@ -167,7 +167,7 @@ public class CourseApplyController {
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.updateCollectionApply(courseApplyInfo);
-        return ResponseObject.newSuccessResponseObject("专辑申请更新成功！");
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     /**
@@ -181,7 +181,7 @@ public class CourseApplyController {
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
         courseApplyService.saveCollectionApply(courseApplyInfo);
-        return ResponseObject.newSuccessResponseObject("课程新增申请发起成功！");
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     /**
@@ -195,7 +195,7 @@ public class CourseApplyController {
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyResource.setUserId(user.getId());
         courseApplyService.saveCourseApplyResource(courseApplyResource);
-        return ResponseObject.newSuccessResponseObject("资源新增成功！");
+        return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
     /**
@@ -208,7 +208,7 @@ public class CourseApplyController {
     public ResponseObject deleteCourseResource(HttpServletRequest request, String resourceId){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyService.deleteCourseApplyResource(user.getId(),resourceId);
-        return ResponseObject.newSuccessResponseObject("资源删除成功！");
+        return ResponseObject.newSuccessResponseObject("删除成功");
     }
 
     /**
@@ -221,7 +221,7 @@ public class CourseApplyController {
     public ResponseObject deleteCourseApplyById(HttpServletRequest request, Integer caiId){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyService.deleteCourseApplyById(user.getId(),caiId);
-        return ResponseObject.newSuccessResponseObject("申请删除成功！");
+        return ResponseObject.newSuccessResponseObject("删除成功");
     }
 
     /**
