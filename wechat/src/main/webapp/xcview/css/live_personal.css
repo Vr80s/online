@@ -151,7 +151,7 @@ textarea::-webkit-input-placeholder {
 }
 /*加关注*/
 .add_follow{
-	width: 1.6rem;
+	width: 1.8rem;
     height: 0.56rem;
     border: 0.01rem solid #00BC12;
     border-radius: 0.1rem;
@@ -164,12 +164,19 @@ textarea::-webkit-input-placeholder {
     margin-top: 0.19rem;
 }
 .add_follow img{
-position: absolute;
+	position: absolute;
     left: 0.15rem;
     top: 0.1rem;
     width: 0.35rem;
+    margin-left: 0.06rem;
+}
+.add_follow p{
+	margin-left: 0.78rem;
 }
 /*主播状态*/
+.ccH5playerBox{
+	width: 100% !important;
+}
 .personal_status{
 	width: 100%;
 	padding: 0.3rem 0.26rem;
