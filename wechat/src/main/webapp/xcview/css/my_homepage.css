@@ -33,7 +33,7 @@ header{
 	background-size: 100% 100%;
 }*/
 .header_img{
-	padding-top: 0.8rem;
+	padding-top: 1.4rem;
 }
 .header_img_right{
 	width: 2.09rem;
@@ -44,6 +44,7 @@ header{
 	font-size: 0.28rem;
 	color: #FFFFFF;
 	text-indent: 0.2rem;
+	display: none;
 }
 .header_img .img0{
 	width: 1.6rem;
