@@ -10,7 +10,8 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
 <link rel="stylesheet" href="../css/live_album.css" />
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/jquery-2.1.1.min.js"></script>
+<!--<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>-->
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
@@ -35,7 +36,7 @@
 		</div>
 	</div>
 	<!--视频-->
-	<div class="play_video">
+	<div class="play_video" id="video_box">
 		<!--<div class="video_prompt">
 			暂未开播
 		</div>-->
@@ -362,7 +363,22 @@
 		kk=750
 	}
 	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
+	document.documentElement.style.fontSize=kk/7.5+"px";
+	//由于jq  1.9  以上版本删除了toggle ,加以下代码兼容	
+$.fn.toggle = function( fn, fn2 ) {
+    var args = arguments,guid = fn.guid || $.guid++,i=0,
+    toggle = function( event ) {
+      var lastToggle = ( $._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+      $._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+      event.preventDefault();
+      return args[ lastToggle ].apply( this, arguments ) || false;
+    };
+    toggle.guid = guid;
+    while ( i < args.length ) {
+      args[ i++ ].guid = guid;
+    }
+    return this.click( toggle );
+  };
 </script>
 <!--详情点击隐藏和显示-->
 <script>

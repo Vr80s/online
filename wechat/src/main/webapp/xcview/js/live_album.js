@@ -78,14 +78,30 @@ $(".bg_userModal").click(function(){
         	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('course_id');
+//	获取默认第一个视频ID
+	var directId = getQueryString('directId');
 	//传ID courseId为接口的课程ID
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
+		//详情页的banner
+		var school_img = document.createElement("img");
+		school_img.src = data.resultObject.smallImgPath;
+		$(".play_video").append(school_img)
+		
+		//	CC视频ID
+//	    var	videoId = data.resultObject.directId;
+	    var	type = data.resultObject.type;
+		
+		//初始化视频资源
+		chZJ(directId,type);
+		
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
+		
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
+		
 	//	简介/内容
 		if(data.resultObject.description == null || data.resultObject.description == ''){
 			$(".no_data").show();
@@ -94,6 +110,7 @@ $(".bg_userModal").click(function(){
 		}else{
 			$(".wrap p").html(data.resultObject.description)
 		}
+		
 	//	主讲人
 		if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
 			$(".no_data1").show();
@@ -107,16 +124,42 @@ $(".bg_userModal").click(function(){
 	
 	requestService("/xczh/course/getCoursesByCollectionId",{collectionId:823},function(data) {
 	if(data.success==true){
-			
-//		console.log(data)
     	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}))
-
 	}
-		
-	
 })
 	
 	
-	
+	function chZJ(videoId,multimediaType){
+	/**
+	 * 请求代码啦
+	 */
+	var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width 
+	var playerheight = 8.95*21.8; //	屏幕分辨率的高：window.screen.height 
+	console.log(playerwidth);
+	var dataParams = {
+		playerwidth:playerwidth,	
+		playerheight:playerheight,
+		videoId:videoId,
+		multimedia_type:multimediaType
+//		multimedia_type:1
+	}
+	requestService("/bxg/ccvideo/commonCourseStatus", 
+			dataParams, function(data) {
+		if(data.success){
+			var playCodeStr = data.resultObject;
+			var playCodeObj = JSON.parse(playCodeStr);
+			console.log(playCodeObj.video.playcode);
+//			$("#video_v").html(playCodeObj.video.playcode)
+			$("#video_box").html(playCodeObj.video.playcode)
+			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
+			/**
+	    	 * 初始化评论区
+	    	 */
+	    	//getVideoCriticize(1,vid);
+		}else{
+    		$(".video_prompt").show();
+		}
+	},false);
+}
 	
 })

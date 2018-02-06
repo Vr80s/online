@@ -117,5 +117,5 @@ var video_Id='';
 	})
 //点击视频默认第一个视频ID
 	function btn_album_page(){
-		window.location.href="live_album.html?course_id="+courseId+"?directId="+video_Id.directId+"";
+		window.location.href="live_album.html?course_id="+courseId+"&directId="+video_Id.directId+"";
 	}
