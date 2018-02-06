@@ -1,4 +1,4 @@
-package com.xczhihui.medical.doctor.enums;
+package com.xczhihui.medical.hospital.enums;
 
 /**
  * 医师入驻申请状态枚举

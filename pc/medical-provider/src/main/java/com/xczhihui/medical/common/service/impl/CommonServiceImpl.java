@@ -2,10 +2,12 @@ package com.xczhihui.medical.common.service.impl;
 
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
+import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
+import com.xczhihui.medical.hospital.enums.MedicalHospitalApplyEnum;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
@@ -17,8 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.*;
 
 /**
@@ -88,50 +88,9 @@ public class CommonServiceImpl implements ICommonService {
      * @param userId 用户id
      * @return 1：认证医师 2：认证医馆 3：医师认证中 4：医馆认证中 5：医师认证被拒 6：医馆认证被拒 7：即没有认证医师也没有认证医馆
      */
-//    @Override
-//    public Integer isDoctorOrHospital(String userId) {
-//
-//
-//        // 判断是否是认证医师
-//        if(this.isDoctor(userId)){
-//            return CommonEnum.AUTH_DOCTOR.getCode();
-//        }else {
-//            // 如果不是认证医师，判断是否正在认证医师
-//            MedicalDoctorApply doctorApply = doctorApplyMapper.getLastOne(userId);
-//            if(doctorApply != null){
-//                Integer status = doctorApply.getStatus();
-//                if(status == 0){
-//                    return CommonEnum.HOSPITAL_APPLY_REJECT.getCode();
-//                }else if(status == 2){
-//                    return CommonEnum.DOCTOR_APPLYING.getCode();
-//                }
-//            }
-//        }
-//
-//        // 判断是否是已认证医馆
-//        if(this.isHospital(userId)){
-//            return CommonEnum.AUTH_HOSPITAL.getCode();
-//        }else {
-//            // 如果不是已认证医馆，判断是否正在认证医馆
-//            MedicalHospitalApply hospitalApply = hospitalApplyMapper.getLastOne(userId);
-//            if(hospitalApply != null){
-//                Integer status = hospitalApply.getStatus();
-//                if(status == 0){
-//                    return CommonEnum.DOCTOR_APPLY_REJECT.getCode();
-//                }else if(status == 2){
-//                    return CommonEnum.HOSPITAL_APPLYING.getCode();
-//                }
-//            }
-//        }
-//
-//        return CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode();
-//    }
-
     @Override
-    public List<Integer> isDoctorOrHospital(String userId) {
+    public Integer isDoctorOrHospital(String userId) {
 
-        // 该数组最多只会有2个值 所以初始值设置为2
-        List<Integer> integers = new ArrayList<>(2);
         CountDownLatch countDownLatch = new CountDownLatch(2);
 
         try {
@@ -147,9 +106,9 @@ public class CommonServiceImpl implements ICommonService {
                     MedicalDoctorApply doctorApply = doctorApplyMapper.getLastOne(userId);
                     if(doctorApply != null){
                         Integer status = doctorApply.getStatus();
-                        if(status == 0){
+                        if(status.equals(MedicalDoctorApplyEnum.REJECT.getCode())){
                             result = CommonEnum.DOCTOR_APPLY_REJECT.getCode();
-                        }else if(status == 2){
+                        }else if(status.equals(MedicalDoctorApplyEnum.WAIT.getCode())){
                             result = CommonEnum.DOCTOR_APPLYING.getCode();
                         }
                     }
@@ -170,9 +129,9 @@ public class CommonServiceImpl implements ICommonService {
                     MedicalHospitalApply hospitalApply = hospitalApplyMapper.getLastOne(userId);
                     if(hospitalApply != null){
                         Integer status = hospitalApply.getStatus();
-                        if(status == 0){
+                        if(status.equals(MedicalHospitalApplyEnum.REJECT.getCode())){
                             result = CommonEnum.HOSPITAL_APPLY_REJECT.getCode();
-                        }else if(status == 2){
+                        }else if(status.equals(MedicalHospitalApplyEnum.WAIT.getCode())){
                             result = CommonEnum.HOSPITAL_APPLYING.getCode();
                         }
                     }
@@ -190,36 +149,29 @@ public class CommonServiceImpl implements ICommonService {
             log.info("-----------------auth hospital result = " + authHospitalResult);
 
             if(authDoctorResult != null && authHospitalResult == null){
-                integers.add(authDoctorResult);
-                return integers;
+                return authDoctorResult;
             }
 
             if(authDoctorResult == null && authHospitalResult != null){
-                integers.add(authHospitalResult);
-                return integers;
+                return authHospitalResult;
             }
 
             // 当两者都为空时
             if(authDoctorResult == null && authHospitalResult == null){
-                integers.add(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode());
-                return integers;
+                return CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode();
             }
 
-            // 当查询到该用户即是已认证医师，又是已认证医馆
-            if(authDoctorResult == CommonEnum.AUTH_DOCTOR.getCode()
-                    && authHospitalResult == CommonEnum.AUTH_HOSPITAL.getCode()){
-                log.warn("userId = {} is auth doctor successfully , but is auth hospital successfully" , userId);
-                integers.add(authHospitalResult);
-                return integers;
+            // 当查询到该用户即是认证医师，又认证医馆
+            if(authDoctorResult != null && authHospitalResult != null){
+                log.warn("userId = {} is auth doctor , also auth hospital" , userId);
+                throw new RuntimeException("账号异常，请联系管理员");
             }
 
-            integers.add(authDoctorResult);
-            integers.add(authHospitalResult);
-            return integers;
+            return null;
 
         } catch (Exception e) {
             log.error("---------------throw exception in auth user is doctor or hospital ,exception is " + e.getMessage());
-            return null;
+            throw new RuntimeException("网络开了个小差，请再试一次");
         }finally {
             // 防止死锁
             Long count = countDownLatch.getCount();

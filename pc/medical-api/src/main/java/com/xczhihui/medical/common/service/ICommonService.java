@@ -24,5 +24,5 @@ public interface ICommonService {
      * @param userId 用户id
      * @return 1：认证医师 2：认证医馆 3：医师认证中 4：医馆认证中 5：医师认证被拒 6：医馆认证被拒 7：即没有认证医师也没有认证医馆
      */
-    List<Integer> isDoctorOrHospital(String userId);
+    Integer isDoctorOrHospital(String userId);
 }

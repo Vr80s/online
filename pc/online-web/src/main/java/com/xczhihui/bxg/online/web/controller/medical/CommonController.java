@@ -76,7 +76,7 @@ public class CommonController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
 
-        List<Integer> result = commonService.isDoctorOrHospital(currentUser.getUid());
+        Integer result = commonService.isDoctorOrHospital(currentUser.getUid());
 
         return ResponseObject.newSuccessResponseObject(result);
 
