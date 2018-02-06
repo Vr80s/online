@@ -31,11 +31,10 @@ $(function(){
 
 //人民币/熊猫币余额
 function balance() {
-    requestService("/xczh/manager/anchorConsoleNumber",{
+    requestService("/xczh/manager/getWalletEnchashmentBalance",{
     },function(data) {
         if(data.success==true){
-            $("#rmbNumber").text(data.resultObject.rmbNumber);
-            $("#xmbNumber").text(data.resultObject.xmbNumber);
+            $("#xmbNumber").text(data.resultObject);
         }else{
             alert(data.errorMessage);
         }

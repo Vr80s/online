@@ -38,7 +38,7 @@
 		<!--余额开始-->
 			<div class="balance">
 				<div class="div0">熊猫币余额(熊猫币)</div>
-				<div class="div1" id="xmbNumber">88</div>
+				<div class="div1" id="xmbNumber">0</div>
 				<div class="div2" onclick="location.href ='recharges.html'">去充值</div>
 			</div>
 			<!--余额结束-->
@@ -50,18 +50,22 @@
 						交易记录
 					</div>
 					<div class="record_main_div">
+						<script type="text/html" id="record_main_div">
+							{{each items as item i}}
 						<div class="record_course">
 							<div class="record_course_left z">
-								<span class="span0">充值</span>
+								<span class="span0">{{item.subject}}</span>
 							</div>
 							<div class="record_course_right y">
-								<span class="span0">+<span>100</span></span>
+								<span class="span0">+<span>{{item.totalAmount}}</span></span>
 								<span class="span1">熊猫币</span>
 							</div>
 							<div class="both"></div>
-							<div class="time">2018-02-02 12:30</div>
+							<div class="time">{{item.gmtCreate}}</div>
 						</div>
-						<div class="both"></div>
+							{{/each}}
+						</script>
+						<!--<div class="both"></div>
 						<div class="record_course">
 							<div class="record_course_left z">
 								<span class="span0">充值</span>
@@ -94,7 +98,7 @@
 							</div>
 							<div class="both"></div>
 							<div class="time">2018-02-02 12:30</div>
-						</div>
+						</div>-->
 						
 					</div>
 					
