@@ -52,7 +52,7 @@
 					
 				</div>
 			</div>
-			<div class="header_cancel">取消</div>
+			<div class="header_cancel" onclick="location.href='home_page.html'">取消</div>
 		</div>
 	</header>
 	<!--头部搜索结束-->
@@ -76,7 +76,7 @@
 	<div class="search_history">
 		<div class="search_history_title">
 			<div class="div0">搜索历史</div>
-			<div class="div1">清除历史</div>
+			<div class="div1" onclick="clearAll()">清除历史</div>
 			<div class="both"></div>
 		</div>
 		<div class="search_history_list">
@@ -162,12 +162,15 @@
 			}
 
 			var historyInf = '';
-			localStorage.hisArr.split(',').forEach(function(v,i){
-				if(v.split($("#header_input").val()).length>1){
-					historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
-				}
-			})
-			$('.search_history_list').html(historyInf);
+			if(localStorage.hisArr!=undefined){
+                localStorage.hisArr.split(',').forEach(function(v,i){
+                    if(v.split($("#header_input").val()).length>1){
+                        historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+                    }
+                })
+                $('.search_history_list').html(historyInf);
+			}
+
 		//
 		}
 		

@@ -33,7 +33,7 @@ requestService("/xczh/order/getByOrderId",{
 	/**
 	 * 获取熊猫币余额
 	 */
-	requestService("/xczh/manager/getEnchashmentBalance",null,function(data) {
+	requestService("/xczh/manager/getWalletEnchashmentBalance",null,function(data) {
 		if(data.success){
 			var xmbye = data.resultObject;
 			$("#xmb_ye").html(xmbye);
