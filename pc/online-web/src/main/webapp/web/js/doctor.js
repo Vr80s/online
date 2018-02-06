@@ -548,7 +548,7 @@ $(function () {
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
 	       				$('#tip').toggle();
-	       			},1000)
+	       			},2000)
     	 		}else if($('.login').css('display') == 'block' && data.resultObject.indexOf(1) != -1){
     	 			//注册医师成功
     	 			window.location.href = "/web/html/anchors_resources.html";
@@ -567,7 +567,7 @@ $(function () {
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       		},1000)
+	       		},2000)
     	 	}
     	 });
     })
