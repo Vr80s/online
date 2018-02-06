@@ -416,6 +416,7 @@ function echoCourse(caiId){
 }
 function resetCourseForm(){
     document.getElementById("courseForm").reset();
+    $("#course_version").val(new Date().getTime());
     $("input:radio[name=course_form][value=1]").prop("checked",true);
     UE.getEditor('editor').setContent('');
     UE.getEditor('editor_cd').setContent('');
@@ -433,6 +434,7 @@ function resetCourseForm(){
 function getCourseData(){
     var course = {};
     course.id = $("#caiId").val();
+    course.version = $("#course_version").val();
     course.title = $.trim($('.course_title').val());
     course.subtitle = $.trim($('.course_subtitle').val());
     course.imgPath = $.trim($('#courseImg img').attr('src'));
@@ -919,6 +921,7 @@ function echoCollection(collectionId){
 function getCollectionData(){
     var collection = {};
     collection.id = $.trim($('#collectionId').val());
+    collection.version = $.trim($('#collection_version').val());
     collection.title = $.trim($('.collection_title').val());
     collection.subtitle = $.trim($('.collection_subtitle').val());
     collection.imgPath = $.trim($('#collectionImg img').attr('src'));
@@ -1023,6 +1026,7 @@ function verifyCollection(collection){
 }
 function resetCollectionForm(){
     document.getElementById("collectionForm").reset();
+    $("#collection_version").val(new Date().getTime());
     UE.getEditor('editor_collection_details').setContent('');
     UE.getEditor('editor_collection_outline').setContent('');
     UE.getEditor('editor_collection_lecturer_description').setContent('');

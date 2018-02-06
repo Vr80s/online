@@ -9,7 +9,7 @@
           professional_certificate, status, create_time, remark, hospital, update_time
         FROM medical_doctor_apply
         WHERE user_id = #{userId} AND deleted != 1
-        ORDER BY create_time
+        ORDER BY create_time desc
         limit 1
      </select>
 
