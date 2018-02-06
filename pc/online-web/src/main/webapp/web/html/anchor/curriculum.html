@@ -784,12 +784,14 @@
 								<span><em>*</em>课程标题</span>
 								<input type="text" placeholder="请填写您的课程标题" class="zhuanlan_title course_title"/>
 								<p class="warning warning_course_title hide">课程标题不能为空</p>
+								<p class="warning warning_course_title_length hide">课程标题最多30字</p>
 							</div>
 							
 							<div>
 								<span><em>*</em>副标题</span>
 								<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 course_subtitle"/>
 								<p class="warning warning_course_subtitle hide">副标题不能为空</p>
+								<p class="warning warning_course_subtitle_length hide">副标题最多30字</p>
 							</div>
 
 							<div class="certification physician_span">
@@ -818,6 +820,7 @@
 								<span><em>*</em>主播姓名</span>
 								<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_title1 course_lecturer "/>
 								<p class="warning warning_course_lecturer hide">主播不能为空</p>
+								<p class="warning warning_course_lecturer_length hide">主播名称最多30字</p>
 							</div>
 
 							<div class="">
@@ -1055,7 +1058,7 @@
 						
 						
 						<!--这是分页-->
-						<div class="pages collection_pages">
+						<div class="pages collection_pages" style="display:none">
 							<div id="Pagination_collection" class="pagination-pages"></div>
 							<div class="searchPage">
 								<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1079,12 +1082,14 @@
 							<span><em>*</em>专辑标题</span>
 							<input type="text" placeholder="请填写您的专题标题" class="zhuanlan_title collection_title"/>
 							<p class="warning hide warning_collection_title">专题标题不能为空</p>
+							<p class="warning hide warning_collection_title_length">专题标题最多30字</p>
 						</div>
 						
 						<div>
 							<span><em>*</em>副标题</span>
 							<input type="text" placeholder="请填写课程副标题" class="zhuanlan_title zhuanlan_title0 collection_subtitle"/>
 							<p class="warning warning1 hide warning_collection_subtitle">副标题不能为空</p>
+							<p class="warning warning1 hide warning_collection_subtitle_length">副标题最多30字</p>
 						</div>
 						
 						
@@ -1114,6 +1119,7 @@
 							<span><em>*</em>主播姓名</span>
 							<input type="text" placeholder="两个或两个以上请用逗号隔开" class="zhuanlan_title zhuanlan_title1 collection_lecturer"/>
 							<p class="warning warning_collection_lecturer hide">主播姓名不能为空</p>
+							<p class="warning warning_collection_lecturer_length hide">主播姓名最多30字</p>
 						</div>
 						
 						<div class="textarea">
@@ -1426,7 +1432,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="pages course_live_pages">
+					<div class="pages course_live_pages" style="display:none">
 						<div id="Pagination_live"  class="pagination-pages"></div>
 						<div class="searchPage">
 							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
@@ -1513,7 +1519,7 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="pages resource_pages">
+						<div class="pages resource_pages" style="display:none">
 							<div id="Pagination_resource" class="pagination-pages"></div>
 							<div class="searchPage">
 								<span class="page-sum">共<strong class="allPage">0</strong>页</span>

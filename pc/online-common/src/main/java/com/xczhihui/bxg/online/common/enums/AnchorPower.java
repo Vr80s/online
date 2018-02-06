@@ -1,21 +1,22 @@
 package com.xczhihui.bxg.online.common.enums;
 
 /**
- * Description：主播类型
- * 1医师2医馆
+ * Description：主播权限
+ * 1主播2权限禁用0非主播
  * creed: Talk is cheap,show me the code
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 下午 3:39 2018/1/29 0029
  **/
-public enum AnchorType {
+public enum AnchorPower {
 
-    DOCTOR(1, "医师"),
-    HOSPITAL(2, "医馆");
+    YES(1, "主播"),
+    NO(0, "非主播"),
+    BAN(2, "权限禁用");
 
     private String text;
     private int code;
 
-    private AnchorType(int code, String text) {
+    private AnchorPower(int code, String text) {
         this.text = text;
         this.code = code;
     }
