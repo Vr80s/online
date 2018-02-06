@@ -1,6 +1,9 @@
 .wp{width: 1200px; margin: 0 auto;}
 .z{float: left;}
 .y{float: right;}
+table{
+	width: 100%;
+}
 #deleteTip{
 	width: 400px;
 	height: 200px;
@@ -1007,7 +1010,8 @@
 	padding: 10px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:first-child img{
-	width: 100%;
+	width: 106px;
+	height: 60px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table thead > tr > td:nth-child(2),
 .wrap_box  #curriculum #kecheng_bottom2 table tbody > tr > td:nth-child(2){
@@ -1356,7 +1360,8 @@ pre {
 	padding: 10px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:first-child img{
-	width: 100%;
+width: 106px;
+height: 60px;
 }
 .wrap_box  #zhuanji #zhuanji_bottom2 table thead > tr > td:nth-child(2),
 .wrap_box  #zhuanji #zhuanji_bottom2 table tbody > tr > td:nth-child(2){
@@ -1679,7 +1684,7 @@ pre {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 1;
+	z-index: 999;
 	display: none;
 }
 .new_box_bg{
@@ -2000,7 +2005,8 @@ pre {
     color: #333;
 }
 .live_streaming_table table tbody > tr > td:first-child img{
-	width: 100%;
+	width: 106px;
+	height: 60px;
 }
 .live_streaming_table table tbody > tr > td:first-child{
 	width: 126px;
