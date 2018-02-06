@@ -129,8 +129,8 @@ header{
 }
 .record_course{
 	width: 100%;
-	height: 0.8rem;
-	line-height: 0.8rem;
+	height: 1rem;
+    line-height: 0.5rem;
 	border-bottom: 1px solid #D8DDE6;
 	overflow: hidden;
 }
@@ -158,6 +158,10 @@ header{
 .record_course_right .span1{
 	font-size: 0.28rem;
 	color: #333333;
+}
+.record_course .time{
+	font-size: 0.2rem;
+	color: #ccc;
 }
 
 /*礼物*/
