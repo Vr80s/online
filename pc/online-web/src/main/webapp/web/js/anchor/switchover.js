@@ -178,6 +178,7 @@ $(".account_main_alter_title .two").click(function() {
 
 //账户个人信息  
 $(".right_modification").click(function() {
+    initResource(1);
     $(".personal_details").hide();
     $(".message_return").show();
 });

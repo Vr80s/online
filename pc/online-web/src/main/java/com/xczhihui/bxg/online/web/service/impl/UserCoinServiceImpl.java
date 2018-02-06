@@ -147,6 +147,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         BigDecimal balance = BigDecimal.ZERO;
         BigDecimal balanceGive = BigDecimal.ZERO;
         BigDecimal balanceRewardGift = BigDecimal.ZERO;
+        BigDecimal rmb = BigDecimal.ZERO;
         //用户充值余额+平台赠送余额-消费金额  是否大于0
         //判断余额是否充足（ucc的value为负值）
         if (uc.getBalance().add(uc.getBalanceGive()).add(ucc.getValue()).compareTo(BigDecimal.ZERO) != -1) {
@@ -181,6 +182,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         ucc.setUserCoinId(uc.getId());
         ucc.setBalanceValue(balance);
         ucc.setBalanceGiveValue(balanceGive);
+        ucc.setRmb(rmb);
         //暂不支持主播收到的金额进行消费
         ucc.setBalanceRewardGift(balanceRewardGift);
         ucc.setCreateTime(new Date());
