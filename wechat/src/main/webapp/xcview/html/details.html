@@ -40,252 +40,10 @@ $(function(){
 <link rel=stylesheet href="/xcview/css/jquery.mCustomScrollbar.min.css">
 <link rel="stylesheet" href="/xcview/css/details.css">
 <link rel="stylesheet" href="/xcview/css/style.css">
+
+<link rel="stylesheet" type="text/css" href="/xcview/css/details_style.css"/>
 <style>
 
-	#myImage{
-		width: 100%;
-	}
-	.coze_bottom input{
-		width: 8.8rem;
-		border: none;
-		margin-top: 0;
-		border-radius: 50px;
-	}
-	.overfloaw_auto{
-		width: 100%;
-		height: 1.8rem;
-		overflow: auto;
-	}
-	.overfloaw_auto_cen{
-		width: 21rem;
-    	height: 1.8rem;
-	}
-	.div_input{
-		width: 10.5rem;
-	    height: 1.45rem;
-	    line-height: 1.45rem;
-	    border: 1px solid #ccc;
-	    outline: none;
-	    font-size: 0.7rem;
-	    text-indent: 0.3rem;
-	    color: #999;
-	    border-radius: 50px;
-	    margin-top: 0.35rem;
-	    background: #fff;
-	}
-	.leaderboard_center img {
-	    width: 1.65rem;
-	    height: 1.65rem;
-	    float: left;
-	    margin-right: 0.4rem;
-	    border: 4px solid #ededed;
-	    border-radius: 60px;
-	    margin-top: 0.3rem;
-	}
-	.leaderboard_center{
-		margin-top: 0.2rem;
-	}
-	.details_portrait{
-		width: 1.65rem;
-    	height: 1.65rem;
-	}
-	.buy_center{
-		top: 4rem;
-		margin-top:0;
-		height: 5rem;
-	}
-	.look_main p{
-		margin-top:0;
-	}
-	
-	
-	.wendang_none{
-		display: none;
-	}
-	.wendang_none img{
-		 width: 100%; 
-	}
-	.buy_bottom_bg{
-		position: fixed;
-	}
-	div.pinch-zoom,
-        div.pinch-zoom img{
-            width: 100%;
-            -webkit-user-drag: none;
-        }
-        
-        
-    .pinch-zoom-container{
-    	height: 530px !important;
-    	min-height: 1rem !important;
-    }
-    
-    
-    .details_bottom{
-    	/*top: 10.8rem;*/
-    }
-    .details_size{
-    	/*right: auto;
-    	left: 0;*/
-	    /*border-radius: 0px 6px 6px 0px;*/
-	    margin-left: 0;
-    }
-    .video_img{
-    	height: 3rem;
-	    width: 3rem;
-	    position: absolute;
-	    margin: 0 auto;
-	    top: 50%;
-	    left: 50%;
-	    margin-top: -2.3rem;
-	    margin-left: -1.3rem;
-	    pointer-events: none;
-    }
-    .video_img img{
-    	width: 100%;
-    	text-align: center;
-    }
-    .send_gifts_p{
-    	margin-left: 0.4rem;
-    }
-    .balance_size{
-    	float: right;
-    	text-align: right;
-    	margin-right: 0.4rem;
-    }
-    .balance_size{
-    	/*width: 2.5rem;*/
-    	min-width: 1.5rem;
-    }
-    .balance_size img{
-    	width: 0.775rem;
-	    height: 0.775rem;
-	   
-	    margin-left: 0rem;
-	    vertical-align: middle;
-    }
-    #xmbShowSpan{
-    	    display: inline-block;
-    margin-left: 0.3rem;
-    color: #666;
-    margin-right: 0.3rem;
-    }
-    .balance_size_span01{
-    	display: inline-block;
-    	margin-top: -0.9rem;
-    	color: #666 !important;
-    }
-    .balance{
-    	padding: 0.4rem 0;
-    }
-    .import_hide{
-    	z-index: 99999999999999;
-    }
-    .fx_bg{
-    	width: 0.65rem;
-		height: 0.65rem;
-		background: url(/xcview/images/fx.png)no-repeat;
-		background-size: 100% 100%;
-		float: right;
-    	margin-right: 0.3rem;
-    }
-    .history_img_right{
-    	margin-top: 0.55rem;
-    }
-    .fd_img{
-    	width: 4.5rem;
-	    height: 5rem;
-	    margin: 0 auto;
-	    position: relative;
-	    margin-top: 3rem;
-    }
-    .fd_img img{
-    	width: 4.5rem;
-		height: 4.525rem;
-    	position: absolute;
-    	bottom: 0;
-    }
-    .fd_img p{
-    	width: 8rem;
-	    text-align: center;
-	    font-size: 0.7rem;
-	    color: #999;
-	    margin-left: -1.7rem;
-	    position: absolute;
-	    bottom: -1.5rem;
-    }
-    #sendChat{
-    	background: none !important;
-    }
-    .facebox-mobile{
-    	top: 81px !important;
-    }
-    .send_gifts .send_gifts_p{
-    	font-size: 0.5rem;
-    }
-    .details01{
-    	border-bottom: 1px solid #00bc12;
-    	color: #00bc12 !important;
-    }
-    .give_footer a{
-    	color: #fff !important;
-    }
-    .give_footer{
-    	border-top: 1px solid #e0e0e0;
-    }
-    .balance_send{
-    	width: 2.75rem;
-	    height: 1.1rem;
-	    line-height: 1.1rem;
-	    font-size: 0.5rem;
-	    margin-top: 0.05rem;
-    }
-    .fd_img_bg{
-	    width: 4.5rem;
-	    height: 4.525rem;
-	    position: absolute;
-	    bottom: 0;
-	    background: url(/xcview/images/null13.png) no-repeat;
-	    background-size: 100% 100%;
-    }
-    .facebox-mobile0{
-    	margin-top: -1.5rem !important;
-    	left: -0.6rem !important;
-    }
-    
-    
-    /*弹框  视频迷路了，请试试其他视频。 */
-   	.history_bg_cen{
-   		width: 11.55rem;
-	    height: 6.35rem;
-	    position: fixed;
-	    top: 50%;
-	    left: 50%;
-	    margin-left: -37%;
-	    background: #f4f4f4;
-	    z-index: 999999999;
-	    border-radius: 6px;
-   	}
-   	.history_bg_bto{
-   		margin: 0 auto;
-	    margin-top: 1.8rem;
-	    width: 100%;
-	    border-top: 1px solid #e5e5e5;
-	    line-height: 1.8rem;
-   	}
-   	.history_bg_bto div{
-   		width: 100%;
-   	}
-   	
-   	.vanish2{
-   		display: none;
-   	}
-   	.vanish4{
-   		display: none;
-   	}
-   	.details_footer_width ul li{
-   		float: left;
-   	}
 </style>
 
 <script>
@@ -351,15 +109,6 @@ $(function(){
 			$(".import_hide").hide();
 		});
 		
-		/*$(".coze").click(function(){
-			$(".import_hide").hide();
-		});*/
-		/*$("#video").click(function(){
-			$(".import_hide").hide();
-		});
-*/
-		
-		
 		
 		$(".gift_ul_li li:first-child").click();
 		$(".gift_ul_li li:first-child").click();
@@ -375,56 +124,13 @@ $(function(){
 			$(".fd_img").css("display","none");
 		}	
 		
-		
-		/*处理华为手机上输入框遮挡*/
-		/*$("#mywords").click(function(){
-			$("body").css("margin-top","-1rem");
-			$(".details_cen1").css("margin-top","-1rem");
-		});
-		$("#sendChat").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$(".give_a1").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$(".give_a1_span02").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$(".face").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$(".details_footer").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$(".video").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$(".details_size").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$("header").click(function(){
-			$("body").css("margin-top","0rem");
-		});*/
-		/*$(".give_a1").click(function(){
-			$("body").css("margin-top","0rem");
-		});
-		$(".give_a1").click(function(){
-			$("body").css("margin-top","0rem");
-		});*/
 	};
 </script>
 </head>
 <body style="background: #efefef;">
-	<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>熊猫币余额获取失败！请稍后再试</div></div></div>
-	<div class='vanish4'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
+	<div class='vanish2 hide'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>熊猫币余额获取失败！请稍后再试</div></div></div>
+	<div class='vanish4 hide'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
 	
-	<!--<div class='vanish02'><div class='vanish02_bg'></div><div class='vanish02_cen'><div class='vanish02_size'>提交订单错误！请稍后再试！</div></div></div>-->
-	
-		<!--礼物出现的区域  -->
-		<!-- <div class=""  id="text" onkeypress="if(event.keyCode==13) {btn.click();return false;}"></div> -->
-	<!-- <div id="opacity"></div> -->
-	
-
 	<!-- 如果视频id出现错误，弹框 -->
 	<div class="history_bg" style="display:none;">
 		<div class="history_bg_color"></div>
@@ -432,7 +138,7 @@ $(function(){
 			<!--<div class="history_bg_cen_size">此活动信息有误,请试试其他视频。错误码：<span id="error_code"></span></div>-->
 			<div class="history_bg_cen_size">视频迷路了，请试试其他视频。</div>
 			<div class="history_bg_bto">
-				<div class="history_bg_bto1" style="float:right;" onclick="javascript:history.back(-1);">确定</div>
+				<div class="history_bg_bto1" onclick="javascript:history.back(-1);">确定</div>
 				<!-- <div class="history_bg_bto2">取消</div> -->
 				<div class="both"></div>
 			</div>
@@ -447,9 +153,8 @@ $(function(){
 					<div class="grabble_img"></div>
 				</div>
 
-				<span class="history_span"
-					style="width: 74%; color: #666; font-size: 0.851rem;position: absolute;left: 2.1rem;"></span>
-				<div class="history_img_right" id="share" style="width: 1.8rem; color: #00bc12;font-size: 0.8rem;margin-right: 0.2rem;"><div class="fx_bg"></div></div>
+				<span class="history_span"></span>
+				<div class="history_img_right" id="share" style=""><div class="fx_bg"></div></div>
 			</div>
 		</div>
 	</header>
@@ -457,18 +162,20 @@ $(function(){
 		
 	<!-- 头部结束 -->
 	<!-- 中间内容开始 -->
-	<div class="details_cen1"
-		style="position: fixed; width: 100%; background: #fff; border-bottom: 1px solid #d2d2d2; z-index: 9999;">
+	<div class="details_cen1">
 		<!-- <div class="video" id="video" style="width: 100%;height:200px;"></div> -->
 		<!-- <div class="doc" id="doc" style="display: none"></div> -->
-		<div class="video" id="video" style="width: 100%; height: 8.95rem; background: url(/xcview/images/play_back.png1) no-repeat; background-size: cover;margin-top: 0.5rem;">
+		<div class="video" id="video">
 			
 		</div>
 		<!--<div class="video_img"><img src="/xcview/images/play_back.png" /></div>-->
 		<!--暂时先隐藏掉，11/1-->
 		<div class="details_bottom">
-			<div class="details_size" style="background: url(/xcview/images/size_bg.png);background-size: 100% 100%;min-width:5.8rem;">
-				<img src="/xcview/images/yanjing01.png" style="width: 0.58rem;margin-top: 0.2rem;" />	<span></span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/xcview/images/yanjing02.png" style="width: 0.58rem;margin-top: 0.1rem;" /> <span  id="liveGiftCount"></span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="/xcview/images/dashang.png" style="width: 0.64rem;margin-top: 0.1rem;" /> <span id="moneySum"></span>
+			<div class="details_size">
+				<img src="/xcview/images/show.png" class="img0" />	
+				<span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<img src="/xcview/images/yanjing02.png" class="img1" /> <span id="liveGiftCount"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+				<!--<img src="/xcview/images/dashang.png" style="width: 0.64rem;margin-top: 0.1rem;" /> <span id="moneySum"></span>-->
 			</div>
 		</div>
 		
@@ -532,9 +239,9 @@ $(function(){
 	</div>
 	<div class="footer_k" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
-	<div class="coze" style="/* margin-top: 1rem; */height: 11rem">
+	<div class="coze" style="height: 11rem">
 		<div style="height: 0rem;"></div>
-		<div class="chatmsg-box" style="height: 11rem;/* padding-bottom: 0rem; */ margin-top: 0.25rem;">
+		<div class="chatmsg-box" style="height: 11rem;margin-top: 0.25rem;">
 			<div class="coze_center" id="chatmsg" style="overflow: auto;">
 				<!-- <div class="footer_k" style="height: 3.6rem;"></div> -->
 			</div>
@@ -542,7 +249,7 @@ $(function(){
 	</div>
 	<!-- <div style="height:2.125rem;width:100%;background: red;"></div> -->
 	<div class="coze_bottom" style="padding: 0.3rem 0;">
-		<div class="coze_bottom_input" style="margin-right: 0;margin-left: 1.8rem;">
+		<div class="coze_bottom_input" style="margin-right: 0;">
 			<div class="poson">
 			<div class="send_img" id="sendChat"><img src="/xcview/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" /> </div>
 			<!-- <input type="text" placeholder="聊聊您的想法吧" /> -->
@@ -556,13 +263,13 @@ $(function(){
 			</div>
 			
 			<!-- 打赏 -->
-			<span class="face give_a1_span02" style="position: absolute;right: -3.2rem;width: 1.2rem;height: 1.2rem;display: block;"><img src="/xcview/images/give.png" style="margin-top: -0.2rem;" /></span>
+			<span class="face give_a1_span02" style="display: none;"><img src="/xcview/images/give.png" style="margin-top: -0.2rem;" /></span>
              <!-- 礼物 -->     
-			<a href="javascript: ;" class="give_a1" style="float: right;position: absolute;right: -3.5rem;"><img
-				src="/xcview/images/gaft.png" alt="" class="give_a1_img" style="margin-left: -2.8rem;width: 1.2rem;margin-top: 0.45rem;display: block !important;" /></a>
+			<a href="javascript: ;" class="give_a1"><img
+				src="/xcview/images/gaft.png" alt="" class="give_a1_img" style="" /></a>
 				<!-- 表情 -->
-			<div class="give_a01" style="margin-top: -1.47rem;margin-right: 0;display: block;position: absolute;display: block !important; margin-left: -1.3rem;">
-				<a id="face" href="javascript:;" class="face give_a1_span" style="margin-left: -0.2rem;display: inline-block;margin-top: 0.3rem;position: absolute;left: -0.18rem;top: 1.5rem;padding: 0.2rem;"><div class="face_img01" ></div><!-- <img src="/xcview/images/face.png" style="margin-top: -0.1rem;width:1.1rem;" class="face_img01" /> --></a>
+			<div class="give_a01" style="">
+				<a id="face" href="javascript:;" class="face give_a1_span" style=""><div class="face_img01"></div><!-- <img src="/xcview/images/face.png" style="margin-top: -0.1rem;width:1.1rem;" class="face_img01" /> --></a>
 				<div class="both"></div>
 			</div>
 			
@@ -851,4 +558,20 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 <script type="text/javascript" src="/xcview/js/im/giftSend.js"></script>
 <script type="text/javascript" src="/xcview/js/details_change.js"></script>
 <script type="text/javascript" src="/xcview/js/details.js"></script>
+
+
+<script type="text/javascript">
+	window.onload = function(){
+//		点击输入框,表情显示,礼物隐藏
+		$("#mywords").click(function(){
+			$(".give_a1").hide();  /*这是礼物*/
+			$(".give_a01").show();  /*这是表情*/
+		});
+		
+		$("#mywords").click(function(){
+			$(".give_a01").show();
+		});
+		
+	};
+</script>
 </html>
