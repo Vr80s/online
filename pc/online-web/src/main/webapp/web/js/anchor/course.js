@@ -226,10 +226,6 @@ $(function(){
         $(".collection_courses").html("");
         courseArr=[];
     });
-    $(".select_time").change(function(){
-        debugger
-        $(this).val($(this).val());
-    });
 });
 
 /**
@@ -254,7 +250,7 @@ function courseList(current){
         courseForm = 2;
         multimediaType = 2;
     }
-    var url ="/anchor/course/getCourseApplyList?size=10&current="+current;
+    var url ="/anchor/course/getCourseApplyList?size=8&current="+current;
     if(courseForm!=null){
         url += "&courseForm="+courseForm;
     }
@@ -315,11 +311,10 @@ function addCourse(course){
             success: function(data) {
                 console.log(data);
                 if(data.success === true) {
-                    showTip(data.resultObject);
                     resetCourseForm();
                     setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
                 } else {
-                    showTip(data.errorMessage)
+                    alert(data.errorMessage)
                 }
             }
         });
@@ -335,11 +330,10 @@ function updateCourse(course){
             success: function(data) {
                 console.log(data);
                 if(data.success === true) {
-                    showTip(data.resultObject);
                     resetCourseForm();
                     setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
                 } else {
-                    showTip(data.errorMessage)
+                    alert(data.errorMessage)
                 }
             }
         });
@@ -353,23 +347,17 @@ function editCourse(caiId){
 }
 
 function deleteCourse(caiId,collection){
-    var title="删除";
-    var content="确认删除该课程？";
-    if(collection){
-        title="删除";
-        content="确认删除该专辑？";
-    }
-    confirmBox(title,content,function(closefn){
+    var r=confirm("确认删除？");
+    if(r){
         RequestService("/anchor/course/deleteCourseApplyById?caiId="+caiId, "get", null, function(data) {
-            closefn();
-            showTip(data.resultObject);
-            if(collection){
+            alert(data.resultObject);
+            if(collection==1){
                 courseCollectionList(1);
             }else{
                 courseList(1);
             }
         });
-    });
+    }
 }
 function echoCourse(caiId){
     RequestService("/anchor/course/getCourseApplyById?caiId="+caiId, "get", null, function(data) {
@@ -607,57 +595,61 @@ function verifyCourse(course){
     return true;
 }
 
-function confirmCourseSale(state,courseId){
-    var title="课程上架";
-    var content="确认上架该课程？";
-    if(state==0){
-        title="课程下架";
-        content="确认下架该课程？";
+function confirmCourseSale(state,id){
+    if(state==1){
+        $(".saleText").html("确认上架该课程？");
+    }else{
+        $(".saleText").html("确认下架该课程？");
     }
-    confirmBox(title,content,function(closefn){
-        $.ajax({
-            type: "post",
-            url: bath + "/anchor/course/changeSaleState",
-            data:"courseApplyId="+courseId+"&state="+state,
-            async: false,
-            success: function(data) {
-                closefn();
-                console.log(data);
-                if(data.success === true) {
-                    debugger
-                    courseList(1);
-                    showTip(data.resultObject);
-                } else {
-                    showTip(data.errorMessage);
-                }
-            }
-        });
-    });
+    $("#saleState").val(state);
+    $("#saleCourseId").val(id);
+    $(".yes_no").show();
 }
-function confirmCollection(state,courseId){
-    var title="专辑上架";
-    var content="确认上架该专辑？";
-    if(state==0){
-        title="专辑下架";
-        content="确认下架该专辑？";
+function confirmCollection(state,id){
+    if(state==1){
+        $(".saleText").html("确认上架该专辑？");
+    }else{
+        $(".saleText").html("确认下架该专辑？");
     }
-    confirmBox(title,content,function(closefn){
-        $.ajax({
-            type: "post",
-            url: bath + "/anchor/course/changeSaleState",
-            data:"courseApplyId="+courseId+"&state="+state,
-            async: false,
-            success: function(data) {
-                closefn();
-                console.log(data);
-                if(data.success === true) {
+    $("#saleStateCollection").val(state);
+    $("#saleCollectionId").val(id);
+    $(".no_yes").show();
+}
+
+/**
+ * Description：更改上下架状态
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: yuruixin@ixincheng.com
+ * @Date: 2018/2/3 0003 下午 7:09
+ **/
+function changeSaleState(collection){
+    var state = null;
+    var courseId = null;
+    if(collection==1){
+        state = $("#saleStateCollection").val();
+        courseId = $("#saleCollectionId").val();
+    }else{
+        state = $("#saleState").val();
+        courseId = $("#saleCourseId").val();
+    }
+
+    $.ajax({
+        type: "post",
+        url: bath + "/anchor/course/changeSaleState",
+        data:"courseApplyId="+courseId+"&state="+state,
+        async: false,
+        success: function(data) {
+            console.log(data);
+            if(data.success === true) {
+                if(collection==1){
                     courseCollectionList(1);
-                    showTip(data.resultObject)
-                } else {
-                    showTip(data.errorMessage)
+                }else{
+                    courseList(1);
                 }
+            } else {
+                alert(data.errorMessage)
             }
-        });
+        }
     });
 }
 
@@ -668,7 +660,7 @@ function confirmCollection(state,courseId){
  * @Date: 2018/2/3 0003 下午 4:31
  **/
 function courseLiveList(current){
-    var url ="/anchor/course/getLiveApplyList?size=10&current="+current;
+    var url ="/anchor/course/getLiveApplyList?size=8&current="+current;
     debugger
     RequestService(url, "get", null, function(data) {
         $("#course_live_list").html(template('course_live_tpl', data.resultObject));
@@ -717,7 +709,7 @@ function previewLive(id) {
 function courseCollectionList(current){
     var multimediaType = $("#course_collection_type").val();
     var courseName = $("#course_collection_name").val();
-    var url ="/anchor/course/getCollectionApplyList?size=10&current="+current;
+    var url ="/anchor/course/getCollectionApplyList?size=8&current="+current;
     if(multimediaType!=null && multimediaType!=""){
         url += "&multimediaType="+multimediaType;
     }
@@ -865,13 +857,12 @@ function addCollection(collection){
         success: function(data) {
             console.log(data);
             if(data.success === true) {
-                showTip(data.resultObject);
                 $("#zhuanji_bottom2").show();
                 $("#zhuanji_bottom").hide();
                 resetCollectionForm();
                 courseCollectionList(1);
             } else {
-                showTip(data.errorMessage)
+                alert(data.errorMessage)
             }
         }
     });
@@ -888,13 +879,12 @@ function updateCollection(collection){
         success: function(data) {
             console.log(data);
             if(data.success === true) {
-                showTip(data.resultObject);
                 $("#zhuanji_bottom2").show();
                 $("#zhuanji_bottom").hide();
                 resetCollectionForm();
                 courseCollectionList(1);
             } else {
-                showTip(data.errorMessage)
+                alert(data.errorMessage)
             }
         }
     });
@@ -1062,7 +1052,7 @@ function initCourseSelect(){
  * @Date: 2018/2/2 0002 下午 9:09
  **/
 function courseResourceList(current){
-    var url ="/anchor/course/getCourseResourceList?size=10&current="+current;
+    var url ="/anchor/course/getCourseResourceList?size=8&current="+current;
     debugger
     RequestService(url, "get", null, function(data) {
         $("#resource_list").html(template('course_resource_list_tpl', data.resultObject));
@@ -1089,25 +1079,24 @@ function courseResourceList(current){
 }
 
 function deleteResource(resourceId){
-    var title="删除";
-    var content="确认删除该资源？";
-    confirmBox(title,content,function(closefn){
+    var r=confirm("确认删除该资源？");
+    if(r){
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/deleteCourseResource",
             data:"resourceId="+resourceId,
             async: false,
             success: function(data) {
-                closefn();
+                console.log(data);
                 if(data.success === true) {
-                    showTip(data.resultObject);
+                    alert(data.resultObject);
                     courseResourceList(1);
                 } else {
-                    showTip(data.errorMessage)
+                    alert(data.errorMessage)
                 }
             }
         });
-    });
+    }
 }
 //点击选择资源
 function resourcePre(){
@@ -1142,10 +1131,9 @@ function saveResource(){
             success: function(data) {
                 console.log(data);
                 if(data.success === true) {
-                    showTip(data.resultObject);
                     showResourceList();
                 } else {
-                    showTip(data.errorMessage())
+                    alert(data.errorMessage())
                 }
             }
         });
@@ -1191,11 +1179,6 @@ function initResource(multimediaType){
             str += "<option value='"+resources[i].id+"'>"+resources[i].title+"</option>";
         }
         $("#id_select").html(str);
-        $('.selectpicker').selectpicker('refresh');
-        $('.selectpicker').selectpicker({
-            'selectedText': 'cat',size:10
-        });
-        $("#speech_select").html(str);
         $('.selectpicker').selectpicker('refresh');
         $('.selectpicker').selectpicker({
             'selectedText': 'cat',size:10
