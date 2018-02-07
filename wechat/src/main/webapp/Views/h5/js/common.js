@@ -553,10 +553,10 @@ function commonLocalStorageSetItem(data){
 	var configresult = data.resultObject;
 	localStorage.setItem("token",JSON.stringify(configresult));
 	localStorage.setItem("userId",configresult.id)
-	localStorage.setItem("name",configresult.loginName);
+	localStorage.setItem("name",configresult.name);
 	localStorage.setItem("smallHeadPhoto",configresult.smallHeadPhoto);
 	localStorage.setItem("sex",configresult.sex);
-	
+
 	localStorage.setItem("province",configresult.province);
 	localStorage.setItem("city",configresult.city);
 	localStorage.setItem("district",configresult.district);
@@ -568,7 +568,7 @@ function commonLocalStorageSetItem(data){
 	
 	localStorage.setItem("email",configresult.email);
 	localStorage.setItem("info",configresult.info);
-	localStorage.setItem("username",configresult.name);
+	localStorage.setItem("username",configresult.loginName);
 	localStorage.setItem("ticket",configresult.ticket);
 	
 	localStorage.setItem("occupation",configresult.occupation);

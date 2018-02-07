@@ -48,7 +48,7 @@ function btn_up(){
                 if(data.success==true){
                     window.location.href="../html/hos_examine.html";
                 }else{
-                    webToast(data.setErrorMessage,"middle",3000);
+                    webToast(data.errorMessage,"middle",3000);
 
                 }
 
