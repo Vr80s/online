@@ -82,7 +82,7 @@
 						</li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>主播工作台</span></li>-->
 						<!--<li class="setTop "><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>-->
-						<li class="setTop docSuccessBtn"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>医馆</span></li>
+						<li class="setTop docSuccessBtn" id="docJoinHos"><span class="icon iconfont icon-02_dianpuguanli left_range" aria-hidden="true"></span><span>医馆</span></li>
 						<!--<li class="setTop"><span class="glyphicon glyphicon-file left_range" aria-hidden="true"></span><span>专栏</span></li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-copyright-mark left_range" aria-hidden="true"></span><span>著作</span></li>-->
 						<!--<li class="setTop"><span class="glyphicon glyphicon-film left_range" aria-hidden="true"></span><span>媒体报道</span></li>-->
@@ -104,7 +104,7 @@
 						<!--<button>返回</button>-->
 					</div>
 
-					<div class="zhuanlan_bottom " id="hospital_bottom">
+					<div class="zhuanlan_bottom" id="hospital_bottom">
 						
 							<div id="hosChoose" class="hide">
 								<!--<div>
@@ -701,8 +701,9 @@
 			<span>科室</span>
 			<ul>
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-		
-				  {{include 'adaptTpl' }}  
+					{{each medicalDepartments}}
+					<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
+					{{/each}}
 				 {{/if}}
 			
 			</ul>
