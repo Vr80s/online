@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -83,34 +84,33 @@ public class XzUserSetController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject userInfo(HttpServletRequest request,
-			HttpServletResponse response,
-			OnlineUserVO user)throws Exception{
-		//TODO
+			HttpServletResponse response,OnlineUserVO user)throws Exception{
+		
         try{
          /**
           * 保存个人资料信息	
           */
-    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-         MultipartFile fileMul = multipartRequest.getFile("file");  
-         if(fileMul!=null && !fileMul.isEmpty()){  
-             // 获得文件名：   
-             String filename = fileMul.getOriginalFilename();   
-             if(filename!=null && !"".equals(filename.trim())){
-                 filename = filename.toLowerCase();
-     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
-     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
-     				return ResponseObject.newErrorResponseObject("文件类型有误");
-     			}
-     			String contentType =  fileMul.getContentType();//文件类型
-     			byte [] bs = fileMul.getBytes();
-     			String projectName="other";
-     			String fileType="1"; //图片类型了
-     			String headImgPath = service.upload(null, //用户中心的用户ID
- 				projectName, filename,contentType, bs,fileType,null);
-     			LOGGER.info("文件路径——path:"+headImgPath);
-     			user.setSmallHeadPhoto(headImgPath);
-             }
-          }
+//    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
+//         MultipartFile fileMul = multipartRequest.getFile("file");  
+//         if(file!=null && !file.isEmpty()){  
+//             // 获得文件名：   
+//             String filename = file.getOriginalFilename();   
+//             if(filename!=null && !"".equals(filename.trim())){
+//                 filename = filename.toLowerCase();
+//     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
+//     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
+//     				return ResponseObject.newErrorResponseObject("文件类型有误");
+//     			}
+//     			String contentType =  file.getContentType();//文件类型
+//     			byte [] bs = file.getBytes();
+//     			String projectName="other";
+//     			String fileType="1"; //图片类型了
+//     			String headImgPath = service.upload(null, //用户中心的用户ID
+// 				projectName, filename,contentType, bs,fileType,null);
+//     			LOGGER.info("文件路径——path:"+headImgPath);
+//     			user.setSmallHeadPhoto(headImgPath);
+//             }
+//          }
          /**
           * 更新信息
           */

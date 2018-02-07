@@ -1,11 +1,10 @@
 $(function(){
-	
 //	播放历史
 	requestService("/xczh/history/list",null,function(data) {		
 		$("#paly_history").html(template("data_history",{items:data.resultObject.records}))
 	})	
 	
-//	点击清除播放历史
+//	点击清除播放历史弹出确认取消框
 	$(".play-title p").click(function(){
 		$(".history_bg").show();
 		$(".history_modal").show();
@@ -17,8 +16,8 @@ $(function(){
 	$(".history_modal ul li:nth-child(2)").click(function(){
 		requestService("/xczh/history/empty",null,function(data) {
 			
-//		清除	
-		$("#paly_history").children().remove();
+			
+		$("#paly_history").hide()
 		$(".history_bg").hide();
 		$(".history_modal").hide();
 		})
@@ -36,10 +35,16 @@ $(function(){
 	
 //我关注的主播
 		requestService("/xczh/myinfo/myFocus",null,function(data) {
-			$("#all_follow_people").html(template("data_follow",data))
-		
+			$("#all_follow_people").html(template("data_follow",data))		
 		})	
 	
-	
-	
+
 })
+
+
+
+
+
+
+
+

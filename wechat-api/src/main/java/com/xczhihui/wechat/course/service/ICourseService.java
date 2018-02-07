@@ -103,4 +103,16 @@ public interface ICourseService {
 
 
    	public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId);
+
+   	/**
+   	 * 
+   	 * Description：查看主播控制台的---》直播间的分页
+   	 * @param page
+   	 * @param id
+   	 * @return
+   	 * @return List<CourseLecturVo>
+   	 * @author name：yangxuan <br>email: 15936216273@163.com
+   	 *
+   	 */
+	public List<CourseLecturVo> selectUserConsoleCourseLiveByPage(Page<CourseLecturVo> page, String id);
 }

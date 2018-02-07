@@ -3,13 +3,14 @@ package com.xczhihui.bxg.online.manager.common.web;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,25 +18,23 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.xczhihui.bxg.common.support.domain.Attachment;
 import com.xczhihui.bxg.common.support.service.AttachmentCenterService;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.user.center.bean.Token;
-import com.xczhihui.user.center.web.utils.UCCookieUtil;
+import com.xczhihui.bxg.online.common.domain.Menu;
+import com.xczhihui.bxg.online.common.domain.ScoreType;
+import com.xczhihui.bxg.online.manager.common.service.CommonService;
 /**
- * 百度富文本编辑器（ueditor）
- * @author Haicheng Jiang
- *
+ * 
+ * 下载上传word:
+ * ClassName: LinkAddressController.java <br>
+ * Description: <br>
+ * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
+ * Create Time: 2018年2月6日<br>
  */
 @Controller
 @RequestMapping("/link/word")
@@ -43,6 +42,20 @@ public class LinkAddressController {
 	
 	@Autowired
 	private AttachmentCenterService service;
+
+	@Autowired
+	private CommonService commonService;
+	
+	
+	protected final static String MOBILE_PATH_PREFIX = "/mobile/";
+	
+	@RequestMapping(value = "/index")
+	public String index(HttpServletRequest request) {
+		
+		return MOBILE_PATH_PREFIX + "/link";
+	}
+	
+	
 	/**
 	 * 下载链接操作文档
 	 * @param request
@@ -135,5 +148,36 @@ public class LinkAddressController {
             return false;
         }
     }
+    
+    
+	/**
+	 * 
+	 * Description：导入表引库到excel
+	 * @param file
+	 * @param menuId
+	 * @return
+	 * @return Object
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@ResponseBody
+    @RequestMapping("/importExcel")
+    public Map<String,Object> importExcel( @RequestParam("file")MultipartFile file){
+		Map<String,Object> map = new HashMap<String, Object>();
+        try {
+            map = commonService.updateImportExcel(file.getInputStream(),file.getOriginalFilename());
+            map.put("error", "0");
+            System.out.println("=========="+map.toString());
+            return map;
+        } catch (IOException e) {
+            e.printStackTrace();
+        	map.put("error", "1");
+        	return map;
+        }
+        
+    }
+    
+    
+    
+    
     
 }

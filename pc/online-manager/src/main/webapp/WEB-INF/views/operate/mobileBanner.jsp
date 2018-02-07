@@ -507,8 +507,12 @@
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
 					
-						<button class="btn btn-sm btn-success upload_bx" title="上传文档">
-						<i class="glyphicon glyphicon-trash"></i> 上传文档
+				    <button class="btn btn-sm btn-success upload_bx" title="上传word文档">
+						<i class="glyphicon glyphicon-trash"></i> 上传word文档
+					</button>
+					
+					 <button class="btn btn-sm btn-success upload_excel" title="上传excel文档">
+						<i class="glyphicon glyphicon-trash"></i> 上传excel文档
 					</button>
 					
 					<!--  <a href="/link/word/download?filename=链接地址添加文档.docx">文档说明</a>
@@ -575,7 +579,7 @@
 
 
 
-<!-- 增加form -->
+<!-- 增加wordform -->
 <div id="dialogAddWordDiv"></div>
 <div id="addwordDialog" class="hide">
 	<form id="addword-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
@@ -590,6 +594,22 @@
 					 <p><span>下载地址：</span><p id="xz_fileurl" style="word-wrap: break-word;word-break: normal;"></p></p>
 					 </div>
  -->					 <input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
+             </div>
+		</div>
+	</form>
+</div>
+
+<!-- 上传excelform -->
+<div id="dialogAddExcelDiv"></div>
+<div id="addExcelDialog" class="hide">
+	<form id="addExcel-form" class="form-horizontal"  method="post" action="" style="margin-top: 15px;">
+	    <div class="space-4"></div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
+			 <div class="col-sm-6">
+					 <input type="file" name="file" id="excel_file"/>
+					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
+                     <input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
              </div>
 		</div>
 	</form>

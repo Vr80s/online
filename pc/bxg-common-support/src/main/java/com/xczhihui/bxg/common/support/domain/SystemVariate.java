@@ -32,6 +32,8 @@ public class SystemVariate extends BasicEntity {
 	/**
 	 * 变量值
 	 */
+	 //columnDefinition="CLOB"
+    @Column(name = "description")
 	private String description;
 
 	/**

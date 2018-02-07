@@ -65,6 +65,7 @@
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.small_head_photo as headImg,
+		ou.id as userId,
 		oc.live_source_type as liveSourceType
 			FROM
 		oe_course as oc
@@ -112,6 +113,7 @@
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.small_head_photo as headImg,
+		oe_user as userId,
 		
 		oc.live_source_type as liveSourceType
 			FROM
@@ -204,6 +206,8 @@
 		oc.address as address,
 		oc.current_price as currentPrice,
 		oc.city as city,
+	    oc.collection as collection,
+		oc.course_number as courseNumber,
 		oc.live_source_type as liveSourceType,
 		oc.user_lecturer_id as userLecturerId,
 		oc.lecturer as name
@@ -303,7 +307,7 @@
 		and
 		DATE_SUB(CURDATE(), INTERVAL 4 DAY) &lt;= date(oc.start_time)
 		and oc.type =1 and oc.live_status = 2
-		order by oc.start_time desc )
+		order by oc.start_time desc limit 3 )
 		UNION ALL
 		(
 		SELECT
@@ -326,9 +330,40 @@
 		FROM
 		oe_course oc
 		where oc.user_lecturer_id = #{userId} order by oc.release_time
-		desc,oc.start_time desc limit 0,5
+		desc,oc.start_time desc limit 3
 		)
 	</select>
+	
+	
+	<!-- 主播控制台  直播间分页  -->
+	<select id="selectUserConsoleCourseLiveByPage" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		SELECT
+		oc.id as id,
+		oc.grade_name as gradeName,
+		oc.smallimg_path as smallImgPath,
+		oc.start_time as startTime,
+		if(oc.start_time > DATE_SUB(NOW(),INTERVAL 1 HOUR),1,0) as isLive,
+		oc.end_time as endTime,
+		oc.user_lecturer_id as userLecturerId,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		if(oc.is_free =0,0,1) as watchState,
+		oc.live_status as lineState,
+		oc.address as address,
+		oc.current_price as currentPrice,
+		oc.live_source_type as liveSourceType,
+		oc.city as city,
+		oc.lecturer as name,
+		'直播间' as note
+		FROM
+		oe_course oc
+		where
+		oc.user_lecturer_id = #{userId}
+		and
+		DATE_SUB(CURDATE(), INTERVAL 4 DAY) &lt;= date(oc.start_time)
+		and oc.type =1 and oc.live_status = 2
+		order by oc.start_time desc
+	</select>
+	
 	
 	
     <!-- 猜你喜欢，随机的取出同分类的两个课程 -->

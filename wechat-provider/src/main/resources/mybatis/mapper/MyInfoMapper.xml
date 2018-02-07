@@ -118,11 +118,8 @@
 			
 	  <!-- 用户主播权限   0 普通用户  1 主播 -->
       <select id="getUserHostPermissions" resultType="java.lang.Integer">
-		 select COUNT(*) from oe_user as ou
+		 select ca.type from oe_user as ou
 		    INNER JOIN  course_anchor as ca on ou.id = ca.user_id
-	     where ou.id =#{userId} and ca.status=1 and ca.deleted =1 and ou.status = 0  and ou.is_delete =0
+	     where ou.id =#{userId} and ca.status=1 and ca.deleted =0 and ou.status = 0  and ou.is_delete =0
 	  </select>	
-	     
-		 
-	
 </mapper>

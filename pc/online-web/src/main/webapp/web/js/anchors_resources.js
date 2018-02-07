@@ -507,7 +507,7 @@ $('#hospital_bottom #submit').click(function(){
 	var workhosName = $.trim($('#hospital_bottom .zhuanlan_title').val());
 	var province = $.trim($('#hosPro').val());
 	var city = $.trim($('#hosCity').val());
-	var detailedAddress = $.trim($('#hospital_bottom #hos_detail_address').val());
+	var detailedAddress = $.trim($('#hospital_bottom #detail_address').val());
 	var hosTel = $.trim($('#hospital_bottom .hosTel').val());
 	var phonePass =  /^1[3,4,5,7,8]\d{9}$/gi;
 	var headPortrait  =  $('#hospital_bottom .fengmian_pic img').attr('src');
@@ -557,7 +557,8 @@ $('#hospital_bottom #submit').click(function(){
 		detailedAddress:detailedAddress,
 		tel:hosTel,
 		workTime:workTime,
-		headPortrait:headPortrait
+		headPortrait:headPortrait,
+		hospitalId:hosID
 	}, function(data) {
 			if(data.success == true){
 //				alert('上传成功')
@@ -600,4 +601,30 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 		});
 		
 
+//如果入驻了医馆进入获取数据
+$('#docJoinHos').click(function(){
+	RequestService("/medical/doctor/getHospital", "get", null, function(data) {
+			//头像预览
+			console.log(data);
+			$('.selectpicker').selectpicker('val',(data.resultObject.id));
+			//坐诊时间渲染
+			var workArr = data.resultObject.visitTime.split(",");
+//			console.log(workArr)
+			
+			var j;
+			for(var i =0 ;i < $('.hospital_worktime ul li ').length ;i++){
+				for(j = 0;j < workArr.length ;j++ ){
+					if($('.hospital_worktime ul li').eq(i).text() == workArr[j].name){
+						$('.hospital_worktime ul li').eq(i).addClass('color');
+					}
+				}
+			}
+			
+		});
+		
+})
 
+
+
+
+		

@@ -1,18 +1,29 @@
 package com.xczhihui.bxg.online.manager.common.service.impl;
 
-import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.manager.common.dao.OeCommonDao;
-import com.xczhihui.bxg.online.manager.common.domain.Common;
-import com.xczhihui.bxg.online.manager.common.service.CommonService;
-import com.xczhihui.bxg.online.manager.common.vo.KeyValVo;
-import com.xczhihui.bxg.online.manager.utils.CommonGroupEnum;
-import com.xczhihui.bxg.online.manager.utils.Groups;
-import com.xczhihui.bxg.online.manager.utils.PageVo;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
+import com.xczhihui.bxg.common.support.domain.BxgUser;
+import com.xczhihui.bxg.common.support.domain.SystemVariate;
+import com.xczhihui.bxg.common.support.service.SystemVariateService;
+import com.xczhihui.bxg.common.web.auth.UserHolder;
+import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.manager.common.dao.OeCommonDao;
+import com.xczhihui.bxg.online.manager.common.domain.Common;
+import com.xczhihui.bxg.online.manager.common.service.CommonService;
+import com.xczhihui.bxg.online.manager.common.util.ImportExcelUtil;
+import com.xczhihui.bxg.online.manager.common.vo.KeyValVo;
+import com.xczhihui.bxg.online.manager.utils.CommonGroupEnum;
+import com.xczhihui.bxg.online.manager.utils.Groups;
+import com.xczhihui.bxg.online.manager.utils.PageVo;
 
 /**
  * 对应OE_COMMON表数据的处理服务
@@ -25,6 +36,10 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements CommonSe
 
 	@Autowired
 	private OeCommonDao commonDao;
+	
+	@Autowired
+	private SystemVariateService systemVariateService;
+	
 
 	@Override
 	public List<KeyValVo> getAllTargetList() {
@@ -113,5 +128,104 @@ public class CommonServiceImpl extends OnlineBaseServiceImpl implements CommonSe
 	@Override
 	public List<KeyValVo> findListByGroup(String group) {
 		return	commonDao.getCommonDataList(group);
+	}
+
+	@Override
+	public Map<String, Object> updateImportExcel(InputStream inputStream,
+			String originalFilename) {
+		
+		
+		ImportExcelUtil excelUtil = new ImportExcelUtil();
+		List<List<Object>> listob = null;
+		try {
+			listob = excelUtil.getBankListByExcel(inputStream, originalFilename);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		if(listob!=null && listob.size()<=0){
+			map.put("excel_error", "未获取到excel文件中内容");
+			return map;
+		}
+		System.out.println("listob.size():"+listob.size());
+		
+		Integer falg  = 0;
+		String  errorFalg ="";
+		for (int i = 0; i < listob.size(); i++) {
+			if(i == listob.size()-1){
+				break;
+			}
+			List<Object> obj = listob.get(i);
+			List<Object> obj1 = listob.get(i+1);
+			String problemIndexK= obj.get(0).toString();
+			String answerIndexK= obj1.get(0).toString();
+			if(problemIndexK.contains("问题") && answerIndexK.contains("答")){   //如果包含这个问题，先一个就是问题名称
+				if(obj.size()<2){
+					map.put("excel_error", "问答的   excel 格式有问题！");
+					break;
+				}
+				if(obj1.size()<2){
+					map.put("excel_error", "问答的   excel 格式有问题！");
+					break;
+				}
+				String problemIndexV= obj.get(1).toString();
+				String answerIndexV= obj1.get(1).toString();
+				System.out.println(problemIndexV+"========="+answerIndexV);
+				if(!org.apache.commons.lang.StringUtils.isNotBlank(problemIndexV)
+						|| problemIndexV.length()>500){
+					map.put("excel_error", "第:"+i+"个问题问题字符在0---500字");
+					
+					falg++;
+				}
+				if(!org.apache.commons.lang.StringUtils.isNotBlank(answerIndexV)
+						|| answerIndexV.length()>500){
+					map.put("excel_error", "第:"+i+"个答案答案字符在0---500字");
+					
+					falg++;
+				}
+			}
+		}
+        if(falg>0 && errorFalg.length()>0){
+        	map.put("excel_error", errorFalg);
+			return map;
+        }
+		System.out.println("falg:"+falg);
+		
+		List<SystemVariate> listOld = systemVariateService.getSystemVariatesByName("common_problems");
+		/*
+		 * 删除原来的
+		 */
+		for (SystemVariate systemVariate : listOld) {
+			systemVariateService.deleteSystemVariate(systemVariate.getId());
+		}
+		/**
+		 * 添加新的
+		 */
+		for (int i = 0; i < listob.size(); i++) {
+			if(i == listob.size()-1){
+				break;
+			}
+			List<Object> obj = listob.get(i);
+			List<Object> obj1 = listob.get(i+1);
+			String problemIndexK= obj.get(0).toString();
+			String answerIndexK= obj1.get(0).toString();
+			if(problemIndexK.contains("问题") && answerIndexK.contains("答")){   //如果包含这个问题，先一个就是问题名称
+				String problemIndexV= obj.get(1).toString();
+				String answerIndexV= obj1.get(1).toString();
+				//保存一个
+				SystemVariate systemVariate =new SystemVariate();
+				BxgUser bu = UserHolder.getCurrentUser();
+				systemVariate.setCreatePerson(bu.getId());
+				systemVariate.setCreateTime(new Date());
+				systemVariate.setName("common_problems");
+				systemVariate.setValue(problemIndexV);     //这个存问题 
+				systemVariate.setDescription(answerIndexV);//这个存答案
+				systemVariateService.addSystemVariate(systemVariate);
+			}
+		}
+		map.put("excel_error", "更新成功");
+		return map;
 	}
 }

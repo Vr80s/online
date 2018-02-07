@@ -1,6 +1,7 @@
 package com.xczhihui.bxg.online.web.dao;
 
 import com.xczhihui.bxg.common.support.dao.SimpleHibernateDao;
+import com.xczhihui.bxg.common.support.domain.SystemVariate;
 import com.xczhihui.bxg.online.api.vo.*;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.vo.CityVo;
@@ -13,7 +14,9 @@ import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Column;
 
@@ -24,6 +27,8 @@ import javax.persistence.Column;
  */
 @Repository
 public class UserCenterDao extends SimpleHibernateDao {
+	
+	
 	
 	/**
 	 * 顶部用户展示信息
@@ -192,5 +197,26 @@ public class UserCenterDao extends SimpleHibernateDao {
 		.update("update oe_ask_comment set target_nike_name=? where target_user_id=?",
 				nikeName,userId);
 	}
+	
+	
+	public List<Map<String,Object>> getProblems(String name){
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT sv.id AS id,sv.value AS value,sv.description as description "
+				+ " FROM  system_variate  sv WHERE sv.name =? ");
+		return this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.queryForList(sql.toString(),new Object[]{name});
+	}
+	public Map<String,Object> getProblemAnswer(String id){
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT sv.id AS id,sv.value AS value,sv.description as description  "
+				+ "FROM system_variate  sv WHERE sv.id = ? ");
+		List<Map<String,Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations()
+				.queryForList(sql.toString(),new Object[]{id});
+		if(list.size() > 0){
+			return list.get(0);
+		}
+		return new HashMap<String, Object>();
+	}
+	
 
 }

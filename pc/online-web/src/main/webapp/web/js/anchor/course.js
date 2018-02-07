@@ -1136,6 +1136,7 @@ function saveResource(){
             success: function(data) {
                 console.log(data);
                 if(data.success === true) {
+                    resetResource();
                     showResourceList();
                 } else {
                     alert(data.errorMessage())

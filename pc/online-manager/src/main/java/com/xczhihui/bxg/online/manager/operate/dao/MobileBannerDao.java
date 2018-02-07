@@ -24,6 +24,9 @@ public class MobileBannerDao extends SimpleHibernateDao {
 											   "	t.`status`, " +
 											   "	t.seq, " +
 											   "	t.img_path, " +
+											   "	t.banner_type as bannerType, " +
+											   "	t.link_type as linkType, " +
+											   "	t.link_condition as linkCondition, " +
 											   "	t2.name createPersonName " +
 											   " FROM " +
 											   "	oe_course_mobile_banner t, " +

@@ -32,6 +32,8 @@ import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IFocusService;
 import com.xczhihui.wechat.course.service.IMyInfoService;
@@ -78,6 +80,9 @@ public class MyManagerController {
 
 	@Autowired
 	private IUserBankService userBankService;
+	
+	@Autowired
+	private IMedicalDoctorApplyService medicalDoctorApplyService;
 
 	@Value("${rate}")
 	private int rate;
@@ -115,9 +120,15 @@ public class MyManagerController {
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
 			
-			// 查看主播权限   -- 并且把主播信息给返回过去
-			map.put("hostPermissions", myInfoService.getUserHostPermissions(user.getId()));
+			Integer hostPermissions = myInfoService.getUserHostPermissions(user.getId());
 			
+			LOGGER.info(hostPermissions+"");
+			// 查看主播权限   -- 并且把主播信息给返回过去
+			map.put("hostPermissions", hostPermissions != null ? hostPermissions :0);
+			if(hostPermissions!=null &&  hostPermissions == 1){
+				//申请的医师信息
+				map.put("medicalDoctor", medicalDoctorApplyService.getLastOne(user.getId()));
+			}
 		} else {
 			map.put("xmbCount", 0);
 			map.put("user", "");
@@ -335,6 +346,38 @@ public class MyManagerController {
 		return ResponseObject.newSuccessResponseObject(mapCourseList);
 	}
 
+	
+	
+	/**
+	 * Description：主播控制台 -- 直播间的课程
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>
+	 *         email: 15936216273@163.com
+	 */
+	@RequestMapping("anchorConsoleLiveCourse")
+	@ResponseBody
+	public ResponseObject anchorConsoleCourse(HttpServletRequest req,
+			@RequestParam("pageNumber") Integer pageNumber,
+			@RequestParam("pageSize") Integer pageSize)
+			throws Exception {
+
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if (user == null) {
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		Page<CourseLecturVo> page = new Page<>();
+		page.setCurrent(pageNumber);
+		page.setSize(pageSize);
+		List<CourseLecturVo> list = courseService.selectUserConsoleCourseLiveByPage(page,user.getId());
+		return ResponseObject.newSuccessResponseObject(list);
+	}
+	
+	
+	
 	/**
 	 * Description：主播控制台 我的课程（app端我的课程 全部、直播、视频、线下课、音频） 包括审批的包括没有审批的
 	 * 

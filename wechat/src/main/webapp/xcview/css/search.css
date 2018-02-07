@@ -35,13 +35,13 @@ header{
 	background: #F0F0F0;
 	border-radius: 100px;
 	position: relative;
-	text-indent: 0.511rem;
+	text-indent: 1.4rem;
 	float: left;
 }
 .header_seek_main{
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: 0.35rem;
 	font-size: 0.553rem;
 	color: #999999;
 	pointer-events: none;
@@ -53,13 +53,23 @@ header{
     vertical-align: text-bottom;
     margin-right: 0.383rem;
 }
+.sousuo{
+	width: 0.766rem;
+	height: 0.766rem;
+	vertical-align: -webkit-baseline-middle;
+    vertical-align: text-bottom;
+    margin-right: 0.383rem;
+   	position: absolute;
+    top: 0.25rem;
+    left: 0.6rem;
+}
 .header_seek input{
 	width: 13rem;
     height: 1.276rem;
     line-height: 1.276rem;
     border-radius: 100px;
     position: relative;
-    text-indent: 0.511rem;
+    text-indent: 1.6rem;
     float: right;
     border: 0;
     background: none;
