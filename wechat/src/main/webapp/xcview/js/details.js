@@ -178,9 +178,9 @@ requestService("/bxg/gift/list",{pageNumber:1,pageSize:100},function(data) {
         var html = "";
         for (var i = 0; i < result.length; i++) {
             if(result[i].price>0){
-                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'>"+"<img src='/xcviews/images/top_up01.png' style='width: 0.425rem;margin-top: -0.1rem;display: inline;margin-right: 0.2rem;vertical-align: middle;' />"+result[i].price+"</p></div></a></li>";
+                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'>"+""+result[i].price+"</p></div></a></li>";
             }else{
-                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'><img src='/xcviews/images/top_up01.png' style='width: 0.45rem;margin-top: -0.1rem;display: inline;margin-right: 0.2rem;vertical-align: middle;' />0</p></div></a></li>";
+                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'>0</p></div></a></li>";
             }
         }
         $(".gift_ul_li").html(html);

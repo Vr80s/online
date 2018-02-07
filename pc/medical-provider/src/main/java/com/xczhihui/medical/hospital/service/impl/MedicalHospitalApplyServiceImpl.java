@@ -128,12 +128,6 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
     private void addMedicalHospitalApply(MedicalHospitalApply target) {
 
-        throw new RuntimeException("您已经认证了医馆，不能再认证重新认证");
-
-    }
-
-    private void applyAgain(MedicalHospitalApply target) {
-
         // 生成主键
         String id = UUID.randomUUID().toString().replace("-","");
         target.setId(id);
@@ -144,6 +138,12 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         target.setCreateTime(new Date());
 
         applyMapper.insert(target);
+
+    }
+
+    private void applyAgain(MedicalHospitalApply target) {
+
+        throw new RuntimeException("您已经认证了医馆，不能再重新认证");
 
     }
 

@@ -263,15 +263,13 @@ $(function(){
 
 	<!-- 直播送礼物开始 -->
 
-	<div class="send_gifts">
+	<div class="send_gifts" style="display: block !important;">
 		<div class="send_gifts_div0">
-			<p class="send_gifts_p">送礼物</p>
+			<!--<p class="send_gifts_p">送礼物</p>-->
 			
 			<!--礼物关闭按钮ui变更暂时去掉-->
 			<!--<p class="send_gifts_p1">关闭</p>-->
-			<div class="balance_size" onClick="window.location='/xcview/html/echarge.html'">
-				<img src="/xcview/images/top_up.png" alt="" /><span id="xmbShowSpan">加载中...</span><span style="color: #f8c600;font-size: 0.5rem;">充值</span><img src="/xcview/image/top_up_right.png" alt="" style="margin-top: 0.2rem;float: right;width: 0.6rem;height: 0.6rem;margin-left: 0.1rem;" />
-			</div>
+			
 			
 		</div>
 		<div class="both"></div>
@@ -283,11 +281,14 @@ $(function(){
 
 		<div class="both"></div>
 		<div class="balance">
+			<div class="balance_size" onClick="window.location='recharges.html'">
+				熊猫币<span id="xmbShowSpan" style="color: #f8c600;font-size: 0.6rem;">加载中...</span><img src="/xcview/images/video_review.png" alt="" style="margin-top: 1rem;float: right;width: 0.65rem;height: 0.65rem;margin-left: 0.1rem;" />
+			</div>
 			<!--<div class="balance_size">
 				熊猫币：<span id="xmbShowSpan">加载中...</span>
 			</div>-->
 			<!--<div calss="" style="font-size: 0.6rem;float: left;margin-top: 0.4rem;margin-right: 0.2rem;color: #ff2020;">去充值</div>-->
-			<div class="count" style="display: block !important;">
+			<div class="count" style="display: none !important;">
 				<div class="count_cen" style="width:5rem;margin-left: 0.4rem;">
 					<div class="count_cen_size">礼物数量：</div>
 					<div id="import">
@@ -476,6 +477,9 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
    			$(".give_a1").show();  /*礼物显示*/
    			$(".div_input").css("background","block");  /*input背景色隐藏*/
 		});
+		
+		
+		$(".gift_ul_li li:first-child").click();
 	};
 </script>
 </html>
