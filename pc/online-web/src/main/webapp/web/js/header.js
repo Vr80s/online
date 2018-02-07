@@ -4,6 +4,7 @@ $(function(){
 	  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	  	if(data.success == true){
 	  		//判断
+	  		localStorage.AccountStatus = data.resultObject;
 	  		if(data.resultObject == 1 ){
 	  			//医师认证成功
 	  			$('#docOrHos').text('我是医师');

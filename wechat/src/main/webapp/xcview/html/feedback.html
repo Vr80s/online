@@ -16,7 +16,15 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
-
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<!-- 刷新引入js -->
+<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/feedback.js"></script>
 
 
 </head>
@@ -37,16 +45,11 @@
 	<div class="feedback">
 		<textarea name="" rows="" cols="" placeholder="输入反馈内容" class="textarea"></textarea>
 	</div>
-	<div class="btn">提交</div>
+	<div class="btn" onclick="feedback()">提交</div>
 	
 	<!-- 中间内容结束 -->
 	
-	<!-- 刷新引入js -->
-	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
-	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-    <script type="text/javascript" src="/Views/h5/js/common.js"></script>
-	<script src="/xcviews/js/index.js" type="text/javascript"></script>
+
 </body>
 
 <script>

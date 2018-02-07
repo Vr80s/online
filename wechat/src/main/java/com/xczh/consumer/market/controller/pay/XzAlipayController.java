@@ -244,7 +244,7 @@ public class XzAlipayController {
 		}
 	}
 	/**
-	 * h5 支付宝充值代币
+	 * h5 支付宝  充值代币
 	 * @return
 	 * @throws Exception
 	 */
@@ -252,8 +252,10 @@ public class XzAlipayController {
 	@ResponseBody
 	public void rechargePay(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam("actualPay")String actualPay,
-			@RequestParam("clientType")String clientType) throws Exception {
+			@RequestParam("actualPay")String actualPay) throws Exception {
+		
+		
+		LOG.info("进入阿里h5支付-------------》");
 		
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
@@ -306,11 +308,11 @@ public class XzAlipayController {
 		rechargeParamVo.setT("3");
 		rechargeParamVo.setClientType(1+"");
 		rechargeParamVo.setUserId(user.getId() );
-//		rechargeParamVo.setPayType(1); //0:支付宝 1:微信 2:网银
+		rechargeParamVo.setPayType(1); //0:支付宝 1:微信 2:网银
 		//熊猫币
 		rechargeParamVo.setValue(new BigDecimal(count));
 		//订单来源
-		rechargeParamVo.setOrderForm(Integer.parseInt(clientType));
+		rechargeParamVo.setOrderForm(OrderFrom.H5.getCode());
 		
 
 		String passbackParams = JSONObject.toJSON(rechargeParamVo).toString();
@@ -463,7 +465,7 @@ public class XzAlipayController {
 //		rechargeParamVo.setPayType(0); //0:支付宝 1:微信 2:网银
 		//熊猫币
 		rechargeParamVo.setValue(new BigDecimal(count));
-		rechargeParamVo.setOrderForm(5); //订单来源
+		rechargeParamVo.setOrderForm(OrderFrom.ANDROID.getCode()); //订单来源
 		
 		String passbackParams = JSONObject.toJSON(rechargeParamVo).toString();
 		LOG.info("充值参数数据包，客户端回调时会用到：" + passbackParams);
@@ -753,8 +755,8 @@ public class XzAlipayController {
 						// rewardService.insert(rs);1
 						alipayPaymentRecordH5.setUserId(rpv.getUserId());
 						
-						alipayPaymentRecordH5Service
-								.insert(alipayPaymentRecordH5);
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
+						
 						userCoinService.updateBalanceForReward(rs);
 						// 请不要修改或删除
 						response.getWriter().println("success");
@@ -790,23 +792,20 @@ public class XzAlipayController {
 						 * 将数据包转为用户代币对象，便于插入
 						 */
 						RechargeParamVo rechargeParamVo  = JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams(),RechargeParamVo.class);
-						/*
-						 *  充值后记录增加，代币系统的余额执行代币充值工作
+						/**
+						 * 充值后记录增加，代币系统的余额执行代币充值工作
+						 * 
+						 * 用户id
+						 * 支付方式
+						 * 充值金额 (熊猫币) 
+						 * 订单来源  
+						 * 订单号   (这里是支付宝的订单号)
 						 */
-//						UserCoinIncrease userCoinIncrease = new UserCoinIncrease();
-//						userCoinIncrease.setUserId(rechargeParamVo.getUserId());
-//						//1.充值2.平台赠送3.礼物4打赏5.平台提现驳回退回
-//						userCoinIncrease.setChangeType(IncreaseChangeType.RECHARGE.getCode());
-//						//熊猫币
-//						userCoinIncrease.setValue(rechargeParamVo.getValue());
-//						userCoinIncrease.setCreateTime(new Date());
-//						//0.支付宝1.微信支付2.苹果支付3.熊猫币支付4.线下支付-1其他支付
-//						userCoinIncrease.setPayType(rechargeParamVo.getPayType());
-//						//1.pc 2.h5 3.android 4.ios
-//						userCoinIncrease.setOrderFrom(rechargeParamVo.getOrderForm());
-//						userCoinIncrease.setOrderNoRecharge(alipayPaymentRecordH5.getTradeNo());
-
-						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),Payment.ALIPAY,rechargeParamVo.getValue(), OrderFrom.ANDROID,alipayPaymentRecordH5.getTradeNo());
+						//TODO
+						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),
+								Payment.ALIPAY,rechargeParamVo.getValue(),
+								OrderFrom.valueOf(rechargeParamVo.getOrderForm()),
+								alipayPaymentRecordH5.getTradeNo());
 						// 请不要修改或删除
 						response.getWriter().println("success");
 					}

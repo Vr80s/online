@@ -226,6 +226,10 @@ $(function(){
         $(".collection_courses").html("");
         courseArr=[];
     });
+    $(".select_time").change(function(){
+        debugger
+        $(this).val($(this).val());
+    });
 });
 
 /**
@@ -250,7 +254,7 @@ function courseList(current){
         courseForm = 2;
         multimediaType = 2;
     }
-    var url ="/anchor/course/getCourseApplyList?size=8&current="+current;
+    var url ="/anchor/course/getCourseApplyList?size=10&current="+current;
     if(courseForm!=null){
         url += "&courseForm="+courseForm;
     }
@@ -302,41 +306,43 @@ function saveCourse(){
     }
 }
 function addCourse(course){
-        $.ajax({
-            type: "post",
-            url: bath + "/anchor/course/saveCourseApply",
-            data:JSON.stringify(course),
-            contentType:"application/json",
-            async: false,
-            success: function(data) {
-                console.log(data);
-                if(data.success === true) {
-                    resetCourseForm();
-                    setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
-                } else {
-                    alert(data.errorMessage)
-                }
+    $.ajax({
+        type: "post",
+        url: bath + "/anchor/course/saveCourseApply",
+        data:JSON.stringify(course),
+        contentType:"application/json",
+        async: false,
+        success: function(data) {
+            console.log(data);
+            if(data.success === true) {
+                showTip(data.resultObject);
+                resetCourseForm();
+                setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
+            } else {
+                showTip(data.errorMessage)
             }
-        });
+        }
+    });
 }
 
 function updateCourse(course){
-        $.ajax({
-            type: "post",
-            url: bath + "/anchor/course/updateCourseApply",
-            data:JSON.stringify(course),
-            contentType:"application/json",
-            async: false,
-            success: function(data) {
-                console.log(data);
-                if(data.success === true) {
-                    resetCourseForm();
-                    setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
-                } else {
-                    alert(data.errorMessage)
-                }
+    $.ajax({
+        type: "post",
+        url: bath + "/anchor/course/updateCourseApply",
+        data:JSON.stringify(course),
+        contentType:"application/json",
+        async: false,
+        success: function(data) {
+            console.log(data);
+            if(data.success === true) {
+                showTip(data.resultObject);
+                resetCourseForm();
+                setTimeout(function(){ $(".select_list .courseP").click() }, 2000);
+            } else {
+                showTip(data.errorMessage)
             }
-        });
+        }
+    });
 }
 
 function editCourse(caiId){
@@ -347,17 +353,23 @@ function editCourse(caiId){
 }
 
 function deleteCourse(caiId,collection){
-    var r=confirm("确认删除？");
-    if(r){
+    var title="删除";
+    var content="确认删除该课程？";
+    if(collection){
+        title="删除";
+        content="确认删除该专辑？";
+    }
+    confirmBox(title,content,function(closefn){
         RequestService("/anchor/course/deleteCourseApplyById?caiId="+caiId, "get", null, function(data) {
-            alert(data.resultObject);
-            if(collection==1){
+            closefn();
+            showTip(data.resultObject);
+            if(collection){
                 courseCollectionList(1);
             }else{
                 courseList(1);
             }
         });
-    }
+    });
 }
 function echoCourse(caiId){
     RequestService("/anchor/course/getCourseApplyById?caiId="+caiId, "get", null, function(data) {
@@ -369,7 +381,7 @@ function echoCourse(caiId){
         $('#courseImg img').attr('src',course.imgPath);
         $('.course_lecturer ').val(course.lecturer);
         UE.getEditor('editor').setContent(course.lecturerDescription);
-         // $("input[name='course_form']:checked").val();
+        // $("input[name='course_form']:checked").val();
         $("input:radio[name=course_form][value="+course.courseForm+"]").prop("checked",true);
         $('#menu_select').val(course.courseMenu);
         $('.course_price').val(course.price);
@@ -384,8 +396,7 @@ function echoCourse(caiId){
             initResource(course.multimediaType);
             $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
             // $('.course_resource').val(course.resourceId);
-            debugger
-            $('.course_resource').selectpicker('val',(course.resourceId));
+            $('.selectpicker').selectpicker('val',(course.resourceId));
         }else{
             $('.course_start_time').val(course.startTime);
             $('.course_end_time').val(course.endTime);
@@ -393,7 +404,7 @@ function echoCourse(caiId){
             //省市区
             var address = course.address.split(" ")[1];
             var p_c = course.address.split(" ")[0];
-             p_c = p_c.split("-");
+            p_c = p_c.split("-");
             if(p_c.length==2){
                 //省
                 for(var i=0;i<$(".course_province option").length;i++){
@@ -475,6 +486,7 @@ function getCourseData(){
  * @Date: 2018/2/2 0002 下午 9:36
  **/
 function verifyCourse(course){
+    $(".warning").addClass('hide');
     //课程标题
     if(course.title == ''){
         $('.warning_course_title').removeClass('hide');
@@ -482,12 +494,24 @@ function verifyCourse(course){
     }else{
         $('.warning_course_title').addClass('hide');
     }
+    if(course.title.length>30){
+        $('.warning_course_title_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_title_length').addClass('hide');
+    }
     //副标题
     if(course.subtitle == ''){
         $('.warning_course_subtitle').removeClass('hide');
         return false;
     }else{
         $('.warning_course_subtitle').addClass('hide');
+    }
+    if(course.subtitle.length>30){
+        $('.warning_course_subtitle_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_subtitle_length').addClass('hide');
     }
     //封面图
     if(course.imgPath == ''){
@@ -502,6 +526,12 @@ function verifyCourse(course){
         return false;
     }else{
         $('.warning_course_lecturer').addClass('hide');
+    }
+    if(course.lecturer.length>30){
+        $('.warning_course_lecturer_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_lecturer_length').addClass('hide');
     }
     //主播介绍
     if(course.lecturerDescription == ''){
@@ -596,61 +626,58 @@ function verifyCourse(course){
     return true;
 }
 
-function confirmCourseSale(state,id){
-    if(state==1){
-        $(".saleText").html("确认上架该课程？");
-    }else{
-        $(".saleText").html("确认下架该课程？");
-    }
-    $("#saleState").val(state);
-    $("#saleCourseId").val(id);
-    $(".yes_no").show();
-}
-function confirmCollection(state,id){
-    if(state==1){
-        $(".saleText").html("确认上架该专辑？");
-    }else{
-        $(".saleText").html("确认下架该专辑？");
-    }
-    $("#saleStateCollection").val(state);
-    $("#saleCollectionId").val(id);
-    $(".no_yes").show();
-}
 
-/**
- * Description：更改上下架状态
- * creed: Talk is cheap,show me the code
- * @author name：yuxin <br>email: yuruixin@ixincheng.com
- * @Date: 2018/2/3 0003 下午 7:09
- **/
-function changeSaleState(collection){
-    var state = null;
-    var courseId = null;
-    if(collection==1){
-        state = $("#saleStateCollection").val();
-        courseId = $("#saleCollectionId").val();
-    }else{
-        state = $("#saleState").val();
-        courseId = $("#saleCourseId").val();
+function confirmCourseSale(state,courseId){
+    var title="课程上架";
+    var content="确认上架该课程？";
+    if(state==0){
+        title="课程下架";
+        content="确认下架该课程？";
     }
-
-    $.ajax({
-        type: "post",
-        url: bath + "/anchor/course/changeSaleState",
-        data:"courseApplyId="+courseId+"&state="+state,
-        async: false,
-        success: function(data) {
-            console.log(data);
-            if(data.success === true) {
-                if(collection==1){
-                    courseCollectionList(1);
-                }else{
+    confirmBox(title,content,function(closefn){
+        $.ajax({
+            type: "post",
+            url: bath + "/anchor/course/changeSaleState",
+            data:"courseApplyId="+courseId+"&state="+state,
+            async: false,
+            success: function(data) {
+                closefn();
+                console.log(data);
+                if(data.success === true) {
+                    debugger
                     courseList(1);
+                    showTip(data.resultObject);
+                } else {
+                    showTip(data.errorMessage);
                 }
-            } else {
-                alert(data.errorMessage)
             }
-        }
+        });
+    });
+}
+function confirmCollection(state,courseId){
+    var title="专辑上架";
+    var content="确认上架该专辑？";
+    if(state==0){
+        title="专辑下架";
+        content="确认下架该专辑？";
+    }
+    confirmBox(title,content,function(closefn){
+        $.ajax({
+            type: "post",
+            url: bath + "/anchor/course/changeSaleState",
+            data:"courseApplyId="+courseId+"&state="+state,
+            async: false,
+            success: function(data) {
+                closefn();
+                console.log(data);
+                if(data.success === true) {
+                    courseCollectionList(1);
+                    showTip(data.resultObject)
+                } else {
+                    showTip(data.errorMessage)
+                }
+            }
+        });
     });
 }
 
@@ -661,7 +688,7 @@ function changeSaleState(collection){
  * @Date: 2018/2/3 0003 下午 4:31
  **/
 function courseLiveList(current){
-    var url ="/anchor/course/getLiveApplyList?size=8&current="+current;
+    var url ="/anchor/course/getLiveApplyList?size=10&current="+current;
     debugger
     RequestService(url, "get", null, function(data) {
         $("#course_live_list").html(template('course_live_tpl', data.resultObject));
@@ -698,7 +725,7 @@ function startLive(id) {
     });
 }
 function previewLive(id) {
-        window.open("http://e.vhall.com/"+id);
+    window.open("http://e.vhall.com/"+id);
 }
 
 /**
@@ -710,7 +737,7 @@ function previewLive(id) {
 function courseCollectionList(current){
     var multimediaType = $("#course_collection_type").val();
     var courseName = $("#course_collection_name").val();
-    var url ="/anchor/course/getCollectionApplyList?size=8&current="+current;
+    var url ="/anchor/course/getCollectionApplyList?size=10&current="+current;
     if(multimediaType!=null && multimediaType!=""){
         url += "&multimediaType="+multimediaType;
     }
@@ -858,12 +885,13 @@ function addCollection(collection){
         success: function(data) {
             console.log(data);
             if(data.success === true) {
+                showTip(data.resultObject);
                 $("#zhuanji_bottom2").show();
                 $("#zhuanji_bottom").hide();
                 resetCollectionForm();
                 courseCollectionList(1);
             } else {
-                alert(data.errorMessage)
+                showTip(data.errorMessage)
             }
         }
     });
@@ -880,12 +908,13 @@ function updateCollection(collection){
         success: function(data) {
             console.log(data);
             if(data.success === true) {
+                showTip(data.resultObject);
                 $("#zhuanji_bottom2").show();
                 $("#zhuanji_bottom").hide();
                 resetCollectionForm();
                 courseCollectionList(1);
             } else {
-                alert(data.errorMessage)
+                showTip(data.errorMessage)
             }
         }
     });
@@ -914,7 +943,6 @@ function echoCollection(collectionId){
         $("input:radio[name=collection_multimedia_type][value="+collection.multimediaType+"]").prop("checked",true);
         initCourse(collection.multimediaType);
         courseArr = collection.courseApplyInfos;
-        courseArr = upDownShowInit(courseArr);
         var arr={};
         arr.courseArr=courseArr;
         $(".collection_courses").html(template('collection_course_list_tpl', arr));
@@ -939,6 +967,7 @@ function getCollectionData(){
     return collection;
 }
 function verifyCollection(collection){
+    $(".warning").addClass("hide");
     //课程标题
     if(collection.title == ''){
         $('.warning_collection_title').removeClass('hide');
@@ -946,12 +975,25 @@ function verifyCollection(collection){
     }else{
         $('.warning_collection_title').addClass('hide');
     }
+    if(collection.title.length>30){
+        $('.warning_collection_title_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_collection_title_length').addClass('hide');
+    }
     //副标题
     if(collection.subtitle == ''){
         $('.warning_collection_subtitle').removeClass('hide');
         return false;
     }else{
         $('.warning_collection_subtitle').addClass('hide');
+    }
+    //副标题
+    if(collection.subtitle.length>30){
+        $('.warning_collection_subtitle_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_collection_subtitle_length').addClass('hide');
     }
     //封面图
     if(collection.imgPath == ''){
@@ -966,6 +1008,12 @@ function verifyCollection(collection){
         return false;
     }else{
         $('.warning_collection_lecturer').addClass('hide');
+    }
+    if(collection.lecturer.length>30){
+        $('.warning_collection_lecturer_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_collection_lecturer_length').addClass('hide');
     }
     //主播介绍
     if(collection.lecturerDescription == ''){
@@ -1040,12 +1088,9 @@ function resetCollectionForm(){
 
 function initCourseSelect(){
     var csArr=[];
-    if(courseArr!=null){
-        for(var i=0;i < courseArr.length;i++){
-            csArr.push(courseArr[i].id);
-        }
+    for(var i=0;i < courseArr.length;i++){
+        csArr.push(courseArr[i].id);
     }
-    $('.selectpicker_collection').val(csArr);
     $('.selectpicker_collection').selectpicker('refresh');
     $('.selectpicker_collection').selectpicker('val',(csArr));
     $(".new_box").show();
@@ -1057,7 +1102,7 @@ function initCourseSelect(){
  * @Date: 2018/2/2 0002 下午 9:09
  **/
 function courseResourceList(current){
-    var url ="/anchor/course/getCourseResourceList?size=8&current="+current;
+    var url ="/anchor/course/getCourseResourceList?size=10&current="+current;
     debugger
     RequestService(url, "get", null, function(data) {
         $("#resource_list").html(template('course_resource_list_tpl', data.resultObject));
@@ -1078,30 +1123,31 @@ function courseResourceList(current){
                 }
             });
         } else {
-            $(".resource_pages").css("display", "none");
+            $(".collection_pages").css("display", "none");
         }
     });
 }
 
 function deleteResource(resourceId){
-    var r=confirm("确认删除该资源？");
-    if(r){
+    var title="删除";
+    var content="确认删除该资源？";
+    confirmBox(title,content,function(closefn){
         $.ajax({
             type: "post",
             url: bath + "/anchor/course/deleteCourseResource",
             data:"resourceId="+resourceId,
             async: false,
             success: function(data) {
-                console.log(data);
+                closefn();
                 if(data.success === true) {
-                    alert(data.resultObject);
+                    showTip(data.resultObject);
                     courseResourceList(1);
                 } else {
-                    alert(data.errorMessage)
+                    showTip(data.errorMessage)
                 }
             }
         });
-    }
+    });
 }
 //点击选择资源
 function resourcePre(){
@@ -1136,10 +1182,10 @@ function saveResource(){
             success: function(data) {
                 console.log(data);
                 if(data.success === true) {
-                    resetResource();
+                    showTip(data.resultObject);
                     showResourceList();
                 } else {
-                    alert(data.errorMessage())
+                    showTip(data.errorMessage())
                 }
             }
         });
@@ -1154,6 +1200,12 @@ function validateResource(){
         return false;
     }else{
         $('#ziyuan_bottom .warning0').addClass('hide');
+    }
+    if(title.length>30){
+        $('.warning_resource_title_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_resource_title_length').addClass('hide');
     }
 
     //资源文件
@@ -1185,6 +1237,11 @@ function initResource(multimediaType){
             str += "<option value='"+resources[i].id+"'>"+resources[i].title+"</option>";
         }
         $("#id_select").html(str);
+        $('.selectpicker').selectpicker('refresh');
+        $('.selectpicker').selectpicker({
+            'selectedText': 'cat',size:10
+        });
+        $("#speech_select").html(str);
         $('.selectpicker').selectpicker('refresh');
         $('.selectpicker').selectpicker({
             'selectedText': 'cat',size:10
