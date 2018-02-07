@@ -210,5 +210,7 @@
 	<uri>/paper/updateQuestionById</uri>
 
 	<anchoruri>/web/html/anchor/curriculum.html</anchoruri>
+	<!--<anchoruri>/web/html/anchors_resources.html</anchoruri>-->
+	<!--<anchoruri>/web/html/anchors_resources.html</anchoruri>-->
 
 </checkuris>
