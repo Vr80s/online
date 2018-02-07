@@ -17,27 +17,57 @@
 <div class="page-header">
 	当前位置：移动端课程管理 <small> <i
 		class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 课程详情 </span>
+	</small> <span>文件管理 </span>
 </div>
 <div class="mainrighttab tabresourse bordernone">
 	        <div role="tabpanel" class="tab-pane active" id="home">
-        	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-				<p class="col-xs-4" style="padding: 0;">
-				    <button class="btn btn-sm btn-success upload_bx" title="上传word文档">
-						<i class="glyphicon glyphicon-trash"></i> 上传word文档
-					</button>
+	        
+	        	<div class="mainrighttab tabresourse bordernone">
+					<p class="col-xs-4" style="padding: 0;">
+					    <button class="btn btn-sm btn-success upload_bx" title="上传word文档">
+							<i class="glyphicon glyphicon-open"></i> 上传word文档
+						</button>
+						<!-- <button class="btn btn-sm btn-success download_bx" title="上传word文档">
+							<i class="glyphicon glyphicon-save"></i> 下载word文档
+						</button> -->
 					
-					 <button class="btn btn-sm btn-success upload_excel" title="上传excel文档">
-						<i class="glyphicon glyphicon-trash"></i> 上传excel文档
-					</button>
-				<div class="row">
-					<div class="col-xs-12">
-						<table id="courseTable"
-							class="table table-striped table-bordered table-hover" style="width: 100%;">
-						</table>
-					</div>
+						<a href="/link/word/download?filename=链接地址添加文档.docx"> 下载word说明文档</a>
+					
+					<p>
 				</div>
-			</div>
+				
+				<div style="font-size: 16px;padding-bottom: 50px;letter-spacing: 0.5px">
+					 word文档内容主要包括专题页的跳转添加、学堂banner的跳转。下载文档可看具体描述情况，开发人员，测试人员维护，运营人员使用操作
+				</div>
+				
+				<div class="mainrighttab tabresourse bordernone">
+					<p class="col-xs-4" style="padding: 0;">
+						 <button class="btn btn-sm btn-success upload_excel" title="上传excel文档">
+							<i class="glyphicon glyphicon-open"></i> 上传excel文档
+						</button>
+				<!-- 		 <button class="btn btn-sm btn-success download_excel" title="上传excel文档">
+							<i class="glyphicon glyphicon-save"></i> 下载excel文档
+						</button> -->
+						
+						<a href="/link/word/download?filename=常见问题模板.xls"> 下载excel说明文档</a>
+					</p>	
+				</div>
+				
+				<div style="font-size: 16px;padding-bottom: 50px;letter-spacing: 0.5px">
+					 excel文档主要维护帮助中的常见问题，及其回答。
+				</div>
+				
+				
+				<!-- 文件记录 -->
+				
+				
+				
+				<!-- 常见问题上传记录   -->
+				<c:forEach var="item" items="${record}">
+					 <%-- <option value="${record.path}">${excel_file_record.cityName}</option> --%>
+					 <a href="/link/word/download?filename=${item.path}">${item.name}</a>
+			    </c:forEach>
+				
         </div>
 </div>
 
