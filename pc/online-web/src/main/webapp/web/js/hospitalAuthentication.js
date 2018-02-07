@@ -94,7 +94,7 @@ $(function(){
 		
 			
 		//城市判断
-		if($('#hos_Administration .hos_base_inf #choosePro  option:selected').text()== '请选择所在省' ||$('#hos_Administration .hos_base_inf  #citys option:selected').text() == '请选择所在市'){
+		if($('#hos_Administration .hos_base_inf #choosePro  option:selected').text()== '请选择省' ||$('#hos_Administration .hos_base_inf  #citys option:selected').text() == '请选择市'){
 			$('#hos_Administration .hos_base_inf .doc_address .warning').removeClass('hide');
 			return false;
 		}else{
