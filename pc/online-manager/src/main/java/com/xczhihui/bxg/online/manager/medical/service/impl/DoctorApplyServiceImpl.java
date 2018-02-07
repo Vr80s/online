@@ -440,6 +440,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             if(StringUtils.isNotBlank(apply.getDetailedAddress())){
                 doctor.setDetailedAddress(apply.getDetailedAddress());
             }
+            doctor.setStatus(true);
             doctor.setCreateTime(createTime);
             doctorDao.save(doctor);
         }

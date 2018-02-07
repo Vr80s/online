@@ -28,7 +28,7 @@
 		<if test="type != null and type != ''">
 			and op.type = #{type}
 		</if>
-		ORDER BY op.sort desc
+		ORDER BY op.sort ASC
 
 	</select>		  
 </mapper>

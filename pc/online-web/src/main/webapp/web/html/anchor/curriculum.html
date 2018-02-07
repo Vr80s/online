@@ -77,6 +77,7 @@
 			z-index: 1;
 		}
 		#swfDiv{*position:absolute; z-index:2;}
+		#uploadswf{top: 0;}
 	</style>
 
 </head>
@@ -1460,11 +1461,11 @@
 		<div class="little_box" id="resource">
 			<div class="resource_one">
 				<div class="zhuanlan_top">
-					<span class="title">新资源</span>
+					<span class="title" onclick="resetResource()">新资源</span>
 					<button>返回</button>
 				</div>
 				<div class="zhuanlan_bottom" id="ziyuan_bottom">
-					<form action="">
+					<form id="addResource">
 						<div>
 							<span><em>*</em>标题</span>
 							<input type="text" placeholder="请填写您的标题" class="zhuanlan_title" />
@@ -1482,16 +1483,19 @@
 						<div class="fla_btn">
 							<span><em>*</em>资源上传</span>
 
+							<input id="ccName" name="ccName" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
+							<input id="videoId" name="videoId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
 							<input id="ccId" name="ccId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
 							<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成</span>
 							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
-							<div id="swfDiv" style="display: inline-block;"></div>
+							<div id="swfDiv" style="display: inline-block;">
+							</div>
 							<input type="button" value="点击上传资源" id="btn_width" style="width: 128px; height: 32px;line-height: 32px;font-size: 14px;color: #00BC12;border-radius: 4px;border: 1px solid #00BC12;background: #fff;outline: none;" />
-							<p class="warning warning1 hide">请先上传资源文件</p>
+							<p class="warning warning1 hide">请先上传资源文件</p >
 						</div>
 
-						<div class="uploading" style="display:block;">
-							<p>资源上传中,请稍后...</p>
+						<div class="resource_uploading" style="display:none;">
+							<p>资源上传中,请稍后...</p >
 							<span id="uploadProgress">
 										<div class="progress">
 											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
@@ -1499,10 +1503,8 @@
 											</div>
 										</div>
 									</span>
-							<button id="cancalUpdata">取消上传</button>
+							<a id="cancalUpdata">取消上传</a>
 						</div>
-
-
 						<div class="baocun">
 							<input type="button" value="保存" id="submit" />
 						</div>
@@ -1663,9 +1665,29 @@
     }
 </script>
 <script type="text/javascript">
+
+	function resetResource(){
+        swfobj.write('swfDiv');
+		uploadfinished = false;
+        document.getElementById('addResource').reset();
+        $("#btn_width").val('点击上传资源');
+	}
+	$(function(){
+	    $("#cancalUpdata").click(function (){
+            swfobj.write('swfDiv');
+            $('#mask').addClass('hide');
+            $("#ziyuan_bottom .resource_uploading").hide();
+            $("#ccName").hide();
+            if($("#ccId").val!=null&&$("#ccId").val!=''){
+                $("#btn_width").val('点击重新上传');
+            }
+            $("#ccName").val($("#videofile").val());
+            $("#ccId").val($("#videoId").val());
+		});
+	});
     var uploadfinished = false;
     // 加载上传flash ------------- start
-    var swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '80', '25', '8');
+    var swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '128', '32', '8');
     swfobj.addVariable( "progress_interval" , 1);	//	上传进度通知间隔时长（单位：s）
     swfobj.addParam('allowFullscreen','true');
     swfobj.addParam('allowScriptAccess','always');
@@ -1674,12 +1696,14 @@
 
     function on_spark_selected_file(filename) {
         document.getElementById("videofile").value = filename;
+//        document.getElementById("ccName").value = filename;
         submitvideo(filename);
     }
 
     function on_spark_upload_validated(status, videoid) {
         if (status == "OK") {
-            document.getElementById("ccId").value = videoid;
+//            document.getElementById("ccId").value = videoid;
+            $("#videoId").val(videoid);
 //            alert("上传正常,videoid:" + videoid);
         } else if (status == "NETWORK_ERROR") {
             alert("网络错误");
@@ -1690,9 +1714,12 @@
 
     function on_spark_upload_progress(progress) {
         var uploadProgress = document.getElementById("uploadProgress");
-        if (progress == -1) {
+        if(progress == -1) {
             uploadProgress.innerHTML = "上传出错：" + progress;
-        } else if (progress == 100) {
+        } else if(progress == 100) {
+            $("#btn_width").val('点击重新上传');
+            $("#ccName").val($("#videofile").val());
+            $("#ccId").val($("#videoId").val());
             var progressStr = '<div class="progress">\n' +
                 '\t<div class="progress-bar progress-bar-success" role="progressbar"\n' +
                 '\t\t aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
@@ -1701,19 +1728,37 @@
                 '\t</div>\n' +
                 '\t</div>';
             uploadProgress.innerHTML = progressStr;
-            $(".uploading").hide();
+            $('#mask').addClass('hide');
+            $("#ziyuan_bottom .resource_uploading").hide();
             $("#btn_width").hide();
-            $(".uploadfinish").show();
+            $('#ccName').show();
+            $("#ziyuan_bottom .uploadfinish").show();
+            $("#ziyuan_bottom .updataSuccess").show();
+            $('#btn_width').css({
+                "display":"block",
+                "margin-left":"112px",
+                "margin-top":"20px"
+            })
+			$('#swfDiv').css({
+                "display":"block",
+                "margin-left":"112px",
+                "margin-top":"20px"
+			})
+			$('#uploadswf').css({
+                "top":"40px"
+			})
             uploadfinished = true;
         } else {
-            $(".uploading").show();
-            $(".uploadfinish").hide();
+            $('#mask').removeClass('hide');
+            $("#ziyuan_bottom .resource_uploading").show();
+            $("#ziyuan_bottom .uploadfinish").hide();
+            $("#ziyuan_bottom .updataSuccess").hide();
             uploadfinished = false;
             var progressStr = '<div class="progress">\n' +
                 '\t<div class="progress-bar progress-bar-info" role="progressbar"\n' +
                 '\t\t aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
-                '\t\t style="width: '+progress+'%;">\n' +
-                '\t\t<span class="sr-only">'+progress+'% 完成（成功）</span>\n' +
+                '\t\t style="width: ' + progress + '%;">\n' +
+                '\t\t<span class="sr-only">' + progress + '% 完成（成功）</span>\n' +
                 '\t</div>\n' +
                 '</div>';
             uploadProgress.innerHTML = progressStr;

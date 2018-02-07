@@ -49,39 +49,25 @@ $(function(){
 <script>
 	window.onload = function(){
 		
-		/*打赏没有关闭按钮,点击其他区域隐藏打赏*/
-		$("#video").click(function(){
-			$(".give_bottom").hide();
-		});
-		$(".coze").click(function(){
-			$(".give_bottom").hide();
-		});
-		$(".grabble").click(function(){
-			$(".give_bottom").hide();
-		});
-		$(".details_footer").click(function(){
-			$(".give_bottom").hide();
-		});
-		$(".leaderboard").click(function(){
-			$(".give_bottom").hide();
-		});
-		$(".details1").click(function(){
-			$(".give_bottom").hide();
-		});
-		
 		  /*礼物模块其他区域隐藏*/
 		$("#video").click(function(){
 			$(".send_gifts").hide();
 		});
+		
+//		点击聊天区域展示内容   sendChat（发送按钮）
 		$(".coze").click(function(){
 			$(".send_gifts").hide();
+			$("#sendChat").hide();
 		});
+		
 		$(".grabble").click(function(){
 			$(".send_gifts").hide();
 		});
 		$(".details_footer").click(function(){
 			$(".send_gifts").hide();
 		});
+		
+//		点击排行榜
 		$(".leaderboard").click(function(){
 			$(".send_gifts").hide();
 		});
@@ -89,32 +75,7 @@ $(function(){
 			$(".send_gifts").hide();
 		});
 		
-		/*点击隐藏打赏 10  50 */
-		$(".send_gifts_div0").click(function(){
-			$(".import_hide").hide();
-		});
-		$(".send_gifts_ul").click(function(){
-			$(".import_hide").hide();
-		});
-		$(".coze").click(function(){
-			$(".import_hide").hide();
-		});
-		$(".details_footer").click(function(){
-			$(".import_hide").hide();
-		});
-		$("#video").click(function(){
-			$(".import_hide").hide();
-		});
-		$(".grabble").click(function(){
-			$(".import_hide").hide();
-		});
 		
-		
-		$(".gift_ul_li li:first-child").click();
-		$(".gift_ul_li li:first-child").click();
-		
-		
-		$(".give_lable1:eq(2)").click();
 		
 		
 		if($("#doc img").attr("src").length==0){
@@ -231,7 +192,7 @@ $(function(){
 	<div class="coze_bottom" style="padding: 0.3rem 0;">
 		<div class="coze_bottom_input" style="margin-right: 0;">
 			<div class="poson">
-			<div class="send_img" id="sendChat"><img src="/xcview/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" /> </div>
+			<div class="send_img" id="sendChat"><!--<img src="/xcview/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" />-->发送 </div>
 			<!-- <input type="text" placeholder="聊聊您的想法吧" /> -->
 			<!-- <textarea ></textarea> -->
 			
@@ -502,12 +463,10 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 		$("#mywords").click(function(){
 			$(".give_a1").hide();  /*这是礼物*/
 			$(".give_a01").show();  /*这是表情*/
+			$("#sendChat").show();  /*发送文字按钮*/
 		});
 		
-		$("#mywords").click(function(){
-			$(".give_a01").show();
-		});
-		
+
 		
 		$(".give_a01").click(function(){
 //			$(".give_a01").();

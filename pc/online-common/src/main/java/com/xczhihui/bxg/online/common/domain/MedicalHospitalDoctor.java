@@ -28,6 +28,20 @@ public class MedicalHospitalDoctor implements Serializable {
 	@Column(name="hospital_id")
 	private String hospitalId;
 
+	/**
+	 * 删除状态
+	 */
+	@Column(name="deleted")
+	private String deleted;
+
+	public String getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(String deleted) {
+		this.deleted = deleted;
+	}
+
 	public MedicalHospitalDoctor() {
 	}
 

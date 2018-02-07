@@ -44,7 +44,7 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 //获取医馆认证状态控制左侧tab栏
  RequestService("/medical/common/isDoctorOrHospital","GET",null,function(data){
 	       if(data.success == true ){
-	       	if(data.resultObject == 2 ){
+	       	if(data.resultObject != 2 ){
 	       		//医馆认证未成功显示出来认证失败的页面
 	       		
 	       		$('#hos_Administration .hos_renzheng_inf .bottomContent').removeClass('hide');
