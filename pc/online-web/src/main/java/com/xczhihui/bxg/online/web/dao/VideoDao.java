@@ -424,6 +424,9 @@ public class VideoDao extends SimpleHibernateDao {
 		 * 回复此评论的人
 		 */
 		CriticizeVo cvo = this.findCriticizeById(criticizeId);
+		if (cvo==null) {
+			throw new RuntimeException("获取此条评论信息有误！");
+		}
 		/**
 		 * 回复其实也是一个评论
 		 *   插入一个评论

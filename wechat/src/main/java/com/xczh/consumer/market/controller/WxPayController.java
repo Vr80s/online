@@ -643,13 +643,17 @@ public class WxPayController {
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
 				if (openid != null && !openid.isEmpty()) {
-					res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
+				
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
+				
+					//res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
 				} else{
 					res.getWriter().write(openid);
 				}	
 			}else{
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid);
+				//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -988,14 +992,16 @@ public class WxPayController {
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
 				if (openid != null && !openid.isEmpty()) {
-					res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?center=center");
+					
+					res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
+					//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?center=center");
 				} else{
 					res.getWriter().write(openid);
 				}	
 			}else{
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?"
-						+ "openId="+openid);
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid);
+				//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?"+ "openId="+openid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

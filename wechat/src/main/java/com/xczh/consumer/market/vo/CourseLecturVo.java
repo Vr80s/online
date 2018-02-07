@@ -158,7 +158,11 @@ public class CourseLecturVo implements Serializable {
 	
 	
 	private String  note; //
+	
 	private String  startDateStr; //
+	
+	
+	private Integer collection;
 
 	private String  link;
 
@@ -441,4 +445,16 @@ public class CourseLecturVo implements Serializable {
 	public void setLink(String link) {
 		this.link = link;
 	}
+
+	public Integer getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Integer collection) {
+		this.collection = collection;
+	}
+
+
+	
+	
 }

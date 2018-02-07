@@ -11,27 +11,11 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 
+<link rel="stylesheet" type="text/css" href="/xcview/css/recharges.css" />
+
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="/xcviews/js/js.js"></script>
-
-
-<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
-<!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
-<!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
-<!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
-<link rel="stylesheet" type="text/css" href="/xcview/css/recharges.css" />
-
-
-
-
-<style>
-
-</style>
-
-
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
 	<header>
@@ -50,7 +34,11 @@
 			<div class="recharges_limit_title">选择充值的额度</div>
 			<div class="recharges_limit_list">
 				<ul id="ul">
-					<li class="li" id="one_li_bg">
+					<!-- <li class="li" id="one_li_bg">
+						<p class="p0"><span>50</span>熊猫币</p>
+						<p class="p1">￥<span>50</span>元</p>
+					</li> -->
+					<li class="li">
 						<p class="p0"><span>50</span>熊猫币</p>
 						<p class="p1">￥<span>50</span>元</p>
 					</li>
@@ -62,7 +50,7 @@
 						<p class="p0"><span>200</span>熊猫币</p>
 						<p class="p1">￥<span>200</span>元</p>
 					</li>
-					<li class="li" id="one_li_bg">
+					<li class="li">
 						<p class="p0"><span>500</span>熊猫币</p>
 						<p class="p1">￥<span>500</span>元</p>
 					</li>
@@ -74,7 +62,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="recharges_polite">
+		<!-- <div class="recharges_polite">
 			<div class="recharges_polite_title">充值有礼</div>
 			<div class="recharges_polite_gift">
 				<div class="recharges_polite_gift_img">
@@ -94,28 +82,48 @@
 					<p class="p1">内含：50熊猫币优惠券5张；25熊猫币优惠券10张</p>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 	<!--中间内容结束-->
+	
+	
+			<!--选择支付方式开始-->
+	<div class="weixin_pay">
+		<div class="weixin_pay_title">选择方式</div>
+		<div class="div">
+			<div class="pay_div div0" id="zhifubao_pay">
+				<img src="../images/Alipay_img.png" class="img0" />
+				支付宝
+			</div>
+			<div class="pay_div div1" id="weixin_pay">
+				<img src="../images/weixin_pay.png" />
+				微信
+			</div>
+			<div class="both"></div>
+		</div>
+		<div class="both"></div>
+	</div>
+	
+	
 	<!--底部开始-->
 	<!--<div class="footer_perch"></div>-->
 	<div class="footer">
-		<div class="footer_div_btn">去充值</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
+		<div class="footer_div_btn" onclick="goPay()">去充值</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
 	</div>
 	<!--底部结束-->
 	
 	<!--充值成功-->
-	<div class="success" style="display: block;">
+<!-- 	<div class="success" style="display: none;">
 		<div class="success_bg"></div>
 		<div class="success_main">
 			<div class="one">充值成功</div>
 			<div class="two">礼包已送到，可以在我的优惠券里找到</div>
 			<div class="three">确定</div>
 		</div>
-	</div>
+	</div> -->
 	
 	<!--充值失败-->
-	<div class="defeated" style="display: block;">
+	<div class="defeated" style="display:none;">
 		<div class="defeated_bg"></div>
 		<div class="defeated_main">
 			<div class="one">充值失败</div>
@@ -126,8 +134,6 @@
 			</div>
 		</div>
 	</div>
-	
-	
 </body>
 
 <!--点击更多隐藏显示结束-->
@@ -148,7 +154,6 @@
       	}
       	$(aBtn[0]).click();
       	
-      	
 //    	点击支付失败中--再试一次
 		$(".three_btn1").click(function(){
 			$(".defeated").hide();
@@ -158,10 +163,29 @@
 		$(".success_main .three").click(function(){
 			$(".success").hide();
 		});
+		
+		
+		
+		
+//		选择支付方式
+		$(".weixin_pay .div .div0").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div1").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div1").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div0").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div0").click();
+		
 	};
 </script>
-
-
+<script src="/xcviews/js/js.js"></script>
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="/xcview/js/XCh5Pay.js"></script>
+<script src="/xcview/js/recharges.js"></script>
 
 
 </html>

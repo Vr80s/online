@@ -30,7 +30,7 @@
 	
 	<delete  id="deleteBatch">    
         delete  from  oe_watch_history1  	
-       	  where id  
+       	  where id  in 
         <foreach collection="list" item="model" open="(" separator="," close=")" >    
             	#{model.id}
         </foreach>  

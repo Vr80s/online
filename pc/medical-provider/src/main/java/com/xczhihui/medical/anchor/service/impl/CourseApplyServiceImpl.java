@@ -132,12 +132,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(StringUtils.isBlank(courseApplyInfo.getTitle())){
             throw new RuntimeException("课程标题不可为空");
         }else if(courseApplyInfo.getTitle().length()>30){
-            throw new RuntimeException("课程标题长度不可超过32");
+            throw new RuntimeException("课程标题长度不可超过30");
         }
         if(StringUtils.isBlank(courseApplyInfo.getSubtitle())){
             throw new RuntimeException("课程副标题不可为空");
         }else if(courseApplyInfo.getSubtitle().length()>30){
-            throw new RuntimeException("课程副标题长度不可超过32");
+            throw new RuntimeException("课程副标题长度不可超过30");
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
             throw new RuntimeException("主播不可为空");
@@ -261,8 +261,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
             throw new RuntimeException("主播不可为空");
-        }else if(courseApplyInfo.getLecturer().length()>32){
-            throw new RuntimeException("主播名称长度不可超过32");
+        }else if(courseApplyInfo.getLecturer().length()>30){
+            throw new RuntimeException("主播名称长度不可超过30");
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturerDescription())){
             throw new RuntimeException("主播介绍不可为空");
