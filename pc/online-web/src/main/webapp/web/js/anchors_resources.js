@@ -604,21 +604,24 @@ RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
 //如果入驻了医馆进入获取数据
 $('#docJoinHos').click(function(){
     RequestService("/medical/doctor/getHospital", "get", null, function(data) {
-        //头像预览
-        console.log(data);
+    	if(data.success == true){
+    		//入住过医馆
+    		 //头像预览
         $('.selectpicker').selectpicker('val',(data.resultObject.id));
         //坐诊时间渲染
         var workArr = data.resultObject.visitTime.split(",");
-//			console.log(workArr)
+			console.log(workArr)
 
         var j;
         for(var i =0 ;i < $('.hospital_worktime ul li ').length ;i++){
             for(j = 0;j < workArr.length ;j++ ){
-                if($('.hospital_worktime ul li').eq(i).text() == workArr[j].name){
-                    $('.hospital_worktime ul li').eq(i).addClass('color');
+                if($('.hospital_worktime ul li').eq(i).text() == workArr[j]){
+                    $('.hospital_worktime ul li').eq(i).addClass('color keshiColor');
                 }
             }
         }
+    	}
+       
 
     });
 
