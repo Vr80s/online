@@ -27,7 +27,7 @@ function btn_up(){
         webToast("请上传营业执照","middle",3000);
         return false;
     }
-    if($.trim($("#licenseForPharmaceuticalTrading")).val()==''){
+    if($.trim($("#licenseForPharmaceuticalTrading").val())==''){
         webToast("请输入药品经营许可证号","middle",3000);
         return false;
     }
@@ -45,8 +45,14 @@ function btn_up(){
             processData: false,  // 告诉jQuery不要去处理发送的数据
             contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
             success: function(data){
-                console.log(data.resultObject);
-                window.location.href="../html/hos_examine.html";
+                if(data.success==true){
+                    window.location.href="../html/hos_examine.html";
+                }else{
+                    webToast(data.setErrorMessage,"middle",3000);
+
+                }
+
+
             }
         });
 
