@@ -32,6 +32,11 @@ $(function(){
 		var NameWarnings = $.trim($('.physician_two .name_put0').val());
 		var NameCard = $.trim($('.physician_two .name_put1').val());
 		
+		var name = $.trim($('.physician_two .name_put0').val());
+		var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;;
+		var doc_Idnum = $.trim($('#AutList .doc_Idnum').val());
+		var doc_Idnum_pass = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
+		var personInt = UE.getEditor('editor').getContent();
 		
 		//姓名为空
 		if(NameWarnings == ''){
