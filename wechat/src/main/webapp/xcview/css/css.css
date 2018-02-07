@@ -1411,14 +1411,15 @@ footer{
 	word-break: break-all;
     word-wrap: break-word;
 }
-.coze_cen_bg_ri img:first-child{
-	position: absolute;
+.coze_cen_bg_ri img{
+	/*position: absolute;
     top: 0.3rem;
-    right: -0.25rem;
-    z-index: 1;
-    width: 0.225rem;
-    height: 0.4rem;
+    right: 0rem;
+    z-index: 1;*/
+    /*width: 0.8rem;*/
+    /*height: 0.4rem;*/
     /*font-family: "微软雅黑";*/
+    vertical-align: middle;
 }
 
 
@@ -1574,7 +1575,7 @@ footer{
 	background: #fff;
 	border-bottom: 1px solid #d2d2d2;
 	height:3.15rem;
-	position: absolute;
+	/*position: absolute;*/
     top: 0.8rem;
 	padding-bottom: 0.2rem;
 }
