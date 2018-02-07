@@ -701,8 +701,9 @@
 			<span>科室</span>
 			<ul>
 				{{if medicalDepartments && medicalDepartments.length > 0}}
-		
-				  {{include 'adaptTpl' }}  
+					{{each medicalDepartments}}
+					<li data-id={{$value.id}} style="cursor: default;">{{$value.name}}</li>
+					{{/each}}
 				 {{/if}}
 			
 			</ul>

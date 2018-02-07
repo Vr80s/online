@@ -81,7 +81,6 @@ $(function(){
 						//个性签名
 						$('.doctor_inf>p').text(data.resultObject.info)
 					}
-					$('.')
 				} else {
 					
 				}
