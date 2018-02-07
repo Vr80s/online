@@ -143,7 +143,7 @@ $(function(){
 				<ul>
 					<li><span class="li1">聊天</span></li>
 					<li><span class="li3">排行榜</span></li>
-					<li><span class="li2">主播</span></li>
+					<li><span class="li2">主讲人</span></li>
 					<li><span class="li4">文档</span></li> 
 				</ul>
 			</div>
@@ -181,6 +181,29 @@ $(function(){
 	<div class="footer_k" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
 	<div class="coze" style="height: 11rem">
+		
+		<!--关注-->
+		<div class="attention">
+			<div class="main_img">
+				<img src="../images/120.jpg" />
+			</div>
+			<div class="main_title">
+				<p class="p0">郝忠平（主播名）</p>
+				<p class="p1">
+					<span class="span0">关注<span>10</span></span>
+					<span class="span1">粉丝<span>10</span></span>
+				</p>
+			</div>
+			<div class="add_follow" id="add_follow" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
+						
+				<img src="../images/append1_icon.png">
+				<p>加关注</p>
+			</div>
+			<div class="close">×</div>
+			
+		</div>
+		
+		<div class=""></div>
 		<div style="height: 0rem;"></div>
 		<div class="chatmsg-box" style="height: 11rem;margin-top: 0.25rem;">
 			<div class="coze_center" id="chatmsg" style="overflow: auto;">
@@ -191,7 +214,11 @@ $(function(){
 	<!-- <div style="height:2.125rem;width:100%;background: red;"></div> -->
 	<div class="coze_bottom" style="padding: 0.3rem 0;">
 		<div class="coze_bottom_input" style="margin-right: 0;">
-			<img src="../images/inp_retured.png" class="img_left" />
+			<div class="div_img">
+				<img src="../images/inp_retured.png" class="img_left" />
+			</div>
+			
+
 			<div class="poson">
 				<div class="send_img" id="sendChat"><!--<img src="/xcview/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" />-->发送 </div>
 	
@@ -263,7 +290,7 @@ $(function(){
 
 	<!-- 直播送礼物开始 -->
 
-	<div class="send_gifts" style="display: block !important;">
+	<div class="send_gifts" style="display: block1 !important;">
 		<div class="send_gifts_div0">
 			<!--<p class="send_gifts_p">送礼物</p>-->
 			
@@ -329,14 +356,11 @@ $(function(){
 						房间号：<span></span>
 					</p> -->
 				</div>
-				<div class="details_attention"
-					style="width: 0; padding: 0; background: none; margin-right: 3rem; float: left;margin-left: 1.8rem;">
+				<div class="details_attention" style="background: none; margin-right: 3rem; float: left;margin-left: 1.8rem;">
 					<!-- <img src="/xcview/images/guanzhu_03.png" alt=""
 						style="margin-top: -0.65rem;margin-left: 0.19rem;margin-right: 0.4rem;" /> -->
-					<p id="guanzhu2" class="guanzhu1"
-						style="width: 3.025rem;height: 1.2rem;background: url(/xcview/images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -1rem;"></p>
-					<p class="guanzhu2"
-						style="background: url(/xcview/images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -1rem;"></p>
+					<p id="guanzhu2" class="guanzhu1"style="width: 3.025rem;height: 1.2rem;background: url(/xcview/images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -1rem;"></p>
+					<p class="guanzhu2" style="background: url(/xcview/images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -1rem;"></p>
 				</div>
 			</div>
 			<div class="both"></div>
@@ -480,6 +504,37 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 		
 		
 		$(".gift_ul_li li:first-child").click();
+		
+		
+		
+//		关注开始
+		$(".add_follow").click(function(){
+	        //评论id
+//	        lecturerId = $(this).attr("data-lecturerId");
+	        var p = $(".right_personal").find('span').html();
+	
+	        var src = $(this).find('img').attr('src');
+	        if(src.indexOf("append1_icon")>-1){
+	            $(".add_follow").find('img').attr('src','../images/append2_icon.png');
+	            $(".add_follow").find('p').html("已关注");
+	
+	            $(".right_personal").find('span').html(parseInt(p)+1);
+//	            my_follow(lecturerId,1);
+	        }else{
+	            $(".add_follow").find('img').attr('src','../images/append1_icon.png');
+	            $(".add_follow").find('p').html("加关注");
+	            $(".right_personal").find('span').html(parseInt(p)-1);
+//	            my_follow(lecturerId,2);
+	        }
+	    });
+		
+		
+//		点击关注关闭
+		$(".attention .close").click(function(){
+			$(".attention").hide();
+		});
+		
+		
 	};
 </script>
 </html>

@@ -218,19 +218,19 @@ $(document).ready(function() {
     		userInfo = VHALL_SDK.getUserinfo();
     	}
         if (res.code == 200 ) {
+        	var Name = localStorage.name;
             var str = '';
             for (var i = res.data.length - 1; i >= 0; i--) {
             	if(userInfo.userid == res.data[i].user_id){
             		 str += "<div class='coze_cen_ri'> "+
-        			 "<img src="+res.data[i].avatar+" alt='' "+
-        			"	class='coze_cen_ri_img' /> "+
+        			 "<span class='span_name'>："+Name+"</span>"+
         			"  <div class='coze_cen_bg_ri'> "+
         			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
         			" </div> "+
         			" <div class='both'></div></div>";
             	}else{
             		str += "<div class='coze_cen'>";
-                    str+="<img src='"+res.data[i].avatar+"' alt='' class='coze_cen_left_img' />";
+                    str+="<span class='span_name'>："+Name+"</span>";
                     str+="<div class='coze_cen_bg'>";
                     str+="<img src='/xcviews/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
                     		"<div class='both'></div></div>";
@@ -245,26 +245,31 @@ $(document).ready(function() {
     });
    
    
+   
     VHALL_SDK.on('vhall_record_history_chat_msg', function(res) {
+    	
     	if(userInfo ==""){
     		userInfo = VHALL_SDK.getUserinfo();
     	}
     	if (res.code == 200 ) {
+    		
+    		var Name = localStorage.name;
             var str = '';
+            
             $("#chatmsg").data('curr_page', res.curr_page);
             for (var i = res.data.length - 1; i >= 0; i--) {
             	 if(userInfo.userid == res.data[i].user_id){
             	    str += "<div class='coze_cen_ri'> "+
-        			 "<span class='span_name'>："+teacherName+"</span>"+   /*主播名*/
+        			 "<span class='span_name'>"+Name+"：</span>"+   /*用户名*/
         			"  <div class='coze_cen_bg_ri'> "+
         			"	"+res.data[i].content+"  "+
         			" </div> "+
         			" <div class='both'></div></div>";
                  }else{
                 	 str += "<div class='coze_cen'>";
-                     str+="<img src='"+res.data[i].avatar+"' alt='' class='coze_cen_left_img' />";
+                     str+="<span class='span_name'>"+Name+"：</span>";  //用户名
                      str+="<div class='coze_cen_bg'>";
-                     str+="<img src='/xcviews/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
+                     str+=""+res.data[i].content+"</div>" +
                      		"<div class='both'></div></div>";
                  }
             }
