@@ -207,9 +207,7 @@ header {
 	height: 1rem;
 }
 .enter_bottom div{
-	margin-left: 0.75rem;
-	margin-right: 0.75rem;
-	float: left;
+	margin: 0 auto;
 }
 /*中间内容结束*/
 
