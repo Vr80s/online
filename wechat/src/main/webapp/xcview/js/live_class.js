@@ -25,14 +25,14 @@ $(function(){
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
+
 		data.resultObject.startTime= data.resultObject.startTime.substring(0,10); //截取日期
-		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期
-	
+		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期	
 
 
-		
+//		data.resultObject.endTime= data.resultObject.endTime.substring(0,10); //截取日期
+//	
 
-//		data.resultObject.endTime= data.resultObject.endTime.substring(0,10);
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
 		
 
@@ -68,6 +68,12 @@ function refresh(){
         pageNumber:1,
         pageSize:6
     },function(data) {
+    	//  	判断有无评论显示默认图片
+		if(data.resultObject.items.length==0){
+			$(".quie_pic").show()
+		}else{
+			$(".quie_pic").hide()
+		}
         //	课程名称/等级/评论
         if(data.resultObject){
 
