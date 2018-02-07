@@ -45,8 +45,13 @@ function btn_up(){
             processData: false,  // 告诉jQuery不要去处理发送的数据
             contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
             success: function(data){
-                console.log(data.resultObject);
-                window.location.href="../html/phy_examine.html";
+                if(data.success==true){
+                    window.location.href="../html/phy_examine.html";
+                }else{
+                    webToast(data.setErrorMessage,"middle",3000);
+                }
+
+
             }
         });
 
