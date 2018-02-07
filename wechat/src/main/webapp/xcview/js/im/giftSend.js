@@ -29,7 +29,7 @@ var ROOM_JID="";
  * @returns
  */
 var course_id = getQueryString("courseId");
-requestService("/xczh/common/getImServerConfig", {courseId : courseId}, function(data) {
+requestService("/xczh/common/getImServerConfig", {courseId : course_id}, function(data) {
 	if (data.success) {
 		guId = data.resultObject.guId;
 		guPwd = data.resultObject.guPwd;

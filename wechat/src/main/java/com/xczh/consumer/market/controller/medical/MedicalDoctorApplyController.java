@@ -117,6 +117,7 @@ public class MedicalDoctorApplyController {
 	/**
 	 * 医师入驻申请信息
 	 */
+	
 	@RequestMapping("doctorInfo")
 	@ResponseBody
 	public ResponseObject getLastOne(HttpServletRequest req)

@@ -98,6 +98,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 	public CourseLecturVo selectCourseMiddleDetailsById(Integer courseId) {
 		
 		return iCourseMapper.selectCourseMidileDetailsById(courseId);
+	}
+
+	@Override
+	public List<CourseLecturVo> selectUserConsoleCourseLiveByPage(
+			Page<CourseLecturVo> page, String userId) {
+		// TODO Auto-generated method stub
+		return iCourseMapper.selectUserConsoleCourseLiveByPage(page,userId);
 	};
 
 }
