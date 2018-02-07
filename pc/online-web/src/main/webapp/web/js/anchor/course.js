@@ -433,6 +433,7 @@ function resetCourseForm(){
     UE.getEditor('editor').setContent('');
     UE.getEditor('editor_cd').setContent('');
     $("#courseImg").html("");
+    $("#caiId").val("");
     $("#citys").empty();
     showCourseAttribute(1);
     initResource(1);
@@ -1080,6 +1081,7 @@ function resetCollectionForm(){
     UE.getEditor('editor_collection_details').setContent('');
     UE.getEditor('editor_collection_outline').setContent('');
     UE.getEditor('editor_collection_lecturer_description').setContent('');
+    $("#collectionId").val("");
     $("#collectionImg").html("");
     $(".collection_courses").html("");
     courseArr=[];
