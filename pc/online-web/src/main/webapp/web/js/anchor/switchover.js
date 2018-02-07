@@ -130,7 +130,6 @@ $(".account_number").click(function() {
     $("#curriculum").hide();
     $(".begin_approve").show();
     $(".school").show();
-    $(".physician_one").show();
     $(".physician_two_two").hide();
     $(".message_return").hide();
     $("#resource").hide();
@@ -157,22 +156,26 @@ $(".name_news").click(function() {
 
 //点击个人信息  
 $(".name_personage").click(function() {
-    $(".account_main_alter").hide();
-//  $(".personal_details").show();
+$('.begin_approve').hide();
+$('.account_main').hide();
+//$(".account_main_alter").addClass('hide');
+//$(".personal_details").show();
 });
 	
 
 //账户重新认证点击开始
 $(".reauthentication .right_btn").click(function() {
-    $(".account_main_message").hide();
-    $(".account_main_alter").show();
+    $(".begin_approve").hide();
+    $(".physician_two_two").removeClass('hide');
+    $(".physician_two_two").show();
 });
 
 
-
+//点击返回按钮
 $(".account_main_alter_title .two").click(function() {
-    $(".account_main_alter").hide();
-    $(".account_main_message").show();
+	 $(".physician_two_two").hide();
+    $(".begin_approve").show();
+  
 });
 
 
@@ -188,32 +191,6 @@ $(".message_return .message_title .two").click(function() {
 });
 
 
-
-//判断医师认证为空 
-$('.physician_two .approve').click(function(){
-//	姓名为空
-	var NameWarnings = $.trim($('.physician_two .name_put0').val());
-	
-//身份证号为空
-	var NameCard = $.trim($('.physician_two .name_put1').val());
-	
-	//姓名为空
-	if(NameWarnings == ''){
-		$('.physician_two .two_warning0').removeClass('hide');
-		return false;
-	}else{
-		$('.physician_two .two_warning0').addClass('hide');
-	}
-	
-	//身份证号为空
-	if(NameCard == ''){
-		$('.physician_two .two_warning1').removeClass('hide');
-		return false;
-	}else{
-		$('.physician_two .two_warning1').addClass('hide');
-	}
-	
-})
 
 
 
