@@ -53,7 +53,6 @@ requestService("/xczh/order/getByOrderId",{
  * 点击去支付
  */
 function  goPay() {
-	alert("=============");
     /**
      * 判断支付类型
      */
@@ -89,7 +88,7 @@ function  goPay() {
     		 if(data.success){
              	 if(is_weixn()){
              		  //去另一个页面引导用户去外部浏览器打开
-                      location.href = "/xcview/html/wechat_alipay.html?orderId="+getQueryString("courseId")+"&redirectUrl="+getgetRedirectUrl(allCourse,true);
+                      location.href = "/xcview/html/wechat_alipay.html?type=1&orderId="+getQueryString("courseId")+"&redirectUrl="+getgetRedirectUrl(allCourse,true);
                       return;
                   }
                   jmpPayPage("/xczh/alipay/pay",payType,"orderId="+getQueryString("courseId"),null);

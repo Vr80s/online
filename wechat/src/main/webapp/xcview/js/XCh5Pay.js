@@ -4,11 +4,21 @@
  * author:liutao
  */
 
+
+function is_weixn(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 /**
  * 跳转到支付页面。
  * 依附于后端com.xczh.distributed.common.bean.ResponseObject对象
  * orderUrl 统一下单的url
- * payMode 支付方式 0:支付宝 1:微信支付
+ * payMode 支付方式 2:支付宝 3:微信支付
  * params 下订单需要的参数,格式：paramName=1&paramName=2&paramName=3...
  * returnUrl 微信支付需要传
  *
@@ -17,7 +27,6 @@ function jmpPayPage(orderUrl,payMode,params,returnUrl){
     if(payMode==2){
         location.href = orderUrl+"?"+params;
     }else if(payMode==3){
-    	alert(orderUrl+"{}{}{}"+params+"{}{}{}"+returnUrl);
         weixin(orderUrl,params,returnUrl);
     }
 }
