@@ -252,8 +252,13 @@ margin-right: 0.3rem;
 	width: 2.75rem;
     height: 1.1rem;
     line-height: 1.1rem;
-    font-size: 0.5rem;
     margin-top: 0.05rem;
+    width: 6.325rem;
+    height: 2.085rem;
+    line-height: 2.085rem;
+    margin-right: 0;
+    border-radius: 0;
+    font-size: 0.75rem;
 }
 .fd_img_bg{
     width: 4.5rem;
@@ -375,4 +380,66 @@ margin-right: 0.3rem;
 }
 #face{
 	margin: 0;
+}
+
+
+/*处理礼物模块*/
+.send_gifts .balance{
+	padding: 0;
+    height: 2.085rem;
+    border-top: 1px solid #f0f0f0;
+}
+.send_gifts{
+	height: 11.234rem;
+	bottom: 0;
+}
+.send_gifts ul{
+	background: #fff;
+    height: 8.298rem;
+    display: inline-block;
+    padding: 0;
+    padding-top: 0.851rem;
+}
+.send_gifts ul li{
+	border-radius: 4px;
+	width: 3.404rem;
+    height: 3.404rem;
+    padding: 0;
+    position: relative;
+   	border: 1px solid #fff;
+   	margin-bottom: 0.702rem;
+   	margin-left: 0.4rem;
+}
+.send_gifts ul li a{
+	margin: 0 auto;
+    display: table;
+    width: 3.404rem;
+    height: 3.404rem;
+    text-align: -webkit-center;
+}
+.gift_p{
+	width: 100%;
+    position: absolute;
+    bottom: 0rem;
+    margin-left: 0rem; 
+    padding-bottom: 0.3rem;
+}
+.gift_ul_li_li{
+	border: 1px solid #96e39d !important;
+}
+.balance_size{
+	float: left;
+	font-size: 0.6rem;
+    color: #333;
+    margin-top: 0;
+    height: 2.085rem;
+    line-height: 2.085rem;
+}
+.balance_size span{
+	height: 2.45rem;
+	line-height: 2.45rem;
+}
+.send_gifts .gifts_div{
+	width: 1.426rem;
+    height: 1.34rem;
 }
