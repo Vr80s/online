@@ -23,7 +23,7 @@
     </update>
 
     <select id="findByName" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospitalApply">
-        SELECT id
+        SELECT id, user_id
         FROM medical_hospital_apply
         WHERE name = #{name} AND status = 2 and deleted = 0
     </select>

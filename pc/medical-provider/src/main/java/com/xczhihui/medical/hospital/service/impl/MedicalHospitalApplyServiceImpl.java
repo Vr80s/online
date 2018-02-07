@@ -64,7 +64,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         }
 
         MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(target.getName());
-        if(medicalHospitalApply != null){
+        if(medicalHospitalApply != null && !(medicalHospitalApply.getUserId().equals(target.getUserId()))){
             throw new RuntimeException("医馆名称已经在认证中");
         }
 
