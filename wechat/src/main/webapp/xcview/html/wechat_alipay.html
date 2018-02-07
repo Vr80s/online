@@ -66,18 +66,30 @@
             return false;
         }
     }
-    if(is_weixn()){
-        //轮循查看订单是否已支付 跳转 redirectUrl
-        setInterval("whileSelectOrderStatus()","2000");
-    }else {
-   	    jmpPayPage("/xczh/alipay/pay",2,"formIsWechat=1&orderId="+getQueryString("orderId"),null);
-    }
+	alert("==================");
+ // type =1 购买  type =2 充值
+    var type = getQueryString("type");
+    
+  	 	if(is_weixn()){   //在微信浏览器内部时 ，进行轮询 
+       		//轮循查看订单是否已支付 跳转 redirectUrl
+       		if(type==1){
+       			setInterval("whileSelectOrderStatus()","2000");
+       		}
+  		}else {           //不在微信内时
+  			alert("=================="+type);
+	    	if(type==1){//支付
+	    		jmpPayPage("/xczh/alipay/pay",2,"formIsWechat=1&orderId="+getQueryString("orderId"),null);
+	    	}else{
+	    		alert("==================");
+	    		jmpPayPage("/xczh/alipay/rechargePay",2,"formIsWechat=1&type="+getQueryString("type")+"&userId="+getQueryString('userId')+"&actualPay="+getQueryString('actualPay'),null);
+	    	}
+ 		 }
 
 function whileSelectOrderStatus(){
 	requestService("/xczh/order/getByOrderId",{orderId:getQueryString("orderId")}, function(data) {
 		 if (data.success) {
              var result = data.resultObject;
-             if(result.orderStatus==1){
+             if(result.orderStatus==1){ //
                  location.href=""+getQueryString("redirectUrl")+"";
              }
          }

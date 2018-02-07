@@ -10,25 +10,8 @@ $(function(){
             webToast(data.errorMessage,"middle",3000);
         }
     });
-
-    balance();
-
 });
 
-//人民币/熊猫币余额
-function balance() {
-    requestService("/xczh/manager/home",{
-    },function(data) {
-        if(data.success==true){
-            $("#xmbNumber").text(data.resultObject.xmbCount);
-            $("#courseNumber").text(data.resultObject.courseCount);
-            //用户头像
-            $(".header_img").html(template('userInfo',data.resultObject.user));
-        }else{
-            webToast(data.errorMessage,"middle",3000);
-        }
-    });
-}
 //点击我要当主播
 function myAnchor() {
 

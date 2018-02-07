@@ -190,7 +190,7 @@ public class XzWxPayController {
 	@RequestMapping("rechargePay")
 	@ResponseBody
 	public ResponseObject rechargePay(HttpServletRequest req,HttpServletResponse res,
-			@RequestParam("clientType")String clientType,
+			@RequestParam("clientType")Integer clientType,
 			@RequestParam("actualPay")String actualPay)
 			throws Exception {
 		
@@ -219,25 +219,28 @@ public class XzWxPayController {
 		/**
 		 * 判断此请求来时h5呢，还是微信公众号，还是app
 		 */
-		int orderFrom = new Integer(clientType);
 		String spbill_create_ip =WxPayConst.server_ip;;
-		if(orderFrom == 2 || orderFrom == 3){
+		if(clientType == 2 || clientType == 3){
 			spbill_create_ip =getIpAddress(req);
 		}
 		String tradeType = null; //公众号
 		String openId = null;
-		if(orderFrom == 4){
+		
+		int orderFrom = 0;
+		if(clientType == 3){
 			openId = req.getParameter("openId");
 			tradeType= PayInfo.TRADE_TYPE_JSAPI;
-		}else if(orderFrom == 3){
+			orderFrom = 3;
+		}else if(clientType == 4){
 			tradeType =PayInfo.TRADE_TYPE_H5;
-		}else if(orderFrom == 2){
+			orderFrom = 2;
+		}else if(clientType == 5){
 			tradeType =PayInfo.TRADE_TYPE_APP;
+			orderFrom = 2;
 		}
-		
 		// TODO
 		/*
-		 * 
+		 *封装充值对象 
 		 */
 		RechargeParamVo rechargeParamVo=new RechargeParamVo();
 		rechargeParamVo.setT("2");
@@ -249,6 +252,7 @@ public class XzWxPayController {
 		String extDatas ="recharge&"+cacheKey;
 		String passbackParams = com.alibaba.fastjson.JSONObject.toJSON(rechargeParamVo).toString();
 		cacheService.set(cacheKey,passbackParams,7200);
+		
 		LOGGER.info("充值参数："+extDatas.length());
 		
 		Map<String, String> retpay = PayFactory.work().getPrePayInfosCommon

@@ -40,7 +40,7 @@ $(".return").click(function(){
 /**
  * 	更换手机号开始
  */
-var currentName = localStorage.name;
+var currentName = localStorage.username;
 
 /*
  * 发送短信验证码
@@ -79,7 +79,7 @@ function  sendCode(obj){
 		username : number,
 		vtype:vtype   	//类型，3注册，4重置密码
 	};
-	requestService("/bxg/bs/phoneCheck", 
+	requestService("/xczh/user/phoneCheck",
 			urlparm, function(data) {
 		if (data.success) {
 			time(obj);
@@ -185,3 +185,66 @@ function checkUser1(saveFalg){
 		}
 	},false);
 }
+
+
+/*
+ * 绑定现有的手机号，也就是更换原来的手机号
+ */
+function updateMobile(){
+
+    if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
+        $("#errorMsg").html("获取用户手机号有误");
+        $("#errorMsg").show();
+        return false;
+    }
+
+    var number = $("#new_mobile").val();
+    if (!(/^1[34578]\d{9}$/.test(number))) {
+        $("#errorMsg").text("手机号格式不正确");
+        $("#errorMsg").show();
+        return false;
+    }
+
+    var code= $("#new_code").val();
+    if(!stringnull(code)){
+        $("#errorMsg").html("验证码不能为空");
+        $("#errorMsg").show();
+        return false;
+    }
+
+    var urlparm = {
+        oldUsername:currentName,
+        newUsername:number,
+        code:code,
+        vtype:4   	//类型，3注册，2重置密码
+    };
+
+    requestService("/xczh/user/updatePhone",
+        urlparm, function(data) {
+            if (data.success) {
+                //更改完手机号后，需要把session中的这个东西换下呢？
+                localStorage.setItem("name",number);
+                $(".call_popup_size2").text(number);
+                $(".call_popup").show();
+            } else {
+                $("#errorMsg").html(data.errorMessage);
+                $("#errorMsg").show();
+                return false;
+            }
+        });
+
+}
+$(".call_popup_btn").click(function(){
+    $(".call_popup").hide(); //去设置页面
+    $(".return").click();
+
+    requestService("/xczh/user/logout",{
+		}, function(data) {
+            if (data.success) {
+                window.location.href="enter.html";
+            }
+        });
+
+
+})
+

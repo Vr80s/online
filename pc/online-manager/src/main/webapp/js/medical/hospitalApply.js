@@ -22,6 +22,7 @@ $(function() {
             return '<input type="checkbox" value=' + data + ' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>' + row.teachMethodName + '</span>';
         }
     },
+        {"title": "医馆名称", "class": "center", "width": "6%", "sortable": false, "data": 'name'},
         {"title": "所属公司", "class": "center", "width": "6%", "sortable": false, "data": 'company'},
         {"title": "营业执照号", "class": "center", "width": "6%", "sortable": false, "data": 'businessLicenseNo'},
         {"title": "药品经营许可证号", "class": "center", "width": "8%", "sortable": false, "data": 'licenseForPharmaceuticalTrading'},

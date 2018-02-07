@@ -267,6 +267,7 @@ function search(){
 
 //新增框
 $(".add_bx").click(function(){
+	debugger;
 	mobileBannerForm.resetForm();
 	//$(".remove").trigger("click");
 	$(".clearfixAdd").remove();
@@ -276,6 +277,8 @@ $(".add_bx").click(function(){
 	createImageUpload($('#imgPath_file'));//生成图片编辑器
 
 	var dialog = openDialog("addMobileBannerDialog","dialogAddMobileBannerDiv","新增",580,500,true,"确定",function(){
+		
+		debugger;
 		if($("#addMobileBanner-form").valid()){
 			 mask();
 			 $("#addMobileBanner-form").attr("action", basePath+"/operate/mobileBanner/addMobileBanner");
@@ -294,6 +297,8 @@ $(".add_bx").click(function(){
 	                	alertInfo(data.errorMessage);
 	               }
 	         });
+		}else{
+			
 		}
 	});
 });

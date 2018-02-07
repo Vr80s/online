@@ -40,34 +40,37 @@
 				帐号和绑定设置<img src="../images/account05.png" alt="" />
 			</div>
 		</div>
-		
 		<div class="set_main" onclick="location.href ='regards.html'">
 			<div class="set_main_one">
 				关于我们<img src="../images/account05.png" alt="" />
 			</div>
 		</div>
-		
 		<div class="btn">退出登录</div>
-		
 	</div>
-	
 	<!-- 中间内容结束 -->
-	
 	<!-- 刷新引入js -->
 	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
     <script type="text/javascript" src="/Views/h5/js/common.js"></script>
-	<script src="/xcviews/js/index.js" type="text/javascript"></script>
 </body>
-
 <script>
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
 		kk=750
 	}
-	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
+	document.documentElement.style.fontSize=kk/7.5+"px";
+</script>
+
+<script>
+	//退出登录
+	$(".btn").click(function(){
+        requestService("/xczh/user/logout",{
+			}, function(data) {
+                if (data.success) {
+                    window.location.href="enter.html";
+                }
+            });
+    });
 </script>
 
 </html>

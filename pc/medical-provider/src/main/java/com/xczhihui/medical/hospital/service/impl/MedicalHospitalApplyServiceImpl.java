@@ -3,6 +3,7 @@ package com.xczhihui.medical.hospital.service.impl;
 import java.util.Date;
 import java.util.UUID;
 
+import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.utils.RedisShardLockUtils;
@@ -42,11 +43,6 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     @Autowired
     private RedisShardLockUtils redisShardLockUtils;
 
-    // 锁超时时间
-    private final static int TIMEOUT = 3 * 1000;
-
-    private final String LOCK_PREFIX = "hospital_apply_";
-
     /**
      * 添加医馆入驻申请认证信息
      * @param target 医馆入驻申请认证的信息封装
@@ -64,9 +60,42 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         }
 
         MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(target.getName());
-        if(medicalHospitalApply != null){
+        if(medicalHospitalApply != null && !(medicalHospitalApply.getUserId().equals(target.getUserId()))){
             throw new RuntimeException("医馆名称已经在认证中");
         }
+
+        Long currentTime = System.currentTimeMillis() + MedicalHospitalApplyConst.TIMEOUT;
+
+        String applyId = null;
+
+        try {
+
+            // 获取用户最后一次申请认证信息
+            MedicalHospitalApply hospitalApply = this.getLastOne(target.getUserId());
+
+            if(hospitalApply != null){
+
+                applyId = hospitalApply.getId();
+
+                // 尝试获得锁
+                if(redisShardLockUtils.lock(MedicalHospitalApplyConst.LOCK_PREFIX + applyId, String.valueOf(currentTime))){
+                    this.addDetail(target);
+                }
+
+            }else {
+
+                this.addDetail(target);
+
+            }
+        }finally {
+
+            // 解锁
+            redisShardLockUtils.unlock(MedicalHospitalApplyConst.LOCK_PREFIX + applyId, String.valueOf(currentTime));
+
+        }
+    }
+
+    private void addDetail(MedicalHospitalApply target) {
 
         // 判断用户是否是认证医师或者认证医馆
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
@@ -91,29 +120,12 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         // 如果用户认证医馆中
         if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
 
-            // 获取用户最后一次申请认证信息
-            MedicalHospitalApply hospitalApply = this.getLastOne(target.getUserId());
+            // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
+            applyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalHospitalApplyEnum.WAIT.getCode());
 
-            Long currentTime = System.currentTimeMillis() + TIMEOUT;
+            // 新增新的认证信息
+            this.addMedicalHospitalApply(target);
 
-            // 尝试获得锁
-            if(redisShardLockUtils.lock(LOCK_PREFIX + hospitalApply.getId(), String.valueOf(currentTime))){
-
-                // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
-                applyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalHospitalApplyEnum.WAIT.getCode());
-
-                // 新增新的认证信息
-                this.addMedicalHospitalApply(target);
-
-                // 解锁
-                redisShardLockUtils.unlock(LOCK_PREFIX + hospitalApply.getId(), String.valueOf(currentTime));
-
-                return;
-            }else {
-
-                throw new RuntimeException("网络打了小差，请再试一次");
-
-            }
         }
 
         // 如果用户医馆认证失败，医师认证失败，或者从没申请
@@ -124,6 +136,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
             this.addMedicalHospitalApply(target);
 
         }
+
     }
 
     private void addMedicalHospitalApply(MedicalHospitalApply target) {
