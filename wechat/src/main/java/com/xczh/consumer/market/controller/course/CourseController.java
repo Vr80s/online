@@ -75,9 +75,6 @@ public class CourseController {
 			@RequestParam("courseId")Integer courseId)
 			throws Exception {
 		
-		
-		LOGGER.info("========"+courseId);
-		
 		CourseLecturVo  cv= courseServiceImpl.selectCourseMiddleDetailsById(courseId);
 		if(cv==null){
 			return ResponseObject.newErrorResponseObject("课程信息有误");
@@ -94,7 +91,6 @@ public class CourseController {
 			    cv.setWatchState(1);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
-			
 	    	WatchHistory target = new WatchHistory();
 	    	target.setCourseId(courseId);
 			target.setUserId(user.getId());

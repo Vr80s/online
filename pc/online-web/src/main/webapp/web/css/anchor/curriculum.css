@@ -2392,7 +2392,7 @@ height: 60px;
 }
 
 /*资源上传中进度条样式*/
-.uploading{
+.resource_uploading{
 	width: 580px;
 	height: 246px;
 	text-align: center;
@@ -2405,22 +2405,23 @@ height: 60px;
 	z-index: 999;
 	background-color: #fff;
 }
-.uploading p {
+.resource_uploading p {
 	font-size: 20px;
 	color: #333333;
 	margin-bottom: 40px;
 }
-.uploading #uploadProgress .progress{
+.resource_uploading #uploadProgress .progress{
 	width: 400px;
 	height: 24px;
 }
-.uploading #cancalUpdata{
+.resource_uploading #cancalUpdata{
 	width: 120px;
 	height: 36px;
 	border-radius: 4px;
 	background: #00BC12;
 	color: #fff;
 	border: none;
+	line-height: 36px;
 } 
 .uploadfinish{
 	padding-left: 15px;

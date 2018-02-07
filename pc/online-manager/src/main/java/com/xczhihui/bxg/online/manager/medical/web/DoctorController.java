@@ -405,6 +405,16 @@ public class DoctorController extends AbstractController{
 	}
 	
 	/**
+	 * 获取医师的科室列表
+	 */
+	@RequestMapping(value = "listDepartmemt")
+	@ResponseBody
+	public List<MedicalDoctor> listDepartmemt(String writingsId){
+		List<MedicalDoctor> medicalHospitals= doctorService.getMedicalDoctor(writingsId);
+		return medicalHospitals;
+	}
+
+	/**
 	 * 获取所有医师   名字 的 接口
 	 * @return
 	 */

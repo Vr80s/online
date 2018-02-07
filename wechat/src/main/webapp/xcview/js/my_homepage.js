@@ -5,10 +5,6 @@ $(function(){
     },function(data) {
         if(data.success==true){
             status = data.resultObject;
-            //	是否显示我要当主播
-            if(status==1||status==2){
-                $(".my_anchor").attr("style","display:none;");
-            }
 
         }else{
             alert(data.errorMessage);
@@ -36,9 +32,9 @@ function balance() {
 //点击我要当主播
 function myAnchor() {
 
-    if(status==3){
+    if(status==1||status==3||status==5){
         window.location.href="phy_examine.html";
-    }else if(status==4){
+    }else if(status==2||status==4||status==6){
         window.location.href="hos_examine.html";
     }else{
         window.location.href="my_anchor.html";

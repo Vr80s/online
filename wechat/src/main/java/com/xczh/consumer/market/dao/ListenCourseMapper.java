@@ -29,7 +29,8 @@ public class ListenCourseMapper extends BasicSimpleDao {
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
 		sql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" oc.city as city, ");//城市
-		sql.append(" oc.smallimg_path as smallImgPath");
+		sql.append(" oc.smallimg_path as smallImgPath,");
+		sql.append(" '2' as courseType ");
 		sql.append(" from oe_course oc ");
 		sql.append(" where   "
 				+ "oc.is_delete=0 and oc.status = 1   ");

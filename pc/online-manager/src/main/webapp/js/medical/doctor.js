@@ -47,7 +47,7 @@ $(function(){
 	    	if(row.status){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
@@ -55,7 +55,7 @@ $(function(){
 	    	}else{
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
 			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="领域" onclick="openFieldManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+				'<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage"><i class="glyphicon glyphicon-bookmark"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
 				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
@@ -1190,5 +1190,45 @@ function checckboxSingle (){
                 $(this).prop('checked','checked');
             }
         });
+    });
+}
+
+/**
+ * 修改医师科室
+ * @param obj
+ */
+function openDepartmentManage(obj){
+
+    var oo = $(obj).parent().parent().parent();
+    var row = P_courseTable.fnGetData(oo);
+    rowId = row.id;
+    $("#parentId").val(row.id);
+    $("#child_MenuName").html(row.name);
+    ajaxRequest(basePath+"/medical/department/alllist",{'id':row.id,'type':2},function(data) {
+        drawMenusPage(data);
+
+        $("#childMenu-form").attr("action", basePath+"/medical/field/addDoctorField");
+        openDialog("childMenuDialog","childMenuDialogDiv","科室",580,450,true,"提交",function(){
+            $("input:checkbox").removeAttr("disabled");
+            mask();
+
+            $("#childMenu-form").ajaxSubmit(function(data){
+                unmask();
+                try{
+                    data = jQuery.parseJSON(jQuery(data).text());
+                }catch(e) {
+                    data = data;
+                }
+                if(data.success){
+                    $("#childMenuDialog").dialog("close");
+                    layer.msg(data.resultObject);
+                    freshTable(cloudClassMenuTable);
+                }else{
+                    layer.msg(data.errorMessage);
+                }
+            });
+
+        });
+
     });
 }

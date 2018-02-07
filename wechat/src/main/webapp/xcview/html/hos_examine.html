@@ -43,7 +43,14 @@
 				<div class="examine-pic z">
 					<img src="../images/examine.png"/>
 				</div>
-				<p class="z">医馆申请认证失败</p>
+				<p class="z">医馆申请认证失败,您可以<a href="my_anchor.html" style="color: #00BC12;">重新认证</a></p>
+			</div>
+			{{else if status==1}}
+			<div class="box-content">
+				<div class="examine-pic z">
+					<img src="../images/examine.png"/>
+				</div>
+				<p class="z">医馆申请认证审核通过</p>
 			</div>
 			{{/if}}
 		</div>

@@ -18,11 +18,10 @@ public class TimeUtil {
 		return hms;
 	}
 
-
-
 	private static final DateFormat FORMAT =new SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat FORMAT_HH_MM_SS =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	private static final DateFormat FORMAT_HH_MM =new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	private static final DateFormat FORMAT_HHMM_UNDERLINE =new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss");
 
 	/**
 	 * 格式化成时期对象
@@ -66,6 +65,21 @@ public class TimeUtil {
 		return null;
 	}
 
+	/**
+	 * 格式化成字符串对象
+	 * @param date
+	 * @return
+	 */
+	public static String formatDateUnderline(Date date){
+		try {
+			return FORMAT_HHMM_UNDERLINE.format(date);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 	/**
 	 * 时间和当前时间对比
 	 * 不足1小时显示XX分钟前,超过一小时不足一天显示XX小时前,超过1天显示昨天,大于1天显示日期

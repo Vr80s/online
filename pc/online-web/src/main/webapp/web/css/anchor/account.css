@@ -293,6 +293,10 @@
 	top: 0;
 	left: 0;
 }
+.certification .input-group .big-photo .preview > img{
+	width: 260px !important;
+	height: 147px !important;
+}
 .certification .input-group .big-photo input{
 	display: block !important;
 	width: 262px;

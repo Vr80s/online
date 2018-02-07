@@ -189,6 +189,10 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		}
 	}
 
+	/**
+	 * 获取医师所在的医馆
+	 * @param doctorId 医师id
+	 */
 	@Override
 	public List<MedicalHospital> getMedicalHospital(String doctorId) {
 		List<MedicalHospital> list = getMedicalHospitals();
@@ -197,7 +201,8 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 
 		for (int i = 0; i < mhds.size(); i++) {
 			for (int j = 0; j < list.size(); j++) {
-				if(mhds.get(i).getHospitalId().equals(list.get(j).getId())){
+				if(mhds.get(i).getHospitalId().equals(list.get(j).getId()) &&
+						mhds.get(i).getDeleted().equals("0")){
 					list.get(j).setDependence(true);
 				}
 			}
