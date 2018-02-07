@@ -1,5 +1,6 @@
 package com.xczhihui.medical.doctor.service.impl;
 
+import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import org.junit.Test;
