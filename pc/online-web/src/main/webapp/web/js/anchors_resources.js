@@ -551,13 +551,7 @@ $('#hospital_bottom #submit').click(function(){
     }
 
     RequestService("/medical/doctor/joinHospital", "post", {
-        name:workhosName,
-        province:province,
-        city:city,
-        detailedAddress:detailedAddress,
-        tel:hosTel,
         workTime:workTime,
-        headPortrait:headPortrait,
         hospitalId:hosID
     }, function(data) {
         if(data.success == true){
@@ -569,7 +563,7 @@ $('#hospital_bottom #submit').click(function(){
             },1000)
         }else{
 //				alert('您不是医师，不能加入医馆')
-            $('#tip').text('您不是医师，不能加入医馆');
+            $('#tip').text(data.errorMessage);
             $('#tip').toggle();
             setTimeout(function(){
                 $('#tip').toggle();
