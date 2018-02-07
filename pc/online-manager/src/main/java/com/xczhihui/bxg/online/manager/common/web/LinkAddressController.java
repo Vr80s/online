@@ -2,6 +2,9 @@ package com.xczhihui.bxg.online.manager.common.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.online.common.domain.Menu;
 import com.xczhihui.bxg.online.common.domain.ScoreType;
 import com.xczhihui.bxg.online.manager.common.service.CommonService;
+import com.xczhihui.bxg.online.manager.utils.TimeUtil;
 /**
  * 
  * 下载上传word:
@@ -52,6 +56,24 @@ public class LinkAddressController {
 	@RequestMapping(value = "/index")
 	public String index(HttpServletRequest request) {
 		
+		
+		String filePath = request.getServletContext().getRealPath("/WEB-INF/template");
+		filePath += "/excel_uplaod_record";
+		File dir = new File(filePath);
+		if (!dir.getParentFile().exists()) { 
+			 dir.getParentFile().mkdirs();
+        }else{
+        	String[] names = dir.list();
+        	List<Map<String,String>> listMapName = new ArrayList<Map<String,String>>();
+        	for (String string : names) {
+        		Map<String,String> map = new HashMap<String, String>();
+        		//listName.add("/excel_uplaod_record/"+string);
+        		map.put("path", "/excel_uplaod_record/"+string);
+        		map.put("name", string);
+        		listMapName.add(map);
+			}
+        	request.setAttribute("record",listMapName);
+        }
 		return MOBILE_PATH_PREFIX + "/link";
 	}
 	
@@ -68,22 +90,22 @@ public class LinkAddressController {
 	public Map<String,Object> upload(HttpServletRequest request,HttpServletResponse res,
 			@RequestParam("file") MultipartFile file) throws Exception {
 		
-		Map<String,Object> map = new HashMap<String,Object>();
+		//excel 保留最近10次的上传记录
 		
+		Map<String,Object> map = new HashMap<String,Object>();
 		System.out.println("request.getServletContext().getRealPath"+request.getServletContext().getRealPath("/template/"));
 	    ///WEB-INF/template
 		 //上传文件路径
 		String filePath = request.getServletContext().getRealPath("/WEB-INF/template");
 		//如果文件不为空，写入上传路径
         if(!file.isEmpty()) {
-        	//删除原来的
-        	deleteFile(filePath+File.separator+ "链接地址添加文档.docx");
-            //上传文件路径
-            //String path = request.getServletContext().getRealPath("/template/");
             //上传文件名
-            String filename = file.getOriginalFilename();
-            filename = "链接地址添加文档.docx";
-            File filepath = new File(filePath,filename);
+        	String filename = file.getOriginalFilename();
+    		//删除原来的
+        	deleteFile(filePath+File.separator+ "链接地址添加文档.docx");
+        	filename = "链接地址添加文档.docx";
+        	
+        	File filepath = new File(filePath,filename);
             //判断路径是否存在，如果不存在就创建一个
             if (!filepath.getParentFile().exists()) { 
                 filepath.getParentFile().mkdirs();
@@ -92,7 +114,6 @@ public class LinkAddressController {
             file.transferTo(new File(filePath + File.separator + filename));
             
             map.put("error", "0");
-            
             return map;
         } else {
         	map.put("error", "1");
@@ -106,8 +127,6 @@ public class LinkAddressController {
     public ResponseEntity<byte[]> download(HttpServletRequest request,
             @RequestParam("filename") String filename, Model model)throws Exception {
     	
-    
-       //String topicname=new String(filename.getBytes("ISO-8859-1"),"UTF-8"); 
        System.out.println("filename:"+filename);
        //下载文件路径
        String path = request.getServletContext().getRealPath("/WEB-INF/template");
@@ -161,23 +180,68 @@ public class LinkAddressController {
 	 */
 	@ResponseBody
     @RequestMapping("/importExcel")
-    public Map<String,Object> importExcel( @RequestParam("file")MultipartFile file){
+    public Map<String,Object> importExcel(HttpServletRequest request,
+    	@RequestParam("file")MultipartFile file){
 		Map<String,Object> map = new HashMap<String, Object>();
-        try {
-            map = commonService.updateImportExcel(file.getInputStream(),file.getOriginalFilename());
-            map.put("error", "0");
-            System.out.println("=========="+map.toString());
+        
+		try {
+			 //上传文件路径
+			String filePath = request.getServletContext().getRealPath("/WEB-INF/template");
+			if(!file.isEmpty()) {
+				
+				MultipartFile file_recoad =file; 
+				
+	            map = commonService.updateImportExcel(file.getInputStream(),file.getOriginalFilename());
+	            String mapErrorInfo = (String) map.get("excel_error");
+	            if("更新成功".equals(mapErrorInfo)){ //后台数据存储成功了
+                    //上传文件名
+                	String filename = file.getOriginalFilename();
+                	if(filename.contains(".xls")){ //这个文件
+                		//删除原来的
+                    	deleteFile(filePath+File.separator+ "常见问题模板.xls");
+                    	filename =  "常见问题模板.xls";
+                	}else if(filename.contains(".xlsx")){
+                		//删除原来的
+                    	deleteFile(filePath+File.separator+ "常见问题模板.xlsx");
+                    	filename =  "常见问题模板.xlsx";
+                	}
+            		/**
+            		 * 创建文件
+            		 */
+                	File filepath = new File(filePath,filename);
+                    //判断路径是否存在，如果不存在就创建一个
+                    if (!filepath.getParentFile().exists()) { 
+                        filepath.getParentFile().mkdirs();
+                    }
+                    //将上传文件保存到一个目标文件当中
+                    file.transferTo(new File(filePath + File.separator + filename));
+                    
+                    //另外将文件保存到  excel_uplaod_record  历史记录中
+                    String fileDate = TimeUtil.formatDateUnderline(new Date());
+                	fileDate +="_"+filename; 
+                    
+                	System.out.println(filePath+File.separator +"excel_uplaod_record"+ File.separator + fileDate);
+                	File record = new File(filePath+File.separator +"excel_uplaod_record"+ File.separator + fileDate);
+                    //将上传文件保存到一个目标文件当中
+                	//file_recoad.transferTo(new File(filePath+File.separator +"excel_uplaod_record"+ File.separator + fileDate));
+                	File exit =new File(filePath + File.separator + filename);
+                	
+                	if(exit.getParentFile().exists()){
+                		Files.copy(exit.toPath(), record.toPath());
+                	}
+                    map.put("error", "0");
+	            }else{
+	            	map.put("error", "1");
+	            }
+			}else{
+				map.put("error", "1");
+				map.put("excel_error", "文件类型获取为null");
+			}
             return map;
         } catch (IOException e) {
             e.printStackTrace();
         	map.put("error", "1");
         	return map;
         }
-        
     }
-    
-    
-    
-    
-    
 }

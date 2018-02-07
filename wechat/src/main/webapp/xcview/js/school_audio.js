@@ -112,6 +112,15 @@ function refresh(){
         pageNumber:1,
         pageSize:6
     },function(data) {
+//  	判断有无评论显示默认图片
+		if(data.resultObject.items.length==0){
+			$(".quie_pic").show()
+		}else{
+			$(".quie_pic").hide()
+			$(".wrap_all_returned").css({"margin-bottom":"1.2rem"})
+		}
+    	
+    	
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
         //	回复弹窗
@@ -247,7 +256,7 @@ function btn_mianfei(){
 	window.location.href="live_audio.html?my_study="+course_id+"";
 }
 //有专辑并且免费的
-function btn_mianfei(){
+function btn_zj_mianfei(){
 	window.location.href="live_select_album.html?course_id="+course_id+"";
 }
 //删除评论状态
