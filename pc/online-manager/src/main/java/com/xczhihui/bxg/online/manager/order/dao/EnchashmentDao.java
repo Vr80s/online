@@ -35,7 +35,7 @@ public class EnchashmentDao extends SimpleHibernateDao {
 				   "   on ou.id=ubc.`user_id`\n" +
 				   "  JOIN `course_anchor` ca \n" +
 				   "    ON ca.`user_id`=ou.`id`"+
-				   "where 1 = 1 ");
+				   "where 1 = 1 GROUP BY eai.id");
 
 		   if(orderVo.getStartTime() !=null){
 			  sql.append(" and eai.time >=:startTime");
