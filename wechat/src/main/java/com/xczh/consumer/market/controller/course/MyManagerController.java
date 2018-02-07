@@ -32,7 +32,6 @@ import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
-import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IFocusService;
@@ -119,9 +118,7 @@ public class MyManagerController {
 			map.put("user", onlineUserService.findUserById(user.getId()));
 			// 查找购买的课程数
 			map.put("courseCount",courseService.selectMyFreeCourseListCount(user.getId()));
-			
 			Integer hostPermissions = myInfoService.getUserHostPermissions(user.getId());
-			
 			LOGGER.info(hostPermissions+"");
 			// 查看主播权限   -- 并且把主播信息给返回过去
 			map.put("hostPermissions", hostPermissions != null ? hostPermissions :0);
@@ -157,6 +154,9 @@ public class MyManagerController {
 		 * 显示熊猫币、已购买的课程（不包含免费的）、是否是主播 获取用户信息
 		 */
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
+		if(user == null){
+			return ResponseObject.newErrorResponseObject("登录失效！");
+		}
 		Page<CourseLecturVo> page = new Page<>();
 		page.setCurrent(pageNumber);
 		page.setSize(pageSize);
@@ -186,7 +186,6 @@ public class MyManagerController {
 			return ResponseObject.newSuccessResponseObject(userCoinService.getBalanceByUserId(user.getId()));
 		}
 	}
-	
 	/**
 	 * 
 	 * Description：获取 主播控制台  熊猫币余额
@@ -202,7 +201,6 @@ public class MyManagerController {
 	@ResponseBody
 	public ResponseObject getEnchashmentBalance(HttpServletRequest request,
 			HttpServletResponse res) throws Exception {
-
 		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
 		if (user == null) {
 			return ResponseObject.newSuccessResponseObject(0);
@@ -253,9 +251,7 @@ public class MyManagerController {
 		if (user == null) {
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-
-		return ResponseObject.newSuccessResponseObject(onlineOrderService
-				.findUserWallet(pageNumber, pageSize, user.getId()));
+		return ResponseObject.newSuccessResponseObject(onlineOrderService.findUserWallet(pageNumber, pageSize, user.getId()));
 	}
 
 	/**

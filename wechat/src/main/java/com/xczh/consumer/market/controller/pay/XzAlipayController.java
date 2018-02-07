@@ -252,15 +252,22 @@ public class XzAlipayController {
 	@ResponseBody
 	public void rechargePay(HttpServletRequest request,
 			HttpServletResponse response,
-			@RequestParam("actualPay")String actualPay) throws Exception {
+			@RequestParam("actualPay")String actualPay,
+			@RequestParam("userId")String userId) throws Exception {
 		
 		
 		LOG.info("进入阿里h5支付-------------》");
 		
-		OnlineUser user = appBrowserService.getOnlineUserByReq(request);
+//		OnlineUser user1 = appBrowserService.getOnlineUserByReq(request);
+//		if (user == null) {
+//			throw new RuntimeException("登录失效");
+//		}
+		
+		OnlineUser user = onlineUserService.findUserById(userId);
 		if (user == null) {
 			throw new RuntimeException("登录失效");
 		}
+		
 		String ap = null;
 		ap = actualPay;
 		if (ap.indexOf(".") >= 0 && ap.substring(ap.lastIndexOf(".")).length() < 3) {
@@ -307,7 +314,7 @@ public class XzAlipayController {
 		//1:打赏 2 普通订单 3 充值代币
 		rechargeParamVo.setT("3");
 		rechargeParamVo.setClientType(1+"");
-		rechargeParamVo.setUserId(user.getId() );
+		rechargeParamVo.setUserId(user.getId()); //是不是需要传递过来一个用户id 啊我的天。
 		rechargeParamVo.setPayType(1); //0:支付宝 1:微信 2:网银
 		//熊猫币
 		rechargeParamVo.setValue(new BigDecimal(count));
@@ -806,8 +813,14 @@ public class XzAlipayController {
 								Payment.ALIPAY,rechargeParamVo.getValue(),
 								OrderFrom.valueOf(rechargeParamVo.getOrderForm()),
 								alipayPaymentRecordH5.getTradeNo());
+						
+						
+						LOG.info("代币扣减成功："+rechargeParamVo.toString());
+						
 						// 请不要修改或删除
 						response.getWriter().println("success");
+						
+					
 					}
 				}
 			}

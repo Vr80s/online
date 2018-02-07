@@ -66,7 +66,7 @@ public class WeChatThirdPartyController {
 	private String returnOpenidUri;
 	
 	/**
-	 * Description：微信 oauth2 获取code
+	 * Description：h5 得到微信微信 oauth2 获取code
 	 * @param req
 	 * @param res
 	 * @param params

@@ -227,15 +227,14 @@ public class XzWxPayController {
 		String openId = null;
 		
 		int orderFrom = 0;
-		if(clientType == 4){
+		if(clientType == 3){
 			openId = req.getParameter("openId");
 			tradeType= PayInfo.TRADE_TYPE_JSAPI;
-			
 			orderFrom = 3;
-		}else if(clientType == 3){
+		}else if(clientType == 4){
 			tradeType =PayInfo.TRADE_TYPE_H5;
 			orderFrom = 2;
-		}else if(clientType == 2){
+		}else if(clientType == 5){
 			tradeType =PayInfo.TRADE_TYPE_APP;
 			orderFrom = 2;
 		}
