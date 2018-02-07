@@ -1669,8 +1669,18 @@
 	function resetResource(){
         swfobj.write('swfDiv');
 		uploadfinished = false;
+        $(".uploadfinish").hide();
+        $(".updataSuccess").hide();
         document.getElementById('addResource').reset();
         $("#btn_width").val('点击上传资源');
+        $('#uploadswf').css({
+            "top":"0px"
+        })
+        $('#btn_width').css({
+            "display":"block",
+            "margin-left":"112px",
+            "margin-top":"20px"
+        })
 	}
 	$(function(){
 	    $("#cancalUpdata").click(function (){
@@ -1679,8 +1689,23 @@
             $("#ziyuan_bottom .uploading").hide();
             debugger
             if($("#ccId").val()!=null&&$("#ccId").val()!=''){
+                uploadfinished=true;
                 $("#btn_width").val('点击重新上传');
-                $("#ziyuan_bottom .updataSuccess").show();
+                $(".uploadfinish").show();
+                $(".updataSuccess").show();
+                $('#btn_width').css({
+                    "display":"block",
+                    "margin-left":"112px",
+                    "margin-top":"20px"
+                })
+                $('#swfDiv').css({
+                    "display":"block",
+                    "margin-left":"112px",
+                    "margin-top":"20px"
+                })
+                $('#uploadswf').css({
+                    "top":"40px"
+                })
             }else{
                 $("#ccName").hide();
 //                $("#ccName").val($("#videofile").val());
@@ -1717,6 +1742,7 @@
         if(progress == -1) {
             uploadProgress.innerHTML = "上传出错：" + progress;
         } else if(progress == 100) {
+            validateResource();
             $("#btn_width").val('点击重新上传');
             debugger
             $("#ccName").val($("#videofile").val());
