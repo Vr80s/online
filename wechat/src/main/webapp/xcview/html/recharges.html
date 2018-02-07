@@ -14,7 +14,7 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="/xcviews/js/js.js"></script>
+<script src="/xcview/js/js.js"></script>
 
 
 <script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
@@ -95,6 +95,24 @@
 				</div>
 			</div>
 		</div>
+		
+		<!--选择支付方式开始-->
+		<div class="weixin_pay">
+			<div class="weixin_pay_title">选择方式</div>
+			<div class="div">
+				<div class="pay_div div0">
+					<img src="../images/Alipay_img.png" class="img0" />
+					支付宝
+				</div>
+				<div class="pay_div div1">
+					<img src="../images/weixin_pay.png" />
+					微信
+				</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+		<!--选择支付方式结束-->
 	</div>
 	<!--中间内容结束-->
 	<!--底部开始-->
@@ -148,16 +166,26 @@
       	}
       	$(aBtn[0]).click();
       	
-      	
 //    	点击支付失败中--再试一次
 		$(".three_btn1").click(function(){
 			$(".defeated").hide();
 		});
 		
-		
 		$(".success_main .three").click(function(){
 			$(".success").hide();
 		});
+		
+//		选择支付方式
+		$(".weixin_pay .div .div0").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div1").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div1").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div0").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div0").click();
+		
 	};
 </script>
 
