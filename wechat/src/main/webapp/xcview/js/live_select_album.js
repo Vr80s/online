@@ -97,7 +97,7 @@ $(".bg_userModal").click(function(){
 			$(".btn").hide()
 			$(".zhezhao").hide()
 		}else{
-			$(".wrap p").html(data.resultObject.description)
+			$(".wrap .car_p1").html(data.resultObject.description)
 		}
 	//	主讲人
 		if(data.resultObject.lecturerDescription == null || data.resultObject.lecturerDescription == ''){
@@ -105,7 +105,7 @@ $(".bg_userModal").click(function(){
 			$(".btn1").hide();
 			$(".zhezhao1").hide();
 		}else{
-			$(".wrap1 p").html(data.resultObject.lecturerDescription)
+			$(".wrap1 .car_p2").html(data.resultObject.lecturerDescription)
 		}
 	});
 //详情以及选集选项卡

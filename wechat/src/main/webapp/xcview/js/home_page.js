@@ -204,7 +204,7 @@ var swiper = new Swiper('#swiper1', {
 
 function jump(id){
 	requestService("/xczh/course/details?courseId="+id,null,function(data) {
-		debugger;
+
 		var course = data.resultObject;
 		if(course.watchState == 0||course.watchState == 1){
 			if(course.type==1||course.type==2){
