@@ -482,12 +482,24 @@ function verifyCourse(course){
     }else{
         $('.warning_course_title').addClass('hide');
     }
+    if(course.title.length>30){
+        $('.warning_course_title_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_title_length').addClass('hide');
+    }
     //副标题
     if(course.subtitle == ''){
         $('.warning_course_subtitle').removeClass('hide');
         return false;
     }else{
         $('.warning_course_subtitle').addClass('hide');
+    }
+    if(course.subtitle.length>30){
+        $('.warning_course_subtitle_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_subtitle_length').addClass('hide');
     }
     //封面图
     if(course.imgPath == ''){
@@ -502,6 +514,12 @@ function verifyCourse(course){
         return false;
     }else{
         $('.warning_course_lecturer').addClass('hide');
+    }
+    if(course.lecturer.length>30){
+        $('.warning_course_lecturer_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_lecturer_length').addClass('hide');
     }
     //主播介绍
     if(course.lecturerDescription == ''){
@@ -946,12 +964,25 @@ function verifyCollection(collection){
     }else{
         $('.warning_collection_title').addClass('hide');
     }
+    if(collection.title.length>30){
+        $('.warning_collection_title_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_collection_title_length').addClass('hide');
+    }
     //副标题
     if(collection.subtitle == ''){
         $('.warning_collection_subtitle').removeClass('hide');
         return false;
     }else{
         $('.warning_collection_subtitle').addClass('hide');
+    }
+    //副标题
+    if(collection.subtitle.length>30){
+        $('.warning_collection_subtitle_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_collection_subtitle_length').addClass('hide');
     }
     //封面图
     if(collection.imgPath == ''){
@@ -966,6 +997,12 @@ function verifyCollection(collection){
         return false;
     }else{
         $('.warning_collection_lecturer').addClass('hide');
+    }
+    if(collection.lecturer.length>30){
+        $('.warning_collection_lecturer_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_collection_lecturer_length').addClass('hide');
     }
     //主播介绍
     if(collection.lecturerDescription == ''){
@@ -1136,6 +1173,7 @@ function saveResource(){
             success: function(data) {
                 console.log(data);
                 if(data.success === true) {
+                    firstSave=false;
                     resetResource();
                     showResourceList();
                 } else {
@@ -1154,6 +1192,12 @@ function validateResource(){
         return false;
     }else{
         $('#ziyuan_bottom .warning0').addClass('hide');
+    }
+    if(title.length>30){
+        $('.warning_resource_title_length').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_resource_title_length').addClass('hide');
     }
 
     //资源文件
