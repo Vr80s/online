@@ -507,14 +507,14 @@
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>
 					
-				    <button class="btn btn-sm btn-success upload_bx" title="上传word文档">
+				<!--     <button class="btn btn-sm btn-success upload_bx" title="上传word文档">
 						<i class="glyphicon glyphicon-trash"></i> 上传word文档
 					</button>
 					
 					 <button class="btn btn-sm btn-success upload_excel" title="上传excel文档">
 						<i class="glyphicon glyphicon-trash"></i> 上传excel文档
 					</button>
-					
+					 -->
 					<!--  <a href="/link/word/download?filename=链接地址添加文档.docx">文档说明</a>
 					  
 					 <form action="/link/word/upload" enctype="multipart/form-data" method="post">
@@ -587,13 +587,13 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" f><font color="red">*</font>安装包: </label>
 			 <div class="col-sm-6">
-					 <input type="file" name="file" id="imgPath_file"/>
+					 <input type="file" name="file" id="imgPath_file1"/>
 					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
 <!-- 					 <div id="kewudeie" style="padding-top:20px;">
 					 <p><span>原始文件名：</span><span id="ys_filename"></span></p>
 					 <p><span>下载地址：</span><p id="xz_fileurl" style="word-wrap: break-word;word-break: normal;"></p></p>
 					 </div>
- -->					 <input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
+ -->					 <input name="downUrl" id="add_imgPath1" value="" type="hidden" class="{required:true}" >
              </div>
 		</div>
 	</form>
@@ -609,7 +609,7 @@
 			 <div class="col-sm-6">
 					 <input type="file" name="file" id="excel_file"/>
 					 <input type="hidden" name="filename" id="jia_imgPath_file"/>
-                     <input name="downUrl" id="add_imgPath" value="" type="hidden" class="{required:true}" >
+                     <input name="downUrl" id="add_imgPath1" value="" type="hidden" class="{required:true}" >
              </div>
 		</div>
 	</form>
@@ -664,7 +664,8 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="url"><font color="red">*</font>链接地址: </label>
 			 <div class="col-sm-6">
-               		<input type="text" name="url"  id="add_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		<textarea  name="url"  id="add_url" rows="6" cols="20"  class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		</textarea>
              </div>
 		</div>
 		<input type="hidden" name="bannerType" id="bannerType" >
@@ -697,7 +698,8 @@
 		<div class="form-group"  style="margin-top: 18px;" >
 			 <label class="col-sm-3 control-label no-padding-right" for="imgHref"><font color="red">*</font>链接地址: </label>
 			 <div class="col-sm-6">
-               		<input type="text" name="url"  id="update_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		<textarea name="url"  id="update_url" class="col-xs-10 col-sm-12 {required:true,maxlength:225}">
+               		</textarea>
              </div>
 		</div>
 		

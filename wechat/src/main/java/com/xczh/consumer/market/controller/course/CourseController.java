@@ -88,27 +88,27 @@ public class CourseController {
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
 			if(cv.getUserLecturerId().equals(user.getId())){
-			    cv.setWatchState(1);
+			    cv.setWatchState(4);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
 	    	WatchHistory target = new WatchHistory();
 	    	target.setCourseId(courseId);
 			target.setUserId(user.getId());
-			if(cv.getWatchState()==1){
+			if(cv.getWatchState()==1){  //免费的课程啦
 				onlineWebService.saveEntryVideo(courseId, user);
 				watchHistoryServiceImpl.addOrUpdate(target);
-			}else if(cv.getWatchState()==0 	&& onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){
-				watchHistoryServiceImpl.addOrUpdate(target);
+			}else if(cv.getWatchState()==0   ){ //收费课程
+				if(onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){  //大于零--》用户购买过  
+					cv.setWatchState(2);
+					watchHistoryServiceImpl.addOrUpdate(target);
+				}
 			}
-			watchHistoryServiceImpl.addOrUpdate(target);
 			//是否关注
 			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
 			if(isFours != 0){  
 				cv.setIsFocus(1);
 			}
 		}
-		
-		System.out.println("========修改状态:"+cv.getType()+cv.getLineState());
 		/*
 		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
 		 */
@@ -156,19 +156,21 @@ public class CourseController {
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
 			if(cv.getUserLecturerId().equals(user.getId())){
-				cv.setWatchState(1);
+			    cv.setWatchState(4);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
 	    	WatchHistory target = new WatchHistory();
 	    	target.setCourseId(courseId);
 			target.setUserId(user.getId());
-			if(cv.getWatchState()==0){
+			if(cv.getWatchState()==1){  //免费的课程啦
 				onlineWebService.saveEntryVideo(courseId, user);
 				watchHistoryServiceImpl.addOrUpdate(target);
-			}else if(cv.getWatchState()==1 	&& onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){
-				watchHistoryServiceImpl.addOrUpdate(target);
+			}else if(cv.getWatchState()==0   ){ //收费课程
+				if(onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){  //大于零--》用户购买过  
+					cv.setWatchState(2);
+					watchHistoryServiceImpl.addOrUpdate(target);
+				}
 			}
-			watchHistoryServiceImpl.addOrUpdate(target);
 			//是否关注
 			Integer isFours = focusService.myIsFourslecturer(user.getId(),cv.getUserLecturerId());
 			if(isFours != 0){  

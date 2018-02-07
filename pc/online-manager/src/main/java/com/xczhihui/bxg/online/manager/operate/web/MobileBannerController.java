@@ -79,13 +79,14 @@ public class MobileBannerController{
          return tableVo;
     }
 
+    
     /**
 	 * 添加
 	 * @param vo
 	 * @return
 	 */
 	//@RequiresPermissions("mobile:menu:banner")
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/addMobileBanner", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseObject addMobileBanner(MobileBannerVo mobileBannerVo,HttpServletRequest request){
 		mobileBannerVo.setCreatePerson(UserLoginUtil.getLoginUser(request).getLoginName());
