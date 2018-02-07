@@ -243,7 +243,7 @@ $(function(){
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				$('#tip').text('保存失败，请重试');
+				$('#tip').text(data.errorMessage);
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
@@ -285,11 +285,11 @@ $(function(){
 				console.log(data);
 			if(data.success == false){
 //				alert('获取认证状态数据失败');
-				$('#tip').text('获取认证状态数据失败');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},2000)
+//				$('#tip').text('获取认证状态数据失败');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},2000)
 			}else if(data.success == true){
 //				alert('认证成功');
 				//医馆数据渲染
