@@ -81,6 +81,8 @@ var result="";
             	$("#mywords").click(function() {
             		$(".give_a1").hide();
             		$(".give_a1_img").hide();
+            		$(".div_input").css("background","none");
+            		
                 });
             	$(".details_size").hide();
             	$(".poson").css('right','-2.1rem');
@@ -93,43 +95,25 @@ var result="";
             	});
             	
             	
-            	$(".li1").click(function() {
-            		$(".give_a1_span02").css("display","none");
-            		$(".give_a1_span02 img").hide();
-            		
-            		$(".give_a1").hide();
-            		$(".give_a1 img").hide();
-            	});
             	
-            	
-            	$(".li2").click(function() {
-            		$(".give_a1_span02 img").hide();
-            		$(".div_input").css('margin-left','2.3rem');
-            	});
             	    
             	/*点击发送*/
             	$("#sendChat").click(function() {
-        		    $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
-                    $(".face_img01").css('background-size','100% 100%');
-            		/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
-                    $(".send_img").css('background-size','100% 100%');
-                    $(".give_a1").hide();
-                    $(".give_a1").css("display","none");
-                    $(".give_a1_span02").hide();
-                    
-                    $(".give_a1_span02 img").hide();
-                    $(".coze_bottom").css("bottom","0");
+                    $(".give_a1").hide();  /*礼物隐藏*/
+                    $(".give_a1").css("display","none");    /*礼物隐藏*/
+                    $(".coze_bottom").css("bottom","0");   /*最底部区域到最下方*/
                 });	
                 
             }else{
             	
             	//正在直播
-            	$("title").text("直播中");
+            	$("title").text("熊猫中医");
             	$(".history_span").text("直播中");
             	
             	
                 $("#mywords").click(function() {
-//                  $(".give_a1_img").hide();
+                    $(".coze_bottom input").css("width","11.8rem");
+                    $(".div_input").css("background","none");
                 });
 
                 // 点击送礼开始  --显示送礼列表
@@ -148,18 +132,26 @@ var result="";
                     });
                     $(".send_gifts").show();
                 });
+                
+//              点击发送
+                $("#sendChat").click(function() {
+           			$(".give_a01").hide();  /*表情隐藏*/
+           			$(this).hide();        /*当前发送按钮隐藏*/
+                    $(".coze_bottom input").css("width","13.5rem");
+           			$(".give_a1").show();  /*礼物显示*/
+           			
+            	});
             }
             
             //点击直播回放时的input mywords
            	$("#mywords").click(function() {
            			/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
-                    $("#sendChat").css("background-size","100% 100%");
+//                  $("#sendChat").css("background-size","100% 100%");
             });
             //点击直播回放时的发送按钮  
-            $("#sendChat").click(function() {
-           			/*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
-                    $(".send_img").css("background-size","100% 100%");
-            });
+            /*$("#sendChat").click(function() {
+           			
+            });*/
           
           //视频id不等于null的时候
           if(stringnull(videoId)){

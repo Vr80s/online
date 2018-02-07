@@ -59,6 +59,7 @@
 		oc.city as city,
 		oc.direct_id as directId,
 		oc.subtitle as subtitle,
+		oc.course_length as courseLength,
 		oc.current_price*10 as currentPrice,
 		IFNULL((select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as startLevel,
@@ -94,6 +95,7 @@
 	    if(oc.type=1,ifnull(( select count(*) from oe_focus as of inner join oe_user as ou on of.lecturer_id = ou.id
 			 where of.user_id =oc.user_lecturer_id and ou.is_delete = 0  and ou.status = 0),0),0) as focusCount,
 		
+		oc.course_length as courseLength,
 		oc.collection as collection,
 		oc.course_number as courseNumber,
 		oc.course_detail as description,
@@ -224,7 +226,8 @@
 		oc.id,
 		oc.`grade_name` gradeName,
 		oc.`course_length` courseLength,
-		oc.`direct_id`  directId
+		oc.`direct_id`  directId,
+		oc.lecturer as name
 		FROM
 		`oe_course` oc
 		JOIN `collection_course` cc

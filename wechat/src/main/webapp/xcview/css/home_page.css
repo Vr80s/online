@@ -210,9 +210,13 @@ header{
 	margin-bottom: 0.489rem;
 }
 .slide_one li div p{
+	width: 100%;
 	height: 0.511rem;
     line-height: 0.511rem;
     color: #333;
+    overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .slide_one_artist{
 	width: 1.213rem;
