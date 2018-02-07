@@ -128,7 +128,7 @@ $(function(){
 		
 		
 		//城市判断
-		if($('#AutList #choosePro option:selected').text()== '请选择所在省' ||$('#AutList #citys option:selected').text() == '请选择所在市'){
+		if($('#AutList #choosePro option:selected').text()== '请选择省' ||$('#AutList #citys option:selected').text() == '请选择市'){
 			$('#AutList .doc_address .warning').removeClass('hide');
 			return false;
 		}else{
