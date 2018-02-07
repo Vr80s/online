@@ -10,11 +10,12 @@
 <meta name="description" content="" />
 <link rel="stylesheet" href="../css/animate.css" />
 <link rel="stylesheet" href="../css/live_class.css" />
-
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+
 <script type="text/javascript" src="../js/template.js"></script>
 
 <script type="text/javascript" src="../js/live_class.js"></script>
@@ -100,7 +101,7 @@
 			</li>
 		</ul>
 		<ul class="playTime z" style="border-bottom: 0;">
-			<li><img src="../images/population.png"/><span>上课地址：{{city}}</span></li>
+			<li><img src="../images/population.png"/><span>上课地址：{{address}}</span></li>
 			<li><img src="../images/video_review.png" style="width: 0.15rem; height: 0.25rem; margin-right: 0.26rem;" onclick="baiduMap('{{address}}','{{gradeName}}')" /></li>
 		</ul>
 		</script>
@@ -251,7 +252,11 @@
 		</script>
 	</div>
 	
-	
+	<!--无评论显示的图片-->
+	<div class="quie_pic">
+		<img src="../images/no_comment.png"/>	
+		<p>还没有评价？快来抢沙发呀~</p>
+	</div>
 	
 
 
@@ -263,7 +268,7 @@
 				</div>
 				<div class="all_returned_num y">
 					<img src="../images/returned.png"/>
-					<p>评论999+</p>
+					<p onclick="btn_allComment()">评论999+</p>
 				</div>
 			</div>
 
@@ -364,7 +369,22 @@
 		kk=750
 	}
 	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
+	document.documentElement.style.fontSize=kk/7.5+"px";
+//需要JQ1.8以上版本兼容toggle,则引入以下代码
+	$.fn.toggle = function( fn, fn2 ) {
+    var args = arguments,guid = fn.guid || $.guid++,i=0,
+    toggle = function( event ) {
+      var lastToggle = ( $._data( this, "lastToggle" + fn.guid ) || 0 ) % i;
+      $._data( this, "lastToggle" + fn.guid, lastToggle + 1 );
+      event.preventDefault();
+      return args[ lastToggle ].apply( this, arguments ) || false;
+    };
+    toggle.guid = guid;
+    while ( i < args.length ) {
+      args[ i++ ].guid = guid;
+    }
+    return this.click( toggle );
+  };
 </script>
 <!--详情点击隐藏和显示-->
 <script>

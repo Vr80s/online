@@ -127,6 +127,8 @@ var video_Id='';
 	requestService("/xczh/course/getCoursesByCollectionId",{
 		collectionId : courseId	
 	},function(data) {
+
+		
 		video_Id=data.resultObject[0]		
 		$("#select_album").html(template('data_select_album',{items:data.resultObject}));
 	})
@@ -142,6 +144,13 @@ function refresh(){
         pageNumber:1,
         pageSize:6
     },function(data) {
+    			//  	判断有无评论显示默认图片
+		if(data.resultObject.items.length==0){
+			$(".quie_pic").show()
+		}else{
+			$(".quie_pic").hide()
+		}
+		//  	判断有无评论显示默认图片结束
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
         //判断是否是第一次评论
@@ -200,10 +209,22 @@ function reportComment() {
         alert("内容不能为空")
         return
     }
+    var overallLevel=0;
+    if(my_impression1!=""){
+        overallLevel = parseInt(my_impression1)+1
+    }
+    var deductiveLevel=0;
+    if(my_impression2!=""){
+        deductiveLevel = parseInt(my_impression2)+1
+    }
+    var contentLevel=0;
+    if(my_impression3!=""){
+        contentLevel = parseInt(my_impression3)+1
+    }
     requestService("/xczh/criticize/saveCriticize",{
-        overallLevel:parseInt(my_impression1)+1,
-        contentLevel:parseInt(my_impression3)+1,
-        deductiveLevel:parseInt(my_impression2)+1,
+        overallLevel:overallLevel,
+        deductiveLevel:deductiveLevel,
+        contentLevel:contentLevel,
         criticizeLable:str,
         content:comment_detailed,
         courseId : course_id,
@@ -217,6 +238,7 @@ function reportComment() {
         $(".wrapAll_comment").hide();
         $(".bg_modal").hide();
         document.getElementById("comment_detailed").value="";
+        del();
         refresh();
     });
 }
@@ -258,35 +280,8 @@ function btn_allComment(){
     window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
 }
 
-var courseId = getQueryString('course_id');
-//点击购买后的接口
-function btn_buy(){
-    requestService("/xczh/order/save",{
-        courseId:courseId,
-        orderFrom:2
-    },function(data){
-
-        window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
-    });
 
 
-}
-//点击免费报名后
-function btn_mianfei(){
-
-
-    //	评论弹窗
-//  $(".wrap_input").on('click',function(){
-//      del();
-//      $(".bg_modal").show();
-//      $(".wrapAll_comment").show();
-//  })
-//  $(".bg_modal").on('click',function(){
-//      $(".bg_modal").hide();
-//      $(".wrapAll_comment").hide();
-//  })
-    window.location.href="live_class.html?my_study="+course_id+"";
-}
 
 //删除评论状态
 function del(){
