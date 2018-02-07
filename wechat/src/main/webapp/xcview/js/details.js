@@ -65,7 +65,7 @@ var result="";
              */
             if(lineState == 3){  //隐藏送礼  //直播回放
             	
-            	$("title").text("直播回放");
+            	$("title").text("熊猫中医");
             	$(".history_span").text("直播回放");
             	$("#mywords").css("width","11.4rem");
             	$("#face").css("top","1.45rem");
@@ -109,23 +109,19 @@ var result="";
             	    
             	/*点击发送*/
             	$("#sendChat").click(function() {
-        		    $(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
-                    $(".face_img01").css('background-size','100% 100%');
-            		/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
-                    $(".send_img").css('background-size','100% 100%');
-                    $(".give_a1").hide();
-                    $(".give_a1").css("display","none");
-                    $(".give_a1_span02").hide();
+                    $(".give_a1").hide();  /*礼物隐藏*/
+                    $(".give_a1").css("display","none");    /*礼物隐藏*/
+//                  $(".give_a1_span02").hide();          /*打赏*/
                     
-                    $(".give_a1_span02 img").hide();
-                    $(".coze_bottom").css("bottom","0");
+//                  $(".give_a1_span02 img").hide();    /*打赏*/
+                    $(".coze_bottom").css("bottom","0");   /*最底部区域到最下方*/
                 });	
                 
             }else{
             	
             	//正在直播
-            	$("title").text("直播中");
-            	$(".history_span").text("直播中");
+            	$("title").text("熊猫中医");
+            	$(".history_span").text("熊猫中医");
             	
             	
                 $("#mywords").click(function() {
@@ -153,12 +149,12 @@ var result="";
             //点击直播回放时的input mywords
            	$("#mywords").click(function() {
            			/*$(".send_img").css('background','url(/xcviews/images/jiantou01.jpg) no-repeat');*/
-                    $("#sendChat").css("background-size","100% 100%");
+//                  $("#sendChat").css("background-size","100% 100%");
             });
             //点击直播回放时的发送按钮  
             $("#sendChat").click(function() {
            			/*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
-                    $(".send_img").css("background-size","100% 100%");
+//                  $(".send_img").css("background-size","100% 100%");
             });
           
           //视频id不等于null的时候
