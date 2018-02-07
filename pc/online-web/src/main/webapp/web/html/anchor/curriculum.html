@@ -1494,7 +1494,7 @@
 							<p class="warning warning1 hide">请先上传资源文件</p >
 						</div>
 
-						<div class="uploading" style="display:none;">
+						<div class="resource_uploading" style="display:none;">
 							<p>资源上传中,请稍后...</p >
 							<span id="uploadProgress">
 										<div class="progress">
@@ -1676,7 +1676,7 @@
 	    $("#cancalUpdata").click(function (){
             swfobj.write('swfDiv');
             $('#mask').addClass('hide');
-            $("#ziyuan_bottom .uploading").hide();
+            $("#ziyuan_bottom .resource_uploading").hide();
             $("#ccName").hide();
             if($("#ccId").val!=null&&$("#ccId").val!=''){
                 $("#btn_width").val('点击重新上传');
@@ -1729,7 +1729,7 @@
                 '\t</div>';
             uploadProgress.innerHTML = progressStr;
             $('#mask').addClass('hide');
-            $("#ziyuan_bottom .uploading").hide();
+            $("#ziyuan_bottom .resource_uploading").hide();
             $("#btn_width").hide();
             $('#ccName').show();
             $("#ziyuan_bottom .uploadfinish").show();
@@ -1750,7 +1750,7 @@
             uploadfinished = true;
         } else {
             $('#mask').removeClass('hide');
-            $("#ziyuan_bottom .uploading").show();
+            $("#ziyuan_bottom .resource_uploading").show();
             $("#ziyuan_bottom .uploadfinish").hide();
             $("#ziyuan_bottom .updataSuccess").hide();
             uploadfinished = false;
