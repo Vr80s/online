@@ -1,21 +1,47 @@
 .hide{
 	display: none;
 }
-
+.coze_bottom{
+	background: #fff;
+}
+.img_left{
+	width: 0.8rem !important;
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 1;
+}
 #myImage{
 	width: 100%;
 }
+
 .coze_bottom input{
 	/*width: 11.5rem !important;
 	border: none;
 	margin-top: 0;
 	border-radius: 50px;*/
-	width: 11.8rem !important;
+	/*width: 11.8rem;*/
+	width: 13.5rem;
     border: none;
     margin-top: 0;
     border-radius: 50px;
-    background: red;
+    background: #F0F0F0;
+    text-indent: 1.8rem;
 }
+
+.coze_bottom ::-webkit-input-placeholder { /* WebKit browsers */
+    color: #999;
+}
+.coze_bottom :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999;
+}
+.coze_bottom ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;
+}
+.coze_bottom :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #999;
+}
+
 .overfloaw_auto{
 	width: 100%;
 	height: 1.8rem;
@@ -30,7 +56,7 @@
 	width: 13.4rem;
     height: 1.45rem;
     line-height: 1.45rem;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     outline: none;
     font-size: 0.7rem;
     text-indent: 0.3rem;
@@ -191,12 +217,18 @@ margin-right: 0.3rem;
     bottom: -1.5rem;
 }
 #sendChat{
-	background: none !important;
 	font-size: 0.55rem;
     position: absolute;
-    top: 0.76rem;
+    top: 0rem;
     right: -1.8rem !important;
     display: none;
+    /*background: red;*/
+    margin-top: 0.35rem;
+    height: 1.45rem;
+    line-height: 1.45rem;
+    color: #00BC12;
+    background: none;
+    font-weight: bold;
 }
 .facebox-mobile{
 	top: 1.2rem !important;
@@ -339,7 +371,7 @@ margin-right: 0.3rem;
 }
 .coze_bottom_input{
 	width: 13.5rem;
-    background: #00BCD4;
+    /*background: #00BCD4;*/
 }
 #face{
 	margin: 0;

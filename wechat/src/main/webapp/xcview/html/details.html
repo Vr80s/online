@@ -191,15 +191,14 @@ $(function(){
 	<!-- <div style="height:2.125rem;width:100%;background: red;"></div> -->
 	<div class="coze_bottom" style="padding: 0.3rem 0;">
 		<div class="coze_bottom_input" style="margin-right: 0;">
+			<img src="../images/inp_retured.png" class="img_left" />
 			<div class="poson">
-			<div class="send_img" id="sendChat"><!--<img src="/xcview/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" />-->发送 </div>
-			<!-- <input type="text" placeholder="聊聊您的想法吧" /> -->
-			<!-- <textarea ></textarea> -->
-			
-			<div class="div_input">
-				<input class="textarea02" id="mywords" placeholder="聊聊您的想法吧"
-				onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)'  />
-			</div>
+				<div class="send_img" id="sendChat"><!--<img src="/xcview/images/jiantou02.jpg" style="width: 1rem;margin-top: 0.2rem;" />-->发送 </div>
+	
+				<div class="div_input">
+					<input class="textarea02" id="mywords" placeholder="来点神聊"
+					onkeypress='return!(13==event.keyCode&&!event.shiftKey)||(document.getElementById("sendChat").click(),!1)'  />
+				</div>
 			
 			</div>
 			
@@ -372,22 +371,14 @@ $(function(){
 	</div>
 	
 	
-	
-	<!-- 测试图片放大缩小开始 -->
-			<!-- <div class="pinch-zoom-container" style="overflow: hidden; position: relative; height: 750px;">
-	        	<div class="pinch-zoom" style="transform-origin: 0% 0% 0px; position: absolute; transform: scale(1, 1) translate(-7.83817e-14px, -2.44249e-14px);">
-	            	<img src="/xcview/images/frog.jpg">
-	    		</div>
-	    	</div> -->
-
-			<script type="text/javascript">
-		        $(function () {
-		            $('.document_ceneter').each(function () {
-		                new RTP.PinchZoom($(this), {});
-		            });
-		        })
-		    </script>
-		<!-- 测试图片放大缩小结束 -->
+	<script type="text/javascript">
+        $(function () {
+            $('.document_ceneter').each(function () {
+                new RTP.PinchZoom($(this), {});
+            });
+        })
+    </script>
+	<!-- 测试图片放大缩小结束 -->
 	
 	
 	
@@ -459,63 +450,32 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 
 <script type="text/javascript">
 	window.onload = function(){
-//		点击输入框,表情显示,礼物隐藏
+//		点击输入框,表情显示,礼物隐藏   删除后，影响效果
 		$("#mywords").click(function(){
 			$(".give_a1").hide();  /*这是礼物*/
 			$(".give_a01").show();  /*这是表情*/
 			$("#sendChat").show();  /*发送文字按钮*/
+			$(".div_input").css("background","none");  /*input背景色隐藏*/
 		});
-		
-
-		
-		$(".give_a01").click(function(){
-//			$(".give_a01").();
-//			alert(2132);
-		});
-		
-		
 		
 //		coze   点击其他区域，聊天区域
 		$(".coze").click(function(){
-//			$(".give_a01").hide();   /*表情隐藏*/
 			$(".send_gifts").hide();   /*礼物区域隐藏*/
-			/*$(".give_a1").show();*/    /*礼物显示*/
+			$("#sendChat").hide();  /*发送按钮隐藏*/
+   			$(".give_a01").hide();     /*表情隐藏*/
+            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
+   			$(".give_a1").show();  /*礼物显示*/	
 		});
 		
-		
-		/*$("button").toggle(function(){
-		    $("body").css("background-color","green");},
-		    function(){
-		    $("body").css("background-color","red");},
-		    function(){
-		    $("body").css("background-color","yellow");}
-	  	);*/
-		
-		
-		/*$("#face").click(function() {
-			$(".coze_bottom").css("bottom","7.3rem");
-			$(".face_img01").css('background','url(/xcviews/images/jianpan.png) no-repeat');
-			$(".face_img01").css('background-size','100% 100%');
-			var a = $(".facebox-mobile").css("display");
-			if (a == "block") {
-
-				setTimeout(
-						function() {
-							$(".facebox-mobile").hide();
-							$(".face_img01").css('background','url(/xcviews/images/face.png) no-repeat');
-							$(".face_img01").css('background-size','100% 100%');
-						}, 10);
-
-				$(".coze_bottom").css("bottom","0rem");
-			} else {
-				$(".coze_bottom").css("bottom","7.3rem");
-
-				setTimeout(function() {
-					$(".facebox-mobile").show();
-				}, 10);
-			}
-		});*/
-		
+//		点击课件之间的  发送 礼物切换
+		$(".details_footer_width li").click(function(){
+			$(".send_gifts").hide();   /*礼物区域隐藏*/
+			$("#sendChat").hide();  /*发送按钮隐藏*/
+   			$(".give_a01").hide();     /*表情隐藏*/
+            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
+   			$(".give_a1").show();  /*礼物显示*/
+   			$(".div_input").css("background","block");  /*input背景色隐藏*/
+		});
 	};
 </script>
 </html>
