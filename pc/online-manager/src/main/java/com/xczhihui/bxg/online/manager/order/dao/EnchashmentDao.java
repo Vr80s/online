@@ -35,7 +35,7 @@ public class EnchashmentDao extends SimpleHibernateDao {
 				   "   on ou.id=ubc.`user_id`\n" +
 				   "  JOIN `course_anchor` ca \n" +
 				   "    ON ca.`user_id`=ou.`id`"+
-				   "where 1 = 1 GROUP BY eai.id");
+				   "where 1 = 1");
 
 		   if(orderVo.getStartTime() !=null){
 			  sql.append(" and eai.time >=:startTime");
@@ -67,7 +67,7 @@ public class EnchashmentDao extends SimpleHibernateDao {
 	    	   paramMap.put("type",  orderVo.getAnthorType());
 	       }
 	       
-		   sql.append(" order by eai.time desc ");
+		   sql.append(" GROUP BY eai.id order by eai.time desc ");
 		   Page<EnchashmentApplyInfo> ms = this.findPageBySQL(sql.toString(), paramMap, EnchashmentApplyInfo.class, pageNumber, pageSize);
 	  	   return ms;
 	}
