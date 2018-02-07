@@ -85,6 +85,26 @@
 		</div> -->
 	</div>
 	<!--中间内容结束-->
+	
+	
+			<!--选择支付方式开始-->
+		<div class="weixin_pay">
+			<div class="weixin_pay_title">选择方式</div>
+			<div class="div">
+				<div class="pay_div div0">
+					<img src="../images/Alipay_img.png" class="img0" />
+					支付宝
+				</div>
+				<div class="pay_div div1">
+					<img src="../images/weixin_pay.png" />
+					微信
+				</div>
+				<div class="both"></div>
+			</div>
+			<div class="both"></div>
+		</div>
+	
+	
 	<!--底部开始-->
 	<!--<div class="footer_perch"></div>-->
 	<div class="footer">
@@ -143,6 +163,21 @@
 		$(".success_main .three").click(function(){
 			$(".success").hide();
 		});
+		
+		
+		
+		
+//		选择支付方式
+		$(".weixin_pay .div .div0").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div1").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div1").click(function(){
+			$(this).addClass('pay_border');
+			$(".weixin_pay .div .div0").removeClass('pay_border');
+		});
+		$(".weixin_pay .div .div0").click();
+		
 	};
 </script>
 <script src="/xcviews/js/js.js"></script>

@@ -255,8 +255,7 @@ $(document).ready(function() {
             for (var i = res.data.length - 1; i >= 0; i--) {
             	 if(userInfo.userid == res.data[i].user_id){
             	    str += "<div class='coze_cen_ri'> "+
-        			 "<img src="+res.data[i].avatar+" alt='' "+
-        			"	class='coze_cen_ri_img' /> "+
+        			 "<span class='span_name'>我是名字</span>"+
         			"  <div class='coze_cen_bg_ri'> "+
         			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
         			" </div> "+

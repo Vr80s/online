@@ -1,21 +1,47 @@
 .hide{
 	display: none;
 }
-
+.coze_bottom{
+	background: #fff;
+}
+.img_left{
+	width: 0.8rem !important;
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 1;
+}
 #myImage{
 	width: 100%;
 }
+
 .coze_bottom input{
 	/*width: 11.5rem !important;
 	border: none;
 	margin-top: 0;
 	border-radius: 50px;*/
-	width: 11.8rem !important;
+	/*width: 11.8rem;*/
+	width: 13.5rem;
     border: none;
     margin-top: 0;
     border-radius: 50px;
-    background: red;
+    background: #F0F0F0;
+    text-indent: 1.8rem;
 }
+
+.coze_bottom ::-webkit-input-placeholder { /* WebKit browsers */
+    color: #999;
+}
+.coze_bottom :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #999;
+}
+.coze_bottom ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #999;
+}
+.coze_bottom :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #999;
+}
+
 .overfloaw_auto{
 	width: 100%;
 	height: 1.8rem;
@@ -30,7 +56,7 @@
 	width: 13.4rem;
     height: 1.45rem;
     line-height: 1.45rem;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     outline: none;
     font-size: 0.7rem;
     text-indent: 0.3rem;
@@ -191,12 +217,18 @@ margin-right: 0.3rem;
     bottom: -1.5rem;
 }
 #sendChat{
-	background: none !important;
 	font-size: 0.55rem;
     position: absolute;
-    top: 0.76rem;
+    top: 0rem;
     right: -1.8rem !important;
     display: none;
+    /*background: red;*/
+    margin-top: 0.35rem;
+    height: 1.45rem;
+    line-height: 1.45rem;
+    color: #00BC12;
+    background: none;
+    font-weight: bold;
 }
 .facebox-mobile{
 	top: 1.2rem !important;
@@ -220,8 +252,13 @@ margin-right: 0.3rem;
 	width: 2.75rem;
     height: 1.1rem;
     line-height: 1.1rem;
-    font-size: 0.5rem;
     margin-top: 0.05rem;
+    width: 6.325rem;
+    height: 2.085rem;
+    line-height: 2.085rem;
+    margin-right: 0;
+    border-radius: 0;
+    font-size: 0.75rem;
 }
 .fd_img_bg{
     width: 4.5rem;
@@ -339,8 +376,70 @@ margin-right: 0.3rem;
 }
 .coze_bottom_input{
 	width: 13.5rem;
-    background: #00BCD4;
+    /*background: #00BCD4;*/
 }
 #face{
 	margin: 0;
+}
+
+
+/*处理礼物模块*/
+.send_gifts .balance{
+	padding: 0;
+    height: 2.085rem;
+    border-top: 1px solid #f0f0f0;
+}
+.send_gifts{
+	height: 11.234rem;
+	bottom: 0;
+}
+.send_gifts ul{
+	background: #fff;
+    height: 8.298rem;
+    display: inline-block;
+    padding: 0;
+    padding-top: 0.851rem;
+}
+.send_gifts ul li{
+	border-radius: 4px;
+	width: 3.404rem;
+    height: 3.404rem;
+    padding: 0;
+    position: relative;
+   	border: 1px solid #fff;
+   	margin-bottom: 0.702rem;
+   	margin-left: 0.4rem;
+}
+.send_gifts ul li a{
+	margin: 0 auto;
+    display: table;
+    width: 3.404rem;
+    height: 3.404rem;
+    text-align: -webkit-center;
+}
+.gift_p{
+	width: 100%;
+    position: absolute;
+    bottom: 0rem;
+    margin-left: 0rem; 
+    padding-bottom: 0.3rem;
+}
+.gift_ul_li_li{
+	border: 1px solid #96e39d !important;
+}
+.balance_size{
+	float: left;
+	font-size: 0.6rem;
+    color: #333;
+    margin-top: 0;
+    height: 2.085rem;
+    line-height: 2.085rem;
+}
+.balance_size span{
+	height: 2.45rem;
+	line-height: 2.45rem;
+}
+.send_gifts .gifts_div{
+	width: 1.426rem;
+    height: 1.34rem;
 }

@@ -94,7 +94,7 @@ $(function(){
 		
 			
 		//城市判断
-		if($('#hos_Administration .hos_base_inf #choosePro  option:selected').text()== '请选择所在省' ||$('#hos_Administration .hos_base_inf  #citys option:selected').text() == '请选择所在市'){
+		if($('#hos_Administration .hos_base_inf #choosePro  option:selected').text()== '请选择省' ||$('#hos_Administration .hos_base_inf  #citys option:selected').text() == '请选择市'){
 			$('#hos_Administration .hos_base_inf .doc_address .warning').removeClass('hide');
 			return false;
 		}else{
@@ -243,7 +243,7 @@ $(function(){
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				$('#tip').text('保存失败，请重试');
+				$('#tip').text(data.errorMessage);
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
@@ -280,16 +280,17 @@ $(function(){
 	
 	
 	//医馆信息的回显数据渲染
-	RequestService("/medical/hospital/authentication/get", "get", {			
+	if(localStorage.AccountStatus == 2){
+		RequestService("/medical/hospital/authentication/get", "get", {			
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
 //				alert('获取认证状态数据失败');
-				$('#tip').text('获取认证状态数据失败');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},2000)
+//				$('#tip').text('获取认证状态数据失败');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},2000)
 			}else if(data.success == true){
 //				alert('认证成功');
 				//医馆数据渲染
@@ -297,6 +298,26 @@ $(function(){
 			}
 
 		})
+	}else{
+			RequestService("/medical/hospital/apply/getLastOne", "get", {			
+			}, function(data) {
+				console.log(data);
+			if(data.success == false){
+//				alert('获取认证状态数据失败');
+//				$('#tip').text('获取认证状态数据失败');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},2000)
+			}else if(data.success == true){
+//				alert('认证成功');
+				//医馆数据渲染
+				$('#hosAutStatus').html(template('hosAutStatusTpl',data.resultObject))
+			}
+
+		})
+	}
+
 	
 	//上传图片调用的接口
 	function picUpdown(baseurl,imgname){

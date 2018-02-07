@@ -44,7 +44,7 @@ $(document)
 
 					/* 点击礼物 出现礼物数量 */
 					$(".gift_ul_li li").click(function() {
-						$(".count").show();
+//						$(".count").show();    选择礼物数量  礼物选择数量暂时没有。先隐藏掉
 						$(".import").val(1);
 						/* $(".import").blur(); */
 					});

@@ -65,7 +65,7 @@ var result="";
              */
             if(lineState == 3){  //隐藏送礼  //直播回放
             	
-            	$("title").text("熊猫中医");
+            	$("title").text("直播回放");
             	$(".history_span").text("直播回放");
             	$("#mywords").css("width","11.4rem");
             	$("#face").css("top","1.45rem");
@@ -81,6 +81,8 @@ var result="";
             	$("#mywords").click(function() {
             		$(".give_a1").hide();
             		$(".give_a1_img").hide();
+            		$(".div_input").css("background","none");
+            		
                 });
             	$(".details_size").hide();
             	$(".poson").css('right','-2.1rem');
@@ -93,27 +95,12 @@ var result="";
             	});
             	
             	
-            	$(".li1").click(function() {
-            		$(".give_a1_span02").css("display","none");
-            		$(".give_a1_span02 img").hide();
-            		
-            		$(".give_a1").hide();
-            		$(".give_a1 img").hide();
-            	});
             	
-            	
-            	$(".li2").click(function() {
-            		$(".give_a1_span02 img").hide();
-            		$(".div_input").css('margin-left','2.3rem');
-            	});
             	    
             	/*点击发送*/
             	$("#sendChat").click(function() {
                     $(".give_a1").hide();  /*礼物隐藏*/
                     $(".give_a1").css("display","none");    /*礼物隐藏*/
-//                  $(".give_a1_span02").hide();          /*打赏*/
-                    
-//                  $(".give_a1_span02 img").hide();    /*打赏*/
                     $(".coze_bottom").css("bottom","0");   /*最底部区域到最下方*/
                 });	
                 
@@ -121,11 +108,12 @@ var result="";
             	
             	//正在直播
             	$("title").text("熊猫中医");
-            	$(".history_span").text("熊猫中医");
+            	$(".history_span").text("直播中");
             	
             	
                 $("#mywords").click(function() {
-//                  $(".give_a1_img").hide();
+                    $(".coze_bottom input").css("width","11.8rem");
+                    $(".div_input").css("background","none");
                 });
 
                 // 点击送礼开始  --显示送礼列表
@@ -144,6 +132,15 @@ var result="";
                     });
                     $(".send_gifts").show();
                 });
+                
+//              点击发送
+                $("#sendChat").click(function() {
+           			$(".give_a01").hide();  /*表情隐藏*/
+           			$(this).hide();        /*当前发送按钮隐藏*/
+                    $(".coze_bottom input").css("width","13.5rem");
+           			$(".give_a1").show();  /*礼物显示*/
+           			
+            	});
             }
             
             //点击直播回放时的input mywords
@@ -152,10 +149,9 @@ var result="";
 //                  $("#sendChat").css("background-size","100% 100%");
             });
             //点击直播回放时的发送按钮  
-            $("#sendChat").click(function() {
-           			/*$(".send_img").css('background','url(/xcviews/images/jiantou02.jpg) no-repeat');*/
-//                  $(".send_img").css("background-size","100% 100%");
-            });
+            /*$("#sendChat").click(function() {
+           			
+            });*/
           
           //视频id不等于null的时候
           if(stringnull(videoId)){
@@ -182,9 +178,9 @@ requestService("/bxg/gift/list",{pageNumber:1,pageSize:100},function(data) {
         var html = "";
         for (var i = 0; i < result.length; i++) {
             if(result[i].price>0){
-                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'>"+"<img src='/xcviews/images/top_up01.png' style='width: 0.425rem;margin-top: -0.1rem;display: inline;margin-right: 0.2rem;vertical-align: middle;' />"+result[i].price+"</p></div></a></li>";
+                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'>"+""+result[i].price+"</p></div></a></li>";
             }else{
-                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'><img src='/xcviews/images/top_up01.png' style='width: 0.45rem;margin-top: -0.1rem;display: inline;margin-right: 0.2rem;vertical-align: middle;' />0</p></div></a></li>";
+                html += "<li><a href='javascript: ;'><div class='gifts_div'><img src='"+result[i].smallimgPath +"' alt='' /></div><div class='gift_p'><p giftId='"+result[i].id+"' class='liwu' style='font-size:0.6rem;color:#666;'>"+result[i].name+"</p><p class='jiage' style='font-size:0.6rem;color:#666;'>0</p></div></a></li>";
             }
         }
         $(".gift_ul_li").html(html);

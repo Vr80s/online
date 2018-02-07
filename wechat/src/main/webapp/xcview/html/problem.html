@@ -16,7 +16,13 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
-
+<!-- 刷新引入js -->
+<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>
+<script type="text/javascript" src="../js/problem.js"></script>
 
 
 </head>
@@ -36,21 +42,18 @@
 	<!-- 中间内容开始 -->
 	<div class="help">
 		<div class="problem">
-			<div class="problem_title">视频可以多次重复观看吗？</div>
+			<script type="text/html" id="problem">
+			<div class="problem_title">{{value}}</div>
 			<div class="problem_main">
-				我们的视频均可以进行多次重复观看，观众可根据自己的时间对学习过程进行安排，最大化地利用时间。
+				{{description}}
 			</div>
+			</script>
 		</div>
 	</div>
 	
 	<!-- 中间内容结束 -->
 	
-	<!-- 刷新引入js -->
-	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
-	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-    <script type="text/javascript" src="/Views/h5/js/common.js"></script>
-	<script src="/xcviews/js/index.js" type="text/javascript"></script>
+
 </body>
 
 <script>

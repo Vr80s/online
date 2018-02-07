@@ -200,35 +200,35 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
         // 参数校验
         this.validate(medicalDoctor, 1);
 
-//        commonThreadPoolTaskExecutor.submit(() -> {
+        commonThreadPoolTaskExecutor.submit(() -> {
 
-        // 如果之前已经加入医馆了
-        Map<String, Object> columnMap = new HashMap<>();
-        columnMap.put("doctor_id" ,doctorId);
-        List<MedicalHospitalDoctor> medicalHospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
-        if(CollectionUtils.isNotEmpty(medicalHospitalDoctors)){
+            // 如果之前已经加入医馆了
+            Map<String, Object> columnMap = new HashMap<>();
+            columnMap.put("doctor_id" ,doctorId);
+            List<MedicalHospitalDoctor> medicalHospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
+            if(CollectionUtils.isNotEmpty(medicalHospitalDoctors)){
 
-            // 删除之前医师对应医馆的关联关系
-            hospitalDoctorMapper.deleteByMap(columnMap);
+                // 删除之前医师对应医馆的关联关系
+                hospitalDoctorMapper.deleteByMap(columnMap);
 
-        }
+            }
 
-        // 添加医馆和医师的对应关系：medical_hospital_doctor
-        MedicalHospitalDoctor hospitalDoctor = new MedicalHospitalDoctor();
-        hospitalDoctor.setId(UUID.randomUUID().toString().replace("-",""));
-        hospitalDoctor.setDoctorId(doctorId);
-        hospitalDoctor.setHospitalId(medicalDoctor.getHospitalId());
-        hospitalDoctorMapper.insert(hospitalDoctor);
+            // 添加医馆和医师的对应关系：medical_hospital_doctor
+            MedicalHospitalDoctor hospitalDoctor = new MedicalHospitalDoctor();
+            hospitalDoctor.setId(UUID.randomUUID().toString().replace("-",""));
+            hospitalDoctor.setDoctorId(doctorId);
+            hospitalDoctor.setHospitalId(medicalDoctor.getHospitalId());
+            hospitalDoctorMapper.insert(hospitalDoctor);
 
-        // 添加医师的坐诊时间
-        medicalDoctor.setUpdateTime(new Date());
-        medicalDoctor.setId(doctorId);
-        medicalDoctorMapper.updateSelective(medicalDoctor);
+            // 添加医师的坐诊时间
+            medicalDoctor.setUpdateTime(new Date());
+            medicalDoctor.setId(doctorId);
+            medicalDoctorMapper.updateSelective(medicalDoctor);
 
-        logger.info("hospitalId：{} and accountId：{}，doctorId：{} build relation Successfully", medicalDoctor.getHospitalId(),
-                medicalDoctor.getUserId(), doctorId);
+            logger.info("hospitalId：{} and accountId：{}，doctorId：{} build relation Successfully", medicalDoctor.getHospitalId(),
+                    medicalDoctor.getUserId(), doctorId);
 
-//        });
+        });
     }
 
     /**
