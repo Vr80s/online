@@ -76,7 +76,7 @@
 			position: absolute;
 			z-index: 1;
 		}
-		#swfDiv{*position:absolute; z-index:2;}
+		/*#swfDiv{*position:absolute; z-index:2;}*/
 		#uploadswf{top: 0;}
 	</style>
 
@@ -380,7 +380,7 @@
 		<!--医师认证开始-->
 		<div class="begin_approve account_main account_mains account_main_message">
 			<!--医师认证开始-->
-			<div class="physician_one hide">
+			<div class="physician_one">
 				<div class="account_main_title">认证信息</div>
 				<div class="reauthentication">
 					<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
@@ -420,7 +420,7 @@
 
 
 			<!--医馆认证开始-->
-			<div class="clinic_two account_one hide" >
+			<div class="clinic_two account_one" style="display: none;">
 				<div class="account_main_title">认证信息</div>
 				<div class="reauthentication">
 					<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
@@ -454,10 +454,9 @@
 			</div>
 			<!--医馆认证结束-->
 		</div>
-		
-		<div class="account_main account_main_alter physician_two_two hide">
+		<div class="account_main account_main_alter physician_two_two">
 			<!--医师认证开始-->
-			<div class="physician_two ">
+			<div class="physician_two">
 				<div class="account_main_alter_title">
 					<div class="one">重新认证</div>
 					<div class="two">返回</div>
@@ -569,7 +568,7 @@
 			<!--医师认证结束-->
 
 			<!--医馆认证开始-->
-			<div class="account_two hide"  >
+			<div class="account_two"  style="display: none !important;">
 				<div class="account_main_alter_title">
 					<div class="one">重新认证</div>
 					<div class="two">返回</div>
@@ -865,14 +864,14 @@
 						</div>
 						<div class="select live offline special">
 							<span><em>*</em>开课时间</span>
-							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择开课时间"  style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time" />
+							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择开课时间" readonly="readonly" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_start_time" />
 							<p class="warning warning_course_start_time hide">开课时间不能为空</p>
 							<p class="warning warning_course_time1 hide">开课时间应大于当前时间</p>
 						</div>
 
 						<div class="select offline special">
 							<span><em>*</em>结课时间</span>
-							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" class="select_time course_end_time" />
+							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" readonly="readonly" class="select_time course_end_time" />
 							<p class="warning warning_course_end_time hide">结课时间不能为空</p>
 							<p class="warning warning_course_time hide">结课时间应大于开课时间</p>
 						</div>
@@ -891,7 +890,7 @@
 
 						<div class="">
 							<span><em>*</em>时长</span>
-							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2 course_length" style="width: 120px;" />
+							<input type="text" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'')" class="zhuanlan_title zhuanlan_title2 course_length" style="width: 120px;" />
 							<span>分钟</span>
 							<p class="warning warning_course_length hide">请输入时长</p>
 							<p class="warning warning_course_length_Illegal hide">时长数值不符合规范</p>
@@ -930,7 +929,7 @@
 							<p class="warning warning_course_resource hide">请选择资源</p>
 						</div>
 						<div class="baocun">
-							<input type="button" class="addCourse save" value="提交" id="submit"/>
+							<input type="button" class="addCourse save" value="提交" />
 							<!--<input type="submit" value="保存" id="submit0"/>-->
 						</div>
 					</form>
@@ -1238,7 +1237,7 @@
 						<p class="warning warning_course hide">课程不可为空</p>
 						<div class="baocun">
 							<!--专辑提交-->
-							<input type="submit" class="save" value="提交" id="submit0" onclick="saveCollection()"/>
+							<input type="button" class="save" value="提交" onclick="saveCollection()"/>
 							<!--<input type="submit" value="保存" id="submit0"/>-->
 						</div>
 
@@ -1360,7 +1359,7 @@
 
 					<div>
 						<span><em>*</em>时长</span>
-						<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title2" style="width: 120px;">
+						<input type="text" placeholder="" onkeyup="value=value.replace(/[^\d]/g,'') " class="zhuanlan_title zhuanlan_title2" style="width: 120px;">
 						<span>分钟</span>
 						<p class="warning warnings6 hide">时长不能为空</p>
 					</div>
@@ -1407,7 +1406,7 @@
 
 
 					<div class="baocun">
-						<input type="submit" class="save" value="提交" id="submits">
+						<input type="submit" class="save" value="提交">
 						<!--<input type="submit" value="保存" id="submits0">-->
 					</div>
 				</form>
@@ -1462,7 +1461,7 @@
 		<div class="little_box" id="resource">
 			<div class="resource_one">
 				<div class="zhuanlan_top">
-					<span class="title" onclick="resetResource()">新资源</span>
+					<span class="title">新资源</span>
 					<button>返回</button>
 				</div>
 				<div class="zhuanlan_bottom" id="ziyuan_bottom">
@@ -1471,6 +1470,7 @@
 							<span><em>*</em>标题</span>
 							<input type="text" placeholder="请填写您的标题" class="zhuanlan_title" />
 							<p class="warning warning0 hide">标题不能为空</p>
+							<p class="warning hide warning_resource_title_length">标题最多30字</p>
 						</div>
 						<div id="resourceType">
 							<span><em>*</em>资源类型</span>
@@ -1487,23 +1487,26 @@
 							<input id="ccName" name="ccName" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
 							<input id="videoId" name="videoId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
 							<input id="ccId" name="ccId" type="text" style="display: none;color:#999999;font-size: 14px;border: none;" />
-							<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成</span>
-							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
+
 							<div id="swfDiv" style="display: inline-block;">
 							</div>
+
 							<input type="button" value="点击上传资源" id="btn_width" style="width: 128px; height: 32px;line-height: 32px;font-size: 14px;color: #00BC12;border-radius: 4px;border: 1px solid #00BC12;background: #fff;outline: none;" />
+
+							<span class="uploadfinish" style="display:none;"><em class="updataSuccess"></em>资源上传完成</span>
+							<span style="float: left;display: none">选择视频：<input id="videofile" name="videofile" type="text" /></span>
 							<p class="warning warning1 hide">请先上传资源文件</p >
 						</div>
 
 						<div class="resource_uploading" style="display:none;">
 							<p>资源上传中,请稍后...</p >
 							<span id="uploadProgress">
-										<div class="progress">
-											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
-												<span class="sr-only">90% 完成（成功）</span>
-											</div>
-										</div>
-									</span>
+								<div class="progress">
+									<div class="progress-bar progress-bar-success progress-resource" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+										<span class="sr-only">90% 完成（成功）</span>
+									</div>
+								</div>
+							</span>
 							<a id="cancalUpdata">取消上传</a>
 						</div>
 						<div class="baocun">
@@ -1515,7 +1518,7 @@
 			<div class="resource_two">
 				<div class="zhuanlan_top">
 					<span class="title">资源</span>
-					<button class="">上传资源</button>
+					<button class="" onclick="resetResource()">上传资源</button>
 				</div>
 				<div class="zhuanlan_bottom2" id="ziyuan_bottom2" style="margin-bottom: 30px;">
 					<table>
@@ -1563,7 +1566,6 @@
 <script src="/web/js/anchor/curriculum.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--主播工作台控制左侧点击事件和判断input为空-->
 <script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
-<script src="/web/js/anchor/curriculum_Account.js"></script>
 <script type="text/javascript">
     function numberCk(data) {
         var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;
@@ -1667,46 +1669,105 @@
     }
 </script>
 <script type="text/javascript">
-
+ 	var firstSave = true;
 	function resetResource(){
-        swfobj.write('swfDiv');
 		uploadfinished = false;
+        $(".uploadfinish").hide();
+        $(".updataSuccess").hide();
+        $(".warning").addClass('hide');
         document.getElementById('addResource').reset();
         $("#btn_width").val('点击上传资源');
+        $("#ccName").hide();
+
+//        $('#swfDiv').css({
+//            "display":"inline-block;",
+//            "margin-left":"0px",
+//            "margin-top":"0"
+//        })
+//        $('#btn_width').css({
+//            "display":"inline-block",
+//            "margin-left":"0px",
+//            "margin-top":"0"
+//        })
+
+
+//        $('#uploadswf').css({
+//            "top":"0px"
+//        })
+//        $('#swfDiv').css({
+//            "display":"inline-block;"
+//        })
+//        $('.fla_btn').css({
+//            "position":"relative;"
+//        })
+//        $('.fla_btn embed').css({
+//            "position":"absolute;",
+//			"z-index":"1"
+//        })
+		if(!firstSave){
+//            $('#btn_width').css({
+//                "display":"inline-block",
+//                "margin-left":"112px",
+//                "margin-top":"-68px"
+//            })
+        }
+        initobj();
 	}
 	$(function(){
 	    $("#cancalUpdata").click(function (){
-            swfobj.write('swfDiv');
+            $('.progress-resource').css({
+                "width": "0%"
+            })
+            initobj();
             $('#mask').addClass('hide');
+            $("#ziyuan_bottom .uploading").hide();
             $("#ziyuan_bottom .resource_uploading").hide();
-            $("#ccName").hide();
-            if($("#ccId").val!=null&&$("#ccId").val!=''){
+            if($("#ccId").val()!=null&&$("#ccId").val()!=''){
+                uploadfinished=true;
                 $("#btn_width").val('点击重新上传');
+                $(".uploadfinish").show();
+                $(".updataSuccess").show();
+//                $('#btn_width').css({
+//                    "display":"block",
+//                    "margin-left":"112px",
+//                    "margin-top":"20px"
+//                })
+//                $('#swfDiv').css({
+//                    "display":"inline-block;",
+//                    "margin-left":"112px",
+//                    "margin-top":"20px"
+//                })
+//                $('#uploadswf').css({
+//                    "top":"40px"
+//                })
+            }else{
+                $("#ccName").hide();
+//                $("#ccName").val($("#videofile").val());
+//                $("#ccId").val($("#videoId").val());
             }
-            $("#ccName").val($("#videofile").val());
-            $("#ccId").val($("#videoId").val());
 		});
 	});
     var uploadfinished = false;
     // 加载上传flash ------------- start
-    var swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '128', '32', '8');
-    swfobj.addVariable( "progress_interval" , 1);	//	上传进度通知间隔时长（单位：s）
-    swfobj.addParam('allowFullscreen','true');
-    swfobj.addParam('allowScriptAccess','always');
-    swfobj.addParam('wmode','transparent');
-    swfobj.write('swfDiv');
+    var swfobj;
 
+    function initobj(){
+        swfobj=new SWFObject('http://union.bokecc.com/flash/api/uploader.swf', 'uploadswf', '128', '32', '8');
+        swfobj.addVariable( "progress_interval" , 1);	//	上传进度通知间隔时长（单位：s）
+        swfobj.addParam('allowFullscreen','true');
+        swfobj.addParam('allowScriptAccess','always');
+        swfobj.addParam('wmode','transparent');
+        swfobj.write('swfDiv');
+	}
+    initobj();
     function on_spark_selected_file(filename) {
         document.getElementById("videofile").value = filename;
-//        document.getElementById("ccName").value = filename;
         submitvideo(filename);
     }
 
     function on_spark_upload_validated(status, videoid) {
         if (status == "OK") {
-//            document.getElementById("ccId").value = videoid;
             $("#videoId").val(videoid);
-//            alert("上传正常,videoid:" + videoid);
         } else if (status == "NETWORK_ERROR") {
             alert("网络错误");
         } else {
@@ -1720,53 +1781,45 @@
             uploadProgress.innerHTML = "上传出错：" + progress;
         } else if(progress == 100) {
             $("#btn_width").val('点击重新上传');
+            debugger
             $("#ccName").val($("#videofile").val());
             $("#ccId").val($("#videoId").val());
-            var progressStr = '<div class="progress">\n' +
-                '\t<div class="progress-bar progress-bar-success" role="progressbar"\n' +
-                '\t\t aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
-                '\t\t style="width: 100%;">\n' +
-                '\t\t<span class="sr-only">100% 完成（成功）</span>\n' +
-                '\t</div>\n' +
-                '\t</div>';
-            uploadProgress.innerHTML = progressStr;
             $('#mask').addClass('hide');
             $("#ziyuan_bottom .resource_uploading").hide();
-            $("#btn_width").hide();
+//            $("#btn_width").hide();
             $('#ccName').show();
             $("#ziyuan_bottom .uploadfinish").show();
             $("#ziyuan_bottom .updataSuccess").show();
-            $('#btn_width').css({
-                "display":"block",
-                "margin-left":"112px",
-                "margin-top":"20px"
+
+            $('.progress-resource').css({
+                "width": "0%"
             })
-			$('#swfDiv').css({
-                "display":"block",
-                "margin-left":"112px",
-                "margin-top":"20px"
-			})
-			$('#uploadswf').css({
-                "top":"40px"
-			})
+//            $('#btn_width').css({
+//                "display":"block",
+//                "margin-left":"112px",
+//                "margin-top":"20px"
+//            })
+//			$('#swfDiv').css({
+//                "display":"block",
+//                "margin-left":"112px",
+//                "margin-top":"20px"
+//			})
+//			$('#uploadswf').css({
+//                "top":"40px"
+//			})
             uploadfinished = true;
+            validateResource();
         } else {
             $('#mask').removeClass('hide');
             $("#ziyuan_bottom .resource_uploading").show();
             $("#ziyuan_bottom .uploadfinish").hide();
             $("#ziyuan_bottom .updataSuccess").hide();
             uploadfinished = false;
-            var progressStr = '<div class="progress">\n' +
-                '\t<div class="progress-bar progress-bar-info" role="progressbar"\n' +
-                '\t\t aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"\n' +
-                '\t\t style="width: ' + progress + '%;">\n' +
-                '\t\t<span class="sr-only">' + progress + '% 完成（成功）</span>\n' +
-                '\t</div>\n' +
-                '</div>';
-            uploadProgress.innerHTML = progressStr;
+            $('.progress-resource').css({
+                "width": progress+"%"
+            })
         }
     }
-
     //控制上传
     function submitvideo(filename) {
         var url = "";
