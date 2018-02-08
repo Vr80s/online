@@ -1796,8 +1796,6 @@ header{
 	font-size: 0.511rem;
     color: #999;
     overflow: hidden;
-    /* text-overflow: ellipsis; */
-    /* white-space: nowrap; */
     display: inline-block;
     max-width: 1.5rem;
 }
@@ -1840,7 +1838,6 @@ header{
 .lectures_main{
 	width: 15.85rem;
     margin: 0 auto;
-    /*background: red;*/
 }
 .lectures_main ul li{
 	float: left;
@@ -2136,8 +2133,6 @@ to {-webkit-transform: rotate(360deg);}
 
 
 /*线下课*/
-
-
 .swiper-container{
     margin:0 auto;
     position:relative;
@@ -2529,4 +2524,3 @@ to {-webkit-transform: rotate(360deg);}
     }
 }
  
-
