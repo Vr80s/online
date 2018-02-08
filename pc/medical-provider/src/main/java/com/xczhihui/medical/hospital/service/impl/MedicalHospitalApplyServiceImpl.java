@@ -8,6 +8,9 @@ import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.utils.RedisShardLockUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.exceptions.TooManyResultsException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +46,8 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     @Autowired
     private RedisShardLockUtils redisShardLockUtils;
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     /**
      * 添加医馆入驻申请认证信息
      * @param target 医馆入驻申请认证的信息封装
@@ -53,22 +58,22 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         // 参数校验
         this.validate(target);
 
-        // 判断医馆名字是否已被占用
-        MedicalHospital hospital = hospitalMapper.findByName(target.getName());
-        if(hospital != null){
-            throw new RuntimeException("医馆名称已经被占用");
-        }
-
-        MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(target.getName());
-        if(medicalHospitalApply != null && !(medicalHospitalApply.getUserId().equals(target.getUserId()))){
-            throw new RuntimeException("医馆名称已经在认证中");
-        }
-
         Long currentTime = System.currentTimeMillis() + MedicalHospitalApplyConst.TIMEOUT;
 
         String applyId = null;
 
         try {
+
+            // 判断医馆名字是否已被占用
+            MedicalHospital hospital = hospitalMapper.findByName(target.getName());
+            if(hospital != null){
+                throw new RuntimeException("医馆名称已经被占用");
+            }
+
+            MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(target.getName());
+            if(medicalHospitalApply != null && !(medicalHospitalApply.getUserId().equals(target.getUserId()))){
+                throw new RuntimeException("医馆名称已经在认证中");
+            }
 
             // 获取用户最后一次申请认证信息
             MedicalHospitalApply hospitalApply = this.getLastOne(target.getUserId());
@@ -87,6 +92,12 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
                 this.addDetail(target);
 
             }
+        }catch (TooManyResultsException e){
+
+            logger.error("判断医馆名字是否已被占用时，SELECT id FROM medical_hospital WHERE name = {} and deleted = 0 ," +
+                    "Expected one result (or null) to be returned by selectOne(), but found: many" );
+            throw new RuntimeException("数据异常，请联系管理员");
+
         }finally {
 
             // 解锁
@@ -108,15 +119,6 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
         }
 
-        // 如果用户已是认证医馆 表示其更新认证信息
-        if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
-
-            // 如果用户已是认证医馆 表示其更新认证信息
-            this.applyAgain(target);
-            return;
-
-        }
-
         // 如果用户认证医馆中
         if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
 
@@ -128,10 +130,11 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
         }
 
-        // 如果用户医馆认证失败，医师认证失败，或者从没申请
+        // 如果用户医馆认证失败，医馆认证成功，医师认证失败，或者从没申请
         if(result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
-                result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())){
+                result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
+                result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
 
             this.addMedicalHospitalApply(target);
 
@@ -151,12 +154,6 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         target.setCreateTime(new Date());
 
         applyMapper.insert(target);
-
-    }
-
-    private void applyAgain(MedicalHospitalApply target) {
-
-        throw new RuntimeException("您已经认证了医馆，不能再重新认证");
 
     }
 
