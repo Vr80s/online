@@ -259,3 +259,23 @@ function jump(id){
 		}
 	})
 }
+
+
+
+$(function(){
+
+
+//搜索历史开始
+
+requestService("/xczh/bunch/hotSearch",null, 
+    function(data) {
+		
+		if(data.success==true){
+// 	    	<!--给头部inpiu默认值-->
+ 	    	$(".header_seek_main_span").html(template('header_seek_main',{items:data.resultObject.defaultSearch}))
+				
+		}
+},false) 
+//搜索历史结束
+
+})

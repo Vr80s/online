@@ -92,9 +92,10 @@
 	#slide_one .slide_one_div p{
 		font-size: 0.468rem;
 		margin-left: 0;
+		/*margin-bottom: 0;*/
 	}
 	.swiper_box0{
-		margin-left: 0;
+		margin-bottom: 0.426rem;
 	}
 </style>
 
@@ -106,7 +107,15 @@
 		<div class="header">
 			<div class="header_seek" onClick="location.href='../html/search.html'"> 
 				<div class="header_seek_main">
-					<img src="/xcview/images/sousuo0.png" alt="" />关键字
+					<img src="/xcview/images/sousuo0.png" alt="" />
+					<span class="header_seek_main_span">
+						<script type="text/html" id="header_seek_main">
+						{{each items as item i}}
+							<span>{{item.name}}</span>
+						{{/each}}
+	           	 		</script>
+					</span>
+					
 				</div>
 			</div>
 			<div class="header_news">
