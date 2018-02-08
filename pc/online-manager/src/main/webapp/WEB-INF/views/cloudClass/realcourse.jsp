@@ -472,7 +472,7 @@
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 线下培训班管理 </span>
+	</small> <span> 线下课管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -480,7 +480,7 @@
      <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" class="xxpxb_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下培训班管理</a>
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">线下课管理</a>
         </li>
 		<li role="presentation">
 			<a href="#box_m" aria-controls="box_m" class="xxtj_bx" role="tab"

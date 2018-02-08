@@ -234,6 +234,7 @@ border-radius: 0.1rem;
 	background: white;
 	box-sizing: border-box;
 	overflow: hidden;
+	margin-bottom: 0.2rem;
 }
 
 .follow_title{
@@ -279,6 +280,7 @@ border-radius: 0.1rem;
 	/*background: red;*/
 	position: fixed;
 	bottom: 0;
+	z-index: 999;
 }
 .footer ul li{
 	width: 25%;

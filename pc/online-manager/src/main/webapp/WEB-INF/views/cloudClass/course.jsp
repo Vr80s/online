@@ -480,7 +480,7 @@
     <ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
         <li role="presentation" class="active">
             <a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
-               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">职业课管理</a>
+               data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">点播管理</a>
         </li>
 		<%--<li role="presentation">
 			<a href="#box_m" aria-controls="box_m" class="wkgl_bx" role="tab"
@@ -505,9 +505,9 @@
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<p class="col-xs-4" style="padding: 0;">
-					<button class="btn btn-sm btn-success add_P" title="新增课程">
+					<%--<button class="btn btn-sm btn-success add_P" title="新增课程">
 						<i class="glyphicon glyphicon-plus"></i> 新增职业课
-					</button>
+					</button>--%>
 					<button class="btn btn-sm btn-success dele_P" title="批量删除">
 						<i class="glyphicon glyphicon-trash"></i> 批量删除
 					</button>

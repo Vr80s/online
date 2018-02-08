@@ -64,7 +64,6 @@ public class CourseController {
         @RequestMapping(value = "/getCourseById" )
         public ResponseObject getCourseById(Integer courserId,String ispreview,HttpServletRequest request) {
         	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
-        	
             return ResponseObject.newSuccessResponseObject(service.getCourseById(courserId, ispreview, request,loginUser));
         }
         

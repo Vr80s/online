@@ -381,7 +381,7 @@
 		<!--医师认证开始-->
 		<div class="begin_approve account_main account_mains account_main_message">
 			<!--医师认证开始-->
-			<div class="physician_one">
+			<div class="physician physician_one">
 				<div class="account_main_title">认证信息</div>
 				<div class="reauthentication">
 					<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
@@ -421,7 +421,7 @@
 
 
 			<!--医馆认证开始-->
-			<div class="clinic_two account_one" style="display: none;">
+			<div class="clinics clinic_two account_one">
 				<div class="account_main_title">认证信息</div>
 				<div class="reauthentication">
 					<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
@@ -457,7 +457,7 @@
 		</div>
 		<div class="account_main account_main_alter physician_two_two">
 			<!--医师认证开始-->
-			<div class="physician_two">
+			<div class="physician physician_two hide">
 				<div class="account_main_alter_title">
 					<div class="one">重新认证</div>
 					<div class="two">返回</div>
@@ -465,14 +465,15 @@
 				<form action="">
 					<div class="div_title">
 						<span><em>*</em>姓名</span>
-						<input type="text" placeholder="真实姓名，需与身份证一致" class="name_put0">
-						<p class="warning two_warning0 hide">姓名不能为空</p>
+						<input type="text" placeholder="真实姓名，需与身份证一致" class="name_put0 physician_name">
+						<p class="warning two_warning0 hide warning_physician_name">姓名不能为空</p>
 					</div>
 
 					<div class="div_title">
 						<span><em>*</em>身份证号</span>
-						<input type="text" placeholder="请输入正确的身份证号" class="name_put1">
-						<p class="warning two_warning1 hide">身份证号不能为空</p>
+						<input type="text" placeholder="请输入正确的身份证号" class="name_put1 physician_card">
+						<p class="warning two_warning1 hide warning_physician_card">身份证号不能为空</p>
+						<p class="warning two_warning1 hide warning_physician_card_verify">身份证号不正确</p>
 					</div>
 
 					<!--身份证上传-->
@@ -485,10 +486,10 @@
 								<div class="two">点击上传身份证正面图片</div>
 							</div>
 							<div class="col-sm-9 big-photo">
-								<div class="preview" id="preview">
+								<div class="preview" id="cardPositiveImg">
 									<!--<img id="imghead" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg').click();">-->
 								</div>
-								<input type="file" onchange="previewImage(this)" id="previewImg">
+								<input type="file" id="cardPositiveImgPath">
 							</div>
 						</div>
 
@@ -499,10 +500,10 @@
 								<div class="two">点击上传身份证背面图片</div>
 							</div>
 							<div class="col-sm-9 big-photo">
-								<div class="preview" id="preview0">
+								<div class="preview" id="cardNegativeImg">
 									<!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
 								</div>
-								<input type="file" onchange="previewImage0(this)" id="previewImg0">
+								<input type="file"  id="cardNegativeImgPath">
 							</div>
 						</div>
 						<div class="hint">
@@ -510,6 +511,8 @@
 							<div class="">支持JPG/PNG等格式图片</div>
 						</div>
 						<div class="both"></div>
+						<p class="warning two_warning1 hide warning_cardPositiveImg">请上传身份证正面</p>
+						<p class="warning two_warning1 hide warning_cardNegativeImg">请上传身份证反面</p>
 					</div>
 
 
@@ -522,10 +525,10 @@
 								<div class="two">点击上传医师资格证图片</div>
 							</div>
 							<div class="col-sm-9 big-photo">
-								<div class="preview" id="preview1">
+								<div class="preview" id="qualificationCertificateImg">
 									<!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
 								</div>
-								<input type="file" onchange="previewImage1(this)" id="previewImg1">
+								<input type="file" id="qualificationCertificateImgPath">
 							</div>
 						</div>
 						<div class="hint">
@@ -533,6 +536,7 @@
 							<div class="">支持JPG/PNG等格式图片</div>
 						</div>
 						<div class="both"></div>
+						<p class="warning two_warning1 hide warning_qualificationCertificateImg">请上传医师资格证</p>
 					</div>
 
 					<!--执业资格证-->
@@ -544,10 +548,10 @@
 								<div class="two">点击上传执业医师资格证图片</div>
 							</div>
 							<div class="col-sm-9 big-photo">
-								<div class="preview" id="preview2">
+								<div class="preview" id="professionalCertificateImg">
 									<!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
 								</div>
-								<input type="file" onchange="previewImage2(this)" id="previewImg2">
+								<input type="file" id="professionalCertificateImgPath">
 							</div>
 						</div>
 						<div class="hint">
@@ -555,8 +559,9 @@
 							<div class="">支持JPG/PNG等格式图片</div>
 						</div>
 						<div class="both"></div>
+						<p class="warning two_warning1 hide warning_professionalCertificateImg">请上传执业医师资格证</p>
 					</div>
-					<div class="approve">提交认证</div>
+					<div class="approve" onclick="savePhysicianApply()">提交认证</div>
 					<div class="deal">
 						<lable>
 							<input type="checkbox" name="" id="" value="" />
@@ -569,25 +574,25 @@
 			<!--医师认证结束-->
 
 			<!--医馆认证开始-->
-			<div class="account_two"  style="display: none !important;">
+			<div class="clinics account_two hide"  >
 				<div class="account_main_alter_title">
 					<div class="one">重新认证</div>
 					<div class="two">返回</div>
 				</div>
 				<div class="div_title">
 					<span class="one_names"><em>*</em>医馆名称</span>
-					<input type="text" placeholder="" class="name_put2" id="name_put2">
-					<p class="warning two_warning0 hide">医馆名称不能为空</p>
+					<input type="text" placeholder="" class="name_put2 clinics_name" id="name_put2">
+					<p class="warning warning_name hide">医馆名称不能为空</p>
 				</div>
 				<div class="div_title">
 					<span class="one_names"><em>*</em>公司名称</span>
-					<input type="text" placeholder="" class="name_put0">
-					<p class="warning two_warning1 hide">公司名称不能为空</p>
+					<input type="text" placeholder="" class="name_put0 company">
+					<p class="warning warning_company hide">公司名称不能为空</p>
 				</div>
 				<div class="div_title">
 					<span class="one_names"><em>*</em>统一社会信用代码</span>
-					<input type="text" placeholder="" class="name_put1">
-					<p class="warning two_warning2 hide">统一社会信用代码不能为空</p>
+					<input type="text" placeholder="" class="name_put1 businessLicenseNo">
+					<p class="warning warning_businessLicenseNo hide">统一社会信用代码不能为空</p>
 				</div>
 
 				<!--添加营业执照-->
@@ -599,10 +604,10 @@
 							<div class="two">点击上传营业执照</div>
 						</div>
 						<div class="col-sm-9 big-photo">
-							<div class="preview" id="preview4">
+							<div class="preview" id="businessLicensePictureImg">
 								<!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
 							</div>
-							<input type="file" onchange="previewImage4(this)" id="previewImg4">
+							<input type="file" id="businessLicensePictureImgPath">
 						</div>
 					</div>
 					<div class="hint">
@@ -610,7 +615,7 @@
 						<div class="">支持JPG/PNG等格式图片</div>
 					</div>
 					<div class="both"></div>
-					<p class="warning two_warning3 hide">营业执照不能为空</p>
+					<p class="warning warning_businessLicensePictureImg hide">请上传营业执照</p>
 				</div>
 
 				<!--药品经营许可证-->
@@ -622,10 +627,10 @@
 							<div class="two">点击上传药品经营许可证</div>
 						</div>
 						<div class="col-sm-9 big-photo">
-							<div class="preview" id="preview5">
+							<div class="preview" id="licenseForPharmaceuticalTradingPictureImg">
 								<!--<img id="imghead0" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg0').click();">-->
 							</div>
-							<input type="file" onchange="previewImage5(this)" id="previewImg5">
+							<input type="file" id="licenseForPharmaceuticalTradingPictureImgPath">
 						</div>
 					</div>
 					<div class="hint">
@@ -633,10 +638,10 @@
 						<div class="">支持JPG/PNG等格式图片</div>
 					</div>
 					<div class="both"></div>
-					<p class="warning two_warning5 hide">药品经营许可证不能为空</p>
+					<p class="warning warning_licenseForPharmaceuticalTradingPictureImg hide">请上传药品经营许可证</p>
 				</div>
 
-				<div class="approve" style="margin-left: 144px;">提交认证</div>
+				<div class="approve" style="margin-left: 144px;" onclick="saveClinicsApply()">提交认证</div>
 				<div class="deal" style="margin-left: 144px;">
 					<lable>
 						<input type="checkbox" name="" id="" value="" />
@@ -679,11 +684,15 @@
 					<p >主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍不能为空</p>
 				</div>
 			</div>
-			<div class="name">
+			<div class="name clinics">
+				<div class="one" style="margin-top: 0;">医馆</div>
+				<div class="two">百草园国医馆</div>
+			</div>
+			<div class="name physician">
 				<div class="one" style="margin-top: 0;">任职医馆</div>
 				<div class="two">百草园国医馆</div>
 			</div>
-			<div class="name">
+			<div class="name physician">
 				<div class="one" style="margin-top: 0;">坐诊时间</div>
 				<div class="two">每周<span>一、三、五下午</span></div>
 			</div>
@@ -711,27 +720,27 @@
 					<input type="text" placeholder="请填写您的昵称" class="put0">
 					<p class="warning return_warning0 hide">昵称不能为空</p>
 				</div>
-				<div class="name">
-					<span><em>*</em>真实头像</span>
-					<div class="input-group row">
-						<div class="row_size">
-							<div class="one">+</div>
-							<div class="two">求真相</div>
-						</div>
-						<div class="col-sm-9 big-photo">
-							<div class="preview" id="preview3">
-								<!--<img id="imghead" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg').click();">-->
-							</div>
-							<input type="file" onchange="previewImage3(this)" id="previewImg3">
-						</div>
-					</div>
-					<div class="name_hint" style="margin-top: 27px;">
-						请上传清晰头像<br />
-						文件小于2M<br />
-						支持JPG/PNG等格式图片<br />
-					</div>
-					<p class="warning hide">昵称不能为空</p>
-				</div>
+				<!--<div class="name">-->
+					<!--<span><em>*</em>真实头像</span>-->
+					<!--<div class="input-group row">-->
+						<!--<div class="row_size">-->
+							<!--<div class="one">+</div>-->
+							<!--<div class="two">求真相</div>-->
+						<!--</div>-->
+						<!--<div class="col-sm-9 big-photo">-->
+							<!--<div class="preview" id="preview3">-->
+								<!--&lt;!&ndash;<img id="imghead" border="0" src="../../images/3.jpg" width="90" height="90" onclick="$('#previewImg').click();">&ndash;&gt;-->
+							<!--</div>-->
+							<!--<input type="file" onchange="previewImage3(this)" id="previewImg3">-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="name_hint" style="margin-top: 27px;">-->
+						<!--请上传清晰头像<br />-->
+						<!--文件小于2M<br />-->
+						<!--支持JPG/PNG等格式图片<br />-->
+					<!--</div>-->
+					<!--<p class="warning hide">昵称不能为空</p>-->
+				<!--</div>-->
 				<div class="">
 					<span>精彩致辞</span>
 					<label for="speech_select"></label>
@@ -763,7 +772,7 @@
 					<span><em>*</em>城市</span>
 					<div id="demo1" class="citys">
 						<p>
-							<select name="province"></select>
+							<select name="province" onclick="doProvAndCityRelation()"></select>
 							<select name="city"></select>
 							<!-- <select name="area"></select> -->
 						</p>

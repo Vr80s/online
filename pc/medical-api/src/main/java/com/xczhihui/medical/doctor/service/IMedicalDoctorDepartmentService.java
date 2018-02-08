@@ -27,4 +27,11 @@ public interface IMedicalDoctorDepartmentService {
      */
     List<MedicalDoctorDepartment> selectByDoctorId(String doctorId);
 
+    /**
+     * 根据用户id获取科室列表
+     * @param userId 用户id
+     * @return 科室列表
+     */
+    List<MedicalDepartment> selectByUserId(String userId);
+
 }
