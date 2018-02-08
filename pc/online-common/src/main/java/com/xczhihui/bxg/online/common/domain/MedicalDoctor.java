@@ -80,6 +80,28 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="source_id")
 	private String sourceId;
 
+	@Column(name="card_num")
+	private String cardNum;
+
+	@Column(name="field_text")
+	private String fieldText;
+
+	public String getFieldText() {
+		return fieldText;
+	}
+
+	public void setFieldText(String fieldText) {
+		this.fieldText = fieldText;
+	}
+
+	public String getCardNum() {
+		return cardNum;
+	}
+
+	public void setCardNum(String cardNum) {
+		this.cardNum = cardNum;
+	}
+
 	public String getSourceId() {
 		return sourceId;
 	}

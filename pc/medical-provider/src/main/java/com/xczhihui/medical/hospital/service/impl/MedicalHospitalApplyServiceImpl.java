@@ -120,7 +120,8 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         }
 
         // 如果用户认证医馆中
-        if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
+        if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode()) ||
+                result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
 
             // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
             applyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalHospitalApplyEnum.WAIT.getCode());
@@ -133,8 +134,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         // 如果用户医馆认证失败，医馆认证成功，医师认证失败，或者从没申请
         if(result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
-                result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
-                result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
+                result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())){
 
             this.addMedicalHospitalApply(target);
 

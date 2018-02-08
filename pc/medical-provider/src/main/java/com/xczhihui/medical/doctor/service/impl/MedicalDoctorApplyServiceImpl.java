@@ -102,7 +102,8 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         }
 
         // 如果用户认证医师中 表示其重新提交认证信息
-        if(result.equals(CommonEnum.DOCTOR_APPLYING.getCode())){
+        if(result.equals(CommonEnum.DOCTOR_APPLYING.getCode()) ||
+                result.equals(CommonEnum.AUTH_DOCTOR.getCode())){
 
             // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
             medicalDoctorApplyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalDoctorApplyEnum.WAIT.getCode());
@@ -115,8 +116,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 如果用户医师认证成功，医师认证失败，医馆认证失败，或者从没申请
         if(result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
-                result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode()) ||
-                result.equals(CommonEnum.AUTH_DOCTOR.getCode())){
+                result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
 
             this.addMedicalDoctorApply(target);
 
