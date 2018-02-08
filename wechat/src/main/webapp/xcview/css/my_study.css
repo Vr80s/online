@@ -280,7 +280,7 @@ border-radius: 0.1rem;
 	/*background: red;*/
 	position: fixed;
 	bottom: 0;
-	z-index: 10;
+	z-index: 999;
 }
 .footer ul li{
 	width: 25%;
