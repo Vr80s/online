@@ -93,7 +93,7 @@ public class XzUserController {
 			@RequestParam("userId")String userId){
 		try {
 			OnlineUser ou = onlineUserService.findUserById(userId);
-			if(ou == null){
+			if(ou != null){
 				return ResponseObject.newSuccessResponseObject(ou);
 			}else{
 				return ResponseObject.newErrorResponseObject("获取用户信息有误");
