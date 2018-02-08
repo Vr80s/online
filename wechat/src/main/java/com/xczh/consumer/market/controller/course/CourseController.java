@@ -94,10 +94,11 @@ public class CourseController {
 	    	WatchHistory target = new WatchHistory();
 	    	target.setCourseId(courseId);
 			target.setUserId(user.getId());
+			
 			if(cv.getWatchState()==1){  //免费的课程啦
 				onlineWebService.saveEntryVideo(courseId, user);
 				watchHistoryServiceImpl.addOrUpdate(target);
-			}else if(cv.getWatchState()==0   ){ //收费课程
+			}else if(cv.getWatchState()==0){ //收费课程
 				if(onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){  //大于零--》用户购买过  
 					cv.setWatchState(2);
 					watchHistoryServiceImpl.addOrUpdate(target);

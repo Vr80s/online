@@ -2,13 +2,18 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.AnchorType;
 import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.medical.dao.*;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalApplyService;
 import com.xczhihui.bxg.online.manager.user.dao.UserDao;
+import com.xczhihui.bxg.online.manager.utils.RedissonUtil;
 import org.apache.commons.lang.StringUtils;
+import org.redisson.api.RLock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 医师入驻申请服务实现层
@@ -23,6 +29,8 @@ import java.util.UUID;
  */
 @Service
 public class HospitalApplyServiceImpl implements HospitalApplyService {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private HospitalApplyDao hospitalApplyDao;
@@ -38,6 +46,8 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
     private UserDao userDao;
     @Autowired
     private AnchorDao anchorDao;
+    @Autowired
+    private RedissonUtil redissonUtil;
 
     @Value("${course.anchor.vod_divide}")
     private BigDecimal vodDivide;
@@ -86,42 +96,71 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
 
         // 根据id获取被修改的认证信息详情
         MedicalHospitalApply apply = hospitalApplyDao.find(id);
+
         if(apply == null){
-            throw new RuntimeException("操作失败：该条信息不存在");
-        }
-        // 如果该条记录已经被通过或者被拒绝 不能再修改
-        if(apply.getStatus().equals(0)){
-            throw new RuntimeException("该条认证已经被拒，不能再修改");
-        }
-        if(apply.getStatus().equals(1)){
-            throw new RuntimeException("该条认证已经认证成功，不能再修改");
-        }
-        // 前台传来的状态和数据库的状态一致 不予处理
-        if(apply.getStatus().equals(status)){
-            return;
-        }
-        // 如果该条信息被删除 不能再修改
-        if(apply.getDeleted()){
-            throw new RuntimeException("该条认证已经被删除，用户已重新认证");
+            throw new RuntimeException("修改的目标不存在");
         }
 
-        switch (status){
-            // 当status = 0 即认证被拒
-            case 0:
-                this.authenticationRejectHandle();
-                break;
-            // 当status = 1 即认证通过
-            case 1:
-                this.authenticationPassHandle(apply);
-                break;
-            default:
-                break;
-        }
+        RLock lock = redissonUtil.getRedisson().getLock(MedicalHospitalApplyConst.LOCK_PREFIX + apply.getId());
+        boolean getLock = false;
 
-        // 更新认证状态
-        apply.setStatus(status);
-        apply.setUpdateTime(new Date());
-        hospitalApplyDao.update(apply);
+        try {
+
+            if(getLock = lock.tryLock(0,5, TimeUnit.SECONDS)){
+
+                if(apply == null){
+                    throw new RuntimeException("操作失败：该条信息不存在");
+                }
+                // 如果该条记录已经被通过或者被拒绝 不能再修改
+                if(apply.getStatus().equals(0)){
+                    throw new RuntimeException("该条认证已经被拒，不能再修改");
+                }
+                if(apply.getStatus().equals(1)){
+                    throw new RuntimeException("该条认证已经认证成功，不能再修改");
+                }
+                // 前台传来的状态和数据库的状态一致 不予处理
+                if(apply.getStatus().equals(status)){
+                    return;
+                }
+                // 如果该条信息被删除 不能再修改
+                if(apply.getDeleted()){
+                    throw new RuntimeException("该条认证已经被删除，用户已重新认证");
+                }
+
+                switch (status){
+                    // 当status = 0 即认证被拒
+                    case 0:
+                        this.authenticationRejectHandle();
+                        break;
+                    // 当status = 1 即认证通过
+                    case 1:
+                        this.authenticationPassHandle(apply);
+                        break;
+                    default:
+                        break;
+                }
+
+                // 更新认证状态
+                apply.setUpdateTime(new Date());
+                apply.setStatus(status);
+                hospitalApplyDao.update(apply);
+
+            }
+
+        } catch (InterruptedException e) {
+
+            logger.error("-------------- redisson get lock interruptedException：" + e);
+
+        }finally {
+
+            if(!getLock){
+                return;
+            }
+
+            lock.unlock();
+
+            logger.info("--------------  redisson release lock");
+        }
     }
 
     /**

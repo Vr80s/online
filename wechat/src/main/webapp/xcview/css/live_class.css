@@ -233,6 +233,7 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
+	min-height: 2rem;
 }
 .wrap p img{
 	width: 100%;
@@ -539,13 +540,34 @@ color: #666666;
 	font-size: 0.25rem;
 	margin-top: 0.1rem;
 }
+/*无评论时显示图片*/
+.quie_pic{
+	width: 100%;
+    /*height: 4rem;*/
+
+    text-align: center;
+
+    display: none;
+    background: white;
+    padding-bottom: 0.5rem;
+}    
+.quie_pic img{
+	width: 2.5rem;
+	display: inline-block;
+}
+.quie_pic p{
+	color: #BBBBBB;
+	font-size: 0.3rem;
+    padding: 0.2rem 0;
+
+}
 /*底下评论输入框*/
 .wrap_user_input{
 	width: 100%;
 	background: white;
 	height: 0.98rem;
 	padding: 0.01rem 0.26rem 0 0.26rem;
-	margin-top: 0.4rem;
+	margin-top: 0.2rem;
 	box-sizing: border-box;
 }
 .wrap_input{
@@ -577,7 +599,7 @@ color: #666666;
 	display: inline-block;
 }
 .all_returned_num p{
-	color: #ddd;
+	color: #999999;
 	font-size: 0.24rem;
 	margin-top: -0.1rem;
 }

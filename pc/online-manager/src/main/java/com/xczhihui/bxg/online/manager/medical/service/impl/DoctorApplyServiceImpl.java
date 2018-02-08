@@ -2,6 +2,7 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.AnchorType;
 import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
@@ -10,7 +11,9 @@ import com.xczhihui.bxg.online.manager.medical.service.DoctorApplyService;
 import com.xczhihui.bxg.online.manager.user.dao.UserDao;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.RandomUtil;
+import com.xczhihui.bxg.online.manager.utils.RedissonUtil;
 import org.apache.commons.lang.StringUtils;
+import org.redisson.api.RLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 医师入驻申请服务实现层
@@ -53,6 +57,8 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
     private AnchorDao anchorDao;
     @Autowired
     private OnlineUserService onlineUserService;
+    @Autowired
+    private RedissonUtil redissonUtil;
 
     @Value("${course.anchor.vod_divide}")
     private BigDecimal vodDivide;
@@ -100,40 +106,69 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         // 根据id获取被修改的认证信息详情
         MedicalDoctorApply apply = doctorApplyDao.find(id);
+
         if(apply == null){
-            throw new RuntimeException("操作失败：该条信息不存在");
+            throw new RuntimeException("修改的目标不存在");
         }
 
-        // 如果该条记录已经被通过或者被拒绝 不能再修改
-        if(apply.getStatus().equals(0)){
-            throw new RuntimeException("该条认证已经被拒，不能再修改");
-        }
-        if(apply.getStatus().equals(1)){
-            throw new RuntimeException("该条认证已经认证成功，不能再修改");
-        }
+        RLock lock = redissonUtil.getRedisson().getLock(MedicalDoctorApplyConst.LOCK_PREFIX + apply.getId());
+        boolean getLock = false;
 
-        // 如果该条信息被删除 不能再修改
-        if(apply.getDeleted()){
-            throw new RuntimeException("该条认证已经被删除，用户已重新认证");
-        }
+        try {
 
-        switch (status){
-            // 当status = 1 即认证通过
-            case 1:
-                this.authenticationPassHandle(apply);
-                break;
-            // 当status = 0 即认证被拒
-            case 0:
-                this.authenticationRejectHandle();
-                break;
-            default:
-                break;
-        }
+            if(getLock = lock.tryLock(0,5, TimeUnit.SECONDS)){
 
-        // 更新认证状态
-        apply.setStatus(status);
-        apply.setUpdateTime(new Date());
-        doctorApplyDao.update(apply);
+                if(apply == null){
+                    throw new RuntimeException("操作失败：该条信息不存在");
+                }
+
+                // 如果该条记录已经被通过或者被拒绝 不能再修改
+                if(apply.getStatus().equals(0)){
+                    throw new RuntimeException("该条认证已经被拒，不能再修改");
+                }
+                if(apply.getStatus().equals(1)){
+                    throw new RuntimeException("该条认证已经认证成功，不能再修改");
+                }
+
+                // 如果该条信息被删除 不能再修改
+                if(apply.getDeleted()){
+                    throw new RuntimeException("该条认证已经被删除，用户已重新认证");
+                }
+
+                switch (status){
+                    // 当status = 1 即认证通过
+                    case 1:
+                        this.authenticationPassHandle(apply);
+                        break;
+                    // 当status = 0 即认证被拒
+                    case 0:
+                        this.authenticationRejectHandle();
+                        break;
+                    default:
+                        break;
+                }
+
+                // 更新认证状态
+                apply.setStatus(status);
+                apply.setUpdateTime(new Date());
+                doctorApplyDao.update(apply);
+
+            }
+
+        } catch (InterruptedException e) {
+
+            logger.error("-------------- redisson get lock interruptedException：" + e);
+
+        }finally {
+
+            if(!getLock){
+                return;
+            }
+
+            lock.unlock();
+
+            logger.info("--------------  redisson release lock");
+        }
 
     }
 

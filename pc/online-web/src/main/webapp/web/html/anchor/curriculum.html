@@ -31,7 +31,8 @@
 	<!--账户css-->
 	<link rel="stylesheet" href="/web/css/anchor/account.css?v=ipandatcm_1.2.1">
 	<link rel="stylesheet" href="/web/css/componet-pages.css"/>
-
+	
+	<link rel="stylesheet" href="/web/css/anchor/mymoney.css?v=ipandatcm_1.2.1">
 	<link rel="stylesheet" href="/web/css/style.css"/>
 	<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
 
@@ -786,6 +787,246 @@
 
 	</div>
 	<!--账号结束-->
+	
+	<!--我的资产部分-->
+	<div id="mymoney">
+		
+		<!--顶部的固定模块-->
+		<div style="height: 272px;margin-bottom: 20px;background: #fff;">
+			
+		<div class="mymoney_top">
+			<span class="title">我的资产</span>
+		</div>
+		<hr  style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;"/>
+		
+		<!--我的资产内容顶部的固定结构-->
+		<div class="content_top">
+			<ul>
+				<li>
+					<p>熊猫币余额（熊猫币）</p>
+					<h2>300</h2>
+					<a href="javascript:;" class="Settlement">结算</a>
+				</li>
+				<li>
+					<p>人民币余额（元）</p>
+					<h2>300.00</h2>
+					<a href="javascript:;" class="toCash">提现</a>
+				</li>
+				<li>
+					<p>我的银行卡（张）</p>
+					<h2>300</h2>
+					<a href="javascript:;" class="administration">管理</a>
+					<a href="javascript:;" class="addNew">新增</a>
+				</li>
+			</ul>
+		</div>
+		
+		</div>
+		
+		
+		
+		<!--我的资产中间的变化结构-->
+		<div class="content_mid hide">
+			<!--中间变化部分通用标题部分-->
+			<div class="content_mid_top" style="display: block !important;">
+				<span class="title">结算</span><span class="hide" id="toCashTip" style="font-size: 14px;color: #999;">（提现会在1-7个工作日到账）</span>
+			</div>
+			<hr  style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;"/>
+			
+			
+			<!--结算部分-->
+			<div class="content_Settlement hide">
+				<!--<p>您的余额为<span>300</span>熊猫币</p>
+				<label>结算金额<input type="text" /></label>
+				<p>获得人民币<span>800</span>元</p>-->
+
+				<table>
+					<tr>
+						<td>您的余额为</td>
+						<td><span>300</span>熊猫币</td>
+					</tr>
+					<tr>
+						<td>结算金额</td>
+						<td><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" /></td>
+					</tr>
+					<tr>
+						<td>获得人民币</td>
+						<td><span style="font-size: 14px;">800</span>元</td>
+					</tr>
+				</table>
+				<button class="content_Settlement_btn">确定</button>
+			</div>
+			
+			<!--提现部分-->
+			<div class="content_toCash hide">
+				<div>
+					<span>您的余额为</span><span>300</span>元
+				</div>
+				
+				<div>
+					<span>提现金额</span><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+				</div>
+				
+				<div>
+					<span>户名</span><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+				</div>
+				
+				<div>
+					<span>选择银行卡</span>
+					<ul>
+						<li></li>
+						<li></li>
+						<li></li>
+					</ul>
+				</div>
+				
+				<div>
+					<span>已绑定手机</span><span>13728393748</span><button class="getPassWord">获取验证码</button>
+				</div>
+				
+				<div>
+					<span>手机验证码</span><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+				</div>
+				<button class="toCashSure_btn">确定</button>
+			</div>
+			
+			<!--管理部分-->
+			<div class="content_Administration hide">
+				管理部分
+			</div>
+			
+			<!--新增银行卡部分-->
+			<div class="content_add hide">
+				新增银行卡部分
+			</div>
+		</div>
+		
+		
+		
+		<!--我的资产底部的表单结构-->
+		<div class="content_bottom">
+			<div class="content_bottom_top">
+				<span class="title">交易记录</span>
+			</div>
+			<hr  style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;"/>
+			<div class="content_bottom_bottom">
+				<ul class="changeType clearfix">
+					<li><a href="javascript:;" class="pandaMoney orange">熊猫币</a></li>
+					<li><a href="javascript:;" class="rmbMoney">人民币</a></li>
+				</ul>
+				<table class="pandaTable">
+					<thead>
+						<tr>
+							<td>交易金额（熊猫币）</td>
+							<td>交易类型</td>
+							<td>商品</td>
+							<td>交易时间</td>
+							<td>备注</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>+200</td>
+							<td>课程销售</td>
+							<td>针灸推拿</td>
+							<td>2018-12-28 15:00</td>
+							<td>用户投诉</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table class="rmbTable hide"> 
+					<thead>
+						<tr>
+							<td>交易金额（人民币）</td>
+							<td>交易类型</td>
+							<td>申请时间</td>
+							<td>提现方式</td>
+							<td>提现账户</td>
+							<td>状态</td>
+							<td>备注</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>-200</td>
+							<td>提现</td>
+							<td>2018-12-28 15:00</td>
+							<td>银行卡</td>
+							<td>622* **** **** **** *123</td>
+							<td>审核中</td>
+							<td>审核中，1-3个工作日审核完成</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
 
 	<!--右边课程/直播/资源/div内容-->
 	<div class="wrap_box y">
@@ -1542,7 +1783,7 @@
 						</tr>
 						</thead>
 						<tbody id="resource_list">
-
+							
 						</tbody>
 					</table>
 				</div>
@@ -1576,6 +1817,7 @@
 <script src="/web/js/anchor/UploadPictures.js?v=ipandatcm_1.2.1" type="text/javascript" charset="UTF-8"></script>   <!--上传图片-->
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/curriculum_Account.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript">
     function numberCk(data) {
         var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;

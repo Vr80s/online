@@ -60,6 +60,12 @@ function refresh(){
         pageNumber:1,
         pageSize:6
     },function(data) {
+    	//  	判断有无评论显示默认图片
+		if(data.resultObject.items.length==0){
+			$(".quie_pic").show()
+		}else{
+			$(".quie_pic").hide()
+		}
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
         //判断是否是第一次评论

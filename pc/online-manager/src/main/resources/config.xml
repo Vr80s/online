@@ -113,4 +113,11 @@
  	<dubbo:reference id="userCoinService" interface="com.xczhihui.bxg.online.api.service.UserCoinService" timeout="${dubbo.consumer.timeout}" />
 
 	<import resource="shiro.xml" />
+
+	<!--RedissonUtil配置-->
+	<bean id="redissonUtil" class="com.xczhihui.bxg.online.manager.utils.RedissonUtil">
+		<property name="redisHost" value="${redis.host}"></property>
+		<property name="redisPort" value="${redis.port}"></property>
+	</bean>
+
 </beans>

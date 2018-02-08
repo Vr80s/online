@@ -16,11 +16,12 @@
 <!-- 网页自适应JS代码引入 -->
 <!--<link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>-->
 <script src="/xcviews/js/js.js"></script>
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>   <!--模板引入-->
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
 
 <script type="text/javascript" src="../js/home_page.js"></script>
 <!--<script type="text/javascript" src="../js/swiper-2.1.min.js"></script>-->
@@ -246,7 +247,7 @@
 	                    		
 	                    	
 	                    	<script type="text/html" id="shipin">
-									{{each items as item i}}
+									{{each items as item i}} 
 	                    	<div class="acupuncture">
 	                    		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}</div>
 	                    		<div class="boutique_main">
@@ -254,14 +255,8 @@
 	                    				<!--视频-->
 	                    				{{each item.courseList as item i}}                  					
 		                    				<li style="position: relative;">
-		                    					
-		                    					{{if item.type == 1 || item.type == 2}}
-					                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
-				                    				{{else if item.type == 3}}
-					                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
-					                    			{{else if item.type == 4}}
-					                    			<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
-												{{/if}}
+					                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump({{item.id}})"></a>
+				                    			
 		                    					<div class="boutique_main_one">
 		                    						<div class="boutique_one_img">
 		                    							<img src="{{item.smallImgPath}}" alt="" />
@@ -722,10 +717,10 @@
 	                    				<script type="text/html" id="lectures">
 	                    				{{each items as item i}}
 	                    				<li>
-											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="live_audio.html?course_id={{item.id}}"></a>
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
 	                    					<div class="lectures_main_one">
 	                    						<div class="lectures_one_img">
-	                    							<img src="{{item.headImg}}" alt="" />
+	                    							<img src="{{item.smallImgPath}}" alt="" />
 	                    						</div>
 	                    						<!--<img src="/xcview/images/tv_auto.png" alt="" class="lectures_main_one_img_type" />-->
 	                    						<div class="lectures_main_one_title"><span class="span">{{item.name}}</span><span>{{item.gradeName}}</span></div>

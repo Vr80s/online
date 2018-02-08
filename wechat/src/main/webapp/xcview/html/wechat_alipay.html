@@ -66,6 +66,7 @@
             return false;
         }
     }
+	alert("==================");
  // type =1 购买  type =2 充值
     var type = getQueryString("type");
     
@@ -75,10 +76,12 @@
        			setInterval("whileSelectOrderStatus()","2000");
        		}
   		}else {           //不在微信内时
+  			alert("=================="+type);
 	    	if(type==1){//支付
 	    		jmpPayPage("/xczh/alipay/pay",2,"formIsWechat=1&orderId="+getQueryString("orderId"),null);
 	    	}else{
-	    		jmpPayPage("/xczh/alipay/rechargePay",2,"formIsWechat=1&actualPay="+getQueryString('actualPay'),null);
+	    		alert("==================");
+	    		jmpPayPage("/xczh/alipay/rechargePay",2,"formIsWechat=1&type="+getQueryString("type")+"&userId="+getQueryString('userId')+"&actualPay="+getQueryString('actualPay'),null);
 	    	}
  		 }
 

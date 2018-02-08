@@ -88,27 +88,27 @@
 	
 	
 			<!--选择支付方式开始-->
-		<div class="weixin_pay">
-			<div class="weixin_pay_title">选择方式</div>
-			<div class="div">
-				<div class="pay_div div0">
-					<img src="../images/Alipay_img.png" class="img0" />
-					支付宝
-				</div>
-				<div class="pay_div div1">
-					<img src="../images/weixin_pay.png" />
-					微信
-				</div>
-				<div class="both"></div>
+	<div class="weixin_pay">
+		<div class="weixin_pay_title">选择方式</div>
+		<div class="div">
+			<div class="pay_div div0" id="zhifubao_pay">
+				<img src="../images/Alipay_img.png" class="img0" />
+				支付宝
+			</div>
+			<div class="pay_div div1" id="weixin_pay">
+				<img src="../images/weixin_pay.png" />
+				微信
 			</div>
 			<div class="both"></div>
 		</div>
+		<div class="both"></div>
+	</div>
 	
 	
 	<!--底部开始-->
 	<!--<div class="footer_perch"></div>-->
 	<div class="footer">
-		<div class="footer_div_btn">去充值</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
+		<div class="footer_div_btn" onclick="goPay()">去充值</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
 	</div>
 	<!--底部结束-->
 	

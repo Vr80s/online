@@ -1,0 +1,208 @@
+/*我的资产上面的结构*/
+#mymoney{
+	width: 950px;
+    display: block;
+    float: right;
+    vertical-align: top;
+    min-height: 520px;
+    padding-bottom: 50px;
+    margin-top: 20px;
+    background-color: #f8f8f8;
+}
+#mymoney>div{
+	background-color: #fff;
+}
+#mymoney .mymoney_top{
+	padding: 20px 30px;
+}
+#mymoney .title{
+	font-size: 16px;
+    color: #333333;
+    
+}
+#mymoney .content_top{
+	height: 210px;
+	padding: 45px 30px;
+}
+#mymoney .content_top ul > li{
+	text-align: center;
+	width: 296px;
+	border-right: 1px solid #DEDEDE;
+	float: left;
+}
+#mymoney .content_top ul > li:last-child{
+	border: none;
+}
+#mymoney .content_top ul > li > p{
+	font-size: 14px;
+	color: #666666;
+}
+#mymoney .content_top ul > li > h2{
+	font-size: 26px;
+	color: #333333;
+}
+#mymoney .content_top ul > li > a{
+	display: inline-block;
+    padding: 9px 32px;
+    color: #fff;
+    background: #00BC12;
+    border-radius: 4px;
+    font-size: 14px;
+}
+#mymoney .content_top ul > li .administration{
+	margin-right: 10px;
+}
+#mymoney .content_top ul > li .addNew{
+	margin-left: 10px;
+}
+/*我的资产上面的结构结束*/
+
+
+
+
+/*我的资产底部表单结构*/
+.orange{
+	background-color: #F97B49 ;
+	color: #fff !important;
+	border: none !important;
+}
+#mymoney .content_bottom {
+	padding-bottom: 60px;
+}
+#mymoney .content_bottom .content_bottom_top{
+	padding: 20px 30px;
+}
+#mymoney .content_bottom .content_bottom_bottom .changeType{
+	margin: 20px 0;
+}
+#mymoney .content_bottom .content_bottom_bottom .changeType > li{
+	float: left;
+	width: 76px;
+	height: 32px;
+
+}
+#mymoney .content_bottom .content_bottom_bottom .changeType > li a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	line-height: 32px;
+	color: #666;
+	font-size: 14px;
+	text-align: center;
+	margin-bottom: 20px;
+	border: 1px solid #dedede;
+}
+#mymoney .content_bottom .content_bottom_bottom{
+	padding: 0 20px;
+}
+#mymoney .content_bottom .pandaTable td,
+#mymoney .content_bottom .rmbTable td{
+	border: 1px solid #dedede;
+	text-align: center;
+}
+#mymoney .content_bottom .pandaTable,
+#mymoney .content_bottom .rmbTable{
+	margin-bottom: 20px;
+}
+#mymoney .content_bottom .pandaTable thead tr,
+#mymoney .content_bottom .rmbTable thead tr{
+	height: 40px;
+	line-height: 40px;
+}
+#mymoney .content_bottom .pandaTable tbody tr,
+#mymoney .content_bottom .rmbTable tbody tr{
+	height: 80px;
+}
+/*我的资产底部表单结构结束*/
+
+
+
+/*我的资产中间变化结构开始*/
+
+#mymoney .content_mid{
+	margin-bottom: 20px;
+}
+#mymoney .content_mid .content_mid_top{
+	padding: 20px 30px;
+}
+#mymoney .content_mid .content_mid_top title{
+	font-size: 16px;
+    color: #333333;
+}
+
+/*结算部分*/
+#mymoney .content_mid .content_Settlement{
+	height: 257px;
+	padding: 32px 0px 30px 24px;
+}
+#mymoney .content_mid .content_Settlement td{
+	text-align: left;
+}
+#mymoney .content_mid .content_Settlement table tr{
+	height: 50px;
+}
+#mymoney .content_mid .content_Settlement table tr>td:first-child{
+	width: 92px;
+	height: 40px;
+	text-align: right;
+	padding-right: 20px;
+}
+
+#mymoney .content_mid .content_Settlement td > span{
+	font-size: 26px;
+	color: #FF4012;
+}
+
+#mymoney .content_mid .content_Settlement .content_Settlement_btn{
+	background: #00BC12;
+	border-radius: 4px;
+	width: 92px;
+	height: 36px;
+	line-height: 36px;
+	color: #fff;
+	font-size: 14px;
+	border: none;
+	outline: none;
+	margin-left: 114px;
+}
+
+/*体现部分*/
+#mymoney .content_toCash{
+	padding: 30px 0px 30px 24px;
+}
+#mymoney .content_toCash > div {
+	margin-bottom: 20px;
+}
+#mymoney .content_toCash > div span:first-child{
+	display: inline-block;
+	width: 70px;
+	font-size: 14px;
+	color: #666666;
+	text-align: right;
+	margin-right: 20px;
+}
+#mymoney .content_toCash > div .getPassWord{
+	width: 112px;
+	height: 36px;
+	outline: none;
+	line-height: 36px;
+	color: #fff;
+	font-size: 14px;
+	background-color:#00BC12;
+	border-radius: 4px;
+	border: none;
+	margin-left: 20px;
+}
+#mymoney .content_toCash  .toCashSure_btn{
+	width: 92px;
+	height: 36px;
+	outline: none;
+	line-height: 36px;
+	color: #fff;
+	font-size: 14px;
+	background-color:#00BC12;
+	border-radius: 4px;
+	border: none;
+	margin-left: 20px;
+	margin-left: 100px;
+}

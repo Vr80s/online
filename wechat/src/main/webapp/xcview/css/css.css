@@ -1377,12 +1377,13 @@ footer{
     word-wrap: break-word;
 }
 .coze_cen_bg img:first-child{
-	position: absolute;
+	/*position: absolute;
     top: 0.3rem;
     left: -0.22rem;
     z-index: 1;
     width: 0.225rem;
-    height: 0.4rem;
+    height: 0.4rem;*/
+	vertical-align: middle;
 }
 
 .coze_cen_ri{
@@ -1458,15 +1459,21 @@ footer{
 
 /* 礼物 */
 .animation{
-	/* width: 9.55rem;
-	height: 2.1rem; */
 	width: 9.55rem;
 	height: 2.1rem;
-    background: url(../images/blacker.png) no-repeat;
-    background-size: 100% 100%;
+    /*background: url(../images/blacker.png) no-repeat;*/
+    /*background-size: 100% 100%;*/
+   
+   	background: #F97B49;
+   
+    /*background: red;*/
     margin-bottom:0.5rem;
 	animation: move  .5s linear forwards; 
    	z-index: 9;
+   	display: block !important;
+   	
+   	
+   	border-radius: 0 20px 20px 0;
 }
 /* @keyframes move{
 	form{
@@ -1481,17 +1488,23 @@ footer{
 	width:2rem;
 	height: 2rem;
     border-radius: 60px;
-    border: 0.001rem solid #d5695d;
+    border: 1px solid #d5695d;
     float: left;
+}
+.animation_div{
+	width: 100%;
+	height: 100%;
 }
 .animation_name{
 	height: 1.0625rem;
-    margin-left: 0.9rem;
+    margin-left: 0.553rem;
     float: left;
-    width: 2.5rem;
+    width: 5rem;
     font-size: 0.6rem;
-    margin-right: 0.3rem;
+    margin-right: 0.15rem;
     margin-top: 0.2rem;
+    /*padding-right: 4rem;*/
+   background: blueviolet;
 }
 .animation_name p{
 	padding-top: 0.1rem;
@@ -1501,27 +1514,26 @@ footer{
     overflow: hidden;
 }
 .animation_name_p1{
-	font-size: 0.7rem;
+	font-size: 0.596rem;
 	color: #fff;
 }
 .animation_name_p2{
-	font-size: 0.5rem;
-    color: #fff;
+	font-size: 0.468rem;
+    color: #FFD800;
 }
 .animation_gift{
-	width: 2.35rem;
-    float: right;
+	width: 2rem;
     overflow: hidden;
-    float: left;
     margin: 0 auto;
     text-align: center;
-    float: left;
+    float: right;
     height: 2rem;
+    background: mediumvioletred;
 }
 .animation_gift img{
 	/*width: 2.35rem;*/
 	width: 2rem;
-    float: left;
+    float: right;
     text-align: center;
     display: block;
     margin: 0 auto;
@@ -1554,13 +1566,20 @@ footer{
     color: #fff;
     width: 1rem;
     float: right;
-    margin-right: 1.5rem;
+    margin-right: 0rem;
     margin-top: 0.5rem;
+    color: #FFD800;
+    background: darkred;
 }
 .animation_span span{
-	font-size: 0.9rem;
+	font-size: 1.106rem;
 	margin-left: 0.1rem;
 	text-shadow: 1px 1.5px 1px #999;
+	color: #FFD800;
+}
+
+.animation_span .addnum1{
+	color: #FFD800;
 }
 
 /*详情聊天结束*/

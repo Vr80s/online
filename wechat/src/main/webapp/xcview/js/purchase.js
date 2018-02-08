@@ -9,6 +9,15 @@ function is_weixn(){
     }
 }
 
+/**
+ * 去充值页面
+ */
+$(".footer_div_btn").click(function(){
+	
+	location.href = "/xcview/html/recharges.html";
+})
+
+
 var orderNo = "";
 var type =""; //判断课程类别，支付使用
 
