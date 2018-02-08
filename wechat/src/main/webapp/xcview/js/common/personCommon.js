@@ -133,7 +133,7 @@ function checkUser1(saveFalg){
 		  name: stringnull(nickname) ? nickname : "",
 		  sex:stringnull(sex) ? sex : "",
 		  email:stringnull(email) ? email : "",
-          cityName:stringnull(provinceCityName) ? provinceCityName : "",
+          provinceName:stringnull(provinceCityName) ? provinceCityName : "",
 		  info:stringnull(info) ? info : "",
 	      occupation:stringnull(occupation) ? occupation : "",
 	      occupationOther:stringnull(occupationOther) ? occupationOther : ""

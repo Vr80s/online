@@ -117,6 +117,16 @@ public class XzUserSetController {
 			}
 			user.setLoginName(u.getLoginName());
 			user.setId(u.getId());
+			String provinceCityName=user.getProvinceName();
+			if(StringUtils.isNotBlank(provinceCityName)){
+				String [] str =  provinceCityName.split(" ");
+				//获取省市县
+				if(str.length ==3){
+					user.setProvinceName(str[0]);
+					user.setCityName(str[1]);
+					user.setCountyName(str[2]);
+				}
+			}
          /**
           * 更新信息
           */
@@ -185,10 +195,10 @@ public class XzUserSetController {
 			}
 			user.setLoginName(u.getLoginName());
 			user.setId(u.getId());
-			String provinceCityName=user.getCityName();
+			String provinceCityName=user.getProvinceName();
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  provinceCityName.split(" ");
-				//根据名字得到id，好惨
+				//获取省市县
 				if(str.length ==3){
 					user.setProvinceName(str[0]);
 					user.setCityName(str[1]);
