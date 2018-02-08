@@ -170,6 +170,7 @@ public class CommonServiceImpl implements ICommonService {
             return null;
 
         } catch (Exception e) {
+            log.error("userId:"+userId);
             log.error("---------------throw exception in auth user is doctor or hospital ,exception is " + e.getMessage());
             throw new RuntimeException("网络开了个小差，请再试一次");
         }finally {
