@@ -7,7 +7,7 @@
 /**
  * 判断是不是来自微信浏览器
  */
-function is_weixn(){
+function is_weixin(){
     var ua = navigator.userAgent.toLowerCase();
     if(ua.match(/MicroMessenger/i)=="micromessenger") {
         return true;
@@ -277,10 +277,10 @@ function commonLocalStorageSetItem(data){
 	var configresult = data.resultObject;
 	localStorage.setItem("token",JSON.stringify(configresult));
 	localStorage.setItem("userId",configresult.id)
-	localStorage.setItem("name",configresult.name);
+	localStorage.setItem("name",configresult.loginName);
 	localStorage.setItem("smallHeadPhoto",configresult.smallHeadPhoto);
 	localStorage.setItem("sex",configresult.sex);
-
+	
 	localStorage.setItem("province",configresult.province);
 	localStorage.setItem("city",configresult.city);
 	localStorage.setItem("district",configresult.district);
@@ -292,7 +292,7 @@ function commonLocalStorageSetItem(data){
 	
 	localStorage.setItem("email",configresult.email);
 	localStorage.setItem("info",configresult.info);
-	localStorage.setItem("username",configresult.loginName);
+	localStorage.setItem("username",configresult.name);
 	localStorage.setItem("ticket",configresult.ticket);
 	
 	localStorage.setItem("occupation",configresult.occupation);

@@ -190,12 +190,11 @@ $(function(){
 			<div class="main_title">
 				<p class="p0">郝忠平（主播名）</p>
 				<p class="p1">
-					<span class="span0">关注<span>10</span></span>
-					<span class="span1">粉丝<span>10</span></span>
+					<span class="span0">关注<span id="n_guanzhu">0</span></span>
+					<span class="span1">粉丝<span id="n_fensi">0</span></span>
 				</p>
 			</div>
 			<div class="add_follow" id="add_follow" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
-						
 				<img src="../images/append1_icon.png">
 				<p>加关注</p>
 			</div>
@@ -454,7 +453,7 @@ $(function(){
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 <script type="text/javascript">
 
-if(isWeiXin() && stringnull(getQueryString("openId"))){
+if(is_weixin() && stringnull(getQueryString("openId"))){
 	localStorage.setItem("openid", getQueryString("openId"));	
 	var ccontrollerAddress = "/bxg/user/isLogined";
 	requestService(ccontrollerAddress, null, function(data) {
@@ -504,29 +503,6 @@ if(isWeiXin() && stringnull(getQueryString("openId"))){
 		
 		
 		$(".gift_ul_li li:first-child").click();
-		
-		
-		
-//		关注开始
-		$(".add_follow").click(function(){
-	        //评论id
-//	        lecturerId = $(this).attr("data-lecturerId");
-	        var p = $(".right_personal").find('span').html();
-	
-	        var src = $(this).find('img').attr('src');
-	        if(src.indexOf("append1_icon")>-1){
-	            $(".add_follow").find('img').attr('src','../images/append2_icon.png');
-	            $(".add_follow").find('p').html("已关注");
-	
-	            $(".right_personal").find('span').html(parseInt(p)+1);
-//	            my_follow(lecturerId,1);
-	        }else{
-	            $(".add_follow").find('img').attr('src','../images/append1_icon.png');
-	            $(".add_follow").find('p').html("加关注");
-	            $(".right_personal").find('span').html(parseInt(p)-1);
-//	            my_follow(lecturerId,2);
-	        }
-	    });
 		
 		
 //		点击关注关闭

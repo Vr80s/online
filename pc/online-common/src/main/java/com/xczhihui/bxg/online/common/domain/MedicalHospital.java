@@ -89,6 +89,17 @@ public class MedicalHospital implements Serializable {
 	@Column(name="authentication_id")
 	private String authenticationId;
 
+	@Column(name="source_id")
+	private String sourceId;
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
+
 	public MedicalHospital() {
 	}
 

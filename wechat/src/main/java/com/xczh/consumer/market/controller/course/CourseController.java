@@ -130,7 +130,8 @@ public class CourseController {
 	
 	
 	/**
-	 * Description：课程详情（视频、音频、回放、预告）页面
+	 * Description：
+	 * 
 	 * @param req
 	 * @param res
 	 * @return

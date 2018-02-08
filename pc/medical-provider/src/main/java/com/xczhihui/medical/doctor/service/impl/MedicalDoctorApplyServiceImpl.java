@@ -7,10 +7,8 @@ import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyDepartmentMapper;
-import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
-import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
-import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
+import com.xczhihui.medical.doctor.mapper.*;
+import com.xczhihui.medical.doctor.model.*;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.utils.RedisShardLockUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +41,12 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private ICommonService commonService;
     @Autowired
     private RedisShardLockUtils redisShardLockUtils;
-
+    @Autowired
+    private MedicalDoctorAuthenticationInformationMapper authenticationInformationMapper;
+    @Autowired
+    private MedicalDoctorMapper doctorMapper;
+    @Autowired
+    private MedicalDoctorAccountMapper doctorAccountMapper;
     /**
      * 添加医师入驻申请信息
      * @param target 医师入驻申请信息
@@ -90,11 +93,6 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         // 判断用户是否是认证医师或者认证医馆
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
 
-        // 如果用户已是认证医师 表示其更新认证信息
-        if(result.equals(CommonEnum.AUTH_DOCTOR.getCode())){
-            this.applyAgain(target);
-        }
-
         // 如果用户是认证医馆或者医馆认证中 不让其认证医师
         if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||
                 result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
@@ -114,23 +112,15 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
 
         }
 
-        // 如果用户医师认证失败，医馆认证失败，或者从没申请
+        // 如果用户医师认证成功，医师认证失败，医馆认证失败，或者从没申请
         if(result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
-                result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
+                result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode()) ||
+                result.equals(CommonEnum.AUTH_DOCTOR.getCode())){
 
             this.addMedicalDoctorApply(target);
 
         }
-    }
-
-    /**
-     * 重新认证 更新认证信息
-     * @param target 认证信息
-     */
-    private void applyAgain(MedicalDoctorApply target) {
-
-        throw new RuntimeException("您已经认证了医师，不能再认证重新认证");
     }
 
     /**
@@ -216,6 +206,9 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         }
         if(StringUtils.isBlank(target.getQualificationCertificate())){
             throw new RuntimeException("请上传医师资格证");
+        }
+        if(StringUtils.isBlank(target.getProfessionalCertificate())){
+            throw new RuntimeException("请上传执业资格证");
         }
         if(StringUtils.isNotBlank(target.getField()) && target.getField().length() >32){
             throw new RuntimeException("擅长领域内容应保持在32字以内");
