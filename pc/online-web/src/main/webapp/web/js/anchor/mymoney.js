@@ -71,6 +71,7 @@ $(function(){
 		}else if(btnName == '新增'){
 			contentTopName = '新增银行卡'
 		}else if(btnName == '提现'){
+			contentTopName = "提现"
 			$('#toCashTip').removeClass('hide')
 		}else{
 			contentTopName = btnName
