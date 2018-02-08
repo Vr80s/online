@@ -19,7 +19,8 @@ requestService("/xczh/recommend/recommendTop",null,
     function(data) {
 		if(data.success){
 //大师课
-//		console.log(data);
+
+
     	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
 //名医
     	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
@@ -43,6 +44,13 @@ requestService("/xczh/recommend/recommendTop",null,
 		    	var  data_img=$(this).find("img").attr("data_img");
 		    	location.href=data_img;
 		    })
+		    
+		      $(".slide_one_div a").click(function(){
+		    	var  data_one_div=$(this).find("img").attr("data-div");
+		    	console.log(data_one_div)
+		    	location.href=data_one_div;
+		    })
+		    
 },false)
 //精品课程
 requestService("/xczh/recommend/recommendCourse",null,function(data) {
@@ -198,6 +206,13 @@ requestService("/xczh/bunch/listenCourse",null,
 //听课结束
 
 
+//swiper学堂小白课
+var swiper = new Swiper('.swiper-containers', {
+    slidesPerView: 5,
+    paginationClickable: true,
+    spaceBetween: 10
+});
+
 
 //swiper医师滑动
 var swiper = new Swiper('.swiper-container', {
@@ -252,3 +267,23 @@ function jump(id){
 		}
 	})
 }
+
+
+
+$(function(){
+
+
+//搜索历史开始
+
+requestService("/xczh/bunch/hotSearch",null, 
+    function(data) {
+		
+		if(data.success==true){
+// 	    	<!--给头部inpiu默认值-->
+ 	    	$(".header_seek_main_span").html(template('header_seek_main',{items:data.resultObject.defaultSearch}))
+				
+		}
+},false) 
+//搜索历史结束
+
+})

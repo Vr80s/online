@@ -675,10 +675,39 @@
 	height: 120px;
 }
 
+/*医师信息科室部分*/
+.account_main_alter #keshiList{
+	display: inline-block;
+	vertical-align: top;
+}
+.account_main_alter #keshiList > li  {
+	width: 92px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+    margin-right: 20px;
+    float: left;
+    margin-bottom: 20px;
+    font-size: 14px;
+} 
+.account_main_alter #keshiList > li:hover{
+	cursor: pointer;
+}
+.account_main_alter .PersonAddress select{
+	width: 240px;
+    height: 36px;
+    border: 1px solid #F0F0F0;
+    outline: none;
+    font-size: 14px;
+    color: #999;
+}
 
-
-
-
+.keshiColor{
+	    border: 1px solid #00BC12 !important;
+    color: #00BC12;
+}
 /*弹框添加*/
 .show_pop_up{
 	border: 1px solid #F0F0F0;

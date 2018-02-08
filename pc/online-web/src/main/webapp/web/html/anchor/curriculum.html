@@ -358,8 +358,8 @@
 					</div>
 				</li>
 
-				<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
-				<li class="setTop"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
+				<li class="setTop" id="mymoneyTbl"><span class="iconfont icon-qianbao left_range" aria-hidden="true"></span><span>我的资产</span></li>
+				<li class="setTop"><span class="glyphicon glyphicon-list-alt left_range" aria-hidden="true"></span><span>我的收益</span></li>
 
 				<li class="select-uds">
 					<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
@@ -561,6 +561,123 @@
 						<div class="both"></div>
 						<p class="warning two_warning1 hide warning_professionalCertificateImg">请上传执业医师资格证</p>
 					</div>
+					
+					
+					<!--医师头像上传-->
+					<!--<div class="profession">
+						<span><em>*</em>真实头像</span>
+						 <div class="input-group row">
+			               <div class="row_size">
+								<div class="one">+</div>
+								<div class="two">求真相</div>
+							</div>
+			                <div class="col-sm-9 big-photo">
+			                	<div id="preview10">
+			             
+			                     </div>         
+			                    <input type="file" style="display: none;" id="previewImg10">
+			                </div>
+			            </div>
+
+						<div class="hint">
+							<div class="">请上传清晰头像</div>
+							<div class="">文件小于2M</div>
+							<div class="">支持JPG/PNG等格式图片</div>
+						</div>
+						<div class="both"></div>
+						<p class="warning two_warning1 hide warning_professionalCertificateImg">请上传执业医师资格证</p>
+					</div>-->
+					
+					<!--职称-->
+					<div class="div_title">
+						<span><em>*</em>职称</span>
+						<input type="text" placeholder="请输入您的职称" class="name_put1 physician_card">
+						<p class="warning two_warning1 hide warning_physician_card">职称不能为空</p>
+						<!--<p class="warning two_warning1 hide warning_physician_card_verify">职称不正确</p>-->
+					</div>
+					
+					
+					
+					<!--职称证明上传-->
+					<div class="profession">
+						<span><em>*</em>职称证明</span>
+						 <div class="input-group row">
+			               <div class="row_size">
+								<div class="one">+</div>
+								<div class="two">点击上传职称证明</div>
+							</div>
+			                <div class="col-sm-9 big-photo">
+			                	<div id="preview11">
+			                        <!-- <img id="imghead3" border="0" src="img/photo_icon.png" width="90" height="90" onclick="$('#previewImg3').click();"> -->
+			                     </div>         
+			                    <input type="file" style="display: none;" id="previewImg11">
+			                </div>
+			            </div>
+
+						<div class="hint">
+							<div class="">文件小于2M</div>
+							<div class="">支持JPG/PNG等格式图片</div>
+						</div>
+						<div class="both"></div>
+						<p class="warning two_warning1 hide warning_professionalCertificateImg">请上传执业医师资格证</p>
+					</div>
+					
+					<!--科室部分-->
+					<div class="div_title keshi">
+						<span><em>*</em>科室</span>
+						<ul id="keshiList" class="clearfix">
+							<li data-id="0f4df242c3294902a87b8bc0a0ffe4d8">科室3</li>
+						
+							<li data-id="3dde4a0a3c6b4d4cbef7a2c501eee373">科室1</li>
+						
+							<li data-id="bd252be6ecf24eb9965d5c8f88aa3747">科室2</li>
+						</ul>
+						<p class="warning two_warning1 hide warning_physician_card_verify">请选择科室</p>
+					</div>
+					
+					
+					<!--擅长-->
+					<div class="div_title" >
+						<span><em>*</em>擅长</span>
+						<input type="text" placeholder="请输入您的擅长领域" class="name_put1 physician_card">
+						<p class="warning two_warning1 hide warning_physician_card">擅长领域能为空</p>
+						<!--<p class="warning two_warning1 hide warning_physician_card_verify">职称不正确</p>-->
+					</div>
+					
+					
+					
+					<!--个人介绍部分-->
+					<div class="div_title">
+						<span><em>*</em>个人介绍</span>
+						<!--富文本 结构-->
+						<div style="display: inline-block;vertical-align: top;">
+							<script id=" " type="text/plain" style="width:540px;height:160px;" ></script>
+						</div>
+
+						<p class="warning two_warning1 hide warning_physician_card">个人介绍不能为空</p>
+					</div>
+					
+					
+					<!--选择城市-->
+					<div class="div_title PersonAddress">
+						<span><em>*</em>城市</span>
+						<!--选择城市插件-->
+						<select name="" id="" onchange="">
+							<option value="">省份</option>
+						</select>
+						
+						<select name="" id="">
+							<option value="">市区</option>
+						</select>
+
+						<p class="warning two_warning1 hide warning_physician_card">所在城市地址不能为空</p>
+					</div>
+					
+					
+					
+					
+					
+					
 					<div class="approve" onclick="savePhysicianApply()">提交认证</div>
 					<div class="deal">
 						<lable>
@@ -789,7 +906,7 @@
 	<!--账号结束-->
 	
 	<!--我的资产部分-->
-	<div id="mymoney">
+	<div id="mymoney" class="hide">
 		
 		<!--顶部的固定模块-->
 		<div style="height: 272px;margin-bottom: 20px;background: #fff;">
@@ -860,23 +977,58 @@
 			<!--提现部分-->
 			<div class="content_toCash hide">
 				<div>
-					<span>您的余额为</span><span>300</span>元
+					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;">300</span>元
 				</div>
 				
 				<div>
-					<span>提现金额</span><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span>提现金额</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
 				</div>
 				
 				<div>
-					<span>户名</span><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span>户名</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<a href="javascript:;" style="font-size: 14px;color: #666;" onclick="$('.addNew').click()"><i class="smallAdd">+</i>新增银行卡</a>
 				</div>
 				
-				<div>
+				<div class="chooseCard clearfix">
 					<span>选择银行卡</span>
 					<ul>
-						<li></li>
-						<li></li>
-						<li></li>
+						<li>
+							<div class="cardTop_img">
+								<img  src="/web/images/pandaLogo.jpg" alt="" />
+							</div>
+							<div class="cardBottom">
+								<span>尾号<i>6238</i></span>
+								<a href="javascript:;">取消默认</a>
+							</div>
+						</li>
+						<li>
+							<div class="cardTop_img">
+								<img  src="/web/images/pandaLogo.jpg" alt="" />
+							</div>
+							<div class="cardBottom">
+								<span>尾号<i>6238</i></span>
+								<a href="javascript:;">取消默认</a>
+							</div>
+						</li>
+						<li>
+							<div class="cardTop_img">
+								<img  src="/web/images/pandaLogo.jpg" alt="" />
+							</div>
+							<div class="cardBottom">
+								<span>尾号<i>6238</i></span>
+								<a href="javascript:;">取消默认</a>
+							</div>
+						</li>
+						<li>
+							<div class="cardTop_img">
+								<img  src="/web/images/pandaLogo.jpg" alt="" />
+							</div>
+							<div class="cardBottom">
+								<span>尾号<i>6238</i></span>
+								<a href="javascript:;">取消默认</a>
+							</div>
+						</li>
 					</ul>
 				</div>
 				
@@ -885,19 +1037,93 @@
 				</div>
 				
 				<div>
-					<span>手机验证码</span><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span>手机验证码</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
 				</div>
 				<button class="toCashSure_btn">确定</button>
 			</div>
 			
 			<!--管理部分-->
 			<div class="content_Administration hide">
-				管理部分
+				<table class="Card_Administration">
+					<thead>
+						<tr>
+							<td>银行</td>
+							<td>持卡人</td>
+							<td>卡号</td>
+							<td>身份证号</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>招商银行</td>
+							<td>张三丰</td>
+							<td>622* **** **** **** *123</td>
+							<td>132 123 1887 0322 7765</td>
+							<td><a href="javascript:;">移除</a></td>
+						</tr>
+						<tr>
+							<td>中国工商银行</td>
+							<td>张三丰</td>
+							<td>622* **** **** **** *123</td>
+							<td>132 123 1887 0322 7765</td>
+							<td><a href="javascript:;">移除</a></td>
+						</tr>
+						<tr>
+							<td>中国农业银行</td>
+							<td>张三丰</td>
+							<td>622* **** **** **** *123</td>
+							<td>132 123 1887 0322 7765</td>
+							<td><a href="javascript:;">移除</a></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			
 			<!--新增银行卡部分-->
 			<div class="content_add hide">
-				新增银行卡部分
+				<div>
+					<span>户名</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>请输入与户名</span>
+					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>
+				</div>
+				
+				
+				<div>
+					<span>卡号</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>您输入银行卡号</span>
+				</div>
+				
+				<div>
+					<span>选择银行</span>
+					<select name="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;">
+						<option value=""></option>
+					</select>
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
+				</div>
+				
+				<div>
+					<span>身份证号</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>请输入身份证号</span>
+					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（请确保您的银行卡可以收到款项，填写他人银行卡，收款有问题我们不负责任）</p>
+				</div>
+				
+				<button class="addNewCard">确定</button>
+				
 			</div>
 		</div>
 		

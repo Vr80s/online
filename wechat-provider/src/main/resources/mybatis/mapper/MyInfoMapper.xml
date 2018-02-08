@@ -66,49 +66,49 @@
 	<update id="updateUserSetInfo" parameterType="com.xczhihui.wechat.course.vo.OnlineUserVO">
 		UPDATE oe_user
 		<set>
-			<if test="user.sex != null">
+			<if test="user.sex != null and user.sex!=''">
 				sex = #{user.sex},
 			</if>
-			<if test="user.email != null">
+			<if test="user.email != null and user.email!=''">
 				email = #{user.email},
 			</if>
-			<if test="user.smallHeadPhoto != null">
+			<if test="user.smallHeadPhoto != null and user.smallHeadPhoto!=''">
 				small_head_photo = #{user.smallHeadPhoto},
 			</if>
-			<if test="user.name != null">
+			<if test="user.name != null and user.name!=''">
 				name = #{user.name},
 			</if>
-			<if test="user.info != null">
+			<if test="user.info != null and user.info!=''">
 				info = #{user.info},
 			</if>
 			
 			<!-- 省 -->
-			<if test="user.regionAreaId != null">
+			<if test="user.regionAreaId != null and user.regionAreaId!=''">
 				region_area_id = #{user.regionAreaId},
 			</if>
-			<if test="user.provinceName != null">
+			<if test="user.provinceName != null and user.provinceName!=''">
 				province_name = #{user.provinceName},
 			</if>
 			<!-- 市-->
-			<if test="user.regionCityId != null">
+			<if test="user.regionCityId != null and user.regionCityId!=''">
 				region_city_id = #{user.regionCityId},
 			</if>
-			<if test="user.cityName != null">
+			<if test="user.cityName != null and user.cityName!=''">
 				city_name = #{user.cityName},
 			</if>
 			<!-- 区 -->
-			<if test="user.regionId != null">
+			<if test="user.regionId != null and user.regionId!=''">
 				region_id = #{user.regionId},
 			</if>
-			<if test="user.countyName != null">
+			<if test="user.countyName != null and user.countyName!=''">
 				county_name = #{user.countyName},
 			</if>
 			
-			<if test="user.occupation != null">
+			<if test="user.occupation != null and user.occupation!=''">
 				occupation = #{user.occupation},
 			</if>
 			
-			<if test="user.occupationOther != null">
+			<if test="user.occupationOther != null and user.occupationOther!=''">
 				occupation_other = #{user.occupationOther},
 			</if>
 		</set>

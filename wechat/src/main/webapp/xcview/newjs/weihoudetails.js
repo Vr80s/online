@@ -78,7 +78,7 @@ $(document).ready(function() {
 	 */
     VHALL_SDK.on('chatMsg', function(msg) {
 		var str = "<div class='coze_cen'> "+
-		 "<img src="+msg.avatar+" alt='' "+
+		 "<img src="+msg.user_name+" alt='' "+
 		"	class='coze_cen_left_img' /> "+
 		"  <div class='coze_cen_bg'> "+
 		"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+msg.content+"  "+
@@ -223,14 +223,14 @@ $(document).ready(function() {
             for (var i = res.data.length - 1; i >= 0; i--) {
             	if(userInfo.userid == res.data[i].user_id){
             		 str += "<div class='coze_cen_ri'> "+
-        			 "<span class='span_name'>："+Name+"</span>"+
+        			 "<span class='span_name'>："+res.data[i].user_name+"</span>"+
         			"  <div class='coze_cen_bg_ri'> "+
         			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
         			" </div> "+
         			" <div class='both'></div></div>";
             	}else{
             		str += "<div class='coze_cen'>";
-                    str+="<span class='span_name'>："+Name+"</span>";
+                    str+="<span class='span_name'>："+res.data[i].user_name+"</span>";
                     str+="<div class='coze_cen_bg'>";
                     str+="<img src='/xcviews/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
                     		"<div class='both'></div></div>";
@@ -260,14 +260,14 @@ $(document).ready(function() {
             for (var i = res.data.length - 1; i >= 0; i--) {
             	 if(userInfo.userid == res.data[i].user_id){
             	    str += "<div class='coze_cen_ri'> "+
-        			 "<span class='span_name'>"+Name+"：</span>"+   /*用户名*/
+        			 "<span class='span_name'>"+res.data[i].user_name+"：</span>"+   /*用户名*/
         			"  <div class='coze_cen_bg_ri'> "+
         			"	"+res.data[i].content+"  "+
         			" </div> "+
         			" <div class='both'></div></div>";
                  }else{
                 	 str += "<div class='coze_cen'>";
-                     str+="<span class='span_name'>"+Name+"：</span>";  //用户名
+                     str+="<span class='span_name'>"+res.data[i].user_name+"：</span>";  //用户名
                      str+="<div class='coze_cen_bg'>";
                      str+=""+res.data[i].content+"</div>" +
                      		"<div class='both'></div></div>";

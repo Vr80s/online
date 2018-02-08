@@ -1,10 +1,12 @@
 package com.xczhihui.medical.hospital.service.impl;
 
-import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
-import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import test.BaseJunit4Test;
+
+import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
 
 /**
  * 医馆入驻测试类
