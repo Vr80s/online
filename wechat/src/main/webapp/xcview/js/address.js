@@ -47,7 +47,7 @@
 	  * 修改地址
 	  */
 	 function editAddress(addressId){
-		 requestService("/bxg/city/findAddressById", 
+		 requestService("/xczh/set/findAddressById",
 					{id:addressId}, function(data) {
 				if (data.success) {
 					var umv = data.resultObject;
@@ -169,10 +169,10 @@
 		$(".person_prosperity").show();
 		$(".prosperity_cen_top").text("新增成功");
 		
-		var url_address = "/bxg/city/saveAddress";
+		var url_address = "/xczh/set/saveAddress";
 		if(stringnull(addressId)){
 			urlparm.id = addressId;
-			url_address = "/bxg/city/updateAddress";
+			url_address = "/xczh/set/updateAddress";
 			$(".person_prosperity").show();
 			$(".prosperity_cen_top").text("修改成功");
 		}
@@ -209,7 +209,7 @@
 	
 	/* 地址管理结束 */
 	function addressList(){
-		requestService("/bxg/city/getAddressAll", 
+		requestService("/xczh/set/getAddressAll",
 				null, function(data) {
 			if (data.success) {
 				//$("#address_list").html("");
@@ -296,7 +296,7 @@
 		        	/**
 		        	 * 保存地址
 		        	 */
-		        	requestService("/bxg/city/updateIsAcquies", 
+		        	requestService("/xczh/set/updateIsAcquies",
 		        			{newId:newId}, function(data) {
 		        		if (data.success) {
 		        			
@@ -362,7 +362,7 @@ function deleteAddress(obj){
 		/**
 		 * 根据id查询地址
 		 */
-		requestService("/bxg/city/deleteAddressById", 
+		requestService("/xczh/set/deleteAddressById",
 				{id:addressId}, function(data) {
 			if (data.success) {
 				 $(obj).attr("title","");

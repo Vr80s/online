@@ -52,6 +52,13 @@
 
 	<body>
 
+<!--删除提示弹窗-->
+<div id="deleteTip" class="hide">
+	<h4 class="confirm-title">删除资源</h4>
+	<p class="confirm-content">确定删除这条资源？</p>
+	<button id="sureDel" class="confirm-sure">确定</button><button id="cancalDel" >取消</button>
+</div>
+	
 		<div id="tip" style="display: none;">
 			您已完成了医馆注册，不能进行医师注册!
 		</div>
@@ -178,7 +185,7 @@
 
 									<div>
 										<span><em></em>邮箱</span>
-										<input type="text" placeholder="请输入医馆邮箱" maxlength="20" class="doc_hospital" />
+										<input type="text" placeholder="请输入医馆邮箱"  class="doc_hospital" />
 										<span class="email_warn warning hide" style="margin-left: 0px;">邮箱格式不正确</span>
 									</div>
 
@@ -930,13 +937,18 @@
 		</td>
 		{{/if}}
 		<td>
-			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
+			
 			{{if item.status}}
+			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
 			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=0 class="upRoDown">下线</a>
-			{{else}}
-			<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=1 class="upRoDown">上线</a>
-			{{/if}}
 			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>
+			{{else}}
+			<a href="javascript:;" class="preview" data-id={{item.id}}>预览</a>
+			<!--<a href="javascript:;" class="downLine" data-id={{item.id}}  data-status=1 class="upRoDown">上线</a>
+			<a href="javascript:;" class="edit" data-id={{item.id}}>编辑</a>-->
+			<a href="javascript:;" class="delete" data-id={{item.id}}>删除</a>
+			{{/if}}
+			
 		</td>
 	</tr>
 	{{/each}}

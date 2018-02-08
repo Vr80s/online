@@ -45,32 +45,82 @@
 		<div class="bought_main">
 			<script type="text/html" id="bought_main">
 				{{each items as item i}}
-			<!--视频-->
-			<div class="bought_main_list">
+			<!--视频/音频-->
+				{{if item.type==1 || item.type==2}}
+				<!--是否有专辑-->
+				{{if item.collection}}
+			<div class="bought_main_list" onclick="location.href='live_select_album.html?course_id={{item.id}}'">
 				<div class="bought_list_left">
 					<img src="../images/zhibo1.jpg" class="img0" />
 					<img src="../images/tv_auto.png" class="img1" />
 				</div>
 				<div class="bought_list_right">
 					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
-					{{if item.type==1 || item.type==2}}
-					{{if item.collection}}
 					<div class="bought_list_size">共<span>{{item.courseNumber}}</span>集</div>
-					{{else}}
-					<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>
-					{{/if}}
-					{{else if item.type==3 && item.lineState==0}}
-					<div class="bought_list_size_one">直播已结束</span></div>
-					{{else if item.type==3 && item.lineState==1}}
-					<div class="bought_list_size">直播时间：<span>{{item.startTime}} </span></div>
-					{{else if item.type==3 && item.lineState==2}}
-					<div class="bought_list_size">直播中</div>
-					{{else}}
-					<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>
-					{{/if}}
-
 				</div>
 			</div>
+				{{else}}
+				<div class="bought_main_list" onclick="location.href='live_audio.html?my_study={{item.id}}'">
+					<div class="bought_list_left">
+						<img src="../images/zhibo1.jpg" class="img0" />
+						<img src="../images/tv_auto.png" class="img1" />
+					</div>
+					<div class="bought_list_right">
+						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+						<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>
+					</div>
+				</div>
+				{{/if}}
+			<!--直播，，已结束-->
+			{{else if item.type==3 && item.lineState==0}}
+			<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
+				<div class="bought_list_left">
+					<img src="../images/zhibo1.jpg" class="img0" />
+					<img src="../images/tv_auto.png" class="img1" />
+				</div>
+				<div class="bought_list_right">
+					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+					<div class="bought_list_size">直播已结束</div>
+				</div>
+			</div>
+			<!--直播，，预告-->
+			{{else if item.type==3 && item.lineState==1}}
+			<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
+				<div class="bought_list_left">
+					<img src="../images/zhibo1.jpg" class="img0" />
+					<img src="../images/tv_auto.png" class="img1" />
+				</div>
+				<div class="bought_list_right">
+					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+					<div class="bought_list_size">直播时间：<span>{{item.startTime}} </span></div>
+				</div>
+			</div>
+				<!--直播，，直播中-->
+				{{else if item.type==3 && item.lineState==2}}
+				<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
+					<div class="bought_list_left">
+						<img src="../images/zhibo1.jpg" class="img0" />
+						<img src="../images/tv_auto.png" class="img1" />
+					</div>
+					<div class="bought_list_right">
+						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+						<div class="bought_list_size">直播中</div>
+					</div>
+				</div>
+				<!--线下-->
+				{{else }}
+				<div class="bought_main_list" onclick="location.href='live_class.html?my_study={{item.id}}'">
+					<div class="bought_list_left">
+						<img src="../images/zhibo1.jpg" class="img0" />
+						<img src="../images/tv_auto.png" class="img1" />
+					</div>
+					<div class="bought_list_right">
+						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+						<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>
+					</div>
+				</div>
+
+				{{/if}}
 				{{/each}}
 			</script>
 			<!--音频-->

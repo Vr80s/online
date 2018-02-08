@@ -2,8 +2,11 @@ package com.xczhihui.bxg.online.manager.medical.service.impl;
 
 import java.util.*;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.online.common.domain.*;
 
+import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -105,7 +108,17 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		
 		//picture1 真实头像	picture2 职称证明	picture3 身份证正面	
 		//picture4 身份证反面	picture5 医师资格证	picture6 职业医师证
-		
+
+		// 根据医师id获取医师详情
+		MedicalDoctor doctor = dao.findOneEntitiyByProperty(MedicalDoctor.class, "id", medicalDoctorId);
+		if(doctor == null){
+			throw new MedicalException(MedicalExceptionEnum.DOCTOR_NOT_EXIT);
+		}else{
+			if(StringUtils.isNotBlank(doctor.getSourceId())){
+				throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+			}
+		}
+
 		MedicalDoctorAuthenticationInformation mdai = new MedicalDoctorAuthenticationInformation();
 		BxgUser u = UserHolder.getCurrentUser();
 		if(!StringUtils.isNotBlank(authenticationInformationId)){
@@ -168,8 +181,24 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		return dao.findOneEntitiyByProperty(MedicalDoctorAuthenticationInformation.class, "id", mdaiId);
 	}
 
+	/**
+	 * 更新医师所在的医馆
+	 * @param doctorId 医师id
+	 * @param hospitalId 医馆id
+	 */
 	@Override
 	public void updateMedicalHospitalDoctorDetail(String doctorId, String hospitalId) {
+
+		// 根据医师id获取医师详情
+		List<MedicalDoctor> doctors = dao.findEntitiesByProperty(MedicalDoctor.class, "id", doctorId);
+		if(CollectionUtils.isEmpty(doctors)){
+			throw new MedicalException(MedicalExceptionEnum.DOCTOR_NOT_EXIT);
+		}else{
+			if(StringUtils.isNotBlank(doctors.get(0).getSourceId())){
+				throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+			}
+		}
+
 		//删除之前关系表
 		List<MedicalHospitalDoctor> mhps = dao.findEntitiesByProperty(MedicalHospitalDoctor.class, "doctorId", doctorId);
 		for (int i = 0; i < mhps.size(); i++) {

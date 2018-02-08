@@ -22,15 +22,36 @@ $(function(){
 		var objData = [{ "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
         return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span><span name="skfs" style=\'display:none\'>'+row.teachMethodName+'</span>';
     }},
-    // { "title": "医馆ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "医馆名", "class":"center","width":"9%","sortable":false,"data": 'name' },
-    // { "title": "经纬度", "class":"center","width":"8%","sortable":false,"data": 'lal'},
-    { "title": "评分", "class":"center","width":"6%", "sortable":false,"data": 'score',"visible":true},
-    { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
-    { "title": "email", "class":"center","width":"6%", "sortable":false,"data": 'email',"visible":true},
+    { "title": "评分", "class":"center","width":"6%", "sortable":false,"data": 'score',"visible":true,"mRender":function (data, display, row) {
+        if(row.score == null) {
+            return '0';
+        } else {
+            return row.score;
+        }
+    }},
+    { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true,"mRender":function (data, display, row) {
+        if(row.tel == null) {
+            return '暂无';
+        } else {
+            return row.tel;
+        }
+    }},
+    { "title": "email", "class":"center","width":"6%", "sortable":false,"data": 'email',"visible":true,"mRender":function (data, display, row) {
+        if(row.email == null) {
+            return '暂无';
+        } else {
+            return row.email;
+        }
+    }},
     { "title": "地址", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
-        debugger
-    	return row.province+"-"+row.city+"-"+row.detailedAddress;
+
+    	if(row.province == null) {
+    		return '暂无';
+    	} else {
+    		return row.province+"-"+row.city+"-"+row.detailedAddress;
+    	}
+
     }}, { "title": "创建日期", "class":"center","width":"8%","sortable":false,"data": 'createTime','mRender':function(data, display, row){
                 return getLocalTime(data);
             }
@@ -923,17 +944,21 @@ $(".list-items1").on("click",function(event){
   }
 })
 
+/**
+ * 修改医馆的医疗领域
+ * @param obj
+ */
 function openFieldManage(obj){
 
-	debugger
+	// debugger
     var oo = $(obj).parent().parent().parent();
     var row = P_courseTable.fnGetData(oo); // get datarow
     rowId = row.id;
     $("#parentId").val(row.id);
     $("#child_MenuName").html(row.name);
-    var courseCount = row.courseCount
+    var courseCount = row.courseCount;
     ajaxRequest(basePath+"/medical/field/alllist",{'id':row.id,'type':1},function(data) {
-    	debugger
+    	// debugger
         drawMenusPage(data);
 
         if(row.courseCount==0){
