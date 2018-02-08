@@ -206,3 +206,70 @@
 	margin-left: 20px;
 	margin-left: 100px;
 }
+#mymoney .content_toCash .chooseCard ul{
+	width: 825px;
+}
+#mymoney .content_toCash .chooseCard ul li{
+	float: left;
+	margin-right: 20px;
+	width: 230px;
+	height: 80px;
+	border: 1px solid #F0F0F0;
+	margin-bottom: 20px;
+}
+#mymoney .content_toCash .chooseCard ul li .cardTop_img{
+	height: 52px;
+}
+#mymoney .content_toCash .chooseCard ul li .cardTop_img > img{
+	width: 100%;
+	height: 100%;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom{
+	height: 27px;
+	padding: 0 9px;
+	line-height: 27px;
+	background: #F0F0F0;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom > span{
+	float: left;
+	font-size: 12px;
+	width: auto;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom > span > i{
+	font-style: normal;
+}
+#mymoney .content_toCash .chooseCard ul li .cardBottom > a{
+	float: right;
+	color: #188EEE;
+	font-size: 12px;
+}
+#mymoney .content_toCash .chooseCard >span,
+#mymoney .content_toCash .chooseCard ul{
+	float: left;
+}
+#mymoney .content_toCash .smallAdd{
+	width: 16px;
+    display: inline-block;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid;
+    line-height: 14px;
+    background: #00BC12;
+    color: #fff;
+    font-style: normal;
+    text-align: center;
+    margin-right: 5px;
+}
+.smallwarn{
+	width: 16px;
+    display: inline-block;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid;
+    line-height: 14px;
+    background: #f40;
+    color: #fff;
+    font-style: normal;
+    text-align: center;
+    margin-right: 5px;
+}
