@@ -192,7 +192,7 @@ function queryDataByParams(params,data_type){
 				var id = "#draw_all_query_list";
 			}
 			var data1 ="";
-			for (var int = 0; int < data.resultObject.length; int++) {
+			for (var int = 0; int < 2; int++) {
 				var item = data.resultObject[int];
 				var statusImg="";  //视频、音频不同的图片
 				if(item.type == 1){
@@ -220,22 +220,23 @@ function queryDataByParams(params,data_type){
 					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png'><span>" +item.city+"</span></p>";
 				}
 				data1+="<div class='li_list_div'>"+
-					   "<div class='li_list_one'>"+
-						   "<div class='li_list_one_left'>" +
-						  "<img src='"+item.smallImgPath+"' class='one' />" +
-						      statusImg1 +
-						   "</div>" +
-					   "<div class='li_list_one_right'>" +
-						   "<p class='p00'>" +
-						   "<span>"+item.name+"</span>:" +
-						   "<span>"+item.gradeName+"</span></p>" +
-						   "<div class='div'>" +
-						       isFreeStr +
-						  "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>"+item.learndCount+"</span></p>" +
-						       typeStr+
-						    "</div>" +
-					  "</div>" +
-					  "</div><div>";
+					       "<div class='li_list_one'>"+
+						     "<div class='li_list_one_left'>" +
+						          "<img src='"+item.smallImgPath+"' class='one' />" +
+						       statusImg1 +
+						      "</div>" +
+					           "<div class='li_list_one_right'>" +
+						           "<p class='p00'>" +
+						           "<span>"+item.name+"</span>:" +
+						           "<span>"+item.gradeName+"</span></p>" +
+						           "<div class='div'>" +
+						              isFreeStr +
+						             "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>"+item.learndCount+"</span></p>" +
+						               typeStr+
+						            "</div>" +
+					            "</div>" +
+					         "</div>" +
+					     "</div>";
 			}
 			$(id).html(data1);
 		}else{

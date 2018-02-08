@@ -175,6 +175,8 @@ public class CourseLecturVo implements Serializable {
 	
 	private Integer applyStatus; //审核状态  0未审核 1 审核通过 2 审核未通过
 	
+	private String startDateStr;
+	
 	public String getUdescription() {
 		return udescription;
 	}
@@ -522,6 +524,14 @@ public class CourseLecturVo implements Serializable {
 
 	public void setIsFocus(Integer isFocus) {
 		this.isFocus = isFocus;
+	}
+
+	public String getStartDateStr() {
+		return startDateStr;
+	}
+
+	public void setStartDateStr(String startDateStr) {
+		this.startDateStr = startDateStr;
 	}
 	
 	

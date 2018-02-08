@@ -11,19 +11,7 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 
-<!--这段meta代码需要加上，移动端自适应缩放用-->
-<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
-<!-- 网页自适应JS代码引入 -->
-<script src="/xcviews/js/js.js"></script>
-
-
-<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
-<!--<script src="/xcview/js/starScore.js"></script>-->  <!--星星引入js-->
-<!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
-<!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
-<!--<link href="/xcview/css/course_details_slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/buy_prosperity.css" />
-
 
 <body style="background: #F8F8F8;">
 	<!--头部搜索开始-->
@@ -54,16 +42,15 @@
 			<div class="purchase_details">
 				<div class="purchase_details_main">
 					<div class="purchase_details_main_cen">
-						<img src="../images/geren.jpg" alt="">
+						<img src="../images/geren.jpg" alt="" id="smallImgPath">
 						<div class="purchase_details_left">
 							<div class="purchase_details_title">
-								<span class="span0">郝万山</span>
-								<span class="span1">《伤寒论》讲解</span>
+								<span class="span0"></span>
+								<span class="span1"></span>
 							</div>
 							<div class="both"></div>
-							<div class="purchase_details_money"><span>88</span>熊猫币</div>
-							
-							<div class="prosperity_play">去播放</div>
+							<div class="purchase_details_money"><span></span></div>
+							<div class="prosperity_play" onclick="jump()">去播放</div>
 						</div>
 					</div>
 				</div>
@@ -72,29 +59,53 @@
 			<div class="check_one">查看已购课程，请前往<span>学习中心</span></div>
 			<div class="check_two">继续寻找感兴趣的课程，请前往<span>学堂</span></div>
 		</div>
-		
 		<!--猜你喜欢开始-->
     	<div class="acupuncture">
     		<div class="boutique_title">猜你喜欢</div>
     		<div class="boutique_main">
     			<ul>
     				<!--视频-->
+    				<div class="lectures"></div>
+    				<script type="text/html" id="lectures">
+	                {{each items as item i}}
     				<li>
     					<div class="boutique_main_one">
-    						<div class="boutique_one_img">
-    							<img src="/xcview/images/line_03.jpg" alt="" />
+    						<div class="boutique_one_img" onclick="jump()">
+    							<img src="{{item.smallImgPath}}" alt="" />
     						</div>
     						<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
-    						<div class="boutique_main_one_title">郝万山《伤寒论》讲解讲解讲解</div>
-    						<div class="boutique_main_one_size">
+    						<div class="boutique_main_one_title">{{item.name}}{{item.gradeName}}</div>
+
+							     {{if item.type == 1 || item.type == 2}}
+								   <div class="boutique_main_one_size">
+								 {{else if  item.type == 3 }}
+								    <div class="boutique_main_two_size">
+								 {{else if   item.type == 4}}
+								    <div class="boutique_main_four_size">
+		                         {{/if}}	
+
+								{{if item.watchState == 1}}
     							<p><span>1</span>熊猫币</p>
-    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1</span></p>
-    						</div>
+								{{else}}
+								<p><span>{{item.currentPrice}}</span>熊猫币</p>
+								{{/if}}
+    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
+    						
+
+	                            {{if item.type == 3}}
+								   <p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
+								{{else if item.type == 4}}
+								   <p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>{{item.city}}</span></p>
+		                        {{/if}}							
+							</div>
     					</div>
     				</li>
+					{{/each}}
+					</script>
+    				
     				<!--直播-->
-    				<li>
-    					<div class="boutique_main_two">
+    	<!-- 		<li>
+    					<div class="boutique_main_one">
     						<div class="boutique_two_img">
     							<img src="/xcview/images/line_03.jpg" alt="" />
     						</div>
@@ -107,9 +118,9 @@
     							
     						</div>
     					</div>
-    				</li>
+    				</li> -->
     				<!--音频-->
-    				<li>
+    		<!-- 		<li>
     					<div class="boutique_main_three">
     						<div class="boutique_three_img">
     							<img src="/xcview/images/line_03.jpg" alt="" />
@@ -122,8 +133,8 @@
     						</div>
     					</div>
     				</li>
-    				<!--线下-->
-    				<li>
+    				线下 -->
+    			<!-- 	<li>
     					<div class="boutique_main_four">
     						<div class="boutique_four_img">
     							<img src="/xcview/images/line_03.jpg" alt="" />
@@ -137,7 +148,7 @@
     							
     						</div>
     					</div>
-    				</li>
+    				</li> -->
     				<div class="both"></div>
     			</ul>
     		</div>
@@ -147,6 +158,16 @@
 	</div>
 	<!--中间内容结束-->
 </body>
+
+<!--这段meta代码需要加上，移动端自适应缩放用-->
+<!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
+<!-- 网页自适应JS代码引入 -->
+<script src="/xcviews/js/js.js"></script>
+<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/template.js"></script> 
+<script type="text/javascript" src="/xcview/js/buy_prosperity.js"></script>
 
 <!--点击更多隐藏显示结束-->
 <script type="text/javascript">
@@ -166,9 +187,6 @@
 			$(".li0").removeClass("ul_li");
 		});
 		$("#li0").click();
-		
-		
-		
 //		点击分享share
 		$(".header_share").click(function(){
 			$(".share").show();
