@@ -135,12 +135,12 @@ requestService("/xczh/live/onlineLive",null,
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_zbimg='"+wb.url+"'>" +
 		          "</li>";
 			}
 			$("#zb-slides").html(str);
 			 $("#zb-slides li").click(function(){
-		    	var  data_img=$(this).find("img").attr("data_img");
+		    	var  data_img=$(this).find("img").attr("data_zbimg");
 		    	location.href=data_img;
 		    })
 		}else{
