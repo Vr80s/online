@@ -1016,4 +1016,25 @@ function showTip(contant,fn){
 
 }
 
-
+//科室点击验证效果
+	var arr = [];
+	var keshiStr;
+	$('.account_main_alter  .keshi ').on('click','#keshiList>li',function(){
+		if($(this).hasClass('keshiColor')){
+		//删除第二次选中的
+			for(var i = 0 ;i < arr.length; i++){
+				if($(this).attr('data-id') == arr[i]){
+					arr.splice(i,1)
+				}
+			}
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
+			$(this).removeClass('keshiColor');	
+		}else{
+			$(this).addClass('keshiColor');
+			arr.push($(this).attr('data-id'));
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
+		}
+		console.log(keshiStr)
+	})
