@@ -169,15 +169,15 @@ pre:after {
 	$(document).ready(function(){
         
 		var jobList =[];
-		requestService("/bxg/bs/getUserInfoById",{userId:localStorage.getItem("userId")},
+		requestService("/xczh/user/getUserInfo",{userId:localStorage.getItem("userId")},
 				function(data) {
 				if (data.success) {
 					commonLocalStorageSetItem(data);
 					
 				    $("#headImg").attr("src",localStorage.getItem("smallHeadPhoto"));
 			        
-			        if(stringnull(localStorage.getItem("username"))){
-			        	 $("#person_one").text(localStorage.getItem("username"));
+			        if(stringnull(localStorage.getItem("name"))){
+			        	 $("#person_one").text(localStorage.getItem("name"));
 			        }
 			        if(stringnull(localStorage.getItem("sex"))){
 			        	
@@ -210,7 +210,7 @@ pre:after {
 			        }
 			        
 			        //搞下身份信息
-			    	requestService("/bxg/oa/jobVo",{group:"occupation"}, function(data) {
+			    	requestService("/xczh/set/jobVo",{group:"occupation"}, function(data) {
 						if (data.success) {
 							//jobList = data.resultObject;
 							
@@ -879,7 +879,7 @@ pre:after {
 	<script type="text/javascript"
 		src="/xcview/js/common/ajaxfileupload.js"></script>
 	<script type="text/javascript" src="/Views/h5/js/common.js"></script>
-	<script type="text/javascript" src="/xcview/js/person.js"></script>
+	<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 	<script type="text/javascript" src="/xcview/js/address.js"></script>
 	
 	<!-- 修改密码结束 -->

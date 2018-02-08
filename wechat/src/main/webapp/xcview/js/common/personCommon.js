@@ -118,7 +118,7 @@ function checkUser1(saveFalg){
 	  }else  if(saveFalg == "email"){
 		  email = $("#form input[name='email']").val();
 	  }else  if(saveFalg == "provinceCityName"){
-		  provinceCityName  =  $("#szd_cityP").html();
+		  provinceCityName  =  $("#xzdz").html();
 	  }else  if(saveFalg == "info"){
 		  info = $("#info").val().trim();
 	  }else if(saveFalg == "occupation"){
@@ -129,11 +129,11 @@ function checkUser1(saveFalg){
 //	  map.put("occupation", occupation);
 //    map.put("occupationOther", occupationOther);
 	  
-	requestService("/bxg/user/userCenterFormSub1", {
-		  nickname: stringnull(nickname) ? nickname : "",
+	requestService("/xczh/set/userInfoWechat", {
+		  name: stringnull(nickname) ? nickname : "",
 		  sex:stringnull(sex) ? sex : "",
 		  email:stringnull(email) ? email : "",
-		  provinceCityName:stringnull(provinceCityName) ? provinceCityName : "",
+          cityName:stringnull(provinceCityName) ? provinceCityName : "",
 		  info:stringnull(info) ? info : "",
 	      occupation:stringnull(occupation) ? occupation : "",
 	      occupationOther:stringnull(occupationOther) ? occupationOther : ""
@@ -181,7 +181,7 @@ function checkUser1(saveFalg){
 				localStorage.setItem("occupationOther",result.occupationOther);
 			}
 		} else {
-			alert("密码错误！");
+			alert(data.errorMessage);
 		}
 	},false);
 }

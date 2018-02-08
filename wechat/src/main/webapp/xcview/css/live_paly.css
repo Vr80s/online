@@ -79,9 +79,16 @@ textarea::-webkit-input-placeholder {
 .play_video{
 	width: 100%;
 	height: 4.24rem;
-	/*background: url(../images/xianxia_03.jpg) no-repeat center;
-	background-size:cover;*/
 	position: relative;
+}
+.play_video a{
+	position: absolute;
+	width:100%;
+	height:100%;
+	left:0;
+	bottom:0;
+	z-index:10;
+	
 }
 .play_video img{
 	width: 100%;

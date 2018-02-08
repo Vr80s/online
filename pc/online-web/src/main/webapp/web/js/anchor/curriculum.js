@@ -9,16 +9,31 @@ $(function(){
 //				图标颜色变化
 		$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
 	})
+	
+	//点击出现下拉栏
 	$(".select_list .select-ud").bind('click',function(event){
 		event.stopPropagation();
 		$(".select_list .littleBox").stop().slideToggle();
+		$('#mymoney').addClass('hide');
 
 	})
 
+	//点击出现下拉栏
 	$(".select_list .select-uds").bind('click',function(event){
+		$('#mymoney').addClass('hide');
+//		$('.account').removeClss('hide');
+		$('.wrap_box .little_box').css('display','none');
+		$('.account').css('display','block');
 		event.stopPropagation();
 		$(".select_list .littleBoxs").stop().slideToggle();
-
+		
+	})
+	
+	//点击我的资产 下拉栏上去
+	$('#mymoneyTbl').click(function(){
+		$('.wrap_box .little_box').css('display','none');
+		$('.account').css('display','none');
+		$('#mymoney').removeClass('hide');
 	})
 
 	$(".setTop").click(function(){
@@ -1016,4 +1031,25 @@ function showTip(contant,fn){
 
 }
 
-
+//科室点击验证效果
+	var arr = [];
+	var keshiStr;
+	$('.account_main_alter  .keshi ').on('click','#keshiList>li',function(){
+		if($(this).hasClass('keshiColor')){
+		//删除第二次选中的
+			for(var i = 0 ;i < arr.length; i++){
+				if($(this).attr('data-id') == arr[i]){
+					arr.splice(i,1)
+				}
+			}
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
+			$(this).removeClass('keshiColor');	
+		}else{
+			$(this).addClass('keshiColor');
+			arr.push($(this).attr('data-id'));
+//			console.log(arr.toString())
+			keshiStr = arr.toString();
+		}
+		console.log(keshiStr)
+	})

@@ -73,9 +73,9 @@ public class XzUserSetController {
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserSetController.class);
 	/**
 	 * Description：用户中心保存接口
-	 * @param req
-	 * @param res
-	 * @param params
+	 * @param request
+	 * @param response
+	 * @param user
 	 * @throws Exception
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
@@ -90,27 +90,33 @@ public class XzUserSetController {
          /**
           * 保存个人资料信息	
           */
-//    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-//         MultipartFile fileMul = multipartRequest.getFile("file");  
-//         if(file!=null && !file.isEmpty()){  
-//             // 获得文件名：   
-//             String filename = file.getOriginalFilename();   
-//             if(filename!=null && !"".equals(filename.trim())){
-//                 filename = filename.toLowerCase();
-//     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
-//     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
-//     				return ResponseObject.newErrorResponseObject("文件类型有误");
-//     			}
-//     			String contentType =  file.getContentType();//文件类型
-//     			byte [] bs = file.getBytes();
-//     			String projectName="other";
-//     			String fileType="1"; //图片类型了
-//     			String headImgPath = service.upload(null, //用户中心的用户ID
-// 				projectName, filename,contentType, bs,fileType,null);
-//     			LOGGER.info("文件路径——path:"+headImgPath);
-//     			user.setSmallHeadPhoto(headImgPath);
-//             }
-//          }
+    	 MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+         MultipartFile fileMul = multipartRequest.getFile("file");
+         if(fileMul!=null && !fileMul.isEmpty()){
+             // 获得文件名：
+             String filename = fileMul.getOriginalFilename();
+             if(filename!=null && !"".equals(filename.trim())){
+                 filename = filename.toLowerCase();
+     			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
+     					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
+     				return ResponseObject.newErrorResponseObject("文件类型有误");
+     			}
+     			String contentType =  fileMul.getContentType();//文件类型
+     			byte [] bs = fileMul.getBytes();
+     			String projectName="other";
+     			String fileType="1"; //图片类型了
+     			String headImgPath = service.upload(null, //用户中心的用户ID
+ 				projectName, filename,contentType, bs,fileType,null);
+     			LOGGER.info("文件路径——path:"+headImgPath);
+     			user.setSmallHeadPhoto(headImgPath);
+             }
+          }
+			OnlineUser u = appBrowserService.getOnlineUserByReq(request);
+			if(u==null){
+				return ResponseObject.newErrorResponseObject("获取用户信息有误");
+			}
+			user.setLoginName(u.getLoginName());
+			user.setId(u.getId());
          /**
           * 更新信息
           */
@@ -119,9 +125,9 @@ public class XzUserSetController {
           * 修改用户中心的方法
           * 直接调用，里面有封装好的方法
           */
-         userCenterAPI.update(user.getLoginName(),
+         /*userCenterAPI.update(user.getLoginName(),
         		 user.getName(),user.getSex(),user.getEmail(),
-        				 null, 10, 10);
+        				 null, 10, 10);*/
          
          /**
           *  如果用户信息发生改变。
@@ -153,6 +159,84 @@ public class XzUserSetController {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("后台处理流程异常");
         }
+	}
+
+	/**
+	 * Description：用户中心保存接口 h5
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("userInfoWechat")
+	@ResponseBody
+	@Transactional
+	public ResponseObject userInfoWechat(HttpServletRequest request,
+								   HttpServletResponse response,OnlineUserVO user)throws Exception{
+		try{
+			/**
+			 * 保存个人资料信息
+			 */
+			OnlineUser u = appBrowserService.getOnlineUserByReq(request);
+			if(u==null){
+				return ResponseObject.newErrorResponseObject("获取用户信息有误");
+			}
+			user.setLoginName(u.getLoginName());
+			user.setId(u.getId());
+			String provinceCityName=user.getCityName();
+			if(StringUtils.isNotBlank(provinceCityName)){
+				String [] str =  provinceCityName.split(" ");
+				//根据名字得到id，好惨
+				if(str.length ==3){
+					user.setProvinceName(str[0]);
+					user.setCityName(str[1]);
+					user.setCountyName(str[2]);
+				}
+			}
+			/**
+			 * 更新信息
+			 */
+			myInfoService.updateUserSetInfo(user);
+			/*
+			 * 修改用户中心的方法
+			 * 直接调用，里面有封装好的方法
+			 */
+         /*userCenterAPI.update(user.getLoginName(),
+        		 user.getName(),user.getSex(),user.getEmail(),
+        				 null, 10, 10);*/
+
+			/**
+			 *  如果用户信息发生改变。
+			 *  更改缓存中的数据
+			 *  那么就改变token的信息，也就是redsei里面的信息
+			 */
+			String token = request.getParameter("token");
+			OnlineUser newUser = onlineUserService.findUserByLoginName(user.getLoginName());
+			if(token !=null ){
+				cacheService.delete(token);
+				cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
+			}else{
+				request.getSession().setAttribute("_user_", newUser);
+			}
+			/**
+			 * 更改微吼信息
+			 */
+			if(StringUtils.isNotBlank(user.getName()) ||
+					StringUtils.isNotBlank(user.getSmallHeadPhoto()) ){
+
+				String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),
+						null,newUser.getName(),newUser.getSmallHeadPhoto());
+				if(weiHouResp == null){
+					LOGGER.info("同步微吼昵称，头像失败");
+				}
+			}
+			return ResponseObject.newSuccessResponseObject(user);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject("后台处理流程异常");
+		}
 	}
 	
 	
