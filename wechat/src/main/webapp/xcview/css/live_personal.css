@@ -154,7 +154,7 @@ textarea::-webkit-input-placeholder {
 	width: 1.8rem;
     height: 0.56rem;
     border: 0.01rem solid #00BC12;
-    border-radius: 0.1rem;
+    border-radius: 100px;
     font-size: 24px;
     color: #00BC12;
     line-height: 0.56rem;
