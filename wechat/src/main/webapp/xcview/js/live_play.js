@@ -16,6 +16,16 @@ var courseId = getQueryString('my_study');
 requestService("/xczh/course/details",{
 	courseId : courseId	
 },function(data) {
+//	视频直播/回放/未开播状态判断
+	$(".play_video").html(template('data_video',data.resultObject));
+	//	CC视频ID
+	var	videoId = data.resultObject.directId;
+    var	type = data.resultObject.type;	
+	//初始化视频资源
+	$(".play_video .btn_returned").click(function(){
+		chZJ(videoId,type);
+	})
+	
 	//详情页的banner
 	var school_img = document.createElement("img");
 	school_img.src = data.resultObject.smallImgPath;
@@ -52,6 +62,40 @@ requestService("/xczh/course/details",{
 
 
 })
+// * videoId : 视频播放id
+// * multimediaType:媒体类型  1
+function chZJ(videoId,multimediaType){
+	/**
+	 * 请求代码啦
+	 */
+	var playerwidth = window.screen.width; //	屏幕分辨率的宽：window.screen.width 
+	var playerheight = 8.95*21.8; //	屏幕分辨率的高：window.screen.height 
+	console.log(playerwidth);
+	var dataParams = {
+		playerwidth:playerwidth,	
+		playerheight:playerheight,
+		videoId:videoId,
+		multimedia_type:multimediaType
+//		multimedia_type:1
+	}
+	requestService("/bxg/ccvideo/commonCourseStatus", 
+			dataParams, function(data) {
+		if(data.success){
+			var playCodeStr = data.resultObject;
+			var playCodeObj = JSON.parse(playCodeStr);
+			console.log(playCodeObj.video.playcode);
+//			$("#video_v").html(playCodeObj.video.playcode)
+			$(".play_video").html(playCodeObj.video.playcode)
+			//"<script src=\"http://p.bokecc.com/player?vid=C728945447E95B7F9C33DC5901307461&siteid=B5E673E55C702C42&autoStart=true&width=360&height=195&playerid=E92940E0788E2DAE&playertype=1\" type=\"text/javascript\"><\/script>"
+			/**
+	    	 * 初始化评论区
+	    	 */
+	    	//getVideoCriticize(1,vid);
+		}else{
+    		$(".video_prompt").show();
+		}
+	},false);
+}
 
 //刷新评论列表
 function refresh(){

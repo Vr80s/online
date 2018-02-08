@@ -17,9 +17,9 @@
 <script src="/xcviews/js/js.js"></script>
 
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script><!--滑动引入js-->
-
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+
 
 <script type="text/javascript" src="../js/template.js"></script>
 
@@ -47,7 +47,7 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			<div class="header_return">
+			<div class="header_return" onclick="javascript:history.go(-1)">
 				<img src="/xcview/images/back icon.png">
 			</div>
 			<div class="header_title">大纲</div>
@@ -81,7 +81,7 @@
 			<div class="outline_list">
 				<ul class="outline_list_ul">
 					
-					<script type="text/html" id="outline_list_ul">
+					<script type="text/html" id="outline_list_ul2">
 						<li>
 							<span>{{courseOutline}}</span>
 						</li>

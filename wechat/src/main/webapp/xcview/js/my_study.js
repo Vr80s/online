@@ -15,7 +15,7 @@ $(function(){
 	})
 	$(".history_modal ul li:nth-child(2)").click(function(){
 		requestService("/xczh/history/empty",null,function(data) {
-			
+	
 			
 		$("#paly_history").hide()
 		$(".history_bg").hide();

@@ -147,7 +147,7 @@ text-align: right;
 	line-height: 0.78rem;
 }
 .history_modal ul li:nth-child(1){
-	width: 2.5rem;
+	width: 2.4rem;
 	border-right: 0.01rem solid #D8DDE6;
 	float: left;
 }
@@ -234,6 +234,7 @@ border-radius: 0.1rem;
 	background: white;
 	box-sizing: border-box;
 	overflow: hidden;
+	margin-bottom: 0.2rem;
 }
 
 .follow_title{
@@ -279,7 +280,7 @@ border-radius: 0.1rem;
 	/*background: red;*/
 	position: fixed;
 	bottom: 0;
-	z-index: 10;
+	z-index: 999;
 }
 .footer ul li{
 	width: 25%;

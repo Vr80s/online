@@ -14,7 +14,7 @@ requestService("/xczh/course/details",{
 		$(".outline_main").html(template('outline_main',data.resultObject)) 	    	
 			
 //			大纲
-		$(".outline_list_ul").html(template('outline_list_ul',data.resultObject)) 	    	
+		$(".outline_list_ul").html(template('outline_list_ul2',data.resultObject)) 	    	
 		}
 		
 },false) 
