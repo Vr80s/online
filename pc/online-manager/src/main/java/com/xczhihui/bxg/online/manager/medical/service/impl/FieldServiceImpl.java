@@ -1,12 +1,17 @@
 package com.xczhihui.bxg.online.manager.medical.service.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
 import com.xczhihui.bxg.online.common.domain.MedicalField;
+import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalField;
 import com.xczhihui.bxg.online.manager.medical.dao.FieldDao;
+import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
 import com.xczhihui.bxg.online.manager.medical.service.FieldService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -131,8 +136,22 @@ public class FieldServiceImpl extends OnlineBaseServiceImpl implements FieldServ
 		return list;
 	}
 
+	/**
+	 * 添加医疗领域
+	 * @param id 医馆id
+	 */
 	@Override
 	public void addHospitalField(String id, String[] field) {
+
+		List<MedicalHospital> hospitals = dao.findEntitiesByProperty(MedicalHospital.class, "id", id);
+		if(CollectionUtils.isEmpty(hospitals)){
+            throw new MedicalException(MedicalExceptionEnum.HOSPITAL_NOT_EXIT);
+        }else{
+			if(StringUtils.isNotBlank(hospitals.get(0).getSourceId())){
+                throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+            }
+		}
+
 		List<MedicalHospitalField> mhfs = dao.findEntitiesByProperty(MedicalHospitalField.class, "hospitalId", id);
 		for (int i = 0; i < mhfs.size(); i++) {
 			dao.delete(mhfs.get(i));

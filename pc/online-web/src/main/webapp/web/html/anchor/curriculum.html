@@ -358,8 +358,8 @@
 					</div>
 				</li>
 
-				<li class="setTop"><span class="glyphicon glyphicon-user left_range" aria-hidden="true"></span><span>收徒</span></li>
-				<li class="setTop"><span class="glyphicon glyphicon-home left_range" aria-hidden="true"></span><span>医馆</span></li>
+				<li class="setTop" id="mymoneyTbl"><span class="iconfont icon-qianbao left_range" aria-hidden="true"></span><span>我的资产</span></li>
+				<li class="setTop"><span class="glyphicon glyphicon-list-alt left_range" aria-hidden="true"></span><span>我的收益</span></li>
 
 				<li class="select-uds">
 					<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
@@ -906,7 +906,7 @@
 	<!--账号结束-->
 	
 	<!--我的资产部分-->
-	<div id="mymoney">
+	<div id="mymoney" class="hide">
 		
 		<!--顶部的固定模块-->
 		<div style="height: 272px;margin-bottom: 20px;background: #fff;">
@@ -964,7 +964,9 @@
 					</tr>
 					<tr>
 						<td>结算金额</td>
-						<td><input type="text" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" /></td>
+						<td><input type="text" id="toResultIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+						<span class="toResultIpt_warn waring hide" style="font-size: 14px;"><i class="smallwarn">!</i>请输入结算金额</span>
+						</td>
 					</tr>
 					<tr>
 						<td>获得人民币</td>
@@ -977,17 +979,19 @@
 			<!--提现部分-->
 			<div class="content_toCash hide">
 				<div>
-					<span>您的余额为</span><span>300</span>元
+					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;">300</span>元
 				</div>
 				
 				<div>
-					<span>提现金额</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
-					<span class="ToCash_warn waring"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
+					<span>提现金额</span><input type="text"  id="tpCashIpt" placeholder="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="tpCashIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
 				</div>
 				
 				<div>
-					<span>户名</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<a href="javascript:;" style="font-size: 14px;color: #666;" onclick="$('.addNew').click()"><i class="smallAdd">+</i>新增银行卡</a>
+					<span class="userNameIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入户名</span>
+					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>
 				</div>
 				
 				<div class="chooseCard clearfix">
@@ -1037,19 +1041,94 @@
 				</div>
 				
 				<div>
-					<span>手机验证码</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;" />
+					<span>手机验证码</span><input id="phonePwdIpt" type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="phonePwdIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入户名</span>
 				</div>
 				<button class="toCashSure_btn">确定</button>
 			</div>
 			
 			<!--管理部分-->
 			<div class="content_Administration hide">
-				管理部分
+				<table class="Card_Administration">
+					<thead>
+						<tr>
+							<td>银行</td>
+							<td>持卡人</td>
+							<td>卡号</td>
+							<td>身份证号</td>
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>招商银行</td>
+							<td>张三丰</td>
+							<td>622* **** **** **** *123</td>
+							<td>132 123 1887 0322 7765</td>
+							<td><a href="javascript:;">移除</a></td>
+						</tr>
+						<tr>
+							<td>中国工商银行</td>
+							<td>张三丰</td>
+							<td>622* **** **** **** *123</td>
+							<td>132 123 1887 0322 7765</td>
+							<td><a href="javascript:;">移除</a></td>
+						</tr>
+						<tr>
+							<td>中国农业银行</td>
+							<td>张三丰</td>
+							<td>622* **** **** **** *123</td>
+							<td>132 123 1887 0322 7765</td>
+							<td><a href="javascript:;">移除</a></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			
 			<!--新增银行卡部分-->
 			<div class="content_add hide">
-				新增银行卡部分
+				<div>
+					<span>户名</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>请输入与户名</span>
+					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>
+				</div>
+				
+				
+				<div>
+					<span>卡号</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>您输入银行卡号</span>
+				</div>
+				
+				<div>
+					<span>选择银行</span>
+					<select name="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;">
+						<option value=""></option>
+					</select>
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
+				</div>
+				
+				<div>
+					<span>身份证号</span><input type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="ToCash_warn waring"><i class="smallwarn">!</i>请输入身份证号</span>
+					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（请确保您的银行卡可以收到款项，填写他人银行卡，收款有问题我们不负责任）</p>
+				</div>
+				
+				<button class="addNewCard">确定</button>
+				
 			</div>
 		</div>
 		

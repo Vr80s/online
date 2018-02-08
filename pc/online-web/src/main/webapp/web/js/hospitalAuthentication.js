@@ -143,7 +143,9 @@ $(function(){
                     $('#tip').toggle();
                     setTimeout(function(){
                         $('#tip').toggle();
+                        window.scrollTo(0,0);
                     },2000)
+                    
                 }
             }
         });

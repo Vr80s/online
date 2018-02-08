@@ -77,6 +77,17 @@ public class MedicalDoctor implements Serializable {
 	@Column(name="recommend_sort")
 	private Integer recommendSort;
 
+	@Column(name="source_id")
+	private String sourceId;
+
+	public String getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
+
 	public MedicalDoctor() {
 	}
 

@@ -226,15 +226,10 @@
 							        	<script type="text/html" id="nav_list">
 											{{each items as item i}}
 												<div class="slide_one_div swiper-slide">
-													<a href="">
-														<img src="{{item.icon}}" class="slide_one_artist" />
+													<a href="javascript:;">
+														<img src="{{item.icon}}" class="slide_one_artist"  data-div="{{item.linkCondition}}" />
 														<p>{{item.name}}</p>
 													</a>
-													
-													<!--<div class="">
-														
-													</div>-->
-													
 												</div>
 											{{/each}}
 										</script>					          

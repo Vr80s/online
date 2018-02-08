@@ -392,8 +392,12 @@ function baseInfrese(){
 //医馆基础信息回显
 function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,description,contactor,email,wechat,province,city){
 	//头像
-	var headPic = '<img src='+headPortrait+'>';
-	$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
+	if(headPortrait != null){
+		var headPic = '<img src='+headPortrait+'>';
+		$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
+	}
+	
+	
 	//医馆名称
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').attr('disabled','disabled');
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').css('background','#f0f0f0')

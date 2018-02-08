@@ -9,16 +9,31 @@ $(function(){
 //				图标颜色变化
 		$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
 	})
+	
+	//点击出现下拉栏
 	$(".select_list .select-ud").bind('click',function(event){
 		event.stopPropagation();
 		$(".select_list .littleBox").stop().slideToggle();
+		$('#mymoney').addClass('hide');
 
 	})
 
+	//点击出现下拉栏
 	$(".select_list .select-uds").bind('click',function(event){
+		$('#mymoney').addClass('hide');
+//		$('.account').removeClss('hide');
+		$('.wrap_box .little_box').css('display','none');
+		$('.account').css('display','block');
 		event.stopPropagation();
 		$(".select_list .littleBoxs").stop().slideToggle();
-
+		
+	})
+	
+	//点击我的资产 下拉栏上去
+	$('#mymoneyTbl').click(function(){
+		$('.wrap_box .little_box').css('display','none');
+		$('.account').css('display','none');
+		$('#mymoney').removeClass('hide');
 	})
 
 	$(".setTop").click(function(){
