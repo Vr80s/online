@@ -433,6 +433,7 @@ function resetCourseForm(){
     UE.getEditor('editor').setContent('');
     UE.getEditor('editor_cd').setContent('');
     $("#courseImg").html("");
+    $("#caiId").val("");
     $("#citys").empty();
     showCourseAttribute(1);
     initResource(1);
@@ -941,8 +942,10 @@ function echoCollection(collectionId){
         UE.getEditor('editor_collection_outline').setContent(collection.courseOutline);
         $('.course_number').val(collection.courseNumber);
         $("input:radio[name=collection_multimedia_type][value="+collection.multimediaType+"]").prop("checked",true);
+        debugger
         initCourse(collection.multimediaType);
         courseArr = collection.courseApplyInfos;
+        courseArr = upDownShowInit(courseArr);
         var arr={};
         arr.courseArr=courseArr;
         $(".collection_courses").html(template('collection_course_list_tpl', arr));
@@ -1080,6 +1083,7 @@ function resetCollectionForm(){
     UE.getEditor('editor_collection_details').setContent('');
     UE.getEditor('editor_collection_outline').setContent('');
     UE.getEditor('editor_collection_lecturer_description').setContent('');
+    $("#collectionId").val("");
     $("#collectionImg").html("");
     $(".collection_courses").html("");
     courseArr=[];
@@ -1309,5 +1313,52 @@ $(function(){
         }
         reader.readAsDataURL(this.files[0])
     })
-
+    $('#cardPositiveImgPath').on('change',function(){
+        debugger
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(reader.result,'cardPositiveImg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+    $('#cardNegativeImgPath').on('change',function(){
+        debugger
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(reader.result,'cardNegativeImg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+    $('#qualificationCertificateImgPath').on('change',function(){
+        debugger
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(reader.result,'qualificationCertificateImg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+    $('#professionalCertificateImgPath').on('change',function(){
+        debugger
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(reader.result,'professionalCertificateImg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+    $('#businessLicensePictureImgPath').on('change',function(){
+        debugger
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(reader.result,'businessLicensePictureImg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+    $('#licenseForPharmaceuticalTradingPictureImgPath').on('change',function(){
+        debugger
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(reader.result,'licenseForPharmaceuticalTradingPictureImg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
 })

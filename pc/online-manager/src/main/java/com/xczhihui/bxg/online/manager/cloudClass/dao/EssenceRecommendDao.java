@@ -87,7 +87,7 @@ public class EssenceRecommendDao extends HibernateDao<Course>{
 				 paramMap.put("liveStatus", courseVo.getLiveStatus());
 				 sql.append("and oc.live_status = :liveStatus ");
 			 }
-			 if (courseVo.getMultimediaType() != 0) {
+			 if (courseVo.getMultimediaType() != null) {
 				 paramMap.put("multimediaType", courseVo.getMultimediaType());
 				 sql.append("and oc.multimedia_type = :multimediaType ");
 			 }

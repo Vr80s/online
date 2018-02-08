@@ -810,7 +810,7 @@ footer{
 	float: left;
 	margin-top: 0.5rem;
 }
-/*线下培训班开始*/
+/*线下课开始*/
 .offline{
 	width: 100%;
 	height: 7.75rem;
@@ -848,7 +848,7 @@ footer{
 	float: right;
 	margin-right: 0.4rem;
 }
-/*线下培训班结束*/
+/*线下课结束*/
 /*线上课程开始*/
 .line{
 	width: 100%;
@@ -5398,7 +5398,7 @@ footer{
 }
 /*关于熊猫中医结束*/
 
-/*线下培训班开始*/
+/*线下课开始*/
 .train{
 	width: 100%;
 	height: 100%;
@@ -5553,9 +5553,9 @@ footer{
 	margin-top: 0.08rem;
 	/*font-family: "微软雅黑";*/
 }
-/*线下培训班结束*/
+/*线下课结束*/
 
-/*线下培训班主页开始*/
+/*线下课主页开始*/
 .training{
 	width: 100%;
 	height: 100%;
@@ -6093,7 +6093,7 @@ footer{
 }
 
 
-/*线下培训班主页介绍*/
+/*线下课主页介绍*/
 .history_bg{
 	width: 100%;
 	height: 100%;

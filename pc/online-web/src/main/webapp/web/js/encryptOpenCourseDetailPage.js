@@ -413,11 +413,11 @@ window.onload=function(){
     	RequestService("/course/getCourseById", "GET", {
             courserId:courserId
         }, function(data) {
-            if(data.resultObject.teacherDescription==null || data.resultObject.teacherDescription==""){
+            if(data.resultObject.lecturerDescription==null || data.resultObject.lecturerDescription==""){
                 $(".table-modal").html(template.compile(emptyDefaul));
             }else {
                 //获取其他数据
-                $(".table-modal").html(data.resultObject.teacherDescription);
+                $(".table-modal").html(data.resultObject.lecturerDescription);
             }
         })
 //        RequestService("/lecturer/list/course/" +courserId, "GET", "", function (data) {

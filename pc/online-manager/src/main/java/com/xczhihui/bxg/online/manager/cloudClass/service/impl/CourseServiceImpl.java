@@ -870,19 +870,18 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	public boolean updateRec(String[] ids,int isRecommend) {
 		// TODO Auto-generated method stub
 		List<String> ids2 = new ArrayList();
-		if(isRecommend == 1)//如果是要推荐 那么就验证 推荐数量是否大于4
-		{
+		//如果是要推荐 那么就验证 推荐数量是否大于4
+		if(isRecommend == 1){
 			//校验是否被引用
 			String hqlPre="from Course where isDelete=0 and isRecommend = 1";
 			List<Course> list= dao.findByHQL(hqlPre);
 			if(list.size() > 0){//只有原来大于0才执行
-//				List<Course> list2 = new ArrayList<Course>();
-				
 					for(int i = 0;i<ids.length;i++)
 					{
 						int j = 0;
 						Iterator<Course> iterator = list.iterator();
-						while(iterator.hasNext()){//剔除本次推荐的与已经推荐的重复的
+						while(iterator.hasNext()){
+							//剔除本次推荐的与已经推荐的重复的
 							
 							Course course = iterator.next();
 							if(course.getId() == Integer.parseInt(ids[i])){//如果存在就把他剔除掉从list中
@@ -905,7 +904,8 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 			}
 			//已经存在的数量 +  即将添加的数量
             if((list.size()+ids2.size()) > 12){
-            	return false;
+				//取消推荐数目限制
+//            	return false;
             }
 		}else{//如果是取消推荐
 			for(int i=0;i<ids.length;i++)

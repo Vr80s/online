@@ -170,6 +170,7 @@ public class CourseVo{
     private String week;
 
     private String teacherDescription;
+    private String lecturerDescription;
 
     /**
      * 课程跳转是否展示课程介绍页 0:不展示  1:展示
@@ -207,9 +208,15 @@ public class CourseVo{
     
     
     private boolean isSelfCourse; //是否自己的课程 
-    
 
-    
+    public String getLecturerDescription() {
+        return lecturerDescription;
+    }
+
+    public void setLecturerDescription(String lecturerDescription) {
+        this.lecturerDescription = lecturerDescription;
+    }
+
     public boolean isSelfCourse() {
         return isSelfCourse;
     }

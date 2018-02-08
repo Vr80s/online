@@ -112,7 +112,7 @@ var result="";
             	
             	
                 $("#mywords").click(function() {
-                    $(".coze_bottom input").css("width","11.8rem");
+                    $(".coze_bottom input").css("width","12rem");
                     $(".div_input").css("background","none");
                 });
 
