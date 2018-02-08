@@ -277,8 +277,8 @@ public class RealCourseController extends AbstractController{
 		
 		courseService.updateStatus(id);
 		/*
-		 * 更改了线下培训班的状态，如果此城市的线下培训班都是禁用状态--那么就禁用这个城市
-		 * 				         如果此城市的线下培训班都是禁用状态--那么就启用这个城市					   	
+		 * 更改了线下课的状态，如果此城市的线下课都是禁用状态--那么就禁用这个城市
+		 * 				         如果此城市的线下课都是禁用状态--那么就启用这个城市
 		 */
 		courseService.updateCourseCityStatus(id);
 		

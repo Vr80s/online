@@ -1,4 +1,4 @@
-var P_courseTable;//线下培训班列表
+var P_courseTable;//线下课列表
 var M_courseTable;//微课列表
 var PX_courseTable;//课程排序列表
 var courseForm;//添加课程表单
@@ -128,7 +128,7 @@ debugger;
             }
         });
 	});
-	/** 线下培训班列表end */
+	/** 线下课列表end */
 	
 	//TODO
 	
@@ -603,8 +603,8 @@ $(".add_P").click(function(){
 
 
 	$("#addCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
-	$("#add_serviceType").val(0);//线下培训班类型
-	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增线下培训班",580,600,true,"确定",function(){
+	$("#add_serviceType").val(0);//线下课类型
+	var dialog = openDialog("addCourseDialog","dialogAddCourseDiv","新增线下课",580,600,true,"确定",function(){
 		$("#descriptionHid").val($("#courseDescribe").val());
         if($("#addCourse-form").valid()){
 			mask();
@@ -836,7 +836,7 @@ $("#updateCourse-form").on("change","#edit_bigImgPathFile",function(){
 		}
 	})
 });
-// zhuwenbao-2018-0109 图片上传统一上传到附件中心-新增（线下培训班）
+// zhuwenbao-2018-0109 图片上传统一上传到附件中心-新增（线下课）
 $("#addCourse-form").on("change","#smallImgPath_file",function(){
     _this = this;
 
@@ -865,7 +865,7 @@ $("#addCourse-form").on("change","#smallImgPath_file",function(){
         }
     })
 });
-// zhuwenbao-2018-0109 图片上传统一上传到附件中心-修改（线下培训班）
+// zhuwenbao-2018-0109 图片上传统一上传到附件中心-修改（线下课）
 $("#updateCourse-form").on("change","#smallImgPathFileEdit",function(){
     _this = this;
 
@@ -914,7 +914,7 @@ $('#dialogEditCourseDiv').on("click",".edit_P_cancel", function () {
 });
 
 /**
- * 线下培训班列表搜索
+ * 线下课列表搜索
  */
 function search_P(){
     var json = new Array();
@@ -925,7 +925,7 @@ function search_P(){
 };
 //TODO
 /**
- * 线下培训班推荐
+ * 线下课推荐
  */
 function search_rec(){
 	
@@ -947,7 +947,7 @@ function search_City(){
 /**
  * 查看课程信息
  * @param obj
- * @param status（1，线下培训班，2：微课）
+ * @param status（1，线下课，2：微课）
  */
 function previewDialog(obj,status){
 	var oo = $(obj).parent().parent().parent();
@@ -1020,7 +1020,7 @@ function previewDialog(obj,status){
     });
 	var prev_title="查看课程";
 	if(status ==1){
-		prev_title="查看线下培训班";
+		prev_title="查看线下课";
 	}else{
 		prev_title="查看微课程";
 	}
@@ -1031,7 +1031,7 @@ function previewDialog(obj,status){
 /**
  * 修改表单
  * @param obj
- * @param status（1：线下培训班，2：微课）
+ * @param status（1：线下课，2：微课）
  */
 function toEdit(obj,status){
     debugger
@@ -1199,7 +1199,7 @@ function toEdit(obj,status){
     	
     	var edit_title="修改课程";
     	if(status ==1){
-			edit_title="修改线下培训班";
+			edit_title="修改线下课";
 		}else{
 			edit_title="修改微课程";
 		}
@@ -1227,7 +1227,7 @@ function toEdit(obj,status){
                         $('#edit_province').find("option:selected").attr("selected",false);
 
                         layer.msg(data.errorMessage);
-                        if(edit_title=='修改线下培训班'){
+                        if(edit_title=='修改线下课'){
                         	freshTable(P_courseTable);	
                         }else{
                         	freshTable(M_courseTable);
@@ -1430,7 +1430,7 @@ function delDialog(obj){
 	
 }
 /**
- * 线下培训班批量逻辑删除
+ * 线下课批量逻辑删除
  * 
  */
 
@@ -1447,7 +1447,7 @@ $(".dele_M").click(function(){
 });
 
 /**
- * 线下培训班批量推荐
+ * 线下课批量推荐
  * 
  */
 $(".rec_P").click(function(){
@@ -1656,7 +1656,7 @@ $(".rec_M").click(function(){
 });
 
 /**
- * 展示线下培训班管理
+ * 展示线下课管理
  * 
  */
 $(".xxpxb_bx").click(function(){

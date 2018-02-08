@@ -93,7 +93,7 @@ window.onload = function() {
 
 
 
-    //编译线下培训班个人信息
+    //编译线下课个人信息
     $('.man').click(function(){
         $('.woman em').removeClass('active')
         $('.man em').addClass('active')

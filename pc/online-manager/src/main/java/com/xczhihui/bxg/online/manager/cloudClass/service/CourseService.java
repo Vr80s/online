@@ -289,7 +289,7 @@ public interface CourseService {
 	public void addCourseCity(String city);
 
 	/**
-	 * Description：根据id获取线下培训班
+	 * Description：根据id获取线下课
 	 * @param cityId
 	 * @return
 	 * @return OffLineCity
@@ -306,7 +306,7 @@ public interface CourseService {
 	Boolean findCourseCityByName(String city);
 	/**
 	 * Description：当禁用或者启用时，如果这个城市是最后一个。就直接删除吧,查询不出来。
-	 * 		也就禁用了。在删除线下培训班时，如果判断得到这个城市是最后一个的话，就也删除这个
+	 * 		也就禁用了。在删除线下课时，如果判断得到这个城市是最后一个的话，就也删除这个
 	 * @param city
 	 * @return void
 	 * @author name：yangxuan <br>email: 15936216273@163.com
