@@ -387,7 +387,8 @@
 		                    			<ul>
 		                    				{{each item.courseList as item i}}
 		                    				<li>
-												<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
+
+												<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump_class({{item.id}})"></a>
 
 		                    					<div class="boutique_main_four">
 		                    						<div class="boutique_four_img">
@@ -516,7 +517,7 @@
 	                    				{{each item.courseList as item i}}
 	                    				<!--即将直播-->
 	                    				<li style="position: relative;">
-											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump_play({{item.id}})"></a>
 											<div class="newest_main_two">
 	                    						<div class="newest_two_img">
 	                    							<img src="{{item.smallImgPath}}" alt="" />
@@ -736,7 +737,7 @@
 	                    				<script type="text/html" id="lectures">
 	                    				{{each items as item i}}
 	                    				<li>
-											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
+											<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump_listen({{item.id}})"></a>
 	                    					<div class="lectures_main_one">
 	                    						<div class="lectures_one_img">
 	                    							<img src="{{item.smallImgPath}}" alt="" />

@@ -48,6 +48,41 @@ $('#doc_Administration_bottom2').on('click','.downLine',function(){
 })
 	
 	
+	//删除按钮点击事件
+$('#doc_Administration_bottom2').on('click','.delete',function(){
+	delid = $(this).attr('data-id');
+	//显示出来隐藏的弹窗
+	$('#mask').removeClass('hide');
+	$('#deleteTip').removeClass('hide');
+	
+})
+
+
+//隐藏删除提示框
+$('#deleteTip #cancalDel').click(function(){
+	$('#deleteTip').addClass('hide');
+	$('#mask').addClass('hide');
+})
+	
+
+
+var delid;
+//点击确认删除
+$('#deleteTip .confirm-sure').click(function(){
+	RequestService("/medical/doctor/delete", "post", {
+		id:delid,
+	}, function(data) {
+		if(data.success == true){
+			//重新渲染列表
+			$('.doc_Administration_tabBtn').click();
+			 courseVodList(1);
+		}
+			
+	});
+})
+	
+	
+	
 	
 	
 	

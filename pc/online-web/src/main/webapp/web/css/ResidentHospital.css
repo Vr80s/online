@@ -17,7 +17,7 @@ a {
     color: #fff;
     opacity: .5;
     border-radius: 4px;
-    z-index: 999;
+    z-index: 9999;
     font-size: 14px;
 }
 #hos_pic{
@@ -572,7 +572,7 @@ a {
     background-position: 9px 11px;
 }
 #doc_Administration .doc_Administration_top .search_teacher_btn{
-	right: 113px;
+	right: 133px;
 	border-radius: 0 4px 4px 0;
 }
 #doc_Administration .doc_Administration_top button{
@@ -1211,4 +1211,50 @@ a {
     color: #fff;
     font-size: 14px;
     margin-right: 20px;
+}
+
+/*删除提示弹窗*/
+#deleteTip {
+    width: 400px;
+    height: 200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999;
+    text-align: center;
+    padding: 30px 65px;
+    background-color: #fff;
+}
+#deleteTip h4 {
+    font-size: 20px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+#deleteTip p {
+    font-size: 14px;
+    color: #666666;
+    margin-bottom: 40px;
+}
+
+#deleteTip button{
+	border: 1px solid #DEDEDE;
+	border-radius: 4px;
+	width: 120px;
+	height: 36px;
+	line-height: 36px;
+	outline: none;
+	background-color: #fff;
+	color: #000;
+}
+#deleteTip #sureDel {
+    float: left;
+}
+
+#deleteTip #cancalDel {
+    float: right;
+}
+#deleteTip button:hover{
+	background-color: #00BC12 ;
+	color: #fff;
 }

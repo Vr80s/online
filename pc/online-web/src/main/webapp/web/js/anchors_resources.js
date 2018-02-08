@@ -560,14 +560,16 @@ $('#hospital_bottom #submit').click(function(){
             $('#tip').toggle();
             setTimeout(function(){
                 $('#tip').toggle();
-            },1000)
+                window.location.reload();
+            },2000)
+           
         }else{
 //				alert('您不是医师，不能加入医馆')
             $('#tip').text(data.errorMessage);
             $('#tip').toggle();
             setTimeout(function(){
                 $('#tip').toggle();
-            },1000)
+            },2000)
         }
     });
 //	alert(111)
@@ -610,7 +612,8 @@ $('#docJoinHos').click(function(){
         for(var i =0 ;i < $('.hospital_worktime ul li ').length ;i++){
             for(j = 0;j < workArr.length ;j++ ){
                 if($('.hospital_worktime ul li').eq(i).text() == workArr[j]){
-                    $('.hospital_worktime ul li').eq(i).addClass('color keshiColor');
+                	 $('.hospital_worktime ul li').eq(i).click();
+//                  $('.hospital_worktime ul li').eq(i).addClass('color keshiColor');
                 }
             }
         }

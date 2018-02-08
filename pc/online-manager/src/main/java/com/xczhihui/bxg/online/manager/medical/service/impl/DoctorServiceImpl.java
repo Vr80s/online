@@ -108,7 +108,17 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 		
 		//picture1 真实头像	picture2 职称证明	picture3 身份证正面	
 		//picture4 身份证反面	picture5 医师资格证	picture6 职业医师证
-		
+
+		// 根据医师id获取医师详情
+		MedicalDoctor doctor = dao.findOneEntitiyByProperty(MedicalDoctor.class, "id", medicalDoctorId);
+		if(doctor == null){
+			throw new MedicalException(MedicalExceptionEnum.DOCTOR_NOT_EXIT);
+		}else{
+			if(StringUtils.isNotBlank(doctor.getSourceId())){
+				throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+			}
+		}
+
 		MedicalDoctorAuthenticationInformation mdai = new MedicalDoctorAuthenticationInformation();
 		BxgUser u = UserHolder.getCurrentUser();
 		if(!StringUtils.isNotBlank(authenticationInformationId)){

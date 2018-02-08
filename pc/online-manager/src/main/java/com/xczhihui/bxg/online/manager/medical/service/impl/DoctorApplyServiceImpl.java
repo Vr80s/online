@@ -12,6 +12,7 @@ import com.xczhihui.bxg.online.manager.user.dao.UserDao;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.RandomUtil;
 import com.xczhihui.bxg.online.manager.utils.RedissonUtil;
+import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import org.apache.commons.lang.StringUtils;
 import org.redisson.api.RLock;
 import org.slf4j.Logger;
@@ -116,7 +117,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         try {
 
-            if(getLock = lock.tryLock(0,5, TimeUnit.SECONDS)){
+            if(getLock = lock.tryLock(0,8, TimeUnit.SECONDS)){
 
                 if(apply == null){
                     throw new RuntimeException("操作失败：该条信息不存在");
@@ -273,14 +274,17 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             }
         }
 
+        MedicalDoctorAccount doctorAccount = doctorAccountDao.findByAccountId(apply.getUserId());
+        // 判断用户是否已经是医师 如果是，则表示其重新认证
+        if(doctorAccount != null){
+
+            this.applyAgain(apply, doctorAccount.getDoctorId());
+
+            return;
+        }
+
         Date now = new Date();
         String doctorId = UUID.randomUUID().toString().replace("-","");
-
-        // 新增医师与用户的对应关系：medical_doctor_account
-        // 判断用户是否已经是医师
-        if(doctorAccountDao.findByAccountId(apply.getUserId()) != null){
-            throw new RuntimeException("该用户已是医师，不能在进行认证");
-        }
 
         // 新增医师与用户的对应关系：medical_doctor_account
         this.addMedicalDoctorAccount(apply.getUserId(), doctorId, now);
@@ -306,6 +310,10 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         // 设置oe_user表中的is_lecturer为1
         userDao.updateIsLecturerById(1, apply.getUserId());
 
+        //设置讲师权限
+        OnlineUser user = onlineUserService.getOnlineUserByUserId(apply.getUserId());
+        VhallUtil.changeUserPower(user.getVhallId(),  "1", "0");
+
         // course_anchor` 表中新增一条信息
         CourseAnchor courseAnchor = new CourseAnchor();
         courseAnchor.setUserId(apply.getUserId());
@@ -318,6 +326,73 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         courseAnchor.setDeleted(false);
         courseAnchor.setStatus(true);
         anchorDao.save(courseAnchor);
+    }
+
+    /**
+     * 重新认证
+     */
+    private void applyAgain(MedicalDoctorApply apply, String doctorId) {
+
+        Date now = new Date();
+
+        // 获取用户的医师信息
+        MedicalDoctor doctor = doctorDao.find(doctorId);
+
+        MedicalDoctorAuthenticationInformation authenticationInformation =
+                new MedicalDoctorAuthenticationInformation();
+
+        authenticationInformation.setId(doctor.getAuthenticationInformationId());
+        authenticationInformation.setUpdatePerson(apply.getUserId());
+        authenticationInformation.setUpdateTime(now);
+        authenticationInformation.setCardNegative(apply.getCardNegative());
+        authenticationInformation.setCardPositive(apply.getCardPositive());
+        authenticationInformation.setQualificationCertificate(apply.getQualificationCertificate());
+        authenticationInformation.setProfessionalCertificate(apply.getProfessionalCertificate());
+        if(StringUtils.isNotBlank(apply.getTitleProve())){
+            authenticationInformation.setTitleProve(apply.getTitleProve());
+        }
+        if(StringUtils.isNotBlank(apply.getHeadPortrait())){
+            authenticationInformation.setHeadPortrait(apply.getHeadPortrait());
+        }
+
+        // 更新用户的医师认证信息
+        doctorAuthenticationInformationDao.update(authenticationInformation);
+
+        // 更新医师信息
+        doctor.setName(apply.getName());
+        doctor.setCardNum(apply.getCardNum());
+        if(StringUtils.isNotBlank(apply.getTitle())){
+            doctor.setTitle(apply.getTitle());
+        }
+        if(StringUtils.isNotBlank(apply.getField())){
+            doctor.setFieldText(apply.getField());
+        }
+        if(StringUtils.isNotBlank(apply.getDescription())){
+            doctor.setDescription(apply.getDescription());
+        }
+        if(StringUtils.isNotBlank(apply.getProvince())){
+            doctor.setProvince(apply.getProvince());
+        }
+        if(StringUtils.isNotBlank(apply.getCity())){
+            doctor.setCity(apply.getCity());
+        }
+        if(StringUtils.isNotBlank(apply.getDetailedAddress())){
+            doctor.setDetailedAddress(apply.getDetailedAddress());
+        }
+        doctor.setSourceId(apply.getId());
+        doctorDao.update(doctor);
+
+        // 新增医师与科室的对应关系：medical_doctor_department
+        List<MedicalDoctorApplyDepartment> medicalDoctorApplyDepartments =
+                doctorApplyDepartmentDao.findByApplyId(apply.getId());
+
+        // 将MedicalDoctorApplyDepartment数据格式转化成：MedicalDoctorDepartment
+        if(medicalDoctorApplyDepartments != null && !medicalDoctorApplyDepartments.isEmpty()){
+            medicalDoctorApplyDepartments
+                    .stream()
+                    .forEach(department -> this.addMedicalDepartment(department, doctorId, now));
+        }
+
     }
 
     private void addMedicalDepartment(MedicalDoctorApplyDepartment department, String doctorId, Date createTime){
@@ -454,12 +529,14 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             doctor.setCity("北京市");
             doctor.setWorkTime("周一下午、周四上午");
             doctor.setStatus(true);
+            doctor.setCardNum("7758258");
             doctorDao.save(doctor);
         }
         if(type == 2){
             doctor.setId(doctorId);
             doctor.setAuthenticationInformationId(authenticationInformationId);
             doctor.setName(apply.getName());
+            doctor.setCardNum(apply.getCardNum());
             if(StringUtils.isNotBlank(apply.getTitle())){
                 doctor.setTitle(apply.getTitle());
             }
@@ -474,6 +551,9 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             }
             if(StringUtils.isNotBlank(apply.getDetailedAddress())){
                 doctor.setDetailedAddress(apply.getDetailedAddress());
+            }
+            if(StringUtils.isNotBlank(apply.getField())){
+                doctor.setFieldText(apply.getField());
             }
             doctor.setStatus(true);
             doctor.setCreateTime(createTime);
