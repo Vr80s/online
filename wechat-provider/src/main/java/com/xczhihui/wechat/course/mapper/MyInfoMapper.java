@@ -7,6 +7,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -56,7 +57,7 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	void updateUserSetInfo(OnlineUserVO user);
+	void updateUserSetInfo(@Param("user") OnlineUserVO user);
 	
 	/**
 	 * 
