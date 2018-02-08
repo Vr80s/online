@@ -410,6 +410,8 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 		hosPicStr += '<img src='+v.picture+'>';
 	})
 	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
+	$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
+	$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
 	//领域遍历生成
 //	var areaStr = '<li data-id=""></li>' ;
 //	fields.forEach(function(v,i){
