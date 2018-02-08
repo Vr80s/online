@@ -453,6 +453,7 @@ header{
 }
 .all_mold{
 	/*margin-bottom: 0.638rem;*/
+	overflow: hidden;
 }
 .all_bottom{
 	width: 100%;

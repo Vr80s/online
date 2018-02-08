@@ -228,7 +228,7 @@ $(".find_nav_list li").each(function(){
 var nav_w=$(".find_nav_list li").first().width();
 $(".sideline").width(nav_w);
 $(".find_nav_list li").on('click', function(){
-//	alert("-------------");
+	/*alert("-------------");*/
 	nav_w=$(this).width();
 	$(".sideline").stop(true);
 	$(".sideline").animate({left:$(this).position().left},300);
