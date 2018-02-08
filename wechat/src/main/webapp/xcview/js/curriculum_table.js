@@ -1,11 +1,16 @@
 	
-	
+/**
+ * 将上面的url封装为json对象
+ */	
 var paramsObj = getUrlParamsReturnJson();
 
 var menuTypeArray = new Array();
 var courseTypeArray = new Array();
 var cityTypeArray = new Array();
 
+/**
+ * 默认搜索条件
+ */
 var defaultKey = localStorage.getItem("defaultKey");
 if(stringnull(defaultKey)){
 	$(".header_seek_main img").html(defaultKey);
@@ -21,7 +26,7 @@ $(".header_seek").click(function(){
 
 
 /*
- * 条件渲染
+ * 赛选条件渲染
  */
 requestService("/xczh/classify/listScreen",null,function(data){
 	if(data.success==true){
@@ -42,14 +47,13 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
-		
 		$(".box01_list").html(box01List);
 		$("#pagenavi1").html(pagenavi1);
 		$('#draw_isfree_list').html(template('isfree_list',{items:data.resultObject[1]}));
 		$('#draw_course_big_list').html(template('course_big_list',{items:data.resultObject[2]}));
 		$('#draw_city_list').html(template('city_list',{items:data.resultObject[3]}));
 		$('#draw_live_status_list').html(template('live_status_list',{items:data.resultObject[4]}));
-	
+		
 		menuTypeArray = data.resultObject[0];
 		courseTypeArray = data.resultObject[2];
 		cityTypeArray = data.resultObject[3];
@@ -60,19 +64,17 @@ requestService("/xczh/classify/listScreen",null,function(data){
 
 
 /**
- * 点击确认按钮获取查询进行查询
+ * 创建参数并且进行查询
+ * @param menuType
+ * @param isFree
+ * @param courseType
+ * @param city
+ * @param lineState
  */
-function submit(){
-	
-	var menuType = $(".all_mold0  .all_right_type_one_add").attr("title");
-	var isFree = $(".all_mold1  .all_right_type_one_add").attr("title");
-	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
-	var city = $(".all_mold3  .all_right_type_one_add").attr("title");
-	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
+function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey){
 	
 	//清空上面的查询条件
 	paramsObj = {};
-	
 	
 	var saisuanstr ="";
 	//从新赋值
@@ -86,12 +88,6 @@ function submit(){
 			}
 		}
 	}
-//	menuType	否	Ingteger	课程所属学科menuid（传id）
-//	courseType	否	Ingteger	课程类型 1：视频 2：音频 3：直播 4：线下培训班（传id）
-//	isFree	否	Integer	是否免费 0：收费 1：免费（传id）
-//	lineState	否	Integer	直播状态1.直播中，2预告，3直播结束（传id）
-//	city	否	String	所在城市 （传城市名）
-//	queryKey	否	String	检索的关键字
 	if(stringnull(isFree)){
 		paramsObj.isFree = isFree;
 		if(isFree==0){
@@ -131,6 +127,23 @@ function submit(){
 			saisuanstr +="精彩回放-";
 		}
 	}
+	
+	if(stringnull(lineState)){
+		paramsObj.lineState = lineState;
+		if(lineState==1){
+			saisuanstr +="直播中-";
+		}else if(lineState==2){
+			saisuanstr +="未直播-";
+		}else if(lineState==3){
+			saisuanstr +="精彩回放-";
+		}
+	}
+	
+	if(stringnull(queryKey)){
+		paramsObj.queryKey = queryKey;
+		saisuanstr +=queryKey+"-";
+	}
+	
 	//将查询条件更改
 	if(saisuanstr.length>0){
 		saisuanstr = saisuanstr.substring(0, saisuanstr.length-1);
@@ -138,9 +151,37 @@ function submit(){
 		saisuanstr = "无";
 	}
 	$("#sxtj").text(saisuanstr);
-	//默认搜索全部
-	queryDataByParams(paramsObj);
+	
+	return paramsObj;
 }
+
+
+/**
+ * 点击确认按钮获取查询进行查询
+ */
+function submit(){
+	
+//	menuType	否	Ingteger	课程所属学科menuid（传id）
+//	courseType	否	Ingteger	课程类型 1：视频 2：音频 3：直播 4：线下培训班（传id）
+//	isFree	否	Integer	是否免费 0：收费 1：免费（传id）
+//	lineState	否	Integer	直播状态1.直播中，2预告，3直播结束（传id）
+//	city	否	String	所在城市 （传城市名）
+//	queryKey	否	String	检索的关键字
+	
+	/**
+	 * 在浏览器地址上获取课程信息
+	 */
+	var menuType = $(".all_mold0  .all_right_type_one_add").attr("title");
+	var isFree = $(".all_mold1  .all_right_type_one_add").attr("title");
+	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
+	var city = $(".all_mold3  .all_right_type_one_add").attr("title");
+	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
+	
+	var submitParamsObj =  createParamsAndQuery(menuType,isFree,courseType,city,lineState);
+
+	queryDataByParams(submitParamsObj);
+}
+
 
 function queryDataByParams(params,data_type){
 	requestService("/xczh/recommend/queryAllCourse",params,function(data){
@@ -202,7 +243,17 @@ function queryDataByParams(params,data_type){
 		}
 	},false)
 }
+
+/**
+ * 将查询条件搞下
+ */
+createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
+		paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
+/**
+ * 查询所有
+ */
 queryDataByParams(paramsObj);
+
 
 /**
  * 这里先请求出所有的

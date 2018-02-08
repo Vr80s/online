@@ -1,4 +1,4 @@
-function is_weixn(){
+function is_weixin(){
     var ua = navigator.userAgent.toLowerCase();
     if(ua.match(/MicroMessenger/i)=="micromessenger") {
         return true;
@@ -6,7 +6,7 @@ function is_weixn(){
         return false;
     }
 }
-if(!is_weixn()){
+if(!is_weixin()){
     $(".weixin_li").remove();
 }
 /**
@@ -23,7 +23,7 @@ var videoId = "";var teacherId;var teacherName;
 var courseHead ="";var roomNumber="";var lineState =1;
 var result="";
 //统一提交的方法
-	requestService("/xczh/course/details", {courseId : course_id}, function(data) {
+	requestService("/xczh/course/liveDetails", {courseId : course_id}, function(data) {
 		if (data.success) {
             result = data.resultObject;
             //视频id
@@ -38,7 +38,14 @@ var result="";
             
             $(".details_size span:eq(1)").html(result.giftCount);
             $(".details_size span:eq(0)").html(result.learndCount);
+
+            //关注数
+            $("#n_guanzhu").html(result.focusCount);
+            //粉丝数
+            $("#n_fensi").html(result.fansCount);
    
+
+
             /**
              * 为详情页面添加数据
              */
@@ -55,9 +62,9 @@ var result="";
              * 关注  	0 未关注 1 关注
              */
             if(result.isFocus == 1){
-                $(".guanzhu2").show();
+                $(".add_follow").find('p').html("已关注");
             }else if(result.isFocus == 0){
-                $(".guanzhu1").show();
+            	$(".add_follow").find('p').html("加关注");
             }
             lineState =result.lineState;
             /**
@@ -93,9 +100,6 @@ var result="";
             	$("#face").click(function() {
             		$(".coze_bottom").css('bottom','7.1rem');
             	});
-            	
-            	
-            	
             	    
             	/*点击发送*/
             	$("#sendChat").click(function() {
@@ -119,7 +123,7 @@ var result="";
                 // 点击送礼开始  --显示送礼列表
                 $(".give_a1").click(function() {
 
-                    requestService("/bxg/bs/getBalanceTotal", {test:1}, function(data) {
+                    requestService("/xczh/manager/getWalletEnchashmentBalance",null, function(data) {
                         if (data.success) {
                             //var result = data.resultObject;
                             $("#xmbShowSpan").html(data.resultObject);
@@ -160,6 +164,49 @@ var result="";
 		}
 	},false)
 
+	
+//		关注开始
+	
+$(".add_follow").click(function(){
+    //评论id
+//	lecturerId = $(this).attr("data-lecturerId");
+    
+	//这个主播的粉丝数
+	var n_fensi = $("#n_fensi").html();
+    
+    var src = $(this).find('img').attr('src');
+    var type = 1;
+    
+    var htmlstr = $(".add_follow").find('p').html();
+    
+    if(htmlstr=="已关注"){ //增加关注
+    	type= 2;
+    }else{
+    	type =1;
+    }
+	requestService("/xczh/myinfo/updateFocus", {lecturerId 
+		: teacherId,type:type}, function(data) {
+		if (data.success) {
+			
+		    if(htmlstr=="已关注"){
+		        $(".add_follow").find('img').attr('src','../images/append1_icon.png');
+		        $(".add_follow").find('p').html("加关注");
+		        //$(".right_personal").find('span').html(parseInt(p)-1);
+		        
+		        $("#n_fensi").html(parseInt(n_fensi)-1);
+		    }else{
+		    	 $(".add_follow").find('img').attr('src','../images/append2_icon.png');
+			     $(".add_follow").find('p').html("已关注");
+		        //粉丝数
+		        $("#n_fensi").html(parseInt(n_fensi)+1);
+		        //$(".right_personal").find('span').html(parseInt(p)+1);
+		  
+		    }
+		}
+	})
+});	
+	
+	
 
 /**
  * 点击主播头像跳转主播页面
@@ -170,9 +217,9 @@ function userIndex(){
 
 
 /**
- * 初始化礼物列表1
+ * 初始化礼物列表
  */
-requestService("/bxg/gift/list",{pageNumber:1,pageSize:100},function(data) {
+requestService("/xczh/gift/list",{pageNumber:1,pageSize:100},function(data) {
 	if (data.success) {
         var result = data.resultObject;
         var html = "";
@@ -191,14 +238,12 @@ requestService("/bxg/gift/list",{pageNumber:1,pageSize:100},function(data) {
  * 刷新礼物排行榜
  */
 function refreshGiftRanking(){
-	
 	requestService("/xczh/gift/rankingList",{pageNumber:1,pageSize:10,liveId:course_id},
 			function(data) {
 		if (data.success) {
 			   var list=data.resultObject.records;
 	            var html="";
 	            for (var i=0;i<list.length;i++){
-
 	                var pName="";
 	                if(i==0){
 	                    pName="状元";
@@ -314,7 +359,7 @@ document.getElementById('qqShare0').onclick = function(e){
 /*
  * 如果是微信浏览器的话在进行加载这部分函数
  */
-if(isWeiXin()){
+if(is_weixin()){
 	var ccontrollerAddress = "/bxg/wxjs/h5JSSDK";
 	var urlparm = {
 		url: window.location.href
