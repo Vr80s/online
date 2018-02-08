@@ -17,7 +17,7 @@ a {
     color: #fff;
     opacity: .5;
     border-radius: 4px;
-    z-index: 999;
+    z-index: 9999;
     font-size: 14px;
 }
 #hos_pic{
