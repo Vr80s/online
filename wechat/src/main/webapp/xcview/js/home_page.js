@@ -32,13 +32,17 @@ requestService("/xczh/recommend/recommendTop",null,
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
 		          "</li>";
 			}
 			$("#sw-slides").html(str);
 		}else{
 			alert("网络异常");
 		};
+		    $("#sw-slides li").click(function(){
+		    	var  data_img=$(this).find("img").attr("data_img");
+		    	location.href=data_img;
+		    })
 },false)
 //精品课程
 requestService("/xczh/recommend/recommendCourse",null,function(data) {
@@ -72,10 +76,14 @@ requestService("/xczh/bunch/offLine",null,
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
 		          "</li>";
 			}
 			$("#xx-slides").html(str);
+			 $("#xx-slides li").click(function(){
+		    	var  data_img=$(this).find("img").attr("data_img");
+		    	location.href=data_img;
+		    })
 		}else{
 			alert("网络异常");
 		};
@@ -119,10 +127,14 @@ requestService("/xczh/live/onlineLive",null,
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
 		          "</li>";
 			}
 			$("#zb-slides").html(str);
+			 $("#zb-slides li").click(function(){
+		    	var  data_img=$(this).find("img").attr("data_img");
+		    	location.href=data_img;
+		    })
 		}else{
 			alert("网络异常");
 		};
@@ -159,10 +171,14 @@ requestService("/xczh/bunch/listenCourse",null,
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
 		          "</li>";
 			}
 			$("#tk-slides").html(str);
+			$("#tk-slides li").click(function(){
+		    	var  data_img=$(this).find("img").attr("data_img");
+		    	location.href=data_img;
+		    })
 		}else{
 			alert("网络异常");
 		};
