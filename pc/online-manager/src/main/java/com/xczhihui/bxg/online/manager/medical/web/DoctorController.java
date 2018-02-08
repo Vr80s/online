@@ -5,14 +5,16 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorAuthenticationInformation;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
+import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorService;
 import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -151,6 +153,11 @@ public class DoctorController extends AbstractController{
 
 		 try{
 			 	MedicalDoctor old = doctorService.findMedicalDoctorById(medicalDoctor.getId());
+
+			 	if(StringUtils.isNotBlank(old.getSourceId())){
+					throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+				}
+
 			 	old.setName(medicalDoctor.getName());
 			 	old.setTel(medicalDoctor.getTel());
 			 	old.setTitle(medicalDoctor.getTitle());
@@ -163,12 +170,15 @@ public class DoctorController extends AbstractController{
 			 	doctorService.updateMedicalDoctor(old);
 	            responseObj.setSuccess(true);
 	            responseObj.setErrorMessage("修改成功");
-	       }catch(Exception e){
+	       }catch(MedicalException e){
 	            responseObj.setSuccess(false);
-	            responseObj.setErrorMessage("修改失败");
-	            e.printStackTrace();
-	       }
-	        return responseObj;
+	            responseObj.setErrorMessage(MedicalExceptionEnum.MUST_NOT_HANDLE.getMsg());
+	       }catch(Exception e){
+			 responseObj.setSuccess(false);
+			 responseObj.setErrorMessage("修改失败");
+			 e.printStackTrace();
+		   }
+		   return responseObj;
 	}
 	
 	/**

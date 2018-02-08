@@ -477,6 +477,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
             }
             doctor.setStatus(true);
             doctor.setCreateTime(createTime);
+            doctor.setSourceId(apply.getId());
             doctorDao.save(doctor);
         }
     }
