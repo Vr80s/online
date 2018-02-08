@@ -59,37 +59,42 @@
         -webkit-align-items: center;
         align-items: center;
     }
-    .swiper-slide{
-        /*margin-right: 0rem !important;*/
-        /*width: 1.6rem !important;*/
-    	/*margin-left: 1.02rem;*/
-    }
     .slide_one_div{
-    	/*height: 0.511rem;*/
-	    /*line-height: 0.511rem;*/
 	    color: #333;
 	    font-size: 0.468rem;
+	    float: left;
+	    width: 2.5rem;
+	    text-align: center;
+	    margin-left: 1.3rem;
     }
     
     .swiper-slide ul li{
     	float: left;
     }
     .swiper_box p{
-    	    font-size: 0.681rem;
-    color: #333;
-    margin-left: 0.553rem;
-    margin-bottom: 0.426rem;
-    padding-top: 0.638rem;
-
+    	font-size: 0.681rem;
+	    color: #333;
+	    margin-left: 0.553rem;
+	    margin-bottom: 0.426rem;
+	    padding-top: 0.489rem;
     }
     .swiper_box {
-   	 	    background: white;
-    	
+   	 	background: white;
     }
    /*先下课*/
-  #swiper1{
-  	padding-top: 0.4rem;
-  }
+	#swiper1{
+	  	padding-top: 0.4rem;
+	}
+	#slide_one .slide_one_div{
+		margin-left: 0;
+	}
+	#slide_one .slide_one_div p{
+		font-size: 0.468rem;
+		margin-left: 0;
+	}
+	.swiper_box0{
+		margin-left: 0;
+	}
 </style>
 
 <link rel="stylesheet" type="text/css" href="/xcview/css/swipeslider.css"><!--轮播引入-->
@@ -202,40 +207,55 @@
 								</div>
 							</nav>
 							<!--轮播结束-->
-							<ul class="slide_one" id="slide_one">
-								<script type="text/html" id="nav_list">
-									{{each items as item i}}
-									<li>
-										<div class="slide_one_div">
-											<div class="">
-												<img src="{{item.icon}}" class="slide_one_artist" />
-											</div>
-											<p>{{item.name}}</p>
-										</div>
-									</li>
-									{{/each}}
-								</script>
-							</ul>
-	
+							
+							<!--小白班开始-->
+							
+							<div class="swiper_box swiper_box0" >
+		                    	<div class="swiper-containers">
+							        <div class="swiper-wrapper" id="slide_one">
+							        	<script type="text/html" id="nav_list">
+											{{each items as item i}}
+												<div class="slide_one_div swiper-slide">
+													<a href="">
+														<img src="{{item.icon}}" class="slide_one_artist" />
+														<p>{{item.name}}</p>
+													</a>
+													
+													<!--<div class="">
+														
+													</div>-->
+													
+												</div>
+											{{/each}}
+										</script>					          
+							        </div>
+							    </div>
+	                    		
+	                    	</div>
+							
+							<!--小白班结束-->
+							
 							<!--推荐名师开始-->	                    	
 	                    	<div class="swiper_box">
 	                    		<p>名师推荐</p>
-	                    	 <div class="swiper-container">
-						        <div class="swiper-wrapper" id="phy_box">
-						        	<script type="text/html" id="wrap_phy">
-		                    			{{each items as item i}}
-							            <div class="swiper-slide">
-							            	<div class="teacher_slider_ul_div">
-							            		<a style="color: #333;" href="live_personal.html?userLecturerId={{item.id}}">
-		                    						<img src="{{item.headPortrait}}" />
-		                    						<span style="font-size: 0.468rem;">{{item.name}}</span>
-		                    					</a>
-		                    				</div>
-							            </div>
-			                    		{{/each}}
-			                  		</script>						          
-						        </div>
-						    </div>
+		                    	<div class="swiper-container">
+							        <div class="swiper-wrapper" id="phy_box">
+							        	<script type="text/html" id="wrap_phy">
+			                    			{{each items as item i}}
+								            <div class="swiper-slide">  <!--滑动备注  添加里面-->
+								            	
+								            	<div class="teacher_slider_ul_div">
+								            		<a style="color: #333;" href="live_personal.html?userLecturerId={{item.id}}">
+			                    						<img src="{{item.headPortrait}}" />
+			                    						<span style="font-size: 0.468rem;">{{item.name}}</span>
+			                    					</a>
+			                    				</div>
+			                    				
+								            </div>
+				                    		{{/each}}
+				                  		</script>						          
+							        </div>
+							    </div>
 	                    		
 	                    	</div>
 	                    	<!--推荐名师结束-->
@@ -350,12 +370,7 @@
 				                  		</script>						          
 							        </div>
 							    </div>	
-	                   
-							
-							
-							
-							
-							
+							    
 	                    	<!--全国课程开始-->
 	                    	<div class="acupunctures"></div>
 	                    	<script type="text/html" id="acupunctures">
@@ -366,8 +381,6 @@
 		                    			<ul>
 		                    				{{each item.courseList as item i}}
 		                    				<li>
-
-
 												<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
 
 		                    					<div class="boutique_main_four">
@@ -788,8 +801,6 @@
 	<!--底部结束-->
 	
 </body>
-
-
 
 <!--js滑动引入开始-->
 <script type="text/javascript">

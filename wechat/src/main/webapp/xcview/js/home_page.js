@@ -198,6 +198,13 @@ requestService("/xczh/bunch/listenCourse",null,
 //听课结束
 
 
+//swiper学堂小白课
+var swiper = new Swiper('.swiper-containers', {
+    slidesPerView: 5,
+    paginationClickable: true,
+    spaceBetween: 10
+});
+
 
 //swiper医师滑动
 var swiper = new Swiper('.swiper-container', {
