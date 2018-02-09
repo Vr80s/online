@@ -181,31 +181,36 @@ requestService("/xczh/bunch/listenCourse",null,
     function(data) {
 		if(data.success){
 	
-//轮播
-			var result = data.resultObject.banner.records;
-			var str ="";
-			for (var int = 0; int < result.length; int++) {
-				var wb = result[int];
-				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
-		          "</li>";
+//swiper轮播开始
+			var result_listen = data.resultObject.banner.records;
+			var str_listen ="";
+			for (var int = 0; int < result_listen.length; int++) {
+				var wb_listen = result_listen[int];
+				str_listen+="<div class='swiper-slide swiper-banner swiper-banner-listen'>"+
+				"<img src='"+wb_listen.imgPath+"' alt='Concept for children game' data_listen='"+wb_listen.url+"'>"+
+				"</div>";
 			}
-			$("#tk-slides").html(str);
-			$("#tk-slides li").click(function(){
-		    	var  data_img=$(this).find("img").attr("data_img");
-		    	location.href=data_img;
-		    })
+				$("#wrapper-box-listen").html(str_listen);
+				var mySwiper = new Swiper('#swiper-container-listen',{
+					pagination : '#swiper-banner-list-listen',
+					loop:true,
+					autoplay : 3000,
+					autoplayDisableOnInteraction : false,
+					//pagination : '#swiper-pagination1',
+				})
 		}else{
 			alert("网络异常");
 		};
+//		轮播图跳转
+		    $(".swiper-banner-listen").click(function(){
+		    	var  data_listen=$(this).find("img").attr("data_listen");
+		    	location.href=data_listen;
+		    })
+//swiper轮播结束	
 		
-		if(data.success==true){
- 	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
-				/*var myHeight=$(".tjks").height();
 	
-				$(".gieTa").height(myHeight);*/
-				
-		}		
+ 	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
+	
 },false)
 
 //听课结束

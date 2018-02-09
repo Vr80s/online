@@ -30,226 +30,158 @@ var ROOM_JID="";
  */
 var course_id = getQueryString("courseId");
 requestService("/xczh/common/getImServerConfig", {courseId : course_id}, function(data) {
-	if (data.success) {
-		guId = data.resultObject.guId;
-		guPwd = data.resultObject.guPwd;
-		room_id=data.resultObject.roomId;
-		host = data.resultObject.host;
-		BOSH_SERVICE=data.resultObject.boshService;
-		ROOM_JID=data.resultObject.roomJId;
-	}
+    if (data.success) {
+        guId = data.resultObject.guId;
+        guPwd = data.resultObject.guPwd;
+        room_id=data.resultObject.roomId;
+        host = data.resultObject.host;
+        BOSH_SERVICE=data.resultObject.boshService;
+        ROOM_JID=data.resultObject.roomJId;
+    }
 },false);
 
 
 // 连接状态改变的事件
 function onConnect(status) {
-	if (status == Strophe.Status.CONNFAIL) {
-		autoLogin();
-	} else if (status == Strophe.Status.AUTHFAIL) {
-		autoLogin();
-	} else if (status == Strophe.Status.DISCONNECTED) {
-		autoLogin();
-		// connected = false;
-	} else if (status == Strophe.Status.CONNECTED) {
-		// alert("连接成功，可以开始聊天了！");
-		connected = true;
+    if (status == Strophe.Status.CONNFAIL) {
+        autoLogin();
+    } else if (status == Strophe.Status.AUTHFAIL) {
+        autoLogin();
+    } else if (status == Strophe.Status.DISCONNECTED) {
+        autoLogin();
+        // connected = false;
+    } else if (status == Strophe.Status.CONNECTED) {
+        // alert("连接成功，可以开始聊天了！");
+        connected = true;
 
-		// 当接收到<message>节，调用onMessage回调函数
-		connection.addHandler(onMessage, null, 'message', null, null, null);
+        // 当接收到<message>节，调用onMessage回调函数
+        connection.addHandler(onMessage, null, 'message', null, null, null);
 
-		// 首先要发送一个<presence>给服务器（initial presence）
-		connection.send($pres().tree());
+        // 首先要发送一个<presence>给服务器（initial presence）
+        connection.send($pres().tree());
 
-		// 发送<presence>元素，加入房间
-		var pres = $pres({
-			from : jid,
-			to : ROOM_JID + "/" + guId// jid.substring(0,jid.indexOf("@"))//昵称
-		}).c('x', {
-			xmlns : 'http://jabber.org/protocol/muc'
-		}).tree();
-		connection.send(pres);
-		// connection.sendIQ(pres);//获取房间列表
-	}
+        // 发送<presence>元素，加入房间
+        var pres = $pres({
+            from : jid,
+            to : ROOM_JID + "/" + guId// jid.substring(0,jid.indexOf("@"))//昵称
+        }).c('x', {
+            xmlns : 'http://jabber.org/protocol/muc'
+        }).tree();
+        connection.send(pres);
+        // connection.sendIQ(pres);//获取房间列表
+    }
 }
 
 String.prototype.replaceAll = function(FindText, RepText) {
-	regExp = new RegExp(FindText, "g");
-	return this.replace(regExp, RepText);
+    regExp = new RegExp(FindText, "g");
+    return this.replace(regExp, RepText);
 }
 var sendTime;
 function createGiftList(gift) {
-	if (sendTime == null) {
+    if (sendTime == null) {
 
-		requestService("/bxg/common/getSystemTime", null, function(data) {
-			sendTime = data;
-		}, false)
+        requestService("/bxg/common/getSystemTime", null, function(data) {
+            sendTime = data;
+        }, false)
 
-	}
-	if (gift.messageType == 0 || gift.messageType == 1) {
-		var time = data.giftInfo == null ? data.rewardInfo.time: data.giftInfo.time
-		if (time == null)
-			return;
-		if (parseInt(sendTime) > parseInt(time))
-			return;
-		
-		//TODO  将礼物添加到队列中  ---》 这时可能会有很多多来的，依次存放哎队列中
-		queue.push(gift);
-		
-		createGiftShow();
-	}
+    }
+    if (gift.messageType == 0 || gift.messageType == 1) {
+        var time = data.giftInfo == null ? data.rewardInfo.time: data.giftInfo.time
+        if (time == null)
+            return;
+        if (parseInt(sendTime) > parseInt(time))
+            return;
+
+        //TODO  将礼物添加到队列中  ---》 这时可能会有很多多来的，依次存放哎队列中
+        // queue.push(gift);
+        if($("#"+data.senderInfo.userId+data.giftInfo.giftId).length>0){
+            giftShow(data,$("#"+data.senderInfo.userId+data.giftInfo.giftId).attr("xh"),true);
+        }else{
+            queue.push(data);
+            createGiftShow();
+        }
+
+        // createGiftShow();
+    }
 }
 var gif = [];
 var num = [];
 var min = [];
 var addn = [];
 // 生成礼物
-function giftShow(gift, f) {
+function giftShow(gift, f,continuous) {
+    if(continuous){
+        $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
+        $('.addnum'+f).data("sto",new Date().getTime())
+        return;
+    }
 
-	
-	if (gift.messageType == 1) { // 礼物
-		var bottom = countChange()
-		gif[f] = $("<li class='animation' style='position: absolute;bottom: "
-				+ bottom
-				+ "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
-				+ gift.senderInfo.userName
-				+ "</p><p class='animation_name_p2'>送 "
-				+ gift.giftInfo.name
-				+ "</p></div><div class='animation_gift'><img src='"
-				+ gift.giftInfo.smallimgPath
-				+ "' alt='' /></div><div class='animation_span'>X<span class=addnum"
-				+ f + ">1</span></div></div></li>");
-		try {
-			$("#liveGiftCount").html(gift.giftCount);
-		} catch (error) {
-			// 此处是负责例外处理的语句
-		} finally {
-			// 此处是出口语句
-		}
+    if (gift.messageType == 1) { // 礼物
+        var bottom = countChange()
+        gif[f] = $("<li class='animation' id='gift"+f+"' style='position: absolute;bottom: "
+            + bottom
+            + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
+            + gift.senderInfo.userName
+            + "</p><p class='animation_name_p2'>送 "
+            + gift.giftInfo.name
+            + "</p></div><div class='animation_gift'><img src='"
+            + gift.giftInfo.smallimgPath
+            + "' alt='' /></div><div class='animation_span'>X<span class=addnum"
+            + f + "  id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"' >1</span></div></div></li>");
+        try {
+            $("#liveGiftCount").html(gift.continuousCount);
+        } catch (error) {
+            // 此处是负责例外处理的语句
+        } finally {
+            // 此处是出口语句
+        }
 
-	} else if (gift.messageType == 0) { // 红包
-		var bottom = countChange()
-		gif[f] = $("<li class='animation' style='position: absolute;bottom: "
-				+ bottom
-				+ "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
-				+ gift.senderInfo.userName
-				+ "</p><p class='animation_name_p2'>打赏红包</p></div><div class='animation_gift1'><img src='/xcviews/images/packet.png' alt='' /></div></div></li>");
-		try {
-			$("#moneySum").html(gift.rewardTotal);
-		} catch (error) {
-			// 此处是负责例外处理的语句
-		} finally {
-			// 此处是出口语句
-		}
+    } else if (gift.messageType == 0) { // 红包
+        var bottom = countChange()
+        gif[f] = $("<li class='animation' style='position: absolute;bottom: "
+            + bottom
+            + "rem;'><div class='animation_div'><div class='animation_name'><p class='animation_name_p1'>"
+            + gift.senderInfo.userName
+            + "</p><p class='animation_name_p2'>打赏红包</p></div><div class='animation_gift1'><img src='/xcviews/images/packet.png' alt='' /></div></div></li>");
+        try {
+            $("#moneySum").html(gift.rewardTotal);
+        } catch (error) {
+            // 此处是负责例外处理的语句
+        } finally {
+            // 此处是出口语句
+        }
 
-	}
-	// 添加到页面中并且2秒消失
-	// $('.chatmsg-box ').append();
-	
-	gif[f].appendTo($(".chatmsg-box"));
-	$(".num").html(gift.giftCount);
-	$(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
+    }
+    // 添加到页面中并且2秒消失
+    // $('.chatmsg-box ').append();
 
-	if (gift.giftInfo != null) {
-		num[f] = gift.giftInfo.count;
-	} else {
-		num[f] = 100;
-	}
-	min[f] = 0;
-	addn[f] = parseInt(Math.floor(num[f] / 100));
+    gif[f].appendTo($(".chatmsg-box"));
+    $(".num").html(gift.giftCount);
+    $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
 
-	if (f == 1) {
-		if (num[f] < 100) {
-			var s1 = setInterval(function() {
-				if (min[f] < num[f]) {
-					min[f]++;
-					$('.addnum' + f).html(min[f])
-				} else {
-					clearInterval(s1);
-					setTimeout(function() {
-						clearGift();
-					}, 1000);
-				}
-			}, 3000 / num[f])
-		} else {
-			var s1 = setInterval(function() {
-				if (min[f] < num[f]) {
-					min[f] += addn[f];
-					$('.addnum' + f).html(min[f])
-				} else {
-					$('.addnum' + f).html(num[f])
-					clearInterval(s1);
-					setTimeout(function() {
-						clearGift();
-					}, 1000);
-				}
-			}, 2500 / 100)
-		}
-	} else if (f == 2) {
-		if (num[f] < 100) {
-			var s2 = setInterval(function() {
-				if (min[f] < num[f]) {
-					min[f]++;
-					$('.addnum' + f).html(min[f])
-				} else {
-					clearInterval(s2);
-					setTimeout(function() {
-						clearGift();
-					}, 1000);
-				}
-			}, 3000 / num[f])
-		} else {
-			var s2 = setInterval(function() {
-				if (min[f] < num[f]) {
-					min[f] += addn[f];
-					$('.addnum' + f).html(min[f])
-				} else {
-					$('.addnum' + f).html(num[f])
-					clearInterval(s2);
-					setTimeout(function() {
-						clearGift(f);
-					}, 1000);
-				}
-			}, 2500 / 100)
-		}
-	} else {
-		if (num[f] < 100) {
-			var s3 = setInterval(function() {
-				if (min[f] < num[f]) {
-					min[f]++;
-					$('.addnum' + f).html(min[f])
-				} else {
-					clearInterval(s3);
-					setTimeout(function() {
-						clearGift(f);
-					}, 1000);
-				}
-			}, 3000 / num[f])
-		} else {
-			var s3 = setInterval(function() {
-				if (min[f] < num[f]) {
-					min[f] += addn[f];
-					$('.addnum' + f).html(min[f])
-				} else {
-					$('.addnum' + f).html(num[f])
-					clearInterval(s3);
-					setTimeout(function() {
-						clearGift(f);
-					}, 1000);
-				}
-			}, 2500 / 100)
-		}
-	}
 
-	function clearGift() {
-		gif[f].remove();
-		if (f == 1) {
-			f1 = true;
-		} else if (f == 2) {
-			f2 = true;
-		} else {
-			f3 = true;
-		}
-	}
+    if (f == 1) {
+        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        $('.addnum'+f).data("sto",new Date().getTime());
+    } else if (f == 2) {
+        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        $('.addnum'+f).data("sto",new Date().getTime());
+    } else {
+        $('.addnum'+f).html(gift.giftInfo.continuousCount);
+        $('.addnum'+f).data("sto",new Date().getTime());
+    }
+
+    function clearGift() {
+        // gif[f].remove();
+        $("#gift"+f).remove();
+        if(f == 1){
+            f1 = true;
+        }else if(f == 2){
+            f2 = true;
+        }else{
+            f3 = true;
+        }
+    }
 
 }
 
@@ -257,42 +189,42 @@ function giftShow(gift, f) {
 
 /**
  * [Queue]
- * 
+ *
  * @param {[Int]}
  *            size [队列大小]
  */
 function Queue(size) {
-	var list = [];
+    var list = [];
 
-	// 向队列中添加数据
-	this.push = function(data) {
-		if (data == null) {
-			return false;
-		}
-		// 如果传递了size参数就设置了队列的大小
-		if (size != null && !isNaN(size)) {
-			if (list.length == size) {
-				this.pop();
-			}
-		}
-		list.unshift(data);
-		return true;
-	}
+    // 向队列中添加数据
+    this.push = function(data) {
+        if (data == null) {
+            return false;
+        }
+        // 如果传递了size参数就设置了队列的大小
+        if (size != null && !isNaN(size)) {
+            if (list.length == size) {
+                this.pop();
+            }
+        }
+        list.unshift(data);
+        return true;
+    }
 
-	// 从队列中取出数据
-	this.pop = function() {
-		return list.pop();
-	}
+    // 从队列中取出数据
+    this.pop = function() {
+        return list.pop();
+    }
 
-	// 返回队列的大小
-	this.size = function() {
-		return list.length;
-	}
+    // 返回队列的大小
+    this.size = function() {
+        return list.length;
+    }
 
-	// 返回队列的内容
-	this.quere = function() {
-		return list;
-	}
+    // 返回队列的内容
+    this.quere = function() {
+        return list;
+    }
 }
 
 // 两个占位 f1 f2
@@ -301,42 +233,42 @@ var f2 = true;
 var f3 = true;
 
 function createGiftShow() {
-	// 若f1位可用，。。。
-	if (f1) {
-		f1 = false;
-		var gift = queue.pop();
-		// 将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
-		giftShow(gift, 1);
-	} else if (f2) {// 若f2位可用，。。。
-		f2 = false;
-		var gift = queue.pop();
-		// 将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
-		giftShow(gift, 2);
-	} else if (f3) {// 若f2位可用，。。。
-		f3 = false;
-		var gift = queue.pop();
-		// 将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
-		giftShow(gift, 3);
-	} else if (!f1 && !f2 && !f3 && queue.size() > 0) {
-		setTimeout(function() {
-			createGiftShow();
-		}, 4000);
-	}
+    // 若f1位可用，。。。
+    if (f1) {
+        f1 = false;
+        var gift = queue.pop();
+        // 将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
+        giftShow(gift, 1);
+    } else if (f2) {// 若f2位可用，。。。
+        f2 = false;
+        var gift = queue.pop();
+        // 将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
+        giftShow(gift, 2);
+    } else if (f3) {// 若f2位可用，。。。
+        f3 = false;
+        var gift = queue.pop();
+        // 将礼物显示出来，设置显示时间。时间到了，f1 = true;，礼物占位结束。
+        giftShow(gift, 3);
+    } else if (!f1 && !f2 && !f3 && queue.size() > 0) {
+        setTimeout(function() {
+            createGiftShow();
+        }, 1000);
+    }
 }
 
 // 生成礼物
 var count = 1;
 function countChange() {
-	if (count == 1) {
-		count = 2;
-		return 10;
-	} else if (count == 2) {
-		count = 3;
-		return 7.7;
-	} else {
-		count = 1;
-		return 5.5;
-	}
+    if (count == 1) {
+        count = 2;
+        return 10;
+    } else if (count == 2) {
+        count = 3;
+        return 7.7;
+    } else {
+        count = 1;
+        return 5.5;
+    }
 }
 var gif = [];
 var num = [];
@@ -349,135 +281,155 @@ var addn = [];
  */
 function onMessage(msg) {
 
-	console.log(msg);
-	/*
-	 *  解析出<message>的from、type属性，以及body子元素
-	 */
-	var from = msg.getAttribute('from');
-	var type = msg.getAttribute('type');
-	var elems = msg.getElementsByTagName('body');
+    console.log(msg);
+    /*
+     *  解析出<message>的from、type属性，以及body子元素
+     */
+    var from = msg.getAttribute('from');
+    var type = msg.getAttribute('type');
+    var elems = msg.getElementsByTagName('body');
 
-	if (type == "groupchat" && elems.length > 0) {
-		try {
-			var body = elems[0];
-			var text = Strophe.getText(body);
-			text = text.replaceAll("&quot;", "\"");
-			data = JSON.parse(text);
-			
-			createGiftList(data);
-			
-			console.log(text);
-		} catch (err) {
-			// console.info(err);
-		}
-	}
-	return true;
+    if (type == "groupchat" && elems.length > 0) {
+        try {
+            var body = elems[0];
+            var text = Strophe.getText(body);
+            text = text.replaceAll("&quot;", "\"");
+            data = JSON.parse(text);
+
+            createGiftList(data);
+
+            console.log(text);
+        } catch (err) {
+            // console.info(err);
+        }
+    }
+    return true;
 }
 
 function repalceAll(str, rstr, arstr) {
-	while (str.split(rstr).length > 1) {
-		str = str.replace(rstr, arstr);
-	}
-	return str;
+    while (str.split(rstr).length > 1) {
+        str = str.replace(rstr, arstr);
+    }
+    return str;
 }
 
 $(document).ready(function() {
 
-	// 通过BOSH连接XMPP服务器
-$('#btn-login').click(
-		function() {
-			if (!connected) {
-				connection = new Strophe.Connection(
-						BOSH_SERVICE);
-				connection.connect($("#input-jid").val(),
-						$("#input-pwd").val(), onConnect);
-				jid = $("#input-jid").val();
-			}
-		});
+    // 通过BOSH连接XMPP服务器
+    $('#btn-login').click(
+        function() {
+            if (!connected) {
+                connection = new Strophe.Connection(
+                    BOSH_SERVICE);
+                connection.connect($("#input-jid").val(),
+                    $("#input-pwd").val(), onConnect);
+                jid = $("#input-jid").val();
+            }
+        });
 
 // 发送消息
-$(".balance_send").click(function() {
-					if ($(".gift_ul_li_li .gift_p .liwu").attr("giftId") == null) {
-						alert("请先选择一个礼物!");
-						return;
-					}
-					if (isNaN($("#giftCount").val())) {
-						alert("非法的礼物数量!");
-						return;
-					}
-					if ($("#giftCount").val() < 1) {
-						alert("非法的礼物数量!");
-						return;
-					}
-					var xmbShowSpan = $("#xmbShowSpan").html();
-					var jiage = $(".gift_ul_li_li .gift_p .jiage").text();
-					if(jiage<xmbShowSpan || jiage == 0){
-						if (connected) {
-							var msgJson = {
-								channel : 1,
-								giftId : $(".gift_ul_li_li .gift_p .liwu").attr("giftId"), // huoqu
-								count : $("#giftCount").val(),
-								clientType : 3,
-								liveId : course_id,
-								receiverId : teacherId,
-								receiverName : teacherName,
-								continuousCount : 1
-							};
-							requestService("/xczh/gift/sendGift",
-									msgJson,
-									function(data) {
-										if (data.success == true) {
-											
-											/**
-											 * 发送IM消息
-											 */
-											sendMsg(data.resultObject);
-											
-											//隐藏发送礼物的，连击效果，暂时不隐藏
-											
-											//$(".send_gifts").hide();
-											// 更新余额
-											$("#xmbShowSpan").html(data.resultObject.balanceTotal);
-										} else {
-										    //if ("用户账户余额不足，请充值！" == data.errorMessage) {
-												alert(data.errorMessage);
-											//}
-										}
-									}, false)
-							$("#chat-content").val('');
-						} else {
-							// alert("请先登录！");
-							autoLogin();
-						}
-					}else{
-						alert("余额不足");
+    $(".balance_send").click(function() {
+        if ($(".gift_ul_li_li .gift_p .liwu").attr("giftId") == null) {
+            alert("请先选择一个礼物!");
+            return;
+        }
+        if (isNaN($("#giftCount").val())) {
+            alert("非法的礼物数量!");
+            return;
+        }
+        if ($("#giftCount").val() < 1) {
+            alert("非法的礼物数量!");
+            return;
+        }
+        var xmbShowSpan = $("#xmbShowSpan").html();
+        var jiage = $(".gift_ul_li_li .gift_p .jiage").text();
+        if(jiage<xmbShowSpan || jiage == 0){
+            if (connected) {
+                var msgJson = {
+                    channel : 1,
+                    giftId : $(".gift_ul_li_li .gift_p .liwu").attr("giftId"), // huoqu
+                    count : $("#giftCount").val(),
+                    clientType : 3,
+                    liveId : course_id,
+                    receiverId : teacherId,
+                    receiverName : teacherName,
+                    continuousCount : 1
+                };
+                requestService("/xczh/gift/sendGift",
+                    msgJson,
+                    function(data) {
+                        if (data.success == true) {
+
+                            /**
+                             * 发送IM消息
+                             */
+                            sendMsg(data.resultObject);
+
+                            //隐藏发送礼物的，连击效果，暂时不隐藏
+
+                            //$(".send_gifts").hide();
+                            // 更新余额
+                            $("#xmbShowSpan").html(data.resultObject.balanceTotal);
+                        } else {
+                            //if ("用户账户余额不足，请充值！" == data.errorMessage) {
+                            alert(data.errorMessage);
+                            //}
+                        }
+                    }, false)
+                $("#chat-content").val('');
+            } else {
+                // alert("请先登录！");
+                autoLogin();
+            }
+        }else{
+            alert("余额不足");
 //											$(".vanish02").show();
 //											setTimeout(function(){$(".vanish02").hide();},1500);
-					}
-				});
+        }
+    });
 
-					function sendMsg(data) {
-						console.info(data);
-						data = JSON.stringify(data);
-						console.info(data);
-						data = JSON.parse(data);
-						console.info(data);
-						// 创建一个<message>元素并发送
-						var msg = $msg({
-							to : ROOM_JID,
-							from : jid,
-							type : 'groupchat'
-						// }).c("body", null,
-						// data.giver+"yuxin"+data.giftName+"yuxin"+data.count);
-						}).c("body", null, JSON.stringify(data));
-						connection.send(msg.tree());
-					}
+    function sendMsg(data) {
+        console.info(data);
+        data = JSON.stringify(data);
+        console.info(data);
+        data = JSON.parse(data);
+        console.info(data);
+        // 创建一个<message>元素并发送
+        var msg = $msg({
+            to : ROOM_JID,
+            from : jid,
+            type : 'groupchat'
+            // }).c("body", null,
+            // data.giver+"yuxin"+data.giftName+"yuxin"+data.count);
+        }).c("body", null, JSON.stringify(data));
+        connection.send(msg.tree());
+    }
 
-					function autoLogin() {
+    function autoLogin() {
 
-						connection = new Strophe.Connection(BOSH_SERVICE);
-						connection.connect(guId + '@' + host, guPwd, onConnect);
-						jid = guId + '@' + host;
-					}
-					autoLogin();
-				});
+        connection = new Strophe.Connection(BOSH_SERVICE);
+        connection.connect(guId + '@' + host, guPwd, onConnect);
+        jid = guId + '@' + host;
+    }
+    autoLogin();
+});
+$(function () {
+    setInterval(function(){
+        for(var i=1;i<5;i++){
+            // console.info(i+":"+$('.addnum'+i).data("sto"));
+            // debugger
+            var t = new Date().getTime()-$('.addnum'+i).data("sto");
+            if(t>3000){
+                var f = $('.addnum'+i).attr("xh");
+                if(f == 1){
+                    f1 = true;
+                }else if(f == 2){
+                    f2 = true;
+                }else{
+                    f3 = true;
+                }
+                $("#gift"+i).remove();
+            }
+        }
+    },500)
+});
