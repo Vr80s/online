@@ -61,11 +61,7 @@ $(function(){
 	if(nikename == ''){
 		$(".nikeName_warn").css('display','block');
 		return false;
-	}else if(nikename.length < 4 ){
-		$(".nikeName_warn").text('长度只能在4-20个字符之间');
-		$(".nikeName_warn").css('display','block');
-		return false;
-	}{
+	}else {
 		$(".nikeName_warn").css('display','none');
 	}
 	
@@ -92,15 +88,15 @@ $(function(){
 	
 	//密码验证
 	if($.trim($('.my_password').val()).length < 6){
-		$(".my_different").text('请输入6-18位数密码')
-		$(".my_different").css('display','block');
+		$(".my_different").css('display','none');
+		$('.my_pwd').text('请输入6-18位数密码');
+		$(".my_pwd").css('display','block');
 		return false;
 	}else if($.trim($('.my_password').val()) != $.trim($('.sure_password').val())){
+		$(".my_pwd").css('display','none');
 		$(".my_different").text('您两次输入的密码不一致')
 		$(".my_different").css('display','block');
 		return false;
-	}else{
-		$(".my_different").css('display','none');
 	}
 	
 	var data = {
@@ -127,7 +123,7 @@ $(function(){
 //				}
 
 				//错误的提示
-				if(data.errorMessage == '动态码错误'){
+				if(data.errorMessage == "动态码不正确！"){
 					$('#tip').text('短信验证码错误');
 	       			$('#tip').toggle();
 	       			setTimeout(function(){
