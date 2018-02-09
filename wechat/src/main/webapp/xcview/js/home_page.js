@@ -19,38 +19,41 @@ requestService("/xczh/recommend/recommendTop",null,
     function(data) {
 		if(data.success){
 //大师课
-
-
-    	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
+	    	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
 //名医
-    	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
-    	
-    	
-		
-//轮播
+	    	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
+//swiper轮播开始
 			var result = data.resultObject.banner.records;
 			var str ="";
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
-				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
-		          "</li>";
+				str+="<div class='swiper-slide swiper-banner'>"+
+				"<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>"+
+				"</div>";
 			}
-			$("#sw-slides").html(str);
+				$("#wrapper-box").html(str);
+				var mySwiper = new Swiper('#swiper-container-box',{
+					pagination : '.swiper-pagination',
+					loop:true,
+					autoplay : 3000,
+					autoplayDisableOnInteraction : false,
+					//pagination : '#swiper-pagination1',
+				})
 		}else{
 			alert("网络异常");
 		};
-		    $("#sw-slides li").click(function(){
+//		轮播图跳转
+		    $(".swiper-banner").click(function(){
 		    	var  data_img=$(this).find("img").attr("data_img");
 		    	location.href=data_img;
 		    })
-		    
+//swiper轮播结束
+//		        小白班跳转
 		      $(".slide_one_div a").click(function(){
 		    	var  data_one_div=$(this).find("img").attr("data-div");
-		    	console.log(data_one_div)
 		    	location.href=data_one_div;
 		    })
-		    
+		   
 },false)
 //精品课程
 requestService("/xczh/recommend/recommendCourse",null,function(data) {
@@ -197,10 +200,7 @@ requestService("/xczh/bunch/listenCourse",null,
 	
 				$(".gieTa").height(myHeight);*/
 				
-		}
-		
-		
-		
+		}		
 },false)
 
 //听课结束
