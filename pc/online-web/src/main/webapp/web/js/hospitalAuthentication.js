@@ -257,7 +257,7 @@ $(function(){
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
 	       		},2000)
-	       		window.location.reload();
+//	       		window.location.reload();
 			}else if(data.success == true){
 				$('#tip').text('保存成功');
 	       		$('#tip').toggle();
