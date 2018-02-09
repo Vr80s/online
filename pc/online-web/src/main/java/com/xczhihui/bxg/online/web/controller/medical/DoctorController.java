@@ -244,7 +244,6 @@ public class DoctorController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctorBusinessService.update(currentUser.getUid(), doctor);
-//        medicalDoctorBusinessService.update("ff8080816142af54016149e069080000", doctor);
         return ResponseObject.newSuccessResponseObject("修改成功");
     }
 
@@ -268,7 +267,6 @@ public class DoctorController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalDoctor.setUserId(currentUser.getUid());
-//        medicalDoctor.setUserId("ff8080816142af54016149e069080000");
         medicalDoctorBusinessService.add(medicalDoctor);
         return ResponseObject.newSuccessResponseObject("添加成功");
     }
@@ -285,7 +283,6 @@ public class DoctorController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital(currentUser.getUid()));
-//        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHospital("23908ae85dad4541ba7ecf53fc52aab2"));
     }
 
 }

@@ -27,13 +27,13 @@ requestService("/xczh/recommend/recommendTop",null,
 			var str ="";
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
-				str+="<div class='swiper-slide swiper-banner'>"+
+				str+="<div class='swiper-slide swiper-banner swiper-banner-btn'>"+
 				"<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>"+
 				"</div>";
 			}
 				$("#wrapper-box").html(str);
 				var mySwiper = new Swiper('#swiper-container-box',{
-					pagination : '.swiper-pagination',
+					pagination : '#swiper-banner-list',
 					loop:true,
 					autoplay : 3000,
 					autoplayDisableOnInteraction : false,
@@ -42,13 +42,13 @@ requestService("/xczh/recommend/recommendTop",null,
 		}else{
 			alert("网络异常");
 		};
-//		轮播图跳转
-		    $(".swiper-banner").click(function(){
+//轮播图跳转
+		    $(".swiper-banner-btn").click(function(){
 		    	var  data_img=$(this).find("img").attr("data_img");
 		    	location.href=data_img;
 		    })
 //swiper轮播结束
-//		        小白班跳转
+//小白班跳转
 		      $(".slide_one_div a").click(function(){
 		    	var  data_one_div=$(this).find("img").attr("data-div");
 		    	location.href=data_one_div;
@@ -65,13 +65,10 @@ requestService("/xczh/recommend/recommendCourse",null,function(data) {
     		var data_num=$(this).attr("menuType");
 			window.location.href="curriculum_table.html?menuType="+data_num+"";
 		})
-    	
 			var myHeight=$(".tjks").height();
 			$(".gieTa").height(myHeight);
 	
 	}
-		
-	
 })
 //推荐模块结束
 
@@ -79,36 +76,36 @@ requestService("/xczh/recommend/recommendCourse",null,function(data) {
 requestService("/xczh/bunch/offLine",null, 
     function(data) {
 		if(data.success){
-//			各省城市                                                        											//跟参数
+//各省城市                                                        											//跟参数
     		$("#xx_slide_one").html(template('xx_nav_list',{items:data.resultObject.cityList.records}))
-//轮播
-			var result = data.resultObject.banner.records;
-			var str ="";
-			for (var int = 0; int < result.length; int++) {
-				var wb = result[int];
-				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
-		          "</li>";
+//线下课程	    	
+	    	$(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))			
+//swiper轮播开始
+			var result_class = data.resultObject.banner.records;
+			var str_class ="";
+			for (var int = 0; int < result_class.length; int++) {
+				var wb_class = result_class[int];
+				str_class+="<div class='swiper-slide swiper-banner swiper-banner-class'>"+
+				"<img src='"+wb_class.imgPath+"' alt='Concept for children game' data_class='"+wb_class.url+"'>"+
+				"</div>";
 			}
-			$("#xx-slides").html(str);
-			 $("#xx-slides li").click(function(){
-		    	var  data_img=$(this).find("img").attr("data_img");
-		    	location.href=data_img;
-		    })
+				$("#wrapper-box-class").html(str_class);
+				var mySwiper = new Swiper('#swiper-container-class',{
+					pagination : '#swiper-banner-list-class',
+					loop:true,
+					autoplay : 3000,
+					autoplayDisableOnInteraction : false,
+					//pagination : '#swiper-pagination1',
+				})
 		}else{
 			alert("网络异常");
 		};
-		
-		if(data.success==true){
-	    	$(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))
-		
-//				var myHeight=$(".tjks").height();
-//	
-//				$(".gieTa").height(myHeight);
-				
-		
-		}
-		
+//		轮播图跳转
+		    $(".swiper-banner-class").click(function(){
+		    	var  data_class=$(this).find("img").attr("data_class");
+		    	location.href=data_class;
+		    })
+//swiper轮播结束	
 },false)
 //线下课banner下的城市点击
 $(".go_search").click(function(){
@@ -132,24 +129,32 @@ requestService("/xczh/live/onlineLive",null,
     function(data) {
 		if(data.success){
 	
-//轮播
-			var result = data.resultObject.banner.records;
-			var str ="";
-			for (var int = 0; int < result.length; int++) {
-				var wb = result[int];
-				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_zbimg='"+wb.url+"'>" +
-		          "</li>";
+//swiper轮播开始
+			var result_play = data.resultObject.banner.records;
+			var str_play ="";
+			for (var int = 0; int < result_play.length; int++) {
+				var wb_play = result_play[int];
+				str_play+="<div class='swiper-slide swiper-banner swiper-banner-play'>"+
+				"<img src='"+wb_play.imgPath+"' alt='Concept for children game' data_play='"+wb_play.url+"'>"+
+				"</div>";
 			}
-			$("#zb-slides").html(str);
-			 $("#zb-slides li").click(function(){
-		    	var  data_img=$(this).find("img").attr("data_zbimg");
-		    	location.href=data_img;
-		    })
+				$("#wrapper-box-play").html(str_play);
+				var mySwiper = new Swiper('#swiper-container-play',{
+					pagination : '#swiper-banner-list-play',
+					loop:true,
+					autoplay : 3000,
+					autoplayDisableOnInteraction : false,
+					//pagination : '#swiper-pagination1',
+				})
 		}else{
 			alert("网络异常");
 		};
-		
+//		轮播图跳转
+		    $(".swiper-banner-play").click(function(){
+		    	var  data_play=$(this).find("img").attr("data_play");
+		    	location.href=data_play;
+		    })
+//swiper轮播结束		
 		if(data.success==true){
 	    	$(".newests").html(template('newests',{items:data.resultObject.allCourseList}))
 				/*var myHeight=$(".tjks").height();
@@ -176,31 +181,36 @@ requestService("/xczh/bunch/listenCourse",null,
     function(data) {
 		if(data.success){
 	
-//轮播
-			var result = data.resultObject.banner.records;
-			var str ="";
-			for (var int = 0; int < result.length; int++) {
-				var wb = result[int];
-				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
-		          "</li>";
+//swiper轮播开始
+			var result_listen = data.resultObject.banner.records;
+			var str_listen ="";
+			for (var int = 0; int < result_listen.length; int++) {
+				var wb_listen = result_listen[int];
+				str_listen+="<div class='swiper-slide swiper-banner swiper-banner-listen'>"+
+				"<img src='"+wb_listen.imgPath+"' alt='Concept for children game' data_listen='"+wb_listen.url+"'>"+
+				"</div>";
 			}
-			$("#tk-slides").html(str);
-			$("#tk-slides li").click(function(){
-		    	var  data_img=$(this).find("img").attr("data_img");
-		    	location.href=data_img;
-		    })
+				$("#wrapper-box-listen").html(str_listen);
+				var mySwiper = new Swiper('#swiper-container-listen',{
+					pagination : '#swiper-banner-list-listen',
+					loop:true,
+					autoplay : 3000,
+					autoplayDisableOnInteraction : false,
+					//pagination : '#swiper-pagination1',
+				})
 		}else{
 			alert("网络异常");
 		};
+//		轮播图跳转
+		    $(".swiper-banner-listen").click(function(){
+		    	var  data_listen=$(this).find("img").attr("data_listen");
+		    	location.href=data_listen;
+		    })
+//swiper轮播结束	
 		
-		if(data.success==true){
- 	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
-				/*var myHeight=$(".tjks").height();
 	
-				$(".gieTa").height(myHeight);*/
-				
-		}		
+ 	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
+	
 },false)
 
 //听课结束

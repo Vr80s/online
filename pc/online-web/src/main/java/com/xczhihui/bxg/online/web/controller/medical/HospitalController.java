@@ -105,7 +105,6 @@ public class HospitalController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalHospital.setUpdatePerson(currentUser.getUid());
-//        medicalHospital.setUpdatePerson("ff8080816142af54016149e069080000");
         medicalHospitalBusinessServiceImpl.update(medicalHospital);
         return ResponseObject.newSuccessResponseObject("修改成功");
     }
@@ -134,7 +133,6 @@ public class HospitalController {
         page.setSize(size);
 
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectDoctorPage(page, doctorName, currentUser.getUid()));
-//        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectDoctorPage(page, doctorName, "ff80808161313c570161359826ea0000"));
     }
 
     /**
@@ -152,7 +150,22 @@ public class HospitalController {
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalByUserId(currentUser.getUid()));
-//        return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalByUserId("ff8080816142af54016149e069080000"));
+    }
+
+    /**
+     * 删除医馆里面的医师
+     * @param doctorId 医师id
+     */
+    @RequestMapping(value = "deleteDoctor", method = RequestMethod.POST)
+    public ResponseObject delete(HttpServletRequest request, String doctorId){
+        // 获取当前用户
+        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if (loginUser == null) {
+            return OnlineResponse.newErrorOnlineResponse("请登录！");
+        }
+        UserDataVo currentUser = userService.getUserData(loginUser);
+        medicalHospitalBusinessServiceImpl.deleteDoctor(currentUser.getUid(), doctorId);
+        return ResponseObject.newSuccessResponseObject("删除成功");
     }
 
 }
