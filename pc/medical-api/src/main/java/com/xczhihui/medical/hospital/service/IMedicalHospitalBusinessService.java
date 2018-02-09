@@ -73,4 +73,10 @@ public interface IMedicalHospitalBusinessService {
      * @author zhuwenbao
      */
     MedicalHospitalVo selectHospitalByUserId(String uid);
+
+    /**
+     * 删除医馆里面的医师
+     * @param doctorId 医师id
+     */
+    void deleteDoctor(String uid, String doctorId);
 }

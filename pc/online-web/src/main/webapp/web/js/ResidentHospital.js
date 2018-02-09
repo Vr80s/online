@@ -408,12 +408,15 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').css('background','#f0f0f0')
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').val(name);
 	//医馆图片
-	var hosPicStr = '';
+	if(medicalHospitalPictures.length > 0){
+		var hosPicStr = '';
 	medicalHospitalPictures.forEach(function(v,i){
 		hosPicStr += '<img src='+v.picture+'>';
 	})
 	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
 	$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
+	}
+	
 //	$("#hos_Administration .hos_base_inf  ."+imgname+"").css('float','right');
 	//领域遍历生成
 //	var areaStr = '<li data-id=""></li>' ;
