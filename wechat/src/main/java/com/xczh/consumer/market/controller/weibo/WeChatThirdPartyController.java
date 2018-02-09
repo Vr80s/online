@@ -77,7 +77,7 @@ public class WeChatThirdPartyController {
 	@RequestMapping("wxGetCodeUrl")
 	public void getOpenId(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception{
 		
-		String strLinkHome 	= WxPayConst.CODE_URL_3+"?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/bxg/wxpay/h5GetOpenid&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+		String strLinkHome 	= WxPayConst.CODE_URL_3+"?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxlogin/wxThirdGetAccessToken&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 		LOGGER.info("strLinkHome:"+strLinkHome);
 		//存到session中，如果用户回调成功
 		res.sendRedirect(strLinkHome);
@@ -109,11 +109,17 @@ public class WeChatThirdPartyController {
 			if(wxw==null){
 				LOGGER.info("微信第三方认证失败 ");
 			}
+			LOGGER.info("openId "+wxw.getOpenid());
+			
+			
 			String openId = wxw.getOpenid();
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
 			if(wxw.getClient_id() != null){
+				
+				LOGGER.info(" 已经绑定过了:" +wxw.getClient_id());
+				
 				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
@@ -126,6 +132,8 @@ public class WeChatThirdPartyController {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 				}	
 			}else{
+				
+				LOGGER.info(" 没有绑定了:");
 				/*
 				 * 跳转到绑定手机号页面。也就是完善信息页面。  --》绑定类型微信
 				 */
