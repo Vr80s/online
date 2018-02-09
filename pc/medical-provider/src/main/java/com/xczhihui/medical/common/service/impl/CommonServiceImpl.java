@@ -202,10 +202,10 @@ public class CommonServiceImpl implements ICommonService {
                 }
 
                 // 如果用户认证医馆被拒
-                if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLY_REJECT)){
+                if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
 
                     // 同时用户认证医师也被拒
-                    if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLY_REJECT)){
+                    if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())){
                         return CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode();
                     }else{
                         return authDoctorResult;
