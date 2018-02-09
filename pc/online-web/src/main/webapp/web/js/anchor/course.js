@@ -1233,10 +1233,13 @@ function validateResource(){
  * @author name：yuxin <br>email: yuruixin@ixincheng.com
  * @Date: 2018/2/2 0002 下午 9:09
  **/
-function initResource(multimediaType){
+function initResource(multimediaType,nv){
     RequestService("/anchor/course/getAllCourseResources?multimediaType="+multimediaType, "get", null, function(data) {
         var resources = data.resultObject;
-        var str="";
+        var str = "";
+        if(nv){
+            str="<option value=''>未选泽</option>";
+        }
         for(var i=0;resources.length>i;i++){
             str += "<option value='"+resources[i].id+"'>"+resources[i].title+"</option>";
         }
@@ -1358,6 +1361,14 @@ $(function(){
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'licenseForPharmaceuticalTradingPictureImg');
+        }
+        reader.readAsDataURL(this.files[0])
+    })
+    $('#profilePhotoImgPath').on('change',function(){
+        debugger
+        var reader=new FileReader();
+        reader.onload=function(e){
+            picUpdown(reader.result,'profilePhotoImg');
         }
         reader.readAsDataURL(this.files[0])
     })

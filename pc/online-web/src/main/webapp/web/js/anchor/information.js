@@ -234,3 +234,40 @@ function isCardID(sId){
         return false;
     return true;
 }
+
+function saveAnchorInfo(){
+    var anchorInfo = getAnchorInfo();
+    if(verifyAnchorInfo(anchorInfo)){
+
+    }
+}
+
+function getAnchorInfo(){
+    var data = {};
+    data.nickName = $(".anchor_nick_name").val();
+    data.video = $("#speech_select").val();
+    data.profilePhoto = $("#profilePhotoImg img").attr('src');
+    data.detail = UE.getEditor('anchor_details_editor').getContent();
+    return data;
+}
+
+function verifyAnchorInfo(data){
+    if(data.nickName == ''){
+        $('.warning_anchor_name').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_anchor_name').addClass('hide');
+    }
+    if(data.profilePhoto == '' || data.profilePhoto == null){
+        $('.warning_profileImgphoto').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_profileImgphoto').addClass('hide');
+    }
+    if(data.detail == ''){
+        $('.warning_anchor_lecturer_description').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_anchor_lecturer_description').addClass('hide');
+    }
+}
