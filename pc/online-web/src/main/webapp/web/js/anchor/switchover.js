@@ -181,7 +181,7 @@ $(".account_main_alter_title .two").click(function() {
 
 //账户个人信息  
 $(".right_modification").click(function() {
-    initResource(1);
+    initResource(1,true);
     $(".personal_details").hide();
     $(".message_return").show();
 });
@@ -192,63 +192,63 @@ $(".message_return .message_title .two").click(function() {
 
 
 
-
-
-//判断个人信息为空 
-$('.message_return .name_btn').click(function(){
-//	昵称为空
-	var NicknameNull = $.trim($('.message_return .put0').val());
-	
-	//个人介绍
-	var ReferralNull = $.trim($('.message_return .textarea').val());
-	
-	//任职医馆
-	var OfficelNull = $.trim($('.message_return .put1').val());
-	
-//	详细地址
-	var AddressNull = $.trim($('.message_return .name_textarea').val());
-	
-	
-	//昵称为空
-	if(NicknameNull == ''){
-		$('.message_return .return_warning0').removeClass('hide');
-		return false;
-	}else{
-		$('.message_return .return_warning0').addClass('hide');
-	}
-	
-//	个人时间
-	if(ReferralNull == ''){
-		$('.message_return .return_warning3').removeClass('hide');
-		return false;
-	}else{
-		$('.message_return .return_warning3').addClass('hide');
-	}
-	
-//	任职医馆
-	if(OfficelNull == ''){
-		$('.message_return .return_warning4').removeClass('hide');
-		return false;
-	}else{
-		$('.message_return .return_warning4').addClass('hide');
-	}
-	
-	//	城市-详细地址
-	if(AddressNull == ''){
-		$('.message_return .return_warning5').removeClass('hide');
-		return false;
-	}else{
-		$('.message_return .return_warning5').addClass('hide');
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-})
+//
+//
+// //判断个人信息为空
+// $('.message_return .name_btn').click(function(){
+// //	昵称为空
+// 	var NicknameNull = $.trim($('.message_return .put0').val());
+//
+// 	//个人介绍
+// 	var ReferralNull = $.trim($('.message_return .textarea').val());
+//
+// 	//任职医馆
+// 	var OfficelNull = $.trim($('.message_return .put1').val());
+//
+// //	详细地址
+// 	var AddressNull = $.trim($('.message_return .name_textarea').val());
+//
+//
+// 	//昵称为空
+// 	if(NicknameNull == ''){
+// 		$('.message_return .return_warning0').removeClass('hide');
+// 		return false;
+// 	}else{
+// 		$('.message_return .return_warning0').addClass('hide');
+// 	}
+//
+// //	个人时间
+// 	if(ReferralNull == ''){
+// 		$('.message_return .return_warning3').removeClass('hide');
+// 		return false;
+// 	}else{
+// 		$('.message_return .return_warning3').addClass('hide');
+// 	}
+//
+// //	任职医馆
+// 	if(OfficelNull == ''){
+// 		$('.message_return .return_warning4').removeClass('hide');
+// 		return false;
+// 	}else{
+// 		$('.message_return .return_warning4').addClass('hide');
+// 	}
+//
+// 	//	城市-详细地址
+// 	if(AddressNull == ''){
+// 		$('.message_return .return_warning5').removeClass('hide');
+// 		return false;
+// 	}else{
+// 		$('.message_return .return_warning5').addClass('hide');
+// 	}
+//
+//
+//
+//
+//
+//
+//
+//
+// })
 
 
 
