@@ -90,6 +90,7 @@ function getgetRedirectUrl(allCourse,falg){
 	    return redirectUrl;
 	}else{
 	    var c=allCourse[0];  //判断此课程是预约呢、直播、点播的课程
+	    
 	    if(c.lineState != 2){ //直播状态1.直播中，2预告，3直播结束
 	    	if(c.type==1){     
 	 	    	//bxg/xcpage/courseDetails?courseId=724

@@ -154,8 +154,10 @@ header{
     background: #fff;
 }
 .search_history_list_one{
-	padding: 0.426rem 0;
+	/*padding: 0.426rem 0;*/
 	border-bottom: 1px solid #D8DDE6;
+    height: 1.702rem;
+    line-height: 1.702rem;
 }
 
 .search_history_list_one .div0{
@@ -165,7 +167,7 @@ header{
 }
 .search_history_list_one .div1{
 	float: right;
-	font-size: 0.6rem;
+	font-size: 0.8rem;
     margin-right: 0.5rem;
     color: #999;
 }

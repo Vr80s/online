@@ -11,9 +11,19 @@ function is_weixn(){
     }
 }
 
+var type = getQueryString("type"); //若果type 不等于null 时提示充值成功。
+
+if(stringnull(type) || type == 1){
+	alert("充值成功");
+}
+
+
 var orderNo = "";
 var type =""; //判断课程类别，支付使用
 
+$(".header_return").click(function(){
+	window.history.go(-1);
+})
 
 /**
  * 点击去充值
@@ -41,10 +51,14 @@ function  goPay() {
 	 */
 	var actualPay  = $("#ul").find(".li0").find(".p1").find("span").text();
 
+	alert(actualPay);
 	console.log("实际充值的人民币"+actualPay);
 	
-	actualPay = 1; //充值金额人民币
-
+//	actualPay = 1; //充值金额人民币
+//
+//	//测试  
+	actualPay = 0.01;
+	
 	if(payType == 2){ //支付宝支付  rechargePay
     	/**
     	 * 支付宝在字符前判断此订单中的课程用户是否已经购买过了
@@ -57,13 +71,6 @@ function  goPay() {
               return;
           }
           jmpPayPage("/xczh/alipay/rechargePay",payType,"actualPay="+actualPay,null);
-// 	    PC(1, "pc"),
-// 	    H5(2, "h5"),
-// 	    ANDROID(3, "android"),
-// 	    IOS(4, "ios"),
-// 	    OFFLINE(5, "线下"),
-// 	    WORKER(6, "工作人员");		
- 		
     }else if(payType==3){ //微信支付
         var btype=   localStorage.getItem("access");
         var openId=   localStorage.getItem("openid");
@@ -88,7 +95,10 @@ function  goPay() {
  * @returns {String}
  */
 function getRedirectUrl(){
-   return "/xcviews/html/foreshow.html";
+   /**
+    * 去充值页面的几个途径
+    */	
+   return "/xcviews/html/recharges.html?type=1";
 }
 
 

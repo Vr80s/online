@@ -8,14 +8,16 @@ $('.path .hospital').addClass('select');
 RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
-				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);
+					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);	
 					$('.doctor_inf>h4').text(data.resultObject.name);
-					$('.doctor_inf>p').text(data.resultObject.info)
-				} else {
-					
-				}
-			};
+			}else{
+				$('.doctor_inf>img').attr('src',"/web/images/defaultHeadImg.jpg");	
+			}
+			
+			if(data.resultObject.info){
+				$('.doctor_inf>p').text(data.resultObject.info)
+			}
+			
 		});
 
 
@@ -408,6 +410,8 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 		hosPicStr += '<img src='+v.picture+'>';
 	})
 	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
+	$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
+	$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
 	//领域遍历生成
 //	var areaStr = '<li data-id=""></li>' ;
 //	fields.forEach(function(v,i){

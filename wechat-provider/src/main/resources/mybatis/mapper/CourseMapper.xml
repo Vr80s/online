@@ -379,7 +379,7 @@
 		oc.id as id,
 		oc.grade_name as gradeName,
 		oc.smallimg_path as smallImgPath,
-		oc.start_time as startTime,
+		DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
 		if(oc.start_time > DATE_SUB(NOW(),INTERVAL 1 HOUR),1,0) as isLive,
 		oc.end_time as endTime,
 		oc.user_lecturer_id as userLecturerId,

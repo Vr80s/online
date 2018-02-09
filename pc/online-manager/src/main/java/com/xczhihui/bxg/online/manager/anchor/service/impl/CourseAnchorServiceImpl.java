@@ -5,8 +5,11 @@ import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.anchor.service.AnchorService;
+import com.xczhihui.bxg.online.manager.anchor.vo.AnchorIncomeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  *   CourseServiceImpl:课程业务层接口实现类
@@ -44,6 +47,12 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements An
 		CourseAnchor ca = dao.findOneEntitiyByProperty(CourseAnchor.class, "id", id);
 		ca.setStatus(!ca.getStatus());
 		dao.update(ca);
+	}
+
+	@Override
+	public Page<AnchorIncomeVO> findCourseAnchorIncomePage(CourseAnchor searchVo, int currentPage, int pageSize) {
+		Page<AnchorIncomeVO> page = anchorDao.findCourseAnchorIncomePage(searchVo, currentPage, pageSize);
+		return page;
 	}
 
 }

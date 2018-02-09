@@ -1,11 +1,14 @@
 package com.xczhihui.medical.doctor.service.impl;
 
-import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 医师入驻测试类
@@ -21,7 +24,7 @@ public class MedicalDoctorApplyServiceImplTest extends BaseJunit4Test {
     @Test
     public void testGetLastOne(){
         MedicalDoctorApply lastOne =
-                doctorApplyService.getLastOne("4af72e6511a94a7ba9f7ed2aaf41ac5d");
+                doctorApplyService.getLastOne("402880e860c4ebe30160c51302660000");
         System.out.println("----------------------------" + lastOne.toString());
     }
 
@@ -32,14 +35,32 @@ public class MedicalDoctorApplyServiceImplTest extends BaseJunit4Test {
     public void testAdd(){
         MedicalDoctorApply target = new MedicalDoctorApply();
 
-        target.setName("朱辣椒");
-        // java.lang.RuntimeException: 您已经有认证医馆, 不能再申请认证
-        // target.setUserId("ff8080816142af54016149e069080000");
+        target.setUserId("402880e860c4ebe30160c51302660000");
+
+        target.setName("朱疤瘌");
         target.setCardNum("7709123819273****0912831");
-        target.setCardPositive("xxxxxxxxxxxxxxx");
-        target.setCardNegative("xxxxxxxxxxxxxxx");
-        target.setQualificationCertificate("xxxxxxxxxxxxxxx");
-        target.setField("xxxxxxxxxxxx");
+
+        target.setCardPositive("1111111111");
+        target.setCardNegative("11111111");
+        target.setQualificationCertificate("11111111");
+        target.setProfessionalCertificate("1111111");
+        target.setHeadPortrait("23123912");
+        target.setTitle("2312312");
+        target.setField("11111111");
+        target.setTitleProve("12391298");
+        target.setDescription("qeqweqweqwe");
+        target.setProvince("阿富汗");
+        target.setCity("阿富汗");
+
+        MedicalDoctorApplyDepartment department_1 = new MedicalDoctorApplyDepartment();
+        MedicalDoctorApplyDepartment department_2 = new MedicalDoctorApplyDepartment();
+        department_1.setDepartmentId("0f4df242c3294902a87b8bc0a0ffe4d8");
+        department_2.setDepartmentId("3dde4a0a3c6b4d4cbef7a2c501eee373");
+        List<MedicalDoctorApplyDepartment> departments = new ArrayList<>();
+        departments.add(department_1);
+        departments.add(department_2);
+
+        target.setDepartments(departments);
 
         doctorApplyService.add(target);
     }

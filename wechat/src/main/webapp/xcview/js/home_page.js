@@ -135,12 +135,12 @@ requestService("/xczh/live/onlineLive",null,
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<li class='sw-slide'>"+
-		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>" +
+		            "<img src='"+wb.imgPath+"' alt='Concept for children game' data_zbimg='"+wb.url+"'>" +
 		          "</li>";
 			}
 			$("#zb-slides").html(str);
 			 $("#zb-slides li").click(function(){
-		    	var  data_img=$(this).find("img").attr("data_img");
+		    	var  data_img=$(this).find("img").attr("data_zbimg");
 		    	location.href=data_img;
 		    })
 		}else{
@@ -232,7 +232,7 @@ var swiper = new Swiper('#swiper1', {
 
 })
 //JQ预加载分界线----------------------------------------------------------------
-
+//学堂/推荐/课程跳转
 function jump(id){
 	requestService("/xczh/course/details?courseId="+id,null,function(data) {
 
@@ -267,14 +267,51 @@ function jump(id){
 		}
 	})
 }
-
-
-
-$(function(){
-
+//学堂/推荐/课程跳转结束
+//学堂/线下课课程跳转
+function jump_class(id){
+	requestService("/xczh/course/details?courseId="+id,null,function(data) {
+			var userClass=data.resultObject;
+		if(userClass.watchState==0 || userClass.watchState==1){
+			location.href="school_class.html?course_id="+id
+		}else if(userClass.watchState==2 || userClass.watchState==3){
+			location.href="live_class.html?my_study="+id									
+			
+		}
+		
+	})
+}
+//学堂/直播课程跳转
+function jump_play(id){
+	requestService("/xczh/course/details?courseId="+id,null,function(data) {
+			var userPlay=data.resultObject;
+		if(userPlay.watchState==0 || userPlay.watchState==1){
+			location.href="school_play.html?course_id="+id
+		}else if(userPlay.watchState==2 || userPlay.watchState==3){
+			location.href="live_play.html?my_study="+id									
+			
+		}
+		
+	})
+}
+//学堂/直播课程跳转
+function jump_listen(id){
+	requestService("/xczh/course/details?courseId="+id,null,function(data) {
+			var userListen=data.resultObject;
+		if(userListen.watchState==0 || userListen.watchState==1){
+			location.href="school_audio.html?course_id="+id
+		}else if(userListen.watchState == 2||userListen.watchState == 3){
+			if(userListen.collection){
+				location.href="live_select_album.html?course_id="+id					
+			}else{
+				location.href="live_audio.html?my_study="+id					
+			}
+		}	
+	})
+}
 
 //搜索历史开始
-
+$(function(){
 requestService("/xczh/bunch/hotSearch",null, 
     function(data) {
 		

@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.service.impl;
 
+import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.*;
@@ -42,6 +43,11 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Value("${rate}")
     private int rate;
     public static BigDecimal iosRatio = new BigDecimal("0.3");
+
+    @Autowired
+    private RedisCacheService cacheService;
+
+    private static String anchorCache = "anchor_";
 
     @Override
     public String getBalanceByUserId(String userId) {
@@ -239,10 +245,18 @@ public class UserCoinServiceImpl implements UserCoinService {
         //记录礼物流水id
         ucc.setOrderNoGift(giftStatement.getId().toString());
         ucc.setBalanceType(BalanceType.BALANCE.getCode());
+        ucc.setOrderFrom(giftStatement.getClientType());
         //扣除用户熊猫币余额
         updateBalanceForConsumption(ucc);
 
-        CourseAnchor courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
+        CourseAnchor courseAnchor = cacheService.get(anchorCache+giftStatement.getReceiver());
+        if(courseAnchor == null){
+            courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
+            cacheService.set(anchorCache+giftStatement.getReceiver(),courseAnchor,60*10);
+        }else{
+            logger.info("取到缓存主播分成数据");
+        }
+
         BigDecimal ratio = courseAnchor.getGiftDivide();
         BigDecimal iOSBrokerageValue = BigDecimal.ZERO;
         //若为ios订单，计算苹果分成
