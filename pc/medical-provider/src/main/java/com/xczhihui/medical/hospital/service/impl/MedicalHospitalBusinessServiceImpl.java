@@ -39,6 +39,8 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
     private MedicalHospitalPictureMapper hospitalPictureMapper;
     @Autowired
     private MedicalHospitalFieldMapper hospitalFieldMapper;
+    @Autowired
+    private MedicalHospitalDoctorMapper hospitalDoctorMapper;
 
     @Override
     public Page<MedicalHospitalVo> selectHospitalPage(Page<MedicalHospitalVo> page, String name, String field) {
@@ -107,6 +109,33 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         }
 
         return medicalHospitalMapper.selectHospitalByIdAndStatus(hospitalAccount.getDoctorId(), null);
+    }
+
+    /**
+     * 删除医馆里面的医师
+     * @param doctorId 医师id
+     * @author zhuwenbao
+     */
+    @Override
+    public void deleteDoctor(String uid, String doctorId) {
+
+        Optional doctorIdOption = Optional.ofNullable(doctorId);
+        doctorIdOption.ifPresent(doctorIdStr -> {
+
+            // 获取用户的医馆
+            MedicalHospitalAccount hospitalAccount =
+                    hospitalAccountMapper.getByUserId(uid);
+            if(hospitalAccount == null || StringUtils.isBlank(hospitalAccount.getDoctorId())){
+                throw new RuntimeException("您尚为认证医馆，请认证后再添加");
+            }
+
+            Map<String, Object> columnMap = new HashMap<>();
+            columnMap.put("hospital_id", hospitalAccount.getDoctorId());
+            columnMap.put("doctor_id", doctorId);
+            hospitalDoctorMapper.deleteByMap(columnMap);
+
+        });
+
     }
 
     @Override
@@ -236,6 +265,10 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
         if(StringUtils.isBlank(medicalHospital.getCity())){
             throw new RuntimeException("请填写医馆所在城市");
+        }
+
+        if(StringUtils.isBlank(medicalHospital.getDetailedAddress())){
+            throw new RuntimeException("请填写医馆详细地址");
         }
 
     }
