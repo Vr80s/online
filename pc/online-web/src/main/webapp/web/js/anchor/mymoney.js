@@ -48,6 +48,9 @@ $(function(){
 		//验证
 		if(toResultNum == ''){
 			$('.toResultIpt_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.toResultIpt_warn').addClass('hide');
 		}
 	})
 	
@@ -64,24 +67,33 @@ $(function(){
 	
 	//提现中的确定按钮点击
 	$('#mymoney .content_toCash .toCashSure_btn').click(function(){
-		var toCashNum = $.trim($('.content_Settlement #toCashIpt').val());
-		var userName = $.trim($('.content_Settlement #userNameIpt').val());
-		var phoneNum = $.trim($('.content_Settlement #phonePwd').val());
+		var toCashNum = $.trim($('.content_toCash #tpCashIpt').val());
+		var userName = $.trim($('.content_toCash #userNameIpt').val());
+		var phoneNum = $.trim($('.content_toCash #phonePwdIpt').val());
 		
 		//验证
 		//提现金额
 		if(toCashNum == ''){
 			$('.tpCashIpt_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.tpCashIpt_warn').addClass('hide');
 		}
 		
 		//户名
 		if(userName == ''){
 			$('.userNameIpt_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.userNameIpt_warn').addClass('hide');
 		}
 		
 		//手机验证码
 		if(phoneNum == ''){
 			$('.phonePwdIpt_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.phonePwdIpt_warn').addClass('hide');
 		}
 		
 	})
@@ -96,9 +108,56 @@ $(function(){
 	})
 	
 	
+	
+	
+	
 	//新增银行卡
 	$('#mymoney .addNew').click(function(){
 		showContent('content_add',$(this).text())
+	})
+	
+	
+	//新增银行卡中的确定按钮点击
+	$('#mymoney .content_add .addNewCard').click(function(){
+		var content_add_name = $.trim($('.content_add #content_add_name').val());
+		var content_add_card = $.trim($('.content_add #content_add_card').val());
+		var content_add_bank = $.trim($('.content_add #content_add_bank').val());
+		var content_add_idCard =  $.trim($('.content_add #content_add_idCard').val());
+		
+		
+		//验证
+		//户名
+		if(content_add_name == ''){
+			$('.content_add_name_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.content_add_name_warn').addClass('hide');
+		}
+		
+		//卡号
+		if(content_add_card == ''){
+			$('.content_add_card_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.content_add_card_warn').addClass('hide');
+		}
+		
+		//选择银行
+		if(content_add_bank == '-1' ){
+			$('.content_add_bank_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.content_add_bank_warn').addClass('hide');
+		}
+		
+		//身份证号
+		if(content_add_idCard == ''){
+			$('.content_add_idCard_warn').removeClass('hide');
+			return false;
+		}else{
+			$('.content_add_idCard_warn').addClass('hide');
+		}
+		
 	})
 	
 	

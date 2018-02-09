@@ -360,7 +360,7 @@ function clearGift(f){
 }
 function giftShow(gift,f,continuous){
     if(continuous){
-        $("#"+data.senderInfo.userId+data.giftInfo.giftId).html(gift.giftInfo.continuousCount);
+        $("#"+gift.senderInfo.userId+gift.giftInfo.giftId).html(gift.giftInfo.continuousCount);
         // clearTimeout(sto[f]);
         // $("#gift"+f).appendTo($("#boxDom"));
         // sto[f] = setTimeout(function (){
@@ -378,7 +378,7 @@ function giftShow(gift,f,continuous){
     			"<span>"+gift.senderInfo.userName+"</span>&nbsp;" +
     			"<span>送&nbsp;"+gift.giftInfo.name+"</span>" +
     			"</div><img src="+gift.giftInfo.smallimgPath+" style='height: 54px;width:54px;margin-left: 10px;'>" +
-    			"<span class='' style='height: 100%;display: inline-block;vertical-align: top;margin-left: 10px;color: white;font-size: 24px;'>x<i class='addnum"+f+"' style='font-size: 30px;font-weight: 700;' id='"+data.senderInfo.userId+data.giftInfo.giftId+"' xh='"+f+"'>"+gift.giftInfo.continuousCount+"</i></span>" +
+    			"<span class='' style='height: 100%;display: inline-block;vertical-align: top;margin-left: 10px;color: white;font-size: 24px;'>x<i class='addnum"+f+"' style='font-size: 30px;font-weight: 700;' id='"+gift.senderInfo.userId+gift.giftInfo.giftId+"' xh='"+f+"'>"+gift.giftInfo.continuousCount+"</i></span>" +
     	"</div>")	
     }else if(gift.messageType==0){
     	var top=countChange()

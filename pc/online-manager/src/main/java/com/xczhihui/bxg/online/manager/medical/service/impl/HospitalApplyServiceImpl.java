@@ -9,7 +9,9 @@ import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.medical.dao.*;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalApplyService;
 import com.xczhihui.bxg.online.manager.user.dao.UserDao;
+import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.RedissonUtil;
+import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import org.apache.commons.lang.StringUtils;
 import org.redisson.api.RLock;
 import org.slf4j.Logger;
@@ -48,6 +50,8 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
     private AnchorDao anchorDao;
     @Autowired
     private RedissonUtil redissonUtil;
+    @Autowired
+    private OnlineUserService onlineUserService;
 
     @Value("${course.anchor.vod_divide}")
     private BigDecimal vodDivide;
@@ -238,6 +242,10 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         // 设置oe_user表中的is_lecturer为1
         userDao.updateIsLecturerById(1, apply.getUserId());
 
+        //设置讲师权限
+        OnlineUser user = onlineUserService.getOnlineUserByUserId(apply.getUserId());
+        VhallUtil.changeUserPower(user.getVhallId(),  "1", "0");
+
         // course_anchor` 表中新增一条信息
         CourseAnchor courseAnchor = new CourseAnchor();
         courseAnchor.setUserId(apply.getUserId());
@@ -249,6 +257,12 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         courseAnchor.setGiftDivide(giftDivide);
         courseAnchor.setDeleted(false);
         courseAnchor.setStatus(true);
+        if(StringUtils.isNotBlank(user.getName())){
+            courseAnchor.setName(user.getName());
+        }
+        if(StringUtils.isNotBlank(user.getSmallHeadPhoto())){
+            courseAnchor.setProfilePhoto(user.getSmallHeadPhoto());
+        }
         anchorDao.save(courseAnchor);
     }
 
