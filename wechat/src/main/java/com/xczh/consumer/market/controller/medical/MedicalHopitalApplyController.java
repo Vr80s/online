@@ -58,7 +58,7 @@ public class MedicalHopitalApplyController {
 										 , @RequestParam("licenseForPharmaceuticalTradingPictureFile")MultipartFile licenseForPharmaceuticalTradingPictureFile)
 			throws Exception {
 
-		try {
+
 			OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 			if(user==null){
 				return ResponseObject.newErrorResponseObject("登录失效");
@@ -80,10 +80,7 @@ public class MedicalHopitalApplyController {
 
 			medicalHospitalApplyService.add(medicalHospitalApply);
 			return ResponseObject.newSuccessResponseObject("创建成功");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("创建失败");
-		}
+
 	}
 
 	/**

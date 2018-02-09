@@ -151,20 +151,67 @@ public class CommonServiceImpl implements ICommonService {
             if(authDoctorResult != null && authHospitalResult == null){
                 return authDoctorResult;
             }
-
             if(authDoctorResult == null && authHospitalResult != null){
                 return authHospitalResult;
             }
-
-            // 当两者都为空时
             if(authDoctorResult == null && authHospitalResult == null){
                 return CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode();
             }
 
-            // 当查询到该用户即是认证医师，又认证医馆
             if(authDoctorResult != null && authHospitalResult != null){
-                log.warn("userId = {} is auth doctor , also auth hospital" , userId);
-//                throw new RuntimeException("账号异常，请联系管理员");
+
+                // 如果用户是认证医师 或者认证医师中
+                if(authDoctorResult.equals(CommonEnum.AUTH_DOCTOR.getCode()) ||
+                        authDoctorResult.equals(CommonEnum.DOCTOR_APPLYING.getCode())){
+
+                    // 同时又认证医馆或者已是医馆
+                    if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLYING.getCode()) ||
+                            authHospitalResult.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
+                        log.error("---------------userId = {} auth doctor , also auth hospital" , userId);
+                        throw new RuntimeException("账号异常，请联系管理员");
+                    }else{
+                        return authDoctorResult;
+                    }
+
+                }
+
+                // 如果用户认证医师被拒
+                if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())){
+
+                    // 同时用户认证医馆也被拒
+                    if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
+                        return CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode();
+                    }else{
+                        return authHospitalResult;
+                    }
+                }
+
+                // 如果用户是认证医馆 或者认证医馆中
+                if(authHospitalResult.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||
+                        authHospitalResult.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
+
+                    // 同时又认证医师或者已是医师
+                    if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLYING.getCode()) ||
+                            authDoctorResult.equals(CommonEnum.AUTH_DOCTOR.getCode())){
+                        log.warn("-------------userId = {} auth doctor , also auth hospital" , userId);
+                        throw new RuntimeException("账号异常，请联系管理员");
+                    }else{
+                        return authHospitalResult;
+                    }
+
+                }
+
+                // 如果用户认证医馆被拒
+                if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLY_REJECT)){
+
+                    // 同时用户认证医师也被拒
+                    if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLY_REJECT)){
+                        return CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode();
+                    }else{
+                        return authDoctorResult;
+                    }
+                }
+
             }
 
             return null;

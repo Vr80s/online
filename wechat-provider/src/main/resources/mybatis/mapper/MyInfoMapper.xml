@@ -66,7 +66,7 @@
 	<update id="updateUserSetInfo" parameterType="com.xczhihui.wechat.course.vo.OnlineUserVO">
 		UPDATE oe_user
 		<set>
-			<if test="user.sex != null and user.sex!=''">
+			<if test="user.sex != null ">
 				sex = #{user.sex},
 			</if>
 			<if test="user.email != null and user.email!=''">
