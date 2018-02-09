@@ -128,8 +128,9 @@ function checkUser1(saveFalg){
 	  }
 //	  map.put("occupation", occupation);
 //    map.put("occupationOther", occupationOther);
-	  
+	  var user_id = localStorage.getItem("userId");
 	requestService("/xczh/set/userInfoWechat", {
+          id: stringnull(user_id) ? user_id : "",
 		  name: stringnull(nickname) ? nickname : "",
 		  sex:stringnull(sex) ? sex : "",
 		  email:stringnull(email) ? email : "",
