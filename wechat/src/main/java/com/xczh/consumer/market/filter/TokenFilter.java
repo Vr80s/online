@@ -32,7 +32,6 @@ public class TokenFilter implements Filter {
 	private static String str ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login,/bxg/page/login/1"
 			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/page/login/1,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
 			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/wxjs/h5JSSDK,/bxg/page/verifyLoginStatus";
-	
 	/*
 	 * 登录前不拦截的页面，因为可能来自分享。
 	 */
@@ -61,43 +60,10 @@ public class TokenFilter implements Filter {
 			+ "/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse,/bxg/criticize/saveCriticize,/bxg/criticize/updatePraise,"
 			+ "/bxg/criticize/saveReply,/bxg/criticize/getCriticizeList,/bxg/host/hostPageCourse,/bxg/host/hostPageInfo,/bxg/bunch/hotSearch";
 	
-//	/*
-//	 * 因为这些接口和h5无关
-//	 * 新版为了播放开放的接口
-//	 */
-//	private static String str6 = "/bxg/common/h5ShareAfter,/bxg/version/checkUpdate,/bxg/live/addLive,"
-//			+ "/bxg/bunch/offLineClassItem,/bxg/apply/get,/bxg/apply/updateDetailsInfo,/bxg/message/add,/bxg/common/getDomain,"
-//			+ "/bxg/apply/updateBaseInfo";
-//	
-//	/**
-//	 * 详情的一些信息不拦截
-//	 */
-//	private static String str7 = "/bxg/live/liveDetails,/bxg/reward/list,/bxg/gift/sendGift,/bxg/gift/list,/bxg/gift/rankingList";
-//	private  static String str8 = "/bxg/bunch/offLineClassItem,/bxg/live/getMoneySum,/bxg/common/userIsSubscribe,/bxg/bunch/detail,/bxg/oa/jobVo";
-//	private static String str9 = "/bxg/video/getVideos,/bxg/wxjs/h5JSSDK,/bxg/common/getWeihouSign";
-//	private  static String str10 = "/bxg/common/judgeUserIsTeacher,/bxg/gift/userRankingList,/bxg/common/userHomePage,/bxg/common/userHomePageCourseList";
-//	private static String str11 = "/bxg/history/list,/bxg/history/add,/bxg/history/empty,/bxg/live/getPreLiveCount";
-//	/**
-//	 * 订单接口、学习中心接口不拦截
-//	 */
-//	private static String str12 = "/bxg/order/save,/bxg/order/list,/bxg/order/getByOrderNo,/bxg/order/update,/bxg/order/saveRegenerate,/bxg/learningCenter/list";
-//	
-//	/**
-//	 * 充值、消费接口不拦截
-//	 */
-//	private static String str13 = "/bxg/order/consumptionList,/bxg/oa/userCoinList,/bxg/enchash/getEnchashmentRmbBalance,/bxg/enchash/getEnchashmentBalance,/bxg/iap/setIapCertificate";
-//	
-//	/**
-//	 * 额外要增加的接口
-//	 */
-//	private static String str14 =  "/bxg/bs/isLecturer,/bxg/wxpay/appleIapPayOrder,/bxg/common/coursePwdConfirm,/bxg/bs/applePhoneRegist";
-//	
-//	private static String str15 =  "/bxg/city/saveAddress,/bxg/city/updateAddress,/bxg/city/getAddressAll,/bxg/city/updateIsAcquies,/bxg/city/deleteAddressById,/bxg/city/getAllPCC";
-//	
+
 	
 	public static void main(String[] args) {
 		System.out.println((str + "," +str1+","+str2+","+str3).split(",").length);
-
 		//System.out.println((str6+","+str5+","+","+str7+","+str8+","+str9+","+str10+","+str11).split(",").length);
 	}
 	

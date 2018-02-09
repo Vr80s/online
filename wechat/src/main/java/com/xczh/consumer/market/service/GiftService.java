@@ -44,4 +44,6 @@ public interface GiftService {
      * @return
      */
     List<RankingUserVo>  userRankingList(String userId) ;
+
+    List<RankingUserVo>  newRankingList(String liveId, Integer current, Integer size);
 }

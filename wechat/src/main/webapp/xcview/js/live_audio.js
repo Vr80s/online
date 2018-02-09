@@ -23,10 +23,7 @@ $(function(){
 		$(".play_video").append(school_img)
 //	CC视频ID
 	    var	videoId = data.resultObject.directId;
-	    var	type = data.resultObject.type;
-	
-		console.log(videoId)
-		
+	    var	type = data.resultObject.type;	
 		//初始化视频资源
 		chZJ(videoId,type);
         //获取讲师id

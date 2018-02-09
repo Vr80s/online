@@ -1,13 +1,14 @@
 package com.xczhihui.bxg.online.manager.medical.service.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
-import com.xczhihui.bxg.online.common.domain.MedicalDepartment;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
-import com.xczhihui.bxg.online.common.domain.MedicalDoctorField;
-import com.xczhihui.bxg.online.common.domain.MedicalHospitalField;
+import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.manager.medical.dao.DepartmentDao;
+import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
 import com.xczhihui.bxg.online.manager.medical.service.DepartmentService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -123,18 +124,33 @@ public class DepartmentServiceImpl extends OnlineBaseServiceImpl implements Depa
 		return list;
 	}
 
+	/**
+	 * 修改医师的科室信息
+	 * @param id 医师id
+	 */
 	@Override
-	public void addDoctorDepartment(String id, String[] fieldId) {
+	public void addDoctorDepartment(String id, String[] departmentId) {
+
+		// 根据医师id获取医师详情
+		List<MedicalDoctor> doctors = dao.findEntitiesByProperty(MedicalDoctor.class, "id", id);
+		if(CollectionUtils.isEmpty(doctors)){
+			throw new MedicalException(MedicalExceptionEnum.DOCTOR_NOT_EXIT);
+        }else{
+			if(StringUtils.isNotBlank(doctors.get(0).getSourceId())){
+                throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+            }
+		}
+
 		List<MedicalDoctorDepartment> mhfs = dao.findEntitiesByProperty(MedicalDoctorDepartment.class, "doctorId", id);
 		for (int i = 0; i < mhfs.size(); i++) {
 			dao.delete(mhfs.get(i));
 		}
-		if(fieldId!=null){
-			for (int i = 0; i < fieldId.length; i++) {
+		if(departmentId!=null){
+			for (int i = 0; i < departmentId.length; i++) {
 				MedicalDoctorDepartment medicalDoctorDepartment = new MedicalDoctorDepartment();
 				String mid = UUID.randomUUID().toString().replace("-","");
 				medicalDoctorDepartment.setId(mid);
-				medicalDoctorDepartment.setDepartmentId(fieldId[i]);
+				medicalDoctorDepartment.setDepartmentId(departmentId[i]);
 				medicalDoctorDepartment.setDoctorId(id);
 				medicalDoctorDepartment.setCreateTime(new Date());
 				dao.save(medicalDoctorDepartment);

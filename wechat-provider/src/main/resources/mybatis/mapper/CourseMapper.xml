@@ -37,7 +37,7 @@
 		oe_course oc where oc.id = #{courseId}
 	</select>
 
-	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息   selectCourseDetailsById -->
+	<!-- 课程详情 此详情包括了  不包括礼物等信息   selectCourseDetailsById -->
 	
 	<select id="selectCourseMidileDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
@@ -51,7 +51,7 @@
 		if(oc.is_free =0,0,1) as watchState,
 		if(oc.type =4,if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0),0)  as cutoff,
 		
-		if(oc.collection =0,oc.direct_id,(select o.direct_id from oe_course o join collection_course cc on
+		if(oc.collection=0,oc.direct_id,(select o.direct_id from oe_course o join collection_course cc on
         o.id =cc.course_id where cc.collection_id =oc.id  ORDER BY cc.collection_course_sort asc limit 1 ))  as directId,
         
 		oc.collection as collection,
@@ -80,6 +80,7 @@
 
 
 	<!-- 课程详情 此详情包括了，课程的很多种状态，包括了一些用户信息 -->
+	
 	<select id="selectCourseDetailsById" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
 		SELECT
 		oc.id as id,
@@ -119,7 +120,6 @@
 		oc.lecturer as name,
 		oc.lecturer_description as lecturerDescription,
 		ou.small_head_photo as headImg,
-		oe_user as userId,
 		
 		oc.live_source_type as liveSourceType
 			FROM
@@ -379,7 +379,7 @@
 		oc.id as id,
 		oc.grade_name as gradeName,
 		oc.smallimg_path as smallImgPath,
-		oc.start_time as startTime,
+		DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
 		if(oc.start_time > DATE_SUB(NOW(),INTERVAL 1 HOUR),1,0) as isLive,
 		oc.end_time as endTime,
 		oc.user_lecturer_id as userLecturerId,

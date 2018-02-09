@@ -1012,9 +1012,9 @@ function drawMenusPage(data){
         for(var i=0;i<data.length;i++){
             var rowData="<tr id='childMenus_tr_"+data[i].id+"'><td> ";
             if(data[i].has){
-                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='fieldId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='departmentId'  checked='checked'' value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
             }else{
-                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='fieldId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
+                rowData+="<input style='margin-top:-1px;cursor: pointer;' type='checkbox' name='departmentId'  value='"+data[i].id+"' id='childMenuNames_"+i+"' /></td><td><label style='cursor: pointer;' for='childMenuNames_"+i+"'>"+data[i].name+"</label></td>";
             }
             rowData+="</td>";
             rowData+="<td>";
@@ -1207,7 +1207,7 @@ function openDepartmentManage(obj){
     ajaxRequest(basePath+"/medical/department/alllist",{'id':row.id,'type':2},function(data) {
         drawMenusPage(data);
 
-        $("#childMenu-form").attr("action", basePath+"/medical/field/addDoctorField");
+        $("#childMenu-form").attr("action", basePath+"/medical/department/addDoctorDepartment");
         openDialog("childMenuDialog","childMenuDialogDiv","科室",580,450,true,"提交",function(){
             $("input:checkbox").removeAttr("disabled");
             mask();

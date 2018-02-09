@@ -218,6 +218,7 @@ public class HospitalApplyServiceImpl implements HospitalApplyService {
         hospital.setStatus(false);
         String authenticationInformationId = UUID.randomUUID().toString().replace("-","");
         hospital.setAuthenticationId(authenticationInformationId);
+        hospital.setSourceId(apply.getId());
         hospitalDao.save(hospital);
 
         // 新增认证成功信息：medical_hospital_authentication

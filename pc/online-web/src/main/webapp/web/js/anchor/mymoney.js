@@ -1,4 +1,5 @@
 $(function(){
+
 	
 	
 	//底部固定表单部分点击人民币熊猫币切换效果
@@ -29,18 +30,64 @@ $(function(){
 	
 	
 	
+	
+	
+	//顶部的几个绿色按钮点击事件
 	//结算按钮点击出现结算结构
 	$('#mymoney .Settlement').click(function(){
-		showContent('content_Settlement',$(this).text())
+		//表单重置
+		content_SettlementReset();
+		//显示对应表单内容
+		showContent('content_Settlement',$(this).text());
+		
+	})
+	
+	//结算中的确定按钮点击
+	$('#mymoney .content_Settlement .content_Settlement_btn').click(function(){
+		var toResultNum = $.trim($('.content_Settlement #toResultIpt').val());
+		//验证
+		if(toResultNum == ''){
+			$('.toResultIpt_warn').removeClass('hide');
+		}
 	})
 	
 	
 	
 	
+	
+	
+
 	//提现按钮点击出发事件
 	$('#mymoney .toCash').click(function(){
 		showContent('content_toCash',$(this).text())
 	})
+	
+	//提现中的确定按钮点击
+	$('#mymoney .content_toCash .toCashSure_btn').click(function(){
+		var toCashNum = $.trim($('.content_Settlement #toCashIpt').val());
+		var userName = $.trim($('.content_Settlement #userNameIpt').val());
+		var phoneNum = $.trim($('.content_Settlement #phonePwd').val());
+		
+		//验证
+		//提现金额
+		if(toCashNum == ''){
+			$('.tpCashIpt_warn').removeClass('hide');
+		}
+		
+		//户名
+		if(userName == ''){
+			$('.userNameIpt_warn').removeClass('hide');
+		}
+		
+		//手机验证码
+		if(phoneNum == ''){
+			$('.phonePwdIpt_warn').removeClass('hide');
+		}
+		
+	})
+	
+	
+	
 	
 	
 	//管理按钮点击触发事件
@@ -49,13 +96,10 @@ $(function(){
 	})
 	
 	
-	
 	//新增银行卡
 	$('#mymoney .addNew').click(function(){
 		showContent('content_add',$(this).text())
 	})
-	
-	
 	
 	
 	/*@点击顶部的按钮对应的中间变动结构显示出来
@@ -76,12 +120,18 @@ $(function(){
 		}else{
 			contentTopName = btnName
 		}
-		
-		
 		$('#mymoney .content_mid > div').addClass('hide');
 		$('#mymoney .content_mid').removeClass('hide');
 		$('.content_mid .content_mid_top .title').text(contentTopName);
 		$(".content_mid ."+contentName+"").removeClass('hide');
-
-}
+	}
+	
+	
+	//结算的重置部分
+	function content_SettlementReset(){
+		$('.content_Settlement #toResultIpt').val('');
+		$('.toResultIpt_warn').addClass('hide');
+	}
+	
+	
 });

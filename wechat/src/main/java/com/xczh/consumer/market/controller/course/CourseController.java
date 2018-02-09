@@ -130,7 +130,8 @@ public class CourseController {
 	
 	
 	/**
-	 * Description：课程详情（视频、音频、回放、预告）页面
+	 * Description：
+	 * 
 	 * @param req
 	 * @param res
 	 * @return
@@ -226,7 +227,6 @@ public class CourseController {
 	public ResponseObject selectMenuTypeAndRandCourse(
 			@RequestParam(value="courseId")Integer courseId)
 			throws Exception {
-		
 		Page<CourseLecturVo> page = new Page<CourseLecturVo>();
 		page.setCurrent(0);
 		page.setSize(2);

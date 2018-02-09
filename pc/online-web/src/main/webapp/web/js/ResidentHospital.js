@@ -8,14 +8,16 @@ $('.path .hospital').addClass('select');
 RequestService("/online/user/isAlive", "get", null, function(data) {
 			//头像预览
 			if(data.resultObject.smallHeadPhoto) {
-				if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);
+					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);	
 					$('.doctor_inf>h4').text(data.resultObject.name);
-					$('.doctor_inf>p').text(data.resultObject.info)
-				} else {
-					
-				}
-			};
+			}else{
+				$('.doctor_inf>img').attr('src',"/web/images/defaultHeadImg.jpg");	
+			}
+			
+			if(data.resultObject.info){
+				$('.doctor_inf>p').text(data.resultObject.info)
+			}
+			
 		});
 
 
@@ -392,8 +394,12 @@ function baseInfrese(){
 //医馆基础信息回显
 function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,description,contactor,email,wechat,province,city){
 	//头像
-	var headPic = '<img src='+headPortrait+'>';
-	$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
+	if(headPortrait != null){
+		var headPic = '<img src='+headPortrait+'>';
+		$('#hos_Administration .hos_base_inf .bottomContent .touxiang_pic').html(headPic);
+	}
+	
+	
 	//医馆名称
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').attr('disabled','disabled');
 	$('#hos_Administration .hos_base_inf .bottomContent .doc_zhicheng').css('background','#f0f0f0')
@@ -404,6 +410,8 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 		hosPicStr += '<img src='+v.picture+'>';
 	})
 	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
+	$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
+	$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
 	//领域遍历生成
 //	var areaStr = '<li data-id=""></li>' ;
 //	fields.forEach(function(v,i){

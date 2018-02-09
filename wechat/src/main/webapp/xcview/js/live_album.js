@@ -149,7 +149,7 @@ $(".bg_userModal").click(function(){
 		var directId=$(this).attr("data-myvideo");
 		var courseId=$(this).attr("data-courseId");
 		//初始化视频资源
-		chZJ(directId,1);
+//		chZJ(directId,1);
 		window.location="/xcview/html/live_album.html?course_id="+courseId+"&directId="+directId;
 	})
 	}

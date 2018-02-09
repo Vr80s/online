@@ -221,6 +221,7 @@ header{
 .slide_one_artist{
 	width: 1.213rem;
 	height: 0.893rem;
+	margin-top: 0.748rem;
 }
 .slide_one_sutra{
 	width:  1.085rem;
@@ -475,6 +476,7 @@ header{
 .acupuncture_main_two_size .p3 img{
 	width: 0.468rem;
 	height: 0.468rem;
+	margin-right: 0.15rem;
 }
 .acupuncture_main_two_size .p3 span{
 	font-size: 0.511rem;
@@ -644,6 +646,7 @@ header{
 .acupuncture_main_four_size .p3 img{
 	width: 0.404rem;
 	height: 0.511rem;
+	margin-right: 0.15rem;
 }
 .acupuncture_main_four_size .p3 span{
 	font-size: 0.511rem;
@@ -838,6 +841,7 @@ header{
 .ancient_main_two_size .p3 img{
 	width: 0.468rem;
 	height: 0.468rem;
+	margin-right: 0.15rem;
 }
 .ancient_main_two_size .p3 span{
 	font-size: 0.511rem;
@@ -1007,6 +1011,7 @@ header{
 .ancient_main_four_size .p3 img{
 	width: 0.404rem;
 	height: 0.511rem;
+	margin-right: 0.15rem;
 }
 .ancient_main_four_size .p3 span{
 	font-size: 0.511rem;
@@ -1138,18 +1143,20 @@ header{
 	/*float: right;*/
     margin-right: 0.4rem;
     margin-top: -0.1rem;
-
+    height: 0.51rem;
+    line-height: 0.51rem;
 }
    
  .boutique_main_one_size .p3 img{
-	 width: 0.45rem;
-    /*float: left;*/
+	width: 0.45rem;
+    float: left;
+    margin-right: 0.15rem;
 
 }
 .boutique_main_one_size .p3 span{
-	    /*float: right;*/
-		color: #999999;
-		margin-top: -0.1rem;
+    /*float: right;*/
+	color: #999999;
+	margin-top: -0.1rem;
 
 }
 .boutique_main_one_size .p4{
@@ -1246,6 +1253,7 @@ header{
 .boutique_main_two_size .p3 img{
 	width: 0.468rem;
 	height: 0.468rem;
+	margin-right: 0.15rem;
 }
 .boutique_main_two_size .p3 span{
 	font-size: 0.511rem;
@@ -1632,7 +1640,7 @@ header{
 .newest_main_two_size .p3 img{
 	width: 0.468rem;
 	height: 0.468rem;
-	margin-right: 0.1rem;
+	margin-right: 0.15rem;
 }
 .newest_main_two_size .p3 span{
 	font-size: 0.511rem;
@@ -1788,8 +1796,6 @@ header{
 	font-size: 0.511rem;
     color: #999;
     overflow: hidden;
-    /* text-overflow: ellipsis; */
-    /* white-space: nowrap; */
     display: inline-block;
     max-width: 1.5rem;
 }
@@ -1802,7 +1808,7 @@ header{
 .newest_main_four_size .p3 img{
 	width: 0.404rem;
 	height: 0.511rem;
-	margin-right: 0.1rem;
+	margin-right: 0.15rem;
 }
 .newest_main_four_size .p3 span{
 	font-size: 0.511rem;
@@ -1832,7 +1838,6 @@ header{
 .lectures_main{
 	width: 15.85rem;
     margin: 0 auto;
-    /*background: red;*/
 }
 .lectures_main ul li{
 	float: left;
@@ -2128,8 +2133,6 @@ to {-webkit-transform: rotate(360deg);}
 
 
 /*线下课*/
-
-
 .swiper-container{
     margin:0 auto;
     position:relative;
@@ -2521,4 +2524,3 @@ to {-webkit-transform: rotate(360deg);}
     }
 }
  
-

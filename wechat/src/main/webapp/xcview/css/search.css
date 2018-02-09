@@ -128,7 +128,7 @@ header{
 	width: 100%;
 	height: 100%;
 	background: #fff;
-    padding-bottom: 0.638rem;
+    /*padding-bottom: 0.638rem;*/
 }
 .search_history_title{
 	width: 14.9rem;
@@ -154,8 +154,10 @@ header{
     background: #fff;
 }
 .search_history_list_one{
-	padding: 0.426rem 0;
+	/*padding: 0.426rem 0;*/
 	border-bottom: 1px solid #D8DDE6;
+    height: 1.702rem;
+    line-height: 1.702rem;
 }
 
 .search_history_list_one .div0{
@@ -165,8 +167,11 @@ header{
 }
 .search_history_list_one .div1{
 	float: right;
-	font-size: 0.6rem;
+	font-size: 0.8rem;
     margin-right: 0.5rem;
     color: #999;
+}
+.search_history_list .search_history_list_one:last-child{
+	border: 0;
 }
 /*搜索历史结束*/

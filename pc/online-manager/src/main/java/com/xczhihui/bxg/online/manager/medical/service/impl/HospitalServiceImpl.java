@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.manager.medical.service.impl;
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
@@ -7,7 +8,10 @@ import com.xczhihui.bxg.online.common.domain.MedicalHospitalPicture;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalRecruit;
 import com.xczhihui.bxg.online.manager.cloudClass.service.LecturerService;
 import com.xczhihui.bxg.online.manager.medical.dao.HospitalDao;
+import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -167,9 +171,23 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 		
 	}
 
-
+	/**
+	 * 修改医馆图片
+	 * @param medicalHospitalId 医馆id
+	 */
 	@Override
 	public void updateMedicalHospitalDetail(String medicalHospitalId, String picture1, String picture2, String picture3, String picture4, String picture5, String picture6, String picture7, String picture8, String picture9) {
+
+    	// 根据医馆id获取医馆详情
+		List<MedicalHospital> hospitals = dao.findEntitiesByProperty(MedicalHospital.class, "id", medicalHospitalId);
+		if(CollectionUtils.isEmpty(hospitals)){
+			throw new MedicalException(MedicalExceptionEnum.HOSPITAL_NOT_EXIT);
+		}else{
+			if(StringUtils.isNotBlank(hospitals.get(0).getSourceId())){
+				throw new MedicalException(MedicalExceptionEnum.MUST_NOT_HANDLE);
+			}
+		}
+
 		List<MedicalHospitalPicture> mhps = dao.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", medicalHospitalId);
 		for (int i = 0; i < mhps.size(); i++) {
 			dao.delete(mhps.get(i));

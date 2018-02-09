@@ -108,6 +108,7 @@
 #mymoney .content_bottom .rmbTable thead tr{
 	height: 40px;
 	line-height: 40px;
+	background: #f0f0f0;
 }
 #mymoney .content_bottom .pandaTable tbody tr,
 #mymoney .content_bottom .rmbTable tbody tr{
@@ -272,4 +273,56 @@
     font-style: normal;
     text-align: center;
     margin-right: 5px;
+    font-size: 12px;
+}
+
+/*银行卡管理部分*/
+#mymoney .content_Administration{
+	padding: 20px 20px 30px 20px;
+}
+#mymoney .content_Administration .Card_Administration td{
+	border: 1px solid #dedede;
+	text-align: center;
+}
+#mymoney .content_Administration .Card_Administration thead tr{
+	height: 40px;
+	line-height: 40px;
+	background: #F0F0F0;
+}
+#mymoney .content_Administration .Card_Administration tbody tr{
+	height: 80px;
+	line-height: 80px;
+}
+
+
+
+/*新增银行卡部分*/
+#mymoney .content_add{
+	padding: 20px 24px 30px ;
+}
+#mymoney .content_add > div >span:first-child{
+	display: inline-block;
+	width: 69px;
+	text-align: right;
+	margin-right: 20px;
+	font-size: 14px;
+	color: #666666;
+}
+#mymoney .content_add > div{
+	margin-bottom: 30px;
+}
+.waring{
+	font-size: 14px;
+	color: #666666;
+}
+#mymoney .content_add .addNewCard{
+	width: 92px;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 4px;
+	background: #00BC12;
+	border: none;
+	outline: none;
+	color: #fff;
+	margin-left: 90px;
 }
