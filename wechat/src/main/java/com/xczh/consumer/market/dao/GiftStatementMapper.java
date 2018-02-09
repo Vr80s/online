@@ -42,7 +42,7 @@ public class GiftStatementMapper extends BasicSimpleDao {
         sb.append( " SELECT  ou.id userId,ou.`name`, ou.small_head_photo smallHeadPhoto, ogs.create_time, ");
         sb.append( " CAST(SUM(ogs.`price`) AS SIGNED) giftCount ");
         sb.append( " FROM oe_gift_statement ogs  INNER JOIN oe_user ou 	ON (ogs.giver = ou.id) ");
-        sb.append( " WHERE ogs.live_id = #{liveId} 	GROUP BY giver 	ORDER BY giftCount DESC ");
+        sb.append( " WHERE ogs.live_id = ? 	GROUP BY giver 	ORDER BY giftCount DESC ");
         List<RankingUserVo> lists = this.queryPage(JdbcUtil.getCurrentConnection(), sb.toString(),
         		pageNumber, pageSize,RankingUserVo.class, liveId);
         return lists;

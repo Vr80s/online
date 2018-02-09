@@ -111,12 +111,7 @@ public class XzUserSetController {
      			user.setSmallHeadPhoto(headImgPath);
              }
           }
-			OnlineUser u = appBrowserService.getOnlineUserByReq(request);
-			if(u==null){
-				return ResponseObject.newErrorResponseObject("获取用户信息有误");
-			}
-			user.setLoginName(u.getLoginName());
-			user.setId(u.getId());
+
 			String provinceCityName=user.getProvinceName();
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  provinceCityName.split(" ");
@@ -189,12 +184,7 @@ public class XzUserSetController {
 			/**
 			 * 保存个人资料信息
 			 */
-			OnlineUser u = appBrowserService.getOnlineUserByReq(request);
-			if(u==null){
-				return ResponseObject.newErrorResponseObject("获取用户信息有误");
-			}
-			user.setLoginName(u.getLoginName());
-			user.setId(u.getId());
+
 			String provinceCityName=user.getProvinceName();
 			if(StringUtils.isNotBlank(provinceCityName)){
 				String [] str =  provinceCityName.split(" ");
