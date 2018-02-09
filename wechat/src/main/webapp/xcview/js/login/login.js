@@ -20,7 +20,7 @@
  * 是否显示第三方登录啦
  */
 var wxOrbrower = "";
-if (isWeiXin()) {
+if (is_weixin()) {
 	console.log(" 是来自微信内置浏览器")
 	wxOrbrower = "wx";
 } else {
@@ -33,19 +33,16 @@ if (isWeiXin()) {
 //}else if(access == "wx"){
 //	$(".footer").show();
 //}
-///**
-// * 第三方登录
-// */
-//function sanfangLogin(){
-//	location.href = "/bxg/wxjs/h5BsGetCodeUrl";
-//}
-//
-///**
-// * input获取焦点隐藏错误提示
-// */
-//$("input").focus(function(){
-//	tishi.innerHTML = "";
-//});
+/**
+ * 第三方登录
+ */
+function sanfangLogin(){
+	
+	location.href = "/xczh/wxlogin/wxGetCodeUrl";
+	
+	//location.href = "/bxg/wxjs/h5BsGetCodeUrl";
+}
+
 
 
 

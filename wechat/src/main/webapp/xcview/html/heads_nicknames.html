@@ -25,7 +25,7 @@
 
 <script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
 
-
+	<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 
 <style>
 	
@@ -80,7 +80,7 @@
 					<img src="../images/touxiang.png" id="headImg" alt="">
 				 </div> -->
 				 <!-- 图像区域 -->
-			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" onchange="checkUser()">
+			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" onchange="checkUser1()">
 				    <img  src="../images/120.jpg" width="100%" id="headImg" />
 				</a>
 				
@@ -88,12 +88,12 @@
 			
 			
 		</div>
-		
+	<form  method="post" enctype="multipart/form-data" id="form" >
 		<div class="forget">
-			<input type="" name="" id="" value="" placeholder="设置昵称" class="input0" />
+			<input type="" name="nickname" id="nickname" value="" placeholder="设置昵称" class="input0" />
 		</div>
-		<div class="forget_btn">提交</div>
-	
+		<div class="forget_btn" id="pet_nickname_right">提交</div>
+	</form>
 	<!-- 中间内容结束 -->
 </body>
 
@@ -419,6 +419,81 @@ function setImagePreview() {
 		});
 
 	};
+</script>
+<script>
+    $(document).ready(function(){
+//用户名长度
+        function nickName() {
+            var yonghuReg = /([\u4e00-\u9fa5]+)|(\w+)|([-]+)/g;
+            var yonghuNameLength = 0;
+            var yonghuName = $("#nickname").val().trim();
+            var arr = [];
+            yonghuName.replace(yonghuReg, function (a, hanzi, number, zXian) {
+                if (hanzi != undefined) {
+                    var hanziL = hanzi.length * 2;
+                    arr.push(hanziL);
+                }
+                if (number != undefined) {
+                    var numberL = number.length;
+                    arr.push(numberL);
+                }
+                if (zXian != undefined) {
+                    var zXianL = zXian.length;
+                    arr.push(zXianL);
+                }
+            });
+            for (var i = 0; i < arr.length; i++) {
+                yonghuNameLength += arr[i];
+            }
+            return yonghuNameLength;
+        }
+
+        var  cymYonghuInfo =$("#errorMsg");
+
+        /*点击返回按钮*/
+        $(".return").click(function(){
+
+            location.href ='persons.html';
+        });
+
+        $(".affirm").click(function(){
+            $(".common0").hide();
+        })
+
+        $("#pet_nickname_right").click(function(){
+            var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
+            var numberReg=/^\d{4,20}$/;//纯数字验证
+            var yonghuNameLength;
+            var nikeName = $("#nickname").val().trim();
+            if(nickNameReg.test(nikeName)){
+                yonghuNameLength = nickName();
+            }else{
+                yonghuNameLength=0;
+            }
+            if(nikeName == ""){
+                cymYonghuInfo.show();
+                $(".common0").show();
+                /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
+                       + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
+                return false;
+            }else if (yonghuNameLength > 15 || yonghuNameLength < 2){
+                cymYonghuInfo.show();
+                $(".common0").show();
+                /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
+                           + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
+                return false;
+            }
+            cymYonghuInfo.hide();
+            checkUser1("nickname");
+            //验证名称的合法性
+            location.href ='home_page.html';
+        });
+        // 点击昵称结束
+
+    });
+
+
+
 </script>
 
 

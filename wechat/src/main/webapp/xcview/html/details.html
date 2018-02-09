@@ -184,21 +184,27 @@ $(function(){
 		
 		<!--关注-->
 		<div class="attention">
+			
 			<div class="main_img">
-				<img src="../images/120.jpg" />
+				<script type="text/html" id="search1">
+	        	<!--{{each items as item i}}-->
+				<img src="{{headImg}}" alt="" />
+				<!--{{/each}}-->
+	       		</script>
 			</div>
 			<div class="main_title">
-				<p class="p0">郝忠平（主播名）</p>
+				<p class="p0">测试（主播名）</p>
 				<p class="p1">
 					<span class="span0">关注<span id="n_guanzhu">0</span></span>
 					<span class="span1">粉丝<span id="n_fensi">0</span></span>
 				</p>
 			</div>
 			<div class="add_follow" id="add_follow" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
-				<img src="../images/append1_icon.png">
+				<img src="../images/follow.png">
 				<p>加关注</p>
 			</div>
 			<div class="close">×</div>
+			
 			
 		</div>
 		
@@ -509,6 +515,16 @@ if(is_weixin() && stringnull(getQueryString("openId"))){
 		$(".attention .close").click(function(){
 			$(".attention").hide();
 		});
+		
+		requestService("/xczh/gift/liveDetails",null, 
+		    function(data) {
+				
+				if(data.success==true){
+		// 			添加主播--头像
+					$(".main_img").html(template('search1',{items:data.resultObject}))
+				}
+				
+		},false) 
 		
 		
 	};
