@@ -204,7 +204,7 @@
 			md.authentication_information_id, md.field_text
 		FROM medical_doctor md
 		where md.deleted = 0 AND md.id IN(
-			SELECT mhd.doctor_id FROM medical_hospital_doctor mhd WHERE hospital_id = #{hospitalId}
+			SELECT mhd.doctor_id FROM medical_hospital_doctor mhd WHERE hospital_id = #{hospitalId} and deleted = 0
 		)
 		<if test="doctorName != null">
 			AND md.name LIKE concat('%',#{doctorName},'%')
