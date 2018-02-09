@@ -1504,7 +1504,7 @@ footer{
     margin-right: 0.15rem;
     margin-top: 0.2rem;
     /*padding-right: 4rem;*/
-   background: blueviolet;
+   /*background: blueviolet;*/
 }
 .animation_name p{
 	padding-top: 0.1rem;
@@ -1524,11 +1524,11 @@ footer{
 .animation_gift{
 	width: 2rem;
     overflow: hidden;
-    margin: 0 auto;
     text-align: center;
-    float: right;
+    float: left;
     height: 2rem;
-    background: mediumvioletred;
+    /*background: mediumvioletred;*/
+    margin-right: 0.2rem;
 }
 .animation_gift img{
 	/*width: 2.35rem;*/
@@ -1541,7 +1541,7 @@ footer{
     /*margin-top: 0.2rem;*/    
 }
 
-.animation_gift1{
+.animation_gift1{ 
 	width: 2.35rem;
 	/*width: 2.35rem;*/
     float: right;
@@ -1569,7 +1569,7 @@ footer{
     margin-right: 0rem;
     margin-top: 0.5rem;
     color: #FFD800;
-    background: darkred;
+    /*background: darkred;*/
 }
 .animation_span span{
 	font-size: 1.106rem;
