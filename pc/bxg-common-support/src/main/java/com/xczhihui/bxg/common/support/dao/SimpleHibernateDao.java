@@ -252,6 +252,10 @@ public class SimpleHibernateDao {
 		return (number != null ? number.intValue() : 0);
 	}
 
+	public Double queryForDouble(String sql, Object... args) {
+		Number d = this.namedParameterJdbcTemplate.getJdbcOperations().queryForObject(sql, args, Double.class);
+		return (d != null ? d.doubleValue(): 0);
+	}
 
 	/**
 	 * 分页查询

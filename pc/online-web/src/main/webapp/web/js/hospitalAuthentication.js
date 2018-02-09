@@ -159,9 +159,9 @@ $(function(){
 		var company = $.trim($('.hos_renzheng_inf .bottomContent .doc_name').val());
 		var zhizhaoNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_Idnum').val());
 		var xukeNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_zhicheng').val());
-		var Number = /^[0-9]*$/;
+		var Number = /^[0-9]{18}$/;
 		var hosName = $.trim($('.hos_renzheng_inf .bottomContent .hos_name').val());
-		
+		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;
 		//医馆名称验证
 		if(hosName == ''){
 			$('.hos_renzheng_inf .bottomContent .hosName_warn').removeClass('hide');
@@ -205,14 +205,16 @@ $(function(){
 		
 		//药品经营许可证号验证
 		if(xukeNum == ''){
-			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('营业执照号不能为空');
+			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('药品经营许可证号不能为空');
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').removeClass('hide');
 			return false;
-		}else if(!Number.test(xukeNum)){
-			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('营业执照号格式错误');
+		}
+		else if(!xukeNumPass.test(xukeNum)){
+			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').text('药品经营许可证号格式错误');
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').removeClass('hide');
 			return false;
-		}else{
+		}
+		else{
 			$('.hos_renzheng_inf .bottomContent .xukeNum_warn').addClass('hide');
 		}
 		

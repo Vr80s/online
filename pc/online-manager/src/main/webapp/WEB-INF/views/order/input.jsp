@@ -94,7 +94,7 @@
 		<label class="control-label col-xs-12 col-sm-3 no-padding-right" for="class_id">班级ID</label>
 		<div class="col-xs-12 col-sm-9">
 			<div class="clearfix">
-				<input class="form-control " name="class_id"
+				<input class="form-control " name="class_id" value="0"
 				 id="class_id" type="text" placeholder="请输入5位以内班级id" style="width:200px;"/>
 			</div>
 		</div>
@@ -104,8 +104,8 @@
 		<div class="col-xs-12 col-sm-9">
 			<div class="clearfix">
 				<select name="order_from" id="order_from" style="width:200px;">
-					<option value="1">分销</option>
-					<option value="2">线下</option>
+					<option value="5">线下订单</option>
+					<option value="6">工作人员</option>
 				</select>
 			</div>
 		</div>

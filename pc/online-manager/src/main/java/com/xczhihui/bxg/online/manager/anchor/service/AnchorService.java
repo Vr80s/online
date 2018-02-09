@@ -2,6 +2,9 @@ package com.xczhihui.bxg.online.manager.anchor.service;
 
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
+import com.xczhihui.bxg.online.manager.anchor.vo.AnchorIncomeVO;
+
+import java.util.Map;
 
 public interface AnchorService {
 
@@ -17,4 +20,6 @@ public interface AnchorService {
     void updateCourseAnchor(CourseAnchor courseAnchor);
 
 	void updatePermissions(Integer id);
+
+    Page<AnchorIncomeVO> findCourseAnchorIncomePage(CourseAnchor searchVo, int currentPage, int pageSize);
 }

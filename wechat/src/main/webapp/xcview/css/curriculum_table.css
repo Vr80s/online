@@ -456,15 +456,15 @@ header{
 	overflow: hidden;
 }
 .all_bottom{
-	width: 100%;
+	width: 5.06rem;
     height: 0.98rem;
     line-height: 0.98rem;
-    /* background: red; */
-    position: fixed;
-    bottom: 0;
+    position: sticky;
+    bottom: 0rem;
+	right:0;
 }
 .all_bottom div{
-	width: 34%;
+	width: 50%;
 	height: 100%;
 	float: left;
 	text-align: center;

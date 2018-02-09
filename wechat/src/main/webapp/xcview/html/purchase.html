@@ -160,11 +160,18 @@
 		        }
 		        var imgClass = $(this).find("img").attr("class");
 		        if(imgClass == "BTCpanda"){
+		        	
+		        	
+		        	$(".footer_div").hide();
+					$(".footer_div_btn").show();
+					
 		        	$("#currency").html("熊猫币");
 		        }else{
-		        	$("#currency").html("元");
+		        	$(".footer_div").show();
+					$(".footer_div_btn").hide();
+		        	
+					$("#currency").html("元");
 		        }
-		        
 	          	$(this).removeClass();
 	          	$(this).addClass('ul_li0');
 	           	$(aBtn[i]).find(".ul_li_bg").hide();
