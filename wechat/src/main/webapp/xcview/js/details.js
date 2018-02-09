@@ -43,7 +43,7 @@ var result="";
             $("#n_guanzhu").html(result.focusCount);
             //粉丝数
             $("#n_fensi").html(result.fansCount);
-   
+   			
 
 
             /**
@@ -189,13 +189,13 @@ $(".add_follow").click(function(){
 		if (data.success) {
 			
 		    if(htmlstr=="已关注"){
-		        $(".add_follow").find('img').attr('src','../images/append1_icon.png');
+		        $(".add_follow").find('img').attr('src','../images/follow.png');
 		        $(".add_follow").find('p').html("加关注");
 		        //$(".right_personal").find('span').html(parseInt(p)-1);
 		        
 		        $("#n_fensi").html(parseInt(n_fensi)-1);
 		    }else{
-		    	 $(".add_follow").find('img').attr('src','../images/append2_icon.png');
+		    	 $(".add_follow").find('img').attr('src','../images/follow_one.png');
 			     $(".add_follow").find('p').html("已关注");
 		        //粉丝数
 		        $("#n_fensi").html(parseInt(n_fensi)+1);
@@ -451,3 +451,4 @@ if(is_weixin()){
 		});
 	})    
 }
+
