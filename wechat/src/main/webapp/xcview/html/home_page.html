@@ -10,7 +10,10 @@
 <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 <meta name="keywords" content="" />
 <meta name="description" content="" />
-
+<link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
+<!--<link href="/xcview/css/swiper-3.3.1.min.css" />-->
+<link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
@@ -29,8 +32,7 @@
 
 <!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
 <!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
-<link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
-<link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css"/>
+
 
 <style type="text/css">
 	.swiper-container {
@@ -97,6 +99,26 @@
 	.swiper_box0{
 		margin-bottom: 0.426rem;
 		overflow: hidden;
+	}
+	/*推荐轮播*/
+	.swiper-banner{
+		width: 100% !important;
+		height: 6.425rem !important;
+		margin-right: 0 !important;
+	}
+	.swiper-banner img{
+		width: 100%;
+		height: 100%;
+	}
+	.swiper-banner-list{
+		width: 100% !important;
+		top: 5rem !important;
+	}
+	.swiper-banner-list span{
+		margin: 0 0.2rem !important;
+	}
+	#swiper-container-box{
+		padding-bottom: 0;
 	}
 </style>
 
@@ -195,32 +217,19 @@
 								</div>
 								<!--课程类型结束-->
 							</div>
-	                        
-	
 	                    </div>
 	                    <!--分类结束-->
-	            
 						<!--推荐开始-->
 	                    <div class="tabSlider-box curr tjks" style="transform: translate(1883px, 0px);">
-							<!--轮播开始-->
-							<nav>
-								<div class="htmleaf-container">
-									<article class="container">
-									    <section>
-									      <figure id="responsiveness" class="swipslider">
-									       	<ul class="sw-slides" id="sw-slides">
-
-										            
-									       	</ul>
-									      </figure>
-									    </section>
-									</article>
-								</div>
-							</nav>
-							<!--轮播结束-->
-							
-							<!--小白班开始-->
-							
+							<!--swiper轮播图滑动-->
+							<div class="swiper-container" id="swiper-container-box">
+							    <div class="swiper-wrapper" id="wrapper-box">
+							     
+							    </div>
+							    <div class="swiper-pagination swiper-banner-list"></div>
+							</div>
+							<!--swiper轮播图滑动结束-->
+							<!--swiper小白班开始-->
 							<div class="swiper_box swiper_box0" >
 		                    	<div class="swiper-containers">
 							        <div class="swiper-wrapper" id="slide_one">
@@ -236,12 +245,9 @@
 										</script>					          
 							        </div>
 							    </div>
-	                    		
 	                    	</div>
-							
-							<!--小白班结束-->
-							
-							<!--推荐名师开始-->	                    	
+							<!--swiper小白班结束-->
+							<!--swiper推荐名师开始-->	                    	
 	                    	<div class="swiper_box">
 	                    		<p>名师推荐</p>
 		                    	<div class="swiper-container">
@@ -262,9 +268,8 @@
 				                  		</script>						          
 							        </div>
 							    </div>
-	                    		
 	                    	</div>
-	                    	<!--推荐名师结束-->
+	                    	<!--swiper推荐名师结束-->
 	                    	
 	                    	<!--精品课程开始-->
 	                    	<!--精品课程开始-->
@@ -3444,7 +3449,7 @@ app.TabSlider = function(dom,options){
 <!--js滑动引入结束-->
 
     <!--学堂4个轮播引入-->
-    <script src="http://www.5iweb.com.cn/statics/js/jquery.1.7.1.min.js" type="text/javascript"></script>
+    <!--<script src="http://www.5iweb.com.cn/statics/js/jquery.1.7.1.min.js" type="text/javascript"></script>-->
 	<script type="text/javascript" src="/xcviews/js/swipeslider.min.js"></script>
 	<script type="text/javascript">
 	    /*

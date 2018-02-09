@@ -78,7 +78,7 @@ public class WxPayConst {
 	public final static String CODE_URL ="https://open.weixin.qq.com/connect/oauth/authorize?appid=appid&redirect_uri=url&response_type=code&scope=snsapi_base&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
 	public final static String CODE_URL_2 ="https://open.weixin.qq.com/connect/oauth/authorize?appid=appid&redirect_uri=url&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
 
-	public final static String CODE_URL_3 ="https://open.weixin.qq.com/connect/oauth/authorize";//没有参数的
+	public final static String CODE_URL_3 ="https://open.weixin.qq.com/connect/oauth2/authorize";//没有参数的
 	
 	// openid获取URL
 	public final static String OAUTH_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";

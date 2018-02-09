@@ -115,7 +115,13 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 	var access_url ="/xczh/user/phoneRegist";
 	requestService(access_url, urlparm, function(data) {
 		if (data.success) {
-			location.href = "/xcview/html/enter.html";
+			
+			commonLocalStorageSetItem(data);
+			
+			
+			location.href = "/xcview/html/evpi.html";
+			
+			
 		} else {
 			webToast(data.errorMessage,"middle",1500);				
 		}

@@ -1,3 +1,4 @@
+
 var userPic = $('.userPic').css('background')
 //顶部的医馆按钮变色效果
 $('.forum').css('color','#000');
@@ -357,7 +358,7 @@ $('#hos_base_inf').click(function(){
 					//回显数据
 					
 				baseInfrese1(data.resultObject.headPortrait,data.resultObject.name,data.resultObject.medicalHospitalPictures,data.resultObject.fields,data.resultObject.description,
-					data.resultObject.contactor,data.resultObject.email,data.resultObject.wechat,data.resultObject.province,data.resultObject.city)
+					data.resultObject.contactor,data.resultObject.email,data.resultObject.wechat,data.resultObject.province,data.resultObject.city,data.resultObject.detailedAddress)
 				}
 //				 $('#doc_Distinguish .'+imgname+'').html('<img src="'+data.resultObject+'" >');
 //			$('#areaList').html(template('areaTpl', {item:data.resultObject.records}));
@@ -388,11 +389,13 @@ function baseInfrese(){
 	//城市
 	$('#hos_Administration .hos_base_inf .bottomContent #choosePro').val('-1');
 	$('#hos_Administration .hos_base_inf .bottomContent #citys').val('-1');
+	//详细地址
+	$('#hos_Administration .hos_base_inf .doc_address textarea').val('');
 }
 
 
 //医馆基础信息回显
-function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,description,contactor,email,wechat,province,city){
+function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,description,contactor,email,wechat,province,city,detailedAddress){
 	//头像
 	if(headPortrait != null){
 		var headPic = '<img src='+headPortrait+'>';
@@ -411,7 +414,7 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 	})
 	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
 	$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
-	$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
+//	$("#hos_Administration .hos_base_inf  ."+imgname+"").css('float','right');
 	//领域遍历生成
 //	var areaStr = '<li data-id=""></li>' ;
 //	fields.forEach(function(v,i){
@@ -422,7 +425,7 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 		for(var i =0 ;i < $('#areaList li').length ;i++){
 			for(j = 0;j < fields.length ;j++ ){
 				if($('#areaList li').eq(i).text() == fields[j].name){
-					$('#areaList li').eq(i).addClass('keshiColor');
+					$('#areaList li').eq(i).click();
 				}
 			}
 		}
@@ -437,6 +440,9 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 	//城市
 	$('#hos_Administration .hos_base_inf .bottomContent #choosePro option:selected').text(province);
 	$('#hos_Administration .hos_base_inf .bottomContent #citys option:selected').text(city);
+	
+		//详细地址
+	$('#hos_Administration .hos_base_inf .doc_address textarea').val(detailedAddress);
 }
 
 
