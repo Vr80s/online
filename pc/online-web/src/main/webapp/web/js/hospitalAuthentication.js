@@ -18,6 +18,7 @@ $(function(){
 		var email = $.trim($('.hos_base_inf .doc_hospital').val());
 		var emailPatt = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ ;
 		
+		
 		//医馆头像判断
 		if($('.hos_base_inf   .touxiang_pic:has(img)').length < 1){
 			$('.hos_base_inf .touxiang_picUpdata .warning ').removeClass('hide');
@@ -102,6 +103,9 @@ $(function(){
 		}
 		
 		
+		
+		
+		
 		var data={};
 		data.hosName = $.trim($('.hos_base_inf .doc_zhicheng').val());
 		data.hosIntroduct = $.trim($('.hos_base_inf .personIntroduct textarea').val());
@@ -113,6 +117,7 @@ $(function(){
 		data.wechat =  $('#hos_Administration .hos_base_inf  .hos_weixin').val();
 		data.headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
         data.description = UE.getEditor('editor2').getContent();
+        data.detailAddress = $.trim($('#hos_Administration .hos_base_inf .doc_address textarea').val());
 		var hoslist = [];
 		for(var i = 0;i < $('#hos_pic img').length ; i++){
 			    hoslist.push($('#hos_pic img').eq(i).attr('src'));
