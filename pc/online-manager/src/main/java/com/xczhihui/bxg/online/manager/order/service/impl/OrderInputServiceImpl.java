@@ -321,8 +321,10 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		//TODO 订单类型
 		//查未支付的订单
-		sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id,o.order_from from oe_order o,oe_order_detail od "
-				+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
+		sql = "select od.id orderDetailId ,o.id orderId ,od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id,o.`order_from` from oe_order o,oe_order_detail od "
+				+ " where o.id = od.order_id  and  o.order_no='"+orderNo+"' and order_status=0 ";
+//		sql = "select od.actual_pay,od.course_id,o.user_id,o.create_person,od.class_id,o.order_from from oe_order o,oe_order_detail od "
+//				+ " where o.id = od.order_id and  o.order_no='"+orderNo+"' and order_status=0 ";
 		List<OrderVo> orders = dao.getNamedParameterJdbcTemplate().query(sql, new BeanPropertyRowMapper<OrderVo>(OrderVo.class));
 		if (orders.size() > 0) {
 			//更新订单表
@@ -359,7 +361,12 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 				dao.getNamedParameterJdbcTemplate().update(sql, paramMap);
 			}
 			//给主播分成
-			userCoinService.updateBalanceForCourses(orders);
+			try {
+				userCoinService.updateBalanceForCourses(orders);
+			}catch (Exception e){
+				logger.info("订单分成失败，订单id:{}",orders.get(0).getOrderId());
+//				e.printStackTrace();
+			}
 		}
 	}
 

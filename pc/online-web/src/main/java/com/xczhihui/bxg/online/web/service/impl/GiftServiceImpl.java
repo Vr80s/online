@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +33,10 @@ public class GiftServiceImpl implements GiftService {
 	private UserCoinService userCoinService;
 	@Autowired
 	private OnlineUserCenterService onlineUserCenterService;
+	@Autowired
+	private RedisCacheService cacheService;
+
+	private static String giftCache = "gift_";
 
 	@Override
 	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom,int count,String liveId){
@@ -47,14 +52,25 @@ public class GiftServiceImpl implements GiftService {
 		giftStatement.setGiver(giverId);
 		giftStatement.setReceiver(receiverId);
 		giftStatement.setLiveId(liveId);
+		giftStatement.setCount(count);
 
-		DetachedCriteria dc = DetachedCriteria.forClass(Gift.class);
-		dc.add(Restrictions.eq("isDelete", false));
-		dc.add(Restrictions.eq("id", Integer.valueOf(giftStatement.getGiftId())));
-		Gift gift = giftDao.findEntity(dc);
-		if(gift == null) {
-			throw new RuntimeException("无对应礼物");
+
+		Gift gift = cacheService.get(giftCache+giftStatement.getGiftId());
+		if(gift == null){
+			DetachedCriteria dc = DetachedCriteria.forClass(Gift.class);
+			dc.add(Restrictions.eq("isDelete", false));
+			dc.add(Restrictions.eq("id", Integer.valueOf(giftStatement.getGiftId())));
+			gift = giftDao.findEntity(dc);
+			if(gift == null) {
+				throw new RuntimeException("无对应礼物");
+			}else{
+				//缓存礼物数据10分钟
+				cacheService.set(giftCache+giftStatement.getGiftId(),gift,60*10);
+			}
+		}else{
+			System.out.println("取到礼物缓存数据");
 		}
+
 		giftStatement.setGiftName(gift.getName());
 		giftStatement.setPrice(gift.getPrice());
 		giftStatement.setCreateTime(new Date());
@@ -70,6 +86,10 @@ public class GiftServiceImpl implements GiftService {
 		if(u==null) {
             throw new RuntimeException(giftStatement.getGiver() + "--用户不存在");
         }
+        //业务流程处理完成，开始准备广播数据
+		int continuousCount = getContinuousCount(u.getId(),gift.getId(),liveId);
+		System.out.println("连击数"+continuousCount);
+
 		GiftStatement gs = new GiftStatement();
 		try {
 			BeanUtils.copyProperties(gs, giftStatement);
@@ -90,7 +110,7 @@ public class GiftServiceImpl implements GiftService {
     	mapSenderInfo.put("userId", u.getId());
     	mapSenderInfo.put("userName", u.getName());
     	
-    	mapGiftInfo.put("continuousCount", gs.getCount());
+    	mapGiftInfo.put("continuousCount", continuousCount);
     	mapGiftInfo.put("count", gs.getCount());
     	mapGiftInfo.put("time", new Date().getTime()+"");
     	mapGiftInfo.put("giftId", gs.getGiftId());
@@ -105,6 +125,22 @@ public class GiftServiceImpl implements GiftService {
     	map.put("balanceTotal",userCoinService.getBalanceByUserId(u.getId()));
 		return map;
 	}
+
+	private int getContinuousCount(String id, Integer giftId, String liveId) {
+		//用户id+视频Id+礼物id
+		String giftShowTicket = id+"_"+giftId+"_"+liveId;
+		Integer continuousCount = cacheService.get(giftShowTicket);
+		if(continuousCount == null){
+			continuousCount = 1;
+			//将礼物数目存入redis 有效期三秒
+			cacheService.set(giftShowTicket,continuousCount,3);
+		}else{
+			continuousCount++;
+			cacheService.set(giftShowTicket,continuousCount,3);
+		}
+		return continuousCount.intValue();
+	}
+
 
 	@Override
 	public List<Gift> getGift() {

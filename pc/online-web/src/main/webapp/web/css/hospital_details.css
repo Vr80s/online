@@ -117,7 +117,7 @@
 	margin-right: 30px;
 }
 .content_box #main .main_left .hospital_doctor{
-min-height: 360px;
+/*min-height: 360px;*/
 }
 .content_box #main .main_left .hospital_doctor > .hospital_top {
   margin-bottom: 10px;
