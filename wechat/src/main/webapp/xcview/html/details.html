@@ -186,11 +186,7 @@ $(function(){
 		<div class="attention">
 			
 			<div class="main_img">
-				<script type="text/html" id="search1">
-	        	<!--{{each items as item i}}-->
-				<img src="{{headImg}}" alt="" />
-				<!--{{/each}}-->
-	       		</script>
+				<img src="" alt="" id="guanz_headImg"/>
 			</div>
 			<div class="main_title">
 				<p class="p0">测试（主播名）</p>
@@ -516,7 +512,7 @@ if(is_weixin() && stringnull(getQueryString("openId"))){
 			$(".attention").hide();
 		});
 		
-		requestService("/xczh/gift/liveDetails",null, 
+/* 		requestService("/xczh/gift/liveDetails",null, 
 		    function(data) {
 				
 				if(data.success==true){
@@ -524,7 +520,7 @@ if(is_weixin() && stringnull(getQueryString("openId"))){
 					$(".main_img").html(template('search1',{items:data.resultObject}))
 				}
 				
-		},false) 
+		},false)  */
 		
 		
 	};
