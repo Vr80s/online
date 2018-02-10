@@ -3,13 +3,16 @@ package com.xczhihui.medical.anchor.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.anchor.mapper.UserBankMapper;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
+import com.xczhihui.utils.BankUtil;
 import com.xczhihui.utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -34,6 +38,8 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Autowired
 	private IUserBankService userBankService;
+	@Autowired
+	private RedissonUtil redissonUtil;
 
 	@Override
 	public UserBank selectUserBankByUserIdAndAcctPan(String userId, String acctPan,String certId) {
@@ -42,64 +48,84 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Override
 	public void addUserBank(String userId,String acctName, String acctPan,String certId,String tel) {
-        UserBank userBank = new UserBank();
-        userBank.setUserId(userId);
-        userBank.setAcctName(acctName);
-        userBank.setAcctPan(acctPan);
-        userBank.setCertId(certId);
-        userBank.setBankName(BankCardType.getBankCard(Integer.parseInt(tel)));
-        userBank.setTel(tel);
-		validateUserBank(userBank);
-		UserBank ub = selectUserBankByUserIdAndAcctPan(userBank.getUserId(),userBank.getAcctPan(),userBank.getCertId());
-		if(ub!=null){
-			throw new RuntimeException("此卡已添加");
-		}
-		String host = "https://ali-bankcard4.showapi.com";
-		String path = "/bank3";
-		String method = "GET";
-		String appcode = "c46df1e69afe4de199c7ce7041277534";
-		Map<String, String> headers = new HashMap<String, String>();
-		//最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-		headers.put("Authorization", "APPCODE " + appcode);
-		Map<String, String> querys = new HashMap<String, String>();
-		querys.put("acct_name", userBank.getAcctName());
-		querys.put("acct_pan", userBank.getAcctPan());
-		querys.put("cert_id", userBank.getCertId());
-		querys.put("cert_type", "01");
-		querys.put("needBelongArea", "true");
-		String Telephone="";
+		// 1.获得锁对象实例
+		RLock redissonLock = redissonUtil.getRedisson().getLock("addUserBank"+userId);
+		boolean resl = false;
 		try {
-			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
+			//等待十秒。有效期五秒
+			resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+			if(resl){
+				boolean verifyBank = BankUtil.getNameOfBank(acctPan).contains(BankCardType.getBankCard(Integer.valueOf(tel)));
+				if(!verifyBank){
+					throw new RuntimeException("银行卡号与银行不匹配");
+				}
+				UserBank userBank = new UserBank();
+				userBank.setUserId(userId);
+				userBank.setAcctName(acctName);
+				userBank.setAcctPan(acctPan);
+				userBank.setCertId(certId);
+				userBank.setBankName(BankCardType.getBankCard(Integer.parseInt(tel)));
+				userBank.setTel(tel);
+				validateUserBank(userBank);
+				UserBank ub = selectUserBankByUserIdAndAcctPan(userBank.getUserId(),userBank.getAcctPan(),userBank.getCertId());
+				if(ub!=null){
+					throw new RuntimeException("此卡已添加");
+				}
+				String host = "https://ali-bankcard4.showapi.com";
+				String path = "/bank3";
+				String method = "GET";
+				String appcode = "c46df1e69afe4de199c7ce7041277534";
+				Map<String, String> headers = new HashMap<String, String>();
+				//最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+				headers.put("Authorization", "APPCODE " + appcode);
+				Map<String, String> querys = new HashMap<String, String>();
+				querys.put("acct_name", userBank.getAcctName());
+				querys.put("acct_pan", userBank.getAcctPan());
+				querys.put("cert_id", userBank.getCertId());
+				querys.put("cert_type", "01");
+				querys.put("needBelongArea", "true");
+				String Telephone="";
+				try {
+					HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
 
-			String bankInfo = EntityUtils.toString(response.getEntity());
-			JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
-			String code = bankInfoJson.get("showapi_res_code").toString();
-			if(!"0".equals(code)){
-				throw new RuntimeException("银行卡信息有误");
+					String bankInfo = EntityUtils.toString(response.getEntity());
+					JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
+					String code = bankInfoJson.get("showapi_res_code").toString();
+					if(!"0".equals(code)){
+						throw new RuntimeException("银行卡信息有误");
+					}
+					String srb = bankInfoJson.get("showapi_res_body").toString();
+					JSONObject srbJson = JSONObject.parseObject(srb);
+					JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
+					String cardType = belong.get("cardType").toString();
+					userBank.setCardType(cardType);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					throw new RuntimeException("添加失败");
+				}
+				List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
+				if(userBankList!=null&&userBankList.size()>0){
+					userBank.setDefault(false);
+				}else {
+					userBank.setDefault(true);
+				}
+				userBank.setCertType("01");
+				userBank.setCreateTime(new Date());
+				userBankMapper.add(userBank);
 			}
-			String srb = bankInfoJson.get("showapi_res_body").toString();
-			JSONObject srbJson = JSONObject.parseObject(srb);
-			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
-			Telephone = belong.get("tel").toString();
-			String cardType = belong.get("cardType").toString();
-			userBank.setCardType(cardType);
-
-		} catch (Exception e) {
+		}catch (RuntimeException e){
+			throw e;
+		}catch (Exception e){
 			e.printStackTrace();
-			throw new RuntimeException("添加失败");
+			throw new RuntimeException("网络错误，请重试");
+		}finally {
+			if(resl){
+				redissonLock.unlock();
+			}else{
+				throw new RuntimeException("网络错误，请重试");
+			}
 		}
-		if(!Telephone.equals(userBank.getTel())){
-			throw new RuntimeException("银行卡号与银行不匹配");
-		}
-		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
-		if(userBankList!=null&&userBankList.size()>0){
-			userBank.setDefault(false);
-		}else {
-			userBank.setDefault(true);
-		}
-		userBank.setCertType("01");
-		userBank.setCreateTime(new Date());
-		userBankMapper.add(userBank);
 	}
 
 	@Override
@@ -138,6 +164,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	@Override
 	public UserBank getDefault(String userId) {
 		return userBankMapper.getDefault(userId);
+	}
+
+	@Override
+	public int getBankCount(String id) {
+		return userBankMapper.getBankCount(id);
 	}
 
 	private void validateUserBank(UserBank userBank) {

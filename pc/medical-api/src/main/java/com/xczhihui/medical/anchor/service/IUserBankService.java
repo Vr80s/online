@@ -3,6 +3,7 @@ package com.xczhihui.medical.anchor.service;
 import com.xczhihui.medical.anchor.vo.UserBank;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IUserBankService {
 
@@ -52,5 +53,11 @@ public interface IUserBankService {
 	   **/
 	  UserBank getDefault(String userId);
 
-
+	  /**
+	   * Description：获取绑定银行卡数量
+	   * creed: Talk is cheap,show me the code
+	   * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	   * @Date: 2018/2/10 0010 下午 3:56
+	   **/
+	  int getBankCount(String id);
 }

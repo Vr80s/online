@@ -79,6 +79,7 @@ $(function(){
 	
 	//点击我的资产 下拉栏上去
 	$('#mymoneyTbl').click(function(){
+        initBasaeAssetInfo();
 		$('.wrap_box .little_box').css('display','none');
 		$('.account').css('display','none');
 		$('.myResive').css('display','none');

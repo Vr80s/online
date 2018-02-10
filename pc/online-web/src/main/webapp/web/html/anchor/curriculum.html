@@ -320,7 +320,73 @@
 	</tr>
 	{{/each}}
 </script>
-
+<script type="text/template" id="coin_transaction_list_tpl">
+	{{each records as coinTransaction i}}
+	<tr>
+		<td>
+			{{coinTransaction.VALUE}}
+		</td>
+		<td>
+			{{coinTransaction.changeType}}
+		</td>
+		<td>
+			{{coinTransaction.goods}}
+		</td>
+		<td>
+			{{coinTransaction.create_time}}
+		</td>
+		<td>
+		</td>
+	</tr>
+	{{/each}}
+</script>
+<script type="text/template" id="rmb_transaction_list_tpl">
+	{{each records as coinTransaction i}}
+	<tr>
+		<td>
+			{{coinTransaction.value}}
+		</td>
+		<td>
+			{{coinTransaction.changeType}}
+		</td>
+		<td>
+			{{coinTransaction.createTime}}
+		</td>
+		<td>
+			{{coinTransaction.form}}
+		<td>
+			{{coinTransaction.acctPan}}
+		</td>
+		<td>
+			{{coinTransaction.status}}
+		</td>
+		<td>
+			{{coinTransaction.dismissalRemark}}
+		</td>
+	</tr>
+	{{/each}}
+</script>
+<script type="text/template" id="bank_card_list_tpl">
+	{{each resultObject as bankcard i}}
+	<tr>
+		<td>
+			{{bankcard.bankName}}
+		</td>
+		<td>
+			{{bankcard.acctName}}
+		</td>
+		<td>
+			{{bankcard.acctPan}}
+		</td>
+		<td>
+			{{bankcard.certId}}
+		</td>
+		<td>
+			<a href="javascript:;" onclick="deleteBankCard({{bankcard.id}})">移除</a>
+		</td>
+	</tr>
+	{{/each}}
+</script>
 <!--删除提示弹窗-->
 <div id="deleteTip" class="hide">
 	<h4 class="confirm-title">删除资源</h4>
@@ -926,17 +992,17 @@
 			<ul>
 				<li>
 					<p>熊猫币余额（熊猫币）</p>
-					<h2>300</h2>
+					<h2 class="coinBalance"></h2>
 					<a href="javascript:;" class="Settlement">结算</a>
 				</li>
 				<li>
 					<p>人民币余额（元）</p>
-					<h2>300.00</h2>
+					<h2 class="rmb"></h2>
 					<a href="javascript:;" class="toCash">提现</a>
 				</li>
 				<li>
 					<p>我的银行卡（张）</p>
-					<h2>300</h2>
+					<h2 class="bankCount"></h2>
 					<a href="javascript:;" class="administration">管理</a>
 					<a href="javascript:;" class="addNew">新增</a>
 				</li>
@@ -965,20 +1031,20 @@
 				<table>
 					<tr>
 						<td>您的余额为</td>
-						<td><span>300</span>熊猫币</td>
+						<td><span class="coinBalance">300</span>熊猫币</td>
 					</tr>
 					<tr>
 						<td>结算金额</td>
-						<td><input type="text" id="toResultIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+						<td><input type="text" id="toResultIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #333333;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 						<span class="toResultIpt_warn waring hide" style="font-size: 14px;"><i class="smallwarn">!</i>请输入结算金额</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="hdrmb hide">
 						<td>获得人民币</td>
-						<td><span style="font-size: 14px;">800</span>元</td>
+						<td><span style="font-size: 14px;" id="toResultIptRmb">800</span>元</td>
 					</tr>
 				</table>
-				<button class="content_Settlement_btn">确定</button>
+				<button class="content_Settlement_btn" onclick="saveSettlement()">确定</button>
 			</div>
 			
 			<!--提现部分-->
@@ -1064,42 +1130,42 @@
 							<td>操作</td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>招商银行</td>
-							<td>张三丰</td>
-							<td>622* **** **** **** *123</td>
-							<td>132 123 1887 0322 7765</td>
-							<td><a href="javascript:;">移除</a></td>
-						</tr>
-						<tr>
-							<td>中国工商银行</td>
-							<td>张三丰</td>
-							<td>622* **** **** **** *123</td>
-							<td>132 123 1887 0322 7765</td>
-							<td><a href="javascript:;">移除</a></td>
-						</tr>
-						<tr>
-							<td>中国农业银行</td>
-							<td>张三丰</td>
-							<td>622* **** **** **** *123</td>
-							<td>132 123 1887 0322 7765</td>
-							<td><a href="javascript:;">移除</a></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+					<tbody id="bank_card_list">
+						<!--<tr>-->
+							<!--<td>招商银行</td>-->
+							<!--<td>张三丰</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>132 123 1887 0322 7765</td>-->
+							<!--<td><a href="javascript:;">移除</a></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td>中国工商银行</td>-->
+							<!--<td>张三丰</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>132 123 1887 0322 7765</td>-->
+							<!--<td><a href="javascript:;">移除</a></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td>中国农业银行</td>-->
+							<!--<td>张三丰</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>132 123 1887 0322 7765</td>-->
+							<!--<td><a href="javascript:;">移除</a></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
 					</tbody>
 				</table>
 			</div>
@@ -1121,7 +1187,7 @@
 				<div>
 					<span>选择银行</span>
 					<select name="" id="content_add_bank" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;">
-						<option value="-1">请选择银行卡</option>
+						<option value="-1">请选择银行</option>
 					</select>
 					<span class="content_add_bank_warn waring hide"><i class="smallwarn">!</i>请选择银行</span>
 				</div>
@@ -1129,10 +1195,11 @@
 				<div>
 					<span>身份证号</span><input id="content_add_idCard" type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<span class="content_add_idCard_warn waring hide"><i class="smallwarn">!</i>请输入身份证号</span>
+					<span class="content_add_idCard_gs_warn waring hide"><i class="smallwarn">!</i>身份证号格式有误</span>
 					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（请确保您的银行卡可以收到款项，填写他人银行卡，收款有问题我们不负责任）</p>
 				</div>
 				
-				<button class="addNewCard">确定</button>
+				<button class="addNewCard" onclick="saveBankCard()">确定</button>
 				
 			</div>
 		</div>
@@ -1160,42 +1227,42 @@
 							<td>备注</td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>+200</td>
-							<td>课程销售</td>
-							<td>针灸推拿</td>
-							<td>2018-12-28 15:00</td>
-							<td>用户投诉</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+					<tbody id="coin_transaction_list">
+						<!--<tr>-->
+							<!--<td>+200</td>-->
+							<!--<td>课程销售</td>-->
+							<!--<td>针灸推拿</td>-->
+							<!--<td>2018-12-28 15:00</td>-->
+							<!--<td>用户投诉</td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
 					</tbody>
 				</table>
 				
@@ -1211,54 +1278,70 @@
 							<td>备注</td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>-200</td>
-							<td>提现</td>
-							<td>2018-12-28 15:00</td>
-							<td>银行卡</td>
-							<td>622* **** **** **** *123</td>
-							<td>审核中</td>
-							<td>审核中，1-3个工作日审核完成</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+					<tbody id="rmb_transaction_list">
+						<!--<tr>-->
+							<!--<td>-200</td>-->
+							<!--<td>提现</td>-->
+							<!--<td>2018-12-28 15:00</td>-->
+							<!--<td>银行卡</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>审核中</td>-->
+							<!--<td>审核中，1-3个工作日审核完成</td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
 					</tbody>
 				</table>
+			</div>
+			<div class="pages coin_transaction_pages pandaTable ">
+				<div id="Pagination_coinTransaction"  class="pagination-pages"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+					<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+					<a href="javascript:;" class="page-btn">确定</a>
+				</div>
+			</div>
+			<div class="pages rmb_transaction_pages rmbTable">
+				<div id="Pagination_rmbTransaction"  class="pagination-pages"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+					<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+					<a href="javascript:;" class="page-btn">确定</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -2069,6 +2152,7 @@
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/curriculum_Account.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/web/js/anchor/asset.js" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript">
     function numberCk(data) {
         var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;

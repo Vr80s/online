@@ -68,7 +68,15 @@
 		WHERE oub.is_delete = 0
 		AND  oub.id = #{id}
 	</select>
-	<update id="deleteBankCard">
+    <select id="getBankCount" resultType="java.lang.Integer">
+		SELECT
+		  COUNT(oub.`id`)
+		FROM
+		  oe_user_bank_card oub
+		WHERE oub.is_delete = 0
+		  AND oub.user_id = #{userId}
+	</select>
+    <update id="deleteBankCard">
 		UPDATE
 		`oe_user_bank_card` oub
 		SET oub.`is_delete` = 1
