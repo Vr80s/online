@@ -75,7 +75,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         if (uc == null) {
             throw new RuntimeException(userId + "--用户账户不存在！");
         }
-        String enchashmentBalance = uc.getRmb().setScale(0, BigDecimal.ROUND_DOWN).toString();
+        String enchashmentBalance = uc.getRmb().setScale(2, BigDecimal.ROUND_DOWN).toString();
         return enchashmentBalance;
     }
 

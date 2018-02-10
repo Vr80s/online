@@ -1,10 +1,12 @@
 package com.xczh.consumer.market.wxpay.util;
 
+import com.qq.connect.utils.QQConnectConfig;
 import com.xczh.consumer.market.bean.WxcpWxTrans;
 import com.xczh.consumer.market.wxpay.SignAbledBean;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.entity.PayInfo;
 import com.xczh.consumer.market.wxpay.entity.SendRedPack;
+
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -384,10 +386,6 @@ public class CommonUtil {
 	public static String getUserManagerGetInfo(String access_token,String openid) throws Exception {	
 		String out = ""; 		
 		String in=WxPayConst.USERMANAGER_GETINFO_URL.replace("access_token=ACCESS_TOKEN","access_token="+access_token).replace("openid=OPENID","openid="+openid);
-		
-	    /*in="https://api.weixin.qq.com/cgi-bin/user/info?access_token=WbOLClDPg-7y5R41vPYIxwoplYD6OFUzXEwycStaclA6HqOU"
-	 		+ "zjmr2V_cCM7cc-yZz5wY8l-g-sLBVHaFaial0sGDDnkw8Tq_7VXfCfIrDwLMhQ01uRNgfqQ0XnhRvQtrMRFjADAFKY&openid=ovE_ow7RIZFm3Rf8NpCWwK00UGsU";*/
-		
 		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
 		System.out.println("getUserManagerGetInfo:"+buffer.toString());
 		return buffer.toString();
@@ -617,5 +615,20 @@ public class CommonUtil {
 		return map;
 	}
 	
+	
+	/**
+	 * 通过openId 和票据 获取到unionId
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	public static String getQQUnionIdByOpenIdAndAccessToken(String accessToken) throws Exception {
+		String out = ""; //?? openid获取URL : WxPayConst.OAUTH_URL；
+		//https://graph.qq.com/oauth2.0/me?access_token=ACCESSTOKEN&unionid=1
+		String in=QQConnectConfig.getValue("getOpenIDURL")+"?access_token="+accessToken+"&unionid=1";
+		System.out.println("url:"+in);
+		StringBuffer buffer = HttpsRequest.httpsRequest(in, "GET", out);
+		return buffer.toString();
+	}
 	
 }

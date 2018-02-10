@@ -1,5 +1,7 @@
 package com.xczhihui.wechat.course.service;
 
+import java.util.Map;
+
 import com.xczhihui.wechat.course.model.QQClientUserMapping;
 import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
 
@@ -58,7 +60,6 @@ public interface IThreePartiesLoginService {
 	QQClientUserMapping selectQQClientUserMappingByOpenId(String openId); 
 
 	
-	
 	/**
      * 
      * Description：通过用户id查找信息
@@ -69,7 +70,6 @@ public interface IThreePartiesLoginService {
      *
      */
 	WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId,String uid);
-	
 	
 	/**
      * 
@@ -82,10 +82,40 @@ public interface IThreePartiesLoginService {
      */
 	QQClientUserMapping  selectQQClientUserMappingByUserId(String userId,String openId);
 
-
+	/**
+	 * 
+	 * Description：
+	 * @param qq
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	public void updateQQInfoAddUserId(QQClientUserMapping qq);
 
 
 	public void updateWeiboInfoAddUserId(WeiboClientUserMapping weibo);
+	
+	
+	/**
+     * 
+     * Description：通过unionid查找信息
+     * @param userid
+     * @return
+     * @return WeiboClientUserMapping
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+	QQClientUserMapping  selectQQClientUserMappingByUnionId(String UnionId);
+
+	/**
+	 * 
+	 * Description：
+	 * @param userId
+	 * @return
+	 * @return Map<String,Object>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	Map<String, Object> selectUserBindingInfo(String userId);
 	
 }

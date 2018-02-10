@@ -65,4 +65,7 @@
 		  weibo_client_user_mapping wcum
 				WHERE wcum.user_id = #{userId} and wcum.uid = #{uid} limit 1
 	</select>
+
+	
+	
 </mapper>
