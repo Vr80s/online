@@ -11,6 +11,9 @@
     margin-top: 20px;
     background-color: #fff;
 }
+.redBorder{
+	border: 1px solid #f40 !important;
+}
 .myResive .little_box1 #kecheng_Resive .kecheng_Resive_top,
 .myResive .little_box1 #gift_Resive .gift_Resive_top{
 	padding: 20px 30px;
@@ -346,6 +349,9 @@
 	border: 1px solid #F0F0F0;
 	margin-bottom: 20px;
 }
+#mymoney .content_toCash .chooseCard ul li:hover{
+	cursor: pointer;
+}
 #mymoney .content_toCash .chooseCard ul li .cardTop_img{
 	height: 52px;
 }
@@ -354,9 +360,9 @@
 	height: 100%;
 }
 #mymoney .content_toCash .chooseCard ul li .cardBottom{
-	height: 27px;
+	height: 26px;
 	padding: 0 9px;
-	line-height: 27px;
+	line-height: 26px;
 	background: #F0F0F0;
 }
 #mymoney .content_toCash .chooseCard ul li .cardBottom > span{
