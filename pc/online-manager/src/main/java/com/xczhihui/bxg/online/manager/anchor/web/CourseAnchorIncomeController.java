@@ -53,9 +53,9 @@ public class CourseAnchorIncomeController extends AbstractController{
         	  searchVo.setName(name.getPropertyValue1().toString());
           }
 
-          Group searchLecturer = groups.findByName("search_type");
-          if (searchLecturer != null) {
-        	  searchVo.setType(Integer.valueOf(searchLecturer.getPropertyValue1().toString()));
+          Group order = groups.findByName("search_type");
+          if (order != null) {
+        	  searchVo.setRemark(order.getPropertyValue1().toString());
           }
 
           Page<AnchorIncomeVO> page = anchorService.findCourseAnchorIncomePage(searchVo, currentPage, pageSize);
