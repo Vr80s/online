@@ -219,9 +219,14 @@ header{
 	text-overflow: ellipsis;
 }
 .slide_one_artist{
-	width: 1.213rem;
+	/*width: 1.213rem;
 	height: 0.893rem;
-	margin-top: 0.748rem;
+	margin-top: 0.748rem;*/
+	
+	    width: 1.531rem;
+    height: 1.531rem;
+    border-radius: 50%;
+    display: block;
 }
 .slide_one_sutra{
 	width:  1.085rem;

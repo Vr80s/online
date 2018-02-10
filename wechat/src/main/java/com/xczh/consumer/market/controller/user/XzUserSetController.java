@@ -140,7 +140,7 @@ public class XzUserSetController {
           *  那么就改变token的信息，也就是redsei里面的信息
           */
          String token = request.getParameter("token");
-         OnlineUser newUser = onlineUserService.findUserByLoginName(user.getLoginName());
+         OnlineUser newUser = onlineUserService.findUserById(user.getId());
          if(token !=null ){
         	 cacheService.delete(token);
              cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());
@@ -213,7 +213,7 @@ public class XzUserSetController {
 			 *  那么就改变token的信息，也就是redsei里面的信息
 			 */
 			String token = request.getParameter("token");
-			OnlineUser newUser = onlineUserService.findUserByLoginName(user.getLoginName());
+			OnlineUser newUser = onlineUserService.findUserById(user.getId());
 			if(token !=null ){
 				cacheService.delete(token);
 				cacheService.set(token, newUser, TokenExpires.TenDay.getExpires());

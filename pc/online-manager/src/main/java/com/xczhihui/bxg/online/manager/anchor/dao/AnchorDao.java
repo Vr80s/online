@@ -83,7 +83,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				"    ON ca.`user_id` = ou.`id` \n" +
 				"WHERE ca.`deleted` = 0 \n" +
 				"  AND ou.`is_delete` = 0 \n" +
-				"  AND ou.id=:id  \n" +
+				"  AND ca.id=:id  \n" +
 				"  ORDER BY ca.`create_time`\n" ;
 		Map<String, Object> m = new HashMap<String, Object>();
 		m.put("id",id);
@@ -103,12 +103,13 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				"    ON ca.`user_id` = ou.`id` \n" +
 				"  LEFT JOIN `user_coin_increase` uci \n" +
 				"    ON ca.`user_id` = uci.`user_id` \n" +
-				"    AND uci.`change_type` IN (3, 7) \n" );
+				"    AND uci.`change_type` IN (3, 7) " +
+				" where 1=1 \n" );
 				if (courseAnchor.getName() != null) {
 					paramMap.put("name", "%" + courseAnchor.getName() + "%");
 					sql.append("and ou.name like :name ");
 				}
-				sql.append("GROUP BY ou.id ORDER BY total DESC ");
+				sql.append("GROUP BY ou.id ORDER BY total "+courseAnchor.getRemark() );
 
 		Page<AnchorIncomeVO> courseAnchors = this.findPageBySQL(sql.toString(), paramMap,AnchorIncomeVO.class, currentPage, pageSize);
 		List<AnchorIncomeVO> courseAnchorList = courseAnchors.getItems();

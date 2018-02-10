@@ -473,8 +473,8 @@
 <script src="${base}/js/layer/layer.js"></script>
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-	当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 课程管理 </span>
+	当前位置：主播管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+	</small> <span> 主播管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
