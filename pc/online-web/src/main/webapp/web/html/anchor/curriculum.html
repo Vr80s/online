@@ -455,10 +455,10 @@
 			<!--医师认证开始-->
 			<div class="physician physician_one">
 				<div class="account_main_title">认证信息</div>
-				<div class="reauthentication">
+				<!--<div class="reauthentication">
 					<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
 					<div class="right_btn">重新认证</div>
-				</div>
+				</div>-->
 				<div class="name">
 					<div class="one" style="margin-top: 0;">姓名</div>
 					<div class="two anchor_name"></div>
@@ -945,7 +945,7 @@
 				</div>
 				
 				<!--主播是医师的时候的基础信息-->
-				<div id="doctor_baseInf">
+				<div id="doctor_baseInf" class="hide">
 				<div class="name">
 					<span><em>*</em>任职医馆</span>
 					<input type="text" placeholder="请填写您的任职医馆" class="put1">
@@ -953,7 +953,7 @@
 				</div>
 				<div class="name workTime" >
 					<span><em>*</em>坐诊时间</span>
-				<ul style="display: inline-block;vertical-align: middle;">
+				<ul style="display: inline-block;vertical-align: middle;" id="workTime">
 					<li class="color">一</li>
 					<li>二</li>
 					<li>三</li>
@@ -972,7 +972,7 @@
 				
 				
 				<!--主播是医馆的时候的基础信息-->
-				<div id="hospital_baseInf">
+				<div id="hospital_baseInf" class="hide">
 					<div class="name">
 						<span>预约电话</span>
 						<input type="text" placeholder="请输入预约电话" class="">

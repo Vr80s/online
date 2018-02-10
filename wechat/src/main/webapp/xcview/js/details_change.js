@@ -112,7 +112,7 @@ $(document)
 										$(".facebox-mobile").hide();
 										$(".face_img01")
 												.css("background",
-														"url(/xcviews/images/face.png) no-repeat");
+														"url(/xcview/images/face.png) no-repeat");
 										$(".face_img01").css("background-size",
 												"100% 100%");
 									});
@@ -140,7 +140,7 @@ $(document)
 										$(".facebox-mobile").hide();
 										$(".face_img01")
 												.css("background",
-														"url(/xcviews/images/face.png) no-repeat");
+														"url(/xcview/images/face.png) no-repeat");
 										$(".face_img01").css("background-size",
 												"100% 100%");
 
@@ -172,7 +172,7 @@ $(document)
 										$(".facebox-mobile").hide();
 										$(".face_img01")
 												.css("background",
-														"url(/xcviews/images/face.png) no-repeat");
+														"url(/xcview/images/face.png) no-repeat");
 										$(".face_img01").css("background-size",
 												"100% 100%");
 									});
@@ -231,7 +231,7 @@ $(document)
 								$(".send_img").css('right', '0.4rem');
 								$(".coze_bottom").css("bottom", "0");
 								$(".face_img01").css("background",
-										"url(/xcviews/images/face.png)");
+										"url(/xcview/images/face.png)");
 								$(".face_img01").css("background-size",
 										"100% 100%");
 							});
@@ -239,7 +239,7 @@ $(document)
 					$(".coze").click(
 							function() {
 								$(".face_img01").css("background",
-										"url(/xcviews/images/face.png)");
+										"url(/xcview/images/face.png)");
 								$(".face_img01").css("background-size",
 										"100% 100%");
 							});
@@ -269,12 +269,12 @@ $(document)
 
 											$(".face_img01")
 													.css('background',
-															'url(/xcviews/images/face.png) no-repeat');
+															'url(/xcview/images/face.png) no-repeat');
 											$(".face_img01").css(
 													'background-size',
 													'100% 100%');
 											/*
-											 * $(".send_img").css('background','url(/xcviews/images/jiantou02.jpg)
+											 * $(".send_img").css('background','url(/xcview/images/jiantou02.jpg)
 											 * no-repeat');
 											 */
 											$(".send_img").css(
@@ -347,7 +347,7 @@ $(document)
 								$(".send_gifts").show();
 								$(".coze_bottom").css("bottom", "0");
 								$(".face_img01").css("background",
-										"url(/xcviews/images/face.png)");
+										"url(/xcview/images/face.png)");
 								$(".face_img01").css("background-size",
 										"100% 100%");
 							});
@@ -456,7 +456,7 @@ $(document)
 										// $(".give_a1_img").show();
 
 										/*
-										 * $(".send_img").css('background','url(/xcviews/images/jiantou01.jpg)
+										 * $(".send_img").css('background','url(/xcview/images/jiantou01.jpg)
 										 * no-repeat');
 										 */
 										$(".send_img").css('background-size',
@@ -464,7 +464,7 @@ $(document)
 
 										$(".face_img01")
 												.css('background',
-														'url(/xcviews/images/face.png) no-repeat');
+														'url(/xcview/images/face.png) no-repeat');
 										$(".face_img01").css('background-size',
 												'100% 100%');
 
@@ -498,12 +498,12 @@ $(document)
 												"7.3rem");
 										$(".face_img01")
 												.css('background',
-														'url(/xcviews/images/jianpan.png) no-repeat');
+														'url(/xcview/images/jianpan.png) no-repeat');
 										$(".face_img01").css('background-size',
 												'100% 100%');
 
 										/*
-										 * $("#face").css('background','url(/xcviews/images/face.png)
+										 * $("#face").css('background','url(/xcview/images/face.png)
 										 * no-repeat');
 										 * $("#face").css('background-size','100%
 										 * 100%');
@@ -520,7 +520,7 @@ $(document)
 														$(".face_img01")
 																.css(
 																		'background',
-																		'url(/xcviews/images/face.png) no-repeat');
+																		'url(/xcview/images/face.png) no-repeat');
 														$(".face_img01")
 																.css(
 																		'background-size',

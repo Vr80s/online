@@ -270,27 +270,43 @@ function reportComment() {
     //var s = $('.active_color').val();
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        webToast("请输入评论内容","middle",3000);
         return
     }
+    var overallLevel=0;
+    if(my_impression1!=""){
+        overallLevel = parseInt(my_impression1)+1
+    }
+    var deductiveLevel=0;
+    if(my_impression2!=""){
+        deductiveLevel = parseInt(my_impression2)+1
+    }
+    var contentLevel=0;
+    if(my_impression3!=""){
+        contentLevel = parseInt(my_impression3)+1
+    }
     requestService("/xczh/criticize/saveCriticize",{
-        overallLevel:parseInt(my_impression1)+1,
-        contentLevel:parseInt(my_impression3)+1,
-        deductiveLevel:parseInt(my_impression2)+1,
+        overallLevel:overallLevel,
+        deductiveLevel:deductiveLevel,
+        contentLevel:contentLevel,
         criticizeLable:str,
         content:comment_detailed,
         courseId : course_id,
         userId:LecturerId
     },function(data) {
         //	课程名称/等级/评论
-
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        //$("#wrap_playTime").html(template('data_name',data.resultObject));
-        $(".wrapAll_comment").hide();
-        $(".bg_modal").hide();
-        document.getElementById("comment_detailed").value="";
-        refresh();
+        if(data.success==true){
+            webToast("评论成功","middle",3000);
+            //	直播时间/主播名字
+            //$("#wrap_playTime").html(template('data_name',data.resultObject));
+            $(".wrapAll_comment").hide();
+            $(".bg_modal").hide();
+            document.getElementById("comment_detailed").value="";
+            del();
+            refresh(1,10);
+        }else{
+            webToast("评论失败","middle",3000);
+        }
     });
 }
 
@@ -298,7 +314,7 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        webToast("内容不能为空","middle",3000);
         return
     }
     requestService("/xczh/criticize/saveReply",{
@@ -307,13 +323,17 @@ function replyComment() {
         criticizeId : criticize_id
     },function(data) {
         //	课程名称/等级/评论
-
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        $(".bg_userModal").hide();
-        $(".wrapLittle_comment").hide();
-        document.getElementById("littlt_return").value="";
-        refresh();
+        if(data.success==true){
+            webToast("回复成功","middle",3000);
+            //	直播时间/主播名字
+            $(".bg_userModal").hide();
+            $(".wrapLittle_comment").hide();
+            document.getElementById("littlt_return").value="";
+            del();
+            refresh(1,10);
+        }else {
+            webToast("回复失败","middle",3000);
+        }
     });
 }
 

@@ -150,7 +150,8 @@ header {
 	color: #00BC12;
 }
 .other_means{
-	width: 4.95rem;
+	/*width: 4.95rem;*/
+	width: 3.25rem;
 	height: 0.4rem;
     line-height: 0.4rem;
 	margin: 0 auto;
@@ -168,12 +169,14 @@ header {
 	height: 0.24rem;
 	line-height: 0.24rem;
 	color: #fff;
-	background: #00BC12;
+	/*background: #00BC12;*/
 	border-radius: 60px;
 	text-align: center;
     float: left;
     margin-top: 0.1rem;
     margin-right: 0.13rem;
+    background: url(/xcview/images/agrees.png) no-repeat;
+    background-size: 100% 100%;
 }
 /*中间内容结束*/
 

@@ -1,8 +1,8 @@
 package com.xczhihui.medical.hospital.service.impl;
 
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
@@ -64,18 +64,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
         try {
 
-            // 判断医馆名字是否已被占用
-            MedicalHospital hospital = hospitalMapper.findByName(target.getName());
-            if(hospital != null){
-                throw new RuntimeException("医馆名称已经被占用");
-            }
-
-            MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(target.getName());
-            if(medicalHospitalApply != null && !(medicalHospitalApply.getUserId().equals(target.getUserId()))){
-                throw new RuntimeException("医馆名称已经在认证中");
-            }
-
-            // 获取用户最后一次申请认证信息
+            // 获取用户最后一次申请认证信息 如果有表示用户重新提交认证申请
             MedicalHospitalApply hospitalApply = this.getLastOne(target.getUserId());
 
             if(hospitalApply != null){
@@ -123,6 +112,14 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode()) ||
                 result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
 
+            if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
+                this.checkHospitalName(target.getName(), target.getUserId(), 1);
+            }
+
+            if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
+                this.checkHospitalName(target.getName(), target.getUserId(), 2);
+            }
+
             // 如果用户之前提交了申请信息 表示其重新认证 删除之前的认证信息
             applyMapper.deleteByUserIdAndStatus(target.getUserId(), MedicalHospitalApplyEnum.WAIT.getCode());
 
@@ -138,6 +135,42 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
             this.addMedicalHospitalApply(target);
 
+        }
+
+    }
+
+    /**
+     * 检查医馆名是否被占用
+     * @param hospitalName 医馆名
+     * @param userId 用户id
+     * @param status 状态（1：用户的医馆在认证中 2：用户的医馆认证已经通过）
+     */
+    private void checkHospitalName(String hospitalName, String userId, int status){
+
+        MedicalHospitalApply medicalHospitalApply = applyMapper.findByName(hospitalName);
+        if(medicalHospitalApply != null && !(medicalHospitalApply.getUserId().equals(userId))){
+            throw new RuntimeException("医馆名称已经在认证中");
+        }
+
+        MedicalHospital hospital = hospitalMapper.findByName(hospitalName);
+
+        // status = 1 时 无需考虑hospital表中的医馆名是否就已经属于他的
+        if(status == 1 && hospital != null){
+            throw new RuntimeException("医馆名称已经被占用");
+        }
+
+        // status = 2 时 需要考虑hospital表中的医馆名是否属于他
+        if(status == 2 && hospital != null){
+
+            Map<String, Object> columnMap = new HashMap<>();
+            columnMap.put("doctor_id", hospital.getId());
+            columnMap.put("account_id", userId);
+            List<MedicalHospitalAccount> list = hospitalAccountMapper.selectByMap(columnMap);
+
+            // 通过doctor_id和account_id查询不到数据 表示该医馆名不属于他的
+            if(CollectionUtils.isEmpty(list)){
+                throw new RuntimeException("医馆名称已经被占用");
+            }
         }
 
     }
