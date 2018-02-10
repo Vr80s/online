@@ -96,9 +96,11 @@ function createGiftList(gift) {
         // queue.push(gift);
         if($("#"+data.senderInfo.userId+data.giftInfo.giftId).length>0){
             giftShow(data,$("#"+data.senderInfo.userId+data.giftInfo.giftId).attr("xh"),true);
+            console.info("lianji")
         }else{
             queue.push(data);
             createGiftShow();
+            console.info("danji");
         }
 
         // createGiftShow();
@@ -155,12 +157,13 @@ function giftShow(gift, f,continuous) {
     // 添加到页面中并且2秒消失
     // $('.chatmsg-box ').append();
 
-    gif[f].appendTo($(".chatmsg-box"));
-    $(".num").html(gift.giftCount);
-    $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");
-
-
-    if (f == 1) {
+    gif[f].appendTo($(".chatmsg-box"))
+    .css("left", "-9.55rem")//初始未知
+    .animate({// 设置运动
+    	       "left": "50px"
+    	     },500,"linear",
+    function(){
+    	 if (f == 1) {
         $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     } else if (f == 2) {
@@ -170,6 +173,12 @@ function giftShow(gift, f,continuous) {
         $('.addnum'+f).html(gift.giftInfo.continuousCount);
         $('.addnum'+f).data("sto",new Date().getTime());
     }
+    });
+   
+    
+    
+    $(".num").html(gift.giftCount);  /*礼物总数*/
+    $(".chatmsg-box").mCustomScrollbar('update').mCustomScrollbar("scrollTo","bottom");   /*评论到最底部*/
 
     function clearGift() {
         // gif[f].remove();
@@ -252,7 +261,7 @@ function createGiftShow() {
     } else if (!f1 && !f2 && !f3 && queue.size() > 0) {
         setTimeout(function() {
             createGiftShow();
-        }, 1000);
+        }, 4000);
     }
 }
 
@@ -281,7 +290,7 @@ var addn = [];
  */
 function onMessage(msg) {
 
-    console.log(msg);
+//  console.log(msg);
     /*
      *  解析出<message>的from、type属性，以及body子元素
      */
@@ -298,7 +307,7 @@ function onMessage(msg) {
 
             createGiftList(data);
 
-            console.log(text);
+//          console.log(text);
         } catch (err) {
             // console.info(err);
         }
@@ -333,14 +342,14 @@ $(document).ready(function() {
             alert("请先选择一个礼物!");
             return;
         }
-        if (isNaN($("#giftCount").val())) {
+        /*if (isNaN($("#giftCount").val())) {
             alert("非法的礼物数量!");
             return;
         }
         if ($("#giftCount").val() < 1) {
             alert("非法的礼物数量!");
             return;
-        }
+        }*/
         var xmbShowSpan = $("#xmbShowSpan").html();
         var jiage = $(".gift_ul_li_li .gift_p .jiage").text();
         if(jiage<xmbShowSpan || jiage == 0){
@@ -348,7 +357,7 @@ $(document).ready(function() {
                 var msgJson = {
                     channel : 1,
                     giftId : $(".gift_ul_li_li .gift_p .liwu").attr("giftId"), // huoqu
-                    count : $("#giftCount").val(),
+                    count : 1,     /*$("#giftCount").val()这是选择礼物数--默认为1*/
                     clientType : 3,
                     liveId : course_id,
                     receiverId : teacherId,
@@ -359,7 +368,7 @@ $(document).ready(function() {
                     msgJson,
                     function(data) {
                         if (data.success == true) {
-
+/*console.info("smessages");*/
                             /**
                              * 发送IM消息
                              */
@@ -375,7 +384,7 @@ $(document).ready(function() {
                             alert(data.errorMessage);
                             //}
                         }
-                    }, false)
+                    })
                 $("#chat-content").val('');
             } else {
                 // alert("请先登录！");
@@ -389,11 +398,11 @@ $(document).ready(function() {
     });
 
     function sendMsg(data) {
-        console.info(data);
+//      console.info(data);
         data = JSON.stringify(data);
-        console.info(data);
+//      console.info(data);
         data = JSON.parse(data);
-        console.info(data);
+//      console.info(data);
         // 创建一个<message>元素并发送
         var msg = $msg({
             to : ROOM_JID,
@@ -416,7 +425,7 @@ $(document).ready(function() {
 $(function () {
     setInterval(function(){
         for(var i=1;i<5;i++){
-            // console.info(i+":"+$('.addnum'+i).data("sto"));
+//             console.info(i+":"+$('.addnum'+i).data("sto"));
             // debugger
             var t = new Date().getTime()-$('.addnum'+i).data("sto");
             if(t>3000){

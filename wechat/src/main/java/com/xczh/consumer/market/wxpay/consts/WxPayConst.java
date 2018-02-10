@@ -86,7 +86,7 @@ public class WxPayConst {
 	//获取用户信息URL；
 	public final static String USER_URL = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
 
-	//获取用户信息
+	//获取用户信息 -->这个是可以获取到unionid的
 	public final static String USERMANAGER_GETINFO_URL = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 	// 统一下单URL
 	public final static String UNITORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";

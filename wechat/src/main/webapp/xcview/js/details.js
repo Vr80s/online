@@ -50,15 +50,20 @@ requestService(
 				$(".details_size span:eq(0)").html(result.learndCount);
 
 				// 关注数
-				$("#n_guanzhu").html(result.focusCount);
+				$(".n_guanzhu").html(result.focusCount);
 				// 粉丝数
-				$("#n_fensi").html(result.fansCount);
+				$(".n_fensi").html(result.fansCount);
 
+
+				/*$("#n_guanzhu1").html(result.focusCount);
+				// 粉丝数
+				$("#n_fensi1").html(result.fansCount);
+*/
 				/**
 				 * 为详情页面添加数据
 				 */
-				$("#headImg").attr("src", result.headImg);
-				$("#guanz_headImg").attr("src", result.headImg);
+				$(".headImg").attr("src", result.headImg);
+				$(".guanz_headImg").attr("src", result.headImg);
 				
 				$(".details_chat1").attr("src", result.headImg);
 				var children = $("#zhiboxiangqing [class='p1']").text(
@@ -80,6 +85,12 @@ requestService(
 				} else if (result.isFocus == 0) {
 					$(".add_follow").find('p').html("加关注");
 				}
+				
+				/*if (result.isFocus == 1) {
+					$(".add_follow1").find('p').html("已关注");
+				} else if (result.isFocus == 0) {
+					$(".add_follow1").find('p').html("加关注");
+				}*/
 				lineState = result.lineState;
 				/**
 				 * 直播状态1.直播中，2预告，3直播结束 4 即将直播
@@ -193,7 +204,7 @@ requestService(
 			}
 		}, false)
 
-// 关注开始
+// 聊天--关注开始
 
 $(".add_follow").click(
 		function() {
@@ -201,7 +212,7 @@ $(".add_follow").click(
 			// lecturerId = $(this).attr("data-lecturerId");
 
 			// 这个主播的粉丝数
-			var n_fensi = $("#n_fensi").html();
+			var n_fensi = $(".n_fensi").html();
 
 			var src = $(this).find('img').attr('src');
 			var type = 1;
@@ -225,19 +236,23 @@ $(".add_follow").click(
 						$(".add_follow").find('p').html("加关注");
 						// $(".right_personal").find('span').html(parseInt(p)-1);
 
-						$("#n_fensi").html(parseInt(n_fensi) - 1);
+						$(".n_fensi").html(parseInt(n_fensi) - 1);
 					} else {
 						$(".add_follow").find('img').attr('src',
 								'../images/follow_one.png');
 						$(".add_follow").find('p').html("已关注");
 						// 粉丝数
-						$("#n_fensi").html(parseInt(n_fensi) + 1);
+						$(".n_fensi").html(parseInt(n_fensi) + 1);
 						// $(".right_personal").find('span').html(parseInt(p)+1);
 
 					}
 				}
 			})
 		});
+		
+		
+		
+		
 
 /**
  * 点击主播头像跳转主播页面

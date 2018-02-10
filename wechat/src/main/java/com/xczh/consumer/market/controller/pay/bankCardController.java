@@ -4,10 +4,12 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.UserBank;
+import org.redisson.api.RLock;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 资产控制器 ClassName: bankCardController.java <br>
@@ -39,6 +42,8 @@ public class bankCardController {
 
 	@Autowired
 	private IUserBankService userBankService;
+	@Autowired
+	private RedissonUtil redissonUtil;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(bankCardController.class);
 
@@ -58,7 +63,29 @@ public class bankCardController {
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("获取用户信息异常");
 		}
-			userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+
+		// 获得锁对象实例
+		RLock redissonLock = redissonUtil.getRedisson().getLock("addUserBank"+user.getId());
+
+		boolean resl = false;
+		try {
+			//等待3秒 有效期8秒
+			resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+			if(resl){
+				userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+			}
+		}catch (RuntimeException e){
+			throw e;
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new RuntimeException("网络错误，请重试");
+		}finally {
+			if(resl){
+				redissonLock.unlock();
+			}else{
+				throw new RuntimeException("网络错误，请重试");
+			}
+		}
 			return  ResponseObject.newSuccessResponseObject("添加成功");
 
 	}

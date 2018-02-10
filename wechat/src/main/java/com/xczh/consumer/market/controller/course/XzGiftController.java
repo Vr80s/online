@@ -130,14 +130,12 @@ public class XzGiftController {
 			//等待十秒。有效期五秒
 			resl = redissonLock.tryLock(30, 10, TimeUnit.SECONDS);
 			if(resl){
-				System.out.println("得到锁"+resl);
 				map= remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally {
 			if(resl){
-				System.out.println("关闭锁");
 				redissonLock.unlock();
 			}else{
 				System.out.println("没有抢到锁");

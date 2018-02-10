@@ -205,4 +205,19 @@ public class WxcpClientUserWxMapping implements Serializable {
 	public void setWx_public_name(String wx_public_name) {
 		this.wx_public_name = wx_public_name;
 	}
+
+	@Override
+	public String toString() {
+		return "WxcpClientUserWxMapping [wx_id=" + wx_id + ", client_id="
+				+ client_id + ", subscribe=" + subscribe + ", openid=" + openid
+				+ ", openname=" + openname + ", nickname=" + nickname
+				+ ", sex=" + sex + ", city=" + city + ", country=" + country
+				+ ", province=" + province + ", language=" + language
+				+ ", headimgurl=" + headimgurl + ", subscribe_time="
+				+ subscribe_time + ", unionid=" + unionid + ", remark="
+				+ remark + ", groupid=" + groupid + ", wx_public_id="
+				+ wx_public_id + ", wx_public_name=" + wx_public_name + "]";
+	}
+
+
 }

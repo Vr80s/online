@@ -1,5 +1,9 @@
 package com.xczhihui.wechat.course.mapper;
 
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.wechat.course.model.QQClientUserMapping;
 
@@ -32,8 +36,12 @@ public interface QQClientUserMappingMapper extends BaseMapper<QQClientUserMappin
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	QQClientUserMapping selectQQClientUserMappingByUserId(String userId,String openId);
+	QQClientUserMapping selectQQClientUserMappingByUserId(@Param("userId")String userId,@Param("unionId")String unionId);
 
 	void updateByIdByMapper(String id);
 
+	QQClientUserMapping selectQQClientUserMappingByUnionId(String unionId);
+	
+	
+	Map<String,Object> selectUserBindingInfo(@Param("userId")String userId);
 }
