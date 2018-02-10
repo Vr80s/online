@@ -125,6 +125,25 @@ $(function(){
 //这是点击资源结束
 	
 
+
+//点击收益部分  课程收益
+$('.select-udss .classResive').click(function(){
+	$('#gift_Resive').css('display','none');
+	$('#kecheng_Resive').css('display','block');
+})
+
+//礼物收益点击
+$('.select-udss .giftResive').click(function(){
+	$('#kecheng_Resive').css('display','none');
+	$('#gift_Resive').css('display','block');
+	$('#gift_Resive').removeClass('hide');
+})
+
+
+
+
+
+
 //点击账号列表    
 $(".account_number").click(function() {
     $("#curriculum").hide();
@@ -137,7 +156,7 @@ $(".account_number").click(function() {
     
 //  处理学堂关闭
     $(".littleBox").slideUp("slow");
-    
+
     
     $(".name_news").addClass("activeP");
 	$(".name_personage").removeClass("activeP");
