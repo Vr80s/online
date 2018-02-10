@@ -31,7 +31,7 @@ function balance() {
 }
 //点击我要当主播
 function myAnchor() {
-
+    localStorage.setItem("judgeSkip", "my");
     if(status==1||status==3||status==5){
         window.location.href="phy_examine.html";
     }else if(status==2||status==4||status==6){

@@ -41,7 +41,7 @@ public class MenuServiceImpl implements MenuService {
         } catch (SQLException e) {
             e.printStackTrace();
         }*/
-		String sql="SELECT id,name,id as menu_id FROM oe_menu where is_delete = 0 and name <> '全部' and status=1 and yun_status = 1";
+		String sql="SELECT id,name,id as menu_id FROM oe_menu where is_delete = 0 and name <> '全部' and status=1 and yun_status = 1 order by  yun_sort desc ";
 		
 		List<MenuVo> list=    basicSimpleDao.query(JdbcUtil.getCurrentConnection(),sql,new BeanListHandler<MenuVo>(MenuVo.class));
         return list;

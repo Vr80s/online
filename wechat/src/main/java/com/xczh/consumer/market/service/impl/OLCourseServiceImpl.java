@@ -477,7 +477,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
 			if(menuType.equals("goodCourse")){
-				sortSql.append(" order by  oc.recommend_sort desc ");
+				condSql.append(" AND oc.is_essence=1 ");
+				sortSql.append(" order by  oc.essence_sort desc ");
 			}else if(menuType.equals("newCourse")){
 				sortSql.append(" order by  oc.create_time desc ");
 			}else{
@@ -513,7 +514,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         }
 
 		/**
-		 * 直播中的状态
+		 * 直播中的状态 4:直播课程
 		 */
 		if(lineState!=null&&lineState!=4){
 			condSql.append(" and oc.live_status = '"+lineState+"'");

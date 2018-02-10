@@ -141,7 +141,7 @@ function reportComment() {
     //var s = $('.active_color').val();
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        webToast("请输入评论内容","middle",3000);
         return
     }
     var overallLevel=0;
@@ -166,15 +166,19 @@ function reportComment() {
         userId:LecturerId
     },function(data) {
         //	课程名称/等级/评论
+        if(data.success==true){
+            webToast("评论成功","middle",3000);
+            //	直播时间/主播名字
+            //$("#wrap_playTime").html(template('data_name',data.resultObject));
+            $(".wrapAll_comment").hide();
+            $(".bg_modal").hide();
+            document.getElementById("comment_detailed").value="";
+            del();
+            refresh(1,10);
+        }else{
+            webToast("评论失败","middle",3000);
+        }
 
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        //$("#wrap_playTime").html(template('data_name',data.resultObject));
-        $(".wrapAll_comment").hide();
-		$(".bg_modal").hide();
-        document.getElementById("comment_detailed").value="";
-        del();
-        refresh(1,10);
     });
 }
 
@@ -182,24 +186,27 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        webToast("内容不能为空","middle",3000);
         return
     }
 
     requestService("/xczh/criticize/saveReply",{
-
         content:comment_detailed,
         criticizeId : criticize_id
     },function(data) {
         //	课程名称/等级/评论
+        if(data.success==true){
+            webToast("回复成功","middle",3000);
+            //	直播时间/主播名字
+            $(".bg_userModal").hide();
+            $(".wrapLittle_comment").hide();
+            document.getElementById("littlt_return").value="";
+            del();
+            refresh(1,10);
+        }else {
+            webToast("回复失败","middle",3000);
+        }
 
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        $(".bg_userModal").hide();
-        $(".wrapLittle_comment").hide();
-        document.getElementById("littlt_return").value="";
-        del();
-        refresh(1,10);
     });
 }
 
@@ -235,122 +242,6 @@ function del(){
 
 
 /**
- * 一些通用方法
+ * 上拉加载
  */
 
-
-//获取窗口可视范围的高度
-function getClientHeight(){
-    var clientHeight=0;
-    if(document.body.clientHeight&&document.documentElement.clientHeight){
-        clientHeight=(document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
-    }else{
-        clientHeight=(document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
-    }
-    return clientHeight;
-}
-
-function getScrollTop(){
-    var scrollTop=0;
-    scrollTop=(document.body.scrollTop>document.documentElement.scrollTop)?document.body.scrollTop:document.documentElement.scrollTop;
-    return scrollTop;
-}
-var currentPage=1;
-var pageCount;
-//滚动加载
-function scrollLoad(){
-
-    //可视窗口的高度
-    var scrollTop = 0;
-    var scrollBottom = 0;
-    $(document).scroll(function(){
-        var dch = getClientHeight();
-        scrollTop = getScrollTop();
-        scrollBottom = document.body.scrollHeight - scrollTop;
-        if(scrollBottom >= dch && scrollBottom <= (dch+10)){
-            if(pageCount == (currentPage+1)){
-                $(".click-load").hide();
-                return;
-            }
-            currentPage++;
-           // refresh(currentPage,10)
-            requestService("/xczh/criticize/getCriticizeList",{
-                courseId : course_id,
-                pageNumber:currentPage,
-                pageSize:10
-            },function(data) {
-                //	课程名称/等级/评论
-                $(".wrap_all_returned").append(template('wrap_people_comment', {items: data.resultObject.items}));
-            });
-        }
-    });
-}
-
-
-
-/*$(window).scroll(function(){
-    //判断是否滑动到页面底部
-    if($(window).scrollTop()== $(document).height() - $(window).height()){
-
-    }
-});*/
-
-//滚动条在Y轴上的滚动距离
-function getScrollTop(){
-    var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
-    if(document.body){
-        bodyScrollTop = document.body.scrollTop;
-    }
-    if(document.documentElement){
-        documentScrollTop = document.documentElement.scrollTop;
-    }
-    scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-    return scrollTop;
-}
-
-//文档的总高度
-
-function getScrollHeight(){
-    var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
-    if(document.body){
-        bodyScrollHeight = document.body.scrollHeight;
-    }
-    if(document.documentElement){
-        documentScrollHeight = document.documentElement.scrollHeight;
-    }
-    scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;
-    return scrollHeight;
-}
-
-//浏览器视口的高度
-
-function getWindowHeight(){
-    var windowHeight = 0;
-    if(document.compatMode == "CSS1Compat"){
-        windowHeight = document.documentElement.clientHeight;
-    }else{
-        windowHeight = document.body.clientHeight;
-    }
-    return windowHeight;
-}
-
-
-window.onscroll = function(){
-    a=$(window).height();
-    b=$(document).scrollTop();
-    c = document.documentElement.scrollTop==0? document.body.scrollHeight : document.documentElement.scrollHeight;
-    /*if(getScrollTop() + getWindowHeight() == getScrollHeight()){*/
-    if(b>=$(document).height()-$(window).height()){
-        // TODO 滑动到底部时可请求下一页的数据并加载，加载可使用append方法
-        currentPage++;
-        // refresh(currentPage,10)
-        requestService("/xczh/criticize/getCriticizeList",{
-            courseId : course_id,
-            pageNumber:currentPage,
-            pageSize:10
-        },function(data) {
-            //	课程名称/等级/评论
-            $(".wrap_all_returned").append(template('wrap_people_comment', {items: data.resultObject.items}));
-        });
-    }
-};
