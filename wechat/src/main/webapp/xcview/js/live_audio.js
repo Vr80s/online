@@ -124,9 +124,11 @@ function refresh(){
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
             criticize_id=this.id;
-            $(".bg_userModal").show();
+            /*$(".bg_userModal").show();
             $(".wrapLittle_comment").show();
-            $("#littlt_return").focus()
+            $("#littlt_return").focus()*/
+            //跳转到评论列表页
+            btn_allComment();
         });
         $(".bg_userModal").click(function(){
             $(".bg_userModal").hide();
