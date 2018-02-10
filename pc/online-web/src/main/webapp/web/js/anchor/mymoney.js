@@ -137,52 +137,6 @@ $(function(){
 		showContent('content_add',$(this).text())
 	})
 	
-	
-	//新增银行卡中的确定按钮点击
-	$('#mymoney .content_add .addNewCard').click(function(){
-		var content_add_name = $.trim($('.content_add #content_add_name').val());
-		var content_add_card = $.trim($('.content_add #content_add_card').val());
-		var content_add_bank = $.trim($('.content_add #content_add_bank').val());
-		var content_add_idCard =  $.trim($('.content_add #content_add_idCard').val());
-		
-		
-		//验证
-		//户名
-		if(content_add_name == ''){
-			$('.content_add_name_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_name_warn').addClass('hide');
-		}
-		
-		//卡号
-		if(content_add_card == ''){
-			$('.content_add_card_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_card_warn').addClass('hide');
-		}
-		
-		//选择银行
-		if(content_add_bank == '-1' ){
-			$('.content_add_bank_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_bank_warn').addClass('hide');
-		}
-		
-		//身份证号
-		if(content_add_idCard == ''){
-			$('.content_add_idCard_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_idCard_warn').addClass('hide');
-		}
-		
-		
-	})
-	
-	
 	/*@点击顶部的按钮对应的中间变动结构显示出来
 	 *@输入参数1为对应显示部分的模块类名
 	 *@输入参数2为点击的按钮的名字

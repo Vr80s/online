@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.online.common.enums.ApplyStatus;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
@@ -261,6 +262,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 System.out.println("saveCollectionApply得到锁"+res);
                 validateCollectionApply(courseApplyInfo);
                 courseApplyInfo.setCreateTime(new Date());
+//                courseApplyInfo.setVersion(BeanUtil.getUUID());
                 courseApplyInfoMapper.insert(courseApplyInfo);
                 //当合辑为点播视频时
                 for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
@@ -447,6 +449,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public CourseApplyInfo selectCourseApplyById(String userId, Integer caiId) {
         CourseApplyInfo courseApplyInfo = courseApplyInfoMapper.selectCourseApplyById(userId, caiId);
+        if(courseApplyInfo == null){
+            throw new RuntimeException("课程不存在");
+        }
         if(courseApplyInfo.getCollection()){
             List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(courseApplyInfo.getId());
             courseApplyInfo.setCourseApplyInfos(courseApplyInfos);

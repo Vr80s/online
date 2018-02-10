@@ -3,7 +3,6 @@ package com.xczhihui.bxg.online.web.controller.medical;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 public class AnchorController {
 
     @Autowired
-    private UserService userService;
-    @Autowired
     private IAnchorInfoService anchorInfoService;
 
     /**
@@ -36,7 +33,6 @@ public class AnchorController {
         String userId = this.getCurrentUserId(request);
 
         return ResponseObject.newSuccessResponseObject(anchorInfoService.detail(userId));
-
     }
 
     /**
