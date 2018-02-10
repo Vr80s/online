@@ -1,3 +1,131 @@
+/*我的收益部分的结构*/
+
+/*我的收益 课程收益部分*/
+.myResive .little_box1 > div{
+	width: 950px;
+    display: block;
+    float: right;
+    vertical-align: top;
+    min-height: 520px;
+    padding-bottom: 50px;
+    margin-top: 20px;
+    background-color: #fff;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_top,
+.myResive .little_box1 #gift_Resive .gift_Resive_top{
+	padding: 20px 30px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_top .title,
+.myResive .little_box1 #gift_Resive .gift_Resive_top .title{
+	font-size: 16px;
+    color: #333333;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid{
+	padding: 30px 20px 0px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .search_classIpt,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .search_classIpt{
+	width: 220px;
+	height: 36px;
+	line-height: 36px;
+	outline: none;
+	border: 1px solid #F0F0F0;
+	font-size: 14px;
+	color: #999999;
+	text-indent: 2em;
+	background-image: url(../../images/hospital/hos_search.png);
+    background-repeat: no-repeat;
+    background-position: 9px 11px;
+    margin-right: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .searc_classSel{
+	width: 100px;
+	height: 36px;
+	line-height: 36px;
+	outline: none;
+	color: #333;
+	border: 1px solid #F0F0F0;
+	margin-right: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .Order_end_time,
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .Order_start_time,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .Order_end_time,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .Order_start_time{
+	border: 1px solid #F0F0F0;
+	margin-right: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .Order_end_time,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .Order_end_time{
+	margin-left: 10px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_mid .order_search_btn,
+.myResive .little_box1 #gift_Resive .gift_Resive_mid .order_search_btn{
+	width: 60px;
+	height: 36px;
+	background: #00BC12;
+	color: #fff;
+	font-size: 14px;
+	line-height: 36px;
+	border: none;
+    outline: none;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2{
+	padding: 20px 20px 0px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table{
+	margin-bottom: 30px;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table td,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table td,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table td{
+	border: 1px solid #dedede;
+	text-align: center;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table thead tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table thead tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table thead tr{
+	height: 40px;
+	line-height: 40px;
+	background: #F0F0F0;
+}
+.myResive .little_box1 #kecheng_Resive .kecheng_Resive_bottom table tbody tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom table tbody tr,
+.myResive .little_box1 #gift_Resive .gift_Resive_bottom2 table tbody tr{
+	height: 80px;
+	line-height: 80px;
+}
+
+
+/*我的收益  礼物收益部分 不同结构部分样式*/
+.myResive .little_box1 #gift_Resive .gift_Resive_top{
+	padding: 20px 30px;
+	position: relative;
+}
+
+.myResive .little_box1 #gift_Resive .gift_Resive_top .toRankingList{
+	position: absolute;
+	right: 20px;
+	top: 15px;
+	padding: 8px 25px;
+	background: #00BC12;
+	border-radius: 4px;
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
 /*我的资产上面的结构*/
 #mymoney{
 	width: 950px;
@@ -167,7 +295,7 @@
 	margin-left: 114px;
 }
 
-/*体现部分*/
+/*提现部分*/
 #mymoney .content_toCash{
 	padding: 30px 0px 30px 24px;
 }

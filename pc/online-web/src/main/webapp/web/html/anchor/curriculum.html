@@ -2049,14 +2049,308 @@
 	<!--收益部分-->
 	<div class="myResive">
 		<div class="little_box1">
-			<!--<p>111</p>-->
-			<div  id="kecheng_Resive">111</div>
-			<div  id="gift_Resive" class="hide">222</div>
+			<!--课程收益部分-->
+			<div  id="kecheng_Resive">
+				<div class="kecheng_Resive_top">
+					<span class="title">课程订单</span>
+				</div>
+				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
+				<div class="kecheng_Resive_mid">
+					<input type="text" placeholder="课程名称" class="search_classIpt"/>
+					<select name="" class="searc_classSel">
+						<option value="-1">全部</option>
+					</select>
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+					至
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+					<button class="order_search_btn">搜索</button>
+				</div>
+				<div class="kecheng_Resive_bottom">
+					<table>
+						<thead>
+						<tr>
+							<td>订单号</td>
+							<td>课程名称</td>
+							<td>支付时间</td>
+							<td>支付用户</td>
+							<td>课程原价</td>
+							<td>平台扣除</td>
+							<td>分成比例</td>
+							<td>获得熊猫币</td>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>12345678901234567890</td>
+							<td>中医药席卷全球成独特风暴</td>
+							<td>2018-01-18 14:00</td>
+							<td>稻草人</td>
+							<td>100</td>
+							<td>苹果30%</td>
+							<td>80%</td>
+							<td>56</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<!--礼物收益部分-->
+			<div  id="gift_Resive" class="hide">
+				<div class="gift_Resive_top">
+					<span class="title">礼物订单</span>
+					<a href="javascript:;" class="toRankingList">排行榜</a>
+				</div>
+				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
+				<div class="gift_Resive_mid">
+					<input type="text" placeholder="课程名称" class="search_classIpt"/>
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+					至
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+					<button class="order_search_btn">搜索</button>
+				</div>
+				<div class="gift_Resive_bottom">
+					<table>
+						<thead>
+							<tr>
+								<td>课程名称</td>
+								<td>直播时间</td>
+								<td>赠送人</td>
+								<td>礼物总价</td>
+								<td>平台扣除</td>
+								<td>分成比例</td>
+								<td>获得熊猫币</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>中医药席卷全球成独特风暴</td>
+								<td>2018-01-18 14:00</td>
+								<td>稻草人</td>
+								<td>100</td>
+								<td>苹果30%</td>
+								<td>80%</td>
+								<td>56</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="gift_Resive_bottom2 hide">
+					<table>
+						<thead>
+							<tr>
+								<td>排名</td>
+								<td>用户</td>
+								<td>贡献</td>
+								<td>平均扣除</td>
+								<td>分成比例</td>
+								<td>获得熊猫币</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>稻草人</td>
+								<td>1000</td>
+								<td>苹果30%</td>
+								<td>80%</td>
+								<td>560</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
-		
-		<!--<div class="little_box1 hide" id="gift_Resive" >
-			<p>222</p>
-		</div>-->
 	</div>
 	
 </div>

@@ -193,4 +193,33 @@ $(function(){
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	var count = 1;
+	//我的收益部分的js 开始
+	//点击排行榜切换部分
+	$('.toRankingList').click(function(){
+		count *= -1;
+		if(count == -1){
+			$(this).text('返回');
+			$(this).siblings('.title').text('排行榜');
+			//底部列表的变化
+			$('.gift_Resive_mid').addClass('hide');
+			$('.gift_Resive_bottom').addClass('hide');
+			$('.gift_Resive_bottom2').removeClass('hide');
+		}else{
+			$(this).text('排行榜');
+			$(this).siblings('.title').text('礼物订单');
+			//底部列表的变化
+			$('.gift_Resive_bottom2').addClass('hide');
+			$('.gift_Resive_mid').removeClass('hide');
+			$('.gift_Resive_bottom').removeClass('hide');
+		}
+		
+	})
+	
 });
