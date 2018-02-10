@@ -60,5 +60,17 @@ public interface WxcpClientUserWxMappingService{
 	 */
 	WxcpClientUserWxMapping getWxMappingByUserIdOrUnionId(String userId)
 			throws SQLException;
+	/**
+	 * 
+	 * Description：通过unionId和用户id获取查看微信信息
+	 * @param userId
+	 * @param unionId
+	 * @return
+	 * @return WxcpClientUserWxMapping
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public WxcpClientUserWxMapping getWxcpClientUserWxMappingByUserIdAndUnionId(String userId,
+			String unionId)throws SQLException;
 
 }

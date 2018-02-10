@@ -100,6 +100,12 @@ public class WxcpClientUserWxMappingServiceImpl implements WxcpClientUserWxMappi
 	public WxcpClientUserWxMapping getWxcpClientUserByUnionId(String unionId) throws SQLException {
 		return wxcpClientUserWxMappingMapper.getWxcpClientUserByUnionId(unionId);
 	}
+
+	@Override
+	public WxcpClientUserWxMapping getWxcpClientUserWxMappingByUserIdAndUnionId(
+			String userId, String unionId) throws SQLException {
+		return wxcpClientUserWxMappingMapper.getWxcpClientUserWxMappingByOpenId(userId,unionId);
+	}
 	
 
 }

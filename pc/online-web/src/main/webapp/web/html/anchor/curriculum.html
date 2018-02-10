@@ -943,32 +943,61 @@
 						<script id="anchor_details_editor" type="text/plain" style="width:540px;height:160px;"></script></div>
 					<p class="warning warning_anchor_lecturer_description hide">主播介绍不能为空</p>
 				</div>
-				<!--<div class="name">-->
-					<!--<span><em>*</em>任职医馆</span>-->
-					<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
-					<!--<p class="warning return_warning4 hide">任职医馆不能为空</p>-->
-				<!--</div>-->
-				<!--<div class="name">-->
-					<!--<span>坐诊时间</span>-->
-					<!--<input type="text" placeholder="" class="">-->
-				<!--</div>-->
-				<!--<div class="name">-->
-					<!--<span>预约电话</span>-->
-					<!--<input type="text" placeholder="" class="">-->
-				<!--</div>-->
-
-				<!--<div class="name">-->
-					<!--<span><em>*</em>城市</span>-->
-					<!--<div id="demo1" class="citys">-->
-						<!--<p>-->
-							<!--<select name="province" onclick="doProvAndCityRelation()"></select>-->
-							<!--<select name="city"></select>-->
-							<!--&lt;!&ndash; <select name="area"></select> &ndash;&gt;-->
-						<!--</p>-->
-						<!--<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>-->
-						<!--<p class="warning return_warning5 hide">详细地址不能为空</p>-->
-					<!--</div>-->
-				<!--</div>-->
+				
+				<!--主播是医师的时候的基础信息-->
+				<div id="doctor_baseInf">
+				<div class="name">
+					<span><em>*</em>任职医馆</span>
+					<input type="text" placeholder="请填写您的任职医馆" class="put1">
+					<p class="warning return_warning4 hide">任职医馆不能为空</p>
+				</div>
+				<div class="name workTime" >
+					<span><em>*</em>坐诊时间</span>
+				<ul style="display: inline-block;vertical-align: middle;">
+					<li class="color">一</li>
+					<li>二</li>
+					<li>三</li>
+					<li>四</li>
+					<li>五</li>
+					<li>六</li>
+					<li>七</li>
+				</ul>
+				</div>
+				
+				<div class="name">
+					<span>预约电话</span>
+					<input type="text" placeholder="" class="" disabled="disabled">
+				</div>
+				</div>
+				
+				
+				<!--主播是医馆的时候的基础信息-->
+				<div id="hospital_baseInf">
+					<div class="name">
+						<span>预约电话</span>
+						<input type="text" placeholder="请输入预约电话" class="">
+					</div>
+				</div>
+				
+				
+				
+				
+				<div class="name">
+					<span><em>*</em>城市</span>
+					<div id="demo1" class="citys">
+						<p>
+							<select name="province" id="" >
+								<option value="">请选择省份</option>
+							</select>
+							<select name="city">
+								<option value="">请选择市区</option>
+							</select>
+						</p>
+						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
+						<p class="warning return_warning5 hide">详细地址不能为空</p>
+					</div>
+				
+					</div>
 				<div class="name_btn" onclick="saveAnchorInfo()">提交</div>
 			</form>
 		</div>

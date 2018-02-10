@@ -1,5 +1,7 @@
 package com.xczhihui.wechat.course.service.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +61,8 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 	}
 
 	@Override
-	public QQClientUserMapping selectQQClientUserMappingByUserId(String userId,String openId) {
-		return qqClientUserMappingMapper.selectQQClientUserMappingByUserId(userId, openId);
+	public QQClientUserMapping selectQQClientUserMappingByUserId(String userId,String unionId) {
+		return qqClientUserMappingMapper.selectQQClientUserMappingByUserId(userId, unionId);
 	}
 
 	@Override
@@ -74,6 +76,18 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 		// TODO Auto-generated method stub
 		weiboClientUserMappingMapper.updateById(weibo);
 	}
+
+	@Override
+	public QQClientUserMapping selectQQClientUserMappingByUnionId(String unionId) {
+		// TODO Auto-generated method stub
+		return qqClientUserMappingMapper.selectQQClientUserMappingByUnionId(unionId);
+	}
 	
+	@Override
+	public Map<String,Object> selectUserBindingInfo(String userId) {
+		
+		// TODO Auto-generated method stub
+		return qqClientUserMappingMapper.selectUserBindingInfo(userId);
+	}
 
 }

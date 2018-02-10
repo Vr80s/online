@@ -23,6 +23,7 @@ import weibo4j.util.WeiboConfig;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
+import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
@@ -69,8 +70,6 @@ public class ThirdPartyCertificationController {
 	@Autowired
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 	
-	
-	
 	@Autowired
 	private CacheService cacheService;
 	
@@ -79,6 +78,9 @@ public class ThirdPartyCertificationController {
 	
 	@Autowired
 	private UserCoinService userCoinService;
+	
+	@Autowired
+	private AppBrowserService appBrowserService;
 	
 	//手机端登录使用
 	@Value("${mobile.authorizeURL}")
@@ -105,13 +107,13 @@ public class ThirdPartyCertificationController {
 	@Transactional
 	public ResponseObject thirdPartyBindThereAreMobile(HttpServletRequest req,
                     HttpServletResponse res,
-                    @RequestParam("userName")String userName, @RequestParam("openId")String openId,
+                    @RequestParam("userName")String userName, @RequestParam("unionId")String unionId,
                     @RequestParam("code")String code, @RequestParam("type")Integer type)
 			throws Exception {
 		
 		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
 		LOGGER.info("三方绑定已注册手机认证参数信息："
-				+ "username:"+userName+",openId:"+openId+",code:"+code+",type:"+type);
+				+ "username:"+userName+",openId:"+unionId+",code:"+code+",type:"+type);
 		/*
 		 * 验证短信验证码
 		 */
@@ -134,25 +136,29 @@ public class ThirdPartyCertificationController {
         	
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微信");
         	
-        	WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
+        	WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
     		m.setClient_id(ou.getId());
     		wxcpClientUserWxMappingService.update(m);
+    		break;
         case 2:  //qq
         	
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
         	
-        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), openId);
+        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
         	qq.setUserId(ou.getId());
         	threePartiesLoginService.updateQQInfoAddUserId(qq);
+        	break;
         case 3 : //微博
         	
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微博");
         	
-        	WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(), openId);
+        	WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUid(unionId);
         	weibo.setUserId(ou.getId());
 	    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
+	    	break;
         default:
         	LOGGER.info(">>>>>>>>>>>>>>>>>>第三方登录类型有误");
+        	break;
         }
         
         LOGGER.info(">>>>>>>>>>>>>>>>>>第三方信息注入用户信息成功");
@@ -188,28 +194,26 @@ public class ThirdPartyCertificationController {
                     HttpServletResponse res,
                     @RequestParam("userName")String userName,
                     @RequestParam("passWord")String passWord,
-                    @RequestParam("openId")String openId,
+                    @RequestParam("unionId")String unionId,
                     @RequestParam("code")String code,
                     @RequestParam("type")Integer type)
 			throws Exception {
 		
 		LOGGER.info("三方绑定未注册手机认证参数信息："
-				+ "username:"+userName+",openId:"+openId+",code:"+code+",type:"+type
+				+ "username:"+userName+",unionId:"+unionId+",code:"+code+",type:"+type
 				+ "password:"+passWord);
 		
 		/*
 		 * 验证短信验证码
 		 */
-//		Integer vtype = SMSCode.RETISTERED.getCode();
-//		ResponseObject checkCode = onlineUserService.checkCode(userName, code,vtype);
-//		if (!checkCode.isSuccess()) { //如果动态验证码不正确
-//			return checkCode;
-//		}
+		Integer vtype = SMSCode.RETISTERED.getCode();
+		ResponseObject checkCode = onlineUserService.checkCode(userName, code,vtype);
+		if (!checkCode.isSuccess()) { //如果动态验证码不正确
+			return checkCode;
+		}
 
 		//先假设验证码正确
-		
 		LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
-		
 	    /**
          * 在线用户数据
          */
@@ -226,12 +230,9 @@ public class ThirdPartyCertificationController {
 		
         switch (type) {
         case 1:  //微信
-        	
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微信");
-        	
-        	WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
+        	WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
         	nickName=m.getNickname();
-        	//("1".equals(m.getSex())) ? sex = 1 : ("2".equals(m.getSex())) ? sex=0 : sex=2;
         	if("1".equals(m.getSex())){ 	//用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
         		sex = 1;
         	}else if("2".equals(m.getSex())){
@@ -243,17 +244,18 @@ public class ThirdPartyCertificationController {
         	ou.setName(m.getNickname());   			//微信名字
         	ou.setSmallHeadPhoto(m.getHeadimgurl());//微信头像
 			ou.setUserType(2); 						//微信用户
-			
 			/*
 			 * 保存userId  到第三方信息中
  			 */
 			m.setClient_id(ou.getId());
     		wxcpClientUserWxMappingService.update(m);
+    		break;
         case 2:  //qq
-        	
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
         	
-        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByOpenId(openId);
+        	//那么这里是不是就不能用这个id了啊，需要用uniondid
+        	
+        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
         	nickName=qq.getNickname();
         	if("男".equals(qq.getGender())){ //性别。 如果获取不到则默认返回"男"
         		sex = 1;
@@ -269,11 +271,12 @@ public class ThirdPartyCertificationController {
  			 */
 			qq.setUserId(ou.getId());
         	threePartiesLoginService.updateQQInfoAddUserId(qq);
+        	 break;
         case 3 : //微博
         	
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：微博");
         	
-        	WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUid(openId);
+        	WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUid(unionId);
         	nickName = weibo.getScreenName();
         	if("m".equals(weibo.getGender())){  //性别，m：男、f：女、n：未知
         		sex = 1;
@@ -289,8 +292,10 @@ public class ThirdPartyCertificationController {
         	
 			weibo.setUserId(ou.getId());
 	    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
+	    	break;
         default:
         	LOGGER.info("第三方登录类型有误");
+        	 break;
         }
         /*
          * 用户中心的
@@ -298,23 +303,28 @@ public class ThirdPartyCertificationController {
 		ItcastUser iu = userCenterAPI.getUser(userName);
 		if(iu == null){
 			userCenterAPI.regist(userName, passWord,nickName, 
-					UserSex.parse(sex), null,
-					null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
+					UserSex.parse(sex), null,null, UserType.COMMON, UserOrigin.ONLINE, UserStatus.NORMAL);
 			iu =  userCenterAPI.getUser(userName);
 		}
-		onlineUserService.addOnlineUser(ou);
+		ou.setLoginName(userName);
+		ou.setMobile(userName);
+		ou.setPassword(passWord);
+		ou.setVisitSum(0);
+		ou.setStayTime(0);
 		
+		
+		onlineUserService.addOnlineUser(ou);
 		/**
 		 * 初始化一条代币记录
 		 */
 		userCoinService.saveUserCoin(ou.getId());
-
 		Token t = userCenterAPI.loginThirdPart(userName,iu.getPassword(), TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
+		
+		
 		//把用户中心的数据给他  --这些数据是IM的
 		ou.setUserCenterId(iu.getId());
 		ou.setPassword(iu.getPassword());
-		
 		/**
 		 * 增加缓存信息
 		 */
@@ -322,7 +332,6 @@ public class ThirdPartyCertificationController {
 		
 		return  ResponseObject.newSuccessResponseObject(ou);
 	}
-	
 	
 	/**
 	 * Description：验证-->手机号   是否已经绑定了微信号、qq 或者  微博号
@@ -333,9 +342,10 @@ public class ThirdPartyCertificationController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping(value="thirdCertificationMobile")
+	@ResponseBody
 	public ResponseObject thirdCertificationMobile(HttpServletRequest req,
 			HttpServletResponse res,@RequestParam("userName")String userName,
-			@RequestParam("openId")String openId,
+			@RequestParam("unionId")String unionId,
 			@RequestParam("type")Integer type ){
 		
 		try {
@@ -350,11 +360,11 @@ public class ThirdPartyCertificationController {
 				 * 已注册手机号,判断手机号是否已经绑定了。
 				 */
 				if(type == ThirdPartyType.WECHAT.getCode()){ //微信
-					obj = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(ou.getId());
+					obj = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(),unionId);
 				}else if(type == ThirdPartyType.WEIBO.getCode()){//微博
-					obj = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(),openId);
+					obj = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(),unionId);
 				}else if(type == ThirdPartyType.QQ.getCode()){//QQ
-					obj = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(),openId);
+					obj = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(),unionId);
 				}
 				if(obj == null){ //已注册手机号,但是未绑定,可进行判断操作
 					code = UserUnitedStateType.PNHONE_IS_WRONG.getCode();
@@ -364,11 +374,87 @@ public class ThirdPartyCertificationController {
 			}
 			return ResponseObject.newSuccessResponseObject(UserUnitedStateType.valueOf(code), code);
 		} catch (Exception e) {
-			
 			return ResponseObject.newErrorResponseObject("数据有误");
 		}
 	}
 
+	
+	
+	
+	/**
+	 * Description：解除绑定
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="userBindingInfo")
+	public ResponseObject selectUserBindingInfo(HttpServletRequest req,
+			HttpServletResponse res ){
+		
+		/**
+		 * 获取用户信息
+		 */
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+		if(ou ==null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		try {
+			Map<String,Object> map = threePartiesLoginService.selectUserBindingInfo(ou.getId());
+			return ResponseObject.newSuccessResponseObject(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseObject.newSuccessResponseObject("获取用户绑定信息有误");
+		}
+	}
+	
+	
+	/**
+	 * Description：解除绑定
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="removeBinding")
+	public ResponseObject removeBinding(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam("unionId")String unionId,
+			@RequestParam("type")Integer type ){
+		
+		/**
+		 * 获取用户信息
+		 */
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+		if(ou ==null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		try {
+			if(type==ThirdPartyType.WECHAT.getCode()){  //微信
+				WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(), unionId);
+				m.setClient_id("");
+				wxcpClientUserWxMappingService.update(m);
+			}else if(type==ThirdPartyType.WEIBO.getCode()){
+				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), unionId);
+		    	qq.setUserId("");
+		    	threePartiesLoginService.updateQQInfoAddUserId(qq);
+			}else if(type==ThirdPartyType.QQ.getCode()){
+				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(), unionId);
+		    	weibo.setUserId("");
+		    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
+			}
+			return ResponseObject.newSuccessResponseObject("解除绑定成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseObject.newSuccessResponseObject("解除绑定失败");
+		}
+	}
+	
+	
 	
 	/**
 	 * 登陆成功处理
