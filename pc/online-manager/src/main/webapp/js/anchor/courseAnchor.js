@@ -13,6 +13,7 @@ $(function() {
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     var objData = [
         {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+        {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){
                 return "医师";
@@ -120,4 +121,32 @@ function editPermissions(obj){
 
 function getLocalTime(nS) {
     return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+}
+
+function setUserLecturer(obj,op){
+
+    var oo = $(obj).parent().parent().parent();
+    var aData = onlineuserTable.fnGetData(oo); // get datarow
+
+    var loginName  = aData.loginName;//用户id
+    ajaxRequest('onlineuser/updateUserLecturer', {
+        'loginName' : loginName,
+        'lecturerStatus' : op
+    }, function(data) {
+        console.log(data);
+        console.log("====="+data.resultObject.resultObject);
+        if (data.success) {
+            freshTable(onlineuserTable);
+            if(op==1){
+                var str ="设置该用户的讲师职位成功";
+                /*	$("#room_number").html("房间号:"+data.resultObject.resultObject);
+                    var dialog = openDialogNoBtnName("userRoomNumberDialog","viewRoomNumber",str,300,200,false,"确定",null);*/
+                alertInfo("设置该用户的讲师职位成功<br>房间号："+data.resultObject.resultObject);
+            }else{
+                alertInfo("取消该用户的讲师职位成功");
+            }
+        } else {
+            alertInfo(data.errorMessage);
+        }
+    });
 }

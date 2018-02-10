@@ -1,28 +1,5 @@
 package com.xczhihui.bxg.online.web.controller;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import com.xczhihui.bxg.online.common.enums.OrderFrom;
-import com.xczhihui.bxg.online.common.enums.Payment;
-import org.jivesoftware.smack.SmackException;
-import org.jivesoftware.smack.XMPPException;
-import org.redisson.Redisson;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.xczhihui.bxg.common.support.domain.BxgUser;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
@@ -30,8 +7,26 @@ import com.xczhihui.bxg.online.api.po.Gift;
 import com.xczhihui.bxg.online.api.po.GiftStatement;
 import com.xczhihui.bxg.online.api.service.GiftService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.web.base.common.Broadcast;
+import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.enums.Payment;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.web.exception.NotSufficientFundsException;
+import org.jivesoftware.smack.SmackException;
+import org.jivesoftware.smack.XMPPException;
+import org.redisson.api.RLock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /** 
@@ -46,16 +41,10 @@ public class GiftController {
 
 	@Autowired
 	private GiftService giftService;
+	@Autowired
+	private RedissonUtil redissonUtil;
 
-	private RedissonClient redisson;
-
-	public GiftController(){
-		//Redisson连接配置文件
-		Config config = new Config();
-		config.useSingleServer().setAddress("127.0.0.1:6379");
-		redisson = Redisson.create(config);
-	}
-	/** 
+	/**
 	 * Description：赠送礼物接口（做礼物赠送余额扣减和检验）
 	 * @return
 	 * @return ResponseObject
@@ -93,7 +82,7 @@ public class GiftController {
         	giftStatement.setClientType(OrderFrom.PC.getCode());
         	giftStatement.setPayType(Payment.COINPAY.getCode());
 			// 1.获得锁对象实例
-			RLock redissonLock = redisson.getLock("liveId"+giftStatement.getLiveId());
+			RLock redissonLock = redissonUtil.getRedisson().getLock("liveId"+giftStatement.getLiveId());
 			boolean res = false;
 			try {
 				//等待十秒。有效期五秒

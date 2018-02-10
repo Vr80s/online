@@ -1,6 +1,7 @@
 $(function(){
 
 	
+	/*----------------------------		我的资产部分js		--------------------------------*/
 	
 	//底部固定表单部分点击人民币熊猫币切换效果
 	//点击人民币按钮
@@ -52,6 +53,7 @@ $(function(){
 		}else{
 			$('.toResultIpt_warn').addClass('hide');
 		}
+
 	})
 	
 	
@@ -63,6 +65,25 @@ $(function(){
 	//提现按钮点击出发事件
 	$('#mymoney .toCash').click(function(){
 		showContent('content_toCash',$(this).text())
+	})
+	
+	//提现中的银行卡点击选中效果
+	$('#mymoney .content_toCash .chooseCard ul li').click(function(){
+		$('#mymoney .content_toCash .chooseCard ul li').removeClass('redBorder')
+		$(this).addClass('redBorder');
+	})
+	
+	//提现中银行卡设置默认
+	$('#mymoney .content_toCash .chooseCard .cardBottom a').click(function(event){
+//		$('#mymoney .content_toCash .chooseCard .cardBottom a').text('设为默认');
+//		$(this).text('取消默认');
+		if($(this).text() == '取消默认'){
+			$(this).text('设为默认');
+		}else if($(this).text() == '设为默认'){
+			$(this).text('取消默认')
+		}
+		event.stopPropagation();
+		
 	})
 	
 	//提现中的确定按钮点击
@@ -158,6 +179,7 @@ $(function(){
 			$('.content_add_idCard_warn').addClass('hide');
 		}
 		
+		
 	})
 	
 	
@@ -185,12 +207,55 @@ $(function(){
 		$(".content_mid ."+contentName+"").removeClass('hide');
 	}
 	
+		
+	/*@中间变化结构隐藏方法
+	 */
+	function midHide(){
+		$('.content_mid').addClass('hide');
+	}
+	
+	
+	
+	
+	
 	
 	//结算的重置部分
 	function content_SettlementReset(){
 		$('.content_Settlement #toResultIpt').val('');
 		$('.toResultIpt_warn').addClass('hide');
 	}
+	
+	
+	
+	
+	
+	
+	
+	/*-----------------------------		我的收益部分js		--------------------------------*/
+	
+	
+//	礼物收益部分排行榜切换
+	var count = 1;
+	$('.toRankingList').click(function(){
+		count *= -1;
+		if(count == -1){
+			$(this).text('返回');
+			$(this).siblings('.title').text('排行榜');
+			//底部列表的变化
+			$('.gift_Resive_mid').addClass('hide');
+			$('.gift_Resive_bottom').addClass('hide');
+			$('.gift_Resive_bottom2').removeClass('hide');
+		}else{
+			$(this).text('排行榜');
+			$(this).siblings('.title').text('礼物订单');
+			//底部列表的变化
+			$('.gift_Resive_bottom2').addClass('hide');
+			$('.gift_Resive_mid').removeClass('hide');
+			$('.gift_Resive_bottom').removeClass('hide');
+		}
+	})
+	
+	
 	
 	
 });

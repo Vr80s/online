@@ -360,6 +360,8 @@ header{
 	width: 100%;
 	height: 100%;
 	display: none;
+	position: fixed;
+	z-index: 99;
 }
 
 .btn_show_bg{
@@ -396,10 +398,10 @@ header{
 }*/
 
 .div_right0{
-	animation:myfirstss 2s;
-	-moz-animation:myfirstss 2s; /* Firefox */
-	-webkit-animation:myfirstss 2s; /* Safari and Chrome */
-	-o-animation:myfirstss 2s; /* Opera */
+	animation:myfirstss 1s;
+	-moz-animation:myfirstss 1s; /* Firefox */
+	-webkit-animation:myfirstss 1s; /* Safari and Chrome */
+	-o-animation:myfirstss 1s; /* Opera */
 	animation-fill-mode: forwards;
 }
 @keyframes myfirstss{

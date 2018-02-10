@@ -11,6 +11,7 @@ $(function() {
     /** 职业课列表begin */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    searchCase_P.push('{"tempMatchType":"9","propertyName":"search_type","propertyValue1":"DESC","tempType":"String"}');
     var objData = [
         {"title": "主播账号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "主播昵称", "class": "center", "width": "6%", "sortable": false, "data": 'name'},

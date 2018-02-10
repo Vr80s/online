@@ -5,27 +5,75 @@ $(function(){
 		$(".select_list li").removeClass("active");
 		$(this).addClass("active");
 //				$(".wrap_box .little_box").hide();
-		$(".select_box").hide().eq($(this).index()).show();
+//		$(".select_box").hide().eq($(this).index()).show();
 //				图标颜色变化
 		$(".left_range").removeClass("ino_color").eq($(this).index()).addClass("ino_color");
 	})
 	
-	//点击出现下拉栏
+	//点击出现下拉栏  学堂
 	$(".select_list .select-ud").bind('click',function(event){
 		event.stopPropagation();
 		$(".select_list .littleBox").stop().slideToggle();
+		$('.myResive').css('display','none');
 		$('#mymoney').addClass('hide');
+		
+		
+		//另两个上啦
+		$(".littleBoxs").slideUp("slow");
+		$(".littleBoxss").slideUp("slow");
+		
+		//小箭头调整
+		$(".select_list .account_number .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		$(".select_list .account_number .arrow_jt").addClass("glyphicon-triangle-left")	;
+		$(".select_list #myResive_tbl .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		$(".select_list #myResive_tbl .arrow_jt").addClass("glyphicon-triangle-left")	;
 
 	})
+	
+	//点击出现下拉栏        收益
+	$(".select_list .select-udss").bind('click',function(event){
+		$('#mymoney').addClass('hide');
+		$('.wrap_box .little_box').css('display','none');
+		$('.account .account_main').css('display','none');
+		$('.myResive ').css('display','block');
+		$('.myResive .little_box1').css('display','block');
+		event.stopPropagation();
+		$(".select_list .littleBoxss").stop().slideToggle();
+		
+		//另两个上啦
+		$(".littleBox").slideUp("slow");
+		$(".littleBoxs").slideUp("slow");
+		//小箭头调整
+		$(".select_list .school .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		$(".select_list .school .arrow_jt").addClass("glyphicon-triangle-left")	;
+		$(".select_list .account_number .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		$(".select_list .account_number .arrow_jt").addClass("glyphicon-triangle-left")	;
+		
+	})
+	
+	
 
-	//点击出现下拉栏
+	//点击出现下拉栏  账号
 	$(".select_list .select-uds").bind('click',function(event){
 		$('#mymoney').addClass('hide');
 //		$('.account').removeClss('hide');
 		$('.wrap_box .little_box').css('display','none');
+		$('.myResive ').css('display','none');
 		$('.account').css('display','block');
 		event.stopPropagation();
 		$(".select_list .littleBoxs").stop().slideToggle();
+		
+		
+		
+		//另两个上啦
+		$(".littleBox").slideUp("slow");
+		$(".littleBoxss").slideUp("slow");
+		
+		//小箭头调整
+		$(".select_list .school .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		$(".select_list .school .arrow_jt").addClass("glyphicon-triangle-left")	;
+		$(".select_list #myResive_tbl .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		$(".select_list #myResive_tbl .arrow_jt").addClass("glyphicon-triangle-left")	;
 		
 	})
 	
@@ -33,13 +81,18 @@ $(function(){
 	$('#mymoneyTbl').click(function(){
 		$('.wrap_box .little_box').css('display','none');
 		$('.account').css('display','none');
+		$('.myResive').css('display','none');
 		$('#mymoney').removeClass('hide');
+		$('#mymoney').removeClass('hide');
+		$('#mymoney .content_mid').addClass('hide');
+		$('#mymoney .changeType .pandaMoney').click();
 	})
 
 	$(".setTop").click(function(){
 		$(".select_list .littleBox").slideUp();
 		$(".select_list .littleBoxs").slideUp();
-
+		$(".select_list .littleBoxss").slideUp();
+		
 		$(".select-ud").removeAttr("id");
 		$(".select_list .arrow_jt").removeClass("glyphicon-triangle-bottom");
 		$(".select_list .arrow_jt").addClass("glyphicon-triangle-left")	;
@@ -51,6 +104,7 @@ $(function(){
 		$(this).addClass("activeP");
 		$(".wrap_box .little_box").hide().eq($(this).index()).show();  /*课程显示*/
 		$(".account .account_mains").hide();   /*账号隐藏*/
+		$(".myResive .little_box1").hide()  	/*收益隐藏*/
 		$(".select_box").hide();
 	})
 
@@ -60,6 +114,17 @@ $(function(){
 		$(this).addClass("activeP");
 		$(".account .account_mains").hide().eq($(this).index()).show();  /*账户显示*/
 		$(".wrap_box .little_box").hide();   /*课程隐藏*/
+		$(".myResive .little_box1").hide()  	/*收益隐藏*/
+		$(".select_box").hide();
+	})
+	
+	$(".select_list .select-udss .littleBoxs p").bind('click',function(event){
+		event.stopPropagation();
+		$(".select_list .littleBoxs p").removeClass("activeP");
+		$(this).addClass("activeP");
+		$(".myResive .little_box1").hide().eq($(this).index()).show();  /*收益显示*/
+		$(".wrap_box .little_box").hide();   /*课程隐藏*/
+		$(".account .account_mains").hide();   /*账号隐藏*/
 		$(".select_box").hide();
 	})
 //		下拉小箭头设置	
@@ -88,6 +153,20 @@ $(function(){
 			$(".select_list .select-uds .arrow_jt").removeClass("glyphicon-triangle-left");
 		}
 	})
+	
+	$(".select-udss").click(function(){
+		if($(this).attr("id")=="open_list"){
+			$(this).removeAttr("id")
+			$(".select_list .select-udss .arrow_jt").addClass("glyphicon-triangle-left");
+			$(".select_list .select-udss .arrow_jt").removeClass("glyphicon-triangle-bottom");
+		}
+		else{
+			$(this).attr("id","open_list")
+			$(".select_list .select-udss .arrow_jt").addClass("glyphicon-triangle-bottom");
+			$(".select_list .select-udss .arrow_jt").removeClass("glyphicon-triangle-left");
+		}
+	})
+
 
 
 	//头像上传

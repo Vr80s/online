@@ -125,6 +125,39 @@ $(function(){
 //这是点击资源结束
 	
 
+
+//点击收益部分  课程收益
+$('.select-udss .classResive').click(function(event){
+//	$('#gift_Resive').css('display','none');
+//	$('#kecheng_Resive').css('display','block');
+	$('.littleBoxss .giftResive').removeClass('activeP')
+	$('.littleBoxss .classResive').addClass('activeP')
+	$('#gift_Resive').addClass('hide');
+	$('#kecheng_Resive').removeClass('hide');
+	event.stopPropagation(); // 阻止事件冒泡
+	
+})
+
+//礼物收益点击
+$('.select-udss .giftResive').click(function(event){
+//	$('#kecheng_Resive').css('display','none');
+//	$('#gift_Resive').css('display','block');
+//	$('#gift_Resive').removeClass('hide');
+	$('.littleBoxss .classResive').removeClass('activeP')
+	$('.littleBoxss .giftResive').addClass('activeP')
+
+	$('#kecheng_Resive').addClass('hide');
+	$('#gift_Resive').removeClass('hide');
+	event.stopPropagation(); // 阻止事件冒泡
+})
+	
+	
+
+
+
+
+
+
 //点击账号列表    
 $(".account_number").click(function() {
     $("#curriculum").hide();
@@ -137,7 +170,7 @@ $(".account_number").click(function() {
     
 //  处理学堂关闭
     $(".littleBox").slideUp("slow");
-    
+
     
     $(".name_news").addClass("activeP");
 	$(".name_personage").removeClass("activeP");

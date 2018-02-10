@@ -1,4 +1,4 @@
-package com.xczhihui.bxg.online.manager.utils;
+package com.xczhihui.bxg.online.common.utils;
 
 import org.redisson.Redisson;
 import org.redisson.config.Config;
