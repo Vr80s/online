@@ -110,7 +110,8 @@ $(function(){
 	<header style="padding-top: 0rem;">
 		<div class="grabble">
 			<div class="grabble_top">
-				<div class="grabble_left" onclick="isLoginJump()">
+				
+				<div class="grabble_left" onclick="window.history.go(-1);">  <!--onclick="isLoginJump()" ---这是上一版的返回点击事件   -->
 					<div class="grabble_img"></div>
 				</div>
 
@@ -183,7 +184,7 @@ $(function(){
 	<div class="coze" style="height: 11rem">
 		
 		<!--关注-->
-		<div class="attention">
+		<div class="attention" id="attention">
 			
 			<div class="main_img">
 				<img src="" alt="" id="guanz_headImg"/>
@@ -247,11 +248,47 @@ $(function(){
 	</div>
 	<!-- 详情聊天结束 -->
 
-
-
-
-	<!-- 直播分享页开始 -->
+	<!--分享开始-->
 	<div class="share">
+		<div class="share_bg"></div>
+		<div class="share_main">
+			<div class="share_main_bg">
+				<ul>
+					<div class="share_to">分享到</div>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/ShareSDK.png" />
+							<p>微信</p>
+						</div>
+					</li>
+					<li>
+						<div class="" id="qqShare">
+							<img src="../images/Qzone_share.png" />
+							<p>qq空间</p>
+						</div>
+					</li>
+					<li>
+						<div class="" id="qqShare0">
+							<img src="../images/RSS_links.png" />
+							<p>新浪微博</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="share_cancel">取消</div>
+		</div>
+	</div>
+	<div class="weixin_ceng" style="display1: block;">
+		<div class="weixin_ceng_bg"></div>
+		<div class="weixin_img"><img src="/xcviews/images/fenxiang1.png" data-bd-imgshare-binded="1"></div>
+	</div>
+	<!--分享结束-->
+
+
+
+
+	<!-- 直播分享页开始   之前版本， -->
+	<div class="share1" style="display: none !important;">
 		<div class="share_bg"></div>
 		<div class="share_footer">
 			<ul>
@@ -278,7 +315,7 @@ $(function(){
 			<div class="share_footer_call">取消</div>
 		</div>
 	</div>
-	<!-- <script src="/xcview/js/zepto.min.js"></script> -->
+
 	<script src="/xcview/js/main.js"></script>
 	<!-- 直播分享页结束 -->
 	<!-- 点击微信-->
@@ -310,7 +347,7 @@ $(function(){
 		<div class="both"></div>
 		<div class="balance">
 			<div class="balance_size" onClick="window.location='recharges.html'">
-				熊猫币<span id="xmbShowSpan" style="color: #f8c600;font-size: 0.6rem;">加载中...</span><img src="/xcview/images/video_review.png" alt="" style="margin-top: 0.8rem;float: right;width: 0.65rem;height: 0.65rem;margin-left: 0.1rem;" />
+				熊猫币<span id="xmbShowSpan" style="color: #f8c600;font-size: 0.6rem;">加载中...</span><img src="/xcview/images/rightj.png" alt="" style="margin-top: 0.8rem;float: right;width: 0.65rem;height: 0.65rem;margin-left: 0.1rem;" />
 			</div>
 			<!--<div class="balance_size">
 				熊猫币：<span id="xmbShowSpan">加载中...</span>
@@ -511,16 +548,9 @@ if(is_weixin() && stringnull(getQueryString("openId"))){
 		$(".attention .close").click(function(){
 			$(".attention").hide();
 		});
-		
-/* 		requestService("/xczh/gift/liveDetails",null, 
-		    function(data) {
-				
-				if(data.success==true){
-		// 			添加主播--头像
-					$(".main_img").html(template('search1',{items:data.resultObject}))
-				}
-				
-		},false)  */
+
+//		关注几秒后隐藏
+		setTimeout(function(){document.getElementById("attention").style.display="none";},10000);
 		
 		
 	};
