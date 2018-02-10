@@ -6,6 +6,7 @@ import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
 import com.xczhihui.bxg.online.web.service.VerificationCodeService;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
@@ -15,6 +16,7 @@ import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -38,6 +41,8 @@ public class AssetController {
     private IUserBankService userBankService;
     @Autowired
     private UserCoinService userCoinService;
+    @Autowired
+    private RedissonUtil redissonUtil;
 
     /**
      * Description：获取熊猫币交易记录
@@ -102,7 +107,28 @@ public class AssetController {
         if(user==null){
             return ResponseObject.newErrorResponseObject("未登录");
         }
-        userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+        // 1.获得锁对象实例
+        RLock redissonLock = redissonUtil.getRedisson().getLock("addUserBank"+user.getId());
+
+        boolean resl = false;
+        try {
+            //等待十秒。有效期五秒
+            resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+            if(resl){
+                userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
+            }
+        }catch (RuntimeException e){
+                throw e;
+        }catch (Exception e){
+                e.printStackTrace();
+                throw new RuntimeException("网络错误，请重试");
+        }finally {
+                if(resl){
+                    redissonLock.unlock();
+                }else{
+                    throw new RuntimeException("网络错误，请重试");
+                }
+        }
         return ResponseObject.newSuccessResponseObject("新增银行卡成功！");
     }
 
