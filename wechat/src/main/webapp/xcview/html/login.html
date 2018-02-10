@@ -54,8 +54,8 @@
 		<div class="enter_btn">注册</div>
 		<div class="forget_password"><a href="/xcview/html/cn_login.html">国内用户注册</a></div>
 		<div class="other_means">
-			<div class="other_means_ru">√</div>
-			同意<span>《熊猫中医用户协议》</span>和<span>《隐私条款》</span>
+			<div class="other_means_ru"></div>
+			同意<span>《熊猫中医用户协议》</span><!--和<span>《隐私条款》</span>-->
 		</div>
 		
 	</div>
@@ -63,8 +63,8 @@
 	<!-- 中间内容结束 -->
 	
 	<!-- 刷新引入js -->
-	<!--<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>-->
-	<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
+	<!--<script src="/xcview/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<!-- <script src="/xcview/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
 	
 </body>
 
@@ -119,6 +119,25 @@
 		});
 		
 	};
+</script>
+
+
+<script  type="text/javascript">
+	$(document).ready(function(){
+	    var flag = 1;
+	    $(".other_means_ru").click(function(){
+	        if(flag == 1){
+	            $(".other_means_ru").css("background","url(/xcview/images/agree.png) no-repeat");
+	            $(".other_means_ru").css("background-size","100% 100%");
+	            flag = 0;
+	        } else{
+	            $(".other_means_ru").css("background","url(/xcview/images/agrees.png) no-repeat");
+	            $(".other_means_ru").css("background-size","100% 100%");
+	            flag = 1;
+	        }
+	    })
+	    $(".check").click();
+	});
 </script>
 
 

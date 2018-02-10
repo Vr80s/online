@@ -7,3 +7,15 @@ $(function () {
         $(".wp").html(template('doctorInfo',data.resultObject.medicalDoctor));
     });
 })
+
+
+//判断跳转
+function returnSkip() {
+
+   if(localStorage.judgeSkip=="find"){
+       window.location.href="discovery.html";
+   }else{
+       window.location.href="my_homepage.html";
+   }
+
+}

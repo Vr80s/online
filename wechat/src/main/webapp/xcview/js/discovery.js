@@ -14,6 +14,7 @@ $(function(){
 
 //点击我要当主播
 function myAnchor() {
+    localStorage.setItem("judgeSkip", "find");
 
     if(status==1||status==3||status==5){
         window.location.href="phy_examine.html";

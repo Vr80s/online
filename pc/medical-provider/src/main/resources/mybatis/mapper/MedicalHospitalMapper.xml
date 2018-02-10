@@ -209,6 +209,7 @@
 		<if test="doctorName != null">
 			AND md.name LIKE concat('%',#{doctorName},'%')
 		</if>
+		order by create_time
 	</select>
 
 	<select id="selectHospitalByIdAndStatus"  resultMap="MedicalHospitalResult">

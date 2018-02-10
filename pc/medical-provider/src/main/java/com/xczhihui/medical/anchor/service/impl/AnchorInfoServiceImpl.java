@@ -242,11 +242,12 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         Map<String, Object> columnMap = new HashMap<>();
         columnMap.put("doctor_id", doctorAccount.getDoctorId());
         List<MedicalHospitalDoctor> hospitalDoctors = hospitalDoctorMapper.selectByMap(columnMap);
+        MedicalHospital hospital = new MedicalHospital();
         if(CollectionUtils.isNotEmpty(hospitalDoctors)){
 
             // 获取医馆的信息
             MedicalHospitalDoctor hospitalDoctor = hospitalDoctors.get(0);
-            MedicalHospital hospital = hospitalMapper.selectById(hospitalDoctor.getHospitalId());
+            hospital = hospitalMapper.selectById(hospitalDoctor.getHospitalId());
             if(hospital != null){
                 courseAnchorVO.setHospitalName(hospital.getName());
             }
@@ -257,10 +258,12 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         MedicalDoctor doctor = doctorMapper.selectById(doctorAccount.getDoctorId());
         if(doctor != null){
             courseAnchorVO.setWorkTime(doctor.getWorkTime());
-            courseAnchorVO.setTel(doctor.getTel());
             courseAnchorVO.setProvince(doctor.getProvince());
             courseAnchorVO.setCity(doctor.getCity());
             courseAnchorVO.setDetailAddress(doctor.getDetailedAddress());
+
+            // 医师的预约电话是医馆的预约电话
+            courseAnchorVO.setTel(hospital.getTel());
         }
 
         return courseAnchorVO;
