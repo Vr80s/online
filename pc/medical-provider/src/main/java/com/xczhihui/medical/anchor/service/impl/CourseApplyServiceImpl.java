@@ -6,6 +6,7 @@ import com.xczhihui.bxg.online.common.enums.ApplyStatus;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
@@ -17,12 +18,14 @@ import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -41,6 +44,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private CourseApplyResourceMapper courseApplyResourceMapper;
     @Autowired
     private CollectionCourseApplyMapper collectionCourseApplyMapper;
+    @Autowired
+    private RedissonUtil redissonUtil;
 
     /**
      * Description：分页获取主播课程列表
@@ -102,21 +107,39 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCourseApply(CourseApplyInfo courseApplyInfo){
-        validateCourseApply(courseApplyInfo);
-        //当课程为点播视频时
-        if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
-            Integer resourceId = courseApplyInfo.getResourceId();
-            CourseApplyResource resource = new CourseApplyResource();
-            resource.setId(resourceId);
-            resource.setDelete(false);
-            resource.setUserId(courseApplyInfo.getUserId());
-            CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(resource);
-            //将资源放入课程
-            courseApplyInfo.setResourceId(courseApplyResource.getId());
-            courseApplyInfo.setCourseResource(courseApplyResource.getResource());
+        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApply"+courseApplyInfo.getUserId());
+        boolean res = false;
+        try {
+            //等待3秒，等待10秒
+            res = redissonLock.tryLock(3, 10, TimeUnit.SECONDS);
+            if(res){
+                System.out.println("得到锁"+res);
+                validateCourseApply(courseApplyInfo);
+                //当课程为点播视频时
+                if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
+                    Integer resourceId = courseApplyInfo.getResourceId();
+                    CourseApplyResource resource = new CourseApplyResource();
+                    resource.setId(resourceId);
+                    resource.setDelete(false);
+                    resource.setUserId(courseApplyInfo.getUserId());
+                    CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(resource);
+                    //将资源放入课程
+                    courseApplyInfo.setResourceId(courseApplyResource.getId());
+                    courseApplyInfo.setCourseResource(courseApplyResource.getResource());
+                }
+                courseApplyInfo.setCreateTime(new Date());
+                courseApplyInfoMapper.insert(courseApplyInfo);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(res){
+                System.out.println("关闭锁");
+                redissonLock.unlock();
+            }else{
+                System.out.println("没有抢到锁");
+            }
         }
-        courseApplyInfo.setCreateTime(new Date());
-        courseApplyInfoMapper.insert(courseApplyInfo);
     }
 
     /**
@@ -226,16 +249,34 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo){
-        validateCollectionApply(courseApplyInfo);
-        courseApplyInfo.setCreateTime(new Date());
-        courseApplyInfoMapper.insert(courseApplyInfo);
-        //当合辑为点播视频时
-        for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
-            CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
-            collectionCourseApply.setCourseApplyId(applyInfo.getId());
-            collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
-            collectionCourseApply.setCollectionCourseSort(applyInfo.getCollectionCourseSort());
-            collectionCourseApplyMapper.insert(collectionCourseApply);
+        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCollectionApply"+courseApplyInfo.getUserId());
+        boolean res = false;
+        try {
+            //等待3秒，等待10秒
+            res = redissonLock.tryLock(3, 10, TimeUnit.SECONDS);
+            if(res){
+                System.out.println("saveCollectionApply得到锁"+res);
+                validateCollectionApply(courseApplyInfo);
+                courseApplyInfo.setCreateTime(new Date());
+                courseApplyInfoMapper.insert(courseApplyInfo);
+                //当合辑为点播视频时
+                for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
+                    CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
+                    collectionCourseApply.setCourseApplyId(applyInfo.getId());
+                    collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+                    collectionCourseApply.setCollectionCourseSort(applyInfo.getCollectionCourseSort());
+                    collectionCourseApplyMapper.insert(collectionCourseApply);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(res){
+                System.out.println("关闭锁");
+                redissonLock.unlock();
+            }else{
+                System.out.println("没有抢到锁");
+            }
         }
     }
 
@@ -308,10 +349,28 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCourseApplyResource(CourseApplyResource courseApplyResource) {
-        validateCourseApplyResource(courseApplyResource);
-        courseApplyResource.setCreateTime(new Date());
-        courseApplyResource.setUpdateTime(new Date());
-        courseApplyResourceMapper.insert(courseApplyResource);
+        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApplyResource"+courseApplyResource.getUserId());
+        boolean res = false;
+        try {
+            //等待3秒，等待10秒
+            res = redissonLock.tryLock(3, 10, TimeUnit.SECONDS);
+            if(res){
+                System.out.println("saveCourseApplyResource得到锁"+res);
+                validateCourseApplyResource(courseApplyResource);
+                courseApplyResource.setCreateTime(new Date());
+                courseApplyResource.setUpdateTime(new Date());
+                courseApplyResourceMapper.insert(courseApplyResource);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(res){
+                System.out.println("关闭锁");
+                redissonLock.unlock();
+            }else{
+                System.out.println("没有抢到锁");
+            }
+        }
     }
 
     @Override
@@ -392,10 +451,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         if(cai==null){
             throw new RuntimeException("课程不存在");
         }
-        /*else if(cai.getStatus()!= ApplyStatus.UNTREATED.getCode()){
-            //防止后台管理操作与主播同时操作该课程出现问题
-            throw new RuntimeException("课程审核状态已经发生变化");
-        }*/
         //删除之前申请
         courseApplyInfoMapper.deleteCourseApplyById(courseApplyInfo.getId());
         //记录原申请id

@@ -100,7 +100,7 @@
 		margin-bottom: 0.426rem;
 		overflow: hidden;
 	}
-	/*推荐轮播*/
+	/*swiper轮播*/
 	.swiper-banner{
 		width: 100% !important;
 		height: 6.425rem !important;
@@ -116,8 +116,9 @@
 	}
 	.swiper-banner-list span{
 		margin: 0 0.2rem !important;
+		background: #00BC12 !important;
 	}
-	#swiper-container-box{
+	.swiper-container-box{
 		padding-bottom: 0;
 	}
 </style>
@@ -222,11 +223,11 @@
 						<!--推荐开始-->
 	                    <div class="tabSlider-box curr tjks" style="transform: translate(1883px, 0px);">
 							<!--swiper轮播图滑动-->
-							<div class="swiper-container" id="swiper-container-box">
+							<div class="swiper-container swiper-container-box" id="swiper-container-box">
 							    <div class="swiper-wrapper" id="wrapper-box">
 							     
 							    </div>
-							    <div class="swiper-pagination swiper-banner-list"></div>
+							    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list"></div>
 							</div>
 							<!--swiper轮播图滑动结束-->
 							<!--swiper小白班开始-->
@@ -273,10 +274,7 @@
 	                    	
 	                    	<!--精品课程开始-->
 	                    	<!--精品课程开始-->
-	                    	
 	                    	<div class="first_box"></div>
-	                    		
-	                    	
 	                    	<script type="text/html" id="shipin">
 									{{each items as item i}} 
 	                    	<div class="acupuncture">
@@ -325,63 +323,36 @@
 	                    	</div>
 	                    	{{/each}}
 	                    	</script>
-	                    	<!--精品课程结束-->
-	                    	
 	                    </div>
-
+						<!--精品课程结束-->
 						<!--推荐结束-->
 						
 						<!--线下课开始-->
 	                    <div class="tabSlider-box tjks" style="transform: translate(3766px, 0px);">
-							<!--轮播开始-->
-						    <nav>
-								<div class="htmleaf-container">
-									<article class="container">
-									    <section>
-									      <figure id="responsiveness0" class="swipslider">
-									        <ul class="sw-slides" id="xx-slides">
-									           
-									        </ul>
-									      </figure>
-									    </section>
-									</article>
-								</div>
-							</nav>
-
-							<!--轮播结束-->
-							
-							<!--<ul class="slide_one" id="xx_slide_one">
-								<script type="text/html" id="xx_nav_list">
-									{{each items as item i}}
-									<li>
-										<div class="slide_one_div">
-											<div class="">
-												<img src="{{item.icon}}" class="slide_one_artist" />
-											</div>
-											<p>{{item.cityName}}</p>
-										</div>
-									</li>
-									{{/each}}
-								</script>
-							</ul>-->
-	
-							
-							
-		                    	 <div class="swiper-container" id="swiper1">
-							        <div class="swiper-wrapper" id="xx_slide_one">
-							        	<script type="text/html" id="xx_nav_list">
-			                    			{{each items as item i}}
-								            <div class="swiper-slide">
-								            	<div class="teacher_slider_ul_div go_search">
-			                    						<img src="{{item.icon}}" />
-			                    						<span style="font-size: 0.468rem;">{{item.cityName}}</span>
-			                    				</div>
-								            </div>
-				                    		{{/each}}
-				                  		</script>						          
-							        </div>
-							    </div>	
-							    
+						    <!--swiper轮播图滑动-->
+							<div class="swiper-container swiper-container-box" id="swiper-container-class">
+							    <div class="swiper-wrapper" id="wrapper-box-class">
+							     
+							    </div>
+							    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list-class"></div>
+							</div>
+							<!--swiper轮播图滑动结束-->
+							<!--swiper城市滑动开始-->
+	                    	<div class="swiper-container" id="swiper1">
+						        <div class="swiper-wrapper" id="xx_slide_one">
+						        	<script type="text/html" id="xx_nav_list">
+		                    			{{each items as item i}}
+							            <div class="swiper-slide">
+							            	<div class="teacher_slider_ul_div go_search">
+		                    						<img src="{{item.icon}}" />
+		                    						<span style="font-size: 0.468rem;">{{item.cityName}}</span>
+		                    				</div>
+							            </div>
+			                    		{{/each}}
+			                  		</script>						          
+						        </div>
+						    </div>	
+							<!--swiper城市滑动结束-->  
 	                    	<!--全国课程开始-->
 	                    	<div class="acupunctures"></div>
 	                    	<script type="text/html" id="acupunctures">
@@ -430,25 +401,15 @@
 						<!--线下可结束-->
 						
 						<!--直播开始-->
-	                    <div class="tabSlider-box" style="transform: translate(3766px, 0px);">
-	
-	                        <!--轮播开始-->
-						    <nav>
-								<div class="htmleaf-container">
-									<article class="container">
-									    <section>
-									      <figure id="responsiveness1" class="swipslider">
-									        <ul class="sw-slides"  id="zb-slides">
-									           
-									        </ul>
-									      </figure>
-									    </section>
-									</article>
-								</div>
-							</nav>
-
-							<!--轮播结束-->
-							
+	                    <div class="tabSlider-box" style="transform: translate(3766px, 0px);">	
+						    <!--swiper轮播图滑动-->
+							<div class="swiper-container swiper-container-box" id="swiper-container-play">
+							    <div class="swiper-wrapper" id="wrapper-box-play">
+							     
+							    </div>
+							    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list-play"></div>
+							</div>
+							<!--swiper轮播图滑动结束-->							
 	                    	<!--直播课程开始-->
 	                    	<!--<div class="acupuncture">
 	                    		<div class="boutique_title">正在直播</div>
@@ -583,11 +544,7 @@
 	                    		</div>
 	                    	</div>
 	                    	{{/each}}
-	                    		
 	                    	</script>
-	                    	
-	                    	
-	                    	
 	                    	<!--即将课程结束-->
 	                    	
 	                    	<!--直播课程开始-->
@@ -716,23 +673,18 @@
 						
 						<!--听课开始-->
 	                    <div class="tabSlider-box" style="transform: translate(3766px, 0px);">
-	                         <!--轮播开始-->
-							
-						    <nav>
-								<div class="htmleaf-container">
-									<article class="container">
-									    <section>
-									      <figure id="responsiveness2" class="swipslider">
-									        <ul class="sw-slides" id="tk-slides">
-									           
-									        </ul>
-									      </figure>
-									    </section>
-									</article>
-								</div>
-							</nav>
 
-							<!--轮播结束-->
+							
+						    <!--swiper轮播图滑动-->
+							<div class="swiper-container swiper-container-box" id="swiper-container-listen">
+							    <div class="swiper-wrapper" id="wrapper-box-listen">
+							     
+							    </div>
+							    <div class="swiper-pagination swiper-banner-list" id="swiper-banner-list-listen"></div>
+							</div>
+							<!--swiper轮播图滑动结束-->
+
+
 							
 	                    	<!--听课推荐开始-->
 	                    	<div class="lectures">

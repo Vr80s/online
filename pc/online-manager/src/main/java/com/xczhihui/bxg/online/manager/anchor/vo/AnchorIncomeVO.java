@@ -39,11 +39,11 @@ public class AnchorIncomeVO {
 		this.name = name;
 	}
 
-	public String getTaotal() {
+	public String getTotal() {
 		return total;
 	}
 
-	public void setTaotal(String taotal) {
+	public void setTotal(String taotal) {
 		this.total = taotal;
 	}
 

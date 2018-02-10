@@ -1069,11 +1069,17 @@ function verifyCollection(collection){
         $('.warning_coursenumber').addClass('hide');
     }
     //课程
-    if(collection.courseApplyInfos == null ||collection.courseApplyInfos.length<0){
+    if(collection.courseApplyInfos == null ||collection.courseApplyInfos.length<1){
         $('.warning_course').removeClass('hide');
         return false;
     }else{
         $('.warning_course').addClass('hide');
+    }
+    if(collection.courseNumber != collection.courseApplyInfos.length){
+        $('.warning_course_count').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_count').addClass('hide');
     }
     return true;
 }

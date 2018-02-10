@@ -293,13 +293,24 @@ $(document)
 					$(".share_footer_call").click(function() {
 						$(".share").hide();
 					});
-
-					$("#opacity").click(function() {
-						// $(".give_a1").show();
-						/* $(".give_a1_img").show(); */
-						/* $(".give_a01").hide(); */
-						/* $(".give_a1_span").hide(); */
+					
+//					点击取消
+					$(".share_cancel").click(function() {
+						$(".share").hide();
 					});
+					
+					
+					
+//					点击微信显示黑色指示
+					$(".share_to_one").click(function() {
+						$(".weixin_ceng").show();
+					});
+//					点击微信显示黑色指示背景
+					$(".weixin_ceng").click(function() {
+						$(".weixin_ceng").hide();
+					});
+					
+					
 					$(".gift_ul_li").on(
 							"click",
 							"li",

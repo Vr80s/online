@@ -50,6 +50,17 @@ public class CourseAnchor implements java.io.Serializable {
 	private String name;
 	private Integer isLecturer;
 
+	private String profilePhoto;
+
+	@Column(name="profile_photo")
+	public String getProfilePhoto() {
+		return profilePhoto;
+	}
+
+	public void setProfilePhoto(String profilePhoto) {
+		this.profilePhoto = profilePhoto;
+	}
+
 	@Transient
 	public Integer getIsLecturer() {
 		return isLecturer;
@@ -95,7 +106,6 @@ public class CourseAnchor implements java.io.Serializable {
 		this.giftDivide = giftDivide;
 	}
 
-	@Transient
 	public String getName() {
 		return name;
 	}

@@ -3,9 +3,11 @@ package com.xczhihui.bxg.online.manager.anchor.service.impl;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
+import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.anchor.service.AnchorService;
 import com.xczhihui.bxg.online.manager.anchor.vo.AnchorIncomeVO;
+import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,13 @@ public class CourseAnchorServiceImpl extends OnlineBaseServiceImpl implements An
 	@Override
 	public void updatePermissions(Integer id) {
 		CourseAnchor ca = dao.findOneEntitiyByProperty(CourseAnchor.class, "id", id);
+		OnlineUser u = dao.findOneEntitiyByProperty(OnlineUser.class, "id", ca.getUserId());
+		if(!ca.getStatus()){
+			//设置微吼子账号权限
+			VhallUtil.changeUserPower(u.getVhallId(), "1", "0");
+		}else{
+			VhallUtil.changeUserPower(u.getVhallId(), "0", "0");
+		}
 		ca.setStatus(!ca.getStatus());
 		dao.update(ca);
 	}
