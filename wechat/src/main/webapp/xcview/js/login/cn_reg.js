@@ -4,14 +4,15 @@
  */
 var wait = 90;
 function time(o) {
+	//alert($(o).val());
 	if (wait == 0) {
 		//o.removeAttribute("disabled");
-		$(o).css("background","#00bc12")
+		$(o).css("background","#00bc12");
         $(o).val("获取验证码");
 		wait = 90;
 	} else {
 		//o.setAttribute("disabled", true);
-		$(o).css("background","#ccc")
+		$(o).css("background","#ccc");
         $(o).val("" + wait + "S");
 		wait--;
 		setTimeout(function() {
@@ -26,6 +27,8 @@ function time(o) {
 document.getElementById("btn").addEventListener("tap", function() {
 	
 	var number = document.getElementById("mobile").value; // 手机号
+	
+	var o = $(this);
 	
 	var text = $(this).val();
 	if(text!="获取验证码"){
@@ -47,7 +50,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 	requestService("/xczh/user/sendCode", urlparm, function(data) {
 		if (data.success) {
 			//进入倒计时
-			time($(this));
+			time(o);
 		} else {
 			webToast(data.errorMessage,"middle",3000);
 		}
@@ -118,10 +121,7 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 			
 			commonLocalStorageSetItem(data);
 			
-			
-			location.href = "/xcview/html/evpi.html";
-			
-			
+			location.href = "/xcview/html/heads_nicknames.html";
 		} else {
 			webToast(data.errorMessage,"middle",1500);				
 		}
