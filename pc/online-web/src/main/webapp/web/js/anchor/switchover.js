@@ -314,7 +314,45 @@ $(".message_return .message_title .two").click(function() {
 // });
 //
 	
+	//进入之后判断账户中主播修改信息的页面结构
+	if(localStorage.AccountStatus == 1){
+		//医师
+		$('#doctor_baseInf').removeClass('hide');
+		$('#hospital_baseInf').addClass('hide')
+		
+	}else if(localStorage.AccountStatus == 2){
+		//医馆
+		$('#doctor_baseInf').addClass('hide');
+		$('#hospital_baseInf').removeClass('hide')
+	}
 	
 	
+//	$('#workTime li').click(function(){
+//		alert(222)
+//	})
+//	
+	
+	//主播基础信息中的医师的坐诊时间数组
+	var arr1 = [];
+	var workTime;
+	$('#workTime  li ').click(function(){
+		if($(this).hasClass('color')){
+		//删除第二次选中的
+			for(var i = 0 ;i < arr1.length; i++){
+            	if($(this).text() == arr1[i]){
+                arr1.splice(i,1)
+            	}
+       		}
+			workTime = arr1.toString();
+			$(this).removeClass('color');	
+		}else{
+			$(this).addClass('color');
+			arr1.push($(this).text());
+			workTime = arr1.toString();
+		}
+		console.log(workTime)
+	})
+
 });
+
 
