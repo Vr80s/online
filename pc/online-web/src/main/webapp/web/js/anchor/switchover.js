@@ -127,17 +127,22 @@ $(function(){
 
 
 //点击收益部分  课程收益
-$('.select-udss .classResive').click(function(){
+$('.select-udss .classResive').click(function(event){
 	$('#gift_Resive').css('display','none');
 	$('#kecheng_Resive').css('display','block');
+	event.stopPropagation(); // 阻止事件冒泡
+	
 })
 
 //礼物收益点击
-$('.select-udss .giftResive').click(function(){
+$('.select-udss .giftResive').click(function(event){
 	$('#kecheng_Resive').css('display','none');
 	$('#gift_Resive').css('display','block');
 	$('#gift_Resive').removeClass('hide');
+	event.stopPropagation(); // 阻止事件冒泡
 })
+	
+	
 
 
 
