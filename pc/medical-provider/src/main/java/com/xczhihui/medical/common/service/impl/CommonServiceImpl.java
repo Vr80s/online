@@ -7,6 +7,8 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
+import com.xczhihui.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.hospital.enums.MedicalHospitalApplyEnum;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
@@ -168,7 +170,7 @@ public class CommonServiceImpl implements ICommonService {
                     if(authHospitalResult.equals(CommonEnum.HOSPITAL_APPLYING.getCode()) ||
                             authHospitalResult.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
                         log.error("---------------userId = {} auth doctor , also auth hospital" , userId);
-                        throw new RuntimeException("账号异常，请联系管理员");
+                        throw new MedicalException(MedicalExceptionEnum.USER_DATA_ERROR);
                     }else{
                         return authDoctorResult;
                     }
@@ -194,7 +196,7 @@ public class CommonServiceImpl implements ICommonService {
                     if(authDoctorResult.equals(CommonEnum.DOCTOR_APPLYING.getCode()) ||
                             authDoctorResult.equals(CommonEnum.AUTH_DOCTOR.getCode())){
                         log.warn("-------------userId = {} auth doctor , also auth hospital" , userId);
-                        throw new RuntimeException("账号异常，请联系管理员");
+                        throw new MedicalException(MedicalExceptionEnum.USER_DATA_ERROR);
                     }else{
                         return authHospitalResult;
                     }
@@ -216,9 +218,11 @@ public class CommonServiceImpl implements ICommonService {
 
             return null;
 
-        } catch (Exception e) {
+        }catch (MedicalException e) {
             log.error("---------------throw exception in user : {} auth doctor or hospital ,exception is {}", userId, e.getMessage());
-            throw new RuntimeException("网络开了个小差，请再试一次");
+            throw new MedicalException(MedicalExceptionEnum.USER_DATA_ERROR);
+        } catch (Exception e) {
+            throw new RuntimeException("哎呦喂，网络不给力啊，请再试一次");
         }finally {
             // 防止死锁
             Long count = countDownLatch.getCount();
