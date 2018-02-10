@@ -7,8 +7,10 @@ import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
+import org.redisson.api.RLock;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -27,6 +29,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 直播课程控制器 ClassName: MedicalDoctorApplyController.java <br>
@@ -50,6 +53,8 @@ public class CourseApplyController {
 
 	@Autowired
 	private AppBrowserService appBrowserService;
+	@Autowired
+	private RedissonUtil redissonUtil;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(CourseApplyController.class);
 
@@ -86,8 +91,28 @@ public class CourseApplyController {
 					projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
 			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
 			courseApplyInfo.setImgPath(imgPathJson.get("url").toString());
+// 获得锁对象实例
+			RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApply"+user.getId());
 
-			courseApplyService.saveCourseApply(courseApplyInfo);
+			boolean resl = false;
+			try {
+				//等待3秒 有效期8秒
+				resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+				if(resl){
+					courseApplyService.saveCourseApply(courseApplyInfo);
+				}
+			}catch (RuntimeException e){
+				throw e;
+			}catch (Exception e){
+				e.printStackTrace();
+				throw new RuntimeException("网络错误，请重试");
+			}finally {
+				if(resl){
+					redissonLock.unlock();
+				}else{
+					throw new RuntimeException("网络错误，请重试");
+				}
+			}
 			return  ResponseObject.newSuccessResponseObject("创建成功");
 		} catch (Exception e) {
 			e.printStackTrace();
