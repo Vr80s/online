@@ -1,7 +1,14 @@
 $(function(){
 //	播放历史
-	requestService("/xczh/history/list",null,function(data) {		
-		$("#paly_history").html(template("data_history",{items:data.resultObject.records}))
+	requestService("/xczh/history/list",null,function(data) {
+		if(data.resultObject.records.length==0){
+			$(".wrap-his-play").hide()
+		}else{
+			$(".wrap-his-play").show()
+			$("#paly_history").html(template("data_history",{items:data.resultObject.records}))
+			
+		}
+
 	})	
 	
 //	点击清除播放历史弹出确认取消框

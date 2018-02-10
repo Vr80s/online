@@ -130,6 +130,8 @@ $(function(){
 $('.select-udss .classResive').click(function(event){
 //	$('#gift_Resive').css('display','none');
 //	$('#kecheng_Resive').css('display','block');
+	$('.littleBoxss .giftResive').removeClass('activeP')
+	$('.littleBoxss .classResive').addClass('activeP')
 	$('#gift_Resive').addClass('hide');
 	$('#kecheng_Resive').removeClass('hide');
 	event.stopPropagation(); // 阻止事件冒泡
@@ -141,6 +143,9 @@ $('.select-udss .giftResive').click(function(event){
 //	$('#kecheng_Resive').css('display','none');
 //	$('#gift_Resive').css('display','block');
 //	$('#gift_Resive').removeClass('hide');
+	$('.littleBoxss .classResive').removeClass('activeP')
+	$('.littleBoxss .giftResive').addClass('activeP')
+
 	$('#kecheng_Resive').addClass('hide');
 	$('#gift_Resive').removeClass('hide');
 	event.stopPropagation(); // 阻止事件冒泡
