@@ -5,13 +5,13 @@ import com.xczhihui.bxg.online.api.po.CourseAnchor;
 import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.AnchorType;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.manager.anchor.dao.AnchorDao;
 import com.xczhihui.bxg.online.manager.medical.dao.*;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorApplyService;
 import com.xczhihui.bxg.online.manager.user.dao.UserDao;
 import com.xczhihui.bxg.online.manager.user.service.OnlineUserService;
 import com.xczhihui.bxg.online.manager.utils.RandomUtil;
-import com.xczhihui.bxg.online.manager.utils.RedissonUtil;
 import com.xczhihui.bxg.online.manager.vhall.VhallUtil;
 import org.apache.commons.lang.StringUtils;
 import org.redisson.api.RLock;
@@ -117,7 +117,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
 
         try {
 
-            if(getLock = lock.tryLock(0,8, TimeUnit.SECONDS)){
+            if(getLock = lock.tryLock(3,10, TimeUnit.SECONDS)){
 
                 if(apply == null){
                     throw new RuntimeException("操作失败：该条信息不存在");
