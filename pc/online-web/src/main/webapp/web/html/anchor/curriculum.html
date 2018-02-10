@@ -320,7 +320,73 @@
 	</tr>
 	{{/each}}
 </script>
-
+<script type="text/template" id="coin_transaction_list_tpl">
+	{{each records as coinTransaction i}}
+	<tr>
+		<td>
+			{{coinTransaction.VALUE}}
+		</td>
+		<td>
+			{{coinTransaction.changeType}}
+		</td>
+		<td>
+			{{coinTransaction.goods}}
+		</td>
+		<td>
+			{{coinTransaction.create_time}}
+		</td>
+		<td>
+		</td>
+	</tr>
+	{{/each}}
+</script>
+<script type="text/template" id="rmb_transaction_list_tpl">
+	{{each records as coinTransaction i}}
+	<tr>
+		<td>
+			{{coinTransaction.value}}
+		</td>
+		<td>
+			{{coinTransaction.changeType}}
+		</td>
+		<td>
+			{{coinTransaction.createTime}}
+		</td>
+		<td>
+			{{coinTransaction.form}}
+		<td>
+			{{coinTransaction.acctPan}}
+		</td>
+		<td>
+			{{coinTransaction.status}}
+		</td>
+		<td>
+			{{coinTransaction.dismissalRemark}}
+		</td>
+	</tr>
+	{{/each}}
+</script>
+<script type="text/template" id="bank_card_list_tpl">
+	{{each resultObject as bankcard i}}
+	<tr>
+		<td>
+			{{bankcard.bankName}}
+		</td>
+		<td>
+			{{bankcard.acctName}}
+		</td>
+		<td>
+			{{bankcard.acctPan}}
+		</td>
+		<td>
+			{{bankcard.certId}}
+		</td>
+		<td>
+			<a href="javascript:;" onclick="deleteBankCard({{bankcard.id}})">移除</a>
+		</td>
+	</tr>
+	{{/each}}
+</script>
 <!--删除提示弹窗-->
 <div id="deleteTip" class="hide">
 	<h4 class="confirm-title">删除资源</h4>
@@ -360,7 +426,7 @@
 
 				<li class="setTop" id="mymoneyTbl"><span class="iconfont icon-qianbao left_range" aria-hidden="true"></span><span>我的资产</span></li>
 				<li class="select-udss">
-					<span class="glyphicon glyphicon-list-alt left_range" aria-hidden="true"></span><span id="myResive_tbl">我的收益</span>
+					<span class="glyphicon glyphicon-list-alt left_range" aria-hidden="true"></span><span id="myResive_tbl">我的收益<span class="glyphicon glyphicon-triangle-left arrow_jt" style="margin-left: 38px;" aria-hidden="true"></span></span>
 					<div class="littleBoxss">
 						<p class="activeP classResive">课程收益</p>
 						<p class="giftResive">礼物收益</p>
@@ -389,10 +455,10 @@
 			<!--医师认证开始-->
 			<div class="physician physician_one">
 				<div class="account_main_title">认证信息</div>
-				<div class="reauthentication">
+				<!--<div class="reauthentication">
 					<div class="left_size">认证信息审核中，3个工作日完成 <span>（如提交信息有误可重新提交）</span></div>
 					<div class="right_btn">重新认证</div>
-				</div>
+				</div>-->
 				<div class="name">
 					<div class="one" style="margin-top: 0;">姓名</div>
 					<div class="two anchor_name"></div>
@@ -864,7 +930,8 @@
 					<p class="warning hide warning_profileImgphoto">请上传头像</p>
 				</div>
 				<div class="">
-					<span>精彩致辞</span>
+					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em style="display: inline-block;color: #f40;">*</em>精彩致辞</span>
+					
 					<label for="speech_select"></label>
 					<select id="speech_select" class="selectpicker bla bla bli speech_resource" data-live-search="true">
 						</optgroup>
@@ -876,32 +943,61 @@
 						<script id="anchor_details_editor" type="text/plain" style="width:540px;height:160px;"></script></div>
 					<p class="warning warning_anchor_lecturer_description hide">主播介绍不能为空</p>
 				</div>
-				<!--<div class="name">-->
-					<!--<span><em>*</em>任职医馆</span>-->
-					<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
-					<!--<p class="warning return_warning4 hide">任职医馆不能为空</p>-->
-				<!--</div>-->
-				<!--<div class="name">-->
-					<!--<span>坐诊时间</span>-->
-					<!--<input type="text" placeholder="" class="">-->
-				<!--</div>-->
-				<!--<div class="name">-->
-					<!--<span>预约电话</span>-->
-					<!--<input type="text" placeholder="" class="">-->
-				<!--</div>-->
-
-				<!--<div class="name">-->
-					<!--<span><em>*</em>城市</span>-->
-					<!--<div id="demo1" class="citys">-->
-						<!--<p>-->
-							<!--<select name="province" onclick="doProvAndCityRelation()"></select>-->
-							<!--<select name="city"></select>-->
-							<!--&lt;!&ndash; <select name="area"></select> &ndash;&gt;-->
-						<!--</p>-->
-						<!--<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>-->
-						<!--<p class="warning return_warning5 hide">详细地址不能为空</p>-->
-					<!--</div>-->
-				<!--</div>-->
+				
+				<!--主播是医师的时候的基础信息-->
+				<div id="doctor_baseInf" class="hide">
+				<div class="name">
+					<span><em>*</em>任职医馆</span>
+					<input type="text" placeholder="请填写您的任职医馆" class="put1">
+					<p class="warning return_warning4 hide">任职医馆不能为空</p>
+				</div>
+				<div class="name workTime" >
+					<span><em>*</em>坐诊时间</span>
+				<ul style="display: inline-block;vertical-align: middle;" id="workTime">
+					<li class="color">一</li>
+					<li>二</li>
+					<li>三</li>
+					<li>四</li>
+					<li>五</li>
+					<li>六</li>
+					<li>七</li>
+				</ul>
+				</div>
+				
+				<div class="name">
+					<span>预约电话</span>
+					<input type="text" placeholder="" class="" disabled="disabled">
+				</div>
+				</div>
+				
+				
+				<!--主播是医馆的时候的基础信息-->
+				<div id="hospital_baseInf" class="hide">
+					<div class="name">
+						<span>预约电话</span>
+						<input type="text" placeholder="请输入预约电话" class="">
+					</div>
+				</div>
+				
+				
+				
+				
+				<div class="name">
+					<span><em>*</em>城市</span>
+					<div id="demo1" class="citys">
+						<p>
+							<select name="province" id="" >
+								<option value="">请选择省份</option>
+							</select>
+							<select name="city">
+								<option value="">请选择市区</option>
+							</select>
+						</p>
+						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
+						<p class="warning return_warning5 hide">详细地址不能为空</p>
+					</div>
+				
+					</div>
 				<div class="name_btn" onclick="saveAnchorInfo()">提交</div>
 			</form>
 		</div>
@@ -926,17 +1022,17 @@
 			<ul>
 				<li>
 					<p>熊猫币余额（熊猫币）</p>
-					<h2>300</h2>
+					<h2 class="coinBalance"></h2>
 					<a href="javascript:;" class="Settlement">结算</a>
 				</li>
 				<li>
 					<p>人民币余额（元）</p>
-					<h2>300.00</h2>
+					<h2 class="rmb"></h2>
 					<a href="javascript:;" class="toCash">提现</a>
 				</li>
 				<li>
 					<p>我的银行卡（张）</p>
-					<h2>300</h2>
+					<h2 class="bankCount"></h2>
 					<a href="javascript:;" class="administration">管理</a>
 					<a href="javascript:;" class="addNew">新增</a>
 				</li>
@@ -965,20 +1061,20 @@
 				<table>
 					<tr>
 						<td>您的余额为</td>
-						<td><span>300</span>熊猫币</td>
+						<td><span class="coinBalance">300</span>熊猫币</td>
 					</tr>
 					<tr>
 						<td>结算金额</td>
-						<td><input type="text" id="toResultIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+						<td><input type="text" id="toResultIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #333333;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 						<span class="toResultIpt_warn waring hide" style="font-size: 14px;"><i class="smallwarn">!</i>请输入结算金额</span>
 						</td>
 					</tr>
-					<tr>
+					<tr class="hdrmb hide">
 						<td>获得人民币</td>
-						<td><span style="font-size: 14px;">800</span>元</td>
+						<td><span style="font-size: 14px;" id="toResultIptRmb">800</span>元</td>
 					</tr>
 				</table>
-				<button class="content_Settlement_btn">确定</button>
+				<button class="content_Settlement_btn" onclick="saveSettlement()">确定</button>
 			</div>
 			
 			<!--提现部分-->
@@ -1008,7 +1104,7 @@
 							</div>
 							<div class="cardBottom">
 								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">取消默认</a>
+								<a href="javascript:;">设为默认</a>
 							</div>
 						</li>
 						<li>
@@ -1017,7 +1113,7 @@
 							</div>
 							<div class="cardBottom">
 								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">取消默认</a>
+								<a href="javascript:;">设为默认</a>
 							</div>
 						</li>
 						<li>
@@ -1026,7 +1122,7 @@
 							</div>
 							<div class="cardBottom">
 								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">取消默认</a>
+								<a href="javascript:;">设为默认</a>
 							</div>
 						</li>
 						<li>
@@ -1035,7 +1131,7 @@
 							</div>
 							<div class="cardBottom">
 								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">取消默认</a>
+								<a href="javascript:;">设为默认</a>
 							</div>
 						</li>
 					</ul>
@@ -1064,42 +1160,42 @@
 							<td>操作</td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>招商银行</td>
-							<td>张三丰</td>
-							<td>622* **** **** **** *123</td>
-							<td>132 123 1887 0322 7765</td>
-							<td><a href="javascript:;">移除</a></td>
-						</tr>
-						<tr>
-							<td>中国工商银行</td>
-							<td>张三丰</td>
-							<td>622* **** **** **** *123</td>
-							<td>132 123 1887 0322 7765</td>
-							<td><a href="javascript:;">移除</a></td>
-						</tr>
-						<tr>
-							<td>中国农业银行</td>
-							<td>张三丰</td>
-							<td>622* **** **** **** *123</td>
-							<td>132 123 1887 0322 7765</td>
-							<td><a href="javascript:;">移除</a></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+					<tbody id="bank_card_list">
+						<!--<tr>-->
+							<!--<td>招商银行</td>-->
+							<!--<td>张三丰</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>132 123 1887 0322 7765</td>-->
+							<!--<td><a href="javascript:;">移除</a></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td>中国工商银行</td>-->
+							<!--<td>张三丰</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>132 123 1887 0322 7765</td>-->
+							<!--<td><a href="javascript:;">移除</a></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td>中国农业银行</td>-->
+							<!--<td>张三丰</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>132 123 1887 0322 7765</td>-->
+							<!--<td><a href="javascript:;">移除</a></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
 					</tbody>
 				</table>
 			</div>
@@ -1121,7 +1217,7 @@
 				<div>
 					<span>选择银行</span>
 					<select name="" id="content_add_bank" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;">
-						<option value="-1">请选择银行卡</option>
+						<option value="-1">请选择银行</option>
 					</select>
 					<span class="content_add_bank_warn waring hide"><i class="smallwarn">!</i>请选择银行</span>
 				</div>
@@ -1129,10 +1225,11 @@
 				<div>
 					<span>身份证号</span><input id="content_add_idCard" type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<span class="content_add_idCard_warn waring hide"><i class="smallwarn">!</i>请输入身份证号</span>
+					<span class="content_add_idCard_gs_warn waring hide"><i class="smallwarn">!</i>身份证号格式有误</span>
 					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（请确保您的银行卡可以收到款项，填写他人银行卡，收款有问题我们不负责任）</p>
 				</div>
 				
-				<button class="addNewCard">确定</button>
+				<button class="addNewCard" onclick="saveBankCard()">确定</button>
 				
 			</div>
 		</div>
@@ -1160,42 +1257,42 @@
 							<td>备注</td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>+200</td>
-							<td>课程销售</td>
-							<td>针灸推拿</td>
-							<td>2018-12-28 15:00</td>
-							<td>用户投诉</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+					<tbody id="coin_transaction_list">
+						<!--<tr>-->
+							<!--<td>+200</td>-->
+							<!--<td>课程销售</td>-->
+							<!--<td>针灸推拿</td>-->
+							<!--<td>2018-12-28 15:00</td>-->
+							<!--<td>用户投诉</td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
 					</tbody>
 				</table>
 				
@@ -1211,54 +1308,70 @@
 							<td>备注</td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>-200</td>
-							<td>提现</td>
-							<td>2018-12-28 15:00</td>
-							<td>银行卡</td>
-							<td>622* **** **** **** *123</td>
-							<td>审核中</td>
-							<td>审核中，1-3个工作日审核完成</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+					<tbody id="rmb_transaction_list">
+						<!--<tr>-->
+							<!--<td>-200</td>-->
+							<!--<td>提现</td>-->
+							<!--<td>2018-12-28 15:00</td>-->
+							<!--<td>银行卡</td>-->
+							<!--<td>622* **** **** **** *123</td>-->
+							<!--<td>审核中</td>-->
+							<!--<td>审核中，1-3个工作日审核完成</td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
+						<!--<tr>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+							<!--<td></td>-->
+						<!--</tr>-->
 					</tbody>
 				</table>
+			</div>
+			<div class="pages coin_transaction_pages pandaTable ">
+				<div id="Pagination_coinTransaction"  class="pagination-pages"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+					<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+					<a href="javascript:;" class="page-btn">确定</a>
+				</div>
+			</div>
+			<div class="pages rmb_transaction_pages rmbTable">
+				<div id="Pagination_rmbTransaction"  class="pagination-pages"></div>
+				<div class="searchPage">
+					<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+					<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+					<a href="javascript:;" class="page-btn">确定</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -2049,11 +2162,307 @@
 	<!--收益部分-->
 	<div class="myResive">
 		<div class="little_box1">
-			<p>111</p>
-		</div>
-		
-		<div class="little_box1">
-			<p>222</p>
+			<!--课程收益部分-->
+			<div  id="kecheng_Resive">
+				<div class="kecheng_Resive_top">
+					<span class="title">课程订单</span>
+				</div>
+				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
+				<div class="kecheng_Resive_mid">
+					<input type="text" placeholder="课程名称" class="search_classIpt"/>
+					<select name="" class="searc_classSel">
+						<option value="-1">全部</option>
+					</select>
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+					至
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+					<button class="order_search_btn">搜索</button>
+				</div>
+				<div class="kecheng_Resive_bottom">
+					<table>
+						<thead>
+						<tr>
+							<td>订单号</td>
+							<td>课程名称</td>
+							<td>支付时间</td>
+							<td>支付用户</td>
+							<td>课程原价</td>
+							<td>平台扣除</td>
+							<td>分成比例</td>
+							<td>获得熊猫币</td>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>12345678901234567890</td>
+							<td>中医药席卷全球成独特风暴</td>
+							<td>2018-01-18 14:00</td>
+							<td>稻草人</td>
+							<td>100</td>
+							<td>苹果30%</td>
+							<td>80%</td>
+							<td>56</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<!--礼物收益部分-->
+			<div  id="gift_Resive" class="hide">
+				<div class="gift_Resive_top">
+					<span class="title">礼物订单</span>
+					<a href="javascript:;" class="toRankingList">排行榜</a>
+				</div>
+				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
+				<div class="gift_Resive_mid">
+					<input type="text" placeholder="课程名称" class="search_classIpt"/>
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+					至
+					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+					<button class="order_search_btn">搜索</button>
+				</div>
+				<div class="gift_Resive_bottom">
+					<table>
+						<thead>
+							<tr>
+								<td>课程名称</td>
+								<td>直播时间</td>
+								<td>赠送人</td>
+								<td>礼物总价</td>
+								<td>平台扣除</td>
+								<td>分成比例</td>
+								<td>获得熊猫币</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>中医药席卷全球成独特风暴</td>
+								<td>2018-01-18 14:00</td>
+								<td>稻草人</td>
+								<td>100</td>
+								<td>苹果30%</td>
+								<td>80%</td>
+								<td>56</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="gift_Resive_bottom2 hide">
+					<table>
+						<thead>
+							<tr>
+								<td>排名</td>
+								<td>用户</td>
+								<td>贡献</td>
+								<td>平均扣除</td>
+								<td>分成比例</td>
+								<td>获得熊猫币</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>稻草人</td>
+								<td>1000</td>
+								<td>苹果30%</td>
+								<td>80%</td>
+								<td>560</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -2067,6 +2476,7 @@
 <script src="/web/js/date.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/curriculum_Account.js" type="text/javascript" charset="UTF-8"></script>
 <script src="/web/js/anchor/mymoney.js" type="text/javascript" charset="UTF-8"></script>
+<script src="/web/js/anchor/asset.js" type="text/javascript" charset="UTF-8"></script>
 <script type="text/javascript">
     function numberCk(data) {
         var reg = /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/;

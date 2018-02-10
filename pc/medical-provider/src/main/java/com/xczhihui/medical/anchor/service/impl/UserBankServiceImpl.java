@@ -3,13 +3,16 @@ package com.xczhihui.medical.anchor.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.anchor.mapper.UserBankMapper;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
+import com.xczhihui.utils.BankUtil;
 import com.xczhihui.utils.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -42,13 +46,17 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Override
 	public void addUserBank(String userId,String acctName, String acctPan,String certId,String tel) {
-        UserBank userBank = new UserBank();
-        userBank.setUserId(userId);
-        userBank.setAcctName(acctName);
-        userBank.setAcctPan(acctPan);
-        userBank.setCertId(certId);
-        userBank.setBankName(BankCardType.getBankCard(Integer.parseInt(tel)));
-        userBank.setTel(tel);
+		boolean verifyBank = BankUtil.getNameOfBank(acctPan).contains(BankCardType.getBankCard(Integer.valueOf(tel)));
+		if(!verifyBank){
+			throw new RuntimeException("银行卡号与银行不匹配");
+		}
+		UserBank userBank = new UserBank();
+		userBank.setUserId(userId);
+		userBank.setAcctName(acctName);
+		userBank.setAcctPan(acctPan);
+		userBank.setCertId(certId);
+		userBank.setBankName(BankCardType.getBankCard(Integer.parseInt(tel)));
+		userBank.setTel(tel);
 		validateUserBank(userBank);
 		UserBank ub = selectUserBankByUserIdAndAcctPan(userBank.getUserId(),userBank.getAcctPan(),userBank.getCertId());
 		if(ub!=null){
@@ -80,16 +88,12 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			String srb = bankInfoJson.get("showapi_res_body").toString();
 			JSONObject srbJson = JSONObject.parseObject(srb);
 			JSONObject belong = JSONObject.parseObject(srbJson.get("belong").toString());
-			Telephone = belong.get("tel").toString();
 			String cardType = belong.get("cardType").toString();
 			userBank.setCardType(cardType);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("添加失败");
-		}
-		if(!Telephone.equals(userBank.getTel())){
-			throw new RuntimeException("银行卡号与银行不匹配");
 		}
 		List<UserBank> userBankList = selectUserBankByUserId(userBank.getUserId());
 		if(userBankList!=null&&userBankList.size()>0){
@@ -100,6 +104,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		userBank.setCertType("01");
 		userBank.setCreateTime(new Date());
 		userBankMapper.add(userBank);
+
 	}
 
 	@Override
@@ -138,6 +143,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	@Override
 	public UserBank getDefault(String userId) {
 		return userBankMapper.getDefault(userId);
+	}
+
+	@Override
+	public int getBankCount(String id) {
+		return userBankMapper.getBankCount(id);
 	}
 
 	private void validateUserBank(UserBank userBank) {

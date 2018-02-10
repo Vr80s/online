@@ -1,6 +1,16 @@
 var status;
 $(function(){
-    //获取认证状态
+	
+	
+	
+	//yx_新增
+	var openId = getQueryString("openId");
+	if(stringnull(openId)){
+	   localStorage.setItem("openId",openId);
+	}	
+
+	
+	//获取认证状态
     requestService("/xczh/medical/applyStatus",{
     },function(data) {
         if(data.success==true){

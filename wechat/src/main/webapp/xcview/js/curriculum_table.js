@@ -241,7 +241,10 @@ function queryDataByParams(params,data_type){
 					     "</div>";
 			}
 			$(id).html(data1);
-			
+//			这是测试是否可以点击课程事件
+			/*$("#draw_all_query_list div").click(function(){
+				alert(513);*/
+			});
 		}else{
 			alert("查询数据结果errot!");
 		}

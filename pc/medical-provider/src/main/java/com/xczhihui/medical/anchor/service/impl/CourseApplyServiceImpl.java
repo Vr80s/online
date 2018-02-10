@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.bxg.common.util.BeanUtil;
 import com.xczhihui.bxg.online.common.enums.ApplyStatus;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
@@ -107,39 +108,21 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCourseApply(CourseApplyInfo courseApplyInfo){
-        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApply"+courseApplyInfo.getUserId());
-        boolean res = false;
-        try {
-            //等待3秒，等待10秒
-            res = redissonLock.tryLock(3, 10, TimeUnit.SECONDS);
-            if(res){
-                System.out.println("得到锁"+res);
-                validateCourseApply(courseApplyInfo);
-                //当课程为点播视频时
-                if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
-                    Integer resourceId = courseApplyInfo.getResourceId();
-                    CourseApplyResource resource = new CourseApplyResource();
-                    resource.setId(resourceId);
-                    resource.setDelete(false);
-                    resource.setUserId(courseApplyInfo.getUserId());
-                    CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(resource);
-                    //将资源放入课程
-                    courseApplyInfo.setResourceId(courseApplyResource.getId());
-                    courseApplyInfo.setCourseResource(courseApplyResource.getResource());
-                }
-                courseApplyInfo.setCreateTime(new Date());
-                courseApplyInfoMapper.insert(courseApplyInfo);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if(res){
-                System.out.println("关闭锁");
-                redissonLock.unlock();
-            }else{
-                System.out.println("没有抢到锁");
-            }
+        validateCourseApply(courseApplyInfo);
+        //当课程为点播视频时
+        if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
+            Integer resourceId = courseApplyInfo.getResourceId();
+            CourseApplyResource resource = new CourseApplyResource();
+            resource.setId(resourceId);
+            resource.setDelete(false);
+            resource.setUserId(courseApplyInfo.getUserId());
+            CourseApplyResource courseApplyResource = courseApplyResourceMapper.selectOne(resource);
+            //将资源放入课程
+            courseApplyInfo.setResourceId(courseApplyResource.getId());
+            courseApplyInfo.setCourseResource(courseApplyResource.getResource());
         }
+        courseApplyInfo.setCreateTime(new Date());
+        courseApplyInfoMapper.insert(courseApplyInfo);
     }
 
     /**
@@ -249,34 +232,16 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo){
-        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCollectionApply"+courseApplyInfo.getUserId());
-        boolean res = false;
-        try {
-            //等待3秒，等待10秒
-            res = redissonLock.tryLock(3, 10, TimeUnit.SECONDS);
-            if(res){
-                System.out.println("saveCollectionApply得到锁"+res);
-                validateCollectionApply(courseApplyInfo);
-                courseApplyInfo.setCreateTime(new Date());
-                courseApplyInfoMapper.insert(courseApplyInfo);
-                //当合辑为点播视频时
-                for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
-                    CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
-                    collectionCourseApply.setCourseApplyId(applyInfo.getId());
-                    collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
-                    collectionCourseApply.setCollectionCourseSort(applyInfo.getCollectionCourseSort());
-                    collectionCourseApplyMapper.insert(collectionCourseApply);
-                }
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
-            if(res){
-                System.out.println("关闭锁");
-                redissonLock.unlock();
-            }else{
-                System.out.println("没有抢到锁");
-            }
+        validateCollectionApply(courseApplyInfo);
+        courseApplyInfo.setCreateTime(new Date());
+        courseApplyInfoMapper.insert(courseApplyInfo);
+        //当合辑为点播视频时
+        for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
+            CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
+            collectionCourseApply.setCourseApplyId(applyInfo.getId());
+            collectionCourseApply.setCollectionApplyId(courseApplyInfo.getId());
+            collectionCourseApply.setCollectionCourseSort(applyInfo.getCollectionCourseSort());
+            collectionCourseApplyMapper.insert(collectionCourseApply);
         }
     }
 
@@ -361,9 +326,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 courseApplyResource.setUpdateTime(new Date());
                 courseApplyResourceMapper.insert(courseApplyResource);
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
+            throw e;
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+            throw new RuntimeException("网络错误，请重试");
+        } finally {
             if(res){
                 System.out.println("关闭锁");
                 redissonLock.unlock();
@@ -438,6 +406,9 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public CourseApplyInfo selectCourseApplyById(String userId, Integer caiId) {
         CourseApplyInfo courseApplyInfo = courseApplyInfoMapper.selectCourseApplyById(userId, caiId);
+        if(courseApplyInfo == null){
+            throw new RuntimeException("课程不存在");
+        }
         if(courseApplyInfo.getCollection()){
             List<CourseApplyInfo> courseApplyInfos = courseApplyInfoMapper.selectCourseApplyByCollectionId(courseApplyInfo.getId());
             courseApplyInfo.setCourseApplyInfos(courseApplyInfos);

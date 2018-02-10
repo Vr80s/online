@@ -5,6 +5,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
@@ -14,6 +15,7 @@ import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -34,6 +37,8 @@ public class CourseApplyController {
 
     @Autowired
     private ICourseApplyService courseApplyService;
+    @Autowired
+    private RedissonUtil redissonUtil;
 
     /**
      * Description：分页获取课程申请列表
@@ -144,7 +149,29 @@ public class CourseApplyController {
     public ResponseObject saveCourseApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
-        courseApplyService.saveCourseApply(courseApplyInfo);
+        // 获得锁对象实例
+        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApply"+user.getId());
+
+        boolean resl = false;
+        try {
+            //等待3秒 有效期8秒
+            resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+            if(resl){
+                courseApplyService.saveCourseApply(courseApplyInfo);
+            }
+        }catch (RuntimeException e){
+            throw e;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("网络错误，请重试");
+        }finally {
+            if(resl){
+                redissonLock.unlock();
+            }else{
+                throw new RuntimeException("网络错误，请重试");
+            }
+        }
+
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 
@@ -180,7 +207,29 @@ public class CourseApplyController {
     public ResponseObject saveCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
-        courseApplyService.saveCollectionApply(courseApplyInfo);
+        // 获得锁对象实例
+        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCollectionApply"+user.getId());
+
+        boolean resl = false;
+        try {
+            //等待3秒 有效期8秒
+            resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+            if(resl){
+                courseApplyService.saveCollectionApply(courseApplyInfo);
+            }
+        }catch (RuntimeException e){
+            throw e;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("网络错误，请重试");
+        }finally {
+            if(resl){
+                redissonLock.unlock();
+            }else{
+                throw new RuntimeException("网络错误，请重试");
+            }
+        }
+
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 

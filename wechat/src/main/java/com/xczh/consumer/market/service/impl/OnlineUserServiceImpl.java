@@ -245,7 +245,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		// 产生随机4位动态码
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
 		
-		//vcode = "1234";
+		vcode = "1234";
 		
 		List<VerificationCode> codes = null;
 		try {
@@ -293,7 +293,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				e.printStackTrace();
 			}
 		}
-		sendPhone(username, vcode, vtype);
+		//sendPhone(username, vcode, vtype);
 		return "发送成功";
 	}
 	
@@ -463,7 +463,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 		// 产生随机4位动态码
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
-		//vcode = "1234";
+		
+		vcode = "1234";
 		List<VerificationCode> codes = null;
 		try {
 			codes = onlineUserDao.getListVerificationCode(username,vtype);

@@ -218,7 +218,6 @@ function sliderHeight(){
 	$(".swipe li").height(sliderHeight);
 }
 
-
 $(".find_nav_list").css("left",0);
 
 $(".find_nav_list li").each(function(){
@@ -329,16 +328,14 @@ for(n=1;n<9;n++){
 	}
 }
 
-
-
 </script>
 
 
 <script>
 		window.onload = function(){
 			$(".btn").click(function(){
-				$(".btn_show").show();
-				$(".btn_show_bg").show();
+				$(".btn_show").fadeIn();
+				$(".btn_show_bg").fadeIn();
 				$(".btn_show_main").addClass('div_right0');
 				$(".btn_show_main").removeClass('div_right')
 			});
@@ -413,6 +410,8 @@ for(n=1;n<9;n++){
 			$(".all_bottom_btn0").click(function(){
 				$(".all_mold .all_right_type_one").removeClass("all_right_type_one_add");
 			});
+			
+			
 		};
 	</script>
 

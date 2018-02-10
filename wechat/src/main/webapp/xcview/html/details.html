@@ -88,7 +88,7 @@ $(function(){
 	};
 </script>
 </head>
-<body style="background: #efefef;">
+<body style="background: #efefef;    overflow: hidden;">
 	<div class='vanish2 hide'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>熊猫币余额获取失败！请稍后再试</div></div></div>
 	<div class='vanish4 hide'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
 	
@@ -144,7 +144,7 @@ $(function(){
 				<ul>
 					<li><span class="li1">聊天</span></li>
 					<li><span class="li3">排行榜</span></li>
-					<li><span class="li2">主讲人</span></li>
+					<li class="click_li"><span class="li2">主讲人</span></li>
 					<li><span class="li4">文档</span></li> 
 				</ul>
 			</div>
@@ -181,19 +181,19 @@ $(function(){
 	</div>
 	<div class="footer_k" style="height: 10.6rem;"></div>
 	<!-- 详情聊天开始 -->
-	<div class="coze" style="height: 11rem">
+	
 		
-		<!--关注-->
+	<div class="coze" style="height: 11rem">
+		<!--关注开始-->
 		<div class="attention" id="attention">
-			
 			<div class="main_img">
-				<img src="" alt="" id="guanz_headImg"/>
+				<img src="" alt="" class="guanz_headImg"/>
 			</div>
 			<div class="main_title">
 				<p class="p0">测试（主播名）</p>
 				<p class="p1">
-					<span class="span0">关注<span id="n_guanzhu">0</span></span>
-					<span class="span1">粉丝<span id="n_fensi">0</span></span>
+					<span class="span0">关注<span class="n_guanzhu">0</span></span>
+					<span class="span1">粉丝<span class="n_fensi">0</span></span>
 				</p>
 			</div>
 			<div class="add_follow" id="add_follow" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
@@ -201,9 +201,9 @@ $(function(){
 				<p>加关注</p>
 			</div>
 			<div class="close">×</div>
-			
-			
 		</div>
+		<!--关注结束-->
+		
 		
 		<div class=""></div>
 		<div style="height: 0rem;"></div>
@@ -340,6 +340,10 @@ $(function(){
 		<div class="both"></div>
 
 		<div class="send_gifts_ul">
+			<div class="div">
+				<span class="span0">礼物</span>
+				<span class="span1">×</span>
+			</div>
 			<ul class="gift_ul_li">
 			</ul>
 		</div>
@@ -347,7 +351,7 @@ $(function(){
 		<div class="both"></div>
 		<div class="balance">
 			<div class="balance_size" onClick="window.location='recharges.html'">
-				熊猫币<span id="xmbShowSpan" style="color: #f8c600;font-size: 0.6rem;">加载中...</span><img src="/xcview/images/rightj.png" alt="" style="margin-top: 0.8rem;float: right;width: 0.65rem;height: 0.65rem;margin-left: 0.1rem;" />
+				熊猫币<span id="xmbShowSpan" style="color: #f8c600;font-size: 0.6rem;">加载中...</span><img src="/xcview/images/rightj.png" alt="" />
 			</div>
 			<!--<div class="balance_size">
 				熊猫币：<span id="xmbShowSpan">加载中...</span>
@@ -359,7 +363,7 @@ $(function(){
 					<div id="import">
 						 <!-- <div class="import" contenteditable="false"></div> -->
 						
-						<div class="import_div"><input text="tel" id="giftCount" class="import" value="1" ></div>
+						<div class="import_div"><input text="tel" id="giftCoun class="import" value="1" ></div>
 						<div class="import_hide">
 							<!-- <div class="import4">其他数量</div> -->
 							<div class="import1">100</div>
@@ -379,8 +383,7 @@ $(function(){
 
 	<!-- 详情主播开始 -->
 	<div class="details1">
-		<!-- <div style="height:7.8rem;"></div> -->
-		<div class="details_anchor" style="margin-top:0.3rem;height: 2.6rem;top: 0.1rem;">
+		<!--<div class="details_anchor" style="margin-top:0.3rem;height: 2.6rem;top: 0.1rem;">
 			<div class="details_anchor_center" style="">
 				<img src="/xcview/images/touxiang.png" id="headImg" alt="" onclick="userIndex()"
 					class="details_portrait" style="margin-top: 0.2rem;" />
@@ -390,27 +393,61 @@ $(function(){
 					<p class="p2">
 						播&nbsp;&nbsp;&nbsp;主：<span></span>
 					</p>
-					<!-- <p class="p3">
-						房间号：<span></span>
-					</p> -->
 				</div>
 				<div class="details_attention" style="background: none; margin-right: 3rem; float: left;margin-left: 1.8rem;">
-					<!-- <img src="/xcview/images/guanzhu_03.png" alt=""
-						style="margin-top: -0.65rem;margin-left: 0.19rem;margin-right: 0.4rem;" /> -->
-					<p id="guanzhu2" class="guanzhu1"style="width: 3.025rem;height: 1.2rem;background: url(/xcview/images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -1rem;"></p>
-					<p class="guanzhu2" style="background: url(/xcview/images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -1rem;"></p>
+					<p id="guanzhu2" class="guanzhu1"style="width: 3.025rem;height: 1.2rem;background: url(../images/attention02.png) no-repeat;background-size: 100% 100%; border-radius: 6px;margin-top: -1rem;"></p>
+					<p class="guanzhu2" style="background: url(../images/attention03.png) no-repeat;background-size: 100% 100%;width: 3.025rem;height: 1.2rem; line-height: 1.2rem; border-radius: 6px; margin-top: -1rem;"></p>
 				</div>
 			</div>
 			<div class="both"></div>
+		</div>-->
+		
+		
+		<!--关注开始-->
+		<div class="attention">
+			<div class="main_img">
+				<img src="../images/120.jpg" alt="" class="guanz_headImg"/>
+			</div>
+			<div class="main_title" style="width: 9.15rem;">
+				<p class="p0">测试（主播名）</p>
+				<p class="p1">
+					<span class="span0">关注<span class="n_guanzhu">0</span></span>
+					<span class="span1">粉丝<span class="n_fensi">0</span></span>
+				</p>
+			</div>
+			<div class="add_follow" id="add_follow1" data-lecturerid="23908ae85dad4541ba7ecf53fc52aab2">
+				<img src="../images/follow.png">
+				<p>加关注</p>
+			</div>
+			
 		</div>
-		<!--<div class="details_anchor_title">&nbsp;&nbsp;直播内容</div>-->
-
-
-		<div class="anchor_center01" style="margin-top: 0;">
+		<!--关注结束-->
+		
+		
+		<!--关注开始-->
+		<div class="attention" style="display: none;">
+			
+			<div class="main_img">
+				<img src="../images/120.jpg" alt="" id=""/>
+			</div>
+			<div class="main_title" style="width: 8.45rem;">
+				<p class="p0">测试（主播名）</p>
+				<p class="p1">
+					<span class="span0">关注<span>0</span></span>
+					<span class="span1">粉丝<span>0</span></span>
+				</p>
+			</div>
+			<div class="add_follow">
+				<img src="../images/follow.png">
+				<p>加关注</p>
+			</div>
+		</div>
+		<!--关注结束-->
+		
+		<div class="anchor_center01" style="margin-top: 3.4rem;">
 			<div class="anchor_center">
 			</div>
 		</div>
-		<!-- <div style="height:2.5rem;"></div> -->
 	</div>
 	<div class="both"></div>
 	<!-- 详情主播结束 -->
@@ -552,6 +589,18 @@ if(is_weixin() && stringnull(getQueryString("openId"))){
 //		关注几秒后隐藏
 		setTimeout(function(){document.getElementById("attention").style.display="none";},10000);
 		
+		<!--点击礼物关闭按钮-->
+		$(".send_gifts_ul .div .span1").click(function(){
+			$(".send_gifts").hide();
+		});
+		
+//		点击主讲人
+		/*$(".details_footer_width .click_li").click(function(){
+			
+			$("#attention .close").hide();
+			$("#attention .main_title").css("width","9.15rem");
+			$("#attention").css("display","block !important;");
+		});*/
 		
 	};
 </script>

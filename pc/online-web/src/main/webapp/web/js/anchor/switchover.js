@@ -125,6 +125,39 @@ $(function(){
 //这是点击资源结束
 	
 
+
+//点击收益部分  课程收益
+$('.select-udss .classResive').click(function(event){
+//	$('#gift_Resive').css('display','none');
+//	$('#kecheng_Resive').css('display','block');
+	$('.littleBoxss .giftResive').removeClass('activeP')
+	$('.littleBoxss .classResive').addClass('activeP')
+	$('#gift_Resive').addClass('hide');
+	$('#kecheng_Resive').removeClass('hide');
+	event.stopPropagation(); // 阻止事件冒泡
+	
+})
+
+//礼物收益点击
+$('.select-udss .giftResive').click(function(event){
+//	$('#kecheng_Resive').css('display','none');
+//	$('#gift_Resive').css('display','block');
+//	$('#gift_Resive').removeClass('hide');
+	$('.littleBoxss .classResive').removeClass('activeP')
+	$('.littleBoxss .giftResive').addClass('activeP')
+
+	$('#kecheng_Resive').addClass('hide');
+	$('#gift_Resive').removeClass('hide');
+	event.stopPropagation(); // 阻止事件冒泡
+})
+	
+	
+
+
+
+
+
+
 //点击账号列表    
 $(".account_number").click(function() {
     $("#curriculum").hide();
@@ -137,7 +170,7 @@ $(".account_number").click(function() {
     
 //  处理学堂关闭
     $(".littleBox").slideUp("slow");
-    
+
     
     $(".name_news").addClass("activeP");
 	$(".name_personage").removeClass("activeP");
@@ -281,7 +314,45 @@ $(".message_return .message_title .two").click(function() {
 // });
 //
 	
+	//进入之后判断账户中主播修改信息的页面结构
+	if(localStorage.AccountStatus == 1){
+		//医师
+		$('#doctor_baseInf').removeClass('hide');
+		$('#hospital_baseInf').addClass('hide')
+		
+	}else if(localStorage.AccountStatus == 2){
+		//医馆
+		$('#doctor_baseInf').addClass('hide');
+		$('#hospital_baseInf').removeClass('hide')
+	}
 	
 	
+//	$('#workTime li').click(function(){
+//		alert(222)
+//	})
+//	
+	
+	//主播基础信息中的医师的坐诊时间数组
+	var arr1 = [];
+	var workTime;
+	$('#workTime  li ').click(function(){
+		if($(this).hasClass('color')){
+		//删除第二次选中的
+			for(var i = 0 ;i < arr1.length; i++){
+            	if($(this).text() == arr1[i]){
+                arr1.splice(i,1)
+            	}
+       		}
+			workTime = arr1.toString();
+			$(this).removeClass('color');	
+		}else{
+			$(this).addClass('color');
+			arr1.push($(this).text());
+			workTime = arr1.toString();
+		}
+		console.log(workTime)
+	})
+
 });
+
 

@@ -258,13 +258,41 @@ header {
 	margin-bottom: 0.851rem;
 }
 .success_main .three{
-	font-size: 0.638rem;
+	/*font-size: 0.638rem;
 	color: #00BC12;
 	width: 100%;
 	height: 1.851rem;
 	line-height: 1.851rem;
 	text-align: center;
+	border-top: 1px solid #D8DDE6;*/
+}
+
+.success_main .three{
+	font-size: 0.638rem;
+	color: #00BC12;
+	width: 100%;
+	/*height: 1.851rem;
+	line-height: 1.851rem;*/
+    height: 1.75rem;
+    line-height: 1.75rem;
+	/*text-align: center;*/
 	border-top: 1px solid #D8DDE6;
+	position: absolute;
+    bottom: 0;
+    text-align: center;
+}
+.success_main .three .three_btn0{
+	width: 49%;
+	text-align: center;
+	float: left;
+	color: #333333;
+}
+.success_main .three .three_btn1{
+	width: 49%;
+	text-align: center;
+	float: left;
+	color: #00BC12;
+	border-left: 1px solid #D8DDE6;
 }
 
 

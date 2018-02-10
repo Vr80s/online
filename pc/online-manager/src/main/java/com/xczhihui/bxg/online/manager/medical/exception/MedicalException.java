@@ -11,4 +11,11 @@ public class MedicalException extends RuntimeException{
         this.code = businessExceptionEnum.getCode();
     }
 
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
 }
