@@ -4,6 +4,23 @@
 table{
 	width: 100%;
 }
+.color{
+	border: 1px solid #00BC12 !important;
+    color: #00BC12;
+}
+.workTime >ul >li{
+	    float: left;
+    width: 92px;
+    height: 36px;
+    border: 1px solid #DEDEDE;
+    border-radius: 4px;
+    margin-right: 18px;
+    text-align: center;
+    line-height: 36px;
+}
+.workTime >ul >li:hover{
+	cursor: pointer;
+}
 #deleteTip{
 	width: 400px;
 	height: 200px;
@@ -63,7 +80,7 @@ table{
 	    width: 220px;
     display: block;
     height: 100%;
-    min-height: 520px;
+    /*min-height: 520px;*/
     background-color: #fff;
     float: left;
     margin-top: 20px;
@@ -2024,15 +2041,18 @@ height: 60px;
 
 
 /*处理账户*/
-.select_list .littleBoxs {
+.select_list .littleBoxs,
+.select_list .littleBoxss {
     background: #e2e2e2;
     margin-top: 16px;
     display: none;
 }
-.select_list .littleBoxs .activeP {
+.select_list .littleBoxs .activeP ,
+.select_list .littleBoxss .activeP{
     color: #00bc12;
 }
-.select_list .littleBoxs p {
+.select_list .littleBoxs p, 
+.select_list .littleBoxss p{
     color: #666666;
     margin: 0;
     padding: 16px 0;

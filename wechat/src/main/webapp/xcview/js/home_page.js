@@ -10,7 +10,7 @@ if(stringnull(openId)){
 	
 //	分类渲染
 	var noNumber='<p style="font-size:15px;text-aline:center;">暂无数据</p>'
-requestService("/bxg/bunch/schoolClass",null,function(data){
+requestService("/xczh/classify/schoolClass",null,function(data){
 	if(data.success==true){
 		$('#classify_course_type').html(template('my_data0',{items:data.resultObject[0]}));
 		$('#classify_special_type').html(template('my_data1',{items:data.resultObject[1]}));

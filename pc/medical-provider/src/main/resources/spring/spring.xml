@@ -57,6 +57,9 @@
     <!--医师认证信息-->
     <dubbo:service interface="com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService" ref="medicalDoctorAuthenticationInformationServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
+    <!--主播-->
+    <dubbo:service interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" ref="anchorInfoServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
@@ -85,7 +88,11 @@
 
     <bean id="redisShardLockUtils" class="com.xczhihui.utils.RedisShardLockUtils"></bean>
 
-
+    <!--RedissonUtil配置-->
+    <bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+        <property name="redisHost" value="${redis.host}"></property>
+        <property name="redisPort" value="${redis.port}"></property>
+    </bean>
 
 
 </beans>

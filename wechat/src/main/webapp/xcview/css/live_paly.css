@@ -44,7 +44,7 @@ textarea::-webkit-input-placeholder {
 	position: fixed;
 	border-bottom: 1px solid #d8dde6;	
 	background: white;
-	z-index: 20;
+	z-index: 999999;
 }
 .header p{
 	font-size: 0.36rem;

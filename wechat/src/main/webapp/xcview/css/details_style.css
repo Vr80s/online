@@ -170,16 +170,17 @@ div.pinch-zoom,
 	min-width: 1.5rem;
 }
 .balance_size img{
-	width: 0.775rem;
-    height: 0.775rem;
-    margin-left: 0rem;
+	margin-top: 0.98rem;
+    float: right;
+    width: 0.277rem;
+    margin-left: 0.1rem;
     vertical-align: middle;
 }
 #xmbShowSpan{
-	    display: inline-block;
-margin-left: 0.3rem;
-color: #666;
-margin-right: 0.3rem;
+	display: inline-block;
+	margin-left: 0.3rem;
+	color: #666;
+	margin-right: 0.3rem;
 }
 .balance_size_span01{
 	display: inline-block;
@@ -408,16 +409,16 @@ margin-right: 0.3rem;
     height: 8.298rem;
     display: inline-block;
     padding: 0;
-    padding-top: 0.851rem;
+    padding-top: 0.451rem;
 }
 .send_gifts ul li{
-	border-radius: 4px;
+	border-radius: 0px;
 	width: 3.404rem;
     height: 3.404rem;
     padding: 0;
     position: relative;
    	border: 1px solid #fff;
-   	margin-bottom: 0.702rem;
+   	margin-bottom: 0rem;
    	margin-left: 0.4rem;
 }
 .send_gifts ul li a{
@@ -628,4 +629,149 @@ margin-right: 0.3rem;
 	font-size: 1rem;
 	color: #333;
 }
+
+
+.add_follow1{
+	width: 3.404rem;
+	height: 1.191rem;
+	line-height: 1.191rem;
+	text-align: center;
+	/*border: 1px solid #00BC12;*/
+	float: left;
+	margin-top: 0.68rem;
+	border-radius: 100px;
+	background: #00BC12;
+}
+.add_follow1 img{
+	width: 0.6rem;
+	/*width: 0.532rem;*/
+    /*height: 0.511rem;*/
+	float: left;
+	margin-top: 0.3rem;
+    margin-left: 0.4rem;
+    
+}
+.add_follow1 p{
+	font-size: 0.51rem;
+	color: #fff;
+}
 /*加关注结束*/
+
+
+.coze_cen_ri{
+	margin-bottom: 0;
+}
+.grabble_img{
+	width: 0.5rem;
+    height: 0.9rem;
+    background: url(../images/backicon.png) no-repeat;
+    background-size: 100% 100%;
+}
+.fx_bg{
+	width: 0.894rem;
+    height: 0.915rem;
+    background: url(/xcview/images/share_img.png)no-repeat;
+    background-size: 100% 100%;
+    float: right;
+    margin-right: 0.3rem;
+}
+
+/*分享开始*/
+.share{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.share_bg{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+.share_main{
+	width: 14.851rem;
+	height: 8.426rem;
+	/*background: #fff;*/
+	margin: 0 auto;
+	position: fixed;
+    left: 0.56rem;
+	bottom: 1.744rem;
+	z-index: 999999999;
+}
+.share_main_bg{
+	width: 100%;
+	height: 6.085rem;
+	background: rgba(255,255,255,0.60);
+	border-radius: 8px;
+}
+.share_to{
+	width: 100%;
+	text-align: center;
+	font-size: 0.681rem;
+	color: #333;
+	padding-top: 0.638rem;
+    margin-bottom: 0.5rem;
+}
+.share_cancel{
+	width: 100%;
+	height: 1.702rem;
+	line-height: 1.702rem;
+	text-align: center;
+	color: #333;
+	font-size: 0.638rem;
+	background: #fff;
+	border-radius: 8px;
+	margin-top: 0.638rem;
+}
+.share_main_bg ul li{
+	float: left;
+	margin-left: 1.78rem;
+}
+.share_main_bg ul li img{
+	width: 2.553rem;
+	height: 2.553rem;
+}
+.share_main_bg ul li p{
+	text-align: center;
+	width: 2.553rem;
+	font-size: 0.511rem;
+	color: #333333;
+}
+.weixin_ceng_bg{
+	z-index: 999999999;
+}
+/*分享结束*/
+
+/*添加礼物关闭按钮开始*/
+.send_gifts_ul .div{
+	font-size: 0.6rem;
+	color: #333;
+	width: 100%;
+	height: 1.4rem;
+	line-height: 1.4rem;
+	border: 1px solid #f0f0f0;
+}
+.send_gifts_ul .div .span0{
+	margin-left: 0.4rem;
+}
+.send_gifts_ul .div .span1{
+	float: right;
+    font-size: 0.8rem;
+    width: 1.4rem;
+    height: 100%;
+    text-align: center;
+}
+.send_gifts ul li a p{
+	font-size: 0.5rem !important;
+}
+/*添加礼物关闭按钮结束*/
+
+/*主讲人开始*/
+.details_anchor_attention .p1{
+	font-size: 0.596rem;
+}
+/*主讲人结束*/

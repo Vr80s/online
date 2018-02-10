@@ -81,7 +81,7 @@ $(document).ready(function() {
 		 "<img src="+msg.user_name+" alt='' "+
 		"	class='coze_cen_left_img' /> "+
 		"  <div class='coze_cen_bg'> "+
-		"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+msg.content+"  "+
+		"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
 		" </div> "+
 		" <div class='both'></div></div>";
         $("#chatmsg").append(str);
@@ -225,14 +225,14 @@ $(document).ready(function() {
             		 str += "<div class='coze_cen_ri'> "+
         			 "<span class='span_name'>："+res.data[i].user_name+"</span>"+
         			"  <div class='coze_cen_bg_ri'> "+
-        			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
+        			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+res.data[i].content+"  "+
         			" </div> "+
         			" <div class='both'></div></div>";
             	}else{
             		str += "<div class='coze_cen'>";
                     str+="<span class='span_name'>："+res.data[i].user_name+"</span>";
                     str+="<div class='coze_cen_bg'>";
-                    str+="<img src='/xcviews/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
+                    str+="<img src='/xcview/images/sanjiao.png' alt='' />"+res.data[i].content+"</div>" +
                     		"<div class='both'></div></div>";
             	}
             }
@@ -359,7 +359,7 @@ $(document).ready(function() {
 //			 "<img src="+msg.avatar+" alt='' "+
 //			"	class='coze_cen_ri_img' /> "+
 //			"  <div class='coze_cen_bg_ri'> "+
-//			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+msg.content+"  "+
+//			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
 //			" </div> "+
 //			" <div class='both'></div></div>";
 //	    $("#chatmsg").append(str);  
@@ -389,7 +389,7 @@ $(document).ready(function() {
 			 "<img src="+msg.avatar+" alt='' "+
 			"	class='coze_cen_ri_img' /> "+
 			"  <div class='coze_cen_bg_ri'> "+
-			"	<img src='/xcviews/images/sanjiao2.png' alt='' />"+msg.content+"  "+
+			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
 			" </div> "+
 			" <div class='both'></div></div>";
  			
