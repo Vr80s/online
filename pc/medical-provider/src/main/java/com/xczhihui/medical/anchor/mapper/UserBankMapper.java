@@ -31,4 +31,6 @@ public interface UserBankMapper extends BaseMapper<UserBank> {
 
 	UserBank getDefault(@Param("userId") String userId);
 	UserBank getCardById(@Param("id") Integer id);
+
+	int getBankCount(@Param("userId") String userId);
 }

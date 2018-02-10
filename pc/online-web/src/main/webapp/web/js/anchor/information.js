@@ -1,6 +1,6 @@
 $(function(){
     //判断账户身份显示效果
-    localStorage.AccountStatus = 2;
+//  localStorage.AccountStatus = 2;
     if(localStorage.AccountStatus == 1){
         //主播是医师的身份
         //医馆的消失

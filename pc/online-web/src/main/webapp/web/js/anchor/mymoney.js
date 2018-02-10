@@ -1,6 +1,7 @@
 $(function(){
 
 	
+	/*----------------------------		我的资产部分js		--------------------------------*/
 	
 	//底部固定表单部分点击人民币熊猫币切换效果
 	//点击人民币按钮
@@ -52,6 +53,7 @@ $(function(){
 		}else{
 			$('.toResultIpt_warn').addClass('hide');
 		}
+
 	})
 	
 	
@@ -63,6 +65,25 @@ $(function(){
 	//提现按钮点击出发事件
 	$('#mymoney .toCash').click(function(){
 		showContent('content_toCash',$(this).text())
+	})
+	
+	//提现中的银行卡点击选中效果
+	$('#mymoney .content_toCash .chooseCard ul li').click(function(){
+		$('#mymoney .content_toCash .chooseCard ul li').removeClass('redBorder')
+		$(this).addClass('redBorder');
+	})
+	
+	//提现中银行卡设置默认
+	$('#mymoney .content_toCash .chooseCard .cardBottom a').click(function(event){
+//		$('#mymoney .content_toCash .chooseCard .cardBottom a').text('设为默认');
+//		$(this).text('取消默认');
+		if($(this).text() == '取消默认'){
+			$(this).text('设为默认');
+		}else if($(this).text() == '设为默认'){
+			$(this).text('取消默认')
+		}
+		event.stopPropagation();
+		
 	})
 	
 	//提现中的确定按钮点击
@@ -116,51 +137,6 @@ $(function(){
 		showContent('content_add',$(this).text())
 	})
 	
-	
-	//新增银行卡中的确定按钮点击
-	$('#mymoney .content_add .addNewCard').click(function(){
-		var content_add_name = $.trim($('.content_add #content_add_name').val());
-		var content_add_card = $.trim($('.content_add #content_add_card').val());
-		var content_add_bank = $.trim($('.content_add #content_add_bank').val());
-		var content_add_idCard =  $.trim($('.content_add #content_add_idCard').val());
-		
-		
-		//验证
-		//户名
-		if(content_add_name == ''){
-			$('.content_add_name_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_name_warn').addClass('hide');
-		}
-		
-		//卡号
-		if(content_add_card == ''){
-			$('.content_add_card_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_card_warn').addClass('hide');
-		}
-		
-		//选择银行
-		if(content_add_bank == '-1' ){
-			$('.content_add_bank_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_bank_warn').addClass('hide');
-		}
-		
-		//身份证号
-		if(content_add_idCard == ''){
-			$('.content_add_idCard_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.content_add_idCard_warn').addClass('hide');
-		}
-		
-	})
-	
-	
 	/*@点击顶部的按钮对应的中间变动结构显示出来
 	 *@输入参数1为对应显示部分的模块类名
 	 *@输入参数2为点击的按钮的名字
@@ -185,6 +161,17 @@ $(function(){
 		$(".content_mid ."+contentName+"").removeClass('hide');
 	}
 	
+		
+	/*@中间变化结构隐藏方法
+	 */
+	function midHide(){
+		$('.content_mid').addClass('hide');
+	}
+	
+	
+	
+	
+	
 	
 	//结算的重置部分
 	function content_SettlementReset(){
@@ -198,10 +185,11 @@ $(function(){
 	
 	
 	
+	/*-----------------------------		我的收益部分js		--------------------------------*/
 	
+	
+//	礼物收益部分排行榜切换
 	var count = 1;
-	//我的收益部分的js 开始
-	//点击排行榜切换部分
 	$('.toRankingList').click(function(){
 		count *= -1;
 		if(count == -1){
@@ -219,7 +207,9 @@ $(function(){
 			$('.gift_Resive_mid').removeClass('hide');
 			$('.gift_Resive_bottom').removeClass('hide');
 		}
-		
 	})
+	
+	
+	
 	
 });
