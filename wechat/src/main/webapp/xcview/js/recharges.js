@@ -51,7 +51,7 @@ function  goPay() {
 	 */
 	var actualPay  = $("#ul").find(".li0").find(".p1").find("span").text();
 
-	alert(actualPay);
+//	alert(actualPay);    测试弹出多少元
 	console.log("实际充值的人民币"+actualPay);
 	
 //	actualPay = 1; //充值金额人民币
