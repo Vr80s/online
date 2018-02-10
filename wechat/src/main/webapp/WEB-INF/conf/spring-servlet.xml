@@ -117,6 +117,11 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<!--RedissonUtil配置-->
+	<bean id="redissonUtil" class="com.xczhihui.bxg.online.common.utils.RedissonUtil">
+		<property name="redisHost" value="${redis.host}"></property>
+		<property name="redisPort" value="${redis.port}"></property>
+	</bean>
 	<mvc:default-servlet-handler />
 	
 	<!--

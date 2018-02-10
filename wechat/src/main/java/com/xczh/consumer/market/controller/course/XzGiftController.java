@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.redisson.Redisson;
@@ -52,17 +53,8 @@ public class XzGiftController {
 	
 	@Autowired
 	private AppBrowserService appBrowserService;
-	
-	private RedissonClient redisson;
-
-	public XzGiftController(){
-		//Redisson连接配置文件
-		Config config = new Config();
-		config.useSingleServer().setAddress("redis-server:6379");
-		redisson = Redisson.create(config);
-	}
-
-	
+	@Autowired
+	private RedissonUtil redissonUtil;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzGiftController.class);
 
@@ -131,23 +123,27 @@ public class XzGiftController {
 		Integer count = Integer.valueOf(req.getParameter("count"));
 		String receiverId = req.getParameter("receiverId");
 		Map<String,Object> map=null;
-		LOGGER.info("====================="+liveId);
 		// 1.获得锁对象实例
-		RLock redissonLock = redisson.getLock("liveId"+liveId);
+		RLock redissonLock = redissonUtil.getRedisson().getLock("liveId"+liveId);
 		boolean resl = false;
 		try {
 			//等待十秒。有效期五秒
-			resl = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);
-			map= remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
+			resl = redissonLock.tryLock(30, 10, TimeUnit.SECONDS);
+			if(resl){
+				System.out.println("得到锁"+resl);
+				map= remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
+			}
 		}catch (Exception e){
 			e.printStackTrace();
-			LOGGER.info(e.getMessage());
-			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}finally {
 			if(resl){
+				System.out.println("关闭锁");
 				redissonLock.unlock();
+			}else{
+				System.out.println("没有抢到锁");
 			}
 		}
+
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 
