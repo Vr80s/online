@@ -1,4 +1,13 @@
 $(function(){
+	
+	
+//yx_新增
+var openId = getQueryString("openId");
+if(stringnull(openId)){
+   localStorage.setItem("openId",openId);
+}	
+	
+	
 //	分类渲染
 	var noNumber='<p style="font-size:15px;text-aline:center;">暂无数据</p>'
 requestService("/bxg/bunch/schoolClass",null,function(data){

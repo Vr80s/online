@@ -144,7 +144,7 @@ public class WeiBoThirdPartyController {
 					 //直接重定向到完善信息
 		             res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?uId="+uId+"&type="+ThirdPartyType.WEIBO.getCode());
 				
-				}else if(wcum.getUserId()!=null){ //绑定了用户信息了
+				}else if(StringUtils.isNotBlank(wcum.getUserId())){ //绑定了用户信息了
 					
 					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
 					
@@ -163,7 +163,7 @@ public class WeiBoThirdPartyController {
 					//重定向到推荐首页
 					 res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
 					
-				}else if(wcum.getUserId()==null){
+				}else if(!StringUtils.isNotBlank(wcum.getUserId())){
 					
 					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
 					
@@ -249,7 +249,7 @@ public class WeiBoThirdPartyController {
 					mapRequest.put("openId",at.getUid()+"");
 					
 					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
-				}else if(wcum.getUserId()!=null){ //绑定了用户信息了
+				}else if(StringUtils.isNotBlank(wcum.getUserId())){ //绑定了用户信息了
 					
 					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
 					
@@ -265,7 +265,7 @@ public class WeiBoThirdPartyController {
 					 */
 					this.onlogin(req,res,t,ou,t.getTicket());
 					return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
-				}else if(wcum.getUserId()==null){
+				}else if(!StringUtils.isNotBlank(wcum.getUserId())){
 					
 					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
 					

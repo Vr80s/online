@@ -328,6 +328,23 @@ public class WeiboClientUserMapping extends  Model<WeiboClientUserMapping>{
 	
 
 	@Override
+	public String toString() {
+		return "WeiboClientUserMapping [id=" + id + ", uid=" + uid
+				+ ", userId=" + userId + ", screenName=" + screenName
+				+ ", name=" + name + ", province=" + province + ", city="
+				+ city + ", location=" + location + ", description="
+				+ description + ", url=" + url + ", profileImageUrl="
+				+ profileImageUrl + ", profileUrl=" + profileUrl
+				+ ", userDomain=" + userDomain + ", gender=" + gender
+				+ ", followersCount=" + followersCount + ", friendsCount="
+				+ friendsCount + ", statusesCount=" + statusesCount
+				+ ", favouritesCount=" + favouritesCount + ", createdAt="
+				+ createdAt + ", verified=" + verified + ", remark=" + remark
+				+ ", lang=" + lang + ", weihao=" + weihao + ", createTime="
+				+ createTime + "]";
+	}
+
+	@Override
 	protected Serializable pkVal() {
 		// TODO Auto-generated method stub
 		return this.id;

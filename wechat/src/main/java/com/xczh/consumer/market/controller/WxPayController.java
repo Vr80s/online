@@ -627,32 +627,42 @@ public class WxPayController {
 		try {
 			String code = req.getParameter("code");
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+			
+			LOGGER.info("wxw===="+wxw);
 			/*
 			 * 判断这个uninonid是否在user表中存在
 			 */
-			OnlineUser ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
+			//OnlineUser ou =  onlineUserMapper.findOnlineUserByUnionid(wxw.getUnionid());
+			
+			//WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(wxw.getUnionid());
+			
 			String openid = wxw.getOpenid();
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
-			if(ou != null){
+			if(StringUtils.isNotBlank(wxw.getClient_id())){
+				
+				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
+				
+				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
+				
+				LOGGER.info("getLoginName===="+ou.getLoginName());
+				
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
 				if (openid != null && !openid.isEmpty()) {
-				
-					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html");
-				
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html/openId="+openid);
 					//res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
 				} else{
 					res.getWriter().write(openid);
 				}	
 			}else{
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid);
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid());
 				//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
 			}
 		} catch (Exception e) {

@@ -50,6 +50,9 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
 
 	@TableField("create_time")
     private Date createTime;
+	
+	@TableField("union_id")
+    private String unionId;
 
     public String getId() {
         return id;
@@ -159,9 +162,28 @@ public class QQClientUserMapping extends  Model<QQClientUserMapping>{
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	public String getUnionId() {
+		return unionId;
+	}
+
+	public void setUnionId(String unionId) {
+		this.unionId = unionId;
+	}
 
 	
 	
+	@Override
+	public String toString() {
+		return "QQClientUserMapping [id=" + id + ", userId=" + userId
+				+ ", openId=" + openId + ", nickname=" + nickname
+				+ ", figureurl=" + figureurl + ", figureurl1=" + figureurl1
+				+ ", figureurl2=" + figureurl2 + ", gender=" + gender
+				+ ", vip=" + vip + ", level=" + level + ", yellowYearVip="
+				+ yellowYearVip + ", remark=" + remark + ", createTime="
+				+ createTime + ", unionId=" + unionId + "]";
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		// TODO Auto-generated method stub

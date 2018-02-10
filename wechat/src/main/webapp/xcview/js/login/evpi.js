@@ -19,13 +19,37 @@ function time(o) {
 		}, 1000)
 	}
 }
+
+alert("==============");
+
+/**
+ * 微信用户openId和unionid 为了防止获取不到,双重获取
+ */
+var openId = getQueryString("openId");
+if(!stringnull(openId)){
+	openId = localStorage.getItem("openId")
+}
+var unionId = getQueryString("unionId");
+if(!stringnull(unionId)){
+	unionId = localStorage.getItem("unionId")
+}
+/**
+ * jump_type=1	跳到首页
+ * jump_type=2	跳到我的页面
+ */
+var jump_type = getQueryString("jump_type");
+
+
+
 /**
  * 点击获取验证码   --  验证手机号是否是否
  */
 
 var vtype =1;
+alert(openId+"=============="+unionId);
 
 document.getElementById("btn").addEventListener("tap", function() {
+	
 	
 	var number = document.getElementById("mobile").value; // 手机号
 	
@@ -44,18 +68,22 @@ document.getElementById("btn").addEventListener("tap", function() {
 	}
 	var urlparm = {
 		userName : number,
-		vtype:1   	//类型，1注册，2重置密码
+		unionId : unionId,
+		type:1   	// 1 微信  2 微博   3 qq
 	};
 	/**
 	 * 
 	 */
 	requestService("/xczh/third/thirdCertificationMobile", urlparm, function(data) {
+		
+		alert("======="+data.code);
 		if (data.code == 400) { //显示密码框
 			vtype =1;
-			$("#password").show();
+			alert("=======");
+			$("#password_div").show();
 		} else if(data.code == 401){ //隐藏密码框
 			vtype =2;
-			$("#password").hide();
+			$("#password_div").hide();
 		}
 		requestService("/xczh/user/sendCode", {username:number,vtype:vtype}, function(data) {
 			if (data.success) {
@@ -67,14 +95,14 @@ document.getElementById("btn").addEventListener("tap", function() {
 		});
 	});
 })
+
+
+
+
 /**
- * 微信用户openId
+ * 点击注册
  */
-var openId = getQueryString("openId");
-if(stirngnull(openId)){
-	openId = localStorage.getItem("openId")
-}
-function wsxx(){
+$(".enter_btn").click(function(){
 	
 	var number = document.getElementById("mobile").value; // 手机号
 	var yanzhengma = document.getElementById("vcode").value;
@@ -94,32 +122,25 @@ function wsxx(){
 		return false;
 	}
 	
-	if (!stringnull(userpassword)) {
-		webToast("密码不能为空","middle",1500);
-		return false;
-	}
-	
 	var params ={
 			userName:number,
 			code:yanzhengma,
-			openId:openId,
+			unionId:unionId,
 			type:1
 	};
 	
-	var url = "/xczh/third/thirdPartyBindMobile";
-	if(vtype==2){
+	var url = "/xczh/third/thirdPartyBindIsNoMobile";
+	if(vtype==1){
 		
 		if (!stringnull(userpassword)) {
 			webToast("密码不能为空","middle",1500);
 			return false;
 		}
-		url = "xczh/third/thirdPartyBindIsNoMobile";
-		
+		url = "/xczh/third/thirdPartyBindMobile";
 		params.passWord = userpassword;
 	}
-	requestService("url",params, function(data) {
+	requestService(url,params, function(data) {
 		if (data.success) {
-			
 			/**
 			 * 添加 所有关于用户的缓存
 			 */
@@ -127,87 +148,17 @@ function wsxx(){
 			/*
 			 * 跳转到分类
 			 */
-			location.href = "/xcview/html/home_page.html";
+			if(jump_type == 1){
+				location.href = "/xcview/html/home_page.html?openId="+openId;
+			}else if(jump_type == 2){
+				location.href = "/xcview/html/my_homepage.html?openId="+openId;
+			}
 		} else {
 			webToast(data.errorMessage,"middle",3000);
 		}
 	});
+})	
 	
-}
-
-
-
-/**
- * 点击注册
- */
-document.getElementById("enter_btn").addEventListener("tap", function() {
-	
-	//这块是需要搞下用户协议的同意
-	
-//	var agreementchecked = document.getElementById("checkbox1").checked;
-//	if (stringnull(agreementchecked)) {
-//		reminderror.innerHTML = "";
-//		
-//	} else {
-//		
-//		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
-//		return false;
-//	}
-	var number = document.getElementById("mobile").value; // 手机号
-	var yanzhengma = document.getElementById("vcode").value;
-	var userpassword = document.getElementById("password").value; // 密码
-	
-	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",1500);
-		return false;
-	}
-	
-	if (!stringnull(yanzhengma)) {
-		webToast("验证码不能为空","middle",1500);
-		return false;
-	}
-	if (!stringnull(userpassword)) {
-		webToast("密码不能为空","middle",1500);
-		return false;
-	}
-	
-	if (!(/^1[34578]\d{9}$/.test(number))) {
-		webToast("手机号格式不正确","middle",1500);
-		return false;
-	}
-	
-	var pwdLength = userpassword.trim().length;
-    if(pwdLength < 6 || pwdLength > 18) {
-          webToast("请输入6-18位密码","middle",1500);
-          return false;
-    }
-    
-    var yanLength = yanzhengma.trim().length;
-    if(yanLength > 4 || yanLength < 0) {
-//        webToast("请输入4位数验证码","middle",1500);
-          webToast("验证码有误，请重新输入","middle",1500);
-          return false;
-    }
-    var urlparm = {
-		username : number,
-		password : userpassword,
-		code : yanzhengma
-    };
-	var access_url ="/xczh/user/phoneRegist";
-	requestService(access_url, urlparm, function(data) {
-		if (data.success) {
-			
-			commonLocalStorageSetItem(data);
-			
-			
-			location.href = "/xcview/html/evpi.html";
-			
-			
-		} else {
-			webToast(data.errorMessage,"middle",1500);				
-		}
-	});
-})
 
 
 /*

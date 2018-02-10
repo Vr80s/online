@@ -26,6 +26,7 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
+import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
@@ -66,7 +67,7 @@ public class WeChatThirdPartyController {
 	private String returnOpenidUri;
 	
 	/**
-	 * Description：h5 得到微信微信 oauth2 获取code
+	 * Description：h5   --》 得到微信微信 oauth2 获取code
 	 * @param req
 	 * @param res
 	 * @param params
@@ -84,8 +85,7 @@ public class WeChatThirdPartyController {
 	}
 
 	/**
-	 * 点击在线课堂
-	 * 微信授权获取用户信息后的回调
+	 * 点击在线课堂    --》微信授权获取用户信息后的回调
 	 * Description：
 	 * @param req
 	 * @param res
@@ -105,21 +105,18 @@ public class WeChatThirdPartyController {
 			 */
 			String code = req.getParameter("code");
 			
-			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfoByUnionId(code,wxcpClientUserWxMappingService);
 			if(wxw==null){
 				LOGGER.info("微信第三方认证失败 ");
 			}
 			LOGGER.info("openId "+wxw.getOpenid());
-			
-			
 			String openId = wxw.getOpenid();
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
-			if(wxw.getClient_id() != null){
+			if(StringUtils.isNotBlank(wxw.getClient_id())){
 				
 				LOGGER.info(" 已经绑定过了:" +wxw.getClient_id());
-				
 				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
@@ -189,9 +186,13 @@ public class WeChatThirdPartyController {
 			String headimgurl_ = (String)jsonObject.get("headimgurl");
 			String unionid_ = (String)jsonObject.get("unionid");
 			
+			//防止表情名字
 			nickname_= SLEmojiFilter.filterEmoji(nickname_);
-			
-			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
+			//WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
+			/**
+			 * 用户  unionid_ 表名唯一用户
+			 */
+			WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionid_);
 			/**
 			 * 如果存在，那么就不添加了。
 			 */
@@ -213,14 +214,12 @@ public class WeChatThirdPartyController {
 				wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
 				
 				mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
-				mapRequest.put("openId",wxcpClientUserWxMapping.getOpenid()+"");
+				mapRequest.put("unionId",unionid_+"");
 				mapRequest.put("type",ThirdPartyType.WECHAT.getCode()+"");
-
 				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
-			}else if(m.getClient_id()!=null){ //绑定了用户信息
+			}else if(StringUtils.isNotBlank(m.getClient_id())){ //绑定了用户信息
 				OnlineUser ou =  onlineUserService.findUserById(m.getClient_id());
 				ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
-				
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				//把用户中心的数据给他  --这些数据是IM的
 				ou.setUserCenterId(iu.getId());
@@ -232,11 +231,10 @@ public class WeChatThirdPartyController {
 				this.onlogin(req,res,t,ou,t.getTicket());
 				return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
 			
-			}else if(m.getClient_id()==null){
+			}else if(!StringUtils.isNotBlank(m.getClient_id())){
 				mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
-				mapRequest.put("openId",openid_+"");
+				mapRequest.put("unionId",unionid_+"");
 				mapRequest.put("type",ThirdPartyType.WECHAT.getCode()+"");
-				
 				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
 			}
 			return ResponseObject.newSuccessResponseObject("");
@@ -244,10 +242,7 @@ public class WeChatThirdPartyController {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
-		
-		
 	}
-	
 	/**
 	 * 登陆成功处理
 	 * @param req
@@ -298,7 +293,7 @@ public class WeChatThirdPartyController {
 				 *  * 如果存在那么就注销原来的。或者把原来的session搞成一个表示，不是取用户信息的。
 				 * 得到客户端信息
 				 */
-				Map<String,String> mapClientInfo =  com.xczh.consumer.market.utils.HttpUtil.getClientInformation(req);
+				Map<String,String> mapClientInfo =  HttpUtil.getClientInformation(req);
 				//session.invalidate();
 				session.setAttribute("topOff", mapClientInfo);
 				session.setAttribute("_user_",null);

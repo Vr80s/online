@@ -1,5 +1,7 @@
 package com.xczhihui.wechat.course.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.wechat.course.model.WeiboClientUserMapping;
 
@@ -32,7 +34,7 @@ public interface WeiboClientUserMappingMapper extends BaseMapper<WeiboClientUser
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	WeiboClientUserMapping selectWeiboClientUserMappingByUserId(String userId,String uid);
+	WeiboClientUserMapping selectWeiboClientUserMappingByUserId(@Param("userId")String userId,@Param("uid")String uid);
 	
 	/**
 	 * 
