@@ -133,7 +133,7 @@
 			
 		</div>
 		<div class="btn">
-			<img src="../images/top.png"/>
+			<img src="../images/bot0.png"/>
 		</div>
 	<!--主讲人-->
 		<div class="wrap_speak">		
@@ -152,7 +152,7 @@
 			</div>     
 		</div>
 		<div class="btn1">
-			<img src="../images/top.png"/>
+			<img src="../images/bot0.png"/>
 		</div>
 <!--详情结束-->
 	<!--评论-->
@@ -436,10 +436,12 @@ $.fn.toggle = function( fn, fn2 ) {
 			    $(".wrap").removeClass("pp");
 			    $(".wrap").removeAttr("style");
 			    $(".zhezhao").hide();
-			    $(".btn img").attr("src","../images/bot0.png")
+			    $(".btn img").attr("src","../images/top.png")  
 			  },function(){
 			  	$(".zhezhao").show();
-			    $(".btn img").attr("src","../images/top.png")  
+
+			    $(".btn img").attr("src","../images/bot0.png")
+			    
 			    $(".btn a").html('展开全部');
 			     $(".wrap").addClass("pp");
 //			     $(".wrap").attr("style");
@@ -451,10 +453,12 @@ $.fn.toggle = function( fn, fn2 ) {
 			    $(".wrap1").removeClass("pp1");
 			    $(".wrap1").removeAttr("style");
 			    $(".zhezhao1").hide();
-			    $(".btn1 img").attr("src","../images/bot0.png")
+			    $(".btn1 img").attr("src","../images/top.png")  
 			  },function(){
 			  	$(".zhezhao1").show();
-			    $(".btn1 img").attr("src","../images/top.png")  
+
+			    $(".btn1 img").attr("src","../images/bot0.png")
+			    
 			    $(".btn1 a").html('展开全部');
 			     $(".wrap1").addClass("pp1");
 //			     $(".wrap1").attr("style");

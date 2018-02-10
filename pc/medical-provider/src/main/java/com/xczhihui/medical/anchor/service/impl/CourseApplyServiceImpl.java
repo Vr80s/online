@@ -130,9 +130,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 courseApplyInfo.setCreateTime(new Date());
                 courseApplyInfoMapper.insert(courseApplyInfo);
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
+            throw e;
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+            throw new RuntimeException("网络错误，请重试");
+        } finally {
             if(res){
                 System.out.println("关闭锁");
                 redissonLock.unlock();
@@ -268,9 +271,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                     collectionCourseApplyMapper.insert(collectionCourseApply);
                 }
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
+            throw e;
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+            throw new RuntimeException("网络错误，请重试");
+        } finally {
             if(res){
                 System.out.println("关闭锁");
                 redissonLock.unlock();
@@ -361,9 +367,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
                 courseApplyResource.setUpdateTime(new Date());
                 courseApplyResourceMapper.insert(courseApplyResource);
             }
-        }catch (Exception e){
+        }catch (RuntimeException e){
+            throw e;
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
+            throw new RuntimeException("网络错误，请重试");
+        } finally {
             if(res){
                 System.out.println("关闭锁");
                 redissonLock.unlock();
