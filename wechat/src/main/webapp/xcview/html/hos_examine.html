@@ -26,7 +26,7 @@
 			<div class="header">		
 				<p>主播认证</p>
 				<div class="arror_return z">
-					<a href="javascript:;" onclick="javascript:history.go(-1);"><img src="../images/back icon.png"/></a>
+					<a href="javascript:;" onclick="returnSkip()"><img src="../images/back icon.png"/></a>
 				</div>
 			</div>
 		</div>
@@ -36,21 +36,21 @@
 				<div class="examine-pic z">
 					<img src="../images/examine.png"/>
 				</div>
-				<p class="z">提交认证成功，请等待审核</p>
+				<p class="z">医馆认证审核中，3个工作日完成</p>
 			</div>
 			{{else if status==0}}
 			<div class="box-content">
 				<div class="examine-pic z">
 					<img src="../images/examine.png"/>
 				</div>
-				<p class="z">医馆申请认证失败,您可以<a href="my_anchor.html" style="color: #00BC12;">重新认证</a></p>
+				<p class="z">审核未通过,<a href="my_anchor.html" style="color: #00BC12;">重新认证</a></p>
 			</div>
 			{{else if status==1}}
 			<div class="box-content">
 				<div class="examine-pic z">
 					<img src="../images/examine.png"/>
 				</div>
-				<p class="z">医馆申请认证审核通过</p>
+				<p class="z">已于{{updateTime}}通过审核</p>
 			</div>
 			{{/if}}
 		</div>
