@@ -317,7 +317,6 @@ public class WeChatThirdPartyController {
 		if(!StringUtils.isNotBlank(wxw.getClient_id())){ // 当前微信号没有绑定手机号，就直接绑定这个手机号就行了
 			
 			LOGGER.info("当前微信号没有绑定手机号，就直接绑定这个手机号就行了:");
-			
 			/*
 			 * 如果用户信息中的一些基本信息为null的话，可以把微信的中基本信息填充过去
 			 */
