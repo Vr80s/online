@@ -167,14 +167,19 @@ public class WeChatThirdPartyController {
 		
 		LOGGER.info("WX get access_token	:" + accessToken);
 		LOGGER.info("WX get openid	:" + openId);
-		String public_id = WxPayConst.app_appid ;
-		String public_name = WxPayConst.appid4name ;
-		/**
-		 * code 200 表示一致，可以登录。
-		 * code 201 表示第一次登录，需要绑定手机号
-		 * code 202   
-		 */
+		
+		String userId = req.getParameter("userId");
+	    if(StringUtils.isNotBlank(userId)){
+	    	OnlineUser ou =  onlineUserService.findUserById(userId);
+	    	if(ou == null){
+	    		return	ResponseObject.newErrorResponseObject("获取用户信息有误");
+	    	}
+	    }
+	    LOGGER.info("绑定呢还是解除绑定呢： "+ userId);
+		
+	    
 		Map<String,String> mapRequest = new HashMap<String,String>();
+		mapRequest.put("type", ThirdPartyType.WECHAT.getCode()+"");
 		try {
 			/**
 			 * 通过票据和openId获取用户微信信息
@@ -194,7 +199,6 @@ public class WeChatThirdPartyController {
 			
 			//防止表情名字
 			nickname_= SLEmojiFilter.filterEmoji(nickname_);
-			//WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openid_);
 			/**
 			 * 用户  unionid_ 表名唯一用户
 			 */
@@ -205,8 +209,8 @@ public class WeChatThirdPartyController {
 			if(null == m){
 				WxcpClientUserWxMapping wxcpClientUserWxMapping = new WxcpClientUserWxMapping();
 				wxcpClientUserWxMapping.setWx_id(UUID.randomUUID().toString().replace("-", ""));
-				wxcpClientUserWxMapping.setWx_public_id(public_id);
-				wxcpClientUserWxMapping.setWx_public_name(public_name);
+				wxcpClientUserWxMapping.setWx_public_id(WxPayConst.app_appid);
+				wxcpClientUserWxMapping.setWx_public_name(WxPayConst.appid4name);
 				wxcpClientUserWxMapping.setOpenid(openid_);
 				wxcpClientUserWxMapping.setNickname(nickname_);
 				wxcpClientUserWxMapping.setSex(sex_);
@@ -217,13 +221,26 @@ public class WeChatThirdPartyController {
 				wxcpClientUserWxMapping.setHeadimgurl(headimgurl_);
 				wxcpClientUserWxMapping.setProvince(province_);
 				wxcpClientUserWxMapping.setUnionid(unionid_);	
-				wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
 				
-				mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+			    if(userId!=null){  // 绑定成功
+			    	 wxcpClientUserWxMapping.setClient_id(userId);	
+	            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
+	 			}else{
+	 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+	 			}
+				wxcpClientUserWxMappingService.insert(wxcpClientUserWxMapping);
 				mapRequest.put("unionId",unionid_+"");
-				mapRequest.put("type",ThirdPartyType.WECHAT.getCode()+"");
-				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
+				
+				return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 			}else if(StringUtils.isNotBlank(m.getClient_id())){ //绑定了用户信息
+				
+				
+				
+				if(userId!=null){  // 这里说明人家这个已经绑定过其他信息了。我的天
+					mapRequest.put("code",UserUnitedStateType.MOBILE_UNBOUNDED.getCode()+"");	
+					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
+	 			}
+				
 				OnlineUser ou =  onlineUserService.findUserById(m.getClient_id());
 				ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
@@ -238,10 +255,20 @@ public class WeChatThirdPartyController {
 				return ResponseObject.newSuccessResponseObject(ou,UserUnitedStateType.BINDING.getCode());
 			
 			}else if(!StringUtils.isNotBlank(m.getClient_id())){
-				mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+				
+				
+				if(userId!=null){  // 绑定成功
+	            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
+	            	 /**
+	            	  * 更改qq信息	--》增加用户id
+	            	  */
+	            	 m.setClient_id(userId);
+	            	 wxcpClientUserWxMappingService.update(m);
+		 		}else{
+		 			 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+		 		}
 				mapRequest.put("unionId",unionid_+"");
-				mapRequest.put("type",ThirdPartyType.WECHAT.getCode()+"");
-				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
+				return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 			}
 			return ResponseObject.newSuccessResponseObject("");
 		} catch (Exception e) {

@@ -31,6 +31,7 @@ function clearAll() {
         localStorage.hisArr="";
         $(".search_history_list").empty();
         $(".search_history").hide();
+        arr = [];
 	}
 
 
