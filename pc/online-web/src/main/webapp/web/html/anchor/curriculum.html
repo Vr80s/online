@@ -57,7 +57,7 @@
 	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
 
 	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
-	<script src="/web/js/provinces.js"></script>
+	<script src="/web/js/anchor/provinces.js"></script>
 	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/web/js/anchor/information.js" type="text/javascript" charset="utf-8"></script>
@@ -752,12 +752,12 @@
 					<div class="div_title PersonAddress">
 						<span><em>*</em>城市</span>
 						<!--选择城市插件-->
-						<select name="" id="" onchange="">
-							<option value="">省份</option>
+						<select name=""  class="choosePro">
+							<!--<option value="">省份</option>-->
 						</select>
 						
-						<select name="" id="">
-							<option value="">市区</option>
+						<select name="" class="citys">
+							<!--<option value="">市区</option>-->
 						</select>
 
 						<p class="warning two_warning1 hide warning_physician_card">所在城市地址不能为空</p>
@@ -1006,11 +1006,11 @@
 					<span><em>*</em>城市</span>
 					<div id="demo1" class="citys">
 						<p>
-							<select name="province" id="" >
+							<select name="province" class="choosePro" >
 								<option value="">请选择省份</option>
 							</select>
-							<select name="city">
-								<option value="">请选择市区</option>
+							<select name="city" class="">
+								<option value="">请选择市</option>
 							</select>
 						</p>
 						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
@@ -1503,8 +1503,8 @@
 							<span style="float: left;margin-top: 5px;margin-right: 23px;"><em>*</em>上课地址</span>
 							<div id="demo2" class="citys">
 								<p>
-									<select name="province" onchange="doProvAndCityRelation()" id="choosePro" class="course_province"></select>
-									<select name="city" id="citys" class="course_city"></select>
+									<select name="province" class="choosePro course_province"></select>
+									<select name="city" class=" citys course_city"></select>
 								</p>
 							</div>
 							<textarea name="" rows="" cols="" class="sheng_textarea course_address" placeholder="请输入详细地址"></textarea>

@@ -3254,31 +3254,32 @@ $(function() {
       }
     });
 $(".choosePro").html("<option id='choose' value='-1'>请选择省</option>"+sb.toString());
-  doProvAndCityRelation();
+  // doProvAndCityRelation();
+    // 省值变化时 处理市
+    $(".choosePro").change(function(){
+        doProvAndCityRelation($(this));
+    });
+
 });
-// 省值变化时 处理市
-function doProvAndCityRelation() {
-  var city = $(this).next();
-     city.empty();
-     city.append("<option id='chooseCity' value='-1'>请选择市</option>");
-  var sb = new StringBuffer();
-  var cityVal = "";
-  $.each(cityJson,
-    function(i, val) {
-      if (val.item_code.substr(0, 2) == $(this).val().substr(0, 2) && val.item_code.substr(2, 4) != '0000' && val.item_code.substr(4, 2) == '00') {
-        sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
-        if(cityVal == ""){
-        	 cityVal = val.item_code;
-        	 $("#realCitys").val(val.item_name);
-        }
-      }
-  });
-  // var province =$(this).find("option:selected").text();
 
-  city.append(sb.toString());
-
-} 
-
+function doProvAndCityRelation(that) {
+    var province = that;
+    var city = that.next();
+    city.empty();
+    city.append("<option value='-1'>请选择市</option>");
+    var sb = new StringBuffer();
+    var cityVal = "";
+    $.each(cityJson,
+        function(i, val) {
+            if (val.item_code.substr(0, 2) == province.val().substr(0, 2) && val.item_code.substr(2, 4) != '0000' && val.item_code.substr(4, 2) == '00') {
+                sb.append("<option value='" + val.item_code + "'>" + val.item_name + "</option>");
+                if(cityVal == ""){
+                    cityVal = val.item_code;
+                }
+            }
+        });
+    city.append(sb.toString());
+}
 
 function StringBuffer(str) {
   var arr = [];
