@@ -107,7 +107,7 @@ $(".bg_userModal").click(function(){
 	var userLecturerId = getQueryString('userLecturerId');
 //传ID courseId为接口ID
 requestService("/xczh/host/hostPageInfo",{
-	lecturerId : "23908ae85dad4541ba7ecf53fc52aab2"
+	lecturerId : userLecturerId
 },function(data) {
 //	直播头像/主播名字
 	$(".personal_bg").html(template('personal_header',data.resultObject));

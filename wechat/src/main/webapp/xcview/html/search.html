@@ -116,9 +116,9 @@
 			var arrList = localStorage.hisArr.split(',');
 			arrList.splice(i,1); 
 			localStorage.setItem("hisArr", arrList);
-			if(arrList.length==0 || arrList.length=='' || arrList.length==null){
-				$(".search_history").hide()
-			}
+//			if(arrList.length==0 || arrList.length=='' || arrList.length==null){
+//				$(".search_history").hide()
+//			}
 			var historyInf = '';
  			localStorage.hisArr.split(',').forEach(function(v,i){
 				historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
@@ -128,9 +128,9 @@
 
 		//判断历史记录
 		
-		if(localStorage.hisArr.length==0 || localStorage.hisArr.length=='' || localStorage.hisArr.length==null){
-				$(".search_history").hide()
-		}   //若逐条删除 到没记录就会隐藏
+//		if(localStorage.hisArr.length==0 || localStorage.hisArr.length=='' || localStorage.hisArr.length==null){
+//				$(".search_history").hide()
+//		}   //若逐条删除 到没记录就会隐藏
 		if(localStorage.hisArr){
 			//渲染上
 			var historyInf = '';
