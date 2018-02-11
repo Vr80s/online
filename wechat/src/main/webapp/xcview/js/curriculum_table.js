@@ -241,6 +241,8 @@ function queryDataByParams(params,data_type){
 					     "</div>";
 			}
 			$(id).html(data1);
+			
+			alert(123);
 		}else{
 			alert("查询数据结果errot!");
 		}
@@ -257,15 +259,6 @@ createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
  */
 queryDataByParams(paramsObj);
 
-function aaa(){
-	
-	alert("=========");
-}
-
-mui("#slider1").on('tap', '.li_list_div', function (event) {
-	
-	alert("=========");
-});
 
 /*
  * 点击跳转到单个课程

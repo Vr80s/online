@@ -14,7 +14,7 @@ $(function(){
 		var name = $.trim($('.hos_base_inf .doc_shanchang').val());
 		var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;
 		var WeChat =  $.trim($('.hos_base_inf .hos_weixin').val());
-		var WeChatPatt = /^[a-zA-Z\d_]{5,}$/;
+		var WeChatPatt = /^[a-zA-Z\d_-]{5,}$/;
 		var email = $.trim($('.hos_base_inf .doc_hospital').val());
 		var emailPatt = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ ;
 		

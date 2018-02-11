@@ -518,8 +518,6 @@ $(document).on('click','.gif-num',function(){
 $(function () {
     setInterval(function(){
         for(var i=1;i<5;i++){
-            console.info(i+":"+$('.addnum'+i).data("sto"));
-            debugger
             var t = new Date().getTime()-$('.addnum'+i).data("sto");
             if(t>3000){
             	var f = $('.addnum'+i).attr("xh");

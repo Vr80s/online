@@ -1071,6 +1071,7 @@ table{
 }
 #demo2 select{
 	border: 1px solid #F0F0F0;
+	margin-bottom: 0px;
 }
 /*头部搜索开始*/
 .curriculum_top{
