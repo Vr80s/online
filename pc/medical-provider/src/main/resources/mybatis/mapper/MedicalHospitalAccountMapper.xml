@@ -9,19 +9,19 @@
      </select>
      
      
-     <!-- 通过用户id查找得到医师id根据医师id查找医馆信息  -->
+     <!-- 通过用户id   查找得到医师id    根据医师id查找医馆信息  -->
      <select id="getMedicalHospitalByMiddleUserId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
        select mh.*,(select picture from medical_hospital_picture where hospital_id = mh.id order by version limit 0,1 ) as versionPictures
-        from  medical_hospital mh where mh.id =
+        from  medical_hospital mh where mh.deleted =0 and mh.status = 1 and  mh.id =
   			 ( select hospital_id from medical_hospital_doctor 
    	   			 where doctor_id = 
-   	   			   (select doctor_id from medical_doctor_account where account_id =#{userId} ))
+   	   			   (select doctor_id from medical_doctor_account where account_id =#{userId} ) and deleted = 0  )
      </select>
      
      <select id="getMedicalHospitalByUserId" parameterType="string" resultType="com.xczhihui.medical.hospital.model.MedicalHospital">
        select mh.* from 
          medical_hospital mh inner join 
           	medical_hospital_account mha on  mh.id = mha.doctor_id
-          	  where account_id = #{userId}
+          	  where mh.deleted =0 and mh.status = 1 and  mha.account_id = #{userId}
      </select>
 </mapper>
