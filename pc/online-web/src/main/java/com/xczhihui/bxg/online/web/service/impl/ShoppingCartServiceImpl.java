@@ -37,7 +37,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService{
     @Override
     public ResponseObject addCart(BxgUser user, Integer courseId) {
         CourseVo course = courseDao.findCourseOrderById(courseId);
-        if(course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null||"".equals(course.getDirectId().trim()))){
+        if(course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null||"".equals(course.getDirectId().trim()))&&!course.getCollection()){
             throw new RuntimeException(String.format("视频正在来的路上，请稍后购买"));
         }
         //课程是否已经加入购物车

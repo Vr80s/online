@@ -655,7 +655,7 @@ public class WxPayController {
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
 				if (openid != null && !openid.isEmpty()) {
-					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html/openId="+openid);
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
 					//res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
 				} else{
 					res.getWriter().write(openid);

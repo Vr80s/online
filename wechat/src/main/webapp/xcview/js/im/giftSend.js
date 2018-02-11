@@ -160,7 +160,7 @@ function giftShow(gift, f,continuous) {
     gif[f].appendTo($(".chatmsg-box"))
     .css("left", "-9.55rem")//初始未知
     .animate({// 设置运动
-    	       "left": "50px"
+    	       "left": "0"
     	     },500,"linear",
     function(){
     	 if (f == 1) {

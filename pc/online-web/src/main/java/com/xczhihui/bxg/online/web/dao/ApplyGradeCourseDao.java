@@ -47,4 +47,21 @@ public class ApplyGradeCourseDao extends SimpleHibernateDao {
     	List<ApplyGradeCourse> applyGradeCourses= this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,new Object[]{courseId,userId}, BeanPropertyRowMapper.newInstance(ApplyGradeCourse.class));
     	return applyGradeCourses.size() > 0 ? applyGradeCourses.get(0) : null;
     }
+
+    public ApplyGradeCourse findCollectionCourseByCourseIdAndUserId(Integer courseId, String userId) {
+        String  sql=" SELECT \n" +
+                "  is_payment AS isPayment \n" +
+                "FROM\n" +
+                "  apply_r_grade_course argc\n" +
+                "  JOIN `oe_course` oc\n" +
+                "  ON oc.id = argc.`course_id`\n" +
+                "  JOIN  `collection_course` cc\n" +
+                "  ON oc.id = cc.`collection_id`" +
+                "WHERE cc.course_id = ? \n" +
+                "  AND argc.user_id = ? \n" +
+                "ORDER BY student_number DESC \n" +
+                "LIMIT 1  ";
+        List<ApplyGradeCourse> applyGradeCourses= this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql,new Object[]{courseId,userId}, BeanPropertyRowMapper.newInstance(ApplyGradeCourse.class));
+        return applyGradeCourses.size() > 0 ? applyGradeCourses.get(0) : null;
+    }
 }

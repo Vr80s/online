@@ -195,6 +195,7 @@ public class CourseVo{
      *是否发送过订阅短信提醒
      */
     private Boolean isSent;
+    private Boolean collection;
 
     private String userLecturerId;
     
@@ -208,6 +209,14 @@ public class CourseVo{
     
     
     private boolean isSelfCourse; //是否自己的课程 
+
+    public Boolean getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
 
     public String getLecturerDescription() {
         return lecturerDescription;

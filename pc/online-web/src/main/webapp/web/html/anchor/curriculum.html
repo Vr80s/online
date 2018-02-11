@@ -387,16 +387,25 @@
 	</tr>
 	{{/each}}
 </script>
-
-<!--医官列表-->
-<script type="text/template" id="hosListTpl">
-		{{each item as item i}}
-			 <option value={{item.id}}>{{item.name}}</option>
-		{{/each}}
+<script type="text/template" id="bank_card_tpl">
+	{{each resultObject as bankcard i}}
+	{{if bankcard.default}}
+	<li class="redBorder" acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
+	{{else}}
+	<li acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
+	{{/if}}
+		<div class="cardTop_img">
+			<img  src="/web/images/bankLogo/{{bankcard.tel}}.png" alt="" />
+		</div>
+		<div class="cardBottom">
+			<span>尾号<i>{{bankcard.tailNumber}}</i></span>
+			{{if bankcard.default==false}}
+			<a href="javascript:;" onclick="setDefaultBankCard({{bankcard.id}})">设为默认</a>
+			{{/if}}
+		</div>
+	</li>
+	{{/each}}
 </script>
-
-
-
 <!--删除提示弹窗-->
 <div id="deleteTip" class="hide">
 	<h4 class="confirm-title">删除资源</h4>
@@ -946,7 +955,7 @@
 					<select id="speech_select" class="selectpicker bla bla bli speech_resource" data-live-search="true">
 						</optgroup>
 					</select>
-					<p class="warning warning_anchor_Speech hide">请上传真实头像</p>
+					<p class="warning warning_anchor_Speech hide">昵称不能为空</p>
 				</div>
 				<div class="name">
 					<span><em>*</em>主播介绍</span>
@@ -957,19 +966,15 @@
 				
 				<!--主播是医师的时候的基础信息-->
 				<div id="doctor_baseInf" class="hide">
-				<div class="">
-					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em style="display: inline-block;color: #f40;">*</em>任职医馆</span>
-					<label for="speech_select1"></label>
-					<select id="speech_select1" class="selectpicker bla bla bli speech_resource" data-live-search="true">
-						</optgroup>
-					</select>
-					<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
+				<div class="name">
+					<span><em>*</em>任职医馆</span>
+					<input type="text" placeholder="请填写您的任职医馆" class="put1">
 					<p class="warning return_warning4 hide">任职医馆不能为空</p>
 				</div>
 				<div class="name workTime" >
 					<span><em>*</em>坐诊时间</span>
 				<ul style="display: inline-block;vertical-align: middle;" id="workTime">
-					<li>一</li>
+					<li class="color">一</li>
 					<li>二</li>
 					<li>三</li>
 					<li>四</li>
@@ -977,12 +982,11 @@
 					<li>六</li>
 					<li>七</li>
 				</ul>
-				<p class="warning return_warning7 hide">请选择坐诊时间</p>
 				</div>
 				
 				<div class="name">
 					<span><em>*</em>预约电话</span>
-					<input type="text" placeholder="" class="" disabled="disabled" id="tel">
+					<input type="text" placeholder="" class="" disabled="disabled">
 				</div>
 				</div>
 				
@@ -991,9 +995,8 @@
 				<div id="hospital_baseInf" class="hide">
 					<div class="name">
 						<span>预约电话</span>
-						<input type="text" placeholder="请输入预约电话" id="hosTel">
+						<input type="text" placeholder="请输入预约电话" class="">
 					</div>
-					<p class="warning return_warning8 hide">预约电话不能为空</p>
 				</div>
 				
 				
@@ -1003,13 +1006,12 @@
 					<span><em>*</em>城市</span>
 					<div id="demo1" class="citys">
 						<p>
-							<select name="province" id="chooseProvince" >
-								<option value="-1">请选择省份</option>
+							<select name="province" id="" >
+								<option value="">请选择省份</option>
 							</select>
-							<select name="city" id="chooseCity">
-								<option value="-1">请选择市区</option>
+							<select name="city">
+								<option value="">请选择市区</option>
 							</select>
-							<p class="warning return_warning6 hide">请选择所在省市</p>
 						</p>
 						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
 						<p class="warning return_warning5 hide">详细地址不能为空</p>
@@ -1085,6 +1087,7 @@
 						<td>结算金额</td>
 						<td><input type="text" id="toResultIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #333333;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 						<span class="toResultIpt_warn waring hide" style="font-size: 14px;"><i class="smallwarn">!</i>请输入结算金额</span>
+						<span class="toResultIpt_warn_beyond waring hide" style="font-size: 14px;"><i class="smallwarn">!</i>结算金额超出可结算金额</span>
 						</td>
 					</tr>
 					<tr class="hdrmb hide">
@@ -1098,72 +1101,75 @@
 			<!--提现部分-->
 			<div class="content_toCash hide">
 				<div>
-					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;">300</span>元
+					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;" class="rmb"></span>元
 				</div>
 				
 				<div>
-					<span>提现金额</span><input type="text"  id="tpCashIpt" placeholder="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
-					<span class="tpCashIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
+					<span>提现金额</span><input type="text" class="amount" id="tpCashIpt" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="warning_amount_null waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>提现余额不为空</span>
+					<span class="warning_amount_illegal waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>提现余额输入错误</span>
+					<span class="warning_amount_beyond waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
 				</div>
 				
 				<div>
-					<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" readonly="readonly" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<a href="javascript:;" style="font-size: 14px;color: #666;" onclick="$('.addNew').click()"><i class="smallAdd">+</i>新增银行卡</a>
 					<span class="userNameIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入户名</span>
-					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>
+					<!--<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>-->
 				</div>
 				
 				<div class="chooseCard clearfix">
 					<span>选择银行卡</span>
-					<ul>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
+					<ul id="bank_card">
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
 					</ul>
+					<span class="warning_bank_card_id waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请选择一张银行卡</span>
 				</div>
 				
 				<div>
-					<span>已绑定手机</span><span>13728393748</span><button class="getPassWord">获取验证码</button>
+					<span>已绑定手机</span><span id="phoneNumber"></span><button class="getPassWord" onclick="sendVerificationCode()">获取验证码</button>
 				</div>
 				
 				<div>
-					<span>手机验证码</span><input id="phonePwdIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span>手机验证码</span><input id="phonePwdIpt" class=" vcode" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<span class="phonePwdIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入手机验证码</span>
 				</div>
-				<button class="toCashSure_btn">确定</button>
+				<button class="toCashSure_btn" onclick="saveEnchashment()">确定</button>
 			</div>
 			
 			<!--管理部分-->
@@ -1872,7 +1878,7 @@
 									</select>
 								</div>
 								<div class="add" onclick="addCourse2Collection()">确认添加</div>
-								<div class="size">没有找到课程，新增课程</div>
+								<!--<div class="size">没有找到课程，新增课程</div>-->
 							</div>
 						</div>
 						<!--点击添加课程出现的弹框结束-->
