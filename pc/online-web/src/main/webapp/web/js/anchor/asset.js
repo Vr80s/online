@@ -136,12 +136,19 @@ function getBankCardList(){
 }
 
 function saveSettlement(){
+    $('.waring').addClass('hide');
     var amount = $.trim($("#toResultIpt").val());
     if(amount==null||amount==''||amount==0){
         $(".toResultIpt_warn").removeClass("hide");
         return;
     }else{
         $(".toResultIpt_warn").addClass("hide");
+    }
+    if(parseInt(amount)>parseInt(baseAssetInfo.coinBalance)){
+        $(".toResultIpt_warn_beyond").removeClass("hide");
+        return;
+    }else{
+        $(".toResultIpt_warn_beyond").addClass("hide");
     }
     RequestService("/anchor/settlement", "post", {"amount":amount}, function(data) {
         showTip(data.resultObject);
