@@ -197,29 +197,46 @@ public class QQThirdPartyController {
 		try {
 			LOGGER.info("进入	qq回调函数   ============：qq_connect_state");
 			
+			String userId = request.getParameter("userId");
+		    if(StringUtils.isNotBlank(userId)){
+		    	OnlineUser ou =  onlineUserService.findUserById(userId);
+		    	if(ou == null){
+		    		return	ResponseObject.newErrorResponseObject("获取用户信息有误");
+		    	}
+		    }
+		    
+		    LOGGER.info("绑定呢还是解除绑定呢： "+ userId);
+		    
+		    
 	        long tokenExpireIn = 0L;
 	        Map<String,String> mapRequest = new HashMap<String,String>();
-	       
+	        mapRequest.put("type",ThirdPartyType.QQ.getCode()+"");
+	        
 			if (accessToken ==null ) {
 				LOGGER.info("获取accessToken信息有误：");
 				return ResponseObject.newErrorResponseObject("获取QQ：accessToken 有误");
 			}else{
 				
-				 LOGGER.info("accessToken   ============"+accessToken);
-	             LOGGER.info("qq用户openid   ============"+openId);
-	             
+ LOGGER.info("accessToken   ============"+accessToken);
+ LOGGER.info("qq用户openid   ============"+openId);
+	             /**
+	              * 获取qq unionId
+	              * 
+	              */
 	             String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
-	             System.out.println("JSONObject.tostring"+unionId);
-	             QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
+	             
+ LOGGER.info("qq用户unionId   ============"+unionId);
+	             
+ 				QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
 	            	             
 	             if(qqUser==null){   //保存qq用户
 	            	 LOGGER.info("第一次存入qq用户信息");
+	            	 
 	            	 // 利用获取到的accessToken 去获取当前用户的openid --------- end
 		             UserInfo qzoneUserInfo = new UserInfo(accessToken, openId); 
 		             
 		             UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();   
 		             QQClientUserMapping qq = new QQClientUserMapping();
-		             
 		             qq.setId(UUID.randomUUID().toString().replace("-", ""));
 		             qq.setOpenId(openId);
 		             qq.setNickname(userInfoBean.getNickname());
@@ -231,15 +248,27 @@ public class QQThirdPartyController {
 		             qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
 		             qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
 		             qq.setUnionId(unionId);
+		           
+		            //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
+		             if(userId!=null){  // 绑定成功
+		            	 qq.setUserId(userId);	
+		            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
+		 			 }else{
+		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+		 			 }
+		             mapRequest.put("unionId",unionId);
 		             
 		             threePartiesLoginService.saveQQClientUserMapping(qq);
-	                 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
-					 mapRequest.put("unionId",unionId);
 					
-					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
+					return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 				}else if(StringUtils.isNotBlank(qqUser.getUserId())){ //绑定了用户信息
 					
-				    LOGGER.info("熊猫中医用户id   ============已绑定用户信息"+qqUser.getUserId());
+					LOGGER.info("熊猫中医用户id   ============已绑定用户信息"+qqUser.getUserId());  
+					
+					if(userId!=null){  // 这里说明人家这个已经绑定过其他信息了。
+						mapRequest.put("code",UserUnitedStateType.MOBILE_UNBOUNDED.getCode()+"");	
+						return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
+		 			}
 					
 					OnlineUser ou =  onlineUserService.findUserById(qqUser.getUserId());
 					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
@@ -258,9 +287,20 @@ public class QQThirdPartyController {
 					
 				    LOGGER.info("熊猫中医用户id 没有绑定用户信息"+qqUser.getUserId());
 					
-					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+				    if(userId!=null){  // 绑定成功
+		            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
+		            	 /**
+		            	  * 更改qq信息	--》增加用户id
+		            	  */
+		            	 qqUser.setUserId(userId);
+		            	 threePartiesLoginService.updateQQInfoAddUserId(qqUser);
+		            	 
+		 			}else{
+		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+		 			}
 					mapRequest.put("unionId",unionId);
-					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
+					
+					return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 				}
 				return ResponseObject.newSuccessResponseObject("");
 			}

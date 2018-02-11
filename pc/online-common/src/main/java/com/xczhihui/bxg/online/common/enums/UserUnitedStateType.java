@@ -21,8 +21,12 @@ public enum UserUnitedStateType {
 	
 	//三方登录状态
 	//200 已经绑定过，201 未绑定 202 数据异常
-	BINDING(200, "已绑定"),
-	UNBOUNDED(201, " 未绑定"),
+	BINDING(200, "第三方信息已绑定手机号。直接登录！"),
+	UNBOUNDED(201, " 第三方信息没有绑定手机号。需要完善信息！"),
+	
+	MOBILE_BINDING(203, "手机号绑定第三方信息成功。"),
+	MOBILE_UNBOUNDED(204, "手机号绑定第三方信息，第三方登录信息已经绑定了其他手机号了"),
+	
 	DATA_IS_WRONG(202, "数据异常"),
 	
 	
