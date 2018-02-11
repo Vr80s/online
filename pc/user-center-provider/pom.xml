@@ -140,7 +140,12 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
-
+	  <profile>
+		  <id>dev-local</id>
+		  <properties>
+			  <env>env-dev-local</env>
+		  </properties>
+	  </profile>
 		<profile>
 			<id>test</id>
 			<properties>
