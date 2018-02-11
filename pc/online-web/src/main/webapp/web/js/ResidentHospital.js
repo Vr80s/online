@@ -17,6 +17,8 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 			
 			if(data.resultObject.info){
 				$('.doctor_inf>p').text(data.resultObject.info)
+			}else{
+				$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
 			}
 			
 		});
