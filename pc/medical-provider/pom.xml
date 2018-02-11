@@ -257,6 +257,14 @@
 
 	<profiles>
 		<profile>
+			<id>dev-local</id>
+			<properties>
+				<env>env-dev-local</env>
+			</properties>
+		</profile>
+
+
+		<profile>
 			<id>dev</id>
 			<properties>
 				<env>env-dev</env>

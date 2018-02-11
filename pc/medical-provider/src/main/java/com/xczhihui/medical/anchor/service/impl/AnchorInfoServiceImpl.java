@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
@@ -78,7 +79,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             if(courseAnchorVO != null){
                 courseAnchorVO.setName(courseAnchor.getName());
                 courseAnchorVO.setProfilePhoto(courseAnchor.getProfilePhoto());
-                courseAnchorVO.setVideo(courseAnchor.getVideo());
+                courseAnchorVO.setVideo(this.processVideoStr(courseAnchor.getVideo()));
                 courseAnchorVO.setDetail(courseAnchor.getDetail());
             }
 
@@ -268,5 +269,31 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
 
         return courseAnchorVO;
 
+    }
+
+    /**
+     * 加工主播精彩致辞
+     */
+    private String processVideoStr(String courseResource){
+        String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID+"_" + courseResource
+                + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + "/player.swf";
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        String playCode = "";
+        playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
+        playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
+        playCode+="		width=\"600\" ";
+        playCode+="		height=\"490\" ";
+        playCode+="		id=\""+uuid+"\">";
+        playCode+="		<param name=\"movie\" value=\""+src+"\" />";
+        playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
+        playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
+        playCode+="		<param value=\"transparent\" name=\"wmode\" />";
+        playCode+="		<embed src=\""+src+"\" ";
+        playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
+        playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
+        playCode+="			type=\"application/x-shockwave-flash\"/> ";
+        playCode+="	</object>";
+
+        return playCode;
     }
 }

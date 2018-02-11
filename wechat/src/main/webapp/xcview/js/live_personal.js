@@ -109,8 +109,12 @@ $(".bg_userModal").click(function(){
 requestService("/xczh/host/hostPageInfo",{
 	lecturerId : userLecturerId
 },function(data) {
+	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
+	
 //	直播头像/主播名字
+
 	$(".personal_bg").html(template('personal_header',data.resultObject));
+
 //<!--主播名字/粉丝数量-->
 	$("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
 // 打开页面判断是否已关注

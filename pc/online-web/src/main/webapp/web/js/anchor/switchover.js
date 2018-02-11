@@ -332,6 +332,26 @@ $(".message_return .message_title .two").click(function() {
 //	})
 //	
 
+	//主播修改信息的时候获取医馆信息渲染医馆列表
+	if(localStorage.AccountStatus == 1){
+		RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
+    //头像预览
+    console.log(data);
+
+    //列表渲染
+    $('#speech_select1').append('<option value="-1">请选择医馆</option>')
+    $('#speech_select1').append(template('hosListTpl', {item:data.resultObject.records}));
+
+
+
+    //渲染之后在此调用插件
+    $('.selectpicker').selectpicker({
+        'selectedText': 'cat',size:10
+    });
+
+});
+
+	}
 
 });
 

@@ -30,6 +30,7 @@ import com.qq.connect.oauth.Oauth;
 import com.qq.connect.utils.QQConnectConfig;
 import com.qq.connect.utils.RandomStatusGenerator;
 import com.qq.connect.utils.http.HttpClient;
+import com.qq.connect.utils.http.PostParameter;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
@@ -233,9 +234,14 @@ public class QQThirdPartyController {
 	            	 LOGGER.info("第一次存入qq用户信息");
 	            	 
 	            	 // 利用获取到的accessToken 去获取当前用户的openid --------- end
-		             UserInfo qzoneUserInfo = new UserInfo(accessToken, openId); 
+		             //UserInfo qzoneUserInfo = new UserInfo(accessToken, openId); 
 		             
-		             UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();   
+		            //UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();   
+		             
+		             UserInfoBean userInfoBean = this.getUserInfo(accessToken,openId);
+		             
+LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
+		             
 		             QQClientUserMapping qq = new QQClientUserMapping();
 		             qq.setId(UUID.randomUUID().toString().replace("-", ""));
 		             qq.setOpenId(openId);
@@ -310,6 +316,27 @@ public class QQThirdPartyController {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	/**
+	 * 
+	 * Description：获取ios的配置信息啦
+	 * @param openid
+	 * @return
+	 * @throws QQConnectException
+	 * @return UserInfoBean
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+    private UserInfoBean getUserInfo(String token,String openid)   throws QQConnectException  {
+//    	this.client.setToken(token);
+//    	this.client.setOpenID(openid);
+    	//appKey：1106654789和appSecret：aTCTEkW72WqUeMqB
+    	
+		return new UserInfoBean(this.client.get(QQConnectConfig.getValue("getUserInfoURL"), new PostParameter[] { 
+			new PostParameter("openid", openid), 
+			new PostParameter("oauth_consumer_key","1106654789"), 
+			new PostParameter("access_token", token), new PostParameter("format", "json") }).asJSONObject());
+	}
+	
 	
 	/**
 	 * Description：h5 --》 唤起qq第三方登录授权页面

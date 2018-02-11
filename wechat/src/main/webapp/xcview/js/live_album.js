@@ -115,7 +115,7 @@ $(".bg_userModal").click(function(){
 		
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
-		
+		$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
 

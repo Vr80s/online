@@ -363,15 +363,20 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         	 switch (changeCallbackVo.getEvent()) {
         	 case "start":
         		 startOrEnd ="start_time";
-        		course.setLiveStatus(1);
+        		 course.setLiveStatus(1);
+        		 course.setStartTime(new Date());
         		 break;
         	 case "stop":
         		 startOrEnd ="end_time";
         		 course.setLiveStatus(3);
+        		 course.setEndTime(new Date());
         		 break;
         	 default:
         		 break;
         	 }
+        	 
+        	 
+        	 
         	 dao.update(course);
         	 
         	if(startOrEnd!=""){

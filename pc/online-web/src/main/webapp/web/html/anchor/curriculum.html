@@ -57,7 +57,7 @@
 	<script type="text/javascript" src="/web/bootstrap-select/bootstrap-select.js"></script>
 
 	<!--<script src="/web/js/anchor/jquery.citys.js" type="text/javascript" charset="utf-8"></script> -->
-	<script src="/web/js/provinces.js"></script>
+	<script src="/web/js/anchor/provinces.js"></script>
 	<script src="/web/js/anchor/pages/jquery.pagination-course.js"></script>
 	<script src="/web/js/anchor/course.js" type="text/javascript" charset="utf-8"></script>
 	<script src="/web/js/anchor/information.js" type="text/javascript" charset="utf-8"></script>
@@ -179,7 +179,8 @@
 		</td>
 		<td>
 			{{if course.liveStatus==1}}
-			<span>直播中</span>
+			<a href="javascript:;" onclick="startLive({{course.webinarId}})">进入直播</a>
+			<a href="javascript:;" onclick="previewLive({{course.webinarId}})">直播预览</a>
 			{{else if course.liveStatus==2}}
 			<a href="javascript:;" onclick="startLive({{course.webinarId}})">进入直播</a>
 			<a href="javascript:;" onclick="previewLive({{course.webinarId}})">直播预览</a>
@@ -385,6 +386,25 @@
 			<a href="javascript:;" onclick="deleteBankCard({{bankcard.id}})">移除</a>
 		</td>
 	</tr>
+	{{/each}}
+</script>
+<script type="text/template" id="bank_card_tpl">
+	{{each resultObject as bankcard i}}
+	{{if bankcard.default}}
+	<li class="redBorder" acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
+	{{else}}
+	<li acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
+	{{/if}}
+		<div class="cardTop_img">
+			<img  src="/web/images/bankLogo/{{bankcard.tel}}.png" alt="" />
+		</div>
+		<div class="cardBottom">
+			<span>尾号<i>{{bankcard.tailNumber}}</i></span>
+			{{if bankcard.default==false}}
+			<a href="javascript:;" onclick="setDefaultBankCard({{bankcard.id}})">设为默认</a>
+			{{/if}}
+		</div>
+	</li>
 	{{/each}}
 </script>
 <!--删除提示弹窗-->
@@ -733,12 +753,12 @@
 					<div class="div_title PersonAddress">
 						<span><em>*</em>城市</span>
 						<!--选择城市插件-->
-						<select name="" id="" onchange="">
-							<option value="">省份</option>
+						<select name=""  class="choosePro">
+							<!--<option value="">省份</option>-->
 						</select>
 						
-						<select name="" id="">
-							<option value="">市区</option>
+						<select name="" class="citys">
+							<!--<option value="">市区</option>-->
 						</select>
 
 						<p class="warning two_warning1 hide warning_physician_card">所在城市地址不能为空</p>
@@ -987,11 +1007,11 @@
 					<span><em>*</em>城市</span>
 					<div id="demo1" class="citys">
 						<p>
-							<select name="province" id="" >
+							<select name="province" class="choosePro" >
 								<option value="">请选择省份</option>
 							</select>
-							<select name="city">
-								<option value="">请选择市区</option>
+							<select name="city" class="">
+								<option value="">请选择市</option>
 							</select>
 						</p>
 						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
@@ -1068,6 +1088,7 @@
 						<td>结算金额</td>
 						<td><input type="text" id="toResultIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" placeholder="本次最多可结算800熊猫币" style="text-indent: 1em;width: 280px;height: 36px;color: #333333;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 						<span class="toResultIpt_warn waring hide" style="font-size: 14px;"><i class="smallwarn">!</i>请输入结算金额</span>
+						<span class="toResultIpt_warn_beyond waring hide" style="font-size: 14px;"><i class="smallwarn">!</i>结算金额超出可结算金额</span>
 						</td>
 					</tr>
 					<tr class="hdrmb hide">
@@ -1081,72 +1102,75 @@
 			<!--提现部分-->
 			<div class="content_toCash hide">
 				<div>
-					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;">300</span>元
+					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;" class="rmb"></span>元
 				</div>
 				
 				<div>
-					<span>提现金额</span><input type="text"  id="tpCashIpt" placeholder="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
-					<span class="tpCashIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
+					<span>提现金额</span><input type="text" class="amount" id="tpCashIpt" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="warning_amount_null waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>提现余额不为空</span>
+					<span class="warning_amount_illegal waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>提现余额输入错误</span>
+					<span class="warning_amount_beyond waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
 				</div>
 				
 				<div>
-					<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" readonly="readonly" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<a href="javascript:;" style="font-size: 14px;color: #666;" onclick="$('.addNew').click()"><i class="smallAdd">+</i>新增银行卡</a>
 					<span class="userNameIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入户名</span>
-					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>
+					<!--<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>-->
 				</div>
 				
 				<div class="chooseCard clearfix">
 					<span>选择银行卡</span>
-					<ul>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
+					<ul id="bank_card">
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
 					</ul>
+					<span class="warning_bank_card_id waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请选择一张银行卡</span>
 				</div>
 				
 				<div>
-					<span>已绑定手机</span><span>13728393748</span><button class="getPassWord">获取验证码</button>
+					<span>已绑定手机</span><span id="phoneNumber"></span><button class="getPassWord" onclick="sendVerificationCode()">获取验证码</button>
 				</div>
 				
 				<div>
-					<span>手机验证码</span><input id="phonePwdIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span>手机验证码</span><input id="phonePwdIpt" class=" vcode" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<span class="phonePwdIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入手机验证码</span>
 				</div>
-				<button class="toCashSure_btn">确定</button>
+				<button class="toCashSure_btn" onclick="saveEnchashment()">确定</button>
 			</div>
 			
 			<!--管理部分-->
@@ -1480,8 +1504,8 @@
 							<span style="float: left;margin-top: 5px;margin-right: 23px;"><em>*</em>上课地址</span>
 							<div id="demo2" class="citys">
 								<p>
-									<select name="province" onchange="doProvAndCityRelation()" id="choosePro" class="course_province"></select>
-									<select name="city" id="citys" class="course_city"></select>
+									<select name="province" class="choosePro course_province"></select>
+									<select name="city" class=" citys course_city"></select>
 								</p>
 							</div>
 							<textarea name="" rows="" cols="" class="sheng_textarea course_address" placeholder="请输入详细地址"></textarea>
@@ -2164,7 +2188,7 @@
 	<div class="myResive">
 		<div class="little_box1">
 			<!--课程收益部分-->
-			<div  id="kecheng_Resive">
+			<div  id="kecheng_Resive" class="hide">
 				<div class="kecheng_Resive_top">
 					<span class="title">课程订单</span>
 				</div>

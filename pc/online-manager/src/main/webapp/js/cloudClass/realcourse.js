@@ -30,7 +30,7 @@ $(function(){
     { "title": "所在城市", "class":"center","width":"6%", "sortable":false,"data": 'realCitys'},
     { "title": "实际学习人数", "class":"center","width":"6%", "sortable":false,"data": 'actCount',"visible":true},
     { "title": "课程时长", "class":"center","width":"8%", "sortable":false,"data": 'courseLength',"visible":false,"mRender":function (data, display, row) {
-        return data+"h";
+        return data+"'";
     }},
     // { "title": "咨询QQ", "class":"center","sortable":false,"data": 'qqno',"visible":false},
     // { "title": "现价格", "class":"center","sortable":false,"data": 'originalCost',"visible":false},
@@ -972,7 +972,7 @@ function previewDialog(obj,status){
     	$("#show_menuName").text(result[0].xMenuName); //所属学科
     	$("#show_menuNameSecond").text(result[0].scoreTypeName); //课程类别
     	$("#show_courseType").text(result[0].teachMethodName); //授课方式
-    	$("#show_courseLength").text(result[0].courseLength+"小时"); //课程时长
+    	$("#show_courseLength").text(result[0].courseLength+"分钟"); //课程时长
     	$("#show_coursePwd").text(result[0].coursePwd); //课程时长
 		$("#show_gradeQQ").text(result[0].gradeQQ); //班级QQ群
     	$("#show_qqno").text(result[0].qqno); //咨询QQ

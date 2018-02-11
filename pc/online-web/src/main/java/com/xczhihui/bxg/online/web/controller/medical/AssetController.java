@@ -95,6 +95,15 @@ public class AssetController {
         return ResponseObject.newSuccessResponseObject(userBankService.selectUserBankByUserId(user.getId()));
     }
 
+    @RequestMapping(value = "/getPhoneNumber",method= RequestMethod.GET)
+    public ResponseObject getPhoneNumber(HttpServletRequest request){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if(user==null){
+            return ResponseObject.newErrorResponseObject("未登录");
+        }
+        return ResponseObject.newSuccessResponseObject(user.getLoginName());
+    }
+
     /**
      * Description：保存银行卡
      * creed: Talk is cheap,show me the code
@@ -140,6 +149,16 @@ public class AssetController {
         }
         userBankService.deleteBankCard(user.getId(),id);
         return ResponseObject.newSuccessResponseObject("移除银行卡成功！");
+    }
+
+    @RequestMapping(value = "/setDefaultBankCard")
+    public ResponseObject setDefaultBankCard(HttpServletRequest request,Integer id){
+        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
+        if(user==null){
+            return ResponseObject.newErrorResponseObject("未登录");
+        }
+        userBankService.updateDefault(user.getId(),id);
+        return ResponseObject.newSuccessResponseObject("设置默认成功！");
     }
 
     /**

@@ -227,6 +227,7 @@ header{
     height: 1.531rem;
     border-radius: 50%;
     display: block;
+    margin: 0 auto;
 }
 .slide_one_sutra{
 	width:  1.085rem;

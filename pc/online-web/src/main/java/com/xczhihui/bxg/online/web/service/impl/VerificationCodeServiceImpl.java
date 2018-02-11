@@ -118,9 +118,9 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
 	}
 	
 	private void sendPhone(String phone, String vcode,String vtype){
-		
-		if (!"1".equals(vtype) && !"2".equals(vtype)) {
-			throw new RuntimeException("动态码类型错误！1为注册，2为找回密码");
+
+		if (VCodeType.getType(Integer.valueOf(vtype)) == null) {
+			throw new RuntimeException ("动态码类型错误！1注册2.重置密码3.提现");
 		}
 		
 		//拼参数
