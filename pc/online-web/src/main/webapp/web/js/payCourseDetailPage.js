@@ -217,7 +217,7 @@ window.onload = function() {
 			'<a  href="javascript:;" class="gotengxun purchase">立即报名</a>' +
 			'{{if item.currentPrice!="0.00"}}' +
 			// '<a class="free-try-to-lean" >免费试学</a>' +
-			'<span class="addCar">加入购物车</span>' +
+			// '<span class="addCar">加入购物车</span>' +
 			'{{/if}}' +
 			'{{else}}' +
 			'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +

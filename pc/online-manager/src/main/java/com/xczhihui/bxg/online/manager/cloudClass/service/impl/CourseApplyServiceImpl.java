@@ -313,6 +313,8 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 			course.setStartTime(courseApply.getStartTime());
 			course.setEndTime(courseApply.getEndTime());
 			course.setCity(courseApply.getCity());
+			//添加城市管理
+			courseService.addCourseCity(course.getCity());
 		}else if(course.getType()== CourseForm.LIVE.getCode()){
 			course.setStartTime(courseApply.getStartTime());
 			String webinarId = createWebinar(course);

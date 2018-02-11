@@ -274,18 +274,22 @@ public class CourseDao extends SimpleHibernateDao {
             BxgUser loginUser = UserLoginUtil.getLoginUser(request);
             Map<String,Object> paramMap = new HashMap<>();
             paramMap.put("courseId", courseId);
-            if(loginUser != null && courseVo != null){ //用户登录，查看用户是否购买此课程,报名isApply=true,否则isApply=false
+            //用户登录，查看用户是否购买此课程,报名isApply=true,否则isApply=false
+            if(loginUser != null && courseVo != null){
             	/*yuruixin - 20170810*/
-                paramMap.put("userId",loginUser.getId());
-                String  uSql="select id from user_r_video  where  user_id=:userId and course_id=:courseId  limit 1";
-                List<Map<String, Object>> listVideo= this.getNamedParameterJdbcTemplate().queryForList(uSql, paramMap);
-                courseVo.setIsApply(listVideo.size() > 0 ? true : false);
-                
+//                paramMap.put("userId",loginUser.getId());
+//                String  uSql="select id from user_r_video  where  user_id=:userId and course_id=:courseId  limit 1";
+//                List<Map<String, Object>> listVideo= this.getNamedParameterJdbcTemplate().queryForList(uSql, paramMap);
+//                courseVo.setIsApply(listVideo.size() > 0 ? true : false);
                 ApplyGradeCourse  applyGradeCourse = applyGradeCourseDao.findByCourseIdAndUserId(courseId, loginUser.getId());
                 if(applyGradeCourse != null) {
                     courseVo.setIsApply("1".equals(applyGradeCourse.getIsPayment()) ? false : true);
+                }else{
+                    applyGradeCourse = applyGradeCourseDao.findCollectionCourseByCourseIdAndUserId(courseId, loginUser.getId());
+                    if(applyGradeCourse != null) {
+                        courseVo.setIsApply("1".equals(applyGradeCourse.getIsPayment()) ? false : true);
+                    }
                 }
-                
             }
         }
 
@@ -319,7 +323,7 @@ public class CourseDao extends SimpleHibernateDao {
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("orderNo",orderId);
         if (StringUtils.hasText(orderId)) {
-            String sql = " select type,c.id,c.is_free,o.user_id as userId,c.direct_id directId from oe_order o,oe_order_detail od,oe_course c" +
+            String sql = " select type,c.id,c.is_free,o.user_id as userId,collection,c.direct_id directId from oe_order o,oe_order_detail od,oe_course c" +
                     " where o.id=od.order_id and od.course_id=c.id and o.id=:orderNo and c.is_delete =0 and c.status=1  ";
             List<CourseApplyVo> courseVoList =   this.findEntitiesByJdbc(CourseApplyVo.class, sql, paramMap);
             return  courseVoList.size() > 0 ? courseVoList.get(0) : null;
@@ -472,7 +476,7 @@ public class CourseDao extends SimpleHibernateDao {
      * @return 返回对应的课程对象
      */
     public  CourseVo   findCourseOrderById(Integer  courseId){
-         String  sql =" select id ,is_free isFree, course_type,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
+         String  sql =" select id ,is_free isFree, course_type,collection,is_sent isSent,direct_id directId, grade_name as courseName ,smallimg_path as smallImgPath,original_cost as originalCost ,start_time,IF(ISNULL(`course_pwd`),0,1) coursePwd," +
                       " current_price as currentPrice, now() as create_time, type, FORMAT(original_cost - current_price,2) as preferentyMoney from oe_course  where id =:courseId";
         Map<String,Object> paramMap = new HashMap<>();
         paramMap.put("courseId",courseId);
@@ -511,7 +515,7 @@ public class CourseDao extends SimpleHibernateDao {
 //        String  querySql="select id as video_id ,course_id as courseId from oe_video where course_id=:courseId and is_delete=0";
 //        List<UserVideoVo>  videos = this.findEntitiesByJdbc(UserVideoVo.class, querySql, paramMap);
         /*20170810---yuruixin*/
-        if (course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null || "".equals(course.getDirectId().trim())))
+        if (course.getType()== CourseForm.VOD.getCode() && (course.getDirectId()==null || "".equals(course.getDirectId().trim())) && !course.getCollection())
         {
             throw new RuntimeException("此课暂时没有视频,请稍后购买!");
         }

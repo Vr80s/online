@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import org.apache.commons.lang.StringUtils;
+import org.redisson.api.RLock;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -82,6 +85,8 @@ public class MyManagerController {
 	
 	@Autowired
 	private IMedicalDoctorApplyService medicalDoctorApplyService;
+	@Autowired
+	private RedissonUtil redissonUtil;
 
 	@Value("${rate}")
 	private int rate;
@@ -627,8 +632,30 @@ public class MyManagerController {
 		ResponseObject rob = onlineUserService.changeMobileCheckCode(userName, smsCode, SMSCode.WITHDRAWAL.getCode());
 		//短信验证码成功
 		if(rob.isSuccess()){
+// 获得锁对象实例
+			RLock redissonLock = redissonUtil.getRedisson().getLock("saveEnchashmentApplyInfo"+user.getId());
+
+			boolean resl = false;
 			try {
-				enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
+				//等待3秒 有效期8秒
+				resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+				if(resl){
+					enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
+				}
+			}catch (RuntimeException e){
+				throw e;
+			}catch (Exception e){
+				e.printStackTrace();
+				throw new RuntimeException("网络错误，请重试");
+			}finally {
+				if(resl){
+					redissonLock.unlock();
+				}else{
+					throw new RuntimeException("网络错误，请重试");
+				}
+			}
+
+			try {
 				return ResponseObject.newSuccessResponseObject("提现成功");
 			} catch (Exception e) {
 				// TODO: handle exception

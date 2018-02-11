@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -309,7 +310,7 @@ public class VideoDao extends SimpleHibernateDao {
 		dc.add(Restrictions.eq("id", courseId));
         Course c = orderDao.findEntity(dc);
 //        if((c.getType()==null||c.getType()!=1) && videos.size()<= 0){
-        if((c.getType()==null||c.getType()!=1) && (c.getDirectId()==null|| "".equals(c.getDirectId()))){
+        if(c.getType()== CourseForm.VOD.getCode() && (c.getDirectId()==null|| "".equals(c.getDirectId())) && !c.getCollection()){
             throw new RuntimeException("此课程下没有相关视频!");
         };
         String sql="";
