@@ -341,7 +341,7 @@ color: #999999;
 .main_speak p:nth-child(1){
 	float: left;
 	width: 0.6rem;
-	height: 0.03rem;
+	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
@@ -352,7 +352,7 @@ color: #999999;
 .main_speak p:nth-child(3){
 	float: right;
 	width: 0.6rem;
-	height: 0.03rem;
+	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
