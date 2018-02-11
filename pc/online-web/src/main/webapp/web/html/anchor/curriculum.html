@@ -387,6 +387,16 @@
 	</tr>
 	{{/each}}
 </script>
+
+<!--医官列表-->
+<script type="text/template" id="hosListTpl">
+		{{each item as item i}}
+			 <option value={{item.id}}>{{item.name}}</option>
+		{{/each}}
+</script>
+
+
+
 <!--删除提示弹窗-->
 <div id="deleteTip" class="hide">
 	<h4 class="confirm-title">删除资源</h4>
@@ -936,7 +946,7 @@
 					<select id="speech_select" class="selectpicker bla bla bli speech_resource" data-live-search="true">
 						</optgroup>
 					</select>
-					<p class="warning warning_anchor_Speech hide">昵称不能为空</p>
+					<p class="warning warning_anchor_Speech hide">请上传真实头像</p>
 				</div>
 				<div class="name">
 					<span><em>*</em>主播介绍</span>
@@ -947,15 +957,19 @@
 				
 				<!--主播是医师的时候的基础信息-->
 				<div id="doctor_baseInf" class="hide">
-				<div class="name">
-					<span><em>*</em>任职医馆</span>
-					<input type="text" placeholder="请填写您的任职医馆" class="put1">
+				<div class="">
+					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em style="display: inline-block;color: #f40;">*</em>任职医馆</span>
+					<label for="speech_select1"></label>
+					<select id="speech_select1" class="selectpicker bla bla bli speech_resource" data-live-search="true">
+						</optgroup>
+					</select>
+					<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
 					<p class="warning return_warning4 hide">任职医馆不能为空</p>
 				</div>
 				<div class="name workTime" >
 					<span><em>*</em>坐诊时间</span>
 				<ul style="display: inline-block;vertical-align: middle;" id="workTime">
-					<li class="color">一</li>
+					<li>一</li>
 					<li>二</li>
 					<li>三</li>
 					<li>四</li>
@@ -963,11 +977,12 @@
 					<li>六</li>
 					<li>七</li>
 				</ul>
+				<p class="warning return_warning7 hide">请选择坐诊时间</p>
 				</div>
 				
 				<div class="name">
 					<span><em>*</em>预约电话</span>
-					<input type="text" placeholder="" class="" disabled="disabled">
+					<input type="text" placeholder="" class="" disabled="disabled" id="tel">
 				</div>
 				</div>
 				
@@ -976,8 +991,9 @@
 				<div id="hospital_baseInf" class="hide">
 					<div class="name">
 						<span>预约电话</span>
-						<input type="text" placeholder="请输入预约电话" class="">
+						<input type="text" placeholder="请输入预约电话" id="hosTel">
 					</div>
+					<p class="warning return_warning8 hide">预约电话不能为空</p>
 				</div>
 				
 				
@@ -987,12 +1003,13 @@
 					<span><em>*</em>城市</span>
 					<div id="demo1" class="citys">
 						<p>
-							<select name="province" id="" >
-								<option value="">请选择省份</option>
+							<select name="province" id="chooseProvince" >
+								<option value="-1">请选择省份</option>
 							</select>
-							<select name="city">
-								<option value="">请选择市区</option>
+							<select name="city" id="chooseCity">
+								<option value="-1">请选择市区</option>
 							</select>
+							<p class="warning return_warning6 hide">请选择所在省市</p>
 						</p>
 						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
 						<p class="warning return_warning5 hide">详细地址不能为空</p>
