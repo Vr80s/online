@@ -117,14 +117,14 @@ $(function(){
 		data.wechat =  $('#hos_Administration .hos_base_inf  .hos_weixin').val();
 		data.headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
         data.description = UE.getEditor('editor2').getContent();
-        data.detailedAddress = $.trim($('#hos_Administration .hos_base_inf .doc_address textarea').val());
+        data.detailAddress = $.trim($('#hos_Administration .hos_base_inf .doc_address textarea').val());
 		var hoslist = [];
 		for(var i = 0;i < $('#hos_pic img').length ; i++){
 			    hoslist.push($('#hos_pic img').eq(i).attr('src'));
 		}
 		var fieldIds = [];
 		for(var i=0;i<$('.hos_base_inf .keshi .keshiColor').length;i++){
-            fieldIds.push($('.hos_base_inf .keshi .keshiColor').attr("data-id"))
+            fieldIds.push($('.hos_base_inf .keshi .keshiColor').eq(i).attr("data-id"))
 		}
 		data.pictures = hoslist;
 		data.fieldIds = fieldIds;
