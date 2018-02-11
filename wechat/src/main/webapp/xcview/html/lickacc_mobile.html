@@ -59,14 +59,14 @@
 		
 		
 		<div class="email_title">其他登录方式</div>
-		<div class="email_one" style="height: 2.94rem;">
-			<div class="div0">
+		<div class="email_one" style="height: 0.94rem;">
+			<div class="div0" style="border: none;">
 				<span class="span0">微信</span>
 				<img src="../images/account05.png" alt="" />
 				<span class="span1">去绑定</span>
 				
 			</div>
-			<div class="div0">
+			<!--<div class="div0">
 				<span class="span0">腾讯QQ</span>
 				<img src="../images/account05.png" alt="" />
 				<span class="span1">去绑定</span>
@@ -76,23 +76,46 @@
 				<span class="span0">新浪微博</span>
 				<img src="../images/account05.png" alt="" />
 				<span class="span1">去绑定</span>
-				
-			</div>
+			</div>-->
 		</div>
 	</div>
 	
 	<!-- 中间内容结束 -->
 	
+	<div class="success" style="display: block1;">
+		<div class="success_bg"></div>
+		<div class="success_main">
+			<div class="one">充值成功</div>
+			<div class="two">恭喜您成功充值xxx熊猫币</div>
+			<div class="three">
+				<div class="three_btn0">确定</div>
+				<div class="three_btn1">继续充值</div>
+			</div>
+		</div>
+	</div>
+	
 
 </body>
-
+<!--处理分辨率-->
 <script>
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
 		kk=750
 	}
-	
 	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
+
+<!--点击微信绑定-->
+<script type="text/javascript">
+	window.onload = function(){
+		$(".email_one .div0").click(function(){
+			$(".success").show();
+		});
+		
+		$(".success .three .three_btn0").click(function(){
+			$(".success").hide();
+		});
+	};
 </script>
 
 </html>
