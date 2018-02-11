@@ -202,7 +202,7 @@ color: #999999;
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-    border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 1px solid #D8DDE6;
 }
 .playTime img{
 	display: inline-block;
@@ -237,7 +237,7 @@ color: #999999;
 	background: white;
 	text-align: center;
 	font-size: 0.28rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 1px solid #D8DDE6;
 }
 /*简介*/
 .wrap_synopsis{
@@ -275,7 +275,7 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 4.5rem;
 }
 .wrap p img{
 	width: 100%;
@@ -299,7 +299,7 @@ color: #999999;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 1px solid #D8DDE6;
 }
 .btn a{
 	display:inline-block;
@@ -315,7 +315,7 @@ color: #999999;
 	display: none;
 	text-align: center;
     line-height: 1.8rem;
-    border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 1px solid #D8DDE6;
     color: #a5a5a5;
 	
 }
@@ -366,7 +366,7 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 4.5rem;
 }
 .wrap1 p img{
 	width: 100%;
@@ -390,7 +390,7 @@ color: #999999;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 1px solid #D8DDE6;
 }
 .btn1 a{
 	display:inline-block;
@@ -436,7 +436,7 @@ margin-top: 0.1rem;
 	width: 100%;
 	background: white;
 	overflow: hidden;
-	    border-bottom: 0.01rem solid #D8DDE6;
+	    border-bottom: 1px solid #D8DDE6;
 	    padding-top: 0.2rem;
 }
 .wrap_all_returned .wrap_people_comment:nth-last-child(1){
@@ -823,7 +823,7 @@ color: #888888;
 }
 .all_list ul li{
 	padding: 0.19rem 0;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 1px solid #D8DDE6;
 	
 }
 .all_list ul li:nth-last-child(1){
