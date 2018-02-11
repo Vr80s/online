@@ -12,6 +12,7 @@ import java.util.List;
  **/
 public enum OrderFrom {
 
+    GIVE(0, "赠送"),
     PC(1, "pc"),
     H5(2, "h5"),
     ANDROID(3, "android"),
