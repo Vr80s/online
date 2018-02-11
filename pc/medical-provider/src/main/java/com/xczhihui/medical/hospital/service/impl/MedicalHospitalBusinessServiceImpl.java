@@ -267,9 +267,9 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             throw new RuntimeException("请填写医馆所在城市");
         }
 
-        if(StringUtils.isBlank(medicalHospital.getDetailedAddress())){
-            throw new RuntimeException("请填写医馆详细地址");
-        }
+//        if(StringUtils.isBlank(medicalHospital.getDetailedAddress())){
+//            throw new RuntimeException("请填写医馆详细地址");
+//        }
 
     }
 }
