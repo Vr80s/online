@@ -67,11 +67,7 @@ $(function(){
 		showContent('content_toCash',$(this).text())
 	})
 	
-	//提现中的银行卡点击选中效果
-	$('#mymoney .content_toCash .chooseCard ul li').click(function(){
-		$('#mymoney .content_toCash .chooseCard ul li').removeClass('redBorder')
-		$(this).addClass('redBorder');
-	})
+
 	
 	//提现中银行卡设置默认
 	$('#mymoney .content_toCash .chooseCard .cardBottom a').click(function(event){
@@ -86,39 +82,7 @@ $(function(){
 		
 	})
 	
-	//提现中的确定按钮点击
-	$('#mymoney .content_toCash .toCashSure_btn').click(function(){
-		var toCashNum = $.trim($('.content_toCash #tpCashIpt').val());
-		var userName = $.trim($('.content_toCash #userNameIpt').val());
-		var phoneNum = $.trim($('.content_toCash #phonePwdIpt').val());
-		
-		//验证
-		//提现金额
-		if(toCashNum == ''){
-			$('.tpCashIpt_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.tpCashIpt_warn').addClass('hide');
-		}
-		
-		//户名
-		if(userName == ''){
-			$('.userNameIpt_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.userNameIpt_warn').addClass('hide');
-		}
-		
-		//手机验证码
-		if(phoneNum == ''){
-			$('.phonePwdIpt_warn').removeClass('hide');
-			return false;
-		}else{
-			$('.phonePwdIpt_warn').addClass('hide');
-		}
-		
-	})
-	
+
 	
 	
 	

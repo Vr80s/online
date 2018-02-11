@@ -8,10 +8,13 @@ $("#toResultIpt").keyup(function () {
     }
     $("#toResultIptRmb").html(resultIpt/10);
 });
+    getPhoneNumber();
 });
 var bankList;
+var baseAssetInfo;
 function initBasaeAssetInfo (){
     RequestService("/anchor/asset/getBaseAssetInfo", "get", null, function(data) {
+        baseAssetInfo = data.resultObject;
         $(".coinBalance").html(data.resultObject.coinBalance);
         $("#toResultIpt").attr("placeholder","本次最多可结算"+data.resultObject.coinBalance+"熊猫币");
         $(".rmb").html(data.resultObject.rmb);
@@ -113,7 +116,22 @@ function getBankList (){
 
 function getBankCardList(){
     RequestService("/anchor/asset/getBankCardList", "get", null, function(data) {
+        for(var i=0;i<data.resultObject.length;i++){
+            data.resultObject[i].tailNumber = data.resultObject[i].acctPan.substring(17,21);
+            if(data.resultObject[i].default){
+                $("#userNameIpt").val(data.resultObject[i].acctName);
+                bankCardId = data.resultObject[i].id;
+            }
+        }
         $("#bank_card_list").html(template('bank_card_list_tpl', data));
+        $("#bank_card").html(template('bank_card_tpl', data));
+        //提现中的银行卡点击选中效果
+        $('#mymoney .content_toCash .chooseCard ul li').click(function(){
+            $('#mymoney .content_toCash .chooseCard ul li').removeClass('redBorder')
+            $(this).addClass('redBorder');
+            $("#userNameIpt").val($(this).attr("acctName"));
+            bankCardId = $(this).attr("bankCardId");
+        })
     });
 }
 
@@ -164,6 +182,87 @@ function deleteBankCard(id){
             }
         });
     });
+}
+
+function setDefaultBankCard(id){
+    RequestService("/anchor/asset/setDefaultBankCard?id="+id, "post", null, function(data) {
+        if(data.success){
+            showTip(data.resultObject);
+            getBankCardList();
+        }else {
+            showTip(data.errorMessage);
+        }
+    });
+}
+function sendVerificationCode(){
+    RequestService("/anchor/sendVerificationCode" ,"post", null, function(data) {
+        if(data.success){
+            showTip(data.resultObject);
+        }else {
+            showTip(data.errorMessage);
+        }
+    });
+}
+function getPhoneNumber (){
+    RequestService("/anchor/asset/getPhoneNumber", "get", null, function(data) {
+        $("#phoneNumber").html(data.resultObject);
+    });
+}
+var bankCardId;
+//提现中的确定按钮点击
+function saveEnchashment(){
+    var data = {};
+    data.amount = $.trim($('.amount').val());
+    data.code = $.trim($('.vcode').val());
+    data.bankCardId = bankCardId
+    if(verifyEnchashment(data)){
+        RequestService("/anchor/enchashment", "post", data, function(data) {
+            if(data.success){
+                showTip(data.resultObject);
+                initBasaeAssetInfo();
+            }else {
+                showTip(data.errorMessage);
+            }
+        });
+    }
+}
+
+function verifyEnchashment(data){
+    //提现金额
+    $('.waring').addClass('hide');
+    if(!isNv(data.amount)){
+        $('.warning_amount_null').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_amount_null').addClass('hide');
+    }
+    if(!numberCk(data.amount)){
+        $('.warning_amount_illegal').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_amount_illegal').addClass('hide');
+    }
+    if(parseInt(baseAssetInfo.rmb)<parseInt(data.amount)){
+        $('.warning_amount_beyond').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_amount_beyond').addClass('hide');
+    }
+    //户名
+    if(!isNv(data.bankCardId)){
+        $('.warning_bank_card_id').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_bank_card_id').addClass('hide');
+    }
+    //手机验证码
+    if(!isNv(data.code)){
+        $('.phonePwdIpt_warn').removeClass('hide');
+        return false;
+    }else{
+        $('.phonePwdIpt_warn').addClass('hide');
+    }
+    return true;
 }
 
 function verifyBankCard(data){

@@ -112,8 +112,8 @@ public class EnchashmentController {
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 下午 3:18 2018/2/2 0002
      **/
-    @RequestMapping(value = "sendemail")
-    public ResponseObject sendEmail(HttpServletRequest req) {
+    @RequestMapping(value = "sendVerificationCode")
+    public ResponseObject sendVerificationCode(HttpServletRequest req) {
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(req);
         if(user==null){
             return ResponseObject.newErrorResponseObject("未登录");

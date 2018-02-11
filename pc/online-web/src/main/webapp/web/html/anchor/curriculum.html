@@ -387,6 +387,25 @@
 	</tr>
 	{{/each}}
 </script>
+<script type="text/template" id="bank_card_tpl">
+	{{each resultObject as bankcard i}}
+	{{if bankcard.default}}
+	<li class="redBorder" acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
+	{{else}}
+	<li acctName="{{bankcard.acctName}}" bankCardId="{{bankcard.id}}">
+	{{/if}}
+		<div class="cardTop_img">
+			<img  src="/web/images/bankLogo/{{bankcard.tel}}.png" alt="" />
+		</div>
+		<div class="cardBottom">
+			<span>尾号<i>{{bankcard.tailNumber}}</i></span>
+			{{if bankcard.default==false}}
+			<a href="javascript:;" onclick="setDefaultBankCard({{bankcard.id}})">设为默认</a>
+			{{/if}}
+		</div>
+	</li>
+	{{/each}}
+</script>
 <!--删除提示弹窗-->
 <div id="deleteTip" class="hide">
 	<h4 class="confirm-title">删除资源</h4>
@@ -1081,72 +1100,75 @@
 			<!--提现部分-->
 			<div class="content_toCash hide">
 				<div>
-					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;">300</span>元
+					<span>您的余额为</span><span style="font-size: 26px;color: #FF4012;" class="rmb"></span>元
 				</div>
 				
 				<div>
-					<span>提现金额</span><input type="text"  id="tpCashIpt" placeholder="" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
-					<span class="tpCashIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
+					<span>提现金额</span><input type="text" class="amount" id="tpCashIpt" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span class="warning_amount_null waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>提现余额不为空</span>
+					<span class="warning_amount_illegal waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>提现余额输入错误</span>
+					<span class="warning_amount_beyond waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>您输入的金额超出可提现余额</span>
 				</div>
 				
 				<div>
-					<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span>户名</span><input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\u4E00-\u9FA5]/g,''))" id="userNameIpt" type="text" placeholder="" readonly="readonly" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<a href="javascript:;" style="font-size: 14px;color: #666;" onclick="$('.addNew').click()"><i class="smallAdd">+</i>新增银行卡</a>
 					<span class="userNameIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入户名</span>
-					<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>
+					<!--<p style="font-size: 14px;color: #999999;padding-left: 85px;padding-top: 10px;">（只能是认证的本人银行卡名字）</p>-->
 				</div>
 				
 				<div class="chooseCard clearfix">
 					<span>选择银行卡</span>
-					<ul>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
-						<li>
-							<div class="cardTop_img">
-								<img  src="/web/images/pandaLogo.jpg" alt="" />
-							</div>
-							<div class="cardBottom">
-								<span>尾号<i>6238</i></span>
-								<a href="javascript:;">设为默认</a>
-							</div>
-						</li>
+					<ul id="bank_card">
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<div class="cardTop_img">-->
+								<!--<img  src="/web/images/pandaLogo.jpg" alt="" />-->
+							<!--</div>-->
+							<!--<div class="cardBottom">-->
+								<!--<span>尾号<i>6238</i></span>-->
+								<!--<a href="javascript:;">设为默认</a>-->
+							<!--</div>-->
+						<!--</li>-->
 					</ul>
+					<span class="warning_bank_card_id waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请选择一张银行卡</span>
 				</div>
 				
 				<div>
-					<span>已绑定手机</span><span>13728393748</span><button class="getPassWord">获取验证码</button>
+					<span>已绑定手机</span><span id="phoneNumber"></span><button class="getPassWord" onclick="sendVerificationCode()">获取验证码</button>
 				</div>
 				
 				<div>
-					<span>手机验证码</span><input id="phonePwdIpt" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
+					<span>手机验证码</span><input id="phonePwdIpt" class=" vcode" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"  type="text" placeholder="" style="text-indent: 1em;width: 280px;height: 36px;color: #CCC;font-size: 14px;border: 1px solid #F0F0F0;outline: none;" />
 					<span class="phonePwdIpt_warn waring hide" style="color: #FF4012;"><i class="smallwarn">!</i>请输入手机验证码</span>
 				</div>
-				<button class="toCashSure_btn">确定</button>
+				<button class="toCashSure_btn" onclick="saveEnchashment()">确定</button>
 			</div>
 			
 			<!--管理部分-->
