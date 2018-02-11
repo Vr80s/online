@@ -108,11 +108,11 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		}
 	}
 	if(stringnull(city)){
-		paramsObj.city = city;
 		for (var int = 0; int < cityTypeArray.length; int++) {
 			var array_element = cityTypeArray[int];
-			if(city == array_element.name){
-				saisuanstr += array_element.city+"-";
+			if(city == array_element.id){
+				saisuanstr += array_element.name+"-";
+				paramsObj.city = name;
 				break;
 			}
 		}
@@ -242,7 +242,7 @@ function queryDataByParams(params,data_type){
 			}
 			$(id).html(data1);
 			
-			alert(123);
+			//alert(123);
 		}else{
 			alert("查询数据结果errot!");
 		}
