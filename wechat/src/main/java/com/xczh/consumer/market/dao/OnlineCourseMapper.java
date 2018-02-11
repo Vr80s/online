@@ -34,7 +34,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
 		//直播中
-		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY) and c.start_time < now()");
+		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY) ");
 		sql.append(" order by  c.recommend_sort desc ,c.start_time desc  limit 0,12)");
 		sql.append("  union all ");
 
