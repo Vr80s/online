@@ -771,7 +771,7 @@
 				<input type="text" name="courseLength"  id="courseLength" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
 			</div>
 			<div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
-				小时
+				分钟
 			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;" >
@@ -1103,7 +1103,7 @@
 				<input type="text" name="courseLength"  id="courseLength_edit" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
 			</div>
 			<div class="col-sm-1 control-label no-padding-left" style="text-align: left;">
-				小时
+				分钟
 			</div>
 		</div>
 		<div class="form-group"  style="margin-top: 18px;" >

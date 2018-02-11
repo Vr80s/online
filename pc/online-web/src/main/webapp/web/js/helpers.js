@@ -138,7 +138,7 @@
         if(num==null){
             return '暂无';
         }
-        return ''+num+'小时';
+        return ''+num+'分钟';
     });
     //头像
     template.helper("headImg",function(num){
