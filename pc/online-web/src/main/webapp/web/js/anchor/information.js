@@ -1,3 +1,4 @@
+var workTime;
 $(function(){
     //判断账户身份显示效果
 //  localStorage.AccountStatus = 2;
@@ -72,7 +73,7 @@ $(function(){
     	
 	//主播基础信息中的医师的坐诊时间数组
 	var arr1 = [];
-	var workTime;
+
 	$('#workTime  li ').click(function(){
 		if($(this).hasClass('color')){
 		//删除第二次选中的
@@ -90,6 +91,20 @@ $(function(){
 		}
 		console.log(workTime)
 	})
+	
+
+	//选择医师列表
+	$('#speech_select1').change(function(){
+	var hosID = $('#speech_select1').val();
+	 RequestService("/medical/hospital/getHospitalById", "get", {
+        id: hosID,
+    },function(data){
+    	$(' #tel').val(data.resultObject.tel);
+//		console.log(data)
+    })
+})
+	
+	
 });
 
 function initAuthentication (){
@@ -128,7 +143,6 @@ function getPhysicianData(){
 function verifyPhysician(data){
     var NameWarnings = $.trim($('.physician_two .name_put0').val());
     var NameCard = $.trim($('.physician_two .name_put1').val());
-
     var name = $.trim($('.physician_two .name_put0').val());
     var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;;
     var doc_Idnum = $.trim($('#AutList .doc_Idnum').val());
@@ -261,45 +275,72 @@ function isCardID(sId){
 }
 
 function saveAnchorInfo(){
-	//获取基础信息
-    var anchorInfo = getAnchorInfo();
-    //验证基础信息
-    if(verifyAnchorInfo(anchorInfo)){
-		alert(111)
+		
 	//基础信息验证通过了验证医师医馆对应的信息
-	var anchorInfo1 = getAnchorInfo1();
+	if(localStorage.AccountStatus == 1){
+		var anchorInfo1 = getAnchorInfo();
+		if(verifyAnchorInfo(anchorInfo1)){
+		 	//验证通过之后进行
+		RequestService("/anchor/info", "post", anchorInfo1,function(data){
+    	
+//		console.log(data)
+    	})
+		}
+	}
+	
+	
+	
+	if(localStorage.AccountStatus == 2){
+		var ancHosInfo2 = getHosInfo();
+		if(verifyAnchorInfo(anchorInfo2)){
+		 	//验证通过之后进行
+		RequestService("/anchor/info", "post", ancHosInfo2,function(data){
+    	
+//		console.log(data)
+    	})
+		}
+	}
+	
     }
-}
 
-//获取的医师医馆的公共信息
+
+//获取的主播是医师的信息
 function getAnchorInfo(){
     var data = {};
-    data.nickName = $(".anchor_nick_name").val();
+    data.name = $(".anchor_nick_name").val();
     data.video = $("#speech_select").val();
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
-    data.Speech = $('#speech_select').val();
     data.detail = UE.getEditor('anchor_details_editor').getContent();
+    data.hospitalId = $("#speech_select1").val();
+    data.workTime = workTime;
+    data.province = $("#demo1 #chooseProvince option:selected").text();
+    data.city = $('#demo1 #chooseCity option:selected').text();
+    data.detailAddress = $('#demo1 textarea').val();
+    data.tel = $('#tel').val();
+    return data;
+}
+
+
+//获取的主播是医馆的信息
+function getAnchorInfo2(){
+    var data = {};
+    data.name = $(".anchor_nick_name").val();
+    data.video = $("#speech_select").val();
+    data.profilePhoto = $("#profilePhotoImg img").attr('src');
+    data.detail = UE.getEditor('anchor_details_editor').getContent();
+    data.province = $("#demo1 #chooseProvince option:selected").text();
+    data.city = $('#demo1 #chooseCity option:selected').text();
+    data.detailAddress = $('#demo1 textarea').val();
+    data.tel = $('#hosTel').val();
     return data;
 }
 
 
 
-//获取的医师医馆的公共信息
-//function getAnchorInfo1(){
-//  var data = {};
-//  data.hosName = $(".put1").val();
-//  data.workTime = workTime;
-//  data.province = $("#demo1 select:first-child").val();
-//  data.city = $('#demo1 select:last-child').val();
-//  data.hosDetail = $('#demo1 textarea').val();
-//  return data;
-//}
 
-
-
-
+//主播是医师的信息验证
 function verifyAnchorInfo(data){
-    if(data.nickName == ''){
+    if(data.name == ''){
         $('.warning_anchor_name').removeClass('hide');
         return false;
     }else{
@@ -313,7 +354,7 @@ function verifyAnchorInfo(data){
         $('.warning_profileImgphoto').addClass('hide');
     }
     
-     if(data.Speech == ''){
+     if(data.video == ''){
         $('.warning_anchor_Speech').removeClass('hide');
         return false;
     }else{
@@ -327,5 +368,100 @@ function verifyAnchorInfo(data){
         $('.warning_anchor_lecturer_description').addClass('hide');
     }
     
+    
+    //医师入驻的医馆名字
+	if(data.hospitalId == '-1'){ 
+		$('.return_warning4').removeClass('hide');
+		return false;
+	}else{
+       $('.return_warning4').addClass('hide');
+    }
+	
+	//坐镇的时间
+	if(data.workTime == ''){
+		$('.return_warning7').removeClass('hide');
+		return false;
+	}else{
+		$('.return_warning7').addClass('hide');
+	}
+//	
+//	//医师所在省市填写
+//	if(data.province == '-1' ||  data.city == '-1'){
+//		$('.return_warning6').removeClass('hide');
+//		return false;
+//	}else {
+//		 $('.return_warning6').addClass('hide');
+//	}
+
     return true;
 }
+
+
+
+
+//主播是医馆的信息验证
+function verifyAnchorInfo2(data){
+    if(data.name == ''){
+        $('.warning_anchor_name').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_anchor_name').addClass('hide');
+    }
+    
+    if(data.profilePhoto == '' || data.profilePhoto == null){
+        $('.warning_profileImgphoto').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_profileImgphoto').addClass('hide');
+    }
+    
+     if(data.video == ''){
+        $('.warning_anchor_Speech').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_anchor_Speech').addClass('hide');
+    }
+    
+    if(data.detail == ''){
+        $('.warning_anchor_lecturer_description').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_anchor_lecturer_description').addClass('hide');
+    }
+    
+    
+    //医师入驻的医馆名字
+//	if(data.hospitalId == '-1'){ 
+//		$('.return_warning4').removeClass('hide');
+//		return false;
+//	}else{
+//     $('.return_warning4').addClass('hide');
+//  }
+	
+	//坐镇的时间
+//	if(data.workTime == ''){
+//		$('.return_warning7').removeClass('hide');
+//		return false;
+//	}else{
+//		$('.return_warning7').addClass('hide');
+//	}
+//	
+//	//医师所在省市填写
+//	if(data.province == '-1' ||  data.city == '-1'){
+//		$('.return_warning6').removeClass('hide');
+//		return false;
+//	}else {
+//		 $('.return_warning6').addClass('hide');
+//	}
+
+	if(data.tel == ''){
+        $('.return_warning8').removeClass('hide');
+        return false;
+    }else{
+        $('.return_warning8').addClass('hide');
+    }
+
+    return true;
+}
+
+

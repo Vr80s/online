@@ -124,7 +124,7 @@ $(function(){
 		}
 		var fieldIds = [];
 		for(var i=0;i<$('.hos_base_inf .keshi .keshiColor').length;i++){
-            fieldIds.push($('.hos_base_inf .keshi .keshiColor').attr("data-id"))
+            fieldIds.push($('.hos_base_inf .keshi .keshiColor').eq(i).attr("data-id"))
 		}
 		data.pictures = hoslist;
 		data.fieldIds = fieldIds;
