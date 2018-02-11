@@ -331,27 +331,7 @@ $(".message_return .message_title .two").click(function() {
 //		alert(222)
 //	})
 //	
-	
-	//主播基础信息中的医师的坐诊时间数组
-	var arr1 = [];
-	var workTime;
-	$('#workTime  li ').click(function(){
-		if($(this).hasClass('color')){
-		//删除第二次选中的
-			for(var i = 0 ;i < arr1.length; i++){
-            	if($(this).text() == arr1[i]){
-                arr1.splice(i,1)
-            	}
-       		}
-			workTime = arr1.toString();
-			$(this).removeClass('color');	
-		}else{
-			$(this).addClass('color');
-			arr1.push($(this).text());
-			workTime = arr1.toString();
-		}
-		console.log(workTime)
-	})
+
 
 });
 

@@ -1,5 +1,6 @@
 package com.xczh.consumer.market.controller.weibo;
 
+import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jcraft.jsch.Logger;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
+import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
@@ -104,11 +107,15 @@ public class WeChatThirdPartyController {
 			 * 通过code获取微信信息
 			 */
 			String code = req.getParameter("code");
+			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			
-			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfoByUnionId(code,wxcpClientUserWxMappingService);
+		
+			//WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfoByUnionId(code,wxcpClientUserWxMappingService);
 			if(wxw==null){
 				LOGGER.info("微信第三方认证失败 ");
 			}
+		
+			LOGGER.info("wxxx"+wxw.toString());
 			LOGGER.info("openId "+wxw.getOpenid());
 			String openId = wxw.getOpenid();
 			/**
@@ -129,12 +136,11 @@ public class WeChatThirdPartyController {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 				}	
 			}else{
-				
 				LOGGER.info(" 没有绑定了:");
 				/*
 				 * 跳转到绑定手机号页面。也就是完善信息页面。  --》绑定类型微信
 				 */
-				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openId+"&type="+ThirdPartyType.WECHAT.getCode());
+				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,6 +249,115 @@ public class WeChatThirdPartyController {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+	
+	
+	
+	/**
+	 * Description：在微信端 ---> 普通登录需要获取到用户的openid
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("h5BsGetCodeUrlReqParams")
+	public void getOpenIdReqParams(HttpServletRequest req, HttpServletResponse res) throws Exception{
+
+		
+		String userName = req.getParameter("username");
+		OnlineUser ou = onlineUserService.findUserByLoginName(userName);
+		
+		WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserId(ou.getId());
+		if(wxw!=null){ //说明已经绑定过了  --》直接去首页
+			
+			LOGGER.info("已经绑定了:"+wxw.toString());
+			
+			res.sendRedirect(returnOpenidUri+"/xcview/html/home_page.html?openId"+wxw.getOpenid());
+		}else{ 		   //没有授权
+			String strLinkHome 	=
+				"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+
+				"&redirect_uri="+returnOpenidUri+"/xczh/wxlogin/h5GetCodeAndUserMobile?userName="+userName+
+			    "&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect";
+				
+			LOGGER.info("还没有绑定 要获取openid了:");
+			
+			LOGGER.info("strLinkHome:"+strLinkHome);
+			res.sendRedirect(strLinkHome);
+		}
+	}
+	
+	/**
+	 * 1、需要在写一个来判断这个微信信息是否包含了手机号。
+	 * 2、或者这个手机号是否和已经存在的一样
+	 */
+	@RequestMapping("h5GetCodeAndUserMobile")
+	public void h5GetCodeAndUserMobile(HttpServletRequest req, HttpServletResponse res,
+			Map<String, String> params) throws Exception {
+
+		ConfigUtil cfg = new ConfigUtil(req.getSession());
+		String returnOpenidUri = cfg.getConfig("returnOpenidUri");
+		/**
+		 * 微信回调后，获取微信信息。
+		 */
+		String userName = req.getParameter("userName");
+		String code = req.getParameter("code");
+		
+		LOGGER.info("WX return code:" +code);
+		
+		/*
+		 * 获取当前登录用户信息
+		 */
+		OnlineUser ou = onlineUserService.findUserByLoginName(userName);
+		/*
+		 * 获取当前微信信息
+		 */
+		WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
+		
+		if(!StringUtils.isNotBlank(wxw.getClient_id())){ // 当前微信号没有绑定手机号，就直接绑定这个手机号就行了
+			
+			LOGGER.info("当前微信号没有绑定手机号，就直接绑定这个手机号就行了:");
+			/*
+			 * 如果用户信息中的一些基本信息为null的话，可以把微信的中基本信息填充过去
+			 */
+			OnlineUser ouNew = new OnlineUser();
+			//性别
+			if(ou.getSex()==2){
+				ouNew.setSex(Integer.parseInt(wxw.getSex()));
+			}
+			//名称
+			if(StringUtils.isBlank(ou.getName())){
+				ouNew.setName(wxw.getNickname());
+			}
+			//头像
+			if(StringUtils.isBlank(ou.getSmallHeadPhoto())){
+				ouNew.setSmallHeadPhoto(wxw.getHeadimgurl());
+			}
+			ouNew.setUnionId(wxw.getUnionid());
+			/*
+			 * 更新用户信息
+			 */
+			onlineUserService.updateOnlineUserByWeixinInfo(ou,ouNew);
+			/*
+			 * 更新微信信息
+			 */
+			wxw.setClient_id(ou.getId());
+			wxcpClientUserWxMappingService.update(wxw);
+			/*
+			 * 去首页，首页是jsp吗，jsp哈哈就可以得到数据啦
+			 */
+			res.sendRedirect(returnOpenidUri+"/xcview/html/home_page.html?openId="+wxw.getOpenid());
+			
+		}else{	//这个微信号，已经绑定了其他的手机号，并不是现在的手机号，所以绑定不了了啊
+			
+			
+			LOGGER.info("这个微信号，已经绑定了其他的手机号，并不是现在的手机号，所以绑定不了了啊");
+			
+			res.sendRedirect(returnOpenidUri+"/xcview/html/home_page.html?openId="+wxw.getOpenid());
+		}
+	}
+	
+	
 	/**
 	 * 登陆成功处理
 	 * @param req
