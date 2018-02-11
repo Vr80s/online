@@ -39,7 +39,6 @@ if (is_weixin()) {
 function sanfangLogin(){
 	
 	location.href = "/xczh/wxlogin/wxGetCodeUrl";
-	
 	//location.href = "/bxg/wxjs/h5BsGetCodeUrl";
 }
 
@@ -108,11 +107,11 @@ function login(){
 			 *      所以需要获取获取当前微信号的呢。
 			 * 		如果不存在，说明没有绑定微信号。
 			 */
-			if(!stringnull(configresult.unionId) && access == "wx"){
+			if(!stringnull(configresult.unionId) && wxOrbrower == "wx"){
 				 /* 
 				  * 需要获取下用户信息啦，并且需要传递用户名和密码过去
 				  */
-				location.href = "/bxg/wxjs/h5BsGetCodeUrlReqParams?username="+number;
+				location.href = "/xczh/wxlogin/h5BsGetCodeUrlReqParams?username="+number;
 			}else{
 				/**
 				 * 添加 所有关于用户的缓存
