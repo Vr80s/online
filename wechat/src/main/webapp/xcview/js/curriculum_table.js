@@ -211,9 +211,9 @@ function queryDataByParams(params,data_type){
 				
 				var isFreeStr ="";
 				if(item.watchState == 0){
-					isFreeStr+="<p class='p0'><span>免费</span></p>";
-				}else if(item.watchState == 2){
 					isFreeStr+="<p class='p0'><span>"+item.currentPrice+"</span>熊猫币</p>";
+				}else if(item.watchState == 1){
+					isFreeStr+="<p class='p0'><span>免费</span></p>";
 				}
 				var typeStr="";
 				if(item.type ==3){

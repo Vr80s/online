@@ -342,7 +342,7 @@ public class XzAlipayController {
 		// 设置同步地址
 		
 		//
-		alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/topup.html?xmbCount=" + count);
+		alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/recharges.html?type=1&xmbCount=" + count);
 		
 		
 		// form表单生产

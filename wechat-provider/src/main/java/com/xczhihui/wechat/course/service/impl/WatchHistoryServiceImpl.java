@@ -1,11 +1,9 @@
 package com.xczhihui.wechat.course.service.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +11,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.mapper.WatchHistoryMapper;
-import com.xczhihui.wechat.course.model.Course;
 import com.xczhihui.wechat.course.model.WatchHistory;
 import com.xczhihui.wechat.course.service.IWatchHistoryService;
 import com.xczhihui.wechat.course.util.DateDistance;
@@ -32,6 +29,9 @@ import com.xczhihui.wechat.course.vo.WatchHistoryVO;
 @Service
 public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,WatchHistory> implements IWatchHistoryService {
 
+	
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(WatchHistoryServiceImpl.class);
+	
 	@Autowired
 	private WatchHistoryMapper watchHistoryMapper;
 	
@@ -43,10 +43,18 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 			String userId) {
 		
 		List<WatchHistoryVO> records = watchHistoryMapper.selectWatchHistory(page,userId);
+		
+		
 		for (WatchHistoryVO watchHistoryVO : records) {
-			String watch = DateUtil.formatDate(new Date(), DateUtil.FORMAT_DAY_TIME);
+			String watch = DateUtil.formatDate(watchHistoryVO.getWatchTime(), DateUtil.FORMAT_DAY_TIME);
 			String current = DateUtil.formatDate(new Date(),DateUtil.FORMAT_DAY_TIME);
+			
 			String distance = DateDistance.getNewDistanceTime(watch,current);
+			
+			LOGGER.info("watch:"+watch+"========current:"+current);
+			LOGGER.info("distance:"+distance);
+			
+			
 			watchHistoryVO.setTimeDifference(distance);
 		}
 		return   page.setRecords(records);
@@ -85,7 +93,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 		// TODO Auto-generated method stub
 		List<WatchHistory> list = watchHistoryMapper.findWatchHistoryByUserId(userId);
 		//System.out.println(list.get(0).getId());
-		System.out.println(list.size()+"{}{}{}{}{}{");
 		if(list.size()>0){
 			watchHistoryMapper.deleteBatch(list);
 		}
