@@ -65,6 +65,31 @@ $(function(){
         imagePopup:false,
         maximumWords:10000       //允许的最大字符数
     });
+    
+    
+    
+    
+    	
+	//主播基础信息中的医师的坐诊时间数组
+	var arr1 = [];
+	var workTime;
+	$('#workTime  li ').click(function(){
+		if($(this).hasClass('color')){
+		//删除第二次选中的
+			for(var i = 0 ;i < arr1.length; i++){
+            	if($(this).text() == arr1[i]){
+                arr1.splice(i,1)
+            	}
+       		}
+			workTime = arr1.toString();
+			$(this).removeClass('color');	
+		}else{
+			$(this).addClass('color');
+			arr1.push($(this).text());
+			workTime = arr1.toString();
+		}
+		console.log(workTime)
+	})
 });
 
 function initAuthentication (){
@@ -236,20 +261,42 @@ function isCardID(sId){
 }
 
 function saveAnchorInfo(){
+	//获取基础信息
     var anchorInfo = getAnchorInfo();
+    //验证基础信息
     if(verifyAnchorInfo(anchorInfo)){
-
+		alert(111)
+	//基础信息验证通过了验证医师医馆对应的信息
+	var anchorInfo1 = getAnchorInfo1();
     }
 }
 
+//获取的医师医馆的公共信息
 function getAnchorInfo(){
     var data = {};
     data.nickName = $(".anchor_nick_name").val();
     data.video = $("#speech_select").val();
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
+    data.Speech = $('#speech_select').val();
     data.detail = UE.getEditor('anchor_details_editor').getContent();
     return data;
 }
+
+
+
+//获取的医师医馆的公共信息
+//function getAnchorInfo1(){
+//  var data = {};
+//  data.hosName = $(".put1").val();
+//  data.workTime = workTime;
+//  data.province = $("#demo1 select:first-child").val();
+//  data.city = $('#demo1 select:last-child').val();
+//  data.hosDetail = $('#demo1 textarea').val();
+//  return data;
+//}
+
+
+
 
 function verifyAnchorInfo(data){
     if(data.nickName == ''){
@@ -258,16 +305,27 @@ function verifyAnchorInfo(data){
     }else{
         $('.warning_anchor_name').addClass('hide');
     }
+    
     if(data.profilePhoto == '' || data.profilePhoto == null){
         $('.warning_profileImgphoto').removeClass('hide');
         return false;
     }else{
         $('.warning_profileImgphoto').addClass('hide');
     }
+    
+     if(data.Speech == ''){
+        $('.warning_anchor_Speech').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_anchor_Speech').addClass('hide');
+    }
+    
     if(data.detail == ''){
         $('.warning_anchor_lecturer_description').removeClass('hide');
         return false;
     }else{
         $('.warning_anchor_lecturer_description').addClass('hide');
     }
+    
+    return true;
 }

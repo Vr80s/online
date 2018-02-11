@@ -179,7 +179,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         if(CollectionUtils.isNotEmpty(medicalHospital.getPictures())){
 
             // 删除之前的医馆照片
-            hospitalPictureMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
+            hospitalPictureMapper.updateDeletedByHospitalId(hospitalAccount.getDoctorId(), true);
 
             // 新增-新的医馆照片
             List<String> hospitalPictureUrlList = medicalHospital.getPictures();
@@ -267,9 +267,9 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
             throw new RuntimeException("请填写医馆所在城市");
         }
 
-        if(StringUtils.isBlank(medicalHospital.getDetailedAddress())){
-            throw new RuntimeException("请填写医馆详细地址");
-        }
+//        if(StringUtils.isBlank(medicalHospital.getDetailedAddress())){
+//            throw new RuntimeException("请填写医馆详细地址");
+//        }
 
     }
 }

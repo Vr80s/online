@@ -23,6 +23,8 @@ import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -53,6 +55,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
      * @param target 医馆入驻申请认证的信息封装
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void add(MedicalHospitalApply target) {
 
         // 参数校验
