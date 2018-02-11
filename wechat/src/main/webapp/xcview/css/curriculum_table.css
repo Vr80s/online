@@ -160,6 +160,12 @@ header{
     float: right;
     margin-top: 0.14rem;
     margin-right: 0.26rem;
+}   
+.header_seek span{
+	font-size: 0.14rem;
+	display: inherit;
+	margin-left: 0.35rem;
+	color: #999;
 }
 .header_seek_main {
     position: absolute;

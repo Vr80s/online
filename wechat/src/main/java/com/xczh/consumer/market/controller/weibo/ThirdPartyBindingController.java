@@ -53,7 +53,7 @@ import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
  * Create Time: 2018年2月2日<br>
  */
 @Controller
-@RequestMapping(value = "/xczh/third")
+@RequestMapping(value = "/xczh/bind")
 public class ThirdPartyBindingController {
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ThirdPartyBindingController.class);
@@ -154,6 +154,49 @@ public class ThirdPartyBindingController {
 			return ResponseObject.newSuccessResponseObject("解除绑定失败");
 		}
 	}
+	
+	/**
+	 * Description：用现有的手机号绑定微信、微博或者qq
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="mobileBindingThirdParty")
+	public ResponseObject addBinding(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam("unionId")String unionId,
+			@RequestParam("type")Integer type ){
+		/**
+		 * 获取用户信息
+		 */
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+		if(ou ==null){
+			return ResponseObject.newErrorResponseObject("登录失效");
+		}
+		try {
+			if(type==ThirdPartyType.WECHAT.getCode()){  //微信
+				WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(), unionId);
+				m.setClient_id("");
+				wxcpClientUserWxMappingService.update(m);
+			}else if(type==ThirdPartyType.WEIBO.getCode()){
+				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), unionId);
+		    	qq.setUserId("");
+		    	threePartiesLoginService.updateQQInfoAddUserId(qq);
+			}else if(type==ThirdPartyType.QQ.getCode()){
+				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(), unionId);
+		    	weibo.setUserId("");
+		    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
+			}
+			return ResponseObject.newSuccessResponseObject("解除绑定成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseObject.newSuccessResponseObject("解除绑定失败");
+		}
+	}
+	
 	
 	
 	

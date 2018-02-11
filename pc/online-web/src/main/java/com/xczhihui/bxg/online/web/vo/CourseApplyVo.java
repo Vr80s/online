@@ -61,10 +61,19 @@ public class CourseApplyVo {
     private  String  coursePwd;
 
     private Integer type;
-    
+    private Boolean collection;
+
     private int onlineCourse;
 
     private String directId;
+
+    public Boolean getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
 
     public String getDirectId() {
         return directId;

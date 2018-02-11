@@ -196,13 +196,25 @@ public class WeiBoThirdPartyController {
 	public ResponseObject appEvokeWeiBoRedirect(HttpServletRequest req,
 			HttpServletResponse res){
 		
-		String code = req.getParameter("code");
-		LOGGER.info("微博用户授权登录成功code"+code);
-		
-		Map<String,String> mapRequest = new HashMap<String,String>();
-		
-		Oauth oauth = new Oauth();
 		try {
+			String code = req.getParameter("code");
+			LOGGER.info("微博用户授权登录成功code"+code);
+			
+			//判断是绑定呢，还是解除绑定呢
+			String userId = req.getParameter("userId");
+		    if(StringUtils.isNotBlank(userId)){
+		    	OnlineUser ou =  onlineUserService.findUserById(userId);
+		    	if(ou == null){
+		    		return	ResponseObject.newErrorResponseObject("获取用户信息有误");
+		    	}
+		    }
+			
+			
+			Map<String,String> mapRequest = new HashMap<String,String>();
+			mapRequest.put("type",ThirdPartyType.WEIBO.getCode()+"");
+			
+			
+			Oauth oauth = new Oauth();
 			/**
 			 * 通过code获取认证 微博唯一票据
 			 */
@@ -243,15 +255,28 @@ public class WeiBoThirdPartyController {
 					String name =wbuser.getName();
 					name= SLEmojiFilter.filterEmoji(name);
 					wbuser.setName(name);
+					
+					if(userId!=null){  // 绑定成功
+						wbuser.setUserId(userId);	
+			            mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
+			 	    }else{
+			 		    mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+			 		}
+					mapRequest.put("unionId",at.getUid()+"");
+					
 					threePartiesLoginService.saveWeiboClientUserMapping(wbuser);
 					
-					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
-					mapRequest.put("openId",at.getUid()+"");
-					
-					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
+					return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 				}else if(StringUtils.isNotBlank(wcum.getUserId())){ //绑定了用户信息了
 					
+					
 					LOGGER.info("绑定了用户信息了-wcum.getUserId()-------:"+wcum.getUserId());
+
+					if(userId!=null){  // 这里说明人家这个已经绑定过其他信息了。
+						mapRequest.put("code",UserUnitedStateType.MOBILE_UNBOUNDED.getCode()+"");	
+						return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
+		 			}
+					
 					
 					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
 					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
@@ -269,20 +294,30 @@ public class WeiBoThirdPartyController {
 					
 					LOGGER.info("没有绑定了用户信息了"+wcum.getUserId());
 					
+					
+					if(userId!=null){  // 绑定成功
+		            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
+		            	 /**
+		            	  * 更改qq信息	--》增加用户id
+		            	  */
+		            	 wcum.setUserId(userId);
+		            	 threePartiesLoginService.updateWeiboInfoAddUserId(wcum);
+		 			}else{
+		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
+		 			}
 					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
-					mapRequest.put("openId",at.getUid()+"");
+					mapRequest.put("unionId",at.getUid()+"");
 					
 					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
 				}
 			} catch (Exception  e) {
 				e.printStackTrace();
-				LOGGER.info("==============");
 				mapRequest.put("code",UserUnitedStateType.DATA_IS_WRONG.getCode()+"");
-				mapRequest.put("openId",at.getUid()+"");
+				mapRequest.put("unionId",at.getUid()+"");
 				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.DATA_IS_WRONG.getCode());
 			}  
 			return ResponseObject.newSuccessResponseObject("");
-		} catch (WeiboException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}	

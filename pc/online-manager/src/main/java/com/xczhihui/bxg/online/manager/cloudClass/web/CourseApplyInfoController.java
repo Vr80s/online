@@ -10,6 +10,7 @@ import com.xczhihui.bxg.online.common.domain.*;
 import com.xczhihui.bxg.online.common.enums.CourseForm;
 import com.xczhihui.bxg.online.common.enums.CourseDismissal;
 import com.xczhihui.bxg.online.common.enums.Multimedia;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseApplyService;
 import com.xczhihui.bxg.online.manager.cloudClass.service.CourseService;
 import com.xczhihui.bxg.online.manager.cloudClass.vo.LecturerVo;
@@ -19,6 +20,7 @@ import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 课程管理控制层实现类
@@ -51,6 +54,8 @@ public class CourseApplyInfoController extends AbstractController{
 	
 	@Autowired
 	private OnlineUserService  onlineUserService;
+	@Autowired
+	private RedissonUtil redissonUtil;
 	
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request) {
@@ -169,7 +174,29 @@ public class CourseApplyInfoController extends AbstractController{
 	@ResponseBody
 	public ResponseObject pass(Integer courseApplyId){
 		ResponseObject responseObj = new ResponseObject();
-		courseApplyService.savePass(courseApplyId,UserHolder.getCurrentUser().getId());
+		// 获得锁对象实例
+		RLock redissonLock = redissonUtil.getRedisson().getLock("courseApply-pass"+courseApplyId);
+
+		boolean resl = false;
+		try {
+			//等待3秒 有效期8秒
+			resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+			if(resl){
+				courseApplyService.savePass(courseApplyId,UserHolder.getCurrentUser().getId());
+			}
+		}catch (RuntimeException e){
+			throw e;
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new RuntimeException("网络错误，请重试");
+		}finally {
+			if(resl){
+				redissonLock.unlock();
+			}else{
+				throw new RuntimeException("网络错误，请重试");
+			}
+		}
+
 		responseObj.setSuccess(true);
 		responseObj.setErrorMessage("成功通过申请");
 		return responseObj;
@@ -185,7 +212,28 @@ public class CourseApplyInfoController extends AbstractController{
 	@ResponseBody
 	public ResponseObject notPass(@RequestBody CourseApplyInfo courseApplyInfo){
 		ResponseObject responseObj = new ResponseObject();
-		courseApplyService.saveNotPass(courseApplyInfo,UserHolder.getCurrentUser().getId());
+		// 获得锁对象实例
+		RLock redissonLock = redissonUtil.getRedisson().getLock("courseApply-notPass"+courseApplyInfo.getId());
+
+		boolean resl = false;
+		try {
+			//等待3秒 有效期8秒
+			resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
+			if(resl){
+				courseApplyService.saveNotPass(courseApplyInfo,UserHolder.getCurrentUser().getId());
+			}
+		}catch (RuntimeException e){
+			throw e;
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new RuntimeException("网络错误，请重试");
+		}finally {
+			if(resl){
+				redissonLock.unlock();
+			}else{
+				throw new RuntimeException("网络错误，请重试");
+			}
+		}
 		responseObj.setSuccess(true);
 		responseObj.setErrorMessage("成功拒绝申请");
 		return responseObj;
