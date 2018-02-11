@@ -33,6 +33,7 @@ $(function(){
 	//点击出现下拉栏        收益
 	$(".select_list .select-udss").bind('click',function(event){
 		$('#mymoney').addClass('hide');
+		$('#kecheng_Resive').removeClass('hide');
 		$('.wrap_box .little_box').css('display','none');
 		$('.account .account_main').css('display','none');
 		$('.myResive ').css('display','block');
