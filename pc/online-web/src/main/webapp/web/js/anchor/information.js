@@ -291,8 +291,8 @@ function saveAnchorInfo(){
 	
 	
 	if(localStorage.AccountStatus == 2){
-		var ancHosInfo2 = getHosInfo();
-		if(verifyAnchorInfo(anchorInfo2)){
+		var ancHosInfo2 = getAnchorInfo2();
+		if(verifyAnchorInfo2(anchorInfo2)){
 		 	//验证通过之后进行
 		RequestService("/anchor/info", "post", ancHosInfo2,function(data){
     	
