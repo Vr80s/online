@@ -29,6 +29,7 @@ $(function(){
         //获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
+	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));

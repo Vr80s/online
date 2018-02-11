@@ -594,6 +594,7 @@ color: #666666;
 
 	text-align: center;
 	    margin-top: 0.18rem;
+	    width: 1rem;
 }
 .all_returned_num img{
 	width: 0.4rem;
@@ -603,6 +604,9 @@ color: #666666;
 	color: #999999;
 	font-size: 0.24rem;
 	margin-top: -0.1rem;
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
 }
 /*评论用户弹出框*/
 .bg_userModal{

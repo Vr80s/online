@@ -88,6 +88,8 @@ $(".bg_userModal").click(function(){
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));
+       	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
+		
 	//	直播时间/主播名字
 		$("#wrap_playTime").html(template('data_name',data.resultObject));
 
@@ -153,7 +155,8 @@ function refresh(){
 		//  	判断有无评论显示默认图片结束
         //	课程名称/等级/评论
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-        //判断是否是第一次评论
+
+       //判断是否是第一次评论
         $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
         //	回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function(){

@@ -129,9 +129,21 @@ header {
 }
 /*中间内容结束*/
 
+/*暂无课程*/
+.no_class{
+	direction: down;
+	    text-align: center;
+	margin-top: 3rem;
+}
+.no_class img{
+    width: 2.5rem;
+}
+.no_class p{
+	color: #999;
+	font-size: 0.28rem;
+	text-align: center;
 
-
-
+}
 
 
 
