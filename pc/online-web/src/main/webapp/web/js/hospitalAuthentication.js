@@ -187,11 +187,11 @@ $(function(){
 		
 		//营业执照号
 		if(zhizhaoNum == ''){
-			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('营业执照号不能为空');
+			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码不能为空');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
 			return false;
 		}else if(!Number.test(zhizhaoNum)){
-			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('营业执照号格式错误');
+			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码格式错误');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
 			return false;
 		}else{
