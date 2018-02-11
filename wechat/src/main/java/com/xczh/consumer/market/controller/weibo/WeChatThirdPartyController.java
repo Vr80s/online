@@ -1,6 +1,5 @@
 package com.xczh.consumer.market.controller.weibo;
 
-import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jcraft.jsch.Logger;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.CacheService;
@@ -70,7 +68,7 @@ public class WeChatThirdPartyController {
 	private String returnOpenidUri;
 	
 	/**
-	 * Description：h5   --》 得到微信微信 oauth2 获取code
+	 * Description：h5 --》 得到微信微信 oauth2 获取code
 	 * @param req
 	 * @param res
 	 * @param params
@@ -79,13 +77,25 @@ public class WeChatThirdPartyController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("wxGetCodeUrl")
-	public void getOpenId(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception{
+	public void getOpenId(HttpServletRequest req,
+			HttpServletResponse res) throws Exception{
 		
-		String strLinkHome 	= WxPayConst.CODE_URL_3+"?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxlogin/wxThirdGetAccessToken&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+		String redirect_uri ="/xczh/wxlogin/wxThirdGetAccessToken";
+		String userId = req.getParameter("userId");
+	    if(StringUtils.isNotBlank(userId)){
+	    	OnlineUser ou =  onlineUserService.findUserById(userId);
+	    	if(ou == null){ //用户信息异常---》直接去登录页面
+	    		res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
+	    		return;
+	    	}
+	    	redirect_uri +="?userId="+userId;
+	    }
+		String strLinkHome 	= WxPayConst.CODE_URL_3+"?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+redirect_uri+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 		LOGGER.info("strLinkHome:"+strLinkHome);
 		//存到session中，如果用户回调成功
 		res.sendRedirect(strLinkHome);
 	}
+	
 
 	/**
 	 * 点击在线课堂    --》微信授权获取用户信息后的回调
@@ -102,6 +112,7 @@ public class WeChatThirdPartyController {
 			Map<String, String> params) throws Exception {
 		
 		LOGGER.info("WX return code:" + req.getParameter("code"));
+		LOGGER.info("WX return userId:" + req.getParameter("userId"));
 		try {
 			/**
 			 * 通过code获取微信信息
@@ -109,12 +120,9 @@ public class WeChatThirdPartyController {
 			String code = req.getParameter("code");
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			
-		
-			//WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfoByUnionId(code,wxcpClientUserWxMappingService);
 			if(wxw==null){
 				LOGGER.info("微信第三方认证失败 ");
 			}
-		
 			LOGGER.info("wxxx"+wxw.toString());
 			LOGGER.info("openId "+wxw.getOpenid());
 			String openId = wxw.getOpenid();

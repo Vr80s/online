@@ -95,6 +95,7 @@ public class ThirdPartyBindingController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping(value="userBindingInfo")
+	@ResponseBody
 	public ResponseObject userBindingInfo(HttpServletRequest req,
 			HttpServletResponse res ){
 		/**

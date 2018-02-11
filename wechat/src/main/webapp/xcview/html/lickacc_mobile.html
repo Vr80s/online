@@ -16,14 +16,6 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
-<!-- 刷新引入js -->
-<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
-<!-- <script src="/xcviews/js/common/swiper.jquery.min.js" type="text/javascript" charset="utf-8"></script> -->
-<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js"></script>
-
-<link rel="stylesheet" href="/xcview/css/lickacc_mobile.css">
-<script type="text/javascript" src="../js/lickacc_mobile.js"></script>
 
 </head>
 <body style="background:#efefef;">
@@ -59,14 +51,14 @@
 		
 		
 		<div class="email_title">其他登录方式</div>
-		<div class="email_one" style="height: 2.94rem;">
+		<div class="email_one" style="height: 0.96rem;">
 			<div class="div0">
 				<span class="span0">微信</span>
 				<img src="../images/account05.png" alt="" />
-				<span class="span1">去绑定</span>
+				<span class="span1" id="weixin_bind">去绑定</span>
 				
 			</div>
-			<div class="div0">
+			<!-- <div class="div0">
 				<span class="span0">腾讯QQ</span>
 				<img src="../images/account05.png" alt="" />
 				<span class="span1">去绑定</span>
@@ -77,15 +69,18 @@
 				<img src="../images/account05.png" alt="" />
 				<span class="span1">去绑定</span>
 				
-			</div>
+			</div> -->
 		</div>
 	</div>
 	
 	<!-- 中间内容结束 -->
-	
-
 </body>
-
+<!-- 刷新引入js -->
+<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js"></script>
+<link rel="stylesheet" href="/xcview/css/lickacc_mobile.css">
+<script type="text/javascript" src="../js/lickacc_mobile.js"></script>
 <script>
 	var kk=document.documentElement.clientWidth;
 	if(kk>750){
