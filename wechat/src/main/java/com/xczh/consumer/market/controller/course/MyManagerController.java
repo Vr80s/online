@@ -294,6 +294,8 @@ public class MyManagerController {
 		map.put("rmbNumber",
 				userCoinService.getEnchashmentBalanceByUserId(userId));
 
+		
+		
 		// BigDecimal bd = list.get(2);//获取熊猫币数量
 		// //转换为人民币数量
 		// bd = bd.divide(new BigDecimal(rate), 2,RoundingMode.DOWN);
