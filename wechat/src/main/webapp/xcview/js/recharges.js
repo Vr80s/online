@@ -13,10 +13,13 @@ function is_weixn(){
 
 var type = getQueryString("type"); //若果type 不等于null 时提示充值成功。
 
+var xmbCount = getQueryString("xmbCount");
 if(stringnull(type) || type == 1){
-	alert("充值成功");
+	
+	$(".success").show();
+	$("#xmb_success").html(xmbCount);
+	//alert("充值成功");
 }
-
 
 var orderNo = "";
 var type =""; //判断课程类别，支付使用
@@ -50,14 +53,11 @@ function  goPay() {
 	 * 这里需要获取熊猫币的余额
 	 */
 	var actualPay  = $("#ul").find(".li0").find(".p1").find("span").text();
-
 //	alert(actualPay);    测试弹出多少元
 	console.log("实际充值的人民币"+actualPay);
-	
 //	actualPay = 1; //充值金额人民币
-//
 //	//测试  
-	actualPay = 0.01;
+//	actualPay = 0.01;
 	
 	if(payType == 2){ //支付宝支付  rechargePay
     	/**
@@ -67,7 +67,7 @@ function  goPay() {
      		  //去另一个页面引导用户去外部浏览器打开
      		  //0:支付宝 1:微信 2:网银	
               location.href = "/xcview/html/wechat_alipay.html?userId="+localStorage.userId+"&actualPay="+actualPay+
-              "&redirectUrl="+getRedirectUrl()+"&type=2";
+              "&redirectUrl="+getRedirectUrl(10*actualPay);
               return;
           }
           jmpPayPage("/xczh/alipay/rechargePay",payType,"actualPay="+actualPay,null);
@@ -85,7 +85,7 @@ function  goPay() {
         if(stringnull(openId)){
         	strparam+="&openId="+openId;
         }
-        jmpPayPage("/xczh/pay/rechargePay",payType,strparam,getRedirectUrl());
+        jmpPayPage("/xczh/pay/rechargePay",payType,strparam,getRedirectUrl(10*actualPay));
     }
 }
 
@@ -94,11 +94,11 @@ function  goPay() {
  * @param allCourse
  * @returns {String}
  */
-function getRedirectUrl(){
+function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-   return "/xcviews/html/recharges.html?type=1";
+   return "/xcviews/html/recharges.html?type=1&xmbCount="+actualPay;
 }
 
 

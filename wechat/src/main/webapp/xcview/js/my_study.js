@@ -10,7 +10,6 @@ $(function(){
 		}
 
 	})	
-	
 //	点击清除播放历史弹出确认取消框
 	$(".play-title p").click(function(){
 		$(".history_bg").show();

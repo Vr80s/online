@@ -123,6 +123,7 @@ public class ThirdPartyBindingController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping(value="removeBinding")
+	@ResponseBody
 	public ResponseObject removeBinding(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("unionId")String unionId,
