@@ -333,7 +333,8 @@ $(".message_return .message_title .two").click(function() {
 //	
 
 	//主播修改信息的时候获取医馆信息渲染医馆列表
-RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
+	if(localStorage.AccountStatus == 1){
+		RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
     //头像预览
     console.log(data);
 
@@ -349,6 +350,8 @@ RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(dat
     });
 
 });
+
+	}
 
 });
 
