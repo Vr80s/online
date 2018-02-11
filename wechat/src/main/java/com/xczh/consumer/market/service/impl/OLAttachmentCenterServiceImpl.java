@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service.impl;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
 import com.xczh.consumer.market.utils.HttpUtil;
 
@@ -31,9 +32,12 @@ public class OLAttachmentCenterServiceImpl implements OLAttachmentCenterService 
 		
 	 
 		System.out.println("attachmentCenterPath : "+attachmentCenterPath+"/attachment/upload");
-		
-		return HttpUtil.uploadFile(attachmentCenterPath+"/attachment/upload", parameters,
+		String headImgPath=HttpUtil.uploadFile(attachmentCenterPath+"/attachment/upload", parameters,
 				"attachment", fileName, contentType, fileData);
+		JSONObject objectJson = JSONObject.parseObject(headImgPath);
+		String url = objectJson.get("url").toString();
+		System.out.println("url+++++++++++++++++"+url);
+		return url;
 	}
 
 }

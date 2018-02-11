@@ -35,7 +35,7 @@ public class ListenCourseMapper extends BasicSimpleDao {
 		sql.append(" where   "
 				+ "oc.is_delete=0 and oc.status = 1   ");
 		sql.append(" and oc.multimedia_type = 2 ");
-		sql.append(" order by oc.recommend_sort desc limit 0,12 ");
+		sql.append(" order by oc.recommend_sort desc,oc.create_time desc limit 0,12 ");
 		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseLecturVo.class) );
 	}
 	

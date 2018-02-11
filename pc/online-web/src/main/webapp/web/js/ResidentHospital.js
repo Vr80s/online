@@ -517,13 +517,14 @@ function picUpdown2(baseurl,imgname){
 				}else{
 					$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','none');
 				}
-				if($('#hos_Administration #hos_pic img').length == 9){
-				$('#tip').text('医馆图片最多上传9张');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},1500)
-					return false;
+				if($('#hos_Administration #hos_pic img').length == 8){
+					$('#upHosPic').addClass('hide')
+//				$('#tip').text('医馆图片最多上传9张');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},1500)
+//					return false;
 				}
 //				 $('#hos_Administration .hos_base_inf  .'+imgname+'').append('<img src="'+data.resultObject+'" >');
 				 $('#hos_Administration #hos_pic').removeClass('hide');
