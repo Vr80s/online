@@ -112,7 +112,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 			var array_element = cityTypeArray[int];
 			if(city == array_element.id){
 				saisuanstr += array_element.name+"-";
-				paramsObj.city = name;
+				paramsObj.city = array_element.name;
 				break;
 			}
 		}
