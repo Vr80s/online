@@ -19,6 +19,9 @@ function initBasaeAssetInfo (){
         $("#toResultIpt").attr("placeholder","本次最多可结算"+data.resultObject.coinBalance+"熊猫币");
         $(".rmb").html(data.resultObject.rmb);
         $(".bankCount").html(data.resultObject.bankCount);
+        $(".hdrmb").addClass('hide');
+        $(".amount").val('');
+        $(".vcode").val('');
     });
     getCoinTransactionList(1);
     getRmbTransactionList(1);
@@ -152,6 +155,7 @@ function saveSettlement(){
     }
     RequestService("/anchor/settlement", "post", {"amount":amount}, function(data) {
         showTip(data.resultObject);
+        $("#toResultIpt").val("");
         initBasaeAssetInfo();
     });
 }
