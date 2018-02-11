@@ -79,7 +79,7 @@ header {
 }
 .email_one{
 	width: 100%;
-	height: 1.96rem;
+	height: 1.94rem;
 	background: #fff;
 }
 .email_one div{
@@ -107,4 +107,85 @@ header {
 	float: right;
 }
 /*中间内容结束*/
+
+/*充值成功*/
+.success{
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+.success_bg{
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: 0.5;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 9;
+}
+.success_main{
+	width: 5.4rem;
+    height: 2.67rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -2rem;
+    margin-left: -2.7rem;
+    background: #fff;
+    z-index: 9;
+    border-radius: 16px;
+}
+.success_main div{
+	width: 100%;
+	text-align: center;
+}
+.success_main .one{
+	font-size: 0.32rem;
+	color: #333;
+	margin-top: 0.46rem;
+	margin-bottom: 0.2rem;
+}
+.success_main .two{
+	font-size: 0.26rem;
+	color: #333;
+	margin-bottom: 0.851rem;
+}
+.success_main .three{
+	/*font-size: 0.638rem;
+	color: #00BC12;
+	width: 100%;
+	height: 1.851rem;
+	line-height: 1.851rem;
+	text-align: center;
+	border-top: 1px solid #D8DDE6;*/
+}
+
+.success_main .three{
+	font-size: 0.3rem;
+	color: #00BC12;
+	width: 100%;
+	/*height: 1.851rem;
+	line-height: 1.851rem;*/
+    height: 0.87rem;
+    line-height: 0.87rem;
+	/*text-align: center;*/
+	border-top: 1px solid #D8DDE6;
+	position: absolute;
+    bottom: 0;
+    text-align: center;
+}
+.success_main .three .three_btn0{
+	width: 49%;
+	text-align: center;
+	float: left;
+	color: #333333;
+}
+.success_main .three .three_btn1{
+	width: 49%;
+	text-align: center;
+	float: left;
+	color: #00BC12;
+	border-left: 1px solid #D8DDE6;
+}
 
