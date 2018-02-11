@@ -133,7 +133,7 @@ header {
 .no_class{
 	direction: down;
 	    text-align: center;
-	
+	margin-top: 3rem;
 }
 .no_class img{
     width: 2.5rem;
