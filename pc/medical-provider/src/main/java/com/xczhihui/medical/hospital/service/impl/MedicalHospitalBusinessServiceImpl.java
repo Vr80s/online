@@ -179,7 +179,7 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         if(CollectionUtils.isNotEmpty(medicalHospital.getPictures())){
 
             // 删除之前的医馆照片
-            hospitalPictureMapper.updateDeletedByHospitalId(medicalHospital.getId(), true);
+            hospitalPictureMapper.updateDeletedByHospitalId(hospitalAccount.getDoctorId(), true);
 
             // 新增-新的医馆照片
             List<String> hospitalPictureUrlList = medicalHospital.getPictures();
