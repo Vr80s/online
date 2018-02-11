@@ -665,7 +665,7 @@ color: #666666;
 }
 
 .all_returned_num{
-
+	width: 1rem;
 	text-align: center;
 	    margin-top: 0.18rem;
 }
@@ -677,6 +677,9 @@ color: #666666;
 	color: #ddd;
 	font-size: 0.24rem;
 	margin-top: -0.1rem;
+	 overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
 }
 /*评论用户弹出框*/
 .bg_userModal{
