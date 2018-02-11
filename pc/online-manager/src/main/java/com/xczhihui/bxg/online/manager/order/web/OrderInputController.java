@@ -125,8 +125,9 @@ public class OrderInputController{
 				v.setClass_id(row.getCell(2).getStringCellValue());
 				
 				row.getCell(3).setCellType(Cell.CELL_TYPE_STRING);
-				if(Integer.valueOf(row.getCell(3).getStringCellValue())!= OrderFrom.OFFLINE.getCode()&&Integer.valueOf(row.getCell(3).getStringCellValue())!= OrderFrom.WORKER.getCode()){
-					throw new RuntimeException("订单类型必须为5(下线订单)或6(工作人员)");
+				Integer of = Integer.valueOf(row.getCell(3).getStringCellValue());
+				if(of != OrderFrom.OFFLINE.getCode()&&of!= OrderFrom.WORKER.getCode()&&of!= OrderFrom.GIVE.getCode()){
+					throw new RuntimeException("订单类型必须为5(下线订单)或6(工作人员)或0(赠送)");
 				}
 				v.setOrder_from(Integer.valueOf(row.getCell(3).getStringCellValue()));
 				service.checkOrderInput(v);

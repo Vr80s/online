@@ -124,7 +124,7 @@ $(function(){
 		}
 		var fieldIds = [];
 		for(var i=0;i<$('.hos_base_inf .keshi .keshiColor').length;i++){
-            fieldIds.push($('.hos_base_inf .keshi .keshiColor').attr("data-id"))
+            fieldIds.push($('.hos_base_inf .keshi .keshiColor').eq(i).attr("data-id"))
 		}
 		data.pictures = hoslist;
 		data.fieldIds = fieldIds;
@@ -164,7 +164,7 @@ $(function(){
 		var company = $.trim($('.hos_renzheng_inf .bottomContent .doc_name').val());
 		var zhizhaoNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_Idnum').val());
 		var xukeNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_zhicheng').val());
-		var Number = /^[0-9]{18}$/;
+		var Number = /^[0-9A-Z]{18}$/;
 		var hosName = $.trim($('.hos_renzheng_inf .bottomContent .hos_name').val());
 		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;
 		//医馆名称验证
@@ -187,11 +187,11 @@ $(function(){
 		
 		//营业执照号
 		if(zhizhaoNum == ''){
-			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('营业执照号不能为空');
+			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码不能为空');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
 			return false;
 		}else if(!Number.test(zhizhaoNum)){
-			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('营业执照号格式错误');
+			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码格式错误');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
 			return false;
 		}else{

@@ -52,6 +52,7 @@ a {
   width: 1200px;
   padding-bottom: 60px;
   margin: 0 auto;
+  min-height: 738px;
 }
 .container .row {
   margin: 0;

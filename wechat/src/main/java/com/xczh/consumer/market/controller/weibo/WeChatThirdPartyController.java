@@ -131,6 +131,9 @@ public class WeChatThirdPartyController {
 			 */
 			if(StringUtils.isNotBlank(wxw.getClient_id())){
 				
+				
+				
+				
 				LOGGER.info(" 已经绑定过了:" +wxw.getClient_id());
 				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
@@ -139,7 +142,7 @@ public class WeChatThirdPartyController {
 				onlogin(req,res,t,ou,t.getTicket());
 				
 				if (openId != null && !openId.isEmpty()) {
-					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId"+ openId);
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+ openId);
 				} else{
 					res.sendRedirect(returnOpenidUri + "/xcview/html/enter.html");
 				}	
@@ -308,7 +311,7 @@ public class WeChatThirdPartyController {
 			
 			LOGGER.info("已经绑定了:"+wxw.toString());
 			
-			res.sendRedirect(returnOpenidUri+"/xcview/html/home_page.html?openId"+wxw.getOpenid());
+			res.sendRedirect(returnOpenidUri+"/xcview/html/home_page.html?openId="+wxw.getOpenid());
 		}else{ 		   //没有授权
 			String strLinkHome 	=
 				"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+

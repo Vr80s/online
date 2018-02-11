@@ -405,7 +405,7 @@
 					 	<input type="text" name="whenLong"  disabled="disabled"  readonly="readonly"  id="courseLength_edit" maxlength="4"  class="col-xs-10 col-sm-12 {required:true,number:true}">
 		             </div>
 					 <div class="col-sm-1 control-label " style="text-align: left;">
-		           	      小时
+		           	      分钟
 		            </div>
 		            
 		            <label class="col-sm-2 control-label "><i class="text-danger">*</i> 开播时间: </label>

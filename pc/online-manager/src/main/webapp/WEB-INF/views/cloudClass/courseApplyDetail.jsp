@@ -199,7 +199,7 @@
 			<label class="col-sm-1 control-label no-padding-right">课程时长:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="control-label no-padding-right">${courseApplyInfo.courseLength}小时</label>
+					<label class="control-label no-padding-right">${courseApplyInfo.courseLength}分钟</label>
 				</div>
 			</div>
 			<c:choose>
