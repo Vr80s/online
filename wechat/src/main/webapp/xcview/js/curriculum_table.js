@@ -317,9 +317,15 @@ function typeQuery(){
     }
     queryDataByParams(paramsObj,data_type);
 }
-
-
-
+//顶部搜索框获取文字显示
+  function getQueryString(key){
+        var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+        var result = window.location.search.substr(1).match(reg);
+        return result?decodeURIComponent(result[2]):null;
+    }
+    var urlAttribute=getQueryString('queryKey')
+   	$('.header_seek').append('<span>' + urlAttribute + '</span>');
+    
 
 //JQ预加载分界线----------------------------------------------------------------
 
