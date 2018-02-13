@@ -70,14 +70,16 @@ $(".more_btm").click(function(){
 /**
  * 请求banner   -- 两个
  */
+var bannerList;
 requestService("/bxg/binner/list",null, 
     function(data) {
 		if(data.success){
 			var result = data.resultObject;
 			var str ="";
+            bannerList = result;
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
-				str+="<li class='sw-slide'>"+
+				str+="<li class='sw-slide' onclick='jumpBannerUrl("+int+")'>"+
 		            "<img src='"+wb.img_path+"' alt='Concept for children game'>" +
 		          "</li>";
 			}
@@ -87,6 +89,10 @@ requestService("/bxg/binner/list",null,
 		};
 },false)
 
+function jumpBannerUrl(i) {
+	if(bannerList[i].url=='')return;
+	location.href=bannerList[i].url;
+}
 /**
  * 直播、视频、音频的点击事件
  */

@@ -188,7 +188,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 		all.append(" oc.description as courseDescription  ");//判断是否要输入密码
 		
 		all.append(" from oe_course oc, oe_course_mobile ocm,oe_user ou ");
-		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.id =?  and oc.is_delete=0 and oc.status=1 and oc.type is null");
+		all.append(" where oc.user_lecturer_id = ou.id and oc.id=ocm.course_id and oc.id =?  and oc.is_delete=0 and oc.type is null");
 		Object[] params = {course_id};
 		return  super.query(JdbcUtil.getCurrentConnection(), all.toString(), new BeanHandler<>(CourseLecturVo.class),params);
 	}

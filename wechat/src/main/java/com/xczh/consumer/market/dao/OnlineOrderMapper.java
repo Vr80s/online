@@ -242,12 +242,36 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 		
 			if(1==type){
 				//CourseVo
-				sql = " select oc.end_time endTime, oc.online_course onlineCourse,oc.current_price currentPrice,ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
-						" ( SELECT COUNT(id) from oe_video  where course_id=oc.id and is_delete=0 and  status=1  ) as count, " +
-						" ( SELECT COUNT(id) from user_r_video  where course_id=oc.id and study_status=1  and status=1 and is_delete=0 and  user_id=? ) as learndCount" +
-						" from  oe_course  oc left join  user_r_video v  on oc.id = v.course_id inner join oe_user as ou on oc.user_lecturer_id = ou.id  where v.user_id=?  and oc.is_delete=0 and oc.status=1 group by oc.id ";
-					List<OnlineCourse> list =
-					this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId,userId);
+//				sql = " select oc.end_time endTime, oc.online_course onlineCourse,oc.current_price currentPrice,ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath," +
+//						" ( SELECT COUNT(id) from oe_video  where course_id=oc.id and is_delete=0 and  status=1  ) as count, " +
+//						" ( SELECT COUNT(id) from user_r_video  where course_id=oc.id and study_status=1  and status=1 and is_delete=0 and  user_id=? ) as learndCount" +
+//						" from  oe_course  oc left join  user_r_video v  on oc.id = v.course_id inner join oe_user as ou on oc.user_lecturer_id = ou.id  where v.user_id=?  and oc.is_delete=0 group by oc.id ";
+				sql = "SELECT \n" +
+						"  oc.end_time endTime,\n" +
+						"  oc.online_course onlineCourse,\n" +
+						"  oc.current_price currentPrice,\n" +
+						"  ou.name AS teacherName,\n" +
+						"  IF(\n" +
+						"    oc.type IS NOT NULL,\n" +
+						"    1,\n" +
+						"    IF(oc.multimedia_type = 1, 2, 3)\n" +
+						"  ) AS TYPE,\n" +
+						"  oc.id,\n" +
+						"  oc.grade_name AS courseName,\n" +
+						"  oc.smallimg_path AS smallImgPath\n" +
+						"FROM\n" +
+						"  oe_course oc \n" +
+						"  JOIN `apply_r_grade_course` argc \n" +
+						"    ON oc.id = argc.`course_id` \n" +
+						"  INNER JOIN oe_user AS ou \n" +
+						"    ON oc.user_lecturer_id = ou.id \n" +
+						"WHERE oc.`online_course` = 0 \n" +
+						"  AND ISNULL(oc.type)\n" +
+						"  AND argc.user_id = ?\n" +
+						"  AND oc.is_delete = 0 \n" +
+						"GROUP BY oc.id ";
+				List<OnlineCourse> list =
+					this.queryPage(JdbcUtil.getCurrentConnection(), sql.toString(), pageNumber, pageSize,OnlineCourse.class ,userId);
 					return list;
 			}else if(2==type){
 				sql = " select oc.online_course onlineCourse, oc.current_price currentPrice, ou.name as teacherName,if(oc.type is not null,1,if(oc.multimedia_type=1,2,3)) as type,oc.live_status as lineState, oc.id,oc.grade_name as courseName,oc.smallimg_path as smallImgPath, oc.`start_time` AS startTime, oc.`end_time` AS endTime,oc.direct_id" +
