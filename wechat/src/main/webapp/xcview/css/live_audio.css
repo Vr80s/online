@@ -41,7 +41,7 @@ textarea::-webkit-input-placeholder {
 	line-height: 0.88rem;
 	overflow: hidden;
 	position: fixed;
-	border-bottom: 1px xcview	
+
 	background: white;
 	z-index: 999999;
 }
