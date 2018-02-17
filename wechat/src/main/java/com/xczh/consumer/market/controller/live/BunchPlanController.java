@@ -139,9 +139,12 @@ public class BunchPlanController {
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
 		CourseLecturVo courseLecturVo =wxcpCourseService.bunchDetailsByCourseId(Integer.parseInt(courseid));
 		
+		
+		
 		if(courseLecturVo == null){
 			return ResponseObject.newSuccessResponseObject("获取课程异常");
 		}
+		LOGGER.info("getWatchState:"+courseLecturVo.getWatchState());
 		if(user != null ){
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
 			courseLecturVo.setIsfocus(isFours);
@@ -149,6 +152,10 @@ public class BunchPlanController {
 			if(courseLecturVo.getWatchState()==0){
 				onlineWebService.saveEntryVideo(Integer.parseInt(courseid), user);
 			}else{
+				
+				LOGGER.info("getUserId:"+courseLecturVo.getUserId()+"======"+user.getId());
+				LOGGER.info("courseid:"+onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size());
+				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
 			       //LOGGER.info("同学,当前课程您已经报名了!");

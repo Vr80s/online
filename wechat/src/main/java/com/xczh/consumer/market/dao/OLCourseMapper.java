@@ -185,7 +185,7 @@ public class OLCourseMapper extends BasicSimpleDao {
 		
 		//all.append(" (select ROUND(sum(time_to_sec(CONCAT('00:',video_time)))/3600,1) from  oe_video where course_id = oc.id) as courseLength, ");//课程时长 
 		all.append(" oc.course_length  as courseLength, ");//课程时长 
-		
+	
 		
 		all.append("if(oc.course_pwd is not null,2,if(oc.is_free =0,1,0)) as watchState,");//判断是否要输入密码
 		all.append(" ocm.description as courseDescription  ");
