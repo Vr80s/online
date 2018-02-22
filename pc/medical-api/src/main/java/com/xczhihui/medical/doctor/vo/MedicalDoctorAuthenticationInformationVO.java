@@ -1,113 +1,90 @@
 package com.xczhihui.medical.doctor.vo;
 
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author yuxin
  * @since 2017-12-09
  */
+@Data
 public class MedicalDoctorAuthenticationInformationVO implements Serializable {
 
     /**
      * 医师认证信息表
      */
 	private String id;
-    /**
+
+	/**
      * 头像
      */
 	private String headPortrait;
-    /**
+
+	/**
      * 职称证明
      */
 	private String titleProve;
-    /**
+
+	/**
      * 身份证正面
      */
 	private String cardPositive;
-    /**
+
+	/**
      * 身份证反面
      */
 	private String cardNegative;
-    /**
+
+	/**
      * 医师资格证
      */
 	private String qualificationCertificate;
-    /**
+
+	/**
      * 职业医师证
      */
 	private String professionalCertificate;
 
-	public String getId() {
-		return id;
-	}
+	/**
+	 * 医师姓名
+	 */
+	private String name;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+	/**
+	 * 身份证号
+	 */
+	private String cardNum;
 
-	public String getHeadPortrait() {
-		return headPortrait;
-	}
+	/**
+	 * 职称
+	 */
+	private String title;
 
-	public void setHeadPortrait(String headPortrait) {
-		this.headPortrait = headPortrait;
-	}
+	/**
+	 * 擅长
+	 */
+	private String fieldText;
 
-	public String getTitleProve() {
-		return titleProve;
-	}
+	/**
+	 * 个人介绍
+	 */
+	private String description;
 
-	public void setTitleProve(String titleProve) {
-		this.titleProve = titleProve;
-	}
+	/**
+	 * 省份
+	 */
+	private String province;
 
-	public String getCardPositive() {
-		return cardPositive;
-	}
+	/**
+	 * 城市
+	 */
+	private String city;
 
-	public void setCardPositive(String cardPositive) {
-		this.cardPositive = cardPositive;
-	}
+	/**
+	 * 详细地址
+	 */
+	private String detailedAddress;
 
-	public String getCardNegative() {
-		return cardNegative;
-	}
-
-	public void setCardNegative(String cardNegative) {
-		this.cardNegative = cardNegative;
-	}
-
-	public String getQualificationCertificate() {
-		return qualificationCertificate;
-	}
-
-	public void setQualificationCertificate(String qualificationCertificate) {
-		this.qualificationCertificate = qualificationCertificate;
-	}
-
-	public String getProfessionalCertificate() {
-		return professionalCertificate;
-	}
-
-	public void setProfessionalCertificate(String professionalCertificate) {
-		this.professionalCertificate = professionalCertificate;
-	}
-
-	@Override
-	public String toString() {
-		return "MedicalDoctorAuthenticationInformationVo{" +
-			", id=" + id +
-			", headPortrait=" + headPortrait +
-			", titleProve=" + titleProve +
-			", cardPositive=" + cardPositive +
-			", cardNegative=" + cardNegative +
-			", qualificationCertificate=" + qualificationCertificate +
-			", professionalCertificate=" + professionalCertificate +
-			"}";
-	}
 }

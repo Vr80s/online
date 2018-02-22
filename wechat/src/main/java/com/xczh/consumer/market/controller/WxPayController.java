@@ -319,8 +319,9 @@ public class WxPayController {
 				key = WxPayConst.gzh_ApiKey;
 			}
 			//签名对比
-			if (MD5SignUtil.VerifySignature(map, map.get(key_sign),key)) {
-				
+//			if (MD5SignUtil.VerifySignature(map, map.get(key_sign),key)) {
+			if (MD5SignUtil.VerifySignature(content,key)) {
+
 				LOGGER.info("回调后签名对比是否成功");
 				//打赏支付
 				if(StringUtils.isNotBlank(wxcpPayFlow.getAttach())){
