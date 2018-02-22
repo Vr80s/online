@@ -241,6 +241,49 @@ function queryDataByParams(params,data_type){
 					     "</div>";
 			}
 			$(id).html(data1);
+			
+		/*
+		 * 点击跳转到单个课程
+		 */
+		 $(".li_list_div .li_list_one").click(function(){
+			 
+			var id =$(this).attr("data-title");
+			if(stringnull(id)){
+				requestService("/xczh/course/details?courseId="+id,null,function(data) {
+		
+					var course = data.resultObject;
+					if(course.watchState == 0||course.watchState == 1){
+						if(course.type==1||course.type==2){
+		//						视频音频购买
+							location.href="school_audio.html?course_id="+id
+						}else if(course.type==3){
+		//						直播购买
+							location.href="school_play.html?course_id="+id
+						}else{
+		//						线下课购买
+							location.href="school_class.html?course_id="+id
+						}			
+					}else if(course.watchState == 2||course.watchState == 3){
+						if(course.type==1||course.type==2){
+							if(course.collection){
+		//							专辑视频音频播放页
+							location.href="live_select_album.html?course_id="+id					
+							}else{
+		//							单个视频音频播放
+							location.href="live_audio.html?my_study="+id					
+							}
+						}else if(course.type==3){
+		//							播放页面
+							location.href="live_audio.html?my_study="+id									
+						}else{
+		//							线下课页面
+							location.href="live_class.html?my_study="+id									
+						}		
+					}
+				})
+			}
+		})
+
 		}else{
 			alert("查询数据结果errot!");
 		}
@@ -257,57 +300,6 @@ createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
  */
 queryDataByParams(paramsObj);
 
-function aaa(){
-	
-	alert("=========");
-}
-
-mui("#slider1").on('tap', '.li_list_div', function (event) {
-	
-	alert("=========");
-});
-
-/*
- * 点击跳转到单个课程
- */
- $(".li_list_div").click(function(){
-	 
-	var id =$(this).attr("data-title");
-	if(stringnull(id)){
-		requestService("/xczh/course/details?courseId="+id,null,function(data) {
-
-			var course = data.resultObject;
-			if(course.watchState == 0||course.watchState == 1){
-				if(course.type==1||course.type==2){
-//						视频音频购买
-					location.href="school_audio.html?course_id="+id
-				}else if(course.type==3){
-//						直播购买
-					location.href="school_play.html?course_id="+id
-				}else{
-//						线下课购买
-					location.href="school_class.html?course_id="+id
-				}			
-			}else if(course.watchState == 2||course.watchState == 3){
-				if(course.type==1||course.type==2){
-					if(course.collection){
-//							专辑视频音频播放页
-					location.href="live_select_album.html?course_id="+id					
-					}else{
-//							单个视频音频播放
-					location.href="live_audio.html?my_study="+id					
-					}
-				}else if(course.type==3){
-//							播放页面
-					location.href="live_audio.html?my_study="+id									
-				}else{
-//							线下课页面
-					location.href="live_class.html?my_study="+id									
-				}		
-			}
-		})
-	}
- })
 
 /**
  * 这里先请求出所有的
@@ -325,9 +317,15 @@ function typeQuery(){
     }
     queryDataByParams(paramsObj,data_type);
 }
-
-
-
+//顶部搜索框获取文字显示
+  function getQueryString(key){
+        var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
+        var result = window.location.search.substr(1).match(reg);
+        return result?decodeURIComponent(result[2]):null;
+    }
+    var urlAttribute=getQueryString('queryKey')
+   	$('.header_seek').append('<span>' + urlAttribute + '</span>');
+    
 
 //JQ预加载分界线----------------------------------------------------------------
 

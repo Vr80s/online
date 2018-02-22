@@ -51,8 +51,12 @@
 				{{if item.collection}}
 			<div class="bought_main_list" onclick="location.href='live_select_album.html?course_id={{item.id}}'">
 				<div class="bought_list_left">
-					<img src="../images/zhibo1.jpg" class="img0" />
-					<img src="../images/tv_auto.png" class="img1" />
+						<img src="../images/zhibo1.jpg" class="img0" />					
+						{{if item.type==1}}
+							<img src="{{item.smallImgPath}}" class="img1" />		
+							{{else}}
+							<img src="/xcview/images/frequency.png" class="img1" />		
+						{{/if}}
 				</div>
 				<div class="bought_list_right">
 					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
@@ -62,12 +66,16 @@
 				{{else}}
 				<div class="bought_main_list" onclick="location.href='live_audio.html?my_study={{item.id}}'">
 					<div class="bought_list_left">
-						<img src="../images/zhibo1.jpg" class="img0" />
-						<img src="../images/tv_auto.png" class="img1" />
+						<img src="{{item.smallImgPath}}" class="img0" />
+						{{if item.type==1}}
+							<img src="/xcview/images/tv_auto.png" class="img1" />		
+							{{else}}
+							<img src="/xcview/images/frequency.png" class="img1" />		
+						{{/if}}
 					</div>
 					<div class="bought_list_right">
 						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
-						<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>
+						<!--<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>-->
 					</div>
 				</div>
 				{{/if}}
@@ -75,8 +83,8 @@
 			{{else if item.type==3 && item.lineState==0}}
 			<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
 				<div class="bought_list_left">
-					<img src="../images/zhibo1.jpg" class="img0" />
-					<img src="../images/tv_auto.png" class="img1" />
+					<img src="{{item.smallImgPath}}" class="img0" />
+		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />
 				</div>
 				<div class="bought_list_right">
 					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
@@ -87,8 +95,8 @@
 			{{else if item.type==3 && item.lineState==1}}
 			<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
 				<div class="bought_list_left">
-					<img src="../images/zhibo1.jpg" class="img0" />
-					<img src="../images/tv_auto.png" class="img1" />
+					<img src="{{item.smallImgPath}}" class="img0" />
+		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />					
 				</div>
 				<div class="bought_list_right">
 					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
@@ -99,8 +107,8 @@
 				{{else if item.type==3 && item.lineState==2}}
 				<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
 					<div class="bought_list_left">
-						<img src="../images/zhibo1.jpg" class="img0" />
-						<img src="../images/tv_auto.png" class="img1" />
+						<img src="{{item.smallImgPath}}" class="img0" />
+		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
 					</div>
 					<div class="bought_list_right">
 						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
@@ -111,8 +119,9 @@
 				{{else }}
 				<div class="bought_main_list" onclick="location.href='live_class.html?my_study={{item.id}}'">
 					<div class="bought_list_left">
-						<img src="../images/zhibo1.jpg" class="img0" />
-						<img src="../images/tv_auto.png" class="img1" />
+						<img src="{{item.smallImgPath}}" class="img0" />
+		                 <img src="/xcview/images/offline.png" alt="" class="img1" />
+
 					</div>
 					<div class="bought_list_right">
 						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
@@ -177,8 +186,12 @@
 	</div>
 		
 	<!-- 中间内容结束 -->
-	
-
+	<!--无购买课程时默认图片-->
+	<div class="no_class">
+		<img src="../images/no_class.png"/>
+		<p>您还没有购买课程，快去学堂看看吧~</p>
+		<a class="btn_jump_home" href="home_page.html">去选课</a>
+	</div>
 </body>
 
 <script>

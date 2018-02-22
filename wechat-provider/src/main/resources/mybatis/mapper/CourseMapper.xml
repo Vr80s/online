@@ -152,9 +152,7 @@
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where
-		( (oc.type = 1 and oc.live_status in (1,2) ) or (oc.type is null and
-		oc.multimedia_type in (1,2)) )
-		and argc.user_id=#{userId}
+		argc.user_id=#{userId}
 		and oc.is_delete=0 and oc.status=1 group by oc.id order by
 		argc.create_time desc )
 

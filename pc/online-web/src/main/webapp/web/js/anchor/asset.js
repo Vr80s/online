@@ -22,6 +22,10 @@ function initBasaeAssetInfo (){
         $(".hdrmb").addClass('hide');
         $(".amount").val('');
         $(".vcode").val('');
+        $("#content_add_name").val('');
+        $("#content_add_card").val('');
+        $("#content_add_idCard").val('');
+
     });
     getCoinTransactionList(1);
     getRmbTransactionList(1);

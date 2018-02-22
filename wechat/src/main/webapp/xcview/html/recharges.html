@@ -60,7 +60,7 @@
 					</li>
 					
 					<li class="li">
-						<p class="p0"><span>0.01</span>熊猫币</p>
+						<p class="p0"><span>0.1</span>熊猫币</p>
 						<p class="p1">￥<span>0.01</span>元</p>
 					</li>
 				</ul>
@@ -117,11 +117,11 @@
 	<!--底部结束-->
 	
 	<!--充值成功-->
- 	<div class="success" style="display: block;">
+ 	<div class="success">
 		<div class="success_bg"></div>
 		<div class="success_main">
 			<div class="one">充值成功</div>
-			<div class="two">恭喜您成功充值xxx熊猫币</div>
+			<div class="two">恭喜您成功充值<span id="xmb_success"></span>熊猫币</div>
 			<div class="three">
 				确定
 				<!--<div class="three_btn0">确定</div>-->
@@ -170,6 +170,7 @@
 		
 		$(".success_main .three").click(function(){
 			$(".success").hide();
+		
 		});
 		
 		

@@ -148,6 +148,23 @@ header{
 	font-size: 0.28rem;
 	color: #333333;
 }
+/*<!--无交易记录时显示-->*/
+.no_deal{
+	display: none;
+	text-align: center;
+}
+.no_deal img{
+	width: 3rem;
+	display: inline-block;
+}
+.no_deal p{
+	color: #999;
+	font-size: 0.3rem;
+	text-align: center;
+	    padding: 0.3rem 0 1rem;
+}
+
+
 
 /*礼物*/
 .record_gift{

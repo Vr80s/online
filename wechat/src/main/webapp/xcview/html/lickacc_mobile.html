@@ -57,7 +57,7 @@
 			<div class="div0" style="border: none;">
 				<span class="span0">微信</span>
 				<img src="../images/account05.png" alt="" />
-				<span class="span1">去绑定</span>
+				<span class="span1" id="weixin_bind">去绑定</span>
 				
 			</div>
 			<!--<div class="div0">
@@ -75,15 +75,14 @@
 	</div>
 	
 	<!-- 中间内容结束 -->
-	
-	<div class="success" style="display: block1;">
+	<div class="success">
 		<div class="success_bg"></div>
-		<div class="success_main">
-			<div class="one">充值成功</div>
-			<div class="two">恭喜您成功充值xxx熊猫币</div>
+		<div class="success_main">	
+			<div class="one">确定要解除绑定吗?</div>
 			<div class="three">
-				<div class="three_btn0">确定</div>
-				<div class="three_btn1">继续充值</div>
+				<!-- <div class="three_btn0 tishi">确定</div> -->
+				<div class="three_btn0" onclick="removeBind()">确定</div>
+				<div class="three_btn1">取消</div>
 			</div>
 		</div>
 	</div>
@@ -105,7 +104,7 @@
 
 <!--点击微信绑定-->
 <script type="text/javascript">
-	window.onload = function(){
+/* 	window.onload = function(){
 		$(".email_one .div0").click(function(){
 			$(".success").show();
 		});
@@ -113,7 +112,7 @@
 		$(".success .three .three_btn0").click(function(){
 			$(".success").hide();
 		});
-	};
+	}; */
 </script>
 
 </html>

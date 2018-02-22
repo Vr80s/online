@@ -68,7 +68,7 @@ header {
 	height: 100%;
 	background: #fff;
 	margin-top: 1.08rem;
-	padding-top: 0.3rem;
+
 }
 .bought_main{
 	width: 7.24rem;
@@ -129,10 +129,29 @@ header {
 }
 /*中间内容结束*/
 
-
-
-
-
+/*暂无课程*/
+.no_class{
+	direction: down;
+	    text-align: center;
+	margin-top: 3rem;
+	line-height: 0;
+}
+.no_class img{
+    width: 2.5rem;
+}
+.no_class p{
+	color: #999;
+	font-size: 0.28rem;
+	text-align: center;
+	padding: 0.5rem 0;
+}
+.btn_jump_home{
+	padding: 0.08rem 0.3rem;
+	border: 1px solid #00BC12;
+	color: #00BC12;
+	font-size: 0.3rem;
+	border-radius: 0.1rem;
+}
 
 
 

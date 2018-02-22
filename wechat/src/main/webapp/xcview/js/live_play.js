@@ -22,9 +22,9 @@ requestService("/xczh/course/details",{
 	var	videoId = data.resultObject.directId;
     var	type = data.resultObject.type;	
 	//初始化视频资源
-	$(".play_video .btn_returned").click(function(){
-		chZJ(videoId,type);
-	})
+//	$(".play_video .btn_returned").click(function(){
+//		chZJ(videoId,type);
+//	})
 	
 	//详情页的banner
 	var school_img = document.createElement("img");

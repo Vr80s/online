@@ -113,11 +113,14 @@ public class WeChatThirdPartyController {
 		
 		LOGGER.info("WX return code:" + req.getParameter("code"));
 		LOGGER.info("WX return userId:" + req.getParameter("userId"));
+		
 		try {
 			/**
 			 * 通过code获取微信信息
 			 */
 			String code = req.getParameter("code");
+			String userId = req.getParameter("userId");
+			
 			WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 			
 			if(wxw==null){
@@ -131,10 +134,13 @@ public class WeChatThirdPartyController {
 			 */
 			if(StringUtils.isNotBlank(wxw.getClient_id())){
 				
-				
-				
-				
 				LOGGER.info(" 已经绑定过了:" +wxw.getClient_id());
+				
+				if(userId!=null){
+					//type=1 说明这个已经绑定了
+					res.sendRedirect(returnOpenidUri + "/xcview/html/lickacc_mobile.html?type=1");	
+					return;
+				}
 				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
@@ -148,6 +154,17 @@ public class WeChatThirdPartyController {
 				}	
 			}else{
 				LOGGER.info(" 没有绑定了:");
+				
+				if(userId!=null){
+            	   /**
+            	    * 更改qq信息	--》增加用户id
+            	    */
+					wxw.setClient_id(userId);
+	            	wxcpClientUserWxMappingService.update(wxw);
+					//type=2   绑定成功
+					res.sendRedirect(returnOpenidUri + "/xcview/html/lickacc_mobile.html?type=2");	
+					return;
+				}
 				/*
 				 * 跳转到绑定手机号页面。也就是完善信息页面。  --》绑定类型微信
 				 */

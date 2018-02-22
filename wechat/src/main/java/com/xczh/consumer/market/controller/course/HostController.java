@@ -120,13 +120,14 @@ public class HostController {
 		}else if(lecturerInfo.get("type").toString().equals("2")){
 			 mha =  medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);	
 		}
+		
 		System.out.println(1234);
 		//认证的主播 还是 医馆
 		mapAll.put("hospital",mha);
 		List<Integer> listff =   focusServiceRemote.selectFocusAndFansCount(lecturerId);
 		mapAll.put("fansCount", listff.get(0));       	   //粉丝总数
 		mapAll.put("focusCount", listff.get(1));   	  	   //关注总数
-		
+		mapAll.put("criticizeCount", listff.get(2));   	  	   //关注总数
 		/**
 		 * 判断用户是否已经关注了这个主播
 		 */

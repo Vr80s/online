@@ -38,7 +38,7 @@ requestService("/xczh/order/getByOrderId",{
 	
 	orderNo =data.resultObject.orderNo;
 	//要支付的毛笔
-	$(".pay_xmb").html(currentPriceXMB);
+	$(".pay_xmb").html(currentPriceXMB*10);
 	/**
 	 * 获取熊猫币余额,判断是否显示去充值
 	 */
@@ -161,7 +161,7 @@ function getgetRedirectUrl(allCourse,falg){
 //	    return redirectUrl;
 //	}
 	var c=allCourse[0];
-	return "xcview/html/buy_prosperity.html"+c.id;
+	return "xcview/html/buy_prosperity.html?courseId="+c.id;
 }
 
 
