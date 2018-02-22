@@ -1,5 +1,6 @@
 package com.xczhihui.medical.anchor.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.service.IGiftOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
@@ -21,10 +22,10 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
      * @param userId 用户id
      */
     @Override
-    public List<UserCoinIncreaseVO> list(String userId) {
+    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page) {
 
         // 获取礼物订单的课程名称，直播时间
-        List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId);
+        List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId, page);
 
         // 根据直播id获取直播的礼物总价,获得总熊猫币
         Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional =
@@ -36,7 +37,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
                         .forEach(vo -> this.processUserCoinIncreaseVOList(vo))
         );
 
-        return userCoinIncreaseVOList;
+        return page.setRecords(userCoinIncreaseVOList);
     }
 
     /**

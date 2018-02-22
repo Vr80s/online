@@ -338,6 +338,7 @@
 			{{coinTransaction.create_time}}
 		</td>
 		<td>
+			—
 		</td>
 	</tr>
 	{{/each}}
@@ -406,6 +407,37 @@
 			{{/if}}
 		</div>
 	</li>
+	{{/each}}
+</script>
+
+<!--课程收益列表模板-->
+<script type="text/template" id="myResive_list_Tpl">
+	{{each records as item i}}
+	<tr>
+		<td>{{item.orderNo}}</td>
+		<td>{{item.gradeName}}</td>
+		<td>{{item.payTime}}</td>
+		<td>{{item.name}}</td>
+		<td>{{item.actualPay}}</td>
+		<td>{{item.iosBrokerageValue}}</td>
+		<td>{{item.percent}}</td>
+		<td>{{item.value}}</td>
+	</tr>
+	{{/each}}
+</script>
+
+<!--礼物收益模板-->
+<script type="text/template" id="gift_Resive_Tpl">
+	{{each records as item i}}
+	<tr>
+		<td>{{item.gradeName}}</td>
+		<td>{{item.startTime}}</td>
+		<td>{{item.name}}</td>
+		<td>{{item.giftTotalPrice}}</td>
+		<td>{{item.iosBrokerageValue}}</td>
+		<td>{{item.percent}}</td>
+		<td>{{item.value}}</td>
+	</tr>
 	{{/each}}
 </script>
 
@@ -2262,7 +2294,7 @@
 							<td>获得熊猫币</td>
 						</tr>
 						</thead>
-						<tbody>
+						<tbody id="myResive_list">
 						<tr>
 							<td>12345678901234567890</td>
 							<td>中医药席卷全球成独特风暴</td>
@@ -2346,6 +2378,16 @@
 						</tbody>
 					</table>
 				</div>
+				
+				<div class="pages courseResive_pages">
+					<div id="Pagination_myResive"  class="pagination-pages"></div>
+					<div class="searchPage">
+						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+						<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+						<a href="javascript:;" class="page-btn">确定</a>
+					</div>
+				</div>
+				
 			</div>
 			
 			<!--礼物收益部分-->
@@ -2375,7 +2417,7 @@
 								<td>获得熊猫币</td>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="gift_Resive_list">
 							<tr>
 								<td>中医药席卷全球成独特风暴</td>
 								<td>2018-01-18 14:00</td>
@@ -2450,6 +2492,17 @@
 							</tr>
 						</tbody>
 					</table>
+					
+					<!--礼物收益分页-->
+					<div class="pages giftResive_pages">
+					<div id="Pagination_myGiftResive"  class="pagination-pages"></div>
+					<div class="searchPage">
+						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+						<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+						<a href="javascript:;" class="page-btn">确定</a>
+					</div>
+				</div>
+				
 				</div>
 				
 				<div class="gift_Resive_bottom2 hide">
