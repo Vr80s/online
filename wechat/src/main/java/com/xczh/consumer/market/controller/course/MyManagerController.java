@@ -406,6 +406,7 @@ public class MyManagerController {
 		Integer courseFrom = null; // 课程类型：1.直播 2.点播 3.线下课
 		Integer multimediaType = null; // 多媒体类型:1视频2音频
 
+		//type 查询类型：0 全部 1 直播 2 视频 3 线下课 4 音频
 		if (type == 1) {
 			courseFrom = 1;
 		} else if (type == 2) {
@@ -422,8 +423,7 @@ public class MyManagerController {
 		page.setSize(pageSize);
 
 		return ResponseObject.newSuccessResponseObject(courseService
-				.selectAppCourseApplyPage(page, user.getId(), courseFrom,
-						multimediaType));
+				.selectAppCourseApplyPage(page, user.getId(), courseFrom,multimediaType));
 	}
 
 	/**

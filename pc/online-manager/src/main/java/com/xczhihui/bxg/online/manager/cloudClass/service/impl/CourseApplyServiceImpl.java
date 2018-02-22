@@ -358,7 +358,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 		webinar.setHost(entity.getLecturer());
 		Integer directSeeding = entity.getDirectSeeding();
 		if(directSeeding==null){
-			directSeeding = 1;
+			directSeeding = 3;
 		}
 		webinar.setLayout(directSeeding.toString());
 		OnlineUser u = onlineUserService.getOnlineUserByUserId(entity.getUserLecturerId());

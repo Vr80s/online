@@ -294,7 +294,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				e.printStackTrace();
 			}
 		}
-		//sendPhone(username, vcode, vtype);
+		sendPhone(username, vcode, vtype);
 		return "发送成功";
 	}
 	
@@ -509,7 +509,6 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 				e.printStackTrace();
 			}
 		}
-		//为了方便测试战时不做这个测试了
 		sendPhoneCheck(username, vcode, vtype);
 		return "发送成功";
 	}
