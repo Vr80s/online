@@ -5,6 +5,15 @@ $(function(){
 //	$('#doc_Administration #doc_Administration_bottom').addClass('hide');
 	//点击医馆信息提交
 
+if(localStorage.AccountStatus == '2'){
+	$('#docOrHos').css('color','#00bc12');
+	$('.forum').css('color','#000');
+	$('.path .hospital').removeClass('select');
+}else{
+	//顶部的医馆按钮变色效果
+$('.forum').css('color','#000');
+$('.path .hospital').addClass('select');
+}
 	
 	
 	$('#hos_Administration .hos_base_inf #submit').click(function(){

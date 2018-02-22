@@ -6,16 +6,13 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
+import lombok.Data;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author yuxin
  * @since 2018-01-15
  */
+@Data
 @TableName("medical_hospital_authentication")
 public class MedicalHospitalAuthentication extends Model<MedicalHospitalAuthentication> {
 
@@ -101,153 +98,19 @@ public class MedicalHospitalAuthentication extends Model<MedicalHospitalAuthenti
 	private String remark;
 
 	/**
+	 * 启用状态
+	 */
+	private Boolean status;
+
+	/**
 	 * 认证的医馆名字
 	 */
 	@TableField(exist = false)
 	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getCompany() {
-		return company;
-	}
-
-	public void setCompany(String company) {
-		this.company = company;
-	}
-
-	public String getBusinessLicenseNo() {
-		return businessLicenseNo;
-	}
-
-	public void setBusinessLicenseNo(String businessLicenseNo) {
-		this.businessLicenseNo = businessLicenseNo;
-	}
-
-	public String getBusinessLicensePicture() {
-		return businessLicensePicture;
-	}
-
-	public void setBusinessLicensePicture(String businessLicensePicture) {
-		this.businessLicensePicture = businessLicensePicture;
-	}
-
-	public String getLicenseForPharmaceuticalTrading() {
-		return licenseForPharmaceuticalTrading;
-	}
-
-	public void setLicenseForPharmaceuticalTrading(String licenseForPharmaceuticalTrading) {
-		this.licenseForPharmaceuticalTrading = licenseForPharmaceuticalTrading;
-	}
-
-	public String getLicenseForPharmaceuticalTradingPicture() {
-		return licenseForPharmaceuticalTradingPicture;
-	}
-
-	public void setLicenseForPharmaceuticalTradingPicture(String licenseForPharmaceuticalTradingPicture) {
-		this.licenseForPharmaceuticalTradingPicture = licenseForPharmaceuticalTradingPicture;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getCreatePerson() {
-		return createPerson;
-	}
-
-	public void setCreatePerson(String createPerson) {
-		this.createPerson = createPerson;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public String getUpdatePerson() {
-		return updatePerson;
-	}
-
-	public void setUpdatePerson(String updatePerson) {
-		this.updatePerson = updatePerson;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
 
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
 	}
 
-	@Override
-	public String toString() {
-		return "MedicalHospitalAuthentication{" +
-			", id=" + id +
-			", company=" + company +
-			", businessLicenseNo=" + businessLicenseNo +
-			", businessLicensePicture=" + businessLicensePicture +
-			", licenseForPharmaceuticalTrading=" + licenseForPharmaceuticalTrading +
-			", licenseForPharmaceuticalTradingPicture=" + licenseForPharmaceuticalTradingPicture +
-			", userId=" + userId +
-			", deleted=" + deleted +
-			", createTime=" + createTime +
-			", createPerson=" + createPerson +
-			", updateTime=" + updateTime +
-			", updatePerson=" + updatePerson +
-			", version=" + version +
-			", remark=" + remark +
-			"}";
-	}
 }
