@@ -1,8 +1,7 @@
 
 var userPic = $('.userPic').css('background')
-//顶部的医馆按钮变色效果
-$('.forum').css('color','#000');
-$('.path .hospital').addClass('select');
+
+
 
 
 

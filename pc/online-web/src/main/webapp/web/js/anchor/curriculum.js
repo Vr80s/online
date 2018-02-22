@@ -1,5 +1,8 @@
 $(function(){
     showCourseAttribute(1);
+    
+    $('#anchorWorkbench').css('color','#00bc12');
+    
 //	左右两边tab切换
 	$(".select_list li").click(function(){
 		$(".select_list li").removeClass("active");
