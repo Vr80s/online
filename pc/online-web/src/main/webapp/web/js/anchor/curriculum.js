@@ -206,7 +206,8 @@ $(function(){
 
 	$(".doctor_inf >img").attr('src',userPic)
 	$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
-		$(".mask").css("display", "block");
+//		$(".mask").css("display", "block");
+		showDel();
 		$("#headImg").css("display", "block");
 		$("body").css("overflow", "hidden");
 		//清空右侧小图片
@@ -246,7 +247,8 @@ $(function(){
 			$(".img-box1").css("display", "block");
 			$(".imageBox").css("display", "none");
 			$(".tc").css("display", "none");
-			$(".mask").css("display", "none");
+//			$(".mask").css("display", "none");
+			hideDel();
 			$("#headImg").css("display", "none");
 			$("body").css("overflow", "auto");
 			var file = document.getElementById("upload-file");
@@ -318,6 +320,11 @@ $(function(){
 $('.fileUpdata').click(function(){
 	return $("#upload-file").click();
 })
+
+//function fileClick() {
+//	return $("#upload-file").click();
+//}
+
 $(".btn-upload").click(function(evt) {
 		evt.preventDefault();
 		if($(".btn-upload").attr("data-img")!=undefined&&$(".btn-upload").attr("data-img")!=""){			
@@ -364,7 +371,8 @@ $(".btn-upload").click(function(evt) {
 							$(".img-box1").css("display", "block");
 							$(".imageBox").css("display", "none");
 							$(".tc").css("display", "none");
-							$(".mask").css("display", "none");
+//							$(".mask").css("display", "none");
+							hideDel();
 							$("#headImg").css("display", "none");
 							location.reload();
 						}
