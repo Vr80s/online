@@ -41,12 +41,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private ICommonService commonService;
     @Autowired
     private RedisShardLockUtils redisShardLockUtils;
-    @Autowired
-    private MedicalDoctorAuthenticationInformationMapper authenticationInformationMapper;
-    @Autowired
-    private MedicalDoctorMapper doctorMapper;
-    @Autowired
-    private MedicalDoctorAccountMapper doctorAccountMapper;
+
     /**
      * 添加医师入驻申请信息
      * @param target 医师入驻申请信息

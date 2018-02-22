@@ -60,6 +60,12 @@
     <!--主播-->
     <dubbo:service interface="com.xczhihui.medical.anchor.service.IAnchorInfoService" ref="anchorInfoServiceImpl" timeout="${dubbo.consumer.timeout}" />
 
+    <!--主播控制台：订单-->
+    <dubbo:service interface="com.xczhihui.medical.anchor.service.IGiftOrderService"
+                   ref="giftOrderServiceImpl" timeout="${dubbo.consumer.timeout}" />
+    <dubbo:service interface="com.xczhihui.medical.anchor.service.ICourseOrderService"
+                   ref="courseOrderServiceImpl" timeout="${dubbo.consumer.timeout}" />
+
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"></bean>
 
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
