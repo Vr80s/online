@@ -58,7 +58,7 @@ $(function(){
 			}
 
 	//昵称验证
-	if(nikename == ''){
+	if(nikename == '' || nikename.length > 20){
 		$(".nikeName_warn").css('display','block');
 		return false;
 	}else {
