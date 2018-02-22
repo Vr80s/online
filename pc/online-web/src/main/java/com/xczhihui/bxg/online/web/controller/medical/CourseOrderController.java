@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -7,6 +8,7 @@ import com.xczhihui.medical.anchor.service.ICourseOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,12 +28,16 @@ public class CourseOrderController {
     /**
      * 获取课程订单列表
      */
-    @RequestMapping
-    public ResponseObject list(HttpServletRequest request){
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ResponseObject list(HttpServletRequest request, Integer current, Integer size){
 
-        List<UserCoinIncreaseVO> result = courseOrderService.list(this.getCurrentUserId(request));
+        Page<UserCoinIncreaseVO> page = new Page<>();
+        page.setCurrent(current);
+        page.setSize(size);
 
-        return ResponseObject.newSuccessResponseObject(result);
+//        Page<UserCoinIncreaseVO> result = courseOrderService.list(this.getCurrentUserId(request), page);
+
+        return ResponseObject.newSuccessResponseObject(courseOrderService.list(this.getCurrentUserId(request), page));
     }
 
     /**

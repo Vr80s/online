@@ -1,5 +1,6 @@
 package com.xczhihui.medical.anchor.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.service.ICourseOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
@@ -21,10 +22,10 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
      * @param userId 用户id
      */
     @Override
-    public List<UserCoinIncreaseVO> list(String userId) {
+    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page) {
 
         // 获取课程订单的订单号，课程名称，支付时间，支付用户，实际支付的价格
-        List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId);
+        List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page);
 
         // 根据课程id获取：苹果扣除的总数，课程获得总熊猫币
         Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional = Optional.ofNullable(userCoinIncreaseVOList);
@@ -34,7 +35,9 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
                         .forEach(vo -> this.processUserCoinIncreaseVOList(vo))
         );
 
-        return userCoinIncreaseVOList;
+        page.setRecords(userCoinIncreaseVOList);
+
+        return page;
     }
 
     private void processUserCoinIncreaseVOList(UserCoinIncreaseVO vo){
@@ -44,6 +47,8 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
 
         // 课程获得总熊猫币
         vo.setValue(userCoinIncreaseMapper.sumValueByCourse(vo.getCourseId()));
+
+        vo.setPercent("80%");
 
     }
 
