@@ -502,7 +502,7 @@
 					<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 					<div class="littleBoxs">
 						<p class="activeP name_news">认证信息</p>
-						<p class="name_personage">主播信息</p>
+						<p class="name_personage" onclick="showAnchorInfo()">主播信息</p>
 					</div>
 				</li>
 
@@ -917,12 +917,12 @@
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">昵称</div>
-				<div class="two nickname">我是姓名</div>
+				<div class="two nickname" id="nickname"></div>
 			</div>
 			<div class="name">
 				<div class="one">真实头像</div>
 				<div class="two two_img">
-					<img src="../../images/3.jpg">
+					<img src="../../images/3.jpg" id="profilePhoto">
 				</div>
 			</div>
 			<div class="">
@@ -934,7 +934,7 @@
 			<div class="name">
 				<div class="one">主播介绍</div>
 				<div class="two two_size">
-					<p >主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍不能为空</p>
+					<p id="detail"></p>
 				</div>
 			</div>
 			<div class="name clinics">
@@ -943,23 +943,23 @@
 			</div>
 			<div class="name physician">
 				<div class="one" style="margin-top: 0;">任职医馆</div>
-				<div class="two">百草园国医馆</div>
+				<div class="two" id="hospitalName">百草园国医馆</div>
 			</div>
 			<div class="name physician">
 				<div class="one" style="margin-top: 0;">坐诊时间</div>
-				<div class="two">每周<span>一、三、五下午</span></div>
+				<div class="two">每周<span id="workTime"></span></div>
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">预约电话</div>
-				<div class="two">010-36576543</div>
+				<div class="two" id="tel"></div>
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">城市</div>
-				<div class="two"><sapn>海南</sapn> &nbsp;&nbsp; <span>海口</span></div>
+				<div class="two"><sapn id="province"></sapn> &nbsp;&nbsp; <span id="city"></span></div>
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">详细地址</div>
-				<div class="two">美兰区演丰镇瑶城一路</div>
+				<div class="two" id="detailAddress"></div>
 			</div>
 		</div>
 		<div class="account_main message_return">
@@ -970,7 +970,7 @@
 			<form action="" method="post">
 				<div class="name">
 					<span><em>*</em>昵称</span>
-					<input type="text" placeholder="请填写您的昵称" class="put0 anchor_nick_name">
+					<input type="text" placeholder="请填写您的昵称" class="put0" id="u_nickname">
 					<p class="warning warning_anchor_name hide">昵称不能为空</p>
 				</div>
 				<div class="name">
@@ -1019,7 +1019,7 @@
 				</div>
 				<div class="name workTime" >
 					<span><em>*</em>坐诊时间</span>
-				<ul style="display: inline-block;vertical-align: middle;" id="workTime">
+				<ul style="display: inline-block;vertical-align: middle;" id="u_workTime">
 					<li class="color">一</li>
 					<li>二</li>
 					<li>三</li>
@@ -1041,7 +1041,7 @@
 				<div id="hospital_baseInf" class="hide">
 					<div class="name">
 						<span>预约电话</span>
-						<input type="text" placeholder="请输入预约电话" class="">
+						<input type="text" placeholder="请输入预约电话" class="" id="u_hospital_tel">
 					</div>
 				</div>
 				
@@ -1059,7 +1059,7 @@
 								<option value="">请选择市</option>
 							</select>
 						</p>
-						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
+						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea" id="u_detailAddress"></textarea>
 						<p class="warning return_warning5 hide">详细地址不能为空</p>
 					</div>
 				

@@ -464,4 +464,36 @@ function verifyAnchorInfo2(data){
     return true;
 }
 
+function showAnchorInfo() {
+    // RequestService("/anchor/info", "get", function(data) {
+    //     console.log(data)
+    //
+    // });
+    $.ajax({
+        type:"GET",
+        url: "/anchor/info",
+        async:true,
+        success: function( result ) {
+            if(result.success){
+                var anchor = result.resultObject;
+                $('#nickname').text(anchor.name);
+                $('#profilePhoto').attr('src', anchor.profilePhoto);
+                $('#detail').text(anchor.detail);
+                $('#hospitalName').text(anchor.hospitalName);
+                $('#workTime').text(anchor.workTime);
+                $('#tel').text(anchor.tel);
+                $('#province').text(anchor.province);
+                $('#city').text(anchor.city);
+                $('#detailAddress').text(anchor.detailAddress);
+                // $('.anchor_nick_name').text(anchor.name);
+                // $('#u_nickname').val(anchor.name);
+                // $('#u_hospital_tel').val(anchor.tel);
+                // $('#u_hospital_province').text(anchor.province);
+                // $('#u_hospital_city').text(anchor.city);
+                // $('#u_detailAddress').text(anchor.detailAddress);
+            }
+        }
+    })
+}
+
 
