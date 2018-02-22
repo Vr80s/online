@@ -68,4 +68,10 @@ public class UserCoinIncreaseVO {
      * 礼物赠送人id
      */
     private String giver;
+
+    /**
+     * 分成比例
+     */
+    private String percent;
+
 }

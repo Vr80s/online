@@ -62,5 +62,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             // 根据giver（userId）获取用户昵称
             return "lalalrrrrr";
         }).orElse("游客"));
+
+        vo.setPercent("80%");
     }
 }

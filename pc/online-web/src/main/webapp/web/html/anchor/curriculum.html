@@ -35,6 +35,7 @@
 	<link rel="stylesheet" href="/web/css/anchor/mymoney.css?v=ipandatcm_1.2.1">
 	<link rel="stylesheet" href="/web/css/style.css"/>
 	<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
+	<link rel="stylesheet" href="/web/css/style.css" />
 
 	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
@@ -407,6 +408,47 @@
 	</li>
 	{{/each}}
 </script>
+
+
+<!--左侧更换头像弹窗-->
+<div id="headImg" class="clearfix">
+			<div class="container1 clearfix">
+				<div class="img-title">
+					<p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+				<div class="img-box1">
+					<a href="javascript:void(0)" class="upload-img">
+						<p onclick="fileClick()" class="fileUpdata"><span>+</span>选择图片</p>
+					</a>
+
+					<p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+				</div>
+				<div class="imageBox">
+					<div class="thumbBox"></div>
+					<div class="spinner" style="display: none"></div>
+				</div>
+				<div class="action clearfix">
+					<div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+					<div class="new-contentarea tc">
+						<div class="bbox clearfix">
+							<span>滚动鼠标可调整头像大小</span>
+							<a href="javascript:void(0)" class="upload-img reclick">
+								<p onclick="fileClick()">重新上传</p>
+							</a>
+						</div>
+						<input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg" />
+					</div>
+					<span class="btn-upload bbtn">确定</span>
+					<a href="javascript:;" class="btn-quit bbtn">取消</a>
+				</div>
+				<div class="cropped">
+					<div class="cropTitle">预览</div>
+					<div class="cropped-con"></div>
+				</div>
+			</div>
+		</div>
+
+
+
 <!--删除提示弹窗-->
 <div id="deleteTip" class="hide">
 	<h4 class="confirm-title">删除资源</h4>
@@ -425,10 +467,13 @@
 	<!--左边点击-->
 	<div class="left-listNav">
 		<div class="doctor_inf anchor_info" style="display: none">
+			<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
+				<i class="iconfont icon-xiangji"></i>
+			</div>
 			<img src="../images/5.jpg" alt="">
 			<!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
 			<h4 class="nickname"></h4>
-			<!--<p>说点什么来彰显你的个性...</p>-->
+			<p>说点什么来彰显你的个性...</p>
 		</div>
 		<!--左边点击nav-->
 		<div class="select_list z">

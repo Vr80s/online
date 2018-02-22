@@ -45,6 +45,8 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
         // 课程获得总熊猫币
         vo.setValue(userCoinIncreaseMapper.sumValueByCourse(vo.getCourseId()));
 
+        vo.setPercent("80%");
+
     }
 
 }
