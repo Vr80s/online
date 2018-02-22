@@ -1,5 +1,6 @@
 package com.xczhihui.bxg.online.web.controller.medical;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
@@ -7,6 +8,7 @@ import com.xczhihui.medical.anchor.service.IGiftOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,10 +28,14 @@ public class GiftOrderController {
     /**
      * 获取礼物订单列表
      */
-    @RequestMapping
-    public ResponseObject list(HttpServletRequest request){
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ResponseObject list(HttpServletRequest request, Integer current, Integer size){
 
-        List<UserCoinIncreaseVO> result = giftOrderService.list(this.getCurrentUserId(request));
+        Page<UserCoinIncreaseVO> page = new Page<>();
+        page.setCurrent(current);
+        page.setSize(size);
+
+        Page<UserCoinIncreaseVO> result = giftOrderService.list(this.getCurrentUserId(request), page);
 
         return ResponseObject.newSuccessResponseObject(result);
     }

@@ -47,7 +47,7 @@
 			ON uci.`order_no_gift` = ogs.id
 		  JOIN `oe_course` oc
 			ON ogs.`live_id` = oc.`id`
-		WHERE uci.user_id = #{userId};
+		WHERE uci.user_id = #{userId}
 	</select>
 
 	<select id="sumIosBrokerageValue" parameterType="string" resultType="decimal">
