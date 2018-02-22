@@ -75,7 +75,7 @@ public class H5AloneController {
 		}
 		Map<String, String> params=new HashMap<>();
 		params.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(null == user){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}

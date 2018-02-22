@@ -129,7 +129,7 @@ public class FocusController {
 		if(null == pageNumberS || null == pageSizeS){	
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -161,7 +161,7 @@ public class FocusController {
 			return ResponseObject.newErrorResponseObject("参数异常");
 		}
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -185,7 +185,7 @@ public class FocusController {
 			HttpServletResponse res, Map<String, String> params)
 			throws Exception {
 		String lecturerId = req.getParameter("lecturerId");
-		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req);
 	    if(onlineUser==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -215,7 +215,7 @@ public class FocusController {
 		params.put("token",req.getParameter("token"));
 		String lecturerId = req.getParameter("lecturerId");
 		String courseId = req.getParameter("courseId");
-		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser onlineUser =  appBrowserService.getOnlineUserByReq(req);
 	    if(onlineUser==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
