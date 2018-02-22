@@ -9,8 +9,7 @@ import java.util.Map;
 public interface AppBrowserService {
 
 
-	OnlineUser getOnlineUserByReq(HttpServletRequest request,
-                                  Map<String, String> params);
+	//OnlineUser getOnlineUserByReq(HttpServletRequest request);
 
 	OnlineUser getOnlineUserByReq(HttpServletRequest request);
 

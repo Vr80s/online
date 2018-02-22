@@ -111,9 +111,9 @@ public class MyCourseController {
 	@RequestMapping("myFocus")
 	@ResponseBody
 	public ResponseObject myFocus(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res)
 			throws Exception {
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }

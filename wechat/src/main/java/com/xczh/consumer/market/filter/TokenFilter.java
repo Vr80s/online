@@ -79,7 +79,7 @@ public class TokenFilter implements Filter {
 		String excludedPageStr = str+","+str1+","+str2+","+str3+","+str6;
 	    
 	    String appExcludedPageStr = str5+","+str6;
-		//String appExcludedPageStr =str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14+","+str15;
+		
 		if (StringUtils.isNotEmpty(excludedPageStr) ) {   
 		    excludedPageArray = excludedPageStr.split(",");
 		    appExcludedPageArray  = appExcludedPageStr.split(",");
@@ -117,14 +117,19 @@ public class TokenFilter implements Filter {
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
 			appUniqueId = request.getParameter("appUniqueId");
-			//System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
-			if(null == appUniqueId){ //说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
+			
+			
+			/*
+			 * 说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
+			 */
+			if(null == appUniqueId){ 
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
 		    		/*
 		    		 * 是不是需要传递一个token过来啊。然后判断这个token是否
 		    		 */
 		    		chain.doFilter(request, response);
+		    		
 		    	}else if(session !=null){
 					/**
 					 * 有两种情况一种是：失效了，一种是被顶掉了。

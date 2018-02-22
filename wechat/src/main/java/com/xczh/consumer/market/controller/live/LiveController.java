@@ -227,7 +227,7 @@ public class LiveController {
 		/*
 		 * 全部不拦截  --》
 		 */
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		int course_id =Integer.parseInt(req.getParameter("course_id"));
 		CourseLecturVo courseLecturVo  = null;
 		if(null == user){

@@ -22,33 +22,6 @@ public class AppBrowserServiceImpl implements AppBrowserService {
 	private CacheService cacheService;
 	@Autowired
 	private OnlineUserService onlineUserService;
-	@Override
-	public OnlineUser getOnlineUserByReq(HttpServletRequest request, Map<String, String> params1){
-		String token = request.getParameter("token");
-		OnlineUser ou = null;
-		/**
-		 * 判断来自浏览器呢还是来自app呢
-		 *   app端传递参数会有token
-		 *   浏览器没有
-		 */
-		if(null != token && !"".equals(token) && !"null".equals(token)){
-			ou = cacheService.get(token);
-		}else{
-			ou = (OnlineUser) request.getSession().getAttribute("_user_");
-			request.getSession().setAttribute("_user_", ou);
-			Token t = UCCookieUtil.readTokenCookie(request);
-			if(ou == null && t!=null){
-				try {
-					ou = onlineUserService.findUserByLoginName(t.getLoginName());
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				request.getSession().setAttribute("_user_", ou);
-			}
-		}
-		return ou;
-	}
 	
 	@Override
 	public OnlineUser getOnlineUserByReq(HttpServletRequest request){

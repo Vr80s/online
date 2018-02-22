@@ -499,8 +499,7 @@ public class AlipayController {
 			HttpServletResponse response) throws Exception {
 		Map<String, String> params2 = new HashMap<>();
 		params2.put("token", request.getParameter("token"));
-		OnlineUser user = appBrowserService
-				.getOnlineUserByReq(request, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user = appBrowserService.getOnlineUserByReq(request); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
 			throw new RuntimeException("登录失效");
 		}
