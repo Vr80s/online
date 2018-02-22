@@ -88,8 +88,8 @@ public class TokenFilter implements Filter {
 	//各种第三方前的登录不需要拦截
 	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third";
 	
-	//微信，支付宝支付回调不需要拦截
-	private static String new_controller_pay_the_callback ="/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify";
+	//微信，支付宝支付回调、评论列表不需要拦截 -- 这个是直接等于的  
+	private static String new_controller_pay_the_callback ="/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/xczh/criticize/getCriticizeList";
 	
 	
 	/*
@@ -99,10 +99,10 @@ public class TokenFilter implements Filter {
 	private static String new_controller_specific_business_one 
 	  = "/xczh/recommend,/xczh/classify,/xczh/bunch,/xczh/live,/xczh/bunch";
 	/*
-	 *  主播页面 、评论列表、课程详情、
+	 *  主播页面 、课程详情、
 	 */
 	private static String new_controller_specific_business_two
-	  = "/xczh/host,/xczh/criticize/getCriticizeList,/xczh/course";
+	  = "/xczh/host,/xczh/course";
 	
 	
 	//现在新版本的  接口不过滤
@@ -120,8 +120,7 @@ public class TokenFilter implements Filter {
 		
 		//新的
 		String newExcludedControllerStr = new_controller_login_before+","+new_controller_share_before+","+
-				new_controller_login_three_parties+","+new_controller_pay_the_callback+
-				","+new_controller_specific_business_one+","+new_controller_specific_business_two;
+				new_controller_login_three_parties+","+new_controller_specific_business_one+","+new_controller_specific_business_two;
 		
 		if (StringUtils.isNotEmpty(newExcludedControllerStr) ) {   
 			newInterfaceFilter  = newExcludedControllerStr.split(",");
@@ -137,6 +136,8 @@ public class TokenFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
+
+		
 		request.setCharacterEncoding("UTF-8");
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
@@ -147,19 +148,20 @@ public class TokenFilter implements Filter {
 		/**
 		 * 开发的时候用这个
 		 */
-		if(Arrays.asList(appExcludedPageArray).contains(currentURL) 
-				|| currentURL.indexOf("xczh")!=-1){
-			     isExcludedPage = true;     
-		}
-		
+//		if(Arrays.asList(appExcludedPageArray).contains(currentURL) 
+//				|| currentURL.indexOf("xczh")!=-1){
+//			     isExcludedPage = true;     
+//		}
+		System.out.println("欢迎欢迎，"+currentURL);
 		/**
 		 * 测试和生产用这个
 		 */
-		if(useLoopContains(appExcludedPageArray,currentURL) || 
-				useLoopEqual(newInterfaceFilter, currentURL)){
+		if(useLoopEqual(appExcludedPageArray,currentURL) || 
+				useLoopContains(newInterfaceFilter, currentURL)){
 			     isExcludedPage = true;     
 		}
 		
+		System.out.println("isExcludedPage，"+isExcludedPage);
 		/**
 		 * 拦截ajax请求
 		 */
@@ -270,8 +272,13 @@ public class TokenFilter implements Filter {
 	 *
 	 */
 	public static boolean useLoopContains(String[] arr,String targetValue){
+		if(new_controller_pay_the_callback.indexOf(targetValue)!=-1){
+			return true;
+		}
+		int  laseIndex = targetValue.lastIndexOf("/");
+		String tmptargetValue = targetValue.substring(0, laseIndex);
 	    for(String s:arr){
-	       if(s.indexOf(targetValue)!=-1)
+	       if(s.equals(tmptargetValue))
 	         return true;
 	    }  
 	    return false;

@@ -60,7 +60,7 @@ function  sendCode(obj){
 		username : number,
 		vtype:vtype   	//类型，3注册，4重置密码
 	};
-	requestService("/xczh/user/phoneCheck",
+	requestService("/xczh/set/phoneCheck",
 			urlparm, function(data) {
 		if (data.success) {
 			time(obj);
@@ -92,7 +92,7 @@ $("#update_mobile_next").click(function(){
 		code:code,
 		vtype:3   	//类型，3注册，2重置密码
 	};
-	requestService("/xczh/user/phoneCheckAndCode",
+	requestService("/xczh/set/phoneCheckAndCode",
 			urlparm, function(data) {
 		if (data.success) {
 			//time(obj);
@@ -138,7 +138,7 @@ function updateMobile(){
 		vtype:4   	//类型，3注册，2重置密码
     };
 	
-	requestService("/xczh/user/updatePhone",
+	requestService("/xczh/set/updatePhone",
 			urlparm, function(data) {
 		if (data.success) {
 			//更改完手机号后，需要把session中的这个东西换下呢？

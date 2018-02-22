@@ -79,7 +79,7 @@ function  sendCode(obj){
 		username : number,
 		vtype:vtype   	//类型，3注册，4重置密码
 	};
-	requestService("/xczh/user/phoneCheck",
+	requestService("/xczh/set/phoneCheck",
 			urlparm, function(data) {
 		if (data.success) {
 			time(obj);
@@ -220,7 +220,7 @@ function updateMobile(){
         vtype:4   	//类型，3注册，2重置密码
     };
 
-    requestService("/xczh/user/updatePhone",
+    requestService("/xczh/set/updatePhone",
         urlparm, function(data) {
             if (data.success) {
                 //更改完手机号后，需要把session中的这个东西换下呢？
@@ -239,7 +239,7 @@ $(".call_popup_btn").click(function(){
     $(".call_popup").hide(); //去设置页面
     $(".return").click();
 
-    requestService("/xczh/user/logout",{
+    requestService("/set/user/logout",{
 		}, function(data) {
             if (data.success) {
                 window.location.href="enter.html";
