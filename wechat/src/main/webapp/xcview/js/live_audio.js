@@ -6,6 +6,8 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
+
+
 $(function(){
 
     	//获取课程ID跳转相应页面页面
@@ -16,6 +18,9 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
+		
+		gradeName
+		
 		//详情页的banner
 		var school_img = document.createElement("img");
 		school_img.src = data.resultObject.smallImgPath;

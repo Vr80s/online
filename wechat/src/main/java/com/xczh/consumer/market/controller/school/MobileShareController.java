@@ -126,11 +126,13 @@ public class MobileShareController {
 		String wxOrbrower = req.getParameter("wxOrbrower");  //来自哪里的浏览器
 		
 		LOGGER.info("shareId:"+shareId+",shareType:"+shareType);
+		
+		String shareIdAndType = shareId+"_"+shareType;
 		/*
 		 * 这里需要判断下是不是微信浏览器
 		 */
 		if(StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)){
-			String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/share/viewUser?shareId="+shareId+"&shareType="+shareType+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+			String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/share/viewUser?shareIdAndType="+shareIdAndType+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 			res.sendRedirect(strLinkHome);
 		}else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
 			res.sendRedirect(returnOpenidUri +"/xczh/share/viewUser?shareId="+shareId+"&wxOrbrower=brower"+"&shareType="+shareType);//
@@ -151,22 +153,33 @@ public class MobileShareController {
 	public void h5ShareGetWxUserInfo(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		
 		LOGGER.info("WX return code:" + req.getParameter("code"));
-		LOGGER.info("shareId:" + req.getParameter("shareId"));
-		LOGGER.info("shareType:" + req.getParameter("shareType"));
-		LOGGER.info("wxOrbrower:" + req.getParameter("wxOrbrower"));
+		
 		try {
+			String code = req.getParameter("code");
+			
 			String shareId = req.getParameter("shareId");
 			String shareType = req.getParameter("shareType");
-			String code = req.getParameter("code");
 			String wxOrbrower = req.getParameter("wxOrbrower");
 			
-			OnlineUser ou =null;
-			String openid ="";
 			
+			
+			
+			
+			
+			
+			if(code!=null){
+				String shareIdAndType =  req.getParameter("shareIdAndType");
+				String [] idAndType =shareIdAndType.split("_");
+				shareId = idAndType[0];
+				shareType = idAndType[1];
+			}
+			LOGGER.info("shareId:" +shareId+"shareType:" +shareType+"wxOrbrower:" +wxOrbrower);
+			
+			
+			OnlineUser ou =null;
 			if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
 				
 				WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
-				openid = wxw.getOpenid();
 				/*
 				 * 判断此微信用户是否已经存在与我们的账户系统中不
 				 */

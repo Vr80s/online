@@ -85,7 +85,7 @@ var shareType = getShareType();
 var shareId = getShareId();
 
 var domain = window.location.protocol+"//"+document.domain;
-var link = domain+"/wx_share.html?shareType="+shareType+"&shareId"+shareId;
+var link = domain+"/wx_share.html?shareType="+shareType+"&shareId="+shareId;
 
 //点击分享share
 $(".header_news").click(function(){
