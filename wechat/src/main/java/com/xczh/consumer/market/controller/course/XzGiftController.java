@@ -109,9 +109,7 @@ public class XzGiftController {
 	@RequestMapping(value = "/sendGift")
 	public ResponseObject sendGift(HttpServletRequest req,HttpServletResponse res) throws SQLException, XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException {
 
-		Map<String, String> params=new HashMap<>();
-		params.put("token",req.getParameter("token"));
-		OnlineUser user =appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}

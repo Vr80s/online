@@ -246,10 +246,10 @@ public class XzUserSetController {
 	@RequestMapping("getAddressAll")
 	@ResponseBody
 	public ResponseObject getAddressAll(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res)
 			throws Exception {
 		
-		OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 		/**
 		 * 获取所有的省份
 		 */
