@@ -1,13 +1,12 @@
 package com.xczhihui.medical.anchor.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.service.ICourseOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import test.BaseJunit4Test;
-
-import java.util.List;
 
 public class CourseOrderServiceImplTest extends BaseJunit4Test {
 
@@ -17,8 +16,11 @@ public class CourseOrderServiceImplTest extends BaseJunit4Test {
     @Test
     public void testList(){
 
-        List<UserCoinIncreaseVO> userCoinIncreaseVOS =
-                service.list("2c9aec35601bb5ae01601c72d49d0000");
+        Page<UserCoinIncreaseVO> page = new Page<>();
+        page.setCurrent(1);
+        page.setSize(2);
+        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
+                service.list("2c9aec35601bb5ae01601c72d49d0000", page);
 
         Assert.assertNotNull(userCoinIncreaseVOS);
     }
