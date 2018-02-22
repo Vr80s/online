@@ -180,9 +180,11 @@ $(function(){
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
+	       			window.location.reload();
 	       		},2000)
+	       		
 	       		localStorage.AutStatus = 1;
-	       		window.location.reload();
+//	       		window.location.reload();
 //	       		$('#doc_Distinguish #AutList').addClass('hide');
 //	       		$('#doc_Distinguish #AutStatus').removeClass('hide');
 	       		

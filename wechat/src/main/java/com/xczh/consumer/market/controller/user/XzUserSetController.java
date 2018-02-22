@@ -28,6 +28,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
 import com.xczhihui.bxg.online.api.service.CommonApiService;
@@ -71,6 +72,192 @@ public class XzUserSetController {
 	private CommonApiService commonApiService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserSetController.class);
+	
+	
+	
+	/**
+	 * 修改密码
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="editPassword")
+	@ResponseBody
+	public ResponseObject editPassword(HttpServletRequest req, HttpServletResponse res,
+			@RequestParam("oldPassword")String oldPassword,
+			@RequestParam("newPassword")String newPassword,
+			@RequestParam("username")String username
+			) throws Exception {
+
+		try {
+			//更新用户密码
+			userCenterAPI.updatePassword(username, oldPassword, newPassword);
+			return ResponseObject.newSuccessResponseObject("修改密码成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+	}
+	 /**
+     * Description：给  vtype 包含 3 和   4  发送短信。
+     *          如果是3的话，需要判断此手机号是否绑定，在发短信。
+     *          如果是4的话，需要判断此要更改的手机号是否绑定，如果绑定就不发短信了。
+     * @param req
+     * @param res
+     * @return
+     * @throws Exception
+     * @return ResponseObject
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	@RequestMapping(value="phoneCheck")
+	@ResponseBody
+	public ResponseObject phoneCheck(HttpServletRequest req,
+			@RequestParam("username")String username,@RequestParam("vtype")Integer vtype)throws Exception {
+	
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		
+		//短信验证码
+		String str = onlineUserService.changeMobileSendCode(username,vtype);
+		try {
+			if("发送成功".equals(str)){
+				return ResponseObject.newSuccessResponseObject(str);
+			}else{
+				return ResponseObject.newErrorResponseObject(str);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOGGER.info("获取错误信息啦"+e.getMessage());
+			return ResponseObject.newErrorResponseObject("发送失败");
+		}
+	}
+	
+	 /**
+     * Description：验证是否收到验证码啦
+     * @param req
+     * @param res
+     * @return
+     * @throws Exception
+     * @return ResponseObject
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	@RequestMapping(value="phoneCheckAndCode")
+	@ResponseBody
+	public ResponseObject phoneCheckAndCode(HttpServletRequest req,
+			@RequestParam("username")String username,
+			@RequestParam("code")String code,
+			@RequestParam("vtype")Integer vtype) throws Exception {
+		
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		
+		//短信验证码
+		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(username, code,vtype);
+		return checkCode;
+	}
+	
+    /**
+     * Description：更换手机号  --
+     * @param req
+     * @param res
+     * @return
+     * @throws Exception
+     * @return ResponseObject
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     */
+	@RequestMapping(value="updatePhone")
+	@ResponseBody
+	public ResponseObject updatePhone(HttpServletRequest req,
+			@RequestParam("oldUsername")String oldUsername,
+			@RequestParam("newUsername")String newUsername,
+			@RequestParam("code")String code,
+			@RequestParam("vtype")Integer vtype) throws Exception {
+		
+		/**
+		 * 验证手机号
+		 */
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(oldUsername)
+				|| !com.xczh.consumer.market.utils.StringUtils.checkPhone(newUsername)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		
+		//短信验证码
+		ResponseObject checkCode = onlineUserService.changeMobileCheckCode(newUsername, code,vtype);
+		if (!checkCode.isSuccess()) {
+			return checkCode;
+		}
+		try {
+			//更新用户信息 
+			userCenterAPI.updateLoginName(oldUsername,newUsername);
+			//更新用户表中的密码
+			OnlineUser o = onlineUserService.findUserByLoginName(oldUsername);
+			o.setLoginName(newUsername);
+			onlineUserService.updateUserLoginName(o);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject(e.getMessage());
+		}
+		return ResponseObject.newSuccessResponseObject("更改手机号成功");
+	}
+	
+	
+	/**
+	 * Description：根据 id 获取用户信息
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="getUserInfo")
+	@ResponseBody
+	public ResponseObject getUserInfo(HttpServletRequest req,
+			@RequestParam("userId")String userId){
+		try {
+			OnlineUser ou = onlineUserService.findUserById(userId);
+			if(ou != null){
+				return ResponseObject.newSuccessResponseObject(ou);
+			}else{
+				return ResponseObject.newErrorResponseObject("获取用户信息有误");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LOGGER.info("获取错误信息啦"+e.getMessage());
+			return ResponseObject.newErrorResponseObject("信息有误");
+		}
+	}
+	
+	
+	
+	/**
+	 * 退出登录  -- 清理缓存啦
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("logout")
+	@ResponseBody
+	public ResponseObject logout(HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
+		UCCookieUtil.clearTokenCookie(res);
+		req.getSession().setAttribute("_user_", null);
+		String token = req.getParameter("token");
+		if(token!=null){
+			cacheService.delete(token);
+		}
+		return ResponseObject.newSuccessResponseObject("退出成功");
+	}
+	
 	/**
 	 * Description：用户中心保存接口
 	 * @param request
@@ -264,8 +451,8 @@ public class XzUserSetController {
 	public ResponseObject saveAddress(HttpServletRequest req,
 			HttpServletResponse res,@ModelAttribute UserAddressManagerVo udm)
 			throws Exception {
-		//OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
 		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
+		
 		udm.setUserId(ou.getId());
 		try {
 			cityService.saveAddress(udm);

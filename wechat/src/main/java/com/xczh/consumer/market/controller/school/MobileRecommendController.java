@@ -187,8 +187,4 @@ public class MobileRecommendController {
 		
 		return ResponseObject.newSuccessResponseObject(list);
 	}
-
-
-
-	
 }
