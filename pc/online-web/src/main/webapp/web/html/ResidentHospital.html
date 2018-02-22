@@ -81,7 +81,7 @@
 								<p style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;padding: 0 20px;"></p>
 							</li>
 							<li class="active">
-								<a href="#hos_Administration" aria-controls="doc_talk" role="tab" data-toggle="tab" class="luntan color"><span class="icon iconfont icon-02_dianpuguanli" aria-hidden="true" style="margin-left: 33px;"></span>医馆管理
+								<a href="#hos_Administration" aria-controls="doc_talk" role="tab" data-toggle="tab" class="luntan color"><span class="icon iconfont icon-02_dianpuguanli color" aria-hidden="true" style="margin-left: 33px;"></span>医馆管理
 									<div class="luntan_list" style="display: none;">
 										<div>
 											<a href="javascript:;" id="hos_base_inf" class="hide">医馆基础信息</a>
@@ -236,7 +236,7 @@
 
 									<div>
 										<span><em>*</em> 统一社会信用代码</span>
-										<input type="text" placeholder="请输入正确的营业执照号" maxlength="18" class="doc_Idnum" />
+										<input type="text" placeholder="请输入正确的统一社会信用代码" maxlength="18" class="doc_Idnum" />
 										<span class="zhizhaoNum_warn warning hide" style="margin-left: 0px;"> 统一社会信用代码不能为空</span>
 									</div>
 
@@ -854,6 +854,12 @@
 		<button onclick="hosAgainAut()">重新认证</button>
 	</div>
 	{{/if}}
+	
+	<div class="bottomContent_inf text-left">
+		<span>已于{{createTime}}通过认证,享有入驻医馆的功能<em style="color: red;font-style: normal;"></em></span>
+		<!--<button>去看看</button>-->
+	</div>
+	
 	<div>
 		<span><em>*</em> 医馆名称</span>
 		<span class="company_name">{{name}}</span>

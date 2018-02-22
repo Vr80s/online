@@ -186,7 +186,7 @@ public class XzCommonController {
 		Map<String, String> params = new HashMap<>();
 		params.put("token", req.getParameter("token"));
 		String roomNumber = req.getParameter("video"); // 视频id
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String gvhallId = user.getVhallId();
 		LOGGER.info("微吼gvhallId:" + gvhallId);
 

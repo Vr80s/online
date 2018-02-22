@@ -81,7 +81,7 @@ public class XCPageController {
 			   LOGGER.info("key= "+ key + " and value= " + req.getParameter(key));
 	    }
 		req.setAttribute("course_id", courseId);
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		if(user!=null){
 			ItcastUser iu = userCenterAPI.getUser(user.getLoginName());
 			req.setAttribute("guId",iu.getId());

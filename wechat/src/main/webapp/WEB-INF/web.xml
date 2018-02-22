@@ -60,6 +60,7 @@
 	<filter-mapping>
 		<filter-name>TokenFilter</filter-name>
 		<url-pattern>/bxg/*</url-pattern>
+		<url-pattern>/xczh/*</url-pattern>
 	</filter-mapping>
 
 

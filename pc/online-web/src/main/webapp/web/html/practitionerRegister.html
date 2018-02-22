@@ -172,7 +172,7 @@ var _hmt = _hmt || [];
 			}
 
 	//昵称验证
-	if(nikename == ''){
+	if(nikename == '' ||  nikename.length > 20){
 		$(".nikeName_warn").css('display','block');
 		return false;
 	}else{
@@ -207,11 +207,14 @@ var _hmt = _hmt || [];
 					$('.phone_warn').css('display','block');
 						return false;
 				}else if(data.errorMessage == "验证码错误"){
-					$('#tip').text('动态码错误');
-	       			$('#tip').toggle();
-	       			setTimeout(function(){
-	       				$('#tip').toggle();
-	       			},1500)
+//					$('#tip').text('动态码错误');
+//	       			$('#tip').toggle();
+//	       			setTimeout(function(){
+//	       				$('#tip').toggle();
+//	       			},1500)
+	       			$(".imgVertifyCode_warn").text('动态码错误')
+					$(".imgVertifyCode_warn").css('display','block');
+					return false;
 				}else{
 //					$('.my_code .my_code_warn').text(data.errorMessage);
 //					$('.phone_warn').css('display','none');

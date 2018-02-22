@@ -285,10 +285,19 @@ $('#doctor_in_inf .news_nav ul li a').mouseenter(function(){
 $('#doctor_in_inf .news_nav ul li a').mouseout(function(){
 	$(this).children('span').css('color','#cacbcb')
 })
-//点击变色效果
-$('#doctor_in_inf .news_nav ul li a').click(function(){
+//一级菜单点击变色效果
+$('#doctor_in_inf .news_nav > ul > li > a').click(function(){
 	$('#doctor_in_inf .news_nav ul li a').removeClass('color');
 	$('#doctor_in_inf .news_nav ul li a > span').removeClass('color');
+	$(this).addClass('color');
+	$(this).children('span').addClass('color');
+	
+})
+
+//二级菜单点击变色效果
+$('#doctor_in_inf .news_nav > ul > li div a').click(function(){
+	$('#doctor_in_inf .news_nav ul li div a').removeClass('color');
+	$('#doctor_in_inf .news_nav ul li div a > span').removeClass('color');
 	$(this).addClass('color');
 	$(this).children('span').addClass('color');
 	

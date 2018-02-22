@@ -152,7 +152,7 @@ $("#update_mobile_next").click(function(){
 		code:code,
 		vtype:3   	//类型，3注册，2重置密码
 	};
-	requestService("/xczh/user/phoneCheckAndCode",
+	requestService("/xczh/set/phoneCheckAndCode",
 			urlparm, function(data) {
 		if (data.success) {
 			//time(obj);

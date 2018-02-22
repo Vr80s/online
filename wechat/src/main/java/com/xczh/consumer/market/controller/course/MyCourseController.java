@@ -74,6 +74,9 @@ public class MyCourseController {
 		if(user == null){
 			ResponseObject.newErrorResponseObject("登录失效");
 		}
+		
+		
+		
 		List<CourseLecturVo>  listAll  = courseServiceImpl.selectLearningCourseListByUserId(user.getId());
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
 		Map<String,Object> mapTj = new HashMap<String, Object>();
@@ -111,9 +114,9 @@ public class MyCourseController {
 	@RequestMapping("myFocus")
 	@ResponseBody
 	public ResponseObject myFocus(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res)
 			throws Exception {
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }

@@ -83,7 +83,7 @@ $(function(){
 			}
 
 	//昵称验证
-	if(nikename == ''){
+	if(nikename == '' || nikename.length > 20){
 		$(".nikeName_warn").css('display','block');
 		return false;
 	}else {
@@ -123,6 +123,9 @@ $(function(){
 		$(".my_different").text('您两次输入的密码不一致')
 		$(".my_different").css('display','block');
 		return false;
+	}else{
+		$(".my_pwd").css('display','none');
+		$(".my_different").css('display','none');
 	}
 	
 	

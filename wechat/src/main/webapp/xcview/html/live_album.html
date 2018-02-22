@@ -127,7 +127,7 @@
 		</div>		
 	</div>
 	<!--内容-->
-		<div class="wrap pp" style="height: 4.5rem;">
+		<div class="wrap pp" style="height: 2.5rem;">
 			<p></p>
 			<p class="no_data">暂无数据...</p>
 			<div class="zhezhao">
@@ -147,7 +147,7 @@
 			</div>		
 		</div>
 	<!--内容-->
-		<div class="wrap1 pp1" style="height: 4.5rem;">
+		<div class="wrap1 pp1" style="height: 2.5rem;">
 			<p></p> 
 			<p class="no_data1">暂无数据...</p>
 			<div class="zhezhao1">
@@ -255,6 +255,14 @@
 			{{/each}}
 		</script>
 	</div>
+	<!--无评论显示的图片-->
+	<div class="quie_pic">
+		<img src="../images/no_comment.png"/>	
+		<p>还没有评价？快来抢沙发呀~</p>
+		<span onclick="btn_allComment()">去评价</span>
+	</div>
+	
+	
 	<!--底下评论输入框-->
 	<div class="wrap_user_input">
 		<div class="wrap_input z">
@@ -336,7 +344,7 @@
 				<li>
 					<img src="../images/brow.png"/>
 				</li>
-				<li onclick="reportComment()">发表评论</li>
+				<li class="report_btn" onclick="reportComment()">发表评论</li>
 			</ul>
 		</script>
 	</div>
