@@ -44,7 +44,7 @@ public class ApplyController {
     @ResponseBody
     public ResponseObject updateBaseInfo(HttpServletRequest request, HttpServletResponse res){
 
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         applyService.saveOrUpdateBaseInfo(user.getId(),request.getParameter("realName"),request.getParameter("phone"));
         return ResponseObject.newSuccessResponseObject(null);
     }
@@ -67,7 +67,7 @@ public class ApplyController {
         }
 
 LOGGER.info(apply.toString());
-        OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
+        OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         applyService.updateDetailsInfo(apply);
         return ResponseObject.newSuccessResponseObject(null);
     }
@@ -77,7 +77,7 @@ LOGGER.info(apply.toString());
     public ResponseObject get(HttpServletRequest request, HttpServletResponse res){
         String userId=null;
         if(!StringUtils.isNotBlank(userId=request.getParameter("userId"))){
-            OnlineUser user = appBrowserService.getOnlineUserByReq(request, null);
+            OnlineUser user = appBrowserService.getOnlineUserByReq(request);
             userId=user.getId();
         }
         Apply apply = applyService.get(userId);

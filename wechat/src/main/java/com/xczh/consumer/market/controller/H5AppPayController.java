@@ -93,7 +93,7 @@ public class H5AppPayController {
 		Map<String, String> retobj = new HashMap<String, String>();
 		String orderId = req.getParameter("orderId");
 		String order_From = req.getParameter("orderFrom");
-		OnlineUser u = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser u = appBrowserService.getOnlineUserByReq(req);
 		/**
 		 * 根据订单id得到这个订单中已经存在的课程。
 		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
@@ -339,7 +339,7 @@ public class H5AppPayController {
 
 		Map<String, String> params2=new HashMap<>();
 		params2.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if ( user== null) {
 			throw new RuntimeException("登录失效");
 		}

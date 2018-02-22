@@ -84,7 +84,7 @@ public class CommonController {
 	@RequestMapping("userHomePage")
 	@ResponseBody
 	public ResponseObject userHomePage(HttpServletRequest req,
-									   HttpServletResponse res, Map<String,String> params)throws Exception {
+									   HttpServletResponse res)throws Exception {
 		//用户主页   -- 》接口
 		//关注人数         用户头像
 		//直播的课程     传递一个讲师id 就ok了... 得到讲师下的所有课程，得到讲师下的所有粉丝，得到讲师的
@@ -238,9 +238,9 @@ public class CommonController {
 	@RequestMapping("courseIsBuy")
 	@ResponseBody
 	public ResponseObject courseIsBuy(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
-	    OnlineUser ou =  appBrowserService.getOnlineUserByReq(req, params);
+	    OnlineUser ou =  appBrowserService.getOnlineUserByReq(req);
 	    if(ou==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -265,9 +265,9 @@ public class CommonController {
 	@RequestMapping("courseIsPwd")
 	@ResponseBody
 	public ResponseObject courseIsConfirmPwd(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -301,9 +301,9 @@ public class CommonController {
 	@RequestMapping("courseStatus")
 	@ResponseBody
 	public ResponseObject courseStatus(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -329,13 +329,13 @@ public class CommonController {
 	@RequestMapping("coursePwdConfirm")
 	@ResponseBody
 	public ResponseObject coursePwdConfirm(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		if(null == req.getParameter("course_pwd") && null == req.getParameter("course_id")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
 		}
 		int course_id =Integer.parseInt(req.getParameter("course_id"));
 		String course_pwd =req.getParameter("course_pwd");
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -355,14 +355,14 @@ public class CommonController {
 	@RequestMapping("subscribe")
 	@ResponseBody
 	public ResponseObject subscribe(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		String mobile =req.getParameter("mobile");
 		String course_id =req.getParameter("course_id");
 	    if(course_id==null){
 	    	return ResponseObject.newErrorResponseObject("缺少参数");
 	    }
 		//获取用户信息
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -396,10 +396,10 @@ public class CommonController {
 	@RequestMapping("userIsSubscribe")
 	@ResponseBody
 	public ResponseObject userIsSubscribe(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -426,7 +426,7 @@ public class CommonController {
 		Map<String,String> params=new HashMap<>();
 		params.put("token",req.getParameter("token"));
 		String roomNumber = req.getParameter("video");  //视频id
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		String gvhallId = user.getVhallId();
 		LOGGER.info("微吼gvhallId:"+gvhallId);
 		
@@ -458,7 +458,7 @@ public class CommonController {
 	@RequestMapping("h5ShareAfter")
 	@ResponseBody
 	public ResponseObject h5ShareLink(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception {
+			HttpServletResponse res)throws Exception {
 		
 		String courseId = req.getParameter("course_id");  //视频id
 		if(courseId == null ){
@@ -487,7 +487,7 @@ public class CommonController {
 	@RequestMapping("shareLink")
 	@ResponseBody
 	public ResponseObject shareLink(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception{
+			HttpServletResponse res)throws Exception{
 		String courseId = req.getParameter("courseId");  //视频id
 		if(courseId == null ){
 			return ResponseObject.newErrorResponseObject("获取参数异常");
@@ -527,7 +527,7 @@ public class CommonController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("pcShareLink")
-	public void pcShareLink(HttpServletRequest req,HttpServletResponse res, Map<String,String> params)throws Exception{
+	public void pcShareLink(HttpServletRequest req,HttpServletResponse res)throws Exception{
 		/*
 		 * 难道这里就需要搞下吗。
 		 */
@@ -558,7 +558,7 @@ public class CommonController {
 		/*
 		 * 需要判断这个课程是直播呢，还是公开课, 因为他们的文案不在一个地方存
 		 */
-//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+//		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 //		if(user == null){ //直接跳转到分享页面
 //			res.sendRedirect(returnOpenidUri +url);//
 //		}else{
@@ -600,7 +600,7 @@ public class CommonController {
 	@RequestMapping("shareJump")
 	@ResponseBody
 	public ResponseObject shareJump(HttpServletRequest req,
-			HttpServletResponse res, Map<String,String> params)throws Exception{
+			HttpServletResponse res)throws Exception{
 		String courseId = req.getParameter("courseId");  //视频id
 		if(courseId == null ){
 			return ResponseObject.newErrorResponseObject("获取参数异常");

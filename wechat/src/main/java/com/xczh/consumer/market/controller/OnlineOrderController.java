@@ -117,7 +117,7 @@ public class OnlineOrderController {
 			onlineOrderService.updateUserParentId(u.getId(), code);
 		}
 		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
 	    	return ResponseObject.newErrorResponseObject("登录失效");
 	    }
@@ -237,9 +237,9 @@ public class OnlineOrderController {
 	@RequestMapping(value = "consumptionList")
 	@ResponseBody
 	public ResponseObject consumptionList(HttpServletRequest req,
-                                          HttpServletResponse res, Map<String, String> params) throws Exception{
+                                          HttpServletResponse res) throws Exception{
 
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
@@ -275,9 +275,9 @@ public class OnlineOrderController {
 	@RequestMapping(value = "consumptionItem")
 	@ResponseBody
 	public ResponseObject consumptionItem(HttpServletRequest req,
-                                          HttpServletResponse res, Map<String, String> params) throws Exception{
+                                          HttpServletResponse res) throws Exception{
 
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
