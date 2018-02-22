@@ -579,6 +579,37 @@ $('#hospital_bottom #submit').click(function(){
 
 
 
+if(localStorage.AccountStatus == 1){
+		RequestService("/medical/doctor/authentication/get", "get", {			
+			}, function(data) {
+				console.log(data);
+			if(data.success == false){
+//				alert('获取认证状态数据失败');
+//				$('#tip').text('获取认证状态数据失败');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},2000)
+			}else if(data.success == true){
+//				alert('认证成功');
+				//医馆数据渲染
+//				$('#hosAutStatus').html(template('hosAutStatusTpl',data.resultObject))
+				 $('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
+			    //个人信息渲染
+			    $('.personIntroduct .introductInf').html(data.resultObject.description);
+			}
+
+		})
+	}else{
+		//医师认证状态和认证信息显示
+		RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
+		    //头像预览
+		    console.log(data);
+		    $('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
+		    //个人信息渲染
+		    $('.personIntroduct .introductInf').html(data.resultObject.description);
+		});
+	}
 
 
 
@@ -586,15 +617,6 @@ $('#hospital_bottom #submit').click(function(){
 
 
 
-
-//医师认证状态和认证信息显示
-RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
-    //头像预览
-    console.log(data);
-    $('#renzheng_status_list').html(template('renzheng_statusTpl', data.resultObject));
-    //个人信息渲染
-    $('.personIntroduct .introductInf').html(data.resultObject.description);
-});
 
 
 //如果入驻了医馆进入获取数据
