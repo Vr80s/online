@@ -20,11 +20,11 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * 订单业务层接口实现类
- *
- * @author 康荣彩
- * @create 2016-11-02 19:21
- */
+ * Description：支付成功课程业务
+ * creed: Talk is cheap,show me the code
+ * @author name：yuxin <br>email: yuruixin@ixincheng.com
+ * @Date: 下午 9:10 2018/1/24 0024
+ **/
 @Service
 public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderPayService {
 	
