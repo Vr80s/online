@@ -4,6 +4,7 @@ var my_impression3="";
 var course_id ="";
 var criticize_id = "";
 var LecturerId="";
+var commentCode ="";
 $(function(){
 
 
@@ -34,6 +35,7 @@ function refresh(pageNumber,pageSize){
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
         //判断是否是第一次评论
         $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
+        commentCode = data.resultObject.commentCode;
         //	回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
@@ -124,11 +126,59 @@ function refresh(pageNumber,pageSize){
                 updatePraise(criticize_id,true);
             }
         });
+        //判断浮层是否已选
+        if(commentCode==1){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        }
+            $('.my_impression1').click(function(){
+                var list=document.getElementsByClassName("active_color");
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                    $(".report_btn").css("opacity","0.3");
+                }else{
+                    $(".report_btn").css("opacity","1");
+                }
+            })
+            $('.my_impression2').click(function(){
+                var list=document.getElementsByClassName("active_color");
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                    $(".report_btn").css("opacity","0.3");
+                }else{
+                    $(".report_btn").css("opacity","1");
+                }
+            })
+            $('.my_impression3').click(function(){
+                var list=document.getElementsByClassName("active_color");
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                    $(".report_btn").css("opacity","0.3");
+                }else{
+                    $(".report_btn").css("opacity","1");
+                }
+            })
+            $('.select_lable').click(function(){
+                var list=document.getElementsByClassName("active_color");
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                    $(".report_btn").css("opacity","0.3");
+                }else{
+                    $(".report_btn").css("opacity","1");
+                }
+            })
 
     });
 }
 //评论
 function reportComment() {
+    //判断浮层是否已选
+    if(commentCode==1){
+        var opacity = $(".report_btn").css("opacity");
+        if(opacity!=1){
+            return false;
+        }
+    }
 
     var arr=new Array();
 
