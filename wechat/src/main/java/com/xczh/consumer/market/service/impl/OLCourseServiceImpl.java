@@ -531,8 +531,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
         	condSql.append(" oc.lecturer like '%"+ queryKey + "%'");
         	condSql.append(" or "); 
         	condSql.append(" oc.grade_name like '%"+ queryKey + "%'");
-			condSql.append(" or ");
-			condSql.append(" oc.description like '%"+ queryKey + "%'");
+			/*condSql.append(" or ");
+			condSql.append(" oc.description like '%"+ queryKey + "%'");*/
 			condSql.append(" or ");
 			condSql.append(" oc.course_detail like '%"+ queryKey + "%'");
 			condSql.append(" or ");

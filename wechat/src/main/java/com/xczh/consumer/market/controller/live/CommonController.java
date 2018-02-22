@@ -506,8 +506,6 @@ public class CommonController {
 			}else{
 				mapCourseInfo.put("description", "");
 			}
-			//mapCourseInfo.put("link",returnOpenidUri+"/bxg/common/pcShareLink?courseId="+Integer.parseInt(courseId));
-			//wx_share.html
 			mapCourseInfo.put("link",returnOpenidUri+"/wx_share.html?courseId="+Integer.parseInt(courseId));
 			return ResponseObject.newSuccessResponseObject(mapCourseInfo);
 		} catch (Exception e) {
@@ -536,7 +534,6 @@ public class CommonController {
 		 * 这里有个问题就是。如果去分享页面的话
 		 */
 		String courseId = req.getParameter("courseId");  //视频id
-		
 		System.out.println("========"+courseId);
 		/*
 		 * 这里需要判断下是不是微信浏览器
