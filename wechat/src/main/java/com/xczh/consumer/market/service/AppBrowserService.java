@@ -9,8 +9,15 @@ import java.util.Map;
 public interface AppBrowserService {
 
 
-	//OnlineUser getOnlineUserByReq(HttpServletRequest request);
-
+	/**
+	 * 
+	 * Description：根据app中的token 或者浏览器中的 session 中的获取用户信息
+	 * @param request
+	 * @return
+	 * @return OnlineUser
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
 	OnlineUser getOnlineUserByReq(HttpServletRequest request);
 
 	
