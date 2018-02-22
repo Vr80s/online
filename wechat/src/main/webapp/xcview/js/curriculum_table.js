@@ -25,6 +25,9 @@ $(".header_seek").click(function(){
 
 
 
+
+
+
 /*
  * 赛选条件渲染
  */
@@ -41,10 +44,8 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div></li>"; //代表全部的
 		for (var int = 0; int < data.resultObject[0].length; int++) {
 			var obj = data.resultObject[0][int];
-			pagenavi1 +="<li><a href='javascript: ;' data-title ="+int+" title="+obj.id+">"+obj.name+"</a></li>";
-		
-			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+int+" id='query_list"+int+"'></div></li>"
-		
+			pagenavi1 +="<li><a href='javascript: ;' data-title ="+int+" title="+obj.id+">"+obj.name+"</a></li>";		
+			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+int+" id='query_list"+int+"'></div></li>"		
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
 		$(".box01_list").html(box01List);
@@ -318,14 +319,36 @@ function typeQuery(){
     queryDataByParams(paramsObj,data_type);
 }
 //顶部搜索框获取文字显示
-  function getQueryString(key){
+function getQueryString(key){
         var reg = new RegExp("(^|&)"+key+"=([^&]*)(&|$)");
         var result = window.location.search.substr(1).match(reg);
         return result?decodeURIComponent(result[2]):null;
     }
     var urlAttribute=getQueryString('queryKey')
-   	$('.header_seek').append('<span>' + urlAttribute + '</span>');
-    
+    if (urlAttribute=='' || urlAttribute== null) {
+    	
+    } else{
+   		$('.header_seek').append('<span>' + urlAttribute + '</span>');	
+    }
 
+    
+//从分类跳转过来并在搜索框获取文字显示
+
+//  var top_nav=getQueryString('menuType')
+//  if(top_nav == 208){
+// 		$('.header_seek').append('<span>' + "脉诊大全"+ '</span>');	
+//  }else if(top_nav == 205){
+// 		$('.header_seek').append('<span>' + "各家综合" + '</span>');		
+//  }else if(top_nav == 204){
+// 		$('.header_seek').append('<span>' + "古籍经典" + '</span>');		
+//  }else if(top_nav == 203){
+// 		$('.header_seek').append('<span>' + "药膳食疗" + '</span>');		
+//  }else if(top_nav == 202){
+// 		$('.header_seek').append('<span>' + "美容养生" + '</span>');		
+//  }else if(top_nav == 202){
+// 		$('.header_seek').append('<span>' + "各式推拿" + '</span>');		
+//  }else if(top_nav == 200){
+// 		$('.header_seek').append('<span>' + "针灸疗法" + '</span>');		
+//  }
 //JQ预加载分界线----------------------------------------------------------------
 
