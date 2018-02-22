@@ -180,13 +180,28 @@ $(function(){
 
 	RequestService("/online/user/isAlive", "get", null, function(data) {
 		//头像预览
-		if(data.resultObject.smallHeadPhoto) {
-			if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-				$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
-			} else {
-				
+//		if(data.resultObject.smallHeadPhoto) {
+//			if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+//				$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
+//			} else {
+//				
+//			}
+//		};
+//		
+		
+		//头像预览
+			if(data.resultObject.smallHeadPhoto) {
+					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);	
+					$('.doctor_inf>h4').text(data.resultObject.name);
+			}else{
+				$('.doctor_inf>img').attr('src',"/web/images/defaultHeadImg.jpg");	
 			}
-		};
+			
+			if(data.resultObject.info){
+				$('.doctor_inf>p').text(data.resultObject.info)
+			}else{
+				$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
+			}
 	});
 
 	$(".doctor_inf >img").attr('src',userPic)
