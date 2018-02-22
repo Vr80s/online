@@ -978,7 +978,7 @@ function previewDialog(obj,status){
 		if(result[0].courseLength==null){
             $("#show_courseLength").text("暂无"); //课程时长
 		}else{
-            $("#show_courseLength").text(result[0].courseLength+"小时"); //课程时长
+            $("#show_courseLength").text(result[0].courseLength+"分钟"); //课程时长
 		}
 
     	$("#show_coursePwd").text(result[0].coursePwd); //课程时长

@@ -229,8 +229,8 @@ requestService("/bxg/bunch/detail", {course_id : course_id}, function(data) {
     
     watchState = result.watchState;
     //假装免费
-    watchState = 0;
-    result.watchState =0;
+//    watchState = 0;
+//    result.watchState =0;
     
     /*
      * 如果videoId不存在的时候，需要显示视频正在来的路上

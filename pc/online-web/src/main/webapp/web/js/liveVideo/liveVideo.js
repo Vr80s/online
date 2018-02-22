@@ -26,7 +26,7 @@ function checkLoginStatus(){
 
 }
 
-window.setInterval("checkLoginStatus()",5000);
+window.setInterval("checkLoginStatus()",1000*60*5);
 
 var teacherId;
 var teacherName;
@@ -73,7 +73,7 @@ $(function() {
 		//教师头像
 		$(".headImg img").attr("src", data.resultObject.head_img);
 		//开始结束时间
-		$(".liveMess .liveTime span").html('' + data.resultObject.start_time + "~" + data.resultObject.end_time);
+		$(".liveMess .liveTime span").html('' + data.resultObject.start_time);
 		$(".liwu").html(data.resultObject.giftCount);
 		$(".dashang").html(data.resultObject.rewardTotal);
 		if(data.resultObject.broadcastState==1){
@@ -630,9 +630,9 @@ function refreshBalance(){
 	//获取个人熊猫币余额
 	RequestService("/userCoin/balance", "GET", {
 	}, function(data) {
-		var balance = data.resultObject.balanceTotal;
+		var balance = data.resultObject;
 		$(".balanceTotal").html(balance);
-		$("#account").html(data.resultObject.account);
+		$("#account").html(balance);
 	});
 }
 //返回按钮

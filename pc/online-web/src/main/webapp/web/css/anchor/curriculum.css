@@ -74,7 +74,7 @@ table{
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%,-50%);
-	z-index: 666;
+	z-index: 1000;
 }
 .left-listNav{
 	    width: 220px;
@@ -1071,6 +1071,7 @@ table{
 }
 #demo2 select{
 	border: 1px solid #F0F0F0;
+	margin-bottom: 0px;
 }
 /*头部搜索开始*/
 .curriculum_top{

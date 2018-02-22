@@ -20,7 +20,7 @@ function submit() {
         return false;
     }
     //提交
-    requestService("/xczh/user/editPassword",{
+    requestService("/xczh/set/editPassword",{
         oldPassword:$("#oldPassword").val(),
         newPassword:$("#newPassword").val(),
         username:mobile

@@ -168,7 +168,7 @@ var _hmt = _hmt || [];
 			}
 
 	//昵称验证
-	if(nikename == ''){
+	if(nikename == '' ||  nikename.length > 20){
 		$(".nikeName_warn").css('display','block');
 		return false;
 	}else if(nikename.length < 4 ){
@@ -211,11 +211,14 @@ var _hmt = _hmt || [];
 					$('.phone_warn').css('display','block');
 						return false;
 				}else if(data.errorMessage == "验证码错误"){
-					$('#tip').text('动态码错误');
-	       			$('#tip').toggle();
-	       			setTimeout(function(){
-	       				$('#tip').toggle();
-	       			},1500)
+//					$('#tip').text('动态码错误');
+//	       			$('#tip').toggle();
+//	       			setTimeout(function(){
+//	       				$('#tip').toggle();
+//	       			},1500)
+	       			$(".imgVertifyCode_warn").text('动态码错误')
+					$(".imgVertifyCode_warn").css('display','block');
+					return false;
 				}else{
 					
 	       			$('#tip').text(data.errorMessage);
@@ -226,6 +229,7 @@ var _hmt = _hmt || [];
 				}
 				
 			}else if(data.success == true){
+				$('.phone_warn').css('display','none');
 				$('.my_code .my_code_warn').css('display','none');
 				//倒计时部分
 		var myTime=90;

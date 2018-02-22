@@ -17,6 +17,8 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 			
 			if(data.resultObject.info){
 				$('.doctor_inf>p').text(data.resultObject.info)
+			}else{
+				$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
 			}
 			
 		});
@@ -283,10 +285,19 @@ $('#doctor_in_inf .news_nav ul li a').mouseenter(function(){
 $('#doctor_in_inf .news_nav ul li a').mouseout(function(){
 	$(this).children('span').css('color','#cacbcb')
 })
-//点击变色效果
-$('#doctor_in_inf .news_nav ul li a').click(function(){
+//一级菜单点击变色效果
+$('#doctor_in_inf .news_nav > ul > li > a').click(function(){
 	$('#doctor_in_inf .news_nav ul li a').removeClass('color');
 	$('#doctor_in_inf .news_nav ul li a > span').removeClass('color');
+	$(this).addClass('color');
+	$(this).children('span').addClass('color');
+	
+})
+
+//二级菜单点击变色效果
+$('#doctor_in_inf .news_nav > ul > li div a').click(function(){
+	$('#doctor_in_inf .news_nav ul li div a').removeClass('color');
+	$('#doctor_in_inf .news_nav ul li div a > span').removeClass('color');
 	$(this).addClass('color');
 	$(this).children('span').addClass('color');
 	
@@ -515,13 +526,14 @@ function picUpdown2(baseurl,imgname){
 				}else{
 					$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','none');
 				}
-				if($('#hos_Administration #hos_pic img').length == 9){
-				$('#tip').text('医馆图片最多上传9张');
-	       		$('#tip').toggle();
-	       		setTimeout(function(){
-	       			$('#tip').toggle();
-	       		},1500)
-					return false;
+				if($('#hos_Administration #hos_pic img').length == 8){
+					$('#upHosPic').addClass('hide')
+//				$('#tip').text('医馆图片最多上传9张');
+//	       		$('#tip').toggle();
+//	       		setTimeout(function(){
+//	       			$('#tip').toggle();
+//	       		},1500)
+//					return false;
 				}
 //				 $('#hos_Administration .hos_base_inf  .'+imgname+'').append('<img src="'+data.resultObject+'" >');
 				 $('#hos_Administration #hos_pic').removeClass('hide');

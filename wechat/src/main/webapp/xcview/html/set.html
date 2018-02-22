@@ -64,7 +64,7 @@
 <script>
 	//退出登录
 	$(".btn").click(function(){
-        requestService("/xczh/user/logout",{
+        requestService("/xczh/set/logout",{
 			}, function(data) {
                 if (data.success) {
                     window.location.href="enter.html";

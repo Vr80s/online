@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.wxpay.util;
 
 import com.xczh.consumer.market.wxpay.entity.ReturnInfo;
+import com.xczh.consumer.market.wxpay.util.v3.WXPayUtil;
 
 import java.util.Map;
 
@@ -33,8 +34,8 @@ public class MD5SignUtil {
 		return (calculateSign == tenpaySign);
 	}
 	
-	public static boolean VerifySignature(Map<String, String> map, 
-			String sign, 
+	public static boolean VerifySignature(Map<String, String> map,
+			String sign,
 			String md5Key) {
 		
 		ReturnInfo returnInfo =new ReturnInfo();
@@ -59,6 +60,16 @@ public class MD5SignUtil {
 		String calculateSign = MD5Util.MD5(signStr).toUpperCase();
 		String tenpaySign = sign.toUpperCase();
 		return (calculateSign.equals(tenpaySign));
+	}
+
+	/**
+	 * Description：修改签名验证方式(兼容用户使用优惠券支付)
+	 * creed: Talk is cheap,show me the code
+	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
+	 * @Date: 2018/2/22 0022 下午 4:14
+	 **/
+	public static boolean VerifySignature(String content, String key) throws Exception {
+		return WXPayUtil.isSignatureValid(content,key);
 	}
 	
 	public static void main(String[] args) {

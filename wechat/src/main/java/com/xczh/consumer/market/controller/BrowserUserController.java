@@ -693,7 +693,7 @@ public class BrowserUserController {
 	public ResponseObject getBalanceTotal(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Map<String, String> params2=new HashMap<>();
 		params2.put("token",req.getParameter("token"));
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params2); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req); // onlineUserMapper.findUserById("2c9aec345d59c9f6015d59caa6440000");
 		if (user == null) {
 			throw new RuntimeException("登录失效");
 		}

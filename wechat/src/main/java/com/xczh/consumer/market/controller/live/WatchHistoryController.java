@@ -35,11 +35,11 @@ public class WatchHistoryController {
 	@RequestMapping("list")
 	@ResponseBody
 	public ResponseObject getWatchHistoryList(HttpServletRequest req,
-											  HttpServletResponse res, Map<String, String> params) {
+											  HttpServletResponse res) {
 		if(null == req.getParameter("pageNumber") || null == req.getParameter("pageSize")||null == req.getParameter("type")){
 			return ResponseObject.newErrorResponseObject("缺少参数");
 		}
-		OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 		String appUniqueId = req.getParameter("appUniqueId");
 		String ouStrId = "";
 		if(ou==null){
@@ -74,7 +74,7 @@ public class WatchHistoryController {
 	@RequestMapping("add")
 	@ResponseBody
 	public ResponseObject add(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params) {
+			HttpServletResponse res) {
 		try {
 			String courseId = req.getParameter("course_id");
 			String type = req.getParameter("type");
@@ -83,7 +83,7 @@ public class WatchHistoryController {
 			if(null == courseId && null == type){
 				return ResponseObject.newErrorResponseObject("缺少参数");
 			}
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			String ouStrId = "";
 			if(ou==null){
 				ouStrId = appUniqueId;
@@ -119,12 +119,12 @@ public class WatchHistoryController {
 	@RequestMapping("empty")
 	@ResponseBody
 	public ResponseObject empty(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params) {
+			HttpServletResponse res) {
 		try {
 			if(null == req.getParameter("type")){
 				return ResponseObject.newErrorResponseObject("缺少参数");
 			}
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			String appUniqueId = req.getParameter("appUniqueId");
 			String ouStrId = "";
 			if(ou==null){

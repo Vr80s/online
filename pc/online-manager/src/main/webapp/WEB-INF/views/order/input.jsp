@@ -106,6 +106,7 @@
 				<select name="order_from" id="order_from" style="width:200px;">
 					<option value="5">线下订单</option>
 					<option value="6">工作人员</option>
+					<option value="0">赠送</option>
 				</select>
 			</div>
 		</div>

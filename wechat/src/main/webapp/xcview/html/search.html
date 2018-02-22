@@ -15,9 +15,9 @@
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
 <script src="/xcviews/js/js.js"></script>
-
+	<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+
 
 <script type="text/javascript" src="../js/template.js"></script>  <!--模板引入-->
 
@@ -116,9 +116,9 @@
 			var arrList = localStorage.hisArr.split(',');
 			arrList.splice(i,1); 
 			localStorage.setItem("hisArr", arrList);
-//			if(arrList.length==0 || arrList.length=='' || arrList.length==null){
-//				$(".search_history").hide()
-//			}
+			if(arrList.length==0 || arrList.length=='' || arrList.length==null){
+				$(".search_history").hide()
+			}
 			var historyInf = '';
  			localStorage.hisArr.split(',').forEach(function(v,i){
 				historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
@@ -127,10 +127,18 @@
 		}
 
 		//判断历史记录
+
 		
-//		if(localStorage.hisArr.length==0 || localStorage.hisArr.length=='' || localStorage.hisArr.length==null){
-//				$(".search_history").hide()
-//		}   //若逐条删除 到没记录就会隐藏
+		if(localStorage.hisArr){
+			if(localStorage.hisArr.length==0 || localStorage.hisArr.length=='' || localStorage.hisArr.length==null){
+				$(".search_history").hide()
+			}
+		}else{
+
+				$(".search_history").hide()
+
+		}
+		//若逐条删除 到没记录就会隐藏结束
 		if(localStorage.hisArr){
 			//渲染上
 			var historyInf = '';
@@ -155,16 +163,34 @@
 					initHistoryList();
 			        var e = event || window.event || arguments.callee.caller.arguments[0];          
 			        if(e && e.keyCode==13){ // enter 键
-						arr.unshift($('#header_input').val())
-						localStorage.hisArr = arr;
-					  window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";						
+                        var keyValue = $('#header_input').val();
+                        //判断该记录是否已存在
+						if($.inArray(keyValue, arr)!=-1){
+                            removeByValue(arr, keyValue);
+                            arr.unshift($('#header_input').val());
+                            localStorage.hisArr = arr;
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";
+						}else{
+                            arr.unshift($('#header_input').val())
+                            localStorage.hisArr = arr;
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";
+						}
+
 			        } 
 			   }; 
 			}else{
 				$(".header_seek_main").css("display","block");
 			};
 		});
-		
+		//删除指定数组中的元素
+        function removeByValue(arr, val) {
+            for(var i=0; i<arr.length; i++) {
+                if(arr[i] == val) {
+                    arr.splice(i, 1);
+                    break;
+                }
+            }
+        }
 		function initHistoryList(){		
 			if(arr.length >= 10){
 				arr.splice(9,1);

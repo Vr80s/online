@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.controller.weibo;
+package com.xczh.consumer.market.controller.threeparties;
 
 import java.io.IOException;
 import java.sql.SQLException;

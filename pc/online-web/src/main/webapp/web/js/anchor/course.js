@@ -414,7 +414,7 @@ function echoCourse(caiId){
                     }
                 }
                 $(".course_city").empty();
-                doProvAndCityRelation();
+                doProvAndCityRelation($(".course_province"));
                 for(var i=0;i<$(".course_city option").length;i++){
                     if($(".course_city option").eq(i).text()==p_c[1]){
                         $(".course_city option").eq(i).prop("selected",true);
@@ -528,7 +528,7 @@ function verifyCourse(course){
     }else{
         $('.warning_course_lecturer').addClass('hide');
     }
-    if(course.lecturer.length>30){
+    if(course.lecturer.length>20){
         $('.warning_course_lecturer_length').removeClass('hide');
         return false;
     }else{

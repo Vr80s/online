@@ -163,7 +163,7 @@ color: #999999;
 	font-size: 0.26rem;
 	padding: 0.22rem 0;
 	width: 100%;
-    border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 1px solid #D8DDE6;
 }
 .playTime img{
 	display: inline-block;
@@ -195,7 +195,7 @@ color: #999999;
 	background: white;
 	text-align: center;
 	font-size: 0.28rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 1px solid #D8DDE6;
 }
 /*简介*/
 .wrap_synopsis{
@@ -233,7 +233,7 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 4.5rem;
 }
 .wrap p img{
 	width: 100%;
@@ -257,7 +257,7 @@ color: #999999;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 1px solid #D8DDE6;
 }
 .btn a{
 	display:inline-block;
@@ -273,7 +273,7 @@ color: #999999;
 	display: none;
 	text-align: center;
     line-height: 1.8rem;
-    border-bottom: 0.01rem solid #D8DDE6;
+    border-bottom: 1px solid #D8DDE6;
     color: #a5a5a5;
 	
 }
@@ -299,7 +299,7 @@ color: #999999;
 .main_speak p:nth-child(1){
 	float: left;
 	width: 0.6rem;
-	height: 0.03rem;
+	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
@@ -310,7 +310,7 @@ color: #999999;
 .main_speak p:nth-child(3){
 	float: right;
 	width: 0.6rem;
-	height: 0.03rem;
+	height: 1px;
 	background: #D8DDE6;
 	margin-top: 0.2rem;
 }
@@ -324,7 +324,7 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 2rem;
+	min-height: 4.5rem;
 }
 .wrap1 p img{
 	width: 100%;
@@ -348,7 +348,7 @@ color: #999999;
 	    text-align: center;
     background: white;
 	padding-bottom: 0.2rem;
-	border-bottom: 0.01rem solid #D8DDE6;
+	border-bottom: 1px solid #D8DDE6;
 }
 .btn1 a{
 	display:inline-block;
@@ -430,7 +430,7 @@ margin-top: 0.1rem;
 	width: 100%;
 	background: white;
 	overflow: hidden;
-	    border-bottom: 0.01rem solid #D8DDE6;
+	    border-bottom: 1px xcview
 	    padding-top: 0.2rem;
 }
 /*.wrap_all_returned{
@@ -594,6 +594,7 @@ color: #666666;
 
 	text-align: center;
 	    margin-top: 0.18rem;
+	    width: 1rem;
 }
 .all_returned_num img{
 	width: 0.4rem;
@@ -603,6 +604,9 @@ color: #666666;
 	color: #999999;
 	font-size: 0.24rem;
 	margin-top: -0.1rem;
+	 overflow: hidden;
+	 text-overflow: ellipsis;
+	 white-space: nowrap;
 }
 /*评论用户弹出框*/
 .bg_userModal{
@@ -708,6 +712,8 @@ color: #666666;
 .select_lable{
 	clear: both;
 	padding-top: 0.4rem;
+	    overflow: hidden;
+    margin-bottom: 0.3rem;
 }
 .select_lable .active_color{
 	background: #00BC12;
@@ -750,7 +756,7 @@ color: #666666;
 	font-size: 0.26rem;
 color: #888888;
     clear: both;
-    padding-top: 0.4rem;
+
 }
 .text_write_box{
 	width: 100%;

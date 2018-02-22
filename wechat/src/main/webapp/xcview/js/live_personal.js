@@ -53,55 +53,7 @@ $(".bg_userModal").click(function(){
 		$(".bg_modal").hide();
 		$(".wrapAll_comment").hide();
 	})
-//	标签选中变色
-	
-	 /*$(".select_lable li").click(function(){
-  	 $(this).toggleClass("active_color"); 
-  });*/
-    //星星五星好评
-    /*$('.my_impression1 img').each(function(index){
-        var star='../images/xing1.png';    //普通灰色星星图片的存储路径  
-        var starRed='../images/xing.png';     //红色星星图片存储路径  
-        var prompt=['1分','2分','3分','4分','5分'];   //评价提示语  
-        this.id=index;      //遍历img元素，设置单独的id  
-        $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件  
-            $('.my_impression1 img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色  
-            $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图  
-            $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图  
-            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值
 
-            my_impression1=this.id;
-        });
-    });*/
-//主播演绎好评
-   /* $('.my_impression2 img').each(function(index){
-        var star='../images/face0.png';    //普通灰色星星图片的存储路径
-        var starRed='../images/face1.png';     //红色星星图片存储路径
-        var prompt=['一般','一般','好','好','很好'];   //评价提示语
-        this.id=index;      //遍历img元素，设置单独的id
-        $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件
-            $('.my_impression2 img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色
-            $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图
-            $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图
-            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值
-            my_impression2=this.id;
-
-        });
-    });*/
-//节目内容好评
-    /*$('.my_impression3 img').each(function(index){
-        var star='../images/face0.png';    //普通灰色星星图片的存储路径
-        var starRed='../images/face1.png';     //红色星星图片存储路径
-        var prompt=['一般','一般','好','好','很好'];   //评价提示语
-        this.id=index;      //遍历img元素，设置单独的id
-        $(this).on("mouseover click",function(){    //设置鼠标滑动和点击都会触发事件
-            $('.my_impression3 img').attr('src',star);//当“回滚”、“改变主意”时，先复位所有图片为木有打星的图片颜色
-            $(this).attr('src',starRed);        //设置鼠标当前所在图片为打星颜色图
-            $(this).prevAll().attr('src',starRed);  //设置鼠标当前的前面星星图片为打星颜色图
-            $(this).siblings('span').text(prompt[this.id]);     //根据id的索引值作为数组的索引值
-            my_impression3=this.id;
-        });
-    });*/
     //获取ID跳转相应页面页面
 //引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var userLecturerId = getQueryString('userLecturerId');
@@ -109,8 +61,12 @@ $(".bg_userModal").click(function(){
 requestService("/xczh/host/hostPageInfo",{
 	lecturerId : userLecturerId
 },function(data) {
+	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
+	
 //	直播头像/主播名字
+
 	$(".personal_bg").html(template('personal_header',data.resultObject));
+
 //<!--主播名字/粉丝数量-->
 	$("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
 // 打开页面判断是否已关注
@@ -247,8 +203,6 @@ requestService("/xczh/host/hostPageCourse",{
 
     //评论
     function reportComment() {
-
-
         var comment_detailed = $('#comment_detailed').val();
 
         requestService("/xczh/criticize/saveCriticize",{
@@ -257,39 +211,49 @@ requestService("/xczh/host/hostPageCourse",{
             userId : userLecturerId
         },function(data) {
             //	课程名称/等级/评论
-
-            alert(data.resultObject);
-            //	直播时间/主播名字
-            //$("#wrap_playTime").html(template('data_name',data.resultObject));
-            $(".wrapAll_comment").hide();
-            $(".bg_modal").hide();
-            requestService("/xczh/criticize/getCriticizeList",{
-                userId : userLecturerId
-            },function(data) {
-                //	课程名称/等级/评论
-                $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-
-            });
+            if(data.success==true){
+                webToast("评论成功","middle",3000);
+                //	直播时间/主播名字
+                $(".wrapAll_comment").hide();
+                $(".bg_modal").hide();
+                document.getElementById("comment_detailed").value="";
+                del();
+                requestService("/xczh/criticize/getCriticizeList",{
+                    userId : userLecturerId
+                },function(data) {
+                    //	课程名称/等级/评论
+                    $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+                });
+            }else{
+                webToast("评论失败","middle",3000);
+            }
         });
     }
 
     //回复评论
     function replyComment() {
         var comment_detailed = $('#littlt_return').val();
-
+        if(comment_detailed==""){
+            webToast("内容不能为空","middle",3000);
+            return
+        }
         requestService("/xczh/criticize/saveReply",{
 
             content:comment_detailed,
             criticizeId : criticize_id
         },function(data) {
             //	课程名称/等级/评论
-
-            alert(data.resultObject);
-            //	直播时间/主播名字
-            $(".bg_userModal").hide();
-            $(".wrapLittle_comment").hide();
-            document.getElementById("littlt_return").value="";
-            refresh();
+            if(data.success==true){
+                webToast("回复成功","middle",3000);
+                //	直播时间/主播名字
+                $(".bg_userModal").hide();
+                $(".wrapLittle_comment").hide();
+                document.getElementById("littlt_return").value="";
+                del();
+                refresh();
+            }else {
+                webToast("回复失败","middle",3000);
+            }
         });
     }
 
@@ -304,9 +268,5 @@ requestService("/xczh/host/hostPageCourse",{
     }
 
     function btn_user_allComment(){
-
-
         window.location.href="all_user_comment.html?userLecturerId="+userLecturerId+"";
-
-
     }

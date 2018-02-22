@@ -174,15 +174,17 @@ $(function(){
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       		},1500)
+	       		},2000)
 			}else if(data.success == true){
 				$('#tip').text('保存成功');
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
-	       		},1500)
+	       			window.location.reload();
+	       		},2000)
+	       		
 	       		localStorage.AutStatus = 1;
-	       		window.location.reload();
+//	       		window.location.reload();
 //	       		$('#doc_Distinguish #AutList').addClass('hide');
 //	       		$('#doc_Distinguish #AutStatus').removeClass('hide');
 	       		

@@ -1,7 +1,6 @@
 package com.xczh.consumer.market.controller.live;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.MenuVo;
-import com.xczhihui.medical.doctor.service.IMedicalDoctorBusinessService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorVO;
 
 /**
@@ -130,18 +128,21 @@ public class BunchPlanController {
 	@ResponseBody
 	@Transactional
 	public ResponseObject courseDetail(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params)
+			HttpServletResponse res)
 			throws Exception {
 		String courseid = req.getParameter("course_id");
 		if ("".equals(courseid) || courseid == null || "null".equals(courseid)) {
 			return ResponseObject.newErrorResponseObject("课程ID是空的");
 		}
-		OnlineUser user = appBrowserService.getOnlineUserByReq(req, params);
+		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
 		CourseLecturVo courseLecturVo =wxcpCourseService.bunchDetailsByCourseId(Integer.parseInt(courseid));
+		
+		
 		
 		if(courseLecturVo == null){
 			return ResponseObject.newSuccessResponseObject("获取课程异常");
 		}
+		LOGGER.info("getWatchState:"+courseLecturVo.getWatchState());
 		if(user != null ){
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), courseLecturVo.getUserId());
 			courseLecturVo.setIsfocus(isFours);
@@ -149,6 +150,10 @@ public class BunchPlanController {
 			if(courseLecturVo.getWatchState()==0){
 				onlineWebService.saveEntryVideo(Integer.parseInt(courseid), user);
 			}else{
+				
+				LOGGER.info("getUserId:"+courseLecturVo.getUserId()+"======"+user.getId());
+				LOGGER.info("courseid:"+onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size());
+				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
 						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
 			       //LOGGER.info("同学,当前课程您已经报名了!");

@@ -340,7 +340,7 @@ public class UserCoinServiceImpl implements UserCoinService {
     @Override
     public void updateBalanceForCourses(List<OrderVo> orderVos) {
         for (OrderVo orderVo:orderVos){
-            if(orderVo.getOrder_from()!= OrderFrom.WORKER.getCode()){
+            if(orderVo.getOrder_from()!= OrderFrom.WORKER.getCode()&&orderVo.getOrder_from()!= OrderFrom.GIVE.getCode()){
                 updateBalanceForCourse(orderVo);
             }else{
                 logger.info("订单{}为工作人员订单，不计入主播分成",orderVo.getOrderDetail());

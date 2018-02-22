@@ -49,14 +49,6 @@ public class HostController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 
-//	@Autowired
-//	@Qualifier("giftServiceImpl")
-//	private GiftService giftService;
-//	
-//	@Autowired()
-//	@Qualifier("giftServiceImpl")
-//	private com.xczhihui.bxg.online.api.service.GiftService remoteGiftService;
-	
 	@Autowired
 	@Qualifier("focusServiceImpl")
 	private FocusService focusService;
@@ -100,6 +92,9 @@ public class HostController {
 			HttpServletResponse res,
 			@RequestParam("lecturerId")String lecturerId)throws Exception {
 		
+		
+		LOGGER.info("lecturerId-->id"+lecturerId);
+		
 		Map<String,Object> mapAll = new HashMap<String,Object>();
 		/**
 		 * 得到讲师   主要是房间号，缩略图的信息、讲师的精彩简介  
@@ -110,23 +105,24 @@ public class HostController {
 		if(lecturerInfo == null){
 			return ResponseObject.newErrorResponseObject("获取医师信息有误");
 		}
-		System.out.println(lecturerInfo.toString());
+		
 		mapAll.put("lecturerInfo", lecturerInfo);          //讲师基本信息
 		MedicalHospital mha = null;
+		
+		LOGGER.info("lecturerInfo"+lecturerInfo.toString());
+		
 		//1.医师2.医馆
 		if(lecturerInfo.get("type").toString().equals("1")){
-			 System.out.println("======="+1234);
 			 mha = 	medicalHospitalApplyService.getMedicalHospitalByMiddleUserId(lecturerId);	
 		}else if(lecturerInfo.get("type").toString().equals("2")){
 			 mha =  medicalHospitalApplyService.getMedicalHospitalByUserId(lecturerId);	
 		}
-		System.out.println(1234);
 		//认证的主播 还是 医馆
 		mapAll.put("hospital",mha);
 		List<Integer> listff =   focusServiceRemote.selectFocusAndFansCount(lecturerId);
 		mapAll.put("fansCount", listff.get(0));       	   //粉丝总数
 		mapAll.put("focusCount", listff.get(1));   	  	   //关注总数
-		
+		mapAll.put("criticizeCount", listff.get(2));   	  	   //关注总数
 		/**
 		 * 判断用户是否已经关注了这个主播
 		 */
@@ -135,7 +131,6 @@ public class HostController {
 	    	mapAll.put("isFours", 0); 
 	    }else{
 			Integer isFours  = focusService.myIsFourslecturer(user.getId(), lecturerId);
-			System.out.println(isFours);
 			mapAll.put("isFours", isFours); 		  //是否关注       0 未关注  1已关注
 	    }
 		/**

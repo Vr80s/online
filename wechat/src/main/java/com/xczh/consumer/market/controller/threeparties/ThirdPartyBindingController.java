@@ -1,4 +1,4 @@
-package com.xczh.consumer.market.controller.weibo;
+package com.xczh.consumer.market.controller.threeparties;
 
 import java.sql.SQLException;
 import java.util.Map;
@@ -95,6 +95,7 @@ public class ThirdPartyBindingController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping(value="userBindingInfo")
+	@ResponseBody
 	public ResponseObject userBindingInfo(HttpServletRequest req,
 			HttpServletResponse res ){
 		/**
@@ -122,6 +123,7 @@ public class ThirdPartyBindingController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping(value="removeBinding")
+	@ResponseBody
 	public ResponseObject removeBinding(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("unionId")String unionId,

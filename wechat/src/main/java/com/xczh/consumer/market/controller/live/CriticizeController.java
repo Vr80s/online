@@ -69,12 +69,13 @@ public class CriticizeController {
 			)throws Exception {
 	
 		OnlineUser user = appBrowserService.getOnlineUserByReq(req);
-		Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, pageSize,user!= null ? user.getUserId() :null);
+		
+		Page<Criticize> pageList  = criticizeService.getUserOrCourseCriticize(userId,courseId,pageNumber, 
+				pageSize,user!= null ? user.getUserId() :null);
 		/**
 		 * 这里判断用户发表的评论中是否包含发表心心了，什么的如果包含的话就不返回了
 		 * 		并且判断这个用户有没有购买过这个课程
 		 */
-		
 		Map<String,Object> map = new HashMap<String,Object>();
 		if(user!=null){
 			Integer cv = criticizeService.findUserFirstStars(courseId,user.getId());

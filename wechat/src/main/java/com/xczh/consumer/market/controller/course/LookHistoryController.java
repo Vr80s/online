@@ -48,13 +48,13 @@ public class LookHistoryController {
 	@RequestMapping("add")
 	@ResponseBody
 	public ResponseObject add(HttpServletRequest req,
-			HttpServletResponse res, Map<String, String> params) {
+			HttpServletResponse res) {
 		try {
 			String courseId = req.getParameter("course_id");
 			if(null == courseId){
 				return ResponseObject.newErrorResponseObject("缺少参数");
 			}
-			OnlineUser ou = appBrowserService.getOnlineUserByReq(req, params);
+			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
 			   return ResponseObject.newErrorResponseObject("登录失效");
 			}
@@ -82,7 +82,6 @@ public class LookHistoryController {
 			Page<WatchHistoryVO> page = new Page<>();
 		    page.setCurrent(1);
 		    page.setSize(5);
-		    
 		    OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
 			   return ResponseObject.newErrorResponseObject("登录失效");

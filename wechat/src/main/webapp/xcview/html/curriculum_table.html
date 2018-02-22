@@ -140,7 +140,7 @@
 					<div class="both"></div>
 				</div>
 			</div>
-			<div class="all_mold all_mold3">
+			<div class="all_mold all_mold3" style="display: none;margin-bottom: 1rem;">
 				<div class="all_classify_right_type">城市</div>
 				<div class="all_right_type all_right_type_twos" id="draw_city_list">
 				<!-- 	<div class="all_right_type_one">上海</div>
@@ -157,7 +157,7 @@
 				</div>
 				<div class="both"></div>
 			</div>
-			<div class="all_mold all_mold4">
+			<div class="all_mold all_mold4" style="display: none;margin-bottom: 1rem;">
 				<div class="all_classify_right_type">直播状态</div>
 				<div class="all_right_type" id="draw_live_status_list">
 			<!-- 		<div class="all_right_type_one">直播中</div>
@@ -367,10 +367,19 @@ for(n=1;n<9;n++){
 				
 			});
 			$(".all_mold2 .all_right_type_one").click(function(){
+				var index=$(this).index();
 				$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
-				
-
+				if(index==2){
+					$(".all_mold4").show();
+				}else{
+					$(".all_mold4").hide();
+				}
+				if(index==3){
+					$(".all_mold3").show();
+				}else{
+					$(".all_mold3").hide();	
+				}
 				
 			});
 			$(".all_mold3 .all_right_type_one").click(function(){
@@ -391,14 +400,17 @@ for(n=1;n<9;n++){
 		};
 		
 //顶部搜索框的提示添加
-		var historyTip='';
-		historyTip=localStorage.hisArr.split(',')
-		$('.header_seek').append('<span>' + historyTip[0] + '</span>');
+// 		var historyTip='';
+// 		var modile = localStorage.hisArr;
+// 		if(stringnull(modile)){
+// 			historyTip=localStorage.hisArr.split(',')
+// 			$('.header_seek').append('<span>' + historyTip[0] + '</span>');
+// 		}
 //		console.log(historyTip[0])
 		
 		
 	</script>
-
+	
 </html>
 
 

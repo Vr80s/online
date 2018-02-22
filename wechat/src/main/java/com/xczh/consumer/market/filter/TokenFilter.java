@@ -21,70 +21,113 @@ import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 
+/**
+ * 
+ * 此过滤器主要为了进行请求接口前的一些拦截操作，判断用户的token是否有效，判断是否同一个用户是否两次登录
+ * ClassName: TokenFilter.java <br>
+ * Description: <br>
+ * Create by: name：yangxuan <br>email: 15936216273@163.com <br>
+ * Create Time: 2018年2月22日<br>
+ */
 public class TokenFilter implements Filter {
 	
-    /**   
-     * 需要排除的页面     登录前操作接口是不拦截token的
-     */    
+	
 	/*
-	 * 登录前不拦截的控制器：
+	 * 注册、忘记密码等不需要拦截：
 	 */
-	private static String str ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login,/bxg/page/login/1"
+	private static String login_before ="/bxg/user/sendCode,/bxg/bs/phoneRegist,/bxg/page/reg,/bxg/bs/login,/bxg/page/login/1"
 			+ ",/bxg/user/logout,/bxg/user/phoneRegist,/bxg/bs/forgotPassword,/bxg/page/login/1,/bxg/bs/checkToken,/bxg/user/forgotPassword,"
 			+ "/bxg/user/login,/bxg/bs/isReg,/bxg/wxjs/h5JSSDK,/bxg/page/verifyLoginStatus";
 	/*
-	 * 登录前不拦截的页面，因为可能来自分享。
+	 * 来自分享等不需要拦截。
 	 */
-	private static String str1 = "/bxg/common/shareLink,/bxg/common/pcShareLink,/bxg/wxpay/h5GetOpenidForPersonal";
+	private static String login_share = "/bxg/common/shareLink,/bxg/common/pcShareLink,/bxg/wxpay/h5GetOpenidForPersonal";
+	
 	/*
-	 * 或者说是来自请求微信的信息
-	 * 因为存在第三方登录，第三方登录不应该拦截的地址
+     * 第三方前的登录不需要拦截
 	 */
-	private static String str2 = "/bxg/bs/addGetUserInfoByCode,/bxg/wxpay/h5GetOpenid,"
+	private static String login_three_parties = "/bxg/bs/addGetUserInfoByCode,/bxg/wxpay/h5GetOpenid,"
 			+ "/bxg/wxjs/setWxMenu,/bxg/wxpay/h5BsGetCodeUrlAndBase,/bxg/wxjs/h5BsGetCodeUrl,"
 			+ "/bxg/wxjs/h5BsGetCodeUrlAndBase,/bxg/user/wxBindPhoneNumber,"
 			+ "/bxg/user/wxBindAndPhoneNumberIsReg,/bxg/wxjs/h5BsGetCodeUrlReqParams,"
 			+ "/bxg/user/h5GetOpenidForPersonal,/bxg/bs/appThirdPartyLogin,/bxg/wxpay/h5GetCodeAndUserMobile";
+	
 	/*
-	 * 支付的回调不应该拦截的地方 
+	 * 微信，支付宝支付回调不需要拦截
 	 */
-	private static String str3 = "/bxg/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/bxg/alipay/pay,/bxg/alipay/rewardPay,/bxg/alipay/payXianXia,"
+	private static String pay_the_callback = "/bxg/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/bxg/alipay/pay,/bxg/alipay/rewardPay,/bxg/alipay/payXianXia,"
 			+ "/bxg/alipay/rechargePay,/bxg/common/h5ShareAfter,/bxg/wxjs/h5ShareGetWxOpenId,/bxg/wxpay/h5ShareGetWxUserInfo";
 
-	
-	private static String str5 = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
+	/*
+	 * 下面是一下具体业务方法不需要拦截
+	 */
+	private static String specific_business_one = "/bxg/binner/list,/bxg/bunch/offLineClass,/bxg/live/list,/bxg/bunch/list,/bxg/page/index/null/null,"
 			+ "/bxg/menu/list,/bxg/bunch/offLineClassList,/bxg/live/listKeywordQuery,/bxg/bs/appLogin,/bxg/focus/myHome,"
 			+ "/bxg/user/appleLogout";
-	
-	private static String str6 = "/bxg/bunch/queryAllCourse,/bxg/bunch/schoolClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,"
+	private static String specific_business_two = "/bxg/bunch/queryAllCourse,/bxg/bunch/schoolClass,/bxg/bunch/recommendBunch,/bxg/bunch/recommendTop,"
 			+ "/bxg/bunch/offLine,/bxg/live/onlineLive,/bxg/bunch/listenCourse,/bxg/criticize/saveCriticize,/bxg/criticize/updatePraise,"
 			+ "/bxg/criticize/saveReply,/bxg/criticize/getCriticizeList,/bxg/host/hostPageCourse,/bxg/host/hostPageInfo,/bxg/bunch/hotSearch";
 	
-
 	
-	public static void main(String[] args) {
-		System.out.println((str + "," +str1+","+str2+","+str3).split(",").length);
-		//System.out.println((str6+","+str5+","+","+str7+","+str8+","+str9+","+str10+","+str11).split(",").length);
-	}
-	
-	private String[] excludedPageArray; 
-	
+	//原来老版本的
 	private String[] appExcludedPageArray;
+		
+	/***************************************************
+	 * 
+	 * 
+	 * 	上面的是以前的拦截和不应该拦截的方法
+	 * 
+	 * **************************************************
+	 */
+	//登录前不拦截
+	private static String new_controller_login_before ="/xczh/user";
+	
+	//分享的接口不拦截
+	private static String new_controller_share_before ="/xczh/sharse,";
+	
+	//各种第三方前的登录不需要拦截
+	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third";
+	
+	//微信，支付宝支付回调、评论列表不需要拦截 -- 这个是直接等于的  
+	private static String new_controller_pay_the_callback ="/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/xczh/criticize/getCriticizeList";
+	
+	
+	/*
+	 * 下面是一下具体业务方法不需要拦截
+	 *  推荐、分类、线下班、直播、听课、
+	 */
+	private static String new_controller_specific_business_one 
+	  = "/xczh/recommend,/xczh/classify,/xczh/bunch,/xczh/live,/xczh/bunch";
+	/*
+	 *  主播页面 、课程详情、
+	 */
+	private static String new_controller_specific_business_two
+	  = "/xczh/host,/xczh/course";
+	
+	
+	//现在新版本的  接口不过滤
+	private String[] newInterfaceFilter;
 	
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
+		String excludedPageStr = login_before+","+login_share+","+login_three_parties+","+pay_the_callback+","+specific_business_one+","+specific_business_two;
 		
-		String excludedPageStr = str+","+str1+","+str2+","+str3+","+str6;
-	    
-	    String appExcludedPageStr = str5+","+str6;
-		//String appExcludedPageStr =str7+","+str8+","+str9+","+str10+","+str11+","+str12+","+str13+","+str14+","+str15;
 		if (StringUtils.isNotEmpty(excludedPageStr) ) {   
-		    excludedPageArray = excludedPageStr.split(",");
-		    appExcludedPageArray  = appExcludedPageStr.split(",");
+		    appExcludedPageArray  = excludedPageStr.split(",");
 		}     
+		
+		//新的
+		String newExcludedControllerStr = new_controller_login_before+","+new_controller_share_before+","+
+				new_controller_login_three_parties+","+new_controller_specific_business_one+","+new_controller_specific_business_two;
+		
+		if (StringUtils.isNotEmpty(newExcludedControllerStr) ) {   
+			newInterfaceFilter  = newExcludedControllerStr.split(",");
+		}  
+		
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp,
 			FilterChain chain) throws IOException, ServletException {
@@ -93,6 +136,8 @@ public class TokenFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
+
+		
 		request.setCharacterEncoding("UTF-8");
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
@@ -100,14 +145,32 @@ public class TokenFilter implements Filter {
 		boolean isExcludedPage = false;   
 		String currentURL = request.getRequestURI(); // 取得根目录所对应的绝对路径:
 		
-		if(Arrays.asList(excludedPageArray).contains(currentURL) || currentURL.indexOf("xczh")!=-1){
+		/**
+		 * 开发的时候用这个
+		 */
+//		if(Arrays.asList(appExcludedPageArray).contains(currentURL) 
+//				|| currentURL.indexOf("xczh")!=-1){
+//			     isExcludedPage = true;     
+//		}
+		System.out.println("欢迎欢迎，"+currentURL);
+		/**
+		 * 测试和生产用这个
+		 */
+		if(useLoopEqual(appExcludedPageArray,currentURL) || 
+				useLoopContains(newInterfaceFilter, currentURL)){
 			     isExcludedPage = true;     
 		}
+		
+		System.out.println("isExcludedPage，"+isExcludedPage);
+		/**
+		 * 拦截ajax请求
+		 */
 		boolean isAjax = false;
 		if (request.getHeader("x-requested-with") != null 
                  && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"))) {   
 			isAjax = true;
 		}
+
 		if(isExcludedPage){ // 直接放行
 			chain.doFilter(request, response);
 		}else{
@@ -117,14 +180,17 @@ public class TokenFilter implements Filter {
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
 			appUniqueId = request.getParameter("appUniqueId");
-			//System.out.println("appUniqueId===========获取到设备号："+appUniqueId);
-			if(null == appUniqueId){ //说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
+			/*
+			 * 说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
+			 */
+			if(null == appUniqueId){ 
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
 		    		/*
 		    		 * 是不是需要传递一个token过来啊。然后判断这个token是否
 		    		 */
 		    		chain.doFilter(request, response);
+		    		
 		    	}else if(session !=null){
 					/**
 					 * 有两种情况一种是：失效了，一种是被顶掉了。
@@ -137,14 +203,14 @@ public class TokenFilter implements Filter {
 		    			if(isAjax){
 		    				req.getRequestDispatcher("/bxg/page/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
 		    			}else{
-		    				response.sendRedirect(request.getContextPath() + "/bxg/page/login/1?errorMessage=1");
+		    				response.sendRedirect(request.getContextPath() + "/xcview/html/enter.html?errorMessage=1");
 		    			}
 		    		}else{
 		    			statusFalg = 1002;
 		    			if(isAjax){
 		    				req.getRequestDispatcher("/bxg/page/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
 		    			}else{
-		    				response.sendRedirect(request.getContextPath() + "/bxg/page/login/1");
+		    				response.sendRedirect(request.getContextPath() + "/xcview/html/enter.html");
 		    			}
 		    		}
 		    	}else{
@@ -152,24 +218,21 @@ public class TokenFilter implements Filter {
 	    			if(isAjax){
 	    				req.getRequestDispatcher("/bxg/page/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
 	    			}else{
-	    				response.sendRedirect(request.getContextPath() + "/bxg/page/login/1");
+	    				response.sendRedirect(request.getContextPath() + "/xcview/html/enter.html");
 	    			}
 		    	}  
 		    }else{ 
-		    	if(!Arrays.asList(appExcludedPageArray).contains(currentURL)){
-		    		String strToken = (String) request.getAttribute("token");
-		 		    strToken = request.getParameter("token");
-		    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
-			    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
-			    	if(code == 1000){
-			    		chain.doFilter(request, response);
-			    	}else{
-			    		 PrintWriter out = response.getWriter();//获取PrintWriter输出流
-			    		 out.println(mapApp);
-			    	}
-				}else{
-					chain.doFilter(request, response);
-				}
+		    	
+	    		String strToken = (String) request.getAttribute("token");
+	 		    strToken = request.getParameter("token");
+	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
+		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
+		    	if(code == 1000){
+		    	    chain.doFilter(request, response);
+		    	}else{
+		    		PrintWriter out = response.getWriter();//获取PrintWriter输出流
+		    		out.println(mapApp);
+		    	}
 		    }
 		}
 	}
@@ -183,9 +246,7 @@ public class TokenFilter implements Filter {
 		JSONObject obj = new JSONObject();
 		try{
 			String httpUrl = WxPayConst.returnOpenidUri+"/bxg/bs/checkToken?token="+token;
-			//String httpUrl = "?token="+token;
 			String str = HttpUtil.sendPostRequest(httpUrl,null);
-			//System.out.println("is validate token effective. ehr back data:"+str);		
 			if(null!=str) {
                 obj = JSONObject.parseObject(str);
             }
@@ -197,6 +258,48 @@ public class TokenFilter implements Filter {
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
+	}
+	
+	
+	/**
+	 * 
+	 * Description：使用循环会更加的高效  --》这个用来判断数组中的元素是否相等于这个字符串
+	 * @param arr
+	 * @param targetValue
+	 * @return
+	 * @return boolean
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public static boolean useLoopContains(String[] arr,String targetValue){
+		if(new_controller_pay_the_callback.indexOf(targetValue)!=-1){
+			return true;
+		}
+		int  laseIndex = targetValue.lastIndexOf("/");
+		String tmptargetValue = targetValue.substring(0, laseIndex);
+	    for(String s:arr){
+	       if(s.equals(tmptargetValue))
+	         return true;
+	    }  
+	    return false;
+	}
+	
+	/**
+	 * 
+	 * Description：使用循环会更加的高效  --》这个用来判断数组中的元素是否包含这个字符串
+	 * @param arr
+	 * @param targetValue
+	 * @return
+	 * @return boolean
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public static boolean useLoopEqual(String[] arr,String targetValue){
+	    for(String s:arr){
+	       if(s.equals(targetValue))
+	         return true;
+	    }  
+	    return false;
 	}
 
 }

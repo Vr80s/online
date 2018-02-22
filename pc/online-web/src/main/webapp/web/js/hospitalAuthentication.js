@@ -14,7 +14,7 @@ $(function(){
 		var name = $.trim($('.hos_base_inf .doc_shanchang').val());
 		var name_pass = /^[\u4E00-\u9FA5]{1,6}$/;
 		var WeChat =  $.trim($('.hos_base_inf .hos_weixin').val());
-		var WeChatPatt = /^[a-zA-Z\d_]{5,}$/;
+		var WeChatPatt = /^[a-zA-Z\d_-]{5,}$/;
 		var email = $.trim($('.hos_base_inf .doc_hospital').val());
 		var emailPatt = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/ ;
 		
@@ -164,7 +164,7 @@ $(function(){
 		var company = $.trim($('.hos_renzheng_inf .bottomContent .doc_name').val());
 		var zhizhaoNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_Idnum').val());
 		var xukeNum = $.trim($('.hos_renzheng_inf .bottomContent .doc_zhicheng').val());
-		var Number = /^[0-9]{18}$/;
+		var Number = /^[0-9A-Z]{18}$/;
 		var hosName = $.trim($('.hos_renzheng_inf .bottomContent .hos_name').val());
 		var xukeNumPass = /^[\u4E00-\u9FA5]{1}[A-Za-z]{2}[0-9]{7}$/;
 		//医馆名称验证
@@ -187,11 +187,11 @@ $(function(){
 		
 		//营业执照号
 		if(zhizhaoNum == ''){
-			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('营业执照号不能为空');
+			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码不能为空');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
 			return false;
 		}else if(!Number.test(zhizhaoNum)){
-			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('营业执照号格式错误');
+			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').text('统一社会信用代码格式错误');
 			$('.hos_renzheng_inf .bottomContent .zhizhaoNum_warn').removeClass('hide');
 			return false;
 		}else{

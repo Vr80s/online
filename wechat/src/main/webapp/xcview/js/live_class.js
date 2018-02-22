@@ -4,9 +4,8 @@ var my_impression3="";
 var course_id ="";
 var criticize_id = "";
 var LecturerId="";
+var commentCode ="";
 $(function(){
-
-
 
 	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
@@ -23,6 +22,7 @@ $(function(){
         //获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
+		$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
 		$("#speak_people").html(template('data_people',data.resultObject));
 	//	直播时间/主播名字
 
@@ -75,19 +75,14 @@ function refresh(){
 			$(".quie_pic").hide()
 		}
         //	课程名称/等级/评论
-        if(data.resultObject){
-
-        }
         $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
         //判断是否是第一次评论
         $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
+        commentCode = data.resultObject.commentCode;
         //	回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
             criticize_id=this.id;
-            /*$(".bg_userModal").show();
-            $(".wrapLittle_comment").show();
-            $("#littlt_return").focus()*/
             //跳转到评论列表页
             btn_allComment();
         });
@@ -95,7 +90,6 @@ function refresh(){
             $(".bg_userModal").hide();
             $(".wrapLittle_comment").hide();
         });
-
         //	评论弹窗
         $(".wrap_input").on('click',function(){
             $(".bg_modal").show();
@@ -154,33 +148,66 @@ function refresh(){
                 my_impression3=this.id;
             });
         });
-
         //点赞
         $(".btn_click_zan").click(function(){
             //评论id
             criticize_id=$(this).attr("data-id");
-            /*var p = $(this).find('span').html();
-
-            var src = $(this).find('img').attr('src');
-            if(src.indexOf("zan001")>-1){
-                $(this).find('img').attr('src','../images/zan01.png');
-
-                $(this).find('span').html(parseInt(p)-1);
-                updatePraise(criticize_id,false);
-            }else{
-                $(this).find('img').attr('src','../images/zan001.png');
-                $(this).find('span').html(parseInt(p)+1);
-                updatePraise(criticize_id,true);
-            }*/
             //跳转到评论列表页
             btn_allComment();
         });
+        //判断浮层是否已选
+        if(commentCode==1){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        }
+        $('.my_impression1').click(function(){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        })
+        $('.my_impression2').click(function(){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        })
+        $('.my_impression3').click(function(){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        })
+        $('.select_lable').click(function(){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        })
 
     });
 }
 //评论
 function reportComment() {
-
+    //判断浮层是否已选
+    if(commentCode==1){
+        var opacity = $(".report_btn").css("opacity");
+        if(opacity!=1){
+            return false;
+        }
+    }
     var arr=new Array();
 
     var list=document.getElementsByClassName("active_color");
@@ -189,10 +216,9 @@ function reportComment() {
     }
     var str=arr.join(",");
 
-    //var s = $('.active_color').val();
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        webToast("请输入评论内容","middle",3000);
         return
     }
     var overallLevel=0;
@@ -217,15 +243,17 @@ function reportComment() {
         userId:LecturerId
     },function(data) {
         //	课程名称/等级/评论
-
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        //$("#wrap_playTime").html(template('data_name',data.resultObject));
-        $(".wrapAll_comment").hide();
-        $(".bg_modal").hide();
-        document.getElementById("comment_detailed").value="";
-        del();
-        refresh();
+        if(data.success==true){
+            webToast("评论成功","middle",3000);
+            //	直播时间/主播名字
+            $(".wrapAll_comment").hide();
+            $(".bg_modal").hide();
+            document.getElementById("comment_detailed").value="";
+            del();
+            refresh();
+        }else{
+            webToast("评论失败","middle",3000);
+        }
     });
 }
 
@@ -233,7 +261,7 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        alert("内容不能为空")
+        webToast("内容不能为空","middle",3000);
         return
     }
     requestService("/xczh/criticize/saveReply",{
@@ -242,14 +270,17 @@ function replyComment() {
         criticizeId : criticize_id
     },function(data) {
         //	课程名称/等级/评论
-
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        $(".bg_userModal").hide();
-        $(".wrapLittle_comment").hide();
-        document.getElementById("littlt_return").value="";
-        del();
-        refresh();
+        if(data.success==true){
+            webToast("回复成功","middle",3000);
+            //	直播时间/主播名字
+            $(".bg_userModal").hide();
+            $(".wrapLittle_comment").hide();
+            document.getElementById("littlt_return").value="";
+            del();
+            refresh();
+        }else {
+            webToast("回复失败","middle",3000);
+        }
     });
 }
 

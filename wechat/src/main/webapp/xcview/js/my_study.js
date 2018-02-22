@@ -10,7 +10,6 @@ $(function(){
 		}
 
 	})	
-	
 //	点击清除播放历史弹出确认取消框
 	$(".play-title p").click(function(){
 		$(".history_bg").show();
@@ -42,6 +41,9 @@ $(function(){
 	
 //我关注的主播
 		requestService("/xczh/myinfo/myFocus",null,function(data) {
+			if(data.resultObject.length=='' || data.resultObject.length==0 ){
+				$(".no_follow_uesr").show()
+			}
 			$("#all_follow_people").html(template("data_follow",data))		
 		})	
 	

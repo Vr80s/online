@@ -14,12 +14,12 @@
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 
-
-
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/live_play.js"></script>
 
-
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 
 	
 </head>
@@ -48,7 +48,8 @@
 				<img src="../images/play_btn.png"/>
 			</div>
 			{{else if lineState == 3}}
-			<a href="javascript:;" class="btn_returned"></a>			
+			<!--<a href="javascript:;" class="btn_returned"></a>-->	
+			<a href="details.html?courseId={{id}}"></a>
 			<div class="video_prompt">
 				直播回放
 			</div>
@@ -140,7 +141,7 @@
 		</div>		
 	</div>
 	<!--内容-->
-		<div class="wrap pp" style="height: 2rem;">
+		<div class="wrap pp" style="height: 2.5rem;">
 			<p></p>
 			<p class="no_data">暂无数据...</p>
 			<div class="zhezhao">
@@ -160,7 +161,7 @@
 			</div>		
 		</div>
 	<!--内容-->
-		<div class="wrap1 pp1" style="height: 2rem;">
+		<div class="wrap1 pp1" style="height: 2.5rem;">
 			<p></p> 
 			<p class="no_data1">暂无数据...</p>
 			<div class="zhezhao1">
@@ -285,7 +286,7 @@
 		</div>
 		<div class="all_returned_num y">
 			<img src="../images/returned.png"/>
-			<p onclick="btn_allComment()">评论999+</p>
+			<p onclick="btn_allComment()"></p>
 		</div>
 	</div>
 
@@ -359,18 +360,11 @@
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li onclick="reportComment()">发表评论</li>
+			<li class="report_btn" onclick="reportComment()">发表评论</li>
 		</ul>
 		</script>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
