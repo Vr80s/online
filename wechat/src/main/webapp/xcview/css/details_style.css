@@ -344,11 +344,12 @@ div.pinch-zoom,
 	z-index: 9999;
 }
 #video{
-	width: 100%; 
-	height: 8.95rem;
-	margin-top: 0.5rem;
-	background: #000;
-	opacity: 0.5;	
+	width: 100%;
+    height: 7.6rem;
+    margin-top: 0.5rem;
+    background: #000;
+    opacity: 0.5;
+    margin-top: 1.9rem;
 }
 .give_a01{
 	margin-top: -1.47rem;

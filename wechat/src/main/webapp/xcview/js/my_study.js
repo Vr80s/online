@@ -41,6 +41,9 @@ $(function(){
 	
 //我关注的主播
 		requestService("/xczh/myinfo/myFocus",null,function(data) {
+			if(data.resultObject.length=='' || data.resultObject.length==0 ){
+				$(".no_follow_uesr").show()
+			}
 			$("#all_follow_people").html(template("data_follow",data))		
 		})	
 	

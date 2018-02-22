@@ -47,6 +47,9 @@ function transactionRecord() {
         pageSize:10
     },function(data) {
         if(data.success==true){
+        	if(data.resultObject.length=='' || data.resultObject.length==0){
+        		$(".no_deal").show()
+        	}
             $(".record_main_div").html(template('record_main_div',{items:data.resultObject}));
         }else{
             alert(data.errorMessage);

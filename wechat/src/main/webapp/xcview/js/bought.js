@@ -16,6 +16,8 @@ function getBoughtList() {
         		$(".no_class").show();
         	}else{
         		$(".no_class").hide();
+        		$(".bought").css({"padding-top":"0.3rem"});
+        		
         	}
         	
             $(".bought_main").html(template('bought_main',{items:data.resultObject.records}));

@@ -712,6 +712,8 @@ color: #666666;
 .select_lable{
 	clear: both;
 	padding-top: 0.4rem;
+	    overflow: hidden;
+    margin-bottom: 0.3rem;
 }
 .select_lable .active_color{
 	background: #00BC12;
@@ -754,7 +756,7 @@ color: #666666;
 	font-size: 0.26rem;
 color: #888888;
     clear: both;
-    padding-top: 0.4rem;
+
 }
 .text_write_box{
 	width: 100%;
