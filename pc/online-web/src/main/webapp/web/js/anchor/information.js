@@ -11,6 +11,8 @@ $(function(){
         //医师的显示
         // $('.begin_approve .physician_one').removeClass('hide');
         // $('.account_main .physician_two').removeClass('hide');
+        //初始化医师的信息
+         initAuthentication();
 
     }else if(localStorage.AccountStatus == 2){
         //主播是医馆的身份
@@ -23,9 +25,10 @@ $(function(){
         // //医馆的显示
         // $('.begin_approve .clinic_two').removeClass('hide');
         // $('.account_main .account_two').removeClass('hide');
-
+        //初始化主播是的医馆信息
+		initAuthenticationHos();
     }
-    initAuthentication();
+   
 
     var anchor_details_editor = UE.getEditor('anchor_details_editor',{
         toolbars:[['source', //源代码
@@ -153,6 +156,7 @@ $('#u_workTime  li').click(function(){
 	
 });
 
+//初始化主播是医师信息
 function initAuthentication (){
     RequestService("/medical/doctor/apply/getLastOne", "get", null, function(data) {
         if(data.resultObject==null)return;
@@ -165,6 +169,24 @@ function initAuthentication (){
         $(".anchor_professional_certificate").attr("src",data.professionalCertificate);
     });
 }
+//初始化主播是医馆信息
+
+function initAuthenticationHos (){
+    RequestService("/medical/hospital/authentication/get", "get", null, function(data) {
+        if(data.resultObject==null)return;
+        data = data.resultObject;
+        console.log(data);
+        $(".account_one .hosName").html(data.name);
+        $(".account_one .companyName").html(data.company);
+		$(".account_one .businessLicenseNo").text(data.businessLicenseNo)
+        $(".account_one .businessLicensePicture").attr("src",data.businessLicensePicture);
+        $(".account_one .licenseForPharmaceuticalTradingPicture").attr("src",data.licenseForPharmaceuticalTradingPicture);
+        $(".anchor_qualification_certificate").attr("src",data.qualificationCertificate);
+        $(".anchor_professional_certificate").attr("src",data.professionalCertificate);
+    });
+}
+
+
 
 function savePhysicianApply(){
     var physician = getPhysicianData();
