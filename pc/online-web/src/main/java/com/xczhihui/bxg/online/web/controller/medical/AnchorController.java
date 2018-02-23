@@ -36,6 +36,17 @@ public class AnchorController {
     }
 
     /**
+     * 获取主播详情
+     */
+    @RequestMapping(value = "/auth", method = RequestMethod.GET)
+    public ResponseObject authInfo(HttpServletRequest request){
+
+        String userId = this.getCurrentUserId(request);
+
+        return ResponseObject.newSuccessResponseObject(anchorInfoService.authInfo(userId));
+    }
+
+    /**
      * 修改主播信息
      */
     @RequestMapping(method = RequestMethod.POST)
