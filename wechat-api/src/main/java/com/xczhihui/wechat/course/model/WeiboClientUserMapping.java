@@ -98,7 +98,7 @@ public class WeiboClientUserMapping extends  Model<WeiboClientUserMapping>{
 	public WeiboClientUserMapping(JSONObject json) {
 		 if (json != null) {
 			 try {
-				uid = json.getString("id");
+				uid = json.getString("idstr");
 		        screenName = json.getString("screen_name");
 		        name = json.getString("name");
 		        province = json.getInt("province");

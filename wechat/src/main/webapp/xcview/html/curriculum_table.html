@@ -52,7 +52,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="hint">
+	<div class="hint" style="display:none;">
 		筛选：<span id="sxtj"></span>
 	</div>
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
@@ -218,11 +218,11 @@ function sliderHeight(){
 	$(".swipe li").height(sliderHeight);
 }
 
-/* $(".find_nav_list").css("left",0);
+ $(".find_nav_list").css("left",0);
 $(".find_nav_list li").each(function(){
 		$(".sideline").css({left:0});
 		$(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
-}); */
+});
 var nav_w=$(".find_nav_list li").first().width();
 $(".sideline").width(nav_w);
 $(".find_nav_list li").on('click', function(){
@@ -272,14 +272,49 @@ $(".find_nav_list").on('touchmove', function (e) {
 });
 
 
-for(n=1;n<9;n++){
+	var n =1;
 	var page='pagenavi'+n;
 	var mslide='slider'+n;
 	var mtitle='emtitle'+n;
 	arrdiv = 'arrdiv' + n;
 	var as=$("#" + page + "").find("a");
-	var tt=new TouchSlider({id:mslide,'auto':'-1',fx:'ease-out',direction:'left',speed:600,timeout:5000,'before':function(index){
+	var begin='';
+	
+	//获取分类的ID跳转滑到对应的tap页
+	var matching = getQueryString('menuType');
+	
+	
+	for (var int = 0; int < menuTypeArray.length; int++) {
+		if(menuTypeArray[int].id == matching){
+			$("#pagenavi1 li").removeClass("find_nav_cur");
+			var index = int+2;
+			$("#pagenavi1 li:nth-child("+index+")").addClass("find_nav_cur");
+		 	break;
+		}
+	}
+	
+   
+    
+	var list = $("#pagenavi1 li");
+	for(var i = 0; i < list.length; i++) {
+		var liClassName = list[i].className;
+		if(liClassName == "find_nav_cur"){
+			begin = i;
+			break;
+		}
+    }
+	alert(begin);
+	
+	var tt=new TouchSlider({
+		id:mslide,
+		'auto':'-1',
+		fx:'ease-out',
+		direction:'left',
+		speed:600,
+		timeout:5000,
+		'before':function(index){
 		var as=document.getElementById(this.page).getElementsByTagName('a');
+		
 		as[this.p].className='';
 		this.p=index;
 		
@@ -293,7 +328,7 @@ for(n=1;n<9;n++){
 		//alert("js 底部");
 		$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 		
-		//滑动完了后调用的是这个防范
+		//滑动完了后调用的是这个方法
 		
 		typeQuery();
 		
@@ -311,8 +346,13 @@ for(n=1;n<9;n++){
 			"left" : fnl_l
 		}, 300);
 	}});
+	
+	//这里进行的是初始化参数
 	tt.page = page;
 	tt.p = 0;
+
+	tt.slide(begin, 600);
+
 	//console.dir(tt); console.dir(tt.__proto__);
 
 	for(var i=0;i<as.length;i++){
@@ -325,7 +365,6 @@ for(n=1;n<9;n++){
 			}
 		})();
 	}
-}
 
 </script>
 
@@ -406,16 +445,6 @@ for(n=1;n<9;n++){
 // 			$('.header_seek').append('<span>' + historyTip[0] + '</span>');
 // 		}
 //		console.log(historyTip[0])
-		
-//获取分类的ID跳转滑到对应的tap页
-//	var matching = getQueryString('menuType');
-//	if(matching == 208){
-//		$(".box01_list").css({"left":"-375px"})
-//		$(".sideline").css({"left":"68px","width":"56px"})
-//		$("#pagenavi1 li").removeClass("find_nav_cur")
-//		$("#pagenavi1 li:nth-child(2)").addClass("find_nav_cur")
-//
-//	}		
 	</script>
 	
 </html>
