@@ -59,8 +59,8 @@
 		oc.course_detail as description,
 		oc.course_outline as courseOutline,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 		
 		
 		oc.address as address,
@@ -110,7 +110,7 @@
 		oc.course_detail as description,
 		oc.course_outline as courseOutline,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
@@ -145,7 +145,7 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		
 		oc.current_price as currentPrice,
@@ -176,7 +176,7 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
                     
 		oc.current_price as currentPrice,
@@ -217,7 +217,7 @@
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		oc.address as address,
 		oc.current_price as currentPrice,
@@ -260,7 +260,7 @@
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		oc.address as address,
 		oc.current_price as currentPrice,
