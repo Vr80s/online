@@ -215,7 +215,7 @@
 						<!--回复时间/点赞/评论按钮-->
 						<div class="wrap_returned_btn">
 							<ul>
-								<li>{{item.createTime}}</li>
+								<li>{{item.createTime.slice(0,16)}}</li>
 								<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
 									<img src="../images/returned.png"/>
 								</li>
