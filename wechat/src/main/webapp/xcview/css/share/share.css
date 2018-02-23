@@ -27,7 +27,7 @@
 .share_main_bg{
 	width: 100%;
 	height: 2.86rem;
-	background: rgba(255,255,255,0.60);
+	background: white;
 	border-radius: 8px;
 }
 .share_to{

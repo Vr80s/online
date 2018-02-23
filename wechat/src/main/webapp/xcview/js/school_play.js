@@ -5,7 +5,10 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 $(function(){
-
+function stripHTML(str){
+	var reTag = /<(?:.|\s)*?>/g;
+	return str.replace(reTag,"");
+}
 
 //	标签选中变色
 	 $(".select_lable li").click(function(){
@@ -63,7 +66,11 @@ var courseId = getQueryString('course_id');
 requestService("/xczh/course/details",{
 	courseId : courseId	
 },function(data) {
-//	$(".play_video").css({"background":'url(' + data.resultObject.smallImgPath + ')'})
+	//分享的信息展示
+		gradeName = data.resultObject.gradeName;
+		smallImgPath = data.resultObject.smallImgPath;
+		description = data.resultObject.description.stripHTML();
+
 	var school_img = document.createElement("img");
 		school_img.src = data.resultObject.smallImgPath;
 		$(".play_video").append(school_img)
