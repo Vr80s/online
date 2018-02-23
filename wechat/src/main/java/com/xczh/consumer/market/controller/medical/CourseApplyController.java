@@ -89,8 +89,8 @@ public class CourseApplyController {
 			String fileType="1"; //图片类型了
 			String imgPath = service.upload(null,
 					projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
-			//JSONObject imgPathJson = JSONObject.parseObject(imgPath);
-			courseApplyInfo.setImgPath(imgPath);
+			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
+			courseApplyInfo.setImgPath(imgPathJson.get("url").toString());
 // 获得锁对象实例
 			RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApply"+user.getId());
 
