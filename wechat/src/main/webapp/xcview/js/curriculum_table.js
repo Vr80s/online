@@ -24,10 +24,6 @@ $(".header_seek").click(function(){
 })
 
 
-
-
-
-
 /*
  * 赛选条件渲染
  */
@@ -44,8 +40,9 @@ requestService("/xczh/classify/listScreen",null,function(data){
 		var box01List = "<li class='li_list'><div class='li_list_main' id='draw_all_query_list'></div></li>"; //代表全部的
 		for (var int = 0; int < data.resultObject[0].length; int++) {
 			var obj = data.resultObject[0][int];
-			pagenavi1 +="<li><a href='javascript: ;' data-title ="+int+" title="+obj.id+">"+obj.name+"</a></li>";		
-			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+int+" id='query_list"+int+"'></div></li>"		
+			var index=int+1;
+			pagenavi1 +="<li><a href='javascript: ;' data-title ="+index+" title="+obj.id+">"+obj.name+"</a></li>";		
+			box01List+="<li class='li_list'><div class='li_list_main' data-title ="+index+" id='query_list"+obj.id+"'></div></li>"		
 		}
 		pagenavi1 +="<li class='sideline' style='left: 0px; width: 96px;'></li>";
 		$(".box01_list").html(box01List);
@@ -65,7 +62,7 @@ requestService("/xczh/classify/listScreen",null,function(data){
 
 
 /**
- * 创建参数并且进行查询
+ * 创建查询参数
  * @param menuType
  * @param isFree
  * @param courseType
@@ -191,6 +188,33 @@ function queryDataByParams(params,data_type){
 		if(data.success==true){
 			if(stringnull(data_type)){
 				var id = "#query_list"+data_type;
+				
+				/**
+				 * 获取焦点
+				 */
+//				$("#pagenavi1 li").removeClass("find_nav_cur")
+//				
+//				$("#pagenavi1 li").each(function(index){
+//					var  title = $(this).find("a").attr("title");
+//					if(title == data_type){
+//						$(this).attr("class","find_nav_cur");
+//						break;
+//					}
+//				})
+				
+				
+//				var list = $("#pagenavi1 li");
+//				for(var i = 0; i < list.length; i++) {
+//					$(this)
+//					var liClassName = list[i].className;
+//					if(liClassName == "find_nav_cur"){
+//						
+//						$("#pagenavi1 li:nth-child(2)").addClass("find_nav_cur");
+//						break;
+//					}
+//				}
+				
+				
 			}else{
 				var id = "#draw_all_query_list";
 			}
@@ -242,6 +266,9 @@ function queryDataByParams(params,data_type){
 					     "</div>";
 			}
 			$(id).html(data1);
+			
+			
+			
 			
 		/*
 		 * 点击跳转到单个课程
@@ -297,9 +324,9 @@ function queryDataByParams(params,data_type){
 createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
 		paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
 /**
- * 查询所有
+ * 不能如果是类型的话
  */
-queryDataByParams(paramsObj);
+//queryDataByParams(paramsObj,paramsObj.menuType);
 
 
 /**
@@ -307,16 +334,21 @@ queryDataByParams(paramsObj);
  */
 
 function typeQuery(){
-//	$(".find_nav_list li").each(function(){
-//		$(".sideline").css({left:0});
-//		$(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
-//	});
-    var typeId = $("[class='find_nav_cur'] a").attr("title");
-    var data_type = $("[class='find_nav_cur'] a").attr("data-title");
-    if(typeId!=0){
-    	 paramsObj.menuType= typeId;
+
+    var menuType = $("[class='find_nav_cur'] a").attr("title");
+    
+    if(menuType!=0){
+    	paramsObj.menuType= menuType;
+        queryDataByParams(paramsObj,menuType);
+    }else{
+    	delete paramsObj.menuType;
+    	queryDataByParams(paramsObj);
     }
-    queryDataByParams(paramsObj,data_type);
+    
+    $(".hint").hide();
+    
+//    createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
+//			paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
 }
 //顶部搜索框获取文字显示
 function getQueryString(key){
@@ -328,7 +360,8 @@ function getQueryString(key){
     if (urlAttribute=='' || urlAttribute== null) {
     	
     } else{
-   		$('.header_seek').append('<span>' + urlAttribute + '</span>');	
+   	$('.header_seek').append('<span>' + urlAttribute + '</span>');
+    	
     }
 
     

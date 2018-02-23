@@ -19,7 +19,9 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.FocusService;
 import com.xczh.consumer.market.service.OnlineCourseService;
+import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
@@ -32,6 +34,8 @@ import com.xczh.consumer.market.vo.LecturVo;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
+import com.xczhihui.wechat.course.service.ICourseService;
+import com.xczhihui.wechat.course.service.IWatchHistoryService;
 
 /**
  * 热门搜索控制器 ClassName: MobileRecommendController.java <br>
@@ -57,6 +61,14 @@ public class MobileShareController {
 	private AppBrowserService appBrowserService;
 	@Autowired
 	private UserCenterAPI userCenterAPI;
+	@Autowired
+	private ICourseService courseServiceImpl;
+	@Autowired
+	private IWatchHistoryService watchHistoryServiceImpl;
+	@Autowired
+	private OnlineWebService  onlineWebService;
+	@Autowired
+	private FocusService focusService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileShareController.class);
 
@@ -114,11 +126,13 @@ public class MobileShareController {
 		String wxOrbrower = req.getParameter("wxOrbrower");  //来自哪里的浏览器
 		
 		LOGGER.info("shareId:"+shareId+",shareType:"+shareType);
+		
+		String shareIdAndType = shareId+"_"+shareType;
 		/*
 		 * 这里需要判断下是不是微信浏览器
 		 */
 		if(StringUtils.isNotBlank(wxOrbrower) && "wx".equals(wxOrbrower)){
-			String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/share/viewUser?shareId="+shareId+"&shareType="+shareType+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
+			String strLinkHome 	= "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+WxPayConst.gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/share/viewUser?shareIdAndType="+shareIdAndType+"&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect".replace("appid=APPID", "appid="+ WxPayConst.gzh_appid);
 			res.sendRedirect(strLinkHome);
 		}else if(StringUtils.isNotBlank(wxOrbrower) && "brower".equals(wxOrbrower)){
 			res.sendRedirect(returnOpenidUri +"/xczh/share/viewUser?shareId="+shareId+"&wxOrbrower=brower"+"&shareType="+shareType);//
@@ -139,22 +153,33 @@ public class MobileShareController {
 	public void h5ShareGetWxUserInfo(HttpServletRequest req, HttpServletResponse res) throws Exception{
 		
 		LOGGER.info("WX return code:" + req.getParameter("code"));
-		LOGGER.info("shareId:" + req.getParameter("shareId"));
-		LOGGER.info("shareType:" + req.getParameter("shareType"));
-		LOGGER.info("wxOrbrower:" + req.getParameter("wxOrbrower"));
+		
 		try {
+			String code = req.getParameter("code");
+			
 			String shareId = req.getParameter("shareId");
 			String shareType = req.getParameter("shareType");
-			String code = req.getParameter("code");
 			String wxOrbrower = req.getParameter("wxOrbrower");
 			
-			OnlineUser ou =null;
-			String openid ="";
 			
+			
+			
+			
+			
+			
+			if(code!=null){
+				String shareIdAndType =  req.getParameter("shareIdAndType");
+				String [] idAndType =shareIdAndType.split("_");
+				shareId = idAndType[0];
+				shareType = idAndType[1];
+			}
+			LOGGER.info("shareId:" +shareId+"shareType:" +shareType+"wxOrbrower:" +wxOrbrower);
+			
+			
+			OnlineUser ou =null;
 			if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
 				
 				WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
-				openid = wxw.getOpenid();
 				/*
 				 * 判断此微信用户是否已经存在与我们的账户系统中不
 				 */
@@ -163,13 +188,11 @@ public class MobileShareController {
 					 * 判断这个用户session是否有效了，如果有效就不用登录了
 					 */
 					ou = onlineUserMapper.findUserById(wxw.getClient_id());
-					
 					OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 					if(user == null){ //直接跳转到分享页面
 						//这里不用判断用户有没有登录了。没哟登录帮他登录
 					    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 						Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
-						
 						ou.setTicket(t.getTicket());
 						onlogin(req,res,t,ou,t.getTicket());
 					}	
@@ -177,50 +200,62 @@ public class MobileShareController {
 			}else{
 				ou =  appBrowserService.getOnlineUserByReq(req);
 			}
-			
-			String url1  = "/bxg/page/index/"+ openid + "/" + code;
+	
 			/**
 			 * 如果这个用户信息已经保存进去了，那么就直接登录就ok
 			 */
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
-		
 			if("1".equals(shareType)){ //课程分享啦
 				
+				Integer courseId = Integer.parseInt(shareId);
+				com.xczhihui.wechat.course.vo.CourseLecturVo  cv= courseServiceImpl.selectCourseMiddleDetailsById(courseId);
+				
 				//判断这个课程类型啦
-				
-				
-				
-				
-				
+				if(ou!=null){  //说明已经登录了
+					/**
+					 * 如果用户不等于null,且是主播点击的话，就认为是免费的
+					 */
+					if(cv.getUserLecturerId().equals(ou.getId())){
+					    cv.setWatchState(4);
+				    }
+					if(cv.getWatchState()==0){ //收费课程
+						if(onlineWebService.getLiveUserCourse(courseId,ou.getId()).size()>0){  //大于零--》用户购买过  
+							cv.setWatchState(2);
+						}
+					}
+				}
+				if(cv.getWatchState() == 0 || cv.getWatchState()==1){
+					if(cv.getType()==1||cv.getType()==2){
+						//视频音频购买
+						res.sendRedirect(returnOpenidUri + "/xcview/html/school_audio.html?course_id="+shareId);
+					}else if(cv.getType()==3){
+						//直播购买
+						res.sendRedirect(returnOpenidUri + "/xcview/html/school_play.html?course_id="+shareId);
+					}else{
+						//线下课购买
+						res.sendRedirect(returnOpenidUri + "/xcview/html/school_class.html?course_id="+shareId);
+					}	
+				}else if(cv.getWatchState() == 2 || cv.getWatchState()==3){
+					if(cv.getType()==1||cv.getType()==2){
+						if(cv.getCollection()){
+							//专辑视频音频播放页
+							res.sendRedirect(returnOpenidUri + "/xcview/html/live_select_album.html?course_id="+shareId);
+						}else{
+							//单个视频音频播放
+							res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?my_study="+shareId);
+						}
+					}else if(cv.getType()==3){
+						//播放页面
+						res.sendRedirect(returnOpenidUri + "/xcview/html/live_audio.html?my_study="+shareId);
+					}else{
+						//线下课页面
+						res.sendRedirect(returnOpenidUri + "/xcview/html/live_class.html?my_study="+shareId);
+					}
+				}
 			}else if("2".equals(shareType)){ //主播分享
-				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/live_personal.html?userLecturerId="+shareId);
 			}
-			
-//			Integer type = onlineCourseService.getIsCouseType(Integer.parseInt(courseId));
-//			Map<String,Object> mapCourseInfo = onlineCourseService.shareLink(Integer.parseInt(courseId), type);
-//			//这样直接跳转的话，怎样跳转呢，直接到直播页面啊，还是直接到
-//			if(type == 1){ //直播或者预约详情页           
-//				//1.直播中，2预告，3直播结束
-//				if(null != mapCourseInfo.get("lineState") && "2".equals(mapCourseInfo.get("lineState").toString())){  //预告
-//					url = "/xcviews/html/foreshow.html?course_id="+Integer.parseInt(courseId)+"&openId="+openid;
-//				}else if(null != mapCourseInfo.get("lineState")){  //直播获取直播结束的
-//					url = "/bxg/xcpage/courseDetails?courseId="+Integer.parseInt(courseId)+"&openId="+openid;
-//				}
-//			}else{ //视频音频详情页
-//				//haiyao   multimediaType
-//				Integer multimediaType = 1;
-//				if(null != mapCourseInfo.get("multimediaType") && "2".equals(mapCourseInfo.get("multimediaType").toString())){
-//					multimediaType = 2;
-//				}
-//				url = "/xcviews/html/particulars.html?courseId="+Integer.parseInt(courseId)+"&openId="+openid+"&multimedia_type="+multimediaType;
-//			}
-//			LOGGER.info("}}}}}}}}}}}}}}}}}} url："+url);
-//			res.sendRedirect(returnOpenidUri + url);
-//				
-				
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			//res.getWriter().write(e.getMessage());

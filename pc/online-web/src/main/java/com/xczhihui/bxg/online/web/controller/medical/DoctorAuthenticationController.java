@@ -42,7 +42,7 @@ public class DoctorAuthenticationController {
             return OnlineResponse.newErrorOnlineResponse("请登录！");
         }
         UserDataVo currentUser = userService.getUserData(loginUser);
-        return ResponseObject.newSuccessResponseObject(medicalDoctorAuthenticationInformationService.selectDoctorAuthentication(currentUser.getUid()));
+        return ResponseObject.newSuccessResponseObject(medicalDoctorAuthenticationInformationService.selectDoctorAuthenticationVO(currentUser.getUid()));
 
 //        return ResponseObject.newSuccessResponseObject(medicalDoctorAuthenticationInformationService.selectDoctorAuthentication("2c9aec355f7be767015f7fce0db20001"));
     }

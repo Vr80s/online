@@ -175,5 +175,68 @@ $(function(){
 	
 	
 	
+	//课程收益列表
+	getCourseResiveList (1);
+	function getCourseResiveList (current){
+    RequestService("/medical/order/course/list?size=10&current="+current, "get", null, function(data) {
+        for(var i=0;i<data.resultObject.records.length;i++){
+            if(data.resultObject.records[i].VALUE>0){
+                data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
+            }
+        }
+        $("#myResive_list").html(template('myResive_list_Tpl', data.resultObject));
+        debugger
+        //每次请求完数据就去渲染分页部分
+        if (data.resultObject.pages > 1) { //分页判断
+            $(".not-data").remove();
+            $(".courseResive_pages").css("display", "block");
+            $(".courseResive_pages .searchPage .allPage").text(data.resultObject.pages);
+            $("#Pagination_myResive").pagination(data.resultObject.pages, {
+                num_edge_entries: 1, //边缘页数
+                num_display_entries: 4, //主体页数
+                current_page:current-1,
+                callback: function (page) {
+                    //翻页功能
+                    getCourseResiveList(page+1);
+                }
+            });
+        } else {
+            $(".courseResive_pages").css("display", "none");
+        }
+    });
+}
+	 
+//	 礼物收益列表
+	getGiftResiveList (1);
+	function getGiftResiveList (current){
+    RequestService("/medical/order/gift/list?size=10&current="+current, "get", null, function(data) {
+        for(var i=0;i<data.resultObject.records.length;i++){
+            if(data.resultObject.records[i].VALUE>0){
+                data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
+            }
+        }
+        $("#gift_Resive_list").html(template('gift_Resive_Tpl', data.resultObject));
+        debugger
+        //每次请求完数据就去渲染分页部分
+        if (data.resultObject.pages > 1) { //分页判断
+            $(".not-data").remove();
+            $(".giftResive_pages").css("display", "block");
+            $(".giftResive_pages .searchPage .allPage").text(data.resultObject.pages);
+            $("#Pagination_myGiftResive").pagination(data.resultObject.pages, {
+                num_edge_entries: 1, //边缘页数
+                num_display_entries: 4, //主体页数
+                current_page:current-1,
+                callback: function (page) {
+                    //翻页功能
+                    getCourseResiveList(page+1);
+                }
+            });
+        } else {
+            $(".giftResive_pages").css("display", "none");
+        }
+    });
+}
+	
+	
 	
 });

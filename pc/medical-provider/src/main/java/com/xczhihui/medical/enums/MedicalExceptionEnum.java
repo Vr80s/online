@@ -16,7 +16,10 @@ public enum MedicalExceptionEnum {
     ANCHOR_DETAIL_EMPTY(30003, "主播个人介绍不能为空"),
     ANCHOR_HOSPITALID_EMPTY(30004, "主播任职医馆不能为空"),
     ANCHOR_PROVINCE_EMPTY(30005, "主播省份不能为空"),
-    ANCHOR_CITY_EMPTY(30006, "主播城市不能为空");
+    ANCHOR_CITY_EMPTY(30006, "主播城市不能为空"),
+
+    // -----------------医馆异常---------------------
+    HOSPITAL_IS_EMPTY(40001, "请选择医馆");
 
     private Integer code;
 

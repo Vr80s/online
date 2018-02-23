@@ -83,7 +83,7 @@ public class TokenFilter implements Filter {
 	private static String new_controller_login_before ="/xczh/user";
 	
 	//分享的接口不拦截
-	private static String new_controller_share_before ="/xczh/sharse,";
+	private static String new_controller_share_before ="/xczh/share,";
 	
 	//各种第三方前的登录不需要拦截
 	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third";

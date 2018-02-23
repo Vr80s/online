@@ -19,6 +19,11 @@ public class UserCoinIncreaseVO {
     private String gradeName;
 
     /**
+     * 课程类型
+     */
+    private Integer type;
+
+    /**
      * 支付时间
      */
     private Date payTime;
@@ -68,4 +73,10 @@ public class UserCoinIncreaseVO {
      * 礼物赠送人id
      */
     private String giver;
+
+    /**
+     * 分成比例
+     */
+    private String percent;
+
 }

@@ -158,7 +158,15 @@
 		kk=750
 	}
 	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
+	document.documentElement.style.fontSize=kk/7.5+"px";
+	
+	var isUserid = localStorage.userId;
+	if(isUserid == null || isUserid == ""){
+		alert(1)
+	}
+
+	
+	
 </script>
 
 </html>

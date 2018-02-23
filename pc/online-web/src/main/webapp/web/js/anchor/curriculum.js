@@ -180,18 +180,34 @@ $(function(){
 
 	RequestService("/online/user/isAlive", "get", null, function(data) {
 		//头像预览
-		if(data.resultObject.smallHeadPhoto) {
-			if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
-				$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
-			} else {
-				
+//		if(data.resultObject.smallHeadPhoto) {
+//			if(data.resultObject.smallHeadPhoto != "/web/images/defaultHeadImg.jpg") {
+//				$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto)
+//			} else {
+//				
+//			}
+//		};
+//		
+		
+		//头像预览
+			if(data.resultObject.smallHeadPhoto) {
+					$('.doctor_inf>img').attr('src',data.resultObject.smallHeadPhoto);	
+					$('.doctor_inf>h4').text(data.resultObject.name);
+			}else{
+				$('.doctor_inf>img').attr('src',"/web/images/defaultHeadImg.jpg");	
 			}
-		};
+			
+			if(data.resultObject.info){
+				$('.doctor_inf>p').text(data.resultObject.info)
+			}else{
+				$('.doctor_inf>p').text('说点什么来彰显你的个性吧……')
+			}
 	});
 
 	$(".doctor_inf >img").attr('src',userPic)
 	$(".doctor_inf > img,.doctor_inf .picModal").on("click", function() {
-		$(".mask").css("display", "block");
+//		$(".mask").css("display", "block");
+		showDel();
 		$("#headImg").css("display", "block");
 		$("body").css("overflow", "hidden");
 		//清空右侧小图片
@@ -231,7 +247,8 @@ $(function(){
 			$(".img-box1").css("display", "block");
 			$(".imageBox").css("display", "none");
 			$(".tc").css("display", "none");
-			$(".mask").css("display", "none");
+//			$(".mask").css("display", "none");
+			hideDel();
 			$("#headImg").css("display", "none");
 			$("body").css("overflow", "auto");
 			var file = document.getElementById("upload-file");
@@ -303,6 +320,11 @@ $(function(){
 $('.fileUpdata').click(function(){
 	return $("#upload-file").click();
 })
+
+//function fileClick() {
+//	return $("#upload-file").click();
+//}
+
 $(".btn-upload").click(function(evt) {
 		evt.preventDefault();
 		if($(".btn-upload").attr("data-img")!=undefined&&$(".btn-upload").attr("data-img")!=""){			
@@ -349,7 +371,8 @@ $(".btn-upload").click(function(evt) {
 							$(".img-box1").css("display", "block");
 							$(".imageBox").css("display", "none");
 							$(".tc").css("display", "none");
-							$(".mask").css("display", "none");
+//							$(".mask").css("display", "none");
+							hideDel();
 							$("#headImg").css("display", "none");
 							location.reload();
 						}

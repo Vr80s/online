@@ -27,20 +27,18 @@
 	}
 	//提现表单数据请求
 	function showData(){
-		RequestService("/enchashment/enchashmentData", "get", null, function(data) {
-//			console.log(data)
-			var username = data.resultObject.name;
-			var telnumber = data.resultObject.phone;
-			var totalmondy = data.resultObject.enableEnchashmentBalance
+		RequestService("/userCoin/balance", "get", null, function(data) {
+			// var username = data.resultObject.name;
+			// var telnumber = data.resultObject.phone;
+			var totalmondy = data.resultObject;
 //	    	将数据渲染到提现模态框上面
-			$('.userName').val(username);
-			$('.telNumber').val(telnumber)
-			$('.totalMoney').attr('placeholder','可提现金额'+totalmondy+'元');
-			$('.toCashMoney').text(totalmondy)
-			//点击全部提现按钮
-			$('.totalTocash').click(function(){
-				$('.totalMoney').val(totalmondy)
-			})
+// 			$('.userName').val(username);
+// 			$('.telNumber').val(telnumber)
+			$('.toCashMoney').text(totalmondy);
+			// //点击全部提现按钮
+			// $('.totalTocash').click(function(){
+			// 	$('.totalMoney').val(totalmondy)
+			// })
 		})
 	}
 	
@@ -51,7 +49,7 @@
 //			console.log(data);
 			if(data.success == true){
 //				console.log(data.resultObject.balanceTotal)
-				$('.restMoney').text(data.resultObject.balanceTotal)
+				$('.restMoney').text(data.resultObject)
 			}else{
 				$('.restMoney').text('0')
 			}
@@ -218,16 +216,17 @@
 		$('#continue').click(function(){
 			//请求数据重新渲染
 			RequestService("/enchashment/enchashmentData", "get", null, function(data) {
-				var telnumber = data.resultObject.phone;
-				var totalmondy = data.resultObject.enableEnchashmentBalance
-//		    	将数据渲染到提现模态框上面
-				$('.telNumber').val(telnumber)
-				$('.totalMoney').val('');
-				$('.totalMoney').attr('placeholder','可提现金额'+totalmondy+'元');
-				//点击全部提现按钮
-				$('.totalTocash').click(function(){
-					$('.totalMoney').val(totalmondy)
-				})
+                // var username = data.resultObject.name;
+                // var telnumber = data.resultObject.phone;
+                var totalmondy = data.resultObject;
+//	    	将数据渲染到提现模态框上面
+//                 $('.userName').val(username);
+//                 $('.telNumber').val(telnumber)
+                $('.toCashMoney').text(totalmondy)
+                // //点击全部提现按钮
+                // $('.totalTocash').click(function(){
+                // 	$('.totalMoney').val(totalmondy)
+                // })
 			})
 		    $('#cash-model').fadeIn();
 		    $('#cash-success').hide();

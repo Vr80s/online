@@ -35,6 +35,7 @@
 	<link rel="stylesheet" href="/web/css/anchor/mymoney.css?v=ipandatcm_1.2.1">
 	<link rel="stylesheet" href="/web/css/style.css"/>
 	<link rel="stylesheet" href="/web/css/index-9a525196fb.css" type="text/css">
+	<link rel="stylesheet" href="/web/css/style.css" />
 
 	<script src="/web/js/jquery-1.12.1.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/web/js/artTemplate.js"></script>
@@ -173,7 +174,7 @@
 			<span>直播中</span>
 			{{else if course.liveStatus==2}}
 			<span>准备直播</span>
-			{{else if course.liveStatus==0}}
+			{{else if course.liveStatus==3}}
 			<span>直播完成</span>
 			{{/if}}
 		</td>
@@ -337,6 +338,7 @@
 			{{coinTransaction.create_time}}
 		</td>
 		<td>
+			—
 		</td>
 	</tr>
 	{{/each}}
@@ -407,6 +409,86 @@
 	</li>
 	{{/each}}
 </script>
+
+<!--课程收益列表模板-->
+<script type="text/template" id="myResive_list_Tpl">
+	{{each records as item i}}
+	<tr>
+		<td>{{item.orderNo}}</td>
+		<td>{{item.gradeName}}</td>
+		<td>{{item.payTime}}</td>
+		<td>{{item.name}}</td>
+		<td>{{item.actualPay}}</td>
+		<td>{{item.iosBrokerageValue}}</td>
+		<td>{{item.percent}}</td>
+		<td>{{item.value}}</td>
+	</tr>
+	{{/each}}
+</script>
+
+<!--礼物收益模板-->
+<script type="text/template" id="gift_Resive_Tpl">
+	{{each records as item i}}
+	<tr>
+		<td>{{item.gradeName}}</td>
+		<td>{{item.startTime}}</td>
+		<td>{{item.name}}</td>
+		<td>{{item.giftTotalPrice}}</td>
+		<td>{{item.iosBrokerageValue}}</td>
+		<td>{{item.percent}}</td>
+		<td>{{item.value}}</td>
+	</tr>
+	{{/each}}
+</script>
+
+
+<!--医馆列表-->
+	<script type="text/template" id="hosListTpl">
+		{{each item as item i}}
+			 <option value={{item.id}}>{{item.name}}</option>
+		{{/each}}
+	</script>
+	
+
+<!--左侧更换头像弹窗-->
+<div id="headImg" class="clearfix">
+			<div class="container1 clearfix">
+				<div class="img-title">
+					<p>头像设置</p><i class="iconfont icon-guanbi imgClose"></i></div>
+				<div class="img-box1">
+					<a href="javascript:void(0)" class="upload-img">
+						<p onclick="fileClick()" class="fileUpdata"><span>+</span>选择图片</p>
+					</a>
+
+					<p>只支持BMP,PNG,JPEG,JPG,大小不超过1M</p>
+				</div>
+				<div class="imageBox">
+					<div class="thumbBox"></div>
+					<div class="spinner" style="display: none"></div>
+				</div>
+				<div class="action clearfix">
+					<div class="upload_pictures_bottom_upload" style="width: 0;height: 0;"></div>
+					<div class="new-contentarea tc">
+						<div class="bbox clearfix">
+							<span>滚动鼠标可调整头像大小</span>
+							<a href="javascript:void(0)" class="upload-img reclick">
+								<p onclick="fileClick()">重新上传</p>
+							</a>
+						</div>
+						<input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg" />
+					</div>
+					<span class="btn-upload bbtn">确定</span>
+					<a href="javascript:;" class="btn-quit bbtn">取消</a>
+				</div>
+				<div class="cropped">
+					<div class="cropTitle">预览</div>
+					<div class="cropped-con"></div>
+				</div>
+			</div>
+		</div>
+
+
+
 <!--删除提示弹窗-->
 <div id="deleteTip" class="hide">
 	<h4 class="confirm-title">删除资源</h4>
@@ -425,10 +507,13 @@
 	<!--左边点击-->
 	<div class="left-listNav">
 		<div class="doctor_inf anchor_info" style="display: none">
+			<div class="picModal" title="上传头像" data-toggle="modal" data-target="#upload">
+				<i class="iconfont icon-xiangji"></i>
+			</div>
 			<img src="../images/5.jpg" alt="">
 			<!--<div class="pic" style="width: 80px;height: 80px;border-radius: 50%;"></div>-->
 			<h4 class="nickname"></h4>
-			<!--<p>说点什么来彰显你的个性...</p>-->
+			<p>说点什么来彰显你的个性...</p>
 		</div>
 		<!--左边点击nav-->
 		<div class="select_list z">
@@ -457,7 +542,7 @@
 					<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 					<div class="littleBoxs">
 						<p class="activeP name_news">认证信息</p>
-						<p class="name_personage">主播信息</p>
+						<p class="name_personage" onclick="showAnchorInfo()">主播信息</p>
 					</div>
 				</li>
 
@@ -872,12 +957,12 @@
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">昵称</div>
-				<div class="two nickname">我是姓名</div>
+				<div class="two nickname" id="nickname"></div>
 			</div>
 			<div class="name">
 				<div class="one">真实头像</div>
 				<div class="two two_img">
-					<img src="../../images/3.jpg">
+					<img src="../../images/3.jpg" id="profilePhoto">
 				</div>
 			</div>
 			<div class="">
@@ -889,7 +974,7 @@
 			<div class="name">
 				<div class="one">主播介绍</div>
 				<div class="two two_size">
-					<p >主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍主播介绍不能为空</p>
+					<p id="detail"></p>
 				</div>
 			</div>
 			<div class="name clinics">
@@ -898,23 +983,23 @@
 			</div>
 			<div class="name physician">
 				<div class="one" style="margin-top: 0;">任职医馆</div>
-				<div class="two">百草园国医馆</div>
+				<div class="two" id="hospitalName">百草园国医馆</div>
 			</div>
 			<div class="name physician">
 				<div class="one" style="margin-top: 0;">坐诊时间</div>
-				<div class="two">每周<span>一、三、五下午</span></div>
+				<div class="two">每周<span id="workTime"></span></div>
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">预约电话</div>
-				<div class="two">010-36576543</div>
+				<div class="two" id="tel"></div>
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">城市</div>
-				<div class="two"><sapn>海南</sapn> &nbsp;&nbsp; <span>海口</span></div>
+				<div class="two"><sapn id="province"></sapn> &nbsp;&nbsp; <span id="city"></span></div>
 			</div>
 			<div class="name">
 				<div class="one" style="margin-top: 0;">详细地址</div>
-				<div class="two">美兰区演丰镇瑶城一路</div>
+				<div class="two" id="detailAddress"></div>
 			</div>
 		</div>
 		<div class="account_main message_return">
@@ -925,7 +1010,7 @@
 			<form action="" method="post">
 				<div class="name">
 					<span><em>*</em>昵称</span>
-					<input type="text" placeholder="请填写您的昵称" class="put0 anchor_nick_name">
+					<input type="text" placeholder="请填写您的昵称" class="put0" id="u_nickname">
 					<p class="warning warning_anchor_name hide">昵称不能为空</p>
 				</div>
 				<div class="name">
@@ -954,7 +1039,7 @@
 					
 					<label for="speech_select"></label>
 					<select id="speech_select" class="selectpicker bla bla bli speech_resource" data-live-search="true">
-						</optgroup>
+
 					</select>
 					<p class="warning warning_anchor_Speech hide">昵称不能为空</p>
 				</div>
@@ -967,15 +1052,24 @@
 				
 				<!--主播是医师的时候的基础信息-->
 				<div id="doctor_baseInf" class="hide">
-				<div class="name">
-					<span><em>*</em>任职医馆</span>
-					<input type="text" placeholder="请填写您的任职医馆" class="put1">
+				<div class="">
+					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em  style="display: inline-block;color: #f40;">*</em>任职医馆</span>
+					<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
+					<!--<label for="workHos_select"></label>
+					<select id="workHos_select" class="selectpicker bla bla bli workHos_resource" data-live-search="true">
+						</optgroup>
+					</select>-->
+					<div style="display: inline-block;">
+						<label for="speech_select1"></label>
+					<select id="speech_select1" class="selectpicker bla bla bli workHos_select"  data-live-search="true"></select>
+					</div>
+					
 					<p class="warning return_warning4 hide">任职医馆不能为空</p>
 				</div>
 				<div class="name workTime" >
 					<span><em>*</em>坐诊时间</span>
-				<ul style="display: inline-block;vertical-align: middle;" id="workTime">
-					<li class="color">一</li>
+				<ul style="display: inline-block;vertical-align: middle;" id="u_workTime">
+					<li >一</li>
 					<li>二</li>
 					<li>三</li>
 					<li>四</li>
@@ -983,11 +1077,12 @@
 					<li>六</li>
 					<li>七</li>
 				</ul>
+				<p class="warning return_warning7 hide">请选择坐诊时间</p>
 				</div>
 				
 				<div class="name">
 					<span><em>*</em>预约电话</span>
-					<input type="text" placeholder="" class="" disabled="disabled">
+					<input type="text" placeholder=""  disabled="disabled" class="appointmentTel">
 				</div>
 				</div>
 				
@@ -995,8 +1090,8 @@
 				<!--主播是医馆的时候的基础信息-->
 				<div id="hospital_baseInf" class="hide">
 					<div class="name">
-						<span>预约电话</span>
-						<input type="text" placeholder="请输入预约电话" class="">
+						<span><em>*</em>预约电话</span>
+						<input type="text" placeholder="请输入预约电话" class="" id="u_hospital_tel">
 					</div>
 				</div>
 				
@@ -1006,15 +1101,16 @@
 				<div class="name">
 					<span><em>*</em>城市</span>
 					<div id="demo1" class="citys">
-						<p>
-							<select name="province" class="choosePro" >
+							<select name="province" class="choosePro" style="margin-bottom: 20px;">
 								<option value="">请选择省份</option>
 							</select>
-							<select name="city" class="">
+							<select name="city" class="chooseCity" style="margin-bottom: 20px;">
 								<option value="">请选择市</option>
 							</select>
-						</p>
-						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea"></textarea>
+							
+							<input type="text" id="hosPro"  disabled="disabled" style="margin-bottom: 20px;"/>
+							<input type="text" id="hosCity"  disabled="disabled" style="margin-bottom: 20px;"/>
+						<textarea name="" readonly rows="" cols="" placeholder="请输入详细地址" class="name_textarea" id="u_detailAddress"></textarea>
 						<p class="warning return_warning5 hide">详细地址不能为空</p>
 					</div>
 				
@@ -1553,7 +1649,7 @@
 							<p class="warning warning_course_resource hide">请选择资源</p>
 						</div>
 						<div class="baocun">
-							<input type="button" class="addCourse save" value="提交" />
+							<input type="button" class="addCourse save" value="提交课程" />
 							<!--<input type="submit" value="保存" id="submit0"/>-->
 						</div>
 					</form>
@@ -1840,7 +1936,7 @@
                         </table>-->
 
 						<!--序号列表开始-->
-						<table style="float: left;">
+						<table style="float: left;width: 640px;">
 							<thead>
 							<tr>
 								<td>序号</td>
@@ -2217,7 +2313,7 @@
 							<td>获得熊猫币</td>
 						</tr>
 						</thead>
-						<tbody>
+						<tbody id="myResive_list">
 						<tr>
 							<td>12345678901234567890</td>
 							<td>中医药席卷全球成独特风暴</td>
@@ -2301,6 +2397,16 @@
 						</tbody>
 					</table>
 				</div>
+				
+				<div class="pages courseResive_pages">
+					<div id="Pagination_myResive"  class="pagination-pages"></div>
+					<div class="searchPage">
+						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+						<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+						<a href="javascript:;" class="page-btn">确定</a>
+					</div>
+				</div>
+				
 			</div>
 			
 			<!--礼物收益部分-->
@@ -2330,7 +2436,7 @@
 								<td>获得熊猫币</td>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="gift_Resive_list">
 							<tr>
 								<td>中医药席卷全球成独特风暴</td>
 								<td>2018-01-18 14:00</td>
@@ -2405,6 +2511,17 @@
 							</tr>
 						</tbody>
 					</table>
+					
+					<!--礼物收益分页-->
+					<div class="pages giftResive_pages">
+					<div id="Pagination_myGiftResive"  class="pagination-pages"></div>
+					<div class="searchPage">
+						<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+						<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+						<a href="javascript:;" class="page-btn">确定</a>
+					</div>
+				</div>
+				
 				</div>
 				
 				<div class="gift_Resive_bottom2 hide">

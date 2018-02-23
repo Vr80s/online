@@ -18,6 +18,7 @@
 		SELECT
 		  oo.`order_no`,
 		  oc.`grade_name`,
+		  oc.type,
 		  oo.`pay_time`,
 		  ou.`name`,
 		  ood.`actual_pay`,
@@ -40,6 +41,7 @@
 		  ogs.`live_id`,
 		  ogs.`giver`,
 		  oc.`grade_name`,
+		  oc.type,
 		  oc.`start_time`
 		FROM
 		  `user_coin_increase` uci
@@ -47,7 +49,7 @@
 			ON uci.`order_no_gift` = ogs.id
 		  JOIN `oe_course` oc
 			ON ogs.`live_id` = oc.`id`
-		WHERE uci.user_id = #{userId};
+		WHERE uci.user_id = #{userId}
 	</select>
 
 	<select id="sumIosBrokerageValue" parameterType="string" resultType="decimal">

@@ -1,5 +1,5 @@
 $(function(){
-	
+	var hosID;
 //	这是点击课程里面开始
 	//点击左侧课程
 	$(".courseP").click(function() {
@@ -214,10 +214,97 @@ $(".account_main_alter_title .two").click(function() {
 
 //账户个人信息  
 $(".right_modification").click(function() {
+	//获取资源列表渲染
     initResource(1,true);
     $(".personal_details").hide();
     $(".message_return").show();
+    
+    //获取主播信息回显
+    RequestService("/anchor/info", "get", null,function(data){
+    	if(data.success == true){
+    		$('.account .message_return .anchor_nick_name').val(data.resultObject.name);
+    		
+    		if(data.resultObject.profilePhoto){
+    		$('.account .message_return #profilePhotoImg').html('<img id="imghead" border="0" src='+data.resultObject.profilePhoto+' width="90" height="90" >')
+    		}
+
+    		if(data.resultObject.detail == null){
+    			UE.getEditor('anchor_details_editor').setContent('');
+    		}else{
+    			UE.getEditor('anchor_details_editor').setContent(data.resultObject.detail);
+    		}
+    		
+    		if(localStorage.AccountStatus == '1'){
+    			 //坐诊时间渲染
+		        var workArr = data.resultObject.workTime.split(",");		
+		        var j;
+		        for(var i =0 ;i < $('#doctor_baseInf .workTime ul li ').length ;i++){
+		            for(j = 0;j < workArr.length ;j++ ){
+		                if($('#doctor_baseInf .workTime ul li').eq(i).text() == workArr[j]){
+		                	 $('#doctor_baseInf .workTime ul li').eq(i).click();
+		//                  $('.hospital_worktime ul li').eq(i).addClass('color keshiColor');
+		                }
+		            }
+		        }
+		        
+		         //医馆列表的选中效果
+			    RequestService("/medical/doctor/getHospital", "get", null, function(data) {
+			    	 $('.workHos_select').selectpicker('val',(data.resultObject.id));
+			    })
+    
+		    	}
+    			
+    		}else if(localStorage.AccountStatus == '2'){
+    			//医馆自己的模板渲染
+    		}
+			$('#u_detailAddress').val(data.resultObject.detailAddress)
+    })
+    
+   
+    
+    
 });
+
+
+
+//选择医馆列表选中之后出发的事件
+$('#speech_select1').change(function(){
+    //医馆ID的获取
+    hosID = $('#speech_select1').val()
+    //获取对应的医馆信息渲染到页面上
+    RequestService("/medical/hospital/getHospitalById", "get", {
+        id: hosID,
+    }, function(data) {
+        console.log(data);
+        //省
+        if(data.resultObject.province){
+            $('#hosPro').val(data.resultObject.province)
+        }
+        //市
+        if(data.resultObject.city){
+            $('#hosCity').val(data.resultObject.city)
+        }
+        //详细地址
+        if(data.resultObject.detailedAddress){
+//					$('#detail_address').text('');
+            $('#u_detailAddress').val(data.resultObject.detailedAddress)
+        }
+       
+        //电话号码
+        if(data.resultObject.tel){
+            $('.appointmentTel').val(data.resultObject.tel);
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
 $(".message_return .message_title .two").click(function() {
     $(".message_return").hide();
     $(".personal_details").show();
@@ -318,12 +405,31 @@ $(".message_return .message_title .two").click(function() {
 	if(localStorage.AccountStatus == 1){
 		//医师
 		$('#doctor_baseInf').removeClass('hide');
-		$('#hospital_baseInf').addClass('hide')
+		$('#hospital_baseInf').addClass('hide');
+		
+		//地址选择部分变化
+		$('#demo1 .choosePro').addClass('hide');
+		$('#demo1 .chooseCity').addClass('hide');
+		
+		$('#hosPro').removeClass('hide');
+		$('#hosCity').removeClass('hide');
+		
+		$('#u_detailAddress').attr('readonly',true)
 		
 	}else if(localStorage.AccountStatus == 2){
 		//医馆
 		$('#doctor_baseInf').addClass('hide');
 		$('#hospital_baseInf').removeClass('hide')
+		
+		//地址选择部分变化
+		$('#hosPro').addClass('hide');
+		$('#hosCity').addClass('hide');
+		
+		
+		$('#demo1 .choosePro').removeClass('hide');
+		$('#demo1 .chooseCity').removeClass('hide');
+
+		$('#u_detailAddress').attr('readonly',false)
 	}
 	
 	
@@ -339,13 +445,11 @@ $(".message_return .message_title .two").click(function() {
     console.log(data);
 
     //列表渲染
-    $('#speech_select1').append('<option value="-1">请选择医馆</option>')
-    $('#speech_select1').append(template('hosListTpl', {item:data.resultObject.records}));
-
+    $('#speech_select1').html(template('hosListTpl', {item:data.resultObject.records}));
 
 
     //渲染之后在此调用插件
-    $('.selectpicker').selectpicker({
+    $('.workHos_select').selectpicker({
         'selectedText': 'cat',size:10
     });
 

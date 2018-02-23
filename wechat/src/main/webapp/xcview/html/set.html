@@ -67,6 +67,23 @@
         requestService("/xczh/set/logout",{
 			}, function(data) {
                 if (data.success) {
+                    window.location.href="my_homepage.html";
+                	
+                	//删除所有的信息
+                	localStorage.removeItem("token");
+				    localStorage.removeItem("userId")
+					localStorage.removeItem("name");
+				    localStorage.removeItem("smallHeadPhoto");
+				    localStorage.removeItem("sex");
+				    localStorage.removeItem("provinceName");
+				    localStorage.removeItem("cityName");
+				    localStorage.removeItem("province");
+				    localStorage.removeItem("city");
+				    localStorage.removeItem("email");
+				    localStorage.removeItem("info");
+				    localStorage.removeItem("username");
+				    localStorage.removeItem("ticket");
+                	
                     window.location.href="enter.html";
                 }
             });
