@@ -76,16 +76,16 @@ function getShareType(){
 }
 
 //目前是写死的，应该是固定着的
-var gradeName = "你好,心承智慧";
-var smallImgPath ="http://attachment-center.ixincheng.com:38080/data/attachment/online/2017/12/13/17/4b4eb1300a90449d8d1cb975cce35def.png";
-var description ="你好,心承智慧";
+//var gradeName = "你好,心承智慧";
+//var smallImgPath ="http://attachment-center.ixincheng.com:38080/data/attachment/online/2017/12/13/17/4b4eb1300a90449d8d1cb975cce35def.png";
+//var description ="你好,心承智慧";
 
 
 var shareType = getShareType();
 var shareId = getShareId();
 
 var domain = window.location.protocol+"//"+document.domain;
-var link = domain+"/wx_share.html?shareType="+shareType+"&shareId"+shareId;
+var link = domain+"/wx_share.html?shareType="+shareType+"&shareId="+shareId;
 
 //点击分享share
 $(".header_news").click(function(){

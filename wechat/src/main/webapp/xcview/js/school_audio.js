@@ -5,9 +5,13 @@ var my_impression3="";
 var course_id ="";
 var criticize_id = "";
 var LecturerId="";
+
 $(function(){
 
-
+function stripHTML(str){
+	var reTag = /<(?:.|\s)*?>/g;
+	return str.replace(reTag,"");
+}
 //	标签选中变色
 	
 	 $(".select_lable li").click(function(){
@@ -65,11 +69,15 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
-			//详情页的banner
+	//分享的信息展示
+		gradeName = data.resultObject.gradeName;
+		smallImgPath = data.resultObject.smallImgPath;
+		description = data.resultObject.description.stripHTML();
+	//  详情页的banner
 		var school_img = document.createElement("img");
 		school_img.src = data.resultObject.smallImgPath;
 		$(".play_video").append(school_img)
-	    //获取讲师id
+	//  获取讲师id
         LecturerId=data.resultObject.userLecturerId;
 	//	课程名称/等级/评论
 		$("#speak_people").html(template('data_people',data.resultObject));

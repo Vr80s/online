@@ -6,8 +6,13 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
-$(function(){
 
+
+$(function(){
+function stripHTML(str){
+	var reTag = /<(?:.|\s)*?>/g;
+	return str.replace(reTag,"");
+}
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('my_study');
@@ -16,6 +21,10 @@ $(function(){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
+			//分享的信息展示
+		gradeName = data.resultObject.gradeName;
+		smallImgPath = data.resultObject.smallImgPath;
+		description = data.resultObject.description.stripHTML();
 		//详情页的banner
 		var school_img = document.createElement("img");
 		school_img.src = data.resultObject.smallImgPath;

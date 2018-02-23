@@ -252,7 +252,15 @@ $(".right_modification").click(function() {
     		}else if(localStorage.AccountStatus == '2'){
     			//医馆自己的模板渲染
     		}
-
+    		//省市渲染
+//  		for(var k = 0;k < $('#demo1 .choosePro option').length;i++){
+//  			if('北京市' == $('#demo1 .choosePro option').eq(k).text()){
+//  				$('#demo1 .choosePro option').eq(k).attr('selected','selected')
+//  			}
+//  		}
+//  		$('#demo1 .choosePro option:selected').text(data.resultObject.province);
+    		$('#demo1 .chooseCity option:selected').text(data.resultObject.city);
+			$('#u_detailAddress').val(data.resultObject.detailAddress)
     })
     
 });
@@ -260,28 +268,7 @@ $(".right_modification").click(function() {
 
 
 
-//每周坐诊点击生成数组数据
-var arr = [];
-var workTime;
-$('#u_workTime  li').click(function(){
-    if($(this).hasClass('color')){
-        //删除第二次选中的
-        for(var i = 0 ;i < arr.length; i++){
-            if($(this).text() == arr[i]){
-                arr.splice(i,1)
-            }
-        }
-//			console.log(arr.toString())
-        workTime = arr.toString();
-        $(this).removeClass('color');
-    }else{
-        $(this).addClass('color');
-        arr.push($(this).text());
-//			console.log(arr.toString())
-        workTime = arr.toString();
-    }
-    console.log(workTime)
-})
+
 
 
 
@@ -413,7 +400,7 @@ $(".message_return .message_title .two").click(function() {
 
 
     //渲染之后在此调用插件
-    $('.selectpicker').selectpicker({
+    $('.workHos_select').selectpicker({
         'selectedText': 'cat',size:10
     });
 

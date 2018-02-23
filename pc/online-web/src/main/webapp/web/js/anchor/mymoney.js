@@ -178,7 +178,7 @@ $(function(){
 	//课程收益列表
 	getCourseResiveList (1);
 	function getCourseResiveList (current){
-    RequestService("/medical/order/course?size=10&current="+current, "get", null, function(data) {
+    RequestService("/medical/order/course/list?size=10&current="+current, "get", null, function(data) {
         for(var i=0;i<data.resultObject.records.length;i++){
             if(data.resultObject.records[i].VALUE>0){
                 data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
@@ -209,7 +209,7 @@ $(function(){
 //	 礼物收益列表
 	getGiftResiveList (1);
 	function getGiftResiveList (current){
-    RequestService("/medical/order/gift?size=10&current="+current, "get", null, function(data) {
+    RequestService("/medical/order/gift/list?size=10&current="+current, "get", null, function(data) {
         for(var i=0;i<data.resultObject.records.length;i++){
             if(data.resultObject.records[i].VALUE>0){
                 data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
