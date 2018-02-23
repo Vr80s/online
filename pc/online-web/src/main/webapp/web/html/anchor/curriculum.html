@@ -174,7 +174,7 @@
 			<span>直播中</span>
 			{{else if course.liveStatus==2}}
 			<span>准备直播</span>
-			{{else if course.liveStatus==0}}
+			{{else if course.liveStatus==3}}
 			<span>直播完成</span>
 			{{/if}}
 		</td>
@@ -1630,7 +1630,7 @@
 							<p class="warning warning_course_resource hide">请选择资源</p>
 						</div>
 						<div class="baocun">
-							<input type="button" class="addCourse save" value="提交" />
+							<input type="button" class="addCourse save" value="提交课程" />
 							<!--<input type="submit" value="保存" id="submit0"/>-->
 						</div>
 					</form>
