@@ -583,14 +583,14 @@ function verifyCourse(course){
         $('.warning_course_address').addClass('hide');
     }
     //时长
-    if(course.courseLength == ''){
+    if(course.courseLength == '' && (course.courseForm==2||course.courseForm==3)){
         $('.warning_course_length').removeClass('hide');
         return false;
     }else{
         $('.warning_course_length').addClass('hide');
     }
     //时长数值校验
-    if(!numberCk(course.courseLength)){
+    if(!numberCk(course.courseLength) && (course.courseForm==2||course.courseForm==3)){
         $('.warning_course_length_Illegal').removeClass('hide');
         return false;
     }else{
