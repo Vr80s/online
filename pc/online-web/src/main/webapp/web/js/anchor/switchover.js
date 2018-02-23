@@ -297,6 +297,11 @@ $('#speech_select1').change(function(){
     })
 })
 
+//点击选择省份效果
+$('#demo1 .choosePro').click(function(){
+	$("#demo1 .choosePro option[value = '-1']").text('请选择省')
+//	alert(11)
+})
 
 
 
