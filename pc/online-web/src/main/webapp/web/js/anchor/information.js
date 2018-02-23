@@ -579,6 +579,7 @@ function showAnchorInfo() {
                 $('#province').text(anchor.province);
                 $('#city').text(anchor.city);
                 $('#detailAddress').text(anchor.detailAddress);
+                $('#speech_select').val(anchor.resourceId);
                 // $('.anchor_nick_name').text(anchor.name);
                 // $('#u_nickname').val(anchor.name);
                 // $('#u_hospital_tel').val(anchor.tel);
