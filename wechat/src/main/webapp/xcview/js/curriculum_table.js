@@ -328,7 +328,8 @@ function getQueryString(key){
     if (urlAttribute=='' || urlAttribute== null) {
     	
     } else{
-   		$('.header_seek').append('<span>' + urlAttribute + '</span>');	
+   	$('.header_seek').append('<span>' + urlAttribute + '</span>');
+    	
     }
 
     
