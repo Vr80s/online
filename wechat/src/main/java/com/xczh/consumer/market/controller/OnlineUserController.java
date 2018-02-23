@@ -727,9 +727,9 @@ public class OnlineUserController {
  			Map<String,String> map = new HashMap<String,String>();
  			String headImgPath = service.upload(null, //用户中心的用户ID
 				projectName, imageName, suffix, bs123,fileType,null);
- 			//JSONObject json = JSONObject.parseObject(headImgPath);
+ 			JSONObject json = JSONObject.parseObject(headImgPath);
  			LOGGER.info("文件路径——path:"+headImgPath);
- 			map.put("smallHeadPhoto", headImgPath);
+ 			map.put("smallHeadPhoto", json.get("url").toString());
         	  
 /*    	    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
             MultipartFile fileMul = multipartRequest.getFile("file");  

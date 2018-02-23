@@ -70,13 +70,13 @@ public class MedicalHopitalApplyController {
 				//营业执照
 				String businessLicensePicture = service.upload(null,
 						projectName, businessLicensePictureFile.getOriginalFilename(),businessLicensePictureFile.getContentType(), businessLicensePictureFile.getBytes(),fileType,null);
-
-				medicalHospitalApply.setBusinessLicensePicture(businessLicensePicture);
+				JSONObject businessLicensePictureJson = JSONObject.parseObject(businessLicensePicture);
+				medicalHospitalApply.setBusinessLicensePicture(businessLicensePictureJson.get("url").toString());
 				//药品经营许可证
 				String licenseForPharmaceuticalTradingPicture = service.upload(null,
 						projectName, licenseForPharmaceuticalTradingPictureFile.getOriginalFilename(),licenseForPharmaceuticalTradingPictureFile.getContentType(), licenseForPharmaceuticalTradingPictureFile.getBytes(),fileType,null);
-
-				medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPicture);
+				JSONObject licenseForPharmaceuticalTradingPictureJson = JSONObject.parseObject(licenseForPharmaceuticalTradingPicture);
+				medicalHospitalApply.setLicenseForPharmaceuticalTradingPicture(licenseForPharmaceuticalTradingPictureJson.get("url").toString());
 
 			medicalHospitalApplyService.add(medicalHospitalApply);
 			return ResponseObject.newSuccessResponseObject("创建成功");
