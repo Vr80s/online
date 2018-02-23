@@ -117,7 +117,7 @@ public class CourseController {
 			long currentTime = System.currentTimeMillis();
 			currentTime += 1*livePreheating*60*60*1000;
 			long startTimeLong = cv.getStartTime().getTime();
-			// 30 +1 > 30.5
+			
 			LOGGER.info("========currentTime："+startTimeLong);
 			LOGGER.info("========startTimeLong："+startTimeLong);
 			LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
