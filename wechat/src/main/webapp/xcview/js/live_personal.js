@@ -156,7 +156,7 @@ requestService("/xczh/host/hostPageCourse",{
         requestService("/xczh/criticize/getCriticizeList",{
             userId : userLecturerId,
             pageNumber:1,
-            pageSize:3
+            pageSize:6
         },function(data) {
         	//  	判断有无评论显示默认图片
 		if(data.resultObject.items.length==0){

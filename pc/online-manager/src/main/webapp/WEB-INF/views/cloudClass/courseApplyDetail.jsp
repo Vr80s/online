@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link href="${base}/css/jquery-ui-timepicker-addon.css" type="text/css" />
 <link href="${base}/js/layer/skin/layer.css" type="text/css" />	
 <script type="text/javascript" src="js/cloudClass/courseApplyDetail.js"></script>
@@ -181,7 +182,7 @@
 			<label class="col-sm-1 control-label no-padding-right">课程开始时间:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="control-label no-padding-right">${courseApplyInfo.startTime}</label>
+					<label class="control-label no-padding-right"><fmt:formatDate value="${courseApplyInfo.startTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
 				</div>
 			</div>
 	</c:when>
@@ -191,7 +192,7 @@
 			<label class="col-sm-1 control-label no-padding-right">课程结束时间:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="control-label no-padding-right">${courseApplyInfo.endTime}</label>
+					<label class="control-label no-padding-right"><fmt:formatDate value="${courseApplyInfo.endTime}" pattern="yyyy-MM-dd HH:mm:ss"/></label>
 				</div>
 			</div>
 	</c:when>

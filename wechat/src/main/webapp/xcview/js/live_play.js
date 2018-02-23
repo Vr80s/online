@@ -23,7 +23,11 @@ requestService("/xczh/course/details",{
 	//分享的信息展示
 		gradeName = data.resultObject.gradeName;
 		smallImgPath = data.resultObject.smallImgPath;
-		description = data.resultObject.description.stripHTML();
+		if(data.resultObject.description==null || data.resultObject.description==''){
+			
+		}else{
+			description = data.resultObject.description.stripHTML();
+		}
 //	视频直播/回放/未开播状态判断
 	$(".play_video").html(template('data_video',data.resultObject));
 	//	CC视频ID

@@ -35,7 +35,7 @@
 
 	<!-- 中间内容开始 -->
 	<div class="set">
-		<div class="set_main">
+		<div class="set_main set_main_close">
 			<div class="set_main_one" onclick="location.href ='lickacc_mobile.html'">
 				帐号和绑定设置<img src="../images/account05.png" alt="" />
 			</div>
@@ -59,6 +59,12 @@
 		kk=750
 	}
 	document.documentElement.style.fontSize=kk/7.5+"px";
+//	判断是否为游客
+	var isUserid = localStorage.userId;
+	if(isUserid == null || isUserid == ""){
+		$(".set_main_close").hide()
+		$(".btn").hide()
+   	}	
 </script>
 
 <script>
@@ -67,7 +73,7 @@
         requestService("/xczh/set/logout",{
 			}, function(data) {
                 if (data.success) {
-                    window.location.href="my_homepage.html";
+
                 	
                 	//删除所有的信息
                 	localStorage.removeItem("token");
@@ -84,7 +90,8 @@
 				    localStorage.removeItem("username");
 				    localStorage.removeItem("ticket");
                 	
-                    window.location.href="enter.html";
+                    window.location.href="my_homepage.html";
+
                 }
             });
     });

@@ -143,11 +143,14 @@ $(function(){
 	  	if(data.success == false){
 				//错误的提示
 				if(data.errorMessage == "动态码不正确！"){
-					$('#tip').text('短信验证码错误');
-	       			$('#tip').toggle();
-	       			setTimeout(function(){
-	       				$('#tip').toggle();
-	       			},2000)
+//					$('#tip').text('短信验证码错误');
+//	       			$('#tip').toggle();
+//	       			setTimeout(function(){
+//	       				$('#tip').toggle();
+//	       			},2000)
+	       			$(".my_code_warn").text('短信验证码错误')
+					$(".my_code_warn").css('display','block');
+	       			
 				}else{
 					$('#tip').text(data.errorMessage);
 	       			$('#tip').toggle();
