@@ -105,9 +105,9 @@ function requestService(url, param, callback, ac) {
 		async : ac,
 		success : function(msg) {
 			if(msg.code == 1002){  //过期
-				location.href = "/bxg/page/login/1";
+				location.href = "/xcview/html/enter.html";
 			}else if(msg.code == 1003){ //被同一用户顶掉了
-				location.href = "/xcviews/html/common.html";
+				location.href = "/xcview/html/common.html";
 			}else{
 				if (callback) {
 					callback(msg);
@@ -239,6 +239,11 @@ String.prototype.stripHTML = function() {
 	return this.replace(reTag,"");
 }
 
+function stripHTML(str){
+	var reTag = /<(?:.|\s)*?>/g;
+	return str.replace(reTag,"");
+}
+
 function dataConverStr(startTime){
 	
 	var date = new Date(startTime);
@@ -277,7 +282,7 @@ function commonLocalStorageSetItem(data){
 	var configresult = data.resultObject;
 	localStorage.setItem("token",JSON.stringify(configresult));
 	localStorage.setItem("userId",configresult.id)
-	localStorage.setItem("name",configresult.loginName);
+	localStorage.setItem("name",configresult.name);
 	localStorage.setItem("smallHeadPhoto",configresult.smallHeadPhoto);
 	localStorage.setItem("sex",configresult.sex);
 	
@@ -292,7 +297,7 @@ function commonLocalStorageSetItem(data){
 	
 	localStorage.setItem("email",configresult.email);
 	localStorage.setItem("info",configresult.info);
-	localStorage.setItem("username",configresult.name);
+	localStorage.setItem("username",configresult.loginName);
 	localStorage.setItem("ticket",configresult.ticket);
 	
 	localStorage.setItem("occupation",configresult.occupation);

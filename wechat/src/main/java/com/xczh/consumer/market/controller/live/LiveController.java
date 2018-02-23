@@ -299,9 +299,9 @@ public class LiveController {
 		String headImgPath = service.upload(null, //用户中心的用户ID
 				projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
 
-		JSONObject json = JSONObject.parseObject(headImgPath);
+		//JSONObject json = JSONObject.parseObject(headImgPath);
 		LOGGER.info("文件路径——path:"+headImgPath);
-		map.put("logo", json.get("url").toString());
+		//map.put("logo", json.get("url").toString());
 
 		LOGGER.info("req.getParameterprice================"+req.getParameter("price"));
 		if("1".equals(liveExamineInfo.getSeeMode())){//收费
@@ -311,7 +311,7 @@ public class LiveController {
 			liveExamineInfo.setPassword(req.getParameter("password"));
 		}
 
-		liveExamineInfo.setLogo(map.get("logo"));
+		liveExamineInfo.setLogo(headImgPath);
 		String id=liveExamineInfoService.add(liveExamineInfo);
 		Map<String,Object> result=new HashMap<>();
 		result.put("examineId",id);

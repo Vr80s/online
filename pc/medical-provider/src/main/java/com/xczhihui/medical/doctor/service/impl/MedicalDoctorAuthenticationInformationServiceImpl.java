@@ -1,6 +1,7 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAuthenticationInformationMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
@@ -8,12 +9,14 @@ import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAuthenticationInformation;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorDepartmentService;
 import com.xczhihui.medical.doctor.vo.MedicalDoctorAuthenticationInformationVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -29,6 +32,8 @@ public class MedicalDoctorAuthenticationInformationServiceImpl extends ServiceIm
     private MedicalDoctorMapper doctorMapper;
     @Autowired
     private MedicalDoctorAuthenticationInformationMapper doctorAuthenticationInformationMapper;
+    @Autowired
+    private IMedicalDoctorDepartmentService doctorDepartmentService;
 
     /**
      * 根据用户id获取其医师认证信息
@@ -60,12 +65,12 @@ public class MedicalDoctorAuthenticationInformationServiceImpl extends ServiceIm
         return Optional.ofNullable(doctor)
                 .map(optional -> optional.getAuthenticationInformationId())
                 .map(optional -> doctorAuthenticationInformationMapper.selectById(optional))
-                .map(optional -> this.processDoctorAuthenticationInformation(optional, doctor))
+                .map(optional -> this.processDoctorAuthenticationInformation(optional, doctor, userId))
                 .orElse(null);
 
     }
 
-    private MedicalDoctorAuthenticationInformationVO processDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformation authenticationInformation, MedicalDoctor doctor) {
+    private MedicalDoctorAuthenticationInformationVO processDoctorAuthenticationInformation(MedicalDoctorAuthenticationInformation authenticationInformation, MedicalDoctor doctor, String userId) {
 
         MedicalDoctorAuthenticationInformationVO vo = new MedicalDoctorAuthenticationInformationVO();
         BeanUtils.copyProperties(authenticationInformation, vo);
@@ -91,6 +96,9 @@ public class MedicalDoctorAuthenticationInformationServiceImpl extends ServiceIm
         if(StringUtils.isNotBlank(doctor.getDetailedAddress())){
             vo.setDetailedAddress(doctor.getDetailedAddress());
         }
+
+        List<MedicalDepartment> departments = doctorDepartmentService.selectByUserId(userId);
+        vo.setMedicalDepartments(departments);
 
         return vo;
     }
