@@ -105,7 +105,7 @@ public class MedicalDoctorApplyController {
 		//System.out.println("userId"+userId);
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
+	    	return ResponseObject.newSuccessResponseObject(7);
 	    }
 		return ResponseObject.newSuccessResponseObject(commonServiceImpl.isDoctorOrHospital(user.getId()));
 	}

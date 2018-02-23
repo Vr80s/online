@@ -69,7 +69,11 @@ requestService("/xczh/course/details",{
 	//分享的信息展示
 		gradeName = data.resultObject.gradeName;
 		smallImgPath = data.resultObject.smallImgPath;
-		description = data.resultObject.description.stripHTML();
+		if(data.resultObject.description==null || data.resultObject.description==''){
+			
+		}else{
+			description = data.resultObject.description.stripHTML();
+		}
 
 	var school_img = document.createElement("img");
 		school_img.src = data.resultObject.smallImgPath;

@@ -606,26 +606,26 @@
 				<!--</div>-->
 				<div class="name">
 					<div class="one one_name">医馆名称</div>
-					<div class="two">百草堂国医馆</div>
+					<div class="two hosName">百草堂国医馆</div>
 				</div>
 				<div class="name">
 					<div class="one one_name">所属公司</div>
-					<div class="two">江苏国医馆有限公司</div>
+					<div class="two companyName">江苏国医馆有限公司</div>
 				</div>
 				<div class="name">
 					<div class="one one_name" style="margin-left: 1px;">统一社会信用代码</div>
-					<div class="two">511000123998223666</div>
+					<div class="two businessLicenseNo">511000123998223666</div>
 				</div>
 				<div class="name">
 					<div class="one one_name">营业执照</div>
 					<div class="two two_img">
-						<img src="../../images/3.jpg" />
+						<img src="../../images/3.jpg"  class="businessLicensePicture"/>
 					</div>
 				</div>
 				<div class="name">
 					<div class="one one_name">药品经营许可证</div>
 					<div class="two two_img">
-						<img src="../../images/3.jpg" />
+						<img src="../../images/3.jpg" class="licenseForPharmaceuticalTradingPicture"/>
 					</div>
 				</div>
 
@@ -1035,13 +1035,13 @@
 					<p class="warning hide warning_profileImgphoto">请上传头像</p>
 				</div>
 				<div class="">
-					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em style="display: inline-block;color: #f40;">*</em>精彩致辞</span>
+					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em style="display: inline-block;color: #f40;"></em>精彩致辞</span>
 					
 					<label for="speech_select"></label>
 					<select id="speech_select" class="selectpicker bla bla bli speech_resource" data-live-search="true">
 
 					</select>
-					<p class="warning warning_anchor_Speech hide">昵称不能为空</p>
+					<!--<p class="warning warning_anchor_Speech hide">昵称不能为空</p>-->
 				</div>
 				<div class="name">
 					<span><em>*</em>主播介绍</span>
@@ -1092,6 +1092,7 @@
 					<div class="name">
 						<span><em>*</em>预约电话</span>
 						<input type="text" placeholder="请输入预约电话" class="" id="u_hospital_tel">
+						<p class="warning return_warning8 hide">预约电话不能为空</p>
 					</div>
 				</div>
 				

@@ -70,6 +70,9 @@ public class CourseAnchor extends Model<CourseApplyInfo> {
 
     private String detail;
 
+    @TableField("resource_id")
+    private Integer resourceId;
+
     @Override
     protected Serializable pkVal() {
         return this.id;
