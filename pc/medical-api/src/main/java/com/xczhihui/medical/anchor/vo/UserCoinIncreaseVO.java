@@ -2,11 +2,12 @@ package com.xczhihui.medical.anchor.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class UserCoinIncreaseVO {
+public class UserCoinIncreaseVO implements Serializable {
 
     /**
      * 订单号
