@@ -36,6 +36,9 @@ import java.util.Map;
 @RequestMapping("/xczh/bunch")
 public class MobileOffLineController {
 
+	
+	
+	
 	@Autowired
 	private OLCourseServiceI wxcpCourseService;
 

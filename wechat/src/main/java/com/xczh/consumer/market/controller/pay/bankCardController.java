@@ -34,6 +34,9 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/xczh/medical")
 public class bankCardController {
 
+	
+	
+	
 	@Autowired
 	private ICourseApplyService courseApplyService;
 

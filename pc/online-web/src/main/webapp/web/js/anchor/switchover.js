@@ -214,10 +214,78 @@ $(".account_main_alter_title .two").click(function() {
 
 //账户个人信息  
 $(".right_modification").click(function() {
+	//获取资源列表渲染
     initResource(1,true);
     $(".personal_details").hide();
     $(".message_return").show();
+    
+    //获取主播信息回显
+    RequestService("/anchor/info", "get", null,function(data){
+    	if(data.success == true){
+    		$('.account .message_return .anchor_nick_name').val(data.resultObject.name);
+    		$('.account .message_return #profilePhotoImg').html('<img id="imghead" border="0" src='+data.resultObject.profilePhoto+' width="90" height="90" >')
+    		if(data.resultObject.detail == null){
+    			UE.getEditor('anchor_details_editor').setContent('');
+    		}else{
+    			UE.getEditor('anchor_details_editor').setContent(data.resultObject.detail);
+    		}
+    		
+    		if(localStorage.AccountStatus == '1'){
+    			//医师自己的模板渲染
+    			$('#doctor_baseInf .put1').val(data.resultObject.hospitalName);
+    			$('#doctor_baseInf .appointmentTel').val(data.resultObject.tel);
+    			 //坐诊时间渲染
+		        var workArr = data.resultObject.workTime.split(",");
+					console.log(workArr)
+		
+		        var j;
+		        for(var i =0 ;i < $('#doctor_baseInf .workTime ul li ').length ;i++){
+		            for(j = 0;j < workArr.length ;j++ ){
+		                if($('#doctor_baseInf .workTime ul li').eq(i).text() == workArr[j]){
+		                	 $('#doctor_baseInf .workTime ul li').eq(i).click();
+		//                  $('.hospital_worktime ul li').eq(i).addClass('color keshiColor');
+		                }
+		            }
+		        }
+		    	}
+    			
+    		}else if(localStorage.AccountStatus == '2'){
+    			//医馆自己的模板渲染
+    		}
+
+    })
+    
 });
+
+
+
+
+//每周坐诊点击生成数组数据
+var arr = [];
+var workTime;
+$('#u_workTime  li').click(function(){
+    if($(this).hasClass('color')){
+        //删除第二次选中的
+        for(var i = 0 ;i < arr.length; i++){
+            if($(this).text() == arr[i]){
+                arr.splice(i,1)
+            }
+        }
+//			console.log(arr.toString())
+        workTime = arr.toString();
+        $(this).removeClass('color');
+    }else{
+        $(this).addClass('color');
+        arr.push($(this).text());
+//			console.log(arr.toString())
+        workTime = arr.toString();
+    }
+    console.log(workTime)
+})
+
+
+
+
 $(".message_return .message_title .two").click(function() {
     $(".message_return").hide();
     $(".personal_details").show();
