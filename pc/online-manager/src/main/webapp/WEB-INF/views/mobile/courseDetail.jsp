@@ -16,7 +16,7 @@
 	type="text/javascript"></script>
 <div class="page-header row">
 		<div class="col-xs-8" style="padding-left: 0px;padding-right: 0px;">
-			当前位置：移动端课程管理
+			当前位置：移动端管理
 			<small> <i class="ace-icon fa fa-angle-double-right"></i></small>
 			<span> 课程管理 </span> 
 			<small> <i class="ace-icon fa fa-angle-double-right"></i></small> 

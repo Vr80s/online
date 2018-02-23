@@ -140,7 +140,7 @@
 	type="text/javascript"></script>
 <div class="page-header row">
 	<div class="col-xs-8" style="padding-left: 0px; padding-right: 0px;">
-		当前位置：医师管理 <small> <i class="ace-icon fa fa-angle-double-right"></i></small>
+		当前位置：医师医馆 <small> <i class="ace-icon fa fa-angle-double-right"></i></small>
 		<span> 医师管理 </span> <small> <i
 			class="ace-icon fa fa-angle-double-right"></i></small> <span id="titleXQ">
 			医师详情 </span>

@@ -474,7 +474,7 @@
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：主播管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 主播管理 </span>
+	</small> <span> 分成管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">

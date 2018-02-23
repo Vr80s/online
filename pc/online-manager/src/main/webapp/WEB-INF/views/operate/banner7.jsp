@@ -17,7 +17,7 @@
 <div class="page-header">
     当前位置：运营管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-    <span> 医师banner管理 </span>
+    <span> 医馆banner </span>
 </div>
 
 
