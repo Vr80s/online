@@ -25,7 +25,7 @@ function time(o) {
 /**
  * 	更换手机号开始
  */
-var currentName = localStorage.name;
+var currentName = localStorage.username;
 
 /*
  * 发送短信验证码
@@ -142,7 +142,7 @@ function updateMobile(){
 			urlparm, function(data) {
 		if (data.success) {
 			//更改完手机号后，需要把session中的这个东西换下呢？
-			localStorage.setItem("name",number);
+			localStorage.setItem("username",number);
 			$(".call_popup_size2").text(number);
 			$(".call_popup").show();
 		} else {

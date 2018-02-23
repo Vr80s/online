@@ -369,7 +369,7 @@
 <div class="page-header">
   当前位置：云课堂管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span> 班级管理 </span>
+  <span> 多学科管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">

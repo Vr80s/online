@@ -19,7 +19,11 @@ public class ListenCourseImpl implements ListenCourseService {
 	 */
 	@Override
 	public List<CourseLecturVo> listenCourseList() throws Exception {
-		return listenCourseMapper.listenCourseList();
+		List<CourseLecturVo> list = listenCourseMapper.listenCourseList();
+		if(list.size()==0){
+			list = listenCourseMapper.listenCourseListBySort();
+		}
+		return list;
 	}
 
 }

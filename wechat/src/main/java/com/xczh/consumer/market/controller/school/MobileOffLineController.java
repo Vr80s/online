@@ -89,6 +89,9 @@ public class MobileOffLineController {
 		//城市  城市中的课程
 
 		List<CourseLecturVo> list = wxcpCourseService.offLineClassList(ocl.getRecords());
+		if(list.size()==0){
+			list = wxcpCourseService.offLineClassListBySort(ocl.getRecords());
+		}
 
 
 		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();

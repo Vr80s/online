@@ -386,7 +386,7 @@ public class AlipayController {
     @RequestMapping("/alipay/notify_url")
     public void notifyUrl(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-
+        logger.info("进入支付宝异步回调");
         //获取支付宝POST过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
         Map<String, String[]> requestParams = request.getParameterMap();
@@ -401,9 +401,11 @@ public class AlipayController {
             //乱码解决，这段代码在出现乱码时使用
             //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
+            logger.info("{}:{}",name,valueStr);
         }
         //调用SDK验证签名
         boolean signVerified = AlipaySignature.rsaCheckV1(params, alipay_public_key, AlipayConfig.charset, AlipayConfig.sign_type);
+        logger.info("验证签名:{}",signVerified);
         if (signVerified) {
             //验证成功
             AlipayPaymentRecord alipayPaymentRecord = new AlipayPaymentRecord();
@@ -519,69 +521,69 @@ public class AlipayController {
      * @param response
      * @throws Exception
      */
-    @ResponseBody
-    @RequestMapping(value = "/pay_notify_alipay")
-    public Object pay_notify_wechat(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try {
-            // 读取参数
-            InputStream inputStream = request.getInputStream();
-            StringBuffer sb = new StringBuffer();
-            String str = null;
-            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            while ((str = in.readLine()) != null) {
-                sb.append(str);
-            }
-            in.close();
-            inputStream.close();
-
-            // 解析xml成map
-            Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
-            if (m != null && !m.isEmpty()) {
-                // 过滤空 设置 TreeMap
-                SortedMap<Object, Object> packageParams = new TreeMap<>();
-                for (Map.Entry<String, String> e : m.entrySet()) {
-                    if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
-                        packageParams.put(e.getKey(), e.getValue());
-                    }
-                }
-                if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
-                    String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
-                    String transaction_id = String.valueOf(packageParams.get("transaction_id"));
-                    if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null
-                            && !"".equals(transaction_id.trim())) {
-//                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&KEY=" + OnlineConfig.API_KEY;
-//                        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
-                        Integer orderStatus = orderService.getOrderStatus(out_trade_no);
-                        if (orderStatus == 0) {
-                            //付款成功，如果order未完成
-                            try {
-                                //计时
-                                long current = System.currentTimeMillis();
-                                //处理订单业务
-                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, transaction_id);
-                                logger.info("订单支付成功，订单号:{},用时{}",
-                                        out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
-                                //为购买用户发送购买成功的消息通知
-//                                orderService.savePurchaseNotice(weburl, out_trade_no);
-                            } catch (Exception e) {
-                                logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
-                            }
-                        }
-
-                    } else {
-                        logger.error("微信分销系统回调接口，参数错误！！！");
-                    }
-                } else {
-                    logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
-                    return "error";
-                }
-            } else {
-                return "error";
-            }
-            return ResponseObject.newSuccessResponseObject("支付成功！");
-        } catch (Exception e) {
-            return "error";
-        }
-    }
+//    @ResponseBody
+//    @RequestMapping(value = "/pay_notify_alipay")
+//    public Object pay_notify_wechat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        try {
+//            // 读取参数
+//            InputStream inputStream = request.getInputStream();
+//            StringBuffer sb = new StringBuffer();
+//            String str = null;
+//            BufferedReader in = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+//            while ((str = in.readLine()) != null) {
+//                sb.append(str);
+//            }
+//            in.close();
+//            inputStream.close();
+//
+//            // 解析xml成map
+//            Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
+//            if (m != null && !m.isEmpty()) {
+//                // 过滤空 设置 TreeMap
+//                SortedMap<Object, Object> packageParams = new TreeMap<>();
+//                for (Map.Entry<String, String> e : m.entrySet()) {
+//                    if (StringUtils.hasText(e.getValue()) && StringUtils.hasText(e.getKey())) {
+//                        packageParams.put(e.getKey(), e.getValue());
+//                    }
+//                }
+//                if (PayCommonUtil.isTenpaySign("UTF-8", packageParams, OnlineConfig.WECHAT_API_KEY)) {
+//                    String out_trade_no = String.valueOf(packageParams.get("out_trade_no"));
+//                    String transaction_id = String.valueOf(packageParams.get("transaction_id"));
+//                    if (out_trade_no != null && !"".equals(out_trade_no.trim()) && transaction_id != null
+//                            && !"".equals(transaction_id.trim())) {
+////                        String s = "out_trade_no=" + out_trade_no + "&result_code=SUCCESS" + "&transaction_id=" + transaction_id + "&KEY=" + OnlineConfig.API_KEY;
+////                        String mysign = CodeUtil.MD5Encode(s).toLowerCase();
+//                        Integer orderStatus = orderService.getOrderStatus(out_trade_no);
+//                        if (orderStatus == 0) {
+//                            //付款成功，如果order未完成
+//                            try {
+//                                //计时
+//                                long current = System.currentTimeMillis();
+//                                //处理订单业务
+//                                orderPayService.addPaySuccess(out_trade_no, Payment.ALIPAY, transaction_id);
+//                                logger.info("订单支付成功，订单号:{},用时{}",
+//                                        out_trade_no, (System.currentTimeMillis() - current) + "毫秒");
+//                                //为购买用户发送购买成功的消息通知
+////                                orderService.savePurchaseNotice(weburl, out_trade_no);
+//                            } catch (Exception e) {
+//                                logger.error("用户支付成功，构建课程失败！！！" + out_trade_no + "，错误信息：", e);
+//                            }
+//                        }
+//
+//                    } else {
+//                        logger.error("微信分销系统回调接口，参数错误！！！");
+//                    }
+//                } else {
+//                    logger.error("微信分销系统回调接口，签名验证失败，有可能是恶意调用！！！");
+//                    return "error";
+//                }
+//            } else {
+//                return "error";
+//            }
+//            return ResponseObject.newSuccessResponseObject("支付成功！");
+//        } catch (Exception e) {
+//            return "error";
+//        }
+//    }
 
 }

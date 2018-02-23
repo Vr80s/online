@@ -296,7 +296,7 @@ public class WechatController {
 		}
 		in.close();
 		inputStream.close();
-		logger.info("微信回调参数:{}",sb.toString());
+		logger.info("微信支付回调参数:{}",sb.toString());
 		// 解析xml成map
 		Map<String, String> m = XMLUtil.doXMLParse(sb.toString());
 		if (m != null && !m.isEmpty()) {

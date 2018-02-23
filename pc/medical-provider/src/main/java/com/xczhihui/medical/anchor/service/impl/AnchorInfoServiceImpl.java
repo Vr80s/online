@@ -171,6 +171,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         hospital.setProvince(target.getProvince());
         hospital.setCity(target.getCity());
         hospital.setUpdatePerson(target.getUserId());
+        hospital.setTel(target.getTel());
 
         hospitalMapper.updateSelective(hospital);
 
@@ -235,9 +236,6 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         }
         if(StringUtils.isBlank(target.getDetail())){
             throw new MedicalException(MedicalExceptionEnum.ANCHOR_DETAIL_EMPTY);
-        }
-        if(StringUtils.isBlank(target.getHospitalId())){
-            throw new MedicalException(MedicalExceptionEnum.ANCHOR_HOSPITALID_EMPTY);
         }
         if(StringUtils.isBlank(target.getProvince())){
             throw new MedicalException(MedicalExceptionEnum.ANCHOR_PROVINCE_EMPTY);

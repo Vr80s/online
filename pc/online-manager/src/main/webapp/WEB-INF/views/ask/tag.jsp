@@ -65,7 +65,7 @@
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header">
-	当前位置：博问答管理<small> <i class="ace-icon fa fa-angle-double-right"></i></small> 
+	当前位置：问道管理<small> <i class="ace-icon fa fa-angle-double-right"></i></small>
 	<span> 学科标签管理 </span>
 	
 		<div class="mainrighttab tabresourse bordernone" style="text-align: right;width:50%;margin-top:-14px" >

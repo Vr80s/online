@@ -364,9 +364,10 @@ $('#hos_base_inf').click(function(){
 				if(data.success == true && data.resultObject == null){
 					//清空
 					baseInfrese();
+					 $('#hos_Administration .hos_base_inf #submit').val('提交')
 				}else if(data.success == true && data.resultObject != null){
 					//回显数据
-					
+					 $('#hos_Administration .hos_base_inf #submit').val('重新提交')
 				baseInfrese1(data.resultObject.headPortrait,data.resultObject.name,data.resultObject.medicalHospitalPictures,data.resultObject.fields,data.resultObject.description,
 					data.resultObject.contactor,data.resultObject.email,data.resultObject.wechat,data.resultObject.province,data.resultObject.city,data.resultObject.detailedAddress)
 				}

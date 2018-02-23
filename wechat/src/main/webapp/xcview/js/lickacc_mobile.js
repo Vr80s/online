@@ -1,6 +1,6 @@
 var mobile = "";
 //获取手机号
-mobile = localStorage.getItem("name");
+mobile = localStorage.getItem("username");
 $("#mobileShow").html(mobile);
 
 

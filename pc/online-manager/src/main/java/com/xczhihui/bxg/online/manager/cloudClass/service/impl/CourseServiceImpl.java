@@ -1568,9 +1568,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public Course findCourseInfoById(Integer id) {
 		Course course = dao.get(id, Course.class);
-		if((course.getCollection()==null || !course.getCollection())&&course.getDirectId()!=null){
+		if((course.getCollection()==null || !course.getCollection())&&course.getDirectId()!=null&&course.getType()==CourseForm.VOD.getCode()){
 			String audioStr="";
-			if(course.getMultimediaType()==2){
+			if(course.getMultimediaType()==Multimedia.AUDIO.getCode()){
 				audioStr = "_2";
 			}
 			String src = "https://p.bokecc.com/flash/single/"+ OnlineConfig.CC_USER_ID+"_"+course.getDirectId()+"_false_"+OnlineConfig.CC_PLAYER_ID+"_1"+audioStr+"/player.swf";

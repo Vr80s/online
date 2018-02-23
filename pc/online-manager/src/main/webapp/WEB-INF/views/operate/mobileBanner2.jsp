@@ -15,9 +15,9 @@
 <script src="${base}/js/layer/layer.js"></script>
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-  当前位置：移动端课程管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+  当前位置：移动端管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span>移动端banner管理 </span>
+  <span>移动端banner </span>
 </div>
 
 
