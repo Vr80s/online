@@ -72,25 +72,51 @@ $(function(){
     
     	
 	//主播基础信息中的医师的坐诊时间数组
-	var arr1 = [];
-
-	$('#workTime  li ').click(function(){
-		if($(this).hasClass('color')){
-		//删除第二次选中的
-			for(var i = 0 ;i < arr1.length; i++){
-            	if($(this).text() == arr1[i]){
-                arr1.splice(i,1)
-            	}
-       		}
-			workTime = arr1.toString();
-			$(this).removeClass('color');	
-		}else{
-			$(this).addClass('color');
-			arr1.push($(this).text());
-			workTime = arr1.toString();
-		}
-		console.log(workTime)
-	})
+//	var arr1 = [];
+//
+//	$('#workTime  li ').click(function(){
+//		if($(this).hasClass('color')){
+//		//删除第二次选中的
+//			for(var i = 0 ;i < arr1.length; i++){
+//          	if($(this).text() == arr1[i]){
+//              arr1.splice(i,1)
+//          	}
+//     		}
+//			workTime = arr1.toString();
+//			$(this).removeClass('color');	
+//		}else{
+//			$(this).addClass('color');
+//			arr1.push($(this).text());
+//			workTime = arr1.toString();
+//		}
+//		console.log(workTime)
+//	})
+	
+	
+	
+	//每周坐诊点击生成数组数据
+var arr = [];
+//var workTime;
+$('#u_workTime  li').click(function(){
+    if($(this).hasClass('color')){
+        //删除第二次选中的
+        for(var i = 0 ;i < arr.length; i++){
+            if($(this).text() == arr[i]){
+                arr.splice(i,1)
+            }
+        }
+//			console.log(arr.toString())
+        workTime = arr.toString();
+        $(this).removeClass('color');
+    }else{
+        $(this).addClass('color');
+        arr.push($(this).text());
+//			console.log(arr.toString())
+        workTime = arr.toString();
+    }
+    console.log(workTime)
+})
+	
 	
 
 	//选择医师列表
@@ -103,6 +129,26 @@ $(function(){
 //		console.log(data)
     })
 })
+	
+//	//主播工作台个人信息如果是医师渲染医馆列表
+//RequestService("/medical/doctor/apply/listHospital/0", "get", null, function(data) {
+//  //头像预览
+//  console.log(data);
+//
+//  //列表渲染
+//  $('#workHos_select').append('<option value="-1">请选择医馆</option>')
+//  $('#workHos_select').append(template('hosListTpl', {item:data.resultObject.records}));
+//
+//
+//
+//  //渲染之后在此调用插件
+//  $('.workHos_select').selectpicker({
+//      'selectedText': 'cat',size:10
+//  });
+//
+//});
+	
+	
 	
 	
 });
@@ -307,16 +353,16 @@ function saveAnchorInfo(){
 //获取的主播是医师的信息
 function getAnchorInfo(){
     var data = {};
-    data.name = $(".anchor_nick_name").val();
+    data.name = $("#u_nickname").val();
     data.video = $("#speech_select").val();
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
     data.detail = UE.getEditor('anchor_details_editor').getContent();
     data.hospitalId = $("#speech_select1").val();
     data.workTime = workTime;
-    data.province = $("#demo1 #chooseProvince option:selected").text();
-    data.city = $('#demo1 #chooseCity option:selected').text();
+    data.province = $("#demo1 #chooseProvince ").val();
+    data.city = $('#demo1 #chooseCity ').val();
     data.detailAddress = $('#demo1 textarea').val();
-    data.tel = $('#tel').val();
+    data.tel = $('#doctor_baseInf .appointmentTel').val();
     return data;
 }
 
@@ -324,14 +370,14 @@ function getAnchorInfo(){
 //获取的主播是医馆的信息
 function getAnchorInfo2(){
     var data = {};
-    data.name = $(".anchor_nick_name").val();
+    data.name = $("#u_nickname").val();
     data.video = $("#speech_select").val();
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
     data.detail = UE.getEditor('anchor_details_editor').getContent();
-    data.province = $("#demo1 #chooseProvince option:selected").text();
-    data.city = $('#demo1 #chooseCity option:selected').text();
+    data.province = $("#demo1 #choosePro ").val();
+    data.city = $('#demo1 #chooseCity ').val();
     data.detailAddress = $('#demo1 textarea').val();
-    data.tel = $('#hosTel').val();
+    data.tel = $('#u_hospital_tel').val();
     return data;
 }
 

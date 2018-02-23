@@ -442,6 +442,14 @@
 </script>
 
 
+<!--医馆列表-->
+	<script type="text/template" id="hosListTpl">
+		{{each item as item i}}
+			 <option value={{item.id}}>{{item.name}}</option>
+		{{/each}}
+	</script>
+	
+
 <!--左侧更换头像弹窗-->
 <div id="headImg" class="clearfix">
 			<div class="container1 clearfix">
@@ -1031,7 +1039,7 @@
 					
 					<label for="speech_select"></label>
 					<select id="speech_select" class="selectpicker bla bla bli speech_resource" data-live-search="true">
-						</optgroup>
+
 					</select>
 					<p class="warning warning_anchor_Speech hide">昵称不能为空</p>
 				</div>
@@ -1046,7 +1054,13 @@
 				<div id="doctor_baseInf" class="hide">
 				<div class="name">
 					<span><em>*</em>任职医馆</span>
-					<input type="text" placeholder="请填写您的任职医馆" class="put1">
+					<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
+					<!--<label for="workHos_select"></label>
+					<select id="workHos_select" class="selectpicker bla bla bli workHos_resource" data-live-search="true">
+						</optgroup>
+					</select>-->
+					<label for="id_select1"></label>
+					<select id="id_select1" class="selectpicker bla bla bli workHos_select"  data-live-search="true"></select>
 					<p class="warning return_warning4 hide">任职医馆不能为空</p>
 				</div>
 				<div class="name workTime" >
@@ -1087,7 +1101,7 @@
 							<select name="province" class="choosePro" >
 								<option value="">请选择省份</option>
 							</select>
-							<select name="city" class="">
+							<select name="city" class="chooseCity">
 								<option value="">请选择市</option>
 							</select>
 						</p>
@@ -1917,7 +1931,7 @@
                         </table>-->
 
 						<!--序号列表开始-->
-						<table style="float: left;">
+						<table style="float: left;width: 640px;">
 							<thead>
 							<tr>
 								<td>序号</td>

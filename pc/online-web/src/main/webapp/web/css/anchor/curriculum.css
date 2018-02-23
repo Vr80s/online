@@ -186,7 +186,7 @@ table{
     padding: 0 30px;
     min-height: 520px;
     background-color: #fff;
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
     display: none;
     margin-top: 20px;
 }
