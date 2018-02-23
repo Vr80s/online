@@ -57,6 +57,15 @@ public interface OLCourseServiceI {
 	 *
 	 */
 	public List<CourseLecturVo> offLineClassList( List<OfflineCity> cityList)throws SQLException;
+	/**
+	 * 线下培训班列表排序
+	 * Description：
+	 * @return
+	 * @return List<CourseLecturVo>
+	 * @author name：liutao
+	 *
+	 */
+	public List<CourseLecturVo> offLineClassListBySort( List<OfflineCity> cityList)throws SQLException;
 
 	/**
 	 * 线下培训班详情

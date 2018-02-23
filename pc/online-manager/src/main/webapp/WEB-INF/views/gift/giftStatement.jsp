@@ -19,9 +19,9 @@
 <script src="${base}/js/layer/layer.js"></script>
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
-  当前位置：销售管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
+  当前位置：礼物打赏管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span> 订单管理 </span>
+  <span> 礼物交易管理 </span>
 </div>
 
 

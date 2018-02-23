@@ -72,23 +72,23 @@ public class MedicalDoctorApplyController {
 				//身份证正面
 				String cardPositive = service.upload(null,
 						projectName, cardPositiveFile.getOriginalFilename(),cardPositiveFile.getContentType(), cardPositiveFile.getBytes(),fileType,null);
-
-				medicalDoctorApply.setCardPositive(cardPositive);
+				JSONObject cardPositiveJson = JSONObject.parseObject(cardPositive);
+				medicalDoctorApply.setCardPositive(cardPositiveJson.get("url").toString());
 				//身份证反面
 				String cardNegative = service.upload(null,
 						projectName, cardNegativeFile.getOriginalFilename(),cardNegativeFile.getContentType(), cardNegativeFile.getBytes(),fileType,null);
-
-				medicalDoctorApply.setCardNegative(cardNegative);
+				JSONObject cardNegativeJson = JSONObject.parseObject(cardNegative);
+				medicalDoctorApply.setCardNegative(cardNegativeJson.get("url").toString());
 				//医师资格证
 				String qualificationCertificate = service.upload(null,
 						projectName, qualificationCertificateFile.getOriginalFilename(),qualificationCertificateFile.getContentType(), qualificationCertificateFile.getBytes(),fileType,null);
-
-				medicalDoctorApply.setQualificationCertificate(qualificationCertificate);
+				JSONObject qualificationCertificateJson = JSONObject.parseObject(qualificationCertificate);
+				medicalDoctorApply.setQualificationCertificate(qualificationCertificateJson.get("url").toString());
 				//医师执业证书
 				String professionalCertificate = service.upload(null,
 						projectName, professionalCertificateFile.getOriginalFilename(),professionalCertificateFile.getContentType(), professionalCertificateFile.getBytes(),fileType,null);
-
-				medicalDoctorApply.setProfessionalCertificate(professionalCertificate);
+				JSONObject professionalCertificateJson = JSONObject.parseObject(professionalCertificate);
+				medicalDoctorApply.setProfessionalCertificate(professionalCertificateJson.get("url").toString());
 
 			medicalDoctorApplyService.add(medicalDoctorApply);
 			return  ResponseObject.newSuccessResponseObject("创建成功");
@@ -105,7 +105,7 @@ public class MedicalDoctorApplyController {
 		//System.out.println("userId"+userId);
 		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
 	    if(user==null){
-	    	return ResponseObject.newErrorResponseObject("登录失效");
+	    	return ResponseObject.newSuccessResponseObject(7);
 	    }
 		return ResponseObject.newSuccessResponseObject(commonServiceImpl.isDoctorOrHospital(user.getId()));
 	}

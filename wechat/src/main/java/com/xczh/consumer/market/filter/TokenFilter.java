@@ -89,7 +89,10 @@ public class TokenFilter implements Filter {
 	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third";
 	
 	//微信，支付宝支付回调、评论列表不需要拦截 -- 这个是直接等于的  
-	private static String new_controller_pay_the_callback ="/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/xczh/criticize/getCriticizeList";
+	private static String new_controller_pay_the_callback =
+			"/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/xczh/criticize/getCriticizeList,"
+			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,"
+			+ "/xczh/common/addOpinion";
 	
 	
 	/*
@@ -179,7 +182,10 @@ public class TokenFilter implements Filter {
 			 * 如果是app的话也需要拦截，因为拦截需要验证下时候是否在其他客户端登录
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
-			appUniqueId = request.getParameter("appUniqueId");
+			if(appUniqueId==null){
+				appUniqueId = request.getParameter("appUniqueId");
+			}
+			System.out.println("appUniqueId，"+appUniqueId);
 			/*
 			 * 说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
 			 */

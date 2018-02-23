@@ -169,15 +169,15 @@ pre:after {
 	$(document).ready(function(){
         
 		var jobList =[];
-		requestService("/xczh/user/getUserInfo",{userId:localStorage.getItem("userId")},
+		requestService("/xczh/set/getUserInfo",{userId:localStorage.getItem("userId")},
 				function(data) {
 				if (data.success) {
 					commonLocalStorageSetItem(data);
 					
 				    $("#headImg").attr("src",localStorage.getItem("smallHeadPhoto"));
 			        
-			        if(stringnull(localStorage.getItem("username"))){
-			        	 $("#person_one").text(localStorage.getItem("username"));
+			        if(stringnull(localStorage.getItem("name"))){
+			        	 $("#person_one").text(localStorage.getItem("name"));
 			        }
 			        if(stringnull(localStorage.getItem("sex"))){
 			        	

@@ -34,10 +34,7 @@ public class OLAttachmentCenterServiceImpl implements OLAttachmentCenterService 
 		System.out.println("attachmentCenterPath : "+attachmentCenterPath+"/attachment/upload");
 		String headImgPath=HttpUtil.uploadFile(attachmentCenterPath+"/attachment/upload", parameters,
 				"attachment", fileName, contentType, fileData);
-		JSONObject objectJson = JSONObject.parseObject(headImgPath);
-		String url = objectJson.get("url").toString();
-		System.out.println("url+++++++++++++++++"+url);
-		return url;
+		return headImgPath;
 	}
 
 }

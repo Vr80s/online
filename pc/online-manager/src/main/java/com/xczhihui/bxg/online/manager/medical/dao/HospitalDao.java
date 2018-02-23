@@ -39,7 +39,7 @@ public class HospitalDao extends HibernateDao<MedicalHospital>{
 		 for (int i = 0; i < medicalHospitals.getItems().size(); i++) {
 			 MedicalHospital mh =  medicalHospitals.getItems().get(i);
 			 List<MedicalHospitalPicture> c = this.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", mh.getId());
-			 if(c.size()>=5){
+			 if(c.size()>=0){
 				 mh.setHasPicture(true);
 			 }else{
 				 mh.setHasPicture(false);
@@ -81,7 +81,7 @@ public class HospitalDao extends HibernateDao<MedicalHospital>{
 		for (int i = 0; i < medicalHospitals.getItems().size(); i++) {
 			MedicalHospital mh =  medicalHospitals.getItems().get(i);
 			List<MedicalHospitalPicture> c = this.findEntitiesByProperty(MedicalHospitalPicture.class, "hospitalId", mh.getId());
-			if(c.size()>=5){
+			if(c.size()>=0){
 				mh.setHasPicture(true);
 			}else{
 				mh.setHasPicture(false);
