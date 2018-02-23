@@ -87,6 +87,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
                 courseAnchorVO.setProfilePhoto(courseAnchor.getProfilePhoto());
                 courseAnchorVO.setVideo(this.processVideoStr(courseAnchor.getVideo()));
                 courseAnchorVO.setDetail(courseAnchor.getDetail());
+                courseAnchorVO.setResourceId(courseAnchor.getResourceId());
             }
 
         }
