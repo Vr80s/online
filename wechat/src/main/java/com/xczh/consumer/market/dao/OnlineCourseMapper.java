@@ -35,7 +35,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
 		//直播中
 		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY) ");
-		sql.append(" order by  c.recommend_sort desc ,c.start_time desc  limit 0,12)");
+		sql.append(" order by  c.recommend_sort desc  limit 0,12)");
 		sql.append("  union all ");
 
 		//即将直播
@@ -54,7 +54,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
 
 		sql.append(" and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now()");
-		sql.append(" order by  c.recommend_sort desc ,c.start_time asc  limit 0,4)");
+		sql.append(" order by  c.recommend_sort desc limit 0,4)");
 		sql.append("  union all ");
 
 		//直播课程
@@ -73,7 +73,7 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
 
 		sql.append(" and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-		sql.append(" order by  c.recommend_sort desc ,c.start_time asc  limit 0,4)");
+		sql.append(" order by  c.recommend_sort desc limit 0,4)");
 		sql.append("  union all ");
 
 		//精彩回放课程
@@ -92,7 +92,86 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
 
 		sql.append(" and c.live_status = 3 ");
-		sql.append(" order by  c.recommend_sort desc ,c.start_time desc  limit 0,4)");
+		sql.append(" order by  c.recommend_sort desc  limit 0,4)");
+
+		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseLecturVo.class));
+	}
+	public List<CourseLecturVo> findLiveListInfoBySort() throws SQLException {
+		// TODO Auto-generated method stub
+		StringBuffer sql = new StringBuffer("");
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
+		//观看人数
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '正在直播' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1  ");
+		//直播中
+		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY) ");
+		sql.append(" order by  c.sort desc  limit 0,12)");
+		sql.append("  union all ");
+
+		//即将直播
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
+
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '即将直播' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 ");
+
+		sql.append(" and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now()");
+		sql.append(" order by  c.sort desc limit 0,4)");
+		sql.append("  union all ");
+
+		//直播课程
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
+
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '直播课程' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 ");
+
+		sql.append(" and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
+		sql.append(" order by  c.sort desc limit 0,4)");
+		sql.append("  union all ");
+
+		//精彩回放课程
+		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.collection as collection, ");
+
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" live_status as  lineState ,");
+		sql.append(" '精彩直播回放' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 ");
+
+		sql.append(" and c.live_status = 3 ");
+		sql.append(" order by  c.sort desc  limit 0,4)");
 
 		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseLecturVo.class));
 	}

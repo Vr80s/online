@@ -68,6 +68,9 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		List<CourseLecturVo> newList = new ArrayList<CourseLecturVo>();
 		
 		List<CourseLecturVo> list = courseMapper.findLiveListInfo();
+		if(list.size()==0){
+			list = courseMapper.findLiveListInfoBySort();
+		}
 		//根据用户id和课程id
 		//这里紧紧是判断密码是否为null  -- 没有判断用户是否已经输入了
 		newList.addAll(list);

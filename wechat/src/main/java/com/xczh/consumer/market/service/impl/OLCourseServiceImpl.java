@@ -279,8 +279,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			    +" oc.collection as collection,"
 				+"'全国课程' as note "
 				+" from oe_course oc "
-				+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
-				+" order by recommend_sort desc,start_time desc  limit 0,6)";
+				+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 and oc.is_recommend = 1 "
+				+" order by recommend_sort desc  limit 0,6)";
 		if(cityList.size()>0){
 			strsql+= " union all ";
 		}
@@ -294,16 +294,50 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 						+" oc.collection as collection,"
 						+" oc.city as note "
 						+" from oe_course oc "
-						+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
+						+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 and oc.is_recommend = 1 "
 						+" and oc.city = '"+offlineCity.getCityName()+"'"
-						+" order by recommend_sort desc,start_time desc  limit 0,4)";
+						+" order by recommend_sort desc  limit 0,4)";
 				if(i < cityList.size()){
 					strsql+= " union all ";
 				}
 		}
 		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),strsql,new BeanListHandler<>(CourseLecturVo.class));
 	}
-	
+	@Override
+	public List<CourseLecturVo> offLineClassListBySort(List<OfflineCity> cityList) throws SQLException {
+
+		String strsql="(select  oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,4 as type, "
+				+" oc.smallimg_path as smallImgPath,oc.lecturer as name,oc.address as address,"
+				+" oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
+				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
+				+"if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
+				+" oc.collection as collection,"
+				+"'全国课程' as note "
+				+" from oe_course oc "
+				+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
+				+" order by oc.sort desc  limit 0,6)";
+		if(cityList.size()>0){
+			strsql+= " union all ";
+		}
+		int i = 0;
+		for (OfflineCity offlineCity : cityList) {
+			i++;
+			strsql+="(select  oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,4 as type, "
+					+"oc.smallimg_path as smallImgPath,oc.lecturer as name,oc.address as address,oc.city as city,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,"
+					+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,"
+					+"if(date_sub(date_format(oc.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
+					+" oc.collection as collection,"
+					+" oc.city as note "
+					+" from oe_course oc "
+					+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
+					+" and oc.city = '"+offlineCity.getCityName()+"'"
+					+" order by oc.sort desc  limit 0,4)";
+			if(i < cityList.size()){
+				strsql+= " union all ";
+			}
+		}
+		return wxcpCourseDao.query(JdbcUtil.getCurrentConnection(),strsql,new BeanListHandler<>(CourseLecturVo.class));
+	}
 	
 	@Override
 	public List<CourseLecturVo> offLineClassListOld(int number, int pageSize) throws SQLException {
