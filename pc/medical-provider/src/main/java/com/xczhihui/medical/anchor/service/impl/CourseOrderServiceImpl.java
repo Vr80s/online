@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +26,12 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
     /**
      * 获取用户的课程订单列表
      * @param userId 用户id
+     * @param gradeName 课程名
+     * @param startTime 开始时间
+     * @param endTime   结束时间
      */
     @Override
-    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page) {
+    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page, String gradeName, Date startTime, Date endTime) {
 
         // 获取主播的信息：分成比例
         CourseAnchor anchor = new CourseAnchor();
@@ -35,7 +39,7 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
         CourseAnchor target = anchorMapper.selectOne(anchor);
 
         // 获取课程订单的订单号，课程名称，支付时间，支付用户，实际支付的价格
-        List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page);
+        List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page, gradeName, startTime, endTime);
 
         // 根据课程id获取：苹果扣除的总数，分成比例，课程获得总熊猫币
         Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional = Optional.ofNullable(userCoinIncreaseVOList);

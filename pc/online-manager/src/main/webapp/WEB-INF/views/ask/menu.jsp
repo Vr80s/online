@@ -12,7 +12,7 @@
 <script src="${base}/js/layer/layer.js"></script>
 <link href="${base}/js/layer/skin/layer.css" type="text/css" />	
 <div class="page-header">
-  当前位置：博问答管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
+  当前位置：问道管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
   <span> 学科标签管理 </span>
 </div>

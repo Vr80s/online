@@ -128,7 +128,7 @@
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
 <div class="page-header">
 	当前位置：礼物打赏管理<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 礼物管理 </span>
+	</small> <span> 礼物类型管理 </span>
 </div>
 
 <div style="height: 100%;" class="clearfix">
@@ -314,27 +314,27 @@
 				 	<input type="text" name="price"   maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
 	             </div>
 			</div>
-	         <div class="form-group"  style="margin-top: 18px;" >
-				 <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>是否可以连击: </label>
-				 <div class="col-sm-3">
-				 	<p class="paddingtop7px padding7" style="line-height:22px">
-				 		<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="cursor: pointer;vertical-align:text-top;margin-top:2px;margin-left:2px;margin-right:5px" name="isContinuous"  id="this_web" value="1" checked="checked" >是</label>
-				 		<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="vertical-align:text-top;margin-top:2px;margin-right:5px" name="isContinuous"  id="other_web" value="0">否</label>
-				 	</p>
-	             </div>
-			</div>
-			<div class="form-group" id="add-directIdDiv1" style="margin-top: 18px; display: block;" >
-				 <label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>连击数: </label>
-				 <div class="col-sm-6" >
-				 	<input type="text" name="continuousCount" id="continuousCount" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
-	             </div>
-			</div>
-			<div class="form-group" style="margin-top: 18px;" >
-				 <label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>平台分成: </label>
-				 <div class="col-sm-6" >
-				 	<input type="text" name="brokerage" id="brokerage" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
-	             </div>
-			</div>
+	         <%--<div class="form-group"  style="margin-top: 18px;" >--%>
+				 <%--<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>是否可以连击: </label>--%>
+				 <%--<div class="col-sm-3">--%>
+				 	<%--<p class="paddingtop7px padding7" style="line-height:22px">--%>
+				 		<%--<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="cursor: pointer;vertical-align:text-top;margin-top:2px;margin-left:2px;margin-right:5px" name="isContinuous"  id="this_web" value="1" checked="checked" >是</label>--%>
+				 		<%--<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="vertical-align:text-top;margin-top:2px;margin-right:5px" name="isContinuous"  id="other_web" value="0">否</label>--%>
+				 	<%--</p>--%>
+	             <%--</div>--%>
+			<%--</div>--%>
+			<%--<div class="form-group" id="add-directIdDiv1" style="margin-top: 18px; display: block;" >--%>
+				 <%--<label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>连击数: </label>--%>
+				 <%--<div class="col-sm-6" >--%>
+				 	<%--<input type="text" name="continuousCount" id="continuousCount" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">--%>
+	             <%--</div>--%>
+			<%--</div>--%>
+			<%--<div class="form-group" style="margin-top: 18px;" >--%>
+				 <%--<label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>平台分成: </label>--%>
+				 <%--<div class="col-sm-6" >--%>
+				 	<%--<input type="text" name="brokerage" id="brokerage" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">--%>
+	             <%--</div>--%>
+			<%--</div>--%>
 	
 		</form>
 	</div>
@@ -367,27 +367,27 @@
 				 	<input type="text" name="price" id="price_edit"  maxlength="9"  class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
 	             </div>
 			</div>
-	         <div class="form-group"  style="margin-top: 18px;" >
-				 <label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>是否可以连击: </label>
-				 <div class="col-sm-3">
-				 	<p class="paddingtop7px padding7" style="line-height:22px">
-				 		<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="cursor: pointer;vertical-align:text-top;margin-top:2px;margin-left:2px;margin-right:5px" name="isContinuous"  id="this_web_edit" value="1" checked="checked" >是</label>
-				 		<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="vertical-align:text-top;margin-top:2px;margin-right:5px" name="isContinuous"  id="other_web_edit" value="0">否</label>
-				 	</p>
-	             </div>
-			</div>
-			<div class="form-group" id="add-directIdDiv1" style="margin-top: 18px; display: block;" >
-				 <label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>连击数: </label>
-				 <div class="col-sm-6" >
-				 	<input type="text" name="continuousCount" id="continuousCount_edit" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
-	             </div>
-			</div>
-			<div class="form-group" style="margin-top: 18px;" >
-				 <label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>平台分成: </label>
-				 <div class="col-sm-6" >
-				 	<input type="text" name="brokerage" id="brokerage_edit" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">
-	             </div>
-			</div>
+	         <%--<div class="form-group"  style="margin-top: 18px;" >--%>
+				 <%--<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>是否可以连击: </label>--%>
+				 <%--<div class="col-sm-3">--%>
+				 	<%--<p class="paddingtop7px padding7" style="line-height:22px">--%>
+				 		<%--<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="cursor: pointer;vertical-align:text-top;margin-top:2px;margin-left:2px;margin-right:5px" name="isContinuous"  id="this_web_edit" value="1" checked="checked" >是</label>--%>
+				 		<%--<label style="cursor: pointer;"><input type="radio" class="{required:true}" style="vertical-align:text-top;margin-top:2px;margin-right:5px" name="isContinuous"  id="other_web_edit" value="0">否</label>--%>
+				 	<%--</p>--%>
+	             <%--</div>--%>
+			<%--</div>--%>
+			<%--<div class="form-group" id="add-directIdDiv1" style="margin-top: 18px; display: block;" >--%>
+				 <%--<label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>连击数: </label>--%>
+				 <%--<div class="col-sm-6" >--%>
+				 	<%--<input type="text" name="continuousCount" id="continuousCount_edit" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">--%>
+	             <%--</div>--%>
+			<%--</div>--%>
+			<%--<div class="form-group" style="margin-top: 18px;" >--%>
+				 <%--<label class="col-sm-3 control-label no-padding-right" for="directId"><font color="red">*</font>平台分成: </label>--%>
+				 <%--<div class="col-sm-6" >--%>
+				 	<%--<input type="text" name="brokerage" id="brokerage_edit" maxlength="100" class="col-xs-10 col-sm-12 {required:true,number:true,range:[0,99999]}">--%>
+	             <%--</div>--%>
+			<%--</div>--%>
 		</form>
 	</div>
 	

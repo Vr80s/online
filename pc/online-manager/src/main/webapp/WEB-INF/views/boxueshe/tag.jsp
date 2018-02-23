@@ -65,7 +65,7 @@
 <script src="${base}/js/jquery-ui-timepicker-zh-CN.js"
 	type="text/javascript"></script>
 <div class="page-header">
-	当前位置：博学社管理<small> <i class="ace-icon fa fa-angle-double-right"></i></small> 
+	当前位置：头条管理<small> <i class="ace-icon fa fa-angle-double-right"></i></small>
 	<span> 标签管理 </span>
 	
 </div>

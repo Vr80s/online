@@ -30,6 +30,12 @@
 			ON uci.`order_no_course` = ood.`id`
 		  JOIN `oe_order` oo
 			ON ood.`order_id` = oo.`id`
+		  <if test="gradeName != null">
+			and oc.`grade_name` like concat('%', #{gradeName}, '%')
+		  </if>
+		  <!--<if test="startTime != null">-->
+			<!--and oo.`create_time` > #{startTime}-->
+		  <!--</if>-->
 		  JOIN `oe_course` oc
 			ON oc.id = ood.`course_id`
 		  JOIN `oe_user` ou

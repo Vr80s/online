@@ -343,7 +343,7 @@ function saveAnchorInfo(){
 		var anchorInfo2 = getAnchorInfo2();
 		if(verifyAnchorInfo2(anchorInfo2)){
 		 	//验证通过之后进行
-		RequestService("/anchor/info", "post", ancHosInfo2,function(data){
+		RequestService("/anchor/info", "post", anchorInfo2,function(data){
     	
 //		console.log(data)
 			if(data.success == true){
@@ -360,7 +360,7 @@ function saveAnchorInfo(){
 function getAnchorInfo(){
     var data = {};
     data.name = $("#u_nickname").val();
-    data.video = $("#speech_select").val();
+    data.resourceId = $("#speech_select").val();
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
     data.detail = UE.getEditor('anchor_details_editor').getContent();
     data.hospitalId = $("#speech_select1").val();
@@ -377,11 +377,11 @@ function getAnchorInfo(){
 function getAnchorInfo2(){
     var data = {};
     data.name = $("#u_nickname").val();
-    data.video = $("#speech_select").val();
+    data.resourceId = $("#speech_select").val();
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
     data.detail = UE.getEditor('anchor_details_editor').getContent();
-    data.province = $("#demo1 #hosPro ").val();
-    data.city = $('#demo1 #hosCity ').val();
+    data.province = $("#demo1 .choosePro option:selected").text();
+    data.city = $('#demo1 .chooseCity option:selected').text();
     data.detailAddress = $('#demo1 textarea').val();
     data.tel = $('#u_hospital_tel').val();
     return data;
@@ -406,12 +406,12 @@ function verifyAnchorInfo(data){
         $('.warning_profileImgphoto').addClass('hide');
     }
     
-     if(data.video == ''){
-        $('.warning_anchor_Speech').removeClass('hide');
-        return false;
-    }else{
-        $('.warning_anchor_Speech').addClass('hide');
-    }
+//   if(data.video == ''){
+//      $('.warning_anchor_Speech').removeClass('hide');
+//      return false;
+//  }else{
+//      $('.warning_anchor_Speech').addClass('hide');
+//  }
     
     if(data.detail == ''){
         $('.warning_anchor_lecturer_description').removeClass('hide');
@@ -453,6 +453,7 @@ function verifyAnchorInfo(data){
 
 //主播是医馆的信息验证
 function verifyAnchorInfo2(data){
+	var phoneNumPass =  /^\d[\d\-]*$/;
     if(data.name == ''){
         $('.warning_anchor_name').removeClass('hide');
         return false;
@@ -466,13 +467,13 @@ function verifyAnchorInfo2(data){
     }else{
         $('.warning_profileImgphoto').addClass('hide');
     }
-    
-     if(data.video == ''){
-        $('.warning_anchor_Speech').removeClass('hide');
-        return false;
-    }else{
-        $('.warning_anchor_Speech').addClass('hide');
-    }
+//  
+//   if(data.video == ''){
+//      $('.warning_anchor_Speech').removeClass('hide');
+//      return false;
+//  }else{
+//      $('.warning_anchor_Speech').addClass('hide');
+//  }
     
     if(data.detail == ''){
         $('.warning_anchor_lecturer_description').removeClass('hide');
@@ -507,10 +508,15 @@ function verifyAnchorInfo2(data){
 //	}
 
 	if(data.tel == ''){
+		$('.return_warning8').text('预约电话不能为空');
+        $('.return_warning8').removeClass('hide');
+        return false;
+    }else if(!phoneNumPass.test(data.tel) || data.tel.length < 7){
+    	$('.return_warning8').text('电话格式不正确');
         $('.return_warning8').removeClass('hide');
         return false;
     }else{
-        $('.return_warning8').addClass('hide');
+    	$('.return_warning8').addClass('hide');
     }
 
     return true;
@@ -527,6 +533,20 @@ function showAnchorInfo() {
         async:true,
         success: function( result ) {
             if(result.success){
+       			if(localStorage.AccountStatus == '2'){
+//     				$('#u_hospital_tel').val(result.resultObject.tel);
+//     				for(var i = 0;i < $('#demo1 .choosePro option').length ; i++){
+//     					if( $('#demo1 .choosePro option').eq(i).text() == result.resultObject.province){
+//     						$('#demo1 .choosePro option').eq(i).attr('selected','selected');
+//     					}
+//     				}
+//     				$('#demo1 .choosePro option[value='+result.resultObject.province+']').attr('selected','selected')
+//     				$('#demo1 .chooseCity option[value='+result.resultObject.city+']').attr('selected','selected')
+//     				$('#demo1 .chooseCity option:selected').text()
+					$('#demo1 .choosePro option:selected').text(result.resultObject.province);
+					$('#demo1 .chooseCity option:selected').text(result.resultObject.city);
+					$('#u_hospital_tel').val(result.resultObject.tel);
+       			}
                 var anchor = result.resultObject;
                 $('#u_nickname').val(anchor.name);
                 $('#profilePhoto').attr('src', anchor.profilePhoto);

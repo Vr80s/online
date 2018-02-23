@@ -48,13 +48,15 @@ function loadOrderList(){
         {title: '客户端', "class": "center", "width": "10%","data": 'clientType', "sortable": false,"mRender":function(data,display,row){
         	var payType ;
         	if(data == 1){
-        		payType = "pc端";
+        		payType = "pc";
         	}else if(data == 2){
-        		payType = "app端";
+        		payType = "h5";
         	}else if(data == 3){
-        		payType = "h5端";
-        	}else {
-        		payType = "-- --";
+                payType = "android";
+            }else if(data == 4){
+                payType = "ios";
+            }else {
+        		payType = "--";
         	}
         	return payType;
         }},

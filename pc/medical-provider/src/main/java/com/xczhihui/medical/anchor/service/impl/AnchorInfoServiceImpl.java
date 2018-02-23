@@ -171,6 +171,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         hospital.setProvince(target.getProvince());
         hospital.setCity(target.getCity());
         hospital.setUpdatePerson(target.getUserId());
+        hospital.setTel(target.getTel());
 
         hospitalMapper.updateSelective(hospital);
 

@@ -17,7 +17,7 @@
 <div class="page-header">
   当前位置：移动端管理 <small> <i class="ace-icon fa fa-angle-double-right"></i>
 </small>
-  <span>安卓app管理 </span>
+  <span>app版本管理 </span>
 </div>
 
 

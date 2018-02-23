@@ -42,7 +42,7 @@ public class CourseLecturVo implements Serializable {
     /**
      * 上传人
      */
-    private String  name1;
+    private String  heir;
     
     /**
      * 讲师头像
@@ -538,6 +538,13 @@ public class CourseLecturVo implements Serializable {
 	public void setStartDateStr(String startDateStr) {
 		this.startDateStr = startDateStr;
 	}
-	
+
+	public String getHeir() {
+		return heir;
+	}
+
+	public void setHeir(String heir) {
+		this.heir = heir;
+	}
 	
 }
