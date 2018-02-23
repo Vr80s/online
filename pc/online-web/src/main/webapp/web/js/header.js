@@ -247,7 +247,7 @@ if((settings.url.indexOf("/online/user/isAlive")>=0)){
         '<button class="cymyloginbutton">登<em></em>录</button>'+
         '<div class="cymyloginpassword">'+
         '<a class="atOnceRegister" href="/web/html/login.html?ways=register">立即注册</a>'+
-        '<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码?</a>'+
+        '<a class="atOnceResetPassword" href="/web/html/resetPassword.html">忘记密码？</a>'+
         '</div>'+
        /* ' <div class="other-login-box">'+
         ' <span>其它方式登录</span>'+

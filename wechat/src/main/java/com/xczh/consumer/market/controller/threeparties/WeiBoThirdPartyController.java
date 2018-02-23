@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import weibo4j.Oauth;
@@ -194,7 +195,10 @@ public class WeiBoThirdPartyController {
 	@RequestMapping(value="appEvokeWeiBoRedirect")
 	@ResponseBody
 	public ResponseObject appEvokeWeiBoRedirect(HttpServletRequest req,
-			HttpServletResponse res){
+			HttpServletResponse res,
+			@RequestParam("accessToken")String accessToken,
+			@RequestParam("uId")String uId,
+			@RequestParam("model")String model){
 		
 		try {
 			String code = req.getParameter("code");
@@ -209,19 +213,20 @@ public class WeiBoThirdPartyController {
 		    	}
 		    }
 			
-			
 			Map<String,String> mapRequest = new HashMap<String,String>();
 			mapRequest.put("type",ThirdPartyType.WEIBO.getCode()+"");
 			
 			
-			Oauth oauth = new Oauth();
+//			Oauth oauth = new Oauth();
 			/**
 			 * 通过code获取认证 微博唯一票据
 			 */
-			AccessToken at = oauth.getAccessTokenByCode(code);
+			//AccessToken at = oauth.getAccessTokenByCode(code);
+//			LOGGER.info("微博唯一票据--------》认证AccessToken成功:"+at.getAccessToken());
+//			LOGGER.info("微博用户唯一uid--------:"+at.getUid());
 			
-			LOGGER.info("微博唯一票据--------》认证AccessToken成功:"+at.getAccessToken());
-			LOGGER.info("微博用户唯一uid--------:"+at.getUid());
+			LOGGER.info("微博唯一票据--------》认证AccessToken成功:"+accessToken);
+			LOGGER.info("微博用户唯一uid--------:"+uId);
 			/**
 			 * 将用户信息保存到数据库中。
 			 */
@@ -232,18 +237,18 @@ public class WeiBoThirdPartyController {
 				 * 根据票据和用户id得到用户信息
 				 */
 				Users um = new Users();
-				um.client.setToken(at.getAccessToken());
+				um.client.setToken(accessToken);
 				//User user = um.showUserById(at.getUid());
 				//User user = new User(job);
 				
 				/**
 				 * 其实如果存在的话可以做更新操作了啊
 				 */
-				WeiboClientUserMapping wcum = threePartiesLoginService.selectWeiboClientUserMappingByUid(at.getUid());
+				WeiboClientUserMapping wcum = threePartiesLoginService.selectWeiboClientUserMappingByUid(uId);
 				LOGGER.info("是否存在此微博号--------:"+wcum);
 				if(wcum==null){
 					JSONObject job = um.client.get(WeiboConfig.getValue("baseURL") + "users/show.json",
-					        new PostParameter[] {new PostParameter("uid", at.getUid())}).asJSONObject();
+					        new PostParameter[] {new PostParameter("uid", uId)}).asJSONObject();
 					
 					wbuser = new WeiboClientUserMapping(job);
 					wbuser.setId(UUID.randomUUID().toString().replace("-", ""));
@@ -262,7 +267,7 @@ public class WeiBoThirdPartyController {
 			 	    }else{
 			 		    mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 			 		}
-					mapRequest.put("unionId",at.getUid()+"");
+					mapRequest.put("unionId",uId+"");
 					
 					threePartiesLoginService.saveWeiboClientUserMapping(wbuser);
 					
@@ -306,14 +311,14 @@ public class WeiBoThirdPartyController {
 		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 		 			}
 					mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
-					mapRequest.put("unionId",at.getUid()+"");
+					mapRequest.put("unionId",uId+"");
 					
 					return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.UNBOUNDED.getCode());
 				}
 			} catch (Exception  e) {
 				e.printStackTrace();
 				mapRequest.put("code",UserUnitedStateType.DATA_IS_WRONG.getCode()+"");
-				mapRequest.put("unionId",at.getUid()+"");
+				mapRequest.put("unionId",uId+"");
 				return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.DATA_IS_WRONG.getCode());
 			}  
 			return ResponseObject.newSuccessResponseObject("");

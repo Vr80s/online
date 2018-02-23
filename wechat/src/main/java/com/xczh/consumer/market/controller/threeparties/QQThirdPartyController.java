@@ -205,10 +205,7 @@ public class QQThirdPartyController {
 		    		return	ResponseObject.newErrorResponseObject("获取用户信息有误");
 		    	}
 		    }
-		    
 		    LOGGER.info("绑定呢还是解除绑定呢： "+ userId);
-		    
-		    
 	        long tokenExpireIn = 0L;
 	        Map<String,String> mapRequest = new HashMap<String,String>();
 	        mapRequest.put("type",ThirdPartyType.QQ.getCode()+"");
@@ -218,15 +215,15 @@ public class QQThirdPartyController {
 				return ResponseObject.newErrorResponseObject("获取QQ：accessToken 有误");
 			}else{
 				
- LOGGER.info("accessToken   ============"+accessToken);
- LOGGER.info("qq用户openid   ============"+openId);
+			 LOGGER.info("accessToken   ============"+accessToken);
+			 LOGGER.info("qq用户openid   ============"+openId);
 	             /**
 	              * 获取qq unionId
 	              * 
 	              */
 	             String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
 	             
- LOGGER.info("qq用户unionId   ============"+unionId);
+	         LOGGER.info("qq用户unionId   ============"+unionId);
 	             
  				QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
 	            	             
@@ -235,7 +232,6 @@ public class QQThirdPartyController {
 	            	 
 	            	 // 利用获取到的accessToken 去获取当前用户的openid --------- end
 		             //UserInfo qzoneUserInfo = new UserInfo(accessToken, openId); 
-		             
 		            //UserInfoBean userInfoBean = qzoneUserInfo.getUserInfo();   
 		             
 		             UserInfoBean userInfoBean = this.getUserInfo(accessToken,openId);
