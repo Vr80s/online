@@ -75,7 +75,7 @@ function login(){
 	var password = document.getElementById("password").value;
 	
 	if (!stringnull(number) || !stringnull(password)) {
-		webToast("手机号或密码不能为空","middle",3000);
+//		webToast("手机号或密码不能为空","middle",3000);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {

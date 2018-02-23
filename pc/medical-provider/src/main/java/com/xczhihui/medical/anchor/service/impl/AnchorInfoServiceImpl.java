@@ -11,6 +11,7 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
+import com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService;
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
@@ -19,6 +20,7 @@ import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
+import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -47,6 +49,10 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private MedicalHospitalMapper hospitalMapper;
     @Autowired
     private MedicalHospitalDoctorMapper hospitalDoctorMapper;
+    @Autowired
+    private IMedicalDoctorAuthenticationInformationService doctorAuthenticationInformationService;
+    @Autowired
+    private IMedicalHospitalAuthenticationService hospitalAuthenticationService;
 
     /**
      * 获取主播详情
@@ -124,6 +130,38 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         }
     }
 
+    /**
+     * 获取主播的认证信息
+     */
+    @Override
+    public Object authInfo(String userId) {
+
+        CourseAnchor anchor = new CourseAnchor();
+        anchor.setUserId(userId);
+        anchor = courseAnchorMapper.selectOne(anchor);
+        Optional<CourseAnchor> anchorOptional = Optional.ofNullable(anchor);
+        return anchorOptional
+                .map(option -> option.getType())
+                .map(option -> this.selectAuthInfo(option,userId))
+                .orElse(null);
+    }
+
+    private Object selectAuthInfo(Integer type, String userId) {
+
+        // 如果用户是医师 获取其医师认证信息
+        if(type.equals(1)){
+            return doctorAuthenticationInformationService.selectDoctorAuthenticationVO(userId);
+        }
+
+        // 如果用户是医馆 获取其医馆认证信息
+        if(type.equals(2)){
+            return hospitalAuthenticationService.selectHospitalAuthentication(userId);
+        }
+
+        return null;
+
+    }
+
     private void updateHospitalDetail(CourseAnchorVO target) {
 
         MedicalHospitalAccount hospitalAccount = hospitalAccountMapper.getByUserId(target.getUserId());
@@ -139,6 +177,10 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     }
 
     private void updateDoctorDetail(CourseAnchorVO target) {
+
+        if(StringUtils.isBlank(target.getHospitalId())){
+            throw new MedicalException(MedicalExceptionEnum.HOSPITAL_IS_EMPTY);
+        }
 
         // 根据用户id获取其医师id
         MedicalDoctorAccount doctorAccount = doctorAccountMapper.getByUserId(target.getUserId());

@@ -324,6 +324,7 @@ public class DoctorApplyServiceImpl implements DoctorApplyService {
         courseAnchor.setVodDivide(vodDivide);
         courseAnchor.setGiftDivide(giftDivide);
         courseAnchor.setDeleted(false);
+        courseAnchor.setDetail(apply.getDescription());
         courseAnchor.setStatus(true);
         if(StringUtils.isNotBlank(user.getName())){
             courseAnchor.setName(user.getName());

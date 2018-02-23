@@ -35,9 +35,14 @@ public class CourseLecturVo implements Serializable {
      */
     private String userId;
     /**
-     * 讲师名
+     * 主播名字
      */
     private String  name;
+    
+    /**
+     * 上传人
+     */
+    private String  name1;
     
     /**
      * 讲师头像
