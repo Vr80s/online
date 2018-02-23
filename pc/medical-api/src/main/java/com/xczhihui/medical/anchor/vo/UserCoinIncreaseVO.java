@@ -54,7 +54,6 @@ public class UserCoinIncreaseVO implements Serializable {
      */
     private BigDecimal value;
 
-
     /**
      * 直播开始时间
      */
