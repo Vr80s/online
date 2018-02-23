@@ -218,12 +218,11 @@ function sliderHeight(){
 	$(".swipe li").height(sliderHeight);
 }
 
-$(".find_nav_list").css("left",0);
-
+/* $(".find_nav_list").css("left",0);
 $(".find_nav_list li").each(function(){
 		$(".sideline").css({left:0});
 		$(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
-});
+}); */
 var nav_w=$(".find_nav_list li").first().width();
 $(".sideline").width(nav_w);
 $(".find_nav_list li").on('click', function(){

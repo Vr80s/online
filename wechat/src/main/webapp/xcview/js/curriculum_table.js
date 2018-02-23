@@ -24,10 +24,6 @@ $(".header_seek").click(function(){
 })
 
 
-
-
-
-
 /*
  * 赛选条件渲染
  */
