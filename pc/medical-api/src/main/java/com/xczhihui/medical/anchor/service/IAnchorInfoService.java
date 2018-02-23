@@ -18,4 +18,8 @@ public interface IAnchorInfoService {
      */
     void update(CourseAnchorVO target);
 
+    /**
+     * 获取主播的认证信息
+     */
+    Object authInfo(String userId);
 }

@@ -1,9 +1,11 @@
 package com.xczhihui.medical.doctor.vo;
 
 
+import com.xczhihui.medical.department.model.MedicalDepartment;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author yuxin
@@ -87,4 +89,13 @@ public class MedicalDoctorAuthenticationInformationVO implements Serializable {
 	 */
 	private String detailedAddress;
 
+	/**
+	 * 科室
+	 */
+	private List<MedicalDepartment> medicalDepartments;
+
+	/**
+	 * 状态
+	 */
+	private Boolean status;
 }

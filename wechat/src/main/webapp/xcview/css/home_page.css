@@ -1908,6 +1908,7 @@ header{
     white-space: nowrap;
     display: inline-block;
     max-width: 1.8rem;
+    vertical-align: bottom;
 }
 .lectures_main_one_size p:first-child{
 	margin-right: 0.213rem;
