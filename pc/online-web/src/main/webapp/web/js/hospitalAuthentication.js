@@ -126,7 +126,7 @@ $('.path .hospital').addClass('select');
 		data.wechat =  $('#hos_Administration .hos_base_inf  .hos_weixin').val();
 		data.headPortrait = $('.hos_base_inf   .touxiang_pic img').attr('src');
         data.description = UE.getEditor('editor2').getContent();
-        data.detailAddress = $.trim($('#hos_Administration .hos_base_inf .doc_address textarea').val());
+        data.detailedAddress = $.trim($('#hos_Administration .hos_base_inf .doc_address textarea').val());
 		var hoslist = [];
 		for(var i = 0;i < $('#hos_pic img').length ; i++){
 			    hoslist.push($('#hos_pic img').eq(i).attr('src'));
@@ -158,6 +158,7 @@ $('.path .hospital').addClass('select');
                     setTimeout(function(){
                         $('#tip').toggle();
                         window.scrollTo(0,0);
+                        $('#hos_Administration .hos_base_inf #submit').val('重新提交')
                     },2000)
                     
                 }

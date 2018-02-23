@@ -1052,15 +1052,18 @@
 				
 				<!--主播是医师的时候的基础信息-->
 				<div id="doctor_baseInf" class="hide">
-				<div class="name">
-					<span><em>*</em>任职医馆</span>
+				<div class="">
+					<span style="width: 89px;display: inline-block;margin-right: 12px;text-align: right;"><em  style="display: inline-block;color: #f40;">*</em>任职医馆</span>
 					<!--<input type="text" placeholder="请填写您的任职医馆" class="put1">-->
 					<!--<label for="workHos_select"></label>
 					<select id="workHos_select" class="selectpicker bla bla bli workHos_resource" data-live-search="true">
 						</optgroup>
 					</select>-->
-					<label for="id_select1"></label>
-					<select id="id_select1" class="selectpicker bla bla bli workHos_select"  data-live-search="true"></select>
+					<div style="display: inline-block;">
+						<label for="speech_select1"></label>
+					<select id="speech_select1" class="selectpicker bla bla bli workHos_select"  data-live-search="true"></select>
+					</div>
+					
 					<p class="warning return_warning4 hide">任职医馆不能为空</p>
 				</div>
 				<div class="name workTime" >
@@ -1074,6 +1077,7 @@
 					<li>六</li>
 					<li>七</li>
 				</ul>
+				<p class="warning return_warning7 hide">请选择坐诊时间</p>
 				</div>
 				
 				<div class="name">
@@ -1086,7 +1090,7 @@
 				<!--主播是医馆的时候的基础信息-->
 				<div id="hospital_baseInf" class="hide">
 					<div class="name">
-						<span>预约电话</span>
+						<span><em>*</em>预约电话</span>
 						<input type="text" placeholder="请输入预约电话" class="" id="u_hospital_tel">
 					</div>
 				</div>
@@ -1097,15 +1101,16 @@
 				<div class="name">
 					<span><em>*</em>城市</span>
 					<div id="demo1" class="citys">
-						<p>
-							<select name="province" class="choosePro" >
+							<select name="province" class="choosePro" style="margin-bottom: 20px;">
 								<option value="">请选择省份</option>
 							</select>
-							<select name="city" class="chooseCity">
+							<select name="city" class="chooseCity" style="margin-bottom: 20px;">
 								<option value="">请选择市</option>
 							</select>
-						</p>
-						<textarea name="" rows="" cols="" placeholder="请输入详细地址" class="name_textarea" id="u_detailAddress"></textarea>
+							
+							<input type="text" id="hosPro"  disabled="disabled" style="margin-bottom: 20px;"/>
+							<input type="text" id="hosCity"  disabled="disabled" style="margin-bottom: 20px;"/>
+						<textarea name="" readonly rows="" cols="" placeholder="请输入详细地址" class="name_textarea" id="u_detailAddress"></textarea>
 						<p class="warning return_warning5 hide">详细地址不能为空</p>
 					</div>
 				

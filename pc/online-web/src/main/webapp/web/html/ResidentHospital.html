@@ -209,7 +209,7 @@
 									</div>
 
 									<div class="baocun">
-										<input type="submit" value="提交认证" id="submit" />
+										<input type="submit" value="提交" id="submit" />
 									</div>
 								</div>
 							</div>
@@ -840,7 +840,7 @@
 <script type="text/template" id="hosAutStatusTpl">
 	{{if status == 1}}
 	<div class="bottomContent_inf text-left">
-		<span>已于{{updateTime}}通过认证,享有入驻医馆的功能<em style="color: red;font-style: normal;"></em></span>
+		<span>已于{{createTime}}通过认证,享有入驻医馆的功能<em style="color: red;font-style: normal;"></em></span>
 		<!--<button>去看看</button>-->
 	</div>
 	{{else if status == 2}}
@@ -855,10 +855,10 @@
 	</div>
 	{{/if}}
 	
-	<div class="bottomContent_inf text-left">
+	<!--<div class="bottomContent_inf text-left">
 		<span>已于{{createTime}}通过认证,享有入驻医馆的功能<em style="color: red;font-style: normal;"></em></span>
-		<!--<button>去看看</button>-->
-	</div>
+		<button>去看看</button>
+	</div>-->
 	
 	<div>
 		<span><em>*</em> 医馆名称</span>

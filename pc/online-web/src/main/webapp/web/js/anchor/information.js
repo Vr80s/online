@@ -330,6 +330,9 @@ function saveAnchorInfo(){
 		RequestService("/anchor/info", "post", anchorInfo1,function(data){
     	
 //		console.log(data)
+			if(data.success == true){
+				showTip('修改成功')
+			}
     	})
 		}
 	}
@@ -337,12 +340,15 @@ function saveAnchorInfo(){
 	
 	
 	if(localStorage.AccountStatus == 2){
-		var ancHosInfo2 = getAnchorInfo2();
+		var anchorInfo2 = getAnchorInfo2();
 		if(verifyAnchorInfo2(anchorInfo2)){
 		 	//验证通过之后进行
 		RequestService("/anchor/info", "post", ancHosInfo2,function(data){
     	
 //		console.log(data)
+			if(data.success == true){
+				showTip('修改成功')
+			}
     	})
 		}
 	}
@@ -359,8 +365,8 @@ function getAnchorInfo(){
     data.detail = UE.getEditor('anchor_details_editor').getContent();
     data.hospitalId = $("#speech_select1").val();
     data.workTime = workTime;
-    data.province = $("#demo1 #chooseProvince ").val();
-    data.city = $('#demo1 #chooseCity ').val();
+    data.province = $("#demo1 #hosPro ").val();
+    data.city = $('#demo1 #hosCity ').val();
     data.detailAddress = $('#demo1 textarea').val();
     data.tel = $('#doctor_baseInf .appointmentTel').val();
     return data;
@@ -374,8 +380,8 @@ function getAnchorInfo2(){
     data.video = $("#speech_select").val();
     data.profilePhoto = $("#profilePhotoImg img").attr('src');
     data.detail = UE.getEditor('anchor_details_editor').getContent();
-    data.province = $("#demo1 #choosePro ").val();
-    data.city = $('#demo1 #chooseCity ').val();
+    data.province = $("#demo1 #hosPro ").val();
+    data.city = $('#demo1 #hosCity ').val();
     data.detailAddress = $('#demo1 textarea').val();
     data.tel = $('#u_hospital_tel').val();
     return data;
@@ -522,7 +528,7 @@ function showAnchorInfo() {
         success: function( result ) {
             if(result.success){
                 var anchor = result.resultObject;
-                $('#nickname').text(anchor.name);
+                $('#u_nickname').val(anchor.name);
                 $('#profilePhoto').attr('src', anchor.profilePhoto);
                 $('#detail').text(anchor.detail);
                 $('#hospitalName').text(anchor.hospitalName);
