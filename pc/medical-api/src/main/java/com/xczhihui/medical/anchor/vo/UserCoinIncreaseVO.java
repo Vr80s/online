@@ -53,7 +53,6 @@ public class UserCoinIncreaseVO {
      */
     private BigDecimal value;
 
-
     /**
      * 直播开始时间
      */

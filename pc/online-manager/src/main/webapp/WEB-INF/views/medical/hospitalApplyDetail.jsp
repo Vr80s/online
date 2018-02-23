@@ -32,6 +32,11 @@
 	<input type="hidden" name="applyId" id="applyId" value="${medicalHospitalApply.id}">
 
 	<div class="doctor-name-container">
+		<div class="doctor-name">医馆名称：</div>
+		<div class="doctor-name-text">${medicalHospitalApply.name}</div>
+	</div>
+
+	<div class="doctor-name-container">
 		<div class="doctor-name">所属公司：</div>
 		<div class="doctor-name-text">${medicalHospitalApply.company}</div>
 	</div>

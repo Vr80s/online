@@ -89,11 +89,6 @@
 		<div class="doctor-description-text">${medicalDoctorApply.description}</div>
 	</div>
 
-	<div class="doctor-hospital-container">
-		<div class="doctor-hospital">任职医馆：</div>
-		<div class="doctor-hospital-text">${medicalDoctorApply.hospital}</div>
-	</div>
-
 	<div class="doctor-address-container">
 		<div class="doctor-address">城市：</div>
 		<div class="doctor-address-text">

@@ -7,6 +7,7 @@ import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +16,8 @@ import java.util.List;
  */
 public interface UserCoinIncreaseMapper extends BaseMapper<UserCoinIncrease> {
 
-	List<UserCoinIncreaseVO> listCourseOrder(@Param("userId") String userId, @Param("page") Page<UserCoinIncreaseVO> page);
+	List<UserCoinIncreaseVO> listCourseOrder(@Param("userId") String userId, @Param("page") Page<UserCoinIncreaseVO> page
+			, @Param("gradeName") String gradeName, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
 	List<UserCoinIncreaseVO> listGiftOrder(@Param("userId") String userId, @Param("page") Page<UserCoinIncreaseVO> page);
 
