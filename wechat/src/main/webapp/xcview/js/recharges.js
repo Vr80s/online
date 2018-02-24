@@ -73,7 +73,6 @@ function  goPay() {
     }else if(payType==3){ //微信支付
         var btype=   localStorage.getItem("access");
         var openId=   localStorage.getItem("openid");
-        alert(openId);
         var orderForm = 3;
         if(btype=='wx'){   	//公众号
             orderForm=3;
