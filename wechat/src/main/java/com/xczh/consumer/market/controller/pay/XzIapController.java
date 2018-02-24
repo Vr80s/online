@@ -91,6 +91,7 @@ public class XzIapController {
      */
     @ResponseBody
     @RequestMapping("/setIapCertificate")
+    @Transactional
     public Object setIapCertificate(
     		@RequestParam("receipt")String receipt,
     		@RequestParam("userId")String userId,

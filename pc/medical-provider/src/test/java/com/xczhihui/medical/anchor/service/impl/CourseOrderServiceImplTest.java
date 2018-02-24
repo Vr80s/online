@@ -19,10 +19,22 @@ public class CourseOrderServiceImplTest extends BaseJunit4Test {
         Page<UserCoinIncreaseVO> page = new Page<>();
         page.setCurrent(1);
         page.setSize(2);
-//        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
-//                service.list("2c9aec35601bb5ae01601c72d49d0000", page);
 
-//        Assert.assertNotNull(userCoinIncreaseVOS);
+//        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
+//        service.list("ff80808161c0dd000161c17b63490000",
+//                page, null, null, null);
+
+//        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
+//                service.list("ff80808161c0dd000161c17b63490000",
+//                        page, "来首", null, null);
+
+        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
+                service.list("ff80808161c0dd000161c17b63490000",
+                        page, null,
+                        "2018-01-22 12:12:12",
+                        "2018-02-29 13:12:12");
+
+        Assert.assertNotNull(userCoinIncreaseVOS);
     }
 
 

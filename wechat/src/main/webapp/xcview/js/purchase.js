@@ -24,7 +24,9 @@ var type =""; //判断课程类别，支付使用
 //获取课程ID跳转相应页面页面
 var courseId = getQueryString('courseId');
 //传ID courseId为接口的课程ID
-var currentPriceXMB ="";
+
+var currentPriceXMB =""; //当前课程价格
+var xmbye =""; //用户剩余的熊猫币数量
 
 var allCourse;
 requestService("/xczh/order/getByOrderId",{
@@ -45,7 +47,9 @@ requestService("/xczh/order/getByOrderId",{
 	 */
 	requestService("/xczh/manager/getWalletEnchashmentBalance",null,function(data) {
 		if(data.success){
-			var xmbye = data.resultObject;
+			
+			xmbye = data.resultObject;
+			
 			$("#xmb_ye").html(xmbye);
 			//判断当前购买的要消耗的熊猫币  是否大于 自己的熊猫币余额
 			if(xmbye<currentPriceXMB){
@@ -72,8 +76,15 @@ for(i=0;i<aBtn.length;i++){
         }
         var imgClass = $(this).find("img").attr("class");
         if(imgClass == "BTCpanda"){
-        	$(".footer_div").hide();
-			$(".footer_div_btn").show();
+        
+        	if(xmbye<currentPriceXMB){
+				$(".footer_div").hide();
+				$(".footer_div_btn").show();
+			}else{
+				$(".footer_div").show();
+				$(".footer_div_btn").hide();
+			}
+        	
 			$("#xmb_rmb").html(currentPriceXMB);
         	$("#currency").html("熊猫币");
         }else{

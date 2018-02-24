@@ -27,15 +27,22 @@ public class GiftOrderController {
 
     /**
      * 获取礼物订单列表
+     * @param current 当前页
+     * @param size 每页显示的数据条数
+     * @param gradeName 课程名
+     * @param startTime 开始时间
+     * @param endTime   结束时间
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseObject list(HttpServletRequest request, Integer current, Integer size){
+    public ResponseObject list(HttpServletRequest request, Integer current, Integer size,
+                               String gradeName, String startTime, String endTime){
 
         Page<UserCoinIncreaseVO> page = new Page<>();
-        page.setCurrent(current);
-        page.setSize(size);
+        page.setCurrent(current != null && current > 0 ? current : 1);
+        page.setSize(size != null && size > 0 ? size : 10);
 
-        Page<UserCoinIncreaseVO> result = giftOrderService.list(this.getCurrentUserId(request), page);
+        Page<UserCoinIncreaseVO> result = giftOrderService.list(this.getCurrentUserId(request), page,
+                gradeName, startTime, endTime);
 
         return ResponseObject.newSuccessResponseObject(result);
     }
