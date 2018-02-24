@@ -124,7 +124,7 @@ function  goPay() {
    		    var params = data.resultObject;
             if(data.success){
             	
-            	location.href"/xcview/html/buy_prosperity.html?courseId="+getQueryString("courseId");
+            	location.href="/xcview/html/buy_prosperity.html?courseId="+getQueryString("courseId");
             }else{
               alert(data.errorMessage);
             }
