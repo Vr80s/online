@@ -45,8 +45,8 @@ public class CourseZyxxController extends AbstractController{
 		request.setAttribute("menuVo", menuVos);
 		
 		//在列表初始化时查找出课程类别
-//		List<ScoreType> scoreTypeVos = courseService.getScoreType();
-//		request.setAttribute("scoreTypeVo", scoreTypeVos);
+		List<ScoreType> scoreTypeVos = courseService.getScoreType();
+		request.setAttribute("scoreTypeVo", scoreTypeVos);
 		
 		//在列表初始化时查找出授课方式
 //		List<TeachMethod> teachMethodVos= courseService.getTeachMethod();
