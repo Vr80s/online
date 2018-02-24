@@ -9,8 +9,8 @@ function time(o) {
 
         wait = 90;
         $(".call_code").css("background","#00bc12");
-        $("#pet_name_right_bind").css("background","#ccc");
-        $("#update_mobile_next").css("background","#ccc");
+        //$("#pet_name_right_bind").css("background","#ccc");
+        //$("#update_mobile_next").css("background","#ccc");
     } else {
         o.setAttribute("disabled", true);
         //o.setAttribute("style", "background: #cbcbcb;")
@@ -18,8 +18,8 @@ function time(o) {
         $(o).html("" + wait + "S");
         wait--;
         $(".call_code").css("background","#ccc");
-        $("#update_mobile_next").css("background","#00bc12");
-        $("#pet_name_right_bind").css("background","#00bc12");
+        //$("#update_mobile_next").css("background","#00bc12");
+        //$("#pet_name_right_bind").css("background","#00bc12");
         setTimeout(function() {
             time(o)
         }, 1000)
@@ -56,10 +56,10 @@ function  sendCode(obj){
 		number = $("#new_mobile").val();
 	}
 	if (!stringnull(number)) {
-		$("#errorMsg").html("<div class='vanish vanishs' id='vanishs'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
+		/*$("#errorMsg").html("<div class='vanish vanishs' id='vanishs'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
 		$("#errorMsg").show();
 		
-		setTimeout(function(){$(".vanish").hide();},1500);
+		setTimeout(function(){$(".vanish").hide();},1500);*/
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
@@ -193,6 +193,10 @@ function checkUser1(saveFalg){
  */
 function updateMobile(){
 
+    var newMobile= $("#new_mobile").val();
+    if(!stringnull(newMobile)){
+        return false;
+    }
     if (!stringnull(currentName) || !(/^1[34578]\d{9}$/.test(currentName))) {
         $("#errorMsg").html("获取用户手机号有误");
         $("#errorMsg").show();
@@ -208,8 +212,8 @@ function updateMobile(){
 
     var code= $("#new_code").val();
     if(!stringnull(code)){
-        $("#errorMsg").html("验证码不能为空");
-        $("#errorMsg").show();
+       /* $("#errorMsg").html("验证码不能为空");
+        $("#errorMsg").show();*/
         return false;
     }
 
