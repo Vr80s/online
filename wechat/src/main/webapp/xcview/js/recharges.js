@@ -80,6 +80,7 @@ function  goPay() {
         }else if(btype=='brower'){ //h5
             orderForm=4
         }
+        
         //clientType= 2 表示微信支付
         var strparam = "clientType="+orderForm+"&actualPay="+actualPay;
         if(stringnull(openId)){

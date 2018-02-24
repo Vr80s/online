@@ -18,7 +18,7 @@ public class UCCookieUtil {
 
 	static Logger logger = LoggerFactory.getLogger(UCCookieUtil.class);
 
-	private final static String DEFAULT_DOMAIN = "boxuegu.com";
+	private final static String DEFAULT_DOMAIN = "ixincheng.com";
 
 	/**
 	 * 用户中心token cookie名

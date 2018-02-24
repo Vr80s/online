@@ -385,7 +385,7 @@ var cookie = {
 	         var date = new Date(); //获取当前时间
 	         date.setTime(date.getTime()-10000); //将date设置为过去的时间
 	         document.cookie = key + "=v; expires =" +date.toGMTString();//设置cookie
-	         return tips;
+	         //return tips;
 	    }
 }
 
