@@ -98,7 +98,7 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-   return "/xcviews/html/recharges.html?type=1&xmbCount="+actualPay;
+   return "/xcview/html/recharges.html?type=1&xmbCount="+actualPay;
 }
 
 
