@@ -893,6 +893,7 @@ a {
   position: relative;
   min-height: 250px;
   background-color: #fff;
+  display: none;
 }
 #course-list .table-body .sidebar-body .relative-course .classCategory {
   width: 38px;

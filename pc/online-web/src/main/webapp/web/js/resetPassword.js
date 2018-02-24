@@ -556,8 +556,31 @@ $(function(){
             $(".resetcode").css("border", "");
         }
     })
+    
+      $(".resetImg").blur(function () {
+        var code1 = $(".resetImg").val();
+        if (code1.length == 0) {
+//          $(".resetUsernameCode .HitWord").text("请输入动态码!");
+//          $(".resetcode").css("border", "1px solid #ff4012");
+//          $(".resetUsernameCode .resetVificationHit").css("display","block");
+            
+            $('.resetVificationHit .HitWord').text("请输入验证码!");
+            $(".resetImg").css("border", "1px solid #ff4012");
+            $(".resetVificationHit").css("display","block");
+        }else{
+            $(".resetImg").css("border", "");
+        }
+    })
+    
     $(".resetcode").focus(function () {
         $(".resetcode").css("border", "1px solid #2cb82c");
-        $(".resetUsernameCode .resetVificationHit").css("display","none");
+//      $(".resetUsernameCode .resetVificationHit").css("display","none");
+         $("#moveCode_warn").css("display","none");
+    })
+    
+     $(".resetImg").focus(function () {
+        $(".resetImg").css("border", "1px solid #2cb82c");
+//      $(".resetUsernameCode .resetVificationHit").css("display","none");
+         $(".resetVificationHit ").css("display","none");
     })
 });

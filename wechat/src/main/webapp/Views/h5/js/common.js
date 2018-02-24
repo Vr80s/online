@@ -389,9 +389,9 @@ var cookie = {
 	    }
 }
 
-var user_cookie = cookie.get("_uc_t_");
-if(user_cookie == null){  //去登录页面
-	location.href = "/bxg/page/login/1";
-}
+//var user_cookie = cookie.get("_uc_t_");
+//if(user_cookie == null){  //去登录页面
+//	location.href = "/bxg/page/login/1";
+//}
 
 
