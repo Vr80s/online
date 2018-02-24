@@ -225,7 +225,7 @@ function queryDataByParams(params,data_type){
 				if(item.type == 1){
 					statusImg+="/xcview/images/tv_auto.png";
 				}else if(item.type == 2){
-					statusImg+="xcview/images/frequency.png";
+					statusImg+="/xcview/images/frequency.png";
 				}else if(item.type == 3){
 					statusImg+="/xcview/images/Sinatv_auto.png";
 				}else if(item.type == 4){
