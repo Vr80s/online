@@ -315,7 +315,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+"'全国课程' as note "
 				+" from oe_course oc "
 				+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
-				+" order by oc.sort desc  limit 0,6)";
+				+" order by oc.start_time asc  limit 0,6)";
 		if(cityList.size()>0){
 			strsql+= " union all ";
 		}
@@ -331,7 +331,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+" from oe_course oc "
 					+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
 					+" and oc.city = '"+offlineCity.getCityName()+"'"
-					+" order by oc.sort desc  limit 0,4)";
+					+" order by oc.start_time asc  limit 0,4)";
 			if(i < cityList.size()){
 				strsql+= " union all ";
 			}

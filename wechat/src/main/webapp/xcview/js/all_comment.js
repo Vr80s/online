@@ -5,8 +5,29 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
+var criticizeNum =0;
+var mescroll;
 $(function(){
 
+     mescroll = new MeScroll("mescroll", {
+        down: {
+            auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+            callback: downCallback //下拉刷新的回调
+        },
+        up: {
+            auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+            isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+            callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            toTop:{ //配置回到顶部按钮
+                src : "../images/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+                offset : 1000,
+                warpClass : "mescroll-totop" ,
+                showClass : "mescroll-fade-in" ,
+                hideClass : "mescroll-fade-out",
+                htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
+            }
+        }
+    });
 
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
@@ -14,11 +35,19 @@ $(function(){
     course_id = courseId;
     var Lecturer = getQueryString('LecturerId');
     LecturerId = Lecturer;
-	refresh(1,10)
+	refresh(1,10,'down');
+	//获取所有评论总数
+    requestService("/xczh/criticize/getCriticizeList",{
+        courseId : course_id,
+        pageNumber:1,
+        pageSize:1000000
+    },function(data) {
+        criticizeNum = data.resultObject.items.length;
+    });
 });
 
 //刷新评论列表
-function refresh(pageNumber,pageSize){
+function refresh(pageNumber,pageSize,downOrUp){
     requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
         pageNumber:pageNumber,
@@ -31,8 +60,19 @@ function refresh(pageNumber,pageSize){
 		}else{
 			$(".quie_pic").hide()
 		}
-        //	课程名称/等级/评论
-        $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+        //	判断是刷新还是加载
+        if(downOrUp=='down'){
+            $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+            mescroll.endSuccess();
+            mescroll.lockUpScroll( false );
+            mescroll.optUp.hasNext=true;
+        }else {
+            $(".wrap_all_returned").append(template('wrap_people_comment',{items:data.resultObject.items}));
+            var backData = data.resultObject.items;
+            mescroll.endSuccess(backData.length);
+            //mescroll.endBySize(backData.length, criticizeNum);
+        }
+
         //判断是否是第一次评论
         $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
         commentCode = data.resultObject.commentCode;
@@ -109,7 +149,7 @@ function refresh(pageNumber,pageSize){
         });
 
         //点赞
-        $(".btn_click_zan").click(function(){
+        /*$(".btn_click_zan").click(function(){
             //评论id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
@@ -125,7 +165,7 @@ function refresh(pageNumber,pageSize){
                 $(this).find('span').html(parseInt(p)+1);
                 updatePraise(criticize_id,true);
             }
-        });
+        });*/
         //判断浮层是否已选
         if(commentCode==1){
             var list=document.getElementsByClassName("active_color");
@@ -218,13 +258,11 @@ function reportComment() {
         //	课程名称/等级/评论
         if(data.success==true){
             webToast("评论成功","middle",3000);
-            //	直播时间/主播名字
-            //$("#wrap_playTime").html(template('data_name',data.resultObject));
             $(".wrapAll_comment").hide();
             $(".bg_modal").hide();
             document.getElementById("comment_detailed").value="";
             del();
-            refresh(1,10);
+            refresh(1,10,'down')
         }else{
             webToast("评论失败","middle",3000);
         }
@@ -247,12 +285,11 @@ function replyComment() {
         //	课程名称/等级/评论
         if(data.success==true){
             webToast("回复成功","middle",3000);
-            //	直播时间/主播名字
             $(".bg_userModal").hide();
             $(".wrapLittle_comment").hide();
             document.getElementById("littlt_return").value="";
             del();
-            refresh(1,10);
+            refresh(1,10,'down')
         }else {
             webToast("回复失败","middle",3000);
         }
@@ -292,6 +329,37 @@ function del(){
 
 
 /**
- * 上拉加载
+ * 点赞
  */
 
+
+function btnClickZan(o){
+    //评论id
+    criticize_id=$(o).attr("data-id");
+    var p = $(o).find('span').html();
+    var src = $(o).find('img').attr('src');
+    if(src.indexOf("zan001")>-1){
+        $(o).find('img').attr('src','../images/zan01.png');
+        $(o).find('span').html(parseInt(p)-1);
+        updatePraise(criticize_id,false);
+    }else{
+        $(o).find('img').attr('src','../images/zan001.png');
+        $(o).find('span').html(parseInt(p)+1);
+        updatePraise(criticize_id,true);
+    }
+
+}
+
+
+var num = 1;
+/*下拉刷新的回调 */
+function downCallback(){
+    num = 1;
+    //联网加载数据
+    refresh(num,10,'down');
+}
+/*上拉加载的回调  */
+function upCallback(){
+    num++;
+    refresh(num,10,'up');
+}
