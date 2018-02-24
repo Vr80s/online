@@ -14,7 +14,7 @@
 
 	<update id="insertBatch">
 		INSERT INTO medical_hospital_picture(
-			id, hospital_id, picture, deleted, status,create_time
+			id, hospital_id, picture, deleted, status,create_time,version
 		) VALUES
 		<foreach collection="pictures" item="picture" separator=",">
 			(#{picture.id},
@@ -22,7 +22,8 @@
 			 #{picture.picture},
 			 #{picture.deleted},
 			 #{picture.status},
-			 #{picture.createTime})
+			 #{picture.createTime},
+			 #{picture.version})
 		</foreach>
 	</update>
 
