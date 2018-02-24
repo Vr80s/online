@@ -7,12 +7,14 @@ import com.xczhihui.bxg.online.common.base.service.impl.OnlineBaseServiceImpl;
 import com.xczhihui.bxg.online.common.enums.Payment;
 import com.xczhihui.bxg.online.web.dao.OrderDao;
 import com.xczhihui.bxg.online.web.service.OrderService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +51,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
     * @Date: 下午 9:10 2018/1/24 0024
     **/
     @Override
+    @Transactional
     public void addPaySuccess(String orderNo, Payment payment, String transactionId) {
     	if(payment==null){
     		throw new RuntimeException("支付类型不可为空");
