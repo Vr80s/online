@@ -90,7 +90,7 @@ for(i=0;i<aBtn.length;i++){
         }else{
         	$(".footer_div").show();
 			$(".footer_div_btn").hide();
-			$("#xmb_rmb").html(currentPriceXMB*10);
+			$("#xmb_rmb").html(currentPriceXMB / 10);
 			$("#currency").html("元");
         }
       	$(this).removeClass();
