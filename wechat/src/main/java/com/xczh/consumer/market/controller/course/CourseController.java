@@ -88,7 +88,7 @@ public class CourseController {
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
 			if(cv.getUserLecturerId().equals(user.getId())){
-			    cv.setWatchState(4);
+			    cv.setWatchState(3);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
 	    	WatchHistory target = new WatchHistory();
@@ -113,18 +113,18 @@ public class CourseController {
 		/*
 		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
 		 */
-		if(null!=cv.getType() && cv.getType()==3 && cv.getLineState() ==2 ){
-			long currentTime = System.currentTimeMillis();
-			currentTime += 1*livePreheating*60*60*1000;
-			long startTimeLong = cv.getStartTime().getTime();
-			
-			LOGGER.info("========currentTime："+startTimeLong);
-			LOGGER.info("========startTimeLong："+startTimeLong);
-			LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
-			if(currentTime>=startTimeLong){
-				cv.setLineState(4);
-			}
-		}
+//		if(null!=cv.getType() && cv.getType()==3 && cv.getLineState() ==2 ){
+//			long currentTime = System.currentTimeMillis();
+//			currentTime += 1*livePreheating*60*60*1000;
+//			long startTimeLong = cv.getStartTime().getTime();
+//			
+//			LOGGER.info("========currentTime："+startTimeLong);
+//			LOGGER.info("========startTimeLong："+startTimeLong);
+//			LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
+//			if(currentTime>=startTimeLong){
+//				cv.setLineState(4);
+//			}
+//		}
 		return ResponseObject.newSuccessResponseObject(cv);
 	}
 	
@@ -158,7 +158,7 @@ public class CourseController {
 			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
 			 */
 			if(cv.getUserLecturerId().equals(user.getId())){
-			    cv.setWatchState(4);
+			    cv.setWatchState(3);
 			    return ResponseObject.newSuccessResponseObject(cv);
 		    }
 	    	WatchHistory target = new WatchHistory();
@@ -182,19 +182,19 @@ public class CourseController {
 		/*
 		 * 如果开始前的一个时间段  小于等于 当前直播开始时间,就是即将直播状态   
 		 */
-		if(cv.getType()!=null && cv.getType()==3 && cv.getLineState() ==2 ){
-			LOGGER.info("========修改状态");
-			long currentTime = System.currentTimeMillis();
-			currentTime += 1*livePreheating*60*60*1000;
-			long startTimeLong = cv.getStartTime().getTime();
-			// 30 +1 > 30.5
-			LOGGER.info("========currentTime："+startTimeLong);
-			LOGGER.info("========startTimeLong："+startTimeLong);
-			LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
-			if(currentTime>=startTimeLong){
-				cv.setLineState(4);
-			}
-		}
+//		if(cv.getType()!=null && cv.getType()==3 && cv.getLineState() ==2 ){
+//			LOGGER.info("========修改状态");
+//			long currentTime = System.currentTimeMillis();
+//			currentTime += 1*livePreheating*60*60*1000;
+//			long startTimeLong = cv.getStartTime().getTime();
+//			// 30 +1 > 30.5
+//			LOGGER.info("========currentTime："+startTimeLong);
+//			LOGGER.info("========startTimeLong："+startTimeLong);
+//			LOGGER.info("========currentTime>=startTimeLong："+(currentTime>=startTimeLong));
+//			if(currentTime>=startTimeLong){
+//				cv.setLineState(4);
+//			}
+//		}
 		return ResponseObject.newSuccessResponseObject(cv);
 	}
 	

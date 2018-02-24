@@ -4,6 +4,8 @@
  */	
 var paramsObj = getUrlParamsReturnJson();
 
+var matching = getQueryString('menuType');
+
 var menuTypeArray = new Array();
 var courseTypeArray = new Array();
 var cityTypeArray = new Array();
@@ -81,6 +83,17 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		for (var int = 0; int < menuTypeArray.length; int++) {
 			var array_element = menuTypeArray[int];
 			if(menuType == array_element.id){
+				
+				/**
+				 * 让筛选条件 ---》 变为选中
+				 */
+				$(".all_right_type_ones").find(".all_right_type_one").each(function(){
+					 var sxmenu = $(this).attr("title");
+					 if(sxmenu == menuType){
+						 $(this).addClass("all_right_type_one_add");
+						 return;
+					 }
+				});
 				saisuanstr += array_element.name+"-";
 				break;
 			}
@@ -165,7 +178,6 @@ function submit(){
 //	lineState	否	Integer	直播状态1.直播中，2预告，3直播结束（传id）
 //	city	否	String	所在城市 （传城市名）
 //	queryKey	否	String	检索的关键字
-	
 	/**
 	 * 在浏览器地址上获取课程信息
 	 */
@@ -174,10 +186,10 @@ function submit(){
 	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
 	var city = $(".all_mold3  .all_right_type_one_add").attr("title");
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
-	
 	var submitParamsObj =  createParamsAndQuery(menuType,isFree,courseType,city,lineState);
 
-	queryDataByParams(submitParamsObj);
+	slide(2);
+	//queryDataByParams(submitParamsObj);
 }
 
 
@@ -188,32 +200,6 @@ function queryDataByParams(params,data_type){
 		if(data.success==true){
 			if(stringnull(data_type)){
 				var id = "#query_list"+data_type;
-				
-				/**
-				 * 获取焦点
-				 */
-//				$("#pagenavi1 li").removeClass("find_nav_cur")
-//				
-//				$("#pagenavi1 li").each(function(index){
-//					var  title = $(this).find("a").attr("title");
-//					if(title == data_type){
-//						$(this).attr("class","find_nav_cur");
-//						break;
-//					}
-//				})
-				
-				
-//				var list = $("#pagenavi1 li");
-//				for(var i = 0; i < list.length; i++) {
-//					$(this)
-//					var liClassName = list[i].className;
-//					if(liClassName == "find_nav_cur"){
-//						
-//						$("#pagenavi1 li:nth-child(2)").addClass("find_nav_cur");
-//						break;
-//					}
-//				}
-				
 				
 			}else{
 				var id = "#draw_all_query_list";
@@ -321,8 +307,8 @@ function queryDataByParams(params,data_type){
 /**
  * 将查询条件搞下
  */
-createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
-		paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
+//createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
+//		paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
 /**
  * 不能如果是类型的话
  */
@@ -337,18 +323,19 @@ function typeQuery(){
 
     var menuType = $("[class='find_nav_cur'] a").attr("title");
     
-    if(menuType!=0){
+    if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
+    	queryDataByParams(paramsObj);
+    }else if(menuType!=0){
     	paramsObj.menuType= menuType;
         queryDataByParams(paramsObj,menuType);
     }else{
+    	//删除这个条件
     	delete paramsObj.menuType;
     	queryDataByParams(paramsObj);
     }
-    
-    $(".hint").hide();
-    
-//    createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
-//			paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
+  
+    createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
+			paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
 }
 //顶部搜索框获取文字显示
 function getQueryString(key){
