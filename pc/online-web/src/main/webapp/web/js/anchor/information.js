@@ -354,6 +354,10 @@ function saveAnchorInfo(){
 //		console.log(data)
 			if(data.success == true){
 				showTip('修改成功')
+				setTimeout(function(){
+					$('.name_personage').click()
+				},2000)
+				
 			}
     	})
 		}
@@ -370,6 +374,9 @@ function saveAnchorInfo(){
 //		console.log(data)
 			if(data.success == true){
 				showTip('修改成功')
+				setTimeout(function(){
+					$('.name_personage').click()
+				},2000)
 			}
     	})
 		}
@@ -556,30 +563,22 @@ function showAnchorInfo() {
         success: function( result ) {
             if(result.success){
        			if(localStorage.AccountStatus == '2'){
-//     				$('#u_hospital_tel').val(result.resultObject.tel);
-//     				for(var i = 0;i < $('#demo1 .choosePro option').length ; i++){
-//     					if( $('#demo1 .choosePro option').eq(i).text() == result.resultObject.province){
-//     						$('#demo1 .choosePro option').eq(i).attr('selected','selected');
-//     					}
-//     				}
-//     				$('#demo1 .choosePro option[value='+result.resultObject.province+']').attr('selected','selected')
-//     				$('#demo1 .chooseCity option[value='+result.resultObject.city+']').attr('selected','selected')
-//     				$('#demo1 .chooseCity option:selected').text()
 					$('#demo1 .choosePro option:selected').text(result.resultObject.province);
 					$('#demo1 .chooseCity option:selected').text(result.resultObject.city);
 					$('#u_hospital_tel').val(result.resultObject.tel);
+					
        			}
                 var anchor = result.resultObject;
                 $('#u_nickname').val(anchor.name);
                 $('#profilePhoto').attr('src', anchor.profilePhoto);
-                $('#detail').text(anchor.detail);
+                $('#detail').html(anchor.detail);
                 $('#hospitalName').text(anchor.hospitalName);
                 $('#workTime').text(anchor.workTime);
                 $('#tel').text(anchor.tel);
                 $('#province').text(anchor.province);
                 $('#city').text(anchor.city);
                 $('#detailAddress').text(anchor.detailAddress);
-                $('#speech_select').val(anchor.resourceId);
+               
                 // $('.anchor_nick_name').text(anchor.name);
                 // $('#u_nickname').val(anchor.name);
                 // $('#u_hospital_tel').val(anchor.tel);
