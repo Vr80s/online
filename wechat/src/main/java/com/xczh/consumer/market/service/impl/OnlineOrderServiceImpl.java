@@ -166,7 +166,7 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		String orderNo= TimeUtil.getSystemTime() + RandomUtil.getCharAndNumr(12);
 		order.setOrderNo(orderNo); //订单号
 		order.setPreferentyMoney(0.0); //优惠金额
-		order.setActualPay(course.getCurrentPrice());//实际支付
+		order.setActualPay(course.getCurrentPrice());//实际支付 人民币
 		order.setPurchaser(user.getName());  //购买者
 		order.setCreatePerson(user.getLoginName());
 		order.setCreateTime(new Date());     //创建时间
@@ -233,11 +233,24 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 			return ResponseObject.newErrorResponseObject("查询不到订单信息！");
 		}
 		returnMap.put("orderNo", order.getOrderNo());
-		List<OnlineCourse> lists = orderMapper.getNewCourseByOrderId(order.getId());
+		List<OnlineCourse> lists = orderMapper.getCourseByOrderId(order.getId());
 		order.setAllCourse(lists);
 		return ResponseObject.newSuccessResponseObject(order);
 	}
 	
+	@Override
+	public ResponseObject getNewOrderAndCourseInfoByOrderNo(String orderNo) throws SQLException {
+		
+		OnlineOrder order = orderMapper.getOnlineOrderByOrderNo(orderNo);
+		Map<String,Object> returnMap = new HashMap<String,Object>();
+		if(null == order){
+			return ResponseObject.newErrorResponseObject("查询不到订单信息！");
+		}
+		returnMap.put("orderNo", order.getOrderNo());
+		List<OnlineCourse> lists = orderMapper.getNewCourseByOrderId(order.getId());
+		order.setAllCourse(lists);
+		return ResponseObject.newSuccessResponseObject(order);
+	}
 	
 	
 	@Override

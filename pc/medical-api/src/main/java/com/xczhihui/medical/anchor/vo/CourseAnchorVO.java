@@ -64,8 +64,10 @@ public class CourseAnchorVO implements Serializable {
     private String city;
 
     /**
-     *
+     * 主播所在的详细地址
      */
     private String detailAddress;
+
+    private Integer resourceId;
 
 }

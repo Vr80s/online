@@ -108,7 +108,7 @@
 				<div class="both"></div>
 			</ul>
 		</div>
-		<div class="balance">余额：<span id="xmb_ye">0</span>熊猫币</div>
+		<div class="balance">余额：<span id="xmb_ye"></span>熊猫币</div>
 	</div>
 	<!--支付方式结束-->
 	
@@ -116,7 +116,7 @@
 	<!--底部开始-->
 	<!--<div class="footer_perch"></div>-->
 	<div class="footer">
-		<div class="footer_div" onclick="goPay()">去支付<span class="pay_xmb"></span><span  id="currency"></span></div>
+		<div class="footer_div" onclick="goPay()">去支付<span class="pay_xmb" id="xmb_rmb"></span><span  id="currency"></span></div>
 		<div class="footer_div_btn">进入充值页面</div>  <!--熊猫币不足的时候，去支付隐藏，显示进入充值页面-->
 		<!--<ul>
 			<li class="footer_one">
@@ -147,37 +147,6 @@
 			$(".li0").addClass("ul_li");
 			$(".li1").removeClass("ul_li");
 		});	
-
-
-
-		var aBtn=$('#ul li');
-      	for(i=0;i<aBtn.length;i++){
-	        $(aBtn[i]).click(function(){
-		        for(i=0;i<aBtn.length;i++){
-			        $(aBtn[i]).removeClass('ul_li0');
-			        $(aBtn[i]).addClass('ul_li');
-			        $(aBtn[i]).find(".ul_li_bg").show();
-		        }
-		        var imgClass = $(this).find("img").attr("class");
-		        if(imgClass == "BTCpanda"){
-		        	
-		        	
-		        	$(".footer_div").hide();
-					$(".footer_div_btn").show();
-					
-		        	$("#currency").html("熊猫币");
-		        }else{
-		        	$(".footer_div").show();
-					$(".footer_div_btn").hide();
-		        	
-					$("#currency").html("元");
-		        }
-	          	$(this).removeClass();
-	          	$(this).addClass('ul_li0');
-	           	$(aBtn[i]).find(".ul_li_bg").hide();
-	        })
-      	}
-      	$(aBtn[0]).click();
 	};
 </script>
 </html>

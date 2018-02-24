@@ -258,14 +258,12 @@ public class XzAlipayController {
 			@RequestParam("actualPay")String actualPay,
 			@RequestParam("userId")String userId) throws Exception {
 		
-		
 		LOG.info("进入阿里h5支付-------------》");
 		
 //		OnlineUser user1 = appBrowserService.getOnlineUserByReq(request);
 //		if (user == null) {
 //			throw new RuntimeException("登录失效");
 //		}
-		
 		OnlineUser user = onlineUserService.findUserById(userId);
 		if (user == null) {
 			throw new RuntimeException("登录失效");
@@ -928,15 +926,11 @@ public class XzAlipayController {
 
 			LOG.info("orderNo:" + orderNo);
 
-			LOG.info("OnlineOrder:"
-					+ onlineOrderService
-							.getOrderAndCourseInfoByOrderNo(orderNo)
-							.getResultObject());
 
 			// LOG.info("OnlineOrder:"+onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject().getAllCourse().s);
 
 			cList = ((OnlineOrder) onlineOrderService
-					.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject())
+					.getNewOrderAndCourseInfoByOrderNo(orderNo).getResultObject())
 					.getAllCourse();
 			int cCount = cList.size();
 			if (cCount > 1) { // 多个课程 跳到订单列表
@@ -949,7 +943,7 @@ public class XzAlipayController {
 			}
 		} else {
 			cList = ((OnlineOrder) onlineOrderService
-					.getOrderAndCourseInfoByOrderNo(orderNo).getResultObject())
+					.getNewOrderAndCourseInfoByOrderNo(orderNo).getResultObject())
 					.getAllCourse();
 			int cCount = cList.size();
 			if (cCount > 1) { // 多个课程 跳到订单列表
