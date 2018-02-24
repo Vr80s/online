@@ -61,7 +61,7 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 			throw new RuntimeException("用户昵称长度在4-20之间");
 		}
 		if(StringUtils.isNotBlank(user.getEmail()) && 
-				 (user.getEmail().length()>32 || user.getName().length()<5)){
+				 (user.getEmail().length()>32 || user.getEmail().length()<5)){
 			throw new RuntimeException("邮件长度在5-32之间");
         }
 		

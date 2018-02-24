@@ -8,6 +8,8 @@ public enum MedicalExceptionEnum {
     USER_DATA_ERROR(20000,"不能修改用户信息"),
     NET_WRONG(20001,"网络异常"),
     PARAM_NOT_EMPTY(20002,"参数不能为空"),
+    DATE_FORMAT_WRONG(20003,"时间格式错误"),
+    DATE_START_IS_AFTER_END(20004,"起始时间不应大于终止时间"),
 
     // -----------------主播异常---------------------
 

@@ -25,6 +25,9 @@
 <link rel="stylesheet" href="/xcview/css/personCommon.css">
 <link rel="stylesheet" href="/xcview/css/vanish.css">
 <script type="text/javascript"  src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 
 <style type="text/css">
 .return {
@@ -79,17 +82,24 @@ $(".mailbox_right").click(function(){
 	var regEmail = /^\w+([-+.]\w+)*@\w+([-.]\w{2,})*\.\w{2,}([-.]\w{2,})*$/;
 	var email =$("#email").val();
 		if(email == ""){
-			cymYonghuInfo.show();
+			/*cymYonghuInfo.show();
 			cymYonghuInfo.html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>邮箱不能为空</div></div></div>");
-			setTimeout(function(){$(".vanish").hide();},1500);
+			setTimeout(function(){$(".vanish").hide();},1500);*/
+            webToast("邮箱不能为空","middle",3000);
 			return false;
 		}else if (email.indexOf('@') == -1 && !regEmail.test(email)) {
-			cymYonghuInfo.show();
+			/*cymYonghuInfo.show();
 			cymYonghuInfo.html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>邮箱格式不正确!</div></div></div>");
-            setTimeout(function(){$(".vanish").hide();},1500);
+            setTimeout(function(){$(".vanish").hide();},1500);*/
+            webToast("邮箱格式不正确!","middle",3000);
+            return false;
+        }else if (email.length < 5 || email.length > 32){
+            webToast("邮件长度在5-32之间","middle",3000);
+            /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
+                       + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
             return false;
         }
-	checkUser1("email");
+    checkUser1("email");
 	/* $(".person_body").removeClass('person_body1');
 	$(".attention").show();
 	$(".mailbox").hide(); */

@@ -86,7 +86,7 @@ public class MyOrderController {
 		OnlineOrder order = (OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject();
 		order.setActualPay(order.getActualPay()*10);
 		
-		return onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId);
+		return ResponseObject.newSuccessResponseObject(order);
 	}
 	
 	/**

@@ -158,7 +158,7 @@ $('.path .hospital').addClass('select');
                     setTimeout(function(){
                         $('#tip').toggle();
                         window.scrollTo(0,0);
-                        $('#hos_Administration .hos_base_inf #submit').val('重新提交')
+//                      $('#hos_Administration .hos_base_inf #submit').val('重新提交')
                     },2000)
                     
                 }

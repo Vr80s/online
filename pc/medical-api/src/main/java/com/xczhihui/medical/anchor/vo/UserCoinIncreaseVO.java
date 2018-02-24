@@ -79,4 +79,8 @@ public class UserCoinIncreaseVO implements Serializable {
      */
     private String percent;
 
+    /**
+     * 订单创建时间
+     */
+    private Date createTime;
 }

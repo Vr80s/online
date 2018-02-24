@@ -60,11 +60,12 @@
 	}
 	document.documentElement.style.fontSize=kk/7.5+"px";
 //	判断是否为游客
-	var isUserid = localStorage.userId;
-	if(isUserid == null || isUserid == ""){
-		$(".set_main_close").hide()
+	var user_cookie = cookie.get("_uc_t_");
+	if(user_cookie == null || user_cookie == ''){
+   		$(".set_main_close").hide()
 		$(".btn").hide()
-   	}	
+	}
+	
 </script>
 
 <script>
@@ -90,6 +91,10 @@
 				    localStorage.removeItem("username");
 				    localStorage.removeItem("ticket");
                 	
+				    
+				    //删除cookie
+				    cookie.delete1("_uc_t_");
+				    
                     window.location.href="my_homepage.html";
 
                 }

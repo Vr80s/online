@@ -83,14 +83,17 @@ public class TokenFilter implements Filter {
 	private static String new_controller_login_before ="/xczh/user";
 	
 	//分享的接口不拦截
-	private static String new_controller_share_before ="/xczh/share,";
+	private static String new_controller_share_before ="/xczh/share";
 	
 	//各种第三方前的登录不需要拦截
 	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third";
 	
 	//微信，支付宝支付回调、评论列表不需要拦截 -- 这个是直接等于的  
-	private static String new_controller_pay_the_callback =
-			"/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,/xczh/criticize/getCriticizeList,"
+	private static String new_controller_pay_the_callback ="/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,"
+			+ "/xczh/alipay/pay,/xczh/alipay/rechargePay";
+	
+	private static String new_controller_pay_the_callback_one =
+			"/xczh/criticize/getCriticizeList,"
 			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,"
 			+ "/xczh/common/addOpinion";
 	
@@ -278,7 +281,8 @@ public class TokenFilter implements Filter {
 	 *
 	 */
 	public static boolean useLoopContains(String[] arr,String targetValue){
-		if(new_controller_pay_the_callback.indexOf(targetValue)!=-1){
+		if(new_controller_pay_the_callback.indexOf(targetValue)!=-1
+				|| new_controller_pay_the_callback_one.indexOf(targetValue)!=-1){
 			return true;
 		}
 		int  laseIndex = targetValue.lastIndexOf("/");
