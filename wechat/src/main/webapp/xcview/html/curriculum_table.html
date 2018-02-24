@@ -303,7 +303,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 			break;
 		}
     }
-	alert(begin);
+//	alert(begin);
 	
 	var tt=new TouchSlider({
 		id:mslide,
@@ -380,14 +380,14 @@ $(".find_nav_list").on('touchmove', function (e) {
 			$(".btn_show_main_close").click(function(){
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
-				$(".btn_show_bg").hide(800);
+				$(".btn_show_bg").hide();
 			});
 			$(".all_bottom_btn1").click(function(){
 				
 				
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
-				$(".btn_show_bg").hide(800);
+				$(".btn_show_bg").hide();
 				
 				submit();
 			});
