@@ -3,8 +3,28 @@ var my_impression2="";
 var my_impression3="";
 var userLecturerId ="";
 var criticize_id = "";
+var mescroll;
 $(function(){
 
+    mescroll = new MeScroll("mescroll", {
+        down: {
+            auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+            callback: downCallback //下拉刷新的回调
+        },
+        up: {
+            auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+            isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+            callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+            toTop:{ //配置回到顶部按钮
+                src : "../images/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+                offset : 1000,
+                warpClass : "mescroll-totop" ,
+                showClass : "mescroll-fade-in" ,
+                hideClass : "mescroll-fade-out",
+                htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
+            }
+        }
+    });
 //	评论弹窗
 	$(".wrap_input").on('click',function(){
 		$(".bg_modal").show();
@@ -67,14 +87,16 @@ $(function(){
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('userLecturerId');
     userLecturerId = courseId;
-    
-	refresh()
+
+    refresh(num,10,'down');
 });
 
 //刷新评论列表
-function refresh(){
+function refresh(pageNumber,pageSize,downOrUp){
     requestService("/xczh/criticize/getCriticizeList",{
-        userId : userLecturerId
+        userId : userLecturerId,
+        pageNumber:pageNumber,
+        pageSize:pageSize
     },function(data) {
     	//  	判断有无评论显示默认图片
 		if(data.resultObject.items.length==0){
@@ -82,8 +104,18 @@ function refresh(){
 		}else{
 			$(".quie_pic").hide()
 		}
-        //	课程名称/等级/评论
-        $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+        //	判断是刷新还是加载
+        if(downOrUp=='down'){
+            $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
+            mescroll.endSuccess();
+            mescroll.lockUpScroll( false );
+            mescroll.optUp.hasNext=true;
+        }else {
+            $(".wrap_all_returned").append(template('wrap_people_comment',{items:data.resultObject.items}));
+            var backData = data.resultObject.items;
+            mescroll.endSuccess(backData.length);
+            //mescroll.endBySize(backData.length, criticizeNum);
+        }
         //	回复弹窗
         $(".wrap_returned_btn .btn_littleReturn").click(function(){
             //评论id
@@ -97,7 +129,7 @@ function refresh(){
             $(".wrapLittle_comment").hide();
         });
         //点赞
-        $(".btn_click_zan").click(function(){
+        /*$(".btn_click_zan").click(function(){
             //评论id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
@@ -113,7 +145,7 @@ function refresh(){
                 $(this).find('span').html(parseInt(p)+1);
                 updatePraise(criticize_id,true);
             }
-        });
+        });*/
 
     });
 }
@@ -121,45 +153,49 @@ function refresh(){
 function reportComment() {
 
     var comment_detailed = $('#comment_detailed').val();
-
+    if(comment_detailed==""){
+        webToast("请输入评论内容","middle",3000);
+        return
+    }
     requestService("/xczh/criticize/saveCriticize",{
         content:comment_detailed,
         userId : userLecturerId
     },function(data) {
         //	课程名称/等级/评论
-
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        //$("#wrap_playTime").html(template('data_name',data.resultObject));
-        $(".wrapAll_comment").hide();
-		$(".bg_modal").hide();
-        requestService("/xczh/criticize/getCriticizeList",{
-            userId : userLecturerId
-        },function(data) {
-            //	课程名称/等级/评论
-            $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-
-        });
+        if(data.success==true){
+            webToast("评论成功","middle",3000);
+            $(".wrapAll_comment").hide();
+            $(".bg_modal").hide();
+            document.getElementById("comment_detailed").value="";
+            refresh(1,10,'down')
+        }else{
+            webToast("评论失败","middle",3000);
+        }
     });
 }
 
 //回复评论
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
-
+    if(comment_detailed==""){
+        webToast("内容不能为空","middle",3000);
+        return
+    }
     requestService("/xczh/criticize/saveReply",{
 
         content:comment_detailed,
         criticizeId : criticize_id
     },function(data) {
         //	课程名称/等级/评论
-
-        alert(data.resultObject);
-        //	直播时间/主播名字
-        $(".bg_userModal").hide();
-        $(".wrapLittle_comment").hide();
-        document.getElementById("littlt_return").value="";
-        refresh();
+        if(data.success==true){
+            webToast("回复成功","middle",3000);
+            $(".bg_userModal").hide();
+            $(".wrapLittle_comment").hide();
+            document.getElementById("littlt_return").value="";
+            refresh(1,10,'down')
+        }else {
+            webToast("回复失败","middle",3000);
+        }
     });
 }
 
@@ -171,4 +207,40 @@ function updatePraise(id,isPraise) {
     }, function (data) {
         //	课程名称/等级/评论
     });
+}
+
+/**
+ * 点赞
+ */
+
+
+function btnClickZan(o){
+    //评论id
+    criticize_id=$(o).attr("data-id");
+    var p = $(o).find('span').html();
+    var src = $(o).find('img').attr('src');
+    if(src.indexOf("zan001")>-1){
+        $(o).find('img').attr('src','../images/zan01.png');
+        $(o).find('span').html(parseInt(p)-1);
+        updatePraise(criticize_id,false);
+    }else{
+        $(o).find('img').attr('src','../images/zan001.png');
+        $(o).find('span').html(parseInt(p)+1);
+        updatePraise(criticize_id,true);
+    }
+
+}
+
+
+var num = 1;
+/*下拉刷新的回调 */
+function downCallback(){
+    num = 1;
+    //联网加载数据
+    refresh(num,10,'down');
+}
+/*上拉加载的回调  */
+function upCallback(){
+    num++;
+    refresh(num,10,'up');
 }

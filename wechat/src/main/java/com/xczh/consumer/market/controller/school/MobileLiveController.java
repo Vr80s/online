@@ -71,9 +71,9 @@ public class MobileLiveController {
 		List<CourseLecturVo> listHf = new ArrayList<CourseLecturVo>();
 
 
-		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
+		List<Map<String,Object>> list = onlineCourseService.findLiveListInfo();
 
-		for (CourseLecturVo courseLecturVo : list) {
+		/*for (CourseLecturVo courseLecturVo : list) {
 			if("正在直播".equals(courseLecturVo.getNote())){
 				listTj.add(courseLecturVo);
 			}
@@ -86,9 +86,9 @@ public class MobileLiveController {
 			if("精彩直播回放".equals(courseLecturVo.getNote())){
 				listHf.add(courseLecturVo);
 			}
-		}
+		}*/
 
-		if(listTj.size()>0){
+		/*if(listTj.size()>0){
 			mapTj.put("title","正在直播");
 			mapTj.put("lineState","1");
 			mapTj.put("courseList",listTj);
@@ -114,9 +114,9 @@ public class MobileLiveController {
 			mapHf.put("lineState","3");
 			mapHf.put("courseList",listHf);
 			mapCourseList.add(mapHf);
-		}
+		}*/
 
-		mapAll.put("allCourseList",mapCourseList);
+		mapAll.put("allCourseList",list);
 
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}

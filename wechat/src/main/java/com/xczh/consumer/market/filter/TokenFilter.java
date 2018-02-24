@@ -172,7 +172,7 @@ public class TokenFilter implements Filter {
 			isAjax = true;
 		}
 		
-		if(true){ // 直接放行
+		if(isExcludedPage){ // 直接放行
 			chain.doFilter(request, response);
 		}else{
 			int statusFalg = 200;
@@ -191,7 +191,7 @@ public class TokenFilter implements Filter {
 	              appUniqueId= multiReq.getParameter("appUniqueId");//获取参数中的token
 	              strToken= multiReq.getParameter("token");//获取参数中的token
 	              
-	              req = multiReq;//将转化后的reuqest赋值到过滤链中的参数 *重要
+	              request = multiReq;//将转化后的reuqest赋值到过滤链中的参数 *重要
 	        }else{
 	        	  appUniqueId = request.getParameter("appUniqueId");
 	        	  strToken = request.getParameter("token");
@@ -239,6 +239,7 @@ public class TokenFilter implements Filter {
 	    			}
 		    	}  
 		    }else{ 
+		    	
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
 		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
 		    	if(code == 1000){

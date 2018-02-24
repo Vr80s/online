@@ -274,6 +274,11 @@ public class XzUserSetController {
 	public ResponseObject userInfo(HttpServletRequest request,
 			HttpServletResponse response,OnlineUserVO user)throws Exception{
 		
+		 if(!StringUtils.isNotBlank(user.getId())){
+			 return ResponseObject.newErrorResponseObject("用户id不能为空");
+		 }
+		 
+		 LOGGER.info("user.getId():"+user.getId());
          /**
           * 保存个人资料信息	
           */
