@@ -161,12 +161,6 @@ public class MobileShareController {
 			String shareType = req.getParameter("shareType");
 			String wxOrbrower = req.getParameter("wxOrbrower");
 			
-			
-			
-			
-			
-			
-			
 			if(code!=null){
 				String shareIdAndType =  req.getParameter("shareIdAndType");
 				String [] idAndType =shareIdAndType.split("_");

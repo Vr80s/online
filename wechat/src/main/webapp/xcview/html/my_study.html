@@ -130,7 +130,7 @@
 			<ul id="all_follow_people">
 				<script type="text/html" id="data_follow">
 					{{each resultObject as p}}
-						<li>
+						<li onclick="location.href='live_personal.html?userLecturerId={{p.userId}}'">
 							<div class="img_people">
 								<img src="{{p.smallHeadPhoto}}"/>
 							</div>

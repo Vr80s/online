@@ -20,12 +20,11 @@ $(function(){
 		$(".history_modal").hide();
 	})
 	$(".history_modal ul li:nth-child(2)").click(function(){
-		requestService("/xczh/history/empty",null,function(data) {
-	
-			
+		requestService("/xczh/history/empty",null,function(data) {			
 		$("#paly_history").hide()
 		$(".history_bg").hide();
 		$(".history_modal").hide();
+		location.href="my_study.html"
 		})
 		
 	})	

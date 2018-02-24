@@ -3,6 +3,7 @@ package com.xczh.consumer.market.dao;
 import com.xczh.consumer.market.utils.JdbcUtil;
 import com.xczh.consumer.market.vo.PayRecordVo;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
@@ -16,7 +17,8 @@ import java.util.List;
 @Repository
 public class PayRecordMapper extends BasicSimpleDao {
 
-	
+	@Value("${rate}")
+	private int rate;
    
 	
     public List<PayRecordVo> findByUserId(String userId,
@@ -74,21 +76,21 @@ public class PayRecordMapper extends BasicSimpleDao {
 	    	//iphone_iap	苹果内购产生的记录信息表
 	    	
 			String sql="SELECT r.* FROM "
-			+ "( SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount totalAmount "
+			+ "( SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount*"+rate+" totalAmount "
 			+ " FROM alipay_payment_record apr WHERE apr.user_id =? "
 			
-			+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount totalAmount "
+			+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.gmt_create gmtCreate, apr.total_amount*"+rate+" totalAmount "
 			+ " FROM alipay_payment_record_h5 apr WHERE apr.user_id =? "
 			
-			// 微信充值、购买、打赏记录表（现在暂无打赏）
-			+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.time_end gmtCreate,  truncate((apr.total_fee/100),2)  totalAmount "
+			// 微信充值、购买、打赏记录表（现在暂无打赏）  -- 单位是人民币
+			+ "UNION SELECT apr.out_trade_no outTradeNo, apr. SUBJECT, apr.time_end gmtCreate,truncate((apr.total_fee/100),2)*"+rate+" totalAmount "
     		+ " FROM wxcp_pay_flow apr WHERE user_id =?"
 			
-			// 所有熊猫币购买课程的记录
+			// 所有熊猫币购买课程的记录    -- 单位就是熊猫币
 			+ " union select ucc.order_no_course as outTradeNo,'购买' as `subject`,ucc.create_time gmtCreate,ucc.value totalAmount "
 			+ "from user_coin_consumption ucc where ucc.user_id=? "
 			
-			//用户送礼产生的的记录   这就就全部都是礼物了
+			//用户送礼产生的的记录   这就就全部都是礼物了    -- 单位也是熊猫币
 			+ " union select ogs.id as outTradeNo,'赠送礼物' as subject,ogs.create_time as gmtCreate,(ogs.price*ogs.price) as totalAmount "
 			+ "from oe_gift_statement ogs where ogs.giver=? "
 			
