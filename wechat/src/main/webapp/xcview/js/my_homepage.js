@@ -69,7 +69,7 @@ function myAnchor() {
     if(status==1||status==3||status==5){
         window.location.href="phy_examine.html";
     }else if(user_cookie == null || user_cookie == ''){
-        window.location.href="enter.html";         
+        window.location.href="cn_login.html.html";         
 	}else if(status==2||status==4||status==6){
         window.location.href="hos_examine.html";
     }else{

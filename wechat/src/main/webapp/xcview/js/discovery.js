@@ -21,7 +21,7 @@ if(stringnull(user_cookie)){
 function myAnchor() {
     localStorage.setItem("judgeSkip", "find");
     if(user_cookie == null || user_cookie == ''){
-        window.location.href="enter.html";         //判断是否为游客并跳转登陆界面
+        window.location.href="cn_login.html";         //判断是否为游客并跳转登陆界面
     }
     else if(status==1||status==3||status==5){
         window.location.href="phy_examine.html";
