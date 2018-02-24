@@ -38,7 +38,6 @@ public class CourseAnchor implements java.io.Serializable {
 	private String createPerson;
 	private String updatePerson;
 
-
 	private BigDecimal vodDivide;
 
 	private BigDecimal liveDivide;
@@ -48,9 +47,18 @@ public class CourseAnchor implements java.io.Serializable {
 	private BigDecimal giftDivide;
 
 	private String name;
-	private Integer isLecturer;
 
 	private String profilePhoto;
+	private String loginName;
+
+	@Transient
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 
 	@Column(name="profile_photo")
 	public String getProfilePhoto() {
@@ -59,15 +67,6 @@ public class CourseAnchor implements java.io.Serializable {
 
 	public void setProfilePhoto(String profilePhoto) {
 		this.profilePhoto = profilePhoto;
-	}
-
-	@Transient
-	public Integer getIsLecturer() {
-		return isLecturer;
-	}
-
-	public void setIsLecturer(Integer isLecturer) {
-		this.isLecturer = isLecturer;
 	}
 
 	@Column(name="vod_divide")

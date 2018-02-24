@@ -251,6 +251,9 @@ $(".right_modification").click(function() {
 			    RequestService("/medical/doctor/getHospital", "get", null, function(data) {
 			    	 $('.workHos_select').selectpicker('val',(data.resultObject.id));
 			    })
+			    
+			    //精彩致辞的选中状态
+			    $('.speech_resource').selectpicker('val',(data.resultObject.resourceId));
     
 		    	}
     			

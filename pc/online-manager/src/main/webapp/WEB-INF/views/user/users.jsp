@@ -98,20 +98,20 @@
 			</div>
 		</div>
 
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;">
-			<label class="col-sm-1 control-label no-padding-right"><i
-				class="text-danger">*</i> 手机: </label>
-			<div class="col-sm-4">
-				<input type="text" name="mobile" id="mobile"
-					class="col-xs-10 col-sm-12 {required:true,phone:[]}">
-			</div>
-			<label class="col-sm-2 control-label no-padding-right">身份证: </label>
-			<div class="col-sm-4">
-				<input type="text" name="identity" id="identity" maxlength="18"
-					class="col-xs-10 col-sm-12 {cardNo:[]}">
-			</div>
-		</div>
+		<%--<div class="space-4"></div>--%>
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			<%--<label class="col-sm-1 control-label no-padding-right"><i--%>
+				<%--class="text-danger">*</i> 手机: </label>--%>
+			<%--<div class="col-sm-4">--%>
+				<%--<input type="text" name="mobile" id="mobile"--%>
+					<%--class="col-xs-10 col-sm-12 {required:true,phone:[]}">--%>
+			<%--</div>--%>
+			<%--<label class="col-sm-2 control-label no-padding-right">身份证: </label>--%>
+			<%--<div class="col-sm-4">--%>
+				<%--<input type="text" name="identity" id="identity" maxlength="18"--%>
+					<%--class="col-xs-10 col-sm-12 {cardNo:[]}">--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="space-4"></div>
 		<div class="form-group" style="margin-top: 18px;">
 			<label class="col-sm-1 control-label no-padding-right">邮箱: </label>
@@ -132,20 +132,17 @@
 				<input type="password" name="password" id="password" maxlength="18"
 					class="col-xs-10 col-sm-12 {ENNUMUNDERLINE:[]}">
 			</div>
-			<label class="col-sm-2 control-label no-padding-right">学历: </label>
+			<%--<label class="col-sm-2 control-label no-padding-right">学历: </label>--%>
+			<%--<div class="col-sm-4">--%>
+				<%--<select class="col-sm-12" name="education" id="education">--%>
+					<%--<option value="">全部</option>--%>
+					<%--<c:forEach var="education" items="${educations}" varStatus="status">--%>
+						<%--<option value="${education.value}">${education.value}</option>--%>
+					<%--</c:forEach>--%>
+				<%--</select>--%>
+			<%--</div>--%>
+			<label class="col-sm-2 control-label no-padding-right"> 状态: </label>
 			<div class="col-sm-4">
-				<select class="col-sm-12" name="education" id="education">
-					<option value="">全部</option>
-					<c:forEach var="education" items="${educations}" varStatus="status">
-						<option value="${education.value}">${education.value}</option>
-					</c:forEach>
-				</select>
-			</div>
-		</div>
-		<div class="space-4"></div>
-		<div class="form-group" style="margin-top: 18px;">
-			<label class="col-sm-1 control-label no-padding-right"> 状态: </label>
-			<div class="col-sm-10">
 				<p style="padding-top: 5px">
 					<label style="cursor: pointer;"><input class="checkbox-align" type="radio" id="delete_false"name="delete" value="0" class="aa" checked style="cursor: pointer;">启用</label>
 					&nbsp;&nbsp;&nbsp;
@@ -153,6 +150,17 @@
 				</p>
 			</div>
 		</div>
+		<%--<div class="space-4"></div>--%>
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			<%--<label class="col-sm-1 control-label no-padding-right"> 状态: </label>--%>
+			<%--<div class="col-sm-10">--%>
+				<%--<p style="padding-top: 5px">--%>
+					<%--<label style="cursor: pointer;"><input class="checkbox-align" type="radio" id="delete_false"name="delete" value="0" class="aa" checked style="cursor: pointer;">启用</label>--%>
+					<%--&nbsp;&nbsp;&nbsp;--%>
+					<%--<label style="cursor: pointer;"><input class="checkbox-align" type="radio" id="delete_true" name="delete" value="1" style="cursor: pointer;">禁用</label>--%>
+				<%--</p>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="space-4"></div>
 		<div class="form-group" style="margin-top: 18px;">
 			<label class="col-sm-1 control-label no-padding-right"> 备注: </label>

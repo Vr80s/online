@@ -14,13 +14,13 @@ $(function() {
 		"sortable" : false,
 		"data" : "id"
 	},{
-		"title" : "用户名",
+		"title" : "用户昵称",
 		"width" : "12%",
 		"class" : "center",
 		"sortable" : false,
 		"data" : 'name'
 	},{
-		"title" : "账号",
+		"title" : "用户名",
 		"width" : "12%",
 		"class" : "center",
 		"sortable" : false,
@@ -60,7 +60,7 @@ $(function() {
 		"visible":false
 	}
 	,{
-		"title" : "登陆IP",
+		"title" : "登录IP",
 		"class" : "center",
 		"width" : "8%",
 		"sortable" : false,

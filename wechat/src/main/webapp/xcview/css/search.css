@@ -109,7 +109,7 @@ header{
 	/*height: 100%;*/
 }
 .search_hot_main_one{
-	width: 4.468rem;
+
     height: 1.149rem;
     line-height: 1.149rem;
     text-align: center;
@@ -120,6 +120,7 @@ header{
     float: left;
     margin-left: 0.57rem;
     margin-bottom: 0.638rem;
+    padding: 0 0.4rem;
 }
 /*热门搜索结束*/
 

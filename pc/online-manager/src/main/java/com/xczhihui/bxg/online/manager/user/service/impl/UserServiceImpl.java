@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	private final static String pwd = "123456";
 	private UserDao userDao;
 
 	private RoleService roleService;
@@ -69,8 +70,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void addUser(User user) {
-		if (!StringUtils.hasText(user.getPassword()) && StringUtils.hasText(user.getMobile())) {
-			user.setPassword(user.getMobile());
+		if (!StringUtils.hasText(user.getPassword())) {
+			user.setPassword(pwd);
 		}
 		this.userCenterAPI.regist(user.getLoginName(), 
 				user.getPassword(), 
@@ -256,10 +257,6 @@ public class UserServiceImpl implements UserService {
 		old.setName(user.getName());
 		old.setQq(user.getQq());
 		String pwd = user.getPassword();
-		if (!StringUtils.hasText(pwd) && !old.getMobile().equals(user.getMobile())) {
-			// 没填写密码，并且修改了手机号
-			pwd = user.getMobile();
-		}
 		if (StringUtils.hasText(pwd)) {
 			// 填写了新密码或修改了手机号
 			user.setPassword(pwd);

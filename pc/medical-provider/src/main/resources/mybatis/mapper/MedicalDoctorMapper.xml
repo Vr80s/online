@@ -85,13 +85,15 @@
 		LIMIT 0, 8
 	</select>
 
-
 	<select id="selectRecDoctor" resultType="com.xczhihui.medical.doctor.vo.MedicalDoctorVO">
 		select
 		md.*,
-		mdai.head_portrait headPortrait
+		mdai.head_portrait headPortrait,
+		mda.account_id as userId
 		from
 		medical_doctor md
+		inner join medical_doctor_account as mda
+		    on md.id =  mda.doctor_id 
 		LEFT JOIN `medical_doctor_authentication_information` mdai
 			ON md.`authentication_information_id` = mdai.`id`
 		where md.deleted = 0

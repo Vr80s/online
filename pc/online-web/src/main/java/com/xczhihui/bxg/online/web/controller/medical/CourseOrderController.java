@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 /**
  * 订单控制层
@@ -35,15 +34,14 @@ public class CourseOrderController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseObject list(HttpServletRequest request, Integer current, Integer size,
-                               String gradeName, Date startTime, Date endTime){
+                               String gradeName, String startTime, String endTime){
 
         Page<UserCoinIncreaseVO> page = new Page<>();
         page.setCurrent(current != null && current > 0 ? current : 1);
         page.setSize(size != null && size > 0 ? size : 10);
 
-//        Page<UserCoinIncreaseVO> result = courseOrderService.list(this.getCurrentUserId(request), page);
-
-        return ResponseObject.newSuccessResponseObject(courseOrderService.list(this.getCurrentUserId(request), page, gradeName, startTime, endTime));
+        return ResponseObject.newSuccessResponseObject(courseOrderService.list(this.getCurrentUserId(request), page,
+                gradeName, startTime, endTime));
     }
 
     /**
