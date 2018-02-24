@@ -666,6 +666,7 @@ public class WxPayController {
 				 * jump_type=1	跳到首页
 				 * jump_type=2	跳到我的页面
 				 */
+				
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
 				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 				//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?openId="+openid);
