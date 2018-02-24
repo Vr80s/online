@@ -5,6 +5,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorApply;
 import com.xczhihui.bxg.online.manager.medical.service.DoctorApplyService;
+import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
@@ -45,10 +46,20 @@ public class DoctorApplyController extends AbstractController{
 		int pageSize = tableVo.getiDisplayLength();
 		int index = tableVo.getiDisplayStart();
 		int currentPage = index / pageSize;
+
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);
+		Group searchStatus = groups.findByName("search_status");
+		Group searchDoctorName = groups.findByName("search_doctorName");
 
-		MedicalDoctorApply searchVo = new MedicalDoctorApply();
+        MedicalDoctorApply searchVo = new MedicalDoctorApply();
+		if (searchStatus != null) {
+			searchVo.setStatus(Integer.valueOf(searchStatus.getPropertyValue1().toString()));
+		}
+		if (searchDoctorName != null) {
+			searchVo.setName(searchDoctorName.getPropertyValue1().toString());
+		}
+
 		Page<MedicalDoctorApply> page = doctorApplyService.list(searchVo, currentPage, pageSize);
 
 		int total = page.getTotalCount();

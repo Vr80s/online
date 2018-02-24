@@ -3,7 +3,6 @@ package com.xczhihui.bxg.online.manager.medical.dao;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorApply;
 import com.xczhihui.bxg.online.manager.common.dao.HibernateDao;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -29,6 +28,15 @@ public class DoctorApplyDao extends HibernateDao<MedicalDoctorApply> {
         StringBuilder hql = new StringBuilder("select id,name,title,description," +
                 "head_portrait,title_prove,card_positive,card_negative,qualification_certificate," +
                 "professional_certificate,status,create_time,card_num,field from medical_doctor_apply where deleted = 0 ");
+
+        if(searchVo.getStatus() != null){
+            hql.append(" and status = " + searchVo.getStatus());
+        }
+
+        if(searchVo.getName() != null){
+            hql.append(" and name like '%").append(searchVo.getName()).append("%'");
+        }
+
         hql.append(" order by create_time desc ");
 
         return this.findPageBySQL(hql.toString(), paramMap, MedicalDoctorApply.class , currentPage, pageSize);
