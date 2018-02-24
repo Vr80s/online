@@ -45,7 +45,7 @@ $(function(){
       $(".add_bx").click(function(){
       teacherForm.resetForm();
       $("#loginName").removeAttr("readonly");
-      $("#password").prop("placeholder", "空为手机号");
+      $("#password").prop("placeholder", "默认为123456");
       $("#description").text("");
     	  openDialog("teacherDialog","dialogTeacherDiv","新增用户",720,510,true,"提交",function(){
     			if($("#teacher-form").valid()){

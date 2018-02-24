@@ -30,7 +30,8 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 	 public Page<CourseAnchor> findCourseAnchorPage(CourseAnchor courseAnchor, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
 		 StringBuilder sql = new StringBuilder("SELECT ca.id,\n" +
-				 "  ou.`name`,\n" +
+				 "  ca.`name`,\n" +
+				 "  ou.`login_name` loginName,\n" +
 				 "  ca.`type`,\n" +
 				 "  ca.`vod_divide`,\n" +
 				 "  ca.`live_divide`,\n" +
