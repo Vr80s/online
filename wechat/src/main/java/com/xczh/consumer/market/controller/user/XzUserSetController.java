@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.controller.live.CityController;
 import com.xczh.consumer.market.service.AppBrowserService;
@@ -273,7 +274,6 @@ public class XzUserSetController {
 	public ResponseObject userInfo(HttpServletRequest request,
 			HttpServletResponse response,OnlineUserVO user)throws Exception{
 		
-        try{
          /**
           * 保存个人资料信息	
           */
@@ -295,7 +295,9 @@ public class XzUserSetController {
      			String headImgPath = service.upload(null, //用户中心的用户ID
  				projectName, filename,contentType, bs,fileType,null);
      			LOGGER.info("文件路径——path:"+headImgPath);
-     			user.setSmallHeadPhoto(headImgPath);
+     			
+     			JSONObject cardNegativeJson = JSONObject.parseObject(headImgPath);
+     			user.setSmallHeadPhoto(cardNegativeJson.get("url").toString());
              }
           }
 
@@ -347,10 +349,6 @@ public class XzUserSetController {
               }
           }
          return ResponseObject.newSuccessResponseObject(user);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseObject.newErrorResponseObject("后台处理流程异常");
-        }
 	}
 
 	/**

@@ -124,7 +124,7 @@ function  goPay() {
    		    var params = data.resultObject;
             if(data.success){
             	
-            	alert("熊猫币购买成功！请这是跳转页面");
+            	location.href="/xcview/html/buy_prosperity.html?courseId="+getQueryString("courseId");
             }else{
               alert(data.errorMessage);
             }

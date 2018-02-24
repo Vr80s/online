@@ -64,8 +64,11 @@
 	
 	<!-- 修改用户信息  个人资料信息  -->
 	<update id="updateUserSetInfo" parameterType="com.xczhihui.wechat.course.vo.OnlineUserVO">
-		UPDATE oe_user
+		UPDATE oe_user 
 		<set>
+			<if test="user.id != null ">
+				id = #{user.id},
+			</if>
 			<if test="user.sex != null ">
 				sex = #{user.sex},
 			</if>
