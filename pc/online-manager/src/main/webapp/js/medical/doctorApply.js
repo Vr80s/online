@@ -84,11 +84,8 @@ function showDetailDialog(obj, status) {
 
 function search_P() {
     var json = new Array();
-    var status = $('#search_status').val();
-    json.push('{"tempMatchType":"0","propertyName":"status","propertyValue1":"' + status + '","tempType":"String"}');
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
-    searchButton(P_courseTable, json);
-
+    searchButton(P_courseTable,json);
 }
 
 function getLocalTime(nS) {

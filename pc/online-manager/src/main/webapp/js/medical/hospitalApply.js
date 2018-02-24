@@ -82,6 +82,15 @@ function showDetailDialog(obj, status) {
     window.location.href = basePath + '/home#medical/hospital/apply/' + aData.id;
 }
 
+/**
+ * 职业课列表搜索
+ */
+function search_P() {
+    var json = new Array();
+    json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    searchButton(P_courseTable,json);
+};
+
 
 
 function getLocalTime(nS) {
