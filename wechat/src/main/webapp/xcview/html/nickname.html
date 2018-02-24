@@ -204,14 +204,16 @@ pre:after {
                 yonghuNameLength=0;
             }
          if(nikeName == ""){
-	           cymYonghuInfo.show();
-	           $(".common0").show();
+	           /*cymYonghuInfo.show();
+	           $(".common0").show();*/
+             webToast("昵称不能为空","middle",3000);
 	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
 	                  + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
 	           return false;          
 	      }else if (yonghuNameLength > 15 || yonghuNameLength < 2){
-	          cymYonghuInfo.show();
-	          $(".common0").show();
+	          /*cymYonghuInfo.show();
+	          $(".common0").show();*/
+             webToast("长度只能在4-20个字符之间","middle",3000);
 	           /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
 	                      + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
 	                return false;
@@ -329,7 +331,7 @@ pre:after {
             <div class="both"></div>
         </div>
         <div class="pet_name_put">
-            <input type="text" name="nickname" maxlength="15" id="nickname" placeholder="请输入您的昵称" />
+            <input type="text" name="nickname" maxlength="20" id="nickname" placeholder="请输入您的昵称" />
         </div>
         <div class="both"></div>
         <div class="pet_name_bot">好名字可以让朋友更容易记住你</div>
@@ -350,4 +352,7 @@ pre:after {
 <script src="/xcview/js/iscroll-zoom.js"></script>
 <script src="/xcview/js/hammer.js"></script>
 <script src="/xcview/js/jquery.photoClip.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 </html>

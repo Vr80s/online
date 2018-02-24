@@ -141,10 +141,10 @@ $("#update_mobile_next").click(function(){
 	}
 	var code= $("#current_mobile").val();
 	if(!stringnull(code)){
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
+		/*$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
 		$("#errorMsg").show();
 		
-		setTimeout(function(){$(".vanish").hide();},1500);
+		setTimeout(function(){$(".vanish").hide();},1500);*/
 		return false;
 	}
 	var urlparm = {
@@ -170,7 +170,16 @@ $("#update_mobile_next").click(function(){
 		}
 	});
 })
-
+$('#current_mobile').keyup(function(){
+    var phone = $("#current_mobile").val();
+    if(phone==""||phone==undefined){
+        //$("#update_mobile_next").css("opacity","0.3");
+        $("#update_mobile_next").css("background","#ccc");
+    }else{
+        //$("#update_mobile_next").css("opacity","1");
+        $("#update_mobile_next").css("background","#00bc12");
+    }
+})
 
 </script>
 </html>
