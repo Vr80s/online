@@ -90,6 +90,10 @@
 				    localStorage.removeItem("username");
 				    localStorage.removeItem("ticket");
                 	
+				    
+				    //删除cookie
+				    cookie.delete1("_uc_t_");
+				    
                     window.location.href="my_homepage.html";
 
                 }

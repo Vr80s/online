@@ -263,7 +263,7 @@ public class OnlineOrderMapper extends BasicSimpleDao{
 	public List<OnlineCourse> getNewCourseByOrderId(String id) throws SQLException {
 		StringBuffer sql = new StringBuffer();
 		sql.append(" select course.id ,course.grade_name as gradeName,course.default_student_count,de.actual_pay as actualPay, ");
-		sql.append(" course.collection as collection,course.current_price as currentPrice, ");
+		sql.append(" course.collection as collection,course.current_price*10 as currentPrice, ");
 		sql.append(" IF(course.type = 1,1,if(course.type =3,4,if(course.multimedia_type=1,2,3))) as type, ");
 		sql.append(" course.live_status as  lineState, ");
 		

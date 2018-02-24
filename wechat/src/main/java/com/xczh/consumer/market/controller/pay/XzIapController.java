@@ -91,6 +91,7 @@ public class XzIapController {
      */
     @ResponseBody
     @RequestMapping("/setIapCertificate")
+    @Transactional
     public Object setIapCertificate(
     		@RequestParam("receipt")String receipt,
     		@RequestParam("userId")String userId,
@@ -159,7 +160,7 @@ public class XzIapController {
 			/*
 			 * 传递过来一个订单号
 			 */
-			ResponseObject orderDetails = onlineOrderService.getOrderAndCourseInfoByOrderNo(order_no);
+			ResponseObject orderDetails = onlineOrderService.getNewOrderAndCourseInfoByOrderNo(order_no);
     		if(null == orderDetails.getResultObject()){
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
     		}
@@ -168,6 +169,7 @@ public class XzIapController {
 			 */
     		OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
     		Double actualPrice = order.getActualPay();
+    		
     		BigDecimal  xmb = BigDecimal.valueOf(actualPrice * rate);
     		String userYE = userCoinService.getBalanceByUserId(user.getId());
     		BigDecimal ye = new BigDecimal(userYE);
@@ -187,8 +189,6 @@ public class XzIapController {
     		 * 记录下ios支付成功后的记录
     		 */
     		int orderFrom = order.getOrderFrom();
-    	/*	ResponseObject finalResult = iphoneIpaService.iapNewOrder(order.getUserId(), xmb, order_no, 
-    				actualPrice+"",courderName,orderFrom);*/
     		
     		userCoinService.updateBalanceForBuyCourse(order.getUserId(),OrderFrom.valueOf(orderFrom),xmb, order_no);
     		/*

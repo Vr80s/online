@@ -59,8 +59,8 @@
 		oc.course_detail as description,
 		oc.course_outline as courseOutline,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
-                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+                    if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) as lineState,
 		
 		
 		oc.address as address,
@@ -110,7 +110,7 @@
 		oc.course_detail as description,
 		oc.course_outline as courseOutline,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		
 		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
@@ -118,7 +118,7 @@
 		oc.city as city,
 		oc.direct_id as directId,
 		oc.subtitle as subtitle,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		IFNULL((select count(*) from oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as criticizeCount,
 
 		IFNULL((SELECT ROUND(AVG(cc.overall_level), 0) FROM oe_criticize cc where cc.status = 1 and cc.course_id = oc.id ),0) as startLevel,
@@ -145,10 +145,10 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		
 		oc.user_lecturer_id as userLecturerId,
@@ -176,10 +176,10 @@
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
                     
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 
 		oc.user_lecturer_id as userLecturerId,
@@ -217,10 +217,10 @@
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		oc.address as address,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.city as city,
 	    oc.collection as collection,
 		oc.course_number as courseNumber,
@@ -260,10 +260,10 @@
 		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
-		if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
+		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
                     if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status)),oc.live_status) AS lineState,
 		oc.address as address,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
@@ -290,7 +290,7 @@
     		DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
      	AS lineState,
 		oc.address as address,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name
@@ -317,7 +317,7 @@
     DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
      AS lineState,
 		oc.address as address,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
@@ -346,7 +346,7 @@
     		DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
     	 AS lineState,
 		oc.address as address,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
@@ -375,7 +375,7 @@
     DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
      AS lineState,
 		oc.address as address,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
@@ -408,7 +408,7 @@
     DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
      AS lineState,
 		oc.address as address,
-		oc.current_price as currentPrice,
+		oc.current_price*10 as currentPrice,
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name

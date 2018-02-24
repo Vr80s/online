@@ -50,18 +50,7 @@
 	    color: #fff;
 	}
 	
-	.pet_name_right{
-		  position: absolute;
-	    right: 0.2rem;
-	    top: 8rem;
-	    width: 95%;
-	    height: 1.7rem;
-	    background: #ccc;
-	    line-height: 1.7rem;
-	    text-align: center;
-	    border-radius: 6px;
-	    color: #fff;
-	}
+
 </style>
 </head>
 
@@ -107,9 +96,9 @@
 <script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 <script>
 
-$(".pet_name_right").click(function(){
+/*$(".pet_name_right").click(function(){
 	var newcode = document.getElementById("new_code");
-	/*先注释掉,有影响,好几个页面保存功能*/
+	/!*先注释掉,有影响,好几个页面保存功能*!/
 //	var newcodes = document.getElementById("new_code").value;
 	
 	var vtype = "";
@@ -117,10 +106,10 @@ $(".pet_name_right").click(function(){
 		number = $("#new_mobile").val();
 	
 	if (!stringnull(number)) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
+		/!*$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
 		$("#errorMsg").show();
 		
-		setTimeout(function(){$(".vanish").hide();},1500);
+		setTimeout(function(){$(".vanish").hide();},1500);*!/
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
@@ -131,10 +120,10 @@ $(".pet_name_right").click(function(){
 	}
 	var code= $("#new_code").val();
 	if(!stringnull(code)){
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
+		/!*$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>验证码不能为空</div></div></div>");
 		$("#errorMsg").show();
 		
-		setTimeout(function(){$(".vanish").hide();},1500);
+		setTimeout(function(){$(".vanish").hide();},1500);*!/
 		return false;
 	}
 	var urlparm = {
@@ -151,9 +140,30 @@ $(".pet_name_right").click(function(){
 			setTimeout(function(){$(".vanish").hide();},1500);
 		}
 	});
-});
+});*/
 
-
+$('#new_mobile').keyup(function(){
+    var phone = $("#new_mobile").val();
+    var code = $("#new_code").val();
+    if(phone==""||phone==undefined||code==""||code==undefined){
+        //$("#update_mobile_next").css("opacity","0.3");
+        $("#pet_name_right_bind").css("background","#ccc");
+    }else{
+        //$("#update_mobile_next").css("opacity","1");
+        $("#pet_name_right_bind").css("background","#00bc12");
+    }
+})
+$('#new_code').keyup(function(){
+    var phone = $("#new_mobile").val();
+    var code = $("#new_code").val();
+    if(phone==""||phone==undefined||code==""||code==undefined){
+        //$("#update_mobile_next").css("opacity","0.3");
+        $("#pet_name_right_bind").css("background","#ccc");
+    }else{
+        //$("#update_mobile_next").css("opacity","1");
+        $("#pet_name_right_bind").css("background","#00bc12");
+    }
+})
 
 </script>
 </html>

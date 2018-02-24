@@ -63,25 +63,6 @@ public class MyOrderController {
 	    }
 		return onlineOrderService.addOrder(courseId,user.getId(),orderFrom);
 	}
-	/**
-	 * 根据订单号获取信息
-	 * @param req
-	 * @param res
-	 * @param params
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "getByOrderNo")
-	@ResponseBody
-	public ResponseObject getOnlineOrderByOrderNo(HttpServletRequest req,
-			@RequestParam("orderNo") String orderNo) throws Exception{
-		
-		OnlineUser user =  appBrowserService.getOnlineUserByReq(req);
-		if(user==null){
-			return ResponseObject.newErrorResponseObject("登录失效");
-		}
-		return onlineOrderService.getOrderAndCourseInfoByOrderNo(orderNo);
-	}
 	
 	/**
 	 * 根据订单id获取信息
@@ -99,7 +80,13 @@ public class MyOrderController {
 		if(user==null){
 			return ResponseObject.newErrorResponseObject("登录失效");
 		}
-		return onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId);
+		/**
+		 * 返回给前台熊猫币
+		 */
+		OnlineOrder order = (OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject();
+		order.setActualPay(order.getActualPay()*10);
+		
+		return ResponseObject.newSuccessResponseObject(order);
 	}
 	
 	/**

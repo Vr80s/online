@@ -25,6 +25,9 @@ var type =""; //判断课程类别，支付使用
 var courseId = getQueryString('courseId');
 //传ID courseId为接口的课程ID
 
+var currentPriceXMB =""; //当前课程价格
+var xmbye =""; //用户剩余的熊猫币数量
+
 var allCourse;
 requestService("/xczh/order/getByOrderId",{
 	orderId : courseId	
@@ -32,19 +35,21 @@ requestService("/xczh/order/getByOrderId",{
 	$("#purchase_details").html(template('data_details',data.resultObject.allCourse[0]));
 	$(".purchase_list_one_right .give_price").html(data.resultObject.allCourse[0].actualPay)
 
-	var currentPriceXMB = data.resultObject.actualPay;//这时人民币
+	currentPriceXMB = data.resultObject.actualPay;//直接返回的熊猫币
 	
 	allCourse = data.resultObject.allCourse;
 	
 	orderNo =data.resultObject.orderNo;
 	//要支付的毛笔
-	$(".pay_xmb").html(currentPriceXMB*10);
+	$(".pay_xmb").html(currentPriceXMB);
 	/**
 	 * 获取熊猫币余额,判断是否显示去充值
 	 */
 	requestService("/xczh/manager/getWalletEnchashmentBalance",null,function(data) {
 		if(data.success){
-			var xmbye = data.resultObject;
+			
+			xmbye = data.resultObject;
+			
 			$("#xmb_ye").html(xmbye);
 			//判断当前购买的要消耗的熊猫币  是否大于 自己的熊猫币余额
 			if(xmbye<currentPriceXMB){
@@ -57,6 +62,43 @@ requestService("/xczh/order/getByOrderId",{
 		}
 	})
 })
+
+/**
+ * 点击支付方式--》进行切换
+ */
+var aBtn=$('#ul li');
+for(i=0;i<aBtn.length;i++){
+    $(aBtn[i]).click(function(){
+        for(i=0;i<aBtn.length;i++){
+	        $(aBtn[i]).removeClass('ul_li0');
+	        $(aBtn[i]).addClass('ul_li');
+	        $(aBtn[i]).find(".ul_li_bg").show();
+        }
+        var imgClass = $(this).find("img").attr("class");
+        if(imgClass == "BTCpanda"){
+        
+        	if(xmbye<currentPriceXMB){
+				$(".footer_div").hide();
+				$(".footer_div_btn").show();
+			}else{
+				$(".footer_div").show();
+				$(".footer_div_btn").hide();
+			}
+        	
+			$("#xmb_rmb").html(currentPriceXMB);
+        	$("#currency").html("熊猫币");
+        }else{
+        	$(".footer_div").show();
+			$(".footer_div_btn").hide();
+			$("#xmb_rmb").html(currentPriceXMB*10);
+			$("#currency").html("元");
+        }
+      	$(this).removeClass();
+      	$(this).addClass('ul_li0');
+       	$(aBtn[i]).find(".ul_li_bg").hide();
+    })
+}
+$(aBtn[0]).click();
 
 /**
  * 点击去支付
@@ -161,7 +203,7 @@ function getgetRedirectUrl(allCourse,falg){
 //	    return redirectUrl;
 //	}
 	var c=allCourse[0];
-	return "xcview/html/buy_prosperity.html?courseId="+c.id;
+	return "/xcview/html/buy_prosperity.html?courseId="+c.id;
 }
 
 

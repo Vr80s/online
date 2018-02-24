@@ -67,7 +67,7 @@ function  goPay() {
      		  //去另一个页面引导用户去外部浏览器打开
      		  //0:支付宝 1:微信 2:网银	
               location.href = "/xcview/html/wechat_alipay.html?userId="+localStorage.userId+"&actualPay="+actualPay+
-              "&redirectUrl="+getRedirectUrl(10*actualPay);
+              "&redirectUrl="+getRedirectUrl(actualPay);
               return;
           }
           jmpPayPage("/xczh/alipay/rechargePay",payType,"actualPay="+actualPay,null);
@@ -85,7 +85,7 @@ function  goPay() {
         if(stringnull(openId)){
         	strparam+="&openId="+openId;
         }
-        jmpPayPage("/xczh/pay/rechargePay",payType,strparam,getRedirectUrl(10*actualPay));
+        jmpPayPage("/xczh/pay/rechargePay",payType,strparam,getRedirectUrl(actualPay));
     }
 }
 
@@ -98,7 +98,7 @@ function getRedirectUrl(actualPay){
    /**
     * 去充值页面的几个途径
     */	
-   return "/xcviews/html/recharges.html?type=1&xmbCount="+actualPay;
+   return "/xcview/html/recharges.html?type=1&xmbCount="+actualPay;
 }
 
 
