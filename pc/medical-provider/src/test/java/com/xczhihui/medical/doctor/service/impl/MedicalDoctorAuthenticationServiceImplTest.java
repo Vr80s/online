@@ -22,7 +22,7 @@ public class MedicalDoctorAuthenticationServiceImplTest extends BaseJunit4Test {
     public void testGet(){
 
         MedicalDoctorAuthenticationInformationVO information =
-                service.selectDoctorAuthenticationVO("23908ae85dad4541ba7ecf53fc52aab2");
+                service.selectDoctorAuthenticationVO("ff80808161c0dd000161c17b63490000");
 
         Assert.assertNotNull(information);
 
