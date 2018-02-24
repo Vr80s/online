@@ -220,7 +220,7 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 	public Map<String, Object> getMedicalHospitalDetail(String medicalHospitalId) {
 		MedicalHospital mh = hospitalDao.findOneEntitiyByProperty(MedicalHospital.class, "id", medicalHospitalId);
 
-		String sql="select * from medical_hospital_picture where hospital_id = '"+medicalHospitalId+"' and deleted = 0 order by version";
+		String sql="select * from medical_hospital_picture where hospital_id = '"+medicalHospitalId+"' and deleted = 0 order by version, create_time desc";
 
 		List<MedicalHospitalPicture> voList=dao.findEntitiesByJdbc(MedicalHospitalPicture.class, sql, null);
 

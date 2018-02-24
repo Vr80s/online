@@ -24,7 +24,7 @@
 
 <div class="page-header">
 	当前位置：医师医馆<small> <i class="ace-icon fa fa-angle-double-right"></i>
-	</small> <span> 医师入驻详情---- </span>
+	</small> <span> 医师入驻详情</span>
 </div>
 
 <div class="page-main">
