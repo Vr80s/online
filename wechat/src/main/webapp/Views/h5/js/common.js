@@ -105,7 +105,7 @@ function requestService(url, param, callback, ac) {
 		async : ac,
 		success : function(msg) {
 			if(msg.code == 1002){  //过期
-				location.href = "/xcview/html/enter.html";
+				location.href = "/xcview/html/cn_login.html";
 			}else if(msg.code == 1003){ //被同一用户顶掉了
 				location.href = "/xcview/html/common.html";
 			}else{

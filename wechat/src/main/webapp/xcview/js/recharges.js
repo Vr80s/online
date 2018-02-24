@@ -27,7 +27,6 @@ var type =""; //判断课程类别，支付使用
 $(".header_return").click(function(){
 	window.history.go(-1);
 })
-
 /**
  * 点击去充值
  */
@@ -74,6 +73,7 @@ function  goPay() {
     }else if(payType==3){ //微信支付
         var btype=   localStorage.getItem("access");
         var openId=   localStorage.getItem("openid");
+        alert(openId);
         var orderForm = 3;
         if(btype=='wx'){   	//公众号
             orderForm=3;
