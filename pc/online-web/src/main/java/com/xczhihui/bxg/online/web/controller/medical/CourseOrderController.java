@@ -35,7 +35,7 @@ public class CourseOrderController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseObject list(HttpServletRequest request, Integer current, Integer size,
-                               String gradeName, Date startTime, Date endTime){
+                               String gradeName, String startTime, String endTime){
 
         Page<UserCoinIncreaseVO> page = new Page<>();
         page.setCurrent(current != null && current > 0 ? current : 1);
@@ -43,7 +43,8 @@ public class CourseOrderController {
 
 //        Page<UserCoinIncreaseVO> result = courseOrderService.list(this.getCurrentUserId(request), page);
 
-        return ResponseObject.newSuccessResponseObject(courseOrderService.list(this.getCurrentUserId(request), page, gradeName, startTime, endTime));
+        return ResponseObject.newSuccessResponseObject(courseOrderService.list(this.getCurrentUserId(request), page,
+                gradeName, startTime, endTime));
     }
 
     /**

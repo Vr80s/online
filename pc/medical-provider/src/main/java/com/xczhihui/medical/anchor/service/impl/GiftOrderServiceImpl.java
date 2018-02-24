@@ -7,10 +7,15 @@ import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.service.IGiftOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
-import org.apache.commons.lang.StringUtils;
+import com.xczhihui.medical.enums.MedicalExceptionEnum;
+import com.xczhihui.medical.exception.MedicalException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,27 +32,50 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
      * @param userId 用户id
      */
     @Override
-    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page) {
+    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page,
+                                         String gradeName, String startTime, String endTime) {
 
-        // 获取主播的信息：分成比例
-        CourseAnchor anchor = new CourseAnchor();
-        anchor.setUserId(userId);
-        CourseAnchor target = anchorMapper.selectOne(anchor);
 
-        // 获取礼物订单的课程名称，直播时间
-        List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId, page);
+        try {
 
-        // 根据直播id获取直播的礼物总价,获得总熊猫币
-        Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional =
-                Optional.ofNullable(userCoinIncreaseVOList);
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            LocalDateTime start = null, end = null;
 
-        userCoinIncreaseVOListOptional.ifPresent(userCoinIncreaseVOs ->
-                userCoinIncreaseVOs.stream()
-                        .filter(vo -> StringUtils.isNotBlank(vo.getLiveId()))
-                        .forEach(vo -> this.processUserCoinIncreaseVOList(vo, target))
-        );
+            if(StringUtils.isNotBlank(startTime)){
+                start = LocalDateTime.parse(startTime, dateTimeFormatter);
+                if(StringUtils.isNotBlank(endTime)){
+                    end = LocalDateTime.parse(endTime, dateTimeFormatter);
+                    if(end.isBefore(start)){
+                        throw new MedicalException(MedicalExceptionEnum.DATE_START_IS_AFTER_END);
+                    }
+                }
+            }
 
-        return page.setRecords(userCoinIncreaseVOList);
+            // 获取主播的信息：分成比例
+            CourseAnchor anchor = new CourseAnchor();
+            anchor.setUserId(userId);
+            CourseAnchor target = anchorMapper.selectOne(anchor);
+
+            // 获取礼物订单的课程名称，直播时间
+            List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId, page, gradeName, start, end);
+
+            // 根据直播id获取直播的礼物总价,获得总熊猫币
+            Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional =
+                    Optional.ofNullable(userCoinIncreaseVOList);
+
+            userCoinIncreaseVOListOptional.ifPresent(userCoinIncreaseVOs ->
+                    userCoinIncreaseVOs.stream()
+                            .filter(vo -> StringUtils.isNotBlank(vo.getLiveId()))
+                            .forEach(vo -> this.processUserCoinIncreaseVOList(vo, target))
+            );
+
+            return page.setRecords(userCoinIncreaseVOList);
+
+        }catch (DateTimeParseException e){
+
+            throw new MedicalException(MedicalExceptionEnum.DATE_FORMAT_WRONG);
+
+        }
     }
 
     /**

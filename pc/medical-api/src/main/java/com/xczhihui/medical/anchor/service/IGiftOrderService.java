@@ -11,7 +11,8 @@ public interface IGiftOrderService {
      * 获取用户的礼物订单列表
      * @param userId 用户id
      */
-    Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page);
+    Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page,
+                                  String gradeName, String startTime, String endTime);
 
     /**
      * 礼物订单排行榜

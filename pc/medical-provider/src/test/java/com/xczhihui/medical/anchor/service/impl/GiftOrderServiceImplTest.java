@@ -20,8 +20,16 @@ public class GiftOrderServiceImplTest extends BaseJunit4Test {
         page.setCurrent(1);
         page.setSize(3);
 
+//        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
+//                service.list("ff80808161c0dd000161c17b63490000", page, null, null, null);
+
+//        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
+//                service.list("ff80808161c0dd000161c17b63490000", page,
+//                        "测试", null, null);
+
         Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
-                service.list("23908ae85dad4541ba7ecf53fc52aab2", page);
+                service.list("ff80808161c0dd000161c17b63490000", page,
+                        null, "2018-02-29 12:12:12", null);
 
         Assert.assertNotNull(userCoinIncreaseVOS);
     }
