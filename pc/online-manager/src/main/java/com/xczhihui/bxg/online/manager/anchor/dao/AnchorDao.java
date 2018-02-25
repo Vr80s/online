@@ -27,6 +27,7 @@ import java.util.Map;
  */
 @Repository
 public class AnchorDao extends HibernateDao<CourseAnchor>{
+
 	 public Page<CourseAnchor> findCourseAnchorPage(CourseAnchor courseAnchor, int pageNumber, int pageSize){
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
 		 StringBuilder sql = new StringBuilder("SELECT ca.id,\n" +
@@ -54,6 +55,40 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 			 sql.append("and ca.type like :type ");
 		 }
 		 sql.append(" ORDER BY ca.`create_time` DESC");
+
+		 Page<CourseAnchor> courseAnchors = this.findPageBySQL(sql.toString(), paramMap, CourseAnchor.class, pageNumber, pageSize);
+
+		 return courseAnchors;
+	 }
+
+	 public Page<CourseAnchor> findCourseAnchorRecPage(CourseAnchor courseAnchor, int pageNumber, int pageSize){
+		 Map<String, Object> paramMap = new HashMap<String, Object>();
+		 StringBuilder sql = new StringBuilder("SELECT ca.id,\n" +
+				 "  ca.`name`,\n" +
+				 "  ou.`login_name` loginName,\n" +
+				 "  ca.`type`,\n" +
+				 "  ca.`vod_divide`,\n" +
+				 "  ca.`live_divide`,\n" +
+				 "  ca.`offline_divide`,\n" +
+				 "  ca.`gift_divide`,\n" +
+				 "  ca.`status`  \n" +
+				 "FROM\n" +
+				 "  `course_anchor` ca \n" +
+				 "  JOIN `oe_user` ou \n" +
+				 "    ON ca.`user_id` = ou.`id` \n" +
+				 "WHERE ca.`deleted` = 0 \n" +
+				 "  AND ou.`is_delete` = 0 \n" +
+				 "  AND ca.`is_recommend` = 1 \n" +
+				 "    ");
+		 if (courseAnchor.getName() != null) {
+			 paramMap.put("name", "%" + courseAnchor.getName() + "%");
+			 sql.append("and ou.name like :name ");
+		 }
+		 if (courseAnchor.getType()!= null) {
+			 paramMap.put("type", courseAnchor.getType() );
+			 sql.append("and ca.type like :type ");
+		 }
+		 sql.append(" ORDER BY ca.recommend_sort DESC");
 
 		 Page<CourseAnchor> courseAnchors = this.findPageBySQL(sql.toString(), paramMap, CourseAnchor.class, pageNumber, pageSize);
 

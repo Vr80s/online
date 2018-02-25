@@ -1,4 +1,5 @@
-var P_courseTable;//职业课列表
+var P_courseTable;//主播列表
+var anchorRecTable;//推荐主播列表
 var courseForm;//添加课程表单
 
 $(function() {
@@ -8,11 +9,14 @@ $(function() {
             return false;
         }
     }
-    /** 职业课列表begin */
+    /** 主播列表开始 */
     var searchCase_P = new Array();
     searchCase_P.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    var checkbox = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
     var objData = [
-        {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+        { "title": checkbox,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+            return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
+        }},{"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){
@@ -50,7 +54,134 @@ $(function() {
 
     P_courseTable = initTables("courseTable", basePath + "/anchor/courseAnchor/list", objData, true, true, 0, null, searchCase_P, function (data) {
     });
+    /**主播列表结束**/
+    /** 主播推荐列表开始 */
+    var searchCase_Rec = new Array();
+    // searchCase_Rec.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
+    var recData = [
+        {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+        {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
+        {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+            if(row.type==1){
+                return "医师";
+            }else if(row.type==2){
+                return "医馆";
+            }
+        }},
+        {"title": "点播分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'vodDivide'},
+        {"title": "直播分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'liveDivide'},
+        {"title": "线下课分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'offlineDivide'},
+        {"title": "礼物分成(%)", "class": "center", "width": "8%", "sortable": false, "data": 'giftDivide'},
+        {"title": "主播权限", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
+            if(row.status){
+                return "已开启";
+            }
+            return "已关闭";
+        }},
+        {"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
+            return '<div class="hidden-sm hidden-xs action-buttons">'+
+                '<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+                '<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+        }}];
+
+    anchorRecTable = initTables("recAnchorTable", basePath + "/anchor/courseAnchor/recList", recData, true, true, 0, null, searchCase_Rec, function (data) {
+        $("[name='upa']").each(function(index){
+            if(index == 0){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
+        $("[name='downa']").each(function(index){
+            if(index == $("[name='downa']").size()-1){
+                $(this).css("pointer-events","none").removeClass("blue").addClass("gray");
+            }
+        });
+    });
+    /**主播推荐列表结束**/
+    $(".recAnchor").click(function () {
+        debugger;
+        recAnchorTable();
+    });
+    $(".rec_P").click(function () {
+        var ids = new Array();
+        var trs = $(".dataTable tbody input[type='checkbox']:checked");
+
+        for(var i = 0;i<trs.size();i++){
+            ids.push($(trs[i]).val());
+        }
+        if(ids.length>0){
+            ajaxRequest(basePath+"/anchor/courseAnchor/updateRec",{'ids':ids.join(","),"isRec":1},function(data){
+                if(!data.success){//如果失败
+                    layer.msg(data.errorMessage);
+                }else{
+                    if(!isnull(P_courseTable)){
+                        layer.msg("推荐成功！");
+                        search_P();
+                    }
+                    layer.msg(data.errorMessage);
+                }
+            });
+        }else{
+            showDelDialog("","","请选择推荐主播！","");
+        }
+    });
 });
+
+/**
+ * 课程排序搜索
+ */
+function recAnchorTable(){
+    var json = new Array();
+    searchButton(anchorRecTable,json);
+};
+
+/**
+ * 状态修改
+ * @param obj
+ */
+function updateRec(obj){
+    var oo = $(obj).parent().parent().parent();
+    var row = _courseRecTable.fnGetData(oo); // get datarow
+    ajaxRequest(basePath+"/anchor/courseAnchor/updateRec",{"ids":row.id,"isRec":0},function(data){
+        if(data.success){
+            layer.msg("取消成功！");
+            freshTable(_courseRecTable);
+        }else{
+            layer.msg("取消失败！");
+        }
+    });
+};
+
+/**
+ * 课程排序列表上移
+ * @param obj
+ */
+function upMoveRec(obj){
+    var oo = $(obj).parent().parent().parent();
+    var aData = PX_courseTable.fnGetData(oo);
+    ajaxRequest(basePath+'/anchor/courseAnchor/upMoveRec',{"id":aData.id},function(res){
+        if(res.success){
+            freshTable(anchorRecTable);
+        }else{
+            layer.msg(res.errorMessage);
+        }
+    });
+};
+
+/**
+ * 课程排序列表下移
+ * @param obj
+ */
+function downMoveRec(obj){
+    var oo = $(obj).parent().parent().parent();
+    var aData = PX_courseTable.fnGetData(oo);
+    ajaxRequest(basePath+'/anchor/courseAnchor/downMoveRec',{"id":aData.id},function(res){
+        if(res.success){
+            freshTable(anchorRecTable);
+        }else{
+            layer.msg(res.errorMessage);
+        }
+    });
+};
 
 function toEdit(obj,status){
     var oo = $(obj).parent().parent().parent();

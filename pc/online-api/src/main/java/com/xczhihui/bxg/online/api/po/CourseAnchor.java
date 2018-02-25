@@ -51,6 +51,28 @@ public class CourseAnchor implements java.io.Serializable {
 	private String profilePhoto;
 	private String loginName;
 
+	private Integer recommendSort;
+
+	private Integer isRecommend;
+
+	@Column(name="is_recommend")
+	public Integer getIsRecommend() {
+		return isRecommend;
+	}
+
+	public void setIsRecommend(Integer isRecommend) {
+		this.isRecommend = isRecommend;
+	}
+
+	@Column(name="recommend_sort")
+	public Integer getRecommendSort() {
+		return recommendSort;
+	}
+
+	public void setRecommendSort(Integer recommendSort) {
+		this.recommendSort = recommendSort;
+	}
+
 	@Transient
 	public String getLoginName() {
 		return loginName;

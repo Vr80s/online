@@ -478,12 +478,26 @@
 </div>
 
 <div style="height: 100%;" class="clearfix">
-    <!-- Nav tabs -->
+	<!-- Nav tabs -->
+	<ul class="nav nav-tab vertical-tab" role="tablist" id="vtab">
+		<li role="presentation" class="active">
+			<a href="#home" aria-controls="home" class="zykgl_bx" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">主播管理</a>
+		</li>
+		<li role="presentation">
+			<a href="#rec" aria-controls="rec" title="1" class="recAnchor" role="tab"
+			   data-toggle="tab" style="padding-left: 0px;padding-right: 0px;">主播推荐</a>
+		</li>
+	</ul>
     <!-- Tab panes -->
     <div class="tab-content vertical-tab-content">
         <div role="tabpanel" class="tab-pane active" id="home">
         	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-
+				<p class="col-xs-4" style="padding: 0;">
+					<button class="btn btn-sm btn-success rec_P" title="设为推荐">
+						<i class="glyphicon glyphicon-cog"></i> 设为推荐
+					</button>
+				</p>
 			<div class="searchDivClass" id="searchDiv">
 			        <div class="profile-info-row" >
 			            <table frame=void >
@@ -536,6 +550,17 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="courseTable"
+							class="table table-striped table-bordered table-hover" style="width: 100%;">
+						</table>
+					</div>
+				</div>
+			</div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="rec">
+        	<div class="mainrighttab tabresourse bordernone">
+				<div class="row">
+					<div class="col-xs-12">
+						<table id="recAnchorTable"
 							class="table table-striped table-bordered table-hover" style="width: 100%;">
 						</table>
 					</div>
