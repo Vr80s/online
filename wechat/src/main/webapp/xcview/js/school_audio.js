@@ -65,13 +65,18 @@ function stripHTML(str){
             my_impression3=this.id;
         });
     });
+    
+    if(is_weixin()){
+    	$(".share_main_bg ul li:nth-child(1)").show()
+    }else{
+    	$(".share_main_bg ul li:nth-child(1)").hide()
+    }
+    
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('course_id');
     course_id = courseId;
-	//传ID courseId为接口的课程ID
-	
-	
+	//传ID courseId为接口的课程ID	
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
