@@ -20,7 +20,6 @@
 		  oe_offline_city ooc
 		WHERE ooc.status = 1
 		AND ooc.is_delete = 0
-		AND ooc.is_recommend = 1
 		ORDER BY ooc.sort desc
 
 	</select>		  
