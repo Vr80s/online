@@ -12,6 +12,8 @@ import com.xczhihui.wechat.course.model.MobileBanner;
 import com.xczhihui.wechat.course.model.MobileProject;
 import com.xczhihui.wechat.course.service.IMobileBannerService;
 import com.xczhihui.wechat.course.service.IMobileProjectService;
+import com.xczhihui.wechat.course.service.IMyInfoService;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +53,9 @@ public class MobileRecommendController {
 
 	@Autowired
 	private IMobileProjectService mobileProjectService;
+	
+	@Autowired
+	private IMyInfoService myInfoService;
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileRecommendController.class);
 	
@@ -80,11 +86,11 @@ public class MobileRecommendController {
 		mapAll.put("project",mobileProjectService.selectMobileProjectPage(MobileProjectPage,projectType));
 		
 		//名师推荐 名师推荐,没有按照排序做，或者按照这个讲师的课程数来排序呗
-		Page<MedicalDoctorVO> page = new Page<>();
-	    page.setCurrent(1);
-	    page.setSize(7);
+//		Page<MedicalDoctorVO> page = new Page<>();
+//	    page.setCurrent(1);
+//	    page.setSize(10);
 	    
-	    mapAll.put("doctorList",medicalDoctorBusinessService.selectRecDoctor());
+	    mapAll.put("doctorList",myInfoService.hostInfoRec());
 		
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
