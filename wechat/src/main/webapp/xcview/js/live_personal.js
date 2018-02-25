@@ -54,7 +54,6 @@ $(function(){
 requestService("/xczh/host/hostPageInfo",{
 	lecturerId : userLecturerId
 },function(data) {
-	
 	/**
 	 * 分享使用到的参数
 	 */
@@ -64,9 +63,6 @@ requestService("/xczh/host/hostPageInfo",{
 		smallImgPath = lecturerInfo.small_head_photo;
 		description= lecturerInfo.detail;
 	}
-	
-	
-	
 	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
 	
 //	直播头像/主播名字
