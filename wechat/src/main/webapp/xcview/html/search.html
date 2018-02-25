@@ -111,6 +111,15 @@
 </body>
 <script type="text/javascript">
 
+
+		//点击关键字查询
+		function queryKeyToList(obj){
+			
+			var queryKey = $(obj).find(".div0").text();
+			
+			location.href="../html/curriculum_table.html?queryKey="+queryKey+"";
+		}
+
 		//历史记录删除事件
 		function del(i){
 			var arrList = localStorage.hisArr.split(',');
@@ -121,11 +130,11 @@
 			}
 			var historyInf = '';
  			localStorage.hisArr.split(',').forEach(function(v,i){
-				historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+				historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
 			})
 			$('.search_history_list').html(historyInf);  
 		}
-
+		
 		//判断历史记录
 
 		
@@ -143,7 +152,7 @@
 			//渲染上
 			var historyInf = '';
 			localStorage.hisArr.split(',').forEach(function(v,i){
-				historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+				historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1" onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
 			})
 			$('.search_history_list').html(historyInf);
 			arr = localStorage.hisArr.split(',');
@@ -200,7 +209,7 @@
 			if(localStorage.hisArr!=undefined){
                 localStorage.hisArr.split(',').forEach(function(v,i){
                     if(v.split($("#header_input").val()).length>1){
-                        historyInf += '<div class="search_history_list_one"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
+                        historyInf += '<div class="search_history_list_one" onclick="queryKeyToList(this)"><div class="div0">'+v+'</div><div class="div1"  onclick="del('+i+')" data-id='+i+'>×</div><div class="both"></div></div>';
                     }
                 })
                 $('.search_history_list').html(historyInf);
@@ -213,11 +222,6 @@
 			$(".header_seek_main").css("display","none");
 		});
 
-		/*清除历史开始*/
-//		$(".search_history_title .div1").click(function(){
-//			$(".search_history_list_one").remove();
-//		});
-		/*清除历史结束*/
 </script>
 
 

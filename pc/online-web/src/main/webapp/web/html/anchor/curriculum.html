@@ -444,6 +444,21 @@
 </script>
 
 
+<!--排行榜模板-->
+<script type="text/template" id="myRanking_list_Tpl">
+	{{each records as item i}}
+	<tr>
+		<td>{{$index}}</td>
+		<td>{{item.name}}</td>
+		<td>{{item.total}}</td>
+		<td>{{item.iosBrokerageValue}}</td>
+		<td>{{item.percent}}</td>
+		<td>{{item.value}}</td>
+	</tr>
+	{{/each}}
+</script>
+
+
 <!--医馆列表-->
 	<script type="text/template" id="hosListTpl">
 		{{each item as item i}}
@@ -2295,14 +2310,14 @@
 				</div>
 				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
 				<div class="kecheng_Resive_mid">
-					<input type="text" placeholder="课程名称" class="search_classIpt"/>
+					<input type="text" placeholder="课程名称" class="search_classIpt classSearch_Name"/>
 					<select name="" class="searc_classSel">
 						<option value="-1">全部</option>
 					</select>
-					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
 					至
-					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
-					<button class="order_search_btn">搜索</button>
+					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
+					<button class="order_search_btn" onclick="searchCourseResiveList()">搜索</button>
 				</div>
 				<div class="kecheng_Resive_bottom">
 					<table>
@@ -2418,15 +2433,15 @@
 			<div  id="gift_Resive" class="hide">
 				<div class="gift_Resive_top">
 					<span class="title">礼物订单</span>
-					<a href="javascript:;" class="toRankingList">排行榜</a>
+					<a href="javascript:;" class="toRankingList hide">排行榜</a>
 				</div>
 				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
 				<div class="gift_Resive_mid">
-					<input type="text" placeholder="课程名称" class="search_classIpt"/>
-					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
+					<input type="text" placeholder="课程名称" class="search_classIpt giftSearch_Name"/>
+					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_start_time">
 					至
-					<input onclick="SetDate(this,'yyyy-MM-dd ')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_end_time">
-					<button class="order_search_btn">搜索</button>
+					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Gift_end_time">
+					<button class="order_search_btn" onclick="searchgiftResiveList()">搜索</button>
 				</div>
 				<div class="gift_Resive_bottom">
 					<table>
@@ -2478,7 +2493,7 @@
 								<td>获得熊猫币</td>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="myRanking_list">
 							<tr>
 								<td>1</td>
 								<td>稻草人</td>
@@ -2489,6 +2504,16 @@
 							</tr>
 						</tbody>
 					</table>
+					
+					<div class="pages RankingList_page">
+						<div id="Pagination_RankingList"  class="pagination-pages"></div>
+						<div class="searchPage">
+							<span class="page-sum">共<strong class="allPage">0</strong>页</span>
+							<span class="page-go">跳转<input type="text" style="width: 37px;" min="1" max="">页</span>
+							<a href="javascript:;" class="page-btn">确定</a>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>

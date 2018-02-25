@@ -49,6 +49,7 @@ function getShareId(){
 	}else if(viewHtml == "live_audio.html" || 
 			viewHtml == "live_play.html"){
 		return getQueryString("my_study");
+		
 	}else if(viewHtml == "school_audio.html"|| 
 			viewHtml == "school_play.html"|| 
 			viewHtml == "school_class.html"|| 
@@ -232,6 +233,12 @@ if(is_weixn()){
 			'showMenuItems'
 	    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 	});
+	
+	
+//    title : gradeName,/*分享标题(可选)*/
+//    summary : description,/*分享描述(可选)*/
+//    pics : smallImgPath  /*分享图片(可选)*/
+	
 	wx.ready(function () {
 		//发送到朋友
 		wx.onMenuShareAppMessage({

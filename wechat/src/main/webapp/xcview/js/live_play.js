@@ -75,6 +75,12 @@ requestService("/xczh/course/details",{
 
 
 })
+//判断普通浏览器时,去点微信分享  
+    if(is_weixin()){
+    	$(".share_to_one").show()
+    }else{
+    	$(".share_to_one").hide()
+    }
 // * videoId : 视频播放id
 // * multimediaType:媒体类型  1
 function chZJ(videoId,multimediaType){
