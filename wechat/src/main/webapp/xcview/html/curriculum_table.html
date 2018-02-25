@@ -304,6 +304,8 @@ $(".find_nav_list").on('touchmove', function (e) {
     }
 //	alert(begin);
 	
+	alert(fnl_x);
+	
 	var tt=new TouchSlider({
 		id:mslide,
 		'auto':'-1',
@@ -317,8 +319,9 @@ $(".find_nav_list").on('touchmove', function (e) {
 		as[this.p].className='';
 		this.p=index;
 		
-		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
+		var fnl_x_tmp = fnl_x;
 		
+		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
 		nav_w=$(".find_nav_list li").eq(this.p).width();
 		$(".sideline").stop(true);
 		$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
@@ -329,8 +332,11 @@ $(".find_nav_list").on('touchmove', function (e) {
 		
 		//滑动完了后调用的是这个方法
 		
-		typeQuery();
+		if(fnl_x_tmp != fnl_x){
+			
+			typeQuery();
 		
+		}
 		
 		var fn_w = ($(".find_nav").width() - nav_w) / 2;
 		var fnl_l;
