@@ -34,7 +34,13 @@ $(function() {
                 return "已开启";
             }
             return "已关闭";
-        }},
+        }},{ "title": "是否推荐", "class":"center","width":"6%","sortable":false,"data": 'isRecommend',"mRender":function (data, display, row) {
+            if(data==1){
+                return "<span name='sftj'>已推荐</span>";
+            }else{
+                return "<span name='sftj'>未推荐</span>";
+            }
+        } },
         {
             "sortable": false,
             "class": "center",
@@ -57,9 +63,12 @@ $(function() {
     /**主播列表结束**/
     /** 主播推荐列表开始 */
     var searchCase_Rec = new Array();
+    var checkboxRec = '<input type="checkbox" class="ace" onclick="chooseAll(this)" /> <span class="lbl"></span>';
     // searchCase_Rec.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
     var recData = [
-        {"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
+        { "title": checkboxRec,"class":"center","width":"5%","sortable":false,"data": 'id' ,"mRender":function(data,display,row){
+            return '<input type="checkbox" value='+data+' class="ace" /><span class="lbl"></span>';
+        }},{"title": "主播", "class": "center", "width": "10%", "sortable": false, "data": 'name'},
         {"title": "帐号", "class": "center", "width": "10%", "sortable": false, "data": 'loginName'},
         {"title": "类型", "class": "center", "width": "6%", "sortable": false, "data": 'type',"mRender": function (data, display, row) {
             if(row.type==1){
@@ -113,15 +122,34 @@ $(function() {
                 if(!data.success){//如果失败
                     layer.msg(data.errorMessage);
                 }else{
-                    if(!isnull(P_courseTable)){
-                        layer.msg("推荐成功！");
-                        search_P();
-                    }
                     layer.msg(data.errorMessage);
+                    freshTable(P_courseTable);
+                    freshTable(anchorRecTable);
                 }
             });
         }else{
             showDelDialog("","","请选择推荐主播！","");
+        }
+    });
+    $(".rec_P_cancel").click(function () {
+        var ids = new Array();
+        var trs = $(".dataTable tbody input[type='checkbox']:checked");
+
+        for(var i = 0;i<trs.size();i++){
+            ids.push($(trs[i]).val());
+        }
+        if(ids.length>0){
+            ajaxRequest(basePath+"/anchor/courseAnchor/updateRec",{'ids':ids.join(","),"isRec":0},function(data){
+                if(!data.success){//如果失败
+                    layer.msg(data.errorMessage);
+                }else{
+                    layer.msg(data.errorMessage);
+                    freshTable(P_courseTable);
+                    freshTable(anchorRecTable);
+                }
+            });
+        }else{
+            showDelDialog("","","请选择主播！","");
         }
     });
 });
@@ -134,22 +162,23 @@ function recAnchorTable(){
     searchButton(anchorRecTable,json);
 };
 
-/**
- * 状态修改
- * @param obj
- */
-function updateRec(obj){
-    var oo = $(obj).parent().parent().parent();
-    var row = _courseRecTable.fnGetData(oo); // get datarow
-    ajaxRequest(basePath+"/anchor/courseAnchor/updateRec",{"ids":row.id,"isRec":0},function(data){
-        if(data.success){
-            layer.msg("取消成功！");
-            freshTable(_courseRecTable);
-        }else{
-            layer.msg("取消失败！");
-        }
-    });
-};
+// /**
+//  * 状态修改
+//  * @param obj
+//  */
+// function updateRec(obj){
+//     var oo = $(obj).parent().parent().parent();
+//     var row = P_courseTable.fnGetData(oo); // get datarow
+//     ajaxRequest(basePath+"/anchor/courseAnchor/updateRec",{"ids":row.id,"isRec":0},function(data){
+//         if(data.success){
+//             layer.msg("取消成功！");
+//             freshTable(P_courseTable);
+//             freshTable(anchorRecTable);
+//         }else{
+//             layer.msg("取消失败！");
+//         }
+//     });
+// };
 
 /**
  * 课程排序列表上移
@@ -157,7 +186,7 @@ function updateRec(obj){
  */
 function upMoveRec(obj){
     var oo = $(obj).parent().parent().parent();
-    var aData = PX_courseTable.fnGetData(oo);
+    var aData = anchorRecTable.fnGetData(oo);
     ajaxRequest(basePath+'/anchor/courseAnchor/upMoveRec',{"id":aData.id},function(res){
         if(res.success){
             freshTable(anchorRecTable);
@@ -173,7 +202,7 @@ function upMoveRec(obj){
  */
 function downMoveRec(obj){
     var oo = $(obj).parent().parent().parent();
-    var aData = PX_courseTable.fnGetData(oo);
+    var aData = anchorRecTable.fnGetData(oo);
     ajaxRequest(basePath+'/anchor/courseAnchor/downMoveRec',{"id":aData.id},function(res){
         if(res.success){
             freshTable(anchorRecTable);

@@ -38,6 +38,7 @@ public class AnchorDao extends HibernateDao<CourseAnchor>{
 				 "  ca.`live_divide`,\n" +
 				 "  ca.`offline_divide`,\n" +
 				 "  ca.`gift_divide`,\n" +
+				 "  ca.`is_recommend` isRecommend,\n" +
 				 "  ca.`status`  \n" +
 				 "FROM\n" +
 				 "  `course_anchor` ca \n" +

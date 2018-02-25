@@ -557,6 +557,11 @@
 			</div>
         </div>
         <div role="tabpanel" class="tab-pane" id="rec">
+			<p class="col-xs-4" style="padding: 0;">
+				<button class="btn btn-sm btn-success rec_P_cancel" title="取消推荐">
+					<i class="glyphicon glyphicon-cog"></i> 取消推荐
+				</button>
+			</p>
         	<div class="mainrighttab tabresourse bordernone">
 				<div class="row">
 					<div class="col-xs-12">
