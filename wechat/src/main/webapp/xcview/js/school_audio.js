@@ -5,7 +5,11 @@ var my_impression3="";
 var course_id ="";
 var criticize_id = "";
 var LecturerId="";
-
+			
+//分享的信息
+var gradeName = "";
+var smallImgPath ="";
+var description ="";
 $(function(){
 
 function stripHTML(str){
@@ -66,6 +70,8 @@ function stripHTML(str){
 	var courseId = getQueryString('course_id');
     course_id = courseId;
 	//传ID courseId为接口的课程ID
+	
+	
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {

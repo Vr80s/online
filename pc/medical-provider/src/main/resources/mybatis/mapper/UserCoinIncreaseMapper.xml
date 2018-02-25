@@ -13,6 +13,7 @@
 		<id column="live_id" property="liveId" />
 		<id column="giver" property="giver" />
 		<id column="create_time" property="createTime" />
+		<id column="total" property="total" />
 	</resultMap>
 
 	<select id="listCourseOrder" parameterType="string" resultMap="UserCoinIncreaseVOResult">
@@ -92,6 +93,17 @@
 			AND ogs.`live_id` = #{liveId}
 	</select>
 
+	<select id="sumGiverIosBrokerageValueByLiveId" resultType="java.math.BigDecimal">
+		SELECT
+			sum(uci.`ios_brokerage_value`)
+		FROM
+			`user_coin_increase` uci
+		JOIN `oe_gift_statement` ogs
+			ON uci.`order_no_gift` = ogs.`id`
+			AND ogs.`live_id` = #{liveId}
+			AND ogs.`giver` = #{giver}
+	</select>
+
 	<select id="sumValueByCourse" parameterType="string" resultType="decimal">
 		SELECT
 		  SUM(uci.value)
@@ -124,8 +136,8 @@
 	<select id="rankGiftList" parameterType="string" resultMap="UserCoinIncreaseVOResult">
 		SELECT
 		  oc.type,
-		  ogs.`giver`,
 		  ou.`name`,
+		  ogs.giver,
 		  SUM(ogs.`price`) total
 		FROM
 		  `oe_gift_statement` ogs

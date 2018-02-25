@@ -153,7 +153,7 @@ $(function(){
 	
 	
 //	礼物收益部分排行榜切换
-
+//
 	$('.toRankingList').click(function(){
         rankcount *= -1;
 		if(rankcount == -1){
@@ -166,6 +166,7 @@ $(function(){
 		}else{
 			$(this).text('排行榜');
 			$(this).siblings('.title').text('礼物订单');
+			$(this).addClass('hide')
 			//底部列表的变化
 			$('.gift_Resive_bottom2').addClass('hide');
 			$('.gift_Resive_mid').removeClass('hide');
@@ -175,10 +176,79 @@ $(function(){
 	
 	
 	
+	
+	 
+
+	
+});
+
+	
+//	礼物收益部分排行榜切换
+	var rankcount = 1;
+	function rankList(liveId){
+	    rankcount=-1;
+	    $(".toRankingList").text('返回');
+	    $(".gift_Resive_top .title").text('排行榜');
+	    $(".toRankingList").removeClass('hide');
+	    //底部列表的变化
+	    $('.gift_Resive_mid').addClass('hide');
+	    $('.gift_Resive_bottom').addClass('hide');
+	    $('.gift_Resive_bottom2').removeClass('hide');
+	    
+	    //调用排行榜的分页
+	    getRankingList (1,liveId);
+	       
+	}
+	
+	
+	
+	//排行榜分页列表
+	
+	function getRankingList(current,liveId){
+    RequestService("/medical/order/gift/rankingList?size=10&current="+current+"&liveId="+liveId, "get", null, function(data) {
+        for(var i=0;i<data.resultObject.records.length;i++){
+            if(data.resultObject.records[i].VALUE>0){
+                data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
+            }
+        }
+        $("#myRanking_list").html(template('myRanking_list_Tpl', data.resultObject));
+        debugger
+        //每次请求完数据就去渲染分页部分
+        if (data.resultObject.pages > 1) { //分页判断
+            $(".not-data").remove();
+            $(".RankingList_page").css("display", "block");
+            $(".RankingList_page .searchPage .allPage").text(data.resultObject.pages);
+            $("#Pagination_RankingList").pagination(data.resultObject.pages, {
+                num_edge_entries: 1, //边缘页数
+                num_display_entries: 4, //主体页数
+                current_page:current-1,
+                callback: function (page) {
+                    //翻页功能
+                    getRankingList(page+1,liveId);
+                }
+            });
+        } else {
+            $(".RankingList_page").css("display", "none");
+        }
+    });
+}
+	
+	
+	
+	
 	//课程收益列表
 	getCourseResiveList (1);
-	function getCourseResiveList (current){
-    RequestService("/medical/order/course/list?size=10&current="+current, "get", null, function(data) {
+	function getCourseResiveList (current,gradeName,startTime,endTime){
+		if(gradeName == undefined){
+			gradeName = ''
+		}
+		if(startTime == undefined){
+			startTime = ''
+		}
+		if(endTime == undefined){
+			endTime = ''
+		}
+    RequestService("/medical/order/course/list?size=10&current="+current+"&gradeName="+gradeName+"&startTime="+startTime+"&endTime="+endTime, "get", null, function(data) {
         for(var i=0;i<data.resultObject.records.length;i++){
             if(data.resultObject.records[i].VALUE>0){
                 data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
@@ -197,7 +267,7 @@ $(function(){
                 current_page:current-1,
                 callback: function (page) {
                     //翻页功能
-                    getCourseResiveList(page+1);
+                    getCourseResiveList(page+1,gradeName,startTime,endTime);
                 }
             });
         } else {
@@ -205,11 +275,23 @@ $(function(){
         }
     });
 }
-	 
+	
+	
+	
+
 //	 礼物收益列表
 	getGiftResiveList (1);
-	function getGiftResiveList (current){
-    RequestService("/medical/order/gift/list?size=10&current="+current, "get", null, function(data) {
+	function getGiftResiveList (current,gradeName,startTime,endTime){
+		if(gradeName == undefined){
+			gradeName = ''
+		}
+		if(startTime == undefined){
+			startTime = ''
+		}
+		if(endTime == undefined){
+			endTime = ''
+		}
+    RequestService("/medical/order/gift/list?size=10&current="+current+"&gradeName="+gradeName+"&startTime="+startTime+"&endTime="+endTime, "get", null, function(data) {
         for(var i=0;i<data.resultObject.records.length;i++){
             if(data.resultObject.records[i].VALUE>0){
                 data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
@@ -228,7 +310,7 @@ $(function(){
                 current_page:current-1,
                 callback: function (page) {
                     //翻页功能
-                    getCourseResiveList(page+1);
+                    getGiftResiveList(page+1,gradeName,startTime,endTime);
                 }
             });
         } else {
@@ -237,14 +319,15 @@ $(function(){
     });
 }
 	
-});
-var rankcount = 1;
-function rankList(){
-    rankcount=-1;
-    $(".toRankingList").text('返回');
-    $(".gift_Resive_top .title").text('排行榜');
-    //底部列表的变化
-    $('.gift_Resive_mid').addClass('hide');
-    $('.gift_Resive_bottom').addClass('hide');
-    $('.gift_Resive_bottom2').removeClass('hide');
+//条件搜索课程列表
+function searchCourseResiveList(){
+//	console.log($('.search_classIpt').val(),$('.Order_start_time').val(),$('.Order_end_time').val())
+	getCourseResiveList (1,$('.classSearch_Name').val(),$('.Order_start_time').val(),$('.Order_end_time').val());
+}
+
+
+//条件搜索礼物列表
+function searchgiftResiveList(){
+//	console.log($('.search_classIpt').val(),$('.Order_start_time').val(),$('.Order_end_time').val())
+	getGiftResiveList (1,$('.giftSearch_Name').val(),$('.Gift_start_time').val(),$('.Gift_end_time').val());
 }
