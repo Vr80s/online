@@ -10,6 +10,7 @@ var menuTypeArray = new Array();
 var courseTypeArray = new Array();
 var cityTypeArray = new Array();
 
+
 /**
  * 默认搜索条件
  */
@@ -80,6 +81,9 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	//从新赋值
 	if(stringnull(menuType)){
 		paramsObj.menuType = menuType;
+		
+		$(".all_right_type_ones").find(".all_right_type_one").removeClass("all_right_type_one_add");
+		
 		for (var int = 0; int < menuTypeArray.length; int++) {
 			var array_element = menuTypeArray[int];
 			if(menuType == array_element.id){
@@ -110,26 +114,79 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	
 	if(stringnull(courseType)){
 		paramsObj.courseType = courseType;
+		
 		for (var int = 0; int < courseTypeArray.length; int++) {
 			var array_element = courseTypeArray[int];
 			if(courseType == array_element.id){
+				/**
+				 * 让筛选条件 ---》 变为选中
+				 */
+				$("#draw_course_big_list").find(".all_right_type_one").each(function(){
+					 var sx_courseType = $(this).attr("title");
+					 if(sx_courseType == courseType){
+						 $(this).addClass("all_right_type_one_add");
+						 return;
+					 }
+				});
+				
 				saisuanstr += array_element.name+"-";
 				break;
 			}
 		}
+		
+		
 	}
-	if(stringnull(city)){
+	if(stringnull(city) && "全国课程"!=city){
+		if(!stringnull(courseType)){
+			$("#draw_course_big_list").find(".all_right_type_one").eq(3).addClass("all_right_type_one_add");
+			saisuanstr += "线下课程"+"-";
+		}	
 		paramsObj.city = city;
 		for (var int = 0; int < cityTypeArray.length; int++) {
 			var array_element = cityTypeArray[int];
 			if(city == array_element.name){
-				saisuanstr += array_element.city+"-";
+				/**
+				 * 选中线下培训班  --》 然后在选中 所对应的城市
+				 */
+				$(".all_mold3").show();
+				
+				$(".all_right_type_twos").find(".all_right_type_one").each(function(){
+					 var sx_city = $(this).text();
+					 if(city == sx_city){
+						 $(this).addClass("all_right_type_one_add");
+						 return;
+					 }
+				})
+				saisuanstr += array_element.name+"-";
 				break;
 			}
 		}
 	}
 	if(stringnull(lineState)){
 		paramsObj.lineState = lineState;
+		
+		
+		/**
+		 * 显示直播状态 
+		 * --》选中直播课程
+		 * -->选中直播转态
+		 */
+		//显示直播状态 
+		$(".all_mold4").show();
+		
+		if(!stringnull(courseType)){
+			$("#draw_course_big_list").find(".all_right_type_one").eq(2).addClass("all_right_type_one_add");
+			saisuanstr += "直播课程"+"-";
+		}	
+		
+		$("#draw_live_status_list").find(".all_right_type_one").each(function(){
+			 var sx_lineState = $(this).attr("title");
+			 if(lineState == sx_lineState){
+				 $(this).addClass("all_right_type_one_add");
+				 return;
+			 }
+		})
+		
 		if(lineState==1){
 			saisuanstr +="直播中-";
 		}else if(lineState==2){
@@ -139,16 +196,6 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		}
 	}
 	
-	if(stringnull(lineState)){
-		paramsObj.lineState = lineState;
-		if(lineState==1){
-			saisuanstr +="直播中-";
-		}else if(lineState==2){
-			saisuanstr +="未直播-";
-		}else if(lineState==3){
-			saisuanstr +="精彩回放-";
-		}
-	}
 	
 	if(stringnull(queryKey)){
 		paramsObj.queryKey = queryKey;
@@ -171,24 +218,65 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
  * 点击确认按钮获取查询进行查询
  */
 function submit(){
-	
-//	menuType	否	Ingteger	课程所属学科menuid（传id）
-//	courseType	否	Ingteger	课程类型 1：视频 2：音频 3：直播 4：线下培训班（传id）
-//	isFree	否	Integer	是否免费 0：收费 1：免费（传id）
-//	lineState	否	Integer	直播状态1.直播中，2预告，3直播结束（传id）
-//	city	否	String	所在城市 （传城市名）
-//	queryKey	否	String	检索的关键字
 	/**
 	 * 在浏览器地址上获取课程信息
 	 */
 	var menuType = $(".all_mold0  .all_right_type_one_add").attr("title");
 	var isFree = $(".all_mold1  .all_right_type_one_add").attr("title");
 	var courseType = $(".all_mold2  .all_right_type_one_add").attr("title");
-	var city = $(".all_mold3  .all_right_type_one_add").attr("title");
+	var city = $(".all_mold3  .all_right_type_one_add").text();
 	var lineState = $(".all_mold4  .all_right_type_one_add").attr("title");
-	var submitParamsObj =  createParamsAndQuery(menuType,isFree,courseType,city,lineState);
-
-	slide(2);
+	
+	if(stringnull(menuType)){
+		paramsObj.menuType =menuType;
+	}else{
+		delete paramsObj.menuType;
+	}
+	
+	if(stringnull(isFree)){
+		 paramsObj.isFree = isFree;
+	}else{
+		delete paramsObj.isFree;
+	}
+    if(stringnull(courseType)){
+    	 paramsObj.courseType = courseType;
+	}else{
+		delete paramsObj.courseType;
+	}
+    if(stringnull(city)){
+   	    paramsObj.city = city;
+	}else{
+		delete paramsObj.city;
+	}
+    if(stringnull(lineState)){
+    	paramsObj.lineState = lineState;
+   	}else{
+   		delete paramsObj.lineState;
+   	}
+	//var submitParamsObj =  createParamsAndQuery(menuType,isFree,courseType,city,lineState);
+	/**
+	 * 判断滑动--》到第几个
+	 */
+//	$(".all_right_type_ones").find(".all_right_type_one").each(function(){
+//		 var className = $(this).attr("class");
+//		 if(className.indexOf("all_right_type_one_add")!=-1){
+//			 
+//			 return;
+//		 }
+//	});
+	
+	var begin =0;
+	var list = $(".all_right_type_ones").find(".all_right_type_one");
+	for(var i = 0; i < list.length; i++) {
+		var className = list[i].className;
+		if(className.indexOf("all_right_type_one_add")!=-1){
+			begin = i+1;
+			break;
+		}
+    }
+	slide(begin);
+	
+	
 	//queryDataByParams(submitParamsObj);
 }
 
@@ -221,9 +309,9 @@ function queryDataByParams(params,data_type){
 				var statusImg1="<img src="+statusImg+"  class='two'  />";
 				
 				var isFreeStr ="";
-				if(item.watchState == 0){
+				if(item.watchState == 1){
 					isFreeStr+="<p class='p0'><span>免费</span></p>";
-				}else if(item.watchState == 2){
+				}else if(item.watchState == 0){
 					isFreeStr+="<p class='p0'><span>"+item.currentPrice+"</span>熊猫币</p>";
 				}
 				var typeStr="";
@@ -305,17 +393,6 @@ function queryDataByParams(params,data_type){
 }
 
 /**
- * 将查询条件搞下
- */
-//createParamsAndQuery(paramsObj.menuType,paramsObj.isFree,paramsObj.courseType,
-//		paramsObj.city,paramsObj.lineState,paramsObj.queryKey);
-/**
- * 不能如果是类型的话
- */
-//queryDataByParams(paramsObj,paramsObj.menuType);
-
-
-/**
  * 这里先请求出所有的
  */
 
@@ -324,6 +401,7 @@ function typeQuery(){
     var menuType = $("[class='find_nav_cur'] a").attr("title");
     
     if((menuType ==0 && matching == 'goodCourse') || (menuType ==0 && matching == 'newCourse')){
+    	paramsObj.menuType= matching;
     	queryDataByParams(paramsObj);
     }else if(menuType!=0){
     	paramsObj.menuType= menuType;

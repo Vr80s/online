@@ -275,10 +275,11 @@ public class HospitalServiceImpl extends OnlineBaseServiceImpl implements Hospit
 					ids2.add(ids[i]);
 				}
 			}
+			
 			//已经存在的数量 +  即将添加的数量
-			if((list.size()+ids2.size()) > 10){
+			/*if((list.size()+ids2.size()) > 10){
 				return false;
-			}
+			}*/
 		}else{//如果是取消推荐
 			for(int i=0;i<ids.length;i++)
 			{

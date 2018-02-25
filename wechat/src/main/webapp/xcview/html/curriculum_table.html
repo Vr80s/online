@@ -409,26 +409,39 @@ $(".find_nav_list").on('touchmove', function (e) {
 					$(".all_mold4").show();
 				}else{
 					$(".all_mold4").hide();
+					
+					//清空直播状态
+					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
 				}
 				if(index==3){
 					$(".all_mold3").show();
 				}else{
 					$(".all_mold3").hide();	
+					
+					//清空城市
+					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
 				}
 				
 			});
+			//点击选择城市  --》清空直播状态的赛选
 			$(".all_mold3 .all_right_type_one").click(function(){
 				$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
+				
 				$(this).addClass("all_right_type_one_add");
 			});
+			
+			//点击选择直播状态  --》清空城市的赛选
+			
 			$(".all_mold4 .all_right_type_one").click(function(){
+				
 				$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
 				$(this).addClass("all_right_type_one_add");
 			});
 			
-//			点击重置
+//			点击重置   --> 清空浏览器上面的url,刷新页面
 			$(".all_bottom_btn0").click(function(){
-				$(".all_mold .all_right_type_one").removeClass("all_right_type_one_add");
+				
+			    location.href = "/xcview/html/curriculum_table.html";
 			});
 			
 			

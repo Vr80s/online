@@ -38,7 +38,7 @@ $(function(){
     //	private  int liveSource;  //直播来源  1、后台新增  2、app申请
     { "title": "直播来源", "class":"center","width":"10%","data":"liveSource","sortable":false,"mRender":function(data,display,row){
     	if(data!=null && data== 2){
-    		return "app申请";
+    		return "用户申请";
     	}else{
     		return "后台新增";
     	}

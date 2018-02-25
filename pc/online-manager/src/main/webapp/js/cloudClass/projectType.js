@@ -27,9 +27,9 @@ function loadBanner2List(){
 			return row.status=="1"?"已启用":"已禁用";
 			}
 		},
-        { "title": "启用时间", "class":"center","sortable":false,"data": 'startTime' },
+ /*       { "title": "启用时间", "class":"center","sortable":false,"data": 'startTime' },
         { "title": "关闭时间", "class":"center","sortable":false,"data": 'endTime' },
-        { "title": "点击数", "class":"center","sortable":false,"data": 'clickNum' },
+        { "title": "点击数", "class":"center","sortable":false,"data": 'clickNum' },*/
 	     {title: '排序', "class": "center", "width": "8%","height":"34px","data": 'sort', "sortable": false,"mRender":function(data, display, row){
 	        	var str;
 	        	if(row.status ==1){//如果是禁用

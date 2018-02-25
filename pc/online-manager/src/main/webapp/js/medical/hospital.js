@@ -1044,11 +1044,11 @@ $(".rec_P").click(function(){
         }
         ids.push($(trs[i]).val());
     }
-    if(ids.length > 10)
+   /* if(ids.length > 10)
     {
         showDelDialog("","","最多只能推荐10个医馆！","");
         return false;
-    }
+    }*/
 
     if(ids.length>0){
         ajaxRequest(basePath+"/medical/hospital/updateRec",{'ids':ids.join(","),"isRec":1},function(data){

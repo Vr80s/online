@@ -186,9 +186,12 @@ requestService("/xczh/live/onlineLive",null,
 	    	$(".newests").html(template('newests',{items:data.resultObject.allCourseList}))
 				/*var myHeight=$(".tjks").height();
 				$(".gieTa").height(myHeight);*/
-				var lineState=$(this).attr("lineState")
+				
 			$(".newest_title").click(function(){
-				window.location.href="curriculum_table.html?menuType="+lineState+"";				
+				
+				var lineState=$(this).attr("lineState");
+				
+				window.location.href="curriculum_table.html?lineState="+lineState+"";				
 			})
 			
 				
@@ -238,6 +241,10 @@ requestService("/xczh/bunch/listenCourse",null,
 	
  	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
 	
+ 	    	$(".lectures_title").click(function(){
+				window.location.href="curriculum_table.html?courseType=2";				
+			})
+ 	    	
 },false)
 
 //听课结束

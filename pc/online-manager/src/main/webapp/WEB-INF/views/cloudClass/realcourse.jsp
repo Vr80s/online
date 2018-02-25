@@ -518,7 +518,7 @@
 			                	<td>
 			                		<div class="profile-info-value searchTr">
 										<select name="search_city" id="search_city" value="" class="propertyValue1" >
-											<option value="">所在城市</option>
+											<option value="">所有城市</option>
 						               		<c:forEach var="city" items="${cityVo}">
 						                        <option value="${city.cityName}">${city.cityName}</option>
 						                    </c:forEach>
@@ -573,7 +573,7 @@
 									
 									<div class="profile-info-value searchTr">
 										<select name="search_city" id="search_rec" value="" class="propertyValue1" >
-											<option value="">所在城市</option>
+											<option value="">所有城市</option>
 						               		<c:forEach var="city" items="${cityVo}">
 						                        <option value="${city.cityName}">${city.cityName}</option>
 						                    </c:forEach>

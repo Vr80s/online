@@ -63,6 +63,7 @@ public class HospitalDao extends HibernateDao<MedicalHospital>{
 	}
 
 	public Page<MedicalHospital> findRecMedicalHospitalPage(MedicalHospital medicalHospital, int pageNumber, int pageSize) {
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		StringBuilder sql = new StringBuilder("select * from medical_hospital where deleted = 0 and recommend = 1");
 		if (medicalHospital.getName() != null) {

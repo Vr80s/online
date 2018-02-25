@@ -954,12 +954,13 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 
 	@Override
 	public void updateSortUpRec(Integer id) {
+		
 		// TODO Auto-generated method stub
 		 String hqlPre="from Course where  isDelete=0 and id = ?";
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getRecommendSort();
          
-         String hqlNext="from Course where recommendSort > (select recommendSort from Course where id= ? )  and isDelete=0 and online_course=1 and isRecommend = 1 order by recommendSort asc";
+         String hqlNext="from Course where recommendSort > (select recommendSort from Course where id= ? )  and isDelete=0 and type =3 and isRecommend = 1 order by recommendSort asc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getRecommendSort();
          
@@ -1027,7 +1028,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
          Course coursePre= dao.findByHQLOne(hqlPre,new Object[] {id});
          Integer coursePreSort=coursePre.getRecommendSort();
        
-         String hqlNext="from Course where recommendSort < (select recommendSort from Course where id= ? ) and isRecommend = 1 and online_course=1 and isDelete=0 order by recommendSort desc";
+         String hqlNext="from Course where recommendSort < (select recommendSort from Course where id= ? ) and isRecommend = 1 and type=3 and isDelete=0 order by recommendSort desc";
          Course courseNext= dao.findByHQLOne(hqlNext,new Object[] {id});
          Integer courseNextSort=courseNext.getRecommendSort();
          
