@@ -128,11 +128,11 @@
 	  
 	  
 	  
-	  	 <!-- 获取推荐的主播信息 -->
+	  	<!-- 获取推荐的主播信息 -->
 	  	 
 	   <select id="hostInfoRec" resultType="java.util.Map">
 			select 
-		    	ou.small_head_photo,
+		    	ou.small_head_photo as headPortrait,
 		    	ou.name,
 				ou.id as userId
 		    from 
