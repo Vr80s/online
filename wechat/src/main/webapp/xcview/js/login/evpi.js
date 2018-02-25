@@ -25,7 +25,7 @@ function time(o) {
  */
 var openId = getQueryString("openId");
 if(!stringnull(openId)){
-	openId = localStorage.getItem("openId")
+	openId = localStorage.getItem("openid")
 }
 var unionId = getQueryString("unionId");
 if(!stringnull(unionId)){

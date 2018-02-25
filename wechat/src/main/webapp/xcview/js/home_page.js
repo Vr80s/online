@@ -4,10 +4,25 @@ $(function(){
 //yx_新增
 var openId = getQueryString("openId");
 if(stringnull(openId)){
-   localStorage.setItem("openId",openId);
+   localStorage.setItem("openid",openId);
+   var userId = localStorage.getItem("userId");
+   
+   if(!stringnull(userId)){
+		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
+		var ccontrollerAddress = "/bxg/user/isLogined";
+		requestService(ccontrollerAddress, null, function(data) {
+			if (data.success) {
+				commonLocalStorageSetItem(data);
+			}else{
+				alert("网络异常");
+			}
+		},false)	
+	}
 }	
-	
-	
+
+
+
+
 //	分类渲染
 	var noNumber='<p style="font-size:15px;text-aline:center;">暂无数据</p>'
 requestService("/xczh/classify/schoolClass",null,function(data){

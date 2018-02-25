@@ -105,7 +105,7 @@ function requestService(url, param, callback, ac) {
 		async : ac,
 		success : function(msg) {
 			if(msg.code == 1002){  //过期
-				location.href = "/xcview/html/enter.html";
+				location.href = "/xcview/html/cn_login.html";
 			}else if(msg.code == 1003){ //被同一用户顶掉了
 				location.href = "/xcview/html/common.html";
 			}else{
@@ -385,7 +385,7 @@ var cookie = {
 	         var date = new Date(); //获取当前时间
 	         date.setTime(date.getTime()-10000); //将date设置为过去的时间
 	         document.cookie = key + "=v; expires =" +date.toGMTString();//设置cookie
-	         return tips;
+	         //return tips;
 	    }
 }
 

@@ -10,14 +10,36 @@
 		<meta name="description" content="" />
 		
 		<link rel="stylesheet" href="../css/all_comment.css" />
-		
-		<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 		<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+		<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+
 		<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 		<script type="text/javascript" src="../js/template.js"></script>
 		
 		<script type="text/javascript" src="../js/all_user_comment.js"></script>
+		<!--公用弹框 -->
+		<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+		<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+		<!--刷新 -->
+		<link rel="stylesheet" href="/xcview/css/mescroll.min.css">
+		<script type="text/javascript" src="../js/mescroll.min.js"></script>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				-webkit-touch-callout:none;
+				-webkit-user-select:none;
+				-webkit-tap-highlight-color:transparent;
+			}
+			/*列表*/
+			.mescroll{
+				position: fixed;
+				top: 44px;
+				bottom: 0;
+				height: auto;
+			}
+		</style>
 	</head>
 	<body style="background:#F8F8F8;">
 		<div class="wp">
@@ -31,7 +53,8 @@
 				</div>
 			</div>
 			
-		<!--评论开始-->	
+		<!--评论开始-->
+			<div id="mescroll" class="mescroll">
 			<div class="wrap_all_returned" style="margin-bottom: 1.3rem;">  <!--渲染存放盒子-->
 		<script type="text/html" id="wrap_people_comment">
 			{{each items as item i}}
@@ -98,7 +121,7 @@
 							<li class="btn_littleReturn " style="margin-left: 0.3rem;" id="{{item.id}}" >
 								<img src="../images/returned.png"/>
 							</li>
-							<li class="btn_click_zan"  data-id ="{{item.id}}"  >
+							<li class="btn_click_zan"  onclick="btnClickZan(this)" data-id ="{{item.id}}"  >
 								{{if item.isPraise }}
 								<img src="../images/zan001.png"/>&nbsp;<span id="zan001">{{item.praiseSum}}</span>
 								{{else}}
@@ -121,6 +144,7 @@
 		</div>
 			{{/each}}
 		</script>
+	</div>
 	</div>
 	<!--无评论显示的图片-->
 	<div class="quie_pic">

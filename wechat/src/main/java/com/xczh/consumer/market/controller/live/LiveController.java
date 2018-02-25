@@ -504,9 +504,9 @@ public class LiveController {
 		Map<String,Object> mapNw = new HashMap<String, Object>();
 		Map<String,Object> mapZz = new HashMap<String, Object>();
 		Map<String,Object> mapHf = new HashMap<String, Object>();
-		
-		
-		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
+
+
+		List<Map<String,Object>> list = onlineCourseService.findLiveListInfo();
 		
 		mapTj.put("title","正在直播");
 		mapTj.put("courseList",list);
@@ -524,7 +524,7 @@ public class LiveController {
 		mapCourseList.add(mapNw);
 		mapCourseList.add(mapZz);
 		mapCourseList.add(mapHf);
-		mapAll.put("allCourseList",mapCourseList);
+		mapAll.put("allCourseList",list);
 		
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}

@@ -3,9 +3,13 @@ package com.xczhihui.bxg.online.manager.medical.web;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctorApply;
 import com.xczhihui.bxg.online.common.domain.MedicalHospitalApply;
 import com.xczhihui.bxg.online.manager.medical.service.HospitalApplyService;
+import com.xczhihui.bxg.online.manager.utils.Group;
+import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
+import com.xczhihui.bxg.online.manager.utils.Tools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,7 +57,19 @@ public class HospitalApplyController extends AbstractController{
 		int index = tableVo.getiDisplayStart();
 		int currentPage = index / pageSize;
 
+		String params = tableVo.getsSearch();
+		Groups groups = Tools.filterGroup(params);
+		Group searchStatus = groups.findByName("search_status");
+		Group searchHospitalName = groups.findByName("search_hospitalName");
+
 		MedicalHospitalApply searchVo = new MedicalHospitalApply();
+		if (searchStatus != null) {
+			searchVo.setStatus(Integer.valueOf(searchStatus.getPropertyValue1().toString()));
+		}
+		if (searchHospitalName != null) {
+			searchVo.setName(searchHospitalName.getPropertyValue1().toString());
+		}
+
 		Page<MedicalHospitalApply> page = hospitalApplyService.list(searchVo, currentPage, pageSize);
 
 		int total = page.getTotalCount();

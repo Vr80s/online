@@ -16,8 +16,9 @@ public interface IGiftOrderService {
 
     /**
      * 礼物订单排行榜
+     * @param liveId 直播id
      * @param userId 用户id
      */
-    List<UserCoinIncreaseVO> sort(String userId);
+    List<UserCoinIncreaseVO> sort(String liveId, String userId);
 
 }

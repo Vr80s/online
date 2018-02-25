@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,9 @@ public class MyOrderController {
 	private WxcpWxTransService wxcpWxTransService;
 	@Autowired
 	private AppBrowserService appBrowserService;
+	
+	@Value("${rate}")
+	private int rate;
 	/**
 	 * 生成订单  	订单来源，1：pc 2：h5 3:android 4 ios 5 线下 6 工作人员
 	 * @param req
@@ -84,7 +88,7 @@ public class MyOrderController {
 		 * 返回给前台熊猫币
 		 */
 		OnlineOrder order = (OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject();
-		order.setActualPay(order.getActualPay()*10);
+		order.setActualPay(order.getActualPay()*rate);
 		
 		return ResponseObject.newSuccessResponseObject(order);
 	}

@@ -315,7 +315,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+"'全国课程' as note "
 				+" from oe_course oc "
 				+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
-				+" order by oc.sort desc  limit 0,6)";
+				+" order by oc.start_time asc  limit 0,6)";
 		if(cityList.size()>0){
 			strsql+= " union all ";
 		}
@@ -331,7 +331,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+" from oe_course oc "
 					+"where  oc.is_delete=0 and oc.status=1 and oc.type = 3 "
 					+" and oc.city = '"+offlineCity.getCityName()+"'"
-					+" order by oc.sort desc  limit 0,4)";
+					+" order by oc.start_time asc  limit 0,4)";
 			if(i < cityList.size()){
 				strsql+= " union all ";
 			}
@@ -431,7 +431,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		//学习人数、当前价格、课程类型、课程图片、讲师名、课程名字
 		
 		StringBuffer all = new StringBuffer("");
-		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 		all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
@@ -451,7 +451,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 
 		all.append("  union all ");
 		
-		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+		all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 		all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
@@ -474,7 +474,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		int i = 0;
 		for (MenuVo menuVo : listmv) {
 			i++;
-			all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+			all.append(" ( select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,oc.city as city,"
 					+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 			all.append(" if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type, ");    		//课程类型
 			all.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");

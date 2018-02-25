@@ -34,16 +34,7 @@ function chZJ(videoId,multimediaType){
 
 
 $(function(){
-//	回复弹窗
-$(".wrap_returned_btn .btn_littleReturn").click(function(){
-	$(".bg_userModal").show();
-	$(".wrapLittle_comment").show();
-	$("#littlt_return").focus()
-});
-$(".bg_userModal").click(function(){
-	$(".bg_userModal").hide();
-	$(".wrapLittle_comment").hide();
-});
+
 //	评论弹窗
 	$(".wrap_input").on('click',function(){
 		$(".bg_modal").show();
@@ -171,9 +162,7 @@ requestService("/xczh/host/hostPageCourse",{
             $(".wrap_returned_btn .btn_littleReturn").click(function(){
                 //评论id
                 criticize_id=this.id;
-                $(".bg_userModal").show();
-                $(".wrapLittle_comment").show();
-                $("#littlt_return").focus()
+                btn_user_allComment();
             });
             $(".bg_userModal").click(function(){
                 $(".bg_userModal").hide();
@@ -183,19 +172,7 @@ requestService("/xczh/host/hostPageCourse",{
             $(".btn_click_zan").click(function(){
                 //评论id
                 criticize_id=$(this).attr("data-id");
-                var p = $(this).find('span').html();
-
-                var src = $(this).find('img').attr('src');
-                if(src.indexOf("zan001")>-1){
-                    $(this).find('img').attr('src','../images/zan01.png');
-
-                    $(this).find('span').html(parseInt(p)-1);
-                    updatePraise(criticize_id,false);
-                }else{
-                    $(this).find('img').attr('src','../images/zan001.png');
-                    $(this).find('span').html(parseInt(p)+1);
-                    updatePraise(criticize_id,true);
-                }
+                btn_user_allComment();
             });
 
         });

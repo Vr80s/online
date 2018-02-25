@@ -137,7 +137,7 @@ public class IapController {
 	//                    default:
 	//                        throw new RuntimeException("productId不正确");
 	//            }
-	        	int xmb=Integer.parseInt(actualPrice)*10;
+	        	int xmb=Integer.parseInt(actualPrice)*rate;
 	            iphoneIpaService.increase(userId,xmb,resp,actualPrice);
 	            LOGGER.info("22222222222222222222222222222====================");
 	            return ResponseObject.newSuccessResponseObject(null);

@@ -30,7 +30,17 @@ public class HospitalApplyDao extends HibernateDao<MedicalHospitalApply> {
         StringBuilder hql = new StringBuilder("select id,company,business_license_no," +
                 "business_license_picture,status,name," +
                 "license_for_pharmaceutical_trading,license_for_pharmaceutical_trading_picture," +
-                "create_time from medical_hospital_apply where deleted = 0 order by create_time desc");
+                "create_time from medical_hospital_apply where deleted = 0 ");
+
+        if(searchVo.getStatus() != null){
+            hql.append(" and status = " + searchVo.getStatus());
+        }
+
+        if(searchVo.getName() != null){
+            hql.append(" and name like '%").append(searchVo.getName()).append("%'");
+        }
+
+        hql.append(" order by create_time desc ");
 
         Page<MedicalHospitalApply> page =  this.findPageBySQL(hql.toString(), paramMap, MedicalHospitalApply.class, currentPage, pageSize);
 

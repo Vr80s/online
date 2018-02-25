@@ -47,8 +47,7 @@ function getShareId(){
 		return getQueryString("userLecturerId");
 		
 	}else if(viewHtml == "live_audio.html" || 
-			viewHtml == "live_audio.html"){
-		
+			viewHtml == "live_play.html"){
 		return getQueryString("my_study");
 	}else if(viewHtml == "school_audio.html"|| 
 			viewHtml == "school_play.html"|| 

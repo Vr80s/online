@@ -1171,8 +1171,8 @@ header{
 .boutique_main_one_size .p3 span{
     /*float: right;*/
 	color: #999999;
-	margin-top: -0.1rem;
-
+    margin-top: 0.03rem;
+    float: left;
 }
 .boutique_main_one_size .p4{
 	margin-top: 0.01rem;
@@ -1648,7 +1648,7 @@ header{
 }
 .newest_main_two_size .p3{
 	height: 0.51rem;
-	width: 1.9rem;
+	width: 2.3rem;
     float: left;
     line-height: 0.51rem;
 }

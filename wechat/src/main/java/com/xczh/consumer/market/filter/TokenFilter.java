@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.utils.HttpUtil;
@@ -31,6 +33,8 @@ import com.xczh.consumer.market.wxpay.consts.WxPayConst;
  */
 public class TokenFilter implements Filter {
 	
+	
+	 private CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 	
 	/*
 	 * 注册、忘记密码等不需要拦截：
@@ -141,23 +145,15 @@ public class TokenFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		
-
-		
 		request.setCharacterEncoding("UTF-8");
 		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
 
 		boolean isExcludedPage = false;   
 		String currentURL = request.getRequestURI(); // 取得根目录所对应的绝对路径:
-		
 		/**
 		 * 开发的时候用这个
 		 */
-//		if(Arrays.asList(appExcludedPageArray).contains(currentURL) 
-//				|| currentURL.indexOf("xczh")!=-1){
-//			     isExcludedPage = true;     
-//		}
 		System.out.println("欢迎欢迎，"+currentURL);
 		/**
 		 * 测试和生产用这个
@@ -166,7 +162,6 @@ public class TokenFilter implements Filter {
 				useLoopContains(newInterfaceFilter, currentURL)){
 			     isExcludedPage = true;     
 		}
-		
 		System.out.println("isExcludedPage，"+isExcludedPage);
 		/**
 		 * 拦截ajax请求
@@ -176,7 +171,7 @@ public class TokenFilter implements Filter {
                  && "XMLHttpRequest".equalsIgnoreCase(request.getHeader("x-requested-with"))) {   
 			isAjax = true;
 		}
-
+		
 		if(isExcludedPage){ // 直接放行
 			chain.doFilter(request, response);
 		}else{
@@ -185,9 +180,22 @@ public class TokenFilter implements Filter {
 			 * 如果是app的话也需要拦截，因为拦截需要验证下时候是否在其他客户端登录
 			 */
 			String appUniqueId = (String) request.getAttribute("appUniqueId");
-			if(appUniqueId==null){
-				appUniqueId = request.getParameter("appUniqueId");
-			}
+			String strToken = (String) request.getAttribute("token");
+			String contentType = request.getContentType();//获取请求的content-type
+			if(StringUtils.isNotBlank(contentType) && contentType.contains("multipart/form-data")){//文件上传请求 *特殊请求
+                  /*
+	　　　　　　　　　　　CommonsMultipartResolver 是spring框架中自带的类，使用multipartResolver.resolveMultipart(final HttpServletRequest request)方法可以将request转化为MultipartHttpServletRequest
+	　　　　　　　　　　　使用MultipartHttpServletRequest对象可以使用getParameter(key)获取对应属性的值
+	　　　　　　　　　　 */
+	              MultipartHttpServletRequest multiReq = multipartResolver.resolveMultipart(request);
+	              appUniqueId= multiReq.getParameter("appUniqueId");//获取参数中的token
+	              strToken= multiReq.getParameter("token");//获取参数中的token
+	              
+	              request = multiReq;//将转化后的reuqest赋值到过滤链中的参数 *重要
+	        }else{
+	        	  appUniqueId = request.getParameter("appUniqueId");
+	        	  strToken = request.getParameter("token");
+	        }
 			System.out.println("appUniqueId，"+appUniqueId);
 			/*
 			 * 说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
@@ -232,8 +240,6 @@ public class TokenFilter implements Filter {
 		    	}  
 		    }else{ 
 		    	
-	    		String strToken = (String) request.getAttribute("token");
-	 		    strToken = request.getParameter("token");
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
 		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
 		    	if(code == 1000){

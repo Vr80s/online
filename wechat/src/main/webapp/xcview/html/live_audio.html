@@ -55,7 +55,9 @@
 			<div class="wrap_grade">
 				<ul class="grade_pic z">
 					<li>
-						{{if startLevel == 0.5}}
+						{{if startLevel == 0 || startLevel == null}}
+						<img src="../images/xing0.png"/>
+						{{else if startLevel == 0.5}}
 						<img src="../images/xing0_5.png"/>
 						{{else if startLevel == 1}}
 						<img src="../images/xing1_0.png"/>

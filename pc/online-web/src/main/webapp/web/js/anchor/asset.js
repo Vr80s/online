@@ -81,6 +81,13 @@ function getRmbTransactionList (current){
             }
         }
         $("#rmb_transaction_list").html(template('rmb_transaction_list_tpl', data.resultObject));
+
+		//银行卡处理
+        for(var i = 0;i < $('.bankCard').length;i++){
+        	if($('.bankCard').eq(i).text() != '—'){
+        		$('.bankCard').eq(i).text(stringHidePart2($('.bankCard').eq(i).text().trim())) 
+        	}
+        }
         debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
@@ -101,6 +108,25 @@ function getRmbTransactionList (current){
         }
     });
 }
+
+
+//银行卡账号处理
+ function stringHidePart2(strObj){
+            var strLength = strObj.length;
+            var star = ''; 
+            var strRel = '';
+            if(strLength>3){
+                var hideSec = strObj.substring(3);    //星号部分
+                for(var i=4;i<hideSec.length;i++){
+                    star+= "*";
+                }
+            };
+            strRel = strObj.substring(0,3) + star + strObj.substr(strObj.length-4);
+            // strRel=strRel.replace(/\s/g,'').replace(/(.{4})/g,"$1 ");
+
+            return strRel;
+        };
+
 
 function getBankList (){
     if(bankList == null){

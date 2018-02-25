@@ -183,18 +183,23 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
 
             // 新增-新的医馆照片
             List<String> hospitalPictureUrlList = medicalHospital.getPictures();
-            List<MedicalHospitalPicture> hospitalPictures = hospitalPictureUrlList.stream()
-                    .filter(hospitalPictureUrl -> StringUtils.isNotBlank(hospitalPictureUrl))
-                    .map(hospitalPictureUrl -> {
-                        MedicalHospitalPicture hospitalPicture = new MedicalHospitalPicture();
-                        hospitalPicture.setId(UUID.randomUUID().toString().replace("-",""));
-                        hospitalPicture.setHospitalId(medicalHospital.getId());
-                        hospitalPicture.setPicture(hospitalPictureUrl);
-                        hospitalPicture.setDeleted(false);
-                        hospitalPicture.setStatus(true);
-                        hospitalPicture.setCreateTime(now);
-                        return hospitalPicture;
-                    }).collect(Collectors.toList());
+
+            Integer version = 1;  // 用于图片的排序
+            List<MedicalHospitalPicture> hospitalPictures = new ArrayList<>();
+            for(String hospitalPictureUrl :hospitalPictureUrlList){
+                if(StringUtils.isNotBlank(hospitalPictureUrl)){
+                    MedicalHospitalPicture hospitalPicture = new MedicalHospitalPicture();
+                    hospitalPicture.setId(UUID.randomUUID().toString().replace("-",""));
+                    hospitalPicture.setHospitalId(medicalHospital.getId());
+                    hospitalPicture.setPicture(hospitalPictureUrl);
+                    hospitalPicture.setDeleted(false);
+                    hospitalPicture.setStatus(true);
+                    hospitalPicture.setCreateTime(now);
+                    hospitalPicture.setVersion((version++).toString());
+                    hospitalPictures.add(hospitalPicture);
+                }
+            }
+
 
             if(CollectionUtils.isNotEmpty(hospitalPictures)){
                 hospitalPictureMapper.insertBatch(hospitalPictures);
@@ -266,10 +271,5 @@ public class MedicalHospitalBusinessServiceImpl extends ServiceImpl<MedicalHospi
         if(StringUtils.isBlank(medicalHospital.getCity())){
             throw new RuntimeException("请填写医馆所在城市");
         }
-
-//        if(StringUtils.isBlank(medicalHospital.getDetailedAddress())){
-//            throw new RuntimeException("请填写医馆详细地址");
-//        }
-
     }
 }

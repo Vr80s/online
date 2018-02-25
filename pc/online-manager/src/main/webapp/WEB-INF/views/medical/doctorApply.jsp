@@ -484,48 +484,112 @@
 	</ul>
 
     <!-- Tab panes -->
-    <div class="tab-content vertical-tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">
-        	<div class="mainrighttab tabresourse bordernone" id="courseDiv">
-			
+	<div class="tab-content vertical-tab-content">
+		<div role="tabpanel" class="tab-pane active" id="home">
+			<div class="mainrighttab tabresourse bordernone" id="courseDiv">
 				<div class="searchDivClass" id="searchDiv">
-			        <div class="profile-info-row" >
-			            <table frame=void >
-			                <tr>
-			                    <td>
-			                       <div class="profile-info-value searchTr">
-									   <select name="status" id="search_status" value="" class="propertyValue1" >
-										   <option value="">认证状态</option>
-										   <option value="1">已通过</option>
-										   <option value="0">未通过</option>
-										   <option value="2">待审核</option>
-						               </select>
-									   <input type="hidden" value="search_status" class="propertyName"/>
-			                        </div>
-			                    </td>
-			                    <td>
-			                        <button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
-			                                onclick="search_P();">
+					<div class="profile-info-row" >
+						<table frame=void >
+							<tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<input type="text" placeholder = "医师名" class="propertyValue1" id="search_doctorName" style="width: 150px;">
+										<input type="hidden" value="search_doctorName" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_status" id="search_status" value="" class="propertyValue1" >
+											<option value="">是否启用</option>
+											<option value="1">已认证</option>
+											<option value="0">未通过</option>
+											<option value="2">待审核</option>
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<button id="searchBtn" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_P();">
 										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
-			                        </button>
-			                    </td>
-			                </tr>
-			            </table>
-			        </div>
-			    </div>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-xs-12">
 						<table id="courseTable"
-							class="table table-striped table-bordered table-hover" style="width: 100%;">
+							   class="table table-striped table-bordered table-hover" style="width: 100%;">
 						</table>
 					</div>
 				</div>
 			</div>
-        </div>
+		</div>
 		<div role="tabpanel" class="tab-pane" id="box_px">
 			<div class="mainrighttab tabresourse bordernone" id="courseDiv_PX" >
 				<div class="searchDivClass" id="searchDiv_PX">
 					<div class="profile-info-row" >
+						<%--<table frame=void >
+							<tr>
+								<td>
+									<div class="profile-info-value searchTr">
+										<input type="hidden" class="propertyValue1" value="${type}" style="width: 150px;">
+										<input type="hidden" value="type" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_service_type" id="search_service_type_PX" value="" class="propertyValue1" >
+											<option value="">业务类别</option>
+											<option value="1">微课</option>
+											<option value="0">职业课</option>
+										</select>
+										<input type="hidden" value="search_service_type" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="menuName" id="search_menu_PX" value="" class="propertyValue1"  >
+											<option value="">学科</option>
+											<c:forEach var="menus" items="${menuVo}">
+												<option value="${menus.id}">${menus.name}</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" value="search_menu" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="courseTypeId" id="search_scoreType_PX" value="" class="propertyValue1" >
+											<option value="">课程类别</option>
+											<c:forEach var="scoreTypes" items="${scoreTypeVo}">
+												<option value="${scoreTypes.id}">${scoreTypes.name}</option>
+											</c:forEach>
+										</select>
+										<input type="hidden" value="search_scoreType" class="propertyName"/>
+									</div>
+								</td>
+
+								<td>
+									<div class="profile-info-value searchTr">
+										<select name="search_status" id="search_status_PX" value="" class="propertyValue1" >
+											<option value="">课程状态</option>
+											<option value="1">已启用</option>
+											<option value="0">已禁用</option>
+										</select>
+										<input type="hidden" value="search_status" class="propertyName"/>
+									</div>
+								</td>
+								<td>
+									<button id="searchBtn_PX" type="button" class="btn btn-sm  btn-primary "
+											onclick="search_PX();">
+										<i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+									</button>
+								</td>
+							</tr>
+						</table>--%>
 					</div>
 				</div>
 				<div class="row">
@@ -533,14 +597,14 @@
 						<table id="courseTable_PX"
 							   class="table table-striped table-bordered table-hover">
 							<colgroup>
+								<col width='3%'></col>
 								<col width='5%'></col>
-								<col width='12%'></col>
-								<col width='10%'></col>
-								<col width='12%'></col>
 								<col width='8%'></col>
 								<col width='8%'></col>
 								<col width='8%'></col>
-								<col width='10%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
+								<col width='8%'></col>
 								<col width='8%'></col>
 								<col width='10%'></col>
 							</colgroup>
@@ -549,7 +613,7 @@
 				</div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 
 <script type="text/javascript" src="${base}/js/medical/provinces.js?v=ipandatcm_1.3"></script>

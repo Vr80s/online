@@ -56,7 +56,7 @@ public class UserCoinServiceImpl implements UserCoinService {
             throw new RuntimeException(userId + "--用户账户不存在！");
         }
         BigDecimal balanceTotal = uc.getBalance().add(uc.getBalanceGive());
-        return balanceTotal.setScale(0, BigDecimal.ROUND_DOWN).toString();
+        return balanceTotal.setScale(2, BigDecimal.ROUND_DOWN).toString();
     }
 
     @Override
@@ -65,7 +65,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         if (uc == null) {
             throw new RuntimeException(userId + "--用户账户不存在！");
         }
-        String settlementBalance = uc.getBalanceRewardGift().setScale(0, BigDecimal.ROUND_DOWN).toString();
+        String settlementBalance = uc.getBalanceRewardGift().setScale(2, BigDecimal.ROUND_DOWN).toString();
         return settlementBalance;
     }
 

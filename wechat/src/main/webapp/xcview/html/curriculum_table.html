@@ -40,20 +40,13 @@
 			    <div class="find_nav_left">
 			        <div class="find_nav_list" style="left: 0px;">
 			            <ul id="pagenavi1">
-			                <!-- <li class="find_nav_cur"><a href="javascript: ;" class="">全部</a></li> -->
-			                <!-- <li><a href="javascript: ;">各式推拿</a></li>
-			                <li><a href="javascript: ;">针灸疗法</a></li>
-			                <li><a href="javascript: ;">美容养生</a></li>
-			                <li><a href="javascript: ;">按摩按摩</a></li>
-			                <li><a href="javascript: ;">推拿推拿</a></li> -->
-			                <!-- <li class="sideline" style="left: 0px; width: 96px;"></li> -->
 			            </ul>
 			        </div>
 			    </div>
 			</div>
 		</div>
 	</div>
-	<div class="hint" style="display:none;">
+	<div class="hint">
 		筛选：<span id="sxtj"></span>
 	</div>
 	<div id="slider1" class="swipe" style="overflow: hidden; visibility: visible; list-style: none; position: relative;">
@@ -281,9 +274,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 	var as=$("#" + page + "").find("a");
 	var begin='';
 	
-	//获取分类的ID跳转滑到对应的tap页
-	var matching = getQueryString('menuType');
-	
+	//根据上面的参数进行定义---》获取分类的ID跳转滑到对应的tap页
 	
 	for (var int = 0; int < menuTypeArray.length; int++) {
 		if(menuTypeArray[int].id == matching){
@@ -354,6 +345,11 @@ $(".find_nav_list").on('touchmove', function (e) {
 
 	tt.slide(begin, 600);
 
+	function slide(begin){
+		tt.slide(begin, 600);
+	}
+	
+	
 	//console.dir(tt); console.dir(tt.__proto__);
 
 	for(var i=0;i<as.length;i++){
