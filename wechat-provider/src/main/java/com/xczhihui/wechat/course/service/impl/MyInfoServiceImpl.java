@@ -78,4 +78,10 @@ public class MyInfoServiceImpl extends ServiceImpl<MyInfoMapper,OnlineUser> impl
 	public Integer getUserHostPermissions(String userId) {
 		return myInfoMapper.getUserHostPermissions(userId);
 	}
+
+	@Override
+	public List<Map<String, Object>> hostInfoRec() {
+		
+		return myInfoMapper.hostInfoRec();
+	}
 }

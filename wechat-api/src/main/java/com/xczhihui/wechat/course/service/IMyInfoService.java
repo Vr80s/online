@@ -60,4 +60,14 @@ public interface IMyInfoService {
      *
      */
 	Integer getUserHostPermissions(String id);
+	
+	/**
+	 * 
+	 * Description：获取推荐的主播医师
+	 * @return
+	 * @return List<Map<String,String>>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	List<Map<String,Object>> hostInfoRec();
 }
