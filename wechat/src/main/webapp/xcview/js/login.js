@@ -18,7 +18,7 @@ if(stringnull(error)){
 /**
  * 是否显示第三方登录啦
  */
-if (isWeiXin()) {
+if (is_weixin()) {
 	console.log(" 是来自微信内置浏览器")
 	wxOrbrower = "wx";
 } else {
