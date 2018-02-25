@@ -100,7 +100,12 @@ function stripHTML(str){
 	}
 })
 	
-	
+//判断普通浏览器时,去点微信分享  
+    if(is_weixin()){
+    	$(".share_to_one").show()
+    }else{
+    	$(".share_to_one").hide()
+    }	
 	
 	
 //	请求视频代码

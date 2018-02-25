@@ -71,7 +71,12 @@ function stripHTML(str){
     refresh();
 
 });
-
+//判断普通浏览器时,去点微信分享  
+    if(is_weixin()){
+    	$(".share_to_one").show()
+    }else{
+    	$(".share_to_one").hide()
+    }
 
 //刷新评论列表
 function refresh(){
