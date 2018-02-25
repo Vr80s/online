@@ -1244,7 +1244,7 @@ function initResource(multimediaType,nv){
         var resources = data.resultObject;
         var str = "";
         if(nv){
-            str="<option value=''>未选泽</option>";
+            str="<option value=''>未选择</option>";
         }
         for(var i=0;resources.length>i;i++){
             str += "<option value='"+resources[i].id+"'>"+resources[i].title+"</option>";
