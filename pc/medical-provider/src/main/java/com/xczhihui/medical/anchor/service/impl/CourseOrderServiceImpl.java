@@ -82,7 +82,7 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
     private void processUserCoinIncreaseVOList(UserCoinIncreaseVO vo, CourseAnchor target){
 
         // 苹果扣除的总数
-        vo.setIosBrokerageValue(userCoinIncreaseMapper.sumIosBrokerageValue(vo.getCourseId()));
+        vo.setIosBrokerageValue(userCoinIncreaseMapper.sumIosBrokerageValueByCourseId(vo.getCourseId()));
 
         // 课程获得总熊猫币
         vo.setValue(userCoinIncreaseMapper.sumValueByCourse(vo.getCourseId()));

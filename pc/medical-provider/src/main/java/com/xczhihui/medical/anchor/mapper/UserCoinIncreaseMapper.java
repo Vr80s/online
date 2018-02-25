@@ -25,7 +25,12 @@ public interface UserCoinIncreaseMapper extends BaseMapper<UserCoinIncrease> {
 	/**
 	 * 根据课程id获取课程苹果扣除的总数
 	 */
-	BigDecimal sumIosBrokerageValue(String courseId);
+	BigDecimal sumIosBrokerageValueByCourseId(String courseId);
+
+	/**
+	 * 根据直播id获取课程苹果扣除的总数
+	 */
+	BigDecimal sumIosBrokerageValueByLiveId(String liveId);
 
 	/**
 	 * 根据课程id获取课程获得总熊猫币
@@ -40,5 +45,15 @@ public interface UserCoinIncreaseMapper extends BaseMapper<UserCoinIncrease> {
 	/**
 	 * 根据直播id获取直播的礼物总价
 	 */
-	BigDecimal sumGiftTotalPrice(String liveId);
+	BigDecimal sumGiftTotalPriceByLiveId(String liveId);
+
+	/**
+	 * 礼物排行榜:总贡献值排序
+	 */
+	List<UserCoinIncreaseVO> rankGiftList(String liveId);
+
+	/**
+	 * 礼物排行榜:获取用户对应的‘获得熊猫币’
+	 */
+	BigDecimal sumValue(@Param("giver") String giver, @Param("receiver") String receiver);
 }

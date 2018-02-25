@@ -48,6 +48,18 @@ public class GiftOrderController {
     }
 
     /**
+     * 获取礼物订单列表
+     * @param liveId 直播id
+     */
+    @RequestMapping(value = "/rankingList", method = RequestMethod.GET)
+    public ResponseObject rankingList(HttpServletRequest request,String liveId){
+
+        List<UserCoinIncreaseVO> result = giftOrderService.sort(liveId, this.getCurrentUserId(request));
+
+        return ResponseObject.newSuccessResponseObject(result);
+    }
+
+    /**
      * 获取用户id
      */
     private String getCurrentUserId(HttpServletRequest request){
