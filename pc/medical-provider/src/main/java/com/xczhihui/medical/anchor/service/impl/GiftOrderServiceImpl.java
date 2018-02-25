@@ -85,14 +85,14 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
      * @param userId 用户id
      */
     @Override
-    public List<UserCoinIncreaseVO> sort(String liveId, String userId) {
+    public Page<UserCoinIncreaseVO> sort(String liveId, String userId, Page<UserCoinIncreaseVO> page) {
 
         if(StringUtils.isBlank(liveId)){
             throw new MedicalException(MedicalExceptionEnum.COURSE_IS_EMPTY);
         }
 
         // 礼物排行榜 总贡献值排序
-        List<UserCoinIncreaseVO> result = userCoinIncreaseMapper.rankGiftList(liveId);
+        List<UserCoinIncreaseVO> result = userCoinIncreaseMapper.rankGiftList(liveId, page);
         if(CollectionUtils.isNotEmpty(result)){
             for (UserCoinIncreaseVO vo: result){
                 vo.setValue(userCoinIncreaseMapper.sumValue(vo.getGiver(), userId));
@@ -115,7 +115,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             }
         }
 
-        return result;
+        return page.setRecords(result);
 
     }
 

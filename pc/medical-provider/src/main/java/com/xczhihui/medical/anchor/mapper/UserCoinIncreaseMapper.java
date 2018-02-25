@@ -50,7 +50,7 @@ public interface UserCoinIncreaseMapper extends BaseMapper<UserCoinIncrease> {
 	/**
 	 * 礼物排行榜:总贡献值排序
 	 */
-	List<UserCoinIncreaseVO> rankGiftList(String liveId);
+	List<UserCoinIncreaseVO> rankGiftList(@Param("liveId") String liveId, @Param("page") Page<UserCoinIncreaseVO> page);
 
 	/**
 	 * 礼物排行榜:获取用户对应的‘获得熊猫币’

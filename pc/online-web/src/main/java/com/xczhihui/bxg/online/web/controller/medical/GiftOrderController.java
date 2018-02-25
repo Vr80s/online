@@ -49,12 +49,18 @@ public class GiftOrderController {
 
     /**
      * 获取礼物订单列表
+     * @param current 当前页
+     * @param size 每页显示的数据条数
      * @param liveId 直播id
      */
     @RequestMapping(value = "/rankingList", method = RequestMethod.GET)
-    public ResponseObject rankingList(HttpServletRequest request,String liveId){
+    public ResponseObject rankingList(HttpServletRequest request, Integer current, Integer size, String liveId){
 
-        List<UserCoinIncreaseVO> result = giftOrderService.sort(liveId, this.getCurrentUserId(request));
+        Page<UserCoinIncreaseVO> page = new Page<>();
+        page.setCurrent(current != null && current > 0 ? current : 1);
+        page.setSize(size != null && size > 0 ? size : 10);
+
+        Page<UserCoinIncreaseVO> result = giftOrderService.sort(liveId, this.getCurrentUserId(request), page);
 
         return ResponseObject.newSuccessResponseObject(result);
     }
