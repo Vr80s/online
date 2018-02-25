@@ -83,4 +83,14 @@ public class UserCoinIncreaseVO implements Serializable {
      * 订单创建时间
      */
     private Date createTime;
+
+    /**
+     * 排行榜：贡献
+     */
+    private BigDecimal total;
+
+    /**
+     * 排行榜序号
+     */
+    private Integer ranking;
 }

@@ -64,17 +64,20 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 	
 
 //点击我要当主播
-function myAnchor() {
-    localStorage.setItem("judgeSkip", "my");
-    if(status==1||status==3||status==5){
-        window.location.href="phy_examine.html";
-    }else if(user_cookie == null || user_cookie == ''){
-        window.location.href="cn_login.html.html";         
-	}else if(status==2||status==4||status==6){
-        window.location.href="hos_examine.html";
-    }else{
-        window.location.href="my_anchor.html";
-    }
+//function myAnchor() {
+//  localStorage.setItem("judgeSkip", "my");
+//  if(status==1||status==3||status==5){
+//      window.location.href="phy_examine.html";
+//  }else if(user_cookie == null || user_cookie == ''){
+//      window.location.href="cn_login.html.html";         
+//	}else if(status==2||status==4||status==6){
+//      window.location.href="hos_examine.html";
+//  }else{
+//      window.location.href="my_anchor.html";
+//  }
+//}
 
-
-}
+//去下载页面
+$(".my_anchor").click(function(){
+	location.href="down_load.html"
+})

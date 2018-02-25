@@ -33,6 +33,11 @@ public interface UserCoinIncreaseMapper extends BaseMapper<UserCoinIncrease> {
 	BigDecimal sumIosBrokerageValueByLiveId(String liveId);
 
 	/**
+	 * 排行榜：根据直播id获取赠送人的平台扣除
+	 */
+	BigDecimal sumGiverIosBrokerageValueByLiveId(@Param("liveId") String liveId, @Param("giver") String giver);
+
+	/**
 	 * 根据课程id获取课程获得总熊猫币
 	 */
 	BigDecimal sumValueByCourse(String courseId);
