@@ -209,8 +209,6 @@ public class XzAlipayController {
 			} else {
 				// 单个课程 直接跳到播放页
 				OnlineCourse payCourse = cList.get(0);
-				
-			
 //				if(!payCourse.getCollection()){
 //					if (payCourse.getType() == 1 || payCourse.getType() == 2) {
 //						// 视频音频

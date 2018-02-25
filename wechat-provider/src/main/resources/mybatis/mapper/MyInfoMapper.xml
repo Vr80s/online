@@ -125,4 +125,23 @@
 		    INNER JOIN  course_anchor as ca on ou.id = ca.user_id
 	     where ou.id =#{userId} and ca.status=1 and ca.deleted =0 and ou.status = 0  and ou.is_delete =0
 	  </select>	
+	  
+	  
+	  
+	  	<!-- 获取推荐的主播信息 -->
+	  	 
+	   <select id="hostInfoRec" resultType="java.util.Map">
+			select 
+		    	ou.small_head_photo as headPortrait,
+		    	ou.name,
+				ou.id as userId
+		    from 
+		    course_anchor ca 
+		         join oe_user  ou on ca.user_id = ou.id
+		         where ca.deleted = 0 
+		    AND ou.is_delete = 0
+		    AND ca.is_recommend = 1  limit 0,10
+		</select>	
+	  
+	  
 </mapper>

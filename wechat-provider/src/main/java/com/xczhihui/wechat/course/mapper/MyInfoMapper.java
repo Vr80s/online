@@ -7,6 +7,7 @@ import java.util.Map;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.xczhihui.wechat.course.model.OnlineUser;
 import com.xczhihui.wechat.course.vo.OnlineUserVO;
+
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -69,4 +70,13 @@ public interface MyInfoMapper extends BaseMapper<OnlineUser> {
 	 *
 	 */
 	Integer getUserHostPermissions(String userId);
+	/**
+	 * 
+	 * Description：获取推荐的主播医师
+	 * @return
+	 * @return List<Map<String,String>>
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	List<Map<String, Object>> hostInfoRec();
 }
