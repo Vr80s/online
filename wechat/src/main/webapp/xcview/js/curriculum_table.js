@@ -202,11 +202,18 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 		saisuanstr +=queryKey+"-";
 	}
 	
-	//将查询条件更改
+	//将查询条件更改----判断有无条件
 	if(saisuanstr.length>0){
 		saisuanstr = saisuanstr.substring(0, saisuanstr.length-1);
+		$(".hint").show();
+//		$("#slider1").css("padding-top","70px");
+		$(".li_list").removeClass("li_list0");
 	}else{
 		saisuanstr = "无";
+		$(".hint").hide();
+		$(".li_list").addClass("li_list0");
+//		$("#slider1").css("padding-top","30px");
+		
 	}
 	$("#sxtj").text(saisuanstr);
 	
