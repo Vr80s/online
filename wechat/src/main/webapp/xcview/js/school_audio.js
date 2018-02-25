@@ -67,9 +67,9 @@ function stripHTML(str){
     });
     
     if(is_weixin()){
-    	$(".share_main_bg ul li:nth-child(1)").show()
+    	$(".share_to_one").show()
     }else{
-    	$(".share_main_bg ul li:nth-child(1)").hide()
+    	$(".share_to_one").hide()
     }
     
     	//获取课程ID跳转相应页面页面
