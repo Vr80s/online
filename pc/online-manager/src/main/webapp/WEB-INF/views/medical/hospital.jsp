@@ -793,6 +793,12 @@
 <div id="EditCourseDialog" class="hide">
 	<form class="form-horizontal" id="updateCourse-form" method="post" action="" style="margin-top: 15px;">
 	<input type="hidden" id="editHospital_id"  name="id" class="col-xs-10 col-sm-8 {required:true}">
+		<%--<div class="form-group" style="margin-top: 18px;">--%>
+			<%--<label class="col-sm-3 control-label no-padding-right" for="name"><font color="red">*</font>医馆头像: </label>--%>
+			<%--<div class="col-sm-6">--%>
+				<%--<img src="" name="headPortrait"  id="edit_headPortrait" width="100px" height="100px" style="margin-top: 10px;">--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="form-group" style="margin-top: 18px;">
 			 <label class="col-sm-3 control-label no-padding-right" for="name"><font color="red">*</font>医馆名称: </label>
 			 <div class="col-sm-6">
@@ -822,6 +828,18 @@
 			<label class="col-sm-3 control-label no-padding-right" for="email">email: </label>
 			<div class="col-sm-6" >
 				<input type="text" id="edit_email" name="email" maxlength="100" class="col-xs-10 col-sm-12 ">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="email">微信: </label>
+			<div class="col-sm-6" >
+				<input type="text" id="edit_wechat" name="wechat" maxlength="100" class="col-xs-10 col-sm-12 ">
+			</div>
+		</div>
+		<div class="form-group"  style="margin-top: 18px;" >
+			<label class="col-sm-3 control-label no-padding-right" for="email">联系人: </label>
+			<div class="col-sm-6" >
+				<input type="text" id="edit_contactor" name="contactor" maxlength="100" class="col-xs-10 col-sm-12 ">
 			</div>
 		</div>
 		<div class="space-4"></div>
