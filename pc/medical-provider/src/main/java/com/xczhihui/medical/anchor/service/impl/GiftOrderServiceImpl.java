@@ -91,10 +91,20 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
             throw new MedicalException(MedicalExceptionEnum.COURSE_IS_EMPTY);
         }
 
+        // ranking ：用来显示排序时的数字
+        int ranking = (page.getCurrent() - 1) * page.getSize() + 1;
+
         // 礼物排行榜 总贡献值排序
         List<UserCoinIncreaseVO> result = userCoinIncreaseMapper.rankGiftList(liveId, page);
         if(CollectionUtils.isNotEmpty(result)){
             for (UserCoinIncreaseVO vo: result){
+
+                vo.setRanking(ranking++);
+
+                // 获取平台扣除
+                vo.setIosBrokerageValue(userCoinIncreaseMapper.sumGiverIosBrokerageValueByLiveId(vo.getGiver(), userId));
+
+                // 获取熊猫币
                 vo.setValue(userCoinIncreaseMapper.sumValue(vo.getGiver(), userId));
 
                 // 获取主播的信息

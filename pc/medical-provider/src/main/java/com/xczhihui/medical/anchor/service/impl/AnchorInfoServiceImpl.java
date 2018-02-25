@@ -3,6 +3,7 @@ package com.xczhihui.medical.anchor.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
+import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
@@ -154,12 +155,12 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private Object selectAuthInfo(Integer type, String userId) {
 
         // 如果用户是医师 获取其医师认证信息
-        if(type.equals(1)){
+        if(type.equals(AuchorTypeEnum.DOCTOR.getCode())){
             return doctorAuthenticationInformationService.selectDoctorAuthenticationVO(userId);
         }
 
         // 如果用户是医馆 获取其医馆认证信息
-        if(type.equals(2)){
+        if(type.equals(AuchorTypeEnum.HOSPITAL.getCode())){
             return hospitalAuthenticationService.selectHospitalAuthentication(userId);
         }
 
