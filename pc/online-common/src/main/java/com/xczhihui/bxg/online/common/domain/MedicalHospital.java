@@ -92,6 +92,46 @@ public class MedicalHospital implements Serializable {
 	@Column(name="source_id")
 	private String sourceId;
 
+	/**
+	 * 微信
+	 */
+	private String wechat;
+
+	/**
+	 * 联系人
+	 */
+	private String contactor;
+
+	/**
+	 * 头像
+	 */
+	@Column(name="head_portrait")
+	private String headPortrait;
+
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
+
+	public String getContactor() {
+		return contactor;
+	}
+
+	public void setContactor(String contactor) {
+		this.contactor = contactor;
+	}
+
 	public String getSourceId() {
 		return sourceId;
 	}

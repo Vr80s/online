@@ -65,7 +65,7 @@ function stripHTML(str){
             my_impression3=this.id;
         });
     });
-    
+//判断普通浏览器时,去点微信分享  
     if(is_weixin()){
     	$(".share_to_one").show()
     }else{

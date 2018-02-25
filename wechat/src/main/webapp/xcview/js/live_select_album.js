@@ -68,6 +68,12 @@ $(".my_details li").click(function(){
 	
 	
 })
+//判断普通浏览器时,去点微信分享  
+    if(is_weixin()){
+    	$(".share_to_one").show()
+    }else{
+    	$(".share_to_one").hide()
+    }
 //JQ预加载分界线
 
 var courseId = getQueryString('course_id');

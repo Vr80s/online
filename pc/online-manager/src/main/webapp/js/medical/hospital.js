@@ -791,6 +791,10 @@ function toEdit(obj,status){
 			$("#edit_detailedAddress").val(result.detailedAddress);
 			$("#edit_description").html(result.description); //课程简介
 			$("#edit_score").val(result.score);
+			$("#edit_wechat").val(result.wechat);//微信
+			$("#edit_contactor").val(result.contactor);//联系人
+			// $("#edit_headPortrait").attr("src", result.headPortrait);//头像
+
 			if(result.authentication){
                 $("#edit_authentication_y").prop("checked","checked");
             }else{

@@ -58,6 +58,12 @@ function stripHTML(str){
             my_impression3=this.id;
         });
     });
+//判断普通浏览器时,去点微信分享  
+    if(is_weixin()){
+    	$(".share_to_one").show()
+    }else{
+    	$(".share_to_one").hide()
+    }
 //获取课程ID跳转相应页面页面
 //引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 var courseId = getQueryString('course_id');
