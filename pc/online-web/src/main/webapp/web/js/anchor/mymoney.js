@@ -153,10 +153,10 @@ $(function(){
 	
 	
 //	礼物收益部分排行榜切换
-	var count = 1;
+
 	$('.toRankingList').click(function(){
-		count *= -1;
-		if(count == -1){
+        rankcount *= -1;
+		if(rankcount == -1){
 			$(this).text('返回');
 			$(this).siblings('.title').text('排行榜');
 			//底部列表的变化
@@ -237,6 +237,14 @@ $(function(){
     });
 }
 	
-	
-	
 });
+var rankcount = 1;
+function rankList(){
+    rankcount=-1;
+    $(".toRankingList").text('返回');
+    $(".gift_Resive_top .title").text('排行榜');
+    //底部列表的变化
+    $('.gift_Resive_mid').addClass('hide');
+    $('.gift_Resive_bottom').addClass('hide');
+    $('.gift_Resive_bottom2').removeClass('hide');
+}

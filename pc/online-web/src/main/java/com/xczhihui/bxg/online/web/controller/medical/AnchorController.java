@@ -36,7 +36,7 @@ public class AnchorController {
     }
 
     /**
-     * 获取主播详情
+     * 获取主播认证详情
      */
     @RequestMapping(value = "/auth", method = RequestMethod.GET)
     public ResponseObject authInfo(HttpServletRequest request){

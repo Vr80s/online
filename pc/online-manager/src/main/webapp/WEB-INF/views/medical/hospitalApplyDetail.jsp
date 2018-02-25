@@ -42,7 +42,7 @@
 	</div>
 
 	<div class="doctor-cardnum-container">
-		<div class="doctor-cardnum">营业执照号：</div>
+		<div class="doctor-cardnum">统一社会信用代码：</div>
 		<div class="doctor-cardnum-text">${medicalHospitalApply.businessLicenseNo}</div>
 	</div>
 

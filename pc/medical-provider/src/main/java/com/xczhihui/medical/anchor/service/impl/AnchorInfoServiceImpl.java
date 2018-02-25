@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
+import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
+import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.vo.CourseAnchorVO;
 import com.xczhihui.medical.doctor.mapper.MedicalDoctorAccountMapper;
@@ -53,6 +55,8 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private IMedicalDoctorAuthenticationInformationService doctorAuthenticationInformationService;
     @Autowired
     private IMedicalHospitalAuthenticationService hospitalAuthenticationService;
+    @Autowired
+    private CourseApplyResourceMapper courseApplyResourceMapper;
 
     /**
      * 获取主播详情
@@ -85,7 +89,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
             if(courseAnchorVO != null){
                 courseAnchorVO.setName(courseAnchor.getName());
                 courseAnchorVO.setProfilePhoto(courseAnchor.getProfilePhoto());
-                courseAnchorVO.setVideo(this.processVideoStr(courseAnchor.getVideo()));
+                courseAnchorVO.setVideo(this.processVideoStr(courseAnchor.getResourceId()));
                 courseAnchorVO.setDetail(courseAnchor.getDetail());
                 courseAnchorVO.setResourceId(courseAnchor.getResourceId());
             }
@@ -173,6 +177,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         hospital.setCity(target.getCity());
         hospital.setUpdatePerson(target.getUserId());
         hospital.setTel(target.getTel());
+        hospital.setDetailedAddress(target.getDetailAddress());
 
         hospitalMapper.updateSelective(hospital);
 
@@ -315,7 +320,11 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     /**
      * 加工主播精彩致辞
      */
-    private String processVideoStr(String courseResource){
+    private String processVideoStr(int resourceId){
+
+        CourseApplyResource resource = courseApplyResourceMapper.selectById(resourceId);
+        String courseResource = resource.getResource();
+
         String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID+"_" + courseResource
                 + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + "/player.swf";
         String uuid = UUID.randomUUID().toString().replace("-", "");

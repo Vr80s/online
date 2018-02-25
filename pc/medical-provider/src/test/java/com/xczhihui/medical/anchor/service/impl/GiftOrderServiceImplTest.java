@@ -34,5 +34,18 @@ public class GiftOrderServiceImplTest extends BaseJunit4Test {
         Assert.assertNotNull(userCoinIncreaseVOS);
     }
 
+    @Test
+    public void testsort(){
+
+        Page<UserCoinIncreaseVO> page = new Page<>();
+        page.setCurrent(1);
+        page.setSize(3);
+
+        Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
+                service.sort("108", "ff80808161c0dd000161c17b63490000", page);
+
+        Assert.assertNotNull(userCoinIncreaseVOS);
+    }
+
 
 }

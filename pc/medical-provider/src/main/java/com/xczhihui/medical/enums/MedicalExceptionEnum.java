@@ -21,7 +21,12 @@ public enum MedicalExceptionEnum {
     ANCHOR_CITY_EMPTY(30006, "主播城市不能为空"),
 
     // -----------------医馆异常---------------------
-    HOSPITAL_IS_EMPTY(40001, "请选择医馆");
+
+    HOSPITAL_IS_EMPTY(40001, "请选择医馆"),
+
+
+    // -----------------主播控制台：收益异常------------
+    COURSE_IS_EMPTY(50001, "请选择课程");
 
     private Integer code;
 

@@ -578,7 +578,7 @@ function showAnchorInfo() {
                 $('#province').text(anchor.province);
                 $('#city').text(anchor.city);
                 $('#detailAddress').text(anchor.detailAddress);
-               
+                $('#intersting').html(anchor.video);
                 // $('.anchor_nick_name').text(anchor.name);
                 // $('#u_nickname').val(anchor.name);
                 // $('#u_hospital_tel').val(anchor.tel);

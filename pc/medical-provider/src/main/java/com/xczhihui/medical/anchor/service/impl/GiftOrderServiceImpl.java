@@ -1,6 +1,7 @@
 package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.medical.anchor.enums.CourseTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
 import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
@@ -18,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service("giftOrderServiceImpl")
 public class GiftOrderServiceImpl implements IGiftOrderService {
@@ -35,7 +37,6 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
     public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page,
                                          String gradeName, String startTime, String endTime) {
 
-
         try {
 
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -51,25 +52,26 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
                 }
             }
 
-            // 获取主播的信息：分成比例
-            CourseAnchor anchor = new CourseAnchor();
-            anchor.setUserId(userId);
-            CourseAnchor target = anchorMapper.selectOne(anchor);
+            // 获取主播的信息
+            CourseAnchor courseAnchor = new CourseAnchor();
+            courseAnchor.setUserId(userId);
+            CourseAnchor anchor = anchorMapper.selectOne(courseAnchor);
 
             // 获取礼物订单的课程名称，直播时间
             List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listGiftOrder(userId, page, gradeName, start, end);
 
-            // 根据直播id获取直播的礼物总价,获得总熊猫币
+            // 根据直播id获取直播的礼物总价,总熊猫币，平台扣除
             Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional =
                     Optional.ofNullable(userCoinIncreaseVOList);
 
-            userCoinIncreaseVOListOptional.ifPresent(userCoinIncreaseVOs ->
-                    userCoinIncreaseVOs.stream()
+            List<UserCoinIncreaseVO> result = userCoinIncreaseVOListOptional.map(option ->
+                    option.stream()
                             .filter(vo -> StringUtils.isNotBlank(vo.getLiveId()))
-                            .forEach(vo -> this.processUserCoinIncreaseVOList(vo, target))
-            );
+                            .map(vo -> this.processUserCoinIncreaseVOList(vo, anchor))
+                            .collect(Collectors.toList())
+            ).orElse(null);
 
-            return page.setRecords(userCoinIncreaseVOList);
+            return page.setRecords(result);
 
         }catch (DateTimeParseException e){
 
@@ -83,35 +85,63 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
      * @param userId 用户id
      */
     @Override
-    public List<UserCoinIncreaseVO> sort(String userId) {
-        return null;
+    public Page<UserCoinIncreaseVO> sort(String liveId, String userId, Page<UserCoinIncreaseVO> page) {
+
+        if(StringUtils.isBlank(liveId)){
+            throw new MedicalException(MedicalExceptionEnum.COURSE_IS_EMPTY);
+        }
+
+        // 礼物排行榜 总贡献值排序
+        List<UserCoinIncreaseVO> result = userCoinIncreaseMapper.rankGiftList(liveId, page);
+        if(CollectionUtils.isNotEmpty(result)){
+            for (UserCoinIncreaseVO vo: result){
+                vo.setValue(userCoinIncreaseMapper.sumValue(vo.getGiver(), userId));
+
+                // 获取主播的信息
+                CourseAnchor courseAnchor = new CourseAnchor();
+                courseAnchor.setUserId(userId);
+                CourseAnchor anchor = anchorMapper.selectOne(courseAnchor);
+
+                // 根据课程类型获取分成比例
+                if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
+                    vo.setPercent(anchor.getLiveDivide().toString().substring(0,2) + "%");
+                }
+                if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
+                    vo.setPercent(anchor.getVodDivide().toString().substring(0,2) + "%");
+                }
+                if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
+                    vo.setPercent(anchor.getOfflineDivide().toString().substring(0,2) + "%");
+                }
+            }
+        }
+
+        return page.setRecords(result);
+
     }
 
-    private void processUserCoinIncreaseVOList(UserCoinIncreaseVO vo, CourseAnchor target){
+    private UserCoinIncreaseVO processUserCoinIncreaseVOList(UserCoinIncreaseVO vo, CourseAnchor anchor){
 
         // 获取直播的礼物总价
-        vo.setGiftTotalPrice(userCoinIncreaseMapper.sumGiftTotalPrice(vo.getLiveId()));
+        vo.setGiftTotalPrice(userCoinIncreaseMapper.sumGiftTotalPriceByLiveId(vo.getLiveId()));
 
         // 获得总熊猫币
         vo.setValue(userCoinIncreaseMapper.sumValueByGift(vo.getLiveId()));
 
-        // 获取赠送人昵称
-        Optional<String> voOptional = Optional.ofNullable(vo.getGiver());
-        vo.setName(voOptional.map(giver -> {
-            // 根据giver（userId）获取用户昵称
-            return "lalalrrrrr";
-        }).orElse("游客"));
+        // 平台扣除
+        vo.setIosBrokerageValue(userCoinIncreaseMapper.sumIosBrokerageValueByLiveId(vo.getLiveId()));
 
         // 根据课程类型获取分成比例
         if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
-            vo.setPercent(target.getLiveDivide().toString().substring(0,2) + "%");
+            vo.setPercent(anchor.getLiveDivide().toString().substring(0,2) + "%");
         }
         if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
-            vo.setPercent(target.getVodDivide().toString().substring(0,2) + "%");
+            vo.setPercent(anchor.getVodDivide().toString().substring(0,2) + "%");
         }
         if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
-            vo.setPercent(target.getOfflineDivide().toString().substring(0,2) + "%");
+            vo.setPercent(anchor.getOfflineDivide().toString().substring(0,2) + "%");
         }
+
+        return vo;
 
     }
 }

@@ -22,4 +22,22 @@ public interface AnchorService {
 	void updatePermissions(Integer id);
 
     Page<AnchorIncomeVO> findCourseAnchorIncomePage(CourseAnchor searchVo, int currentPage, int pageSize);
+
+	/**
+	 * 上移
+	 * @param Integer id
+	 * @return
+	 */
+	public void updateSortUpRec (Integer id);
+
+	/**
+	 * 下移
+	 * @param Integer id
+	 * @return
+	 */
+	public void updateSortDownRec (Integer id);
+
+	void updateRec(String[] ids, int isRec);
+
+	Page<CourseAnchor> findCourseAnchorRecPage(CourseAnchor searchVo, int currentPage, int pageSize);
 }
