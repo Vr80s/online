@@ -1,6 +1,5 @@
 package com.xczhihui.medical.exception;
 
-
 import com.xczhihui.medical.enums.MedicalExceptionEnum;
 
 public class MedicalException extends RuntimeException{
