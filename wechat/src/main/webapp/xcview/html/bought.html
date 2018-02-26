@@ -18,12 +18,35 @@
 <link rel="stylesheet" href="/xcview/css/mui.min.css">
 
 <link rel="stylesheet" href="/xcview/css/bought.css">
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+
 <!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="../js/template.js"></script>
 <script type="text/javascript" src="../js/bought.js"></script>
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+<!--刷新 -->
+<link rel="stylesheet" href="/xcview/css/mescroll.min.css">
+<script type="text/javascript" src="../js/mescroll.min.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			-webkit-touch-callout:none;
+			-webkit-user-select:none;
+			-webkit-tap-highlight-color:transparent;
+		}
+		/*列表*/
+		.mescroll{
+			position: fixed;
+			top: 44px;
+			bottom: 0;
+			height: auto;
+		}
+	</style>
 
 </head>
 <body style="background:#f8f8f8;">
@@ -41,8 +64,10 @@
 	<!-- 头部结束 -->
 
 	<!-- 中间内容开始 -->
+
 	<div class="bought">
 		<div class="bought_main">
+			<div id="mescroll" class="mescroll">
 			<script type="text/html" id="bought_main">
 				{{each items as item i}}
 			<!--视频/音频-->
@@ -182,9 +207,10 @@
 			
 			
 		</div>
+		</div>
 		<div class="both"></div>
+
 	</div>
-		
 	<!-- 中间内容结束 -->
 	<!--无购买课程时默认图片-->
 	<div class="no_class">

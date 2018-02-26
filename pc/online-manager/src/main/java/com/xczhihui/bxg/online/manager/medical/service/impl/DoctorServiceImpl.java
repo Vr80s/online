@@ -274,9 +274,9 @@ public class DoctorServiceImpl extends OnlineBaseServiceImpl implements DoctorSe
 				}
 			}
 			//已经存在的数量 +  即将添加的数量
-			if((list.size()+ids2.size()) > 10){
+			/*if((list.size()+ids2.size()) > 10){
 				return 1001;
-			}
+			}*/
 			
 			//如果本次推荐的人已经全部都是推荐人了，提示你所选中的被推荐人已是推荐人
 			if(y == ids.length){
