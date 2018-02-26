@@ -361,10 +361,22 @@
 			{{coinTransaction.acctPan}}
 		</td>
 		<td>
-			{{coinTransaction.status}}
+			{{if coinTransaction.status==0}}
+			<span>失败</span>
+			{{else if coinTransaction.status==1}}
+			<span>成功</span>
+			{{else if coinTransaction.status==2}}
+			<span>待发放</span>
+			{{/if}}
 		</td>
 		<td>
-			{{coinTransaction.dismissalRemark}}
+			{{if coinTransaction.status==0}}
+				{{coinTransaction.dismissalRemark}}
+			{{else if coinTransaction.status==1}}
+				{{coinTransaction.dismissalRemark}}
+			{{else if coinTransaction.status==2}}
+				1-3个工作日内审核
+			{{/if}}
 		</td>
 	</tr>
 	{{/each}}
