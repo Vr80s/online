@@ -26,6 +26,7 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
@@ -191,7 +192,11 @@ public class MobileShareController {
 					/**
 					 * 写入这个cookie
 					 */
-					UCCookieUtil.writeThirdPartyCookie(res,wxw.getClient_id());
+					ThridFalg tf = new ThridFalg(); 
+					tf.setOpenId(wxw.getUnionid());
+					tf.setUnionId(wxw.getOpenid());
+					
+					UCCookieUtil.writeThirdPartyCookie(res,tf);
 				}else{
 					/**
 					 * 删除这个cookie

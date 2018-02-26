@@ -47,33 +47,6 @@ public class UCCookieUtil {
 		Token token = decodeToken(str);
 		return token;
 	}
-
-	/**
-	 * 将token中的信息写入cookie。
-	 * 
-	 * @param response
-	 * @param token
-	 */
-	public static void writeThirdPartyCookie(HttpServletResponse response, String value) {
-		//String str = encodeToken(value);
-		String str;
-		try {
-			str = URLEncoder.encode(value, "UTF-8");
-			
-			writeBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	/**
-	 * 清除cookie中的token信息。
-	 */
-	public static void clearThirdPartyCookie(HttpServletResponse response) {
-		clearBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME);
-	}
-	
-	
 	/**
 	 * 将token中的信息写入cookie。
 	 * 
@@ -91,6 +64,63 @@ public class UCCookieUtil {
 		clearBXGCookie(response, COOKIE_TOKEN_NAME);
 	}
 	
+	
+	/**
+	 * 将token中的信息写入cookie。  -- 第三方cookie
+	 * 
+	 * @param response
+	 * @param token
+	 */
+	public static void writeThirdPartyCookie(HttpServletResponse response, ThridFalg tf) {
+		String str;
+		try {
+			//加码
+			String openId = tf.getOpenId();
+			String unionId = tf.getUnionId();
+			String v = String.format("%d;%s;%s;%s;%d", openId, unionId);
+			str = URLEncoder.encode(v, "UTF-8");
+			writeBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 清除cookie中的token信息。 -- 第三方cookie
+	 */
+	public static void clearThirdPartyCookie(HttpServletResponse response) {
+		clearBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME);
+	}
+	
+	/**
+	 * 从cookie构造token   -- 第三方cookie
+	 * 
+	 * @param request
+	 * @return cookie没有信息时返回null
+	 */
+	public static ThridFalg readThirdPartyCookie(HttpServletRequest request) {
+		String str = CookieUtil.getCookieValue(request, THIRD_PARTY_COOKIE_TOKEN_NAME);
+		if (str == null || str.length() < 1) {// 没有token信息
+			return null;
+		}
+		try {
+			//解码
+			str = URLDecoder.decode(str, "UTF-8");
+			String[] strs = str.split(";");
+			String openId =strs[0].trim();
+			String unionId = strs[1].trim();
+			
+			ThridFalg tf = new ThridFalg();
+			tf.setOpenId(openId);
+			tf.setUnionId(unionId);
+			
+			return tf;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 
 	/**
 	 * 将token组成字符串，并用URLEncoder编码。

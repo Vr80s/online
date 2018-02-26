@@ -30,6 +30,7 @@ import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
+import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -154,7 +155,10 @@ public class WeChatThirdPartyController {
 				/**
 				 * 写入这个cookie
 				 */
-				UCCookieUtil.writeThirdPartyCookie(res,wxw.getClient_id());
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getUnionid());
+				tf.setUnionId(wxw.getOpenid());
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
 				if (openId != null && !openId.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+ openId);

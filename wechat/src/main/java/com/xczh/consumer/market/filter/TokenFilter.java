@@ -20,6 +20,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.utils.HttpUtil;
+import com.xczh.consumer.market.utils.ThridFalg;
+import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 
 /**
@@ -212,7 +214,7 @@ public class TokenFilter implements Filter {
 		    		 * 是不是需要传递一个token过来啊。然后判断这个token是否
 		    		 */
 		    		chain.doFilter(request, response);
-		    		
+		    		return;
 		    	}else if(session !=null){
 					/**
 					 * 有三种情况：
@@ -230,28 +232,29 @@ public class TokenFilter implements Filter {
 		    			redirectUrl = request.getContextPath() + "/xcview/html/enter.html?errorMessage=1";
 		    		}else{
 		    			statusFalg = 1002;
-		    			
 		    			redirectUrl = request.getContextPath() + "/xcview/html/enter.html";
 		    		}
-		    		if(isAjax){
-	    				req.getRequestDispatcher("/xczh/common/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
-	    			}else{
-	    				response.sendRedirect(redirectUrl);
-	    			}
 		    	}else{
 		    		statusFalg = 1002;
-	    			if(isAjax){
-	    				req.getRequestDispatcher("/xczh/common/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
-	    			}else{
-	    				response.sendRedirect(request.getContextPath() + "/xcview/html/enter.html");
-	    			}
+		    		redirectUrl = request.getContextPath() + "/xcview/html/enter.html";
 		    	}  
+//		        1002  token过期  --去登录页面
+//		        1003      其他设备登录
+// 				1005  token过期  --去完善信息页面
 		    	
-//		        1002  token过期
-//		        1003  其他设备登录
+		    	ThridFalg tf = UCCookieUtil.readThirdPartyCookie(request);
 		    	
+		    	System.out.println("tf.toString():"+tf.toString());
 		    	
-		    	
+		    	if(tf!=null && tf.getOpenId()!=null && tf.getUnionId()!=null){
+		    		statusFalg = 1005;
+		    		redirectUrl = request.getContextPath() + "/xcview/html/evpi.html?openId="+tf.getOpenId()+"&unionId="+tf.getUnionId()+"&jump_type=1";
+		    	}
+		    	if(isAjax){
+    				req.getRequestDispatcher("/xczh/common/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
+    			}else{
+    				response.sendRedirect(redirectUrl);
+    			}
 		    }else{ 
 		    	
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);

@@ -25,6 +25,7 @@ import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -63,6 +64,10 @@ public class H5WeChatSetController {
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
 	
+	
+	@Value("${wechatpay.gzh_appid}")
+	private String gzh_appid;
+	
 	/**
 	 * 
 	 * Description：设置微信公众号下的菜单
@@ -79,8 +84,10 @@ public class H5WeChatSetController {
 	@ResponseBody
 	public ResponseObject setWxMenu (HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
-		String access_token =  CommonUtil.getAccessToken();
-		
+		String accessToken_buffer =  CommonUtil.getAccessToken();
+		JSONObject jsonObject1 = JSONObject.fromObject(accessToken_buffer);
+		System.out.println("access_token:"+jsonObject1.get("access_token"));
+		String access_token = (String) jsonObject1.get("access_token");
 		LOGGER.info("access_token:"+access_token);
 		//String access_token = req.getParameter("access_token");
 		//access_token ="6mcGpY9ORGOF_Vw7s0VdYnSoNIaOTeYnJWrHAcb1Xaihi7dIDi-SqjV6B_uY4FJ_N6PT2NKtYKQjCWvVB5OTptOea-JBV13UEfYmskk2L1wTBCeABADLM";
@@ -90,10 +97,10 @@ public class H5WeChatSetController {
 		String strUrl = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN"
 				.replace("access_token=ACCESS_TOKEN", "access_token=" + access_token);
 		
-		String strLinkHome 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToPersonalCenter&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" "
-								.replace("appid=APPID", "appid=wx81c7ce773415e00a");
-		String strMyCenter 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" "
-				.replace("appid=APPID", "appid=wx81c7ce773415e00a");
+		String strLinkHome 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToRecommended&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" ";
+								//.replace("appid=APPID", "appid=wx81c7ce773415e00a");
+		String strMyCenter 	= 	" \"url\":\"https://open.weixin.qq.com/connect/oauth2/authorize?appid="+gzh_appid+"&redirect_uri="+returnOpenidUri+"/xczh/wxpublic/publicToPersonalCenter&response_type=code&scope=snsapi_userinfo&state=STATE%23wechat_redirect&connect_redirect=1#wechat_redirect\" ";
+				//.replace("appid=APPID", "appid=wx81c7ce773415e00a");
 		
 //		String strMyShare 	= 	" \"url\":\"+"returnOpenidUri"+/Views/h5/my_share.html\" ";
 //		String strMyCenter 	= 	" \"url\":\"+"returnOpenidUri"+/bxg/page/personal\" ";
@@ -173,9 +180,9 @@ public class H5WeChatSetController {
 				onlogin(req,res,t,ou,t.getTicket());
 				
 				/**
-				 * 写入这个cookie
+				 * 清除这个cookie
 				 */
-				UCCookieUtil.writeThirdPartyCookie(res,wxw.getClient_id());
+				UCCookieUtil.clearThirdPartyCookie(res);
 				
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
@@ -191,12 +198,15 @@ public class H5WeChatSetController {
 				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=2");
 			
 				/**
-				 * 清除这个cookie
+				 * 写入这个cookie
 				 */
-				UCCookieUtil.clearThirdPartyCookie(res);
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getUnionid());
+				tf.setUnionId(wxw.getOpenid());
 				
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
-				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&&jump_type=2");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -238,11 +248,10 @@ public class H5WeChatSetController {
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
-				
 				/**
-				 * 写入这个cookie
+				 * 清除这个cookie
 				 */
-				UCCookieUtil.writeThirdPartyCookie(res,wxw.getClient_id());
+				UCCookieUtil.clearThirdPartyCookie(res);
 				
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
@@ -256,11 +265,14 @@ public class H5WeChatSetController {
 				 */
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
 				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
-				
 				/**
-				 * 清除这个cookie
+				 * 写入这个cookie
 				 */
-				UCCookieUtil.clearThirdPartyCookie(res);
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getUnionid());
+				tf.setUnionId(wxw.getOpenid());
+				
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
