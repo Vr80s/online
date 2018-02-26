@@ -46,7 +46,7 @@ requestService("/xczh/recommend/recommendTop",null,
 	    	$("#slide_one").html(template('nav_list',{items:data.resultObject.project.records}))
 //名医
 			if(data.resultObject.doctorList.length=='' || data.resultObject.doctorList.length==0){
-				$(".doctor_follow").hide()
+				$("#doctor_follow").hide()
 			}
 	    	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
 //swiper轮播开始

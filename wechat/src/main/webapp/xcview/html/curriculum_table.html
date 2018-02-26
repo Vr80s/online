@@ -174,6 +174,13 @@
 	</div>
 	<!--点击筛选内容结束-->
 	
+	
+	<!--无课程时默认图片-->
+	<div class="no_class">
+		<img src="../images/no_class.png"/>
+		<p>课程正在赶来的路上...</p>
+	</div>
+	
 </body>
 <script>
 	var kk=document.documentElement.clientWidth;
@@ -297,6 +304,8 @@ $(".find_nav_list").on('touchmove', function (e) {
     }
 //	alert(begin);
 	
+	alert(fnl_x);
+	
 	var tt=new TouchSlider({
 		id:mslide,
 		'auto':'-1',
@@ -310,8 +319,9 @@ $(".find_nav_list").on('touchmove', function (e) {
 		as[this.p].className='';
 		this.p=index;
 		
-		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
+		var fnl_x_tmp = fnl_x;
 		
+		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
 		nav_w=$(".find_nav_list li").eq(this.p).width();
 		$(".sideline").stop(true);
 		$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
@@ -322,8 +332,11 @@ $(".find_nav_list").on('touchmove', function (e) {
 		
 		//滑动完了后调用的是这个方法
 		
-		typeQuery();
+		if(fnl_x_tmp != fnl_x){
+			
+			typeQuery();
 		
+		}
 		
 		var fn_w = ($(".find_nav").width() - nav_w) / 2;
 		var fnl_l;
@@ -372,7 +385,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 				$(".btn_show").fadeIn();
 				$(".btn_show_bg").fadeIn();
 				$(".btn_show_main").addClass('div_right0');
-				$(".btn_show_main").removeClass('div_right')
+				$(".btn_show_main").removeClass('div_right');
 			});
 			$(".btn_show_main_close").click(function(){
 				$(".btn_show_main").addClass('div_right');

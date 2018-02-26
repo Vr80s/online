@@ -3,7 +3,9 @@ var my_impression1="";
 var my_impression2="";
 var my_impression3="";
 
-
+var gradeName = "";
+var smallImgPath = "";
+var description= "";
 
 /**
  * videoId : 视频播放id
@@ -52,6 +54,15 @@ $(function(){
 requestService("/xczh/host/hostPageInfo",{
 	lecturerId : userLecturerId
 },function(data) {
+	/**
+	 * 分享使用到的参数
+	 */
+	if(data.success && stringnull(data.resultObject.lecturerInfo)){
+		var lecturerInfo = data.resultObject.lecturerInfo;
+		gradeName = lecturerInfo.name;
+		smallImgPath = lecturerInfo.small_head_photo;
+		description= lecturerInfo.detail;
+	}
 	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
 	
 //	直播头像/主播名字
