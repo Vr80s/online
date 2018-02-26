@@ -11,6 +11,9 @@ li{
 a{
 	text-decoration: none;
 }
+body{
+	font-family: "Helvetica";
+}
 .both{
 	clear: both;
 }
@@ -63,6 +66,7 @@ header{
 .header_news img{
 	width: 0.894rem;
 	height: 0.809rem;
+	margin-top: 0.2rem;
 }
 .header_news_rudio{
 	position: absolute;
@@ -299,11 +303,16 @@ header{
 	display: block;
 	margin-bottom: 0.191rem;
 }
-.teacher_slider_ul_div div{
-	width: 100%;
-	text-align: center;
-	font-size: 0.468rem;
-	color: #333;
+.teacher_slider_ul_div span{
+    text-align: center;
+    font-size: 0.468rem;
+    color: #333;
+    width: 2.128rem;
+    overflow: hidden;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 /*推荐名师结束*/
 
@@ -483,10 +492,10 @@ header{
     max-width: 1.5rem;
 }
 .acupuncture_main_two_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	width: 1.9rem;
     float: right;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .acupuncture_main_two_size .p3 img{
 	width: 0.468rem;
@@ -653,10 +662,10 @@ header{
     max-width: 1.5rem;
 }
 .acupuncture_main_four_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	width: 1.9rem;
     float: right;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .acupuncture_main_four_size .p3 img{
 	width: 0.404rem;
@@ -848,10 +857,10 @@ header{
     max-width: 1.5rem;
 }
 .ancient_main_two_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	width: 1.9rem;
     float: right;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .ancient_main_two_size .p3 img{
 	width: 0.468rem;
@@ -1018,10 +1027,10 @@ header{
     max-width: 1.5rem;
 }
 .ancient_main_four_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	width: 1.9rem;
     float: right;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .ancient_main_four_size .p3 img{
 	width: 0.404rem;
@@ -1064,7 +1073,7 @@ header{
 	margin-left: 0.456rem;
 	margin-bottom: 0.851rem;
 	position: relative;
-	max-height: 6rem;
+	max-height: 7rem;
 }
 
 /*视频*/
@@ -1091,7 +1100,7 @@ header{
 }
 .boutique_main_one_title{
 	width: 7.234rem;
-	height: 0.851rem;
+	height: 1.6rem;
     line-height: 0.851rem;
 	font-size: 0.596rem;
 	color: #333;
@@ -1120,9 +1129,9 @@ header{
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-    max-width: 1.8rem;
-    height: 0.51rem;
-    line-height: 0.51rem;
+    max-width: 3rem;
+    height: 0.52rem;
+    line-height: 0.52rem;
     display: inline-flex;
 }
 .boutique_main_one_size p:first-child{
@@ -1158,8 +1167,8 @@ header{
 	/*float: right;*/
     margin-right: 0.4rem;
     margin-top: -0.1rem;
-    height: 0.51rem;
-    line-height: 0.51rem;
+    height: 0.52rem;
+    line-height: 0.52rem;
 }
    
  .boutique_main_one_size .p3 img{
@@ -1176,8 +1185,8 @@ header{
 }
 .boutique_main_one_size .p4{
 	margin-top: 0.01rem;
-    height: 0.51rem;
-    line-height: 0.51rem;
+    height: 0.52rem;
+    line-height: 0.52rem;
 }
 .boutique_main_one_size .p4 img{
 	width: 0.5rem;
@@ -1260,10 +1269,10 @@ header{
     max-width: 1.5rem;
 }
 .boutique_main_two_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	width: 1.9rem;
     float: right;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .boutique_main_two_size .p3 img{
 	width: 0.468rem;
@@ -1441,10 +1450,10 @@ header{
     max-width: 1.5rem;
 }
 .boutique_main_four_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	min-width: 1.9rem;
     float: left;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .boutique_main_four_size .p3 img{
 	width: 0.404rem;
@@ -1647,10 +1656,10 @@ header{
     max-width: 1.5rem;
 }
 .newest_main_two_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	width: 2.3rem;
     float: left;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .newest_main_two_size .p3 img{
 	width: 0.468rem;
@@ -1815,10 +1824,10 @@ header{
     max-width: 1.5rem;
 }
 .newest_main_four_size .p3{
-	height: 0.51rem;
+	height: 0.52rem;
 	width: 1.9rem;
     float: right;
-    line-height: 0.51rem;
+    line-height: 0.52rem;
 }
 .newest_main_four_size .p3 img{
 	width: 0.404rem;

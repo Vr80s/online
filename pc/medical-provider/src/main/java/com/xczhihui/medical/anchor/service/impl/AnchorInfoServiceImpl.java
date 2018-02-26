@@ -324,27 +324,31 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private String processVideoStr(int resourceId){
 
         CourseApplyResource resource = courseApplyResourceMapper.selectById(resourceId);
-        String courseResource = resource.getResource();
+        if(resource != null){
+            String courseResource = resource.getResource();
 
-        String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID+"_" + courseResource
-                + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + "/player.swf";
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String playCode = "";
-        playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
-        playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
-        playCode+="		width=\"600\" ";
-        playCode+="		height=\"490\" ";
-        playCode+="		id=\""+uuid+"\">";
-        playCode+="		<param name=\"movie\" value=\""+src+"\" />";
-        playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
-        playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
-        playCode+="		<param value=\"transparent\" name=\"wmode\" />";
-        playCode+="		<embed src=\""+src+"\" ";
-        playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
-        playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
-        playCode+="			type=\"application/x-shockwave-flash\"/> ";
-        playCode+="	</object>";
+            String src = "https://p.bokecc.com/flash/single/" + OnlineConfig.CC_USER_ID+"_" + courseResource
+                    + "_false_" + OnlineConfig.CC_PLAYER_ID + "_1" + "/player.swf";
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            String playCode = "";
+            playCode+="<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" ";
+            playCode+="		codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0\" ";
+            playCode+="		width=\"600\" ";
+            playCode+="		height=\"490\" ";
+            playCode+="		id=\""+uuid+"\">";
+            playCode+="		<param name=\"movie\" value=\""+src+"\" />";
+            playCode+="		<param name=\"allowFullScreen\" value=\"true\" />";
+            playCode+="		<param name=\"allowScriptAccess\" value=\"always\" />";
+            playCode+="		<param value=\"transparent\" name=\"wmode\" />";
+            playCode+="		<embed src=\""+src+"\" ";
+            playCode+="			width=\"600\" height=\"490\" name=\""+uuid+"\" allowFullScreen=\"true\" ";
+            playCode+="			wmode=\"transparent\" allowScriptAccess=\"always\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" ";
+            playCode+="			type=\"application/x-shockwave-flash\"/> ";
+            playCode+="	</object>";
 
-        return playCode;
+            return playCode;
+        }
+
+        return null;
     }
 }
