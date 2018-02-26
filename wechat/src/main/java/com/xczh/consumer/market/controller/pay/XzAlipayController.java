@@ -204,6 +204,7 @@ public class XzAlipayController {
 			cList = ((OnlineOrder) onlineOrderService.getNewOrderAndCourseInfoByOrderId(orderId).getResultObject()).getAllCourse();
 			int cCount = cList.size();
 			if (cCount > 1) {
+				
 				// 多个课程 跳到订单列表
 				alipay_request.setReturnUrl(alipayConfig.return_url);
 			} else {
