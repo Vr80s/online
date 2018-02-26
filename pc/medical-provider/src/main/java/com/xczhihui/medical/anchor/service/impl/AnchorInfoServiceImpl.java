@@ -233,7 +233,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
         if(target == null){
             throw new RuntimeException("参数不能为空");
         }
-        if(StringUtils.isNotBlank(target.getName())){
+        if(StringUtils.isBlank(target.getName())){
             throw new RuntimeException("主播昵称不能为空");
         }
         if(StringUtils.isBlank(target.getProfilePhoto())){
