@@ -77,18 +77,19 @@ $(".my_details li").click(function(){
 //JQ预加载分界线
 
 var courseId = getQueryString('course_id');
-var video_Id='';
+var course='';
 	requestService("/xczh/course/getCoursesByCollectionId",{
 		collectionId : courseId	
 	},function(data) {
-
-		
-		video_Id=data.resultObject[0]		
+		for(var i in data.resultObject){
+			data.resultObject[i].collectionId=courseId;
+		}
+		course=data.resultObject[0];	
 		$("#select_album").html(template('data_select_album',{items:data.resultObject}));
 	})
 //点击视频默认第一个视频ID
 	function btn_album_page(){
-		window.location.href="live_album.html?course_id="+courseId+"&directId="+video_Id.directId+"";
+		window.location.href="live_album.html?course_id="+course.id+"&direct_id="+course.directId+"&collection_id="+courseId;
 	}
 
 //刷新评论列表

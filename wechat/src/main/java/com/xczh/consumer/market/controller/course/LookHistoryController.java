@@ -56,13 +56,13 @@ public class LookHistoryController {
 			}
 			OnlineUser ou = appBrowserService.getOnlineUserByReq(req);
 			if(ou==null){
-			   return ResponseObject.newErrorResponseObject("登录失效");
+			   return ResponseObject.newSuccessResponseObject("登录失效");
 			}
-			//params.put("user_id", ou.getId());
 			WatchHistory target = new WatchHistory();
 			target.setCourseId(Integer.parseInt(courseId));
 			target.setUserId(ou.getId());
 			watchHistoryServiceImpl.addOrUpdate(target);
+			
 			return ResponseObject.newSuccessResponseObject("保存成功");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

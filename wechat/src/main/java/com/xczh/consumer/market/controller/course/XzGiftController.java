@@ -81,16 +81,17 @@ public class XzGiftController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/list")
-	public ResponseObject list(HttpServletRequest req,
-							   HttpServletResponse res, Map<String, String> params) throws SQLException {
+	public ResponseObject list(HttpServletRequest req,HttpServletResponse res) throws SQLException {
+		
 		int pageNumber = 0;
 		if(null != req.getParameter("pageNumber")){
 			pageNumber = Integer.valueOf(req.getParameter("pageNumber"));
 		}
-		int pageSize = 0;
+		int pageSize = 10;
 		if(null != req.getParameter("pageSize")){
 			pageSize = Integer.valueOf(req.getParameter("pageSize"));
 		}
+		pageSize = Integer.MAX_VALUE;
 		return ResponseObject.newSuccessResponseObject(localGiftService.listAll(pageNumber,pageSize));
 	}
 

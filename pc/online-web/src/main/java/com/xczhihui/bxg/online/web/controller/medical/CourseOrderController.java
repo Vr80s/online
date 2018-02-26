@@ -34,14 +34,17 @@ public class CourseOrderController {
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseObject list(HttpServletRequest request, Integer current, Integer size,
-                               String gradeName, String startTime, String endTime){
+                               String gradeName, String startTime, String endTime,
+                               Integer courseForm, Integer multimediaType){
 
         Page<UserCoinIncreaseVO> page = new Page<>();
         page.setCurrent(current != null && current > 0 ? current : 1);
         page.setSize(size != null && size > 0 ? size : 10);
 
-        return ResponseObject.newSuccessResponseObject(courseOrderService.list(this.getCurrentUserId(request), page,
-                gradeName, startTime, endTime));
+        Page<UserCoinIncreaseVO> result = courseOrderService.list(this.getCurrentUserId(request), page,
+                gradeName, startTime, endTime, courseForm, multimediaType);
+
+        return ResponseObject.newSuccessResponseObject(result);
     }
 
     /**

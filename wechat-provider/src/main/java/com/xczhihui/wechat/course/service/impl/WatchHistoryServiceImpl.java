@@ -69,7 +69,6 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	   * 判断这个记录有没有添加进去，如果有添加进去，需要做更新操作	
 	   */
 	  WatchHistory watchHistory = watchHistoryMapper.findWatchHistoryByUserIdAndCourseId(target.getUserId(), target.getCourseId());
-	  
 	  if(watchHistory!=null){
 		  watchHistory.setCreateTime(new Date());
 		  watchHistoryMapper.updateById(watchHistory);
@@ -78,6 +77,9 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	          throw new RuntimeException("请传递课程名字");
 	      }
 		  CourseLecturVo course =  courseMapper.selectCourseById(target.getCourseId());
+		  if(course == null){
+	          throw new RuntimeException("课程信息有误");
+	      }
 		  target.setLecturerId(course.getUserLecturerId());
 		  //通过课程id查找讲师id
 		  try {

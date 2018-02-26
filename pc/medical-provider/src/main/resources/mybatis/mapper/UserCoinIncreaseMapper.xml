@@ -44,6 +44,12 @@
 		    <if test="gradeName != null">
 			    and oc.`grade_name` like concat('%', #{gradeName}, '%')
 			</if>
+			<if test="courseForm != null">
+				and oc.`type` = #{courseForm}
+			</if>
+			<if test="multimediaType != null">
+				and oc.`multimedia_type` = #{multimediaType}
+			</if>
 		  JOIN `oe_user` ou
 			ON oo.`user_id` = ou.id
 		  JOIN `course_apply_info` cai

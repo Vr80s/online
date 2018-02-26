@@ -791,6 +791,7 @@
 			 	<input type="text" name="name"  id="edit_name" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,minlength:2,maxlength:20}">
              </div>
 		</div>
+
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="title">职称: </label>
 			<div class="col-sm-6" >
@@ -798,6 +799,7 @@
 			</div>
 		</div>
 		<div class="space-4"></div>
+
 		<div class="form-group"  style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" for="tel"><font color="red">*</font>联系电话: </label>
 			<div class="col-sm-6">
@@ -809,6 +811,7 @@
 			<label class="col-sm-3 control-label no-padding-right">医师类别: </label>
 			<div class="col-sm-6" >
 				<select name="type" id="edit_type">
+					<option value ="0">请选择医师类型</option>
 					<option value ="1">名青年中医</option>
 					<option value ="2">名老中医</option>
 					<option value="3">少数民族中医</option>
@@ -820,19 +823,17 @@
 		<div class="space-4"></div>
 
 
-		<div class="form-group"  style="margin-top: 18px;" >
+		<div class="form-group" style="margin-top: 18px;" >
 			<label class="col-sm-3 control-label no-padding-right" ><font color="red">*</font>所在省市: </label>
 			<div class="col-sm-3">
 				<select id="edit_province"  onchange="doProvAndCityRelationEdit();"
 						class="clearfix col-xs-10 col-sm-12 {required:true}" >
-					<%--　　　　　　　　			<option id="edit_choosePro"value="-1">请选择省份</option>--%>
-					　　　　　　	   </select>
+				</select>
 				<input type="hidden" name = "province"  id="edit_realProvince"/>
 			</div>
 			<div class="col-sm-3">
 				<select id="edit_citys" onchange="onchangeCityEdit();" class="clearfix col-xs-10 col-sm-12 {required:true}">
-					<%--　　　　　　　　			<option id='edit_chooseCity' value='-1'>请选择城市</option>--%>
-					　　　　		　　 </select>
+				</select>
 				<input type="hidden" name = "city"  id="edit_realCitys"/>
 			</div>
 		</div>
@@ -850,7 +851,6 @@
 			<label class="col-sm-3 control-label no-padding-right" for="description">医师简介: </label>
 			<div class="col-sm-6">
 				<textarea class="form-control" name="description" id="edit_description"  rows="8"></textarea>
-				<%--<input type="hidden" name="descriptionHid" id="edit_descriptionHid" class="col-xs-10 col-sm-12 {required:true,rangelength:[1,170]}">--%>
 			</div>
 		</div>
 

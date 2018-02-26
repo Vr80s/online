@@ -312,7 +312,7 @@ function jump(id){
 				}
 			}else if(course.type==3){
 //					播放页面
-				location.href="live_audio.html?my_study="+id									
+				location.href="live_play.html?my_study="+id									
 			}else{
 //					线下课页面
 				location.href="live_class.html?my_study="+id									

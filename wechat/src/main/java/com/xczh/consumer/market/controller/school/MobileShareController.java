@@ -52,7 +52,6 @@ public class MobileShareController {
 	private OnlineCourseService onlineCourseService;
 	@Value("${returnOpenidUri}")
 	private String returnOpenidUri;
-
 	@Autowired
 	private WxcpClientUserWxMappingService wxcpClientUserWxMappingService;
 	@Autowired
@@ -172,7 +171,6 @@ public class MobileShareController {
 			
 			OnlineUser ou =null;
 			if(!StringUtils.isNotBlank(wxOrbrower)){ //微信浏览器
-				
 				WxcpClientUserWxMapping wxw = ClientUserUtil.saveWxInfo(code,wxcpClientUserWxMappingService);
 				/*
 				 * 判断此微信用户是否已经存在与我们的账户系统中不

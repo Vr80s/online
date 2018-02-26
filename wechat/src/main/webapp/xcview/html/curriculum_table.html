@@ -332,8 +332,8 @@ $(".find_nav_list").on('touchmove', function (e) {
 		$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 		
 		//滑动完了后调用的是这个方法
-		
-		if(fnl_x_tmp != fnl_x){
+//		                      || begin == 0   这是添加筛选条件时的判断
+		if(fnl_x_tmp != fnl_x || begin == 0){
 			
 			typeQuery();
 		
