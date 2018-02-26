@@ -25,7 +25,7 @@ $(function(){
     // { "title": "医师ID", "class": "center","width":"5%","sortable": false,"data":"id" },
     { "title": "姓名", "class":"center","width":"9%","sortable":false,"data": 'name' },
     { "title": "职称", "class":"center","width":"8%","sortable":false,"data": 'title'},
-    { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
+    // { "title": "联系电话", "class":"center","width":"6%", "sortable":false,"data": 'tel',"visible":true},
     { "title": "坐诊时间", "class":"center","width":"6%", "sortable":false,"data": 'workTime',"visible":true},
     { "title": "所在地", "class":"center","width":"8%", "sortable":false,"data": 'detailedAddress',"visible":true,"mRender":function (data, display, row) {
         debugger
@@ -44,23 +44,43 @@ $(function(){
     } },
 
     { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
-	    	if(row.status){
-	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
-	    	}else{
-	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
-			    '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage"><i class="glyphicon glyphicon-bookmark"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
-				'<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
-				'<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
-	    	}
+	    	if(row.status){ // 启用状态或者禁用状态
+				if(row.sourceId === null){
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage(this)"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                }else{
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="禁用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-ban bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                	}
+			}else{
+                if(row.sourceId === null){
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="科室" onclick="openDepartmentManage"><i class="glyphicon glyphicon-bookmark"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="医馆" onclick="openHospitalManage(this)"><i class="glyphicon glyphicon-home"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                }else{
+                    return '<div class="hidden-sm hidden-xs action-buttons">'+
+                        '<a class="blue" href="javascript:void(-1);" title="查看" onclick="previewDialog(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="修改" onclick="toEdit(this,1)"><i class="ace-icon fa fa-pencil bigger-130"></i></a>'+
+                        '<a class="blue" href="javascript:void(-1);" title="启用" onclick="updateStatus(this,1);"><i class="ace-icon fa fa-check-square-o bigger-130"></i></a> '+
+                        '<a class="blue" href="javascript:void(-1);" title="证明图片" onclick="showDetailDialog(this,1);"><i class="ace-icon glyphicon glyphicon-picture  bigger-130"></i></a>'
+
+                }
+			}
 	    }
 	}];
 	
@@ -716,7 +736,6 @@ function previewDialog(obj,status){
  * @param status（1：医师，2：微课）
  */
 function toEdit(obj,status){
-    debugger
 	updateCourseForm.resetForm();
 	
 	var oo = $(obj).parent().parent().parent();
@@ -726,37 +745,66 @@ function toEdit(obj,status){
 	// $("#updateCourse-form :input").not(":button, :submit, :radio").val("").removeAttr("checked").remove("selected");//核心
 	//根据当前id查找对应的课程信息
     $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
+
     	$("#editHospital_id").val(row.id);
     	debugger;
-    		//省
-    		$("#edit_citys").empty();
-    		
-    		$('#edit_province option:contains(' + result.province + ')').each(function(){
-    		  if ($(this).text() == result.province) {
-    		     $(this).prop("selected", 'selected');
-    		  }
-    		});
-    		//市
-        	doProvAndCityRelationEdit();
+
+    	//省
+		$("#edit_citys").empty();
+
+		$('#edit_province option:contains(' + result.province + ')').each(function(){
+		  if ($(this).text() == result.province) {
+			 $(this).prop("selected", 'selected');
+		  }
+		});
+
+		//市
+		doProvAndCityRelationEdit();
         $('#edit_citys option:contains(' + result.city + ')').each(function(){
             if ($(this).text() == result.city) {
                 $(this).prop("selected", 'selected');
             }
         });
-    		//地点
-    		// $("#edit_address").val(result.detailedAddress);
-    		// $("#edit_realProvince").val(result.province);
 
-			$("#edit_name").val(result.name);
-			$("#edit_title").val(result.title);
+        //地点
+		// $("#edit_address").val(result.detailedAddress);
+		// $("#edit_realProvince").val(result.province);
+
+		$("#edit_name").val(result.name);
+
+		$("#edit_title").val(result.title);
+
+		if(result.type === null){
+			$("#edit_type").val("0");
+		}else{
 			$("#edit_type").val(result.type);
-			$("#edit_tel").val(result.tel);
-			$("#edit_workTime").val(result.workTime);
-			// $("#edit_email").val(result.email);
-			// $("#edit_city").val(result.city);
-			// $("#edit_detailedAddress").val(result.detailedAddress);
-			$("#edit_description").html(result.description); //课程简介
+		}
 
+		$("#edit_tel").val(result.tel);
+		$("#edit_workTime").val(result.workTime);
+		// $("#edit_email").val(result.email);
+		// $("#edit_city").val(result.city);
+		// $("#edit_detailedAddress").val(result.detailedAddress);
+		$("#edit_description").html(result.description); //课程简介
+
+		// 如果是用户自己认证成的医馆 不能修改其信息
+		if(result.sourceId !== null){
+            $("#edit_name").attr("disabled", true);
+            $("#edit_title").attr("disabled", true);
+            $("#edit_tel").attr("disabled", true);
+            $("#edit_province").attr("disabled", true);
+            $("#edit_citys").attr("disabled", true);
+            $("#edit_workTime").attr("disabled", true);
+            $("#edit_description").attr("disabled", true);
+		}else{
+            $("#edit_name").attr("disabled", false);
+            $("#edit_title").attr("disabled", false);
+            $("#edit_tel").attr("disabled", false);
+            $("#edit_province").attr("disabled", false);
+            $("#edit_citys").attr("disabled", false);
+            $("#edit_workTime").attr("disabled", false);
+            $("#edit_description").attr("disabled", false);
+		}
 
     	var edit_title="修改医师";
     	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",edit_title,580,650,true,"确定",function(){
@@ -795,7 +843,6 @@ function toEdit(obj,status){
     });
     
 };
-
 
 /**
  * 状态修改
