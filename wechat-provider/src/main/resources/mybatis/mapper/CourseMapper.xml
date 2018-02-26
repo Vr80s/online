@@ -214,7 +214,6 @@
 		oc.smallimg_path as smallImgPath,
 		oc.start_time as startTime,
 		oc.end_time as endTime,
-		oc.user_lecturer_id as userLecturerId,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
 		if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,
