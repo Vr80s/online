@@ -125,6 +125,7 @@ public class XzUserController {
 	 */
 	@RequestMapping(value="phoneRegist")
 	@ResponseBody
+	@Transactional
 	public ResponseObject phoneRegist(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("password")String password,

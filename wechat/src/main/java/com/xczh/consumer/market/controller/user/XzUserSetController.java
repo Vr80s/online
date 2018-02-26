@@ -177,6 +177,7 @@ public class XzUserSetController {
      */
 	@RequestMapping(value="updatePhone")
 	@ResponseBody
+	@Transactional
 	public ResponseObject updatePhone(HttpServletRequest req,
 			@RequestParam("oldUsername")String oldUsername,
 			@RequestParam("newUsername")String newUsername,
@@ -238,7 +239,6 @@ public class XzUserSetController {
 			return ResponseObject.newErrorResponseObject("信息有误");
 		}
 	}
-	
 	
 	
 	/**
