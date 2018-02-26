@@ -238,11 +238,35 @@ function setDefaultBankCard(id){
 function sendVerificationCode(){
     RequestService("/anchor/sendVerificationCode" ,"post", null, function(data) {
         if(data.success){
-            showTip(data.resultObject);
+//          showTip(data.resultObject);
+            $('.phonePwdIpt_warn').addClass('hide');
+            //倒计时部分
+				var myTime=90;
+				var timer=null;
+				timer=setInterval(auto,1000);						
+				function auto(){
+					myTime--;
+					$(".getPassWord").html(myTime+ 's');
+					$(".getPassWord").removeAttr('onclick');
+					$(".getPassWord").css({"background":"#dedede","color":"#999999"})
+					if(myTime==0){
+						setTimeout(function(){
+						clearInterval(timer)
+						$(".getPassWord").html('获取验证码');
+						$(".getPassWord").attr('onclick','btn_cade()');
+						$(".getPassWord").css({"background":"#00bd12","color":"white"})
+						},1000)								
+					}
+				}	
+				
         }else {
-            showTip(data.errorMessage);
+//      	phonePwdIpt_warn 
+//          showTip(data.errorMessage);
+			$('.phonePwdIpt_warn').text(data.errorMessage)
+            $('.phonePwdIpt_warn').removeClass('hide');
         }
     });
+    
 }
 function getPhoneNumber (){
     RequestService("/anchor/asset/getPhoneNumber", "get", null, function(data) {
@@ -298,6 +322,7 @@ function verifyEnchashment(data){
     }
     //手机验证码
     if(!isNv(data.code)){
+    	$('.phonePwdIpt_warn').text('请输入手机验证码')
         $('.phonePwdIpt_warn').removeClass('hide');
         return false;
     }else{
