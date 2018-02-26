@@ -92,6 +92,7 @@
 			$(".wrap_footer").click(function(){
 
 //			androidURL ="http://xxx/xxx.apk";  
+			androidURL ="http://sj.qq.com/myapp/detail.htm?apkName=com.bj.healthlive";  
 			var browser = {  
            versions: function() {  
                  var u = navigator.userAgent,  
@@ -108,22 +109,14 @@
   
          if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
              { 
-
-
                 //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
 //              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
-            	
                 window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
-            	
-            	
 //          	https://itunes.apple.com/cn/app/id1279187788
              }
              else if(browser.versions.android)  
              {  
-//           	alert("安卓")
-             	alert(2)
-             	
-//              window.location.href = androidURL;  
+                window.location.href = androidURL;  
              }  
 				
 			})
