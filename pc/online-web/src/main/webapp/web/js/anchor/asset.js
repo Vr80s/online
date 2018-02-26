@@ -68,23 +68,23 @@ function getRmbTransactionList (current){
                 data.resultObject.records[i].value = "+"+data.resultObject.records[i].value;
             }
             if(data.resultObject.records[i].form == null){
-                data.resultObject.records[i].form='—';
+                data.resultObject.records[i].form='无';
             }
             if(data.resultObject.records[i].acctPan == null){
-                data.resultObject.records[i].acctPan='—';
+                data.resultObject.records[i].acctPan='无';
             }
             if(data.resultObject.records[i].status == null){
-                data.resultObject.records[i].status='—';
+                data.resultObject.records[i].status='无';
             }
             if(data.resultObject.records[i].dismissalRemark == null){
-                data.resultObject.records[i].dismissalRemark='—';
+                data.resultObject.records[i].dismissalRemark='无';
             }
         }
         $("#rmb_transaction_list").html(template('rmb_transaction_list_tpl', data.resultObject));
 
 		//银行卡处理
         for(var i = 0;i < $('.bankCard').length;i++){
-        	if($('.bankCard').eq(i).text() != '—'){
+        	if($('.bankCard').eq(i).text() != '无'){
         		$('.bankCard').eq(i).text($('.bankCard').eq(i).text().trim().replace(/^\d{15}/, '***** ***** ****')) ;
         	}
         }
@@ -238,11 +238,35 @@ function setDefaultBankCard(id){
 function sendVerificationCode(){
     RequestService("/anchor/sendVerificationCode" ,"post", null, function(data) {
         if(data.success){
-            showTip(data.resultObject);
+//          showTip(data.resultObject);
+            $('.phonePwdIpt_warn').addClass('hide');
+            //倒计时部分
+				var myTime=90;
+				var timer=null;
+				timer=setInterval(auto,1000);						
+				function auto(){
+					myTime--;
+					$(".getPassWord").html(myTime+ 's');
+					$(".getPassWord").removeAttr('onclick');
+					$(".getPassWord").css({"background":"#dedede","color":"#999999"})
+					if(myTime==0){
+						setTimeout(function(){
+						clearInterval(timer)
+						$(".getPassWord").html('获取验证码');
+						$(".getPassWord").attr('onclick','btn_cade()');
+						$(".getPassWord").css({"background":"#00bd12","color":"white"})
+						},1000)								
+					}
+				}	
+				
         }else {
-            showTip(data.errorMessage);
+//      	phonePwdIpt_warn 
+//          showTip(data.errorMessage);
+			$('.phonePwdIpt_warn').text(data.errorMessage)
+            $('.phonePwdIpt_warn').removeClass('hide');
         }
     });
+    
 }
 function getPhoneNumber (){
     RequestService("/anchor/asset/getPhoneNumber", "get", null, function(data) {
@@ -298,6 +322,7 @@ function verifyEnchashment(data){
     }
     //手机验证码
     if(!isNv(data.code)){
+    	$('.phonePwdIpt_warn').text('请输入手机验证码')
         $('.phonePwdIpt_warn').removeClass('hide');
         return false;
     }else{

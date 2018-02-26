@@ -31,8 +31,8 @@ public class CourseOrderServiceImplTest extends BaseJunit4Test {
         Page<UserCoinIncreaseVO> userCoinIncreaseVOS =
                 service.list("ff80808161c0dd000161c17b63490000",
                         page, null,
-                        "2018-01-22 12:12:12",
-                        "2018-02-29 13:12:12");
+                        "2018-04-22 12:12:12",
+                        "2018-02-21 13:12:12", null, null);
 
         Assert.assertNotNull(userCoinIncreaseVOS);
     }

@@ -8,8 +8,6 @@ import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.service.IGiftOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
-import com.xczhihui.medical.enums.MedicalExceptionEnum;
-import com.xczhihui.medical.exception.MedicalException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +45,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
                 if(StringUtils.isNotBlank(endTime)){
                     end = LocalDateTime.parse(endTime, dateTimeFormatter);
                     if(end.isBefore(start)){
-                        throw new MedicalException(MedicalExceptionEnum.DATE_START_IS_AFTER_END);
+                        throw new RuntimeException("起始时间不应大于终止时间");
                     }
                 }
             }
@@ -75,7 +73,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
 
         }catch (DateTimeParseException e){
 
-            throw new MedicalException(MedicalExceptionEnum.DATE_FORMAT_WRONG);
+            throw new RuntimeException("时间格式错误");
 
         }
     }
@@ -88,7 +86,7 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
     public Page<UserCoinIncreaseVO> sort(String liveId, String userId, Page<UserCoinIncreaseVO> page) {
 
         if(StringUtils.isBlank(liveId)){
-            throw new MedicalException(MedicalExceptionEnum.COURSE_IS_EMPTY);
+            throw new RuntimeException("请选择课程");
         }
 
         // ranking ：用来显示排序时的数字

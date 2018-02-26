@@ -114,7 +114,7 @@
 			{{else if course.multimediaType==2}}
 			<span>音频</span>
 			{{else}}
-			<span>—</span>
+			<span>无</span>
 			{{/if}}
 		</td>
 		<td>
@@ -134,7 +134,7 @@
 			<span>未上架</span>
 			{{/if}}
 			{{else}}
-			<span>—</span>
+			<span>无</span>
 			{{/if}}
 		</td>
 		<td>
@@ -238,7 +238,7 @@
 			<span>未上架</span>
 			{{/if}}
 			{{else}}
-			<span>—</span>
+			<span>无</span>
 			{{/if}}
 		</td>
 		<td>
@@ -338,7 +338,7 @@
 			{{coinTransaction.create_time}}
 		</td>
 		<td>
-			—
+			无
 		</td>
 	</tr>
 	{{/each}}
@@ -448,12 +448,44 @@
 <script type="text/template" id="myRanking_list_Tpl">
 	{{each records as item i}}
 	<tr>
+		
+		{{if item.ranking}}
 		<td>{{item.ranking}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+
+		{{if item.name}}
 		<td>{{item.name}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.total}}
 		<td>{{item.total}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.iosBrokerageValue}}
 		<td>{{item.iosBrokerageValue}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.percent}}
 		<td>{{item.percent}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.value}}
 		<td>{{item.value}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
 	</tr>
 	{{/each}}
 </script>
@@ -1643,7 +1675,8 @@
 						</div>
 						<div>
 							<span><em>*</em>价格</span>
-							<input type="text" placeholder="" class="zhuanlan_title zhuanlan_title3 course_price" style="width: 120px;" />
+							<input type="text" placeholder=""  onkeyup="clearNoNum(this)" class="zhuanlan_title zhuanlan_title3 course_price" style="width: 120px;" />
+							<!--<input type="text" maxlength="2" style="width: 120px;" class="zhuanlan_title zhuanlan_title3 course_price"  onkeyup="value=value.replace(/[^\d]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))">-->
 							<span>元</span>
 							<p class="warning warning_course_price hide">价格不能为空</p>
 							<p class="warning warning_course_price_Illegal hide">价格数值不符合规范</p>

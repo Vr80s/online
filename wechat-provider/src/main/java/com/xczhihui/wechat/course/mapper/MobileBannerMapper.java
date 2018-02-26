@@ -21,4 +21,5 @@ public interface MobileBannerMapper extends BaseMapper<MobileBanner> {
 
 
 	 List<MobileBanner> selectMobileBannerPage(@Param("page") Page<MobileBanner> page, @Param("type") Integer type);
+	 void addClickNum(@Param("id") String id);
 }
