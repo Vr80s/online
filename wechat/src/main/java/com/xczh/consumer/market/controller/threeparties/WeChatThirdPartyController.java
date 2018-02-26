@@ -144,7 +144,13 @@ public class WeChatThirdPartyController {
 				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+				
+				//把用户中心的数据给他   这里im都要用到
+				ou.setUserCenterId(iu.getId());
+				ou.setPassword(iu.getPassword());
+				
 				ou.setTicket(t.getTicket());
+				
 				onlogin(req,res,t,ou,t.getTicket());
 				
 				if (openId != null && !openId.isEmpty()) {
@@ -154,7 +160,6 @@ public class WeChatThirdPartyController {
 				}	
 			}else{
 				LOGGER.info(" 没有绑定了:");
-				
 				if(userId!=null){
             	   /**
             	    * 更改qq信息	--》增加用户id

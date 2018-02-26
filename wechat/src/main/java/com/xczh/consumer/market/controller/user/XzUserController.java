@@ -208,6 +208,10 @@ public class XzUserController {
 					o.setVhallName(o.getName());
 				}
 				
+				//把用户中心的数据给他   这里im都要用到
+				ItcastUser user = userCenterAPI.getUser(username);
+				o.setUserCenterId(user.getId());
+				o.setPassword(user.getPassword());
 				//把这个票给前端
 				o.setTicket(t.getTicket());
 				

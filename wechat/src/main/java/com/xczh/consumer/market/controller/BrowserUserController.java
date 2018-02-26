@@ -341,12 +341,11 @@ public class BrowserUserController {
 				if (o.isDelete() || o.getStatus() == -1){
 					return ResponseObject.newErrorResponseObject("用户已禁用");
 				}
-				//把这个票给前端
-				o.setTicket(t.getTicket());
-				
 				//把用户中心的数据给他   这里im都要用到
 				o.setUserCenterId(user.getId());
 				o.setPassword(user.getPassword());
+				//把这个票给前端
+				o.setTicket(t.getTicket());
 				
 				this.onlogin(req, res, t, o,t.getTicket());
 				//这个也存放在redis中吧
