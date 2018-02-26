@@ -2,17 +2,130 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>熊猫中医</title>
+		<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<link rel="stylesheet" href="../css/down_load.css" />
 	</head>
 	<body>
+		<div class="wp">
+			<!--模块一-->
+			<div class="wrap-header">
+				<div class="header">		
+					<p>下载客户端</p>
+					<div class="arror_return z">
+						<img src="../images/back icon.png" onclick="javascript :history.back(-1);"/>
+					</div>
+				</div>
+			</div>
+			<div class="wrap_top_text">
+				<div class="top_title">
+					<img src="../images/topOne_title.png"/>
+				</div>
+				<div class="topOne_text">
+					<p>熊猫中医是中医药的学习直播平台，学中医，用中医，懂中医，让中医服务于家庭、个人，让中国古代科学瑰宝为现代人类的健康保驾护航。</p>
+				</div>
+				<div class="top_phone">
+					<img src="../images/topPhone.png"/>
+				</div>
+					<!--点击下载-->
+				<div class="wrap_footer">
+					<p>下载移动客户端</p>
+				</div>
+			</div>
+			<!--模块二-->
+			<div class="wrap_topTwo">
+				<div class="wrap_topTwo_pic">
+					<img src="../images/topTwo_doc.png"/>
+				</div>
+				<p class="all_title">名医汇集</p>
+				<p class="all_text">海量名医、名师课程汇集，让您跟师、拜师不再无门</p>
+			</div>
 		
+			
+			
+			<div class="wrap_topTwo_two">
+				<div class="wrap_topTwo_pic">
+					<img src="../images/topThree_other.png"/>
+				</div>
+				<p class="all_title">全方位跟师学习</p>
+				<p class="all_text">内容丰富全面，点播、直播、线下课程一应俱全，从入门到经典，从生活到专业</p>
+			</div>
+			
+			
+			<div class="wrap_topTwo_two">
+				<div class="wrap_topTwo_pic_three">
+					<img src="../images/topHouse.png"/>
+				</div>
+				<p class="all_title">主播工作台</p>
+				<p class="all_text">优秀医师、医馆随时入驻，通过远程实时观摩教学，积累人气、宣传品牌</p>
+			</div>
+			
+			
+			
+			
+			
+		
+		</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	</body>
+	<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>
 	
 	<script>
 		var kk=document.documentElement.clientWidth;
 		if(kk>750){
-			kk=550
+			kk=750
 		}
 		document.documentElement.style.fontSize=kk/7.5+"px";
 	</script>
+		<script>
+			$(".wrap_footer").click(function(){
+
+//			androidURL ="http://xxx/xxx.apk";  
+			var browser = {  
+           versions: function() {  
+                 var u = navigator.userAgent,  
+                     app = navigator.appVersion;  
+                 return {  
+                         android: u.indexOf("Android") > -1 || u.indexOf("Linux") >-1,  
+                         iPhone: u.indexOf("iPhone") > -1 ,  
+                         iPad: u.indexOf("iPad") >-1,  
+                         iPod: u.indexOf("iPod") > -1,  
+                       };  
+                 } (),  
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()  
+         }  
+  
+         if (browser.versions.iPhone||browser.versions.iPad||browser.versions.iPod)  
+             { 
+
+
+                //如果是ios系統，直接跳轉至appstore該應用首頁，傳遞参數为該應用在appstroe的id號  
+//              window.location.href="itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=123456";  
+            	
+                window.location.href="itms-apps://itunes.apple.com/cn/app/id1279187788";
+            	
+            	
+//          	https://itunes.apple.com/cn/app/id1279187788
+             }
+             else if(browser.versions.android)  
+             {  
+//           	alert("安卓")
+             	alert(2)
+             	
+//              window.location.href = androidURL;  
+             }  
+				
+			})
+		</script>
 </html>
