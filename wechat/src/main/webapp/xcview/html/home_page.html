@@ -17,21 +17,15 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<!--<link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>-->
 <script src="/xcviews/js/js.js"></script>
 <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/common.js?v=1.1"></script>
 
-<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script><!--滑动引入js-->
 <script type="text/javascript" src="../js/template.js"></script>   <!--模板引入-->
 
 
 <script type="text/javascript" src="../js/home_page.js?v=1.1"></script>
-<!--<script type="text/javascript" src="../js/swiper-2.1.min.js"></script>-->
-
-<!--<script src="/xcview/js/tabslider.js"></script><!--滑动引入js-->
-<!--<script src="/xcview/js/zepto.js"></script><!--滑动引入js-->
 
 
 <style type="text/css">
@@ -304,7 +298,11 @@
 														{{else if item.type == 4}}
 		                    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
 		                    							{{/if}}
-		                    						<div class="boutique_main_one_title"><span>{{item.name}}&nbsp;{{item.gradeName}}</span></div>
+		                    						<!--<div class="boutique_main_one_title"><span>{{item.name}}&nbsp;{{item.gradeName}}</span></div>-->
+		                    						<div class="boutique_main_one_title">
+		                    							<span>{{item.gradeName}}</span><br />
+		                    							<span>{{item.name}}</span>
+		                    						</div>
 		                    						<div class="boutique_main_one_size">
 		                    							{{if item.watchState == 1}}
 		                    							<p><span>免费</span></p>
