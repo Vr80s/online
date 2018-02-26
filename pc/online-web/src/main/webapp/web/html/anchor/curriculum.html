@@ -448,12 +448,44 @@
 <script type="text/template" id="myRanking_list_Tpl">
 	{{each records as item i}}
 	<tr>
+		
+		{{if item.ranking}}
 		<td>{{item.ranking}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+
+		{{if item.name}}
 		<td>{{item.name}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.total}}
 		<td>{{item.total}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.iosBrokerageValue}}
 		<td>{{item.iosBrokerageValue}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.percent}}
 		<td>{{item.percent}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
+		{{if item.value}}
 		<td>{{item.value}}</td>
+		{{else}}
+		<td>0</td>
+		{{/if}}
+		
 	</tr>
 	{{/each}}
 </script>
