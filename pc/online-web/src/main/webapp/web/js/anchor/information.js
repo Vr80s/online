@@ -569,8 +569,10 @@ function showAnchorInfo() {
 					
        			}
                 var anchor = result.resultObject;
+      			console.log(anchor.name)
                
                 $('#u_nickname').val(anchor.name);
+                $('#nickname').text(anchor.name);
                 $('#profilePhoto').attr('src', anchor.profilePhoto);
                 
 //              $('#hospitalName').text(anchor.hospitalName);

@@ -6,8 +6,7 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
-
-
+var memory_data="";
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -21,6 +20,15 @@ function stripHTML(str){
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
+	//点击播放记下记录
+		memory_data=data.resultObject.id;
+		$("#video_v").click(function(){
+			requestService("/xczh/history/add",
+			{courseId:memory_data}
+			,function(data) {
+
+			})	
+		})
 			//分享的信息展示
 		gradeName = data.resultObject.gradeName;
 		smallImgPath = data.resultObject.smallImgPath;
@@ -105,13 +113,14 @@ function chZJ(videoId,multimediaType){
 	    	 * 初始化评论区
 	    	 */
 	    	//getVideoCriticize(1,vid);
+	    	
 		}else{
     		$(".video_prompt").show();
 		}
 	},false);
 }
 
-
+	
 })
 
 

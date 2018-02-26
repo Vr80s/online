@@ -205,8 +205,8 @@ div.pinch-zoom,
 	margin-top: 0.55rem;
 }
 .fd_img{
-	width: 4.5rem;
-    height: 5rem;
+	width: 5.532rem;
+    height: 7.255rem;
     margin: 0 auto;
     position: relative;
     margin-top: 3rem;
@@ -230,7 +230,7 @@ div.pinch-zoom,
 	font-size: 0.55rem;
     position: absolute;
     top: 0rem;
-    right: -1.8rem !important;
+    
     display: none;
     /*background: red;*/
     margin-top: 0.35rem;
@@ -240,10 +240,15 @@ div.pinch-zoom,
     background: none;
     font-weight: bold;
 }
+.send_img{
+	right: -1.8rem !important;
+}
 .facebox-mobile{
 	top: 1.2rem !important;
     left: -12.9rem;
 }
+.facebox-mobiles{
+	left: -13.6rem;
 }
 .send_gifts .send_gifts_p{
 	font-size: 0.5rem;
@@ -271,11 +276,11 @@ div.pinch-zoom,
     font-size: 0.75rem;
 }
 .fd_img_bg{
-    width: 4.5rem;
-    height: 4.525rem;
+    width: 5.532rem;
+    height: 7.255rem;
     position: absolute;
     bottom: 0;
-    background: url(/xcview/images/null13.png) no-repeat;
+    background: url(/xcview/images/no_class.png) no-repeat;
     background-size: 100% 100%;
 }
 .facebox-mobile0{
@@ -507,7 +512,7 @@ div.pinch-zoom,
 
 
 .coze_bottom img{
-	margin-left: 0.6rem;
+	margin-left: 0.3rem;
 }
 
 
@@ -776,3 +781,23 @@ div.pinch-zoom,
 	font-size: 0.596rem;
 }
 /*主讲人结束*/
+
+.mCustomScrollbar.mCS_no_scrollbar{
+	background: #F8F8F8;
+}
+.important{
+	right: -2.2rem !important;
+}
+.importants{
+	right: -3.5rem !important;
+}
+.div_img .img_left{
+	margin-left: 0.6rem;
+}
+
+
+/*处理排行榜下划线位置--给的left值*/
+.leaderboard_list{
+	width: 97%;
+	margin-left: 0.5rem;
+}

@@ -302,8 +302,10 @@ function queryDataByParams(params,data_type){
 			var data1 ="";
 			
 			if(data.resultObject.length<=0){
+				$(".li_list_main").css("background","#f8f8f8");
 				$(".no_class").show();
 			}else{
+				$(".li_list_main").css("background","#fff");
 				$(".no_class").hide();
 			}
 			for (var int = 0; int < data.resultObject.length; int++) {
@@ -400,6 +402,7 @@ function queryDataByParams(params,data_type){
 			
 		}else{
 			$(".no_class").show();
+			$(".li_list_main").css("background","#f8f8f8");
 			alert("查询数据结果error!");
 		}
 	},false)

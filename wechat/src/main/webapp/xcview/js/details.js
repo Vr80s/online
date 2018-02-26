@@ -89,19 +89,27 @@ requestService(
 				 */
 				if (lineState == 3) { // 隐藏送礼 //直播回放
 
-					$("title").text("直播回放");
+					$("title").text("熊猫中医");
 					$(".history_span").text("直播回放");
-					$("#mywords").css("width", "11.4rem");
+					$("#mywords").css("width", "12rem");
 					$("#face").css("top", "1.45rem");
 					$("#face").css('left', '0.06rem');
 
 					$(".give_a1").hide();
 					$(".give_a1_img").hide();
 					$(".give_a1_span02").hide();
-					$(".poson").css('right', '-1.4rem');
-
-					$(".send_img").css('background-size', '100% 100%');
-
+					$(".poson").css('right', '0rem');
+					$(".poson").css('margin-left', '0.4rem');
+					$(".div_img").css('margin-left', '0.35rem');   //左侧  图片笔
+					$("#face").css('position', 'absolute');  //表情
+					$("#face").css('top', '0');   //表情
+					$("#face").css('left', '-0.05rem');  //表情
+//					$("#sendChat").css('right', '-2.2rem !important');  //发送按钮向右距离
+					$("#sendChat").addClass('important');  //发送按钮 添加class
+					
+					$(".give_a01").show();
+					$("#sendChat").show();
+//					点击输入框
 					$("#mywords").click(function() {
 						$(".give_a1").hide();
 						$(".give_a1_img").hide();
@@ -109,13 +117,23 @@ requestService(
 
 					});
 					$(".details_size").hide();
-					$(".poson").css('right', '-2.1rem');
+//					$(".poson").css('right', '-2.1rem');
 					$(".div_input").css('width', '13.2rem');
-					$(".coze_bottom_input").css('margin-left', '0rem');
-					$(".give_a01").css('margin-left', '0.5rem');
+					$(".coze_bottom_input").css('margin-left','0rem');
+					$(".give_a01").css('margin-left','0.5rem');
+					$(".give_a01").css('right','0.6rem');  //表情
+//					$(".coze_bottom img").css('margin-left','0.3rem');  //微吼表情包
+					
+					$("#sendChat").addClass('importants');  //发送
+					
+					
+					
 
+//					点击表情
 					$("#face").click(function() {
 						$(".coze_bottom").css('bottom', '7.1rem');
+//						$(".facebox-mobile").css('left', '-13.6rem');
+//						$(".facebox-mobile").addClass("facebox-mobiles");
 					});
 
 					/* 点击发送 */
@@ -123,6 +141,23 @@ requestService(
 						$(".give_a1").hide(); /* 礼物隐藏 */
 						$(".give_a1").css("display", "none"); /* 礼物隐藏 */
 						$(".coze_bottom").css("bottom", "0"); /* 最底部区域到最下方 */
+						/*$(".face_img01").css("background","url('/xcview/images/face.png) no-repeat')";
+						$(".face_img01").css("background-size","100% 100%");*/
+						
+						$(".face_img01").css('background','url(/xcview/images/face.png) no-repeat');
+					 
+						$(".face_img01").css("background-size","100% 100%");
+						
+					});
+					
+//					点击聊天
+					$(".details_footer_width .li1").click(function() {
+						
+						$(".div_input").css("width", "12rem");
+						$("#mywords").css("width", "12rem");
+						$(".coze_bottom input").css("width", "12rem");
+						/*$("#face").css("top", "1.45rem");
+						$("#face").css('left', '0.06rem');*/
 					});
 
 				} else {
@@ -134,6 +169,25 @@ requestService(
 					$("#mywords").click(function() {
 						$(".coze_bottom input").css("width", "12rem");
 						$(".div_input").css("background", "none");
+					});
+					
+					//		coze   点击其他区域，聊天区域
+					$(".coze").click(function(){
+						$(".send_gifts").hide();   /*礼物区域隐藏*/
+						$("#sendChat").hide();  /*发送按钮隐藏*/
+			   			$(".give_a01").hide();     /*表情隐藏*/
+			            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
+			   			$(".give_a1").show();  /*礼物显示*/	
+					});
+					
+			//		点击课件之间的  发送 礼物切换
+					$(".details_footer_width li").click(function(){
+						$(".send_gifts").hide();   /*礼物区域隐藏*/
+						$("#sendChat").hide();  /*发送按钮隐藏*/
+			   			$(".give_a01").hide();     /*表情隐藏*/
+			            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
+			   			$(".give_a1").show();  /*礼物显示*/
+			   			$(".div_input").css("background","block");  /*input背景色隐藏*/
 					});
 
 					// 点击送礼开始 --显示送礼列表
@@ -168,7 +222,7 @@ requestService(
 					$("#sendChat").click(function() {
 						$(".give_a01").hide(); /* 表情隐藏 */
 						$(this).hide(); /* 当前发送按钮隐藏 */
-						$(".coze_bottom input").css("width", "13.5rem");
+//						$(".coze_bottom input").css("width", "13.5rem");
 						$(".give_a1").show(); /* 礼物显示 */
 
 					});
@@ -298,7 +352,7 @@ function refreshGiftRanking() {
 			},
 			function(data) {
 				if (data.success) {
-					var list = data.resultObject.records;
+					var list = data.resultObject;
 					var html = "";
 					for (var i = 0; i < list.length; i++) {
 						var pName = "";
@@ -328,11 +382,12 @@ function refreshGiftRanking() {
 									+ pLogo
 									+ "' alt='' style='width: 1.6rem;height:0.9rem' /><br />";
 							html += "<span>" + pName + "</span>";
+							/*html += "<div class='both'></div>";*/
 						} else {
 							html += "<div class='leaderboard_left' style='line-height: 1.8rem;'>\n";
 							html += "<span>" + pName + "</span>";
 						}
-						html += "</div>\n"
+						html += "<div class='both'></div>"+"</div>\n"
 								+ "<div class='leaderboard_center' title="
 								+ list[i].userId + " >\n" + "<img src='"
 								+ list[i].smallHeadPhoto + "' alt='' />\n"
