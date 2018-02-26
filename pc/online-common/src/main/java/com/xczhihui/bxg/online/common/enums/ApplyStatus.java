@@ -11,7 +11,10 @@ public enum ApplyStatus {
 
     UNTREATED(2, "未审核"),
     PASS(1, "通过"),
-    NOT_PASS(0, "未通过");
+    NOT_PASS(0, "未通过"),
+    //提现申请专用
+    GRANT(3,"已打款");
+
 
     private String text;
     private int code;
