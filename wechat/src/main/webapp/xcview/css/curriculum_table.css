@@ -502,7 +502,8 @@ header{
     direction: down;
     text-align: center;
     line-height: 0;
-    position: absolute;
+    /*position: absolute;*/
+    position: fixed;
     top: 50%;
     left: 50%;
     margin-left: -1.44rem;
