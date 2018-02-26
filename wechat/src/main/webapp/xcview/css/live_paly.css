@@ -2,7 +2,7 @@
 .z{float: left;}
 .y{float: right;}
 .cl{clear: both;}
-body{color: #333333;font-size: 0.28rem;}
+body{color: #333333;font-size: 0.28rem;font-family: "Helvetica";}
 ul li{list-style: none;}
 a{
 text-decoration: none;
@@ -53,7 +53,7 @@ textarea::-webkit-input-placeholder {
 }
 .header_news{
 	width: 0.42rem;
-	height:0.38rem;
+	height:0.43rem;
 	position: absolute;
 	z-index: 10;
 	top: 0.25rem;
@@ -61,7 +61,7 @@ textarea::-webkit-input-placeholder {
 }
 .header_news img{
 	width: 0.42rem;
-	height:0.38rem;
+	height:0.43rem;
 }
 .arror_return{
 	width: 0.24rem;
