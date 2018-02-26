@@ -26,5 +26,11 @@
 		</if>
 		ORDER BY ocmb.seq desc
 
-	</select>		  
+	</select>
+	<update id="addClickNum">
+		UPDATE
+		oe_course_mobile_banner
+		SET click_sum = click_sum+1
+		WHERE id = #{id}
+	</update>
 </mapper>

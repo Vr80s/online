@@ -192,10 +192,9 @@ public class CourseController extends AbstractController{
 	@RequestMapping(value = "recList")
 	@ResponseBody
 	public TableVo recList(TableVo tableVo) {
-		
-		
-		int pageSize = 10;
-		int index = 1;
+
+		int pageSize = tableVo.getiDisplayLength();
+		int index = tableVo.getiDisplayStart();
 		int currentPage = index / pageSize + 1;
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);

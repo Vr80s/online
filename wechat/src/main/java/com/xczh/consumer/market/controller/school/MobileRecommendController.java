@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -192,5 +193,19 @@ public class MobileRecommendController {
 		List<CourseLecturVo> list = wxcpCourseService.queryAllCourse(menuType,lineState,courseType,isFree,city,queryKey,pageNumber,pageSize);
 		
 		return ResponseObject.newSuccessResponseObject(list);
+	}
+
+	/**
+	 * banner点击量
+	 */
+	@RequestMapping("clickBanner")
+	@ResponseBody
+	public ResponseObject clickBanner(HttpServletRequest req,
+										HttpServletResponse res,@RequestParam("id")String id)
+			throws Exception {
+
+		mobileBannerService.addClickNum(id);
+
+		return ResponseObject.newSuccessResponseObject("点击量+1");
 	}
 }
