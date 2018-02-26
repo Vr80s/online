@@ -88,7 +88,7 @@ $(function(){
 	};
 </script>
 </head>
-<body style="background: #efefef;    overflow: hidden;">
+<body style="background: #f8f8f8;overflow: hidden;">
 	<div class='vanish2 hide'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>熊猫币余额获取失败！请稍后再试</div></div></div>
 	<div class='vanish4 hide'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>提交订单错误！请稍后再试！</div></div></div>
 	
@@ -145,7 +145,7 @@ $(function(){
 					<li><span class="li1">聊天</span></li>
 					<li><span class="li3">排行榜</span></li>
 					<li class="click_li"><span class="li2">主讲人</span></li>
-					<li><span class="li4">文档</span></li> 
+					<li><span class="li4">课件</span></li> 
 				</ul>
 			</div>
 		</div>
@@ -446,6 +446,7 @@ $(function(){
 		
 		<div class="anchor_center01" style="margin-top: 3.4rem;">
 			<div class="anchor_center">
+				
 			</div>
 		</div>
 	</div>
@@ -461,7 +462,7 @@ $(function(){
 		<div class="fd_img">
 			<div class="fd_img_bg"></div>
 			<!--<img src="/xcview/images/null13.png" alt="" />-->
-			<p>主播还没有上传文档</p>
+			<p>主播还没有上传课件</p>
 		</div>
 		<div class="document_ceneter" id="doc">
 			
@@ -558,24 +559,7 @@ if(is_weixin() && stringnull(getQueryString("openId"))){
 			$(".div_input").css("background","none");  /*input背景色隐藏*/
 		});
 		
-//		coze   点击其他区域，聊天区域
-		$(".coze").click(function(){
-			$(".send_gifts").hide();   /*礼物区域隐藏*/
-			$("#sendChat").hide();  /*发送按钮隐藏*/
-   			$(".give_a01").hide();     /*表情隐藏*/
-            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
-   			$(".give_a1").show();  /*礼物显示*/	
-		});
-		
-//		点击课件之间的  发送 礼物切换
-		$(".details_footer_width li").click(function(){
-			$(".send_gifts").hide();   /*礼物区域隐藏*/
-			$("#sendChat").hide();  /*发送按钮隐藏*/
-   			$(".give_a01").hide();     /*表情隐藏*/
-            $(".coze_bottom input").css("width","13.5rem");   /*改变聊天input长度*/
-   			$(".give_a1").show();  /*礼物显示*/
-   			$(".div_input").css("background","block");  /*input背景色隐藏*/
-		});
+
 		
 		
 		$(".gift_ul_li li:first-child").click();
