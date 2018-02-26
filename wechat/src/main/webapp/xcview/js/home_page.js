@@ -55,7 +55,7 @@ requestService("/xczh/recommend/recommendTop",null,
 			for (var int = 0; int < result.length; int++) {
 				var wb = result[int];
 				str+="<div class='swiper-slide swiper-banner swiper-banner-btn'>"+
-				"<img src='"+wb.imgPath+"' alt='Concept for children game' data_img='"+wb.url+"'>"+
+				"<img src='"+wb.imgPath+"' alt='Concept for children game' data_id='"+wb.id+"' data_img='"+wb.url+"'>"+
 				"</div>";
 			}
 				$("#wrapper-box").html(str);
@@ -70,7 +70,10 @@ requestService("/xczh/recommend/recommendTop",null,
 			alert("网络异常");
 		};
 //轮播图跳转
+
 		    $(".swiper-banner-btn").click(function(){
+                var  data_id=$(this).find("img").attr("data_id");
+                clickBanner(data_id);
 		    	var  data_img=$(this).find("img").attr("data_img");
 		    	location.href=data_img;
 		    })
@@ -113,7 +116,7 @@ requestService("/xczh/bunch/offLine",null,
 			for (var int = 0; int < result_class.length; int++) {
 				var wb_class = result_class[int];
 				str_class+="<div class='swiper-slide swiper-banner swiper-banner-class'>"+
-				"<img src='"+wb_class.imgPath+"' alt='Concept for children game' data_class='"+wb_class.url+"'>"+
+				"<img src='"+wb_class.imgPath+"' alt='Concept for children game' data_id='"+wb_class.id+"' data_class='"+wb_class.url+"'>"+
 				"</div>";
 			}
 				$("#wrapper-box-class").html(str_class);
@@ -129,6 +132,8 @@ requestService("/xczh/bunch/offLine",null,
 		};
 //		轮播图跳转
 		    $(".swiper-banner-class").click(function(){
+                var  data_id=$(this).find("img").attr("data_id");
+                clickBanner(data_id);
 		    	var  data_class=$(this).find("img").attr("data_class");
 		    	location.href=data_class;
 		    })
@@ -162,7 +167,7 @@ requestService("/xczh/live/onlineLive",null,
 			for (var int = 0; int < result_play.length; int++) {
 				var wb_play = result_play[int];
 				str_play+="<div class='swiper-slide swiper-banner swiper-banner-play'>"+
-				"<img src='"+wb_play.imgPath+"' alt='Concept for children game' data_play='"+wb_play.url+"'>"+
+				"<img src='"+wb_play.imgPath+"' alt='Concept for children game' data_id='"+wb_play.id+"' data_play='"+wb_play.url+"'>"+
 				"</div>";
 			}
 				$("#wrapper-box-play").html(str_play);
@@ -178,6 +183,8 @@ requestService("/xczh/live/onlineLive",null,
 		};
 //		轮播图跳转
 		    $(".swiper-banner-play").click(function(){
+                var  data_id=$(this).find("img").attr("data_id");
+                clickBanner(data_id);
 		    	var  data_play=$(this).find("img").attr("data_play");
 		    	location.href=data_play;
 		    })
@@ -217,7 +224,7 @@ requestService("/xczh/bunch/listenCourse",null,
 			for (var int = 0; int < result_listen.length; int++) {
 				var wb_listen = result_listen[int];
 				str_listen+="<div class='swiper-slide swiper-banner swiper-banner-listen'>"+
-				"<img src='"+wb_listen.imgPath+"' alt='Concept for children game' data_listen='"+wb_listen.url+"'>"+
+				"<img src='"+wb_listen.imgPath+"' alt='Concept for children game' data_id='"+wb_listen.id+"' data_listen='"+wb_listen.url+"'>"+
 				"</div>";
 			}
 				$("#wrapper-box-listen").html(str_listen);
@@ -233,6 +240,8 @@ requestService("/xczh/bunch/listenCourse",null,
 		};
 //		轮播图跳转
 		    $(".swiper-banner-listen").click(function(){
+                var  data_id=$(this).find("img").attr("data_id");
+                clickBanner(data_id);
 		    	var  data_listen=$(this).find("img").attr("data_listen");
 		    	location.href=data_listen;
 		    })
@@ -368,3 +377,12 @@ requestService("/xczh/bunch/hotSearch",null,
 //搜索历史结束
 
 })
+
+//学堂/直播课程跳转
+function clickBanner(id){
+    requestService("/xczh/recommend/clickBanner",{
+        id:id
+    },function(data) {
+
+    });
+}
