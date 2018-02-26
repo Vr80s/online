@@ -5,6 +5,7 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
+var wwww1="";
 $(function(){
 function stripHTML(str){
 	var reTag = /<(?:.|\s)*?>/g;
@@ -29,12 +30,14 @@ function stripHTML(str){
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
 	var courseId = getQueryString('course_id');
     course_id = courseId;
+    var collectionId = getQueryString('collection_id');
 //	获取默认第一个视频ID
 	var directId = getQueryString('directId');
 	//传ID courseId为接口的课程ID
 	requestService("/xczh/course/details",{
 		courseId : courseId	
 	},function(data) {
+		wwww1=data.resultObject.id
 		//分享的信息展示
 		gradeName = data.resultObject.gradeName;
 		smallImgPath = data.resultObject.smallImgPath;
@@ -82,11 +85,14 @@ function stripHTML(str){
 		}else{
 			$(".wrap1 p").html(data.resultObject.lecturerDescription)
 		}
+		
+		
+		
 	});
     //传ID courseId为接口的课程ID，评论列表
     refresh();
 	
-	requestService("/xczh/course/getCoursesByCollectionId",{collectionId:823},function(data) {
+	requestService("/xczh/course/getCoursesByCollectionId",{collectionId:collectionId},function(data) {
 	if(data.success==true){
     	$(".all_list_ul").html(template('all_list_ul',{items:data.resultObject}))
     //		点击选集获取视频ID		
@@ -95,7 +101,7 @@ function stripHTML(str){
 		var courseId=$(this).attr("data-courseId");
 		//初始化视频资源
 //		chZJ(directId,1);
-		window.location="/xcview/html/live_album.html?course_id="+courseId+"&directId="+directId;
+		window.location="/xcview/html/live_album.html?course_id="+courseId+"&directId="+directId+"&collectionId="+collectionId;
 	})
 	}
 })
@@ -146,7 +152,13 @@ function stripHTML(str){
 
 
 
+$("#video_box").click(function(){
+	requestService("/xczh/history/add",
+	{courseId:wwww1}
+	,function(data) {
 
+	})	
+})
 
 
 //刷新评论列表
