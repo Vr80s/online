@@ -11,6 +11,9 @@ li{
 a{
 	text-decoration: none;
 }
+body{
+	font-family: "Helvetica";
+}
 .both{
 	clear: both;
 }

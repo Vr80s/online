@@ -8,7 +8,7 @@ body,td,th,ul,li{
      cursor:pointer;
 }
 body{
-	font-family: Helvetica;
+	font-family: "Helvetica";
 }
  .find_nav {
      width: 6.2rem;
