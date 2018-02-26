@@ -569,16 +569,62 @@ function showAnchorInfo() {
 					
        			}
                 var anchor = result.resultObject;
+               
                 $('#u_nickname').val(anchor.name);
                 $('#profilePhoto').attr('src', anchor.profilePhoto);
-                $('#detail').html(anchor.detail);
-                $('#hospitalName').text(anchor.hospitalName);
-                $('#workTime').text(anchor.workTime);
-                $('#tel').text(anchor.tel);
-                $('#province').text(anchor.province);
-                $('#city').text(anchor.city);
-                $('#detailAddress').text(anchor.detailAddress);
-                $('#intersting').html(anchor.video);
+                
+//              $('#hospitalName').text(anchor.hospitalName);
+//              $('#workTime').text(anchor.workTime);
+//              $('#detail').html(anchor.detail);
+//              $('#tel').text(anchor.tel);
+//              $('#province').text(anchor.province);
+//              $('#city').text(anchor.city);
+//              $('#detailAddress').text(anchor.detailAddress);
+				
+//              $('#intersting').html(anchor.video);
+ 				if(anchor.hospitalName){
+                	$('#hospitalName').html(anchor.hospitalName);
+                }else{
+                	$('#hospitalName').text('暂无');
+                }
+				 if(anchor.workTime){
+                	$('#workTime').html(anchor.workTime);
+                }else{
+                	$('#workTime').parent().text('暂无');
+                }
+				 if(anchor.detail){
+                	$('#detail').html(anchor.detail);
+                }else{
+                	$('#detail').html('暂无');
+                }
+                if(anchor.video){
+                	$('#intersting').html(anchor.video);
+                }else{
+                	$('#intersting').html('暂无');
+                }
+                 if(anchor.tel){
+                	$('#tel').text(anchor.tel);
+                }else{
+                	$('#tel').text('暂无');
+                }
+                if(anchor.province){
+                	 $('#province').text(anchor.province);
+                }else{
+                	 $('#province').text('暂无');
+                }
+                 if(anchor.city){
+                	 $('#city').text(anchor.city);
+                }else{
+                	 $('#city').text('暂无');
+                }
+                if(anchor.detailAddress){
+                	$('#detailAddress').text(anchor.detailAddress);
+                }else{
+                	$('#detailAddress').text('暂无');
+                }
+                
+                
+                
                 // $('.anchor_nick_name').text(anchor.name);
                 // $('#u_nickname').val(anchor.name);
                 // $('#u_hospital_tel').val(anchor.tel);

@@ -448,7 +448,7 @@
 <script type="text/template" id="myRanking_list_Tpl">
 	{{each records as item i}}
 	<tr>
-		<td>{{$index}}</td>
+		<td>{{item.ranking}}</td>
 		<td>{{item.name}}</td>
 		<td>{{item.total}}</td>
 		<td>{{item.iosBrokerageValue}}</td>
@@ -466,6 +466,12 @@
 		{{/each}}
 	</script>
 	
+	<!--课程点单部分全部-->
+	<script type="text/template" id="orderListTpl">
+		{{each item as item i}}
+			 <option value={{item.id}}>{{item.name}}</option>
+		{{/each}}
+	</script>
 
 <!--左侧更换头像弹窗-->
 <div id="headImg" class="clearfix">
@@ -1101,7 +1107,7 @@
 				
 				<div class="name">
 					<span><em>*</em>预约电话</span>
-					<input type="text" placeholder=""  disabled="disabled" class="appointmentTel">
+					<input type="text"  disabled="disabled" class="appointmentTel" placeholder="请输入预约电话">
 				</div>
 				</div>
 				
@@ -1128,8 +1134,8 @@
 								<option value="">请选择市</option>
 							</select>
 							
-							<input type="text" id="hosPro"  disabled="disabled" style="margin-bottom: 20px;"/>
-							<input type="text" id="hosCity"  disabled="disabled" style="margin-bottom: 20px;"/>
+							<input type="text" id="hosPro"  disabled="disabled" style="margin-bottom: 20px;" placeholder="医馆所在省份"/>
+							<input type="text" id="hosCity"  disabled="disabled" style="margin-bottom: 20px;"placeholder="医馆所在市区"/>
 						<textarea name="" readonly rows="" cols="" placeholder="请输入详细地址" class="name_textarea" id="u_detailAddress"></textarea>
 						<p class="warning return_warning5 hide">详细地址不能为空</p>
 					</div>
@@ -2311,7 +2317,7 @@
 				<hr style="margin-top: 0px !important; margin-bottom: 0px !important;color:#f0f0f0 !important;">
 				<div class="kecheng_Resive_mid">
 					<input type="text" placeholder="课程名称" class="search_classIpt classSearch_Name"/>
-					<select name="" class="searc_classSel">
+					<select name="" class="searc_classSel" id="order_List">
 						<option value="-1">全部</option>
 					</select>
 					<input onclick="SetDate(this,'yyyy-MM-dd hh:mm:ss')" placeholder="订单时间" readonly="readonly" style="width: 160px;height: 36px;padding-left: 10px; color: #999999 !important;font-size: 14px;" class="select_time Order_start_time">
@@ -2334,7 +2340,7 @@
 						</tr>
 						</thead>
 						<tbody id="myResive_list">
-						<tr>
+						<!--<tr>
 							<td>12345678901234567890</td>
 							<td>中医药席卷全球成独特风暴</td>
 							<td>2018-01-18 14:00</td>
@@ -2413,7 +2419,7 @@
 							<td></td>
 							<td></td>
 							<td></td>
-						</tr>
+						</tr>-->
 						</tbody>
 					</table>
 				</div>
@@ -2494,14 +2500,14 @@
 							</tr>
 						</thead>
 						<tbody id="myRanking_list">
-							<tr>
+							<!--<tr>
 								<td>1</td>
 								<td>稻草人</td>
 								<td>1000</td>
 								<td>苹果30%</td>
 								<td>80%</td>
 								<td>560</td>
-							</tr>
+							</tr>-->
 						</tbody>
 					</table>
 					

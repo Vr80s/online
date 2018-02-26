@@ -175,6 +175,10 @@ $(function(){
 	})
 	
 	
+	//课程订单赛选部分渲染
+	RequestService("/menu/getAllMenu?type=1", "GET", "", function (data) {
+   		 $("#order_List").html(template('orderListTpl', {item:data.resultObject}));
+	});
 	
 	
 	 
@@ -249,6 +253,14 @@ $(function(){
 			endTime = ''
 		}
     RequestService("/medical/order/course/list?size=10&current="+current+"&gradeName="+gradeName+"&startTime="+startTime+"&endTime="+endTime, "get", null, function(data) {
+         if(data.success == false){
+        	$('#blackTip').text(data.errorMessage);
+	       		$('#blackTip').toggle();
+	       		setTimeout(function(){
+	       			$('#blackTip').toggle();
+	       		},2000)
+	       		return false;
+        }
         for(var i=0;i<data.resultObject.records.length;i++){
             if(data.resultObject.records[i].VALUE>0){
                 data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
@@ -292,11 +304,20 @@ $(function(){
 			endTime = ''
 		}
     RequestService("/medical/order/gift/list?size=10&current="+current+"&gradeName="+gradeName+"&startTime="+startTime+"&endTime="+endTime, "get", null, function(data) {
+         if(data.success == false){
+        	$('#blackTip').text(data.errorMessage);
+	       		$('#blackTip').toggle();
+	       		setTimeout(function(){
+	       			$('#blackTip').toggle();
+	       		},2000)
+	       		return false;
+        }
         for(var i=0;i<data.resultObject.records.length;i++){
             if(data.resultObject.records[i].VALUE>0){
                 data.resultObject.records[i].VALUE = "+"+data.resultObject.records[i].VALUE;
             }
         }
+       
         $("#gift_Resive_list").html(template('gift_Resive_Tpl', data.resultObject));
         debugger
         //每次请求完数据就去渲染分页部分
@@ -331,3 +352,5 @@ function searchgiftResiveList(){
 //	console.log($('.search_classIpt').val(),$('.Order_start_time').val(),$('.Order_end_time').val())
 	getGiftResiveList (1,$('.giftSearch_Name').val(),$('.Gift_start_time').val(),$('.Gift_end_time').val());
 }
+
+
