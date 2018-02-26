@@ -7,6 +7,9 @@ body,td,th,ul,li{
      text-decoration:none;
      cursor:pointer;
 }
+body{
+	font-family: "Helvetica";
+}
  .find_nav {
      width: 6.2rem;
      height: 0.88rem;
@@ -71,6 +74,10 @@ body,td,th,ul,li{
     display:table;
     padding-top: 1.4rem !important;
     box-sizing: border-box;
+}
+
+.li_list0{
+	padding-top: 0.6rem !important;
 }
 /*将每个li封闭成一个盒子，就可以独立每个li内的内容*/
  .li_list span{
@@ -282,7 +289,8 @@ header{
     min-width: 0.5rem;
     
     height: 0.24rem;
-    line-height: 0.2rem !important;
+    /*line-height: 0.2rem !important;*/
+    line-height: 0.24rem !important;
     margin-right: 0.1rem;
 }
 .li_list_one_right .div .p0 span{
@@ -488,3 +496,27 @@ header{
 	color: #fff;
 }
 /*筛选滑动结束*/
+
+/*默认背景图开始*/
+.no_class {
+    direction: down;
+    text-align: center;
+    line-height: 0;
+    /*position: absolute;*/
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.44rem;
+    margin-top: -3rem;
+    /*display: none !important;*/
+}
+.no_class img {
+    width: 2.5rem;
+}
+.no_class p {
+    color: #999;
+    font-size: 0.28rem;
+    text-align: center;
+    padding: 0.5rem 0;
+}
+/*默认背景图结束*/

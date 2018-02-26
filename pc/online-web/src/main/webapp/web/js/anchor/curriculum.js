@@ -41,6 +41,11 @@ $(function(){
 		$('.account .account_main').css('display','none');
 		$('.myResive ').css('display','block');
 		$('.myResive .little_box1').css('display','block');
+		
+		$('.littleBoxss .giftResive').removeClass('activeP')
+		$('.littleBoxss .classResive').addClass('activeP')
+		$('#gift_Resive').addClass('hide');
+		$('#kecheng_Resive').removeClass('hide');
 		event.stopPropagation();
 		$(".select_list .littleBoxss").stop().slideToggle();
 		

@@ -44,6 +44,7 @@ function getShareId(){
 	
 	var viewHtml = getCurrentViewHtml();
 	if(viewHtml == "live_personal.html"){
+		
 		return getQueryString("userLecturerId");
 		
 	}else if(viewHtml == "live_audio.html" || 
@@ -65,9 +66,7 @@ function getShareId(){
  * @returns {Number}  1：课程  2：主播
  */
 function getShareType(){
-	
 	var viewHtml = getCurrentViewHtml();
-	
 	if(viewHtml == "live_personal.html"){
 		return 2;
 	}else{
@@ -243,7 +242,7 @@ if(is_weixn()){
 		//发送到朋友
 		wx.onMenuShareAppMessage({
 		    title: gradeName, // 分享标题
-		    desc: description.stripHTML(), // 分享描述
+		    desc: description, // 分享描述
 		    link:link, // 分享链接
 		    imgUrl: smallImgPath, // 分享图标
 		    type: '', // 分享类型,music、video或link，不填默认为link

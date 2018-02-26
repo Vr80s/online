@@ -273,7 +273,13 @@ $(".right_modification").click(function() {
 //选择医馆列表选中之后出发的事件
 $('#speech_select1').change(function(){
     //医馆ID的获取
+     //医馆ID的获取
     hosID = $('#speech_select1').val()
+    if(hosID == -1){
+        //清空信息
+        clearHosList()
+        return false;
+    }
     //获取对应的医馆信息渲染到页面上
     RequestService("/medical/hospital/getHospitalById", "get", {
         id: hosID,
@@ -299,6 +305,27 @@ $('#speech_select1').change(function(){
         }
     })
 })
+
+
+//清空医师入驻医馆信息列表
+function clearHosList(){
+    //省分
+    $('#hosPro').val('');
+    //市区
+    $('#hosCity').val('')
+    //详细地址清空
+    $('#u_detailAddress').val('')
+    //封面清空
+//  $('#hospital .fengmian_pic').html('	<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;">点击上传医馆封面图资图片</p>');
+    //电话清空
+    $('#doctor_baseInf .appointmentTel').val('');
+    //坐诊时间
+    $('#u_workTime > li').removeClass('color');
+
+}
+
+
+
 
 //点击选择省份效果
 $('#demo1 .choosePro').click(function(){
@@ -453,7 +480,8 @@ $(".message_return .message_title .two").click(function() {
     console.log(data);
 
     //列表渲染
-    $('#speech_select1').html(template('hosListTpl', {item:data.resultObject.records}));
+    $('#speech_select1').append('<option value="-1">请选择医馆</option>')
+    $('#speech_select1').append(template('hosListTpl', {item:data.resultObject.records}));
 
 
     //渲染之后在此调用插件
