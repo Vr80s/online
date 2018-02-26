@@ -176,10 +176,10 @@ $(function(){
 	
 	
 	//课程订单赛选部分渲染
-	RequestService("/menu/getAllMenu?type=1", "GET", "", function (data) {
-   		 $("#order_List").html(template('orderListTpl', {item:data.resultObject}));
-	});
-	
+//	RequestService("/menu/getAllMenu?type=1", "GET", "", function (data) {
+// 		 $("#order_List").html(template('orderListTpl', {item:data.resultObject}));
+//	});
+//	
 	
 	 
 
@@ -252,7 +252,30 @@ $(function(){
 		if(endTime == undefined){
 			endTime = ''
 		}
-    RequestService("/medical/order/course/list?size=10&current="+current+"&gradeName="+gradeName+"&startTime="+startTime+"&endTime="+endTime, "get", null, function(data) {
+		var courseForm;
+	    var multimediaType;
+	    var courseType = $("#order_List").val();
+	    if(courseType == 1){
+	        courseForm = 1;
+	    }else if(courseType == 2){
+	        courseForm = 2;
+	        multimediaType = 1;
+	    }else if(courseType == 3){
+	        courseForm = 3;
+	    }else if(courseType == 4){
+	        courseForm = 2;
+	        multimediaType = 2;
+	    }
+		var url ="/medical/order/course/list?size=10&current="+current+"&gradeName="+gradeName+"&startTime="+startTime+"&endTime="+endTime;
+		  if(courseForm!=null){
+	    		url += "&courseForm="+courseForm;
+		    }
+		    if(multimediaType!=null){
+		        url += "&multimediaType="+multimediaType;
+		    }
+	
+		
+    RequestService(url, "get", null, function(data) {
          if(data.success == false){
         	$('#blackTip').text(data.errorMessage);
 	       		$('#blackTip').toggle();
