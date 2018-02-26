@@ -725,59 +725,33 @@ public class OnlineUserController {
  			String fileType="1"; //图片类型了
  			
  			Map<String,String> map = new HashMap<String,String>();
- 			String headImgPath = service.upload(null, //用户中心的用户ID
-				projectName, imageName, suffix, bs123,fileType,null);
+ 			String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
+ 			
  			JSONObject json = JSONObject.parseObject(headImgPath);
  			LOGGER.info("文件路径——path:"+headImgPath);
  			map.put("smallHeadPhoto", json.get("url").toString());
         	  
-/*    	    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;  
-            MultipartFile fileMul = multipartRequest.getFile("file");  
-            Map<String,String> map = new HashMap<String,String>();
-            if(!fileMul.isEmpty()){  
-                // 获得文件名：   
-                String filename = fileMul.getOriginalFilename();   
-                // 获得输入流：   
-                //InputStream input = fileMul.getInputStream();   
-                if(filename!=null && !filename.trim().equals("")){
-                    filename = filename.toLowerCase();
-        			if (!filename.endsWith("image")&& !filename.endsWith("gif")&& !filename.endsWith("jpg")
-        					&& !filename.endsWith("png")&& !filename.endsWith("bmp")) {
-        				return ResponseObject.newErrorResponseObject("文件类型有误");
-        			}
-        			String contentType =  fileMul.getContentType();//文件类型
-        			byte [] bs = fileMul.getBytes();
-        			String projectName="other";
-        			String fileType="1"; //图片类型了
-        			String headImgPath = service.upload(null, //用户中心的用户ID
-    				projectName, filename,contentType, bs,fileType,null);
-        			JSONObject json = JSONObject.parseObject(headImgPath);
-        			LOGGER.info("文件路径——path:"+headImgPath);
-        			map.put("smallHeadPhoto", json.get("url").toString());
-                }
-            }*/
-            
-          OnlineUser user = new OnlineUser();
-          String token = request.getParameter("token");
-          if(token !=null ){
-        	  user = cacheService.get(token);
-          }else{
-        	  user = (OnlineUser) request.getSession().getAttribute("_user_");
-          }  
-          onlineUserService.updateUserCenterData(user,map);
-          String weiHouResp = WeihouInterfacesListUtil.
-        		  updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
-          
-          /**
-           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
-           */
-          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
-          request.getSession().setAttribute("_user_",newUser);
-          
-          if(weiHouResp == null){
-        	  LOGGER.info("同步微吼头像失败");
-          }
-          return ResponseObject.newSuccessResponseObject(map);
+	        OnlineUser user = new OnlineUser();
+	        String token = request.getParameter("token");
+	        if(token !=null ){
+	        	user = cacheService.get(token);
+	        }else{
+	        	user = (OnlineUser) request.getSession().getAttribute("_user_");
+	        }  
+	        onlineUserService.updateUserCenterData(user,map);
+	        
+	        String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
+	          
+	          /**
+	           * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
+	           */
+	          OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
+	          request.getSession().setAttribute("_user_",newUser);
+	          
+	          if(weiHouResp == null){
+	        	  LOGGER.info("同步微吼头像失败");
+	          }
+	          return ResponseObject.newSuccessResponseObject(map);
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseObject.newErrorResponseObject("后台处理流程异常");

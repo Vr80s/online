@@ -61,7 +61,7 @@ public class CourseController {
 	private Integer livePreheating;
 	
 	/**
-	 * Description：课程详情（视频、音频、回放、预告）页面
+	 * Description：课程详情（展示页面）页面
 	 * @param req
 	 * @param res
 	 * @return
@@ -130,7 +130,7 @@ public class CourseController {
 	
 	
 	/**
-	 * Description：
+	 * Description：课程详情（播放页面）页面
 	 * 
 	 * @param req
 	 * @param res

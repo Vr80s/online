@@ -56,6 +56,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
     public Page<CourseLecturVo> selectMyFreeCourseList(Page<CourseLecturVo> page,String id) {
 		// TODO Auto-generated method stub
 		List<CourseLecturVo> records = iCourseMapper.selectMyFreeCourseList(page,id);
+		
 		return   page.setRecords(records);
 	}	
 	@Override
