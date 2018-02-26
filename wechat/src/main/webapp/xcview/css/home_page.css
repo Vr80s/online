@@ -1073,7 +1073,7 @@ header{
 	margin-left: 0.456rem;
 	margin-bottom: 0.851rem;
 	position: relative;
-	max-height: 7rem;
+	height: 7rem;
 }
 
 /*视频*/
@@ -1387,7 +1387,7 @@ header{
 }
 .boutique_main_four_title{
 	width: 7.234rem;
-	height: 0.851rem;
+	height: 1.6rem;
     line-height: 0.851rem;
 	font-size: 0.596rem;
 	color: #333;
@@ -1398,12 +1398,13 @@ header{
 }
 .boutique_main_four_title .span{
 	margin-right: 0.2rem;
-    max-width: 2.3rem;
+    /*max-width: 2.3rem;*/
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
     float: left;
+    width: 100%;
 }
 .boutique_main_four_size P{
 	font-size: 0.468rem;
@@ -1594,7 +1595,7 @@ header{
 }
 .newest_main_two_title{
 	width: 7.234rem;
-	height: 0.851rem;
+	height: 1.6rem;
     line-height: 0.851rem;
 	font-size: 0.596rem;
 	color: #333;
@@ -1605,12 +1606,13 @@ header{
 }
 .newest_main_two_title .span{
 	margin-right: 0.2rem;
-    max-width: 2.3rem;
+    /*max-width: 2.3rem;*/
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
     float: left;
+    width: 100%;
 }
 .newest_main_two_size P{
 	font-size: 0.468rem;
@@ -1894,7 +1896,7 @@ header{
 }
 .lectures_main_one_title{
 	width: 7.234rem;
-	height: 0.851rem;
+	height: 1.6rem;
     line-height: 0.851rem;
 	font-size: 0.596rem;
 	color: #333;
@@ -1905,12 +1907,13 @@ header{
 }
 .lectures_main_one_title .span{
 	margin-right: 0.2rem;
-    max-width: 2.3rem;
+    /*max-width: 2.3rem;*/
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
     float: left;
+    width: 100%;
 }
 
 
