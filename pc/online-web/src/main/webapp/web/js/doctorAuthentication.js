@@ -170,7 +170,7 @@ $(function(){
 			}, function(data) {
 				console.log(data);
 			if(data.success == false){
-				$('#tip').text('保存失败，请重试');
+				$('#tip').text(data.errorMessage);
 	       		$('#tip').toggle();
 	       		setTimeout(function(){
 	       			$('#tip').toggle();
