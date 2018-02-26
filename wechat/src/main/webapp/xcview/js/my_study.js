@@ -34,8 +34,20 @@ $(function(){
 					
 	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
 	requestService("/xczh/myinfo/list",null,function(data) {
+		
+		
 			$(template("data_my_class",{items:data.resultObject[0]})).appendTo("#my_class_box");
 			$(template("data_my_class",{items:data.resultObject[1]})).appendTo("#my_class_box");
+		
+		
+		$(".paly_ing").click(function(){
+			var courseId=$(this).attr("data-id");
+			requestService("/xczh/history/add",
+			{courseId:courseId}
+			,function(data) {
+
+			})	
+		})
 
 	})	
 	
@@ -47,7 +59,15 @@ $(function(){
 			$("#all_follow_people").html(template("data_follow",data))		
 		})	
 	
+//点击播放视频后才开始记录播放历史
 
+$(".paly_ing").click(function(){
+	requestService("/xczh/history/add",
+	courseId=courseId
+	,function(data) {
+		alert(1)
+	})	
+})
 
 
 

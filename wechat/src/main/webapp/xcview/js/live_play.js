@@ -20,6 +20,7 @@ var courseId = getQueryString('my_study');
 requestService("/xczh/course/details",{
 	courseId : courseId	
 },function(data) {
+
 	//分享的信息展示
 		gradeName = data.resultObject.gradeName;
 		smallImgPath = data.resultObject.smallImgPath;
@@ -30,6 +31,16 @@ requestService("/xczh/course/details",{
 		}
 //	视频直播/回放/未开播状态判断
 	$(".play_video").html(template('data_video',data.resultObject));
+	
+		//点击播放记下记录
+		$(".memory_lujin").click(function(){
+			var memory_data=$(this).attr("data-memory")
+			requestService("/xczh/history/add",
+			{courseId:memory_data}
+			,function(data) {
+
+			})	
+		})
 	//	CC视频ID
 	var	videoId = data.resultObject.directId;
     var	type = data.resultObject.type;	

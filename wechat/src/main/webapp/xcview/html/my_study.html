@@ -106,7 +106,7 @@
 						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
 						{{else if item.lineState==1}}	
 						<!--直播中-->				
-						<p class="paly_ing" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}">直播中</a></p>
+						<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>
 						{{else if item.type==4}}
 						<!--上课时间-->
 						<p class="my_collection">上课时间：&nbsp;<span>2017.12.29</span></p>
