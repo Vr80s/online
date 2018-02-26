@@ -3,8 +3,11 @@ package com.xczh.consumer.market.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.xczhihui.user.center.bean.TokenExpires;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -24,6 +27,11 @@ public class UCCookieUtil {
 	 * 用户中心token cookie名
 	 */
 	private final static String COOKIE_TOKEN_NAME = "_uc_t_";
+	
+	/**
+	 * cookie名,用户判断第三方账户是否绑定了用户信息
+	 */
+	private final static String  THIRD_PARTY_COOKIE_TOKEN_NAME = "third_party_uc_t_";
 
 	/**
 	 * 从cookie构造token
@@ -46,17 +54,43 @@ public class UCCookieUtil {
 	 * @param response
 	 * @param token
 	 */
+	public static void writeThirdPartyCookie(HttpServletResponse response, String value) {
+		//String str = encodeToken(value);
+		String str;
+		try {
+			str = URLEncoder.encode(value, "UTF-8");
+			
+			writeBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 清除cookie中的token信息。
+	 */
+	public static void clearThirdPartyCookie(HttpServletResponse response) {
+		clearBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME);
+	}
+	
+	
+	/**
+	 * 将token中的信息写入cookie。
+	 * 
+	 * @param response
+	 * @param token
+	 */
 	public static void writeTokenCookie(HttpServletResponse response, Token token) {
 		String str = encodeToken(token);
 		writeBXGCookie(response, COOKIE_TOKEN_NAME, str, token.getExpires());
 	}
-
 	/**
 	 * 清除cookie中的token信息。
 	 */
 	public static void clearTokenCookie(HttpServletResponse response) {
 		clearBXGCookie(response, COOKIE_TOKEN_NAME);
 	}
+	
 
 	/**
 	 * 将token组成字符串，并用URLEncoder编码。

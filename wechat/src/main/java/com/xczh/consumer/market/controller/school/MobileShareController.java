@@ -188,6 +188,15 @@ public class MobileShareController {
 						ou.setTicket(t.getTicket());
 						onlogin(req,res,t,ou,t.getTicket());
 					}	
+					/**
+					 * 写入这个cookie
+					 */
+					UCCookieUtil.writeThirdPartyCookie(res,wxw.getClient_id());
+				}else{
+					/**
+					 * 删除这个cookie
+					 */
+					UCCookieUtil.clearThirdPartyCookie(res);
 				}
 			}else{
 				ou =  appBrowserService.getOnlineUserByReq(req);
@@ -217,6 +226,8 @@ public class MobileShareController {
 						}
 					}
 				}
+				
+				
 				if(cv.getWatchState() == 0 || cv.getWatchState()==1){
 					if(cv.getType()==1||cv.getType()==2){
 						//视频音频购买
@@ -245,7 +256,7 @@ public class MobileShareController {
 						res.sendRedirect(returnOpenidUri + "/xcview/html/live_class.html?my_study="+shareId);
 					}
 				}
-			}else if("2".equals(shareType)){ //主播分享
+			}else if("2".equals(shareType)){ //主播分享  -->设置下cookie
 				res.sendRedirect(returnOpenidUri + "/xcview/html/live_personal.html?userLecturerId="+shareId);
 			}
 		} catch (Exception e) {

@@ -28,6 +28,7 @@ import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
@@ -78,8 +79,11 @@ public class H5WeChatSetController {
 	@ResponseBody
 	public ResponseObject setWxMenu (HttpServletRequest req, HttpServletResponse res, Map<String, String> params) throws Exception {
 		
-		String access_token = req.getParameter("access_token");
-		access_token ="6mcGpY9ORGOF_Vw7s0VdYnSoNIaOTeYnJWrHAcb1Xaihi7dIDi-SqjV6B_uY4FJ_N6PT2NKtYKQjCWvVB5OTptOea-JBV13UEfYmskk2L1wTBCeABADLM";
+		String access_token =  CommonUtil.getAccessToken();
+		
+		LOGGER.info("access_token:"+access_token);
+		//String access_token = req.getParameter("access_token");
+		//access_token ="6mcGpY9ORGOF_Vw7s0VdYnSoNIaOTeYnJWrHAcb1Xaihi7dIDi-SqjV6B_uY4FJ_N6PT2NKtYKQjCWvVB5OTptOea-JBV13UEfYmskk2L1wTBCeABADLM";
 		if(access_token == null || access_token.isEmpty()) {
             return null;
         }
@@ -119,6 +123,9 @@ public class H5WeChatSetController {
 		HttpsRequest request = new HttpsRequest();
 		JSONObject jsonObject = JSONObject.fromObject(sb.toString());
 		String buffer = request.sendPost2(strUrl, jsonObject);		
+		
+		LOGGER.info("buffer:"+buffer);
+		
 		return ResponseObject.newSuccessResponseObject(buffer);
 	}	
 	
@@ -164,6 +171,12 @@ public class H5WeChatSetController {
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
+				
+				/**
+				 * 写入这个cookie
+				 */
+				UCCookieUtil.writeThirdPartyCookie(res,wxw.getClient_id());
+				
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 				} else{
@@ -175,15 +188,21 @@ public class H5WeChatSetController {
 				 * jump_type=2	跳到我的页面
 				 */
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=2");
-				//res.sendRedirect(returnOpenidUri + "/xcviews/html/my.html?"+ "openId="+openid);
+				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=2");
+			
+				/**
+				 * 清除这个cookie
+				 */
+				UCCookieUtil.clearThirdPartyCookie(res);
+				
+				
+				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			//res.getWriter().write(e.getMessage());
 		}
 	}
-	
 	
 	/**
 	 * 在线课堂   -- 推荐页面
@@ -212,18 +231,21 @@ public class H5WeChatSetController {
 			ConfigUtil cfg = new ConfigUtil(req.getSession());
 			String returnOpenidUri = cfg.getConfig("returnOpenidUri");
 			if(StringUtils.isNotBlank(wxw.getClient_id())){
-				
 				LOGGER.info("wxw.getClient_id()===="+wxw.getClient_id());
-				
 				OnlineUser ou =  onlineUserMapper.findUserById(wxw.getClient_id());
 				LOGGER.info("getLoginName===="+ou.getLoginName());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
+				
+				/**
+				 * 写入这个cookie
+				 */
+				UCCookieUtil.writeThirdPartyCookie(res,wxw.getClient_id());
+				
 				if (openid != null && !openid.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid);
-					//res.sendRedirect(returnOpenidUri + "/bxg/page/index/"+ openid + "/" + code);
 				} else{
 					res.getWriter().write(openid);
 				}	
@@ -233,8 +255,14 @@ public class H5WeChatSetController {
 				 * jump_type=2	跳到我的页面
 				 */
 				//否则跳转到这是页面。绑定下手机号啦   -- 如果从个人中心进入的话，也需要绑定手机号啊，绑定过后，就留在这个页面就行。
-				//
-				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				
+				/**
+				 * 清除这个cookie
+				 */
+				UCCookieUtil.clearThirdPartyCookie(res);
+				
+				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
