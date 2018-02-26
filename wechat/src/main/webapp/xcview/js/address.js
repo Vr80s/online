@@ -2,8 +2,6 @@
     /**
      * 可能是来自填写报名信息页面的
      */
-     
-
     var userId = localStorage.getItem("userId");
     $(".address_return").click(function(){
     	var person = sessionStorage.getItem("address_back");
@@ -341,10 +339,6 @@
 				//deleteAddress(this);
 			});
 	}
-	/**
-	 * 请求地址列表
- 	 */
-	addressList();
 /**
  * 隐藏确定删除的弹框
  */	
