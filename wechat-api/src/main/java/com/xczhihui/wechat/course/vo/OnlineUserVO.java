@@ -487,4 +487,34 @@ public class OnlineUserVO implements Serializable{
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
+
+	@Override
+	public String toString() {
+		return "OnlineUserVO [id=" + id + ", name=" + name + ", loginName="
+				+ loginName + ", password=" + password + ", sex=" + sex
+				+ ", mobile=" + mobile + ", email=" + email + ", isDelete="
+				+ isDelete + ", smallHeadPhoto=" + smallHeadPhoto
+				+ ", bigHeadPhoto=" + bigHeadPhoto + ", createPerson="
+				+ createPerson + ", createTime=" + createTime + ", status="
+				+ status + ", lastLoginIp=" + lastLoginIp + ", lastLoginDate="
+				+ lastLoginDate + ", visitSum=" + visitSum + ", stayTime="
+				+ stayTime + ", info=" + info + ", jobyears=" + jobyears
+				+ ", occupation=" + occupation + ", occupationOther="
+				+ occupationOther + ", target=" + target + ", isApply="
+				+ isApply + ", fullAddress=" + fullAddress + ", menuId="
+				+ menuId + ", unionId=" + unionId + ", userType=" + userType
+				+ ", refId=" + refId + ", parentId=" + parentId
+				+ ", shareCode=" + shareCode + ", changeTime=" + changeTime
+				+ ", origin=" + origin + ", type=" + type + ", isLecturer="
+				+ isLecturer + ", roomNumber=" + roomNumber + ", vhallId="
+				+ vhallId + ", vhallPass=" + vhallPass + ", vhallName="
+				+ vhallName + ", regionId=" + regionId + ", regionAreaId="
+				+ regionAreaId + ", regionCityId=" + regionCityId
+				+ ", provinceName=" + provinceName + ", cityName=" + cityName
+				+ ", countyName=" + countyName + ", individualitySignature="
+				+ individualitySignature + ", blacklist=" + blacklist
+				+ ", gag=" + gag + ", description=" + description + "]";
+	}
+    
+    
 }

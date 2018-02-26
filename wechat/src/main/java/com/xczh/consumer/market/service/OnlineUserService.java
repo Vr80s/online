@@ -33,8 +33,7 @@ public interface OnlineUserService {
 	 * 手机提交注册
 	 * @param password
 	 */
-	public ResponseObject addPhoneRegist(HttpServletRequest req,
-										 String password, String mobile, String openId)throws Exception;
+	public ResponseObject addPhoneRegist(HttpServletRequest req,String password, String mobile, String openId)throws Exception;
 	/**
 	 * 验证码检验
 	 * @param mobile
@@ -81,7 +80,7 @@ public interface OnlineUserService {
 	 * @return ResponseObject
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
-	public ResponseObject addPhoneRegistByAppH5(HttpServletRequest req,
+	public OnlineUser addPhoneRegistByAppH5(HttpServletRequest req,
                                                 String password, String mobile, Integer vtype)throws Exception;
 	/**
 	 *

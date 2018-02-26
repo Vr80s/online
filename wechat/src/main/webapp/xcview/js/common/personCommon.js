@@ -4,22 +4,15 @@ var wait = 90;
 function time(o) {
     if (wait == 0) {
         o.removeAttribute("disabled");
-        //o.setAttribute("style", "background: #00D580;")
         $(o).html("获取验证码");
 
         wait = 90;
         $(".call_code").css("background","#00bc12");
-        //$("#pet_name_right_bind").css("background","#ccc");
-        //$("#update_mobile_next").css("background","#ccc");
     } else {
         o.setAttribute("disabled", true);
-        //o.setAttribute("style", "background: #cbcbcb;")
-        //o.value = "" + wait + "S";
         $(o).html("" + wait + "S");
         wait--;
         $(".call_code").css("background","#ccc");
-        //$("#update_mobile_next").css("background","#00bc12");
-        //$("#pet_name_right_bind").css("background","#00bc12");
         setTimeout(function() {
             time(o)
         }, 1000)
@@ -56,23 +49,15 @@ function  sendCode(obj){
 		number = $("#new_mobile").val();
 	}
 	if (!stringnull(number)) {
-		/*$("#errorMsg").html("<div class='vanish vanishs' id='vanishs'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号不能为空</div></div></div>");
-		$("#errorMsg").show();
-		
-		setTimeout(function(){$(".vanish").hide();},1500);*/
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>手机号格式不正确</div></div></div>");
-		$("#errorMsg").show();
-		setTimeout(function(){$(".vanish").hide();},1500);
+		webToast("手机号格式不正确","middle",3000);
 		return false;
 	}
 	//
 	if(vtype == 4 && currentName.trim() == number.trim()){
-		$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>当前绑定的手机号和原来的一样,换个吧</div></div></div>");
-		$("#errorMsg").show();
-		setTimeout(function(){$(".vanish2").hide();},1500);
+		webToast("当前绑定的手机号和原来的一样,换个吧","middle",3000);
 		return false;
 	}
 	var urlparm = {
@@ -83,16 +68,8 @@ function  sendCode(obj){
 			urlparm, function(data) {
 		if (data.success) {
 			time(obj);
-//			reminderror.innerHTML = "";
-
-
 		} else {
-			$("#errorMsg").html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>同一手机号两次发送间隔至少90秒！</div></div></div>");
-			$("#errorMsg").show();
-			setTimeout(function(){$(".vanish2").hide();},1500);
-			
-			updateMobile.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确</div></div></div>";
-							setTimeout(function(){$(".vanish").hide();},1500);
+			webToast(data.errorMessage,"middle",3000);				
 		}
 	});
 }
@@ -104,13 +81,10 @@ function  sendCode(obj){
  */
 function checkUser1(saveFalg){
 
-	  var nickname = "";   //昵称
-	  var sex  = "";       //性别
-	  var email = "";      // 
-	  var provinceCityName = "";
-	  var info = "";
-	  var occupation = "";
-	  var  occupationOther = "";
+	  var falg = true;
+	
+	  var nickname = "";  var sex  = ""; var email = "";  var provinceCityName = "";
+	  var info = "";var occupation = ""; var  occupationOther = "";
 	  if(saveFalg == "nickname"){
 		  nickname =  $("#form input[name='nickname']").val();
 	  }else if(saveFalg == "sex"){
@@ -126,8 +100,6 @@ function checkUser1(saveFalg){
 	  }else if(saveFalg == "occupationOther"){
 		  occupationOther =  $("#form input[name='occupationOther']").val();
 	  }
-//	  map.put("occupation", occupation);
-//    map.put("occupationOther", occupationOther);
 	  var user_id = localStorage.getItem("userId");
 	requestService("/xczh/set/userInfoWechat", {
           id: stringnull(user_id) ? user_id : "",
@@ -140,7 +112,6 @@ function checkUser1(saveFalg){
 	      occupationOther:stringnull(occupationOther) ? occupationOther : ""
 	}, function(data) {
 		if (data.success) {
-			
 			var result = data.resultObject;
 			if(stringnull(result.nickname)){
 				$("#person_one").html(result.nickname);
@@ -182,9 +153,12 @@ function checkUser1(saveFalg){
 				localStorage.setItem("occupationOther",result.occupationOther);
 			}
 		} else {
-			alert(data.errorMessage);
+			falg = false;
+			webToast(data.errorMessage,"middle",3000);		
 		}
 	},false);
+	
+	return falg;
 }
 
 
@@ -232,8 +206,7 @@ function updateMobile(){
                 $(".call_popup_size2").text(number);
                 $(".call_popup").show();
             } else {
-                $("#errorMsg").html(data.errorMessage);
-                $("#errorMsg").show();
+            	webToast(data.errorMessage,"middle",3000);
                 return false;
             }
         });

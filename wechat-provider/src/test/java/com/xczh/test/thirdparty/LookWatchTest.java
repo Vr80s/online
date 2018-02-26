@@ -5,13 +5,14 @@ import java.util.Date;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import test.BaseJunit4Test;
+
 import com.baomidou.mybatisplus.plugins.Page;
+import com.xczhihui.wechat.course.mapper.CourseMapper;
 import com.xczhihui.wechat.course.service.IWatchHistoryService;
 import com.xczhihui.wechat.course.util.DateDistance;
 import com.xczhihui.wechat.course.util.DateUtil;
 import com.xczhihui.wechat.course.vo.WatchHistoryVO;
-
-import test.BaseJunit4Test;
 
 /**
  * 医馆入驻测试类
@@ -21,6 +22,8 @@ public class LookWatchTest extends BaseJunit4Test {
 	@Autowired
 	public IWatchHistoryService watchHistoryServiceImpl;
 	
+	@Autowired
+	public CourseMapper courseMapper;
     /**
      * 测试观看记录了
      */
@@ -43,5 +46,6 @@ public class LookWatchTest extends BaseJunit4Test {
 			watchHistoryVO.setTimeDifference(distance);
 		}
     }
+	
 
 }

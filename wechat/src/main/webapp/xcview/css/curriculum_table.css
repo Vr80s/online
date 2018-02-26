@@ -8,7 +8,7 @@ body,td,th,ul,li{
      cursor:pointer;
 }
 body{
-	font-family: Helvetica;
+	font-family: "Helvetica";
 }
  .find_nav {
      width: 6.2rem;
@@ -477,7 +477,28 @@ header{
     line-height: 0.98rem;
     position: fixed;
     bottom: 0rem;
-
+	right: -10.766rem;
+}
+.all_bottom_move{
+	animation:all_bottom_move 1s;
+	-moz-animation:all_bottom_move 1s; /* Firefox */
+	-webkit-animation:all_bottom_move 1s; /* Safari and Chrome */
+	-o-animation:all_bottom_move 1s; /* Opera */
+	animation-fill-mode: forwards;
+}
+@keyframes all_bottom_move{
+	100% {right:0;}
+}
+.all_bottom_move_close{
+	animation:all_bottom_move_close 2s;
+	-moz-animation:all_bottom_move_close 2s; /* Firefox */
+	-webkit-animation:all_bottom_move_close 2s; /* Safari and Chrome */
+	-o-animation:all_bottom_move_close 2s; /* Opera */
+	animation-fill-mode: forwards;
+	right: 0px;
+}
+@keyframes all_bottom_move_close{
+	100% {right:-10.766rem;}
 }
 .all_bottom div{
 	width: 50%;
@@ -502,7 +523,8 @@ header{
     direction: down;
     text-align: center;
     line-height: 0;
-    position: absolute;
+    /*position: absolute;*/
+    position: fixed;
     top: 50%;
     left: 50%;
     margin-left: -1.44rem;

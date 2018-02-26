@@ -51,6 +51,16 @@
 	    <id column="county_name" property="countyName"  />
 	</resultMap>
 
+	<!-- 根据用户id查找用户信息 -->
+	<select id="selectCourseById" resultMap="courseBaseResult">
+		SELECT
+		oc.*
+		FROM
+		oe_course oc where oc.id = #{courseId}
+	</select>
+
+	
+
 
 	
 </mapper>

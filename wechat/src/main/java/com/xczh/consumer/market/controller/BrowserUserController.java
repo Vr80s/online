@@ -92,6 +92,7 @@ public class BrowserUserController {
 	 */
 	@RequestMapping(value="phoneRegist")
 	@ResponseBody
+	@Transactional
 	public ResponseObject phoneRegist(HttpServletRequest req, HttpServletResponse res) throws Exception {
 
 		String password = req.getParameter("password");
@@ -106,7 +107,9 @@ public class BrowserUserController {
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
-		return onlineUserService.addPhoneRegistByAppH5(req, password,username,Integer.parseInt(vtype));
+		OnlineUser ou = onlineUserService.addPhoneRegistByAppH5(req, password,username,Integer.parseInt(vtype));
+		
+		return ResponseObject.newSuccessResponseObject(ou);
 	}
 	/**
 	 * 忘记密码

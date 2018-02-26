@@ -21,17 +21,7 @@
 <!--<link rel="stylesheet" href="/xcviews/css/css.css">-->
 <link rel="stylesheet" href="/xcviews/css/tailor.css">
 <link rel="stylesheet" href="/xcview/css/heads_nicknames.css">
-
-
-<script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
-
-	<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
-
-<style>
-	
-	
-	
-</style>
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 </head>
 <body style="background:#fff;">
 	<!-- 头部开始 -->
@@ -81,7 +71,7 @@
 				 </div> -->
 				 <!-- 图像区域 -->
 			 	<a href="javascript:void(0);" class="logoBox" id="logoBox" style="" onchange="checkUser1()">
-				    <img  src="../images/120.jpg" width="100%" id="headImg" />
+				    <img  src="/xcview/images/default_pic.png" width="100%" id="headImg" />
 				</a>
 				
 			</form>
@@ -97,16 +87,16 @@
 	<!-- 中间内容结束 -->
 </body>
 
-
+<script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/xcviews/js/common/ajaxfileupload.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
-
-
-
+<script type="text/javascript" src="/xcview/js/alert/alertPopShow.js"></script>
+<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 <script src="/xcviews/js/iscroll-zoom.js"></script>
 <script src="/xcviews/js/hammer.js"></script>
 <script src="/xcviews/js/jquery.photoClip.js"></script>
+
 <script>
 var obUrl = ''
 //document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
@@ -136,10 +126,13 @@ $("#clipArea").photoClip({
 		ajaxUploadBase64File(params);
 	}
 });
+
+
+
 function ajaxUploadBase64File(params){
     //var url = window.location.protocol + '//' + window.location.host + "/REGISTER/uploadBase64";
     
-    requestService("/bxg/user/userCenterFormSub2",params, function(data) {
+    requestService("/xczh/set/wechatSaveHeadImg",params, function(data) {
     	 if(data.success == true){
          	var result = data.resultObject;
  			if(stringnull(result.smallHeadPhoto)){
@@ -376,19 +369,6 @@ function setImagePreview() {
 <script type="text/javascript">
 	window.onload = function(){
 		
-		/*var Ipt0,Ipt1,Ipt2;
-		 
-		
-		$('.input0').keyup(function(){
-			Ipt0 = $.trim($('.input0').val());
-		 	Ipt1 = $.trim($('.input1').val());
-		 	
-			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
-				$(".forget_btn").css("opacity","1");
-			}else{
-				$(".forget_btn").css("opacity","0.3");      	
-			}
-		})*/
 		$('#file').click(function(){
 			$('.qx').css("display","block");
 			$('.choice').css("display","none");
@@ -409,7 +389,6 @@ function setImagePreview() {
 		
 //		设置昵称
 		$('.input0').keyup(function(){
-			
 			if($('.input0').val().length<=0){
 	           	$(".forget_btn").css("opacity","0.3");
 	           	
@@ -423,33 +402,8 @@ function setImagePreview() {
 <script>
     $(document).ready(function(){
 //用户名长度
-        function nickName() {
-            var yonghuReg = /([\u4e00-\u9fa5]+)|(\w+)|([-]+)/g;
-            var yonghuNameLength = 0;
-            var yonghuName = $("#nickname").val().trim();
-            var arr = [];
-            yonghuName.replace(yonghuReg, function (a, hanzi, number, zXian) {
-                if (hanzi != undefined) {
-                    var hanziL = hanzi.length * 2;
-                    arr.push(hanziL);
-                }
-                if (number != undefined) {
-                    var numberL = number.length;
-                    arr.push(numberL);
-                }
-                if (zXian != undefined) {
-                    var zXianL = zXian.length;
-                    arr.push(zXianL);
-                }
-            });
-            for (var i = 0; i < arr.length; i++) {
-                yonghuNameLength += arr[i];
-            }
-            return yonghuNameLength;
-        }
 
         var  cymYonghuInfo =$("#errorMsg");
-
         /*点击返回按钮*/
         $(".return").click(function(){
 
@@ -462,38 +416,32 @@ function setImagePreview() {
 
         $("#pet_nickname_right").click(function(){
             var nickNameReg = /^[A-Za-z0-9_\-\u4e00-\u9fa5]+$/;//支持中文、字母、数字、'-'、'_'的组合，4-20个字符
-            var numberReg=/^\d{4,20}$/;//纯数字验证
-            var yonghuNameLength;
             var nikeName = $("#nickname").val().trim();
-            if(nickNameReg.test(nikeName)){
-                yonghuNameLength = nickName();
-            }else{
-                yonghuNameLength=0;
-            }
-            if(nikeName == ""){
-                cymYonghuInfo.show();
-                $(".common0").show();
-                /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-                       + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
+           
+            if(!stringnull(nikeName)){
+            	webToast("昵称不能为空","middle",3000);
                 return false;
-            }else if (yonghuNameLength > 15 || yonghuNameLength < 2){
-                cymYonghuInfo.show();
-                $(".common0").show();
-                /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
-                           + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
+            }else if (nikeName.length > 20 || nikeName.length < 4){
+            	webToast("用户昵称长度在4-20之间","middle",3000);
                 return false;
             }
-            cymYonghuInfo.hide();
-            checkUser1("nickname");
-            //验证名称的合法性
-            location.href ='home_page.html';
+            if(!nickNameReg.test(nikeName)){
+            	webToast("支持中文、字母、数字、'-'、'_'的组合","middle",3000);
+            	return false;
+            }
+            var falg = checkUser1("nickname");
+            if(falg){
+            	location.href ='home_page.html';
+            }
         });
-        // 点击昵称结束
-
+        
+        $(".header_return").click(function(){
+        	
+        	location.href ='home_page.html';
+        })
+        
+        
     });
-
-
-
 </script>
 
 

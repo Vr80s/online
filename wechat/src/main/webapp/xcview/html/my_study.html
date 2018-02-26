@@ -44,7 +44,7 @@
 			<ul id="paly_history">
 				<script type="text/html" id="data_history">
 					{{each items as item i}}
-					<li>
+					<li onclick="go_play_hos({{item.courseId}})">
 						<p>{{item.lecturerName}}{{item.gradeName}}</p>
 						<span>{{item.timeDifference}}</span>
 					</li>

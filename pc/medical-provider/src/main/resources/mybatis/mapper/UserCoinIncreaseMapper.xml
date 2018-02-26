@@ -45,7 +45,10 @@
 			    and oc.`grade_name` like concat('%', #{gradeName}, '%')
 			</if>
 		  JOIN `oe_user` ou
-			ON oo.`user_id` = ou.id AND ou.id = #{userId}
+			ON oo.`user_id` = ou.id
+		  JOIN `course_apply_info` cai
+			ON cai.id = oc.`apply_id`
+		WHERE cai.`user_id` = #{userId}
 	</select>
 
 	<select id="listGiftOrder" parameterType="string" resultMap="UserCoinIncreaseVOResult">
@@ -73,7 +76,7 @@
 		GROUP BY ogs.`live_id`
 	</select>
 
-	<select id="sumIosBrokerageValueByCourseId" parameterType="string" resultType="decimal">
+	<select id="sumIosBrokerageValueByCourseId" parameterType="string" resultType="java.math.BigDecimal">
 		SELECT
 			sum(uci.`ios_brokerage_value`)
 		FROM
@@ -83,7 +86,7 @@
 			AND ood.`course_id` = #{courseId}
 	</select>
 
-	<select id="sumIosBrokerageValueByLiveId" parameterType="string" resultType="decimal">
+	<select id="sumIosBrokerageValueByLiveId" parameterType="string" resultType="java.math.BigDecimal">
 		SELECT
 			sum(uci.`ios_brokerage_value`)
 		FROM

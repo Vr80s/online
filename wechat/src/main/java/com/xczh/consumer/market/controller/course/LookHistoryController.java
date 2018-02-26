@@ -50,7 +50,7 @@ public class LookHistoryController {
 	public ResponseObject add(HttpServletRequest req,
 			HttpServletResponse res) {
 		try {
-			String courseId = req.getParameter("course_id");
+			String courseId = req.getParameter("courseId");
 			if(null == courseId){
 				return ResponseObject.newErrorResponseObject("缺少参数");
 			}

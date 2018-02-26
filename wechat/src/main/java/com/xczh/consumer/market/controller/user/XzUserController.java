@@ -125,11 +125,12 @@ public class XzUserController {
 	 */
 	@RequestMapping(value="phoneRegist")
 	@ResponseBody
+	@Transactional
 	public ResponseObject phoneRegist(HttpServletRequest req,
+			HttpServletResponse res,
 			@RequestParam("password")String password,
 			@RequestParam("username")String username,
 			@RequestParam("code")String code) throws Exception {
-		
 		
 		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
 			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
@@ -142,8 +143,15 @@ public class XzUserController {
 		if (!checkCode.isSuccess()) {
 			return checkCode;
 		}
+		/**
+		 * 注册后默认登录啦
+		 */
+		OnlineUser ou =  onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
+		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+		ou.setTicket(t.getTicket());
+		this.onlogin(req, res, t, ou,t.getTicket());
 		
-		return onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
+		return ResponseObject.newSuccessResponseObject(ou);
 	}
 	
 	/**

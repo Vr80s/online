@@ -994,7 +994,7 @@ $("#clipArea").photoClip({
 function ajaxUploadBase64File(params){
     //var url = window.location.protocol + '//' + window.location.host + "/REGISTER/uploadBase64";
     
-    requestService("/bxg/user/userCenterFormSub2",params, function(data) {
+    requestService("/xczh/set/wechatSaveHeadImg",params, function(data) {
     	 if(data.success == true){
          	var result = data.resultObject;
  			if(stringnull(result.smallHeadPhoto)){

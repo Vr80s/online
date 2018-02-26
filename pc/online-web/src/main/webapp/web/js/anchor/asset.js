@@ -85,7 +85,7 @@ function getRmbTransactionList (current){
 		//银行卡处理
         for(var i = 0;i < $('.bankCard').length;i++){
         	if($('.bankCard').eq(i).text() != '—'){
-        		$('.bankCard').eq(i).text(stringHidePart2($('.bankCard').eq(i).text().trim())) 
+        		$('.bankCard').eq(i).text($('.bankCard').eq(i).text().trim().replace(/^\d{15}/, '***** ***** ****')) ;
         	}
         }
         debugger
