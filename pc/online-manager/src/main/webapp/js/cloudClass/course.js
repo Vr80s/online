@@ -140,8 +140,8 @@ $(function(){
     }},
     {"sortable": false,"class": "center","width":"10%","title":"排序","data": 'sort',"mRender":function (data, display, row) {
     	return '<div class="hidden-sm hidden-xs action-buttons">'+
-		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
-    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
+		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMoveRec(this)" name="upaa"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
+    	'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMoveRec(this)" name="downaa"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
 	}},
     { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
     		return '<div class="hidden-sm hidden-xs action-buttons">'+
@@ -151,17 +151,28 @@ $(function(){
 	}];
 
 	_courseRecTable = initTables("courseRecTable",basePath+"/cloudclass/course/recList",objRecData,true,true,0,null,searchCase_P,function(data){
-		$("[name='upa']").each(function(index){
+        var iDisplayStart = data._iDisplayStart;
+        var countNum = data._iRecordsTotal;//总条数
+        pageSize = data._iDisplayLength;//每页显示条数
+        currentPage = iDisplayStart / pageSize +1;//页码
+
+        var countPage;
+        if(countNum%pageSize == 0){
+            countPage = parseInt(countNum/pageSize);
+        }else{
+            countPage = parseInt(countNum/pageSize) + 1;
+        }
+
+		$("[name='upaa']").each(function(index){
 			if(index == 0){
 				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 			}
 		}); 
-		$("[name='downa']").each(function(index){
+		$("[name='downaa']").each(function(index){
 			if(index == $("[name='downa']").size()-1){
 				$(this).css("pointer-events","none").removeClass("blue").addClass("gray");
 			}
 		});
-		$("#courseRecTable_info").hide();
 		
 //		$("#courseRecTable tr").each(function(){
 //			$(this).find("td").eq(0).attr("width","10px");

@@ -7,8 +7,6 @@ import com.xczhihui.medical.anchor.mapper.UserCoinIncreaseMapper;
 import com.xczhihui.medical.anchor.model.CourseAnchor;
 import com.xczhihui.medical.anchor.service.ICourseOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
-import com.xczhihui.medical.enums.MedicalExceptionEnum;
-import com.xczhihui.medical.exception.MedicalException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,12 +28,16 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
     /**
      * 获取用户的课程订单列表
      * @param userId 用户id
+     * @param courseForm 课程类型
+     * @param multimediaType 多媒体类型
      * @param gradeName 课程名
      * @param startTime 开始时间
      * @param endTime   结束时间
      */
     @Override
-    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page, String gradeName, String startTime, String endTime) {
+    public Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page,
+                                         String gradeName, String startTime, String endTime,
+                                         Integer courseForm, Integer multimediaType) {
 
         try {
 
@@ -47,9 +49,17 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
                 if(StringUtils.isNotBlank(endTime)){
                     end = LocalDateTime.parse(endTime, dateTimeFormatter);
                     if(start.isAfter(end)){
-                        throw new MedicalException(MedicalExceptionEnum.DATE_START_IS_AFTER_END);
+                        throw new RuntimeException("起始时间不应大于终止时间");
                     }
                 }
+            }
+
+            if(courseForm != null && courseForm == 2){
+                if(multimediaType == null){
+                    throw new RuntimeException("请选择多媒体类型");
+                }
+            }else{
+                multimediaType = null;
             }
 
             // 获取主播的信息：分成比例
@@ -58,7 +68,7 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
             CourseAnchor target = anchorMapper.selectOne(anchor);
 
             // 获取课程订单的订单号，课程名称，支付时间，支付用户，实际支付的价格
-            List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page, gradeName, start, end);
+            List<UserCoinIncreaseVO> userCoinIncreaseVOList = userCoinIncreaseMapper.listCourseOrder(userId, page, gradeName, start, end, courseForm, multimediaType);
 
             // 根据课程id获取：苹果扣除的总数，分成比例，课程获得总熊猫币
             Optional<List<UserCoinIncreaseVO>> userCoinIncreaseVOListOptional = Optional.ofNullable(userCoinIncreaseVOList);
@@ -74,7 +84,7 @@ public class CourseOrderServiceImpl implements ICourseOrderService {
 
         }catch (DateTimeParseException e){
 
-            throw new MedicalException(MedicalExceptionEnum.DATE_FORMAT_WRONG);
+            throw new RuntimeException("时间格式错误");
 
         }
     }

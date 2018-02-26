@@ -15,8 +15,6 @@ import com.xczhihui.medical.doctor.mapper.MedicalDoctorMapper;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorAuthenticationInformationService;
-import com.xczhihui.medical.enums.MedicalExceptionEnum;
-import com.xczhihui.medical.exception.MedicalException;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalDoctorMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalMapper;
@@ -187,7 +185,7 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private void updateDoctorDetail(CourseAnchorVO target) {
 
         if(StringUtils.isBlank(target.getHospitalId())){
-            throw new MedicalException(MedicalExceptionEnum.HOSPITAL_IS_EMPTY);
+            throw new RuntimeException("请选择医馆");
         }
 
         // 根据用户id获取其医师id
@@ -233,22 +231,22 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private void validate(CourseAnchorVO target) {
 
         if(target == null){
-            throw new MedicalException(MedicalExceptionEnum.PARAM_NOT_EMPTY);
+            throw new RuntimeException("参数不能为空");
         }
-        if(StringUtils.isBlank(target.getName())){
-            throw new MedicalException(MedicalExceptionEnum.ANCHOR_NAME_EMPTY);
+        if(StringUtils.isNotBlank(target.getName())){
+            throw new RuntimeException("主播昵称不能为空");
         }
         if(StringUtils.isBlank(target.getProfilePhoto())){
-            throw new MedicalException(MedicalExceptionEnum.ANCHOR_PROFILEPHOTO_EMPTY);
+            throw new RuntimeException("主播头像不能为空");
         }
         if(StringUtils.isBlank(target.getDetail())){
-            throw new MedicalException(MedicalExceptionEnum.ANCHOR_DETAIL_EMPTY);
+            throw new RuntimeException("主播个人介绍不能为空");
         }
         if(StringUtils.isBlank(target.getProvince())){
-            throw new MedicalException(MedicalExceptionEnum.ANCHOR_PROVINCE_EMPTY);
+            throw new RuntimeException("主播省份不能为空");
         }
         if(StringUtils.isBlank(target.getCity())){
-            throw new MedicalException(MedicalExceptionEnum.ANCHOR_CITY_EMPTY);
+            throw new RuntimeException("主播省份不能为空");
         }
 
     }

@@ -220,7 +220,7 @@ public class CommonServiceImpl implements ICommonService {
 
         }catch (MedicalException e) {
             log.error("---------------throw exception in user : {} auth doctor or hospital ,exception is {}", userId, e.getMessage());
-            throw new MedicalException(MedicalExceptionEnum.USER_DATA_ERROR);
+            throw new RuntimeException(MedicalExceptionEnum.USER_DATA_ERROR.getMsg());
         } catch (Exception e) {
             throw new RuntimeException("哎呦喂，网络不给力啊，请再试一次");
         }finally {

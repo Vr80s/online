@@ -68,23 +68,23 @@ function getRmbTransactionList (current){
                 data.resultObject.records[i].value = "+"+data.resultObject.records[i].value;
             }
             if(data.resultObject.records[i].form == null){
-                data.resultObject.records[i].form='—';
+                data.resultObject.records[i].form='无';
             }
             if(data.resultObject.records[i].acctPan == null){
-                data.resultObject.records[i].acctPan='—';
+                data.resultObject.records[i].acctPan='无';
             }
             if(data.resultObject.records[i].status == null){
-                data.resultObject.records[i].status='—';
+                data.resultObject.records[i].status='无';
             }
             if(data.resultObject.records[i].dismissalRemark == null){
-                data.resultObject.records[i].dismissalRemark='—';
+                data.resultObject.records[i].dismissalRemark='无';
             }
         }
         $("#rmb_transaction_list").html(template('rmb_transaction_list_tpl', data.resultObject));
 
 		//银行卡处理
         for(var i = 0;i < $('.bankCard').length;i++){
-        	if($('.bankCard').eq(i).text() != '—'){
+        	if($('.bankCard').eq(i).text() != '无'){
         		$('.bankCard').eq(i).text($('.bankCard').eq(i).text().trim().replace(/^\d{15}/, '***** ***** ****')) ;
         	}
         }

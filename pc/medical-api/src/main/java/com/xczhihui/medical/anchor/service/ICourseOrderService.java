@@ -8,10 +8,13 @@ public interface ICourseOrderService {
     /**
      * 获取用户的课程订单列表
      * @param userId 用户id
+     * @param courseForm 课程类型
+     * @param multimediaType 多媒体类型
      * @param gradeName 课程名
      * @param startTime 开始时间
      * @param endTime   结束时间
      */
     Page<UserCoinIncreaseVO> list(String userId, Page<UserCoinIncreaseVO> page,
-                                  String gradeName, String startTime, String endTime);
+                                  String gradeName, String startTime, String endTime,
+                                  Integer courseForm, Integer multimediaType);
 }
