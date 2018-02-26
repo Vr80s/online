@@ -382,11 +382,12 @@ function refreshGiftRanking() {
 									+ pLogo
 									+ "' alt='' style='width: 1.6rem;height:0.9rem' /><br />";
 							html += "<span>" + pName + "</span>";
+							/*html += "<div class='both'></div>";*/
 						} else {
 							html += "<div class='leaderboard_left' style='line-height: 1.8rem;'>\n";
 							html += "<span>" + pName + "</span>";
 						}
-						html += "</div>\n"
+						html += "<div class='both'></div>"+"</div>\n"
 								+ "<div class='leaderboard_center' title="
 								+ list[i].userId + " >\n" + "<img src='"
 								+ list[i].smallHeadPhoto + "' alt='' />\n"
