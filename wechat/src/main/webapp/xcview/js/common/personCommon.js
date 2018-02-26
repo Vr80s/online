@@ -126,8 +126,6 @@ function checkUser1(saveFalg){
 	  }else if(saveFalg == "occupationOther"){
 		  occupationOther =  $("#form input[name='occupationOther']").val();
 	  }
-//	  map.put("occupation", occupation);
-//    map.put("occupationOther", occupationOther);
 	  var user_id = localStorage.getItem("userId");
 	requestService("/xczh/set/userInfoWechat", {
           id: stringnull(user_id) ? user_id : "",

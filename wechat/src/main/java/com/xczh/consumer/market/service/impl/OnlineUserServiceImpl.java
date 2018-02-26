@@ -319,7 +319,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	 * 微信端注册
 	 */
 	@Override
-	public ResponseObject addPhoneRegistByAppH5(HttpServletRequest req, String password,
+	public OnlineUser addPhoneRegistByAppH5(HttpServletRequest req, String password,
 			String mobile,Integer vtype)
 			throws Exception {
 		//手机
@@ -346,7 +346,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		 * 为用户初始化一条代币记录
 		 */
 		userCoinService.saveUserCoin(user.getId());
-		return ResponseObject.newSuccessResponseObject(user);
+		return user;
 	}
 	@Override
 	public void updateUserCenterData(OnlineUser user, Map<String,String> map) throws SQLException {
@@ -581,7 +581,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		//如果此唯一id已经注册了，那么这个就是普通的注册
 		if(iu == null && iuApple==null){
 			//向用户中心注册
-			return addPhoneRegistByAppH5(req,password,mobile,vtype);
+			return ResponseObject.newSuccessResponseObject(addPhoneRegistByAppH5(req,password,mobile,vtype));
 		}
 		
 		if(iu == null){

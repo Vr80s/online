@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.controller.user;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -428,6 +430,91 @@ public class XzUserSetController {
 			return ResponseObject.newErrorResponseObject("后台处理流程异常");
 		}
 	}
+	
+	
+	/**
+	 * Description：微信端修改头像
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping("wechatSaveHeadImg")
+	@ResponseBody
+	@Transactional
+	public ResponseObject userCenterFormSub2(HttpServletRequest request,
+			HttpServletResponse response)throws Exception{
+		//TODO
+        try{
+        	 String base64Data = request.getParameter("base64Data");
+        	 String imageName = request.getParameter("imageName");
+        	 //logger.debug("上传文件的数据："+base64Data);
+             String dataPrix = "";
+             String data = "";
+
+             //logger.debug("对数据进行判断");
+             if(base64Data == null || "".equals(base64Data)){
+                 throw new Exception("上传失败，上传图片数据为空");
+             }else{
+                 String [] d = base64Data.split("base64,");
+                 if(d != null && d.length == 2){
+                     dataPrix = d[0];
+                     data = d[1];
+                 }else{
+                     throw new Exception("上传失败，数据不合法");
+                 }
+             }
+             String suffix = "";
+             if("data:image/jpeg;".equalsIgnoreCase(dataPrix)){//data:image/jpeg;base64,base64编码的jpeg图片数据
+                 suffix = ".jpg";
+             } else if("data:image/x-icon;".equalsIgnoreCase(dataPrix)){//data:image/x-icon;base64,base64编码的icon图片数据
+                 suffix = ".ico";
+             } else if("data:image/gif;".equalsIgnoreCase(dataPrix)){//data:image/gif;base64,base64编码的gif图片数据
+                 suffix = ".gif";
+             } else if("data:image/png;".equalsIgnoreCase(dataPrix)){//data:image/png;base64,base64编码的png图片数据
+                 suffix = ".png";
+             }else{
+                 throw new Exception("上传图片格式不合法");
+             }
+
+             //因为BASE64Decoder的jar问题，此处使用spring框架提供的工具包
+            byte[] bs123 = Base64Utils.decodeFromString(data);
+        	
+            String projectName="other";
+ 			String fileType="1"; //图片类型了
+ 			
+ 			Map<String,String> map = new HashMap<String,String>();
+ 			String headImgPath = service.upload(null,projectName, imageName, suffix, bs123,fileType,null);
+ 			
+ 			JSONObject json = JSONObject.parseObject(headImgPath);
+ 			LOGGER.info("文件路径——path:"+headImgPath);
+ 			map.put("smallHeadPhoto", json.get("url").toString());
+        	  
+ 			OnlineUser user = appBrowserService.getOnlineUserByReq(request);
+	        onlineUserService.updateUserCenterData(user,map);
+	        /**
+	         * 更新微吼信息
+	         */
+	        String weiHouResp = WeihouInterfacesListUtil.updateUser(user.getId(),null,null,map.get("smallHeadPhoto"));
+	          
+	         /**
+	          * 如果用户信息发生改变。那么就改变token的信息，也就是redsei里面的信息
+	          */
+	         OnlineUser newUser =   onlineUserService.findUserByLoginName(user.getLoginName());
+	         request.getSession().setAttribute("_user_",newUser);
+	          
+	         if(weiHouResp == null){
+	        	  LOGGER.info("同步微吼头像失败");
+	         }
+	         return ResponseObject.newSuccessResponseObject(map);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseObject.newErrorResponseObject("后台处理流程异常");
+        }
+	}
+	
 	
 	
 	/**

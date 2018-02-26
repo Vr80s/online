@@ -21,17 +21,6 @@
 <!--<link rel="stylesheet" href="/xcviews/css/css.css">-->
 <link rel="stylesheet" href="/xcviews/css/tailor.css">
 <link rel="stylesheet" href="/xcview/css/heads_nicknames.css">
-
-
-<script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
-
-	<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
-
-<style>
-	
-	
-	
-</style>
 </head>
 <body style="background:#fff;">
 	<!-- 头部开始 -->
@@ -97,13 +86,11 @@
 	<!-- 中间内容结束 -->
 </body>
 
-
+<script type="text/javascript" src="/xcviews/js/common/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/xcviews/js/common/ajaxfileupload.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
-
-
-
+<script type="text/javascript" src="/xcview/js/common/personCommon.js"></script>
 <script src="/xcviews/js/iscroll-zoom.js"></script>
 <script src="/xcviews/js/hammer.js"></script>
 <script src="/xcviews/js/jquery.photoClip.js"></script>
@@ -136,10 +123,13 @@ $("#clipArea").photoClip({
 		ajaxUploadBase64File(params);
 	}
 });
+
+
+
 function ajaxUploadBase64File(params){
     //var url = window.location.protocol + '//' + window.location.host + "/REGISTER/uploadBase64";
     
-    requestService("/bxg/user/userCenterFormSub2",params, function(data) {
+    requestService("/xczh/set/wechatSaveHeadImg",params, function(data) {
     	 if(data.success == true){
          	var result = data.resultObject;
  			if(stringnull(result.smallHeadPhoto)){
@@ -376,19 +366,6 @@ function setImagePreview() {
 <script type="text/javascript">
 	window.onload = function(){
 		
-		/*var Ipt0,Ipt1,Ipt2;
-		 
-		
-		$('.input0').keyup(function(){
-			Ipt0 = $.trim($('.input0').val());
-		 	Ipt1 = $.trim($('.input1').val());
-		 	
-			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
-				$(".forget_btn").css("opacity","1");
-			}else{
-				$(".forget_btn").css("opacity","0.3");      	
-			}
-		})*/
 		$('#file').click(function(){
 			$('.qx').css("display","block");
 			$('.choice').css("display","none");
