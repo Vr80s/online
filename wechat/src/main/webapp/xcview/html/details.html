@@ -78,12 +78,7 @@ $(function(){
 		
 		
 		
-		if($("#doc img").attr("src").length==0){
-			$(".pinch-zoom-container").css("display","none");
-		}else{
-			$(".pinch-zoom-container").css("display","block");
-			$(".fd_img").css("display","none");
-		}	
+			
 		
 	};
 </script>
@@ -585,6 +580,14 @@ if(is_weixin() && stringnull(getQueryString("openId"))){
 			$("#attention .main_title").css("width","9.15rem");
 			$("#attention").css("display","block !important;");
 		});*/
+		
+		if($("#doc img").attr("src").length==0){
+			$(".pinch-zoom-container").css("display","none");
+			$(".fd_img").css("display","black");
+		}else{
+			$(".pinch-zoom-container").css("display","block");
+			$(".fd_img").css("display","none");
+		}
 		
 	};
 </script>

@@ -2,7 +2,6 @@ package com.xczh.consumer.market.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.Map;
 
 import javax.servlet.Filter;
@@ -21,6 +20,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xczh.consumer.market.utils.HttpUtil;
+import com.xczh.consumer.market.utils.ThridFalg;
+import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 
 /**
@@ -90,7 +91,7 @@ public class TokenFilter implements Filter {
 	private static String new_controller_share_before ="/xczh/share";
 	
 	//各种第三方前的登录不需要拦截
-	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third";
+	private static String new_controller_login_three_parties ="/xczh/qq,/xczh/wxlogin,/xczh/weibo,/xczh/third,/xczh/wxpublic";
 	
 	//微信，支付宝支付回调、评论列表不需要拦截 -- 这个是直接等于的  
 	private static String new_controller_pay_the_callback ="/xczh/alipay/alipayNotifyUrl,/bxg/wxpay/wxNotify,"
@@ -99,7 +100,7 @@ public class TokenFilter implements Filter {
 	private static String new_controller_pay_the_callback_one =
 			"/xczh/criticize/getCriticizeList,"
 			+ "/xczh/medical/applyStatus,/xczh/manager/home,/xczh/common/getProblems,/xczh/common/getProblemAnswer,"
-			+ "/xczh/common/addOpinion";
+			+ "/xczh/common/addOpinion,/xczh/gift/rankingList,/xczh/gift/list";
 	
 	
 	/*
@@ -175,7 +176,7 @@ public class TokenFilter implements Filter {
 		if(isExcludedPage){ // 直接放行
 			chain.doFilter(request, response);
 		}else{
-			int statusFalg = 200;
+			
 		    /*
 			 * 如果是app的话也需要拦截，因为拦截需要验证下时候是否在其他客户端登录
 			 */
@@ -201,6 +202,12 @@ public class TokenFilter implements Filter {
 			 * 说明这个请求的来自浏览器，判断session是否失效了   --现在先待修改，后面需要判断session
 			 */
 			if(null == appUniqueId){ 
+				
+				//浏览器的状态
+				int statusFalg = 200;
+				//需要重定向的页面
+				String redirectUrl = "/xcview/html/enter.html";
+				
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
 		    		/*
@@ -208,36 +215,50 @@ public class TokenFilter implements Filter {
 		    		 */
 		    		chain.doFilter(request, response);
 		    		
+		    		System.out.println("================================chain.doFilter");
+		    		return;
 		    	}else if(session !=null){
 					/**
-					 * 有两种情况一种是：失效了，一种是被顶掉了。
+					 * 有三种情况：
+					 *   两种是：1、失效了 
+					 *         --已经绑定的失效   --》登陆页面
+					 *         --未绑定的失效       --》 完善信息页面
+					 *         
+					 *   一种是：被顶掉了
 					 * 这里不能直接给用户返回到登录页面，需要一个弹框提示：
 					 *   提示登录ip,登录机型等信息，登录的时间等信息。
 					 */
 		    		Map<String,String> mapClientInfo = (Map<String, String>) session.getAttribute("topOff");//如果存在顶掉的信息，
 		    		if(mapClientInfo!=null){ 
-		    			statusFalg = 1003;
-		    			if(isAjax){
-		    				req.getRequestDispatcher("/bxg/page/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
-		    			}else{
-		    				response.sendRedirect(request.getContextPath() + "/xcview/html/enter.html?errorMessage=1");
-		    			}
+		    			statusFalg = 1003;		    			
+		    			redirectUrl = request.getContextPath() + "/xcview/html/enter.html?errorMessage=1";
 		    		}else{
 		    			statusFalg = 1002;
-		    			if(isAjax){
-		    				req.getRequestDispatcher("/bxg/page/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
-		    			}else{
-		    				response.sendRedirect(request.getContextPath() + "/xcview/html/enter.html");
-		    			}
+		    			redirectUrl = request.getContextPath() + "/xcview/html/enter.html";
 		    		}
 		    	}else{
 		    		statusFalg = 1002;
-	    			if(isAjax){
-	    				req.getRequestDispatcher("/bxg/page/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
-	    			}else{
-	    				response.sendRedirect(request.getContextPath() + "/xcview/html/enter.html");
-	    			}
+		    		redirectUrl = request.getContextPath() + "/xcview/html/enter.html";
 		    	}  
+		    	System.out.println("================================chain.doFilter11111111111111111111");
+//		        1002  token过期  --去登录页面
+//		        1003      其他设备登录
+// 				1005  token过期  --去完善信息页面
+		    	
+		    	ThridFalg tf = UCCookieUtil.readThirdPartyCookie(request);
+		    	
+		    	System.out.println("currentURL:"+currentURL+"================================tf.toString():"+tf);
+		    	
+		    	//如果是没有登录的状态 并且cookie不登录空的话，就去完善信息页面
+		    	if(statusFalg ==1002 && tf!=null && tf.getOpenId()!=null && tf.getUnionId()!=null){
+		    		statusFalg = 1005;
+		    		redirectUrl = request.getContextPath() + "/xcview/html/evpi.html?openId="+tf.getOpenId()+"&unionId="+tf.getUnionId()+"&jump_type=1";
+		    	}
+		    	if(isAjax){
+    				req.getRequestDispatcher("/xczh/common/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
+    			}else{
+    				response.sendRedirect(redirectUrl);
+    			}
 		    }else{ 
 		    	
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);

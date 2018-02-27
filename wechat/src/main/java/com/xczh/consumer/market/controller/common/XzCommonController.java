@@ -101,6 +101,26 @@ public class XzCommonController {
 //	newUser.setUserCenterId(user.getId());
 //	newUser.setPassword(user.getPassword());
 	
+	/**
+	 * 请求转发用于验证用户的登录状态
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/verifyLoginStatus")
+	@ResponseBody
+	public ResponseObject verifyLoginStatus(HttpServletRequest req,
+			HttpServletResponse res, Map<String, String> params)throws Exception{
+		Integer statusFalg = 1000;
+		if(req.getParameter("statusFalg")!=null){
+			statusFalg = Integer.parseInt(req.getParameter("statusFalg"));
+		}
+		return ResponseObject.newSuccessResponseObject("登录状态验证",statusFalg);
+	}
+	
+	
+	
    /**
     * Description：获取IM服务连接配置信息
     * @param req
