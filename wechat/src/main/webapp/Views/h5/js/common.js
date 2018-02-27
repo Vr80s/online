@@ -108,6 +108,8 @@ function requestService(url, param, callback, ac) {
 				location.href = "/xcview/html/cn_login.html";
 			}else if(msg.code == 1003){ //被同一用户顶掉了
 				location.href = "/xcview/html/common.html";
+			}else if(msg.code == 1005){ //token过期
+				location.href = "/xcview/html/evpi.html";
 			}else{
 				if (callback) {
 					callback(msg);

@@ -30,6 +30,7 @@ import com.xczh.consumer.market.utils.ConfigUtil;
 import com.xczh.consumer.market.utils.HttpUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SLEmojiFilter;
+import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -144,8 +145,17 @@ public class WeChatThirdPartyController {
 				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+				
+				//把用户中心的数据给他   这里im都要用到
+				ou.setUserCenterId(iu.getId());
+				ou.setPassword(iu.getPassword());
 				ou.setTicket(t.getTicket());
 				onlogin(req,res,t,ou,t.getTicket());
+				
+				/**
+				 * 清除这个cookie
+				 */
+				UCCookieUtil.clearThirdPartyCookie(res);
 				
 				if (openId != null && !openId.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+ openId);
@@ -154,10 +164,9 @@ public class WeChatThirdPartyController {
 				}	
 			}else{
 				LOGGER.info(" 没有绑定了:");
-				
 				if(userId!=null){
             	   /**
-            	    * 更改qq信息	--》增加用户id
+            	    * 更改微信信息	--》增加用户id
             	    */
 					wxw.setClient_id(userId);
 	            	wxcpClientUserWxMappingService.update(wxw);
@@ -168,7 +177,21 @@ public class WeChatThirdPartyController {
 				/*
 				 * 跳转到绑定手机号页面。也就是完善信息页面。  --》绑定类型微信
 				 */
-				res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
+				
+				/**
+				 * 写入这个cookie
+				 */
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getUnionid());
+				tf.setUnionId(wxw.getOpenid());
+				
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
+				
+				
+				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+				
+				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

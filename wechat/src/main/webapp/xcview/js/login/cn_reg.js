@@ -20,6 +20,12 @@ function time(o) {
 		}, 1000)
 	}
 }
+
+
+var opendId = getQueryString("openId");
+if(stringnull(opendId)){
+	localStorage.setItem("openid", openId);
+}
 /**
  * 点击获取验证码
  */
@@ -115,7 +121,15 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 		password : userpassword,
 		code : yanzhengma
     };
+    if(is_weixin()){
+    	urlparm.openId = localStorage.getItem("openid");
+    }
 	var access_url ="/xczh/user/phoneRegist";
+	
+	/*
+	 * 这里目前还需要更改下呢，需要搞下如果是微信注册的话，绑定微信号了
+	 */
+	
 	requestService(access_url, urlparm, function(data) {
 		if (data.success) {
 			
