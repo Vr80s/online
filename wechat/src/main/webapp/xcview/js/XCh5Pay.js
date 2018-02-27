@@ -24,6 +24,7 @@ function is_weixn(){
  *
  */
 function jmpPayPage(orderUrl,payMode,params,returnUrl){
+	
     if(payMode==2){
         location.href = orderUrl+"?"+params;
     }else if(payMode==3){
@@ -32,8 +33,8 @@ function jmpPayPage(orderUrl,payMode,params,returnUrl){
 }
 
 function weixin(url,params,returnUrl) {
- var btype = localStorage.getItem("access")
-	if(btype=='wx'){
+
+	if(is_weixn()){
         gongzhonghao(url,params,returnUrl);
 	}else if(btype=='brower'){
         wechatH5(url,params,returnUrl);

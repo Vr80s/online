@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.wechat.course.vo.CourseLecturVo;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -79,6 +80,9 @@ public class CourseController {
 		if(cv==null){
 			return ResponseObject.newErrorResponseObject("课程信息有误");
 		}
+		
+		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
+		
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -153,6 +157,9 @@ public class CourseController {
 		if(cv==null){
 			return ResponseObject.newErrorResponseObject("获取课程有误");
 		}
+		
+		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
+		
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -237,6 +244,50 @@ public class CourseController {
 		page.setSize(2);
 		Page<CourseLecturVo> courses= courseServiceImpl.selectMenuTypeAndRandCourse(page,courseId);
 		return ResponseObject.newSuccessResponseObject(courses);
+	}
+	
+	/**
+	 * Description：计算评论星级
+	 * @return
+	 * @return Double
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public Double criticizeStartLevel(Double startLevel){
+		
+		if(startLevel!=null && startLevel!=0){ //不等于0
+			
+			  String b = startLevel.toString();
+			  if(b.length()>1){ //不等于整数
+				  String [] arr = b.split("\\.");
+				  Integer tmp = Integer.parseInt(arr[1]);
+				  if(tmp>=5){
+					  return  (double) (Integer.parseInt(arr[0])+1);
+				  }else{
+					  return Double.valueOf(arr[0]+"."+5);
+				  }
+			  }else{
+				  return startLevel; 
+			  }
+		}
+		return startLevel;
+	}
+	
+	public static void main(String[] args) {
+		//计算星级
+		Double a = 4.1;
+		if(a != 0){ //不等于0
+		  String b = a.toString();
+		  if(b.length()>1){ //不等于整数
+			  String [] arr = b.split("\\.");
+			  Integer tmp = Integer.parseInt(arr[1]);
+			  if(tmp>=5){
+				  System.out.println(Integer.parseInt(arr[0])+1);
+			  }else{
+				  System.out.println(arr[0]+"."+5);
+			  }
+		  }	
+		}
 	}
 
 }
