@@ -9,43 +9,6 @@ $(function(){
 //		}
 	}
 	
-	$(".wysiwyg-editor").ace_wysiwyg({
-		toolbar:
-				[
-					'font',
-					null,
-					'fontSize',
-					null,
-					{name:'bold', className:'btn-info'},
-					{name:'italic', className:'btn-info'},
-					{name:'strikethrough', className:'btn-info'},
-					{name:'underline', className:'btn-info'},
-					null,
-					{name:'insertunorderedlist', className:'btn-success'},
-					{name:'insertorderedlist', className:'btn-success'},
-					{name:'outdent', className:'btn-purple'},
-					{name:'indent', className:'btn-purple'},
-					null,
-					{name:'justifyleft', className:'btn-primary'},
-					{name:'justifycenter', className:'btn-primary'},
-					{name:'justifyright', className:'btn-primary'},
-					{name:'justifyfull', className:'btn-inverse'},
-					null,
-					{name:'createLink', className:'btn-pink'},
-					{name:'unlink', className:'btn-pink'},
-					null,
-					{name:'insertImage', className:'btn-success'},
-					null,
-					'foreColor',
-					null,
-					{name:'undo', className:'btn-grey'},
-					{name:'redo', className:'btn-grey'}
-				],
-		'wysiwyg': {
-			fileUploadError: showErrorAlert
-		},
-		uploadType:{type:'url',action:basePath+'/cloudclass/course/uploadImg'}//图片上传方式，url/base64
-	}).prev().addClass('wysiwyg-style2');
 	reviewImage("add_imgPath",$("#add_imgPath").val())
 });
 
@@ -136,12 +99,7 @@ function openTagDiv(){
 
 //保存修改
 $("#saveBtn").click(function(){
-	
-	var content=$("#article_content").html();
-	if($("#article_content").html()=="<br>"){
-		content="";
-	}
-	$("#content").val(content);
+	$("#content").val(UE.getEditor('editor').getContent());
 	
 	if($("#addArticle-form").valid()){
 		mask();
