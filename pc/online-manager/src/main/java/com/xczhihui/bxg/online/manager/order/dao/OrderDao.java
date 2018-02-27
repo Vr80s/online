@@ -71,7 +71,7 @@ public class OrderDao extends SimpleHibernateDao {
 	       }
 	         
 	       if(orderVo.getCreatePersonName()!=null){
-	    	   sql.append(" and ou.name like :createPersonName ");
+	    	   sql.append(" and ou.login_name like :createPersonName ");
 	    	   paramMap.put("createPersonName", "%" + orderVo.getCreatePersonName() + "%");
 	       }
 	       
@@ -81,7 +81,7 @@ public class OrderDao extends SimpleHibernateDao {
 	       }
 		   
 //		   System.out.println("查询语句："+sql.toString());
-		   sql.append(" GROUP BY oo.order_no  order by oo.pay_type desc , oo.create_time desc ");
+		   sql.append(" GROUP BY oo.order_no  order by oo.create_time desc ");
 		   Page<OrderVo> ms = this.findPageBySQL(sql.toString(), paramMap, OrderVo.class, pageNumber, pageSize);
 		   
 	  	   return ms;

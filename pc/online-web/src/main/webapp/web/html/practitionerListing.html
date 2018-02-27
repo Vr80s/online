@@ -71,31 +71,32 @@
               	<div class="doctor_search_class">
               		<!--<span>分类：</span>-->
               		<span>分类：</span>
-              		<ul class="clearfix">
-              			<li><a href="javascript:;">全部</a></li>
+              		<ul class="clearfix" id="doctor_search_class">
+              			<!--<li><a href="javascript:;">全部</a></li>
               			<li><a href="javascript:;">国医大师</a></li>
               			<li><a href="javascript:;">名老中医</a></li>
               			<li><a href="javascript:;">古中医</a></li>
-              			<li><a href="javascript:;">少数民族中医</a></li>
+              			<li><a href="javascript:;">少数民族中医</a></li>-->
               		</ul>
               	</div>
               	<div class="doctor_search_keshi">
               		<span>科室：</span>
-              		<ul class="clearfix">
-              			<li><a href="javascript:;">全部</a></li>
+              		<ul class="clearfix" id="doctor_search_keshi">
+              			<!--<li><a href="javascript:;">全部</a></li>
               			<li><a href="javascript:;">肿瘤科</a></li>
               			<li><a href="javascript:;">儿科</a></li>
               			<li><a href="javascript:;">骨科/伤科</a></li>
               			<li><a href="javascript:;">妇科</a></li>
               			<li><a href="javascript:;">老年人科</a></li>
-              			<li><a href="javascript:;">骨科/伤科</a></li>
+              			<li><a href="javascript:;">骨科/伤科</a></li>-->
               		</ul>
               	</div>
               	<div class="doctor_search_condition">
               		<span>筛选条件：</span>
               		<ul class="clearfix">
-              			<li>科室：<div style="display: inline-block;"><span>中医内科</span><span>妇科</span></div><a href="javascript:;">x</a></li>
-              			<li>分类：<div style="display: inline-block;"><span>国医大师</span></div><a href="javascript:;">x</a></li>
+              			<li id="doctor_search_condition1" class="hide">分类：<div style="display: inline-block;"><span>国医大师</span></div><a href="javascript:;">X</a></li>
+              			<li id="doctor_search_condition2" class="hide">科室：<div style="display: inline-block;"><span>中医内科</span></div><a href="javascript:;">X</a></li>
+              			<li id="doctor_search_condition3" style="border:none;color: #999;">暂无筛选条件</li>
               		</ul>
               	</div>
               </div>
@@ -259,6 +260,24 @@
     </li>
 	{{/each}}
 </script>
+
+<!--医师筛选分类部分-->
+<script type="text/template" id="doctor_search_class_Tpl">
+	<li><a href="javascript:;" class="color">全部</a></li>
+	{{each item as item i}}
+	<li><a href="javascript:;" data-type={{item.code}}>{{item.value}}</a></li>
+	{{/each}}
+</script>
+
+<!--医师筛选科室部分-->
+<script type="text/template" id="doctor_search_keshi_Tpl">
+	<li><a href="javascript:;" class="color">全部</a></li>
+	{{each item as item i}}
+	<li><a href="javascript:;" data-id={{item.id}}>{{item.name}}</a></li>
+	{{/each}}
+</script>
+
+
 
 </body>
 </html>

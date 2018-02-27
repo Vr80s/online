@@ -93,8 +93,8 @@ requestService("/xczh/host/hostPageInfo",{
     });
 
 			
-//直播时间截取	
-		data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10); //截取日期
+//直播时间截取
+//		data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10); //截取日期
 		$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
 //医师精彩致辞
 	if(data.resultObject.lecturerInfo.video==''||data.resultObject.lecturerInfo.video==null){
@@ -142,7 +142,7 @@ requestService("/xczh/host/hostPageCourse",{
 						lecturerId : followed,
 						type:type
 					},function(data){
-                        alert(data.resultObject);
+//                      alert(data.resultObject);
 					})
 			}
 

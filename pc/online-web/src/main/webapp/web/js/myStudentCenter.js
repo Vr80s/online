@@ -22,7 +22,11 @@ window.onload = function() {
 			return '<div class="aimg" style="background-image:none;"><img   src="/web/images/load26.gif"/></div>';
 		}
 	});
-	template.helper('zhibohref', function(id) {
+	template.helper('zhibohref', function(id,collection) {
+		debugger
+		if(collection){
+			return "/course/courses?courseId="+id
+		}
 		return "/web/html/video.html?courseId=" + id;
 	});
 	template.helper('orderState', function(num) {
@@ -83,7 +87,7 @@ $.getUrlParam = function(name) {
 
 	var mycourse = '<div class="box clearfix">' +
 		'{{each items as $value i }}' +
-		'<div class="course" data-url="{{#zhibohref($value.id)}}">' +
+		'<div class="course" data-url="{{#zhibohref($value.id,$value.collection)}}">' +
 		'<a href="javascript:;"   data-videoId="{{$value.id}}">' +
 		'{{#hasImg($value.smallImgPath)}}' +
 		'<div class="name" title="{{$value.courseName}}">{{$value.courseName}}</div>' +

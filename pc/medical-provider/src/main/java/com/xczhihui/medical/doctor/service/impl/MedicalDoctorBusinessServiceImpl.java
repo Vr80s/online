@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.bxg.online.common.domain.MedicalDoctorDepartment;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
+import com.xczhihui.medical.department.vo.MedicalDepartmentVO;
 import com.xczhihui.medical.doctor.mapper.*;
 import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.doctor.model.MedicalDoctorAccount;
@@ -78,12 +79,23 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     private String doctorReport;
 
     @Override
-    public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field) {
-        List<MedicalDoctorVO> records = medicalDoctorMapper.selectDoctorList(page, type, hospitalId, name, field);
-        if(field!=null){
-            for (int i = 0; i < records.size(); i++) {
-                List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(records.get(i).getId());
-                records.get(i).setFields(medicalFields);
+    public Page<MedicalDoctorVO> selectDoctorPage(Page<MedicalDoctorVO> page, Integer type, String hospitalId, String name, String field, String departmentId) {
+        List<MedicalDoctorVO> records = medicalDoctorMapper.selectDoctorList(page, type, hospitalId, name, field,departmentId);
+//        if(field!=null){
+//            for (int i = 0; i < records.size(); i++) {
+//                List<MedicalFieldVO> medicalFields = medicalDoctorMapper.selectMedicalFieldsByDoctorId(records.get(i).getId());
+//                records.get(i).setFields(medicalFields);
+//            }
+//        }
+        StringBuilder departments=new StringBuilder();
+        for (int i = 0; i < records.size(); i++) {
+            List<MedicalDepartmentVO> medicalDepartments = medicalDoctorMapper.selectMedicalDepartmentsByDoctorId(records.get(i).getId());
+            for (MedicalDepartmentVO medicalDepartment : medicalDepartments) {
+                departments.append(medicalDepartment.getName()+"/");
+            }
+            if(departments.length()>0){
+                departments.deleteCharAt(departments.length()-1);
+                records.get(i).setDepartmentText(departments.toString());
             }
         }
         page.setRecords(records);
@@ -109,6 +121,11 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
     @Override
     public List<MedicalFieldVO> getHotField() {
         return medicalDoctorMapper.getHotField();
+    }
+
+    @Override
+    public List<MedicalDepartmentVO> getHotDepartment() {
+        return medicalDoctorMapper.getHotDepartment();
     }
 
     @Override

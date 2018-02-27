@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.common.enums.DoctorType;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
@@ -33,11 +34,11 @@ public class DoctorController {
      * @Date: 下午 3:07 2017/12/10 0010
      **/
     @RequestMapping(value = "/getDoctors",method= RequestMethod.GET)
-    public ResponseObject getDoctors(Integer current,Integer size,Integer type,String hospitalId,String name,String field){
+    public ResponseObject getDoctors(Integer current,Integer size,Integer type,String hospitalId,String name,String field,String department){
         Page<MedicalDoctorVO> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page,type,hospitalId,name,field));
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.selectDoctorPage(page,type,hospitalId,name,field,department));
     }
 
     /**
@@ -64,6 +65,26 @@ public class DoctorController {
     @ResponseBody
     public ResponseObject getHotField(){
         return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotField());
+    }
+
+    /**
+     * 获取医师热门引用科室
+     * @return
+     */
+    @RequestMapping(value = "getHotDepartment")
+    @ResponseBody
+    public ResponseObject getHotDepartment(){
+        return ResponseObject.newSuccessResponseObject(medicalDoctorBusinessService.getHotDepartment());
+    }
+
+    /**
+     * 获取医师类型
+     * @return
+     */
+    @RequestMapping(value = "getDoctorType")
+    @ResponseBody
+    public ResponseObject getDoctorType(){
+        return ResponseObject.newSuccessResponseObject(DoctorType.getDoctorTypeList());
     }
 
 //    /**

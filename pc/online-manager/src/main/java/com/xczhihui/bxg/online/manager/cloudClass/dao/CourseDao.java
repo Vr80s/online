@@ -244,8 +244,9 @@ public class CourseDao extends HibernateDao<Course>{
 				"  JOIN `collection_course` cc \n" +
 				"    ON oc.id = cc.`course_id` \n" +
 				"WHERE cc.`collection_id` = :cid \n" +
-				"AND oc.`is_delete` = 0\n" +
-				"ORDER BY oc.`collection_course_sort` ASC";
+				"AND oc.`is_delete` = 0";
+//				"AND oc.`is_delete` = 0\n" +
+//				"ORDER BY oc.`collection_course_sort` ASC";
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("cid",id);
 		return this.getNamedParameterJdbcTemplate().query(sql,params, BeanPropertyRowMapper.newInstance(Course.class));

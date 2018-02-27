@@ -54,8 +54,6 @@ public class CourseController {
             return ResponseObject.newSuccessResponseObject(service.getCourseAndLecturerlist(type,menuId,couseTypeId,pageNumber,pageSize));
         }
 
-
-
         /**
          * 根据课程ID号，查找对应的课程对象
          * @param courserId 课程id
@@ -66,7 +64,17 @@ public class CourseController {
         	OnlineUser loginUser = (OnlineUser)UserLoginUtil.getLoginUser(request);
             return ResponseObject.newSuccessResponseObject(service.getCourseById(courserId, ispreview, request,loginUser));
         }
-        
+
+        /**
+         * 根据合辑课程ID号，查找合辑下的所有课程
+         * @param collectionId 课程id
+         * @return Example 分页列表
+         */
+        @RequestMapping(value = "/getCoursesByCollectionId" )
+        public ResponseObject getCoursesByCollectionId(Integer collectionId) {
+            return ResponseObject.newSuccessResponseObject(service.getCoursesByCollectionId(collectionId));
+        }
+
         /**
          * 根据课程ID号，查找对应的课程对象
          * @param courserId 课程id

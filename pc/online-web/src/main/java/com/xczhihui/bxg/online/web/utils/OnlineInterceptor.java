@@ -115,16 +115,18 @@ public class OnlineInterceptor implements HandlerInterceptor {
 		//已经登录，但是调用了主播角色才可以调的接口
 		if (checkanchoruris.contains(request.getRequestURI())) {
 			BxgUser user = UserLoginUtil.getLoginUser(request);
-			if(user.getAnchor()==null){
+//			if(user.getAnchor()==null){
 				Boolean anchor = userService.isAnchor(user.getLoginName());
-				user.setAnchor(anchor);
-				UserLoginUtil.setLoginUser(request,user);
-			}
-			if(!user.getAnchor()){
+//				user.setAnchor(anchor);
+//				UserLoginUtil.setLoginUser(request,user);
+//			}
+			if(!anchor){
+//				response.sendRedirect("http://www.baidu.com");
+//				return false;
 				Gson gson = new GsonBuilder().create();
 				response.setCharacterEncoding("utf-8");
 				response.setContentType("application/json");
-				response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("不具有主播权限！")));
+				response.getWriter().write(gson.toJson(ResponseObject.newErrorResponseObject("不具有主播权限或权限被禁用！")));
 				return false;
 			}
 		}
