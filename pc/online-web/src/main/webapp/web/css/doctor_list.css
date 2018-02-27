@@ -40,7 +40,7 @@
 	padding-top: 0px;
 }
 .content_box #main .main_left .doctor{
-	margin-bottom: 0px;
+	margin-bottom: 20px;
 	padding-bottom: 0;
 }
 .content_box #main .main_left #doctor_list{
@@ -85,7 +85,53 @@
 	border-bottom: 1px solid #f0f0f0;
 	padding-bottom: 20px;
 }
-
+.content_box #main .main_left .doctor .doctor_search_bottom{
+	min-height: 194px;
+	padding: 20px;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class > span,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi > span,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition >span{
+	color: #999;
+	font-size: 14px;
+	vertical-align: top;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class ul,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi ul,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul  {
+	margin-bottom: 0;
+	display: inline-block;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class ul li a,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi ul li a{
+	color: #333;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class ul li,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi ul li,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li{
+	float: left;
+	margin-right: 60px;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li{
+	font-size: 12px;
+	    padding: 2px;
+    border: 1px solid #dedede;
+    margin-right: 10px;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li >a,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li >div{
+		
+		color: #00BC12;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li >a{
+	margin: 0 5px;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class ul li:last-child,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi ul li:last-child{
+	margin-right: 0;
+}
 .content_box #main .main_left .doctor_list #doctor_list> li {
 	padding: 20px 0;
 	border-bottom: 1px solid #f0f0f0; 
