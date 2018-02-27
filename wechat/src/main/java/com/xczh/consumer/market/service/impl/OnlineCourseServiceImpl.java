@@ -58,7 +58,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 	
 	
 	@Override
-	public List<Map<String,Object>> findLiveListInfo() throws SQLException {
+	public List<CourseLecturVo> findLiveListInfo() throws SQLException {
 		/*
 		 * 从teach_method表中获取直播方式 oe_course smallimg_path 缩略图 start_time end_time
 		 * 只有公开课有直播开始时间和结束时间。其余的都是直接播放的啊。点播才有章节这个部分呢，直播和公开课是没有了啊。 gradeName 课程名称
@@ -74,64 +74,13 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		Map<String,Object> mapHf = new HashMap<String, Object>();
 
 		List<CourseLecturVo> newList = new ArrayList<CourseLecturVo>();
-		//直播中
-		List<CourseLecturVo> liveZBList = courseMapper.findLiveZBList(1,1);
-		if(liveZBList.size()==0){
-			liveZBList = courseMapper.findLiveZBList(0,2);
-		}else if(liveZBList.size()<4){
-			liveZBList.addAll(courseMapper.findLiveZBList(0,2));
-			 liveZBList = liveZBList.subList(0,4);
-		}
-		if(liveZBList.size()>0){
-			mapTj.put("title","正在直播");
-			mapTj.put("lineState","1");
-			mapTj.put("courseList",liveZBList);
-			mapCourseList.add(mapTj);
-		}
-		//即将直播
-		List<CourseLecturVo> liveSoonZBList = courseMapper.findLiveSoonZBList(1,1);
-		if(liveSoonZBList.size()==0){
-			liveSoonZBList = courseMapper.findLiveSoonZBList(0,2);
-		}
-		if(liveSoonZBList.size()>0){
-			mapNw.put("title","即将直播");
-			mapNw.put("lineState","2");
-			mapNw.put("courseList",liveSoonZBList);
-			mapCourseList.add(mapNw);
-		}
-		//直播课程
-		List<CourseLecturVo> liveCourseZBList = courseMapper.findLiveCourseZBList(1,1);
-		if(liveCourseZBList.size()==0){
-			liveCourseZBList = courseMapper.findLiveCourseZBList(0,2);
-		}
-		if(liveCourseZBList.size()>0){
-			mapZz.put("title","直播课程");
-			mapZz.put("lineState","4");
-			mapZz.put("courseList",liveCourseZBList);
-			mapCourseList.add(mapZz);
-		}
-		//精彩回放
-		List<CourseLecturVo> liveHighlightsList = courseMapper.findLiveHighlightsList(1,1);
-		if(liveHighlightsList.size()==0){
-			liveHighlightsList = courseMapper.findLiveHighlightsList(0,2);
-		}
-		if(liveHighlightsList.size()>0){
-			mapHf.put("title","精彩直播回放");
-			mapHf.put("lineState","3");
-			mapHf.put("courseList",liveHighlightsList);
-			mapCourseList.add(mapHf);
-		}
 
 
-
-		/*List<CourseLecturVo> list = courseMapper.findLiveListInfo();
-		if(list.size()==0){
-			list = courseMapper.findLiveListInfoBySort();
-		}
+		List<CourseLecturVo> list = courseMapper.findLiveListInfo();
 		//根据用户id和课程id
 		//这里紧紧是判断密码是否为null  -- 没有判断用户是否已经输入了
-		newList.addAll(list);*/
-		return mapCourseList;
+		newList.addAll(list);
+		return list;
 	}
 
 	
