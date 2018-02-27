@@ -31,6 +31,8 @@ var unionId = getQueryString("unionId");
 if(!stringnull(unionId)){
 	unionId = localStorage.getItem("unionId")
 }
+
+
 /**
  * jump_type=1	跳到首页
  * jump_type=2	跳到我的页面

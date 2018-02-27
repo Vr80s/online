@@ -142,7 +142,7 @@ requestService("/xczh/host/hostPageCourse",{
 						lecturerId : followed,
 						type:type
 					},function(data){
-                        alert(data.resultObject);
+//                      alert(data.resultObject);
 					})
 			}
 

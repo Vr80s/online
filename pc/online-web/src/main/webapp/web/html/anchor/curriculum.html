@@ -338,7 +338,7 @@
 			{{coinTransaction.create_time}}
 		</td>
 		<td>
-			无
+			交易成功
 		</td>
 	</tr>
 	{{/each}}
@@ -593,7 +593,7 @@
 		<!--左边点击nav-->
 		<div class="select_list z">
 			<ul style="padding: 0;">
-				<li class="active select-ud">
+				<li data-name="School" class="active select-ud">
 					<span class="glyphicon glyphicon-book left_range ino_color" aria-hidden="true"></span><span class="school">学堂<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 					<div class="littleBox">
 						<p class="activeP courseP">课程</p>
@@ -604,8 +604,8 @@
 					</div>
 				</li>
 
-				<li class="setTop" id="mymoneyTbl"><span class="iconfont icon-qianbao left_range" aria-hidden="true"></span><span>我的资产</span></li>
-				<li class="select-udss">
+				<li data-name="myAssets" class="setTop" id="mymoneyTbl"><span class="iconfont icon-qianbao left_range" aria-hidden="true"></span><span>我的资产</span></li>
+				<li data-name="myEarnings" class="select-udss">
 					<span class="glyphicon glyphicon-list-alt left_range" aria-hidden="true"></span><span id="myResive_tbl">我的收益<span class="glyphicon glyphicon-triangle-left arrow_jt" style="margin-left: 38px;" aria-hidden="true"></span></span>
 					<div class="littleBoxss">
 						<p class="activeP classResive">课程收益</p>
@@ -613,7 +613,7 @@
 					</div>
 				</li>
 
-				<li class="select-uds">
+				<li data-name="AccountNumber" class="select-uds">
 					<span class="glyphicon glyphicon-book left_range" aria-hidden="true"></span><span class="account_number">账号<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 					<div class="littleBoxs">
 						<p class="activeP name_news">认证信息</p>
@@ -2665,7 +2665,15 @@
 
         //			默认点击学堂
         $(".courseP").click();
-        $(".school").click();
+        if(!localStorage.AnchorsTbl){
+        	 $(".school").click();
+        }else{
+        	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
+        	 if(localStorage.AnchorsTbl == 'AccountNumber' && localStorage.AccountNumber == 'name_personage'){
+        	 	$('.name_personage').click();
+        	 }
+        }
+       
     };
 </script>
 <script type="text/javascript">

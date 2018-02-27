@@ -1,24 +1,28 @@
 $(function(){
 	
 	
-//yx_新增
 var openId = getQueryString("openId");
 if(stringnull(openId)){
    localStorage.setItem("openid",openId);
-   var userId = localStorage.getItem("userId");
-   
-   if(!stringnull(userId)){
-		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
-		var ccontrollerAddress = "/bxg/user/isLogined";
-		requestService(ccontrollerAddress, null, function(data) {
-			if (data.success) {
-				commonLocalStorageSetItem(data);
-			}else{
-				alert("网络异常");
-			}
-		},false)	
-	}
-}	
+}   
+//yx_新增   -- 这个先不搞，因为进入home_page.js页面不一定直播的
+//var openId = getQueryString("openId");
+//if(stringnull(openId)){
+//   localStorage.setItem("openid",openId);
+//   var userId = localStorage.getItem("userId");
+//   
+//   if(!stringnull(userId)){
+//		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
+//		var ccontrollerAddress = "/bxg/user/isLogined";
+//		requestService(ccontrollerAddress, null, function(data) {
+//			if (data.success) {
+//				commonLocalStorageSetItem(data);
+//			}else{
+//				alert("网络异常");
+//			}
+//		},false)	
+//	}
+//}	
 
 //	分类渲染
 	var noNumber='<p style="font-size:15px;text-aline:center;">暂无数据</p>'
@@ -282,40 +286,40 @@ var swiper = new Swiper('#swiper1', {
 })
 //JQ预加载分界线----------------------------------------------------------------
 //学堂/推荐/课程跳转
-function jump(id){
-	requestService("/xczh/course/details?courseId="+id,null,function(data) {
-
-		var course = data.resultObject;
-		if(course.watchState == 0||course.watchState == 1){
-			if(course.type==1||course.type==2){
-//				视频音频购买
-				location.href="school_audio.html?course_id="+id
-			}else if(course.type==3){
-//				直播购买
-				location.href="school_play.html?course_id="+id
-			}else{
-//				线下课购买
-				location.href="school_class.html?course_id="+id
-			}			
-		}else if(course.watchState == 2||course.watchState == 3){
-			if(course.type==1||course.type==2){
-				if(course.collection){
-//					专辑视频音频播放页
-				location.href="live_select_album.html?course_id="+id					
-				}else{
-//					单个视频音频播放
-				location.href="live_audio.html?my_study="+id					
-				}
-			}else if(course.type==3){
-//					播放页面
-				location.href="live_play.html?my_study="+id									
-			}else{
-//					线下课页面
-				location.href="live_class.html?my_study="+id									
-			}		
-		}
-	})
-}
+//function jump(id){
+//	requestService("/xczh/course/details?courseId="+id,null,function(data) {
+//
+//		var course = data.resultObject;
+//		if(course.watchState == 0||course.watchState == 1){
+//			if(course.type==1||course.type==2){
+////				视频音频购买
+//				location.href="school_audio.html?course_id="+id
+//			}else if(course.type==3){
+////				直播购买
+//				location.href="school_play.html?course_id="+id
+//			}else{
+////				线下课购买
+//				location.href="school_class.html?course_id="+id
+//			}			
+//		}else if(course.watchState == 2||course.watchState == 3){
+//			if(course.type==1||course.type==2){
+//				if(course.collection){
+////					专辑视频音频播放页
+//				location.href="live_select_album.html?course_id="+id					
+//				}else{
+////					单个视频音频播放
+//				location.href="live_audio.html?my_study="+id					
+//				}
+//			}else if(course.type==3){
+////					播放页面
+//				location.href="live_play.html?my_study="+id									
+//			}else{
+////					线下课页面
+//				location.href="live_class.html?my_study="+id									
+//			}		
+//		}
+//	})
+//}
 //学堂/推荐/课程跳转结束
 //学堂/线下课课程跳转
 function jump_class(id){

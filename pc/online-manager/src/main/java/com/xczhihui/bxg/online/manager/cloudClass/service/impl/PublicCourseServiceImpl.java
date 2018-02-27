@@ -358,6 +358,11 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
 		 String hql="from Course where direct_id = ?";
          Course course= dao.findByHQLOne(hql,new Object[] {changeCallbackVo.getWebinarId()});
          
+         
+         System.out.println("course livestate "+course);
+         System.out.println("changeCallbackVo"+changeCallbackVo.toString());
+         
+         
          String startOrEnd ="";
          if(course!=null){
         	 switch (changeCallbackVo.getEvent()) {
@@ -374,9 +379,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         	 default:
         		 break;
         	 }
-        	 
-        	 
-        	 
         	 dao.update(course);
         	 
         	if(startOrEnd!=""){
@@ -392,7 +394,6 @@ public class PublicCourseServiceImpl extends OnlineBaseServiceImpl implements Pu
         			maxRecord = list.get(0);
         			maxRecord ++;
         		}
-        		
         		/**
         		 * 并且记录当前视频id开播的次数：
         		 */

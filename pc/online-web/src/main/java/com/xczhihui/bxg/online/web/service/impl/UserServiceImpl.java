@@ -837,7 +837,8 @@ public class UserServiceImpl implements UserService {
 		Map<String,Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("loginName",loginName);
 		sql.append( "SELECT \n" +
-				"  ou.`name`"+
+				"  ou.`name`," +
+				" ou.status "+
 				"FROM\n" +
 				"  `course_anchor` ca \n" +
 				"  JOIN `oe_user` ou \n" +
@@ -846,8 +847,9 @@ public class UserServiceImpl implements UserService {
 		users= dao.findEntitiesByJdbc(OnlineUser.class, sql.toString(), paramMap);
 		if(users.size()!=1){
 			return false;
+		}else{
+			return users.get(0).getStatus()==1;
 		}
-		return true;
 	}
 }
 

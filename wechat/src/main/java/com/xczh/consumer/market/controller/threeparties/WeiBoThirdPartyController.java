@@ -286,6 +286,7 @@ public class WeiBoThirdPartyController {
 					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
 					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
+					
 					//把用户中心的数据给他  --这些数据是IM的
 					ou.setUserCenterId(iu.getId());
 					ou.setPassword(iu.getPassword());

@@ -109,6 +109,8 @@ public class MedicalDoctorVO implements Serializable{
 	 */
 	private String fieldText;
 
+	private String departmentText;
+
 	/**
 	 * 认证信息
 	 */
@@ -123,6 +125,14 @@ public class MedicalDoctorVO implements Serializable{
 	 * 身份证号
 	 */
 	private String cardNum;
+
+	public String getDepartmentText() {
+		return departmentText;
+	}
+
+	public void setDepartmentText(String departmentText) {
+		this.departmentText = departmentText;
+	}
 
 	public String getCardNum() {
 		return cardNum;

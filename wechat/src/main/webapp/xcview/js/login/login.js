@@ -2,10 +2,10 @@
 ///**
 // * 如果是来自分享的话。需要判断这个id啦
 // */
-//var opendId = getQueryString("openId");
-//if(stringnull(opendId)){
-//	localStorage.setItem("openid", openId);
-//}
+var opendId = getQueryString("openId");
+if(stringnull(opendId)){
+	localStorage.setItem("openid", openId);
+}
 //if(stringnull(param_page)){
 //	localStorage.setItem("code", param_page);
 //}

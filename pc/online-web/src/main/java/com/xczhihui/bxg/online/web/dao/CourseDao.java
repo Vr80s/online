@@ -145,6 +145,7 @@ public class CourseDao extends SimpleHibernateDao {
         String sql = "SELECT \n" +
                 "  oc.id,\n" +
                 "  oc.grade_name AS courseName,\n" +
+                "  oc.collection,\n" +
                 "  oc.smallimg_path AS smallImgPath\n" +
                 "FROM\n" +
                 "  oe_course oc \n" +
@@ -256,7 +257,7 @@ public class CourseDao extends SimpleHibernateDao {
         String courseTableName = "1".equals(ispreview) ? "oe_course_preview" : "oe_course";
         String course_type = "1".equals(ispreview) ? "" : "c.course_type,";
         if (courseId != null) {
-        	String sql = " select "+course_type+" c.id,c.lecturer_description lecturerDescription,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,"+
+        	String sql = " select "+course_type+" c.id,c.lecturer_description lecturerDescription,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,c.collection,"+
 //                         " if(c.is_free=1,IFNULL((SELECT  COUNT(*)  FROM apply_r_grade_course WHERE course_id = c.id),0)+SUM(IFNULL(default_student_count, 0)),"+
 //                         " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,"+
                          " IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,"+
@@ -783,5 +784,20 @@ public class CourseDao extends SimpleHibernateDao {
         dc.add(Restrictions.eq("isDelete", false));
         List<Course> courses = this.findEntities(dc);
         return courses;
+    }
+
+    public List<CourseVo> getCoursesByCollectionId(Integer collectionId) {
+        List<CourseVo> courseVoList = null;
+        String sql="SELECT \n" +
+                "  oc.`id`,\n" +
+                "  oc.`grade_name` as name\n" +
+                "FROM\n" +
+                "  `oe_course` oc \n" +
+                "  JOIN `collection_course` cc \n" +
+                "    ON oc.id = cc.`course_id` \n" +
+                "WHERE cc.`collection_id` = ? \n" +
+                "ORDER BY cc.`collection_course_sort` DESC";
+        courseVoList = this.getNamedParameterJdbcTemplate().getJdbcOperations().query(sql, BeanPropertyRowMapper.newInstance(CourseVo.class),collectionId);
+        return courseVoList;
     }
 }

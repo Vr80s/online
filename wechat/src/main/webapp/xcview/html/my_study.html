@@ -79,7 +79,8 @@
 						{{else if item.type == 2 && item.collection == true}}
 						<a href="live_select_aldum.html?course_id={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>
 						{{else if item.type == 3}}
-						<a href="live_play.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	
+						<!--<a href="live_play.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>-->	
+						<a href="details.html?courseId={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	
 						{{else if item.type == 4}}
 						<a href="live_class.html?my_study={{item.id}}" style="position: absolute;width: 100%; height: 100%;left: 0; z-index: 2;"></a>	
 						{{/if}}
@@ -106,7 +107,8 @@
 						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
 						{{else if item.lineState==1}}	
 						<!--直播中-->				
-						<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>
+						<!--<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>-->
+						<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}">直播中</a></p>
 						{{else if item.type==4}}
 						<!--上课时间-->
 						<p class="my_collection">上课时间：&nbsp;<span>2017.12.29</span></p>
