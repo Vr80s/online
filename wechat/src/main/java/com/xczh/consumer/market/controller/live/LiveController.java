@@ -506,7 +506,7 @@ public class LiveController {
 		Map<String,Object> mapHf = new HashMap<String, Object>();
 
 
-		List<Map<String,Object>> list = onlineCourseService.findLiveListInfo();
+		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
 		
 		mapTj.put("title","正在直播");
 		mapTj.put("courseList",list);
