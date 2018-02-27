@@ -183,8 +183,8 @@ public class WeChatThirdPartyController {
 				 * 写入这个cookie
 				 */
 				ThridFalg tf = new ThridFalg(); 
-				tf.setOpenId(wxw.getUnionid());
-				tf.setUnionId(wxw.getOpenid());
+				tf.setOpenId(wxw.getOpenid());
+				tf.setUnionId(wxw.getUnionid());
 				
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
