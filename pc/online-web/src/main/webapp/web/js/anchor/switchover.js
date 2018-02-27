@@ -177,9 +177,10 @@ $(".account_number").click(function() {
 });
 
 
-//点击认证消息   name_news
+//点击认证信息   name_news
 $(".name_news").click(function() {
 //	隐藏认证信息第二页  
+	localStorage.AccountNumber = 'name_news'; 
 	$(".account_main_alter").hide();
 	
 //	隐藏个人信息内容
@@ -189,6 +190,7 @@ $(".name_news").click(function() {
 
 //点击个人信息  
 $(".name_personage").click(function() {
+localStorage.AccountNumber = 'name_personage'; 
 $('.begin_approve').hide();
 $('.account_main').hide();
 //$(".account_main_alter").addClass('hide');
