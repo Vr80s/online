@@ -107,20 +107,29 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
 
         this.validate(target);
 
-        CourseAnchor courseAnchor = new CourseAnchor();
-        BeanUtils.copyProperties(target, courseAnchor);
-
-        EntityWrapper<CourseAnchor> ew = new EntityWrapper();
-        ew.where("user_id={0}",target.getUserId());
-        courseAnchorMapper.update(courseAnchor, ew);
-
         // 根据用户id获取主播类型
         Map<String, Object> columnMap = new HashMap<>();
         columnMap.put("user_id", target.getUserId());
         List<CourseAnchor> courseAnchors = courseAnchorMapper.selectByMap(columnMap);
 
         if(CollectionUtils.isNotEmpty(courseAnchors)){
+
             CourseAnchor anchor = courseAnchors.get(0);
+
+            // 更新用户的主播信息
+            CourseAnchor courseAnchor = new CourseAnchor();
+            BeanUtils.copyProperties(target, courseAnchor);
+            courseAnchor.setId(anchor.getId());
+//            EntityWrapper<CourseAnchor> ew = new EntityWrapper();
+//            ew.where("user_id={0}",target.getUserId());
+//            courseAnchorMapper.update(courseAnchor, ew);
+
+            // 如果不选择精彩致辞，则表示取消之前的精彩致辞(这是不是删除用户的精彩致辞)
+            if (target.getResourceId() == null){
+                courseAnchor.setResourceId(0);
+            }
+
+            courseAnchorMapper.updateById(courseAnchor);
 
             // 如果用户是医师 更新医师信息
             if(anchor.getType() == 1){
@@ -319,7 +328,12 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     /**
      * 加工主播精彩致辞
      */
-    private String processVideoStr(int resourceId){
+    private String processVideoStr(Integer resourceId){
+
+        // resourceId为0时,表示用户之前取消了精彩致辞
+        if(resourceId == null || resourceId == 0){
+            return null;
+        }
 
         CourseApplyResource resource = courseApplyResourceMapper.selectById(resourceId);
         if(resource != null){

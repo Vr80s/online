@@ -52,13 +52,16 @@ $(function(){
             return "<a href='jvascript:void(0);' style='color: blue;cursor: pointer' onclick='previewDialog(this);return false;'>查看</a>";
         }},
         { "sortable": false,"class": "center","width":"7%","title":"操作","mRender":function (data, display, row) {
+        	debugger
                 if(row.status==2){
-                    return "<a  style='color: blue;cursor: pointer' onclick='dakuan(\""+row.id+"\")'>打款</a>&nbsp;&nbsp;&nbsp;&nbsp;<a  style='color: blue;cursor: pointer' onclick='bohui(\""+row.id+"\")'>驳回</a>";
+                    return "<a  style='color: blue;cursor: pointer' onclick='dakuan(\""+row.id+"\",1)'>通过</a>&nbsp;&nbsp;&nbsp;&nbsp;<a  style='color: blue;cursor: pointer' onclick='bohui(\""+row.id+"\")'>驳回</a>";
                 }else if(row.status == 1){
-                    return "<span style='color:green'>已打款\n"+getLocalTime(row.ticklingTime)+"</span>";
+                    return "<a  style='color: blue;cursor: pointer' onclick='dakuan(\""+row.id+"\",3)'>待打款</a>";
                     // remark = "<span style='color:green'>"+"付款("+"<a style='color: blue;cursor: pointer' onclick='yfk(this)'>查看</a>)\n"+getLocalTime(row.ticklingTime)+"</span>";
                 }else if(row.status == 0){
                     return "<span style='color:green'>已驳回("+"<a style='color: blue;cursor: pointer' onclick='ybh(this)'>查看</a>)\n"+getLocalTime(row.ticklingTime)+"</span>";
+                }else if(row.status == 3){
+                    return "<span style='color:green'>已打款\n"+getLocalTime(row.ticklingTime)+"</span>";
                 }
             } 
         }/*,
@@ -81,8 +84,9 @@ $(function(){
 });
 
 function yfk(obj){
-
-	
+    debugger;
+    var oo = $(obj).parent().parent().parent();
+    var row = orderTable.fnGetData(oo);
 	console.info(row.realName);
 	$("#s_payType").html(payType);
 	$("#s_payAccount").html(row.enchashmentAccount);
@@ -131,30 +135,39 @@ Date.prototype.Format = function(fmt) { //author: meizz
 } 
 
 //修改
-function dakuan(id){
+function dakuan(id,status){
 	debugger
-	$('#startTime_edit').datepicker( "option" , {
-		 minDate: null,
-		 maxDate: null} );
-	$('#startTime_edit').datetimepicker({
-    	showSecond: true,
-		changeMonth: true,
-		changeYear: true,
-		dateFormat:'yy-mm-dd',
-		monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
-		timeFormat: 'HH:mm:ss',
-    	onSelect: function( startDate ) {
-    		var $startDate = $( "#startTime_edit" );
-    		var $endDate = $('#endTime_edit');
-    		var endDate = $endDate.datepicker( 'getDate' );
-    		if(endDate < startDate){
-    			$endDate.datetimepicker('setDate', startDate - 3600*1*24*60*60*60);
-    		}
-    		$endDate.datetimepicker( "option", "minDate", startDate );
-    	}
-    });
+    $("#dakuanStatus").val(status);
+	var str = ";"
+	if(status==1){
+		str = "通过";
+		$("#dakuanStr").html("确认通过？");
+	}else if(status==3){
+        str = "打款";
+        $("#dakuanStr").html("确认已打款？");
+	}
+	// $('#startTime_edit').datepicker( "option" , {
+	// 	 minDate: null,
+	// 	 maxDate: null} );
+	// $('#startTime_edit').datetimepicker({
+    	// showSecond: true,
+	// 	changeMonth: true,
+	// 	changeYear: true,
+	// 	dateFormat:'yy-mm-dd',
+	// 	monthNamesShort: [ "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" ],
+	// 	timeFormat: 'HH:mm:ss',
+    	// onSelect: function( startDate ) {
+    	// 	var $startDate = $( "#startTime_edit" );
+    	// 	var $endDate = $('#endTime_edit');
+    	// 	var endDate = $endDate.datepicker( 'getDate' );
+    	// 	if(endDate < startDate){
+    	// 		$endDate.datetimepicker('setDate', startDate - 3600*1*24*60*60*60);
+    	// 	}
+    	// 	$endDate.datetimepicker( "option", "minDate", startDate );
+    	// }
+    // });
 	$("#dakuan_id").val(id);
-	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv","打款",220,220,true,"确定",function(){
+	var dialog = openDialog("EditCourseDialog","dialogEditCourseDiv",str,220,220,true,"确定",function(){
 		if($("#dakuan-form").valid()){
 			mask();
             $("#dakuan-form").attr("action", basePath+"/order/enchashmentManager/handleEnchashment");

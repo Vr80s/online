@@ -235,9 +235,9 @@
 	<div id="EditCourseDialog" class="hide">
 		<form class="form-horizontal" id="dakuan-form" method="post" action="" style="margin-top: 15px;">
 			<input type="hidden" id="dakuan_id" name="id" class="col-xs-10 col-sm-8 {required:true}">
-			<input type="hidden"  name="status" value="1" class="col-xs-10 col-sm-8 {required:true}">
+			<input type="hidden"  id="dakuanStatus" name="status" value="1" class="col-xs-10 col-sm-8 {required:true}">
 				<div class="space-4"></div>
-				确认打款？
+				<span id="dakuanStr"></span>
 		        <%--<div class="form-group" style="margin-top: 18px;">--%>
 		            <%--<label class="col-sm-3 control-label no-padding-right"><i class="text-danger">*</i> 打款时间: </label>--%>
 		            <%--<div class="col-sm-9">--%>

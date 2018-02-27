@@ -794,3 +794,10 @@ div.pinch-zoom,
 .div_img .img_left{
 	margin-left: 0.6rem;
 }
+
+
+/*处理排行榜下划线位置--给的left值*/
+.leaderboard_list{
+	width: 97%;
+	margin-left: 0.5rem;
+}
