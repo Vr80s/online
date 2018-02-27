@@ -41,7 +41,7 @@
 		_default: {
 			'id': 'slider', //幻灯容器的id
 			'fx': 'ease-out', //css3动画效果（linear,ease,ease-out,ease-in,ease-in-out），不支持css3浏览器只有ease-out效果
-			'auto': 0, //是否自动开始，负数表示非自动开始，0,1,2,3....表示自动开始以及从第几个开始
+			'auto': -1, //是否自动开始，负数表示非自动开始，0,1,2,3....表示自动开始以及从第几个开始
 			'speed':600, //动画效果持续时间 ms
 			'timeout':5000,//幻灯间隔时间 ms
 			'className':'', //每个幻灯所在的li标签的classname,
@@ -123,6 +123,8 @@
 		})(),
 		//格式化参数
 		parse_args: function(r){
+//			debugger
+			// r.auto=1;
 			var _default={}, toString=Object.prototype.toString;
 			if(r && toString.call(r)=='[object Object]')
 				for(var key in this._default){
@@ -177,11 +179,13 @@
 		},
 		//初始化
 		setup: function(){
+//			debugger
 			this.status=0;//状态码，0表示停止状态，1表示运行状态，2表示暂停状态，-1表示出错
 			this.slides=this.opt.className?this.$E(this.opt.className,'li',this.element):this.element.getElementsByTagName('li');
 			this.length=this.slides.length; this.opt.timeout=Math.max(this.opt.timeout,this.opt.speed);
 			this.touching=!!ADSupportsTouches; this.css3transition=!!ADSupportsTransition; 
-			this.index=this.opt.auto<0 || this.opt.auto>=this.length ? 0:this.opt.auto;
+			// this.index=this.opt.auto<0 || this.opt.auto>=this.length ? 0:this.opt.auto;
+			this.index=1;
 			if(this.length<2)return;//小于2不需要滚动
 			switch(this.opt.direction){
 				case 'up': this.direction='up'; this.vertical=true; break;
@@ -255,6 +259,7 @@
 			this.opt.before.call(this, index, this.slides[this.index]); run();
 		},
 		begin:function(){
+//			debugger
 			if(this.timer || this.opt.auto<0)return true;
 			this.timer=setTimeout(this.bind(function(){
 				this.direction=='left'||this.direction=='up' ? this.next() : this.prev();
