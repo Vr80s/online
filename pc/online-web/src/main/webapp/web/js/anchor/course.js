@@ -528,7 +528,9 @@ function verifyCourse(course){
     }else{
         $('.warning_course_lecturer').addClass('hide');
     }
-    if(course.lecturer.length>20){
+//  course.lecturer.charAt(course.lecturer.length – 1)== ','
+//course.lecturer.substr(course.lecturer.length-1,1)
+    if( course.lecturer.substr(course.lecturer.length-1,1)== "，"){
         $('.warning_course_lecturer_length').removeClass('hide');
         return false;
     }else{
@@ -1012,7 +1014,7 @@ function verifyCollection(collection){
     }else{
         $('.warning_collection_lecturer').addClass('hide');
     }
-    if(collection.lecturer.length>30){
+    if(collection.lecturer.substr(collection.lecturer.length-1,1)== "，"){
         $('.warning_collection_lecturer_length').removeClass('hide');
         return false;
     }else{
