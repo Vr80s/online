@@ -121,13 +121,13 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 	public List<CourseLecturVo> findLiveListInfo() throws SQLException {
 		// TODO Auto-generated method stub  
 		StringBuffer sql = new StringBuffer("");
-		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append(" (select * from (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
 		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,c.recommend_sort,c.start_time, ");
 		sql.append(" c.collection as collection, ");
-		//观看人数
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
@@ -137,17 +137,35 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
 		//直播中
 		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY) ");
-		sql.append(" order by  c.recommend_sort desc  limit 0,12)");
-		sql.append("  union all ");
-
-		//即将直播
-		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append(" union ");
+		sql.append(" select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
 		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,0 as recommend_sort,c.start_time, ");
 		sql.append(" c.collection as collection, ");
-		
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
+		sql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,");
+		sql.append(" '正在直播' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=0 ");
+		sql.append(" and c.live_status = 1 and c.start_time >= DATE_SUB(now(),INTERVAL 1 DAY)) oce ");
+		sql.append(" order by  oce.is_recommend DESC,oce.recommend_sort DESC,oce.start_time DESC LIMIT 0,12)");
+
+
+		sql.append("  union all ");
+
+		//即将直播
+		sql.append(" (select * from (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,c.recommend_sort,c.start_time, ");
+		sql.append(" c.collection as collection, ");
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
@@ -155,19 +173,34 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" '即将直播' as note");
 		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
-
 		sql.append(" and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now()");
-		sql.append(" order by  c.recommend_sort desc limit 0,4)");
+		sql.append("  union ");
+		sql.append(" select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%H:%i') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,0 as recommend_sort,c.start_time, ");
+		sql.append(" c.collection as collection, ");
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
+		sql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,");
+		sql.append(" '即将直播' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=0 ");
+		sql.append(" and c.live_status = 2 and c.start_time <= DATE_ADD(now(),INTERVAL 1 DAY) and c.start_time > now() ) oce ");
+		sql.append(" order by  oce.is_recommend DESC,oce.recommend_sort DESC,oce.start_time asc LIMIT 0,4)");
 		sql.append("  union all ");
 
 		//直播课程
-		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append(" (select * from (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
 		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,c.recommend_sort,c.start_time, ");
 		sql.append(" c.collection as collection, ");
-		
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
@@ -175,19 +208,34 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" '直播课程' as note");
 		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
-
 		sql.append(" and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
-		sql.append(" order by  c.recommend_sort desc limit 0,4)");
-		sql.append("  union all ");
-
-		//精彩回放课程
-		sql.append(" (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("  union  ");
+		sql.append(" select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
 		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
 		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
 		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
 		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,0 as recommend_sort,c.start_time, ");
 		sql.append(" c.collection as collection, ");
-		
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
+		sql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,");
+		sql.append(" '直播课程' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=0 ");
+		sql.append(" and c.live_status = 2 and c.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) )oce ");
+		sql.append(" order by  oce.is_recommend DESC,oce.recommend_sort DESC,oce.start_time asc LIMIT 0,4)");
+		sql.append("  union all ");
+
+		//精彩回放课程
+		sql.append(" (select * from (select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,c.recommend_sort,c.start_time, ");
+		sql.append(" c.collection as collection, ");
 		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
 		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
 		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
@@ -195,9 +243,24 @@ public class OnlineCourseMapper extends BasicSimpleDao{
 		sql.append(" '精彩直播回放' as note");
 		sql.append(" from oe_course c ");
 		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=1 ");
-
 		sql.append(" and c.live_status = 3 ");
-		sql.append(" order by  c.recommend_sort desc  limit 0,4)");
+		sql.append("  union  ");
+		sql.append(" select c.id,c.direct_Id as directId,c.course_length as courseLength,c.grade_name as gradeName,c.lecturer as name,");
+		sql.append("c.smallimg_path as smallImgPath,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,c.end_time as endTime, ");
+		sql.append("c.original_cost as originalCost,c.current_price*10 as currentPrice,");
+		sql.append(" if(c.is_free =0,0,1) as watchState, ");//是否免费
+		sql.append(" c.type as type, ");
+		sql.append(" c.is_recommend,0 as recommend_sort,c.start_time, ");
+		sql.append(" c.collection as collection, ");
+		sql.append(" (SELECT IFNULL((SELECT  COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) ");
+		sql.append(" + IFNULL(c.default_student_count, 0) + IFNULL(c.pv, 0)) as  learndCount, ");
+		sql.append(" if(c.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=c.start_time and now()<c.start_time,4,");
+		sql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=c.start_time and now()<c.start_time,5,c.live_status)),c.live_status) as  lineState ,");
+		sql.append(" '精彩直播回放' as note");
+		sql.append(" from oe_course c ");
+		sql.append(" where  c.is_delete=0 and c.status = 1 and c.type=1 and c.is_recommend=0 ");
+		sql.append(" and c.live_status = 3) oce ");
+		sql.append(" order by  oce.is_recommend DESC,oce.recommend_sort DESC,oce.start_time desc LIMIT 0,4)");
 
 		return super.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanListHandler<>(CourseLecturVo.class));
 	}
