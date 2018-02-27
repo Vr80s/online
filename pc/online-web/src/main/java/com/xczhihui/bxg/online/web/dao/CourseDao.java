@@ -145,6 +145,7 @@ public class CourseDao extends SimpleHibernateDao {
         String sql = "SELECT \n" +
                 "  oc.id,\n" +
                 "  oc.grade_name AS courseName,\n" +
+                "  oc.collection,\n" +
                 "  oc.smallimg_path AS smallImgPath\n" +
                 "FROM\n" +
                 "  oe_course oc \n" +
