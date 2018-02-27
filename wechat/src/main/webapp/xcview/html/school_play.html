@@ -100,7 +100,27 @@
 		</div>
 <!--详情开始-->
 	<p class="my_details">详情</p>
-	<!--简介-->
+	
+	<!--主讲人-->
+		<div class="wrap_speak">		
+			<div class="main_speak">
+				<p></p>
+				<p>主讲人</p>
+				<p></p>
+			</div>		
+		</div>
+	<!--内容-->
+		<div class="wrap1 pp1" style="height: 2rem;">
+			<p></p> 
+			<p class="no_data1">暂无数据...</p>
+			<div class="zhezhao1">
+				<img src="../images/op_bg.png"/>	
+			</div>     
+		</div>
+		<div class="btn1">
+			<img src="../images/bot0.png"/>
+		</div>
+<!--简介-->
 	<div class="wrap_synopsis">	
 		<div class="my_synopsis">
 			<ul>
@@ -124,25 +144,6 @@
 			
 		</div>
 		<div class="btn">
-			<img src="../images/bot0.png"/>
-		</div>
-	<!--主讲人-->
-		<div class="wrap_speak">		
-			<div class="main_speak">
-				<p></p>
-				<p>主讲人</p>
-				<p></p>
-			</div>		
-		</div>
-	<!--内容-->
-		<div class="wrap1 pp1" style="height: 2rem;">
-			<p></p> 
-			<p class="no_data1">暂无数据...</p>
-			<div class="zhezhao1">
-				<img src="../images/op_bg.png"/>	
-			</div>     
-		</div>
-		<div class="btn1">
 			<img src="../images/bot0.png"/>
 		</div>
 <!--详情结束-->
@@ -272,10 +273,10 @@
 				</a>
 				{{else if watchState==2 || watchState==3}}
 					<a class="left_price z" href="javascript:;">
-						<p><span>已购买</span></p>
+						<p><span>{{currentPrice}}</span>熊猫币</p>
 					</a>
 					<a class="right_priceBtn y" href="javascript:;" onclick="btn_purchase()">
-						立即观看
+						已购买，立即学习
 					</a>
 				{{/if}}
 			</div>
@@ -296,7 +297,7 @@
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
-		<p class="detailed_comments little_comment">详细评论<span>（至少10字）</span></p>
+		<p class="detailed_comments little_comment">详细评论</p>
 		<div class="text_write_box">
 			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
@@ -351,7 +352,7 @@
 			<li value="4">喜欢</li>
 			<li value="5">买对了</li>
 		</ul>
-		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
+		<p class="detailed_comments">详细评论</p>
 		<div class="text_write_box">
 			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
