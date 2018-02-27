@@ -274,7 +274,7 @@ function btn_buy(){
 
 }
 
-//点击免费购买后的
+//点击免费购买后无专辑的
 function btn_mianfei(){
 	window.location.href="live_audio.html?my_study="+course_id+"";
 }
@@ -282,6 +282,29 @@ function btn_mianfei(){
 function btn_zj_mianfei(){
 	window.location.href="live_select_album.html?course_id="+course_id+"";
 }
+//已购买并没有专辑
+function btn_purchase_no(){
+	window.location.href="live_audio.html?my_study="+course_id+"";
+}
+//已购买并有专辑
+function btn_purchase_have(){
+	window.location.href="live_select_album.html?course_id="+course_id+"";
+}
+//主播本人无专辑
+function btn_purchase_myno(){
+	window.location.href="live_audio.html?my_study="+course_id+"";
+}
+//主播本人有专辑
+function btn_purchase_myhave(){
+	window.location.href="live_select_album.html?course_id="+course_id+"";
+}
+
+
+
+
+
+
+
 //删除评论状态
 function del(){
     //星星

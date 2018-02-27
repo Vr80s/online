@@ -288,6 +288,39 @@
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_zj_mianfei()">
 					立即观看
 				</a>
+<!--//已购买并没有专辑-->
+	
+				{{else if watchState==2 && collection == false}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>已购买</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_purchase_no()">
+					立即观看
+				</a>
+<!--//已购买并有专辑-->			
+				{{else if watchState==2 && collection == true}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>已购买</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_purchase_have()">
+					立即观看
+				</a>
+<!--//主播买并没有专辑-->			
+				{{else if watchState==3 && collection == false}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>已购买</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_purchase_myno()">
+					立即观看
+				</a>
+<!--//主播并有专辑-->			
+				{{else if watchState==3 && collection == true}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>已购买</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_purchase_myhave()">
+					立即观看
+				</a>
 				{{/if}}
 			</div>		
 		</script>

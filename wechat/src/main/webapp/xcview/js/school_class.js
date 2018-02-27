@@ -267,29 +267,17 @@ function btn_buy(){
 		courseId:courseId,
 		orderFrom:2
 	},function(data){
-
 		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
 	});
-
-	
 }
 //点击免费报名后
 function btn_mianfei(){
-
-
-    //	评论弹窗
-//  $(".wrap_input").on('click',function(){
-//      del();
-//      $(".bg_modal").show();
-//      $(".wrapAll_comment").show();
-//  })
-//  $(".bg_modal").on('click',function(){
-//      $(".bg_modal").hide();
-//      $(".wrapAll_comment").hide();
-//  })
 window.location.href="live_class.html?my_study="+course_id+"";
 }
-
+//点击主播本人或者已购买者购买后
+function btn_purchase(){
+window.location.href="live_class.html?my_study="+course_id+"";
+}
 //删除评论状态
 function del(){
     //星星
