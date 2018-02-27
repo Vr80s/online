@@ -153,12 +153,9 @@ public class WeChatThirdPartyController {
 				onlogin(req,res,t,ou,t.getTicket());
 				
 				/**
-				 * 写入这个cookie
+				 * 清除这个cookie
 				 */
-				ThridFalg tf = new ThridFalg(); 
-				tf.setOpenId(wxw.getUnionid());
-				tf.setUnionId(wxw.getOpenid());
-				UCCookieUtil.writeThirdPartyCookie(res,tf);
+				UCCookieUtil.clearThirdPartyCookie(res);
 				
 				if (openId != null && !openId.isEmpty()) {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+ openId);
@@ -183,9 +180,16 @@ public class WeChatThirdPartyController {
 				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 				
 				/**
-				 * 清除这个cookie
+				 * 写入这个cookie
 				 */
-				UCCookieUtil.clearThirdPartyCookie(res);
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(wxw.getUnionid());
+				tf.setUnionId(wxw.getOpenid());
+				
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
+				
+				
+				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
 				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}

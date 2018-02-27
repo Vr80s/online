@@ -214,6 +214,8 @@ public class TokenFilter implements Filter {
 		    		 * 是不是需要传递一个token过来啊。然后判断这个token是否
 		    		 */
 		    		chain.doFilter(request, response);
+		    		
+		    		System.out.println("================================chain.doFilter");
 		    		return;
 		    	}else if(session !=null){
 					/**
@@ -238,15 +240,17 @@ public class TokenFilter implements Filter {
 		    		statusFalg = 1002;
 		    		redirectUrl = request.getContextPath() + "/xcview/html/enter.html";
 		    	}  
+		    	System.out.println("================================chain.doFilter11111111111111111111");
 //		        1002  token过期  --去登录页面
 //		        1003      其他设备登录
 // 				1005  token过期  --去完善信息页面
 		    	
 		    	ThridFalg tf = UCCookieUtil.readThirdPartyCookie(request);
 		    	
-		    	System.out.println("tf.toString():"+tf.toString());
+		    	System.out.println("currentURL:"+currentURL+"================================tf.toString():"+tf);
 		    	
-		    	if(tf!=null && tf.getOpenId()!=null && tf.getUnionId()!=null){
+		    	//如果是没有登录的状态 并且cookie不登录空的话，就去完善信息页面
+		    	if(statusFalg ==1002 && tf!=null && tf.getOpenId()!=null && tf.getUnionId()!=null){
 		    		statusFalg = 1005;
 		    		redirectUrl = request.getContextPath() + "/xcview/html/evpi.html?openId="+tf.getOpenId()+"&unionId="+tf.getUnionId()+"&jump_type=1";
 		    	}

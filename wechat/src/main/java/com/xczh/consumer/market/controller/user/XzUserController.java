@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OLAttachmentCenterService;
@@ -119,7 +120,7 @@ public class XzUserController {
 	}
 	
 	/**
-	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
+	 * h5普通浏览器、APP提交注册。微信公众号是没有注册的，直接就登录了
 	 * @param req
 	 * @return
 	 */
@@ -151,8 +152,60 @@ public class XzUserController {
 		ou.setTicket(t.getTicket());
 		this.onlogin(req, res, t, ou,t.getTicket());
 		
+		
+		String openId = req.getParameter("openId");
+		if(StringUtils.isNotBlank(openId)){
+			//进行绑定
+			WxcpClientUserWxMapping wx = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
+			wx.setClient_id(ou.getId());
+			wxcpClientUserWxMappingService.update(wx);
+		}
+		
 		return ResponseObject.newSuccessResponseObject(ou);
 	}
+	
+	
+	/**
+	 * h5、APP提交注册。微信公众号是没有注册的，直接就登录了
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="publicNumberPhoneRegist")
+	@ResponseBody
+	@Transactional
+	public ResponseObject publicNumberPhoneRegist(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam("password")String password,
+			@RequestParam("username")String username,
+			@RequestParam("code")String code,
+			@RequestParam("openId")String openId) throws Exception {
+		
+		if(!com.xczh.consumer.market.utils.StringUtils.checkPhone(username)){
+			return ResponseObject.newErrorResponseObject("请输入正确的手机号");
+		}
+		/*
+		 * 验证短信验证码
+		 */
+		Integer vtype = SMSCode.RETISTERED.getCode();		//短信验证码类型
+		ResponseObject checkCode = onlineUserService.checkCode(username, code,vtype);
+		if (!checkCode.isSuccess()) {
+			return checkCode;
+		}
+		
+		/**
+		 * 注册后默认登录啦
+		 */
+		OnlineUser ou =  onlineUserService.addPhoneRegistByAppH5(req, password,username,vtype);
+		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
+		ou.setTicket(t.getTicket());
+		this.onlogin(req, res, t, ou,t.getTicket());
+		
+		
+		
+		return ResponseObject.newSuccessResponseObject(ou);
+	}
+	
+	
 	
 	/**
 	 * Description：浏览器端登录

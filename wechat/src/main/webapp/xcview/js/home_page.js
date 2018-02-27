@@ -1,24 +1,28 @@
 $(function(){
 	
 	
-//yx_新增
 var openId = getQueryString("openId");
 if(stringnull(openId)){
    localStorage.setItem("openid",openId);
-   var userId = localStorage.getItem("userId");
-   
-   if(!stringnull(userId)){
-		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
-		var ccontrollerAddress = "/bxg/user/isLogined";
-		requestService(ccontrollerAddress, null, function(data) {
-			if (data.success) {
-				commonLocalStorageSetItem(data);
-			}else{
-				alert("网络异常");
-			}
-		},false)	
-	}
-}	
+}   
+//yx_新增   -- 这个先不搞，因为进入home_page.js页面不一定直播的
+//var openId = getQueryString("openId");
+//if(stringnull(openId)){
+//   localStorage.setItem("openid",openId);
+//   var userId = localStorage.getItem("userId");
+//   
+//   if(!stringnull(userId)){
+//		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
+//		var ccontrollerAddress = "/bxg/user/isLogined";
+//		requestService(ccontrollerAddress, null, function(data) {
+//			if (data.success) {
+//				commonLocalStorageSetItem(data);
+//			}else{
+//				alert("网络异常");
+//			}
+//		},false)	
+//	}
+//}	
 
 
 

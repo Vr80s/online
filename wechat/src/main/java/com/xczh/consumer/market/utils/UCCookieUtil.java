@@ -77,7 +77,7 @@ public class UCCookieUtil {
 			//加码
 			String openId = tf.getOpenId();
 			String unionId = tf.getUnionId();
-			String v = String.format("%d;%s;%s;%s;%d", openId, unionId);
+			String v = String.format("%s;%s", openId, unionId);
 			str = URLEncoder.encode(v, "UTF-8");
 			writeBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
 		} catch (UnsupportedEncodingException e) {
