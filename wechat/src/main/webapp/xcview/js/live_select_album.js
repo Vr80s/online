@@ -15,7 +15,7 @@ $(function(){
 	var courseId = getQueryString('course_id');
     course_id = courseId;
 	//传ID courseId为接口的课程ID
-	requestService("/xczh/course/details",{
+	requestService("/xczh/course/liveDetails",{
 		courseId : courseId	
 	},function(data) {
 			//分享的信息展示
