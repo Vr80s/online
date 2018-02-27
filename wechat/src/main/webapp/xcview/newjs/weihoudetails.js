@@ -386,10 +386,10 @@ $(document).ready(function() {
  		  });
  		if (msg){
  			var str = "<div class='coze_cen_ri'> "+
-			 "<img src="+msg.avatar+" alt='' "+
-			"	class='coze_cen_ri_img' /> "+
+			 /*"<img src="+msg.avatar+" alt='' "+
+			"	class='coze_cen_ri_img' /> "+*/
 			"  <div class='coze_cen_bg_ri'> "+
-			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
+//			"	<img src='/xcview/images/sanjiao2.png' alt='' />"+msg.content+"  "+
 			" </div> "+
 			" <div class='both'></div></div>";
  			
