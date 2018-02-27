@@ -22,8 +22,8 @@ $(function(){
 	window.hospitalId = getQueryString('hospitalId');
 	window.name =searchText?searchText:"";
 	window.type =getQueryString('type')?getQueryString('type'):"";
-	window.field=getQueryString('field')?getQueryString('field'):"";
-	getHostipalList(current,size,name,type,field);
+	window.departmentId=getQueryString('departmentId')?getQueryString('departmentId'):"";
+	getHostipalList(current,size,name,type,departmentId);
 	console.log(hospitalId);
 	
 	//顶部搜索列表title变化
@@ -49,13 +49,13 @@ $(function(){
 	
 	
 	//渲染医师列表方法
-	function getHostipalList(current,size,name,type,field){
+	function getHostipalList(current,size,name,type,departmentId){
 	    RequestService("/medical/doctor/getDoctors","GET",{ 
 	    	current:current,
 	    	size:size,
 	    	name:name,
 	    	type:type,
-	    	field:field,
+	    	departmentId:departmentId,
 	    	hospitalId:hospitalId
 	    },function(data){
 	    	$('.search_more').css('display','block')
@@ -82,9 +82,22 @@ $(function(){
 //		if(e.keyCode==13){
 		$('#doctor_list').html('');
 		  var name =$('.doctor_search_ipt > input').val();
-		  var field = '';
+		  var departmentId; 
+		  if($('#doctor_search_condition2').hasClass('hide')){
+		  	departmentId = '';
+		  }else{
+		  	departmentId = $('#doctor_search_condition2 span').attr('data-id');
+		  }
+		  
+		  var type;
+		  if($('#doctor_search_condition1').hasClass('hide')){
+		  	type = '';
+		  }else{
+		  	type = $('#doctor_search_condition1 span').attr('data-type');
+		  }
+		  
 		  console.log(name)
-		  getHostipalList(current,size,name,type,field);
+		  getHostipalList(current,size,name,type,departmentId);
 //		}
 		});
 
@@ -93,7 +106,7 @@ $(function(){
 	    $('.more_doctor').click(function(){
 	    	current +=1;
 	    	console.log(current)
-	    	getHostipalList(current,size,name,type,field);
+	    	getHostipalList(current,size,name,type,departmentId);
 	    })
 	    
 	    
@@ -111,5 +124,78 @@ $(function(){
 //	    });
 	    
 	    
+	    //名医筛选条件的分类
+	    RequestService("/medical/doctor/getDoctorType","GET",null,function(data){
+	       if(data.resultObject == null || data.resultObject.length == 0){
+	       		alert('未获取到筛选中的分类')
+	       }else{
+	       	$('#doctor_search_class').html(template('doctor_search_class_Tpl',{item:data.resultObject}));
+	       }
+	    });
+	    
+	     //名医筛选条件的科室
+	    RequestService("/medical/doctor/apply/listDepartment/0","GET",null,function(data){
+	       if(data.resultObject == null || data.resultObject.records.length == 0){
+	   			alert('未获取到筛选中的科室')
+	       }else{
+	       	$('#doctor_search_keshi').html(template('doctor_search_keshi_Tpl',{item:data.resultObject.records}));
+	       }
+	    });
+	    
+		//名医分类筛选效果
+		$('#doctor_search_class').on('click','a',function(){
+			$('#doctor_search_class li a ').removeClass('color');
+			$(this).addClass('color');
+			//筛选条件部分变化
+			$('#doctor_search_condition3').addClass('hide')
+			$('#doctor_search_condition1').removeClass('hide')
+			$('#doctor_search_condition1 span').text($(this).text());
+			$('#doctor_search_condition1 span').attr('data-type',$(this).attr('data-type'))
+			if($(this).text() == '全部'){
+				$('#doctor_search_condition1').addClass('hide');
+				if($('#doctor_search_condition2').hasClass('hide')){
+	    			$('#doctor_search_condition3').removeClass('hide')
+	    		}
+			}
+		})
+	    
+	    //名医科室筛选效果
+	    $('#doctor_search_keshi').on('click','a',function(){
+			$('#doctor_search_keshi li a ').removeClass('color');
+			$(this).addClass('color');
+			//筛选条件部分变化
+			$('#doctor_search_condition3').addClass('hide')
+			$('#doctor_search_condition2').removeClass('hide')
+			$('#doctor_search_condition2 span').text($(this).text());
+			$('#doctor_search_condition2 span').attr('data-id',$(this).attr('data-id'))
+			if($(this).text() == '全部'){
+				$('#doctor_search_condition2').addClass('hide');
+				if($('#doctor_search_condition1').hasClass('hide')){
+	    			$('#doctor_search_condition3').removeClass('hide')
+	    		}
+			}
+			
+
+		})
+	    
+	    //分类筛选条件删除效果
+	    $('#doctor_search_condition1 a').click(function(){
+	    	$(this).parent().addClass('hide');
+	    	$('#doctor_search_class li a ').removeClass('color');
+	    	$('#doctor_search_class li:first-child a ').addClass('color');
+	    	if($('#doctor_search_condition2').hasClass('hide')){
+	    		$('#doctor_search_condition3').removeClass('hide')
+	    	}
+	    })
+	    
+	    //可是筛选条件删除效果
+	    $('#doctor_search_condition2 a').click(function(){
+	    	$(this).parent().addClass('hide');
+	    	$('#doctor_search_keshi li a ').removeClass('color');
+	    	$('#doctor_search_keshi li:first-child a').addClass('color');
+	    	if($('#doctor_search_condition1').hasClass('hide')){
+	    		$('#doctor_search_condition3').removeClass('hide')
+	    	}
+	    })
 	    
 })

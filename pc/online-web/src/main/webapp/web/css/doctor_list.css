@@ -19,7 +19,9 @@
   /*兼容 IE*/
   zoom: 1;
 }
-
+.color{
+	color: #00BC12 !important;
+}
 .content_box {
   background-color: #f0f0f0;
   padding-top: 20px;
@@ -101,10 +103,15 @@
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul  {
 	margin-bottom: 0;
 	display: inline-block;
+	max-width: 730px;
 }
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class ul li a,
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi ul li a{
 	color: #333;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class ul li a:hover,
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi ul li a:hover{
+	color: #00BC12;
 }
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_class ul li,
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_keshi ul li,
