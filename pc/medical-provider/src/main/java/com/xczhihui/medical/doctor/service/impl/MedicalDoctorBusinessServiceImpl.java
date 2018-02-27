@@ -93,8 +93,10 @@ public class MedicalDoctorBusinessServiceImpl implements IMedicalDoctorBusinessS
             for (MedicalDepartmentVO medicalDepartment : medicalDepartments) {
                 departments.append(medicalDepartment.getName()+"/");
             }
-            departments.deleteCharAt(departments.length()-1);
-            records.get(i).setDepartmentText(departments.toString());
+            if(departments.length()>0){
+                departments.deleteCharAt(departments.length()-1);
+                records.get(i).setDepartmentText(departments.toString());
+            }
         }
         page.setRecords(records);
         return page;
