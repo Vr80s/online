@@ -198,7 +198,7 @@ $(function () {
 //        })
 //    });
     //医馆搜索中的热门标签
-    RequestService("/medical/doctor/getHotField","GET",null,function(data){
+    RequestService("/medical/doctor/getHotDepartment","GET",null,function(data){
         if(data.resultObject.length==0){
             $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
         }else{
