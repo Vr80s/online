@@ -204,4 +204,12 @@ public interface CourseService {
 
 
     void updateCourseException();
+
+    /**
+     * Description：根据专辑id获取课程
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/2/27 0027 下午 8:27
+     **/
+    List<CourseVo> getCoursesByCollectionId(Integer collectionId);
 }

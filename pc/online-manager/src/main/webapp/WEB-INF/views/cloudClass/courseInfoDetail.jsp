@@ -118,13 +118,16 @@
 			</div>
 		</div>
 		<div class="form-group" style="margin-top:18px;">
-
-			<label class="col-sm-1 control-label no-padding-right">课程时长:</label>
-			<div class="col-sm-1" >
-				<div class="clearfix" style="width: 240px;">
-					<label class="control-label no-padding-right">${course.courseLength}小时</label>
-				</div>
-			</div>
+			<c:choose>
+				<c:when test="${!course.collection}">
+					<label class="col-sm-1 control-label no-padding-right">课程时长:</label>
+					<div class="col-sm-1" >
+						<div class="clearfix" style="width: 240px;">
+							<label class="control-label no-padding-right">${course.courseLength}分钟</label>
+						</div>
+					</div>
+				</c:when>
+			</c:choose>
 			<c:choose>
 				<c:when test="${course.type!= '2'}">
 					<label class="col-sm-1 control-label no-padding-right">课程开始时间:</label>
@@ -147,7 +150,7 @@
 			</c:choose>
 			<c:choose>
 				<c:when test="${course.collection}">
-					<label class="col-sm-1 control-label no-padding-right">合辑包含课程数:</label>
+					<label class="col-sm-1 control-label no-padding-right">总集数:</label>
 					<div class="col-sm-1" >
 						<div class="clearfix" style="width: 240px;">
 							<label class="control-label no-padding-right">${course.courseNumber}</label>

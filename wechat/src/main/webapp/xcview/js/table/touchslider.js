@@ -123,7 +123,7 @@
 		})(),
 		//格式化参数
 		parse_args: function(r){
-			debugger
+//			debugger
 			// r.auto=1;
 			var _default={}, toString=Object.prototype.toString;
 			if(r && toString.call(r)=='[object Object]')
@@ -179,7 +179,7 @@
 		},
 		//初始化
 		setup: function(){
-			debugger
+//			debugger
 			this.status=0;//状态码，0表示停止状态，1表示运行状态，2表示暂停状态，-1表示出错
 			this.slides=this.opt.className?this.$E(this.opt.className,'li',this.element):this.element.getElementsByTagName('li');
 			this.length=this.slides.length; this.opt.timeout=Math.max(this.opt.timeout,this.opt.speed);
@@ -259,7 +259,7 @@
 			this.opt.before.call(this, index, this.slides[this.index]); run();
 		},
 		begin:function(){
-			debugger
+//			debugger
 			if(this.timer || this.opt.auto<0)return true;
 			this.timer=setTimeout(this.bind(function(){
 				this.direction=='left'||this.direction=='up' ? this.next() : this.prev();

@@ -222,7 +222,7 @@ requestService(
 					$("#sendChat").click(function() {
 						$(".give_a01").hide(); /* 表情隐藏 */
 						$(this).hide(); /* 当前发送按钮隐藏 */
-//						$(".coze_bottom input").css("width", "13.5rem");
+						$(".coze_bottom input").css("width", "13.5rem");
 						$(".give_a1").show(); /* 礼物显示 */
 
 					});

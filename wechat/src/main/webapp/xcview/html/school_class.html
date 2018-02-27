@@ -266,9 +266,15 @@
 					<p><span>免费</span></p>
 				</a>
 				<a class="right_priceBtn y" href="javascript:;" onclick="btn_mianfei()">
-					立即报名
+					购买
 				</a>
-				
+				{{else if watchState==2 || watchState==3}}
+				<a class="left_price z" href="javascript:;">
+					<p><span>已购买</span></p>
+				</a>
+				<a class="right_priceBtn y" href="javascript:;" onclick="btn_purchase()">
+					查看详情
+				</a>
 				{{/if}}
 			</div>
 
