@@ -33,6 +33,9 @@
 		<if test="field != null and field!=''">
 			join medical_doctor_field mdf on md.id = mdf.doctor_id and mdf.`field_id`=#{field}
 		</if>
+		<if test="department != null and department!=''">
+			join medical_doctor_department mdd on md.id = mdd.doctor_id and mdd.`department_id`=#{department}
+		</if>
 		  LEFT JOIN `medical_doctor_authentication_information` mdai
 			ON md.`authentication_information_id` = mdai.`id`
 		  LEFT JOIN `medical_hospital_doctor` mhd
@@ -82,6 +85,20 @@
 		ON mf.`id` = mdf.`field_id`
 		GROUP BY mdf.`field_id`
 		ORDER BY COUNT(mdf.`field_id`) DESC
+		LIMIT 0, 8
+	</select>
+
+	<select id="getHotDepartment" resultType="com.xczhihui.medical.department.vo.MedicalDepartmentVO">
+		SELECT
+		  md.id,
+		  md.name
+		FROM
+		  `medical_department` md
+		  JOIN `medical_doctor_department` mdd
+			ON md.`id` = mdd.`department_id`
+		WHERE md.`status`=1
+		GROUP BY mdd.`department_id`
+		ORDER BY COUNT(mdd.`department_id`) DESC
 		LIMIT 0, 8
 	</select>
 
@@ -137,6 +154,17 @@
 		  `medical_doctor_field` mdf
 		WHERE mf.`id` = mdf.`field_id`
 		and mdf.doctor_id = #{doctorId}
+	</select>
+
+	<select id="selectMedicalDepartmentsByDoctorId" resultType="com.xczhihui.medical.department.vo.MedicalDepartmentVO">
+		SELECT
+		  md.name,
+		  md.id
+		FROM
+		  `medical_department` md,
+		  `medical_doctor_department` mdd
+		WHERE md.`id` = mdd.`department_id`
+		and mdd.doctor_id = #{doctorId}
 	</select>
 
 	<select id="getWritingsByDoctorId" resultType="com.xczhihui.medical.doctor.vo.MedicalWritingsVO">
