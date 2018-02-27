@@ -416,4 +416,9 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         }
     }
 
+    @Override
+    public List<CourseVo> getCoursesByCollectionId(Integer collectionId) {
+        return  coursedao.getCoursesByCollectionId(collectionId);
+    }
+
 }
