@@ -85,6 +85,8 @@
 					<span>直播时间&nbsp;{{startTime}}</span>
 					{{if lineState == 1}}
 					<p>直播中</p>
+					{{else if lineState == 2}}
+					<p>未直播</p>	
 					{{else if lineState == 3}}
 					<p>直播回放</p>			
 					{{/if}}
