@@ -1,10 +1,23 @@
 $(function(){
     showCourseAttribute(1);
     
+     //			默认点击学堂
+        $(".courseP").click();
+        if(!localStorage.AnchorsTbl){
+        	 $(".school").click();
+        }else{
+        	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
+        }
+       
+    
+    
+    
     $('#anchorWorkbench').css('color','#00bc12');
     
 //	左右两边tab切换
 	$(".select_list li").click(function(){
+		console.log($(this).attr('data-name'))
+		localStorage.AnchorsTbl = $(this).attr('data-name');
 		$(".select_list li").removeClass("active");
 		$(this).addClass("active");
 //				$(".wrap_box .little_box").hide();
@@ -69,9 +82,10 @@ $(function(){
 		$('.wrap_box .little_box').css('display','none');
 		$('.myResive ').css('display','none');
 		$('.account').css('display','block');
+		$('.littleBoxs .name_news').click();
 		event.stopPropagation();
 		$(".select_list .littleBoxs").stop().slideToggle();
-		
+//				$('.account_number').click();
 		
 		
 		//另两个上啦

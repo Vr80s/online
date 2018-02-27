@@ -24,9 +24,6 @@ if(stringnull(openId)){
 //	}
 //}	
 
-
-
-
 //	分类渲染
 	var noNumber='<p style="font-size:15px;text-aline:center;">暂无数据</p>'
 requestService("/xczh/classify/schoolClass",null,function(data){
@@ -39,7 +36,6 @@ requestService("/xczh/classify/schoolClass",null,function(data){
 		$("#classify_mold_type").html(template.compile(noNumber))
 	}
 })
-
 
 //推荐模块开始
 //轮播/大师课/名医渲染
@@ -284,7 +280,7 @@ var swiper = new Swiper('#swiper1', {
     spaceBetween: 10
 });
 
-//判断是否购买及主播本人
+//分类功能的JS
 
 
 })

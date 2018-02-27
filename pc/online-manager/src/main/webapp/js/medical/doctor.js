@@ -721,8 +721,10 @@ function previewDialog(obj,status){
     	$("#show_province").text(result.province);
     	$("#show_city").text(result.city);
     	// $("#show_detailedAddress").text(result.detailedAddress);
-    	$("#show_description").text(result.description); //课程简介
+    	$("#show_description").html(result.description); //课程简介
     	$("#show_workTime").text(result.workTime);
+
+        $("#show_description").removeClass("form-control");
 
     });
 	var prev_title="查看医师";

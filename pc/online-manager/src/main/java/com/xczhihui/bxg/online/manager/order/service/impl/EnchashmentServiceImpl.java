@@ -49,11 +49,11 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		DetachedCriteria dc = DetachedCriteria.forClass(EnchashmentApplyInfo.class);
 		dc.add(Restrictions.eq("id", eai.getId()));
 		EnchashmentApplyInfo e = dao.findEntity(dc);
-		if(e.getStatus()!=ApplyStatus.UNTREATED.getCode()){
-			throw new RuntimeException("该提现已处理过！");
-		}
+//		if(e.getStatus()!=ApplyStatus.UNTREATED.getCode()){
+//			throw new RuntimeException("该提现已处理过！");
+//		}
 		//驳回
-		if(eai.getStatus()!=ApplyStatus.PASS.getCode()&&eai.getStatus()!=ApplyStatus.NOT_PASS.getCode()){
+		if(eai.getStatus()!=ApplyStatus.PASS.getCode()&&eai.getStatus()!=ApplyStatus.NOT_PASS.getCode()&&eai.getStatus()!=ApplyStatus.GRANT.getCode()){
 			throw new RuntimeException("处理状态不对");
 		}
 		if(eai.getStatus()== ApplyStatus.NOT_PASS.getCode()){
@@ -76,7 +76,9 @@ public class EnchashmentServiceImpl extends OnlineBaseServiceImpl implements Enc
 		messageShortVo.setType(1);
 		//若为打款
 		if(e.getStatus()== ApplyStatus.PASS.getCode()){
-			content="编号："+e.getOrderNo()+"提现申请已通过审核并打款，72小时内到账，请注意查收！";
+			content="编号："+e.getOrderNo()+"提现申请已通过审核,1-3个工作日内发放成功！";
+		}else if(e.getStatus()== ApplyStatus.GRANT.getCode()){
+			content="编号："+e.getOrderNo()+"提现申请已打款，72小时内到账，请注意查收！";
 		}else if(e.getStatus()==ApplyStatus.NOT_PASS.getCode()){
 			//驳回---将提现金额重回打入用户账户
 			updateUserCoinForEnchashment(e);

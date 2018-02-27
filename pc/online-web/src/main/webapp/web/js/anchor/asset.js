@@ -16,7 +16,7 @@ function initBasaeAssetInfo (){
     RequestService("/anchor/asset/getBaseAssetInfo", "get", null, function(data) {
         baseAssetInfo = data.resultObject;
         $(".coinBalance").html(data.resultObject.coinBalance);
-        $("#toResultIpt").attr("placeholder","本次最多可结算"+data.resultObject.coinBalance+"熊猫币");
+        $("#toResultIpt").attr("placeholder","本次最多可结算"+parseInt(data.resultObject.coinBalance)+"熊猫币");
         $(".rmb").html(data.resultObject.rmb);
         $(".bankCount").html(data.resultObject.bankCount);
         $(".hdrmb").addClass('hide');
@@ -85,7 +85,7 @@ function getRmbTransactionList (current){
 		//银行卡处理
         for(var i = 0;i < $('.bankCard').length;i++){
         	if($('.bankCard').eq(i).text() != '无'){
-        		$('.bankCard').eq(i).text($('.bankCard').eq(i).text().trim().replace(/^\d{15}/, '***** ***** ****')) ;
+        		$('.bankCard').eq(i).text($('.bankCard').eq(i).text().trim().replace(/^\d{15}/, '***** ***** **** ')) ;
         	}
         }
         debugger

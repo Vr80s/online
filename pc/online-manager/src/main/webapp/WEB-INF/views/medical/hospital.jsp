@@ -447,6 +447,11 @@
     input.custom-combobox-input.ui-widget.ui-widget-content.ui-state-default.ui-corner-left.ui-autocomplete-input{
      width: 100%;
     }
+
+	.show_description img{
+		width: 250px;
+		height: 200px;
+	}
     
     </style>
 <script type="text/javascript">
@@ -782,7 +787,7 @@
 			 <label class="col-sm-4 control-label no-padding-right" for="description"><b>医馆简介:</b> </label>
 			 <div class="col-sm-6">
 			 	<!-- <input type="text" name="courseDescribe"  id="show_courseDescribe" disabled="disabled" maxlength="20"  class="col-xs-10 col-sm-12 {required:true,rangelength:[2,20]}"> -->
-			 	<p id="show_description" class="paddingtop7px padding7" style="word-break:break-all;word-wrap:break-word;width:250px"></p>
+			 	<p id="show_description" class="paddingtop7px padding7 show_description" style="word-break:break-all;word-wrap:break-word;width:250px"></p>
              </div>
 		</div>
 	</form>
