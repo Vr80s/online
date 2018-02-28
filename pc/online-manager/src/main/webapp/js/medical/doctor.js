@@ -702,33 +702,41 @@ function search_PX(){
  * @param status（1，医师，2：微课）
  */
 function previewDialog(obj,status){
-	var oo = $(obj).parent().parent().parent();
-	var row;
-	if(status==1) {
-		row = P_courseTable.fnGetData(oo); // get datarow
-	}else{
-		row = M_courseTable.fnGetData(oo); // get datarow
-	}
-	
-	debugger
-	//根据当前id查找对应的课程信息
-    $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
+	// var oo = $(obj).parent().parent().parent();
+	// var row;
+	// if(status==1) {
+	// 	row = P_courseTable.fnGetData(oo); // get datarow
+	// }else{
+	// 	row = M_courseTable.fnGetData(oo); // get datarow
+	// }
+	//
+	// debugger
+	// //根据当前id查找对应的课程信息
+    // $.get(basePath+"/medical/doctor/findMedicalDoctorById",{id:row.id}, function(result){
+    //
+    	// $("#show_name").text(result.name);
+    	// $("#show_title").text(result.title);
+    	// $("#show_tel").text(result.tel);
+    	// $("#show_type").text(doctorType(result.type));
+    	// $("#show_province").text(result.province);
+    	// $("#show_city").text(result.city);
+    	// // $("#show_detailedAddress").text(result.detailedAddress);
+    	// $("#show_description").html(result.description); //课程简介
+    	// $("#show_workTime").text(result.workTime);
+    //
+     //    $("#show_description").removeClass("form-control");
+    //
+    // });
+	// var prev_title="查看医师";
+	// var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
 
-    	$("#show_name").text(result.name);
-    	$("#show_title").text(result.title);
-    	$("#show_tel").text(result.tel);
-    	$("#show_type").text(doctorType(result.type));
-    	$("#show_province").text(result.province);
-    	$("#show_city").text(result.city);
-    	// $("#show_detailedAddress").text(result.detailedAddress);
-    	$("#show_description").html(result.description); //课程简介
-    	$("#show_workTime").text(result.workTime);
+    var oo = $(obj).parent().parent().parent();
+    var aData;
+    if (status == 1) {
+        aData = P_courseTable.fnGetData(oo); // get datarow
+    }
+    window.location.href = basePath + '/home#medical/doctor/info/' + aData.id;
 
-        $("#show_description").removeClass("form-control");
-
-    });
-	var prev_title="查看医师";
-	var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
 };
 
 

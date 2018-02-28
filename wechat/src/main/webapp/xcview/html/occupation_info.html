@@ -140,6 +140,11 @@ pre:after {
     margin-top: 0rem;
     margin-right: 0.4rem;
 }
+/*处理底部错误弹框位置*/
+	.web_toast{
+		left: 50% !important;
+    margin-left: -112px !important;
+	}
 </style>
 <link href="../css/picker.css" rel="stylesheet" />
 
@@ -192,8 +197,9 @@ pre:after {
             }
 	      if(yonghuNameLength > 20 || yonghuNameLength < 4){
 	          cymYonghuInfo.show();
-	          cymYonghuInfo.html("<div class='vanish4'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>不能为空，长度只能在4-20个字符之间</div></div></div>");
-	          setTimeout(function(){$(".vanish4").hide();},1500);
+	          /*cymYonghuInfo.html("<div class='vanish4'><div class='vanish4_bg'></div><div class='vanish4_cen'><div class='vanish4_size'>不能为空，长度只能在4-20个字符之间</div></div></div>");
+	          setTimeout(function(){$(".vanish4").hide();},1500);*/
+	         webToast("不能为空，长度只能在4-20个字符之间","middle",1500);
 	          return false;
 	      }
 	      cymYonghuInfo.hide();
@@ -284,4 +290,8 @@ pre:after {
 <script src="/xcview/js/iscroll-zoom.js"></script>
 <script src="/xcview/js/hammer.js"></script>
 <script src="/xcview/js/jquery.photoClip.js"></script>
+
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 </html>

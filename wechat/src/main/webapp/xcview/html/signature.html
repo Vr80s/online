@@ -34,6 +34,12 @@
 	    height: 0.9rem;
 	    margin-top: 0.48rem;
 	}
+	
+	/*处理底部错误弹框位置*/
+	.web_toast{
+			left: 50% !important;
+			margin-left: -5.8rem !important;
+	}
 </style>
 
 <body>
@@ -77,8 +83,9 @@
   			var nikeName = $("#info").val().trim();
   			if(!stringnull(nikeName) || nikeName.length>20 || nikeName.length<4){
   			   cymYonghuInfo.show();
-   			   cymYonghuInfo.html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>个性签名不能为空，长度只能在4-20个字符之间</div></div></div>");
-   		      setTimeout(function(){$(".vanish2").hide();},1500); 
+   			   /*cymYonghuInfo.html("<div class='vanish2'><div class='vanish2_bg'></div><div class='vanish2_cen'><div class='vanish2_size'>个性签名不能为空，长度只能在4-20个字符之间</div></div></div>");
+   		      setTimeout(function(){$(".vanish2").hide();},1500); */
+   		     webToast("个性签名不能为空，长度只能在4-20个字符之间","middle",1500);
    		      return false;
   			}
   			//隐藏错误，
@@ -96,4 +103,8 @@
 	    });
 	
 </script>
+
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
 </html>
