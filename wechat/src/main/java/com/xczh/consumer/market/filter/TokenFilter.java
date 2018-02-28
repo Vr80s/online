@@ -116,6 +116,12 @@ public class TokenFilter implements Filter {
 	  = "/xczh/host,/xczh/course";
 	
 	
+	/**
+	 * 这个可以写特殊强调的要拦截的啊
+	 *   强调有问题需要拦截的
+	 */
+	public static String new_to_intercept = "/xczh/course/liveDetails";
+	
 	//现在新版本的  接口不过滤
 	private String[] newInterfaceFilter;
 	
@@ -159,8 +165,9 @@ public class TokenFilter implements Filter {
 		/**
 		 * 测试和生产用这个
 		 */
-		if(useLoopEqual(appExcludedPageArray,currentURL) || 
-				useLoopContains(newInterfaceFilter, currentURL)){
+		if((useLoopEqual(appExcludedPageArray,currentURL) || 
+				useLoopContains(newInterfaceFilter, currentURL))
+				&& new_to_intercept.indexOf("currentURL")==-1){
 			     isExcludedPage = true;     
 		}
 		System.out.println("isExcludedPage，"+isExcludedPage);
