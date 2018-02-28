@@ -104,7 +104,7 @@
 //			$("#errorMsg").html("<div class='vanish3'><div class='vanish3_bg'></div><div class='vanish3_cen'><div class='vanish3_size'>请选择省市区</div></div></div>");
 //			$("#errorMsg").show();
 //			setTimeout(function(){$(".vanish3").hide();},1500);
-			webToast("请选择省市区","middle",3600000);
+			webToast("请选择省市区","middle",1500);
 			return false;
 		}
 		
