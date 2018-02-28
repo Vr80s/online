@@ -6,21 +6,6 @@ var opendId = getQueryString("openId");
 if(stringnull(opendId)){
 	localStorage.setItem("openid", openId);
 }
-//   
-//   var userId = localStorage.getItem("userId");
-//   if(!stringnull(userId)){
-//		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
-//		var ccontrollerAddress = "/bxg/user/isLogined";
-//		requestService(ccontrollerAddress, null, function(data) {
-//			if (data.success) {
-//				commonLocalStorageSetItem(data);
-//			}else{
-//				alert("网络异常");
-//			}
-//		},false)	
-//	}
-//}	
-	
 
 function balance() {
     requestService("/xczh/manager/home",{
@@ -32,7 +17,7 @@ function balance() {
             $(".header_img").html(template('userInfo',data.resultObject.user));
 			
         }else{        	           
-            webToast(data.errorMessage,"middle",3000);
+            webToast(data.errorMessage,"middle",1500);
         }
     });
 }
@@ -55,7 +40,7 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 	            status = data.resultObject;
 
 	        }else{
-	            webToast(data.errorMessage,"middle",3000);
+	            webToast(data.errorMessage,"middle",1500);
 	        }
 	    });
 	}

@@ -468,7 +468,7 @@
                 				{{each item.courseList as item i}}
                 				<li>
 
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump_class({{item.id}})"></a>
+									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
 
                 					<div class="boutique_main_four">
                 						<div class="boutique_four_img">
@@ -526,7 +526,7 @@
             				{{each itemls.courseList as item i}}
             				<!--即将直播-->
             				<li style="position: relative;">
-								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump_play({{item.id}})"></a>
+								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
 								<div class="newest_main_two">
             						<div class="newest_two_img">
             							<img src="{{item.smallImgPath}}" alt="" />
@@ -587,7 +587,7 @@
             				<script type="text/html" id="lectures">
             				{{each items as item i}}
             				<li>
-								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump_listen({{item.id}})"></a>
+								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
             					<div class="lectures_main_one">
             						<div class="lectures_one_img">
             							<img src="{{item.smallImgPath}}" alt="" />
@@ -704,7 +704,7 @@ function sliderHeight(){
 
 $(".find_nav_list").css("left",1);
 
-$(".find_nav_list li").each(function(){
+ $(".find_nav_list li").each(function(){
 //		$(".sideline").css({left:1});
 		$(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 });
@@ -768,52 +768,94 @@ $(".find_nav_list").on('touchmove', function (e) {
 		e.preventDefault();
 	}
 });
+var n = 1;
+var page='pagenavi'+n;
+var mslide='slider'+n;
+var mtitle='emtitle'+n;
+arrdiv = 'arrdiv' + n;
+var as=$("#" + page + "").find("a");
 
-for(n=1;n<9;n++){
-	var page='pagenavi'+n;
-	var mslide='slider'+n;
-	var mtitle='emtitle'+n;
-	arrdiv = 'arrdiv' + n;
-	var as=$("#" + page + "").find("a");
-	var tt=new TouchSlider({id:mslide,'auto':'-1',fx:'ease-out',direction:'left',speed:600,timeout:5000,'before':function(index){
-		var as=document.getElementById(this.page).getElementsByTagName('a');
-		as[this.p].className='';
-		this.p=index;
-		
-		fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
-		
-		nav_w=$(".find_nav_list li").eq(this.p).width();
-		$(".sideline").stop(true);
-		$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
-		$(".sideline").animate({width:nav_w},100);
-		$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
-		var fn_w = ($(".find_nav").width() - nav_w) / 2;
-		var fnl_l;
-		if (fnl_x <= fn_w) {
-			fnl_l = 0;
-		} else if (fn_w - fnl_x <= flb_w - fl_w) {
-			fnl_l = flb_w - fl_w;
-		} else {
-			fnl_l = fn_w - fnl_x;
-		}
-		$(".find_nav_list").animate({
-			"left" : fnl_l
-		}, 300);
-	}});
-	tt.page = page;
-	tt.p = 0;
-	//console.dir(tt); console.dir(tt.__proto__);
 
-	for(var i=0;i<as.length;i++){
-		(function(){
-			var j=i;
-			as[j].tt = tt;
-			as[j].onclick=function(){
-				this.tt.slide(j);
-				return false;
-			}
-		})();
+var fnl_x=-1;
+var tt=new TouchSlider({
+	id:mslide,
+	'auto':'-1',
+	fx:'ease-out',
+	direction:'left',
+	speed:200,
+	timeout:1000,
+	'before':function(index){
+		
+    sessionStorage.setItem("school_index",index);	
+		
+		
+	var as=document.getElementById(this.page).getElementsByTagName('a');
+	as[this.p].className='';
+	this.p=index;
+	
+	var fnl_x_tmp = fnl_x;
+	
+	fnl_x =  parseInt($(".find_nav_list li").eq(this.p).position().left);
+	
+	nav_w=$(".find_nav_list li").eq(this.p).width();
+	$(".sideline").stop(true);
+	$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
+	$(".sideline").animate({width:nav_w},100);
+	$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+	
+	
+	if(fnl_x_tmp != fnl_x || fnl_x == -1){
+	
+		schoolQuery(index);
 	}
+	
+	var fn_w = ($(".find_nav").width() - nav_w) / 2;
+	var fnl_l;
+	if (fnl_x <= fn_w) {
+		fnl_l = 0;
+	} else if (fn_w - fnl_x <= flb_w - fl_w) {
+		fnl_l = flb_w - fl_w;
+	} else {
+		fnl_l = fn_w - fnl_x;
+	}
+	$(".find_nav_list").animate({
+		"left" : fnl_l
+	}, 300);
+	
+	
+}});
+
+
+tt.page = page;
+tt.p = 0;
+
+
+/**
+ * 加载页面 滑动上边的tab
+ */
+var school_index =  sessionStorage.getItem("school_index");
+if(!stringnull(school_index)){
+	school_index = 1;
+}
+tt.slide(school_index, 600);
+
+/**
+ * 传递参数  滑动上边的tab
+ */
+function slide(begin){
+	tt.slide(begin, 600);
+}
+
+
+for(var i=0;i<as.length;i++){
+	(function(){
+		var j=i;
+		as[j].tt = tt;
+		as[j].onclick=function(){
+			this.tt.slide(j);
+			return false;
+		}
+	})();
 }
 
 </script>

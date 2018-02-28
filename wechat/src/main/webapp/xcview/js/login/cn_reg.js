@@ -41,11 +41,11 @@ document.getElementById("btn").addEventListener("tap", function() {
 		return false;
 	}
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",3000);
+		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		webToast("手机号格式不正确","middle",3000);
+		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}
 	var urlparm = {
@@ -58,7 +58,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 			//进入倒计时
 			time(o);
 		} else {
-			webToast(data.errorMessage,"middle",3000);
+			webToast(data.errorMessage,"middle",1500);
 		}
 	});
 })
@@ -71,7 +71,6 @@ document.getElementById("btn").addEventListener("tap", function() {
 document.getElementById("enter_btn").addEventListener("tap", function() {
 	
 	//这块是需要搞下用户协议的同意
-	
 //	var agreementchecked = document.getElementById("checkbox1").checked;
 //	if (stringnull(agreementchecked)) {
 //		reminderror.innerHTML = "";
@@ -132,7 +131,6 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 	
 	requestService(access_url, urlparm, function(data) {
 		if (data.success) {
-			
 			commonLocalStorageSetItem(data);
 			
 			location.href = "/xcview/html/heads_nicknames.html";

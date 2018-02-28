@@ -14,9 +14,10 @@ if (!is_weixin()) {
  * 判断是否需要跳转到pc网页
  */
 h5PcConversions(true, course_id);
-if (localStorage.getItem("userId") == null) {
-	location.href = "/xcview/html/share.html?course_id=" + course_id;
-}
+
+//if (localStorage.getItem("userId") == null) {
+//	location.href = "/xcview/html/share.html?course_id=" + course_id;
+//}
 /**
  * 视频id
  */

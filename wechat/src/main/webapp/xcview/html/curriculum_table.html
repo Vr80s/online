@@ -306,7 +306,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 	
 //	alert(fnl_x);
 	
-	var fnl_x=0;
+	var fnl_x=-1;
 	var tt=new TouchSlider({
 		id:mslide,
 		'auto':'-1',
@@ -332,8 +332,8 @@ $(".find_nav_list").on('touchmove', function (e) {
 		$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 		
 		//滑动完了后调用的是这个方法
-//		                      || begin == 0   这是添加筛选条件时的判断
-		if(fnl_x_tmp != fnl_x || begin == 0){
+		//begin == 0   这是添加筛选条件时的判断
+		if(fnl_x_tmp != fnl_x || fnl_x == -1){
 			
 			typeQuery();
 		

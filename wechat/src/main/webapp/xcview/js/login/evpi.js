@@ -23,14 +23,30 @@ function time(o) {
 /**
  * 微信用户openId和unionid 为了防止获取不到,双重获取
  */
-var openId = getQueryString("openId");
-if(!stringnull(openId)){
-	openId = localStorage.getItem("openid")
+var openId ="";var unionId ="";
+
+var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+if(stringnull(third_party_uc_t_)){
+	
+	var openId = third_party_uc_t_.split("%")[0];
+	var unionId = third_party_uc_t_.split("%")[1];
+
+
+}else{
+	openId = getQueryString("openId");
+	if(!stringnull(openId)){
+		openId = localStorage.getItem("openid")
+	}
+	unionId = getQueryString("unionId");
+	if(!stringnull(unionId)){
+		unionId = localStorage.getItem("unionId")
+	}
 }
-var unionId = getQueryString("unionId");
-if(!stringnull(unionId)){
-	unionId = localStorage.getItem("unionId")
-}
+
+
+
+
+
 
 
 /**
@@ -56,11 +72,11 @@ document.getElementById("btn").addEventListener("tap", function() {
 		return false;
 	}
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",3000);
+		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		webToast("手机号格式不正确","middle",3000);
+		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}
 	var urlparm = {
@@ -85,7 +101,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 				//进入倒计时
 				time(o);
 			} else {
-				webToast(data.errorMessage,"middle",3000);
+				webToast(data.errorMessage,"middle",1500);
 			}
 		});
 	});
@@ -150,7 +166,7 @@ $(".enter_btn").click(function(){
 				location.href = "/xcview/html/my_homepage.html?openId="+openId;
 			//}
 		} else {
-			webToast(data.errorMessage,"middle",3000);
+			webToast(data.errorMessage,"middle",1500);
 		}
 	});
 })	

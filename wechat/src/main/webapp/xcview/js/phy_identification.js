@@ -12,27 +12,27 @@ function btn_up(){
     }*/
     //验证
     if($.trim($(" #userName").val())==''){
-        webToast("请输入真实姓名","middle",3000);
+        webToast("请输入真实姓名","middle",1500);
         return false;
     }
     if($.trim($(" #cardNum").val())==''){
-        webToast("请输入身份证号","middle",3000);
+        webToast("请输入身份证号","middle",1500);
         return false;
     }
     if($.trim($(" #previewImg").val())==''){
-        webToast("请上传身份证正面","middle",3000);
+        webToast("请上传身份证正面","middle",1500);
         return false;
     }
     if($.trim($(" #previewImg2").val())==''){
-        webToast("请上传身份证反面","middle",3000);
+        webToast("请上传身份证反面","middle",1500);
         return false;
     }
     if($.trim($(" #previewImg3").val())==''){
-        webToast("请上传医师资格证","middle",3000);
+        webToast("请上传医师资格证","middle",1500);
         return false;
     }
     if($.trim($(" #previewImg4").val())==''){
-        webToast("请上传职业资格证","middle",3000);
+        webToast("请上传职业资格证","middle",1500);
         return false;
     }
         //form提交
@@ -48,7 +48,7 @@ function btn_up(){
                 if(data.success==true){
                     window.location.href="../html/phy_examine.html";
                 }else{
-                    webToast(data.errorMessage,"middle",3000);
+                    webToast(data.errorMessage,"middle",1500);
                 }
 
 

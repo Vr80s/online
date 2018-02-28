@@ -53,8 +53,9 @@ public class StringUtils {
 	    public static boolean checkPhone(String phone){
 	        boolean flag = false;
 	        try{
-                String check = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0,5-9]))\\d{8}$";
-                Pattern regex = Pattern.compile(check);
+                //String check = "^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(17[013678])|(18[0-9]))\\d{8}$";
+	        	String check = "^(1[34578]\\d{9})$";
+	        	Pattern regex = Pattern.compile(check);
                 Matcher matcher = regex.matcher(phone);
                 flag = matcher.matches();
             }catch(Exception e){
@@ -106,7 +107,7 @@ public class StringUtils {
 //			double   f1   =   b.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();  
 			 //System.out.println(div(500000d,3600000d,6));
 		 
-		   System.out.println(checkPhone("13723160793"));
+		   System.out.println(checkPhone("18723160793"));
 		
 		}
 	

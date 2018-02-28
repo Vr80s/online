@@ -36,7 +36,7 @@ import com.xczhihui.wechat.course.vo.WatchHistoryVO;
  */
 @Controller
 @RequestMapping("/xczh/myinfo")
-public class MyCourseController {
+public class MyInfoController {
 
 	@Autowired
 	private ICourseService courseServiceImpl;
@@ -51,7 +51,7 @@ public class MyCourseController {
 	@Autowired
 	private AppBrowserService appBrowserService;
 	
-	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyCourseController.class);
+	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MyInfoController.class);
 	
 	@Value("${gift.im.room.postfix}")
 	private String postfix;

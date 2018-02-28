@@ -53,7 +53,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 		if (data.success) {
 			settime(_this);
 		} else {
-			webToast(data.errorMessage,"middle",3000);
+			webToast(data.errorMessage,"middle",1500);
 		}
 	});
 })

@@ -31,6 +31,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.CityService;
@@ -239,6 +240,37 @@ public class XzUserSetController {
 			return ResponseObject.newErrorResponseObject("信息有误");
 		}
 	}
+	
+	
+	/**
+	 * 判断用户是否登录着
+	 * @param req
+	 * @param res
+	 * @param params
+	 * @return 如果登录着返回当前用户，否则返回错误
+	 * @throws Exception
+	 */
+	@RequestMapping("isLogined")
+	@ResponseBody
+	public ResponseObject isLogined(HttpServletRequest req, HttpServletResponse res, Map<String, String> params)throws Exception{
+		Object ou = req.getSession().getAttribute("_user_");
+		OnlineUser user = null;
+		Token t = UCCookieUtil.readTokenCookie(req);
+		if (ou != null && t != null) { //正常登录着
+			String userId = ((OnlineUser)ou).getId();
+			user = onlineUserService.findUserById(userId);
+		} else if (ou == null) { //session过期了，续期
+			user = onlineUserService.findUserByLoginName(t.getLoginName());
+			req.getSession().setAttribute("_user_", user);
+		} else if (t == null){ //cookie过期了，直接退出
+			req.getSession().setAttribute("_user_", null);
+		}
+		if (user == null) {
+			return ResponseObject.newErrorResponseObject("请登录");
+		}
+		return ResponseObject.newSuccessResponseObject(user);
+	}
+	
 	
 	
 	/**
