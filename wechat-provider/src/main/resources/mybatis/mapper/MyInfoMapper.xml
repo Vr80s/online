@@ -48,15 +48,18 @@
    <select id="selectWithdrawalList" resultType="java.util.Map">
 		
    select	* from  (			
-	  ( select '提现' as label,ucc.value,ucc.create_time as createTime from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id=#{userId}	 )
+	  ( select '提现' as label,CONCAT('-',ucc.value),ucc.create_time as createTime 
+	  from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id=#{userId}	 )
 		
 		UNION ALL
 		
-	  ( select '结算' as label,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 6 and user_id=#{userId} )
+	  ( select '结算' as label,CONCAT('+',uci.value),uci.create_time as createTime 
+	  from user_coin_increase as uci  where  uci.change_type = 6 and user_id=#{userId} )
 	  
 	  	UNION ALL
 	  
-	  ( select '提现驳回' as label,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 5 and user_id=#{userId} )
+	  ( select '提现驳回' as label,CONCAT('+',uci.value),uci.create_time as createTime 
+	  from user_coin_increase as uci  where  uci.change_type = 5 and user_id=#{userId} )
 		
 	 ) as tixian  order by tixian.createTime desc
 	 

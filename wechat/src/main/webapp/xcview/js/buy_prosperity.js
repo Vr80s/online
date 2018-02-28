@@ -1,6 +1,5 @@
 
 
-
 /**
  * 进入购买成功后的页面
  */
@@ -11,6 +10,7 @@ var courseId = getQueryString("courseId");
  */
 
 var type ="";
+var lineState="";
 var collection="";
 requestService("/xczh/course/details",{courseId:courseId}, function(data) {
 	 if (data.success) {
@@ -21,7 +21,9 @@ requestService("/xczh/course/details",{courseId:courseId}, function(data) {
          $("#smallImgPath").attr("src",result.smallImgPath);
          
          type= result.type;
-         collection=result.collection
+         lineState = result.lineState;
+         collection=result.collection;
+         
          requestService("/xczh/course/guessYouLike",{courseId:courseId}, function(data) {
         	 if (data.success) {
                  var result = data.resultObject.records;
@@ -38,21 +40,17 @@ requestService("/xczh/course/details",{courseId:courseId}, function(data) {
  */
 function jump(){	
 	var id = courseId;
-	if(type==1||type==2){
-		if(collection==true){
-//					专辑视频音频播放页
-		location.href="live_select_album.html?course_id="+id					
-		}else{
-//					单个视频音频播放
-		location.href="live_audio.html?my_study="+id					
-		}
-	}else if(type==3){
-//					播放页面
-		location.href="live_play.html?my_study="+id									
-	}else{
-//					线下课页面
-		location.href="live_class.html?my_study="+id									
-	}		
+	if(type ==3 && (lineState ==4 || lineState ==1)){ //直播间
+		location.href="details.html?courseId="+id
+	}else if(type ==1 || type ==2){ //课程页面
+		
+		location.href="live_audio.html?my_study="+id
+		
+	}else if(type ==4){ //线下培训班
+		location.href="live_class.html?my_study="+id
+	}else if((type ==1 || type ==2) && collection){
+		location.href="live_select_album.html?my_study="+id
+	}
 
 }
 
