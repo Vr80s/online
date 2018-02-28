@@ -420,6 +420,21 @@ window.onload=function(){
         })
     });
     
+     //选集列表
+    $(".collection-course").click(function(){
+        RequestService("/course/getCoursesByCollectionId", "GET", {
+            collectionId:courserId
+        }, function(data) {
+            if(data.resultObject ==null || data.resultObject.length == 0){
+                $(".table-modal").html(template.compile(emptyDefaul));
+            }else{
+//              $(".table-modal").html(data.resultObject.commonProblem);
+				console.log(data)
+				$('.table-modal').html(template('collection_course_Tpl',{item:data.resultObject}))
+            }
+        })
+    });
+    
     
     //课程大纲
     $(".course-outline").click(function () {

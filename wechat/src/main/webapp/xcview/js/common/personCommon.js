@@ -52,12 +52,14 @@ function  sendCode(obj){
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		webToast("手机号格式不正确","middle",3000);
+		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}
 	//
 	if(vtype == 4 && currentName.trim() == number.trim()){
-		webToast("当前绑定的手机号和原来的一样,换个吧","middle",3000);
+		webToast("当前绑定的手机号和原来的一样,换个吧","middle",1500);
+		$(".web_toast").css("left","50%");
+		$(".web_toast").css("margin-left","-113.5px");
 		return false;
 	}
 	var urlparm = {
@@ -69,7 +71,10 @@ function  sendCode(obj){
 		if (data.success) {
 			time(obj);
 		} else {
-			webToast(data.errorMessage,"middle",3000);				
+			webToast(data.errorMessage,"middle",1500);		//统一手机号2次发送间隔90		
+			/*$(".web_toast").css("left","50%");
+			$(".web_toast").css("margin-left","-106.5px");*/
+			
 		}
 	});
 }
@@ -154,7 +159,9 @@ function checkUser1(saveFalg){
 			}
 		} else {
 			falg = false;
-			webToast(data.errorMessage,"middle",3000);		
+//			webToast(data.errorMessage,"middle",1500);	
+			/*$(".web_toast").css("left","50%");
+			$(".web_toast").css("margin-left","-106.5px");*/
 		}
 	},false);
 	
@@ -179,14 +186,22 @@ function updateMobile(){
 
     var number = $("#new_mobile").val();
     if (!(/^1[34578]\d{9}$/.test(number))) {
-        $("#errorMsg").text("手机号格式不正确");
-        $("#errorMsg").show();
+//      $("#errorMsg").text("手机号格式不正确111");
+        /*$("#errorMsg").text(webToast("手机号格式不正确","middle",1500));
+        $("#errorMsg").show();*/
+       	webToast("手机号格式不正确","middle",1500);
         return false;
     }
+    
+    
+   /* if (!(/^1[34578]\d{9}$/.test(number))) {
+		webToast("手机号格式不正确","middle",1500);
+		return false;
+	}*/
 
     var code= $("#new_code").val();
     if(!stringnull(code)){
-       /* $("#errorMsg").html("验证码不能为空");
+        /*$("#errorMsg").html("验证码不能为空");
         $("#errorMsg").show();*/
         return false;
     }
@@ -198,7 +213,7 @@ function updateMobile(){
         vtype:4   	//类型，3注册，2重置密码
     };
 
-    requestService("/xczh/set/updatePhone",
+    requestService("/xczh/set/phoneCheck",   //获取验证码短信
         urlparm, function(data) {
             if (data.success) {
                 //更改完手机号后，需要把session中的这个东西换下呢？
@@ -206,7 +221,7 @@ function updateMobile(){
                 $(".call_popup_size2").text(number);
                 $(".call_popup").show();
             } else {
-            	webToast(data.errorMessage,"middle",3000);
+            	webToast(data.errorMessage,"middle",1500);  //动态码不正确
                 return false;
             }
         });
