@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,6 +54,20 @@ public class DoctorController extends AbstractController{
 		request.setAttribute("weburl", weburl);
 		return CLOUD_CLASS_PATH_PREFIX + "/doctorDetail";
 	}
+
+	/**
+	 * 跳转到医师详情页
+	 * @param doctorId 医师id
+	 */
+	@RequestMapping(value = "info/{doctorId}")
+	public String index(HttpServletRequest request, @PathVariable String doctorId) {
+
+		MedicalDoctor doctor = doctorService.findMedicalDoctorById(doctorId);
+		request.setAttribute("doctor", doctor);
+
+		return CLOUD_CLASS_PATH_PREFIX + "/doctorInfo";
+	}
+
 
 	@RequestMapping(value = "list")
 	@ResponseBody

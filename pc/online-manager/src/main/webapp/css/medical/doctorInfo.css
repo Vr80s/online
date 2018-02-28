@@ -1,0 +1,95 @@
+.page-main{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+
+.page-main div{
+    font-size: 16px;
+}
+
+.page-main img{
+    width: 300px;
+    height: 200px;
+}
+
+.container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.container-left{
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    color: #B22222;
+}
+
+.doctor-cardPositive-img{
+    margin-right: 60px;
+    margin-left: 30px;
+}
+
+.doctor-qualification-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.procince{
+    font-size: 16px;
+    margin-right: 10px;
+
+}
+
+.city{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.address-detail{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.pass{
+    width: 90px;
+    height: 36px;
+    background-color: #2db84b;
+    margin-right: 40px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.reject{
+    width: 90px;
+    height: 36px;
+    background-color: #de3535;
+    margin-right: 40px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.action{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.doctor-departments-text{
+    margin-right: 10px;
+}
+
+.hospital-description{
+    margin-left: 19px;
+}
+
+.hospital-description-text{
+    margin-top: 6px;
+}

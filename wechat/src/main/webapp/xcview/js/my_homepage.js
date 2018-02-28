@@ -40,7 +40,7 @@ function balance() {
 var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<div class="both"></div>'+
 				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
-				'<p class="p" onclick="go_enter()">登录 / 注册</p>';
+				'<p class="p"><span onclick="go_enter()">登录</span> / <span onclick="go_cnlogin()">注册</span></p>';
 
 	var user_cookie = cookie.get("_uc_t_");
 	if(user_cookie == null || user_cookie == ''){
@@ -62,7 +62,9 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 	function go_enter(){
         window.location.href="enter.html";         
 	}
-	
+	function go_cnlogin(){
+        window.location.href="cn_login.html";         
+	}
 
 //点击我要当主播
 //function myAnchor() {
@@ -82,3 +84,12 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 $(".my_anchor").click(function(){
 	location.href="down_load.html"
 })
+
+
+
+
+
+
+
+
+

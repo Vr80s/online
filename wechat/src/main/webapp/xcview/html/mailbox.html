@@ -85,16 +85,16 @@ $(".mailbox_right").click(function(){
 			/*cymYonghuInfo.show();
 			cymYonghuInfo.html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>邮箱不能为空</div></div></div>");
 			setTimeout(function(){$(".vanish").hide();},1500);*/
-            webToast("邮箱不能为空","middle",3000);
+            webToast("邮箱不能为空","middle",1500);
 			return false;
 		}else if (email.indexOf('@') == -1 && !regEmail.test(email)) {
 			/*cymYonghuInfo.show();
 			cymYonghuInfo.html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>邮箱格式不正确!</div></div></div>");
             setTimeout(function(){$(".vanish").hide();},1500);*/
-            webToast("邮箱格式不正确!","middle",3000);
+            webToast("邮箱格式不正确!","middle",1500);
             return false;
         }else if (email.length < 5 || email.length > 32){
-            webToast("邮件长度在5-32之间","middle",3000);
+            webToast("邮件长度在5-32之间","middle",1500);
             /*cymYonghuInfo.html("<p>支持中文、字母、数字、'-'、'_'的组合，4-20个字符</p><p>格式错误,仅支持汉字、字母、数字、'-''_'的组合</p>"
                        + "<p>用户名不能是纯数字，请重新输入！</p><p>长度只能在4-20个字符之间</p>");*/
             return false;
