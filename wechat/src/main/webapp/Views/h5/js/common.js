@@ -417,7 +417,7 @@ function authenticationCooKie(){
 	}
 	return falg;
 }
-
+}
 
 /**
  * 这个方法保证用户id一直存在
