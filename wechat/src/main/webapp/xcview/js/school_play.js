@@ -249,26 +249,68 @@ function btn_allComment(){
     window.location.href="all_comment.html?courseId="+course_id+"&LecturerId="+LecturerId+"";
 }
 
-var courseId = getQueryString('course_id');
-//点击购买后的接口
-function btn_buy(){
-	requestService("/xczh/order/save",{
-		courseId:courseId,
-		orderFrom:2
-	},function(data){
 
-		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
-	});
+
+//var courseId = getQueryString('course_id');
+//点击购买后的接口
+//function btn_buy(){
+//	requestService("/xczh/order/save",{
+//		courseId:courseId,
+//		orderFrom:2
+//	},function(data){
+//
+//		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+//	});
+//	
+//}
+
+
+
+var courseId = getQueryString('course_id');
+function btn_zj_mianfei(){
+	var falg =authenticationCooKie();
+	var data_zj= $(".right_priceBtn").attr("data-zj")
+		if (falg==1002){
+			location.href ="/xcview/html/enter.html";		
+		}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+		}else{
+			if(data_zj==0){
+				requestService("/xczh/order/save",{
+					courseId:courseId,
+					orderFrom:2
+				},function(data){
+			
+					window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+				});
+			}else if(data_zj==1){
+				window.location.href="live_play.html?my_study="+course_id+"";
+			}else if(data_zj==2){
+				window.location.href="live_play.html?my_study="+course_id+"";
+			}
+		}
 	
-}
+	}
+
+
+
+
 //点击免费购买后的
-function btn_mianfei(){
-window.location.href="live_play.html?my_study="+course_id+"";
-}
+//function btn_mianfei(){
+//window.location.href="live_play.html?my_study="+course_id+"";
+//}
 //点击主播本人或者已购买者购买后
-function btn_purchase(){
-window.location.href="live_play.html?my_study="+course_id+"";
-}
+//function btn_purchase(){
+//window.location.href="live_play.html?my_study="+course_id+"";
+//}
+
+
+
+
+
+
+
+
 //删除评论状态
 function del(){
     //星星

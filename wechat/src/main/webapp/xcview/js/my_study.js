@@ -65,7 +65,7 @@ $(".paly_ing").click(function(){
 	requestService("/xczh/history/add",
 	courseId=courseId
 	,function(data) {
-		alert(1)
+//		alert(1)
 	})	
 })
 
@@ -75,11 +75,10 @@ $(".paly_ing").click(function(){
 //搜索历史播放
 function go_play_hos(id){
 	requestService("/xczh/course/details?courseId="+id,null,function(data) {
-
 		var course = data.resultObject;
 		if(course.watchState == 2||course.watchState == 3 || course.watchState == 1){
 			if(course.type==1||course.type==2){
-				if(course.collection){
+				if(course.collection==true){
 //					专辑视频音频播放页
 				location.href="live_select_album.html?course_id="+id					
 				}else{

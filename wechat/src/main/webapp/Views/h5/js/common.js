@@ -405,13 +405,19 @@ function authenticationCooKie(){
 	var third_party_cookie = cookie.get("third_party_uc_t_");
 	if(!stringnull(user_cookie)){ //未登录
 		falg = 1002
+//		location.href ="/xcview/html/enter.html";
+//		return;
+		if(stringnull(third_party_cookie)){   //用户用微信登录的但是没有绑定注册信息
+			falg = 1005;
+//			location.href ="/xcview/html/evpi.html";
+//			return;
 		if(stringnull(third_party_cookie)){   //用户用微信登录的但是没有绑定注册信息
 			falg = 1005;
 		}
 	}
 	return falg;
 }
-
+}
 
 /**
  * 这个方法保证用户id一直存在
