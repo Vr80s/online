@@ -99,6 +99,16 @@ public class CourseLecturVo extends OnlineBaseVo {
 
     private String  isRecommend;
 
+    private Boolean  collection;
+
+    public Boolean getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Boolean collection) {
+        this.collection = collection;
+    }
+
     @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     private Date startTime;
 

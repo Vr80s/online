@@ -1,8 +1,12 @@
 	//首页判断是否有直播
-	template.helper('online', function(num) {
+	template.helper('online', function(num,collection) {
         if(num==1){
-        	return '<span class="classCategory">'+'视频'+'</span>'
+            if(collection)
+                return '<span class="classCategory">'+'视频专辑'+'</span>'
+            return '<span class="classCategory">'+'视频'+'</span>'
         }else{
+            if(collection)
+                return '<span class="classCategory">'+'音频专辑'+'</span>'
         	return '<span class="classCategory">'+'音频'+'</span>'
 //      	return false;
 //      	'<span class="classCategory">点播</span>'
