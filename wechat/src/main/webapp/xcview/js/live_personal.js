@@ -200,7 +200,7 @@ requestService("/xczh/host/hostPageCourse",{
         },function(data) {
             //	课程名称/等级/评论
             if(data.success==true){
-                webToast("评论成功","middle",3000);
+                webToast("评论成功","middle",1500);
                 //	直播时间/主播名字
                 $(".wrapAll_comment").hide();
                 $(".bg_modal").hide();
@@ -213,7 +213,7 @@ requestService("/xczh/host/hostPageCourse",{
                     $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
                 });
             }else{
-                webToast("评论失败","middle",3000);
+                webToast("评论失败","middle",1500);
             }
         });
     }
@@ -222,7 +222,7 @@ requestService("/xczh/host/hostPageCourse",{
     function replyComment() {
         var comment_detailed = $('#littlt_return').val();
         if(comment_detailed==""){
-            webToast("内容不能为空","middle",3000);
+            webToast("内容不能为空","middle",1500);
             return
         }
         requestService("/xczh/criticize/saveReply",{
@@ -232,7 +232,7 @@ requestService("/xczh/host/hostPageCourse",{
         },function(data) {
             //	课程名称/等级/评论
             if(data.success==true){
-                webToast("回复成功","middle",3000);
+                webToast("回复成功","middle",1500);
                 //	直播时间/主播名字
                 $(".bg_userModal").hide();
                 $(".wrapLittle_comment").hide();
@@ -240,7 +240,7 @@ requestService("/xczh/host/hostPageCourse",{
                 del();
                 refresh();
             }else {
-                webToast("回复失败","middle",3000);
+                webToast("回复失败","middle",1500);
             }
         });
     }

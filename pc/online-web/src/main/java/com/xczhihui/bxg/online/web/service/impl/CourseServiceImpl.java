@@ -411,7 +411,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
                 courseException.setType(1);
                 courseException.setCreateTime(new Date());
                 dao.save(courseException);
-                logger.info("课程id{}的直播课程由于超时未发起直播，被下架并插入课程异常表中");
+                logger.info("课程id{}的直播课程由于超时未发起直播，被下架并插入课程异常表中",course.getId());
             }
         }
     }

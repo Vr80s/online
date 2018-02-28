@@ -320,7 +320,7 @@ function reportComment() {
 
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        webToast("请输入评论内容","middle",3000);
+        webToast("请输入评论内容","middle",1500);
         return
     }
     var overallLevel=0;
@@ -346,7 +346,7 @@ function reportComment() {
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
-            webToast("评论成功","middle",3000);
+            webToast("评论成功","middle",1500);
             //	直播时间/主播名字
             //$("#wrap_playTime").html(template('data_name',data.resultObject));
             $(".wrapAll_comment").hide();
@@ -355,7 +355,7 @@ function reportComment() {
             del();
             refresh(1,10);
         }else{
-            webToast("评论失败","middle",3000);
+            webToast("评论失败","middle",1500);
         }
     });
 }
@@ -364,7 +364,7 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        webToast("内容不能为空","middle",3000);
+        webToast("内容不能为空","middle",1500);
         return
     }
     requestService("/xczh/criticize/saveReply",{
@@ -374,7 +374,7 @@ function replyComment() {
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
-            webToast("回复成功","middle",3000);
+            webToast("回复成功","middle",1500);
             //	直播时间/主播名字
             $(".bg_userModal").hide();
             $(".wrapLittle_comment").hide();
@@ -382,7 +382,7 @@ function replyComment() {
             del();
             refresh(1,10);
         }else {
-            webToast("回复失败","middle",3000);
+            webToast("回复失败","middle",1500);
         }
     });
 }

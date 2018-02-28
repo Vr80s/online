@@ -17,7 +17,7 @@ function balance() {
             $(".header_img").html(template('userInfo',data.resultObject.user));
 			
         }else{        	           
-            webToast(data.errorMessage,"middle",3000);
+            webToast(data.errorMessage,"middle",1500);
         }
     });
 }
@@ -40,7 +40,7 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 	            status = data.resultObject;
 
 	        }else{
-	            webToast(data.errorMessage,"middle",3000);
+	            webToast(data.errorMessage,"middle",1500);
 	        }
 	    });
 	}

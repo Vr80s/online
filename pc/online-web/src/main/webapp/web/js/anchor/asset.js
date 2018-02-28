@@ -285,6 +285,7 @@ function saveEnchashment(){
             if(data.success){
                 showTip(data.resultObject);
                 initBasaeAssetInfo();
+                window.location.reload();
             }else {
                 showTip(data.errorMessage);
             }
