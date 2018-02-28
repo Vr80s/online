@@ -71,7 +71,6 @@ document.getElementById("btn").addEventListener("tap", function() {
 document.getElementById("enter_btn").addEventListener("tap", function() {
 	
 	//这块是需要搞下用户协议的同意
-	
 //	var agreementchecked = document.getElementById("checkbox1").checked;
 //	if (stringnull(agreementchecked)) {
 //		reminderror.innerHTML = "";
@@ -132,7 +131,6 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 	
 	requestService(access_url, urlparm, function(data) {
 		if (data.success) {
-			
 			commonLocalStorageSetItem(data);
 			
 			location.href = "/xcview/html/heads_nicknames.html";

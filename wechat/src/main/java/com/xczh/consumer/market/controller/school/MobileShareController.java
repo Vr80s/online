@@ -124,9 +124,7 @@ public class MobileShareController {
 		String shareId = req.getParameter("shareId");  //分享的id
 		String shareType = req.getParameter("shareType");  //分享类型
 		String wxOrbrower = req.getParameter("wxOrbrower");  //来自哪里的浏览器
-		
 		LOGGER.info("shareId:"+shareId+",shareType:"+shareType);
-		
 		String shareIdAndType = shareId+"_"+shareType;
 		/*
 		 * 这里需要判断下是不是微信浏览器
