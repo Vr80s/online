@@ -138,16 +138,8 @@ public class GiftOrderServiceImpl implements IGiftOrderService {
         // 平台扣除
         vo.setIosBrokerageValue(userCoinIncreaseMapper.sumIosBrokerageValueByLiveId(vo.getLiveId()));
 
-        // 根据课程类型获取分成比例
-        if(vo.getType().equals(CourseTypeEnum.LIVE.getCode())){
-            vo.setPercent(anchor.getLiveDivide().toString().substring(0,2) + "%");
-        }
-        if(vo.getType().equals(CourseTypeEnum.VOD.getCode())){
-            vo.setPercent(anchor.getVodDivide().toString().substring(0,2) + "%");
-        }
-        if(vo.getType().equals(CourseTypeEnum.OFFLINE.getCode())){
-            vo.setPercent(anchor.getOfflineDivide().toString().substring(0,2) + "%");
-        }
+        // 根据礼物分成比例
+        vo.setPercent(anchor.getGiftDivide().toString().substring(0,2) + "%");
 
         return vo;
 

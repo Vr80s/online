@@ -54,7 +54,8 @@ $(function(){
 //我关注的主播
 		requestService("/xczh/myinfo/myFocus",null,function(data) {
 			if(data.resultObject.length=='' || data.resultObject.length==0 ){
-				$(".no_follow_uesr").show()
+//				$(".no_follow_uesr").show();您还没有关注的主播
+				$(".wrap-follow").hide();   /*没有主播的时候--隐藏关注主播*/
 			}
 			$("#all_follow_people").html(template("data_follow",data))		
 		})	
