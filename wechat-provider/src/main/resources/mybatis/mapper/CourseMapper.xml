@@ -454,6 +454,22 @@
 		</if>
 		 order by oc.release_time desc
 	</select>
+
+	<!--  查看听课列表  -->
+	<select id="listenCourseList" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
+		select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,
+		oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,
+		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) + IFNULL(oc.default_student_count, 0) learndCount,
+		if(oc.is_free =0,0,1) as watchState,
+		oc.city as city,
+		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
+		'2' as courseType,
+		oc.is_recommend,oc.start_time,oc.create_time,
+		if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort
+		from oe_course oc
+		where oc.is_delete=0 and oc.status = 1 and oc.multimedia_type = 2
+		order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc LIMIT 0,12
+	</select>
 	
 	
 	
