@@ -262,42 +262,140 @@ function btn_allComment(){
 
 
 //点击购买后的接口
-var courseId = getQueryString('course_id');
-function btn_buy(){
-	requestService("/xczh/order/save",{
-		courseId:courseId,
-		orderFrom:2
-	},function(data){
-
-		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
-	});
-
-}
+//var courseId = getQueryString('course_id');
+//function btn_buy(){	
+//	requestService("/xczh/order/save",{
+//		courseId:courseId,
+//		orderFrom:2
+//	},function(data){
+//
+//		window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+//	});
+//
+//}
 
 //点击免费购买后无专辑的
-function btn_mianfei(){
-	window.location.href="live_audio.html?my_study="+course_id+"";
-}
-//有专辑并且免费的
+//function btn_mianfei(){
+//	window.location.href="live_audio.html?my_study="+course_id+"";
+//}
+//判断状态跳转
+var courseId = getQueryString('course_id');
 function btn_zj_mianfei(){
-	window.location.href="live_select_album.html?course_id="+course_id+"";
-}
+	var falg =authenticationCooKie();
+	var data_zj= $(".right_priceBtn").attr("data-zj")
+		if (falg==1002){
+			location.href ="/xcview/html/enter.html";		
+		}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+		}else{
+			if(data_zj==0){
+				requestService("/xczh/order/save",{
+					courseId:courseId,
+					orderFrom:2
+				},function(data){
+					window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
+				});
+			}else if(data_zj==1){
+				window.location.href="live_audio.html?my_study="+course_id+"";	
+			}else if(data_zj==2){
+			window.location.href="live_select_album.html?course_id="+course_id+"";		
+				
+			}else if(data_zj==3){
+			window.location.href="live_audio.html?my_study="+course_id+"";	
+				
+			}else if(data_zj==4){
+			window.location.href="live_select_album.html?course_id="+course_id+"";
+				
+			}else if(data_zj==5){
+			window.location.href="live_audio.html?my_study="+course_id+"";
+				
+			}else if(data_zj==6){
+				window.location.href="live_select_album.html?course_id="+course_id+"";	
+			}
+		}
+	
+	}
+	
+	
+	
+	
+//	
+//	
+////	<!--无专辑免费-->
+//	if(data_zj==1){
+//		if (falg==1002) {
+//			location.href ="/xcview/html/enter.html";		
+//		}else if (falg==1005) {
+//			location.href ="/xcview/html/evpi.html";
+//		}else{
+//		window.location.href="live_audio.html?my_study="+course_id+"";	
+//		}
+//	}else if(data_zj==2){
+////<!--有专辑免费-->
+//		if (falg==1002) {
+//			location.href ="/xcview/html/enter.html";		
+//		}else if (falg==1005) {
+//			location.href ="/xcview/html/evpi.html";
+//		}else{
+//			window.location.href="live_select_album.html?course_id="+course_id+"";		
+//		}
+//	}else if(data_zj==3){
+////<!--有专辑免费-->
+//		if (falg==1002) {
+//			location.href ="/xcview/html/enter.html";		
+//		}else if (falg==1005) {
+//			location.href ="/xcview/html/evpi.html";
+//		}else{
+//			window.location.href="live_audio.html?my_study="+course_id+"";	
+//		}
+//	}else if(data_zj==4){
+////<!--已购买并有专辑-->
+//		if (falg==1002) {
+//			location.href ="/xcview/html/enter.html";		
+//		}else if (falg==1005) {
+//			location.href ="/xcview/html/evpi.html";
+//		}else{
+//			window.location.href="live_select_album.html?course_id="+course_id+"";
+//		}
+//	}else if(data_zj==5){
+////主播买并没有专辑
+//		if (falg==1002) {
+//			location.href ="/xcview/html/enter.html";		
+//		}else if (falg==1005) {
+//			location.href ="/xcview/html/evpi.html";
+//		}else{
+//			window.location.href="live_audio.html?my_study="+course_id+"";
+//		}
+//	}else if(data_zj==6){
+////主播并有专辑
+//		if (falg==1002) {
+//			location.href ="/xcview/html/enter.html";		
+//		}else if (falg==1005) {
+//			location.href ="/xcview/html/evpi.html";
+//		}else{
+//			window.location.href="live_select_album.html?course_id="+course_id+"";
+//		}
+//	}
+//
+//}
 //已购买并没有专辑
-function btn_purchase_no(){
-	window.location.href="live_audio.html?my_study="+course_id+"";
-}
+//function btn_purchase_no(){
+//	window.location.href="live_audio.html?my_study="+course_id+"";
+//}
 //已购买并有专辑
-function btn_purchase_have(){
-	window.location.href="live_select_album.html?course_id="+course_id+"";
-}
+//function btn_purchase_have(){
+//
+//	window.location.href="live_select_album.html?course_id="+course_id+"";
+//}
 //主播本人无专辑
-function btn_purchase_myno(){
-	window.location.href="live_audio.html?my_study="+course_id+"";
-}
+
+//function btn_purchase_myno(){	
+//	window.location.href="live_audio.html?my_study="+course_id+"";
+//}
 //主播本人有专辑
-function btn_purchase_myhave(){
-	window.location.href="live_select_album.html?course_id="+course_id+"";
-}
+//function btn_purchase_myhave(){
+//	window.location.href="live_select_album.html?course_id="+course_id+"";
+//}
 
 
 
