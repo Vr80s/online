@@ -84,3 +84,12 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 $(".my_anchor").click(function(){
 	location.href="down_load.html"
 })
+
+
+
+
+
+
+
+
+

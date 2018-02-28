@@ -65,13 +65,6 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		 * 讲师oe_lecturer 讲师课程中间表 course_r_lecturer 需要从这两个表中得到讲师名字和讲师头像 oe_video
 		 * 获取视频id。从视频id中获取在线观看人数 多少人在看这个视频了 WeihouInterfacesListUtil
 		 */
-		//直播 中的课程
-		List<Map<String,Object>> mapCourseList = new ArrayList<Map<String,Object>>();
-
-		Map<String,Object> mapTj = new HashMap<String, Object>();
-		Map<String,Object> mapNw = new HashMap<String, Object>();
-		Map<String,Object> mapZz = new HashMap<String, Object>();
-		Map<String,Object> mapHf = new HashMap<String, Object>();
 
 		List<CourseLecturVo> newList = new ArrayList<CourseLecturVo>();
 
