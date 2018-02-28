@@ -411,9 +411,30 @@ function authenticationCooKie(){
 			falg = 1005;
 //			location.href ="/xcview/html/evpi.html";
 //			return;
+		if(stringnull(third_party_cookie)){   //用户用微信登录的但是没有绑定注册信息
+			falg = 1005;
 		}
 	}
 	return falg;
 }
 
 
+/**
+ * 这个方法保证用户id一直存在
+ */
+var userId = localStorage.getItem("userId");
+if(!stringnull(userId)){
+	var user_cookie = cookie.get("_uc_t_");
+	if(stringnull(user_cookie)){//说明已经登录了
+		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
+		var ccontrollerAddress = "/xczh/set/isLogined";
+		requestService(ccontrollerAddress, null, function(data) {
+			if (data.success) {
+				commonLocalStorageSetItem(data);
+			}else{
+				alert("网络异常");
+			}
+		},false)
+	}	
+	
+}

@@ -1149,7 +1149,7 @@ ul {
   text-align: center;
   line-height: 22px;
   color: white;
-  background: url(../images/index/label.png) no-repeat left top;
+  background: #2cb82c  url(../images/index/label.png) no-repeat left top;
   position: absolute;
   right: 18px;
   font-size: 12px;

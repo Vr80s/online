@@ -6,21 +6,6 @@ var opendId = getQueryString("openId");
 if(stringnull(opendId)){
 	localStorage.setItem("openid", openId);
 }
-//   
-//   var userId = localStorage.getItem("userId");
-//   if(!stringnull(userId)){
-//		/* 如果是微信公众号进入页面时，没有给他返回token。所以这里他在请求下呢  */
-//		var ccontrollerAddress = "/bxg/user/isLogined";
-//		requestService(ccontrollerAddress, null, function(data) {
-//			if (data.success) {
-//				commonLocalStorageSetItem(data);
-//			}else{
-//				alert("网络异常");
-//			}
-//		},false)	
-//	}
-//}	
-	
 
 function balance() {
     requestService("/xczh/manager/home",{
