@@ -155,7 +155,12 @@ public class CourseAnchorController extends AbstractController{
             anchorService.updateRec(idArr,isRec);
         }
         responseObject.setSuccess(true);
-        responseObject.setErrorMessage("主播推荐成功");
+        if(isRec==1){
+            responseObject.setErrorMessage("主播推荐成功");
+        }else{
+            responseObject.setErrorMessage("取消推荐成功");
+        }
+
         return responseObject;
     }
 
