@@ -72,11 +72,11 @@ document.getElementById("btn").addEventListener("tap", function() {
 		return false;
 	}
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",3000);
+		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
-		webToast("手机号格式不正确","middle",3000);
+		webToast("手机号格式不正确","middle",1500);
 		return false;
 	}
 	var urlparm = {
@@ -101,7 +101,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 				//进入倒计时
 				time(o);
 			} else {
-				webToast(data.errorMessage,"middle",3000);
+				webToast(data.errorMessage,"middle",1500);
 			}
 		});
 	});
@@ -166,7 +166,7 @@ $(".enter_btn").click(function(){
 				location.href = "/xcview/html/my_homepage.html?openId="+openId;
 			//}
 		} else {
-			webToast(data.errorMessage,"middle",3000);
+			webToast(data.errorMessage,"middle",1500);
 		}
 	});
 })	
