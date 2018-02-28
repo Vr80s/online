@@ -96,6 +96,16 @@ $(".my_anchor").click(function(){
 	location.href="down_load.html"
 })
 
+//点击学习判断游客
+function go_study(){
+		if (falg==1002){
+			location.href ="/xcview/html/enter.html";		
+		}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+		}else{
+			location.href ="/xcview/html/my_study.html";			
+		}
+}
 
 
 
