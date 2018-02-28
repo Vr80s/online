@@ -1113,6 +1113,10 @@ header{
     white-space: nowrap;
     margin-bottom: 0.34rem;
 }
+.boutique_main_one_title .span0{
+	color: #999999;
+	font-size: 0.468rem;
+}
 .boutique_main_one_title .span{
 	margin-right: 0.2rem;
     max-width: 2.3rem;
@@ -1409,6 +1413,8 @@ header{
     display: inline-block;
     float: left;
     width: 100%;
+    font-size: 0.468rem;
+    color: #999;
 }
 .boutique_main_four_size P{
 	font-size: 0.468rem;
@@ -1617,6 +1623,8 @@ header{
     display: inline-block;
     float: left;
     width: 100%;
+    font-size: 0.468rem;
+    color: #999;
 }
 .newest_main_two_size P{
 	font-size: 0.468rem;
@@ -1918,6 +1926,8 @@ header{
     display: inline-block;
     float: left;
     width: 100%;
+    color: #999;
+    font-size: 0.468rem;
 }
 
 

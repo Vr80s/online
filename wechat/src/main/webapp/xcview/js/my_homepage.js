@@ -41,6 +41,7 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<div class="both"></div>'+
 				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
 				'<p class="p" onclick="go_enter()">登录 / 注册</p>';
+
 	var user_cookie = cookie.get("_uc_t_");
 	if(user_cookie == null || user_cookie == ''){
    		$(".header_img").append(isNouser)

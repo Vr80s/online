@@ -504,12 +504,12 @@ public class VideoDao extends SimpleHibernateDao {
 	 	        	}
 	 	        	c.setIsPraise(isPraise);
 	 	        	/**
-	        		 * 就星级的平均数
+	        		 * 星级的平均数
 	        		 */
 	 	        	if(c.getOverallLevel()!=null&&!"".equals(c.getOverallLevel())){
-                        BigDecimal totalAmount = new BigDecimal(c.getOverallLevel());
-                        totalAmount.add(new BigDecimal(c.getContentLevel()));
-                        totalAmount.add(new BigDecimal(c.getDeductiveLevel()));
+                        BigDecimal totalAmount = new BigDecimal(c.getOverallLevel() !=null ? c.getOverallLevel() :0 );
+                        totalAmount.add(new BigDecimal(c.getContentLevel()  !=null ? c.getContentLevel() :0 ));
+                        totalAmount.add(new BigDecimal(c.getDeductiveLevel()  !=null ? c.getDeductiveLevel() :0 ));
                         String startLevel = "0";
                         try {
                             startLevel = divCount(totalAmount.doubleValue(),3d,1);

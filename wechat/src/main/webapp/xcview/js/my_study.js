@@ -69,15 +69,6 @@ $(".paly_ing").click(function(){
 	})	
 })
 
-
-
-
-
-
-
-
-
-
 })
 
 

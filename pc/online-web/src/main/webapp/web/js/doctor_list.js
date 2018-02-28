@@ -27,17 +27,17 @@ $(function(){
 	console.log(hospitalId);
 	
 	//顶部搜索列表title变化
-	if(type == 1){
-		$('.doctor_search_top > h3').text('中青年名中医列表')
-	}else if(type == 2){
-		$('.doctor_search_top > h3').text('名老中医列表')
-	}else if(type == 3){
-		$('.doctor_search_top > h3').text('少数民族中医列表')
-	}else if(type == 4){
-		$('.doctor_search_top > h3').text('国医大师列表')
-	}else if(type == 5){
-		$('.doctor_search_top > h3').text('家传中医列表')
-	}
+//	if(type == 1){
+//		$('.doctor_search_top > h3').text('中青年名中医列表')
+//	}else if(type == 2){
+//		$('.doctor_search_top > h3').text('名老中医列表')
+//	}else if(type == 3){
+//		$('.doctor_search_top > h3').text('少数民族中医列表')
+//	}else if(type == 4){
+//		$('.doctor_search_top > h3').text('国医大师列表')
+//	}else if(type == 5){
+//		$('.doctor_search_top > h3').text('家传中医列表')
+//	}
 	
 	console.log(decodeURI(name))
 //	渲染到所搜栏中

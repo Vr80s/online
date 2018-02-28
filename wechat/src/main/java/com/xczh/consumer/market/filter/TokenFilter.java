@@ -116,6 +116,12 @@ public class TokenFilter implements Filter {
 	  = "/xczh/host,/xczh/course";
 	
 	
+	/**
+	 * 这个可以写特殊强调的要拦截的啊
+	 *   强调有问题需要拦截的
+	 */
+	public static String new_to_intercept = "/xczh/course/liveDetails";
+	
 	//现在新版本的  接口不过滤
 	private String[] newInterfaceFilter;
 	
@@ -159,8 +165,9 @@ public class TokenFilter implements Filter {
 		/**
 		 * 测试和生产用这个
 		 */
-		if(useLoopEqual(appExcludedPageArray,currentURL) || 
-				useLoopContains(newInterfaceFilter, currentURL)){
+		if((useLoopEqual(appExcludedPageArray,currentURL) || 
+				useLoopContains(newInterfaceFilter, currentURL))
+				&& new_to_intercept.indexOf("currentURL")==-1){
 			     isExcludedPage = true;     
 		}
 		System.out.println("isExcludedPage，"+isExcludedPage);
@@ -206,7 +213,10 @@ public class TokenFilter implements Filter {
 				//浏览器的状态
 				int statusFalg = 200;
 				//需要重定向的页面
-				String redirectUrl = "/xcview/html/enter.html";
+				String redirectUrl =  request.getContextPath()+"/xcview/html/enter.html";
+				//转发的url
+				String forwardUrl = "/xczh/common/verifyLoginStatus";
+				
 				
 		    	HttpSession session = request.getSession(false);
 		    	if(session!=null && null != session.getAttribute("_user_")) {
@@ -249,13 +259,18 @@ public class TokenFilter implements Filter {
 		    	
 		    	System.out.println("currentURL:"+currentURL+"================================tf.toString():"+tf);
 		    	
+		    	String tfParams = "";
 		    	//如果是没有登录的状态 并且cookie不登录空的话，就去完善信息页面
 		    	if(statusFalg ==1002 && tf!=null && tf.getOpenId()!=null && tf.getUnionId()!=null){
 		    		statusFalg = 1005;
 		    		redirectUrl = request.getContextPath() + "/xcview/html/evpi.html?openId="+tf.getOpenId()+"&unionId="+tf.getUnionId()+"&jump_type=1";
+		    		
+		    		tfParams ="&openId="+tf.getOpenId()+"&unionId="+tf.getUnionId();
 		    	}
-		    	if(isAjax){
-    				req.getRequestDispatcher("/xczh/common/verifyLoginStatus?statusFalg="+statusFalg).forward(request,response);
+		    	if(isAjax){ //?
+		    		
+		    		System.out.println("forwardUrl"+forwardUrl+"?statusFalg="+statusFalg+tfParams);
+    				req.getRequestDispatcher(forwardUrl+"?statusFalg="+statusFalg+tfParams).forward(request,response);
     			}else{
     				response.sendRedirect(redirectUrl);
     			}

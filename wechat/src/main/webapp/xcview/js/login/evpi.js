@@ -144,11 +144,11 @@ $(".enter_btn").click(function(){
 			 * jump_type=1	跳到首页
 			 * jump_type=2	跳到我的页面
 			 */
-			if(jump_type == 1){
-				location.href = "/xcview/html/home_page.html?openId="+openId;
-			}else if(jump_type == 2){
+			//if(jump_type == 1){
+				//location.href = "/xcview/html/home_page.html?openId="+openId;
+			//}else if(jump_type == 2){
 				location.href = "/xcview/html/my_homepage.html?openId="+openId;
-			}
+			//}
 		} else {
 			webToast(data.errorMessage,"middle",3000);
 		}

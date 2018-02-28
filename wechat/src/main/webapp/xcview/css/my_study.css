@@ -267,6 +267,7 @@ border-radius: 0.1rem;
 .img_people img{
 	width: 100%;
 	height: 100%;
+	border-radius: 100px;
 }
 .no_follow_uesr{
 	display: none;

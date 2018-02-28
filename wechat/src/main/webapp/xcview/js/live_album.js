@@ -34,7 +34,7 @@ function stripHTML(str){
 //	获取默认第一个视频ID
 	var directId = getQueryString('directId');
 	//传ID courseId为接口的课程ID
-	requestService("/xczh/course/details",{
+	requestService("/xczh/course/liveDetails",{
 		courseId : courseId	
 	},function(data) {
 		wwww1=data.resultObject.id
