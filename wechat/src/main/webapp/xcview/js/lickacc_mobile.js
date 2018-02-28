@@ -22,7 +22,7 @@ requestService("/xczh/bind/userBindingInfo", null, function(data) {
 })	
 
 
-$(".email_one .div0").click(function(){
+$(".email_one .div0_show").click(function(){
 	var unionId = $("#weixin_bind").attr("data-title");
 	
 	if(stringnull(unionId)){ //已经绑定了，这个是解除绑定
