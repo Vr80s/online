@@ -226,6 +226,7 @@ $(function(){
 	    	if($('#doctor_search_condition2').hasClass('hide')){
 	    		$('#doctor_search_condition3').removeClass('hide')
 	    	}
+	    	$('.doctor_search_ipt > button').click()
 	    })
 	    
 	    //可是筛选条件删除效果
@@ -236,6 +237,7 @@ $(function(){
 	    	if($('#doctor_search_condition1').hasClass('hide')){
 	    		$('#doctor_search_condition3').removeClass('hide')
 	    	}
+	    	$('.doctor_search_ipt > button').click()
 	    })
 	    
 })
