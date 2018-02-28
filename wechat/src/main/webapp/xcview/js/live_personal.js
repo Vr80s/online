@@ -7,6 +7,7 @@ var gradeName = "";
 var smallImgPath = "";
 var description= "";
 
+var is_watchState="";
 /**
  * videoId : 视频播放id
  * multimediaType:媒体类型  视频 1 音频 2  
@@ -46,11 +47,7 @@ $(function(){
 		$(".bg_modal").hide();
 		$(".wrapAll_comment").hide();
 	})
-
-    //获取ID跳转相应页面页面
-//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
-	var userLecturerId = getQueryString('userLecturerId');
-//传ID courseId为接口ID
+var userLecturerId = getQueryString('userLecturerId');
 requestService("/xczh/host/hostPageInfo",{
 	lecturerId : userLecturerId
 },function(data) {
@@ -64,11 +61,8 @@ requestService("/xczh/host/hostPageInfo",{
 		description= lecturerInfo.detail;
 	}
 	$(".all_returned_num p").html("评论"+data.resultObject.criticizeCount+"")
-	
 //	直播头像/主播名字
-
 	$(".personal_bg").html(template('personal_header',data.resultObject));
-
 //<!--主播名字/粉丝数量-->
 	$("#wrap_wrapPersonal").html(template('data_number',data.resultObject));
 // 打开页面判断是否已关注
@@ -90,11 +84,10 @@ requestService("/xczh/host/hostPageInfo",{
             $(".right_personal").find('span').html(parseInt(p)-1);
             my_follow(lecturerId,2);
         }
-    });
-
-			
+    });		
 //直播时间截取
 //		data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10); //截取日期
+		is_watchState=data.resultObject.recentCourse.watchState;
 		$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
 //医师精彩致辞
 	if(data.resultObject.lecturerInfo.video==''||data.resultObject.lecturerInfo.video==null){
@@ -113,14 +106,8 @@ requestService("/xczh/host/hostPageInfo",{
 		}
 //坐诊医馆及时间
 		$("#sure_address").html(template('data_address',data.resultObject));
-
-		
-		
-		
-		
-
 });
-		
+
 //主播课程
 //var userLecturerId = getQueryString('userLecturerId');
 requestService("/xczh/host/hostPageCourse",{
@@ -130,13 +117,10 @@ requestService("/xczh/host/hostPageCourse",{
 },function(data){
 	$("#wrap_vedio_btn").html(template('wrap_class',{items:data.resultObject.records}));
 });
-
     refresh();
-
 });
 	
 //	点击关注判断
-
 	function my_follow(followed,type){
 					requestService("/xczh/myinfo/updateFocus",{
 						lecturerId : followed,
@@ -145,14 +129,10 @@ requestService("/xczh/host/hostPageCourse",{
 //                      alert(data.resultObject);
 					})
 			}
-
-
 	function btn_class(){
 	
 	location.href="course_list.html?lecturerId="+userLecturerId;
 }
-
-
     //刷新评论列表
     function refresh(){
         requestService("/xczh/criticize/getCriticizeList",{
@@ -258,3 +238,25 @@ requestService("/xczh/host/hostPageCourse",{
     function btn_user_allComment(){
         window.location.href="all_user_comment.html?userLecturerId="+userLecturerId+"";
     }
+    
+
+
+	//判断主播是否在开直播及最近一次直播
+	var falg =authenticationCooKie();
+	
+function go_play(t){
+	var data_id=$(t).attr("data-play");
+	console.log(data_id)
+	if (falg==1002){
+			location.href ="/xcview/html/enter.html";		
+		}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+		}else{
+			if(is_watchState==2 || is_watchState==3){
+			location.href ="details.html?courseId="+data_id;			
+			}
+			else{
+				location.href ="school_play.html?course_id="+data_id;		
+			}
+		}		
+	}
