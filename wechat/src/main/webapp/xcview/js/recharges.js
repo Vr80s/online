@@ -10,22 +10,52 @@ function is_weixn(){
         return false;
     }
 }
+/**
+ * 充值单击返回
+ */
+var recharges_blck = getQueryString("recharges_blck"); 
+var orderId = getQueryString("orderId");
 
+if(stringnull(recharges_blck) && recharges_blck ==1){
+	
+	sessionStorage.setItem("recharges_blck","1");
+	sessionStorage.setItem("recharges_blck_orderId",orderId);
+}else if(stringnull(recharges_blck) && recharges_blck ==2){
+	sessionStorage.setItem("recharges_blck","2");
+}
+	
 var type = getQueryString("type"); //若果type 不等于null 时提示充值成功。
+
 
 var xmbCount = getQueryString("xmbCount");
 if(stringnull(type) || type == 1){
 	
 	$(".success").show();
-	$("#xmb_success").html(xmbCount);
+	$("#xmb_success").html(xmbCount*10);
 	//alert("充值成功");
 }
+
+/**
+ * 点击确认刷新下页面啦。哈哈哈
+ */
+$("#determine").click(function(){
+	
+	location.href = "/xcview/html/recharges.html";
+})
+
 
 var orderNo = "";
 var type =""; //判断课程类别，支付使用
 
 $(".header_return").click(function(){
-	window.history.go(-1);
+	//点击返回 --》我的天去哪里
+	var recharges_blck = sessionStorage.getItem("recharges_blck");
+	if(stringnull(recharges_blck) && recharges_blck==1){
+		var orderId = sessionStorage.getItem("recharges_blck_orderId");
+		location.href = "/xcview/html/purchase.html?courseId="+orderId;
+	}else if(stringnull(recharges_blck) && recharges_blck==2){
+		location.href = "/xcview/html/my_wallet.html";
+	}
 })
 /**
  * 点击去充值
@@ -38,7 +68,6 @@ function  goPay() {
 	var weixin_payFalg =  $("#weixin_pay").attr("class");
 	
 	var payType = ""; //支付类型   1 熊猫币支付   2支付宝支付  3 微信支付
-	
 	
 	if(zhifubao_payFalg.indexOf("pay_border")!=-1){ //就是支付宝支付
 		payType = 2;
