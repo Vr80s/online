@@ -105,6 +105,24 @@ requestService("/xczh/host/hostPageInfo",{
 			$(".user_mywrite").html(data.resultObject.lecturerInfo.detail);
 		}
 //坐诊医馆及时间
+		if(data.resultObject.hospital==null){
+			data.resultObject.hospital={};
+		}
+		if(data.resultObject.hospital.name==null){
+			data.resultObject.hospital.name="暂无";
+		}
+		if(data.resultObject.hospital.tel==null){
+			data.resultObject.hospital.tel="暂无";
+		}
+		if(data.resultObject.hospital.detailedAddress==null){
+			data.resultObject.hospital.detailedAddress="暂无";
+		}
+//		if(data.resultObject.lecturerInfo==null){
+//			data.resultObject.lecturerInfo={};
+//		}
+		if(data.resultObject.lecturerInfo.workTime==null){
+			data.resultObject.lecturerInfo.workTime="暂无";
+		}
 		$("#sure_address").html(template('data_address',data.resultObject));
 });
 
