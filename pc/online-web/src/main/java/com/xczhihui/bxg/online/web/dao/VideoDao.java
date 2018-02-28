@@ -441,7 +441,6 @@ public class VideoDao extends SimpleHibernateDao {
 		criticizeVo.setCourseId(cvo.getCourseId());
 		this.saveNewCriticize(criticizeVo);
 		
-		System.out.println("评论id"+criticizeVo.getId());
 		/**
 		 * 然后在这个评论中增加一个回复
 		 */
@@ -481,14 +480,13 @@ public class VideoDao extends SimpleHibernateDao {
 	       }
 	       sql.append(" order by c.createTime desc ");
 
-	        System.out.println("sql:"+sql.toString());
 	        Page<Criticize>  criticizes = this.findPageByHQL(sql.toString(),paramMap,pageNumber,pageSize);
 	        
 	        if(criticizes.getTotalCount()>0){
 	        	String loginName = "";
 	        	if(userId!=null){
-	        		OnlineUser u = this.get(userId,OnlineUser.class);       //这里就查询了一次，所是ok的。这是不是需要查询下。
-	        		System.out.println("u.getLoginName()"+u.getLoginName());
+                    //这里就查询了一次，所是ok的。这是不是需要查询下。
+	        		OnlineUser u = this.get(userId,OnlineUser.class);
 	        		loginName = u.getLoginName();
 	        	}
 	        	 for (Criticize c : criticizes.getItems()) {
@@ -496,7 +494,6 @@ public class VideoDao extends SimpleHibernateDao {
 	        		 * 判断会否点过赞 
 	        		 */
 	        		String loginNames =  c.getPraiseLoginNames();
-	 	        	System.out.println("loginNames"+loginNames);
 	 	        	Boolean isPraise = false;
 	 	        	if(org.apache.commons.lang.StringUtils.isNotBlank(loginNames)){
 	 	        		for (String loginName1 : loginNames.split(",")) {
@@ -524,7 +521,6 @@ public class VideoDao extends SimpleHibernateDao {
 
 	 			}
 	        }
-	        System.out.println(criticizes.getItems());
             return criticizes;
         }
         return  null;
