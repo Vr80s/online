@@ -790,6 +790,7 @@ public class CourseDao extends SimpleHibernateDao {
         List<CourseVo> courseVoList = null;
         String sql="SELECT \n" +
                 "  oc.`id`,\n" +
+                "  oc.`course_length` as courseLength,\n" +
                 "  oc.`grade_name` as name\n" +
                 "FROM\n" +
                 "  `oe_course` oc \n" +
