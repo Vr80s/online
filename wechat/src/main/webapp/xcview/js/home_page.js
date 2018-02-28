@@ -98,7 +98,7 @@ function recommendSchool(){
 				    	location.href=data_one_div;
 				    })
 				   
-		},false)
+		})
 		//精品课程
 		requestService("/xczh/recommend/recommendCourse",null,function(data) {
 			if(data.success==true){

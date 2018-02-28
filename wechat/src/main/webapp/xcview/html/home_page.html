@@ -711,18 +711,15 @@ var nav_w=$(".find_nav_list li").first().width();
 $(".sideline").width(nav_w);
 
 $("body").show();
-$(".find_nav_list li").on('click', function(){
-
-	
+/* $(".find_nav_list li").on('click', function(){
 	nav_w=$(this).width();
-	
 	$(".sideline").stop(true);
-	$(".sideline").animate({left:$(that).position().left},300);
+	$(".sideline").animate({left:$(this).position().left},300);
 	$(".sideline").animate({width:nav_w});
-	$(that).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+	$(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 	var fn_w = ($(".find_nav").width() - nav_w) / 2;
 	var fnl_l;
-	var fnl_x = parseInt($(that).position().left);
+	var fnl_x = parseInt($(this).position().left);
 	if (fnl_x <= fn_w) {
 		fnl_l = 0;
 	} else if (fn_w - fnl_x <= flb_w - fl_w) {
@@ -733,7 +730,7 @@ $(".find_nav_list li").on('click', function(){
 	$(".find_nav_list").animate({
 		"left" : fnl_l
 	}, 300);
-});	
+});	 */
 
 var fl_w=$(".find_nav_list").width();
 var flb_w=$(".find_nav_left").width();

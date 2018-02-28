@@ -40,7 +40,7 @@ requestService("/xczh/course/details",{courseId:courseId}, function(data) {
  */
 function jump(){	
 	var id = courseId;
-	if(type ==3 && (lineState ==4 || lineState ==1)){ //直播间
+	if(type ==3 && (lineState ==4 || lineState ==1 || lineState ==3)){ //直播间
 		location.href="details.html?courseId="+id
 	}else if(type ==1 || type ==2){ //课程页面
 		

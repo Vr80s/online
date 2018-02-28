@@ -5,8 +5,19 @@ $(function(){
 			$(".wrap-his-play").hide()
 		}else{
 			$(".wrap-his-play").show()
-			$("#paly_history").html(template("data_history",{items:data.resultObject.records}))
-			
+			//$("#paly_history").html(template("data_history",{items:data.resultObject.records}))
+		
+			var str ="";
+			for (var int = 0; int < data.resultObject.records.length; int++) {
+				
+				var item = data.resultObject.records[int];
+				
+				str+="<li onclick='go_play_hos("+item.type+","+item.lineState+","+item.collection+","+item.courseId+")'>";
+				str+="<p>"+item.lecturerName+item.gradeName+"</p>";
+				str+="<span>"+item.timeDifference+"</span>";
+				str+="</li>";
+			}
+			$("#paly_history").html(str);
 		}
 
 	})	
@@ -74,8 +85,8 @@ $(".paly_ing").click(function(){
 
 
 //搜索历史播放
-function go_play_hos(type,lineState,collection){
-	if(type ==3 && (lineState ==4 || lineState ==1)){ //直播间
+function go_play_hos(type,lineState,collection,id){
+	if(type ==3 && (lineState ==4 || lineState ==1 || lineState ==3 )){ //直播间
 		location.href="details.html?courseId="+id
 	}else if(type ==1 || type ==2){ //课程页面
 		location.href="live_audio.html?my_study="+id
