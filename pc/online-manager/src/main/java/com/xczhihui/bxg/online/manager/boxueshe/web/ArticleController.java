@@ -199,7 +199,7 @@ public class ArticleController extends AbstractController{
 			article.setTagId(tagId);
 			article.setTagName(tagName);
 			article.setAuthor(author);
-
+//			article.setContent(article.getContent().replace("\n",""));
 			List<ArticleTypeVo> articleTypes=articleService.getArticleTypes();
 		 	List<TagVo> tags= articleService.getTags();
 			request.setAttribute("articleTypes", articleTypes);
