@@ -1,5 +1,5 @@
 var status;
-
+var falg =authenticationCooKie();
 //yx_新增
 //var openId = getQueryString("openId");
 var opendId = getQueryString("openId");
@@ -27,11 +27,14 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
 				'<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
-	var user_cookie = cookie.get("_uc_t_");
-	if(user_cookie == null || user_cookie == ''){
-   		$(".header_img").append(isNouser)
-	}else{
-//人民币/熊猫币余额
+	if (falg==1002){
+   			$(".header_img").append(isNouser)
+	}
+//	else if (falg==1005) {
+//			location.href ="/xcview/html/evpi.html";
+//	}
+	else{
+		//人民币/熊猫币余额
 		balance();
 		//获取认证状态
 	    requestService("/xczh/medical/applyStatus",{
@@ -50,8 +53,8 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 	function go_cnlogin_zc(){
         window.location.href="cn_login.html";         
 	}
-//判断是否为游客并跳转登陆界面
-var falg =authenticationCooKie();
+////判断是否为游客并跳转登陆界面
+//var falg =authenticationCooKie();
 //已购
 function go_enter(){
 	if (falg==1002){
