@@ -407,6 +407,7 @@ window.onload=function(){
             $(".rTips").css("display","none");
         },2000)
     }
+    //常见问题
     $(".course-problem").click(function(){
         RequestService("/course/getCourseById", "GET", {
             courserId:courserId
@@ -418,6 +419,9 @@ window.onload=function(){
             }
         })
     });
+    
+    
+    //课程大纲
     $(".course-outline").click(function () {
         $(".pages").css("display","none");
         RequestService('/course/getCourseCatalog',"GET",{courseId:courserId},function(data){
@@ -438,11 +442,11 @@ window.onload=function(){
             }
         });
     });
-    
+    //学员评价
     $(".course-evaluate").click(function() {
 		Evalutation();
 	});
-    
+    //课程详情
     $(".course-details").click(function(){
         RequestService("/course/getCourseById", "GET", {
             courserId:courserId
@@ -455,6 +459,7 @@ window.onload=function(){
             }
         })
     });
+    //授课老师
     $(".course-teacher").click(function(){
     	RequestService("/course/getCourseById", "GET", {
             courserId:courserId
