@@ -60,13 +60,13 @@ $(function(){
     	}else{
     		return "<span name='sftj'>未推荐</span>";
     	}
-    } },{ "title": "视频同步", "class":"center","width":"6%","sortable":false,"data": 'directId',"mRender":function (data, display, row) {
+    } },/*{ "title": "视频同步", "class":"center","width":"6%","sortable":false,"data": 'directId',"mRender":function (data, display, row) {
     	if(data!=null && data!=''){
     		return '<span style="color: #13da08;" name="sftj">已同步</span>';
     	}else{
     		return '<span style="color: #da0823;" name="sftj">未同步</span>';
     	}
-    } },
+    } },*/
     { "title": "状态", "class":"center","width":"6%","sortable":false,"data": 'status',"mRender":function (data, display, row) {
     	if(data==1){
     		return "<span name='zt'>已上架</span>";

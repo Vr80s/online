@@ -109,9 +109,10 @@ function requestService(url, param, callback, ac) {
 			}else if(msg.code == 1003){ //被同一用户顶掉了
 				location.href = "/xcview/html/common.html";
 			}else if(msg.code == 1005){ //token过期  -->去完善信息页面
-				
 				var openId =  msg.resultObject.openId;
 				var unionId =  msg.resultObject.unionId;
+				
+				
 				location.href = "/xcview/html/evpi.html?openId="+openId+"&unionId="+unionId;
 			}else{
 				if (callback) {
@@ -394,9 +395,25 @@ var cookie = {
 	    }
 }
 
-//var user_cookie = cookie.get("_uc_t_");
-//if(user_cookie == null){  //去登录页面
-//	location.href = "/bxg/page/login/1";
-//}
+/**
+ * cookie
+ * 返回 1000 有效   1002 过期，去登录页面  1005 过期且去完善信息
+ */
+function authenticationCooKie(){
+	var falg = 1000;
+	var user_cookie = cookie.get("_uc_t_");
+	var third_party_cookie = cookie.get("third_party_uc_t_");
+	if(!stringnull(user_cookie)){ //未登录
+		falg = 1002
+		location.href ="/xcview/html/enter.html";
+		return;
+		if(stringnull(third_party_cookie)){   //用户用微信登录的但是没有绑定注册信息
+			falg = 1005;
+			location.href ="/xcview/html/evpi.html";
+			return;
+		}
+	}
+	return falg;
+}
 
 
