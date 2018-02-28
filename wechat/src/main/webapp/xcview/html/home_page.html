@@ -693,35 +693,29 @@ $window.resize(function() {
 	sliderHeight();
 });
 
-sliderHeight();
 function sliderHeight(){
 	var wHeight = $(window).height();
 	var sliderHeight = wHeight - 70
-	
 	$(".swipe li").height(sliderHeight);
 }
+sliderHeight();
+
 
 
 $(".find_nav_list").css("left",1);
-
- $(".find_nav_list li").each(function(){
-//		$(".sideline").css({left:1});
-		$(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+$(".find_nav_list li").each(function(){
+   $(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 });
 var nav_w=$(".find_nav_list li").first().width();
 
-//(function(){
-//	debugger
-//	$(".sideline").width($(".find_nav_list li").first().width());
-//})();
+$(".sideline").width(nav_w);
 
-navChange($(".find_nav_list li").eq(1));
-//var nav_w=$(".find_nav_list li").first().width();
-function navChange(that){
+$("body").show();
+$(".find_nav_list li").on('click', function(){
 
 	
-	$("body").show();
-	nav_w=$(that).width();
+	nav_w=$(this).width();
+	
 	$(".sideline").stop(true);
 	$(".sideline").animate({left:$(that).position().left},300);
 	$(".sideline").animate({width:nav_w});
@@ -739,12 +733,8 @@ function navChange(that){
 	$(".find_nav_list").animate({
 		"left" : fnl_l
 	}, 300);
-	$(".sideline").show();
-//	$(".sideline").width($(".find_nav_list li").first().width());
-}
-$(".find_nav_list li").on('click', function(){
-	navChange(this);
-});
+});	
+
 var fl_w=$(".find_nav_list").width();
 var flb_w=$(".find_nav_left").width();
 $(".find_nav_list").on('touchstart', function (e) {
@@ -768,6 +758,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 		e.preventDefault();
 	}
 });
+
 var n = 1;
 var page='pagenavi'+n;
 var mslide='slider'+n;
@@ -782,8 +773,8 @@ var tt=new TouchSlider({
 	'auto':'-1',
 	fx:'ease-out',
 	direction:'left',
-	speed:200,
-	timeout:1000,
+	speed:600,
+	timeout:5000,
 	'before':function(index){
 		
     sessionStorage.setItem("school_index",index);	
@@ -801,6 +792,7 @@ var tt=new TouchSlider({
 	$(".sideline").stop(true);
 	$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
 	$(".sideline").animate({width:nav_w},100);
+	
 	$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 	
 	
@@ -837,7 +829,8 @@ var school_index =  sessionStorage.getItem("school_index");
 if(!stringnull(school_index)){
 	school_index = 1;
 }
-tt.slide(school_index, 600);
+//alert(school_index);
+tt.slide(parseInt(school_index), 600);
 
 /**
  * 传递参数  滑动上边的tab
