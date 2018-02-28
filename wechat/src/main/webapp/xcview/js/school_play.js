@@ -279,8 +279,7 @@ function btn_zj_mianfei(){
 				requestService("/xczh/order/save",{
 					courseId:courseId,
 					orderFrom:2
-				},function(data){
-			
+				},function(data){		
 					window.location.href="purchase.html?courseId="+data.resultObject.orderId+"";
 				});
 			}else if(data_zj==1){
