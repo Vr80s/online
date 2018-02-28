@@ -9,6 +9,7 @@ import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.utils.BankUtil;
 import com.xczhihui.utils.HttpUtils;
+import com.xczhihui.utils.MatchLuhn;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -46,6 +47,9 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Override
 	public void addUserBank(String userId,String acctName, String acctPan,String certId,String tel) {
+		if(!MatchLuhn.matchLuhn(acctPan)){
+			throw new RuntimeException("银行卡格式有误");
+		}
 		boolean verifyBank = BankUtil.getNameOfBank(acctPan).contains(BankCardType.getBankCard(Integer.valueOf(tel)));
 		if(!verifyBank){
 			throw new RuntimeException("银行卡号与银行不匹配");
