@@ -27,18 +27,18 @@ $(function(){
 	console.log(hospitalId);
 	
 	//顶部搜索列表title变化
-	if(type == 1){
-		$('.doctor_search_top > h3').text('中青年名中医列表')
-	}else if(type == 2){
-		$('.doctor_search_top > h3').text('名老中医列表')
-	}else if(type == 3){
-		$('.doctor_search_top > h3').text('少数民族中医列表')
-	}else if(type == 4){
-		$('.doctor_search_top > h3').text('国医大师列表')
-	}else if(type == 5){
-		$('.doctor_search_top > h3').text('家传中医列表')
-	}
-	
+//	if(type == 1){
+//		$('.doctor_search_top > h3').text('中青年名中医列表')
+//	}else if(type == 2){
+//		$('.doctor_search_top > h3').text('名老中医列表')
+//	}else if(type == 3){
+//		$('.doctor_search_top > h3').text('少数民族中医列表')
+//	}else if(type == 4){
+//		$('.doctor_search_top > h3').text('国医大师列表')
+//	}else if(type == 5){
+//		$('.doctor_search_top > h3').text('家传中医列表')
+//	}
+
 	console.log(decodeURI(name))
 //	渲染到所搜栏中
 	if(decodeURI(name)){
@@ -124,23 +124,87 @@ $(function(){
 //	    });
 	    
 	    
-	    //名医筛选条件的分类
-	    RequestService("/medical/doctor/getDoctorType","GET",null,function(data){
-	       if(data.resultObject == null || data.resultObject.length == 0){
-	       		alert('未获取到筛选中的分类')
-	       }else{
-	       	$('#doctor_search_class').html(template('doctor_search_class_Tpl',{item:data.resultObject}));
-	       }
-	    });
-	    
-	     //名医筛选条件的科室
+	      //名医筛选条件的科室
 	    RequestService("/medical/doctor/apply/listDepartment/0","GET",null,function(data){
 	       if(data.resultObject == null || data.resultObject.records.length == 0){
 	   			alert('未获取到筛选中的科室')
 	       }else{
 	       	$('#doctor_search_keshi').html(template('doctor_search_keshi_Tpl',{item:data.resultObject.records}));
 	       }
+	    },false);
+	    
+	    
+	    //名医筛选条件的分类
+	    RequestService("/medical/doctor/getDoctorType","GET",null,function(data){
+	       if(data.resultObject == null || data.resultObject.length == 0){
+	       		alert('未获取到筛选中的分类')
+	       }else{
+	       	$('#doctor_search_class').html(template('doctor_search_class_Tpl',{item:data.resultObject}));
+//	       	$('#doctor_search_class li a[data-type = '+type+']').addClass('color');
+			if(type){
+				fenleiClick(type)
+			}
+			if(departmentId){
+				keshiClick(departmentId)
+			}
+	       
+	       }
 	    });
+	    
+	    
+		
+	    
+	   
+	    
+	    
+	    //分类
+	    function fenleiClick(type){
+	    	$('#doctor_search_class li a ').removeClass('color');
+			$('#doctor_search_class li a[data-type = '+type+']').addClass('color');
+			//筛选条件部分变化
+			$('#doctor_search_condition3').addClass('hide')
+			$('#doctor_search_condition1').removeClass('hide')
+			$('#doctor_search_condition1 span').text( 	$('#doctor_search_class li a[data-type = '+type+']').text());
+			$('#doctor_search_condition1 span').attr('data-type', 	$('#doctor_search_class li a[data-type = '+type+']').attr('data-type'))
+			if( $('#doctor_search_class li a[data-type = '+type+']').text() == '全部'){
+				$('#doctor_search_condition1').addClass('hide');
+				if($('#doctor_search_condition2').hasClass('hide')){
+	    			$('#doctor_search_condition3').removeClass('hide')
+	    		}
+			}
+	    }
+	    
+	    //科室
+	    function keshiClick(departmentId){
+	    	$('#doctor_search_keshi li a ').removeClass('color');
+			$('#doctor_search_keshi li a[data-id='+departmentId+']').addClass('color');
+			//筛选条件部分变化
+			$('#doctor_search_condition3').addClass('hide')
+			$('#doctor_search_condition2').removeClass('hide')
+			$('#doctor_search_condition2 span').text($('#doctor_search_keshi li a[data-id='+departmentId+']').text());
+			$('#doctor_search_condition2 span').attr('data-id',	departmentId)
+			if($(this).text() == '全部'){
+				$('#doctor_search_condition2').addClass('hide');
+				if($('#doctor_search_condition1').hasClass('hide')){
+	    			$('#doctor_search_condition3').removeClass('hide')
+	    		}
+			}
+	    }
+	    
+	    //筛选部分选中变化
+	    
+//			if(type == 1){
+//				$('#doctor_search_class li a[data-type = 1]').click();
+//			}else if(type == 2){
+//				$('#doctor_search_class li a[data-type = 2]').trigger("click");
+//			}else if(type == 3){
+//				$('#doctor_search_class li a[data-type = 3]').click();
+//			}else if(type == 4){
+//				$('#doctor_search_class li a[data-type = 4]').click();
+//			}else if(type == 5){
+//				$('#doctor_search_class li a[data-type = 5]').click();
+//			}
+	
 	    
 		//名医分类筛选效果
 		$('#doctor_search_class').on('click','a',function(){
@@ -157,6 +221,8 @@ $(function(){
 	    			$('#doctor_search_condition3').removeClass('hide')
 	    		}
 			}
+				//触发搜索功能
+			$('.doctor_search_ipt > button').click()
 		})
 	    
 	    //名医科室筛选效果
@@ -174,8 +240,8 @@ $(function(){
 	    			$('#doctor_search_condition3').removeClass('hide')
 	    		}
 			}
-			
-
+			//触发搜索功能
+		$('.doctor_search_ipt > button').click()
 		})
 	    
 	    //分类筛选条件删除效果
@@ -186,6 +252,7 @@ $(function(){
 	    	if($('#doctor_search_condition2').hasClass('hide')){
 	    		$('#doctor_search_condition3').removeClass('hide')
 	    	}
+	    	$('.doctor_search_ipt > button').click()
 	    })
 	    
 	    //可是筛选条件删除效果
@@ -196,6 +263,7 @@ $(function(){
 	    	if($('#doctor_search_condition1').hasClass('hide')){
 	    		$('#doctor_search_condition3').removeClass('hide')
 	    	}
+	    	$('.doctor_search_ipt > button').click()
 	    })
 	    
 })

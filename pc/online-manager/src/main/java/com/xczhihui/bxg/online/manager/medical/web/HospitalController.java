@@ -3,6 +3,7 @@ package com.xczhihui.bxg.online.manager.medical.web;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.controller.AbstractController;
+import com.xczhihui.bxg.online.common.domain.MedicalDoctor;
 import com.xczhihui.bxg.online.common.domain.MedicalHospital;
 import com.xczhihui.bxg.online.manager.medical.enums.MedicalExceptionEnum;
 import com.xczhihui.bxg.online.manager.medical.exception.MedicalException;
@@ -15,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,6 +50,19 @@ public class HospitalController extends AbstractController{
 	public String MedicalHospitalDetail(HttpServletRequest request) {
 		request.setAttribute("weburl", weburl);
 		return CLOUD_CLASS_PATH_PREFIX + "/hospitalDetail";
+	}
+
+	/**
+	 * 跳转到医馆详情页
+	 * @param hospitalId 医馆id
+	 */
+	@RequestMapping(value = "info/{hospitalId}")
+	public String info(HttpServletRequest request, @PathVariable String hospitalId) {
+
+		MedicalHospital hospital = hospitalService.findMedicalHospitalById(hospitalId);
+		request.setAttribute("hospital", hospital);
+
+		return CLOUD_CLASS_PATH_PREFIX + "/hospitalInfo";
 	}
 
 	@RequestMapping(value = "list")

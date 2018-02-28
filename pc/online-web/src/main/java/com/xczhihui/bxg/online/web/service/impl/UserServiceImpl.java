@@ -838,7 +838,7 @@ public class UserServiceImpl implements UserService {
 		paramMap.put("loginName",loginName);
 		sql.append( "SELECT \n" +
 				"  ou.`name`," +
-				" ou.status "+
+				" ca.status caStatus "+
 				"FROM\n" +
 				"  `course_anchor` ca \n" +
 				"  JOIN `oe_user` ou \n" +
@@ -848,7 +848,7 @@ public class UserServiceImpl implements UserService {
 		if(users.size()!=1){
 			return false;
 		}else{
-			return users.get(0).getStatus()==1;
+			return users.get(0).getCaStatus();
 		}
 	}
 }

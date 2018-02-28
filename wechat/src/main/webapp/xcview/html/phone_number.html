@@ -25,6 +25,11 @@
 <link rel="stylesheet" href="/xcview/css/personCommon.css">
 <link rel="stylesheet" href="/xcview/css/vanish.css">
 <script type="text/javascript"  src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+
+<!--公用弹框 -->
+<link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
+<script type="text/javascript" src="../js/alert/alertPopShow.js"></script>
+
 </head>
 <style>
 	
@@ -164,9 +169,10 @@ $("#update_mobile_next").click(function(){
 		} else {
 			
 //			$("#errorMsg").html(data.errorMessage);  动态码不正确
-			$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确！</div></div></div>");
+			/*$("#errorMsg").html("<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>动态码不正确！</div></div></div>");
 			$("#errorMsg").show();
-			setTimeout(function(){$(".vanish").hide();},1500);
+			setTimeout(function(){$(".vanish").hide();},1500);*/
+			webToast("动态码不正确！","middle",1500);
 		}
 	});
 })

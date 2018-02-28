@@ -33,6 +33,7 @@ import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.service.VersionService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
+import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.VersionCompareUtil;
 import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -115,6 +116,17 @@ public class XzCommonController {
 		Integer statusFalg = 1000;
 		if(req.getParameter("statusFalg")!=null){
 			statusFalg = Integer.parseInt(req.getParameter("statusFalg"));
+		}
+		String openId = req.getParameter("openId");
+		String unionId = req.getParameter("unionId");
+		
+	     System.out.println("openId+unionId"+openId+unionId);
+		if(StringUtils.isNotBlank(openId) && StringUtils.isNotBlank(unionId)){
+			ThridFalg tf = new ThridFalg();
+			tf.setOpenId(openId);
+			tf.setUnionId(unionId);
+			  System.out.println("openId+unionId"+openId+unionId);
+			return ResponseObject.newSuccessResponseObject(tf,statusFalg);
 		}
 		return ResponseObject.newSuccessResponseObject("登录状态验证",statusFalg);
 	}

@@ -98,7 +98,7 @@ var strcourse =
     '{{/if}}' +
     '{{#indexHref($value.description_show,$value.free,$value.id,$value.courseType,$value.type,$value.direct_id,null,$value.coursePwd)}}'+
     '{{#hasImg($value.smallImgPath)}}' +
-    '{{#online($value.multimediaType)}}' +
+    '{{#online($value.multimediaType,$value.collection)}}' +
     '<div class="detail">' +
     '<p class="title" data-text="{{$value.gradeName}}" title="{{$value.gradeName}}">{{$value.gradeName}}</p>' +
     '<p class="timeAndTeac">' +

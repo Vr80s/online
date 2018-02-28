@@ -139,6 +139,10 @@ public class ThirdPartyCertificationController {
         	WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
     		m.setClient_id(ou.getId());
     		wxcpClientUserWxMappingService.update(m);
+    		
+    		//清理cookie
+    		UCCookieUtil.clearThirdPartyCookie(res);
+    		
     		break;
         case 2:  //qq
         	
@@ -253,7 +257,7 @@ public class ThirdPartyCertificationController {
         case 2:  //qq
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
         	
-        	//那么这里是不是就不能用这个id了啊，需要用uniondid
+        	//那么这里是不是就不能用这个id了啊，需要用unionid
         	
         	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
         	nickName=qq.getNickname();

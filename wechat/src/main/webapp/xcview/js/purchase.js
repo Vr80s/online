@@ -155,10 +155,9 @@ function  goPay() {
 // 	    WORKER(6, "工作人员");		
  		
     }else if(payType==3){ //微信支付
-        var btype=   localStorage.getItem("access");
         var openId=   localStorage.getItem("openid");
         var orderForm = 2;
-        if(btype=='wx'){
+        if(is_weixn()){
             orderForm=3;
         }else if(btype=='brower'){ //h5
             orderForm=4
@@ -167,7 +166,6 @@ function  goPay() {
         if(stringnull(openId)){
         	strparam+="&openId="+openId;
         }
-        alert("----------------"+strparam);
         jmpPayPage("/xczh/pay/wxPay",payType,strparam,getgetRedirectUrl(allCourse,false));
     }
 }
@@ -177,33 +175,8 @@ function  goPay() {
  * @returns {String}
  */
 function getgetRedirectUrl(allCourse,falg){
-	//alert(window.location.host);
-	
-	
-	
-//	var redirectUrl="";
-//	if(allCourse.length>1){  //如果此订单中有多个订单，返回到我的订单页面
-//	    redirectUrl="/xcview/html/my_study.html";
-//	    return redirectUrl;
-//	}else{
-//	    var c=allCourse[0];  //判断此课程是预约呢、直播、点播的课程
-//	    
-//	    alert(c.collection);
-//	    if(c.collection){  //live_select_album.html?course_id=123
-//	    	 redirectUrl="/xcview/html/live_select_album.html?course_id="+c.id;
-//	    }else{
-//	    	if(c.type == 1 || c.type == 2){ //直播状态1 视频 2 音频 3 直播 4下线班 
-//	   	 	    redirectUrl="/xcview/html/live_audio.html?my_study="+c.id;
-//	   	    }else if(c.type == 3){
-//	   	    	redirectUrl="/xcview/html/live_play.html?my_study="+c.id;
-//	   	    }else if(c.type == 4){
-//	   	    	redirectUrl="/xcview/html/live_class.html?my_study="+c.id;
-//	   	    }
-//	    }
-//	    return redirectUrl;
-//	}
 	var c=allCourse[0];
-	return "/xcview/html/buy_prosperity.html?courseId="+c.id;
+	return "/xcview/html/buy_prosperity.html?recharges_blck=2&orderId="+c.id;
 }
 
 

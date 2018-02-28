@@ -16,7 +16,7 @@ function stripHTML(str){
 	var courseId = getQueryString('my_study');
     course_id = courseId;
 	//传ID courseId为接口的课程ID
-	requestService("/xczh/course/details",{
+	requestService("/xczh/course/liveDetails",{
 		courseId : courseId	
 	},function(data) {
 		//分享的信息展示
@@ -235,7 +235,7 @@ function reportComment() {
 
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        webToast("请输入评论内容","middle",3000);
+        webToast("请输入评论内容","middle",1500);
         return
     }
     var overallLevel=0;
@@ -261,7 +261,7 @@ function reportComment() {
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
-            webToast("评论成功","middle",3000);
+            webToast("评论成功","middle",1500);
             //	直播时间/主播名字
             $(".wrapAll_comment").hide();
             $(".bg_modal").hide();
@@ -269,7 +269,7 @@ function reportComment() {
             del();
             refresh();
         }else{
-            webToast("评论失败","middle",3000);
+            webToast("评论失败","middle",1500);
         }
     });
 }
@@ -278,7 +278,7 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        webToast("内容不能为空","middle",3000);
+        webToast("内容不能为空","middle",1500);
         return
     }
     requestService("/xczh/criticize/saveReply",{
@@ -288,7 +288,7 @@ function replyComment() {
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
-            webToast("回复成功","middle",3000);
+            webToast("回复成功","middle",1500);
             //	直播时间/主播名字
             $(".bg_userModal").hide();
             $(".wrapLittle_comment").hide();
@@ -296,7 +296,7 @@ function replyComment() {
             del();
             refresh();
         }else {
-            webToast("回复失败","middle",3000);
+            webToast("回复失败","middle",1500);
         }
     });
 }

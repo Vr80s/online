@@ -154,7 +154,7 @@ function reportComment() {
 
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        webToast("请输入评论内容","middle",3000);
+        webToast("请输入评论内容","middle",1500);
         return
     }
     requestService("/xczh/criticize/saveCriticize",{
@@ -163,13 +163,13 @@ function reportComment() {
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
-            webToast("评论成功","middle",3000);
+            webToast("评论成功","middle",1500);
             $(".wrapAll_comment").hide();
             $(".bg_modal").hide();
             document.getElementById("comment_detailed").value="";
             refresh(1,10,'down')
         }else{
-            webToast("评论失败","middle",3000);
+            webToast("评论失败","middle",1500);
         }
     });
 }
@@ -178,7 +178,7 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        webToast("内容不能为空","middle",3000);
+        webToast("内容不能为空","middle",1500);
         return
     }
     requestService("/xczh/criticize/saveReply",{
@@ -188,13 +188,13 @@ function replyComment() {
     },function(data) {
         //	课程名称/等级/评论
         if(data.success==true){
-            webToast("回复成功","middle",3000);
+            webToast("回复成功","middle",1500);
             $(".bg_userModal").hide();
             $(".wrapLittle_comment").hide();
             document.getElementById("littlt_return").value="";
             refresh(1,10,'down')
         }else {
-            webToast("回复失败","middle",3000);
+            webToast("回复失败","middle",1500);
         }
     });
 }

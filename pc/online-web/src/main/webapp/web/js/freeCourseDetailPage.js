@@ -271,6 +271,13 @@ window.onload=function(){
     RequestService("/course/getCourseById", "POST", {
         courserId:courserId
     }, function(data) {
+    	if(data.resultObject && data.resultObject.collection == true){
+    		$('.course-outline').addClass('hide')
+	    	$('.collection-course').removeClass('hide') 
+    	}else{
+    		$('.collection-course').addClass('hide')
+	    	$('.course-outline').removeClass('hide')
+    	}
     	$().
         free=data.resultObject.free;
         $(".sidebar-body-QQ-name").append("<p class='greend-QQnumber'><span>QQ号 : </span>"+
@@ -407,6 +414,7 @@ window.onload=function(){
             $(".rTips").css("display","none");
         },2000)
     }
+    //常见问题
     $(".course-problem").click(function(){
         RequestService("/course/getCourseById", "GET", {
             courserId:courserId
@@ -418,6 +426,24 @@ window.onload=function(){
             }
         })
     });
+    
+     //选集列表
+    $(".collection-course").click(function(){
+        RequestService("/course/getCoursesByCollectionId", "GET", {
+            collectionId:courserId
+        }, function(data) {
+            if(data.resultObject ==null || data.resultObject.length == 0){
+                $(".table-modal").html(template.compile(emptyDefaul));
+            }else{
+//              $(".table-modal").html(data.resultObject.commonProblem);
+				console.log(data)
+				$('.table-modal').html(template('collection_course_Tpl',{item:data.resultObject}))
+            }
+        })
+    });
+    
+    
+    //课程大纲
     $(".course-outline").click(function () {
         $(".pages").css("display","none");
         RequestService('/course/getCourseCatalog',"GET",{courseId:courserId},function(data){
@@ -438,11 +464,11 @@ window.onload=function(){
             }
         });
     });
-    
+    //学员评价
     $(".course-evaluate").click(function() {
 		Evalutation();
 	});
-    
+    //课程详情
     $(".course-details").click(function(){
         RequestService("/course/getCourseById", "GET", {
             courserId:courserId
@@ -455,6 +481,7 @@ window.onload=function(){
             }
         })
     });
+    //授课老师
     $(".course-teacher").click(function(){
     	RequestService("/course/getCourseById", "GET", {
             courserId:courserId

@@ -75,17 +75,17 @@ function login(){
 	var password = document.getElementById("password").value;
 	
 	if (!stringnull(number) || !stringnull(password)) {
-//		webToast("手机号或密码不能为空","middle",3000);
+//		webToast("手机号或密码不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
 		
-		webToast("请输入正确格式的账号","middle",3000);
+		webToast("请输入正确格式的账号","middle",1500);
 		return false;
 	}
 	var pwdLength = password.trim().length;
 	if (pwdLength < 6 || pwdLength > 18) {
-		webToast("请输入6~18位的密码","middle",3000);
+		webToast("请输入6~18位的密码","middle",1500);
 		return false;
 	}
 	/**
@@ -99,6 +99,10 @@ function login(){
 	requestService("/xczh/user/login", urlparm, function(data) {
 		if (data.success) {
 			var configresult = data.resultObject;
+			/**
+			 * 添加 所有关于用户的缓存
+			 */
+			commonLocalStorageSetItem(data);
 			
 			/**
 			 * 	  判断用户是否存在unindid，
@@ -107,16 +111,13 @@ function login(){
 			 *      所以需要获取获取当前微信号的呢。
 			 * 		如果不存在，说明没有绑定微信号。
 			 */
-			if(!stringnull(configresult.unionId) && wxOrbrower == "wx"){
+			if(wxOrbrower == "wx"){
 				 /* 
 				  * 需要获取下用户信息啦，并且需要传递用户名和密码过去
 				  */
 				location.href = "/xczh/wxlogin/h5BsGetCodeUrlReqParams?username="+number;
 			}else{
-				/**
-				 * 添加 所有关于用户的缓存
-				 */
-				commonLocalStorageSetItem(data);
+				
 				
 				/*
 				 * 跳转到分类
@@ -158,7 +159,7 @@ function login(){
 		} else {
 //			tishi.innerHTML = "<div class='vanish'><div class='vanish_bg'></div><div class='vanish_cen'><div class='vanish_size'>账号或密码错误</div></div></div>";
 //			setTimeout(function(){$(".vanish").hide();},1500);
-			webToast(data.errorMessage,"middle",3000);
+			webToast(data.errorMessage,"middle",1500);
 		}
 	});
 }

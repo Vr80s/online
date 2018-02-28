@@ -732,40 +732,47 @@ function search_PX(){
  * @param status（1，医馆，2：微课）
  */
 function previewDialog(obj,status){
-	var oo = $(obj).parent().parent().parent();
-	var row;
-	if(status==1) {
-		row = P_courseTable.fnGetData(oo); // get datarow
-	}else{
-		row = M_courseTable.fnGetData(oo); // get datarow
-	}
+	// var oo = $(obj).parent().parent().parent();
+	// var row;
+	// if(status==1) {
+	// 	row = P_courseTable.fnGetData(oo); // get datarow
+	// }else{
+	// 	row = M_courseTable.fnGetData(oo); // get datarow
+	// }
 	
-	debugger
-	//根据当前id查找对应的课程信息
-    $.get(basePath+"/medical/hospital/findMedicalHospitalById",{id:row.id}, function(result){
+	// debugger
+	// //根据当前id查找对应的课程信息
+    // $.get(basePath+"/medical/hospital/findMedicalHospitalById",{id:row.id}, function(result){
+    //
+    	// $("#show_name").text(result.name);
+    	// $("#show_lal").text(result.lal);
+    	// $("#show_tel").text(result.tel);
+    	// $("#show_postCode").text(result.postCode);
+    	// $("#show_email").text(result.email);
+    	// $("#show_province").text(result.province);
+    	// $("#show_city").text(result.city);
+    	// $("#show_detailedAddress").text(result.detailedAddress);
+    	// $("#show_description").html(result.description); //课程简介
+    	// $("#show_score").text(result.score); //课程评分
+    //
+     //    $("#show_description").removeClass("form-control");
+    //
+    // });
+	// var prev_title="查看课程";
+	// if(status ==1){
+	// 	prev_title="查看医馆";
+	// }else{
+	// 	prev_title="查看微课程";
+	// }
+	// var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
 
-    	$("#show_name").text(result.name);
-    	$("#show_lal").text(result.lal);
-    	$("#show_tel").text(result.tel);
-    	$("#show_postCode").text(result.postCode);
-    	$("#show_email").text(result.email);
-    	$("#show_province").text(result.province);
-    	$("#show_city").text(result.city);
-    	$("#show_detailedAddress").text(result.detailedAddress);
-    	$("#show_description").html(result.description); //课程简介
-    	$("#show_score").text(result.score); //课程评分
-
-        $("#show_description").removeClass("form-control");
-
-    });
-	var prev_title="查看课程";
-	if(status ==1){
-		prev_title="查看医馆";
-	}else{
-		prev_title="查看微课程";
-	}
-	var dialog = openDialogNoBtnName("showCourseDialog","showCourseDiv",prev_title,530,600,false,"确定",null);
-};
+    var oo = $(obj).parent().parent().parent();
+    var aData;
+    if (status == 1) {
+        aData = P_courseTable.fnGetData(oo); // get datarow
+        window.location.href = basePath + '/home#medical/hospital/info/' + aData.id;
+    }
+}
 
 
 /**
