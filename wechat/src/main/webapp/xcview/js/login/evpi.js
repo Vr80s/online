@@ -23,14 +23,30 @@ function time(o) {
 /**
  * 微信用户openId和unionid 为了防止获取不到,双重获取
  */
-var openId = getQueryString("openId");
-if(!stringnull(openId)){
-	openId = localStorage.getItem("openid")
+var openId ="";var unionId ="";
+
+var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+if(stringnull(third_party_uc_t_)){
+	
+	var openId = third_party_uc_t_.split("%")[0];
+	var unionId = third_party_uc_t_.split("%")[1];
+
+
+}else{
+	openId = getQueryString("openId");
+	if(!stringnull(openId)){
+		openId = localStorage.getItem("openid")
+	}
+	unionId = getQueryString("unionId");
+	if(!stringnull(unionId)){
+		unionId = localStorage.getItem("unionId")
+	}
 }
-var unionId = getQueryString("unionId");
-if(!stringnull(unionId)){
-	unionId = localStorage.getItem("unionId")
-}
+
+
+
+
+
 
 
 /**
