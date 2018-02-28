@@ -25,7 +25,7 @@ function balance() {
 var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<div class="both"></div>'+
 				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
-				'<p class="p"><span onclick="go_enter()">登录</span> / <span onclick="go_cnlogin()">注册</span></p>';
+				'<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
 	var user_cookie = cookie.get("_uc_t_");
 	if(user_cookie == null || user_cookie == ''){
@@ -44,13 +44,36 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 	        }
 	    });
 	}
-	function go_enter(){
+	function go_enter_dl(){
         window.location.href="enter.html";         
 	}
-	function go_cnlogin(){
+	function go_cnlogin_zc(){
         window.location.href="cn_login.html";         
 	}
-
+//判断是否为游客并跳转登陆界面
+var falg =authenticationCooKie();
+//已购
+function go_enter(){
+	if (falg==1002){
+			location.href ="/xcview/html/enter.html";		
+	}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+	}else{
+		window.location='/xcview/html/bought.html'		
+	}
+}
+//钱包
+function go_cnlogin(){
+	if (falg==1002){
+			location.href ="/xcview/html/enter.html";		
+	}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+	}else{
+	window.location.href="/xcview/html/my_wallet.html";		
+	}
+}
+		
+		
 //点击我要当主播
 //function myAnchor() {
 //  localStorage.setItem("judgeSkip", "my");
