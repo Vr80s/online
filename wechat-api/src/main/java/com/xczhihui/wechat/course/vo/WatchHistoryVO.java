@@ -45,10 +45,11 @@ public class WatchHistoryVO implements Serializable {
      */
     public Integer  lineState; //直播状态
     
-    public Integer  watchState; //直播状态
+    public Integer  watchState; //付费状态
     
+    public Boolean collection; //专辑
     
-    
+    public Integer liveSourceType; //直播源
     
     public Long getId() {
         return id;
@@ -193,6 +194,22 @@ public class WatchHistoryVO implements Serializable {
 
 	public void setWatchState(Integer watchState) {
 		this.watchState = watchState;
+	}
+
+	public Boolean getCollection() {
+		return collection;
+	}
+
+	public void setCollection(Boolean collection) {
+		this.collection = collection;
+	}
+
+	public Integer getLiveSourceType() {
+		return liveSourceType;
+	}
+
+	public void setLiveSourceType(Integer liveSourceType) {
+		this.liveSourceType = liveSourceType;
 	}
 	
 	
