@@ -3,7 +3,6 @@ package com.xczhihui.medical.anchor.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.medical.anchor.mapper.UserBankMapper;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
@@ -13,7 +12,8 @@ import com.xczhihui.utils.MatchLuhn;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
-import org.redisson.api.RLock;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -33,6 +32,8 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> implements IUserBankService {
+
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private UserBankMapper userBankMapper;
@@ -84,6 +85,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 			HttpResponse response = HttpUtils.doGet(host, path, method, headers,querys);
 
 			String bankInfo = EntityUtils.toString(response.getEntity());
+			logger.info("银行卡校验返回信息：{}",bankInfo);
 			JSONObject bankInfoJson = JSONObject.parseObject(bankInfo);
 			String code = bankInfoJson.get("showapi_res_code").toString();
 			if(!"0".equals(code)){

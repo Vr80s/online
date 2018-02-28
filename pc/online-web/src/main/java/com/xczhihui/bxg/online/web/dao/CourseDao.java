@@ -78,6 +78,7 @@ public class CourseDao extends SimpleHibernateDao {
         sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
                 + "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
         sqlSb.append("  where  cou.is_delete=0  and  cou.status=1  ");
+        sqlSb.append("  and  cou.type=2  ");
 
         if(menuType!=null){
             if(menuType==1||menuType==2||menuType==3){
