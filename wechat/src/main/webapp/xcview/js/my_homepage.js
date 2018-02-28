@@ -84,29 +84,6 @@ $(".my_anchor").click(function(){
 })
 
 
-/**
- * cookie
- * 返回 1000 有效   1002 过期，去登录页面  1005 过期且去完善信息
- */
-function authenticationCooKie(){
-	var falg = 1000;
-	var user_cookie = cookie.get("_uc_t_");
-	var third_party_cookie = cookie.get("third_party_uc_t_");
-	if(!stringnull(user_cookie)){ //未登录
-		falg = 1002
-		if(stringnull(third_party_cookie)){   //用户用微信登录的但是没有绑定注册信息
-			falg = 1005;
-		}
-	}
-	return falg;
-}
-
-
-
-
-
-
-
 
 
 
