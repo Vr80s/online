@@ -106,6 +106,13 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 			Page<CourseLecturVo> page, String userId) {
 		// TODO Auto-generated method stub
 		return iCourseMapper.selectUserConsoleCourseLiveByPage(page,userId);
-	};
+	}
+
+	@Override
+	public List<CourseLecturVo> listenCourseList() {
+		return iCourseMapper.listenCourseList();
+	}
+
+	;
 
 }

@@ -181,6 +181,7 @@ public class CourseLecturVo implements Serializable {
 	private Integer applyStatus; //审核状态  0未审核 1 审核通过 2 审核未通过
 	
 	private String startDateStr;
+	private Integer courseType;
 	
 	public String getUdescription() {
 		return udescription;
@@ -546,5 +547,12 @@ public class CourseLecturVo implements Serializable {
 	public void setHeir(String heir) {
 		this.heir = heir;
 	}
-	
+
+	public Integer getCourseType() {
+		return courseType;
+	}
+
+	public void setCourseType(Integer courseType) {
+		this.courseType = courseType;
+	}
 }

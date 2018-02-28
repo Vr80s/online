@@ -116,7 +116,7 @@ public class CourseApplyController {
 			return  ResponseObject.newSuccessResponseObject("创建成功");
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("创建失败");
+			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}
 	}
 

@@ -271,29 +271,18 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 	@Override
 	public List<CourseLecturVo> offLineClassList(List<OfflineCity> cityList) throws SQLException {
 
-		String strsql="(select  * "
-				+" from (select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
+		String strsql="(select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
 				+" o.smallimg_path as smallImgPath,o.lecturer as name,o.address as address,"
 				+" o.city as city,DATE_FORMAT(o.start_time,'%m.%d') as startDateStr,"
 				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = o.id),0) + IFNULL(o.default_student_count, 0) learndCount,"
 				+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 				+" o.collection as collection,"
-				+" o.is_recommend,o.recommend_sort,o.start_time,"
+				+" o.is_recommend,o.start_time,"
+				+" if(o.is_recommend=1,o.recommend_sort,-10000) as recommend_sort,"
 				+"'全国课程' as note "
 				+" from oe_course o "
-				+" WHERE o.is_delete=0 and o.status=1 and o.type = 3 and o.is_recommend = 1  "
-				+" union "
-				+" SELECT c.id,c.grade_name as gradeName,c.current_price*10 as currentPrice,4 as type, "
-				+" c.smallimg_path as smallImgPath,c.lecturer as name,c.address as address,"
-				+" c.city as city,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,"
-				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(c.default_student_count, 0) learndCount,"
-				+"if(date_sub(date_format(c.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
-				+" c.collection as collection,"
-				+" c.is_recommend,0 as recommend_sort,c.start_time,"
-				+"'全国课程' as note "
-				+" from oe_course c "
-				+" WHERE c.is_delete=0 and c.status=1 and c.type = 3 and c.is_recommend = 0) oc  "
-				+" ORDER BY oc.is_recommend DESC,oc.recommend_sort DESC,oc.start_time DESC LIMIT 0,6)";
+				+" WHERE o.is_delete=0 and o.status=1 and o.type = 3   "
+				+" ORDER BY o.is_recommend desc,recommend_sort desc,o.start_time DESC LIMIT 0,6) ";
 
 		if(cityList.size()>0){
 			strsql+= " union all ";
@@ -301,29 +290,18 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		int i = 0;
 		for (OfflineCity offlineCity : cityList) {
 				i++;
-			strsql+="(select  * "
-					+" from (select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
+			strsql+="(select  o.id,o.grade_name as gradeName,o.current_price*10 as currentPrice,4 as type,"
 					+" o.smallimg_path as smallImgPath,o.lecturer as name,o.address as address,"
 					+" o.city as city,DATE_FORMAT(o.start_time,'%m.%d') as startDateStr,"
 					+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = o.id),0) + IFNULL(o.default_student_count, 0) learndCount,"
 					+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 					+" o.collection as collection,"
-					+" o.is_recommend,o.recommend_sort,o.start_time,"
-					+"'全国课程' as note "
+					+" o.is_recommend,o.start_time,"
+					+" if(o.is_recommend=1,o.recommend_sort,-10000) as recommend_sort,"
+					+" o.city as note "
 					+" from oe_course o "
-					+" WHERE o.is_delete=0 and o.status=1 and o.type = 3 and o.is_recommend = 1 and o.city = '"+offlineCity.getCityName()+"' "
-					+" union "
-					+" SELECT c.id,c.grade_name as gradeName,c.current_price*10 as currentPrice,4 as type, "
-					+" c.smallimg_path as smallImgPath,c.lecturer as name,c.address as address,"
-					+" c.city as city,DATE_FORMAT(c.start_time,'%m.%d') as startDateStr,"
-					+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(c.default_student_count, 0) learndCount,"
-					+"if(date_sub(date_format(c.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
-					+" c.collection as collection,"
-					+" c.is_recommend,0 as recommend_sort,c.start_time,"
-					+"'全国课程' as note "
-					+" from oe_course c "
-					+" WHERE c.is_delete=0 and c.status=1 and c.type = 3 and c.is_recommend = 0 and c.city = '"+offlineCity.getCityName()+"') oc  "
-					+" ORDER BY oc.is_recommend DESC,oc.recommend_sort DESC,oc.start_time DESC LIMIT 0,4)";
+					+" WHERE o.is_delete=0 and o.status=1 and o.type = 3  and o.city = '"+offlineCity.getCityName()+"' "
+					+" ORDER BY o.is_recommend desc,recommend_sort desc,o.start_time DESC LIMIT 0,4)";
 
 				if(i < cityList.size()){
 					strsql+= " union all ";
@@ -537,7 +515,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		pageSize = pageSize == null ? 12 : pageSize;
         StringBuffer  commonSql =new StringBuffer();
 
-		commonSql.append(" select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+		commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
 				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
 		commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
 				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
@@ -548,7 +526,269 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		commonSql.append(" oc.city as city, ");//是否免费
 		//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 		commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
-		commonSql.append(" oc.smallimg_path as smallImgPath");
+		commonSql.append(" oc.smallimg_path as smallImgPath,oc.create_time,oc.is_recommend,oc.start_time,");
+		commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
+
+		commonSql.append(" from oe_course oc,oe_menu as om ");
+		commonSql.append(" where   om.id = oc.menu_id  and "
+				+ " oc.is_delete=0 and oc.status = 1   ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
+			if(city.equals("其他")){
+				Page<OfflineCity> OfflineCityPage = new Page<>();
+				OfflineCityPage.setCurrent(1);
+				OfflineCityPage.setSize(5);
+				List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
+				String citylist = " (";
+				for(OfflineCity c : oclist){
+					citylist+="'"+c.getCityName()+"',";
+				}
+				citylist = citylist.substring(0,citylist.length()-1);
+				citylist+=") ";
+				commonSql.append(" and oc.type =3 ");
+				commonSql.append(" and oc.city not in "+citylist+"");
+			}else if(city.equals("全国课程")){
+				commonSql.append(" and oc.type =3 ");
+			}else{
+				commonSql.append(" and oc.city= '"+city+"'");
+				commonSql.append(" and oc.type =3 ");
+			}
+		}
+
+		if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
+			commonSql.append(" and oc.is_free = '"+isFree+"'");
+		}
+
+		/**
+		 * 直播中的状态 4:直播课程
+		 */
+		if(lineState!=null&&lineState!=4){
+			commonSql.append(" and oc.live_status = '"+lineState+"'");
+		}
+		if(lineState!=null&&lineState==4){
+			commonSql.append(" and oc.live_status = 2 ");
+			commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
+		}
+		/**
+		 * 目前检索的是讲师名和课程id
+		 */
+		if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
+			commonSql.append(" and ");
+			commonSql.append(" oc.grade_name like '%"+ queryKey + "%' ");
+		}
+		if(courseType!=null) {
+			if (courseType == 1 || courseType == 2) { //视频或者音频
+				commonSql.append(" and oc.multimedia_type = '" + courseType + "'");  //多媒体类型1视频2音频
+			} else if (courseType == 3 || courseType == 4) { //直播  或者线下课程
+				commonSql.append(" and " + (courseType == 3 ? " oc.type=1 " : " oc.type =3 "));
+			}
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
+			if(menuType.equals("goodCourse")){
+				commonSql.append(" AND oc.is_essence=1 order by  oc.essence_sort desc) ");
+			}else if(menuType.equals("newCourse")){
+				commonSql.append(" order by  oc.create_time desc) ");
+			}else{
+				commonSql.append(" AND oc.menu_id = '"+menuType+"'");
+				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+			}
+		}else if(courseType!=null&&courseType==4){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+
+		}else if(courseType!=null&&courseType==3){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.start_time desc) ");
+		}else{
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+		}
+		commonSql.append(" union ");
+
+		commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+		commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
+		commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
+		commonSql.append(" oc.collection as collection, ");
+		commonSql.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
+		commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
+		commonSql.append(" oc.city as city, ");//是否免费
+		//课程类型     音频、视频、直播、线下培训班   1 2 3 4
+		commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
+		commonSql.append(" oc.smallimg_path as smallImgPath,oc.create_time,oc.is_recommend,oc.start_time,");
+		commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
+
+		commonSql.append(" from oe_course oc,oe_menu as om ");
+		commonSql.append(" where   om.id = oc.menu_id  and "
+				+ " oc.is_delete=0 and oc.status = 1   ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
+			if(city.equals("其他")){
+				Page<OfflineCity> OfflineCityPage = new Page<>();
+				OfflineCityPage.setCurrent(1);
+				OfflineCityPage.setSize(5);
+				List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
+				String citylist = " (";
+				for(OfflineCity c : oclist){
+					citylist+="'"+c.getCityName()+"',";
+				}
+				citylist = citylist.substring(0,citylist.length()-1);
+				citylist+=") ";
+				commonSql.append(" and oc.type =3 ");
+				commonSql.append(" and oc.city not in "+citylist+"");
+			}else if(city.equals("全国课程")){
+				commonSql.append(" and oc.type =3 ");
+			}else{
+				commonSql.append(" and oc.city= '"+city+"'");
+				commonSql.append(" and oc.type =3 ");
+			}
+		}
+
+		if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
+			commonSql.append(" and oc.is_free = '"+isFree+"'");
+		}
+
+		/**
+		 * 直播中的状态 4:直播课程
+		 */
+		if(lineState!=null&&lineState!=4){
+			commonSql.append(" and oc.live_status = '"+lineState+"'");
+		}
+		if(lineState!=null&&lineState==4){
+			commonSql.append(" and oc.live_status = 2 ");
+			commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
+		}
+		/**
+		 * 目前检索的是讲师名和课程id
+		 */
+		if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
+			commonSql.append(" and ");
+			commonSql.append(" oc.menu_id in (select id from oe_menu  where name like '%"+ queryKey + "%')  ");
+		}
+		if(courseType!=null) {
+			if (courseType == 1 || courseType == 2) { //视频或者音频
+				commonSql.append(" and oc.multimedia_type = '" + courseType + "'");  //多媒体类型1视频2音频
+			} else if (courseType == 3 || courseType == 4) { //直播  或者线下课程
+				commonSql.append(" and " + (courseType == 3 ? " oc.type=1 " : " oc.type =3 "));
+			}
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
+			if(menuType.equals("goodCourse")){
+				commonSql.append(" AND oc.is_essence=1 order by  oc.essence_sort desc) ");
+			}else if(menuType.equals("newCourse")){
+				commonSql.append(" order by  oc.create_time desc) ");
+			}else{
+				commonSql.append(" AND oc.menu_id = '"+menuType+"'");
+				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+			}
+		}else if(courseType!=null&&courseType==4){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+
+		}else if(courseType!=null&&courseType==3){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.start_time desc) ");
+		}else{
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+		}
+
+		commonSql.append(" union ");
+
+		commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+		commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
+		commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
+		commonSql.append(" oc.collection as collection, ");
+		commonSql.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
+		commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
+		commonSql.append(" oc.city as city, ");//是否免费
+		//课程类型     音频、视频、直播、线下培训班   1 2 3 4
+		commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
+		commonSql.append(" oc.smallimg_path as smallImgPath,oc.create_time,oc.is_recommend,oc.start_time,");
+		commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
+
+		commonSql.append(" from oe_course oc,oe_menu as om ");
+		commonSql.append(" where   om.id = oc.menu_id  and "
+				+ " oc.is_delete=0 and oc.status = 1   ");
+		if(org.apache.commons.lang.StringUtils.isNotBlank(city)){
+			if(city.equals("其他")){
+				Page<OfflineCity> OfflineCityPage = new Page<>();
+				OfflineCityPage.setCurrent(1);
+				OfflineCityPage.setSize(5);
+				List<OfflineCity> oclist = offlineCityService.selectOfflineCityPage(OfflineCityPage).getRecords();
+				String citylist = " (";
+				for(OfflineCity c : oclist){
+					citylist+="'"+c.getCityName()+"',";
+				}
+				citylist = citylist.substring(0,citylist.length()-1);
+				citylist+=") ";
+				commonSql.append(" and oc.type =3 ");
+				commonSql.append(" and oc.city not in "+citylist+"");
+			}else if(city.equals("全国课程")){
+				commonSql.append(" and oc.type =3 ");
+			}else{
+				commonSql.append(" and oc.city= '"+city+"'");
+				commonSql.append(" and oc.type =3 ");
+			}
+		}
+
+		if(org.apache.commons.lang.StringUtils.isNotBlank(isFree)){
+			commonSql.append(" and oc.is_free = '"+isFree+"'");
+		}
+
+		/**
+		 * 直播中的状态 4:直播课程
+		 */
+		if(lineState!=null&&lineState!=4){
+			commonSql.append(" and oc.live_status = '"+lineState+"'");
+		}
+		if(lineState!=null&&lineState==4){
+			commonSql.append(" and oc.live_status = 2 ");
+			commonSql.append(" and oc.start_time >= DATE_ADD(now(),INTERVAL 1 DAY) ");
+		}
+		/**
+		 * 目前检索的是讲师名和课程id
+		 */
+		if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
+			commonSql.append(" and ");
+			commonSql.append(" oc.lecturer like '%"+ queryKey + "%' ");
+		}
+		if(courseType!=null) {
+			if (courseType == 1 || courseType == 2) { //视频或者音频
+				commonSql.append(" and oc.multimedia_type = '" + courseType + "'");  //多媒体类型1视频2音频
+			} else if (courseType == 3 || courseType == 4) { //直播  或者线下课程
+				commonSql.append(" and " + (courseType == 3 ? " oc.type=1 " : " oc.type =3 "));
+			}
+		}
+		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
+			if(menuType.equals("goodCourse")){
+				commonSql.append(" AND oc.is_essence=1 order by  oc.essence_sort desc) ");
+			}else if(menuType.equals("newCourse")){
+				commonSql.append(" order by  oc.create_time desc) ");
+			}else{
+				commonSql.append(" AND oc.menu_id = '"+menuType+"'");
+				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+			}
+		}else if(courseType!=null&&courseType==4){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+
+		}else if(courseType!=null&&courseType==3){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.start_time desc) ");
+		}else{
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+		}
+
+		commonSql.append(" union ");
+
+		commonSql.append(" (select oc.id,oc.grade_name as gradeName,oc.current_price*10 as currentPrice,"
+				+ "oc.smallimg_path as smallImgPath,oc.lecturer as name,DATE_FORMAT(oc.start_time,'%m.%d') as startDateStr,");
+		commonSql.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0)"
+				+ "+IFNULL(oc.default_student_count, 0) learndCount, ");
+		commonSql.append(" if(oc.is_free =0,0,1) as watchState, ");//是否免费
+		commonSql.append(" oc.collection as collection, ");
+		commonSql.append(" if(oc.live_status = 2,if(DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()<oc.start_time,4,");
+		commonSql.append(" if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()<oc.start_time,5,oc.live_status)),oc.live_status) as  lineState ,");
+		commonSql.append(" oc.city as city, ");//是否免费
+		//课程类型     音频、视频、直播、线下培训班   1 2 3 4
+		commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
+		commonSql.append(" oc.smallimg_path as smallImgPath,oc.create_time,oc.is_recommend,oc.start_time,");
+		commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
+
 		commonSql.append(" from oe_course oc,oe_menu as om ");
 		commonSql.append(" where   om.id = oc.menu_id  and "
 				+ " oc.is_delete=0 and oc.status = 1   ");
@@ -593,11 +833,11 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		 */
 		if(org.apache.commons.lang.StringUtils.isNotBlank(queryKey)){
 			commonSql.append(" and (");
-			commonSql.append(" oc.lecturer like '%"+ queryKey + "%'");
+			commonSql.append(" oc.description like '%"+ queryKey + "%' ");
 			commonSql.append(" or ");
-			commonSql.append(" oc.grade_name like '%"+ queryKey + "%'");
+			commonSql.append(" oc.course_detail like '%"+ queryKey + "%' ");
 			commonSql.append(" or ");
-			commonSql.append(" oc.subtitle like '%"+ queryKey + "%')");
+			commonSql.append(" oc.lecturer_description like '%"+ queryKey + "%') ");
 		}
 		if(courseType!=null) {
 			if (courseType == 1 || courseType == 2) { //视频或者音频
@@ -608,20 +848,21 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		}
 		if(org.apache.commons.lang.StringUtils.isNotBlank(menuType)){
 			if(menuType.equals("goodCourse")){
-				commonSql.append(" AND oc.is_essence=1 order by  oc.essence_sort desc");
-				commonSql.append("  ");
+				commonSql.append(" AND oc.is_essence=1 order by  oc.essence_sort desc) ");
 			}else if(menuType.equals("newCourse")){
-				commonSql.append(" order by  oc.create_time desc ");
+				commonSql.append(" order by  oc.create_time desc) ");
 			}else{
 				commonSql.append(" AND oc.menu_id = '"+menuType+"'");
+				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
 			}
+		}else if(courseType!=null&&courseType==4){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
+
+		}else if(courseType!=null&&courseType==3){
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.start_time desc) ");
 		}else{
-			commonSql.append(" and oc.is_recommend = 1 order by  oc.recommend_sort desc ");
+			commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc) ");
 		}
-        
-
-
-
 
 
     	System.out.println("commonSql:"+commonSql.toString());

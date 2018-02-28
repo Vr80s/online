@@ -1,5 +1,16 @@
 var mescroll;
+var freeCourseNum;
 $(function(){
+
+    requestService("/xczh/manager/freeCourseList",{
+        pageNumber:1,
+        pageSize:10000000
+    },function(data) {
+        if(data.success==true){
+            freeCourseNum = data.resultObject.records.length;
+            freeCourseNum = (freeCourseNum + 10 - 1) / 10;
+        }
+    })
     mescroll = new MeScroll("mescroll", {
         down: {
             auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
@@ -11,11 +22,7 @@ $(function(){
             callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
             toTop:{ //配置回到顶部按钮
                 src : "../images/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
-                offset : 1000,
-                warpClass : "mescroll-totop" ,
-                showClass : "mescroll-fade-in" ,
-                hideClass : "mescroll-fade-out",
-                htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
+                offset : 1000
             }
         }
     });
@@ -30,15 +37,16 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
         pageSize:pageSize
     },function(data) {
         if(data.success==true){
-        	if(data.resultObject.records.length==0 || data.resultObject.records.length==''){
-        		$(".bought").hide();
-        		$(".no_class").show();
-        	}else{
-        		$(".no_class").hide();
-        		$(".bought").css({"padding-top":"0.3rem"});
-        		
-        	}
             if(downOrUp=='down'){
+                if(data.resultObject.records.length==0 || data.resultObject.records.length==''){
+                    $(".bought").hide();
+                    $(".no_class").show();
+                }else{
+                    $(".no_class").hide();
+                    $(".bought").css({"padding-top":"0.3rem"});
+
+                }
+
                 $(".bought_main").html(template('bought_main',{items:data.resultObject.records}));
                 mescroll.endSuccess();
                 mescroll.lockUpScroll( false );
@@ -46,7 +54,13 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
             }else {
                 $(".bought_main").append(template('bought_main',{items:data.resultObject.records}));
                 var backData = data.resultObject.records;
-                mescroll.endSuccess(backData.length);
+                //mescroll.endSuccess(backData.length);
+                var hasNext=true;
+                if(pageNumber>=freeCourseNum){
+                    hasNext=false;
+                }
+
+                mescroll.endByPage(backData.length, freeCourseNum);
             }
 
         }else{
