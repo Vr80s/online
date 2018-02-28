@@ -271,6 +271,13 @@ window.onload=function(){
     RequestService("/course/getCourseById", "POST", {
         courserId:courserId
     }, function(data) {
+    	if(data.resultObject && data.resultObject.collection == true){
+    		$('.course-outline').addClass('hide')
+	    	$('.collection-course').removeClass('hide') 
+    	}else{
+    		$('.collection-course').addClass('hide')
+	    	$('.course-outline').removeClass('hide')
+    	}
     	$().
         free=data.resultObject.free;
         $(".sidebar-body-QQ-name").append("<p class='greend-QQnumber'><span>QQ号 : </span>"+
