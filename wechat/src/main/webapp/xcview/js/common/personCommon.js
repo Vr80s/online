@@ -213,7 +213,7 @@ function updateMobile(){
         vtype:4   	//类型，3注册，2重置密码
     };
 
-    requestService("/xczh/set/updatePhone",
+    requestService("/xczh/set/phoneCheck",   //获取验证码短信
         urlparm, function(data) {
             if (data.success) {
                 //更改完手机号后，需要把session中的这个东西换下呢？
