@@ -15,8 +15,10 @@ var collection="";
 requestService("/xczh/course/details",{courseId:courseId}, function(data) {
 	 if (data.success) {
          var result = data.resultObject;
-         $(".purchase_details_title").find(".span0").html(result.name);
+
          $(".purchase_details_title").find(".span1").html(result.gradeName);
+         $(".purchase_details_title").find(".span0").html(result.name);
+         
          $(".purchase_details_money").find("span").html(result.currentPrice);
          $("#smallImgPath").attr("src",result.smallImgPath);
          
