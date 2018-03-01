@@ -560,16 +560,17 @@ window.onload = function() {
 				$(".table-modal").html(template.compile(emptyDefaul));
 			} else {
 				//获取其他数据
-				$(".table-modal").html(template.compile(courseOutline)({
-					items: data.resultObject
-				}));
-				for(var i = 0; i < $(".details-div-body p").length; i++) {
-					var $this = $(".details-div-body p").eq(i);
-					var last = $this.text().substring($this.text().length - 3, $this.text().length);
-					if(last == ".. ") {
-						$this.attr("data-txt", $this.attr("data-text"))
-					}
-				}
+				$(".table-modal").html(data.resultObject.courseOutline)
+//				$(".table-modal").html(template.compile(courseOutline)({
+//					items: data.resultObject
+//				}));
+//				for(var i = 0; i < $(".details-div-body p").length; i++) {
+//					var $this = $(".details-div-body p").eq(i);
+//					var last = $this.text().substring($this.text().length - 3, $this.text().length);
+//					if(last == ".. ") {
+//						$this.attr("data-txt", $this.attr("data-text"))
+//					}
+//				}
 			}
 		});
 	});
