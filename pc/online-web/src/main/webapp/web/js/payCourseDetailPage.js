@@ -553,10 +553,10 @@ window.onload = function() {
 //	课程大纲
 	$(".course-outline").click(function() {
 		$(".pages").css("display", "none");
-		RequestService('/course/getCourseCatalog', "GET", {
-			courseId: courserId
+		RequestService('/course/getCourseById', "GET", {
+			courserId: courserId
 		}, function(data) {
-			if(data.resultObject.length == 0) {
+			if(!data.resultObject || !data.resultObject.courseOutline) {
 				$(".table-modal").html(template.compile(emptyDefaul));
 			} else {
 				//获取其他数据
