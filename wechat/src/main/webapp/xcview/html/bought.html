@@ -76,13 +76,13 @@
 				<div class="bought_list_left">
 						<img src="../images/zhibo1.jpg" class="img0" />					
 						{{if item.type==1}}
-							<img src="{{item.smallImgPath}}" class="img1" />		
+							<img src="/xcview/images/tv_auto.png" class="img1" />		
 							{{else}}
 							<img src="/xcview/images/frequency.png" class="img1" />		
 						{{/if}}
 				</div>
 				<div class="bought_list_right">
-					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span></div>
 					<div class="bought_list_size">共<span>{{item.courseNumber}}</span>集</div>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 						{{/if}}
 					</div>
 					<div class="bought_list_right">
-						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span></div>
 						<!--<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>-->
 					</div>
 				</div>
@@ -110,7 +110,7 @@
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />
 				</div>
 				<div class="bought_list_right">
-					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</span></div>
 					<div class="bought_list_size">直播已结束</div>
 				</div>
 			</div>
@@ -122,7 +122,7 @@
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />					
 				</div>
 				<div class="bought_list_right">
-					<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+					<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</div>
 					<div class="bought_list_size">直播时间：<span>{{item.startTime}} </span></div>
 				</div>
 			</div>
@@ -134,7 +134,7 @@
 		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
 					</div>
 					<div class="bought_list_right">
-						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</div>
 						<div class="bought_list_size">直播中</div>
 					</div>
 				</div>
@@ -147,7 +147,7 @@
 
 					</div>
 					<div class="bought_list_right">
-						<div class="bought_list_title">{{item.name}}：{{item.gradeName}}</div>
+						<div class="bought_list_title">{{item.gradeName}}<br /><span class="span">{{item.name}}</div>
 						<div class="bought_list_size">上课时间：<span>{{item.startTime}}</span></div>
 					</div>
 				</div>

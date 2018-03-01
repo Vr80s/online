@@ -45,7 +45,7 @@ function myAnchor(){
 var falg =authenticationCooKie();
 function go_study(){
 		if (falg==1002){
-			location.href ="/xcview/html/enter.html";		
+			location.href ="/xcview/html/cn_login.html";		
 		}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";
 		}else{

@@ -186,7 +186,11 @@ window.onload = function() {
 		'<p class="bigpic-body-text dot-ellipsis" title="{{item.description}}">{{item.description}}</p>' +
 		'<p class="bigpic-body-list">' +
 		'<span class="body-list-right">主讲：{{item.teacherName}}</span>' +
-		'<span class="body-list-right myTimes" title="课程时长" style="cursor:default">课程时长：{{#timeChange(item.courseLength)}}</span>' +
+        '{{if item.collection == false}}'+
+        '<span class="body-list-right myTimes" title="课程时长" style="cursor:default">课程时长：{{#timeChange(item.courseLength)}}</span>' +
+        '{{else}}'+
+        '<span class="body-list-right myTimes" title="总集数" style="cursor:default">总集数：{{item.courseNumber}}</span>'+
+        '{{/if}}'+
 		'<span title="学习人数" style="cursor:default">学习人数：{{item.learndCount==null?0:item.learndCount}}人已学习</span>' +
 		'{{if item.apply==true}}' +
 		'<span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年' +
@@ -215,12 +219,16 @@ window.onload = function() {
 			'<div class="bigpic-body-btn">' +
 			'{{if item.apply==false}}' +
 			'<a  href="javascript:;" class="gotengxun purchase">立即报名</a>' +
-			'{{if item.currentPrice!="0.00"}}' +
+			/*'{{if item.currentPrice!="0.00"}}' +
 			// '<a class="free-try-to-lean" >免费试学</a>' +
 			// '<span class="addCar">加入购物车</span>' +
-			'{{/if}}' +
-			'{{else}}' +
+			'{{/if}}' +*/
+			'{{else }}' +
+			'{{if item.collection}}'+
+				'请查看选集列表'+
+			'{{else }}' +
 			'<a href="/web/html/video.html?courseId=' + courserId + '" class="purchase" >立即学习</a>' +
+       		 '{{/if}}' +
 			'{{/if}}' +
 			'</div>' +
 			'</div>' +
