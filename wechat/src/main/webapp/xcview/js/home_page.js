@@ -294,30 +294,31 @@ function listenSchool(){
 
 $(function(){
 	
-//swiper学堂小白课
-var swiper = new Swiper('.swiper-containers', {
-    slidesPerView: 5,
-    paginationClickable: true,
-    spaceBetween: 10
+	//swiper学堂小白课
+	var swiper = new Swiper('.swiper-containers', {
+	    slidesPerView: 5,
+	    paginationClickable: true,
+	    spaceBetween: 10
+	});
+	
+	
+	//swiper医师滑动
+	var swiper = new Swiper('.swiper-container', {
+	    slidesPerView: 5,
+	    paginationClickable: true,
+	    spaceBetween: 10
+	});
+	//swiper线下课省滑动
+	var swiper = new Swiper('#swiper1', {
+	    slidesPerView: 5,
+	    paginationClickable: true,
+	    spaceBetween: 10
+	});
 });
 
 
-//swiper医师滑动
-var swiper = new Swiper('.swiper-container', {
-    slidesPerView: 5,
-    paginationClickable: true,
-    spaceBetween: 10
-});
-//swiper线下课省滑动
-var swiper = new Swiper('#swiper1', {
-    slidesPerView: 5,
-    paginationClickable: true,
-    spaceBetween: 10
-});
 
-
-
-})
+//})
 //JQ预加载分界线----------------------------------------------------------------
 //学堂/推荐/课程跳转
 //function jump(id){
