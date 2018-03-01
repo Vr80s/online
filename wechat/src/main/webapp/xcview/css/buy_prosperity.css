@@ -261,17 +261,18 @@ header {
 .boutique_main_one_size P span{
 	font-size: 0.511rem;
     color: #F97B49;
-    overflow: hidden;
+    /*overflow: hidden;*/
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
     max-width: 1.8rem;
+    line-height: 0.426rem;
 }
 .boutique_main_one_size p:first-child{
-	margin-right: 0.213rem;
+	/*margin-right: 0.213rem;*/
     float: left;
-    min-width: 2rem;
-    max-width: 3.4rem;
+    /*min-width: 2rem;
+    max-width: 3.4rem;*/
     height: 0.51rem;
     line-height: 0.51rem;
 	
@@ -279,10 +280,13 @@ header {
 .boutique_main_one_size .p2{
 	height: 0.51rem;
     line-height: 0.51rem;
+    margin: 0 0.2rem;
+    float: left;
 }
 .boutique_main_one_size .p2 img{
 	width: 0.404rem;
 	height: 0.468rem;
+	float: left;
 }
 .boutique_main_one_size .p2 span{
 	font-size: 0.511rem;
@@ -341,20 +345,22 @@ header {
     max-width: 1.8rem;*/
 }
 .boutique_main_two_size p:first-child{
-	margin-right: 0.213rem;
+	/*margin-right: 0.213rem;
     float: left;
     min-width: 2rem;
-    max-width: 3.4rem;
+    max-width: 3.4rem;*/
+   float: left;
     height: 0.51rem;
-    line-height: 0.51rem;
+    line-height: 0.426rem;
 	
 }
 .boutique_main_two_size .p2{
-	min-width: 1.05rem;
+	/*min-width: 1.05rem;
     max-width: 2.5rem;
-	height: 0.51rem;
+	height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
+    margin: 0 0.2rem;
 }
 .boutique_main_two_size .p2 img{
 	width: 0.404rem;
@@ -370,8 +376,8 @@ header {
     max-width: 1.5rem;
 }
 .boutique_main_two_size .p3{
-	height: 0.51rem;
-	width: 1.9rem;
+	/*height: 0.51rem;
+	width: 1.9rem;*/
     float: left;
     line-height: 0.51rem;
 }
@@ -503,20 +509,21 @@ header {
     color: #F97B49;
 }
 .boutique_main_four_size p:first-child{
-	margin-right: 0.213rem;
+	/*margin-right: 0.213rem;*/
     float: left;
-    min-width: 2rem;
-    max-width: 3.4rem;
+    /*min-width: 2rem;
+    max-width: 3.4rem;*/
     height: 0.51rem;
     line-height: 0.51rem;
 	
 }
 .boutique_main_four_size .p2{
-	min-width: 1.05rem;
-    max-width: 2.5rem;
-	height: 0.51rem;
+	/*min-width: 1.05rem;
+    max-width: 2.5rem;*/
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
+    margin: 0 0.2rem;
 }
 .boutique_main_four_size .p2 img{
 	width: 0.404rem;
@@ -532,7 +539,7 @@ header {
     max-width: 1.5rem;
 }
 .boutique_main_four_size .p3{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
 	/*width: 1.9rem;*/
     float: left;
     line-height: 0.51rem;
