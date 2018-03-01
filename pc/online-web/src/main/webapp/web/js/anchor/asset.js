@@ -40,6 +40,9 @@ function getCoinTransactionList (current){
             }
         }
         $("#coin_transaction_list").html(template('coin_transaction_list_tpl', data.resultObject));
+        if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
+        	$('.pandaTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+        }
         debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
@@ -81,6 +84,9 @@ function getRmbTransactionList (current){
             }
         }
         $("#rmb_transaction_list").html(template('rmb_transaction_list_tpl', data.resultObject));
+         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
+        	$('.rmbTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+        }
 
 		//银行卡处理
         for(var i = 0;i < $('.bankCard').length;i++){
