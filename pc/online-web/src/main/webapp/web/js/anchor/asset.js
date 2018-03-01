@@ -283,11 +283,16 @@ function saveEnchashment(){
     if(verifyEnchashment(data)){
         RequestService("/anchor/enchashment", "post", data, function(data) {
             if(data.success){
+            	$('.phonePwdIpt_warn ').addClass('hide')
                 showTip(data.resultObject);
                 initBasaeAssetInfo();
                 window.location.reload();
             }else {
-                showTip(data.errorMessage);
+            	if(data.errorMessage == "动态码不正确！"){
+            		$('.phonePwdIpt_warn ').text('动态码不正确');
+            		$('.phonePwdIpt_warn ').removeClass('hide')
+            	}
+//              showTip(data.errorMessage);
             }
         });
     }

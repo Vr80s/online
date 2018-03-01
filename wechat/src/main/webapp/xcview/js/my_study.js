@@ -84,13 +84,18 @@ $(".paly_ing").click(function(){
 })
 
 
-//搜索历史播放
+/*
+ * 搜索历史播放   点击事件
+ */
 function go_play_hos(type,lineState,collection,id){
-	if(type ==3 && (lineState ==4 || lineState ==1 || lineState ==3 )){ //直播间
+	
+	if(type ==3 && (lineState ==1 || lineState ==3 || lineState ==4)){ //直播间  
 		location.href="details.html?courseId="+id
-	}else if(type ==1 || type ==2){ //课程页面
+	}else if(type ==3 && (lineState ==2 || lineState ==5)){ //预告的、回放的
+		location.href="live_play.html?my_study="+id
+	}else if((type ==1 || type ==2) && !collection){ //课程页面
 		location.href="live_audio.html?my_study="+id
-	}else if(type ==4){ //线下培训班
+	}else if(type ==4){								 //线下培训班
 		location.href="live_class.html?my_study="+id
 	}else if((type ==1 || type ==2) && collection){
 		location.href="live_select_album.html?my_study="+id
