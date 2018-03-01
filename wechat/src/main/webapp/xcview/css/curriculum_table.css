@@ -248,15 +248,15 @@ header{
 
 .li_list_one{
 	width: 7.24rem;
-	height: 1.2rem;
-	padding-bottom: 0.2rem;
+	min-height: 1.2rem;
+	/*padding-bottom: 0.2rem;*/
 	border-bottom: 1px solid #D8DDE6;
     margin-bottom: 0.2rem;
     float: right;
 }
 .li_list_one_left{
 	width: 2.12rem;
-	height: 1.2rem;
+	/*height: 1.2rem;*/
 	position: relative;
 	float: left;
 	margin-right: 0.2rem;
@@ -279,6 +279,10 @@ header{
     overflow: hidden;
     margin-bottom: 0.16rem;
     width: 4.7rem;
+}
+.li_list_one_right .p00 .span{
+	font-size: 0.22rem;
+	color: #999999;
 }
 .li_list_one_right .div .p0{
 	font-size: 0.24rem;
@@ -304,6 +308,10 @@ header{
     white-space: nowrap;
     text-overflow: ellipsis;
     height: 0.25rem;
+}
+.li_list_one_right .div .p0 .span{
+	font-size: 0.22rem;
+	color: #999;
 }
 .li_list_one_right .div .p1 {
     font-size: 0.24rem;
@@ -351,7 +359,7 @@ header{
 	float: left;
 	margin-left: 0.05rem;
 }
-.li_list_one:last-child{
+.li_list_main .li_list_div:last-child .li_list_one:last-child{
 	border: none;
 }
 

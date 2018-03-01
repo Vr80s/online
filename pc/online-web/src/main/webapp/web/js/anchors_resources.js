@@ -444,7 +444,7 @@ function clearHosList(){
     //详细地址清空
     $('#detail_address').val('')
     //封面清空
-    $('#hospital .fengmian_pic').html('	<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;">点击上传医馆封面图资图片</p>');
+    $('#hospital .fengmian_pic').html('	<p style="font-size: 90px;height: 100px;font-weight: 300;color: #d8d8d8;text-align: center;">+</p><p style="text-align: center;color: #999;font-size: 14px;"></p>');
     //电话清空
     $('#hospital .hosTel').val('');
     //坐诊时间
