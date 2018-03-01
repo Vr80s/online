@@ -66,11 +66,26 @@
     			<ul>
     				<!--视频-->
     				<div class="lectures"></div>
+    				
+    				
+<!--     				if(type ==3 && (lineState ==4 || lineState ==1 || lineState ==3)){ //直播间
+		location.href="details.html?courseId="+id
+	}else if(type ==1 || type ==2){ //课程页面
+		
+		location.href="live_audio.html?my_study="+id
+		
+	}else if(type ==4){ //线下培训班
+		location.href="live_class.html?my_study="+id
+	}else if((type ==1 || type ==2) && collection){
+		location.href="live_select_album.html?my_study="+id
+	} -->
+    				
     				<script type="text/html" id="lectures">
 	                {{each items as item i}}
     				<li>
     					<div class="boutique_main_one">
-    						<div class="boutique_one_img" onclick="jump()">
+				
+							<div class="boutique_one_img" onclick="guesYouLike({{item.type}},{{item.id}})">	
     							<img src="{{item.smallImgPath}}" alt="" />
     						</div>
     						<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />

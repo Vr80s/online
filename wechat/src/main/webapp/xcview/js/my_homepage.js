@@ -58,7 +58,7 @@ var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 //已购
 function go_enter(){
 	if (falg==1002){
-			location.href ="/xcview/html/enter.html";		
+			location.href ="/xcview/html/cn_login.html";		
 	}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";
 	}else{
@@ -68,7 +68,7 @@ function go_enter(){
 //钱包
 function go_cnlogin(){
 	if (falg==1002){
-			location.href ="/xcview/html/enter.html";		
+			location.href ="/xcview/html/cn_login.html";		
 	}else if (falg==1005) {
 			location.href ="/xcview/html/evpi.html";
 	}else{

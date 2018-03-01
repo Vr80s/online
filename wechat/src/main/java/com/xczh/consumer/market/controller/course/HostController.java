@@ -136,9 +136,25 @@ public class HostController {
 		/**
 		 * 此主播最近一次的直播
 		 */
-		CourseLecturVo vlv = courseService.selectLecturerRecentCourse(lecturerId);
-		mapAll.put("recentCourse", vlv);
-
+		CourseLecturVo cv = courseService.selectLecturerRecentCourse(lecturerId);
+		if(user!=null && cv!=null){
+			/**
+			 * 如果用户不等于null,且是主播点击的话，就认为是免费的
+			 */
+			if(cv.getUserLecturerId().equals(user.getId())){
+			    cv.setWatchState(3);
+			    return ResponseObject.newSuccessResponseObject(cv);
+		    }
+			if(cv.getWatchState()==1){  //免费的课程啦
+				onlineWebService.saveEntryVideo(cv.getCourseId(), user);
+				
+			}else if(cv.getWatchState()==0){ //收费课程
+				if(onlineWebService.getLiveUserCourse(cv.getCourseId(),user.getId()).size()>0){  //大于零--》用户购买过  
+					cv.setWatchState(2);
+				}
+			}
+		}
+		mapAll.put("recentCourse", cv);
 	    return ResponseObject.newSuccessResponseObject(mapAll);
 	}
 	/**

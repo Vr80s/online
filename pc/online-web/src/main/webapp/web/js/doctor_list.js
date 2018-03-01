@@ -71,6 +71,7 @@ $(function(){
 	        	if(data.resultObject.pages == current){
 	        		$('.search_more').css('display','none')
 	        	}
+	        	$('#search_num').text('共找到'+data.resultObject.total+'位名医')
 	           $('#doctor_list').append(template('doctorListTpl',data.resultObject));
 	        }
 	    });
