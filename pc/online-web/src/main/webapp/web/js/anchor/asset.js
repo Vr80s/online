@@ -320,7 +320,7 @@ function verifyEnchashment(data){
     }else{
         $('.warning_amount_null').addClass('hide');
     }
-    if(!numberCk(data.amount)){
+    if(!numberCk(data.amount) || data.amount <= 0 ){
         $('.warning_amount_illegal').removeClass('hide');
         return false;
     }else{
