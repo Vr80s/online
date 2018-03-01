@@ -272,11 +272,11 @@ window.onload=function(){
         courserId:courserId
     }, function(data) {
     	if(data.resultObject && data.resultObject.collection == true){
-    		$('.course-outline').addClass('hide')
+    		$('.course-outline').removeClass('hide')
 	    	$('.collection-course').removeClass('hide') 
     	}else{
     		$('.collection-course').addClass('hide')
-	    	$('.course-outline').removeClass('hide')
+	    	$('.course-outline').addClass('hide')
     	}
     	$().
         free=data.resultObject.free;
