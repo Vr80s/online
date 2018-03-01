@@ -45,9 +45,7 @@ public class CourseDao extends SimpleHibernateDao {
     private  VideoDao  videoDao;
     @Autowired
     private  ApplyGradeCourseDao  applyGradeCourseDao;
-    @Autowired
-    private  GiftDao  giftDao;
-    
+
     //成为分享大使课程的id，购买此课程可成为分享大使
     @Value("${share.course.id:191}")
     private String shareCourseId;
