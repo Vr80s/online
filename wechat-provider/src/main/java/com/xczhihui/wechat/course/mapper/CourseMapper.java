@@ -62,4 +62,5 @@ public interface CourseMapper extends BaseMapper<Course> {
 	List<CourseLecturVo> selectUserConsoleCourseLiveByPage(@Param("page") Page<CourseLecturVo> page,@Param("userId")String userId);
 
 	List<CourseLecturVo> listenCourseList();
+	List<CourseLecturVo> findLiveListInfo();
 }

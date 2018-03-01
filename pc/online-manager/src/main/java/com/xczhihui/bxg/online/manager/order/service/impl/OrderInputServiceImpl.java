@@ -142,7 +142,8 @@ public class OrderInputServiceImpl extends OnlineBaseServiceImpl implements Orde
 			dao.save(u);
 			UserCoin userCoin = new UserCoin();
 			userCoin.setUserId(u.getId());
-			userCoin.setBalance(BigDecimal.ZERO);;
+			userCoin.setBalance(BigDecimal.ZERO);
+			userCoin.setRmb(BigDecimal.ZERO);
 			userCoin.setBalanceGive(BigDecimal.ZERO);
 			userCoin.setBalanceRewardGift(BigDecimal.ZERO);
 			userCoin.setDeleted(false);

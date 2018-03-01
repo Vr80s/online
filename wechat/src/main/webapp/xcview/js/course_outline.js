@@ -12,14 +12,19 @@ requestService("/xczh/course/details",{
 		
 //课程大纲
 		$(".outline_list_ul").html(data.resultObject.courseOutline);
-		var index_my=$(".outline_list_ul p").index()+1;
-		if(0<index_my<=9){
-			var number_s='0'+index_my;
-			$(".outline_list_ul p").prepend('<span>'+number_s+'&nbsp'+'</span>')		
-		}else{
-			var number_m=index_my;
-			$(".outline_list_ul p").prepend('<span>'+number_m+'&nbsp'+'</span>')		
-		}
+	
+//			var index_my=$(".outline_list_ul p").index()+1;
+//			if(0<index_my<=9){
+//				var number_s='0'+index_my;
+//				$(".outline_list_ul p").prepend('<span>'+number_s+'&nbsp'+'</span>')		
+//			}else{
+//				var number_m=index_my;
+//				$(".outline_list_ul p").prepend('<span>'+number_m+'&nbsp'+'</span>')		
+//			}
+	
+
+
+
 //		标题		
 		$(".outline_main").html(template('outline_main',data.resultObject)) 	    	
   	
