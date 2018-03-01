@@ -3,6 +3,7 @@ package com.xczhihui.medical.anchor.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
+import com.xczhihui.bxg.online.common.utils.IDCard;
 import com.xczhihui.medical.anchor.mapper.UserBankMapper;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
@@ -168,6 +169,8 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		}
 		if(StringUtils.isBlank(userBank.getCertId())){
 			throw new RuntimeException("身份证号不可为空");
+		}else if(!IDCard.validator(userBank.getCertId())){
+			throw new RuntimeException("身份证号不正确");
 		}
 	}
 
