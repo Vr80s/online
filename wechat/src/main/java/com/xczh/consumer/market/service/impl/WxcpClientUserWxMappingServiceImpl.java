@@ -106,6 +106,12 @@ public class WxcpClientUserWxMappingServiceImpl implements WxcpClientUserWxMappi
 			String userId, String unionId) throws SQLException {
 		return wxcpClientUserWxMappingMapper.getWxcpClientUserWxMappingByOpenId(userId,unionId);
 	}
+
+	@Override
+	public void deleteAccount(String userId) throws SQLException {
+		// TODO Auto-generated method stub
+		wxcpClientUserWxMappingMapper.deleteAccount(userId);
+	}
 	
 
 }

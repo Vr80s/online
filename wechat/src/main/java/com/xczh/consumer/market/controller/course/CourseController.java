@@ -83,6 +83,8 @@ public class CourseController {
 		
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
+		
+
 		/**
 		 * 这里需要判断是否购买过了
 		 */
@@ -159,6 +161,8 @@ public class CourseController {
 		}
 		
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
+		
+		
 		
 		/**
 		 * 这里需要判断是否购买过了
@@ -255,21 +259,25 @@ public class CourseController {
 	 */
 	public Double criticizeStartLevel(Double startLevel){
 		
+		LOGGER.info("之前  startLevel  ------》   {}{}{}{}"+startLevel);
 		if(startLevel!=null && startLevel!=0){ //不等于0
-			
 			  String b = startLevel.toString();
-			  if(b.length()>1){ //不等于整数
+			  if(b.length()>1 && !b.substring(b.length()-1,b.length()).equals("0")){ //不等于整数
 				  String [] arr = b.split("\\.");
 				  Integer tmp = Integer.parseInt(arr[1]);
 				  if(tmp>=5){
+					  LOGGER.info("之后     startLevel  ------》   【】【】【】【】【】"+startLevel);
 					  return  (double) (Integer.parseInt(arr[0])+1);
 				  }else{
+					  LOGGER.info("之后     startLevel  ------》   【】【】【】【】【】"+startLevel);
 					  return Double.valueOf(arr[0]+"."+5);
 				  }
 			  }else{
+				  LOGGER.info("之后     startLevel  ------》   【】【】【】【】【】"+startLevel);
 				  return startLevel; 
 			  }
 		}
+		LOGGER.info("之后     startLevel  ------》   【】【】【】【】【】"+startLevel);
 		return startLevel;
 	}
 	

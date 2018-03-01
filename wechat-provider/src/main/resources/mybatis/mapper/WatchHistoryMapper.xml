@@ -20,7 +20,7 @@
 		FROM
 		  oe_watch_history1 owh 
 		  inner join oe_course oc on owh.course_id = oc.id
-		  where owh.user_id =#{userId}   order by owh.create_time desc 
+		  where owh.user_id =#{userId}   order by owh.create_time desc limit 0,5
 	</select>		  
 	
 <!-- 	@Param("userId") Integer type, @Param("courseId") -->

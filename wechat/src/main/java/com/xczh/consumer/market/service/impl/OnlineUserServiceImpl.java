@@ -703,5 +703,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 			throws SQLException {
 		return onlineUserDao.findHostById(lecturerId);
 	}
+	@Override
+	public void emptyAccount(String userName) throws SQLException {
+		
+		onlineUserDao.emptyAccount(userName);
+	}
 	
 }

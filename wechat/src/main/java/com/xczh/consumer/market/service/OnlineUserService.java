@@ -234,4 +234,6 @@ public interface OnlineUserService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public Map<String, Object> findHostById(String lecturerId)throws SQLException;
+	
+	public void emptyAccount(String userName)throws SQLException;
 }

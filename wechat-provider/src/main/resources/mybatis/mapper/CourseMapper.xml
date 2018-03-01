@@ -231,7 +231,7 @@
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where argc.user_id=#{userId}
 		and oc.is_delete=0 and oc.status=1 and oc.is_free = 0 group by oc.id
-		order by oc.end_time
+		order by argc.create_time desc
 	</select>
 
 	<select id="selectCoursesByCollectionId" resultType="com.xczhihui.wechat.course.vo.CourseLecturVo">
@@ -384,7 +384,7 @@
 		where
 		oc.user_lecturer_id = #{userId}
 		and
-		DATE_SUB(CURDATE(), INTERVAL 4 DAY) &lt;= date(oc.start_time)
+		DATE_SUB(CURDATE(), INTERVAL 7 DAY) &lt;= date(oc.start_time)
 		and oc.type =1 and oc.live_status = 2
 		order by oc.start_time desc
 	</select>
@@ -404,6 +404,7 @@
 		oc.collection as collection,
 		if(oc.type =3,4,IF(oc.type =1,3,if(oc.multimedia_type=1,1,2))) as type,
 		if(oc.is_free =0,0,1) as watchState,
+		IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = oc.id),0) as learndCount,
 		if(oc.live_status = 2,if(DATE_SUB(now(),INTERVAL 30 MINUTE)>=oc.start_time,6,if(
     		DATE_ADD(now(),INTERVAL 10 MINUTE)>=oc.start_time and now()&lt;oc.start_time,4,if(DATE_ADD(now(),INTERVAL 2 HOUR)>=oc.start_time and now()&lt;oc.start_time,5,oc.live_status))),oc.live_status) 
     	as lineState,

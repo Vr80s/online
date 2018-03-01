@@ -117,7 +117,7 @@
 			
 			var queryKey = $(obj).find(".div0").text();
 			
-			location.href="../html/curriculum_table.html?queryKey="+queryKey+"";
+			location.href="../html/curriculum_table.html?queryKey="+queryKey+"&curriculum_blck=2";
 		}
 
 		//历史记录删除事件
@@ -178,11 +178,11 @@
                             removeByValue(arr, keyValue);
                             arr.unshift($('#header_input').val());
                             localStorage.hisArr = arr;
-                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
 						}else{
                             arr.unshift($('#header_input').val())
                             localStorage.hisArr = arr;
-                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
 						}
 
 			        } 

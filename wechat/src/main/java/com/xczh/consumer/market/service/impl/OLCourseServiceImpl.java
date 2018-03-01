@@ -277,6 +277,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 				+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = o.id),0) + IFNULL(o.default_student_count, 0) learndCount,"
 				+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 				+" o.collection as collection,"
+				+" o.is_free as watchState,"
 				+" o.is_recommend,o.start_time,"
 				+" if(o.is_recommend=1,o.recommend_sort,-10000) as recommend_sort,"
 				+"'全国课程' as note "
@@ -296,6 +297,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 					+"IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = o.id),0) + IFNULL(o.default_student_count, 0) learndCount,"
 					+"if(date_sub(date_format(o.start_time,'%Y%m%d'),INTERVAL 1 DAY)>=date_format(now(),'%Y-%m-%d'),1,0) as cutoff," //是否截止
 					+" o.collection as collection,"
+					+" o.is_free as watchState,"
 					+" o.is_recommend,o.start_time,"
 					+" if(o.is_recommend=1,o.recommend_sort,-10000) as recommend_sort,"
 					+" o.city as note "

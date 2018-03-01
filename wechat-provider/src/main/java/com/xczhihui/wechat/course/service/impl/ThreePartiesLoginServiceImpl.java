@@ -90,4 +90,12 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 		return qqClientUserMappingMapper.selectUserBindingInfo(userId);
 	}
 
+	@Override
+	public void deleteAccount(String id) {
+		// TODO Auto-generated method stub
+		
+		qqClientUserMappingMapper.deleteAccount(id);
+		weiboClientUserMappingMapper.deleteAccount(id);
+	}
+
 }

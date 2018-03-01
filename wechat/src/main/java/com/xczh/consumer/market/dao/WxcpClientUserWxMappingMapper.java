@@ -244,5 +244,12 @@ public class WxcpClientUserWxMappingMapper extends BasicSimpleDao{
 		Object params[] = {userId,unionId};
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new BeanHandler<>(WxcpClientUserWxMapping.class),params);
 	}
+
+	public void deleteAccount(String userId) throws SQLException {
+		StringBuilder sb = new StringBuilder("");
+		sb.append("delete from  wxcp_client_user_wx_mapping  where client_id =? ");
+		Object[] params = {userId};
+		this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
+	}
 		
 }

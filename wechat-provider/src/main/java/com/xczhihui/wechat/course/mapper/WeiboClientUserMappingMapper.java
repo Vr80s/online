@@ -46,4 +46,6 @@ public interface WeiboClientUserMappingMapper extends BaseMapper<WeiboClientUser
 	 */
 	void updateByIdByMapper(String id);
 
+	void deleteAccount(String userId);
+
 }

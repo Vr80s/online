@@ -44,4 +44,6 @@ public interface QQClientUserMappingMapper extends BaseMapper<QQClientUserMappin
 	
 	
 	Map<String,Object> selectUserBindingInfo(@Param("userId")String userId);
+
+	void deleteAccount(String id);
 }
