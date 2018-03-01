@@ -349,10 +349,9 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	min-height: 4.5rem;
 }
 .wrap p img{
-	width: 100%;
+	/*width: 100%;*/
 }
 .zhezhao{
 	width: 100%;
@@ -384,6 +383,7 @@ color: #999999;
 	width: 0.3rem;
 	display: inline-block;
 	margin-left: 0.1rem;
+	margin-top: 0.1rem;
 }
 .no_data{
 	display: none;
@@ -440,11 +440,9 @@ color: #999999;
 	position: relative;
 	text-align: justify;
 	padding-top: 0.1rem;
-	/*line-height: 2rem;*/
-	min-height: 4.5rem;
 }
 .wrap1 p img{
-	width: 100%;
+	/*width: 100%;*/
 }
 .zhezhao1{
 	width: 100%;
@@ -456,6 +454,7 @@ color: #999999;
 .zhezhao1 img{
 	width: 100%;
 	height: 100%;
+	margin-top: 0.1rem;
 }
 .pp1{
 	overflow: hidden;

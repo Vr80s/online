@@ -258,8 +258,7 @@ requestService("/xczh/host/hostPageCourse",{
 
 
 	//判断主播是否在开直播及最近一次直播
-	var falg =authenticationCooKie();
-	
+	var falg =authenticationCooKie();	
 function go_play(t){
 	var data_id=$(t).attr("data-play");
 	console.log(data_id)

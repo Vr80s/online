@@ -41,6 +41,7 @@
         -ms-flex-align: center;
         -webkit-align-items: center;
         align-items: center;
+        width: 62px;  /*新添加宽度,隐藏掉就会出现头像栏全屏宽度*/
     }
     .slide_one_div{
 	    color: #333;
@@ -342,7 +343,7 @@
             	</div>
 				<!--swiper小白班结束-->
 				<!--swiper推荐名师开始-->	                    	
-            	<div class="swiper_box" id="doctor_follow">
+            	<div class="swiper_box" id="doctor_follow" >
             		<p>名师推荐</p>
                 	<div class="swiper-container">
 				        <div class="swiper-wrapper" id="phy_box">
@@ -373,7 +374,7 @@
             	<script type="text/html" id="shipin">
 						{{each items as item i}} 
             	<div class="acupuncture">
-            		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}</div>
+            		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="boutique_main">
             			<ul>
             				<!--视频-->
@@ -520,7 +521,7 @@
             		{{each items as itemls i}}
 
             	<div class="newest">
-            		<div class="newest_title" lineState="{{itemls.lineState}}">{{itemls.title}}</div>
+            		<div class="newest_title" lineState="{{itemls.lineState}}">{{itemls.title}}<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="newest_main">
             			<ul>
             				{{each itemls.courseList as item i}}
@@ -581,7 +582,7 @@
 				
             	<!--听课推荐开始-->
             	<div class="lectures">
-            		<div class="lectures_title" >听课推荐</div>
+            		<div class="lectures_title" >听课推荐<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="lectures_main">
             			<ul class="lecturess">
             				<script type="text/html" id="lectures">
@@ -650,7 +651,7 @@
 			</li>
 			<li>
 				<a href="my_homepage.html" class="footer_four"></a>
-				<p>我</p>
+				<p>我的</p>
 			</li>
 		</ul>
 	</div>
@@ -849,6 +850,5 @@ for(var i=0;i<as.length;i++){
 }
 
 </script>
-
 
 </html>

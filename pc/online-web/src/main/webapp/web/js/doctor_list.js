@@ -62,8 +62,9 @@ $(function(){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理 
 //	           alert("没有数据/搜索失败")
-				$('#doctor_list').html('<h3>暂无数据</h3>');
+				$('#doctor_list').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999">抱歉，没有找到“<span style="color:#00BC12">'+name+'</span>”相关医师</p></div>');
 				$('.search_more').css('display','none')
+				$('#search_num').text('共找到'+data.resultObject.total+'位名医')
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
@@ -71,6 +72,7 @@ $(function(){
 	        	if(data.resultObject.pages == current){
 	        		$('.search_more').css('display','none')
 	        	}
+	        	$('#search_num').text('共找到'+data.resultObject.total+'位名医')
 	           $('#doctor_list').append(template('doctorListTpl',data.resultObject));
 	        }
 	    });
@@ -96,7 +98,7 @@ $(function(){
 		  	type = $('#doctor_search_condition1 span').attr('data-type');
 		  }
 		  
-		  console.log(name)
+//		  console.log(name)
 		  getHostipalList(current,size,name,type,departmentId);
 //		}
 		});

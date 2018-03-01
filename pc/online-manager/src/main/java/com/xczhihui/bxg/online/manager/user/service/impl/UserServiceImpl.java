@@ -315,6 +315,7 @@ public class UserServiceImpl implements UserService {
 		UserCoin userCoin = new UserCoin();
 		userCoin.setUserId(userId);
 		userCoin.setBalance(BigDecimal.ZERO);
+		userCoin.setRmb(BigDecimal.ZERO);
 		userCoin.setBalanceGive(BigDecimal.ZERO);
 		userCoin.setBalanceRewardGift(BigDecimal.ZERO);
 		userCoin.setDeleted(false);

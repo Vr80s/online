@@ -14,6 +14,9 @@ a{
 .both{
 	clear: both;
 }
+body{
+	font-family: "Helvetica";
+}
 header {
     width: 100%;
     height: 0.88rem;
@@ -107,10 +110,16 @@ header {
 }
 .bought_list_title{
 	/*width: 7rem;*/
-	height: 0.8rem;
+	max-height: 0.8rem;
 	font-size: 0.28rem;
 	color: #333333;
 	margin-bottom: 0.1rem;
+	overflow: hidden;
+
+}
+.bought_list_title .span{
+	font-size: 0.22rem;
+	color: #999;
 }
 .bought_list_size{
 	font-size: 0.22rem;

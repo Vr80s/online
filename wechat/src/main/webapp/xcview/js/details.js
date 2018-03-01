@@ -73,7 +73,7 @@ requestService(
 				var children = $("#zhibopinglun [class='p2']")
 						.text(result.name);
 
-				$(".anchor_center").text(result.description);
+				$(".anchor_center").html(result.description);
 
 				/**
 				 * 关注 0 未关注 1 关注

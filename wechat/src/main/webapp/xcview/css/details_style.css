@@ -520,7 +520,8 @@ div.pinch-zoom,
 	padding-top: 0.638rem;
 }
 .anchor_center{
-	overflow: hidden;
+	overflow-y: scroll;
+	max-height: 14rem;
 }
 
 

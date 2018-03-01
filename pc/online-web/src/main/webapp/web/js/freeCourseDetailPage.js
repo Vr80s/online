@@ -36,6 +36,7 @@ template.helper("stuEvluatStars", function(num) {
 	}
 	return start;
 });
+var collection;
 window.onload=function(){
 	
 	
@@ -203,7 +204,11 @@ window.onload=function(){
         '<p class="bigpic-body-text dot-ellipsis" title="{{item.description}}">{{item.description}}</p>' +
         '<p class="bigpic-body-list">' +
         '<span class="body-list-right">主讲：{{item.teacherName}}</span>' +
+        '{{if item.collection == false}}'+
         '<span class="body-list-right myTimes" title="课程时长" style="cursor:default">课程时长：{{#timeChange(item.courseLength)}}</span>' +
+        '{{else}}'+
+        '<span class="body-list-right myTimes" title="总集数" style="cursor:default">总集数：{{item.courseNumber}}</span>'+
+        '{{/if}}'+
         '<span title="学习人数" style="cursor:default">学习人数：{{item.learndCount==null?0:item.learndCount}}人已学习</span>' +
         '{{if item.apply==true}}'+
         '<span title="有效期" style="cursor:default;color:#333;" class="youxiaoqi">有效期：1年' +
@@ -221,14 +226,18 @@ window.onload=function(){
         '</p>' +
         '<div class="bigpic-body-btn">' +
         '{{if item.apply==true}}'+
+        '{{if item.collection}}'+
+        '<a class="purchase" style="background-color:#ccc;border-radius:4px">您已购买该课程，可直接点击选集列表进行学习</a>'+
+        '{{else }}' +
         '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/video.html?courseId='+courserId+'" >立即学习</a>'+
+        '{{/if}}' +
         '{{else}}'+
         '<a class="sign-up purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" target="_blank">立即报名</a>'+
         '{{/if}}'+
         '</div>'+
         '</div>' +
         '{{else}}' +
-        '<p class="bigpic-body-money">' +
+       /* '<p class="bigpic-body-money">' +
         '<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
         '<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
         '</p>' +
@@ -236,7 +245,7 @@ window.onload=function(){
         '<a href="javascript:;" class="purchase" target="_blank">立即报名</a>'+
         '<a href="javascript:;" class="free-try-to-lean" ">免费试学</a>'+
         '</div>'+
-        '</div>' +
+        '</div>' +*/
         '{{/if}}';
     var emptyDefaul =
         "<div class='page-no-result'>" +
@@ -271,12 +280,13 @@ window.onload=function(){
     RequestService("/course/getCourseById", "POST", {
         courserId:courserId
     }, function(data) {
+        collection = data.resultObject.collection;
     	if(data.resultObject && data.resultObject.collection == true){
-    		$('.course-outline').addClass('hide')
+    		$('.course-outline').removeClass('hide')
 	    	$('.collection-course').removeClass('hide') 
     	}else{
     		$('.collection-course').addClass('hide')
-	    	$('.course-outline').removeClass('hide')
+	    	$('.course-outline').addClass('hide')
     	}
     	$().
         free=data.resultObject.free;
@@ -374,13 +384,21 @@ window.onload=function(){
                                 }, function(data) {
                                     if(data.success == true){
                                         if(data.resultObject=="报名成功"){
-                                            $(".sign-up-body,.gotengxun").css("display","none");
-                                            $(".sign-up-success,.baomingSucces").css("display","block");
-                                            $(".bigpic-body-btn .sign-up").text("立即学习");
-                                            $(".sign-up,.baomingSucces").attr("href","/web/html/video.html?courseId="+courserId);
-                                            $(".sign-up1").css("display","none");
-                                            $("#payCourseSlider .baomingSucces").css("display","block");
-                                            $(".sign-up").unbind("click");
+                                            if(!collection){
+                                                $(".sign-up-body,.gotengxun").css("display","none");
+                                                $(".sign-up-success,.baomingSucces").css("display","block");
+                                                $(".bigpic-body-btn .sign-up").text("立即学习");
+                                                $(".sign-up,.baomingSucces").attr("href","/web/html/video.html?courseId="+courserId);
+                                                $(".sign-up1").css("display","none");
+                                                $("#payCourseSlider .baomingSucces").css("display","block");
+                                                $(".sign-up").unbind("click");
+                                            }else{
+                                                $(".background-big").css("display","none");
+                                                $("#sign-up-modal").css("display","none");
+                                                $(".sign-up").css("display","none");
+                                                $(".bigpic-body-btn").html('<a class="purchase" style="background-color:#ccc;border-radius:4px">您已购买该课程，可直接点击选集列表进行学习</a>');
+                                                $(".yibaoming").css("display","block");
+                                            }
                                         }
                                         $(".sign-up-title img").click(function(){
                                             $(".yibaoming").css("display","block");
@@ -446,21 +464,22 @@ window.onload=function(){
     //课程大纲
     $(".course-outline").click(function () {
         $(".pages").css("display","none");
-        RequestService('/course/getCourseCatalog',"GET",{courseId:courserId},function(data){
-            if(data.resultObject.length==0){
+        RequestService('/course/getCourseById',"GET",{courserId:courserId},function(data){
+            if(!data.resultObject || !data.resultObject.courseOutline){
                 $(".table-modal").html(template.compile(emptyDefaul));
             }else{
                 //获取其他数据
-                $(".table-modal").html(template.compile(courseOutline)({
-                    items:data.resultObject
-                }));
-                for (var i = 0; i < $(".details-div-body p").length; i++) {
-                    var $this = $(".details-div-body p").eq(i);
-                    var last = $this.text().substring($this.text().length - 3, $this.text().length);
-                    if (last == ".. ") {
-                        $this.attr("data-txt", $this.attr("data-text"))
-                    }
-                }
+                $(".table-modal").html(data.resultObject.courseOutline)
+//              $(".table-modal").html(template.compile(courseOutline)({
+//                  items:data.resultObject
+//              }));
+//              for (var i = 0; i < $(".details-div-body p").length; i++) {
+//                  var $this = $(".details-div-body p").eq(i);
+//                  var last = $this.text().substring($this.text().length - 3, $this.text().length);
+//                  if (last == ".. ") {
+//                      $this.attr("data-txt", $this.attr("data-text"))
+//                  }
+//              }
             }
         });
     });
