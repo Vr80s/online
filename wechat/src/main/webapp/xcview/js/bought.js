@@ -11,7 +11,7 @@ $(function(){
             freeCourseNum = (freeCourseNum + 10 - 1) / 10;
         }
     })
-    mescroll = new MeScroll("mescroll", {
+    /*mescroll = new MeScroll("mescroll", {
         down: {
             auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
             callback: downCallback //下拉刷新的回调
@@ -25,7 +25,7 @@ $(function(){
                 offset : 1000
             }
         }
-    });
+    });*/
     getBoughtList(1,10,'down')
 });
 
@@ -48,19 +48,21 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
                 }
 
                 $(".bought_main").html(template('bought_main',{items:data.resultObject.records}));
-                mescroll.endSuccess();
+                /*mescroll.endSuccess();
                 mescroll.lockUpScroll( false );
-                mescroll.optUp.hasNext=true;
+                mescroll.optUp.hasNext=true;*/
+                mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                mui('#refreshContainer').pullRefresh().refresh(true);
             }else {
                 $(".bought_main").append(template('bought_main',{items:data.resultObject.records}));
                 var backData = data.resultObject.records;
                 //mescroll.endSuccess(backData.length);
                 var hasNext=true;
                 if(pageNumber>=freeCourseNum){
-                    hasNext=false;
+                    mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
                 }
 
-                mescroll.endByPage(backData.length, freeCourseNum);
+               // mescroll.endByPage(backData.length, freeCourseNum);
             }
 
         }else{
@@ -80,4 +82,47 @@ function downCallback(){
 function upCallback(){
     num++;
     getBoughtList(num,10,'up');
+}
+
+/**
+ * ************************************ 页面刷新下刷新事件
+ * **************************************************
+ */
+mui.init();
+mui.init({
+    pullRefresh: {
+        container: '#refreshContainer',
+        down: {
+            callback: pulldownRefresh
+        },
+        up: {
+            contentrefresh: '正在加载...',
+            callback: pullupRefresh
+        }
+    }
+});
+/*mui('.mui-scroll-wrapper').scroll({
+	 deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	 indicators: false //是否显示滚动条
+});
+*/
+/**
+ * 下拉刷新
+ */
+function pulldownRefresh() {
+    num = 1;
+    setTimeout(function() {
+        getBoughtList(num,10,'down');
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+    }, 500);
+};
+var count = 0;
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh() {
+    num++;
+    setTimeout(function() {
+        getBoughtList(num,10,'up');
+    }, 500);
 }

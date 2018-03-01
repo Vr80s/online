@@ -3,9 +3,10 @@ package com.xczh.consumer.market.controller.school;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczh.consumer.market.service.OnlineCourseService;
 import com.xczh.consumer.market.utils.ResponseObject;
-import com.xczh.consumer.market.vo.CourseLecturVo;
 import com.xczhihui.wechat.course.model.MobileBanner;
+import com.xczhihui.wechat.course.service.ICourseService;
 import com.xczhihui.wechat.course.service.IMobileBannerService;
+import com.xczhihui.wechat.course.vo.CourseLecturVo;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,9 @@ public class MobileLiveController {
 
 	@Autowired
 	private IMobileBannerService mobileBannerService;
+
+	@Autowired
+	private ICourseService courseService;
 
 
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MobileLiveController.class);
@@ -71,8 +75,8 @@ public class MobileLiveController {
 		List<CourseLecturVo> listHf = new ArrayList<CourseLecturVo>();
 
 
-		List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
-
+		//List<CourseLecturVo> list = onlineCourseService.findLiveListInfo();
+		List<CourseLecturVo> list = courseService.findLiveListInfo();
 		for (CourseLecturVo courseLecturVo : list) {
 			if("正在直播".equals(courseLecturVo.getNote())){
 				listTj.add(courseLecturVo);

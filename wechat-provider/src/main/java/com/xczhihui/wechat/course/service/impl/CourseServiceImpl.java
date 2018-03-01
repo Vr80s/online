@@ -113,6 +113,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implemen
 		return iCourseMapper.listenCourseList();
 	}
 
-	;
+	@Override
+	public List<CourseLecturVo> findLiveListInfo() {
+		return iCourseMapper.findLiveListInfo();
+	}
+
 
 }
