@@ -207,7 +207,7 @@ header {
 	font-size: 0.681rem;
 	color: #333;
 	margin-left: 0.553rem;
-    margin-bottom: 0.426rem;
+    padding-bottom: 0.426rem;
     padding-top: 0.638rem;
 }
 .boutique_main{
@@ -387,6 +387,7 @@ header {
     white-space: nowrap;
     display: inline-block;
     max-width: 1.5rem;
+    margin-left: 0.1rem;
 }
 
 /*音频*/
@@ -532,7 +533,7 @@ header {
 }
 .boutique_main_four_size .p3{
 	height: 0.51rem;
-	width: 1.9rem;
+	/*width: 1.9rem;*/
     float: left;
     line-height: 0.51rem;
 }
@@ -547,7 +548,8 @@ header {
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
-    max-width: 1.5rem;
+    /*max-width: 1.5rem;*/
+    margin-left: 0.1rem;
 }
 /*猜你喜欢结束*/
 

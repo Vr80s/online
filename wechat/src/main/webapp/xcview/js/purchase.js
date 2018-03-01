@@ -9,21 +9,21 @@ function is_weixn(){
     }
 }
 
-/**
- * 去充值页面
- */
-$(".footer_div_btn").click(function(){
-	
-	location.href = "/xcview/html/recharges.html";
-})
-
-
 var orderNo = "";
 var type =""; //判断课程类别，支付使用
 
 //获取课程ID跳转相应页面页面
 var courseId = getQueryString('courseId');
 //传ID courseId为接口的课程ID
+
+
+/**
+ * 去充值页面
+ */
+$(".footer_div_btn").click(function(){
+	
+	location.href = "/xcview/html/recharges.html?recharges_blck=1&orderId="+courseId;
+})
 
 var currentPriceXMB =""; //当前课程价格
 var xmbye =""; //用户剩余的熊猫币数量
@@ -124,7 +124,7 @@ function  goPay() {
    		    var params = data.resultObject;
             if(data.success){
             	
-            	location.href="/xcview/html/buy_prosperity.html?courseId="+getQueryString("courseId");
+            	location.href="/xcview/html/buy_prosperity.html?courseId="+allCourse[0].id;
             }else{
               alert(data.errorMessage);
             }
@@ -176,7 +176,8 @@ function  goPay() {
  */
 function getgetRedirectUrl(allCourse,falg){
 	var c=allCourse[0];
-	return "/xcview/html/buy_prosperity.html?recharges_blck=2&orderId="+c.id;
+	return "/xcview/html/buy_prosperity.html?courseId="+c.id;
+	//return "/xcview/html/buy_prosperity.html?recharges_blck=2&orderId="+c.id;
 }
 
 

@@ -158,6 +158,13 @@ function getBankCardList(){
         }
         $("#bank_card_list").html(template('bank_card_list_tpl', data));
         $("#bank_card").html(template('bank_card_tpl', data));
+        
+//      绑定结果为空
+		if(data.resultObject.length == 0 || !data.resultObject	){
+
+			$('.content_Administration').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+		}
+        
         //提现中的银行卡点击选中效果
         $('#mymoney .content_toCash .chooseCard ul li').click(function(){
             $('#mymoney .content_toCash .chooseCard ul li').removeClass('redBorder')
@@ -241,7 +248,7 @@ function sendVerificationCode(){
 //          showTip(data.resultObject);
             $('.phonePwdIpt_warn').addClass('hide');
             //倒计时部分
-				var myTime=90;
+				var myTime=60;
 				var timer=null;
 				timer=setInterval(auto,1000);						
 				function auto(){
@@ -283,11 +290,16 @@ function saveEnchashment(){
     if(verifyEnchashment(data)){
         RequestService("/anchor/enchashment", "post", data, function(data) {
             if(data.success){
+            	$('.phonePwdIpt_warn ').addClass('hide')
                 showTip(data.resultObject);
                 initBasaeAssetInfo();
                 window.location.reload();
             }else {
-                showTip(data.errorMessage);
+            	if(data.errorMessage == "动态码不正确！"){
+            		$('.phonePwdIpt_warn ').text('动态码不正确');
+            		$('.phonePwdIpt_warn ').removeClass('hide')
+            	}
+//              showTip(data.errorMessage);
             }
         });
     }

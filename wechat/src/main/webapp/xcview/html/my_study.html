@@ -42,14 +42,6 @@
 		</div>
 		<div class="play_list">
 			<ul id="paly_history">
-				<script type="text/html" id="data_history">
-					{{each items as item i}}
-					<li onclick="go_play_hos({{item.courseId}})">
-						<p>{{item.lecturerName}}{{item.gradeName}}</p>
-						<span>{{item.timeDifference}}</span>
-					</li>
-					{{/each}}
-				</script>
 			</ul>
 		</div>
 	</div>
@@ -98,7 +90,7 @@
 								{{/if}}
 							</div>
 						</div>
-						<p class="text_more">{{item.name}}：{{item.gradeName}}</p>
+						<p class="text_more">{{item.gradeName}}<br /><span class="span">{{item.name}}</span></p>
 						{{if item.type==1 && item.collection==true}}
 						<!--多少集-->
 						<p class="my_collection">共{{item.courseNumber}}集&nbsp;&nbsp;<!--<span>已更新16集</span>--></p>
@@ -108,13 +100,14 @@
 						{{else if item.lineState==1}}	
 						<!--直播中-->				
 						<!--<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>-->
-						<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}">直播中</a></p>
+						<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><span style="float: left;">直播时间：{{item.startTime}}</span><a href="details.html?courseId={{item.id}}"></a></p>
 						{{else if item.type==4}}
 						<!--上课时间-->
-						<p class="my_collection">上课时间：&nbsp;<span>2017.12.29</span></p>
+						<p class="my_collection">上课时间：<span>{{item.startTime}}</span></p>
 						<!--直播时间-->
 						{{else if item.type==3}}
-						<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>	
+						<!--<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>-->	
+						<p class="my_collection">直播时间：<span>{{item.startTime}}</span></p>	
 						{{/if}}
 					</div>
 					{{/each}}

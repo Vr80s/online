@@ -16,7 +16,7 @@
 	<header>
 		<div class="header">
 			<div class="header_return">
-				<img src="/xcview/images/back icon.png" onclick="location.href='home_page.html'">
+				<img src="/xcview/images/backicon.png" onclick="location.href='home_page.html'">
 			</div>
 			<div class="header_seek"> 
 				<div class="header_seek_main" style="width: 0;">
@@ -85,7 +85,7 @@
 	<div class="btn_show">
 		<div class="btn_show_bg btn_show_main_close" style="display: block1;"></div>
 		<div class="btn_show_main div_right0">
-			<div class="all_classify_right">筛选</div>
+			<div class="all_classify_right"><span class="screen_close"><img src="../images/screen_close.png" /></span>筛选</div>
 			<div class="all_mold all_mold0">
 				<div class="all_classify_right_type">分类</div>
 				<div class="all_right_type all_right_type_ones" id="draw_type_list">
@@ -391,13 +391,21 @@ $(".find_nav_list").on('touchmove', function (e) {
 				$(".all_bottom").removeClass('all_bottom_move_close');
 				
 			});
+//			点击黑色区域
 			$(".btn_show_main_close").click(function(){
 				$(".btn_show_main").addClass('div_right');
 				$(".btn_show_main").removeClass('div_right0');
 				$(".btn_show_bg").hide();
 				$(".all_bottom").addClass('all_bottom_move_close');
 				$(".all_bottom").removeClass('all_bottom_move');
-				
+			});
+//			点击筛选旁边返回
+			$(".screen_close").click(function(){
+				$(".btn_show_main").addClass('div_right');
+				$(".btn_show_main").removeClass('div_right0');
+				$(".btn_show_bg").hide();
+				$(".all_bottom").addClass('all_bottom_move_close');
+				$(".all_bottom").removeClass('all_bottom_move');
 			});
 			$(".all_bottom_btn1").click(function(){
 				
@@ -413,21 +421,45 @@ $(".find_nav_list").on('touchmove', function (e) {
 			
 //			点击筛选下面的内容框
 			$(".all_mold0 .all_right_type_one").click(function(){
-				$(".all_mold0 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");
-				
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold0 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				}
 			});
+			
+			
 			//收费
 			$(".all_mold1 .all_right_type_one").click(function(){
-				$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");
+				/*$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
+				$(this).addClass("all_right_type_one_add");*/
+				
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold1 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				}
 				
 			});
+			
 			$(".all_mold2 .all_right_type_one").click(function(){
 				var index=$(this).index();
-				$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");
-				if(index==2){
+				/*$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
+				$(this).addClass("all_right_type_one_add");*/
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold2 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+		  			
+			 	}else{
+			 		
+			    	$(this).removeClass("all_right_type_one_add");
+				}
+			 	
+			 	
+			 	if(index==2 && $("#draw_course_big_list .all_right_type_one_add").attr("title")){   //通过title获取  有没有这个title
+//				if(index==2 && $("#draw_course_big_list").children(".all_right_type_one").eq(2).hasClass("all_right_type_one_add")){   //通过eq来获取第几个
 					$(".all_mold4").show();
 				}else{
 					$(".all_mold4").hide();
@@ -435,7 +467,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 					//清空直播状态
 					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
 				}
-				if(index==3){
+				if(index==3 && $("#draw_course_big_list").children(".all_right_type_one").eq(3).hasClass("all_right_type_one_add")){
 					$(".all_mold3").show();
 				}else{
 					$(".all_mold3").hide();	
@@ -444,20 +476,37 @@ $(".find_nav_list").on('touchmove', function (e) {
 					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
 				}
 				
+				
+				
 			});
 			//点击选择城市  --》清空直播状态的赛选
 			$(".all_mold3 .all_right_type_one").click(function(){
-				$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
+				/*$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
+				$(this).addClass("all_right_type_one_add");*/
 				
-				$(this).addClass("all_right_type_one_add");
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold3 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				}
+				
 			});
 			
 			//点击选择直播状态  --》清空城市的赛选
 			
 			$(".all_mold4 .all_right_type_one").click(function(){
 				
-				$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
-				$(this).addClass("all_right_type_one_add");
+				/*$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
+				$(this).addClass("all_right_type_one_add");*/
+				
+				if(!$(this).hasClass("all_right_type_one_add")){
+					$(".all_mold4 .all_right_type_one").removeClass("all_right_type_one_add");
+		  			$(this).addClass("all_right_type_one_add");
+			 	}else{
+			    	$(this).removeClass("all_right_type_one_add");
+				}
+				
 			});
 			
 //			点击重置   --> 清空浏览器上面的url,刷新页面

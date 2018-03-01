@@ -41,14 +41,19 @@
 			{{else if lineState == 3}}
 			<!--<a href="javascript:;" class="btn_returned"></a>-->	
 			<a class="memory_lujin" data-memory="{{id}}" href="details.html?courseId={{id}}"></a>
-			<div class="video_prompt">
-				直播回放
+			<div class="video_prompt_open">
+				<img src="../images/play_btn.png"/>
 			</div>
+
 			{{else if lineState == 4}}
+			<a class="memory_lujin" data-memory="{{id}}" href="details.html?courseId={{id}}"></a>
+			<div class="video_prompt_open">
+				<img src="../images/play_btn.png"/>
+			</div>
+			{{else if lineState == 2 || lineState == 5}}
 			<div class="video_prompt">
 				暂未开播
 			</div>
-		
 			{{/if}}
 		</script>
 	</div>

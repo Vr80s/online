@@ -115,4 +115,12 @@ public interface ICourseService {
    	 *
    	 */
 	public List<CourseLecturVo> selectUserConsoleCourseLiveByPage(Page<CourseLecturVo> page, String id);
+
+	/**
+	 * Description：查询听课列表
+	 * creed: Talk is cheap,show me the code
+	 * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com
+	 * @Date: 2018/2/28 20:52
+	 **/
+	public List<CourseLecturVo> listenCourseList();
 }

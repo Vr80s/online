@@ -68,11 +68,12 @@ function transactionRecord(pageNumber,pageSize,downOrUp) {
         pageSize:pageSize
     },function(data) {
         if(data.success==true){
-        	if(data.resultObject.length=='' || data.resultObject.length==0){
-        		$(".no_deal").show()
-        	}
+
             //	判断是刷新还是加载
             if(downOrUp=='down'){
+                if(data.resultObject.length=='' || data.resultObject.length==0){
+                    $(".no_deal").show()
+                }
                 $(".record_main_div").html(template('record_main_div',{items:data.resultObject}));
                 mescroll.endSuccess();
                 mescroll.lockUpScroll( false );

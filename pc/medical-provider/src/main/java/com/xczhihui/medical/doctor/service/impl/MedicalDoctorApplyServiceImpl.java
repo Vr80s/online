@@ -2,6 +2,7 @@ package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
+import com.xczhihui.bxg.online.common.utils.IDCard;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
@@ -189,8 +190,8 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         if(StringUtils.isBlank(target.getCardNum())){
             throw new RuntimeException("请填写身份证号");
         }else{
-            if(target.getCardNum().length() > 32){
-                throw new RuntimeException("身份证号应保持在32字以内");
+            if(!IDCard.validator(target.getCardNum())){
+                throw new RuntimeException("身份证号不正确");
             }
         }
         if(StringUtils.isBlank(target.getCardPositive())){

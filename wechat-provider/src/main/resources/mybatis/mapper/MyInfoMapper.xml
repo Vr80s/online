@@ -48,15 +48,18 @@
    <select id="selectWithdrawalList" resultType="java.util.Map">
 		
    select	* from  (			
-	  ( select '提现' as label,ucc.value,ucc.create_time as createTime from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id=#{userId}	 )
+	  ( select '提现' as label,CONCAT('-',ucc.value),ucc.create_time as createTime 
+	  from user_coin_consumption as ucc  where  ucc.change_type = 6 and user_id=#{userId}	 )
 		
 		UNION ALL
 		
-	  ( select '结算' as label,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 6 and user_id=#{userId} )
+	  ( select '结算' as label,CONCAT('+',uci.value),uci.create_time as createTime 
+	  from user_coin_increase as uci  where  uci.change_type = 6 and user_id=#{userId} )
 	  
 	  	UNION ALL
 	  
-	  ( select '提现驳回' as label,uci.value,uci.create_time as createTime from user_coin_increase as uci  where  uci.change_type = 5 and user_id=#{userId} )
+	  ( select '提现驳回' as label,CONCAT('+',uci.value),uci.create_time as createTime 
+	  from user_coin_increase as uci  where  uci.change_type = 5 and user_id=#{userId} )
 		
 	 ) as tixian  order by tixian.createTime desc
 	 
@@ -133,14 +136,14 @@
 	   <select id="hostInfoRec" resultType="java.util.Map">
 			select 
 		    	ou.small_head_photo as headPortrait,
-		    	ou.name,
+		    	ca.name,
 				ou.id as userId
 		    from 
 		    course_anchor ca 
 		         join oe_user  ou on ca.user_id = ou.id
 		         where ca.deleted = 0 
 		    AND ou.is_delete = 0
-		    AND ca.is_recommend = 1  limit 0,10
+		    AND ca.is_recommend = 1  ORDER BY ca.recommend_sort DESC limit 0,10
 		</select>	
 	  
 	  

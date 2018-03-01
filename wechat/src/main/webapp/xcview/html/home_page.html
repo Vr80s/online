@@ -41,6 +41,7 @@
         -ms-flex-align: center;
         -webkit-align-items: center;
         align-items: center;
+        width: 62px;  /*新添加宽度,隐藏掉就会出现头像栏全屏宽度*/
     }
     .slide_one_div{
 	    color: #333;
@@ -342,7 +343,7 @@
             	</div>
 				<!--swiper小白班结束-->
 				<!--swiper推荐名师开始-->	                    	
-            	<div class="swiper_box" id="doctor_follow">
+            	<div class="swiper_box" id="doctor_follow" >
             		<p>名师推荐</p>
                 	<div class="swiper-container">
 				        <div class="swiper-wrapper" id="phy_box">
@@ -373,7 +374,7 @@
             	<script type="text/html" id="shipin">
 						{{each items as item i}} 
             	<div class="acupuncture">
-            		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}</div>
+            		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="boutique_main">
             			<ul>
             				<!--视频-->
@@ -520,7 +521,7 @@
             		{{each items as itemls i}}
 
             	<div class="newest">
-            		<div class="newest_title" lineState="{{itemls.lineState}}">{{itemls.title}}</div>
+            		<div class="newest_title" lineState="{{itemls.lineState}}">{{itemls.title}}<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="newest_main">
             			<ul>
             				{{each itemls.courseList as item i}}
@@ -581,7 +582,7 @@
 				
             	<!--听课推荐开始-->
             	<div class="lectures">
-            		<div class="lectures_title" >听课推荐</div>
+            		<div class="lectures_title" >听课推荐<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="lectures_main">
             			<ul class="lecturess">
             				<script type="text/html" id="lectures">
@@ -641,7 +642,7 @@
 				<p style="color: #00BC12;">学堂</p>
 			</li>
 			<li>
-				<a href="my_study.html" class="footer_two"></a>
+				<a href="javascript:;" class="footer_two" onclick="go_study()"></a>
 				<p>学习</p>
 			</li>
 			<li>
@@ -650,7 +651,7 @@
 			</li>
 			<li>
 				<a href="my_homepage.html" class="footer_four"></a>
-				<p>我</p>
+				<p>我的</p>
 			</li>
 		</ul>
 	</div>
@@ -693,42 +694,33 @@ $window.resize(function() {
 	sliderHeight();
 });
 
-sliderHeight();
 function sliderHeight(){
 	var wHeight = $(window).height();
 	var sliderHeight = wHeight - 70
-	
 	$(".swipe li").height(sliderHeight);
 }
+sliderHeight();
+
 
 
 $(".find_nav_list").css("left",1);
-
- $(".find_nav_list li").each(function(){
-//		$(".sideline").css({left:1});
-		$(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+$(".find_nav_list li").each(function(){
+   $(".find_nav_list li").eq(1).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 });
 var nav_w=$(".find_nav_list li").first().width();
 
-//(function(){
-//	debugger
-//	$(".sideline").width($(".find_nav_list li").first().width());
-//})();
+$(".sideline").width(nav_w);
 
-navChange($(".find_nav_list li").eq(1));
-//var nav_w=$(".find_nav_list li").first().width();
-function navChange(that){
-
-	
-	$("body").show();
-	nav_w=$(that).width();
+$("body").show();
+/* $(".find_nav_list li").on('click', function(){
+	nav_w=$(this).width();
 	$(".sideline").stop(true);
-	$(".sideline").animate({left:$(that).position().left},300);
+	$(".sideline").animate({left:$(this).position().left},300);
 	$(".sideline").animate({width:nav_w});
-	$(that).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+	$(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 	var fn_w = ($(".find_nav").width() - nav_w) / 2;
 	var fnl_l;
-	var fnl_x = parseInt($(that).position().left);
+	var fnl_x = parseInt($(this).position().left);
 	if (fnl_x <= fn_w) {
 		fnl_l = 0;
 	} else if (fn_w - fnl_x <= flb_w - fl_w) {
@@ -739,12 +731,8 @@ function navChange(that){
 	$(".find_nav_list").animate({
 		"left" : fnl_l
 	}, 300);
-	$(".sideline").show();
-//	$(".sideline").width($(".find_nav_list li").first().width());
-}
-$(".find_nav_list li").on('click', function(){
-	navChange(this);
-});
+});	 */
+
 var fl_w=$(".find_nav_list").width();
 var flb_w=$(".find_nav_left").width();
 $(".find_nav_list").on('touchstart', function (e) {
@@ -768,6 +756,7 @@ $(".find_nav_list").on('touchmove', function (e) {
 		e.preventDefault();
 	}
 });
+
 var n = 1;
 var page='pagenavi'+n;
 var mslide='slider'+n;
@@ -782,8 +771,8 @@ var tt=new TouchSlider({
 	'auto':'-1',
 	fx:'ease-out',
 	direction:'left',
-	speed:200,
-	timeout:1000,
+	speed:600,
+	timeout:5000,
 	'before':function(index){
 		
     sessionStorage.setItem("school_index",index);	
@@ -801,6 +790,7 @@ var tt=new TouchSlider({
 	$(".sideline").stop(true);
 	$(".sideline").animate({left:$(".find_nav_list li").eq(this.p).position().left},300);
 	$(".sideline").animate({width:nav_w},100);
+	
 	$(".find_nav_list li").eq(this.p).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
 	
 	
@@ -837,7 +827,8 @@ var school_index =  sessionStorage.getItem("school_index");
 if(!stringnull(school_index)){
 	school_index = 1;
 }
-tt.slide(school_index, 600);
+//alert(school_index);
+tt.slide(parseInt(school_index), 600);
 
 /**
  * 传递参数  滑动上边的tab

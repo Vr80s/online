@@ -66,11 +66,26 @@
     			<ul>
     				<!--视频-->
     				<div class="lectures"></div>
+    				
+    				
+<!--     				if(type ==3 && (lineState ==4 || lineState ==1 || lineState ==3)){ //直播间
+		location.href="details.html?courseId="+id
+	}else if(type ==1 || type ==2){ //课程页面
+		
+		location.href="live_audio.html?my_study="+id
+		
+	}else if(type ==4){ //线下培训班
+		location.href="live_class.html?my_study="+id
+	}else if((type ==1 || type ==2) && collection){
+		location.href="live_select_album.html?my_study="+id
+	} -->
+    				
     				<script type="text/html" id="lectures">
 	                {{each items as item i}}
     				<li>
     					<div class="boutique_main_one">
-    						<div class="boutique_one_img" onclick="jump()">
+				
+							<div class="boutique_one_img" onclick="guesYouLike({{item.type}},{{item.id}})">	
     							<img src="{{item.smallImgPath}}" alt="" />
     						</div>
     						<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
@@ -102,53 +117,7 @@
     				</li>
 					{{/each}}
 					</script>
-    				
-    				<!--直播-->
-    	<!-- 		<li>
-    					<div class="boutique_main_one">
-    						<div class="boutique_two_img">
-    							<img src="/xcview/images/line_03.jpg" alt="" />
-    						</div>
-    						<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_two_img_type" />
-    						<div class="boutique_main_two_title">郝万山《伤寒论》讲解讲解讲解</div>
-    						<div class="boutique_main_two_size">
-    							<p><span>1</span>熊猫币</p>
-    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1</span></p>
-    							<p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>10.23</span></p>
-    							
-    						</div>
-    					</div>
-    				</li> -->
-    				<!--音频-->
-    		<!-- 		<li>
-    					<div class="boutique_main_three">
-    						<div class="boutique_three_img">
-    							<img src="/xcview/images/line_03.jpg" alt="" />
-    						</div>
-    						<img src="/xcview/images/frequency_auto.png" alt="" class="boutique_main_three_img_type" />
-    						<div class="boutique_main_three_title">郝万山《伤寒论》讲解讲解讲解</div>
-    						<div class="boutique_main_three_size">
-    							<p><span>1</span>熊猫币</p>
-    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1</span></p>
-    						</div>
-    					</div>
-    				</li>
-    				线下 -->
-    			<!-- 	<li>
-    					<div class="boutique_main_four">
-    						<div class="boutique_four_img">
-    							<img src="/xcview/images/line_03.jpg" alt="" />
-    						</div>
-    						<img src="/xcview/images/offline_auto.png" alt="" class="boutique_main_four_img_type" />
-    						<div class="boutique_main_four_title">郝万山《伤寒论》讲解讲解讲解</div>
-    						<div class="boutique_main_four_size">
-    							<p><span>1</span>熊猫币</p>
-    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>1</span></p>
-    							<p class="p3"><img src="/xcview/images/location_four.png" alt="" /><span>北京</span></p>
-    							
-    						</div>
-    					</div>
-    				</li> -->
+    			
     				<div class="both"></div>
     			</ul>
     		</div>

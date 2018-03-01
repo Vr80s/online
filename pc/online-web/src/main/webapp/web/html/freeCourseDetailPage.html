@@ -46,12 +46,12 @@ var _hmt = _hmt || [];
 </script>
 </head>
 <body>
-<div id="payCourseSlider">
+<div id="payCourseSlider1111111" style="display:none;">
     <div class="payCourseItems clearfix">
         <ul class="clearfix" style="display:inline-block">
             <li class="cu-shou course-details noClick">课程详情</li>
             <li class="cu-shou collection-course notpointer hide">选集列表</li>
-            <li class="cu-shou course-outline notpointer">课程大纲</li>
+            <li class="cu-shou course-outline notpointer hide">课程大纲</li>
             <li class="cu-shou course-teacher notpointer">授课老师</li>
             <li class="cu-shou course-problem notpointer">常见问题</li>
             <li class="cu-shou course-evaluate notpointer">学员评价</li>
@@ -123,7 +123,7 @@ var _hmt = _hmt || [];
             <div class="table-title-inset">
                 <span class="cu-shou course-details noClick">课程详情</span>
                  <span class="cu-shou collection-course notpointer hide">选集列表</span>
-                <span class="cu-shou course-outline notpointer">课程大纲</span>
+                <span class="cu-shou course-outline notpointer hide">课程大纲</span>
                 <span class="cu-shou course-teacher notpointer">授课老师</span>
                 <span class="cu-shou course-problem notpointer">常见问题</span>
                <span class="cu-shou course-evaluate notpointer">学员评价</span>
@@ -146,7 +146,7 @@ var _hmt = _hmt || [];
 	<ul class="collection_course_List">
 	{{each item as item i}}
 		<li>
-		<a href="/web/html/payCourseDetailPage.html?courseId={{item.id}}" data-id={{item.id}} target="_bland"></a>
+		<a href="/course/courses/{{item.id}}" data-id={{item.id}} target="_bland"></a>
 		<div class="collection_course_inf">
 			<span style="font-size:14px;color:#666">{{item.name}}</span>
 			<span style="font-size:12px;color:#999;margin-top:9px"><em class="class_search_time"></em>{{item.courseLength}}分钟</span>

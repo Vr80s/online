@@ -205,18 +205,19 @@ display:-webkit-box;
  word-break: break-all;
 }
 .personal_time span{
-	float: left;
+	/*float: left;*/
 	font-size: 0.25rem;
 color: #999999;
 
 }
 .personal_time p{
-	    float: left;
+	    /*float: left;*/
     padding: 0 0.07rem;
     border: 1px solid #F97B49;
     color: #F97B49;
     font-size: 0.22rem;
-    margin-left: 0.15rem;	
+    /*margin-left: 0.15rem;*/
+   display: inline-block;	
 }
 .wrap_vedio{
 	width: 100%;

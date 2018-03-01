@@ -62,8 +62,9 @@ $(function(){
 	        if(data.resultObject.records.length == 0){
 	        	//没有数据处理 
 //	           alert("没有数据/搜索失败")
-				$('#doctor_list').html('<h3>暂无数据</h3>');
+				$('#doctor_list').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999">抱歉，没有找到“<span style="color:#00BC12">'+name+'</span>”相关医师</p></div>');
 				$('.search_more').css('display','none')
+				$('#search_num').text('共找到'+data.resultObject.total+'位名医')
 	        }else{
 	        	//获取到数据渲染
 	        	//创建一个盒子
@@ -71,6 +72,7 @@ $(function(){
 	        	if(data.resultObject.pages == current){
 	        		$('.search_more').css('display','none')
 	        	}
+	        	$('#search_num').text('共找到'+data.resultObject.total+'位名医')
 	           $('#doctor_list').append(template('doctorListTpl',data.resultObject));
 	        }
 	    });
@@ -96,7 +98,7 @@ $(function(){
 		  	type = $('#doctor_search_condition1 span').attr('data-type');
 		  }
 		  
-		  console.log(name)
+//		  console.log(name)
 		  getHostipalList(current,size,name,type,departmentId);
 //		}
 		});
@@ -124,6 +126,16 @@ $(function(){
 //	    });
 	    
 	    
+	      //名医筛选条件的科室
+	    RequestService("/medical/doctor/apply/listDepartment/0","GET",null,function(data){
+	       if(data.resultObject == null || data.resultObject.records.length == 0){
+	   			alert('未获取到筛选中的科室')
+	       }else{
+	       	$('#doctor_search_keshi').html(template('doctor_search_keshi_Tpl',{item:data.resultObject.records}));
+	       }
+	    },false);
+	    
+	    
 	    //名医筛选条件的分类
 	    RequestService("/medical/doctor/getDoctorType","GET",null,function(data){
 	       if(data.resultObject == null || data.resultObject.length == 0){
@@ -131,24 +143,23 @@ $(function(){
 	       }else{
 	       	$('#doctor_search_class').html(template('doctor_search_class_Tpl',{item:data.resultObject}));
 //	       	$('#doctor_search_class li a[data-type = '+type+']').addClass('color');
-	       fenleiClick(type)
+			if(type){
+				fenleiClick(type)
+			}
+			if(departmentId){
+				keshiClick(departmentId)
+			}
+	       
 	       }
 	    });
 	    
 	    
 		
 	    
-	     //名医筛选条件的科室
-	    RequestService("/medical/doctor/apply/listDepartment/0","GET",null,function(data){
-	       if(data.resultObject == null || data.resultObject.records.length == 0){
-	   			alert('未获取到筛选中的科室')
-	       }else{
-	       	$('#doctor_search_keshi').html(template('doctor_search_keshi_Tpl',{item:data.resultObject.records}));
-	       }
-	    });
+	   
 	    
 	    
-	    
+	    //分类
 	    function fenleiClick(type){
 	    	$('#doctor_search_class li a ').removeClass('color');
 			$('#doctor_search_class li a[data-type = '+type+']').addClass('color');
@@ -157,9 +168,26 @@ $(function(){
 			$('#doctor_search_condition1').removeClass('hide')
 			$('#doctor_search_condition1 span').text( 	$('#doctor_search_class li a[data-type = '+type+']').text());
 			$('#doctor_search_condition1 span').attr('data-type', 	$('#doctor_search_class li a[data-type = '+type+']').attr('data-type'))
-			if( 	$('#doctor_search_class li a[data-type = '+type+']').text() == '全部'){
+			if( $('#doctor_search_class li a[data-type = '+type+']').text() == '全部'){
 				$('#doctor_search_condition1').addClass('hide');
 				if($('#doctor_search_condition2').hasClass('hide')){
+	    			$('#doctor_search_condition3').removeClass('hide')
+	    		}
+			}
+	    }
+	    
+	    //科室
+	    function keshiClick(departmentId){
+	    	$('#doctor_search_keshi li a ').removeClass('color');
+			$('#doctor_search_keshi li a[data-id='+departmentId+']').addClass('color');
+			//筛选条件部分变化
+			$('#doctor_search_condition3').addClass('hide')
+			$('#doctor_search_condition2').removeClass('hide')
+			$('#doctor_search_condition2 span').text($('#doctor_search_keshi li a[data-id='+departmentId+']').text());
+			$('#doctor_search_condition2 span').attr('data-id',	departmentId)
+			if($(this).text() == '全部'){
+				$('#doctor_search_condition2').addClass('hide');
+				if($('#doctor_search_condition1').hasClass('hide')){
 	    			$('#doctor_search_condition3').removeClass('hide')
 	    		}
 			}

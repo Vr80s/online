@@ -76,7 +76,7 @@
 	<!--主播状态-->	
 	<div class="personal_status" id="personal_status">
 		<script type="text/html" id="data_status">
-			<a href="school_play.html?course_id={{id}}" style="overflow: hidden;display: block;color: #333333;">
+			<a href="javascript:;" data-play="{{id}}" onclick="go_play(this)" style="overflow: hidden;display: block;color: #333333;">
 				<div class="wrap_img z">
 					<img src="{{smallImgPath}}"/>
 				</div>
@@ -125,8 +125,8 @@
 				{{else if lecturerInfo.type == 2}}
 				<span style="font-size: 0.32rem;">医馆</span>
 				<ul class="address_all">
-					<li>坐诊医馆：{{hospital.name}}</li>
-					<li>预约电话：{{lecturerInfo.workTime}}</li>
+					<li>医馆名称：{{hospital.name}}</li>
+					<li>联系电话：{{hospital.tel}}</li>
 					<li>医馆地址：{{hospital.detailedAddress}}</li>
 				</ul>
 			{{/if}}

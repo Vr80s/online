@@ -290,6 +290,11 @@ $(function(){
             }
         }
         $("#myResive_list").html(template('myResive_list_Tpl', data.resultObject));
+        
+        if(!data.resultObject || data.resultObject.records.length == 0 || !data.resultObject.records ){
+        	$('.kecheng_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
+        }
+        
         debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
@@ -342,6 +347,11 @@ $(function(){
         }
        
         $("#gift_Resive_list").html(template('gift_Resive_Tpl', data.resultObject));
+        
+        //没事有搜索结果
+        if(!data.resultObject || data.resultObject.records.length == 0 || !data.resultObject.records ){
+        	$('.gift_Resive_bottom').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nomoney.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无记录</p></div>');
+        }
         debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断

@@ -116,7 +116,7 @@ public class MobileLiveController {
 			mapCourseList.add(mapHf);
 		}
 
-		mapAll.put("allCourseList",list);
+		mapAll.put("allCourseList",mapCourseList);
 
 		return ResponseObject.newSuccessResponseObject(mapAll);
 	}
