@@ -241,7 +241,7 @@ function sendVerificationCode(){
 //          showTip(data.resultObject);
             $('.phonePwdIpt_warn').addClass('hide');
             //倒计时部分
-				var myTime=90;
+				var myTime=60;
 				var timer=null;
 				timer=setInterval(auto,1000);						
 				function auto(){
