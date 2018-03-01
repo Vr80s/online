@@ -14,6 +14,21 @@ a{
 .both{
 	clear: both;
 }
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc; opacity:1; 
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;opacity:1;
+}
+
+input:-ms-input-placeholder{
+    color: #ccc;opacity:1;
+}
+
+input::-webkit-input-placeholder{
+    color:#ccc;opacity:1;
+}
 /*头部开始*/
 header {
     width: 100%;
@@ -109,7 +124,7 @@ header {
     /* border-bottom: 1px solid red; */
     display: -webkit-box;
 	font-size: 0.28rem;
-	color: #CCCCCC !important;
+	color: #747474 !important;
 	background: none !important;
 	outline: none;
 }
