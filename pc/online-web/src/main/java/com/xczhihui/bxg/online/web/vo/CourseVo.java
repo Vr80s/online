@@ -208,7 +208,27 @@ public class CourseVo{
     private boolean isAvailable;//是否有效
     
     
-    private boolean isSelfCourse; //是否自己的课程 
+    private boolean isSelfCourse; //是否自己的课程
+
+    private Integer courseNumber;
+
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getCourseNumber() {
+        return courseNumber;
+    }
+
+    public void setCourseNumber(Integer courseNumber) {
+        this.courseNumber = courseNumber;
+    }
 
     public Boolean getCollection() {
         return collection;
