@@ -80,6 +80,7 @@
 			</if>
 		WHERE uci.user_id = #{userId}
 		GROUP BY ogs.`live_id`
+		ORDER BY oc.`start_time`
 	</select>
 
 	<select id="sumIosBrokerageValueByCourseId" parameterType="string" resultType="java.math.BigDecimal">
