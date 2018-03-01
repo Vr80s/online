@@ -227,7 +227,7 @@ window.onload=function(){
         '<div class="bigpic-body-btn">' +
         '{{if item.apply==true}}'+
         '{{if item.collection}}'+
-        '请查看选集列表'+
+        '<a class="purchase" style="background-color:#ccc;border-radius:4px">您已购买该课程，可直接点击选集列表进行学习</a>'+
         '{{else }}' +
         '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/video.html?courseId='+courserId+'" >立即学习</a>'+
         '{{/if}}' +

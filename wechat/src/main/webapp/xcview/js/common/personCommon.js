@@ -1,18 +1,19 @@
 
 
-var wait = 90;
+var wait = 60;
 function time(o) {
     if (wait == 0) {
         o.removeAttribute("disabled");
         $(o).html("获取验证码");
 
-        wait = 90;
+        wait = 60;
         $(".call_code").css("background","#00bc12");
     } else {
         o.setAttribute("disabled", true);
         $(o).html("" + wait + "S");
         wait--;
-        $(".call_code").css("background","#ccc");
+        $(".call_code").css("background","#00bc12");
+        $(".call_code").css("opacity","0.5");
         setTimeout(function() {
             time(o)
         }, 1000)

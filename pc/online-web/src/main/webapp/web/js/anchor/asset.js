@@ -158,6 +158,13 @@ function getBankCardList(){
         }
         $("#bank_card_list").html(template('bank_card_list_tpl', data));
         $("#bank_card").html(template('bank_card_tpl', data));
+        
+//      绑定结果为空
+		if(data.resultObject.length == 0 || !data.resultObject	){
+
+			$('.content_Administration').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+		}
+        
         //提现中的银行卡点击选中效果
         $('#mymoney .content_toCash .chooseCard ul li').click(function(){
             $('#mymoney .content_toCash .chooseCard ul li').removeClass('redBorder')
