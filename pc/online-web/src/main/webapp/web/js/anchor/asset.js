@@ -40,6 +40,9 @@ function getCoinTransactionList (current){
             }
         }
         $("#coin_transaction_list").html(template('coin_transaction_list_tpl', data.resultObject));
+        if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
+        	$('.pandaTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+        }
         debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
@@ -81,6 +84,9 @@ function getRmbTransactionList (current){
             }
         }
         $("#rmb_transaction_list").html(template('rmb_transaction_list_tpl', data.resultObject));
+         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
+        	$('.rmbTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+        }
 
 		//银行卡处理
         for(var i = 0;i < $('.bankCard').length;i++){
@@ -158,6 +164,13 @@ function getBankCardList(){
         }
         $("#bank_card_list").html(template('bank_card_list_tpl', data));
         $("#bank_card").html(template('bank_card_tpl', data));
+        
+//      绑定结果为空
+		if(data.resultObject.length == 0 || !data.resultObject	){
+
+			$('.content_Administration').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+		}
+        
         //提现中的银行卡点击选中效果
         $('#mymoney .content_toCash .chooseCard ul li').click(function(){
             $('#mymoney .content_toCash .chooseCard ul li').removeClass('redBorder')
@@ -241,7 +254,7 @@ function sendVerificationCode(){
 //          showTip(data.resultObject);
             $('.phonePwdIpt_warn').addClass('hide');
             //倒计时部分
-				var myTime=90;
+				var myTime=60;
 				var timer=null;
 				timer=setInterval(auto,1000);						
 				function auto(){
@@ -307,7 +320,7 @@ function verifyEnchashment(data){
     }else{
         $('.warning_amount_null').addClass('hide');
     }
-    if(!numberCk(data.amount)){
+    if(!numberCk(data.amount) || data.amount <= 0 ){
         $('.warning_amount_illegal').removeClass('hide');
         return false;
     }else{

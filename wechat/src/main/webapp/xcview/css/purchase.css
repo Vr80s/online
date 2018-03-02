@@ -95,14 +95,14 @@ header {
 	width: 100%;
 }
 .purchase_details_main_cen img{
-	width: 3.404rem;
-	height: 1.915rem;
+	width: 3.7rem;
+	height: 2.4rem;
 	float: left;
 	margin-right: 0.532rem;
 }
 .purchase_details_left{
 	float: left;
-	width: 10.968rem;
+	width: 9rem;
 	height: 1.915rem;
 	/*background: red;*/
 }
@@ -240,7 +240,7 @@ header {
     padding: 0.638rem 0;
 }
 .payment_title{
-	width: 5rem;
+	/*width: 5rem;*/
 	font-size: 0.681rem;
 	color: #333333;
 	margin-bottom: 0.638rem;

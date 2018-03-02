@@ -80,8 +80,10 @@ public class CourseApplyController {
 			courseApplyInfo.setLecturer(user.getName());
 
 			Map<String,Object> lecturerInfo = onlineUserService.findHostById(user.getId());
-			String detail = lecturerInfo.get("detail").toString();
-			courseApplyInfo.setLecturerDescription(detail);
+			if(lecturerInfo.get("detail")!=null&&!"".equals(lecturerInfo.get("detail"))){
+				String detail = lecturerInfo.get("detail").toString();
+				courseApplyInfo.setLecturerDescription(detail);
+			}
 			courseApplyInfo.setCourseForm(CourseForm.LIVE.getCode());
 
 			//封面图片

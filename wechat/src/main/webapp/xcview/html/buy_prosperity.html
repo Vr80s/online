@@ -45,12 +45,16 @@
 						<img src="../images/geren.jpg" alt="" id="smallImgPath">
 						<div class="purchase_details_left">
 							<div class="purchase_details_title">
-								<span class="span0"></span>
+
 								<span class="span1"></span>
 							</div>
+							<div class="purchase_details_title">
+								<span class="span0"></span>
+
+							</div>
 							<div class="both"></div>
-							<div class="purchase_details_money"><span></span></div>
-							<div class="prosperity_play" onclick="jump()">去播放</div>
+							<div class="purchase_details_money"><span></span>熊猫币</div>
+							<div class="prosperity_play" onclick="jump()">去学习</div>
 						</div>
 					</div>
 				</div>
@@ -87,26 +91,34 @@
 				
 							<div class="boutique_one_img" onclick="guesYouLike({{item.type}},{{item.id}})">	
     							<img src="{{item.smallImgPath}}" alt="" />
-    						</div>
-    						<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
+    						</div>			
+								{{if item.type == 1}}
+    								<img src="/xcview/images/tv_auto.png" alt="" class="boutique_main_one_img_type" />
+    							{{else if item.type == 2}}
+    								<img src="/xcview/images/frequency.png" alt="" class="boutique_main_one_img_type" />
+								{{else if item.type == 3}}
+    								<img src="/xcview/images/Sinatv_auto.png" alt="" class="boutique_main_one_img_type" />
+								{{else if item.type == 4}}
+    								<img src="/xcview/images/offline.png" alt="" class="boutique_main_one_img_type" />
+    							{{/if}}
+
     						<div class="boutique_main_one_title">{{item.name}}{{item.gradeName}}</div>
 
 							     {{if item.type == 1 || item.type == 2}}
 								   <div class="boutique_main_one_size">
-								 {{else if  item.type == 3 }}
+								 {{else if item.type == 3 }}
 								    <div class="boutique_main_two_size">
-								 {{else if   item.type == 4}}
+								 {{else if item.type == 4}}
 								    <div class="boutique_main_four_size">
 		                         {{/if}}	
 
-								{{if item.watchState == 1}}
-    							<p><span>1</span>熊猫币</p>
-								{{else}}
+								{{if item.watchState == 0 || item.watchState == 2 || item.watchState == 3}}
 								<p><span>{{item.currentPrice}}</span>熊猫币</p>
+								{{else}}
+    							<p><span>免费</span></p>
 								{{/if}}
-    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>
-    						
-
+								
+    							<p class="p2"><img src="/xcview/images/population.png" alt="" /><span>{{item.learndCount}}</span></p>   						
 	                            {{if item.type == 3}}
 								   <p class="p3"><img src="/xcview/images/learn.png" alt="" /><span>{{item.startDateStr}}</span></p>
 								{{else if item.type == 4}}
@@ -167,7 +179,41 @@
 		
 	};
 </script>
-
+<script>
+	function guesYouLike(type,courseId){
+//	if(type == 1){ //直播间   直播中、即将直播、直播回放
+//		location.href="details.html?courseId="+courseId
+//	}else if(type ==2){ // 预告
+//		location.href="live_play.html?my_study="+courseId
+//	}else if(type ==3){ //课程页面
+//		location.href="live_audio.html?my_study="+courseId
+//	}else if(type ==4){ //线下培训班
+//		location.href="live_class.html?my_study="+courseId
+//	}else if(type ==5){ //专辑
+//		location.href="live_select_album.html?my_study="+courseId
+//	}
+	
+	
+//	<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump({{item.id}})"></a>-->
+//	{{if item.type == 1 || item.type == 2}}
+//	<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
+//	{{else if item.type == 3}}
+//	<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
+//	{{else if item.type == 4}}
+//	<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
+//	
+//	{{/if}}
+	
+	if(type == 1 ||type ==2){ //课程
+		location.href="school_audio.html?course_id="+courseId
+	}else if(type ==3){ // 直播
+		location.href="school_play.html?course_id="+courseId
+	}else if(type ==4){ // 线下班
+		location.href="school_class.html?course_id="+courseId
+	}
+		
+}
+</script>
 
 
 

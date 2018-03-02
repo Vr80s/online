@@ -2,17 +2,18 @@
 /**
  * 倒计时
  */
-var wait = 90;
+var wait = 60;
 function time(o) {
 	//alert($(o).val());
 	if (wait == 0) {
 		//o.removeAttribute("disabled");
 		$(o).css("background","#00bc12");
         $(o).val("获取验证码");
-		wait = 90;
+		wait = 60;
 	} else {
 		//o.setAttribute("disabled", true);
-		$(o).css("background","#ccc");
+		$(o).css("background","#00bc12");
+		$(o).css("opacity","0.5");
         $(o).val("" + wait + "S");
 		wait--;
 		setTimeout(function() {

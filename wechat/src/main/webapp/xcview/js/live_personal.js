@@ -203,7 +203,6 @@ requestService("/xczh/host/hostPageCourse",{
                 $(".wrapAll_comment").hide();
                 $(".bg_modal").hide();
                 document.getElementById("comment_detailed").value="";
-                del();
                 requestService("/xczh/criticize/getCriticizeList",{
                     userId : userLecturerId
                 },function(data) {
@@ -235,7 +234,6 @@ requestService("/xczh/host/hostPageCourse",{
                 $(".bg_userModal").hide();
                 $(".wrapLittle_comment").hide();
                 document.getElementById("littlt_return").value="";
-                del();
                 refresh();
             }else {
                 webToast("回复失败","middle",1500);
@@ -260,8 +258,7 @@ requestService("/xczh/host/hostPageCourse",{
 
 
 	//判断主播是否在开直播及最近一次直播
-	var falg =authenticationCooKie();
-	
+	var falg =authenticationCooKie();	
 function go_play(t){
 	var data_id=$(t).attr("data-play");
 	console.log(data_id)

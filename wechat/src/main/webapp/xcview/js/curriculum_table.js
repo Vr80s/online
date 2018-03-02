@@ -336,7 +336,7 @@ function queryDataByParams(params,data_type){
 				if(item.watchState == 1){
 					isFreeStr+="<p class='p0'><span>免费</span></p>";
 				}else if(item.watchState == 0){
-					isFreeStr+="<p class='p0'><span>"+item.currentPrice+"</span>熊猫币</p>";
+					isFreeStr+="<p class='p0'><span>"+item.currentPrice+"</span><span class='span'>熊猫币</span></p>";
 				}
 				var typeStr="";
 				if(item.type ==3){
@@ -352,8 +352,8 @@ function queryDataByParams(params,data_type){
 						      "</div>" +
 					           "<div class='li_list_one_right'>" +
 						           "<p class='p00'>" +
-						           "<span>"+item.name+"</span>:" +
-						           "<span>"+item.gradeName+"</span></p>" +
+						           "<span>"+item.gradeName+"</span><br />" +
+						           "<span class='span'>"+item.name+"</span></p>" +
 						           "<div class='div'>" +
 						              isFreeStr +
 						             "<p class='p1'><img src='/xcview/images/population.png' alt=''><span>"+item.learndCount+"</span></p>" +
