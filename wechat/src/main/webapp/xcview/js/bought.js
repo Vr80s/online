@@ -8,7 +8,7 @@ $(function(){
     },function(data) {
         if(data.success==true){
             freeCourseNum = data.resultObject.records.length;
-            freeCourseNum = (freeCourseNum + 10 - 1) / 10;
+            freeCourseNum = parseInt((freeCourseNum + 10 - 1) / 10);
         }
     })
     /*mescroll = new MeScroll("mescroll", {
@@ -27,8 +27,18 @@ $(function(){
         }
     });*/
     getBoughtList(1,10,'down')
-});
+},false);
 
+mui("#refreshContainer").on('tap', '.bought_main_list', function (event) {
+	
+	alert("==========");
+	//pageNumber
+//	sessionStorage.setItem("live_pageNumber", pageNumber); 
+//	
+//	var ev = this;
+//	var lecturerId = ev.alt;
+//	location.href = "/xcviews/html/personage.html?lecturerId="+lecturerId;
+});
 
 //获取已购课程
 function getBoughtList(pageNumber,pageSize,downOrUp) {
@@ -126,3 +136,6 @@ function pullupRefresh() {
         getBoughtList(num,10,'up');
     }, 500);
 }
+
+
+
