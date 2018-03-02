@@ -80,10 +80,12 @@ header {
 }
 .bought_main_list{
 	width: 100%;
-	height: 1.4rem;
-	border-bottom: 1px solid #D8DDE6;
-	margin-bottom: 0.2rem;
-	background: #fff;
+    /* height: 1.4rem; */
+    border-bottom: 1px solid #D8DDE6;
+    margin-bottom: 0.2rem;
+    background: #fff;
+    overflow: hidden;
+    padding-bottom: 0.2rem;
 }
 .bought_list_left{
 	width: 2.12rem;
@@ -111,7 +113,7 @@ header {
 }
 .bought_list_title{
 	/*width: 7rem;*/
-	max-height: 0.8rem;
+	/*max-height: 0.8rem;*/
 	font-size: 0.28rem;
 	color: #333333;
 	margin-bottom: 0.1rem;
