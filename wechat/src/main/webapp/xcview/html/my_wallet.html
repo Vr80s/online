@@ -64,7 +64,8 @@
 					<div class="record_title">
 						交易记录
 					</div>
-					<div id="mescroll" class="mescroll">
+					<div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+						<div class="mui-scroll">
 					<div class="record_main_div">
 						<script type="text/html" id="record_main_div">
 							{{each items as item i}}
@@ -82,6 +83,7 @@
 							{{/each}}
 						</script>
 						<div class="both"></div>
+					</div>
 					</div>
 					</div>
 					<!--无交易记录时显示-->
