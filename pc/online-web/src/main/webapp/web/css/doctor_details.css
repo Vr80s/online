@@ -22,7 +22,8 @@
 .header {
   margin-top:20px;
   height: 200px;
-  background-image: url(../images/doctor_detail/header_bg.png);
+  /*background-image: url(../images/doctor_detail/header_bg.png);*/
+ 	background: #fff;
   background-repeat: no-repeat;
   background-position: top ;
   -webkit-background-size: 100% 50%;
