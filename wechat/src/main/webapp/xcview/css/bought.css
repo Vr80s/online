@@ -83,6 +83,7 @@ header {
 	height: 1.4rem;
 	border-bottom: 1px solid #D8DDE6;
 	margin-bottom: 0.2rem;
+	background: #fff;
 }
 .bought_list_left{
 	width: 2.12rem;
@@ -154,7 +155,7 @@ header {
 	text-align: center;
 	padding: 0.5rem 0;
 }
-.btn_jump_home{
+.btn_jump_h.bought_main_listome{
 	padding: 0.08rem 0.3rem;
 	border: 1px solid #00BC12;
 	color: #00BC12;
