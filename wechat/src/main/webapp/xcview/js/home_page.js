@@ -97,6 +97,21 @@ function recommendSchool(){
 				    	var  data_one_div=$(this).find("img").attr("data-div");
 				    	location.href=data_one_div;
 				    })
+				      	
+	//swiper学堂小白课
+	var swiper = new Swiper('.swiper-containers', {
+	    slidesPerView: 5,
+	    paginationClickable: true,
+	    spaceBetween: 10
+	});
+	
+	
+	//swiper医师滑动
+	var swiper = new Swiper('.swiper-container', {
+	    slidesPerView: 5,
+	    paginationClickable: true,
+	    spaceBetween: 10
+	});
 				   
 		})
 		//精品课程
@@ -160,6 +175,12 @@ function lineWork(){
 				    	location.href=data_class;
 				    })
 		//swiper轮播结束	
+			//swiper线下课省滑动
+			var swiper = new Swiper('#swiper1', {
+			    slidesPerView: 5,
+			    paginationClickable: true,
+			    spaceBetween: 10
+			});
 		})
 		//线下课banner下的城市点击
 		$(".go_search").click(function(){
@@ -292,29 +313,29 @@ function listenSchool(){
 
 //听课结束 ====================================================
 
-$(function(){
-	
-	//swiper学堂小白课
-	var swiper = new Swiper('.swiper-containers', {
-	    slidesPerView: 5,
-	    paginationClickable: true,
-	    spaceBetween: 10
-	});
-	
-	
-	//swiper医师滑动
-	var swiper = new Swiper('.swiper-container', {
-	    slidesPerView: 5,
-	    paginationClickable: true,
-	    spaceBetween: 10
-	});
-	//swiper线下课省滑动
-	var swiper = new Swiper('#swiper1', {
-	    slidesPerView: 5,
-	    paginationClickable: true,
-	    spaceBetween: 10
-	});
-});
+//$(function(){
+////	
+////	//swiper学堂小白课
+////	var swiper = new Swiper('.swiper-containers', {
+////	    slidesPerView: 5,
+////	    paginationClickable: true,
+////	    spaceBetween: 10
+////	});
+////	
+////	
+////	//swiper医师滑动
+////	var swiper = new Swiper('.swiper-container', {
+////	    slidesPerView: 5,
+////	    paginationClickable: true,
+////	    spaceBetween: 10
+////	});
+//	//swiper线下课省滑动
+//	var swiper = new Swiper('#swiper1', {
+//	    slidesPerView: 5,
+//	    paginationClickable: true,
+//	    spaceBetween: 10
+//	});
+//});
 
 
 
