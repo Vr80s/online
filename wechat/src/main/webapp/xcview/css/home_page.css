@@ -1138,9 +1138,10 @@ header{
     white-space: nowrap;
     display: inline-block;
     max-width: 3rem;
-    /*height: 0.52rem;*/
-    line-height: 0.52rem;
+    height1: 0.5rem;
+    line-height1: 0.52rem;
     display: inline-flex;
+background1: red;
 }
 .boutique_main_one_size p:first-child{
 	margin-right: 0.213rem;
@@ -1148,12 +1149,12 @@ header{
     min-width: 1rem;
     max-width: 3.4rem;
     /*height: 0.51rem;*/
-    line-height: 0.51rem;
+    line-height1: 0.51rem;
 	
 }
 .boutique_main_one_size .p2{
 	/*height: 0.51rem;*/
-    line-height: 0.51rem;
+    line-height1: 0.51rem;
     float: left;
     margin-right: 0.25rem;
 }
@@ -1161,6 +1162,9 @@ header{
 	width: 0.404rem;
 	height: 0.468rem;
 	margin-right: 0.15rem;
+    display: block;
+    float: left;
+margin-top: 0.05rem;
 }
 .boutique_main_one_size .p2 span{
 	font-size: 0.511rem;
@@ -1170,13 +1174,15 @@ header{
     white-space: nowrap;
     display: inline-block;
     max-width: 2rem;
+    float: left;
 }
 .boutique_main_one_size .p3{
 	/*float: right;*/
     margin-right: 0.4rem;
     margin-top: -0.1rem;
-    height: 0.52rem;
-    line-height: 0.52rem;
+    height1: 0.52rem;
+    line-height1: 0.51rem;
+overflow: hidden;
 }
    
  .boutique_main_one_size .p3 img{
@@ -1188,13 +1194,13 @@ header{
 .boutique_main_one_size .p3 span{
     /*float: right;*/
 	color: #999999;
-    margin-top: 0.03rem;
+    margin-top1: 0.03rem;
     float: left;
 }
 .boutique_main_one_size .p4{
 	margin-top: 0.01rem;
-    /*height: 0.52rem;*/
-    line-height: 0.51rem;
+    height1: 0.52rem;
+    line-height1: 0.51rem;
 }
 .boutique_main_one_size .p4 img{
 	width: 0.5rem;
@@ -2033,7 +2039,7 @@ to {-webkit-transform: rotate(360deg);}
 	height: 0.984rem;
 	text-align: center;
 	margin: 0 auto;
-	margin-bottom: 0.18rem;
+	margin-bottom: 0.22rem;
 	margin-top: 0.18rem;
 }
 .footer ul li p{
