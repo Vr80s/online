@@ -396,12 +396,12 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .acupuncture_main_one_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .acupuncture_main_one_size .p2 img{
@@ -471,13 +471,13 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .acupuncture_main_two_size .p2{
     max-width: 2.5rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
 }
@@ -567,12 +567,12 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .acupuncture_main_three_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .acupuncture_main_three_size .p2 img{
@@ -641,13 +641,13 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .acupuncture_main_four_size .p2{
     max-width: 2.5rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
 }
@@ -759,7 +759,7 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
@@ -768,7 +768,7 @@ header{
 	height: 0.468rem;
 }*/
 .ancient_main_one_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .ancient_main_one_size .p2 img{
@@ -836,13 +836,13 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .ancient_main_two_size .p2{
     max-width: 2.5rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
 }
@@ -932,12 +932,12 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .ancient_main_three_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .ancient_main_three_size .p2 img{
@@ -1006,13 +1006,13 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .ancient_main_four_size .p2{
     max-width: 2.5rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
 }
@@ -1138,7 +1138,7 @@ header{
     white-space: nowrap;
     display: inline-block;
     max-width: 3rem;
-    height: 0.52rem;
+    /*height: 0.52rem;*/
     line-height: 0.52rem;
     display: inline-flex;
 }
@@ -1147,12 +1147,12 @@ header{
     float: left;
     min-width: 1rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .boutique_main_one_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
     margin-right: 0.25rem;
@@ -1193,8 +1193,8 @@ header{
 }
 .boutique_main_one_size .p4{
 	margin-top: 0.01rem;
-    height: 0.52rem;
-    line-height: 0.52rem;
+    /*height: 0.52rem;*/
+    line-height: 0.51rem;
 }
 .boutique_main_one_size .p4 img{
 	width: 0.5rem;
@@ -1252,13 +1252,13 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .boutique_main_two_size .p2{
     max-width: 2.5rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
 }
@@ -1348,12 +1348,12 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .boutique_main_three_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .boutique_main_three_size .p2 img{
@@ -1434,14 +1434,14 @@ header{
     float: left;
     min-width: 1rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .boutique_main_four_size .p2{
     max-width: 2.5rem;
     min-width: 0.8rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
     margin-right: 0.25rem;
@@ -1557,12 +1557,12 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .newest_main_one_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .newest_main_one_size .p2 img{
@@ -1644,13 +1644,13 @@ header{
     float: left;
     min-width: 1rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .newest_main_two_size .p2{
     max-width: 2.5rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
     margin-right: 0.2rem;
@@ -1741,12 +1741,12 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .newest_main_three_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .newest_main_three_size .p2 img{
@@ -1815,13 +1815,13 @@ header{
     float: left;
     min-width: 2.936rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .newest_main_four_size .p2{
     max-width: 2.5rem;
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
     float: left;
 }
@@ -1950,12 +1950,12 @@ header{
     float: left;
     min-width: 1rem;
     max-width: 3.4rem;
-    height: 0.51rem;
+    /*height: 0.51rem;*/
     line-height: 0.51rem;
 	
 }
 .lectures_main_one_size .p2{
-	height: 0.51rem;
+	/*height: 0.51rem;*/
     line-height: 0.51rem;
 }
 .lectures_main_one_size .p2 img{
