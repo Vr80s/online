@@ -275,7 +275,7 @@ public class OnlineCourseServiceImpl extends BasicSimpleDao implements OnlineCou
 		 * 判断用户是否需要密码或者付费
 		 */
 		if(courseLecturVo.getWatchState()!=0){
-			if(courseLecturVo.getUserId().equals(user.getId()) || onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
+			if(courseLecturVo.getUserId().equals(user.getId()) || onlineWebService.getLiveUserCourse(course_id,user.getId())){
 		       courseLecturVo.setWatchState(0);
 		    };
 		}

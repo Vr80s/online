@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.AppBrowserService;
+import com.xczh.consumer.market.service.OnlineWebService;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczhihui.bxg.common.util.bean.Page;
 import com.xczhihui.bxg.online.api.service.CriticizeService;
@@ -30,10 +31,11 @@ public class CriticizeController {
 	@Autowired
 	private AppBrowserService appBrowserService; 
 	
-//	@Autowired
-//	private criticizeService criticizeService;
 	@Autowired
 	private CriticizeService criticizeService; 
+	
+	@Autowired
+	private OnlineWebService  onlineWebService;
 	/**
 	 * 添加评论
 	 */
@@ -48,12 +50,17 @@ public class CriticizeController {
 			return ResponseObject.newSuccessResponseObject("登录失效");
 		}
 		criticize.setId(UUID.randomUUID().toString().replaceAll("-", ""));
-		criticize.setCreatePerson(ou.getId());
-		if(criticize.getContent().length()>5000){
-			return ResponseObject.newErrorResponseObject("抱歉评论内容过长");
+		criticize.setCreatePerson(ou.getId());  //创建人id
+		if(criticize.getContent().length()>100){
+			return ResponseObject.newErrorResponseObject("评论失败");
 		}else{
+			/**
+			 * 这里判断下此用户有没有购买过此视频
+			 */
+			Boolean isBuy = onlineWebService.getLiveUserCourse(criticize.getCourseId(), ou.getId());
+			criticize.setIsBuy(isBuy);
 			criticizeService.saveNewCriticize(criticize);
-			return ResponseObject.newSuccessResponseObject("评论添加成功");
+			return ResponseObject.newSuccessResponseObject("评论成功");
 		}
 	}
 	/**
@@ -124,7 +131,9 @@ public class CriticizeController {
         OnlineUser user = appBrowserService.getOnlineUserByReq(request);
         if(user!=null) {
         	
-        	//这个是讲师id
+        	/**
+        	 * 这个是讲师id
+        	 */
             criticizeService.saveReply(content,user.getId(),criticizeId);
             
             return ResponseObject.newSuccessResponseObject("回复成功！");

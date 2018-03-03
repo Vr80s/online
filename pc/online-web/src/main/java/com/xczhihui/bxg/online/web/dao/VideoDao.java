@@ -10,6 +10,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.online.common.enums.CourseForm;
+
 import org.apache.poi.ss.formula.functions.T;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
@@ -409,10 +410,10 @@ public class VideoDao extends SimpleHibernateDao {
 		}
 		String sql = "insert into oe_criticize (id,create_person,content,"
 		        + "user_id,course_id,content_level,deductive_level,criticize_lable,"
-		        + "overall_level) "
+		        + "overall_level,is_buy) "
 		        + "values (:id,:createPerson,:content,:userId,"
 		        + ":courseId,:contentLevel,:deductiveLevel,:criticizeLable,"
-		        + ":overallLevel)";
+		        + ":overallLevel,:isBuy)";
 		this.getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(criticizeVo));
 		
 	}
@@ -439,6 +440,10 @@ public class VideoDao extends SimpleHibernateDao {
 		criticizeVo.setCreatePerson(userId);
 		criticizeVo.setUserId(cvo.getUserId());
 		criticizeVo.setCourseId(cvo.getCourseId());
+		
+		boolean isbuy = this.checkUserIsBuyCourse(cvo.getCourseId(), userId);
+		criticizeVo.setIsBuy(isbuy);
+		
 		this.saveNewCriticize(criticizeVo);
 		
 		/**
@@ -468,6 +473,14 @@ public class VideoDao extends SimpleHibernateDao {
         Map<String,Object> paramMap = new HashMap<>();
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
+        
+        
+        /**
+         * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
+         * 	 或者是购买成功	
+         * 	
+         */
+        
         
         if(courseId !=null || teacherId!=null){
            StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
@@ -596,6 +609,33 @@ public class VideoDao extends SimpleHibernateDao {
         }
         return isViewStars;
     }
+    
+    
+    
+    /**
+     * 
+     * Description：判断用户是否已经购买过
+     * @param courseId
+     * @param userId
+     * @return
+     * @return Boolean true 购买  false 未购买
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public Boolean  checkUserIsBuyCourse(Integer courseId,String userId) {
+        StringBuffer sql = new StringBuffer();
+        sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
+        sql.append(" and argc.user_id=:userId ");
+        Object [] obj  ={courseId,userId};
+        int count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
+        		sql.toString(),Integer.class,obj);
+        if(count>0){
+        	return true;
+        }else{
+        	return false;
+        }
+    }
+    
     
     
     public static void main(String[] args) throws IllegalAccessException {

@@ -83,7 +83,6 @@ public class CourseController {
 		
 		cv.setStartLevel(criticizeStartLevel(cv.getStartLevel()));
 		
-		
 
 		/**
 		 * 这里需要判断是否购买过了
@@ -108,7 +107,8 @@ public class CourseController {
 				
 				//watchHistoryServiceImpl.addOrUpdate(target);
 			}else if(cv.getWatchState()==0){ //收费课程
-				if(onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){  //大于零--》用户购买过  
+				
+				if(onlineWebService.getLiveUserCourse(courseId,user.getId())){  //大于零--》用户购买过  
 					cv.setWatchState(2);
 					
 					//watchHistoryServiceImpl.addOrUpdate(target);
@@ -184,7 +184,7 @@ public class CourseController {
 				onlineWebService.saveEntryVideo(courseId, user);
 //				watchHistoryServiceImpl.addOrUpdate(target);
 			}else if(cv.getWatchState()==0   ){ //收费课程
-				if(onlineWebService.getLiveUserCourse(courseId,user.getId()).size()>0){  //大于零--》用户购买过  
+				if(onlineWebService.getLiveUserCourse(courseId,user.getId())){  //大于零--》用户购买过  
 					cv.setWatchState(2);
 //					watchHistoryServiceImpl.addOrUpdate(target);
 				}
