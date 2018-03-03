@@ -376,6 +376,7 @@ header{
     left: 0;
     height: 0.8rem;
     line-height: 0.8rem;
+    z-index: 1;
 }
 .hint span{
 	font-size: 0.24rem;
