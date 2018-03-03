@@ -178,7 +178,7 @@ function refresh(pageNumber,pageSize,downOrUp){
         //判断浮层是否已选
         if(commentCode==1){
             var list=document.getElementsByClassName("active_color");
-            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                 $(".report_btn").css("opacity","0.3");
             }else{
                 $(".report_btn").css("opacity","1");
@@ -186,7 +186,7 @@ function refresh(pageNumber,pageSize,downOrUp){
         }
             $('.my_impression1').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
@@ -194,7 +194,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             })
             $('.my_impression2').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
@@ -202,7 +202,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             })
             $('.my_impression3').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
@@ -210,12 +210,20 @@ function refresh(pageNumber,pageSize,downOrUp){
             })
             $('.select_lable').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
                 }
             })
+        $('#comment_detailed').keyup(function(){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        })
 
     });
 }
@@ -237,11 +245,11 @@ function reportComment() {
     }
     var str=arr.join(",");
 
-    //var s = $('.active_color').val();
+
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        webToast("请输入评论内容","middle",1500);
-        return
+        //webToast("请输入评论内容","middle",1500);
+        return false
     }
     var overallLevel=0;
     if(my_impression1!=""){

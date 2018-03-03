@@ -531,8 +531,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 		//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 		commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 		commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
-		commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
-
+		commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort, ");
+		commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 		commonSql.append(" from oe_course oc,oe_menu as om ");
 		commonSql.append(" where   om.id = oc.menu_id  and "
 				+ " oc.is_delete=0 and oc.status = 1   ");
@@ -605,7 +605,7 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==4){
 				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc ");
 			}else if(org.apache.commons.lang.StringUtils.isBlank(menuType)&&courseType!=null&&courseType==3){
-				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.start_time desc ");
+				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,recent ");
 			}else{
 				commonSql.append("  order by  oc.is_recommend desc,recommend_sort desc,oc.create_time desc ");
 			}
@@ -626,7 +626,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
-			commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
+			commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort, ");
+			commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 
 			commonSql.append(" from oe_course oc,oe_menu as om ");
 			commonSql.append(" where   om.id = oc.menu_id  and "
@@ -702,7 +703,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
-			commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
+			commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort, ");
+			commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 
 			commonSql.append(" from oe_course oc,oe_menu as om ");
 			commonSql.append(" where   om.id = oc.menu_id  and "
@@ -779,7 +781,8 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			//课程类型     音频、视频、直播、线下培训班   1 2 3 4
 			commonSql.append(" if(oc.type =3,4,IF(oc.type = 1,3,if(oc.multimedia_type=1,1,2))) as type, ");
 			commonSql.append(" oc.create_time,oc.is_recommend,oc.start_time,");
-			commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort ");
+			commonSql.append(" if(oc.is_recommend=1,oc.recommend_sort,-10000) as recommend_sort, ");
+			commonSql.append(" ABS(timestampdiff(second,current_timestamp,oc.start_time)) as recent ");
 
 			commonSql.append(" from oe_course oc,oe_menu as om ");
 			commonSql.append(" where   om.id = oc.menu_id  and "
@@ -847,9 +850,6 @@ public class OLCourseServiceImpl implements OLCourseServiceI {
 			commonSql.append("  order by  ooc.querySort asc,ooc.is_recommend desc,ooc.recommend_sort desc,ooc.create_time desc ");
 
 		}
-
-
-
 
     	System.out.println("commonSql:"+commonSql.toString());
         return wxcpCourseDao.queryPage(JdbcUtil.getCurrentConnection(),commonSql.toString(),
