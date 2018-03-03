@@ -42,19 +42,14 @@ public class WatchHistoryServiceImpl extends ServiceImpl<WatchHistoryMapper,Watc
 	public Page<WatchHistoryVO> selectWatchHistory(Page<WatchHistoryVO> page,
 			String userId) {
 		
-		List<WatchHistoryVO> records = watchHistoryMapper.selectWatchHistory(page,userId);
-		
+		List<WatchHistoryVO> records = watchHistoryMapper.selectWatchHistory(userId);
 		
 		for (WatchHistoryVO watchHistoryVO : records) {
 			String watch = DateUtil.formatDate(watchHistoryVO.getWatchTime(), DateUtil.FORMAT_DAY_TIME);
 			String current = DateUtil.formatDate(new Date(),DateUtil.FORMAT_DAY_TIME);
-			
 			String distance = DateDistance.getNewDistanceTime(watch,current);
-			
 			LOGGER.info("watch:"+watch+"========current:"+current);
 			LOGGER.info("distance:"+distance);
-			
-			
 			watchHistoryVO.setTimeDifference(distance);
 		}
 		return   page.setRecords(records);

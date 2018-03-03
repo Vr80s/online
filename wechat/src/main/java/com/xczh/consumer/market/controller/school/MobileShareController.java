@@ -224,7 +224,7 @@ public class MobileShareController {
 					    cv.setWatchState(4);
 				    }
 					if(cv.getWatchState()==0){ //收费课程
-						if(onlineWebService.getLiveUserCourse(courseId,ou.getId()).size()>0){  //大于零--》用户购买过  
+						if(onlineWebService.getLiveUserCourse(courseId,ou.getId())){  //大于零--》用户购买过  
 							cv.setWatchState(2);
 						}
 					}

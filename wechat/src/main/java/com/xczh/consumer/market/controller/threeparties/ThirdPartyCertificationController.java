@@ -113,7 +113,7 @@ public class ThirdPartyCertificationController {
 		
 		Integer vtype = SMSCode.FORGOT_PASSWORD.getCode();
 		LOGGER.info("三方绑定已注册手机认证参数信息："
-				+ "username:"+userName+",openId:"+unionId+",code:"+code+",type:"+type);
+				+ "username:"+userName+",unionId:"+unionId+",code:"+code+",type:"+type);
 		/*
 		 * 验证短信验证码
 		 */

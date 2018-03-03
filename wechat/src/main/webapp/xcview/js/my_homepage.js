@@ -7,6 +7,9 @@ if(stringnull(opendId)){
 	localStorage.setItem("openid", openId);
 }
 
+//alert("falg"+falg); 
+
+
 function balance() {
     requestService("/xczh/manager/home",{
     },function(data) {
@@ -22,13 +25,15 @@ function balance() {
     });
 }
 //判断是否为游客并跳转登陆界面
-var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
+    var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<div class="both"></div>'+
 				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
 				'<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
-	if (falg==1002){
-   			$(".header_img").append(isNouser)
+
+	if (falg==1002 || falg == 1005){
+		
+   	    $(".header_img").append(isNouser)
 	}
 //	else if (falg==1005) {
 //			location.href ="/xcview/html/evpi.html";

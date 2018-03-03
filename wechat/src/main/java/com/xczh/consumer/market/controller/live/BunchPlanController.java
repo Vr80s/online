@@ -152,10 +152,9 @@ public class BunchPlanController {
 			}else{
 				
 				LOGGER.info("getUserId:"+courseLecturVo.getUserId()+"======"+user.getId());
-				LOGGER.info("courseid:"+onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size());
 				
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
-						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId()).size()>0){
+						onlineWebService.getLiveUserCourse(Integer.parseInt(courseid),user.getId())){
 			       //LOGGER.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };

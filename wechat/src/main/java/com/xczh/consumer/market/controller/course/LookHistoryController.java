@@ -86,7 +86,7 @@ public class LookHistoryController {
 			if(ou==null){
 			   return ResponseObject.newErrorResponseObject("登录失效");
 			}
-			return ResponseObject.newSuccessResponseObject(watchHistoryServiceImpl.selectWatchHistory(page, ou.getId()));
+			return ResponseObject.newSuccessResponseObject(watchHistoryServiceImpl.selectWatchHistory(page,ou.getId()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseObject.newErrorResponseObject("数据有误");

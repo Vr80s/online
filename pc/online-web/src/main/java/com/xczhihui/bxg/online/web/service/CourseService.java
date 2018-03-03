@@ -212,4 +212,7 @@ public interface CourseService {
      * @Date: 2018/2/27 0027 下午 8:27
      **/
     List<CourseVo> getCoursesByCollectionId(Integer collectionId);
+    
+    
+    
 }

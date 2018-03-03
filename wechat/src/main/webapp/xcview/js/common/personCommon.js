@@ -187,38 +187,26 @@ function updateMobile(){
 
     var number = $("#new_mobile").val();
     if (!(/^1[34578]\d{9}$/.test(number))) {
-//      $("#errorMsg").text("手机号格式不正确111");
-        /*$("#errorMsg").text(webToast("手机号格式不正确","middle",1500));
-        $("#errorMsg").show();*/
        	webToast("手机号格式不正确","middle",1500);
         return false;
     }
-    
-    
-   /* if (!(/^1[34578]\d{9}$/.test(number))) {
-		webToast("手机号格式不正确","middle",1500);
-		return false;
-	}*/
 
     var code= $("#new_code").val();
     if(!stringnull(code)){
-        /*$("#errorMsg").html("验证码不能为空");
-        $("#errorMsg").show();*/
+    	webToast("验证码不能为空","middle",1500);
         return false;
     }
-
     var urlparm = {
         oldUsername:currentName,
         newUsername:number,
         code:code,
         vtype:4   	//类型，3注册，2重置密码
     };
-
-    requestService("/xczh/set/phoneCheck",   //获取验证码短信
+    requestService("/xczh/set/updatePhone",   //获取验证码短信
         urlparm, function(data) {
             if (data.success) {
                 //更改完手机号后，需要把session中的这个东西换下呢？
-                localStorage.setItem("name",number);
+                localStorage.setItem("username",number);
                 $(".call_popup_size2").text(number);
                 $(".call_popup").show();
             } else {

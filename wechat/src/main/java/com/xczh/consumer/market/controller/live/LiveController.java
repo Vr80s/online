@@ -247,7 +247,7 @@ public class LiveController {
 				onlineWebService.saveEntryVideo(course_id, user);
 			}else{
 				if(courseLecturVo.getUserId().equals(user.getId()) ||
-						onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
+						onlineWebService.getLiveUserCourse(course_id,user.getId())){
 			       //LOGGER.info("同学,当前课程您已经报名了!");
 			       courseLecturVo.setWatchState(0);    
 			    };

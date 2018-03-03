@@ -424,3 +424,4 @@ function pullupRefresh() {
         refresh(num,10,'up');
     }, 500);
 }
+

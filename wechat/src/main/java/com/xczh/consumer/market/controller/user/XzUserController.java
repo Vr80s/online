@@ -46,6 +46,7 @@ import com.xczhihui.bxg.online.common.enums.RegisterForm;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
+import com.xczhihui.wechat.course.service.IThreePartiesLoginService;
 
 /**
  * 用户controller
@@ -74,6 +75,10 @@ public class XzUserController {
 	private AppBrowserService appBrowserService;
 	
 	@Autowired
+	private IThreePartiesLoginService threePartiesLoginService;
+	
+	
+	@Autowired
 	private CityService cityService;
 	
 	private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(XzUserController.class);
@@ -96,7 +101,7 @@ public class XzUserController {
 			@RequestParam("vtype")Integer vtype,
 			@RequestParam("username")String username){
 		
-		//类型，1注册，2重置密码
+		//类型，1注册，  2重置密码   3 完善信息
 		vtype = vtype == null ? SMSCode.RETISTERED.getCode() : vtype;
 		try {
 			
@@ -151,8 +156,6 @@ public class XzUserController {
 		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		this.onlogin(req, res, t, ou,t.getTicket());
-		
-		
 		String openId = req.getParameter("openId");
 		if(StringUtils.isNotBlank(openId)){
 			//进行绑定
@@ -424,6 +427,23 @@ public class XzUserController {
 	    outputStream.flush();
 	    outputStream.close();
 	}
+	
+	
+   @RequestMapping("emptyAccount")
+   @ResponseBody
+   public ResponseObject emptyAccount(HttpServletRequest req,
+		   @RequestParam("userName")String userName) throws Exception{
+	   OnlineUser ou =  onlineUserService.findUserByLoginName(userName);
+	   if(ou!=null){
+		   threePartiesLoginService.deleteAccount(ou.getId());
+		   wxcpClientUserWxMappingService.deleteAccount(ou.getId());
+		   userCenterAPI.deleteUser(userName);
+		   onlineUserService.emptyAccount(userName);
+		   return ResponseObject.newSuccessResponseObject("清理成功");
+	   }
+       return ResponseObject.newSuccessResponseObject("未找到该用户");
+   }
+	
 	
 	/**
 	 * 登陆成功处理

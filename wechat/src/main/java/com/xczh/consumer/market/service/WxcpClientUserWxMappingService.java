@@ -72,5 +72,6 @@ public interface WxcpClientUserWxMappingService{
 	 */
 	public WxcpClientUserWxMapping getWxcpClientUserWxMappingByUserIdAndUnionId(String userId,
 			String unionId)throws SQLException;
+	public void deleteAccount(String id)throws SQLException;
 
 }

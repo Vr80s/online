@@ -13,6 +13,7 @@ public enum SMSCode {
 	RETISTERED(1, "注册"),
 	FORGOT_PASSWORD(2, "重置密码"),
 	
+	
 	//更换手机号使用
 	OLD_PHONE(3, "原来手机号获取验证码"),
 	NEW_PHONE(4, "新的手机号获取验证码"),
