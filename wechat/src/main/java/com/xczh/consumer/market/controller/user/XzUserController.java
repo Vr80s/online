@@ -156,8 +156,6 @@ public class XzUserController {
 		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		this.onlogin(req, res, t, ou,t.getTicket());
-		
-		
 		String openId = req.getParameter("openId");
 		if(StringUtils.isNotBlank(openId)){
 			//进行绑定

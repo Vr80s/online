@@ -206,6 +206,15 @@ public class H5WeChatSetController {
 				
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
+				/**
+				 * 创建一个用户  
+				 *   头像、昵称
+				 */
+				OnlineUser ou = onlineUserService.wechatCreateUserInfo(wxw);
+				
+				
+				
+				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&&jump_type=2");
 			}
 		} catch (Exception e) {

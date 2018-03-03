@@ -270,7 +270,11 @@
 		ABS(timestampdiff(second,current_timestamp,oc.create_time)) as recent
 		FROM
 		oe_course oc
-		where oc.user_lecturer_id = #{userId} and oc.is_delete=0 and oc.status=1 
+		where oc.user_lecturer_id = #{userId} 
+		and oc.is_delete=0 
+		and oc.status=1 
+		and oc.type = 1
+		and oc.lineState in (2,3)
 		order by recent limit 0,1
 	</select>
 

@@ -11,6 +11,7 @@ public class Token implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	/**
 	 * 用户在用户中心的ID
 	 */

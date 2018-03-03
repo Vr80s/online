@@ -164,10 +164,16 @@ public class XzIapController {
     		if(null == orderDetails.getResultObject()){
     			return ResponseObject.newErrorResponseObject("未找到订单信息");
     		}
-			/**
-			 * 要消费的熊猫币
-			 */
-    		OnlineOrder order  = (OnlineOrder) orderDetails.getResultObject();
+    		OnlineOrder order = (OnlineOrder)orderDetails.getResultObject();
+    		/**
+    		 * 根据订单id得到这个订单中已经存在的课程。
+    		 *  如果这个课程已经存在，提示用户这个订单你已经购买过了。
+    		 */
+    		ResponseObject ro =	onlineOrderService.orderIsExitCourseIsBuy(order.getId(),user.getId(),1);
+    		if(!ro.isSuccess()){//存在此订单哈，
+    			return ro;
+    		}
+		
     		Double actualPrice = order.getActualPay();
     		
     		BigDecimal  xmb = BigDecimal.valueOf(actualPrice * rate);
