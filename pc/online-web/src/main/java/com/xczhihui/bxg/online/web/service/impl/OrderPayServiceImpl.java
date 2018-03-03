@@ -95,7 +95,7 @@ public class OrderPayServiceImpl extends OnlineBaseServiceImpl implements OrderP
 				sql = "select (ifnull(max(cast(student_number as signed)),'0'))+1 from apply_r_grade_course where grade_id="+gradeId;
 				Integer no = orderDao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, Integer.class);
 				String sno = no < 10 ? "00"+no : (no < 100 ? "0"+no : no.toString());
-				sql = "insert into  (id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number,order_no)"
+				sql = "insert into  apply_r_grade_course(id,course_id,grade_id,apply_id,is_payment,create_person,user_id,create_time,cost,student_number,order_no)"
 						+ " values('"+id+"',"+order.getCourse_id()+","+gradeId+",'"+apply_id+"',2,'"+order.getCreate_person()+"','"+order.getUser_id()+"',now(),"+order.getActual_pay()+","
 						+ " '"+sno+"',"+"'"+order.getOrderDetailId()+"')";
 				orderDao.getNamedParameterJdbcTemplate().update(sql, paramMap);
