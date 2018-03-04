@@ -59,6 +59,32 @@
                  	<input class="search_hos" type="text" placeholder="请输入名字搜索医馆">
                  	<button class="search_hos_btn">搜索</button>
                 </div>
+                <div style="border-top: 1px solid #f0f0f0;" class="search_choose">
+                	<div class="hos_search_area">
+                		<span>医疗领域：</span>
+                		<ul class="clearfix" id="hos_search_area">
+                			<!--<li><a href="javascript:;">全部</a></li>
+                			<li><a href="javascript:;">高血压</a></li>
+                			<li><a href="javascript:;">心肌病</a></li>
+                			<li><a href="javascript:;">脑性瘫痪</a></li>
+                			<li><a href="javascript:;">闭经</a></li>
+                			<li><a href="javascript:;">盆腔炎</a></li>
+                			<li><a href="javascript:;">肝硬化</a></li>
+                			<li><a href="javascript:;">吡脲病症</a></li>
+                			<li><a href="javascript:;">正骨</a></li>
+                			<li><a href="javascript:;">偏桃体炎</a></li>
+                			<li><a href="javascript:;">不孕不育</a></li>-->
+                			
+                		</ul>
+                	</div>
+                	<div class="hos_search_condition">
+              		<span>筛选条件：</span>
+              		<ul class="clearfix">
+              			<li id="hos_search_condition1" class="hide"><div style="display: inline-block;"><span style="color: #00BC12 ;margin-left: 5px;">中医内科</span></div><a href="javascript:;" style="color: #2cb82c;margin: 0 5px;">X</a></li>
+              			<li id="hos_search_condition3" style="border:none;color: #999;">暂无筛选条件</li>
+              		</ul>
+              	</div>
+                </div>
 				<div id="hospital_list">
 				
 				<!-- TODO -->
@@ -199,6 +225,16 @@
  {{/each}}
 </script> 
 
+
+
+
+<!--医馆筛选领域部分-->
+<script type="text/template" id="hos_search_area_Tpl">
+	<li><a href="javascript:;" class="color">全部</a></li>
+	{{each item as item i}}
+	<li><a href="javascript:;" data-fileid={{item.id}}>{{item.name}}</a></li>
+	{{/each}}              			
+</script>
 
 </body>
 </html>
