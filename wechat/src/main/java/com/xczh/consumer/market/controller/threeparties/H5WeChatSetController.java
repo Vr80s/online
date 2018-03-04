@@ -32,6 +32,7 @@ import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
 import com.xczh.consumer.market.wxpay.util.HttpsRequest;
+import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
 import com.xczhihui.user.center.bean.TokenExpires;
 
@@ -70,7 +71,6 @@ public class H5WeChatSetController {
 	private String gzh_appid;
 	
 	
-	private String  password = RandomUtil.getCharAndNumr(6);
 	
 	/**
 	 * 
@@ -208,15 +208,25 @@ public class H5WeChatSetController {
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-				/**
-				 * 创建用户中心信息和普通用户信息  
-				 */
-				OnlineUser ou = onlineUserService.wechatCreateUserInfo(wxw);
-				Token t = userCenterAPI.loginThirdPart(wxw.getUnionid(),password, TokenExpires.TenDay);
-				onlogin(req,res,t,ou,t.getTicket());
 				
-				wxw.setClient_id(ou.getId());
-				wxcpClientUserWxMappingService.update(wxw);
+				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+				
+				OnlineUser ou =  onlineUserService.findUserByLoginName(wxw.getUnionid());
+				if(ou ==null){
+					/**
+					 * 创建用户中心信息和普通用户信息  
+					 */
+					ou = onlineUserService.wechatCreateUserInfo(wxw);
+					
+					 LOGGER.info("ou  uniond "+ou.getId());
+					 
+				}
+				Token t = userCenterAPI.login(
+							wxw.getUnionid(),
+							WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
+							TokenExpires.TenDay
+							);
+				onlogin(req,res,t,ou,t.getTicket());
 				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 			}
@@ -285,15 +295,25 @@ public class H5WeChatSetController {
 				tf.setUnionId(wxw.getUnionid());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
-				/**
-				 * 创建用户中心信息和普通用户信息  
-				 */
-				OnlineUser ou = onlineUserService.wechatCreateUserInfo(wxw);
-				Token t = userCenterAPI.loginThirdPart(wxw.getUnionid(),password, TokenExpires.TenDay);
+				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+				
+				OnlineUser ou =  onlineUserService.findUserByLoginName(wxw.getUnionid());
+				if(ou ==null){
+					/**
+					 * 创建用户中心信息和普通用户信息  
+					 */
+					ou = onlineUserService.wechatCreateUserInfo(wxw);
+					
+					 LOGGER.info("ou  uniond "+ou.getId());
+					 
+				}
+				Token t = userCenterAPI.login(
+							wxw.getUnionid(),
+							WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
+							TokenExpires.TenDay
+							);
 				onlogin(req,res,t,ou,t.getTicket());
 				
-				wxw.setClient_id(ou.getId());
-				wxcpClientUserWxMappingService.update(wxw);
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {

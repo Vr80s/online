@@ -138,7 +138,7 @@ $(".enter_btn").click(function(){
 			userName:number,
 			code:yanzhengma,
 			unionId:unionId,
-			type:1
+			vtype:vtype
 	};
 	
 	var url = "/xczh/third/h5WechatMobile";

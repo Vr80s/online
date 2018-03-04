@@ -36,6 +36,7 @@ import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
 import com.xczh.consumer.market.wxpay.consts.WxPayConst;
 import com.xczh.consumer.market.wxpay.util.CommonUtil;
+import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
 import com.xczhihui.bxg.online.common.enums.UserUnitedStateType;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -109,7 +110,7 @@ public class WeChatThirdPartyController {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	@RequestMapping("wxThirdGetAccessToken")
-	public void h5GetOpenid1(HttpServletRequest req, HttpServletResponse res,
+	public void wxThirdGetAccessToken(HttpServletRequest req, HttpServletResponse res,
 			Map<String, String> params) throws Exception {
 		
 		LOGGER.info("WX return code:" + req.getParameter("code"));
@@ -142,6 +143,7 @@ public class WeChatThirdPartyController {
 					res.sendRedirect(returnOpenidUri + "/xcview/html/lickacc_mobile.html?type=1");	
 					return;
 				}
+				
 				OnlineUser  ou = onlineUserService.findUserById(wxw.getClient_id());
 			    ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 				Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);
@@ -164,16 +166,16 @@ public class WeChatThirdPartyController {
 				}	
 			}else{
 				LOGGER.info(" 没有绑定了:");
-				if(userId!=null){
-            	   /**
-            	    * 更改微信信息	--》增加用户id
-            	    */
-					wxw.setClient_id(userId);
-	            	wxcpClientUserWxMappingService.update(wxw);
-					//type=2   绑定成功
-					res.sendRedirect(returnOpenidUri + "/xcview/html/lickacc_mobile.html?type=2");	
-					return;
-				}
+//				if(userId!=null){
+//            	   /**
+//            	    * 更改微信信息	--》增加用户id
+//            	    */
+//					wxw.setClient_id(userId);
+//	            	wxcpClientUserWxMappingService.update(wxw);
+//					//type=2   绑定成功
+//					res.sendRedirect(returnOpenidUri + "/xcview/html/lickacc_mobile.html?type=2");	
+//					return;
+//				}
 				/*
 				 * 跳转到绑定手机号页面。也就是完善信息页面。  --》绑定类型微信
 				 */
@@ -185,11 +187,26 @@ public class WeChatThirdPartyController {
 				ThridFalg tf = new ThridFalg(); 
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
-				
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+				
+				OnlineUser ou =  onlineUserService.findUserByLoginName(wxw.getUnionid());
+				if(ou ==null){
+					/**
+					 * 创建用户中心信息和普通用户信息  
+					 */
+					ou = onlineUserService.wechatCreateUserInfo(wxw);
+					
+					 LOGGER.info("ou  uniond "+ou.getId());
+					 
+				}
+				Token t = userCenterAPI.login(
+							wxw.getUnionid(),
+							WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
+							TokenExpires.TenDay
+							);
+				onlogin(req,res,t,ou,t.getTicket());
 				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}

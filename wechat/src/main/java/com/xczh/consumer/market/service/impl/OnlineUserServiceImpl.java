@@ -55,7 +55,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	//数据字典
 	private Map<String, String> attrs = new HashMap<String, String>();
 	
-	private String  password = RandomUtil.getCharAndNumr(6);
+	//private String  password = RandomUtil.getCharAndNumr(6);
 	
 	
 	@Override
@@ -544,11 +544,15 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 	}
 	
-	
 	public static void main(String[] args) {
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
 		System.out.println(vcode);
+		double 	vcode1 = Math.random()*9000+1000;
+		System.out.println(vcode1);
+		System.out.println((int)((Math.random()*9+1)*1000));
 	}
+	
+	
 	@Override
 	public void updateUserLoginName(OnlineUser o) throws SQLException {
 		onlineUserDao.updateUserLoginName(o);
@@ -720,10 +724,12 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		/**
 		 * 用户中心注册
 		 */
-		com.xczh.consumer.market.utils.Token iu =  userCenterAPI.regist(wx.getUnionid(), password,
+		com.xczh.consumer.market.utils.Token iu =  userCenterAPI.regist(wx.getUnionid(), 
+				WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
 				wx.getNickname(),UserSex.parseWechat(wx.getSex()), null,
 				null, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
 			
+		
 		OnlineUser u = new OnlineUser();
 		//用户中心id  用于发送礼物等操作
 		u.setUserCenterId(iu.getUserId());
@@ -740,7 +746,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setUserType(0);
 		u.setOrigin("weixin_public");
 		u.setMenuId(-1);
-		u.setPassword(password);
+		u.setPassword(WeihouInterfacesListUtil.MOREN_USER_PASSWORD);
 		u.setSex(UserSex.parseWechat(wx.getSex()).getValue()); //微信性别
 		u.setType(1);
 		
@@ -756,6 +762,8 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
 		
 		onlineUserDao.addOnlineUser(u);
+		
+		
 		/**
 		 * 为用户初始化一条代币记录
 		 */

@@ -168,7 +168,7 @@ public class ItcastUserDao {
 	 * @return
 	 */
 	public int updatePasswordAndLoginName(int id, String newPassword,String newLoginName) {
-		String sql = "update itcast_user set password=?,newLoginName=?  where id=?";
+		String sql = "update itcast_user set password=?,login_name=?  where id=?";
 		return this.namedParameterJdbcTemplate.getJdbcOperations().update(sql,
 				newPassword,newLoginName,id);
 	}
