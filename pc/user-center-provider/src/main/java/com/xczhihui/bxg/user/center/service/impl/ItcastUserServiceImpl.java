@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.xczhihui.bxg.user.center.dao.LoginLimitDao;
 import com.xczhihui.user.center.bean.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import org.springframework.util.StringUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import com.xczhihui.bxg.user.center.dao.ItcastUserDao;
 import com.xczhihui.bxg.user.center.service.CacheService;
 import com.xczhihui.bxg.user.center.service.UserCenterAPI;
@@ -484,4 +484,10 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 	}
 
 
+	@Override
+	public void updatePasswordAndLoginName(int id, String userName,
+			String passWord) {
+		// TODO Auto-generated method stub
+		itcastUserDao.updatePasswordAndLoginName(id, passWord, userName);
+	}
 }

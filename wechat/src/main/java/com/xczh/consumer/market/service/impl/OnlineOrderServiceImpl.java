@@ -434,8 +434,6 @@ public class OnlineOrderServiceImpl implements OnlineOrderService {
 		List<Map<String,Object>> listOod = orderMapper.query(JdbcUtil.getCurrentConnection(), sql.toString(),new MapListHandler(),params1);
 		
 		//如果不是订单是订单号呢
-
-
 		for (Map<String, Object> map : listUser) {
 			if(map.get("courseId")!=null){
 				for (Map<String, Object> map1 : listOod) {

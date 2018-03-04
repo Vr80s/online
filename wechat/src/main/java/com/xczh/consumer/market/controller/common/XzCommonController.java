@@ -418,6 +418,9 @@ public class XzCommonController {
 		return ResponseObject.newSuccessResponseObject(commonApiService.getProblemAnswer(id));
     }
 	
+	
+	
+	
 	public String getSign(Map<String, String> signkv) {
 		Set<String> keySet = signkv.keySet();
 		Iterator<String> iter = keySet.iterator();

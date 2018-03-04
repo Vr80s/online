@@ -112,6 +112,7 @@ header {
     color: #333333;
     border-bottom: 1px solid #d8dde6;
     padding: 0.3rem 0;
+    word-wrap: break-word;
 }
 /*中间内容结束*/
 

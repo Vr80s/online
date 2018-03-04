@@ -36,8 +36,7 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	        paramMap.put("userId",u.getId());
 	        paramMap.put("loginName",u.getLoginName());
 
-	        System.out.println("this.getLiveUserCourse(courseId,u.getId()).size()"+this.getLiveUserCourse(courseId,u.getId()).size());
-	       if(this.getLiveUserCourse(courseId,u.getId()).size()>0){
+	       if(this.getLiveUserCourse(courseId,u.getId())){
 	           return;
 	       };
 	       String sql="";
@@ -101,13 +100,17 @@ public class OnlineWebServiceImpl extends BasicSimpleDao implements OnlineWebSer
 	     * @throws SQLException 
 	     */
 	    @Override
-	    public List<Map<String, Object>> getLiveUserCourse(Integer courseId,String userId) throws SQLException {
+	    public Boolean getLiveUserCourse(Integer courseId,String userId) throws SQLException {
 	        StringBuffer sql = new StringBuffer();
 	        sql.append("SELECT argc.course_id ");
 	        sql.append(" from apply_r_grade_course argc ");
 	        sql.append(" where argc.is_delete=0 and argc.course_id =? and argc.user_id= ?  limit 1");
 	        Object [] params = {courseId,userId};
- 	        return this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        List<Map<String,Object>>  list =  this.query(JdbcUtil.getCurrentConnection(),sql.toString(),new MapListHandler(),params);
+	        if(list!=null && list.size()>0){
+	        	return true;
+	        }
+ 	        return false;
 	    }
 	    
 }

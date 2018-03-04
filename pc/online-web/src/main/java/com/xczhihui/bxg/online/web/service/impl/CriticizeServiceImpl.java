@@ -90,6 +90,7 @@ public class CriticizeServiceImpl implements CriticizeService {
 	@Override
 	public void saveReply(String content, String userId,String criticizeId) {
 		// TODO Auto-generated method stub
+		
 		videoDao.saveReply(content,userId,criticizeId);
 	}
 

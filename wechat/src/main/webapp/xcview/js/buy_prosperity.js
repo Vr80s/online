@@ -15,8 +15,10 @@ var collection="";
 requestService("/xczh/course/details",{courseId:courseId}, function(data) {
 	 if (data.success) {
          var result = data.resultObject;
-         $(".purchase_details_title").find(".span0").html(result.name);
+
          $(".purchase_details_title").find(".span1").html(result.gradeName);
+         $(".purchase_details_title").find(".span0").html(result.name);
+         
          $(".purchase_details_money").find("span").html(result.currentPrice);
          $("#smallImgPath").attr("src",result.smallImgPath);
          
@@ -49,7 +51,7 @@ function jump(){
 	}else if(type ==4){								 //线下培训班
 		location.href="live_class.html?my_study="+id
 	}else if((type ==1 || type ==2) && collection){
-		location.href="live_select_album.html?my_study="+id
+		location.href="live_select_album.html?course_id="+id
 	}
 }
 

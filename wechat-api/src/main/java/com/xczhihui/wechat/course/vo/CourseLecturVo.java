@@ -488,7 +488,6 @@ public class CourseLecturVo implements Serializable {
 
 	public void setStartLevel(Double startLevel) {
 		
-		
 		this.startLevel = startLevel;
 	}
 

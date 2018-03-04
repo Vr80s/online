@@ -1,6 +1,7 @@
 package com.xczh.consumer.market.service;
 
 import com.xczh.consumer.market.bean.OnlineUser;
+import com.xczh.consumer.market.bean.WxcpClientUserWxMapping;
 import com.xczh.consumer.market.utils.ResponseObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -234,4 +235,16 @@ public interface OnlineUserService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 */
 	public Map<String, Object> findHostById(String lecturerId)throws SQLException;
+	
+	public void emptyAccount(String userName)throws SQLException;
+	/**
+	 * 
+	 * Description：第三方用户登录后，默认创建一个用户
+	 * @param wxw
+	 * @return
+	 * @return OnlineUser
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wxw) throws SQLException;
 }

@@ -149,7 +149,7 @@ public class HostController {
 				onlineWebService.saveEntryVideo(cv.getCourseId(), user);
 				
 			}else if(cv.getWatchState()==0){ //收费课程
-				if(onlineWebService.getLiveUserCourse(cv.getCourseId(),user.getId()).size()>0){  //大于零--》用户购买过  
+				if(onlineWebService.getLiveUserCourse(cv.getCourseId(),user.getId())){  //大于零--》用户购买过  
 					cv.setWatchState(2);
 				}
 			}

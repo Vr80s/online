@@ -97,6 +97,21 @@ function recommendSchool(){
 				    	var  data_one_div=$(this).find("img").attr("data-div");
 				    	location.href=data_one_div;
 				    })
+				      	
+	//swiper学堂小白课
+	var swiper = new Swiper('.swiper-containers', {
+	    slidesPerView: 5,
+	    paginationClickable: true,
+	    spaceBetween: 10
+	});
+	
+	
+	//swiper医师滑动
+	var swiper = new Swiper('.swiper-container', {
+	    slidesPerView: 5,
+	    paginationClickable: true,
+	    spaceBetween: 10
+	});
 				   
 		})
 		//精品课程
@@ -107,7 +122,7 @@ function recommendSchool(){
 		    	$(".first_box").html(template('shipin',{items:data.resultObject}))
 		    	$(".careful_class").click(function(){
 		    		var data_num=$(this).attr("menuType");
-					window.location.href="curriculum_table.html?menuType="+data_num+"";
+					window.location.href="/xcview/html/curriculum_table.html?menuType="+data_num+"";
 				})
 					var myHeight=$(".tjks").height();
 					$(".gieTa").height(myHeight);
@@ -160,11 +175,17 @@ function lineWork(){
 				    	location.href=data_class;
 				    })
 		//swiper轮播结束	
-		})
+			//swiper线下课省滑动
+			var swiper = new Swiper('#swiper1', {
+			    slidesPerView: 5,
+			    paginationClickable: true,
+			    spaceBetween: 10
+			});
+		},false)
 		//线下课banner下的城市点击
 		$(".go_search").click(function(){
 			var city_class=$(this).find("span").text();
-			window.location.href="curriculum_table.html?city="+city_class+"";
+			window.location.href="/xcview/html/curriculum_table.html?city="+city_class+"";
 		})
 		//线下课标题点击
 		$(".all_class").click(function(){
@@ -172,7 +193,7 @@ function lineWork(){
 //			if(all_class=='全国课程'){
 //				all_class='';
 //			}
-			window.location.href="curriculum_table.html?city="+all_class+"";
+			window.location.href="/xcview/html/curriculum_table.html?city="+all_class+"";
 		})
 		
 }
@@ -225,7 +246,7 @@ function liveSchool(){
 						
 						var lineState=$(this).attr("lineState");
 						
-						window.location.href="curriculum_table.html?lineState="+lineState+"";				
+						window.location.href="/xcview/html/curriculum_table.html?lineState="+lineState+"";				
 					})
 					
 						
@@ -283,7 +304,7 @@ function listenSchool(){
 	 	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
 		
 	 	    	$(".lectures_title").click(function(){
-					window.location.href="curriculum_table.html?courseType=2";				
+					window.location.href="/xcview/html/curriculum_table.html?courseType=2";				
 				})
 	 	    	
 	})
@@ -292,29 +313,29 @@ function listenSchool(){
 
 //听课结束 ====================================================
 
-$(function(){
-	
-	//swiper学堂小白课
-	var swiper = new Swiper('.swiper-containers', {
-	    slidesPerView: 5,
-	    paginationClickable: true,
-	    spaceBetween: 10
-	});
-	
-	
-	//swiper医师滑动
-	var swiper = new Swiper('.swiper-container', {
-	    slidesPerView: 5,
-	    paginationClickable: true,
-	    spaceBetween: 10
-	});
-	//swiper线下课省滑动
-	var swiper = new Swiper('#swiper1', {
-	    slidesPerView: 5,
-	    paginationClickable: true,
-	    spaceBetween: 10
-	});
-});
+//$(function(){
+////	
+////	//swiper学堂小白课
+////	var swiper = new Swiper('.swiper-containers', {
+////	    slidesPerView: 5,
+////	    paginationClickable: true,
+////	    spaceBetween: 10
+////	});
+////	
+////	
+////	//swiper医师滑动
+////	var swiper = new Swiper('.swiper-container', {
+////	    slidesPerView: 5,
+////	    paginationClickable: true,
+////	    spaceBetween: 10
+////	});
+//	//swiper线下课省滑动
+//	var swiper = new Swiper('#swiper1', {
+//	    slidesPerView: 5,
+//	    paginationClickable: true,
+//	    spaceBetween: 10
+//	});
+//});
 
 
 

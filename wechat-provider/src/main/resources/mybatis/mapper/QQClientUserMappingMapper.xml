@@ -88,5 +88,10 @@
 		where ou.id = #{userId}
 	</select>
 	
+	<delete id="deleteAccount">
+		delete from 
+			qq_client_user_mapping
+				WHERE user_id =#{userId}
+	</delete>
 	
 </mapper>

@@ -102,11 +102,9 @@ header {
 
 .purchase_details{
 	width: 100%;
-	height: 1.915rem;
 	background: #fff;
-	/*padding: 0.638rem 0;*/
-	/*margin-top: 2.398rem;*/
-	margin-bottom: 0.638rem;
+	/*margin-bottom: 0.638rem;*/
+	overflow: hidden;
 }
 .purchase_details_main{
 	width: 15.45rem;
@@ -116,43 +114,50 @@ header {
 	width: 100%;
 }
 .purchase_details_main_cen img{
-	width: 3.404rem;
-	height: 1.915rem;
+	width: 4.5rem;
+	height:2.8rem;
 	float: left;
-	margin-right: 0.532rem;
+
 }
 .purchase_details_left{
-	float: left;
-	width: 10.968rem;
-	height: 1.915rem;
-	position: relative;
+	    float: right;
+    width: 10rem;
+
+    position: relative;
+    margin-right: 0.456rem;
 }
 .purchase_details_title{
+	width: 6.6rem;
 	font-size: 0.596rem;
 	color: #333;
+	overflow: hidden;
+ text-overflow: ellipsis;
+ white-space: nowrap;
+ margin-bottom: 0.2rem;
 }
 .purchase_details_title .span0{
-	display: block;
-    float: left;
+	color: #999;
+	font-size: 0.1rem;
 }
-.purchase_details_title .span1{
+/*.purchase_details_title .span1{
 	width: 6rem;
     display: block;
     float: left;
     overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-}
+}*/
 .purchase_details_money{
 	font-size: 0.596rem;
 	color: #333333;
-	width: 3rem;
+	/*width: 3rem;
     height: 1.064rem;
-    line-height: 1.064rem;
+    line-height: 1.064rem;*/
 }
 .purchase_details_money span{
 	font-size: 0.766rem;
 	color: #F97B49;
+	font-size: 0.596rem;
 }
 .prosperity_play{
 	width: 3.064rem;
@@ -170,7 +175,7 @@ header {
 }
 .prosperity_border{
 	border-bottom: 1px solid #D8DDE6;
-	margin-bottom: 0.638rem;
+	margin:0.6rem 0 0.638rem;
 }
 .check_one{
 	width: 100%;

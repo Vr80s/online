@@ -100,14 +100,14 @@
 						{{else if item.lineState==1}}	
 						<!--直播中-->				
 						<!--<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><a href="details.html?courseId={{item.id}}" >直播中</a></p>-->
-						<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><span style="float: left;">直播时间：{{item.startTime}}</span><a href="details.html?courseId={{item.id}}"></a></p>
+						<p class="paly_ing" data-id="{{item.id}}" style="position: relative;z-index: 6;"><span style="float: left;">直播时间：{{item.startTime.slice(0,16)}}</span><a href="details.html?courseId={{item.id}}"></a></p>
 						{{else if item.type==4}}
 						<!--上课时间-->
-						<p class="my_collection">上课时间：<span>{{item.startTime}}</span></p>
+						<p class="my_collection">上课时间：<span>{{item.startTime.slice(0,16)}}</span></p>
 						<!--直播时间-->
 						{{else if item.type==3}}
 						<!--<p class="my_collection">直播时间：&nbsp;<span>2017.12.29&nbsp;&nbsp;12:27</span></p>-->	
-						<p class="my_collection">直播时间：<span>{{item.startTime}}</span></p>	
+						<p class="my_collection">直播时间：<span>{{item.startTime.slice(0,16)}}</span></p>	
 						{{/if}}
 					</div>
 					{{/each}}
@@ -149,11 +149,11 @@
 				<p>学堂</p>
 			</li>
 			<li>
-				<a href="" class="footer_two" style="margin-top: 0.12rem; margin-bottom: 0.08rem;background: url(../images/learn_twos.png) no-repeat center;background-size: 0.38rem 0.38rem;"></a>
+				<a href="" class="footer_two" style="margin-top: 0.13rem; margin-bottom: 0.06rem;background: url(../images/learn_twos.png) no-repeat center;background-size: 0.38rem 0.38rem;"></a>
 				<p style="color: #00BC12;">学习</p>
 			</li>
 			<li>
-				<a href="discovery.html" class="footer_three"></a>
+				<a href="discovery.html" class="footer_three"  style="margin-top: 0.13rem;"></a>
 				<p>发现</p>
 			</li>
 			<li>
