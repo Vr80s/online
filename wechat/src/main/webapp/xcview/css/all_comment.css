@@ -224,9 +224,11 @@ color: #666666;
 	text-align: center;
 	line-height: 0.32rem;
 	color: #F97B49;
-	border: 0.01rem solid #F97B49;
+	border: 1px solid #F97B49;
 	font-size: 0.25rem;
 	margin-top: 0.1rem;
+	    position: absolute;
+    top: 1.22rem;
 }
 /*底下评论输入框*/
 .wrap_user_input{
@@ -283,6 +285,7 @@ color: #666666;
     top: 0;
     left: 0;
 	background: rgba(0,0,0,.1);
+	z-index: 9;
 }
 .wrapLittle_comment{
 	width: 7.5rem;
@@ -294,7 +297,7 @@ color: #666666;
 	box-sizing: border-box;
 	bottom: 0;
 	left: 0;
-	z-index: 5;
+	z-index: 10;
 	padding: 0.3rem 0.26rem 0.6rem;
 	
 }
@@ -307,6 +310,7 @@ color: #666666;
     top: 0;
     left: 0;
 	background: rgba(0,0,0,.1);
+	z-index: 9;
 }
 .wrapAll_comment{
 	width: 7.5rem;
@@ -318,7 +322,7 @@ color: #666666;
 	box-sizing: border-box;
 	bottom: 0;
 	left: 0;
-	z-index: 5;
+	z-index: 10;
 	padding: 0.3rem 0.26rem 0.3rem;
 	
 }
@@ -428,7 +432,7 @@ color: #888888;
 .text_write_box{
 	width: 100%;
 	height: 2rem;
-	border: 0.01rem solid #dedede;
+	border: 1px solid #dedede;
 	    padding: 0.1rem;
     box-sizing: border-box;
         margin: 0.1rem 0 0.3rem;

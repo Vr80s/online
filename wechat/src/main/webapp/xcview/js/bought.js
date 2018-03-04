@@ -29,16 +29,7 @@ $(function(){
     getBoughtList(1,10,'down')
 },false);
 
-mui("#refreshContainer").on('tap', '.bought_main_list', function (event) {
-	
-	alert("==========");
-	//pageNumber
-//	sessionStorage.setItem("live_pageNumber", pageNumber); 
-//	
-//	var ev = this;
-//	var lecturerId = ev.alt;
-//	location.href = "/xcviews/html/personage.html?lecturerId="+lecturerId;
-});
+
 
 //获取已购课程
 function getBoughtList(pageNumber,pageSize,downOrUp) {
@@ -72,6 +63,40 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
 
             }
+            
+//          var Ids =  item.id;
+            mui("#refreshContainer").on('tap', '.div1', function (event) {
+	
+				location.href = "live_select_album.html?course_id={{item.id}}";
+			});
+			
+			mui("#refreshContainer").on('tap', '.div2', function (event) {
+	
+				location.href = "live_audio.html?my_study={{item.id}}";
+			});
+			
+			mui("#refreshContainer").on('tap', '.div3', function (event) {
+	
+				location.href = "live_play.html?my_study={{item.id}}";
+			});
+			
+			mui("#refreshContainer").on('tap', '.div4', function (event) {
+	
+				location.href = "live_play.html?my_study={{item.id}}";
+			});
+			
+			mui("#refreshContainer").on('tap', '.div5', function (event) {
+	
+				location.href = "live_play.html?my_study={{item.id}}";
+			});
+			mui("#refreshContainer").on('tap', '.div6', function (event) {
+	
+				location.href = "live_class.html?my_study={{item.id}}";
+			});
+			
+			
+            
+            
 
         }else{
             alert(data.errorMessage);
