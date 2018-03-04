@@ -48,6 +48,8 @@ public class Token implements Serializable,Writable {
 	private String email;
 	private String nikeName;
 	
+	private String uuid;
+	
 	@Override
 	public String toString() {
 		return "userId:" + userId + " loginName:" + loginName 

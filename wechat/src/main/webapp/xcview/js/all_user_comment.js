@@ -6,7 +6,7 @@ var criticize_id = "";
 var mescroll;
 $(function(){
 
-    mescroll = new MeScroll("mescroll", {
+    /*mescroll = new MeScroll("mescroll", {
         down: {
             auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
             callback: downCallback //下拉刷新的回调
@@ -24,7 +24,7 @@ $(function(){
                 htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
             }
         }
-    });
+    });*/
 //	评论弹窗
 	$(".wrap_input").on('click',function(){
 		$(".bg_modal").show();
@@ -107,17 +107,21 @@ function refresh(pageNumber,pageSize,downOrUp){
         //	判断是刷新还是加载
         if(downOrUp=='down'){
             $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-            mescroll.endSuccess();
+            /*mescroll.endSuccess();
             mescroll.lockUpScroll( false );
-            mescroll.optUp.hasNext=true;
+            mescroll.optUp.hasNext=true;*/
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+            mui('#refreshContainer').pullRefresh().refresh(true);
+        }else if(data.resultObject.items.length==0){
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         }else {
             $(".wrap_all_returned").append(template('wrap_people_comment',{items:data.resultObject.items}));
-            var backData = data.resultObject.items;
-            mescroll.endSuccess(backData.length);
-            //mescroll.endBySize(backData.length, criticizeNum);
+            mui("#refreshContainer").off();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
         }
         //	回复弹窗
-        $(".wrap_returned_btn .btn_littleReturn").click(function(){
+
+            mui("#refreshContainer").on('tap', '.btn_littleReturn', function (event) {
             //评论id
             criticize_id=this.id;
             $(".bg_userModal").show();
@@ -129,7 +133,8 @@ function refresh(pageNumber,pageSize,downOrUp){
             $(".wrapLittle_comment").hide();
         });
         //点赞
-        /*$(".btn_click_zan").click(function(){
+        /*$(".btn_click_zan").click(function(){*/
+        mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {
             //评论id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
@@ -145,7 +150,7 @@ function refresh(pageNumber,pageSize,downOrUp){
                 $(this).find('span').html(parseInt(p)+1);
                 updatePraise(criticize_id,true);
             }
-        });*/
+        });
 
     });
 }
@@ -214,7 +219,7 @@ function updatePraise(id,isPraise) {
  */
 
 
-function btnClickZan(o){
+/*function btnClickZan(o){
     //评论id
     criticize_id=$(o).attr("data-id");
     var p = $(o).find('span').html();
@@ -229,18 +234,63 @@ function btnClickZan(o){
         updatePraise(criticize_id,true);
     }
 
-}
+}*/
 
 
 var num = 1;
 /*下拉刷新的回调 */
+/*
 function downCallback(){
     num = 1;
     //联网加载数据
     refresh(num,10,'down');
 }
-/*上拉加载的回调  */
+/!*上拉加载的回调  *!/
 function upCallback(){
     num++;
     refresh(num,10,'up');
+}
+*/
+
+/**
+ * ************************************ 页面刷新下刷新事件
+ * **************************************************
+ */
+mui.init();
+mui.init({
+    pullRefresh: {
+        container: '#refreshContainer',
+        down: {
+            callback: pulldownRefresh
+        },
+        up: {
+            contentrefresh: '正在加载...',
+            callback: pullupRefresh
+        }
+    }
+});
+/*mui('.mui-scroll-wrapper').scroll({
+	 deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	 indicators: false //是否显示滚动条
+});
+*/
+/**
+ * 下拉刷新
+ */
+function pulldownRefresh() {
+    num = 1;
+    setTimeout(function() {
+        refresh(num,10,'down');
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+    }, 500);
+};
+var count = 0;
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh() {
+    num++;
+    setTimeout(function() {
+        refresh(num,10,'up');
+    }, 500);
 }

@@ -66,6 +66,10 @@
 				WHERE wcum.user_id = #{userId} and wcum.uid = #{uid} limit 1
 	</select>
 
-	
+   <delete id="deleteAccount">
+		delete from 
+			weibo_client_user_mapping 
+				WHERE user_id =#{userId}
+	</delete>
 	
 </mapper>

@@ -54,21 +54,31 @@ public class FeedbackServiceImpl extends OnlineBaseServiceImpl  implements Feedb
 		for (Message q : items) {
 			MessageVo dest = new MessageVo();
 			BeanUtils.copyProperties(dest, q);
-			String sql = "select t.name from oe_user t where t.id = :id";
-			Map paramMap = new HashMap();
-			paramMap.put("id", dest.getUserId());
-			String userName = dao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
-			try {
-				dest.setUserName(userName);
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
+			if(dest.getUserId()!=null){
+				String sql = "select t.login_name as loginName from oe_user t where t.id = :id";
+				Map paramMap = new HashMap();
+				paramMap.put("id", dest.getUserId());
+				System.out.println("userId"+dest.getUserId());
+				//String userName = dao.getNamedParameterJdbcTemplate().queryForObject(sql, paramMap, String.class);
+				List<Map<String,Object>> list  = dao.getNamedParameterJdbcTemplate().queryForList(sql, paramMap);
+				if(list.size()>0){
+					try {
+						dest.setUserName(list.get(0).get("loginName").toString());
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
+				}
+			}else{
+				dest.setUserName("游客");
 			}
 			itemsVo.add(dest);
 		}
+		
 		com.xczhihui.bxg.common.util.bean.Page<MessageVo> pageVo = new com.xczhihui.bxg.common.util.bean.Page<MessageVo>(itemsVo,
 				page.getTotalCount(),
-				page.getPageSize(), page.getCurrentPage());
+				page.getPageSize(), 
+				page.getCurrentPage());
 		return pageVo;
 	}
 	@Override

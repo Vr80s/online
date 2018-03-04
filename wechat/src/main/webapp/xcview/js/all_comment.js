@@ -9,7 +9,7 @@ var criticizeNum =0;
 var mescroll;
 $(function(){
 
-     mescroll = new MeScroll("mescroll", {
+     /*mescroll = new MeScroll("mescroll", {
         down: {
             auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
             callback: downCallback //下拉刷新的回调
@@ -27,7 +27,7 @@ $(function(){
                 htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
             }
         }
-    });
+    });*/
 
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
@@ -37,13 +37,14 @@ $(function(){
     LecturerId = Lecturer;
 	refresh(1,10,'down');
 	//获取所有评论总数
-    requestService("/xczh/criticize/getCriticizeList",{
+    /*requestService("/xczh/criticize/getCriticizeList",{
         courseId : course_id,
         pageNumber:1,
         pageSize:1000000
     },function(data) {
         criticizeNum = data.resultObject.items.length;
-    });
+        criticizeNum = parseInt((criticizeNum + 10 - 1) / 10);
+    });*/
 });
 
 //刷新评论列表
@@ -54,37 +55,43 @@ function refresh(pageNumber,pageSize,downOrUp){
         pageSize:pageSize
     },function(data) {
     	
-//  	判断有无评论显示默认图片
-		if(data.resultObject.items.length==0){
-			$(".quie_pic").show()
-		}else{
-			$(".quie_pic").hide()
-		}
+
         //	判断是刷新还是加载
         if(downOrUp=='down'){
+            //  	判断有无评论显示默认图片
+            if(data.resultObject.items.length==0){
+                $(".quie_pic").show()
+            }else{
+                $(".quie_pic").hide()
+            }
             $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-            mescroll.endSuccess();
+            /*mescroll.endSuccess();
             mescroll.lockUpScroll( false );
-            mescroll.optUp.hasNext=true;
-        }else {
+            mescroll.optUp.hasNext=true;*/
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+            mui('#refreshContainer').pullRefresh().refresh(true);
+        }else if(data.resultObject.items.length==0){
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+        }else{
             $(".wrap_all_returned").append(template('wrap_people_comment',{items:data.resultObject.items}));
-            var backData = data.resultObject.items;
-            mescroll.endSuccess(backData.length);
-            //mescroll.endBySize(backData.length, criticizeNum);
+            mui("#refreshContainer").off();
+            mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+
         }
 
         //判断是否是第一次评论
         $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
         commentCode = data.resultObject.commentCode;
         //	回复弹窗
-        $(".wrap_returned_btn .btn_littleReturn").click(function(){
+        /*$(".wrap_returned_btn .btn_littleReturn").on('click',function(){*/
+            mui("#refreshContainer").on('tap', '.btn_littleReturn', function (event) {
             //评论id
             criticize_id=this.id;
             $(".bg_userModal").show();
             $(".wrapLittle_comment").show();
             $("#littlt_return").focus()
         });
-        $(".bg_userModal").click(function(){
+        $(".bg_userModal").on('click',function(){
             $(".bg_userModal").hide();
             $(".wrapLittle_comment").hide();
         });
@@ -149,7 +156,8 @@ function refresh(pageNumber,pageSize,downOrUp){
         });
 
         //点赞
-        /*$(".btn_click_zan").click(function(){
+
+            mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {
             //评论id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
@@ -165,11 +173,12 @@ function refresh(pageNumber,pageSize,downOrUp){
                 $(this).find('span').html(parseInt(p)+1);
                 updatePraise(criticize_id,true);
             }
-        });*/
+
+        });
         //判断浮层是否已选
         if(commentCode==1){
             var list=document.getElementsByClassName("active_color");
-            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                 $(".report_btn").css("opacity","0.3");
             }else{
                 $(".report_btn").css("opacity","1");
@@ -177,7 +186,7 @@ function refresh(pageNumber,pageSize,downOrUp){
         }
             $('.my_impression1').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
@@ -185,7 +194,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             })
             $('.my_impression2').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
@@ -193,7 +202,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             })
             $('.my_impression3').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
@@ -201,12 +210,20 @@ function refresh(pageNumber,pageSize,downOrUp){
             })
             $('.select_lable').click(function(){
                 var list=document.getElementsByClassName("active_color");
-                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0){
+                if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                     $(".report_btn").css("opacity","0.3");
                 }else{
                     $(".report_btn").css("opacity","1");
                 }
             })
+        $('#comment_detailed').keyup(function(){
+            var list=document.getElementsByClassName("active_color");
+            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        })
 
     });
 }
@@ -228,11 +245,11 @@ function reportComment() {
     }
     var str=arr.join(",");
 
-    //var s = $('.active_color').val();
+
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        webToast("请输入评论内容","middle",1500);
-        return
+        //webToast("请输入评论内容","middle",1500);
+        return false
     }
     var overallLevel=0;
     if(my_impression1!=""){
@@ -334,6 +351,7 @@ function del(){
 
 
 function btnClickZan(o){
+    /*mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {*/
     //评论id
     criticize_id=$(o).attr("data-id");
     var p = $(o).find('span').html();
@@ -353,13 +371,57 @@ function btnClickZan(o){
 
 var num = 1;
 /*下拉刷新的回调 */
-function downCallback(){
+/*function downCallback(){
     num = 1;
     //联网加载数据
     refresh(num,10,'down');
 }
-/*上拉加载的回调  */
+/!*上拉加载的回调  *!/
 function upCallback(){
     num++;
     refresh(num,10,'up');
+}*/
+
+/**
+ * ************************************ 页面刷新下刷新事件
+ * **************************************************
+ */
+mui.init();
+mui.init({
+    pullRefresh: {
+        container: '#refreshContainer',
+        down: {
+            callback: pulldownRefresh
+        },
+        up: {
+            contentrefresh: '正在加载...',
+            callback: pullupRefresh
+        }
+    }
+});
+/*mui('.mui-scroll-wrapper').scroll({
+	 deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	 indicators: false //是否显示滚动条
+});
+*/
+/**
+ * 下拉刷新
+ */
+function pulldownRefresh() {
+    num = 1;
+    setTimeout(function() {
+        refresh(num,10,'down');
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+    }, 500);
+};
+var count = 0;
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh() {
+    num++;
+    setTimeout(function() {
+        refresh(num,10,'up');
+    }, 500);
 }
+

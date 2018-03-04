@@ -14,18 +14,6 @@
 <!--这段meta代码需要加上，移动端自适应缩放用-->
 <!--这段JS就是自动检测窗口尺寸大小的，动态改变html的font-size的大小-->
 <!-- 网页自适应JS代码引入 -->
-<script src="/xcviews/js/js.js"></script>
-	<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
-
-
-<script type="text/javascript" src="../js/template.js"></script>  <!--模板引入-->
-
-<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>-->
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-
-<script src="/xcview/js/search.js"></script>
-
 <link rel="stylesheet" type="text/css" href="/xcview/css/search.css" />
 
 </head>
@@ -109,6 +97,20 @@
 	
 
 </body>
+
+
+<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script src="/xcviews/js/js.js?v=1.1"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js"></script>
+<script type="text/javascript" src="../js/template.js"></script>  <!--模板引入-->
+
+<!--<script src="/xcview/js/common/jquery-1.8.3.min.js"></script>-->
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+
+<script src="/xcview/js/search.js"></script>
+
+
+
 <script type="text/javascript">
 
 
@@ -117,7 +119,7 @@
 			
 			var queryKey = $(obj).find(".div0").text();
 			
-			location.href="../html/curriculum_table.html?queryKey="+queryKey+"";
+			location.href="../html/curriculum_table.html?queryKey="+queryKey+"&curriculum_blck=2";
 		}
 
 		//历史记录删除事件
@@ -178,11 +180,11 @@
                             removeByValue(arr, keyValue);
                             arr.unshift($('#header_input').val());
                             localStorage.hisArr = arr;
-                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
 						}else{
                             arr.unshift($('#header_input').val())
                             localStorage.hisArr = arr;
-                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"";
+                            window.location.href="../html/curriculum_table.html?queryKey="+search_val+"&curriculum_blck=2";
 						}
 
 			        } 

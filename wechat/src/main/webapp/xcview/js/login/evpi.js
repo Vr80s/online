@@ -28,10 +28,12 @@ var openId ="";var unionId ="";
 var third_party_uc_t_ = cookie.get("third_party_uc_t_");
 if(stringnull(third_party_uc_t_)){
 	
-	var openId = third_party_uc_t_.split("%")[0];
-	var unionId = third_party_uc_t_.split("%")[1];
-
-
+	//alert(third_party_uc_t_);
+	//alert(decodeURI(third_party_uc_t_));
+	
+	openId = third_party_uc_t_.split("%3B")[0];
+	unionId = third_party_uc_t_.split("%3B")[1];
+	//alert(openId+"=====third_party_uc_t_====="+unionId);
 }else{
 	openId = getQueryString("openId");
 	if(!stringnull(openId)){
@@ -42,7 +44,6 @@ if(stringnull(third_party_uc_t_)){
 		unionId = localStorage.getItem("unionId")
 	}
 }
-
 
 
 

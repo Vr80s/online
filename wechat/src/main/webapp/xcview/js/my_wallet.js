@@ -1,7 +1,7 @@
 var mescroll;
 $(function(){
     //滑动刷新
-    mescroll = new MeScroll("mescroll", {
+    /*mescroll = new MeScroll("mescroll", {
         down: {
             auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
             callback: downCallback //下拉刷新的回调
@@ -19,7 +19,7 @@ $(function(){
                 htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
             }
         }
-    });
+    });*/
 
 //		点击人民币提现   出现添加银行卡提示             withdraws.html--提现页   点击提现之前已经添加过银行卡直接到提现页
     $(".balance .div02").click(function(){
@@ -75,14 +75,20 @@ function transactionRecord(pageNumber,pageSize,downOrUp) {
                     $(".no_deal").show()
                 }
                 $(".record_main_div").html(template('record_main_div',{items:data.resultObject}));
-                mescroll.endSuccess();
+               /* mescroll.endSuccess();
                 mescroll.lockUpScroll( false );
-                mescroll.optUp.hasNext=true;
+                mescroll.optUp.hasNext=true;*/
+                mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                mui('#refreshContainer').pullRefresh().refresh(true);
+            }else if(data.resultObject.length==0){
+                mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
+
+                /*var backData = data.resultObject;
+                mescroll.endSuccess(backData.length);*/
+                //mescroll.endBySize(backData.length, criticizeNum);
             }else {
                 $(".record_main_div").append(template('record_main_div',{items:data.resultObject}));
-                var backData = data.resultObject;
-                mescroll.endSuccess(backData.length);
-                //mescroll.endBySize(backData.length, criticizeNum);
+                mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             }
 
         }else{
@@ -103,4 +109,47 @@ function downCallback(){
 function upCallback(){
     num++;
     transactionRecord(num,10,'up');
+}
+
+/**
+ * ************************************ 页面刷新下刷新事件
+ * **************************************************
+ */
+mui.init();
+mui.init({
+    pullRefresh: {
+        container: '#refreshContainer',
+        down: {
+            callback: pulldownRefresh
+        },
+        up: {
+            contentrefresh: '正在加载...',
+            callback: pullupRefresh
+        }
+    }
+});
+/*mui('.mui-scroll-wrapper').scroll({
+	 deceleration: 0.0005, //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	 indicators: false //是否显示滚动条
+});
+*/
+/**
+ * 下拉刷新
+ */
+function pulldownRefresh() {
+    num = 1;
+    setTimeout(function() {
+        transactionRecord(num,10,'down');
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
+    }, 500);
+};
+var count = 0;
+/**
+ * 上拉加载具体业务实现
+ */
+function pullupRefresh() {
+    num++;
+    setTimeout(function() {
+        transactionRecord(num,10,'up');
+    }, 500);
 }

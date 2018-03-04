@@ -87,8 +87,17 @@ requestService("/xczh/host/hostPageInfo",{
     });		
 //直播时间截取
 //		data.resultObject.recentCourse.startTime= data.resultObject.recentCourse.startTime.substring(0,10); //截取日期
-		is_watchState=data.resultObject.recentCourse.watchState;
-		$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
+			$("#personal_status").html(template('data_status',data.resultObject.recentCourse));
+	
+	if(data.resultObject.recentCourse="" || data.resultObject.recentCourse== null){
+			$("#personal_status").hide();
+		}else{
+			is_watchState=data.resultObject.recentCourse.watchState;
+
+			
+		}
+
+
 //医师精彩致辞
 	if(data.resultObject.lecturerInfo.video==''||data.resultObject.lecturerInfo.video==null){
 		$("#wrap_vedio").hide()
@@ -117,9 +126,9 @@ requestService("/xczh/host/hostPageInfo",{
 		if(data.resultObject.hospital.detailedAddress==null){
 			data.resultObject.hospital.detailedAddress="暂无";
 		}
-//		if(data.resultObject.lecturerInfo==null){
-//			data.resultObject.lecturerInfo={};
-//		}
+		if(data.resultObject.lecturerInfo==null){
+			data.resultObject.lecturerInfo={};
+		}
 		if(data.resultObject.lecturerInfo.workTime==null){
 			data.resultObject.lecturerInfo.workTime="暂无";
 		}
@@ -133,7 +142,12 @@ requestService("/xczh/host/hostPageCourse",{
 	pageNumber:1,
 	pageSize:6
 },function(data){
-	$("#wrap_vedio_btn").html(template('wrap_class',{items:data.resultObject.records}));
+	if(data.resultObject.records.length==0 ||data.resultObject.records == ""){
+		$("#my_class").hide();
+	}else{
+		$("#wrap_vedio_btn").html(template('wrap_class',{items:data.resultObject.records}));		
+	}
+
 });
     refresh();
 });

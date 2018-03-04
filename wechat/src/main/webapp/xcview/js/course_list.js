@@ -2,7 +2,7 @@ $(function(){
 
 	var lecturerId = getQueryString('lecturerId');
 		requestService("/xczh/host/hostPageCourse",{
-			lecturerId: '23908ae85dad4541ba7ecf53fc52aab2',
+			lecturerId: lecturerId,
 			pageNumber:1,
 			pageSize:8
 		},function(data){

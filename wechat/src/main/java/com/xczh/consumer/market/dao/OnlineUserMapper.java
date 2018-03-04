@@ -663,5 +663,13 @@ public class OnlineUserMapper extends BasicSimpleDao {
 		Object params[] = { lecturerId,lecturerId };
 		return this.query(JdbcUtil.getCurrentConnection(), sql.toString(),new MapHandler(), params);
 	}
+
+	public void emptyAccount(String userName) throws SQLException {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder("");
+		sb.append("delete from  oe_user where login_name = ?");
+		Object[] params = {userName};
+		this.update(JdbcUtil.getCurrentConnection(), sb.toString(), params);
+	}
 	
 }

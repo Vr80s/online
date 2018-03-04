@@ -115,6 +115,12 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 	if(stringnull(courseType)){
 		paramsObj.courseType = courseType;
 		
+	    if(courseType == 3){
+	    	$(".all_mold4").show();
+	    }else if(courseType == 4){
+	    	 $(".all_mold3").show();
+	    }
+		
 		for (var int = 0; int < courseTypeArray.length; int++) {
 			var array_element = courseTypeArray[int];
 			if(courseType == array_element.id){
@@ -128,12 +134,10 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 						 return;
 					 }
 				});
-				
 				saisuanstr += array_element.name+"-";
 				break;
 			}
 		}
-		
 		
 	}
 	if(stringnull(city)){

@@ -117,5 +117,8 @@ public interface IThreePartiesLoginService {
 	 *
 	 */
 	Map<String, Object> selectUserBindingInfo(String userId);
+
+
+	public void deleteAccount(String id);
 	
 }

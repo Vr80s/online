@@ -279,7 +279,7 @@ public class CommonController {
 		//onlineCourseService.
 		//course_id
 		
-		if(user.getId().equals(onlineCourseService.getlecturerIdByCourseId(course_id)) || onlineWebService.getLiveUserCourse(course_id,user.getId()).size()>0){
+		if(user.getId().equals(onlineCourseService.getlecturerIdByCourseId(course_id)) || onlineWebService.getLiveUserCourse(course_id,user.getId())){
 			return ResponseObject.newSuccessResponseObject("认证通过");
 		}else{
 			return ResponseObject.newErrorResponseObject("需要进行密码认证");

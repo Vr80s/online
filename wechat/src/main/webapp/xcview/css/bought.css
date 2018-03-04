@@ -80,9 +80,12 @@ header {
 }
 .bought_main_list{
 	width: 100%;
-	height: 1.4rem;
-	border-bottom: 1px solid #D8DDE6;
-	margin-bottom: 0.2rem;
+    /* height: 1.4rem; */
+    border-bottom: 1px solid #D8DDE6;
+    margin-bottom: 0.2rem;
+    background: #fff;
+    overflow: hidden;
+    padding-bottom: 0.2rem;
 }
 .bought_list_left{
 	width: 2.12rem;
@@ -110,7 +113,7 @@ header {
 }
 .bought_list_title{
 	/*width: 7rem;*/
-	max-height: 0.8rem;
+	/*max-height: 0.8rem;*/
 	font-size: 0.28rem;
 	color: #333333;
 	margin-bottom: 0.1rem;
@@ -154,12 +157,25 @@ header {
 	text-align: center;
 	padding: 0.5rem 0;
 }
-.btn_jump_home{
+.btn_jump_h.bought_main_listome{
 	padding: 0.08rem 0.3rem;
 	border: 1px solid #00BC12;
 	color: #00BC12;
 	font-size: 0.3rem;
 	border-radius: 0.1rem;
+}
+.no_class a{
+	width: 1.44rem;
+    height: 0.56rem;
+    border: 1px solid #00bc12;
+    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 0.28rem;
+    display: block;
+    margin: 0 auto;
+    line-height: 0.56rem;
+    text-align: center;
+    color: #00bc12;
 }
 
 

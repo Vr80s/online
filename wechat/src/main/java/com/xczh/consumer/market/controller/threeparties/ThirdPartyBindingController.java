@@ -140,11 +140,11 @@ public class ThirdPartyBindingController {
 				WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(), unionId);
 				m.setClient_id("");
 				wxcpClientUserWxMappingService.update(m);
-			}else if(type==ThirdPartyType.WEIBO.getCode()){
+			}else if(type==ThirdPartyType.QQ.getCode()){
 				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), unionId);
 		    	qq.setUserId("");
 		    	threePartiesLoginService.updateQQInfoAddUserId(qq);
-			}else if(type==ThirdPartyType.QQ.getCode()){
+			}else if(type==ThirdPartyType.WEIBO.getCode()){
 				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(), unionId);
 		    	weibo.setUserId("");
 		    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
@@ -182,11 +182,11 @@ public class ThirdPartyBindingController {
 				WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(), unionId);
 				m.setClient_id("");
 				wxcpClientUserWxMappingService.update(m);
-			}else if(type==ThirdPartyType.WEIBO.getCode()){
+			}else if(type==ThirdPartyType.QQ.getCode()){
 				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), unionId);
 		    	qq.setUserId("");
 		    	threePartiesLoginService.updateQQInfoAddUserId(qq);
-			}else if(type==ThirdPartyType.QQ.getCode()){
+			}else if(type==ThirdPartyType.WEIBO.getCode()){
 				WeiboClientUserMapping weibo = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(), unionId);
 		    	weibo.setUserId("");
 		    	threePartiesLoginService.updateWeiboInfoAddUserId(weibo);
@@ -198,9 +198,6 @@ public class ThirdPartyBindingController {
 			return ResponseObject.newSuccessResponseObject("解除绑定失败");
 		}
 	}
-	
-	
-	
 	
 	/**
 	 * 登陆成功处理
