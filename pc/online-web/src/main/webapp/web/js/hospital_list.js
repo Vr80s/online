@@ -184,5 +184,9 @@ $(function(){
 	    	$('.search_hos_btn ').click()
 	    })
 	    
-	    
+	    $('.more_areaBtn').click(function(){
+	    	$('#hos_search_area').attr('style','height:auto')
+	    	
+
+	    })
 })
