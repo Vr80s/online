@@ -9,6 +9,7 @@ import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
+import com.xczhihui.common.Lock;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -22,6 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -47,6 +50,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private CollectionCourseApplyMapper collectionCourseApplyMapper;
     @Autowired
     private RedissonUtil redissonUtil;
+    @Autowired
+    private ICourseApplyService courseApplyService;
 
     /**
      * Description：分页获取主播课程列表
@@ -240,6 +245,13 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo){
+        courseApplyService.saveCollectionApply4Lock(courseApplyInfo.getUserId(),courseApplyInfo);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "addCollectionApply",waitTime = 2,effectiveTime = 3)
+    public void saveCollectionApply4Lock(String lockKey,CourseApplyInfo courseApplyInfo){
         validateCollectionApply(courseApplyInfo);
         //将价格由熊猫币转化为人民币
         courseApplyInfo.setPrice(courseApplyInfo.getPrice()/10);
@@ -471,7 +483,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         //记录原申请id
         collectionApplyInfo.setOldApplyInfoId(collectionApplyInfo.getId());
         collectionApplyInfo.setId(null);
-        saveCollectionApply(collectionApplyInfo);
+        courseApplyService.saveCollectionApply(collectionApplyInfo);
     }
 
     /**

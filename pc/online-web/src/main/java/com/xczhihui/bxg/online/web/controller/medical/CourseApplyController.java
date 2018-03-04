@@ -204,29 +204,7 @@ public class CourseApplyController {
     public ResponseObject saveCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
-        // 获得锁对象实例
-        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCollectionApply"+user.getId());
-
-        boolean resl = false;
-        try {
-            //等待3秒 有效期8秒
-            resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
-            if(resl){
-                courseApplyService.saveCollectionApply(courseApplyInfo);
-            }
-        }catch (RuntimeException e){
-            throw e;
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("网络错误，请重试");
-        }finally {
-            if(resl){
-                redissonLock.unlock();
-            }else{
-                throw new RuntimeException("网络错误，请重试");
-            }
-        }
-
+        courseApplyService.saveCollectionApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 

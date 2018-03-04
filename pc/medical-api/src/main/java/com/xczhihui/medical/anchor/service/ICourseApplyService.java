@@ -41,6 +41,8 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      **/
     void saveCollectionApply(CourseApplyInfo courseApplyInfo);
 
+    void saveCollectionApply4Lock(String lockKey,CourseApplyInfo courseApplyInfo);
+
     /**
      * Description：获取所有资源
      * creed: Talk is cheap,show me the code

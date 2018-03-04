@@ -3,6 +3,8 @@ package com.xczhihui.medical.doctor.service.impl;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.utils.IDCard;
+import com.xczhihui.bxg.online.common.utils.RedissonUtil;
+import com.xczhihui.common.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
@@ -13,13 +15,18 @@ import com.xczhihui.medical.doctor.model.*;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.utils.RedisShardLockUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -42,53 +49,40 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
     private ICommonService commonService;
     @Autowired
     private RedisShardLockUtils redisShardLockUtils;
+    @Autowired
+    private IMedicalDoctorApplyService medicalDoctorApplyService;
 
     /**
      * 添加医师入驻申请信息
+     *
      * @param target 医师入驻申请信息
      */
     @Override
     public void add(MedicalDoctorApply target) {
-
-        // 参数校验
-        this.validate(target);
-
-        Long currentTime = System.currentTimeMillis() + MedicalDoctorApplyConst.TIMEOUT;
-
-        String applyId = null;
-
-        try{
-
-            MedicalDoctorApply doctorApply = medicalDoctorApplyMapper.getLastOne(target.getUserId());
-
-            if(doctorApply != null){
-
-                applyId = doctorApply.getId();
-
-                // 尝试获得锁
-                if(redisShardLockUtils.lock(MedicalDoctorApplyConst.LOCK_PREFIX + applyId, String.valueOf(currentTime))){
-                    this.addDetail(target);
-                }
-
-            }else {
-
-                this.addDetail(target);
-
-            }
-
-        }finally {
-
-            // 解锁
-            redisShardLockUtils.unlock(MedicalDoctorApplyConst.LOCK_PREFIX + applyId, String.valueOf(currentTime));
-
-        }
+        medicalDoctorApplyService.addDetail(target);
     }
 
-    private void addDetail(MedicalDoctorApply target) {
+    @Override
+    public void addDetail(MedicalDoctorApply target){
+        medicalDoctorApplyService.addDetail4Lock(target.getUserId(),target);
+    }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "addDoctorApply",waitTime = 2,effectiveTime = 3)
+    public void addDetail4Lock(String lockKey,MedicalDoctorApply target) {
+        // 参数校验
+        this.validate(target);
         // 判断用户是否是认证医师或者认证医馆
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
-
+        try {
+            System.out.println("kaishi");
+            Thread.sleep(1000);
+            System.out.println(result);
+            System.out.println("jieshu");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // 如果用户是认证医馆或者医馆认证中 不让其认证医师
         if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode()) ||
                 result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
@@ -113,9 +107,8 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
         if(result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
                 result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode())){
-
+            System.out.println("插入新数据");
             this.addMedicalDoctorApply(target);
-
         }
     }
 
