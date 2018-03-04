@@ -1,12 +1,17 @@
 package com.xczhihui.bxg.user.center.service;
 
-import com.xczh.consumer.market.utils.Token;
-import com.xczh.consumer.market.vo.ItcastUser;
-import com.xczhihui.user.center.bean.*;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.xczh.consumer.market.utils.Token;
+import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczhihui.user.center.bean.TableVo;
+import com.xczhihui.user.center.bean.TokenExpires;
+import com.xczhihui.user.center.bean.UserOrigin;
+import com.xczhihui.user.center.bean.UserSex;
+import com.xczhihui.user.center.bean.UserStatus;
+import com.xczhihui.user.center.bean.UserType;
 
 /**
  * 用户中心API
@@ -173,4 +178,17 @@ public interface UserCenterAPI {
 
 	public Token loginMobile(String username, String password,
 			TokenExpires tenday);
+
+	/**
+	 * 
+	 * Description：更具用户id更改用户中心的用户名和密码
+	 * @param id
+	 * @param userName
+	 * @param passWord
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public void updatePasswordAndLoginName(int id, String userName,
+			String passWord);
 }

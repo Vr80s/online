@@ -24,6 +24,7 @@ import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ConfigUtil;
+import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
@@ -67,6 +68,9 @@ public class H5WeChatSetController {
 	
 	@Value("${wechatpay.gzh_appid}")
 	private String gzh_appid;
+	
+	
+	private String  password = RandomUtil.getCharAndNumr(6);
 	
 	/**
 	 * 
@@ -203,19 +207,18 @@ public class H5WeChatSetController {
 				ThridFalg tf = new ThridFalg(); 
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
-				
 				/**
-				 * 创建一个用户  
-				 *   头像、昵称
+				 * 创建用户中心信息和普通用户信息  
 				 */
 				OnlineUser ou = onlineUserService.wechatCreateUserInfo(wxw);
+				Token t = userCenterAPI.loginThirdPart(wxw.getUnionid(),password, TokenExpires.TenDay);
+				onlogin(req,res,t,ou,t.getTicket());
 				
+				wxw.setClient_id(ou.getId());
+				wxcpClientUserWxMappingService.update(wxw);
 				
-				
-				
-				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&&jump_type=2");
+				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -280,9 +283,17 @@ public class H5WeChatSetController {
 				ThridFalg tf = new ThridFalg(); 
 				tf.setOpenId(wxw.getOpenid());
 				tf.setUnionId(wxw.getUnionid());
-				
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
+				/**
+				 * 创建用户中心信息和普通用户信息  
+				 */
+				OnlineUser ou = onlineUserService.wechatCreateUserInfo(wxw);
+				Token t = userCenterAPI.loginThirdPart(wxw.getUnionid(),password, TokenExpires.TenDay);
+				onlogin(req,res,t,ou,t.getTicket());
+				
+				wxw.setClient_id(ou.getId());
+				wxcpClientUserWxMappingService.update(wxw);
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}
 		} catch (Exception e) {
