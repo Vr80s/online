@@ -100,23 +100,7 @@ public class GiftController {
 		Integer count = Integer.valueOf(req.getParameter("count"));
 		String receiverId = req.getParameter("receiverId");
 		Map<String,Object> map=null;
-
-		// 1.获得锁对象实例
-		RLock redissonLock = redisson.getLock("liveId"+liveId);
-		boolean resl = false;
-		try {
-			//等待十秒。有效期五秒
-			resl = redissonLock.tryLock(10, 5, TimeUnit.SECONDS);
-			map=remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
-		}catch (Exception e){
-			e.printStackTrace();
-			LOGGER.info(e.getMessage());
-			return ResponseObject.newErrorResponseObject(e.getMessage());
-		}finally {
-			if(resl){
-				redissonLock.unlock();
-			}
-		}
+		map=remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
 		return ResponseObject.newSuccessResponseObject(map);
 	}
 

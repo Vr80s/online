@@ -68,24 +68,25 @@ public class LockService {
         methodParam = point.getArgs();
         String lockKey = (String) methodParam[0];
         // 获得锁对象实例
-        RLock redissonLock = redissonUtil.getRedisson().getLock(lockName+lockKey);
+        String lk = lockName +"-"+ lockKey;
+        RLock redissonLock = redissonUtil.getRedisson().getLock(lk);
         try {
             //等待3秒 有效期8秒
             resl = redissonLock.tryLock(waitTime, effectiveTime, TimeUnit.SECONDS);
             if(resl){
+                logger.info("得到锁,{}", lk);
                object = point.proceed(point.getArgs());
             }
         }catch (RuntimeException e){
             throw e;
         }catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("网络错误，请重试");
+            throw e;
         }finally {
             if(resl){
-                logger.info("开锁,{}",lockName+lockKey);
+                logger.info("释放锁,{}", lk);
                 redissonLock.unlock();
             }else{
-                logger.error("未获得锁,{}",lockName+lockKey);
+                logger.error("未获得锁,{}", lk);
                 throw new RuntimeException("网络错误，请重试");
             }
         }

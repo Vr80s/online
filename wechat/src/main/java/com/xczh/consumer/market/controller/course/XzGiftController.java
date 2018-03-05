@@ -122,24 +122,7 @@ public class XzGiftController {
 		Integer count = Integer.valueOf(req.getParameter("count"));
 		String receiverId = req.getParameter("receiverId");
 		Map<String,Object> map=null;
-		// 1.获得锁对象实例
-		RLock redissonLock = redissonUtil.getRedisson().getLock("liveId"+liveId);
-		boolean resl = false;
-		try {
-			//等待十秒。有效期五秒
-			resl = redissonLock.tryLock(30, 10, TimeUnit.SECONDS);
-			if(resl){
-				map= remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
-			}
-		}catch (Exception e){
-			e.printStackTrace();
-		}finally {
-			if(resl){
-				redissonLock.unlock();
-			}else{
-				System.out.println("没有抢到锁");
-			}
-		}
+		map= remoteGiftService.addGiftStatement(user.getId(),receiverId,giftId, OrderFrom.getOrderFrom(clientType),count,liveId);
 
 		return ResponseObject.newSuccessResponseObject(map);
 	}

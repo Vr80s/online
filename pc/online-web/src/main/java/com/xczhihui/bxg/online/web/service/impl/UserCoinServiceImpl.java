@@ -9,9 +9,13 @@ import com.xczhihui.bxg.online.api.vo.OrderVo;
 import com.xczhihui.bxg.online.api.vo.RechargeRecord;
 import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.enums.*;
+import com.xczhihui.bxg.online.common.utils.OrderNoUtil;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
+import com.xczhihui.bxg.online.web.dao.EnchashmentApplyDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;
 import com.xczhihui.medical.anchor.service.IAnchorInfoService;
+import org.apache.commons.lang.StringUtils;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.Logger;
@@ -19,6 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -49,6 +55,8 @@ public class UserCoinServiceImpl implements UserCoinService {
     private RedisCacheService cacheService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
+    @Autowired
+    private EnchashmentApplyDao enchashmentApplyDao;
 
     private static String anchorCache = "anchor_";
 
@@ -183,11 +191,12 @@ public class UserCoinServiceImpl implements UserCoinService {
             int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
             //若更新失败
             if (updateCount < 1) {
+                logger.error("刷礼物出现问题,userId:{}",ucc.getUserId());
                 throw new RuntimeException("网络异常,请稍后再试！");
             }
         } else {
             //余额不足异常
-            throw new RuntimeException("用户账户余额不足，请充值！");
+            throw new RuntimeException("余额不足");
         }
 
         ucc.setUserCoinId(uc.getId());
@@ -257,7 +266,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         CourseAnchor courseAnchor = cacheService.get(anchorCache+giftStatement.getReceiver());
         if(courseAnchor == null){
             courseAnchor = userCoinDao.getCourseAnchor(giftStatement.getReceiver());
-            cacheService.set(anchorCache+giftStatement.getReceiver(),courseAnchor,60*10);
+            cacheService.set(anchorCache+giftStatement.getReceiver(),courseAnchor,60*3);
         }else{
             logger.info("取到缓存主播分成数据");
         }
@@ -401,8 +410,8 @@ public class UserCoinServiceImpl implements UserCoinService {
         sql.append(", uc.`version`=\"" + BeanUtil.getUUID() + "\"");
         sql.append(", uc.`update_time`=now()");
         //乐观锁机制 ，version判断用于防止并发数据出错
-        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + uc.getVersion() + "\"");
-
+        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.rmb >=" + ucc.getValue().negate() + " and uc.version =\"" + uc.getVersion() + "\"");
+        System.out.println(sql.toString());
         int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
         if (updateCount < 1) {
             throw new RuntimeException("网络异常,请稍后再试！");
@@ -437,8 +446,16 @@ public class UserCoinServiceImpl implements UserCoinService {
         return userCoinDao.consumptionCoinList(userId, pageNumber, pageSize);
     }
 
+    /**
+     * Description：结算
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/3/5 0005 下午 4:17
+     **/
     @Override
-    public void updateBalanceForSettlement(String userId, int amount, OrderFrom orderFrom) {
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "updateBalanceForSettlement")
+    public void updateBalanceForSettlement4Lock(String lockKey, String userId, int amount, OrderFrom orderFrom) {
 
         BigDecimal value = new BigDecimal(amount).negate();
 
@@ -449,7 +466,6 @@ public class UserCoinServiceImpl implements UserCoinService {
         if(uc.getBalanceRewardGift().add(value).compareTo(BigDecimal.ZERO) == -1){
             throw new RuntimeException("结算金额超出熊猫币余额");
         }
-
         UserCoinConsumption ucc = new UserCoinConsumption();
         ucc.setUserId(userId);
         ucc.setOrderFrom(orderFrom.getCode());
@@ -461,7 +477,7 @@ public class UserCoinServiceImpl implements UserCoinService {
         sql.append(", uc.`version`=\"" + version + "\"");
         sql.append(", uc.`update_time`=now()");
         //乐观锁机制 ，version判断用于防止并发数据出错
-        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.version =\"" + uc.getVersion() + "\"");
+        sql.append("where user_id=\"" + ucc.getUserId() + "\" and uc.balance_reward_gift >=" + ucc.getValue().negate() + " and uc.version =\"" + uc.getVersion() + "\"");
         int updateCount = userCoinDao.getNamedParameterJdbcTemplate().getJdbcOperations().update(sql.toString());
         //若更新失败
         if (updateCount < 1) {
@@ -512,6 +528,52 @@ public class UserCoinServiceImpl implements UserCoinService {
         uci.setDeleted(false);
         uci.setStatus(true);
         userCoinDao.save(uci);
+    }
+
+    /**
+     * Description：提现申请
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/3/5 0005 下午 4:17
+     **/
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "saveEnchashmentApplyInfo")
+    public void saveEnchashmentApplyInfo4Lock(String lockKey, String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom){
+        EnchashmentApplyInfo enchashmentApplyInfo = new EnchashmentApplyInfo();
+        String enchashmentApplyId = BeanUtil.getUUID();
+        enchashmentApplyInfo.setId(enchashmentApplyId);
+        enchashmentApplyInfo.setUserId(userId);
+        enchashmentApplyInfo.setEnchashmentSum(enchashmentSum);
+        enchashmentApplyInfo.setBankCardId(bankCardId);
+        enchashmentApplyInfo.setOrderFrom(orderFrom.getCode());
+        enchashmentApplyInfo.setDeleted(false);
+        enchashmentApplyInfo.setTime(new Date());
+        enchashmentApplyInfo.setStatus(ApplyStatus.UNTREATED.getCode());
+        String enchashmentOrderNo = OrderNoUtil.getEnchashmentOrderNo();
+        enchashmentApplyInfo.setOrderNo(enchashmentOrderNo);
+        validateEnchashmentApplyInfo(enchashmentApplyInfo);
+        //更新用户人民币余额
+        this.updateBalanceForEnchashment(userId,enchashmentSum,orderFrom,enchashmentApplyId);
+        enchashmentApplyDao.save(enchashmentApplyInfo);
+    }
+
+    /**
+     * Description：提现申请校验
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 下午 4:04 2018/1/29 0029
+     **/
+    private void validateEnchashmentApplyInfo(EnchashmentApplyInfo enchashmentApplyInfo) {
+        if(StringUtils.isBlank(enchashmentApplyInfo.getUserId())){
+            throw new RuntimeException("用户不可为空");
+        }
+        if(enchashmentApplyInfo.getEnchashmentSum()==null){
+            throw new RuntimeException("提现金额不可为空");
+        }else if(enchashmentApplyInfo.getEnchashmentSum().compareTo(BigDecimal.ZERO)!=1){
+            throw new RuntimeException("提现金额必须大于0");
+        }
+
     }
 
 }
