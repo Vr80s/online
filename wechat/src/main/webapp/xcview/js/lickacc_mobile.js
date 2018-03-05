@@ -26,12 +26,11 @@ $(".email_one .div0_show").click(function(){
 	var unionId = $("#weixin_bind").attr("data-title");
 	
 	if(stringnull(unionId)){ //已经绑定了，这个是解除绑定
-		
 		$(".success").show();
-	
 	}else{//还没有绑定，唤起微信授权
 		
 		//alert("========");
+		
 		location.href = "/xczh/wxlogin/wxGetCodeUrl?userId="+localStorage.userId;
 	}
 });

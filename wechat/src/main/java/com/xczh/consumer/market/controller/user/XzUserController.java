@@ -156,14 +156,15 @@ public class XzUserController {
 		Token t =  userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		ou.setTicket(t.getTicket());
 		this.onlogin(req, res, t, ou,t.getTicket());
-		String openId = req.getParameter("openId");
-		if(StringUtils.isNotBlank(openId)){
+//		String openId1 = req.getParameter("openId");
+/*		if(StringUtils.isNotBlank(openId)){
 			//进行绑定
 			WxcpClientUserWxMapping wx = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByOpenId(openId);
-			wx.setClient_id(ou.getId());
-			wxcpClientUserWxMappingService.update(wx);
-		}
-		
+			if(wx!=null){
+				wx.setClient_id(ou.getId());
+				wxcpClientUserWxMappingService.update(wx);
+			}
+		}*/
 		/**
 		 * 清除这个cookie
 		 */

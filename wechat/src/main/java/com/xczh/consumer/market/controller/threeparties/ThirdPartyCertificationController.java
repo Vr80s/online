@@ -411,7 +411,6 @@ public class ThirdPartyCertificationController {
 			}
 			LOGGER.info("三方绑定已注册手机认证参数信息："
 					+ "username:"+userName+",unionId:"+unionId+",code:"+code+",type:"+vtype);
-			
 			/*
 			 * 验证短信验证码
 			 */
@@ -423,21 +422,35 @@ public class ThirdPartyCertificationController {
 			
 			if(StringUtils.isNotBlank(passWord)){ //更新密码和更新用户名
 				userCenterAPI.updatePasswordAndLoginName(user.getId(),userName,passWord);
-			}else{								  //更新用户名
-				userCenterAPI.updateLoginName(unionId, userName);
+			}else{	//更新用户名
+				//不用更新用户了，就是把第三方信息 这个用户信息给搞下
+				ou = onlineUserService.findUserByLoginName(userName);
+				WxcpClientUserWxMapping wx = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
+				wx.setClient_id(ou.getId());
+	    		wxcpClientUserWxMappingService.update(wx);
 			}
-			
 			/**
 			 * 更改用户信息
 			 */
 			ou.setLoginName(userName);
 			onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
 			
+			
 			WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
 			wxw.setClient_id(ou.getId());
 			wxcpClientUserWxMappingService.update(wxw);
 			
-			return ResponseObject.newSuccessResponseObject("绑定成功");
+			/**
+			 * 清除这个cookie
+			 */
+			UCCookieUtil.clearThirdPartyCookie(res);
+			/**
+			 * 修改缓存信息
+			 */
+			req.getSession().setAttribute("_user_", ou);
+			
+			
+			return ResponseObject.newSuccessResponseObject(ou);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

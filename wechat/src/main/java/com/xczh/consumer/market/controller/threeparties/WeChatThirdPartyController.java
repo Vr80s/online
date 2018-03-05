@@ -166,50 +166,48 @@ public class WeChatThirdPartyController {
 				}	
 			}else{
 				LOGGER.info(" 没有绑定了:");
-//				if(userId!=null){
-//            	   /**
-//            	    * 更改微信信息	--》增加用户id
-//            	    */
-//					wxw.setClient_id(userId);
-//	            	wxcpClientUserWxMappingService.update(wxw);
-//					//type=2   绑定成功
-//					res.sendRedirect(returnOpenidUri + "/xcview/html/lickacc_mobile.html?type=2");	
-//					return;
-//				}
-				/*
-				 * 跳转到绑定手机号页面。也就是完善信息页面。  --》绑定类型微信
-				 */
-				//res.sendRedirect(returnOpenidUri + "/xcview/html/evpi.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 				
-				/**
-				 * 写入这个cookie
-				 */
-				ThridFalg tf = new ThridFalg(); 
-				tf.setOpenId(wxw.getOpenid());
-				tf.setUnionId(wxw.getUnionid());
-				UCCookieUtil.writeThirdPartyCookie(res,tf);
-				
-				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
-				
-				OnlineUser ou =  onlineUserService.findUserByLoginName(wxw.getUnionid());
-				if(ou ==null){
+				if(userId!=null){
+            	   /**
+            	    * 更改微信信息	--》增加用户id
+            	    */
+					wxw.setClient_id(userId);
+	            	wxcpClientUserWxMappingService.update(wxw);
+					//type=2   绑定成功
+					res.sendRedirect(returnOpenidUri + "/xcview/html/lickacc_mobile.html?type=2");	
+					return;
+				}else{
 					/**
-					 * 创建用户中心信息和普通用户信息  
+					 * 写入这个cookie
 					 */
-					ou = onlineUserService.wechatCreateUserInfo(wxw);
+					ThridFalg tf = new ThridFalg(); 
+					tf.setOpenId(wxw.getOpenid());
+					tf.setUnionId(wxw.getUnionid());
+					UCCookieUtil.writeThirdPartyCookie(res,tf);
 					
-					 LOGGER.info("ou  uniond "+ou.getId());
-					 
-				}
-				Token t = userCenterAPI.login(
-							wxw.getUnionid(),
-							WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
-							TokenExpires.TenDay
-							);
-				onlogin(req,res,t,ou,t.getTicket());
+					LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
+					
+					OnlineUser ou =  onlineUserService.findUserByLoginName(wxw.getUnionid());
+					if(ou ==null){
+						/**
+						 * 创建用户中心信息和普通用户信息  
+						 */
+						ou = onlineUserService.wechatCreateUserInfo(wxw);
+						
+						 LOGGER.info("ou  uniond "+ou.getId());
+						 
+					}
+					Token t = userCenterAPI.login(
+								wxw.getUnionid(),
+								WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
+								TokenExpires.TenDay
+								);
+					onlogin(req,res,t,ou,t.getTicket());
+					
+					res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 				
-				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openId+"&unionId="+wxw.getUnionid()+"&jump_type=1");
-			}
+				}
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -411,40 +409,42 @@ public class WeChatThirdPartyController {
 		
 		if(!StringUtils.isNotBlank(wxw.getClient_id())){ // 当前微信号没有绑定手机号，就直接绑定这个手机号就行了
 			
-			LOGGER.info("当前微信号没有绑定手机号，就直接绑定这个手机号就行了:");
+			
+			//***** 这里不能直接绑定来
+			
+			LOGGER.info("这里不能直接绑定来");
 			/*
 			 * 如果用户信息中的一些基本信息为null的话，可以把微信的中基本信息填充过去
 			 */
-			OnlineUser ouNew = new OnlineUser();
-			//性别
-			if(ou.getSex()==2){
-				ouNew.setSex(Integer.parseInt(wxw.getSex()));
-			}
-			//名称
-			if(StringUtils.isBlank(ou.getName())){
-				ouNew.setName(wxw.getNickname());
-			}
-			//头像
-			if(StringUtils.isBlank(ou.getSmallHeadPhoto())){
-				ouNew.setSmallHeadPhoto(wxw.getHeadimgurl());
-			}
-			ouNew.setUnionId(wxw.getUnionid());
-			/*
-			 * 更新用户信息
-			 */
-			onlineUserService.updateOnlineUserByWeixinInfo(ou,ouNew);
-			/*
-			 * 更新微信信息
-			 */
-			wxw.setClient_id(ou.getId());
-			wxcpClientUserWxMappingService.update(wxw);
+//			OnlineUser ouNew = new OnlineUser();
+//			//性别
+//			if(ou.getSex()==2){
+//				ouNew.setSex(Integer.parseInt(wxw.getSex()));
+//			}
+//			//名称
+//			if(StringUtils.isBlank(ou.getName())){
+//				ouNew.setName(wxw.getNickname());
+//			}
+//			//头像
+//			if(StringUtils.isBlank(ou.getSmallHeadPhoto())){
+//				ouNew.setSmallHeadPhoto(wxw.getHeadimgurl());
+//			}
+//			ouNew.setUnionId(wxw.getUnionid());
+//			/*
+//			 * 更新用户信息
+//			 */
+//			onlineUserService.updateOnlineUserByWeixinInfo(ou,ouNew);
+//			/*
+//			 * 更新微信信息
+//			 */
+//			wxw.setClient_id(ou.getId());
+//			wxcpClientUserWxMappingService.update(wxw);
 			/*
 			 * 去首页，首页是jsp吗，jsp哈哈就可以得到数据啦
 			 */
 			res.sendRedirect(returnOpenidUri+"/xcview/html/home_page.html?openId="+wxw.getOpenid());
 			
 		}else{	//这个微信号，已经绑定了其他的手机号，并不是现在的手机号，所以绑定不了了啊
-			
 			
 			LOGGER.info("这个微信号，已经绑定了其他的手机号，并不是现在的手机号，所以绑定不了了啊");
 			

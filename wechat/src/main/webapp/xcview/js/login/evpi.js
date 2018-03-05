@@ -96,7 +96,13 @@ document.getElementById("btn").addEventListener("tap", function() {
 		} else if(data.code == 401){ //隐藏密码框
 			vtype =2;
 			$("#password_div").hide();
+		}else if(data.code == 402){ //此手机号已经绑定了其他微信号,
+			
+			alert("此手机号已绑定其他微信号了");
 		}
+		
+		
+		
 		requestService("/xczh/user/sendCode", {username:number,vtype:vtype}, function(data) {
 			if (data.success) {
 				//进入倒计时

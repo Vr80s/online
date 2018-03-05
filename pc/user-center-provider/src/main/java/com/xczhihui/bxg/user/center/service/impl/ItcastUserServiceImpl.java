@@ -491,10 +491,14 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			logger.warn("没有找到登录名'{}'的用户.");
 			return;
 		}
-		user.setPassword(passWord);
-		this.proccessPassword(user, false);
-		itcastUserDao.updatePasswordAndLoginName(id, user.getPassword(), userName);
-		
-		logger.warn("没有找到登录名'{}'的用户.", userName);
+		/**
+		 * 更新用户和密码
+		 */
+		if(passWord !=null){
+			user.setPassword(passWord);
+			this.proccessPassword(user, false);
+			itcastUserDao.updatePasswordAndLoginName(id, user.getPassword(), userName);
+		}
+		this.itcastUserDao.updateLoginName(user.getLoginName(), userName);
 	}
 }
