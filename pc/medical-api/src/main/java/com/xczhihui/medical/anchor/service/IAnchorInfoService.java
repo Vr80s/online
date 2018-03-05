@@ -22,4 +22,6 @@ public interface IAnchorInfoService {
      * 获取主播的认证信息
      */
     Object authInfo(String userId);
+
+    void validateAnchorPermission(String userId);
 }

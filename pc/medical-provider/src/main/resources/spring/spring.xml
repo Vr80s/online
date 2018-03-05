@@ -23,8 +23,18 @@
           class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="2"></property>
     </bean>
+    <bean id="cacheService" class="com.xczhihui.bxg.common.support.service.impl.RedisCacheService" >
+        <constructor-arg name="host" value="${redis.host}" />
+        <constructor-arg name="port" value="${redis.port}" />
+        <constructor-arg name="maxIdle" value="${reids.maxIdle}" />
+        <constructor-arg name="maxTotal" value="${reids.maxTotal}" />
+        <constructor-arg name="timeout" value="${reids.timeout}" />
+        <!--
+        <constructor-arg name="password" value="${redis.password}" />
+         -->
+    </bean>
     <!-- aop -->
-    <bean id="lockService" class="com.xczhihui.common.LockService"></bean>
+    <bean id="lockService" class="com.xczhihui.bxg.online.common.utils.lock.LockService"></bean>
     <!-- 启动对@AspectJ注解的支持  -->
     <aop:aspectj-autoproxy proxy-target-class="true" />
 

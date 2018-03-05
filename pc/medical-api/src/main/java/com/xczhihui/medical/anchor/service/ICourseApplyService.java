@@ -6,6 +6,8 @@ import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +34,8 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      * @Date: 下午 10:27 2018/2/1 0001
      **/
     void saveCourseApply(CourseApplyInfo courseApplyInfo);
+
+    void saveCourseApply4Lock(String lockKey, CourseApplyInfo courseApplyInfo);
 
     /**
      * Description：保存合辑课程申请
@@ -60,6 +64,8 @@ public interface ICourseApplyService extends IService<CourseApplyInfo> {
      * @Date: 下午 10:26 2018/2/1 0001
      **/
     void saveCourseApplyResource(CourseApplyResource courseApplyResource);
+
+    void saveCourseApplyResource4Lock(String lockKey,CourseApplyResource courseApplyResource);
 
     /**
      * Description：获取资源播放代码
