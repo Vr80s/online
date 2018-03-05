@@ -57,6 +57,7 @@ public class CourseApplyServiceImpl extends OnlineBaseServiceImpl implements Cou
 	@Override
 	public CourseApplyInfo findCourseApplyById(Integer id) {
 		CourseApplyInfo courseApply = courseApplyDao.findCourseApplyAndMenuById(id);
+		courseApply.setPrice(courseApply.getPrice()*10);
 		if(!courseApply.getCollection()&&courseApply.getCourseForm()==CourseForm.VOD.getCode()){
 			String audioStr="";
 			if(courseApply.getMultimediaType()== Multimedia.AUDIO.getCode()){

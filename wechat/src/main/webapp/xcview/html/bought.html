@@ -32,6 +32,13 @@
 <link rel="stylesheet" href="/xcview/css/mescroll.min.css">
 <script type="text/javascript" src="../js/mescroll.min.js"></script>
 	<style type="text/css">
+		
+		.bought{
+			background: none;
+		}
+		.mui-scroll{
+			background: #fff;
+		}
 		/*处理刷新效果*/
 		.mui-scroll-wrapper{
 			top: 1.1rem;
@@ -89,7 +96,7 @@
 				{{if item.type==1 || item.type==2}}
 				<!--是否有专辑-->
 				{{if item.collection}}
-			<div class="bought_main_list" onclick="location.href='live_select_album.html?course_id={{item.id}}'">
+			<div class="bought_main_list div1" o1nclick="location.href='live_select_album.html?course_id={{item.id}}'">
 				<div class="bought_list_left">
 						<img src="../images/zhibo1.jpg" class="img0" />					
 						{{if item.type==1}}
@@ -104,7 +111,7 @@
 				</div>
 			</div>
 				{{else}}
-				<div class="bought_main_list" onclick="location.href='live_audio.html?my_study={{item.id}}'">
+				<div class="bought_main_list div2" o2nclick="location.href='live_audio.html?my_study={{item.id}}'">
 					<div class="bought_list_left">
 						<img src="{{item.smallImgPath}}" class="img0" />
 						{{if item.type==1}}
@@ -121,7 +128,7 @@
 				{{/if}}
 			<!--直播，，已结束-->
 			{{else if item.type==3 && item.lineState==3}}
-			<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
+			<div class="bought_main_list div3" o3nclick="location.href='live_play.html?my_study={{item.id}}'">
 				<div class="bought_list_left">
 					<img src="{{item.smallImgPath}}" class="img0" />
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />
@@ -134,7 +141,7 @@
 			</div>
 			<!--直播，，预告-->
 			{{else if item.type==3 && item.lineState==2}}
-			<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
+			<div class="bought_main_list div4" o4nclick="location.href='live_play.html?my_study={{item.id}}'">
 				<div class="bought_list_left">
 					<img src="{{item.smallImgPath}}" class="img0" />
 		            <img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />					
@@ -146,7 +153,7 @@
 			</div>
 				<!--直播，，直播中-->
 				{{else if item.type==3 && item.lineState==1}}
-				<div class="bought_main_list" onclick="location.href='live_play.html?my_study={{item.id}}'">
+				<div class="bought_main_list div5" o4nclick="location.href='live_play.html?my_study={{item.id}}'">
 					<div class="bought_list_left">
 						<img src="{{item.smallImgPath}}" class="img0" />
 		           	 	<img src="/xcview/images/Sinatv_auto.png" alt="" class="img1" />	
@@ -158,7 +165,7 @@
 				</div>
 				<!--线下-->
 				{{else }}
-				<div class="bought_main_list" onclick="location.href='live_class.html?my_study={{item.id}}'">
+				<div class="bought_main_list div6" o5nclick="location.href='live_class.html?my_study={{item.id}}'">
 					<div class="bought_list_left">
 						<img src="{{item.smallImgPath}}" class="img0" />
 		                 <img src="/xcview/images/offline.png" alt="" class="img1" />

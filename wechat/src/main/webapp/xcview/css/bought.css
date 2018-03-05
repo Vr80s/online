@@ -164,6 +164,19 @@ header {
 	font-size: 0.3rem;
 	border-radius: 0.1rem;
 }
+.no_class a{
+	width: 1.44rem;
+    height: 0.56rem;
+    border: 1px solid #00bc12;
+    border-radius: 4px;
+    border-radius: 8px;
+    font-size: 0.28rem;
+    display: block;
+    margin: 0 auto;
+    line-height: 0.56rem;
+    text-align: center;
+    color: #00bc12;
+}
 
 
 

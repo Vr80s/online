@@ -4,11 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
-import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.RedissonUtil;
-import com.xczhihui.bxg.online.common.utils.cc.config.Config;
-import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
-import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
 import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
 import com.xczhihui.medical.anchor.model.CourseApplyInfo;
 import com.xczhihui.medical.anchor.model.CourseApplyResource;
@@ -17,11 +13,12 @@ import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
 import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -207,29 +204,7 @@ public class CourseApplyController {
     public ResponseObject saveCollectionApply(HttpServletRequest request, @RequestBody CourseApplyInfo courseApplyInfo){
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         courseApplyInfo.setUserId(user.getId());
-        // 获得锁对象实例
-        RLock redissonLock = redissonUtil.getRedisson().getLock("saveCollectionApply"+user.getId());
-
-        boolean resl = false;
-        try {
-            //等待3秒 有效期8秒
-            resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
-            if(resl){
-                courseApplyService.saveCollectionApply(courseApplyInfo);
-            }
-        }catch (RuntimeException e){
-            throw e;
-        }catch (Exception e){
-            e.printStackTrace();
-            throw new RuntimeException("网络错误，请重试");
-        }finally {
-            if(resl){
-                redissonLock.unlock();
-            }else{
-                throw new RuntimeException("网络错误，请重试");
-            }
-        }
-
+        courseApplyService.saveCollectionApply(courseApplyInfo);
         return ResponseObject.newSuccessResponseObject("保存成功");
     }
 

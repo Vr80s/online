@@ -138,17 +138,15 @@ $(".enter_btn").click(function(){
 			userName:number,
 			code:yanzhengma,
 			unionId:unionId,
-			type:1
+			vtype:vtype
 	};
 	
-	var url = "/xczh/third/thirdPartyBindIsNoMobile";
+	var url = "/xczh/third/h5WechatMobile";
 	if(vtype==1){
-		
 		if (!stringnull(userpassword)) {
 			webToast("密码不能为空","middle",1500);
 			return false;
 		}
-		url = "/xczh/third/thirdPartyBindMobile";
 		params.passWord = userpassword;
 	}
 	requestService(url,params, function(data) {

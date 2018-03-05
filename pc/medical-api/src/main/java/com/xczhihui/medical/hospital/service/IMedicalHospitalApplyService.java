@@ -3,6 +3,8 @@ package com.xczhihui.medical.hospital.service;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -19,6 +21,10 @@ public interface IMedicalHospitalApplyService {
      * @param target 医馆入驻申请认证的信息封装
      */
     void add(MedicalHospitalApply target);
+
+    void addDetail(MedicalHospitalApply target);
+
+    void addDetail4Lock(String lockKey, MedicalHospitalApply target);
 
     /**
      * 根据userId获取医师入驻最后一条申请信息

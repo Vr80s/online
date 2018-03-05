@@ -246,5 +246,5 @@ public interface OnlineUserService {
 	 * @author name：yangxuan <br>email: 15936216273@163.com
 	 *
 	 */
-	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wxw);
+	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wxw) throws SQLException;
 }

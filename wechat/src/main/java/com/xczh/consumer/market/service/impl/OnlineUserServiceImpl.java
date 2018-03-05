@@ -24,6 +24,7 @@ import com.xczh.consumer.market.dao.OnlineUserMapper;
 import com.xczh.consumer.market.dao.WxcpClientUserWxMappingMapper;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.CookieUtil;
+import com.xczh.consumer.market.utils.RandomUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.SmsUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -53,6 +54,10 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 	public WxcpClientUserWxMappingMapper wxcpClientUserWxMappingMapper;
 	//数据字典
 	private Map<String, String> attrs = new HashMap<String, String>();
+	
+	//private String  password = RandomUtil.getCharAndNumr(6);
+	
+	
 	@Override
 	public OnlineUser findUserById(String id) throws SQLException {
 		return onlineUserDao.findUserById(id);
@@ -539,11 +544,15 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		}
 	}
 	
-	
 	public static void main(String[] args) {
 		String vcode = String.valueOf(ThreadLocalRandom.current().nextInt(1000,10000));
 		System.out.println(vcode);
+		double 	vcode1 = Math.random()*9000+1000;
+		System.out.println(vcode1);
+		System.out.println((int)((Math.random()*9+1)*1000));
 	}
+	
+	
 	@Override
 	public void updateUserLoginName(OnlineUser o) throws SQLException {
 		onlineUserDao.updateUserLoginName(o);
@@ -710,55 +719,57 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 		onlineUserDao.emptyAccount(userName);
 	}
 	@Override
-	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wx) {
+	public OnlineUser wechatCreateUserInfo(WxcpClientUserWxMapping wx) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
-//		String password = "123456";
-//		/**
-//		 * 用户中心注册
-//		 */
-//		//com.xczhihui.user.center.bean.Token = new com.xczhihui.user.center.bean.Token();
-//		
-//		com.xczh.consumer.market.utils.Token t = userCenterAPI.regist(wx.getUnionid(), password,wx.getNickname(),UserSex.parseWechat(wx.getSex()), null,
-//				null, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
-//			
-//		OnlineUser u = new OnlineUser();
-//		//用户中心id  用于发送礼物等操作
-//		u.setUserCenterId(iu.getId());
-//
-//		//保存本地库
-//		u.setId(UUID.randomUUID().toString().replace("-", ""));
-//		//u.setLoginName(name);
-//		//u.setMobile(mobile);
-//		u.setStatus(0);
-//		u.setCreateTime(new Date());
-//		u.setDelete(false);
-//		u.setName("");   //默认一个名字
-//		//u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-//		u.setSmallHeadPhoto(returnOpenidUri+"/web/images/defaultHead/yx_mr.png");
-//		u.setVisitSum(0);
-//		u.setStayTime(0);
-//		u.setUserType(0);
-//		u.setOrigin("apple_yk");
-//		u.setMenuId(-1);
-//		u.setPassword(iu.getPassword());
-//		u.setSex(OnlineUser.SEX_UNKNOWN);
-//		u.setType(1);
-//		//分销，设置上级
-//		String weihouUserId = WeihouInterfacesListUtil.createUser(
-//				u.getId(),
-//				WeihouInterfacesListUtil.MOREN,
-//				name,
-//				returnOpenidUri+"/web/images/defaultHead/" + (int) (Math.random() * 20 + 1)+".png");
-//		
-//		u.setVhallId(weihouUserId);  //微吼id
-//		u.setVhallName(name);
-//		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
-//		onlineUserDao.addOnlineUser(u);
-//		/**
-//		 * 为用户初始化一条代币记录
-//		 */
-//		userCoinService.saveUserCoin(u.getId());
+		/**
+		 * 用户中心注册
+		 */
+		com.xczh.consumer.market.utils.Token iu =  userCenterAPI.regist(wx.getUnionid(), 
+				WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
+				wx.getNickname(),UserSex.parseWechat(wx.getSex()), null,
+				null, UserType.STUDENT, UserOrigin.ONLINE, UserStatus.NORMAL);
+			
+		
+		OnlineUser u = new OnlineUser();
+		//用户中心id  用于发送礼物等操作
+		u.setUserCenterId(iu.getUserId());
+		//保存本地库
+		u.setId(UUID.randomUUID().toString().replace("-", ""));
+		u.setStatus(0);
+		u.setCreateTime(new Date());
+		u.setDelete(false);
+		u.setLoginName(wx.getUnionid());
+		u.setName(wx.getNickname());   						//微信用户名称
+		u.setSmallHeadPhoto(wx.getHeadimgurl());//微信用户头像
+		u.setVisitSum(0);
+		u.setStayTime(0);
+		u.setUserType(0);
+		u.setOrigin("weixin_public");
+		u.setMenuId(-1);
+		u.setPassword(WeihouInterfacesListUtil.MOREN_USER_PASSWORD);
+		u.setSex(UserSex.parseWechat(wx.getSex()).getValue()); //微信性别
+		u.setType(1);
+		
+		/**
+		 * 创建微吼信息
+		 */
+		String weihouUserId = WeihouInterfacesListUtil.createUser(
+				u.getId(),
+				WeihouInterfacesListUtil.MOREN,wx.getNickname(),
+				wx.getHeadimgurl());
+		u.setVhallId(weihouUserId);  //微吼id
+		u.setVhallName(wx.getNickname());
+		u.setVhallPass(WeihouInterfacesListUtil.MOREN);    //微吼密码
+		
+		onlineUserDao.addOnlineUser(u);
+		
+		
+		/**
+		 * 为用户初始化一条代币记录
+		 */
+		userCoinService.saveUserCoin(u.getId());
+		
+		return u;
 	}
 	
 }

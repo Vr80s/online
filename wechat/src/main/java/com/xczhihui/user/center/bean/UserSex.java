@@ -1,5 +1,7 @@
 package com.xczhihui.user.center.bean;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 用户性别
  * 
@@ -65,11 +67,12 @@ public enum UserSex {
 	 * @return
 	 */
 	public static UserSex parseWechat(String value){
-		
-		if(value.equals("0")){
-			return UserSex.valueOf("MALE");
-		}else if(value.equals("1")){
-			return UserSex.valueOf("FEMALE");
+		if(StringUtils.isNotBlank(value)){
+			if(value.equals("0")){
+				return UserSex.valueOf("MALE");
+			}else if(value.equals("1")){
+				return UserSex.valueOf("FEMALE");
+			}
 		}
 		return UserSex.valueOf("UNKNOWN");
 	}

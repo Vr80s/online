@@ -63,16 +63,16 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         //获取当前课程列表数据
         Page<CourseLecturVo>  page = coursedao.listZyktCourse(menuType,menuId,couseTypeId,multimediaType,isFree,orderType,orderBy,pageNumber,pageSize);
         //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-        if(!CollectionUtils.isEmpty(page.getItems())){
-            for (CourseLecturVo courseLecturVo :page.getItems()) {
-                String name = "暂无讲师";
-                OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
-                if(onlineUser!=null) {
-                    name = onlineUser.getName();
-                }
-                courseLecturVo.setName(name);
-            }
-        }
+//        if(!CollectionUtils.isEmpty(page.getItems())){
+//            for (CourseLecturVo courseLecturVo :page.getItems()) {
+//                String name = "暂无讲师";
+//                OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
+//                if(onlineUser!=null) {
+//                    name = onlineUser.getName();
+//                }
+//                courseLecturVo.setName(name);
+//            }
+//        }
 
         return  page;
     }
@@ -89,7 +89,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
         //获取当前课程列表数据
         Page<CourseLecturVo>  page = coursedao.getCourseAndLecturerlist(type,menuId, couseTypeId,  pageNumber,  pageSize);
         //循环课程,根据课程ID号查找当前课程对应的讲师,只要两个讲师
-        if(!CollectionUtils.isEmpty(page.getItems())){
+        /*if(!CollectionUtils.isEmpty(page.getItems())){
             for (CourseLecturVo courseLecturVo :page.getItems()) {
             	String name = "暂无讲师";
             	OnlineUser onlineUser = coursedao.getLecturer(courseLecturVo.getUserLecturerId());
@@ -98,7 +98,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
                 }
             	courseLecturVo.setName(name);
             }
-        }
+        }*/
 
         return  page;
     }

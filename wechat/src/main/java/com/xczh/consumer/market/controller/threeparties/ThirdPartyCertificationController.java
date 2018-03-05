@@ -27,6 +27,7 @@ import com.xczh.consumer.market.service.AppBrowserService;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
+import com.xczh.consumer.market.utils.ClientUserUtil;
 import com.xczh.consumer.market.utils.ResponseObject;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
@@ -348,7 +349,8 @@ public class ThirdPartyCertificationController {
 	@RequestMapping(value="thirdCertificationMobile")
 	@ResponseBody
 	public ResponseObject thirdCertificationMobile(HttpServletRequest req,
-			HttpServletResponse res,@RequestParam("userName")String userName,
+			HttpServletResponse res,
+			@RequestParam("userName")String userName,
 			@RequestParam("unionId")String unionId,
 			@RequestParam("type")Integer type ){
 		
@@ -382,6 +384,62 @@ public class ThirdPartyCertificationController {
 		}
 	}
 
+	
+	/**
+	 * Description：h5 绑定手机号，更换用户信息（手机号）
+	 * @param req
+	 * @param userId
+	 * @return
+	 * @return ResponseObject
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 */
+	@RequestMapping(value="h5WechatMobile")
+	@ResponseBody
+	public ResponseObject h5WechatMobile(HttpServletRequest req,
+			HttpServletResponse res,
+			@RequestParam("userName")String userName,
+			@RequestParam(value = "passWord",required=false)String passWord,
+			@RequestParam("unionId")String unionId,
+			@RequestParam("code")String code,
+			@RequestParam("vtype")Integer vtype){
+		
+		ItcastUser user = userCenterAPI.getUser(unionId);
+		try {
+			OnlineUser ou = onlineUserService.findUserByLoginName(unionId);
+			if(user ==null || ou == null){ 
+				return ResponseObject.newErrorResponseObject("未找到用户信息");
+			}
+			LOGGER.info("三方绑定已注册手机认证参数信息："
+					+ "username:"+userName+",unionId:"+unionId+",code:"+code+",type:"+vtype);
+			/*
+			 * 验证短信验证码
+			 */
+			ResponseObject checkCode = onlineUserService.checkCode(userName, code,vtype);
+			if (!checkCode.isSuccess()) { //如果动态验证码不正确
+				return checkCode;
+			}
+			LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
+			
+			if(StringUtils.isNotBlank(passWord)){ //更新密码和更新用户名
+				userCenterAPI.updatePasswordAndLoginName(user.getId(),userName,passWord);
+			}else{								  //更新用户名
+				userCenterAPI.updateLoginName(unionId, userName);
+			}
+			WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
+			wxw.setClient_id(ou.getId());
+			wxcpClientUserWxMappingService.update(wxw);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ResponseObject.newSuccessResponseObject(UserUnitedStateType.valueOf(code));
+	}
+	
+	
 	/**
 	 * 登陆成功处理
 	 * @param req

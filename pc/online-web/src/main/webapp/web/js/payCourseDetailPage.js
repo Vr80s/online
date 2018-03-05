@@ -71,7 +71,7 @@ window.onload = function() {
 		'{{if $value.free == true}}' +
 		'<span class="pricefree">免费</span>' +
 		'{{else}}' +
-		'<i>￥</i><span class="price">{{$value.currentPrice}}</span><del><i class="price1">￥</i>{{$value.originalCost}}</del>' +
+		'<span class="price">{{$value.currentPrice}}</span><span>熊猫币</span>' +
 		'{{/if}}' +
 		'</span>' +
 		'<span class="stuCount"><img src="/web/images/studentCount.png" alt=""/><span class="studentCou">{{$value.learndCount}}</span></span>' +
@@ -213,8 +213,8 @@ window.onload = function() {
 			'</div>' +
 			'{{else}}' +
 			'<p class="bigpic-body-money">' +
-			'<span class="bigpic-body-redmoney">￥{{item.currentPrice}}</span>' +
-			'<del class="bigpic-body-notmoney">￥{{item.originalCost}}</del>' +
+			'<span class="bigpic-body-redmoney">{{item.currentPrice}}</span>' +
+			'<span>熊猫币</span>' +
 			'</p>' +
 			'<div class="bigpic-body-btn">' +
 			'{{if item.apply==false}}' +
