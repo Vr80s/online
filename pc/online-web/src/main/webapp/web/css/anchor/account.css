@@ -7,7 +7,7 @@
     display: block;
     float: right;
     vertical-align: top;
-    padding: 0 30px;
+    padding: 0 20px;
     min-height: 520px;
     background-color: #fff;
     padding-bottom: 50px;
@@ -20,8 +20,8 @@
     line-height: 60px;
     font-size: 16px;
     color: #333333;
-    border-bottom: 1px solid #F0F0F0;
-    margin-bottom: 20px;
+    /*border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 20px;*/
 }
 .reauthentication{
 	width: 100%;
@@ -436,8 +436,8 @@
     line-height: 60px;
     font-size: 16px;
     color: #333333;
-    border-bottom: 1px solid #F0F0F0;
-    margin-bottom: 20px;
+    /*border-bottom: 1px solid #F0F0F0;*/
+    /*margin-bottom: 20px;*/
 	font-size: 16px;
 	color: #333333;
 }

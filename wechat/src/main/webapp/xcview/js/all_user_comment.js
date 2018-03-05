@@ -90,6 +90,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             mui('#refreshContainer').pullRefresh().refresh(true);
+            mui("#refreshContainer").off();
         }else if(data.resultObject.items.length==0){
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         }else {

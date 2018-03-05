@@ -327,6 +327,7 @@
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
+		oc.direct_id as directId,
 		'直播间' as note
 		FROM
 		oe_course oc
@@ -357,6 +358,7 @@
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
+		oc.direct_id as directId,
 		'我的课程' as note
 		FROM
 		oe_course oc
@@ -386,6 +388,7 @@
 		oc.live_source_type as liveSourceType,
 		oc.city as city,
 		oc.lecturer as name,
+		oc.direct_id as directId,
 		'直播间' as note
 		FROM
 		oe_course oc

@@ -482,12 +482,19 @@ public class ItcastUserServiceImpl implements UserCenterAPI {
 			loginLimitDao.updateLoginLimit(ll);
 		}
 	}
-
-
 	@Override
 	public void updatePasswordAndLoginName(int id, String userName,
 			String passWord) {
 		// TODO Auto-generated method stub
-		itcastUserDao.updatePasswordAndLoginName(id, passWord, userName);
+		ItcastUser user = this.getUser(id);
+		if (user == null) {
+			logger.warn("没有找到登录名'{}'的用户.");
+			return;
+		}
+		user.setPassword(passWord);
+		this.proccessPassword(user, false);
+		itcastUserDao.updatePasswordAndLoginName(id, user.getPassword(), userName);
+		
+		logger.warn("没有找到登录名'{}'的用户.", userName);
 	}
 }
