@@ -634,36 +634,8 @@ public class MyManagerController {
 		ResponseObject rob = onlineUserService.changeMobileCheckCode(userName, smsCode, SMSCode.WITHDRAWAL.getCode());
 		//短信验证码成功
 		if(rob.isSuccess()){
-// 获得锁对象实例
-			RLock redissonLock = redissonUtil.getRedisson().getLock("saveEnchashmentApplyInfo"+user.getId());
-
-			boolean resl = false;
-			try {
-				//等待3秒 有效期8秒
-				resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
-				if(resl){
 					enchashmentService.saveEnchashmentApplyInfo(user.getId(),rmbNumber,bankCardId, OrderFrom.valueOf(orderFrom));
-				}
-			}catch (RuntimeException e){
-				throw e;
-			}catch (Exception e){
-				e.printStackTrace();
-				throw new RuntimeException("网络错误，请重试");
-			}finally {
-				if(resl){
-					redissonLock.unlock();
-				}else{
-					throw new RuntimeException("网络错误，请重试");
-				}
-			}
-
-			try {
 				return ResponseObject.newSuccessResponseObject("提现成功");
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-				return ResponseObject.newErrorResponseObject(e.getMessage());
-			}
 		}else{
 			return rob;
 		}

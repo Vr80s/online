@@ -97,6 +97,9 @@
 			pointcut="execution(* com.xczhihui.bxg.online..service..*.*(..))" />
 	</aop:config>
 
+	<!-- 开启事务控制的注解支持 20180302-->
+	<tx:annotation-driven transaction-manager="txManager"/>
+
 	<!-- <bean id="simpleHibernateDao" class="com.xczhihui.bxg.common.support.dao.SimpleHibernateDao" /> -->
 	<bean id="broadcast" class="com.xczhihui.bxg.online.web.base.common.Broadcast" />
 

@@ -28,8 +28,6 @@ public interface GiftService {
 	 **/
 	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
 
-    Map<String,Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
-
     /**
 	 * Description：获取所有礼物
 	 * @return

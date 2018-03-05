@@ -47,8 +47,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Autowired
     private CollectionCourseApplyMapper collectionCourseApplyMapper;
     @Autowired
-    private RedissonUtil redissonUtil;
-    @Autowired
     private ICourseApplyService courseApplyService;
     @Autowired
     private IAnchorInfoService anchorInfoService;
@@ -222,13 +220,6 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Lock(lockName = "addCourseApplyResource")
     public void saveCourseApplyResource4Lock(String lockKey, CourseApplyResource courseApplyResource) {
         validateCourseApplyResource(courseApplyResource);
-        try {
-            System.out.println("kaishi");
-            Thread.sleep(2000);
-            System.out.println("2jieshu");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         courseApplyResource.setCreateTime(new Date());
         courseApplyResource.setUpdateTime(new Date());
         courseApplyResourceMapper.insert(courseApplyResource);
@@ -378,6 +369,19 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         if(courseApplyResource.getMultimediaType()==null || (courseApplyResource.getMultimediaType()!= Multimedia.AUDIO.getCode() && courseApplyResource.getMultimediaType()!=Multimedia.VIDEO.getCode())){
             throw new RuntimeException("媒体类型参数有误");
+        }
+        validateCourseApplyResourceName(courseApplyResource);
+    }
+
+    private void validateCourseApplyResourceName(CourseApplyResource courseApplyResource) {
+        CourseApplyResource car = new CourseApplyResource();
+        car.setTitle(courseApplyResource.getTitle());
+        car.setDelete(false);
+        car.setMultimediaType(courseApplyResource.getMultimediaType());
+        car.setUserId(courseApplyResource.getUserId());
+        courseApplyResource = courseApplyResourceMapper.selectOne(car);
+        if(courseApplyResource != null){
+            throw new RuntimeException("已存在同名媒体资源");
         }
     }
 

@@ -14,7 +14,7 @@ function balance() {
     requestService("/xczh/manager/home",{
     },function(data) {
         if(data.success==true){
-            $("#xmbNumber").text(data.resultObject.xmbCount);
+            $("#xmbNumber").text(parseInt(data.resultObject.xmbCount));
             $("#courseNumber").text(data.resultObject.courseCount);
             //用户头像
             $(".header_img").html(template('userInfo',data.resultObject.user));
