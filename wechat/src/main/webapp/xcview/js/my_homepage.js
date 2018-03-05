@@ -4,7 +4,7 @@ var falg =authenticationCooKie();
 //var openId = getQueryString("openId");
 var opendId = getQueryString("openId");
 if(stringnull(opendId)){
-	localStorage.setItem("openid", openId);
+	localStorage.setItem("openid", opendId);
 }
 
 function balance() {
