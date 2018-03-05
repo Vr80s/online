@@ -174,8 +174,7 @@ $(document).ready(function() {
 			var msgJson = {
 					channel:1,
 					giftId:selectGift.id,
-					count:gifNumber,
-//					count:selectGift.count,
+					count:1,
 					clientType:1,
 					liveId:course_id,
 					receiver:teacherId,
@@ -186,13 +185,13 @@ $(document).ready(function() {
         			sendMsg(data.resultObject);
         			refreshBalance();
 				}else{
-//					 alert("余额不足");
-					 $('.mask3').text('余额不足').fadeIn(400,function(){
-							
-							setTimeout(function(){
-								$('.mask3').fadeOut()
-							},1000)
-						});
+					if("余额不足"==data.errorMessage){
+                        $('.mask3').text('余额不足').fadeIn(400,function(){
+                            setTimeout(function(){
+                                $('.mask3').fadeOut()
+                            },1000)
+                        });
+					}
 				}
 			});
 //			$("#chat-content").val('');

@@ -149,6 +149,13 @@ public interface UserCoinService {
 	 * @author name：yuxin <br>email: yuruixin@ixincheng.com
 	 * @Date: 下午 2:04 2018/1/29 0029
 	 **/
-	public void updateBalanceForSettlement(String userId, int amount, OrderFrom orderFrom);
+    void updateBalanceForSettlement4Lock(String lockKey, String userId, int amount, OrderFrom orderFrom);
 
+    /**
+     * Description：提现申请
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/3/5 0005 下午 3:32
+     **/
+	void saveEnchashmentApplyInfo4Lock(String lockKey, String userId, BigDecimal enchashmentSum, int bankCardId, OrderFrom orderFrom);
 }
