@@ -363,6 +363,15 @@ function picUpdown(baseurl,imgname){
 
 //身份证正面 idFont_pic
 	$('#idFont_pic_ipt').on('change',function(){
+//	console.log(this.files[0].size)  
+	if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 //		console.log( reader.result);  //或者 e.target.result都是一样的，都是base64码
@@ -377,6 +386,14 @@ function picUpdown(baseurl,imgname){
 
 //身份证反面
 	$('#idBack_pic_ipt').on('change',function(){
+		if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown(reader.result,'idBack_pic');
@@ -386,6 +403,14 @@ function picUpdown(baseurl,imgname){
 	
 //  医师资格证
 $('#teacher_pic_ipt').on('change',function(){
+	if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown(reader.result,'teacher_pic');
@@ -395,6 +420,14 @@ $('#teacher_pic_ipt').on('change',function(){
 
 //  执业资格证
 $('#zhiiye_pic_ipt').on('change',function(){
+	if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown(reader.result,'zhiye_pic');
@@ -404,6 +437,14 @@ $('#zhiiye_pic_ipt').on('change',function(){
 
 //   真实头像
 $('#touxiang_pic_ipt').on('change',function(){
+	if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown(reader.result,'touxiang_pic');
@@ -413,6 +454,14 @@ $('#touxiang_pic_ipt').on('change',function(){
 
 //  职称证明
 $('#zhicheng_pic_ipt').on('change',function(){
+	if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown(reader.result,'zhicheng_pic');
