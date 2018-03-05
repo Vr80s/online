@@ -12,7 +12,7 @@ if(type == 1){ //type=1 此微信号已经绑定了了啊
 /*
  * 获取用户绑定的第三方用户信息
  */
-requestService("/xczh/bind/userBindingInfo", null, function(data) {
+/*requestService("/xczh/bind/userBindingInfo", null, function(data) {
 	if (data.success) {
 		var item = data.resultObject;
 
@@ -20,6 +20,11 @@ requestService("/xczh/bind/userBindingInfo", null, function(data) {
 		$("#weixin_bind").html(item.wxName);   
 	}
 })	
+*/
+//
+//if(){
+//	
+//}
 
 
 $(".email_one .div0_show").click(function(){
@@ -64,3 +69,35 @@ function removeBind(){
 		})	
 	}
 }
+
+
+
+
+//点击账号和绑定设置
+function check_login(obj){
+	var data_title =  $(obj).attr("data-title");
+ 	var falg =authenticationCooKie(true);
+	if (falg==1002){
+		location.href ="/xcview/html/cn_login.html";		
+	}else if (falg==1005) {
+		location.href ="/xcview/html/evpi.html";
+	}else if(falg == 1000){
+		
+		if(data_title == "mobile"){
+			location.href ='phone_number.html';
+		}else if(data-title == "password"){
+			location.href ='amend.html';
+		}
+	} 
+}
+
+
+
+
+
+
+
+
+
+
+

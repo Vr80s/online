@@ -243,7 +243,7 @@ public class XzUserController {
 			t = userCenterAPI.loginMobile(username, password, TokenExpires.TenDay);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseObject.newErrorResponseObject("用户名密码有误");
+			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}
 		
 		if (t != null) {
