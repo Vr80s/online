@@ -47,6 +47,32 @@ $(function(){
 		$(".bg_modal").hide();
 		$(".wrapAll_comment").hide();
 	})
+    if($('#comment_detailed').val()==""){
+        $(".report_btn").css("opacity","0.3");
+    }else{
+        $(".report_btn").css("opacity","1");
+    }
+    if($('#littlt_return').val()==""){
+        $(".return_btn").css("opacity","0.3");
+    }else{
+        $(".return_btn").css("opacity","1");
+    }
+	//评论按钮颜色
+    $('#comment_detailed').keyup(function(){
+            if($('#comment_detailed').val()==""){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+    })
+    //控制回复按钮颜色
+    $('#littlt_return').keyup(function(){
+        if($('#littlt_return').val()==""){
+            $(".return_btn").css("opacity","0.3");
+        }else{
+            $(".return_btn").css("opacity","1");
+        }
+    })
 var userLecturerId = getQueryString('userLecturerId');
 requestService("/xczh/host/hostPageInfo",{
 	lecturerId : userLecturerId
@@ -203,6 +229,11 @@ requestService("/xczh/host/hostPageCourse",{
 
     //评论
     function reportComment() {
+        //内容是否不为空
+        var opacity = $(".report_btn").css("opacity");
+        if(opacity!=1){
+            return false;
+        }
         var comment_detailed = $('#comment_detailed').val();
 
         requestService("/xczh/criticize/saveCriticize",{
@@ -217,12 +248,8 @@ requestService("/xczh/host/hostPageCourse",{
                 $(".wrapAll_comment").hide();
                 $(".bg_modal").hide();
                 document.getElementById("comment_detailed").value="";
-                requestService("/xczh/criticize/getCriticizeList",{
-                    userId : userLecturerId
-                },function(data) {
-                    //	课程名称/等级/评论
-                    $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-                });
+                refresh();
+
             }else{
                 webToast("评论失败","middle",1500);
             }
@@ -233,7 +260,7 @@ requestService("/xczh/host/hostPageCourse",{
     function replyComment() {
         var comment_detailed = $('#littlt_return').val();
         if(comment_detailed==""){
-            webToast("内容不能为空","middle",1500);
+            //webToast("内容不能为空","middle",1500);
             return
         }
         requestService("/xczh/criticize/saveReply",{

@@ -36,6 +36,7 @@ function refresh(pageNumber,pageSize,downOrUp){
             $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             mui('#refreshContainer').pullRefresh().refresh(true);
+            mui("#refreshContainer").off();
         }else if(data.resultObject.items.length==0){
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
         }else{
@@ -213,6 +214,7 @@ function refresh(pageNumber,pageSize,downOrUp){
 }
 //评论
 function reportComment() {
+    var comment_detailed = $('#comment_detailed').val();
     //判断浮层是否已选，内容是否不为空
         var opacity = $(".report_btn").css("opacity");
         if(opacity!=1){

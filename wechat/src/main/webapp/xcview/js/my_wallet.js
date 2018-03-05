@@ -55,7 +55,7 @@ function balance() {
     requestService("/xczh/manager/getWalletEnchashmentBalance",{
     },function(data) {
         if(data.success==true){
-            $("#xmbNumber").text(data.resultObject);
+            $("#xmbNumber").text(parseInt(data.resultObject));
         }else{
             alert(data.errorMessage);
         }

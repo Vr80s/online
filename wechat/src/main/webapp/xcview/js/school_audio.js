@@ -164,19 +164,6 @@ function refresh(){
         $(".btn_click_zan").click(function(){
             //评论id
             criticize_id=$(this).attr("data-id");
-           /* var p = $(this).find('span').html();
-
-            var src = $(this).find('img').attr('src');
-            if(src.indexOf("zan001")>-1){
-                $(this).find('img').attr('src','../images/zan01.png');
-
-                $(this).find('span').html(parseInt(p)-1);
-                updatePraise(criticize_id,false);
-            }else{
-                $(this).find('img').attr('src','../images/zan001.png');
-                $(this).find('span').html(parseInt(p)+1);
-                updatePraise(criticize_id,true);
-            }*/
             //跳转到评论列表页
             btn_allComment();
         });
