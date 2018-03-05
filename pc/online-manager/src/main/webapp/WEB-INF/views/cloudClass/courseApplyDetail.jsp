@@ -159,7 +159,7 @@
 			<label class="col-sm-1 control-label no-padding-right">课程单价:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${courseApplyInfo.price}</label>
+					<label class="control-label no-padding-right">${courseApplyInfo.price}熊猫币</label>
 				</div>
 			</div>
 			<%--<label class="col-sm-1 control-label no-padding-right">是否上架:</label>--%>

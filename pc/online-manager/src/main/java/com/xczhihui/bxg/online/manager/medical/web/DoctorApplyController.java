@@ -45,7 +45,7 @@ public class DoctorApplyController extends AbstractController{
 	public TableVo list(TableVo tableVo) {
 		int pageSize = tableVo.getiDisplayLength();
 		int index = tableVo.getiDisplayStart();
-		int currentPage = index / pageSize;
+		int currentPage = index / pageSize+1;
 
 		String params = tableVo.getsSearch();
 		Groups groups = Tools.filterGroup(params);

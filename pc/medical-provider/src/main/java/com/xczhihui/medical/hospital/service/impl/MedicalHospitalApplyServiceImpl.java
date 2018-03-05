@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
 import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
+import com.xczhihui.common.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.utils.RedisShardLockUtils;
@@ -46,6 +47,8 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     @Autowired
     private ICommonService commonService;
     @Autowired
+    private IMedicalHospitalApplyService medicalHospitalApplyService;
+    @Autowired
     private RedisShardLockUtils redisShardLockUtils;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -57,68 +60,35 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void add(MedicalHospitalApply target) {
-
-        // 参数校验
-        this.validate(target);
-
-        Long currentTime = System.currentTimeMillis() + MedicalHospitalApplyConst.TIMEOUT;
-
-        String applyId = null;
-
-        try {
-
-            // 获取用户最后一次申请认证信息 如果有表示用户重新提交认证申请
-            MedicalHospitalApply hospitalApply = this.getLastOne(target.getUserId());
-
-            if(hospitalApply != null){
-
-                applyId = hospitalApply.getId();
-
-                // 尝试获得锁
-                if(redisShardLockUtils.lock(MedicalHospitalApplyConst.LOCK_PREFIX + applyId, String.valueOf(currentTime))){
-                    this.addDetail(target);
-                }
-
-            }else {
-
-                this.addDetail(target);
-
-            }
-        }catch (TooManyResultsException e){
-
-            logger.error("判断医馆名字是否已被占用时，SELECT id FROM medical_hospital WHERE name = {} and deleted = 0 ," +
-                    "Expected one result (or null) to be returned by selectOne(), but found: many" );
-            throw new RuntimeException("数据异常，请联系管理员");
-
-        }finally {
-
-            // 解锁
-            redisShardLockUtils.unlock(MedicalHospitalApplyConst.LOCK_PREFIX + applyId, String.valueOf(currentTime));
-
-        }
+        medicalHospitalApplyService.addDetail(target);
     }
 
-    private void addDetail(MedicalHospitalApply target) {
+    @Override
+    public void addDetail(MedicalHospitalApply target) {
+        medicalHospitalApplyService.addDetail4Lock(target.getUserId(),target);
+    }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "addHospitalApply",waitTime = 2,effectiveTime = 3)
+    public void addDetail4Lock(String lockKey,MedicalHospitalApply target) {
+        // 参数校验
+        this.validate(target);
         // 判断用户是否是认证医师或者认证医馆
         Integer result = commonService.isDoctorOrHospital(target.getUserId());
 
         // 如果用户是认证医师或者医师认证中 不让其认证医馆
         if(result.equals(CommonEnum.AUTH_DOCTOR.getCode()) ||
                 result.equals(CommonEnum.DOCTOR_APPLYING .getCode())){
-
             throw new RuntimeException("您已经认证了医师，不能再认证医馆");
-
         }
 
         // 如果用户认证医馆中
         if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode()) ||
                 result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
-
             if(result.equals(CommonEnum.HOSPITAL_APPLYING.getCode())){
                 this.checkHospitalName(target.getName(), target.getUserId(), 1);
             }
-
             if(result.equals(CommonEnum.AUTH_HOSPITAL.getCode())){
                 this.checkHospitalName(target.getName(), target.getUserId(), 2);
             }
@@ -134,13 +104,15 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
         // 如果用户医馆认证失败，医馆认证成功，医师认证失败，或者从没申请
         if(result.equals(CommonEnum.HOSPITAL_APPLY_REJECT.getCode()) ||
                 result.equals(CommonEnum.NOT_DOCTOR_AND_HOSPITAL.getCode()) ||
-                result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())){
+                result.equals(CommonEnum.DOCTOR_APPLY_REJECT.getCode())) {
 
             this.addMedicalHospitalApply(target);
 
         }
 
     }
+
+
 
     /**
      * 检查医馆名是否被占用

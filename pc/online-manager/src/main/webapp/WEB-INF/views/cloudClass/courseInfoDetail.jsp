@@ -113,7 +113,7 @@
 			<label class="col-sm-1 control-label no-padding-right">课程单价:</label>
 			<div class="col-sm-1" >
 				<div class="clearfix" style="width: 240px;">
-					<label class="col-sm-1 control-label no-padding-right">${course.currentPrice}</label>
+					<label class="control-label no-padding-right">${course.currentPrice}熊猫币</label>
 				</div>
 			</div>
 		</div>

@@ -41,8 +41,8 @@ public class CourseDao extends HibernateDao<Course>{
 				 "  oc.create_time AS createTime,\n" +
 				 "  oc.status AS STATUS,\n" +
 				 "  oc.is_free AS isFree, \n" +
-				 "  oc.original_cost AS originalCost,\n" +
-				 "  oc.current_price AS currentPrice,\n" +
+//				 "  oc.original_cost AS originalCost,\n" +
+				 "  oc.current_price*10 AS currentPrice,\n" +
 				 "  oc.description AS description,\n" +
 				 "  oc.menu_id AS menuId,\n" +
 				 "  oc.course_type_id AS courseTypeId,\n" +
@@ -238,7 +238,10 @@ public class CourseDao extends HibernateDao<Course>{
 
 	public List<Course> getCourseByCollectionId(Integer id) {
 		String sql = "SELECT \n" +
-				"  oc.*\n" +
+				"  oc.`grade_name`,\n" +
+				"  oc.`id`,\n" +
+				"  oc.`lecturer`,\n" +
+				"  oc.`current_price`*10 as current_price " +
 				"FROM\n" +
 				"  `oe_course` oc \n" +
 				"  JOIN `collection_course` cc \n" +
