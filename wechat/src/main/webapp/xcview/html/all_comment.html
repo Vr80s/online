@@ -59,6 +59,9 @@
 			    height: 40px;
 			    line-height: 40px;
 			}
+			.both{
+				clear: both;
+			}
 		</style>
 	</head>
 	<body style="background:#F8F8F8;">
@@ -153,30 +156,33 @@
 		
 								</ul>
 							</div>
+							<div class="both"></div>
 						</div>
-		
+		<div class="both"></div>
 						<!--购买者显示-->
-						{{if item.isBuy  }}
+						{{if item.isBuy}}
 						<div class="wrap_purchaser">
 							<p>购买者</p>
 						</div>
 						{{/if}}
+						<div class="both"></div>
 					</div>
-		
+					<div class="both"></div>
 				</div>
 					{{/each}}
 				</script>
+				<div class="both"></div>
 			</div>
 			
-			<div class="both"></div>
+				<div class="both"></div>
 			</div>
 			
-			<div class="both"></div>
+				<div class="both"></div>
 			</div>
-			<div class="both"></div>
+				<div class="both"></div>
 		</div>
 <!--无评论显示的图片-->
-	<div class="quie_pic">
+	<div class="quie_pic" style="display: block; !important">
 		<img src="../images/no_comment_hui.png"/>	
 		<p>还没有评价？快来抢沙发呀~</p>
 	</div>
@@ -196,7 +202,7 @@
 	<!--评论用户弹出框-->
 	<div class="bg_userModal"></div>
 	<div class="wrapLittle_comment">
-		<p class="detailed_comments little_comment">详细评论<span>（至少10字）</span></p>
+		<p class="detailed_comments little_comment">详细评论</p>
 		<div class="text_write_box">
 			<textarea id="littlt_return" name="" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
@@ -205,7 +211,7 @@
 			<li>
 				<img src="../images/brow.png"/>
 			</li>
-			<li onclick="replyComment()">发表评论</li>
+			<li class="return_btn" onclick="replyComment()">发表评论</li>
 		</ul>
 	</div>	
 	<!--评论弹出框-->
@@ -254,7 +260,7 @@
 			<li value="5">买对了</li>
 		</ul>
 		{{/if}}
-		<p class="detailed_comments">详细评论<span>（至少10字）</span></p>
+		<p class="detailed_comments">详细评论</p>
 		<div class="text_write_box">
 			<textarea name="" id="comment_detailed" rows="" cols="" placeholder="写评价，给主播评论一下"></textarea>
 		</div>
@@ -268,18 +274,21 @@
 		</script>
 	</div>
 
-			
+	<div class="both"></div>			
 		</div>
 
-		
+		<div class="both"></div>
 	</body>
 	<script>
 		var kk=document.documentElement.clientWidth;
 		if(kk>750){
 			kk=750
 		}
+		document.documentElement.style.fontSize=kk/7.5+"px"	;
 		
-		document.documentElement.style.fontSize=kk/7.5+"px"		
+//		处理评价高度
+		var school_height=$(window).height()-$(".wrap_user_input").height();
+		$(".mui-scroll-wrapper").height(school_height);
 	</script>
 
 

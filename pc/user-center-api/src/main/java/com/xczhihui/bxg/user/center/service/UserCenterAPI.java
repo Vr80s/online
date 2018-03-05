@@ -192,4 +192,17 @@ public interface UserCenterAPI {
 
 
 	public Token loginMobile(String loginName, String password, TokenExpires tokenExpires);
+	
+	/**
+	 * 
+	 * Description：更具用户id更改用户中心的用户名和密码
+	 * @param id
+	 * @param userName
+	 * @param passWord
+	 * @return void
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 *
+	 */
+	public void updatePasswordAndLoginName(int id, String userName,
+			String passWord);
 }

@@ -159,6 +159,21 @@ public class ItcastUserDao {
 		String sql = "update itcast_user set login_name=? where login_name=?";
 		return this.namedParameterJdbcTemplate.getJdbcOperations().update(sql, newLoginName, oldLoginName);
 	}
+	
+	
+	/**
+	 * 更新用户的密码和用户登录名
+	 * @param id
+	 * @param password
+	 * @return
+	 */
+	public int updatePasswordAndLoginName(int id, String newPassword,String newLoginName) {
+		String sql = "update itcast_user set password=?,login_name=?  where id=?";
+		return this.namedParameterJdbcTemplate.getJdbcOperations().update(sql,
+				newPassword,newLoginName,id);
+	}
+	
+	
 
 	/**
 	 * 更新最后登录时间字段。

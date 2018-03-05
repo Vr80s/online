@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
 
-<!-- 	<property name="logPath"    value="c://tmp//logs//wechat" /> -->
-	<property name="logPath"    value="/tmp/logs/wechat" />
+	<property name="logPath" value="/tmp/logs/wechat" />
 	
 	<appender name="stdout_appender" class="ch.qos.logback.core.ConsoleAppender">
-		<!-- <Target>System.out</Target> -->
+		<Target>System.out</Target>
 		<encoder>
 			<pattern>%n%msg%n%date [%level] [%thread] %logger{80} %line%n
 			</pattern>

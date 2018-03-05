@@ -1569,6 +1569,7 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 	@Override
 	public Course findCourseInfoById(Integer id) {
 		Course course = dao.get(id, Course.class);
+		course.setCurrentPrice(course.getCurrentPrice()*10);
 		if((course.getCollection()==null || !course.getCollection())&&course.getDirectId()!=null&&course.getType()==CourseForm.VOD.getCode()){
 			String audioStr="";
 			if(course.getMultimediaType()==Multimedia.AUDIO.getCode()){

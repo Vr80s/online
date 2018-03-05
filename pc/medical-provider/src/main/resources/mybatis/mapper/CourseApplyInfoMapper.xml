@@ -23,9 +23,8 @@
 		  cai.id,
 		  cai.img_path imgPath,
 		  cai.title,
-		  cai.`price`,
+		(cai.`price`*10) price,
 		  cai.`multimedia_type` multimediaType,
-
 		  cai.`course_length` courseLength,
 		  cai.`course_form` courseForm,
 		  cai.`status` applyStatus,
@@ -55,7 +54,7 @@
 		  cai.id id,
 		  cai.img_path imgPath,
 		  cai.title,
-		  cai.`price`,
+		(cai.`price`*10) price,
 		  cai.`course_number` courseNumber,
 		  oc.`is_recommend` recommend,
 		  cai.`multimedia_type` multimediaType,
@@ -199,7 +198,7 @@
 		  cai.`id`,
 		  cai.`title`,
 		  cai.lecturer,
-		  cai.price
+		 (cai.`price`*10) price
 		FROM
 		  `course_apply_info` cai
 		WHERE cai.`collection` = 0
@@ -209,7 +208,37 @@
 	</select>
 	<select id="selectCourseApplyById" resultType="com.xczhihui.medical.anchor.model.CourseApplyInfo">
 		SELECT
-		  cai.*
+		  cai.id,
+		  cai.title,
+		  cai.subtitle,
+		  cai.user_id,
+		  cai.img_path,
+		  cai.lecturer,
+		  cai.lecturer_description,
+		  cai.course_form,
+		  cai.course_menu,
+		  cai.start_time,
+		  cai.course_length,
+		  cai.price * 10 AS price,
+		  cai.password,
+		  cai.course_description,
+		  cai.course_detail,
+		  cai.course_outline,
+		  cai.course_resource,
+		  cai.course_number,
+		  cai.multimedia_type,
+		  cai.collection,
+		  cai.sale,
+		  cai.status,
+		  cai.dismissal,
+		  cai.dismissal_remark,
+		  cai.review_person,
+		  cai.review_time,
+		  cai.create_time,
+		  cai.update_time,
+		  cai.resource_id,
+		  cai.city,
+		  cai.old_apply_info_id
 		  FROM
 		  `course_apply_info` cai
 		WHERE  cai.`is_delete` = 0
@@ -241,7 +270,7 @@
 		  cai.`id`,
 		  cai.`title`,
 		  cai.`lecturer`,
-		  cai.`price`,
+		  (cai.`price`*10) price,
 		  cca.collection_course_sort
 		FROM
 		  `course_apply_info` cai

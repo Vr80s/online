@@ -196,11 +196,13 @@ public class XzIapController {
     		 */
     		int orderFrom = order.getOrderFrom();
     		
-    		userCoinService.updateBalanceForBuyCourse(order.getUserId(),OrderFrom.valueOf(orderFrom),xmb, order_no);
     		/*
     		 * 更改订单状态，增加课程学习人数
     		 */
     		orderPayService.addPaySuccess(order_no,Payment.COINPAY,transactionId);
+    		
+    		userCoinService.updateBalanceForBuyCourse(order.getUserId(),OrderFrom.valueOf(orderFrom),xmb, order_no);
+    		
     		
     		return ResponseObject.newSuccessResponseObject("购买成功");
 		} catch (Exception e) {

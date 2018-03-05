@@ -14,6 +14,10 @@ public interface IMedicalDoctorApplyService {
      */
     void add(MedicalDoctorApply target);
 
+    void addDetail4Lock(String lockKey,MedicalDoctorApply target);
+
+    void addDetail(MedicalDoctorApply target);
+
     /**
      * 根据userId获取医师入驻申请信息
      * @param userId 用户id

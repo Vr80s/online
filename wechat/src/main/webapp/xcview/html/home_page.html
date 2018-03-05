@@ -15,17 +15,15 @@
 <link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=1.1"/>
 <script src="/xcview/js/js.js"></script>
 
-<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js?v=1.1"></script>
-<script type="text/javascript" src="../js/template.js"></script>   <!--模板引入-->
-<script type="text/javascript" src="../js/home_page.js?v=1.1"></script>
+<script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?v=1.1"></script>
+<script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
+<script type="text/javascript" src="/xcview/js/home_page.js?v=1.1"></script>
 <script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
-<script type="text/javascript" src="../js/common/swiper.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
 <!--新滑动引入-->
-<!--<script src="../js/table/jquery-1.10.2.js"></script>-->
-<!--<script src="../js/table/jquery.min.js"></script>-->
-<script type="text/javascript" src="../js/table/touchslider.js?v=1"></script>
+<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=1"></script>
 <style type="text/css">
 	.swiper-container {
         width: 100%;
@@ -215,7 +213,7 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			<div class="header_seek" onClick="location.href='../html/search.html'"> 
+			<div class="header_seek" onClick="location.href='/xcview/html/search.html'"> 
 				<div class="header_seek_main">
 					<img src="/xcview/images/sousuo0.png" alt="" />
 					<span class="header_seek_main_span">
@@ -281,7 +279,7 @@
 							<script type="text/html" id="my_data0">
 								{{each items as item i}}
 								<div class="classify_course_type_one">
-									<a href="curriculum_table.html?menuType={{item.id}}">{{item.name}}</a>
+									<a href="/xcview/html/curriculum_table.html?menuType={{item.id}}">{{item.name}}</a>
 								</div>
 								{{/each}}
 								<div class="both"></div>
@@ -313,7 +311,7 @@
 							<script type="text/html" id="my_data2">
 								{{each items as item i}}
 										<div class="classify_mold_type_one">
-											<a href="curriculum_table.html?courseType={{item.id}}">{{item.name}}</a>
+											<a href="/xcview/html/curriculum_table.html?courseType={{item.id}}">{{item.name}}</a>
 										</div>
 								{{/each}}
 
@@ -364,7 +362,7 @@
 					            <div class="swiper-slide">  <!--滑动备注  添加里面-->
 					            	
 					            	<div class="teacher_slider_ul_div">
-					            		<a style="color: #333;" href="live_personal.html?userLecturerId={{item.userId}}">
+					            		<a style="color: #333;" href="/xcview/html/live_personal.html?userLecturerId={{item.userId}}">
                     						<img src="{{item.headPortrait}}" />
                     						<span style="font-size: 0.468rem;">{{item.name}}</span>
                     					</a>
@@ -386,7 +384,7 @@
             	<script type="text/html" id="shipin">
 						{{each items as item i}} 
             	<div class="acupuncture">
-            		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
+            		<div class="boutique_title careful_class" menuType="{{item.menuType}}">{{item.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="boutique_main">
             			<ul>
             				<!--视频-->
@@ -394,11 +392,11 @@
                 				<li style="position: relative;">
 		                    		<!--<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="javascript:;" onclick="jump({{item.id}})"></a>-->
 	                    			{{if item.type == 1 || item.type == 2}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
 	                    			{{else if item.type == 3}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
 	                    			{{else if item.type == 4}}
-		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
+		                    		<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 	                    			
 	                    			{{/if}}
                 					<div class="boutique_main_one">
@@ -481,7 +479,7 @@
                 				{{each item.courseList as item i}}
                 				<li>
 
-									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_class.html?course_id={{item.id}}"></a>
+									<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_class.html?course_id={{item.id}}"></a>
 
                 					<div class="boutique_main_four">
                 						<div class="boutique_four_img">
@@ -533,13 +531,13 @@
             		{{each items as itemls i}}
 
             	<div class="newest">
-            		<div class="newest_title" lineState="{{itemls.lineState}}">{{itemls.title}}<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
+            		<div class="newest_title" lineState="{{itemls.lineState}}">{{itemls.title}}<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="newest_main">
             			<ul>
             				{{each itemls.courseList as item i}}
             				<!--即将直播-->
             				<li style="position: relative;">
-								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_play.html?course_id={{item.id}}"></a>
+								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_play.html?course_id={{item.id}}"></a>
 								<div class="newest_main_two">
             						<div class="newest_two_img">
             							<img src="{{item.smallImgPath}}" alt="" />
@@ -594,13 +592,13 @@
 				
             	<!--听课推荐开始-->
             	<div class="lectures">
-            		<div class="lectures_title" >听课推荐<img src="../images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
+            		<div class="lectures_title" >听课推荐<img src="/xcview/images/video_review.png" alt="" style="width: 0.35rem;margin-right: 0.456rem;float: right;" /></div>
             		<div class="lectures_main">
             			<ul class="lecturess">
             				<script type="text/html" id="lectures">
             				{{each items as item i}}
             				<li>
-								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="school_audio.html?course_id={{item.id}}"></a>
+								<a style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 999;" href="/xcview/html/school_audio.html?course_id={{item.id}}"></a>
             					<div class="lectures_main_one">
             						<div class="lectures_one_img">
             							<img src="{{item.smallImgPath}}" alt="" />
@@ -650,7 +648,7 @@
 	<div class="footer" style="display: none1;">
 		<ul>
 			<li>
-				<a href="" class="footer_one" style="background: url(../images/school_ones.png) no-repeat center;background-size: 1.042rem 0.809rem;"></a>
+				<a href="" class="footer_one" style="background: url(/xcview/images/school_ones.png) no-repeat center;background-size: 1.042rem 0.809rem;"></a>
 				<p style="color: #00BC12;">学堂</p>
 			</li>
 			<li>
@@ -658,12 +656,12 @@
 				<p>学习</p>
 			</li>
 			<li>
-				<a href="discovery.html" class="footer_three"></a>
+				<a href="/xcview/html/discovery.html" class="footer_three"></a>
 				<p>发现</p>
 			</li>
 			<li>
-				<a href="my_homepage.html" class="footer_four"></a>
-				<p>我的</p>
+				<a href="/xcview/html/my_homepage.html" class="footer_four"></a>
+				<p>我</p>
 			</li>
 		</ul>
 	</div>

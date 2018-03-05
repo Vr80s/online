@@ -9,6 +9,7 @@ import com.xczhihui.bxg.online.common.enums.Multimedia;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.bxg.online.common.utils.RedissonUtil;
 import com.xczhihui.bxg.online.common.utils.cc.util.CCUtils;
+import com.xczhihui.common.Lock;
 import com.xczhihui.medical.anchor.mapper.CollectionCourseApplyMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
 import com.xczhihui.medical.anchor.mapper.CourseApplyResourceMapper;
@@ -22,6 +23,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -47,6 +50,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     private CollectionCourseApplyMapper collectionCourseApplyMapper;
     @Autowired
     private RedissonUtil redissonUtil;
+    @Autowired
+    private ICourseApplyService courseApplyService;
 
     /**
      * Description：分页获取主播课程列表
@@ -62,7 +67,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     }
 
     /**
-     * Description：分页获取主播合辑列表
+     * Description：分页获取主播专辑列表
      * creed: Talk is cheap,show me the code
      * @author name：yuxin <br>email: yuruixin@ixincheng.com
      * @Date: 上午 11:21 2018/1/19 0019
@@ -109,6 +114,8 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
     @Override
     public void saveCourseApply(CourseApplyInfo courseApplyInfo){
         validateCourseApply(courseApplyInfo);
+        //将价格由熊猫币转化为人民币
+        courseApplyInfo.setPrice(courseApplyInfo.getPrice()/10);
         //当课程为点播视频时
         if(courseApplyInfo.getCourseForm()== CourseForm.VOD.getCode()){
             Integer resourceId = courseApplyInfo.getResourceId();
@@ -164,6 +171,12 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         }
         if(courseApplyInfo.getPrice()==null){
             throw new RuntimeException("课程单价不可为空");
+        }
+        if(courseApplyInfo.getPrice()<0){
+            throw new RuntimeException("课程单价不可小于0");
+        }
+        if(courseApplyInfo.getPrice()!=courseApplyInfo.getPrice().intValue()){
+            throw new RuntimeException("课程单价必须为整数");
         }
 
         //当课程为点播视频时
@@ -232,10 +245,19 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCollectionApply(CourseApplyInfo courseApplyInfo){
+        courseApplyService.saveCollectionApply4Lock(courseApplyInfo.getUserId(),courseApplyInfo);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Lock(lockName = "addCollectionApply",waitTime = 2,effectiveTime = 3)
+    public void saveCollectionApply4Lock(String lockKey,CourseApplyInfo courseApplyInfo){
         validateCollectionApply(courseApplyInfo);
+        //将价格由熊猫币转化为人民币
+        courseApplyInfo.setPrice(courseApplyInfo.getPrice()/10);
         courseApplyInfo.setCreateTime(new Date());
         courseApplyInfoMapper.insert(courseApplyInfo);
-        //当合辑为点播视频时
+        //当专辑为点播视频时
         for(CourseApplyInfo applyInfo :courseApplyInfo.getCourseApplyInfos()){
             CollectionCourseApply collectionCourseApply = new CollectionCourseApply();
             collectionCourseApply.setCourseApplyId(applyInfo.getId());
@@ -256,14 +278,14 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             throw new RuntimeException("该方法仅支持专辑课程");
         }
         if(StringUtils.isBlank(courseApplyInfo.getTitle())){
-            throw new RuntimeException("合辑标题不可为空");
+            throw new RuntimeException("专辑标题不可为空");
         }else if(courseApplyInfo.getTitle().length()>32){
-            throw new RuntimeException("合辑标题长度不可超过32");
+            throw new RuntimeException("专辑标题长度不可超过32");
         }
         if(StringUtils.isBlank(courseApplyInfo.getSubtitle())){
-            throw new RuntimeException("合辑副标题不可为空");
+            throw new RuntimeException("专辑副标题不可为空");
         }else if(courseApplyInfo.getSubtitle().length()>32){
-            throw new RuntimeException("合辑副标题长度不可超过32");
+            throw new RuntimeException("专辑副标题长度不可超过32");
         }
         if(StringUtils.isBlank(courseApplyInfo.getLecturer())){
             throw new RuntimeException("主播不可为空");
@@ -284,10 +306,16 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             throw new RuntimeException("课程形式不可为空");
         }
         if(courseApplyInfo.getPrice()==null){
-            throw new RuntimeException("合辑总价不可为空");
+            throw new RuntimeException("专辑总价不可为空");
+        }
+        if(courseApplyInfo.getPrice()<0){
+            throw new RuntimeException("专辑单价不可小于0");
+        }
+        if(courseApplyInfo.getPrice()!=courseApplyInfo.getPrice().intValue()){
+            throw new RuntimeException("专辑单价必须为整数");
         }
 
-        //当合辑为点播视频时
+        //当专辑为点播视频时
         if(courseApplyInfo.getCourseForm() != CourseForm.VOD.getCode()){
             throw new RuntimeException("暂不支持点播以外的专辑课程");
         }
@@ -314,13 +342,13 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
      **/
     @Override
     public void saveCourseApplyResource(CourseApplyResource courseApplyResource) {
+        //TODO lock
         RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApplyResource"+courseApplyResource.getUserId());
         boolean res = false;
         try {
             //等待3秒，等待10秒
             res = redissonLock.tryLock(3, 10, TimeUnit.SECONDS);
             if(res){
-                System.out.println("saveCourseApplyResource得到锁"+res);
                 validateCourseApplyResource(courseApplyResource);
                 courseApplyResource.setCreateTime(new Date());
                 courseApplyResource.setUpdateTime(new Date());
@@ -333,10 +361,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             throw new RuntimeException("网络错误，请重试");
         } finally {
             if(res){
-                System.out.println("关闭锁");
                 redissonLock.unlock();
-            }else{
-                System.out.println("没有抢到锁");
             }
         }
     }
@@ -458,7 +483,7 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
         //记录原申请id
         collectionApplyInfo.setOldApplyInfoId(collectionApplyInfo.getId());
         collectionApplyInfo.setId(null);
-        saveCollectionApply(collectionApplyInfo);
+        courseApplyService.saveCollectionApply(collectionApplyInfo);
     }
 
     /**
@@ -480,4 +505,5 @@ public class CourseApplyServiceImpl extends ServiceImpl<CourseApplyInfoMapper, C
             throw new RuntimeException("媒体类型参数有误");
         }
     }
+
 }

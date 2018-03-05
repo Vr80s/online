@@ -71,7 +71,7 @@ public class CourseDao extends SimpleHibernateDao {
         //paramMap.put("menuId", menuId);
 
         StringBuffer  sqlSb=new StringBuffer();
-        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.original_cost,cou.current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,cou.multimedia_type multimediaType,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,");
+        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,cou.multimedia_type multimediaType,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,");
         sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0) + IFNULL(default_student_count, 0) learnd_count,");
         sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
                 + "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
@@ -209,7 +209,7 @@ public class CourseDao extends SimpleHibernateDao {
         paramMap.put("menuId", menuId);
         paramMap.put("couseTypeId", couseTypeId);
         StringBuffer  sqlSb=new StringBuffer();
-        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.is_recommend as isRecommend,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.original_cost,cou.multimedia_type multimediaType,cou.current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,");
+        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.is_recommend as isRecommend,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.multimedia_type multimediaType,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,");
         sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0)+IFNULL(default_student_count, 0) learnd_count, ");
         sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
         		+ "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
@@ -256,7 +256,7 @@ public class CourseDao extends SimpleHibernateDao {
         String courseTableName = "1".equals(ispreview) ? "oe_course_preview" : "oe_course";
         String course_type = "1".equals(ispreview) ? "" : "c.course_type,";
         if (courseId != null) {
-        	String sql = " select "+course_type+" c.id,c.lecturer_description lecturerDescription,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ,c.description,c.current_price,c.original_cost,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,c.collection,c.course_number courseNumber,c.status,"+
+        	String sql = " select "+course_type+" c.id,c.lecturer_description lecturerDescription,c.direct_id, c.is_recommend,c.type, c.is_free, c.grade_name as courseName ,c.description,floor(c.current_price*10) current_price,ifnull(c.start_time,now()) startTime,ifnull(c.end_time,now()) endTime,c.start_time,c.user_lecturer_id userLecturerId,c.collection,c.course_number courseNumber,c.status,"+
 //                         " if(c.is_free=1,IFNULL((SELECT  COUNT(*)  FROM apply_r_grade_course WHERE course_id = c.id),0)+SUM(IFNULL(default_student_count, 0)),"+
 //                         " (select  sum(ifnull(student_count,0))+sum(ifnull(default_student_count,0)) from  oe_grade  where course_id=?  and is_delete=0 and status=1)) learnd_count,"+
                          " IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = c.id),0) + IFNULL(default_student_count, 0) + IFNULL(pv, 0) learnd_count,"+
