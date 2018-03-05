@@ -3,28 +3,8 @@ var my_impression2="";
 var my_impression3="";
 var userLecturerId ="";
 var criticize_id = "";
-var mescroll;
 $(function(){
 
-    /*mescroll = new MeScroll("mescroll", {
-        down: {
-            auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
-            callback: downCallback //下拉刷新的回调
-        },
-        up: {
-            auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
-            isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
-            callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
-            toTop:{ //配置回到顶部按钮
-                src : "../images/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
-                offset : 1000,
-                warpClass : "mescroll-totop" ,
-                showClass : "mescroll-fade-in" ,
-                hideClass : "mescroll-fade-out",
-                htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
-            }
-        }
-    });*/
 //	评论弹窗
 	$(".wrap_input").on('click',function(){
 		$(".bg_modal").show();
@@ -98,18 +78,16 @@ function refresh(pageNumber,pageSize,downOrUp){
         pageNumber:pageNumber,
         pageSize:pageSize
     },function(data) {
-    	//  	判断有无评论显示默认图片
-		if(data.resultObject.items.length==0){
-			$(".quie_pic").show()
-		}else{
-			$(".quie_pic").hide()
-		}
-        //	判断是刷新还是加载
+
+        //	判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
+            //  	判断有无评论显示默认图片
+            if(data.resultObject.items.length==0){
+                $(".quie_pic").show()
+            }else{
+                $(".quie_pic").hide()
+            }
             $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-            /*mescroll.endSuccess();
-            mescroll.lockUpScroll( false );
-            mescroll.optUp.hasNext=true;*/
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             mui('#refreshContainer').pullRefresh().refresh(true);
         }else if(data.resultObject.items.length==0){
@@ -133,16 +111,13 @@ function refresh(pageNumber,pageSize,downOrUp){
             $(".wrapLittle_comment").hide();
         });
         //点赞
-        /*$(".btn_click_zan").click(function(){*/
         mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {
             //评论id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
-
             var src = $(this).find('img').attr('src');
             if(src.indexOf("zan001")>-1){
                 $(this).find('img').attr('src','../images/zan01.png');
-
                 $(this).find('span').html(parseInt(p)-1);
                 updatePraise(criticize_id,false);
             }else{
@@ -151,6 +126,34 @@ function refresh(pageNumber,pageSize,downOrUp){
                 updatePraise(criticize_id,true);
             }
         });
+        //评论内容为空时，按钮为灰色
+        if($('#comment_detailed').val()==""){
+            $(".report_btn").css("opacity","0.3");
+        }else{
+            $(".report_btn").css("opacity","1");
+        }
+        //回复内容为空时，按钮为灰色
+        if($('#littlt_return').val()==""){
+            $(".return_btn").css("opacity","0.3");
+        }else{
+            $(".return_btn").css("opacity","1");
+        }
+        //控制回复按钮颜色
+        $('#comment_detailed').keyup(function(){
+            if($('#comment_detailed').val()==""){
+                $(".report_btn").css("opacity","0.3");
+            }else{
+                $(".report_btn").css("opacity","1");
+            }
+        })
+        //控制回复按钮颜色
+        $('#littlt_return').keyup(function(){
+            if($('#littlt_return').val()==""){
+                $(".return_btn").css("opacity","0.3");
+            }else{
+                $(".return_btn").css("opacity","1");
+            }
+        })
 
     });
 }
@@ -159,8 +162,8 @@ function reportComment() {
 
     var comment_detailed = $('#comment_detailed').val();
     if(comment_detailed==""){
-        webToast("请输入评论内容","middle",1500);
-        return
+
+        return false;
     }
     requestService("/xczh/criticize/saveCriticize",{
         content:comment_detailed,
@@ -183,7 +186,7 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        webToast("内容不能为空","middle",1500);
+        //webToast("内容不能为空","middle",1500);
         return
     }
     requestService("/xczh/criticize/saveReply",{
@@ -214,48 +217,13 @@ function updatePraise(id,isPraise) {
     });
 }
 
-/**
- * 点赞
- */
-
-
-/*function btnClickZan(o){
-    //评论id
-    criticize_id=$(o).attr("data-id");
-    var p = $(o).find('span').html();
-    var src = $(o).find('img').attr('src');
-    if(src.indexOf("zan001")>-1){
-        $(o).find('img').attr('src','../images/zan01.png');
-        $(o).find('span').html(parseInt(p)-1);
-        updatePraise(criticize_id,false);
-    }else{
-        $(o).find('img').attr('src','../images/zan001.png');
-        $(o).find('span').html(parseInt(p)+1);
-        updatePraise(criticize_id,true);
-    }
-
-}*/
-
-
-var num = 1;
-/*下拉刷新的回调 */
-/*
-function downCallback(){
-    num = 1;
-    //联网加载数据
-    refresh(num,10,'down');
-}
-/!*上拉加载的回调  *!/
-function upCallback(){
-    num++;
-    refresh(num,10,'up');
-}
-*/
 
 /**
  * ************************************ 页面刷新下刷新事件
  * **************************************************
  */
+var num = 1;
+
 mui.init();
 mui.init({
     pullRefresh: {

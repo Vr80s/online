@@ -63,6 +63,8 @@ function recommendSchool(){
 						$("#doctor_follow").hide()
 					}
 			    	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
+                    mui('#refreshContainer1').pullRefresh().endPullupToRefresh(false);
+                    mui('#refreshContainer1').pullRefresh().refresh(true);
 		//swiper轮播开始
 					var result = data.resultObject.banner.records;
 					var str ="";
@@ -126,7 +128,8 @@ function recommendSchool(){
 				})
 					var myHeight=$(".tjks").height();
 					$(".gieTa").height(myHeight);
-			
+                mui('#refreshContainer1').pullRefresh().endPullupToRefresh(false);
+                mui('#refreshContainer1').pullRefresh().refresh(true);
 			}
 		})
 		//推荐模块结束
@@ -455,4 +458,29 @@ function go_study(){
 			location.href ="/xcview/html/my_study.html";			
 		}
 }
-	
+
+
+/**
+ * ************************************ 推荐刷新下刷新事件
+ * **************************************************
+ */
+var num = 1;
+mui.init();
+mui.init({
+    pullRefresh: {
+        container: '#refreshContainer1',
+        down: {
+            callback: pulldownRefreshRecommend
+        }
+    }
+});
+/**
+ * 下拉刷新
+ */
+function pulldownRefreshRecommend() {
+    num = 1;
+    setTimeout(function() {
+        recommendSchool();
+        mui('#refreshContainer1').pullRefresh().endPulldownToRefresh(); //refresh completed
+    }, 500);
+};
