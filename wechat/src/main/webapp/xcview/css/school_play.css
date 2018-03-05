@@ -2,7 +2,7 @@
 .z{float: left;}
 .y{float: right;}
 .cl{clear: both;}
-body{color: #333333;font-size: 0.28rem;}
+body{color: #333333;font-size: 0.28rem;font-family: "Helvetica";}
 ul li{list-style: none;}
 a{
 text-decoration: none;
