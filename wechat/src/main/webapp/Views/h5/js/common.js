@@ -405,6 +405,7 @@ function authenticationCooKie(third_party_falg){
 	var user_cookie = cookie.get("_uc_t_");
 	if(!stringnull(user_cookie)){ //未登录
 		falg = 1002
+	}else{
 		if(third_party_falg){
 			var third_party_cookie = cookie.get("third_party_uc_t_");
 			if(stringnull(third_party_cookie)){   //去完善信息页面
