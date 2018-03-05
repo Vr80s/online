@@ -418,7 +418,8 @@ table{
 	font-size: 16px;
     color: #333333;
     position: absolute;
-    left: 20px;
+    /*left: 20px;*/
+   left: 0;
 }
 .wrap_box  #resource .zhuanlan_top button{
 	display: inline-block;
@@ -836,7 +837,7 @@ table{
 	font-size: 16px;
     color: #333333;
     position: absolute;
-    left: 20px;
+    left: 0px;
 }
 .wrap_box  #curriculum .zhuanlan_top button{
 	display: inline-block;
@@ -1332,7 +1333,8 @@ pre {
 	font-size: 16px;
     color: #333333;
     position: absolute;
-    left: 20px;
+    /*left: 20px;*/
+    left: 0;
 }
 .wrap_box  #zhuanji .zhuanlan_top button{
 	display: inline-block;

@@ -411,6 +411,7 @@ public class ThirdPartyCertificationController {
 			}
 			LOGGER.info("三方绑定已注册手机认证参数信息："
 					+ "username:"+userName+",unionId:"+unionId+",code:"+code+",type:"+vtype);
+			
 			/*
 			 * 验证短信验证码
 			 */
@@ -425,18 +426,24 @@ public class ThirdPartyCertificationController {
 			}else{								  //更新用户名
 				userCenterAPI.updateLoginName(unionId, userName);
 			}
+			
+			/**
+			 * 更改用户信息
+			 */
+			ou.setLoginName(userName);
+			onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
+			
 			WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
 			wxw.setClient_id(ou.getId());
 			wxcpClientUserWxMappingService.update(wxw);
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return ResponseObject.newSuccessResponseObject("绑定成功");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return ResponseObject.newErrorResponseObject(e.getMessage());
 		}
-		return ResponseObject.newSuccessResponseObject(UserUnitedStateType.valueOf(code));
+		
 	}
 	
 	

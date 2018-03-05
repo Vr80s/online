@@ -1,21 +1,10 @@
 package com.xczhihui.medical.hospital.service.impl;
 
-import java.util.*;
-
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
-import com.xczhihui.bxg.online.common.consts.MedicalHospitalApplyConst;
-import com.xczhihui.common.Lock;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
-import com.xczhihui.utils.RedisShardLockUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.exceptions.TooManyResultsException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.medical.hospital.enums.MedicalHospitalApplyEnum;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalAccountMapper;
 import com.xczhihui.medical.hospital.mapper.MedicalHospitalApplyMapper;
@@ -24,8 +13,16 @@ import com.xczhihui.medical.hospital.model.MedicalHospital;
 import com.xczhihui.medical.hospital.model.MedicalHospitalAccount;
 import com.xczhihui.medical.hospital.model.MedicalHospitalApply;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalApplyService;
+import com.xczhihui.utils.RedisShardLockUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 /**
  * <p>
@@ -70,7 +67,7 @@ public class MedicalHospitalApplyServiceImpl extends ServiceImpl<MedicalHospital
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Lock(lockName = "addHospitalApply",waitTime = 2,effectiveTime = 3)
+    @Lock(lockName = "addHospitalApply")
     public void addDetail4Lock(String lockKey,MedicalHospitalApply target) {
         // 参数校验
         this.validate(target);

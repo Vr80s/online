@@ -36,7 +36,7 @@
 	<!-- 中间内容开始 -->
 	<div class="set">
 		<div class="set_main set_main_close">
-			<div class="set_main_one" onclick="location.href ='lickacc_mobile.html'">
+			<div class="set_main_one" onclick="check_login()">
 				帐号和绑定设置<img src="../images/account05.png" alt="" />
 			</div>
 		</div>
@@ -73,6 +73,19 @@
 </script>
 
 <script>
+
+	//点击账号和绑定设置
+	function check_login(){
+		var falg =authenticationCooKie(true);
+		if (falg==1002){
+			location.href ="/xcview/html/cn_login.html";		
+		}else if (falg==1005) {
+			location.href ="/xcview/html/evpi.html";
+		}else if(falg == 1000){
+			location.href ='lickacc_mobile.html'
+		}
+	}
+
 	//退出登录
 	$(".btn").click(function(){
         requestService("/xczh/set/logout",{

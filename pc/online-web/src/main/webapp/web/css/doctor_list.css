@@ -129,8 +129,13 @@
 }
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li >a,
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li >div{
-		
 		color: #00BC12;
+}
+.content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li >a{
+	display: inline-block;
+	width: 8px;
+	height: 7px;
+	background:  url(/web/images/delete.png) 0 0 no-repeat;
 }
 .content_box #main .main_left .doctor .doctor_search_bottom .doctor_search_condition ul li >a{
 	margin: 0 5px;

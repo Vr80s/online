@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
 import com.xczhihui.bxg.online.common.utils.IDCard;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.medical.anchor.mapper.UserBankMapper;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.vo.UserBank;
 import com.xczhihui.medical.anchor.service.IUserBankService;
 import com.xczhihui.utils.BankUtil;
@@ -17,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -42,13 +46,26 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 	@Autowired
 	private IUserBankService userBankService;
 
+	@Autowired
+	private IAnchorInfoService anchorInfoService;
+
 	@Override
 	public UserBank selectUserBankByUserIdAndAcctPan(String userId, String acctPan,String certId) {
+		anchorInfoService.validateAnchorPermission(userId);
 		return userBankMapper.selectUserBankByUserIdAndAcctPan(userId,acctPan,certId);
 	}
 
 	@Override
 	public void addUserBank(String userId,String acctName, String acctPan,String certId,String tel) {
+		anchorInfoService.validateAnchorPermission(userId);
+		userBankService.addUserBank4Lock(userId,userId,acctName,acctPan,certId,tel);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Lock(lockName = "addUserBankCard")
+	public void addUserBank4Lock(String lockKey, String userId, String acctName, String acctPan, String certId, String tel) {
+		anchorInfoService.validateAnchorPermission(userId);
 		if(!MatchLuhn.matchLuhn(acctPan)){
 			throw new RuntimeException("银行卡格式有误");
 		}
@@ -111,11 +128,11 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 		userBank.setCertType("01");
 		userBank.setCreateTime(new Date());
 		userBankMapper.add(userBank);
-
 	}
 
 	@Override
 	public List<UserBank> selectUserBankByUserId(String userId) {
+		anchorInfoService.validateAnchorPermission(userId);
 		List<UserBank> userBankCards = userBankMapper.selectUserBankByUserId(userId);
 		for (UserBank userBankCard : userBankCards) {
 			userBankCard.setAcctPan(dealBankCard(userBankCard.getAcctPan()));
@@ -125,6 +142,7 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Override
 	public void deleteBankCard(String userId,Integer id) {
+		anchorInfoService.validateAnchorPermission(userId);
 		UserBank ub = userBankMapper.getCardById(id);
 		//判断删除的是否是默认的
 		if (ub.isDefault()){
@@ -149,12 +167,14 @@ public class UserBankServiceImpl extends ServiceImpl<UserBankMapper,UserBank> im
 
 	@Override
 	public UserBank getDefault(String userId) {
+		anchorInfoService.validateAnchorPermission(userId);
 		return userBankMapper.getDefault(userId);
 	}
 
 	@Override
-	public int getBankCount(String id) {
-		return userBankMapper.getBankCount(id);
+	public int getBankCount(String userId) {
+		anchorInfoService.validateAnchorPermission(userId);
+		return userBankMapper.getBankCount(userId);
 	}
 
 	private void validateUserBank(UserBank userBank) {

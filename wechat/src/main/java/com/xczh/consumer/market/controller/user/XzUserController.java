@@ -164,6 +164,11 @@ public class XzUserController {
 			wxcpClientUserWxMappingService.update(wx);
 		}
 		
+		/**
+		 * 清除这个cookie
+		 */
+		UCCookieUtil.clearThirdPartyCookie(res);
+		
 		return ResponseObject.newSuccessResponseObject(ou);
 	}
 	
@@ -272,6 +277,13 @@ public class XzUserController {
 				o.setTicket(t.getTicket());
 				
 				this.onlogin(req, res, t, o,t.getTicket());
+				
+				
+				/**
+				 * 清除这个cookie
+				 */
+				UCCookieUtil.clearThirdPartyCookie(res);
+				
 				return ResponseObject.newSuccessResponseObject(o);
 			} else {  
 				/*
@@ -287,6 +299,11 @@ public class XzUserController {
 					//把这个票给前端
 					newUser.setTicket(t.getTicket());
 					this.onlogin(req, res, t, newUser,t.getTicket());
+					/**
+					 * 清除这个cookie
+					 */
+					UCCookieUtil.clearThirdPartyCookie(res);
+					
 					return ResponseObject.newSuccessResponseObject(newUser);
 				}
 			}
