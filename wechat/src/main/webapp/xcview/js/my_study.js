@@ -1,6 +1,9 @@
 $(function(){
+var all_history="";	
 //	播放历史
 	requestService("/xczh/history/list",null,function(data) {
+		all_history=data.resultObject.records.length;
+
 		if(data.resultObject.records.length==0){
 			$(".wrap-his-play").hide()
 		}else{
@@ -21,7 +24,7 @@ $(function(){
 		}
 
 	})	
-
+//		alert(all_history)
 //	点击清除播放历史弹出确认取消框
 	$(".play-title p").click(function(){
 		$(".history_bg").show();
@@ -43,21 +46,19 @@ $(function(){
 		
 //已购课程/结束课程	
 					
-	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
+//	var no_class='<p style="color: #a5a5a5;">暂无课程...</p>'
 	requestService("/xczh/myinfo/list",null,function(data) {
-		
-		
 			$(template("data_my_class",{items:data.resultObject[0]})).appendTo("#my_class_box");
 			$(template("data_my_class",{items:data.resultObject[1]})).appendTo("#my_class_box");
-		
-		
-		$(".paly_ing").click(function(){
-			var courseId=$(this).attr("data-id");
+//点击播放视频后才开始记录播放历史	
+	$(".paly_ing_all").click(function(){
+			var courseId=$(this).attr("data-ppd");
 			requestService("/xczh/history/add",
 			{courseId:courseId}
 			,function(data) {
 
 			})	
+			location.href="details.html?courseId="+courseId
 		})
 
 	})	
@@ -71,15 +72,9 @@ $(function(){
 			$("#all_follow_people").html(template("data_follow",data))		
 		})	
 	
-//点击播放视频后才开始记录播放历史
 
-$(".paly_ing").click(function(){
-	requestService("/xczh/history/add",
-	courseId=courseId
-	,function(data) {
-//		alert(1)
-	})	
-})
+
+
 
 })
 
