@@ -414,18 +414,6 @@ function authenticationCooKie(third_party_falg){
 	}	
 	return falg;
 }
-/**
- * 目前来看，之后在产生购买行为的时候才可能进行完善信息的操作
- */
-
-
-
-
-
-
-
-
-
 
 /**
  * 这个方法保证用户id一直存在
