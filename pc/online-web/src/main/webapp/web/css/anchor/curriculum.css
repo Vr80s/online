@@ -411,7 +411,7 @@ table{
 .wrap_box  #resource .zhuanlan_top{
 	height: 60px;
 	line-height: 60px;
-	border-bottom: 1px solid #F0F0F0;
+	/*border-bottom: 1px solid #F0F0F0;*/
 	position: relative;
 }
 .wrap_box  #resource .zhuanlan_top .title{
@@ -830,7 +830,7 @@ table{
 .wrap_box  #curriculum .zhuanlan_top{
 	height: 60px;
 	line-height: 60px;
-	border-bottom: 1px solid #F0F0F0;
+	/*border-bottom: 1px solid #F0F0F0;*/
 	position: relative;
 }
 .wrap_box  #curriculum .zhuanlan_top .title{
@@ -1002,7 +1002,7 @@ table{
     padding: 0;
 }
 .wrap_box  #curriculum #kecheng_bottom2 .zhuanlan_top{
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 }
 .wrap_box  #curriculum #kecheng_bottom2 table tr td {
 	text-align: center;
@@ -1326,7 +1326,7 @@ pre {
 .wrap_box  #zhuanji .zhuanlan_top{
 	height: 60px;
 	line-height: 60px;
-	border-bottom: 1px solid #F0F0F0;
+	/*border-bottom: 1px solid #F0F0F0;*/
 	position: relative;
 }
 .wrap_box  #zhuanji .zhuanlan_top .title{
@@ -1972,8 +1972,8 @@ height: 60px;
 	line-height: 60px;
 	font-size: 16px;
 	color: #333333;
-    border-bottom: 1px solid #F0F0F0;
-    margin-bottom: 20px;
+    /*border-bottom: 1px solid #F0F0F0;*/
+    /*margin-bottom: 20px;*/
 }
 .live_streaming_main{
 	width: 100%;
@@ -2250,7 +2250,7 @@ height: 60px;
 #zhuanji #zhuanji_bottom2 .zhuanlan_top{
 	height: 60px;
     line-height: 60px;
-    border-bottom: 1px solid #F0F0F0;
+    /*border-bottom: 1px solid #F0F0F0;*/
     position: relative;
 }
 #zhuanji #zhuanji_bottom2 .zhuanlan_top title{

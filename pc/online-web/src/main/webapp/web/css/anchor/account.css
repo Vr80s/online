@@ -20,8 +20,8 @@
     line-height: 60px;
     font-size: 16px;
     color: #333333;
-    border-bottom: 1px solid #F0F0F0;
-    margin-bottom: 20px;
+    /*border-bottom: 1px solid #F0F0F0;
+    margin-bottom: 20px;*/
 }
 .reauthentication{
 	width: 100%;
@@ -436,8 +436,8 @@
     line-height: 60px;
     font-size: 16px;
     color: #333333;
-    border-bottom: 1px solid #F0F0F0;
-    margin-bottom: 20px;
+    /*border-bottom: 1px solid #F0F0F0;*/
+    /*margin-bottom: 20px;*/
 	font-size: 16px;
 	color: #333333;
 }
