@@ -1,4 +1,4 @@
-package com.xczhihui.common;
+package com.xczhihui.bxg.online.common.utils.lock;
 
 /**
  * Description: 分布式锁切面服务<br>
@@ -49,7 +49,7 @@ public class LockService {
     private RedissonUtil redissonUtil;
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("@annotation(com.xczhihui.common.Lock)")
+    @Pointcut("@annotation(com.xczhihui.bxg.online.common.utils.lock.Lock)")
     public void lockPointcut() {
 
     }

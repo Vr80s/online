@@ -7,6 +7,9 @@ import java.util.Map;
 import com.xczhihui.bxg.online.api.po.Gift;
 import com.xczhihui.bxg.online.api.po.GiftStatement;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /** 
@@ -25,7 +28,9 @@ public interface GiftService {
 	 **/
 	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
 
-	/** 
+    Map<String,Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId);
+
+    /**
 	 * Description：获取所有礼物
 	 * @return
 	 * @return List<Gift>

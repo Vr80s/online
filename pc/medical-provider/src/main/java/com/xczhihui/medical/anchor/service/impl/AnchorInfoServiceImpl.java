@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.CollectionUtils;
+import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.online.common.utils.OnlineConfig;
 import com.xczhihui.medical.anchor.enums.AuchorTypeEnum;
 import com.xczhihui.medical.anchor.mapper.CourseAnchorMapper;
@@ -24,11 +25,13 @@ import com.xczhihui.medical.hospital.model.MedicalHospitalDoctor;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * 主播工作台资产业务接口实现层
@@ -37,6 +40,10 @@ import java.util.*;
 @Service
 @Slf4j
 public class AnchorInfoServiceImpl implements IAnchorInfoService{
+
+    public static String VALIDATE_ANCHOR_PERMISSION_CACHE="v_a_p_c";
+
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CourseAnchorMapper courseAnchorMapper;
@@ -56,6 +63,8 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
     private IMedicalHospitalAuthenticationService hospitalAuthenticationService;
     @Autowired
     private CourseApplyResourceMapper courseApplyResourceMapper;
+    @Autowired
+    private RedisCacheService cacheService;
 
     /**
      * 获取主播详情
@@ -157,6 +166,35 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
                 .map(option -> option.getType())
                 .map(option -> this.selectAuthInfo(option,userId))
                 .orElse(null);
+    }
+
+    /**
+     * Description：校验主播权限
+     * creed: Talk is cheap,show me the code
+     * @author name：yuxin <br>email: yuruixin@ixincheng.com
+     * @Date: 2018/3/5 0005 上午 9:21
+     **/
+    @Override
+    public void validateAnchorPermission(String userId) {
+        if(userId==null){
+            throw new RuntimeException("用户id不为空");
+        }
+        CourseAnchor courseAnchor = new CourseAnchor();
+        courseAnchor.setUserId(userId);
+        courseAnchor.setStatus(true);
+        String key = VALIDATE_ANCHOR_PERMISSION_CACHE + userId;
+        CourseAnchor ca = cacheService.get(key);
+        if(ca == null){
+            ca = courseAnchorMapper.selectOne(courseAnchor);
+            if(ca == null) {
+                throw new RuntimeException("不具备主播权限或主播权限被禁用");
+            }else{
+                //缓存礼物数据10分钟
+                cacheService.set(key,ca,60);
+            }
+        }else{
+            logger.info("{}具备主播权限，取到缓存数据",key);
+        }
     }
 
     private Object selectAuthInfo(Integer type, String userId) {
@@ -363,4 +401,6 @@ public class AnchorInfoServiceImpl implements IAnchorInfoService{
 
         return null;
     }
+
+
 }

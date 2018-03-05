@@ -1,4 +1,4 @@
-package com.xczhihui.common;
+package com.xczhihui.bxg.online.common.utils.lock;
 
 /**
  * Description: 分布式锁应用注解<br>
@@ -6,11 +6,8 @@ package com.xczhihui.common;
  * @author: name：yuxin <br>email: yuruixin@ixincheng.com <br>
  * Create Time:  2018/3/4 0004-下午 8:48<br>
  */
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+
+import java.lang.annotation.*;
 
 /**
  * 表示对标记有xxx注解的类,做代理 注解@Retention可以用来修饰注解，是注解的注解，称为元注解。
@@ -39,6 +36,6 @@ import java.lang.annotation.Target;
 @Documented
 public @interface Lock {
     String lockName() default "";
-    int waitTime() default 3;
-    int effectiveTime() default 5;
+    int waitTime() default 2;
+    int effectiveTime() default 3;
 }
