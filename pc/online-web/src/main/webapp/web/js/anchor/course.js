@@ -1336,6 +1336,10 @@ $(function(){
      **/
     $('#courseImgPath').on('change',function(){
         debugger
+    	if(this.files[0].size > 2000){
+		showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'courseImg');
@@ -1344,6 +1348,10 @@ $(function(){
     })
     $('#collectionImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+		showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'collectionImg');
@@ -1352,6 +1360,10 @@ $(function(){
     })
     $('#cardPositiveImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+	showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'cardPositiveImg');
@@ -1360,6 +1372,10 @@ $(function(){
     })
     $('#cardNegativeImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+		showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'cardNegativeImg');
@@ -1368,6 +1384,10 @@ $(function(){
     })
     $('#qualificationCertificateImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+		showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'qualificationCertificateImg');
@@ -1376,6 +1396,10 @@ $(function(){
     })
     $('#professionalCertificateImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+			showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'professionalCertificateImg');
@@ -1384,6 +1408,10 @@ $(function(){
     })
     $('#businessLicensePictureImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+			showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'businessLicensePictureImg');
@@ -1392,6 +1420,10 @@ $(function(){
     })
     $('#licenseForPharmaceuticalTradingPictureImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+			showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'licenseForPharmaceuticalTradingPictureImg');
@@ -1400,6 +1432,10 @@ $(function(){
     })
     $('#profilePhotoImgPath').on('change',function(){
         debugger
+        if(this.files[0].size > 2000){
+        	showTip('上传图片不能大于2M')
+			return false;
+		}
         var reader=new FileReader();
         reader.onload=function(e){
             picUpdown(reader.result,'profilePhotoImg');

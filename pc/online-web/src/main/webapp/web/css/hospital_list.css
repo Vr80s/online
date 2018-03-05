@@ -167,6 +167,12 @@ padding:0 20px;
     border: 1px solid #dedede;
     margin-right: 10px;
 }
+#forum .forum-content .forum-content-left .forum-content-info .hos_search_condition ul #hos_search_condition1 > a{
+	display: inline-block;
+	width: 8px;
+	height: 7px;
+	background: url(/web/images/delete.png) 0 0 no-repeat;
+}
 #forum .forum-content .forum-content-left .forum-content-info  .hos_search_area li{
 	float: left;
 	margin-right: 50px;

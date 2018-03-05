@@ -93,28 +93,7 @@ public class CourseApplyController {
 					projectName, file.getOriginalFilename(),file.getContentType(), file.getBytes(),fileType,null);
 			JSONObject imgPathJson = JSONObject.parseObject(imgPath);
 			courseApplyInfo.setImgPath(imgPathJson.get("url").toString());
-// 获得锁对象实例
-			RLock redissonLock = redissonUtil.getRedisson().getLock("saveCourseApply"+user.getId());
-
-			boolean resl = false;
-			try {
-				//等待3秒 有效期8秒
-				resl = redissonLock.tryLock(3, 8, TimeUnit.SECONDS);
-				if(resl){
-					courseApplyService.saveCourseApply(courseApplyInfo);
-				}
-			}catch (RuntimeException e){
-				throw e;
-			}catch (Exception e){
-				e.printStackTrace();
-				throw new RuntimeException("网络错误，请重试");
-			}finally {
-				if(resl){
-					redissonLock.unlock();
-				}else{
-					throw new RuntimeException("网络错误，请重试");
-				}
-			}
+			courseApplyService.saveCourseApply(courseApplyInfo);
 			return  ResponseObject.newSuccessResponseObject("创建成功");
 		} catch (Exception e) {
 			e.printStackTrace();

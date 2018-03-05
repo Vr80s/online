@@ -16,7 +16,7 @@
 }
 .myResive .little_box1 #kecheng_Resive .kecheng_Resive_top,
 .myResive .little_box1 #gift_Resive .gift_Resive_top{
-	padding: 20px 30px;
+	padding: 20px 20px;
 }
 .myResive .little_box1 #kecheng_Resive .kecheng_Resive_top .title,
 .myResive .little_box1 #gift_Resive .gift_Resive_top .title{
@@ -106,7 +106,7 @@
 
 /*我的收益  礼物收益部分 不同结构部分样式*/
 .myResive .little_box1 #gift_Resive .gift_Resive_top{
-	padding: 20px 30px;
+	padding: 20px 20px;
 	position: relative;
 }
 

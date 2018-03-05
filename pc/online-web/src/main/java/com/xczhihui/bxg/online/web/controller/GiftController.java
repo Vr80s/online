@@ -81,26 +81,7 @@ public class GiftController {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(OrderFrom.PC.getCode());
         	giftStatement.setPayType(Payment.COINPAY.getCode());
-//			// 1.获得锁对象实例
-//			RLock redissonLock = redissonUtil.getRedisson().getLock("liveId"+giftStatement.getLiveId());
-//			boolean res = false;
-//			try {
-//				//等待十秒。有效期五秒
-//				res = redissonLock.tryLock(30, 10, TimeUnit.SECONDS);
-//				if(res){
-//					System.out.println("得到锁"+res);
-					map = giftService.addGiftStatement(u.getId(),giftStatement.getReceiver(),giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
-//				}
-//			}catch (Exception e){
-//				e.printStackTrace();
-//			}finally {
-//				if(res){
-//					System.out.println("关闭锁");
-//					redissonLock.unlock();
-//				}else{
-//					System.out.println("没有抢到锁");
-//				}
-//			}
+			map = giftService.addGiftStatement(u.getId(),giftStatement.getReceiver(),giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}
