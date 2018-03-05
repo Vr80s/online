@@ -624,8 +624,8 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public Boolean  checkUserIsBuyCourse(Integer courseId,String userId) {
         StringBuffer sql = new StringBuffer();
-        sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
-        sql.append(" and argc.user_id=:userId ");
+        sql.append(" SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =?");
+        sql.append(" and argc.user_id=? ");
         Object [] obj  ={courseId,userId};
         int count =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForObject(
         		sql.toString(),Integer.class,obj);
