@@ -39,6 +39,16 @@ requestService("/xczh/classify/schoolClass",null,function(data){
 		$('#classify_course_type').html(template('my_data0',{items:data.resultObject[0]}));
 		$('#classify_special_type').html(template('my_data1',{items:data.resultObject[1]}));
 		$('#classify_mold_type').html(template('my_data2',{items:data.resultObject[2]}));
+
+        mui("#refreshContainer").on('tap', '.classify_course_type_one', function (event) {
+            var itemId=$(this).attr("data-jump");
+            location.href = "curriculum_table.html?menuType="+itemId;
+        });
+        mui("#refreshContainer").on('tap', '.classify_mold_type_one', function (event) {
+            var itemId=$(this).attr("data-jump");
+            location.href = "curriculum_table.html?courseType="+itemId;
+        });
+
 	}
 	else{
 		$("#classify_mold_type").html(template.compile(noNumber))
@@ -86,19 +96,23 @@ function recommendSchool(){
 					alert("网络异常");
 				};
 		//轮播图跳转
-
-				    $(".swiper-banner-btn").click(function(){
-		                var  data_id=$(this).find("img").attr("data_id");
-		                clickBanner(data_id);
-				    	var  data_img=$(this).find("img").attr("data_img");
-				    	location.href=data_img;
-				    })
+				mui("#refreshContainer").on('tap', '.swiper-banner-btn', function (event) {
+					var  data_id=$(this).find("img").attr("data_id");
+					clickBanner(data_id);
+					var  data_img=$(this).find("img").attr("data_img");
+					location.href=data_img;
+				})
 		//swiper轮播结束
 		//小白班跳转
-				      $(".slide_one_div a").click(function(){
+                mui("#refreshContainer").on('tap', '.slide_one_div', function (event) {
 				    	var  data_one_div=$(this).find("img").attr("data-div");
 				    	location.href=data_one_div;
 				    })
+		//名师推荐跳转
+				mui("#refreshContainer").on('tap', '.teacherRecommend', function (event) {
+					var  userId=$(this).attr("data-jump");
+					location.href="live_personal.html?userLecturerId="+userId;
+				})
 				      	
 	//swiper学堂小白课
 	var swiper = new Swiper('.swiper-containers', {
@@ -119,13 +133,23 @@ function recommendSchool(){
 		//精品课程
 		requestService("/xczh/recommend/recommendCourse",null,function(data) {
 			if(data.success==true){
-					
-//				console.log(data)
 		    	$(".first_box").html(template('shipin',{items:data.resultObject}))
-		    	$(".careful_class").click(function(){
+                mui("#refreshContainer").on('tap', '.careful_class', function (event) {
 		    		var data_num=$(this).attr("menuType");
 					window.location.href="/xcview/html/curriculum_table.html?menuType="+data_num+"";
 				})
+				//点击课程
+                mui("#refreshContainer").on('tap', '.goodCourseList', function (event) {
+                    var data_id=$(this).attr("data-id");
+                    var data_type=$(this).attr("data-type");
+                    if(data_type==1||data_type==2){
+                        window.location.href="school_audio.html?course_id="+data_id;
+					}else if(data_type==3){
+                        window.location.href="school_play.html?course_id="+data_id;
+					}else if(data_type==4){
+                        window.location.href="school_class.html?course_id="+data_id;
+					}
+                })
 					var myHeight=$(".tjks").height();
 					$(".gieTa").height(myHeight);
 			}
@@ -167,11 +191,16 @@ function lineWork(){
 							autoplayDisableOnInteraction : false,
 							//pagination : '#swiper-pagination1',
 						})
+					//点击课程跳转
+                    mui("#refreshContainer").on('tap', '.offlineCourseList', function (event) {
+                        var  data_id=$(this).attr("data-jump");
+                        window.location.href="school_class.html?course_id="+data_id;
+                    })
 				}else{
 					alert("网络异常");
 				};
 //				轮播图跳转
-				    $(".swiper-banner-class").click(function(){
+                mui("#refreshContainer").on('tap', '.swiper-banner-class', function (event) {
 		                var  data_id=$(this).find("img").attr("data_id");
 		                clickBanner(data_id);
 				    	var  data_class=$(this).find("img").attr("data_class");
@@ -186,16 +215,13 @@ function lineWork(){
 			});
 		},false)
 		//线下课banner下的城市点击
-		$(".go_search").click(function(){
+    	mui("#refreshContainer").on('tap', '.go_search', function (event) {
 			var city_class=$(this).find("span").text();
 			window.location.href="/xcview/html/curriculum_table.html?city="+city_class+"";
 		})
 		//线下课标题点击
-		$(".all_class").click(function(){
+    	mui("#refreshContainer").on('tap', '.all_class', function (event) {
 			var all_class=$(this).text();
-//			if(all_class=='全国课程'){
-//				all_class='';
-//			}
 			window.location.href="/xcview/html/curriculum_table.html?city="+all_class+"";
 		})
 		
@@ -230,11 +256,16 @@ function liveSchool(){
 							autoplayDisableOnInteraction : false,
 							//pagination : '#swiper-pagination1',
 						})
+					//点击课程跳转
+                    mui("#refreshContainer").on('tap', '.liveCourseList', function (event) {
+                        var data_jump=$(this).attr("data-jump");
+                        window.location.href="school_play.html?course_id="+data_jump+"";
+                    })
 				}else{
 					alert("网络异常");
 				};
 //				轮播图跳转
-				    $(".swiper-banner-play").click(function(){
+                mui("#refreshContainer").on('tap', '.swiper-banner-play', function (event) {
 		                var  data_id=$(this).find("img").attr("data_id");
 		                clickBanner(data_id);
 				    	var  data_play=$(this).find("img").attr("data_play");
@@ -243,13 +274,8 @@ function liveSchool(){
 		//swiper轮播结束		
 				if(data.success==true){
 			    	$(".newests").html(template('newests',{items:data.resultObject.allCourseList}))
-						/*var myHeight=$(".tjks").height();
-						$(".gieTa").height(myHeight);*/
-						
-					$(".newest_title").click(function(){
-						
+                    mui("#refreshContainer").on('tap', '.newest_title', function (event) {
 						var lineState=$(this).attr("lineState");
-						
 						window.location.href="/xcview/html/curriculum_table.html?lineState="+lineState+"";				
 					})
 					
@@ -293,11 +319,16 @@ function listenSchool(){
 						autoplayDisableOnInteraction : false,
 						//pagination : '#swiper-pagination1',
 					})
+                //点击课程跳转
+                mui("#refreshContainer").on('tap', '.listenCourseList', function (event) {
+                    var data_jump=$(this).attr("data-jump");
+                    window.location.href="school_audio.html?course_id="+data_jump+"";
+                })
 			}else{
 				alert("网络异常");
 			};
 //			轮播图跳转
-			    $(".swiper-banner-listen").click(function(){
+            mui("#refreshContainer").on('tap', '.swiper-banner-listen', function (event) {
 	                var  data_id=$(this).find("img").attr("data_id");
 	                clickBanner(data_id);
 			    	var  data_listen=$(this).find("img").attr("data_listen");
@@ -307,8 +338,7 @@ function listenSchool(){
 			
 		
 	 	    	$(".lecturess").html(template('lectures',{items:data.resultObject.listenCourseList}))
-		
-	 	    	$(".lectures_title").click(function(){
+            mui("#refreshContainer").on('tap', '.lectures_title', function (event) {
 					window.location.href="/xcview/html/curriculum_table.html?courseType=2";				
 				})
 	 	    	

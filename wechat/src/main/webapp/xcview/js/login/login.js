@@ -117,8 +117,6 @@ function login(){
 				  */
 				location.href = "/xczh/wxlogin/h5BsGetCodeUrlReqParams?username="+number;
 			}else{
-				
-				
 				/*
 				 * 跳转到分类
 				 */
