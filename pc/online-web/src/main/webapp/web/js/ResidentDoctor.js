@@ -49,12 +49,6 @@ RequestService("/online/user/isAlive", "get", null, function(data) {
 	     }
 	    });
 
-	//在医师认证通过的页面设置了一个localStorage 在这个取出来判断 执行重新认证 并且清楚localStorage的值
-	if(localStorage.AutStatus == "AutAgain"){
-		seeAutStatus();
-		Autagain();
-		localStorage.clear();
-	}
 
 
 
@@ -414,6 +408,19 @@ $('#zhicheng_pic_ipt').on('change',function(){
 	picUpdown(reader.result,'zhicheng_pic');
 	}  
 	reader.readAsDataURL(this.files[0])
+})
+
+$(function(){
+		//在医师认证通过的页面设置了一个localStorage 在这个取出来判断 执行重新认证 并且清楚localStorage的值
+	if(localStorage.AutStatus == "AutAgain"){
+//		seeAutStatus();
+//		Autagain();	
+//		$('#renzhengAgain').click();
+		$('#AutStatus').addClass('hide');
+		$('#AutList').removeClass('hide');
+		localStorage.clear();
+	}
+
 })
 
 
