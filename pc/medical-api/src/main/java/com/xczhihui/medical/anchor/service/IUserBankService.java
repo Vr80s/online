@@ -1,6 +1,8 @@
 package com.xczhihui.medical.anchor.service;
 
 import com.xczhihui.medical.anchor.vo.UserBank;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,9 @@ public interface IUserBankService {
 	   **/
 	  void addUserBank(String userId,String acctName, String acctPan,String certId,String tel);
 
-	  /**
+    void addUserBank4Lock(String lockKey, String userId, String acctName, String acctPan, String certId, String tel);
+
+    /**
 	   * Description：获取用户所有绑定的银行卡
 	   * creed: Talk is cheap,show me the code
 	   * @author name：wangyishuai <br>email: wangyishuai@ixincheng.com

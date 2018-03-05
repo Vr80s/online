@@ -545,6 +545,14 @@ function picUpdown2(baseurl,imgname){
 
 //医馆头像上传
 	$('#touxiang_pic_ipt').on('change',function(){
+		if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown(reader.result,'touxiang_pic');
@@ -554,6 +562,14 @@ function picUpdown2(baseurl,imgname){
 	
 //医馆图片上传
 	$('#zhicheng_pic_ipt').on('change',function(){
+		if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown2(reader.result,'zhicheng_pic');
@@ -591,6 +607,14 @@ function picUpdown2(baseurl,imgname){
 
 //营业执照图片上传
 	$('#zhizhao_pic_ipt').on('change',function(){
+		if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown3(reader.result,'teacher_pic');
@@ -600,6 +624,14 @@ function picUpdown2(baseurl,imgname){
 
 //药品经营许可证上传
 	$('#xuke_pic_ipt').on('change',function(){
+		if(this.files[0].size > 2000){
+	$('#tip').text('上传图片不能大于2M');
+       		$('#tip').toggle();
+       		setTimeout(function(){
+       			$('#tip').toggle();
+       		},2000)
+		return false;
+	}
 	var reader=new FileReader();
   	reader.onload=function(e){
 	picUpdown3(reader.result,'zhicheng_pic');

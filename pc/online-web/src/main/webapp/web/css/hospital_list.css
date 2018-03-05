@@ -135,6 +135,21 @@ padding:0 20px;
 	margin-bottom: 0;
 	width: 973px;
 }
+#forum .forum-content .forum-content-left .forum-content-info .hos_search_area .more_areaBtn{
+	width: 87px;
+	height: 36px;
+	float:right ;
+	position: absolute;
+	text-align: left;
+	padding-left: 20px;
+	top: 30px;
+	right: 40px;
+	color: #999;
+	font-size: 14px;
+	background: #fff;
+	border: 1px solid #ccc;
+	background: url(/web/images/down_arr.png) 55px center no-repeat;
+}
 #forum .forum-content .forum-content-left .forum-content-info  .hos_search_area > span,
 #forum .forum-content .forum-content-left .forum-content-info .hos_search_condition > span{
 	vertical-align: top;

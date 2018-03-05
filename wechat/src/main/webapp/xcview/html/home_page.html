@@ -12,7 +12,12 @@
 <meta name="description" content="" />
 <link href="/xcview/css/slide.css" rel="stylesheet">  <!--滑动引入css-->
 <link rel="stylesheet" type="text/css" href="/xcview/css/swiper-3.3.1.min.css"/>
+
+<!--刷新css引入-->
+<link rel="stylesheet" href="/xcview/css/mui.min.css">
+
 <link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1"/>
+
 <script src="/xcview/js/js.js"></script>
 
 <script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
@@ -204,6 +209,35 @@
 .lectures{
 	margin-bottom: 2.5rem;
 }*/
+
+/*处理刷新效果*/
+.mui-scroll-wrapper{
+	top: 1.1rem;
+}
+.mui-pull-top-pocket{
+	top: 0;
+}
+.mui-scroll-wrapper{
+	height: 100%;
+
+}
+.mui-pull-bottom-pocket .mui-pull{
+	bottom: 1rem;
+}
+.bought_main{
+	padding-bottom: 0.6rem;
+}
+.mui-pull-bottom-pocket .mui-pull{
+	bottom: 0rem;
+	height: 40px;
+	line-height: 40px;
+}
+.mui-pull-bottom-pocket{
+	position: relative;
+	bottom: 1rem;
+	height: 40px;
+	line-height: 40px;
+}
 </style>
 
 
@@ -326,6 +360,8 @@
 			<!--分类结束-->
 			<!--推荐开始-->
 			<li class="li_list">
+				<div id="refreshContainer1" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
 				<!--swiper轮播图滑动-->
 				<div class="swiper-container swiper-container-box" id="swiper-container-box">
 				    <div class="swiper-wrapper" id="wrapper-box">
@@ -440,6 +476,8 @@
             	</div>
             	{{/each}}
             	</script>
+				</div>
+			</div>
 			</li>
 			<!--推荐结束-->
 			<!--线下课开始-->

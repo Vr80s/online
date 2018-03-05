@@ -127,6 +127,11 @@
 		<property name="redisPort" value="${redis.port}"></property>
 	</bean>
 
+	<!-- aop分布式锁 -->
+	<bean id="lockService" class="com.xczhihui.bxg.online.common.utils.lock.LockService"></bean>
+	<!-- 启动对@AspectJ注解的支持  -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
 	<!-- dubbo -->
 	<dubbo:application name="${dubbo.app.name}"/>
 	<dubbo:registry protocol="zookeeper" address="${dubbo.zookepper.url}"/>

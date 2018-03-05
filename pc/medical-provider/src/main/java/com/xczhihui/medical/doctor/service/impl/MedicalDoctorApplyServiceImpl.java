@@ -1,32 +1,29 @@
 package com.xczhihui.medical.doctor.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.xczhihui.bxg.online.common.consts.MedicalDoctorApplyConst;
 import com.xczhihui.bxg.online.common.utils.IDCard;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
-import com.xczhihui.common.Lock;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import com.xczhihui.medical.common.enums.CommonEnum;
 import com.xczhihui.medical.common.service.ICommonService;
 import com.xczhihui.medical.department.mapper.MedicalDepartmentMapper;
 import com.xczhihui.medical.department.model.MedicalDepartment;
 import com.xczhihui.medical.doctor.enums.MedicalDoctorApplyEnum;
-import com.xczhihui.medical.doctor.mapper.*;
-import com.xczhihui.medical.doctor.model.*;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyDepartmentMapper;
+import com.xczhihui.medical.doctor.mapper.MedicalDoctorApplyMapper;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApply;
+import com.xczhihui.medical.doctor.model.MedicalDoctorApplyDepartment;
 import com.xczhihui.medical.doctor.service.IMedicalDoctorApplyService;
 import com.xczhihui.utils.RedisShardLockUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -69,7 +66,7 @@ public class MedicalDoctorApplyServiceImpl extends ServiceImpl<MedicalDoctorAppl
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Lock(lockName = "addDoctorApply",waitTime = 2,effectiveTime = 3)
+    @Lock(lockName = "addDoctorApply")
     public void addDetail4Lock(String lockKey,MedicalDoctorApply target) {
         // 参数校验
         this.validate(target);

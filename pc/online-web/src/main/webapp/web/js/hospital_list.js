@@ -184,9 +184,16 @@ $(function(){
 	    	$('.search_hos_btn ').click()
 	    })
 	    
+	    var areaStatus = 1;
 	    $('.more_areaBtn').click(function(){
-	    	$('#hos_search_area').attr('style','height:auto')
+	    	areaStatus *= -1;
+	    	if(areaStatus < 0){
+	    		$(this).text('收起')
+	    		$('#hos_search_area').attr('style','height:auto')
+	    	}else{
+	    		$(this).text('更多')
+	    		$('#hos_search_area').attr('style','height:73px;overflow: hidden;')
+	    	}
 	    	
-
 	    })
 })

@@ -8,11 +8,13 @@ import java.util.Map;
 
 import com.xczhihui.bxg.common.support.service.impl.RedisCacheService;
 import com.xczhihui.bxg.online.common.enums.OrderFrom;
+import com.xczhihui.bxg.online.common.utils.lock.Lock;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.xczhihui.bxg.online.api.po.Gift;
@@ -23,6 +25,8 @@ import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.dao.GiftDao;
 import com.xczhihui.bxg.online.web.exception.NotSuchGiftException;
 import com.xczhihui.bxg.online.web.service.OnlineUserCenterService;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GiftServiceImpl implements GiftService {
@@ -35,11 +39,22 @@ public class GiftServiceImpl implements GiftService {
 	private OnlineUserCenterService onlineUserCenterService;
 	@Autowired
 	private RedisCacheService cacheService;
+	@Autowired
+	@Lazy(true)
+	private GiftService giftService;
 
 	private static String giftCache = "gift_";
 
+
 	@Override
-	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom,int count,String liveId){
+	public Map<String,Object> addGiftStatement(String giverId, String receiverId, String giftId, OrderFrom orderFrom,int count,String liveId) {
+		return giftService.addGiftStatement4Lock(liveId,giverId,receiverId,giftId,orderFrom,count,liveId);
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Lock(lockName = "addUserBankCard")
+	public Map<String,Object> addGiftStatement4Lock(String lockKey, String giverId, String receiverId, String giftId, OrderFrom orderFrom, int count, String liveId){
 		if(count<1){
 			throw new RuntimeException("送礼物数量最少为1！");
 		}

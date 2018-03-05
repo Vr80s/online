@@ -78,10 +78,12 @@ public class bankCardController {
 				userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
 			}
 		}catch (RuntimeException e){
-			throw e;
+			//throw e;
+			ResponseObject.newErrorResponseObject(e.getMessage());
 		}catch (Exception e){
 			e.printStackTrace();
-			throw new RuntimeException("网络错误，请重试");
+			ResponseObject.newErrorResponseObject(e.getMessage());
+			//throw new RuntimeException("网络错误，请重试");
 		}finally {
 			if(resl){
 				redissonLock.unlock();

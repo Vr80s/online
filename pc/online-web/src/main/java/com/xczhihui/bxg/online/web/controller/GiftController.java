@@ -74,33 +74,33 @@ public class GiftController {
 	 * @throws IllegalAccessException 
 	 **/
 	@RequestMapping(value = "/sendGift")
-	public ResponseObject sendGift(GiftStatement giftStatement,HttpSession s) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
+	public ResponseObject sendGift(GiftStatement giftStatement,HttpServletRequest request) throws XMPPException, SmackException, IOException, IllegalAccessException, InvocationTargetException, InterruptedException {
 		Map<String,Object> map = new HashMap<String,Object>();
-		OnlineUser u =  (OnlineUser)s.getAttribute("_user_");
+		OnlineUser u = (OnlineUser) UserLoginUtil.getLoginUser(request);
         if(u!=null) {
         	giftStatement.setGiver(u.getId());
         	giftStatement.setClientType(OrderFrom.PC.getCode());
         	giftStatement.setPayType(Payment.COINPAY.getCode());
-			// 1.获得锁对象实例
-			RLock redissonLock = redissonUtil.getRedisson().getLock("liveId"+giftStatement.getLiveId());
-			boolean res = false;
-			try {
-				//等待十秒。有效期五秒
-				res = redissonLock.tryLock(30, 10, TimeUnit.SECONDS);
-				if(res){
-					System.out.println("得到锁"+res);
+//			// 1.获得锁对象实例
+//			RLock redissonLock = redissonUtil.getRedisson().getLock("liveId"+giftStatement.getLiveId());
+//			boolean res = false;
+//			try {
+//				//等待十秒。有效期五秒
+//				res = redissonLock.tryLock(30, 10, TimeUnit.SECONDS);
+//				if(res){
+//					System.out.println("得到锁"+res);
 					map = giftService.addGiftStatement(u.getId(),giftStatement.getReceiver(),giftStatement.getGiftId(),OrderFrom.PC,giftStatement.getCount(),giftStatement.getLiveId());
-				}
-			}catch (Exception e){
-				e.printStackTrace();
-			}finally {
-				if(res){
-					System.out.println("关闭锁");
-					redissonLock.unlock();
-				}else{
-					System.out.println("没有抢到锁");
-				}
-			}
+//				}
+//			}catch (Exception e){
+//				e.printStackTrace();
+//			}finally {
+//				if(res){
+//					System.out.println("关闭锁");
+//					redissonLock.unlock();
+//				}else{
+//					System.out.println("没有抢到锁");
+//				}
+//			}
 		}
 		return ResponseObject.newSuccessResponseObject(map);
 	}

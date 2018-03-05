@@ -11,6 +11,7 @@ import com.xczhihui.bxg.online.common.domain.Course;
 import com.xczhihui.bxg.online.common.enums.*;
 import com.xczhihui.bxg.online.web.dao.CourseDao;
 import com.xczhihui.bxg.online.web.dao.UserCoinDao;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 import org.slf4j.Logger;
@@ -46,6 +47,8 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Autowired
     private RedisCacheService cacheService;
+    @Autowired
+    private IAnchorInfoService anchorInfoService;
 
     private static String anchorCache = "anchor_";
 
@@ -61,6 +64,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public String getSettlementBalanceByUserId(String userId) {
+        anchorInfoService.validateAnchorPermission(userId);
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
         if (uc == null) {
             throw new RuntimeException(userId + "--用户账户不存在！");
@@ -71,6 +75,7 @@ public class UserCoinServiceImpl implements UserCoinService {
 
     @Override
     public String getEnchashmentBalanceByUserId(String userId) {
+        anchorInfoService.validateAnchorPermission(userId);
         UserCoin uc = userCoinDao.getBalanceByUserId(userId);
         if (uc == null) {
             throw new RuntimeException(userId + "--用户账户不存在！");

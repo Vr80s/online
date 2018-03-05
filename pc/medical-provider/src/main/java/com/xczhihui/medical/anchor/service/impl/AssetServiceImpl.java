@@ -2,6 +2,7 @@ package com.xczhihui.medical.anchor.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.medical.anchor.mapper.CourseApplyInfoMapper;
+import com.xczhihui.medical.anchor.service.IAnchorInfoService;
 import com.xczhihui.medical.anchor.service.IAssetService;
 import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,12 @@ public class AssetServiceImpl  implements IAssetService {
 
     @Autowired
     private CourseApplyInfoMapper courseApplyInfoMapper;
+    @Autowired
+    private IAnchorInfoService anchorInfoService;
 
     @Override
     public Page<Map> getCoinTransactionPage(Page<Map> page, String userId) {
+        anchorInfoService.validateAnchorPermission(userId);
         List<Map> records = courseApplyInfoMapper.selectCoinTransactionPage(page, userId);
         page.setRecords(records);
         return page;
@@ -33,6 +37,7 @@ public class AssetServiceImpl  implements IAssetService {
 
     @Override
     public Page<Map> getRmbTransactionPage(Page<Map> page, String userId) {
+        anchorInfoService.validateAnchorPermission(userId);
         List<Map> records;
         records = courseApplyInfoMapper.selectRmbTransactionPage(page, userId);
         page.setRecords(records);
