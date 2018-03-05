@@ -62,14 +62,14 @@ header{
 
 /*右侧系统消息开始*/
 .header_news{
-	width: 0.809rem;
-	height: 0.809rem;
+	width: 0.893rem;
+	height: 0.808rem;
 	position: relative;
 	float: right;
 }
 .header_news img{
-	width: 0.894rem;
-	height: 0.809rem;
+	width: 0.893rem;
+	height: 0.808rem;
 	margin-top: 0.2rem;
 }
 .header_news_rudio{
@@ -78,7 +78,7 @@ header{
     right: -0.4rem;
 	width: 0.681rem;
 	height: 0.681rem;
-	line-height: 0.681rem;
+	line-height: 0.7rem;
 	background: #F97B49;
 	font-size: 0.426rem;
 	text-align: center;
