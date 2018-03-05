@@ -2,7 +2,7 @@
 var openId = getQueryString("openId");
 if(stringnull(openId)){
    localStorage.setItem("openid",openId);
-}   
+}
 
 
 
@@ -63,8 +63,8 @@ function recommendSchool(){
 						$("#doctor_follow").hide()
 					}
 			    	$("#phy_box").html(template('wrap_phy',{items:data.resultObject.doctorList}))
-                    mui('#refreshContainer1').pullRefresh().endPullupToRefresh(false);
-                    mui('#refreshContainer1').pullRefresh().refresh(true);
+                    mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                    mui('#refreshContainer').pullRefresh().refresh(true);
 		//swiper轮播开始
 					var result = data.resultObject.banner.records;
 					var str ="";
@@ -128,8 +128,6 @@ function recommendSchool(){
 				})
 					var myHeight=$(".tjks").height();
 					$(".gieTa").height(myHeight);
-                mui('#refreshContainer1').pullRefresh().endPullupToRefresh(false);
-                mui('#refreshContainer1').pullRefresh().refresh(true);
 			}
 		})
 		//推荐模块结束
@@ -149,7 +147,9 @@ function lineWork(){
 		//各省城市                                                        											//跟参数
 		    		$("#xx_slide_one").html(template('xx_nav_list',{items:data.resultObject.cityList.records}))
 		//线下课程	    	
-			    	$(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))			
+			    	$(".acupunctures").html(template('acupunctures',{items:data.resultObject.allCourseList}))
+                    mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                    mui('#refreshContainer').pullRefresh().refresh(true);
 		//swiper轮播开始
 					var result_class = data.resultObject.banner.records;
 					var str_class ="";
@@ -211,7 +211,8 @@ function liveSchool(){
 	requestService("/xczh/live/onlineLive",null, 
 		    function(data) {
 				if(data.success){
-			
+                    mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                    mui('#refreshContainer').pullRefresh().refresh(true);
 		//swiper轮播开始
 					var result_play = data.resultObject.banner.records;
 					var str_play ="";
@@ -273,7 +274,8 @@ function listenSchool(){
 	requestService("/xczh/bunch/listenCourse",null, 
 	    function(data) {
 			if(data.success){
-		
+                mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
+                mui('#refreshContainer').pullRefresh().refresh(true);
 	//swiper轮播开始
 				var result_listen = data.resultObject.banner.records;
 				var str_listen ="";
@@ -464,11 +466,10 @@ function go_study(){
  * ************************************ 推荐刷新下刷新事件
  * **************************************************
  */
-var num = 1;
 mui.init();
 mui.init({
     pullRefresh: {
-        container: '#refreshContainer1',
+        container: '#refreshContainer',
         down: {
             callback: pulldownRefreshRecommend
         }
@@ -478,9 +479,20 @@ mui.init({
  * 下拉刷新
  */
 function pulldownRefreshRecommend() {
-    num = 1;
     setTimeout(function() {
-        recommendSchool();
-        mui('#refreshContainer1').pullRefresh().endPulldownToRefresh(); //refresh completed
+    	if(sessionStorage.getItem("school_index")==1){
+            recommendSchool();
+		}else if(sessionStorage.getItem("school_index")==2){
+            lineWork()
+		}else if(sessionStorage.getItem("school_index")==3){
+            liveSchool()
+        }else if(sessionStorage.getItem("school_index")==4){
+            listenSchool()
+        }
+
+
+        mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
     }, 500);
 };
+
+
