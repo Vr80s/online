@@ -218,6 +218,7 @@ color: #999999;
     font-size: 0.22rem;
     /*margin-left: 0.15rem;*/
    display: inline-block;	
+   border-radius: 4px;
 }
 .wrap_vedio{
 	width: 100%;
@@ -255,7 +256,9 @@ color: #999999;
 	text-align: justify;
 }
 .user_mywrite img{
-	width: 100%;
+	/*width: 100%;*/
+	max-width: 7rem;
+	display: block;
 }
 .more_text{
 	padding-top: 0.3rem;
