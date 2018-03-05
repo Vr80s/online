@@ -1,7 +1,7 @@
 *{margin: 0; padding: 0;}
 .z{float: left;}
 .y{float: right;}
-body{color: #333333;font-size: 0.28rem;}
+body{color: #333333;font-size: 0.28rem;font-family: "Helvetica";}
 ul li{list-style: none;}
 a{
 text-decoration: none;
@@ -38,8 +38,8 @@ img{display: block;}
 	height:0.38rem;
 	position: absolute;
 	z-index: 10;
-	top: 0.25rem;
-	right:0.26rem;
+	top: 0.24rem;
+	right:0.28rem;
 }
 .header_news img{
 	width: 0.42rem;
@@ -47,8 +47,8 @@ img{display: block;}
 }
 .header_news_rudio{
 	    position: absolute;
-    top: -0.15rem;
-    right: -0.13rem;
+    top: -0.14rem;
+    right: -0.18rem;
     width: 0.32rem;
     height: 0.32rem;
     line-height: 0.32rem;

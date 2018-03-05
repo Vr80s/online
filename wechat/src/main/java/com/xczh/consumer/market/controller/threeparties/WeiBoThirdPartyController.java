@@ -282,7 +282,6 @@ public class WeiBoThirdPartyController {
 						return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
 		 			}
 					
-					
 					OnlineUser ou =  onlineUserService.findUserById(wcum.getUserId());
 					ItcastUser iu = userCenterAPI.getUser(ou.getLoginName());
 					Token t = userCenterAPI.loginThirdPart(ou.getLoginName(),iu.getPassword(), TokenExpires.TenDay);

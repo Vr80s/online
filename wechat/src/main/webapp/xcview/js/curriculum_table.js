@@ -233,6 +233,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 /**
  * 点击确认按钮获取查询进行查询
  */
+
 function submit(){
 	/**
 	 * 在浏览器地址上获取课程信息
@@ -281,19 +282,33 @@ function submit(){
 //		 }
 //	});
 	
-	var begin =0;
+	
+	var begin_falg = false;
+	var begin = 0;
+	
 	var list = $(".all_right_type_ones").find(".all_right_type_one");
 	for(var i = 0; i < list.length; i++) {
 		var className = list[i].className;
 		if(className.indexOf("all_right_type_one_add")!=-1){
+			begin_falg = true;
 			begin = i+1;
 			break;
 		}
     }
-	slide(begin);
-	
-	
-	//queryDataByParams(submitParamsObj);
+	//先存一下，然后在取一下
+	var type_index = sessionStorage.getItem("type_index");
+	if(type_index == begin){ //分类没有变动
+		begin_falg = false;
+	}else{
+		sessionStorage.setItem("type_index",begin);
+	}
+	if(begin_falg){
+		slide(begin);
+	}else{
+		//menuType,isFree,courseType,city,lineState,queryKey
+		createParamsAndQuery(menuType,isFree,courseType,city,lineState);
+		queryDataByParams(paramsObj,menuType);
+	}
 }
 
 
