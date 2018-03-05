@@ -268,7 +268,7 @@ function btn_allComment(){
 
 var courseId = getQueryString('course_id');
 function btn_zj_mianfei(){
-	var falg =authenticationCooKie();
+	var falg =authenticationCooKie(true);
 	var data_zj= $(".right_priceBtn").attr("data-zj")
 		if (falg==1002){
 //			localStorage.memory=window.location.href;
