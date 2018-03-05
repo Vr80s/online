@@ -1065,9 +1065,9 @@ ul {
 }
 #main .content > div > a .detail .info .price {
   display: inline-block;
-  margin: 0 6px 0 0;
+  margin: 0 3px 0 0;
   font-size: 16px;
-  color: #ff4012;
+  color: #F97B49;
 }
 #main .content > div > a .detail .info .price1 {
   font-style: normal;

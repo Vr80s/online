@@ -227,7 +227,7 @@ window.onload=function(){
         '<div class="bigpic-body-btn">' +
         '{{if item.apply==true}}'+
         '{{if item.collection}}'+
-        '<a class="purchase" style="background-color:#ccc;border-radius:4px">您已购买该课程，可直接点击选集列表进行学习</a>'+
+        '<a class="purchase" style="background-color:#ccc;border-radius:4px">您已购成功报名，可直接点击选集列表进行学习</a>'+
         '{{else }}' +
         '<a class="purchase" data-apply="{{item.apply}}" data-id="{{item.id}}" href="/web/html/video.html?courseId='+courserId+'" >立即学习</a>'+
         '{{/if}}' +
@@ -396,7 +396,7 @@ window.onload=function(){
                                                 $(".background-big").css("display","none");
                                                 $("#sign-up-modal").css("display","none");
                                                 $(".sign-up").css("display","none");
-                                                $(".bigpic-body-btn").html('<a class="purchase" style="background-color:#ccc;border-radius:4px">您已购买该课程，可直接点击选集列表进行学习</a>');
+                                                $(".bigpic-body-btn").html('<a class="purchase" style="background-color:#ccc;border-radius:4px">您已成功报名，可直接点击选集列表进行学习</a>');
                                                 $(".yibaoming").css("display","block");
                                             }
                                         }
