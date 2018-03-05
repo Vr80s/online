@@ -263,7 +263,7 @@ a {
 #doc_Distinguish .bottomContent >.zhiye_picUpdata .zhiiye_pic_tip,
 #doc_Distinguish .bottomContent >.zhicheng_picUpdata .zhicheng_pic_tip{
     display: inline-block;
-    width: 159px;
+    /*width: 159px;*/
     height: 48px;
     color: #999;
 }
@@ -293,7 +293,7 @@ a {
 	height: 120px;
 	display: inline-block;
 	background-color: #f0f0f0;
-	vertical-align: middle;
+	/*vertical-align: middle;*/
 	margin-right: 20px;
 }
 #doc_Distinguish .bottomContent >.touxiang_picUpdata .touxiang_pic img{
