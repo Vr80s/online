@@ -5,29 +5,7 @@ var course_id ="";
 var criticize_id = "";
 var LecturerId="";
 var commentCode ="";
-var criticizeNum =0;
-var mescroll;
 $(function(){
-
-     /*mescroll = new MeScroll("mescroll", {
-        down: {
-            auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
-            callback: downCallback //下拉刷新的回调
-        },
-        up: {
-            auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
-            isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
-            callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
-            toTop:{ //配置回到顶部按钮
-                src : "../images/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
-                offset : 1000,
-                warpClass : "mescroll-totop" ,
-                showClass : "mescroll-fade-in" ,
-                hideClass : "mescroll-fade-out",
-                htmlLoading : '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
-            }
-        }
-    });*/
 
     	//获取课程ID跳转相应页面页面
 	//引入comment.j后调用方法获取ID，course_id为html里的a链接后面的ID
@@ -36,15 +14,6 @@ $(function(){
     var Lecturer = getQueryString('LecturerId');
     LecturerId = Lecturer;
 	refresh(1,10,'down');
-	//获取所有评论总数
-    /*requestService("/xczh/criticize/getCriticizeList",{
-        courseId : course_id,
-        pageNumber:1,
-        pageSize:1000000
-    },function(data) {
-        criticizeNum = data.resultObject.items.length;
-        criticizeNum = parseInt((criticizeNum + 10 - 1) / 10);
-    });*/
 });
 
 //刷新评论列表
@@ -56,7 +25,7 @@ function refresh(pageNumber,pageSize,downOrUp){
     },function(data) {
     	
 
-        //	判断是刷新还是加载
+        //	判断是下拉刷新还是上拉加载
         if(downOrUp=='down'){
             //  	判断有无评论显示默认图片
             if(data.resultObject.items.length==0){
@@ -65,9 +34,6 @@ function refresh(pageNumber,pageSize,downOrUp){
                 $(".quie_pic").hide()
             }
             $(".wrap_all_returned").html(template('wrap_people_comment',{items:data.resultObject.items}));
-            /*mescroll.endSuccess();
-            mescroll.lockUpScroll( false );
-            mescroll.optUp.hasNext=true;*/
             mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
             mui('#refreshContainer').pullRefresh().refresh(true);
         }else if(data.resultObject.items.length==0){
@@ -83,7 +49,6 @@ function refresh(pageNumber,pageSize,downOrUp){
         $(".wrapAll_comment").html(template('id_show_xingxing',{items:data.resultObject.commentCode}));
         commentCode = data.resultObject.commentCode;
         //	回复弹窗
-        /*$(".wrap_returned_btn .btn_littleReturn").on('click',function(){*/
             mui("#refreshContainer").on('tap', '.btn_littleReturn', function (event) {
             //评论id
             criticize_id=this.id;
@@ -156,16 +121,13 @@ function refresh(pageNumber,pageSize,downOrUp){
         });
 
         //点赞
-
             mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {
             //评论id
             criticize_id=$(this).attr("data-id");
             var p = $(this).find('span').html();
-
             var src = $(this).find('img').attr('src');
             if(src.indexOf("zan001")>-1){
                 $(this).find('img').attr('src','../images/zan01.png');
-
                 $(this).find('span').html(parseInt(p)-1);
                 updatePraise(criticize_id,false);
             }else{
@@ -176,14 +138,19 @@ function refresh(pageNumber,pageSize,downOrUp){
 
         });
         //判断浮层是否已选
-        if(commentCode==1){
             var list=document.getElementsByClassName("active_color");
             if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
                 $(".report_btn").css("opacity","0.3");
             }else{
                 $(".report_btn").css("opacity","1");
             }
-        }
+        //回复内容为空时，按钮为灰色
+            if($('#littlt_return').val()==""){
+                $(".return_btn").css("opacity","0.3");
+            }else{
+                $(".return_btn").css("opacity","1");
+            }
+        //控制评论按钮颜色
             $('.my_impression1').click(function(){
                 var list=document.getElementsByClassName("active_color");
                 if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
@@ -216,41 +183,49 @@ function refresh(pageNumber,pageSize,downOrUp){
                     $(".report_btn").css("opacity","1");
                 }
             })
-        $('#comment_detailed').keyup(function(){
-            var list=document.getElementsByClassName("active_color");
-            if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
-                $(".report_btn").css("opacity","0.3");
-            }else{
-                $(".report_btn").css("opacity","1");
-            }
-        })
+            $('#comment_detailed').keyup(function(){
+                if(commentCode==1){
+                    var list=document.getElementsByClassName("active_color");
+                    if(my_impression1==""||my_impression2==""||my_impression3==""||list.length<=0||$('#comment_detailed').val()==""){
+                        $(".report_btn").css("opacity","0.3");
+                    }else{
+                        $(".report_btn").css("opacity","1");
+                    }
+                }else{
+                    if($('#comment_detailed').val()==""){
+                        $(".report_btn").css("opacity","0.3");
+                    }else{
+                        $(".report_btn").css("opacity","1");
+                    }
+                }
+            })
+            //控制回复按钮颜色
+            $('#littlt_return').keyup(function(){
+                if($('#littlt_return').val()==""){
+                    $(".return_btn").css("opacity","0.3");
+                }else{
+                    $(".return_btn").css("opacity","1");
+                }
+            })
+
 
     });
 }
 //评论
 function reportComment() {
-    //判断浮层是否已选
-    if(commentCode==1){
+    //判断浮层是否已选，内容是否不为空
         var opacity = $(".report_btn").css("opacity");
         if(opacity!=1){
             return false;
         }
-    }
 
     var arr=new Array();
-
     var list=document.getElementsByClassName("active_color");
     for (var i = 0; i < list.length; i++) {
         arr.push(list[i].value);
     }
     var str=arr.join(",");
 
-
-    var comment_detailed = $('#comment_detailed').val();
-    if(comment_detailed==""){
-        //webToast("请输入评论内容","middle",1500);
-        return false
-    }
     var overallLevel=0;
     if(my_impression1!=""){
         overallLevel = parseInt(my_impression1)+1
@@ -291,10 +266,9 @@ function reportComment() {
 function replyComment() {
     var comment_detailed = $('#littlt_return').val();
     if(comment_detailed==""){
-        webToast("内容不能为空","middle",1500);
-        return
+        //webToast("内容不能为空","middle",1500);
+        return false;
     }
-
     requestService("/xczh/criticize/saveReply",{
         content:comment_detailed,
         criticizeId : criticize_id
@@ -344,48 +318,11 @@ function del(){
 }
 
 
-
-/**
- * 点赞
- */
-
-
-function btnClickZan(o){
-    /*mui("#refreshContainer").on('tap', '.btn_click_zan', function (event) {*/
-    //评论id
-    criticize_id=$(o).attr("data-id");
-    var p = $(o).find('span').html();
-    var src = $(o).find('img').attr('src');
-    if(src.indexOf("zan001")>-1){
-        $(o).find('img').attr('src','../images/zan01.png');
-        $(o).find('span').html(parseInt(p)-1);
-        updatePraise(criticize_id,false);
-    }else{
-        $(o).find('img').attr('src','../images/zan001.png');
-        $(o).find('span').html(parseInt(p)+1);
-        updatePraise(criticize_id,true);
-    }
-
-}
-
-
-var num = 1;
-/*下拉刷新的回调 */
-/*function downCallback(){
-    num = 1;
-    //联网加载数据
-    refresh(num,10,'down');
-}
-/!*上拉加载的回调  *!/
-function upCallback(){
-    num++;
-    refresh(num,10,'up');
-}*/
-
 /**
  * ************************************ 页面刷新下刷新事件
  * **************************************************
  */
+var num = 1;
 mui.init();
 mui.init({
     pullRefresh: {
