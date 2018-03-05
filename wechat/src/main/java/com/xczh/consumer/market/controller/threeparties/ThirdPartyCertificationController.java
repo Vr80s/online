@@ -398,7 +398,7 @@ public class ThirdPartyCertificationController {
 	public ResponseObject h5WechatMobile(HttpServletRequest req,
 			HttpServletResponse res,
 			@RequestParam("userName")String userName,
-			@RequestParam(value = "passWord",required=false)String passWord,
+			@RequestParam("passWord")String passWord,
 			@RequestParam("unionId")String unionId,
 			@RequestParam("code")String code,
 			@RequestParam("vtype")Integer vtype){
@@ -411,7 +411,6 @@ public class ThirdPartyCertificationController {
 			}
 			LOGGER.info("三方绑定已注册手机认证参数信息："
 					+ "username:"+userName+",unionId:"+unionId+",code:"+code+",type:"+vtype);
-			
 			/*
 			 * 验证短信验证码
 			 */
@@ -421,23 +420,31 @@ public class ThirdPartyCertificationController {
 			}
 			LOGGER.info(">>>>>>>>>>>>>>>>>>验证码认证成功");
 			
-			if(StringUtils.isNotBlank(passWord)){ //更新密码和更新用户名
-				userCenterAPI.updatePasswordAndLoginName(user.getId(),userName,passWord);
-			}else{								  //更新用户名
-				userCenterAPI.updateLoginName(unionId, userName);
-			}
-			
 			/**
-			 * 更改用户信息
+			 * 更改微信的登录名
 			 */
+		    userCenterAPI.updatePasswordAndLoginName(user.getId(),userName,passWord);
+			
 			ou.setLoginName(userName);
 			onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
-			
+			/**
+			 * 微信连接这个用户
+			 */
 			WxcpClientUserWxMapping wxw = wxcpClientUserWxMappingService.getWxcpClientUserByUnionId(unionId);
 			wxw.setClient_id(ou.getId());
 			wxcpClientUserWxMappingService.update(wxw);
+			/**
+			 * 清除这个cookie
+			 */
+			UCCookieUtil.clearThirdPartyCookie(res);
+			/**
+			 * 修改缓存信息
+			 */
+			req.getSession().setAttribute("_user_", ou);
 			
-			return ResponseObject.newSuccessResponseObject("绑定成功");
+			//返回用户信息
+			return ResponseObject.newSuccessResponseObject(ou);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
