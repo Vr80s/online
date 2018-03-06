@@ -1,5 +1,6 @@
 var status;
 var falg =authenticationCooKie();
+
 //yx_新增
 //var openId = getQueryString("openId");
 var opendId = getQueryString("openId");
@@ -17,28 +18,44 @@ function balance() {
             $("#xmbNumber").text(parseInt(data.resultObject.xmbCount));
             $("#courseNumber").text(data.resultObject.courseCount);
             //用户头像
-            $(".header_img").html(template('userInfo',data.resultObject.user));
+            //$(".header_img").html(template('userInfo',data.resultObject.user));
 			
+            if(stringnull(data.resultObject.user)){
+            	 var item = data.resultObject.user;
+            	 $("#smallHeadPhoto").attr("src",item.smallHeadPhoto);
+            	 $("#p_name").html(item.smallHeadPhoto);
+            }
         }else{        	           
             webToast(data.errorMessage,"middle",1500);
         }
     });
 }
-//判断是否为游客并跳转登陆界面
+    //判断是否为游客并跳转登陆界面
     var isNouser='<div class="header_img_right y">主播工作台 &nbsp;></div>'+
 				'<div class="both"></div>'+
 				'<img src="../images/default_pic.png" alt="" class="img0" id="smallHeadPhoto" />'+
 				'<p class="p"><span onclick="go_enter_dl()">登录</span> / <span onclick="go_cnlogin_zc()">注册</span></p>';
 
-
-	if (falg==1002 || falg == 1005){
+	if (falg==1002){
 		
-   	    $(".header_img").append(isNouser)
-	}
-//	else if (falg==1005) {
-//			location.href ="/xcview/html/evpi.html";
-//	}
-	else{
+		//默认的图片
+		 $("#smallHeadPhoto").attr("src","../images/default_pic.png");
+		// 登录/注册
+		 var login_enter = "<span onclick='go_enter_dl()'>登录</span> / <span onclick='go_cnlogin_zc()'>注册</span>";
+    	 $("#p_name").html(login_enter);
+	}else if (falg==1005) {
+		
+		
+		
+		//显示微信的头像和信息
+		$("#smallHeadPhoto").attr("src","../images/default_pic.png");
+		// 登录/注册
+		var login_enter = "<span onclick='go_enter_dl()'>登录</span> / <span onclick='go_cnlogin_zc()'>注册</span>";
+	    $("#p_name").html(login_enter);
+		
+		
+		
+	}else{
 		//人民币/熊猫币余额
 		balance();
 		//获取认证状态

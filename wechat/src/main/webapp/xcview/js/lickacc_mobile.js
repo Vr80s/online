@@ -12,7 +12,7 @@ if(type == 1){ //type=1 此微信号已经绑定了啊
 /*
  * 获取用户绑定的第三方用户信息
  */
-/*requestService("/xczh/bind/userBindingInfo", null, function(data) {
+requestService("/xczh/bind/userBindingInfo", null, function(data) {
 	if (data.success) {
 		var item = data.resultObject;
 
@@ -20,11 +20,6 @@ if(type == 1){ //type=1 此微信号已经绑定了啊
 		$("#weixin_bind").html(item.wxName);   
 	}
 })	
-*/
-//
-//if(){
-//	
-//}
 
 
 $(".email_one .div0_show").click(function(){
@@ -33,8 +28,6 @@ $(".email_one .div0_show").click(function(){
 	if(stringnull(unionId)){ //已经绑定了，这个是解除绑定
 		$(".success").show();
 	}else{//还没有绑定，唤起微信授权
-		
-		//alert("========");
 		
 		location.href = "/xczh/wxlogin/publicWechatAndMobile?userId="+localStorage.userId;
 	}
