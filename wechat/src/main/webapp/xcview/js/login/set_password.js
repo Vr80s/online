@@ -104,7 +104,7 @@ document.getElementById("forget_btn").addEventListener("tap", function() {
 		if (data.success) {
 			location.href = "/xcview/html/enter.html";
 		} else {
-			webToast(data.errorMessage,"middle",1500);				
+			webToast(data.errorMessage,"middle",1500);		
 		}
 	});
 })
