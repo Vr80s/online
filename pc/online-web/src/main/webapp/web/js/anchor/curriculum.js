@@ -1140,12 +1140,25 @@ function showDel(){
     $('#mask').removeClass('hide');
 }
 
+//删除提示框出现方法
+function showDel_bank(){
+    $('#addBankCard').removeClass('hide');
+    $('#mask').removeClass('hide');
+}
+
+
 //删除提示消失方法
 function hideDel(){
     $('#deleteTip').addClass('hide');
     $('#mask').addClass('hide');
 }
 
+
+//体现提示消失方法
+function hideDel_bank(){
+    $('#addBankCard').addClass('hide');
+    $('#mask').addClass('hide');
+}
 
 //出现黑色提示弹窗方法
 function showTip(contant,fn){
