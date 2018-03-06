@@ -59,6 +59,7 @@ $(function(){
 				$('.more_hospital').addClass('hide');
 	        }else if(current == data.resultObject.pages){
 	         	$('#hospital_list').html('')
+	        	$('#hospital_list').append(template('hospitalNumTpl',data.resultObject));
 	        	$('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        	$('.more_hospital').addClass('hide');
 	        }else{
@@ -68,6 +69,8 @@ $(function(){
 	        		$('.more_hospital').removeClass('hide');
 	        	}
 	        	//创建一个盒子
+	        	$('#hospital_list').append(template('hospitalNumTpl',data.resultObject));
+	        	
 	           $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        }
 	    });
