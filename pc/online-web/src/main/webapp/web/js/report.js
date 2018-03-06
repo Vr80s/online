@@ -63,7 +63,7 @@ $(function(){
 //          '<span>点赞(<span class="articleHitCoun">{{items.praise_sum}}</span>)</span>'+
 //          '<span>评论(<span class="articleCommCoun">{{items.comment_sum}}</span>)</span>'+
             '</div></div>'+
-            '<div><img src={{imgPath}} alt="" / style="width:100%"></div>'+
+//          '<div><img src={{imgPath}} alt="" / style="width:100%"></div>'+
             '<div class="forum-detail-content">{{#content}}</div>';
             //去除点赞区域
 //          '<div class="forum-hitzanBox">'+
