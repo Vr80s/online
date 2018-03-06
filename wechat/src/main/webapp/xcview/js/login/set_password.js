@@ -2,14 +2,14 @@
 /**
  * 验证码时间倒计时
  */
-var countdown=90;
+var countdown=60;
 function settime(obj) { //发送验证码倒计时
     if (countdown == 0) { 
     	$(obj).attr('disabled',false); 
         //obj.removeattr("disabled"); 
     	$(obj).val("获取验证码");
         $("#btn").css("background","#00bc12")
-        countdown = 90; 
+        countdown = 60; 
         return;
     } else { 
     	$(obj).attr('disabled',true);
