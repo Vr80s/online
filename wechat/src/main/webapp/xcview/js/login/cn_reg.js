@@ -73,6 +73,19 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 	
 	//这块是需要搞下用户协议的同意
 	
+	var agreementchecked = document.getElementById("checkbox1").checked;
+	if (!agreementchecked) {
+//		reminderror.innerHTML = "";
+		
+		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
+		return false;
+	} /*else {
+		
+		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
+		return false;
+	}*/
+	
+	
 	var number = document.getElementById("mobile").value; // 手机号
 	var yanzhengma = document.getElementById("vcode").value;
 	var userpassword = document.getElementById("password").value; // 密码
@@ -119,15 +132,7 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
           return false;
     }
     
-    var agreementchecked = document.getElementById("checkbox1").checked;
-	if (stringnull(agreementchecked)) {
-		reminderror.innerHTML = "";
-		
-	} else {
-		
-		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
-		return false;
-	}
+    
     
     
     var urlparm = {
