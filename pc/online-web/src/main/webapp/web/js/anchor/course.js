@@ -230,6 +230,16 @@ $(function(){
         debugger
         $(this).val($(this).val());
     });
+    
+    //课程自动筛选
+    $('#course_type').change(function(){
+    	$('.course_search').click();
+    })
+    
+      //专辑自动筛选
+    $('#course_collection_type').change(function(){
+    	$('.course_collection_search').click();
+    })
 });
 
 /**
@@ -266,14 +276,16 @@ function courseList(current){
     }
     debugger
     RequestService(url, "get", null, function(data) {
-        $("#course_list").html(template('course_list_tpl', data.resultObject));
+
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
         $('#kecheng_list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无资源</p></div>');
         $('#kecheng_list').removeClass('hide')
         }else{
-        	 $('#kecheng_list').removeClass('hide')
+        	var str = '<thead><tr><td>封面图</td><td>课程名称</td><td>价格</td><td>时长</td><td>类型</td><td>资源类型</td><td>审核状态</td><td>课程状态</td><td>操作</td></tr></thead><tbody id="course_list"></tbody>'
+        	$('#kecheng_list').html(str)
+        	$('#kecheng_list').removeClass('hide')
         }
-
+        $("#course_list").html(template('course_list_tpl', data.resultObject));
         debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) { //分页判断
@@ -762,13 +774,17 @@ function courseCollectionList(current){
     }
     debugger
     RequestService(url, "get", null, function(data) {
-        $("#collection_list").html(template('course_collection_list_tpl', data.resultObject));
+
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
         $('#zhuanji_list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无专辑</p></div>');
         $('#zhuanji_list').removeClass('hide')
         }else{
+        	var str = '<thead><tr><td>封面图</td><td>课程名称</td><td>价格</td><td>总集数</td><td>推荐</td><td>类型</td><td>审核状态</td><td>课程状态</td><td>操作</td></tr></thead><tbody id="collection_list"></tbody>';
+        	$('#zhuanji_list').html(str);
         	$('#zhuanji_list').removeClass('hide')
         }
+        $("#collection_list").html(template('course_collection_list_tpl', data.resultObject));
+        
         debugger
         //每次请求完数据就去渲染分页部分
         if (data.resultObject.pages > 1) {
