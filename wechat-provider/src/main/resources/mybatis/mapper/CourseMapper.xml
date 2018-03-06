@@ -79,7 +79,7 @@
 			FROM
 		oe_course as oc
 		inner join oe_user as ou on oc.user_lecturer_id = ou.id
-		where oc.id = #{courseId} and oc.is_delete=0 and oc.status=1
+		where oc.id = #{courseId} and oc.is_delete=0
 	</select>
 
 
@@ -130,7 +130,7 @@
 			FROM
 		oe_course as oc
 		inner join oe_user as ou on oc.user_lecturer_id = ou.id
-		where oc.id = #{courseId} and oc.is_delete=0 and oc.status=1  and ou.status = 0  and ou.is_delete =0
+		where oc.id = #{courseId} and oc.is_delete=0   and ou.status = 0  and ou.is_delete =0
 	</select>
 
 	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
@@ -161,7 +161,7 @@
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where
 		argc.user_id=#{userId}
-		and oc.is_delete=0 and oc.status=1 group by oc.id order by
+		and oc.is_delete=0 group by oc.id order by
 		argc.create_time desc )
 
 		UNION ALL
@@ -191,7 +191,7 @@
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where ( (oc.type = 3 ) or (oc.type = 1 and oc.live_status = 3 ) )
 		and argc.user_id=#{userId}
-		and oc.is_delete=0 and oc.status=1 group by oc.id order by oc.end_time)
+		and oc.is_delete=0  group by oc.id order by oc.end_time)
 	</select>
 
 	<!-- 得到已购买课程的数量 （不包括免费的课程） -->
@@ -202,7 +202,7 @@
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where argc.user_id=#{userId}
-		and oc.is_delete=0 and oc.status=1 and oc.is_free = 0
+		and oc.is_delete=0  and oc.is_free = 0
 	</select>
 	
 	
@@ -230,7 +230,7 @@
 		oe_course as oc
 		inner join apply_r_grade_course argc on oc.`id`=argc.`course_id`
 		where argc.user_id=#{userId}
-		and oc.is_delete=0 and oc.status=1 and oc.is_free = 0 group by oc.id
+		and oc.is_delete=0 and oc.is_free = 0 group by oc.id
 		order by argc.create_time desc
 	</select>
 

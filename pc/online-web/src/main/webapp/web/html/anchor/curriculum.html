@@ -571,6 +571,14 @@
 	<button id="sureDel" class="confirm-sure">确定</button><button id="cancalDel" onclick="hideDel()">取消</button>
 </div>
 
+
+<!--新增银行卡提示弹窗-->
+<div id="addBankCard" class="hide">
+	<p class="confirm-content" style="text-align: left;">您填写的身份信息与主播认证信息不一致，是否继续添加？</p>
+	<button id="sureDel_bank" class="confirm-sure">继续添加</button><button id="cancalDel_bank" onclick="hideDel_bank()">取消</button>
+</div>
+
+
 <!--全局遮罩层-->
 <div id="mask" class="hide" style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background: rgb(0, 0, 0); opacity: 0.3; z-index: 888;"></div>
 
@@ -596,11 +604,11 @@
 				<li data-name="School" class="active select-ud">
 					<span class="glyphicon glyphicon-book left_range ino_color" aria-hidden="true"></span><span class="school">学堂<span class="glyphicon glyphicon-triangle-left arrow_jt" aria-hidden="true"></span></span>
 					<div class="littleBox">
-						<p class="activeP courseP">课程</p>
-						<p class="specialP">专辑</p>
-						<p class="liveP">直播</p>
-						<p class="schedulingP" style="display: none;">排课</p>
-						<p class="resourceP">资源</p>
+						<p class="activeP courseP" data-name="kecheng">课程</p>
+						<p class="specialP" data-name="zhuanji">专辑</p>
+						<p class="liveP" data-name="zhibo">直播</p>
+						<p class="schedulingP" style="display: none;" data-name="paike">排课</p>
+						<p class="resourceP" data-name="ziyuan">资源</p>
 					</div>
 				</li>
 
@@ -1682,7 +1690,7 @@
 						</div>
 
 						<div class="select offline special">
-							<span><em></em>结课时间</span>
+							<span><em>*</em>结课时间</span>
 							<input onclick="SetDate(this,'yyyy-MM-dd hh:mm')" placeholder="请选择结课时间" style="width: 280px;height: 36px;color: #999999 !important;font-size: 14px;" readonly="readonly" class="select_time course_end_time" />
 							<p class="warning warning_course_end_time hide">结课时间不能为空</p>
 							<p class="warning warning_course_time hide">结课时间应大于开课时间</p>

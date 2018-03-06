@@ -545,7 +545,7 @@ function picUpdown2(baseurl,imgname){
 
 //医馆头像上传
 	$('#touxiang_pic_ipt').on('change',function(){
-		if(this.files[0].size > 2000){
+		if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -562,7 +562,7 @@ function picUpdown2(baseurl,imgname){
 	
 //医馆图片上传
 	$('#zhicheng_pic_ipt').on('change',function(){
-		if(this.files[0].size > 2000){
+		if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -607,7 +607,7 @@ function picUpdown2(baseurl,imgname){
 
 //营业执照图片上传
 	$('#zhizhao_pic_ipt').on('change',function(){
-		if(this.files[0].size > 2000){
+		if(this.files[0].size >2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -624,7 +624,7 @@ function picUpdown2(baseurl,imgname){
 
 //药品经营许可证上传
 	$('#xuke_pic_ipt').on('change',function(){
-		if(this.files[0].size > 2000){
+		if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){

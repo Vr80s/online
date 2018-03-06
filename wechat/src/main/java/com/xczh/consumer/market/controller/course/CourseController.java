@@ -176,17 +176,11 @@ public class CourseController {
 				cv.setWatchState(3);
 				return ResponseObject.newSuccessResponseObject(cv);
 			}
-			// 客户端主动增加播放历史--》注释掉这里的
-			// WatchHistory target = new WatchHistory();
-			// target.setCourseId(courseId);
-			// target.setUserId(user.getId());
 			if (cv.getWatchState() == 1) { // 免费的课程啦
 				onlineWebService.saveEntryVideo(courseId, user);
-				// watchHistoryServiceImpl.addOrUpdate(target);
 			} else if (cv.getWatchState() == 0) { // 收费课程
 				if (onlineWebService.getLiveUserCourse(courseId, user.getId())) { // 大于零--》用户购买过
 					cv.setWatchState(2);
-					// watchHistoryServiceImpl.addOrUpdate(target);
 				}
 			}
 			// 是否关注

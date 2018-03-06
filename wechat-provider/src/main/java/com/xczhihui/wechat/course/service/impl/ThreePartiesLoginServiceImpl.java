@@ -83,6 +83,8 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 		return qqClientUserMappingMapper.selectQQClientUserMappingByUnionId(unionId);
 	}
 	
+	
+	
 	@Override
 	public Map<String,Object> selectUserBindingInfo(String userId) {
 		
@@ -96,6 +98,11 @@ public class ThreePartiesLoginServiceImpl extends ServiceImpl<QQClientUserMappin
 		
 		qqClientUserMappingMapper.deleteAccount(id);
 		weiboClientUserMappingMapper.deleteAccount(id);
+	}
+	
+	@Override
+	public QQClientUserMapping selectQQClientUserMappingByUserIdAndOpenId(String userId,String openId) {
+		return qqClientUserMappingMapper.selectQQClientUserMappingByUserIdAndOpenId(userId, openId);
 	}
 
 }

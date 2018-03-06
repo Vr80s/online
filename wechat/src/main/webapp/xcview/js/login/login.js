@@ -38,7 +38,7 @@ if (is_weixin()) {
  */
 function sanfangLogin(){
 	
-	location.href = "/xczh/wxlogin/wxGetCodeUrl";
+	location.href = "/xczh/wxlogin/publicWechatAndMobile";
 	//location.href = "/bxg/wxjs/h5BsGetCodeUrl";
 }
 
@@ -115,7 +115,7 @@ function login(){
 				 /* 
 				  * 需要获取下用户信息啦，并且需要传递用户名和密码过去
 				  */
-				location.href = "/xczh/wxlogin/h5BsGetCodeUrlReqParams?username="+number;
+				location.href = "/xczh/wxlogin/getCurrentWechatOpenId?username="+number;
 			}else{
 				/*
 				 * 跳转到分类

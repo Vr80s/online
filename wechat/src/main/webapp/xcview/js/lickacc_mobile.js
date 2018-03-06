@@ -5,8 +5,8 @@ $("#mobileShow").html(mobile);
 
 
 var type = getUrlParam("type");
-if(type == 1){ //type=1 此微信号已经绑定了了啊
-	$(".success_main").find(".one").html("亲,此微信号已经绑定了!");
+if(type == 1){ //type=1 此微信号已经绑定了啊
+	$(".success_main").find(".one").html("亲,此微信号已经被绑定了!");
 	$(".success").show();
 }
 /*
@@ -36,7 +36,7 @@ $(".email_one .div0_show").click(function(){
 		
 		//alert("========");
 		
-		location.href = "/xczh/wxlogin/wxGetCodeUrl?userId="+localStorage.userId;
+		location.href = "/xczh/wxlogin/publicWechatAndMobile?userId="+localStorage.userId;
 	}
 });
 
@@ -76,7 +76,7 @@ function removeBind(){
 //点击账号和绑定设置
 function check_login(obj){
 	var data_title =  $(obj).attr("data-title");
- 	var falg =authenticationCooKie(true);
+ 	var falg =authenticationCooKie();
 	if (falg==1002){
 		location.href ="/xcview/html/cn_login.html";		
 	}else if (falg==1005) {

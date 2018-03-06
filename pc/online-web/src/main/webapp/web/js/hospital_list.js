@@ -54,11 +54,17 @@ $(function(){
 	        	//没有数据处理 
 //	           alert("没有数据/搜索失败")
 //	           $('#hospital_list').html('<h3>暂无数据<h3>');
-	           $('#hospital_list').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999">抱歉，没有找到“<span style="color:#00BC12">'+name+'</span>”相关医馆</p></div>')
+				if(name){
+	           $('#hospital_list').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999">抱歉，没有找到“<span style="color:#00BC12">'+name+'</span>”相关医馆</p></div>')	
+				}else{
+	           $('#hospital_list').html('<div style="padding-top:100px;text-align:center"><img src="/web/images/nosearch.png" alt="" /><p style="font-size:16px;color:#999">抱歉，没有找到相关医馆</p></div>')
+				}
+
 //	           $('.more_hospital').css('display','none');
 				$('.more_hospital').addClass('hide');
 	        }else if(current == data.resultObject.pages){
 	         	$('#hospital_list').html('')
+	        	$('#hospital_list').append(template('hospitalNumTpl',data.resultObject));
 	        	$('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        	$('.more_hospital').addClass('hide');
 	        }else{
@@ -68,6 +74,8 @@ $(function(){
 	        		$('.more_hospital').removeClass('hide');
 	        	}
 	        	//创建一个盒子
+	        	$('#hospital_list').append(template('hospitalNumTpl',data.resultObject));
+	        	
 	           $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        }
 	    });
@@ -190,9 +198,11 @@ $(function(){
 	    	if(areaStatus < 0){
 	    		$(this).text('收起')
 	    		$('#hos_search_area').attr('style','height:auto')
+	    		$(this).attr('style','background:url(/web/images/up_arrow.png) 55px center no-repeat')
 	    	}else{
 	    		$(this).text('更多')
 	    		$('#hos_search_area').attr('style','height:73px;overflow: hidden;')
+	    		$(this).attr('style','background:url(/web/images/down_arr.png) 55px center no-repeat')
 	    	}
 	    	
 	    })

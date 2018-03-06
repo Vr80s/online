@@ -291,10 +291,13 @@ header{
     float: left;
     max-width: 1.578rem;
     min-width: 0.5rem;
-    height: 0.3rem;
+    /*height: 0.3rem;*/
     /* line-height: 0.2rem !important; */
-    line-height: 0.3rem !important;
+    /*line-height: 0.3rem !important;*/
     margin-right: 0.1rem;
+	height: 0.5rem;
+    /* line-height: 2rem; */
+    margin-top: -0.02rem;
 }
 .li_list_one_right .div .p0 span{
 	font-size: 0.24rem;
@@ -307,7 +310,8 @@ header{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 0.25rem;
+    /*height: 0.25rem;*/
+	margin-left: -0.02rem;
 }
 .li_list_one_right .div .p0 .span{
 	font-size: 0.22rem;
@@ -317,8 +321,8 @@ header{
     font-size: 0.24rem;
     color: #999;
     max-width: 2.5rem;
-    height: 0.24rem;
-    line-height: 0.2rem;
+    /*height: 0.24rem;
+    line-height: 0.2rem;*/
     float: left;
     margin-right: 0.1rem;
 }
@@ -335,16 +339,16 @@ header{
 }
 
 .li_list_one_right .div .p2 {
-    height: 0.24rem;
+    /*height: 0.24rem;*/
     min-width: 1.35rem;
     float: left;
     /*line-height: 0.24rem;*/
-    line-height: 0.31rem;
+    /*line-height: 0.31rem;*/
     margin-left: 0.1rem;
 }
 .li_list_one_right .p2 img {
-    width: 0.19rem;
-    height: 0.24rem;
+    width: 0.22rem;
+    height: 0.22rem;
     float: left;
 }
 .li_list_one_right .p2 span {

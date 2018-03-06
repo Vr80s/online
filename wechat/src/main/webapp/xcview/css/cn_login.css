@@ -11,6 +11,7 @@ li{
 a{
 	text-decoration: none;
 }
+
 .both{
 	clear: both;
 }
@@ -185,12 +186,23 @@ header {
 	height: 0.24rem;
 	line-height: 0.24rem;
 	color: #fff;
-	background: #00BC12;
+	/*background: #00BC12;*/
 	border-radius: 60px;
 	text-align: center;
     float: left;
     margin-top: 0.1rem;
     margin-right: 0.13rem;
+    background: url(../images/agree.png) no-repeat;
+	background-size: 100% 100%;
+   
+}
+.other_means_rus{
+	background: url(../images/agrees.png) no-repeat;
+	background-size: 100% 100%;
+}
+.other_means_russ{
+	 background: url(../images/agree.png) no-repeat;
+	background-size: 100% 100%;
 }
 #btn{
 	width: 1.6rem;

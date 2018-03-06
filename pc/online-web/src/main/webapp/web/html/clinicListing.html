@@ -87,6 +87,7 @@
               		</ul>
               	</div>
                 </div>
+                <div style="height: 20px;background-color:#f7f7f7 ;"></div>
 				<div id="hospital_list">
 				
 				<!-- TODO -->
@@ -127,8 +128,17 @@
     </div>
 </div>
 
+<!--医馆搜索结果的模板-->
+<script type="text/template" id="hospitalNumTpl"> 
+	<div style="border-bottom: 1px solid #ccc;padding: 20px 20px;margin-bottom: 20px;">
+		共找到{{total}}家医馆
+	</div>
+</script>
+
+
 <!-- 医馆模板 -->
 <script type="text/template" id="hospitalTpl"> 
+	
 {{each hospital as hospital i}}
 <div class="hospitals">
 	<a href="/web/html/clinicDetails.html?Id={{hospital.id}}" id={{hospital.id}}></a>

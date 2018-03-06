@@ -101,10 +101,10 @@ var strcourse =
     '{{#online($value.multimediaType,$value.collection)}}' +
     '<div class="detail">' +
     '<p class="title" data-text="{{$value.gradeName}}" title="{{$value.gradeName}}">{{$value.gradeName}}</p>' +
-    // '<p class="timeAndTeac">' +
+    '<p class="timeAndTeac">' +
     // '<span>{{#timeChange($value.courseLength)}}</span><i>|</i>' +
-    // '<span>讲师：<span class="teacher">{{$value.name}}</span></span>' +
-    // '</p>' +
+    '<span>讲师：<span class="teacher">{{$value.name}}</span></span>' +
+    '</p>' +
     '<p class="info clearfix">' +
     '<span>' +
     '{{if $value.free == true}}' +

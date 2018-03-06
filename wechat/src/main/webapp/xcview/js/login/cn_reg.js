@@ -42,7 +42,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 		return false;
 	}
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",1500);
+//		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
@@ -85,17 +85,27 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
 	var yanzhengma = document.getElementById("vcode").value;
 	var userpassword = document.getElementById("password").value; // 密码
 	
+	if(number != '' && yanzhengma != '' && userpassword != ''){
+//				$(".enter_btn").css("opacity","1");
+				$(".enter_btn").addClass("enter_btns");
+		}else{
+//				$(".enter_btn").css("opacity","0.3");
+				$(".enter_btn").removeClass("enter_btns");
+	}
+	
+	
+	
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",1500);
+		//webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	
 	if (!stringnull(yanzhengma)) {
-		webToast("验证码不能为空","middle",1500);
+//		webToast("验证码不能为空","middle",1500);
 		return false;
 	}
 	if (!stringnull(userpassword)) {
-		webToast("密码不能为空","middle",1500);
+//		webToast("密码不能为空","middle",1500);
 		return false;
 	}
 	
