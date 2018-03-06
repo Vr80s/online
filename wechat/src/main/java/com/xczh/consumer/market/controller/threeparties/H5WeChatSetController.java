@@ -210,18 +210,6 @@ public class H5WeChatSetController {
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
-//OnlineUser ou =  onlineUserService.findUserByLoginName(wxw.getUnionid());
-//				if(ou ==null){
-//					/**
-//					 * 创建用户中心信息和普通用户信息  
-//					 */
-//					ou = onlineUserService.wechatCreateUserInfo(wxw);
-//					LOGGER.info("ou  uniond "+ou.getId());
-//					 
-//				}
-//				Token t = userCenterAPI.login(wxw.getUnionid(),WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
-//							TokenExpires.TenDay);
-//				onlogin(req,res,t,ou,t.getTicket());
 				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/my_homepage.html?openId="+openid);
 			}
@@ -291,23 +279,6 @@ public class H5WeChatSetController {
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
 				LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"+UCCookieUtil.readThirdPartyCookie(req));
-				
-				OnlineUser ou =  onlineUserService.findUserByLoginName(wxw.getUnionid());
-				if(ou ==null){
-					/**
-					 * 创建用户中心信息和普通用户信息  
-					 */
-					ou = onlineUserService.wechatCreateUserInfo(wxw);
-					
-					 LOGGER.info("ou  uniond "+ou.getId());
-					 
-				}
-				Token t = userCenterAPI.login(
-							wxw.getUnionid(),
-							WeihouInterfacesListUtil.MOREN_USER_PASSWORD,
-							TokenExpires.TenDay
-							);
-				onlogin(req,res,t,ou,t.getTicket());
 				
 				res.sendRedirect(returnOpenidUri + "/xcview/html/home_page.html?openId="+openid+"&unionId="+wxw.getUnionid()+"&jump_type=1");
 			}

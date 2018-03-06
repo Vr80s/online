@@ -60,32 +60,26 @@
 	}
 	document.documentElement.style.fontSize=kk/7.5+"px";
 	
-	
 	/*
 	 * 判断是否为游客，如果登录游客
 	 */
-	var user_cookie = cookie.get("_uc_t_");
+/* 	var user_cookie = cookie.get("_uc_t_");
 	if(user_cookie == null || user_cookie == ''){
    		$(".set_main_close").hide()
 		$(".btn").hide()
-	}
+	} */
 	
+	var close_falg =  authenticationCooKie();
+	if(close_falg != 1000){
+		$(".set_main_close").hide()
+		$(".btn").hide()
+	}	
 </script>
 
 <script>
 
 	//点击账号和绑定设置
 	function check_login(){
-/* 		var falg =authenticationCooKie(true);
-		if (falg==1002){
-			location.href ="/xcview/html/cn_login.html";		
-		}else if (falg==1005) {
-			location.href ="/xcview/html/evpi.html";
-		}else if(falg == 1000){
-			location.href ='lickacc_mobile.html'
-		} */
-		
-		
 		
 		location.href ='lickacc_mobile.html';
 	}
