@@ -69,19 +69,11 @@ function removeBind(){
 //点击账号和绑定设置
 function check_login(obj){
 	var data_title =  $(obj).attr("data-title");
- 	var falg =authenticationCooKie();
-	if (falg==1002){
-		location.href ="/xcview/html/cn_login.html";		
-	}else if (falg==1005) {
-		location.href ="/xcview/html/evpi.html";
-	}else if(falg == 1000){
-		
-		if(data_title == "mobile"){
-			location.href ='phone_number.html';
-		}else if(data-title == "password"){
-			location.href ='amend.html';
-		}
-	} 
+	if(data_title == "mobile"){
+		location.href ='phone_number.html';
+	}else if(data_title == "password"){
+		location.href ='amend.html';
+	}
 }
 
 
