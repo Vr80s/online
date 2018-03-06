@@ -357,7 +357,7 @@ function queryDataByParams(params,data_type){
 				if(item.type ==3){
 					typeStr +="<p class='p2'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p>";
 				}else if(item.type ==4){
-					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png'><span>" +item.city+"</span></p>";
+					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>" +item.city+"</span></p>";
 				}
 				data1+="<div class='li_list_div' aaa() >"+
 					       "<div class='li_list_one' data-title="+item.id+" >"+
