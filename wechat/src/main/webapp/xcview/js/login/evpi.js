@@ -30,9 +30,9 @@ if(stringnull(third_party_uc_t_)){
 	
 	//alert(third_party_uc_t_);
 	//alert(decodeURI(third_party_uc_t_));
-	
-	openId = third_party_uc_t_.split("%3B")[0];
-	unionId = third_party_uc_t_.split("%3B")[1];
+	third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
+	openId = third_party_uc_t_.split(";")[0];
+	unionId = third_party_uc_t_.split(";")[1];
 	//alert(openId+"=====third_party_uc_t_====="+unionId);
 }else{
 	openId = getQueryString("openId");
@@ -181,7 +181,8 @@ $(".enter_btn").click(function(){
  * 返回登录页
  */
 $(".header_return").click(function(){
-	location.href = "/xcview/html/enter.html";
+	//location.href = "/xcview/html/enter.html";
+	location.href = history.back(-1);
 })
 
 

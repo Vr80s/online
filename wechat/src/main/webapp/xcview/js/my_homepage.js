@@ -45,12 +45,19 @@ function balance() {
     	 $("#p_name").html(login_enter);
 	}else if (falg==1005) {
 		
+		var third_party_uc_t_ = cookie.get("third_party_uc_t_");
+			
+			//alert(third_party_uc_t_);
+			//alert(decodeURI(third_party_uc_t_));
+		third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
 		
+		var nickName = third_party_uc_t_.split(";")[2];
+		var headImg = third_party_uc_t_.split(";")[3];
 		
 		//显示微信的头像和信息
-		$("#smallHeadPhoto").attr("src","../images/default_pic.png");
+		$("#smallHeadPhoto").attr("src",headImg);
 		// 登录/注册
-		var login_enter = "<span onclick='go_enter_dl()'>登录</span> / <span onclick='go_cnlogin_zc()'>注册</span>";
+		var login_enter = "<span onclick='go_evpi_wxxx()'>"+nickName+"</span>";
 	    $("#p_name").html(login_enter);
 		
 		
@@ -74,6 +81,9 @@ function balance() {
 	}
 	function go_cnlogin_zc(){
         window.location.href="cn_login.html";         
+	}
+	function go_evpi_wxxx(){
+		 window.location.href="evpi.html";    
 	}
 ////判断是否为游客并跳转登陆界面
 //var falg =authenticationCooKie();

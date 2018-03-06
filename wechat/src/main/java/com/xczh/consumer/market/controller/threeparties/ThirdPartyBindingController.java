@@ -157,6 +157,8 @@ public class ThirdPartyBindingController {
 				ThridFalg tf = new ThridFalg(); 
 				tf.setOpenId(m.getOpenid());
 				tf.setUnionId(m.getUnionid());
+				tf.setNickName(m.getNickname());
+				tf.setHeadImg(m.getHeadimgurl());
 				UCCookieUtil.writeThirdPartyCookie(res,tf);
 				
 				
