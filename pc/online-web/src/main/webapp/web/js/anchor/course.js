@@ -1352,7 +1352,7 @@ $(function(){
      **/
     $('#courseImgPath').on('change',function(){
         debugger
-    	if(this.files[0].size > 2000){
+    	if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1364,7 +1364,7 @@ $(function(){
     })
     $('#collectionImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1376,7 +1376,7 @@ $(function(){
     })
     $('#cardPositiveImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
 	showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1388,7 +1388,7 @@ $(function(){
     })
     $('#cardNegativeImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1400,7 +1400,7 @@ $(function(){
     })
     $('#qualificationCertificateImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
 		showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1412,7 +1412,7 @@ $(function(){
     })
     $('#professionalCertificateImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1424,7 +1424,7 @@ $(function(){
     })
     $('#businessLicensePictureImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1436,7 +1436,7 @@ $(function(){
     })
     $('#licenseForPharmaceuticalTradingPictureImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
 			showTip('上传图片不能大于2M')
 			return false;
 		}
@@ -1448,7 +1448,7 @@ $(function(){
     })
     $('#profilePhotoImgPath').on('change',function(){
         debugger
-        if(this.files[0].size > 2000){
+        if(this.files[0].size > 2097152){
         	showTip('上传图片不能大于2M')
 			return false;
 		}
