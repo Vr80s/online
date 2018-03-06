@@ -209,7 +209,7 @@ function saveBankCard(){
     data.acctPan = $.trim($('.content_add #content_add_card').val());
     data.tel = $.trim($('.content_add #content_add_bank').val());
     data.certId = $.trim($('.content_add #content_add_idCard').val());
-    if(true){
+    if(verifyBankCard(data)){
     	showDel_bank();
     	$('#sureDel_bank').click(function(){
 	    	 RequestService("/anchor/asset/saveBankCard", "post", data, function(data) {
