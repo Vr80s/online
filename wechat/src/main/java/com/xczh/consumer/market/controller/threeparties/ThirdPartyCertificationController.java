@@ -149,7 +149,7 @@ public class ThirdPartyCertificationController {
         	
         	LOGGER.info(">>>>>>>>>>>>>>>>>>数据来源：qq");
         	
-        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
+        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByOpenId(unionId);
         	qq.setUserId(ou.getId());
         	threePartiesLoginService.updateQQInfoAddUserId(qq);
         	break;
@@ -260,7 +260,7 @@ public class ThirdPartyCertificationController {
         	
         	//那么这里是不是就不能用这个id了啊，需要用unionid
         	
-        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
+        	QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByOpenId(unionId);
         	nickName=qq.getNickname();
         	if("男".equals(qq.getGender())){ //性别。 如果获取不到则默认返回"男"
         		sex = 1;
@@ -370,7 +370,7 @@ public class ThirdPartyCertificationController {
 				}else if(type == ThirdPartyType.WEIBO.getCode()){//微博
 					obj = threePartiesLoginService.selectWeiboClientUserMappingByUserId(ou.getId(),unionId);
 				}else if(type == ThirdPartyType.QQ.getCode()){//QQ
-					obj = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(),unionId);
+					obj = threePartiesLoginService.selectQQClientUserMappingByUserIdAndOpenId(ou.getId(),unionId);
 				}
 				if(obj == null){ //已注册手机号,但是未绑定,可进行判断操作
 					code = UserUnitedStateType.PNHONE_IS_WRONG.getCode();

@@ -7,6 +7,9 @@ $(function(){
         	 $(".school").click();
         }else{
         	 $(".select_list li[data-name="+localStorage.AnchorsTbl+"]").click();
+//      	 if(localStorage.AnchorsTbl_School){
+//      	 	$('.littleBox .specialP').click();
+//      	 }
         }
        
     
@@ -126,6 +129,7 @@ $(function(){
 		event.stopPropagation();
 		$(".select_list .littleBox p").removeClass("activeP");
 		$(this).addClass("activeP");
+		localStorage.AnchorsTbl_School = $(this).attr('data-name');
 		$(".wrap_box .little_box").hide().eq($(this).index()).show();  /*课程显示*/
 		$(".account .account_mains").hide();   /*账号隐藏*/
 		$(".myResive .little_box1").hide()  	/*收益隐藏*/

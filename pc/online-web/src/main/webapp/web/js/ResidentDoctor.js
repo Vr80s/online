@@ -364,7 +364,7 @@ function picUpdown(baseurl,imgname){
 //身份证正面 idFont_pic
 	$('#idFont_pic_ipt').on('change',function(){
 //	console.log(this.files[0].size)  
-	if(this.files[0].size > 2000){
+	if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -386,7 +386,7 @@ function picUpdown(baseurl,imgname){
 
 //身份证反面
 	$('#idBack_pic_ipt').on('change',function(){
-		if(this.files[0].size > 2000){
+		if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -403,7 +403,7 @@ function picUpdown(baseurl,imgname){
 	
 //  医师资格证
 $('#teacher_pic_ipt').on('change',function(){
-	if(this.files[0].size > 2000){
+	if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -420,7 +420,7 @@ $('#teacher_pic_ipt').on('change',function(){
 
 //  执业资格证
 $('#zhiiye_pic_ipt').on('change',function(){
-	if(this.files[0].size > 2000){
+	if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -437,7 +437,7 @@ $('#zhiiye_pic_ipt').on('change',function(){
 
 //   真实头像
 $('#touxiang_pic_ipt').on('change',function(){
-	if(this.files[0].size > 2000){
+	if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){
@@ -454,7 +454,7 @@ $('#touxiang_pic_ipt').on('change',function(){
 
 //  职称证明
 $('#zhicheng_pic_ipt').on('change',function(){
-	if(this.files[0].size > 2000){
+	if(this.files[0].size > 2097152){
 	$('#tip').text('上传图片不能大于2M');
        		$('#tip').toggle();
        		setTimeout(function(){

@@ -268,7 +268,7 @@ function btn_allComment(){
 //判断状态跳转
 var courseId = getQueryString('course_id');
 function btn_zj_mianfei(){
-	var falg =authenticationCooKie(true);
+	var falg =authenticationCooKie();
 	var data_zj= $(".right_priceBtn").attr("data-zj")
 		if (falg==1002){
 			location.href ="/xcview/html/cn_login.html";		

@@ -71,7 +71,7 @@ public class CourseDao extends SimpleHibernateDao {
         //paramMap.put("menuId", menuId);
 
         StringBuffer  sqlSb=new StringBuffer();
-        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,cou.multimedia_type multimediaType,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,");
+        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.grade_name,cou.smallimg_path  as smallImgPath,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,cou.multimedia_type multimediaType,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,cou.lecturer name,");
         sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0) + IFNULL(default_student_count, 0) learnd_count,");
         sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
                 + "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");
@@ -209,7 +209,7 @@ public class CourseDao extends SimpleHibernateDao {
         paramMap.put("menuId", menuId);
         paramMap.put("couseTypeId", couseTypeId);
         StringBuffer  sqlSb=new StringBuffer();
-        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.is_recommend as isRecommend,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.multimedia_type multimediaType,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,");
+        sqlSb.append(" select cou.id,cou.type,cou.direct_id,cou.is_recommend as isRecommend,cou.grade_name,cou.smallimg_path  as smallImgPath,cou.multimedia_type multimediaType,floor(cou.current_price*10) current_price,cou.start_time startTime,cou.end_time endTime,cou.user_lecturer_id userLecturerId,cou.address,IF(ISNULL(cou.`course_pwd`),0,1) coursePwd,cou.collection,cou.lecturer name,");
         sqlSb.append(" IFNULL((SELECT COUNT(*) FROM apply_r_grade_course WHERE course_id = cou.id),0)+IFNULL(default_student_count, 0) learnd_count, ");
         sqlSb.append(" cou.course_length,cou.is_free, tm.`name` as courseType, cou.description_show from oe_course cou "
         		+ "left join teach_method tm on cou.courseType = tm.id  left join oe_menu om on om.id = menu_id");

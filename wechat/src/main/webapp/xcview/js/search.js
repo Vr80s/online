@@ -1,3 +1,22 @@
+
+
+var curriculum_blck = getQueryString("search_back");
+sessionStorage.setItem("search_back",curriculum_blck);
+
+/**
+ * 
+ */
+function goto_back(){
+	var back_falg  = sessionStorage.getItem("search_back");
+	if(back_falg == 1){
+		location.href='home_page.html';
+	}else if(back_falg == 2){
+		location.href='curriculum_table.html';
+	}
+}
+
+
+
 $(function(){
 
 
