@@ -21,7 +21,7 @@ table{
 .workTime >ul >li:hover{
 	cursor: pointer;
 }
-#deleteTip{
+#deleteTip,#addBankCard{
 	width: 400px;
 	height: 200px;
 	position: fixed;
@@ -33,17 +33,23 @@ table{
 	padding: 30px 65px;
 	background-color: #fff;
 }
-#deleteTip h4{
+#addBankCard{
+	padding: 50px 65px;
+}
+#deleteTip h4,
+#addBankCard h4{
 	font-size: 20px;
 	color: #333333;
 	margin-bottom: 20px;
 }
-#deleteTip p{
+#deleteTip p,
+#addBankCard p{
 	font-size: 14px;
 	color: #666666;
 	margin-bottom: 40px;
 }
-#deleteTip button{
+#deleteTip button,
+#addBankCard button{
 	border: 1px solid #DEDEDE;
 	border-radius: 4px;
 	width: 120px;
@@ -53,14 +59,17 @@ table{
 	background-color: #fff;
 	color: #000;
 }
-#deleteTip button:hover{
+#deleteTip button:hover,
+#addBankCard button:hover{
 	background-color: #00BC12 ;
 	color: #fff;
 }
-#deleteTip #sureDel{
+#deleteTip #sureDel,
+#addBankCard #sureDel_bank{
 	float: left;
 }
-#deleteTip #cancalDel{
+#deleteTip #cancalDel,
+#addBankCard #cancalDel_bank{
 	float: right;
 }
 #blackTip{

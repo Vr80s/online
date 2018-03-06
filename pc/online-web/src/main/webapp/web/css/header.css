@@ -734,8 +734,8 @@ body .select{
 body .shoppingBox .shopping,body .messageBox .messageCount{
 	    display: block;
     position: absolute;
-    top: 5px;
-    right: -15px;
+    top: 6px;
+    right: -18px;
     /*background-color: #ff4012;*/
     width: 16px;
     height: 16px;

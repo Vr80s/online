@@ -210,14 +210,19 @@ function saveBankCard(){
     data.tel = $.trim($('.content_add #content_add_bank').val());
     data.certId = $.trim($('.content_add #content_add_idCard').val());
     if(verifyBankCard(data)){
-        RequestService("/anchor/asset/saveBankCard", "post", data, function(data) {
-            if(data.success){
-                showTip(data.resultObject);
-                initBasaeAssetInfo();
-            }else {
-                showTip(data.errorMessage);
-            }
-        });
+    	showDel_bank();
+    	$('#sureDel_bank').click(function(){
+	    	 RequestService("/anchor/asset/saveBankCard", "post", data, function(data) {
+	            if(data.success){
+	                showTip(data.resultObject);
+	                hideDel_bank()
+	                initBasaeAssetInfo();
+	            }else {
+	                showTip(data.errorMessage);
+	                hideDel_bank()
+	            }
+	        });
+    	})
     }
 }
 
