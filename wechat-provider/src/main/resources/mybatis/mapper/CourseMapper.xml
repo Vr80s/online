@@ -79,7 +79,7 @@
 			FROM
 		oe_course as oc
 		inner join oe_user as ou on oc.user_lecturer_id = ou.id
-		where oc.id = #{courseId} and oc.is_delete=0 and oc.status=1
+		where oc.id = #{courseId} and oc.is_delete=0
 	</select>
 
 
@@ -130,7 +130,7 @@
 			FROM
 		oe_course as oc
 		inner join oe_user as ou on oc.user_lecturer_id = ou.id
-		where oc.id = #{courseId} and oc.is_delete=0 and oc.status=1  and ou.status = 0  and ou.is_delete =0
+		where oc.id = #{courseId} and oc.is_delete=0   and ou.status = 0  and ou.is_delete =0
 	</select>
 
 	<!-- 查找用户的 学习中心           直播中，直播预告、课程 是我的课程，已结束课程是：直播结束和线下排序班 -->
