@@ -153,7 +153,6 @@ public class TokenFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		request.setCharacterEncoding("UTF-8");
-		response.setHeader("Content-type", "text/html;charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");//设置将字符以"UTF-8"编码输出到客户端浏览器
 
 		boolean isExcludedPage = false;   
@@ -275,14 +274,16 @@ public class TokenFilter implements Filter {
     				response.sendRedirect(redirectUrl);
     			}
 		    }else{ 
-		    	
 	    		Map<String,Object> mapApp = validateLoginFormApp(strToken);
 		    	int code = mapApp.get("code")==null?-1:Integer.parseInt(String.valueOf(mapApp.get("code")));
 		    	if(code == 1000){
 		    	    chain.doFilter(request, response);
 		    	}else{
+		    	    response.setContentType("application/json; charset=utf-8");  
 		    		PrintWriter out = response.getWriter();//获取PrintWriter输出流
 		    		out.println(mapApp);
+		    		out.flush();
+		            out.close();
 		    	}
 		    }
 		}

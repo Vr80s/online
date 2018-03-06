@@ -217,15 +217,15 @@ public class QQThirdPartyController {
 				
 			 LOGGER.info("accessToken   ============"+accessToken);
 			 LOGGER.info("qq用户openid   ============"+openId);
+			 
 	             /**
-	              * 获取qq unionId
-	              * 
+	              * 获取qq unionId   --  目前
 	              */
-	             String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
+	             //String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
 	             
-	         LOGGER.info("qq用户unionId   ============"+unionId);
+	        // LOGGER.info("qq用户unionId   ============"+unionId);
 	             
- 				QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
+ 				 QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByOpenId(openId);
 	            	             
 	             if(qqUser==null){   //保存qq用户
 	            	 LOGGER.info("第一次存入qq用户信息");
@@ -249,7 +249,7 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		             qq.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
 		             qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
 		             qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-		             qq.setUnionId(unionId);
+		             //qq.setUnionId(unionId);
 		           
 		            //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
 		             if(userId!=null){  // 绑定成功
@@ -258,7 +258,7 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		 			 }else{
 		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 		 			 }
-		             mapRequest.put("unionId",unionId);
+		             mapRequest.put("unionId",openId);
 		             
 		             threePartiesLoginService.saveQQClientUserMapping(qq);
 					
@@ -300,7 +300,7 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		 			}else{
 		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 		 			}
-					mapRequest.put("unionId",unionId);
+					mapRequest.put("unionId",openId);
 					
 					return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 				}
