@@ -182,7 +182,7 @@ $(".enter_btn").click(function(){
  */
 $(".header_return").click(function(){
 	//location.href = "/xcview/html/enter.html";
-	location.href = history.back(-1);
+	window.history.back();
 })
 
 

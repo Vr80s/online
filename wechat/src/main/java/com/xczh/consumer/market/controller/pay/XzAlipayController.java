@@ -339,9 +339,9 @@ public class XzAlipayController {
 		alipay_request.setNotifyUrl(alipayConfig.notify_url);
 		// 设置同步地址
 		
-		//
-		alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/recharges.html?type=1&xmbCount=" + count);
+		//alipay_request.setReturnUrl(returnOpenidUri+ "/xcview/html/recharges.html?type=1&xmbCount=" + count);
 		
+		alipay_request.setReturnUrl(returnOpenidUri+"/xcview/html/goWechat.html");
 		
 		// form表单生产
 		String form = "";

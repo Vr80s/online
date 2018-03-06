@@ -23,7 +23,7 @@ function balance() {
             if(stringnull(data.resultObject.user)){
             	 var item = data.resultObject.user;
             	 $("#smallHeadPhoto").attr("src",item.smallHeadPhoto);
-            	 $("#p_name").html(item.smallHeadPhoto);
+            	 $("#p_name").html(item.name);
             }
         }else{        	           
             webToast(data.errorMessage,"middle",1500);

@@ -474,14 +474,12 @@ public class VideoDao extends SimpleHibernateDao {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
         
-        
         /**
          * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
          * 	 或者是购买成功	
-         * 	
+         * 
+         * 一个专辑下存在多个课程，然后课程
          */
-        
-        
         if(courseId !=null || teacherId!=null){
            StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
