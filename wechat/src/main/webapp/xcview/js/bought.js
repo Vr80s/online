@@ -26,9 +26,6 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
                 }
 
                 $(".bought_main").html(template('bought_main',{items:data.resultObject.records}));
-                /*mescroll.endSuccess();
-                mescroll.lockUpScroll( false );
-                mescroll.optUp.hasNext=true;*/
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);//是否还有更多数据；若还有更多数据，则传入false; 否则传入true
                 mui('#refreshContainer').pullRefresh().refresh(true);
             }else if(data.resultObject.records.length==0 || data.resultObject.records.length==''){
@@ -36,7 +33,6 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
             }else{
                 $(".bought_main").append(template('bought_main',{items:data.resultObject.records}));
                 var backData = data.resultObject.records;
-                //mescroll.endSuccess(backData.length);
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);
 
             }
