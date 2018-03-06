@@ -567,12 +567,12 @@ function verifyCourse(course){
         }
     }
     //请选择结课时间
-//  if(course.endTime == '' && course.courseForm==3){
-//      $('.warning_course_end_time').removeClass('hide');
-//      return false;
-//  }else{
-//      $('.warning_course_end_time').addClass('hide');
-//  }
+    if(course.endTime == '' && course.courseForm==3){
+        $('.warning_course_end_time').removeClass('hide');
+        return false;
+    }else{
+        $('.warning_course_end_time').addClass('hide');
+    }
     if(course.startTime != ''&&course.endTime != ''&&course.endTime != null){
         debugger
         var startTime =  new Date(course.startTime.replace(/-/g,"/"));
