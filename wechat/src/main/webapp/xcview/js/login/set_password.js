@@ -102,7 +102,12 @@ document.getElementById("forget_btn").addEventListener("tap", function() {
 	var access_url ="/xczh/user/forgotPassword";
 	requestService(access_url, urlparm, function(data) {
 		if (data.success) {
+			$(".success_bg_jump").show();
+			$(".success_tip").show()
+		setTimeout(function(){
 			location.href = "/xcview/html/enter.html";
+		},3000)
+
 		} else {
 			webToast(data.errorMessage,"middle",1500);		
 		}
