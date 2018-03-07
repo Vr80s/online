@@ -1,4 +1,32 @@
 	
+
+
+
+/**
+ * 从列表页返回
+ */
+var before_url = document.referrer;
+if(before_url.indexOf("home_page.html")!=-1){
+	sessionStorage.setItem("curriculum_blck",1);
+}else if(before_url.indexOf("search.html")!=-1){
+	sessionStorage.setItem("curriculum_blck",2);
+}
+/**
+ * 返回上一页
+ */
+function goto_back(){
+
+	var curriculum_blck = sessionStorage.getItem("curriculum_blck");
+	if(curriculum_blck == 1){
+		location.href="home_page.html";
+	}else if(curriculum_blck == 2){
+		location.href="search.html?search_back=2";
+	}
+	
+}
+
+
+
 /**
  * 将上面的url封装为json对象
  */	
@@ -23,7 +51,7 @@ if(stringnull(defaultKey)){
  */
 $(".header_seek").click(function(){
 	
-	location.href='/xcview/html/search.html';
+	location.href='/xcview/html/search.html?search_back=2';
 })
 
 

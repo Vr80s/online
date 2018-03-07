@@ -15,6 +15,12 @@
 <link rel="stylesheet" href="/xcview/css/cn_login.css">
 <link rel="stylesheet" href="/xcview/css/alert/sharecss.css">
 
+<style type="text/css">
+	.enter_btns{
+		pointer-events: none;
+	}
+</style>
+
 </head>
 <body style="background:#fff;">
 	<!-- 头部开始 -->
@@ -50,13 +56,13 @@
 	 	<div class="forget_password"><!--<a href="javascript: ;">海外用户注册</a>--><a href="javascript: ;" class="enroll">登录</a></div> 
 		<div class="both"></div>
 		<div class="other_means">
-			<div class="other_means_ru">√</div>
-			同意<span class="check01_a">《熊猫中医用户协议》</span>和<span class="check02_a">《隐私条款》</span>
+			<div class="other_means_ru">
+				<input type="checkbox" name='check' style="width: 0.24rem;height: 0.24rem;opacity: 0;" checked="checked" id="checkbox1" />
+			</div>
+			同意<span class="check01_a">《熊猫中医用户协议》</span><!--和<span class="check02_a">《隐私条款》</span>-->
 		</div>
 	</div>
 	<!-- 中间内容结束 -->
-	
-	
 	<!-- 熊猫中医用户协议 -->
 	
 	<div class="deal_show">
@@ -180,6 +186,24 @@ $(document).ready(function() {
 		$(".deal_show").hide();
 	});
 	
+	
+	var flag = 1;
+ 	$(".other_means_ru").click(function(){
+  		if(flag == 1){
+   			$(".other_means_ru").css("background","url(../images/agrees.png) no-repeat");
+   			$(".other_means_ru").css("background-size","100% 100%");
+   			flag = 0;
+  		} else{
+  			 $(".other_means_ru").css("background","url(../images/agree.png) no-repeat");
+  			 $(".other_means_ru").css("background-size","100% 100%");
+   			flag = 1;
+  		}
+ 	})
+	
+
+	
+	
+	
 });
 </script>
 
@@ -193,64 +217,7 @@ $(document).ready(function() {
 </script>
 
 
-<script type="text/javascript">
-	window.onload = function(){
-		var Ipt0,Ipt1,Ipt2;
 
-		$('.input0').keyup(function(){
-			Ipt0 = $.trim($('.input0').val());
-		 	Ipt1 = $.trim($('.input1').val());
-		 	Ipt2 = $.trim($('.input2').val());
-		 	
-			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
-				$(".enter_btn").css("opacity","1");
-			}else{
-				$(".enter_btn").css("opacity","0.3");      	
-			}
-		})
-		
-		$('.input1').keyup(function(){
-			Ipt0 = $.trim($('.input0').val());
-		 	Ipt1 = $.trim($('.input1').val());
-		 	Ipt2 = $.trim($('.input2').val());
-		 	
-			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
-				$(".enter_btn").css("opacity","1");
-			}else{
-				$(".enter_btn").css("opacity","0.3");      	
-			}
-		})
-		
-		$('.input2').keyup(function(){
-			Ipt0 = $.trim($('.input0').val());
-		 	Ipt1 = $.trim($('.input1').val());
-		 	Ipt2 = $.trim($('.input2').val());
-		 	
-			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
-				$(".enter_btn").css("opacity","1");
-			}else{
-				$(".enter_btn").css("opacity","0.3");      	
-			}
-		})
-		
-		
-		//		点击小眼睛
-		$('.open').on('click',function(){
-		  	if($("#password").prop('type')=='password'){
-		    	$("#password").prop('type','text');
-		    	$(".div").css("background","url(../images/show.png) no-repeat");
-		    	$(".div").css("background-size","100% 100%");
-		  	}else{
-		    	$("#password").prop('type','password');   /*看不到小眼睛,最初默认的时候*/
-		    	$(".div").css("background","url(../images/hide.png) no-repeat");
-		    	$(".div").css("background-size","100% 100%");
-		  	}
-		});
-		
-		
-		
-	};
-</script>
 <!--<script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script>-->
 <!--获取验证码-->
 <script type="text/javascript"> 
@@ -280,5 +247,86 @@ $(document).ready(function() {
 	}
 </script>
 
+
+<script type="text/javascript">
+	window.onload = function(){
+		var Ipt0,Ipt1,Ipt2;
+
+		$('.input0').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+//				$(".enter_btn").addClass("enter_btns");
+			}else{
+				$(".enter_btn").css("opacity","0.3");
+//				$(".enter_btn").removeClass("enter_btns");
+			}
+		})
+		
+		$('.input1').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+//				$(".enter_btn").addClass("enter_btns");
+			}else{
+				$(".enter_btn").css("opacity","0.3");    
+//				$(".enter_btn").removeClass("enter_btns");
+			}
+		})
+		
+		$('.input2').keyup(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").css("opacity","1");
+//				$(".enter_btn").addClass("enter_btns");
+			}else{
+				$(".enter_btn").css("opacity","0.3");     
+//				$(".enter_btn").removeClass("enter_btns");
+			}
+		})
+		
+		
+		/*$('#enter_btn').click(function(){
+			Ipt0 = $.trim($('.input0').val());
+		 	Ipt1 = $.trim($('.input1').val());
+		 	Ipt2 = $.trim($('.input2').val());
+		 	
+			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
+				$(".enter_btn").removeClass("enter_btns");
+			}else{ 
+				$(".enter_btn").addClass("enter_btns");
+			}
+		})*/
+		
+		
+		
+		
+		
+		//		点击小眼睛
+		$('.open').on('click',function(){
+		  	if($("#password").prop('type')=='password'){
+		    	$("#password").prop('type','text');
+		    	$(".div").css("background","url(../images/show.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}else{
+		    	$("#password").prop('type','password');   /*看不到小眼睛,最初默认的时候*/
+		    	$(".div").css("background","url(../images/hide.png) no-repeat");
+		    	$(".div").css("background-size","100% 100%");
+		  	}
+		});
+		
+		
+		
+	};
+</script>
 
 </html>

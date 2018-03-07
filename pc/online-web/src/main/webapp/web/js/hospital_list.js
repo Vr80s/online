@@ -63,18 +63,28 @@ $(function(){
 //	           $('.more_hospital').css('display','none');
 				$('.more_hospital').addClass('hide');
 	        }else if(current == data.resultObject.pages){
+	        	if( current == 1){
 	         	$('#hospital_list').html('')
 	        	$('#hospital_list').append(template('hospitalNumTpl',data.resultObject));
+	        		
+	        	}
+
+
 	        	$('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        	$('.more_hospital').addClass('hide');
 	        }else{
-//	        		$('#hospital_list').html('')
+	        	if( current == 1){
+	        		$('#hospital_list').html('')
+	        	$('#hospital_list').append(template('hospitalNumTpl',data.resultObject));
+	        		
+	        	}
+	        		
 	        	//获取到数据渲染
 	        	if(data.resultObject.pages > 1){
 	        		$('.more_hospital').removeClass('hide');
 	        	}
 	        	//创建一个盒子
-	        	$('#hospital_list').append(template('hospitalNumTpl',data.resultObject));
+
 	        	
 	           $('#hospital_list').append(template('hospitalTpl',{hospital:data.resultObject.records}));
 	        }
@@ -122,6 +132,13 @@ $(function(){
 	    $('.more_hospital>button').click(function(){
 	    	current +=1;
 	    	console.log(current)
+			var name = $('.search_hos').val();
+	    	var field; 
+		    if($('#hos_search_condition1').hasClass('hide')){
+		  	  field = '';
+		    }else{
+		  	  field = $('#hos_search_condition1 span').attr('data-fileid');
+		    	}
 	    	getHostipalList(current,size,name,field);
 	    })
 	    

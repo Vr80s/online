@@ -30,9 +30,9 @@ if(stringnull(third_party_uc_t_)){
 	
 	//alert(third_party_uc_t_);
 	//alert(decodeURI(third_party_uc_t_));
-	
-	openId = third_party_uc_t_.split("%3B")[0];
-	unionId = third_party_uc_t_.split("%3B")[1];
+	third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
+	openId = third_party_uc_t_.split(";")[0];
+	unionId = third_party_uc_t_.split(";")[1];
 	//alert(openId+"=====third_party_uc_t_====="+unionId);
 }else{
 	openId = getQueryString("openId");
@@ -92,8 +92,15 @@ document.getElementById("btn").addEventListener("tap", function() {
 		
 		if (data.code == 400) { //显示密码框
 			vtype =1;
-			//$("#password_div").show();
-			
+			$("#password_div").show();
+		} else if(data.code == 401){ //隐藏密码框
+			vtype =2;
+			$("#password_div").hide();
+		}else if(data.code == 402){
+			webToast("此手机号绑定其他微信号","middle",1500);
+		}
+		
+		if(data.code != 402){
 			requestService("/xczh/user/sendCode", {username:number,vtype:vtype}, function(data) {
 				if (data.success) {
 					//进入倒计时
@@ -102,14 +109,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 					webToast(data.errorMessage,"middle",1500);
 				}
 			});
-		} else if(data.code == 401 || data.code == 402){ //隐藏密码框
-			/*vtype =2;
-			$("#password_div").hide();*/
-			webToast("此手机号已经注册了","middle",1500);
-		}else if(data.code == 402){ //此手机号已经绑定了其他微信号,
-			alert("此手机号已绑定其他微信号了");
 		}
-		
 	});
 })
 
@@ -143,15 +143,17 @@ $(".enter_btn").click(function(){
 			userName:number,
 			code:yanzhengma,
 			unionId:unionId,
-			vtype:vtype
+			type:1
 	};
 	
-	var url = "/xczh/third/h5WechatMobile";
+	var url = "/xczh/third/thirdPartyBindIsNoMobile";
 	if(vtype==1){
+		
 		if (!stringnull(userpassword)) {
 			webToast("密码不能为空","middle",1500);
 			return false;
 		}
+		url = "/xczh/third/thirdPartyBindMobile";
 		params.passWord = userpassword;
 	}
 	requestService(url,params, function(data) {
@@ -167,8 +169,10 @@ $(".enter_btn").click(function(){
 			//if(jump_type == 1){
 				//location.href = "/xcview/html/home_page.html?openId="+openId;
 			//}else if(jump_type == 2){
-				location.href = "/xcview/html/my_homepage.html?openId="+openId;
+			 //location.href = "/xcview/html/my_homepage.html?openId="+openId;
 			//}
+			
+			window.history.back(); //返回上一页
 		} else {
 			webToast(data.errorMessage,"middle",1500);
 		}
@@ -179,7 +183,8 @@ $(".enter_btn").click(function(){
  * 返回登录页
  */
 $(".header_return").click(function(){
-	location.href = "/xcview/html/enter.html";
+	//location.href = "/xcview/html/enter.html";
+	window.history.back();
 })
 
 

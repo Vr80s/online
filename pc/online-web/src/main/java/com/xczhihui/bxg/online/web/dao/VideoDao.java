@@ -474,22 +474,38 @@ public class VideoDao extends SimpleHibernateDao {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
         
-        
         /**
          * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
          * 	 或者是购买成功	
-         * 	
+         * 
+         * 一个专辑下存在多个课程，然后课程
          */
-        
-        
         if(courseId !=null || teacherId!=null){
            StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
 	       	  sql.append("  and c.userId =:userId ");
 	       	  paramMap.put("userId", teacherId);
 	       }else if(courseId!=null && courseId!=0){
-	       	  sql.append("  and c.courseId =:courseId ");
-	       	  paramMap.put("courseId",courseId);
+	    	  //查找这个课程是不是专辑、如果是专辑就 用in来查找啦
+	    	  List<Integer> list =  getCoursesIdListByCollectionId(courseId);
+	    	  
+	    	  System.out.println("list.size()---"+list.size());
+	    	  if(list.size()>0){
+	    		  list.add(courseId);
+	    		  String str = "";
+	    		  for (int i = 0; i < list.size(); i++) {
+					Integer array_element = list.get(i);
+					if(i == list.size()-1){
+						str +=array_element;
+					}else{
+						str +=array_element+",";
+					}
+				  }
+	    		  sql.append("  and c.courseId in ("+str+") ");
+	    	  }else{
+	    		  sql.append("  and c.courseId =:courseId ");
+		       	  paramMap.put("courseId",courseId);
+	    	  } 
 	       }
 	       sql.append(" order by c.createTime desc ");
 
@@ -586,18 +602,28 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public Integer findUserFirstStars(Integer courseId,String userId) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select (SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
-        sql.append(" and argc.user_id=:userId ) as isBuy,count(*) as isStats ");
-        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson ");
+        sql.append("select criticize_lable ");
+        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and is_buy=1");
         Map<String,Object> paramMap = new HashMap<>();
-//        paramMap.put("courseId", courseId);
         paramMap.put("courseId", courseId);
-        paramMap.put("userId", userId);
         paramMap.put("createPerson", userId);
         List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
         //List<Map<String, Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql.toString(),paramMap);
         Integer isViewStars = 0;
-        if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
+        boolean isComment=false;
+        if(list.size()>0){
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
+                    isComment=true;
+                    isViewStars=2;
+                    break;
+                }
+            }
+            if(!isComment){
+                isViewStars=1;
+            }
+        }
+        /*if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
         	Long isBuy =  (Long) list.get(0).get("isBuy");
         	Long isStats = (Long) list.get(0).get("isStats");
              if(isBuy!=null && isBuy>0){ //表示购买过了
@@ -606,10 +632,34 @@ public class VideoDao extends SimpleHibernateDao {
              if(isBuy!=null && isStats!=null && isBuy>0 && isStats>0){
             	 isViewStars = 2;
              }
-        }
+        }*/
         return isViewStars;
     }
     
+    
+    /**
+     * 
+     * Description：通过课程id得到这个专辑的信息
+     * @param courseId
+     * @param userId
+     * @return
+     * @return List<Integer>
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public List<Integer>  getCoursesIdListByCollectionId(Integer courseId) {
+    	
+        String sql="SELECT \n" +
+                "  oc.`id` \n"+ 
+                "FROM\n" +
+                "  `oe_course` oc \n" +
+                "  JOIN `collection_course` cc \n" +
+                "    ON oc.id = cc.`course_id` \n" +
+                "WHERE cc.`collection_id` = "+courseId+" \n";
+        List<Integer> list = this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql, Integer.class);
+        return list;
+       
+    }
     
     
     /**

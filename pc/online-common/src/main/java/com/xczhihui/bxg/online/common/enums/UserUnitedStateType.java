@@ -11,6 +11,9 @@ package com.xczhihui.bxg.online.common.enums;
 public enum UserUnitedStateType {
 
 	
+	
+	
+	
 	//code:1000 的 是有效  1002 是过期了  1003 是其他设备登录了  1001 token不能为空
 	//app登录状态
 	EFFECTIVE(1000, "有效"),

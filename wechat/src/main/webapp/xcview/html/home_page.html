@@ -16,19 +16,19 @@
 <!--刷新css引入-->
 <link rel="stylesheet" href="/xcview/css/mui.mins.css">
 
-<link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1"/>
+<link rel="stylesheet" type="text/css" href="/xcview/css/home_page.css?v=wechat_1.1.1"/>
 
 <script src="/xcview/js/js.js"></script>
 
 <script type="text/javascript" src="/xcview/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1"></script>
+<script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/template.js"></script>   <!--模板引入-->
-<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1"></script>
+<script type="text/javascript" src="/xcview/js/home_page.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="/xcview/js/swipeslider.min.js"></script>
 <script type="text/javascript" src="/xcview/js/common/swiper.min.js"></script>
 <!--新滑动引入-->
-<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1"></script>
+<script type="text/javascript" src="/xcview/js/table/touchslider.js?v=wechat_1.1.1"></script>
 <style type="text/css">
 	.swiper-container {
         width: 100%;
@@ -252,7 +252,7 @@
 	<!--头部搜索开始-->
 	<header>
 		<div class="header">
-			<div class="header_seek" onClick="location.href='/xcview/html/search.html'"> 
+			<div class="header_seek" onClick="location.href='/xcview/html/search.html?search_back=1'"> 
 				<div class="header_seek_main">
 					<img src="/xcview/images/sousuo0.png" alt="" />
 					<span class="header_seek_main_span">
@@ -864,7 +864,7 @@ tt.p = 0;
 /**
  * 加载页面 滑动上边的tab
  */
-var school_index =  sessionStorage.getItem("school_index");
+var school_index =  sessionStorage.getItem("1");
 if(!stringnull(school_index)){
 	school_index = 1;
 }

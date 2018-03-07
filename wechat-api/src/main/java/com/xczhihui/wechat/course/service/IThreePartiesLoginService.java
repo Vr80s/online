@@ -120,5 +120,19 @@ public interface IThreePartiesLoginService {
 
 
 	public void deleteAccount(String id);
+
+	/**
+	 * 
+	 * Description：通过用户id和unionId获取qq信息
+	 * @param userId
+	 * @param openId
+	 * @return
+	 * @return QQClientUserMapping
+	 * @author name：yangxuan <br>email: 15936216273@163.com
+	 * 
+	 */
+	QQClientUserMapping selectQQClientUserMappingByUserIdAndOpenId(
+			String userId, String openId);
+	
 	
 }

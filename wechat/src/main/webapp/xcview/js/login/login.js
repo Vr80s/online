@@ -38,7 +38,7 @@ if (is_weixin()) {
  */
 function sanfangLogin(){
 	
-	location.href = "/xczh/wxlogin/wxGetCodeUrl";
+	location.href = "/xczh/wxlogin/publicWechatAndMobile";
 	//location.href = "/bxg/wxjs/h5BsGetCodeUrl";
 }
 
@@ -80,7 +80,7 @@ function login(){
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
 		
-		webToast("请输入正确格式的账号","middle",1500);
+		webToast("请输入正确的手机号","middle",1500);
 		return false;
 	}
 	var pwdLength = password.trim().length;
@@ -115,7 +115,7 @@ function login(){
 				 /* 
 				  * 需要获取下用户信息啦，并且需要传递用户名和密码过去
 				  */
-				location.href = "/xczh/wxlogin/h5BsGetCodeUrlReqParams?username="+number;
+				location.href = "/xczh/wxlogin/getCurrentWechatOpenId?username="+number;
 			}else{
 				/*
 				 * 跳转到分类

@@ -217,15 +217,15 @@ public class QQThirdPartyController {
 				
 			 LOGGER.info("accessToken   ============"+accessToken);
 			 LOGGER.info("qq用户openid   ============"+openId);
+			 
 	             /**
-	              * 获取qq unionId
-	              * 
+	              * 获取qq unionId   --  目前
 	              */
-	             String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
+	             //String unionId = this.getQQUnionIdByOpenIdAndAccessToken(accessToken);
 	             
-	         LOGGER.info("qq用户unionId   ============"+unionId);
+	        // LOGGER.info("qq用户unionId   ============"+unionId);
 	             
- 				QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByUnionId(unionId);
+ 				 QQClientUserMapping qqUser =  threePartiesLoginService.selectQQClientUserMappingByOpenId(openId);
 	            	             
 	             if(qqUser==null){   //保存qq用户
 	            	 LOGGER.info("第一次存入qq用户信息");
@@ -249,16 +249,16 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		             qq.setFigureurl(userInfoBean.getAvatar().getAvatarURL30());
 		             qq.setFigureurl1(userInfoBean.getAvatar().getAvatarURL50());
 		             qq.setFigureurl2(userInfoBean.getAvatar().getAvatarURL100());
-		             qq.setUnionId(unionId);
+		             //qq.setUnionId(unionId);
 		           
 		            //用户id不等于null时，就判定用户第三方登录是通过手机号来绑定 第三方登录信息的
-		             if(userId!=null){  // 绑定成功
+		             if(StringUtils.isNotBlank(userId)){  // 绑定成功
 		            	 qq.setUserId(userId);	
 		            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
 		 			 }else{
 		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 		 			 }
-		             mapRequest.put("unionId",unionId);
+		             mapRequest.put("unionId",openId);
 		             
 		             threePartiesLoginService.saveQQClientUserMapping(qq);
 					
@@ -267,7 +267,7 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 					
 					LOGGER.info("熊猫中医用户id   ============已绑定用户信息"+qqUser.getUserId());  
 					
-					if(userId!=null){  // 这里说明人家这个已经绑定过其他信息了。
+					if(StringUtils.isNotBlank(userId)){  // 这里说明人家这个已经绑定过其他信息了。
 						mapRequest.put("code",UserUnitedStateType.MOBILE_UNBOUNDED.getCode()+"");	
 						return ResponseObject.newSuccessResponseObject(mapRequest,UserUnitedStateType.MOBILE_UNBOUNDED.getCode());
 		 			}
@@ -289,7 +289,10 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 					
 				    LOGGER.info("熊猫中医用户id 没有绑定用户信息"+qqUser.getUserId());
 					
-				    if(userId!=null){  // 绑定成功
+				    if(StringUtils.isNotBlank(userId)){  // 绑定成功
+				    	
+				    	 LOGGER.info("存在用户id");  
+				    	
 		            	 mapRequest.put("code",UserUnitedStateType.MOBILE_BINDING.getCode()+"");
 		            	 /**
 		            	  * 更改qq信息	--》增加用户id
@@ -298,9 +301,12 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		            	 threePartiesLoginService.updateQQInfoAddUserId(qqUser);
 		            	 
 		 			}else{
+		 				
+		 				LOGGER.info("不存在用户id");
+		 				
 		 				 mapRequest.put("code",UserUnitedStateType.UNBOUNDED.getCode()+"");
 		 			}
-					mapRequest.put("unionId",unionId);
+					mapRequest.put("unionId",openId);
 					
 					return ResponseObject.newSuccessResponseObject(mapRequest,Integer.parseInt(mapRequest.get("code").toString()));
 				}
@@ -329,7 +335,7 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
     	
 		return new UserInfoBean(this.client.get(QQConnectConfig.getValue("getUserInfoURL"), new PostParameter[] { 
 			new PostParameter("openid", openid), 
-			new PostParameter("oauth_consumer_key","1106654789"), 
+			new PostParameter("oauth_consumer_key","1106447696"), 
 			new PostParameter("access_token", token), new PostParameter("format", "json") }).asJSONObject());
 	}
 	

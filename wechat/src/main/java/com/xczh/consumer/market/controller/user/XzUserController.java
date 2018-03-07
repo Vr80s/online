@@ -279,7 +279,6 @@ public class XzUserController {
 				
 				this.onlogin(req, res, t, o,t.getTicket());
 				
-				
 				/**
 				 * 清除这个cookie
 				 */

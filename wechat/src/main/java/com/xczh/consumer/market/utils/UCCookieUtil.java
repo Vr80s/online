@@ -77,7 +77,10 @@ public class UCCookieUtil {
 			//加码
 			String openId = tf.getOpenId();
 			String unionId = tf.getUnionId();
-			String v = String.format("%s;%s", openId, unionId);
+			String nickName = tf.getNickName();
+			String headImg = tf.getHeadImg();
+			
+			String v = String.format("%s;%s;%s;%s", openId, unionId,nickName,headImg);
 			str = URLEncoder.encode(v, "UTF-8");
 			
 			writeBXGCookie(response, THIRD_PARTY_COOKIE_TOKEN_NAME, str, TokenExpires.TenDay.getExpires());
@@ -110,10 +113,14 @@ public class UCCookieUtil {
 			String[] strs = str.split(";");
 			String openId =strs[0].trim();
 			String unionId = strs[1].trim();
+			String nickName = strs[2].trim();
+			String headImg = strs[3].trim();
 			
 			ThridFalg tf = new ThridFalg();
 			tf.setOpenId(openId);
 			tf.setUnionId(unionId);
+			tf.setNickName(nickName);
+			tf.setHeadImg(headImg);
 			
 			return tf;
 		} catch (UnsupportedEncodingException e) {

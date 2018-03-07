@@ -114,7 +114,7 @@ public class CourseDao extends HibernateDao<Course>{
 			 sql.append(" AND oc.`type` = 3");
 		 }
 
-		 sql.append(" group by oc.id  order by oc.status desc,oc.sort desc");
+		 sql.append(" group by oc.id  order by oc.status desc,oc.is_recommend desc,oc.create_time desc");
 
 		 Page<CourseVo> courseVos = this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 		 for (CourseVo entityVo : courseVos.getItems()) {

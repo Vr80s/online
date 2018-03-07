@@ -163,7 +163,7 @@
 								<p>文件小于2M</p>
 								<p>支持JPG/PNG等格式图片</p>
 							</span>-->
-								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="fengmian_picIpt">
+								<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="fengmian_picIpt" accept="image/gif,image/jpeg,image/jpg,image/png" >
 								<p class="fengmian_pic_warn warning hide">请上传封面图</p>
 							</div>
 							
@@ -465,7 +465,7 @@
 								<p>文件小于2M</p>
 								<p>支持JPG/PNG等格式图片</p>
 							</span>
-							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt" />
+							<input type="file" placeholder="请填写您的专栏标题" style="visibility: hidden;display: inline-block;" id="picIpt" accept="image/gif,image/jpeg,image/jpg,image/png"/>
 							<p class="warning hide">请上传封面图</p>
 						</div>
 
@@ -612,7 +612,7 @@
 								<p onclick="fileClick()" class='fileUpdata'>重新上传</p>
 							</a>
 						</div>
-						<input type="file" class="" name="upload-file" id="upload-file" accept=".bmp,.png,.jpeg,.jpg" />
+						<input type="file" class="" name="upload-file" id="upload-file" accept="image/gif,image/jpeg,image/jpg,image/png" />
 					</div>
 					<span class="btn-upload bbtn">确定</span>
 					<a href="javascript:;" class="btn-quit bbtn">取消</a>
@@ -636,9 +636,9 @@
 		</div>
 		{{else if status == 1}}
 		<div class="bottomContent_inf text-left">
-			<span>已于{{createTime}}通过认证</span><span style="color: red;margin-left: -20px;">（如信息有更新可重新认证）</span>
+			<span>已于{{createTime}}通过认证，享有入驻医师的功能</span><span style="color: red;margin-left: -20px;"></span>
 			<!--<button class="renzhengAgain">重新认证</button> （如信息有更新可重新认证）-->
-			<button class="renzhengAgain">重新认证</button>
+			<!--<button class="renzhengAgain">重新认证</button>-->
 			
 		</div>
 		{{else if status == 0}}

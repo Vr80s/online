@@ -193,6 +193,8 @@ public class MobileShareController {
 					ThridFalg tf = new ThridFalg(); 
 					tf.setOpenId(wxw.getOpenid());
 					tf.setUnionId(wxw.getUnionid());
+					tf.setNickName(wxw.getNickname());
+					tf.setHeadImg(wxw.getHeadimgurl());
 					
 					UCCookieUtil.writeThirdPartyCookie(res,tf);
 				}else{

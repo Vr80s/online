@@ -163,6 +163,13 @@ color: #999999;
 	float: left;
 	margin-top: -0.02rem;
 	margin-left: 0.1rem;
+	
+	padding-right: 0.26rem;
+    box-sizing: border-box;
+    width: 6.4rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .playTime li p{
 	width: 0.98rem;
@@ -226,6 +233,7 @@ color: #999999;
 }
 .wrap p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao{
 	width: 100%;
@@ -317,6 +325,7 @@ color: #999999;
 }
 .wrap1 p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao1{
 	width: 100%;
