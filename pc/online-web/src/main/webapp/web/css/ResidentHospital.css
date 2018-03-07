@@ -23,7 +23,7 @@ a {
 #hos_pic{
 	display: inline-block;
 }
-#hos_pic>img{
+/*#hos_pic>img{
 	width: 260px;
 	height: 147px;
 	margin-right: 15px;
@@ -31,6 +31,20 @@ a {
 }
 #hos_pic>img:nth-child(3n){
 	margin-right: 0;
+}*/
+#hos_pic>div{
+	width: 260px;
+	height: 147px;
+	margin-right: 15px;
+	margin-bottom: 20px;
+	display: inline-block;
+}
+#hos_pic>div:nth-child(3n){
+	margin-right: 0;
+}
+#hos_pic>div>img{
+	width: 100%;
+	height: 100%;
 }
 .color{
 	color: #00bc12 !important;
