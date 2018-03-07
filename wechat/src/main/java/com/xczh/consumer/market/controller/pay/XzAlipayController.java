@@ -755,7 +755,7 @@ public class XzAlipayController {
 					
 					if ("1".equals(ppbt)) {
 						// 打赏
-						LOG.info("充值回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
+						LOG.info("打赏回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
 						
 						RewardParamVo rpv = JSONObject.parseObject(
 								alipayPaymentRecordH5.getPassbackParams(),
@@ -802,14 +802,18 @@ public class XzAlipayController {
 					} else if ("3".equals(ppbt)) {
 						
 						LOG.info("充值回调数据包："+ alipayPaymentRecordH5.getPassbackParams());
-						/**
-						 * 存入这个阿里消费记录表中，查找消费记录
-						 */
-						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
+						
 						/**
 						 * 将数据包转为用户代币对象，便于插入
 						 */
 						RechargeParamVo rechargeParamVo  = JSONObject.parseObject(alipayPaymentRecordH5.getPassbackParams(),RechargeParamVo.class);
+						alipayPaymentRecordH5.setUserId(rechargeParamVo.getUserId());
+						alipayPaymentRecordH5.setSubject("充值");
+						/**
+						 * 存入这个阿里消费记录表中，查找消费记录
+						 */
+						alipayPaymentRecordH5Service.insert(alipayPaymentRecordH5);
+						
 						/**
 						 * 充值后记录增加，代币系统的余额执行代币充值工作
 						 * 
@@ -818,6 +822,7 @@ public class XzAlipayController {
 						 * 充值金额 (熊猫币) 
 						 * 订单来源  
 						 * 订单号   (这里是支付宝的订单号)
+						 * updateBalanceForRecharge
 						 */
 						//TODO
 						userCoinService.updateBalanceForRecharge(rechargeParamVo.getUserId(),

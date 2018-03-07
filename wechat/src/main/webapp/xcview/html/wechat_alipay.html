@@ -79,7 +79,6 @@
 	    	if(type==1){//支付
 	    		jmpPayPage("/xczh/alipay/pay",2,"formIsWechat=1&orderId="+getQueryString("orderId"),null);
 	    	}else{		//充值 --》怎样证明充值成功呢
-	    		alert((new Date()).pattern("yyyyMMddHHmm")+randomWord(true,12,12));
 	    		outTradeNo = (new Date()).pattern("yyyyMMddHHmm")+randomWord(true,12,12);
 	    		jmpPayPage("/xczh/alipay/rechargePay",2,
 	    				"formIsWechat=1&type="+getQueryString("type")+

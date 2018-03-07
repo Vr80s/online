@@ -35,6 +35,7 @@ import com.xczh.consumer.market.bean.OnlineUser;
 import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.SLEmojiFilter;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
@@ -126,7 +127,9 @@ public class QQThirdPartyController {
 		             
 		             qq.setId(UUID.randomUUID().toString().replace("-", ""));
 		             qq.setOpenId(openID);
-		             qq.setNickname(userInfoBean.getNickname());
+		            // 防止表情名字
+		 			 String nickname_ = SLEmojiFilter.filterEmoji(userInfoBean.getNickname());
+		             qq.setNickname(nickname_);
 		             qq.setGender(userInfoBean.getGender());
 		             qq.setLevel(userInfoBean.getLevel());
 		             qq.setVip(userInfoBean.isVip());
@@ -241,7 +244,9 @@ LOGGER.info("userInfoBean   ============"+userInfoBean.toString());
 		             QQClientUserMapping qq = new QQClientUserMapping();
 		             qq.setId(UUID.randomUUID().toString().replace("-", ""));
 		             qq.setOpenId(openId);
-		             qq.setNickname(userInfoBean.getNickname());
+		             // 防止表情名字
+		 			 String nickname_ = SLEmojiFilter.filterEmoji(userInfoBean.getNickname());
+		             qq.setNickname(nickname_);
 		             qq.setGender(userInfoBean.getGender());
 		             qq.setLevel(userInfoBean.getLevel());
 		             qq.setVip(userInfoBean.isVip());
