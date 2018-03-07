@@ -42,7 +42,7 @@ a{text-decoration:none;color:#007aff} a:active{color:#0062cc} .mui-content{-webk
 .mui-bar-footer-secondary-tab~.mui-content{padding-bottom:94px} 
 .mui-bar-footer-secondary-tab~.mui-content.mui-scroll-wrapper .mui-scrollbar-vertical{bottom:94px} 
 .mui-content-padded{margin:10px} .mui-inline{display:inline-block;vertical-align:top} 
-.mui-block{display:block!important} .mui-visibility{visibility:visible!important} 
+.mui-block{display1:block!important} .mui-visibility{visibility:visible!important} 
 .mui-hidden{display:none!important} .mui-ellipsis{overflow:hidden;white-space:nowrap;text-overflow:ellipsis} 
 .mui-ellipsis-2{display:-webkit-box;overflow:hidden;white-space:normal!important;text-overflow:ellipsis;word-wrap:break-word;-webkit-line-clamp:2;-webkit-box-orient:vertical} 
 .mui-table{display:table;width:100%;table-layout:fixed} .mui-table-cell{position:relative;display:table-cell} .mui-text-left{text-align:left!important} 
