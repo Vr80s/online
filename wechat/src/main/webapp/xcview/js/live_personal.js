@@ -143,17 +143,19 @@ requestService("/xczh/host/hostPageInfo",{
 
 		if(data.resultObject.hospital==null){
 			data.resultObject.hospital={};
+			data.resultObject.hospital.has=false;
+		}else{
+			data.resultObject.hospital.has=true;
 		}
-		if(data.resultObject.hospital.name==null){
-			data.resultObject.hospital.name="";
-
-		}
-		if(data.resultObject.hospital.tel==null){
-			data.resultObject.hospital.tel="";
-		}
-		if(data.resultObject.hospital.detailedAddress==null){
-			data.resultObject.hospital.detailedAddress="";
-		}
+//		if(data.resultObject.hospital.name==null){
+//			data.resultObject.hospital.name="";
+//		}
+//		if(data.resultObject.hospital.tel==null){
+//			data.resultObject.hospital.tel="";
+//		}
+//		if(data.resultObject.hospital.detailedAddress==null){
+//			data.resultObject.hospital.detailedAddress="";
+//		}
 		if(data.resultObject.lecturerInfo==null){
 			data.resultObject.lecturerInfo={};
 		}
@@ -162,7 +164,22 @@ requestService("/xczh/host/hostPageInfo",{
 		}
 		$("#sure_address").html(template('data_address',data.resultObject));
 		
-
+		if(!data.resultObject.hospital.has){
+			return;
+		}
+		$(".hid").removeClass("hide");
+		if(data.resultObject.hospital.name!=null){
+			$(".hid_name").removeClass("hide");
+		}
+		if(data.resultObject.hospital.tel!=null){
+			$(".hid_tel").removeClass("hide");
+		}
+		if(data.resultObject.hospital.detailedAddress!=null){
+			$(".hid_address").removeClass("hide");
+		}
+		if(data.resultObject.lecturerInfo!=null && data.resultObject.lecturerInfo.workTime!=null){
+			$(".hid_wtime").removeClass("hide");
+		}
 		
 		
 		
