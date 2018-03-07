@@ -38,6 +38,8 @@
 		}
 		.mui-scroll{
 			background: #fff;
+			padding-top: 0.3rem;
+			/*position: absolute;*/
 		}
 		/*处理刷新效果*/
 		.mui-scroll-wrapper{
@@ -54,7 +56,7 @@
 			bottom: 1rem;
 		}
 		.bought_main{
-			padding-bottom: 0.6rem;
+			padding-bottom: 0rem;
 		}
 		.mui-pull-bottom-pocket .mui-pull{
 			bottom: 0rem;
@@ -62,17 +64,25 @@
 		    line-height: 40px;
 		}
 		.mui-pull-bottom-pocket{
-			position: relative;
-		    bottom: 1rem;
+			position: absolute;
+		    bottom: 0rem;
 		    height: 40px;
 		    line-height: 40px;
+		}
+		.bought_main .bought_main_list:last-child{
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+		.mui-scroll .mui-pull-bottom-pocket{
+			display: none;
+			/*background: red;*/
 		}
 	</style>
 
 </head>
 <body style="background:#f8f8f8;">
 	<!-- 头部开始 -->
-	<header>
+	<header class="headers">
 		<div class="header">
 			<div class="return" id="home_img"></div>
 			<div class="header_return" onclick="window.history.go(-1);">
@@ -183,7 +193,7 @@
 			
 			<div class="both"></div>
 		</div>
-				<div class="both"></div>
+				<!--<div class="both"></div>-->
 			</div>
 				<div class="both"></div>
 		</div>
@@ -205,6 +215,11 @@
 		kk=750
 	}
 	
-	document.documentElement.style.fontSize=kk/7.5+"px"		
+	document.documentElement.style.fontSize=kk/7.5+"px";
+	
+	
+	
+	var school_height=$(window).height()-$(".headers").height();
+	$(".mui-scroll-wrapper").height(school_height);
 </script>
 </html>

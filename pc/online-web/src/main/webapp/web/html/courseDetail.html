@@ -168,9 +168,22 @@
                     <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
                  {{/if}}
              {{else}}
-                 {{if available}}
-                    <a class="sign-up purchase" data-apply="false" data-id="{{id}}" target="_blank">立即报名</a>
-                 {{/if}}
+	             {{if selfCourse}}
+	             	{{if collection}}
+	             		<a class="purchase" style="background-color:#ccc;border-radius:4px">点击选集列表进行学习</a>
+	             		{{else}}
+	             		<a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即查看</a>
+	             	{{/if}}
+	             	{{else if available}}
+	                    <a class="sign-up purchase" data-apply="false" data-id="{{id}}" target="_blank">立即报名</a>
+	                {{else if available==false}}
+	                	{{if status=='0'}}
+	                    <a class="purchase" style="background-color:#ccc;border-radius:4px">课程未上架，不可单独购买</a>
+						{{else}}
+						<a class="purchase" style="background-color:#ccc;border-radius:4px">课程已经停止报名</a>
+						{{/if}}
+	             {{/if}}
+                 
              {{/if}}
              </div>
         </div>

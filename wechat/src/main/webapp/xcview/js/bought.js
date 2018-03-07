@@ -94,6 +94,9 @@ function downCallback(){
 function upCallback(){
     num++;
     getBoughtList(num,10,'up');
+    
+	    
+    
 }
 
 /**
@@ -127,6 +130,13 @@ function pulldownRefresh() {
         getBoughtList(num,10,'down');
         mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
     }, 500);
+    
+//  $(".mui-pull-bottom-pocket").show();
+    /*setTimeout(function () {  
+	        $(".mui-pull-bottom-pocket").removeClass("hide");
+	},3000);  */
+    
+    
 };
 var count = 0;
 /**
@@ -137,6 +147,23 @@ function pullupRefresh() {
     setTimeout(function() {
         getBoughtList(num,10,'up');
     }, 500);
+    
+    $(".mui-pull-bottom-pocket").css("display","block");
+    $(".bought_main").css("padding-bottom","0.6rem");
+    
+    
+//  $(".mui-pull-bottom-pocket").show();
+    
+    /*setTimeout(function () {  
+	        $(".mui-pull-bottom-pocket").addClass("hide");
+	        $(".mui-pull-bottom-pocket").hide();
+	}, 3000);  */
+    
+     /*$('.mui-pull-bottom-pocket').delay(1000).hide(0);
+     $('.mui-block').delay(1000).hide(0);*/
+    /*setTimeout(function () {  
+	        $(".mui-pull-bottom-pocket").hide();  
+	    }, 1000); */ 
 }
 
 
