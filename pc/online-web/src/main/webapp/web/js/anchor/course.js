@@ -418,7 +418,7 @@ function echoCourse(caiId){
             initResource(course.multimediaType);
             $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
             // $('.course_resource').val(course.resourceId);
-            $('.selectpicker').selectpicker('val',(course.resourceId));
+            $('.course_resource').selectpicker('val',(course.resourceId));
         }else{
             $('.course_start_time').val(course.startTime);
             $('.course_end_time').val(course.endTime);
@@ -1297,8 +1297,8 @@ function initResource(multimediaType,nv){
             str += "<option value='"+resources[i].id+"'>"+resources[i].title+"</option>";
         }
         $("#id_select").html(str);
-        $('.selectpicker').selectpicker('refresh');
-        $('.selectpicker').selectpicker({
+        $('.course_resource').selectpicker('refresh');
+        $('.course_resource').selectpicker({
             'selectedText': 'cat',size:10
         });
         $("#speech_select").html(str);

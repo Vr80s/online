@@ -78,11 +78,16 @@
 
 	<select id="getHotField" resultType="com.xczhihui.medical.field.vo.MedicalFieldVO">
 		SELECT
-		  mf.id,mf.name
+		  mf.id,
+		  mf.name
 		FROM
 		  `medical_field` mf
-		  LEFT JOIN `medical_hospital_field` mhf
+		  JOIN `medical_hospital_field` mhf
 			ON mf.`id` = mhf.`field_id`
+		  JOIN `medical_hospital` mh
+			ON mh.id = mhf.`hospital_id`
+			AND mh.`deleted`=0
+			AND mh.`status`=1
 		GROUP BY mhf.`field_id`
 		ORDER BY COUNT(mhf.`field_id`) DESC
 		LIMIT 0, 8

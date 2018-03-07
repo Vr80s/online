@@ -24,9 +24,13 @@ public class CourseApplyDao extends HibernateDao<CourseApplyInfo>{
 		 Map<String, Object> paramMap = new HashMap<String, Object>();
 		 StringBuilder sql = new StringBuilder("SELECT cai.id,\n" +
 				 "  cai.`title`,\n" +
+				 "  cai.`img_path` imgPath,\n" +
+				 "  cai.`course_form` courseForm,\n" +
 				 "  cai.`price`*10 as price,\n" +
 				 "  cai.lecturer,\n" +
-				 "  cai.create_time,cai.status,cai.review_time,cai.collection,IF(cai.`status`=2,1,cai.`status`) ostatus,om.`name` menuName,ou.name userName FROM `course_apply_info` cai JOIN `oe_menu` om ON om.id=cai.`course_menu` LEFT JOIN `oe_user` ou ON cai.`user_id`=ou.`id` WHERE cai.`is_delete`=0 ");
+				 "  cai.create_time,cai.status,cai.review_time,cai.collection,IF(cai.`status`=2,1,cai.`status`) ostatus," +
+				 "om.`name` menuName,ou.name userName FROM `course_apply_info` cai JOIN `oe_menu` om ON om.id=cai.`course_menu` " +
+				 " LEFT JOIN `oe_user` ou ON cai.`user_id`=ou.`id` WHERE cai.`is_delete`=0 ");
 		 if (courseApplyInfo.getTitle() != null) {
 			 paramMap.put("title", "%" + courseApplyInfo.getTitle() + "%");
 			 sql.append("and cai.title like :title ");

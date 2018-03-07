@@ -71,11 +71,12 @@ $(".check_one span").click(function(){
 /**
  * 学堂
  */
-$(".check_two span,.header_return").click(function(){
-	
+//$(".check_two span,.header_return").click(function(){
+//	location.href="/xcview/html/home_page.html";
+//})
+$(".check_two span").click(function(){
 	location.href="/xcview/html/home_page.html";
 })
-
 
 
 

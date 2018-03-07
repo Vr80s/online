@@ -425,7 +425,7 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 		hosPicStr += 
 //		'<img src='+v.picture+'>';
 		 '<div style="position: relative;">'+
-		 '<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">删除</span>'+
+		 '<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">X</span>'+
 		 '<img src="'+v.picture+'" >'+
 		 '</div>'
 		
@@ -546,7 +546,7 @@ function picUpdown2(baseurl,imgname){
 				 $('#hos_Administration #hos_pic').removeClass('hide');
 				 var picStr = 
 				 '<div style="position: relative;">'+
-				 '<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">删除</span>'+
+				 '<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">X</span>'+
 				 '<img src="'+data.resultObject+'" >'+
 				 '</div>'
 				 $('#hos_Administration #hos_pic').append(picStr);

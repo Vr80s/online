@@ -23,10 +23,8 @@
 	});
 */    //首页的推荐课程{
     template.helper('indexHref',function(description_show,free,id,courseType,type,direct_id,onlineCourse,encrypt){
-        courseType=(courseType=="直播")?0:1;//0：直播 1：点播
-        freeSt=(free==true)?1:0;//1:免费 0：收费
-        //description_show 0:不显示课程介绍页 1：显示课程介绍页
-//        if(description_show==0){
+        return '<a style="cursor:pointer"  href="/course/courses/'+id+'"  target="_blank">';
+        /*freeSt=(free==true)?1:0;//1:免费 0：收费
             //不显示课程介绍页
             //freest:1为免费 0为付费   courseType1为点播，0为直播
         	if(type == 3)
@@ -43,11 +41,7 @@
             	if(type == 1)
             		return '<a style="cursor:pointer"  href="/web/html/payOpenCourseDetailPage.html?id='+id+'"  target="_blank">';
                 return '<a href="/web/html/payCourseDetailPage.html?id='+id+'" target="_blank">';
-            }
-//        }else{
-            //显示课程介绍页
-//            return '<a href="/web/html/courseIntroductionPage.html?id='+id+'" target="_blank">';
-//        }
+            }*/
     })
     //详情页相关课程的直播判断
     template.helper('online2', function(num) {
