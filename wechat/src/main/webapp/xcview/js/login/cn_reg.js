@@ -42,7 +42,7 @@ document.getElementById("btn").addEventListener("tap", function() {
 		return false;
 	}
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",1500);
+//		webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
@@ -72,30 +72,45 @@ document.getElementById("btn").addEventListener("tap", function() {
 document.getElementById("enter_btn").addEventListener("tap", function() {
 	
 	//这块是需要搞下用户协议的同意
-//	var agreementchecked = document.getElementById("checkbox1").checked;
-//	if (stringnull(agreementchecked)) {
+	
+	var agreementchecked = document.getElementById("checkbox1").checked;
+	if (!agreementchecked) {
 //		reminderror.innerHTML = "";
-//		
-//	} else {
-//		
-//		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
-//		return false;
-//	}
+		
+		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
+		return false;
+	} /*else {
+		
+		webToast("您好，注册须同意《熊猫中医云课堂用户协议》","middle",1500);
+		return false;
+	}*/
+	
+	
 	var number = document.getElementById("mobile").value; // 手机号
 	var yanzhengma = document.getElementById("vcode").value;
 	var userpassword = document.getElementById("password").value; // 密码
 	
+	if(number != '' && yanzhengma != '' && userpassword != ''){
+//				$(".enter_btn").css("opacity","1");
+				$(".enter_btn").addClass("enter_btns");
+		}else{
+//				$(".enter_btn").css("opacity","0.3");
+				$(".enter_btn").removeClass("enter_btns");
+	}
+	
+	
+	
 	if (!stringnull(number)) {
-		webToast("手机号不能为空","middle",1500);
+		//webToast("手机号不能为空","middle",1500);
 		return false;
 	}
 	
 	if (!stringnull(yanzhengma)) {
-		webToast("验证码不能为空","middle",1500);
+//		webToast("验证码不能为空","middle",1500);
 		return false;
 	}
 	if (!stringnull(userpassword)) {
-		webToast("密码不能为空","middle",1500);
+//		webToast("密码不能为空","middle",1500);
 		return false;
 	}
 	
@@ -116,6 +131,10 @@ document.getElementById("enter_btn").addEventListener("tap", function() {
           webToast("验证码有误，请重新输入","middle",1500);
           return false;
     }
+    
+    
+    
+    
     var urlparm = {
 		username : number,
 		password : userpassword,

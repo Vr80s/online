@@ -25,7 +25,7 @@ public class PublicCourseDao extends HibernateDao<Course>{
 		 * oe_course_mobile 从这个里面判断是否存在课程详情啊
 		 */
 		StringBuilder sql =new StringBuilder("select c.id,c.current_price*10 currentPrice,c.`lecturer`,c.`course_length`,c.`start_time`,c.live_status as liveStatus,c.grade_name as courseName ,ou.name as lecturerName ,m.name as menuName,c.`course_pwd` coursePwd "
-				+ ",c.live_source as liveSource,c.`essence_sort` as essenceSort \n" +
+				+ ",c.live_source as liveSource,c.status as status,c.`essence_sort` as essenceSort \n" +
 				" from oe_course c  LEFT JOIN\n" +
 				"  oe_menu m ON c.menu_id = m.id \n" +
 				"  LEFT JOIN \n" +
@@ -64,7 +64,7 @@ public class PublicCourseDao extends HibernateDao<Course>{
 	            sql.append(" and c.end_time <= :endTime ");
 	            paramMap.put("endTime",courseVo.getEndTime());
 	        }
-	 	sql.append(" order by c.status desc, c.sort desc");
+	 	sql.append(" order by c.status desc,c.is_recommend desc c.create_time desc");
  		
 		return this.findPageBySQL(sql.toString(), paramMap, CourseVo.class, pageNumber, pageSize);
 	}

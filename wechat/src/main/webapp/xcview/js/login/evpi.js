@@ -30,9 +30,9 @@ if(stringnull(third_party_uc_t_)){
 	
 	//alert(third_party_uc_t_);
 	//alert(decodeURI(third_party_uc_t_));
-	
-	openId = third_party_uc_t_.split("%3B")[0];
-	unionId = third_party_uc_t_.split("%3B")[1];
+	third_party_uc_t_ = decodeURIComponent(third_party_uc_t_);	
+	openId = third_party_uc_t_.split(";")[0];
+	unionId = third_party_uc_t_.split(";")[1];
 	//alert(openId+"=====third_party_uc_t_====="+unionId);
 }else{
 	openId = getQueryString("openId");
@@ -96,15 +96,20 @@ document.getElementById("btn").addEventListener("tap", function() {
 		} else if(data.code == 401){ //隐藏密码框
 			vtype =2;
 			$("#password_div").hide();
+		}else if(data.code == 402){
+			webToast("此手机号绑定其他微信号","middle",1500);
 		}
-		requestService("/xczh/user/sendCode", {username:number,vtype:vtype}, function(data) {
-			if (data.success) {
-				//进入倒计时
-				time(o);
-			} else {
-				webToast(data.errorMessage,"middle",1500);
-			}
-		});
+		
+		if(data.code != 402){
+			requestService("/xczh/user/sendCode", {username:number,vtype:vtype}, function(data) {
+				if (data.success) {
+					//进入倒计时
+					time(o);
+				} else {
+					webToast(data.errorMessage,"middle",1500);
+				}
+			});
+		}
 	});
 })
 
@@ -138,15 +143,17 @@ $(".enter_btn").click(function(){
 			userName:number,
 			code:yanzhengma,
 			unionId:unionId,
-			vtype:vtype
+			type:1
 	};
 	
-	var url = "/xczh/third/h5WechatMobile";
+	var url = "/xczh/third/thirdPartyBindIsNoMobile";
 	if(vtype==1){
+		
 		if (!stringnull(userpassword)) {
 			webToast("密码不能为空","middle",1500);
 			return false;
 		}
+		url = "/xczh/third/thirdPartyBindMobile";
 		params.passWord = userpassword;
 	}
 	requestService(url,params, function(data) {
@@ -174,7 +181,8 @@ $(".enter_btn").click(function(){
  * 返回登录页
  */
 $(".header_return").click(function(){
-	location.href = "/xcview/html/enter.html";
+	//location.href = "/xcview/html/enter.html";
+	window.history.back();
 })
 
 

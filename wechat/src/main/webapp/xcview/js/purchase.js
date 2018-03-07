@@ -34,7 +34,11 @@ requestService("/xczh/order/getByOrderId",{
 },function(data) {
 	$("#purchase_details").html(template('data_details',data.resultObject.allCourse[0]));
 	$(".purchase_list_one_right .give_price").html(data.resultObject.allCourse[0].actualPay)
-
+//	$(".purchase_details_money span").html('data_details',data.resultObject.currentPrice);
+	$(".purchase_details_money span").html(parseInt(data.resultObject.actualPay));
+ 
+// console.log(data.resultObject.allCourse[0].actualPayss)
+ 
 	currentPriceXMB = data.resultObject.actualPay;//直接返回的熊猫币
 	
 	allCourse = data.resultObject.allCourse;
@@ -50,7 +54,8 @@ requestService("/xczh/order/getByOrderId",{
 			
 			xmbye = data.resultObject;
 			
-			$("#xmb_ye").html(xmbye);
+//			$("#xmb_ye").html(xmbye);
+			$("#xmb_ye").html(parseInt(xmbye));
 			//判断当前购买的要消耗的熊猫币  是否大于 自己的熊猫币余额
 			if(xmbye<currentPriceXMB){
 				$(".footer_div").hide();

@@ -474,14 +474,12 @@ public class VideoDao extends SimpleHibernateDao {
         pageNumber = pageNumber == null ? 1 : pageNumber;
         pageSize = pageSize == null ? 10 : pageSize;
         
-        
         /**
          * 购买者这里怎么显示了啊。好尴尬了，不能用多个循环吧，不然会卡点呢
          * 	 或者是购买成功	
-         * 	
+         * 
+         * 一个专辑下存在多个课程，然后课程
          */
-        
-        
         if(courseId !=null || teacherId!=null){
            StringBuffer sql = new StringBuffer("select c from Criticize c  where c.status = 1 ");
 	       if(org.apache.commons.lang.StringUtils.isNotBlank(teacherId)){
@@ -586,18 +584,28 @@ public class VideoDao extends SimpleHibernateDao {
      */
     public Integer findUserFirstStars(Integer courseId,String userId) {
         StringBuffer sql = new StringBuffer();
-        sql.append("select (SELECT count(*) from apply_r_grade_course  argc where argc.is_delete=0 and argc.course_id =:courseId "); 
-        sql.append(" and argc.user_id=:userId ) as isBuy,count(*) as isStats ");
-        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson ");
+        sql.append("select criticize_lable ");
+        sql.append(" from oe_criticize where course_id=:courseId and create_person=:createPerson and is_buy=1");
         Map<String,Object> paramMap = new HashMap<>();
-//        paramMap.put("courseId", courseId);
         paramMap.put("courseId", courseId);
-        paramMap.put("userId", userId);
         paramMap.put("createPerson", userId);
         List<Map<String, Object>> list= this.getNamedParameterJdbcTemplate().queryForList(sql.toString(), paramMap);
         //List<Map<String, Object>> list =  this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql.toString(),paramMap);
         Integer isViewStars = 0;
-        if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
+        boolean isComment=false;
+        if(list.size()>0){
+            for(int i=0;i<list.size();i++){
+                if(list.get(i).get("criticize_lable")!=null&&!list.get(i).get("criticize_lable").equals("")){
+                    isComment=true;
+                    isViewStars=2;
+                    break;
+                }
+            }
+            if(!isComment){
+                isViewStars=1;
+            }
+        }
+        /*if(list.get(0).get("isBuy")!=null && list.get(0).get("isStats")!=null){
         	Long isBuy =  (Long) list.get(0).get("isBuy");
         	Long isStats = (Long) list.get(0).get("isStats");
              if(isBuy!=null && isBuy>0){ //表示购买过了
@@ -606,7 +614,7 @@ public class VideoDao extends SimpleHibernateDao {
              if(isBuy!=null && isStats!=null && isBuy>0 && isStats>0){
             	 isViewStars = 2;
              }
-        }
+        }*/
         return isViewStars;
     }
     

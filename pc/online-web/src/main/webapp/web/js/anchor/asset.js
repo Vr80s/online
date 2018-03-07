@@ -41,7 +41,7 @@ function getCoinTransactionList (current){
         }
         $("#coin_transaction_list").html(template('coin_transaction_list_tpl', data.resultObject));
         if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-        	$('.pandaTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+        	$('.pandaTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无熊猫币交易记录</p></div>');
         }
         debugger
         //每次请求完数据就去渲染分页部分
@@ -85,7 +85,7 @@ function getRmbTransactionList (current){
         }
         $("#rmb_transaction_list").html(template('rmb_transaction_list_tpl', data.resultObject));
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-        	$('.rmbTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无银行卡</p></div>');
+        	$('.rmbTable').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/nobank.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无人民币交易记录</p></div>');
         }
 
 		//银行卡处理
@@ -210,14 +210,19 @@ function saveBankCard(){
     data.tel = $.trim($('.content_add #content_add_bank').val());
     data.certId = $.trim($('.content_add #content_add_idCard').val());
     if(verifyBankCard(data)){
-        RequestService("/anchor/asset/saveBankCard", "post", data, function(data) {
-            if(data.success){
-                showTip(data.resultObject);
-                initBasaeAssetInfo();
-            }else {
-                showTip(data.errorMessage);
-            }
-        });
+    	showDel_bank();
+    	$('#sureDel_bank').click(function(){
+	    	 RequestService("/anchor/asset/saveBankCard", "post", data, function(data) {
+	            if(data.success){
+	                showTip(data.resultObject);
+	                hideDel_bank()
+	                initBasaeAssetInfo();
+	            }else {
+	                showTip(data.errorMessage);
+	                hideDel_bank()
+	            }
+	        });
+    	})
     }
 }
 

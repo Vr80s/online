@@ -86,13 +86,25 @@ header {
 	height: 0.99rem;
 	line-height: 0.99rem;
 	font-size: 0.28rem;
-	color: #CCCCCC;
+	/*color: #CCCCCC;*/
 	border: 0;
 	outline: none;
 	display: -webkit-box;
 	float: left;
 }
 
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #ccc;
+}
 
 
 

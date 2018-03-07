@@ -28,9 +28,11 @@ import com.xczh.consumer.market.service.CacheService;
 import com.xczh.consumer.market.service.OnlineUserService;
 import com.xczh.consumer.market.service.WxcpClientUserWxMappingService;
 import com.xczh.consumer.market.utils.ResponseObject;
+import com.xczh.consumer.market.utils.ThridFalg;
 import com.xczh.consumer.market.utils.Token;
 import com.xczh.consumer.market.utils.UCCookieUtil;
 import com.xczh.consumer.market.vo.ItcastUser;
+import com.xczh.consumer.market.wxpay.util.WeihouInterfacesListUtil;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.enums.SMSCode;
 import com.xczhihui.bxg.online.common.enums.ThirdPartyType;
@@ -140,6 +142,26 @@ public class ThirdPartyBindingController {
 				WxcpClientUserWxMapping m = wxcpClientUserWxMappingService.getWxcpClientUserWxMappingByUserIdAndUnionId(ou.getId(), unionId);
 				m.setClient_id("");
 				wxcpClientUserWxMappingService.update(m);
+				
+				
+				ItcastUser user = userCenterAPI.getUser(ou.getLoginName());
+				/**
+				 * 更换过来这个微信号
+				 */
+			    userCenterAPI.updatePasswordAndLoginName(user.getId(),unionId,WeihouInterfacesListUtil.MOREN_USER_PASSWORD);
+				ou.setLoginName(unionId);
+				onlineUserService.updateOnlineUserAddPwdAndUserName(ou);
+				/**
+				 * 写入这个cookie
+				 */
+				ThridFalg tf = new ThridFalg(); 
+				tf.setOpenId(m.getOpenid());
+				tf.setUnionId(m.getUnionid());
+				tf.setNickName(m.getNickname());
+				tf.setHeadImg(m.getHeadimgurl());
+				UCCookieUtil.writeThirdPartyCookie(res,tf);
+				
+				
 			}else if(type==ThirdPartyType.QQ.getCode()){
 				QQClientUserMapping qq = threePartiesLoginService.selectQQClientUserMappingByUserId(ou.getId(), unionId);
 		    	qq.setUserId("");

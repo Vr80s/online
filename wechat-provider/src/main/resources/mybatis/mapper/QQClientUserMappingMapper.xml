@@ -47,6 +47,30 @@
 	</select>
 	
 	
+	<!-- 通过熊猫中医用户id获取  -->
+	<select id="selectQQClientUserMappingByUserIdAndOpenId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">
+		SELECT
+			qcum.id as id,
+            qcum.user_id as userId,
+            qcum.open_id as openId,
+            qcum.nickname as nickname,
+            qcum.figureurl as figureurl,
+            qcum.figureurl_1 as figureurl1,
+            qcum.figureurl_2 as figureurl2,
+            qcum.gender as gender,
+            qcum.vip as vip,
+            qcum.level as level,
+            qcum.is_yellow_year_vip as yellowYearVip,
+            qcum.remark as remark, 
+            qcum.create_time as createTime,
+            qcum.union_id as unionId
+		FROM
+		  qq_client_user_mapping qcum
+				WHERE qcum.user_id = #{userId} and qcum.open_id = #{openId}
+	</select>
+	
+	
+	
 	
     <!-- 通过熊猫中医uniondid获取  -->
 	<select id="selectQQClientUserMappingByUnionId" resultType="com.xczhihui.wechat.course.model.QQClientUserMapping">

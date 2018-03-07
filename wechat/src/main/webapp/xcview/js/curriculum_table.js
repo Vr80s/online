@@ -1,4 +1,32 @@
 	
+
+
+
+/**
+ * 从列表页返回
+ */
+var before_url = document.referrer;
+if(before_url.indexOf("home_page.html")!=-1){
+	sessionStorage.setItem("curriculum_blck",1);
+}else if(before_url.indexOf("search.html")!=-1){
+	sessionStorage.setItem("curriculum_blck",2);
+}
+/**
+ * 返回上一页
+ */
+function goto_back(){
+
+	var curriculum_blck = sessionStorage.getItem("curriculum_blck");
+	if(curriculum_blck == 1){
+		location.href="home_page.html";
+	}else if(curriculum_blck == 2){
+		location.href="search.html?search_back=2";
+	}
+	
+}
+
+
+
 /**
  * 将上面的url封装为json对象
  */	
@@ -23,7 +51,7 @@ if(stringnull(defaultKey)){
  */
 $(".header_seek").click(function(){
 	
-	location.href='/xcview/html/search.html';
+	location.href='/xcview/html/search.html?search_back=2';
 })
 
 
@@ -233,6 +261,7 @@ function createParamsAndQuery(menuType,isFree,courseType,city,lineState,queryKey
 /**
  * 点击确认按钮获取查询进行查询
  */
+
 function submit(){
 	/**
 	 * 在浏览器地址上获取课程信息
@@ -281,19 +310,33 @@ function submit(){
 //		 }
 //	});
 	
-	var begin =0;
+	
+	var begin_falg = false;
+	var begin = 0;
+	
 	var list = $(".all_right_type_ones").find(".all_right_type_one");
 	for(var i = 0; i < list.length; i++) {
 		var className = list[i].className;
 		if(className.indexOf("all_right_type_one_add")!=-1){
+			begin_falg = true;
 			begin = i+1;
 			break;
 		}
     }
-	slide(begin);
-	
-	
-	//queryDataByParams(submitParamsObj);
+	//先存一下，然后在取一下
+	var type_index = sessionStorage.getItem("type_index");
+	if(type_index == begin){ //分类没有变动
+		begin_falg = false;
+	}else{
+		sessionStorage.setItem("type_index",begin);
+	}
+	if(begin_falg){
+		slide(begin);
+	}else{
+		//menuType,isFree,courseType,city,lineState,queryKey
+		createParamsAndQuery(menuType,isFree,courseType,city,lineState);
+		queryDataByParams(paramsObj,menuType);
+	}
 }
 
 
@@ -342,7 +385,7 @@ function queryDataByParams(params,data_type){
 				if(item.type ==3){
 					typeStr +="<p class='p2'><img src='/xcview/images/learn.png'><span>" +item.startDateStr+"</span></p>";
 				}else if(item.type ==4){
-					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png'><span>" +item.city+"</span></p>";
+					typeStr +="<p class='p2'><img src='/xcview/images/location_four.png' style='width:0.19rem;height:0.24rem;'><span>" +item.city+"</span></p>";
 				}
 				data1+="<div class='li_list_div' aaa() >"+
 					       "<div class='li_list_one' data-title="+item.id+" >"+

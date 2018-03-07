@@ -14,6 +14,9 @@ a{
 .both{
 	clear: both;
 }
+body{
+	font-family: "Helvetica";
+}
 /*头部开始*/
 header {
     width: 100%;
@@ -158,6 +161,21 @@ header {
     border: 0;
     background: #00bc12;
 	color: #fff;
+}
+
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: #ccc;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #ccc;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #ccc;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #ccc;
 }
 /*中间内容结束*/
 
