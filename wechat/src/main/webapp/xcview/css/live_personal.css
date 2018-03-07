@@ -229,6 +229,9 @@ color: #999999;
 	background: white;
 	overflow: hidden;
 }
+.hide{
+	display: none;
+}
 .vedio_play01{
 		width: 100%;
 	height: 3.95rem;
