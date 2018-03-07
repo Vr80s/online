@@ -640,7 +640,6 @@ public class CourseDao extends SimpleHibernateDao {
                 "  AND o.order_no = :orderNo \n" +
                 "  AND a.course_id = od.course_id ";
         List<Map<String, Object>> courses= this.getNamedParameterJdbcTemplate().queryForList(sql,paramMap);
-        
         return  courses;
     }
 
@@ -681,32 +680,35 @@ public class CourseDao extends SimpleHibernateDao {
     }
 
     private void checkAvailable(CourseVo courseVo) {
-        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(courseVo.getStartTime());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);//时
-        calendar.set(Calendar.MINUTE, 0);//分
-        calendar.set(Calendar.SECOND, 0);//秒
-        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
-        Date date = calendar.getTime();
-//        System.out.println("Christmas is:"+FORMAT.FORMAT(date));
-        String now = format.format(Calendar.getInstance().getTime());
-        Date nowd;
-        try {
-            nowd = format.parse(now);
-            int flag = nowd.compareTo(date);
-            if (flag > 0) {//当天及当天之后，<0就是在日期之前
-//                System.out.println("已过期");
-                courseVo.setAvailable(false);
-            }else{
-//                System.out.println("未过期");
-                courseVo.setAvailable(true);
+        if(courseVo.getType()==CourseForm.OFFLINE.getCode()){
+            java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(courseVo.getStartTime());
+            calendar.set(Calendar.HOUR_OF_DAY, 0);//时
+            calendar.set(Calendar.MINUTE, 0);//分
+            calendar.set(Calendar.SECOND, 0);//秒
+            calendar.set(Calendar.DATE, calendar.get(Calendar.DATE)-2);//日
+            Date date = calendar.getTime();
+            String now = format.format(Calendar.getInstance().getTime());
+            Date nowd;
+            try {
+                nowd = format.parse(now);
+                int flag = nowd.compareTo(date);
+                //当天及当天之后，<0就是在日期之前
+                if (flag > 0) {
+                    courseVo.setAvailable(false);
+                }else{
+                    courseVo.setAvailable(true);
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        }else if("0".equals(courseVo.getStatus())){
+            courseVo.setAvailable(false);
+        }else{
+            courseVo.setAvailable(true);
         }
+
     }
 
     public void updateSentById(Integer id) {

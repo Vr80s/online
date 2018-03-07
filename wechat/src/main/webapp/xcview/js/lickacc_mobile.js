@@ -12,7 +12,7 @@ if(type == 1){ //type=1 此微信号已经绑定了啊
 /*
  * 获取用户绑定的第三方用户信息
  */
-/*requestService("/xczh/bind/userBindingInfo", null, function(data) {
+requestService("/xczh/bind/userBindingInfo", null, function(data) {
 	if (data.success) {
 		var item = data.resultObject;
 
@@ -20,11 +20,6 @@ if(type == 1){ //type=1 此微信号已经绑定了啊
 		$("#weixin_bind").html(item.wxName);   
 	}
 })	
-*/
-//
-//if(){
-//	
-//}
 
 
 $(".email_one .div0_show").click(function(){
@@ -33,8 +28,6 @@ $(".email_one .div0_show").click(function(){
 	if(stringnull(unionId)){ //已经绑定了，这个是解除绑定
 		$(".success").show();
 	}else{//还没有绑定，唤起微信授权
-		
-		//alert("========");
 		
 		location.href = "/xczh/wxlogin/publicWechatAndMobile?userId="+localStorage.userId;
 	}
@@ -76,19 +69,11 @@ function removeBind(){
 //点击账号和绑定设置
 function check_login(obj){
 	var data_title =  $(obj).attr("data-title");
- 	var falg =authenticationCooKie();
-	if (falg==1002){
-		location.href ="/xcview/html/cn_login.html";		
-	}else if (falg==1005) {
-		location.href ="/xcview/html/evpi.html";
-	}else if(falg == 1000){
-		
-		if(data_title == "mobile"){
-			location.href ='phone_number.html';
-		}else if(data_title == "password"){
-			location.href ='amend.html';
-		}
-	} 
+	if(data_title == "mobile"){
+		location.href ='phone_number.html';
+	}else if(data_title == "password"){
+		location.href ='amend.html';
+	}
 }
 
 

@@ -13,6 +13,7 @@ $(function(){
         saveCourse();
     });
     $(".courseP").click(function(){
+    	$("#course_type option:first").prop("selected", 'selected');
         courseList(1);
         initResource(1);
         var ue = UE.getEditor('editor',{
@@ -95,6 +96,8 @@ $(function(){
         });
     });
     $(".specialP").click(function(){
+//  	$('#course_collection_type option:first-child').attr('selected','selected')
+    	$("#course_collection_type option:first").prop("selected", 'selected');
         courseCollectionList(1);
         initCourse(1);
         var editor_collection_details = UE.getEditor('editor_collection_details',{
@@ -278,7 +281,7 @@ function courseList(current){
     RequestService(url, "get", null, function(data) {
 
          if(!data.resultObject || !data.resultObject.records || data.resultObject.records.length == 0){
-        $('#kecheng_list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无资源</p></div>');
+        $('#kecheng_list').html('<div style="padding-top:40px;text-align:center"><img src="/web/images/other_noResult.png" alt="" /><p style="font-size:16px;color:#999;margin-top:35px">暂无课程</p></div>');
         $('#kecheng_list').removeClass('hide')
         }else{
         	var str = '<thead><tr><td>封面图</td><td>课程名称</td><td>价格</td><td>时长</td><td>类型</td><td>资源类型</td><td>审核状态</td><td>课程状态</td><td>操作</td></tr></thead><tbody id="course_list"></tbody>'
@@ -415,7 +418,7 @@ function echoCourse(caiId){
             initResource(course.multimediaType);
             $("input:radio[name=course_multimedia_type][value="+course.multimediaType+"]").prop("checked",true);
             // $('.course_resource').val(course.resourceId);
-            $('.selectpicker').selectpicker('val',(course.resourceId));
+            $('.course_resource').selectpicker('val',(course.resourceId));
         }else{
             $('.course_start_time').val(course.startTime);
             $('.course_end_time').val(course.endTime);
@@ -1294,8 +1297,8 @@ function initResource(multimediaType,nv){
             str += "<option value='"+resources[i].id+"'>"+resources[i].title+"</option>";
         }
         $("#id_select").html(str);
-        $('.selectpicker').selectpicker('refresh');
-        $('.selectpicker').selectpicker({
+        $('.course_resource').selectpicker('refresh');
+        $('.course_resource').selectpicker({
             'selectedText': 'cat',size:10
         });
         $("#speech_select").html(str);

@@ -87,7 +87,7 @@ public class WeChatThirdPartyController {
 	public void publicWechatAndMobile(HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 
-		String redirect_uri = "/xczh/wxlogin/wxThirdGetAccessToken";
+		String redirect_uri = "/xczh/wxlogin/publicWechatAndMobileCallback";
 		String userId = req.getParameter("userId");
 		if (StringUtils.isNotBlank(userId)) {
 			OnlineUser ou = onlineUserService.findUserById(userId);
@@ -203,6 +203,8 @@ public class WeChatThirdPartyController {
 					ThridFalg tf = new ThridFalg();
 					tf.setOpenId(wxw.getOpenid());
 					tf.setUnionId(wxw.getUnionid());
+					tf.setNickName(wxw.getNickname());
+					tf.setHeadImg(wxw.getHeadimgurl());
 					UCCookieUtil.writeThirdPartyCookie(res, tf);
 
 					LOGGER.info("readThirdPartyCookie{}{}{}{}{}{}"

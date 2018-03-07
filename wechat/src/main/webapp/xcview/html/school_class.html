@@ -38,7 +38,7 @@
 			<p class="speak_title">{{gradeName}}</p>
 			<p class="speak-text">{{subtitle}}</p>
 			<div class="wrap_grade" onclick="btn_allComment()">
-				<ul class="grade_pic z">
+				<ul class="grade_pic">
 					<li>
 						{{if startLevel == 0 || startLevel == null}}
 						<img src="../images/xing0.png"/>
@@ -64,11 +64,9 @@
 						<img src="../images/xing5.png"/>
 					
 						{{/if}}
+						<a href="javascript:;">{{criticizeCount}}评论</a>
+						<img class="jiantou" src="../images/video_review.png"/>
 					</li>
-				</ul>
-				<ul class="grade_num y">
-					<li><a href="javascript:;">{{criticizeCount}}评论</a></li>
-					<li><img src="../images/video_review.png"/></li>
 				</ul>
 			</div>
 		</script>
@@ -365,6 +363,12 @@
 							<p>微信</p>
 						</div>
 					</li>
+					<li class="share_to_one">
+						<div class="">
+							<img src="../images/Friends.png" />
+							<p>朋友圈</p>
+						</div>
+					</li>
 					<li id="qqShare0">
 						<div class="" id="qqShare">
 							<img src="../images/Qzone_share.png" />
@@ -395,11 +399,11 @@
 <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <script type="text/JavaScript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1"></script>
+<script type="text/javascript" src="../../Views/h5/js/common.js?v=wechat_1.1.1"></script>
 <script type="text/javascript" src="../js/template.js"></script>
-<script type="text/javascript" src="../js/school_class.js?v=wechat_1.1"></script>
+<script type="text/javascript" src="../js/school_class.js?v=wechat_1.1.1"></script>
 
-<script type="text/javascript" src="../js/share/share.js?v=wechat_1.1"></script>
+<script type="text/javascript" src="../js/share/share.js?v=wechat_1.1.1"></script>
 
 
 <script>

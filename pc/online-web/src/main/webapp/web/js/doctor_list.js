@@ -113,6 +113,21 @@ $(function(){
 	    $('.more_doctor').click(function(){
 	    	current +=1;
 	    	console.log(current)
+		   	var name =$('.doctor_search_ipt > input').val();
+			var departmentId; 
+			if($('#doctor_search_condition2').hasClass('hide')){
+			 departmentId = '';
+			}else{
+			 departmentId = $('#doctor_search_condition2 span').attr('data-id');
+			}
+		  
+			var type;
+			if($('#doctor_search_condition1').hasClass('hide')){
+			 type = '';
+			}else{
+			 type = $('#doctor_search_condition1 span').attr('data-type');
+			}
+	    	
 	    	getHostipalList(current,size,name,type,departmentId);
 	    })
 	    

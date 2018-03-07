@@ -51,7 +51,7 @@
 	<!-- 刷新引入js -->
 	<script src="/xcviews/js/common/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
-    <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1"></script>
+    <script type="text/javascript" src="/Views/h5/js/common.js?v=wechat_1.1.1"></script>
 </body>
 <script>
 	var kk=document.documentElement.clientWidth;
@@ -70,9 +70,10 @@
 	} */
 	
 	var close_falg =  authenticationCooKie();
-	if(close_falg != 1000){
-		$(".set_main_close").hide()
-		$(".btn").hide()
+	if(close_falg != 1000){   //不是登录状态就不行
+		$(".set_main_close").hide();
+	
+		//$(".btn").hide();
 	}	
 </script>
 
@@ -83,39 +84,40 @@
 		
 		location.href ='lickacc_mobile.html';
 	}
-
 	//退出登录
 	$(".btn").click(function(){
-        requestService("/xczh/set/logout",{
-			}, function(data) {
-                if (data.success) {
+		if(close_falg == 1005){
+			 window.location.href="enter.html";
 
-                	
-                	//删除所有的信息
-                	localStorage.removeItem("token");
-				    localStorage.removeItem("userId")
-					localStorage.removeItem("name");
-				    localStorage.removeItem("smallHeadPhoto");
-				    localStorage.removeItem("sex");
-				    localStorage.removeItem("provinceName");
-				    localStorage.removeItem("cityName");
-				    localStorage.removeItem("province");
-				    localStorage.removeItem("city");
-				    localStorage.removeItem("email");
-				    localStorage.removeItem("info");
-				    localStorage.removeItem("username");
-				    localStorage.removeItem("ticket");
-                	
-				    
-				    //删除  登录时用到的cookie
-				    cookie.delete1("_uc_t_");
-				    //删除  第三方登录时用到的cookie
-				    cookie.delete1("third_party_uc_t_");
-				    
-                    window.location.href="my_homepage.html";
-
-                }
-            });
+		}else{
+			 requestService("/xczh/set/logout",{
+				}, function(data) {
+	                if (data.success) {
+	                	
+	                	//删除所有的信息
+	                	localStorage.removeItem("token");
+					    localStorage.removeItem("userId")
+						localStorage.removeItem("name");
+					    localStorage.removeItem("smallHeadPhoto");
+					    localStorage.removeItem("sex");
+					    localStorage.removeItem("provinceName");
+					    localStorage.removeItem("cityName");
+					    localStorage.removeItem("province");
+					    localStorage.removeItem("city");
+					    localStorage.removeItem("email");
+					    localStorage.removeItem("info");
+					    localStorage.removeItem("username");
+					    localStorage.removeItem("ticket");
+					    
+					    //删除  登录时用到的cookie
+					    cookie.delete1("_uc_t_");
+					    //删除  第三方登录时用到的cookie
+					    cookie.delete1("third_party_uc_t_");
+					    
+	                    window.location.href="my_homepage.html";
+	                }
+	            });
+		}
     });
 </script>
 

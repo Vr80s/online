@@ -35,7 +35,6 @@ public class HospitalController {
     @RequestMapping(value = "/getHospitals",method= RequestMethod.GET)
     public ResponseObject getHospitals(Integer current,Integer size,String name,String field){
         Page<MedicalHospitalVo> page = new Page<>();
-
         page.setCurrent(current);
         page.setSize(size);
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalPage(page,name,field));

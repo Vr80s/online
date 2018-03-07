@@ -137,7 +137,7 @@ header {
 }
 .purchase_details_title .span0{
 	color: #999;
-	font-size: 0.1rem;
+	font-size: 0.575rem;
 }
 /*.purchase_details_title .span1{
 	width: 6rem;
@@ -162,16 +162,16 @@ header {
 .prosperity_play{
 	width: 3.064rem;
 	height: 1.191rem;
-	line-height: 1.191rem;
-	float: right;
 	background: #00BC12;
-	text-align: center;
 	border-radius: 8px;
 	font-size: 0.596rem;
 	color: #fff;
 	position: absolute;
     right: 0rem;
     top: 0.5rem;
+      display: flex;    
+    justify-content:center;
+    align-items:Center;
 }
 .prosperity_border{
 	border-bottom: 1px solid #D8DDE6;
@@ -254,6 +254,17 @@ header {
     line-height: 0.851rem;
 	font-size: 0.596rem;
 	color: #333;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0.34rem;
+}
+.boutique_main_one_author{
+	width: 7.234rem;
+	height: 0.851rem;
+    line-height: 0.851rem;
+	font-size: 0.575rem;
+	color: #999999;
 	overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

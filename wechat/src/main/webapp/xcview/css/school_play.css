@@ -101,10 +101,10 @@ padding-bottom: 0.17rem;
 }
 
 .wrap_grade{
-	width: 2.9rem;
+	width: 3.5rem;
 	height: 0.33rem;
-
 	margin: 0 auto;
+	text-align: center;
 }
 .speak-text{
 	font-size: 0.26rem;
@@ -114,27 +114,22 @@ padding-bottom: 0.17rem;
 }
 .grade_pic{
 	margin-top: 0.05rem;
-}
-.grade_pic li{
-	float: left;
+	text-align: center;
 }
 .grade_pic li img{
-
 	width: 1.6rem;
+	display: inline-block;
 }
-.grade_num li{
-	float: left;
-	font-size: 0.24rem;
-color: #999999;
+.grade_pic li a{
+	color: #999999;
+    margin-top: -0.08rem;
+    display: inline-block;
 }
-.grade_num li a{
-color: #999999;
-	
-}
-.grade_num img{
-	width: 0.15rem;
-    margin-left: 0.05rem;
-    margin-top: 0.04rem;
+.grade_pic .jiantou{
+	    width: 0.14rem;
+    vertical-align: top;
+    margin-top: 0.05rem;
+    margin-left: -0.03rem;
 }
 /*主播时间*/
 .wrap_playTime{
@@ -163,6 +158,13 @@ color: #999999;
 	float: left;
 	margin-top: -0.02rem;
 	margin-left: 0.1rem;
+	
+	padding-right: 0.26rem;
+    box-sizing: border-box;
+    width: 6.4rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .playTime li p{
 	width: 0.98rem;
@@ -226,6 +228,7 @@ color: #999999;
 }
 .wrap p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao{
 	width: 100%;
@@ -317,6 +320,7 @@ color: #999999;
 }
 .wrap1 p img{
 	/*width: 100%;*/
+	max-width: 7rem;
 }
 .zhezhao1{
 	width: 100%;
