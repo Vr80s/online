@@ -82,7 +82,7 @@ var course='';
 		collectionId : courseId	
 	},function(data) {
 		
-		if(data.success && data.resultObject>0){
+		if(data.success && data.resultObject.length>0){
 			for(var i in data.resultObject){
 				data.resultObject[i].collectionId=courseId;
 			}

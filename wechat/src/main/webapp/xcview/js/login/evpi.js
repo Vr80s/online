@@ -169,8 +169,10 @@ $(".enter_btn").click(function(){
 			//if(jump_type == 1){
 				//location.href = "/xcview/html/home_page.html?openId="+openId;
 			//}else if(jump_type == 2){
-				location.href = "/xcview/html/my_homepage.html?openId="+openId;
+			 //location.href = "/xcview/html/my_homepage.html?openId="+openId;
 			//}
+			
+			window.history.back(); //返回上一页
 		} else {
 			webToast(data.errorMessage,"middle",1500);
 		}
