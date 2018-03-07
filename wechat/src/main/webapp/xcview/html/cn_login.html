@@ -19,6 +19,11 @@
 	.enter_btns{
 		pointer-events: none;
 	}
+	.hide{
+		/*left: 50% !important;*/
+		/*margin-left: -2.65rem !important;*/
+		/*margin-left: 0rem !important;*/
+	}
 </style>
 
 </head>
@@ -162,7 +167,6 @@
 		</div>
 	</div>
 	
-	
 </body>
 
 <!-- 公共的 js  -->
@@ -200,10 +204,6 @@ $(document).ready(function() {
   		}
  	})
 	
-
-	
-	
-	
 });
 </script>
 
@@ -217,8 +217,6 @@ $(document).ready(function() {
 </script>
 
 
-
-<!--<script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script>-->
 <!--获取验证码-->
 <script type="text/javascript"> 
 	var countdown=60; 
@@ -293,23 +291,6 @@ $(document).ready(function() {
 //				$(".enter_btn").removeClass("enter_btns");
 			}
 		})
-		
-		
-		/*$('#enter_btn').click(function(){
-			Ipt0 = $.trim($('.input0').val());
-		 	Ipt1 = $.trim($('.input1').val());
-		 	Ipt2 = $.trim($('.input2').val());
-		 	
-			if(Ipt0 != '' && Ipt1 != '' && Ipt2 != ''){
-				$(".enter_btn").removeClass("enter_btns");
-			}else{ 
-				$(".enter_btn").addClass("enter_btns");
-			}
-		})*/
-		
-		
-		
-		
 		
 		//		点击小眼睛
 		$('.open').on('click',function(){
