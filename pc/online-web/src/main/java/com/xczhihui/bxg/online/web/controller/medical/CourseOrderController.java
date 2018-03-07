@@ -2,8 +2,8 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.medical.anchor.service.ICourseOrderService;
 import com.xczhihui.medical.anchor.vo.UserCoinIncreaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping("/medical/order/course")
-public class CourseOrderController {
+public class CourseOrderController extends AbstractController{
 
     @Autowired
     private ICourseOrderService courseOrderService;
@@ -51,10 +51,7 @@ public class CourseOrderController {
      * 获取用户id
      */
     private String getCurrentUserId(HttpServletRequest request){
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            throw new RuntimeException("用户未登录");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         return loginUser.getId();
     }
 

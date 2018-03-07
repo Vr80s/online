@@ -5,12 +5,12 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
-import com.xczhihui.medical.doctor.model.MedicalDoctor;
 import com.xczhihui.medical.hospital.model.MedicalHospital;
-import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalBusinessService;
+import com.xczhihui.medical.hospital.vo.MedicalHospitalVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/medical/hospital")
-public class HospitalController {
+public class HospitalController extends AbstractController{
 
     @Autowired
     private IMedicalHospitalBusinessService medicalHospitalBusinessServiceImpl;
@@ -98,10 +98,7 @@ public class HospitalController {
         }
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalHospital.setUpdatePerson(currentUser.getUid());
         medicalHospitalBusinessServiceImpl.update(medicalHospital);
@@ -120,10 +117,7 @@ public class HospitalController {
     public ResponseObject getDoctors(Integer current,Integer size,String doctorName, HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
 
         // 分页信息
@@ -143,10 +137,7 @@ public class HospitalController {
     public ResponseObject getHospitalByUserId(Integer current,Integer size,String doctorName, HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(medicalHospitalBusinessServiceImpl.selectHospitalByUserId(currentUser.getUid()));
     }
@@ -158,10 +149,7 @@ public class HospitalController {
     @RequestMapping(value = "deleteDoctor", method = RequestMethod.POST)
     public ResponseObject delete(HttpServletRequest request, String doctorId){
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         medicalHospitalBusinessServiceImpl.deleteDoctor(currentUser.getUid(), doctorId);
         return ResponseObject.newSuccessResponseObject("删除成功");

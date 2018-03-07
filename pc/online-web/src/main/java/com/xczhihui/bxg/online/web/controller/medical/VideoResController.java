@@ -7,6 +7,7 @@ import com.xczhihui.bxg.online.common.utils.cc.config.Config;
 import com.xczhihui.bxg.online.common.utils.cc.util.APIServiceFunction;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
 import com.xczhihui.bxg.online.web.base.utils.TimeUtil;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.VideoResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +30,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("videoRes")
-public class VideoResController {
+public class VideoResController extends AbstractController{
 
     @Autowired
     private VideoResService videoResService;
@@ -41,11 +42,8 @@ public class VideoResController {
      * @return
      */
     @RequestMapping(value = "getUploadUrl", method = RequestMethod.GET)
-    public String getUploadUrl(HttpServletRequest req,String title) {
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(req);
-        if (loginUser == null) {
-            return null;
-        }
+    public String getUploadUrl(HttpServletRequest request,String title) {
+        OnlineUser loginUser = getOnlineUser(request);
         Map<String,String> paramsMap = new HashMap<String,String>();
         paramsMap.put("userid", OnlineConfig.CC_USER_ID);
         paramsMap.put("title", title);

@@ -4,6 +4,7 @@ import com.xczhihui.bxg.common.util.bean.ResponseObject;
 import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.web.base.common.OnlineResponse;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.bxg.online.web.service.UserService;
 import com.xczhihui.bxg.online.web.vo.UserDataVo;
 import com.xczhihui.medical.hospital.service.IMedicalHospitalAuthenticationService;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping(value = "/medical/hospital/authentication")
-public class HospitalAuthenticationController {
+public class HospitalAuthenticationController extends AbstractController{
 
     @Autowired
     private UserService userService;
@@ -37,14 +38,9 @@ public class HospitalAuthenticationController {
     public ResponseObject getHospitalAuthentication(HttpServletRequest request){
 
         // 获取当前用户
-        OnlineUser loginUser = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if (loginUser == null) {
-            return OnlineResponse.newErrorOnlineResponse("请登录！");
-        }
+        OnlineUser loginUser = getOnlineUser(request);
         UserDataVo currentUser = userService.getUserData(loginUser);
         return ResponseObject.newSuccessResponseObject(hospitalAuthenticationService.selectHospitalAuthentication(currentUser.getUid()));
-
-//        return ResponseObject.newSuccessResponseObject(hospitalAuthenticationService.selectHospitalAuthentication("ff8080816142af54016149e069080000"));
     }
 
 }

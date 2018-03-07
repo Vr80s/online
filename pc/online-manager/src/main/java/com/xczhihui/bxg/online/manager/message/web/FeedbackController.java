@@ -196,12 +196,15 @@ public class FeedbackController {
 		ResponseObject responseObj = new ResponseObject();
 		Message message=service.findFeekBackByFeedId(feedId);
 		MessageVo messageVo=new MessageVo();
-		BeanUtils.copyProperties(messageVo,message);
+		if(message!=null){
+			BeanUtils.copyProperties(messageVo,message);
 //			messageVo.setLastTimeStr(TimeUtil.formatDate(messageVo.getLastTime()));
-		messageVo.setLastTimeStr(messageVo.getLastTimeStr());
+			messageVo.setLastTimeStr(messageVo.getLastTimeStr());
 //			messageVo.setCreateTimeStr(TimeUtil.formatDate(messageVo.getCreateTime()));
-		messageVo.setCreateTimeStr(messageVo.getCreateTimeStr());
-		responseObj.setResultObject(messageVo);
+			messageVo.setCreateTimeStr(messageVo.getCreateTimeStr());
+			responseObj.setResultObject(messageVo);
+		}
+
 		return responseObj;
 	}
 }

@@ -2,29 +2,21 @@ package com.xczhihui.bxg.online.web.controller.medical;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.xczhihui.bxg.common.util.bean.ResponseObject;
-import com.xczhihui.bxg.common.web.util.UserLoginUtil;
 import com.xczhihui.bxg.online.api.service.UserCoinService;
 import com.xczhihui.bxg.online.common.domain.OnlineUser;
 import com.xczhihui.bxg.online.common.enums.BankCardType;
-import com.xczhihui.bxg.online.common.utils.RedissonUtil;
-import com.xczhihui.bxg.online.web.base.utils.VhallUtil;
-import com.xczhihui.bxg.online.web.service.VerificationCodeService;
-import com.xczhihui.medical.anchor.model.CourseApplyInfo;
-import com.xczhihui.medical.anchor.model.CourseApplyResource;
+import com.xczhihui.bxg.online.web.controller.AbstractController;
 import com.xczhihui.medical.anchor.service.IAssetService;
-import com.xczhihui.medical.anchor.service.ICourseApplyService;
 import com.xczhihui.medical.anchor.service.IUserBankService;
-import com.xczhihui.medical.anchor.vo.CourseApplyInfoVO;
-import com.xczhihui.medical.anchor.vo.CourseApplyResourceVO;
-import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -33,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping(value = "/anchor/asset")
-public class AssetController {
+public class AssetController extends AbstractController{
 
     @Autowired
     private IAssetService assetService;
@@ -41,8 +33,6 @@ public class AssetController {
     private IUserBankService userBankService;
     @Autowired
     private UserCoinService userCoinService;
-    @Autowired
-    private RedissonUtil redissonUtil;
 
     /**
      * Description：获取熊猫币交易记录
@@ -55,10 +45,7 @@ public class AssetController {
         Page<Map> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(assetService.getCoinTransactionPage(page,user.getId()));
     }
 
@@ -73,10 +60,7 @@ public class AssetController {
         Page<Map> page = new Page<>();
         page.setCurrent(current);
         page.setSize(size);
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(assetService.getRmbTransactionPage(page,user.getId()));
     }
 
@@ -88,19 +72,13 @@ public class AssetController {
      **/
     @RequestMapping(value = "/getBankCardList",method= RequestMethod.GET)
     public ResponseObject getBankCardList(HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(userBankService.selectUserBankByUserId(user.getId()));
     }
 
     @RequestMapping(value = "/getPhoneNumber",method= RequestMethod.GET)
     public ResponseObject getPhoneNumber(HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         return ResponseObject.newSuccessResponseObject(user.getLoginName());
     }
 
@@ -112,30 +90,21 @@ public class AssetController {
      **/
     @RequestMapping(value = "/saveBankCard")
     public ResponseObject saveBankCard(HttpServletRequest request,String acctName,String acctPan,String certId,String tel){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         userBankService.addUserBank(user.getId(),acctName,acctPan,certId,tel);
         return ResponseObject.newSuccessResponseObject("新增银行卡成功！");
     }
 
     @RequestMapping(value = "/deleteBankCard")
     public ResponseObject deleteBankCard(HttpServletRequest request,Integer id){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         userBankService.deleteBankCard(user.getId(),id);
         return ResponseObject.newSuccessResponseObject("移除银行卡成功！");
     }
 
     @RequestMapping(value = "/setDefaultBankCard")
     public ResponseObject setDefaultBankCard(HttpServletRequest request,Integer id){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         userBankService.updateDefault(user.getId(),id);
         return ResponseObject.newSuccessResponseObject("设置默认成功！");
     }
@@ -148,10 +117,7 @@ public class AssetController {
      **/
     @RequestMapping(value = "/getBaseAssetInfo")
     public ResponseObject getBaseAssetInfo(HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
+        OnlineUser user = getOnlineUser(request);
         int bankCount = userBankService.getBankCount(user.getId());
         String coinBalance = userCoinService.getSettlementBalanceByUserId(user.getId());
         String rmb = userCoinService.getEnchashmentBalanceByUserId(user.getId());
@@ -164,10 +130,6 @@ public class AssetController {
 
     @RequestMapping(value = "/getBankList")
     public ResponseObject getBankList(HttpServletRequest request){
-        OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
-        if(user==null){
-            return ResponseObject.newErrorResponseObject("未登录");
-        }
         List<Map> bankList = BankCardType.getBankCardList();
         return ResponseObject.newSuccessResponseObject(bankList);
     }
