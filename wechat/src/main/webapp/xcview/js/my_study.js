@@ -14,9 +14,8 @@ var all_history="";
 			for (var int = 0; int < data.resultObject.records.length; int++) {
 				
 				var item = data.resultObject.records[int];
-				
 				str+="<li onclick='go_play_hos("+item.type+","+item.lineState+","+item.collection+","+item.courseId+")'>";
-				str+="<p>"+item.lecturerName+item.gradeName+"</p>";
+				str+="<p>"+item.lecturerName+"： "+item.gradeName+"</p>";
 				str+="<span>"+item.timeDifference+"</span>";
 				str+="</li>";
 			}

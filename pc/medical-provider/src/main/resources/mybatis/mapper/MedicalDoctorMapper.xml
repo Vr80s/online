@@ -73,6 +73,7 @@
 		ON mhd.`hospital_id` = mh.`id`
 		WHERE md.deleted = 0
 		AND md.status = 1
+		AND mhd.`deleted`=0
 		AND md.id = #{id}
 	</select>
 
