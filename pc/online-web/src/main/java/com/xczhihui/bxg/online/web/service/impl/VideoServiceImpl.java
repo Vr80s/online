@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.common.domain.Criticize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -199,9 +200,9 @@ public class VideoServiceImpl extends OnlineBaseServiceImpl implements VideoServ
     }
 
     @Override
-    public Page<CriticizeVo> getVideoCriticize(String videoId, String name, Integer pageNumber, Integer pageSize) {
+    public Page<Criticize> getVideoCriticize(String videoId, Integer name, Integer pageNumber, Integer pageSize, String userId) {
         
-    	return videoDao.getVideoCriticize(videoId,name, pageNumber, pageSize);
+    	return videoDao.getUserOrCourseCriticize(videoId,name, pageNumber, pageSize,userId);
     }
 
     @Override

@@ -128,8 +128,8 @@ $(function() {
 		'{{each items as e}}' +
 		'<div class="videoBody-bottom-listRelease">' +
 		'<div class="videoBody-bottom-listRelease-left">' +
-		'<img src="{{#headImg(e.smallPhoto)}}"/>' +
-		'<p title="{{e.userName}}">{{e.userName}}</p>' +
+		'<img src="{{#headImg(e.onlineUser.smallHeadPhoto)}}"/>' +
+		'<p title="{{e.onlineUser.name}}">{{e.onlineUser.name}}</p>' +
 		'</div>' +
 		'<div class="videoBody-bottom-listRelease-right">' +
 		'<p class="releaseStar">{{#stars2(e.starLevel)}}</p>' +
@@ -717,7 +717,7 @@ $(function() {
 
 	function givecriticize() {
 		//获取评价列表
-		RequestService("/video/getVideoCriticize", "GET", {
+		RequestService("/video/getVideoCriticize", "POST", {
 			videoId: courseId,
 			pageNumber: pageNumber,
 			pageSize: pageSize

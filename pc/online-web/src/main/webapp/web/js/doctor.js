@@ -200,7 +200,9 @@ $(function () {
     //医馆搜索中的热门标签
     RequestService("/medical/doctor/getHotDepartment","GET",null,function(data){
         if(data.resultObject.length==0){
-            $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
+//          $(".forum-hot-tagGround").html(template.compile(emptyDefaul))
+			$('.search_hos_box > p').html('');
+			$(".forum-hot-tagGround").html('');
         }else{
             $(".forum-hot-tagGround").html(template.compile(hotTag)({
                 hotTag:data.resultObject

@@ -38,6 +38,7 @@ $(function(){
     	data = row.currentPrice;
     	return "<span name='coursePrice'>"+data+"</span>"
     }},
+    { "title": "开课时间", "class":"center","width":"12%", "sortable":false,"data": 'startTime'},
     // { "title": "现价格", "class":"center","sortable":false,"data": 'currentPrice',"visible":false},
     // { "title": "班级数", "class":"center","sortable":false,"data": 'countGradeNum',"visible":false},
     // { "title": "默认报名人数", "class":"center","sortable":false,"data": 'learndCount',"visible":false},
@@ -64,7 +65,7 @@ $(function(){
     		'<a class="blue" href="javascript:void(-1);" title="上移" onclick="upMove(this)" name="up_PX"><i class="glyphicon glyphicon-arrow-up bigger-130"></i></a>'+
     		'<a class="blue" href="javascript:void(-1);" title="下移" onclick="downMove(this)" name="down_PX"><i class="glyphicon glyphicon-arrow-down bigger-130"></i></a></div>';
 	}},
-    { "sortable": false,"class": "center","width":"12%","title":"操作","mRender":function (data, display, row) {
+    { "sortable": false,"class": "center","width":"8%","title":"操作","mRender":function (data, display, row) {
 	    	if(row.status=="1"){
 	    		return '<div class="hidden-sm hidden-xs action-buttons">'+
                     '<a class="blue" href="javascript:void(-1);" title="查看" onclick="showCourseInfoDetail(this,1)"><i class="ace-icon fa fa-search bigger-130"></i></a>'+
@@ -919,7 +920,7 @@ $('#dialogEditCourseDiv').on("click",".edit_P_cancel", function () {
 function search_P(){
     var json = new Array();
     json.push('{"tempMatchType":"9","propertyName":"search_service_type","propertyValue1":"0","tempType":"String"}');
-    
+    json.push('{"tempMatchType":"9","propertyName":"search_isRecommend","propertyValue1":"2","tempType":"Integer"}');
     
 	searchButton(P_courseTable,json);
 };

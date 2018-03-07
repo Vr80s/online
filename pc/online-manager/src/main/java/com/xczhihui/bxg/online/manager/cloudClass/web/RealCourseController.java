@@ -151,6 +151,14 @@ public class RealCourseController extends AbstractController{
           if (city != null) {
         	  searchVo.setRealCitys(city.getPropertyValue1().toString());
           }
+		Group searchIsRecommend = groups.findByName("search_isRecommend");
+		if (searchIsRecommend != null) {
+			String isRecommend = searchIsRecommend.getPropertyValue1().toString();
+			if(!isRecommend.equals("2")){
+				searchVo.setIsRecommend(Integer.parseInt(isRecommend));
+			}
+
+		}
           
           Page<CourseVo> page = courseService.findCoursePage(searchVo, currentPage, pageSize);
           int total = page.getTotalCount();

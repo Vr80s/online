@@ -28,6 +28,7 @@ function getBoughtList(pageNumber,pageSize,downOrUp) {
                 $(".bought_main").html(template('bought_main',{items:data.resultObject.records}));
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(false);//是否还有更多数据；若还有更多数据，则传入false; 否则传入true
                 mui('#refreshContainer').pullRefresh().refresh(true);
+                mui("#refreshContainer").off();
             }else if(data.resultObject.records.length==0 || data.resultObject.records.length==''){
                 mui('#refreshContainer').pullRefresh().endPullupToRefresh(true);
             }else{
@@ -93,6 +94,9 @@ function downCallback(){
 function upCallback(){
     num++;
     getBoughtList(num,10,'up');
+    
+	    
+    
 }
 
 /**
@@ -126,6 +130,13 @@ function pulldownRefresh() {
         getBoughtList(num,10,'down');
         mui('#refreshContainer').pullRefresh().endPulldownToRefresh(); //refresh completed
     }, 500);
+    
+//  $(".mui-pull-bottom-pocket").show();
+    /*setTimeout(function () {  
+	        $(".mui-pull-bottom-pocket").removeClass("hide");
+	},3000);  */
+    
+    
 };
 var count = 0;
 /**
@@ -136,6 +147,23 @@ function pullupRefresh() {
     setTimeout(function() {
         getBoughtList(num,10,'up');
     }, 500);
+    
+    $(".mui-pull-bottom-pocket").css("display","block");
+    $(".bought_main").css("padding-bottom","0.6rem");
+    
+    
+//  $(".mui-pull-bottom-pocket").show();
+    
+    /*setTimeout(function () {  
+	        $(".mui-pull-bottom-pocket").addClass("hide");
+	        $(".mui-pull-bottom-pocket").hide();
+	}, 3000);  */
+    
+     /*$('.mui-pull-bottom-pocket').delay(1000).hide(0);
+     $('.mui-block').delay(1000).hide(0);*/
+    /*setTimeout(function () {  
+	        $(".mui-pull-bottom-pocket").hide();  
+	    }, 1000); */ 
 }
 
 

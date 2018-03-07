@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.xczhihui.bxg.online.web.service.CourseService;
+import com.xczhihui.bxg.online.web.vo.CourseApplyVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +32,8 @@ public class VideoController {
     private VideoService videoService;
     @Autowired
     private AskTagService  askTagService;
+    @Autowired
+    private CourseService courseService;
     private Object lock = new Object();
 
     /**
@@ -68,11 +72,12 @@ public class VideoController {
      * @return
      */
     @RequestMapping(value = "/getVideoCriticize")
-    public ResponseObject getVideoCriticize(HttpServletRequest request,String videoId,Integer pageNumber,Integer pageSize) {
+    public ResponseObject getVideoCriticize(HttpServletRequest request,Integer videoId,Integer pageNumber,Integer pageSize) {
         //获取当前登陆用户信息
         OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
         String userName = user==null? "" : user.getLoginName();
-        return ResponseObject.newSuccessResponseObject(videoService.getVideoCriticize(videoId, userName, pageNumber, pageSize));
+        CourseApplyVo cv = courseService.getCourseApplyByCourseId(videoId);
+        return ResponseObject.newSuccessResponseObject(videoService.getVideoCriticize(cv.getUserLecturerId(), videoId, pageNumber, pageSize,user!= null ? user.getId() :null));
     }
 
     /**
@@ -87,7 +92,9 @@ public class VideoController {
             //获取当前登陆用户信息
             OnlineUser user = (OnlineUser) UserLoginUtil.getLoginUser(request);
             if(user!=null) {
-                criticizeVo.setUserId(user.getId());
+                CourseApplyVo cv = courseService.getCourseApplyByCourseId(criticizeVo.getCourseId());
+                criticizeVo.setCreatePerson(user.getId());
+                criticizeVo.setUserId(cv.getUserLecturerId());
                 criticizeVo.setCreateTime(new Date());
                 videoService.saveCriticize(criticizeVo);
                 return ResponseObject.newSuccessResponseObject("提交评论成功！");
