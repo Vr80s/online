@@ -253,7 +253,7 @@
 		WHERE cai.`is_delete` = 0
 		AND  cai.`title`=#{title}
 		<if test="oldApplyInfoId != null">
-			AND cai.`old_apply_info_id` != #{oldApplyInfoId}
+			AND cai.`id` != #{oldApplyInfoId}
 		</if>
 	</select>
 	<select id="selectCourseForValidate" resultType="java.lang.Integer">
