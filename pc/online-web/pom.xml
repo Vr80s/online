@@ -302,24 +302,50 @@
 					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
+			<!--jcv-maven-plugin -->
+			<plugin>
+				<groupId>com.iqarr.maven.plugin</groupId>
+				<artifactId>jcv-maven-plugin</artifactId>
+				<version>1.0.2</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!--如果项目名称使用EL表达式 那么必须加\ 转义 -->
+					<!--<jsConstantName>/</jsConstantName>-->
+					<!--<cssConstantName>/</cssConstantName>-->
+					<suffixs>
+						<param>html</param>
+						<param>jsp</param>
+					</suffixs>
+					<!-- 清理html 页面注释-->
+					<clearPageComment>true</clearPageComment>
+					<globaJsMethod>MD5_METHOD</globaJsMethod>
+					<globaCssMethod>MD5_METHOD</globaCssMethod>
+					<versionValLenth>20</versionValLenth>
+					<!-- 压缩js-->
+					<compressionJs>false</compressionJs>
+					<!-- 压缩css-->
+					<compressionCss>false</compressionCss>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>3.1.0</version>
 				<configuration>
 					<warName>${project.artifactId}-${project.version}</warName>
 					<filters>
 						<filter>src/main/resources/${env}/config.properties</filter>
 					</filters>
-					<!-- <webResources>
-						<resource>
-							<directory>src/main/resources</directory>
-							<targetPath>web/js</targetPath>
-							<includes>
-								<include>*.js</include>
-							</includes>
-							<filtering>true</filtering>
-						</resource>
-					</webResources> -->
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<warSourceExcludes>**/*.html,**/*.jsp</warSourceExcludes>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -330,9 +356,6 @@
 				<includes>
 					<include>*.*</include>
 				</includes>
-				<!-- <excludes>
-					<exclude>*.js</exclude>
-				</excludes> -->
 				<filtering>false</filtering>
 			</resource>
 			<resource>
