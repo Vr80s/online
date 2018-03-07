@@ -77,7 +77,7 @@
   		}else {           //不在微信内时
 	    	if(type==1){//支付
 	    		jmpPayPage("/xczh/alipay/pay",2,"formIsWechat=1&orderId="+getQueryString("orderId"),null);
-	    	}else{
+	    	}else{		//充值 --》怎样证明充值成功呢
 	    		jmpPayPage("/xczh/alipay/rechargePay",2,"formIsWechat=1&type="+getQueryString("type")+"&userId="+getQueryString('userId')+"&actualPay="+getQueryString('actualPay'),null);
 	    	}
  		 }
@@ -91,7 +91,6 @@ function whileSelectOrderStatus(){
              }
          }
 	},false)
-	
 }
     var ua = navigator.userAgent.toLowerCase();
     if (/iphone|ipad|ipod/.test(ua)) {
