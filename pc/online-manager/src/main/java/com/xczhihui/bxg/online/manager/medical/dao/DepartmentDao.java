@@ -24,7 +24,7 @@ public class DepartmentDao extends HibernateDao<MedicalDepartment> {
             sql.append(" and ds.create_person like :create_person ");
             paramMap.put("create_person", "%" + menuVo.getCreatePerson()+"%");
         }
-        sql.append(" order by  status desc,create_time desc ");
+        sql.append(" order by  status desc,sort desc,create_time desc ");
         Page<MedicalDepartment> pages = this.findPageBySQL(sql.toString(), paramMap, MedicalDepartment.class, pageNumber, pageSize);
 
         return pages;

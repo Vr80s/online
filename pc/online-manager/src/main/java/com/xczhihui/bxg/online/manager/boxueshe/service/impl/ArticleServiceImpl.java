@@ -159,10 +159,10 @@ public class ArticleServiceImpl implements ArticleService{
 		// TODO Auto-generated method stub
 		
 		ArticleVo vo=findArticleById(id);
-		 if(vo.getIsRecommend()!=null&&!vo.getIsRecommend()){
+		if(vo.getIsRecommend()!=null&&!vo.getIsRecommend()){
 			 vo.setIsRecommend(true);
-        }else{
-        	  throw new IllegalArgumentException("已推荐");
+        }else if(vo.getIsRecommend()!=null && vo.getIsRecommend()){
+        	 vo.setIsRecommend(false);
         }
 	 
 //		List<ArticleVo> vos=articleDao.findEntitiesByJdbc(ArticleVo.class, "select * from oe_bxs_article where is_recommend = 1", new HashMap<String, Object>());

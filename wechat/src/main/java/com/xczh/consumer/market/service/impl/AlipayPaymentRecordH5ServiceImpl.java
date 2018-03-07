@@ -25,5 +25,16 @@ public class AlipayPaymentRecordH5ServiceImpl implements AlipayPaymentRecordH5Se
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }    
+    
+    @Override
+    public AlipayPaymentRecordH5 queryAlipayPaymentRecordH5ByOutTradeNo(String outTradeNo) {
+        try {
+        	AlipayPaymentRecordH5 aprh = alipayPaymentRecordH5Mapper.queryAlipayPaymentRecordH5ByOutTradeNo(outTradeNo);
+            return aprh;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -73,4 +73,8 @@ public interface DepartmentService {
     List<MedicalDepartment> findAllDepartment(String id);
 
     void addDoctorDepartment(String id, String[] departmentId);
+
+	public void updateSortUpRec(String id);
+
+	public void updateSortDownRec(String id);
 }

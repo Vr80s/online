@@ -286,9 +286,13 @@ public class XzAlipayController {
 		
 		// 订单号 支付的钱  
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
-		String out_trade_no = TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12);
-		
-		
+		/**
+		 * 来确认是否是微信外浏览器充值
+		 */
+		String out_trade_no =  request.getParameter("outTradeNo");
+		if(!StringUtils.isNotBlank(out_trade_no)){
+			out_trade_no = TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12);
+		}
 		// 订单名称，必填
 		String subject = new String("充值熊猫币:" + count + "个");
 		// 付款金额，必填
@@ -1090,6 +1094,27 @@ public class XzAlipayController {
 		}
 
 	}
+	
+	/**
+	 * 通过订单号来查找支付宝充值信息
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "queryAlipayByOutTradeNo")
+	@ResponseBody
+	public ResponseObject queryAlipayPaymentRecordH5ByOutTradeNo(HttpServletRequest request,
+			HttpServletResponse response
+			) throws Exception {
+		String outTradeNo = request.getParameter("outTradeNo");
+		AlipayPaymentRecordH5 alipay = alipayPaymentRecordH5Service.queryAlipayPaymentRecordH5ByOutTradeNo(outTradeNo);
+		if(alipay!=null){
+			return ResponseObject.newSuccessResponseObject(alipay);
+		}
+		return ResponseObject.newErrorResponseObject("未获得充值信息");
+	}	
+		
+	
+	
 	
 	/**
 	 * 调用pc端处理订单

@@ -11,6 +11,7 @@ import com.xczhihui.bxg.online.manager.utils.Group;
 import com.xczhihui.bxg.online.manager.utils.Groups;
 import com.xczhihui.bxg.online.manager.utils.TableVo;
 import com.xczhihui.bxg.online.manager.utils.Tools;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -199,4 +200,34 @@ public class DepartmentController {
           return responseObject;
      }
 
+     
+     /**
+      * 上移
+      * @param id
+      * @return
+      */
+     @RequestMapping(value = "upMove", method = RequestMethod.POST)
+     @ResponseBody
+     public ResponseObject upMoveRec(String id) {
+     	ResponseObject responseObj = new ResponseObject();
+     	service.updateSortUpRec(id);
+     	responseObj.setSuccess(true);
+     	return responseObj;
+     }
+     
+     /**
+      * 下移
+      * @param id
+      * @return
+      */
+     @RequestMapping(value = "downMove", method = RequestMethod.POST)
+     @ResponseBody
+     public ResponseObject downMoveRec(String id) {
+     	ResponseObject responseObj = new ResponseObject();
+     	service.updateSortDownRec(id);
+     	responseObj.setSuccess(true);
+     	return responseObj;
+     }
+     
+     
 }

@@ -48,8 +48,8 @@
     <script type="text/javascript" src="../js/js.js"></script>
 
 <!-- input背景切换 -->
-<script type="text/javascript" src="../js/common/jquery-1.8.3.min.js"></script>
-<script type="text/javascript" src="../../Views/h5/js/mui.min.js"></script>
+<script type="text/javascript" src="/xcview/js/common/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/Views/h5/js/mui.min.js"></script>
 <script type="text/javascript" src="/xcview/js/XCh5Pay.js"></script>
 <script type="text/javascript" src="/Views/h5/js/common.js"></script>
 <script>
@@ -68,29 +68,45 @@
     }
  // type =1 购买  type =2 充值
         var type = getQueryString("type");
+ 
+		var outTradeNo="";
     
   	 	if(is_weixn()){   //在微信浏览器内部时 ，进行轮询 
        		//轮循查看订单是否已支付 跳转 redirectUrl
-       		if(type==1){
-       			setInterval("whileSelectOrderStatus()","2000");
-       		}
+       		
+       		setInterval("whileSelectOrderStatus()","2000");
   		}else {           //不在微信内时
 	    	if(type==1){//支付
 	    		jmpPayPage("/xczh/alipay/pay",2,"formIsWechat=1&orderId="+getQueryString("orderId"),null);
 	    	}else{		//充值 --》怎样证明充值成功呢
-	    		jmpPayPage("/xczh/alipay/rechargePay",2,"formIsWechat=1&type="+getQueryString("type")+"&userId="+getQueryString('userId')+"&actualPay="+getQueryString('actualPay'),null);
+	    		alert((new Date()).pattern("yyyyMMddHHmm")+randomWord(true,12,12));
+	    		outTradeNo = (new Date()).pattern("yyyyMMddHHmm")+randomWord(true,12,12);
+	    		jmpPayPage("/xczh/alipay/rechargePay",2,
+	    				"formIsWechat=1&type="+getQueryString("type")+
+	    				"&outTradeNo="+getQueryString("outTradeNo")+
+	    				"&actualPay="+getQueryString('actualPay')+
+	    				"&userId="+getQueryString('userId'),null);
 	    	}
  		 }
 
 function whileSelectOrderStatus(){
-	requestService("/xczh/order/getByOrderId",{orderId:getQueryString("orderId")}, function(data) {
-		 if (data.success) {
-             var result = data.resultObject;
-             if(result.orderStatus==1){ //
-                 location.href=""+getQueryString("redirectUrl")+"";
-             }
-         }
-	},false)
+	
+	if(type==1){
+		requestService("/xczh/order/getByOrderId",{orderId:getQueryString("orderId")}, function(data) {
+			 if (data.success) {
+	             var result = data.resultObject;
+	             if(result.orderStatus==1){ //
+	                 location.href=""+getQueryString("redirectUrl")+"";
+	             }
+	         }
+		},false)
+	}else{
+		requestService("/xczh/alipay/queryAlipayByOutTradeNo",{outTradeNo:getQueryString("outTradeNo")}, function(data) {
+			 if (data.success) {
+	            location.href=""+getQueryString("redirectUrl")+"";
+	         }
+		},false)
+	}
 }
     var ua = navigator.userAgent.toLowerCase();
     if (/iphone|ipad|ipod/.test(ua)) {
