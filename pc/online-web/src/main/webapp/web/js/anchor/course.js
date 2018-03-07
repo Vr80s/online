@@ -459,7 +459,18 @@ function resetCourseForm(){
     $("#citys").empty();
     showCourseAttribute(1);
     initResource(1);
+    showPersonInf();
+//  alert(222)
 }
+
+//课程展示主播信息
+function showPersonInf(){
+   RequestService("/anchor/info", "get",null, function(data) {
+    $('.course_lecturer').val(data.resultObject.name);
+   	UE.getEditor('editor').setContent(data.resultObject.detail);
+   });
+}
+
 /**
  * Description：获取新增课程所有参数
  * creed: Talk is cheap,show me the code
@@ -1133,8 +1144,18 @@ function resetCollectionForm(){
     $("#collectionImg").html("");
     $(".collection_courses").html("");
     courseArr=[];
-
+	showPersonInf2();
 }
+
+//显示专辑中的主播信息
+function showPersonInf2(){
+   RequestService("/anchor/info", "get",null, function(data) {
+    $('.collection_lecturer').val(data.resultObject.name);
+   	UE.getEditor('editor_collection_lecturer_description').setContent(data.resultObject.detail);
+   });
+}
+
+
 
 function initCourseSelect(){
     var csArr=[];

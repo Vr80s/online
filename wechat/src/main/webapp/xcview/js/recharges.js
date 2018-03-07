@@ -97,11 +97,14 @@ function  goPay() {
     	/**
     	 * 支付宝在字符前判断此订单中的课程用户是否已经购买过了
     	 */
+		
      	 if(is_weixn()){ //是否来自微信浏览器
      		  //去另一个页面引导用户去外部浏览器打开
      		  //0:支付宝 1:微信 2:网银	
+     		  alert((new Date()).pattern("yyyyMMddHHmm")+randomWord(true,12,12));
+    		  var outTradeNo = (new Date()).pattern("yyyyMMddHHmm")+randomWord(true,12,12);
               location.href = "/xcview/html/wechat_alipay.html?userId="+localStorage.userId+"&actualPay="+actualPay+
-              "&redirectUrl="+getRedirectUrl(actualPay);
+              "&redirectUrl="+getRedirectUrl(actualPay)+"&outTradeNo="+outTradeNo;
               return;
           }
           jmpPayPage("/xczh/alipay/rechargePay",payType,"actualPay="+actualPay,null);

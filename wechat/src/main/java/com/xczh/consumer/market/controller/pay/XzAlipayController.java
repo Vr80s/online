@@ -259,7 +259,6 @@ public class XzAlipayController {
 			@RequestParam("userId")String userId) throws Exception {
 		
 		LOG.info("进入阿里h5支付-------------》");
-		
 //		OnlineUser user1 = appBrowserService.getOnlineUserByReq(request);
 //		if (user == null) {
 //			throw new RuntimeException("登录失效");
@@ -285,9 +284,15 @@ public class XzAlipayController {
 		
 		/**********   ************/
 		
-		// 订单号 支付的钱
+		// 订单号 支付的钱  
 		// 商户订单号，商户网站订单系统中唯一订单号，必填
-		String out_trade_no = TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12);
+		/**
+		 * 来确认是否是微信外浏览器充值
+		 */
+		String out_trade_no =  request.getParameter("outTradeNo");
+		if(!StringUtils.isNotBlank(out_trade_no)){
+			out_trade_no = TimeUtil.getSystemTime()+ RandomUtil.getCharAndNumr(12);
+		}
 		// 订单名称，必填
 		String subject = new String("充值熊猫币:" + count + "个");
 		// 付款金额，必填
@@ -1091,6 +1096,27 @@ public class XzAlipayController {
 	}
 	
 	/**
+	 * 通过订单号来查找支付宝充值信息
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "queryAlipayByOutTradeNo")
+	@ResponseBody
+	public ResponseObject queryAlipayPaymentRecordH5ByOutTradeNo(HttpServletRequest request,
+			HttpServletResponse response
+			) throws Exception {
+		String outTradeNo = request.getParameter("outTradeNo");
+		AlipayPaymentRecordH5 alipay = alipayPaymentRecordH5Service.queryAlipayPaymentRecordH5ByOutTradeNo(outTradeNo);
+		if(alipay!=null){
+			return ResponseObject.newSuccessResponseObject(alipay);
+		}
+		return ResponseObject.newErrorResponseObject("未获得充值信息");
+	}	
+		
+	
+	
+	
+	/**
 	 * 调用pc端处理订单
 	 * 
 	 * @param order_no
@@ -1172,26 +1198,9 @@ public class XzAlipayController {
 	
 	public static void main(String[] args) {
 		
+		String out_trade_no = TimeUtil.getSystemTime()+"+"+ RandomUtil.getCharAndNumr(12);
 		
-		//LOG.info(alipayConfig.URL);
-//		String ap = "中国你好";
-//        try {
-//        	double apd = Double.valueOf(ap);
-//            if(apd < (0.01d)){
-//    			LOG.info("金额必须大于等于0.01");
-//    		}
-//		} catch (Exception e) {
-//			 e.printStackTrace();
-//			LOG.info("请输入正确的金额");
-//		}
-////		
-		XzAlipayController ali = new XzAlipayController();
-		try {
-			ali.pay1();
-		} catch (AlipayApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println(out_trade_no);
 //		
 	}
 	

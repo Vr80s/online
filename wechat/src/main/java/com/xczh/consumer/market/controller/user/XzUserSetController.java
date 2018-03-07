@@ -360,7 +360,6 @@ public class XzUserSetController {
          /*userCenterAPI.update(user.getLoginName(),
         		 user.getName(),user.getSex(),user.getEmail(),
         				 null, 10, 10);*/
-         
          /**
           *  如果用户信息发生改变。
           *  更改缓存中的数据
@@ -386,7 +385,7 @@ public class XzUserSetController {
             	  LOGGER.info("同步微吼昵称，头像失败");
               }
           }
-         return ResponseObject.newSuccessResponseObject(user);
+         return ResponseObject.newSuccessResponseObject(newUser);
 	}
 
 	/**
