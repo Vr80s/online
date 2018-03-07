@@ -10,26 +10,44 @@
 			
 		}
 		.test_bg{
-			width: 296px;
-    		height: 130px;
-    		margin: 0 auto;
-    		margin-top: 14.675rem;
-    		margin-bottom: 50rem;
+			width: 4rem;
+		    height: 130px;
+		    margin: 0 auto;
+		    margin-top: 1.675rem;
+		    margin-bottom: 10rem;
+		    font-size: 0.4rem;
 		}
 		.test_bg1{
-			width: 19rem;
-		    height: 15rem;
+			width: 3.7rem;
+		    height: 1rem;
 		    margin: 0 auto;
 		}
 		.test_bg1 img{
 			width: 100%;
+			
 		}
+		.test_bg img{
+			margin-right: 0.16rem;
+			margin-left: 0.85rem;
+			vertical-align:middle;
+		}
+		
+		
 	</style>
 </head>
 <body style="background:#Fff;">
 <div id="test">
-	<div class="test_bg"><img src="/xcviews/images/pay010.png" /></div>
-	<div class="test_bg1"><img src="/xcviews/images/pay020.png" /></div>
+	<div class="test_bg"><img src="/xcview/images/examine.png" />支付成功<br /><span style="margin-top: 0.2rem;display: block;">请返回微信公众号查看</span></div>
+	<div class="test_bg1"><img src="/xcview/images/pay020.png" /></div>
 </div>
 </body>
+
+<script>
+	var kk=document.documentElement.clientWidth;
+	if(kk>750){
+		kk=750
+	}
+	
+	document.documentElement.style.fontSize=kk/7.5+"px"		
+</script>
 </html>

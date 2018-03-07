@@ -486,8 +486,26 @@ public class VideoDao extends SimpleHibernateDao {
 	       	  sql.append("  and c.userId =:userId ");
 	       	  paramMap.put("userId", teacherId);
 	       }else if(courseId!=null && courseId!=0){
-	       	  sql.append("  and c.courseId =:courseId ");
-	       	  paramMap.put("courseId",courseId);
+	    	  //查找这个课程是不是专辑、如果是专辑就 用in来查找啦
+	    	  List<Integer> list =  getCoursesIdListByCollectionId(courseId);
+	    	  
+	    	  System.out.println("list.size()---"+list.size());
+	    	  if(list.size()>0){
+	    		  list.add(courseId);
+	    		  String str = "";
+	    		  for (int i = 0; i < list.size(); i++) {
+					Integer array_element = list.get(i);
+					if(i == list.size()-1){
+						str +=array_element;
+					}else{
+						str +=array_element+",";
+					}
+				  }
+	    		  sql.append("  and c.courseId in ("+str+") ");
+	    	  }else{
+	    		  sql.append("  and c.courseId =:courseId ");
+		       	  paramMap.put("courseId",courseId);
+	    	  } 
 	       }
 	       sql.append(" order by c.createTime desc ");
 
@@ -618,6 +636,30 @@ public class VideoDao extends SimpleHibernateDao {
         return isViewStars;
     }
     
+    
+    /**
+     * 
+     * Description：通过课程id得到这个专辑的信息
+     * @param courseId
+     * @param userId
+     * @return
+     * @return List<Integer>
+     * @author name：yangxuan <br>email: 15936216273@163.com
+     *
+     */
+    public List<Integer>  getCoursesIdListByCollectionId(Integer courseId) {
+    	
+        String sql="SELECT \n" +
+                "  oc.`id` \n"+ 
+                "FROM\n" +
+                "  `oe_course` oc \n" +
+                "  JOIN `collection_course` cc \n" +
+                "    ON oc.id = cc.`course_id` \n" +
+                "WHERE cc.`collection_id` = "+courseId+" \n";
+        List<Integer> list = this.getNamedParameterJdbcTemplate().getJdbcOperations().queryForList(sql, Integer.class);
+        return list;
+       
+    }
     
     
     /**

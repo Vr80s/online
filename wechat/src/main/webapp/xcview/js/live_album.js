@@ -32,7 +32,7 @@ function stripHTML(str){
     course_id = courseId;
     var collectionId = getQueryString('collection_id');
 //	获取默认第一个视频ID
-	var directId = getQueryString('directId');
+	var directId = getQueryString('direct_id');
 	//传ID courseId为接口的课程ID
 	requestService("/xczh/course/liveDetails",{
 		courseId : courseId	
@@ -101,7 +101,7 @@ function stripHTML(str){
 		var courseId=$(this).attr("data-courseId");
 		//初始化视频资源
 //		chZJ(directId,1);
-		window.location="/xcview/html/live_album.html?course_id="+courseId+"&directId="+directId+"&collectionId="+collectionId;
+		window.location="/xcview/html/live_album.html?course_id="+courseId+"&direct_id="+directId+"&collection_id="+collectionId;
 	})
 	}
 })

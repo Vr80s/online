@@ -422,10 +422,17 @@ function baseInfrese1(headPortrait,name,medicalHospitalPictures,fields,descripti
 	if(medicalHospitalPictures.length > 0){
 		var hosPicStr = '';
 	medicalHospitalPictures.forEach(function(v,i){
-		hosPicStr += '<img src='+v.picture+'>';
+		hosPicStr += 
+//		'<img src='+v.picture+'>';
+		 '<div style="position: relative;">'+
+		 '<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">X</span>'+
+		 '<img src="'+v.picture+'" >'+
+		 '</div>'
+		
 	})
 	$('#hos_Administration .hos_base_inf .bottomContent #hos_pic').removeClass('hide').html(hosPicStr);
-	$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
+	$('.zhicheng_pic').css('padding-left','110px')
+//	$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
 	}
 	
 //	$("#hos_Administration .hos_base_inf  ."+imgname+"").css('float','right');
@@ -522,9 +529,9 @@ function picUpdown2(baseurl,imgname){
 //				console.log(data);
 				if($('#hos_Administration .hos_base_inf  .'+imgname+' img').length > 1){
 					$('#hos_Administration .hos_base_inf  .zhicheng_pic').css('padding-left','110px')
-					 $('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','right');
+					 $('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','left');
 				}else{
-					$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','none');
+					$('#hos_Administration .hos_base_inf  .'+imgname+'').css('float','left');
 				}
 				if($('#hos_Administration #hos_pic img').length == 8){
 					$('#upHosPic').addClass('hide')
@@ -537,9 +544,24 @@ function picUpdown2(baseurl,imgname){
 				}
 //				 $('#hos_Administration .hos_base_inf  .'+imgname+'').append('<img src="'+data.resultObject+'" >');
 				 $('#hos_Administration #hos_pic').removeClass('hide');
-				 $('#hos_Administration #hos_pic').append('<img src="'+data.resultObject+'" >');
+				 var picStr = 
+				 '<div style="position: relative;">'+
+				 '<span style="position: absolute;top: 5px;right: 5px;color:red" class="hospic_del">X</span>'+
+				 '<img src="'+data.resultObject+'" >'+
+				 '</div>'
+				 $('#hos_Administration #hos_pic').append(picStr);
 			})
 }
+
+	//删除医馆图片
+	$('#hos_pic').on('click','.hospic_del',function(){
+		$(this).parent().remove()
+		$('#upHosPic').removeClass('hide')
+	})
+
+
+
+
 
 
 
