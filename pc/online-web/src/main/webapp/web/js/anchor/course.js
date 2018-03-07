@@ -13,6 +13,7 @@ $(function(){
         saveCourse();
     });
     $(".courseP").click(function(){
+    	$("#course_type option:first").prop("selected", 'selected');
         courseList(1);
         initResource(1);
         var ue = UE.getEditor('editor',{
@@ -95,6 +96,8 @@ $(function(){
         });
     });
     $(".specialP").click(function(){
+//  	$('#course_collection_type option:first-child').attr('selected','selected')
+    	$("#course_collection_type option:first").prop("selected", 'selected');
         courseCollectionList(1);
         initCourse(1);
         var editor_collection_details = UE.getEditor('editor_collection_details',{
