@@ -2296,9 +2296,9 @@ height: 60px;
 #zhuanji #zhuanji_bottom .zhuanlan_top{
 	height: 60px;
     line-height: 60px;
-    border-bottom: 1px solid #F0F0F0;
+    /*border-bottom: 1px solid #F0F0F0;*/
     position: relative;
-    margin-bottom: 30px;
+    /*margin-bottom: 30px;*/
 }
 #zhuanji #zhuanji_bottom .zhuanlan_top .title{
 	

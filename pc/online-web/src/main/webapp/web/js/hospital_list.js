@@ -132,6 +132,13 @@ $(function(){
 	    $('.more_hospital>button').click(function(){
 	    	current +=1;
 	    	console.log(current)
+			var name = $('.search_hos').val();
+	    	var field; 
+		    if($('#hos_search_condition1').hasClass('hide')){
+		  	  field = '';
+		    }else{
+		  	  field = $('#hos_search_condition1 span').attr('data-fileid');
+		    	}
 	    	getHostipalList(current,size,name,field);
 	    })
 	    
