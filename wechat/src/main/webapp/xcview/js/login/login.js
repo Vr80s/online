@@ -80,7 +80,7 @@ function login(){
 	}
 	if (!(/^1[34578]\d{9}$/.test(number))) {
 		
-		webToast("请输入正确格式的账号","middle",1500);
+		webToast("请输入正确的手机号","middle",1500);
 		return false;
 	}
 	var pwdLength = password.trim().length;

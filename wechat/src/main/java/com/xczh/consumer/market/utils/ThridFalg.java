@@ -20,6 +20,8 @@ public class ThridFalg implements Serializable,Writable {
 	
 	private String unionId;
 	private String openId;
+	private String nickName;
+	private String headImg;
 	
 	public String getUnionId() {
 		return unionId;
@@ -35,14 +37,29 @@ public class ThridFalg implements Serializable,Writable {
 		this.openId = openId;
 	}
 
-	
+	public String getNickName() {
+		return nickName;
+	}
 
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getHeadImg() {
+		return headImg;
+	}
+
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
+	}
+
+	
 	@Override
 	public String toString() {
-		return "ThridFalg [unionId=" + unionId + ", openId=" + openId + "]";
+		return "ThridFalg [unionId=" + unionId + ", openId=" + openId
+				+ ", nickName=" + nickName + ", headImg=" + headImg + "]";
 	}
-	
-	
+
 	@Override
 	public void write(DataOutput out) throws IOException {
 		
