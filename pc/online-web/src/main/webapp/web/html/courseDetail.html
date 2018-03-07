@@ -168,7 +168,9 @@
                     <a class="purchase" data-apply="true" data-id="{{id}}" href="/web/html/video.html?courseId={{id}}" >立即学习</a>
                  {{/if}}
              {{else}}
+                 {{if available}}
                     <a class="sign-up purchase" data-apply="false" data-id="{{id}}" target="_blank">立即报名</a>
+                 {{/if}}
              {{/if}}
              </div>
         </div>
