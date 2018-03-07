@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.xczhihui.bxg.online.common.domain.*;
+import com.xczhihui.bxg.online.common.enums.CourseForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -372,23 +373,25 @@ public class CourseServiceImpl  extends OnlineBaseServiceImpl implements CourseS
 		if(cv==null) {
             return "";
         }
-		if(cv.getType()!=null && cv.getType()==1){
-			if("1".equals(cv.getCoursePwd())){
-				return "encryptOpenCourseDetailPage.html";//加密直播
-			}else if(cv.isFree()){
+		if(cv.getType()== CourseForm.LIVE.getCode()){
+			if(cv.isFree()){
 				return "freeOpenCourseDetailPage.html";//免费直播
 			}else{
 				return "payOpenCourseDetailPage.html";//付费直播
 			}
-		}else{
-			if("1".equals(cv.getCoursePwd())){
-				return "encryptCourseDetailPage.html";//加密直播
-			}else if(cv.isFree()||Double.valueOf(cv.getCurrentPrice())==0){
+		}else if(cv.getType()== CourseForm.VOD.getCode()){
+		    if(cv.isFree()){
 				return "freeCourseDetailPage.html";//免费直播
 			}else{
 				return "payCourseDetailPage.html";//付费直播
 			}
-		}
+		}else{
+            if(cv.isFree()){
+                return "freeRealCourseDetailPage.html";//免费直播
+            }else{
+                return "payRealCourseDetailPage.html";//付费直播
+            }
+        }
 	}
 	
 	 @Override
